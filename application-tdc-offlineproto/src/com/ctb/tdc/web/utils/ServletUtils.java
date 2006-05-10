@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 public class ServletUtils {
 
     // methods
+    public static final String DOWNLOAD_CONTENT_METHOD = "downloadContent";
+    public static final String GET_DOWNLOAD_STATUS_METHOD = "getDownloadStatus";
     public static final String LOAD_SUBTEST_METHOD = "loadSubtest";
     public static final String LOAD_ITEM_METHOD = "loadItem";
     public static final String LOAD_IMAGE_METHOD = "loadImage";
@@ -18,6 +20,10 @@ public class ServletUtils {
     public static final String IMAGE_ID_PARAM = "imageId";
     public static final String ENCRYPTION_KEY_PARAM = "encryptionKey";
     public static final String XML_PARAM = "xml";
+
+    // returned values
+    public static final String OK = "ok";
+    public static final String ERROR = "error";
     
     // helpers
     public static String getMethod(HttpServletRequest request) {
