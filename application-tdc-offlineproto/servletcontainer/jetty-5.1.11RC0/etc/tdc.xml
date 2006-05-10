@@ -172,7 +172,8 @@
   <!-- UNCOMMENT TO ACTIVATE -->
   <Call name="addWebApplication">
     <Arg>/</Arg>
-    <Arg>c:\workspace\application-tdc\webapp</Arg>
+    <!--  <Arg>./webapps/root</Arg> -->
+    <Arg><SystemProperty name="tdc.webapp" default="."/></Arg>
 
     <Set name="extractWAR">false</Set> 
     <Set name="defaultsDescriptor">org/mortbay/jetty/servlet/webdefault.xml</Set>
@@ -183,7 +184,6 @@
         <Item></Item>
         <Item>127.0.0.1</Item>
         <Item>localhost</Item>
-        <Item>www.acme.com</Item>
       </Array>
     </Set>
   </Call>
