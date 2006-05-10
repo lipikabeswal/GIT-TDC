@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Online Assessment</title>
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+  </head>
+  <body>
+		<h1 align="center">TDC Servlet Test Page</h1>
+		<br/>
+		<h3>Download Content Servlet</h3>
+		<ul>
+			<li><a href="servlet/DownloadContentServlet?itemSetId=1000&encryptionKey=key">downloadContent(tcItemSetId, encryptionKey)</a></li>
+		</ul>
+		<br/>	
+		<h3>Load Content Servlet</h3>
+		<ul>
+			<li><a href="servlet/LoadContentServlet?method=loadSubtest&itemSetId=1000&encryptionKey=key">loadSubtest(itemSetId, encryptionKey)</a></li>
+			<li><a href="servlet/LoadContentServlet?method=loadItem&itemSetId=1000&encryptionKey=key">loadItem(itemSetId, encryptionKey)</a></li>
+			<li><a href="servlet/LoadContentServlet?method=loadImage&imageId=1000&encryptionKey=key">loadImage(itemSetId, encryptionKey)</a></li>
+		</ul>
+		<br/>
+		<h3>Persistence Servlet</h3>
+		<ul>
+			<li><a href="servlet/PersistenceServlet?method=login&xml=xml">login(xml)</a></li>
+			<li><a href="servlet/PersistenceServlet?method=save&xml=xml">save(xml)</a></li>
+			<li><a href="servlet/PersistenceServlet?method=feedback&xml=xml">feedback(xml)</a></li>
+		</ul>
+		<br/>
+  </body>
+</html>

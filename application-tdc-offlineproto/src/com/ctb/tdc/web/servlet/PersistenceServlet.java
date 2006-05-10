@@ -13,14 +13,14 @@ import com.ctb.tdc.web.utils.ServletUtils;
 /**
  * @author Tai_Truong
  */
-public class DownloadContentServlet extends HttpServlet {
+public class PersistenceServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
-    
+
 	/**
 	 * Constructor of the object.
 	 */
-	public DownloadContentServlet() {
+	public PersistenceServlet() {
 		super();
 	}
 
@@ -45,17 +45,25 @@ public class DownloadContentServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-        String itemSetId = ServletUtils.getItemSetId(request);
-        String encryptionKey = ServletUtils.getEncryptionKey(request);
+        String method = ServletUtils.getMethod(request);
+        String xml = ServletUtils.getXml(request);
         
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
 		out.println("<HTML>");
-		out.println("<HEAD><TITLE>DownloadContentServlet</TITLE></HEAD>");
+		out.println("<HEAD><TITLE>LoadContentServlet</TITLE></HEAD>");
         out.println("<BODY>");
-        String result = downloadContent(itemSetId, encryptionKey);
-		out.println(result);
+        
+        String result = null;
+        if (method.equals(ServletUtils.LOGIN_METHOD))
+            result = login(xml);
+        if (method.equals(ServletUtils.SAVE_METHOD))
+            result = save(xml);        
+        if (method.equals(ServletUtils.FEEDBACK_METHOD))
+            result = feedback(xml);        
+        out.println(result);
+        
         out.println("</BODY>");
 		out.println("</HTML>");
 		out.flush();
@@ -74,9 +82,9 @@ public class DownloadContentServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	    doGet(request, response);
+        doGet(request, response);
 	}
- 
+
 	/**
 	 * Initialization of the servlet. <br>
 	 *
@@ -85,21 +93,55 @@ public class DownloadContentServlet extends HttpServlet {
 	public void init() throws ServletException {
 		// Put your code here
 	}
- 
+
     /**
-     *  Download a test from TMS
-     * @param String itemSetId
-     * @param String encryptionKey
-     * 
-     *  - checks if content is currently on system and is up to date using key
-     *  - if content is not current, request content for this tc test id from TMS
-     *  - saves encrypted content to local directory
-     *  - return ok to client
-     *
+     *  login
+     * @param String xml
+     *   
+     *  request login response xml from TMS   
+     *  parse login response xml to determine roster id and restart data (if present)
+     *  create audit file if not exists (reconstitute from restart data if restart on different machine??)
+     *  write response to audit file
+     *  return login response xml to client
+     *  
      */
-    private String downloadContent(String itemSetId, String encryptionKey) {
-        String result = "downloadContent invoked with parameters:<br/>";
-        result += "itemSetId=" + itemSetId + "<br/>" + "encryptionKey=" + encryptionKey;
+    private String login(String xml) {
+        String result = "login invoked with parameters:<br/>";
+        result += "xml=" + xml;
+        return result;
+    }
+    
+    /**
+     *  save
+     * @param String xml
+     *   
+     *  check that last line of audit file is an ack   
+     *  if last line is not an ack, return error to client
+     *  if last line is an ack, write request to audit file
+     *  return ack to client
+     *  send request to TMS
+     *  on response from TMS, write ack to audit file.
+     *  
+     */
+    private String save(String xml) {
+        String result = "save invoked with parameters:<br/>";
+        result += "xml=" + xml;
+        return result;
+    }
+
+    /**
+     *  feedback
+     * @param String xml
+     * 
+     *  write request to audit file
+     *  request feedback response xml from TMS     
+     *  write ack to audit file
+     *  return feedback response xml to client
+     *  
+     */
+    private String feedback(String xml) {
+        String result = "feedback invoked with parameters:<br/>";
+        result += "xml=" + xml;
         return result;
     }
 }

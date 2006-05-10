@@ -16,4 +16,28 @@
     <url-pattern>/servlet/DownloadContentServlet</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <description>LoadContentServlet</description>
+    <display-name>LoadContentServlet</display-name>
+    <servlet-name>LoadContentServlet</servlet-name>
+    <servlet-class>com.ctb.tdc.web.servlet.LoadContentServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>LoadContentServlet</servlet-name>
+    <url-pattern>/servlet/LoadContentServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <description>PersistenceServlet</description>
+    <display-name>PersistenceServlet</display-name>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <servlet-class>com.ctb.tdc.web.servlet.PersistenceServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servlet/PersistenceServlet</url-pattern>
+  </servlet-mapping>
+
 </web-app>

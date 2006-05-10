@@ -13,14 +13,14 @@ import com.ctb.tdc.web.utils.ServletUtils;
 /**
  * @author Tai_Truong
  */
-public class DownloadContentServlet extends HttpServlet {
+public class LoadContentServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
-    
+
 	/**
 	 * Constructor of the object.
 	 */
-	public DownloadContentServlet() {
+	public LoadContentServlet() {
 		super();
 	}
 
@@ -45,17 +45,27 @@ public class DownloadContentServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+        String method = ServletUtils.getMethod(request);
         String itemSetId = ServletUtils.getItemSetId(request);
+        String imageId = ServletUtils.getImageId(request);
         String encryptionKey = ServletUtils.getEncryptionKey(request);
         
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
 		out.println("<HTML>");
-		out.println("<HEAD><TITLE>DownloadContentServlet</TITLE></HEAD>");
+		out.println("<HEAD><TITLE>LoadContentServlet</TITLE></HEAD>");
         out.println("<BODY>");
-        String result = downloadContent(itemSetId, encryptionKey);
-		out.println(result);
+        
+        String result = "";
+        if (method.equals(ServletUtils.LOAD_SUBTEST_METHOD))
+            result = loadSubtest(itemSetId, encryptionKey);
+        if (method.equals(ServletUtils.LOAD_ITEM_METHOD))
+            result = loadItem(itemSetId, encryptionKey);        
+        if (method.equals(ServletUtils.LOAD_IMAGE_METHOD))
+            result = loadImage(imageId, encryptionKey);        
+        out.println(result);
+        
         out.println("</BODY>");
 		out.println("</HTML>");
 		out.flush();
@@ -74,9 +84,9 @@ public class DownloadContentServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	    doGet(request, response);
+        doGet(request, response);
 	}
- 
+
 	/**
 	 * Initialization of the servlet. <br>
 	 *
@@ -85,21 +95,54 @@ public class DownloadContentServlet extends HttpServlet {
 	public void init() throws ServletException {
 		// Put your code here
 	}
- 
+
     /**
-     *  Download a test from TMS
+     *  Load a subtest
      * @param String itemSetId
      * @param String encryptionKey
      * 
-     *  - checks if content is currently on system and is up to date using key
-     *  - if content is not current, request content for this tc test id from TMS
-     *  - saves encrypted content to local directory
-     *  - return ok to client
-     *
+     *  retrieves encrypted subtest xml for this item set id from local directory
+     *  decrypts subtest xml
+     *  returns decrypted subtest xml
+     *   
      */
-    private String downloadContent(String itemSetId, String encryptionKey) {
-        String result = "downloadContent invoked with parameters:<br/>";
+    private String loadSubtest(String itemSetId, String encryptionKey) {
+        String result = "loadSubtest invoked with parameters:<br/>";
         result += "itemSetId=" + itemSetId + "<br/>" + "encryptionKey=" + encryptionKey;
         return result;
     }
+
+    /**
+     *  Load an item
+     * @param String itemSetId
+     * @param String encryptionKey
+     * 
+     *  retrieves encrypted item xml for this item id from local directory
+     *  decrypts item xml
+     *  saves assets to local directory
+     *  returns decrypted item xml
+     *   
+     */
+    private String loadItem(String itemSetId, String encryptionKey) {
+        String result = "loadItem invoked with parameters:<br/>";
+        result += "itemSetId=" + itemSetId + "<br/>" + "encryptionKey=" + encryptionKey;
+        return result;
+    }
+
+    /**
+     *  Load an image
+     * @param String imageId
+     * @param String encryptionKey
+     * 
+     *  retrieves image from local directory
+     *  decrypts image xml
+     *  returns decrypted image xml
+     *   
+     */
+    private String loadImage(String imageId, String encryptionKey) {
+        String result = "loadImage invoked with parameters:<br/>";
+        result += "imageId=" + imageId + "<br/>" + "encryptionKey=" + encryptionKey;
+        return result;
+    }
+    
 }
