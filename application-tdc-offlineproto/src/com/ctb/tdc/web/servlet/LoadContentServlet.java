@@ -17,6 +17,9 @@ public class LoadContentServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
 
+    // temporary for now
+    private static final String FILE_PATH = "C:\\xmls\\";
+
 	/**
 	 * Constructor of the object.
 	 */
@@ -47,29 +50,16 @@ public class LoadContentServlet extends HttpServlet {
 
         String method = ServletUtils.getMethod(request);
         String itemSetId = ServletUtils.getItemSetId(request);
+        String itemId = ServletUtils.getItemId(request);
         String imageId = ServletUtils.getImageId(request);
         String encryptionKey = ServletUtils.getEncryptionKey(request);
         
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("<HEAD><TITLE>LoadContentServlet</TITLE></HEAD>");
-        out.println("<BODY>");
-        
-        String result = "";
         if (method.equals(ServletUtils.LOAD_SUBTEST_METHOD))
-            result = loadSubtest(itemSetId, encryptionKey);
+            loadSubtest(response, itemSetId, encryptionKey);
         if (method.equals(ServletUtils.LOAD_ITEM_METHOD))
-            result = loadItem(itemSetId, encryptionKey);        
+            loadItem(response, itemId, encryptionKey);        
         if (method.equals(ServletUtils.LOAD_IMAGE_METHOD))
-            result = loadImage(imageId, encryptionKey);        
-        out.println(result);
-        
-        out.println("</BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+            loadImage(response, imageId, encryptionKey);                
 	}
 
 	/**
@@ -100,15 +90,23 @@ public class LoadContentServlet extends HttpServlet {
      *  Load a subtest
      * @param String itemSetId
      * @param String encryptionKey
+     * @throws IOException 
      * 
      *  retrieves encrypted subtest xml for this item set id from local directory
      *  decrypts subtest xml
      *  returns decrypted subtest xml
      *   
      */
-    private String loadSubtest(String itemSetId, String encryptionKey) {
-        String result = "loadSubtest invoked with parameters:<br/>";
-        result += "itemSetId=" + itemSetId + "<br/>" + "encryptionKey=" + encryptionKey;
+    private boolean loadSubtest(HttpServletResponse response, String itemSetId, String encryptionKey) throws IOException {
+        boolean result = true; 
+        response.setContentType("text/xml");
+        PrintWriter out = response.getWriter();
+        
+        String fileName = FILE_PATH + "subtest.xml";
+        result = ServletUtils.getFile(fileName, out);     
+        
+        out.flush();
+        out.close();        
         return result;
     }
 
@@ -116,6 +114,7 @@ public class LoadContentServlet extends HttpServlet {
      *  Load an item
      * @param String itemSetId
      * @param String encryptionKey
+     * @throws IOException 
      * 
      *  retrieves encrypted item xml for this item id from local directory
      *  decrypts item xml
@@ -123,9 +122,16 @@ public class LoadContentServlet extends HttpServlet {
      *  returns decrypted item xml
      *   
      */
-    private String loadItem(String itemSetId, String encryptionKey) {
-        String result = "loadItem invoked with parameters:<br/>";
-        result += "itemSetId=" + itemSetId + "<br/>" + "encryptionKey=" + encryptionKey;
+    private boolean loadItem(HttpServletResponse response, String itemId, String encryptionKey) throws IOException {
+        boolean result = true; 
+        response.setContentType("text/xml");
+        PrintWriter out = response.getWriter();
+        
+        String fileName = FILE_PATH + "item" + itemId + ".xml";
+        result = ServletUtils.getFile(fileName, out);        
+
+        out.flush();
+        out.close();        
         return result;
     }
 
@@ -133,16 +139,26 @@ public class LoadContentServlet extends HttpServlet {
      *  Load an image
      * @param String imageId
      * @param String encryptionKey
+     * @throws IOException 
      * 
      *  retrieves image from local directory
      *  decrypts image xml
      *  returns decrypted image xml
      *   
      */
-    private String loadImage(String imageId, String encryptionKey) {
-        String result = "loadImage invoked with parameters:<br/>";
-        result += "imageId=" + imageId + "<br/>" + "encryptionKey=" + encryptionKey;
+    private boolean loadImage(HttpServletResponse response, String imageId, String encryptionKey) throws IOException {
+        boolean result = true; 
+        response.setContentType(ServletUtils.getMIMEType("gif"));
+        PrintWriter out = response.getWriter();
+        
+        String fileName = FILE_PATH + "ctb_logo.gif";
+        result = ServletUtils.getFile(fileName, out);        
+
+        out.flush();
+        out.close();        
         return result;
     }
+    
+
     
 }

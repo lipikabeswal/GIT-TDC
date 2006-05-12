@@ -49,24 +49,10 @@ public class DownloadContentServlet extends HttpServlet {
         String itemSetId = ServletUtils.getItemSetId(request);
         String encryptionKey = ServletUtils.getEncryptionKey(request);
         
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("<HEAD><TITLE>DownloadContentServlet</TITLE></HEAD>");
-        out.println("<BODY>");
-        
-        String result = "";
+        if (method.equals(ServletUtils.INITITAL_DOWNLOAD_CONTENT_METHOD))
+            initialDownloadContent(response, itemSetId, encryptionKey);
         if (method.equals(ServletUtils.DOWNLOAD_CONTENT_METHOD))
-            result = downloadContent(itemSetId, encryptionKey);
-        if (method.equals(ServletUtils.GET_DOWNLOAD_STATUS_METHOD))
-            result = getDownloadStatus(itemSetId);        
-        out.println(result);
-        
-        out.println("</BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+            downloadContent(response, itemSetId, encryptionKey);
 	}
 
 	/**
@@ -92,23 +78,6 @@ public class DownloadContentServlet extends HttpServlet {
 	public void init() throws ServletException {
 		// Put your code here
 	}
-
-    /**
-     *  Download a test from TMS
-     * @param String itemSetId
-     * @param String encryptionKey
-     * 
-     *  - checks if content is currently on system and is up to date using key
-     *  - if content is not current, request content for this tc test id from TMS
-     *  - saves encrypted content to local directory
-     *  - return ok to client
-     *
-     */
-    private String getDownloadStatus(String itemSetId) {
-        String result = "getDownloadStatus invoked with parameters:<br/>";
-        result += "itemSetId=" + itemSetId;
-        return result;
-    }
     
     /**
      *  Download a test from TMS
@@ -121,16 +90,46 @@ public class DownloadContentServlet extends HttpServlet {
      *  - return ok to client
      *
      */
-    private String downloadContent(String itemSetId, String encryptionKey) {
-        String result = "downloadContent invoked with parameters:<br/>";
-        result += "itemSetId=" + itemSetId + "<br/>" + "encryptionKey=" + encryptionKey;
+    private boolean initialDownloadContent(HttpServletResponse response, String itemSetId, String encryptionKey) throws IOException {
+        boolean result = true; 
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
         
         if (! hasCurrentContent(encryptionKey)) {
-            result = loadTest(itemSetId);
-            writeContentToDisk(result);
+            String content = loadTest(itemSetId);
+            writeContentToDisk(content);
         }
-        acknowledge(ServletUtils.OK);
         
+        out.println(ServletUtils.OK);        
+        out.flush();
+        out.close();                
+        return result;
+    }
+
+    /**
+     *  Download a test from TMS
+     * @param String itemSetId
+     * @param String encryptionKey
+     * 
+     *  - checks if content is currently on system and is up to date using key
+     *  - if content is not current, request content for this tc test id from TMS
+     *  - saves encrypted content to local directory
+     *  - return ok to client
+     *
+     */
+    private boolean downloadContent(HttpServletResponse response, String itemSetId, String encryptionKey) throws IOException {
+        boolean result = true; 
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        
+        if (! hasCurrentContent(encryptionKey)) {
+            String content = loadTest(itemSetId);
+            writeContentToDisk(content);
+        }
+        
+        out.println(ServletUtils.OK);        
+        out.flush();
+        out.close();                
         return result;
     }
     
@@ -146,21 +145,14 @@ public class DownloadContentServlet extends HttpServlet {
      *  load content for this test from TMS
      */
     private String loadTest(String itemSetId) {
-        String result = null;
-        
-        return result;
+        return "";
     }
 
     /**
      *  saves encrypted content to local directory
      */
-    private void writeContentToDisk(String itemSetId) {
+    private void writeContentToDisk(String content) {
     }
 
-    /**
-     *  send acknowledgement to client
-     */
-    private void acknowledge(String ack) {
-    }
     
 }

@@ -48,26 +48,12 @@ public class PersistenceServlet extends HttpServlet {
         String method = ServletUtils.getMethod(request);
         String xml = ServletUtils.getXml(request);
         
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("<HEAD><TITLE>LoadContentServlet</TITLE></HEAD>");
-        out.println("<BODY>");
-        
-        String result = null;
         if (method.equals(ServletUtils.LOGIN_METHOD))
-            result = login(xml);
+            login(response, xml);
         if (method.equals(ServletUtils.SAVE_METHOD))
-            result = save(xml);        
+            save(response, xml);        
         if (method.equals(ServletUtils.FEEDBACK_METHOD))
-            result = feedback(xml);        
-        out.println(result);
-        
-        out.println("</BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+            feedback(response, xml);        
 	}
 
 	/**
@@ -105,9 +91,15 @@ public class PersistenceServlet extends HttpServlet {
      *  return login response xml to client
      *  
      */
-    private String login(String xml) {
-        String result = "login invoked with parameters:<br/>";
-        result += "xml=" + xml;
+    private boolean login(HttpServletResponse response, String xml) throws IOException {
+        boolean result = true; 
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        
+        out.println("login invoked.");        
+        
+        out.flush();
+        out.close();        
         return result;
     }
     
@@ -123,9 +115,15 @@ public class PersistenceServlet extends HttpServlet {
      *  on response from TMS, write ack to audit file.
      *  
      */
-    private String save(String xml) {
-        String result = "save invoked with parameters:<br/>";
-        result += "xml=" + xml;
+    private boolean save(HttpServletResponse response, String xml) throws IOException {
+        boolean result = true; 
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        
+        out.println("save invoked.");        
+        
+        out.flush();
+        out.close();        
         return result;
     }
 
@@ -139,9 +137,15 @@ public class PersistenceServlet extends HttpServlet {
      *  return feedback response xml to client
      *  
      */
-    private String feedback(String xml) {
-        String result = "feedback invoked with parameters:<br/>";
-        result += "xml=" + xml;
+    private boolean feedback(HttpServletResponse response, String xml) throws IOException {
+        boolean result = true; 
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        
+        out.println("feedback invoked.");        
+        
+        out.flush();
+        out.close();        
         return result;
     }
 }
