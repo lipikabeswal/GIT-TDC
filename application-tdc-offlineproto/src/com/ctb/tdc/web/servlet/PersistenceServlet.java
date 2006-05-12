@@ -1,7 +1,10 @@
 package com.ctb.tdc.web.servlet;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +20,9 @@ public class PersistenceServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
 
+    // temporary for now
+    private static final String AUDIT_FOLDER = "C:\\POC_Servlet\\audit\\";
+    
 	/**
 	 * Constructor of the object.
 	 */
@@ -77,7 +83,7 @@ public class PersistenceServlet extends HttpServlet {
 	 * @throws ServletException if an error occure
 	 */
 	public void init() throws ServletException {
-		// Put your code here
+		// do nothing
 	}
 
     /**
@@ -96,13 +102,33 @@ public class PersistenceServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         
-        out.println("login invoked.");        
-        
+        out.println(ServletUtils.OK);                        
         out.flush();
         out.close();        
         return result;
     }
     
+    /**
+     *  feedback
+     * @param String xml
+     * 
+     *  write request to audit file
+     *  request feedback response xml from TMS     
+     *  write ack to audit file
+     *  return feedback response xml to client
+     *  
+     */
+    private boolean feedback(HttpServletResponse response, String xml) throws IOException {
+        boolean result = true; 
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        
+        out.println(ServletUtils.OK);                        
+        out.flush();
+        out.close();        
+        return result;
+    }
+
     /**
      *  save
      * @param String xml
@@ -119,33 +145,71 @@ public class PersistenceServlet extends HttpServlet {
         boolean result = true; 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        
-        out.println("save invoked.");        
-        
+
+        String event = ServletUtils.parseEvent(xml);
+        if (event.equals(ServletUtils.RESPONSE_EVENT))
+            responseEvent(xml);
+        if (event.equals(ServletUtils.START_EVENT))
+            startEvent();
+        if (event.equals(ServletUtils.FINISH_EVENT))
+            finishEvent();
+        if (event.equals(ServletUtils.PAUSE_EVENT))
+            pauseEvent();
+        if (event.equals(ServletUtils.HEARTBEAT_EVENT))
+            heartbeatEvent();
+                
+        out.println(ServletUtils.OK);                
         out.flush();
         out.close();        
         return result;
     }
 
-    /**
-     *  feedback
-     * @param String xml
-     * 
-     *  write request to audit file
-     *  request feedback response xml from TMS     
-     *  write ack to audit file
-     *  return feedback response xml to client
-     *  
-     */
-    private boolean feedback(HttpServletResponse response, String xml) throws IOException {
-        boolean result = true; 
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        
-        out.println("feedback invoked.");        
-        
-        out.flush();
-        out.close();        
-        return result;
+    private void responseEvent(String xml) throws IOException {
+        String itemResponse = ServletUtils.parseItemResponse(xml);
+        String mseq = ServletUtils.parseMseq(xml);
+        String type = ServletUtils.parseType(xml);
+        String lsid = ServletUtils.parseLsid(xml);
+        String date = ServletUtils.formatDateToDateString(new Date());
+                
+        writeToAuditFile(mseq, type, date, lsid, itemResponse);        
     }
+
+    private void startEvent() {
+        // to do
+    }
+
+    private void finishEvent() {
+        // to do
+    }
+
+    private void pauseEvent() {
+        // to do
+    }
+
+    private void heartbeatEvent() {
+        // to do
+    }
+
+    // Mseq Type    Datetime    lsid    encrypted request/response
+    private void writeToAuditFile(String mseq, String type, String date, String lsid, String itemResponse) throws IOException {
+        
+        String fileName = AUDIT_FOLDER + "audit.txt";
+        
+        File file = new File(fileName);
+        
+        boolean exist = file.exists();
+        
+        FileWriter fileWriter = new FileWriter(file, exist);
+        
+        String text = mseq + " - " + type + " - " + date + " - " + lsid + " - " + itemResponse + "\n";
+        
+        
+        fileWriter.write(text);
+        
+        fileWriter.flush();
+        fileWriter.close();
+        
+    }
+    
+
 }

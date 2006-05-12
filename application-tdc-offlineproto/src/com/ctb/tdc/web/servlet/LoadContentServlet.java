@@ -18,7 +18,8 @@ public class LoadContentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     // temporary for now
-    private static final String FILE_PATH = "C:\\xmls\\";
+    private static final String XML_FOLDER = "C:\\POC_Servlet\\xmls\\";
+    private static final String IMAGE_FOLDER = "C:\\POC_Servlet\\images\\";
 
 	/**
 	 * Constructor of the object.
@@ -102,7 +103,7 @@ public class LoadContentServlet extends HttpServlet {
         response.setContentType("text/xml");
         PrintWriter out = response.getWriter();
         
-        String fileName = FILE_PATH + "subtest.xml";
+        String fileName = XML_FOLDER + "subtest.xml";
         result = ServletUtils.getFile(fileName, out);     
         
         out.flush();
@@ -127,7 +128,7 @@ public class LoadContentServlet extends HttpServlet {
         response.setContentType("text/xml");
         PrintWriter out = response.getWriter();
         
-        String fileName = FILE_PATH + "item" + itemId + ".xml";
+        String fileName = XML_FOLDER + "item" + itemId + ".xml";
         result = ServletUtils.getFile(fileName, out);        
 
         out.flush();
@@ -151,7 +152,7 @@ public class LoadContentServlet extends HttpServlet {
         response.setContentType(ServletUtils.getMIMEType("gif"));
         PrintWriter out = response.getWriter();
         
-        String fileName = FILE_PATH + "ctb_logo.gif";
+        String fileName = IMAGE_FOLDER + "ctb_logo.gif";
         result = ServletUtils.getFile(fileName, out);        
 
         out.flush();

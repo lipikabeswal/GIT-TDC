@@ -3,7 +3,8 @@ package com.ctb.tdc.web.utils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.PrintWriter;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 public class ServletUtils {
@@ -26,9 +27,21 @@ public class ServletUtils {
     public static final String ENCRYPTION_KEY_PARAM = "encryptionKey";
     public static final String XML_PARAM = "xml";
 
+    // events
+    public static final String LOGIN_EVENT = "lms_login";
+    public static final String RESPONSE_EVENT = "lms_response";
+    public static final String START_EVENT = "lms_start";
+    public static final String FINISH_EVENT = "lms_finish";
+    public static final String PAUSE_EVENT = "lms_pause";
+    public static final String HEARTBEAT_EVENT = "lms_heartbeat";
+    public static final String FEEDBACK_EVENT = "lms_feedback";
+
     // returned values
     public static final String OK = "200 OK";
     public static final String NO_CONTENT = "204 No Content";
+
+    // date time
+    private final static String DATETIME_FORMAT="MM/dd/yy hh:mm a";
     
     // helpers
     public static String getMethod(HttpServletRequest request) {
@@ -66,6 +79,22 @@ public class ServletUtils {
         return mimeType; 
     }
     
+    public static String formatDateToDateString(Date date){
+        String result = null;
+        if (date == null)
+            return result;
+
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.applyPattern(DATETIME_FORMAT);
+        try{
+            result = sdf.format(date);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }    
+    
     public static boolean getFile(String fileName, PrintWriter out) {
         boolean result = true;
         try{
@@ -80,6 +109,47 @@ public class ServletUtils {
             result = false;
         }
         return result;
+    }
+
+    public static String parseEvent(String xml) {
+        String event = null;
+        if (xml != null) {
+            if (xml.indexOf(LOGIN_EVENT) > 0) event = LOGIN_EVENT;
+            if (xml.indexOf(RESPONSE_EVENT) > 0) event = RESPONSE_EVENT;
+            if (xml.indexOf(START_EVENT) > 0) event = START_EVENT;
+            if (xml.indexOf(FINISH_EVENT) > 0) event = FINISH_EVENT;
+            if (xml.indexOf(PAUSE_EVENT) > 0) event = PAUSE_EVENT;
+            if (xml.indexOf(HEARTBEAT_EVENT) > 0) event = HEARTBEAT_EVENT;
+            if (xml.indexOf(FEEDBACK_EVENT) > 0) event = FEEDBACK_EVENT;
+        }
+        return event;
+    }
+
+    public static String parseItemResponse(String xml) {
+        String itemResponse = null;
+        if (xml != null) {
+            int startIndex = xml.indexOf("<v>");
+            int endIndex = xml.indexOf("</v>");
+            if ((startIndex > 0) && (endIndex > 0) && (endIndex < xml.length())) {
+                itemResponse = xml.substring(endIndex-1, endIndex);
+            }
+        }
+        return itemResponse;
+    }
+
+    public static String parseMseq(String xml) {
+        String mseq = "mseq"; // for now
+        return mseq;
+    }
+
+    public static String parseType(String xml) {
+        String mseq = "type"; // for now
+        return mseq;
+    }
+
+    public static String parseLsid(String xml) {
+        String mseq = "lsid"; // for now
+        return mseq;
     }
     
 }
