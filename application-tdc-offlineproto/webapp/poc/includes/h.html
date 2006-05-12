@@ -1,0 +1,25 @@
+<html>
+<head>
+<script>
+ //GS100305:  To set the URl for the swf in the local includes folder
+var v = ""//new top.Query(top.getQuery(this));
+var fv = v.toString();
+</script>
+</head>
+<body >
+<script>
+//if (v.d) top.location.hash = v.d.h;
+document.writeln('<table><tr><td>')
+document.writeln('<object id="utility" name="h.swf" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,14,0" width="1" height="1">');
+document.writeln('<param name="movie" value="h.swf" />');
+document.writeln('<param name="FlashVars" value="'+fv+'&__lzhistconn='+top.connuid+'"/>');
+document.writeln('<param name="quality" value="high" />');
+document.writeln('<param name="bgcolor" value="#FFFFFF" />');
+document.writeln('<param name="profile" value="false" />');
+document.writeln('<embed id="utilityEmbed" name="h.swf" src="h.swf" type="application/x-shockwave-flash" flashvars="'+fv+'&__lzhistconn='+top.connuid+'" profile="false" quality="high" bgcolor="#FFFFFF" width="0" height="1" align="" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed>');
+document.writeln('</object>');
+document.writeln('</td></tr></table>')
+</script>
+
+</body>
+</html>
