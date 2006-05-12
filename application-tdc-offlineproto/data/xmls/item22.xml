@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element_package iid="item_CR_2" eid="16">
+
+<item_canvas id="IC">
+	<panel stereotype="stem" id="stem1" layout="vertical" spacing="10" x="0" width="800" y="74" height="100">
+		<text_widget id="stem1T1" halign="left" width="800">
+		<![CDATA[
+			Cells make up many different structures in an organism. What information is used to classify one of these structures as a tissue, an organ, or an organ system?
+		]]>
+		</text_widget>
+	</panel>
+	<constructed_response_panel x="0" y="156" width="100" height="120" identifier="obj_con_response"/> 
+</item_canvas>
+
+<item_model type="question" iid="item_gfg_5" eid="22" number="0" answered="0" marked="0" correct="D" score="0" answer_text="">
+	<toolbar oneeighth_inch_ruler="required" mm_ruler="required" formula_card="required" highlighter="required" eraser="required" cm_ruler="required" scientific_calculator="required" standard_calculator="required" protractor="required" option_eliminator="required" half_inch_ruler="required" />
+
+	<interaction type="text_entry">
+		<text_entry obj_id_ref="obj_con_response"></text_entry>
+	</interaction>
+</item_model>
+</element_package>

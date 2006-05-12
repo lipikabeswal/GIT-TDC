@@ -21,7 +21,7 @@ public class PersistenceServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     // temporary for now
-    private static final String AUDIT_FOLDER = "C:\\workspace\\application-tdc\\webapp\\data\\audit\\";
+    private static final String AUDIT_FOLDER = "C:\\workspace\\application-tdc\\data\\audit\\";
     
 	/**
 	 * Constructor of the object.

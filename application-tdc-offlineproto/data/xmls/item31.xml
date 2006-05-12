@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element_package iid="item_gfg_5" eid="2801"><item_canvas id="IC"><panel stereotype="stem" id="stem1" layout="vertical" spacing="10" x="5" width="790" y="86" height="300"><text_widget id="stem1T1" halign="left" width="550"><![CDATA[
+						Cells make up many different structures in an organism. What information is used to classify one of these structures as a tissue, an organ, or an organ system?
+						]]></text_widget></panel><answer_area_panel stereotype="answerArea" layout="vertical" spacing="21" width="800" x="0" height="180" y="140" top_padding="10" left_padding="25" id="A1"><answer_choice_widget layout="horizontal" x="5" y="5" width="790" height="60" spacing="8"><selector_widget id="AC1S1" valign="top" /><text_widget id="AC1T1" halign="left" width="790"><![CDATA[
+				
+				the number of cells it contains 
+			]]></text_widget></answer_choice_widget><answer_choice_widget layout="horizontal" x="5" y="26" width="790" height="60" spacing="8"><selector_widget id="AC2S1" valign="top" /><text_widget id="AC2T1" halign="left" width="790"><![CDATA[
+				
+				the location and size of the structure
+			]]></text_widget></answer_choice_widget><answer_choice_widget layout="horizontal" x="5" y="47" width="790" height="60" spacing="8"><selector_widget id="AC3S1" valign="top" /><text_widget id="AC3T1" halign="left" width="790"><![CDATA[
+				
+				the extent to which cells are organized into groups based on function
+			]]></text_widget></answer_choice_widget><answer_choice_widget layout="horizontal" x="5" y="71" width="790" height="60" spacing="8"><selector_widget id="AC4S1" valign="top" /><text_widget id="AC4T1" halign="left" width="790"><![CDATA[
+				
+				whether the structure is involved in digestion, circulation, reproduction, or another function
+			]]></text_widget></answer_choice_widget></answer_area_panel></item_canvas><item_model type="question" iid="item_gfg_5" eid="1" number="0" answered="0" marked="0" correct="D" score="0" answer_text=""><toolbar oneeighth_inch_ruler="required" mm_ruler="required" formula_card="required" highlighter="required" eraser="required" cm_ruler="required" scientific_calculator="required" standard_calculator="required" protractor="required" option_eliminator="required" half_inch_ruler="required" /><interaction type="choice" max_choices="1"><selector identifier="A" obj_id_ref="A" user_action="n" /><selector identifier="B" obj_id_ref="B" user_action="n" /><selector identifier="C" obj_id_ref="C" user_action="n" /><selector identifier="D" obj_id_ref="D" user_action="n" /></interaction></item_model></element_package>

@@ -1,0 +1,104 @@
+<element_package iid="ok_demo01.v01" security_classification_id="alg112">
+	<item_canvas id="IC">        
+
+		<panel stereotype="directions"  x="0" y="76" width="800" height="90" layout="vertical" spacing="10">                                
+			 <text_widget width="760" halign="left">
+	            <![CDATA[
+				<b>Read the passage and answer the questions that follow.</b>
+		        ]]>
+			</text_widget>              
+        </panel>
+           
+		<panel stereotype="stem"  x="450" y="166" width="350" height="140" layout="horizontal" spacing="5">     
+			<text_widget width="300" valign="top">
+	            	<![CDATA[
+				<P ALIGN="LEFT">Which of these best describes Ollie?</P>
+		        ]]>
+			</text_widget>
+		</panel>	   
+
+		<scrolling_text_panel stereotype="stimulus"  x="0" y="166" width="449" height="370">
+			<text_widget  halign="center">
+			<![CDATA[
+				<P ALIGN="CENTER"><B>Ollie and the Rainbow</B></P>
+			]]>
+			</text_widget> 
+
+			<text_widget  halign="center">
+			<![CDATA[
+				<P ALIGN="CENTER"> by Christine Sutton</P><BR Type="Line" />
+			]]>
+			</text_widget>
+					
+       		<text_widget  halign="left">
+            	<![CDATA[
+				<p ALIGN="LEFT">Ollie was in trouble again. He had been playing in the river, rolling in the thick, oozy mud. Worse than that, he had been squirting water all over Mrs. Tusker. Mrs. Tusker was a very proper elephant and did not like being soaked.</p><BR Type="Line" />
+				<p ALIGN="LEFT">&quot;Ollie, I am very disappointed in you,&quot; said his mother sternly. &quot;You were supposed to be practicing your trumpet. Now go practice, and <I>stay out of trouble.&quot;</I></p><BR Type="Line" />
+				<p ALIGN="LEFT">Ollie went back to the river. High above the trees, rain clouds were gathering, and soon raindrops were pattering onto the leaves. The ground smelled earthy and fresh. Ollie was delighted. He held up his trunk to catch the drops.</p><BR Type="Line" />
+				<p ALIGN="LEFT">After a while the rain eased off, and the sun broke through. Suddenly, a brilliant rainbow appeared. Ollie looked at each color in turn--red, orange, yellow, green, blue, indigo, and violet. <I>Beautiful</I>. As he stood looking up at the sky, the raindrops began to trickle down his trunk. How they tickled! Ollie could feel a sneeze coming on...</p><BR Type="Line" />
+				<p ALIGN="LEFT">AAAH</p><BR Type="Line" />
+				<p ALIGN="LEFT">AAAHHH</p><BR Type="Line" />
+				<p ALIGN="LEFT">AAAAACHOOOO!</p><BR Type="Line" />
+				<p ALIGN="LEFT">The sneeze was huge. It sounded like an earthquake, and blew like a hurricane. Ollie blinked and looked around.</p><BR Type="Line" />
+				<p ALIGN="LEFT"><I>Oh no! His sneeze had blown the rainbow right out of the sky and into the river!</I></p><BR Type="Line" />
+				<p ALIGN="LEFT">Ollie knew he was in BIG trouble now! He had to put the rainbow back before anyone noticed it was missing.</p><BR Type="Line" />
+				<p ALIGN="LEFT">He rushed into the water. The rainbow had become soggy, and as he lumbered toward it, pieces broke off and floated away on the ripples.</P><BR Type="Line" />
+				<p ALIGN="LEFT">Ollie froze. He was going to have to be <I>very </I>gentle. Little by little, Ollie sank down and moved his body under the rainbow until it lay across his back like a stripy scarf. Then very slowly he made his way across to the riverbank, where he stood steaming in the warm African sun.</p><BR Type="Line" />
+				<p ALIGN="LEFT">When he was sure the rainbow was quite dry, he arched his trunk over his back, lifted the rainbow, and rested it across his tusks.</p><BR Type="Line" />
+				<p ALIGN="LEFT">Only when he had done all this, did Ollie make his way toward the big gap in the clouds. Standing on tiptoe, he stretched out his trunk and carefully put the rainbow back into the sky. Then he threw back his head and trumpeted the news far<BR Type="Line" />and wide.</p><BR Type="Line" />
+				<p ALIGN="LEFT">Across the river, Ollie's mother glowed with pride to hear her son practicing so hard. It was good to know he was staying out of trouble!</p><BR Type="Line" />
+			]]>
+			</text_widget>
+
+			<text_widget width="420" halign="left">
+			<![CDATA[
+				<P ALIGN="LEFT">&quot;Ollie and the Rainbow&quot; by Christine Sutton from <I>Highlights for Children</I> Magazine's June 1999 issue, copyright (c) 1999 by Highlights for Children, Inc., Columbus, Ohio. Used by permission.</P>
+			]]>
+	     	</text_widget>
+
+			 <!-- <image_widget halign="left" src="./images/OllieRainbow_03rSB.swf"/> -->
+		</scrolling_text_panel>  
+
+   	    <answer_area_panel stereotype="answerArea" x="450" y="306" width="350" height="230" layout="vertical" spacing="10" top_padding="10" left_padding="10">
+		<answer_choice_widget layout="horizontal">
+		 	<selector_widget valign="top"/>
+			<text_widget  width="300" valign="top">
+				cheerful
+			</text_widget>
+		</answer_choice_widget>
+		   
+		<answer_choice_widget layout="horizontal">
+		 	<selector_widget valign="top"/>
+			<text_widget  width="300" valign="top">
+				lonely
+			</text_widget>
+		</answer_choice_widget>
+
+		<answer_choice_widget layout="horizontal">
+		 	<selector_widget valign="top"/>
+			<text_widget  width="300" valign="top">
+				playful
+			</text_widget>
+		</answer_choice_widget>
+		
+		<answer_choice_widget layout="horizontal">
+		 	<selector_widget valign="top"/>
+			<text_widget width="300" valign="top">
+				polite
+			</text_widget>
+		   </answer_choice_widget>
+         </answer_area_panel>   
+	</item_canvas>
+
+	<item_model type="question" eid="15" iid="1" number="0" answered="0" marked="0" correct="ok_demo01.b" score="0" answer_text="">
+		<toolbar standard_calculator="accommodated" scientific_calculator="not provisioned" option_eliminator="required" 
+		highlighter="required" eraser="required" cm_ruler="not provisioned" oneeighth_inch_ruler="not provisioned" half_inch_ruler="not provisioned" 
+		protractor="not provisioned" mm_ruler="not provisioned" formula_card="not provisioned"/>
+		<interaction type="choice" max_choices="1">
+			<selector identifier="ok_demo01.a" obj_id_ref="ok_demo01.obj_a" user_action="n"/>
+			<selector identifier="ok_demo01.b" obj_id_ref="ok_demo01.obj_b" user_action="n"/>
+			<selector identifier="ok_demo01.c" obj_id_ref="ok_demo01.obj_c" user_action="n"/>
+			<selector identifier="ok_demo01.d" obj_id_ref="ok_demo01.obj_d" user_action="n"/>			
+		</interaction>
+	</item_model>			
+</element_package>

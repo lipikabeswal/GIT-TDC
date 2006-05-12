@@ -1,0 +1,2 @@
+MSEQ         TYPE            DATE                LSID                   RESPONSE 
+264          lms_response    05/12/06 04:01 PM   28331:oxygenate4           A

@@ -1,0 +1,13 @@
+<title ID="accesscode01" name="STG TDP DEMO TITLE NAME" mode="proctor">
+	<SCO seq="1" name="OKLAHOMA_DEMO" title="Downloading Please wait" time_limit_seconds="3600" aa_asmt_id="s1" url="http://192.168.2.15:7001/ADSSvc/servlet/ADSSvc"/>
+	<SCO seq="2" name="OKLAHOMA_DEMO" title="OklahomaDemo" time_limit_seconds="3600" aa_asmt_id="s2" url="http://192.168.2.15:7001/ADSSvc/servlet/ADSSvc"/>
+	<SCO seq="3" name="OKLAHOMA_DEMO" title="OklahomaDemo" time_limit_seconds="3600" aa_asmt_id="s3" url="http://192.168.2.15:7001/ADSSvc/servlet/ADSSvc"/>
+	<SCO seq="4" name="OKLAHOMA_DEMO" title="OklahomaDemo" time_limit_seconds="3600" aa_asmt_id="s4" url="http://192.168.2.15:7001/ADSSvc/servlet/ADSSvc"/>
+	<SCO seq="5" name="OKLAHOMA_DEMO" title="OklahomaDemo" time_limit_seconds="3600" aa_asmt_id="s5" url="http://192.168.2.15:7001/ADSSvc/servlet/ADSSvc"/>
+	<SCO seq="6" name="OKLAHOMA_DEMO" title="OklahomaDemo" time_limit_seconds="3600" aa_asmt_id="s6" url="http://192.168.2.15:7001/ADSSvc/servlet/ADSSvc"/>
+	<SCO seq="7" name="OKLAHOMA_DEMO" title="OklahomaDemo" time_limit_seconds="3600" aa_asmt_id="s7" url="http://192.168.2.15:7001/ADSSvc/servlet/ADSSvc"/>
+	<SCO seq="8" name="OKLAHOMA_DEMO" title="OklahomaDemo" time_limit_seconds="3600" aa_asmt_id="s8" url="http://192.168.2.15:7001/ADSSvc/servlet/ADSSvc"/>
+	<SCO seq="9" name="OKLAHOMA_DEMO" title="OklahomaDemo" time_limit_seconds="3600" aa_asmt_id="s9" url="http://192.168.2.15:7001/ADSSvc/servlet/ADSSvc"/>
+	<SCO seq="10" name="OKLAHOMA_DEMO" title="OklahomaDemo" time_limit_seconds="3600" aa_asmt_id="s10" url="http://192.168.2.15:7001/ADSSvc/servlet/ADSSvc"/>
+	<SCO seq="11" name="OKLAHOMA_DEMO" title="OklahomaDemo" time_limit_seconds="3600" aa_asmt_id="s11" url="http://192.168.2.15:7001/ADSSvc/servlet/ADSSvc"/>
+</title>

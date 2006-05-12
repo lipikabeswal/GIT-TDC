@@ -18,8 +18,8 @@ public class LoadContentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     // temporary for now
-    private static final String XML_FOLDER = "C:\\workspace\\application-tdc\\webapp\\data\\xmls\\";
-    private static final String IMAGE_FOLDER = "C:\\workspace\\application-tdc\\webapp\\data\\images\\";
+    private static final String XML_FOLDER = "C:\\workspace\\application-tdc\\data\\xmls\\";
+    private static final String IMAGE_FOLDER = "C:\\workspace\\application-tdc\\data\\images\\";
 
 	/**
 	 * Constructor of the object.
