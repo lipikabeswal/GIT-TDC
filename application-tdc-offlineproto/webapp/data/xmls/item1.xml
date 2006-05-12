@@ -1,0 +1,65 @@
+<element_package iid="ok_demo01.v01" security_classification_id="alg112">
+	<item_canvas id="IC">        
+          <panel stereotype="directions" x="0" y="74" width="800" height="90" layout="vertical" spacing="10" top_padding="20" left_padding="10">                                        
+		 <text_widget  width="760" halign="left">
+		 <![CDATA[
+		    <b>Template 0 Direction: Character count 200, Fonts Arial Bold, Bold Italic 14pt, 725 x 40 pixels. Template 0 Direction: Character count 200, Fonts Arial Bold, Bold Italic 14pt, 725 x 40 pixels. Template 0 Direction: Character count 200. end</b>
+		 ]]>
+		 </text_widget>              
+         </panel> 
+           
+	   <panel stereotype="stem"  x="0" y="164" width="800" height="140" layout="horizontal" spacing="10" top_padding="20" left_padding="10">
+		     <text_widget  width="790" valign="top">
+                        <![CDATA[
+					        Stem text area: 990 Character <b>bold</b> count, line break here<br/>Font Arial Regular, <b><i>Bold italics</i></b> and <i>Italic</i> 12pt, 720 x 130 pixels. Stem text area: 990 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 720 x 130 pixels. Stem text area: 990 Character count, Font 130 pixels. Stem text area: 990 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 720 x 130 pixels. Stem text area: 990 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 720 x 130 pixels. end
+                        ]]>
+		     </text_widget>		      
+           </panel>	   
+
+	   <answer_area_panel stereotype="answerArea"  x="0" y="304" width="800" height="230" layout="vertical" spacing="10" top_padding="20" left_padding="10" >
+		<answer_choice_widget  layout="horizontal" spacing="5">
+		 	<selector_widget valign="top" identifier="ok_demo01.obj_a"/>
+			<text_widget  width="760" valign="top">
+				1Answer Choice text area: 220 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. Answer Choice text area: 220 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. end
+			</text_widget>
+		</answer_choice_widget>
+		   
+		<answer_choice_widget  layout="horizontal" spacing="5">
+			<selector_widget valign="top" identifier="ok_demo01.obj_b"/>
+			<text_widget  width="760" valign="top">
+				2Answer Choice text area: 220 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. Answer Choice text area: 220 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. end
+			</text_widget>
+		</answer_choice_widget>
+
+		<answer_choice_widget  layout="horizontal" spacing="5">
+			<selector_widget valign="top" identifier="ok_demo01.obj_d"/>
+			<text_widget  width="760" valign="top">
+				3Answer Choice text area: 220 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. Answer Choice text area: 220 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. end
+			</text_widget>
+		</answer_choice_widget>
+		
+		<answer_choice_widget  layout="horizontal" spacing="5">
+			<selector_widget valign="top" identifier="ok_demo01.obj_c"/>
+			<text_widget  width="760" valign="top">
+				4Answer Choice text area: 220 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. Answer Choice text area: 220 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. end
+			</text_widget>
+		   </answer_choice_widget> 
+           </answer_area_panel>   
+	</item_canvas>
+	
+	<item_model type="question" eid="1" iid="1" number="0" answered="0" marked="0" correct="ok_demo01.ba" score="0" answer_text="">
+			<toolbar standard_calculator="required" scientific_calculator="not provisioned" option_eliminator="required" 
+		highlighter="required" eraser="required" cm_ruler="not provisioned" oneeighth_inch_ruler="required" half_inch_ruler="required" 
+		protractor="required" mm_ruler="required" formula_card="required"/>
+
+		<!--<toolbar standard_calculator="accommodated" scientific_calculator="not provisioned" option_eliminator="accommodated" 
+		highlighter="accommodated" eraser="accommodated" cm_ruler="accommodated" oneeighth_inch_ruler="accommodated" half_inch_ruler="accommodated" 
+		protractor="accommodated" mm_ruler="accommodated" formula_card="accommodated"/>	-->
+		<interaction type="choice" max_choices="1">
+			<selector identifier="ok_demo01.aa" obj_id_ref="ok_demo01.obj_a" user_action="n"/>
+			<selector identifier="ok_demo01.ba" obj_id_ref="ok_demo01.obj_b" user_action="n"/>
+			<selector identifier="ok_demo01.ca" obj_id_ref="ok_demo01.obj_c" user_action="n"/>
+			<selector identifier="ok_demo01.da" obj_id_ref="ok_demo01.obj_d" user_action="e"/>			
+		</interaction>
+	</item_model>			
+</element_package>

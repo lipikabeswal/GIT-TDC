@@ -29,7 +29,6 @@ public class DownloadContentServlet extends HttpServlet {
 	 */
 	public void destroy() {
 		super.destroy(); // Just puts "destroy" string in log
-		// Put your code here
 	}
 
 	/**
@@ -76,7 +75,7 @@ public class DownloadContentServlet extends HttpServlet {
 	 * @throws ServletException if an error occure
 	 */
 	public void init() throws ServletException {
-		// Put your code here
+		// do nothing
 	}
     
     /**

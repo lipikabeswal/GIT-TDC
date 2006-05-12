@@ -41,7 +41,10 @@ public class ServletUtils {
     public static final String NO_CONTENT = "204 No Content";
 
     // date time
-    private final static String DATETIME_FORMAT="MM/dd/yy hh:mm a";
+    public final static String DATETIME_FORMAT="MM/dd/yy hh:mm a";
+
+    // misc
+    public static final String UNKNOWN = "----------";
     
     // helpers
     public static String getMethod(HttpServletRequest request) {
@@ -112,7 +115,7 @@ public class ServletUtils {
     }
 
     public static String parseEvent(String xml) {
-        String event = null;
+        String event = UNKNOWN;
         if (xml != null) {
             if (xml.indexOf(LOGIN_EVENT) > 0) event = LOGIN_EVENT;
             if (xml.indexOf(RESPONSE_EVENT) > 0) event = RESPONSE_EVENT;
@@ -126,7 +129,7 @@ public class ServletUtils {
     }
 
     public static String parseItemResponse(String xml) {
-        String itemResponse = null;
+        String itemResponse = UNKNOWN;
         if (xml != null) {
             int startIndex = xml.indexOf("<v>");
             int endIndex = xml.indexOf("</v>");
@@ -138,18 +141,42 @@ public class ServletUtils {
     }
 
     public static String parseMseq(String xml) {
-        String mseq = "mseq"; // for now
-        return mseq;
-    }
-
-    public static String parseType(String xml) {
-        String mseq = "type"; // for now
+        String mseq = UNKNOWN;
+        if (xml != null) {
+            int index = xml.indexOf("mseq=");
+            if (index > 0) {
+                int startIndex = index + 6;
+                int endIndex = startIndex;
+                while (true) {
+                    int ch = xml.charAt(endIndex);                    
+                    if ((ch == 34) || (ch == 39) || (endIndex > xml.length()-1))
+                        break;
+                    endIndex++;
+                }
+                mseq = xml.substring(startIndex, endIndex);
+            }
+        }
         return mseq;
     }
 
     public static String parseLsid(String xml) {
-        String mseq = "lsid"; // for now
-        return mseq;
+        String lsid = UNKNOWN;
+        if (xml != null) {
+            int index = xml.indexOf("lsid=");
+            if (index > 0) {
+                int startIndex = index + 6;
+                int endIndex = startIndex;
+                while (true) {
+                    int ch = xml.charAt(endIndex);                    
+                    if ((ch == 34) || (ch == 39) || (endIndex > xml.length()-1))
+                        break;
+                    endIndex++;
+                }
+                lsid = xml.substring(startIndex, endIndex);
+            }
+        }
+        return lsid;
     }
+    
     
 }

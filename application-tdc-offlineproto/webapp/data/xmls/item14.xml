@@ -1,0 +1,94 @@
+<element_package iid="ok_demo01.v01" security_classification_id="alg112">
+	<item_canvas id="IC">        
+         	<panel stereotype="directions" x="0" y="74" width="800" height="90" layout="vertical" spacing="10">                                       
+		 	<text_widget id="P1T1" width="800" halign="left">
+	         	<![CDATA[
+				<B>Read the passage and answer the questions that follow.</B>		 
+                	]]>
+			</text_widget>              
+	    	</panel>
+           
+	   	<panel stereotype="stem"  x="450" y="164" width="350" height="140" layout="horizontal" spacing="5">     
+		     <text_widget id="S1T1" width="350" valign="top">
+           	     <![CDATA[
+           	     		<P ALIGN="LEFT">What does Aleeya do with the bread<BR Type="Line" />and apple butter?</P>                       
+   		     ]]>
+		     </text_widget>		      
+       		</panel>	   
+
+
+		<stimulus_tabs_panel stereotype="stimulus" x="0" y="164" width="452" height="381" selectedTabNumber="1">
+ 			<stimulus_tab title="Passage">
+				<scrolling_text_widget width="450" height="350">
+					<text_widget width="420" halign="left">
+              			<![CDATA[
+  						<P ALIGN="CENTER"><B>A Birthday Surprise for Mama</B></P><P ALIGN="CENTER">by Mahani Gunnell</P><BR Type="Line" />
+						]]>
+					</text_widget>		      
+					<image_widget halign="left" src="./images/birthday_surp.swf"/>
+				    <text_widget width="420" halign="left">
+                	   <![CDATA[
+				 	   <P ALIGN="LEFT">As soon as Aleeya woke up, she remembered it was Mama's birthday.<BR Type="Line" />She jumped out of bed and ran to the kitchen.</P><BR Type="Line" /><P ALIGN="LEFT">There was no birthday cake on the kitchen table.</P><BR Type="Line" /><P ALIGN="LEFT">Aleeya pulled open the refrigerator door and looked inside. There was no birthday cake in the refrigerator.</P><BR Type="Line" /><P ALIGN="LEFT">No birthday cake on the counter next to the stove, no birthday cake near the sink, no birthday cake anywhere.</P><BR Type="Line" /><P ALIGN="LEFT">When it was Papa's birthday, Aleeya and Mama had brought Papa a birthday cake in bed. Papa was so surprised!</P><BR Type="Line" /><P ALIGN="LEFT">Now it was Mama's turn. But Papa was away at a meeting, and there was no cake. How could she surprise Mama?</P><BR Type="Line" /><P ALIGN="LEFT">Aleeya got her cup from the bottom cupboard. She opened the refrigerator door and reached for a carton of orange juice. Slowly, Aleeya poured some juice. She drank it.</P><BR Type="Line" /><P ALIGN="LEFT">She opened the refrigerator door again and poked her head all the way in. Maybe there was a birthday cake hiding somewhere. But there was none, and her nose felt cold.</P><BR Type="Line" /><P ALIGN="LEFT">Where was Mama's birthday cake?</P><BR Type="Line" /><P ALIGN="LEFT">There was apple butter--Mama's favorite!</P><BR Type="Line" /><P ALIGN="LEFT">Aleeya took the jar of apple butter and placed it on the counter. She got a plate, a spoon, and a piece of bread. She opened the jar of apple butter, scooped out a spoonful, and spread it on the bread the way Mama liked it--not too thick, and evenly to the sides.</P><BR Type="Line" /><P ALIGN="LEFT">A smile grew on Aleeya's face. It grew bigger and bigger as she walked to Mama's room with the delicious bread. &quot;Happy Birthday to Mama, Happy Birthday to Mama,&quot; she sang.</P><BR Type="Line" /><P ALIGN="LEFT">Mama was awake. She took the plate and hugged Aleeya tight.</P><BR Type="Line" /><P ALIGN="LEFT">&quot;Pretend there are candles,&quot; Aleeya said, &quot;and blow them out.&quot;</P><BR Type="Line" /><P ALIGN="LEFT">Mama closed her eyes and made a wish, then blew out the pretend candles.</P><BR Type="Line" /><P ALIGN="LEFT">&quot;Was it a good surprise?&quot; asked Aleeya.</P><BR Type="Line" /><P ALIGN="LEFT">&quot;It was the best birthday surprise ever,&quot; said Mama.</P><BR Type="Line" />
+						]]>
+		     		</text_widget>		      
+
+					<text_widget width="420" halign="left">
+               			<![CDATA[
+			 			<P ALIGN="LEFT">&quot;A Birthday Surprise for Mama&quot; by Mahani Gunnell, art by Kristine Bollinger from <I>Highlights for Children</I> Magazine's February 2001 issue, copyright (c) 2001 by Highlights for Children, Inc., Columbus, Ohio. Used by permission.</P>
+						]]>
+		     		</text_widget>
+	     		</scrolling_text_widget>
+	   		</stimulus_tab>	
+
+	   		<stimulus_tab title="Image">
+				<image_widget halign="center" src="./images/Lion.jpg"/>
+			</stimulus_tab>
+		</stimulus_tabs_panel>  
+
+	   <answer_area_panel stereotype="answerArea" x="450" y="304" width="350" height="230" layout="vertical" spacing="10" top_padding="10" left_padding="10">
+		<answer_choice_widget layout="horizontal">
+		 	<selector_widget valign="top" identifier="ok_demo01.obj_a"/>
+			<text_widget  width="300" valign="top">
+				bakes a big birthday cake			
+			</text_widget>
+
+		</answer_choice_widget>
+		   
+		<answer_choice_widget layout="horizontal">
+		 	<selector_widget valign="top" identifier="ok_demo01.obj_b"/>
+			<text_widget  width="300" valign="top">
+				hides it in the refrigerator			
+			</text_widget>
+
+		</answer_choice_widget>
+
+		<answer_choice_widget layout="horizontal">
+		 	<selector_widget valign="top" identifier="ok_demo01.obj_c"/>
+			<text_widget width="300" valign="top">
+				makes breakfast for herself
+			</text_widget>
+
+		</answer_choice_widget>
+		
+		<answer_choice_widget layout="horizontal">
+		 	<selector_widget valign="top" identifier="ok_demo01.obj_d"/>
+			<text_widget  width="300" valign="top">
+				prepares a surprise for Mama
+			</text_widget>
+
+		   </answer_choice_widget>
+           </answer_area_panel>   
+	</item_canvas>
+	
+	<item_model type="question" eid="14" iid="1" number="0" answered="0" marked="0" correct="ok_demo01.ba" score="0" answer_text="">
+		<toolbar standard_calculator="accommodated" scientific_calculator="not provisioned" option_eliminator="required" 
+		highlighter="required" eraser="required" cm_ruler="not provisioned" oneeighth_inch_ruler="not provisioned" half_inch_ruler="not provisioned" 
+		protractor="not provisioned" mm_ruler="not provisioned" formula_card="not provisioned"/>
+		<interaction type="choice" max_choices="1">
+			<selector identifier="ok_demo01.aa" obj_id_ref="ok_demo01.obj_a" user_action="n"/>
+			<selector identifier="ok_demo01.ba" obj_id_ref="ok_demo01.obj_b" user_action="n"/>
+			<selector identifier="ok_demo01.ca" obj_id_ref="ok_demo01.obj_c" user_action="n"/>
+			<selector identifier="ok_demo01.da" obj_id_ref="ok_demo01.obj_d" user_action="n"/>			
+		</interaction>
+	</item_model>			
+</element_package>

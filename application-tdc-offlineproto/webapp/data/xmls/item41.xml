@@ -1,0 +1,50 @@
+<element_package iid="ok_demo01.v01" security_classification_id="alg112">		
+
+<item_canvas id="IC">
+
+<panel stereotype="stem" layout="vertical" spacing="20" x="0" width="320" y="76" height="460" top_padding="20" left_padding="10" >
+	<text_widget  halign="left" width="300">
+		Manuel determined the number of different bases that are present in a single strand of DNA.
+	</text_widget>
+	<image_widget  src="./images/20S_04b1OKpractice.swf" halign="left" height="230" width="230"  /> 
+	<text_widget  halign="left" width="300">
+		<![CDATA[Which of these is and appropriate graph of the total number of bases in the DNA strand <u>and</u> its complementary strand? ]]>;	
+	</text_widget>
+</panel>
+
+
+<answer_choices_absolute_positioned_panel stereotype="answerArea" layout="absolute" spacing="0" width="480" x="320" height="460" y="76"  top_padding="20" left_padding="10"  >
+	<answer_choice_widget  layout="horizontal" x="30" y="30" width="190" height="195" spacing="5">
+		<selector_widget valign="middle"  />
+		<image_widget   src="./images/20A_04b1OKpractice.swf" halign="left" height="190" width="180"/>
+	</answer_choice_widget>
+
+	<answer_choice_widget  layout="horizontal" x="250" y="30" width="190" height="195" spacing="5">
+		<selector_widget valign="middle"  />
+		<image_widget  src="./images/20B_04b1OKpractice.swf" halign="left"  height="190" width="180"/>
+	</answer_choice_widget>
+
+	<answer_choice_widget  layout="horizontal" x="140" y="235"  width="190" height="195" spacing="5">
+		<selector_widget valign="middle"  />
+		<image_widget   src="./images/20C_04b1OKpractice.swf" halign="left" height="190" width="180"/>
+	</answer_choice_widget>
+
+	<!--<answer_choice_widget  layout="horizontal" x="250" y="235"  width="190" height="195" spacing="10">
+		<selector_widget valign="middle"  />
+		<image_widget   src="./images/20D_04b1OKpractice.swf" halign="left" height="190" width="180"/>
+	</answer_choice_widget>-->
+</answer_choices_absolute_positioned_panel>
+
+</item_canvas>
+
+<item_model iid="EOC.B.03P_70" marked="0" answered="0" number="0" type="question" eid="11" correct="B">
+	<toolbar oneeighth_inch_ruler="required" mm_ruler="required" formula_card="required" highlighter="required" eraser="required" cm_ruler="required" scientific_calculator="required" standard_calculator="required" protractor="required" option_eliminator="required" half_inch_ruler="required" />
+	<interaction type="choice" max_choices="1">
+		<selector identifier="A" obj_id_ref="A" user_action="n" />
+		<selector identifier="B" obj_id_ref="B" user_action="n" />
+		<selector identifier="C" obj_id_ref="C" user_action="n" />
+		<selector identifier="D" obj_id_ref="D" user_action="n" />
+	</interaction>
+</item_model>
+
+</element_package>

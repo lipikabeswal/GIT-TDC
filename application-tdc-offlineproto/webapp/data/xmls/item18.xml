@@ -1,0 +1,64 @@
+<element_package iid="ok_demo01.v01" security_classification_id="alg112">
+	<item_canvas id="IC">        
+         <panel stereotype="directions" x="0" y="74" width="800" height="90" layout="vertical" spacing="10">                                        
+		 <text_widget  width="800" halign="left">
+		 <![CDATA[
+		    <b>Template 0 Direction: Character count 200, Fonts Arial Bold, Bold Italic 14pt, 725 x 40 pixels. Template 0 Direction: Character count 200, Fonts Arial Bold, Bold Italic 14pt, 725 x 40 pixels. Template 0 Direction: Character count 200. end</b>
+		 ]]>
+		 </text_widget>              
+         </panel>
+           
+	   <panel stereotype="stem" x="0" y="164" width="800" height="140" layout="horizontal" spacing="10">     
+		     <text_widget width="800" valign="top">
+                        <![CDATA[
+		        Stem text area: 990 Character <b>bold</b> count, line break here<br/>Font Arial Regular, <b><i>Bold italics</i></b> and <i>Italic</i> 12pt, 720 x 130 pixels. Stem text area: 990 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 720 x 130 pixels. Stem text area: 990 Character count, Font 130 pixels. Stem text area: 990 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 720 x 130 pixels. Stem text area: 990 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 720 x 130 pixels. end
+                        ]]>
+		     </text_widget>		      
+           </panel>	   
+
+	   <answer_area_panel stereotype="answerArea" x="0" y="304" width="800" height="230" layout="vertical" spacing="10">
+		<answer_choice_widget layout="horizontal">
+		 	<selector_widget valign="top" identifier="ok_demo01.obj_a"/>
+			<text_widget  width="770" valign="top">
+				Answer Choice text area: 220 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. Answer Choice text area: 220 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. end
+			</text_widget>
+		</answer_choice_widget>
+		   
+		<answer_choice_widget layout="horizontal">
+		 	<selector_widget valign="top" identifier="ok_demo01.obj_b"/>
+			<text_widget  width="770" valign="top">
+				Answer Choice text area: 220 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. Answer Choice text area: 220 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. end
+			</text_widget>
+		</answer_choice_widget>
+
+		<answer_choice_widget layout="horizontal">
+		 	<selector_widget valign="top" identifier="ok_demo01.obj_c"/>
+			<text_widget  width="770" valign="top">
+				Answer Choice text area: 220 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. Answer Choice text area: 220 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. end
+			</text_widget>
+
+		   </answer_choice_widget>
+<!--
+		<answer_choice_widget layout="horizontal">
+			<text_widget  width="770" valign="top">
+				Answer Choice text area: 220 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. Answer Choice text area: 220 Character count, Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. Font Arial Regular, Bold, Bold Italic and Italic 12pt, 710 x 35 pixels. end
+			</text_widget>
+		 	<selector_widget valign="top"/>
+		</answer_choice_widget>
+-->		
+
+        </answer_area_panel>
+	</item_canvas>
+	
+	<item_model type="question" eid="18" iid="1" number="0" answered="0" marked="0" correct="ok_demo01.ba" score="0" answer_text="">
+		<toolbar standard_calculator="accommodated" scientific_calculator="not provisioned" option_eliminator="required" 
+		highlighter="required" eraser="required" cm_ruler="not provisioned" oneeighth_inch_ruler="not provisioned" half_inch_ruler="not provisioned" 
+		protractor="not provisioned" mm_ruler="not provisioned" formula_card="not provisioned"/>
+		<interaction type="choice" max_choices="1">
+			<selector identifier="ok_demo01.aa" obj_id_ref="ok_demo01.obj_a" user_action="n"/>
+			<selector identifier="ok_demo01.ba" obj_id_ref="ok_demo01.obj_b" user_action="n"/>
+			<selector identifier="ok_demo01.ca" obj_id_ref="ok_demo01.obj_c" user_action="n"/>
+<!--			<selector identifier="ok_demo01.d" obj_id_ref="ok_demo01.obj_d" user_action="n"/>			-->
+		</interaction>
+	</item_model>			
+</element_package>

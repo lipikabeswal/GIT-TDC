@@ -21,7 +21,7 @@ public class PersistenceServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     // temporary for now
-    private static final String AUDIT_FOLDER = "C:\\POC_Servlet\\audit\\";
+    private static final String AUDIT_FOLDER = "C:\\workspace\\application-tdc\\webapp\\data\\audit\\";
     
 	/**
 	 * Constructor of the object.
@@ -143,50 +143,68 @@ public class PersistenceServlet extends HttpServlet {
      */
     private boolean save(HttpServletResponse response, String xml) throws IOException {
         boolean result = true; 
-        response.setContentType("text/html");
+        response.setContentType("text/xml");
         PrintWriter out = response.getWriter();
 
         String event = ServletUtils.parseEvent(xml);
+        
         if (event.equals(ServletUtils.RESPONSE_EVENT))
             responseEvent(xml);
+        else
         if (event.equals(ServletUtils.START_EVENT))
-            startEvent();
+            startEvent(xml);
+        else
         if (event.equals(ServletUtils.FINISH_EVENT))
-            finishEvent();
+            finishEvent(xml);
+        else
         if (event.equals(ServletUtils.PAUSE_EVENT))
-            pauseEvent();
+            pauseEvent(xml);
+        else
         if (event.equals(ServletUtils.HEARTBEAT_EVENT))
-            heartbeatEvent();
-                
-        out.println(ServletUtils.OK);                
+            heartbeatEvent(xml);
+        else
+            unknownEvent(xml);
+            
+        out.println(xml);    
+        
         out.flush();
         out.close();        
         return result;
     }
-
+ 
+    private void unknownEvent(String xml) throws IOException {
+        String itemResponse = ServletUtils.parseItemResponse(xml);
+        String mseq = ServletUtils.parseMseq(xml);
+        String type = ServletUtils.UNKNOWN;
+        String lsid = ServletUtils.parseLsid(xml);
+        String date = ServletUtils.formatDateToDateString(new Date());
+                
+        writeToAuditFile(mseq, type, date, lsid, itemResponse);        
+    }
+    
     private void responseEvent(String xml) throws IOException {
         String itemResponse = ServletUtils.parseItemResponse(xml);
         String mseq = ServletUtils.parseMseq(xml);
-        String type = ServletUtils.parseType(xml);
+        String type = ServletUtils.RESPONSE_EVENT;
         String lsid = ServletUtils.parseLsid(xml);
         String date = ServletUtils.formatDateToDateString(new Date());
                 
         writeToAuditFile(mseq, type, date, lsid, itemResponse);        
     }
 
-    private void startEvent() {
+    private void startEvent(String xml) {
         // to do
     }
 
-    private void finishEvent() {
+    private void finishEvent(String xml) {
         // to do
     }
 
-    private void pauseEvent() {
+    private void pauseEvent(String xml) {
         // to do
     }
 
-    private void heartbeatEvent() {
+    private void heartbeatEvent(String xml) {
         // to do
     }
 
@@ -200,8 +218,12 @@ public class PersistenceServlet extends HttpServlet {
         boolean exist = file.exists();
         
         FileWriter fileWriter = new FileWriter(file, exist);
-        
-        String text = mseq + " - " + type + " - " + date + " - " + lsid + " - " + itemResponse + "\n";
+
+        String text = "MSEQ         TYPE            DATE                LSID                   RESPONSE \n";
+        if (! exist) {
+            fileWriter.write(text);            
+        }
+        text = mseq + "          " + type + "    " + date + "   " + lsid + "           " + itemResponse + "\n";
         
         
         fileWriter.write(text);

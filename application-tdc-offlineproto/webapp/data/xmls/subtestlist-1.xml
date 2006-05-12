@@ -1,0 +1,39 @@
+
+<title ID="title" name="name">
+
+<SCO seq="1" name="name1" title="title" time_limit_seconds = "33" 
+url="http://hermes.ewebclassroom.com:7001/SDSSvc/start.jsp?ASMT=s1" />
+
+<SCO seq="2" name="name2" title="title" time_limit_seconds = "33" 
+url="http://hermes.ewebclassroom.com:7001/SDSSvc/start.jsp?ASMT=s2" />
+
+<SCO seq="3" name="name3" title="title" time_limit_seconds = "33" 
+url="http://hermes.ewebclassroom.com:7001/SDSSvc/start.jsp?ASMT=s3" />
+
+<SCO seq="4" name="name1" title="title" time_limit_seconds = "33" 
+url="http://hermes.ewebclassroom.com:7001/SDSSvc/start.jsp?ASMT=s4" />
+
+<SCO seq="5" name="name2" title="title" time_limit_seconds = "33" 
+url="http://hermes.ewebclassroom.com:7001/SDSSvc/start.jsp?ASMT=s5" />
+
+<SCO seq="6" name="name3" title="title" time_limit_seconds = "33" 
+url="http://hermes.ewebclassroom.com:7001/SDSSvc/start.jsp?ASMT=s6" />
+
+<SCO seq="7" name="name1" title="title" time_limit_seconds = "33" 
+url="http://hermes.ewebclassroom.com:7001/SDSSvc/start.jsp?ASMT=s7" />
+
+<SCO seq="8" name="name2" title="title" time_limit_seconds = "33" 
+url="http://hermes.ewebclassroom.com:7001/SDSSvc/start.jsp?ASMT=s8" />
+
+<SCO seq="9" name="name3" title="title" time_limit_seconds = "33" 
+url="http://hermes.ewebclassroom.com:7001/SDSSvc/start.jsp?ASMT=s9" />
+
+<SCO seq="10" name="name1" title="title" time_limit_seconds = "33" 
+url="http://hermes.ewebclassroom.com:7001/SDSSvc/start.jsp?ASMT=s10" />
+
+<SCO seq="11" name="name2" title="title" time_limit_seconds = "33" 
+url="http://hermes.ewebclassroom.com:7001/SDSSvc/start.jsp?ASMT=s11" />
+
+<terminator seq="12" name="Thanks" url="xx" />
+
+</title>
