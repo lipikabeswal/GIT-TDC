@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 
 public class ServletUtils {
 
-    // temporary for now
-    public static final String AUDIT_FOLDER = "C:\\workspace\\application-tdc\\data\\audit\\";
-    public static final String XML_FOLDER = "C:\\workspace\\application-tdc\\data\\xmls\\";
-    public static final String IMAGE_FOLDER = "C:\\workspace\\application-tdc\\data\\images\\";
+    // data folders
+    public static final String AUDIT_FOLDER = "../../data/audit/";
+    public static final String XML_FOLDER = "../../data/xmls/";
+    public static final String IMAGE_FOLDER = "../../data/images/";
     
     // methods
     public static final String DOWNLOAD_CONTENT_METHOD = "downloadContent";
@@ -188,7 +188,7 @@ public class ServletUtils {
     
     // mseq     type    datetime    lsid    response
     public static void writeToAuditFile(String mseq, String type, String date, String lsid, String itemResponse) throws IOException {
-        
+
         String fileName = AUDIT_FOLDER + "audit.txt";        
         File file = new File(fileName);        
         boolean exist = file.exists();
@@ -205,7 +205,7 @@ public class ServletUtils {
         fileWriter.write(text);
         
         fileWriter.flush();
-        fileWriter.close();        
+        fileWriter.close();  
     }
     
 }
