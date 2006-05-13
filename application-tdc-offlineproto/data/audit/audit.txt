@@ -1,2 +1,9 @@
-MSEQ         TYPE            DATE                LSID                   RESPONSE 
-264          lms_response    05/12/06 04:01 PM   28331:oxygenate4           A
+MSEQ 	 TYPE 		 DATE 			 LSID 			 RESPONSE 
+--------------------------------------------------------------------------------- 
+1 	 lms_login 	 05/13/06 12:29 PM 	 28331:oxygenate4 	 -
+2 	 lms_start 	 05/13/06 12:30 PM 	 28331:oxygenate4 	 -
+3 	 lms_response 	 05/13/06 12:30 PM 	 28331:oxygenate4 	 A
+4 	 lms_pause 	 05/13/06 12:30 PM 	 28331:oxygenate4 	 -
+5 	 lms_heartbeat 	 05/13/06 12:30 PM 	 28331:oxygenate4 	 -
+6 	 lms_finish 	 05/13/06 12:30 PM 	 28331:oxygenate4 	 -
+7 	 lms_feedback 	 05/13/06 12:30 PM 	 28331:oxygenate4 	 -

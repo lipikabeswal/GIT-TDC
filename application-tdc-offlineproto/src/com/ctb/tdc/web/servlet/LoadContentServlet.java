@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ctb.tdc.web.utils.FileUtils;
 import com.ctb.tdc.web.utils.ServletUtils;
 
 /**
@@ -99,8 +100,8 @@ public class LoadContentServlet extends HttpServlet {
         response.setContentType("text/xml");
         PrintWriter out = response.getWriter();
         
-        String fileName = ServletUtils.XML_FOLDER + "subtest.xml";
-        result = ServletUtils.getFile(fileName, out);     
+        String fileName = FileUtils.XML_FOLDER + "subtest.xml";
+        result = FileUtils.printFileToOutput(fileName, out);     
         
         out.flush();
         out.close();        
@@ -124,8 +125,8 @@ public class LoadContentServlet extends HttpServlet {
         response.setContentType("text/xml");
         PrintWriter out = response.getWriter();
         
-        String fileName = ServletUtils.XML_FOLDER + "item" + itemId + ".xml";
-        result = ServletUtils.getFile(fileName, out);        
+        String fileName = FileUtils.XML_FOLDER + "item" + itemId + ".xml";
+        result = FileUtils.printFileToOutput(fileName, out);        
 
         out.flush();
         out.close();        
@@ -148,8 +149,8 @@ public class LoadContentServlet extends HttpServlet {
         response.setContentType(ServletUtils.getMIMEType("gif"));
         PrintWriter out = response.getWriter();
         
-        String fileName = ServletUtils.IMAGE_FOLDER + "ctb_logo.gif";
-        result = ServletUtils.getFile(fileName, out);        
+        String fileName = FileUtils.IMAGE_FOLDER + "ctb_logo.gif";
+        result = FileUtils.printFileToOutput(fileName, out);        
 
         out.flush();
         out.close();        

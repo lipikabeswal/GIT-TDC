@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ctb.tdc.web.utils.FileUtils;
 import com.ctb.tdc.web.utils.ServletUtils;
 
 /**
@@ -103,7 +104,7 @@ public class PersistenceServlet extends HttpServlet {
         String lsid = ServletUtils.parseLsid(xml);
         String date = ServletUtils.formatDateToDateString(new Date());
                 
-        ServletUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
+        FileUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
         
         out.println(xml);                        
         out.flush();
@@ -132,7 +133,7 @@ public class PersistenceServlet extends HttpServlet {
         String lsid = ServletUtils.parseLsid(xml);
         String date = ServletUtils.formatDateToDateString(new Date());
                 
-        ServletUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
+        FileUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
         
         out.println(xml);                        
         out.flush();
@@ -190,7 +191,7 @@ public class PersistenceServlet extends HttpServlet {
         String lsid = ServletUtils.parseLsid(xml);
         String date = ServletUtils.formatDateToDateString(new Date());
                 
-        ServletUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
+        FileUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
     }
     
     private void responseEvent(String xml) throws IOException {
@@ -200,7 +201,7 @@ public class PersistenceServlet extends HttpServlet {
         String lsid = ServletUtils.parseLsid(xml);
         String date = ServletUtils.formatDateToDateString(new Date());
                 
-        ServletUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
+        FileUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
     }
 
     private void startEvent(String xml) throws IOException {
@@ -210,7 +211,7 @@ public class PersistenceServlet extends HttpServlet {
         String lsid = ServletUtils.parseLsid(xml);
         String date = ServletUtils.formatDateToDateString(new Date());
                 
-        ServletUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
+        FileUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
     }
 
     private void finishEvent(String xml) throws IOException {
@@ -220,7 +221,7 @@ public class PersistenceServlet extends HttpServlet {
         String lsid = ServletUtils.parseLsid(xml);
         String date = ServletUtils.formatDateToDateString(new Date());
                 
-        ServletUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
+        FileUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
     }
 
     private void pauseEvent(String xml) throws IOException {
@@ -230,7 +231,7 @@ public class PersistenceServlet extends HttpServlet {
         String lsid = ServletUtils.parseLsid(xml);
         String date = ServletUtils.formatDateToDateString(new Date());
                 
-        ServletUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
+        FileUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
     }
 
     private void heartbeatEvent(String xml) throws IOException {
@@ -240,7 +241,7 @@ public class PersistenceServlet extends HttpServlet {
         String lsid = ServletUtils.parseLsid(xml);
         String date = ServletUtils.formatDateToDateString(new Date());
                 
-        ServletUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
+        FileUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
     }
 
     

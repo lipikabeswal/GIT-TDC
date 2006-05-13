@@ -1,22 +1,11 @@
 package com.ctb.tdc.web.utils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 public class ServletUtils {
 
-    // data folders
-    public static final String AUDIT_FOLDER = "../../data/audit/";
-    public static final String XML_FOLDER = "../../data/xmls/";
-    public static final String IMAGE_FOLDER = "../../data/images/";
-    
     // methods
     public static final String DOWNLOAD_CONTENT_METHOD = "downloadContent";
     public static final String INITITAL_DOWNLOAD_CONTENT_METHOD = "initialDownloadContent";
@@ -52,7 +41,7 @@ public class ServletUtils {
     public final static String DATETIME_FORMAT="MM/dd/yy hh:mm a";
 
     // misc
-    public static final String UNKNOWN = "----------";
+    public static final String UNKNOWN = "-";
     
     // helpers
     public static String getMethod(HttpServletRequest request) {
@@ -106,22 +95,6 @@ public class ServletUtils {
         return result;
     }    
     
-    public static boolean getFile(String fileName, PrintWriter out) {
-        boolean result = true;
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            String line = null;
-            while((line = reader.readLine()) != null){
-                out.println(line);
-            }
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            result = false;
-        }
-        return result;
-    }
-
     public static String parseEvent(String xml) {
         String event = UNKNOWN;
         if (xml != null) {
@@ -186,26 +159,5 @@ public class ServletUtils {
         return lsid;
     }
     
-    // mseq     type    datetime    lsid    response
-    public static void writeToAuditFile(String mseq, String type, String date, String lsid, String itemResponse) throws IOException {
-
-        String fileName = AUDIT_FOLDER + "audit.txt";        
-        File file = new File(fileName);        
-        boolean exist = file.exists();
-        
-        FileWriter fileWriter = new FileWriter(file, exist);
-
-        String text = null;
-        if (! exist) {
-            text = "MSEQ         TYPE            DATE                LSID                   RESPONSE \n";
-            fileWriter.write(text);            
-        }
-        text = mseq + "          " + type + "    " + date + "   " + lsid + "           " + itemResponse + "\n";
-                
-        fileWriter.write(text);
-        
-        fileWriter.flush();
-        fileWriter.close();  
-    }
     
 }
