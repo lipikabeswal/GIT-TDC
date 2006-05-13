@@ -1,7 +1,10 @@
 package com.ctb.tdc.web.utils;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,6 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 
 public class ServletUtils {
 
+    // temporary for now
+    public static final String AUDIT_FOLDER = "C:\\workspace\\application-tdc\\data\\audit\\";
+    public static final String XML_FOLDER = "C:\\workspace\\application-tdc\\data\\xmls\\";
+    public static final String IMAGE_FOLDER = "C:\\workspace\\application-tdc\\data\\images\\";
+    
     // methods
     public static final String DOWNLOAD_CONTENT_METHOD = "downloadContent";
     public static final String INITITAL_DOWNLOAD_CONTENT_METHOD = "initialDownloadContent";
@@ -178,5 +186,26 @@ public class ServletUtils {
         return lsid;
     }
     
+    // mseq     type    datetime    lsid    response
+    public static void writeToAuditFile(String mseq, String type, String date, String lsid, String itemResponse) throws IOException {
+        
+        String fileName = AUDIT_FOLDER + "audit.txt";        
+        File file = new File(fileName);        
+        boolean exist = file.exists();
+        
+        FileWriter fileWriter = new FileWriter(file, exist);
+
+        String text = null;
+        if (! exist) {
+            text = "MSEQ         TYPE            DATE                LSID                   RESPONSE \n";
+            fileWriter.write(text);            
+        }
+        text = mseq + "          " + type + "    " + date + "   " + lsid + "           " + itemResponse + "\n";
+                
+        fileWriter.write(text);
+        
+        fileWriter.flush();
+        fileWriter.close();        
+    }
     
 }

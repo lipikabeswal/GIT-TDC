@@ -1,7 +1,5 @@
 package com.ctb.tdc.web.servlet;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -19,9 +17,6 @@ import com.ctb.tdc.web.utils.ServletUtils;
 public class PersistenceServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
-
-    // temporary for now
-    private static final String AUDIT_FOLDER = "C:\\workspace\\application-tdc\\data\\audit\\";
     
 	/**
 	 * Constructor of the object.
@@ -99,10 +94,18 @@ public class PersistenceServlet extends HttpServlet {
      */
     private boolean login(HttpServletResponse response, String xml) throws IOException {
         boolean result = true; 
-        response.setContentType("text/html");
+        response.setContentType("text/xml");
         PrintWriter out = response.getWriter();
         
-        out.println(ServletUtils.OK);                        
+        String itemResponse = ServletUtils.parseItemResponse(xml);
+        String mseq = ServletUtils.parseMseq(xml);
+        String type = ServletUtils.LOGIN_EVENT;
+        String lsid = ServletUtils.parseLsid(xml);
+        String date = ServletUtils.formatDateToDateString(new Date());
+                
+        ServletUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
+        
+        out.println(xml);                        
         out.flush();
         out.close();        
         return result;
@@ -120,10 +123,18 @@ public class PersistenceServlet extends HttpServlet {
      */
     private boolean feedback(HttpServletResponse response, String xml) throws IOException {
         boolean result = true; 
-        response.setContentType("text/html");
+        response.setContentType("text/xml");
         PrintWriter out = response.getWriter();
         
-        out.println(ServletUtils.OK);                        
+        String itemResponse = ServletUtils.parseItemResponse(xml);
+        String mseq = ServletUtils.parseMseq(xml);
+        String type = ServletUtils.FEEDBACK_EVENT;
+        String lsid = ServletUtils.parseLsid(xml);
+        String date = ServletUtils.formatDateToDateString(new Date());
+                
+        ServletUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
+        
+        out.println(xml);                        
         out.flush();
         out.close();        
         return result;
@@ -179,7 +190,7 @@ public class PersistenceServlet extends HttpServlet {
         String lsid = ServletUtils.parseLsid(xml);
         String date = ServletUtils.formatDateToDateString(new Date());
                 
-        writeToAuditFile(mseq, type, date, lsid, itemResponse);        
+        ServletUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
     }
     
     private void responseEvent(String xml) throws IOException {
@@ -189,49 +200,49 @@ public class PersistenceServlet extends HttpServlet {
         String lsid = ServletUtils.parseLsid(xml);
         String date = ServletUtils.formatDateToDateString(new Date());
                 
-        writeToAuditFile(mseq, type, date, lsid, itemResponse);        
+        ServletUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
     }
 
-    private void startEvent(String xml) {
-        // to do
+    private void startEvent(String xml) throws IOException {
+        String itemResponse = ServletUtils.parseItemResponse(xml);
+        String mseq = ServletUtils.parseMseq(xml);
+        String type = ServletUtils.START_EVENT;
+        String lsid = ServletUtils.parseLsid(xml);
+        String date = ServletUtils.formatDateToDateString(new Date());
+                
+        ServletUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
     }
 
-    private void finishEvent(String xml) {
-        // to do
+    private void finishEvent(String xml) throws IOException {
+        String itemResponse = ServletUtils.parseItemResponse(xml);
+        String mseq = ServletUtils.parseMseq(xml);
+        String type = ServletUtils.FINISH_EVENT;
+        String lsid = ServletUtils.parseLsid(xml);
+        String date = ServletUtils.formatDateToDateString(new Date());
+                
+        ServletUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
     }
 
-    private void pauseEvent(String xml) {
-        // to do
+    private void pauseEvent(String xml) throws IOException {
+        String itemResponse = ServletUtils.parseItemResponse(xml);
+        String mseq = ServletUtils.parseMseq(xml);
+        String type = ServletUtils.PAUSE_EVENT;
+        String lsid = ServletUtils.parseLsid(xml);
+        String date = ServletUtils.formatDateToDateString(new Date());
+                
+        ServletUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
     }
 
-    private void heartbeatEvent(String xml) {
-        // to do
+    private void heartbeatEvent(String xml) throws IOException {
+        String itemResponse = ServletUtils.parseItemResponse(xml);
+        String mseq = ServletUtils.parseMseq(xml);
+        String type = ServletUtils.HEARTBEAT_EVENT;
+        String lsid = ServletUtils.parseLsid(xml);
+        String date = ServletUtils.formatDateToDateString(new Date());
+                
+        ServletUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
     }
 
-    // Mseq Type    Datetime    lsid    encrypted request/response
-    private void writeToAuditFile(String mseq, String type, String date, String lsid, String itemResponse) throws IOException {
-        
-        String fileName = AUDIT_FOLDER + "audit.txt";
-        
-        File file = new File(fileName);
-        
-        boolean exist = file.exists();
-        
-        FileWriter fileWriter = new FileWriter(file, exist);
-
-        String text = "MSEQ         TYPE            DATE                LSID                   RESPONSE \n";
-        if (! exist) {
-            fileWriter.write(text);            
-        }
-        text = mseq + "          " + type + "    " + date + "   " + lsid + "           " + itemResponse + "\n";
-        
-        
-        fileWriter.write(text);
-        
-        fileWriter.flush();
-        fileWriter.close();
-        
-    }
     
 
 }
