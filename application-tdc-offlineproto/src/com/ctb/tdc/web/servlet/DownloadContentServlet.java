@@ -90,19 +90,12 @@ public class DownloadContentServlet extends HttpServlet {
      *
      */
     private boolean initialDownloadContent(HttpServletResponse response, String itemSetId, String encryptionKey) throws IOException {
-        boolean result = true; 
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        
         if (! hasCurrentContent(encryptionKey)) {
             String content = loadTest(itemSetId);
             writeContentToDisk(content);
         }
-        
-        out.println(ServletUtils.OK);        
-        out.flush();
-        out.close();                
-        return result;
+        writeResponse(response, ServletUtils.OK);
+        return true;
     }
 
     /**
@@ -117,19 +110,12 @@ public class DownloadContentServlet extends HttpServlet {
      *
      */
     private boolean downloadContent(HttpServletResponse response, String itemSetId, String encryptionKey) throws IOException {
-        boolean result = true; 
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        
         if (! hasCurrentContent(encryptionKey)) {
             String content = loadTest(itemSetId);
             writeContentToDisk(content);
         }
-        
-        out.println(ServletUtils.OK);        
-        out.flush();
-        out.close();                
-        return result;
+        writeResponse(response, ServletUtils.OK);
+        return true;
     }
     
     /**
@@ -153,5 +139,12 @@ public class DownloadContentServlet extends HttpServlet {
     private void writeContentToDisk(String content) {
     }
 
+    private void writeResponse(HttpServletResponse response, String xml) throws IOException {
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println(xml);            
+        out.flush();
+        out.close();        
+    }
     
 }

@@ -2,13 +2,13 @@ package com.ctb.tdc.web.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ctb.tdc.web.dto.AuditVO;
 import com.ctb.tdc.web.utils.FileUtils;
 import com.ctb.tdc.web.utils.ServletUtils;
 
@@ -31,7 +31,6 @@ public class PersistenceServlet extends HttpServlet {
 	 */
 	public void destroy() {
 		super.destroy(); // Just puts "destroy" string in log
-		// Put your code here
 	}
 
 	/**
@@ -94,22 +93,9 @@ public class PersistenceServlet extends HttpServlet {
      *  
      */
     private boolean login(HttpServletResponse response, String xml) throws IOException {
-        boolean result = true; 
-        response.setContentType("text/xml");
-        PrintWriter out = response.getWriter();
-        
-        String itemResponse = ServletUtils.parseItemResponse(xml);
-        String mseq = ServletUtils.parseMseq(xml);
-        String type = ServletUtils.LOGIN_EVENT;
-        String lsid = ServletUtils.parseLsid(xml);
-        String date = ServletUtils.formatDateToDateString(new Date());
-                
-        FileUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
-        
-        out.println(xml);                        
-        out.flush();
-        out.close();        
-        return result;
+        handleEvent(xml, ServletUtils.LOGIN_EVENT);
+        writeResponse(response, xml);
+        return true;
     }
     
     /**
@@ -123,22 +109,9 @@ public class PersistenceServlet extends HttpServlet {
      *  
      */
     private boolean feedback(HttpServletResponse response, String xml) throws IOException {
-        boolean result = true; 
-        response.setContentType("text/xml");
-        PrintWriter out = response.getWriter();
-        
-        String itemResponse = ServletUtils.parseItemResponse(xml);
-        String mseq = ServletUtils.parseMseq(xml);
-        String type = ServletUtils.FEEDBACK_EVENT;
-        String lsid = ServletUtils.parseLsid(xml);
-        String date = ServletUtils.formatDateToDateString(new Date());
-                
-        FileUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
-        
-        out.println(xml);                        
-        out.flush();
-        out.close();        
-        return result;
+        handleEvent(xml, ServletUtils.FEEDBACK_EVENT);
+        writeResponse(response, xml);
+        return true;
     }
 
     /**
@@ -153,97 +126,48 @@ public class PersistenceServlet extends HttpServlet {
      *  on response from TMS, write ack to audit file.
      *  
      */
-    private boolean save(HttpServletResponse response, String xml) throws IOException {
-        boolean result = true; 
-        response.setContentType("text/xml");
-        PrintWriter out = response.getWriter();
-
+    private boolean save(HttpServletResponse response, String xml) throws IOException {                
+        String line = FileUtils.getLastLineInFile();
+        AuditVO audit = ServletUtils.buildVOFromString(line);
+        String type = audit.getType();
+        if (type.equals(ServletUtils.TMS_REQUEST_EVENT)) {
+            String error = "<error>No Acknowledgement From TMS</error>";
+            writeResponse(response, error);
+            return false;
+        }
+        
         String event = ServletUtils.parseEvent(xml);
-        
-        if (event.equals(ServletUtils.RESPONSE_EVENT))
-            responseEvent(xml);
-        else
-        if (event.equals(ServletUtils.START_EVENT))
-            startEvent(xml);
-        else
-        if (event.equals(ServletUtils.FINISH_EVENT))
-            finishEvent(xml);
-        else
-        if (event.equals(ServletUtils.PAUSE_EVENT))
-            pauseEvent(xml);
-        else
-        if (event.equals(ServletUtils.HEARTBEAT_EVENT))
-            heartbeatEvent(xml);
-        else
-            unknownEvent(xml);
-            
-        out.println(xml);    
-        
-        out.flush();
-        out.close();        
-        return result;
+        audit = ServletUtils.buildVOFromXML(xml, event);
+        FileUtils.writeToAuditFile(audit);        
+        writeResponse(response, xml);        
+        sendRequestToTMS(event);        
+        return true;
     }
  
-    private void unknownEvent(String xml) throws IOException {
-        String itemResponse = ServletUtils.parseItemResponse(xml);
-        String mseq = ServletUtils.parseMseq(xml);
-        String type = ServletUtils.UNKNOWN;
-        String lsid = ServletUtils.parseLsid(xml);
-        String date = ServletUtils.formatDateToDateString(new Date());
-                
-        FileUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
+    private void handleEvent(String xml, String event) throws IOException {
+        AuditVO audit = ServletUtils.buildVOFromXML(xml, event);
+        FileUtils.writeToAuditFile(audit);        
+    }
+
+    private void sendRequestToTMS(String event) throws IOException {
+        AuditVO audit = ServletUtils.buildVOFromType(ServletUtils.TMS_REQUEST_EVENT);
+        FileUtils.writeToAuditFile(audit);        
+        
+        // call TMS here
+        
+        // pretend TMS return ack, this code will be removed later
+        AuditVO audit_ack = ServletUtils.buildVOFromType(ServletUtils.TMS_ACK_EVENT);
+        FileUtils.writeToAuditFile(audit_ack);        
+    }    
+    
+    private void writeResponse(HttpServletResponse response, String xml) throws IOException {
+        response.setContentType("text/xml");
+        PrintWriter out = response.getWriter();
+        out.println(xml);            
+        out.flush();
+        out.close();        
     }
     
-    private void responseEvent(String xml) throws IOException {
-        String itemResponse = ServletUtils.parseItemResponse(xml);
-        String mseq = ServletUtils.parseMseq(xml);
-        String type = ServletUtils.RESPONSE_EVENT;
-        String lsid = ServletUtils.parseLsid(xml);
-        String date = ServletUtils.formatDateToDateString(new Date());
-                
-        FileUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
-    }
-
-    private void startEvent(String xml) throws IOException {
-        String itemResponse = ServletUtils.parseItemResponse(xml);
-        String mseq = ServletUtils.parseMseq(xml);
-        String type = ServletUtils.START_EVENT;
-        String lsid = ServletUtils.parseLsid(xml);
-        String date = ServletUtils.formatDateToDateString(new Date());
-                
-        FileUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
-    }
-
-    private void finishEvent(String xml) throws IOException {
-        String itemResponse = ServletUtils.parseItemResponse(xml);
-        String mseq = ServletUtils.parseMseq(xml);
-        String type = ServletUtils.FINISH_EVENT;
-        String lsid = ServletUtils.parseLsid(xml);
-        String date = ServletUtils.formatDateToDateString(new Date());
-                
-        FileUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
-    }
-
-    private void pauseEvent(String xml) throws IOException {
-        String itemResponse = ServletUtils.parseItemResponse(xml);
-        String mseq = ServletUtils.parseMseq(xml);
-        String type = ServletUtils.PAUSE_EVENT;
-        String lsid = ServletUtils.parseLsid(xml);
-        String date = ServletUtils.formatDateToDateString(new Date());
-                
-        FileUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
-    }
-
-    private void heartbeatEvent(String xml) throws IOException {
-        String itemResponse = ServletUtils.parseItemResponse(xml);
-        String mseq = ServletUtils.parseMseq(xml);
-        String type = ServletUtils.HEARTBEAT_EVENT;
-        String lsid = ServletUtils.parseLsid(xml);
-        String date = ServletUtils.formatDateToDateString(new Date());
-                
-        FileUtils.writeToAuditFile(mseq, type, date, lsid, itemResponse);        
-    }
-
-    
+        
 
 }

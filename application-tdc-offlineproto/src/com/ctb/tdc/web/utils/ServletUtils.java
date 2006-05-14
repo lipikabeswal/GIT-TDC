@@ -2,7 +2,11 @@ package com.ctb.tdc.web.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.StringTokenizer;
+
 import javax.servlet.http.HttpServletRequest;
+
+import com.ctb.tdc.web.dto.AuditVO;
 
 public class ServletUtils {
 
@@ -32,10 +36,13 @@ public class ServletUtils {
     public static final String PAUSE_EVENT = "lms_pause";
     public static final String HEARTBEAT_EVENT = "lms_heartbeat";
     public static final String FEEDBACK_EVENT = "lms_feedback";
+    public static final String UNKNOWN_EVENT = "lms_unknown";
 
+    public static final String TMS_REQUEST_EVENT = "tms_request";
+    public static final String TMS_ACK_EVENT = "tms_ack";
+    
     // returned values
     public static final String OK = "200 OK";
-    public static final String NO_CONTENT = "204 No Content";
 
     // date time
     public final static String DATETIME_FORMAT="MM/dd/yy hh:mm a";
@@ -96,7 +103,7 @@ public class ServletUtils {
     }    
     
     public static String parseEvent(String xml) {
-        String event = UNKNOWN;
+        String event = UNKNOWN_EVENT;
         if (xml != null) {
             if (xml.indexOf(LOGIN_EVENT) > 0) event = LOGIN_EVENT;
             if (xml.indexOf(RESPONSE_EVENT) > 0) event = RESPONSE_EVENT;
@@ -109,7 +116,7 @@ public class ServletUtils {
         return event;
     }
 
-    public static String parseItemResponse(String xml) {
+    public static String parseResponse(String xml) {
         String itemResponse = UNKNOWN;
         if (xml != null) {
             int startIndex = xml.indexOf("<v>");
@@ -158,6 +165,31 @@ public class ServletUtils {
         }
         return lsid;
     }
-    
+     
+    public static AuditVO buildVOFromXML(String xml, String type) {
+        String mseq = parseMseq(xml);
+        String lsid = parseLsid(xml);
+        String response = parseResponse(xml);
+        String date = formatDateToDateString(new Date());
+        AuditVO audit = new AuditVO(mseq, type, date, lsid, response);
+        return audit;
+    }
+
+    public static AuditVO buildVOFromString(String src) {
+        StringTokenizer st = new StringTokenizer(src, "\t");
+        String mseq = st.nextToken();
+        String type = st.nextToken();
+        String date = st.nextToken();
+        String lsid = st.nextToken();
+        String response = st.nextToken();
+        AuditVO audit = new AuditVO(mseq.trim(), type.trim(), date.trim(), lsid.trim(), response.trim());
+        return audit;
+    }
+
+    public static AuditVO buildVOFromType(String type) {
+        String date = formatDateToDateString(new Date());
+        AuditVO audit = new AuditVO(UNKNOWN, type, date, UNKNOWN+"\t\t", UNKNOWN);
+        return audit;
+    }
     
 }
