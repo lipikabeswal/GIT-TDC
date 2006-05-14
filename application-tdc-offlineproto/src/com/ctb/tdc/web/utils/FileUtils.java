@@ -26,9 +26,20 @@ public class FileUtils {
         return true;
     }
     
+    // create audit file
+    public static boolean createAuditFile(String xml) throws IOException {
+        String fileName = AUDIT_FOLDER + "audit.txt"; // for now        
+        File file = new File(fileName);        
+        boolean exist = file.exists();
+        if (exist) {
+            // handle restart data???
+        }
+        return true;
+    }
+    
     // format = mseq     type    datetime    lsid    response
     public static boolean writeToAuditFile(AuditVO audit) throws IOException {
-        String fileName = AUDIT_FOLDER + "audit.txt";        
+        String fileName = AUDIT_FOLDER + "audit.txt"; // for now       
         File file = new File(fileName);        
         boolean exist = file.exists();
         

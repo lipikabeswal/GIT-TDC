@@ -1,9 +1,14 @@
 MSEQ 	 TYPE 		 DATE 			 LSID 			 RESPONSE 
 --------------------------------------------------------------------------------- 
-1 	 lms_login 	 05/13/06 12:29 PM 	 28331:oxygenate4 	 -
-2 	 lms_start 	 05/13/06 12:30 PM 	 28331:oxygenate4 	 -
-3 	 lms_response 	 05/13/06 12:30 PM 	 28331:oxygenate4 	 A
-4 	 lms_pause 	 05/13/06 12:30 PM 	 28331:oxygenate4 	 -
-5 	 lms_heartbeat 	 05/13/06 12:30 PM 	 28331:oxygenate4 	 -
-6 	 lms_finish 	 05/13/06 12:30 PM 	 28331:oxygenate4 	 -
-7 	 lms_feedback 	 05/13/06 12:30 PM 	 28331:oxygenate4 	 -
+- 	 tms_request 	 05/14/06 02:32 PM 	 -		 	 -
+- 	 tms_ack 	 05/14/06 02:32 PM 	 -		 	 -
+1 	 lms_login 	 05/14/06 02:32 PM 	 28331:oxygenate4 	 -
+2 	 lms_start 	 05/14/06 02:33 PM 	 28331:oxygenate4 	 -
+- 	 tms_request 	 05/14/06 02:33 PM 	 -		 	 -
+- 	 tms_ack 	 05/14/06 02:33 PM 	 -		 	 -
+3 	 lms_response 	 05/14/06 02:33 PM 	 28331:oxygenate4 	 A
+- 	 tms_request 	 05/14/06 02:33 PM 	 -		 	 -
+- 	 tms_ack 	 05/14/06 02:33 PM 	 -		 	 -
+4 	 lms_pause 	 05/14/06 02:33 PM 	 28331:oxygenate4 	 -
+- 	 tms_request 	 05/14/06 02:33 PM 	 -		 	 -
+- 	 tms_ack 	 05/14/06 02:33 PM 	 -		 	 -

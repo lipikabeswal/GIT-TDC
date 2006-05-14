@@ -88,13 +88,16 @@ public class PersistenceServlet extends HttpServlet {
      *  request login response xml from TMS   
      *  parse login response xml to determine roster id and restart data (if present)
      *  create audit file if not exists (reconstitute from restart data if restart on different machine??)
-     *  write response to audit file
+     *  write ack to audit file
      *  return login response xml to client
      *  
      */
     private boolean login(HttpServletResponse response, String xml) throws IOException {
+        String result = sendRequestToTMS(ServletUtils.LOGIN_EVENT);
+        FileUtils.createAuditFile(result);        
         handleEvent(xml, ServletUtils.LOGIN_EVENT);
-        writeResponse(response, xml);
+        result = xml; // for now fake result = xml       
+        writeResponse(response, result);
         return true;
     }
     
@@ -109,8 +112,10 @@ public class PersistenceServlet extends HttpServlet {
      *  
      */
     private boolean feedback(HttpServletResponse response, String xml) throws IOException {
+        String result = sendRequestToTMS(ServletUtils.FEEDBACK_EVENT);
         handleEvent(xml, ServletUtils.FEEDBACK_EVENT);
-        writeResponse(response, xml);
+        result = xml; // for now fake result = xml       
+        writeResponse(response, result);
         return true;
     }
 
@@ -149,15 +154,19 @@ public class PersistenceServlet extends HttpServlet {
         FileUtils.writeToAuditFile(audit);        
     }
 
-    private void sendRequestToTMS(String event) throws IOException {
+    private String sendRequestToTMS(String event) throws IOException {
+        String result = "";
         AuditVO audit = ServletUtils.buildVOFromType(ServletUtils.TMS_REQUEST_EVENT);
         FileUtils.writeToAuditFile(audit);        
         
         // call TMS here
+        // result = returned from TMS
         
         // pretend TMS return ack, this code will be removed later
         AuditVO audit_ack = ServletUtils.buildVOFromType(ServletUtils.TMS_ACK_EVENT);
-        FileUtils.writeToAuditFile(audit_ack);        
+        FileUtils.writeToAuditFile(audit_ack);
+        
+        return result;
     }    
     
     private void writeResponse(HttpServletResponse response, String xml) throws IOException {
