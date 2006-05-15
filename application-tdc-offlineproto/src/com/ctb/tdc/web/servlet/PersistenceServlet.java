@@ -51,9 +51,9 @@ public class PersistenceServlet extends HttpServlet {
         
         if (method.equals(ServletUtils.LOGIN_METHOD))
             login(response, xml);
-        if (method.equals(ServletUtils.SAVE_METHOD))
+        else if (method.equals(ServletUtils.SAVE_METHOD))
             save(response, xml);        
-        if (method.equals(ServletUtils.FEEDBACK_METHOD))
+        else if (method.equals(ServletUtils.FEEDBACK_METHOD))
             feedback(response, xml);        
 	}
 
