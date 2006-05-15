@@ -12,7 +12,8 @@ import com.ctb.tdc.web.dto.AuditVO;
 public class FileUtils {
 
     // data folders
-    public static final String AUDIT_FOLDER = "../../data/audit/";
+    public static final String AUDIT_FOLDER = "";
+    //public static final String AUDIT_FOLDER = "../../data/audit/";
     public static final String XML_FOLDER = "../../data/xmls/";
     public static final String IMAGE_FOLDER = "../../data/images/";
     
@@ -62,7 +63,12 @@ public class FileUtils {
 
     // get last line
     public static String getLastLineInFile() throws IOException {
-        String fileName = AUDIT_FOLDER + "audit.txt";        
+System.out.println("start getLastLineInFile");
+        
+        String fileName = AUDIT_FOLDER + "audit.txt";     
+
+System.out.println(fileName);
+
         String line = null;
         String buff = null;
         BufferedReader reader = new BufferedReader(new FileReader(fileName));

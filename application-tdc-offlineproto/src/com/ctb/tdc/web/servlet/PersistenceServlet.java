@@ -131,16 +131,27 @@ public class PersistenceServlet extends HttpServlet {
      *  on response from TMS, write ack to audit file.
      *  
      */
-    private boolean save(HttpServletResponse response, String xml) throws IOException {                
+    private boolean save(HttpServletResponse response, String xml) throws IOException {  
+System.out.println("start save");
+
+
         String line = FileUtils.getLastLineInFile();
+        
+System.out.println("line=" + line);
+
         AuditVO audit = ServletUtils.buildVOFromString(line);
         String type = audit.getType();
+System.out.println("type=" + type);
+        
         if (type.equals(ServletUtils.TMS_REQUEST_EVENT)) {
             String error = "<error>No Acknowledgement From TMS</error>";
             writeResponse(response, error);
+System.out.println("error");
             return false;
         }
-        
+
+System.out.println("continue");
+
         String event = ServletUtils.parseEvent(xml);
         audit = ServletUtils.buildVOFromXML(xml, event);
         FileUtils.writeToAuditFile(audit);        

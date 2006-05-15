@@ -106,12 +106,15 @@ public class ServletUtils {
         String event = UNKNOWN_EVENT;
         if (xml != null) {
             if (xml.indexOf(LOGIN_EVENT) > 0) event = LOGIN_EVENT;
-            if (xml.indexOf(RESPONSE_EVENT) > 0) event = RESPONSE_EVENT;
-            if (xml.indexOf(START_EVENT) > 0) event = START_EVENT;
-            if (xml.indexOf(FINISH_EVENT) > 0) event = FINISH_EVENT;
-            if (xml.indexOf(PAUSE_EVENT) > 0) event = PAUSE_EVENT;
-            if (xml.indexOf(HEARTBEAT_EVENT) > 0) event = HEARTBEAT_EVENT;
-            if (xml.indexOf(FEEDBACK_EVENT) > 0) event = FEEDBACK_EVENT;
+            else if (xml.indexOf(START_EVENT) > 0) event = START_EVENT;
+            else if (xml.indexOf(FINISH_EVENT) > 0) event = FINISH_EVENT;
+            else if (xml.indexOf(PAUSE_EVENT) > 0) event = PAUSE_EVENT;
+            else if (xml.indexOf(FEEDBACK_EVENT) > 0) event = FEEDBACK_EVENT;
+            else {
+                String itemResponse = parseResponse(xml);
+                if (! itemResponse.equals(UNKNOWN)) event = RESPONSE_EVENT;
+                else event = HEARTBEAT_EVENT;
+            }
         }
         return event;
     }
