@@ -168,13 +168,19 @@ public class ServletUtils {
         }
         return lsid;
     }
-     
+
+    public static String parseFileName(String xml) {
+        String fileName = FileUtils.AUDIT_DEFAULT_FILENAME; // for now
+        return fileName;
+    }
+    
     public static AuditVO buildVOFromXML(String xml, String type) {
+        String fileName = parseFileName(xml);
         String mseq = parseMseq(xml);
         String lsid = parseLsid(xml);
         String response = parseResponse(xml);
         String date = formatDateToDateString(new Date());
-        AuditVO audit = new AuditVO(mseq, type, date, lsid, response);
+        AuditVO audit = new AuditVO(fileName, mseq, type, date, lsid, response);
         return audit;
     }
 
@@ -185,13 +191,15 @@ public class ServletUtils {
         String date = st.nextToken();
         String lsid = st.nextToken();
         String response = st.nextToken();
-        AuditVO audit = new AuditVO(mseq.trim(), type.trim(), date.trim(), lsid.trim(), response.trim());
+        String fileName = FileUtils.AUDIT_DEFAULT_FILENAME; // for now
+        AuditVO audit = new AuditVO(fileName, mseq.trim(), type.trim(), date.trim(), lsid.trim(), response.trim());
         return audit;
     }
 
     public static AuditVO buildVOFromType(String type) {
         String date = formatDateToDateString(new Date());
-        AuditVO audit = new AuditVO(UNKNOWN, type, date, UNKNOWN+"\t\t", UNKNOWN);
+        String fileName = FileUtils.AUDIT_DEFAULT_FILENAME; // for now
+        AuditVO audit = new AuditVO(fileName, UNKNOWN, type, date, UNKNOWN+"\t\t", UNKNOWN);
         return audit;
     }
     

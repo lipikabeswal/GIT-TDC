@@ -11,11 +11,12 @@ import com.ctb.tdc.web.dto.AuditVO;
 
 public class FileUtils {
 
-    // data folders
+    // data files
+    public static final String TDC_HOME = "tdc.home";
+    public static final String AUDIT_DEFAULT_FILENAME = "audit.log";
     public static final String AUDIT_FOLDER = "/data/audit/";
-    //public static final String AUDIT_FOLDER = "../../data/audit/";
-    public static final String XML_FOLDER = "../../data/xmls/";
-    public static final String IMAGE_FOLDER = "../../data/images/";
+    public static final String XML_FOLDER = "/data/xmls/";
+    public static final String IMAGE_FOLDER = "/data/images/";
     
     // print file to output
     public static boolean printFileToOutput(String fileName, PrintWriter out) throws IOException {
@@ -28,9 +29,9 @@ public class FileUtils {
     }
     
     // create audit file
-    public static boolean createAuditFile(String xml) throws IOException {
-        String fileName = AUDIT_FOLDER + "audit.txt"; // for now        
-        File file = new File(fileName);        
+    public static boolean createAuditFile(String fileName) throws IOException {
+        String fileFullName = getAuditFilePath() + fileName;
+        File file = new File(fileFullName);        
         boolean exist = file.exists();
         if (exist) {
             // handle restart data???
@@ -40,8 +41,8 @@ public class FileUtils {
     
     // format = mseq     type    datetime    lsid    response
     public static boolean writeToAuditFile(AuditVO audit) throws IOException {
-        String fileName = AUDIT_FOLDER + "audit.txt"; // for now       
-        File file = new File(fileName);        
+        String fileFullName = getAuditFilePath() + audit.getFileName();
+        File file = new File(fileFullName);        
         boolean exist = file.exists();
         
         FileWriter fileWriter = new FileWriter(file, exist);
@@ -62,21 +63,22 @@ public class FileUtils {
     }
 
     // get last line
-    public static String getLastLineInFile() throws IOException {
-System.out.println("start getLastLineInFile");
-        
-		String tdcHome = System.getProperty("tdc.home");
-        String fileName = tdcHome + "/" + AUDIT_FOLDER + "audit.txt";   
-
-System.out.println(fileName);
-
+    public static String getLastLineInFile(String fileName) throws IOException {
+        String fileFullName = getAuditFilePath() + fileName;
         String line = null;
         String buff = null;
-        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+        BufferedReader reader = new BufferedReader(new FileReader(fileFullName));
         while((buff = reader.readLine()) != null) {
             line = buff;
         }
         return line;
+    }
+
+    // get audit file
+    private static String getAuditFilePath() {
+        String tdcHome = System.getProperty(TDC_HOME) + "/";
+        String fileName = tdcHome + AUDIT_FOLDER;
+        return fileName;
     }
     
 }

@@ -69,6 +69,8 @@ public class PersistenceServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+String xml = ServletUtils.getXml(request);
+System.out.println("post xml=" + xml);
         doGet(request, response);
 	}
 
@@ -131,26 +133,21 @@ public class PersistenceServlet extends HttpServlet {
      *  on response from TMS, write ack to audit file.
      *  
      */
-    private boolean save(HttpServletResponse response, String xml) throws IOException {  
-System.out.println("start save");
-
-
-        String line = FileUtils.getLastLineInFile();
+    private boolean save(HttpServletResponse response, String xml) throws IOException {
         
-System.out.println("line=" + line);
+System.out.println("xml=" + xml);
+
+        String fileName = FileUtils.AUDIT_DEFAULT_FILENAME; // for now, it should get testRosterId = from XML
+        
+        String line = FileUtils.getLastLineInFile(fileName);        
 
         AuditVO audit = ServletUtils.buildVOFromString(line);
         String type = audit.getType();
-System.out.println("type=" + type);
-        
         if (type.equals(ServletUtils.TMS_REQUEST_EVENT)) {
             String error = "<error>No Acknowledgement From TMS</error>";
             writeResponse(response, error);
-System.out.println("error");
             return false;
         }
-
-System.out.println("continue");
 
         String event = ServletUtils.parseEvent(xml);
         audit = ServletUtils.buildVOFromXML(xml, event);
@@ -171,6 +168,7 @@ System.out.println("continue");
         FileUtils.writeToAuditFile(audit);        
         
         // call TMS here
+        // http://168.116.26.84:7003/TestDeliveryWeb/begin.do?RequestXML=<XML>
         // result = returned from TMS
         
         // pretend TMS return ack, this code will be removed later
