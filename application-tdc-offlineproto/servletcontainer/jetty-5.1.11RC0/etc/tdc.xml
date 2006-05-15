@@ -173,7 +173,7 @@
   <Call name="addWebApplication">
     <Arg>/</Arg>
     <!--  <Arg>./webapps/root</Arg> -->
-    <Arg><SystemProperty name="tdc.webapp" default="."/></Arg>
+    <Arg><SystemProperty name="tdc.home" default="."/>/webapp</Arg>
 
     <Set name="extractWAR">false</Set> 
     <Set name="defaultsDescriptor">org/mortbay/jetty/servlet/webdefault.xml</Set>

@@ -9,5 +9,5 @@ set CLASSPATH=%CLASSPATH%;%JETTY_HOME%\ext\jasper-compiler.jar
 set CLASSPATH=%CLASSPATH%;%JETTY_HOME%\ext\xercesImpl.jar
 set JETTY_HOME
 set CLASSPATH
-java -Djetty.home="%JETTY_HOME%" -Dtdc.webapp="%CURPATH%\webapp" -jar "%JETTY_HOME%\start.jar" "%JETTY_HOME%\etc\tdc.xml"
+java -Djetty.home="%JETTY_HOME%" -Dtdc.home="%CURPATH%" -jar "%JETTY_HOME%\start.jar" "%JETTY_HOME%\etc\tdc.xml"
 exit
