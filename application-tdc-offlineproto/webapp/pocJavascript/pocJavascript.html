@@ -2,6 +2,7 @@
 <html>
 <SCRIPT SRC="includes/embed.js" type="text/javascript"></SCRIPT>
 <script type="text/javascript">
+var xmlText = "";
 function saveResponse(url){
 //alert("saveResponse: " + url);
 	xmlStr="";
@@ -11,9 +12,10 @@ function saveResponse(url){
 	xmlDoc.onreadystatechange = function () {
 		if (xmlDoc.readyState == 4) {
 //			var theResponseText = '<![CDATA[' + xmlDoc.xml + ']]>';
-			var theResponseText = xmlDoc.xml;
+			xmlText = xmlDoc.xml;
 //alert("setting canvas attribute: " + theResponseText);
-			lzSetCanvasAttribute('theResponse',theResponseText);
+			setTimeout("lzSetCanvasAttribute('theResponse',xmlText);", 2000);
+//			lzSetCanvasAttribute('theResponse',theResponseText);
 		}
 	};
 	xmlDoc.load(url);
