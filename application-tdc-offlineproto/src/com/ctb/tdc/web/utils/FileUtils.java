@@ -31,8 +31,7 @@ public class FileUtils {
     
     // create audit file
     public static boolean createAuditFile(String fileName) throws IOException {
-        String fileFullName = getAuditFilePath() + fileName;
-        File file = new File(fileFullName);        
+        File file = new File(fileName);        
         boolean exist = file.exists();
         if (exist) {
             // handle restart data???

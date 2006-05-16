@@ -4,7 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.Socket;
+import java.net.URL;
+import java.net.URLConnection;
 import java.net.UnknownHostException;
 
 import javax.servlet.ServletException;
@@ -133,12 +137,10 @@ public class PersistenceServlet extends HttpServlet {
      *  on response from TMS, write ack to audit file.
      *  
      */
-    private boolean save(HttpServletResponse response, String xml) throws IOException {
-        
-System.out.println("xml=" + xml);
-
+    private boolean save(HttpServletResponse response, String xml) {
+/*
         // for now
-        String temporary = "<login_response lsid='28331:oxygenate4' restart_flag='false' restart_number='0'>";           
+        String temporary = "<login_response lsid='28330:oxygenate4' restart_flag='false' restart_number='0'>";           
         String lsid = ServletUtils.parseLsid(temporary);
         String fileName = FileUtils.buildFileName(lsid);
         String line = FileUtils.getLastLineInFile(fileName);        
@@ -150,12 +152,17 @@ System.out.println("xml=" + xml);
             writeResponse(response, error);
             return false;
         }
-
+*/        
         String event = ServletUtils.parseEvent(xml);
-        audit = ServletUtils.buildVOFromXML(xml, event);
-        FileUtils.writeToAuditFile(audit);        
-        writeResponse(response, xml);        
-        sendRequestToTMS(xml, event);        
+        AuditVO audit = ServletUtils.buildVOFromXML(xml, event);
+        try {
+            FileUtils.writeToAuditFile(audit);
+            writeResponse(response, xml);
+            //sendRequestToTMS(xml, event);        
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("******** IOException occured in save() ********");
+        }        
         return true;
     }
  
@@ -169,15 +176,15 @@ System.out.println("xml=" + xml);
         String result = sendRequest(xml);
         
         // for now
-        String temporary = "<login_response lsid='28331:oxygenate4' restart_flag='false' restart_number='0'>";           
-        String lsid = ServletUtils.parseLsid(temporary);
+        //String temporary = "<login_response lsid='28330:oxygenate4' restart_flag='false' restart_number='0'>";           
+        String lsid = ServletUtils.parseLsid(result);
         String fileName = FileUtils.buildFileName(lsid);
         return fileName;
     }    
 
     private void sendRequestToTMS(String xml, String event) throws IOException {
         // for now
-        String temporary = "<login_response lsid='28331:oxygenate4' restart_flag='false' restart_number='0'>";   
+        String temporary = "<login_response lsid='28330:oxygenate4' restart_flag='false' restart_number='0'>";   
         
         String lsid = ServletUtils.parseLsid(temporary);
         String fileName = FileUtils.buildFileName(lsid);
@@ -194,19 +201,33 @@ System.out.println("xml=" + xml);
     }    
     
     private String sendRequest(String xml) {
-        /*
+        String result = "";
+        String host = "http://168.116.26.84:7003/TestDeliveryWeb/begin.do";
+        
         try {
-            Socket echoSocket = new Socket("168.116.26.84", 7003);
-            PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
-        } catch (UnknownHostException e) {
+            URL tmsURL = new URL(host);
+            URLConnection tmsConnection = tmsURL.openConnection();
+            tmsConnection.setDoOutput(true);
+            PrintWriter out = new PrintWriter(tmsConnection.getOutputStream());
+
+            out.println("requestXML=" + xml);
+            out.close();
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(tmsConnection.getInputStream()));
+            String inputLine;            
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
+                result += inputLine;
+            }
+            in.close();
+            
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
-        // http://168.116.26.84:7003/TestDeliveryWeb/begin.do?RequestXML=<XML>
-        return "XML";
+        
+        return result;
     }
     private void writeResponse(HttpServletResponse response, String xml) throws IOException {
         response.setContentType("text/xml");
