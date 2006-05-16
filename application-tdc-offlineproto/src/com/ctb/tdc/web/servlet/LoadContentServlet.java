@@ -100,7 +100,8 @@ public class LoadContentServlet extends HttpServlet {
         response.setContentType("text/xml");
         PrintWriter out = response.getWriter();
         
-        String fileName = FileUtils.XML_FOLDER + "subtest.xml";
+        String tdcHome = FileUtils.getHome();
+        String fileName = tdcHome + FileUtils.XML_FOLDER + "subtest.xml";
         result = FileUtils.printFileToOutput(fileName, out);     
         
         out.flush();
@@ -125,7 +126,8 @@ public class LoadContentServlet extends HttpServlet {
         response.setContentType("text/xml");
         PrintWriter out = response.getWriter();
         
-        String fileName = FileUtils.XML_FOLDER + "item" + itemId + ".xml";
+        String tdcHome = FileUtils.getHome();
+        String fileName = tdcHome + FileUtils.XML_FOLDER + "item" + itemId + ".xml";
         result = FileUtils.printFileToOutput(fileName, out);        
 
         out.flush();
@@ -149,7 +151,8 @@ public class LoadContentServlet extends HttpServlet {
         response.setContentType(ServletUtils.getMIMEType("gif"));
         PrintWriter out = response.getWriter();
         
-        String fileName = FileUtils.IMAGE_FOLDER + "ctb_logo.gif";
+        String tdcHome = FileUtils.getHome();
+        String fileName = tdcHome + FileUtils.IMAGE_FOLDER + "ctb_logo.gif";
         result = FileUtils.printFileToOutput(fileName, out);        
 
         out.flush();

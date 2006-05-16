@@ -15,9 +15,9 @@ public class FileUtils {
     public static final String TDC_HOME = "tdc.home";
     public static final String AUDIT_DEFAULT_FILENAME = "audit.log";
     public static final String AUDIT_EXTENSION = ".log";
-    public static final String AUDIT_FOLDER = "/data/audit/";
-    public static final String XML_FOLDER = "/data/xmls/";
-    public static final String IMAGE_FOLDER = "/data/images/";
+    public static final String AUDIT_FOLDER = "\\data\\audit\\";
+    public static final String XML_FOLDER = "\\data\\xmls\\";
+    public static final String IMAGE_FOLDER = "\\data\\images\\";
     
     // print file to output
     public static boolean printFileToOutput(String fileName, PrintWriter out) throws IOException {
@@ -33,7 +33,18 @@ public class FileUtils {
     public static boolean createAuditFile(String fileName) throws IOException {
         File file = new File(fileName);        
         boolean exist = file.exists();
-        if (exist) {
+        FileWriter fileWriter = new FileWriter(file, exist);
+
+        String text = null;
+        if (! exist) {
+            text = "MSEQ \t TYPE \t\t DATE \t\t\t LSID \t\t\t RESPONSE \n";
+            fileWriter.write(text);            
+            text = "--------------------------------------------------------------------------------- \n";
+            fileWriter.write(text);                        
+            fileWriter.flush();
+            fileWriter.close();  
+        }
+        else {
             // handle restart data???
         }
         return true;
@@ -74,10 +85,9 @@ public class FileUtils {
     }
 
     // get audit file
-    public static String getAuditFilePath() {
-        String tdcHome = System.getProperty(TDC_HOME) + "/";
-        String fileName = tdcHome + AUDIT_FOLDER;
-        return fileName;
+    public static String getHome() {
+        String tdcHome = System.getProperty(TDC_HOME);
+        return tdcHome;
     }
 
     public static String buildFileName(String lsid) {

@@ -10,6 +10,9 @@ import com.ctb.tdc.web.dto.AuditVO;
 
 public class ServletUtils {
 
+    public static final String URL_HOST = "http://168.116.26.84:7003/";
+    public static final String URL_WEBAPP = "TestDeliveryWeb/begin.do";
+    
     // methods
     public static final String DOWNLOAD_CONTENT_METHOD = "downloadContent";
     public static final String INITITAL_DOWNLOAD_CONTENT_METHOD = "initialDownloadContent";

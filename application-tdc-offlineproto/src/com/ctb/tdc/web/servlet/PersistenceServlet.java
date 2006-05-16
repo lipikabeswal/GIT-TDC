@@ -4,12 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.Socket;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.UnknownHostException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -53,7 +50,6 @@ public class PersistenceServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
         String method = ServletUtils.getMethod(request);
         String xml = ServletUtils.getXml(request);
         
@@ -103,7 +99,8 @@ public class PersistenceServlet extends HttpServlet {
     private boolean login(HttpServletResponse response, String xml) throws IOException {
         String fileName = sendLoginRequestToTMS(xml);
         FileUtils.createAuditFile(fileName);        
-        handleEvent(xml, ServletUtils.LOGIN_EVENT);
+        AuditVO audit = ServletUtils.buildVOFromType(fileName, ServletUtils.LOGIN_EVENT);
+        FileUtils.writeToAuditFile(audit);        
         writeResponse(response, xml);
         return true;
     }
@@ -120,7 +117,8 @@ public class PersistenceServlet extends HttpServlet {
      */
     private boolean feedback(HttpServletResponse response, String xml) throws IOException {
         sendRequestToTMS(xml, ServletUtils.FEEDBACK_EVENT);
-        handleEvent(xml, ServletUtils.FEEDBACK_EVENT);
+        AuditVO audit = ServletUtils.buildVOFromXML(xml, ServletUtils.FEEDBACK_EVENT);
+        FileUtils.writeToAuditFile(audit);        
         writeResponse(response, xml);
         return true;
     }
@@ -139,12 +137,9 @@ public class PersistenceServlet extends HttpServlet {
      */
     private boolean save(HttpServletResponse response, String xml) {
 /*
-        // for now
-        String temporary = "<login_response lsid='28330:oxygenate4' restart_flag='false' restart_number='0'>";           
-        String lsid = ServletUtils.parseLsid(temporary);
+        String lsid = ServletUtils.parseLsid(xml);
         String fileName = FileUtils.buildFileName(lsid);
         String line = FileUtils.getLastLineInFile(fileName);        
-
         AuditVO audit = ServletUtils.buildVOFromString(fileName, line);
         String type = audit.getType();
         if (type.equals(ServletUtils.TMS_REQUEST_EVENT)) {
@@ -153,6 +148,7 @@ public class PersistenceServlet extends HttpServlet {
             return false;
         }
 */        
+
         String event = ServletUtils.parseEvent(xml);
         AuditVO audit = ServletUtils.buildVOFromXML(xml, event);
         try {
@@ -166,27 +162,16 @@ public class PersistenceServlet extends HttpServlet {
         return true;
     }
  
-    private void handleEvent(String xml, String event) throws IOException {
-        AuditVO audit = ServletUtils.buildVOFromXML(xml, event);
-        FileUtils.writeToAuditFile(audit);        
-    }
-
     private String sendLoginRequestToTMS(String xml) throws IOException {
         // make request TMS
         String result = sendRequest(xml);
-        
-        // for now
-        //String temporary = "<login_response lsid='28330:oxygenate4' restart_flag='false' restart_number='0'>";           
         String lsid = ServletUtils.parseLsid(result);
         String fileName = FileUtils.buildFileName(lsid);
         return fileName;
     }    
 
     private void sendRequestToTMS(String xml, String event) throws IOException {
-        // for now
-        String temporary = "<login_response lsid='28330:oxygenate4' restart_flag='false' restart_number='0'>";   
-        
-        String lsid = ServletUtils.parseLsid(temporary);
+        String lsid = ServletUtils.parseLsid(xml);
         String fileName = FileUtils.buildFileName(lsid);
         
         AuditVO audit = ServletUtils.buildVOFromType(fileName, ServletUtils.TMS_REQUEST_EVENT);
@@ -202,10 +187,8 @@ public class PersistenceServlet extends HttpServlet {
     
     private String sendRequest(String xml) {
         String result = "";
-        String host = "http://168.116.26.84:7003/TestDeliveryWeb/begin.do";
-        
         try {
-            URL tmsURL = new URL(host);
+            URL tmsURL = new URL(ServletUtils.URL_HOST + ServletUtils.URL_WEBAPP);
             URLConnection tmsConnection = tmsURL.openConnection();
             tmsConnection.setDoOutput(true);
             PrintWriter out = new PrintWriter(tmsConnection.getOutputStream());
