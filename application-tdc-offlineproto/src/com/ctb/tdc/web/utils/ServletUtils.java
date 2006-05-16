@@ -26,8 +26,7 @@ public class ServletUtils {
     public static final String ITEM_ID_PARAM = "itemId";
     public static final String IMAGE_ID_PARAM = "imageId";
     public static final String ENCRYPTION_KEY_PARAM = "encryptionKey";
-    //public static final String XML_PARAM = "requestXML";
-    public static final String XML_PARAM = "xml";
+    public static final String XML_PARAM = "requestXML";
 
     // events
     public static final String LOGIN_EVENT = "lms_login";
