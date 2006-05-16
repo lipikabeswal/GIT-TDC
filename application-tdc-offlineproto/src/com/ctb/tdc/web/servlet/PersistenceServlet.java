@@ -1,7 +1,11 @@
 package com.ctb.tdc.web.servlet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -69,8 +73,6 @@ public class PersistenceServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-String xml = ServletUtils.getXml(request);
-System.out.println("post xml=" + xml);
         doGet(request, response);
 	}
 
@@ -95,11 +97,10 @@ System.out.println("post xml=" + xml);
      *  
      */
     private boolean login(HttpServletResponse response, String xml) throws IOException {
-        String result = sendRequestToTMS(ServletUtils.LOGIN_EVENT);
-        FileUtils.createAuditFile(result);        
+        String fileName = sendLoginRequestToTMS(xml);
+        FileUtils.createAuditFile(fileName);        
         handleEvent(xml, ServletUtils.LOGIN_EVENT);
-        result = xml; // for now fake result = xml       
-        writeResponse(response, result);
+        writeResponse(response, xml);
         return true;
     }
     
@@ -114,10 +115,9 @@ System.out.println("post xml=" + xml);
      *  
      */
     private boolean feedback(HttpServletResponse response, String xml) throws IOException {
-        String result = sendRequestToTMS(ServletUtils.FEEDBACK_EVENT);
+        sendRequestToTMS(xml, ServletUtils.FEEDBACK_EVENT);
         handleEvent(xml, ServletUtils.FEEDBACK_EVENT);
-        result = xml; // for now fake result = xml       
-        writeResponse(response, result);
+        writeResponse(response, xml);
         return true;
     }
 
@@ -137,11 +137,13 @@ System.out.println("post xml=" + xml);
         
 System.out.println("xml=" + xml);
 
-        String fileName = FileUtils.AUDIT_DEFAULT_FILENAME; // for now, it should get testRosterId = from XML
-        
+        // for now
+        String temporary = "<login_response lsid='28331:oxygenate4' restart_flag='false' restart_number='0'>";           
+        String lsid = ServletUtils.parseLsid(temporary);
+        String fileName = FileUtils.buildFileName(lsid);
         String line = FileUtils.getLastLineInFile(fileName);        
 
-        AuditVO audit = ServletUtils.buildVOFromString(line);
+        AuditVO audit = ServletUtils.buildVOFromString(fileName, line);
         String type = audit.getType();
         if (type.equals(ServletUtils.TMS_REQUEST_EVENT)) {
             String error = "<error>No Acknowledgement From TMS</error>";
@@ -153,7 +155,7 @@ System.out.println("xml=" + xml);
         audit = ServletUtils.buildVOFromXML(xml, event);
         FileUtils.writeToAuditFile(audit);        
         writeResponse(response, xml);        
-        sendRequestToTMS(event);        
+        sendRequestToTMS(xml, event);        
         return true;
     }
  
@@ -162,22 +164,50 @@ System.out.println("xml=" + xml);
         FileUtils.writeToAuditFile(audit);        
     }
 
-    private String sendRequestToTMS(String event) throws IOException {
-        String result = "";
-        AuditVO audit = ServletUtils.buildVOFromType(ServletUtils.TMS_REQUEST_EVENT);
+    private String sendLoginRequestToTMS(String xml) throws IOException {
+        // make request TMS
+        String result = sendRequest(xml);
+        
+        // for now
+        String temporary = "<login_response lsid='28331:oxygenate4' restart_flag='false' restart_number='0'>";           
+        String lsid = ServletUtils.parseLsid(temporary);
+        String fileName = FileUtils.buildFileName(lsid);
+        return fileName;
+    }    
+
+    private void sendRequestToTMS(String xml, String event) throws IOException {
+        // for now
+        String temporary = "<login_response lsid='28331:oxygenate4' restart_flag='false' restart_number='0'>";   
+        
+        String lsid = ServletUtils.parseLsid(temporary);
+        String fileName = FileUtils.buildFileName(lsid);
+        
+        AuditVO audit = ServletUtils.buildVOFromType(fileName, ServletUtils.TMS_REQUEST_EVENT);
         FileUtils.writeToAuditFile(audit);        
         
-        // call TMS here
-        // http://168.116.26.84:7003/TestDeliveryWeb/begin.do?RequestXML=<XML>
-        // result = returned from TMS
+        // make request TMS
+        String result = sendRequest(xml);
         
         // pretend TMS return ack, this code will be removed later
-        AuditVO audit_ack = ServletUtils.buildVOFromType(ServletUtils.TMS_ACK_EVENT);
+        AuditVO audit_ack = ServletUtils.buildVOFromType(fileName, ServletUtils.TMS_ACK_EVENT);
         FileUtils.writeToAuditFile(audit_ack);
-        
-        return result;
     }    
     
+    private String sendRequest(String xml) {
+        /*
+        try {
+            Socket echoSocket = new Socket("168.116.26.84", 7003);
+            PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        */
+        // http://168.116.26.84:7003/TestDeliveryWeb/begin.do?RequestXML=<XML>
+        return "XML";
+    }
     private void writeResponse(HttpServletResponse response, String xml) throws IOException {
         response.setContentType("text/xml");
         PrintWriter out = response.getWriter();

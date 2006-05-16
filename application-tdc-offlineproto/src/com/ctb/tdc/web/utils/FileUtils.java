@@ -14,6 +14,7 @@ public class FileUtils {
     // data files
     public static final String TDC_HOME = "tdc.home";
     public static final String AUDIT_DEFAULT_FILENAME = "audit.log";
+    public static final String AUDIT_EXTENSION = ".log";
     public static final String AUDIT_FOLDER = "/data/audit/";
     public static final String XML_FOLDER = "/data/xmls/";
     public static final String IMAGE_FOLDER = "/data/images/";
@@ -41,7 +42,7 @@ public class FileUtils {
     
     // format = mseq     type    datetime    lsid    response
     public static boolean writeToAuditFile(AuditVO audit) throws IOException {
-        String fileFullName = getAuditFilePath() + audit.getFileName();
+        String fileFullName = audit.getFileName();
         File file = new File(fileFullName);        
         boolean exist = file.exists();
         
@@ -64,10 +65,9 @@ public class FileUtils {
 
     // get last line
     public static String getLastLineInFile(String fileName) throws IOException {
-        String fileFullName = getAuditFilePath() + fileName;
         String line = null;
         String buff = null;
-        BufferedReader reader = new BufferedReader(new FileReader(fileFullName));
+        BufferedReader reader = new BufferedReader(new FileReader(fileName));
         while((buff = reader.readLine()) != null) {
             line = buff;
         }
@@ -75,9 +75,16 @@ public class FileUtils {
     }
 
     // get audit file
-    private static String getAuditFilePath() {
+    public static String getAuditFilePath() {
         String tdcHome = System.getProperty(TDC_HOME) + "/";
         String fileName = tdcHome + AUDIT_FOLDER;
+        return fileName;
+    }
+
+    public static String buildFileName(String lsid) {
+        lsid = lsid.replace(':', '_');        
+        String tdcHome = System.getProperty(TDC_HOME);
+        String fileName = tdcHome + AUDIT_FOLDER + lsid + AUDIT_EXTENSION;
         return fileName;
     }
     
