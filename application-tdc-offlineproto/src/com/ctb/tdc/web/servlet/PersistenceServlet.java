@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -102,8 +101,12 @@ public class PersistenceServlet extends HttpServlet {
             String result = sendRequest(xml);
             String lsid = ServletUtils.parseLsid(result);
             String fileName = AuditFile.buildFileName(lsid);
-            if (! AuditFile.exists(fileName))
-                AuditFile.log(new AuditVO(fileName));        
+            if (AuditFile.exists(fileName)) {
+                // handle restart
+            }
+            else {
+                AuditFile.log(new AuditVO(fileName));
+            }
             AuditVO audit = ServletUtils.createAuditVO(fileName, ServletUtils.UNKNOWN, ServletUtils.LOGIN_EVENT, lsid);
             AuditFile.log(audit);        
             writeResponse(response, result);            
@@ -169,18 +172,40 @@ public class PersistenceServlet extends HttpServlet {
         }        
         return true;
     }
- 
+
+    private void writeResponse(HttpServletResponse response, String xml) throws IOException {
+        response.setContentType("text/xml");
+        PrintWriter out = response.getWriter();
+        out.println(xml);            
+        out.flush();
+        out.close();        
+    }
+
+    private boolean validToProceed(AuditVO audit) throws IOException {
+        boolean valid = true;
+        /*
+        String fileName = audit.getFileName();
+        String line = FileUtils.getLastLineInFile(fileName);        
+        AuditVO vo = ServletUtils.buildVOFromString(fileName, line);
+        String type = vo.getType();
+        if (type.equals(ServletUtils.TMS_REQUEST_EVENT)) {
+            valid = false;
+        }
+        */
+        return valid;
+    }
+    
     private String sendRequestToTMS(String xml, AuditVO audit) throws Exception {
         String fileName = audit.getFileName();  
         String lsid = ServletUtils.parseLsid(xml);        
-        AuditVO audit_req = ServletUtils.createAuditVO(fileName, ServletUtils.UNKNOWN, ServletUtils.TMS_REQUEST_EVENT, lsid);
-        AuditFile.log(audit_req);        
+        AuditVO audit_request = ServletUtils.createAuditVO(fileName, ServletUtils.UNKNOWN, ServletUtils.TMS_REQUEST_EVENT, lsid);
+        AuditFile.log(audit_request);        
         String result = sendRequest(xml);
-        AuditVO audit_ack = ServletUtils.createAuditVO(fileName, ServletUtils.UNKNOWN, ServletUtils.TMS_RESPONSE_EVENT, lsid);
-        AuditFile.log(audit_ack);        
+        AuditVO audit_response = ServletUtils.createAuditVO(fileName, ServletUtils.UNKNOWN, ServletUtils.TMS_RESPONSE_EVENT, lsid);
+        AuditFile.log(audit_response);        
         return result;        
     }    
-    
+        
     private String sendRequest(String xml) {
         String temporary = "<login_response lsid='28330:oxygenate4' restart_flag='false' restart_number='0' />";
         if (temporary != null)
@@ -204,36 +229,14 @@ public class PersistenceServlet extends HttpServlet {
             }
             in.close();
         } 
-        catch (MalformedURLException e) {
+        catch (Exception e) {
             e.printStackTrace();
-        } 
-        catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("******** exception occured in sendRequest() ********");
         }
         
         return result;
     }
-    private void writeResponse(HttpServletResponse response, String xml) throws IOException {
-        response.setContentType("text/xml");
-        PrintWriter out = response.getWriter();
-        out.println(xml);            
-        out.flush();
-        out.close();        
-    }
-
-    private boolean validToProceed(AuditVO audit) throws IOException {
-        boolean valid = true;
-        /*
-        String fileName = audit.getFileName();
-        String line = FileUtils.getLastLineInFile(fileName);        
-        AuditVO vo = ServletUtils.buildVOFromString(fileName, line);
-        String type = vo.getType();
-        if (type.equals(ServletUtils.TMS_REQUEST_EVENT)) {
-            valid = false;
-        }
-        */
-        return valid;
-    }
+    
     
 
 }
