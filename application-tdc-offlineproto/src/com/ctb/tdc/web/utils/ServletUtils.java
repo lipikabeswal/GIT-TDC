@@ -172,10 +172,11 @@ public class ServletUtils {
         return lsid;
     }
 
-    public static AuditVO buildVOFromXML(String xml, String type) {
+    public static AuditVO buildVOFromXML(String xml) {
         String lsid = parseLsid(xml);
         String fileName = FileUtils.buildFileName(lsid);
         String mseq = parseMseq(xml);
+        String type = ServletUtils.parseEvent(xml);
         String response = parseResponse(xml);
         String date = formatDateToDateString(new Date());
         AuditVO audit = new AuditVO(fileName, mseq, type, date, lsid, response);

@@ -95,6 +95,5 @@ public class FileUtils {
         String tdcHome = System.getProperty(TDC_HOME);
         String fileName = tdcHome + AUDIT_FOLDER + lsid + AUDIT_EXTENSION;
         return fileName;
-    }
-    
+    }    
 }
