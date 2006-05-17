@@ -14,8 +14,8 @@ function saveResponse(url){
 //			var theResponseText = '<![CDATA[' + xmlDoc.xml + ']]>';
 			xmlText = xmlDoc.xml;
 //alert("setting canvas attribute: " + theResponseText);
-			setTimeout("lzSetCanvasAttribute('theResponse',xmlText);", 2000);
-//			lzSetCanvasAttribute('theResponse',theResponseText);
+			// setTimeout("lzSetCanvasAttribute('theResponse',xmlText);", 2000);
+			lzSetCanvasAttribute('theResponse', xmlText);
 		}
 	};
 	xmlDoc.load(url);
