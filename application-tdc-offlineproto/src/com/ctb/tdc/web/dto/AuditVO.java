@@ -67,4 +67,8 @@ public class AuditVO implements java.io.Serializable {
         this.type = type;
     }
 
+    public String toString() 
+    {
+        return getMseq() + " \t " + getType() + " \t " + getDate() + " \t " + getLsid() + " \t " + getResponse();
+    }
 }
