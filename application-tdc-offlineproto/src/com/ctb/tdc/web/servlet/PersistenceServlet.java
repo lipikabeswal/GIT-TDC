@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -104,7 +105,7 @@ public class PersistenceServlet extends HttpServlet {
             FileUtils.createAuditFile(fileName);        
             AuditVO audit = ServletUtils.buildVOFromType(fileName, ServletUtils.LOGIN_EVENT);
             FileUtils.writeToAuditFile(audit);        
-            writeResponse(response, result);
+            writeResponse(response, result);            
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -160,7 +161,7 @@ public class PersistenceServlet extends HttpServlet {
             }
             FileUtils.writeToAuditFile(audit);
             writeResponse(response, xml);            
-            sendRequestToTMS(xml, audit);        
+            //sendRequestToTMS(xml, audit);  comment out for POC      
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("******** exception occured in save() ********");
@@ -168,7 +169,7 @@ public class PersistenceServlet extends HttpServlet {
         return true;
     }
  
-    private String sendRequestToTMS(String xml, AuditVO audit) throws IOException {
+    private String sendRequestToTMS(String xml, AuditVO audit) throws Exception {
         String fileName = audit.getFileName();        
         AuditVO audit_req = ServletUtils.buildVOFromType(fileName, ServletUtils.TMS_REQUEST_EVENT);
         FileUtils.writeToAuditFile(audit_req);        
@@ -179,8 +180,8 @@ public class PersistenceServlet extends HttpServlet {
     }    
     
     private String sendRequest(String xml) {
-        String result = "<login_response lsid='28330:oxygenate4' restart_flag='false' restart_number='0' />";
-        /*
+        //String result = "<login_response lsid='28330:oxygenate4' restart_flag='false' restart_number='0' />";
+        
         String result = "";
         try {
             URL tmsURL = new URL(ServletUtils.URL_HOST + ServletUtils.URL_WEBAPP);
@@ -205,7 +206,7 @@ public class PersistenceServlet extends HttpServlet {
         catch (IOException e) {
             e.printStackTrace();
         }
-        */
+        
         return result;
     }
     private void writeResponse(HttpServletResponse response, String xml) throws IOException {
@@ -218,6 +219,7 @@ public class PersistenceServlet extends HttpServlet {
 
     private boolean validToProceed(AuditVO audit) throws IOException {
         boolean valid = true;
+        /*
         String fileName = audit.getFileName();
         String line = FileUtils.getLastLineInFile(fileName);        
         AuditVO vo = ServletUtils.buildVOFromString(fileName, line);
@@ -225,6 +227,7 @@ public class PersistenceServlet extends HttpServlet {
         if (type.equals(ServletUtils.TMS_REQUEST_EVENT)) {
             valid = false;
         }
+        */
         return valid;
     }
     
