@@ -7,6 +7,7 @@ set CLASSPATH=%CLASSPATH%;%JETTY_HOME%\lib\javax.servlet.jar
 set CLASSPATH=%CLASSPATH%;%JETTY_HOME%\ext\jasper-runtime.jar
 set CLASSPATH=%CLASSPATH%;%JETTY_HOME%\ext\jasper-compiler.jar
 set CLASSPATH=%CLASSPATH%;%JETTY_HOME%\ext\xercesImpl.jar
+set CLASSPATH=%CLASSPATH%;%JETTY_HOME%\ext\log4j.jar
 set JETTY_HOME
 set CLASSPATH
 java -Djetty.home="%JETTY_HOME%" -Dtdc.home="%CURPATH%" -jar "%JETTY_HOME%\start.jar" "%JETTY_HOME%\etc\tdc.xml"
