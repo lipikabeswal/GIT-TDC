@@ -42,7 +42,7 @@ public class ServletUtils {
     public static final String UNKNOWN_EVENT = "lms_unknown";
 
     public static final String TMS_REQUEST_EVENT = "tms_request";
-    public static final String TMS_ACK_EVENT = "tms_ack";
+    public static final String TMS_RESPONSE_EVENT = "tms_response";
     
     // returned values
     public static final String OK = "200 OK";
@@ -172,7 +172,7 @@ public class ServletUtils {
         return lsid;
     }
 
-    public static AuditVO buildVOFromXML(String xml) {
+    public static AuditVO createAuditVO(String xml) {
         String lsid = parseLsid(xml);
         String fileName = FileUtils.buildFileName(lsid);
         String mseq = parseMseq(xml);
@@ -183,7 +183,19 @@ public class ServletUtils {
         return audit;
     }
 
-    public static AuditVO buildVOFromString(String fileName, String src) {
+    public static AuditVO createAuditVO(String fileName, String mseg, String event, String lsid, String response) {
+        String date = formatDateToDateString(new Date());
+        AuditVO audit = new AuditVO(fileName, mseg, event, date, lsid, response);
+        return audit;
+    }
+    
+    public static AuditVO createAuditVO(String fileName, String mseg, String event, String lsid) {
+        String date = formatDateToDateString(new Date());
+        AuditVO audit = new AuditVO(fileName, mseg, event, date, lsid, UNKNOWN);
+        return audit;
+    }
+    
+    public static AuditVO createAuditVO(String fileName, String src) {
         StringTokenizer st = new StringTokenizer(src, "\t");
         String mseq = st.nextToken();
         String type = st.nextToken();
@@ -194,10 +206,5 @@ public class ServletUtils {
         return audit;
     }
 
-    public static AuditVO buildVOFromType(String fileName, String type) {
-        String date = formatDateToDateString(new Date());
-        AuditVO audit = new AuditVO(fileName, UNKNOWN, type, date, UNKNOWN+"\t\t", UNKNOWN);
-        return audit;
-    }
     
 }

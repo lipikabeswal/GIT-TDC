@@ -5,15 +5,24 @@ public class AuditVO implements java.io.Serializable {
 
     private String fileName = null;
     private String mseq = null;
-    private String type = null;
+    private String event = null;
     private String lsid = null;
     private String date = null;
     private String response = null;
+
+    public AuditVO(String fileName) {
+        this.fileName = fileName;
+        this.mseq = "MSEG";
+        this.event = "EVENT\t";
+        this.date = "DATE\t\t";
+        this.lsid = "LSID\t\t";
+        this.response = "RESPONSE";
+    }
     
-    public AuditVO(String fileName, String mseq, String type, String date, String lsid, String response) {
+    public AuditVO(String fileName, String mseq, String event, String date, String lsid, String response) {
         this.fileName = fileName;
         this.mseq = mseq;
-        this.type = type;
+        this.event = event;
         this.date = date;
         this.lsid = lsid;
         this.response = response;
@@ -59,16 +68,15 @@ public class AuditVO implements java.io.Serializable {
         this.response = response;
     }
 
-    public String getType() {
-        return type;
+    public String getEvent() {
+        return event;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setEvent(String event) {
+        this.event = event;
     }
 
-    public String toString() 
-    {
-        return getMseq() + " \t " + getType() + " \t " + getDate() + " \t " + getLsid() + " \t " + getResponse();
+    public String toString() {
+        return this.mseq + "\t" + this.event + "\t" + this.date + "\t" + this.lsid + "\t" + this.response;
     }
 }

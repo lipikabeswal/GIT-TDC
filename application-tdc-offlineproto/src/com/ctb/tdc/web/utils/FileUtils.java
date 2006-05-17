@@ -53,8 +53,8 @@ public class FileUtils {
     // format = mseq     type    datetime    lsid    response
     public static boolean writeToAuditFile(AuditVO audit) throws Exception {
         
-        // AuditFile.log(audit);
-        
+        AuditFile.log(audit);
+        /*
         String fileFullName = audit.getFileName();
         File file = new File(fileFullName);        
         boolean exist = file.exists();
@@ -73,6 +73,7 @@ public class FileUtils {
         
         fileWriter.flush();
         fileWriter.close();  
+        */
         return true;
     }
 

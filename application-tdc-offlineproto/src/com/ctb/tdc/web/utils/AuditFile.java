@@ -1,12 +1,8 @@
-/*
- * Created on May 17, 2006
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 package com.ctb.tdc.web.utils;
 
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
 
@@ -19,11 +15,17 @@ import com.ctb.tdc.web.dto.AuditVO;
 /**
  * @author wen-jin_chang
  *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 public class AuditFile 
 {
+    // data files
+    public static final String TDC_HOME = "tdc.home";
+    public static final String AUDIT_EXTENSION = ".log";
+    public static final String AUDIT_FOLDER = "\\data\\audit\\";
+    public static final String XML_FOLDER = "\\data\\xmls\\";
+    public static final String IMAGE_FOLDER = "\\data\\images\\";
+
+    // logger
     public static HashMap loggerMap = new HashMap();
 
     private AuditFile() 
@@ -38,19 +40,17 @@ public class AuditFile
         {
 	        logger = org.apache.log4j.Category.getInstance( AuditFile.class );
 	        logger.setAdditivity( false );
-	        String filePath = filePath_;
 	        java.io.File f = new java.io.File( filePath_ );
 	        if ( !f.exists() )
 	            f.createNewFile();
 	        FileAppender aFileAppender = new FileAppender();
-	        aFileAppender.setLayout( new PatternLayout("[%d{DATE}] %p %m%n") );
+            aFileAppender.setLayout( new PatternLayout("%m%n") );
 	        
 	        aFileAppender.setFile( filePath_ );
 	        aFileAppender.setImmediateFlush( true );
 	        aFileAppender.setAppend( true );
 	        aFileAppender.setWriter( new OutputStreamWriter( new FileOutputStream( filePath_, true )) );
 	        logger.addAppender( aFileAppender );
-	        logger.setPriority( Priority.INFO );
 	        loggerMap.put( filePath_, logger );
         }
         else
@@ -63,4 +63,16 @@ public class AuditFile
         org.apache.log4j.Category logger = getLogger( aAuditVO.getFileName() );
         logger.log( Priority.INFO, aAuditVO.toString() );
     }
+    
+    public static String buildFileName(String lsid) {
+        lsid = lsid.replace(':', '_');        
+        String tdcHome = System.getProperty(TDC_HOME);
+        String fileName = tdcHome + AUDIT_FOLDER + lsid + AUDIT_EXTENSION;
+        return fileName;
+    }    
+    
+    public static boolean exists(String fileName) {
+        File file = new File(fileName);        
+        return file.exists();
+    }    
 }

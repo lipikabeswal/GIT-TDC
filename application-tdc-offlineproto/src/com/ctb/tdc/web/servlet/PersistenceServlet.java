@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ctb.tdc.web.dto.AuditVO;
-import com.ctb.tdc.web.utils.FileUtils;
+import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.ServletUtils;
 
 /**
@@ -101,10 +101,11 @@ public class PersistenceServlet extends HttpServlet {
         try {
             String result = sendRequest(xml);
             String lsid = ServletUtils.parseLsid(result);
-            String fileName = FileUtils.buildFileName(lsid);            
-            FileUtils.createAuditFile(fileName);        
-            AuditVO audit = ServletUtils.buildVOFromType(fileName, ServletUtils.LOGIN_EVENT);
-            FileUtils.writeToAuditFile(audit);        
+            String fileName = AuditFile.buildFileName(lsid);
+            if (! AuditFile.exists(fileName))
+                AuditFile.log(new AuditVO(fileName));        
+            AuditVO audit = ServletUtils.createAuditVO(fileName, ServletUtils.UNKNOWN, ServletUtils.LOGIN_EVENT, lsid);
+            AuditFile.log(audit);        
             writeResponse(response, result);            
         } 
         catch (Exception e) {
@@ -127,8 +128,8 @@ public class PersistenceServlet extends HttpServlet {
      */
     private boolean feedback(HttpServletResponse response, String xml) {
         try {
-            AuditVO audit = ServletUtils.buildVOFromXML(xml);
-            FileUtils.writeToAuditFile(audit);        
+            AuditVO audit = ServletUtils.createAuditVO(xml);
+            AuditFile.log(audit);        
             String result = sendRequestToTMS(xml, audit);
             writeResponse(response, result);
         } 
@@ -154,14 +155,14 @@ public class PersistenceServlet extends HttpServlet {
      */
     private boolean save(HttpServletResponse response, String xml) {
         try {
-            AuditVO audit = ServletUtils.buildVOFromXML(xml);
+            AuditVO audit = ServletUtils.createAuditVO(xml);
             if (! validToProceed(audit)) {
-                writeResponse(response, "<err>No Ack</err>");
+                writeResponse(response, "<err>Wait for response from TMS</err>");
                 return false;
             }
-            FileUtils.writeToAuditFile(audit);
+            AuditFile.log(audit);        
             writeResponse(response, xml);            
-            //sendRequestToTMS(xml, audit);  comment out for POC      
+            sendRequestToTMS(xml, audit);  
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("******** exception occured in save() ********");
@@ -170,17 +171,20 @@ public class PersistenceServlet extends HttpServlet {
     }
  
     private String sendRequestToTMS(String xml, AuditVO audit) throws Exception {
-        String fileName = audit.getFileName();        
-        AuditVO audit_req = ServletUtils.buildVOFromType(fileName, ServletUtils.TMS_REQUEST_EVENT);
-        FileUtils.writeToAuditFile(audit_req);        
+        String fileName = audit.getFileName();  
+        String lsid = ServletUtils.parseLsid(xml);        
+        AuditVO audit_req = ServletUtils.createAuditVO(fileName, ServletUtils.UNKNOWN, ServletUtils.TMS_REQUEST_EVENT, lsid);
+        AuditFile.log(audit_req);        
         String result = sendRequest(xml);
-        AuditVO audit_ack = ServletUtils.buildVOFromType(fileName, ServletUtils.TMS_ACK_EVENT);
-        FileUtils.writeToAuditFile(audit_ack);
+        AuditVO audit_ack = ServletUtils.createAuditVO(fileName, ServletUtils.UNKNOWN, ServletUtils.TMS_RESPONSE_EVENT, lsid);
+        AuditFile.log(audit_ack);        
         return result;        
     }    
     
     private String sendRequest(String xml) {
-        //String result = "<login_response lsid='28330:oxygenate4' restart_flag='false' restart_number='0' />";
+        String temporary = "<login_response lsid='28330:oxygenate4' restart_flag='false' restart_number='0' />";
+        if (temporary != null)
+            return temporary;
         
         String result = "";
         try {
