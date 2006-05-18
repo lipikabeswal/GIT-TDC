@@ -102,12 +102,9 @@ public class PersistenceServlet extends HttpServlet {
             String lsid = ServletUtils.parseLsid(result);
             String fileName = AuditFile.buildFileName(lsid);
             if (AuditFile.exists(fileName)) {
-                // handle restart
+                // handle restart here
             }
-            else {
-                AuditFile.log(new AuditVO(fileName));
-            }
-            AuditVO audit = ServletUtils.createAuditVO(fileName, ServletUtils.UNKNOWN, ServletUtils.LOGIN_EVENT, lsid);
+            AuditVO audit = ServletUtils.createAuditVO(fileName, lsid, ServletUtils.NONE, ServletUtils.RECEIVE_EVENT, xml);            
             AuditFile.log(audit);        
             writeResponse(response, result);            
         } 
@@ -131,9 +128,11 @@ public class PersistenceServlet extends HttpServlet {
      */
     private boolean feedback(HttpServletResponse response, String xml) {
         try {
-            AuditVO audit = ServletUtils.createAuditVO(xml);
+            String lsid = ServletUtils.parseLsid(xml);
+            String fileName = AuditFile.buildFileName(lsid);
+            AuditVO audit = ServletUtils.createAuditVO(fileName, lsid, ServletUtils.NONE, ServletUtils.RECEIVE_EVENT, xml);            
             AuditFile.log(audit);        
-            String result = sendRequestToTMS(xml, audit);
+            String result = sendRequest(xml);
             writeResponse(response, result);
         } 
         catch (Exception e) {
@@ -158,15 +157,22 @@ public class PersistenceServlet extends HttpServlet {
      */
     private boolean save(HttpServletResponse response, String xml) {
         try {
-            AuditVO audit = ServletUtils.createAuditVO(xml);
-            if (! validToProceed(audit)) {
+            if (! validToProceed()) {
                 writeResponse(response, "<err>Wait for response from TMS</err>");
                 return false;
             }
+            AuditVO audit = ServletUtils.createAuditVO(xml, ServletUtils.RECEIVE_EVENT);
             AuditFile.log(audit);        
-            writeResponse(response, xml);            
-            sendRequestToTMS(xml, audit);  
-        } catch (Exception e) {
+            writeResponse(response, xml);       
+
+            String result = sendRequest(xml);
+        
+            String fileName = audit.getFileName();  
+            String lsid = audit.getLsid();        
+            audit = ServletUtils.createAuditVO(fileName, lsid, ServletUtils.NONE, ServletUtils.ACTKNOWLEDGE_EVENT, result);            
+            AuditFile.log(audit);        
+        } 
+        catch (Exception e) {
             e.printStackTrace();
             System.out.println("******** exception occured in save() ********");
         }        
@@ -181,36 +187,17 @@ public class PersistenceServlet extends HttpServlet {
         out.close();        
     }
 
-    private boolean validToProceed(AuditVO audit) throws IOException {
+    private boolean validToProceed() throws IOException {
         boolean valid = true;
-        /*
-        String fileName = audit.getFileName();
-        String line = FileUtils.getLastLineInFile(fileName);        
-        AuditVO vo = ServletUtils.buildVOFromString(fileName, line);
-        String type = vo.getType();
-        if (type.equals(ServletUtils.TMS_REQUEST_EVENT)) {
-            valid = false;
-        }
-        */
         return valid;
     }
     
-    private String sendRequestToTMS(String xml, AuditVO audit) throws Exception {
-        String fileName = audit.getFileName();  
-        String lsid = ServletUtils.parseLsid(xml);        
-        AuditVO audit_request = ServletUtils.createAuditVO(fileName, ServletUtils.UNKNOWN, ServletUtils.TMS_REQUEST_EVENT, lsid);
-        AuditFile.log(audit_request);        
-        String result = sendRequest(xml);
-        AuditVO audit_response = ServletUtils.createAuditVO(fileName, ServletUtils.UNKNOWN, ServletUtils.TMS_RESPONSE_EVENT, lsid);
-        AuditFile.log(audit_response);        
-        return result;        
-    }    
-        
     private String sendRequest(String xml) {
+        /*
         String temporary = "<login_response lsid='28330:oxygenate4' restart_flag='false' restart_number='0' />";
         if (temporary != null)
             return temporary;
-        
+        */
         String result = "";
         try {
             URL tmsURL = new URL(ServletUtils.URL_HOST + ServletUtils.URL_WEBAPP);
@@ -218,7 +205,7 @@ public class PersistenceServlet extends HttpServlet {
             tmsConnection.setDoOutput(true);
             PrintWriter out = new PrintWriter(tmsConnection.getOutputStream());
 
-            out.println("requestXML=" + xml);
+            out.println(ServletUtils.XML_PARAM + "=" + xml);
             out.close();
 
             BufferedReader in = new BufferedReader(new InputStreamReader(tmsConnection.getInputStream()));

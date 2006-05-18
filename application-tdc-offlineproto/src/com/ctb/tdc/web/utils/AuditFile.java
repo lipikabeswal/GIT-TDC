@@ -43,7 +43,7 @@ public class AuditFile
 	        if ( !f.exists() )
 	            f.createNewFile();
 	        FileAppender aFileAppender = new FileAppender();
-            aFileAppender.setLayout( new PatternLayout("%m%n") );
+            aFileAppender.setLayout( new PatternLayout("\"%d{DATE}\", %m%n") );
 	        
 	        aFileAppender.setFile( filePath_ );
 	        aFileAppender.setImmediateFlush( true );

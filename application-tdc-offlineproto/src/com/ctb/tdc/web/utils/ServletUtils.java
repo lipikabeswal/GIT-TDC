@@ -1,17 +1,16 @@
 package com.ctb.tdc.web.utils;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.StringTokenizer;
-
 import javax.servlet.http.HttpServletRequest;
 
 import com.ctb.tdc.web.dto.AuditVO;
 
+/**
+ * @author Tai_Truong
+ */
 public class ServletUtils {
 
-    public static final String URL_HOST = "http://168.116.26.84:7003/";
-    public static final String URL_WEBAPP = "TestDeliveryWeb/begin.do";
+    public static final String URL_HOST = "http://152.159.127.61";
+    public static final String URL_WEBAPP = "/TestDeliveryWeb/begin.do";
     
     // methods
     public static final String DOWNLOAD_CONTENT_METHOD = "downloadContent";
@@ -32,18 +31,9 @@ public class ServletUtils {
     public static final String XML_PARAM = "requestXML";
 
     // events
-    public static final String LOGIN_EVENT = "lms_login";
-    public static final String RESPONSE_EVENT = "lms_response";
-    public static final String START_EVENT = "lms_start";
-    public static final String FINISH_EVENT = "lms_finish";
-    public static final String PAUSE_EVENT = "lms_pause";
-    public static final String HEARTBEAT_EVENT = "lms_heartbeat";
-    public static final String FEEDBACK_EVENT = "lms_feedback";
-    public static final String UNKNOWN_EVENT = "lms_unknown";
-
-    public static final String TMS_REQUEST_EVENT = "tms_request";
-    public static final String TMS_RESPONSE_EVENT = "tms_response";
-    
+    public static final String RECEIVE_EVENT = "RCV"; 
+    public static final String ACTKNOWLEDGE_EVENT = "ACK";
+        
     // returned values
     public static final String OK = "200 OK";
 
@@ -51,7 +41,7 @@ public class ServletUtils {
     public final static String DATETIME_FORMAT="MM/dd/yy hh:mm a";
 
     // misc
-    public static final String UNKNOWN = "-";
+    public static final String NONE = "-";
     
     // helpers
     public static String getMethod(HttpServletRequest request) {
@@ -89,41 +79,8 @@ public class ServletUtils {
         return mimeType; 
     }
     
-    public static String formatDateToDateString(Date date){
-        String result = null;
-        if (date == null)
-            return result;
-
-        SimpleDateFormat sdf = new SimpleDateFormat();
-        sdf.applyPattern(DATETIME_FORMAT);
-        try{
-            result = sdf.format(date);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return result;
-    }    
-    
-    public static String parseEvent(String xml) {
-        String event = UNKNOWN_EVENT;
-        if (xml != null) {
-            if (xml.indexOf(LOGIN_EVENT) > 0) event = LOGIN_EVENT;
-            else if (xml.indexOf(START_EVENT) > 0) event = START_EVENT;
-            else if (xml.indexOf(FINISH_EVENT) > 0) event = FINISH_EVENT;
-            else if (xml.indexOf(PAUSE_EVENT) > 0) event = PAUSE_EVENT;
-            else if (xml.indexOf(FEEDBACK_EVENT) > 0) event = FEEDBACK_EVENT;
-            else {
-                String itemResponse = parseResponse(xml);
-                if (! itemResponse.equals(UNKNOWN)) event = RESPONSE_EVENT;
-                else event = HEARTBEAT_EVENT;
-            }
-        }
-        return event;
-    }
-
     public static String parseResponse(String xml) {
-        String itemResponse = UNKNOWN;
+        String itemResponse = NONE;
         if (xml != null) {
             int startIndex = xml.indexOf("<v>");
             int endIndex = xml.indexOf("</v>");
@@ -133,13 +90,25 @@ public class ServletUtils {
         }
         return itemResponse;
     }
-
+    
+    public static String parseEvent(String xml) {
+        return parseTag("lev e=", xml);
+    }
+    
     public static String parseMseq(String xml) {
-        String mseq = UNKNOWN;
+        return parseTag("mseq=", xml);
+    }
+
+    public static String parseLsid(String xml) {        
+        return parseTag("lsid=", xml);
+    }
+
+    public static String parseTag(String tagName, String xml) {
+        String tagValue = NONE;
         if (xml != null) {
-            int index = xml.indexOf("mseq=");
+            int index = xml.indexOf(tagName);
             if (index > 0) {
-                int startIndex = index + 6;
+                int startIndex = index + tagName.length() + 1;
                 int endIndex = startIndex;
                 while (true) {
                     int ch = xml.charAt(endIndex);                    
@@ -147,64 +116,23 @@ public class ServletUtils {
                         break;
                     endIndex++;
                 }
-                mseq = xml.substring(startIndex, endIndex);
+                tagValue = xml.substring(startIndex, endIndex);
             }
         }
-        return mseq;
+        return tagValue;
     }
 
-    public static String parseLsid(String xml) {
-        String lsid = UNKNOWN;
-        if (xml != null) {
-            int index = xml.indexOf("lsid=");
-            if (index > 0) {
-                int startIndex = index + 6;
-                int endIndex = startIndex;
-                while (true) {
-                    int ch = xml.charAt(endIndex);                    
-                    if ((ch == 34) || (ch == 39) || (endIndex > xml.length()-1))
-                        break;
-                    endIndex++;
-                }
-                lsid = xml.substring(startIndex, endIndex);
-            }
-        }
-        return lsid;
+    public static AuditVO createAuditVO(String fileName, String lsid, String mseq, String event, String xml) {
+        AuditVO audit = new AuditVO(fileName, lsid, mseq, event, xml);
+        return audit;
     }
-
-    public static AuditVO createAuditVO(String xml) {
+    
+    public static AuditVO createAuditVO(String xml, String event) {
         String lsid = parseLsid(xml);
         String fileName = FileUtils.buildFileName(lsid);
         String mseq = parseMseq(xml);
-        String type = ServletUtils.parseEvent(xml);
-        String response = parseResponse(xml);
-        String date = formatDateToDateString(new Date());
-        AuditVO audit = new AuditVO(fileName, mseq, type, date, lsid, response);
+        AuditVO audit = new AuditVO(fileName, lsid, mseq, event, xml);
         return audit;
     }
-
-    public static AuditVO createAuditVO(String fileName, String mseg, String event, String lsid, String response) {
-        String date = formatDateToDateString(new Date());
-        AuditVO audit = new AuditVO(fileName, mseg, event, date, lsid, response);
-        return audit;
-    }
-    
-    public static AuditVO createAuditVO(String fileName, String mseg, String event, String lsid) {
-        String date = formatDateToDateString(new Date());
-        AuditVO audit = new AuditVO(fileName, mseg, event, date, lsid, UNKNOWN);
-        return audit;
-    }
-    
-    public static AuditVO createAuditVO(String fileName, String src) {
-        StringTokenizer st = new StringTokenizer(src, "\t");
-        String mseq = st.nextToken();
-        String type = st.nextToken();
-        String date = st.nextToken();
-        String lsid = st.nextToken();
-        String response = st.nextToken();
-        AuditVO audit = new AuditVO(fileName, mseq.trim(), type.trim(), date.trim(), lsid.trim(), response.trim());
-        return audit;
-    }
-
     
 }

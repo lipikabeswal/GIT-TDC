@@ -1,31 +1,23 @@
 package com.ctb.tdc.web.dto;
 
+/**
+ * @author Tai_Truong
+ */
 public class AuditVO implements java.io.Serializable {
     static final long serialVersionUID = 1L;
 
     private String fileName = null;
+    private String lsid = null;
     private String mseq = null;
     private String event = null;
-    private String lsid = null;
-    private String date = null;
-    private String response = null;
+    private String xml = null;
 
-    public AuditVO(String fileName) {
+    public AuditVO(String fileName, String lsid, String mseq, String event, String xml) {
         this.fileName = fileName;
-        this.mseq = "MSEG";
-        this.event = "EVENT\t";
-        this.date = "DATE\t\t";
-        this.lsid = "LSID\t\t";
-        this.response = "RESPONSE";
-    }
-    
-    public AuditVO(String fileName, String mseq, String event, String date, String lsid, String response) {
-        this.fileName = fileName;
+        this.lsid = lsid;
         this.mseq = mseq;
         this.event = event;
-        this.date = date;
-        this.lsid = lsid;
-        this.response = response;
+        this.xml = xml;
     }
     
     public String getFileName() {
@@ -36,14 +28,6 @@ public class AuditVO implements java.io.Serializable {
         this.fileName = fileName;
     }
     
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public String getLsid() {
         return lsid;
     }
@@ -60,14 +44,6 @@ public class AuditVO implements java.io.Serializable {
         this.mseq = mseq;
     }
 
-    public String getResponse() {
-        return response;
-    }
-
-    public void setResponse(String response) {
-        this.response = response;
-    }
-
     public String getEvent() {
         return event;
     }
@@ -75,8 +51,22 @@ public class AuditVO implements java.io.Serializable {
     public void setEvent(String event) {
         this.event = event;
     }
+    
+    public String getXml() {
+        return xml;
+    }
 
+    public void setXml(String xml) {
+        this.xml = xml;
+    }
+
+    // format as : "time stamp", "lsid", "mseq", "event", "xml"
     public String toString() {
-        return this.mseq + "\t" + this.event + "\t" + this.date + "\t" + this.lsid + "\t" + this.response;
+        String str = "";
+        str += "\"" + this.lsid + "\", ";
+        str += "\"" + this.mseq + "\", ";
+        str += "\"" + this.event + "\", ";
+        str += "\"" + this.xml + "\"";
+        return str;
     }
 }
