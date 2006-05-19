@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ctb.tdc.web.dto.AuditVO;
+import com.ctb.tdc.web.dto.StateVO;
+import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.ServletUtils;
 
@@ -157,16 +160,26 @@ public class PersistenceServlet extends HttpServlet {
      */
     private boolean save(HttpServletResponse response, String xml) {
         try {
-            if (! validToProceed()) {
-                writeResponse(response, "<err>Wait for response from TMS</err>");
+            AuditVO audit = ServletUtils.createAuditVO(xml, ServletUtils.RECEIVE_EVENT);
+
+            MemoryCache memoryCache = MemoryCache.getInstance();
+            boolean hasAcknowledge = memoryCache.hasAcknowledge(audit.getLsid());
+            if (hasAcknowledge) {
+                memoryCache.emptyStates(audit.getLsid());
+            }
+            else {
+                writeResponse(response, "<err>Wait for TMS to response</err>");
                 return false;
             }
-            AuditVO audit = ServletUtils.createAuditVO(xml, ServletUtils.RECEIVE_EVENT);
             AuditFile.log(audit);        
             writeResponse(response, xml);       
 
+            StateVO state = memoryCache.putWaitState(audit.getLsid());
+                        
             String result = sendRequest(xml);
         
+            state.setState(StateVO.ACTKNOWLEDGE_STATE);
+            
             String fileName = audit.getFileName();  
             String lsid = audit.getLsid();        
             audit = ServletUtils.createAuditVO(fileName, lsid, ServletUtils.NONE, ServletUtils.ACTKNOWLEDGE_EVENT, result);            
@@ -187,11 +200,6 @@ public class PersistenceServlet extends HttpServlet {
         out.close();        
     }
 
-    private boolean validToProceed() throws IOException {
-        boolean valid = true;
-        return valid;
-    }
-    
     private String sendRequest(String xml) {
         /*
         String temporary = "<login_response lsid='28330:oxygenate4' restart_flag='false' restart_number='0' />";
