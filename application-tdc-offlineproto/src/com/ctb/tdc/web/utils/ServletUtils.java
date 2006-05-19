@@ -1,5 +1,7 @@
 package com.ctb.tdc.web.utils;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -17,8 +19,9 @@ public class ServletUtils {
     public static final String URL_HOST = "http://152.159.127.61";
     public static final String URL_PORT = "8080";
     public static final String URL_WEBAPP_LOGIN = "/TestDeliveryWeb/begin.do";
-    public static final String URL_WEBAPP_SAVE = "/TestDeliveryWeb/begin.do";
-    public static final String URL_WEBAPP_FEEDBACK = "/TestDeliveryWeb/begin.do";
+    public static final String URL_WEBAPP_SAVE_RESPONSE = "/TestDeliveryWeb/response.do";
+    public static final String URL_WEBAPP_SAVE_LIFECYCLE = "/TestDeliveryWeb/lifecycle.do";
+    public static final String URL_WEBAPP_FEEDBACK = "/TestDeliveryWeb/feedback.do";
     
     // methods
     public static final String DOWNLOAD_CONTENT_METHOD = "downloadContent";
@@ -87,6 +90,11 @@ public class ServletUtils {
         return mimeType; 
     }
     
+    public static boolean isSaveResponse(String xml) {
+        String response = parseResponse(xml);
+        return (! response.equals(NONE));
+    }
+    
     public static String parseResponse(String xml) {
         String itemResponse = NONE;
         if (xml != null) {
@@ -143,14 +151,22 @@ public class ServletUtils {
         return audit;
     }
     
-    public static String getWebAppName(String method) {
+    public static String getWebAppName(String method, String xml) {
         String webApp = URL_WEBAPP_LOGIN;
+        /*
         if (method.equals(LOGIN_METHOD))
             webApp = URL_WEBAPP_LOGIN;
-        if (method.equals(SAVE_METHOD))
-            webApp = URL_WEBAPP_SAVE;
+        else
         if (method.equals(FEEDBACK_METHOD))
-            webApp = URL_WEBAPP_FEEDBACK;        
+            webApp = URL_WEBAPP_FEEDBACK;
+        else
+        if (method.equals(SAVE_METHOD)) {
+            if (isSaveResponse(xml))
+                webApp = URL_WEBAPP_SAVE_RESPONSE;
+            else
+                webApp = URL_WEBAPP_SAVE_LIFECYCLE;
+        }
+        */
         return webApp;
     }
     
@@ -164,13 +180,13 @@ public class ServletUtils {
         memoryCache.setStateHashMap(stateHashMap);
     }
 
-    public static String getWebAppURL(String method) {
+    public static URL getTmsURL(String method, String xml) throws MalformedURLException {
         MemoryCache memoryCache = MemoryCache.getInstance();
         ServletSettings srvSettings = memoryCache.getSrvSettings();
         String tmsHost = srvSettings.getTmsHost();
-        String tmsWebApp = getWebAppName(method);
-        String webAppURL = tmsHost + tmsWebApp;
-        return webAppURL;
+        String tmsWebApp = getWebAppName(method, xml);
+        URL tmsURL = new URL(tmsHost + tmsWebApp);
+        return tmsURL;
     }
     
 }

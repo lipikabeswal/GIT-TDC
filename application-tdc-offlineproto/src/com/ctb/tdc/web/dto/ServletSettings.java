@@ -43,7 +43,16 @@ public class ServletSettings implements java.io.Serializable {
         this.proxyHost = rb.getString("proxy.host");
         this.proxyPort = rb.getString("proxy.port");
         this.proxyUserName = rb.getString("proxy.username");
-        this.proxyPassword = rb.getString("proxy.password");        
+        this.proxyPassword = rb.getString("proxy.password");       
+        
+        // make sure settings make sense
+        if (this.tmsAckRequired && (this.tmsAckInflight <= 0)) {
+            this.tmsAckInflight = 1;
+        }
+        if (! this.tmsPersist) {
+            this.tmsAckRequired = false;
+            this.tmsAuditUpload = true;
+        }
     }
 
     public String getProxyHost() {

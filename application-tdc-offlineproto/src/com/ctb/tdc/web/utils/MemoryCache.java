@@ -42,18 +42,23 @@ public class MemoryCache {
         this.stateHashMap = stateHashMap;
     }
 
-    public StateVO setPendingState(String lsid) {        
-        ArrayList states = (ArrayList)this.stateHashMap.get(lsid);
-        if (states == null) states = new ArrayList();
-        int index = states.size() + 1;
-        StateVO state = new StateVO(index, StateVO.PENDING_STATE);            
-        states.add(state);
-        this.stateHashMap.put(lsid, states);
+    public StateVO setPendingState(String lsid) {
+        StateVO state = null;
+        if (this.srvSettings.isTmsAckRequired()) {
+            ArrayList states = (ArrayList)this.stateHashMap.get(lsid);
+            if (states == null) 
+                states = new ArrayList();
+            int index = states.size() + 1;
+            state = new StateVO(index, StateVO.PENDING_STATE);            
+            states.add(state);
+            this.stateHashMap.put(lsid, states);
+        }
         return state;
     }
 
     public void setAcknowledgeState(StateVO state) {
-        state.setState(StateVO.ACTKNOWLEDGE_STATE);        
+        if (this.srvSettings.isTmsAckRequired() && (state != null))
+            state.setState(StateVO.ACTKNOWLEDGE_STATE);        
     }
     
     public void emptyStates(String lsid) {        
@@ -63,11 +68,19 @@ public class MemoryCache {
     
     public boolean pendingState(String lsid) {  
         boolean pending = false;
-        ArrayList states = (ArrayList)this.stateHashMap.get(lsid);
-        if (states != null) {
-            StateVO state = (StateVO)states.get(0);
-            pending = state.getState().equals(StateVO.PENDING_STATE);
-        }        
+        StateVO state = null;
+        if (this.srvSettings.isTmsAckRequired()) {
+            ArrayList states = (ArrayList)this.stateHashMap.get(lsid);
+            if (states != null) {
+                int count = 0;
+                for (int i=0 ; i<states.size() ; i++) {
+                    state = (StateVO)states.get(i);
+                    if (state.getState().equals(StateVO.PENDING_STATE))
+                        count++; // count number of pending state                   
+                }
+                pending = (count >= this.srvSettings.getTmsAckInflight());
+            }
+        }
         return pending;
     }
     

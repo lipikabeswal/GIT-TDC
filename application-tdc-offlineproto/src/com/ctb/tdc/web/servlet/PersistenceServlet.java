@@ -176,13 +176,17 @@ public class PersistenceServlet extends HttpServlet {
             writeResponse(response, xml);       
 
             StateVO state = memoryCache.setPendingState(audit.getLsid());                       
-            String result = sendRequest(xml, ServletUtils.SAVE_METHOD);        
+            String result = null;
+            if (memoryCache.getSrvSettings().isTmsPersist())
+                result = sendRequest(xml, ServletUtils.SAVE_METHOD);        
             memoryCache.setAcknowledgeState(state);                       
             
-            String fileName = audit.getFileName();  
-            String lsid = audit.getLsid();        
-            audit = ServletUtils.createAuditVO(fileName, lsid, ServletUtils.NONE, ServletUtils.ACTKNOWLEDGE_EVENT, result);            
-            AuditFile.log(audit);        
+            if (result != null) {
+                String fileName = audit.getFileName();  
+                String lsid = audit.getLsid();        
+                audit = ServletUtils.createAuditVO(fileName, lsid, ServletUtils.NONE, ServletUtils.ACTKNOWLEDGE_EVENT, result);            
+                AuditFile.log(audit);
+            }
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -202,8 +206,7 @@ public class PersistenceServlet extends HttpServlet {
     private String sendRequest(String xml, String method) {
         String result = "";
         try {
-            String tmsWebAppURL = ServletUtils.getWebAppURL(method);
-            URL tmsURL = new URL(tmsWebAppURL);
+            URL tmsURL = ServletUtils.getTmsURL(method, xml);
             URLConnection tmsConnection = tmsURL.openConnection();
             tmsConnection.setDoOutput(true);
             PrintWriter out = new PrintWriter(tmsConnection.getOutputStream());
@@ -212,7 +215,7 @@ public class PersistenceServlet extends HttpServlet {
             out.close();
 
             BufferedReader in = new BufferedReader(new InputStreamReader(tmsConnection.getInputStream()));
-            String inputLine;            
+            String inputLine = "";            
             while ((inputLine = in.readLine()) != null) {
                 System.out.println(inputLine);
                 result += inputLine;
