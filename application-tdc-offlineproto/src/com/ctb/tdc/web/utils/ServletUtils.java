@@ -1,16 +1,24 @@
 package com.ctb.tdc.web.utils;
 
+import java.util.HashMap;
+import java.util.ResourceBundle;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.ctb.tdc.web.dto.AuditVO;
+import com.ctb.tdc.web.dto.ServletSettings;
 
 /**
  * @author Tai_Truong
  */
 public class ServletUtils {
+    public static final String SERVLET_NAME = "tdc";
 
     public static final String URL_HOST = "http://152.159.127.61";
-    public static final String URL_WEBAPP = "/TestDeliveryWeb/begin.do";
+    public static final String URL_PORT = "8080";
+    public static final String URL_WEBAPP_LOGIN = "/TestDeliveryWeb/begin.do";
+    public static final String URL_WEBAPP_SAVE = "/TestDeliveryWeb/begin.do";
+    public static final String URL_WEBAPP_FEEDBACK = "/TestDeliveryWeb/begin.do";
     
     // methods
     public static final String DOWNLOAD_CONTENT_METHOD = "downloadContent";
@@ -133,6 +141,36 @@ public class ServletUtils {
         String mseq = parseMseq(xml);
         AuditVO audit = new AuditVO(fileName, lsid, mseq, event, xml);
         return audit;
+    }
+    
+    public static String getWebAppName(String method) {
+        String webApp = URL_WEBAPP_LOGIN;
+        if (method.equals(LOGIN_METHOD))
+            webApp = URL_WEBAPP_LOGIN;
+        if (method.equals(SAVE_METHOD))
+            webApp = URL_WEBAPP_SAVE;
+        if (method.equals(FEEDBACK_METHOD))
+            webApp = URL_WEBAPP_FEEDBACK;        
+        return webApp;
+    }
+    
+    public static void initMemoryCache() {
+        MemoryCache memoryCache = MemoryCache.getInstance();
+        ResourceBundle rb = ResourceBundle.getBundle(SERVLET_NAME);
+        ServletSettings srvSettings = new ServletSettings(rb);
+        memoryCache.setSrvSettings(srvSettings);
+
+        HashMap stateHashMap = new HashMap();            
+        memoryCache.setStateHashMap(stateHashMap);
+    }
+
+    public static String getWebAppURL(String method) {
+        MemoryCache memoryCache = MemoryCache.getInstance();
+        ServletSettings srvSettings = memoryCache.getSrvSettings();
+        String tmsHost = srvSettings.getTmsHost();
+        String tmsWebApp = getWebAppName(method);
+        String webAppURL = tmsHost + tmsWebApp;
+        return webAppURL;
     }
     
 }

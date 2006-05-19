@@ -6,7 +6,7 @@ package com.ctb.tdc.web.dto;
 public class StateVO implements java.io.Serializable {
     static final long serialVersionUID = 1L;
     
-    public static final String WAIT_STATE = "wait"; 
+    public static final String PENDING_STATE = "pending"; 
     public static final String ACTKNOWLEDGE_STATE = "ackknowledge";
 
     private int index;

@@ -7,7 +7,6 @@ import java.io.PrintWriter;
 
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -101,7 +100,8 @@ public class PersistenceServlet extends HttpServlet {
      */
     private boolean login(HttpServletResponse response, String xml) {
         try {
-            String result = sendRequest(xml);
+            ServletUtils.initMemoryCache();
+            String result = sendRequest(xml, ServletUtils.LOGIN_METHOD);
             String lsid = ServletUtils.parseLsid(result);
             String fileName = AuditFile.buildFileName(lsid);
             if (AuditFile.exists(fileName)) {
@@ -135,7 +135,7 @@ public class PersistenceServlet extends HttpServlet {
             String fileName = AuditFile.buildFileName(lsid);
             AuditVO audit = ServletUtils.createAuditVO(fileName, lsid, ServletUtils.NONE, ServletUtils.RECEIVE_EVENT, xml);            
             AuditFile.log(audit);        
-            String result = sendRequest(xml);
+            String result = sendRequest(xml, ServletUtils.FEEDBACK_METHOD);
             writeResponse(response, result);
         } 
         catch (Exception e) {
@@ -163,22 +163,21 @@ public class PersistenceServlet extends HttpServlet {
             AuditVO audit = ServletUtils.createAuditVO(xml, ServletUtils.RECEIVE_EVENT);
 
             MemoryCache memoryCache = MemoryCache.getInstance();
-            boolean hasAcknowledge = memoryCache.hasAcknowledge(audit.getLsid());
-            if (hasAcknowledge) {
-                memoryCache.emptyStates(audit.getLsid());
-            }
-            else {
+            boolean pending = memoryCache.pendingState(audit.getLsid());
+            if (pending) {
                 writeResponse(response, "<err>Wait for TMS to response</err>");
                 return false;
             }
+            else {
+                memoryCache.emptyStates(audit.getLsid());
+            }
+            
             AuditFile.log(audit);        
             writeResponse(response, xml);       
 
-            StateVO state = memoryCache.putWaitState(audit.getLsid());
-                        
-            String result = sendRequest(xml);
-        
-            state.setState(StateVO.ACTKNOWLEDGE_STATE);
+            StateVO state = memoryCache.setPendingState(audit.getLsid());                       
+            String result = sendRequest(xml, ServletUtils.SAVE_METHOD);        
+            memoryCache.setAcknowledgeState(state);                       
             
             String fileName = audit.getFileName();  
             String lsid = audit.getLsid();        
@@ -200,15 +199,11 @@ public class PersistenceServlet extends HttpServlet {
         out.close();        
     }
 
-    private String sendRequest(String xml) {
-        /*
-        String temporary = "<login_response lsid='28330:oxygenate4' restart_flag='false' restart_number='0' />";
-        if (temporary != null)
-            return temporary;
-        */
+    private String sendRequest(String xml, String method) {
         String result = "";
         try {
-            URL tmsURL = new URL(ServletUtils.URL_HOST + ServletUtils.URL_WEBAPP);
+            String tmsWebAppURL = ServletUtils.getWebAppURL(method);
+            URL tmsURL = new URL(tmsWebAppURL);
             URLConnection tmsConnection = tmsURL.openConnection();
             tmsConnection.setDoOutput(true);
             PrintWriter out = new PrintWriter(tmsConnection.getOutputStream());
@@ -232,6 +227,4 @@ public class PersistenceServlet extends HttpServlet {
         return result;
     }
     
-    
-
 }
