@@ -168,11 +168,11 @@ public class PersistenceServlet extends HttpServlet {
             MemoryCache memoryCache = MemoryCache.getInstance();
             boolean pending = memoryCache.pendingState(audit.getLsid());
             if (pending) {
-                writeResponse(response, "<err>Wait for TMS to response</err>");
+                writeResponse(response, "<error>Wait for TMS to response</error>");
                 return false;
             }
             else {
-                memoryCache.emptyStates(audit.getLsid());
+                memoryCache.removeAcknowledgeStates(audit.getLsid());
             }
             
             AuditFile.log(audit);        
@@ -235,6 +235,10 @@ public class PersistenceServlet extends HttpServlet {
 
     private void uploadAuditFile(HttpServletResponse response, String xml) {
         try {
+            MemoryCache memoryCache = MemoryCache.getInstance();
+            if (! memoryCache.getSrvSettings().isTmsAuditUpload())
+                return; 
+            
             URL tmsURL = ServletUtils.getTmsURL(ServletUtils.URL_WEBAPP_UPLOAD_AUDIT_FILE, xml);
             
             URLConnection tmsConnection = tmsURL.openConnection();

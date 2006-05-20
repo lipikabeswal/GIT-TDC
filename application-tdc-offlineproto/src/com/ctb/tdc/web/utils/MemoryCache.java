@@ -61,20 +61,25 @@ public class MemoryCache {
             state.setState(StateVO.ACTKNOWLEDGE_STATE);        
     }
     
-    public void emptyStates(String lsid) {        
-        ArrayList states = new ArrayList();
-        this.stateHashMap.put(lsid, states);        
+    public void removeAcknowledgeStates(String lsid) {        
+        ArrayList states = (ArrayList)this.stateHashMap.get(lsid);
+        if (states != null) {
+            for (int i=0 ; i<states.size() ; i++) {
+                StateVO state = (StateVO)states.get(i);
+                if (state.getState().equals(StateVO.ACTKNOWLEDGE_STATE))
+                    states.remove(i);                   
+            }
+        }
     }
     
     public boolean pendingState(String lsid) {  
         boolean pending = false;
-        StateVO state = null;
         if (this.srvSettings.isTmsAckRequired()) {
             ArrayList states = (ArrayList)this.stateHashMap.get(lsid);
             if (states != null) {
                 int count = 0;
                 for (int i=0 ; i<states.size() ; i++) {
-                    state = (StateVO)states.get(i);
+                    StateVO state = (StateVO)states.get(i);
                     if (state.getState().equals(StateVO.PENDING_STATE))
                         count++; // count number of pending state                   
                 }
