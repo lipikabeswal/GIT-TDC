@@ -37,7 +37,7 @@ public class FileUtils {
 
         String text = null;
         if (! exist) {
-            text = "MSEQ \t TYPE \t\t DATE \t\t\t LSID \t\t\t RESPONSE \n";
+            text = "MSEQ \t EVENT \t\t  LSID \n";
             fileWriter.write(text);            
             text = "--------------------------------------------------------------------------------- \n";
             fileWriter.write(text);                        
@@ -52,9 +52,6 @@ public class FileUtils {
     
     // format = mseq     type    datetime    lsid    response
     public static boolean writeToAuditFile(AuditVO audit) throws Exception {
-        
-        AuditFile.log(audit);
-        /*
         String fileFullName = audit.getFileName();
         File file = new File(fileFullName);        
         boolean exist = file.exists();
@@ -63,17 +60,17 @@ public class FileUtils {
 
         String text = null;
         if (! exist) {
-            text = "MSEQ \t TYPE \t\t DATE \t\t\t LSID \t\t\t RESPONSE \n";
+            text = "MSEQ \t EVENT \t\t  LSID \n";
             fileWriter.write(text);            
             text = "--------------------------------------------------------------------------------- \n";
             fileWriter.write(text);            
         }
-        text = audit.getMseq() + " \t " + audit.getType() + " \t " + audit.getDate() + " \t " + audit.getLsid() + " \t " + audit.getResponse() + "\n";               
+        text = audit.getMseq() + " \t " + audit.getEvent() + " \t " + audit.getLsid() + "\n";               
         fileWriter.write(text);
         
         fileWriter.flush();
         fileWriter.close();  
-        */
+        
         return true;
     }
 

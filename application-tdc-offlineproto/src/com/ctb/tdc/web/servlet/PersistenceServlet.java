@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ctb.tdc.web.dto.AuditVO;
 import com.ctb.tdc.web.dto.StateVO;
+import com.ctb.tdc.web.utils.FileUtils;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.ServletUtils;
@@ -85,6 +86,8 @@ public class PersistenceServlet extends HttpServlet {
             save(response, xml);        
         else if (method.equals(ServletUtils.FEEDBACK_METHOD))
             feedback(response, xml);        
+        else if (method.equals(ServletUtils.UPLOAD_AUDIT_FILE_METHOD))
+            uploadAuditFile(response, xml);        
 	}
 
     /**
@@ -220,7 +223,7 @@ public class PersistenceServlet extends HttpServlet {
                 System.out.println(inputLine);
                 result += inputLine;
             }
-            in.close();
+            in.close();          
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -228,6 +231,33 @@ public class PersistenceServlet extends HttpServlet {
         }
         
         return result;
+    }
+
+    private void uploadAuditFile(HttpServletResponse response, String xml) {
+        try {
+            URL tmsURL = ServletUtils.getTmsURL(ServletUtils.URL_WEBAPP_UPLOAD_AUDIT_FILE, xml);
+            
+            URLConnection tmsConnection = tmsURL.openConnection();
+            tmsConnection.setDoOutput(true);
+            PrintWriter out = new PrintWriter(tmsConnection.getOutputStream());            
+
+            String lsid = ServletUtils.parseLsid(xml);
+            String fileName = AuditFile.buildFileName(lsid);
+            FileUtils.printFileToOutput(fileName, out);             
+            out.flush();
+            out.close();        
+            
+            BufferedReader in = new BufferedReader(new InputStreamReader(tmsConnection.getInputStream()));
+            String inputLine = "";            
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
+            }
+            in.close();   
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("******** exception occured in uploadAuditFile() ********");
+        }
     }
     
 }

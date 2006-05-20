@@ -22,6 +22,7 @@ public class ServletUtils {
     public static final String URL_WEBAPP_SAVE_RESPONSE = "/TestDeliveryWeb/response.do";
     public static final String URL_WEBAPP_SAVE_LIFECYCLE = "/TestDeliveryWeb/lifecycle.do";
     public static final String URL_WEBAPP_FEEDBACK = "/TestDeliveryWeb/feedback.do";
+    public static final String URL_WEBAPP_UPLOAD_AUDIT_FILE = "/TestDeliveryWeb/upload.do";
     
     // methods
     public static final String DOWNLOAD_CONTENT_METHOD = "downloadContent";
@@ -32,6 +33,7 @@ public class ServletUtils {
     public static final String LOGIN_METHOD = "login";
     public static final String SAVE_METHOD = "save";
     public static final String FEEDBACK_METHOD = "feedback";
+    public static final String UPLOAD_AUDIT_FILE_METHOD = "uploadAuditFile";
 
     // parameters
     public static final String METHOD_PARAM = "method";
@@ -160,6 +162,9 @@ public class ServletUtils {
         if (method.equals(FEEDBACK_METHOD))
             webApp = URL_WEBAPP_FEEDBACK;
         else
+        if (method.equals(UPLOAD_AUDIT_FILE_METHOD))
+            webApp = URL_WEBAPP_UPLOAD_AUDIT_FILE;
+        else        
         if (method.equals(SAVE_METHOD)) {
             if (isSaveResponse(xml))
                 webApp = URL_WEBAPP_SAVE_RESPONSE;
