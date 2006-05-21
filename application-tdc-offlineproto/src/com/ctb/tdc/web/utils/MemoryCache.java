@@ -77,13 +77,13 @@ public class MemoryCache {
         if (this.srvSettings.isTmsAckRequired()) {
             ArrayList states = (ArrayList)this.stateHashMap.get(lsid);
             if (states != null) {
-                int count = 0;
+                int pendingCount = 0;
                 for (int i=0 ; i<states.size() ; i++) {
                     StateVO state = (StateVO)states.get(i);
                     if (state.getState().equals(StateVO.PENDING_STATE))
-                        count++; // count number of pending state                   
+                        pendingCount++;                   
                 }
-                pending = (count >= this.srvSettings.getTmsAckInflight());
+                pending = (pendingCount >= this.srvSettings.getTmsAckInflight());
             }
         }
         return pending;

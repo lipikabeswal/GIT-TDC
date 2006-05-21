@@ -116,7 +116,6 @@ public class PersistenceServlet extends HttpServlet {
         } 
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("******** exception occured in login() ********");
             return false;
         }
         return true;
@@ -143,7 +142,6 @@ public class PersistenceServlet extends HttpServlet {
         } 
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("******** exception occured in feedback() ********");
             return false;
         }
         return true;
@@ -193,7 +191,6 @@ public class PersistenceServlet extends HttpServlet {
         } 
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("******** exception occured in save() ********");
         }        
         return true;
     }
@@ -220,14 +217,12 @@ public class PersistenceServlet extends HttpServlet {
             BufferedReader in = new BufferedReader(new InputStreamReader(tmsConnection.getInputStream()));
             String inputLine = "";            
             while ((inputLine = in.readLine()) != null) {
-                System.out.println(inputLine);
                 result += inputLine;
             }
             in.close();          
         } 
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("******** exception occured in sendRequest() ********");
         }
         
         return result;
@@ -250,17 +245,17 @@ public class PersistenceServlet extends HttpServlet {
             FileUtils.printFileToOutput(fileName, out);             
             out.flush();
             out.close();        
-            
+            /*
             BufferedReader in = new BufferedReader(new InputStreamReader(tmsConnection.getInputStream()));
             String inputLine = "";            
             while ((inputLine = in.readLine()) != null) {
                 System.out.println(inputLine);
             }
             in.close();   
+            */
         } 
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("******** exception occured in uploadAuditFile() ********");
         }
     }
     
