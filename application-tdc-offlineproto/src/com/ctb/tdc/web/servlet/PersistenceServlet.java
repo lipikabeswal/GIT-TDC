@@ -280,14 +280,12 @@ public class PersistenceServlet extends HttpServlet {
             out.flush();
             out.close();    
             
-            /*
             BufferedReader in = new BufferedReader(new InputStreamReader(tmsConnection.getInputStream()));
             String inputLine = "";            
             while ((inputLine = in.readLine()) != null) {
                 System.out.println(inputLine);
             }
             in.close();   
-            */
         } 
         catch (Exception e) {
             e.printStackTrace();
