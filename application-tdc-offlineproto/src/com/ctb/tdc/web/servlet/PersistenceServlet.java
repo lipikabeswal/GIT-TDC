@@ -267,7 +267,7 @@ public class PersistenceServlet extends HttpServlet {
 
             String testRosterId = ServletUtils.parseTestRosterId(xml);
             String accessCode = ServletUtils.parseAccessCode(xml);
-            String params = "?";
+            String params = "";
             params += ServletUtils.TEST_ROSTER_ID_PARAM + "=" + testRosterId;
             params += "&";
             params += ServletUtils.ACCESS_CODE_PARAM + "=" + accessCode;

@@ -129,7 +129,7 @@ public class ServletUtils {
         String testRosterId = NONE;
         String lsid = parseLsid(xml);   
         if (! lsid.equals(NONE)) {
-            StringTokenizer st = new StringTokenizer(":");
+            StringTokenizer st = new StringTokenizer(lsid, ":");
             testRosterId = st.nextToken();            
         }
         return testRosterId;
@@ -139,7 +139,7 @@ public class ServletUtils {
         String accessCode = NONE;
         String lsid = parseLsid(xml);   
         if (! lsid.equals(NONE)) {
-            StringTokenizer st = new StringTokenizer(":");
+            StringTokenizer st = new StringTokenizer(lsid, ":");
             accessCode = st.nextToken();            
             accessCode = st.nextToken();            
         }
