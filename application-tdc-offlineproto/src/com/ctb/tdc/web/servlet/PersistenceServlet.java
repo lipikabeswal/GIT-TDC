@@ -82,6 +82,7 @@ public class PersistenceServlet extends HttpServlet {
         String method = ServletUtils.getMethod(request);
         String xml = ServletUtils.getXml(request);
          
+        
         ///////////// Start of testing - this will be removed when done /////////////////////
         String user_name = request.getParameter("user_name");
         String password = request.getParameter("password");
@@ -93,13 +94,12 @@ public class PersistenceServlet extends HttpServlet {
         String res = request.getParameter("response");
         String lsid = request.getParameter("lsid");
         String mseq = request.getParameter("mseq");
-        if (! res.equals("Select Response")) {
+        if ((res != null) && (! res.equals("Select Response"))) {
             method = ServletUtils.SAVE_METHOD;
             xml = "<adssvc_request method=\"save_testing_session_data\"><save_testing_session_data><tsd lsid=\"" + lsid + "\" scid=\"24009\" mseq=\"" + mseq + "\"><ist dur=\"2\" awd=\"1\" mrk=\"0\" iid=\"OKPT_SR.EOI.BIO.001\"><rv t=\"identifier\" n=\"RESPONSE\"><v>" + res + "</v></rv></ist></tsd></save_testing_session_data></adssvc_request>";            
         }        
         ///////////// End of testing /////////////////////        
-         
-        
+
         
         if (method.equals(ServletUtils.LOGIN_METHOD))
             login(response, xml);
