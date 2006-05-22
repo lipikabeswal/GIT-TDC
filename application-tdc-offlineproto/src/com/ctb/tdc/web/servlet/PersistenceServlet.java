@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
+import java.net.ContentHandlerFactory;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -217,6 +218,7 @@ public class PersistenceServlet extends HttpServlet {
             BufferedReader in = new BufferedReader(new InputStreamReader(tmsConnection.getInputStream()));
             String inputLine = "";            
             while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
                 result += inputLine;
             }
             in.close();          
@@ -238,13 +240,26 @@ public class PersistenceServlet extends HttpServlet {
             
             URLConnection tmsConnection = tmsURL.openConnection();
             tmsConnection.setDoOutput(true);
+            
+            //ContentHandlerFactory arg;
+            
             PrintWriter out = new PrintWriter(tmsConnection.getOutputStream());            
 
+            String testRosterId = ServletUtils.parseTestRosterId(xml);
+            String accessCode = ServletUtils.parseAccessCode(xml);
+            String params = "?";
+            params += ServletUtils.TEST_ROSTER_ID_PARAM + "=" + testRosterId;
+            params += "&";
+            params += ServletUtils.ACCESS_CODE_PARAM + "=" + accessCode;
+            params += ServletUtils.AUDIT_FILE_PARAM + "=";
+            out.println(params);
+            
             String lsid = ServletUtils.parseLsid(xml);
             String fileName = AuditFile.buildFileName(lsid);
             FileUtils.printFileToOutput(fileName, out);             
             out.flush();
-            out.close();        
+            out.close();    
+            
             /*
             BufferedReader in = new BufferedReader(new InputStreamReader(tmsConnection.getInputStream()));
             String inputLine = "";            

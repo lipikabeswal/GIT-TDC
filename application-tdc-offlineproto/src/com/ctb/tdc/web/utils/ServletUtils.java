@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,7 +23,7 @@ public class ServletUtils {
     public static final String URL_WEBAPP_SAVE_RESPONSE = "/TestDeliveryWeb/response.do";
     public static final String URL_WEBAPP_SAVE_LIFECYCLE = "/TestDeliveryWeb/lifecycle.do";
     public static final String URL_WEBAPP_FEEDBACK = "/TestDeliveryWeb/feedback.do";
-    public static final String URL_WEBAPP_UPLOAD_AUDIT_FILE = "/TestDeliveryWeb/upload.do";
+    public static final String URL_WEBAPP_UPLOAD_AUDIT_FILE = "/TestDeliveryWeb/audit.do";
     
     // methods
     public static final String DOWNLOAD_CONTENT_METHOD = "downloadContent";
@@ -37,11 +38,14 @@ public class ServletUtils {
 
     // parameters
     public static final String METHOD_PARAM = "method";
+    public static final String TEST_ROSTER_ID_PARAM = "testRosterId";
+    public static final String ACCESS_CODE_PARAM = "accessCode";
     public static final String ITEM_SET_ID_PARAM = "itemSetId";
     public static final String ITEM_ID_PARAM = "itemId";
     public static final String IMAGE_ID_PARAM = "imageId";
     public static final String ENCRYPTION_KEY_PARAM = "encryptionKey";
     public static final String XML_PARAM = "requestXML";
+    public static final String AUDIT_FILE_PARAM = "auditFile";
 
     // events
     public static final String RECEIVE_EVENT = "RCV"; 
@@ -121,6 +125,27 @@ public class ServletUtils {
         return parseTag("lsid=", xml);
     }
 
+    public static String parseTestRosterId(String xml) {   
+        String testRosterId = NONE;
+        String lsid = parseLsid(xml);   
+        if (! lsid.equals(NONE)) {
+            StringTokenizer st = new StringTokenizer(":");
+            testRosterId = st.nextToken();            
+        }
+        return testRosterId;
+    }
+
+    public static String parseAccessCode(String xml) {   
+        String accessCode = NONE;
+        String lsid = parseLsid(xml);   
+        if (! lsid.equals(NONE)) {
+            StringTokenizer st = new StringTokenizer(":");
+            accessCode = st.nextToken();            
+            accessCode = st.nextToken();            
+        }
+        return accessCode;
+    }
+    
     public static String parseTag(String tagName, String xml) {
         String tagValue = NONE;
         if (xml != null) {
