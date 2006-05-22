@@ -10,9 +10,12 @@ import com.ctb.tdc.web.dto.StateVO;
  * @author Tai_Truong
  */
 public class MemoryCache {
+    private HashMap stateHashMap;
+    private ServletSettings srvSettings;
+    private HashMap itemMap;
+    private HashMap assetMap;
     private boolean loaded = false;
-    private HashMap stateHashMap = null;
-    private ServletSettings srvSettings = null;
+
     
     private MemoryCache() {
         this.loaded = false;
@@ -99,4 +102,19 @@ public class MemoryCache {
         return pending;
     }
     
+    public void clearContent()
+    {
+        itemMap = new HashMap();
+        assetMap = new HashMap();
+    }
+    
+    public HashMap getAssetMap()
+    {
+        return assetMap;
+    }
+    
+    public HashMap getItemMap()
+    {
+        return itemMap;
+    }
 }
