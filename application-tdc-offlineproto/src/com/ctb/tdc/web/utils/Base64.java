@@ -90,9 +90,9 @@ public class Base64
 		return encode(src.getBytes());	
 	}
 	
-	public static String decode(String src) throws Exception
+	public static byte[] decodeToByteArray(String src) throws Exception
 	{
-		byte[] bytes = null;
+	    byte[] bytes = null;
 
 		StringBuffer buf = new StringBuffer(src);
 
@@ -165,7 +165,12 @@ public class Base64
 			newBytes[i] = bytes[i];
 		}
 
-		return new String( newBytes );
+		return newBytes;
+	}
+	
+	public static String decode(String src) throws Exception
+	{
+		return new String( decodeToByteArray( src ));
 	}
 
 	/**
