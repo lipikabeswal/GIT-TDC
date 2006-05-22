@@ -78,6 +78,8 @@ public class PersistenceServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+            
+	    ServletUtils.initMemoryCache();
 
         String method = ServletUtils.getMethod(request);
         String xml = ServletUtils.getXml(request);
@@ -108,7 +110,7 @@ public class PersistenceServlet extends HttpServlet {
         else if (method.equals(ServletUtils.FEEDBACK_METHOD))
             feedback(response, xml);        
         else if (method.equals(ServletUtils.UPLOAD_AUDIT_FILE_METHOD))
-            uploadAuditFile(response, xml);        
+            uploadAuditFile2(response, xml);        
 	}
 
     /**
@@ -124,7 +126,6 @@ public class PersistenceServlet extends HttpServlet {
      */
     private boolean login(HttpServletResponse response, String xml) {
         try {
-            ServletUtils.initMemoryCache();
             String result = sendRequest(xml, ServletUtils.LOGIN_METHOD);
             String lsid = ServletUtils.parseLsid(result);
             String fileName = AuditFile.buildFileName(lsid);
@@ -286,6 +287,16 @@ public class PersistenceServlet extends HttpServlet {
                 System.out.println(inputLine);
             }
             in.close();   
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void uploadAuditFile2(HttpServletResponse response, String xml) {
+        try {
+//            HttpClient client = new HttpClient();
+
         } 
         catch (Exception e) {
             e.printStackTrace();

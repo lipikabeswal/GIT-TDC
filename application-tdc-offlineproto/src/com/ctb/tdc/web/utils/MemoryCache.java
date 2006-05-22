@@ -10,10 +10,12 @@ import com.ctb.tdc.web.dto.StateVO;
  * @author Tai_Truong
  */
 public class MemoryCache {
-    private HashMap stateHashMap;
-    private ServletSettings srvSettings;
+    private boolean loaded = false;
+    private HashMap stateHashMap = null;
+    private ServletSettings srvSettings = null;
     
     private MemoryCache() {
+        this.loaded = false;
         this.stateHashMap = new HashMap();
         this.srvSettings = new ServletSettings();
     }
@@ -40,6 +42,14 @@ public class MemoryCache {
 
     public void setStateHashMap(HashMap stateHashMap) {
         this.stateHashMap = stateHashMap;
+    }
+    
+    public boolean isLoaded() {
+        return loaded;
+    }
+
+    public void setLoaded(boolean loaded) {
+        this.loaded = loaded;
     }
 
     public StateVO setPendingState(String lsid) {

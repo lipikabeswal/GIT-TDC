@@ -202,12 +202,16 @@ public class ServletUtils {
     
     public static void initMemoryCache() {
         MemoryCache memoryCache = MemoryCache.getInstance();
-        ResourceBundle rb = ResourceBundle.getBundle(SERVLET_NAME);
-        ServletSettings srvSettings = new ServletSettings(rb);
-        memoryCache.setSrvSettings(srvSettings);
-
-        HashMap stateHashMap = new HashMap();            
-        memoryCache.setStateHashMap(stateHashMap);
+        if (! memoryCache.isLoaded()) {
+            ResourceBundle rb = ResourceBundle.getBundle(SERVLET_NAME);
+            ServletSettings srvSettings = new ServletSettings(rb);
+            memoryCache.setSrvSettings(srvSettings);
+    
+            HashMap stateHashMap = new HashMap();            
+            memoryCache.setStateHashMap(stateHashMap);
+        
+            memoryCache.setLoaded(true);
+        }
     }
 
     public static URL getTmsURL(String method, String xml) throws MalformedURLException {
