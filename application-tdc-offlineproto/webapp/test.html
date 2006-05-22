@@ -30,10 +30,10 @@
 &lt;/tmssvc_request&gt;
 			">login(xml)</a>&nbsp;&nbsp;&nbsp;
 			<input type="text" name="user_name" value="tai_student1_0101" />&nbsp;
-			<input type="text" name="password=" value="elk131" />&nbsp;
-			<input type="text" name="access_code=" value="tai12345" />&nbsp;
+			<input type="text" name="password" value="elk131" />&nbsp;
+			<input type="text" name="access_code" value="tai12345" />&nbsp;
 			<input type="submit" value="submit" />
-			</li>
+			</li> 
 			<li><a href="servlet/PersistenceServlet?method=save&requestXML=
 &lt;adssvc_request method='save_testing_session_data'&gt;
   &lt;save_testing_session_data&gt;
@@ -58,7 +58,10 @@
   &lt;/save_testing_session_data&gt;
 &lt;/adssvc_request&gt;
 			">save(xml) : response</a>&nbsp;&nbsp;&nbsp;
+			<input type="text" name="lsid" value="28682:tai12345" />&nbsp;
+			<input type="text" name="mseq" value="2" />&nbsp;
 			<select name="response">
+				<option value="Select Response">Select Response</option>
 				<option value="A">A</option>
 				<option value="B">B</option>
 				<option value="C">C</option>
