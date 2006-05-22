@@ -3,8 +3,11 @@ package com.ctb.tdc.web.utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.jdom.input.SAXBuilder;
+
 import com.ctb.tdc.web.dto.ServletSettings;
 import com.ctb.tdc.web.dto.StateVO;
+import com.stgglobal.util.CryptoLE.Crypto;
 
 /**
  * @author Tai_Truong
@@ -14,6 +17,8 @@ public class MemoryCache {
     private ServletSettings srvSettings;
     private HashMap itemMap;
     private HashMap assetMap;
+    public Crypto aCrypto;
+    public SAXBuilder saxBuilder;
     private boolean loaded = false;
 
     
@@ -21,6 +26,9 @@ public class MemoryCache {
         this.loaded = false;
         this.stateHashMap = new HashMap();
         this.srvSettings = new ServletSettings();
+        clearContent();
+        aCrypto = new Crypto();
+        saxBuilder = new SAXBuilder();
     }
 
     public static MemoryCache getInstance() {
@@ -117,4 +125,5 @@ public class MemoryCache {
     {
         return itemMap;
     }
+    
 }
