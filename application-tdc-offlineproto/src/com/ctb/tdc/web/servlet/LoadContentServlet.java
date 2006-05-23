@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,12 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jdom.Element;
-import org.xml.sax.InputSource;
 import org.jdom.output.XMLOutputter;
 
 import com.ctb.tdc.web.utils.AssetInfo;
 import com.ctb.tdc.web.utils.Base64;
-import com.ctb.tdc.web.utils.FileUtils;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
 import com.stgglobal.util.CryptoLE.Crypto;
@@ -209,12 +206,12 @@ public class LoadContentServlet extends HttpServlet {
         return elementList;*/
     }
 	
-	public String updateItem( String itemxml, HashMap AssetTable ) throws Exception
+	public String updateItem( byte[] itemBytes, HashMap AssetTable ) throws Exception
     {
-        itemxml = itemxml.substring(0, itemxml.lastIndexOf("<assets>")) + itemxml.substring(itemxml.lastIndexOf("</assets>") + 9);
         MemoryCache aMemoryCache = MemoryCache.getInstance();
-        org.jdom.Document itemDoc = aMemoryCache.saxBuilder.build( new InputSource( new StringReader(itemxml)) );
+        org.jdom.Document itemDoc = aMemoryCache.saxBuilder.build( new ByteArrayInputStream( itemBytes ) );
         org.jdom.Element rootElement = (org.jdom.Element) itemDoc.getRootElement();
+        rootElement.getChild( "assets" ).detach();
         List items = extractAllElement( ".//image_widget", rootElement);
         for ( int i = 0; i < items.size(); i++ )
         {
@@ -267,8 +264,7 @@ public class LoadContentServlet extends HttpServlet {
 	                    assetMap.put( imageId, aAssetInfo );
 	                }
 	            }
-	            String itemxml = new String( result );
-	            itemxml = updateItem( itemxml, assetMap );
+	            String itemxml = updateItem( result, assetMap );
 	            itemxml = convertUTF8CharsToNumericEntityReferences( itemxml );
 	            itemxml = JavasriptConvert( itemxml );
 	            itemMap.put( itemID, itemxml.getBytes() );
