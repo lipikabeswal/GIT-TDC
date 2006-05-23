@@ -3,10 +3,22 @@
   <head>
     <title>Online Assessment</title>
     <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script>    
+function setElementValue(value) 
+{
+    var element = document.getElementById("action");
+    if( element ) {
+        element.value = value;
+    } 
+}
+</script>
+    
   </head>
   <body>
   
   <form action="servlet/PersistenceServlet">
+	<input type="hidden" name="action" id="action" value="none" />
+  
 		<h1 align="center">TDC Servlet Test Page</h1>
 		<br/>
 		<h3>Download Content Servlet</h3>
@@ -23,18 +35,25 @@
 		</ul>
 		<br/>
 		<h3>Persistence Servlet</h3>
-		<ul>
-			<li><a href="servlet/PersistenceServlet?method=login&requestXML=
+<ul>
+<table border="0" >
+<tr>
+	<td>		
+		<li><a href="servlet/PersistenceServlet?method=login&requestXML=
 &lt;tmssvc_request method='login'&gt;
 	&lt;login_request user_name='willie_adams_0602' password='mange4' access_code='oxygenate4' /&gt;
 &lt;/tmssvc_request&gt;
-			">login(xml)</a>&nbsp;&nbsp;&nbsp;
-			<input type="text" name="user_name" value="tai_student1_0101" />&nbsp;
-			<input type="text" name="password" value="elk131" />&nbsp;
-			<input type="text" name="access_code" value="tai12345" />&nbsp;
-			<input type="submit" value="submit" />
-			</li> 
-			<li><a href="servlet/PersistenceServlet?method=save&requestXML=
+			">login(xml)</a>
+		</li>
+	</td>
+	<td><input type="text" name="user_name" value="tai_student1_0101" /></td>
+	<td><input type="text" name="password" value="elk131" /></td>
+	<td><input type="text" name="access_code" value="tai12345" /></td>
+	<td><input type="submit" value="submit" onClick="setElementValue('login');" /></td>
+</tr>			
+<tr>
+	<td>
+		<li><a href="servlet/PersistenceServlet?method=save&requestXML=
 &lt;adssvc_request method='save_testing_session_data'&gt;
   &lt;save_testing_session_data&gt;
     &lt;tsd lsid='28330:oxygenate4' scid='24009' mseq='2'&gt;
@@ -44,8 +63,14 @@
     &lt;/tsd&gt;
   &lt;/save_testing_session_data&gt;
 &lt;/adssvc_request&gt;
-			">save(xml) : start subtest</a></li>
-			<li><a href="servlet/PersistenceServlet?method=save&requestXML=
+			">save(xml) : start subtest</a>
+		</li>
+	</td>
+	<td colspan="4">&nbsp;</td>
+</tr>
+<tr>
+	<td>
+		<li><a href="servlet/PersistenceServlet?method=save&requestXML=
 &lt;adssvc_request method='save_testing_session_data'&gt;
   &lt;save_testing_session_data&gt;
     &lt;tsd lsid='28330:oxygenate4' scid='24009' mseq='3'&gt;
@@ -57,19 +82,21 @@
     &lt;/tsd&gt;
   &lt;/save_testing_session_data&gt;
 &lt;/adssvc_request&gt;
-			">save(xml) : response</a>&nbsp;&nbsp;&nbsp;
-			<input type="text" name="lsid" value="28682:tai12345" />&nbsp;
-			<input type="text" name="mseq" value="2" />&nbsp;
-			<select name="response">
-				<option value="Select Response">Select Response</option>
-				<option value="A">A</option>
-				<option value="B">B</option>
-				<option value="C">C</option>
-				<option value="D">D</option>
-			</select>&nbsp; 
-			<input type="submit" value="submit" />
-			</li>
-			<li><a href="servlet/PersistenceServlet?method=save&requestXML=
+			">save(xml) : response</a>
+		</li>
+		<td><input type="text" name="lsid" value="28682:tai12345" /></td>
+		<td><input type="text" name="mseq" value="2" /></td>
+		<td><select name="response">
+			<option value="A">A</option>
+			<option value="B">B</option>
+			<option value="C">C</option>
+			<option value="D">D</option>
+		</select></td> 
+		<td><input type="submit" value="submit" onClick="setElementValue('response');" /></td>
+</tr>
+<tr>
+	<td>				
+		<li><a href="servlet/PersistenceServlet?method=save&requestXML=
 &lt;adssvc_request method='save_testing_session_data'&gt;
   &lt;save_testing_session_data&gt;
     &lt;tsd lsid='28330:oxygenate4' scid='24009' mseq='4'&gt;
@@ -79,8 +106,14 @@
     &lt;/tsd&gt;
   &lt;/save_testing_session_data&gt;
 &lt;/adssvc_request&gt;
-			">save(xml) : pause</a></li>
-			<li><a href="servlet/PersistenceServlet?method=save&requestXML=
+			">save(xml) : pause</a>
+		</li>
+	</td>
+	<td colspan="4">&nbsp;</td>
+</tr>
+<tr>
+	<td>				
+		<li><a href="servlet/PersistenceServlet?method=save&requestXML=
 &lt;adssvc_request method='save_testing_session_data'&gt;
   &lt;save_testing_session_data&gt;
     &lt;tsd lsid='28330:oxygenate4' scid='24009' mseq='5'&gt;
@@ -89,8 +122,14 @@
     &lt;/tsd&gt;
   &lt;/save_testing_session_data&gt;
 &lt;/adssvc_request&gt;
-			">save(xml) : heartbeat</a></li>
-			<li><a href="servlet/PersistenceServlet?method=save&requestXML=
+			">save(xml) : heartbeat</a>
+		</li>
+	</td>
+	<td colspan="4">&nbsp;</td>
+</tr>
+<tr>				
+	<td>				
+		<li><a href="servlet/PersistenceServlet?method=save&requestXML=
 &lt;adssvc_request method='save_testing_session_data'&gt;
   &lt;save_testing_session_data&gt;
     &lt;tsd lsid='28330:oxygenate4' scid='24009' mseq='6'&gt;
@@ -100,8 +139,14 @@
     &lt;/tsd&gt;
   &lt;/save_testing_session_data&gt;
 &lt;/adssvc_request&gt;
-			">save(xml) : finish subtest</a></li>
-			<li><a href="servlet/PersistenceServlet?method=feedback&requestXML=
+			">save(xml) : finish subtest</a>
+		</li>
+	</td>
+	<td colspan="4">&nbsp;</td>
+</tr>
+<tr>				
+	<td>				
+		<li><a href="servlet/PersistenceServlet?method=feedback&requestXML=
 &lt;adssvc_request method='save_testing_session_data'&gt;
   &lt;save_testing_session_data&gt;
     &lt;tsd lsid='28330:oxygenate4' scid='24009' mseq='7'&gt;
@@ -111,8 +156,14 @@
     &lt;/tsd&gt;
   &lt;/save_testing_session_data&gt;
 &lt;/adssvc_request&gt;
-			">feedback(xml)</a></li>
-			<li><a href="servlet/PersistenceServlet?method=uploadAuditFile&requestXML=
+			">feedback(xml)</a>
+		</li>
+	</td>
+	<td colspan="4">&nbsp;</td>
+</tr>
+<tr>				
+	<td>				
+		<li><a href="servlet/PersistenceServlet?method=uploadAuditFile&requestXML=
 &lt;adssvc_request method='save_testing_session_data'&gt;
   &lt;save_testing_session_data&gt;
     &lt;tsd lsid='28330:oxygenate4' scid='24009' mseq='7'&gt;
@@ -122,9 +173,15 @@
     &lt;/tsd&gt;
   &lt;/save_testing_session_data&gt;
 &lt;/adssvc_request&gt;
-			">upload audit file(xml)</a></li>
-		</ul>
-		<br/>
+			">upload audit file(xml)</a>
+		</li>
+	</td>
+	<td><input type="text" name="file_name" value="28682:tai12345" /></td>
+	<td><input type="submit" value="submit" onClick="setElementValue('upload');" /></td>
+	<td colspan="2">&nbsp;</td>
+</tr>
+</table>	
+</ul>
 		
 	</form>		
   </body>

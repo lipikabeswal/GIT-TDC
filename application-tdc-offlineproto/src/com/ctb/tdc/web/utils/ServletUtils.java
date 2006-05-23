@@ -1,12 +1,25 @@
 package com.ctb.tdc.web.utils;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileReader;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.multipart.FilePart;
+import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
+import org.apache.commons.httpclient.methods.multipart.Part;
+import org.apache.commons.httpclient.methods.multipart.StringPart;
 
 import com.ctb.tdc.web.dto.AuditVO;
 import com.ctb.tdc.web.dto.ServletSettings;
@@ -52,7 +65,8 @@ public class ServletUtils {
     public static final String ACTKNOWLEDGE_EVENT = "ACK";
         
     // returned values
-    public static final String OK = "200 OK";
+    public static final String OK = "<OK />";
+    public static final String ERROR = "<ERROR />";
 
     // date time
     public final static String DATETIME_FORMAT="MM/dd/yy hh:mm a";
@@ -166,11 +180,13 @@ public class ServletUtils {
     }
 
     public static AuditVO createAuditVO(String fileName, String lsid, String mseq, String event, String xml) {
+        xml = Base64.encode(xml);
         AuditVO audit = new AuditVO(fileName, lsid, mseq, event, xml);
         return audit;
     }
     
     public static AuditVO createAuditVO(String xml, String event) {
+        xml = Base64.encode(xml);
         String lsid = parseLsid(xml);
         String fileName = FileUtils.buildFileName(lsid);
         String mseq = parseMseq(xml);
@@ -219,6 +235,85 @@ public class ServletUtils {
         String tmsWebApp = getWebAppName(method, xml);
         URL tmsURL = new URL(tmsHost + tmsWebApp);
         return tmsURL;
+    }
+
+    public static String getTmsURLString(String method, String xml) throws MalformedURLException {
+        MemoryCache memoryCache = MemoryCache.getInstance();
+        ServletSettings srvSettings = memoryCache.getSrvSettings();
+        String tmsHost = srvSettings.getTmsHost();
+        String tmsWebApp = getWebAppName(method, xml);
+        return (tmsHost + tmsWebApp);
+    }
+
+    public static String uploadAuditFile_URLConnection(String xml) {
+        String result = NONE;
+        try {
+            URL tmsURL = getTmsURL(UPLOAD_AUDIT_FILE_METHOD, xml);
+            
+            URLConnection tmsConnection = tmsURL.openConnection();
+            tmsConnection.setDoOutput(true);
+            PrintWriter out = new PrintWriter(tmsConnection.getOutputStream());            
+
+            String lsid = parseLsid(xml);
+            String fileName = AuditFile.buildFileName(lsid);            
+            File file = new File(fileName);
+            FileReader fileReader = new FileReader(file);
+            char [] buff = new char[(int)file.length()];
+            fileReader.read(buff);
+            fileReader.close();
+            
+            String testRosterId = parseTestRosterId(xml);
+            String accessCode = parseAccessCode(xml);
+            String params = "";
+            params += TEST_ROSTER_ID_PARAM + "=" + testRosterId;
+            params += "&";
+            params += ACCESS_CODE_PARAM + "=" + accessCode;
+            params += "&";
+            params += AUDIT_FILE_PARAM + "=";
+            params += String.valueOf(buff);
+            out.println(params);
+            out.close();    
+            
+            String inputLine;
+            DataInputStream dis = new DataInputStream(tmsConnection.getInputStream());
+            while ((inputLine = dis.readLine()) != null) {
+                System.out.println(inputLine);
+                result += inputLine;
+            }
+            dis.close();
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static String uploadAuditFile_HttpClient(String xml) throws MalformedURLException {
+        String result = OK;
+        String tmsURL = getTmsURLString(UPLOAD_AUDIT_FILE_METHOD, xml);
+        PostMethod filePost = new PostMethod(tmsURL); 
+        try {
+            String testRosterId = parseTestRosterId(xml);
+            String accessCode = parseAccessCode(xml);
+            String lsid = parseLsid(xml);
+            String fileName = AuditFile.buildFileName(lsid);            
+            File file = new File(fileName);
+            Part[] parts = { new StringPart(TEST_ROSTER_ID_PARAM, testRosterId), 
+                             new StringPart(ACCESS_CODE_PARAM, accessCode), 
+                             new FilePart(AUDIT_FILE_PARAM, file) }; 
+            filePost.setRequestEntity( new MultipartRequestEntity(parts, filePost.getParams()) ); 
+            HttpClient client = new HttpClient(); 
+            int status = client.executeMethod(filePost);             
+            if (status != HttpStatus.SC_OK) 
+                result = ERROR;
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            filePost.releaseConnection();
+        }
+        return result;
     }
     
 }

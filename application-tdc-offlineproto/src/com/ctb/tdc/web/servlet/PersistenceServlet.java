@@ -1,16 +1,10 @@
 package com.ctb.tdc.web.servlet;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
-import java.net.ContentHandlerFactory;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -19,16 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.MultipartPostMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.params.HttpMethodParams;
-
 import com.ctb.tdc.web.dto.AuditVO;
 import com.ctb.tdc.web.dto.StateVO;
-import com.ctb.tdc.web.utils.FileUtils;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.ServletUtils;
@@ -97,21 +83,35 @@ public class PersistenceServlet extends HttpServlet {
         String xml = ServletUtils.getXml(request);
          
         
-        ///////////// Start of testing - this will be removed when done /////////////////////
-        String user_name = request.getParameter("user_name");
-        String password = request.getParameter("password");
-        String access_code = request.getParameter("access_code");
-        if (user_name != null && password != null && access_code != null) {
-            method = ServletUtils.LOGIN_METHOD;
-            xml = "<tmssvc_request method=\"login\"><login_request user_name=\"" + user_name + "\" password=\"" + password + "\" access_code=\"" + access_code + "\" /></tmssvc_request>";            
+        ///////////// uncomment this block to test with test.html /////////////////////
+        String action = request.getParameter("action");
+        if (action != null) {
+            if (action.equals("login")) {
+                String user_name = request.getParameter("user_name");
+                String password = request.getParameter("password");
+                String access_code = request.getParameter("access_code");
+                if (user_name != null && password != null && access_code != null) {
+                    method = ServletUtils.LOGIN_METHOD;
+                    xml = "<tmssvc_request method=\"login\"><login_request user_name=\"" + user_name + "\" password=\"" + password + "\" access_code=\"" + access_code + "\" /></tmssvc_request>";            
+                }
+            }
+            if (action.equals("response")) {
+                String res = request.getParameter("response");
+                String lsid = request.getParameter("lsid");
+                String mseq = request.getParameter("mseq");
+                if (res != null && lsid != null && mseq != null) {
+                    method = ServletUtils.SAVE_METHOD;
+                    xml = "<adssvc_request method=\"save_testing_session_data\"><save_testing_session_data><tsd lsid=\"" + lsid + "\" scid=\"24009\" mseq=\"" + mseq + "\"><ist dur=\"2\" awd=\"1\" mrk=\"0\" iid=\"OKPT_SR.EOI.BIO.001\"><rv t=\"identifier\" n=\"RESPONSE\"><v>" + res + "</v></rv></ist></tsd></save_testing_session_data></adssvc_request>";            
+                }
+            }
+            if (action.equals("upload")) {
+                String file_name = request.getParameter("file_name");
+                if (file_name != null) {
+                    method = ServletUtils.UPLOAD_AUDIT_FILE_METHOD;
+                    xml = "<adssvc_request method=\"save_testing_session_data\"><save_testing_session_data><tsd lsid=\"" + file_name + "\" scid=\"24009\" ><ist dur=\"2\" awd=\"1\" mrk=\"0\" iid=\"OKPT_SR.EOI.BIO.001\"></ist></tsd></save_testing_session_data></adssvc_request>";            
+                }
+            }
         }
-        String res = request.getParameter("response");
-        String lsid = request.getParameter("lsid");
-        String mseq = request.getParameter("mseq");
-        if ((res != null) && (! res.equals("Select Response"))) {
-            method = ServletUtils.SAVE_METHOD;
-            xml = "<adssvc_request method=\"save_testing_session_data\"><save_testing_session_data><tsd lsid=\"" + lsid + "\" scid=\"24009\" mseq=\"" + mseq + "\"><ist dur=\"2\" awd=\"1\" mrk=\"0\" iid=\"OKPT_SR.EOI.BIO.001\"><rv t=\"identifier\" n=\"RESPONSE\"><v>" + res + "</v></rv></ist></tsd></save_testing_session_data></adssvc_request>";            
-        }        
         ///////////// End of testing /////////////////////        
 
         
@@ -263,82 +263,19 @@ public class PersistenceServlet extends HttpServlet {
         return result;
     }
 
-    private void uploadAuditFile(HttpServletResponse response, String xml) {
+    private boolean uploadAuditFile(HttpServletResponse response, String xml) {
         try {
             MemoryCache memoryCache = MemoryCache.getInstance();
             if (! memoryCache.getSrvSettings().isTmsAuditUpload())
-                return; 
+                return false; 
             
-            URL tmsURL = ServletUtils.getTmsURL(ServletUtils.UPLOAD_AUDIT_FILE_METHOD, xml);
-            
-            URLConnection tmsConnection = tmsURL.openConnection();
-            tmsConnection.setDoOutput(true);
-            PrintWriter out = new PrintWriter(tmsConnection.getOutputStream());            
-
-            String lsid = ServletUtils.parseLsid(xml);
-            String fileName = AuditFile.buildFileName(lsid);            
-            File file = new File(fileName);
-            FileReader fileReader = new FileReader(file);
-            char [] cbuf = new char[(int)file.length()];
-            fileReader.read(cbuf);
-            fileReader.close();
-            
-            String testRosterId = ServletUtils.parseTestRosterId(xml);
-            String accessCode = ServletUtils.parseAccessCode(xml);
-            String params = "";
-            params += ServletUtils.TEST_ROSTER_ID_PARAM + "=" + testRosterId;
-            params += "&";
-            params += ServletUtils.ACCESS_CODE_PARAM + "=" + accessCode;
-            params += "&";
-            params += ServletUtils.AUDIT_FILE_PARAM + "=";
-            params += String.valueOf(cbuf);
-            out.println(params);
-            out.close();    
-            
-            String inputLine;
-            DataInputStream dis = new DataInputStream(tmsConnection.getInputStream());
-            while ((inputLine = dis.readLine()) != null) {
-                System.out.println(inputLine);
-            }
-            dis.close();
+            String result = ServletUtils.uploadAuditFile_HttpClient(xml);
+            writeResponse(response, result);            
         } 
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void uploadAuditFile2(HttpServletResponse response, String xml) {
-        try {
-            String url = "http://152.159.127.61/TestDeliveryWeb/audit.do";
-            
-            HttpClient client = new HttpClient();
-
-            
-            MultipartPostMethod mPost = new MultipartPostMethod(url);
-            client.setConnectionTimeout(8000);
-
-            PostMethod postMethod = new PostMethod(url);
-            File f = new File("students.xml");
-
-            FileInputStream fis = new FileInputStream(f);            
-            postMethod.setRequestBody(fis);
-            
-            postMethod.setRequestHeader("Content-type", "text/xml; charset=ISO-8859-1");
-
-            int statusCode1 = client.executeMethod(postMethod);
-
-            System.out.println("statusLine>>>" + postMethod.getStatusLine());
-            postMethod.releaseConnection();
-            
-            GetMethod method = new GetMethod(url);
-            method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
-            
-            int statusCode = client.executeMethod(method);
-
-        } 
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        return true;
     }
     
 }
