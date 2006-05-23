@@ -69,13 +69,19 @@ public class LoadContentServlet extends HttpServlet {
         String itemId = ServletUtils.getItemId(request);
         String imageId = ServletUtils.getImageId(request);
         String encryptionKey = ServletUtils.getEncryptionKey(request);
+        boolean good = true;
         
         if (method.equals(ServletUtils.LOAD_SUBTEST_METHOD))
-            loadSubtest(response, "2203", "1757", "F16FF0BA9F3D0051F8D3630744BA0FCC", "./data/objectbank");
+            good = loadSubtest(response, "2203", "1757", "F16FF0BA9F3D0051F8D3630744BA0FCC", "./data/objectbank");
         if (method.equals(ServletUtils.LOAD_ITEM_METHOD))
-            loadItem(response, itemId, encryptionKey);        
+            good = loadItem(response, itemId, encryptionKey);        
         if (method.equals(ServletUtils.LOAD_IMAGE_METHOD))
-            loadImage(response, imageId, encryptionKey);                
+            good = loadImage(response, imageId, encryptionKey);      
+        
+        if ( !good )
+        {
+            response.sendError( HttpServletResponse.SC_NO_CONTENT );
+        }
 	}
 
 	/**
@@ -324,6 +330,7 @@ public class LoadContentServlet extends HttpServlet {
         catch( Exception e )
         {
             result = false;
+            e.printStackTrace();
         }     
         return result;
     }
