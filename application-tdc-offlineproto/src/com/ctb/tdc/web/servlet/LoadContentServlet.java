@@ -71,7 +71,7 @@ public class LoadContentServlet extends HttpServlet {
         String encryptionKey = ServletUtils.getEncryptionKey(request);
         
         if (method.equals(ServletUtils.LOAD_SUBTEST_METHOD))
-            loadSubtest(response, "2203", "1757", "F16FF0BA9F3D0051F8D3630744BA0FCC", "./data/xmls");
+            loadSubtest(response, "2203", "1757", "F16FF0BA9F3D0051F8D3630744BA0FCC", "./data/objectbank");
         if (method.equals(ServletUtils.LOAD_ITEM_METHOD))
             loadItem(response, itemId, encryptionKey);        
         if (method.equals(ServletUtils.LOAD_IMAGE_METHOD))
