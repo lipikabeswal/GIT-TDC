@@ -23,7 +23,7 @@ public class ServletUtils {
     public static final String URL_WEBAPP_SAVE_RESPONSE = "/TestDeliveryWeb/response.do";
     public static final String URL_WEBAPP_SAVE_LIFECYCLE = "/TestDeliveryWeb/lifecycle.do";
     public static final String URL_WEBAPP_FEEDBACK = "/TestDeliveryWeb/feedback.do";
-    public static final String URL_WEBAPP_UPLOAD_AUDIT_FILE = "/TestDeliveryWeb/audit.do";
+    public static final String URL_WEBAPP_UPLOAD_AUDIT_FILE = "/TestDeliveryWeb/CTB/audit.do";
     
     // methods
     public static final String DOWNLOAD_CONTENT_METHOD = "downloadContent";
@@ -180,7 +180,6 @@ public class ServletUtils {
     
     public static String getWebAppName(String method, String xml) {
         String webApp = URL_WEBAPP_LOGIN;
-        /*
         if (method.equals(LOGIN_METHOD))
             webApp = URL_WEBAPP_LOGIN;
         else
@@ -196,7 +195,6 @@ public class ServletUtils {
             else
                 webApp = URL_WEBAPP_SAVE_LIFECYCLE;
         }
-        */
         return webApp;
     }
     

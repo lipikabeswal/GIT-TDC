@@ -1,7 +1,12 @@
 package com.ctb.tdc.web.servlet;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
@@ -13,6 +18,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.MultipartPostMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.params.HttpMethodParams;
 
 import com.ctb.tdc.web.dto.AuditVO;
 import com.ctb.tdc.web.dto.StateVO;
@@ -110,7 +122,7 @@ public class PersistenceServlet extends HttpServlet {
         else if (method.equals(ServletUtils.FEEDBACK_METHOD))
             feedback(response, xml);        
         else if (method.equals(ServletUtils.UPLOAD_AUDIT_FILE_METHOD))
-            uploadAuditFile2(response, xml);        
+            uploadAuditFile(response, xml);        
 	}
 
     /**
@@ -257,36 +269,38 @@ public class PersistenceServlet extends HttpServlet {
             if (! memoryCache.getSrvSettings().isTmsAuditUpload())
                 return; 
             
-            URL tmsURL = ServletUtils.getTmsURL(ServletUtils.URL_WEBAPP_UPLOAD_AUDIT_FILE, xml);
+            URL tmsURL = ServletUtils.getTmsURL(ServletUtils.UPLOAD_AUDIT_FILE_METHOD, xml);
             
             URLConnection tmsConnection = tmsURL.openConnection();
             tmsConnection.setDoOutput(true);
-            
-            //ContentHandlerFactory arg;
-            
             PrintWriter out = new PrintWriter(tmsConnection.getOutputStream());            
 
+            String lsid = ServletUtils.parseLsid(xml);
+            String fileName = AuditFile.buildFileName(lsid);            
+            File file = new File(fileName);
+            FileReader fileReader = new FileReader(file);
+            char [] cbuf = new char[(int)file.length()];
+            fileReader.read(cbuf);
+            fileReader.close();
+            
             String testRosterId = ServletUtils.parseTestRosterId(xml);
             String accessCode = ServletUtils.parseAccessCode(xml);
             String params = "";
             params += ServletUtils.TEST_ROSTER_ID_PARAM + "=" + testRosterId;
             params += "&";
             params += ServletUtils.ACCESS_CODE_PARAM + "=" + accessCode;
+            params += "&";
             params += ServletUtils.AUDIT_FILE_PARAM + "=";
+            params += String.valueOf(cbuf);
             out.println(params);
-            
-            String lsid = ServletUtils.parseLsid(xml);
-            String fileName = AuditFile.buildFileName(lsid);
-            FileUtils.printFileToOutput(fileName, out);             
-            out.flush();
             out.close();    
             
-            BufferedReader in = new BufferedReader(new InputStreamReader(tmsConnection.getInputStream()));
-            String inputLine = "";            
-            while ((inputLine = in.readLine()) != null) {
+            String inputLine;
+            DataInputStream dis = new DataInputStream(tmsConnection.getInputStream());
+            while ((inputLine = dis.readLine()) != null) {
                 System.out.println(inputLine);
             }
-            in.close();   
+            dis.close();
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -295,7 +309,31 @@ public class PersistenceServlet extends HttpServlet {
 
     private void uploadAuditFile2(HttpServletResponse response, String xml) {
         try {
-//            HttpClient client = new HttpClient();
+            String url = "http://152.159.127.61/TestDeliveryWeb/audit.do";
+            
+            HttpClient client = new HttpClient();
+
+            
+            MultipartPostMethod mPost = new MultipartPostMethod(url);
+            client.setConnectionTimeout(8000);
+
+            PostMethod postMethod = new PostMethod(url);
+            File f = new File("students.xml");
+
+            FileInputStream fis = new FileInputStream(f);            
+            postMethod.setRequestBody(fis);
+            
+            postMethod.setRequestHeader("Content-type", "text/xml; charset=ISO-8859-1");
+
+            int statusCode1 = client.executeMethod(postMethod);
+
+            System.out.println("statusLine>>>" + postMethod.getStatusLine());
+            postMethod.releaseConnection();
+            
+            GetMethod method = new GetMethod(url);
+            method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
+            
+            int statusCode = client.executeMethod(method);
 
         } 
         catch (Exception e) {
