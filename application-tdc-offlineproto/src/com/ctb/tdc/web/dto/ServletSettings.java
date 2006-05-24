@@ -49,12 +49,21 @@ public class ServletSettings implements java.io.Serializable {
         this.proxyPassword = rb.getString("proxy.password");       
         
         // make sure settings make sense
+        this.tmsAckInflight = 1;
+        this.tmsAckRetry = 1;
+        
         if (this.tmsAckRequired && (this.tmsAckInflight <= 0)) {
             this.tmsAckInflight = 1;
         }
         if (! this.tmsPersist) {
             this.tmsAckRequired = false;
             this.tmsAuditUpload = true;
+        }
+        if (this.tmsAckInflight <= 0) {
+            this.tmsAckInflight = 1;            
+        }
+        if (this.tmsAckRetry <= 0) {
+            this.tmsAckRetry = 1;            
         }
     }
 

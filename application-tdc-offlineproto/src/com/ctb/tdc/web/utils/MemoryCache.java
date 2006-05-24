@@ -95,23 +95,6 @@ public class MemoryCache {
         }
     }
     
-    public boolean pendingState(String lsid) {  
-        boolean pending = false;
-        if (this.srvSettings.isTmsAckRequired()) {
-            ArrayList states = (ArrayList)this.stateMap.get(lsid);
-            if (states != null) {
-                int pendingCount = 0;
-                for (int i=0 ; i<states.size() ; i++) {
-                    StateVO state = (StateVO)states.get(i);
-                    if (state.getState().equals(StateVO.PENDING_STATE))
-                        pendingCount++;                   
-                }
-                pending = (pendingCount >= this.srvSettings.getTmsAckInflight());
-            }
-        }
-        return pending;
-    }
-    
     public void clearContent()
     {
         itemMap = new HashMap();

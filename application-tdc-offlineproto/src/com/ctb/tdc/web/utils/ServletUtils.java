@@ -29,8 +29,6 @@ import com.ctb.tdc.web.dto.ServletSettings;
 public class ServletUtils {
     public static final String SERVLET_NAME = "tdc";
 
-    public static final String URL_HOST = "http://152.159.127.61";
-    public static final String URL_PORT = "8080";
     public static final String URL_WEBAPP_LOGIN = "/TestDeliveryWeb/begin.do";
     public static final String URL_WEBAPP_SAVE_RESPONSE = "/TestDeliveryWeb/response.do";
     public static final String URL_WEBAPP_SAVE_LIFECYCLE = "/TestDeliveryWeb/lifecycle.do";
@@ -47,6 +45,7 @@ public class ServletUtils {
     public static final String SAVE_METHOD = "save";
     public static final String FEEDBACK_METHOD = "feedback";
     public static final String UPLOAD_AUDIT_FILE_METHOD = "uploadAuditFile";
+    public static final String WRITE_TO_AUDIT_FILE_METHOD = "writeToAuditFile";
 
     // parameters
     public static final String METHOD_PARAM = "method";
@@ -64,11 +63,10 @@ public class ServletUtils {
     public static final String ACTKNOWLEDGE_EVENT = "ACK";
         
     // returned values
-    public static final String OK = "<OK />";
-    public static final String ERROR = "<ERROR />";
-
-    // date time
-    public final static String DATETIME_FORMAT="MM/dd/yy hh:mm a";
+    public static final String OK = "<OK>200</OK>";
+    public static final String METHOD_ERROR = "<Error>Invalid method</Error>";
+    public static final String UPLOAD_FILE_ERROR = "<Error>Failed to upload file</Error>";
+    public static final String ACK_ERROR = "<Error>No Acknowledge from TMS</Error>";
 
     // misc
     public static final String NONE = "-";
@@ -341,7 +339,7 @@ public class ServletUtils {
             HttpClient client = new HttpClient(); 
             int status = client.executeMethod(filePost);             
             if (status != HttpStatus.SC_OK) 
-                result = ERROR;
+                result = UPLOAD_FILE_ERROR;
             System.out.println(filePost.getResponseBodyAsString());
         } 
         catch (Exception e) {

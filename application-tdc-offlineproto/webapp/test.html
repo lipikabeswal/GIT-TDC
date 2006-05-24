@@ -180,8 +180,25 @@ function setElementValue(value)
 	<td colspan="2">&nbsp;</td>
 	<td><input type="submit" value="submit" onClick="setElementValue('upload');" /></td>
 </tr>
-</table>	
+<tr>				
+	<td>				
+		<li><a href="servlet/PersistenceServlet?method=writeToAuditFile&requestXML=
+&lt;adssvc_request method='writeToAuditFile'&gt;
+  &lt;save_testing_session_data&gt;
+    &lt;tsd lsid='28330:oxygenate4' scid='24009' mseq='7'&gt;
+      &lt;lev e='lms_uploadAuditFile' /&gt;
+      &lt;ist dur='2' awd='1' mrk='0' iid='OKPT_SR.EOI.BIO.001'&gt;
+      &lt;/ist&gt;
+    &lt;/tsd&gt;
+  &lt;/save_testing_session_data&gt;
+&lt;/adssvc_request&gt;
+			">write to audit file(xml)</a>
+		</li>
+	</td>
+	<td colspan="4">&nbsp;</td>
+</tr>
 </ul>
+</table>	
 		
 	</form>		
   </body>

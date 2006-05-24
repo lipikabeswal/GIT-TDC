@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -91,8 +92,9 @@ public class PersistenceServlet extends HttpServlet {
      * @param String xml
      *   
      *  handle event   
+     * @throws IOException 
      */
-    private void handleEvent(HttpServletResponse response, String method, String xml) {
+    private void handleEvent(HttpServletResponse response, String method, String xml) throws IOException {
         ServletUtils.initMemoryCache();
         if (method.equals(ServletUtils.LOGIN_METHOD))
             login(response, xml);
@@ -101,7 +103,11 @@ public class PersistenceServlet extends HttpServlet {
         else if (method.equals(ServletUtils.FEEDBACK_METHOD))
             feedback(response, xml);        
         else if (method.equals(ServletUtils.UPLOAD_AUDIT_FILE_METHOD))
-            uploadAuditFile(response, xml);                
+            uploadAuditFile(response, xml);
+        else if (method.equals(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD))
+            writeToAuditFile(response, xml);
+        else
+            writeResponse(response, ServletUtils.METHOD_ERROR);                        
     }
     
     /**
@@ -176,32 +182,28 @@ public class PersistenceServlet extends HttpServlet {
     private boolean save(HttpServletResponse response, String xml) {
         try {
             AuditVO audit = ServletUtils.createAuditVO(xml, ServletUtils.RECEIVE_EVENT);
-
+            String fileName = audit.getFileName();  
+            String lsid = audit.getLsid();        
             MemoryCache memoryCache = MemoryCache.getInstance();
-            boolean pending = memoryCache.pendingState(audit.getLsid());
-            if (pending) {
-                writeResponse(response, "<error>Wait for TMS to response</error>");
-                return false;
+            
+            if (hasAcknowledge(memoryCache, lsid)) {
+                removeAcknowledgeStates(memoryCache, lsid);
+                
+                AuditFile.log(audit);        
+                writeResponse(response, ServletUtils.OK);       
+    
+                if (memoryCache.getSrvSettings().isTmsPersist()) {
+                    StateVO state = memoryCache.setPendingState(lsid);                       
+                    String result = sendRequest(xml, ServletUtils.SAVE_METHOD);
+                    memoryCache.setAcknowledgeState(state);                       
+                    audit = ServletUtils.createAuditVO(fileName, lsid, ServletUtils.NONE, ServletUtils.ACTKNOWLEDGE_EVENT, result);            
+                    AuditFile.log(audit);
+                }
             }
             else {
-                memoryCache.removeAcknowledgeStates(audit.getLsid());
-            }
-            
-            AuditFile.log(audit);        
-            writeResponse(response, xml);       
-
-            StateVO state = memoryCache.setPendingState(audit.getLsid());                       
-            String result = null;
-            if (memoryCache.getSrvSettings().isTmsPersist())
-                result = sendRequest(xml, ServletUtils.SAVE_METHOD);        
-            memoryCache.setAcknowledgeState(state);                       
-            
-            if (result != null) {
-                String fileName = audit.getFileName();  
-                String lsid = audit.getLsid();        
-                audit = ServletUtils.createAuditVO(fileName, lsid, ServletUtils.NONE, ServletUtils.ACTKNOWLEDGE_EVENT, result);            
-                AuditFile.log(audit);
-            }
+                writeResponse(response, ServletUtils.ACK_ERROR);
+                System.out.println(ServletUtils.ACK_ERROR);
+            }            
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -231,7 +233,7 @@ public class PersistenceServlet extends HttpServlet {
             BufferedReader in = new BufferedReader(new InputStreamReader(tmsConnection.getInputStream()));
             String inputLine = "";            
             while ((inputLine = in.readLine()) != null) {
-                System.out.println(inputLine);
+                //System.out.println(inputLine);
                 result += inputLine;
             }
             in.close();          
@@ -258,4 +260,50 @@ public class PersistenceServlet extends HttpServlet {
         return true;
     }
     
+    private boolean writeToAuditFile(HttpServletResponse response, String xml) {
+        try {
+            AuditVO audit = ServletUtils.createAuditVO(xml, ServletUtils.RECEIVE_EVENT);
+            AuditFile.log(audit);        
+            writeResponse(response, ServletUtils.OK);       
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    private boolean hasAcknowledge(MemoryCache memoryCache, String lsid) throws InterruptedException {
+        int retry = memoryCache.getSrvSettings().getTmsAckRetry();
+        boolean pendingState = inPendingState(memoryCache, lsid);
+        while (pendingState && (retry > 0)) {
+            retry--;
+            Thread.sleep(1000);
+            pendingState = inPendingState(memoryCache, lsid);
+        }            
+        return (pendingState == false);
+    }
+    
+    public boolean inPendingState(MemoryCache memoryCache, String lsid) {  
+        boolean pendingState = false;
+        boolean isTmsAckRequired = memoryCache.getSrvSettings().isTmsAckRequired();
+        int tmsAckInflight = memoryCache.getSrvSettings().getTmsAckInflight();
+        
+        if (isTmsAckRequired) {
+            ArrayList states = (ArrayList)memoryCache.getStateMap().get(lsid);
+            if (states != null) {
+                int pendingCount = 0;
+                for (int i=0 ; i<states.size() ; i++) {
+                    StateVO state = (StateVO)states.get(i);
+                    if (state.getState().equals(StateVO.PENDING_STATE))
+                        pendingCount++;                   
+                }
+                pendingState = (pendingCount >= tmsAckInflight);
+            }
+        }
+        return pendingState;
+    }
+        
+    private void removeAcknowledgeStates(MemoryCache memoryCache, String lsid) {
+        memoryCache.removeAcknowledgeStates(lsid);
+    }    
 }
