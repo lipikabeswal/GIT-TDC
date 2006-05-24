@@ -251,8 +251,8 @@ public class PersistenceServlet extends HttpServlet {
             if (! memoryCache.getSrvSettings().isTmsAuditUpload())
                 return false; 
             
-            String result = ServletUtils.uploadAuditFile_HttpClient(xml);
-            writeResponse(response, result);            
+            String uploadStatus = ServletUtils.uploadAuditFile_HttpClient(xml);
+            writeResponse(response, uploadStatus);            
         } 
         catch (Exception e) {
             e.printStackTrace();

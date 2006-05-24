@@ -264,19 +264,29 @@ public class ServletUtils {
     public static String getTmsURLString(String method, String xml) throws MalformedURLException {
         MemoryCache memoryCache = MemoryCache.getInstance();
         ServletSettings srvSettings = memoryCache.getSrvSettings();
-        String tmsHost = srvSettings.getTmsHost();
-        String tmsPort = srvSettings.getTmsPort().trim(); 
-        if (tmsPort.length() > 0)
-            tmsPort = ":" + tmsPort;
+        String tmsHostPort = srvSettings.getTmsHostPort();
         String tmsWebApp = getWebAppName(method, xml);
-        String fullUrl = tmsHost + tmsPort + tmsWebApp;
-        return fullUrl;
+        return (tmsHostPort + tmsWebApp);
     }
 
     public static URL getTmsURL(String method, String xml) throws MalformedURLException {
-        String fullUrl = getTmsURLString(method, xml);
-        URL tmsURL = new URL(fullUrl);
+        String tmsUrlString = getTmsURLString(method, xml);
+        URL tmsURL = new URL(tmsUrlString);
         return tmsURL;
+    }
+
+    public static String getProxyURLString(String method, String xml) throws MalformedURLException {
+        MemoryCache memoryCache = MemoryCache.getInstance();
+        ServletSettings srvSettings = memoryCache.getSrvSettings();
+        String proxyHostPort = srvSettings.getProxyHostPort();
+        String tmsWebApp = getWebAppName(method, xml);
+        return (proxyHostPort + tmsWebApp);
+    }
+
+    public static URL getProxyURL(String method, String xml) throws MalformedURLException {
+        String proxyUrlString = getProxyURLString(method, xml);
+        URL proxyURL = new URL(proxyUrlString);
+        return proxyURL;
     }
     
     public static String uploadAuditFile_URLConnection(String xml) {
@@ -311,7 +321,7 @@ public class ServletUtils {
             String inputLine;
             DataInputStream dis = new DataInputStream(tmsConnection.getInputStream());
             while ((inputLine = dis.readLine()) != null) {
-                System.out.println(inputLine);
+                //System.out.println(inputLine);
                 result += inputLine;
             }
             dis.close();
@@ -323,7 +333,7 @@ public class ServletUtils {
     }
 
     public static String uploadAuditFile_HttpClient(String xml) throws MalformedURLException {
-        String result = OK;
+        String uploadStatus = OK;
         String testRosterId = parseTestRosterId(xml);
         String accessCode = parseAccessCode(xml);
         String tmsURL = getTmsURLString(UPLOAD_AUDIT_FILE_METHOD, xml);
@@ -342,8 +352,8 @@ public class ServletUtils {
             HttpClient client = new HttpClient(); 
             int status = client.executeMethod(filePost);             
             if (status != HttpStatus.SC_OK) 
-                result = UPLOAD_FILE_ERROR;
-            System.out.println(filePost.getResponseBodyAsString());
+                uploadStatus = UPLOAD_FILE_ERROR;
+            //System.out.println(filePost.getResponseBodyAsString());
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -351,7 +361,7 @@ public class ServletUtils {
         finally {
             filePost.releaseConnection();
         }
-        return result;
+        return uploadStatus;
     }
     
 }

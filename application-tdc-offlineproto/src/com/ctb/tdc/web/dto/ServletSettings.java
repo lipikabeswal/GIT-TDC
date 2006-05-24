@@ -146,5 +146,17 @@ public class ServletSettings implements java.io.Serializable {
         this.tmsPort = tmsPort;
     }
     
+    public String getTmsHostPort() {
+        if ((tmsPort != null) && (tmsPort.trim().length() > 0))
+            return (tmsHost + ":" + tmsPort);
+        else
+            return tmsHost;
+    }
     
+    public String getProxyHostPort() {
+        if ((proxyPort != null) && (proxyPort.trim().length() > 0))
+            return (proxyHost + ":" + proxyPort);
+        else
+            return proxyHost;
+    }
 }
