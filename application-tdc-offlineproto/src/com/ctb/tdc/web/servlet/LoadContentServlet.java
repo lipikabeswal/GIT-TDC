@@ -241,7 +241,8 @@ public class LoadContentServlet extends HttpServlet {
         HashMap assetMap = aMemoryCache.getAssetMap();
         if ( Crypto.checkHash( ItemHashKey, buffer ))
         {
-            byte[] result = aMemoryCache.aCrypto.checkHashAndDecrypt( getKeyByKeyId( ItemKeyId ), ItemHashKey, buffer, true, false );
+            Crypto aCrypto = new Crypto();
+            byte[] result = aCrypto.checkHashAndDecrypt( getKeyByKeyId( ItemKeyId ), ItemHashKey, buffer, true, false );
             org.jdom.Document itemDoc = aMemoryCache.saxBuilder.build( new ByteArrayInputStream( result ) );
             org.jdom.Element element = (org.jdom.Element) itemDoc.getRootElement();
             element = element.getChild( "assets" );
@@ -301,7 +302,8 @@ public class LoadContentServlet extends HttpServlet {
             byte[] buffer = readFromFile( new File( bankDir, fileName ) );
             if ( Crypto.checkHash( hashValue, buffer ))
             {
-                byte[] dataValue = aMemoryCache.aCrypto.checkHashAndDecrypt( encryptionKey, hashValue, buffer, true, false );
+                Crypto aCrypto = new Crypto();
+                byte[] dataValue = aCrypto.checkHashAndDecrypt( encryptionKey, hashValue, buffer, true, false );
                 String assxml = new String( dataValue );
                 org.jdom.Document itemDoc = aMemoryCache.saxBuilder.build( new ByteArrayInputStream( dataValue ) );
                 org.jdom.Element element = (org.jdom.Element) itemDoc.getRootElement();

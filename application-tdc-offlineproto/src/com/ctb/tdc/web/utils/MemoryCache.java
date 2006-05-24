@@ -19,7 +19,6 @@ public class MemoryCache {
     private ServletSettings srvSettings;
     private HashMap itemMap;
     private HashMap assetMap;
-    public Crypto aCrypto;
     public SAXBuilder saxBuilder;
     private boolean loaded = false;
 
@@ -29,7 +28,6 @@ public class MemoryCache {
         this.stateMap = new HashMap();
         this.srvSettings = new ServletSettings();
         clearContent();
-        aCrypto = new Crypto();
         saxBuilder = new SAXBuilder();
     }
 
