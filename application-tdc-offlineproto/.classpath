@@ -3,12 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="com.genuitec.eclipse.j2eedt.core.J2EE14_CONTAINER"/>
-	<classpathentry kind="lib" path="servletcontainer/jetty-5.1.11RC0/ext/bcprov-jdk14-130.jar"/>
-	<classpathentry kind="lib" path="servletcontainer/jetty-5.1.11RC0/ext/commons-httpclient-3.0.1.jar"/>
-	<classpathentry kind="lib" path="servletcontainer/jetty-5.1.11RC0/ext/CommunicatorS.jar"/>
-	<classpathentry kind="lib" path="servletcontainer/jetty-5.1.11RC0/ext/jdom.jar"/>
 	<classpathentry kind="lib" path="servletcontainer/jetty-5.1.11RC0/ext/log4j.jar"/>
-	<classpathentry kind="lib" path="servletcontainer/jetty-5.1.11RC0/ext/commons-codec.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/jdom.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/CommunicatorS.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/bcprov-jdk14-130.jar"/>

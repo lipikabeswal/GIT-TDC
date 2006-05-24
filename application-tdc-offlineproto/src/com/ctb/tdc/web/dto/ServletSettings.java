@@ -12,8 +12,9 @@ public class ServletSettings implements java.io.Serializable {
     private String tmsPort;
     private boolean tmsPersist;
     private boolean tmsAckRequired;
-    private boolean tmsAuditUpload;
     private int tmsAckInflight;
+    private int tmsAckRetry;
+    private boolean tmsAuditUpload;
 
     private String proxyHost;
     private String proxyPort;
@@ -25,8 +26,9 @@ public class ServletSettings implements java.io.Serializable {
         this.tmsPort = null;
         this.tmsPersist = true;
         this.tmsAckRequired = true;
-        this.tmsAuditUpload = true;
         this.tmsAckInflight = 1;
+        this.tmsAckRetry = 1;
+        this.tmsAuditUpload = true;
         this.proxyHost = null;
         this.proxyPort = null;
         this.proxyUserName = null;
@@ -38,8 +40,9 @@ public class ServletSettings implements java.io.Serializable {
         this.tmsPort = rb.getString("tms.server.port");
         this.tmsPersist = new Boolean(rb.getString("tms.server.persist")).booleanValue();
         this.tmsAckRequired = new Boolean(rb.getString("tms.ack.required")).booleanValue();
-        this.tmsAuditUpload = new Boolean(rb.getString("tms.audit.upload")).booleanValue();
         this.tmsAckInflight = new Integer(rb.getString("tms.ack.inflight")).intValue();
+        this.tmsAckRetry = new Integer(rb.getString("tms.ack.retry")).intValue();
+        this.tmsAuditUpload = new Boolean(rb.getString("tms.audit.upload")).booleanValue();
         this.proxyHost = rb.getString("proxy.host");
         this.proxyPort = rb.getString("proxy.port");
         this.proxyUserName = rb.getString("proxy.username");
@@ -93,6 +96,14 @@ public class ServletSettings implements java.io.Serializable {
 
     public void setTmsAckInflight(int tmsAckInflight) {
         this.tmsAckInflight = tmsAckInflight;
+    }
+    
+    public int getTmsAckRetry() {
+        return tmsAckRetry;
+    }
+
+    public void setTmsAckRetry(int tmsAckRetry) {
+        this.tmsAckRetry = tmsAckRetry;
     }
 
     public boolean isTmsAckRequired() {

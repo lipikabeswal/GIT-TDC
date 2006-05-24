@@ -16,7 +16,7 @@ function setElementValue(value)
   </head>
   <body>
   
-  <form action="servlet/PersistenceServlet">
+  <form action="servlet/PersistenceServlet" method="post">
 	<input type="hidden" name="action" id="action" value="none" />
   
 		<h1 align="center">TDC Servlet Test Page</h1>
@@ -177,8 +177,8 @@ function setElementValue(value)
 		</li>
 	</td>
 	<td><input type="text" name="file_name" value="28682:tai12345" /></td>
-	<td><input type="submit" value="submit" onClick="setElementValue('upload');" /></td>
 	<td colspan="2">&nbsp;</td>
+	<td><input type="submit" value="submit" onClick="setElementValue('upload');" /></td>
 </tr>
 </table>	
 </ul>

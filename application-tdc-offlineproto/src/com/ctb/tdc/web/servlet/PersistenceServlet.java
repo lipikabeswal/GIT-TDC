@@ -33,6 +33,15 @@ public class PersistenceServlet extends HttpServlet {
 		super();
 	}
 
+    /**
+     * Initialization of the servlet. <br>
+     *
+     * @throws ServletException if an error occure
+     */
+    public void init() throws ServletException {
+        // do nothing
+    }
+        
 	/**
 	 * Destruction of the servlet. <br>
 	 */
@@ -52,18 +61,12 @@ public class PersistenceServlet extends HttpServlet {
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        AuditVO vo = ServletUtils.getPOCParameters(request);
+        String method = vo.getEvent();
+        String xml = vo.getXml();
+        handleEvent(response, method, xml);         
     }
 
-    /**
-     * Initialization of the servlet. <br>
-     *
-     * @throws ServletException if an error occure
-     */
-    public void init() throws ServletException {
-        // do nothing
-    }
-    
 	/**
 	 * The doGet method of the servlet. <br>
 	 *
@@ -75,46 +78,22 @@ public class PersistenceServlet extends HttpServlet {
 	 * @throws IOException if an error occurred
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-            
-	    ServletUtils.initMemoryCache();
-
+			throws ServletException, IOException {            
         String method = ServletUtils.getMethod(request);
         String xml = ServletUtils.getXml(request);
-         
-        
-        ///////////// uncomment this block to test with test.html /////////////////////
-        String action = request.getParameter("action");
-        if (action != null) {
-            if (action.equals("login")) {
-                String user_name = request.getParameter("user_name");
-                String password = request.getParameter("password");
-                String access_code = request.getParameter("access_code");
-                if (user_name != null && password != null && access_code != null) {
-                    method = ServletUtils.LOGIN_METHOD;
-                    xml = "<tmssvc_request method=\"login\"><login_request user_name=\"" + user_name + "\" password=\"" + password + "\" access_code=\"" + access_code + "\" /></tmssvc_request>";            
-                }
-            }
-            if (action.equals("response")) {
-                String res = request.getParameter("response");
-                String lsid = request.getParameter("lsid");
-                String mseq = request.getParameter("mseq");
-                if (res != null && lsid != null && mseq != null) {
-                    method = ServletUtils.SAVE_METHOD;
-                    xml = "<adssvc_request method=\"save_testing_session_data\"><save_testing_session_data><tsd lsid=\"" + lsid + "\" scid=\"24009\" mseq=\"" + mseq + "\"><ist dur=\"2\" awd=\"1\" mrk=\"0\" iid=\"OKPT_SR.EOI.BIO.001\"><rv t=\"identifier\" n=\"RESPONSE\"><v>" + res + "</v></rv></ist></tsd></save_testing_session_data></adssvc_request>";            
-                }
-            }
-            if (action.equals("upload")) {
-                String file_name = request.getParameter("file_name");
-                if (file_name != null) {
-                    method = ServletUtils.UPLOAD_AUDIT_FILE_METHOD;
-                    xml = "<adssvc_request method=\"save_testing_session_data\"><save_testing_session_data><tsd lsid=\"" + file_name + "\" scid=\"24009\" ><ist dur=\"2\" awd=\"1\" mrk=\"0\" iid=\"OKPT_SR.EOI.BIO.001\"></ist></tsd></save_testing_session_data></adssvc_request>";            
-                }
-            }
-        }
-        ///////////// End of testing /////////////////////        
+        handleEvent(response, method, xml);         
+	}
 
-        
+    /**
+     *  handleEvent
+     * @param HttpServletResponse response
+     * @param String method
+     * @param String xml
+     *   
+     *  handle event   
+     */
+    private void handleEvent(HttpServletResponse response, String method, String xml) {
+        ServletUtils.initMemoryCache();
         if (method.equals(ServletUtils.LOGIN_METHOD))
             login(response, xml);
         else if (method.equals(ServletUtils.SAVE_METHOD))
@@ -122,11 +101,12 @@ public class PersistenceServlet extends HttpServlet {
         else if (method.equals(ServletUtils.FEEDBACK_METHOD))
             feedback(response, xml);        
         else if (method.equals(ServletUtils.UPLOAD_AUDIT_FILE_METHOD))
-            uploadAuditFile(response, xml);        
-	}
-
+            uploadAuditFile(response, xml);                
+    }
+    
     /**
      *  login
+     * @param HttpServletResponse response
      * @param String xml
      *   
      *  request login response xml from TMS   

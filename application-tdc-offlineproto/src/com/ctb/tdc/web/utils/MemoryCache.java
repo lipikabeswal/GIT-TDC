@@ -13,7 +13,9 @@ import com.stgglobal.util.CryptoLE.Crypto;
  * @author Tai_Truong
  */
 public class MemoryCache {
-    private HashMap stateHashMap;
+    static final long serialVersionUID = 1L;
+
+    private HashMap stateMap;
     private ServletSettings srvSettings;
     private HashMap itemMap;
     private HashMap assetMap;
@@ -24,7 +26,7 @@ public class MemoryCache {
     
     private MemoryCache() {
         this.loaded = false;
-        this.stateHashMap = new HashMap();
+        this.stateMap = new HashMap();
         this.srvSettings = new ServletSettings();
         clearContent();
         aCrypto = new Crypto();
@@ -47,12 +49,12 @@ public class MemoryCache {
         this.srvSettings = srvSettings;
     }
 
-    public HashMap getStateHashMap() {
-        return stateHashMap;
+    public HashMap getStateMap() {
+        return stateMap;
     }
 
-    public void setStateHashMap(HashMap stateHashMap) {
-        this.stateHashMap = stateHashMap;
+    public void setStateMap(HashMap stateMap) {
+        this.stateMap = stateMap;
     }
     
     public boolean isLoaded() {
@@ -66,13 +68,13 @@ public class MemoryCache {
     public StateVO setPendingState(String lsid) {
         StateVO state = null;
         if (this.srvSettings.isTmsAckRequired()) {
-            ArrayList states = (ArrayList)this.stateHashMap.get(lsid);
+            ArrayList states = (ArrayList)this.stateMap.get(lsid);
             if (states == null) 
                 states = new ArrayList();
             int index = states.size() + 1;
             state = new StateVO(index, StateVO.PENDING_STATE);            
             states.add(state);
-            this.stateHashMap.put(lsid, states);
+            this.stateMap.put(lsid, states);
         }
         return state;
     }
@@ -83,7 +85,7 @@ public class MemoryCache {
     }
     
     public void removeAcknowledgeStates(String lsid) {        
-        ArrayList states = (ArrayList)this.stateHashMap.get(lsid);
+        ArrayList states = (ArrayList)this.stateMap.get(lsid);
         if (states != null) {
             for (int i=0 ; i<states.size() ; i++) {
                 StateVO state = (StateVO)states.get(i);
@@ -96,7 +98,7 @@ public class MemoryCache {
     public boolean pendingState(String lsid) {  
         boolean pending = false;
         if (this.srvSettings.isTmsAckRequired()) {
-            ArrayList states = (ArrayList)this.stateHashMap.get(lsid);
+            ArrayList states = (ArrayList)this.stateMap.get(lsid);
             if (states != null) {
                 int pendingCount = 0;
                 for (int i=0 ; i<states.size() ; i++) {

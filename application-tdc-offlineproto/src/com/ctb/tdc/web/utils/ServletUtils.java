@@ -19,7 +19,6 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
-import org.apache.commons.httpclient.methods.multipart.StringPart;
 
 import com.ctb.tdc.web.dto.AuditVO;
 import com.ctb.tdc.web.dto.ServletSettings;
@@ -36,7 +35,7 @@ public class ServletUtils {
     public static final String URL_WEBAPP_SAVE_RESPONSE = "/TestDeliveryWeb/response.do";
     public static final String URL_WEBAPP_SAVE_LIFECYCLE = "/TestDeliveryWeb/lifecycle.do";
     public static final String URL_WEBAPP_FEEDBACK = "/TestDeliveryWeb/feedback.do";
-    public static final String URL_WEBAPP_UPLOAD_AUDIT_FILE = "/TestDeliveryWeb/CTB/audit.do";
+    public static final String URL_WEBAPP_UPLOAD_AUDIT_FILE = "/TestDeliveryWeb/CTB/uploadAuditFile.do";
     
     // methods
     public static final String DOWNLOAD_CONTENT_METHOD = "downloadContent";
@@ -99,6 +98,43 @@ public class ServletUtils {
         return request.getParameter(XML_PARAM);
     }
      
+    public static AuditVO getPOCParameters(HttpServletRequest request) {
+        AuditVO result = new AuditVO(null, null, null, null, null);
+        String action = request.getParameter("action");
+        if (action != null) {
+            if (action.equals("login")) {
+                String user_name = request.getParameter("user_name");
+                String password = request.getParameter("password");
+                String access_code = request.getParameter("access_code");
+                if (user_name != null && password != null && access_code != null) {
+                    result.setEvent(ServletUtils.LOGIN_METHOD);
+                    result.setXml("<tmssvc_request method=\"login\"><login_request user_name=\"" + user_name + "\" password=\"" + password + "\" access_code=\"" + access_code + "\" /></tmssvc_request>");            
+                }
+            }
+            if (action.equals("response")) {
+                String res = request.getParameter("response");
+                String lsid = request.getParameter("lsid");
+                String mseq = request.getParameter("mseq");
+                if (res != null && lsid != null && mseq != null) {
+                    result.setEvent(ServletUtils.SAVE_METHOD);
+                    result.setXml("<adssvc_request method=\"save_testing_session_data\"><save_testing_session_data><tsd lsid=\"" + lsid + "\" scid=\"24009\" mseq=\"" + mseq + "\"><ist dur=\"2\" awd=\"1\" mrk=\"0\" iid=\"OKPT_SR.EOI.BIO.001\"><rv t=\"identifier\" n=\"RESPONSE\"><v>" + res + "</v></rv></ist></tsd></save_testing_session_data></adssvc_request>");            
+                }
+            }
+            if (action.equals("upload")) {
+                String file_name = request.getParameter("file_name");
+                if (file_name != null) {
+                    result.setEvent(ServletUtils.UPLOAD_AUDIT_FILE_METHOD);
+                    result.setXml("<adssvc_request method=\"save_testing_session_data\"><save_testing_session_data><tsd lsid=\"" + file_name + "\" scid=\"24009\" ><ist dur=\"2\" awd=\"1\" mrk=\"0\" iid=\"OKPT_SR.EOI.BIO.001\"></ist></tsd></save_testing_session_data></adssvc_request>");            
+                }
+            }
+        }
+        else {
+            result.setEvent(getMethod(request));
+            result.setXml(getXml(request));            
+        }
+        return result;
+    }
+    
     public static String getMIMEType(String ext) {
         String mimeType = "image/gif";
         if ("swf".equals(ext))
@@ -218,33 +254,30 @@ public class ServletUtils {
         MemoryCache memoryCache = MemoryCache.getInstance();
         if (! memoryCache.isLoaded()) {
             ResourceBundle rb = ResourceBundle.getBundle(SERVLET_NAME);
-            ServletSettings srvSettings = new ServletSettings(rb);
-            memoryCache.setSrvSettings(srvSettings);
-    
-            HashMap stateHashMap = new HashMap();            
-            memoryCache.setStateHashMap(stateHashMap);
-        
+            memoryCache.setSrvSettings(new ServletSettings(rb));
+            memoryCache.setStateMap(new HashMap());        
             memoryCache.setLoaded(true);
         }
-    }
-
-    public static URL getTmsURL(String method, String xml) throws MalformedURLException {
-        MemoryCache memoryCache = MemoryCache.getInstance();
-        ServletSettings srvSettings = memoryCache.getSrvSettings();
-        String tmsHost = srvSettings.getTmsHost();
-        String tmsWebApp = getWebAppName(method, xml);
-        URL tmsURL = new URL(tmsHost + tmsWebApp);
-        return tmsURL;
     }
 
     public static String getTmsURLString(String method, String xml) throws MalformedURLException {
         MemoryCache memoryCache = MemoryCache.getInstance();
         ServletSettings srvSettings = memoryCache.getSrvSettings();
         String tmsHost = srvSettings.getTmsHost();
+        String tmsPort = srvSettings.getTmsPort().trim(); 
+        if (tmsPort.length() > 0)
+            tmsPort = ":" + tmsPort;
         String tmsWebApp = getWebAppName(method, xml);
-        return (tmsHost + tmsWebApp);
+        String fullUrl = tmsHost + tmsPort + tmsWebApp;
+        return fullUrl;
     }
 
+    public static URL getTmsURL(String method, String xml) throws MalformedURLException {
+        String fullUrl = getTmsURLString(method, xml);
+        URL tmsURL = new URL(fullUrl);
+        return tmsURL;
+    }
+    
     public static String uploadAuditFile_URLConnection(String xml) {
         String result = NONE;
         try {
@@ -290,22 +323,26 @@ public class ServletUtils {
 
     public static String uploadAuditFile_HttpClient(String xml) throws MalformedURLException {
         String result = OK;
+        String testRosterId = parseTestRosterId(xml);
+        String accessCode = parseAccessCode(xml);
         String tmsURL = getTmsURLString(UPLOAD_AUDIT_FILE_METHOD, xml);
+        tmsURL += "?";
+        tmsURL += TEST_ROSTER_ID_PARAM + "=" + testRosterId;
+        tmsURL += "&";
+        tmsURL += ACCESS_CODE_PARAM + "=" + accessCode;
+        
         PostMethod filePost = new PostMethod(tmsURL); 
         try {
-            String testRosterId = parseTestRosterId(xml);
-            String accessCode = parseAccessCode(xml);
             String lsid = parseLsid(xml);
             String fileName = AuditFile.buildFileName(lsid);            
             File file = new File(fileName);
-            Part[] parts = { new StringPart(TEST_ROSTER_ID_PARAM, testRosterId), 
-                             new StringPart(ACCESS_CODE_PARAM, accessCode), 
-                             new FilePart(AUDIT_FILE_PARAM, file) }; 
+            Part[] parts = { new FilePart(AUDIT_FILE_PARAM, file) }; 
             filePost.setRequestEntity( new MultipartRequestEntity(parts, filePost.getParams()) ); 
             HttpClient client = new HttpClient(); 
             int status = client.executeMethod(filePost);             
             if (status != HttpStatus.SC_OK) 
                 result = ERROR;
+            System.out.println(filePost.getResponseBodyAsString());
         } 
         catch (Exception e) {
             e.printStackTrace();
