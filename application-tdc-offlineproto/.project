@@ -37,7 +37,9 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
+		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
 		<nature>com.genuitec.eclipse.j2eedt.core.webnature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.eclipse.jem.beaninfo.BeanInfoNature</nature>
 	</natures>
 </projectDescription>
