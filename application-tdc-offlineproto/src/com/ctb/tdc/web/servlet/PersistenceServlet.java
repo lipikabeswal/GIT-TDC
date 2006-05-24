@@ -233,7 +233,7 @@ public class PersistenceServlet extends HttpServlet {
             BufferedReader in = new BufferedReader(new InputStreamReader(tmsConnection.getInputStream()));
             String inputLine = "";            
             while ((inputLine = in.readLine()) != null) {
-                //System.out.println(inputLine);
+                System.out.println(inputLine);
                 result += inputLine;
             }
             in.close();          

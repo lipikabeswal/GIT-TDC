@@ -29,6 +29,9 @@ import com.ctb.tdc.web.dto.ServletSettings;
 public class ServletUtils {
     public static final String SERVLET_NAME = "tdc";
 
+    public static final String URL_PERSISTENCE_SERVLET = "/servlet/PersistenceServlet";
+    public static final String URL_LOADCONTENT_SERVLET = "/servlet/LoadContentServlet";
+    public static final String URL_DOWNLOADCONTENT_SERVLET = "/servlet/DownloadContentServlet";
     public static final String URL_WEBAPP_LOGIN = "/TestDeliveryWeb/begin.do";
     public static final String URL_WEBAPP_SAVE_RESPONSE = "/TestDeliveryWeb/response.do";
     public static final String URL_WEBAPP_SAVE_LIFECYCLE = "/TestDeliveryWeb/lifecycle.do";
@@ -63,10 +66,10 @@ public class ServletUtils {
     public static final String ACTKNOWLEDGE_EVENT = "ACK";
         
     // returned values
-    public static final String OK = "<OK>200</OK>";
-    public static final String METHOD_ERROR = "<Error>Invalid method</Error>";
-    public static final String UPLOAD_FILE_ERROR = "<Error>Failed to upload file</Error>";
-    public static final String ACK_ERROR = "<Error>No Acknowledge from TMS</Error>";
+    public static final String OK = "<OK>200 OK</OK>";
+    public static final String METHOD_ERROR = "<ERROR>601 Invalid method</ERROR>";
+    public static final String UPLOAD_FILE_ERROR = "<ERROR>602 Failed to upload file</ERROR>";
+    public static final String ACK_ERROR = "<ERROR>603 No Acknowledge from TMS</ERROR>";
 
     // misc
     public static final String NONE = "-";
