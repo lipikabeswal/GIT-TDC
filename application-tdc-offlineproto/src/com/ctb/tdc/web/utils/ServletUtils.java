@@ -214,17 +214,17 @@ public class ServletUtils {
     }
 
     public static AuditVO createAuditVO(String fileName, String lsid, String mseq, String event, String xml) {
-        xml = Base64.encode(xml);
-        AuditVO audit = new AuditVO(fileName, lsid, mseq, event, xml);
+        String encodedXml = Base64.encode(xml);
+        AuditVO audit = new AuditVO(fileName, lsid, mseq, event, encodedXml);
         return audit;
     }
     
     public static AuditVO createAuditVO(String xml, String event) {
-        xml = Base64.encode(xml);
         String lsid = parseLsid(xml);
         String fileName = FileUtils.buildFileName(lsid);
         String mseq = parseMseq(xml);
-        AuditVO audit = new AuditVO(fileName, lsid, mseq, event, xml);
+        String encodedXml = Base64.encode(xml);
+        AuditVO audit = new AuditVO(fileName, lsid, mseq, event, encodedXml);
         return audit;
     }
     

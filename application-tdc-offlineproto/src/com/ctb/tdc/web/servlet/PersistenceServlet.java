@@ -257,9 +257,8 @@ public class PersistenceServlet extends HttpServlet {
                 // delete local file when upload successful
                 String lsid = ServletUtils.parseLsid(xml);
                 String fileName = AuditFile.buildFileName(lsid);            
-                File file = new File(fileName);
-                file.delete();
-            }
+                AuditFile.deleteLogger(fileName);
+            } 
             writeResponse(response, uploadStatus);           
         } 
         catch (Exception e) {

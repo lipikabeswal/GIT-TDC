@@ -32,6 +32,18 @@ public class AuditFile
         super();
     }
 
+    public static synchronized void deleteLogger( String filePath_ ) throws Exception
+    {
+        if ( loggerMap.containsKey( filePath_ ) )
+        {
+            org.apache.log4j.Category logger = (org.apache.log4j.Category)loggerMap.get(filePath_);
+            logger.removeAllAppenders();
+            loggerMap.remove( filePath_ );
+            java.io.File f = new java.io.File( filePath_ );
+            f.delete();
+        }
+    }
+    
     public static synchronized org.apache.log4j.Category getLogger( String filePath_ ) throws Exception
     {
         org.apache.log4j.Category logger = null;
@@ -49,6 +61,7 @@ public class AuditFile
 	        aFileAppender.setImmediateFlush( true );
 	        aFileAppender.setAppend( true );
 	        aFileAppender.setWriter( new OutputStreamWriter( new FileOutputStream( filePath_, true )) );
+            
 	        logger.addAppender( aFileAppender );
 	        loggerMap.put( filePath_, logger );
         }
