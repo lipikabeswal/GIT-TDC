@@ -15,6 +15,7 @@ import com.stgglobal.util.CryptoLE.Crypto;
 public class MemoryCache {
     static final long serialVersionUID = 1L;
 
+    private String encryptionKey;
     private HashMap stateMap;
     private ServletSettings srvSettings;
     private HashMap itemMap;
@@ -55,6 +56,14 @@ public class MemoryCache {
         this.stateMap = stateMap;
     }
     
+    public String getEncryptionKey() {
+        return encryptionKey;
+    }
+
+    public void setEncryptionKey(String encryptionKey) {
+        this.encryptionKey = encryptionKey;
+    }
+
     public boolean isLoaded() {
         return loaded;
     }
@@ -62,7 +71,7 @@ public class MemoryCache {
     public void setLoaded(boolean loaded) {
         this.loaded = loaded;
     }
-
+    
     public StateVO setPendingState(String lsid) {
         StateVO state = null;
         if (this.srvSettings.isTmsAckRequired()) {

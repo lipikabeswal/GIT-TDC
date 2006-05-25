@@ -1,7 +1,6 @@
 package com.ctb.tdc.web.servlet;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -63,6 +62,8 @@ public class PersistenceServlet extends HttpServlet {
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //doGet(request, response);
+        // this block temporary for POC testing page, will be remove when done
         AuditVO vo = ServletUtils.getPOCParameters(request);
         String method = vo.getEvent();
         String xml = vo.getXml();
@@ -108,7 +109,7 @@ public class PersistenceServlet extends HttpServlet {
         else if (method.equals(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD))
             writeToAuditFile(response, xml);
         else
-            writeResponse(response, ServletUtils.METHOD_ERROR);                        
+            ServletUtils.writeResponse(response, ServletUtils.METHOD_ERROR);                        
     }
     
     /**
@@ -125,15 +126,29 @@ public class PersistenceServlet extends HttpServlet {
      */
     private boolean login(HttpServletResponse response, String xml) {
         try {
+            // sent login request to TMS
             String result = sendRequest(xml, ServletUtils.LOGIN_METHOD);
+            
+            // parse response xml for information
+            String encryptionKey = ServletUtils.parseEncryptionKey(result);
             String lsid = ServletUtils.parseLsid(result);
             String fileName = AuditFile.buildFileName(lsid);
+            
+            // save encryptionKey to memory cache
+            MemoryCache memoryCache = MemoryCache.getInstance();
+            memoryCache.setEncryptionKey(encryptionKey);
+            
+            // if file exist handle restart  
             if (AuditFile.exists(fileName)) {
-                // handle restart here
+                // handle restart here in phase 2
             }
+            
+            // log RECEIVE_EVENT in audit file
             AuditVO audit = ServletUtils.createAuditVO(fileName, lsid, ServletUtils.NONE, ServletUtils.RECEIVE_EVENT, xml);            
             AuditFile.log(audit);        
-            writeResponse(response, result);            
+            
+            // send response to client
+            ServletUtils.writeResponse(response, result);            
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -154,12 +169,19 @@ public class PersistenceServlet extends HttpServlet {
      */
     private boolean feedback(HttpServletResponse response, String xml) {
         try {
+            // parse request xml for information
             String lsid = ServletUtils.parseLsid(xml);
             String fileName = AuditFile.buildFileName(lsid);
+            
+            // log RECEIVE_EVENT in audit file
             AuditVO audit = ServletUtils.createAuditVO(fileName, lsid, ServletUtils.NONE, ServletUtils.RECEIVE_EVENT, xml);            
-            AuditFile.log(audit);        
+            AuditFile.log(audit);
+            
+            // sent feedback request to TMS
             String result = sendRequest(xml, ServletUtils.FEEDBACK_METHOD);
-            writeResponse(response, result);
+            
+            // send response to client
+            ServletUtils.writeResponse(response, result);
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -182,16 +204,18 @@ public class PersistenceServlet extends HttpServlet {
      */
     private boolean save(HttpServletResponse response, String xml) {
         try {
+            // log RECEIVE_EVENT in audit file
             AuditVO audit = ServletUtils.createAuditVO(xml, ServletUtils.RECEIVE_EVENT);
             String fileName = audit.getFileName();  
             String lsid = audit.getLsid();        
             MemoryCache memoryCache = MemoryCache.getInstance();
-            
+
+            // check if TMS sent acknowledge before continue
             if (hasAcknowledge(memoryCache, lsid)) {
                 removeAcknowledgeStates(memoryCache, lsid);
                 
                 AuditFile.log(audit);        
-                writeResponse(response, ServletUtils.OK);       
+                ServletUtils.writeResponse(response, ServletUtils.OK);       
     
                 if (memoryCache.getSrvSettings().isTmsPersist()) {
                     StateVO state = memoryCache.setPendingState(lsid);                       
@@ -202,8 +226,9 @@ public class PersistenceServlet extends HttpServlet {
                 }
             }
             else {
-                writeResponse(response, ServletUtils.ACK_ERROR);
-                System.out.println(ServletUtils.ACK_ERROR);
+                // check if TMS sent acknowledge before continue
+                ServletUtils.writeResponse(response, ServletUtils.ACK_ERROR);
+                //System.out.println(ServletUtils.ACK_ERROR);
             }            
         } 
         catch (Exception e) {
@@ -212,29 +237,32 @@ public class PersistenceServlet extends HttpServlet {
         return true;
     }
 
-    private void writeResponse(HttpServletResponse response, String xml) throws IOException {
-        response.setContentType("text/xml");
-        PrintWriter out = response.getWriter();
-        out.println(xml);            
-        out.flush();
-        out.close();        
-    }
-
+    /**
+     * sendRequest
+     * @param String xml
+     * @param String method
+     * 
+     * Connect to TMS and send request contain a xml
+     * 
+     */
     private String sendRequest(String xml, String method) {
         String result = "";
         try {
+            // get TMS url to make connection
             URL tmsURL = ServletUtils.getTmsURL(method, xml);
             URLConnection tmsConnection = tmsURL.openConnection();
             tmsConnection.setDoOutput(true);
             PrintWriter out = new PrintWriter(tmsConnection.getOutputStream());
 
+            // send to TMS
             out.println(ServletUtils.XML_PARAM + "=" + xml);
             out.close();
 
+            // get response from TMS
             BufferedReader in = new BufferedReader(new InputStreamReader(tmsConnection.getInputStream()));
             String inputLine = "";            
             while ((inputLine = in.readLine()) != null) {
-                System.out.println(inputLine);
+                //System.out.println(inputLine);
                 result += inputLine;
             }
             in.close();          
@@ -246,12 +274,21 @@ public class PersistenceServlet extends HttpServlet {
         return result;
     }
 
+    /**
+     * uploadAuditFile
+     * @param HttpServletResponse response
+     * @param String xml
+     * 
+     * upload the audit file to TMS and delete the file from local storage
+     * 
+     */
     private boolean uploadAuditFile(HttpServletResponse response, String xml) {
         try {
             MemoryCache memoryCache = MemoryCache.getInstance();
             if (! memoryCache.getSrvSettings().isTmsAuditUpload())
                 return false; 
             
+            // upload audit file to TMS
             String uploadStatus = ServletUtils.uploadAuditFile(xml);            
             if (uploadStatus.equals(ServletUtils.OK)) {
                 // delete local file when upload successful
@@ -259,7 +296,9 @@ public class PersistenceServlet extends HttpServlet {
                 String fileName = AuditFile.buildFileName(lsid);            
                 AuditFile.deleteLogger(fileName);
             } 
-            writeResponse(response, uploadStatus);           
+            
+            // send response to client
+            ServletUtils.writeResponse(response, uploadStatus);           
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -267,12 +306,25 @@ public class PersistenceServlet extends HttpServlet {
         return true;
     }
     
+    /**
+     * writeToAuditFile
+     * @param HttpServletResponse response
+     * @param String xml
+     * 
+     * write xml content to audit file
+     * 
+     */
     private boolean writeToAuditFile(HttpServletResponse response, String xml) {
         try {
+            // log RECEIVE_EVENT in audit file
             AuditVO audit = ServletUtils.createAuditVO(xml, ServletUtils.RECEIVE_EVENT);
-            AuditFile.log(audit);                    
+            AuditFile.log(audit);
+            
+            // write stuff to audit file
             String result = sendRequest(xml, ServletUtils.WRITE_TO_AUDIT_FILE_METHOD);
-            writeResponse(response, result);            
+            
+            // send response to client
+            ServletUtils.writeResponse(response, result);            
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -280,6 +332,14 @@ public class PersistenceServlet extends HttpServlet {
         return true;
     }
 
+    /**
+     * hasAcknowledge
+     * @param MemoryCache memoryCache
+     * @param String lsid
+     * 
+     * verify if there is an acknowledge message returned from TMS to continue
+     * 
+     */
     private boolean hasAcknowledge(MemoryCache memoryCache, String lsid) throws InterruptedException {
         int retry = memoryCache.getSrvSettings().getTmsAckRetry();
         boolean pendingState = inPendingState(memoryCache, lsid);
@@ -291,6 +351,14 @@ public class PersistenceServlet extends HttpServlet {
         return (pendingState == false);
     }
     
+    /**
+     * inPendingState
+     * @param MemoryCache memoryCache
+     * @param String lsid
+     * 
+     * verify if there is an acknowledge message returned from TMS to continue
+     * 
+     */
     public boolean inPendingState(MemoryCache memoryCache, String lsid) {  
         boolean pendingState = false;
         boolean isTmsAckRequired = memoryCache.getSrvSettings().isTmsAckRequired();
@@ -311,6 +379,14 @@ public class PersistenceServlet extends HttpServlet {
         return pendingState;
     }
         
+    /**
+     * removeAcknowledgeStates
+     * @param MemoryCache memoryCache
+     * @param String lsid
+     * 
+     * remove the entries which marked as acknowledge (StateVO.ACTKNOWLEDGE_STATE)
+     * 
+     */
     private void removeAcknowledgeStates(MemoryCache memoryCache, String lsid) {
         memoryCache.removeAcknowledgeStates(lsid);
     }    

@@ -26,16 +26,21 @@ public class AuditFileEncrytor
         super();
     }
     
-    public String encrypt( String data ) throws Exception
+    public static String encrypt( String data )
     {
-        String result = RC4Encrypt( data );
+        String result = data;
+        try {
+            result = RC4Encrypt( data );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
     }
     
     private static int MC_KEY_SIZE = 16;
     private static String encryptKey = "CTB";
     
-    private String RC4Encrypt( String xml )throws Exception
+    private static String RC4Encrypt( String xml )throws Exception
     {
         byte[] baInputByteArray = xml.getBytes( "UTF-8" );
         String value = null;
