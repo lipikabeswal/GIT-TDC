@@ -7,7 +7,6 @@ import org.jdom.input.SAXBuilder;
 
 import com.ctb.tdc.web.dto.ServletSettings;
 import com.ctb.tdc.web.dto.StateVO;
-import com.stgglobal.util.CryptoLE.Crypto;
 
 /**
  * @author Tai_Truong
@@ -72,14 +71,13 @@ public class MemoryCache {
         this.loaded = loaded;
     }
     
-    public StateVO setPendingState(String lsid) {
+    public StateVO setPendingState(String lsid, String mseq) {
         StateVO state = null;
         if (this.srvSettings.isTmsAckRequired()) {
             ArrayList states = (ArrayList)this.stateMap.get(lsid);
             if (states == null) 
                 states = new ArrayList();
-            int index = states.size() + 1;
-            state = new StateVO(index, StateVO.PENDING_STATE);            
+            state = new StateVO(Integer.parseInt(mseq), StateVO.PENDING_STATE);            
             states.add(state);
             this.stateMap.put(lsid, states);
         }

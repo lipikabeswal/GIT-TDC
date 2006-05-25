@@ -9,19 +9,19 @@ public class StateVO implements java.io.Serializable {
     public static final String PENDING_STATE = "pending"; 
     public static final String ACTKNOWLEDGE_STATE = "ackknowledge";
 
-    private int index;
+    private int mseq;
     private String state;
     
-    public StateVO(int index, String state) {
-        this.index = index;
+    public StateVO(int mseq, String state) {
+        this.mseq = mseq;
         this.state = state;
     }
     
-    public int getIndex() {
-        return index;
+    public int getMseq() {
+        return mseq;
     }
-    public void setIndex(int index) {
-        this.index = index;
+    public void setMseq(int mseq) {
+        this.mseq = mseq;
     }
     public String getState() {
         return state;

@@ -208,25 +208,31 @@ public class PersistenceServlet extends HttpServlet {
             AuditVO audit = ServletUtils.createAuditVO(xml, ServletUtils.RECEIVE_EVENT);
             String fileName = audit.getFileName();  
             String lsid = audit.getLsid();        
+            String mseq = audit.getMseq();    
             MemoryCache memoryCache = MemoryCache.getInstance();
 
             // check if TMS sent acknowledge before continue
             if (hasAcknowledge(memoryCache, lsid)) {
+                // ok to continue, so remove all ACK entries
                 removeAcknowledgeStates(memoryCache, lsid);
-                
+                // send response to client
                 AuditFile.log(audit);        
                 ServletUtils.writeResponse(response, ServletUtils.OK);       
-    
+                // send request to TMS
                 if (memoryCache.getSrvSettings().isTmsPersist()) {
-                    StateVO state = memoryCache.setPendingState(lsid);                       
+                    // set pending state before send request to TMS
+                    StateVO state = memoryCache.setPendingState(lsid, mseq);
+                    // send request to TMS
                     String result = sendRequest(xml, ServletUtils.SAVE_METHOD);
+                    // set acknowledge state after return from TMS                    
                     memoryCache.setAcknowledgeState(state);                       
+                    // log ACTKNOWLEDGE_EVENT in audit file when TMS return
                     audit = ServletUtils.createAuditVO(fileName, lsid, ServletUtils.NONE, ServletUtils.ACTKNOWLEDGE_EVENT, result);            
                     AuditFile.log(audit);
                 }
             }
             else {
-                // check if TMS sent acknowledge before continue
+                // fail to continue
                 ServletUtils.writeResponse(response, ServletUtils.ACK_ERROR);
                 //System.out.println(ServletUtils.ACK_ERROR);
             }            
@@ -345,10 +351,10 @@ public class PersistenceServlet extends HttpServlet {
         boolean pendingState = inPendingState(memoryCache, lsid);
         while (pendingState && (retry > 0)) {
             retry--;
-            Thread.sleep(1000);
+            Thread.sleep(1000); // delay 1 second and try again
             pendingState = inPendingState(memoryCache, lsid);
         }            
-        return (pendingState == false);
+        return (! pendingState);
     }
     
     /**
