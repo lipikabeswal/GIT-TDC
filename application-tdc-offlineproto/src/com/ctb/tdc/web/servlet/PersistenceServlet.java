@@ -1,6 +1,7 @@
 package com.ctb.tdc.web.servlet;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -251,8 +252,15 @@ public class PersistenceServlet extends HttpServlet {
             if (! memoryCache.getSrvSettings().isTmsAuditUpload())
                 return false; 
             
-            String uploadStatus = ServletUtils.uploadAuditFile_HttpClient(xml);
-            writeResponse(response, uploadStatus);            
+            String uploadStatus = ServletUtils.uploadAuditFile(xml);            
+            if (uploadStatus.equals(ServletUtils.OK)) {
+                // delete local file when upload successful
+                String lsid = ServletUtils.parseLsid(xml);
+                String fileName = AuditFile.buildFileName(lsid);            
+                File file = new File(fileName);
+                file.delete();
+            }
+            writeResponse(response, uploadStatus);           
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -263,8 +271,9 @@ public class PersistenceServlet extends HttpServlet {
     private boolean writeToAuditFile(HttpServletResponse response, String xml) {
         try {
             AuditVO audit = ServletUtils.createAuditVO(xml, ServletUtils.RECEIVE_EVENT);
-            AuditFile.log(audit);        
-            writeResponse(response, ServletUtils.OK);       
+            AuditFile.log(audit);                    
+            String result = sendRequest(xml, ServletUtils.WRITE_TO_AUDIT_FILE_METHOD);
+            writeResponse(response, result);            
         } 
         catch (Exception e) {
             e.printStackTrace();

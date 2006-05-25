@@ -1,12 +1,8 @@
 package com.ctb.tdc.web.utils;
 
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileReader;
-import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
@@ -37,6 +33,7 @@ public class ServletUtils {
     public static final String URL_WEBAPP_SAVE_LIFECYCLE = "/TestDeliveryWeb/lifecycle.do";
     public static final String URL_WEBAPP_FEEDBACK = "/TestDeliveryWeb/feedback.do";
     public static final String URL_WEBAPP_UPLOAD_AUDIT_FILE = "/TestDeliveryWeb/CTB/uploadAuditFile.do";
+    public static final String URL_WEBAPP_WRITE_TO_AUDIT_FILE = "/TestDeliveryWeb/CTB/writeToAuditFile.do";
     
     // methods
     public static final String DOWNLOAD_CONTENT_METHOD = "downloadContent";
@@ -232,7 +229,7 @@ public class ServletUtils {
     }
     
     public static String getWebAppName(String method, String xml) {
-        String webApp = URL_WEBAPP_LOGIN;
+        String webApp = URL_WEBAPP_SAVE_LIFECYCLE;
         if (method.equals(LOGIN_METHOD))
             webApp = URL_WEBAPP_LOGIN;
         else
@@ -241,6 +238,9 @@ public class ServletUtils {
         else
         if (method.equals(UPLOAD_AUDIT_FILE_METHOD))
             webApp = URL_WEBAPP_UPLOAD_AUDIT_FILE;
+        else        
+        if (method.equals(WRITE_TO_AUDIT_FILE_METHOD))
+            webApp = URL_WEBAPP_WRITE_TO_AUDIT_FILE;
         else        
         if (method.equals(SAVE_METHOD)) {
             if (isSaveResponse(xml))
@@ -289,50 +289,7 @@ public class ServletUtils {
         return proxyURL;
     }
     
-    public static String uploadAuditFile_URLConnection(String xml) {
-        String result = NONE;
-        try {
-            URL tmsURL = getTmsURL(UPLOAD_AUDIT_FILE_METHOD, xml);
-            
-            URLConnection tmsConnection = tmsURL.openConnection();
-            tmsConnection.setDoOutput(true);
-            PrintWriter out = new PrintWriter(tmsConnection.getOutputStream());            
-
-            String lsid = parseLsid(xml);
-            String fileName = AuditFile.buildFileName(lsid);            
-            File file = new File(fileName);
-            FileReader fileReader = new FileReader(file);
-            char [] buff = new char[(int)file.length()];
-            fileReader.read(buff);
-            fileReader.close();
-            
-            String testRosterId = parseTestRosterId(xml);
-            String accessCode = parseAccessCode(xml);
-            String params = "";
-            params += TEST_ROSTER_ID_PARAM + "=" + testRosterId;
-            params += "&";
-            params += ACCESS_CODE_PARAM + "=" + accessCode;
-            params += "&";
-            params += AUDIT_FILE_PARAM + "=";
-            params += String.valueOf(buff);
-            out.println(params);
-            out.close();    
-            
-            String inputLine;
-            DataInputStream dis = new DataInputStream(tmsConnection.getInputStream());
-            while ((inputLine = dis.readLine()) != null) {
-                //System.out.println(inputLine);
-                result += inputLine;
-            }
-            dis.close();
-        } 
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public static String uploadAuditFile_HttpClient(String xml) throws MalformedURLException {
+    public static String uploadAuditFile(String xml) throws MalformedURLException {
         String uploadStatus = OK;
         String testRosterId = parseTestRosterId(xml);
         String accessCode = parseAccessCode(xml);
