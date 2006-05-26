@@ -40,14 +40,4 @@ public class FileUtils {
         return tdcHome;
     }
 
-     /**
-     * build file name from lsid 
-     * 
-     */
-    public static String buildFileName(String lsid) {
-        lsid = lsid.replace(':', '_');        
-        String tdcHome = System.getProperty(TDC_HOME);
-        String fileName = tdcHome + AUDIT_FOLDER + lsid + AUDIT_EXTENSION;
-        return fileName;
-    }    
 }

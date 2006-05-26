@@ -27,6 +27,7 @@ public class AuditFile
     // logger
     public static HashMap loggerMap = new HashMap();
 
+    // format:  millis, mseq, <itemId|response>
     private AuditFile() 
     {
         super();
@@ -55,7 +56,7 @@ public class AuditFile
 	        if ( !f.exists() )
 	            f.createNewFile();
 	        FileAppender aFileAppender = new FileAppender();
-            aFileAppender.setLayout( new PatternLayout("\"%d{DATE}\", %m%n") );
+            aFileAppender.setLayout( new PatternLayout("%m%n") );
 	        
 	        aFileAppender.setFile( filePath_ );
 	        aFileAppender.setImmediateFlush( true );
@@ -79,16 +80,6 @@ public class AuditFile
         }
     }
     
-    public static String buildFileName(String lsid) {
-        String fileName = null;
-        if ((lsid != null) && (!lsid.equals("-"))) {
-            lsid.replace(':', '_');        
-            String tdcHome = System.getProperty(TDC_HOME);
-            fileName = tdcHome + AUDIT_FOLDER + lsid + AUDIT_EXTENSION;
-        }
-        return fileName;
-    }    
-    
     public static boolean exists(String fileName) {
         boolean exists = false;
         if (fileName != null) {
@@ -96,5 +87,6 @@ public class AuditFile
             exists = file.exists();
         }
         return exists;
-    }    
+    }  
+      
 }

@@ -1,6 +1,5 @@
 package com.ctb.tdc.web.utils;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
@@ -11,13 +10,6 @@ import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.multipart.FilePart;
-import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
-import org.apache.commons.httpclient.methods.multipart.Part;
 
 import com.ctb.tdc.web.dto.AuditVO;
 import com.ctb.tdc.web.dto.ServletSettings;
@@ -32,9 +24,11 @@ public class ServletUtils {
     public static final String URL_PERSISTENCE_SERVLET = "/servlet/PersistenceServlet";
     public static final String URL_LOADCONTENT_SERVLET = "/servlet/LoadContentServlet";
     public static final String URL_DOWNLOADCONTENT_SERVLET = "/servlet/DownloadContentServlet";
-    public static final String URL_WEBAPP_LOGIN = "/TestDeliveryWeb/login.do";
+    //public static final String URL_WEBAPP_LOGIN = "/TestDeliveryWeb/login.do";
+    public static final String URL_WEBAPP_LOGIN = "/TestDeliveryWeb/begin.do";
     public static final String URL_WEBAPP_FEEDBACK = "/TestDeliveryWeb/feedback.do";
-    public static final String URL_WEBAPP_SAVE = "/TestDeliveryWeb/save.do";
+    //public static final String URL_WEBAPP_SAVE = "/TestDeliveryWeb/save.do";
+    public static final String URL_WEBAPP_SAVE = "/TestDeliveryWeb/response.do";
     public static final String URL_WEBAPP_UPLOAD_AUDIT_FILE = "/TestDeliveryWeb/CTB/uploadAuditFile.do";
     public static final String URL_WEBAPP_WRITE_TO_AUDIT_FILE = "/TestDeliveryWeb/CTB/writeToAuditFile.do";
     
@@ -66,10 +60,9 @@ public class ServletUtils {
     public static final String ACTKNOWLEDGE_EVENT = "ACK";
         
     // returned values
-    public static final String OK = "<OK>200 OK</OK>";
-    public static final String UNKNOWN_METHOD_ERROR = "<ERROR>601 Invalid method</ERROR>";
-    public static final String UPLOAD_FILE_ERROR = "<ERROR>602 Failed to upload file</ERROR>";
-    public static final String ACK_ERROR = "<ERROR>603 No Acknowledge from TMS</ERROR>";
+    public static final String OK = "<OK />";
+    public static final String ERROR = "<ERROR />";
+    public static final String ACK_ERROR = "<ACK_ERROR />";
 
     // misc
     public static final String NONE = "-";
@@ -129,6 +122,14 @@ public class ServletUtils {
         return parseTag("lsid=", xml);
     }
 
+     /**
+     * parse item id value in xml
+     * 
+     */
+    public static String parseItemId(String xml) {        
+        return parseTag("iid=", xml);
+    }
+    
      /**
      * parse encryptionKey value in xml
      * 
@@ -201,22 +202,12 @@ public class ServletUtils {
      * create AuditVO
      * 
      */
-    public static AuditVO createAuditVO(String fileName, String lsid, String mseq, String event, String xml) {
-        String encodedXml = AuditFileEncrytor.encrypt(xml);
-        AuditVO audit = new AuditVO(fileName, lsid, mseq, event, encodedXml);
-        return audit;
-    }
-    
-     /**
-     * create AuditVO
-     * 
-     */
-    public static AuditVO createAuditVO(String xml, String event) {
-        String lsid = parseLsid(xml);
-        String fileName = FileUtils.buildFileName(lsid);
+    public static AuditVO createAuditVO(String xml) {
+        String fileName = buildFileName(xml);
         String mseq = parseMseq(xml);
-        String encodedXml = AuditFileEncrytor.encrypt(xml);
-        AuditVO audit = new AuditVO(fileName, lsid, mseq, event, encodedXml);
+        String itemId = parseItemId(xml);
+        String response = parseResponse(xml);
+        AuditVO audit = new AuditVO(fileName, mseq, itemId, response);
         return audit;
     }
    
@@ -302,41 +293,6 @@ public class ServletUtils {
     }
     
      /**
-     * upload the audit file to TMS
-     * 
-     */
-    public static String uploadAuditFile(String xml) throws MalformedURLException {
-        String uploadStatus = OK;
-        String testRosterId = parseTestRosterId(xml);
-        String itemSetId = parseItemSetId(xml);
-        String tmsURL = getTmsURLString(UPLOAD_AUDIT_FILE_METHOD);
-        tmsURL += "?";
-        tmsURL += TEST_ROSTER_ID_PARAM + "=" + testRosterId;
-        tmsURL += "&";
-        tmsURL += ITEM_SET_ID_PARAM + "=" + itemSetId;
-        
-        PostMethod filePost = new PostMethod(tmsURL); 
-        try {
-            String lsid = parseLsid(xml);
-            String fileName = AuditFile.buildFileName(lsid);            
-            File file = new File(fileName);
-            Part[] parts = { new FilePart(AUDIT_FILE_PARAM, file) }; 
-            filePost.setRequestEntity( new MultipartRequestEntity(parts, filePost.getParams()) ); 
-            HttpClient client = new HttpClient(); 
-            int status = client.executeMethod(filePost);             
-            if (status != HttpStatus.SC_OK) 
-                uploadStatus = UPLOAD_FILE_ERROR;
-        } 
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            filePost.releaseConnection();
-        }
-        return uploadStatus;
-    }
-
-     /**
      * getMethod
      * 
      */
@@ -385,10 +341,10 @@ public class ServletUtils {
     }
     
      /**
-     * isSaveResponse
+     * hasResponse
      * 
      */
-    public static boolean isSaveResponse(String xml) {
+    public static boolean hasResponse(String xml) {
         String response = parseResponse(xml);
         return (! response.equals(NONE));
     }
@@ -409,44 +365,20 @@ public class ServletUtils {
     }
     
      /**
-     * this method temporary for POC testing only, read parameters from test page
-     * this will be delete when release
+     * construct a file name from xml
+     * 
      */
-    public static AuditVO getPOCParameters(HttpServletRequest request) {
-        AuditVO result = new AuditVO(null, null, null, null, null);
-        String action = request.getParameter("action");
-        if (action != null) {
-            if (action.equals("login")) {
-                String user_name = request.getParameter("user_name");
-                String password = request.getParameter("password");
-                String access_code = request.getParameter("access_code");
-                if (user_name != null && password != null && access_code != null) {
-                    result.setEvent(ServletUtils.LOGIN_METHOD);
-                    result.setXml("<tmssvc_request method=\"login\"><login_request user_name=\"" + user_name + "\" password=\"" + password + "\" access_code=\"" + access_code + "\" /></tmssvc_request>");            
-                }
-            }
-            if (action.equals("response")) {
-                String res = request.getParameter("response");
-                String lsid = request.getParameter("lsid");
-                String mseq = request.getParameter("mseq");
-                if (res != null && lsid != null && mseq != null) {
-                    result.setEvent(ServletUtils.SAVE_METHOD);
-                    result.setXml("<adssvc_request method=\"save_testing_session_data\"><save_testing_session_data><tsd lsid=\"" + lsid + "\" scid=\"24009\" mseq=\"" + mseq + "\"><ist dur=\"2\" awd=\"1\" mrk=\"0\" iid=\"OKPT_SR.EOI.BIO.001\"><rv t=\"identifier\" n=\"RESPONSE\"><v>" + res + "</v></rv></ist></tsd></save_testing_session_data></adssvc_request>");            
-                }
-            }
-            if (action.equals("upload")) {
-                String file_name = request.getParameter("file_name");
-                if (file_name != null) {
-                    result.setEvent(ServletUtils.UPLOAD_AUDIT_FILE_METHOD);
-                    result.setXml("<adssvc_request method=\"save_testing_session_data\"><save_testing_session_data><tsd lsid=\"" + file_name + "\" scid=\"24009\" ><ist dur=\"2\" awd=\"1\" mrk=\"0\" iid=\"OKPT_SR.EOI.BIO.001\"></ist></tsd></save_testing_session_data></adssvc_request>");            
-                }
-            }
+    public static String buildFileName(String xml) {
+        String fullFileName = null;
+        String lsid = parseLsid(xml);
+        if ((lsid != null) && (!lsid.equals("-"))) {
+            String fileName = lsid.replace(':', '_');        
+            String tdcHome = System.getProperty(AuditFile.TDC_HOME);
+            fullFileName = tdcHome + AuditFile.AUDIT_FOLDER + fileName + AuditFile.AUDIT_EXTENSION;
         }
-        else {
-            result.setEvent(getMethod(request));
-            result.setXml(getXml(request));            
-        }
-        return result;
-    }
+        return fullFileName;
+    }    
+    
     
 }
+
