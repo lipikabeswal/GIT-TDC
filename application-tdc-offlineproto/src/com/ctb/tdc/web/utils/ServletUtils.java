@@ -32,10 +32,11 @@ public class ServletUtils {
     public static final String URL_PERSISTENCE_SERVLET = "/servlet/PersistenceServlet";
     public static final String URL_LOADCONTENT_SERVLET = "/servlet/LoadContentServlet";
     public static final String URL_DOWNLOADCONTENT_SERVLET = "/servlet/DownloadContentServlet";
-    public static final String URL_WEBAPP_LOGIN = "/TestDeliveryWeb/begin.do";
+    public static final String URL_WEBAPP_LOGIN = "/TestDeliveryWeb/login.do";
     public static final String URL_WEBAPP_SAVE_RESPONSE = "/TestDeliveryWeb/response.do";
     public static final String URL_WEBAPP_SAVE_LIFECYCLE = "/TestDeliveryWeb/lifecycle.do";
     public static final String URL_WEBAPP_FEEDBACK = "/TestDeliveryWeb/feedback.do";
+    public static final String URL_WEBAPP_SAVE = "/TestDeliveryWeb/save.do";
     public static final String URL_WEBAPP_UPLOAD_AUDIT_FILE = "/TestDeliveryWeb/CTB/uploadAuditFile.do";
     public static final String URL_WEBAPP_WRITE_TO_AUDIT_FILE = "/TestDeliveryWeb/CTB/writeToAuditFile.do";
     

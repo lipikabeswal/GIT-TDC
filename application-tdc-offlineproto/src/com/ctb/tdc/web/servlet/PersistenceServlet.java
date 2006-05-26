@@ -212,7 +212,7 @@ public class PersistenceServlet extends HttpServlet {
             MemoryCache memoryCache = MemoryCache.getInstance();
 
             // check if TMS sent acknowledge before continue
-            if (hasAcknowledge(memoryCache, lsid)) {
+            if (hasAcknowledge(memoryCache, lsid, mseq)) {
                 // ok to continue, so remove all ACK entries
                 removeAcknowledgeStates(memoryCache, lsid);
                 // send response to client
@@ -261,12 +261,12 @@ public class PersistenceServlet extends HttpServlet {
             PrintWriter out = new PrintWriter(tmsConnection.getOutputStream());
 
             // send to TMS
-            out.println(ServletUtils.XML_PARAM + "=" + xml);
+            out.println(ServletUtils.METHOD_PARAM + "=" + method + "&" + ServletUtils.XML_PARAM + "=" + xml);
             out.close();
 
             // get response from TMS
             BufferedReader in = new BufferedReader(new InputStreamReader(tmsConnection.getInputStream()));
-            String inputLine = "";            
+            String inputLine = "";       
             while ((inputLine = in.readLine()) != null) {
                 //System.out.println(inputLine);
                 result += inputLine;
@@ -346,13 +346,13 @@ public class PersistenceServlet extends HttpServlet {
      * verify if there is an acknowledge message returned from TMS to continue
      * 
      */
-    private boolean hasAcknowledge(MemoryCache memoryCache, String lsid) throws InterruptedException {
+    private boolean hasAcknowledge(MemoryCache memoryCache, String lsid, String mseq) throws InterruptedException {
         int retry = memoryCache.getSrvSettings().getTmsAckRetry();
-        boolean pendingState = inPendingState(memoryCache, lsid);
+        boolean pendingState = inPendingState(memoryCache, lsid, mseq);
         while (pendingState && (retry > 0)) {
             retry--;
             Thread.sleep(1000); // delay 1 second and try again
-            pendingState = inPendingState(memoryCache, lsid);
+            pendingState = inPendingState(memoryCache, lsid, mseq);
         }            
         return (! pendingState);
     }
@@ -362,10 +362,12 @@ public class PersistenceServlet extends HttpServlet {
      * @param MemoryCache memoryCache
      * @param String lsid
      * 
-     * verify if there is an acknowledge message returned from TMS to continue
+     * verify if there is a pending state entry in the list
+     * the index is computed from 'tms.ack.inflight' in properties file
+     * mseqIndex = mseqCurrent - tmsAckInflight;
      * 
      */
-    public boolean inPendingState(MemoryCache memoryCache, String lsid) {  
+    public boolean inPendingState(MemoryCache memoryCache, String lsid, String mseq) {  
         boolean pendingState = false;
         boolean isTmsAckRequired = memoryCache.getSrvSettings().isTmsAckRequired();
         int tmsAckInflight = memoryCache.getSrvSettings().getTmsAckInflight();
@@ -373,13 +375,14 @@ public class PersistenceServlet extends HttpServlet {
         if (isTmsAckRequired) {
             ArrayList states = (ArrayList)memoryCache.getStateMap().get(lsid);
             if (states != null) {
-                int pendingCount = 0;
+                int mseqCurrent = Integer.parseInt(mseq);
+                int mseqIndex = mseqCurrent - tmsAckInflight;
                 for (int i=0 ; i<states.size() ; i++) {
                     StateVO state = (StateVO)states.get(i);
-                    if (state.getState().equals(StateVO.PENDING_STATE))
-                        pendingCount++;                   
+                    if (state.getMseq() == mseqIndex) {
+                        pendingState = state.getState().equals(StateVO.PENDING_STATE);
+                    }
                 }
-                pendingState = (pendingCount >= tmsAckInflight);
             }
         }
         return pendingState;
