@@ -33,8 +33,6 @@ public class ServletUtils {
     public static final String URL_LOADCONTENT_SERVLET = "/servlet/LoadContentServlet";
     public static final String URL_DOWNLOADCONTENT_SERVLET = "/servlet/DownloadContentServlet";
     public static final String URL_WEBAPP_LOGIN = "/TestDeliveryWeb/login.do";
-    public static final String URL_WEBAPP_SAVE_RESPONSE = "/TestDeliveryWeb/response.do";
-    public static final String URL_WEBAPP_SAVE_LIFECYCLE = "/TestDeliveryWeb/lifecycle.do";
     public static final String URL_WEBAPP_FEEDBACK = "/TestDeliveryWeb/feedback.do";
     public static final String URL_WEBAPP_SAVE = "/TestDeliveryWeb/save.do";
     public static final String URL_WEBAPP_UPLOAD_AUDIT_FILE = "/TestDeliveryWeb/CTB/uploadAuditFile.do";
@@ -169,6 +167,14 @@ public class ServletUtils {
     }
     
      /**
+     * parse item set id value in xml
+     * 
+     */
+    public static String parseItemSetId(String xml) {   
+        return parseTag("itemSetId=", xml);
+    }
+    
+     /**
      * parse a tag value in xml
      * 
      */
@@ -232,26 +238,22 @@ public class ServletUtils {
      * get predefined webapp name for a method
      * 
      */
-    public static String getWebAppName(String method, String xml) {
-        String webApp = URL_WEBAPP_SAVE_LIFECYCLE;
+    public static String getWebAppName(String method) {
+        String webApp = URL_WEBAPP_SAVE;
         if (method.equals(LOGIN_METHOD))
             webApp = URL_WEBAPP_LOGIN;
         else
         if (method.equals(FEEDBACK_METHOD))
             webApp = URL_WEBAPP_FEEDBACK;
         else
+        if (method.equals(SAVE_METHOD)) 
+            webApp = URL_WEBAPP_SAVE;        
+        else        
         if (method.equals(UPLOAD_AUDIT_FILE_METHOD))
             webApp = URL_WEBAPP_UPLOAD_AUDIT_FILE;
         else        
         if (method.equals(WRITE_TO_AUDIT_FILE_METHOD))
             webApp = URL_WEBAPP_WRITE_TO_AUDIT_FILE;
-        else        
-        if (method.equals(SAVE_METHOD)) {
-            if (isSaveResponse(xml))
-                webApp = URL_WEBAPP_SAVE_RESPONSE;
-            else
-                webApp = URL_WEBAPP_SAVE_LIFECYCLE;
-        }
         return webApp;
     }
     
@@ -259,11 +261,11 @@ public class ServletUtils {
      * get predefined TMS URL as string for a method
      * 
      */
-    public static String getTmsURLString(String method, String xml) throws MalformedURLException {
+    public static String getTmsURLString(String method) throws MalformedURLException {
         MemoryCache memoryCache = MemoryCache.getInstance();
         ServletSettings srvSettings = memoryCache.getSrvSettings();
         String tmsHostPort = srvSettings.getTmsHostPort();
-        String tmsWebApp = getWebAppName(method, xml);
+        String tmsWebApp = getWebAppName(method);
         return (tmsHostPort + tmsWebApp);
     }
 
@@ -271,8 +273,8 @@ public class ServletUtils {
      * get predefined TMS URL for a method
      * 
      */
-    public static URL getTmsURL(String method, String xml) throws MalformedURLException {
-        String tmsUrlString = getTmsURLString(method, xml);
+    public static URL getTmsURL(String method) throws MalformedURLException {
+        String tmsUrlString = getTmsURLString(method);
         URL tmsURL = new URL(tmsUrlString);
         return tmsURL;
     }
@@ -281,11 +283,11 @@ public class ServletUtils {
      * get predefined TMS Proxy URL as string for a method
      * 
      */
-    public static String getProxyURLString(String method, String xml) throws MalformedURLException {
+    public static String getProxyURLString(String method) throws MalformedURLException {
         MemoryCache memoryCache = MemoryCache.getInstance();
         ServletSettings srvSettings = memoryCache.getSrvSettings();
         String proxyHostPort = srvSettings.getProxyHostPort();
-        String tmsWebApp = getWebAppName(method, xml);
+        String tmsWebApp = getWebAppName(method);
         return (proxyHostPort + tmsWebApp);
     }
 
@@ -293,8 +295,8 @@ public class ServletUtils {
      * get predefined TMS Proxy URL for a method
      * 
      */
-    public static URL getProxyURL(String method, String xml) throws MalformedURLException {
-        String proxyUrlString = getProxyURLString(method, xml);
+    public static URL getProxyURL(String method) throws MalformedURLException {
+        String proxyUrlString = getProxyURLString(method);
         URL proxyURL = new URL(proxyUrlString);
         return proxyURL;
     }
@@ -306,12 +308,12 @@ public class ServletUtils {
     public static String uploadAuditFile(String xml) throws MalformedURLException {
         String uploadStatus = OK;
         String testRosterId = parseTestRosterId(xml);
-        String accessCode = parseAccessCode(xml);
-        String tmsURL = getTmsURLString(UPLOAD_AUDIT_FILE_METHOD, xml);
+        String itemSetId = parseItemSetId(xml);
+        String tmsURL = getTmsURLString(UPLOAD_AUDIT_FILE_METHOD);
         tmsURL += "?";
         tmsURL += TEST_ROSTER_ID_PARAM + "=" + testRosterId;
         tmsURL += "&";
-        tmsURL += ACCESS_CODE_PARAM + "=" + accessCode;
+        tmsURL += ITEM_SET_ID_PARAM + "=" + itemSetId;
         
         PostMethod filePost = new PostMethod(tmsURL); 
         try {
