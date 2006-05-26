@@ -67,7 +67,7 @@ public class ServletUtils {
         
     // returned values
     public static final String OK = "<OK>200 OK</OK>";
-    public static final String METHOD_ERROR = "<ERROR>601 Invalid method</ERROR>";
+    public static final String UNKNOWN_METHOD_ERROR = "<ERROR>601 Invalid method</ERROR>";
     public static final String UPLOAD_FILE_ERROR = "<ERROR>602 Failed to upload file</ERROR>";
     public static final String ACK_ERROR = "<ERROR>603 No Acknowledge from TMS</ERROR>";
 

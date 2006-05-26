@@ -63,12 +63,6 @@ public class PersistenceServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
-        /* this block temporary for POC testing page, will be remove when done
-        AuditVO vo = ServletUtils.getPOCParameters(request);
-        String method = vo.getEvent();
-        String xml = vo.getXml();
-        handleEvent(response, method, xml);        
-        */ 
     }
 
 	/**
@@ -98,19 +92,25 @@ public class PersistenceServlet extends HttpServlet {
      * @throws IOException 
      */
     private void handleEvent(HttpServletResponse response, String method, String xml) throws IOException {
+        String result = ServletUtils.OK;
         ServletUtils.initMemoryCache();
+        
+        // call method
         if (method.equals(ServletUtils.LOGIN_METHOD))
-            login(response, xml);
+            result = login(response, xml);
         else if (method.equals(ServletUtils.SAVE_METHOD))
-            save(response, xml);        
+            result = save(response, xml);        
         else if (method.equals(ServletUtils.FEEDBACK_METHOD))
-            feedback(response, xml);        
+            result = feedback(response, xml);        
         else if (method.equals(ServletUtils.UPLOAD_AUDIT_FILE_METHOD))
-            uploadAuditFile(response, xml);
+            result = uploadAuditFile(response, xml);
         else if (method.equals(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD))
-            writeToAuditFile(response, xml);
+            result = writeToAuditFile(response, xml);
         else
-            ServletUtils.writeResponse(response, ServletUtils.METHOD_ERROR);                        
+            result = ServletUtils.UNKNOWN_METHOD_ERROR;    
+        
+        // return response to client
+        ServletUtils.writeResponse(response, result);                        
     }
     
     /**
@@ -125,10 +125,11 @@ public class PersistenceServlet extends HttpServlet {
      *  return login response xml to client
      *  
      */
-    private void login(HttpServletResponse response, String xml) {
+    private String login(HttpServletResponse response, String xml) {
+        String result = ServletUtils.OK;
         try {
             // sent login request to TMS
-            String result = sendRequest(xml, ServletUtils.LOGIN_METHOD);
+            result = sendRequest(xml, ServletUtils.LOGIN_METHOD);
             
             // parse response xml for information
             String encryptionKey = ServletUtils.parseEncryptionKey(result);
@@ -147,13 +148,11 @@ public class PersistenceServlet extends HttpServlet {
             // log RECEIVE_EVENT in audit file
             AuditVO audit = ServletUtils.createAuditVO(fileName, lsid, ServletUtils.NONE, ServletUtils.RECEIVE_EVENT, xml);            
             AuditFile.log(audit);        
-            
-            // send response to client
-            ServletUtils.writeResponse(response, result);            
         } 
         catch (Exception e) {
             e.printStackTrace();
         }
+        return result;
     }
     
     /**
@@ -166,7 +165,8 @@ public class PersistenceServlet extends HttpServlet {
      *  return feedback response xml to client
      *  
      */
-    private void feedback(HttpServletResponse response, String xml) {
+    private String feedback(HttpServletResponse response, String xml) {
+        String result = ServletUtils.OK;
         try {
             // parse request xml for information
             String lsid = ServletUtils.parseLsid(xml);
@@ -177,14 +177,12 @@ public class PersistenceServlet extends HttpServlet {
             AuditFile.log(audit);
             
             // sent feedback request to TMS
-            String result = sendRequest(xml, ServletUtils.FEEDBACK_METHOD);
-            
-            // send response to client
-            ServletUtils.writeResponse(response, result);
+            result = sendRequest(xml, ServletUtils.FEEDBACK_METHOD);
         } 
         catch (Exception e) {
             e.printStackTrace();
         }
+        return result;
     }
 
     /**
@@ -199,7 +197,8 @@ public class PersistenceServlet extends HttpServlet {
      *  on response from TMS, write ack to audit file.
      *  
      */
-    private void save(HttpServletResponse response, String xml) {
+    private String save(HttpServletResponse response, String xml) {
+        String result = ServletUtils.OK;
         try {
             // log RECEIVE_EVENT in audit file
             AuditVO audit = ServletUtils.createAuditVO(xml, ServletUtils.RECEIVE_EVENT);
@@ -220,7 +219,7 @@ public class PersistenceServlet extends HttpServlet {
                     // set pending state before send request to TMS
                     StateVO state = memoryCache.setPendingState(lsid, mseq);
                     // send request to TMS
-                    String result = sendRequest(xml, ServletUtils.SAVE_METHOD);
+                    result = sendRequest(xml, ServletUtils.SAVE_METHOD);
                     // set acknowledge state after return from TMS                    
                     memoryCache.setAcknowledgeState(state);                       
                     // log ACTKNOWLEDGE_EVENT in audit file when TMS return
@@ -228,15 +227,14 @@ public class PersistenceServlet extends HttpServlet {
                     AuditFile.log(audit);
                 }
             }
-            else {
-                // fail to continue
-                ServletUtils.writeResponse(response, ServletUtils.ACK_ERROR);
-                //System.out.println(ServletUtils.ACK_ERROR);
+            else {                
+                result = ServletUtils.ACK_ERROR; // fail to continue
             }            
         } 
         catch (Exception e) {
             e.printStackTrace();
-        }        
+        }       
+        return result;
     }
 
     /**
@@ -247,25 +245,25 @@ public class PersistenceServlet extends HttpServlet {
      * upload the audit file to TMS and delete the file from local storage
      * 
      */
-    private void uploadAuditFile(HttpServletResponse response, String xml) {
+    private String uploadAuditFile(HttpServletResponse response, String xml) {
+        String result = ServletUtils.OK;
         try {
             MemoryCache memoryCache = MemoryCache.getInstance();
             if (memoryCache.getSrvSettings().isTmsAuditUpload()) {            
                 // upload audit file to TMS
-                String uploadStatus = ServletUtils.uploadAuditFile(xml);            
-                if (uploadStatus.equals(ServletUtils.OK)) {
+                result = ServletUtils.uploadAuditFile(xml);            
+                if (result.equals(ServletUtils.OK)) {
                     // delete local file when upload successfully
                     String lsid = ServletUtils.parseLsid(xml);
                     String fileName = AuditFile.buildFileName(lsid);            
                     AuditFile.deleteLogger(fileName);
                 }                 
-                // send response to client
-                ServletUtils.writeResponse(response, uploadStatus);
             }
         } 
         catch (Exception e) {
             e.printStackTrace();
         }
+        return result;
     }
     
     /**
@@ -276,21 +274,20 @@ public class PersistenceServlet extends HttpServlet {
      * write xml content to audit file
      * 
      */
-    private void writeToAuditFile(HttpServletResponse response, String xml) {
+    private String writeToAuditFile(HttpServletResponse response, String xml) {
+        String result = ServletUtils.OK;
         try {
             // log RECEIVE_EVENT in audit file
             AuditVO audit = ServletUtils.createAuditVO(xml, ServletUtils.RECEIVE_EVENT);
             AuditFile.log(audit);
             
             // write stuff to audit file
-            String result = sendRequest(xml, ServletUtils.WRITE_TO_AUDIT_FILE_METHOD);
-            
-            // send response to client
-            ServletUtils.writeResponse(response, result);            
+            result = sendRequest(xml, ServletUtils.WRITE_TO_AUDIT_FILE_METHOD);
         } 
         catch (Exception e) {
             e.printStackTrace();
         }
+        return result;
     }
 
     /**
@@ -316,9 +313,8 @@ public class PersistenceServlet extends HttpServlet {
 
             // get response from TMS
             BufferedReader in = new BufferedReader(new InputStreamReader(tmsConnection.getInputStream()));
-            String inputLine = "";       
+            String inputLine = null;       
             while ((inputLine = in.readLine()) != null) {
-                //System.out.println(inputLine);
                 result += inputLine;
             }
             in.close();          
@@ -335,6 +331,7 @@ public class PersistenceServlet extends HttpServlet {
      * @param String lsid
      * 
      * verify if there is an acknowledge message returned from TMS to continue
+     * if there is no ack then try again (tms.ack.retry), each time delay 1 second 
      * 
      */
     private boolean hasAcknowledge(MemoryCache memoryCache, String lsid, String mseq) throws InterruptedException {

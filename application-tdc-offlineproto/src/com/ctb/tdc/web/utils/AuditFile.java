@@ -23,7 +23,7 @@ public class AuditFile
     public static final String AUDIT_FOLDER = "\\data\\audit\\";
     public static final String XML_FOLDER = "\\data\\xmls\\";
     public static final String IMAGE_FOLDER = "\\data\\images\\";
-
+    
     // logger
     public static HashMap loggerMap = new HashMap();
 
@@ -70,21 +70,31 @@ public class AuditFile
         return logger;
     }
     
-    public static void log( AuditVO aAuditVO ) throws Exception
+    public static void log( AuditVO audit ) throws Exception
     {
-        org.apache.log4j.Category logger = getLogger( aAuditVO.getFileName() );
-        logger.log( Priority.INFO, aAuditVO.toString() );
+        String fileName = audit.getFileName();
+        if (fileName != null) {
+            org.apache.log4j.Category logger = getLogger(fileName);
+            logger.log( Priority.INFO, audit.toString() );            
+        }
     }
     
     public static String buildFileName(String lsid) {
-        lsid = lsid.replace(':', '_');        
-        String tdcHome = System.getProperty(TDC_HOME);
-        String fileName = tdcHome + AUDIT_FOLDER + lsid + AUDIT_EXTENSION;
+        String fileName = null;
+        if ((lsid != null) && (!lsid.equals("-"))) {
+            lsid.replace(':', '_');        
+            String tdcHome = System.getProperty(TDC_HOME);
+            fileName = tdcHome + AUDIT_FOLDER + lsid + AUDIT_EXTENSION;
+        }
         return fileName;
     }    
     
     public static boolean exists(String fileName) {
-        File file = new File(fileName);        
-        return file.exists();
+        boolean exists = false;
+        if (fileName != null) {
+            File file = new File(fileName);            
+            exists = file.exists();
+        }
+        return exists;
     }    
 }
