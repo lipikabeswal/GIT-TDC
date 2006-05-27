@@ -1,0 +1,71 @@
+<project name="application-tdc" default="usage" basedir=".">
+
+	
+	<property name="project.dist" value="${basedir}/dist" />
+	<property name="project.src"  value="${basedir}/src" />
+		
+	
+	<target name="usage" description="Displays the usage of this ANT build script.">
+		<echo>
+			Usage: ant [target]
+		</echo>
+	</target>
+	
+	<target name="clean" description="Cleans up generated folders by deleting specific content.">
+		<delete includeemptydirs="true">
+			<fileset dir="${project.dist}" includes="**/*"/>
+		</delete>
+	</target>
+
+	<target name="distribution" description="Creates the distribution package structure for the installer." depends="init, build">
+		<copy todir="${project.dist}/data">
+			<fileset dir="data">
+				<include name="**/audit/*" />
+				<exclude name="**/*.log" />
+			</fileset>
+		</copy>
+		<copy todir="${project.dist}/lockdownbrowser">
+			<fileset dir="lockdownbrowser" />
+		</copy>
+		<copy todir="${project.dist}/servletcontainer">
+			<fileset dir="servletcontainer">
+				<exclude name="**/*.log" />
+			</fileset>
+		</copy>
+		<copy todir="${project.dist}/webapp">
+			<fileset dir="webapp" />
+		</copy>
+	</target>
+	
+
+	
+	<!-- Internal targets -->
+	<target name="init" depends="clean">
+		<mkdir dir="${project.dist}/data" />
+		<mkdir dir="${project.dist}/lockdownbrowser" />
+		<mkdir dir="${project.dist}/servletcontainer" />
+		<mkdir dir="${project.dist}/webapp" />
+	</target>
+		
+	
+	<target name="build" depends="init">
+		<mkdir dir="${project.dist}/webapp/WEB-INF/classes" />
+		<javac srcdir="${project.src}" destdir="${project.dist}/webapp/WEB-INF/classes">
+			<classpath>
+				<fileset dir="${basedir}/servletcontainer/jetty-5.1.11RC0">
+					<include name="lib/javax.servlet.jar" />
+					<include name="ext/log4j.jar" />
+				</fileset>
+				<fileset dir="${basedir}/webapp/WEB-INF/lib">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+
+		<copy todir="${project.dist}/webapp/WEB-INF/classes">
+			<fileset dir="${project.src}" excludes="**/*.java"/>
+		</copy>
+	</target>
+
+
+</project>
