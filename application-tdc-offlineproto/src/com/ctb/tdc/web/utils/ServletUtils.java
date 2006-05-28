@@ -1,15 +1,23 @@
 package com.ctb.tdc.web.utils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.PostMethod;
 
 import com.ctb.tdc.web.dto.AuditVO;
 import com.ctb.tdc.web.dto.ServletSettings;
@@ -24,11 +32,9 @@ public class ServletUtils {
     public static final String URL_PERSISTENCE_SERVLET = "/servlet/PersistenceServlet";
     public static final String URL_LOADCONTENT_SERVLET = "/servlet/LoadContentServlet";
     public static final String URL_DOWNLOADCONTENT_SERVLET = "/servlet/DownloadContentServlet";
-    //public static final String URL_WEBAPP_LOGIN = "/TestDeliveryWeb/login.do";
-    public static final String URL_WEBAPP_LOGIN = "/TestDeliveryWeb/begin.do";
-    public static final String URL_WEBAPP_FEEDBACK = "/TestDeliveryWeb/feedback.do";
-    //public static final String URL_WEBAPP_SAVE = "/TestDeliveryWeb/save.do";
-    public static final String URL_WEBAPP_SAVE = "/TestDeliveryWeb/response.do";
+    public static final String URL_WEBAPP_LOGIN = "/TestDeliveryWeb/CTB/login.do";
+    public static final String URL_WEBAPP_FEEDBACK = "/TestDeliveryWeb/CTB/feedback.do";
+    public static final String URL_WEBAPP_SAVE = "/TestDeliveryWeb/CTB/save.do";
     public static final String URL_WEBAPP_UPLOAD_AUDIT_FILE = "/TestDeliveryWeb/CTB/uploadAuditFile.do";
     public static final String URL_WEBAPP_WRITE_TO_AUDIT_FILE = "/TestDeliveryWeb/CTB/writeToAuditFile.do";
     
@@ -252,7 +258,7 @@ public class ServletUtils {
      * get predefined TMS URL as string for a method
      * 
      */
-    public static String getTmsURLString(String method) throws MalformedURLException {
+    public static String getTmsURLString(String method) {
         MemoryCache memoryCache = MemoryCache.getInstance();
         ServletSettings srvSettings = memoryCache.getSrvSettings();
         String tmsHostPort = srvSettings.getTmsHostPort();
@@ -264,9 +270,15 @@ public class ServletUtils {
      * get predefined TMS URL for a method
      * 
      */
-    public static URL getTmsURL(String method) throws MalformedURLException {
-        String tmsUrlString = getTmsURLString(method);
-        URL tmsURL = new URL(tmsUrlString);
+    public static URL getTmsURL(String method) {
+        URL tmsURL = null;
+        try {
+            String tmsUrlString = getTmsURLString(method);
+            tmsURL = new URL(tmsUrlString);
+        } 
+        catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         return tmsURL;
     }
 
@@ -378,6 +390,86 @@ public class ServletUtils {
         }
         return fullFileName;
     }    
+    
+    /**
+     * urlConnectionSendRequest
+     * @param String xml
+     * @param String method
+     * 
+     * Connect to TMS and send request using URLConnection
+     * 
+     */
+    public static String urlConnectionSendRequest(String method, String xml) {
+        String result = OK;
+        try {
+            // get TMS url to make connection
+            URL tmsURL = getTmsURL(method);
+            URLConnection tmsConnection = tmsURL.openConnection();
+            tmsConnection.setDoOutput(true);
+            PrintWriter out = new PrintWriter(tmsConnection.getOutputStream());
+
+            // send to TMS
+            out.println(METHOD_PARAM + "=" + method + "&" + XML_PARAM + "=" + xml);
+            out.close();
+
+            // get response from TMS
+            BufferedReader in = new BufferedReader(new InputStreamReader(tmsConnection.getInputStream()));
+            String inputLine = null;       
+            result = "";
+            while ((inputLine = in.readLine()) != null) {
+                result += inputLine;
+            }
+            in.close();          
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+            result = ERROR;
+        }        
+        return result;
+    }
+    
+    /**
+     * httpConnectionSendRequest
+     * @param String xml
+     * @param String method
+     * 
+     * Connect to TMS and send request using HttpClient
+     * 
+     */
+    public static String httpConnectionSendRequest(String method, String xml) {
+        String result = OK;
+
+        // create post method with url based on method
+        String tmsURL = getTmsURLString(method);
+        PostMethod post = new PostMethod(tmsURL);             
+            
+        // setup parameters
+        NameValuePair[] params = { new NameValuePair(METHOD_PARAM, method),
+                                   new NameValuePair(XML_PARAM, xml) };
+        post.setRequestBody(params);
+            
+        // send request to TMS
+        try {
+            HttpClient client = new HttpClient(); 
+            client.executeMethod(post);             
+            InputStream isPost = post.getResponseBodyAsStream();
+            BufferedReader in = new BufferedReader(new InputStreamReader(isPost));
+            String inputLine = null;   
+            result = "";
+            while ((inputLine = in.readLine()) != null) {
+                result += inputLine;
+            }
+            in.close();          
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+            result = ERROR;
+        }
+        finally {
+            post.releaseConnection();
+        }        
+        return result;
+    }
     
     
 }

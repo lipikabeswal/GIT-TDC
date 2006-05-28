@@ -1,13 +1,8 @@
 package com.ctb.tdc.web.servlet;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -104,15 +99,15 @@ public class PersistenceServlet extends HttpServlet {
         
         // call method
         if (method.equals(ServletUtils.LOGIN_METHOD))
-            result = login(response, xml);
+            result = login(xml);
         else if (method.equals(ServletUtils.SAVE_METHOD))
-            result = save(response, xml);        
+            result = save(xml);        
         else if (method.equals(ServletUtils.FEEDBACK_METHOD))
-            result = feedback(response, xml);        
+            result = feedback(xml);        
         else if (method.equals(ServletUtils.UPLOAD_AUDIT_FILE_METHOD))
-            result = uploadAuditFile(response, xml);
+            result = uploadAuditFile(xml);
         else if (method.equals(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD))
-            result = writeToAuditFile(response, xml);
+            result = writeToAuditFile(xml);
         else
             result = ServletUtils.ERROR;    
         
@@ -132,11 +127,11 @@ public class PersistenceServlet extends HttpServlet {
      *  return login response xml to client
      *  
      */
-    private String login(HttpServletResponse response, String xml) {
+    private String login(String xml) {
         String result = ServletUtils.OK;
         try {
             // sent login request to TMS
-            result = sendRequest(xml, ServletUtils.LOGIN_METHOD);
+            result = ServletUtils.httpConnectionSendRequest(ServletUtils.LOGIN_METHOD, xml);
             
             // parse response xml for information
             String encryptionKey = ServletUtils.parseEncryptionKey(result);
@@ -168,11 +163,11 @@ public class PersistenceServlet extends HttpServlet {
      *  return feedback response xml to client
      *  
      */
-    private String feedback(HttpServletResponse response, String xml) {
+    private String feedback(String xml) {
         String result = ServletUtils.OK;
         try {
             // sent feedback request to TMS
-            result = sendRequest(xml, ServletUtils.FEEDBACK_METHOD);
+            result = ServletUtils.httpConnectionSendRequest(ServletUtils.FEEDBACK_METHOD, xml);
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -193,7 +188,7 @@ public class PersistenceServlet extends HttpServlet {
      *  on response from TMS, write ack to audit file.
      *  
      */
-    private String save(HttpServletResponse response, String xml) {
+    private String save(String xml) {
         String result = ServletUtils.OK;
         try {
             // parse request xml for information
@@ -211,7 +206,7 @@ public class PersistenceServlet extends HttpServlet {
                     // set pending state before send request to TMS
                     StateVO state = memoryCache.setPendingState(lsid, mseq);
                     // send save request to TMS
-                    result = sendRequest(xml, ServletUtils.SAVE_METHOD);
+                    result = ServletUtils.httpConnectionSendRequest(ServletUtils.SAVE_METHOD, xml);
                     // set acknowledge state after return from TMS                    
                     memoryCache.setAcknowledgeState(state);                       
                     // log an entry in audit file if save response
@@ -232,6 +227,27 @@ public class PersistenceServlet extends HttpServlet {
     }
 
     /**
+     * writeToAuditFile
+     * @param HttpServletResponse response
+     * @param String xml
+     * 
+     * write xml content to audit file
+     * 
+     */
+    private String writeToAuditFile(String xml) {
+        String result = ServletUtils.OK;
+        try {
+            // sent writeToAuditFile request to TMS
+            result = ServletUtils.httpConnectionSendRequest(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD, xml);
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+            result = ServletUtils.ERROR;
+        }
+        return result;
+    }
+    
+    /**
      * uploadAuditFile
      * @param HttpServletResponse response
      * @param String xml
@@ -239,13 +255,10 @@ public class PersistenceServlet extends HttpServlet {
      * upload the audit file to TMS and delete the file from local storage
      * 
      */
-    private String uploadAuditFile(HttpServletResponse response, String xml) {
+    private String uploadAuditFile(String xml) {
         String result = ServletUtils.OK;
-        try {
-            MemoryCache memoryCache = MemoryCache.getInstance();
-            if (memoryCache.getSrvSettings().isTmsAuditUpload())
-                return result;
-            
+        MemoryCache memoryCache = MemoryCache.getInstance();
+        if (memoryCache.getSrvSettings().isTmsAuditUpload()) {
             // parse request for information to build URL
             String testRosterId = ServletUtils.parseTestRosterId(xml);
             String itemSetId = ServletUtils.parseItemSetId(xml);
@@ -255,87 +268,36 @@ public class PersistenceServlet extends HttpServlet {
             tmsURL += "&";
             tmsURL += ServletUtils.ITEM_SET_ID_PARAM + "=" + itemSetId;            
             PostMethod filePost = new PostMethod(tmsURL);             
-            
-            // get upload file
-            String fileName = ServletUtils.buildFileName(xml);            
-            File file = new File(fileName);
-            Part[] parts = { new FilePart(ServletUtils.AUDIT_FILE_PARAM, file) }; 
-            filePost.setRequestEntity( new MultipartRequestEntity(parts, filePost.getParams()) );
-            
-            // upload it to TMS
-            HttpClient client = new HttpClient(); 
-            int status = client.executeMethod(filePost);             
-            if (status == HttpStatus.SC_OK) {
-                // delete local file when upload successfully
-                AuditFile.deleteLogger(fileName);                    
+                
+            try {
+                // get the file
+                String fileName = ServletUtils.buildFileName(xml);            
+                File file = new File(fileName);
+                Part[] parts = { new FilePart(ServletUtils.AUDIT_FILE_PARAM, file) }; 
+                filePost.setRequestEntity( new MultipartRequestEntity(parts, filePost.getParams()) );
+                
+                // upload the file to TMS
+                HttpClient client = new HttpClient(); 
+                int status = client.executeMethod(filePost);             
+                if (status == HttpStatus.SC_OK) {
+                    // delete local file when upload successfully
+                    AuditFile.deleteLogger(fileName);                    
+                }
+                else {
+                    result = ServletUtils.ERROR;
+                }
             }
-            else {
+            catch (Exception e) {
+                e.printStackTrace();
                 result = ServletUtils.ERROR;
             }
-        } 
-        catch (Exception e) {
-            e.printStackTrace();
-            result = ServletUtils.ERROR;
+            finally {
+                filePost.releaseConnection();
+            }
         }
         return result;
     }
         
-    /**
-     * writeToAuditFile
-     * @param HttpServletResponse response
-     * @param String xml
-     * 
-     * write xml content to audit file
-     * 
-     */
-    private String writeToAuditFile(HttpServletResponse response, String xml) {
-        String result = ServletUtils.OK;
-        try {
-            // sent writeToAuditFile request to TMS
-            result = sendRequest(xml, ServletUtils.WRITE_TO_AUDIT_FILE_METHOD);
-        } 
-        catch (Exception e) {
-            e.printStackTrace();
-            result = ServletUtils.ERROR;
-        }
-        return result;
-    }
-
-    /**
-     * sendRequest
-     * @param String xml
-     * @param String method
-     * 
-     * Connect to TMS and send request contain a xml
-     * 
-     */
-    private String sendRequest(String xml, String method) {
-        String result = "";
-        try {
-            // get TMS url to make connection
-            URL tmsURL = ServletUtils.getTmsURL(method);
-            URLConnection tmsConnection = tmsURL.openConnection();
-            tmsConnection.setDoOutput(true);
-            PrintWriter out = new PrintWriter(tmsConnection.getOutputStream());
-
-            // send to TMS
-            out.println(ServletUtils.METHOD_PARAM + "=" + method + "&" + ServletUtils.XML_PARAM + "=" + xml);
-            out.close();
-
-            // get response from TMS
-            BufferedReader in = new BufferedReader(new InputStreamReader(tmsConnection.getInputStream()));
-            String inputLine = null;       
-            while ((inputLine = in.readLine()) != null) {
-                result += inputLine;
-            }
-            in.close();          
-        } 
-        catch (Exception e) {
-            e.printStackTrace();
-        }        
-        return result;
-    }
-    
     /**
      * hasAcknowledge
      * @param MemoryCache memoryCache
