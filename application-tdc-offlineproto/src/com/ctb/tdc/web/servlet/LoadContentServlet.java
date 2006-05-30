@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.jdom.Element;
 import org.jdom.output.XMLOutputter;
 
+import com.ctb.tdc.web.dto.SubtestKeyVO;
 import com.ctb.tdc.web.utils.AssetInfo;
 import com.ctb.tdc.web.utils.Base64;
 import com.ctb.tdc.web.utils.MemoryCache;
@@ -32,6 +33,7 @@ import com.stgglobal.util.CryptoLE.Crypto;
 public class LoadContentServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
+    public final int phaseOfOperation = 1;
     public String globalItemKey = "1u1piyyriN74U55CGnc4k1";
 	/**
 	 * Constructor of the object.
@@ -65,15 +67,35 @@ public class LoadContentServlet extends HttpServlet {
         String itemSetId = ServletUtils.getItemSetId(request);
         String itemId = ServletUtils.getItemId(request);
         String imageId = ServletUtils.getImageId(request);
-        String encryptionKey = ServletUtils.getEncryptionKey(request);
-        boolean good = true;
-        
+        boolean good = false;
+        SubtestKeyVO theSubtestKeyVO = null;
+        if ( phaseOfOperation > 1 )
+        {
+            MemoryCache aMemoryCache = MemoryCache.getInstance();
+            HashMap subtestInfoMap = aMemoryCache.getSubtestInfoMap();
+            if ( subtestInfoMap.containsKey( itemSetId ))
+            {
+                theSubtestKeyVO = ( SubtestKeyVO )subtestInfoMap.get( itemSetId );
+            }
+        }
         if (method.equals(ServletUtils.LOAD_SUBTEST_METHOD))
-            good = loadSubtest(response, "2203", "1757", "F16FF0BA9F3D0051F8D3630744BA0FCC", "./data/objectbank");
+        {
+            if ( phaseOfOperation == 1 )
+            {
+                good = loadSubtest(response, "2203", "1757", "F16FF0BA9F3D0051F8D3630744BA0FCC"
+                        				, globalItemKey, "./data/objectbank");
+            }
+            else if ( theSubtestKeyVO != null )
+            {
+                good = loadSubtest( response, theSubtestKeyVO.getAdsItemSetId(),
+                        theSubtestKeyVO.getAsmtEncryptionKey(), theSubtestKeyVO.getAsmtHash()
+                        		, theSubtestKeyVO.getItem_encryption_key(), "./data/objectbank" );
+            }   
+        }
         if (method.equals(ServletUtils.LOAD_ITEM_METHOD))
-            good = loadItem(response, itemId, encryptionKey);        
+            good = loadItem(response, itemId );        
         if (method.equals(ServletUtils.LOAD_IMAGE_METHOD))
-            good = loadImage(response, imageId, encryptionKey);      
+            good = loadImage(response, imageId );      
         
         if ( !good )
         {
@@ -232,7 +254,7 @@ public class LoadContentServlet extends HttpServlet {
     }
 	
 	public void handleItem( String bankDir, String itemID, 
-	        				String ItemHashKey, String ItemKeyId ) throws Exception
+	        				String ItemHashKey, String ItemKey ) throws Exception
     {
         String filePath = itemID + ".ecp";
         byte[] buffer = readFromFile( new File( bankDir, filePath ) );
@@ -242,7 +264,7 @@ public class LoadContentServlet extends HttpServlet {
         if ( Crypto.checkHash( ItemHashKey, buffer ))
         {
             Crypto aCrypto = new Crypto();
-            byte[] result = aCrypto.checkHashAndDecrypt( getKeyByKeyId( ItemKeyId ), ItemHashKey, buffer, true, false );
+            byte[] result = aCrypto.checkHashAndDecrypt( ItemKey, ItemHashKey, buffer, true, false );
             org.jdom.Document itemDoc = aMemoryCache.saxBuilder.build( new ByteArrayInputStream( result ) );
             org.jdom.Element element = (org.jdom.Element) itemDoc.getRootElement();
             element = element.getChild( "assets" );
@@ -287,7 +309,7 @@ public class LoadContentServlet extends HttpServlet {
      *   
      */
     private boolean loadSubtest( HttpServletResponse response, String obAssessmentId
-            					, String encryptionKey, String hashValue
+            					, String encryptionKey, String hashValue, String itemKey
             					, String bankDir ) throws IOException 
     {
         boolean result = true; 
@@ -314,7 +336,7 @@ public class LoadContentServlet extends HttpServlet {
                     String obItemId = item.getAttributeValue( "id" );
                     String ItemHash = item.getAttributeValue( "h" );
                     String ItemKeyId = item.getAttributeValue( "k" );
-                    handleItem( bankDir, obItemId, ItemHash, ItemKeyId );
+                    handleItem( bankDir, obItemId, ItemHash, itemKey );
                 }
                 response.setContentType( "text/xml" );
                 ServletOutputStream myOutput = response.getOutputStream();
@@ -345,7 +367,7 @@ public class LoadContentServlet extends HttpServlet {
      *  returns decrypted item xml
      *   
      */
-    private boolean loadItem(HttpServletResponse response, String itemId, String encryptionKey) throws IOException {
+    private boolean loadItem(HttpServletResponse response, String itemId ) throws IOException {
         boolean result = true; 
         MemoryCache aMemoryCache = MemoryCache.getInstance();
         HashMap itemMap = aMemoryCache.getItemMap();
@@ -374,7 +396,7 @@ public class LoadContentServlet extends HttpServlet {
      *  returns decrypted image xml
      *   
      */
-    private boolean loadImage(HttpServletResponse response, String imageId, String encryptionKey) throws IOException 
+    private boolean loadImage(HttpServletResponse response, String imageId ) throws IOException 
     {
         boolean result = true; 
         MemoryCache aMemoryCache = MemoryCache.getInstance();
