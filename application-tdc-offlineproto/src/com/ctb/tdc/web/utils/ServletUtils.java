@@ -68,7 +68,6 @@ public class ServletUtils {
     // returned values
     public static final String OK = "<OK />";
     public static final String ERROR = "<ERROR />";
-    public static final String ACK_ERROR = "<ACK_ERROR />";
 
     // misc
     public static final String NONE = "-";

@@ -216,7 +216,7 @@ public class PersistenceServlet extends HttpServlet {
                 }
             }
             else {                
-                result = ServletUtils.ACK_ERROR; // failed to continue
+                result = ServletUtils.ERROR; // failed to continue
             }            
         } 
         catch (Exception e) {
