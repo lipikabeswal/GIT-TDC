@@ -471,6 +471,18 @@ public class ServletUtils {
         return result;
     }
     
+    public static void processContentKeys( String xml )
+    {
+        /*
+         * <manifest title="Oklahoma End-of-Instruction Practice Test">
+         		<sco cmi.core.entry="ab-initio" cmi.core.total_time="0:0:0" force_logout="false" id="24009" adsid=”234234” sco_duration_minutes="60" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="Oklahoma End-of-Instruction Practice Test" asmt_hash=”A4DFBAD234CA3ADC28A” asmt_encryption_key=” A4DFBAD234CA3ADC28A” item_encryption_key=”A4DFBAD234CA3ADC28A“>
+         		</sco>
+      		<feedback id="STUDENT_FEEDBACK"></feedback>
+      		<terminator id="SEE_YOU_LATER"></terminator>
+      		</manifest>
+         */
+    }
+    
     
 }
 
