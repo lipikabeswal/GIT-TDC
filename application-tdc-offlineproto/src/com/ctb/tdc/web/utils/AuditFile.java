@@ -20,9 +20,9 @@ public class AuditFile
     // data files
     public static final String TDC_HOME = "tdc.home";
     public static final String AUDIT_EXTENSION = ".log";
-    public static final String AUDIT_FOLDER = "\\data\\audit\\";
-    public static final String XML_FOLDER = "\\data\\xmls\\";
-    public static final String IMAGE_FOLDER = "\\data\\images\\";
+    public static final String AUDIT_FOLDER = "/data/audit/";
+    public static final String XML_FOLDER = "/data/xmls/";
+    public static final String IMAGE_FOLDER = "/data/images/";
     
     // logger
     public static HashMap loggerMap = new HashMap();
