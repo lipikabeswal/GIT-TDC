@@ -206,10 +206,10 @@ public class PersistenceServlet extends HttpServlet {
                     // set pending state before send request to TMS
                     StateVO state = memoryCache.setPendingState(lsid, mseq);
                     // send save request to TMS
-                    result = ServletUtils.httpConnectionSendRequest(ServletUtils.SAVE_METHOD, xml);
+                    ServletUtils.httpConnectionSendRequest(ServletUtils.SAVE_METHOD, xml);
                     // set acknowledge state after return from TMS                    
                     memoryCache.setAcknowledgeState(state);                       
-                    // log an entry in audit file if save response
+                    // log an entry into audit file if save response
                     if (ServletUtils.hasResponse(xml)) {
                         AuditFile.log(ServletUtils.createAuditVO(xml));
                     }
@@ -237,8 +237,11 @@ public class PersistenceServlet extends HttpServlet {
     private String writeToAuditFile(String xml) {
         String result = ServletUtils.OK;
         try {
+            // write content to audit file
+            AuditFile.log(ServletUtils.createAuditVO(xml));
+            
             // sent writeToAuditFile request to TMS
-            result = ServletUtils.httpConnectionSendRequest(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD, xml);
+            ServletUtils.httpConnectionSendRequest(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD, xml);
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -308,10 +311,10 @@ public class PersistenceServlet extends HttpServlet {
      * 
      */
     private boolean hasAcknowledge(MemoryCache memoryCache, String lsid, String mseq) throws InterruptedException {
-        int retry = memoryCache.getSrvSettings().getTmsAckRetry();
+        int messageRetry = memoryCache.getSrvSettings().getTmsAckMessageRetry();
         boolean pendingState = inPendingState(memoryCache, lsid, mseq);
-        while (pendingState && (retry > 0)) {
-            retry--;
+        while (pendingState && (messageRetry > 0)) {
+            messageRetry--;
             Thread.sleep(1000); // delay 1 second and try again
             pendingState = inPendingState(memoryCache, lsid, mseq);
         }            
@@ -331,13 +334,13 @@ public class PersistenceServlet extends HttpServlet {
     public boolean inPendingState(MemoryCache memoryCache, String lsid, String mseq) {  
         boolean pendingState = false;
         boolean isTmsAckRequired = memoryCache.getSrvSettings().isTmsAckRequired();
-        int tmsAckInflight = memoryCache.getSrvSettings().getTmsAckInflight();
+        int tmsAckMaxLostMessage = memoryCache.getSrvSettings().getTmsAckMaxLostMessage();
         
         if (isTmsAckRequired) {
             ArrayList states = (ArrayList)memoryCache.getStateMap().get(lsid);
             if (states != null) {
                 int mseqCurrent = Integer.parseInt(mseq);
-                int mseqIndex = mseqCurrent - tmsAckInflight;
+                int mseqIndex = mseqCurrent - tmsAckMaxLostMessage;
                 for (int i=0 ; i<states.size() ; i++) {
                     StateVO state = (StateVO)states.get(i);
                     if (state.getMseq() == mseqIndex) {
