@@ -16,6 +16,7 @@ public class MemoryCache {
 
     private String encryptionKey;
     private HashMap stateMap;
+    private HashMap subtestInfoMap;
     private ServletSettings srvSettings;
     private HashMap itemMap;
     private HashMap assetMap;
@@ -26,6 +27,7 @@ public class MemoryCache {
     private MemoryCache() {
         this.loaded = false;
         this.stateMap = new HashMap();
+        this.subtestInfoMap = new HashMap();
         this.srvSettings = new ServletSettings();
         clearContent();
         saxBuilder = new SAXBuilder();
@@ -116,4 +118,9 @@ public class MemoryCache {
         return itemMap;
     }
     
+    public HashMap getSubtestInfoMap()
+    {
+        return subtestInfoMap;
+    }
+   
 }

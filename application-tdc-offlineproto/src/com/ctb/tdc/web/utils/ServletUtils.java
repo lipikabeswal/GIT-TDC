@@ -1,6 +1,7 @@
 package com.ctb.tdc.web.utils;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,6 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
@@ -18,9 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.jdom.Element;
 
 import com.ctb.tdc.web.dto.AuditVO;
 import com.ctb.tdc.web.dto.ServletSettings;
+import com.ctb.tdc.web.dto.SubtestKeyVO;
 
 /**
  * @author Tai_Truong
@@ -470,16 +474,43 @@ public class ServletUtils {
         return result;
     }
     
-    public static void processContentKeys( String xml )
+    public static void processContentKeys( String xml )throws Exception
     {
-        /*
-         * <manifest title="Oklahoma End-of-Instruction Practice Test">
-         		<sco cmi.core.entry="ab-initio" cmi.core.total_time="0:0:0" force_logout="false" id="24009" adsid=”234234” sco_duration_minutes="60" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="Oklahoma End-of-Instruction Practice Test" asmt_hash=”A4DFBAD234CA3ADC28A” asmt_encryption_key=” A4DFBAD234CA3ADC28A” item_encryption_key=”A4DFBAD234CA3ADC28A“>
-         		</sco>
-      		<feedback id="STUDENT_FEEDBACK"></feedback>
-      		<terminator id="SEE_YOU_LATER"></terminator>
-      		</manifest>
-         */
+        final String endPattern = "</manifest>";
+        int start = xml.indexOf( "<manifest " );
+        int end = xml.indexOf( "</manifest>" );
+        if ( start >= 0 && end > 10 )
+        {
+            String manifest = xml.substring( start, end + endPattern.length() );
+            org.jdom.input.SAXBuilder saxBuilder = new org.jdom.input.SAXBuilder();
+            ByteArrayInputStream bais = new ByteArrayInputStream( manifest.getBytes( "UTF-8" ));
+            org.jdom.Document assessmentDoc = saxBuilder.build( bais );
+            Element inElement = assessmentDoc.getRootElement();
+            List subtests = inElement.getChildren( "sco" );
+            MemoryCache aMemoryCache = MemoryCache.getInstance();
+            HashMap subtestInfoMap = aMemoryCache.getSubtestInfoMap();
+            for ( int i = 0; i < subtests.size(); i++ )
+            {
+                Element subtest = ( Element )subtests.get( i );
+                String itemSetId = subtest.getAttributeValue( "id" );
+                String adsItemSetId = subtest.getAttributeValue( "adsid" );
+                String asmtHash = subtest.getAttributeValue( "asmt_hash" );
+                String asmtEncryptionKey = subtest.getAttributeValue( "asmt_encryption_key" );
+                String item_encryption_key = subtest.getAttributeValue( "item_encryption_key" );
+                if ( itemSetId != null && adsItemSetId != null 
+                        && asmtHash != null && asmtEncryptionKey != null 
+                        && item_encryption_key != null )
+                {
+                    SubtestKeyVO aSubtestKeyVO = new SubtestKeyVO();
+                    aSubtestKeyVO.setItemSetId( itemSetId );
+                    aSubtestKeyVO.setAdsItemSetId( adsItemSetId );
+                    aSubtestKeyVO.setAsmtHash( asmtHash );
+                    aSubtestKeyVO.setAsmtEncryptionKey( asmtEncryptionKey );
+                    aSubtestKeyVO.setItem_encryption_key( item_encryption_key );
+                    subtestInfoMap.put( itemSetId, aSubtestKeyVO );
+                }
+            }
+        }
     }
     
     
