@@ -12,8 +12,8 @@ public class ServletSettings implements java.io.Serializable {
     private String tmsPort;
     private boolean tmsPersist;
     private boolean tmsAckRequired;
-    private int tmsAckInflight;
-    private int tmsAckRetry;
+    private int tmsAckMaxLostMessage;
+    private int tmsAckMessageRetry;
     private boolean tmsAuditUpload;
 
     private String proxyHost;
@@ -26,8 +26,8 @@ public class ServletSettings implements java.io.Serializable {
         this.tmsPort = null;
         this.tmsPersist = true;
         this.tmsAckRequired = true;
-        this.tmsAckInflight = 1;
-        this.tmsAckRetry = 1;
+        this.tmsAckMaxLostMessage = 1;
+        this.tmsAckMessageRetry = 1;
         this.tmsAuditUpload = true;
         this.proxyHost = null;
         this.proxyPort = null;
@@ -40,8 +40,8 @@ public class ServletSettings implements java.io.Serializable {
         this.tmsPort = rb.getString("tms.server.port");
         this.tmsPersist = new Boolean(rb.getString("tms.server.persist")).booleanValue();
         this.tmsAckRequired = new Boolean(rb.getString("tms.ack.required")).booleanValue();
-        this.tmsAckInflight = new Integer(rb.getString("tms.ack.inflight")).intValue();
-        this.tmsAckRetry = new Integer(rb.getString("tms.ack.retry")).intValue();
+        this.tmsAckMaxLostMessage = new Integer(rb.getString("tms.ack.maxLostMessage")).intValue();
+        this.tmsAckMessageRetry = new Integer(rb.getString("tms.ack.messageRetry")).intValue();
         this.tmsAuditUpload = new Boolean(rb.getString("tms.audit.upload")).booleanValue();
         this.proxyHost = rb.getString("proxy.host");
         this.proxyPort = rb.getString("proxy.port");
@@ -49,12 +49,12 @@ public class ServletSettings implements java.io.Serializable {
         this.proxyPassword = rb.getString("proxy.password");       
         
         // make sure settings make sense
-        if (this.tmsAckRequired && (this.tmsAckInflight <= 0)) {
-            this.tmsAckInflight = 1;
-        }
         if (! this.tmsPersist) {
             this.tmsAckRequired = false;
             this.tmsAuditUpload = true;
+        }
+        if (this.tmsAckRequired && (this.tmsAckMaxLostMessage <= 0)) {
+            this.tmsAckMaxLostMessage = 1;
         }
     }
 
@@ -90,20 +90,20 @@ public class ServletSettings implements java.io.Serializable {
         this.proxyUserName = proxyUserName;
     }
 
-    public int getTmsAckInflight() {
-        return tmsAckInflight;
+    public int getTmsAckMaxLostMessage() {
+        return tmsAckMaxLostMessage;
     }
 
-    public void setTmsAckInflight(int tmsAckInflight) {
-        this.tmsAckInflight = tmsAckInflight;
+    public void setTmsAckMaxLostMessage(int tmsAckMaxLostMessage) {
+        this.tmsAckMaxLostMessage = tmsAckMaxLostMessage;
     }
     
-    public int getTmsAckRetry() {
-        return tmsAckRetry;
+    public int getTmsAckMessageRetry() {
+        return tmsAckMessageRetry;
     }
 
-    public void setTmsAckRetry(int tmsAckRetry) {
-        this.tmsAckRetry = tmsAckRetry;
+    public void setTmsAckMessageRetry(int tmsAckMessageRetry) {
+        this.tmsAckMessageRetry = tmsAckMessageRetry;
     }
 
     public boolean isTmsAckRequired() {
