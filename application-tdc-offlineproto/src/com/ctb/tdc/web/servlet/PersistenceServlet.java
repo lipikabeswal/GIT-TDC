@@ -134,13 +134,13 @@ public class PersistenceServlet extends HttpServlet {
             result = ServletUtils.httpConnectionSendRequest(ServletUtils.LOGIN_METHOD, xml);
             
             // parse response xml for information
-            String encryptionKey = ServletUtils.parseEncryptionKey(result);
+            // String encryptionKey = ServletUtils.parseEncryptionKey(result);
             String fileName = ServletUtils.buildFileName(xml);
             
             // save encryptionKey to memory cache
             MemoryCache memoryCache = MemoryCache.getInstance();
-            memoryCache.setEncryptionKey(encryptionKey);
-            
+            // memoryCache.setEncryptionKey(encryptionKey);
+            ServletUtils.processContentKeys( result );
             // if file exist handle restart  
             if (AuditFile.exists(fileName)) {
                 // handle restart here in phase 2
