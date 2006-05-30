@@ -84,12 +84,12 @@ public class AuditVO implements java.io.Serializable {
     
     // format:  millis, mseq, <itemId|response>
     public String toString() {
-        String str = "";
+        String str = "\"";
         str += this.now.getTime();
-        str += ",";
+        str += "\",\"";
         str += this.mseq;
-        str += ",";
-        str += this.encodedData;
+        str += "\",\"";
+        str += this.encodedData + "\"";
         return str;
     }
 }
