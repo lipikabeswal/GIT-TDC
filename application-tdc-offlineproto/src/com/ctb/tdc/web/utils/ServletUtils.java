@@ -99,7 +99,7 @@ public class ServletUtils {
         String itemResponse = NONE;
         if (xml != null) {
             int startIndex = xml.indexOf("<v>");
-            int endIndex = xml.indexOf("</v>");
+            int endIndex = xml.lastIndexOf("</v>");
             if ((startIndex > 0) && (endIndex > 0) && (endIndex < xml.length())) {
                 itemResponse = xml.substring(endIndex-1, endIndex);
             }
@@ -137,14 +137,6 @@ public class ServletUtils {
      */
     public static String parseItemId(String xml) {        
         return parseTag("iid=", xml);
-    }
-    
-     /**
-     * parse encryptionKey value in xml
-     * 
-     */
-    public static String parseEncryptionKey(String xml) {        
-        return parseTag("encryptionKey=", xml);
     }
     
      /**

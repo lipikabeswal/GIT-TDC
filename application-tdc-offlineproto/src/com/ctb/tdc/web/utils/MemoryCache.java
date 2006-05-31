@@ -14,7 +14,6 @@ import com.ctb.tdc.web.dto.StateVO;
 public class MemoryCache {
     static final long serialVersionUID = 1L;
 
-    private String encryptionKey;
     private HashMap stateMap;
     private HashMap subtestInfoMap;
     private ServletSettings srvSettings;
@@ -57,14 +56,6 @@ public class MemoryCache {
         this.stateMap = stateMap;
     }
     
-    public String getEncryptionKey() {
-        return encryptionKey;
-    }
-
-    public void setEncryptionKey(String encryptionKey) {
-        this.encryptionKey = encryptionKey;
-    }
-
     public boolean isLoaded() {
         return loaded;
     }
