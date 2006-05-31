@@ -109,7 +109,8 @@ public class MemoryCache {
         return itemMap;
     }
     
-    public HashMap getSubtestInfoMap()
+    // I don't understand why I add this synchronized keyword here.
+    public synchronized HashMap getSubtestInfoMap()
     {
         return subtestInfoMap;
     }
