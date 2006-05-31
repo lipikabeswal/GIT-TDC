@@ -189,14 +189,12 @@ public class PersistenceServlet extends HttpServlet {
      *   
      *  check that last line of audit file is an ack   
      *  if last line is not an ack, return error to client
-     *  if last line is an ack, write request to audit file
-     *  return ack to client
-     *  send request to TMS
-     *  on response from TMS, write ack to audit file.
+     *  if last line is an ack, return ack to client, write response to audit file
+     *  send request to TMS, on response from TMS, change ack in memory cache.
      *  
      */
     private String save(HttpServletResponse response, String xml) {
-        String result = ServletUtils.OK;
+        String result = null;
         try {
             // parse request xml for information
             String lsid = ServletUtils.parseLsid(xml);    
@@ -209,7 +207,12 @@ public class PersistenceServlet extends HttpServlet {
                 memoryCache.removeAcknowledgeStates(lsid);
                 
                 // return response to client
-                ServletUtils.writeResponse(response, result);
+                ServletUtils.writeResponse(response, ServletUtils.OK);
+
+                // log an entry into audit file if save response
+                if (ServletUtils.hasResponse(xml)) {
+                    AuditFile.log(ServletUtils.createAuditVO(xml));
+                }
                 
                 // send request to TMS
                 if (memoryCache.getSrvSettings().isTmsPersist()) {
@@ -219,10 +222,6 @@ public class PersistenceServlet extends HttpServlet {
                     ServletUtils.httpConnectionSendRequest(ServletUtils.SAVE_METHOD, xml);
                     // set acknowledge state after return from TMS                    
                     memoryCache.setAcknowledgeState(state);                       
-                    // log an entry into audit file if save response
-                    if (ServletUtils.hasResponse(xml)) {
-                        AuditFile.log(ServletUtils.createAuditVO(xml));
-                    }
                 }
             }
             else {                
