@@ -94,7 +94,7 @@ public class PersistenceServlet extends HttpServlet {
 	}
 
     /**
-     *  handleEvent
+     * handleEvent
      * @param HttpServletResponse response
      * @param String method
      * @param String xml
@@ -127,7 +127,7 @@ public class PersistenceServlet extends HttpServlet {
     }
     
     /**
-     *  login
+     * login
      * @param HttpServletResponse response
      * @param String xml
      *   
@@ -161,7 +161,7 @@ public class PersistenceServlet extends HttpServlet {
     }
     
     /**
-     *  feedback
+     * feedback
      * @param String xml
      * 
      *  write request to audit file
@@ -184,7 +184,7 @@ public class PersistenceServlet extends HttpServlet {
     }
 
     /**
-     *  save
+     * save
      * @param String xml
      *   
      *  check that last line of audit file is an ack   
@@ -211,7 +211,7 @@ public class PersistenceServlet extends HttpServlet {
 
                 // log an entry into audit file if save response
                 if (ServletUtils.hasResponse(xml)) {
-                    AuditFile.log(ServletUtils.createAuditVO(xml));
+                    AuditFile.log(ServletUtils.createAuditVO(xml, true));
                 }
                 
                 // send request to TMS
@@ -247,7 +247,7 @@ public class PersistenceServlet extends HttpServlet {
         String result = ServletUtils.OK;
         try {
             // write content to audit file
-            AuditFile.log(ServletUtils.createAuditVO(xml));
+            AuditFile.log(ServletUtils.createAuditVO(xml, false));
             
             // sent writeToAuditFile request to TMS
             ServletUtils.httpConnectionSendRequest(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD, xml);

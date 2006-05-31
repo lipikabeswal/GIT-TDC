@@ -96,8 +96,7 @@ public class AuditVO implements java.io.Serializable {
         byte[] gsBytes = {29};
         String groupSeparator = new String(gsBytes);        
         String payloads = this.itemId + groupSeparator + this.response;
-        //this.encryptedData = AuditFileEncrytor.encrypt(payloads);
-        this.encryptedData = payloads;
+        this.encryptedData = AuditFileEncrytor.encrypt(payloads);
     }
 
     private void encryptModelData() {

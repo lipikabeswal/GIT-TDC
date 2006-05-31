@@ -101,10 +101,32 @@ public class ServletUtils {
             int startIndex = xml.indexOf("<v>");
             int endIndex = xml.lastIndexOf("</v>");
             if ((startIndex > 0) && (endIndex > 0) && (endIndex < xml.length())) {
-                itemResponse = xml.substring(endIndex-1, endIndex);
+                if ((startIndex + 3) >= endIndex)
+                    itemResponse = "";
+                else
+                    itemResponse = xml.substring(endIndex-1, endIndex);
             }
         }
         return itemResponse;
+    }
+
+     /**
+     * parse response value in xml
+     * 
+     */
+    public static String parseModelData(String xml) {
+        String modelData = NONE;
+        if (xml != null) {
+            int startIndex = xml.indexOf("<model_data>");
+            int endIndex = xml.lastIndexOf("</model_data>");
+            if ((startIndex > 0) && (endIndex > 0) && (endIndex < xml.length())) {
+                if ((startIndex + 3) >= endIndex)
+                    modelData = "";
+                else
+                    modelData = xml.substring(endIndex-1, endIndex);
+            }
+        }
+        return modelData;
     }
     
      /**
@@ -203,12 +225,19 @@ public class ServletUtils {
      * create AuditVO
      * 
      */
-    public static AuditVO createAuditVO(String xml) {
+    public static AuditVO createAuditVO(String xml, boolean isItemResponse) {
+        AuditVO audit = null;
         String fileName = buildFileName(xml);
         String mseq = parseMseq(xml);
-        String itemId = parseItemId(xml);
-        String response = parseResponse(xml);
-        AuditVO audit = new AuditVO(fileName, mseq, itemId, response);
+        if (isItemResponse) {
+            String itemId = parseItemId(xml);
+            String response = parseResponse(xml);
+            audit = new AuditVO(fileName, mseq, itemId, response);
+        }
+        else {
+            String modelData = parseModelData(xml);
+            audit = new AuditVO(fileName, mseq, modelData);            
+        }
         return audit;
     }
    
