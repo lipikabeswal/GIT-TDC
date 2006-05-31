@@ -109,7 +109,7 @@ public class ServletUtils {
                 if ((startIndex + 3) >= endIndex)
                     itemResponse = "";
                 else
-                    itemResponse = xml.substring(endIndex-1, endIndex);
+                    itemResponse = xml.substring(startIndex + 3, endIndex);
             }
         }
         return itemResponse;
@@ -128,7 +128,7 @@ public class ServletUtils {
                 if ((startIndex + 3) >= endIndex)
                     modelData = "";
                 else
-                    modelData = xml.substring(endIndex-1, endIndex);
+                    modelData = xml.substring(startIndex + 3, endIndex);
             }
         }
         return modelData;
