@@ -2,13 +2,10 @@ package com.ctb.tdc.web.servlet;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -33,8 +30,8 @@ import com.stgglobal.util.CryptoLE.Crypto;
 public class LoadContentServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
-    public final int phaseOfOperation = 1;
-    public String globalItemKey = "1u1piyyriN74U55CGnc4k1";
+    private static final int phaseOfOperation = 1;
+    private static final String globalItemKey = "1u1piyyriN74U55CGnc4k1";
 	/**
 	 * Constructor of the object.
 	 */
@@ -92,9 +89,9 @@ public class LoadContentServlet extends HttpServlet {
                         		, theSubtestKeyVO.getItem_encryption_key(), "./data/objectbank" );
             }   
         }
-        if (method.equals(ServletUtils.LOAD_ITEM_METHOD))
+        else if (method.equals(ServletUtils.LOAD_ITEM_METHOD))
             good = loadItem(response, itemId );        
-        if (method.equals(ServletUtils.LOAD_IMAGE_METHOD))
+        else if (method.equals(ServletUtils.LOAD_IMAGE_METHOD))
             good = loadImage(response, imageId );      
         
         if ( !good )
@@ -127,114 +124,13 @@ public class LoadContentServlet extends HttpServlet {
 		// Put your code here
 	}
 	
-	public byte[] readFromFile( File filePath ) throws Exception
-    {
-        FileInputStream aFileInputStream = new FileInputStream( filePath );
-        int size = aFileInputStream.available();
-        byte[] buffer = new byte[ size ];
-        aFileInputStream.read( buffer );
-        aFileInputStream.close();
-        return buffer;
-    }
-	
-	public static String replaceAll( String src, String toBeReplace, String replaceWith )
-    {
-    	String result = src;
-    	int index = 0;
-    	int difference = replaceWith.length();
-    	while ( ( index = result.indexOf( toBeReplace, index )) >= 0 )
-    	{
-    		result = result.substring( 0, index ) + replaceWith + result.substring( index + toBeReplace.length() );
-    		index += difference;
-    	}
-    	return result;
-    }
-	
-	public static String JavasriptConvert( String input )
-    {
-        StringBuffer outputStr = new StringBuffer();
-     	for ( int i = 0; i < input.length(); i++)
-    	{
-    		if (( input.charAt( i ) == 13) && ( input.charAt( i + 1 ) == 10))
-    			i++;
-    		else
-    		    outputStr.append( input.charAt( i ) );	
-    	}
-    	String output = outputStr.toString();
- //   	output = replaceAll( output, "\t", " " );
- //   	output = replaceAll( output, "  ", " " );
-    	output = replaceAll( output, "&#+;", "&#x002B;" );
-    	output = replaceAll( output, "+", "&#x002B;" );
-        return output;
-    }
-
-    public static String convertUTF8CharsToNumericEntityReferences( String input )
-    {
-        StringBuffer retVal = new StringBuffer( input.length() * 2 );
-        boolean isMS = false;
-        String s;
-        for(int i = 0; i < input.length(); i++)
-        {
-            char c = input.charAt( i );
-            int intc = c;
-            if( intc != 9 && intc != 10 && intc != 13 )
-            {
-                if( intc <= 127 && intc != 43 )
-                {
-                    if( intc == 32 )
-                    {
-                        if( !isMS )
-                        {
-                            retVal.append( c );
-                            isMS = true;
-                        }
-                    } 
-                    else
-                    {
-                        isMS = false;
-                        retVal.append( c );
-                    }
-                } 
-                else
-                {
-                    isMS = false;
-                    retVal.append( "&#" ).append( intc ).append( ';' );
-                }
-            }
-        }
-        s = retVal.toString();
-        return s; 
-    }
-    
-    public static List extractAllElement(String pattern, Element element ) throws Exception
-    {
-        // TO-DO: this will only work with simple './/name' queries as is . . .
-        ArrayList results = new ArrayList();
-        pattern = pattern.substring(pattern.indexOf(".//") + 3);
-        List children = element.getChildren();
-        Iterator iterator = children.iterator();
-        while(iterator.hasNext()) {
-            Element elem = (Element) iterator.next();
-            if(pattern.equals(elem.getName())) {
-                results.add(elem);
-            }
-            results.addAll(extractAllElement(".//" + pattern, elem));
-        }
-        return results;
-        
-        // This doesn't work with current JDOM
-        /** XPath assetXPath = XPath.newInstance( pattern );
-        List elementList = assetXPath.selectNodes( element );
-        return elementList;*/
-    }
-	
-	public String updateItem( byte[] itemBytes, HashMap AssetTable ) throws Exception
+	private String updateItem( byte[] itemBytes, HashMap AssetTable ) throws Exception
     {
         MemoryCache aMemoryCache = MemoryCache.getInstance();
         org.jdom.Document itemDoc = aMemoryCache.saxBuilder.build( new ByteArrayInputStream( itemBytes ) );
         org.jdom.Element rootElement = (org.jdom.Element) itemDoc.getRootElement();
         rootElement.getChild( "assets" ).detach();
-        List items = extractAllElement( ".//image_widget", rootElement);
+        List items = ServletUtils.extractAllElement( ".//image_widget", rootElement);
         for ( int i = 0; i < items.size(); i++ )
         {
             org.jdom.Element element = ( org.jdom.Element )items.get( i );
@@ -248,16 +144,11 @@ public class LoadContentServlet extends HttpServlet {
         return aStringWriter.getBuffer().toString();
     }
 	
-	public String getKeyByKeyId( String ItemKeyId )
-    {
-        return globalItemKey;
-    }
-	
-	public void handleItem( String bankDir, String itemID, 
+	private void handleItem( String bankDir, String itemID, 
 	        				String ItemHashKey, String ItemKey ) throws Exception
     {
         String filePath = itemID + ".ecp";
-        byte[] buffer = readFromFile( new File( bankDir, filePath ) );
+        byte[] buffer = ServletUtils.readFromFile( new File( bankDir, filePath ) );
         MemoryCache aMemoryCache = MemoryCache.getInstance();
         HashMap itemMap = aMemoryCache.getItemMap();
         HashMap assetMap = aMemoryCache.getAssetMap();
@@ -288,8 +179,7 @@ public class LoadContentServlet extends HttpServlet {
 	                }
 	            }
 	            String itemxml = updateItem( result, assetMap );
-	            itemxml = convertUTF8CharsToNumericEntityReferences( itemxml );
-	            itemxml = JavasriptConvert( itemxml );
+	            itemxml = ServletUtils.doUTF8Chars( itemxml );
 	            itemMap.put( itemID, itemxml.getBytes() );
             }
         }
@@ -321,7 +211,7 @@ public class LoadContentServlet extends HttpServlet {
         try
         {
             String fileName = obAssessmentId + ".eam";
-            byte[] buffer = readFromFile( new File( bankDir, fileName ) );
+            byte[] buffer = ServletUtils.readFromFile( new File( bankDir, fileName ) );
             if ( Crypto.checkHash( hashValue, buffer ))
             {
                 Crypto aCrypto = new Crypto();

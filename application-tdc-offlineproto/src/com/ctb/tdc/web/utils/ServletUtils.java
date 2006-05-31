@@ -1,7 +1,10 @@
 package com.ctb.tdc.web.utils;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,7 +12,9 @@ import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
@@ -534,6 +539,95 @@ public class ServletUtils {
         }
     }
     
+    public static byte[] readFromFile( File filePath ) throws Exception
+    {
+	    BufferedInputStream aBufferedInputStream = new BufferedInputStream( new FileInputStream( filePath ) );
+        int size = aBufferedInputStream.available();
+        byte[] buffer = new byte[ size ];
+        aBufferedInputStream.read( buffer );
+        aBufferedInputStream.close();
+        return buffer;
+    }
+	
+	public static String replaceAll( String src, String toBeReplace, String replaceWith )
+    {
+    	String result = src;
+    	int index = 0;
+    	int difference = replaceWith.length();
+    	while ( ( index = result.indexOf( toBeReplace, index )) >= 0 )
+    	{
+    		result = result.substring( 0, index ) + replaceWith + result.substring( index + toBeReplace.length() );
+    		index += difference;
+    	}
+    	return result;
+    }
+
+    public static String doUTF8Chars( String input )
+    {
+        final int lineFeed = 10;
+        final int carriageReturn = 13;
+        final int tab = 9;
+        final int plusSign = 43;
+        final int maxASCII = 127;
+        final int space = 127;
+        StringBuffer retVal = new StringBuffer( input.length() * 2 );
+        boolean isPreviousCharSpace = false;
+        String s;
+        for(int i = 0; i < input.length(); i++)
+        {
+            char c = input.charAt( i );
+            int intc = c;
+            if( intc != tab && intc != lineFeed && intc != carriageReturn )
+            {
+                if( intc <= maxASCII && intc != plusSign )
+                {
+                    if( intc == space )
+                    {
+                        if( !isPreviousCharSpace )
+                        {
+                            retVal.append( c );
+                            isPreviousCharSpace = true;
+                        }
+                    } 
+                    else
+                    {
+                        isPreviousCharSpace = false;
+                        retVal.append( c );
+                    }
+                } 
+                else
+                {
+                    isPreviousCharSpace = false;
+                    retVal.append( "&#" ).append( intc ).append( ';' );
+                }
+            }
+        }
+        s = retVal.toString();
+        s = replaceAll( s, "&#+;", "&#x002B;" );
+    	s = replaceAll( s, "+", "&#x002B;" );
+        return s; 
+    }
     
+    public static List extractAllElement(String pattern, Element element ) throws Exception
+    {
+        // TO-DO: this will only work with simple './/name' queries as is . . .
+        ArrayList results = new ArrayList();
+        pattern = pattern.substring(pattern.indexOf(".//") + 3);
+        List children = element.getChildren();
+        Iterator iterator = children.iterator();
+        while(iterator.hasNext()) {
+            Element elem = (Element) iterator.next();
+            if(pattern.equals(elem.getName())) {
+                results.add(elem);
+            }
+            results.addAll(extractAllElement(".//" + pattern, elem));
+        }
+        return results;
+        
+        // This doesn't work with current JDOM
+        /** XPath assetXPath = XPath.newInstance( pattern );
+        List elementList = assetXPath.selectNodes( element );
+        return elementList;*/
+    }
 }
 
