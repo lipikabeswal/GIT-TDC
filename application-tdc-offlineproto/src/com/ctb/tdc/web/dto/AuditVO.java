@@ -14,8 +14,9 @@ public class AuditVO implements java.io.Serializable {
     private String mseq = null;
     private String itemId = null;
     private String response = null;    
+    private String modelData = null;    
+    private String encryptedData = null;
     private Date now = null;
-    private String encodedData = null;
 
     public AuditVO(String fileName, String mseq, String itemId, String response) {
         this.fileName = fileName;
@@ -23,15 +24,31 @@ public class AuditVO implements java.io.Serializable {
         this.itemId = itemId;
         this.response = response;
         this.now = new Date();
-        encryptText();
-    }
-    
-    public String getEncodedData() {
-        return encodedData;
+        encryptItemResponse();
     }
 
-    public void setEncodedData(String encodedData) {
-        this.encodedData = encodedData;
+    public AuditVO(String fileName, String mseq, String modelData) {
+        this.fileName = fileName;
+        this.mseq = mseq;
+        this.modelData = modelData;
+        this.now = new Date();
+        encryptModelData();
+    }
+    
+    public String getModelData() {
+        return modelData;
+    }
+
+    public void setModelData(String modelData) {
+        this.modelData = modelData;
+    }
+
+    public String getEncryptedData() {
+        return encryptedData;
+    }
+
+    public void setEncryptedData(String encryptedData) {
+        this.encryptedData = encryptedData;
     }
 
     public String getFileName() {
@@ -75,21 +92,26 @@ public class AuditVO implements java.io.Serializable {
         this.response = response;
     }
 
-    private void encryptText() {
-        byte[] gsBytes = {29 , 0};
+    private void encryptItemResponse() {
+        byte[] gsBytes = {29};
         String groupSeparator = new String(gsBytes);        
         String payloads = this.itemId + groupSeparator + this.response;
-        this.encodedData = AuditFileEncrytor.encrypt(payloads);
+        //this.encryptedData = AuditFileEncrytor.encrypt(payloads);
+        this.encryptedData = payloads;
+    }
+
+    private void encryptModelData() {
+        this.encryptedData = AuditFileEncrytor.encrypt(this.modelData);
     }
     
-    // format:  millis, mseq, <itemId|response>
+    // format:  millis, mseq, encryptedData
     public String toString() {
         String str = "\"";
         str += this.now.getTime();
         str += "\",\"";
         str += this.mseq;
         str += "\",\"";
-        str += this.encodedData + "\"";
+        str += this.encryptedData + "\"";
         return str;
     }
 }
