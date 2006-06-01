@@ -16,8 +16,6 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
-import org.apache.log4j.Appender;
-import org.apache.log4j.Category;
 import org.apache.log4j.Logger;
 
 import com.ctb.tdc.web.dto.StateVO;
