@@ -688,5 +688,10 @@ public class ServletUtils {
         List elementList = assetXPath.selectNodes( element );
         return elementList;*/
     }
+    
+    public static String getStackTrace(Exception e) {
+        return "huh?";
+    }
+   
 }
 
