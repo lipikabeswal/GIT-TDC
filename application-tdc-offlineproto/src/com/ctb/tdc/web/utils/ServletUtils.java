@@ -355,7 +355,10 @@ public class ServletUtils {
     public static String getProxyUserName() throws MalformedURLException {
         MemoryCache memoryCache = MemoryCache.getInstance();
         ServletSettings srvSettings = memoryCache.getSrvSettings();
-        return srvSettings.getProxyUserName();
+        String userName = srvSettings.getProxyUserName().trim();
+        if (userName.length() == 0)
+            userName = null;
+        return userName;
     }
 
      /**
@@ -365,7 +368,10 @@ public class ServletUtils {
     public static String getProxyPassword() throws MalformedURLException {
         MemoryCache memoryCache = MemoryCache.getInstance();
         ServletSettings srvSettings = memoryCache.getSrvSettings();
-        return srvSettings.getProxyPassword();
+        String password = srvSettings.getProxyPassword().trim();
+        if (password.length() == 0)
+            password = null;
+        return password;
     }
     
      /**
