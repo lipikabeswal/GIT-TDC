@@ -16,6 +16,9 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
+import org.apache.log4j.Appender;
+import org.apache.log4j.Category;
+import org.apache.log4j.Logger;
 
 import com.ctb.tdc.web.dto.StateVO;
 import com.ctb.tdc.web.utils.MemoryCache;
@@ -37,6 +40,7 @@ import com.ctb.tdc.web.utils.ServletUtils;
 public class PersistenceServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
+    static Logger logger = Logger.getLogger(PersistenceServlet.class);
     
 	/**
 	 * Constructor of the object.
@@ -87,7 +91,7 @@ public class PersistenceServlet extends HttpServlet {
 	 * @throws IOException if an error occurred
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {            
+			throws ServletException, IOException {    
         String method = ServletUtils.getMethod(request);
         String xml = ServletUtils.getXml(request);
         handleEvent(response, method, xml);         
@@ -155,7 +159,7 @@ public class PersistenceServlet extends HttpServlet {
             }
         } 
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception in login() = " + ServletUtils.getStackTrace(e));
             result = ServletUtils.ERROR;
         }
         return result;
@@ -176,7 +180,7 @@ public class PersistenceServlet extends HttpServlet {
             result = ServletUtils.httpConnectionSendRequest(ServletUtils.FEEDBACK_METHOD, xml);
         } 
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception in feedback() = " + ServletUtils.getStackTrace(e));
             result = ServletUtils.ERROR;
         }
         return result;
@@ -231,7 +235,7 @@ public class PersistenceServlet extends HttpServlet {
             }            
         } 
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception in save() = " + ServletUtils.getStackTrace(e));
             result = ServletUtils.ERROR;
         }       
         return result;
@@ -255,7 +259,7 @@ public class PersistenceServlet extends HttpServlet {
             ServletUtils.httpConnectionSendRequest(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD, xml);
         } 
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception in writeToAuditFile() = " + ServletUtils.getStackTrace(e));
             result = ServletUtils.ERROR;
         }
         return result;
@@ -302,7 +306,7 @@ public class PersistenceServlet extends HttpServlet {
                 }
             }
             catch (Exception e) {
-                e.printStackTrace();
+                logger.error("Exception in uploadAuditFile() = " + ServletUtils.getStackTrace(e));
                 result = ServletUtils.ERROR;
             }
             finally {
