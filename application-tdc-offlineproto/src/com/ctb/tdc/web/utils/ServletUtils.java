@@ -22,8 +22,12 @@ import java.util.StringTokenizer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.ProxyHost;
+import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.jdom.Element;
 
@@ -132,6 +136,15 @@ public class ServletUtils {
             }
         }
         return modelData;
+    }
+    
+     /**
+     * parse status value in xml
+     * 
+     */
+    public static boolean isStatusOK(String xml) {
+        int index = xml.indexOf("status=\"OK\"");
+        return (index > 0);
     }
     
      /**
@@ -312,25 +325,47 @@ public class ServletUtils {
     }
 
      /**
-     * get predefined TMS Proxy URL as string for a method
+     * get predefined proxy host
      * 
      */
-    public static String getProxyURLString(String method) throws MalformedURLException {
+    public static String getProxyHost() throws MalformedURLException {
         MemoryCache memoryCache = MemoryCache.getInstance();
         ServletSettings srvSettings = memoryCache.getSrvSettings();
-        String proxyHostPort = srvSettings.getProxyHostPort();
-        String tmsWebApp = getWebAppName(method);
-        return (proxyHostPort + tmsWebApp);
+        String host = srvSettings.getProxyHost().trim();
+        if (host.length() == 0)
+            host = null;
+        return host;
     }
 
      /**
-     * get predefined TMS Proxy URL for a method
+     * get predefined proxy port
      * 
      */
-    public static URL getProxyURL(String method) throws MalformedURLException {
-        String proxyUrlString = getProxyURLString(method);
-        URL proxyURL = new URL(proxyUrlString);
-        return proxyURL;
+    public static int getProxyPort() throws MalformedURLException {
+        MemoryCache memoryCache = MemoryCache.getInstance();
+        ServletSettings srvSettings = memoryCache.getSrvSettings();
+        int port = Integer.valueOf(srvSettings.getProxyPort()).intValue();
+        return port;
+    }
+
+     /**
+     * get predefined proxy user name
+     * 
+     */
+    public static String getProxyUserName() throws MalformedURLException {
+        MemoryCache memoryCache = MemoryCache.getInstance();
+        ServletSettings srvSettings = memoryCache.getSrvSettings();
+        return srvSettings.getProxyUserName();
+    }
+
+     /**
+     * get predefined proxy password
+     * 
+     */
+    public static String getProxyPassword() throws MalformedURLException {
+        MemoryCache memoryCache = MemoryCache.getInstance();
+        ServletSettings srvSettings = memoryCache.getSrvSettings();
+        return srvSettings.getProxyPassword();
     }
     
      /**
@@ -480,7 +515,25 @@ public class ServletUtils {
         // send request to TMS
         try {
             HttpClient client = new HttpClient(); 
-            client.executeMethod(post);             
+            
+            String proxyHost = getProxyHost();
+            if (proxyHost != null) {
+                // execute with proxy settings
+                HostConfiguration hostConfiguration = client.getHostConfiguration();
+                int proxyPort = getProxyPort();
+                hostConfiguration.setProxy(proxyHost, proxyPort);            
+                String username = getProxyUserName();
+                String password = getProxyPassword();            
+                UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
+                HttpState state = client.getState();
+                state.setProxyCredentials(null, proxyHost, credentials);
+                client.executeMethod(hostConfiguration, post);    
+            }
+            else {
+                // execute normal
+                client.executeMethod(post);    
+            }
+            
             InputStream isPost = post.getResponseBodyAsStream();
             BufferedReader in = new BufferedReader(new InputStreamReader(isPost));
             String inputLine = null;   

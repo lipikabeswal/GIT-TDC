@@ -219,9 +219,11 @@ public class PersistenceServlet extends HttpServlet {
                     // set pending state before send request to TMS
                     StateVO state = memoryCache.setPendingState(lsid, mseq);
                     // send save request to TMS
-                    ServletUtils.httpConnectionSendRequest(ServletUtils.SAVE_METHOD, xml);
-                    // set acknowledge state after return from TMS                    
-                    memoryCache.setAcknowledgeState(state);                       
+                    String tmsResponse = ServletUtils.httpConnectionSendRequest(ServletUtils.SAVE_METHOD, xml);                    
+                    // if OK return from TMS, set acknowledge state
+                    if (ServletUtils.isStatusOK(tmsResponse)) {
+                        memoryCache.setAcknowledgeState(state);
+                    }
                 }
             }
             else {                
