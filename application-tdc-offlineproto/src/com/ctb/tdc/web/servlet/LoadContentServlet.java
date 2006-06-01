@@ -124,6 +124,15 @@ public class LoadContentServlet extends HttpServlet {
 		// Put your code here
 	}
 	
+	/**
+	 * The updateItem method of the servlet. <br>
+	 *
+	 * This method removes assest element and add src image attribute.
+	 * 
+	 * @param item xml bytes
+	 * @param image map
+	 * @throws Exception if an error occurred
+	 */
 	private String updateItem( byte[] itemBytes, HashMap AssetTable ) throws Exception
     {
         MemoryCache aMemoryCache = MemoryCache.getInstance();
@@ -144,6 +153,17 @@ public class LoadContentServlet extends HttpServlet {
         return aStringWriter.getBuffer().toString();
     }
 	
+	/**
+	 * The handleItem method of the servlet. <br>
+	 *
+	 * This method decrypts item
+	 * 
+	 * @param item bank directory
+	 * @param item ID
+	 * @param item hash value
+	 * @param item decryption key
+	 * @throws Exception if an error occurred
+	 */
 	private void handleItem( String bankDir, String itemID, 
 	        				String ItemHashKey, String ItemKey ) throws Exception
     {
@@ -187,9 +207,11 @@ public class LoadContentServlet extends HttpServlet {
 
     /**
      *  Load a subtest
+     * @param HttpServletResponse
      * @param String obAssessmentId
      * @param String encryptionKey
      * @param String hashValue
+     * @param String item decryption key
      * @param String bankDir
      * @throws IOException 
      * 
@@ -247,14 +269,12 @@ public class LoadContentServlet extends HttpServlet {
 
     /**
      *  Load an item
-     * @param String itemSetId
-     * @param String encryptionKey
+     * @param HttpServletResponse 
+     * @param String item Id
      * @throws IOException 
      * 
-     *  retrieves encrypted item xml for this item id from local directory
-     *  decrypts item xml
-     *  saves assets to local directory
-     *  returns decrypted item xml
+     *  search item xml from memory cache and set value into response
+     *  returns process result
      *   
      */
     private boolean loadItem(HttpServletResponse response, String itemId ) throws IOException {
@@ -277,13 +297,12 @@ public class LoadContentServlet extends HttpServlet {
 
     /**
      *  Load an image
+     * @param HttpServletResponse
      * @param String imageId
-     * @param String encryptionKey
      * @throws IOException 
      * 
-     *  retrieves image from local directory
-     *  decrypts image xml
-     *  returns decrypted image xml
+     *  search assest from memory cache and set value into response
+     *  returns process result
      *   
      */
     private boolean loadImage(HttpServletResponse response, String imageId ) throws IOException 
