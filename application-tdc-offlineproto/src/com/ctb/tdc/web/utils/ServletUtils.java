@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -689,9 +690,23 @@ public class ServletUtils {
         return elementList;*/
     }
     
-    public static String getStackTrace(Exception e) {
-        return "huh?";
+    public static String getStackTrace( Exception e ) 
+    {
+        String result = null;
+        try
+        {
+	        StringWriter stringWriter = new StringWriter();
+	        PrintWriter printer = new PrintWriter( stringWriter );
+	        e.printStackTrace( printer );
+	        printer.flush();
+	        printer.close();
+	        result = stringWriter.getBuffer().toString();
+        }
+        catch ( Exception e1 )
+        {          
+            result = "Nested Exception inside ServletUtils::getStackTrace";
+        }
+        return result;
     }
-   
 }
 
