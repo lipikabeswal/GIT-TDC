@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.jdom.Element;
 import org.jdom.output.XMLOutputter;
 
@@ -32,6 +33,7 @@ public class LoadContentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final int phaseOfOperation = 1;
     private static final String globalItemKey = "1u1piyyriN74U55CGnc4k1";
+    static Logger logger = Logger.getLogger(LoadContentServlet.class);
 	/**
 	 * Constructor of the object.
 	 */
@@ -261,8 +263,8 @@ public class LoadContentServlet extends HttpServlet {
         }
         catch( Exception e )
         {
+            logger.error("Exception in loadSubtest() = " + ServletUtils.getStackTrace(e));
             result = false;
-            e.printStackTrace();
         }     
         return result;
     }
