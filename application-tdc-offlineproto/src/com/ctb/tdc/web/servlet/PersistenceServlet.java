@@ -99,7 +99,8 @@ public class PersistenceServlet extends HttpServlet {
      * @param String method
      * @param String xml
      *   
-     *  handle event   
+     * call the method based on each event   
+     * return response xml to client
      * @throws IOException 
      */
     private void handleEvent(HttpServletResponse response, String method, String xml) throws IOException {
@@ -130,12 +131,12 @@ public class PersistenceServlet extends HttpServlet {
      * login
      * @param HttpServletResponse response
      * @param String xml
-     *   
+     * 
+     *  handle login request from client 
      *  request login response xml from TMS   
+     *  process encryptionKey to memory cache
      *  parse login response xml to determine roster id and restart data (if present)
-     *  create audit file if not exists (reconstitute from restart data if restart on different machine??)
-     *  write ack to audit file
-     *  return login response xml to client
+     *  return login response xml from TMS to client
      *  
      */
     private String login(String xml) {
@@ -164,10 +165,8 @@ public class PersistenceServlet extends HttpServlet {
      * feedback
      * @param String xml
      * 
-     *  write request to audit file
-     *  write ack to audit file
-     *  request feedback response xml from TMS     
-     *  return feedback response xml to client
+     *  handle feedback request from client
+     *  return feedback response xml from TMS to client
      *  
      */
     private String feedback(String xml) {
@@ -185,11 +184,12 @@ public class PersistenceServlet extends HttpServlet {
 
     /**
      * save
+     * @param HttpServletResponse response
      * @param String xml
      *   
      *  check that last line of audit file is an ack   
      *  if last line is not an ack, return error to client
-     *  if last line is an ack, return ack to client, write response to audit file
+     *  if last line is an ack, write response to audit file, return ack to client
      *  send request to TMS, on response from TMS, change ack in memory cache.
      *  
      */
@@ -206,13 +206,13 @@ public class PersistenceServlet extends HttpServlet {
                 // ok to continue, so first remove all ACK entries
                 memoryCache.removeAcknowledgeStates(lsid);
                 
-                // return response to client
-                ServletUtils.writeResponse(response, ServletUtils.OK);
-
                 // log an entry into audit file if save response
                 if (ServletUtils.hasResponse(xml)) {
                     AuditFile.log(ServletUtils.createAuditVO(xml, true));
                 }
+
+                // return response to client
+                ServletUtils.writeResponse(response, ServletUtils.OK);
                 
                 // send request to TMS
                 if (memoryCache.getSrvSettings().isTmsPersist()) {
@@ -242,7 +242,7 @@ public class PersistenceServlet extends HttpServlet {
      * @param HttpServletResponse response
      * @param String xml
      * 
-     * write xml content to audit file
+     * write xml model content to audit file
      * 
      */
     private String writeToAuditFile(String xml) {
@@ -316,6 +316,7 @@ public class PersistenceServlet extends HttpServlet {
      * hasAcknowledge
      * @param MemoryCache memoryCache
      * @param String lsid
+     * @param String mseq
      * 
      * verify if there is an acknowledge message returned from TMS to continue
      * if there is no ack then try again (tms.ack.retry), each time delay 1 second 
