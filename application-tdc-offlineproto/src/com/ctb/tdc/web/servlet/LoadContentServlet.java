@@ -2,9 +2,12 @@ package com.ctb.tdc.web.servlet;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,12 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.bouncycastle.util.encoders.Base64;
 import org.jdom.Element;
 import org.jdom.output.XMLOutputter;
 
 import com.ctb.tdc.web.dto.SubtestKeyVO;
 import com.ctb.tdc.web.utils.AssetInfo;
-import com.ctb.tdc.web.utils.Base64;
+import com.ctb.tdc.web.utils.AuditFile;
+import com.ctb.tdc.web.utils.ImageInfo;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
 import com.stgglobal.util.CryptoLE.Crypto;
@@ -37,7 +42,8 @@ public class LoadContentServlet extends HttpServlet {
 	/**
 	 * Constructor of the object.
 	 */
-	public LoadContentServlet() {
+	public LoadContentServlet() 
+	{
 		super();
 	}
 
@@ -49,6 +55,44 @@ public class LoadContentServlet extends HttpServlet {
 		// Put your code here
 	}
 
+    /**
+     * The doPost method of the servlet. <br>
+     *
+     * This method is called when a form has its tag value method equals to post.
+     * 
+     * @param request the request send by the client to the server
+     * @param response the response send by the server to the client
+     * @throws Exception 
+     */
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String method = request.getParameter("method");
+        if ((method != null) && (! method.equals("none"))) {    
+            if (method.equals(ServletUtils.LOAD_SUBTEST_METHOD)) {
+                String itemSetId = ServletUtils.buildLoadContentParameters(request, method);
+                handleEvent(request, response, method, itemSetId, null, null);
+            }
+            else
+            if (method.equals(ServletUtils.LOAD_ITEM_METHOD)) {
+                String itemId = ServletUtils.buildLoadContentParameters(request, method);
+                handleEvent(request, response, method, null, itemId, null);
+            }
+            else
+            if (method.equals(ServletUtils.LOAD_IMAGE_METHOD)) {
+                String imageId = ServletUtils.buildLoadContentParameters(request, method);
+                handleEvent(request, response, method, null, null, imageId);
+            }
+            else if ( method.equals( ServletUtils.LOAD_LOCAL_IMAGE_METHOD ) )
+            {
+                String fileName = request.getParameter( ServletUtils.LOAD_LOCAL_IMAGE_PARAM );
+                getLocalImage( response, fileName );
+            }
+        }
+        else {
+            doGet(request, response);            
+        }
+    }
+    
 	/**
 	 * The doGet method of the servlet. <br>
 	 *
@@ -63,10 +107,37 @@ public class LoadContentServlet extends HttpServlet {
 			throws ServletException, IOException {
         
         String method = ServletUtils.getMethod(request);
+        if ( method.equals( ServletUtils.LOAD_LOCAL_IMAGE_METHOD ) )
+        {
+            String fileName = request.getParameter( ServletUtils.LOAD_LOCAL_IMAGE_PARAM );
+            getLocalImage( response, fileName );
+            return;
+        }
         String itemSetId = ServletUtils.getItemSetId(request);
         String itemId = ServletUtils.getItemId(request);
         String imageId = ServletUtils.getImageId(request);
+        
+        handleEvent(request, response, method, itemSetId, itemId, imageId);
+	}
+
+
+    /**
+     * The doGet method of the servlet. <br>
+     *
+     * This method is called when a form has its tag value method equals to get.
+     * 
+     * @param request the request send by the client to the server
+     * @param response the response send by the server to the client
+     * @throws ServletException if an error occurred
+     * @throws IOException if an error occurred
+     */
+    public void handleEvent(HttpServletRequest request, HttpServletResponse response, 
+                            String method, String itemSetId, String itemId, String imageId)
+            throws ServletException, IOException {
+        
         boolean good = false;
+        String filePath = System.getProperty(AuditFile.TDC_HOME) + "/data/objectbank";
+                        
         SubtestKeyVO theSubtestKeyVO = null;
         if ( phaseOfOperation > 1 )
         {
@@ -82,13 +153,13 @@ public class LoadContentServlet extends HttpServlet {
             if ( phaseOfOperation == 1 )
             {
                 good = loadSubtest(response, "2203", "1757", "F16FF0BA9F3D0051F8D3630744BA0FCC"
-                        				, globalItemKey, "./data/objectbank");
+                                        , globalItemKey, filePath);
             }
             else if ( theSubtestKeyVO != null )
             {
                 good = loadSubtest( response, theSubtestKeyVO.getAdsItemSetId(),
                         theSubtestKeyVO.getAsmtEncryptionKey(), theSubtestKeyVO.getAsmtHash()
-                        		, theSubtestKeyVO.getItem_encryption_key(), "./data/objectbank" );
+                                , theSubtestKeyVO.getItem_encryption_key(), filePath );
             }   
         }
         else if (method.equals(ServletUtils.LOAD_ITEM_METHOD))
@@ -100,23 +171,8 @@ public class LoadContentServlet extends HttpServlet {
         {
             response.sendError( HttpServletResponse.SC_NO_CONTENT );
         }
-	}
-
-	/**
-	 * The doPost method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to post.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-        doGet(request, response);
-	}
-
+    }
+    
 	/**
 	 * Initialization of the servlet. <br>
 	 *
@@ -177,7 +233,7 @@ public class LoadContentServlet extends HttpServlet {
         if ( Crypto.checkHash( ItemHashKey, buffer ))
         {
             Crypto aCrypto = new Crypto();
-            byte[] result = aCrypto.checkHashAndDecrypt( ItemKey, ItemHashKey, buffer, true, false );
+            byte[] result = aCrypto.checkHashAndDecrypt( ItemKey, ItemHashKey, buffer, true, false );           
             org.jdom.Document itemDoc = aMemoryCache.saxBuilder.build( new ByteArrayInputStream( result ) );
             org.jdom.Element element = (org.jdom.Element) itemDoc.getRootElement();
             element = element.getChild( "assets" );
@@ -193,7 +249,7 @@ public class LoadContentServlet extends HttpServlet {
 	                    String mimeType = element.getAttributeValue( "type" );
 	                    String ext = mimeType.substring( mimeType.lastIndexOf( "/" ) + 1 );
 	                    String b64data = element.getText();
-	                    byte imageData[] = Base64.decodeToByteArray( b64data );
+	                    byte[] imageData = Base64.decode( b64data );
 	                    AssetInfo aAssetInfo = new AssetInfo();
 	                    aAssetInfo.setData( imageData );
 	                    aAssetInfo.setExt( ext );
@@ -203,7 +259,7 @@ public class LoadContentServlet extends HttpServlet {
 	            String itemxml = updateItem( result, assetMap );
 	            itemxml = ServletUtils.doUTF8Chars( itemxml );
 	            itemMap.put( itemID, itemxml.getBytes() );
-            }
+            } 
         }
     }
 
@@ -227,9 +283,6 @@ public class LoadContentServlet extends HttpServlet {
             					, String bankDir ) throws IOException 
     {
         boolean result = true; 
-        response.setContentType("text/xml");
-        PrintWriter out = response.getWriter();
-        
         MemoryCache aMemoryCache = MemoryCache.getInstance();
         aMemoryCache.clearContent();
         try
@@ -252,9 +305,9 @@ public class LoadContentServlet extends HttpServlet {
                     String ItemKeyId = item.getAttributeValue( "k" );
                     handleItem( bankDir, obItemId, ItemHash, itemKey );
                 }
-                response.setContentType( "text/xml" );
-                ServletOutputStream myOutput = response.getOutputStream();
-                myOutput.write( dataValue ); 
+                response.setContentType("text/xml");
+                PrintWriter myOutput = response.getWriter();
+                myOutput.print( assxml );
                 myOutput.flush();
                 myOutput.close();
             }
@@ -263,7 +316,7 @@ public class LoadContentServlet extends HttpServlet {
         }
         catch( Exception e )
         {
-            logger.error("Exception in loadSubtest() = " + ServletUtils.getStackTrace(e));
+            logger.error("Exception in loadSubtest() : " + ServletUtils.printStackTrace(e));
             result = false;
         }     
         return result;
@@ -287,8 +340,8 @@ public class LoadContentServlet extends HttpServlet {
         {
             byte[] dataValue = ( byte[] )itemMap.get( itemId );
             response.setContentType( "text/xml" );
-            ServletOutputStream myOutput = response.getOutputStream();
-            myOutput.write( dataValue ); 
+            PrintWriter myOutput = response.getWriter();
+            myOutput.print( new String( dataValue, "UTF-8" ) );
             myOutput.flush();
             myOutput.close();
         }
@@ -303,24 +356,36 @@ public class LoadContentServlet extends HttpServlet {
      * @param String imageId
      * @throws IOException 
      * 
-     *  search assest from memory cache and set value into response
+     *  search asset from memory cache and set value into response
      *  returns process result
      *   
      */
     private boolean loadImage(HttpServletResponse response, String imageId ) throws IOException 
-    {
+    {   
         boolean result = true; 
         MemoryCache aMemoryCache = MemoryCache.getInstance();
         HashMap assetMap = aMemoryCache.getAssetMap();
         if ( assetMap.containsKey( imageId ))
         {
             AssetInfo aAssetInfo = ( AssetInfo )assetMap.get( imageId );
-            response.setContentType( aAssetInfo.getMIMEType() );
-            response.setContentLength( aAssetInfo.getData().length );
+            String MIMEType = aAssetInfo.getMIMEType();
+            response.setContentType( MIMEType );
+            byte[] data = aAssetInfo.getData();
+            int size = data.length;
+            response.setContentLength( size );
             ServletOutputStream myOutput = response.getOutputStream();
-            myOutput.write( aAssetInfo.getData() );
+            myOutput.write( data );
             myOutput.flush();
             myOutput.close();
+            /*
+            String filePath = System.getProperty(AuditFile.TDC_HOME) + "/webapp";
+            File psFile = new File( filePath, imageId + ".swf" );
+            FileOutputStream psfile = new FileOutputStream( psFile );
+            psfile.write( data );
+            psfile.flush();
+            psfile.close();
+            POC_Image( response, "http://localhost:12345/" + imageId + ".swf" );
+            */
         }
         else
             result = false;
@@ -328,6 +393,182 @@ public class LoadContentServlet extends HttpServlet {
         return result;
     }
     
-
+    private boolean imageReady( String fileName )
+    {
+        boolean ready = false;
+        int tryCount = 0;
+        int max_try = 5;
+        try
+        {
+            while( !ready && tryCount < max_try )
+            {
+                File aFile = new File( fileName );
+                if ( aFile.exists() && aFile.isFile() )
+                {
+                    if ( aFile.length() > 0 )
+                        ready = true;
+                }
+                tryCount++;
+                if ( !ready )
+                {
+                    System.out.println( "** Image not there, " + tryCount + "try: " + fileName );
+                    Thread.sleep( 1000 );
+                }
+            }
+        }
+        catch( Exception e )
+        {
+        }
+        return ready;
+    }
     
+    public class ImageContentPiece
+    {
+        int size;
+        byte[] buffer;
+    }
+    
+    public ArrayList getFileContent( String fileName ) throws IOException
+    {
+        if (! isFileInTempDir( fileName ))
+            return null;
+        
+        int EACH_READ_SIZE = 5000;
+        ArrayList buffers = new ArrayList();
+        FileInputStream inputStream = new FileInputStream( new File( fileName ) );
+        byte[] buffer = new byte[ EACH_READ_SIZE ];
+        int readSize;
+        boolean done = false;
+        while( !done )
+        {
+            readSize = inputStream.read( buffer );
+            if ( readSize <= 0 )
+                done = true;
+            else
+            {
+                ImageContentPiece aImageContentPiece = new ImageContentPiece();
+                aImageContentPiece.size = readSize;
+                aImageContentPiece.buffer = buffer;
+                buffer = new byte[ EACH_READ_SIZE ];
+                buffers.add( aImageContentPiece );
+            }
+        }
+        inputStream.close();
+        return buffers;
+    }
+    
+    public boolean isFileInTempDir( String fileName ) throws IOException
+    {
+        File file1 = new File( fileName );
+        String path1 = file1.getCanonicalPath();          
+        File file2 = new File( System.getProperty( "java.io.tmpdir" ) );
+        String path2 = file2.getCanonicalPath();  
+        return (path1.toLowerCase().startsWith( path2.toLowerCase() ));
+    }
+      
+    private void getLocalImage( HttpServletResponse response, String fileName ) throws IOException
+    {   
+        ImageInfo cachedImage = getCachedImage( fileName );         
+        if ( cachedImage != null ) {
+            ArrayList buffers = cachedImage.getData();
+            String mimeType = cachedImage.getMimeType();
+            writeToResponse( response, buffers, mimeType );
+        }
+        else
+        if ( imageReady( fileName ) ) {
+            String mimeType = getMimeType( fileName );
+            if ( mimeType != null ) {
+                ArrayList buffers = getFileContent( fileName );
+                if (buffers != null) {
+                    writeToResponse( response, buffers, mimeType );
+                    setCachedImage( fileName, buffers, mimeType ); 
+                    deleteImageFile( fileName );
+                }
+                else {
+                    response.sendError( HttpServletResponse.SC_NO_CONTENT );                    
+                }
+            }
+            else {
+                response.sendError( HttpServletResponse.SC_NO_CONTENT );
+            }            
+        }
+        else {
+            response.sendError( HttpServletResponse.SC_NO_CONTENT );
+        }
+    }
+    
+    private ImageInfo getCachedImage( String fileName ) 
+    {
+        ImageInfo cachedImage = null;
+        MemoryCache memoryCache = MemoryCache.getInstance();
+        HashMap imageMap = memoryCache.getImageMap();
+        if ( imageMap.containsKey( fileName ))
+        {
+            cachedImage = ( ImageInfo )imageMap.get( fileName );
+        }
+        return cachedImage;    
+    }
+
+    private void setCachedImage( String fileName, ArrayList buffers, String mimeType ) 
+    {        
+        ImageInfo cachedImage = new ImageInfo();
+        cachedImage.setData( buffers );
+        cachedImage.setMimeType( mimeType );
+        MemoryCache memoryCache = MemoryCache.getInstance();
+        HashMap imageMap = memoryCache.getImageMap();
+        imageMap.put( fileName, cachedImage );
+    }
+    
+    private void writeToResponse( HttpServletResponse response, ArrayList buffers, String mimeType ) throws IOException
+    {
+        int totalSize = 0;
+        for ( int i = 0; i < buffers.size(); i++ )
+        {
+            ImageContentPiece aImageContentPiece = ( ImageContentPiece )buffers.get( i );
+            totalSize += aImageContentPiece.size;
+        }
+        response.setContentType( mimeType );
+        response.setContentLength( totalSize );
+        ServletOutputStream myOutput = response.getOutputStream();
+        for ( int i = 0; i < buffers.size(); i++ )
+        {
+            ImageContentPiece aImageContentPiece = ( ImageContentPiece )buffers.get( i );
+            myOutput.write( aImageContentPiece.buffer, 0, aImageContentPiece.size );
+        }
+        myOutput.flush();
+        myOutput.close();
+    }
+    
+    private void deleteImageFile( String fileName )
+    {
+        File file = new File( fileName );
+        file.delete();
+    }
+
+    private String getMimeType( String fileName )
+    {
+        String mimeType = null;
+        String ext = fileName.substring( fileName.lastIndexOf( "." ) + 1 ).toLowerCase();
+        if ( "swf".equals( ext ))
+            mimeType = "application/x-shockwave-flash";
+        else 
+        if ( "jpg".equals( ext ))
+            mimeType = "image/jpg";   
+        else 
+        if ( "gif".equals( ext ))
+            mimeType = "image/gif";   
+        
+        return mimeType;
+    }
+    
+    private void POC_Image( HttpServletResponse response, String imageURL )throws IOException
+    {
+        String html = "<html><body><table><tr><td><img src=\"" + imageURL 
+                    + "\"/></td></tr></table></body></html>";
+        response.setContentType( "text/html" );
+        PrintWriter myOutput = response.getWriter();
+        myOutput.print( html );
+        myOutput.flush();
+        myOutput.close();
+    }
 }

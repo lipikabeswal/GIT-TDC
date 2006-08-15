@@ -3,8 +3,8 @@ package com.ctb.tdc.web.utils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
-import java.util.HashMap;
 
+import org.apache.log4j.Category;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.Priority;
@@ -24,50 +24,37 @@ public class AuditFile
     public static final String XML_FOLDER = "/data/xmls/";
     public static final String IMAGE_FOLDER = "/data/images/";
     
-    // logger
-    public static HashMap loggerMap = new HashMap();
-
     // format:  millis, mseq, <itemId|response>
     private AuditFile() 
     {
         super();
     }
 
-    public static synchronized void deleteLogger( String filePath_ ) throws Exception
+    public static synchronized boolean deleteLogger( String filePath_ ) throws Exception
     {
-        if ( loggerMap.containsKey( filePath_ ) )
-        {
-            org.apache.log4j.Category logger = (org.apache.log4j.Category)loggerMap.get(filePath_);
-            logger.removeAllAppenders();
-            loggerMap.remove( filePath_ );
-            java.io.File f = new java.io.File( filePath_ );
-            f.delete();
-        }
+        Category logger = Category.getInstance( AuditFile.class );
+        logger.removeAllAppenders();
+        java.io.File file = new java.io.File( filePath_ );
+        return file.delete();
     }
     
     public static synchronized org.apache.log4j.Category getLogger( String filePath_ ) throws Exception
     {
-        org.apache.log4j.Category logger = null;
-        if ( !loggerMap.containsKey( filePath_ ) )
-        {
-	        logger = org.apache.log4j.Category.getInstance( AuditFile.class );
-	        logger.setAdditivity( false );
-	        java.io.File f = new java.io.File( filePath_ );
-	        if ( !f.exists() )
-	            f.createNewFile();
-	        FileAppender aFileAppender = new FileAppender();
-            aFileAppender.setLayout( new PatternLayout("%m%n") );
-	        
-	        aFileAppender.setFile( filePath_ );
-	        aFileAppender.setImmediateFlush( true );
-	        aFileAppender.setAppend( true );
-	        aFileAppender.setWriter( new OutputStreamWriter( new FileOutputStream( filePath_, true )) );
-            
-	        logger.addAppender( aFileAppender );
-	        loggerMap.put( filePath_, logger );
-        }
-        else
-            logger = ( org.apache.log4j.Category )loggerMap.get( filePath_ );
+        Category logger = Category.getInstance( AuditFile.class );
+        logger.removeAllAppenders();
+        logger.setAdditivity( false );
+        java.io.File f = new java.io.File( filePath_ );
+        if ( !f.exists() )
+            f.createNewFile();
+        FileAppender aFileAppender = new FileAppender();
+        aFileAppender.setLayout( new PatternLayout("%m%n") );
+        
+        aFileAppender.setFile( filePath_ );
+        aFileAppender.setImmediateFlush( true );
+        aFileAppender.setAppend( true );
+        aFileAppender.setWriter( new OutputStreamWriter( new FileOutputStream( filePath_, true )) );
+        
+        logger.addAppender( aFileAppender );
         return logger;
     }
     

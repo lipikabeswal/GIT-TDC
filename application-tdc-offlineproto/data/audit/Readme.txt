@@ -1,1 +1,1 @@
-This file must be in this folder just for CVS checking out works
+Folder to temporarily contain audit information.

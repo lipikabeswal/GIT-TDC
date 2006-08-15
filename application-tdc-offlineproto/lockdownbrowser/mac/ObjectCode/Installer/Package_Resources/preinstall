@@ -1,0 +1,13 @@
+#!/bin/bash
+
+cd /
+mkdir '/Library/Application Support/LockdownBrowser'
+chmod -Rf 777 '/Library/Application Support/LockdownBrowser'
+
+cd 'Library/Application Support/LockdownBrowser/'
+mkdir ObjectBank
+chmod -Rf 777 ObjectBank
+
+cd /
+
+exit 0

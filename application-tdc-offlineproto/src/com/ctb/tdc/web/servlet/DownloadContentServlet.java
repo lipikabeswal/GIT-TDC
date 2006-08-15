@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ctb.tdc.web.utils.ServletUtils;
 
 /**
@@ -16,6 +18,7 @@ import com.ctb.tdc.web.utils.ServletUtils;
 public class DownloadContentServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
+    static Logger logger = Logger.getLogger(PersistenceServlet.class);
     
 	/**
 	 * Constructor of the object.

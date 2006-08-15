@@ -1,56 +1,122 @@
 <project name="application-tdc" default="usage" basedir=".">
-
 	
-	<property name="project.dist" value="${basedir}/dist" />
-	<property name="project.src"  value="${basedir}/src" />
-		
+	<property name="project.src"        value="${basedir}/src" />
+	<property name="project.dist"       value="${basedir}/dist" />
+	<property name="project.tdc.home"   value="${project.dist}"/>
+	<property name="project.jetty.home" value="${project.tdc.home}/servletcontainer/jetty-5.1.11RC0"/>
+	<property name="project.test.dir"   value="../test-application" />
 	
+	
+	
+	<!-- TASK: usage .......................................................-->
 	<target name="usage" description="Displays the usage of this ANT build script.">
 		<echo>
 			Usage: ant [target]
 		</echo>
 	</target>
 	
-	<target name="clean" description="Cleans up generated folders by deleting specific content.">
-		<delete includeemptydirs="true">
-			<fileset dir="${project.dist}" includes="**/*"/>
-		</delete>
-	</target>
-
-	<target name="distribution" description="Creates the distribution package structure for the installer." depends="init, build">
-		<copy todir="${project.dist}/data">
-			<fileset dir="data">
-				<include name="**/audit/*" />
-				<exclude name="**/*.log" />
-			</fileset>
-		</copy>
-		<copy todir="${project.dist}/lockdownbrowser">
-			<fileset dir="lockdownbrowser" />
-		</copy>
-		<copy todir="${project.dist}/servletcontainer">
-			<fileset dir="servletcontainer">
-				<exclude name="**/*.log" />
-			</fileset>
-		</copy>
-		<copy todir="${project.dist}/webapp">
-			<fileset dir="webapp" />
-		</copy>
+	
+	<!-- TASK: dist ........................................................-->
+	<target name="dist" depends="wipeDist, prepareDist" description="Creates the distribution package structure for the installer.">
 	</target>
 	
-
 	
-	<!-- Internal targets -->
-	<target name="init" depends="clean">
-		<mkdir dir="${project.dist}/data" />
-		<mkdir dir="${project.dist}/lockdownbrowser" />
-		<mkdir dir="${project.dist}/servletcontainer" />
-		<mkdir dir="${project.dist}/webapp" />
+	<!-- TASK: distForDev ..................................................-->
+	<target name="distForDev" depends="dist" description="Creates distribution package with dev settings.">
+		<replace file="${project.dist}/webapp/crossdomain.xml">
+			<replacetoken><![CDATA[<allow-access-from domain="oasdelivery.ctb.com" />]]></replacetoken>
+			<replacevalue><![CDATA[<allow-access-from domain="dagobah.mhe.mhc" />]]></replacevalue>
+		</replace>
+
+		<replace file="${project.dist}/webapp/WEB-INF/classes/tdc.properties">
+			<replacetoken><![CDATA[tms.server.host=https://oas.ctb.com]]></replacetoken>
+			<replacevalue><![CDATA[tms.server.host=http://dagobah.mhe.mhc]]></replacevalue>
+		</replace>
+		<replace file="${project.dist}/webapp/WEB-INF/classes/tdc.properties">
+			<replacetoken><![CDATA[tms.server.port=443]]></replacetoken>
+			<replacevalue><![CDATA[tms.server.port=8001]]></replacevalue>
+		</replace>
 	</target>
+	
+	<!-- TASK: distForQA ..................................................-->
+	<target name="distForQA" depends="dist" description="Creates distribution package with oastest1 settings.">
+		<replace file="${project.dist}/webapp/crossdomain.xml">
+			<replacetoken><![CDATA[<allow-access-from domain="oasdelivery.ctb.com" />]]></replacetoken>
+			<replacevalue><![CDATA[<allow-access-from domain="oastest1delivery.ctb.com" />]]></replacevalue>
+		</replace>
+
+		<replace file="${project.dist}/webapp/WEB-INF/classes/tdc.properties">
+			<replacetoken><![CDATA[tms.server.host=https://oas.ctb.com]]></replacetoken>
+			<replacevalue><![CDATA[tms.server.host=https://oastest1.ctb.com]]></replacevalue>
+		</replace>
+		<replace file="${project.dist}/webapp/WEB-INF/classes/tdc.properties">
+			<replacetoken><![CDATA[tms.server.port=443]]></replacetoken>
+			<replacevalue><![CDATA[tms.server.port=443]]></replacevalue>
+		</replace>
+	</target>
+	
+	
+	
+	<!-- TASK: test ........................................................-->
+	<target name="test" depends="scrubDist, prepareDist" description="Runs JUnit tests on this project.">
+		<mkdir dir="junit-reports" />
+		<mkdir dir="junit-results" />
 		
+		<replace file="${project.dist}/webapp/crossdomain.xml">
+			<replacetoken><![CDATA[<allow-access-from domain="oasdelivery.ctb.com" />]]></replacetoken>
+			<replacevalue><![CDATA[<allow-access-from domain="dagobah.mhe.mhc" />]]></replacevalue>
+		</replace>
+		<replace file="${project.dist}/webapp/WEB-INF/classes/tdc.properties">
+			<replacetoken><![CDATA[tms.server.host=https://oas.ctb.com]]></replacetoken>
+			<replacevalue><![CDATA[tms.server.host=http://localhost]]></replacevalue>
+		</replace>
+		<replace file="${project.dist}/webapp/WEB-INF/classes/tdc.properties">
+			<replacetoken><![CDATA[tms.server.port=443]]></replacetoken>
+			<replacevalue><![CDATA[tms.server.port=7003]]></replacevalue>
+		</replace>
+
+
+		<!-- -->
+		<junit fork="true" maxmemory="256M" haltonerror="false" haltonfailure="false" failureproperty="junit.failure" showoutput="true">
+	        <formatter extension=".xml" type="xml" usefile="true" />
+	        <formatter type="plain" usefile="false"/>
+	        <classpath>
+	            <pathelement path="${project.test.dir}/build" />
+	            <fileset dir="${project.test.dir}/lib">
+	                <include name="*.jar" />
+	            </fileset>
+	        </classpath>
+	        <batchtest fork="true" todir="junit-results">
+	            <fileset dir="${project.test.dir}/build">
+	                <include name="com/ctb/test/testDelivery/servlets/*.class" />
+	            </fileset>
+	        </batchtest>
+	    </junit>
+	    <junitreport todir="junit-reports">
+	        <fileset dir="junit-results">
+	            <include name="TEST-*.xml" />
+	        </fileset>
+	        <report format="frames" todir="junit-reports/html" />
+	    </junitreport>
+	    <fail if="junit.failure" message="one or more unit tests failed" />
+		<!-- -->
+	</target>
+
 	
-	<target name="build" depends="init">
-		<mkdir dir="${project.dist}/webapp/WEB-INF/classes" />
-		<javac srcdir="${project.src}" destdir="${project.dist}/webapp/WEB-INF/classes">
+	
+	
+	
+	
+	<!-- .................................................................. -->
+	<!-- .................................................................. -->
+	<!-- Internal targets ................................................. -->
+	<!-- .................................................................. -->
+	<!-- .................................................................. -->
+	
+	<!-- TASK: build .......................................................-->
+	<target name="build">
+		<mkdir dir="${basedir}/webapp/WEB-INF/classes" />
+		<javac srcdir="${project.src}" destdir="${basedir}/webapp/WEB-INF/classes">
 			<classpath>
 				<fileset dir="${basedir}/servletcontainer/jetty-5.1.11RC0">
 					<include name="lib/javax.servlet.jar" />
@@ -62,10 +128,93 @@
 			</classpath>
 		</javac>
 
-		<copy todir="${project.dist}/webapp/WEB-INF/classes">
+		<copy todir="${basedir}/webapp/WEB-INF/classes">
 			<fileset dir="${project.src}" excludes="**/*.java"/>
 		</copy>
 	</target>
 
 
+	<!-- TASK: initDist ...................................................-->
+	<target name="initDist">
+		<mkdir dir="${project.dist}/data" />
+		<mkdir dir="${project.dist}/data/audit" />
+		<mkdir dir="${project.dist}/data/objectbank" />
+		<mkdir dir="${project.dist}/lockdownbrowser" />
+		<mkdir dir="${project.dist}/servletcontainer" />
+		<mkdir dir="${project.dist}/webapp" />
+	</target>
+
+	<!-- TASK: wipeDist ...................................................-->
+	<target name="wipeDist" depends="initDist">
+		<delete includeemptydirs="true">
+			<fileset dir="${project.dist}" includes="**/*" />
+		</delete>
+	</target>	
+	
+	<!-- TASK: scrubDist ...................................................-->
+	<target name="scrubDist" depends="initDist">
+		<delete>
+			<!-- 
+			<fileset dir="${project.dist}/data/audit">
+				<include name="*.log"/>
+			</fileset> 
+			-->
+			<fileset dir="${project.dist}/data/objectbank">
+				<include name="*.eam"/>
+				<include name="*.ecp"/>
+			</fileset>
+		</delete>
+	</target>
+			
+
+			
+			
+	<!-- TASK: prepareDist .................................................-->
+	<target name="prepareDist" depends="build">
+		<copy todir="${project.dist}/data" overwrite="true">
+			<fileset dir="data">
+				<include name="**/audit/*" />
+				<exclude name="**/*.log" />
+				<include name="**/objectbank/*" />
+				<exclude name="**/*.eam" />
+				<exclude name="**/*.ecp" />
+			</fileset>
+		</copy>
+
+		<copy todir="${project.dist}/lockdownbrowser" overwrite="true">
+			<fileset dir="lockdownbrowser">
+				<exclude name="**/*.doc" />
+				<exclude name="**/mac/ObjectCode/**" />
+			</fileset>
+		</copy>
+
+		<copy todir="${project.dist}/servletcontainer" overwrite="true">
+			<fileset dir="servletcontainer">
+				<exclude name="**/*.log" />
+				<!-- still under construction -->
+				<include name="tdc.xml" />
+				<include name="jetty-5.1.11RC0/*" />
+				<include name="jetty-5.1.11RC0/etc/*.txt" />
+				<include name="jetty-5.1.11RC0/etc/log4j.properties" />
+				<include name="jetty-5.1.11RC0/lib/javax.servlet.jar" />
+				<include name="jetty-5.1.11RC0/lib/org.mortbay.jetty.jar" />
+				<include name="jetty-5.1.11RC0/ext/commons-logging.jar" />
+				<include name="jetty-5.1.11RC0/ext/jasper-compiler.jar" />
+				<include name="jetty-5.1.11RC0/ext/jasper-runtime.jar" />
+				<include name="jetty-5.1.11RC0/ext/log4j.jar" />
+				<!-- -->
+			</fileset>
+		</copy>
+
+		<copy todir="${project.dist}/webapp" overwrite="true">
+			<fileset dir="webapp" >
+				<exclude name="poc/**" />
+				<exclude name="pocJavascript/**" />
+				<exclude name="test.html" />
+			</fileset>
+		</copy>
+	</target>
+
+	
+	
 </project>

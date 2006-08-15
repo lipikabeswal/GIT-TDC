@@ -13,12 +13,14 @@ import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
+import java.util.zip.Adler32;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,10 +28,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpState;
+import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.ProxyHost;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.params.HttpClientParams;
+import org.apache.log4j.Logger;
 import org.jdom.Element;
 
 import com.ctb.tdc.web.dto.AuditVO;
@@ -38,9 +42,16 @@ import com.ctb.tdc.web.dto.SubtestKeyVO;
 
 /**
  * @author Tai_Truong
+ * 
+ * This class provides helper methods for local servlets
+ * PersistenceServlet.java
+ * LoadContentServlet.java
+ * DownloadContentServlet.java
+ * 
  */
 public class ServletUtils {
     public static final String SERVLET_NAME = "tdc";
+    static Logger logger = Logger.getLogger(ServletUtils.class);
 
     // url for servlet and tms actions
     public static final String URL_PERSISTENCE_SERVLET = "/servlet/PersistenceServlet";
@@ -51,18 +62,23 @@ public class ServletUtils {
     public static final String URL_WEBAPP_SAVE = "/TestDeliveryWeb/CTB/save.do";
     public static final String URL_WEBAPP_UPLOAD_AUDIT_FILE = "/TestDeliveryWeb/CTB/uploadAuditFile.do";
     public static final String URL_WEBAPP_WRITE_TO_AUDIT_FILE = "/TestDeliveryWeb/CTB/writeToAuditFile.do";
+    public static final String URL_WEBAPP_GET_STATUS_METHOD = "/TestDeliveryWeb/CTB/getStatus.do";
     
     // methods
+    public static final String NONE_METHOD = "none";
     public static final String DOWNLOAD_CONTENT_METHOD = "downloadContent";
     public static final String INITITAL_DOWNLOAD_CONTENT_METHOD = "initialDownloadContent";
     public static final String LOAD_SUBTEST_METHOD = "loadSubtest";
     public static final String LOAD_ITEM_METHOD = "loadItem";
     public static final String LOAD_IMAGE_METHOD = "loadImage";
+    public static final String LOAD_LOCAL_IMAGE_METHOD = "loadLocalImage";
     public static final String LOGIN_METHOD = "login";
     public static final String SAVE_METHOD = "save";
     public static final String FEEDBACK_METHOD = "feedback";
     public static final String UPLOAD_AUDIT_FILE_METHOD = "uploadAuditFile";
     public static final String WRITE_TO_AUDIT_FILE_METHOD = "writeToAuditFile";
+    public static final String VERIFY_SETTINGS_METHOD = "verifySettings";
+    public static final String GET_STATUS_METHOD = "getStatus";
 
     // parameters
     public static final String METHOD_PARAM = "method";
@@ -74,6 +90,8 @@ public class ServletUtils {
     public static final String ENCRYPTION_KEY_PARAM = "encryptionKey";
     public static final String XML_PARAM = "requestXML";
     public static final String AUDIT_FILE_PARAM = "auditFile";
+    public static final String CHECKSUM_PARAM = "checksum";
+    public static final String LOAD_LOCAL_IMAGE_PARAM = "fileName";
 
     // events
     public static final String RECEIVE_EVENT = "RCV"; 
@@ -85,6 +103,7 @@ public class ServletUtils {
 
     // misc
     public static final String NONE = "-";
+    public static final long SECOND = 1000;
     
     // helper methods
     
@@ -99,7 +118,6 @@ public class ServletUtils {
         out.flush();
         out.close();        
     }
-
     
      /**
      * parse response value in xml
@@ -125,26 +143,35 @@ public class ServletUtils {
      * 
      */
     public static String parseModelData(String xml) {
-        String modelData = NONE;
+        String modelData = "";
         if (xml != null) {
-            int startIndex = xml.indexOf("<model_data>");
-            int endIndex = xml.lastIndexOf("</model_data>");
+            int startIndex = xml.indexOf("<audit_file_text>");
+            int endIndex = xml.lastIndexOf("</audit_file_text>");
             if ((startIndex > 0) && (endIndex > 0) && (endIndex < xml.length())) {
-                if ((startIndex + 3) >= endIndex)
+                if ((startIndex + 17) >= endIndex)
                     modelData = "";
                 else
-                    modelData = xml.substring(startIndex + 3, endIndex);
+                    modelData = xml.substring(startIndex + 17, endIndex);
             }
         }
         return modelData;
     }
-    
+
      /**
-     * parse status value in xml
+     * parse status value in xml if equals 'OK'
      * 
      */
     public static boolean isStatusOK(String xml) {
         int index = xml.indexOf("status=\"OK\"");
+        return (index > 0);
+    }
+
+     /**
+     * parse status_code value in xml if equals 'OK'
+     * 
+     */
+    public static boolean isLoginStatusOK(String xml) {
+        int index = xml.indexOf("status_code=\"200\"");
         return (index > 0);
     }
     
@@ -214,7 +241,7 @@ public class ServletUtils {
      * 
      */
     public static String parseItemSetId(String xml) {   
-        return parseTag("itemSetId=", xml);
+        return parseTag("scid=", xml);
     }
     
      /**
@@ -259,19 +286,63 @@ public class ServletUtils {
         }
         return audit;
     }
-   
+
      /**
      * initialize memory cache object from values read from resource bundle
      * 
      */
-    public static void initMemoryCache() {
+    public static void readServletSettings() {
+        validateServletSettings();
+    }
+    
+     /**
+     * validate value settings, initialize memory cache object from values read from resource bundle
+     * 
+     */
+    public static boolean validateServletSettings() {
+        ServletSettings srvSettings = null;
         MemoryCache memoryCache = MemoryCache.getInstance();
         if (! memoryCache.isLoaded()) {
             ResourceBundle rb = ResourceBundle.getBundle(SERVLET_NAME);
-            memoryCache.setSrvSettings(new ServletSettings(rb));
+            srvSettings = new ServletSettings(rb);
+            memoryCache.setSrvSettings(srvSettings);
             memoryCache.setStateMap(new HashMap());        
             memoryCache.setLoaded(true);
         }
+        srvSettings = memoryCache.getSrvSettings();
+        return srvSettings.isValidSettings();
+    }
+
+     /**
+     * getServletSettingsErrorMessage
+     * 
+     */
+    public static String getServletSettingsErrorMessage() {
+        MemoryCache memoryCache = MemoryCache.getInstance();
+        ServletSettings srvSettings = memoryCache.getSrvSettings();
+        return buildXmlErrorMessage("", srvSettings.getErrorMessage(), "");        
+    }
+
+     /**
+     * buildErrorMessage
+     * 
+     */
+    public static String buildXmlErrorMessage(String header, String message, String code) {
+        String xml = "<ERROR>";
+        xml += "<HEADER>" + header + "</HEADER>";
+        xml += "<MESSAGE>" + message + "</MESSAGE>";
+        xml += "<CODE>" + code + "</CODE>";
+        xml += "</ERROR>";
+        return xml;
+    }
+    
+     /**
+     * buildErrorMessage
+     * 
+     */
+    public static String getErrorMessage(String error) {
+        ResourceBundle rb = ResourceBundle.getBundle("tdcResources");
+        return rb.getString(error);        
     }
     
      /**
@@ -294,6 +365,10 @@ public class ServletUtils {
         else        
         if (method.equals(WRITE_TO_AUDIT_FILE_METHOD))
             webApp = URL_WEBAPP_WRITE_TO_AUDIT_FILE;
+        else        
+        if (method.equals(GET_STATUS_METHOD))
+            webApp = URL_WEBAPP_GET_STATUS_METHOD;
+                
         return webApp;
     }
     
@@ -320,7 +395,7 @@ public class ServletUtils {
             tmsURL = new URL(tmsUrlString);
         } 
         catch (MalformedURLException e) {
-            e.printStackTrace();
+            logger.error("Exception occured in getTmsURL() : " + printStackTrace(e));
         }
         return tmsURL;
     }
@@ -332,21 +407,17 @@ public class ServletUtils {
     public static String getProxyHost() throws MalformedURLException {
         MemoryCache memoryCache = MemoryCache.getInstance();
         ServletSettings srvSettings = memoryCache.getSrvSettings();
-        String host = srvSettings.getProxyHost().trim();
-        if (host.length() == 0)
-            host = null;
-        return host;
+        return srvSettings.getProxyHost();
     }
 
      /**
      * get predefined proxy port
      * 
      */
-    public static int getProxyPort() throws MalformedURLException {
+    public static int getProxyPort() {
         MemoryCache memoryCache = MemoryCache.getInstance();
         ServletSettings srvSettings = memoryCache.getSrvSettings();
-        int port = Integer.valueOf(srvSettings.getProxyPort()).intValue();
-        return port;
+        return srvSettings.getProxyPort();        
     }
 
      /**
@@ -493,7 +564,7 @@ public class ServletUtils {
             in.close();          
         } 
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception occured in urlConnectionSendRequest() : " + printStackTrace(e));
             result = ERROR;
         }        
         return result;
@@ -507,9 +578,10 @@ public class ServletUtils {
      * Connect to TMS and send request using HttpClient
      * 
      */
-    public static String httpConnectionSendRequest(String method, String xml) {
+    public static String httpClientSendRequest(String method, String xml) {
         String result = OK;
-
+        int responseCode = HttpStatus.SC_OK;
+        
         // create post method with url based on method
         String tmsURL = getTmsURLString(method);
         PostMethod post = new PostMethod(tmsURL);             
@@ -521,10 +593,12 @@ public class ServletUtils {
             
         // send request to TMS
         try {
-            HttpClient client = new HttpClient(); 
-            
+            HttpClientParams clientParams = new HttpClientParams();
+            clientParams.setConnectionManagerTimeout(30 * SECOND);    // timeout in 30 seconds            
+            HttpClient client = new HttpClient(clientParams);                
             String proxyHost = getProxyHost();
-            if (proxyHost != null) {
+            
+            if ((proxyHost != null) && (proxyHost.length() > 0)) {
                 // execute with proxy settings
                 HostConfiguration hostConfiguration = client.getHostConfiguration();
                 int proxyPort = getProxyPort();
@@ -534,30 +608,114 @@ public class ServletUtils {
                 UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
                 HttpState state = client.getState();
                 state.setProxyCredentials(null, proxyHost, credentials);
-                client.executeMethod(hostConfiguration, post);    
+                responseCode = client.executeMethod(hostConfiguration, post);   
             }
             else {
-                // execute normal
-                client.executeMethod(post);    
+                // execute without proxy
+                responseCode = client.executeMethod(post);    
             }
             
-            InputStream isPost = post.getResponseBodyAsStream();
-            BufferedReader in = new BufferedReader(new InputStreamReader(isPost));
-            String inputLine = null;   
-            result = "";
-            while ((inputLine = in.readLine()) != null) {
-                result += inputLine;
+            if (responseCode == HttpStatus.SC_OK) {
+                InputStream isPost = post.getResponseBodyAsStream();
+                BufferedReader in = new BufferedReader(new InputStreamReader(isPost));
+                String inputLine = null;   
+                result = "";
+                while ((inputLine = in.readLine()) != null) {
+                    result += inputLine;
+                }
+                in.close();     
+                //System.out.println(result);
             }
-            in.close();          
+            else {
+                result = buildXmlErrorMessage("", HttpStatus.getStatusText(responseCode), ""); 
+            }
         } 
         catch (Exception e) {
-            e.printStackTrace();
-            result = ERROR;
+            logger.error("Exception occured in httpClientSendRequest() : " + printStackTrace(e));
+            result = buildXmlErrorMessage("", e.getMessage(), ""); 
         }
         finally {
             post.releaseConnection();
         }        
         return result;
+    }
+
+    /**
+     * httpClientTestConnection
+     * Test if be able to connect to TMS using HttpClient
+     * 
+     */
+    public static String httpClientGetStatus() {
+        String errorMessage = OK;
+        int responseCode = HttpStatus.SC_OK;
+        
+        // create post method with url based on method
+        String method = GET_STATUS_METHOD;
+        String tmsURL = getTmsURLString(method);
+        PostMethod post = null;        
+        try {
+            post = new PostMethod(tmsURL);   
+        }
+        catch (Exception e) {
+            errorMessage = "There has been a communications failure: " + e.getMessage();
+            errorMessage = buildXmlErrorMessage("", errorMessage, ""); 
+            return errorMessage;
+        }
+            
+        // send request to TMS
+        try {
+            HttpClientParams clientParams = new HttpClientParams();
+            clientParams.setConnectionManagerTimeout(30 * SECOND);    // timeout in 30 seconds            
+            HttpClient client = new HttpClient(clientParams);                
+            String proxyHost = getProxyHost();
+            
+            if ((proxyHost != null) && (proxyHost.length() > 0)) {
+                // execute with proxy settings
+                HostConfiguration hostConfiguration = client.getHostConfiguration();
+                int proxyPort = getProxyPort();
+                hostConfiguration.setProxy(proxyHost, proxyPort);            
+                String username = getProxyUserName();
+                String password = getProxyPassword();            
+                UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
+                HttpState state = client.getState();
+                state.setProxyCredentials(null, proxyHost, credentials);
+                responseCode = client.executeMethod(hostConfiguration, post);   
+            }
+            else {
+                // execute without proxy
+                responseCode = client.executeMethod(post);    
+            }
+            
+            if (responseCode == HttpStatus.SC_OK) {
+                InputStream isPost = post.getResponseBodyAsStream();
+                BufferedReader in = new BufferedReader(new InputStreamReader(isPost));
+                String inputLine = null;   
+                String tmsResponse = "";
+                while ((inputLine = in.readLine()) != null) {
+                    tmsResponse += inputLine;
+                }
+                in.close();     
+                if (! isStatusOK(tmsResponse)) {
+                    errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.connectionFailed");            
+                    errorMessage = buildXmlErrorMessage("", errorMessage, "");                 
+                }
+            }
+            else {
+                errorMessage = buildXmlErrorMessage("", HttpStatus.getStatusText(responseCode), ""); 
+            }        
+        } 
+        catch (UnknownHostException e) {
+            errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.unknownHostException");            
+            errorMessage = buildXmlErrorMessage("", errorMessage, ""); 
+        }
+        catch (Exception e) {
+            errorMessage = "There has been a communications failure: " + e.getMessage();
+            errorMessage = buildXmlErrorMessage("", errorMessage, ""); 
+        }
+        finally {
+            post.releaseConnection();
+        }  
+        return errorMessage;
     }
     
     public static void processContentKeys( String xml )throws Exception
@@ -599,13 +757,19 @@ public class ServletUtils {
         }
     }
     
-    public static byte[] readFromFile( File filePath ) throws Exception
+    public static byte[] readFromFile(File file)
     {
-	    BufferedInputStream aBufferedInputStream = new BufferedInputStream( new FileInputStream( filePath ) );
-        int size = aBufferedInputStream.available();
-        byte[] buffer = new byte[ size ];
-        aBufferedInputStream.read( buffer );
-        aBufferedInputStream.close();
+        byte[] buffer = null;
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            BufferedInputStream aBufferedInputStream = new BufferedInputStream(fis);
+            int size = aBufferedInputStream.available();
+            buffer = new byte[size];
+            aBufferedInputStream.read(buffer);
+            aBufferedInputStream.close();
+        } catch (Exception e) {
+            logger.error("Exception occured in readFromFile() : " + printStackTrace(e));
+        }
         return buffer;
     }
 	
@@ -690,7 +854,32 @@ public class ServletUtils {
         return elementList;*/
     }
     
-    public static String getStackTrace( Exception e ) 
+    public static long getChecksum(File file)
+    {
+        long value = -1L;
+        try {
+            byte[] fileContent = readFromFile(file);
+            if (fileContent != null) {
+                Adler32 adler = new Adler32();
+                adler.update(fileContent);
+                value = adler.getValue();
+            }
+        } catch (Exception e) {
+            logger.error("Exception occured in getChecksum() : " + printStackTrace(e));
+        }        
+        return value;
+    }
+
+    public static boolean isFileSizeTooBig(String fileName)
+    {
+        File file = new File(fileName);
+        long fileSize = file.length();
+        if (fileSize >= 200000)
+            return true;
+        return false;
+    }
+    
+    public static String printStackTrace( Exception e ) 
     {
         String result = null;
         try
@@ -705,6 +894,56 @@ public class ServletUtils {
         catch ( Exception e1 )
         {          
             result = "Nested Exception inside ServletUtils::getStackTrace";
+        }
+        return result;
+    }
+    
+    public static String buildPersistenceParameters(HttpServletRequest request, String method) {
+        String xml = null;
+        if (method != null) {
+            if (method.equals("login")) {
+                String user_name = request.getParameter("user_name");
+                String password = request.getParameter("password");
+                String access_code = request.getParameter("access_code");
+                if (user_name != null && password != null && access_code != null) {
+                    xml = "<tmssvc_request method=\"login\" xmlns=\"\">" +
+                        "<login_request user_name=\"" + user_name + "\" password=\"" + password + "\" access_code=\"" + access_code + "\" os_enum=\"Mac\" browser_agent_enum=\"MSIE\" user_agent_string=\"string\" sds_date_time=\"2013-11-23T06:44:07\" sds_id=\"string\" token=\"string\"/>" +
+                        "</tmssvc_request>";
+                }
+            }
+            else
+            if (method.equals("save")) {
+                String res = request.getParameter("response");
+                String lsid = request.getParameter("lsid");
+                String mseq = request.getParameter("mseq");
+                String itemId = request.getParameter("itemId");
+                if (res != null && lsid != null && mseq != null && itemId != null) {
+                    xml = "<adssvc_request method=\"save_testing_session_data\"><save_testing_session_data><tsd lsid=\"" + lsid + "\" scid=\"24009\" mseq=\"" + mseq + "\"><ist dur=\"2\" awd=\"1\" mrk=\"0\" iid=\"" + itemId + "\"><rv t=\"identifier\" n=\"RESPONSE\"><v>" + res + "</v></rv></ist></tsd></save_testing_session_data></adssvc_request>";            
+                }
+            }
+            else
+            if (method.equals("uploadAuditFile")) {
+                String file_name = request.getParameter("file_name");
+                if (file_name != null) {
+                    xml = "<adssvc_request method=\"save_testing_session_data\"><save_testing_session_data><tsd lsid=\"" + file_name + "\" scid=\"24009\" ><ist dur=\"2\" awd=\"1\" mrk=\"0\" iid=\"OKPT_SR.EOI.BIO.001\"></ist></tsd></save_testing_session_data></adssvc_request>";            
+                }
+            }
+        }
+        return xml;
+    }
+    
+    public static String buildLoadContentParameters(HttpServletRequest request, String method) {
+        String result = null;
+        if (method.equals("loadSubtest")) {
+            result = request.getParameter("itemSetIdParam");
+        }
+        else
+        if (method.equals("loadItem")) {
+            result = request.getParameter("itemIdParam");
+        }
+        else
+        if (method.equals("loadImage")) {
+            result = request.getParameter("imageIdParam");
         }
         return result;
     }

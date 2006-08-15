@@ -3,5 +3,4 @@
 <!DOCTYPE cross-domain-policy SYSTEM "http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd">
 <cross-domain-policy>
    <allow-access-from domain="oasdelivery.ctb.com" />
-   <allow-access-from domain="dagobah.mhe.mhc" />
 </cross-domain-policy>

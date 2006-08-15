@@ -14,7 +14,6 @@ package com.ctb.tdc.web.utils;
  */
 public class AssetInfo 
 {
-    public String ext;
     public byte[] data;
     public String mimeType;
     
@@ -25,7 +24,7 @@ public class AssetInfo
     
     public void setExt( String ext )
     {
-        String mimeType = "image/gif";
+        mimeType = "image/gif";
         if ( "swf".equals( ext ))
             mimeType = "application/x-shockwave-flash";
         if ( "gif".equals( ext ))

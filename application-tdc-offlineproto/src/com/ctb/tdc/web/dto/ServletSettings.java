@@ -1,5 +1,6 @@
 package com.ctb.tdc.web.dto;
 
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
@@ -9,7 +10,7 @@ public class ServletSettings implements java.io.Serializable {
     static final long serialVersionUID = 1L;
 
     private String tmsHost;
-    private String tmsPort;
+    private int tmsPort;
     private boolean tmsPersist;
     private boolean tmsAckRequired;
     private int tmsAckMaxLostMessage;
@@ -17,45 +18,55 @@ public class ServletSettings implements java.io.Serializable {
     private boolean tmsAuditUpload;
 
     private String proxyHost;
-    private String proxyPort;
+    private int proxyPort;
     private String proxyUserName;
     private String proxyPassword;
 
+    private boolean validSettings;
+    private String errorMessage;
+    
     public ServletSettings() {
         this.tmsHost = null;
-        this.tmsPort = null;
+        this.tmsPort = 0;
         this.tmsPersist = true;
         this.tmsAckRequired = true;
-        this.tmsAckMaxLostMessage = 1;
-        this.tmsAckMessageRetry = 1;
-        this.tmsAuditUpload = true;
+        this.tmsAckMaxLostMessage = 0;
+        this.tmsAckMessageRetry = 0;
+        this.tmsAuditUpload = false;
         this.proxyHost = null;
-        this.proxyPort = null;
+        this.proxyPort = 0;
         this.proxyUserName = null;
-        this.proxyPassword = null;        
+        this.proxyPassword = null;    
+        this.validSettings = false;
+        this.errorMessage = "";
     }
-    
+     
     public ServletSettings(ResourceBundle rb) {
-        this.tmsHost = rb.getString("tms.server.host");
-        this.tmsPort = rb.getString("tms.server.port");
-        this.tmsPersist = new Boolean(rb.getString("tms.server.persist")).booleanValue();
-        this.tmsAckRequired = new Boolean(rb.getString("tms.ack.required")).booleanValue();
-        this.tmsAckMaxLostMessage = new Integer(rb.getString("tms.ack.maxLostMessage")).intValue();
-        this.tmsAckMessageRetry = new Integer(rb.getString("tms.ack.messageRetry")).intValue();
-        this.tmsAuditUpload = new Boolean(rb.getString("tms.audit.upload")).booleanValue();
-        this.proxyHost = rb.getString("proxy.host");
-        this.proxyPort = rb.getString("proxy.port");
-        this.proxyUserName = rb.getString("proxy.username");
-        this.proxyPassword = rb.getString("proxy.password");       
+        this.validSettings = true;
+        this.errorMessage = "";
+
+        this.tmsHost = resourceBundleGetString(rb, "tms.server.host", false);
+        this.tmsPort = resourceBundleGetInt(rb, "tms.server.port");      
+        try {
+            this.tmsPersist = resourceBundleGetBoolean(rb, "tms.server.persist");
+        }
+        catch (MissingResourceException mre) {
+            this.tmsPersist = true;            
+        }
+        try {
+            this.tmsAckRequired = resourceBundleGetBoolean(rb, "tms.ack.required");
+        }
+        catch (MissingResourceException mre) {
+            this.tmsAckRequired = true;            
+        }
+        this.tmsAckMaxLostMessage = resourceBundleGetInt(rb, "tms.ack.maxLostMessage", 1, 10);        
+        this.tmsAckMessageRetry = resourceBundleGetInt(rb, "tms.ack.messageRetry", 0, 35);        
+        this.tmsAuditUpload = resourceBundleGetBoolean(rb, "tms.audit.upload");
         
-        // make sure settings make sense
-        if (! this.tmsPersist) {
-            this.tmsAckRequired = false;
-            this.tmsAuditUpload = true;
-        }
-        if (this.tmsAckRequired && (this.tmsAckMaxLostMessage <= 0)) {
-            this.tmsAckMaxLostMessage = 1;
-        }
+        this.proxyHost = resourceBundleGetString(rb, "proxy.host", true);
+        this.proxyPort = resourceBundleGetInt(rb, "proxy.port");        
+        this.proxyUserName = resourceBundleGetString(rb, "proxy.username", true);
+        this.proxyPassword = resourceBundleGetString(rb, "proxy.password", true);
     }
 
     public String getProxyHost() {
@@ -74,11 +85,11 @@ public class ServletSettings implements java.io.Serializable {
         this.proxyPassword = proxyPassword;
     }
 
-    public String getProxyPort() {
+    public int getProxyPort() {
         return proxyPort;
     }
 
-    public void setProxyPort(String proxyPort) {
+    public void setProxyPort(int proxyPort) {
         this.proxyPort = proxyPort;
     }
 
@@ -138,25 +149,110 @@ public class ServletSettings implements java.io.Serializable {
         this.tmsPersist = tmsPersist;
     }
 
-    public String getTmsPort() {
+    public int getTmsPort() {
         return tmsPort;
     }
 
-    public void setTmsPort(String tmsPort) {
+    public void setTmsPort(int tmsPort) {
         this.tmsPort = tmsPort;
     }
     
     public String getTmsHostPort() {
-        if ((tmsPort != null) && (tmsPort.trim().length() > 0))
+        if (tmsPort > 0)
             return (tmsHost + ":" + tmsPort);
         else
             return tmsHost;
     }
     
     public String getProxyHostPort() {
-        if ((proxyPort != null) && (proxyPort.trim().length() > 0))
+        if (proxyPort > 0)
             return (proxyHost + ":" + proxyPort);
         else
             return proxyHost;
+    }
+
+    public boolean isValidSettings() {
+        return validSettings;
+    }
+
+    public void setValidSettings(boolean validSettings) {
+        this.validSettings = validSettings;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+    
+    private String resourceBundleGetString(ResourceBundle rb, String name, boolean allowEmpty) {
+        String str = rb.getString(name).trim();
+        if ((str.length() == 0) && (!allowEmpty)) {
+            this.validSettings = false;
+            this.errorMessage = buildErrorMessage(name, "tdc.servletSetting.error.cannotBeBlank");
+        }
+        return str;
+    }
+ 
+    private int resourceBundleGetInt(ResourceBundle rb, String name, int min, int max) {
+        int value = -1;
+        String str = rb.getString(name).trim();
+        try {        
+            value = new Integer(str).intValue();
+            if ((value < min) || (value > max)) {
+                this.validSettings = false;                
+                String errStr = buildErrorMessage(name, "tdc.servletSetting.error.outOfRange");
+                this.errorMessage = errStr + " " + String.valueOf(min) + " - " + String.valueOf(max); 
+            }
+        } catch (Exception e) { 
+            this.validSettings = false;
+            this.errorMessage = buildErrorMessage(name, "tdc.servletSetting.error.invalidInteger");
+        }        
+        return value;
+    }
+
+    private int resourceBundleGetInt(ResourceBundle rb, String name) {
+        int value = -1;
+        String str = rb.getString(name).trim();
+        try {    
+            if (str.length() > 0) {
+                value = new Integer(str).intValue();
+            }
+        } catch (Exception e) { 
+            this.validSettings = false;
+            this.errorMessage = buildErrorMessage(name, "tdc.servletSetting.error.invalidInteger");
+        }        
+        return value;
+    }
+    
+    private boolean resourceBundleGetBoolean(ResourceBundle rb, String name) {
+        boolean value = false;
+        String str = rb.getString(name).trim();
+        if (str.length() > 0) {
+            str = str.toLowerCase();
+            if (str.equals("true")) 
+                value = true;
+            else
+            if (str.equals("false")) 
+                value = false;
+            else {
+                this.validSettings = false;
+                this.errorMessage = buildErrorMessage(name, "tdc.servletSetting.error.invalidBoolean");
+            }
+        }
+        else {
+            this.validSettings = false;
+            this.errorMessage = buildErrorMessage(name, "tdc.servletSetting.error.cannotBeBlank");
+        }
+        return value;
+    }
+    
+    private String buildErrorMessage(String name, String error) {
+        ResourceBundle rb = ResourceBundle.getBundle("tdcResources");
+        String commonText = rb.getString("tdc.servletSetting.error.commonText");
+        String errStr = rb.getString(error);        
+        return (commonText + name + errStr);
     }
 }

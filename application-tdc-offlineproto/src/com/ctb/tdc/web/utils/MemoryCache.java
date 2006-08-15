@@ -7,7 +7,7 @@ import org.jdom.input.SAXBuilder;
 
 import com.ctb.tdc.web.dto.ServletSettings;
 import com.ctb.tdc.web.dto.StateVO;
-
+ 
 /**
  * @author Tai_Truong
  */
@@ -21,6 +21,7 @@ public class MemoryCache {
     private HashMap assetMap;
     public SAXBuilder saxBuilder;
     private boolean loaded = false;
+    private HashMap imageMap;
 
     
     private MemoryCache() {
@@ -30,6 +31,7 @@ public class MemoryCache {
         this.srvSettings = new ServletSettings();
         clearContent();
         saxBuilder = new SAXBuilder();
+        this.imageMap = new HashMap();
     }
 
     public static MemoryCache getInstance() {
@@ -63,6 +65,14 @@ public class MemoryCache {
     public void setLoaded(boolean loaded) {
         this.loaded = loaded;
     }
+
+    public HashMap getImageMap() {
+        return imageMap;
+    }
+
+    public void setImageMap(HashMap imageMap) {
+        this.imageMap = imageMap;
+    }
     
     public StateVO setPendingState(String lsid, String mseq) {
         StateVO state = null;
@@ -78,17 +88,19 @@ public class MemoryCache {
     }
 
     public void setAcknowledgeState(StateVO state) {
-        if (this.srvSettings.isTmsAckRequired() && (state != null))
-            state.setState(StateVO.ACTKNOWLEDGE_STATE);        
+        if ((state != null) && this.srvSettings.isTmsAckRequired()) {
+            state.setState(StateVO.ACTKNOWLEDGE_STATE);
+        }
     }
     
     public void removeAcknowledgeStates(String lsid) {        
         ArrayList states = (ArrayList)this.stateMap.get(lsid);
         if (states != null) {
-            for (int i=0 ; i<states.size() ; i++) {
+            for (int i=states.size()-1 ; i>=0 ; i--) { 
                 StateVO state = (StateVO)states.get(i);
-                if (state.getState().equals(StateVO.ACTKNOWLEDGE_STATE))
-                    states.remove(i);                   
+                if (state.getState().equals(StateVO.ACTKNOWLEDGE_STATE)) {
+                    states.remove(i);
+                }
             }
         }
     }
