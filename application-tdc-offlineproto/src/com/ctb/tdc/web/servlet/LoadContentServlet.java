@@ -1,5 +1,6 @@
 package com.ctb.tdc.web.servlet;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,7 +8,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -428,14 +428,19 @@ public class LoadContentServlet extends HttpServlet {
         byte[] buffer;
     }
     
-    public ArrayList getFileContent( String fileName ) throws IOException
+    public ArrayList getFileContent( String fileName, HttpServletResponse response
+                                        , String mimeType ) throws IOException
     {
         if (! isFileInTempDir( fileName ))
             return null;
-        
         int EACH_READ_SIZE = 5000;
         ArrayList buffers = new ArrayList();
-        FileInputStream inputStream = new FileInputStream( new File( fileName ) );
+        File imageFile = new File( fileName );
+        int imageSize = ( int )imageFile.length();
+        response.setContentType( mimeType );
+        response.setContentLength( imageSize );
+        ServletOutputStream myOutput = response.getOutputStream();
+        FileInputStream inputStream = new FileInputStream( imageFile );
         byte[] buffer = new byte[ EACH_READ_SIZE ];
         int readSize;
         boolean done = false;
@@ -451,12 +456,45 @@ public class LoadContentServlet extends HttpServlet {
                 aImageContentPiece.buffer = buffer;
                 buffer = new byte[ EACH_READ_SIZE ];
                 buffers.add( aImageContentPiece );
+                myOutput.write( aImageContentPiece.buffer, 0, aImageContentPiece.size );
             }
         }
         inputStream.close();
+        myOutput.flush();
+        myOutput.close();
         return buffers;
     }
-    
+   
+  /*  public ArrayList getFileContent( String fileName ) throws IOException
+    {
+        if (! isFileInTempDir( fileName ))
+            return null;
+        
+        File imageFile = new File( fileName );
+        int imageSize = ( int )imageFile.length();
+        ArrayList buffers = new ArrayList();
+        byte[] buffer = new byte[ imageSize ];
+        BufferedInputStream inputStream = new BufferedInputStream( new FileInputStream( new File( fileName ) ) );
+        int readSize;
+        int totalRead = 0;
+        boolean done = false;
+        while( !done )
+        {
+            readSize = inputStream.read( buffer, totalRead, imageSize - totalRead );
+            totalRead += readSize;
+            if ( totalRead >= imageSize )
+                done = true;
+            else
+                System.out.println( "Reading " + fileName );
+        }
+        ImageContentPiece aImageContentPiece = new ImageContentPiece();
+        aImageContentPiece.size = imageSize;
+        aImageContentPiece.buffer = buffer;
+        buffers.add( aImageContentPiece );
+        inputStream.close();
+        return buffers;
+    }
+    */
     public boolean isFileInTempDir( String fileName ) throws IOException
     {
         File file1 = new File( fileName );
@@ -478,9 +516,9 @@ public class LoadContentServlet extends HttpServlet {
         if ( imageReady( fileName ) ) {
             String mimeType = getMimeType( fileName );
             if ( mimeType != null ) {
-                ArrayList buffers = getFileContent( fileName );
+                ArrayList buffers = getFileContent( fileName, response, mimeType );
                 if (buffers != null) {
-                    writeToResponse( response, buffers, mimeType );
+              //      writeToResponse( response, buffers, mimeType );
                     setCachedImage( fileName, buffers, mimeType ); 
                     deleteImageFile( fileName );
                 }

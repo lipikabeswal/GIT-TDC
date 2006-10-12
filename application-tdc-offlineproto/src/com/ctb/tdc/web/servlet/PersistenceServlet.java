@@ -29,7 +29,7 @@ import com.ctb.tdc.web.dto.StateVO;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.ServletUtils;
-
+ 
 /**
  * @author Tai_Truong
  * 
@@ -129,7 +129,7 @@ public class PersistenceServlet extends HttpServlet {
             result = ServletUtils.getServletSettingsErrorMessage();
         else if (method.equals(ServletUtils.VERIFY_SETTINGS_METHOD))
         {
-            result = waitForQueueToBeClear( response );
+            result = waitForQueueToBeClear();
             if ( result == null )
                 result = verifyServletSettings();
         }
@@ -346,6 +346,12 @@ public class PersistenceServlet extends HttpServlet {
         String result = ServletUtils.ERROR;
         String errorMessage = null;
         
+        // make sure the queue is empty before upload audit file
+        String checkQueueClear = waitForQueueToBeClear();
+        if (checkQueueClear != null) {
+            return checkQueueClear;
+        }
+        
         MemoryCache memoryCache = MemoryCache.getInstance();
         if (memoryCache.getSrvSettings().isTmsAuditUpload()) {
             // get the audit file to upload
@@ -483,7 +489,7 @@ public class PersistenceServlet extends HttpServlet {
         return pendingState;
     }
 
-    public String waitForQueueToBeClear( HttpServletResponse response )
+    public String waitForQueueToBeClear()
     {
         String errorMsg = null;
         MemoryCache memoryCache = MemoryCache.getInstance();

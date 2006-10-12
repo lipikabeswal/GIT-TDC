@@ -701,7 +701,13 @@ public class ServletUtils {
                 }
             }
             else {
-                errorMessage = buildXmlErrorMessage("", HttpStatus.getStatusText(responseCode), ""); 
+                if (responseCode == HttpStatus.SC_NOT_FOUND) {
+                    errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.unknownHostException");            
+                    errorMessage = buildXmlErrorMessage("", errorMessage, "");                     
+                }
+                else {
+                    errorMessage = buildXmlErrorMessage("", HttpStatus.getStatusText(responseCode), "");
+                }
             }        
         } 
         catch (UnknownHostException e) {

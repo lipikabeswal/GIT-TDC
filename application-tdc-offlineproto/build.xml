@@ -1,10 +1,11 @@
 <project name="application-tdc" default="usage" basedir=".">
 	
-	<property name="project.src"        value="${basedir}/src" />
-	<property name="project.dist"       value="${basedir}/dist" />
-	<property name="project.tdc.home"   value="${project.dist}"/>
-	<property name="project.jetty.home" value="${project.tdc.home}/servletcontainer/jetty-5.1.11RC0"/>
-	<property name="project.test.dir"   value="../test-application" />
+	<property name="project.src"           value="${basedir}/src" />
+	<property name="project.dist"          value="${basedir}/dist" />
+	<property name="project.tdc.home"      value="${project.dist}"/>
+	<property name="project.tdc.configZip" value="tdcConfig.zip" />
+	<property name="project.jetty.home"    value="${project.tdc.home}/servletcontainer/jetty-5.1.11RC0"/>
+	<property name="project.test.dir"      value="../test-application" />
 	
 	
 	
@@ -102,6 +103,32 @@
 		<!-- -->
 	</target>
 
+	
+	
+
+	<!-- TASK: distTdcConfig ...............................................-->
+	<target name="distTdcConfig" description="Creates the downloadable zip file for client side configuration.">
+		<delete file="${project.tdc.configZip}" />
+		<zip destfile="${project.tdc.configZip}" basedir="${project.dist}" excludes="**/*">
+			<fileset dir="${project.dist}">
+				<include name="lockdownbrowser/pc/LockdownBrowser.ini"/>
+				<include name="webapp/crossdomain.xml"/>
+			</fileset>
+		</zip>
+		<move file="${project.tdc.configZip}" todir="${project.dist}" />
+	</target>
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
