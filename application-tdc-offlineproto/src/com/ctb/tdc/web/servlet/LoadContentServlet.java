@@ -1,6 +1,5 @@
 package com.ctb.tdc.web.servlet;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -411,13 +410,14 @@ public class LoadContentServlet extends HttpServlet {
                 tryCount++;
                 if ( !ready )
                 {
-                    System.out.println( "** Image not there, " + tryCount + "try: " + fileName );
+                    logger.info("file does not exists - " + fileName + "try count=" + tryCount);
                     Thread.sleep( 1000 );
                 }
             }
         }
         catch( Exception e )
         {
+            logger.info("exception threw in imageReady()");
         }
         return ready;
     }
@@ -518,7 +518,6 @@ public class LoadContentServlet extends HttpServlet {
             if ( mimeType != null ) {
                 ArrayList buffers = getFileContent( fileName, response, mimeType );
                 if (buffers != null) {
-              //      writeToResponse( response, buffers, mimeType );
                     setCachedImage( fileName, buffers, mimeType ); 
                     deleteImageFile( fileName );
                 }
@@ -609,4 +608,12 @@ public class LoadContentServlet extends HttpServlet {
         myOutput.flush();
         myOutput.close();
     }
+    
+    private boolean isMacOS() {
+        String os = System.getProperty("os.name");
+        if (os == null) 
+            os = "";
+        return ( os.toLowerCase().indexOf("mac") != -1 );
+    }
+    
 }

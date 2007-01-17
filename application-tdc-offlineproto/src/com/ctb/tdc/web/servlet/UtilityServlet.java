@@ -102,12 +102,13 @@ public class UtilityServlet extends HttpServlet {
 	public void init() throws ServletException {
 		// do nothing
 	}
-
+  
     private void servletSetting(HttpServletRequest request) {
 
         MemoryCache memoryCache = MemoryCache.getInstance();
-        ResourceBundle rb = ResourceBundle.getBundle(ServletUtils.SERVLET_NAME);
-        ServletSettings srvSettings = new ServletSettings(rb);
+        ResourceBundle rbTdc = ResourceBundle.getBundle(ServletUtils.SERVLET_NAME);
+        ResourceBundle rbProxy = ResourceBundle.getBundle(ServletUtils.PROXY_NAME);
+        ServletSettings srvSettings = new ServletSettings(rbTdc, rbProxy);
 
         String tmsPersist = request.getParameter("tmsPersist");
         if (tmsPersist != null) {

@@ -24,8 +24,44 @@ public class ServletSettings implements java.io.Serializable {
 
     private boolean validSettings;
     private String errorMessage;
-    
+
     public ServletSettings() {
+        init();
+    }
+    
+    public ServletSettings(ResourceBundle rbTdc, ResourceBundle rbProxy) {
+        
+        init();
+        
+        if (rbTdc != null) {
+            this.tmsHost = resourceBundleGetString(rbTdc, "tms.server.host", false);
+            this.tmsPort = resourceBundleGetInt(rbTdc, "tms.server.port");      
+            try {
+                this.tmsPersist = resourceBundleGetBoolean(rbTdc, "tms.server.persist");
+            }
+            catch (MissingResourceException mre) {
+                this.tmsPersist = true;            
+            }
+            try {
+                this.tmsAckRequired = resourceBundleGetBoolean(rbTdc, "tms.ack.required");
+            }
+            catch (MissingResourceException mre) {
+                this.tmsAckRequired = true;            
+            }
+            this.tmsAckMaxLostMessage = resourceBundleGetInt(rbTdc, "tms.ack.maxLostMessage", 1, 10);        
+            this.tmsAckMessageRetry = resourceBundleGetInt(rbTdc, "tms.ack.messageRetry", 0, 35);        
+            this.tmsAuditUpload = resourceBundleGetBoolean(rbTdc, "tms.audit.upload");
+        }
+        
+        if (rbProxy != null) {
+            this.proxyHost = resourceBundleGetString(rbProxy, "proxy.host", true);
+            this.proxyPort = resourceBundleGetInt(rbProxy, "proxy.port");        
+            this.proxyUserName = resourceBundleGetString(rbProxy, "proxy.username", true);
+            this.proxyPassword = resourceBundleGetString(rbProxy, "proxy.password", true);
+        }
+    }
+
+    private void init() {
         this.tmsHost = null;
         this.tmsPort = 0;
         this.tmsPersist = true;
@@ -37,38 +73,10 @@ public class ServletSettings implements java.io.Serializable {
         this.proxyPort = 0;
         this.proxyUserName = null;
         this.proxyPassword = null;    
-        this.validSettings = false;
-        this.errorMessage = "";
-    }
-     
-    public ServletSettings(ResourceBundle rb) {
         this.validSettings = true;
         this.errorMessage = "";
-
-        this.tmsHost = resourceBundleGetString(rb, "tms.server.host", false);
-        this.tmsPort = resourceBundleGetInt(rb, "tms.server.port");      
-        try {
-            this.tmsPersist = resourceBundleGetBoolean(rb, "tms.server.persist");
-        }
-        catch (MissingResourceException mre) {
-            this.tmsPersist = true;            
-        }
-        try {
-            this.tmsAckRequired = resourceBundleGetBoolean(rb, "tms.ack.required");
-        }
-        catch (MissingResourceException mre) {
-            this.tmsAckRequired = true;            
-        }
-        this.tmsAckMaxLostMessage = resourceBundleGetInt(rb, "tms.ack.maxLostMessage", 1, 10);        
-        this.tmsAckMessageRetry = resourceBundleGetInt(rb, "tms.ack.messageRetry", 0, 35);        
-        this.tmsAuditUpload = resourceBundleGetBoolean(rb, "tms.audit.upload");
-        
-        this.proxyHost = resourceBundleGetString(rb, "proxy.host", true);
-        this.proxyPort = resourceBundleGetInt(rb, "proxy.port");        
-        this.proxyUserName = resourceBundleGetString(rb, "proxy.username", true);
-        this.proxyPassword = resourceBundleGetString(rb, "proxy.password", true);
     }
-
+         
     public String getProxyHost() {
         return proxyHost;
     }

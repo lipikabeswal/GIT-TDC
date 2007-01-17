@@ -1,5 +1,5 @@
 package com.ctb.tdc.web.utils;
-
+  
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.zip.Adler32;
@@ -35,7 +36,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.log4j.Logger;
 import org.jdom.Element;
-
+  
 import com.ctb.tdc.web.dto.AuditVO;
 import com.ctb.tdc.web.dto.ServletSettings;
 import com.ctb.tdc.web.dto.SubtestKeyVO;
@@ -51,6 +52,7 @@ import com.ctb.tdc.web.dto.SubtestKeyVO;
  */
 public class ServletUtils {
     public static final String SERVLET_NAME = "tdc";
+    public static final String PROXY_NAME = "proxy";
     static Logger logger = Logger.getLogger(ServletUtils.class);
 
     // url for servlet and tms actions
@@ -302,17 +304,26 @@ public class ServletUtils {
     public static boolean validateServletSettings() {
         ServletSettings srvSettings = null;
         MemoryCache memoryCache = MemoryCache.getInstance();
+        ResourceBundle rbTdc = null;
+        ResourceBundle rbProxy = null;
         if (! memoryCache.isLoaded()) {
-            ResourceBundle rb = ResourceBundle.getBundle(SERVLET_NAME);
-            srvSettings = new ServletSettings(rb);
-            memoryCache.setSrvSettings(srvSettings);
-            memoryCache.setStateMap(new HashMap());        
-            memoryCache.setLoaded(true);
-        }
+            try {            
+                rbTdc = ResourceBundle.getBundle(SERVLET_NAME);
+                rbProxy = ResourceBundle.getBundle(PROXY_NAME);
+                srvSettings = new ServletSettings(rbTdc, rbProxy);
+                memoryCache.setSrvSettings(srvSettings);
+                memoryCache.setStateMap(new HashMap());        
+                memoryCache.setLoaded(true);
+            }
+            catch (MissingResourceException e) {
+                logger.error("Exception occured in validateServletSettings() : " + printStackTrace(e));
+                return false;
+            }            
+        } 
         srvSettings = memoryCache.getSrvSettings();
         return srvSettings.isValidSettings();
-    }
-
+    } 
+  
      /**
      * getServletSettingsErrorMessage
      * 
@@ -602,6 +613,7 @@ public class ServletUtils {
                 // execute with proxy settings
                 HostConfiguration hostConfiguration = client.getHostConfiguration();
                 int proxyPort = getProxyPort();
+System.out.println("proxyHost = " + proxyHost + "\nproxyPort = " + proxyPort);                
                 hostConfiguration.setProxy(proxyHost, proxyPort);            
                 String username = getProxyUserName();
                 String password = getProxyPassword();            
@@ -614,6 +626,7 @@ public class ServletUtils {
                 // execute without proxy
                 responseCode = client.executeMethod(post);    
             }
+System.out.println("responseCode = " + responseCode);                
             
             if (responseCode == HttpStatus.SC_OK) {
                 InputStream isPost = post.getResponseBodyAsStream();
@@ -673,6 +686,7 @@ public class ServletUtils {
                 // execute with proxy settings
                 HostConfiguration hostConfiguration = client.getHostConfiguration();
                 int proxyPort = getProxyPort();
+System.out.println("proxyHost = " + proxyHost + "\nproxyPort = " + proxyPort);                
                 hostConfiguration.setProxy(proxyHost, proxyPort);            
                 String username = getProxyUserName();
                 String password = getProxyPassword();            
@@ -685,6 +699,7 @@ public class ServletUtils {
                 // execute without proxy
                 responseCode = client.executeMethod(post);    
             }
+System.out.println("responseCode = " + responseCode);                
             
             if (responseCode == HttpStatus.SC_OK) {
                 InputStream isPost = post.getResponseBodyAsStream();

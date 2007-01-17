@@ -24,11 +24,18 @@
 	
 	<!-- TASK: distForDev ..................................................-->
 	<target name="distForDev" depends="dist" description="Creates distribution package with dev settings.">
+		<replace file="${project.dist}/lockdownbrowser/mac/LDB Settings.plst">
+			<replacetoken><![CDATA[https://oasdelivery.ctb.com/SDSSvc/login.html]]></replacetoken>
+			<replacevalue><![CDATA[https://oasdevdelivery.ctb.com:8443/SDSSvc/login.html]]></replacevalue>
+		</replace>
+		<replace file="${project.dist}/lockdownbrowser/pc/LockdownBrowser.ini">
+			<replacetoken><![CDATA[https://oasdelivery.ctb.com/SDSSvc/login.html]]></replacetoken>
+			<replacevalue><![CDATA[https://oasdevdelivery.ctb.com:8443/SDSSvc/login.html]]></replacevalue>
+		</replace>
 		<replace file="${project.dist}/webapp/crossdomain.xml">
 			<replacetoken><![CDATA[<allow-access-from domain="oasdelivery.ctb.com" />]]></replacetoken>
-			<replacevalue><![CDATA[<allow-access-from domain="dagobah.mhe.mhc" />]]></replacevalue>
+			<replacevalue><![CDATA[<allow-access-from domain="oasdevdelivery.ctb.com" />]]></replacevalue>
 		</replace>
-
 		<replace file="${project.dist}/webapp/WEB-INF/classes/tdc.properties">
 			<replacetoken><![CDATA[tms.server.host=https://oas.ctb.com]]></replacetoken>
 			<replacevalue><![CDATA[tms.server.host=http://dagobah.mhe.mhc]]></replacevalue>
@@ -39,22 +46,72 @@
 		</replace>
 	</target>
 	
-	<!-- TASK: distForQA ..................................................-->
-	<target name="distForQA" depends="dist" description="Creates distribution package with oastest1 settings.">
+	<!-- TASK: distForDev2 ..................................................-->
+	<target name="distForDev2" depends="dist" description="Creates distribution package with dev settings.">
+		<replace file="${project.dist}/lockdownbrowser/mac/LDB Settings.plst">
+			<replacetoken><![CDATA[https://oasdelivery.ctb.com/SDSSvc/login.html]]></replacetoken>
+			<replacevalue><![CDATA[http://dagobah.mhe.mhc:8180/SDSSvc/login.html]]></replacevalue>
+		</replace>
+		<replace file="${project.dist}/lockdownbrowser/pc/LockdownBrowser.ini">
+			<replacetoken><![CDATA[https://oasdelivery.ctb.com/SDSSvc/login.html]]></replacetoken>
+			<replacevalue><![CDATA[http://dagobah.mhe.mhc:8180/SDSSvc/login.html]]></replacevalue>
+		</replace>
 		<replace file="${project.dist}/webapp/crossdomain.xml">
 			<replacetoken><![CDATA[<allow-access-from domain="oasdelivery.ctb.com" />]]></replacetoken>
-			<replacevalue><![CDATA[<allow-access-from domain="oastest1delivery.ctb.com" />]]></replacevalue>
+			<replacevalue><![CDATA[<allow-access-from domain="dagobah.mhe.mhc" />]]></replacevalue>
 		</replace>
+		<replace file="${project.dist}/webapp/WEB-INF/classes/tdc.properties">
+			<replacetoken><![CDATA[tms.server.host=https://oas.ctb.com]]></replacetoken>
+			<replacevalue><![CDATA[tms.server.host=http://dagobah.mhe.mhc]]></replacevalue>
+		</replace>
+		<replace file="${project.dist}/webapp/WEB-INF/classes/tdc.properties">
+			<replacetoken><![CDATA[tms.server.port=443]]></replacetoken>
+			<replacevalue><![CDATA[tms.server.port=8001]]></replacevalue>
+		</replace>
+	</target>
 
+	<!-- TASK: distForQA1 ..................................................-->
+	<target name="distForQA1" depends="dist" description="Creates distribution package with dev settings.">
+		<replace file="${project.dist}/lockdownbrowser/mac/LDB Settings.plst">
+			<replacetoken><![CDATA[https://oasdelivery.ctb.com/SDSSvc/login.html]]></replacetoken>
+			<replacevalue><![CDATA[https://oastest1sds.ctb.com:8443/SDSSvc/login.html]]></replacevalue>
+		</replace>
+		<replace file="${project.dist}/lockdownbrowser/pc/LockdownBrowser.ini">
+			<replacetoken><![CDATA[https://oasdelivery.ctb.com/SDSSvc/login.html]]></replacetoken>
+			<replacevalue><![CDATA[https://oastest1sds.ctb.com:8443/SDSSvc/login.html]]></replacevalue>
+		</replace>
+		<replace file="${project.dist}/webapp/crossdomain.xml">
+			<replacetoken><![CDATA[<allow-access-from domain="oasdelivery.ctb.com" />]]></replacetoken>
+			<replacevalue><![CDATA[<allow-access-from domain="oastest1sds.ctb.com" />]]></replacevalue>
+		</replace>
 		<replace file="${project.dist}/webapp/WEB-INF/classes/tdc.properties">
 			<replacetoken><![CDATA[tms.server.host=https://oas.ctb.com]]></replacetoken>
 			<replacevalue><![CDATA[tms.server.host=https://oastest1.ctb.com]]></replacevalue>
 		</replace>
+	</target>
+	
+	<!-- TASK: distForQA2 ..................................................-->
+	<target name="distForQA2" depends="dist" description="Creates distribution package with dev settings.">
+		<replace file="${project.dist}/lockdownbrowser/mac/LDB Settings.plst">
+			<replacetoken><![CDATA[https://oasdelivery.ctb.com/SDSSvc/login.html]]></replacetoken>
+			<replacevalue><![CDATA[https://oastest1delivery.ctb.com:8443/SDSSvc/login.html]]></replacevalue>
+		</replace>
+		<replace file="${project.dist}/lockdownbrowser/pc/LockdownBrowser.ini">
+			<replacetoken><![CDATA[https://oasdelivery.ctb.com/SDSSvc/login.html]]></replacetoken>
+			<replacevalue><![CDATA[https://oastest1delivery.ctb.com:8443/SDSSvc/login.html]]></replacevalue>
+		</replace>
+		<replace file="${project.dist}/webapp/crossdomain.xml">
+			<replacetoken><![CDATA[<allow-access-from domain="oasdelivery.ctb.com" />]]></replacetoken>
+			<replacevalue><![CDATA[<allow-access-from domain="oastest1delivery.ctb.com" />]]></replacevalue>
+		</replace>
 		<replace file="${project.dist}/webapp/WEB-INF/classes/tdc.properties">
-			<replacetoken><![CDATA[tms.server.port=443]]></replacetoken>
-			<replacevalue><![CDATA[tms.server.port=443]]></replacevalue>
+			<replacetoken><![CDATA[tms.server.host=https://oas.ctb.com]]></replacetoken>
+			<replacevalue><![CDATA[tms.server.host=https://oastest1.ctb.com]]></replacevalue>
 		</replace>
 	</target>
+	
+	
+	
 	
 	
 	
@@ -113,6 +170,10 @@
 			<fileset dir="${project.dist}">
 				<include name="lockdownbrowser/pc/LockdownBrowser.ini"/>
 				<include name="webapp/crossdomain.xml"/>
+				<include name="webapp/WEB-INF/classes/tdc.properties"/>
+			</fileset>
+			<fileset dir="${project.dist}/lockdownbrowser/mac/">
+				<include name="LDB Settings.plst"/>
 			</fileset>
 		</zip>
 		<move file="${project.tdc.configZip}" todir="${project.dist}" />
@@ -208,10 +269,15 @@
 			</fileset>
 		</copy>
 
+		<copy todir="${project.dist}/etc" overwrite="true">
+			<fileset dir="etc">
+				<include name="**/*.properties" />
+			</fileset>
+		</copy>
+
 		<copy todir="${project.dist}/lockdownbrowser" overwrite="true">
 			<fileset dir="lockdownbrowser">
 				<exclude name="**/*.doc" />
-				<exclude name="**/mac/ObjectCode/**" />
 			</fileset>
 		</copy>
 
@@ -240,6 +306,7 @@
 				<exclude name="test.html" />
 			</fileset>
 		</copy>
+		
 	</target>
 
 	
