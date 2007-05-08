@@ -1,0 +1,82 @@
+<library>
+
+    <class name="PanelTab" 
+           width="${this.bg.width}" height="${this.bg.height}">
+
+        <attribute name="selman"/>
+        <attribute name="theframe" value="1"/>
+        
+        <view name="bg" width="${classroot.thetitle.width + 20}"
+              height="${classroot.thetitle.height + 10}">
+            <stableborderlayout axis="x"/>
+            <view name="left" resource="tab_left" 
+                  stretches="height" height="100%">
+                <attribute name="frame" value="${classroot.theframe}"/>
+            </view>
+            <view name="middle" resource="tab_mid" 
+                  stretches="both" height="100%">
+                <attribute name="frame" value="${classroot.theframe}"/>
+            </view>
+            <view name="right" resource="tab_right" 
+                  stretches="height" height="100%">
+                <attribute name="frame" value="${classroot.theframe}"/>
+            </view>
+        </view>
+
+        <method event="oninit">
+            if (classroot.selman.isSelected (this)) {
+				this.bg.setColorTransform ({ab: 0, aa: 100, 
+                                            bb: 27, ba: 100, 
+                                            gb: 0, ga: 93, 
+                                            rb: 0, ra: 34});
+                this.thetitle.setAttribute ('y', (this.height - this.thetitle.height)/2 + this.height/10);
+            } else {
+                this.thetitle.setAttribute ('y', (this.height - this.thetitle.height)/2 + this.height/5);
+            }
+        </method>
+
+        <method event="onclick">
+            this.selman.select (this);
+            gController.saveSelectedTab(this.clonenumber + 1);
+        </method>
+        
+        <method event="onmouseover">
+            if (this.theframe == 1 ) {
+                this.setAttribute ('theframe', 2);
+            }
+        </method>
+
+        <method event="onmouseout">
+            if (this.theframe == 2 ) {
+                this.setAttribute ('theframe', 1);
+            }
+        </method>
+
+        <method name="setSelected" args="issel">
+            if (issel) {
+                this.setAttribute ('theframe', 3);
+                this.bringToFront ();
+                if (this ['thetitle']) {
+    				this.bg.setColorTransform ({ab: 0, aa: 100, 
+                                                bb: 27, ba: 100, 
+                                                gb: 0, ga: 93, 
+                                                rb: 0, ra: 34});
+                    this.thetitle.setAttribute ('y', (this.height - this.thetitle.height)/2 + this.height/10);
+                }
+            } else {
+                this.setAttribute ('theframe', 1);
+				this.bg.setColorTransform ({ab: 0, aa: 100, 
+                                            bb: 0, ba: 100, 
+                                            gb: 0, ga: 100, 
+                                            rb: 0, ra: 100}); 
+                if (this ['thetitle']) {
+                    this.thetitle.setAttribute ('y', (this.height - this.thetitle.height)/2 + this.height/5);
+                }
+            }
+        </method>
+
+        <text name="thetitle" datapath="@title" resize="true" align="center"/>
+
+    </class>
+
+</library>

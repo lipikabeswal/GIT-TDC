@@ -1,0 +1,99 @@
+<library>
+
+	<include href="ExitButton.lzx"/>
+
+    <class name="ErrorScreen">
+		<attribute name="DEFAULT_ERROR_HEADER"  type="string" value="There is a problem between the server and this computer." />
+		<attribute name="DEFAULT_ERROR_MESSAGE" type="string" value="Ask the person in charge of this test to close this window. Log in again in five minutes, and you will return to your last saved answer." />
+		<attribute name="DEFAULT_ERROR_CODE"    type="string" value="TDC556" />
+		<attribute name="FEEDBACK_ERROR_HEADER"  type="string" value="There has been a break in service." />
+		<attribute name="FEEDBACK_ERROR_MESSAGE" type="string" value="We have saved your responses and closed your test. You cannot log into this test session again. Talk to your proctor about getting your scores." />
+		<attribute name="FEEDBACK_ERROR_CODE"    type="string" value="null" />
+		<attribute name="dp" value="$once{new LzDatapointer()}" />
+		<method name="showError" args="xml"><![CDATA[
+Debug.write("ErrorScreen.showError");
+printBigString(xml);
+			if(xml != null){
+				var node = LzDataNode.stringToLzData(xml);
+Debug.write("node name: " + node.nodeName);
+printBigString(node.serialize());
+				if(node.nodeName == "ERROR"){
+					dp.setPointer(node);
+Debug.write("dp:");
+printBigString(dp.serialize());
+					var h = dp.xpathQuery("HEADER/text()");
+					var f = dp.xpathQuery("MESSAGE/text()");
+					var e = dp.xpathQuery("CODE/text()");
+Debug.write("got : " + h + " , " + f + " , " + e);
+					if( h!= null || f != null || e != null){
+						_showError(h, f, e);
+					}
+					else{
+Debug.write("all null");
+						_showDefaultError();
+					}
+				}
+				else{
+					_showDefaultError();
+				}
+			}
+			else{
+Debug.write("xml null - show default error");
+				_showDefaultError();
+			}
+				
+		]]></method>
+		
+		<method name="_showDefaultError">
+			if(gScreens.isOnFeedbackScreen()){
+				_showError(FEEDBACK_ERROR_HEADER, FEEDBACK_ERROR_MESSAGE, FEEDBACK_ERROR_CODE);
+			}
+			else{
+				_showError(DEFAULT_ERROR_HEADER, DEFAULT_ERROR_MESSAGE, DEFAULT_ERROR_CODE);
+			}
+		</method>
+		
+        <method name="_showError" args="h, f, s"><![CDATA[
+            if ( typeof( h ) == 'string' && h != null && h != '') {
+                header.setAttribute( 'text', h );
+            } else {
+                header.setAttribute( 'text', ' ' );
+            }
+
+            if ( typeof( f ) == 'string' && f != null && f != '') {
+                first.setAttribute( 'text', f );
+            } else {
+                first.setAttribute( 'text', ' ' );
+            }
+
+            if ( typeof( s ) == 'string' && s != null && s != '') {
+                second.setAttribute( 'text', 'Error Code: ' + s );
+            } else {
+                second.setAttribute( 'text', ' ' );
+            }
+        ]]></method>
+
+        <attribute name="font" value="Arial"/>
+
+        <simplelayout axis="y" spacing="5"/>
+
+        <text name="header" fontsize="24" fgcolor="white" multiline="true"
+              resize="true" width="420" x="16" text=" " />
+
+        <text name="first" fontsize="16" fgcolor="white" resize="true"
+              multiline="true" width="420" x="20" text=" " />
+
+        <text name="second" fontsize="16" fgcolor="white" resize="true" 
+              multiline="true" width="420" x="20" text=" " />
+           
+	    <view width="420">
+		    <ExitButton align="right">
+				<method name="exit" event="onclick">
+					gScreens.clicked();
+					gCommunicator.closeBrowser();
+				</method>
+		    </ExitButton>
+	    </view>
+    </class>
+
+</library>

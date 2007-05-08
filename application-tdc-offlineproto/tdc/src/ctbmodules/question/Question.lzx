@@ -1,0 +1,262 @@
+<library>
+
+    <include href="cache/ComponentCache.lzx"/>
+
+    <class name="Question" bgcolor="white">
+
+        <attribute name="doaccomlayout" value="true"/>
+
+        <attribute name="_LEFTPANELWIDTH" type="number" value="788"/>
+        <attribute name="_LEFTPANELPADDING" type="number" value="12"/>
+        
+        <ComponentCache name="cache"/>
+
+		<method name="setGrFocus" >
+			for(var i in this.subviews){
+				var sv = this.subviews[i];
+				if(sv instanceof BaseCachablePanel){
+					sv.setGrFocus();
+				}
+			}
+		</method>
+		
+        <method event="ondata" args="data"><![CDATA[
+            if (data) {
+                if (gController.isaccomodated && doaccomlayout) {
+                    this.convertToAccLayout(data);
+                    data = this.datapath.p;
+                }
+
+                for (var i in this.subviews) {
+    
+                    if (this.subviews [i] instanceof CachableComponent &&
+                        this.subviews [i].visible) {
+                        this.cache.returnComponent (this.subviews [i]);
+                    }
+                }
+        
+                var subnodes = data.childNodes;
+                for (var i = 0; i < subnodes.length; i++) {
+                    if ( subnodes[i] instanceof LzDataElement ) {
+//Debug.write("getting component " + i + ": ");
+//printBigString(subnodes[i].serialize());
+                        this.cache.getComponent (subnodes [i]);
+                    }
+                }
+
+                if ( dsitem == data.ownerDocument ) {
+//Debug.write("trackingcomponents");
+                    gController.setAttribute( 'trackingcomponents', true );
+                }
+            }
+        ]]></method>
+
+        <!-- Figure out if we need one or two columns -->
+        <method name="convertToAccLayout"><![CDATA[
+            var issinglecol = true;
+    
+            var xarr = this.datapath.xpathQuery("*/@x");
+            if (!(xarr instanceof Array)) xarr = [xarr];
+
+            for (var i = 0; i < xarr.length; i++) {
+                if (Number(xarr[i]) > 200 ) {
+                    issinglecol = false;
+                    break;
+                }
+            }
+        
+            if (issinglecol) {
+                this.convertToSingleCol();
+            } else {
+                this.convertToDoubleCol();
+            }
+
+        ]]></method>
+
+
+        <!-- Make into a single column layout-->
+        <method name="convertToSingleCol"><![CDATA[
+            var panelarr = this.datapath.p.childNodes;
+
+            //create top level panel node
+            var dntoppanel = new LzDataElement("panel", {x        : 0, 
+                                                         y        : 79,
+                                                         width    : 794,
+                                                         height   : 453,
+                                                         layout   : "vertical",
+                                                         enablehl : false});
+            
+            dntoppanel.setChildNodes(panelarr);
+
+            //change all subnodes according to new layout requirements
+            this.convertNodes(panelarr, 780);
+
+            this.datapath.p.setChildNodes([dntoppanel]);
+        ]]></method>
+
+
+        <!-- Make into a double column layout -->
+        <method name="convertToDoubleCol"><![CDATA[
+            var leftchildarr = [];
+            var rightchildarr = [];
+            var leftwidth = 0;
+            var rightwidth = 0;
+            var dirheight = 0;
+
+            //create the left panel, the right panel, and the wrapper panel for
+            //the two
+            var dntwopanel = new LzDataElement("panel", {
+                x            : 0, 
+                y            : 79,
+                left_padding : this._LEFTPANELPADDING,
+                width        : this._LEFTPANELWIDTH,
+                height       : 453,
+                layout       : "horizontal",
+                enablehl     : false});
+
+            var dnleftpanel = new LzDataElement("panel", {x       : 0, 
+                                                         y        : 0,
+                                                         height   : 453,
+                                                         layout   : "vertical",
+                                                         enablehl : false});
+            var dnrightpanel = new LzDataElement("panel", {x      : 0, 
+                                                         y        : 0,
+                                                         height   : 453,
+                                                         layout   : "vertical",
+                                                         enablehl : false});
+
+            //figure out what nodes should be in the left col and the right col,
+            //also search for the directions node.
+            var dndir = null;
+            var childarr = this.datapath.p.childNodes;
+            for (var i =0; i < childarr.length; i++) {
+
+                if (childarr[i].getAttr("stereotype") == "directions") {
+                    //directions node found, 
+                    dndir = childarr[i];
+                    this.convertNodes([dndir], this._LEFTPANELWIDTH);
+                    dndir.setAttr("y", 79);
+
+                    //plop dndir data into sizer to find out the panel's size
+                    this.sizer.doReturnToCache();
+                    this.sizer.datapath.setPointer(dndir);
+                    dirheight = sizer.height;
+
+                } else {
+                    //figure out if left or right col and col width
+                    if (Number(childarr[i].getAttr("x")) < 200) {
+                        if (leftwidth == 0) {
+                            leftwidth = Number(childarr[i].getAttr("width")); 
+                        }
+                        leftchildarr.push(childarr[i]);
+                    } else {
+                        rightchildarr.push(childarr[i]);
+                    }
+                }
+            }
+
+            rightwidth = this._LEFTPANELWIDTH - leftwidth - this._LEFTPANELPADDING;
+
+            dnleftpanel.setAttr("width", leftwidth);
+            dnrightpanel.setAttr("width", rightwidth);
+
+            //if we have a directions area move/size the left and right cols
+            //accordingly
+            if (dirheight) {
+                var tpheight = 453 - dirheight;
+                dntwopanel.setAttr("y", dirheight + 79);
+                dntwopanel.setAttr("height", tpheight);
+                dnleftpanel.setAttr("height", tpheight);
+                dnrightpanel.setAttr("height", tpheight);
+            }            
+
+            //convert subnodes to the new state of the world
+            this.convertNodes(leftchildarr, leftwidth - 14);
+            this.convertNodes(rightchildarr, rightwidth - 14);
+
+            //rearrange subnodes
+            dnleftpanel.setChildNodes(leftchildarr);
+            dnrightpanel.setChildNodes(rightchildarr);
+
+            dntwopanel.setChildNodes([dnleftpanel, dnrightpanel]);
+
+            var topchildarr = [dntwopanel];
+            if (dndir) {
+                topchildarr = [dndir, dntwopanel];
+            }
+
+            //finalize
+            this.datapath.p.setChildNodes(topchildarr);
+        ]]></method>
+
+
+        <!-- Convert subnodes to the new layout-->
+        <method name="convertNodes" args="dnarr, nw"><![CDATA[            
+            var dn;
+            for (var i = 0; i < dnarr.length; i++) {
+
+                dn = dnarr[i];
+
+                if (!(dn instanceof LzDataElement)) break;
+
+                //don't bother changing table and image nodes.  Image nodes
+                //need to have a specified width and height
+                if (dn.nodeName == gCompTypes.WIDGET_TABLE ||
+                    dn.nodeName == gCompTypes.WIDGET_IMAGE) {
+                    continue;
+                }
+                
+                //convert scrolling text panel to a regular panel
+                if (dn.nodeName == gCompTypes.WIDGET_SCROLLING_TEXT_PANEL) {
+                    dn.setNodeName (gCompTypes.WIDGET_PANEL);
+                    dn.setAttr("wasScrollingTextPanel", "true");
+                }
+
+                //set height to "" to indicate it should size to its contents.
+                //Don't do this for answer areas other wise there won't be any padding
+                //around the answer choices
+                if (dn.attributes["height"] && 
+                        dn.nodeName != gCompTypes.WIDGET_ANSWER_AREA_ABSOLUTE_PANEL) {
+                    dn.attributes.height = "";
+                }
+
+                //get rid of x and y.  They will be set by the layouts.
+                if (dn.attributes["x"]) dn.removeAttr("x");
+                if (dn.attributes["y"]) dn.removeAttr("y");
+
+                var xVal = 0;
+                if(dn.hasAttr("x")) {
+                    xVal = Number(dn.getAttr("x")) 
+                        + Number(dn.getAttr("left_padding"));
+                }
+                
+                //set width if appropriate.  We'll avoid horizontal layouts
+                //unless our width is greater than the newly specified width
+                if (dn.attributes["layout"] != "horizontal"
+                        || (dn.attributes["width"] > (nw - xVal)) ) {
+                    dn.attributes.width = Math.min(dn.attributes["width"], 
+                        nw - xVal);
+                }
+        
+                //don't bother with to convert certain node types' children
+                if (!dn.hasChildNodes() || 
+                    dn.nodeName == gCompTypes.WIDGET_ANSWER_AREA_ABSOLUTE_PANEL ||
+                    dn.attributes["layout"] == "horizontal") {
+                    continue;
+                }
+
+                //convert children
+                var cn = dn.childNodes;
+                this.convertNodes(cn, dn.attributes.width - 14);
+                
+            }
+
+        ]]></method>
+
+
+        <!-- User to figure out how large the directions area is -->
+        <CachablePanel name="sizer" visible="false"/>
+
+    </class>
+
+</library>

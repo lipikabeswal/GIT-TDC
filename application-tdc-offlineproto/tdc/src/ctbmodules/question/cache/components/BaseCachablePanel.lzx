@@ -1,0 +1,271 @@
+<library>
+	<include href="CachableComponent.lzx"/>
+    <include href="lib/Highlight.lzx"/>
+
+	<!-- ************************************
+         BaseCachablePanel
+         
+         Base class for a cachable panel.  
+         *************************************-->
+
+	<class name="BaseCachablePanel" extends="CachableComponent" 
+           comptype="$once {gCompTypes.WIDGET_PANEL}"
+           defaultplacement="contents" panel="${this}"
+           bgcolor="white" fontcolor="black" 
+           width="${this.wrapper.width}" height="${this.wrapper.height}">
+
+        <attribute name="stereotype" value="$path{'@stereotype'}"/>
+        <attribute name="enablehl" value="true"/>
+        <attribute name="isaccom" value="false"/>
+
+        <attribute name="growtocontents" value="false"/>
+        <!-- ================================
+             method
+             ================================= -->
+
+		<method name="setGrFocus">
+			for(var i in wrapper.scrollcontainer.offsetwrapper.contents.subviews){
+				var sv = wrapper.scrollcontainer.offsetwrapper.contents.subviews[i];
+				if(sv instanceof CachableGriddedResponse ||
+				   sv instanceof BaseCachablePanel){
+					sv.setGrFocus();
+				}
+			}
+		</method>
+		
+        <method event="oninit">
+            this.setAttribute ('alignto', this.wrapper.scrollcontainer);
+        </method>
+        <!--
+            When the data changes reset all of our properties/info
+        -->
+
+		<method event="ondata" name="initComp" args="data">
+            if (!data) return;
+
+            var contents = this.wrapper.scrollcontainer.offsetwrapper.contents;
+
+
+            //width and height
+			if (data.hasAttr ('width')) {
+				this.wrapper.setAttribute ('width', Number (data.getAttr ('width')));
+            }
+
+			if (data.hasAttr ('height')) {
+                var nh = data.getAttr("height");
+                this.setAttribute("growtocontents", nh == "");
+                if (nh == "") {
+                    nh = null;
+                } else {
+                    nh = Number(nh);
+                }
+//Debug.write("gotocontents", growtocontents, data);
+				this.wrapper.setAttribute ('height', nh);
+            }
+
+            //x and y of component
+			if (data.hasAttr ('x')){
+				this.setAttribute ('x', Number (data.getAttr ('x')));
+			}
+			if (data.hasAttr ('y')) {
+    			this.setAttribute ('y', Number (data.getAttr ('y')));
+			}
+            
+            // x and y offsets for contents
+			contents.setAttribute ('x', 0);
+			contents.setAttribute ('y', 0);
+
+			if (data.hasAttr ('left_padding')){
+				contents.setAttribute ('x', Number (data.getAttr ('left_padding')));
+			}
+			if (data.hasAttr ('top_padding')) {
+    			contents.setAttribute ('y', Number (data.getAttr ('top_padding')));
+			}
+
+			if (data.hasAttr ('enablehl')) {
+				this.setAttribute('enablehl', data.getAttr('enablehl'));
+			}
+			
+            //accomodations
+            var style = gController.getAccomStyleForType (this.stereotype);
+            var isaccom = false;
+            if (style) {
+                if (style ['bgcolor']) {
+                    this.setAttribute ('bgcolor', style.bgcolor);
+                    isaccom = true;
+                }
+                if (style ['font_color']) {
+                    this.setAttribute ('fontcolor', Number (style.font_color));
+                }
+                if (style ['font_magnification']) {
+                    this.setAttribute ('fontsize', style.font_magnification * canvas.basefontsize);
+                   // this is not working - it's leaving the fontsize at 11 instead of 12
+                   // this.setAttribute ('fontsize', style.font_magnification * canvas.fontsize);
+                } else {
+                    this.setAttribute ('fontsize', canvas.basefontsize);
+                }
+            }
+            this.setAttribute("isaccom", isaccom);
+
+            //make subviews
+            this._initSubnodes ();
+
+            doneLoading();
+            
+            //inform gFootNotePopup footnotes
+            if((this instanceof CachableScrollingTextPanel) 
+                || data.hasAttr("wasScrollingTextPanel")) 
+            {
+                gFootNotePopup.setAttribute("scrolltext", this);
+            }                
+        </method>
+
+
+        <method name="doReturnToCache"><![CDATA[
+            var contsubviews = this.wrapper.scrollcontainer.offsetwrapper.contents.subviews;
+            this.setAttribute('enablehl', true);
+            for (var i in contsubviews) {
+
+                if (contsubviews [i] instanceof CachableComponent &&
+                        contsubviews [i].visible) {
+                    this.cache.returnComponent (contsubviews [i]);
+                }
+            }
+        ]]></method>
+
+
+		<method name="scrollToShow" args="theView"><![CDATA[
+			var panelMinX = this.x;
+			var panelMaxX = this.x + this.width - wrapper.vscroll.width;
+			var colMinX = theView.getAttributeRelative('x', this);
+			var colMaxX = colMinX + theView.width;
+			var scrollRight = panelMinX - colMinX;
+			var scrollLeft = colMaxX - panelMaxX;
+			var oldStepSize = wrapper.hscroll.stepsize;
+			if(scrollRight > 0){
+				wrapper.hscroll.setAttribute('stepsize', scrollRight);
+				wrapper.hscroll.step(-1);
+				wrapper.hscroll.setAttribute('stepsize', oldStepSize);
+			}
+			else if(scrollLeft > 0){
+				wrapper.hscroll.setAttribute('stepsize', scrollLeft);
+				wrapper.hscroll.step(1);
+				wrapper.hscroll.setAttribute('stepsize', oldStepSize);
+			}
+		]]></method>
+
+        <!-- ================================
+             Views
+             ================================= -->
+
+        <view name="wrapper" clip="true">
+            <view name="scrollcontainer"
+                  width="${this.offsetwrapper.width &gt; parent.width
+                         ? this.offsetwrapper.width : parent.width}"
+                  height="${this.offsetwrapper.height &gt; parent.height || classroot.growtocontents
+                          ? (this.offsetwrapper.height + 
+                              (classroot.growtocontents &amp;&amp; classroot.comptype == gCompTypes.WIDGET_ANSWER_AREA_PANEL ? this.offsetwrapper.contents.y : 0)): 
+                          parent.height}">
+                <method event="ondata" reference="classroot">
+/*
+Debug.write("scrollcontainer", this, classroot.datapath.p);
+Debug.write("vscroll", parent.vscroll);*/
+                </method>
+                <view name="offsetwrapper">
+                    <view name="contents"/>
+                </view>
+                <Highlight name="highlighter" 
+                           width="100%" height="100%"
+                           stereotype="${classroot.stereotype}"
+						   vscroll="$once{classroot.parent instanceof BaseCachablePanel ? classroot.parent.wrapper.vscroll : parent.parent.vscroll}"
+                           hscroll="$once{classroot.parent instanceof BaseCachablePanel ? classroot.parent.wrapper.hscroll : parent.parent.hscroll}"
+                           scrollport="$once{classroot.parent instanceof BaseCachablePanel ? classroot.parent.wrapper : parent.parent}"                           options="ignorelayout" 
+                           visible="${classroot.enablehl}"/>
+            </view>
+            <vscrollbar name="vscroll"
+                        height="${parent.hscroll.visible ? 
+                                  ( classroot.growtocontents ? parent.scrollcontainer.height - parent.hscroll.height :
+                                    parent.scrollcontainer.height) :
+                                  (classroot.growtocontents ? parent.scrollcontainer.height : parent.height)}"
+                        pagesize="${this.height}"
+                        visible="${this.scrollable &amp;&amp; !classroot.growtocontents}"/>
+            <hscrollbar name="hscroll" visible="${this.scrollable}"
+                        width="${parent.vscroll.visible ? 
+                               classroot.width - parent.vscroll.width :
+                               classroot.width}"
+                        pagesize="${this.width}"/>
+        </view>
+
+
+        <!-- for when layouts correctly take into account scrollbars
+            
+            view name="wrapper" clip="true" bgcolor="red"
+              width="${classroot.vscroll.visible 
+                     ? classroot.width - classroot.vscroll.width : classroot.width}"
+              height="${parent.hscroll.visible 
+                      ? parent.height - parent.hscroll.height : parent.height}">
+
+            <view name="scrollcontainer"
+                  width="${this.offsetwrapper.width &gt; parent.width
+                         ? this.offsetwrapper.width : parent.width}"
+                  height="${this.offsetwrapper.height &gt; parent.height
+                          ? this.offsetwrapper.height : parent.height}">
+
+                <view name="offsetwrapper">
+                    <view name="contents"/>
+                </view>
+
+                <Highlight name="highlighter" width="100%" height="100%" 
+                           stereotype="${classroot.stereotype}"
+                           scrollbar="$once{classroot.vscroll}"
+                           scrollport="$once{parent.parent}"
+                           options="ignorelayout"/>
+            </view>
+        </view>
+
+        <vscrollbar name="vscroll" visible="${this.scrollable}" align="right"
+                    height="${parent.hscroll.visible ?
+                            classroot.height - parent.hscroll.height :
+                            classroot.height}"
+                    scrolltarget="${classroot.wrapper.scrollcontainer}"/>
+        <hscrollbar name="hscroll" visible="${this.scrollable}" valign="bottom"
+                    width="${parent.vscroll.visible ?
+                            classroot.width - parent.vscroll.width :
+                            classroot.width}"
+                    scrolltarget="${classroot.wrapper.scrollcontainer}"/-->
+
+        <!-- border when scrolling -->
+
+        <drawview width="100%" 
+                  height="100%"
+                  visible="${(classroot.wrapper.vscroll.visible
+                           || classroot.wrapper.hscroll.visible)
+                           &amp;&amp; !classroot.growtocontents}">
+
+            <method event="onwidth">
+                this.draw ();
+            </method>
+            <method event="onheight">
+                this.draw ();
+            </method>
+
+            <method name="draw">
+                this.clear ();
+                this.beginPath ();
+                
+                //has to be .5 so is draws exactly inside the border of the view
+                this.moveTo (.5,.5);
+                this.lineTo (this.width - .5, .5);
+                this.lineTo (this.width - .5, this.height - .5);
+                this.lineTo (.5, this.height - .5);
+                this.lineTo (.5, .5);
+
+                this.strokeStyle = black;
+                this.strokeWidth = 1;
+                this.stroke ();
+            </method>
+
+        </drawview>
+
+    </class>
+</library>

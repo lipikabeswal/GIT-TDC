@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<adssvc_request method="write_to_audit_file" sdsid="dummy" xmlns="">
+		<write_to_audit_file>
+			<tsd lsid="" scid="" mseq="" >
+				<audit_file_text />
+			</tsd>
+		</write_to_audit_file>
+	</adssvc_request>
+

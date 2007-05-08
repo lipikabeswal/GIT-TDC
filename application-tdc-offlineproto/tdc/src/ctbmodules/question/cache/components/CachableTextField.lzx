@@ -1,0 +1,159 @@
+<library>
+    <include href="CachableComponent.lzx"/>
+    <include href="../../../Controllers/ReadableText.lzx"/>
+
+    <!-- ===============
+         ==
+         == CachableTextField
+         ==
+         ==  A cachable text field.  Contains an text field
+         ==  and will also set the width, height, and text of the
+         ==  text 
+         ==
+         =============== -->
+
+    <class name="CachableTextField" extends="CachableComponent" clip="true" 
+           comptype="$once {gCompTypes.WIDGET_TEXT}" aaactive="true" aasilent="false"> 
+
+        <attribute name="hasAltText" value="false"/>
+		<attribute name="altText" type="string" />
+		<attribute name="hasReadableText" type="boolean" value="true"/>
+        <attribute name="hlstatus" value="$once{new LzDatapointer()}"/>
+		<attribute name="isHighlighter" type="boolean" value="false"/>
+        <attribute name="eraserstatus" value="$once{new LzDatapointer()}"/>        
+		<attribute name="isEraser" type="boolean" value="false"/>
+		<attribute name="isReadable" type="boolean" value="${!isHighlighter &amp;&amp; !isEraser &amp;&amp; hasReadableText}"/>
+        
+        <attribute name="leftPadding" type="number" value="0"/>
+        <attribute name="rightPadding" type="number" value="0"/>
+        
+        <method event="ondata" args="data" reference="hlstatus">
+            this.setAttribute ('isHighlighter', data == 'sel');
+        </method>
+
+        <method event="ondata" args="data" reference="eraserstatus">
+            this.setAttribute ('isEraser', data == 'sel');
+		</method>
+
+        <method name="init">
+            super.init();
+        </method>
+
+        <method event="oninit">
+            this.hlstatus.setAttribute ('rerunxpath', true);
+            this.eraserstatus.setAttribute ('rerunxpath', true);
+ 
+            this.hlstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@highlighter');
+            this.eraserstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@eraser');
+        </method>
+
+        <method name="read" args="s">
+            if ( hasAltText ) {
+                gReadableText.read( this.altText );
+            } else {
+                gReadableText.read( s );
+            }
+        </method>
+
+
+        <!-- ===============
+             = METHODS
+             =============== -->
+        <method event="ondata" args="data">
+            <![CDATA[
+            
+            if(data.parentNode.getAttr("wasScrollingTextPanel") == "true")
+            {
+                this.setAttribute("leftPadding", 12);
+            }
+                
+            //width
+            if (data.hasAttr("width")) {
+                this.setAttribute("width", Number(data.getAttr("width")));
+            } else {
+                this.setAttribute("width", immediateparent.width);
+            }
+
+            var dataText = data.getFirstChild().data;
+
+            //alignment
+            var valign = "top";
+            if (data.hasAttr("valign")) {
+                valign = data.getAttr("valign");
+            }
+            this.setValign(valign);
+
+            //justification
+            var just = "left";
+            if (data.hasAttr("halign")) {
+                just = data.getAttr("halign");
+            }
+            this.setAlign(just);
+            this.thetext.setAttribute("text",
+                '<p align="' + just + '">' + dataText + '</p>');
+
+            //text magnification
+            var txtmag = 1;
+            if (data.hasAttr("text_magnification")) {
+                txtmag = data.getAttr("text_magnification");
+            }
+
+            if (parent['fontsize']) {
+               this.setAttribute("fontsize", parent.fontsize * txtmag);
+            }
+
+            //text reading
+            if ( data.hasAttr( 'alt_text' ) ) {
+            	var dataAltText = trim(data.getAttr( 'alt_text' ));
+            	if(canvas.readable && dataAltText.length > 0){
+            		setAttribute('hasReadableText', true);
+            	}
+            	else{
+            		setAttribute('hasReadableText', false);
+            	}
+                setAttribute( 'altText', dataAltText );
+                setAttribute( 'hasAltText', true );
+                this.setAAText(dataAltText);
+            } else {
+            	setAttribute('hasReadableText', canvas.readable);
+                setAttribute( 'hasAltText', false );
+                this.setAAText(dataText);
+            }
+            doneLoading();
+
+            //this.doAlign();
+            ]]>
+        </method>
+
+        <method name="trim" args="str">
+            while (str.substring(0,1) == ' ')
+            {
+            str = str.substring(1, str.length);
+            }
+            while (str.substring(str.length-1, str.length) == ' ')
+            {
+            str = str.substring(0,str.length-1);
+            }
+            return str;		
+        </method>
+
+        <!-- ===============
+             = VIEWS
+             =============== -->
+        <view name="clickregion"
+              width="${classroot.thetext.width}"
+              height="${classroot.thetext.height}"
+              clickable="${classroot.isReadable}">
+            <method event="onclick">
+                classroot.read(classroot.thetext.text);
+            </method>
+        </view>
+
+        <text name="thetext" multiline="true" 
+            x="${classroot.leftPadding}"
+            width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
+            fgcolor="${classroot.fontcolor}"
+            fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" />
+
+    </class>
+</library>

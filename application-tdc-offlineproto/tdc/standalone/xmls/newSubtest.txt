@@ -1,0 +1,32 @@
+<subtest>
+	<ob_assessment starting_question_number="1">
+		<assessment_title/>
+		<ob_element_list>
+			<f k="602" h="DB0AFAB1E1F03D4C087B4B34A9629AEB" id="14102"/>
+			<f k="602" h="64C1C85EAC986A6567CB4C38C58458EE" id="14202"/>
+			<f k="602" h="D66A2B41CD76F4BF607AAA675CFB543C" id="14302"/>
+		</ob_element_list>
+		<ob_element_select_order>
+			<e id="14102"/>
+			<g ai="1">
+				<e id="14202"/>
+				<e id="14302"/>
+			</g>
+		</ob_element_select_order>
+	</ob_assessment>
+	<sco force_logout="false" cmi.core.entry="ab-initio" id="24105" sco_duration_minutes="10" 
+	     sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" 
+	     title="Reading &amp; Language Arts Sample Questions" asmt_hash="1003A05C5AFDD27F24A5F05B627C52E9" 
+	     asmt_encryption_key="1165" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8" adsid="13702" 
+	     cmi.core.total_time="0:0:0"/>
+	<testing_session_data>
+		<cmi.core student_id="84805" student_name="Student, Accommodated Thirty-Three"/>
+		<lms.student.accommodations calculator="false" magnifier="false" screen_reader="false" 
+		                            untimed="false" rest_break="true">
+			<stereotype_style stereotype="directions" bgcolor="0xFFFFFF" font_color="0x000000" font_magnification="1.0"/>
+			<stereotype_style stereotype="stimulus" bgcolor="0xFFFFFF" font_color="0x000000" font_magnification="1.0"/>
+			<stereotype_style stereotype="stem" bgcolor="0xFFFFFF" font_color="0x000000" font_magnification="1.0"/>
+			<stereotype_style stereotype="answerArea" bgcolor="0xFFFFB0" font_color="0x000000" font_magnification="1.0"/>
+		</lms.student.accommodations>
+	</testing_session_data>
+</subtest> 

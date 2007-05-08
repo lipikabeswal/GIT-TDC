@@ -120,21 +120,23 @@
 		<mkdir dir="junit-reports" />
 		<mkdir dir="junit-results" />
 		
+		<!--
 		<replace file="${project.dist}/webapp/crossdomain.xml">
 			<replacetoken><![CDATA[<allow-access-from domain="oasdelivery.ctb.com" />]]></replacetoken>
 			<replacevalue><![CDATA[<allow-access-from domain="dagobah.mhe.mhc" />]]></replacevalue>
 		</replace>
+		-->
 		<replace file="${project.dist}/webapp/WEB-INF/classes/tdc.properties">
-			<replacetoken><![CDATA[tms.server.host=https://oas.ctb.com]]></replacetoken>
-			<replacevalue><![CDATA[tms.server.host=http://localhost]]></replacevalue>
+			<replacetoken><![CDATA[tms.server.host=https://oasdelivery.ctb.com]]></replacetoken>
+			<replacevalue><![CDATA[tms.server.host=http://152.159.127.61]]></replacevalue>
 		</replace>
 		<replace file="${project.dist}/webapp/WEB-INF/classes/tdc.properties">
 			<replacetoken><![CDATA[tms.server.port=443]]></replacetoken>
-			<replacevalue><![CDATA[tms.server.port=7003]]></replacevalue>
+			<replacevalue><![CDATA[tms.server.port=8001]]></replacevalue>
 		</replace>
 
 
-		<!-- -->
+		<!-- 
 		<junit fork="true" maxmemory="256M" haltonerror="false" haltonfailure="false" failureproperty="junit.failure" showoutput="true">
 	        <formatter extension=".xml" type="xml" usefile="true" />
 	        <formatter type="plain" usefile="false"/>
@@ -157,7 +159,7 @@
 	        <report format="frames" todir="junit-reports/html" />
 	    </junitreport>
 	    <fail if="junit.failure" message="one or more unit tests failed" />
-		<!-- -->
+		 -->
 	</target>
 
 	

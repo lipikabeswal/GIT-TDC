@@ -1,0 +1,108 @@
+<library>
+    <node name="gDownloadManager">
+    	<attribute name="subtestList"  />
+    	<attribute name="itemList" />
+    	<attribute name="itemKey" />
+    	<attribute name="totalSubtests" type="number" value="0" />
+    	<attribute name="totalItems"    type="number" value="0" />
+    	<attribute name="nextSubtestIndex" type="number" value="0" />
+    	<attribute name="nextItemIndex"    type="number" value="0" />
+   		<attribute name="downloadResult" />
+   		<attribute name="ERROR_NAME" type="string" value="ERROR" />
+  		<attribute name="SUBTEST_NAME" type="string" value="ob_assessment" />
+   		<attribute name="dp" value="$once{new LzDatapointer()}" />
+   		<attribute name="error" value="false" />
+  		<method event="ondownloadResult">
+  			if(_receivedError()){
+  				setAttribute('error', true);
+  				gScreens.showDefaultError();
+  			}
+   			if(_receivedSubtest()){
+   				nextSubtestIndex++;
+   				_populateItemList();
+  				gScreens.incrementSubtestDownload(totalItems);
+   				_downloadNextItem();
+   			}
+   			else {
+   				gScreens.incrementItemDownload();
+   				nextItemIndex++;
+   				if(_isLastItem()){
+   					if(_isLastSubtest()){
+   						gCommunicator.updateLDB();
+   						gController.getSubtest();
+   					}
+   					else{
+   						_downloadNextSubtest();
+   					}
+   				}
+   				else{
+   					_downloadNextItem();
+   				}
+   			}
+   		</method>
+   		
+   		<method name="_receivedError">
+   			var node = LzDataNode.stringToLzData(downloadResult);
+   			return (node.nodeName == ERROR_NAME);
+   		</method>
+   		
+    	<method name="downloadContent">
+			gController.setState(gController.DOWNLOAD_STATE);
+    		setAttribute('subtestList', gController.getSubtestList());
+    		setAttribute("totalSubtests", subtestList.length);
+    		gScreens.showDownload(totalSubtests);
+    		_downloadNextSubtest();
+    	</method>
+    	
+   		<method name="_receivedSubtest">
+   			var node = LzDataNode.stringToLzData(downloadResult);
+   			var name = node.nodeName;
+			return (name == SUBTEST_NAME);
+   		</method>
+   		
+   		<method name="_populateItemList">
+   			var node = LzDataNode.stringToLzData(downloadResult);
+   			dp.setPointer(node);
+   			var items = dp.xpathQuery('ob_element_list/f');
+   			var itemArray = new Array();
+   			if ( items instanceof LzDataNode ) {
+                itemArray[0] = items;
+            }
+            else if ( items instanceof Array ) {
+                itemArray = items;
+            }
+   			setAttribute('itemList', itemArray);
+   			setAttribute("totalItems", itemList.length);
+   		</method>
+   		
+   		<method name="_isLastItem"><![CDATA[
+   			return (nextItemIndex >= totalItems);
+   		]]></method>
+   		
+   		<method name="_isLastSubtest"><![CDATA[
+   			return (nextSubtestIndex >= totalSubtests)
+   		]]></method>
+   		
+    	<method name="_downloadNextSubtest">
+    		if(!error){
+	    		setAttribute("nextItemIndex", 0);
+	    		var subtest = subtestList[nextSubtestIndex];
+	    		var id = subtest.getAttr('adsid');
+	    		var hash = subtest.getAttr('asmt_hash');
+	    		var key = subtest.getAttr('asmt_encryption_key');
+	    		setAttribute("itemKey", subtest.getAttr("item_encryption_key"));
+	    		gCommunicator.downloadSubtest(id, hash, key);
+    		}
+    	</method>
+    	
+     	<method name="_downloadNextItem">
+     		if(!error){
+	    		var item = itemList[nextItemIndex];
+	    		var id = item.getAttr('id');
+	    		var hash = item.getAttr('h');
+	    		var key = itemKey;
+	    		gCommunicator.downloadItem(id, hash, key);
+    		}
+    	</method>
+     </node>
+</library>

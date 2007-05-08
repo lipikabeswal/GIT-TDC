@@ -1,0 +1,33 @@
+<library>
+
+    <include href="CachableComponent.lzx"/>
+
+    <!-- ************************************
+         CachableSelector
+         
+         A cachable answer selector
+         *************************************-->
+	<class name="CachableSelector" extends="CachableComponent" 
+		comptype="${gCompTypes.WIDGET_SELECTOR}">
+        
+        <method event="ondata" args="data">
+            var selid = data.getAttr ('identifier');
+            this.selbutton.setAttribute ('type', selid);
+
+            var dp = new LzDatapointer ();
+            this.selbutton.datapath.setXPath ("dsstudentdata:/testing_client_model/current_item/item_model/interaction/selector [@obj_id_ref='"+selid+"']");
+    
+            this.doAlign ();
+
+            doneLoading();
+        </method>
+
+        <AnswerSelectionButton name="selbutton"/>
+		<method event="onwidth">
+            if ( immediateparent['updateSelector'] ) {
+                immediateparent.updateSelector();
+            }
+		</method>
+	</class>
+
+</library>

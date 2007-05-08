@@ -130,21 +130,21 @@ public class PersistenceServlet extends HttpServlet {
         // call method to perform an action only if servlet settings is valid
         if (! validSettings)
             result = ServletUtils.getServletSettingsErrorMessage();
-        else if (method.equals(ServletUtils.VERIFY_SETTINGS_METHOD))
+        else if (method != null && method.equals(ServletUtils.VERIFY_SETTINGS_METHOD))
         {
             result = waitForQueueToBeClear();
             if ( result == null )
                 result = verifyServletSettings();
         }
-        else if (method.equals(ServletUtils.LOGIN_METHOD))
+        else if (method != null && method.equals(ServletUtils.LOGIN_METHOD))
             result = login(xml);
-        else if (method.equals(ServletUtils.SAVE_METHOD))
+        else if (method != null && method.equals(ServletUtils.SAVE_METHOD))
             result = save(response, xml);        
-        else if (method.equals(ServletUtils.FEEDBACK_METHOD))
+        else if (method != null && method.equals(ServletUtils.FEEDBACK_METHOD))
             result = feedback(xml);        
-        else if (method.equals(ServletUtils.UPLOAD_AUDIT_FILE_METHOD))
+        else if (method != null && method.equals(ServletUtils.UPLOAD_AUDIT_FILE_METHOD))
             result = uploadAuditFile(xml);
-        else if (method.equals(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD))
+        else if (method != null && method.equals(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD))
             result = writeToAuditFile(xml);
         else
             result = ServletUtils.ERROR;    
@@ -186,6 +186,7 @@ public class PersistenceServlet extends HttpServlet {
      */
     private String login(String xml) {
         String result = ServletUtils.ERROR;
+    
         try {
             // sent login request to TMS
             result = ServletUtils.httpClientSendRequest(ServletUtils.LOGIN_METHOD, xml);
@@ -202,7 +203,7 @@ public class PersistenceServlet extends HttpServlet {
                 logger.info("Login successfully.");                
             }
             else {
-                logger.error("TMS returns error in login() : " + result);                
+                logger.error("TMS returns error in login() : " + result);   
             }
         } 
         catch (Exception e) {
@@ -261,12 +262,15 @@ public class PersistenceServlet extends HttpServlet {
 
             // check if TMS sent acknowledge before continue
             if (verifyAcknowledge(memoryCache, lsid, mseq)) {
-                // ok to continue, so first remove all ACK entries
-                memoryCache.removeAcknowledgeStates(lsid);
+            	// ncohen: I don't think we need this removeAcks bit,
+            	// and I need all acks to check for dupe mseqs . . .
+                // so I'm commenting it out.
+                //memoryCache.removeAcknowledgeStates(lsid);
                 
                 // log an entry into audit file
                 boolean hasResponse = ServletUtils.hasResponse(xml);
-                AuditFile.log(ServletUtils.createAuditVO(xml, hasResponse));
+                if (hasResponse)
+                	AuditFile.log(ServletUtils.createAuditVO(xml, hasResponse));
 
                 // return response to client
                 ServletUtils.writeResponse(response, ServletUtils.OK);
@@ -275,16 +279,20 @@ public class PersistenceServlet extends HttpServlet {
                 if (memoryCache.getSrvSettings().isTmsPersist()) {
                     // set pending state before send request to TMS
                     StateVO state = memoryCache.setPendingState(lsid, mseq);
-                    
-                    // send save request to TMS
-                    String tmsResponse = ServletUtils.httpClientSendRequest(ServletUtils.SAVE_METHOD, xml);
-                    
-                    // if OK return from TMS, set acknowledge state
-                    if (ServletUtils.isStatusOK(tmsResponse)) {
-                        memoryCache.setAcknowledgeState(state);
-                    }
-                    else {
-                        logger.error("TMS returns error in save() : " + tmsResponse);                                        
+                    // setPendingState returns null if message was not added to cache,
+                    // this occurs in the case of duplicate messages - we don't forward those to TMS
+                    if (state != null) {
+                    	// message was added to pending list in cache,
+	                    // send save request to TMS
+	                    String tmsResponse = ServletUtils.httpClientSendRequest(ServletUtils.SAVE_METHOD, xml);
+	                    
+	                    // if OK return from TMS, set acknowledge state
+	                    if (ServletUtils.isStatusOK(tmsResponse)) {
+	                        memoryCache.setAcknowledgeState(state);
+	                    }
+	                    else {
+	                        logger.error("TMS returns error in save() : " + tmsResponse);                                        
+	                    }
                     }
                 }
             }
@@ -293,7 +301,7 @@ public class PersistenceServlet extends HttpServlet {
                 errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.noAck");
                 logger.error(errorMessage);
                 result = ServletUtils.buildXmlErrorMessage("", errorMessage, ""); 
-            }            
+            }  
         } 
         catch (Exception e) {
             logger.error("Exception occured in save() : " + ServletUtils.printStackTrace(e));

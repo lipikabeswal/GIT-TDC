@@ -1,0 +1,61 @@
+<library>
+
+    <class name="ManipulativeButton">
+        <datapath/>
+
+        <attribute name="toolid" type="string"/>
+        <attribute name="isenabled" value="false"/>
+        <attribute name="isselected" value="false"/>
+        <attribute name="tooltip" type="string"/>
+
+        <attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
+
+        <method event="oninit">
+            this.datapath.setXPath ('@' + this.toolid);
+        </method>
+
+        <method event="ondata" args="data"><![CDATA[
+            this.setAttribute ('isselected', data == 'sel');
+            if(data == null || data == 'disable'){
+	            this.setAttribute ('isenabled', false);
+	            this.setAttribute ('visible', false);
+            }
+            else{
+	            this.setAttribute ('isenabled', true);
+	            this.setAttribute ('visible', true);
+            }
+
+            this.setResourceNumber (this.isselected ? 2 : 1);
+
+            if (!this.isselected) {
+                this.setResourceNumber (this.isenabled  ? 1 : 3);
+            }
+            
+        ]]></method>
+
+        <method event="onmouseover"><![CDATA[
+            if (!this.isselected && this.isenabled) this.setResourceNumber (2); 
+            LzTimer.addTimer (tooltipdel, 500);
+        ]]></method>
+
+        <method event="onmouseout"><![CDATA[
+            if (!this.isselected && this.isenabled) this.setResourceNumber (1); 
+            gTooltip.hideTooltip ();
+            LzTimer.removeTimer (this.tooltipdel);
+        ]]></method>
+
+        <method event="onclick">
+            if (this.isenabled) {
+                gController.setManipulativeSelState (this.toolid, 
+                                                         this.isselected ? 'up' : 'sel');
+            }
+            LzTimer.removeTimer (this.tooltipdel);
+        </method>
+
+        <method name="showTooltip">
+            gTooltip.showTooltip (this.tooltip);
+        </method>
+
+    </class>
+
+</library>

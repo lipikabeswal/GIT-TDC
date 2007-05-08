@@ -1,0 +1,44 @@
+<project name="tdc" default="TestClient" basedir=".">
+
+	
+    <property name="src"   value="${basedir}/src"/>
+	<property name="standaloneDir" value="./standalone"/>
+	<property name="webappDir" value="../webapp"/>
+	
+    <property environment="env"/>
+    <property name="lzbin" value="${env.LPS_HOME}/WEB-INF/lps/server/bin"/>
+
+    <!-- use the correct compiler script based on platform -->
+    <condition property="lzc" value="${lzbin}/lzc">
+        <os family="unix"/>
+    </condition>
+
+    <condition property="lzc" value="${lzbin}/lzc.bat">
+        <os family="windows"/>
+    </condition>
+
+    <property name="TestClient.lzx" value="${basedir}/src/TestClient.lzx"/>
+    <property name="TestClient.swf" value="${basedir}/src/TestClient.swf"/>
+    <property name="TestClient.lzx.swf" value="${TestClient.lzx}.swf"/>
+
+    <target name="TestClient" description="compile TestClient.lzx">
+        <exec executable="${lzc}" failonerror="true">
+            <arg value="${TestClient.lzx}"/>
+        </exec>
+        <copy file="${TestClient.lzx.swf}" todir="${standaloneDir}"/>
+        <copy file="${TestClient.lzx.swf}" todir="${webappDir}"/>
+        <delete file="${TestClient.swf}"/>
+        <delete file="${TestClient.lzx.swf}"/>
+    </target>
+
+    <target name="help" description="describes usage">
+        <echo>
+Usage:
+
+ant TestClient             compile, copy to standalone, 
+
+ant help             print this message
+        </echo>
+    </target>
+
+</project>

@@ -1,0 +1,125 @@
+<library>
+
+    <include href="question/Question.lzx"/>
+    <include href="testcontrols/TestControls.lzx"/>
+    <include href="questionbar/QuestionBar.lzx"/>
+    <include href="timestatus/TimeStatus.lzx"/>
+    <include href="manipulatives"/>
+
+    <class name="ItemInterface"
+           fontsize="12" font="CTB"
+           datapath="dssubtest:/">
+
+        <attribute name="startNumber"
+           value="$path{ 'subtest/ob_assessment/@starting_question_number' }"/>
+
+        <attribute name="hasStartNumber" value="false"/>
+
+        <method args="n" event="onstartNumber"><![CDATA[
+            setAttribute(
+                'hasStartNumber',
+                typeof( n ) == 'string'
+            );
+        ]]></method>
+
+        <view name="contents" width="800" height="600"
+              datapath="subtest/ob_assessment">
+
+            <resizelayout axis="y"/>
+
+            <view width="100%" options="releasetolayout">
+                <Question width="100%" height="100%" id="gQuestion"
+                          datapath="dsitem:/element_package/item_canvas"/>
+                <view width="100%" height="100%">
+                    <resizelayout axis="y"/>
+                    <view width="${classroot.contents.width + 2}" height="50"
+                          bgcolor="0x6691B4" x="-1" clickable="true" showhandcursor="false">
+						<method event="onmouseover">
+							gController.clearCurrentCursor();
+							this.setAttribute('showhandcursor', false);
+						</method>
+                        <view x="5" fgcolor="white" fontsize="15">
+                            <simplelayout axis="y" spacing="-3"/>
+                            <text datapath="dssubtest:/subtest/sco/@title"
+                                  resize="true">
+<?ignore
+                                <method args="d" event="ondata">
+                                    Debug.write( 'test title ', d );
+                                </method>
+?>
+                            </text>
+                            <view fontstyle="bold"
+                                  datapath="dsstudentdata:/testing_client_model">
+                                <attribute name="itemno" value="$path{'current_item/@itemno'}"/>
+                                <simplelayout axis="x" spacing="3"/>
+                                <text text="Question"/>
+                                <text text="${classroot.hasStartNumber 
+                                            ? Number (parent.itemno) + Number (classroot.startNumber) - 1
+                                            : parent.itemno}">
+                               		<method event="ontext">
+                                		var textWidth = this.getTextWidth();
+                                		this.setAttribute('width', textWidth + 1);
+                                	</method>
+                               </text>
+                                <text text="of"
+                                      visible="${!classroot.hasStartNumber }"/>
+                                <text datapath="question_number/@total"
+                                      visible="${!classroot.hasStartNumber }">
+                               		<method event="ontext">
+                                		var textWidth = this.getTextWidth();
+                                		this.setAttribute('width', textWidth + 1);
+                                	</method>
+                                 </text>
+                            </view>
+                        </view>
+                        <view width="675">
+                            <TimeStatus align="right" height="100%"/>
+                        </view>
+                        <view resource="ctb_logo" 
+                              x="695" valign="middle"/>
+                    </view>
+                    <view width="100%" options="releasetolayout">
+                        <resizelayout axis="y"/>
+                        <view width="100%">
+                            <ManipulativeBar width="100%" height="25"/>
+                            <text resize="true" align="right" fontstyle="bold" fontsize="13"
+                                  datapath="dssubtest:/subtest/testing_session_data/cmi.core/@student_name">
+					            <method name="applyData" args="d">
+					                if ( d ) {
+					                    var commapos = d.indexOf( ',' );
+					                    var firstname = d.substring( commapos + 1 );
+					                    var lastname = d.substring( 0, commapos );
+					                    var len = 36 - lastname.length;
+					                    if (firstname.length > len) {
+					                    	firstname = firstname.substring( 0, 2 ) + '.'; 
+					                    }
+					                    setAttribute( 'text', firstname + ' ' + lastname );
+					                }
+					            </method>
+        					</text>                                  
+                        </view>
+                        <Manipulatives width="100%" options="releasetolayout"/>
+                        <Tooltip id="gTooltip" options="ignorelayout"/>
+                    </view>
+                </view>
+                <view bgcolor="0xFFFFCC" width="100%" height="6" valign="bottom"/>
+            </view>
+
+            <view width="100%" height="60" bgcolor="0xFFFFCC">
+                <resizelayout axis="x"/>
+                <QuestionBar width="584" height="100%" 
+                             datapath="dsstudentdata:/testing_client_model"/><!--width="593" -->
+                <TestControls height="${parent.height + 7}" options="releasetolayout" y="-6"/>
+            </view>
+        </view>
+
+        <!-- include the footnote popup -->
+        <include href="question/FootNotePopup.lzx"/>
+
+        <!-- include the enlarge popup -->
+        <include href="question/EnlargePopup.lzx"/>
+
+    </class>
+
+
+</library>

@@ -1,0 +1,83 @@
+<library>
+
+    <include href="BaseCachablePanel.lzx"/>
+    <include href="lib/PanelTab.lzx"/>
+
+    <class name="CachableTabsPanel" extends="BaseCachablePanel"
+           comptype="${gCompTypes.WIDGET_STIMULUS_TABS_PANEL}"
+           defaultplacement="tabcontents">
+
+
+        <!-- ================================
+             method
+             ================================= -->
+        <!-- When the data changes reset all of our properties/info-->
+		<method name="initComp" args="data">
+            super.initComp (data);
+			var selectedTabNumber = gController.getSelectedTab(getEid());
+			if(selectedTabNumber == null){
+				selectedTabNumber = 1;
+			}
+            var seltab = this.tabs.tabctrl.tab.getCloneNumber (selectedTabNumber - 1);
+            this.selman.select (seltab);
+        </method>
+
+		<method name="getEid">
+			var dp = datapath.dupePointer();
+			dp.selectParent(2);
+			return dp.xpathQuery ('@eid');
+		</method>
+		
+        <method name="doReturnToCache"><![CDATA[
+            var contsubviews = this.tabs.contents.tabcontents.subviews;
+            for (var i in contsubviews) {
+
+                if (contsubviews [i] instanceof CachableComponent &&
+                        contsubviews [i].visible) {
+                    this.cache.returnComponent (contsubviews [i]);
+                }
+            }
+        ]]></method>
+
+           
+
+        <!-- ================================
+             views
+             ================================= -->
+        <selectionmanager name="selman"/>
+
+        <view name="tabs" 
+              width="${classroot.width}" height="${classroot.height}">
+            <resizelayout axis="y"/>
+            <view name="tabctrl">
+                <simplelayout axis="x" spacing="-15" inset="-4"/>
+                <PanelTab name="tab" datapath="*"
+                          selman="$once{classroot.selman}">
+
+                    <method event="oninit">
+                        this.sendToBack ();
+                    </method>
+
+                    <method name="setSelected" args="issel">
+                        super.setSelected (issel);
+                        if (issel) {
+                            var tabpane = classroot.tabs.contents.tabcontents.subviews [this.clonenumber];
+                            tabpane.bringToFront ();
+
+                            classroot.wrapper.scrollcontainer.highlighter.setAttribute ('currtab', this.clonenumber + 1);
+                        }
+                    </method>
+                </PanelTab>
+            </view>
+
+            <view name="contents" bgcolor="0x3EABD3"
+                  width="100%" options="releasetolayout">
+                <view name="tabcontents" x="1" y="1"
+                      width="${parent.width - 2}"
+                      height="${parent.height - 2}"/>
+            </view>
+        </view>
+
+    </class>
+
+</library>

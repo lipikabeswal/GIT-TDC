@@ -48,6 +48,7 @@ import com.ctb.tdc.web.dto.SubtestKeyVO;
  * PersistenceServlet.java
  * LoadContentServlet.java
  * DownloadContentServlet.java
+ * ContentServlet.java
  * 
  */
 public class ServletUtils {
@@ -81,8 +82,14 @@ public class ServletUtils {
     public static final String WRITE_TO_AUDIT_FILE_METHOD = "writeToAuditFile";
     public static final String VERIFY_SETTINGS_METHOD = "verifySettings";
     public static final String GET_STATUS_METHOD = "getStatus";
+    public static final String GET_SUBTEST_METHOD = "getSubtest";
+    public static final String DOWNLOAD_ITEM_METHOD = "downloadItem";
+    public static final String GET_ITEM_METHOD = "getItem";
+    public static final String GET_IMAGE_METHOD = "getImage";
+    
 
     // parameters
+    public static final String FOLDER_PARAM = "folder";
     public static final String METHOD_PARAM = "method";
     public static final String TEST_ROSTER_ID_PARAM = "testRosterId";
     public static final String ACCESS_CODE_PARAM = "accessCode";
@@ -94,6 +101,9 @@ public class ServletUtils {
     public static final String AUDIT_FILE_PARAM = "auditFile";
     public static final String CHECKSUM_PARAM = "checksum";
     public static final String LOAD_LOCAL_IMAGE_PARAM = "fileName";
+    public static final String SUBTEST_ID_PARAM = "subtestId";
+    public static final String HASH_PARAM = "hash";
+    public static final String KEY_PARAM = "key";
 
     // events
     public static final String RECEIVE_EVENT = "RCV"; 
@@ -465,6 +475,9 @@ public class ServletUtils {
         return request.getParameter(METHOD_PARAM);
     }
 
+    public static String getFolder(HttpServletRequest request) {
+        return request.getParameter(FOLDER_PARAM);
+    }
      /**
      * getItemSetId
      * 
@@ -504,6 +517,31 @@ public class ServletUtils {
     public static String getXml(HttpServletRequest request) {
         return request.getParameter(XML_PARAM);
     }
+    
+    /**
+     * getSubtestId
+     * 
+     */
+    public static String getSubtestId(HttpServletRequest request) {
+        return request.getParameter(SUBTEST_ID_PARAM);
+    }
+
+    /**
+     * getHash
+     * 
+     */
+    public static String getHash(HttpServletRequest request) {
+        return request.getParameter(HASH_PARAM);
+    }
+
+    /**
+     * getKey
+     * 
+     */
+    public static String getKey(HttpServletRequest request) {
+        return request.getParameter(KEY_PARAM);
+    }
+
     
      /**
      * hasResponse
@@ -686,20 +724,24 @@ System.out.println("responseCode = " + responseCode);
                 // execute with proxy settings
                 HostConfiguration hostConfiguration = client.getHostConfiguration();
                 int proxyPort = getProxyPort();
-System.out.println("proxyHost = " + proxyHost + "\nproxyPort = " + proxyPort);                
+                logger.info("*********proxyHost = " + proxyHost + "\nproxyPort = " + proxyPort);                
                 hostConfiguration.setProxy(proxyHost, proxyPort);            
                 String username = getProxyUserName();
                 String password = getProxyPassword();            
                 UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
+                logger.info("*********get state from HttpClient");
                 HttpState state = client.getState();
+                logger.info("*********set ProxyCredentials into state");
                 state.setProxyCredentials(null, proxyHost, credentials);
+                logger.info("********* executeMethod --- sending request");
                 responseCode = client.executeMethod(hostConfiguration, post);   
             }
             else {
                 // execute without proxy
                 responseCode = client.executeMethod(post);    
             }
-System.out.println("responseCode = " + responseCode);                
+            
+            logger.info("*********responseCode = " + responseCode);                
             
             if (responseCode == HttpStatus.SC_OK) {
                 InputStream isPost = post.getResponseBodyAsStream();
@@ -968,5 +1010,33 @@ System.out.println("responseCode = " + responseCode);
         }
         return result;
     }
+    
+    public static String buildContentRequest(HttpServletRequest request, String method) {
+        String xml = null;
+        if (method != null) {
+            if (method.equals(GET_SUBTEST_METHOD)) {
+            	String subtestId = ServletUtils.getSubtestId(request);
+            	String hash = ServletUtils.getHash(request);
+            	String key = ServletUtils.getKey(request);
+                if (subtestId != null && hash != null && key != null) {
+                    xml = "<adssvc_request method=\"getSubtest\" sdsid=\"string\" token=\"string\" xmlns=\"\">" +
+                        "<get_subtest subtestid=\""+subtestId+"\" hash=\""+hash+"\" key=\""+key+"\"/>" +
+                        "</adssvc_request>";
+                }
+            }
+            else if (method.equals(DOWNLOAD_ITEM_METHOD)) {
+            	String itemId = ServletUtils.getItemId(request);
+            	String hash = ServletUtils.getHash(request);
+            	String key = ServletUtils.getKey(request);
+                if (itemId != null && hash != null && key != null) {
+                    xml = "<adssvc_request method=\"downloadItem\" sdsid=\"string\" token=\"string\" xmlns=\"\">" +
+                        "<download_item itemid=\""+itemId+"\" hash=\""+hash+"\" key=\""+key+"\"/>" +
+                        "</adssvc_request>";
+                }
+            }
+        }
+        return xml;
+    }
+    
 }
 

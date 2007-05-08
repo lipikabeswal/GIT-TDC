@@ -35,96 +35,137 @@ public class MemoryCache {
     }
 
     public static MemoryCache getInstance() {
-        return MemoryCacheHolder.instance;
+    	synchronized(MemoryCache.class) {
+    		return MemoryCacheHolder.instance;
+    	}
     }
 
-    private static class MemoryCacheHolder {
-        private static MemoryCache instance = new MemoryCache();
+    private static final class MemoryCacheHolder {
+    	private static final MemoryCache instance = new MemoryCache();	
     }
     
     public ServletSettings getSrvSettings() {
-        return this.srvSettings;
+    	synchronized(this) {
+    		return this.srvSettings;
+    	}
     }
 
     public void setSrvSettings(ServletSettings srvSettings) {
-        this.srvSettings = srvSettings;
+    	synchronized(this) {
+    		this.srvSettings = srvSettings;
+    	}
     }
 
     public HashMap getStateMap() {
-        return stateMap;
+    	synchronized(this) {
+    		return stateMap;
+    	}
     }
 
     public void setStateMap(HashMap stateMap) {
-        this.stateMap = stateMap;
+    	synchronized(this) {
+    		this.stateMap = stateMap;
+    	}
     }
     
     public boolean isLoaded() {
-        return loaded;
+    	synchronized(this) {
+    		return loaded;
+    	}
     }
 
     public void setLoaded(boolean loaded) {
-        this.loaded = loaded;
+    	synchronized(this) {
+    		this.loaded = loaded;
+    	}
     }
 
     public HashMap getImageMap() {
-        return imageMap;
+    	synchronized(this) {
+    		return imageMap;
+    	}
     }
 
     public void setImageMap(HashMap imageMap) {
-        this.imageMap = imageMap;
+    	synchronized(this) {
+    		this.imageMap = imageMap;
+    	}
     }
     
     public StateVO setPendingState(String lsid, String mseq) {
-        StateVO state = null;
-        if (this.srvSettings.isTmsAckRequired()) {
-            ArrayList states = (ArrayList)this.stateMap.get(lsid);
-            if (states == null) 
-                states = new ArrayList();
-            state = new StateVO(Integer.parseInt(mseq), StateVO.PENDING_STATE);            
-            states.add(state);
-            this.stateMap.put(lsid, states);
-        }
-        return state;
+    	synchronized(MemoryCache.class) {
+    		boolean duplicate = false;
+    		StateVO state = null;
+	        if (this.srvSettings.isTmsAckRequired()) {
+	            ArrayList states = (ArrayList)this.stateMap.get(lsid);
+	            if (states == null) 
+	                states = new ArrayList();
+	            for (int i=0 ; i<states.size() ; i++) {
+	                state = (StateVO)states.get(i);
+	                if (Integer.parseInt(mseq) == state.getMseq()) {
+	                    duplicate = true;
+	                }
+	            }
+	            if(!duplicate) {
+	            	state = new StateVO(Integer.parseInt(mseq), StateVO.PENDING_STATE);            
+	            	states.add(state);
+	            	this.stateMap.put(lsid, states);
+	            }
+	        }
+	        return state;
+    	}
     }
 
     public void setAcknowledgeState(StateVO state) {
-        if ((state != null) && this.srvSettings.isTmsAckRequired()) {
-            state.setState(StateVO.ACTKNOWLEDGE_STATE);
-        }
+    	synchronized(this) {
+	        if ((state != null) && this.srvSettings.isTmsAckRequired()) {
+	            state.setState(StateVO.ACTKNOWLEDGE_STATE);
+	        }
+    	}
     }
     
-    public void removeAcknowledgeStates(String lsid) {        
-        ArrayList states = (ArrayList)this.stateMap.get(lsid);
-        if (states != null) {
-            for (int i=states.size()-1 ; i>=0 ; i--) { 
-                StateVO state = (StateVO)states.get(i);
-                if (state.getState().equals(StateVO.ACTKNOWLEDGE_STATE)) {
-                    states.remove(i);
-                }
-            }
-        }
+    public void removeAcknowledgeStates(String lsid) {
+    	synchronized(this) {
+	        ArrayList states = (ArrayList)this.stateMap.get(lsid);
+	        if (states != null) {
+	            for (int i=states.size()-1 ; i>=0 ; i--) { 
+	                StateVO state = (StateVO)states.get(i);
+	                if (state.getState().equals(StateVO.ACTKNOWLEDGE_STATE)) {
+	                    states.remove(i);
+	                }
+	            }
+	        }
+    	}
     }
     
     public void clearContent()
     {
-        itemMap = new HashMap();
-        assetMap = new HashMap();
+    	synchronized(this) {
+    		itemMap = new HashMap();
+    		assetMap = new HashMap();
+    	}
     }
     
     public HashMap getAssetMap()
     {
-        return assetMap;
+    	synchronized(this) {
+    		return assetMap;
+    	}
     }
     
     public HashMap getItemMap()
     {
-        return itemMap;
+    	synchronized(this) {
+    		return itemMap;
+    	}
     }
     
     // I don't understand why I add this synchronized keyword here.
-    public synchronized HashMap getSubtestInfoMap()
+    public HashMap getSubtestInfoMap()
     {
-        return subtestInfoMap;
+    	synchronized(this) {
+    		return subtestInfoMap;
+    	}
     }
    
 }

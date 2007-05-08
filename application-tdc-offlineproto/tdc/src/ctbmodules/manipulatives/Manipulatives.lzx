@@ -1,0 +1,49 @@
+<library>
+    
+	<include href="protractor/Protractor.lzx"/>
+    <include href="ruler/BaseRuler.lzx"/>
+
+	<include href="calculator/standardCalculator.lzx"/>
+	<include href="calculator/scientificCalculator.lzx"/>
+	<include href="refcard/RefCard.lzx"/>
+
+    <class name="Manipulatives" clip="true"
+           datapath="dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/general">
+        
+        <Protractor name="protractor" 
+                    toolid="protractor"/>
+
+        <BaseRuler name="straight_edge"
+                   toolid="straight_edge"
+                   labelrsr="straight_label"/>
+        <BaseRuler name="oneeighth_inch_ruler"
+                   toolid="oneeighth_inch_ruler"
+                   tickmarksrsr="eighth_inch_tick_marks"
+                   labelrsr="inches_label"/>
+        <BaseRuler name="half_inch_ruler"
+                   toolid="half_inch_ruler"
+                   tickmarksrsr="half_inch_tick_marks"
+                   labelrsr="inches_label"/>
+        <BaseRuler name="mm_ruler"
+                   toolid="mm_ruler"
+                   tickmarksrsr="millimeter_tick_marks"
+                   labelrsr="centimeters_label"/>
+		<BaseRuler name="cm_ruler"
+                   toolid="cm_ruler"
+                   tickmarksrsr="centimeter_tick_marks"
+                   labelrsr="centimeters_label"/>
+
+        <RefCard name="formula_card" 
+                 toolid="formula_card"/>
+
+
+        <standardCalculator name="standard_calculator" 
+                            toolid="standard_calculator"/>
+
+        <scientificCalculator name="scientific_calculator" 
+                            toolid="scientific_calculator"/>
+
+    </class>
+
+
+</library>

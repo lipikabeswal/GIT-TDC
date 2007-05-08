@@ -27,31 +27,31 @@
   <listener>
     <listener-class>com.ctb.tdc.web.listener.StartupListener</listener-class>
   </listener>
-	
+  
   <servlet>
-    <description>DownloadContentServlet</description>
-    <display-name>DownloadContentServlet</display-name>
-    <servlet-name>DownloadContentServlet</servlet-name>
-    <servlet-class>com.ctb.tdc.web.servlet.DownloadContentServlet</servlet-class>
+    <description>ContentServlet</description>
+    <display-name>ContentServlet</display-name>
+    <servlet-name>ContentServlet</servlet-name>
+    <servlet-class>com.ctb.tdc.web.servlet.ContentServlet</servlet-class>
   </servlet>
 
-  <servlet-mapping>
-    <servlet-name>DownloadContentServlet</servlet-name>
-    <url-pattern>/servlet/DownloadContentServlet</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <description>LoadContentServlet</description>
-    <display-name>LoadContentServlet</display-name>
-    <servlet-name>LoadContentServlet</servlet-name>
-    <servlet-class>com.ctb.tdc.web.servlet.LoadContentServlet</servlet-class>
+<servlet>
+    <description>ContentServlet</description>
+    <display-name>ContentServlet</display-name>
+    <servlet-name>FContentServlet</servlet-name>
+    <servlet-class>com.ctb.tdc.web.servlet.fixed.ContentServlet</servlet-class>
   </servlet>
-
+  
   <servlet-mapping>
-    <servlet-name>LoadContentServlet</servlet-name>
-    <url-pattern>/servlet/LoadContentServlet</url-pattern>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servlet/ContentServlet.do</url-pattern>
   </servlet-mapping>
-
+  
+  <servlet-mapping>
+    <servlet-name>FContentServlet</servlet-name>
+    <url-pattern>/servlet/fixed/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <description>PersistenceServlet</description>
     <display-name>PersistenceServlet</display-name>
@@ -59,9 +59,21 @@
     <servlet-class>com.ctb.tdc.web.servlet.PersistenceServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <description>PersistenceServlet</description>
+    <display-name>PersistenceServlet</display-name>
+    <servlet-name>FPersistenceServlet</servlet-name>
+    <servlet-class>com.ctb.tdc.web.servlet.fixed.PersistenceServlet</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
     <servlet-name>PersistenceServlet</servlet-name>
-    <url-pattern>/servlet/PersistenceServlet</url-pattern>
+    <url-pattern>/servlet/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>FPersistenceServlet</servlet-name>
+    <url-pattern>/servlet/fixed/PersistenceServlet.do</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -73,7 +85,7 @@
 
   <servlet-mapping>
     <servlet-name>UtilityServlet</servlet-name>
-    <url-pattern>/servlet/UtilityServlet</url-pattern>
+    <url-pattern>/servlet/UtilityServlet.do</url-pattern>
   </servlet-mapping>
 
 
