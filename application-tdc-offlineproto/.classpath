@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/Schemas.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/xbean.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/xerces.jar"/>
+	<classpathentry kind="lib" path="dist/servletcontainer/jetty-5.1.11RC0/lib/javax.servlet.jar"/>
 	<classpathentry kind="output" path="webapp/WEB-INF/classes"/>
 </classpath>

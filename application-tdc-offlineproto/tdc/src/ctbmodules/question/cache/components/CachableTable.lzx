@@ -23,40 +23,75 @@
         <attribute name="bordersize" value="2" type="number"/>
 
         <!-- autoenlarge table -->
-       <attribute name="autoenlarge" value="false"/>       
-
+        <attribute name="autoenlarge" value="false"/>       
 
         <!-- ============================
              =====     METHODS     ======
              ============================ -->
 
-        <method event="ondata" args="data">
-            <![CDATA[
+        <method event="ondata" args="data"><![CDATA[
+
              //set border size
             this.setAttribute("bordersize", 
                               data.getAttr("border") == "yes" ? 2: 0);
-            
-            //set title and title width
+
+            if (gController.isaccomodated && parent['stereotype']) {
+                var style = gController.getAccomStyleForType(parent.stereotype);
+            }
+
+            // Autoenlarge : automatically handle scrolling and size related issues
+            // Values are "no", "yes", "fixed" and "fitpanel"
+            // "NO"       : keep same fontsize for both regular and accommodated users
+            // "YES"      : Larger fontsize for accommodated users
+            // "FIXED"    : increase fontsize for accommodated users (only add vertical scrolling)
+            // "FITPANEL" : shrink or enlarge table text font to fit a panel (no scrolling)
+            //
+            this.setAttribute("autoenlarge", data.getAttr("autoenlargeable"));
+
+            // Set title and title width
             if (data.hasAttr("titlewidth")) {
                 this.thetable.contents.title.setAttribute("titlewidth", Number(data.getAttr("titlewidth")));
             } else {
                 this.thetable.contents.title.setAttribute("titlewidth", -1);
             }
 
+            // Fixed: Increase title fontsize for accommodated users
+            if (this.autoenlarge == "fixed" && this.thetable.contents.title.fontsize < 16 &&
+                 gController.isaccomodated) {
+                this.thetable.contents.title.setAttribute("fontsize", 
+                                    this.thetable.contents.title.fontsize * style['font_magnification']);
+//Debug.write("fixed : "  + this.thetable.contents.title.fontsize);
+            }
             this.thetable.contents.title.setAttribute("text", 
                     '<p align="center">' + decodeBrackets(data.getAttr('title')) + '</p>');
 
-                       
-            //set lines
+            // Toggle border lines
             var hspace = data.getAttr("showvlines") == "yes" ? 1 : 0;
             var vspace = data.getAttr("showhlines") == "yes" ? 1 : 0;
 
-            //show enlarge button if necessary
-            this.enlarge.setAttribute("visible", data.getAttr("enlargeable") == "yes");
+            // Show enlarge button if necessary
+            // Values are:
+            // "YES"          : Display for everyone
+            // "NO"           : Don't display for anyone (default)
+            // "ACCOMMODATED" : Only display for accommodated users
+            //
 
-            //autoenlarge 
-            this.setAttribute("autoenlarge", data.getAttr("autoenlargeable") == "yes"
-                                  && gController.isaccomodated);
+            // Accommodated mode creates new panels
+            if (gController.isaccomodated)
+                this.table_ht = parent.parent.height;
+            else 
+                this.table_ht = parent.height;
+
+			var enlargeAttr = data.getAttr("enlargeable");
+			var isEnlargeable = false;
+   			if (enlargeAttr == "yes"){ 
+   				isEnlargeable = true;
+                this.table_ht -=  24;
+   			}
+   			else if (enlargeAttr == "accommodated"){
+   				isEnlargeable = gController.getAttribute("isaccomodated");
+   			}
+            this.enlarge.setAttribute("visible", isEnlargeable);
 
             //init cell props
             var rows = datapath.xpathQuery("row");
@@ -80,9 +115,20 @@
                 for (j = 0; j < cells.length; j++) {
                     cells[j].attributes.width = maxwidth;
                     cells[j].attributes.height = Number(rows[j].attributes.height);
-                    cells[j].attributes.y = ny;
+        
                     cells[j].attributes.x = nx;
-                    ny += Number(rows[j].attributes.height) + vspace;
+
+                    // Fixed : only enlarge text widgets within tables
+                    if (this.autoenlarge == "fixed" && cells[j].getElementsByTagName("text_widget") 
+                         												&& gController.isaccomodated) {
+                        cells[j].attributes.height = cells[j].attributes.height * 2;
+                        cells[j].attributes.y = ny;
+                        ny += Number(cells[j].attributes.height + vspace); 
+                    }
+                    else {
+                       cells[j].attributes.y = ny;
+                       ny += Number(rows[j].attributes.height) + vspace;
+                    }
                 }
 
                 nx += maxwidth + hspace;
@@ -90,6 +136,14 @@
                 maxwidth = 0;
             }
 
+			// don't show stray lines if no vlines and hlines
+			if(hspace == 0 && vspace == 0){
+				thetable.contents.borderview.table.setAttribute("bgcolor", this.bgcolor);
+			}
+			else{
+				thetable.contents.borderview.table.setAttribute("bgcolor", null);
+			}
+            
             this._initSubnodes();
             doneLoading();
             ]]>
@@ -143,7 +197,6 @@
             ]]>
         </method>
 
-
         <method name="getAttrRelComp" args="attr, from">
             var p = from.immediateparent;
             var toreturn = from[attr];
@@ -162,8 +215,77 @@
                 align = data.getAttr("halign");
             }
             this.setAlign(align);
-        
-            if (this.autoenlarge) {
+
+//Debug.write("this width : " + this.width + " x : " + this.x, this);
+//Debug.write("parent width : " + parent.width + " x : " + parent.x, parent);
+
+           if (this.autoenlarge == "zoom") {
+
+               // This contains the updated height and width values
+               // from the newly created panel
+               var orig_height = data.getAttr("height");
+               var orig_width = data.getAttr("width");
+               var offset = 50;
+//Debug.write(data); 
+
+               // Multiplying factor
+               // Use offset for margins
+               var mult_factor  = (gEnlargePopup.width - offset)/orig_width;
+//Debug.write("mult_factor : " + mult_factor + " w : " + orig_width + " h : " + orig_height);
+               var width = gEnlargePopup.width - offset;
+
+               // These variables manipulate the image within the popup window
+               var table = this.thetable.contents.borderview.table;
+               var wrapper = parent.wrapper;
+               var title_ht = 60;
+ 
+               var title = this.thetable.contents.title;
+               if (title) {
+//Debug.write("font size : " + title.fontsize);               
+                   title.setAttribute("fontsize", 14);
+                   title.setAttribute("text", 
+                        '<p align="center">' + decodeBrackets(data.getAttr('title')) + '</p>');
+
+                   // Based on (width/height) ratio use an appropriate fontsize
+//Debug.write("updated font size : " + (title.fontsize * mult_factor));
+                   title.setAttribute("fontsize", 
+                               title.fontsize * mult_factor);
+//Debug.write("updated title ht : " + title.height);
+               }
+
+//Debug.write(table);
+//Debug.write(title);
+//Debug.write(this);
+//Debug.write(parent.wrapper);
+
+               // Set the image dimensions 
+               // We're using the original table measurements, so we only need
+               // to use an aspect ratio to correct for the margins 
+               table.setAttribute("stretches", "both");
+               table.setAttribute("width", width);
+               table.setHeight(Math.ceil((orig_height - title_ht) * mult_factor));
+
+               // nklein : hack that shouldn't be necessary
+               // Need to examine why this occurs
+               if (this.x < 0) this.setX(0);
+
+               // Set the canvas height of the popup 
+               // Sets the height for the scrollbar
+               // Account for margins and the height of the title
+//Debug.write("table h : " + table.height + " title h : " + title.height);
+               parent.wrapper.setHeight(table.height + (offset - 40) + title.height);
+
+               // Remove the scrollbar when the table fits within the popup
+               if (parent.wrapper.height + (offset - 40) < gEnlargePopup.height) 
+                  gEnlargePopup.contents.scaler.scroller.setAttribute("visible", false);
+               else
+                  gEnlargePopup.contents.scaler.scroller.setAttribute("visible", true);
+
+               super.doneLoading();
+               return;
+            }
+            
+            else if (this.autoenlarge == "yes") {
                 var contents = this.thetable.contents;
 
                 //use our own get relative to because ours is flaking out.  This will
@@ -186,16 +308,19 @@
                     newh = Math.floor(contents.height * factor);//(contents.width * factor) * contents.height/contents.width;
                 }
 
-                //set the size
+                // nklein : July 5, 2007
+                // These lines were commented to stop the intermittent navigaton problems
                 this.thetable.setAttribute("width", Math.floor(contents.width * factor));
                 this.thetable.setAttribute("height", newh);
         
-            } else {
+            } 
+            // nklein : July 5, 2007
+            // These lines were commented to stop the intermittent navigaton problems
+            else {
                 this.thetable.setAttribute("width", this.thetable.contents.width);
                 this.thetable.setAttribute("height", this.thetable.contents.height);
-
             }
-
+            
             super.doneLoading();
         ]]></method>
 
@@ -204,6 +329,9 @@
              ============================ -->
         <simplelayout axis="y" spacing="0"/>
 
+        <!-- enlarge button -->
+        <EnlargeButton name="enlarge" 
+                    x="${classroot.thetable.width-this.width}"/>
         <view name="thetable" stretches="both">
             <view name="contents" 
                 width="${Math.max(title.width, borderview.width)}">
@@ -239,10 +367,6 @@
                 </view>
             </view>
         </view>
-        <!-- enlarge button -->
-        <EnlargeButton name="enlarge" 
-                    x="${classroot.thetable.width-this.width}"/>
-            
     </class>
     
 </library>

@@ -43,9 +43,7 @@
 
             this.eraserstatus.setAttribute ('rerunxpath', true);
             this.eraserstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@eraser');
-            if(!canvas.useDefaultEliminator){
-            	this.eliminator.setSource(canvas.eliminatorRsrc);
-            }
+            this.eliminator.setSource(canvas.eliminatorRsrc);
         </method>
 
         <method event="onmouseover"><![CDATA[
@@ -134,15 +132,9 @@
             this.setResourceNumber (newresource);
         </method>
  		<view name="eliminator" 
-		      visible="${classroot.selstate == 'e' &amp;&amp; !canvas.useDefaultEliminator}"
+		      visible="${classroot.selstate == 'e'}"
 		      align="center" 
 		      valign="middle" 
 		      clickable="false" />
- 		<view name="defaultEliminator" 
-		      visible="${classroot.selstate == 'e' &amp;&amp; canvas.useDefaultEliminator}"
-		      align="center" 
-		      valign="middle" 
-		      clickable="false" 
-		      resource="default_eliminator" />
  	</class>
 </library>

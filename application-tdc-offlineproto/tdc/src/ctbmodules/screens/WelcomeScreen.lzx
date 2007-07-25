@@ -12,9 +12,9 @@
             first time, first screen
         -->
  
-        <method name="setupContinue" args="minutes, questions, untimed">
+        <method name="setupContinue" args="minutes, questions, untimed, sn">
             info.notes.updateText( minutes, questions, untimed, false );
-
+			updateStudentName(sn);
             controls.getstarted.setAttribute(
                 'text',
                 'Continue taking this test?'
@@ -24,8 +24,9 @@
             controls.docontinue.apply();
         </method>
 
-        <method name="setupRestart" args="minutes, questions, untimed">
+        <method name="setupRestart" args="minutes, questions, untimed, sn">
             info.notes.updateText( minutes, questions, untimed, true );
+			updateStudentName(sn);
 
             controls.getstarted.setAttribute(
                 'text',
@@ -36,8 +37,9 @@
             controls.docontinue.apply();
         </method>
 
-        <method name="setupNewSubtest" args="minutes, questions, untimed">
+        <method name="setupNewSubtest" args="minutes, questions, untimed, sn">
             info.notes.updateText( minutes, questions, untimed, false );
+			updateStudentName(sn);
 
             controls.getstarted.setAttribute(
                 'text',
@@ -48,26 +50,15 @@
             controls.dostart.apply();
         </method>
 
+		<method name="updateStudentName" args="sn">
+			this.studentName.setAttribute( 'text', 'Welcome ' + sn);
+		</method>
+		
         <attribute name="font" value="Arial"/>
 
         <simplelayout axis="y" spacing="3"/>
 
-        <text fgcolor="white" fontsize="24" resize="true"
-              x="${ parent.info.x }"
-              datapath="dssubtest:/subtest/testing_session_data/cmi.core/@student_name">
-            <method name="applyData" args="d">
-                if ( d ) {
-                    var commapos = d.indexOf( ',' );
-                    var firstname = d.substring( commapos + 1 );
-                    var lastname = d.substring( 0, commapos );
-                    var len = 36 - lastname.length;
-                    if (firstname.length > len) {
-                    	firstname = firstname.substring( 0, 2 ) + '.'; 
-                    }
-                    setAttribute( 'text', 'Welcome ' + firstname + ' ' + lastname );
-                }
-            </method>
-        </text>
+        <text name="studentName" fgcolor="white" fontsize="24" resize="true" x="${ parent.info.x }"/>
   
         <view name="info" bgcolor="white" width="550" 
         	x="5" height="94">

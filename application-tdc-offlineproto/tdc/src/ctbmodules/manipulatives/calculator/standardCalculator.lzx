@@ -82,7 +82,7 @@
 					<operatorCalculatorButton 
                         offFaceRsrc="white_percent_rsrc" 
                         otherFaceRsrc="black_percent_rsrc" 
-                        onclick="classroot.handleUnaryOperator('percent');"/>
+                        onclick="classroot.handlePercent();"/>
                     <calcButton txtresource="four_txt"
                                 onclick="classroot.handleDigit(4)"/>
                     <calcButton txtresource="five_txt" 

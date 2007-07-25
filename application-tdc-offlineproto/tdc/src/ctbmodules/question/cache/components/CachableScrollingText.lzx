@@ -55,6 +55,7 @@
             for (var i in contsubviews) {
                 if (contsubviews [i] instanceof CachableComponent &&
                         contsubviews [i].visible) {
+                    contsubviews[i].destroy();
                     this.cache.returnComponent (contsubviews [i]);
                 }
             }

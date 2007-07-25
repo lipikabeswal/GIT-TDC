@@ -75,6 +75,10 @@
             }
 
             var dataText = data.getFirstChild().data;
+			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
+			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
+				dataText = gController.directionsSubstitution(dataText);
+			}  
 
             //alignment
             var valign = "top";

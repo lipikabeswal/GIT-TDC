@@ -5,8 +5,8 @@
            comptype="$once{gCompTypes.WIDGET_TABLE_CELL}"
            defaultplacement="wrapper" fontsize="12">
 
-        
         <method event="ondata" args="data"><![CDATA[
+
             //size/pos
             this.setAttribute("x", data.attributes.x);
             this.setAttribute("y", data.attributes.y);
@@ -26,6 +26,12 @@
                 this.setAttribute("fontcolor", Number(data.attributes.fgcolor));
             }else {
                 this.setAttribute("fontcolor", this.panel.fontcolor);
+            }
+
+            // Increase fontsize of text
+            if (parent.autoenlarge == "fixed" && this.fontsize < 16 && gController.isaccomodated) {
+               var style = gController.getAccomStyleForType(parent.parent.stereotype);
+               this.setAttribute("fontsize", this.fontsize * style['font_magnification']);
             }
 
             //alignment

@@ -40,11 +40,10 @@
             When the data changes reset all of our properties/info
         -->
 
-		<method event="ondata" name="initComp" args="data">
+		<method event="ondata" name="initComp" args="data"><![CDATA[
             if (!data) return;
 
             var contents = this.wrapper.scrollcontainer.offsetwrapper.contents;
-
 
             //width and height
 			if (data.hasAttr ('width')) {
@@ -94,6 +93,9 @@
                     this.setAttribute ('bgcolor', style.bgcolor);
                     isaccom = true;
                 }
+                else if (!(this instanceof CachableAnswerAreaPanel || this instanceof CachableAnswerAreaAbsolutePanel)){
+					this.setAttribute('bgcolor', gController.questionBgColor);
+                }
                 if (style ['font_color']) {
                     this.setAttribute ('fontcolor', Number (style.font_color));
                 }
@@ -105,6 +107,10 @@
                     this.setAttribute ('fontsize', canvas.basefontsize);
                 }
             }
+            else if(!(this instanceof CachableAnswerAreaPanel || this instanceof CachableAnswerAreaAbsolutePanel)){
+				this.setAttribute('bgcolor', gController.questionBgColor);
+            }
+            
             this.setAttribute("isaccom", isaccom);
 
             //make subviews
@@ -118,7 +124,7 @@
             {
                 gFootNotePopup.setAttribute("scrolltext", this);
             }                
-        </method>
+        ]]></method>
 
 
         <method name="doReturnToCache"><![CDATA[

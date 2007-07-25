@@ -26,6 +26,9 @@
 		<attribute name="ySpacing" value="8" type="number"/>
 		<attribute name="xSpacing" value="5" type="number"/>
 		<attribute name="iscurrentVal" type="boolean" value="false" />
+		<attribute name="percentOperand" type="number" />
+		<attribute name="percentOperator" type="string" />
+		<attribute name="isPercentEquals" type="boolean" value="false" />
 		
 		<!--  default values -->
 		<attribute name="defaultDisplayValue" value="0." type="string"/>
@@ -36,6 +39,7 @@
 		<attribute name="defaultIsNegative" value="false" type="boolean"/>
 		<attribute name="defaultMemory" value="0" type="number"/>
 		<attribute name="defaultMemoryCleared" value="true" type="boolean"/>
+		<attribute name="defaultIsPercentEquals" value="false" type="boolean"/>
 		<attribute name="defaultOperators" value="new Array()"/>
 		<attribute name="defaultOperands" value="new Array()"/>
 
@@ -43,7 +47,7 @@
 		<attribute name="OPERATOR_ADD" value="add" type="string"/>
 		<attribute name="OPERATOR_SUBTRACT" value="subtract" type="string"/>
 		<attribute name="OPERATOR_MULTIPLY" value="multiply" type="string"/>
-		<attribute name="OPERATOR_DIVIDE" value="multiply" type="string"/>
+		<attribute name="OPERATOR_DIVIDE" value="divide" type="string"/>
 		<attribute name="OPERATOR_PI" value="pi" type="string"/>
 		
         <attribute name="operandP" value="$once{new LzDatapointer()}"/>
@@ -144,6 +148,27 @@
                 	this.setAttribute('memory', this.getAttribute('defaultMemory'));
                 }
                 
+                if (data.hasAttr ('percentOperator')) {
+                    this.setAttribute ('percentOperator', data.getAttr ('percentOperator'));
+                }
+                else{
+                	this.setAttribute('percentOperator', null);
+                }
+
+                if (data.hasAttr ('percentOperand')) {
+                    this.setAttribute ('percentOperand', data.getAttr ('percentOperand'));
+                }
+                else{
+                	this.setAttribute('percentOperand', null);
+                }
+
+                if (data.hasAttr ('isPercentEquals')) {
+                    this.setAttribute ('isPercentEquals', data.getAttr ('isPercentEquals'));
+                }
+                else{
+                	this.setAttribute('isPercentEquals', this.getAttribute("defaultIsPercentEquals"));
+                }
+
                 // set operands and operators
                 this.operands = new Array();
                 this.operators = new Array();
@@ -272,6 +297,7 @@
 		</method>
 
 		<method name="handleBinaryOperator" args="oper">
+			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 				if(isReplacementOperator()){
 					popOperator();
@@ -291,10 +317,12 @@
 		</method>
 
 		<method name="handleMemoryPlus">
+			setDataAttribute("isPercentEquals", false);
 			this._doMemoryModification(true);
 		</method>
 		
 		<method name="handleMemoryMinus">
+			setDataAttribute("isPercentEquals", false);
 			this._doMemoryModification(false);
 		</method>
 		
@@ -309,12 +337,14 @@
 		</method>
 		
 		<method name="handleMemoryClear">
+			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 				setDataAttribute('memory', 0);
 			}
 		</method>
 
 		<method name="handleMemoryRecall">
+			setDataAttribute("isPercentEquals", false);
 			setTheCurrentOperand(this.getAttribute("memory"));
 		</method>
 		
@@ -348,7 +378,7 @@
 		</method>
 		
 		<method name="hasEqualOrLowerPrecedenceAsPrevious" args="oper">
-			var result=false;
+/*			var result=false;
 			if(this.operators.length &gt;= 1){
 				var previousOperator = this.operators.pop();
 				var operPrecedence = getPrecedence(oper);
@@ -357,6 +387,8 @@
 				this.operators.push(previousOperator);
 			}
 			return result;
+*/
+			return this.operators.length &gt;= 1;
 		</method>
 		
 		<method name="getPrecedence" args="oper">
@@ -372,17 +404,27 @@
 		
 		<method name="handleEquals">
 			if(!isErrorState()){
-				this.setCurrentOperandFromInput();
-				pushOperand(this.currentOperand);
-				var result = this.currentOperand;
-				if(this.operandSet){
+				var result;
+				if(this.isPercentEquals){
+					this.pushOperand(this.currentOperand);
+					this.pushOperand(this.getAttribute("percentOperand"));
+					this.pushOperator(this.getAttribute("percentOperator"));
 					result = reduce("none");
+				}
+				else{
+					this.setCurrentOperandFromInput();
+					pushOperand(this.currentOperand);
+					result = this.currentOperand;
+					if(this.operandSet){
+						result = reduce("none");
+					}
 				}
 				this.resetState();
 				setDataAttribute('currentOperand', result);
 				setDataAttribute('operandSet', true);
 				updateDisplay();
 			}
+			setDataAttribute("isPercentEquals", false);
 		</method>
 			
 		<method name="reduce" args="oper">
@@ -409,6 +451,7 @@
 		
 		<method name="handleBackspace">
 		<![CDATA[     
+			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){ 
 				if(this.isEditing){
 					if(this.input.length == 1){
@@ -427,6 +470,7 @@
 		</method>
 
 		<method name="handleReverseSign">
+			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 				if(this.isEditing){
 					setDataAttribute('isNegative', !this.isNegative);
@@ -442,6 +486,7 @@
 		</method>
 
 		<method name="handleDecimal">
+			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 				if(!this.isEditing){
 					setDataAttribute('input', '0');
@@ -478,6 +523,7 @@
 		</method>
 
 		<method name="handleDigit" args="digit">
+			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 			    if(this.canAddDigit()){ 
 				    if(this.isEditing){
@@ -586,6 +632,7 @@
 		</method>
 		
 		<method name="handleUnaryOperator" args="oper">
+			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 				if(this.unaryAfterBinary()){
 					var lastOperand = popOperand();
@@ -632,14 +679,70 @@
 				case "root":
 					result = Math.pow(value, 0.5);
 					break;
-				case "percent":
-					result = doPercent(value, unaryAfterBinary);
-					break;
 			}
 			return result;
 		</method>
 
+		<method name="handlePercent" ><![CDATA[    
+			// muck everything up to satisfy FCAT :(
+			// yes - this wacky behavior is intentional
+			setDataAttribute("isPercentEquals", false);
+			if(!isErrorState()){
+				var result = 0;
+				var left = popOperand();
+				var op = popOperator();
+				var right = null;
+				if(this.isEditing){
+					setCurrentOperandFromInput();
+					right = currentOperand;
+				}
+				if(left != null && op != null){
+					if(right != null){
+						if(op == OPERATOR_MULTIPLY){
+							result = left * (right/100);
+							setDataAttribute("percentOperand", left);
+						}
+						else if (op == OPERATOR_DIVIDE){
+							result = left / (right/100);
+							setDataAttribute("percentOperand", right);
+						}
+						else if (op == OPERATOR_ADD){
+							result = left + ((right/100) * left);
+							setDataAttribute("percentOperand", left);
+						}
+						else if (op == OPERATOR_SUBTRACT){
+							result = left - ((right/100) * left);
+							setDataAttribute("percentOperand", left);
+						}
+						setDataAttribute("percentOperator", op);
+						setDataAttribute("isPercentEquals", true);
+					}
+					else{
+						if(op == OPERATOR_MULTIPLY){
+							result = left * left/100;
+						}
+						else if (op == OPERATOR_DIVIDE){
+							result = 100 / left;
+						}
+						else if (op == OPERATOR_ADD){
+							result = left;
+						}
+						else if (op == OPERATOR_SUBTRACT){
+							result = left;
+						}
+						setDataAttribute("percentOperand", null);
+						setDataAttribute("percentOperator", null);
+						setDataAttribute("isPercentEquals", false);
+					}
+				}
+				setDataAttribute('currentOperand', result);
+				resetCurrentOperandState();
+				updateDisplay();
+			}
+		]]></method>
+		
 		<method name="doPercent" args="value, unaryAfterBinary">
+			// muck everything up to satisfy FCAT :(
 			var percentage = value/100;
 			var result = percentage;
 			if(this.operators.length != 0){
@@ -662,6 +765,7 @@
 		</method>
 		
 		<method name="handlePi">
+			setDataAttribute("isPercentEquals", false);
 			setTheCurrentOperand(Math.PI);
 		</method>
 		

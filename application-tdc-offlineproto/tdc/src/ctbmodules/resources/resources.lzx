@@ -16,13 +16,6 @@
     <resource name="cangrab_cursor" src="manipulatives/ruler/dragger_over.swf"/>
     <resource name="grabbing_cursor" src="manipulatives/ruler/dragger_press.swf"/>
 
-
-    <!-- =====================
-         Logo
-         =====================-->    
-    <resource name="ctb_logo" src="iknow_toolbar/logo.swf"/>
-
-
     <!-- =====================
          Manipulative Bar
          =====================-->    
@@ -248,7 +241,6 @@
         <frame src="iknow_answerchoices/answer_blueballselect.swf"/>
     </resource>
 
-   <resource name="default_eliminator" src="iknow_answerchoices/eliminator.swf" />
     <!-- =====================
          Gridded response
          =====================-->    

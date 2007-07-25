@@ -30,6 +30,7 @@
 				case "474":
 				case "475":
 				case "476":
+				case "477":
 				case "500":
 				case "501":
 					txErrorHdr = 	"Login Error";
@@ -91,6 +92,10 @@
 			
 				case "476":
 					result = 	"You cannot log into this test session because your answers have already been entered. See your proctor for help"
+					break;
+		
+				case "477":
+					result = 	"You cannot log into this test session because your locator subtest is not completed. See your proctor for help."
 					break;
 		
 				case "500":

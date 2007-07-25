@@ -100,8 +100,7 @@
                    value="$once{ new LzDelegate( this, 'macKeyHandler' ) }"/>
 
         <method name="exitPopups">
-            gEnlargePopup.shrink();
-            gFootNotePopup.hide();
+            gController.exitPopups();
         </method>
 
         <method name="macKeyHandler" args="k">

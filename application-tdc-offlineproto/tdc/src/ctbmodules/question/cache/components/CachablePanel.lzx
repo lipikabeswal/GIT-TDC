@@ -44,6 +44,7 @@
 
         <method name="_initSubnodes"><![CDATA[
             var subnodes = this.datapath.p.childNodes;
+            if (subnodes == null) return;
             var newcomp = null;
             for (var i = 0; i < subnodes.length; i++) {
                 if ( subnodes[i] instanceof LzDataElement ) {

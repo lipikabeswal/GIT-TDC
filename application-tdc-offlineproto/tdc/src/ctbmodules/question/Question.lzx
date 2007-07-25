@@ -2,7 +2,7 @@
 
     <include href="cache/ComponentCache.lzx"/>
 
-    <class name="Question" bgcolor="white">
+    <class name="Question">
 
         <attribute name="doaccomlayout" value="true"/>
 
@@ -89,7 +89,7 @@
             dntoppanel.setChildNodes(panelarr);
 
             //change all subnodes according to new layout requirements
-            this.convertNodes(panelarr, 780);
+            this.convertNodes(panelarr, 780, true);
 
             this.datapath.p.setChildNodes([dntoppanel]);
         ]]></method>
@@ -134,7 +134,7 @@
                 if (childarr[i].getAttr("stereotype") == "directions") {
                     //directions node found, 
                     dndir = childarr[i];
-                    this.convertNodes([dndir], this._LEFTPANELWIDTH);
+                    this.convertNodes([dndir], this._LEFTPANELWIDTH, false);
                     dndir.setAttr("y", 79);
 
                     //plop dndir data into sizer to find out the panel's size
@@ -171,8 +171,8 @@
             }            
 
             //convert subnodes to the new state of the world
-            this.convertNodes(leftchildarr, leftwidth - 14);
-            this.convertNodes(rightchildarr, rightwidth - 14);
+            this.convertNodes(leftchildarr, leftwidth - 14, false);
+            this.convertNodes(rightchildarr, rightwidth - 14, false);
 
             //rearrange subnodes
             dnleftpanel.setChildNodes(leftchildarr);
@@ -191,12 +191,12 @@
 
 
         <!-- Convert subnodes to the new layout-->
-        <method name="convertNodes" args="dnarr, nw"><![CDATA[            
+        <method name="convertNodes" args="dnarr, nw, single"><![CDATA[   
             var dn;
             for (var i = 0; i < dnarr.length; i++) {
 
                 dn = dnarr[i];
-
+Debug.write("convertNodes: " + i + " : " + dn.nodeName);
                 if (!(dn instanceof LzDataElement)) break;
 
                 //don't bother changing table and image nodes.  Image nodes
@@ -230,13 +230,12 @@
                         + Number(dn.getAttr("left_padding"));
                 }
                 
-                //set width if appropriate.  We'll avoid horizontal layouts
-                //unless our width is greater than the newly specified width
-                if (dn.attributes["layout"] != "horizontal"
-                        || (dn.attributes["width"] > (nw - xVal)) ) {
-                    dn.attributes.width = Math.min(dn.attributes["width"], 
-                        nw - xVal);
-                }
+					if(single){
+                    	dn.attributes.width = nw - xVal;
+					}
+					else if(dn.hasAttr("width")){
+                     	dn.attributes.width = Math.min(dn.attributes["width"], nw - xVal);
+                    }
         
                 //don't bother with to convert certain node types' children
                 if (!dn.hasChildNodes() || 
@@ -247,10 +246,39 @@
 
                 //convert children
                 var cn = dn.childNodes;
-                this.convertNodes(cn, dn.attributes.width - 14);
-                
+                if(cn != null){
+                	if(dn.nodeName == gCompTypes.WIDGET_ANSWER_AREA_PANEL && dn.attributes["layout"] == "vertical"){
+                		this.convertVerticalAnswerAreaNodes(cn, dn.attributes.width - 14);
+                	}
+                	else{
+                		this.convertNodes(cn, dn.attributes.width - 14, single);
+                	}
+                }
             }
 
+        ]]></method>
+
+        <method name="convertVerticalAnswerAreaNodes" args="dnarr, nw"><![CDATA[   
+Debug.write("***************** convertVerticalAnswerAreaNodes *******************************");
+			// dnarr contains answer_choice_widgets 
+			var selectorWidth = 50;  // probably need to measure it in the future - this is for larger font only
+            var answerChoiceWidgetNode;
+            for (var i = 0; i < dnarr.length; i++) {
+            	answerChoiceWidgetNode = dnarr[i];
+            	if(answerChoiceWidgetNode.nodeName == gCompTypes.WIDGET_ANSWER_CHOICE){
+            		answerChoiceWidgetNode.attributes.width = nw;
+            		var spacing = new Number(answerChoiceWidgetNode.attributes.spacing);
+            		childarr = answerChoiceWidgetNode.childNodes;
+            		var childNode;
+            		for(var j=0; j < childarr.length; j++){
+            			childNode = childarr[j];
+            			if(childNode.nodeName == gCompTypes.WIDGET_TEXT){
+            				var tw = nw - selectorWidth - spacing;
+            				childNode.attributes.width = tw;
+            			}
+            		}
+            	}
+            }
         ]]></method>
 
 

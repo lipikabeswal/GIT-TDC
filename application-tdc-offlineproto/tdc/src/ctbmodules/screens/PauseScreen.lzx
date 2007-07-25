@@ -15,21 +15,8 @@
 
         <simplelayout axis="y"/>
 
-        <text datapath="@student_name" fontsize="24" resize="true"
-              fgcolor="white">
-            <method name="applyData" args="d">
-                if ( d ) {
-                    var commapos = d.indexOf( ',' );
-                    var firstname = d.substring( commapos + 1 );
-                    var lastname = d.substring( 0, commapos );
-                    var len = 36 - lastname.length;
-                    if (firstname.length > len) {
-                    	firstname = firstname.substring( 0, 2 ) + '.'; 
-                    }                    
-                    setAttribute( 'text', 'Hello, ' + firstname + ' ' + lastname );
-                }
-            </method>
-        </text>
+        <text name="studentName" fontsize="24" resize="true" fgcolor="white"/>
+        
         <text name="prompt" fontsize="24" fgcolor="white" resize="true">
             Log in to resume your paused test.
         </text>

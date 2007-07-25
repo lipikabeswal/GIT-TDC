@@ -107,7 +107,7 @@
         var detailstart = this.itemtxt.indexOf("detail=&quot;", headerpos) + 13;
         var detailend = this.itemtxt.indexOf("&quot;", detailstart);
         var detail = this.itemtxt.substring(detailstart, detailend);
-
+		detail = replaceAmp(detail);
 		setReadable(headerpos);
 		
         //init footnote
@@ -255,6 +255,12 @@
             ns = ns + char
         }
         return ns;
+    ]]></method>
+
+     <method name="replaceAmp" args="s"><![CDATA[
+     	// htmlEncode encoded '&' as '&amp;' - we need to put it back
+     	// for instance - &apos; got turned into &amp;apos;
+        return gController.replace(s, '&amp;', '&');
     ]]></method>
 
     <drawview width="100%" height="100%" 

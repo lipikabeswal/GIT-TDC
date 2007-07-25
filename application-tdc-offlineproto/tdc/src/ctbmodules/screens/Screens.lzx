@@ -118,11 +118,11 @@
 
         </method>
 
-        <method name="showRestart" args="m,q,u">
+        <method name="showRestart" args="m,q,u, sn">
             removeAllStates();
             if ( !contents.ws.isinited ) contents.ws.completeInstantiation();
             prancingMan.apply();
-            contents.ws.setupRestart( m, q, u );
+            contents.ws.setupRestart( m, q, u, sn );
             contents.ws.setVisible( true );
             show();
         </method>
@@ -142,12 +142,13 @@
             contents.os.setVisible( true );
             show();
         </method>
-        <method name="showPause">
+        <method name="showPause" args="sn">
             removeAllStates();
             if ( !contents.ps.isinited ) contents.ps.completeInstantiation();
             standingMan.apply();
             contents.ps.pw.passwordField.setText( '' );
             contents.ps.prompt.setText( 'Log in to resume your paused test.' );
+            contents.ps.studentName.setAttribute('text', 'Hello ' + sn);
             contents.ps.setVisible( true );
             show();
         	LzFocus.setFocus(contents.ps.pw.passwordField);
@@ -187,20 +188,20 @@
 
         </method>
 
-        <method name="showWelcome" args="m,q,u">
+        <method name="showWelcome" args="m,q,u, sn">
             removeAllStates();
             if ( !contents.ws.isinited ) contents.ws.completeInstantiation();
 			standingMan.remove();
             prancingMan.apply();
-            contents.ws.setupNewSubtest( m, q, u );
+            contents.ws.setupNewSubtest( m, q, u, sn );
             contents.ws.setVisible( true );
             show();
         </method>
-        <method name="showContinue" args="m,q,u">
+        <method name="showContinue" args="m,q,u, sn">
             removeAllStates();
             if ( !contents.ws.isinited ) contents.ws.completeInstantiation();
             prancingMan.apply();
-            contents.ws.setupContinue( m, q, u );
+            contents.ws.setupContinue( m, q, u , sn);
             contents.ws.setVisible( true );
             show();
         </method>

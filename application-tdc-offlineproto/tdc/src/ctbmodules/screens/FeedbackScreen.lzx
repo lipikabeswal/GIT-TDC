@@ -18,9 +18,8 @@
  		<method name="showFeedback" args="feedback"><![CDATA[
    			var node = LzDataNode.stringToLzData(feedback);
             dsfeedback.setChildNodes(new Array(node));
-			var name = dpfeedback.xpathQuery('testing_session_data/@student_name');
-			var nameArr = name.split(",");			
-            studentName.setAttribute('text', nameArr[1] + " " + nameArr[0] + ", this is how you did.");
+			var name = gController.getStudentName();
+            studentName.setAttribute('text', name + ", this is how you did.");
             info.testName.setAttribute('text', dpfeedback.xpathQuery('title/@name'));
     		var unsortedScos = dpfeedback.xpathQuery('title/sco');
 			if(unsortedScos!=null)

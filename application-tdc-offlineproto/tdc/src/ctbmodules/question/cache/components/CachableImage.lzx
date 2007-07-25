@@ -18,7 +18,7 @@
        <attribute name="readable"
                    value="${ gReadableText.isReadable &amp;&amp; hasAltText }"/>
 
-       <attribute name="autoenlarge" value="false"/>
+       <attribute name="autoenlarge" value="" type="string" />
        <attribute name="retrycount" value="0"/>
        <attribute name="timeoutretrycount" value="0"/>
        <attribute name="servletBase" type="string" />
@@ -47,7 +47,7 @@
 					          + '/ContentServlet.do?method=getImage' + params
 							  + '&requestXML=');
 			}
-            Debug.write("XXX servletBase : " + servletBase);
+            //Debug.write("XXX servletBase : " + servletBase);
 		]]></method>
 		
         <method name="read">
@@ -65,7 +65,7 @@
 			var trimmedFileName = trimFileName(fileName);
 			var xml = gXmlHelper.getGetImageXml(fileName);
 			var result = servletBase + xml;
-Debug.write("got imageUrl: " + result);
+//Debug.write("got imageUrl: " + result);
 			return result;
 		]]></method>
 		
@@ -87,6 +87,11 @@ Debug.write("got imageUrl: " + result);
             this.setAttribute ('retrycount', 0);
             this.setAttribute ('timeoutretrycount', 0);
 
+			this.setAttribute("height", null);
+			this.setAttribute("width", null);
+			this.imageview.setAttribute("height", null);
+			this.imageview.setAttribute("width", null);
+			
 			var theSrc = getImageUrl(data.getAttr('src'));
 
 			if (data.hasAttr ('width')) {
@@ -101,14 +106,32 @@ Debug.write("got imageUrl: " + result);
                 this.setAttribute ('height', null);
             }
 
-            if (data.hasAttr("enlargeable")) {
-                this.enlarge.setAttribute("visible", data.getAttr("enlargeable") == "yes");
-            } else {
-                this.enlarge.setAttribute("visible", false);                
+            //
+            // When the XML attribute enlargeable is set to 
+            // "yes"		 : Display a zoom button for all users 
+            // "no"			 : Don't display a zoom button
+            // "accommodated : Only display a zoom button for accommodated users
+            //
+            // This logic needs to be re-entrant, so it is tricky
+			var enlargeAttr = data.getAttr("enlargeable");
+			var isEnlargeable = false;
+   			if (enlargeAttr == "yes"){ 
+   				isEnlargeable = true;
+   			}
+   			else if (enlargeAttr == "accommodated"){
+   				isEnlargeable = gController.getAttribute("isaccomodated");
+   			}
+            if (isEnlargeable) {
+               this.enlarge.setAttribute("visible", true);
+//               parent.wrapper.setAttribute("height", parent.wrapper.height + 35);
+   			}
+            else {
+               this.enlarge.setAttribute("visible", false);
             }
-            
-            this.setAttribute("autoenlarge", data.getAttr("autoenlargeable") == "yes" 
-                                && gController.isaccomodated);
+
+			// Handle the XML "autoenlargeable" attribute within 
+			// the "updateImageLayout" method
+            this.autoenlarge = data.getAttr("autoenlargeable");
 
             if (data.hasAttr( 'alt_text' ) ) {
             	var dataAltText = data.getAttr( 'alt_text' );
@@ -157,8 +180,8 @@ Debug.write("got imageUrl: " + result);
         </method>
 
 		<method name="updateImageLayout"><![CDATA[
-            if (this.autoenlarge) 
-            {
+
+            if (this.autoenlarge == "yes" && gController.isaccomodated) {
         
                 var offset = 0;
                 if(!this.data.hasAttr("halign") || 
@@ -196,7 +219,40 @@ Debug.write("got imageUrl: " + result);
                 this.setWidth(null);
                 this.setHeight(null);
 
-            } else {
+            } 
+            else if (this.autoenlarge == "zoom") {
+                // This contains the updated height and width values
+                // from the newly created panel
+                var orig_height = data.getAttr("height");
+                var orig_width = data.getAttr("width");
+
+                var offset = 40;
+//Debug.write("CachableImage updateImageLayout, w : " + orig_width + " h : " 
+//                        + orig_height + " ratio : " + orig_width/orig_height);
+                var mult_factor  = (gEnlargePopup.width - offset)/orig_width;
+//Debug.write("mult_factor : " + mult_factor + " w : " + orig_width + " h : " + orig_height);
+                var width = gEnlargePopup.width - offset;
+                var height = Math.ceil(orig_height * mult_factor);
+//Debug.write("updated w : " + 700 + " h : " + height);
+
+                // Controls the size of the image
+                this.imageview.setAttribute("stretches", "both");
+                this.imageview.setAttribute("width", width);
+                this.imageview.setAttribute("height", height); 
+
+                // Turn off the scrollbar when the image height is less
+				// than the popup's height 
+                if (height < gEnlargePopup.height) {
+                   gEnlargePopup.contents.scaler.scroller.setAttribute("visible", false);
+                }
+                else {
+                   gEnlargePopup.contents.scaler.scroller.setAttribute("visible", true);
+                }
+
+                // Controls the physical dimensions of the panel 
+                parent.wrapper.setHeight(height);
+            }
+            else {
                 this.imageview.setAttribute("width", this.width);
                 this.imageview.setAttribute("height", this.height); 
 
@@ -241,7 +297,7 @@ Debug.write("got imageUrl: " + result);
             </method>
             <method event="ontimeout">
             <![CDATA[
-                Debug.warn( resource + ' ontimeout ', classroot.timeoutretrycount );
+                //Debug.warn( resource + ' ontimeout ', classroot.timeoutretrycount );
                 if ( classroot.timeoutretrycount < 1 )
                 {
                     classroot.setAttribute('timeoutretrycount', classroot.timeoutretrycount + 1);
@@ -254,10 +310,9 @@ Debug.write("got imageUrl: " + result);
 			]]>
             </method>
         </view>
-
         <EnlargeButton name="enlarge"
-                    x="${classroot.width-this.width}"/>
-           
+                    x="${classroot.width-this.width}"
+                    y="0"/>
 	</class>
 
 </library>

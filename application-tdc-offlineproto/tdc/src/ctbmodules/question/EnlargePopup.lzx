@@ -21,31 +21,53 @@
 	<method name="shrink">
         this.clickdel.unregisterAll();   
         this.setAttribute("visible", false);	
-        this.contents.scaler.scaled.datapath.setPointer(null);
+        this.contents.scaler.stretcher.scaled.datapath.setPointer(null);
    </method>
 	
    <method name="enlarge" args="dn, w, h, color, stereotype">
         this.clickdel.register (LzGlobalMouse, 'onmousedown');        
         var dnq = this.dsenlarge.getPointer().p.childNodes[0];
-        var v = this.contents.scaler.scaled;
+        var v = this.contents.scaler.stretcher.scaled;
         var clone = dn.cloneNode(true);
 		var hl = false;
 		
-        //create panel using params passed in
-        var dnpanel = new LzDataElement("panel",
+        this.setAttribute("stereotype", stereotype);
+
+        // We want to use the values from the XML and not calculated values
+        // This is old fitpanel code
+        if (dn.getAttr("autoenlargeable") == "fitpanel" || 
+                                         dn.getAttr("enlargeable")) {
+           
+           // Create panel based on original XML values for both panel and table
+           var dnpanel = new LzDataElement("panel",
+                                        { width      : this.width,
+                                          height     : this.height,
+                                          orig_h     : h,
+                                          orig_w     : w,
+                                          stereotype : stereotype,
+                                          enablehl   : hl},
+                                        [clone]);
+        }
+        else {
+           // Create panel using params passed in
+           var dnpanel = new LzDataElement("panel",
                                         { width      : w,
                                           height     : h,
                                           stereotype : stereotype,
                                           enablehl   : hl},
                                         [clone]);
+          }
 
         //unattach our view from data to force it to re-replicate
         v.datapath.setPointer(null);
         
         clone.setAttr("enlargeable", "no");
+
+        // The "scale" view now contains the full XML (panel + table)
         dnq.setChildNodes([dnpanel]);
 
-        //attach out view to the data
+        // Attach out view to the data 
+        // This results in an onwidth event being sent that calls calcSize
         v.datapath.setPointer(dnq);
 
         //set some props
@@ -100,7 +122,7 @@
 
             this.setAttribute("globalAlpha", alpha);
 
-            if (fill) {
+            if (fill != null) {
                 this.setAttribute("fillStyle", fill);
                 this.fill();
             }
@@ -123,56 +145,69 @@
 	          clickable="true" showhandcursor="false"
 	          name="mousetrap" />
           
-        <view name="scaler" stretches="both" align="center">
-            <Question name="scaled" id="enlarged" doaccomlayout="false">
-                <datapath/>
-                <method name="calcSize">
-                    <![CDATA[
-                    if (this.width == 0 || this.height == 0) return;
 
-                    var conts = parent.parent;
-                    var ratio = this.width/this.height;
-                    var valign = "middle";
-
-                    var w, h;
-                    if (conts.width/conts.height < ratio) {
-                        w = conts.width;
-                        h = conts.width/ratio;
-                    } else {
-                        w = conts.height * ratio;
-                        h = conts.height;
-                    }
-                    
-                    //see if we have to move for the zoom button. We'll position the item
-                    //at the bottom of the popup.
-                    if (h > conts.height - 2 * (conts.zoombtn.height + conts.zoombtn.y + 10) &&
-                        w > conts.width - 2 * (conts.zoombtn.width + 10 )) {
-
-                        valign = "bottom";
-                        h = conts.height - (conts.zoombtn.height + conts.zoombtn.y + 10);
-                        w = conts.width;
-
-                        if (w/h < ratio) {
-                            h = w/ratio;
-                        } else {
-                            w = h * ratio;
-                        }
-                    }
-                    parent.setAttribute("height", h);
-                    parent.setAttribute("width", w);
-                    parent.setValign(valign);
-                    ]]>
-                </method>
-                <method event="onwidth">
-                    this.calcSize();
-                </method>
-                <method event="onheight">
-                    this.calcSize();
-                </method>
-            </Question>
-        </view>
         <EnlargeButton name="zoombtn" resource="zoom_out_btn"
-              y="5" x="${parent.width - this.width - 10}"
-              iszoomin="false"/>
+                     x="${parent.width - this.width - 20}"
+                     iszoomin="false"/>
+        <view name="scaler" clip="true" y="25" 
+                  height="${parent.height-25}" width="${parent.width}"> 
+           <view name="stretcher" stretches="both"> 
+               <Question name="scaled" doaccomlayout="false">
+                   <datapath/> 
+                   <attribute name="enlarged" value="false"/>
+                   <method name="calcSize"><![CDATA[
+                       if (this.width == 0 || this.height == 0) return;
+  
+                       //var style = gController.getAccomStyleForType(gEnlargePopup.stereotype);
+                       //var fontmag = style['font_magnification'];
+                                    
+                       //var ratio = (gEnlargePopup.width-20)/this.width;
+                       //if (ratio > fontmag)
+                       //   ratio = fontmag;
+    
+                       var contents = parent;
+
+//Debug.write("EnlargePopup:calcSize popup w : " + this.width + " h : " + this.height);
+//Debug.write("this", this);
+//Debug.write("parent", parent);
+                       // Don't understand why there isn't a datapath value for
+                       // scaled. Must be a Laszlo bug. Will perform this workaround
+                       var dp = gEnlargePopup.dsenlarge.getPointer();
+
+                       // Get original table dimensions
+                       if (dp.xpathQuery("question/panel/table")) {
+                          dp.setXPath("question/panel/table");
+                       }
+                       else { 
+                          dp.setXPath("question/panel/image_widget");
+                        }
+                       //var table_width = dp.getNodeAttribute("width");
+                       //var table_height = dp.getNodeAttribute("height");
+//Debug.write("table w : " + table_width + " table_height : " + table_height);
+
+                       // Determine the resized table values and update the XML 
+                       // The Cachable Table or Image will use these values to
+                       // display a zoomed image
+                       //var ratio = this.width/table_width;
+                       //table_width = this.width;
+                       //table_height = Math.ceil(table_height * ratio);
+
+                       dp.setNodeAttribute("autoenlargeable", "zoom");
+                       //dp.setNodeAttribute("orig_w", dp.getNodeAttribute("width"));
+                       //dp.setNodeAttribute("orig_h", dp.getNodeAttribute("height"));
+                       //dp.setNodeAttribute("height", table_height);
+                       //dp.setNodeAttribute("width", table_width);
+Debug.write("Updated dp : ", dp);
+                   ]]> </method>
+                   <method event="onwidth">
+                       this.calcSize();
+                   </method>
+                   <method event="onheight">
+                       this.calcSize();
+                   </method>
+               </Question>
+          </view>
+          <vscrollbar name="scroller"/>  
+        </view>
     </view>
 </view>

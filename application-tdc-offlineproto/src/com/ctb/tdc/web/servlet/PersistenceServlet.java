@@ -272,8 +272,11 @@ public class PersistenceServlet extends HttpServlet {
                 if (hasResponse)
                 	AuditFile.log(ServletUtils.createAuditVO(xml, hasResponse));
 
-                // return response to client
-                ServletUtils.writeResponse(response, ServletUtils.OK);
+                boolean isEndSubtest = ServletUtils.isEndSubtest(xml);
+                if(!isEndSubtest){
+                	// return response to client
+                	ServletUtils.writeResponse(response, ServletUtils.OK);
+                }
                 
                 // send request to TMS
                 if (memoryCache.getSrvSettings().isTmsPersist()) {
@@ -292,6 +295,9 @@ public class PersistenceServlet extends HttpServlet {
 	                    }
 	                    else {
 	                        logger.error("TMS returns error in save() : " + tmsResponse);                                        
+	                    }
+	                    if(isEndSubtest){
+	                    	result = tmsResponse;
 	                    }
                     }
                 }

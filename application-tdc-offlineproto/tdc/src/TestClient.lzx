@@ -3,7 +3,7 @@
         debug="false"
         accessible="true" >
 
-    <debug x="0" y="100" width="80%" height="400"/>
+    <debug x="0" y="120" width="80%" height="400"/>
 
     <include href="ctbmodules"/>
 
@@ -33,8 +33,8 @@
     <attribute name="focusclass" value="null"/>
     <attribute name="footnotedata"/>
 	<attribute name="currentCursor" value="null"/>
-	<attribute name="eliminatorRsrc" value="$once{LzBrowser.getInitArg('eliminatorResource')}" type="string" />
-	<attribute name="useDefaultEliminator" type="boolean" value="true" />
+	<attribute name="eliminatorRsrc" value="resources/eliminator.swf" type="string" />
+	<attribute name="logoRsrc" value="resources/logo.swf" type="string" />
 	
     <method event="onfootnotedata" args="data">
         gFootNotePopup.show(data);
@@ -47,28 +47,10 @@
        if (folder) this.setAttribute("folder", folder);
        var user = LzBrowser.getInitArg('user');
        if (user) this.setAttribute("user", user);
+       var elim = LzBrowser.getInitArg('eliminatorResource');
+       if (elim) this.setAttribute("eliminatorRsrc", elim);
     </method>
 
-<!--  this view tests whether or not the eliminator resource is available -->
-	<view name="eliminatorTester" visible="false" height="0" width="0">
-		<method event="oninit">
-			canvas.setAttribute('medialoadtimeout', 3000);
-			var eliminatorUrl = LzBrowser.getInitArg('eliminatorResource');
-			this.setSource(eliminatorUrl);
-			var folderUrl = LzBrowser.getInitArg('folder');
-			if (folderUrl) {
-			   canvas.folder = folderUrl;
-			}
-		</method>
-		<method event="onload">
-			canvas.setAttribute('medialoadtimeout', 30000);
-			canvas.setAttribute('useDefaultEliminator', false);
-			this.unload();
-		</method>
-		<method event="ontimeout">
-			canvas.setAttribute('medialoadtimeout', 30000);
-		</method>
-	</view>
     <view name="scalingView"
           stretches="both"
           height="${ canvas.width/canvas.height &lt; 1.33 
