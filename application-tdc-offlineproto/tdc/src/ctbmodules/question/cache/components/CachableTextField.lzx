@@ -1,6 +1,9 @@
 <library>
     <include href="CachableComponent.lzx"/>
     <include href="../../../Controllers/ReadableText.lzx"/>
+    <include href="CachableInputTextField.lzx"/>
+    <include href="utils/layouts/wrappinglayout.lzx"/>
+
 
     <!-- ===============
          ==
@@ -22,10 +25,15 @@
 		<attribute name="isHighlighter" type="boolean" value="false"/>
         <attribute name="eraserstatus" value="$once{new LzDatapointer()}"/>        
 		<attribute name="isEraser" type="boolean" value="false"/>
-		<attribute name="isReadable" type="boolean" value="${!isHighlighter &amp;&amp; !isEraser &amp;&amp; hasReadableText}"/>
+		<attribute name="isReadable" type="boolean" 
+                      value="${!isHighlighter &amp;&amp; !isEraser &amp;&amp; hasReadableText}"/>
         
         <attribute name="leftPadding" type="number" value="0"/>
         <attribute name="rightPadding" type="number" value="0"/>
+        <attribute name="embedded_input" type="boolean" value="false"/>
+        <attribute name="ibox" type="string"/>
+        <attribute name="wl" type="string"/>
+        <attribute name="widget_id" type="string"/>
         
         <method event="ondata" args="data" reference="hlstatus">
             this.setAttribute ('isHighlighter', data == 'sel');
@@ -43,12 +51,12 @@
             this.hlstatus.setAttribute ('rerunxpath', true);
             this.eraserstatus.setAttribute ('rerunxpath', true);
  
-            this.hlstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@highlighter');
-            this.eraserstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@eraser');
+            this.hlstatus.setXPath('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@highlighter');
+            this.eraserstatus.setXPath('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@eraser');
         </method>
 
         <method name="read" args="s">
-            if ( hasAltText ) {
+            if ( this.hasAltText ) {
                 gReadableText.read( this.altText );
             } else {
                 gReadableText.read( s );
@@ -61,25 +69,36 @@
              =============== -->
         <method event="ondata" args="data">
             <![CDATA[
-            
-            if(data.parentNode.getAttr("wasScrollingTextPanel") == "true")
-            {
-                this.setAttribute("leftPadding", 12);
+           
+            if (data.getAttr("input") == "yes") {
+               this.embedded_input_field(data);
+               this.setAttribute("embedded_input", true);
+               doneLoading();
+               return;
             }
-                
+            else{
+                this.setAttribute("embedded_input", false);
+            }
+
             //width
             if (data.hasAttr("width")) {
                 this.setAttribute("width", Number(data.getAttr("width")));
             } else {
                 this.setAttribute("width", immediateparent.width);
             }
-
+			setTextReaderAttributes(data);
+			
             var dataText = data.getFirstChild().data;
 			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
 			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
 				dataText = gController.directionsSubstitution(dataText);
 			}  
 
+			var doubleBrIndex = dataText.lastIndexOf('<br/><br/>');
+			if(doubleBrIndex != -1 && ((dataText.length - doubleBrIndex) == 10)){
+       			dataText = dataText.substr(0, dataText.length - 5);
+			}
+			
             //alignment
             var valign = "top";
             if (data.hasAttr("valign")) {
@@ -106,7 +125,18 @@
                this.setAttribute("fontsize", parent.fontsize * txtmag);
             }
 
-            //text reading
+            doneLoading();
+
+            //this.doAlign();
+            ]]>
+        </method>
+
+		<method name="setTextReaderAttributes" args="data"><![CDATA[
+            var dataText = data.getFirstChild().data;
+			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
+			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
+				dataText = gController.directionsSubstitution(dataText);
+			}  
             if ( data.hasAttr( 'alt_text' ) ) {
             	var dataAltText = trim(data.getAttr( 'alt_text' ));
             	if(canvas.readable && dataAltText.length > 0){
@@ -123,41 +153,233 @@
                 setAttribute( 'hasAltText', false );
                 this.setAAText(dataText);
             }
-            doneLoading();
+		]]></method>
+		
+         <method name="embedded_input_field" args="data"><![CDATA[
+        	setTextReaderAttributes(data);
+        	var allFields = new Array();
+			var dataText = data.getFirstChild().data;
+			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
+			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
+				dataText = gController.directionsSubstitution(dataText);
+			}  
+			var doubleBrIndex = dataText.lastIndexOf('<br/><br/>');
+			if(doubleBrIndex != -1 && ((dataText.length - doubleBrIndex) == 10)){
+       			dataText = dataText.substr(0, dataText.length - 5);
+			}
+			
+            words = dataText.split(' '); 
+            var i_on = false, b_on = false, u_on = false;
+			var readableText = this.hasAltText ? this.altText : "";
+			
+            // Parse the "input_widget" XML input
+            for (var i = 0; i < words.length; i++) {
+				// Parse the <input field> and put attributes into a hash 
+				if (words[i].indexOf("<single_line_answer") != -1) {
+					i++;
+                  	var hash = new Array();
 
-            //this.doAlign();
-            ]]>
-        </method>
+                    if (gController.hasFontAccommodation){
+                    	hash['fontsize'] = 18;
+                    }
+                    else{
+                    	hash['fontsize'] = 12;
+                    }
 
-        <method name="trim" args="str">
-            while (str.substring(0,1) == ' ')
-            {
-            str = str.substring(1, str.length);
+                  	// While we haven't reached the end delimiter
+                  	while (words[i].indexOf("/>") == -1) {
+						// ignore height attribute - allow single line answers to size to contents
+                  		var doAdd = true;
+                    	// Split attribute values, remove quotes and put into hash
+                    	var keyvalue = words[i].split("=");
+
+                        // Need to remove surrounding double quotes
+                        keyvalue[1] = keyvalue[1].substr(1, keyvalue[1].length-2);
+                    	if (keyvalue[0] == 'width') {
+							if (canvas.readable) 
+								keyvalue[1] = Number(keyvalue[1]) + 32;
+                    	}
+                    	if (keyvalue[0] == "id") keyvalue[0] = "widget_id";
+                        if (keyvalue[0] == "height"){
+                        	doAdd = false;
+                        }
+                        if (keyvalue[0] == "widget_id"){
+                        	this.widget_id = keyvalue[1];
+                        }
+                    	
+                    	if(doAdd){
+                    		hash[keyvalue[0]] = keyvalue[1];
+                    	}
+                    	i++;
+					}
+                    
+                  	if (words[i].length != 2) {  		   // Handle: id="XX"/> 
+                  		var doAdd = true;
+                     	words[i] = words[i].substr(0, words[i].lastIndexOf('"'));
+                     	var keyvalue = words[i].split("=");
+                        // Need to remove surrounding double quotes
+                        keyvalue[1] = keyvalue[1].substr(1, keyvalue[1].length-1);
+						if (keyvalue[0] == 'width') {
+							if (canvas.readable)
+								keyvalue[1] = Number(keyvalue[1]) + 32;
+                    	}
+                    	if (keyvalue[0] == "id") keyvalue[0] = "widget_id";
+                       if (keyvalue[0] == "height"){
+                        	doAdd = false;
+                        }
+                        if (keyvalue[0] == "widget_id") { 
+                            this.widget_id = keyvalue[1];
+                            if(!this.hasAltText){
+                            	readableText = readableText + "%" + this.widget_id + "% ";
+                            }
+                        }
+                        if(doAdd){
+                     		hash[keyvalue[0]] = keyvalue[1];
+                     	}
+                     	i++;
+                  	}
+                    //for (var j in hash) Debug.write("hash name : " + j + " key : " + hash[j]);
+                  	this.ibox = new input_box(this, hash);
+                  	allFields.push(this.ibox);
+
+                    // Check for an existing answer. If none, then initialize answered field 
+                    // to false
+                  	var answer = gController.getAnswerForInputWidgetId(this.widget_id);
+                    if (typeof answer == "undefined" || answer.length == 0)
+                  	   gController.addCrField({"widget_id" : this.widget_id, "answered" : false, "ref" : this.ibox});
+                    else {
+                  	   gController.addCrField({"widget_id" : this.widget_id, "answered" : true,
+                                                                             "answer" : answer, "ref" : this.ibox});
+                  	   this.ibox.answer.setText(answer);
+				    }
+				}
+
+                if (words[i] == null || words[i] == "/>" || words[i].length == 0 || 
+                                                           typeof words[i] == "undefined") {
+                   continue;
+                }
+
+				if (!this.hasAltText) {
+			    	readableText = readableText + words[i] + " "; 
+			    }              
+
+                // If the input word is surrounded by HTML font type delimiters
+				if (words[i].indexOf("<i>") != -1 && words[i].indexOf("</i>") != -1) 
+					words[i] = "<i>" + words[i] + "</i>";
+				else if (words[i].indexOf("<i>") != -1) 
+					i_on = true;
+				else if (words[i].indexOf("</i>") != -1) {
+					words[i] = "<i>" + words[i] + "</i>";
+					i_on = false;
+				}
+
+
+               if (words[i].indexOf("<b>") != -1 && words[i].indexOf("</b>") != -1) 
+                  words[i] = "<b>" + words[i] + "</b>";
+               else if (words[i].indexOf("<b>") != -1)
+                  b_on = true;
+               else if (words[i].indexOf("</b>") != -1) {
+                  words[i] = "<b>" + words[i] + "</b>";
+                  b_on = false;
+               }
+
+               if (words[i].indexOf("<u>") != -1 && words[i].indexOf("<u>") != -1) 
+                  words[i] = "<u>" + words[i] + "</u>";
+               else if (words[i].indexOf("<u>") != -1)
+                  u_on = true;
+               else if (words[i].indexOf("</u>") != -1) {
+                  words[i] = "<u>" + words[i] + "</u>";
+                  u_on = false;
+               }
+
+               if (i_on) words[i] = "<i>" + words[i] + "</i>";
+               if (b_on) words[i] = "<b>" + words[i] + "</b>";
+               if (u_on) words[i] = "<u>" + words[i] + "</u>";
+               
+//               Debug.write("new Text : " +  words[i] + " " + i);
+
+               // Add a <p> to the first word and a </p> to the last
+               var name = new CachableInputTextField(this, { "resize" : true });
+               allFields.push(name);
+               if (i == 0)
+                  name.setText("<p>" + words[i]);
+               if (i == words.length-1)
+                      name.setText(words[i] + "</p>");
+               name.setText(words[i]);
+               name.setAttribute('fgcolor', this.fontcolor);
             }
-            while (str.substring(str.length-1, str.length) == ' ')
-            {
-            str = str.substring(0,str.length-1);
+
+            // Used by the TextReader
+            for (var i = 0; i < allFields.length; i++) {
+            	var theField = allFields[i];
+            	if(theField instanceof CachableInputTextField) {
+            		theField.setReadableText(readableText);
+            	}
             }
-            return str;		
-        </method>
+            var xin = parent.getAttribute("comptype") == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
+            var xsp = gController.hasFontAccommodation ? 0 : -1;
+            this.setAttribute('wl', new wrappinglayout(this, { axis : "x", xinset : xin, xspacing : xsp } ));
+
+            // To distinguish between numerous input fields, we'll maintain an array of hashes
+            // containing their widget ID and answered state (filled or empty). Additionally each
+            // class also stores its widget ID to allow them to be matched up.
+            if (data.getAttr("id")) {
+                this.widget_id = data.getAttr("id");
+            }
+            
+            if (data.getAttr("width")) 
+                this.setWidth(Number(data.getAttr("width")));
+			if (data.getAttr("char_limit"))
+                this.setAttribute("char_limit", Number(data.getAttr("char_limit"))); 
+			if (data.getAttr("halign")) 
+                this.setAttribute("halign", data.getAttr("halign")); 
+			if (data.getAttr("lmargin"))
+                this.setAttribute("lmargin", data.getAttr("lmargin")); 
+			if (data.getAttr("rmargin"))
+                this.setAttribute("rmargin", data.getAttr("rmargin"));
+            this.ibox.bringToFront();
+        ]]></method>
+
+        <method name="doReturnToCache"><![CDATA[
+            var destroy = false;
+            var contsubviews = this.subviews;
+            for (var i in contsubviews) {
+                if (contsubviews [i].visible && 
+                     contsubviews[i] instanceof CachableInputTextField) {
+                       destroy = true;
+                }
+            }
+            
+            // Release all (text and wrappinglayout) resources for an inline input field
+            if (destroy) {
+              	var par = contsubviews[0].parent;
+               	for (var i in contsubviews) {
+                    contsubviews[i].destroy();
+                }
+                wl.destroy();
+            }
+        ]]></method>
 
         <!-- ===============
              = VIEWS
              =============== -->
-        <view name="clickregion"
-              width="${classroot.thetext.width}"
-              height="${classroot.thetext.height}"
-              clickable="${classroot.isReadable}">
-            <method event="onclick">
-                classroot.read(classroot.thetext.text);
-            </method>
-        </view>
+        
+        <state apply="${classroot.embedded_input == false}">
+           <view name="clickregion"
+                 width="${classroot.thetext.width}"
+                 height="${classroot.thetext.height}"
+                 clickable="${classroot.isReadable}">
+               <method event="onclick">
+                   classroot.read(classroot.thetext.text);
+               </method>
+           </view>
 
-        <text name="thetext" multiline="true" 
-            x="${classroot.leftPadding}"
-            width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
-            fgcolor="${classroot.fontcolor}"
-            fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" />
-
+           <text name="thetext" multiline="true" 
+               x="${classroot.leftPadding}"
+               width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
+               fgcolor="${classroot.fontcolor}"
+               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" />
+        </state>
     </class>
+
 </library>

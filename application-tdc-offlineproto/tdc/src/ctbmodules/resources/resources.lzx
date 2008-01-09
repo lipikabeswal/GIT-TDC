@@ -280,23 +280,43 @@
     <!-- =====================
          Tabs
          =====================-->    
-    <!-- erase btn -->
-    <resource name="tab_left">
-        <frame src="components/tabs/tab_dslct_lft.swf"/>
-        <frame src="components/tabs/tab_mo_lft.swf"/>
-        <frame src="components/tabs/tab_slct_lft.swf"/>
+    <!-- =====================
+         Tabs
+         =====================-->    
+    <resource name="tab_contents_left">
+        <frame src="components/tabs/tab_contents_dslct_lft.swf"/>
+        <frame src="components/tabs/tab_contents_dslct_lft.swf"/>
+        <frame src="components/tabs/tab_contents_slct_lft.swf"/>
     </resource>
 
-    <resource name="tab_mid">
-        <frame src="components/tabs/tab_dslct_mid.swf"/>
-        <frame src="components/tabs/tab_mo_mid.swf"/>
-        <frame src="components/tabs/tab_slct_mid.swf"/>
+    <resource name="tab_contents_mid">
+        <frame src="components/tabs/tab_contents_dslct_mid.swf"/>
+        <frame src="components/tabs/tab_contents_dslct_mid.swf"/>
+        <frame src="components/tabs/tab_contents_slct_mid.swf"/>
     </resource>
 
-    <resource name="tab_right">
-        <frame src="components/tabs/tab_dslct_rt.swf"/>
-        <frame src="components/tabs/tab_mo_rt.swf"/>
-        <frame src="components/tabs/tab_slct_rt.swf"/>
+    <resource name="tab_contents_right">
+        <frame src="components/tabs/tab_contents_dslct_rt.swf"/>
+        <frame src="components/tabs/tab_contents_dslct_rt.swf"/>
+        <frame src="components/tabs/tab_contents_slct_rt.swf"/>
+    </resource>
+
+     <resource name="tab_border_left">
+        <frame src="components/tabs/tab_border_dslct_lft.swf"/>
+        <frame src="components/tabs/tab_border_dslct_lft.swf"/>
+        <frame src="components/tabs/tab_border_slct_lft.swf"/>
+    </resource>
+
+    <resource name="tab_border_mid">
+        <frame src="components/tabs/tab_border_dslct_mid.swf"/>
+        <frame src="components/tabs/tab_border_dslct_mid.swf"/>
+        <frame src="components/tabs/tab_border_slct_mid.swf"/>
+    </resource>
+
+    <resource name="tab_border_right">
+        <frame src="components/tabs/tab_border_dslct_rt.swf"/>
+        <frame src="components/tabs/tab_border_dslct_rt.swf"/>
+        <frame src="components/tabs/tab_border_slct_rt.swf"/>
     </resource>
 
     <!-- =====================
@@ -381,8 +401,26 @@
  	<resource name="rc_top_middle" src="manipulatives/refcard/rc_top_middle.swf"/>
  	<resource name="rc_top_right" src="manipulatives/refcard/rc_top_right.swf"/>
  	<resource name="rc_lines" src="manipulatives/refcard/rc_lines.swf"/>
-  	<resource name="refcard_title" src="manipulatives/refcard/refcard_title.swf"/>
- 	<resource name="rc_contents" src="manipulatives/refcard/rc_contents.swf"/>
+  	<resource name="FCAT_refcard_title" src="manipulatives/refcard/FCAT_refcard_title.swf"/>
+ 	<resource name="FCAT_refcard_contents" src="manipulatives/refcard/FCAT_refcard_contents.swf"/>
+  	<resource name="TN_refcard_title" src="manipulatives/refcard/TN_refcard_title.swf"/>
+ 	<resource name="TN_refcard_contents" src="manipulatives/refcard/TN_refcard_contents.swf"/>
 
+    <!-- Answer input box -->
+    <resource name="left_ans_border"   src="answer_input/left_ans_border.png"/>
+    <resource name="middle_ans_border" src="answer_input/middle_ans_border.png"/>
+    <resource name="right_ans_border"  src="answer_input/right_ans_border.png"/>
+    <resource name="acc_left_ans_border"   src="answer_input/acc_left_ans_border.png"/>
+    <resource name="acc_middle_ans_border" src="answer_input/acc_middle_ans_border.png"/>
+    <resource name="acc_right_ans_border"  src="answer_input/acc_right_ans_border.png"/>
    
+    <!-- Multi line input -->
+    <resource name="progress_bar"    src="components/multi_line/progress_bar.png"/>
+    <resource name="progress_cover"  src="components/multi_line/progress_cover.png"/>
+    <resource name="progress_cover_outline"  
+                                     src="components/multi_line/progress_bar_outline.png"/>
+    <resource name="page_lines"      src="components/multi_line/page_lines.png"/>
+    <resource name="large_border"    src="components/multi_line/large_border.png"/>
+      
+    <resource name="theme" src="iknow_navbar/themePage.swf" /> 
 </library>

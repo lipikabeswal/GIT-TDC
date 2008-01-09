@@ -20,6 +20,10 @@
 
         <ComponentCache name="cache"/>
         
+        <!-- ================================
+             ATTRIBUTES
+             ================================= -->
+
         <attribute name="panel" value="${parent.panel}"/>
 
         <attribute name="valigndel"
@@ -30,15 +34,15 @@
         <!-- which view to align relative to -->
         <attribute name="alignto" value="$once{this}"/>
 
-        <!-- ================================
-             attributes
-             ================================= -->
 		<!-- the type of component -->
 		<attribute name="comptype" type="string" value="none"/>
 
         <!-- font color  -->
         <attribute name="fontcolor" value="${parent.fontcolor}"/>
 
+        <!-- ===============
+             = METHODS
+             =============== -->
 
         <method name="doRemoveFromCache">
             this.setAttribute ('visible', true);

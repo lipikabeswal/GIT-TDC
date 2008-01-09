@@ -12,6 +12,7 @@
             } 
             if (data.hasAttr ('font_color')) {
                 this.box.contents.label.setAttribute ('fgcolor', Number (data.getAttr ('font_color')));
+                this.box.setAttribute('bgcolor', Number (data.getAttr ('font_color')));
             } 
             if (data.hasAttr ('font_magnification')) {
                 this.box.contents.label.setAttribute ('fontsize', data.getAttr ('font_magnification') * canvas.fontsize);

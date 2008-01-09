@@ -69,7 +69,7 @@
                               enabled="${ classroot.uienabled == 'true' }"
                               disabledResourceNumber="0">
                 <method name="toggle" event="onclick">
-                    gController.showHideTimer( !parent.showtime );
+                    gController.toggleTimer();
                 </method>
             </multistatebutton>
         </view>

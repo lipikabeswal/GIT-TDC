@@ -19,8 +19,8 @@
         <!-- which stereotype -->
         <attribute name="stereotype"/>
 
-        <!-- curr tab.  only valid if we're a tabbed panel -->
-        <attribute name="currtab"/>
+        <!-- passageId only valid if we're a scrolling passage -->
+        <attribute name="passageId" type="string" value="-1"/>
 
         <!-- for scrolling highlights -->
         <attribute name="vscroll" value="null"/>
@@ -32,7 +32,7 @@
         <attribute name="hlstatus" value="$once{new LzDatapointer()}"/>
         <attribute name="eraserstatus" value="$once{new LzDatapointer()}"/>        
         <attribute name="hlstate" value="$once{new LzDatapointer ()}"/>
-	<attribute name="hp" value="$once{new LzDatapointer ()}"/>
+		<attribute name="hp" value="$once{new LzDatapointer ()}"/>
 
         <!-- ===========================
              event handlers
@@ -89,11 +89,8 @@
                              y: this.livesel.y,
                              width: this.getMouse ('x') - this.livesel.x,
                              height: this.getMouse ('y') - this.livesel.y,
+                             passageId: this.passageId,
                              stereotype: this.stereotype};
-
-                if (this ['currtab']) {
-                    attrs ['tabnum'] = this.currtab;                    
-                }
 
                 var dnarea = 
                 dnstate.appendChild (new LzDataElement ('highlightarea', 
@@ -113,11 +110,11 @@
         <!-- change highlights datapath to find highlight nodes of the new 
              stereotype -->
         <method event="ondata" reference="hlstate">
-            this.highlights.datapath.setXPath ("dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/highlighter/highlightarea[@stereotype='"+this.stereotype+"']");
+        	this.highlights.datapath.setXPath ("dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/highlighter/highlightarea[@stereotype='"+this.stereotype+"'][@passageId='"+this.passageId+"']");
         </method>
 
 		<method name="deleteHighlights" args="mousex, mousey"><![CDATA[
-			var highlightareas = this.hlstate.xpathQuery("highlightarea[@stereotype='"+this.stereotype+"']");
+			var highlightareas = this.hlstate.xpathQuery("highlightarea[@stereotype='"+this.stereotype+"'][@passageId='"+this.passageId+"']");
             if ( highlightareas instanceof LzDataNode ) {
 				hp.setPointer(highlightareas);
                 hp.deleteNode();
@@ -257,11 +254,6 @@
 
                     this.setAttribute ('width', data.getAttr ('width'));
                     this.setAttribute ('height', data.getAttr ('height'));
-
-                    if (classroot ['currtab']) {
-                        var iscurrtab = Number (data.getAttr ('tabnum')) == classroot.currtab;
-                        this.setAttribute ('visible', iscurrtab);
-                    }
                 } 
             </method>
 
@@ -274,9 +266,6 @@
                 //do delete
                 var mousex = classroot.getMouse ('x');
                 var mousey = classroot.getMouse ('y');
-//Debug.write("deleting node: " + mousex + " , " + mousey);
-//printBigString(classroot.hlstate.serialize());
-                //datapath.deleteNode ();
                 classroot.deleteHighlights(mousex, mousey);
                 gController.clearAndRestoreCurrentCursor();
             </method>
@@ -288,19 +277,6 @@
             <method event="onmouseout">
                 gController.clearAndRestoreCurrentCursor();
             </method>
-
-            <method event="oncurrtab" reference="classroot"><![CDATA[
-                //silly laszlo, if our datapath evaluates to nothing it
-                //doesn't reset datapath.p.  so we could be pointing to 
-                //previous nodes.  check to see if our datapath.p is
-                //actually in the current item's hierarchy
-                if (classroot.currtab && 
-                    datapath.p && 
-                    datapath.p.parentNode == classroot.hlstate.p) {
-                    var iscurrtab = Number (datapath.p.getAttr ('tabnum')) == classroot.currtab;
-                    this.setAttribute ('visible', iscurrtab);
-                } 
-            ]]></method>
 
         </view>
         

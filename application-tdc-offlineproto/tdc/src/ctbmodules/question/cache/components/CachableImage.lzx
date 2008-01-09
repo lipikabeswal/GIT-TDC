@@ -119,7 +119,7 @@
    				isEnlargeable = true;
    			}
    			else if (enlargeAttr == "accommodated"){
-   				isEnlargeable = gController.getAttribute("isaccomodated");
+   				isEnlargeable = gController.getAttribute("hasFontAccommodation");
    			}
             if (isEnlargeable) {
                this.enlarge.setAttribute("visible", true);
@@ -181,7 +181,7 @@
 
 		<method name="updateImageLayout"><![CDATA[
 
-            if (this.autoenlarge == "yes" && gController.isaccomodated) {
+            if (this['autoenlarge'] == "yes" && gController.hasFontAccommodation) {
         
                 var offset = 0;
                 if(!this.data.hasAttr("halign") || 
@@ -220,7 +220,7 @@
                 this.setHeight(null);
 
             } 
-            else if (this.autoenlarge == "zoom") {
+            else if (this['autoenlarge'] == "zoom") {
                 // This contains the updated height and width values
                 // from the newly created panel
                 var orig_height = data.getAttr("height");

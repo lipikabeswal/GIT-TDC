@@ -17,6 +17,8 @@
         <attribute name="stereotype" value="$path{'@stereotype'}"/>
         <attribute name="enablehl" value="true"/>
         <attribute name="isaccom" value="false"/>
+        <attribute name="passageId" type="string" value="-1" />
+        <attribute name="dp" value="$once{new LzDatapointer()}" />
 
         <attribute name="growtocontents" value="false"/>
         <!-- ================================
@@ -42,7 +44,7 @@
 
 		<method event="ondata" name="initComp" args="data"><![CDATA[
             if (!data) return;
-
+			setPassageIdFromData(data);
             var contents = this.wrapper.scrollcontainer.offsetwrapper.contents;
 
             //width and height
@@ -120,12 +122,20 @@
             
             //inform gFootNotePopup footnotes
             if((this instanceof CachableScrollingTextPanel) 
-                || data.hasAttr("wasScrollingTextPanel")) 
+                || this instanceof CachableTabsPanel) 
             {
                 gFootNotePopup.setAttribute("scrolltext", this);
             }                
         ]]></method>
 
+
+       <method name="setPassageIdFromData" args="data"><![CDATA[
+            var id = data.getAttr('id');
+            if(id == null || typeof(id)=="undefined"){
+            	id = "-1";
+            }
+            this.setAttribute("passageId", id);
+         ]]></method>
 
         <method name="doReturnToCache"><![CDATA[
             var contsubviews = this.wrapper.scrollcontainer.offsetwrapper.contents.subviews;
@@ -183,6 +193,7 @@ Debug.write("vscroll", parent.vscroll);*/
                 <Highlight name="highlighter" 
                            width="100%" height="100%"
                            stereotype="${classroot.stereotype}"
+                           passageId="${classroot.passageId}" 
 						   vscroll="$once{classroot.parent instanceof BaseCachablePanel ? classroot.parent.wrapper.vscroll : parent.parent.vscroll}"
                            hscroll="$once{classroot.parent instanceof BaseCachablePanel ? classroot.parent.wrapper.hscroll : parent.parent.hscroll}"
                            scrollport="$once{classroot.parent instanceof BaseCachablePanel ? classroot.parent.wrapper : parent.parent}"                           options="ignorelayout" 
@@ -266,7 +277,7 @@ Debug.write("vscroll", parent.vscroll);*/
                 this.lineTo (.5, this.height - .5);
                 this.lineTo (.5, .5);
 
-                this.strokeStyle = black;
+                this.strokeStyle = Number(gController.questionFontColor);
                 this.strokeWidth = 1;
                 this.stroke ();
             </method>

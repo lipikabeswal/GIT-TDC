@@ -132,7 +132,170 @@ public class PersistenceServlet extends HttpServlet {
 
 		if (method.equals("login"))
 			result = getLoginXML(request);
-		else if (method.equals("save") || method.equals("feedback") || method.equals("uploadAuditFile") || method.equals("writeToAuditFile"))
+		//else if (method.equals("save") || method.equals("feedback") || method.equals("uploadAuditFile") || method.equals("writeToAuditFile"))
+		else if (method.equals("feedback"))
+			result = "<student_feedback_data status=\"OK\" lsid=\"51189:tradesman2\">" +
+	         "<testing_session_data student_name=\"Pramu G\"/>" +
+	            "<title name=\"TABE Online Battery\" id=\"24297\">" +
+	                "<sco seq=\"5\" title=\"TABE Locator Applied Mathematics Sample Question\" id=\"24376\"/>" +
+	                "<sco seq=\"33\" title=\"TABE Language Sample Questions\" id=\"24446\"/>" +
+	                "<sco seq=\"62\" title=\"TABE Spelling\" id=\"24453\"/>" +
+	                "<sco seq=\"14\" title=\"TABE Reading\" id=\"24441\"/>" +
+	                "<sco seq=\"22\" title=\"TABE Mathematics Computation\" id=\"24443\"/>" +
+	                "<sco seq=\"57\" title=\"TABE Spelling Sample Questions\" id=\"24452\"/>" +
+	                "<sco seq=\"17\" title=\"TABE Mathematics Computation Sample Question\" id=\"24442\"/>" +
+	                "<sco seq=\"29\" title=\"TABE Applied Mathematics\" id=\"24445\"/>" +
+	                "<sco seq=\"38\" title=\"TABE Language\" id=\"24447\"/>" +
+	                "<sco seq=\"49\" title=\"TABE Language Mechanics Sample Questions\" id=\"24450\"/>" +
+	                "<sco seq=\"54\" title=\"TABE Language Mechanics\" id=\"24451\"/>" +
+	                "<sco seq=\"1\" title=\"TABE Locator Reading Sample Question\" id=\"24372\"/>" +
+	                "<sco seq=\"9\" title=\"TABE Reading Sample Questions\" id=\"24440\"/>" +
+	                "<sco seq=\"6\" title=\"TABE Locator Applied Mathematics\" id=\"24377\"/>" +
+	                "<sco seq=\"2\" title=\"TABE Locator Reading\" id=\"24373\"/>" +
+	                "<sco seq=\"4\" title=\"TABE Locator Mathematics Computation\" id=\"24375\"/>" +
+	                "<sco seq=\"26\" title=\"TABE Applied Mathematics Sample Question\" id=\"24444\"/>" +
+	                "<sco seq=\"3\" title=\"TABE Locator Mathematics Computation Sample Question\" id=\"24374\"/>" +
+	                "<sco seq=\"8\" title=\"TABE Locator Language\" id=\"24379\"/>" +
+	                "<sco seq=\"41\" title=\"TABE Vocabulary Sample Questions\" id=\"24448\"/>" +
+	                "<sco seq=\"7\" title=\"TABE Locator Language Sample Questions\" id=\"24378\"/>" +
+	                "<sco seq=\"46\" title=\"TABE Vocabulary\" id=\"24449\"/>" +
+	            "</title>" +
+	                 "<lms>" +
+	                        "<sco scid=\"24376\">" +
+	                           "<lsv>" +
+	                                 "<cmi.core score.max=\"1\" score.raw=\"1\"/>" +
+	                                 "<ext.core number_of_unscored_items=\"0\"/>" +
+	                           "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24446\">" +
+	                           "<lsv>" +
+	                                "<cmi.core score.max=\"4\" score.raw=\"4\"/>" +
+	                                "<ext.core number_of_unscored_items=\"0\"/>" +
+	                           "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24453\">" +
+	                            "<lsv>" +
+	                                 "<cmi.core score.max=\"20\" score.raw=\"20\"/>" +
+	                                 "<ext.core number_of_unscored_items=\"0\"/>" +
+	                            "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24441\">" +
+	                            "<lsv>" +
+	                               "<cmi.core score.max=\"50\" score.raw=\"50\"/>" +
+	                               "<ext.core number_of_unscored_items=\"0\"/>" +
+	                            "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24443\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"40\" score.raw=\"40\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24452\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"20\" score.raw=\"20\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24442\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"1\" score.raw=\"1\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24445\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"50\" score.raw=\"50\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24447\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"55\" score.raw=\"55\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24450\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"3\" score.raw=\"3\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24451\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"20\" score.raw=\"20\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24372\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"1\" score.raw=\"1\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24440\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"2\" score.raw=\"1\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24377\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"8\" score.raw=\"8\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24373\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"12\" score.raw=\"12\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24375\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"8\" score.raw=\"8\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24444\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"1\" score.raw=\"0\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24374\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"1\" score.raw=\"0\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24379\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"12\" score.raw=\"12\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24448\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"2\" score.raw=\"0\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24378\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"2\" score.raw=\"0\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	                        "<sco scid=\"24449\">" +
+	                             "<lsv>" +
+	                                  "<cmi.core score.max=\"20\" score.raw=\"20\"/>" +
+	                                  "<ext.core number_of_unscored_items=\"0\"/>" +
+	                             "</lsv>" +
+	                        "</sco>" +
+	            "</lms>" +
+	       "</student_feedback_data>" ;
+		else if (method.equals("save") || method.equals("uploadAuditFile") || method.equals("writeToAuditFile"))
 			result = this.OK;
 		else
 			result = this.ERROR;
@@ -154,9 +317,9 @@ public class PersistenceServlet extends HttpServlet {
 			"<testing_session_data>" +
 			"<cmi.core student_name=\"Student, Accommodated Twenty-One\" student_id=\"84792\"/>" +
 			"<lms.student.accommodations rest_break=\"true\" untimed=\"false\" screen_reader=\"true\" magnifier=\"false\" calculator=\"true\">" +
-			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000000\" bgcolor=\"0xFFCCCC\" stereotype=\"directions\"/>" +
-			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000000\" bgcolor=\"0xFFCCCC\" stereotype=\"stimulus\"/>" +
-			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000000\" bgcolor=\"0xFFCCCC\" stereotype=\"stem\"/>" +
+			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000080\" bgcolor=\"0xFFCCCC\" stereotype=\"directions\"/>" +
+			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000080\" bgcolor=\"0xFFCCCC\" stereotype=\"stimulus\"/>" +
+			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000080\" bgcolor=\"0xFFCCCC\" stereotype=\"stem\"/>" +
 			"<stereotype_style font_magnification=\"1.5\" font_color=\"0xFFFFFF\" bgcolor=\"0x000080\" stereotype=\"answerArea\"/>" +
 			"</lms.student.accommodations>" +
 			"</testing_session_data>" +
@@ -164,24 +327,126 @@ public class PersistenceServlet extends HttpServlet {
 			"<feedback id=\"STUDENT_FEEDBACK\"/>" +
 			"<terminator id=\"SEE_YOU_LATER\"/>" +
 			"</manifest>" +
+			"<branding tdclogo=\"/resources/logoTN.swf\"/>" +
 			"</login_response>" +
 			"</tmssvc_response>";
 		}
-		else if (user != null) {
-			return "<tmssvc_response method=\"login_response\"><login_response restart_number=\"0\" restart_flag=\"false\" lsid=\"1:swirl50346\"><status status_code=\"200\"/>" +
-			"<testing_session_data><cmi.core student_name=\"" + user + "\" student_id=\"84378\" /></testing_session_data>" +
+		else if (user != null && user.equals("color")) {
+			return "<tmssvc_response method=\"login_response\">" +
+			"<login_response restart_number=\"0\" restart_flag=\"false\" lsid=\"33696:numerate73\">" +
+			"<status status_code=\"200\"/>" +
+			"<testing_session_data>" +
+			"<cmi.core student_name=\"Student, Accommodated Twenty-One\" student_id=\"84792\"/>" +
+			"<lms.student.accommodations rest_break=\"true\" untimed=\"false\" screen_reader=\"true\" magnifier=\"false\" calculator=\"true\">" +
+			"<stereotype_style font_magnification=\"1.0\" font_color=\"0x000080\" bgcolor=\"0xFFCCCC\" stereotype=\"directions\"/>" +
+			"<stereotype_style font_magnification=\"1.0\" font_color=\"0x000080\" bgcolor=\"0xFFCCCC\" stereotype=\"stimulus\"/>" +
+			"<stereotype_style font_magnification=\"1.0\" font_color=\"0x000080\" bgcolor=\"0xFFCCCC\" stereotype=\"stem\"/>" +
+			"<stereotype_style font_magnification=\"1.0\" font_color=\"0xFF00FF\" bgcolor=\"0x99FF00\" stereotype=\"answerArea\"/>" +
+			"</lms.student.accommodations>" +
+			"</testing_session_data>" +
+			"<manifest title=\"Regression Test\"><sco cmi.core.total_time=\"0:0:0\" adsid=\"23102\" item_encryption_key=\"n7673nBJ2n27bB4oAfme7Ugl5VV42g8\" asmt_encryption_key=\"326\" asmt_hash=\"CC9E7044B9834A6F9942B0F02430318D\" title=\"Regression Test\" sco_unit_type=\"SUBTEST \" sco_unit_question_number_offset=\"0\" sco_duration_minutes=\"0\" id=\"24224\" cmi.core.entry=\"ab-initio\" force_logout=\"false\"/>" +
+			"<feedback id=\"STUDENT_FEEDBACK\"/>" +
+			"<terminator id=\"SEE_YOU_LATER\"/>" +
+			"</manifest>" +
+			"<branding tdclogo=\"/resources/logoTN.swf\"/>" +
+			"</login_response>" +
+			"</tmssvc_response>";
+		}
+		else if (user != null && user.equals("reader")) {
+			return "<tmssvc_response method=\"login_response\">" +
+			"<login_response restart_number=\"0\" restart_flag=\"false\" lsid=\"1:swirl50346\"><status status_code=\"200\"/>" +
+			"<testing_session_data><cmi.core student_name=\"" + user + "\" student_id=\"84378\" />" +
+			"<lms.student.accommodations rest_break=\"true\" untimed=\"false\" screen_reader=\"true\" magnifier=\"false\" calculator=\"true\">" +
+			"</lms.student.accommodations>" +
+			"</testing_session_data>" +
 			"<manifest title=\"Mathematics 101\">" +
+			"<feedback id=\"STUDENT_FEEDBACK\"/>" +
 			"<sco cmi.core.total_time=\"0:0:0\" adsid=\"10\" item_encryption_key=\"n7673nBJ2n27bB4oAfme7Ugl5VV42g8\" asmt_encryption_key=\"1\" asmt_hash=\"1003A05C5AFDD27F24A5F05B627C52E9\"" +
 			" title=\"Mathematics 101\" sco_unit_type=\"SUBTEST\" sco_unit_question_number_offset=\"0\" sco_duration_minutes=\"100\" id=\"24105\" cmi.core.entry=\"ab-initio\" force_logout=\"false\" />" +
-			"<terminator id=\"SEE_YOU_LATER\" /> </manifest> </login_response> </tmssvc_response>";		
+			"<terminator id=\"SEE_YOU_LATER\" /> </manifest> " +
+			"<branding tdclogo=\"/resources/logoTN.swf\"/>" +
+			"</login_response> </tmssvc_response>";		
+		}
+		else if (user != null && user.equals("fontsize")) {
+			return "<tmssvc_response method=\"login_response\">" +
+			"<login_response restart_number=\"0\" restart_flag=\"false\" lsid=\"33696:numerate73\">" +
+			"<status status_code=\"200\"/>" +
+			"<testing_session_data>" +
+			"<cmi.core student_name=\"Student, Accommodated Twenty-One\" student_id=\"84792\"/>" +
+			"<lms.student.accommodations rest_break=\"true\" untimed=\"false\" screen_reader=\"false\" magnifier=\"false\" calculator=\"true\">" +
+			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000000\" bgcolor=\"0xFFFFFF\" stereotype=\"directions\"/>" +
+			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000000\" bgcolor=\"0xFFFFFF\" stereotype=\"stimulus\"/>" +
+			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000000\" bgcolor=\"0xFFFFFF\" stereotype=\"stem\"/>" +
+			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000000\" bgcolor=\"0xFFFFB0\" stereotype=\"answerArea\"/>" +
+			"</lms.student.accommodations>" +
+			"</testing_session_data>" +
+			"<manifest title=\"Regression Test\"><sco cmi.core.total_time=\"0:0:0\" adsid=\"23102\" item_encryption_key=\"n7673nBJ2n27bB4oAfme7Ugl5VV42g8\" asmt_encryption_key=\"326\" asmt_hash=\"CC9E7044B9834A6F9942B0F02430318D\" title=\"Regression Test\" sco_unit_type=\"SUBTEST \" sco_unit_question_number_offset=\"0\" sco_duration_minutes=\"0\" id=\"24224\" cmi.core.entry=\"ab-initio\" force_logout=\"false\"/>" +
+			"<feedback id=\"STUDENT_FEEDBACK\"/>" +
+			"<terminator id=\"SEE_YOU_LATER\"/>" +
+			"</manifest>" +
+			"<branding tdclogo=\"/resources/logoTN.swf\"/>" +
+			"</login_response>" +
+			"</tmssvc_response>";
+		}
+		else if (user != null && user.equals("fontsizereader")) {
+			return "<tmssvc_response method=\"login_response\">" + 
+			"<login_response restart_number=\"0\" restart_flag=\"false\" lsid=\"33696:numerate73\">" +
+			"<status status_code=\"200\"/>" +
+			"<testing_session_data>" +
+			"<cmi.core student_name=\"Student, Accommodated Twenty-One\" student_id=\"84792\"/>" +
+			"<lms.student.accommodations rest_break=\"true\" untimed=\"false\" screen_reader=\"true\" magnifier=\"false\" calculator=\"true\">" +
+			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000000\" bgcolor=\"0xFFFFFF\" stereotype=\"directions\"/>" +
+			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000000\" bgcolor=\"0xFFFFFF\" stereotype=\"stimulus\"/>" +
+			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000000\" bgcolor=\"0xFFFFFF\" stereotype=\"stem\"/>" +
+			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000000\" bgcolor=\"0xFFFFB0\" stereotype=\"answerArea\"/>" +
+			"</lms.student.accommodations>" +
+			"</testing_session_data>" +
+			"<manifest title=\"Regression Test\"><sco cmi.core.total_time=\"0:0:0\" adsid=\"23102\" item_encryption_key=\"n7673nBJ2n27bB4oAfme7Ugl5VV42g8\" asmt_encryption_key=\"326\" asmt_hash=\"CC9E7044B9834A6F9942B0F02430318D\" title=\"Regression Test\" sco_unit_type=\"SUBTEST \" sco_unit_question_number_offset=\"0\" sco_duration_minutes=\"0\" id=\"24224\" cmi.core.entry=\"ab-initio\" force_logout=\"false\"/>" +
+			"<feedback id=\"STUDENT_FEEDBACK\"/>" +
+			"<terminator id=\"SEE_YOU_LATER\"/>" +
+			"</manifest>" +
+			"<branding tdclogo=\"/resources/logoTN.swf\"/>" +
+			"</login_response>" +
+			"</tmssvc_response>";
+		}
+		else if (user != null && user.equals("restart")) {
+			return "<tmssvc_response method=\"login_response\">" +
+			"<login_response restart_number=\"1\" restart_flag=\"true\" lsid=\"33696:numerate73\">" +
+			"<status status_code=\"200\"/>" +
+			"<testing_session_data>" +
+			"<cmi.core student_name=\"Student, Accommodated Twenty-One\" student_id=\"84792\"/>" +
+			"<lms.student.accommodations rest_break=\"true\" untimed=\"false\" screen_reader=\"true\" magnifier=\"false\" calculator=\"true\">" +
+			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000080\" bgcolor=\"0xFFCCCC\" stereotype=\"directions\"/>" +
+			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000080\" bgcolor=\"0xFFCCCC\" stereotype=\"stimulus\"/>" +
+			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000080\" bgcolor=\"0xFFCCCC\" stereotype=\"stem\"/>" +
+			"<stereotype_style font_magnification=\"1.5\" font_color=\"0xFFFFFF\" bgcolor=\"0x000080\" stereotype=\"answerArea\"/>" +
+			"</lms.student.accommodations>" +
+			"</testing_session_data>" +
+			"<manifest title=\"Regression Test\"><sco cmi.core.total_time=\"0:0:0\" adsid=\"23102\" item_encryption_key=\"n7673nBJ2n27bB4oAfme7Ugl5VV42g8\" asmt_encryption_key=\"326\" asmt_hash=\"CC9E7044B9834A6F9942B0F02430318D\" title=\"Regression Test\" sco_unit_type=\"SUBTEST \" sco_unit_question_number_offset=\"0\" sco_duration_minutes=\"0\" id=\"24224\" cmi.core.entry=\"ab-initio\" force_logout=\"false\"/>" +
+			"<feedback id=\"STUDENT_FEEDBACK\"/>" +
+			"<terminator id=\"SEE_YOU_LATER\"/>" +
+			"</manifest>" +
+			"<branding tdclogo=\"/resources/logoTN.swf\"/>" +
+		    "<consolidated_restart_data>" + 
+	      	"<tsd lsid=\"33126:swirl50346\" scid=\"24224\">" + 
+	      	"<ast cur_eid=\"KYOP.TND_SR.9.R.004\" rem_sec=\"2378.0\"/>" +
+			"<ist iid=\"1\" mrk=\"0\" dur=\"27\" eid=\"1\">" +
+			"<rv n=\"RESPONSE\" t=\"identifier\"><v>%3Canswers%3E%3Canswer%20id%3D%22widget1003%22%3Eape%3C%2Fanswer%3E%3Canswer%20id%3D%22widget1023%22%3Ebear%3C%2Fanswer%3E%3Canswer%20id%3D%22widget1025%22%3Echild%3C%2Fanswer%3E%3C%2Fanswers%3E</v></rv></ist></ist>" +
+			"<ist iid=\"2\" mrk=\"0\" dur=\"27\" eid=\"2\">" +
+			"<rv n=\"RESPONSE\" t=\"identifier\"><v>%3Canswers%3E%3Canswer%20id%3D%22widget1003%22%3Eape%3C%2Fanswer%3E%3Canswer%20id%3D%22widget1023%22%3Ebear%3C%2Fanswer%3E%3Canswer%20id%3D%22widget1025%22%3Echild%3C%2Fanswer%3E%3C%2Fanswers%3E</v></rv></ist></ist></tsd>" +
+	     	"</consolidated_restart_data></login_response></tmssvc_response>";
 		}
 		else {
-			return "<tmssvc_response method=\"login_response\"><login_response restart_number=\"0\" restart_flag=\"false\" lsid=\"1:swirl50346\"><status status_code=\"200\"/>" +
+			return "<tmssvc_response method=\"login_response\">" +
+			"<login_response restart_number=\"0\" restart_flag=\"false\" lsid=\"1:swirl50346\"><status status_code=\"200\"/>" +
 			"<testing_session_data><cmi.core student_name=\"Test Student\" student_id=\"84378\" /></testing_session_data>" +
 			"<manifest title=\"Mathematics 101\">" +
+			"<feedback id=\"STUDENT_FEEDBACK\"/>" +
 			"<sco cmi.core.total_time=\"0:0:0\" adsid=\"10\" item_encryption_key=\"n7673nBJ2n27bB4oAfme7Ugl5VV42g8\" asmt_encryption_key=\"1\" asmt_hash=\"1003A05C5AFDD27F24A5F05B627C52E9\"" +
 			" title=\"Mathematics 101\" sco_unit_type=\"SUBTEST\" sco_unit_question_number_offset=\"0\" sco_duration_minutes=\"100\" id=\"24105\" cmi.core.entry=\"ab-initio\" force_logout=\"false\" />" +
-			"<terminator id=\"SEE_YOU_LATER\" /> </manifest> </login_response> </tmssvc_response>";
+			"<terminator id=\"SEE_YOU_LATER\" /> </manifest> " +
+			"<branding tdclogo=\"/resources/logoTN.swf\"/>" +
+			"</login_response> </tmssvc_response>";
 		}
 	}
 

@@ -3,11 +3,12 @@
     <include href="ManipulativeButton.lzx"/>
 
     <class name="ManipulativeBar" bgcolor="0xC4C4C4"
-           datapath="dsstudentdata:/testing_client_model/current_item/item_model/manipulatives">
+           datapath="dsstudentdata:/testing_client_model/current_item/item_model">
 
 		<attribute name="TYPE_SPACING" type="number" value="15" />
-		
-		<view datapath="global" name="globals" valign="middle">
+		<attribute name="theme" type="boolean" value="$path{'@theme'}" />
+
+		<view datapath="manipulatives/global" name="globals" valign="middle" visible="${!classroot.theme}">
 			<simplelayout axis="x"/>
 			<ManipulativeButton resource="toolbar_choice_eliminator_btn"
 	                            toolid="option_eliminator"
@@ -20,8 +21,9 @@
 	                            tooltip="Eraser"/>
 		</view>
 	            
-		<view datapath="general" name="generals" valign="middle"
-		      x="${parent.globals.x + parent.globals.width + classroot.TYPE_SPACING}">
+		<view datapath="manipulatives/general" name="generals" valign="middle"
+		      x="${parent.globals.x + parent.globals.width + classroot.TYPE_SPACING}"
+		      visible="${!classroot.theme}">
 			<simplelayout axis="x"/>
 			<ManipulativeButton resource="toolbar_oneeighth_inch_ruler_btn"
 	                            toolid="oneeighth_inch_ruler"
@@ -39,7 +41,10 @@
 	                            toolid="protractor"
 	                            tooltip="Protractor"/>
 			<ManipulativeButton resource="toolbar_formula_card_btn"
-	                            toolid="formula_card"
+	                            toolid="FCAT_formula_card"
+	                            tooltip="Reference Card"/>
+			<ManipulativeButton resource="toolbar_formula_card_btn"
+	                            toolid="TN_formula_card"
 	                            tooltip="Reference Card"/>
 			<ManipulativeButton resource="toolbar_calculator_btn"
 	                            toolid="standard_calculator"
@@ -60,7 +65,7 @@
 		<basebutton stretches="both" height="20" width="68"
 	                resource="toolbar_stopreader_btn"
 	                visible="${canvas.readable}" valign="middle"
-	                x="${parent.generals.width == 0 ? parent.generals.x : parent.generals.x + parent.generals.width + classroot.TYPE_SPACING}">
+	                x="${classroot.theme ? parent.globals.x : (parent.generals.width == 0 ? parent.generals.x : parent.generals.x + parent.generals.width + classroot.TYPE_SPACING)}">
 	
 			<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
 	

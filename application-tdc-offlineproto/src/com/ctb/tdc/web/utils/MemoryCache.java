@@ -7,6 +7,7 @@ import org.jdom.input.SAXBuilder;
 
 import com.ctb.tdc.web.dto.ServletSettings;
 import com.ctb.tdc.web.dto.StateVO;
+import com.ctb.tdc.web.dto.TTSSettings;
  
 /**
  * @author Tai_Truong
@@ -17,14 +18,28 @@ public class MemoryCache {
     private HashMap stateMap;
     private HashMap subtestInfoMap;
     private ServletSettings srvSettings;
+    private TTSSettings ttsSettings;
     private HashMap itemMap;
     private HashMap assetMap;
     public SAXBuilder saxBuilder;
     private boolean loaded = false;
     private HashMap imageMap;
-
     
-    private MemoryCache() {
+    /**
+	 * @return Returns the ttsSettings.
+	 */
+	public TTSSettings getTTSSettings() {
+		return ttsSettings;
+	}
+
+	/**
+	 * @param ttsSettings The ttsSettings to set.
+	 */
+	public void setTTSSettings(TTSSettings ttsSettings) {
+		this.ttsSettings = ttsSettings;
+	}
+
+	private MemoryCache() {
         this.loaded = false;
         this.stateMap = new HashMap();
         this.subtestInfoMap = new HashMap();

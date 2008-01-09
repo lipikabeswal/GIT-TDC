@@ -2,34 +2,12 @@
 
     <include href="CachableComponent.lzx"/>
 
-    <class name="PageButton" resource="page_btn">
-        <attribute name="index"/>
-        <attribute name="scroll"/>
-        <attribute name="selman"/>
-
-        <method event="onclick">
-            this.selman.select (this);
-        </method>
-
-        <method name="setSelected" args="issel">
-            if (issel) {
-                this.scroll.scrollToPage (this.index);  
-            }
-            this.setResourceNumber (issel ? 2 : 1);
-        </method>
-    </class>
-
-
     <class name="CachableScrollingText" extends="CachableComponent"
            comptype="$once{gCompTypes.WIDGET_SCROLLING_TEXT}"
            defaultplacement="scrollcontents">
-<?ignore
-        <attribute name="pagenum" 
-                  value="${Math.ceil (this.contents.textarea.scrollarea.height/this.contents.height)}"/>
-?>
-
         <attribute name="TEXT_LEFT_PADDING" type="number" value="6"/>
         <attribute name="TEXT_RIGHT_PADDING" type="number" value="0"/>
+        <attribute name="passageId" type="string" value="-1" />
         
         <method event="ondata" args="data">
             if (data.hasAttr ('width')) {
@@ -38,10 +16,14 @@
             if (data.hasAttr ('height')) {
                 this.setAttribute ('height', Number (data.getAttr ('height')));
             }
-
+            if (data.hasAttr ('id')) {
+            	var id = data.getAttr ('id');
+                this.setAttribute ('passageId', id);
+                this.parent.setAttribute("passageId", id);
+            }
+ 
             this._initSubnodes ();
 
-//            this.contents.pagenav.resetSelection ();
 			this.contents.textarea.scrollarea.scrollcontents.dynlayout.update();
 			doneLoading();
         </method>
@@ -56,7 +38,8 @@
                 if (contsubviews [i] instanceof CachableComponent &&
                         contsubviews [i].visible) {
                     contsubviews[i].destroy();
-                    this.cache.returnComponent (contsubviews [i]);
+                    //this.cache.returnComponent (contsubviews [i]);
+                    
                 }
             }
             this.contents.textarea.scrollarea.scrollcontents.dynlayout.clearSubviews ();
@@ -90,9 +73,6 @@
         ]]></method>
 
         <resizelayout axis="y"/>
-        <view bgcolor="0xCCCCCC" width="100%"
-              height="10"/>
-  
         <view name="contents" options="releasetolayout" width="100%">
             <resizelayout axis="x"/>
             <view name="textarea" options="releasetolayout"
@@ -107,40 +87,13 @@
                                height="${parent.scrollcontents.height}"
                                stereotype="${classroot.panel.stereotype}"
                                vscroll="$once{parent.parent.scroll}"
+                               passageId="${classroot.passageId}" 
                                scrollport="$once{parent.parent}"/>
                 </view>
                 <vscrollbar name="scroll"
                             visible="${this.scrollable}"
-                            pagesize="${this.height}">
-                    <method name="scrollToPage" args="pageto">
-                        var pagedist = classroot.contents.height * pageto;
-                        parent.scrollarea.setAttribute ('y', -pagedist);
-                    </method>
-                </vscrollbar>
+                            pagesize="${this.height}" />
             </view>
-<?ignore
-            <view name="pagenav" width="40" y="5">
-                <simplelayout name="thelayout" axis="y" spacing="10"/>
-                <selectionmanager name="selman"/>
-                <method event="onpagenum" reference="classroot"><![CDATA[
-                    for (var i = 0; i < this.thelayout.subviews.length; i++) {
-                        this.thelayout.subviews [i].setAttribute ('visible', i < classroot.pagenum);
-                    }
-    
-                    if (classroot.pagenum > this.thelayout.subviews.length) {
-                        for (var i = this.thelayout.subviews.length; i < classroot.pagenum; i++) {
-                            btn =  new PageButton (this, {index: i,
-                                                          scroll: classroot.contents.textarea.scroll,
-                                                          selman: this.selman});
-                        }
-                    }
-                ]]></method>
-
-                <method name="resetSelection">
-                    this.selman.select (this.thelayout.subviews [0]);
-                </method>
-            </view>
-?>                
         </view>
 
 
@@ -164,7 +117,7 @@
                 this.lineTo (.5, this.height - .5);
                 this.lineTo (.5, .5);
 
-                this.strokeStyle = 0x000000;
+                this.strokeStyle = Number(gController.questionFontColor);
                 this.strokeWidth = 1;
                 this.stroke ();
             </method>

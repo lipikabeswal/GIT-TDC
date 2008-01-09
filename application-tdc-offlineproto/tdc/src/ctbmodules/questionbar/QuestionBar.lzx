@@ -205,21 +205,7 @@
             </method>
 
         </basebutton>
-        
-        <?ignore
-        <view name="thumbnail" options="ignorelayout" visible="false"
-              width="162" height="122" y="-105" bgcolor="red">
-            <view width="160" height="120" stretches="both" x="1" y="1">
-                <Question width="800" height="600"
-                          datapath="dsthumbnail:/element_package/item_canvas">
-                    <method event="ondata" args="data">
-                        if (data) parent.parent.setAttribute ('visible', true);
-                    </method>
-                </Question>
-            </view>
-        </view>
-        ?>
-    </class>
+     </class>
 
 
 </library>

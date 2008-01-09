@@ -1,0 +1,244 @@
+<element_package iid="REG_TEST.070" security_classification_id="alg112">
+	<item_canvas id="IC">
+		<panel left_padding="12" stereotype="stem" id="stem1" layout="vertical" spacing="12" x="0" width="500" y="79" height="396">
+			<text_widget halign="left" width="471" id="widget1000">
+				<![CDATA[The administrators of a local high school are considering a proposal that would allow students to leave campus during their lunch period. The results of a random student survey about the proposal are listed in the table below.]]>
+			</text_widget>
+			<table halign="left" title="CAMPUS LUNCH SURVEY" border="yes" showvlines="yes" showhlines="yes" enlargeable="accommodated" autoenlargeable="no" height="243" width="378" id="widget1001">
+				<row height="30" id="widget1002">
+					<cell bgcolor="0xE6E6E6" halign="center" valign="middle" width="85" id="widget1003" />
+					<cell bgcolor="0xE6E6E6" halign="center" valign="middle" width="65" id="widget1004">
+						<text_widget halign="left" width="28" id="widget1005">
+							<![CDATA[<b>For</b>]]>
+						</text_widget>
+					</cell>
+					<cell bgcolor="0xE6E6E6" halign="center" valign="middle" width="65" id="widget1006">
+						<text_widget halign="left" width="65" id="widget1007">
+							<![CDATA[<b>Against</b>]]>
+						</text_widget>
+					</cell>
+					<cell bgcolor="0xE6E6E6" halign="center" valign="middle" width="65" id="widget1008">
+						<text_widget halign="left" width="65" id="widget1009">
+							<![CDATA[<b>Undecided</b>]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="3" id="widget1010">
+						<image_widget halign="left" id="17_30ptvLine_10mFCATf07" src="17_30ptvLine_10mFCATf07.swf" enlargeable="no" autoenlargeable="no" height="30" width="3" />
+					</cell>
+					<cell bgcolor="0xE6E6E6" halign="center" valign="middle" width="65" id="widget1011">
+						<text_widget halign="left" width="36" id="widget1012">
+							<![CDATA[<b>Total</b>]]>
+						</text_widget>
+					</cell>
+				</row>
+				<row height="30" id="widget1013">
+					<cell bgcolor="0xE6E6E6" halign="center" valign="middle" width="85" id="widget1014">
+						<text_widget halign="left" width="65" id="widget1015">
+							<![CDATA[<b>Freshman</b>]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="50" id="widget1016">
+						<text_widget halign="left" width="21" id="widget1017">
+							<![CDATA[16]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="33" id="widget1018">
+						<text_widget halign="left" width="21" id="widget1019">
+							<![CDATA[18]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="27" id="widget1020">
+						<text_widget halign="left" width="15" id="widget1021">
+							<![CDATA[4]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="3" id="widget1022">
+						<image_widget halign="left" id="17_30ptvLine_10mFCATf07" src="17_30ptvLine_10mFCATf07.swf" enlargeable="no" autoenlargeable="no" height="30" width="3" />
+					</cell>
+					<cell halign="center" valign="middle" width="34" id="widget1023">
+						<text_widget halign="left" width="22" id="widget1024">
+							<![CDATA[38]]>
+						</text_widget>
+					</cell>
+				</row>
+				<row height="30" id="widget1025">
+					<cell bgcolor="0xE6E6E6" halign="center" valign="middle" width="85" id="widget1026">
+						<text_widget halign="left" width="67" id="widget1027">
+							<![CDATA[<b>Sophmore</b>]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="50" id="widget1028">
+						<text_widget halign="left" width="21" id="widget1029">
+							<![CDATA[17]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="33" id="widget1030">
+						<text_widget halign="left" width="21" id="widget1031">
+							<![CDATA[16]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="27" id="widget1032">
+						<text_widget halign="left" width="15" id="widget1033">
+							<![CDATA[4]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="3" id="widget1034">
+						<image_widget halign="left" id="17_30ptvLine_10mFCATf07" src="17_30ptvLine_10mFCATf07.swf" enlargeable="no" autoenlargeable="no" height="30" width="3" />
+					</cell>
+					<cell halign="center" valign="middle" width="34" id="widget1035">
+						<text_widget halign="left" width="22" id="widget1036">
+							<![CDATA[37]]>
+						</text_widget>
+					</cell>
+				</row>
+				<row height="30" id="widget1037">
+					<cell bgcolor="0xE6E6E6" halign="center" valign="middle" width="85" id="widget1038">
+						<text_widget halign="left" width="44" id="widget1039">
+							<![CDATA[<b>Junior</b>]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="50" id="widget1040">
+						<text_widget halign="left" width="22" id="widget1041">
+							<![CDATA[24]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="27" id="widget1042">
+						<text_widget halign="left" width="15" id="widget1043">
+							<![CDATA[8]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="27" id="widget1044">
+						<text_widget halign="left" width="15" id="widget1045">
+							<![CDATA[3]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="3" id="widget1046">
+						<image_widget halign="left" id="17_30ptvLine_10mFCATf07" src="17_30ptvLine_10mFCATf07.swf" enlargeable="no" autoenlargeable="no" height="30" width="3" />
+					</cell>
+					<cell halign="center" valign="middle" width="34" id="widget1047">
+						<text_widget halign="left" width="22" id="widget1048">
+							<![CDATA[35]]>
+						</text_widget>
+					</cell>
+				</row>
+				<row height="30" id="widget1049">
+					<cell bgcolor="0xE6E6E6" halign="center" valign="middle" width="85" id="widget1050">
+						<text_widget halign="left" width="46" id="widget1051">
+							<![CDATA[<b>Senior</b>]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="50" id="widget1052">
+						<text_widget halign="left" width="22" id="widget1053">
+							<![CDATA[37]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="27" id="widget1054">
+						<text_widget halign="left" width="15" id="widget1055">
+							<![CDATA[3]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="27" id="widget1056">
+						<text_widget halign="left" width="15" id="widget1057">
+							<![CDATA[0]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="3" id="widget1058">
+						<image_widget halign="left" id="17_30ptvLine_10mFCATf07" src="17_30ptvLine_10mFCATf07.swf" enlargeable="no" autoenlargeable="no" height="30" width="3" />
+					</cell>
+					<cell halign="center" valign="middle" width="34" id="widget1059">
+						<text_widget halign="left" width="22" id="widget1060">
+							<![CDATA[40]]>
+						</text_widget>
+					</cell>
+				</row>
+				<row height="3" id="widget1061">
+					<cell halign="center" valign="middle" width="85" id="widget1062">
+						<image_widget halign="left" id="17_85ptLine_10mFCATf07" src="17_85ptLine_10mFCATf07.swf" enlargeable="no" autoenlargeable="no" height="3" width="85" />
+					</cell>
+					<cell halign="center" valign="middle" width="65" id="widget1063">
+						<image_widget halign="left" id="17_65ptLine_10mFCATf07" src="17_65ptLine_10mFCATf07.swf" enlargeable="no" autoenlargeable="no" height="3" width="65" />
+					</cell><cell halign="center" valign="middle" width="65" id="widget1064">
+						<image_widget halign="left" id="17_65ptLine_10mFCATf07" src="17_65ptLine_10mFCATf07.swf" enlargeable="no" autoenlargeable="no" height="3" width="65" />
+					</cell>
+					<cell halign="center" valign="middle" width="65" id="widget1065">
+						<image_widget halign="left" id="17_65ptLine_10mFCATf07" src="17_65ptLine_10mFCATf07.swf" enlargeable="no" autoenlargeable="no" height="3" width="65" />
+					</cell>
+					<cell halign="center" valign="middle" width="3" id="widget1066">
+						<image_widget halign="left" id="17_3ptLine_10mFCATf07" src="17_3ptLine_10mFCATf07.swf" enlargeable="no" autoenlargeable="no" height="3" width="3" />
+					</cell>
+					<cell halign="center" valign="middle" width="65" id="widget1067">
+						<image_widget halign="left" id="17_65ptLine_10mFCATf07" src="17_65ptLine_10mFCATf07.swf" enlargeable="no" autoenlargeable="no" height="3" width="65" />
+					</cell>
+				</row>
+				<row height="30" id="widget1068">
+					<cell bgcolor="0xE6E6E6" halign="center" valign="middle" width="60" id="widget1069">
+						<text_widget halign="left" width="36" id="widget1070">
+							<![CDATA[<b>Total</b>]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="34" id="widget1071">
+						<text_widget halign="left" width="22" id="widget1072">
+							<![CDATA[94]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="34" id="widget1073">
+						<text_widget halign="left" width="22" id="widget1074">
+							<![CDATA[45]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="32" id="widget1075">
+						<text_widget halign="left" width="20" id="widget1076">
+							<![CDATA[11]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="3" id="widget1077">
+						<image_widget halign="left" id="17_30ptvLine_10mFCATf07" src="17_30ptvLine_10mFCATf07.swf" enlargeable="no" autoenlargeable="no" height="30" width="3" />
+					</cell>
+					<cell halign="center" valign="middle" width="40" id="widget1078">
+						<text_widget halign="left" width="28" id="widget1079">
+							<![CDATA[150]]>
+						</text_widget>
+					</cell>
+				</row>
+			</table>
+			<text_widget halign="left" width="471" id="widget1080">
+				<![CDATA[The administrators randomly selected one student from the survey group for an extensive interview. What is the probability that the student selected will be a senior that is <b>against</b> the proposal?]]>
+			</text_widget>
+		</panel>
+		<answer_area_panel id="A1" stereotype="answerArea" layout="vertical" spacing="12" width="488" x="12" top_padding="12" left_padding="12" y="482" height="50">
+			<answer_choice_widget spacing="6" layout="horizontal" width="476">
+				<selector_widget valign="top" identifier="A" />
+				<text_widget halign="left" width="429" id="widget1083">
+					<![CDATA[0.02]]>
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget spacing="6" layout="horizontal" width="476">
+				<selector_widget valign="top" identifier="B" />
+				<text_widget halign="left" width="429" id="widget1086">
+					<![CDATA[0.08]]>
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget spacing="6" layout="horizontal" width="476">
+				<selector_widget valign="top" identifier="C" />
+				<text_widget halign="left" width="429" id="widget1089">
+					<![CDATA[0.27]]>
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget spacing="6" layout="horizontal" width="476">
+				<selector_widget valign="top" identifier="D" />
+				<text_widget halign="left" width="429" id="widget1092">
+					<![CDATA[0.30]]>
+				</text_widget>
+			</answer_choice_widget>
+		</answer_area_panel>
+	</item_canvas>
+	<item_model iid="REG_TEST.070" eid="56" marked="0" answered="0" number="0" type="question" correct="D">
+		<toolbar oneeighth_inch_ruler="not provisioned" mm_ruler="not provisioned" formula_card="not provisioned" highlighter="required" eraser="required" cm_ruler="not provisioned" scientific_calculator="not provisioned" standard_calculator="not provisioned" protractor="not provisioned" option_eliminator="required" half_inch_ruler="not provisioned" />
+		<interaction type="choice" max_choices="1">
+			<selector identifier="A" obj_id_ref="A" user_action="n" />
+			<selector identifier="B" obj_id_ref="B" user_action="n" />
+			<selector identifier="C" obj_id_ref="C" user_action="n" />
+			<selector identifier="D" obj_id_ref="D" user_action="n" />
+		</interaction>
+	</item_model>
+</element_package>

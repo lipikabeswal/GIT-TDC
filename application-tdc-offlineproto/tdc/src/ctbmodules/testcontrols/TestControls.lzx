@@ -4,12 +4,11 @@
     <class name="TestControls"
            datapath="dsstudentdata:/testing_client_model/">
 
-        <attribute name="curritemno" 
-                   value="$path{'current_item/@itemno'}"
-                   />
+        <attribute name="curritempos" 
+                   value="$path{'current_item/@itempos'}"/>
 
         <attribute name="totalitemno" 
-                   value="$path{'question_number/@total'}"/>
+                   value="$path{'question_number/@total_including_theme'}"/>
         
 
         <attribute name="iscurranswered" 
@@ -29,17 +28,21 @@
         <attribute name="uienabled"
                    value="$path{ 'dsdisplay:/display/@enabled' }"/>
 
+        <attribute name="theme" 
+                   value="$path{'current_item/item_model/@theme'}"/>
+
         <method name="setIsCurrAnswered" args="isanswered"><![CDATA[
             if (typeof (isanswered) == 'string') {
                isanswered = (isanswered == '1');
             }
 
             var isgr = itemtype == 'grid'; 
+			var iscr = itemtype == 'text_entry';
 
             //only show text for selection responses
             var isselanswer = datapath.xpathQuery ('current_item/item_model/interaction/selector') != null;
-            this.answeristxt.setAttribute ('visible', isanswered && !isgr);
-            this.noanswertxt.setAttribute ('visible', !isanswered && isselanswer && !isgr);
+            this.answertxt.answeristxt.setAttribute ('visible', isanswered && !isgr && !iscr);
+            this.answertxt.noanswertxt.setAttribute ('visible', !isanswered && isselanswer && !isgr && !iscr );
 
             this.iscurranswered = isanswered;
         ]]></method>
@@ -55,13 +58,13 @@
         <method event="oncurranswer">
             if (this.curranswer) {
                 var currsel = this.curranswer.getAttr ('identifier');
-                this.answeristxt.selitem.setAttribute ('text', currsel);
+                this.answertxt.answeristxt.selitem.setAttribute ('text', currsel);
             }  
         </method>
 
-        <method event="oncurritemno"><![CDATA[
+        <method event="oncurritempos"><![CDATA[
             //handle nav visibility and positioning
-			var currentItemNumber = parseInt(this.curritemno);
+			var currentItemNumber = parseInt(this.curritempos);
 			
 			if(currentItemNumber != 1){
                 this.btns.navbtns.btnback.setAttribute ('visible', true);
@@ -78,18 +81,18 @@
             }
             
          ]]></method>
-
-        <view name="answeristxt" visible="false" x="30"
-              fgcolor="0x6590B3" fontstyle="bold" y="-4">
-            <simplelayout axis="x" />
-            <text resize="true">YOUR ANSWER IS:</text>
-            <text name="selitem" resize="true"></text>
-        </view>
-        <text name="noanswertxt" visible="false" x="25" y="-4"
-              fgcolor="0x6590B3" fontstyle="bold" fontsize="11">
-            - NO ANSWER SELECTED -
-        </text>
-
+		<view name="answertxt" visible="${!classroot.theme}">
+	        <view name="answeristxt" visible="false" x="30"
+	              fgcolor="0x6590B3" fontstyle="bold" y="-4">
+	            <simplelayout axis="x" />
+	            <text resize="true">YOUR ANSWER IS:</text>
+	            <text name="selitem" resize="true"></text>
+	        </view>
+	        <text name="noanswertxt" visible="false" x="25" y="-4"
+	              fgcolor="0x6590B3" fontstyle="bold" fontsize="11">
+	            - NO ANSWER SELECTED -
+	        </text>
+		</view>
         <view name="btns" y="14" x="7">
             <simplelayout axis="y" spacing="3"/>
             <view name="navbtns">
@@ -111,7 +114,8 @@
                               clickable="${ classroot.uienabled == 'true' }"
                               resource="mark_unmark_btn" statelength="3"
                               maxstate="1" 
-              onclick="gController.markQuestion (!classroot.iscurrmarked)">
+              				  onclick="gController.markQuestion (!classroot.iscurrmarked)"
+              				  visible="${!classroot.theme}">
 
                 <method name="grayOut" args="e"
                         event="onuienabled" reference="classroot">

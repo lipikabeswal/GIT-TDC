@@ -75,9 +75,9 @@
             drawRoundRect (0, 0, this.width, this.height, 
                            roundness,
                            0xC4C4C4, 0x7195B1, 1);
-            Debug.write("before changeColor " + parent.bg);
+ //           Debug.write("before changeColor " + parent.bg);
             this.changeColor(parent.bg);
-            Debug.write("after changeColor");
+ //           Debug.write("after changeColor");
         </method>
         
         

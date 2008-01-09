@@ -287,9 +287,9 @@
 	   	
 		<method name="isErrorResponse" args="response">
 			var statusCode = getStatusCode(response);
-Debug.write("gXmlHelper.isErrorResponse: " + response);
-Debug.write("statusCode: " + statusCode);
-Debug.write("return: " + (statusCode != OK_STATUS_CODE));
+//Debug.write("gXmlHelper.isErrorResponse: " + response);
+//Debug.write("statusCode: " + statusCode);
+//Debug.write("return: " + (statusCode != OK_STATUS_CODE));
 			return (statusCode != null &amp;&amp; statusCode != OK_STATUS_CODE);
 		</method>
 		

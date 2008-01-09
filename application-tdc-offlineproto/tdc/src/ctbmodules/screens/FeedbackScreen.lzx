@@ -16,6 +16,7 @@
                      xpath="dsfeedback:/student_feedback_data"/>
  		
  		<method name="showFeedback" args="feedback"><![CDATA[
+ 			var allScos = new Array();
    			var node = LzDataNode.stringToLzData(feedback);
             dsfeedback.setChildNodes(new Array(node));
 			var name = gController.getStudentName();
@@ -25,14 +26,22 @@
 			if(unsortedScos!=null)
 			{
 				if(unsortedScos instanceof LzDataElement){
-					 scos[0] = unsortedScos;
+					 allScos[0] = unsortedScos;
 				}
 				else{ // array of LzDataElements
 					for(var i=0; i<unsortedScos.length; i++){
 						var sco = unsortedScos[i];  // this sco has the title, need to add the raw, max, and unscored from lms
 						var seq = new Number(sco.getAttr('seq'));
-						scos[seq -1] = sco;
+						allScos[seq -1] = sco;
 					}
+				}
+			}
+			var scoIndex = 0;
+			for(var i=0; i<allScos.length; i++){		
+				var thisSco = allScos[i];
+				if(thisSco != null){
+					scos[scoIndex] = thisSco;
+					scoIndex++;
 				}
 			}
 			addScoValues();
@@ -122,7 +131,7 @@
 				info.sr.setAttribute('text', "You answered " + raw + " out of " + max + " question correctly.");
 			}	
 
-			if((unscored!=0) && (unscored != null))
+			if((unscored != 0) && (unscored != null))
 			{	
 				if(unscored>1){
 					info.cr.setAttribute('text', "Your responses for the remaining " + unscored + " questions will be scored later.");
@@ -163,7 +172,5 @@
          </view>
 		
 		<view y="10" x="470" resource="feedbackWait"/>
-
     </class>
-
 </library>

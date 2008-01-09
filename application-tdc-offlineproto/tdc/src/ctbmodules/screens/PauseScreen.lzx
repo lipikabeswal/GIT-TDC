@@ -21,7 +21,7 @@
             Log in to resume your paused test.
         </text>
 
-        <view width="100%">
+        <view width="100%" name="id">
             <text resize="true" x="${ 282 - width }"
                   valign="middle" fgcolor="white" fontsize="12">
                 <b>Login ID:</b>
@@ -38,7 +38,7 @@
             <edittext name="passwordField" x="287" fontsize="12"
                       password="true" width="265"/>
         </view>
-        <view>
+        <view name="ac">
             <text resize="true" fgcolor="white"
                   valign="middle" fontsize="12"  x="${ 282 - width }">
                 <b>Access Code:</b>

@@ -30,7 +30,7 @@
             LzKeys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
             LzKeys.callOnKeyCombo( dstop, [ 'control', 's' ] );
             LzKeys.callOnKeyCombo( dfinish, [ 'control', 'f' ] );
-
+           
             if ( gController.getClientMachine() == 'MAC' ) {
                 dmacKeyHandler.register( LzKeys, 'onkeydown' );
             }
@@ -64,7 +64,7 @@
             LzKeys.removeKeyComboCall( dpause, [ 'control', 'u' ] );
             LzKeys.removeKeyComboCall( dstop, [ 'control', 's' ] );
             LzKeys.removeKeyComboCall( dfinish, [ 'control', 'f' ] );
-
+         
             if ( gController.getClientMachine() == 'MAC' ) {
                 dmacKeyHandler.unregisterFrom( LzKeys.onkeydown );
             }
@@ -160,32 +160,48 @@
                    value="$once{ new LzDelegate( this, 'stop' ) }"/>
         <attribute name="dfinish"
                    value="$once{ new LzDelegate( this, 'finish' ) }"/>
-
+  
         <method name="toggleA">    
-            this.exitPopups();
-        	gController.toggleItemSelStateWithFreeze( 'A' ); 
+        	if(!gController.isCrItem()){
+	            this.exitPopups();
+	        	gController.toggleItemSelStateWithFreeze( 'A' ); 
+	        }
         </method>
         <method name="toggleB">    
-            this.exitPopups(); 
-        	gController.toggleItemSelStateWithFreeze( 'B' ); 
+        	if(!gController.isCrItem()){
+	            this.exitPopups(); 
+	        	gController.toggleItemSelStateWithFreeze( 'B' ); 
+	        }
         </method>
         <method name="toggleC">    
-            this.exitPopups(); 
-        	gController.toggleItemSelStateWithFreeze( 'C' ); 
+        	if(!gController.isCrItem()){
+	            this.exitPopups(); 
+	        	gController.toggleItemSelStateWithFreeze( 'C' ); 
+	        }
          </method>
         <method name="toggleD">    
-            this.exitPopups(); 
-        	gController.toggleItemSelStateWithFreeze( 'D' ); 
+        	if(!gController.isCrItem()){
+	            this.exitPopups(); 
+	        	gController.toggleItemSelStateWithFreeze( 'D' ); 
+	        }
        </method>
         <method name="toggleE">    
-            this.exitPopups(); 
-        	gController.toggleItemSelStateWithFreeze( 'E' ); 
+        	if(!gController.isCrItem()){
+	            this.exitPopups(); 
+	        	gController.toggleItemSelStateWithFreeze( 'E' ); 
+	        }
         </method>
-        <method name="goBack">      
+        <method name="goBack"> 
+        	if(!gController.onFirstItem()){
+        		LzFocus.clearFocus();
+        	}
             this.exitPopups();
         	gController.stepNavigateBack();        
         </method>
-        <method name="goOn">       
+        <method name="goOn"> 
+        	if(!gController.onLastItem()){
+        		LzFocus.clearFocus();
+        	}
             this.exitPopups(); 
         	gController.stepNavigateForward();     
         </method>
@@ -197,19 +213,23 @@
             this.exitPopups(); 
         	gController.toggleTimer();             
         </method>
-        <method name="pause">      
+        <method name="pause"> 
+        	if(gController.pausable == 'true'){
+        		LzFocus.clearFocus();
+        	}
             this.exitPopups(); 
         	gController.pauseTest();               
         </method>
         <method name="stop">       
+        	LzFocus.clearFocus();
             this.exitPopups(); 
         	gController.finishTest();              
         </method>
         <method name="finish">     
+        	LzFocus.clearFocus();
             this.exitPopups(); 
         	gController.finishTestShortcut();      
         </method>
-
     </node>
 
 </library>

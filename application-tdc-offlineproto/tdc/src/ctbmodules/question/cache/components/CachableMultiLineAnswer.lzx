@@ -1,0 +1,218 @@
+<library>
+    <include href="CachableComponent.lzx"/>
+
+    <!-- ===============
+         ==
+         == CachableMultiLineAnswer
+         ==
+         ==  A cachable multiLine input capable of supporting rich text input with  
+         ==  a format bar containing different font styles (bold, italic and underline) and these
+         ==  cut and paste (cut, copy and paste) operations.
+         ==
+         =============== -->
+
+    <class name="CachableMultiLineAnswer" 
+           extends="CachableComponent"
+           comptype="$once{gCompTypes.WIDGET_MULTI_LINE_ANSWER}" 
+           aaactive="true" 
+           aasilent="false"
+           clickable="true"
+           showhandcursor="false"> 
+
+        <attribute name="hasAltText" value="false"/>
+		<attribute name="altText" type="string" />
+		<attribute name="hasReadableText" type="boolean" value="true"/>
+        
+        <attribute name="lmargin" type="number" value="12"/>
+        <attribute name="rmargin" type="number" value="5"/>
+        <attribute name="halign" type="string" value="left"/>
+        <attribute name="widget_id" value="widget100000" type="string"/>
+        <attribute name="w_id" type="number" value="1000000" />
+        <attribute name="editTextWidth" type="number" value="100"/>
+        <attribute name="isInitialText" type="boolean" value="false" />
+         
+        <!-- ===============
+             = METHODS
+             =============== -->
+
+        <handler name="ondata" args="data"><![CDATA[
+//Debug.write("cachableMulti : " + data);
+
+            // To distinguish between numerous input fields, we'll maintain an array of hashes
+            // containing their widget ID and answered state (filled or empty). Additionally each
+            // class also stores its widget ID to allow them to be matched up.
+            if (data.getAttr("id")) {
+                this.setAttribute('widget_id', data.getAttr("id"));
+            	var answer = gController.getAnswerForInputWidgetId(this.widget_id);
+//Debug.write("CachableMultiLineAnswer.ondata", answer, answer.length);
+            	var answered = (typeof answer != "undefined" && answer.length != 0);
+                gController.addCrField({"widget_id" : this.widget_id, 
+                                              "answered" : answered, "answer" : answer, "ref" : this}); 
+                this.setAttribute("isInitialText", true);
+                if (answered) 
+                   this.setAnswer(gController.formatXml(answer));
+                else
+                   this.setAnswer("");
+            }
+            
+            if (data.getAttr("width")) {
+                this.setAttribute('editTextWidth', Number(data.getAttr("width")));
+            }
+            if(data.getAttr('acc_width') && gController.hasFontAccommodation){
+//Debug.write("CachableMultiLineAnswer", "got acc_width", data.getAttr('acc_width'));
+                this.setAttribute('editTextWidth', Number(data.getAttr("acc_width")));
+            }
+            if (data.getAttr("height")){
+                this.setHeight(Number(data.getAttr("height"))); 
+            }
+            if (data.getAttr('acc_height') && gController.hasFontAccommodation){
+            	this.setAttribute('height', Number(data.getAttr("acc_height")));
+            }
+            var cl = 10000;
+			if (data.getAttr("char_limit")){
+				cl =  Number(data.getAttr("char_limit"));
+			}
+            this.rich.answer.inp.setMaxLength(cl);
+			if (data.getAttr("halign")) 
+                this.setAttribute("halign", data.getAttr("halign")); 
+			if (data.getAttr("lmargin")){
+				var lm = Number(data.getAttr("lmargin"));
+				var newEditTextWidth = this.getAttribute('editTextWidth') - lm;
+				this.setAttribute('editTextWidth', newEditTextWidth);
+                this.setAttribute("lmargin", lm); 
+            }
+			if (data.getAttr("rmargin"))
+                this.setAttribute("rmargin", Number(data.getAttr("rmargin")));
+            this.setAttribute("showhandcursor", false);
+            doneLoading();
+        ]]></handler>
+        
+        <method event="onwidget_id">
+			var num = this.widget_id.substring(6, this.widget_id.length);
+        	this.setAttribute('w_id', new Number(num));
+        </method>
+        
+       <method event="onw_id"><![CDATA[
+			if(this.w_id < gController.currentCrId){
+				gController.setAttribute('currentCrId', this.w_id);
+				canvas.setAttribute('focusobj', this.rich.answer.inp);
+			}
+        ]]></method>
+        
+        <method name="setAnswer" args="text">
+          this.rich.answer.inp.onfocus.sendEvent();
+          this.rich.answer.inp.onblur.sendEvent();
+          this.rich.answer.setText(text);
+        </method>
+
+		<method name="read">
+			gReadableText.read(rich.answer.getSelectedText());
+		</method>
+
+		<method name="setSelectionVars">
+			rich.answer.setSelectionVars();
+		</method>
+		
+        <!-- ===============
+             = VIEWS
+             =============== -->
+
+ 		<simplelayout axis="x" spacing="5" />
+        <view name="rich" bgcolor="${Number(gController.answerBgColor)}">
+       
+           <richtexteditarea name="answer" 
+                             height="${classroot.height}" 
+                             width="${classroot.editTextWidth}" 
+                             defaultfontcolor="0x336699" 
+                             focusable="false"
+                             x="${classroot.lmargin}">
+            	<attribute name="start" type="number" value="0" />
+            	<attribute name="end" type="number" value="0" />
+              <method name="init">
+                 super.init();
+              	this.style.setAttribute("textfieldcolor", gController.answerBgColor);
+				this.setFontColor(gController.answerFontColor);
+			 	if(gController.hasFontAccommodation)
+						this.setFontSize(18);
+					else
+						this.setFontSize(12);
+              </method>
+
+              <handler name="ontext"><![CDATA[
+                 if(!classroot.isInitialText){
+	                 if (text) {
+	                 	var answered = false;
+	               		for(var i=0; (i< text.length) && !answered; i++){
+	               			var c = text.substring(i, i+1);
+	               			if(c != ' ' && c!= '\n' && c!= '\r'){
+	               				answered = true;
+	               			}
+	               		}
+	                    gController.updateCrField(classroot.widget_id, text, answered);
+	                 }
+	                 else {  // Field is now empty
+	                    gController.updateCrField(classroot.widget_id, '', false);
+	                 }
+	             }
+	             classroot.setAttribute("isInitialText", false);
+               ]]></handler>
+
+			<method name="getSelectedText">
+				if(end == 0){
+					return '';
+				}
+				else{
+					return getText().substring(start, end);
+				}
+			</method>
+			<method name="setSelectionVars">
+				var pos = getSelectionPosition();
+				var size = getSelectionSize();
+				if(pos == -1 || size == -1 || size == 0){
+					pos = 0;
+					size = getText().length;
+				}
+				this.setAttribute('start', pos);
+				this.setAttribute('end', pos + size);
+			</method>
+          </richtexteditarea>
+        <drawview width="${classroot.editTextWidth + classroot.lmargin}" 
+                  height="${classroot.height}">
+
+            <method event="onwidth">
+                this.draw();
+            </method>
+            <method event="onheight">
+                this.draw();
+            </method>
+
+            <method name="draw">
+                this.clear ();
+                this.beginPath ();
+                
+                //has to be .5 so is draws exactly inside the border of the view
+                this.moveTo (.5,.5);
+                this.lineTo (this.width - .5, .5);
+                this.lineTo (this.width - .5, this.height - .5);
+                this.lineTo (.5, this.height - .5);
+                this.lineTo (.5, .5);
+
+                this.strokeStyle = Number(gController.answerFontColor);
+                this.strokeWidth = 1;
+                this.stroke();
+            </method>
+
+        </drawview>
+         </view>
+		<basebutton resource="read_btn" 
+ 		            name="readBtn"
+ 		            visible="${canvas.readable}">
+			<method event="onclick">
+                classroot.read();
+			</method>
+			<method event="onmouseover">
+				classroot.setSelectionVars();
+			</method>
+		</basebutton>
+    </class>
+</library>

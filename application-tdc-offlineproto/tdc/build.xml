@@ -2,7 +2,6 @@
 
 	
     <property name="src"   value="${basedir}/src"/>
-	<property name="standaloneDir" value="./standalone"/>
 	<property name="webappDir" value="../webapp"/>
 	
     <property environment="env"/>
@@ -24,8 +23,8 @@
     <target name="TestClient" description="compile TestClient.lzx">
         <exec executable="${lzc}" failonerror="true">
             <arg value="${TestClient.lzx}"/>
+        	<arg value='"--runtime=swf8"'/>
         </exec>
-        <copy file="${TestClient.lzx.swf}" todir="${standaloneDir}"/>
         <copy file="${TestClient.lzx.swf}" todir="${webappDir}"/>
         <delete file="${TestClient.swf}"/>
         <delete file="${TestClient.lzx.swf}"/>

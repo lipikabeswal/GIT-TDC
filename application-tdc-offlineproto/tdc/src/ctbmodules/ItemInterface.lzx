@@ -13,10 +13,8 @@
            value="$path{ 'subtest/ob_assessment/@starting_question_number' }"/>
 
         <attribute name="hasStartNumber" value="false"/>
-		<attribute name="LOGO_HEIGHT" type="number" value="37"/>
-		<attribute name="LOGO_WIDTH" type="number" value="99"/>
-		
-		        <method args="n" event="onstartNumber"><![CDATA[
+
+        <method args="n" event="onstartNumber"><![CDATA[
             setAttribute(
                 'hasStartNumber',
                 typeof( n ) == 'string'
@@ -43,30 +41,25 @@
                         <view x="5" fgcolor="white" fontsize="15">
                             <simplelayout axis="y" spacing="-3"/>
                             <text datapath="dssubtest:/subtest/sco/@title"
-                                  resize="true">
-<?ignore
-                                <method args="d" event="ondata">
-                                    Debug.write( 'test title ', d );
-                                </method>
-?>
-                            </text>
+                                  resize="true"/>
                             <view fontstyle="bold"
-                                  datapath="dsstudentdata:/testing_client_model">
-                                <attribute name="itemno" value="$path{'current_item/@itemno'}"/>
+                                  datapath="dsstudentdata:/testing_client_model"
+                                  id="gItemNumber">
+                                <attribute name="itemno" value="$path{'current_item/item_model/@item_no'}"/>
+                                <attribute name="theme" value="$path{'current_item/item_model/@theme'}"/>
                                 <simplelayout axis="x" spacing="3"/>
-                                <text text="Question"/>
-                                <text text="${classroot.hasStartNumber 
-                                            ? Number (parent.itemno) + Number (classroot.startNumber) - 1
-                                            : parent.itemno}">
+                                <text text="Question" visible="${!parent.theme}"/>
+                                <text text="${parent.itemno}"
+                                      visible="${!parent.theme}">
                                		<method event="ontext">
                                 		var textWidth = this.getTextWidth();
                                 		this.setAttribute('width', textWidth + 1);
                                 	</method>
                                </text>
                                 <text text="of"
-                                      visible="${!classroot.hasStartNumber }"/>
+                                      visible="${!classroot.hasStartNumber &amp;&amp; !parent.theme}"/>
                                 <text datapath="question_number/@total"
-                                      visible="${!classroot.hasStartNumber }">
+                                      visible="${!classroot.hasStartNumber &amp;&amp; !parent.theme}">
                                		<method event="ontext">
                                 		var textWidth = this.getTextWidth();
                                 		this.setAttribute('width', textWidth + 1);
@@ -77,20 +70,7 @@
                         <view width="675">
                             <TimeStatus align="right" height="100%"/>
                         </view>
-                         <view id="gLogo" x="695" valign="middle" stretches="both">
-                         	<method event="onload"><![CDATA[
-                          		var hratio = classroot.LOGO_HEIGHT / this.resourceheight;
-                          		var wratio = classroot.LOGO_WIDTH / this.resourcewidth;
-                          		
-                          		var ratio = hratio < wratio ? hratio : wratio;
-                          		var newh = ratio * this.resourceheight;
-                          		var neww = ratio * this.resourcewidth;
-//Debug.write("logo: " + this.resourceheight + " , " + this.resourcewidth);
-//Debug.write("adjusted: " + newh + " , " + neww);
-                          		this.setAttribute("height", newh);
-                          		this.setAttribute("width", neww);
-                         	]]></method>
-                         </view>
+                         <view id="gLogo" x="695" valign="middle" />
                     </view>
                     <view width="100%" options="releasetolayout">
                         <resizelayout axis="y"/>
@@ -119,9 +99,11 @@
         <!-- include the enlarge popup -->
         <include href="question/EnlargePopup.lzx"/>
 
-        <!-- include the enlarge popup -->
+        <!-- include the rationale popup -->
         <include href="question/RationalePopup.lzx"/>
 
+        <!-- include the PleaseWait popup -->
+        <include href="question/PleaseWaitPopup.lzx"/>
     </class>
 
 

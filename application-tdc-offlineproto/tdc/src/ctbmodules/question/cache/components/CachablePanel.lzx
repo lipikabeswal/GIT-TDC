@@ -32,12 +32,12 @@
 					this.dynlayout.changeAxis ('y');
 				}
 			} 
-
         </method>
 
 
         <method name="doReturnToCache">
             super.doReturnToCache ();
+            this.dynlayout.changeAxis('y');
             this.dynlayout.clearSubviews ();
         </method>
 

@@ -20,7 +20,7 @@ public class SecurityFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException
     {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        
+
         if( request.getRemoteHost().equalsIgnoreCase("localhost") || request.getRemoteHost().equals("127.0.0.1") ) {
             filterChain.doFilter(request, response);
         } else {

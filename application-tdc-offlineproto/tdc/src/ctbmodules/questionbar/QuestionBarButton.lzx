@@ -6,21 +6,8 @@
            width="26">
 
         <attribute name="itemeid" value="$path{ '@eid' }"/>
-        <attribute name="itempos" value="$path{ 'position()' }"/>
-        <attribute name="itemnum" value="0"/>
-
-        <method name="refreshItemNum" args="pos" event="onitempos">
-            var offset = parseInt( pos ) - 1;
-            var start = dssubtest.getPointer().xpathQuery(
-                '/subtest/ob_assessment/@starting_question_number'
-            );
-
-            if ( start ) {
-                setAttribute( 'itemnum', parseInt(start) + parseInt(pos) - 1 );
-            } else {
-                setAttribute( 'itemnum', parseInt(pos) );
-            }
-        </method>
+        <attribute name="itemnum" value="$path{ '@item_no' }"/>
+        <attribute name="isTheme" value="$path{ '@theme' }"/>
 
         <attribute name="isenabled"
                    value="$path{ 'dsdisplay:/display/@enabled' }"/>
@@ -36,10 +23,7 @@
                    value="${this.questionbar.selitemeid==this.itemeid}"/>
         
         <attribute name="questionbar" value="$once{classroot}"/>
-        <?ignore
-        <attribute name="showthumbdel" value="$once{new LzDelegate(this, '_showThumb')}"/>
-        ?>
-        
+
         <method name="setIsAnswered" args="isanswered">
             if (typeof (isanswered) == 'string') {
                 isanswered = (isanswered == '1');
@@ -78,31 +62,16 @@
 
         <method event="onmouseover">
             this._changeStatus (true);
-//            LzTimer.addTimer (showthumbdel, 1000);
         </method>
 
         <method event="onmouseout">
-            
-//            Debug.write("read mouse out");
             this._changeStatus (false);
-//            LzTimer.removeTimer (showthumbdel);
-//            this.questionbar.thumbnail.setAttribute ('visible', false);
         </method>
 
 
         <method name="navigate" event="onclick">
             gController.navigateTo( itemeid );
         </method>
-
-        <?ignore
-        <method name="_showThumb">
-            gController.showThumbnail (itemeid);
-            LzTimer.removeTimer (showthumbdel);
-
-            var thumb = this.questionbar.thumbnail;
-            thumb.setAttribute ('x', this.getAttributeRelative ('x', thumb));
-        </method>
-        ?>
 
         <method name="_changeStatus" args="ismouseover"><![CDATA[
             var newframe = 1;
@@ -134,10 +103,9 @@
 
         <text text="${classroot.itemnum}" resize="true" 
               font="Arial" fontsize="11" fontstyle="bold"
-              y="22" align="center"/>
-             
-
-
+              y="22" align="center" visible="${!classroot.isTheme}"/>
+        <view resource="theme" y="24" align="center" visible="${classroot.isTheme}" />
+ 
     </class>
 
 

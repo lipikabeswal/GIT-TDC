@@ -11,7 +11,13 @@
 		<attribute name="MIN_HEIGHT" value="101" type="number"/>
 		<attribute name="LINE_PADDING" value="30" type="number"/>
 		<attribute name="RESOURCE_DIMENSION" value="69" type="number"/> <!-- the height and width of the stretching resource -->
-		<attribute name="refCardRsrc" />
+		<attribute name="refCardRsrc" type="string"/>
+		<attribute name="titleRsrc" type="string"/>
+		<attribute name="scrolls" type="boolean" value="false" />
+		<method event="oninit">
+			refCardContents.contents.setResource(refCardRsrc);
+			title.real_title.setResource(titleRsrc);
+		</method>
 		
         <dragstate name="dragger"
                    drag_min_x="$once{-(this.width - 100)}" 
@@ -20,7 +26,12 @@
                    drag_max_y="$once{parent.height - 100}"/>
 
         <method event="ondata" args="data"><![CDATA[
-			this.setAttribute('innerWidth', refCardContents.contents.resourcewidth + refCardContents.scroller.width);
+        	var scrollerWidth = refCardContents.scroller.width;
+        	if(!this.scrolls){
+        		this.setAttribute('innerHeight', refCardContents.contents.resourceheight);
+        		scrollerWidth = 0; 
+        	}
+			this.setAttribute('innerWidth', refCardContents.contents.resourcewidth + scrollerWidth);
 			var halfWidth = (this.innerWidth - title.real_title.resourcewidth - this.LINE_PADDING)/2 ;
 			title.leftLines.setAttribute('width', halfWidth);
 			title.rightLines.setAttribute('width', halfWidth);
@@ -135,7 +146,7 @@
 			<view name="leftLines"
 				  resource="rc_lines"
 				  stretches="width" />
-			<view resource="refcard_title" name="real_title">
+			<view name="real_title">
 			</view>
 			<view name="rightLines"
 				  resource="rc_lines"
@@ -154,13 +165,12 @@
 		      clip="true" 
 		      bgcolor="0xFFFFFF" >
 			<view name="contents"
-			      width="${classroot.innerWidth - parent.scroller.width}"
-			      resource="rc_contents">
+			      width="${classroot.innerWidth - parent.scroller.width}">
 				<method event="ony">
 		            classroot.updateScrollTo(this.y);
 				</method>
 			</view>
-		    <vscrollbar name="scroller"/>
+		    <vscrollbar name="scroller" visible="${this.scrollable}"/>
 		</view>
     </class>
 

@@ -30,12 +30,15 @@
              ============================ -->
 
         <method event="ondata" args="data"><![CDATA[
-
+        	// reset heights and widths
+			this.thetable.setAttribute("width", null);
+			this.thetable.setAttribute("height", null);
+			
              //set border size
             this.setAttribute("bordersize", 
                               data.getAttr("border") == "yes" ? 2: 0);
 
-            if (gController.isaccomodated && parent['stereotype']) {
+            if (gController.hasFontAccommodation && parent['stereotype']) {
                 var style = gController.getAccomStyleForType(parent.stereotype);
             }
 
@@ -57,13 +60,23 @@
 
             // Fixed: Increase title fontsize for accommodated users
             if (this.autoenlarge == "fixed" && this.thetable.contents.title.fontsize < 16 &&
-                 gController.isaccomodated) {
+                 gController.hasFontAccommodation) {
                 this.thetable.contents.title.setAttribute("fontsize", 
                                     this.thetable.contents.title.fontsize * style['font_magnification']);
 //Debug.write("fixed : "  + this.thetable.contents.title.fontsize);
             }
-            this.thetable.contents.title.setAttribute("text", 
-                    '<p align="center">' + decodeBrackets(data.getAttr('title')) + '</p>');
+            var titleTxt = "";
+            if(data.hasAttr('title')){
+            	titleTxt = data.getAttr('title');
+            }
+            if(titleTxt.length > 0){
+            	this.thetable.contents.title.setAttribute('visible', true);
+	            this.thetable.contents.title.setAttribute("text", 
+	                    '<p align="center">' + decodeBrackets(titleTxt) + '</p>');
+	        }
+	        else{
+            	this.thetable.contents.title.setAttribute('visible', false);
+	        }
 
             // Toggle border lines
             var hspace = data.getAttr("showvlines") == "yes" ? 1 : 0;
@@ -77,7 +90,7 @@
             //
 
             // Accommodated mode creates new panels
-            if (gController.isaccomodated)
+            if (gController.hasFontAccommodation)
                 this.table_ht = parent.parent.height;
             else 
                 this.table_ht = parent.height;
@@ -89,7 +102,7 @@
                 this.table_ht -=  24;
    			}
    			else if (enlargeAttr == "accommodated"){
-   				isEnlargeable = gController.getAttribute("isaccomodated");
+   				isEnlargeable = gController.getAttribute("hasFontAccommodation");
    			}
             this.enlarge.setAttribute("visible", isEnlargeable);
 
@@ -120,7 +133,7 @@
 
                     // Fixed : only enlarge text widgets within tables
                     if (this.autoenlarge == "fixed" && cells[j].getElementsByTagName("text_widget") 
-                         												&& gController.isaccomodated) {
+                         												&& gController.hasFontAccommodation) {
                         cells[j].attributes.height = cells[j].attributes.height * 2;
                         cells[j].attributes.y = ny;
                         ny += Number(cells[j].attributes.height + vspace); 
@@ -177,7 +190,9 @@
             if (!(cells instanceof Array)) cells = [cells];
             
             var newcomp = null;
-            for (var i = 0; i < cells.length; i++) {            
+            for (var i = 0; i < cells.length; i++) {  
+//Debug.write("get cell: " );
+//Debug.write(cells[i]);          
                 this.cache.getComponent (cells[i]);
             }
             ]]>
@@ -218,7 +233,7 @@
 
 //Debug.write("this width : " + this.width + " x : " + this.x, this);
 //Debug.write("parent width : " + parent.width + " x : " + parent.x, parent);
-
+			
            if (this.autoenlarge == "zoom") {
 
                // This contains the updated height and width values
@@ -242,15 +257,25 @@
                var title = this.thetable.contents.title;
                if (title) {
 //Debug.write("font size : " + title.fontsize);               
-                   title.setAttribute("fontsize", 14);
-                   title.setAttribute("text", 
-                        '<p align="center">' + decodeBrackets(data.getAttr('title')) + '</p>');
-
-                   // Based on (width/height) ratio use an appropriate fontsize
-//Debug.write("updated font size : " + (title.fontsize * mult_factor));
-                   title.setAttribute("fontsize", 
-                               title.fontsize * mult_factor);
-//Debug.write("updated title ht : " + title.height);
+                   var titleTxt = "";
+                   if(data.hasAttr('title')){
+                   		titleTxt = data.getAttr('title');
+                   }
+                   if(titleTxt.length > 0){
+                   		title.setAttribute('visible', true);
+                   		title.setAttribute("fontsize", 14);
+	                   	title.setAttribute("text", 
+	                        '<p align="center">' + decodeBrackets(titleTxt) + '</p>');
+	
+	                   // Based on (width/height) ratio use an appropriate fontsize
+	//Debug.write("updated font size : " + (title.fontsize * mult_factor));
+	                   title.setAttribute("fontsize", 
+	                               title.fontsize * mult_factor);
+	//Debug.write("updated title ht : " + title.height);
+					}
+					else{
+						title.setAttribute('visible', false);
+					}
                }
 
 //Debug.write(table);
@@ -284,29 +309,25 @@
                super.doneLoading();
                return;
             }
-            
-            else if (this.autoenlarge == "yes") {
+            else if (this.autoenlarge == "yes" && gController.hasFontAccommodation) {
                 var contents = this.thetable.contents;
 
                 //use our own get relative to because ours is flaking out.  This will
                 //essentially give us the attribute relative to our parent
                 var offset = getAttrRelComp("x", this); 
-        
                 var fontmag = this.fontsize/canvas.basefontsize;
                 var factor = (parent.width - offset - 1)/contents.width;
-
                 //make sure we're not magnified beyond fontmag
                 if (factor > fontmag) {
                     factor = fontmag;
                 }
 
                 var newh = Math.floor(contents.height * factor);//(contents.width * factor) * contents.height/contents.width;
-
                 //make room for the scrollbar if necessary
                 if ( parent.height + (newh - contents.width) > this.panel.height && factor != fontmag) {
                     factor = (parent.width - offset - 15)/contents.width;
                     newh = Math.floor(contents.height * factor);//(contents.width * factor) * contents.height/contents.width;
-                }
+				}
 
                 // nklein : July 5, 2007
                 // These lines were commented to stop the intermittent navigaton problems

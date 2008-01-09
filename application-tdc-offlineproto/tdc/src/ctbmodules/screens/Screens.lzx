@@ -142,6 +142,11 @@
             contents.os.setVisible( true );
             show();
         </method>
+        
+        <method name="resetTextFieldColor">
+            contents.ps.pw.passwordField.style.setAttribute('textfieldcolor', gController.answerBgColor);
+        </method>
+        
         <method name="showPause" args="sn">
             removeAllStates();
             if ( !contents.ps.isinited ) contents.ps.completeInstantiation();
@@ -149,6 +154,7 @@
             contents.ps.pw.passwordField.setText( '' );
             contents.ps.prompt.setText( 'Log in to resume your paused test.' );
             contents.ps.studentName.setAttribute('text', 'Hello ' + sn);
+            contents.ps.pw.passwordField.style.setAttribute('textfieldcolor', 0xFFFFFF);
             contents.ps.setVisible( true );
             show();
         	LzFocus.setFocus(contents.ps.pw.passwordField);

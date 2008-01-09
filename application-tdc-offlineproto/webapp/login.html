@@ -42,7 +42,7 @@ var myflashinstalled = 0;
 var myflashversion = 0;
 var myMSDetect = "false";
 
-function mydetectFlash(){ 
+function mydetectFlash(){
     mydetectFlashUsingJavascript();
     if(myMSDetect == "true"){
         mydetectFlashUsingVBScript();
@@ -84,21 +84,21 @@ function mydetectFlashUsingJavascript(){
         myMSDetect = "true";
 }
 
-function mydetectFlashUsingVBScript() { 
-    document.write('<SCRIPT LANGUAGE="VBScript">on error resume next\nIf myMSDetect = "true" Then\nFor i = 2 to 8\nIf Not(IsObject(CreateObject("ShockwaveFlash.ShockwaveFlash." & i))) Then\nElse\nmyflashinstalled = 2\nmyflashversion = i\nEnd If\nNext\nEnd If\nIf myflashinstalled = 0 Then\nmyflashinstalled = 1\nEnd If</SCRIPT>'); 
+function mydetectFlashUsingVBScript() {
+    document.write('<SCRIPT LANGUAGE="VBScript">on error resume next\nIf myMSDetect = "true" Then\nFor i = 2 to 8\nIf Not(IsObject(CreateObject("ShockwaveFlash.ShockwaveFlash." & i))) Then\nElse\nmyflashinstalled = 2\nmyflashversion = i\nEnd If\nNext\nEnd If\nIf myflashinstalled = 0 Then\nmyflashinstalled = 1\nEnd If</SCRIPT>');
 }
 //-->
 </SCRIPT>
 
 <style type="text/css">
-body { background-color:#6691B4; margin: 0px; overflow: hidden; } 
+body { background-color:#6691B4; margin: 0px; overflow: hidden; }
 </style>
 </HEAD>
 
 <BODY>
 	<div id="needFlash9" style="display:none">
 		<table height="100%" width="100%">
-			<tr> 
+			<tr>
 				<td height="30%" width="100%" colspan="3">&nbsp;</td>
 			</tr>
 			<tr>
@@ -136,7 +136,7 @@ body { background-color:#6691B4; margin: 0px; overflow: hidden; }
 				<td height="20%" width="100%" colspan="3">&nbsp;</td>
 			</tr>
 		</table>
-	</div>		
+	</div>
 	<SCRIPT type="text/javaScript">
 		mydetectFlash();
 		if(myflashversion < 8)
@@ -145,7 +145,7 @@ body { background-color:#6691B4; margin: 0px; overflow: hidden; }
 		}
 		else
 		{
-			lzEmbed({url: 'TestClient.lzx.swf?lzt=swf&servletUrl=http://127.0.0.1:12345/servlet&__lzhistconn='+top.connuid+'&__lzhisturl=' + escape('includes/h.html?h='), bgcolor: '#6691B4"',  width: '100%', height: '100%'});
+			lzEmbed({url: 'TestClient.lzx.swf?lzt=swf&lzr=swf8&servletUrl=http://127.0.0.1:12345/servlet&eliminatorResource=resources/eliminator.swf&__lzhistconn='+top.connuid+'&__lzhisturl=' + escape('includes/h.html?h='), bgcolor: '#6691B4"',  width: '100%', height: '100%'});
 			lzHistEmbed('includes');
 		}
 	</SCRIPT>

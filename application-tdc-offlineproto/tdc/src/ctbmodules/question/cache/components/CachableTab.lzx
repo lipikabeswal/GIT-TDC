@@ -11,6 +11,10 @@
             doneLoading();
         </method>
 
+		<method name="getTabText">
+			return this.datapath.p.serialize();
+		</method>
+		
         <method event="onheight"><![CDATA[
             for (var i in this.subviews) {
         

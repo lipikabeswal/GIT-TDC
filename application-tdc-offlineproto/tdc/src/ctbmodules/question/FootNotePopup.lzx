@@ -14,7 +14,7 @@
     <attribute name="DROP_SHADOW_SIZE" value="4"/>
 
     <method name="findScrollingTextPanel" args="inDP">
-        if(inDP.getNodeAttribute('wasScrollingTextPanel') != null) {
+        if(inDP.getNodeName() == gCompTypes.WIDGET_SCROLLING_TEXT_PANEL) {
             return inDP.p;
         }
 
@@ -42,11 +42,15 @@
         //the details for a particular header
         if (gController.dpitem.data) {
             var dnscrolltext = gController.dpitem.xpathQuery("item_canvas/scrolling_text_panel");
-
             if(dnscrolltext == null) {
                 dnscrolltext = findScrollingTextPanel(gController.dpitem);
             }
-
+            if(dnscrolltext == null){
+            	dnscrolltext = gController.dpitem.xpathQuery("item_canvas/stimulus_tabs_panel/stimulus_tab");
+            	if(dnscrolltext != null){
+            		dnscrolltext = dnscrolltext[0];
+            	}
+            }
             if (dnscrolltext) {
                 this.setAttribute("itemtxt", dnscrolltext.serialize());
             } else {
@@ -64,11 +68,15 @@
         }
     </method>
 
-	<method name="readMe">
+	<method name="setTabTextPanel" args="txt">
+		this.setAttribute("itemtxt", txt);
+	</method>
+	
+	<method name="readMe"><![CDATA[
 		if(this.readable){
        		gReadableText.read(this.body.wrap.header.text + ", " + this.body.wrap.detail.text);
        	}
-	</method>
+	]]></method>
 	
     <attribute name="clickdel" 
                value="$once{new LzDelegate(this, 'checkClick')}"/>
@@ -125,18 +133,8 @@
         var arrowy = this.height - 1;
         var arrowdir = "up";
 
-        var rely = 0;
-        if(scrolltext.data.hasAttr("wasScrollingTextPanel"))
-        {
-            rely = this.getAttributeRelative("y", this.scrolltext)
-                + scrolltext.parent.wrapper.vscroll.scrolltarget.y;
-        }
-            
-        else
-        {
-            rely = this.getAttributeRelative("y", canvas) 
-                - this.scrolltext.getAttributeRelative("y", canvas);
-        }         
+        var rely = this.getAttributeRelative("y", canvas) 
+                - this.scrolltext.getAttributeRelative("y", canvas);         
             
         if (rely < 0) {
             this.setAttribute("y", parent.getMouse("y") + fontSize);

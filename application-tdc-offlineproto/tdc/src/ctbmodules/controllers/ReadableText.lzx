@@ -1,23 +1,75 @@
 <library>
+	<dataset name="speechDs" 
+			 type="http"
+	         queuerequests="true" 
+	         querytype="post"
+	         timeout="30000" 
+	         onerror="gRequest.requestError()" 
+	         ontimeout="gRequest.requestTimeout()" 
+	         ondata="gReadableText.getMp3()" />
     <text visible="false" width="0" height="0"
           id="gReadableText" oninit="sendToBack()" options="ignorelayout">
 
+        <attribute name="isenabled"
+                   value="$path{ 'dsdisplay:/display/@enabled' }"/>
+        <attribute name="clickable" value="${ isenabled == 'true' }"/>
 		<attribute name="READ_SPACE" type="string" value="blank" />
 		<attribute name="READ_PERIOD" type="string" value="point" />
 		<attribute name="READ_SLASH" type="string" value="slash" />
-		<attribute name="READ_PREFIX" type="string" value="RWSRT_" />
-		<attribute name="SHUTDOWN_COMMAND" type="string" value="RWSHUTDOWN_" />
-	
+	    <attribute name="GET_URL" type="string" />
+	    <attribute name="TEXT_PARAM" type="string" value="text" />
+	    <attribute name="primed" type="boolean" value="false" />
+		<attribute name="dpleaseWait" value="$once{new LzDelegate(this, 'pleaseWait')}" />
+		<attribute name="PLEASE_WAIT_INTERVAL" type="number" value="3000" />
+		
         <method name="init">
             super.init();
         </method>
-        <method name="read" args="s"><![CDATA[
-        	if ( isReadable ){
-	            stopReading();
-	            this.setText(s);
- 	            LzTimer.addTimer( new LzDelegate( this, 'reallyRead' ), 200 );
-            }
+        
+        <method name="pleaseWait">
+        	if(primed){
+        		gPleaseWaitPopup.show();
+        	}
+        </method>
+        
+		<method event="oninit">
+			var postUrl = LzBrowser.getInitArg( 'servletUrl' ) + '/SpeechServlet.do';
+			var getUrl = postUrl + '?file=speech.mp3';
+			setAttribute('GET_URL', getUrl);
+			speechDs.setSrc(postUrl);
+			doRead("Welcome");
+		</method>
+		
+        <method name="read" args="txt"><![CDATA[
+//        	txt = trim(txt);
+//        	txt = getBigText();
+//        	if ( isReadable && clickable && txt.length > 0){
+//        		//doRead(txt);
+//        		doRead(txt);
+// 	        	gController.freezeUI();
+//            }
         ]]></method>
+<?ignore     to test please wait   
+        <method name="getBigText"><![CDATA[
+        	var result = "";
+        	for(var i=0; i<4000; i++){
+        		result = result + i + " ";
+        	}
+        	return result;
+        ]]></method>
+?>
+        <method name="doRead" args="txt"><![CDATA[
+ // 	    	stopReading();
+//	       	this.setText(txt);
+//	        var readableText = this.__LZtextclip.text;
+// 	        speechDs.setQueryParam(TEXT_PARAM, readableText);
+//			speechDs.doRequest();
+//			LzTimer.resetTimer(this.dpleaseWait, PLEASE_WAIT_INTERVAL);
+       ]]></method>
+        
+        <method name="getMp3" >
+        	audioPlayer.setSource(GET_URL);
+        </method>
         
         <method name="getReadableTextForCharacter" args="c">
         	var result = c;
@@ -35,13 +87,6 @@
 			return result;
         </method>
         
-		<method name="reallyRead">
-	    	setClipboard( READ_PREFIX + this.__LZtextclip.text);
-		</method>
-		
-		<method name="shutdown">
-			setClipboard(SHUTDOWN_COMMAND);
-		</method>
         <attribute name="highlightFlag"
                    value="$path{'dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@highlighter'}"/>
         <attribute name="eraserFlag"
@@ -52,13 +97,24 @@
                              eraserFlag != 'sel' &amp;&amp;
                              canvas.readable
                            }"/>
-        <method name="setClipboard" args="s">
-        	System.setClipboard(s);
+        <method name="stopReading">
+        	audioPlayer.stop();
         </method>
         
-        <method name="stopReading">
-        	setClipboard(READ_PREFIX);
-        </method>
+        <view name="audioPlayer" visible="false" >
+        	<handler name="onload">
+        		LzTimer.removeTimer( parent.dpleaseWait );
+        		gPleaseWaitPopup.hide();
+        		if(parent.primed){
+//Debug.write("audioPlayer.onload - remove timer, hide please wait popup");
+        			gController.unlockUI();
+        		}
+        		else{
+//Debug.write("audioPlayer.onload - set primed to true");
+        			parent.setAttribute('primed', true);
+        		}
+        	</handler>
+         </view>
     </text>
 
 </library>

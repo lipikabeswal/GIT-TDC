@@ -5,7 +5,7 @@
         
         <method name="shutdown">
         Debug.write("do the do");
-        		gReadableText.shutdown();
+ //       		gReadableText.shutdown();
         		LzTimer.addTimer( new LzDelegate( this, '_closeBrowser' ), 5000 );
         </method>
         <method event="onvisible">

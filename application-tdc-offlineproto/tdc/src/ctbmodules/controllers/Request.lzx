@@ -47,6 +47,11 @@
 		<attribute name="uploadAuditFileScid" value="null"/>
 		<attribute name="pendingSaveEid" value="null" />
 		
+		<attribute name="_GENDER_PARAM" type="string" value="gender" />
+		<attribute name="_TEXT_PARAM" type="string" value="text" />
+		<attribute name="_SERVER_VALUE" type="string" value="server" />
+		<attribute name="_GENDER_VALUE" type="string" value="female" />
+		
 		<method event="oninit">
 			var base = LzBrowser.getInitArg( 'servletUrl' );
 			persistenceDs.setSrc(base + '/PersistenceServlet.do');
@@ -76,29 +81,29 @@
 		
 		<method name="heartbeat" args="params">
 			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params);
-Debug.write("heartbeat saveXml: " + getTimer());
-printBigString(xml);
+//Debug.write("heartbeat saveXml: " + getTimer());
+//printBigString(xml);
 			_doRequest(heartbeatDs, SAVE_METHOD, xml);
 		</method>
 
 		<method name="save" args="params">
 			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params);
-Debug.write("saveXml: " + getTimer());
-printBigString(xml);
+//Debug.write("saveXml: " + getTimer());
+//printBigString(xml);
 			_doRequest(persistenceDs, SAVE_METHOD, xml);
 		</method>
 		
 		<method name="lifecycle" args="lev">
 			var xml = gXmlHelper.getLifecycleXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, lev);
-Debug.write("lifecycle:");
-printBigString(xml);
+//Debug.write("lifecycle:");
+//printBigString(xml);
 			_doRequest(persistenceDs, SAVE_METHOD, xml);
 		</method>
 		
 		<method name="terminate">
 			var xml = gXmlHelper.getTerminateXml(gController.lsid, _getAndIncrementMseq(), cid);
-Debug.write("lifecycle:");
-printBigString(xml);
+//Debug.write("lifecycle:");
+//printBigString(xml);
 			_doRequest(persistenceDs, SAVE_METHOD, xml);
 		</method>
 		
@@ -115,8 +120,8 @@ printBigString(xml);
 		<method name="endSubtest" args="raw, max, exit, time, unscored">
 			var xml = gXmlHelper.getEndSubtestXml(gController.lsid, gController.scid, cid, _getAndIncrementMseq(), 
 			                                      raw, max, exit, time, unscored);
-Debug.write("endSubtestXml: ");
-printBigString(xml);
+//Debug.write("endSubtestXml: ");
+//printBigString(xml);
 			_doRequest(persistenceDs, SAVE_METHOD, xml);
 		</method>
 		
@@ -152,8 +157,8 @@ printBigString(xml);
 		
 		<method name="getDatasetText" args="ds">
 			var dp = ds.getPointer();
-Debug.write("getDatasetText");
-printBigString(ds.serialize());
+//Debug.write("getDatasetText");
+//printBigString(ds.serialize());
 			dp.selectChild();
 			return dp.serialize();
 		</method>
@@ -164,12 +169,12 @@ printBigString(ds.serialize());
 		</method>
 		
 		<method name="requestTimeout">
-Debug.write("request timeout");
+//Debug.write("request timeout");
 			_returnError();
 		</method>
 		
 		<method name="requestError">
-Debug.write("request error");
+//Debug.write("request error");
 			_returnError();
 		</method>
 		<method name="_returnError">
@@ -229,7 +234,7 @@ Debug.write("request error");
       	<![CDATA[
 //Debug.write("doRequest: " + ds + " , " + _method + " , " + xml);  
 		    if (typeof canvas.folder != "undefined") {
-				Debug.write("XXX: folder " + canvas.folder);
+//Debug.write("XXX: folder " + canvas.folder);
 				ds.setQueryParam(FOLDER_PARAM, canvas.folder);
 			}
 		    if (typeof canvas.user != "undefined") {

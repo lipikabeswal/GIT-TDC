@@ -6,7 +6,7 @@
 	<include href="calculator/standardCalculator.lzx"/>
 	<include href="calculator/scientificCalculator.lzx"/>
 	<include href="refcard/RefCard.lzx"/>
-
+	
     <class name="Manipulatives" clip="true"
            datapath="dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/general">
         
@@ -33,9 +33,17 @@
                    tickmarksrsr="centimeter_tick_marks"
                    labelrsr="centimeters_label"/>
 
-        <RefCard name="formula_card" 
-                 toolid="formula_card"/>
+        <RefCard name="FCAT_formula_card" 
+                 toolid="FCAT_formula_card"
+                 refCardRsrc="FCAT_refcard_contents"
+                 titleRsrc="FCAT_refcard_title"
+                 scrolls="true"/>
 
+        <RefCard name="TN_formula_card" 
+                 toolid="TN_formula_card"
+                 refCardRsrc="TN_refcard_contents"
+                 titleRsrc="TN_refcard_title"
+                 scrolls="false"/>
 
         <standardCalculator name="standard_calculator" 
                             toolid="standard_calculator"/>

@@ -3,17 +3,21 @@
         debug="false"
         accessible="true" >
 
-    <debug x="0" y="120" width="80%" height="400"/>
+    <debug x="0" y="0" width="80%" height="400"/>
 
     <include href="ctbmodules"/>
 
     <script src="lzmodules/lfc/focuspatch.js">
     </script>
+	<attribute name="focusobj" />
+	
+    <handler name="onfocus">
+       Debug.write("NK XXX canvas has focus");
+    </handler>
 
-<?ignore
     <script src="lzmodules/lfc/browserpatch.js">
     </script>
-?>
+
     <resource name="waitcursor" src="redmond/resources/lzwaitcursor_rsc.swf"/>
 
     <script><![CDATA[
@@ -21,8 +25,35 @@
             Debug.write( '==========' );
             if (s == null) return;
             for ( var i = 0; i < s.length; i += 100 ) {
-                Debug.write( '     ' + s.substring( i, i + 100 ) );
+                Debug.write(s.substring( i, i + 100 ) );
             }
+        }
+    ]]></script>
+    <script><![CDATA[
+        function round( s ) {
+            var prev = Math.floor(s);
+            var next = Math.ceil(s);
+            var toNext = next - s;
+            var toPrev = s - prev;
+            var result = prev;
+            if(toNext < toPrev){
+            	result = next;
+            }
+            return result;
+        }
+    ]]></script>
+    <script><![CDATA[
+        function trim( str ) {
+        	if(str == null){
+        		str = '';
+        	}
+            while (str.substr(0,1) == ' ') {
+               str = str.substr(1, str.length);
+            }
+            while (str.substr(str.length-1, str.length) == ' ') {
+               str = str.substr(0,str.length-1);
+            }
+            return str;		
         }
     ]]></script>
 
@@ -33,9 +64,14 @@
     <attribute name="focusclass" value="null"/>
     <attribute name="footnotedata"/>
 	<attribute name="currentCursor" value="null"/>
-	<attribute name="eliminatorRsrc" value="resources/eliminator.swf" type="string" />
-	<attribute name="logoRsrc" value="resources/logo.swf" type="string" />
-	
+	<attribute name="eliminatorRsrc" value="$once{LzBrowser.getInitArg('eliminatorResource')}" type="string" />
+	<attribute name="useDefaultEliminator" type="boolean" value="true" />
+	<method name="setCrFocus">
+		var fo = canvas.getAttribute('focusobj');
+		if(typeof fo == 'object'){
+			fo.onfocus.sendEvent();
+		}
+	</method>
     <method event="onfootnotedata" args="data">
         gFootNotePopup.show(data);
     </method>
@@ -47,10 +83,28 @@
        if (folder) this.setAttribute("folder", folder);
        var user = LzBrowser.getInitArg('user');
        if (user) this.setAttribute("user", user);
-       var elim = LzBrowser.getInitArg('eliminatorResource');
-       if (elim) this.setAttribute("eliminatorRsrc", elim);
     </method>
 
+<!--  this view tests whether or not the eliminator resource is available -->
+	<view name="eliminatorTester" visible="false" height="0" width="0">
+		<method event="oninit">
+			canvas.setAttribute('medialoadtimeout', 3000);
+			var eliminatorUrl = LzBrowser.getInitArg('eliminatorResource');
+			this.setSource(eliminatorUrl);
+			var folderUrl = LzBrowser.getInitArg('folder');
+			if (folderUrl) {
+			   canvas.folder = folderUrl;
+			}
+		</method>
+		<method event="onload">
+			canvas.setAttribute('medialoadtimeout', 30000);
+			canvas.setAttribute('useDefaultEliminator', false);
+			this.unload();
+		</method>
+		<method event="ontimeout">
+			canvas.setAttribute('medialoadtimeout', 30000);
+		</method>
+	</view>
     <view name="scalingView"
           stretches="both"
           height="${ canvas.width/canvas.height &lt; 1.33 
@@ -60,6 +114,7 @@
                      ? canvas.width 
                      : this.height * unstretchedwidth/unstretchedheight}"
           valign="middle" align="center">
+
 
         <view name="gView" width="800" height="600">
 

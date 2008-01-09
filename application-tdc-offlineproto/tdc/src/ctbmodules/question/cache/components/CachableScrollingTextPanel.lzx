@@ -18,6 +18,7 @@
         <CachableScrollingText name="scrolltext" 
                                width="${classroot.width}"
                                height="${classroot.height}"
+                               passageId="${classroot.passageId}"
                                fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" 
                                fontcolor="${classroot.fontcolor}">
             <datapath/>

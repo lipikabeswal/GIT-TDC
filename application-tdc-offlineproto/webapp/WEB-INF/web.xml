@@ -29,18 +29,42 @@
   </listener>
   
   <servlet>
+    <description>SpeechServlet</description>
+    <display-name>SpeechServlet</display-name>
+    <servlet-name>SpeechServlet</servlet-name>
+    <servlet-class>com.ctb.tdc.web.servlet.SpeechServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <description>SpeechServlet</description>
+    <display-name>SpeechServlet</display-name>
+    <servlet-name>FSpeechServlet</servlet-name>
+    <servlet-class>com.ctb.tdc.web.servlet.fixed.SpeechServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
     <description>ContentServlet</description>
     <display-name>ContentServlet</display-name>
     <servlet-name>ContentServlet</servlet-name>
     <servlet-class>com.ctb.tdc.web.servlet.ContentServlet</servlet-class>
   </servlet>
 
-<servlet>
+  <servlet>
     <description>ContentServlet</description>
     <display-name>ContentServlet</display-name>
     <servlet-name>FContentServlet</servlet-name>
     <servlet-class>com.ctb.tdc.web.servlet.fixed.ContentServlet</servlet-class>
   </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servlet/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>FSpeechServlet</servlet-name>
+    <url-pattern>/servlet/fixed/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
   
   <servlet-mapping>
     <servlet-name>ContentServlet</servlet-name>

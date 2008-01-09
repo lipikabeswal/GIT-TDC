@@ -3,15 +3,15 @@
   <head>
     <title>Online Assessment</title>
     <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
-<script>    
-function setMethodValue(value) 
+<script>
+function setMethodValue(value)
 {
     var element = document.getElementById("method");
     if( element ) {
         element.value = value;
-    } 
+    }
 }
-function verifyAction() 
+function verifyAction()
 {
     var element = document.getElementById("method");
     if( element ) {
@@ -19,49 +19,60 @@ function verifyAction()
         if ((value == "loadSubtest") || (value == "loadItem") || (value == "loadImage")) {
        		document.forms[0].action = "servlet/LoadContentServlet";
        	}
-    } 
+    }
     return true;
 }
 </script>
-    
+
   </head>
   <body>
-  
+  <h1 align="center">TDC Local Servlet Test Page</h1>
+  <br/>
+
+  <form action="servlet/SpeechServlet.do" method="post">
+		<h3>Speech Servlet</h3>
+		<ul>
+			<br/>
+			<textarea rows="10" columns="40" name="text">The quick brown fox jumped over the lazy dog.</textarea>
+			<br/>
+			<input type="submit"/>
+		</ul>
+		<br/>
+  </form>
+
   <form action="servlet/PersistenceServlet" method="post" onsubmit="verifyAction();">
   	<input type="hidden" name="method" id="method" value="none" />
-  
-		<h1 align="center">TDC Local Servlet Test Page</h1>
-		<br/>
+
 		<h3>Download Content Servlet</h3>
 		<ul>
 			<li><a href="servlet/DownloadContentServlet?method=initialDownloadContent&itemSetId=1&encryptionKey=key">initialDownloadContent(itemSetId)</a></li>
 			<li><a href="servlet/DownloadContentServlet?method=downloadContent&itemSetId=1&encryptionKey=key">downloadContent(itemSetId)</a></li>
 		</ul>
-		<br/>	 
+		<br/>
 		<h3>Load Content Servlet</h3>
 		<ul>
 <table border="0" >
 <tr>
-	<td>		
+	<td>
 		<li><a href="servlet/LoadContentServlet?method=loadSubtest&itemSetId=1">loadSubtest( itemSetId )</a></li>
 	</td>
 	<td><input type="text" name="itemSetIdParam" value="" /></td>
 	<td><input type="submit" value="submit" onClick="setMethodValue('loadSubtest');" /></td>
-</tr>				
+</tr>
 <tr>
-	<td>		
+	<td>
 		<li><a href="servlet/LoadContentServlet?method=loadItem&itemId=1">loadItem( itemId )</a></li>
 	</td>
 	<td><input type="text" name="itemIdParam" value="" /></td>
 	<td><input type="submit" value="submit" onClick="setMethodValue('loadItem');" /></td>
-</tr>				
+</tr>
 <tr>
-	<td>		
+	<td>
 		<li><a href="servlet/LoadContentServlet?method=loadImage&imageId=1">loadImage( imageId )</a></li>
 	</td>
 	<td><input type="text" name="imageIdParam" value="" /></td>
 	<td><input type="submit" value="submit" onClick="setMethodValue('loadImage');" /></td>
-</tr>				
+</tr>
 </table>
 		</ul>
 		<br/>
@@ -69,12 +80,12 @@ function verifyAction()
 <ul>
 <table border="0" >
 <tr>
-	<td spancols="5">		
+	<td spancols="5">
 		<li><a href="servlet/PersistenceServlet?method=verifySettings">verifySettings</a></li>
 	</td>
-</tr>			
+</tr>
 <tr>
-	<td>		
+	<td>
 		<li><a href="servlet/PersistenceServlet?method=login&requestXML=
 &lt;tmssvc_request method='login'&gt;
 	&lt;login_request user_name='dummy' password='dummy' access_code='dummy' /&gt;
@@ -86,7 +97,7 @@ function verifyAction()
 	<td><input type="text" name="password" value="" /></td>
 	<td><input type="text" name="access_code" value="" /></td>
 	<td><input type="submit" value="submit" onClick="setMethodValue('login');" /></td>
-</tr>			
+</tr>
 <tr>
 	<td>
 		<li><a href="servlet/PersistenceServlet?method=save&requestXML=
@@ -130,11 +141,11 @@ function verifyAction()
 			<option value="C">C</option>
 			<option value="D">D</option>
 			</select>
-		</td> 
+		</td>
 		<td><input type="submit" value="submit" onClick="setMethodValue('save');" /></td>
 </tr>
 <tr>
-	<td>				
+	<td>
 		<li><a href="servlet/PersistenceServlet?method=save&requestXML=
 &lt;adssvc_request method='save_testing_session_data'&gt;
   &lt;save_testing_session_data&gt;
@@ -151,7 +162,7 @@ function verifyAction()
 	<td colspan="4">&nbsp;</td>
 </tr>
 <tr>
-	<td>				
+	<td>
 		<li><a href="servlet/PersistenceServlet?method=save&requestXML=
 &lt;adssvc_request method='save_testing_session_data'&gt;
   &lt;save_testing_session_data&gt;
@@ -166,8 +177,8 @@ function verifyAction()
 	</td>
 	<td colspan="4">&nbsp;</td>
 </tr>
-<tr>				
-	<td>				
+<tr>
+	<td>
 		<li><a href="servlet/PersistenceServlet?method=save&requestXML=
 &lt;adssvc_request method='save_testing_session_data'&gt;
   &lt;save_testing_session_data&gt;
@@ -183,8 +194,8 @@ function verifyAction()
 	</td>
 	<td colspan="4">&nbsp;</td>
 </tr>
-<tr>				
-	<td>				
+<tr>
+	<td>
 		<li><a href="servlet/PersistenceServlet?method=feedback&requestXML=
 &lt;adssvc_request method='save_testing_session_data'&gt;
   &lt;save_testing_session_data&gt;
@@ -200,8 +211,8 @@ function verifyAction()
 	</td>
 	<td colspan="4">&nbsp;</td>
 </tr>
-<tr>				
-	<td>				
+<tr>
+	<td>
 		<li><a href="servlet/PersistenceServlet?method=uploadAuditFile&requestXML=
 &lt;adssvc_request method='save_testing_session_data'&gt;
   &lt;upload_audit_file&gt;
@@ -219,8 +230,8 @@ function verifyAction()
 	<td colspan="2">&nbsp;</td>
 	<td><input type="submit" value="submit" onClick="setMethodValue('uploadAuditFile');" /></td>
 </tr>
-<tr>				
-	<td>				
+<tr>
+	<td>
 		<li><a href="servlet/PersistenceServlet?method=writeToAuditFile&requestXML=
 &lt;adssvc_request method='write_to_audit_file'&gt;
   &lt;write_to_audit_file&gt;
@@ -238,8 +249,8 @@ function verifyAction()
 	<td colspan="4">&nbsp;</td>
 </tr>
 </ul>
-</table>	
-		
-	</form>		
+</table>
+
+	</form>
   </body>
 </html>

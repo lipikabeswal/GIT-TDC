@@ -9,19 +9,21 @@
         <attribute name="WIDGET_PANEL" value="panel" type="string"/>
         <attribute name="WIDGET_IMAGE" value="image_widget" type="string"/> 
         <attribute name="WIDGET_TEXT" value="text_widget" type="string"/>
+        <attribute name="WIDGET_INPUT_TEXT" value="input_text_widget" type="string"/>
         <attribute name="WIDGET_ANSWER_AREA_PANEL" value="answer_area_panel" type="string"/> 
         <attribute name="WIDGET_ANSWER_AREA_ABSOLUTE_PANEL" value="answer_choices_absolute_positioned_panel" type="string"/>
         <attribute name="WIDGET_ANSWER_CHOICE" value="answer_choice_widget" type="string"/>
         <attribute name="WIDGET_SELECTOR" value="selector_widget" type="string"/>
         <attribute name="WIDGET_SCROLLING_TEXT_PANEL" value="scrolling_text_panel" type="string"/>
         <attribute name="WIDGET_SCROLLING_TEXT" value="scrolling_text_widget" type="string"/>
-        <attribute name="WIDGET_CONSTRUCTED_RESPONSE_PANEL" value="constructed_response_panel" type="string"/>
         <attribute name="WIDGET_STIMULUS_TABS_PANEL" value="stimulus_tabs_panel" type="string"/>
         <attribute name="WIDGET_STIMULUS_TAB" value="stimulus_tab" type="string"/>
         <attribute name="WIDGET_GRIDDED_RESPONSE_PANEL" value="gridded_response_panel" type="string"/> 
         <attribute name="WIDGET_GRIDDED_RESPONSE" value="gridresponse" type="string"/>
         <attribute name="WIDGET_TABLE" value="table" type="string"/>
         <attribute name="WIDGET_TABLE_CELL" value="cell" type="string"/>
+        <attribute name="WIDGET_SINGLE_LINE_ANSWER" value="single_line_answer" type="string"/>
+        <attribute name="WIDGET_MULTI_LINE_ANSWER" value="multi_line_answer" type="string"/>
     </node>
 
 
@@ -46,17 +48,20 @@
         <attribute name="cachedanswerareaabsolutepanels" value="$once{[]}"/>
         <attribute name="cachedanswerchoices" value="$once{[]}"/>
         <attribute name="cachedtexts" value="$once{[]}"/>
+        <attribute name="cachedinputtexts" value="$once{[]}"/>
         <attribute name="cachedimages" value="$once{[]}"/>
 		<attribute name="cachedselectors" value="$once{[]}"/>
         <attribute name="cachedscrolltextpanels" value="$once{[]}"/>
         <attribute name="cachedscrolltexts" value="$once{[]}"/>
-        <attribute name="cachedconresponsepanels" value="$once{[]}"/>
         <attribute name="cachedstimulustabspanels" value="$once{[]}"/>
         <attribute name="cachedstimulustab" value="$once{[]}"/>
 		<attribute name="cachedgriddedresponsepanels" value="$once{[]}"/>
         <attribute name="cachedgriddedresponses" value="$once{[]}"/>
         <attribute name="cachedtables" value="$once{[]}"/>
         <attribute name="cachedtablecells" value="$once{[]}"/>
+        <attribute name="cachedsinglelineinput" value="$once{[]}"/>
+        <attribute name="cachedmultilineinput" value="$once{[]}"/>
+        <attribute name="cachedaccmultilineinput" value="$once{[]}"/>
         
         <!-- ================================
              methods/events
@@ -79,20 +84,11 @@
     
             newcomp.doRemoveFromCache ();
 
-/*
-            if ( !(newcomp instanceof BaseCachablePanel)) {
-                //init inherited fontcolor and size and bgcolor if necessary
-                if (parent ['fontcolor']) {
-                    newcomp.setAttribute ('fontcolor', parent.fontcolor);
-                }
-                if (parent ['fontsize']) {
-                    newcomp.setAttribute ('fontsize', parent.fontsize);
-                }
-                newcomp.setAttribute ('bgcolor', parent.bgcolor);
-            }
-*/
-
             gController.waitOnComponent( newcomp, datanode.ownerDocument );
+			// allow single line answers to size to fit contents
+            if(type == gCompTypes.WIDGET_SINGLE_LINE_ANSWER){
+            	datanode.removeAttr('height');
+            }
             newcomp.datapath.setPointer (datanode);
 
             return newcomp;
@@ -140,6 +136,10 @@
 				    arraytouse = cachedtexts;
 				    break;
 			    }
+			    case gCompTypes.WIDGET_INPUT_TEXT: {
+				    arraytouse = cachedinputtexts;
+				    break;
+			    }
 			    case gCompTypes.WIDGET_IMAGE: {
 				    arraytouse = cachedimages;
 				    break;
@@ -158,10 +158,6 @@
                 }
 			    case gCompTypes.WIDGET_SCROLLING_TEXT: {
                     arraytouse = cachedscrolltexts;
-                    break;
-                }
-                case gCompTypes.WIDGET_CONSTRUCTED_RESPONSE_PANEL: {
-                    arraytouse = cachedconresponsepanels;
                     break;
                 }
                 case gCompTypes.WIDGET_STIMULUS_TABS_PANEL: {
@@ -188,8 +184,16 @@
                     arraytouse = cachedtablecells;      
                     break;
                 }
+                case gCompTypes.WIDGET_SINGLE_LINE_ANSWER: {
+                    arraytouse = cachedsinglelineinput;      
+                    break;
+                }
+                case gCompTypes.WIDGET_MULTI_LINE_ANSWER: {
+                    arraytouse = cachedmultilineinput;      
+                    break;
+                }
                 default: {
-//                    Debug.warn ('CACHE: unknown component type', type);
+                    Debug.warn ('CACHE: unknown component type', type);
                     break;
                 }     
 		    }
@@ -224,6 +228,10 @@
 				    toReturn = new CachableTextField (parent);
 				    break;
 			    }
+    		    case gCompTypes.WIDGET_INPUT_TEXT: {
+				    toReturn = new CachableInputTextField (parent);
+				    break;
+			    }
 			    case gCompTypes.WIDGET_IMAGE: {
     			    toReturn = new CachableImage (parent);
 				    break;
@@ -238,10 +246,6 @@
 			    }
 			    case gCompTypes.WIDGET_SCROLLING_TEXT: {
 				    toReturn = new CachableScrollingText (parent);
-				    break;
-			    }
-			    case gCompTypes.WIDGET_CONSTRUCTED_RESPONSE_PANEL: {
-				    toReturn = new CachableConstructedResponsePanel (parent);
 				    break;
 			    }
 			    case gCompTypes.WIDGET_STIMULUS_TABS_PANEL: {
@@ -268,11 +272,20 @@
 				    toReturn = new CachableTableCell (parent);
 				    break;
                 }
+                case gCompTypes.WIDGET_SINGLE_LINE_ANSWER: {
+					toReturn = new CachableSingleLineAnswer(parent);
+			    	break;
+                }
+                case gCompTypes.WIDGET_MULTI_LINE_ANSWER: {
+					toReturn = new CachableMultiLineAnswer(parent);
+			    	break;
+                }
                 default: {
-//                    Debug.write ('CACHE: create unknown component type', type);  
+ //                   Debug.write ('CACHE: create unknown component type', type);  
                     break;
                 }
             }
+//Debug.write(" ComponentCache, Create new ", toReturn);
 		    return toReturn;
         </method>
 

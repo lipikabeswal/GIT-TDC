@@ -8,6 +8,9 @@
 "Universal Access for assistive devices must be enabled." = "Universal Access for assistive devices must be enabled.";
 "Access for assistive devices must be enabled via the Universal Access System Preference before you can use the Lockdown Browser." = "Access for assistive devices must be enabled via the Universal Access System Preference before you can use the Lockdown Browser.";
 
+"No mouse button can be set to open \"Dashboard\"." = "No mouse button can be set to open \"Dashboard\".";
+"You must change the mouse button settings via the Keyboard & Mouse System Preference before you can use the Lockdown Browser." = "You must change the mouse button settings via the Keyboard & Mouse System Preference before you can use the Lockdown Browser.";
+
 "Settings File Not Found Error String" = "Lockdown Browser - There was a problem reading one or more attributes from the settings file.";	/*Lockdown Browser - Initialization URL not found */
 "Settings File Not Found Info String" = "Please Notify your Test Proctor";
 "Not Enough Free Disk Space Error Msg" = "The boot volume does not have enough Free disk space.";

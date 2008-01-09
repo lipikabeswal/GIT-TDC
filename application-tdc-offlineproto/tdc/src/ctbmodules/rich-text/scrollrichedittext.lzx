@@ -1,0 +1,146 @@
+<library>
+    <include href="baserichedittext.lzx" />
+
+    <!--- 
+        scrollrichedittext
+        A class which wraps up baserichedittext and ui for scrolling the textarea. 
+        [gregor 10.26.05]
+    -->
+    
+    <class name="scrollrichedittext" extends="baserichedittext" 
+           multiline="true">
+
+        <!--- The default width of the text area border. -->
+        <attribute name="border" value="0" />
+
+        <!--- Name of class to instantiate for vertical scroll bar.
+              @keywords public -->
+        <attribute name="vscrollbarclassname" type="string" value="vscrollbar"/>
+        
+        <!--- Width to give for scrollbar
+              @keywords private -->
+        <attribute name="vscrollwidth" value="14"/>
+        
+        <!--- Our vertical scrollbar
+              @keywords private -->
+        <attribute name="_vs" value="null"/>
+        
+        <!--- @keywords private -->
+        <method name="ensurevscrollbar">
+            if (this._vs == null) {
+                var classname = this.vscrollbarclassname;
+                if (classname == "") {
+                    classname = "vscrollbar";
+                }
+                if ($debug) {
+                    if (typeof(global[classname]) == "undefined") {
+                        Debug.write("scrollbarclassname undefined", this);
+                    }
+                }
+                var vsinit = function () {
+                    var p = this.parent;
+                    
+                    this.applyConstraint("x", 
+                        function() { this.setAttribute("x", this.parent.width - this.width); },
+                        [p, "width", this, "width"]);
+                    
+                    this.applyConstraint("stepsize", 
+                        function() { this.setAttribute("stepsize", inp.lineheight); }, 
+                        [p.inp, "lineheight"]);
+                    
+                    this.applyConstraint("scrollmax", 
+                        function() { this.setAttribute("scrollmax", inp.maxheight); }, 
+                        [p.inp, "maxheight"]);
+
+                    #pragma "methodName=init"
+                    super.init();
+                }
+                
+                this._vs = new global[classname](this, 
+                                                 { axis: "y",
+                                                   scrollattr: "pos",
+                                                   scrolltarget: this.inp,
+                                                   init: vsinit });
+                this._vs.setAttribute("disabledbgcolor", 12240085);
+            }
+        </method>
+        
+        <method name="init">
+            super.init();
+            this.ensurevscrollbar();
+        </method>
+
+
+
+        <_richinternalinputtext name="inp" x="${parent.border}" 
+            y="1" 
+            height="${parent.height-2}"
+            width="${parent.width - parent.vscrollwidth - 2 }"
+            pattern="[A-Za-z0-9!@#$%\^*()_\-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[]\\|`~ ]*">
+            <attribute name="lineheight"
+                       value="${this.getTextHeight()/this.maxscroll}"/>
+            <attribute name="maxheight" 
+                       value="${this.height + this.lineheight * (this.maxscroll - 1)}"/>
+            <attribute name="onpos" value="null"/>
+            <attribute name="pos" value="0" setter="this.setPos(pos)"/>
+			<attribute name="isCtrl" type="boolean" value="false"/> 
+            <!--- Set the scroll position and update the scrollbar to match 
+                @param Number p: position-->
+            <method name="setPos" args="p">
+                if (this.isinited) {
+                    this.setScroll(1 - (p / this.lineheight));
+                    this.pos = p;
+                    if (this.onpos) this.onpos.sendEvent(p);
+                }
+            </method>
+            
+            <method event="onscroll">
+                this.setPos(-this.lineheight * (this.scroll - 1), true);
+            </method>
+            <attribute name="delayemptydel" />
+            <method event="oninit">
+               this.setText(" ");
+            </method>
+            <handler name="onfocus">
+            // do not select text on focus
+            	this.setSelection(0);
+            </handler>
+			<handler name="onkeydown" reference="LzKeys" args="k"> <![CDATA[
+	  			if(k==17){
+	      			this.setAttribute('isCtrl', true);
+	  			}else if(isCtrl 
+	           		&& (k!=67 && k!=86 && k!=88)){
+	      			this.setEnabled(false);
+	  			}
+
+				  if(k==-1){
+				     this.setEnabled(true);
+				  }
+			 ]]>
+		</handler>
+		<handler name="onkeyup" reference="LzKeys" args="k">
+		  if(k==17){
+		      this.setEnabled(true);
+		      this.setAttribute('isCtrl', false);
+		  }
+		</handler>
+
+        </_richinternalinputtext>
+        
+        <!--- Overrides a parent method which calculates y position for text
+            in a way that doesn't make sense for this class. We just trap the 
+            call and do nothing. This field is positioned in y by the constraint
+            y=${parent.border}
+            Note: although this method is a no-op, it still has to be declared,
+            so the parent class's method does not get called on instances of 
+            this class. 
+        -->
+
+   </class>
+
+</library>
+<!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
+* Copyright 2005-2006 Laszlo Systems, Inc. All Rights Reserved.               *
+* Use is subject to license terms.                                            *
+* X_LZ_COPYRIGHT_END ****************************************************** -->
+<!-- @LZX_VERSION@                                                         -->

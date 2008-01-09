@@ -29,7 +29,7 @@
             }
 
             // Increase fontsize of text
-            if (parent.autoenlarge == "fixed" && this.fontsize < 16 && gController.isaccomodated) {
+            if (parent.autoenlarge == "fixed" && this.fontsize < 16 && gController.hasFontAccommodation) {
                var style = gController.getAccomStyleForType(parent.parent.stereotype);
                this.setAttribute("fontsize", this.fontsize * style['font_magnification']);
             }
