@@ -75,7 +75,7 @@ class Calculator extends MovieClip {
 		numeTxt.type = "input";
 		denoTxt.type = "input";
 		//
-		displayTxt.maxChars = 8;
+		displayTxt.maxChars = 10;
 		operatorTxt.maxChars = 4;
 		numeTxt.maxChars = 4;
 		denoTxt.maxChars = 4;
@@ -168,6 +168,10 @@ class Calculator extends MovieClip {
 		mc.percent.onRelease = function() {
 			//thisRef.StandOp("%");
 			thisRef.onReleases("%", "SplOp");
+		};
+		mc.sqrt.onRelease = function() {
+			//thisRef.StandOp("%");
+			thisRef.onReleases("sqrt", "SplOp");
 		};
 		mc.openBrac.onRelease = function() {
 			//thisRef.StandOp("(");
@@ -301,7 +305,7 @@ class Calculator extends MovieClip {
 				} else {
 					//("The Number is too large for display");
 				}
-			} else if (displayTxt.length<8) {
+			} else if (displayTxt.length<10) {
 				this.value += _strs;
 			} else {
 				//Alert.show("The number is too large for the display","Alert");
@@ -714,6 +718,14 @@ class Calculator extends MovieClip {
 		case "%" :
 			//
 			this.value = (Number(valueHolder)/100).toString();
+			display(true, this.value);
+			valueHolder = this.value;
+			//
+			break;
+			//
+		case "sqrt" :
+			//
+			this.value = Math.sqrt(Number(valueHolder)).toString();
 			display(true, this.value);
 			valueHolder = this.value;
 			//

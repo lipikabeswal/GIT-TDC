@@ -41,7 +41,6 @@ class com.TN_ContentServices{
 			//Creating the Object with the name of ID's facilitated in XML
 			screenObj[xmlID]=new Object();
 			screenObj[xmlID].guidedMessage=xmlNode.attributes["UserGuide"].split(",")
-			trace(xmlID + ":" +screenObj[xmlID].guidedMessage)
 			var childLenght=xObj.firstChild.childNodes[i].childNodes.length;
 			for(var j=0;j<childLenght;j++){
 				var childNode=xObj.firstChild.childNodes[i].childNodes[j]
