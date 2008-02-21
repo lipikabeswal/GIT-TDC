@@ -14,7 +14,7 @@ class Calculator extends MovieClip {
 	private var numeTxt:TextField;
 	private var denoTxt:TextField;
 	private var dashLineTxt:TextField;
-	////////////////////////////////////// Generic properties
+	//////////////////////////////////////
 	private var operator:String = "";
 	private var mem:String = "";
 	private var value:String = "";
