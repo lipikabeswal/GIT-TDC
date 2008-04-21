@@ -54,6 +54,12 @@
        		}
        	</method>
   		
+     	<method name="tutorialComplete">
+       		if(!error){
+       			gRequest.tutorialComplete();
+       		}
+       	</method>
+  		
      	<method name="feedback" args="lsid">
        		if(!error){
        			gRequest.feedback(lsid);

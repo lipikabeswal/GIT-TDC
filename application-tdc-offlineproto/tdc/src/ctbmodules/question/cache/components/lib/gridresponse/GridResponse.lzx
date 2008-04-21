@@ -170,9 +170,6 @@
               showhandcursor="false">
             <simplelayout axis="x" spacing="1"/>
             
-            <!-- beep if wrong char in box -->
-            <view name="errorBeep"/>
-            
             <GridResponseCol name="col" datapath="gridcol"
                              fontsize="${classroot.fontsize}">
                 <method event="oninit">
@@ -202,27 +199,6 @@
                 </method>
                 
             </GridResponseCol>
-            
-         
-
-
-        
-           <method name="beep"><![CDATA[
-/** this doesnt work
-               //this will load the sound each time. Using <resource does not work
-                var loadUrl = LzBrowser.getLoadURL();
-                // remove substring starting at TestClient.lzx or .swf
-                var pos = loadUrl.lastIndexOf('TestClient');
-                if (pos>1) {
-                    loadUrl = loadUrl.slice(0, pos);
-                    Debug.write("loadUrl="+ loadUrl);
-                    loadUrl += 'audio\\beep.mp3';
-           
-                }
-                errorBeep.setSource(loadUrl);
-**/
-                 ]]>
-           </method>
             
         </view>
         

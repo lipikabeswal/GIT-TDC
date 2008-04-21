@@ -121,7 +121,7 @@
                                 onclick="classroot.handleDigit(0)"/>
                     <calcButton txtresource="decimal_txt" 
                                 onclick="classroot.handleDecimal()"/>
-					<calcButton txtresource="equal_rsrc"
+					<calcButton txtresource="equal_txt"
 					            onclick="classroot.handleEquals();"/>
 					<operatorCalculatorButton offFaceRsrc="white_plus_rsrc" 
 					                          otherFaceRsrc="black_plus_rsrc" 

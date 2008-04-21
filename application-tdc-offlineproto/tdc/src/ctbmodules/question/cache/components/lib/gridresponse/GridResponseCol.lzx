@@ -354,7 +354,6 @@
 	                            this.bringToFront ();
 	                            this.thecol.contents.textentry.invalidtextbg.fadeanim.doStart ();
 	                            this.thecol.errorhl.fadeanim.doStart ();
-	                            this.beep();
 	                        }
 	                    }
 	                    break;
@@ -438,12 +437,6 @@
             }
         ]]></method>
 
-        <!-- beep on error -->
-        <method name="beep">
-            parent.beep();
-        </method>
-        
-        
         <!-- =======
              views
              ======= -->

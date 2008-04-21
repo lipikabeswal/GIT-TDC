@@ -1,5 +1,5 @@
 package com.ctb.tdc.web.servlet;
-
+  
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -16,11 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
@@ -32,8 +29,8 @@ import com.ctb.tdc.web.dto.StateVO;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.ServletUtils;
- 
-/**
+     
+/** 
  * @author Tai_Truong
  * 
  * This supports response persistence and lifecycle events. 
@@ -46,10 +43,10 @@ import com.ctb.tdc.web.utils.ServletUtils;
  * lost, an error is returned immediately in that case.
  */
 public class PersistenceServlet extends HttpServlet {
-    
+       
     private static final long serialVersionUID = 1L;
     static Logger logger = Logger.getLogger(PersistenceServlet.class);
-    
+     
 	/**
 	 * Constructor of the object.
 	 */
@@ -397,27 +394,17 @@ public class PersistenceServlet extends HttpServlet {
                 // upload the file to TMS
                 HttpClientParams clientParams = new HttpClientParams();
                 clientParams.setConnectionManagerTimeout(30 * ServletUtils.SECOND);    // timeout in 30 seconds            
-                HttpClient client = new HttpClient(clientParams);                
-                
+                HttpClient client = new HttpClient(clientParams);                                
                 String proxyHost = ServletUtils.getProxyHost();
             
                 if ((proxyHost != null) && (proxyHost.length() > 0)) {
-                    // execute with proxy settings
-                    HostConfiguration hostConfiguration = client.getHostConfiguration();
-                    int proxyPort = ServletUtils.getProxyPort();
-System.out.println("proxyHost = " + proxyHost + "\nproxyPort = " + proxyPort);                
-                    hostConfiguration.setProxy(proxyHost, proxyPort);            
-                    String username = ServletUtils.getProxyUserName();
-                    String password = ServletUtils.getProxyPassword();            
-                    UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
-                    HttpState state = client.getState();
-                    state.setProxyCredentials(null, proxyHost, credentials);
-                    responseCode = client.executeMethod(hostConfiguration, filePost);   
+    				// apply proxy settings
+                    int proxyPort    = ServletUtils.getProxyPort();
+                    String username  = ServletUtils.getProxyUserName();
+                    String password  = ServletUtils.getProxyPassword();            
+                	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);
                 }
-                else {
-                    // execute without proxy
-                    responseCode = client.executeMethod(filePost);    
-                }
+                responseCode = client.executeMethod(filePost);    
 
                 // delete local file when upload successfully 
                 if (responseCode == HttpStatus.SC_OK) {                          

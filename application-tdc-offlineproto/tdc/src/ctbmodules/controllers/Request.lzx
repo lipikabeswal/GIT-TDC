@@ -93,6 +93,11 @@
 			_doRequest(persistenceDs, SAVE_METHOD, xml);
 		</method>
 		
+		<method name="tutorialComplete">
+			var xml = gXmlHelper.getTutorialCompleteXml(gController.lsid, _getAndIncrementMseq(), cid);
+			_doRequest(persistenceDs, SAVE_METHOD, xml);
+		</method>
+		
 		<method name="lifecycle" args="lev">
 			var xml = gXmlHelper.getLifecycleXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, lev);
 //Debug.write("lifecycle:");

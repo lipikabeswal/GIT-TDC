@@ -28,7 +28,7 @@
         <attribute name="resizable"/>
 
         <attribute name="widget_id" type="string"    value="widget1000000" />
-        <attribute name="w_id"      type="number"    value="$once{gController.MAX_ID}" />
+        <attribute name="w_id"      type="number"    value="$once{gController.MAX_CR_ID}" />
 
         <!--- The width of the edit text box, default: 106. -->
         <attribute name="width" value="106"/>
@@ -162,27 +162,32 @@
             	this.setEnabled(true);
             	this.setAttribute('isCtrl', false);
             </handler>
+
+            <handler name="ontext"><![CDATA[
+	 			var answer = this.getText();
+			    if (answer) {	    
+			     	var answered = false;
+			        for(var i=0; i< answer.length; i++){
+			         	var c = answer.substring(i, i+1);
+			           	if(c != ' ' && c!= '\n' && c!= '\r'){
+			           		answered = true;
+			           	}
+			        }
+			        gController.updateCrField(classroot.widget_id, answer, answered);
+			    }
+			    else {  // Field is now empty
+			        gController.updateCrField(classroot.widget_id, '', false);
+				}
+             ]]></handler>
+
             <handler name="onkeyup" args="k"> <![CDATA[
 	 			if(k==17){
 			      this.setEnabled(true);
 			      this.setAttribute('isCtrl', false);
 			  	}	
-				var answer = this.getText();
-		        if (answer) {	    
-		        	var answered = false;
-		            for(var i=0; i< answer.length; i++){
-		            	var c = answer.substring(i, i+1);
-		               	if(c != ' ' && c!= '\n' && c!= '\r'){
-		               		answered = true;
-		               	}
-		            }
-		            gController.updateCrField(classroot.widget_id, answer, answered);
-		        }
-		        else {  // Field is now empty
-		            gController.updateCrField(classroot.widget_id, '', false);
-				}
                   ]]>
             </handler>
+
             <handler name="onkeydown" args="k"> <![CDATA[
 	  			if(k==17){
 	      			this.setAttribute('isCtrl', true);

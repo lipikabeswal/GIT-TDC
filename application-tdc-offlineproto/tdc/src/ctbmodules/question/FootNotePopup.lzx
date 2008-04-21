@@ -12,7 +12,11 @@
     <attribute name="MIN_HEIGHT" value="200"/>
     <attribute name="MIN_WIDTH" value="300"/>
     <attribute name="DROP_SHADOW_SIZE" value="4"/>
-
+    
+    <!-- Display styles for the header of the footnote -->
+	<attribute name="NORMAL_DISPLAY_STYLE" type="string" value="NORMAL" />
+	<attribute name="BOOKTITLE_DISPLAY_STYLE" type="string" value="BOOKTITLE" />
+	
     <method name="findScrollingTextPanel" args="inDP">
         if(inDP.getNodeName() == gCompTypes.WIDGET_SCROLLING_TEXT_PANEL) {
             return inDP.p;
@@ -118,8 +122,24 @@
 		detail = replaceAmp(detail);
 		setReadable(headerpos);
 		
+		var displayStyle = NORMAL_DISPLAY_STYLE;
+		var headerDisplay = header;
+
+		var displayStyleStart = this.itemtxt.indexOf("display_style=&quot;", headerpos);
+		var footnoteEnd = this.itemtxt.indexOf("&lt;/footnote&gt;", headerpos);
+
+		if(displayStyleStart != -1 && displayStyleStart < footnoteEnd){
+			displayStyleStart = displayStyleStart + 20;
+			var displayStyleEnd = this.itemtxt.indexOf("&quot;", displayStyleStart);
+	        displayStyle = this.itemtxt.substring(displayStyleStart, displayStyleEnd);
+	    }
+	    
+	    if(displayStyle == BOOKTITLE_DISPLAY_STYLE){
+	    	headerDisplay = "<i>" + header + "</i>";
+		}
+	    
         //init footnote
-        this.body.wrap.header.setAttribute("text", header);
+        this.body.wrap.header.setAttribute("text", headerDisplay);
 
         this.body.wrap.detail.setAttribute("text", detail);
         this.body.wrap.detailmulti.setAttribute("text", detail);

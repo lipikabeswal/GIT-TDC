@@ -66,6 +66,7 @@
         <!-- init livesel -->
         <method event="onmousedown" reference="clickarea"><![CDATA[
             if (this.hlstatus.data == 'sel' && this.visible) {
+            	gController.setCurrentCursor('highlighter_cursor');
                 this.livesel.setAttribute ('x', this.getMouse ('x'));
                 this.livesel.setAttribute ('y', this.getMouse ('y'));
                 this.livesel.setAttribute ('width', 0);

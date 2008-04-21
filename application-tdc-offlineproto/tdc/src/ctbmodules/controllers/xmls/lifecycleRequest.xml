@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<adssvc_request method="save_testing_session_data">
-  <save_testing_session_data>
-    <tsd lsid="" scid="" mseq="">
-      <lev e="" />
-    </tsd>
-  </save_testing_session_data>
-</adssvc_request>

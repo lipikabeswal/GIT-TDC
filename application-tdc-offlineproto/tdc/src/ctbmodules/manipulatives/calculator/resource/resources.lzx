@@ -134,6 +134,7 @@
      	<frame src="calc_buttonSCIFUNCT_on.swf"/>
     	<frame src="calc_buttonSCIFUNCT_click.swf"/>
   	</resource>
+  	
 	<resource name="black_plusminus_rsrc" src="black_plusminus.swf"/>
 	<resource name="black_percent_rsrc" src="black_percent.swf"/>
 	<resource name="black_sqrt_rsrc" src="newblack_sqrt.swf"/>
@@ -148,36 +149,4 @@
 	<resource name="white_multiply_rsrc" src="white_multiply.swf"/>
 	<resource name="white_plus_rsrc" src="white_plus.swf"/>
 	<resource name="white_minus_rsrc" src="white_minus.swf"/>
-	<resource name="_0_rsrc" src="0.swf"/>
-	<resource name="_1_rsrc" src="1.swf"/>
-	<resource name="_2_rsrc" src="2.swf"/>
-	<resource name="_3_rsrc" src="3.swf"/>
-	<resource name="_4_rsrc" src="4.swf"/>
-	<resource name="_5_rsrc" src="5.swf"/>
-	<resource name="_6_rsrc" src="6.swf"/>
-	<resource name="_7_rsrc" src="7.swf"/>
-	<resource name="_8_rsrc" src="8.swf"/>
-	<resource name="_9_rsrc" src="9.swf"/>
-	<resource name="percent_rsrc" src="percent.swf"/>
-	<resource name="backspace_rsrc" src="backspace.swf"/>
-	<resource name="C_rsrc" src="C.swf"/>
-	<resource name="CE_rsrc" src="CE.swf"/>
-	<resource name="changesign_rsrc" src="changesign.swf"/>
-	<resource name="cos_rsrc" src="cos.swf"/>
-	<resource name="decimal_rsrc" src="decimal.swf"/>
-	<resource name="divide_rsrc" src="divide.swf"/>
-	<resource name="equal_rsrc" src="equal.swf"/>
-	<resource name="ln_rsrc" src="ln.swf"/>
-	<resource name="log_rsrc" src="log.swf"/>
-	<resource name="minus_rsrc" src="minus.swf"/>
-	<resource name="mod_rsrc" src="mod.swf"/>
-	<resource name="Pi_rsrc" src="Pi.swf"/>
-	<resource name="plus_rsrc" src="plus.swf"/>
-	<resource name="root_rsrc" src="root.swf"/>
-	<resource name="sin_rsrc" src="sin.swf"/>
-	<resource name="sqr_rsrc" src="sqr.swf"/>
-	<resource name="star_rsrc" src="star.swf"/>
-	<resource name="multiply_rsrc" src="multiply.swf"/>
-	<resource name="tan_rsrc" src="tan.swf"/>
-
 </library>

@@ -6,12 +6,9 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.util.ResourceBundle;
 
-import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 
@@ -118,23 +115,13 @@ public class TTSUtil {
 			String proxyHost = getProxyHost();
 
 			if ((proxyHost != null) && (proxyHost.length() > 0)) {
-				// execute with proxy settings
-				HostConfiguration hostConfiguration = client.getHostConfiguration();
-				int proxyPort = getProxyPort();
-				System.out.println("proxyHost = " + proxyHost + "\nproxyPort = " + proxyPort);
-				hostConfiguration.setProxy(proxyHost, proxyPort);
-				String username = getProxyUserName();
-				String password = getProxyPassword();
-				UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
-				HttpState state = client.getState();
-				state.setProxyCredentials(null, proxyHost, credentials);
-				responseCode = client.executeMethod(hostConfiguration, post);
+				// apply proxy settings
+	            int proxyPort    = getProxyPort();
+	            String username  = getProxyUserName();
+	            String password  = getProxyPassword();            
+            	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);				
 			}
-			else {
-				// execute without proxy
-				responseCode = client.executeMethod(post);
-			}
-			System.out.println("responseCode = " + responseCode);
+			responseCode = client.executeMethod(post);
 
 			if (responseCode == HttpStatus.SC_OK) {
 				InputStream isPost = post.getResponseBodyAsStream();
@@ -175,23 +162,13 @@ public class TTSUtil {
 			String proxyHost = getProxyHost();
 
 			if ((proxyHost != null) && (proxyHost.length() > 0)) {
-				// execute with proxy settings
-				HostConfiguration hostConfiguration = client.getHostConfiguration();
-				int proxyPort = getProxyPort();
-				System.out.println("proxyHost = " + proxyHost + "\nproxyPort = " + proxyPort);
-				hostConfiguration.setProxy(proxyHost, proxyPort);
-				String username = getProxyUserName();
-				String password = getProxyPassword();
-				UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
-				HttpState state = client.getState();
-				state.setProxyCredentials(null, proxyHost, credentials);
-				responseCode = client.executeMethod(hostConfiguration, post);
+				// apply proxy settings
+	            int proxyPort    = getProxyPort();
+	            String username  = getProxyUserName();
+	            String password  = getProxyPassword();            
+            	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);
 			}
-			else {
-				// execute without proxy
-				responseCode = client.executeMethod(post);
-			}
-			System.out.println("responseCode = " + responseCode);
+			responseCode = client.executeMethod(post);
 
 			if (responseCode == HttpStatus.SC_OK) {
 				mp3 = new MP3();

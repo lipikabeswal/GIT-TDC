@@ -126,6 +126,8 @@
 			        fgcolor="${canvas.copyriteColor}" height="16" 
 				    text="${canvas.Copyrite}"/>
             </Screens>
+            <Tutorial id="gTutorial" width="800" height="600"
+                        visible="false"/>
 
         </view>
 

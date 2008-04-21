@@ -1,0 +1,13 @@
+<element_package eid="6" iid="6" xslt_ver="145">
+	<item_canvas id="IC">
+		<panel height="381" id="stem1" layout="vertical" left_padding="12" spacing="12" stereotype="stimulus" width="780" x="0" y="79">
+			<multi_line_answer acc_height="225" acc_width="450" char_limit="400" height="150" id="widget1001" width="300"/>
+		</panel>
+	</item_canvas>
+	<item_model answer_text="" answered="0" correct="" eid="6" iid="6" marked="0" number="0" score="" type="question">
+		<toolbar FCAT_formula_card="not provisioned" TN_formula_card="not provisioned" cm_ruler="not provisioned" eraser="required" half_inch_ruler="not provisioned" highlighter="required" mm_ruler="not provisioned" oneeighth_inch_ruler="not provisioned" option_eliminator="required" protractor="not provisioned" scientific_calculator="not provisioned" standard_calculator="not provisioned" straight_edge="not provisioned"/>
+		<interaction type="text_entry">
+			<text_entry obj_id_ref="obj_con_response"/>
+		</interaction>
+	</item_model>
+</element_package>

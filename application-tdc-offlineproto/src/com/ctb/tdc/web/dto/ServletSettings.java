@@ -34,7 +34,7 @@ public class ServletSettings implements java.io.Serializable {
         init();
         
         if (rbTdc != null) {
-            this.tmsHost = resourceBundleGetString(rbTdc, "tms.server.host", false);
+            this.tmsHost = resourceBundleGetString(rbTdc, "tms.server.host");
             this.tmsPort = resourceBundleGetInt(rbTdc, "tms.server.port");      
             try {
                 this.tmsPersist = resourceBundleGetBoolean(rbTdc, "tms.server.persist");
@@ -54,10 +54,10 @@ public class ServletSettings implements java.io.Serializable {
         }
         
         if (rbProxy != null) {
-            this.proxyHost = resourceBundleGetString(rbProxy, "proxy.host", true);
+            this.proxyHost = resourceBundleGetString(rbProxy, "proxy.host");
             this.proxyPort = resourceBundleGetInt(rbProxy, "proxy.port");        
-            this.proxyUserName = resourceBundleGetString(rbProxy, "proxy.username", true);
-            this.proxyPassword = resourceBundleGetString(rbProxy, "proxy.password", true);
+            this.proxyUserName = resourceBundleGetString(rbProxy, "proxy.username");
+            this.proxyPassword = resourceBundleGetString(rbProxy, "proxy.password");
         }
     }
 
@@ -195,13 +195,8 @@ public class ServletSettings implements java.io.Serializable {
         this.errorMessage = errorMessage;
     }
     
-    private String resourceBundleGetString(ResourceBundle rb, String name, boolean allowEmpty) {
-        String str = rb.getString(name).trim();
-        if ((str.length() == 0) && (!allowEmpty)) {
-            this.validSettings = false;
-            this.errorMessage = buildErrorMessage(name, "tdc.servletSetting.error.cannotBeBlank");
-        }
-        return str;
+    private String resourceBundleGetString(ResourceBundle rb, String name) {
+        return rb.getString(name).trim();
     }
  
     private int resourceBundleGetInt(ResourceBundle rb, String name, int min, int max) {

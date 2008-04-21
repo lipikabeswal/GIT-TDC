@@ -17,10 +17,11 @@
     <dataset name="lifecycleDs"         src="xmls/lifecycle.xml" />
     <dataset name="endSubtestDs"        src="xmls/endSubtest.xml" />
     <dataset name="contentErrorDs"      src="xmls/contentError.xml" />
-   <dataset name="terminateDs"        src="xmls/terminate.xml" />
+    <dataset name="terminateDs"         src="xmls/terminate.xml" />
     <dataset name="finishRequestDs"     src="xmls/finishRequest.xml" />
     <dataset name="endSubtestLsv1Ds"    src="xmls/endSubtestLsv1.xml" />
     <dataset name="endSubtestLsv2Ds"    src="xmls/endSubtestLsv2.xml" />
+    <dataset name="tutorialCompleteDs"  src="xmls/tutorialComplete.xml" />
  
     <node id="gXmlHelper">
     	<attribute name="dp"  value="$once{new LzDatapointer}" />
@@ -114,6 +115,15 @@
 //    			dp.addNodeFromPointer(_getAstDp(astParams));
 //    		}
     		dp.setXPath("saveDs:/adssvc_request");
+    		return dp.serialize();
+    	</method>
+    	
+    	<method name="getTutorialCompleteXml" args="lsid, mseq, cid">
+    		dp.setXPath("tutorialCompleteDs:/adssvc_request/complete_tutorial");
+    		dp.setNodeAttribute('lsid', lsid);
+    		dp.setNodeAttribute('mseq', mseq);
+    		dp.setNodeAttribute('cid', cid);
+    		dp.setXPath("tutorialCompleteDs:/adssvc_request");
     		return dp.serialize();
     	</method>
     	

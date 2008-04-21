@@ -315,7 +315,7 @@ public class PersistenceServlet extends HttpServlet {
 			"<login_response restart_number=\"0\" restart_flag=\"false\" lsid=\"33696:numerate73\">" +
 			"<status status_code=\"200\"/>" +
 			"<testing_session_data>" +
-			"<cmi.core student_name=\"Student, Accommodated Twenty-One\" student_id=\"84792\"/>" +
+			"<cmi.core student_first_name=\"First\" student_middle_name=\"Middle\" student_last_name=\"Last\" student_id=\"84792\"/>" +
 			"<lms.student.accommodations rest_break=\"true\" untimed=\"false\" screen_reader=\"true\" magnifier=\"false\" calculator=\"true\">" +
 			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000080\" bgcolor=\"0xFFCCCC\" stereotype=\"directions\"/>" +
 			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000080\" bgcolor=\"0xFFCCCC\" stereotype=\"stimulus\"/>" +
@@ -336,7 +336,7 @@ public class PersistenceServlet extends HttpServlet {
 			"<login_response restart_number=\"0\" restart_flag=\"false\" lsid=\"33696:numerate73\">" +
 			"<status status_code=\"200\"/>" +
 			"<testing_session_data>" +
-			"<cmi.core student_name=\"Student, Accommodated Twenty-One\" student_id=\"84792\"/>" +
+			"<cmi.core student_first_name=\"First\" student_middle_name=\"Middle\" student_last_name=\"Last\" student_id=\"84792\"/>" +
 			"<lms.student.accommodations rest_break=\"true\" untimed=\"false\" screen_reader=\"true\" magnifier=\"false\" calculator=\"true\">" +
 			"<stereotype_style font_magnification=\"1.0\" font_color=\"0x000080\" bgcolor=\"0xFFCCCC\" stereotype=\"directions\"/>" +
 			"<stereotype_style font_magnification=\"1.0\" font_color=\"0x000080\" bgcolor=\"0xFFCCCC\" stereotype=\"stimulus\"/>" +
@@ -355,7 +355,8 @@ public class PersistenceServlet extends HttpServlet {
 		else if (user != null && user.equals("reader")) {
 			return "<tmssvc_response method=\"login_response\">" +
 			"<login_response restart_number=\"0\" restart_flag=\"false\" lsid=\"1:swirl50346\"><status status_code=\"200\"/>" +
-			"<testing_session_data><cmi.core student_name=\"" + user + "\" student_id=\"84378\" />" +
+			"<testing_session_data>" +
+			"<cmi.core student_first_name=\"First\" student_middle_name=\"Middle\" student_last_name=\"Last\" student_id=\"84792\"/>" +
 			"<lms.student.accommodations rest_break=\"true\" untimed=\"false\" screen_reader=\"true\" magnifier=\"false\" calculator=\"true\">" +
 			"</lms.student.accommodations>" +
 			"</testing_session_data>" +
@@ -372,7 +373,7 @@ public class PersistenceServlet extends HttpServlet {
 			"<login_response restart_number=\"0\" restart_flag=\"false\" lsid=\"33696:numerate73\">" +
 			"<status status_code=\"200\"/>" +
 			"<testing_session_data>" +
-			"<cmi.core student_name=\"Student, Accommodated Twenty-One\" student_id=\"84792\"/>" +
+			"<cmi.core student_first_name=\"First\" student_middle_name=\"Middle\" student_last_name=\"Last\" student_id=\"84792\"/>" +
 			"<lms.student.accommodations rest_break=\"true\" untimed=\"false\" screen_reader=\"false\" magnifier=\"false\" calculator=\"true\">" +
 			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000000\" bgcolor=\"0xFFFFFF\" stereotype=\"directions\"/>" +
 			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000000\" bgcolor=\"0xFFFFFF\" stereotype=\"stimulus\"/>" +
@@ -393,7 +394,7 @@ public class PersistenceServlet extends HttpServlet {
 			"<login_response restart_number=\"0\" restart_flag=\"false\" lsid=\"33696:numerate73\">" +
 			"<status status_code=\"200\"/>" +
 			"<testing_session_data>" +
-			"<cmi.core student_name=\"Student, Accommodated Twenty-One\" student_id=\"84792\"/>" +
+			"<cmi.core student_first_name=\"First\" student_middle_name=\"Middle\" student_last_name=\"Last\" student_id=\"84792\"/>" +
 			"<lms.student.accommodations rest_break=\"true\" untimed=\"false\" screen_reader=\"true\" magnifier=\"false\" calculator=\"true\">" +
 			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000000\" bgcolor=\"0xFFFFFF\" stereotype=\"directions\"/>" +
 			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000000\" bgcolor=\"0xFFFFFF\" stereotype=\"stimulus\"/>" +
@@ -414,7 +415,7 @@ public class PersistenceServlet extends HttpServlet {
 			"<login_response restart_number=\"1\" restart_flag=\"true\" lsid=\"33696:numerate73\">" +
 			"<status status_code=\"200\"/>" +
 			"<testing_session_data>" +
-			"<cmi.core student_name=\"Student, Accommodated Twenty-One\" student_id=\"84792\"/>" +
+			"<cmi.core student_first_name=\"First\" student_middle_name=\"Middle\" student_last_name=\"Last\" student_id=\"84792\"/>" +
 			"<lms.student.accommodations rest_break=\"true\" untimed=\"false\" screen_reader=\"true\" magnifier=\"false\" calculator=\"true\">" +
 			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000080\" bgcolor=\"0xFFCCCC\" stereotype=\"directions\"/>" +
 			"<stereotype_style font_magnification=\"1.5\" font_color=\"0x000080\" bgcolor=\"0xFFCCCC\" stereotype=\"stimulus\"/>" +
@@ -436,10 +437,43 @@ public class PersistenceServlet extends HttpServlet {
 			"<rv n=\"RESPONSE\" t=\"identifier\"><v>%3Canswers%3E%3Canswer%20id%3D%22widget1003%22%3Eape%3C%2Fanswer%3E%3Canswer%20id%3D%22widget1023%22%3Ebear%3C%2Fanswer%3E%3Canswer%20id%3D%22widget1025%22%3Echild%3C%2Fanswer%3E%3C%2Fanswers%3E</v></rv></ist></ist></tsd>" +
 	     	"</consolidated_restart_data></login_response></tmssvc_response>";
 		}
+		else if (user != null && user.equals("tutorialRequired")) {
+			return "<tmssvc_response method=\"login_response\">" +
+			"<login_response restart_number=\"0\" restart_flag=\"false\" lsid=\"1:swirl50346\"><status status_code=\"200\"/>" +
+			"<tutorial deliver_tutorial=\"1\" tutorial_url=\"TerraNovaDemo.swf\"/>" + 
+			"<testing_session_data>" +
+			"<cmi.core student_first_name=\"First\" student_middle_name=\"Middle\" student_last_name=\"Last\" student_id=\"84792\"/>" +
+			"</testing_session_data>" +
+			"<manifest title=\"Mathematics 101\">" +
+			"<feedback id=\"STUDENT_FEEDBACK\"/>" +
+			"<sco cmi.core.total_time=\"0:0:0\" adsid=\"10\" item_encryption_key=\"n7673nBJ2n27bB4oAfme7Ugl5VV42g8\" asmt_encryption_key=\"1\" asmt_hash=\"1003A05C5AFDD27F24A5F05B627C52E9\"" +
+			" title=\"&lt;i&gt;bliggetty blog&lt;\\i&gt;\" sco_unit_type=\"SUBTEST\" sco_unit_question_number_offset=\"0\" sco_duration_minutes=\"100\" id=\"24105\" cmi.core.entry=\"ab-initio\" force_logout=\"false\" />" +
+			"<terminator id=\"SEE_YOU_LATER\" /> </manifest> " +
+			"<branding tdclogo=\"/resources/logoTN.swf\"/>" +
+			"</login_response> </tmssvc_response>";
+		}
+		else if (user != null && user.equals("tutorialOptional")) {
+			return "<tmssvc_response method=\"login_response\">" +
+			"<login_response restart_number=\"0\" restart_flag=\"false\" lsid=\"1:swirl50346\">" +
+			"<status status_code=\"200\"/>" +
+			"<tutorial deliver_tutorial=\"0\" tutorial_url=\"TerraNovaDemo.swf\"/>" + 
+			"<testing_session_data>" +
+			"<cmi.core student_first_name=\"First\" student_middle_name=\"Middle\" student_last_name=\"Last\" student_id=\"84792\"/>" +
+			"</testing_session_data>" +
+			"<manifest title=\"Mathematics 101\">" +
+			"<feedback id=\"STUDENT_FEEDBACK\"/>" +
+			"<sco cmi.core.total_time=\"0:0:0\" adsid=\"10\" item_encryption_key=\"n7673nBJ2n27bB4oAfme7Ugl5VV42g8\" asmt_encryption_key=\"1\" asmt_hash=\"1003A05C5AFDD27F24A5F05B627C52E9\"" +
+			" title=\"&lt;i&gt;TerraNova&lt;\\i&gt;&#8482;\" sco_unit_type=\"SUBTEST\" sco_unit_question_number_offset=\"0\" sco_duration_minutes=\"100\" id=\"24105\" cmi.core.entry=\"ab-initio\" force_logout=\"false\" />" +
+			"<terminator id=\"SEE_YOU_LATER\" /> </manifest> " +
+			"<branding tdclogo=\"/resources/logoTN.swf\"/>" +
+			"</login_response> </tmssvc_response>";
+		}
 		else {
 			return "<tmssvc_response method=\"login_response\">" +
 			"<login_response restart_number=\"0\" restart_flag=\"false\" lsid=\"1:swirl50346\"><status status_code=\"200\"/>" +
-			"<testing_session_data><cmi.core student_name=\"Test Student\" student_id=\"84378\" /></testing_session_data>" +
+			"<testing_session_data>" +
+			"<cmi.core student_first_name=\"First\" student_middle_name=\"Middle\" student_last_name=\"Last\" student_id=\"84792\"/>" +
+			"</testing_session_data>" +
 			"<manifest title=\"Mathematics 101\">" +
 			"<feedback id=\"STUDENT_FEEDBACK\"/>" +
 			"<sco cmi.core.total_time=\"0:0:0\" adsid=\"10\" item_encryption_key=\"n7673nBJ2n27bB4oAfme7Ugl5VV42g8\" asmt_encryption_key=\"1\" asmt_hash=\"1003A05C5AFDD27F24A5F05B627C52E9\"" +

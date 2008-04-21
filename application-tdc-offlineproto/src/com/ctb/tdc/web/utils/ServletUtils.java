@@ -1,5 +1,5 @@
 package com.ctb.tdc.web.utils;
-
+  
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -26,12 +26,12 @@ import java.util.zip.Adler32;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.ProxyHost;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
+import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.log4j.Logger;
@@ -316,7 +316,7 @@ public class ServletUtils {
 	public static void readServletSettings() {
 		validateServletSettings();
 	}
-
+  
 	/**
 	 * validate value settings, initialize memory cache object from values read from resource bundle
 	 *
@@ -663,23 +663,13 @@ public class ServletUtils {
 			String proxyHost = getProxyHost();
 
 			if ((proxyHost != null) && (proxyHost.length() > 0)) {
-//				execute with proxy settings
-				HostConfiguration hostConfiguration = client.getHostConfiguration();
-				int proxyPort = getProxyPort();
-				System.out.println("proxyHost = " + proxyHost + "\nproxyPort = " + proxyPort);
-				hostConfiguration.setProxy(proxyHost, proxyPort);
-				String username = getProxyUserName();
-				String password = getProxyPassword();
-				UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
-				HttpState state = client.getState();
-				state.setProxyCredentials(null, proxyHost, credentials);
-				responseCode = client.executeMethod(hostConfiguration, post);
+				// apply proxy settings
+	            int proxyPort    = getProxyPort();
+	            String username  = getProxyUserName();
+	            String password  = getProxyPassword();            
+            	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);
 			}
-			else {
-//				execute without proxy
-				responseCode = client.executeMethod(post);
-			}
-			System.out.println("responseCode = " + responseCode);
+			responseCode = client.executeMethod(post);
 
 			if (responseCode == HttpStatus.SC_OK) {
 				InputStream isPost = post.getResponseBodyAsStream();
@@ -690,7 +680,6 @@ public class ServletUtils {
 					result += inputLine;
 				}
 				in.close();
-//				System.out.println(result);
 			}
 			else {
 				result = buildXmlErrorMessage("", HttpStatus.getStatusText(responseCode), "");
@@ -736,27 +725,13 @@ public class ServletUtils {
 			String proxyHost = getProxyHost();
 
 			if ((proxyHost != null) && (proxyHost.length() > 0)) {
-//				execute with proxy settings
-				HostConfiguration hostConfiguration = client.getHostConfiguration();
-				int proxyPort = getProxyPort();
-				logger.info("*********proxyHost = " + proxyHost + "\nproxyPort = " + proxyPort);
-				hostConfiguration.setProxy(proxyHost, proxyPort);
-				String username = getProxyUserName();
-				String password = getProxyPassword();
-				UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
-				logger.info("*********get state from HttpClient");
-				HttpState state = client.getState();
-				logger.info("*********set ProxyCredentials into state");
-				state.setProxyCredentials(null, proxyHost, credentials);
-				logger.info("********* executeMethod --- sending request");
-				responseCode = client.executeMethod(hostConfiguration, post);
+				// apply proxy settings
+	            int proxyPort    = getProxyPort();
+	            String username  = getProxyUserName();
+	            String password  = getProxyPassword();            
+            	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);				
 			}
-			else {
-//				execute without proxy
-				responseCode = client.executeMethod(post);
-			}
-
-			logger.info("*********responseCode = " + responseCode);
+			responseCode = client.executeMethod(post);
 
 			if (responseCode == HttpStatus.SC_OK) {
 				InputStream isPost = post.getResponseBodyAsStream();
@@ -1053,5 +1028,30 @@ return elementList;*/
 		return xml;
 	}
 
+	public static void setProxyCredentials(HttpClient client, String proxyHost, int proxyPort, String username, String password) {
+        boolean proxyHostDefined = proxyHost != null && proxyHost.length() > 0;
+        boolean proxyPortDefined = proxyPort > 0;
+        boolean proxyUsernameDefined = username != null && username.length() > 0;
+
+	    if( proxyHostDefined && proxyPortDefined ) 
+	    	client.getHostConfiguration().setProxy(proxyHost, proxyPort);
+	    else 
+	    if( proxyHostDefined )  
+	    	client.getHostConfiguration().setProxyHost(new ProxyHost(proxyHost) );
+        
+        if( proxyHostDefined && proxyUsernameDefined ) {
+            AuthScope proxyScope;
+            
+            if( proxyPortDefined )
+                proxyScope = new AuthScope(proxyHost, proxyPort, AuthScope.ANY_REALM);
+            else
+                proxyScope = new AuthScope(proxyHost, AuthScope.ANY_PORT, AuthScope.ANY_REALM);
+
+    		UsernamePasswordCredentials upc = new UsernamePasswordCredentials(username, password);            
+            client.getParams().setAuthenticationPreemptive(true);
+            client.getState().setProxyCredentials(proxyScope, upc);
+        }		
+	}
+	
 }
 

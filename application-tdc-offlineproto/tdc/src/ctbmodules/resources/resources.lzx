@@ -258,25 +258,6 @@
         <frame src="components/griddedresponse/erase_down.swf"/>
     </resource>
     
-    <!-- beep sound when data entry error -->
-    <!-- relative path does not work: LPS bug LPP-559 
-    resource src="audio/beep.mp3" name="beep"/>
-
-    <method event="oninit">
-        var loadUrl = LzBrowser.getLoadURL();
-        // remove substring starting at TestClient.lzx or .swf
-        var pos = loadUrl.lastIndexOf('TestClient.');
-        if (pos &gt; 1) {
-            loadUrl = loadUrl.slice(0, pos);
-            loadUrl += 'src/resources/audio/beep.mp3';
-            Debug.write("loadUrl="+ loadUrl);
-            beep.setSource(loadUrl);
-        Debug.write("Resources.lzx beep.setsource");
-        }  
-        //beep.setSource('http://127.0.0.1:8080/lps-3.3.3/oldming/new/src/resources/audio/beep.mp3');
-    </method-->
-    
-    
     <!-- =====================
          Tabs
          =====================-->    
@@ -319,16 +300,6 @@
         <frame src="components/tabs/tab_border_slct_rt.swf"/>
     </resource>
 
-    <!-- =====================
-         Scrolling Text
-         =====================-->    
-    <!-- erase btn -->
-    <resource name="page_btn">
-        <frame src="components/scrolltext/pageUnselected.swf"/>
-        <frame src="components/scrolltext/pageSelected.swf"/>
-    </resource>
-
-    
     <!-- =====================
          Footnotes
          =====================-->    
@@ -406,21 +377,5 @@
   	<resource name="TN_refcard_title" src="manipulatives/refcard/TN_refcard_title.swf"/>
  	<resource name="TN_refcard_contents" src="manipulatives/refcard/TN_refcard_contents.swf"/>
 
-    <!-- Answer input box -->
-    <resource name="left_ans_border"   src="answer_input/left_ans_border.png"/>
-    <resource name="middle_ans_border" src="answer_input/middle_ans_border.png"/>
-    <resource name="right_ans_border"  src="answer_input/right_ans_border.png"/>
-    <resource name="acc_left_ans_border"   src="answer_input/acc_left_ans_border.png"/>
-    <resource name="acc_middle_ans_border" src="answer_input/acc_middle_ans_border.png"/>
-    <resource name="acc_right_ans_border"  src="answer_input/acc_right_ans_border.png"/>
-   
-    <!-- Multi line input -->
-    <resource name="progress_bar"    src="components/multi_line/progress_bar.png"/>
-    <resource name="progress_cover"  src="components/multi_line/progress_cover.png"/>
-    <resource name="progress_cover_outline"  
-                                     src="components/multi_line/progress_bar_outline.png"/>
-    <resource name="page_lines"      src="components/multi_line/page_lines.png"/>
-    <resource name="large_border"    src="components/multi_line/large_border.png"/>
-      
     <resource name="theme" src="iknow_navbar/themePage.swf" /> 
 </library>

@@ -7,6 +7,7 @@
     <include href="controllers/HotKeys.lzx"/>
     <include href="controllers/Controller.lzx"/>
     <include href="screens/Screens.lzx"/>
+    <include href="screens/Tutorial.lzx"/>
     <include href="rich-text"/>
 
 </library>

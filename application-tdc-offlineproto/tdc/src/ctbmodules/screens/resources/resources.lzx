@@ -15,38 +15,6 @@
 <!--=======================================================================-->
 
 <library>
-
-	<!-- Fonts used in all non-item pages 	
-  
-   	<font name="arialr" src="fonts/arial.ttf"/>
-   	<font name="arialb" src="fonts/arialbd.ttf"/>
-	   <font name="OASsans">
-		<face src="fonts/OASmathv3.ttf" style="plain" />
-		<face src="fonts/OASmathv3 Bold.ttf" style="bold" />
-		<face src="fonts/OASmathv3 Italic.ttf" style="italic" />
-		<face src="fonts/OASmathv3 BoldItalic.ttf" style="bold italic" />
-	</font>
-	 -->
-
-	<!-- Fonts used in Presentation Canvas -->
-	
-
-<!--	<font name="arial">
-		<face src="fonts/OASsans.ttf" style="plain" />
-		<face src="fonts/OASsans Bold.ttf" style="bold" />
-		<face src="fonts/OASsans Italic.ttf" style="italic" />
-		<face src="fonts/OASsans BoldItalic.ttf" style="bold italic" />
-	</font>
--->
-
-	<!--font name="OASsans">
-		<face src="fonts/OASsans.ttf" style="plain" />
-		<face src="fonts/OASsans Bold.ttf" style="bold" />
-		<face src="fonts/OASsans Italic.ttf" style="italic" />
-		<face src="fonts/OASsans BoldItalic.ttf" style="bold italic" />
-	</font>
-	-->
-
 	<!-- Buttons -->
 	<resource name="button_rsc">
        	<frame src="button_up.swf"/>
@@ -132,6 +100,18 @@
 		<frame src="back_off.swf"/>
 		<frame src="back_on.swf"/>
 		<frame src="back_click.swf"/>
+	</resource>	
+
+	<resource name="yes_show_the_demo_again_button_rsc">
+		<frame src="yes_show_the_demo_again_off.swf"/>
+		<frame src="yes_show_the_demo_again_on.swf"/>
+		<frame src="yes_show_the_demo_again_click.swf"/>
+	</resource>	
+
+	<resource name="no_take_me_straight_to_the_test_button_rsc">
+		<frame src="no_take_me_straight_to_the_test_off.swf"/>
+		<frame src="no_take_me_straight_to_the_test_on.swf"/>
+		<frame src="no_take_me_straight_to_the_test_click.swf"/>
 	</resource>	
 
 	<resource name="pausetest_button_rsc">
