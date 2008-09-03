@@ -25,19 +25,17 @@ public class MemoryCache {
     private boolean loaded = false;
     private HashMap imageMap;
     
-    /**
-	 * @return Returns the ttsSettings.
-	 */
-	public TTSSettings getTTSSettings() {
-		return ttsSettings;
-	}
+    public TTSSettings getTTSSettings() {
+    	synchronized(this) {
+    		return this.ttsSettings;
+    	}
+    }
 
-	/**
-	 * @param ttsSettings The ttsSettings to set.
-	 */
-	public void setTTSSettings(TTSSettings ttsSettings) {
-		this.ttsSettings = ttsSettings;
-	}
+    public void setTTSSettings(TTSSettings ttsSettings) {
+    	synchronized(this) {
+    		this.ttsSettings = ttsSettings;
+    	}
+    }
 
 	private MemoryCache() {
         this.loaded = false;

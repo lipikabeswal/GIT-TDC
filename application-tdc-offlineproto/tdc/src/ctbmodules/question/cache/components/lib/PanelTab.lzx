@@ -89,7 +89,7 @@
         </method>
  
         <method name="selectIt">
-        	gReadableText.read(this.thetitle.text);
+        	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text));
             setSelected(true, true);
         </method>
         
@@ -134,7 +134,7 @@
 
         <text name="thetitle" datapath="@title" resize="true" align="center">
 	        <method event="onclick">
-	        	gReadableText.read(this.thetitle.text);
+	        	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text));
 	            parent.selectIt();
 	        </method>
         

@@ -24,6 +24,7 @@
         <attribute name="WIDGET_TABLE_CELL" value="cell" type="string"/>
         <attribute name="WIDGET_SINGLE_LINE_ANSWER" value="single_line_answer" type="string"/>
         <attribute name="WIDGET_MULTI_LINE_ANSWER" value="multi_line_answer" type="string"/>
+        <attribute name="WIDGET_REFERENCE_CARD" value="formula_card_resource" type="string"/>
     </node>
 
 
@@ -62,6 +63,7 @@
         <attribute name="cachedsinglelineinput" value="$once{[]}"/>
         <attribute name="cachedmultilineinput" value="$once{[]}"/>
         <attribute name="cachedaccmultilineinput" value="$once{[]}"/>
+        <attribute name="cachedreferencecard" value="$once{[]}"/>
         
         <!-- ================================
              methods/events
@@ -96,18 +98,25 @@
         </method>
 
         <method name="returnComponent" args="toReturn">
-//Debug.write ('CACHE: return ', toReturn.comptype, toReturn);
+//Debug.write ('CACHE: return ', toReturn.comptype, toReturn.parent);
 
             var arraytouse = this._findArray (toReturn.comptype);
-
+			
             arraytouse.push (toReturn);
 
             toReturn.doReturnToCache ();
             toReturn.setAttribute ('visible', false);
 
-            //reset position to 0, 0
-            toReturn.setAttribute ('x', 0);
-            toReturn.setAttribute ('y', 0);
+            if(toReturn.comptype != gCompTypes.WIDGET_REFERENCE_CARD){
+	            //reset position to 0, 0
+	            toReturn.setAttribute ('x', 0);
+	            toReturn.setAttribute ('y', 0);
+			}
+			else {
+	            toReturn.setAttribute ('width', null);
+	            toReturn.setAttribute ('height', null);
+	            toReturn.data = null;
+			}
         </method>
 
 
@@ -192,8 +201,12 @@
                     arraytouse = cachedmultilineinput;      
                     break;
                 }
+                case gCompTypes.WIDGET_REFERENCE_CARD: {
+                    arraytouse = cachedreferencecard;      
+                    break;
+                }
                 default: {
-                    Debug.warn ('CACHE: unknown component type', type);
+//                    Debug.warn ('CACHE: unknown component type', type);
                     break;
                 }     
 		    }
@@ -278,6 +291,12 @@
                 }
                 case gCompTypes.WIDGET_MULTI_LINE_ANSWER: {
 					toReturn = new CachableMultiLineAnswer(parent);
+			    	break;
+                }
+                case gCompTypes.WIDGET_REFERENCE_CARD: {
+                	var hash = new Array();
+                	hash['id'] = 'gFormulaCard';
+					toReturn = new CachableRefCard(parent, hash);
 			    	break;
                 }
                 default: {

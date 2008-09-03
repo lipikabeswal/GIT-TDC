@@ -73,6 +73,9 @@ public class ContentServlet extends HttpServlet {
 			getItem(request, response);
 		} else if (method.equals(ServletUtils.GET_IMAGE_METHOD)) {
 			getImage(request, response);
+		} 
+		else if (method.equals(ServletUtils.GET_LOCALRESOURCE_METHOD)) {
+		     getLocalResource(request,response);
 		} else {
 			ServletUtils.writeResponse(response, ServletUtils.ERROR);
 		}
@@ -316,6 +319,51 @@ public class ContentServlet extends HttpServlet {
 			ServletUtils.writeResponse(response, ServletUtils.ERROR);
 		}
 	}
+
+	private void getLocalResource(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    	String filename = request.getParameter("resourcePath");
+    	
+    	
+    	try {
+    		
+    		if (filename == null || "".equals(filename.trim())) 
+    			throw new Exception("No  in request.");
+
+    		String filePath = this.RESOURCE_FOLDER_PATH + File.separator  + filename;
+
+    		FileInputStream fstream = new FileInputStream(filePath);
+    		DataInputStream in = new DataInputStream(fstream);
+
+    		ServletOutputStream myOutput = response.getOutputStream();
+    		byte[] data = new byte[4096];
+    		int cnt = 0;
+    		int size = 0;
+    		int index= filename.lastIndexOf(".");
+    		String ext = filename.substring(index+1);
+    		AssetInfo assetInfo = new AssetInfo();
+    		assetInfo.setExt(ext);
+    		String mimeType = assetInfo.getMIMEType();
+    		response.setContentType(mimeType);
+
+    		while ((cnt = in.read(data, 0, 4096)) == 4096) {
+    			size += cnt;
+    			myOutput.write( data );
+    		}
+    		size += cnt;
+    		size = ((size / 4096) + 1) * 4096;
+    		response.setContentLength( size );
+    		myOutput.write( data );
+    		in.close();
+    		myOutput.flush();
+    		myOutput.close();	
+
+	        
+	 } catch (Exception e) {
+		logger.error("Exception occured in getLocalResource() : "
+				+ ServletUtils.printStackTrace(e));
+		ServletUtils.writeResponse(response, ServletUtils.ERROR);
+	 }
+   }
 
 	public static final String TDC_HOME = "tdc.home";
 	public static final String RESOURCE_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 

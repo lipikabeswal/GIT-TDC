@@ -1,0 +1,34 @@
+<element_package eid="6" iid="TD.6.0_013" xslt_ver="145">
+	<item_canvas id="IC">
+		<panel height="132" id="stem1" layout="vertical"
+			left_padding="12" spacing="12" stereotype="stem" width="500" x="0
+			y="79">
+			<text_widget halign="left" id="widget803651000"
+				width="471">
+				This item has 2 in-line answer areas and a scratchpad.
+			</text_widget>
+			<text_widget halign="left" id="widget803651001" input="yes"
+				width="471">
+				Write your answer in the box &lt;single_line_answer id=&quot;widget803651002&quot; type=&quot;inline&quot; width=&quot;75&quot; height=&quot;20&quot;/&gt;
+			</text_widget>
+			<text_widget halign="left" id="widget803651003" input="yes"
+				width="471">
+				Write your answer in the box. &lt;single_line_answer id=&quot;widget803651004&quot; type=&quot;inline&quot; width=&quot;75&quot; height=&quot;20&quot;/&gt;
+			</text_widget>
+		</panel>
+	</item_canvas>
+	<item_model answer_text="" answered="0" correct="" eid="6"
+		iid="TD.6.0_013" marked="0" number="0" score="" type="question">
+		<toolbar FCAT_formula_card="not provisioned"
+			TN_formula_card="not provisioned" cm_ruler="not provisioned"
+			eraser="required" half_inch_ruler="not provisioned"
+			highlighter="required" mm_ruler="not provisioned"
+			oneeighth_inch_ruler="not provisioned" option_eliminator="required"
+			protractor="not provisioned" scientific_calculator="not provisioned"
+			scratchpad="required" standard_calculator="not provisioned"
+			straight_edge="not provisioned" />
+		<interaction type="text_entry">
+			<text_entry obj_id_ref="obj_con_response" />
+		</interaction>
+	</item_model>
+</element_package>

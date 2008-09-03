@@ -12,13 +12,13 @@
 
         <view y="22">
             <simplelayout axis="x" spacing="10"/>
-            <basebutton resource="pause_time_btn"
+            <basebutton resource="pause_time_btn" id="gPauseButton"
                         enabled="${ classroot.uienabled == 'true' }"
                         onclick="gController.pauseTest ()"
                         visible="${ classroot.pausable == 'true' }"
                         disabledResourceNumber="0"
                         />
-            <basebutton resource="stop_time_btn" name="stopbutton"
+            <basebutton resource="stop_time_btn" name="stopbutton" id="gStopButton"
                         enabled="${ classroot.uienabled == 'true' }"
                         onclick="gController.stopTest ()"
                         disabledResourceNumber="0"

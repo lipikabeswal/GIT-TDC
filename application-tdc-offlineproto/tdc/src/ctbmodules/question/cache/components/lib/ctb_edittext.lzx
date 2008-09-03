@@ -27,7 +27,7 @@
               @keywords final -->
         <attribute name="resizable"/>
 
-        <attribute name="widget_id" type="string"    value="widget1000000" />
+        <attribute name="widget_id" type="string"    value="widget10000000000" />
         <attribute name="w_id"      type="number"    value="$once{gController.MAX_CR_ID}" />
 
         <!--- The width of the edit text box, default: 106. -->
@@ -148,7 +148,7 @@
             width="${parent.width - 10}"
 			fgcolor="${Number(gController.answerFontColor)}"
             fontsize="${parent.fontsize}"
-            pattern="[A-Za-z0-9!@#$%\^*()_\-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[]\\|`~ ]*" >
+            pattern="[A-Za-z0-9!@:;#$%\^*()_\-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[]\\|`~ ]*" >
             
             <attribute name="start" type="number" value="0" />
             <attribute name="end" type="number" value="0" />

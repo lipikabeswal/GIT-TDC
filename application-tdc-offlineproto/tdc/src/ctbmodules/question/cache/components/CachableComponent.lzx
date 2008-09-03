@@ -59,54 +59,56 @@
         ]]></method>
 
         <method name="doAlign"><![CDATA[
-            var alignto = parent.alignto;
-
-            //halign
-            var newx = this.x;
-            //this.haligndel.unregisterAll ();
-            if (this.data && this.datapath.p.hasAttr ('halign')) {
-                this.valigndel.register (alignto, 'onwidth');
-
-                switch (this.datapath.p.getAttr ('halign')) {
-                    case 'left':
-                        newx = 0;
-                        break;
-                    case 'center': 
-                        newx = (alignto.width - this.width)/2;
-                        break;
-                    case 'right': 
-                        newx = alignto.width - this.width;
-                        break;
-                    default:
-//                        Debug.write ('unknown component halign', 
-//                                      this.datapath.p.getAttr ('halign'));
-                } 
-            } 
-            this.setAttribute ('x', newx);
-
-            //valign
-            var newy = this.y;
-
-            this.valigndel.unregisterAll ();
-            if (this.data && this.datapath.p.hasAttr ('valign')) {
-                this.valigndel.register (alignto, 'onheight');
-                switch (this.datapath.p.getAttr ('valign')) {
-                    case 'top':
-                        newy = 0;
-                        break;
-                    case 'middle': 
-                        newy = (alignto.height - this.height)/2;
-                        break;
-                    case 'bottom': 
-                        newy = alignto.height - this.height;
-                        break;
-                    default:
-//                        Debug.write ('unknown component valign', 
-//                                      this.datapath.p.getAttr ('valign'));
-                } 
-            }
-            this.setAttribute ('y', newy);
-        ]]></method>
+			if(!(this instanceof CachableImage && this.parent instanceof CachableTextField)) {     
+	            var alignto = parent.alignto;
+	
+	            //halign
+	            var newx = this.x;
+	            //this.haligndel.unregisterAll ();
+	            if (this.data && this.datapath.p.hasAttr ('halign')) {
+	                this.valigndel.register (alignto, 'onwidth');
+	
+	                switch (this.datapath.p.getAttr ('halign')) {
+	                    case 'left':
+	                        newx = 0;
+	                        break;
+	                    case 'center': 
+	                        newx = (alignto.width - this.width)/2;
+	                        break;
+	                    case 'right': 
+	                        newx = alignto.width - this.width;
+	                        break;
+	                    default:
+	//                        Debug.write ('unknown component halign', 
+	//                                      this.datapath.p.getAttr ('halign'));
+	                } 
+	            } 
+	            this.setAttribute ('x', newx);
+	
+	            //valign
+	            var newy = this.y;
+	
+	            this.valigndel.unregisterAll ();
+	            if (this.data && this.datapath.p.hasAttr ('valign')) {
+	                this.valigndel.register (alignto, 'onheight');
+	                switch (this.datapath.p.getAttr ('valign')) {
+	                    case 'top':
+	                        newy = 0;
+	                        break;
+	                    case 'middle': 
+	                        newy = (alignto.height - this.height)/2;
+	                        break;
+	                    case 'bottom': 
+	                        newy = alignto.height - this.height;
+	                        break;
+	                    default:
+	//                        Debug.write ('unknown component valign', 
+	//                                      this.datapath.p.getAttr ('valign'));
+	                } 
+	            }
+	            this.setAttribute ('y', newy);
+			}
+	        ]]></method>
 
         <method name="_initSubnodes"><![CDATA[
             var subnodes = this.datapath.p.childNodes;

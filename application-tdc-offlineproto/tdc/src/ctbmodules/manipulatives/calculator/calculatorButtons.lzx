@@ -7,6 +7,10 @@
 	
         <attribute name="txtresource" type="string"/>
         <view name="text" align="center" valign="middle"/>
+     	<attribute name="calculator"/>
+    	<handler name="onmousedown">
+    		calculator.bringToFront();
+    	</handler>
         <method event="oninit">
             this.text.setResource (txtresource);
         </method>
@@ -18,6 +22,7 @@
          ===================== -->
     <class name="calcButton" extends="calcBaseButton" 
            resource="calc_btn"/>	
+ 
 
     <!-- =====================
          scientific func button
@@ -53,6 +58,7 @@
 	<class name="multiFaceCalculatorBaseButton" extends="basebutton">	
 		<attribute name="offFaceRsrc" type="string"/>
 		<attribute name="otherFaceRsrc" type="string"/>
+		<attribute name="calculator"/>
 		<view name="offFace" align="center" valign="middle"/>
 		<view name="otherFace" align="center" valign="middle" visible="false" />
 		<method name="init">
@@ -60,6 +66,9 @@
 			offFace.setResource(offFaceRsrc);
 			otherFace.setResource(otherFaceRsrc);
 		</method>
+		<handler name="onmousedown">
+			calculator.bringToFront();
+		</handler>
 		<method event="onmouseover">
 			offFace.setVisible(false);
 			otherFace.setVisible(true);
@@ -78,6 +87,10 @@
 	<class name="tripleCalculatorButton" extends="calculatorBaseButton" 
 	       resource="tripleButton_rsrc"/>	
 	<class name="equalCalculatorButton" extends="basebutton" resource="equalButton_rsrc">
+		<attribute name="calculator"/>
+		<handler name="onmousedown">
+			calculator.bringToFront();
+		</handler>
 		<method event="onmouseover">
 			canvas.checkPointerBtnOver=true
 		</method>

@@ -53,14 +53,34 @@
 		</method>
 		
         <method name="showTooltip" args="text">
+        	// reset point x - it might have changed
+        	this.point.setAttribute('x', 5);
             var label = this.box.contents.label;
             label.setAttribute ('text', text);
             label.setAttribute ('height', 
                                  label.getTextHeight () + label.fontsize/3);
+			
+			// need to confine tooltip to the item canvas
+			var tooltipX = parent.getMouse ('x') - this.point.x;
+			var tooltipY = parent.getMouse ('y') + 13;
+			if( tooltipX + this.width &gt; 800){
+				this.point.setAttribute('x', tooltipX + this.width - 800);
+				tooltipX = 800 - this.width;
+			}
+			else if(tooltipX &lt; 0){
+				tooltipX = 0;
+			}
+			if(tooltipY + this.height &gt; 453){
+				tooltipY = 453 - this.height;
+			}
+			else if(tooltipY &lt; 0){
+				tooltipY = 0;
+			}
 
-            this.setAttribute ('x', parent.getMouse ('x') - this.point.x);
-            this.setAttribute ('y', parent.getMouse ('y') + 13);
+            this.setAttribute ('x', tooltipX);
+            this.setAttribute ('y', tooltipY);
             this.setAttribute ('visible', true);
+            this.bringToFront();
         </method>
 
         <method name="hideTooltip">

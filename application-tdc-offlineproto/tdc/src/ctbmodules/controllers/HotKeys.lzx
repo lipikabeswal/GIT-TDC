@@ -164,31 +164,31 @@
         <method name="toggleA">    
         	if(!gController.isCrItem()){
 	            this.exitPopups();
-	        	gController.toggleItemSelStateWithFreeze( 'A' ); 
+	        	gController.toggleItemSelState( 'A' ); 
 	        }
         </method>
         <method name="toggleB">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
-	        	gController.toggleItemSelStateWithFreeze( 'B' ); 
+	        	gController.toggleItemSelState( 'B' ); 
 	        }
         </method>
         <method name="toggleC">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
-	        	gController.toggleItemSelStateWithFreeze( 'C' ); 
+	        	gController.toggleItemSelState( 'C' ); 
 	        }
          </method>
         <method name="toggleD">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
-	        	gController.toggleItemSelStateWithFreeze( 'D' ); 
+	        	gController.toggleItemSelState( 'D' ); 
 	        }
        </method>
         <method name="toggleE">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
-	        	gController.toggleItemSelStateWithFreeze( 'E' ); 
+	        	gController.toggleItemSelState( 'E' ); 
 	        }
         </method>
         <method name="goBack"> 

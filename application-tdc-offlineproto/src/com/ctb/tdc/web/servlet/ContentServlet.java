@@ -1,6 +1,9 @@
 package com.ctb.tdc.web.servlet;
 
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -19,16 +22,16 @@ import noNamespace.ErrorDocument;
 
 import org.apache.log4j.Logger;
 import org.bouncycastle.util.encoders.Base64;
-import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
 import com.ctb.tdc.web.exception.DecryptionException;
 import com.ctb.tdc.web.exception.HashMismatchException;
 import com.ctb.tdc.web.exception.TMSException;
 import com.ctb.tdc.web.utils.AssetInfo;
+import com.ctb.tdc.web.utils.ContentFile;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
-import com.ctb.tdc.web.utils.ContentFile;
+import com.stgglobal.util.CryptoLE.Crypto;
 
 /**
  * @author John_Wang
@@ -79,6 +82,9 @@ public class ContentServlet extends HttpServlet {
 			getItem(request, response);
 		} else if (method.equals(ServletUtils.GET_IMAGE_METHOD)) {
 			getImage(request, response);
+		}
+		else if (method.equals(ServletUtils.GET_LOCALRESOURCE_METHOD)) {
+		     getLocalResource(request,response);
 		} else {
 			ServletUtils.writeResponse(response, ServletUtils.ERROR);
 		}
@@ -156,15 +162,25 @@ public class ContentServlet extends HttpServlet {
 					+ ContentFile.SUBTEST_FILE_EXTENSION;
 
 			if (!ContentFile.validateHash(filePath, hash)) {
-				String result = ServletUtils.httpClientSendRequest(
-						ServletUtils.GET_SUBTEST_METHOD, xml);
-//				logger.info("************** getSubtest response:\n"+result);
-				AdssvcResponseDocument document = AdssvcResponseDocument.Factory
-						.parse(result);
-				ErrorDocument.Error error = document.getAdssvcResponse()
-						.getGetSubtest().getError();
-				if (error != null)
+				String result = "";
+				int TMSRetry = 5;
+				AdssvcResponseDocument document = null;
+				ErrorDocument.Error error = null;
+				while (TMSRetry > 0) {
+					result = ServletUtils.httpClientSendRequest(ServletUtils.GET_SUBTEST_METHOD, xml);
+					// logger.info("************** getSubtest response:\n"+result);
+					document = AdssvcResponseDocument.Factory.parse(result);
+					error = document.getAdssvcResponse().getGetSubtest().getError();
+					if (error != null) {
+						Thread.sleep(2 * ServletUtils.SECOND);
+						TMSRetry--;
+					} else {
+						TMSRetry = 0;
+					}
+				}
+				if (error != null) {
 					throw new TMSException(error.getErrorDetail());
+				}
 
 				byte[] content = document.getAdssvcResponse().getGetSubtest()
 						.getContent();
@@ -243,14 +259,24 @@ public class ContentServlet extends HttpServlet {
 					+ ContentFile.ITEM_FILE_EXTENSION;
 			
 			if (!ContentFile.validateHash(filePath, hash)) {
-				String result = ServletUtils.httpClientSendRequest(
-						ServletUtils.DOWNLOAD_ITEM_METHOD, xml);
-//				logger.info("************** downloadItem response:\n"+result);
-				
-				int index = result.indexOf("<ERROR>");
-				if (index > 0) {
+				int TMSRetry = 5;
+				int errorIndex = 0;
+				String result = "";
+				while (TMSRetry > 0) {
+					result = ServletUtils.httpClientSendRequest(ServletUtils.DOWNLOAD_ITEM_METHOD, xml);
+					// logger.info("************** downloadItem response:\n"+result);
+					errorIndex = result.indexOf("<ERROR>");
+					if (errorIndex >= 0) {
+						Thread.sleep(2 * ServletUtils.SECOND);
+						TMSRetry--;
+					} else {
+						TMSRetry = 0;
+					}
+				}
+				if (errorIndex >= 0) {
 					throw new Exception(result);
 				}
+				
 				AdssvcResponseDocument document = AdssvcResponseDocument.Factory
 						.parse(result);
 				ErrorDocument.Error error = document.getAdssvcResponse()
@@ -457,6 +483,50 @@ public class ContentServlet extends HttpServlet {
 		}
 	}
 	
+	private void getLocalResource(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    	String filename = request.getParameter("resourcePath");
+    	  	
+    	try {
+    		
+    		if (filename == null || "".equals(filename.trim())) 
+    			throw new Exception("No  in request.");
+
+    		String filePath = this.RESOURCE_FOLDER_PATH + File.separator  + filename;
+
+    		ServletOutputStream myOutput = response.getOutputStream();
+    		
+    		// assume all local flash resources are encrypted
+    		FileInputStream input = new FileInputStream( filePath.replaceAll(".swf", ".enc"));
+            int size = input.available();
+            byte[] src = new byte[ size ];
+            input.read( src );
+            input.close();
+            
+            byte[] decrypted = ContentFile.decrypt(src);
+
+            int index= filename.lastIndexOf(".");
+    		String ext = filename.substring(index+1);
+    		AssetInfo assetInfo = new AssetInfo();
+    		assetInfo.setExt(ext);
+    		String mimeType = assetInfo.getMIMEType();
+    		response.setContentType(mimeType);
+    		
+    		response.setContentLength( size );
+    		
+    		myOutput.write( decrypted );
+
+    		myOutput.flush();
+    		myOutput.close();	
+
+	        
+	 } catch (Exception e) {
+		logger.error("Exception occured in getLocalResource() : "
+				+ ServletUtils.printStackTrace(e));
+		ServletUtils.writeResponse(response, ServletUtils.ERROR);
+	 }
+   }
+
+	
 
 	private String getAttributeValue(String attributeName, String xml) {
 		String result = null;
@@ -481,5 +551,9 @@ public class ContentServlet extends HttpServlet {
 		out.flush();
 		out.close();
 	}
+	
+	public static final String TDC_HOME = "tdc.home";
+	public static final String RESOURCE_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
+		                             "webapp" + File.separator + "resources";
 
 }

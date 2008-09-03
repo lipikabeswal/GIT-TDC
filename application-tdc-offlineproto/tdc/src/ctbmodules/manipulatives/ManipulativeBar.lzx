@@ -1,6 +1,7 @@
 <library>
 
     <include href="ManipulativeButton.lzx"/>
+    <include href="ScratchpadButton.lzx"/>
 
     <class name="ManipulativeBar" bgcolor="0xC4C4C4"
            datapath="dsstudentdata:/testing_client_model/current_item/item_model">
@@ -19,6 +20,9 @@
 			<ManipulativeButton resource="toolbar_eraser_btn"
 	                            toolid="eraser"
 	                            tooltip="Eraser"/>
+			<ScratchpadButton   resource="toolbar_scratchpad_btn"
+	                            toolid="scratchpad"
+	                            tooltip="Scratchpad"/>
 		</view>
 	            
 		<view datapath="manipulatives/general" name="generals" valign="middle"
@@ -46,18 +50,12 @@
 			<ManipulativeButton resource="toolbar_formula_card_btn"
 	                            toolid="TN_formula_card"
 	                            tooltip="Reference Card"/>
+			<ManipulativeButton resource="toolbar_formula_card_btn"
+	                            toolid="formula_card_resource"
+	                            tooltip="Reference Card"/>
 			<ManipulativeButton resource="toolbar_calculator_btn"
 	                            toolid="standard_calculator"
 	                            tooltip="Calculator"/>
-	<?ignore                 
-					<ManipulativeButton name="scicalc" resource="toolbar_calculator_btn"
-                                    toolid="scientific_calculator"
-                                    tooltip="Calculator">
-                    <method event="ondata" args="data">
-                        this.setAttribute ('visible', data != 'disable');
-                    </method>
-                </ManipulativeButton>
-	?>                
 			<ManipulativeButton resource="toolbar_straight_edge_btn"
 	                            toolid="straight_edge"
 	                            tooltip="Straight Edge"/>

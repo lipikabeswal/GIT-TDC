@@ -54,6 +54,11 @@
             else{
             	refCardContents.contents.setAttribute ('y', 0);
             } 
+            // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
+            if(data != null && gScratchpad.visible){
+                gScratchpad.bringToFront();
+            }
+            
           ]]></method>
 
         <method event="onmouseover">
@@ -65,6 +70,7 @@
         </method>
 
         <method event="onmousedown">
+        	this.bringToFront();
             LzCursor.setCursorGlobal ('grabbing_cursor');
             LzCursor.lock ();
             this.dragger.apply ();

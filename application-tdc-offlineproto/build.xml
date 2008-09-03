@@ -177,6 +177,9 @@
 				<exclude name="test.html" />
 				<exclude name="test.jsp" />
 				<exclude name="tutorial.html" />
+				<exclude name="openlaszlo-3.3.3-servlet.war" />
+				<exclude name="webLZDebug.xml" />
+				<exclude name="WEB-INF/classes/**/fixed/*.class" />
 			</fileset>
 		</copy>
 		

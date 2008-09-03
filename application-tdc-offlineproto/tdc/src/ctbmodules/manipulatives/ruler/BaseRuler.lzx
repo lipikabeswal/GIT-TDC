@@ -10,6 +10,9 @@
         <attribute name="tickmarksrsr" value="" type="string"/>
         <attribute name="labelrsr"     value="" type="string"/>
 
+		<handler name="onmousedown" >
+			this.bringToFront();
+		</handler>
 		<method event="ontickmarksrsr">
 			if(this.tickmarksrsr != null){
 				this.ruler.tickmarks.setResource(this.tickmarksrsr);
@@ -193,7 +196,11 @@
 
                 this.setAttribute ('x', data.getAttr ('x'));
                 this.setAttribute ('y', data.getAttr ('y'));
-            } else {
+                // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
+            	if(gScratchpad.visible){
+                	gScratchpad.bringToFront();
+            	}
+             } else {
                 this.setAttribute ('rotation', 0);
                 this.ruler.setAttribute ('width', null);
 
@@ -208,6 +215,7 @@
                     data.setAttr ('y', this.y);
                 }
             }
+            
         ]]></method>
 
         <method name="startRotate" args="xpos, ypos">
@@ -372,6 +380,7 @@
                       gController.clearAndRestoreCurrentCursor();
                   </method>
                   <method event="onmousedown">
+                  	  classroot.bringToFront();
                       LzCursor.setCursorGlobal ('grabbing_cursor');
                       LzCursor.lock ();
                       classroot.dragger.apply ();
@@ -394,6 +403,7 @@
               yoffset="${this.resourceheight/2}"
               xoffset="${this.resourcewidth/2}">
             <method event="onmousedown">
+                classroot.bringToFront();
                 classroot.startRotate (classroot.rotateResizer.x, classroot.rotateResizer.y);
             </method>
             <method event="onmouseup">
@@ -408,6 +418,7 @@
               yoffset="${this.resourceheight/2}"
               xoffset="${this.resourcewidth/2}">
             <method event="onmousedown">
+                classroot.bringToFront();
                 classroot.startRotate (classroot.rotator.x, classroot.rotator.y);
                 classroot.sizedel.register (LzIdle, 'onidle');
             </method>

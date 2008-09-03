@@ -432,9 +432,10 @@ public class PersistenceServlet extends HttpServlet {
 	      	"<tsd lsid=\"33126:swirl50346\" scid=\"24224\">" + 
 	      	"<ast cur_eid=\"KYOP.TND_SR.9.R.004\" rem_sec=\"2378.0\"/>" +
 			"<ist iid=\"1\" mrk=\"0\" dur=\"27\" eid=\"1\">" +
-			"<rv n=\"RESPONSE\" t=\"identifier\"><v>%3Canswers%3E%3Canswer%20id%3D%22widget1003%22%3Eape%3C%2Fanswer%3E%3Canswer%20id%3D%22widget1023%22%3Ebear%3C%2Fanswer%3E%3Canswer%20id%3D%22widget1025%22%3Echild%3C%2Fanswer%3E%3C%2Fanswers%3E</v></rv></ist></ist>" +
+			"<rv n=\"RESPONSE\" t=\"identifier\"><v>%3Canswers%3E%3Canswer%20id%3D%22widget1003%22%3Eape%3C%2Fanswer%3E%3Canswer%20id%3D%22widget1023%22%3Ebear%3C%2Fanswer%3E%3Canswer%20id%3D%22widget1025%22%3Echild%3C%2Fanswer%3E%3C%2Fanswers%3E</v></rv></ist>" +
 			"<ist iid=\"2\" mrk=\"0\" dur=\"27\" eid=\"2\">" +
-			"<rv n=\"RESPONSE\" t=\"identifier\"><v>%3Canswers%3E%3Canswer%20id%3D%22widget1003%22%3Eape%3C%2Fanswer%3E%3Canswer%20id%3D%22widget1023%22%3Ebear%3C%2Fanswer%3E%3Canswer%20id%3D%22widget1025%22%3Echild%3C%2Fanswer%3E%3C%2Fanswers%3E</v></rv></ist></ist></tsd>" +
+			"<rv n=\"RESPONSE\" t=\"identifier\"><v>%3Canswers%3E%3Canswer%20id%3D%22widget1003%22%3Eape%3C%2Fanswer%3E%3Canswer%20id%3D%22widget1023%22%3Ebear%3C%2Fanswer%3E%3Canswer%20id%3D%22widget1025%22%3Echild%3C%2Fanswer%3E%3C%2Fanswers%3E</v></rv></ist>" +
+			"<sp>Here%20is%20the%20scratchpad%20contents%20that%20have%20been%20url%20encoded</sp></tsd>" +
 	     	"</consolidated_restart_data></login_response></tmssvc_response>";
 		}
 		else if (user != null && user.equals("tutorialRequired")) {
@@ -459,6 +460,38 @@ public class PersistenceServlet extends HttpServlet {
 			"<tutorial deliver_tutorial=\"0\" tutorial_url=\"TerraNovaDemo.swf\"/>" + 
 			"<testing_session_data>" +
 			"<cmi.core student_first_name=\"First\" student_middle_name=\"Middle\" student_last_name=\"Last\" student_id=\"84792\"/>" +
+			"</testing_session_data>" +
+			"<manifest title=\"Mathematics 101\">" +
+			"<feedback id=\"STUDENT_FEEDBACK\"/>" +
+			"<sco cmi.core.total_time=\"0:0:0\" adsid=\"10\" item_encryption_key=\"n7673nBJ2n27bB4oAfme7Ugl5VV42g8\" asmt_encryption_key=\"1\" asmt_hash=\"1003A05C5AFDD27F24A5F05B627C52E9\"" +
+			" title=\"&lt;i&gt;TerraNova&lt;\\i&gt;&#8482;\" sco_unit_type=\"SUBTEST\" sco_unit_question_number_offset=\"0\" sco_duration_minutes=\"100\" id=\"24105\" cmi.core.entry=\"ab-initio\" force_logout=\"false\" />" +
+			"<terminator id=\"SEE_YOU_LATER\" /> </manifest> " +
+			"<branding tdclogo=\"/resources/logoTN.swf\"/>" +
+			"</login_response> </tmssvc_response>";
+		}
+		else if (user != null && user.equals("showHighlighter")) {
+			return "<tmssvc_response method=\"login_response\">" +
+			"<login_response restart_number=\"0\" restart_flag=\"false\" lsid=\"1:swirl50346\">" +
+			"<status status_code=\"200\"/>" +
+			"<testing_session_data>" +
+			"<cmi.core student_first_name=\"First\" student_middle_name=\"Middle\" student_last_name=\"Last\" student_id=\"84792\">" +
+			"<lms.student.accommodations highlighter=\"true\" rest_break=\"true\" untimed=\"false\" screen_reader=\"true\" magnifier=\"false\" calculator=\"true\"/>" +
+			"</testing_session_data>" +
+			"<manifest title=\"Mathematics 101\">" +
+			"<feedback id=\"STUDENT_FEEDBACK\"/>" +
+			"<sco cmi.core.total_time=\"0:0:0\" adsid=\"10\" item_encryption_key=\"n7673nBJ2n27bB4oAfme7Ugl5VV42g8\" asmt_encryption_key=\"1\" asmt_hash=\"1003A05C5AFDD27F24A5F05B627C52E9\"" +
+			" title=\"&lt;i&gt;TerraNova&lt;\\i&gt;&#8482;\" sco_unit_type=\"SUBTEST\" sco_unit_question_number_offset=\"0\" sco_duration_minutes=\"100\" id=\"24105\" cmi.core.entry=\"ab-initio\" force_logout=\"false\" />" +
+			"<terminator id=\"SEE_YOU_LATER\" /> </manifest> " +
+			"<branding tdclogo=\"/resources/logoTN.swf\"/>" +
+			"</login_response> </tmssvc_response>";
+		}
+		else if (user != null && user.equals("hideHighlighter")) {
+			return "<tmssvc_response method=\"login_response\">" +
+			"<login_response restart_number=\"0\" restart_flag=\"false\" lsid=\"1:swirl50346\">" +
+			"<status status_code=\"200\"/>" +
+			"<testing_session_data>" +
+			"<cmi.core student_first_name=\"First\" student_middle_name=\"Middle\" student_last_name=\"Last\" student_id=\"84792\"/>" +
+			"<lms.student.accommodations highlighter=\"false\" rest_break=\"true\" untimed=\"false\" screen_reader=\"true\" magnifier=\"false\" calculator=\"true\"/>" +
 			"</testing_session_data>" +
 			"<manifest title=\"Mathematics 101\">" +
 			"<feedback id=\"STUDENT_FEEDBACK\"/>" +

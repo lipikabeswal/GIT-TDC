@@ -68,6 +68,7 @@
         </method>
 
         <method event="onmousedown">
+        	this.bringToFront();
             LzCursor.setCursorGlobal ('grabbing_cursor');
             LzCursor.lock ();
             this.dragger.apply ();
@@ -194,6 +195,10 @@
                 			operators.push(operator);
                 		}
                 	}
+	                // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
+	            	if(gScratchpad.visible){
+	                	gScratchpad.bringToFront();
+	            	}
                 }
                 else{
                 	this.datapath.addNode( 'operators' );
@@ -201,6 +206,7 @@
                 }
             }   
             updateDisplay();
+            
          ]]></method>
 
 		<method name="pushOperand" args="operand">

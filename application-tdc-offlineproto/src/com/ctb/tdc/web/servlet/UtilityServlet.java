@@ -1,12 +1,16 @@
 package com.ctb.tdc.web.servlet;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.ctb.tdc.web.dto.ServletSettings;
+import com.ctb.tdc.web.utils.AssetInfo;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
@@ -74,6 +79,10 @@ public class UtilityServlet extends HttpServlet {
         if (method.equals("servletSetting")) {
             servletSetting(request);
             ServletUtils.writeResponse(response, ServletUtils.OK);
+        }
+        else
+        if (method.equals("getLocalResource")) {
+                getLocalResource(request,response);
         }
             
         
@@ -184,6 +193,63 @@ public class UtilityServlet extends HttpServlet {
         reader.close();
         return lineCount;
     }
+    
+    
+    private void getLocalResource(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    	String filename = request.getParameter("resourcePath");
+    	
+    	
+    	try {
+    		
+		    	if (filename == null || "".equals(filename.trim())) 
+					throw new Exception("No  in request.");
+				
+				String filePath = this.RESOURCE_FOLDER_PATH + File.separator  + filename;
+				          
+				System.out.println("Image filepath : " + filePath);
+                int index= filename.lastIndexOf(".");
+                System.out.println(index);
+				String ext = filename.substring(filename.lastIndexOf(".")+1);
+				//String ext = filename.substring(filename.lastIndexOf("."),3);
+				System.out.println("ext" + ext);
+				AssetInfo assetInfo = new AssetInfo();
+				assetInfo.setExt(ext);
+				String mimeType = assetInfo.getMIMEType();
+				
+				
+				FileInputStream fstream = new FileInputStream(filePath);
+				DataInputStream in = new DataInputStream(fstream);
+				
+				ServletOutputStream myOutput = response.getOutputStream();
+				byte[] data = new byte[4096];
+				int cnt = 0;
+				int size = 0;
+				response.setContentType(mimeType);
+				while ((cnt = in.read(data, 0, 4096)) == 4096) {
+					size += cnt;
+					myOutput.write( data );
+				}
+				size += cnt;
+				size = ((size / 4096) + 1) * 4096;
+				myOutput.write( data );
+				in.close();
+		       
+		        response.setContentLength( size ); 
+		        myOutput.flush();
+		        myOutput.close();	
+	        
+	 } catch (Exception e) {
+		logger.error("Exception occured in getImage() : "
+				+ ServletUtils.printStackTrace(e));
+		ServletUtils.writeResponse(response, ServletUtils.ERROR);
+	 }
+   }
+
+public static final String TDC_HOME = "tdc.home";
+public static final String RESOURCE_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
+	                             "webapp" + File.separator + "resources";
+
+   
 
     
 }

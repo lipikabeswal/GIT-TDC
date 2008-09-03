@@ -15,8 +15,18 @@
         </method>
 
         <method event="onvisible">
-            if (this.visible) this.bringToFront ();
+            if (this.visible){
+            	this.bringToFront ();
+            }
+            else{
+            	gManipulatives.removeManipulative(this.toolid);
+            }
         </method>
 
+		<method name="bringToFront">
+			super.bringToFront();
+			gManipulatives.sendToFront(this.toolid);
+		</method>
+		
     </class>
 </library>

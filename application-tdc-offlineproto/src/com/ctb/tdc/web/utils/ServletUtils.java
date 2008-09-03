@@ -86,6 +86,7 @@ public class ServletUtils {
 	public static final String DOWNLOAD_ITEM_METHOD = "downloadItem";
 	public static final String GET_ITEM_METHOD = "getItem";
 	public static final String GET_IMAGE_METHOD = "getImage";
+	public static final String GET_LOCALRESOURCE_METHOD = "getLocalResource";
 
 
 //	parameters
@@ -658,7 +659,7 @@ public class ServletUtils {
 //		send request to TMS
 		try {
 			HttpClientParams clientParams = new HttpClientParams();
-			clientParams.setConnectionManagerTimeout(30 * SECOND); // timeout in 30 seconds
+			clientParams.setConnectionManagerTimeout(10 * SECOND); // timeout in 30 seconds
 			HttpClient client = new HttpClient(clientParams);
 			String proxyHost = getProxyHost();
 
@@ -670,7 +671,6 @@ public class ServletUtils {
             	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);
 			}
 			responseCode = client.executeMethod(post);
-
 			if (responseCode == HttpStatus.SC_OK) {
 				InputStream isPost = post.getResponseBodyAsStream();
 				BufferedReader in = new BufferedReader(new InputStreamReader(isPost));
@@ -1007,6 +1007,7 @@ return elementList;*/
 			if (method.equals(GET_SUBTEST_METHOD)) {
 				String subtestId = ServletUtils.getSubtestId(request);
 				String hash = ServletUtils.getHash(request);
+				
 				String key = ServletUtils.getKey(request);
 				if (subtestId != null && hash != null && key != null) {
 					xml = "<adssvc_request method=\"getSubtest\" sdsid=\"string\" token=\"string\" xmlns=\"\">" +
@@ -1018,6 +1019,9 @@ return elementList;*/
 				String itemId = ServletUtils.getItemId(request);
 				String hash = ServletUtils.getHash(request);
 				String key = ServletUtils.getKey(request);
+				itemId = "81502";
+			    hash = "AAF02CDAD1CFCA9C7F259E811299297B";
+			    key = "n7673nBJ2n27bB4oAfme7Ugl5VV42g8";
 				if (itemId != null && hash != null && key != null) {
 					xml = "<adssvc_request method=\"downloadItem\" sdsid=\"string\" token=\"string\" xmlns=\"\">" +
 					"<download_item itemid=\""+itemId+"\" hash=\""+hash+"\" key=\""+key+"\"/>" +
@@ -1048,10 +1052,9 @@ return elementList;*/
                 proxyScope = new AuthScope(proxyHost, AuthScope.ANY_PORT, AuthScope.ANY_REALM);
 
     		UsernamePasswordCredentials upc = new UsernamePasswordCredentials(username, password);            
-            client.getParams().setAuthenticationPreemptive(true);
+            client.getParams().setAuthenticationPreemptive(false);
             client.getState().setProxyCredentials(proxyScope, upc);
         }		
 	}
-	
+		
 }
-

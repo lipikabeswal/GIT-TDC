@@ -39,7 +39,7 @@
     <description>SpeechServlet</description>
     <display-name>SpeechServlet</display-name>
     <servlet-name>FSpeechServlet</servlet-name>
-    <servlet-class>com.ctb.tdc.web.servlet.fixed.SpeechServlet</servlet-class>
+    <servlet-class>com.ctb.tdc.web.servlet.SpeechServlet</servlet-class>
   </servlet>
   
   <servlet>

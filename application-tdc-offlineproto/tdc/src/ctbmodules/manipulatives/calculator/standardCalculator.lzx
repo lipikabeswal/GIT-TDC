@@ -48,15 +48,20 @@
                 <view name="keyrow1" width="210">
                     <simplelayout axis="x" spacing="${classroot.xSpacing}"/>
                     <calcButton txtresource="C_txt"
-                                onclick="classroot.clearAll()"/>	   
+                                onclick="classroot.clearAll()"
+                                calculator="$once{classroot}" />
                     <calcButton txtresource="memoryrecall_txt" 
-                                onclick="classroot.handleMemoryRecall()"/>
+                                onclick="classroot.handleMemoryRecall()"
+                                calculator="$once{classroot}" />
                     <calcButton txtresource="memoryclear_txt" 
-                                onclick="classroot.handleMemoryClear()"/>
+                                onclick="classroot.handleMemoryClear()"
+                                calculator="$once{classroot}" />
                     <calcButton txtresource="memoryplus_txt"
-                                onclick="classroot.handleMemoryPlus()"/>	   
+                                onclick="classroot.handleMemoryPlus()"
+                                calculator="$once{classroot}" />	   
                     <calcButton txtresource="memoryminus_txt"
-                                onclick="classroot.handleMemoryMinus()"/>	   
+                                onclick="classroot.handleMemoryMinus()"
+                                calculator="$once{classroot}" />	   
                   </view>	
                 
                 <view name="keyrow2" width="210">
@@ -64,17 +69,22 @@
 					<operatorCalculatorButton
                         offFaceRsrc="white_plusminus_rsrc" 
                         otherFaceRsrc="black_plusminus_rsrc" 
-                        onclick="classroot.handleReverseSign() ; "/>
+                        onclick="classroot.handleReverseSign() ; "
+                                calculator="$once{classroot}" />
                     <calcButton txtresource="seven_txt"
-                                onclick="classroot.handleDigit(7)"/>
+                                onclick="classroot.handleDigit(7)"
+                                calculator="$once{classroot}" />
                     <calcButton txtresource="eight_txt" 
-                                onclick="classroot.handleDigit(8)"/>
+                                onclick="classroot.handleDigit(8)"
+                                calculator="$once{classroot}" />
                     <calcButton txtresource="nine_txt" 
-                                onclick="classroot.handleDigit(9)"/>
+                                onclick="classroot.handleDigit(9)"
+                                calculator="$once{classroot}" />
                     <operatorCalculatorButton
                         offFaceRsrc="white_divide_rsrc" 
                         otherFaceRsrc="black_divide_rsrc" 
-                        onclick="classroot.handleBinaryOperator('divide');"/>
+                        onclick="classroot.handleBinaryOperator('divide');"
+                                calculator="$once{classroot}" />
                 </view>
                 
                 <view name="keyrow3" width="210">
@@ -82,17 +92,22 @@
 					<operatorCalculatorButton 
                         offFaceRsrc="white_percent_rsrc" 
                         otherFaceRsrc="black_percent_rsrc" 
-                        onclick="classroot.handlePercent();"/>
+                        onclick="classroot.handlePercent();"
+                                calculator="$once{classroot}" />
                     <calcButton txtresource="four_txt"
-                                onclick="classroot.handleDigit(4)"/>
+                                onclick="classroot.handleDigit(4)"
+                                calculator="$once{classroot}" />
                     <calcButton txtresource="five_txt" 
-                                onclick="classroot.handleDigit(5)"/>
+                                onclick="classroot.handleDigit(5)"
+                                calculator="$once{classroot}" />
                     <calcButton txtresource="six_txt" 
-                                onclick="classroot.handleDigit(6)"/>
+                                onclick="classroot.handleDigit(6)"
+                                calculator="$once{classroot}" />
 					<operatorCalculatorButton 
                         offFaceRsrc="white_multiply_rsrc"
                         otherFaceRsrc="black_multiply_rsrc" 
-                        onclick="classroot.handleBinaryOperator('multiply');"/>
+                        onclick="classroot.handleBinaryOperator('multiply');"
+                                calculator="$once{classroot}" />
                 </view>
                 
                 <view name="keyrow4" width="210">
@@ -100,32 +115,42 @@
 					<operatorCalculatorButton
                         offFaceRsrc="white_sqrt_rsrc" 
                         otherFaceRsrc="black_sqrt_rsrc" 
-                        onclick="classroot.handleUnaryOperator('root');"/>
+                        onclick="classroot.handleUnaryOperator('root');"
+                                calculator="$once{classroot}" />
                     <calcButton txtresource="one_txt" 
-                                onclick="classroot.handleDigit(1)"/>
+                                onclick="classroot.handleDigit(1)"
+                                calculator="$once{classroot}" />
                     <calcButton txtresource="two_txt" 
-                                onclick="classroot.handleDigit(2)"/>
+                                onclick="classroot.handleDigit(2)"
+                                calculator="$once{classroot}" />
                     <calcButton txtresource="three_txt" 
-                                onclick="classroot.handleDigit(3)"/>
+                                onclick="classroot.handleDigit(3)"
+                                calculator="$once{classroot}" />
 					<operatorCalculatorButton
                         offFaceRsrc="white_minus_rsrc" 
                         otherFaceRsrc="black_minus_rsrc" 
-                        onclick="classroot.handleBinaryOperator('subtract');"/>
+                        onclick="classroot.handleBinaryOperator('subtract');"
+                                calculator="$once{classroot}" />
                 </view>
                 
                 <view name="keyrow5" width="210">
                     <simplelayout axis="x" spacing="${classroot.xSpacing}"/>
                     <calcButton txtresource="CE_txt" 
-                                onclick="classroot.clearEntry()"/>	   
+                                onclick="classroot.clearEntry()"
+                                calculator="$once{classroot}" /> 
                     <calcButton txtresource="zero_txt" 
-                                onclick="classroot.handleDigit(0)"/>
+                                onclick="classroot.handleDigit(0)"
+                                calculator="$once{classroot}" />
                     <calcButton txtresource="decimal_txt" 
-                                onclick="classroot.handleDecimal()"/>
+                                onclick="classroot.handleDecimal()"
+                                calculator="$once{classroot}" />
 					<calcButton txtresource="equal_txt"
-					            onclick="classroot.handleEquals();"/>
+					            onclick="classroot.handleEquals();"
+                                calculator="$once{classroot}" />
 					<operatorCalculatorButton offFaceRsrc="white_plus_rsrc" 
 					                          otherFaceRsrc="black_plus_rsrc" 
-					                          onclick="classroot.handleBinaryOperator(classroot.OPERATOR_ADD);"/>
+					                          onclick="classroot.handleBinaryOperator(classroot.OPERATOR_ADD);"
+                                calculator="$once{classroot}" />
 				</view>
  
             </view>

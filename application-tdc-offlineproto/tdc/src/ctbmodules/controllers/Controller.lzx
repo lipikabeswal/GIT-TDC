@@ -19,6 +19,10 @@
         function nullOrSpace( s ) {
             return s == null || s == '' || s == ' ';
         }
+
+        function removeFileExtn( s ) {
+			return s.split('.')[0];
+		}
     </script>
 
     <!--
@@ -49,14 +53,13 @@
         Test Controller
         ==================================================
     -->
-
     <node id="gController">
     	<!--  
     		Convenience datapointers
     	 -->
 		<attribute name="dp" value="$once{new LzDatapointer()}" />
 		<attribute name="answerdp" value="$once{new LzDatapointer()}" />
-		
+		<attribute name="heartbeatResult" type="string" value="null" />
 		<!-- 
 			Requests to the communicator result in setting the communicatorResponse with
 			the text of the http response.  The controller needs to know what the request was 
@@ -162,8 +165,8 @@
 			CR variables
 		 -->
 		<attribute name="crFields"                 value="$once{new Array()}" />
-		<attribute name="MAX_CR_ID"                type="number"  value="1000000" />
-		<attribute name="currentCrId"              type="number"  value="1000000" />
+		<attribute name="MAX_CR_ID"                type="number"  value="10000000000" />
+		<attribute name="currentCrId"              type="number"  value="10000000000" />
 		
 		<!-- 
 			Is the panel being loaded for the sizer?
@@ -174,6 +177,25 @@
 			Is the application between startQuestion and stopQuestion?
 		 -->
 		<attribute name="inQuestion" value="false" type="boolean" />
+		
+		<attribute name="scratchpadOpen" value="false" type="boolean" />
+		<attribute name="focusOnScratchpad" value="false" type="boolean" />
+
+		<!--
+			to check whether an item has any of the static formula cards i.e. FCAT or TN	
+		-->
+		<attribute name="hasTNorFCATrefCard" value="false" type="boolean" />
+
+		<!-- 
+			to check whether an item has dynamic formula card i.e. card swf name	
+		-->
+		<attribute name="hasDynamicRefCard" value="false" type="boolean" />
+
+		<!-- 
+			to store formula card resource name, if it is coming in item xml	
+		-->
+		<attribute name="formulaCardResource" value="false" type="string" />
+
 		
 		<!--
             ============================================================
@@ -211,6 +233,11 @@
         <datapointer name="dptemp"
                      xpath="dstemp:/answers"/>
 
+		<handler name="onheartbeatResult">
+			if(gScratchpad.scratchpadHasFocus){
+				gHotKeys.disableKeys();
+			}
+		</handler>
         <!-- 
         	Subtest xml may or may not specify the item type.  Our code relies on the item type being populated.
         	We need to populate the item type to the default type if it is not present in the xml.
@@ -228,6 +255,11 @@
 			}			
 		]]></method>
 
+		<method name="clearScratchpad">
+			this.setAttribute("scratchpadOpen", false);
+			gScratchpad.setText("");
+		</method>
+		
          <method event="oninit">
         	gScreens.showLogin();
 			var base = LzBrowser.getInitArg( 'servletUrl' );
@@ -543,14 +575,15 @@
 		</method>
 		
     	<method name="_handleLoginResponse" args="response"><![CDATA[
-Debug.write("loginResponse:");
-printBigString(response);
+//Debug.write("loginResponse:");
+//printBigString(response);
 			if(gXmlHelper.isErrorResponse(response)){
 				gScreens.showLoginError(gXmlHelper.getStatusCode(response));
 			}
 			else{
 	    		var node = LzDataNode.stringToLzData(response);
 	    		dp.setPointer(node);
+	    		setShowHighlighter();
 	    		var restartNumber = dp.xpathQuery('login_response/@restart_number');
 				gTutorialManager.setAttribute('tutorialNode', dp.xpathQuery('login_response/tutorial'));
 	    		var logo = dp.xpathQuery('login_response/branding/@tdclogo');
@@ -579,6 +612,11 @@ printBigString(response);
 			}
 		]]></method>
 		
+		<method name="setShowHighlighter">
+			var sh = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@highlighter');
+			this.setAttribute('showHighlighter', (sh != 'false'));
+		</method>
+		
 		<method name="setupPopups">
 			var stereotype = dpsubtest.xpathQuery ('testing_session_data/lms.student.accommodations/stereotype_style[@stereotype="stem"]');
 			var mag = null;
@@ -590,8 +628,7 @@ printBigString(response);
  				bc = stereotype.getAttr('bgcolor');
  			}
  			gRationalePopup.setup(mag, fc, bc);
- 			gPleaseWaitPopup.setup(mag, fc, bc);
- 		</method>
+  		</method>
 		
  		<method name="_handleSubtestResponse" args="response">
 			if(gXmlHelper.isErrorResponse(response)){
@@ -688,10 +725,11 @@ printBigString(response);
         <method name="initTest"><![CDATA[
         	// remove timer in case previous test was timed but this test is untimed
             LzTimer.removeTimer( dupdateTimeLeft );
-
             initStudentData();
             setReadableFlag();
-
+            if(canvas.readable && !gReadableText.primed){
+            	gReadableText.doRead("Hi");
+              }
             var total = totalQuestions();
 			dpdisplay.setNodeAttribute( 'shownWarningMinute', 'false' );
             if ( '0' == dpsubtest.xpathQuery( 'sco/@sco_duration_minutes' ) ||
@@ -755,8 +793,20 @@ printBigString(response);
             }
             this.setAttribute('firstSubtest', false);
            	gLogo.setSource(canvas.logoRsrc);
+           	if(!gScratchpad.isinited){
+				gScratchpad.completeInstantiation();
+			}
+ 			setScratchpadForSubtest();
         ]]></method>
 
+		<method name="setScratchpadForSubtest">
+			var spContents = "";
+			if(dprestart.isValid()){
+				var spContents = dprestart.xpathQuery( 'tsd/sp/text()');
+			}
+			gScratchpad.setText(unescape(spContents));
+		</method>
+		
 		<method name="outOfTimeOpen">
 			this.setState(OUT_OF_TIME_OPEN_STATE);
 			this.save(INIT_LEV);
@@ -867,7 +917,6 @@ printBigString(response);
                     	theme:	isTheme
                     };
                 }
-
                 var newitemdn = new LzDataElement( 'item_model', attrs, null );
                 runtimearr.push (newitemdn);
                 if(!isTheme){
@@ -1140,32 +1189,35 @@ printBigString(response);
 		]]></method>
 		
  		<method name="directionsSubstitution" args="txt"><![CDATA[
-			var eid = dsitem.getPointer().xpathQuery('element_package/item_model/@eid');
-			var current = getItemNumber(eid);
-			var start = current;
-			var end = current;
-			// if it's a shared stimulus item - find out the start and end item numbers
-			var gNodes = dpsubtest.xpathQuery("ob_assessment/ob_element_select_order/g/e[@id='"+eid+"']/../e");
-			if(gNodes instanceof Array){
-				var found = false;
-				var index = 0;
-				while(!found){
-					var node = gNodes[index];
-					var nodeEid = node.getAttr('id');
-					if(nodeEid != eid){
-						index = index + 1;
+ 			if(txt.indexOf("%current%") != -1 || 
+ 			   txt.indexOf("%start%") != -1 ||
+ 			   txt.indexOf("%end%") != -1){
+				var eid = dsitem.getPointer().xpathQuery('element_package/item_model/@eid');
+				var current = getItemNumber(eid);
+				var start = current;
+				var end = current;
+				// if it's a shared stimulus item - find out the start and end item numbers
+				var gNodes = dpsubtest.xpathQuery("ob_assessment/ob_element_select_order/g/e[@id='"+eid+"']/../e");
+				if(gNodes instanceof Array){
+					var found = false;
+					var index = 0;
+					while(!found){
+						var node = gNodes[index];
+						var nodeEid = node.getAttr('id');
+						if(nodeEid != eid){
+							index = index + 1;
+						}
+						else{
+							found = true;
+						}
 					}
-					else{
-						found = true;
-					}
+					start = current - index;
+					end = start + gNodes.length - 1;
 				}
-				start = current - index;
-				end = start + gNodes.length - 1;
+				txt = replace(txt, "%current%", current);
+				txt = replace(txt, "%start%", start);
+				txt = replace(txt, "%end%", end);
 			}
-			txt = replace(txt, "%current%", current);
-			txt = replace(txt, "%start%", start);
-			txt = replace(txt, "%end%", end);
-			
 			return txt;
 		]]></method>	
 			
@@ -1184,8 +1236,25 @@ printBigString(response);
 			}
 			return result;
         ]]></method>
+        
+		<method name="replace" args="s, t, u"><![CDATA[
+			  /*
+			  **  Replace a token in a string
+			  **    s  string to be processed
+			  **    t  token to be found and removed
+			  **    u  token to be inserted
+			  **  returns new String
+			  */
+			var i = s.indexOf(t);
+			var r = "";
+			if (i == -1) return s;
+			r += s.substring(0,i) + u;
+			if ( i + t.length < s.length)
+				r += replace(s.substring(i + t.length, s.length), t, u);
+			return r;
+		]]></method>
 		
-		<method name="replace" args="input, from, to"><![CDATA[ 
+		<method name="replaceOld" args="input, from, to"><![CDATA[ 
 			var output='';
 			while(input.length >= from.length && input.length > 0 && from.length > 0){
 				if(input.substring(0,from.length) == from){
@@ -1220,6 +1289,7 @@ printBigString(response);
             );
             //store off our old curr item into the runtime data
             if ( curritem ) {
+            	gManipulatives.saveZOrders();
                 var dnrtitemold = dpstudentdata.xpathQuery(
                     "runtime/item_model [@eid = '"+curritem+"']"
                 );
@@ -1302,9 +1372,6 @@ printBigString(response);
 			getSharedStimulusHighlights();
             this.setAttribute('focusOnGr', !isMarkedForReviewWithManipulativeOpen());
             this.runtimeready = true;
-//            restoreCrFields(dpstudentdata.xpathQuery ('current_item/item_model/@answer_text'));
-Debug.write("changeCurrItemData");
-//printBigString(dncurritem.serialize());
             checkItemStatus();
         ]]></method>
 
@@ -1479,24 +1546,34 @@ Debug.write("changeCurrItemData");
 			return result;
  		 ]]></method>
 		
-        <method name="toggleItemSelStateWithFreeze" args="selid"><![CDATA[
-        	freezeUI();
-            toggleItemSelState(selid);
-            unlockUI();
-        ]]></method>
-
-        <method name="toggleItemSelState" args="selid"><![CDATA[
+         <method name="toggleItemSelState" args="selid"><![CDATA[
+Debug.write("toggleItemSelState", selid, typeof selid);
             var dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@identifier='"+selid+"']");
             if ( dnsel ) {
                 if ( 's' == dnsel.getAttr( 'user_action' ) ) {
-                Debug.write("toggleItemSelState to N");
+                //Debug.write("toggleItemSelState to N");
+                    readKeySelection( selid, 'n');
                     setItemSelState( selid, 'n');
                 } else {
-                Debug.write("toggleItemSelState to N");
+                //Debug.write("toggleItemSelState to N");
+                    readKeySelection( selid, 's');
                     setItemSelState( selid, 's');
                 }
             }
         ]]></method>
+		
+		<method name="readKeySelection" args="selid, value"><![CDATA[
+			if(canvas.readable){
+//Debug.write("values sent to readKeySelection are ::::"+selid+"and"+value);
+			if((selid == 'A' || selid == 'B' || selid == 'C' || selid == 'D' || selid == 'E') && value == 's'){
+   					gReadableText.read(selid + ". Selected");			
+   				}
+   				else{
+		            gReadableText.read(gReadableText.getSelectionRemoved());
+   				}
+   			}
+   				]]>		
+		</method>
 
         <method name="setItemSelState" args="selid, value"><![CDATA[
             freezeUI();
@@ -1615,7 +1692,6 @@ Debug.write("changeCurrItemData");
         <method name="setGrState" args="colnum, value"><![CDATA[
 			if ( dpstudentdata.xpathQuery( 'current_item/item_model/interaction/@type' ) == 'grid' )
 			{
-				freezeUI();
 			
 				var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
 				var curritem = Number (dncurritem.getAttr ('eid'));
@@ -1632,6 +1708,16 @@ Debug.write("changeCurrItemData");
 				var orignull = nullOrSpace( orig );
 				var valuenull = nullOrSpace( value );
 
+				if(value != orig){
+					if(typeof value != 'undefined' && value != null && value.length > 0){
+						gReadableText.read(gReadableText.getReadableTextForCharacter(value) + " selected.");
+					}
+					else{
+						gReadableText.read(gReadableText.getSelectionRemoved());
+					}
+				}
+				freezeUI();
+				
 				if ( (value != orig) && !(orignull && valuenull) ) {
 					responses[colnum].setAttr( 'user_action', value );
 
@@ -1718,7 +1804,14 @@ Debug.write("changeCurrItemData");
             startQuestion();
             unlockUI();
             gQuestion.setGrFocus();
+            restoreScratchpadFocusIfNeeded();
 		</method>
+		
+		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
+           	if(this.focusOnScratchpad  && gScratchpad.visible){
+            	gScratchpad.restoreFocusAndCursor();
+            }
+ 		]]></method>
 		
         <method name="finishTest">
         	gReadableText.stopReading();
@@ -1745,7 +1838,8 @@ Debug.write("changeCurrItemData");
 			 				           "cm_ruler", 
 			 				           "protractor", 
 			 				           "FCAT_formula_card", 
-			 				           "TN_formula_card", 
+			 				           "TN_formula_card",
+			 				           "formula_card_resource", 
 			 				           "standard_calculator", 
 			 				           "straight_edge");
 				for (var i = 0; i < manips.length; i++){
@@ -1762,6 +1856,7 @@ Debug.write("changeCurrItemData");
             LzCursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
             gQuestion.setGrFocus();
+            restoreScratchpadFocusIfNeeded();
             unlockUI();
         </method>
 
@@ -1799,6 +1894,7 @@ Debug.write("changeCurrItemData");
 
         <method name="unlockUI">
 		<![CDATA[
+		//Debug.write("unlockUI");
 			if(doUnlockUI){
 	            --uisemaphore;
 	
@@ -1810,7 +1906,9 @@ Debug.write("changeCurrItemData");
 	                LzCursor.unlock();
 	                restoreCurrentCursor();
 	                dsdisplay.childNodes[0].setAttr( 'enabled', 'true' );
-	                gHotKeys.enableKeys();
+	                if(!gScratchpad.scratchpadHasFocus){
+	                	gHotKeys.enableKeys();
+	                }
 	            }
 	        }
 		]]>
@@ -1893,6 +1991,10 @@ Debug.write("changeCurrItemData");
     		return result;
     	</method>
     	
+    	<method name="getSpText">
+    		return escape(gScratchpad.getText());
+    	</method>
+    	
      	<method name="getItemParams">
 //Debug.write("getItemParams:");
 //printBigString(dpstudentdata.serialize());
@@ -1910,6 +2012,7 @@ Debug.write("changeCurrItemData");
 					result[5] = getCurrentInteractionType();  // type
 					result[6] = itemnode.getAttr( 'answer_text' ); //current option
 					result[7] = itemnode.getAttr( 'score' ); //current score
+					result[8] = getSpText();
 				}
     		}
     		return result;
@@ -2018,6 +2121,7 @@ Debug.write("changeCurrItemData");
 
         <!-- manipulators -->
         <method name="initManipulativeData"><![CDATA[
+
             var dnmanip = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives');
             var dngeneral = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/general');
 
@@ -2053,17 +2157,19 @@ Debug.write("changeCurrItemData");
                 dnmanip.appendChild (dngeneral);
             }
 
-            
             if (initglobal || initgeneral) {
                 var dntoolbar = dpstudentdata.xpathQuery ('current_item/item_model/toolbar');
                 var toolstate = 'disable';
+
                 for (var i in dntoolbar.attributes) {
                     switch (dntoolbar.attributes [i]) {
                         case 'not provisioned':
                             toolstate = 'disable';
                             break;
                         case 'required':
-                        	toolstate = 'up';
+							checkTNorFCATrefCard(i); // check if any of the fixed formula cards are required                       	
+							toolstate = 'up';
+                        	
                         	break;
                         case 'accommodated':
                         	if(i == 'standard_calculator' || i == 'scientific_calculator'){
@@ -2074,7 +2180,8 @@ Debug.write("changeCurrItemData");
                         			toolstate = 'disable';
                         		}
                         	}
-                        	else{
+                        	else {
+	                        	checkTNorFCATrefCard(i); // check if any of the fixed formula cards are accommodated	
 								toolstate = 'up';
                         	}
                             break;
@@ -2084,38 +2191,79 @@ Debug.write("changeCurrItemData");
                         default:
 //                            Debug.warn ('INIT MANIPULATIVE DATA: cant handle ', dntoolbar.attributes [i]);
                     }
+					
+					//check if formula card resource attribute is present, get its value 
+					if(i == 'formula_card_resource' && dntoolbar.attributes [i] != null) {
+						this.setAttribute("formulaCardResource", dntoolbar.attributes [i]); // store the card swf name to an attribute 
+						this.setAttribute("hasDynamicRefCard", true); // to check that item has dynamic ref card
+						toolstate = 'up';
+					}
 
-                    if (this._isGlobalManipulator (i)) {
-                        if (initglobal) dnglobal.setAttr (i, toolstate);
+                    if (this._isGlobalManipulator (i)) {  // disable highlighter if student does not get it
+                        if (initglobal){
+                        	if(i == 'highlighter' && !this.showHighlighter){
+                        		dnglobal.setAttr('highlighter', 'disable');
+                        	}
+                        	else {
+                        	   	dnglobal.setAttr (i, toolstate);
+                        	}
+                        }
+                      if (i == 'scratchpad' && dnglobal.getAttr(i) != 'disable'){  // force override scratchpad to obey global value
+                       		dnglobal.setAttr(i, scratchpadOpen ? 'sel' : 'up');
+                      }
                     } else if (initgeneral) {
                         dngeneral.setAttr (i, toolstate);
                     }
-                }
-            }
-        ]]></method>
 
-        <method name="setManipulativeSelState" args="which, value">
+                }
+
+				// if item has fixed card and dynamic card both,in that case dynamic card will be disabled 
+				if(hasTNorFCATrefCard) {
+					dngeneral.setAttr('formula_card_resource', 'disable');
+				}
+
+				//set To default values
+				hasDynamicRefCard = false;	
+				hasTNorFCATrefCard = false;	
+				formulaCardResource = null;
+				
+            }
+       ]]></method>
+
+        <method name="setManipulativeSelState" args="which, value"><![CDATA[
+
             var dn;
 
             if (this._isGlobalManipulator (which)) {
                 dn = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');
+                if(this._isRadioGlobalManipulator(which)){
                 //make global manipulators act like radio buttons
-                if (value == 'sel') {
-                    for (var i in dn.attributes) {
-                        if (i != which) dn.setAttr (i, 'up');
-                    }
-                }
-            } else {
+	                if (value == 'sel') {
+	                    for (var i in dn.attributes) {
+	                        if (i != which){
+	                        	if(!((i == 'highlighter' && !this.showHighlighter) || i == 'scratchpad')){
+	                        		dn.setAttr (i, 'up');
+	                        	}
+	                        }
+	                    }
+	                }
+	            } 
+	        } else {
                 dn = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/general');
             }
 
             var dp = new LzDatapointer ();
             dp.setPointer (dn);
             var dnmanip = dp.xpathQuery (which);
-            
+
             if (value == 'sel') {
                 if (!dnmanip) {
                     dnmanip = new LzDataElement (which, {}, []);
+
+			var fCardrsrc = dpstudentdata.xpathQuery('current_item/item_model/toolbar/@formula_card_resource');
+					if(which == 'formula_card_resource' && fCardrsrc != null) {						
+						dnmanip.setAttr('src', fCardrsrc);
+					}
                     dn.appendChild (dnmanip);
                 }
             } else if (!this._isGlobalManipulator (which)) {
@@ -2123,20 +2271,34 @@ Debug.write("changeCurrItemData");
                     dn.removeChild (dnmanip);
                 }
             }
+            
+            if(which == 'scratchpad'){  // keep track of scratchpad state globally
+				this.setAttribute('scratchpadOpen', value=='sel');
+            }
             dn.setAttr (which, value);
-        </method>
+        ]]></method>
 
 
 
         <method name="_isGlobalManipulator" args="manipname">
+            var result = false;
+            if(_isRadioGlobalManipulator(manipname) ||
+                manipname == 'scratchpad') {
+                result = true;
+            }
+            return result;
+        </method>
+
+		<method name="_isRadioGlobalManipulator" args="manipname">
+			var result = false;
             if (manipname == 'highlighter' || 
                 manipname == 'eraser' || 
                 manipname == 'option_eliminator') {
-                return true;
+                result = true;
             }
-            return false;
-        </method>
-
+            return result;
+		</method>
+		
         <method name="toNumString" args="b">
             if ( typeof( b ) == 'boolean' ) {
                 return b ? '1' : '0';
@@ -2179,7 +2341,7 @@ Debug.write("changeCurrItemData");
                     // NK : Need to remove this later XXXX
                     //theStyle.setAttr("font_magnification", 1.5);
                 	if( theStyle.getAttr("font_magnification") > 1) {
-Debug.write("hasFontAccommodation is true");
+//Debug.write("hasFontAccommodation is true");
                     	this.setAttribute("hasFontAccommodation", true);
                     }
                     if(theStyle.hasAttr('bgcolor')){
@@ -2201,14 +2363,14 @@ Debug.write("hasFontAccommodation is true");
                     if(theStyle.hasAttr('bgcolor')){
                     	var bgclor = theStyle.getAttr('bgcolor');
                     	if(bgclor.length > 0){
-Debug.write("Controller setting answerBgColor: " + bgclor);
+//Debug.write("Controller setting answerBgColor: " + bgclor);
                     		this.setAttribute('answerBgColor', bgclor);
                     	}
                     }
                     if(theStyle.hasAttr('font_color')){
                     	var fgclor = theStyle.getAttr('font_color');
                     	if(fgclor.length > 0){
-Debug.write("Controller setting answerFontColor: " + fgclor);
+//Debug.write("Controller setting answerFontColor: " + fgclor);
                     		this.setAttribute('answerFontColor', fgclor);
                     	}
                     }
@@ -2544,9 +2706,10 @@ Debug.write("Controller setting answerFontColor: " + fgclor);
 					// get text to substitute for this input field
 					endIndex = remainder.indexOf('%', startIndex + 7);
 					widgetId = remainder.substring(startIndex+1, endIndex);
-					var inputText = getTextForInputField(widgetId);
-					result = result + inputText;
-					remainder = remainder.substring(endIndex + 1, remainder.length);
+					var widgetText = getTextForInputField(widgetId);
+					result = result + widgetText;
+					remainder = remainder.substring(endIndex + 1, remainder.length);//remainder.indexOf('%widget', endIndex + 1));
+					startIndex=0;
 				}
 				else{  // no more substition strings - add rest of string
 					result = result + remainder.substring(0, remainder.length);
@@ -2559,13 +2722,16 @@ Debug.write("Controller setting answerFontColor: " + fgclor);
 			var result = "";
 			var crField;
 			var crFieldWidgetId;
-			for(var i = 0; i<this.crFields.length; i++){
-				crField = this.crFields[i];
-				crFieldWidgetId = crField['widget_id'];
-				if(widgetId == crFieldWidgetId){
-					result = crField['answer'];
+			//if(this.hasCrField(widgetId)){
+				for(var i = 0; i<this.crFields.length; i++){
+					crField = this.crFields[i];
+					crFieldWidgetId = crField['widget_id'];
+					if(widgetId == crFieldWidgetId){
+						result = crField['answer'];
+					}
 				}
-			}
+			//}//else Debug.write(dpitem.xpathQuery(widgetID).getAttr('alt_text'));
+			//FIXME:The alt text of inline images are not being obtained and sent back
 			if(result == '' || result == null || typeof result == "undefined"){
 				result = "blank";
 			}
@@ -2577,6 +2743,18 @@ Debug.write("Controller setting answerFontColor: " + fgclor);
         	gTutorial.setVisible(false);
         	gItemInterface.setVisible(true);
         </method>
+
+		<!-- 
+			If any of the fixed formula cards is required, 
+			set a boolean attribute to true. 
+		 -->
+		<method name="checkTNorFCATrefCard" args="tool"><![CDATA[
+           	if(tool == 'FCAT_formula_card' || tool == 'TN_formula_card'){
+				this.setAttribute("hasTNorFCATrefCard", true);
+				return true;	
+			}
+			return false;
+		]]></method>
     </node>
 
 </library>

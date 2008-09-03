@@ -32,6 +32,9 @@
     	<attribute name="STATUS_CODE" type="string" value="status_code"/>
     	<attribute name="CONTENT_ERROR_CODE"   type="string" value="TDC210"/>
     	<attribute name="CONTENT_TIMEOUT_CODE" type="string" value="TDC211"/>
+    	<attribute name="SPEECH_ERROR_CODE" type="string" value="558"/>
+    	<attribute name="NETWORK_ERROR_CODE" type="string" value="556"/>
+    	
     	
 		<method name="getContentErrorXml">
 			dp.setXPath("contentErrorDs:/ERROR/CODE");
@@ -40,6 +43,20 @@
 			return dp.serialize();
 		</method>
 		
+		<method name="getSpeechErrorXml">
+			return getErrorXml(SPEECH_ERROR_CODE);
+		</method>
+		
+    	<method name="getErrorXml" args="code">
+    		if(code == null || typeof code == 'undefined'){
+    			code = NETWORK_ERROR_CODE;
+    		}
+			dp.setXPath("errorDs:/ERROR/CODE");
+			dp.setNodeText(code);
+			dp.setXPath("errorDs:/ERROR");
+			return dp.serialize();
+    	</method>
+    	
 		<method name="getContentTimeoutXml">
 			dp.setXPath("contentErrorDs:/ERROR/CODE");
 			dp.setNodeText(CONTENT_TIMEOUT_CODE);
@@ -100,13 +117,13 @@
     		if(params == null){  // ast 
     			dp.addNodeFromPointer(_getAstDp());
     		}
-    		else{ // ist and or lev 
+    		else{ // ist / lev / sp 
     			if(params[0] != null){
     				dp.addNodeFromPointer(_getLevDp(params[0]));
     			}
     			if(params[1] != null){
     				dp.addNodeFromPointer(_getIstDp(params[1]));
-    			}
+     			}
     		}
 //    		if(tsdParams != null &amp;&amp; tsdParams.length &gt; 0){
 //    			dp.addNodeFromPointer(_getTsdDp(lsid, scid, mseq, cid, tsdParams));
@@ -146,6 +163,8 @@
 	    	dp3.setNodeText(params[6]);
 	    	dp3.setXPath("istDs:/ist/ov/v");
 	    	dp3.setNodeText(params[7]);
+	    	dp3.setXPath("istDs:/ist/isc/sp");
+	    	dp3.setNodeText(params[8]);
     		dp3.setXPath("istDs:/ist");
      		return dp3;
     	</method>
@@ -228,12 +247,6 @@
      		dp.setXPath("feedbackDs:/adssvc_request");
     		return dp.serialize();
       	</method>
-    	
-    	<method name="getErrorXml">
-    		dp.setXPath("errorDs:/");
-    		dp.selectChild();
-    		return dp.serialize();
-    	</method>
     	
     	<method name="getFeedbackErrorXml">
     		dp.setXPath("feedbackErrorDs:/");

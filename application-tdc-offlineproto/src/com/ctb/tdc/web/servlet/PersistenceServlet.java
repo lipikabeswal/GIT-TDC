@@ -221,14 +221,21 @@ public class PersistenceServlet extends HttpServlet {
     private String feedback(String xml) {
         String result = ServletUtils.ERROR;
         try {
-            // sent feedback request to TMS
-            result = ServletUtils.httpClientSendRequest(ServletUtils.FEEDBACK_METHOD, xml);
-            if (ServletUtils.isStatusOK(result)) {
-                logger.info("Get feedback successfully.");                
-            }
-            else {
-                logger.error("TMS returns error in feedback() : " + result);                
-            }
+        	int TMSRetry = 5;
+        	while (TMSRetry > 0) {
+	            // sent feedback request to TMS
+	            result = ServletUtils.httpClientSendRequest(ServletUtils.FEEDBACK_METHOD, xml);
+	            if (ServletUtils.isStatusOK(result)) {
+	                logger.info("Get feedback successful.");
+	                TMSRetry = 0;
+	            }
+	            else {
+	                logger.error("TMS returns error in feedback() : " + result);    
+	                logger.error("Retrying . . .");
+	                Thread.sleep(2 * ServletUtils.SECOND);
+	                TMSRetry--;
+	            }
+        	}
         } 
         catch (Exception e) {
             logger.error("Exception occured in feedback() : " + ServletUtils.printStackTrace(e));
@@ -284,15 +291,23 @@ public class PersistenceServlet extends HttpServlet {
                     if (state != null) {
                     	// message was added to pending list in cache,
 	                    // send save request to TMS
-	                    String tmsResponse = ServletUtils.httpClientSendRequest(ServletUtils.SAVE_METHOD, xml);
-	                    
-	                    // if OK return from TMS, set acknowledge state
-	                    if (ServletUtils.isStatusOK(tmsResponse)) {
-	                        memoryCache.setAcknowledgeState(state);
-	                    }
-	                    else {
-	                        logger.error("TMS returns error in save() : " + tmsResponse);                                        
-	                    }
+                    	int TMSRetry = 5;
+                    	String tmsResponse = "";
+                    	while(TMSRetry > 0) {
+                    		tmsResponse = ServletUtils.httpClientSendRequest(ServletUtils.SAVE_METHOD, xml);
+		                    
+		                    // if OK return from TMS, set acknowledge state
+		                    if (ServletUtils.isStatusOK(tmsResponse)) {
+		                        memoryCache.setAcknowledgeState(state);
+		                        TMSRetry = 0;
+		                    }
+		                    else {
+		                        logger.error("TMS returns error in save() : " + tmsResponse);
+		                        logger.error("Retrying . . .");
+		                        Thread.sleep(2 * ServletUtils.SECOND);
+			                    TMSRetry--;
+		                    }
+                    	}
 	                    if(isEndSubtest){
 	                    	result = tmsResponse;
 	                    }

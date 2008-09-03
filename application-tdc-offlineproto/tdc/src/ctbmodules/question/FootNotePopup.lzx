@@ -16,6 +16,7 @@
     <!-- Display styles for the header of the footnote -->
 	<attribute name="NORMAL_DISPLAY_STYLE" type="string" value="NORMAL" />
 	<attribute name="BOOKTITLE_DISPLAY_STYLE" type="string" value="BOOKTITLE" />
+	<attribute name="readingFootNote" type="boolean" value="false" />
 	
     <method name="findScrollingTextPanel" args="inDP">
         if(inDP.getNodeName() == gCompTypes.WIDGET_SCROLLING_TEXT_PANEL) {
@@ -78,7 +79,8 @@
 	
 	<method name="readMe"><![CDATA[
 		if(this.readable){
-       		gReadableText.read(this.body.wrap.header.text + ", " + this.body.wrap.detail.text);
+			gReadableText.read(gReadableText.stripHtmlTags(this.body.wrap.header.text + ", " + this.body.wrap.detail.text));
+			this.setAttribute("readingFootNote", true);
        	}
 	]]></method>
 	
@@ -199,6 +201,10 @@
 	
     <method name="hide">
         this.setAttribute("visible", false);
+        if(this.readingFootNote == true){
+        		gReadableText.stopReading();
+         		this.setAttribute("readingFootNote",false);
+        	}   
         this.clickdel.unregisterAll();
     </method>
     

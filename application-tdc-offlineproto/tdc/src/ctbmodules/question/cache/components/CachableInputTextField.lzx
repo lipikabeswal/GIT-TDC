@@ -37,7 +37,8 @@
         
 		<method name="setText" args="txt">
 			thetext.setAttribute('text', txt);
-			thetext.setWidth(thetext.getWidth() + 1);
+			//no need for this
+			//thetext.setWidth(thetext.getWidth() + 1);
 		</method>
 		
 		<method name="setAltText" args="altTxt">
@@ -59,7 +60,7 @@
 
         <method name="read" args="s">
         	var txt = gController.substituteInputText(this.readableText);
-            gReadableText.read(txt);
+			gReadableText.read(gReadableText.getReadableTextForCharacter(txt));
         </method>
 
 
@@ -87,6 +88,21 @@
            <text name="thetext" multiline="false" resize="true"
                fgcolor="${classroot.fontcolor}"
                fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" width="1">
+               <handler name="onwidth" args="w"><![CDATA[
+					var xin = classroot.parent.parent.getAttribute("comptype") == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
+//					Debug.write('xin..', classroot.parent.parent, classroot.parent.parent.getAttribute("comptype"));	
+					if(this.width > classroot.parent.width - xin) {
+//					Debug.write('this.width, parent.width - xin..',this.width, parent.width - xin);
+						this.setResize(false);
+						this.setMultiline(true);
+						this.setWidth(classroot.parent.width - xin);
+						this.setHeight(this.getTextHeight() + 6);
+					}
+					else {
+						this.setResize(true);
+						this.setMultiline(false);
+					}
+               ]]></handler>
            </text>
  	</class>
 </library>

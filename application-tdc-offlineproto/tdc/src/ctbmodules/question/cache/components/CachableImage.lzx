@@ -22,7 +22,7 @@
        <attribute name="retrycount" value="0"/>
        <attribute name="timeoutretrycount" value="0"/>
        <attribute name="servletBase" type="string" />
-       
+       <attribute name="verticalAlign" type="string"/>       
         <!-- ================================
              method
              ================================= -->
@@ -91,9 +91,18 @@
 			this.setAttribute("width", null);
 			this.imageview.setAttribute("height", null);
 			this.imageview.setAttribute("width", null);
-			
-			var theSrc = getImageUrl(data.getAttr('src'));
-
+			var theSrc = "";
+	
+	//Image url may come in either attribute name "src" or "image_ref", so take care of both.
+			if(data.hasAttr('src')) {
+				theSrc = getImageUrl(data.getAttr('src'));
+			}
+			else {
+				if(data.hasAttr('image_ref')) {
+					theSrc = getImageUrl(data.getAttr('image_ref'));
+				}
+			}
+				
 			if (data.hasAttr ('width')) {
     			this.setAttribute ('width', Number (data.getAttr ('width')));
 			} else {
@@ -106,6 +115,9 @@
                 this.setAttribute ('height', null);
             }
 
+			if (data.hasAttr ('valign')) {
+				this.setAttribute ('verticalAlign', data.getAttr ('valign'));
+			}
             //
             // When the XML attribute enlargeable is set to 
             // "yes"		 : Display a zoom button for all users 
@@ -210,11 +222,19 @@
                     newh = factor * this.height;
                 }
 
+				/** since, same class is used for inline images so,
+				  * when used as inline image, the factor will  
+				  * always be related to fontsize and not to the 
+				  * position of the image */
+				if((this.parent instanceof CachableTextField) && this.parent['embedded_inline_image'] == true) {
+					factor = fontmag;
+                    newh = factor * this.height;
+				}
+
                 //set the size
                 this.imageview.setAttribute("stretches", "both");
                 this.imageview.setAttribute("width", this.width * factor);
                 this.imageview.setAttribute("height", newh);
-
                 // Allow this panel to grow to reflect font size
                 this.setWidth(null);
                 this.setHeight(null);
@@ -283,7 +303,7 @@
                         gCommunicator.checkShowError(gXmlHelper.getContentErrorXml());
                     }
                 } else {
-                    classroot.doneLoading();
+					classroot.doneLoading();
                 }
             ]]></method>
             

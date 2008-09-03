@@ -65,7 +65,9 @@
             this.setAttribute ('xpos', this.width/2);
             this.setAttribute ('ypos', this.height);
         </method>
-
+		<handler name="onmousedown">
+			this.bringToFront();
+		</handler>
 
         <method event="ondata" args="data"><![CDATA[
             var hasstate = false;
@@ -79,6 +81,10 @@
 
                 this.setAttribute ('x', data.getAttr ('x'));
                 this.setAttribute ('y', data.getAttr ('y'));
+	            // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
+	            if(gScratchpad.visible){
+	                gScratchpad.bringToFront();
+	            }
             } else {
                 this.setAttribute ('rotation', 0);
 
@@ -92,6 +98,7 @@
                     data.setAttr ('y', this.y);
                 }
             }
+            
         ]]></method>
 
 
@@ -158,6 +165,7 @@
                 gController.clearAndRestoreCurrentCursor();
             </method>
             <method event="onmousedown">
+            	classroot.bringToFront();
                 LzCursor.setCursorGlobal ('grabbing_cursor');
                 LzCursor.lock ();
                 classroot.dragger.apply ();
@@ -174,7 +182,7 @@
 
 
         <view resource="protractorRotator_rsrc" y="110" x="${classroot.width-45}"
-              onmousedown="classroot.startRotate ()" 
+              onmousedown="classroot.bringToFront(); classroot.startRotate (); " 
               onmouseup="classroot.endRotate()"/>
     </class>
 

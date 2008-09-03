@@ -40,6 +40,13 @@
 		<frame src="iknow_toolbar/toolbar_eraser_disabled.swf"/>
 	</resource>
 
+	<!-- Toolbar Button scartchpad-->
+	<resource name="toolbar_scratchpad_btn">      
+		<frame src="iknow_toolbar/toolbar_scratchpad_off.swf"/>   
+		<frame src="iknow_toolbar/toolbar_scratchpad_on.swf"/>        
+		<frame src="iknow_toolbar/toolbar_scratchpad_disabled.swf"/>
+	</resource>
+
 	<!-- Toolbar Button straight edge-->
 	<resource name="toolbar_straight_edge_btn">      
 		<frame src="iknow_toolbar/toolbar_straightedge_off.swf"/>   

@@ -104,10 +104,8 @@
             	column.selectThisColumn();
             	var txt = this.getReadableTextForButton();
                 if (this.column.responseval == this.value) {
-                    gReadableText.read("selection removed.");
                     this.column.clear ();
                 } else {
-                	gReadableText.read(txt + " selected.");
                     gController.setGrState( column.data.getOffset(),
                                                 this.value );
                 }

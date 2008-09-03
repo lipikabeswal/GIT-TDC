@@ -75,7 +75,11 @@
 		</method>
 		
 		<method name="read">
-			gReadableText.read(answer.getSelectedText());
+			var txt = answer.getSelectedText();
+			if(txt.length == 0){
+				txt = gReadableText.getReadableTextForCharacter(' ');
+			}
+			gReadableText.read(txt);
 		</method>
 		<method name="setSelectionVars">
 			answer.setSelectionVars();

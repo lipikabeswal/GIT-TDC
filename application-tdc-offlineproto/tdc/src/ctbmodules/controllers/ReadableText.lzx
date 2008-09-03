@@ -3,10 +3,9 @@
 			 type="http"
 	         queuerequests="true" 
 	         querytype="post"
-	         timeout="30000" 
-	         onerror="gRequest.requestError()" 
-	         ontimeout="gRequest.requestTimeout()" 
+	         timeout="5000" 
 	         ondata="gReadableText.getMp3()" />
+ 
     <text visible="false" width="0" height="0"
           id="gReadableText" oninit="sendToBack()" options="ignorelayout">
 
@@ -16,11 +15,13 @@
 		<attribute name="READ_SPACE" type="string" value="blank" />
 		<attribute name="READ_PERIOD" type="string" value="point" />
 		<attribute name="READ_SLASH" type="string" value="slash" />
+		<attribute name="READ_SELECTION_REMOVED" type="string" value="selection removed." />
 	    <attribute name="GET_URL" type="string" />
 	    <attribute name="TEXT_PARAM" type="string" value="text" />
 	    <attribute name="primed" type="boolean" value="false" />
-		<attribute name="dpleaseWait" value="$once{new LzDelegate(this, 'pleaseWait')}" />
-		<attribute name="PLEASE_WAIT_INTERVAL" type="number" value="3000" />
+		<attribute name="dTimeout" value="$once{new LzDelegate(this, 'timedout')}" />
+		<attribute name="TIMEOUT_INTERVAL" type="number" value="5000" />
+		<attribute name="readingScratchpad" type="boolean" value="false" />
 		
         <method name="init">
             super.init();
@@ -37,34 +38,46 @@
 			var getUrl = postUrl + '?file=speech.mp3';
 			setAttribute('GET_URL', getUrl);
 			speechDs.setSrc(postUrl);
-			doRead("Welcome");
 		</method>
 		
-        <method name="read" args="txt"><![CDATA[
-//        	txt = trim(txt);
-//        	txt = getBigText();
-//        	if ( isReadable && clickable && txt.length > 0){
-//        		//doRead(txt);
-//        		doRead(txt);
-// 	        	gController.freezeUI();
-//            }
-        ]]></method>
-<?ignore     to test please wait   
-        <method name="getBigText"><![CDATA[
-        	var result = "";
-        	for(var i=0; i<4000; i++){
-        		result = result + i + " ";
+		<method name="getSelectionRemoved">
+			return READ_SELECTION_REMOVED;
+		</method>
+		
+        <method name="read" args="txt, fromSp"><![CDATA[
+        	if(fromSp == true){
+        		gReadableText.setAttribute("readingScratchpad", true);
         	}
-        	return result;
+        	else{
+        		gReadableText.setAttribute("readingScratchpad", false);
+        	}
+        	txt = trim(txt);
+        	if ( isReadable && clickable && txt.length > 0){
+        		doRead(txt);
+ 	        	gController.freezeUI();
+            }
         ]]></method>
-?>
+
+		<method name="stripHtmlTags" args="txt"><![CDATA[
+			if(txt != null && typeof txt != 'undefined' && txt.length > 0){
+	       		this.setText(txt);
+				return this.__LZtextclip.text;
+			}
+			else{
+				return "";
+			}
+		]]></method>
+		
+		<method name="timedout">
+	        LzTimer.removeTimer( dTimeout );
+			gCommunicator.finishCall(gXmlHelper.getSpeechErrorXml());
+		</method>
+		
         <method name="doRead" args="txt"><![CDATA[
- // 	    	stopReading();
-//	       	this.setText(txt);
-//	        var readableText = this.__LZtextclip.text;
-// 	        speechDs.setQueryParam(TEXT_PARAM, readableText);
-//			speechDs.doRequest();
-//			LzTimer.resetTimer(this.dpleaseWait, PLEASE_WAIT_INTERVAL);
+			LzTimer.resetTimer(this.dTimeout, TIMEOUT_INTERVAL);
+ 	    	stopReading();
+ 	        speechDs.setQueryParam(TEXT_PARAM, txt);
+			speechDs.doRequest();
        ]]></method>
         
         <method name="getMp3" >
@@ -97,22 +110,23 @@
                              eraserFlag != 'sel' &amp;&amp;
                              canvas.readable
                            }"/>
-        <method name="stopReading">
-        	audioPlayer.stop();
-        </method>
+        <method name="stopReading" args="fromSp"><![CDATA[
+        	if(fromSp != true || (fromSp == true && gReadableText.readingScratchpad)){
+        		audioPlayer.stop();
+        	}
+        ]]></method>
         
         <view name="audioPlayer" visible="false" >
         	<handler name="onload">
-        		LzTimer.removeTimer( parent.dpleaseWait );
-        		gPleaseWaitPopup.hide();
-        		if(parent.primed){
-//Debug.write("audioPlayer.onload - remove timer, hide please wait popup");
-        			gController.unlockUI();
-        		}
-        		else{
-//Debug.write("audioPlayer.onload - set primed to true");
-        			parent.setAttribute('primed', true);
-        		}
+        		if(!gCommunicator.error){  // if we get an onload and there is no error
+	        		LzTimer.removeTimer( parent.dTimeout );
+	        		if(parent.primed){
+		       			gController.unlockUI();
+	        		}
+	        		else{
+	        			parent.setAttribute('primed', true);
+	        		}
+	        	}
         	</handler>
          </view>
     </text>

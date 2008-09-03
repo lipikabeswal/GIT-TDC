@@ -22,7 +22,9 @@
                                       classroot.panel.bgcolor,
                                       classroot.panel.stereotype);
 
-                gController.setManipulativeSelState ("highlighter", "up");
+                if(gController.showHighlighter){
+                	gController.setManipulativeSelState ("highlighter", "up");
+                }
                 gController.setManipulativeSelState ("eraser", "up");
                 gController.setManipulativeSelState ("option_eliminator", "up");
 

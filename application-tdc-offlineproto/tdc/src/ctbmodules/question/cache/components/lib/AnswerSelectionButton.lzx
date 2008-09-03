@@ -33,10 +33,6 @@
         <attribute name="enabled" value="${ uienabled == 'true' }"/>
         <attribute name="clickable" value="${ uienabled == 'true' }"/>
 
-        <method name="grayOut" args="e" event="onuienabled">
-            setAttribute( 'opacity', 'true' == e ? 1 : 0.5 );
-        </method>
-
         <method event="oninit">
             this.eliminatorstatus.setAttribute ('rerunxpath', true);
             this.eliminatorstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@option_eliminator')
@@ -63,10 +59,12 @@
 
         <method event="onclick"><![CDATA[
             if (this.eliminatorstatus.data == 'sel') {
+            	gReadableText.read(getReadableTextForEliminator(this.type, this.selstate !='e'));
                 gController.setItemSelState (this.type, 
                                                  this.selstate == 'e' ? 'n' : 'e');
             } else if (this.eraserstatus.data == 'sel' && this.selstate == 'e') {
-                gController.setItemSelState (this.type, 'n');
+            	//gReadableText.read(getReadableTextForEliminator(this.type, this.selstate !='e'));//will not read when in eraser mode TDFR05.1.8
+            	gController.setItemSelState (this.type, 'n');
                 gController.clearCurrentCursor();
             } else {
              	gReadableText.read(getReadableTextForSelection(this.type, this.selstate != 's'));
@@ -81,7 +79,16 @@
 				return (letter + ". selected.");
 			}
 			else{
-				return "selection removed.";
+				return gReadableText.getSelectionRemoved();
+			}
+		</method>
+
+		<method name="getReadableTextForEliminator" args="letter, isSelecting">
+			if(isSelecting){
+				return (letter + ". eliminated.");
+			}
+			else{
+				return (letter+ ". option elimination removed.");
 			}
 		</method>
 		

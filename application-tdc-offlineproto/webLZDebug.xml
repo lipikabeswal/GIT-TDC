@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee   http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	 <filter>
+		<filter-name>NoCacheFilter</filter-name>
+		<filter-class>com.ctb.util.web.filter.NoCacheFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>SecurityFilter</filter-name>
+		<filter-class>com.ctb.tdc.web.filter.SecurityFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>NoCacheFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>SecurityFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<listener>
+		<listener-class>com.ctb.tdc.web.listener.StartupListener</listener-class>
+	</listener>
+<!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
+* Copyright 2001-2005 Laszlo Systems, Inc.  All Rights Reserved.              *
+* Use is subject to license terms.                                            *
+* ************************************************************************* -->
+
+	<display-name>OpenLaszlo Server</display-name>
+	<description/>
+	<servlet>
+		<servlet-name>LPS</servlet-name>
+		<servlet-class>org.openlaszlo.servlets.LZServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>LZViewer</servlet-name>
+		<servlet-class>org.openlaszlo.servlets.LZViewer</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AuthenticationServlet</servlet-name>
+		<servlet-class>AuthenticationServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AxisServlet</servlet-name>
+		<servlet-class>org.apache.axis.transport.http.AxisServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LPS</servlet-name>
+		<url-pattern>*.lzx</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LPS</servlet-name>
+		<url-pattern>*.lzo</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LZViewer</servlet-name>
+		<url-pattern>/LZViewer</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AuthenticationServlet</servlet-name>
+		<url-pattern>/AuthenticationServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>*.jws</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+<!-- * ************************************************************************
+* Copyright 2001-2005 Laszlo Systems, Inc.  All Rights Reserved.              *
+* Use is subject to license terms.                                            *
+* X_LZ_COPYRIGHT_END ****************************************************** -->
+
+
+	<servlet>
+		<description>SpeechServlet</description>
+		<display-name>SpeechServlet</display-name>
+		<servlet-name>SpeechServlet</servlet-name>
+		<servlet-class>com.ctb.tdc.web.servlet.SpeechServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>SpeechServlet</description>
+		<display-name>SpeechServlet</display-name>
+		<servlet-name>FSpeechServlet</servlet-name>
+		<servlet-class>com.ctb.tdc.web.servlet.fixed.SpeechServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>ContentServlet</description>
+		<display-name>ContentServlet</display-name>
+		<servlet-name>ContentServlet</servlet-name>
+		<servlet-class>com.ctb.tdc.web.servlet.ContentServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>ContentServlet</description>
+		<display-name>ContentServlet</display-name>
+		<servlet-name>FContentServlet</servlet-name>
+		<servlet-class>com.ctb.tdc.web.servlet.fixed.ContentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SpeechServlet</servlet-name>
+		<url-pattern>/servlet/SpeechServlet.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FSpeechServlet</servlet-name>
+		<url-pattern>/servlet/fixed/SpeechServlet.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ContentServlet</servlet-name>
+		<url-pattern>/servlet/ContentServlet.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FContentServlet</servlet-name>
+		<url-pattern>/servlet/fixed/ContentServlet.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description>PersistenceServlet</description>
+		<display-name>PersistenceServlet</display-name>
+		<servlet-name>PersistenceServlet</servlet-name>
+		<servlet-class>com.ctb.tdc.web.servlet.PersistenceServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>PersistenceServlet</description>
+		<display-name>PersistenceServlet</display-name>
+		<servlet-name>FPersistenceServlet</servlet-name>
+		<servlet-class>com.ctb.tdc.web.servlet.fixed.PersistenceServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PersistenceServlet</servlet-name>
+		<url-pattern>/servlet/PersistenceServlet.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FPersistenceServlet</servlet-name>
+		<url-pattern>/servlet/fixed/PersistenceServlet.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description>UtilityServlet</description>
+		<display-name>UtilityServlet</display-name>
+		<servlet-name>UtilityServlet</servlet-name>
+		<servlet-class>com.ctb.tdc.web.servlet.UtilityServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UtilityServlet</servlet-name>
+		<url-pattern>/servlet/UtilityServlet.do</url-pattern>
+	</servlet-mapping>
+</web-app>

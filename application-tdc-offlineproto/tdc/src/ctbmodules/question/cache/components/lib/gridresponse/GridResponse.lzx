@@ -71,7 +71,9 @@
 
             <method name="clearSelection">
                 super.clearSelection ();
-                LzFocus.clearFocus();
+				if(LzFocus.getFocus() instanceof GridResponseCol){
+                	LzFocus.clearFocus();
+                }
                 this.clickdel.disable ();
             </method>
 

@@ -17,5 +17,6 @@
 <include href="formatbtn.lzx"/>
 <include href="cpbtn.lzx"/>
 <include href="linkdialog.lzx"/>
+<include href="scrollrichedittext.lzx"/>
 
 </library>

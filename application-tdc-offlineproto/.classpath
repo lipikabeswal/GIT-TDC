@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="com.genuitec.eclipse.j2eedt.core.J2EE14_CONTAINER"/>
 	<classpathentry kind="lib" path="servletcontainer/jetty-5.1.11RC0/ext/log4j.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/jdom.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/CommunicatorS.jar"/>
@@ -13,7 +11,8 @@
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/Schemas.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/xbean.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/xerces.jar"/>
-	<classpathentry kind="lib" path="dist/servletcontainer/jetty-5.1.11RC0/lib/javax.servlet.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/jl1.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JDK 150_04"/>
+	<classpathentry kind="lib" path="servletcontainer/jetty-5.1.11RC0/lib/javax.servlet.jar"/>
 	<classpathentry kind="output" path="webapp/WEB-INF/classes"/>
 </classpath>

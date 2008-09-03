@@ -99,15 +99,18 @@
                 <basebutton name="btnback" resource="go_back_btn" x="0"
                             enabled="${ classroot.uienabled == 'true' }"
                             onclick="gController.stepNavigateBack ()"
+                            disabledResourceNumber="1"
                             />
                 <basebutton name="btnforward" resource="go_on_btn" x="100"
                             enabled="${ classroot.uienabled == 'true' }"
                             onclick="gController.stepNavigateForward ()"
+                            disabledResourceNumber="1"
                             />
-                <basebutton name="btnfinish" resource="finish_test_btn"
+                <basebutton name="btnfinish" resource="finish_test_btn" id="gFinishTestButton"
                             enabled="${ classroot.uienabled == 'true' }"
                             visible="${!parent.btnforward.visible}" x="100"
                             onclick="gController.finishTest ()"
+                            disabledResourceNumber="1"
                             />
             </view>
             <multistatebutton name="markbtn" align="center"
@@ -116,11 +119,6 @@
                               maxstate="1" 
               				  onclick="gController.markQuestion (!classroot.iscurrmarked)"
               				  visible="${!classroot.theme}">
-
-                <method name="grayOut" args="e"
-                        event="onuienabled" reference="classroot">
-                    setAttribute( 'opacity', 'true' == e ? 1 : 0.5 );
-                </method>
             </multistatebutton>
         </view>
     </class>
