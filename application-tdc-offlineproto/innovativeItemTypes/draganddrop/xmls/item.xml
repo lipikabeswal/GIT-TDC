@@ -1,0 +1,24 @@
+		<drag_and_drop_area x="100" y="0" height="200" width="800" >
+			<container containerId="cont1" x="0" y="0" height="200" width="200" src="resources/redsquare.swf" >
+				<location locationId="loc1" x="10" y="10" />
+				<location locationId="loc2" x="10" y="100" />
+			</container>
+			<container containerId="cont2" x="210" y="0" height="200" width="200" src="resources/bluesquare.swf">
+				<location locationId="loc1" x="10" y="10" />
+				<location locationId="loc2" x="10" y="100" />
+				<location locationId="loc3" x="100" y="10" />
+				<location locationId="loc4" x="100" y="100" />
+			</container>
+			<container containerId="cont3" x="420" y="0" height="200" width="200" src="resources/greensquare.swf">
+				<location locationId="loc1" x="10" y="10" />
+				<location locationId="loc2" x="10" y="50" />
+			</container>
+			<object objectId="obj1" height="50" width="50" src="resources/blueball.swf" />
+			<object objectId="obj2" height="50" width="50" src="resources/greenball.swf" />
+			<object objectId="obj3" height="50" width="50" src="resources/redball.swf" />
+			<object objectId="obj4" height="50" width="50" src="resources/greenball.swf" />
+			<state objectId="obj1" containerId="cont1" locationId="loc1" />
+			<state objectId="obj2" containerId="cont1" locationId="loc2" />
+			<state objectId="obj3" containerId="cont2" locationId="loc1" />
+			<state objectId="obj4" containerId="cont2" locationId="loc2" />
+		</drag_and_drop_area>

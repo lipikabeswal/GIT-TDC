@@ -91,7 +91,6 @@
             field.setMaxLength(this.maxlength);
             this.setAttribute('bgcolor', Number(gController.answerBgColor));
 			this.setAttribute('fontcolor', Number(gController.answerFontColor));
-//Debug.write("field: ", field.getAttribute('height'), field.getAttribute('fontsize'));
             ]]>
         </method>
 
@@ -146,8 +145,9 @@
             x="5"
             y="0"
             width="${parent.width - 10}"
+			bgcolor="${Number(gController.answerBgColor)}"
 			fgcolor="${Number(gController.answerFontColor)}"
-            fontsize="${parent.fontsize}"
+			fontsize="${parent.fontsize}"
             pattern="[A-Za-z0-9!@:;#$%\^*()_\-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[]\\|`~ ]*" >
             
             <attribute name="start" type="number" value="0" />
@@ -158,6 +158,7 @@
 				 this.setSelection(0);
              </handler>
             
+
             <handler name="onblur" args="s">
             	this.setEnabled(true);
             	this.setAttribute('isCtrl', false);
@@ -201,6 +202,33 @@
 				  }
                   ]]>
             </handler>
+            <handler name="oninit"><![CDATA[ 
+                this.textclip = this.__LZtextclip;
+            ]]> 
+            </handler>
+            
+            
+ 			<!--onfocus handler, reference to this.textclip type LzText is required.  This references
+ 				LzText within view to register this handler to its onfocus event.  Warning will be fired
+ 				because this.textclip has not been defined, defined in onit handler JMC 10/14/08
+ 			-->
+            <handler name="onfocus" reference="this.textclip"> 
+            <![CDATA[ 
+                this.textColor = textclip.textColor;
+                this.fgcolor = textclip.textColor;
+                if(this.bgcolor == 0x000000 && this.textColor == 0xFFFFFF) 
+                { 
+                    this.setHighlight();
+                    this.textclip.textColor = 0x000000;//text set to black because transform reverses it
+                } 
+            ]]> 
+            </handler> 
+
+            <method name="setHighlight"> 
+            	var color = { ab: 0, aa: 100, bb: 0xff, ba: -100, gb: 0xff, ga: -100, rb:  0xff, ra: -100 }; 
+                this.setColorTransform(color); 
+            </method> 
+
 
             <method name="getFocusRect" >
                 return parent.getFocusRect();
@@ -231,7 +259,6 @@
                 this.draw();
             </method>
             <method event="onheight">
-//            Debug.write("ctb_edittext height: " + this.height);
                 this.draw();
             </method>
 

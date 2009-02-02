@@ -1,0 +1,28 @@
+<library>
+	<include href="droparea.lzx" />
+	<class name="droparearect" extends="droparea">
+	
+		<attribute name="_minX" />
+		<attribute name="_minY" />
+		<attribute name="_maxX" />
+		<attribute name="_maxY" />
+		
+		<method name="setup">
+            var vals = coords.split(','); 
+//Debug.write("coords", coords);
+            this.setAttribute('_minX', new Number(vals[0]));
+            this.setAttribute('_minY', new Number(vals[1]));
+            this.setAttribute('_maxX', new Number(vals[2]));
+            this.setAttribute('_maxY', new Number(vals[3]));
+            this.setAttribute("isSetup", true);
+//Debug.write("setup", _minX, _minY, _maxX, _maxY);
+		</method>
+		
+		<method name="contains" args="_x, _y"><![CDATA[
+			if(!isSetup){
+				setup();
+			}
+			return ((_x <= _maxX) && (_x >= _minX) && (_y <= _maxY) && (_y >= _minY));
+		]]></method>
+	</class>
+</library>

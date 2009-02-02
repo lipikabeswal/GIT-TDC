@@ -1,0 +1,24 @@
+<library>
+	<node id="gXmlHelper" >
+		
+ 		<method name="getDragAndDropResponseXml" args="states"><![CDATA[
+			var result = "<drag_and_drop_response>";
+			for(var i =0; i<states.length; i++){
+				result += states[i];
+			}
+			result += "</drag_and_drop_response>";
+			return result;
+		]]></method>
+		
+		<method name="set" args="obj, node, attr">
+			if(node.hasAttr(attr)){
+				if(attr == 'src'){
+					obj.setSource(node.getAttr(attr));
+				}
+				else {
+					obj.setAttribute(attr, new Number(node.getAttr(attr)));
+				}
+			}
+		</method>
+	</node>
+</library>

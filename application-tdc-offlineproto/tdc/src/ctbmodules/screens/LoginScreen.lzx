@@ -29,7 +29,7 @@
                 <b>Login ID:</b>
             </text>
             <edittext name="loginIdField" x="287"
-                      fontsize="12" width="265" pattern="[a-zA-Z0-9_]*"/>
+                      fontsize="12" width="265" pattern="[a-zA-Z0-9_\-]*"/>
         </view>
         <view name="pw">
             <text resize="true" valign="middle"

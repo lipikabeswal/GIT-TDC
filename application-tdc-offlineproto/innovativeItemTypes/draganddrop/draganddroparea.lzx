@@ -1,0 +1,237 @@
+<library>
+	<include href="draganddropcontainer.lzx" />
+	<include href="XmlHelper.lzx" />
+	<dataset name="dsState" />
+	<dataset name="dsItem" src="./canIDoThis/item.xml" type="http" />
+	
+	<class name="draganddroparea">
+		<attribute name="containers" value="$once{new Array()}" />
+		<attribute name="objects" value="$once{new Array()}" />
+		<attribute name="dp" value="$once{new LzDatapointer}" />
+	    
+	    <handler name="onload">
+//Debug.write("draganddroparea.onload", this.height, this.width, canvas.height, canvas.width);
+//		this.updateResourceSize();
+	    </handler>
+		<method name="setup" args="xml"><![CDATA[
+			var node = LzDataElement.stringToLzData(xml);
+			
+			set('src', node);
+//			set('x', node);
+//			set('y', node);
+//			set('height', node);
+//			set('width', node);
+			
+			dp.setPointer(node);
+			createContainers(getArray(dp.xpathQuery('container')));
+			createObjects(getArray(dp.xpathQuery('object')));
+			setState(getArray(dp.xpathQuery('state')));
+		]]></method>
+		
+		<method name="set" args="attr, node">
+			if(node.hasAttr(attr)){
+				if(attr == 'src'){
+					this.setSource(node.getAttr(attr));
+				}
+				else {
+//Debug.write("set dda attribute " + attr + " to " + node.getAttr(attr));
+					this.setAttribute(attr, new Number(node.getAttr(attr)));
+				}
+			}
+		</method>
+		
+		<method name="createContainers" args="nodes"><![CDATA[
+//Debug.write("createContainers", nodes);
+			clearContainers();
+			for(var i=0; i<nodes.length; i++){
+				var cid = nodes[i].getAttr('containerId');
+				var container = new lz.draganddropcontainer(this);
+				container.setup(nodes[i], this);
+//Debug.write("add container[' "+ cid + " ']", container);
+				containers.push(container);
+			}
+//Debug.write("containers.length", containers.length);
+		]]></method>
+
+		<method name="clearContainers" ><![CDATA[
+			for(var i=0; i<containers.length; i++){
+				containers[i].setAttribute('visible', false);
+			}
+			this.setAttribute('containers', new Array());
+		]]></method>
+
+		<method name="createObjects" args="nodes"><![CDATA[
+//Debug.write("createObjects", nodes);
+			clearObjects();
+			for(var i=0; i<nodes.length; i++){
+				var objid = nodes[i].getAttr('objectId');
+				var obj = new lz.dragobject(this);
+				obj.setup(nodes[i], this);
+				objects.push(obj);
+			}
+//Debug.write("objects.length", objects.length);
+		]]></method>
+
+		<method name="clearObjects" ><![CDATA[
+			for(var i=0; i<objects.length; i++){
+				objects[i].setAttribute('visible', false);
+			}
+			this.setAttribute('objects', new Array());
+		]]></method>
+
+		<method name="setState" args="nodes"><![CDATA[
+//Debug.write("setState", nodes.length, nodes);
+			clearState();
+			for(var i=0; i<nodes.length; i++){
+//Debug.write("nodes[" + i + "]", nodes[i]);
+				objid = nodes[i].getAttr('objectId');
+//Debug.write("call getObject(" + objid + ")");
+				var obj = getObject(objid);
+				obj.setState(nodes[i]);
+			}
+			dsState.setChildNodes(nodes);
+		]]></method>
+
+		<method name="getObject" args="objid"><![CDATA[
+//Debug.write("getObject", objid, objects.length);
+			for(var i=0; i<objects.length; i++){
+//Debug.write("objects[" + i + "]['objectId']", objects[i]['objectId']);
+				if(objects[i]['objectId'] == objid){
+					return objects[i];
+				}
+			}
+		]]></method>
+		
+		<method name="clearState"><![CDATA[
+			for(var i=0; i<containers.length; i++){
+				containers[i].clearLocations();
+			}
+		]]></method>
+		
+		<method name="getArray" args="nodes">
+			if(nodes instanceof LzDataNode){
+				return new Array(nodes);
+			}
+			else{
+				return nodes;
+			}
+		</method>
+		
+		<method name="getContainer" args="containerId"><![CDATA[
+//Debug.write("area.getContainer", containerId, containers.length);
+			for(var i=0; i<containers.length; i++){
+//Debug.write(containers[i], containers[i]['containerId']);
+				if(containers[i]['containerId']==containerId){
+					return containers[i];
+				}
+			}
+		]]></method>
+		
+		<method name="getResponse"><![CDATA[
+			var dpState = dsState.getPointer();
+			var arr = dpState.xpathQuery("state");
+			Debug.write("got " + arr.length + " state elements");
+			var result = gXmlHelper.getDragAndDropResponseXml(getArray(dpState.xpathQuery('state')));
+			Debug.write(result);
+			return formatXml(result);
+		 ]]></method>
+		
+        <method name="formatXml" args="txt"><![CDATA[
+        	var result = txt;
+        	if(typeof txt != "undefined"){
+        		result = replace(txt, '&', '&amp;');
+				result = replace(result, '<', '&lt;');
+				result = replace(result, '>', '&gt;');
+				result = replace(result, '"', '&quot;');
+				result = replace(result, "'", '&apos;');
+			}
+			return result;
+        ]]></method>
+                
+		<method name="replace" args="s, t, u"><![CDATA[
+			var i = s.indexOf(t);
+			var r = "";
+			if (i == -1) return s;
+			r += s.substring(0,i) + u;
+			if ( i + t.length < s.length)
+				r += replace(s.substring(i + t.length, s.length), t, u);
+			return r;
+		]]></method>
+
+		<method name="getContainerForId" args="containerId"><![CDATA[
+			var result = null;
+			var i =0;
+			do{
+				var container = containers[i];
+				if(container['containerId'] == containerId){
+					result = container;
+				}
+				else{
+					i++;
+				}
+			}
+			while ((result == null) && (i < containers.length));
+			return result;
+		]]></method>
+		
+		<method name="dropObject" args="obj"><![CDATA[
+			var dropX = this.getMouse('x');
+			var dropY = this.getMouse('y');
+			var droppedInContainer = false;
+//Debug.write("dropObject", dropX, dropY);
+			for(var i in containers){
+				var container = containers[i];
+//Debug.write("check container", container);
+				if(container.contains(dropX, dropY)){
+					droppedInContainer = true;
+					if(container == getContainerForObject(obj)){
+						obj.sendBackToStart();
+					}
+					else{
+						var addedLocationId = container.addObject(obj);
+						if(addedLocationId != 'not'){
+							removeObject(obj);
+							updateState(obj['objectId'], container['containerId'], addedLocationId);
+						}
+					}
+					break;
+				}
+			}
+//Debug.write("end dropObject");			
+			if(!droppedInContainer){
+				obj.sendBackToStart();
+			}
+			
+		]]></method>
+		
+		<method name="getContainerForObject" args="obj">
+			var dpState = dsState.getPointer();
+			var xpath = "state[@objectId='" + obj['objectId'] + "']";
+			var stateNode = dpState.xpathQuery(xpath);
+			return getContainer(stateNode.getAttr('containerId'));
+		</method>
+		
+		<method name="updateState" args="objid, contid, locid"><![CDATA[
+			var dpState = dsState.getPointer();
+			var xpath = "state[@objectId='" + objid + "']";
+			var stateNode = dpState.xpathQuery(xpath);
+			stateNode.setAttr('containerId', contid);
+			stateNode.setAttr('locationId', locid);
+		]]></method>
+		
+		<method name="removeObject" args="obj"><![CDATA[
+//Debug.write("area.removeObject", obj);
+			var dpState = dsState.getPointer();
+			var xpath = "state[@objectId='" + obj['objectId'] + "']";
+			var stateNode = dpState.xpathQuery(xpath);
+			var container = getContainer(stateNode.getAttr('containerId'));
+			container.releaseLocation(stateNode.getAttr('locationId'));
+		]]></method>
+		
+		<method name="setResponse" args="xml"><![CDATA[
+			var node = LzDataElement.stringToLzData(xml);
+			setState(node.childNodes);
+		]]></method>
+		
+	</class>
+</library>

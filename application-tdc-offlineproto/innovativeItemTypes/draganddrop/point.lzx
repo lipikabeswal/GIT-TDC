@@ -1,0 +1,6 @@
+<library>
+	<class name="point" >
+		<attribute name="ptX" type="number" />		
+		<attribute name="ptY" type="number" />		
+	</class>
+</library>

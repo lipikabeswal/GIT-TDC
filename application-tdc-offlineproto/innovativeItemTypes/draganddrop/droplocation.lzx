@@ -1,0 +1,10 @@
+<library>
+	<include href="dragobject.lzx" />
+	
+	<class name="droplocation" >
+		<attribute name="locationId" type="string" />
+		<attribute name="locationX" type="number" />
+		<attribute name="locationY" type="number" />
+		<attribute name="occupied" type="boolean" value="false" />
+	</class>
+</library>
