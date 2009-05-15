@@ -61,20 +61,20 @@
     <url-pattern>/servlet/SpeechServlet.do</url-pattern>
   </servlet-mapping>
   
-  <servlet-mapping>
+  <!-- <servlet-mapping>
     <servlet-name>FSpeechServlet</servlet-name>
     <url-pattern>/servlet/fixed/SpeechServlet.do</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
   
   <servlet-mapping>
     <servlet-name>ContentServlet</servlet-name>
     <url-pattern>/servlet/ContentServlet.do</url-pattern>
   </servlet-mapping>
   
-  <servlet-mapping>
+  <!-- <servlet-mapping>
     <servlet-name>FContentServlet</servlet-name>
     <url-pattern>/servlet/fixed/ContentServlet.do</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
   
   <servlet>
     <description>PersistenceServlet</description>
@@ -83,22 +83,22 @@
     <servlet-class>com.ctb.tdc.web.servlet.PersistenceServlet</servlet-class>
   </servlet>
 
-  <servlet>
+  <!-- <servlet>
     <description>PersistenceServlet</description>
     <display-name>PersistenceServlet</display-name>
     <servlet-name>FPersistenceServlet</servlet-name>
     <servlet-class>com.ctb.tdc.web.servlet.fixed.PersistenceServlet</servlet-class>
-  </servlet>
+  </servlet> -->
   
   <servlet-mapping>
     <servlet-name>PersistenceServlet</servlet-name>
     <url-pattern>/servlet/PersistenceServlet.do</url-pattern>
   </servlet-mapping>
   
-  <servlet-mapping>
+  <!-- <servlet-mapping>
     <servlet-name>FPersistenceServlet</servlet-name>
     <url-pattern>/servlet/fixed/PersistenceServlet.do</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
 
   <servlet>
     <description>UtilityServlet</description>
