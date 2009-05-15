@@ -35,12 +35,12 @@
     <servlet-class>com.ctb.tdc.web.servlet.SpeechServlet</servlet-class>
   </servlet>
   
-  <servlet>
+  <!-- <servlet>
     <description>SpeechServlet</description>
     <display-name>SpeechServlet</display-name>
     <servlet-name>FSpeechServlet</servlet-name>
     <servlet-class>com.ctb.tdc.web.servlet.SpeechServlet</servlet-class>
-  </servlet>
+  </servlet> -->
   
   <servlet>
     <description>ContentServlet</description>
@@ -49,12 +49,12 @@
     <servlet-class>com.ctb.tdc.web.servlet.ContentServlet</servlet-class>
   </servlet>
 
-  <servlet>
+  <!-- <servlet>
     <description>ContentServlet</description>
     <display-name>ContentServlet</display-name>
     <servlet-name>FContentServlet</servlet-name>
     <servlet-class>com.ctb.tdc.web.servlet.fixed.ContentServlet</servlet-class>
-  </servlet>
+  </servlet> -->
   
   <servlet-mapping>
     <servlet-name>SpeechServlet</servlet-name>
