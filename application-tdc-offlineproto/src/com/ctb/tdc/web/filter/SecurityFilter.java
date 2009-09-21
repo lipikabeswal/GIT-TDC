@@ -21,11 +21,11 @@ public class SecurityFilter implements Filter {
     {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        if( request.getRemoteHost().equalsIgnoreCase("localhost") || request.getRemoteHost().equals("127.0.0.1") ) {
+        //if( request.getRemoteHost().equalsIgnoreCase("localhost") || request.getRemoteHost().equals("127.0.0.1") ) {
             filterChain.doFilter(request, response);
-        } else {
-        	httpResponse.sendError(403);
-        }
+        //} else {
+        //	httpResponse.sendError(403);
+        //}
         
     }
 

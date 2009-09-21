@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <library>
-
     <class name="GoodbyeScreen">
-        
         <method name="shutdown">
-        Debug.write("do the do");
- //       		gReadableText.shutdown();
-        		LzTimer.addTimer( new LzDelegate( this, '_closeBrowser' ), 5000 );
+        	Debug.write("do the do");
+ 			// gReadableText.shutdown();
+        	LzTimer.addTimer( new LzDelegate( this, '_closeBrowser' ), 1000 );
         </method>
         <method event="onvisible">
-        Debug.write("onvisible: " + visible);
+        	Debug.write("onvisible: " + visible);
         	if(visible){
         		shutdown();
         	}
         </method>
         
         <method name="_closeBrowser">
-Debug.write("closeBrowser");
-            gCommunicator.closeTheLDB();
+	    	Debug.write("closeBrowser");
+	    	sendinglc = new LocalConnection();
+            sendinglc.send("ol_to_flex_connection", "closeApplication");
         </method>
         
-		<text font="Arial" fontsize="24" height="36" align="center" valign="middle"
-			fgcolor="white">Good-bye!</text>    
+		<text font="Arial" fontsize="24" height="36" align="center" valign="middle" fgcolor="white">Good-bye!</text>    
 	</class>
 </library>

@@ -320,7 +320,7 @@ public class ContentServlet extends HttpServlet {
 		HashMap assetMap = aMemoryCache.getAssetMap();
 		
 		//clear up image cache for each getItem call
-		assetMap.clear();
+		//assetMap.clear();
 
 		String xml = ServletUtils.getXml(request);
 		String itemId = null;
