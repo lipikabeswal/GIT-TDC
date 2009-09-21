@@ -1,0 +1,6 @@
+LIBRARY	lock
+
+EXPORTS
+	TaskSwitching_Enable_Disable
+	CtrlAltDel_Enable_Disable
+	Process_Desktop

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns:flexmdi="flexlib.mdi.containers.*" 
+    layout="absolute" width="100%" height="100%" backgroundColor="0x000000" showFlexChrome="false" alwaysInFront="true" 
+    invoke="handleOnInvoke(event)" applicationComplete="onReady()">
+
+	<mx:HTML name="tdccanvas" id="tdccanvas" location=""/>
+    <mx:Script>
+        <![CDATA[
+        	import flash.utils.setInterval;
+        	import mx.core.Window;
+            import mx.core.UIComponent;
+            import mx.controls.Button;
+            import mx.core.Application;
+            import mx.events.MenuEvent;
+            import flash.display.StageDisplayState;
+            
+            flash.net.LocalConnection;
+        	public var receivingLC:LocalConnection = new LocalConnection();
+            
+            private function onReady():void
+            {
+            	receivingLC.connect("ol_to_flex_connection");
+	            receivingLC.client = this;
+	            
+            	ExternalInterface
+            	fullscreen();
+                
+            }
+            
+            private function fullscreen():void
+            {
+            	stage.nativeWindow.maximize();
+            	tdccanvas.width = stage.fullScreenWidth;
+            	tdccanvas.height = stage.fullScreenHeight;
+            	stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+            }
+            
+            public function closeApplication():void {
+	            stage.nativeWindow.close();
+	        }
+            
+            private function handleOnInvoke(event:InvokeEvent):void {
+            	//this.tdccanvas.location = event.arguments.toString();
+
+            	var prefFile:File = event.currentDirectory;
+            	//var contents = prefFile.getDirectoryListing();
+				prefFile = prefFile.resolvePath("loc.cfg");
+				
+				var stream:FileStream = new FileStream();
+				stream.open(prefFile, FileMode.READ);
+				var loc:String = stream.readUTFBytes(stream.bytesAvailable);
+				stream.close();
+
+				this.tdccanvas.location = loc;
+            	// http://127.0.0.1:12345/login.html
+			}
+
+        ]]>
+    </mx:Script>
+    
+    
+</mx:WindowedApplication>
