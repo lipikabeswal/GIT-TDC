@@ -196,7 +196,15 @@
 		-->
 		<attribute name="formulaCardResource" value="false" type="string" />
 
-		
+		<!-- true if item has rationale tag -->
+		<attribute name="itemHasRationalNode" type="boolean" value="false"/>
+
+		<!-- Alphabet String-->
+		<attribute name="alphabetString" type="string" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ"/>	
+
+		<!-- True, if login response contains tts speed value-->
+		<attribute name="hasTTSspeed" type="string" value="false"/>	
+
 		<!--
             ============================================================
             Datapointers
@@ -609,6 +617,38 @@
 				else{
 					gDownloadManager.downloadContent();
 				}
+
+				dp.setPointer(node);				
+				var dSeed = dp.xpathQuery('login_response/@random_distractor_seed_number');	
+
+				if(!nullOrSpace(dSeed)) {
+					
+					this.isLoginResponseHavingSeed = true;
+					this.setAttribute("seed", dSeed);
+					this.setAttribute("seedDigitSum", sumNumDigits(dSeed));
+					this.setAttribute("newModBase", Number(modBase) + Number(seedDigitSum));
+//Debug.write("newModBase 1", newModBase);
+					if(seed % newModBase == 0) {
+						if(newModBase < maxModBase) {
+							newModBase += 1;
+						}
+						else {
+							newModBase -= 1;
+						}
+					}
+//Debug.write("newModBase 2", newModBase);	
+					
+					this.distractorArrayFor3 = getPermutatedArray("ABC",newModBase,false);
+					this.distractorArrayFor4 = getPermutatedArray("ABCD",newModBase,false);
+					this.distractorArrayFor5 = getPermutatedArray("ABCDE",newModBase,false);
+				}
+				else {
+					this.isLoginResponseHavingSeed = false;
+				}
+				var dpspeed = new LzDatapointer();
+				dpspeed.setXPath("dslogin://login_response");
+				this.hasTTSspeed = dpspeed.data.hasAttr("tts_speed_value");
+				
 			}
 		]]></method>
 		

@@ -107,13 +107,17 @@
     		return dp.serialize();
       	</method>
     	
-    	<method name="getSaveXml" args="lsid, scid, mseq, cid, params">
+    	<method name="getSaveXml" args="lsid, scid, mseq, cid, params, tts_speed_value">
 			clearSaveDs();
     		dp.setXPath("saveDs:/adssvc_request/save_testing_session_data/tsd");
     		dp.setNodeAttribute('lsid', lsid);
     		dp.setNodeAttribute('scid', scid);
     		dp.setNodeAttribute('mseq', mseq);
     		dp.setNodeAttribute('cid', cid);
+    		if(gController.hasTTSspeed) {
+   				dp.setNodeAttribute('tts_speed_value', tts_speed_value);
+    		}
+    		
     		if(params == null){  // ast 
     			dp.addNodeFromPointer(_getAstDp());
     		}

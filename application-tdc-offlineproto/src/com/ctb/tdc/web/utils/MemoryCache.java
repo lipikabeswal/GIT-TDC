@@ -105,7 +105,7 @@ public class MemoryCache {
     	}
     }
     
-    public StateVO setPendingState(String lsid, String mseq) {
+    public StateVO setPendingState(String lsid, String mseq, String method, String xml) {
     	synchronized(MemoryCache.class) {
     		boolean duplicate = false;
     		StateVO state = null;
@@ -120,7 +120,7 @@ public class MemoryCache {
 	                }
 	            }
 	            if(!duplicate) {
-	            	state = new StateVO(Integer.parseInt(mseq), StateVO.PENDING_STATE);            
+	            	state = new StateVO(Integer.parseInt(mseq), StateVO.PENDING_STATE, method, xml);            
 	            	states.add(state);
 	            	this.stateMap.put(lsid, states);
 	            }
@@ -132,7 +132,21 @@ public class MemoryCache {
     public void setAcknowledgeState(StateVO state) {
     	synchronized(this) {
 	        if ((state != null) && this.srvSettings.isTmsAckRequired()) {
-	            state.setState(StateVO.ACTKNOWLEDGE_STATE);
+	            state.setState(StateVO.ACKNOWLEDGED_STATE);
+	        }
+    	}
+    }
+    
+    public void setAcknowledgeState(String lsid, String mseq) {
+    	synchronized(this) {
+    		StateVO state = null;
+	        ArrayList states = (ArrayList)this.stateMap.get(lsid);
+	        for (int i=0 ; i<states.size() ; i++) {
+	        	state = (StateVO)states.get(i);
+                if (Integer.parseInt(mseq) == state.getMseq()) {
+                	state.setState(StateVO.ACKNOWLEDGED_STATE);
+                	break;
+                }
 	        }
     	}
     }
@@ -143,7 +157,7 @@ public class MemoryCache {
 	        if (states != null) {
 	            for (int i=states.size()-1 ; i>=0 ; i--) { 
 	                StateVO state = (StateVO)states.get(i);
-	                if (state.getState().equals(StateVO.ACTKNOWLEDGE_STATE)) {
+	                if (state.getState().equals(StateVO.ACKNOWLEDGED_STATE)) {
 	                    states.remove(i);
 	                }
 	            }

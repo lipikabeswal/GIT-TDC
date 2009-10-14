@@ -74,9 +74,21 @@
 	<!-- .................................................................. -->
 	<!-- .................................................................. -->
 	
+	
+	
+	<!-- TASK: clean ...................................................-->
+		<target name="clean">
+			<delete>
+				<fileset dir="${basedir}/webapp/WEB-INF/classes">
+					<include name="*.class"/>
+					<exclude name="*properties"/>
+				</fileset>
+			</delete>
+		</target>
+	
 	<!-- TASK: build .......................................................-->
 
-	<target name="build">
+	<target name="build" depends="clean">
 		<mkdir dir="${basedir}/webapp/WEB-INF/classes" />
 		<javac srcdir="${project.src}" destdir="${basedir}/webapp/WEB-INF/classes">
 			<classpath>
@@ -128,8 +140,6 @@
 		</delete>
 	</target>
 			
-
-			
 			
 	<!-- TASK: prepareDist .................................................-->
 	<target name="prepareDist" depends="build">
@@ -179,7 +189,6 @@
 				<exclude name="tutorial.html" />
 				<exclude name="openlaszlo-3.3.3-servlet.war" />
 				<exclude name="webLZDebug.xml" />
-				<exclude name="WEB-INF/classes/**/fixed/*.class" />
 			</fileset>
 		</copy>
 		

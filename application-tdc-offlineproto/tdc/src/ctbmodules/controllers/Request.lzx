@@ -80,14 +80,14 @@
 		</method>
 		
 		<method name="heartbeat" args="params">
-			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params);
+			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, gManipulativeBar.speedController.value);
 //Debug.write("heartbeat saveXml: " + getTimer());
 //printBigString(xml);
 			_doRequest(heartbeatDs, SAVE_METHOD, xml);
 		</method>
 
 		<method name="save" args="params">
-			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params);
+			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, gManipulativeBar.speedController.value);
 //Debug.write("saveXml: " + getTimer());
 //printBigString(xml);
 			_doRequest(persistenceDs, SAVE_METHOD, xml);

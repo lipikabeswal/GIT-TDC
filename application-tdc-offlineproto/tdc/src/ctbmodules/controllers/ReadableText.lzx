@@ -3,7 +3,7 @@
 			 type="http"
 	         queuerequests="true" 
 	         querytype="post"
-	         timeout="5000" 
+	         timeout="30000" 
 	         ondata="gReadableText.getMp3()" />
  
     <text visible="false" width="0" height="0"
@@ -20,9 +20,13 @@
 	    <attribute name="TEXT_PARAM" type="string" value="text" />
 	    <attribute name="primed" type="boolean" value="false" />
 		<attribute name="dTimeout" value="$once{new LzDelegate(this, 'timedout')}" />
-		<attribute name="TIMEOUT_INTERVAL" type="number" value="5000" />
+		<attribute name="TIMEOUT_INTERVAL" type="number" value="30000" />
 		<attribute name="readingScratchpad" type="boolean" value="false" />
-		
+		<!-- TTS CR -->
+		<attribute name="currentText" type="string" />
+		<attribute name="SPEED_PARAM" type="string" value="speedValue" />
+	    <attribute name="isplaying" type="boolean" value="false" />
+	    
         <method name="init">
             super.init();
         </method>
@@ -74,9 +78,16 @@
 		</method>
 		
         <method name="doRead" args="txt"><![CDATA[
+        	this.currentText = txt;//TTS CR
 			LzTimer.resetTimer(this.dTimeout, TIMEOUT_INTERVAL);
  	    	stopReading();
  	        speechDs.setQueryParam(TEXT_PARAM, txt);
+ 	        //TTS CR
+ 	        if(gController.hasTTSspeed) {
+ 	        	var smf = gManipulativeBar.speedController.value;  //SMF => Slow, Medium, Fast
+ 	        	var speedValue = getSpeedNumber(smf);
+ 	        	speechDs.setQueryParam(SPEED_PARAM, speedValue);
+ 	        }
 			speechDs.doRequest();
        ]]></method>
         
@@ -99,7 +110,30 @@
 			}
 			return result;
         </method>
-        
+
+	    <!-- TTS CR -->
+		<method name="getSpeedNumber" args="smf"><![CDATA[
+			var value;
+        	switch (smf){
+				case 'S':
+					value = -3;
+					break;
+				
+				case 'M':
+					value = -2;
+					break;
+				
+				case 'F':
+					value = -1;
+					break;
+
+				default:
+					value = -2;
+					break;
+			}
+			return value;
+        ]]></method>
+
         <attribute name="highlightFlag"
                    value="$path{'dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@highlighter'}"/>
         <attribute name="eraserFlag"
@@ -118,6 +152,8 @@
         
         <view name="audioPlayer" visible="false" >
         	<handler name="onload">
+        		gReadableText.isplaying = true; // TTS CR:when mp3 is loaded and ready to play
+        		//Debug.write("audioPlayer onload..");
         		if(!gCommunicator.error){  // if we get an onload and there is no error
 	        		LzTimer.removeTimer( parent.dTimeout );
 	        		if(parent.primed){
@@ -127,6 +163,18 @@
 	        			parent.setAttribute('primed', true);
 	        		}
 	        	}
+        	</handler>
+        	
+        	<!-- TTS CR: when stop method is called, set isplaying false -->
+        	<handler name="onstop">
+        		//Debug.write("onstop for audioplayer : ", gReadableText.isplaying);
+        		gReadableText.isplaying = false;
+        	</handler>
+				
+        	<!-- TTS CR: when whole mp3 is played and reaches at last frame, set isplaying false -->
+        	<handler name="onlastframe">
+        		//Debug.write("onlastframe for audioplayer : ", gReadableText.isplaying);
+        		gReadableText.isplaying = false;
         	</handler>
          </view>
     </text>
