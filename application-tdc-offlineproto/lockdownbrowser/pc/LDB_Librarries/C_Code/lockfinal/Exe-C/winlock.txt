@@ -1,0 +1,5 @@
+Ctrl+Alt+Del=FALSE
+Ctrl+Alt+Del=TRUE
+Alt+Tab=FALSE
+DesktopHide=FALSE
+TaskBar=FALSE
