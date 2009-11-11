@@ -1,0 +1,6 @@
+LIBRARY	lock
+
+EXPORTS
+	TaskSwitching_Enable_Disable
+	CTRLALTDEL_Enable_Disable
+	

@@ -1,0 +1,5 @@
+Task Switching Keys=FALSE
+Task Manager=FALSE
+Ctrl+Alt+Del=FALSE
+Alt+Tab=FALSE
+path=C:\Sarbojit\WinLockDLL\demo\WinLock-C.exe
