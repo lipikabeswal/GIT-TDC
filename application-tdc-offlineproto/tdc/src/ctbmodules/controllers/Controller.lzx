@@ -3,7 +3,7 @@
 	<include href="DownloadManager.lzx"/>
 	<include href="TutorialManager.lzx"/>
 	
-    <script>
+    <script><![CDATA[
         function countDataNodes ( nodes ) {
             if ( null == nodes ) {
                 return 0;
@@ -23,7 +23,166 @@
         function removeFileExtn( s ) {
 			return s.split('.')[0];
 		}
-    </script>
+
+		function sumNumDigits(num) {
+			var digitSum = 0;
+			num = String(num);
+			num = num.split("");
+			for(var i = 0; i < num.length; i++) {
+				digitSum += Number(num[i]);
+			}
+			//Debug.write("digitSum : ", digitSum);
+
+			return digitSum;
+		}	
+
+		/**************************
+		 * to be internally called by 'sort' method of Array Object
+		 * when passed as an argument
+		 * @param anode
+		 * @param bnode
+		 * @return anode - bnode
+		 **************************/
+		function sortNodes(anode,bnode) {
+			var codeA = 0;
+			var codeB = 0;
+			anode = LzDataNode.stringToLzData(anode);
+			bnode = LzDataNode.stringToLzData(bnode);
+			codeA = anode.getElementsByTagName('selector_widget')[0].getAttr("randomIdentifier").charCodeAt();
+			codeB = bnode.getElementsByTagName('selector_widget')[0].getAttr("randomIdentifier").charCodeAt();
+			
+			//Debug.write("codeA, codeB : ", codeA, codeB);
+			return codeA - codeB;
+		}
+
+		/**************************
+		 * reverses the input string
+		 * @param input
+		 * @return input
+		 **************************/
+		function reverseString(input) {
+			input = input.split("");
+			input = input.reverse();
+			input = input.join("");
+			return input;
+		}
+		
+
+	   /************************** 
+	   	* returns the permutated array of passed string and length 
+		* @param input
+		* @param pLength
+		* @param reverse
+		* return permArr
+		**************************/
+/*		function getPermutatedArray(input,pLength,reverse) {
+			permArr = []; 
+			usedChars = [];
+			
+			if(reverse) {
+				input = reverseString(input);
+				Debug.write("reversed input : ", input);
+			}
+			
+			permute(input,pLength);
+			var len = 0;
+			
+			if(permArr.length < pLength) {
+				len = pLength - permArr.length;
+				for(var i = 0; i < len; i++) {
+				//Debug.write(i, permArr.length, modBase - permArr.length,len);
+					permArr.push(permArr[i]);
+				}
+			}
+			return permArr;
+		}
+*/
+
+	   /************************** 
+	   	* recursive function that updates the global array with the 
+		* permutations of input string and upto input length 
+		* @param input
+		* @param pLength
+		**************************/
+/*		function permute(input,pLength) {
+			var i, ch, chars = input.split("");
+	
+			for (i = 0; i < chars.length; i++) {
+	
+				if(permArr.length >= pLength) {
+					break;
+				}
+				ch = chars.splice(i, 1);
+				usedChars.push(ch);
+				if (chars.length == 0) permArr[permArr.length] = usedChars.join("");
+				permute(chars.join(""),pLength);
+				chars.splice(i, 0, ch);
+				usedChars.pop();
+			}
+		}
+*/
+
+	   /************************** 
+	   	* returns the permutation of input
+	   	* string at given index k 
+		* @param input
+		* @param k
+		* return permutation
+		**************************/
+		function StringPerm(input, k)
+	    {
+	      input = input.split("");
+	      var element = [input.length];
+	      var order = input.length;
+	      var temp = null;
+	      var perm = null;
+			
+	      // Step #1 - Find factoradic of k
+	      factoradic = [order];
+	      for (var j = 1; j <= order; ++j)
+	      {
+			factoradic[order - j] = k % j;
+			k /= j;
+			k = Math.floor(k);
+	      }
+	
+	      // Step #2 - Convert factoradic[] to numeric permuatation in perm[]
+	      temp = [order];
+	      perm = [order];
+	      
+	      for (var i = 0; i < order; ++i)
+	      {
+	        temp[i] = ++factoradic[i];
+	      }
+	      perm[order - 1] = 1;  // right-most value is set to 1.
+	      for (var i = order - 2; i >= 0; --i)
+	      {
+			perm[i] = temp[i];
+			
+			for (var j = i + 1; j < order; ++j)
+			{
+			  if (perm[j] >= perm[i]) ++perm[j];
+			}
+	      }
+
+	      for (var i = 0; i < order; ++i)  // put in 0-based form
+	        --perm[i];
+	
+	      // Step #3 - map numeric permutation to string permutation
+	      for (var i = 0; i < order; ++i) {
+	      	element[i] = input[perm[i]];
+	      }
+
+	      return element.join("");
+	    }	
+	    
+		function fact(n) {
+			if(n == 0 || n == 1) return 1;
+			//Debug.write("n : ", n);
+			return n * fact(n - 1);
+		}	
+	    			
+    ]]></script>
 
     <!--
         ==================================================
@@ -203,7 +362,7 @@
 		<attribute name="alphabetString" type="string" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ"/>	
 
 		<!-- True, if login response contains tts speed value-->
-		<attribute name="hasTTSspeed" type="string" value="false"/>	
+		<attribute name="hasTTSspeed" type="boolean" value="false"/>	
 
 		<!--
             ============================================================
@@ -627,7 +786,7 @@
 					this.setAttribute("seed", dSeed);
 					this.setAttribute("seedDigitSum", sumNumDigits(dSeed));
 					this.setAttribute("newModBase", Number(modBase) + Number(seedDigitSum));
-//Debug.write("newModBase 1", newModBase);
+
 					if(seed % newModBase == 0) {
 						if(newModBase < maxModBase) {
 							newModBase += 1;
@@ -636,8 +795,6 @@
 							newModBase -= 1;
 						}
 					}
-//Debug.write("newModBase 2", newModBase);	
-					
 					this.distractorArrayFor3 = getPermutatedArray("ABC",newModBase,false);
 					this.distractorArrayFor4 = getPermutatedArray("ABCD",newModBase,false);
 					this.distractorArrayFor5 = getPermutatedArray("ABCDE",newModBase,false);
