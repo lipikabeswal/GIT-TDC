@@ -7,8 +7,17 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 /*
- * Class:     com_javaunit_LockdownBrowserWrapper
+ * Class:     com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper
+ * Method:    TaskSwitching_Enable_Disable
+ * Signature: (Z)V
+ */
+JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper_TaskSwitching_1Enable_1Disable
+	(JNIEnv *, jclass, jboolean);
+
+/*
+ * Class:     com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper
  * Method:    Hot_Keys_Enable_Disable
  * Signature: (Z)V
  */
@@ -16,7 +25,7 @@ JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowser
   (JNIEnv *, jclass, jboolean);
 
 /*
- * Class:     com_javaunit_LockdownBrowserWrapper
+ * Class:     com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper
  * Method:    Process_Desktop
  * Signature: (Ljava/lang/String;Ljava/lang/String;)V
  */
@@ -24,7 +33,7 @@ JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowser
   (JNIEnv *, jclass, jstring, jstring);
 
 /*
- * Class:     com_javaunit_LockdownBrowserWrapper
+ * Class:     com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper
  * Method:    Process_Block
  * Signature: ()Z
  */
@@ -32,7 +41,7 @@ JNIEXPORT jboolean JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBro
   (JNIEnv *, jclass);
 
 /*
- * Class:     com_javaunit_LockdownBrowserWrapper
+ * Class:     com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper
  * Method:    CtrlAltDel_Enable_Disable
  * Signature: (Z)V
  */

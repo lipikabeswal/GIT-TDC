@@ -31,6 +31,7 @@
 
 HINSTANCE	hInst;		    // Instance handle
 HHOOK hKeyboardHook;  // Old low level keyboard hook 
+int finished = 0;
 
 LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) 
 {
@@ -246,10 +247,16 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 }
 
 /* JNI wrapper call */
-/*JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper_TaskSwitching_1Enable_1Disable(JNIEnv *env, jclass obj, jboolean bEnableDisable)
+JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper_TaskSwitching_1Enable_1Disable(JNIEnv *env, jclass obj, jboolean bEnableDisable)
 {
+	MSG	msg;
+
 	TaskSwitching_Enable_Disable(bEnableDisable);
-}*/
+	
+	while (!finished && GetMessage(&msg, NULL, 0, 0))
+	{
+	}
+}
 /*****************************************************
  * Enable/Disable task switching keys.               *
  * (Alt+Tab, Alt+Esc, Ctrl+Esc, Win, Ctrl+Shift+Esc) *
@@ -260,22 +267,24 @@ int DLL_EXP_IMP WINAPI TaskSwitching_Enable_Disable(BOOL bEnableDisable)
 {
 	if (!bEnableDisable) 
 	 {
-
-		if (!hKeyboardHook) 
-		{
-
-		// Install the low-level keyboard hook
-			hKeyboardHook  = SetWindowsHookEx(WH_KEYBOARD_LL, 
-										  LowLevelKeyboardProc, 
-										  hInst, 
-										  0);
-			if (!hKeyboardHook)
-			return 0;
-		 }
+		finished = 0;
+		if (!hKeyboardHook) {
+			//while(1) {
+				// Install the low-level keyboard hook
+				hKeyboardHook  = SetWindowsHookEx(WH_KEYBOARD_LL, 
+											  LowLevelKeyboardProc, 
+											  hInst, 
+											  0);
+				if (!hKeyboardHook)
+					return 0;
+				
+				//Sleep(1000);
+			//}
+		}
 	 }
 	else 
 	 {
-
+		finished = 1;
 		UnhookWindowsHookEx(hKeyboardHook);
 		hKeyboardHook = NULL;
 	}
