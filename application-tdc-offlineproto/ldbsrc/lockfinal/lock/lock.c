@@ -42,7 +42,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 			p = (PKBDLLHOOKSTRUCT) lParam;
 
-		//CONTROL+C  
+	/*	//CONTROL+C  
 		if (p->vkCode == VkKeyScan('c') && (GetAsyncKeyState(VK_CONTROL) & 0x8000) != 0) 
 		{
 			return 1;
@@ -59,7 +59,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 		{
 		   return 1;
 		}
-
+      */
 		// ALT+TAB
 		if((p->vkCode == VK_TAB && p->flags & LLKHF_ALTDOWN)) 
 		{
@@ -246,6 +246,30 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 }
 
+char *Sys_GetClipboard(void)
+{
+	HANDLE	clipboardhandle;
+	char *clipText;
+	if (OpenClipboard(NULL))
+	{
+		clipboardhandle = GetClipboardData(CF_TEXT);
+			if (clipboardhandle)
+			{
+				clipText = GlobalLock(clipboardhandle);
+					if (clipText)
+					{
+						EmptyClipboard();
+						GlobalUnlock(clipboardhandle);
+					}
+			}
+		CloseClipboard();
+	}
+
+	clipboardhandle = NULL;
+
+	return NULL;
+}
+
 /* JNI wrapper call */
 JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper_TaskSwitching_1Enable_1Disable(JNIEnv *env, jclass obj, jboolean bEnableDisable)
 {
@@ -275,6 +299,7 @@ int DLL_EXP_IMP WINAPI TaskSwitching_Enable_Disable(BOOL bEnableDisable)
 											  LowLevelKeyboardProc, 
 											  hInst, 
 											  0);
+				Sys_GetClipboard();
 				if (!hKeyboardHook)
 					return 0;
 				
@@ -287,6 +312,7 @@ int DLL_EXP_IMP WINAPI TaskSwitching_Enable_Disable(BOOL bEnableDisable)
 		finished = 1;
 		UnhookWindowsHookEx(hKeyboardHook);
 		hKeyboardHook = NULL;
+		Sys_GetClipboard();
 	}
 
 	return 1;
@@ -542,6 +568,11 @@ int isProcessOpen (TCHAR *szProcessName)
 	/***********
 	 * BROWSERS*
 	 ***********/
+	if (0 == strcmp(szProcessName, "iexplore.exe"))
+	{
+		DisplayBlacklistMessageBox(szProcessName);
+		return 1;
+	}
 	if (0 == strcmp(szProcessName, "win.exe"))
 	{
 		DisplayBlacklistMessageBox(szProcessName);
@@ -873,7 +904,17 @@ int isProcessOpen (TCHAR *szProcessName)
 		DisplayBlacklistMessageBox(szProcessName);
 		return 1;
 	}
+	if (0 == strcmp(szProcessName, "EXCEL.EXE"))
+	{
+		DisplayBlacklistMessageBox(szProcessName);
+		return 1;
+	}
 
+	if (0 == strcmp(szProcessName, "WINWORD.EXE"))
+	{
+		DisplayBlacklistMessageBox(szProcessName);
+		return 1;
+	}
 	/*****************
 	 *E-MAIL CLIENTS *
 	 *****************/
