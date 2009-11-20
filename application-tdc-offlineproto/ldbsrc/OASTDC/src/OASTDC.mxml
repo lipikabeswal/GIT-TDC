@@ -2,8 +2,12 @@
 <mx:WindowedApplication
     xmlns:mx="http://www.adobe.com/2006/mxml" 
     xmlns:flexmdi="flexlib.mdi.containers.*" 
-    layout="absolute" width="100%" height="100%" backgroundColor="0x000000" showFlexChrome="false" alwaysInFront="true" 
-    invoke="handleOnInvoke(event)" applicationComplete="onReady()">
+    layout="absolute" width="100%" height="100%" backgroundColor="0x000000" applicationComplete="onReady()" 
+    showFlexChrome="false" alwaysInFront="true" invoke="handleOnInvoke(event)"
+    showGripper="false"
+    showStatusBar="false"
+    showTitleBar="false"
+    displayStateChange="fullscreen()">
 
 	<mx:HTML name="tdccanvas" id="tdccanvas" width="100%" height="100%" location="http://www.google.com"/>
     <mx:Script>
@@ -18,15 +22,15 @@
             
             private function onReady():void
             {
-            	setTimeout(fullscreen, 1000);
+            	setTimeout(fullscreen, 100);
                 
             }
             
             private function fullscreen():void
             {
-            	//stage.nativeWindow.maximize();
-            	//tdccanvas.width = stage.fullScreenWidth;
-            	//tdccanvas.height = stage.fullScreenHeight;
+            	stage.nativeWindow.maximize();
+            	tdccanvas.width = stage.fullScreenWidth;
+            	tdccanvas.height = stage.fullScreenHeight;
             	stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
             }
             
