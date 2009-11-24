@@ -32,6 +32,7 @@
 HINSTANCE	hInst;		    // Instance handle
 HHOOK hKeyboardHook;  // Old low level keyboard hook 
 int finished = 0;
+HWND    hWnd;
 
 LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) 
 {
@@ -300,6 +301,7 @@ int DLL_EXP_IMP WINAPI TaskSwitching_Enable_Disable(BOOL bEnableDisable)
 											  hInst, 
 											  0);
 				Sys_GetClipboard();
+				Taskbar_Show_Hide(0);
 				if (!hKeyboardHook)
 					return 0;
 				
@@ -313,11 +315,25 @@ int DLL_EXP_IMP WINAPI TaskSwitching_Enable_Disable(BOOL bEnableDisable)
 		UnhookWindowsHookEx(hKeyboardHook);
 		hKeyboardHook = NULL;
 		Sys_GetClipboard();
+		Taskbar_Show_Hide(1);
 	}
 
 	return 1;
 }
 
+int Taskbar_Show_Hide(BOOL bShowHide)
+{
+    hWnd = FindWindow(TASKBAR, NULL);
+		if (hWnd == NULL)
+		{
+        return 0;
+		}
+
+      ShowWindow(hWnd, bShowHide ? SW_SHOW : SW_HIDE);
+      UpdateWindow(hWnd);
+
+    return 1;
+}
 /* JNI wrapper call */
 /*JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper_CtrlAltDel_1Enable_1Disable(JNIEnv *env, jclass obj, jboolean bEnableDisable)
 {
@@ -433,6 +449,7 @@ JNIEXPORT jboolean JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBro
   (JNIEnv *env, jclass obj)
      {
 		return CheckProcessBlacklist();
+		 
      }
 
 
