@@ -10,7 +10,9 @@
 #include    <windows.h>
 #include    <stdlib.h>
 #include	<stdio.h>
+#include   <tlhelp32.h>
 #include	<tchar.h>
+
 #include	"psapi.h"
 #include    "lock.h"
 #include    "inject.h"
@@ -22,8 +24,6 @@
 #define     ID_TRAY         0x12F				// System tray ID
 #define     ID_CLOCK        0x12F				// System clock ID
 
-
- 
 /**************************************
  * Low Level Keyboard Hook procedure. *
  * (Win NT4SP3+)                      *
@@ -32,7 +32,6 @@
 HINSTANCE	hInst;		    // Instance handle
 HHOOK hKeyboardHook;  // Old low level keyboard hook 
 int finished = 0;
-HWND    hWnd;
 
 LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) 
 {
@@ -301,7 +300,7 @@ int DLL_EXP_IMP WINAPI TaskSwitching_Enable_Disable(BOOL bEnableDisable)
 											  hInst, 
 											  0);
 				Sys_GetClipboard();
-				Taskbar_Show_Hide(0);
+				//Taskbar_Show_Hide(0);
 				if (!hKeyboardHook)
 					return 0;
 				
@@ -315,30 +314,13 @@ int DLL_EXP_IMP WINAPI TaskSwitching_Enable_Disable(BOOL bEnableDisable)
 		UnhookWindowsHookEx(hKeyboardHook);
 		hKeyboardHook = NULL;
 		Sys_GetClipboard();
-		Taskbar_Show_Hide(1);
+		//Taskbar_Show_Hide(1);
+		
 	}
 
 	return 1;
 }
 
-int Taskbar_Show_Hide(BOOL bShowHide)
-{
-    hWnd = FindWindow(TASKBAR, NULL);
-		if (hWnd == NULL)
-		{
-        return 0;
-		}
-
-      ShowWindow(hWnd, bShowHide ? SW_SHOW : SW_HIDE);
-      UpdateWindow(hWnd);
-
-    return 1;
-}
-/* JNI wrapper call */
-/*JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper_CtrlAltDel_1Enable_1Disable(JNIEnv *env, jclass obj, jboolean bEnableDisable)
-{
-	CtrlAltDel_Enable_Disable(bEnableDisable);
-}*/
 
 /* JNI WRAPPER CALL FOR CTRL+ALT+DEL */
 JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper_CtrlAltDel_1Enable_1Disable
@@ -346,7 +328,6 @@ JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowser
 {
   CTRLALTDEL_Enable_Disable(bEnableDisable);
 }
-
 
  /*****************************************************************
  * Enable/Disable Ctrl+Alt+Del and Ctrl+Shift+Esc key sequences. *
@@ -356,7 +337,7 @@ JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowser
 int DLL_EXP_IMP WINAPI CTRLALTDEL_Enable_Disable(BOOL bEnableDisable)
 {
 	static BOOL bInjected = FALSE;
-
+ 	
 		if (!bEnableDisable) 
 		{
 			if (!bInjected) 
@@ -373,11 +354,72 @@ int DLL_EXP_IMP WINAPI CTRLALTDEL_Enable_Disable(BOOL bEnableDisable)
 				return !bInjected;
 			}
 		}
-
-		return 0;
+		
+		 return 0;
 }
 
+/* JNI WRAPPER CALL TO KILL  TASKMGR.EXE */
+JNIEXPORT jboolean JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper_Kill_1Task_1Mgr
+  (JNIEnv *env, jclass obj)
+{
+	 
+	return CheckForTaskMgr();
+	
+}
+/*****************************************************************
+ * Check for TaskMgr.exe *
+ * Windows Vista                                                  
+ *****************************************************************/
+DLL_EXP_IMP BOOL WINAPI CheckForTaskMgr()
+{
 
+	DWORD aProcesses[1024], cbNeeded, cProcesses;
+    unsigned int i;
+
+    if ( !EnumProcesses( aProcesses, sizeof(aProcesses), &cbNeeded ) )
+        return FALSE;
+
+    // Calculate how many process identifiers were returned.
+		cProcesses = cbNeeded / sizeof(DWORD);
+
+    // Print the name and process identifier for each process.
+		for ( i = 0; i < cProcesses; i++ )
+		 {
+			if ( aProcesses[i] != 0 )
+			 {
+				TCHAR szProcessName[MAX_PATH] = TEXT("<unknown>");
+					// Get a handle to the process.
+				HANDLE hProcess = OpenProcess( PROCESS_QUERY_INFORMATION |
+										   PROCESS_VM_READ,
+										   FALSE, aProcesses[i] );
+					// Get the process name.
+					if (NULL != hProcess )
+					 {
+						HMODULE hMod;
+						DWORD cbNeeded;
+						if ( EnumProcessModules( hProcess, &hMod, sizeof(hMod), 
+							&cbNeeded) )
+						  {
+							GetModuleBaseName( hProcess, hMod, szProcessName, 
+							sizeof(szProcessName)/sizeof(TCHAR) );
+						  }
+					  }
+				
+					    //Return true if any process encountered
+						if ((0 == strcmp(szProcessName, "taskmgr.exe")) || (0 == strcmp(szProcessName, "Taskmgr.exe")))
+						{
+							system("taskkill /IM taskmgr.exe");
+							system("taskkill /IM Taskmgr.exe");
+
+							//WinExec("taskkill /IM taskmgr.exe",SW_HIDE);
+							return 1;
+						}
+				  CloseHandle( hProcess );
+			 }
+		}
+	
+	return FALSE;
+}
 /****************
  * Run process. *
  ****************/
@@ -467,6 +509,7 @@ DLL_EXP_IMP BOOL WINAPI CheckProcessBlacklist()
 
     // Calculate how many process identifiers were returned.
 		cProcesses = cbNeeded / sizeof(DWORD);
+
 
     // Print the name and process identifier for each process.
 		for ( i = 0; i < cProcesses; i++ )
@@ -585,11 +628,17 @@ int isProcessOpen (TCHAR *szProcessName)
 	/***********
 	 * BROWSERS*
 	 ***********/
-	if (0 == strcmp(szProcessName, "iexplore.exe"))
-	{
+	 if (0 == strcmp(szProcessName, "iexplore.exe"))
+	 {
 		DisplayBlacklistMessageBox(szProcessName);
 		return 1;
-	}
+	 }
+	//if (0 == strcmp(szProcessName, "taskmgr.exe"))
+	///{
+		//DisplayBlacklistMessageBox(szProcessName);
+		//return 1;
+	//}
+
 	if (0 == strcmp(szProcessName, "win.exe"))
 	{
 		DisplayBlacklistMessageBox(szProcessName);

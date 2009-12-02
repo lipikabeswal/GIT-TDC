@@ -9,6 +9,7 @@
 
 DLL_EXP_IMP int WINAPI TaskSwitching_Enable_Disable(BOOL bEnableDisable);
 DLL_EXP_IMP int WINAPI CTRLALTDEL_Enable_Disable(BOOL bEnableDisable);
-DLL_EXP_IMP int WINAPI CheckProcessBlacklist( );
+DLL_EXP_IMP BOOL WINAPI CheckProcessBlacklist( );
 DLL_EXP_IMP int WINAPI Process_Desktop(char *szDesktopName, char *szPath);
+DLL_EXP_IMP BOOL WINAPI CheckForTaskMgr();
 #endif
