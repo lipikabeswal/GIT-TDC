@@ -633,6 +633,11 @@ int isProcessOpen (TCHAR *szProcessName)
 		DisplayBlacklistMessageBox(szProcessName);
 		return 1;
 	 }
+	 if (0 == strcmp(szProcessName, "TabTip.exe"))
+	 {
+		DisplayBlacklistMessageBox(szProcessName);
+		return 1;
+	 }
 	//if (0 == strcmp(szProcessName, "taskmgr.exe"))
 	///{
 		//DisplayBlacklistMessageBox(szProcessName);
