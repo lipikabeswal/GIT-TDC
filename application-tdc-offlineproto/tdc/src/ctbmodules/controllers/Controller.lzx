@@ -355,6 +355,39 @@
 		-->
 		<attribute name="formulaCardResource" value="false" type="string" />
 
+		<!-- true when login response xml has seed-->
+		<attribute name="isLoginResponseHavingSeed" value="false" type="boolean" />
+		
+		<!-- array which will contain all the possible permutations of string "ABC" -->
+		<attribute name="distractorArrayFor3" value="${[]}"/>
+
+		<!-- array which will contain all the possible permutations of string "ABCD" -->
+		<attribute name="distractorArrayFor4" value="${[]}"/>
+
+		<!-- array which will contain all the possible permutations of string "ABCDE" -->
+		<attribute name="distractorArrayFor5" value="${[]}"/>
+		
+		<!-- array which will contain all the mods of the fibonacci series-->
+		<attribute name="randomIndexArray" value="${[]}"/>
+		
+		<!-- contains the random number responsible for randomization of distractors -->
+		<attribute name="seed" type="number"/>
+		
+		<!-- contains the sum of digits of random number -->
+		<attribute name="seedDigitSum" type="number"/>
+
+		<!-- minimum number of pemutations i.e. 24 different indexes -->
+		<attribute name="modBase" value="24" type="number"/>
+		
+		<!-- sum of digits of seed and modBase to get dynamic number of different indexes -->
+		<attribute name="newModBase" value="24" type="number"/>
+
+		<!-- maximum modBase value 24 + 27 = 51 i.e. the newModBase cannot exceed this value -->
+		<attribute name="maxModBase" value="51" type="number"/>
+		
+		<!-- the distractor set for the current item i.e. [A,C,B,D] or [B,C,D,A] -->
+		<attribute name="assignedRandomDistractorIndex" value="$once{null}"/>
+		
 		<!-- true if item has rationale tag -->
 		<attribute name="itemHasRationalNode" type="boolean" value="false"/>
 
@@ -808,7 +841,7 @@
 				
 			}
 		]]></method>
-		
+
 		<method name="setShowHighlighter">
 			var sh = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@highlighter');
 			this.setAttribute('showHighlighter', (sh != 'false'));
@@ -994,7 +1027,105 @@
 				gScratchpad.completeInstantiation();
 			}
  			setScratchpadForSubtest();
+
+ 		if(isLoginResponseHavingSeed && !nullOrSpace(seed)) {
+//Debug.write("seed, total : ", seed, total);
+ 			populateRandomIndexArray(seed, total);
+ 		}
         ]]></method>
+
+		<!-- populates random index array with the mods of the fibonacci series -->
+		<method name="populateRandomIndexArray" args="seed,total"><![CDATA[
+			if(this.randomIndexArray.length < total) {
+				this.randomIndexArray = getModArrayFromFibonacciSeries(getFibonacciSeries(seed,total));
+			} 
+		]]></method>
+
+		<method name="getElementFromDistractorArray" args="index,numOfOptions">
+			var distractorArr = "distractorArrayFor"+numOfOptions;
+			if(typeof this[distractorArr] == "undefined") {
+				this[distractorArr] = [];
+				if(numOfOptions == 2) {
+					this[distractorArr] = getDistractorArrayFor2();
+//Debug.write("this[distractorArr] : ", this[distractorArr]);
+				}
+				else {
+					this[distractorArr] = getPermutatedArray(getOptionString(numOfOptions),newModBase,false);
+				}
+			}
+			return  this[distractorArr][index];
+		</method>
+
+		<!-- generates fibonacci series array given the starting number and series length -->
+		<method name="getElementFromRandomIndexArray" args="index">
+//Debug.write(this.randomIndexArray);
+			return  this.randomIndexArray[index];
+		</method>
+		
+		<!-- generates fibonacci series array given the starting number and the series length -->
+		<method name="getFibonacciSeries" args="number, length"><![CDATA[
+			number = Number(number);	
+			var fibArr = [];
+			for (var i = 0; i < length; i++) {
+				if(i == 0) { fibArr[i] = number; continue;}
+				if(i == 1) { fibArr[i] = number + number; continue;}
+				
+				fibArr[i] = 0 + Number((fibArr[i - 1]) ? fibArr[i - 1] : 1) + Number((fibArr[i - 2]) ? fibArr[i - 2] : 0);
+			}
+//Debug.write("fibArr : ", fibArr);
+			return fibArr;
+		]]></method>
+		
+		<!-- takes mod of each element of the fibonacci and generates mod array -->
+		<method name="getModArrayFromFibonacciSeries" args="fibArr"><![CDATA[
+//Debug.write("newModBase : ", newModBase); 
+			var modValues = [];
+			for (var i = 0; i < fibArr.length; i++) {
+				modValues.push(fibArr[i] % newModBase);
+//Debug.write("getModArrayFromFibonacciSeries : ", i, modValues[i]);
+			}
+			return modValues;
+		]]></method>
+
+		<method name="getOptionString" args="numOptions">
+			return alphabetString.substr(0,numOptions);
+		</method>	
+
+		<method name="getPermutatedArray" args="input,newModBase,reverse">
+		<![CDATA[
+			var permArr = []; 
+			var gap = 1;
+			var inputLen = input.length;
+			var factNumber = fact(inputLen);
+			var len = 0;
+			
+			if(factNumber > newModBase) {
+				gap = Math.floor(factNumber / newModBase);
+			}
+
+//Debug.write("inputLen,factNumber,gap : ", inputLen,factNumber,gap);
+			
+			if(reverse) {
+				input = reverseString(input);
+			}
+			
+			for(var i = 0; i < factNumber; i += gap) {
+				permArr.push(StringPerm(input,i));
+			
+				if(permArr.length >= newModBase) {
+					break;
+				}
+			}
+			
+			if(permArr.length < newModBase) {
+				len = newModBase - permArr.length;
+				for(var i = 0; i < len; i++) {
+					permArr.push(permArr[i]);
+				}
+			}
+			return permArr;
+		]]>
+		</method>		
 
 		<method name="setScratchpadForSubtest">
 			var spContents = "";
@@ -1364,8 +1495,8 @@
                 }
             }
 		]]></method>
-
-        <method name="getAnswerForInputWidgetId" args="widgetId"><![CDATA[
+        
+		<method name="getAnswerForInputWidgetId" args="widgetId"><![CDATA[
 			var eid = loadNode.getAttr('id');
 			var answers = dpstudentdata.xpathQuery( "runtime/item_model [@eid = '"+eid+"']/@answer_text");
 			var node = LzDataNode.stringToLzData(unescape(answers));
@@ -1509,7 +1640,9 @@
             if (dnrtitemnew ['childNodes'] && dnrtitemnew.childNodes.length) {
                 // copy saved state from runtime
                 dnnewitem = dnrtitemnew.cloneNode (true);
+//Debug.write("dnnewitem if....", dnnewitem);
             } else {
+//Debug.write("dnnewitem else....", dnnewitem);
                 // copy state from server model
                 var dnitemmodel = dpitem.xpathQuery ('item_model');
                 dnnewitem = dnitemmodel.cloneNode (true);
@@ -1562,6 +1695,7 @@
             }
             // remove not_sr attribute - this will be detected by interaction type
             dnnewitem.removeAttr('not_sr');
+
             var dncurritem = dpstudentdata.xpathQuery ('current_item');
             dncurritem.appendChild (dnnewitem);
             dncurritem.setAttr( 'itempos', getOffsetFromEid( newitem ) + 1 );
@@ -1744,16 +1878,27 @@
  		 ]]></method>
 		
          <method name="toggleItemSelState" args="selid"><![CDATA[
-Debug.write("toggleItemSelState", selid, typeof selid);
             var dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@identifier='"+selid+"']");
+            var actualSelId = selid;
+
+			if(isLoginResponseHavingSeed &&
+					!itemHasRationalNode && 
+						!nullOrSpace(seed)) {
+//Debug.write("has seed1", selid, dnsel);				
+				dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@randomIdentifier='"+selid+"']");		
+				selid = dnsel.getAttr("identifier");	
+			}
+
+//Debug.write("has seed2", selid, dnsel);
+
             if ( dnsel ) {
                 if ( 's' == dnsel.getAttr( 'user_action' ) ) {
                 //Debug.write("toggleItemSelState to N");
-                    readKeySelection( selid, 'n');
+                    readKeySelection( actualSelId, 'n');
                     setItemSelState( selid, 'n');
                 } else {
-                //Debug.write("toggleItemSelState to N");
-                    readKeySelection( selid, 's');
+                //Debug.write("toggleItemSelState to s");
+                    readKeySelection( actualSelId, 's');
                     setItemSelState( selid, 's');
                 }
             }
@@ -1762,7 +1907,8 @@ Debug.write("toggleItemSelState", selid, typeof selid);
 		<method name="readKeySelection" args="selid, value"><![CDATA[
 			if(canvas.readable){
 //Debug.write("values sent to readKeySelection are ::::"+selid+"and"+value);
-			if((selid == 'A' || selid == 'B' || selid == 'C' || selid == 'D' || selid == 'E') && value == 's'){
+			if((selid == 'A' || selid == 'B' || selid == 'C' || selid == 'D' || selid == 'E' ||
+						selid == 'F' || selid == 'G' || selid == 'H' || selid == 'I' || selid == 'J') && value == 's'){
    					gReadableText.read(selid + ". Selected");			
    				}
    				else{
@@ -1773,6 +1919,7 @@ Debug.write("toggleItemSelState", selid, typeof selid);
 		</method>
 
         <method name="setItemSelState" args="selid, value"><![CDATA[
+//Debug.write("setItemSelState", selid, value);
             freezeUI();
 
             var dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@identifier='"+selid+"']");
@@ -1864,7 +2011,7 @@ Debug.write("toggleItemSelState", selid, typeof selid);
 			}
 			return result;
 		</method>
-		
+
 		<method name="setItemCRState" args="answer"><![CDATA[
             freezeUI();
 
@@ -2754,6 +2901,7 @@ Debug.write("toggleItemSelState", selid, typeof selid);
 				}
 			}
 			dpstudentdata.setXPath("dsstudentdata:/testing_client_model");
+//Debug.write("dpstudentdata in getModelString...", dpstudentdata);			
 			return result;
 		</method>
 		
@@ -2951,6 +3099,15 @@ Debug.write("toggleItemSelState", selid, typeof selid);
 				return true;	
 			}
 			return false;
+		]]></method>
+		
+		<!-- considering 2 answer choice items as special case of randomization --> 
+		<method name="getDistractorArrayFor2"><![CDATA[
+			return ['AB','BA','BA','BA','AB','BA','BA','AB','AB','AB','AB',
+					'BA','AB','BA','AB','AB','AB','BA','AB','BA','AB','BA',
+					'BA','BA','AB','BA','AB','BA','BA','AB','AB','AB','BA',
+					'AB','AB','BA','AB','BA','BA','BA','BA','AB','AB','AB',
+					'BA','AB','AB','BA','AB','BA','BA'];			
 		]]></method>
     </node>
 

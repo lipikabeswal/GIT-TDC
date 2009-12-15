@@ -106,7 +106,8 @@
 
             toReturn.doReturnToCache ();
             toReturn.setAttribute ('visible', false);
-
+			toReturn.data = null;
+			
             if(toReturn.comptype != gCompTypes.WIDGET_REFERENCE_CARD){
 	            //reset position to 0, 0
 	            toReturn.setAttribute ('x', 0);

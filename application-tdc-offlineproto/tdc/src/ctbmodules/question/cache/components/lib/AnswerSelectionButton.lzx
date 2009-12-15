@@ -20,9 +20,10 @@
 
         <attribute name="statenum" value="0"/>
         <attribute name="statelength" value="2"/>
-        <attribute name="totalstates" value="5"/>
+        <attribute name="totalstates" value="6"/>
 
         <attribute name="type" type="string"/>
+        <attribute name="randomtype" type="string"/>
         <attribute name="selstate" value="$path{'@user_action'}"/>
 
         <attribute name="eliminatorstatus" value="$once{new LzDatapointer()}"/>
@@ -33,6 +34,17 @@
         <attribute name="enabled" value="${ uienabled == 'true' }"/>
         <attribute name="clickable" value="${ uienabled == 'true' }"/>
 
+		<handler name="ondata" args="dnode"><![CDATA[
+			if(gController.isLoginResponseHavingSeed &&	
+			                           dnode != null &&
+						immediateparent.data != null &&
+						immediateparent.data.hasAttr('randomIdentifier')) {
+
+				dnode.setAttr("randomIdentifier", immediateparent.data.getAttr ('randomIdentifier'));
+
+			}
+		]]></handler>
+		
         <method event="oninit">
             this.eliminatorstatus.setAttribute ('rerunxpath', true);
             this.eliminatorstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@option_eliminator')
@@ -58,8 +70,16 @@
         </method>
 
         <method event="onclick"><![CDATA[
+        	var readableText = this.type;
+
+			if(gController.isLoginResponseHavingSeed &&	
+					!gController.itemHasRationalNode && 
+							!nullOrSpace(gController.seed)) {
+	        	readableText = this.randomtype; 
+			}
+			        	
             if (this.eliminatorstatus.data == 'sel') {
-            	gReadableText.read(getReadableTextForEliminator(this.type, this.selstate !='e'));
+            	gReadableText.read(getReadableTextForEliminator(readableText, this.selstate !='e'));
                 gController.setItemSelState (this.type, 
                                                  this.selstate == 'e' ? 'n' : 'e');
             } else if (this.eraserstatus.data == 'sel' && this.selstate == 'e') {
@@ -67,7 +87,8 @@
             	gController.setItemSelState (this.type, 'n');
                 gController.clearCurrentCursor();
             } else {
-             	gReadableText.read(getReadableTextForSelection(this.type, this.selstate != 's'));
+             	gReadableText.read(getReadableTextForSelection(readableText, this.selstate != 's'));
+//Debug.write(this.type, (this.selstate == 'e' ? 'n' : 'e'));
                 gController.setItemSelState (this.type, 
                                                  this.selstate != 's' ? 's' : 'n');
             }
@@ -118,8 +139,61 @@
                 case 'E': 
                     this.setAttribute ('statenum', 4);
                     break;
+                case 'F': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                case 'G': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                case 'H': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                case 'I': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                case 'J': 
+                    this.setAttribute ('statenum', 5);
+                    break;
                 default:
 //                    Debug.write ("ANSWERSELECTIONBUTTON: unknown type: ", type);
+                    break;
+            }
+        </method>
+
+        <method event="onrandomtype">
+            switch (this.randomtype) {
+                case 'A': 
+                    this.setAttribute ('statenum', 0);
+                    break;
+                case 'B': 
+                    this.setAttribute ('statenum', 1);
+                    break;
+                case 'C': 
+                    this.setAttribute ('statenum', 2);
+                    break;
+                case 'D': 
+                    this.setAttribute ('statenum', 3);
+                    break;
+                case 'E': 
+                    this.setAttribute ('statenum', 4);
+                    break;
+                case 'F': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                case 'G': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                case 'H': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                case 'I': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                case 'J': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                default:
+//                    Debug.write ("ANSWERSELECTIONBUTTON: unknown randomtype: ", randomtype);
                     break;
             }
         </method>

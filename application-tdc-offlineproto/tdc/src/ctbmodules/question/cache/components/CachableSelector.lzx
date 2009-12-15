@@ -10,16 +10,31 @@
 	<class name="CachableSelector" extends="CachableComponent" 
 		comptype="${gCompTypes.WIDGET_SELECTOR}">
         
-        <method event="ondata" args="data">
+        <method event="ondata" args="data"><![CDATA[
+
             var selid = data.getAttr ('identifier');
-            this.selbutton.setAttribute ('type', selid);
+			this.selbutton.setAttribute ('type', selid);
 
-            var dp = new LzDatapointer ();
-            this.selbutton.datapath.setXPath ("dsstudentdata:/testing_client_model/current_item/item_model/interaction/selector [@obj_id_ref='"+selid+"']");
+			this.selbutton.datapath.setXPath ("dsstudentdata:/testing_client_model/current_item/item_model/interaction/selector [@obj_id_ref='"+selid+"']");
+			
+			if(gController.isLoginResponseHavingSeed && 
+						data.hasAttr('randomIdentifier')) {         
+
+				this.selbutton.setAttribute ('randomtype', data.getAttr ('randomIdentifier'));
+			}
     
-            this.doAlign ();
+           this.doAlign ();
 
-            doneLoading();
+           doneLoading();
+            
+        ]]></method>
+
+        <method name="returnComponent" args="toReturn">
+			this.selbutton.setAttribute("randomtype", null);
+			this.selbutton.setAttribute("type", null);
+			this.data = null;
+			this.selbutton.data = null;
+			super.returnComponent(this);
         </method>
 
         <AnswerSelectionButton name="selbutton"/>

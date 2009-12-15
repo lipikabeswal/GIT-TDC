@@ -23,7 +23,7 @@
 		<attribute name="TIMEOUT_INTERVAL" type="number" value="10000" />
 		<attribute name="readingScratchpad" type="boolean" value="false" />
 		<!-- TTS CR -->
-		<attribute name="currentText" type="string" />
+		<attribute name="currentText" type="string" value="" />
 		<attribute name="SPEED_PARAM" type="string" value="speedValue" />
 	    <attribute name="isplaying" type="boolean" value="false" />
 	    

@@ -245,6 +245,9 @@
 		<frame src="iknow_answerchoices/answerE_off.swf"/>
         <frame src="iknow_answerchoices/answerE_on.swf"/>
 
+		<frame src="iknow_answerchoices/answerF_off.swf"/>
+        <frame src="iknow_answerchoices/answerF_on.swf"/>
+
         <frame src="iknow_answerchoices/answer_blueballselect.swf"/>
     </resource>
 
