@@ -9,7 +9,7 @@
     showTitleBar="false"
     displayStateChange="fullscreen()">
 
-	<mx:HTML name="tdccanvas" id="tdccanvas" width="100%" height="100%" location="http://www.google.com"/>
+	<mx:HTML name="tdccanvas" id="tdccanvas" width="100%" height="100%" location="http://127.0.0.1:12345/login.html"/>
     <mx:Script>
         <![CDATA[
         	import flash.utils.setInterval;
