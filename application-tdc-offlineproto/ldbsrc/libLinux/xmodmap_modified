@@ -166,7 +166,7 @@ keycode  62 = Shift_R NoSymbol Shift_R NoSymbol Shift_R
 keycode  63 = KP_Multiply XF86_ClearGrab KP_Multiply XF86_ClearGrab KP_Multiply XF86_ClearGrab
 
 
-keycode  64 = 
+keycode  64 = Alt_L Meta_L
 
 keycode  65 = space NoSymbol space NoSymbol space
 
