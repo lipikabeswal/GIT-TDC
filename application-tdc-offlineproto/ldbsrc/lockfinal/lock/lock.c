@@ -470,9 +470,9 @@ int DisplayBlacklistMessageBox(TCHAR *szProcessName)
 	 strTemp = (char*)malloc(sizeof(char)*200);
 	 strTemp[0] = '\0';
 	 
-	 strcat(strTemp,"Forbidden process ");
+	 strcat(strTemp,"The following running application(s) must be closed before you can use the OAS test client:\n\n");
 	 strcat(strTemp,szProcessName);
-	 strcat( strTemp," detected.");
+	 //strcat( strTemp," detected.");
 		
 	 msgboxID = MessageBox(NULL,strTemp,"ERROR",MB_ICONEXCLAMATION | MB_OK);
 		
@@ -500,9 +500,16 @@ JNIEXPORT jboolean JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBro
  **********************************/
 DLL_EXP_IMP BOOL WINAPI CheckProcessBlacklist()
 {
+	char *strTemp;
+	char *procName;
+	char *result;
+	int retcode = 0;
 
 	DWORD aProcesses[1024], cbNeeded, cProcesses;
     unsigned int i;
+
+	strTemp = (char*)malloc(sizeof(char)*500);
+	strTemp[0] = '\0';
 
     if ( !EnumProcesses( aProcesses, sizeof(aProcesses), &cbNeeded ) )
         return FALSE;
@@ -535,94 +542,90 @@ DLL_EXP_IMP BOOL WINAPI CheckProcessBlacklist()
 					  }
 				
 					//Return true if any forbidden process encountered
-					if (isProcessOpen (szProcessName))
+					if (isProcessOpen (szProcessName, strTemp))
 					 {
-						return TRUE;
-
+						strcat(strTemp, "\n");
+						retcode = 1;
 					 }
 				  CloseHandle( hProcess );
 			 }
 		}
-	
+	if(retcode == 1) {
+		DisplayBlacklistMessageBox(strTemp);
+		return TRUE;
+	}
 	return FALSE;
 }
 
-int isProcessOpen (TCHAR *szProcessName)
+int isProcessOpen (TCHAR *szProcessName, char *result)
 {
-
 	/*****************
 	 * SCREEN CAPTURE*
 	 *****************/
 	if (0 == strcmp(szProcessName, "SnippingTool.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Snipping Tool ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "FastStoneCapture.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Fast Stone Capture ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "Jing.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Jing ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "snagit.exe"))
 	{
-		 DisplayBlacklistMessageBox(szProcessName);
-		 return 1;
+		 strcat(result, " SnagIt ");
+		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "PrintScreen.exe"))
 	{
-		 DisplayBlacklistMessageBox(szProcessName);
-		 return 1;
+		 strcat(result, " PrintScreen ");
+		return 1;
 	}
-
-	if (0 == strcmp(szProcessName, "PrintScreen.exe"))
-	{
-		DisplayBlacklistMessageBox(szProcessName);
-		 return 1;
-	 }
 
 	if (0 == strcmp(szProcessName, "ScreenPrintCapture32.exe"))
 	{
-		 DisplayBlacklistMessageBox(szProcessName);
-		 return 1;
+		 strcat(result, " PrintScreenCapture32 ");
+		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "klepto.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
-		 return 1;
+		strcat(result, " Klepto ");
+		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "Mwsnap.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
-		 return 1;
+		strcat(result, " MwSnap ");
+		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "czepro.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
-		 return 1;
+		strcat(result, " czepro ");
+		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "skitch.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
-		 return 1;
+		strcat(result, " Skitch ");
+		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "CaptureMe.exe"))
 	{
-		 DisplayBlacklistMessageBox(szProcessName);
-		 return 1;
+		 strcat(result, " CaptureMe ");
+		return 1;
 	}
 
 	/***********
@@ -630,149 +633,155 @@ int isProcessOpen (TCHAR *szProcessName)
 	 ***********/
 	 if (0 == strcmp(szProcessName, "iexplore.exe"))
 	 {
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Internet Explorer ");
 		return 1;
 	 }
 	 if (0 == strcmp(szProcessName, "TabTip.exe"))
 	 {
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Internet Explorer ");
 		return 1;
 	 }
-	//if (0 == strcmp(szProcessName, "taskmgr.exe"))
-	///{
-		//DisplayBlacklistMessageBox(szProcessName);
-		//return 1;
-	//}
+	if (0 == strcmp(szProcessName, "taskmgr.exe"))
+	{
+		strcat(result, " Task Manager ");
+		return 1;
+	}
 
 	if (0 == strcmp(szProcessName, "win.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Win ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "lynx.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Lynx ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "msie.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Internet Explorer ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "maxathon.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Maxathon ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "IEOpera.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Opera ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "Navigator.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Navigator ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "firefox.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Firefox ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "flock.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Flock ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "camino.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Camino ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "k-melon.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " k-melon ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "epiphany.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Epiphany ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "konqueror.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Konqueror ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "chrome.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Chrome ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "Sfari.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Safari ");
+		return 1;
+	}
+
+	if (0 == strcmp(szProcessName, "Safari.exe"))
+	{
+		strcat(result, " Safari ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "OmniWeb.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " OmniWeb ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "icab.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " icab ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "opera.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Opera ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "Arachne.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Arachne ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "aweb.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " aweb ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "emacs.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " emacs ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "galeon.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Galeon ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "avant.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Avant ");
 		return 1;
 	}
 
@@ -781,40 +790,40 @@ int isProcessOpen (TCHAR *szProcessName)
 	 ******/
 	if (0 == strcmp(szProcessName, "LimeWire.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " LimeWire ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "FrostWire.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " FrostWire ");
 		return 1;
 	}
 	if (0 == strcmp(szProcessName, "vuze.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Vuze ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "BitComet.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " BitComet ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "uTorrent.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " uTorrent ");
 		return 1;
 	}
 	if (0 == strcmp(szProcessName, "sylpheed.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Sylpheed ");
 		return 1;
 	}
 	if (0 == strcmp(szProcessName, "SMSClient.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " SMSClient ");
 		return 1;
 	}
 
@@ -823,90 +832,90 @@ int isProcessOpen (TCHAR *szProcessName)
 	 ******/
 	if (0 == strcmp(szProcessName, "windowslive.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Live Messenger ");
 		return 1;
 	}
 	if (0 == strcmp(szProcessName, "trillian.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Trillian ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "YahooMessenger.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Yahoo Messenger ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "msnmessenger.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " MSN Messenger ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "miranda-im.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Miranda ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "PalTalkScene.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " PalTalkScene ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "aim.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " AIM ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "messenger.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Messenger ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "pidgin.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Pidgin ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "msnmsgr.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " MSN Messenger ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "chax.exe"))
 	{	
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Chax ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "ichat.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " iChat ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "mirc.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " mirc ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "digsby.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " digsby ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "googletalk.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Google Talk ");
 		return 1;
 	}
 
@@ -915,19 +924,19 @@ int isProcessOpen (TCHAR *szProcessName)
 	 *************/
 	if (0 == strcmp(szProcessName, "FreeYouTubeToMP3Converter.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " FreeYouTubeToMP3Converter ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "YouTubeDownloader.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " YouTubeDownloader ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "Realplayer.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " RealPlayer ");
 		return 1;
 	}
 
@@ -936,54 +945,54 @@ int isProcessOpen (TCHAR *szProcessName)
 	 *********************/
 	if (0 == strcmp(szProcessName, "UseNeXT.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " UseNeXT ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "Snitter.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Snitter ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "Spaz.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Spaz ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "twhirl.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " twhirl ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "FeedDemon.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " FeedDemon ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "twitter.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Twitter ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "FeedDemon.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " FeedDemon ");
 		return 1;
 	}
 	if (0 == strcmp(szProcessName, "EXCEL.EXE"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Excel ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "WINWORD.EXE"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Word ");
 		return 1;
 	}
 	/*****************
@@ -991,73 +1000,73 @@ int isProcessOpen (TCHAR *szProcessName)
 	 *****************/
 	if (0 == strcmp(szProcessName, "OUTLOOK.EXE"))
 	{
-		 DisplayBlacklistMessageBox(szProcessName);
-		 return 1;
+		strcat(result, " Outlook ");
+		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "outlookexpress.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Outlook Express ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "thunderbird.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Thunderbird ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "eudora.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Eudora ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "FeedDemon.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " FeedDemon ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "mulberry.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Mulberry ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "becky.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Becky ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "barca.exe"))
 	{
-		 DisplayBlacklistMessageBox(szProcessName);
-		 return 1;
+		strcat(result, " Barca ");
+		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "pocomail.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Pocomail ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "kmail.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " kMail ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "pegasusmail.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " Pegasus Mail ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "claws-mail.exe"))
 	{
-		DisplayBlacklistMessageBox(szProcessName);
+		strcat(result, " claws-mail ");
 		return 1;
 	}
 	return 0;
