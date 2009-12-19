@@ -31,7 +31,19 @@
 
 HINSTANCE	hInst;		    // Instance handle
 HHOOK hKeyboardHook;  // Old low level keyboard hook 
+HHOOK hMouseHook;  // Old low level keyboard hook 
 int finished = 0;
+
+LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam) 
+{
+	if (nCode == HC_ACTION) 
+	{
+   		if(wParam == WM_RBUTTONDOWN) {
+			return 1;
+		}
+		return CallNextHookEx(hMouseHook, nCode, wParam, lParam);
+	}
+}
 
 LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) 
 {
@@ -292,16 +304,22 @@ int DLL_EXP_IMP WINAPI TaskSwitching_Enable_Disable(BOOL bEnableDisable)
 	if (!bEnableDisable) 
 	 {
 		finished = 0;
-		if (!hKeyboardHook) {
+		if (!hKeyboardHook || !hMouseHook) {
 			//while(1) {
 				// Install the low-level keyboard hook
 				hKeyboardHook  = SetWindowsHookEx(WH_KEYBOARD_LL, 
 											  LowLevelKeyboardProc, 
 											  hInst, 
 											  0);
+
+				hMouseHook  = SetWindowsHookEx(WH_MOUSE_LL, 
+											  LowLevelMouseProc, 
+											  hInst, 
+											  0);
+
 				Sys_GetClipboard();
 				//Taskbar_Show_Hide(0);
-				if (!hKeyboardHook)
+				if (!hKeyboardHook || !hMouseHook)
 					return 0;
 				
 				//Sleep(1000);
@@ -312,7 +330,9 @@ int DLL_EXP_IMP WINAPI TaskSwitching_Enable_Disable(BOOL bEnableDisable)
 	 {
 		finished = 1;
 		UnhookWindowsHookEx(hKeyboardHook);
+		UnhookWindowsHookEx(hMouseHook);
 		hKeyboardHook = NULL;
+		hMouseHook = NULL;
 		Sys_GetClipboard();
 		//Taskbar_Show_Hide(1);
 		
@@ -362,8 +382,11 @@ int DLL_EXP_IMP WINAPI CTRLALTDEL_Enable_Disable(BOOL bEnableDisable)
 JNIEXPORT jboolean JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper_Kill_1Task_1Mgr
   (JNIEnv *env, jclass obj)
 {
-	 
-	return CheckForTaskMgr();
+	while (!finished) { 
+		CheckForTaskMgr();
+		Sleep(500);
+	}
+	return FALSE;
 	
 }
 /*****************************************************************
