@@ -79,10 +79,10 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 		}
 
 		//Alt+F4
-		//if((p->vkCode == VK_F4 && p->flags & LLKHF_ALTDOWN)) 
-		//{
-		//    return 1;
-		//}
+		if((p->vkCode == VK_F4 && p->flags & LLKHF_ALTDOWN)) 
+		{
+		    return 1;
+		}
 
 		// ALT+ESC
 		if((p->vkCode == VK_ESCAPE && p->flags & LLKHF_ALTDOWN)) 

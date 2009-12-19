@@ -87,10 +87,28 @@ public class UtilityServlet extends HttpServlet {
         else
         if (method.equals("exit")) {
         	System.out.println("Exit called");
-        	Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
-        }
-            
-        
+        	if(isLinux()) {
+        		Runtime.getRuntime().exec("killall OASTDC");
+        	} else if(isMacOS()) {
+        		// do something here
+        	} else {
+        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+        	}
+        }      
+    }
+	
+    private static boolean isMacOS() {
+        String os = System.getProperty("os.name");
+        if (os == null) 
+            os = "";
+        return ( os.toLowerCase().indexOf("mac") != -1 );
+    }
+    
+    private static boolean isLinux() {
+        String os = System.getProperty("os.name");
+        if (os == null) 
+            os = "";
+        return ( os.toLowerCase().indexOf("linux") != -1 );
     }
 
 	/**

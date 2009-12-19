@@ -6,8 +6,7 @@
     showFlexChrome="false" alwaysInFront="true" invoke="handleOnInvoke(event)"
     showGripper="false"
     showStatusBar="false"
-    showTitleBar="false"
-    displayStateChange="fullscreen()">
+    showTitleBar="false">
 
 	<mx:HTML name="tdccanvas" id="tdccanvas" width="100%" height="100%" location="http://127.0.0.1:12345/login.html"/>
     <mx:Script>
@@ -22,14 +21,16 @@
             
             private function onReady():void
             {
-            	setTimeout(fullscreen, 100);
+            	setTimeout(fullscreen, 1000);
             }
             
             private function fullscreen():void
             {
             	stage.nativeWindow.maximize();
-            	tdccanvas.width = stage.fullScreenWidth;
-            	tdccanvas.height = stage.fullScreenHeight;
+            	stage.nativeWindow.minimize();
+            	stage.nativeWindow.maximize();
+            	//tdccanvas.width = stage.fullScreenWidth;
+            	//tdccanvas.height = stage.fullScreenHeight;
             	stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
             }
             

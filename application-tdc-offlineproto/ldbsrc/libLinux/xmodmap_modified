@@ -41,7 +41,7 @@ keycode  20 = minus underscore minus underscore minus underscore
 keycode  21 = equal plus equal plus equal plus
 
 
-keycode  22 = BackSpace NoSymbol BackSpace NoSymbol BackSpace
+keycode  22 = BackSpace Terminate_Server BackSpace Terminate_Server BackSpace Terminate_Server
 
 
 keycode  23 = Tab ISO_Left_Tab Tab ISO_Left_Tab Tab ISO_Left_Tab
@@ -86,7 +86,8 @@ keycode  35 = bracketright braceright bracketright braceright bracketright brace
 keycode  36 = Return NoSymbol Return NoSymbol Return
 
 
-keycode  37 = 
+keycode  37 =
+
 
 keycode  38 = a A a A a A
 
@@ -166,7 +167,8 @@ keycode  62 = Shift_R NoSymbol Shift_R NoSymbol Shift_R
 keycode  63 = KP_Multiply XF86_ClearGrab KP_Multiply XF86_ClearGrab KP_Multiply XF86_ClearGrab
 
 
-keycode  64 = Alt_L Meta_L
+keycode  64 =
+
 
 keycode  65 = space NoSymbol space NoSymbol space
 
@@ -174,7 +176,8 @@ keycode  65 = space NoSymbol space NoSymbol space
 keycode  66 = Caps_Lock NoSymbol Caps_Lock NoSymbol Caps_Lock
 
 
-keycode  67 = 
+keycode  67 =
+
 
 keycode  68 = F2 XF86_Switch_VT_2 F2 XF86_Switch_VT_2 F2 XF86_Switch_VT_2
 
@@ -185,7 +188,8 @@ keycode  69 = F3 XF86_Switch_VT_3 F3 XF86_Switch_VT_3 F3 XF86_Switch_VT_3
 keycode  70 = F4 XF86_Switch_VT_4 F4 XF86_Switch_VT_4 F4 XF86_Switch_VT_4
 
 
-keycode  71 = 
+keycode  71 =
+
 
 keycode  72 = F6 XF86_Switch_VT_6 F6 XF86_Switch_VT_6 F6 XF86_Switch_VT_6
 
@@ -199,7 +203,8 @@ keycode  74 = F8 XF86_Switch_VT_8 F8 XF86_Switch_VT_8 F8 XF86_Switch_VT_8
 keycode  75 = F9 XF86_Switch_VT_9 F9 XF86_Switch_VT_9 F9 XF86_Switch_VT_9
 
 
-keycode  76 = 
+keycode  76 =
+
 
 keycode  77 = Num_Lock Pointer_EnableKeys Num_Lock Pointer_EnableKeys Num_Lock Pointer_EnableKeys
 
@@ -255,9 +260,11 @@ keycode  93 = Zenkaku_Hankaku NoSymbol Zenkaku_Hankaku NoSymbol Zenkaku_Hankaku
 keycode  94 = less greater less greater bar brokenbar
 
 
-keycode  95 = 
+keycode  95 =
 
-keycode  96 = 
+
+keycode  96 =
+
 
 keycode  97 =
 
@@ -283,14 +290,17 @@ keycode 103 =
 keycode 104 = KP_Enter NoSymbol KP_Enter NoSymbol KP_Enter
 
 
-keycode 105 = 
+keycode 105 =
+
 
 keycode 106 = KP_Divide XF86_Ungrab KP_Divide XF86_Ungrab KP_Divide XF86_Ungrab
 
 
-keycode 107 = 
+keycode 107 =
 
-keycode 108 = 
+
+keycode 108 =
+
 
 keycode 109 = Linefeed NoSymbol Linefeed NoSymbol Linefeed
 
@@ -577,7 +587,8 @@ keycode 202 =
 keycode 203 = Mode_switch NoSymbol Mode_switch NoSymbol Mode_switch
 
 
-keycode 204 = NoSymbol 
+keycode 204 =
+
 
 keycode 205 = NoSymbol Meta_L NoSymbol Meta_L NoSymbol Meta_L
 
@@ -603,7 +614,7 @@ keycode 211 = XF86Launch4 NoSymbol XF86Launch4 NoSymbol XF86Launch4
 keycode 212 =
 
 
-keycode 213 = XF86Suspend NoSymbol XF86Suspend NoSymbol XF86Suspend
+keycode 213 = XF86Standby NoSymbol XF86Standby NoSymbol XF86Standby
 
 
 keycode 214 = XF86Close NoSymbol XF86Close NoSymbol XF86Close
@@ -705,7 +716,7 @@ keycode 245 = XF86Bluetooth NoSymbol XF86Bluetooth NoSymbol XF86Bluetooth
 keycode 246 = XF86WLAN NoSymbol XF86WLAN NoSymbol XF86WLAN
 
 
-keycode 247 = XF86UWB NoSymbol XF86UWB NoSymbol XF86UWB
+keycode 247 =
 
 
 keycode 248 =

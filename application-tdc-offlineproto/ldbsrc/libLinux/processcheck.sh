@@ -1,8 +1,6 @@
-
 ps -aef > processcheck
 check=0
 #SCREENCAPTURE
-
 if [ ! -z "$(cat processcheck | awk '/gnome-panel-screenshot/')" ]
  then check=1
  zenity --error --text "GNOME-PANEL-SCREENSHOT RUNNING !"
