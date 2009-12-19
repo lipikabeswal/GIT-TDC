@@ -84,6 +84,11 @@ public class UtilityServlet extends HttpServlet {
         if (method.equals("getLocalResource")) {
                 getLocalResource(request,response);
         }
+        else
+        if (method.equals("exit")) {
+        	System.out.println("Exit called");
+        	Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+        }
             
         
     }

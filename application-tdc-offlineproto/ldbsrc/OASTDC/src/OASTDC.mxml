@@ -23,7 +23,6 @@
             private function onReady():void
             {
             	setTimeout(fullscreen, 100);
-                
             }
             
             private function fullscreen():void
@@ -35,20 +34,17 @@
             }
             
             private function handleOnInvoke(event:InvokeEvent):void {
-
             	var prefFile:File = event.currentDirectory;
-		prefFile = prefFile.resolvePath("loc.cfg");
-
-		var stream:FileStream = new FileStream();
-		stream.open(prefFile, FileMode.READ);
-		var loc:String = stream.readUTFBytes(stream.bytesAvailable);
-		stream.close();
-
-		this.tdccanvas.location = loc;
-	    }
+				prefFile = prefFile.resolvePath("loc.cfg");
+		
+				var stream:FileStream = new FileStream();
+				stream.open(prefFile, FileMode.READ);
+				var loc:String = stream.readUTFBytes(stream.bytesAvailable);
+				stream.close();
+		
+				this.tdccanvas.location = loc;
+	    	}
 
         ]]>
     </mx:Script>
-    
-    
 </mx:WindowedApplication>

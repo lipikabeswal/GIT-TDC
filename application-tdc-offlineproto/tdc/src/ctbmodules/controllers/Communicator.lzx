@@ -1,5 +1,6 @@
 <library>
     <include href="Request.lzx"/>
+    <include href="../Screens/GoodbyeScreen.lzx"/>
 
     <node id="gCommunicator">
     	<attribute name="error" type="boolean" value="false" />
@@ -9,7 +10,7 @@
        	</method>
   		
       	<method name="closeBrowser">
-      		LzBrowser.loadJS('closeBrowser()');
+      		exitRequest.exit();
        	</method>
   		
       	<method name="login" args="username, password, accessCode">

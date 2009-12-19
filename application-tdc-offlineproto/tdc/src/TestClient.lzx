@@ -73,6 +73,7 @@
 	<attribute name="currentCursor" value="null"/>
 	<attribute name="eliminatorRsrc" value="$once{LzBrowser.getInitArg('eliminatorResource')}" type="string" />
 	<attribute name="useDefaultEliminator" type="boolean" value="true" />
+    
 	<method name="setCrFocus">
 		var fo = canvas.getAttribute('focusobj');
 		if(typeof fo == 'object'){
