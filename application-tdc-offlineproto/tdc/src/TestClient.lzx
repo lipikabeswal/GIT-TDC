@@ -91,6 +91,14 @@
        if (folder) this.setAttribute("folder", folder);
        var user = LzBrowser.getInitArg('user');
        if (user) this.setAttribute("user", user);
+       <!-- canvas.setDefaultContextMenu(null); -->
+       var cmenu = new LzContextMenu();
+       cmenu.hideBuiltInItems();
+       cmenu.setDelegate(doNothing);
+	   canvas.setDefaultContextMenu(cmenu);
+    </method>
+    
+    <method name="doNothing">
     </method>
 
 <!--  this view tests whether or not the eliminator resource is available -->

@@ -44,6 +44,14 @@
 				stream.close();
 		
 				this.tdccanvas.location = loc;
+				
+				var customContextMenu:ContextMenu = new ContextMenu();
+				//hide the Flash menu
+				customContextMenu.hideBuiltInItems();
+				customContextMenu.builtInItems.print = false;
+				this.contextMenu = customContextMenu;
+				this.tdccanvas.contextMenu = customContextMenu;
+				stage.contextMenu = customContextMenu;
 	    	}
 
         ]]>
