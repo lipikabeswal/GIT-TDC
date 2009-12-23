@@ -84,6 +84,12 @@
         gFootNotePopup.show(data);
     </method>
 
+	<method event="oninit">
+    	Debug.write("HTML Embed Setting:" + Stage.showMenu);
+    	Stage.showMenu = false;
+    	Debug.write("Active Setting:" + Stage.showMenu);
+  	</method>
+	
 
     <method name="init">
        super.init();
@@ -96,6 +102,7 @@
        cmenu.hideBuiltInItems();
        cmenu.setDelegate(doNothing);
 	   canvas.setDefaultContextMenu(cmenu);
+	   Stage.showMenu = false;
     </method>
     
     <method name="doNothing">

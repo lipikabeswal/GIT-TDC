@@ -1,1 +1,1 @@
-xmodmap -e "pointer = 1 6 7 8 9"
+xmodmap -e "pointer = 1 9 8 7 6 5 4 3 2"
