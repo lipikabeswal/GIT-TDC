@@ -1,199 +1,110 @@
 UID        PID  PPID  C STIME TTY          TIME CMD
-root         1     0  0 Dec18 ?        00:00:01 /sbin/init
-root         2     0  0 Dec18 ?        00:00:00 [kthreadd]
-root         3     2  0 Dec18 ?        00:00:00 [migration/0]
-root         4     2  0 Dec18 ?        00:00:00 [ksoftirqd/0]
-root         5     2  0 Dec18 ?        00:00:00 [watchdog/0]
-root         6     2  0 Dec18 ?        00:00:00 [migration/1]
-root         7     2  0 Dec18 ?        00:00:01 [ksoftirqd/1]
-root         8     2  0 Dec18 ?        00:00:00 [watchdog/1]
-root         9     2  0 Dec18 ?        00:00:00 [migration/2]
-root        10     2  0 Dec18 ?        00:00:00 [ksoftirqd/2]
-root        11     2  0 Dec18 ?        00:00:00 [watchdog/2]
-root        12     2  0 Dec18 ?        00:00:00 [migration/3]
-root        13     2  0 Dec18 ?        00:00:00 [ksoftirqd/3]
-root        14     2  0 Dec18 ?        00:00:00 [watchdog/3]
-root        15     2  0 Dec18 ?        00:00:00 [migration/4]
-root        16     2  0 Dec18 ?        00:00:00 [ksoftirqd/4]
-root        17     2  0 Dec18 ?        00:00:00 [watchdog/4]
-root        18     2  0 Dec18 ?        00:00:00 [migration/5]
-root        19     2  0 Dec18 ?        00:00:00 [ksoftirqd/5]
-root        20     2  0 Dec18 ?        00:00:00 [watchdog/5]
-root        21     2  0 Dec18 ?        00:00:00 [migration/6]
-root        22     2  0 Dec18 ?        00:00:00 [ksoftirqd/6]
-root        23     2  0 Dec18 ?        00:00:00 [watchdog/6]
-root        24     2  0 Dec18 ?        00:00:00 [migration/7]
-root        25     2  0 Dec18 ?        00:00:00 [ksoftirqd/7]
-root        26     2  0 Dec18 ?        00:00:00 [watchdog/7]
-root        27     2  0 Dec18 ?        00:00:00 [events/0]
-root        28     2  0 Dec18 ?        00:00:00 [events/1]
-root        29     2  0 Dec18 ?        00:00:00 [events/2]
-root        30     2  0 Dec18 ?        00:00:00 [events/3]
-root        31     2  0 Dec18 ?        00:00:00 [events/4]
-root        32     2  0 Dec18 ?        00:00:00 [events/5]
-root        33     2  0 Dec18 ?        00:00:00 [events/6]
-root        34     2  0 Dec18 ?        00:00:00 [events/7]
-root        35     2  0 Dec18 ?        00:00:00 [khelper]
-root        36     2  0 Dec18 ?        00:00:00 [kstop/0]
-root        37     2  0 Dec18 ?        00:00:00 [kstop/1]
-root        38     2  0 Dec18 ?        00:00:00 [kstop/2]
-root        39     2  0 Dec18 ?        00:00:00 [kstop/3]
-root        40     2  0 Dec18 ?        00:00:00 [kstop/4]
-root        41     2  0 Dec18 ?        00:00:00 [kstop/5]
-root        42     2  0 Dec18 ?        00:00:00 [kstop/6]
-root        43     2  0 Dec18 ?        00:00:00 [kstop/7]
-root        44     2  0 Dec18 ?        00:00:00 [kintegrityd/0]
-root        45     2  0 Dec18 ?        00:00:00 [kintegrityd/1]
-root        46     2  0 Dec18 ?        00:00:00 [kintegrityd/2]
-root        47     2  0 Dec18 ?        00:00:00 [kintegrityd/3]
-root        48     2  0 Dec18 ?        00:00:00 [kintegrityd/4]
-root        49     2  0 Dec18 ?        00:00:00 [kintegrityd/5]
-root        50     2  0 Dec18 ?        00:00:00 [kintegrityd/6]
-root        51     2  0 Dec18 ?        00:00:00 [kintegrityd/7]
-root        52     2  0 Dec18 ?        00:00:00 [kblockd/0]
-root        53     2  0 Dec18 ?        00:00:00 [kblockd/1]
-root        54     2  0 Dec18 ?        00:00:00 [kblockd/2]
-root        55     2  0 Dec18 ?        00:00:00 [kblockd/3]
-root        56     2  0 Dec18 ?        00:00:00 [kblockd/4]
-root        57     2  0 Dec18 ?        00:00:00 [kblockd/5]
-root        58     2  0 Dec18 ?        00:00:00 [kblockd/6]
-root        59     2  0 Dec18 ?        00:00:00 [kblockd/7]
-root        60     2  0 Dec18 ?        00:00:00 [kacpid]
-root        61     2  0 Dec18 ?        00:00:00 [kacpi_notify]
-root        62     2  0 Dec18 ?        00:00:00 [cqueue]
-root        63     2  0 Dec18 ?        00:00:00 [ata/0]
-root        64     2  0 Dec18 ?        00:00:00 [ata/1]
-root        65     2  0 Dec18 ?        00:00:00 [ata/2]
-root        66     2  0 Dec18 ?        00:00:00 [ata/3]
-root        67     2  0 Dec18 ?        00:00:00 [ata/4]
-root        68     2  0 Dec18 ?        00:00:00 [ata/5]
-root        69     2  0 Dec18 ?        00:00:00 [ata/6]
-root        70     2  0 Dec18 ?        00:00:00 [ata/7]
-root        71     2  0 Dec18 ?        00:00:00 [ata_aux]
-root        72     2  0 Dec18 ?        00:00:00 [ksuspend_usbd]
-root        73     2  0 Dec18 ?        00:00:00 [khubd]
-root        74     2  0 Dec18 ?        00:00:00 [kseriod]
-root        75     2  0 Dec18 ?        00:00:00 [kmmcd]
-root        76     2  0 Dec18 ?        00:00:00 [btaddconn]
-root        77     2  0 Dec18 ?        00:00:00 [btdelconn]
-root        78     2  0 Dec18 ?        00:00:00 [pdflush]
-root        79     2  0 Dec18 ?        00:00:00 [pdflush]
-root        80     2  0 Dec18 ?        00:00:00 [kswapd0]
-root        81     2  0 Dec18 ?        00:00:00 [aio/0]
-root        82     2  0 Dec18 ?        00:00:00 [aio/1]
-root        83     2  0 Dec18 ?        00:00:00 [aio/2]
-root        84     2  0 Dec18 ?        00:00:00 [aio/3]
-root        85     2  0 Dec18 ?        00:00:00 [aio/4]
-root        86     2  0 Dec18 ?        00:00:00 [aio/5]
-root        87     2  0 Dec18 ?        00:00:00 [aio/6]
-root        88     2  0 Dec18 ?        00:00:00 [aio/7]
-root        89     2  0 Dec18 ?        00:00:00 [ecryptfs-kthrea]
-root        92     2  0 Dec18 ?        00:00:00 [scsi_eh_0]
-root        93     2  0 Dec18 ?        00:00:00 [scsi_eh_1]
-root        94     2  0 Dec18 ?        00:00:00 [scsi_eh_2]
-root        95     2  0 Dec18 ?        00:00:00 [scsi_eh_3]
-root        96     2  0 Dec18 ?        00:00:00 [kstriped]
-root        97     2  0 Dec18 ?        00:00:00 [kmpathd/0]
-root        98     2  0 Dec18 ?        00:00:00 [kmpathd/1]
-root        99     2  0 Dec18 ?        00:00:00 [kmpathd/2]
-root       100     2  0 Dec18 ?        00:00:00 [kmpathd/3]
-root       101     2  0 Dec18 ?        00:00:00 [kmpathd/4]
-root       102     2  0 Dec18 ?        00:00:00 [kmpathd/5]
-root       103     2  0 Dec18 ?        00:00:00 [kmpathd/6]
-root       104     2  0 Dec18 ?        00:00:00 [kmpathd/7]
-root       105     2  0 Dec18 ?        00:00:00 [kmpath_handlerd]
-root       106     2  0 Dec18 ?        00:00:00 [ksnapd]
-root       107     2  0 Dec18 ?        00:00:00 [kondemand/0]
-root       108     2  0 Dec18 ?        00:00:00 [kondemand/1]
-root       109     2  0 Dec18 ?        00:00:00 [kondemand/2]
-root       110     2  0 Dec18 ?        00:00:00 [kondemand/3]
-root       111     2  0 Dec18 ?        00:00:00 [kondemand/4]
-root       112     2  0 Dec18 ?        00:00:00 [kondemand/5]
-root       113     2  0 Dec18 ?        00:00:00 [kondemand/6]
-root       114     2  0 Dec18 ?        00:00:00 [kondemand/7]
-root       115     2  0 Dec18 ?        00:00:00 [krfcommd]
-root       519     2  0 Dec18 ?        00:00:00 [khpsbpkt]
-root       885     2  0 Dec18 ?        00:00:00 [knodemgrd_0]
-root       938     2  0 Dec18 ?        00:00:00 [kjournald]
-root      1072     1  0 Dec18 ?        00:00:00 /sbin/udevd --daemon
-root      1802     2  0 Dec18 ?        00:00:00 [kpsmoused]
-root      2573     1  0 Dec18 tty4     00:00:00 /sbin/getty 38400 tty4
-root      2574     1  0 Dec18 tty5     00:00:00 /sbin/getty 38400 tty5
-root      2577     1  0 Dec18 tty2     00:00:00 /sbin/getty 38400 tty2
-root      2580     1  0 Dec18 tty3     00:00:00 /sbin/getty 38400 tty3
-root      2581     1  0 Dec18 tty6     00:00:00 /sbin/getty 38400 tty6
-root      2654     1  0 Dec18 ?        00:00:00 /usr/sbin/acpid -c /etc/acpi/events -s /var/run/acpid.socket
-syslog    2699     1  0 Dec18 ?        00:00:00 /sbin/syslogd -u syslog
-root      2722     1  0 Dec18 ?        00:00:00 /bin/dd bs 1 if /proc/kmsg of /var/run/klogd/kmsg
-klog      2724     1  0 Dec18 ?        00:00:00 /sbin/klogd -P /var/run/klogd/kmsg
-108       2747     1  0 Dec18 ?        00:00:00 /bin/dbus-daemon --system
-111       2876     1  0 Dec18 ?        00:00:01 /usr/sbin/hald
-root      2879     1  0 Dec18 ?        00:00:00 /usr/sbin/console-kit-daemon
-root      2942  2876  0 Dec18 ?        00:00:00 hald-runner
-root      2972  2942  0 Dec18 ?        00:00:00 hald-addon-input: Listening on /dev/input/event1 /dev/input/event0 /dev/input/event3 /dev/input/event7 /dev/input/event8
-root      3028  2942  0 Dec18 ?        00:00:00 /usr/lib/hal/hald-addon-cpufreq
-111       3029  2942  0 Dec18 ?        00:00:00 hald-addon-acpi: listening on acpid socket /var/run/acpid.socket
-root      3031  2942  0 Dec18 ?        00:00:00 hald-addon-storage: polling /dev/sr0 (every 2 sec)
-root      3033  2942  0 Dec18 ?        00:00:00 hald-addon-storage: no polling on /dev/fd0 because it is explicitly disabled
-root      3051     1  0 Dec18 ?        00:00:00 /usr/sbin/bluetoothd
-root      3084     1  0 Dec18 ?        00:00:00 /usr/sbin/gdm
-root      3087  3084  0 Dec18 ?        00:00:00 /usr/sbin/gdm
-root      3091  3087  0 Dec18 tty7     00:01:22 /usr/X11R6/bin/X :0 -br -audit 0 -auth /var/lib/gdm/:0.Xauth -nolisten tcp vt7
-root      3113     1  0 Dec18 ?        00:00:00 /usr/sbin/NetworkManager --pid-file /var/run/NetworkManager/NetworkManager.pid
-root      3131     1  0 Dec18 ?        00:00:00 /sbin/wpa_supplicant -u -f /var/log/wpa_supplicant.log
-root      3133     1  0 Dec18 ?        00:00:00 /usr/sbin/nm-system-settings --config /etc/NetworkManager/nm-system-settings.conf
-avahi     3137     1  0 Dec18 ?        00:00:00 avahi-daemon: running [ncohen-desktop.local]
-avahi     3138  3137  0 Dec18 ?        00:00:00 avahi-daemon: chroot helper
-root      3165     1  0 Dec18 ?        00:00:00 /usr/sbin/cupsd
-root      3194     1  0 Dec18 ?        00:00:00 /usr/bin/system-tools-backends
-daemon    3264     1  0 Dec18 ?        00:00:00 /usr/sbin/atd
-root      3292     1  0 Dec18 ?        00:00:00 /usr/sbin/cron
-ncohen    3389     1  0 06:23 ?        00:00:01 /usr/bin/python2.6 /usr/bin/update-manager --no-focus-on-map
-root      3404     1  0 Dec18 tty1     00:00:00 /sbin/getty 38400 tty1
-root      3426  3113  0 Dec18 ?        00:00:00 /sbin/dhclient -d -sf /usr/lib/NetworkManager/nm-dhcp-client.action -pf /var/run/dhclient-eth0.pid -lf /var/lib/dhcp3/dhclient-eth0.lease -cf /var/run/nm-dhclient-eth0.conf eth0
-ncohen    3492     1  0 Dec18 ?        00:00:00 /usr/bin/gnome-keyring-daemon --daemonize --login
-ncohen    3505  3087  0 Dec18 ?        00:00:00 x-session-manager
-ncohen    3654  3505  0 Dec18 ?        00:00:00 /usr/bin/ssh-agent /usr/bin/dbus-launch --exit-with-session /usr/bin/pulse-session /usr/bin/seahorse-agent --execute x-session-manager
-ncohen    3657     1  0 Dec18 ?        00:00:00 /usr/bin/dbus-launch --exit-with-session /usr/bin/pulse-session /usr/bin/seahorse-agent --execute x-session-manager
-ncohen    3658     1  0 Dec18 ?        00:00:00 //bin/dbus-daemon --fork --print-pid 6 --print-address 9 --session
-ncohen    3663     1  0 Dec18 ?        00:00:00 /usr/bin/pulseaudio --start
-ncohen    3664  3663  0 Dec18 ?        00:00:00 /usr/lib/pulseaudio/pulse/gconf-helper
-ncohen    3666     1  0 Dec18 ?        00:00:00 /usr/lib/libgconf2-4/gconfd-2
-ncohen    3679  3505  0 Dec18 ?        00:00:00 /usr/bin/seahorse-agent --execute x-session-manager
-ncohen    3681     1  0 Dec18 ?        00:00:00 /usr/lib/gvfs/gvfsd
-ncohen    3688     1  0 Dec18 ?        00:00:00 /usr/lib/gvfs//gvfs-fuse-daemon /home/ncohen/.gvfs
-ncohen    3696     1  0 Dec18 ?        00:00:01 /usr/lib/gnome-settings-daemon/gnome-settings-daemon
-ncohen    3703  3505  0 Dec18 ?        00:00:00 /bin/sh /usr/bin/compiz
-ncohen    3764  3703  0 Dec18 ?        00:00:50 /usr/bin/compiz.real --ignore-desktop-hints --replace --sm-client-id 104b60959126cf326d126116384789922500000035050019 --loose-binding core ccp
-ncohen    3765  3505  0 Dec18 ?        00:00:07 gnome-panel
-ncohen    3766  3505  0 Dec18 ?        00:00:05 nautilus
-ncohen    3768     1  0 Dec18 ?        00:00:00 /usr/lib/bonobo-activation/bonobo-activation-server --ac-activate --ior-output-fd=19
-ncohen    3772  3505  0 Dec18 ?        00:00:00 python /usr/share/system-config-printer/applet.py
-ncohen    3774  3505  0 Dec18 ?        00:00:00 bluetooth-applet
-ncohen    3782  3505  0 Dec18 ?        00:00:00 update-notifier --startup-delay=60
-ncohen    3790     1  0 Dec18 ?        00:00:00 /usr/lib/gnome-applets/trashapplet --oaf-activate-iid=OAFIID:GNOME_Panel_TrashApplet_Factory --oaf-ior-fd=18
-ncohen    3792     1  0 Dec18 ?        00:00:00 /usr/lib/gvfs/gvfsd-trash --spawner :1.4 /org/gtk/gvfs/exec_spaw/0
-ncohen    3794     1  0 Dec18 ?        00:00:00 /usr/lib/gvfs/gvfs-hal-volume-monitor
-ncohen    3798  3505  0 Dec18 ?        00:00:00 nm-applet --sm-disable
-ncohen    3800     1  0 Dec18 ?        00:00:00 /usr/lib/gvfs/gvfs-gphoto2-volume-monitor
-ncohen    3801     1  0 Dec18 ?        00:00:00 gnome-power-manager
-ncohen    3805     1  0 Dec18 ?        00:00:00 /usr/lib/notify-osd/notify-osd
-ncohen    3811     1  0 Dec18 ?        00:00:00 /usr/lib/gnome-applets/mixer_applet2 --oaf-activate-iid=OAFIID:GNOME_MixerApplet_Factory --oaf-ior-fd=19
-ncohen    3813     1  0 Dec18 ?        00:00:00 /usr/lib/indicator-applet/indicator-applet --oaf-activate-iid=OAFIID:GNOME_IndicatorApplet_Factory --oaf-ior-fd=26
-ncohen    3815     1  0 Dec18 ?        00:00:00 /usr/lib/fast-user-switch-applet/fast-user-switch-applet --oaf-activate-iid=OAFIID:GNOME_FastUserSwitchApplet_Factory --oaf-ior-fd=32
-ncohen    3822  3764  0 Dec18 ?        00:00:00 /bin/sh -c /usr/bin/compiz-decorator
-ncohen    3823  3822  0 Dec18 ?        00:00:00 /bin/sh /usr/bin/compiz-decorator
-ncohen    3825  3823  0 Dec18 ?        00:00:03 /usr/bin/gtk-window-decorator
-ncohen    3832     1  0 Dec18 ?        00:00:00 /usr/lib/gvfs/gvfsd-burn --spawner :1.4 /org/gtk/gvfs/exec_spaw/1
-ncohen    3840     1  0 Dec18 ?        00:00:02 gnome-screensaver
-root      3846     1  0 Dec18 ?        00:00:00 /usr/bin/python /usr/lib/system-service/system-service-d
-ncohen    5440     1  0 07:01 ?        00:00:01 gnome-terminal
-ncohen    5441  5440  0 07:01 ?        00:00:00 gnome-pty-helper
-ncohen    5442  5440  0 07:01 pts/0    00:00:00 bash
-ncohen   14807  5442  3 07:28 pts/0    00:00:01 /home/ncohen/jre1.6.0_17/bin/java com.zerog.lax.LAX /home/ncohen/Online Assessment/./Online_Assessment.lax /tmp/env.properties.14807
-ncohen   14899 14807  4 07:28 pts/0    00:00:01 java -Dtdc.home=/home/ncohen/Online Assessment -Djetty.home=/home/ncohen/Online Assessment/servletcontainer/jetty-5.1.11RC0 -Dorg.mortbay.log.LogFactory.noDiscovery=false -Djetty.class.path=/home/ncohen/Online Assessment/servletcontainer/jetty-5.1.11RC0/etc -cp /home/ncohen/Online Assessment/servletcontainer/jetty-5.1.11RC0/lib/org.mortbay.jetty.jar -jar /home/ncohen/Online Assessment/servletcontainer/jetty-5.1.11RC0/start.jar /home/ncohen/Online Assessment/servletcontainer/tdc.xml
-ncohen   15439 14807  0 07:29 pts/0    00:00:00 sh -c ./disablekeysobj
-ncohen   15440 15439  0 07:29 pts/0    00:00:00 ./disablekeysobj
-ncohen   15459 15440  0 07:29 pts/0    00:00:00 sh -c sh processcheck.sh
-ncohen   15460 15459  0 07:29 pts/0    00:00:00 sh processcheck.sh
-ncohen   15461 15460  0 07:29 pts/0    00:00:00 ps -aef
+root         1     0  0 15:02 ?        00:00:00 init [5]                             
+root         2     1  0 15:02 ?        00:00:00 [migration/0]
+root         3     1  0 15:02 ?        00:00:00 [ksoftirqd/0]
+root         4     1  0 15:02 ?        00:00:00 [migration/1]
+root         5     1  0 15:02 ?        00:00:00 [ksoftirqd/1]
+root         6     1  0 15:02 ?        00:00:00 [events/0]
+root         7     1  0 15:02 ?        00:00:00 [events/1]
+root         8     6  0 15:02 ?        00:00:00 [khelper]
+root         9     6  0 15:02 ?        00:00:00 [kacpid]
+root        29     6  0 15:02 ?        00:00:00 [kblockd/0]
+root        30     6  0 15:02 ?        00:00:00 [kblockd/1]
+root        48     6  0 15:02 ?        00:00:00 [pdflush]
+root        49     6  0 15:02 ?        00:00:01 [pdflush]
+root        51     6  0 15:02 ?        00:00:00 [aio/0]
+root        52     6  0 15:02 ?        00:00:00 [aio/1]
+root        31     1  0 15:02 ?        00:00:00 [khubd]
+root        50     1  0 15:02 ?        00:00:00 [kswapd0]
+root       198     1  0 15:02 ?        00:00:00 [kseriod]
+root       304     7  0 15:02 ?        00:00:00 [ata/0]
+root       305     7  0 15:02 ?        00:00:00 [ata/1]
+root       309     1  0 15:02 ?        00:00:00 [scsi_eh_0]
+root       310     1  0 15:02 ?        00:00:00 [scsi_eh_1]
+root       332     1  0 15:02 ?        00:00:00 [kjournald]
+root      1458     1  0 15:02 ?        00:00:00 udevd
+root      2145     6  0 15:02 ?        00:00:00 [kauditd]
+root      2208     6  0 15:02 ?        00:00:00 [kmirrord]
+root      2231     1  0 15:02 ?        00:00:00 [kjournald]
+root      2232     1  0 15:02 ?        00:00:00 [kjournald]
+root      2233     1  0 15:02 ?        00:00:00 [kjournald]
+root      2234     1  0 15:02 ?        00:00:00 [kjournald]
+root      2235     1  0 15:02 ?        00:00:00 [kjournald]
+root      2236     1  0 15:02 ?        00:00:00 [kjournald]
+root      3037     1  0 15:02 ?        00:00:00 syslogd -m 0
+root      3041     1  0 15:02 ?        00:00:00 klogd -x
+root      3052     1  0 15:02 ?        00:00:00 irqbalance
+rpc       3064     1  0 15:02 ?        00:00:00 portmap
+root      3084     1  0 15:02 ?        00:00:00 rpc.statd
+root      3114     1  0 15:02 ?        00:00:00 rpc.idmapd
+root      3196     1  0 15:02 ?        00:00:00 /usr/sbin/smartd
+root      3206     1  0 15:02 ?        00:00:00 /usr/sbin/acpid
+root      3219     1  0 15:02 ?        00:00:00 cupsd
+root      3272     1  0 15:02 ?        00:00:00 /usr/sbin/sshd
+root      3287     1  0 15:02 ?        00:00:00 xinetd -stayalive -pidfile /var/run/xinetd.pid
+smmsp     3313     1  0 15:02 ?        00:00:00 sendmail: Queue runner@01:00:00 for /var/spool/clientmqueue
+root      3324     1  0 15:02 ?        00:00:00 gpm -m /dev/input/mice -t imps2
+root      3334     1  0 15:02 ?        00:00:00 crond
+xfs       3357     1  0 15:02 ?        00:00:00 xfs -droppriv -daemon
+root      3376     1  0 15:02 ?        00:00:00 /usr/sbin/atd
+dbus      3395     1  0 15:02 ?        00:00:00 dbus-daemon-1 --system
+root      3408     1  0 15:02 ?        00:00:00 cups-config-daemon
+root      3419     1  0 15:02 ?        00:00:02 hald
+root      3429     1  0 15:02 tty1     00:00:00 /sbin/mingetty tty1
+root      3430     1  0 15:02 tty2     00:00:00 /sbin/mingetty tty2
+root      3431     1  0 15:02 tty3     00:00:00 /sbin/mingetty tty3
+root      3434     1  0 15:02 tty4     00:00:00 /sbin/mingetty tty4
+root      3463     1  0 15:02 tty5     00:00:00 /sbin/mingetty tty5
+root      3464     1  0 15:02 tty6     00:00:00 /sbin/mingetty tty6
+root      3466     1  0 15:02 ?        00:00:00 /usr/bin/gdm-binary -nodaemon
+root      4133  3466  0 15:02 ?        00:00:00 /usr/bin/gdm-binary -nodaemon
+root      4157  4133  1 15:02 ?        00:03:14 /usr/X11R6/bin/X :0 -audit 0 -auth /var/gdm/:0.Xauth -nolisten tcp vt7
+root      4473  4133  0 15:05 ?        00:00:00 /usr/bin/gnome-session
+root      4532  4473  0 15:05 ?        00:00:00 /usr/bin/ssh-agent /usr/bin/dbus-launch --exit-with-session /etc/X11/xinit/Xclients
+root      4535     1  0 15:05 ?        00:00:00 /usr/bin/dbus-launch --exit-with-session /etc/X11/xinit/Xclients
+root      4536     1  0 15:05 ?        00:00:00 dbus-daemon-1 --fork --print-pid 8 --print-address 6 --session
+root      4540     1  0 15:05 ?        00:00:00 /usr/libexec/gconfd-2 5
+root      4543     1  0 15:05 ?        00:00:00 /usr/bin/gnome-keyring-daemon
+root      4545     1  0 15:05 ?        00:00:00 /usr/libexec/bonobo-activation-server --ac-activate --ior-output-fd=18
+root      4547     1  0 15:05 ?        00:00:00 /usr/libexec/gnome-settings-daemon --oaf-activate-iid=OAFIID:GNOME_SettingsDaemon --oaf-ior-fd=22
+root      4553     1  0 15:05 ?        00:00:00 /usr/libexec/gam_server
+root      4585     1  0 15:05 ?        00:00:08 /usr/bin/metacity --sm-client-id=default1
+root      4589     1  0 15:05 ?        00:00:03 gnome-panel --sm-client-id default2
+root      4591     1  0 15:05 ?        00:00:24 nautilus --no-default-window --sm-client-id default3
+root      4593     1  0 15:05 ?        00:00:00 gnome-volume-manager --sm-client-id default6
+root      4595     1  0 15:05 ?        00:00:00 eggcups --sm-client-id default5
+root      4597     1  0 15:05 ?        00:00:00 pam-panel-icon --sm-client-id default0
+root      4599     1  0 15:05 ?        00:00:02 /usr/bin/python /usr/bin/rhn-applet-gui --sm-client-id default4
+root      4600  4597  0 15:05 ?        00:00:00 /sbin/pam_timestamp_check -d root
+root      4605     1  0 15:05 ?        00:00:00 /usr/libexec/gnome-vfs-daemon --oaf-activate-iid=OAFIID:GNOME_VFS_Daemon_Factory --oaf-ior-fd=28
+root      4617     1  0 15:05 ?        00:00:00 /usr/libexec/mapping-daemon
+root      4619     1  0 15:05 ?        00:00:10 /usr/libexec/wnck-applet --oaf-activate-iid=OAFIID:GNOME_Wncklet_Factory --oaf-ior-fd=30
+root      4621     1  0 15:05 ?        00:00:00 /usr/libexec/mixer_applet2 --oaf-activate-iid=OAFIID:GNOME_MixerApplet_Factory --oaf-ior-fd=32
+root      4623     1  0 15:05 ?        00:00:00 /usr/libexec/clock-applet --oaf-activate-iid=OAFIID:GNOME_ClockApplet_Factory --oaf-ior-fd=34
+root      4625     1  0 15:05 ?        00:00:00 /usr/libexec/notification-area-applet --oaf-activate-iid=OAFIID:GNOME_NotificationAreaApplet_Factory --oaf-ior-fd=36
+root      4627     1  0 15:05 ?        00:01:02 gnome-terminal
+root      4628  4627  0 15:05 ?        00:00:00 gnome-pty-helper
+root      4629  4627  0 15:05 pts/1    00:00:00 bash
+root      5080  3272  0 16:40 ?        00:00:00 sshd: root@pts/2 
+root      5082  5080  0 16:40 pts/2    00:00:00 -bash
+root      5190  3272  0 16:46 ?        00:00:02 sshd: root@pts/3 
+root      5192  5190  0 16:46 pts/3    00:00:00 -bash
+root      5229     1  0 16:48 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+daemon    5249  5229  0 16:49 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+daemon    5252  5229  0 16:49 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+daemon    5253  5229  0 16:49 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+daemon    5299  5229  0 16:50 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+daemon    5481  5229  0 16:57 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+root      5537     1  0 17:01 ?        00:00:04 /usr/lib/ooo-1.1/program/soffice.bin /root/create .so.sxw
+daemon   14283  5229  0 17:48 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+daemon   14284  5229  0 17:48 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+daemon   14285  5229  0 17:48 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+root     14288  4627  0 17:48 pts/4    00:00:00 bash
+daemon   14364  5229  0 17:51 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+daemon   21717  5229  0 17:54 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+root     16992  4629  6 18:17 pts/1    00:00:00 java -classpath .:com.ctb.tdc.bootstrap.processwrapper.LockdownBrowserWrapper com.ctb.tdc.bootstrap.processwrapper.Main
+root     17213 16992  0 18:17 pts/1    00:00:00 ./disablekeysobj
+root     17409 17213  0 18:17 pts/1    00:00:00 sh processcheck.sh
+root     17420 16992  0 18:17 pts/1    00:00:00 sh disable_printscreen.sh
+root     17422 17420  0 18:17 pts/1    00:00:00 killall -9 gnome-screenshot
+root     17423 17409  0 18:17 pts/1    00:00:00 ps -aef

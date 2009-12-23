@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <jni.h>
 #include "LockdownBrowserWrapper.h"
-JNIEXPORT void JNICALL Java_com_javaunit_LockdownBrowserWrapper_Hot_1Keys_1Enable_1Disable
+
+
+JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper_Hot_1Keys_1Enable_1Disable
   (JNIEnv *env, jclass obj, jboolean b_ENABLE_DISABLE) {
+
 
 	if(!b_ENABLE_DISABLE)
 		{
@@ -16,30 +19,42 @@ JNIEXPORT void JNICALL Java_com_javaunit_LockdownBrowserWrapper_Hot_1Keys_1Enabl
 		}
 }
 
-
-/*JNIEXPORT void JNICALL Java_HelloWorld_display
+JNIEXPORT jboolean JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper_Process_1Check
   (JNIEnv *env, jclass obj) {
-
-	printf("Hello World!!!");
-	return;
-}*/
-
-JNIEXPORT jboolean JNICALL Java_com_javaunit_LockdownBrowserWrapper_Process_1Block
-  (JNIEnv *env, jclass obj) {
-	
 	
 	int a; 
 	a = system("sh processcheck.sh");
         a = a/256;
         return a;
-        	
-
-
+      	
 }
 
-JNIEXPORT void JNICALL Java_com_javaunit_LockdownBrowserWrapper_kill_1printscreen_1snapshot
+JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper_kill_1printscreen_1snapshot
   (JNIEnv *env, jclass obj) {
+
+
 	system("sh disable_printscreen.sh");
+
 }
 
+JNIEXPORT jboolean JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper_Process_1Block
+  (JNIEnv *env, jclass obj) {
+	
+	system("sh callfirefox.sh");
+
+}
+
+JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper_Rightclick_1Enable_1Disable
+  (JNIEnv *env, jclass obj, jboolean b_ENABLE_DISABLE) {
+
+	if (!b_ENABLE_DISABLE)
+		{
+			system("sh disable_rightclick.sh");
+		}
+	
+	else
+		{
+			system("sh enable_rightclick.sh");
+		}
+}
 
