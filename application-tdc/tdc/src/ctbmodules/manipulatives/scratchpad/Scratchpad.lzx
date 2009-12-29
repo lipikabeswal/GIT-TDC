@@ -1,0 +1,207 @@
+<library>
+ 	
+	<include href="../../rich-text/library.lzx" />
+	<include href="ScratchpadWindow.lzx" />
+
+    <class name="Scratchpad" 
+           extends="ScratchpadWindow"
+           datapath="dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global"           
+           visible="${gController.scratchpadOpen}"
+           height="$once{this.DEFAULT_HEIGHT}"   
+		   width="$once{this.DEFAULT_WIDTH}" 
+		   x="$once{this.DEFAULT_X}"
+		   y="$once{this.DEFAULT_Y}"
+		   title="Scratchpad"
+		   resizable="true" 
+		   closeable="true"
+		   bgcolor="${Number(gController.answerBgColor)}"
+		   fontsize="12"
+		   minwidth="130"
+		   minheight="130"
+		   initstage="defer"
+		   focustrap="true">
+
+		<attribute name="DEFAULT_HEIGHT" type="number" value="227" />
+		<attribute name="DEFAULT_WIDTH" type="number" value="400" />
+		<attribute name="DEFAULT_X" type="number" value="200" />
+		<attribute name="DEFAULT_Y" type="number" value="113" />
+        <attribute name="toolid" type="string"/>
+        <attribute name="toolstate" value="$once{new LzDatapointer ()}"/>
+        <attribute name="scratchpadHasFocus" type="boolean" value="false"/>
+        <attribute name="scratchpadJustLostFocus" value="false" />
+        
+        <handler name="onmousedown">
+        	this.bringToFront();
+        	this.sp.inp.setSelectable(false);
+            LzCursor.setCursorGlobal ('grabbing_cursor');
+            LzCursor.lock ();
+        </handler>
+
+		<handler name="onmouseup" reference="LzGlobalMouse" args="who">
+			if(LzFocus.getFocus() == sp.inp){  // user may have changed selection using mouse
+				this.sp.storeSelection();
+			}
+			else if(isScratchpadSubcomponent(who)){ // user clicked on scrollbar, etc.
+				gScratchpad.restoreFocusAndCursor();
+			}
+			else if (who == this){
+				this.sp.inp.setSelectable(true);
+            	LzCursor.unlock ();
+            	gController.restoreCurrentCursor();
+            	restoreFocusAndCursor();
+			}
+			else if (who == gPauseButton || who == gStopButton || who == gFinishTestButton){
+				if(this.scratchpadJustLostFocus){
+					gController.setAttribute("focusOnScratchpad", true);
+				}
+			}
+			else if (gItemInterface.visible){
+				gController.setAttribute("focusOnScratchpad", false);
+			}
+			this.setAttribute("scratchpadJustLostFocus", false);
+		</handler>
+		
+		<method name="isScratchpadSubcomponent" args="who">
+			var ancestor = _getAncestor(who);
+			var parentalUnit = typeof (who.parent) == "undefined" ? null : who.parent;
+			return (parentalUnit == gScratchpad || ancestor == gScratchpad);
+		</method>
+		
+		<!--  eliminate annoying Debug warnings -->
+		<method name="_getAncestor" args="who">
+			var result = null;
+			if(typeof (who.parent) != "undefined"){
+				if(typeof (who.parent.parent) != "undefined"){
+					if(typeof (who.parent.parent.parent) != "undefined"){
+						if(typeof (who.parent.parent.parent.parent) != "undefined"){
+							result = who.parent.parent.parent.parent;
+						}
+					}
+				}
+			}
+			return result;
+		</method>
+		
+ 		<handler name="onmouseover">
+            gController.setCurrentCursor('cangrab_cursor');
+        </handler>
+        
+        <handler name="onmouseout">
+            gController.clearAndRestoreCurrentCursor();
+        </handler>
+        
+        <method name="restoreFocusAndCursor">
+        	this.sp.inp.onfocus.sendEvent();
+        	this.sp.resetTheSelection();
+        	this.setAttribute("scratchpadHasFocus", true);
+			gHotKeys.disableKeys();
+        </method>
+        
+        <method name="getText">
+        	return sp.getText();
+        </method>
+        
+        <method name="read">
+ 	    	gReadableText.read(sp.getSelectedText(), true);
+        	restoreFocusAndCursor();
+        </method>
+        
+        <method name="setText" args="txt">
+          sp.inp.onfocus.sendEvent();
+          sp.inp.onblur.sendEvent();
+          sp.setText(gController.formatXml(txt));
+        </method>
+        
+        <method event="oninit">
+            this.toolstate.setAttribute ('rerunxpath', true);
+            this.toolstate.setXPath (this.datapath.xpath + '/@' + this.toolid);
+            this.datapath.setXPath (this.toolid);
+        </method>
+
+        <method event="onvisible">
+			if(this.visible){  // restore defaults
+				this.setAttribute("height", this.DEFAULT_HEIGHT);
+				this.setAttribute("width", this.DEFAULT_WIDTH);
+				this.setAttribute("x", this.DEFAULT_X);
+				this.setAttribute("y", this.DEFAULT_Y);
+           		this.restoreFocusAndCursor();
+           }else{
+           		gReadableText.stopReading(true);
+            }       
+         </method>
+         
+         <handler name="onblur" reference="sp.inp">
+			this.setAttribute("scratchpadHasFocus", false);
+			this.setAttribute("scratchpadJustLostFocus", true);
+         </handler>
+         
+	     <richtexteditarea name="sp" 
+	                             height="${immediateparent.height}" 
+	                             width="${immediateparent.width}" 
+	                             defaultfontcolor="0x336699"
+	                             focusable="false">
+	            	<attribute name="start" type="number" value="0" />
+	            	<attribute name="end" type="number" value="0" />
+	            	<attribute name="scrollPos" type="number" value="0" />
+	            <method name="init">
+	                super.init();
+	              	this.style.setAttribute("textfieldcolor", gController.answerBgColor);
+					this.setFontColor(gController.answerFontColor);
+				 	if(gController.hasFontAccommodation){
+						this.setFontSize(18);
+					}
+					else{
+						this.setFontSize(12);
+					}
+					this.inp.setMaxLength(10000);
+	            </method>
+         		  
+         		<handler name="onpos" reference="this.inp" args="_pos">
+				  	if(typeof _pos == 'number'){
+        				this.setAttribute("scrollPos", _pos);
+       			  	}
+        	    </handler>
+        
+				<handler name="onfocus" reference="inp">
+					classroot.setAttribute("scratchpadHasFocus", true);
+					gHotKeys.disableKeys();
+					classroot.bringToFront();
+				</handler>
+				
+				<handler name="onblur" reference="inp">
+					gHotKeys.enableKeys();
+				</handler>
+				
+				<handler name="onkeyup" reference="inp">
+					storeSelection();
+				</handler>
+				
+				<method name="storeSelection">
+					var pos = getSelectionPosition();
+					var size = getSelectionSize();
+					if(pos == -1){
+						pos = 0;
+					}
+					if(size == -1){
+						size = 0;
+					}
+					this.setAttribute('start', pos);
+					this.setAttribute('end', pos + size);
+				</method>
+				
+				<method name="resetTheSelection">
+        			this.setSelection(this.start, this.end);
+        			this.inp.setAttribute('pos', this.scrollPos);
+				</method>
+				
+				<method name="getSelectedText">
+					if(start == end){
+						return getText();
+					}
+					else{
+						return getText().substring(start, end);
+					}
+				</method>
+	          </richtexteditarea>
+     </class>
+</library>

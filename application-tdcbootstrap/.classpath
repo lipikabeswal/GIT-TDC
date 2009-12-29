@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="*.html" kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JDK 150_04"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/application-tdc"/>
+	<classpathentry kind="lib" path="/application-tdc/webapp/WEB-INF/lib/bcprov-jdk14-130.jar"/>
+	<classpathentry kind="lib" path="/application-tdc/webapp/WEB-INF/lib/commons-codec.jar"/>
+	<classpathentry kind="lib" path="/application-tdc/webapp/WEB-INF/lib/commons-httpclient-3.0.1.jar"/>
+	<classpathentry kind="lib" path="/application-tdc/servletcontainer/jetty-5.1.11RC0/ext/commons-logging.jar"/>
+	<classpathentry kind="lib" path="/application-tdc/webapp/WEB-INF/lib/jdom.jar"/>
+	<classpathentry kind="lib" path="/application-tdc/webapp/WEB-INF/lib/jl1.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath> 

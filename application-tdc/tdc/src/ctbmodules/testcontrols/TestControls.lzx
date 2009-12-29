@@ -1,0 +1,136 @@
+<library>
+    <!-- somehow bgcolor causes a square corner to the left of 
+        multistatebutton name="markbtn". bgcolor="0xFFFFCC" removed for name=TestControls-->
+    <class name="TestControls"
+           datapath="dsstudentdata:/testing_client_model/">
+
+        <attribute name="curritempos" 
+                   value="$path{'current_item/@itempos'}"/>
+
+        <attribute name="totalitemno" 
+                   value="$path{'question_number/@total_including_theme'}"/>
+        
+
+        <attribute name="iscurranswered" 
+                   value="$path{'current_item/item_model/@answered'}"
+                   setter="setIsCurrAnswered (iscurranswered)"/>
+
+        <attribute name="iscurrmarked" 
+                   value="$path{'current_item/item_model/@marked'}" 
+                   setter="setIsCurrMarked (iscurrmarked)"/>
+
+        <attribute name="curranswer" 
+                   value="$path{'current_item/item_model/interaction/selector [@user_action='s']'}"/>
+
+        <attribute name="itemtype"
+                   value="$path{'current_item/item_model/interaction/@type'}"/>
+        
+        <attribute name="uienabled"
+                   value="$path{ 'dsdisplay:/display/@enabled' }"/>
+
+        <attribute name="theme" 
+                   value="$path{'current_item/item_model/@theme'}"/>
+
+        <method name="setIsCurrAnswered" args="isanswered"><![CDATA[
+            if (typeof (isanswered) == 'string') {
+               isanswered = (isanswered == '1');
+            }
+
+            var isgr = itemtype == 'grid'; 
+			var iscr = itemtype == 'text_entry';
+
+            //only show text for selection responses
+            var isselanswer = datapath.xpathQuery ('current_item/item_model/interaction/selector') != null;
+            this.answertxt.answeristxt.setAttribute ('visible', isanswered && !isgr && !iscr);
+            this.answertxt.noanswertxt.setAttribute ('visible', !isanswered && isselanswer && !isgr && !iscr );
+
+            this.iscurranswered = isanswered;
+        ]]></method>
+        
+        <method name="setIsCurrMarked" args="ismarked">
+            if (typeof (ismarked) == 'string') {
+               ismarked = (ismarked == '1');
+            } 
+            this.iscurrmarked = ismarked;
+            this.btns.markbtn.setAttribute ('statenum', ismarked ? 1 : 0);
+        </method>
+
+        <method event="oncurranswer"><![CDATA[
+            if (this.curranswer) {
+                var currsel = this.curranswer.getAttr ('identifier');
+
+		  /** if login response xml has seed, replace currsel by random 
+		 	* value assigned to this distractor */
+			if(gController.isLoginResponseHavingSeed &&
+				this.curranswer.hasAttr('randomIdentifier')) {         
+
+				currsel = this.curranswer.getAttr('randomIdentifier');
+
+			}
+Debug.write("Test Control......", "Actual : ",this.curranswer.getAttr('identifier'), "|| Random : ",currsel, "|| Correct : ", gController.dpstudentdata.xpathQuery("current_item/item_model/@correct"));
+                this.answertxt.answeristxt.selitem.setAttribute ('text', currsel);
+            }  
+        ]]></method>
+
+        <method event="oncurritempos"><![CDATA[
+            //handle nav visibility and positioning
+			var currentItemNumber = parseInt(this.curritempos);
+			
+			if(currentItemNumber != 1){
+                this.btns.navbtns.btnback.setAttribute ('visible', true);
+			}
+			else{
+                this.btns.navbtns.btnback.setAttribute ('visible', false);
+			}
+			
+            if (currentItemNumber != parseInt(this.totalitemno)) {
+                this.btns.navbtns.btnforward.setAttribute ('visible', true);
+            }
+            else{
+                this.btns.navbtns.btnforward.setAttribute ('visible', false);
+            }
+            
+         ]]></method>
+		<view name="answertxt" visible="${!classroot.theme}">
+	        <view name="answeristxt" visible="false" x="30"
+	              fgcolor="0x6590B3" fontstyle="bold" y="-4">
+	            <simplelayout axis="x" />
+	            <text resize="true">YOUR ANSWER IS:</text>
+	            <text name="selitem" resize="true"></text>
+	        </view>
+	        <text name="noanswertxt" visible="false" x="25" y="-4"
+	              fgcolor="0x6590B3" fontstyle="bold" fontsize="11">
+	            - NO ANSWER SELECTED -
+	        </text>
+		</view>
+        <view name="btns" y="14" x="7">
+            <simplelayout axis="y" spacing="3"/>
+            <view name="navbtns">
+                <basebutton name="btnback" resource="go_back_btn" x="0"
+                            enabled="${ classroot.uienabled == 'true' }"
+                            onclick="gController.stepNavigateBack ()"
+                            disabledResourceNumber="1"
+                            />
+                <basebutton name="btnforward" resource="go_on_btn" x="100"
+                            enabled="${ classroot.uienabled == 'true' }"
+                            onclick="gController.stepNavigateForward ()"
+                            disabledResourceNumber="1"
+                            />
+                <basebutton name="btnfinish" resource="finish_test_btn" id="gFinishTestButton"
+                            enabled="${ classroot.uienabled == 'true' }"
+                            visible="${!parent.btnforward.visible}" x="100"
+                            onclick="gController.finishTest ()"
+                            disabledResourceNumber="1"
+                            />
+            </view>
+            <multistatebutton name="markbtn" align="center"
+                              clickable="${ classroot.uienabled == 'true' }"
+                              resource="mark_unmark_btn" statelength="3"
+                              maxstate="1" 
+              				  onclick="gController.markQuestion (!classroot.iscurrmarked)"
+              				  visible="${!classroot.theme}">
+            </multistatebutton>
+        </view>
+    </class>
+
+</library>

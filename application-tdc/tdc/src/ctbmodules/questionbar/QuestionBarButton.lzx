@@ -1,0 +1,113 @@
+<library>
+
+
+    <class name="QuestionBarButton"  
+           clickregion="../resources/iknow_navbar/click_region.swf" 
+           width="26">
+
+        <attribute name="itemeid" value="$path{ '@eid' }"/>
+        <attribute name="itemnum" value="$path{ '@item_no' }"/>
+        <attribute name="isTheme" value="$path{ '@theme' }"/>
+
+        <attribute name="isenabled"
+                   value="$path{ 'dsdisplay:/display/@enabled' }"/>
+        <attribute name="clickable" value="${ isenabled == 'true' }"/>
+
+        <attribute name="showconnector" value="false"/>
+
+        <attribute name="isanswered" value="$path{'@answered'}" 
+                   setter="setIsAnswered (isanswered)"/>
+        <attribute name="ismarked" value="$path{'@marked'}"
+                   setter="setIsMarked (ismarked)"/>
+        <attribute name="isactive" 
+                   value="${this.questionbar.selitemeid==this.itemeid}"/>
+        
+        <attribute name="questionbar" value="$once{classroot}"/>
+
+        <method name="setIsAnswered" args="isanswered">
+            if (typeof (isanswered) == 'string') {
+                isanswered = (isanswered == '1');
+            } 
+            this.isanswered = isanswered;
+            this._changeStatus (false);
+        </method>
+
+        <method name="setIsMarked" args="ismarked">
+            if (typeof (ismarked) == 'string') {
+                ismarked = (ismarked == '1');
+            } 
+            this.ismarked = ismarked;
+            this._changeStatus (false);
+        </method>
+
+        <method event="ondata"><![CDATA[
+            var dnselect = gController.dpsubtest.xpathQuery (
+                                'ob_assessment/ob_element_select_order/g/e[@id="'+this.itemeid+'"]'
+                           );
+            this.setAttribute ('showconnector', 
+                                dnselect != null
+                                    && dnselect.parentNode.getLastChild () != dnselect);
+        ]]></method>
+
+        <method event="onisactive">
+            if (this.isactive) {
+                //make sure we're visible on the navigation bar
+                this.questionbar.showBtn (this);
+                var here = this.questionbar.qbtns.scrollcontainer.youarehere;
+                here.setAttribute ('x', this.getAttributeRelative ('x', here) - 29); //the text was off in its container - 29);
+                gController.movedYouAreHere();
+            }
+            this._changeStatus (false);
+        </method>
+
+        <method event="onmouseover">
+            this._changeStatus (true);
+        </method>
+
+        <method event="onmouseout">
+            this._changeStatus (false);
+        </method>
+
+
+        <method name="navigate" event="onclick">
+            gController.navigateTo( itemeid );
+        </method>
+
+        <method name="_changeStatus" args="ismouseover"><![CDATA[
+            var newframe = 1;
+
+            if (ismouseover) {
+                if (ismarked)               newframe = 6;
+                else if (isactive)          newframe = 2;
+                else                        newframe = 9;
+            } else {
+                this.ball.setAttribute ('visible', this.isanswered ? true : false);
+                if (ismarked)               newframe = 5;
+                else if (isactive)          newframe = 2;
+                else                        newframe = 1;
+            }
+
+            this.btn.setAttribute ('frame', newframe);
+        ]]></method>
+
+
+        <view name="btn" resource="question_bar_btn" 
+              width="100%" stretches="width"/>
+
+        <view name="ball" resource="question_bar_ball"
+              align="center" y="3" visible="false"/>
+
+        <view resource="question_bar_btn_connector"
+              x="${classroot.width}" y="24"
+              visible="${classroot.showconnector}"/>
+
+        <text text="${classroot.itemnum}" resize="true" 
+              font="Arial" fontsize="11" fontstyle="bold"
+              y="22" align="center" visible="${!classroot.isTheme}"/>
+        <view resource="theme" y="24" align="center" visible="${classroot.isTheme}" />
+ 
+    </class>
+
+
+
+</library>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library>
+	<dataset name="goodbyeDs" 
+			 type="http"
+	         queuerequests="true" 
+	         querytype="get"
+	         timeout="10000" 
+	         onerror="exitRequest._dosomething(this)" 
+	         ontimeout="exitRequest._dosomething(this)" 
+	         ondata="exitRequest._dosomething(this)" />
+	         
+	<node id="exitRequest">
+		<method id="_dosomething" name="_dosomething" args="ds" >
+		</method>
+		
+		<method id="exit" name="exit">
+        	Debug.write("On Goodbye Screen");
+	    	var getUrl = LzBrowser.getInitArg( 'servletUrl' ) + '/UtilityServlet.do?method=exit';
+			goodbyeDs.setSrc(getUrl);
+			goodbyeDs.doRequest();
+		</method>
+	</node>
+	
+    <class name="GoodbyeScreen">
+		<text font="Arial" fontsize="24" height="36" align="center" valign="middle" fgcolor="white">Good-bye!</text>    
+	</class>
+</library>

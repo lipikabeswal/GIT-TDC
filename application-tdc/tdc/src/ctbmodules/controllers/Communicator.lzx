@@ -1,0 +1,140 @@
+<library>
+    <include href="Request.lzx"/>
+    <include href="../Screens/GoodbyeScreen.lzx"/>
+
+    <node id="gCommunicator">
+    	<attribute name="error" type="boolean" value="false" />
+      	
+      	<method name="updateLDB">
+      		LzBrowser.loadJS('updateLDB()');
+       	</method>
+  		
+      	<method name="closeBrowser">
+      		exitRequest.exit();
+       	</method>
+  		
+      	<method name="login" args="username, password, accessCode">
+      		if(!error){
+       			gRequest.login(username, password, accessCode);
+       		}
+       	</method>
+  		
+      	<method name="downloadSubtest" args="id, hash, key">
+     		if(!error){
+       			gRequest.getSubtest(id, hash, key);
+       		}
+       	</method>
+  		
+      	<method name="downloadItem" args="id, hash, key">
+       		if(!error){
+       			gRequest.downloadItem(id, hash, key);
+       		}
+       	</method>
+  		
+      	<method name="getSubtest" args="id, hash, key">
+       		if(!error){
+       			gRequest.getSubtest(id, hash, key);
+       		}
+       	</method>
+  		
+      	<method name="getItem" args="params">
+       		if(!error){
+       			gRequest.getItem(params[0], params[1], params[2]);
+       		}
+       	</method>
+  		
+     	<method name="heartbeat" args="params">
+       		if(!error){
+       			gRequest.heartbeat(params);
+       		}
+       	</method>
+  		
+     	<method name="save" args="params">
+       		if(!error){
+       			gRequest.save(params);
+       		}
+       	</method>
+  		
+     	<method name="tutorialComplete">
+       		if(!error){
+       			gRequest.tutorialComplete();
+       		}
+       	</method>
+  		
+     	<method name="feedback" args="lsid">
+       		if(!error){
+       			gRequest.feedback(lsid);
+       		}
+       	</method>
+  		
+      	<method name="lifecycle" args="lev">
+       		if(!error){
+       			gRequest.lifecycle(lev);
+       		}
+       	</method>
+		
+      	<method name="terminate">
+       		if(!error){
+       			gRequest.terminate();
+       		}
+       	</method>
+		
+		<method name="writeToAuditFile" args="lsid, scid, txt">
+Debug.write("gCommunicator.writeToAuditFile( " + lsid + " , " + scid + " , " + txt + " ) ");
+			if(!error){
+				gRequest.writeToAuditFile(lsid, scid, txt);
+			}
+		</method>
+
+		<method name="uploadAuditFile" args="lsid, scid">
+Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
+			if(!error){
+				gRequest.uploadAuditFile(lsid, scid);
+			}
+		</method>
+
+		<method name="endSubtest" args="raw, max, exit, time, unscored">
+Debug.write("gCommunicator.endSubtest( " + raw + " , " + max + + " , " + exit + " , " + time + " , " + unscored + " ) ");
+			if(!error){
+				gRequest.endSubtest(raw,
+                					max,
+                					exit,
+                					time,
+                					unscored)
+			}
+		</method>
+
+  		<method name="finishCall" args="result" >
+  			if(!error){
+	  			if(!checkShowError(result)){
+	  				gController.setAttribute("communicatorResponse", result);
+	  			}
+	  		}
+  		</method>
+  		
+  		<!-- all servlet errors go through this method -->
+  		<method name="checkShowError" args="xml"><![CDATA[
+//Debug.write("gCommunicator.checkShowError");
+//printBigString(xml);
+			if(!error){
+   				var node = LzDataNode.stringToLzData(xml);
+  				if (node && node.nodeName == 'ERROR'){
+  					setAttribute('error', true);
+  					showError(xml);
+  				}
+  			}
+  			return error;
+  		]]></method>
+  		
+  		<method name="showError" args="xml">
+  			gController.showError(xml);
+  		</method>
+  		
+  		<method name="finishHeartbeatCall" args="result" >
+  			if(!checkShowError(result)){
+  				gController.setAttribute("heartbeatResult", result);
+  			}
+  		</method>
+     </node>
+
+</library>

@@ -1,0 +1,8 @@
+buildlog.xml
+__tdc_*.iap_xml
+__tdc_*_Build_Output
+__tdc_*locales
+tdc_Build_Output
+tdclocales
+iabuild.properties
+temp.properties

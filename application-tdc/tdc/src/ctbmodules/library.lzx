@@ -1,0 +1,13 @@
+<library>
+
+    <include href="ItemInterface.lzx"/>
+
+    <include href="resources/resources.lzx"/>
+    <include href="controllers/Communicator.lzx"/>
+    <include href="controllers/HotKeys.lzx"/>
+    <include href="controllers/Controller.lzx"/>
+    <include href="screens/Screens.lzx"/>
+    <include href="screens/Tutorial.lzx"/>
+    <include href="rich-text"/>
+
+</library>

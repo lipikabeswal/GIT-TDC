@@ -1,0 +1,44 @@
+<canvas debug="false">
+	<include href="draganddroparea.lzx" />
+ 	<draganddroparea name="dda" height="${ canvas.width/canvas.height &lt; 1.33 
+                     ? this.width * unstretchedheight/unstretchedwidth 
+                     : canvas.height}" 
+          width="${  canvas.width/canvas.height &lt;1.33 
+                     ? canvas.width 
+                     : this.height * unstretchedwidth/unstretchedheight}"
+          align="center" valign="middle" stretches="both">
+		<attribute name="itemNumber" type="number" value="1" />
+		<handler name="oninit"><![CDATA[
+			this.setup('<drag_and_drop_area x="0" y="0" width="800" height="600" src="resources/foxinbox.swf"><container containerId="outOfBox"  ><location locationId="loc1" x="110" y="195" /><location locationId="loc2" x="110" y="305" /><location locationId="loc3" x="110" y="435" /><area shape="rect" coords="0,0,1200,800" /></container><container containerId="box"  ><location locationId="loc1" x="530" y="370" /><area shape="poly" coords="400,450,400,290,480,250,700,250,700,400,650,450,400,450" /></container><object objectId="fox" src="resources/fox.swf" /><object objectId="rabbit" src="resources/rabbit.swf" /><object objectId="eagle" src="resources/eagle.swf" /><state objectId="eagle" containerId="outOfBox" locationId="loc1" /><state objectId="fox" containerId="outOfBox" locationId="loc2" /><state objectId="rabbit" containerId="outOfBox" locationId="loc3" /></drag_and_drop_area>');
+		]]></handler>
+		
+		<method name="goForward"><![CDATA[
+			if(itemNumber < 3){
+				this.setAttribute('itemNumber', this.itemNumber + 1);
+				this.loadItem();
+			}
+			else{
+				LzBrowser.loadJS('goHome()');
+			}
+		]]></method>
+		<method name="goBack"><![CDATA[
+			if(itemNumber > 1){
+				this.setAttribute('itemNumber', this.itemNumber - 1);
+				this.loadItem();
+			}
+		]]></method>
+		<method name="loadItem"><![CDATA[
+			if(itemNumber == 1){ // fox in box
+				this.setup('<drag_and_drop_area x="0" y="0" width="800" height="600" src="resources/foxinbox.swf"><container containerId="outOfBox"  ><location locationId="loc1" x="110" y="195" /><location locationId="loc2" x="110" y="305" /><location locationId="loc3" x="110" y="435" /><area shape="rect" coords="0,0,1200,800" /></container><container containerId="box"  ><location locationId="loc1" x="530" y="370" /><area shape="poly" coords="400,450,400,290,480,250,700,250,700,400,650,450,400,450" /></container><object objectId="fox" src="resources/fox.swf" /><object objectId="rabbit" src="resources/rabbit.swf" /><object objectId="eagle" src="resources/eagle.swf" /><state objectId="eagle" containerId="outOfBox" locationId="loc1" /><state objectId="fox" containerId="outOfBox" locationId="loc2" /><state objectId="rabbit" containerId="outOfBox" locationId="loc3" /></drag_and_drop_area>');
+			}
+			else if (itemNumber == 2){  // matching presidents
+				this.setup('<drag_and_drop_area x="0" y="0" width="800" height="600" src="resources/presidents.swf"><container containerId="start"  ><location locationId="loc1" x="60" y="170" /><location locationId="loc2" x="130" y="170" /><location locationId="loc3" x="60" y="280" /><location locationId="loc4" x="130" y="280" /><location locationId="loc5" x="60" y="390" /><location locationId="loc6" x="130" y="390" /><location locationId="loc7" x="200" y="170" /><area shape="rect" coords="0,0,1200,800" /></container><container containerId="1789-1797"  ><location locationId="loc1" x="335" y="166" /><area shape="rect" coords="240,120,370,208" /></container><container containerId="1829-1837"  ><location locationId="loc1" x="443" y="208" /><area shape="rect" coords="370,151,800,265" /></container><container containerId="1861-1865"  ><location locationId="loc1" x="335" y="270" /><area shape="rect" coords="240,208,370,322" /></container><container containerId="1901-1909"  ><location locationId="loc1" x="443" y="322" /><area shape="rect" coords="370,265,800,379" /></container><container containerId="1933-1945"  ><location locationId="loc1" x="335" y="374" /><area shape="rect" coords="240,322,370,437" /></container><container containerId="1969-1974"  ><location locationId="loc1" x="443" y="437" /><area shape="rect" coords="370,379,800,494" /></container><container containerId="1993-2001"  ><location locationId="loc1" x="335" y="479" /><area shape="rect" coords="240,437,370,550" /></container><object objectId="GeorgeWashington" src="resources/GeorgeWashingtonNew.swf" /><object objectId="AndrewJackson" src="resources/AndrewJacksonNew.swf" /><object objectId="AbrahamLincoln" src="resources/AbrahamLincolnNew.swf" /><object objectId="TheodoreRoosevelt" src="resources/TheodoreRooseveltNew.swf" /><object objectId="FranklinRoosevelt" src="resources/FranklinRooseveltNew.swf" /><object objectId="RichardNixon" src="resources/RichardNixonNew.swf" /><object objectId="WilliamClinton" src="resources/WilliamClintonNew.swf" /><state objectId="GeorgeWashington" containerId="start" locationId="loc4" /><state objectId="AndrewJackson" containerId="start" locationId="loc7" /><state objectId="AbrahamLincoln" containerId="start" locationId="loc2" /><state objectId="TheodoreRoosevelt" containerId="start" locationId="loc5" /><state objectId="FranklinRoosevelt" containerId="start" locationId="loc6" /><state objectId="RichardNixon" containerId="start" locationId="loc1" /><state objectId="WilliamClinton" containerId="start" locationId="loc3" /></drag_and_drop_area>');
+			}
+			else{  // sorting state capitols
+				this.setup('<drag_and_drop_area x="0" y="0" width="800" height="600" src="resources/states.swf"><container containerId="start"  ><location locationId="loc1" x="150" y="205" /><location locationId="loc2" x="400" y="205" /><location locationId="loc3" x="650" y="205" /><area shape="rect" coords="0,0,800,600" /></container><container containerId="first"  ><location locationId="loc1" x="150" y="410" /><area shape="rect" coords="50,310,250,510" /></container><container containerId="second"  ><location locationId="loc1" x="400" y="410" /><area shape="rect" coords="300,310,550,510" /></container><container containerId="third"  ><location locationId="loc1" x="650" y="410" /><area shape="rect" coords="550,310,750,510" /></container><object objectId="california" src="resources/california-new.swf" /><object objectId="florida" src="resources/florida-new.swf" /><object objectId="texas" src="resources/texas-new.swf" /><state objectId="california" containerId="start" locationId="loc1" /><state objectId="florida" containerId="start" locationId="loc2" /><state objectId="texas" containerId="start" locationId="loc3" /></drag_and_drop_area>');
+			}
+		]]></method>
+		<view x="590" y="550" height="25" width="90" opacity="0.01" showhandcursor="${parent.itemNumber != 1}" onclick="parent.goBack();" />
+		<view x="690" y="550" height="25" width="90" opacity="0.01" showhandcursor="true" onclick="parent.goForward();" />
+	</draganddroparea>
+</canvas>

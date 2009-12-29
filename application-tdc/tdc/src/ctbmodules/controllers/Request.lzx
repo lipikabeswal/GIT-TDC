@@ -1,0 +1,279 @@
+<library>
+	<include href="XmlHelper.lzx" />
+	
+	<dataset name="persistenceDs" 
+			 type="http"
+	         queuerequests="true" 
+	         querytype="post"
+	         timeout="30000" 
+	         onerror="gRequest.requestError()" 
+	         ontimeout="gRequest.requestTimeout()" 
+	         ondata="gRequest._processResponse(this)" />
+	         
+	<dataset name="heartbeatDs" 
+	         type="http"
+	         queuerequests="true" 
+	         querytype="post"
+	         timeout="30000" 
+	         onerror="gRequest._returnHeartbeatError()" 
+	         ontimeout="gRequest._returnHeartbeatError()" 
+	         ondata="gRequest._heartbeatReturn(this)" />
+	         
+	<dataset name="contentDs" 
+	         type="http"
+	         queuerequests="true" 
+	         querytype="post"
+	         timeout="120000" 
+	         onerror="gRequest.requestError()" 
+	         ontimeout="gRequest.requestTimeout()" 
+	         ondata="gRequest._processResponse(this)" />
+
+    <node id="gRequest">
+		<attribute name="METHOD_PARAM"   type="string" value="method" />
+		<attribute name="FOLDER_PARAM"   type="string" value="folder" />
+		<attribute name="USER_PARAM"     type="string" value="user" />
+		<attribute name="XML_PARAM"      type="string" value="requestXML" />
+		<attribute name="SAVE_METHOD"    type="string" value="save" />
+		<attribute name="LOGIN_METHOD"   type="string" value="login" />
+		<attribute name="FEEDBACK_METHOD" type="string" value="feedback" />
+		<attribute name="WRITE_TO_AUDIT_FILE_METHOD" type="string" value="writeToAuditFile" />
+		<attribute name="UPLOAD_AUDIT_FILE_METHOD" type="string" value="uploadAuditFile" />
+		<attribute name="GET_SUBTEST_METHOD" type="string" value="getSubtest" />
+		<attribute name="GET_ITEM_METHOD" type="string" value="getItem" />
+		<attribute name="DOWNLOAD_ITEM_METHOD" type="string" value="downloadItem" />
+		<attribute name="mseq" type="number" value="1" />
+		<attribute name="cid" value="$once{Math.floor(Math.random() * 1000000)}" />
+		<attribute name="uploadAuditFileLsid" value="null"/>
+		<attribute name="uploadAuditFileScid" value="null"/>
+		<attribute name="pendingSaveEid" value="null" />
+		
+		<attribute name="_GENDER_PARAM" type="string" value="gender" />
+		<attribute name="_TEXT_PARAM" type="string" value="text" />
+		<attribute name="_SERVER_VALUE" type="string" value="server" />
+		<attribute name="_GENDER_VALUE" type="string" value="female" />
+		
+		<method event="oninit">
+			var base = LzBrowser.getInitArg( 'servletUrl' );
+			persistenceDs.setSrc(base + '/PersistenceServlet.do');
+			heartbeatDs.setSrc(base + '/PersistenceServlet.do');
+			contentDs.setSrc(base + '/ContentServlet.do');
+		</method>
+		
+		<method name="login" args="username, password, accesscode" >
+			var xml = gXmlHelper.getLoginXml(username, password, accesscode);
+			_doRequest(persistenceDs, LOGIN_METHOD, xml);
+		</method>
+		
+		<method name="getSubtest" args="id, hash, key">
+			var xml = gXmlHelper.getGetSubtestXml(id, hash, key);
+			_doRequest(contentDs, GET_SUBTEST_METHOD, xml);
+		</method>
+		
+		<method name="downloadItem" args="id, hash, key">
+			var xml = gXmlHelper.getDownloadItemXml(id, hash, key);
+			_doRequest(contentDs, DOWNLOAD_ITEM_METHOD, xml);
+		</method>
+		
+		<method name="getItem" args="id, hash, key">
+			var xml = gXmlHelper.getGetItemXml(id, hash, key);
+			_doRequest(contentDs, GET_ITEM_METHOD, xml);
+		</method>
+		
+		<method name="heartbeat" args="params">
+			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, gManipulativeBar.speedController.value);
+//Debug.write("heartbeat saveXml: " + getTimer());
+//printBigString(xml);
+			_doRequest(heartbeatDs, SAVE_METHOD, xml);
+		</method>
+
+		<method name="save" args="params">
+			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, gManipulativeBar.speedController.value);
+//Debug.write("saveXml: " + getTimer());
+//printBigString(xml);
+			_doRequest(persistenceDs, SAVE_METHOD, xml);
+		</method>
+		
+		<method name="tutorialComplete">
+			var xml = gXmlHelper.getTutorialCompleteXml(gController.lsid, _getAndIncrementMseq(), cid);
+			_doRequest(persistenceDs, SAVE_METHOD, xml);
+		</method>
+		
+		<method name="lifecycle" args="lev">
+			var xml = gXmlHelper.getLifecycleXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, lev);
+//Debug.write("lifecycle:");
+//printBigString(xml);
+			_doRequest(persistenceDs, SAVE_METHOD, xml);
+		</method>
+		
+		<method name="terminate">
+			var xml = gXmlHelper.getTerminateXml(gController.lsid, _getAndIncrementMseq(), cid);
+//Debug.write("lifecycle:");
+//printBigString(xml);
+			_doRequest(persistenceDs, SAVE_METHOD, xml);
+		</method>
+		
+		<method name="writeToAuditFile" args="lsid, scid, txt">
+			var xml = gXmlHelper.getWriteToAuditFileXml(lsid, scid, _getAndIncrementMseq(), txt);
+			_doRequest(persistenceDs, WRITE_TO_AUDIT_FILE_METHOD, xml);
+		</method>
+		
+		<method name="uploadAuditFile" args="lsid, scid">
+			var xml = gXmlHelper.getUploadAuditFileXml(lsid, scid, _getAndIncrementMseq());
+			_doRequest(persistenceDs, UPLOAD_AUDIT_FILE_METHOD, xml);
+		</method>
+		
+		<method name="endSubtest" args="raw, max, exit, time, unscored">
+			var xml = gXmlHelper.getEndSubtestXml(gController.lsid, gController.scid, cid, _getAndIncrementMseq(), 
+			                                      raw, max, exit, time, unscored);
+//Debug.write("endSubtestXml: ");
+//printBigString(xml);
+			_doRequest(persistenceDs, SAVE_METHOD, xml);
+		</method>
+		
+		<method name="feedback" args="lsid">
+			var xml = gXmlHelper.getFeedbackXml(lsid);
+			_doRequest(persistenceDs, FEEDBACK_METHOD, xml);
+		</method>
+		
+		<method name="downloadSubtest" args="id, hash, key">
+			var xml = gXmlHelper.getGetSubtestXml(id, hash, key);
+			_doRequest(downloadDs, GET_SUBTEST_METHOD, xml);
+		</method>
+		
+		<method name="loadItem" args="params">
+			var xml = gXmlHelper.getLoadItemXml(params);
+			_doRequest(contentDs, LOAD_ITEM_METHOD, xml);
+		</method>
+		
+		<method name="_processResponse" args="ds" >
+//Debug.write("_processResponse: " + ds);
+//var timestamp1 = getTimer();
+			var datasetText = getDatasetText(ds);
+//var timestamp2 = getTimer();
+//Debug.write("process response:")
+//Debug.write("timestamp1: " + timestamp1);
+//Debug.write("timestamp2: " + timestamp2);
+			gCommunicator.finishCall(datasetText);
+		</method>
+		
+ 	   	<method name="_processDownload" args="ds">
+    	 	gCommunicator.finishDownloadCall(getDatasetText(ds));
+		</method>
+		
+		<method name="getDatasetText" args="ds">
+			var dp = ds.getPointer();
+//Debug.write("getDatasetText");
+//printBigString(ds.serialize());
+			dp.selectChild();
+			return dp.serialize();
+		</method>
+		
+		<method name="_heartbeatReturn" args="ds" >
+//Debug.write("_heartbeatReturn: " + ds);
+			gCommunicator.finishHeartbeatCall(getDatasetText(ds));
+		</method>
+		
+		<method name="requestTimeout">
+//Debug.write("request timeout");
+			_returnError();
+		</method>
+		
+		<method name="requestError">
+//Debug.write("request error");
+			_returnError();
+		</method>
+		<method name="_returnError">
+//Debug.write("_returnError");
+			if(gScreens.isOnFeedbackScreen()){
+				gCommunicator.finishCall(gXmlHelper.getFeedbackErrorXml());
+			}
+			else{
+				gCommunicator.finishCall(gXmlHelper.getErrorXml());
+			}
+		</method>
+		
+		<method name="_returnHeartbeatError">
+//Debug.write("_heartbeatReturnError");
+			if(gScreens.isOnFeedbackScreen()){
+				gCommunicator.finishHeartbeatCall(gXmlHelper.getFeedbackErrorXml());
+			}
+			else{
+				gCommunicator.finishHeartbeatCall(gXmlHelper.getErrorXml());
+			}
+		</method>
+		
+		<method name="setMseqFromRestartNumber" args="restart_number">
+       <![CDATA[
+//Debug.write("setMseqFromRestartNumber: " + restart_number);
+			if(restart_number != null){
+				var restartNum = new Number(restart_number);
+				var newMseq = 1000000*restartNum + 1;
+//Debug.write("setting mseq: " + newMseq);
+				this.setAttribute('mseq', newMseq);
+			}
+		]]>
+		</method>
+		
+		<method name="_getAndIncrementMseq">
+			var result = mseq;
+			setAttribute('mseq', mseq + 1);
+			return result;
+		</method>
+		
+		<method name="doSubtestRequest" args="ds, _method, id, hash, key">
+			ds.setQueryParam(METHOD_PARAM, _method);
+			ds.setQueryParam('subtestId', id);
+			ds.setQueryParam('hash', hash);
+			ds.setQueryParam('key', key);
+			ds.doRequest();
+		</method>
+		
+		<method name="doItemRequest" args="ds, _method, id, hash, key">
+			ds.setQueryParam(METHOD_PARAM, _method);
+			ds.setQueryParam('itemId', id);
+			ds.setQueryParam('hash', hash);
+			ds.setQueryParam('key', key);
+			ds.doRequest();
+		</method>
+    	<method name="_doRequest" args="ds, _method, xml">
+      	<![CDATA[
+//Debug.write("doRequest: " + ds + " , " + _method + " , " + xml);  
+		    if (typeof canvas.folder != "undefined") {
+//Debug.write("XXX: folder " + canvas.folder);
+				ds.setQueryParam(FOLDER_PARAM, canvas.folder);
+			}
+		    if (typeof canvas.user != "undefined") {
+				ds.setQueryParam(USER_PARAM, canvas.user);
+			}
+
+			if(_method != null){
+//Debug.write("set method param: " + _method);
+				ds.setQueryParam(METHOD_PARAM, _method);
+			}
+			if(xml != null){
+//Debug.write("set xml param: " + xml);
+				ds.setQueryParam(XML_PARAM, xml);
+			}
+//Debug.write("folder: " + canvas.folder);
+//Debug.write("src: " + ds.getSrc());
+//Debug.write("params: " + ds.getParams());
+//var timestamp = getTimer();
+//Debug.write("do request " + _method + " timestamp: " + timestamp);
+			ds.doRequest();
+		]]>
+		</method>
+ 
+ 	   	<method name="_finish" args="result">
+    	 	gCommunicator.finishCall(result);
+		</method>
+		
+ 	   	<method name="_finishHeartbeat" args="result">
+    	 	gCommunicator.finishHeartbeat(result);
+		</method>
+		
+ 	   	<method name="_finishDownload" args="result">
+    	 	gCommunicator.finishDownload(result);
+		</method>
+		
+	</node>
+</library>

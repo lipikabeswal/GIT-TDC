@@ -1,0 +1,211 @@
+<library>
+
+    <include href="QuestionBarButton.lzx"/>
+
+    <class name="QuestionBar" resource="question_bar_bg">
+
+        <attribute name="isscrolling" 
+                   value="${this.qbtns.scrollcontainer.width &gt; this.qbtns.width}"/>
+        <attribute name="selitemeid"
+                   value="$path{'current_item/item_model/@eid'}"/>
+
+        <!-- the max value the scrollcontainer can be scrolled to the left -->
+        <attribute name="maxscrollleft" value="${this.width - (this.moreright.width + this.morefastright.width + 
+                                                 this.qbtns.scrollcontainer.width + this.qbtns.scrollcontainer.thebtns.x
+                                                 + this.RIGHT_BUTTONS_OFFSET)}"/>
+
+		<attribute name="RIGHT_BUTTONS_OFFSET" value="17" type="number"/>
+        <attribute name="STEP_SIZE" value="3"/>
+        <attribute name="ANIM_LENGTH" value="300"/>
+        <attribute name="SCROLL_Y" value="32" type="number"/>
+
+<!--  not always hiding right buttons on last item ???  added attribute to hide right buttons when select last item -->
+		<attribute name="justSelectedLastItem" value="false"/>
+
+        <method name="scroll" args="isback"><![CDATA[
+        	this.setAttribute('justSelectedLastItem', false);
+            var scrollarea = this.qbtns.scrollcontainer;
+            var origx = scrollarea.x;
+            var newx = origx;
+
+            if (isback){
+            	newx -= this.STEP_SIZE;
+            }
+            else {
+            	newx += this.STEP_SIZE;
+            }
+
+			if(newx < this.maxscrollleft){
+				newx = this.maxscrollleft;
+			}
+			else if(newx > 0){
+				newx = 0;
+			}
+            
+			if(newx != origx){
+            	scrollarea.setAttribute ('x', newx); 
+			}  
+        ]]></method>
+
+        <!-- fast scroll feature -->
+         <method name="scrollFast" args="isback"><![CDATA[
+        	this.setAttribute('justSelectedLastItem', false);
+            var scrollarea = this.qbtns.scrollcontainer;
+            var origx = scrollarea.x;
+            var newx = origx;
+
+            //increment scroll speed
+            var defaultStep = this.STEP_SIZE;
+            this.STEP_SIZE = this.STEP_SIZE * 5;
+         
+            if (isback){
+            	newx -= this.STEP_SIZE;
+            }
+            else {
+            	newx += this.STEP_SIZE;
+            }
+
+			if(newx < this.maxscrollleft){
+				newx = this.maxscrollleft;
+			}
+			else if(newx > 0){
+				newx = 0;
+			}
+            
+             //reset step
+             this.STEP_SIZE = defaultStep;
+         
+			if(newx != origx){
+            	scrollarea.setAttribute ('x', newx); 
+			}  
+        ]]></method>
+        
+        <method name="showBtn" args="btn"><![CDATA[
+            var bx = btn.getAttributeRelative ('x', this);
+            var rightedge = this.width - this.morefastright.width - this.moreright.width - this.RIGHT_BUTTONS_OFFSET;
+            var leftedge = this.morefastleft.width + this.moreleft.x + 1;
+
+            var scrollarea = this.qbtns.scrollcontainer;
+
+            //do scrolling if necessary
+            if ((bx + btn.width) > rightedge) {
+                //scroll left
+                var newx = scrollarea.x - ((bx + btn.width) - rightedge);
+                if (newx < maxscrollleft) {
+                    newx = maxscrollleft;
+                }
+                scrollarea.animate ('x', newx, this.ANIM_LENGTH);
+            } else if (bx < leftedge) {
+                //scroll right
+                var newx = scrollarea.x + (leftedge - bx);
+                if (newx > 0) {
+                    newx = 0;
+                }
+                scrollarea.animate ('x', newx, this.ANIM_LENGTH);
+            }
+            this.setAttribute('justSelectedLastItem', gController.onLastItem());
+        ]]></method>
+
+        <!-- list of scrolling buttons for item -->
+        <view name="qbtns" height="100%"  x="${classroot.moreleft.x}" y="2" 
+              width="${classroot.width - classroot.morefastleft.width - classroot.morefastright.width - classroot.RIGHT_BUTTONS_OFFSET}"
+              clip="true">
+            <view name="scrollcontainer" height="100%"
+                  width="${this.thebtns.width + this.thebtns.x}">
+                <view name="youarehere" options="ignorelayout">                    
+                    <view resource="you_are_here_txt" align="left"/>
+                    <view resource="you_are_here_mark" align="center"/>
+                </view>
+                <!-- the buttons below youarehere -->
+                <view name="thebtns" x="${classroot.moreleft.x}">
+                    <simplelayout axis="x" spacing="14"/>
+                    <QuestionBarButton y="13" datapath="runtime/item_model"/>
+                </view>
+
+            </view>
+        </view>
+
+         <basebutton name="moreleft" resource="moreleft_btn" 
+                x="${parent.x + parent.morefastleft.width}"
+                y="$once{classroot.SCROLL_Y}"
+                visible="${classroot.isscrolling &amp;&amp; 
+                           classroot.qbtns.scrollcontainer.x &lt; 0}">
+            <!-- align="left" valign="bottom"-->
+            <attribute name="doscrolldel" value="$once {new LzDelegate (this, 'doScroll')}"/>
+
+            <method event="onmousedown">
+                this.doscrolldel.register (LzIdle, 'onidle');
+            </method>
+            <method event="onmouseup">
+                this.doscrolldel.unregisterAll ();
+            </method>
+            <method name="doScroll">
+                classroot.scroll (false);
+            </method>
+
+        </basebutton>
+
+        <!-- add speed button left in nav bottom bar -->
+		<basebutton name="morefastleft" resource="morefastleft_btn" 
+                    y="$once{classroot.SCROLL_Y}" x="${parent.x}"
+                    visible="${classroot.isscrolling &amp;&amp; 
+                               classroot.qbtns.scrollcontainer.x &lt; 0}">
+            <attribute name="doscrolldel" value="$once {new LzDelegate (this, 'doScroll')}"/>
+
+            <method event="onmousedown">
+                this.doscrolldel.register (LzIdle, 'onidle');
+            </method>
+            <method event="onmouseup">
+                this.doscrolldel.unregisterAll ();
+            </method>
+            <method name="doScroll">
+                classroot.scrollFast(false);
+            </method>
+
+        </basebutton>
+        
+        <basebutton name="moreright" resource="moreright_btn" 
+                    y="$once{classroot.SCROLL_Y}" x="${parent.morefastright.x - this.width}"
+                    visible="${classroot.isscrolling &amp;&amp;
+                               classroot.qbtns.scrollcontainer.x &gt; classroot.maxscrollleft &amp;&amp;
+                               !classroot.justSelectedLastItem}">
+            <!-- align="right" -->
+            <attribute name="doscrolldel" 
+                       value="$once {new LzDelegate (this, 'doScroll')}"/>
+
+            <method event="onmousedown">
+                this.doscrolldel.register (LzIdle, 'onidle');
+            </method>
+            <method event="onmouseup">
+                this.doscrolldel.unregisterAll ();
+            </method>
+            <method name="doScroll">
+                classroot.scroll (true);
+            </method>
+
+        </basebutton>
+
+        <!-- add speed button right in nav bottomm bar -->
+		<basebutton name="morefastright" resource="morefastright_btn" 
+                    y="$once{classroot.SCROLL_Y}" x="${parent.width - Math.round(this.width) - classroot.RIGHT_BUTTONS_OFFSET}"
+                    visible="${classroot.isscrolling &amp;&amp;
+                               classroot.qbtns.scrollcontainer.x &gt; classroot.maxscrollleft &amp;&amp;
+                               !classroot.justSelectedLastItem}">
+            <attribute name="doscrolldel" 
+                       value="$once {new LzDelegate (this, 'doScroll')}"/>
+
+            <method event="onmousedown">
+                this.doscrolldel.register (LzIdle, 'onidle');
+            </method>
+            <method event="onmouseup">
+                this.doscrolldel.unregisterAll ();
+            </method>
+            <method name="doScroll">
+                classroot.scrollFast(true);
+            </method>
+
+        </basebutton>
+     </class>
+
+
+</library>

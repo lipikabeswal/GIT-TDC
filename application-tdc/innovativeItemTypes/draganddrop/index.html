@@ -1,0 +1,40 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+      	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script type="text/javascript" src="lps/includes/embed-compressed.js"></script>
+<style type="text/css">
+body { margin: 0px; overflow: hidden; scrollbars: no; }
+</style>
+        </head>
+        <body>
+        	<div>
+        		<button onclick="setupPolygons()">Polygons</button>
+        		<button onclick="getResponse()">Get response</button>
+        		<button onclick="setResponse()">Set response</button>
+        		<a href="realdraganddrop.html">Go to items</a>
+        		<br>
+        		<br>
+        	</div>
+        	<div>
+        		<textarea type="text" name="response" rows="10" cols="100">
+        		</textarea>
+        		<br>
+        		<br>
+        	</div>
+        	<script type="text/javascript">
+        			function getResponse(){
+						response.value=lzapp.getResult();
+					}
+        			function setResponse(){
+						lzapp.setResult(response.value);
+					}
+					function setupPolygons(){
+						lzapp.setupDDA('<drag_and_drop_area x="0" y="0" height="600" width="600" src="resources/draganddropareabackgroundwow.swf"><container containerId="start"  ><location locationId="loc1" x="50" y="50" /><location locationId="loc2" x="50" y="110" /><location locationId="loc3" x="50" y="170" /><location locationId="loc4" x="50" y="230" /><location locationId="loc5" x="50" y="290" /><location locationId="loc6" x="50" y="350" /><location locationId="loc7" x="50" y="410" /><area shape="rect" coords="0,0,600,600" /></container><container containerId="redrectangle"  ><location locationId="loc1" x="250" y="50" /><location locationId="loc2" x="310" y="50" /><location locationId="loc3" x="370" y="50" /><location locationId="loc4" x="430" y="50" /><area shape="rect" coords="200,0,600,100" /></container><container containerId="greencircle"  ><location locationId="loc1" x="250" y="250" /><area shape="circle" coords="250,250,100" /></container><container containerId="bluetriangle"  ><location locationId="loc1" x="350" y="550" /><location locationId="loc2" x="450" y="550" /><location locationId="loc3" x="400" y="450" /><area shape="poly" coords="400,150,300,600,500,600,400,150" /></container><container containerId="blackpolygons"  ><location locationId="loc1" x="195" y="450" /><location locationId="loc2" x="500" y="200" /><area shape="poly" coords="150,350,150,550,250,600,200,500,300,550,250,370,210,400,150,350" /><area shape="poly" coords="495,110,445,310,545,360,495,260,595,310,545,130,505,160,495,110" /></container><object objectId="blueball1" height="50" width="50" src="resources/blueball.swf" /><object objectId="blueball2" height="50" width="50" src="resources/blueball.swf" /><object objectId="greenball1" height="50" width="50" src="resources/greenball.swf" /><object objectId="redball1" height="50" width="50" src="resources/redball.swf" /><object objectId="redball2" height="50" width="50" src="resources/redball.swf" /><object objectId="redball3" height="50" width="50" src="resources/redball.swf" /><object objectId="redball4" height="50" width="50" src="resources/redball.swf" /><state objectId="blueball1" containerId="start" locationId="loc1" /><state objectId="blueball2" containerId="start" locationId="loc2" /><state objectId="greenball1" containerId="start" locationId="loc3" /><state objectId="redball1" containerId="start" locationId="loc4" /><state objectId="redball2" containerId="start" locationId="loc5" /><state objectId="redball3" containerId="start" locationId="loc6" /><state objectId="redball4" containerId="start" locationId="loc7" /></drag_and_drop_area>');
+					}
+                  lz.embed.swf({url: 'draganddrop.swf?&lzproxied=false', bgcolor: '#ffffff', width: '100%', height: '100%', id: 'lzapp', accessible: 'false'});
+            </script>
+            <noscript>
+                Please enable JavaScript in order to use this application.
+            </noscript></body></html>

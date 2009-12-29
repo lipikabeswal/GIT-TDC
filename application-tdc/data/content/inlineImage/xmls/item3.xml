@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element_package eid="3" iid="TD.6.0_003" xslt_ver="145">
+	<item_canvas id="IC">
+		<scrolling_text_panel height="453" id="TD.6.0_003"
+			stereotype="stimulus" width="381" x="12" y="79">
+			<text_widget halign="left" id="widget2282441000"
+				inline_image="yes" width="364">
+				<![CDATA[<image_widget valign="bottom" src="TestData_6.0_BigT.swf" enlargeable="no" autoenlargeable="yes" height="39" width="28"/>  oreet adiat vel eum eliquisi blaore vent prat ad tat lum num zzriure tat. Ut accumsandre dolore tie commy nullutat in velenis iduis nis acipis nummy nulputate tem qui essim ilisit vullan hent am, vullam.Ut accumsandre dolore tie commy nullutat in velenis iduis nis acipis nummy nulputate tem qui essim. Loreet adiat vel eum eliquisi blaore   <image_widget valign="bottom" src="Icon-Protractor_demo.swf" enlargeable="no" autoenlargeable="yes" height="50" width="50"/>  vent prat ad tat lum num zzriure tat. Ut accumsandre dolore tie commy nullutat in velenis iduis nis acipis nummy nulputate tem qui essim ilisit vullan hent am, vullam.Ut accumsandre dolore tie commy nullutat in velenis iduis nis acipis nummy nulputate tem qui essim. Loreet adiat vel   <image_widget valign="bottom" src="Icon-Ruler_demo.swf" enlargeable="no" autoenlargeable="yes" height="49" width="50"/>  eum eliquisi blaore vent prat ad tat lum num zzriure tat. Ut accumsandre dolore tie commy nullutat in velenis iduis nis acipis nummy nulputate tem qui essim ilisit vullan hent am, vullam.Ut accumsandre dolore tie commy nullutat in velenis iduis nis acipis nummy nulputate tem qui essim. ]]>
+			</text_widget>
+			<text_widget halign="left" id="widget2282441001"
+				inline_image="yes" width="364">
+				<![CDATA[Loreet adiat vel eum eliquisi blaore vent prat ad tat lum num zzriure tat. Ut accumsandre dolore tie commy nullutat in velenis iduis nis <image_widget valign="bottom" src="Icon-Ruler_demo.swf" enlargeable="no" autoenlargeable="yes" height="49" width="50"/>   acipis nummy nulputate tem qui essim ilisit vullan hent am, vullam.Ut accumsandre dolore tie commy   <image_widget valign="bottom" src="TestData_6.0_Equation.swf" enlargeable="no" autoenlargeable="yes" height="52" width="105"/>  nullutat in velenis iduis nis acipis nummy nulputate tem qui essim. ]]>
+			</text_widget>
+			<text_widget halign="left" id="widget2282441002"
+				inline_image="yes" width="364">
+				<![CDATA[Loreet adiat vel eum eliquisi blaore vent prat ad tat lum num zzriure tat. Ut accumsandre dolore tie commy nullutat in velenis iduis nis acipis nummy nulputate tem qui essim ilisit vullan hent am, vullam.Ut accumsandre dolore tie commy nullutat in velenis <image_widget valign="bottom" src="Icon-Protractor_demo.swf" enlargeable="no" autoenlargeable="yes" height="50" width="50"/>  iduis nis acipis nummy nulputate tem qui essim.  Loreet adiat vel eum eliquisi blaore vent prat ad tat lum num zzriure tat. Ut accumsandre dolore tie commy nullutat in velenis iduis nis acipis nummy nulputate tem qui essim ilisit vullan hent am, vullam.Ut accumsandre dolore tie commy nullutat in velenis iduis nis acipis nummy nulputate tem qui essim. ]]>
+			</text_widget>
+		</scrolling_text_panel>
+		<panel height="45" id="stem1" layout="vertical"
+			left_padding="12" spacing="12" stereotype="stem" width="387" x="393"
+			y="79">
+			<text_widget halign="left" id="widget2282441003"
+				width="358">
+				<![CDATA[This item has a stimulus that uses a passage. Within the passage are paragraphs with several in-line images.]]>
+			</text_widget>
+		</panel>
+		<answer_area_panel height="156" id="A1" layout="vertical"
+			left_padding="12" spacing="12" stereotype="answerArea"
+			top_padding="12" width="375" x="405" y="131">
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="363">
+				<selector_widget identifier="A" valign="top" />
+				<text_widget halign="left" id="widget2282441006"
+					width="316">
+					<![CDATA[Answer A]]>
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="363">
+				<selector_widget identifier="B" valign="top" />
+				<text_widget halign="left" id="widget2282441009"
+					width="316">
+					<![CDATA[Answer B]]>
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="363">
+				<selector_widget identifier="C" valign="top" />
+				<text_widget halign="left" id="widget2282441012"
+					width="316">
+					<![CDATA[Answer C]]>
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="363">
+				<selector_widget identifier="D" valign="top" />
+				<text_widget halign="left" id="widget2282441015"
+					width="316">
+					<![CDATA[Answer D]]>
+				</text_widget>
+			</answer_choice_widget>
+		</answer_area_panel>
+	</item_canvas>
+	<item_model answer_text="" answered="0" correct="A" eid="3"
+		iid="TD.6.0_003" marked="0" number="0" score="0" type="question">
+		<toolbar FCAT_formula_card="not provisioned"
+			TN_formula_card="not provisioned" cm_ruler="not provisioned"
+			eraser="required" half_inch_ruler="not provisioned"
+			highlighter="required" mm_ruler="not provisioned"
+			oneeighth_inch_ruler="not provisioned" option_eliminator="required"
+			protractor="not provisioned" scientific_calculator="not provisioned"
+			scratchpad="not provisioned" standard_calculator="not provisioned"
+			straight_edge="not provisioned" />
+		<interaction max_choices="1" type="choice">
+			<selector identifier="A" obj_id_ref="A" user_action="n" />
+			<selector identifier="B" obj_id_ref="B" user_action="n" />
+			<selector identifier="C" obj_id_ref="C" user_action="n" />
+			<selector identifier="D" obj_id_ref="D" user_action="n" />
+		</interaction>
+	</item_model>
+</element_package>

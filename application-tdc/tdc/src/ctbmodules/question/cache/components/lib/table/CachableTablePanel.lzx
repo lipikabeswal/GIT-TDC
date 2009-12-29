@@ -1,0 +1,177 @@
+<library>
+    
+  	
+    
+    <class name="CachableTablePanel" extends="view">
+        
+       <!-- //////////////////////// ATTRIBUTES ///////////////////////////// -->
+     
+		<!-- title of the table -->
+		<attribute name="title" value="" type="string"/>
+		<attribute name="titlebgcolor" value="0xFFFFFF" />
+		<attribute name="titlefgcolor" value="0x000000" />
+        <!-- not used --><attribute name="titlewidth" value="0" type="number"/>
+        
+        
+		<!-- UI characteristics -->
+		<attribute name="showvlines" value="false" type="boolean"/>
+		<attribute name="showhlines" value="false" type="boolean"/>
+		<!-- spacing of cols on table -->
+		<attribute name="spacing" value="0" type="number"/>
+        <!-- alignment of content in column -->
+		<attribute name="halign" value="center" type="string"/>
+        <!-- border around table -->
+        <attribute name="border" value="0" type="number"/>
+        <attribute name="borderClr" value="0x000000" type="string"/>
+        
+       
+        <attribute name="datafile" value="" type="string"/>
+    
+        <!--dataset name="ds" src="tabledata.xml"/-->
+        
+     
+        
+       
+        <!-- //////////////////////// METHODS ///////////////////////////// -->
+      
+     
+        
+      
+         <!-- //////////////////////// VIEWS ///////////////////////////// -->
+     
+        <!-- borderView contains the title and table and defines a border -->
+        <view name="borderView" bgcolor="0xFF00FF"
+            width="${parent.width - (parent.border *2)}"
+            height="${this.tableTitle.height + this.table.height}"
+            align="center" valign="top"><!--  -->
+            
+            <simplelayout axis="y" spacing="0"/><!-- height="${parent.height - (parent.border *2)}" -->
+                 
+            <!-- title of table -->
+            <view name="tableTitle" align="center"
+                 y="0"
+                 width="${parent.width}"
+                 onmouseover=""
+                 bgcolor="${classroot.titlebgcolor}"
+                 fgcolor="${classroot.titlefgcolor}">
+                 <text align="center" text="${classroot.title}"/>
+            </view>
+            
+        
+    
+            <view name="table"
+                  width="${parent.width}" height="${parent.height}"
+                 bgcolor="${classroot.bgcolor}">
+             
+                <resizelayout axis="y" spacing="${(classroot.showhlines?classroot.border:0)}"/>
+                
+                 <!-- top line below title -->
+                 <view bgcolor="${classroot.titlebgcolor}"
+                     height="${classroot.border}"/>
+       
+                <!-- row containing columns -->
+                <view name="row" width="${parent.width}" height="60"
+                    bgcolor="$path{'@bgcolor'}" 
+                    datapath="table/row"><!-- height="$path{'@height'}" -->
+                    
+                    <simplelayout axis="x"  />
+                    <!-- cells or cols in that row -->
+                    <view name="cell" datapath="cell">
+                    
+                        <method event="ondata">
+                          /*  var children = classroot.datapath.p.childNodes;
+                            var rows = children[0].getElementsByTagName('row');
+                            //get col width from first row
+                            var row0 = rows[0];
+                            var cells = rows[0].getElementsByTagName('cell');
+                            var pos = this.datapath.p.getOffset();
+                           // Debug.write("offset="+ this.datapath.p.getOffset())
+                            Debug.write("pos="+ pos + " width="+ cells[pos].getAttr('width'));
+                            this.setAttribute('width', cells[pos].getAttr('width'));
+                           */   
+                        </method>
+                        
+                        <!-- text or image in cell -->
+                        <simplelayout axis="x"  spacing="0"/>
+                        <richinputtext name="textContent" 
+                            datapath="text/text()" 
+                            selectable="false">
+                            <!-- width="${this.getTextWidth()}" 
+                                visible="${parent.imageContent.imageName == null}"
+                                -->
+                            <attribute name="textName" value="$path{'.'}" />
+                            
+                            <handler name="ondata">
+                                Debug.write("textContent.ondata textName="+ this.textName);
+                                var children = classroot.datapath.p.childNodes;
+                                var rows = children[0].getElementsByTagName('row');
+                                //get col width from first row
+                                var row0 = rows[0];
+                                var cells = rows[0].getElementsByTagName('cell');
+                                //get position for this cell
+                                var pos = parent.datapath.p.getOffset();
+                                Debug.write("pos="+ pos + " width="+ cells[pos].getAttr('width'));
+                                this.setAttribute('width', cells[pos].getAttr('width'));          
+                                
+                                //alignment
+                                var dataAlign = cells[pos].getAttr('columnhalign');
+                                //this.setAttribute('align', dataAlign);
+                               // this.setAlign(dataAlign);
+                               // var dataVAlign = cells[pos].getAttr('columnvalign');
+                               // this.setValign(dataVAlign);
+                               // this.setAttribute('valign', dataVAlign);  
+                                
+                                //row fgcolor sets text color
+                                var dataClr = row0.getAttr('fgcolor');
+                                this.setAttribute('color', dataClr);                   
+                            </handler>
+                            
+                        </richinputtext>
+                        
+                        <view name="imageContent" 
+                            visible="${parent.textContent['textName'] == null}"
+                            align="center" valign="middle">
+                            <!-- visible="${parent.textContent['textName'] == null}" -->
+                            <attribute name="imageName" value="$path{'image/text()'}" type="string"/>
+                            <method event="onimageName">
+                                this.setSource(imageName);
+                            </method>  
+                            
+                            <method event="ondata">
+                                Debug.write("imagetextContent.ondata");
+                                var children = classroot.datapath.p.childNodes;
+                                var rows = children[0].getElementsByTagName('row');
+                                //get col width from first row
+                                var row0 = rows[0];
+                                var cells = rows[0].getElementsByTagName('cell');
+                                //get position for this cell
+                                var pos = parent.datapath.p.getOffset();
+                                Debug.write("pos="+ pos + " width="+ cells[pos].getAttr('width'));
+                                //not needed for image this.setAttribute('width', cells[pos].getAttr('width'));
+                                
+                                //alignment
+                                var dataAlign = cells[pos].getAttr('columnhalign');
+                                this.setAttribute('align', dataAlign);
+                                var dataVAlign = cells[pos].getAttr('columnvalign');
+                                this.setAttribute('valign', dataVAlign);
+                            </method>
+                                                     
+                       </view>
+                        
+                        <!-- vertical bar between cells visible on showvlines -->
+                        <view name="vline" visible="${classroot.showvlines}" bgcolor="${classroot.bgcolor}"
+                            width="${classroot.border}" height="${parent.parent.height}"/>
+                          
+                              <!--  "classroot.ds:/root/cell/text"
+                            -->
+                                        
+                </view><!-- cell -->
+                </view><!-- row -->
+                    
+                 
+            </view><!-- table -->
+        </view><!-- borderView -->
+
+    </class>
+    
+</library>

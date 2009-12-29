@@ -1,0 +1,27 @@
+<library>
+	<include href="droparea.lzx" />
+	<class name="dropareacircle" extends="droparea">
+		<attribute name="_radius" />
+		<attribute name="_centerX" />
+		<attribute name="_centerY" />
+		
+		<method name="setup">
+            var vals = coords.split(','); 
+            this.setAttribute('_centerX', new Number(vals[0]));
+            this.setAttribute('_centerY', new Number(vals[1]));
+            this.setAttribute('_radius', new Number(vals[2]));
+            this.setAttribute("isSetup", true);
+//Debug.write("circle.setup", _centerX, _centerY, _radius);
+		</method>
+		
+		<method name="contains" args="_x, _y"><![CDATA[
+			if(!isSetup){
+				setup();
+			}
+			var xdiff = Math.abs(_centerX - _x);
+			var ydiff = Math.abs(_centerY - _y);
+//Debug.write("circle.contains", _x, _y, xdiff, ydiff);
+			return ((xdiff*xdiff + ydiff*ydiff) <= _radius*_radius);
+		]]></method>
+	</class>
+</library>

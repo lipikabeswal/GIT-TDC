@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library>
+	<resource name="okButtonResource">
+		<frame src="resources/okOff.swf"/>
+		<frame src="resources/okOn.swf"/>
+		<frame src="resources/okClick.swf"/>
+	</resource>
+	<class name="OkButton" extends="basebutton" resource="okButtonResource"/>
+</library>

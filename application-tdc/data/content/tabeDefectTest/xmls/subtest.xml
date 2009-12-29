@@ -1,0 +1,46 @@
+	<ob_assessment starting_question_number="1">
+		<assessment_title>defectTest</assessment_title>
+		<ob_element_list>
+			<f id="1" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="2" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="3" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="4" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="5" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="6" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="7" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="8" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="9" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="10" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="11" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="12" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="13" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="14" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="15" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="16" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="17" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="18" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="19" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			</ob_element_list>
+		<ob_element_select_order>
+			<e id="1"/>
+			<e id="2"/>
+			<e id="3"/>
+			<e id="4"/>
+			<e id="5"/>
+			<e id="6"/>
+			<e id="7"/>
+			<e id="8"/>
+			<e id="9"/>
+			<e id="10"/>
+			<e id="11"/>
+			<e id="12"/>
+			<e id="13"/>
+			<e id="14"/>
+			<e id="15"/>
+			<e id="16"/>
+			<e id="17"/>
+			<e id="18"/>
+			<e id="19"/>
+		</ob_element_select_order>
+	</ob_assessment>
+	

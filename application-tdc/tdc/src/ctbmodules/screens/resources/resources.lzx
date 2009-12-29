@@ -1,0 +1,155 @@
+<!--=======================================================================-->
+<!--                                                                       -->
+<!-- resources.lzx                                                         -->
+<!--                                                                       -->
+<!-- Laszlo Application Language (LZX)                                     -->
+<!--                                                                       -->
+<!--=======================================================================-->
+<!-- Version: 0.3.5                                                        -->
+<!--    Date: 11/03/2005                                                   -->
+<!--  Author: STG, Inc. (rr)                                               -->
+<!--                                                                       -->
+<!-- CHANGE HISTORY                                                        -->
+<!--       11/03/2005 - Button resource files received from CTB            -->
+<!--                                                                       -->
+<!--=======================================================================-->
+
+<library>
+	<!-- Buttons -->
+	<resource name="button_rsc">
+       	<frame src="button_up.swf"/>
+       	<frame src="button_mo.swf"/>
+       	<frame src="button_dn.swf"/>
+	</resource>
+<!-- JSB 3/13/2006 - add close button -->
+	<resource name="close_button_rsc">
+		<frame src="close_off.swf"/>
+		<frame src="close_on.swf"/>
+		<frame src="close_click.swf"/>
+	</resource>	
+
+	<resource name="login_button_rsc">
+		<frame src="login_off.swf"/>
+		<frame src="login_on.swf"/>
+		<frame src="login_click.swf"/>
+	</resource>	
+
+	<resource name="cancel_button_rsc">
+		<frame src="cancel_off.swf"/>
+		<frame src="cancel_on.swf"/>
+		<frame src="cancel_click.swf"/>
+	</resource>	
+
+	<resource name="start_button_rsc">
+		<frame src="start_off.swf"/>
+		<frame src="start_on.swf"/>
+		<frame src="start_click.swf"/>
+	</resource>	
+
+	<resource name="stop_button_rsc">
+		<frame src="stop_off.swf"/>
+		<frame src="stop_on.swf"/>
+		<frame src="stop_click.swf"/>
+	</resource>	
+
+	<resource name="continue_button_rsc">
+		<frame src="continue_off.swf"/>
+		<frame src="continue_on.swf"/>
+		<frame src="continue_click.swf"/>
+	</resource>	
+
+	<resource name="backtologin_button_rsc">
+		<frame src="backtologin_off.swf"/>
+		<frame src="backtologin_on.swf"/>
+		<frame src="backtologin_click.swf"/>
+	</resource>	
+
+	<resource name="yesfinished_button_rsc">
+		<frame src="yes_finished_off.swf"/>
+		<frame src="yes_finished_on.swf"/>
+		<frame src="yes_finished_click.swf"/>
+	</resource>	
+
+	<resource name="nogobacktotest_button_rsc">
+		<frame src="no_gobacktotest_off.swf"/>
+		<frame src="no_gobacktotest_on.swf"/>
+		<frame src="no_gobacktotest_click.swf"/>
+	</resource>	
+
+	<resource name="finishtest_button_rsc">
+		<frame src="finishtest_off.swf"/>
+		<frame src="finishtest_on.swf"/>
+		<frame src="finishtest_click.swf"/>
+	</resource>	
+
+	<resource name="exit_button_rsc">
+		<frame src="exit_off.swf"/>
+		<frame src="exit_on.swf"/>
+		<frame src="exit_click.swf"/>
+	</resource>
+
+	<!--AA021806:	Use this next_button_rsc  resource and 
+							Add a new back_button_rsc resource related to studentfeedback screen.-->
+	<resource name="next_button_rsc">
+		<frame src="next_off.swf"/>
+		<frame src="next_on.swf"/>
+		<frame src="next_click.swf"/>
+	</resource>	
+
+	<resource name="back_button_rsc">
+		<frame src="back_off.swf"/>
+		<frame src="back_on.swf"/>
+		<frame src="back_click.swf"/>
+	</resource>	
+
+	<resource name="yes_show_the_demo_again_button_rsc">
+		<frame src="yes_show_the_demo_again_off.swf"/>
+		<frame src="yes_show_the_demo_again_on.swf"/>
+		<frame src="yes_show_the_demo_again_click.swf"/>
+	</resource>	
+
+	<resource name="no_take_me_straight_to_the_test_button_rsc">
+		<frame src="no_take_me_straight_to_the_test_off.swf"/>
+		<frame src="no_take_me_straight_to_the_test_on.swf"/>
+		<frame src="no_take_me_straight_to_the_test_click.swf"/>
+	</resource>	
+
+	<resource name="pausetest_button_rsc">
+		<frame src="pausetest_off.swf"/>
+		<frame src="pausetest_on.swf"/>
+		<frame src="pausetest_click.swf"/>
+	</resource>	
+
+	<resource name="exitfeedback_button_rsc">
+		<frame src="exit_feedback_off.swf"/>
+		<frame src="exit_feedback_on.swf"/>
+		<frame src="exit_feedback_click.swf"/>
+	</resource>	
+
+	<!-- Window -->
+	<resource name="top_lft_slct" src="top_lft_slct.swf" />
+   	<resource name="top_mid_slct" src="top_mid_slct.swf" />
+   	<resource name="top_rt_slct" src="top_rt_slct.swf" />
+
+   	<resource name="mid_lft_slct" src="mid_lft_slct.swf" />
+   	<resource name="mid_mid_slct" src="mid_mid_slct.swf" />
+   	<resource name="mid_rt_slct" src="mid_rt_slct.swf" />
+
+   	<resource name="bot_lft_slct" src="bot_lft_slct.swf" />
+   	<resource name="bot_mid_slct" src="bot_mid_slct.swf" />
+   	<resource name="bot_rt_slct" src="bot_rt_slct.swf" />
+
+	<!-- Animations -->
+   	<resource name="loginBallArrow" src="../animations/standingMan.swf" />
+   	<resource name="neterrBallArrow" src="../animations/standingMan.swf" />
+	<resource name="prancingManSolo" src="../animations/prancingMan.swf" />
+   	<resource name="waitWhileLoading" src="../animations/waitWhileLoading.swf" />
+   	<resource name="pleaseWait" src="../animations/pleaseWait.swf" />
+   	<resource name="feedbackWait" src="../animations/feedbackWait.swf" />
+
+</library>
+
+<!--***************************************************************************-->
+<!--* Copyright 2005 STG, Inc.  All Rights Reserved.                          *-->
+<!--* Use is subject to license terms.                                        *-->
+<!--***************************************************************************-->

@@ -1,0 +1,28 @@
+<element_package eid="1" iid="TD.6.0_008" xslt_ver="145">
+	<item_canvas id="IC">
+		<panel height="89" id="stem1" layout="vertical"
+			left_padding="12" spacing="12" stereotype="stem" width="500" x="0"
+			y="79">
+			<text_widget halign="left" id="widget753771000"
+				width="471">This in a CR item with a single line answer area and a scratch pad.</text_widget>
+			<text_widget halign="left" id="widget753771001"
+				width="471">Type your answer below.</text_widget>
+			<single_line_answer char_limit="150" id="widget753771002"
+				type="standalone" width="250" />
+		</panel>
+	</item_canvas>
+	<item_model answer_text="" answered="0" correct="" eid="1"
+		iid="TD.6.0_008" marked="0" number="0" score="" type="question">
+		<toolbar FCAT_formula_card="not provisioned"
+			TN_formula_card="not provisioned" cm_ruler="not provisioned"
+			eraser="required" half_inch_ruler="not provisioned"
+			highlighter="required" mm_ruler="not provisioned"
+			oneeighth_inch_ruler="not provisioned" option_eliminator="required"
+			protractor="not provisioned" scientific_calculator="not provisioned"
+			scratchpad="required" standard_calculator="not provisioned"
+			straight_edge="not provisioned" />
+		<interaction type="text_entry">
+			<text_entry obj_id_ref="obj_con_response" />
+		</interaction>
+	</item_model>
+</element_package>

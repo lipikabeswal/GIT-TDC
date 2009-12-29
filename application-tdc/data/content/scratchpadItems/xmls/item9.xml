@@ -1,0 +1,64 @@
+<element_package eid="9" iid="TD.6.0_016" xslt_ver="145">
+	<item_canvas id="IC">
+		<panel height="45" id="stem1" layout="vertical"
+			left_padding="12" spacing="12" stereotype="stem" width="500" x="0"
+			y="79">
+			<text_widget halign="left" id="widget828151000"
+				width="471">
+				This is a basic SR item that contains all of the manipulatives available, including scratchpad.
+			</text_widget>
+		</panel>
+		<answer_area_panel height="156" id="A1" layout="vertical"
+			left_padding="12" spacing="12" stereotype="answerArea"
+			top_padding="12" width="488" x="12" y="131">
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="476">
+				<selector_widget identifier="A" valign="top" />
+				<text_widget halign="left" id="widget828151003
+					width="429">
+					Answer A
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="476">
+				<selector_widget identifier="B" valign="top" />
+				<text_widget halign="left" id="widget828151006"
+					width="429">
+					Answer B
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="476">
+				<selector_widget identifier="C" valign="top" />
+				<text_widget halign="left" id="widget828151009"
+					width="429">
+					Answer C
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="476">
+				<selector_widget identifier="D" valign="top" />
+				<text_widget halign="left" id="widget828151012"
+					width="429">
+					Answer D
+				</text_widget>
+			</answer_choice_widget>
+		</answer_area_panel>
+	</item_canvas>
+	<item_model answer_text="" answered="0" correct="A" eid="9"
+		iid="TD.6.0_016" marked="0" number="0" score="0" type="question">
+		<toolbar FCAT_formula_card="required" TN_formula_card="required"
+			cm_ruler="required" eraser="required" half_inch_ruler="required"
+			highlighter="required" mm_ruler="required"
+			oneeighth_inch_ruler="required" option_eliminator="required"
+			protractor="required" scientific_calculator="required"
+			scratchpad="required" standard_calculator="required"
+			straight_edge="required" />
+		<interaction max_choices="1" type="choice">
+			<selector identifier="A" obj_id_ref="A" user_action="n" />
+			<selector identifier="B" obj_id_ref="B" user_action="n" />
+			<selector identifier="C" obj_id_ref="C" user_action="n" />
+			<selector identifier="D" obj_id_ref="D" user_action="n" />
+		</interaction>
+	</item_model>
+</element_package>

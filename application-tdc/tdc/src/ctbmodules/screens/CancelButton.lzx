@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library>
+	<resource name="cancelButtonResource">
+		<frame src="resources/cancel_off.swf"/>
+		<frame src="resources/cancel_on.swf"/>
+		<frame src="resources/cancel_click.swf"/>
+	</resource>
+	<class name="CancelButton" extends="basebutton" resource="cancelButtonResource"/>
+</library>

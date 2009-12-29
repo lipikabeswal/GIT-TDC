@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library>
+
+	<include href="YesFinishedButton.lzx"/>
+	<include href="NoGoBackToTestButton.lzx"/>
+
+	<class name="FinishScreen">
+
+        <attribute name="font" value="Arial"/>
+
+        <method name="setStats" args="unanswered, marked">
+        <![CDATA[
+            stats.notanswered.setAttribute(
+                'text',
+                unanswered +
+                ( unanswered == 1 ? ' question ' : ' questions ' ) +
+                'not answered.&nbsp;&nbsp;'
+            );
+
+            stats.marked.setAttribute(
+                'text',
+                marked +
+                ( marked == 1 ? ' question ' : ' questions ' ) +
+                'marked for review.&nbsp;&nbsp;'
+            );
+		]]>            
+        </method>
+
+        <method name="canGoBack">
+            buttons.goback.setAttribute( 'enabled', true );
+            buttons.goback.setAttribute( 'visible', true );
+        </method>
+
+        <method name="cannotGoBack">
+            buttons.goback.setAttribute( 'enabled', false );
+            buttons.goback.setAttribute( 'visible', false );
+        </method>
+
+        <simplelayout axis="y" spacing="3"/>
+
+        <text fgcolor="white" fontsize="24">Progress...</text>
+
+        <view name="stats" bgcolor="white" width="560" height="100">
+            <simplelayout axis="y" spacing="5"/>
+            <text resize="true" align="center" datapath="dssubtest:/subtest/sco/@title">
+                <method name="applyData" args="d"><![CDATA[
+                    if ( d ) {
+                        setAttribute( 'text', ' <b>Have you finished ' + d + '?</b> ');
+                    } 
+                ]]></method>
+           </text>
+            <view height="1" bgcolor="gray" width="100%"/>
+            <text name="notanswered" resize="true" x="200"/>
+            <text name="marked" resize="true" x="200"/>
+        </view>
+
+        <view x="${ parent.width - width - 10 }" name="buttons">
+            <simplelayout axis="x" spacing="10"/>
+            <YesFinishedButton enabled="${ gScreens.allowclick }">
+                <method name="finished" event="onclick">
+                    gScreens.clicked();
+                    gController.saveEndSubtest( '' );
+                </method>
+            </YesFinishedButton>
+            <NoGoBackToTestButton name="goback"
+                                  enabled="${ gScreens.allowclick }">
+                <method name="goback" event="onclick">
+                    gScreens.clicked();
+                    gController.resumeTest();
+                </method>
+            </NoGoBackToTestButton>
+        </view>
+	</class>
+</library>

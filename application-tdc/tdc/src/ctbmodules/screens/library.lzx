@@ -1,0 +1,10 @@
+<library>
+
+    <include href="ContinueScreen.lzx"/>
+    <include href="FinishScreen.lzx"/>
+    <include href="PauseScreen.lzx"/>
+    <include href="WelcomeScreen.lzx"/>
+
+    <include href="MainScreens.lzx"/>
+
+</library>

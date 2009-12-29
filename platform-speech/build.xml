@@ -1,0 +1,44 @@
+<project name="platform-speech" default="dist" basedir=".">
+
+<property name="project.src"           value="${basedir}/src" />
+
+	<!-- TASK: usage .......................................................-->
+	<target name="usage" description="Displays the usage of this ANT build script.">
+		<echo>
+			Usage: ant [target]
+		</echo>
+	</target>
+	
+	<target name="dist" depends="clean,build,speechJAR"/> 
+	
+	<!-- TASK: build .......................................................-->
+
+	<target name="build">
+		<mkdir dir="${basedir}/classes" />
+		<javac srcdir="${project.src}" destdir="${basedir}/classes" compiler="javac1.4" >
+			<classpath>
+				<fileset dir="${basedir}/lib">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+	
+		<!-- TASK: createjar ...................................................-->
+	<target name="speechJAR" depends="build">
+		<jar jarfile="${basedir}/lib/speech.jar">
+			<fileset dir="${basedir}/classes" includes="**/*" />
+			<!--	<fileset dir="${basedir}" includes="tts.properties"/> -->
+		</jar>
+	</target>	
+	
+	<!-- TASK: cleanDist ...................................................-->
+	<target name="clean" >
+		<delete includeemptydirs="true">
+			<fileset dir="${basedir}/classes" includes="**/*" />
+			<fileset dir="${basedir}/lib" includes="speech.jar" />
+		</delete>
+	</target>
+	
+	
+</project>

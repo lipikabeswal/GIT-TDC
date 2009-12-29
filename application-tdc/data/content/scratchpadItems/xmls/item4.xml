@@ -1,0 +1,68 @@
+<element_package eid="4" iid="TD.6.0_011" xslt_ver="145">
+	<item_canvas id="IC">
+		<panel height="321" id="stem1" layout="vertical"
+			left_padding="12" spacing="5" stereotype="stem" width="500" x="0"
+			y="79">
+			<text_widget halign="left" id="widget774161000"
+				width="471">
+				This item has a graphic that is zoom enabled and a scratchpad.
+			</text_widget>
+			<image_widget autoenlargeable="no" enlargeable="yes"
+				halign="left" height="292" image_ref="33s_EOCbOK_demo" width="443"
+				src="01-03S-NewsPaper1_05rOAS.swf" />
+		</panel>
+		<answer_area_panel height="125" id="A1" layout="vertical"
+			left_padding="12" spacing="6" stereotype="answerArea"
+			top_padding="12" width="488" x="12" y="407">
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="476">
+				<selector_widget identifier="A" valign="top" />
+				<text_widget halign="left" id="widget774161003"
+					width="429">
+					Answer A
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="476">
+				<selector_widget identifier="B" valign="top" />
+				<text_widget halign="left" id="widget774161006"
+					width="429">
+					Answer B
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="476">
+				<selector_widget identifier="C" valign="top" />
+				<text_widget halign="left" id="widget774161009"
+					width="429">
+					Answer C
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="476">
+				<selector_widget identifier="D" valign="top" />
+				<text_widget halign="left" id="widget774161012"
+					width="429">
+					Answer D
+				</text_widget>
+			</answer_choice_widget>
+		</answer_area_panel>
+	</item_canvas>
+	<item_model answer_text="" answered="0" correct="A" eid="4"
+		iid="TD.6.0_011" marked="0" number="0" score="0" type="question">
+		<toolbar FCAT_formula_card="not provisioned"
+			TN_formula_card="not provisioned" cm_ruler="not provisioned"
+			eraser="required" half_inch_ruler="not provisioned"
+			highlighter="required" mm_ruler="not provisioned"
+			oneeighth_inch_ruler="not provisioned" option_eliminator="required"
+			protractor="not provisioned" scientific_calculator="not provisioned"
+			scratchpad="required" standard_calculator="not provisioned"
+			straight_edge="not provisioned" />
+		<interaction max_choices="1" type="choice">
+			<selector identifier="A" obj_id_ref="A" user_action="n" />
+			<selector identifier="B" obj_id_ref="B" user_action="n" />
+			<selector identifier="C" obj_id_ref="C" user_action="n" />
+			<selector identifier="D" obj_id_ref="D" user_action="n" />
+		</interaction>
+	</item_model>
+</element_package>

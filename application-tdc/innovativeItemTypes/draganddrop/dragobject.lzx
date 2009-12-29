@@ -1,0 +1,58 @@
+<library>
+	<class name="dragobject" clickable="true" showhandcursor="true" xoffset="${this.width/2}" yoffset="${this.height/2}">
+		<attribute name="dragAndDropArea" />
+		<attribute name="objectId" type="string" />
+		<attribute name="startX" value="0" type="number" />
+		<attribute name="startY" value="0" type="number" />
+		<method name="setup" args="node, _dragAndDropArea">
+//Debug.write("dragobject.setup", node);
+			this.setSource(node.getAttr('src'));
+			if(node.hasAttr('width')){
+				this.setAttribute('width', new Number(node.getAttr('width')));
+			}
+			if(node.hasAttr('height')){
+				this.setAttribute('height', new Number(node.getAttr('height')));
+			}
+			this.setAttribute('objectId', node.getAttr('objectId'));
+			this.setAttribute('dragAndDropArea', _dragAndDropArea);
+		</method>		
+		
+		<handler name="onmousedown">
+//		Debug.write("onmousedown of dragobject");
+			this.bringToFront();
+			dragger.apply();
+ 		</handler>
+ 		
+		<handler name="onmouseup">
+//Debug.write("onmouseup of dragobject");
+			dragger.remove();
+			dragAndDropArea.dropObject(this);
+		</handler>
+		
+		<method name="sendBackToStart">
+//Debug.write("ojbect.sendBackToStart");
+			this.setAttribute('x', this.startX);
+			this.setAttribute('y', this.startY);
+		</method>
+		
+		<method name="setState" args="node">
+//Debug.write("setState", node, container);
+			var container = dragAndDropArea.getContainer(node.getAttr('containerId'));
+			var locid = node.getAttr('locationId');
+//Debug.write("setState", locid, node, container);
+			container.addObject(this, locid);
+		</method>
+		
+		<method name="setLocation" args="_x, _y">
+//Debug.write("object.setLocation", _x, _y);
+			this.setAttribute('x', _x);
+			this.setAttribute('y', _y);
+			this.setAttribute('startX', this.x);
+			this.setAttribute('startY', this.y);
+		</method>
+		
+		<dragstate name="dragger">
+		</dragstate>
+		
+	</class>
+</library>

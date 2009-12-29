@@ -1,0 +1,35 @@
+<library>
+
+    <class name="Frame">
+
+        <stableborderlayout axis="y"/>
+        
+        <view name="top" width="100%">
+            <stableborderlayout axis="x"/> 
+            <view resource="resources/top_lft_slct.swf" fgcolor="0x527DA4"/> 
+            <view resource="resources/top_mid_slct.swf" stretches="width"
+                  fgcolor="0x527DA4"/> 
+            <view resource="resources/top_rt_slct.swf" fgcolor="0x527DA4"/> 
+        </view>
+
+        <view name="middle" width="100%">
+            <stableborderlayout axis="x"/>
+            <view resource="resources/mid_lft_slct.swf"
+                  height="100%" stretches="height" fgcolor="0x527DA4"/>
+            <view resource="resources/mid_mid_slct.swf" name="center"
+                  stretches="both" fgcolor="0x527DA4" height="100%"/>
+            <view resource="resources/mid_rt_slct.swf" height="100%"
+                  stretches="height" fgcolor="0x527DA4" /> 
+        </view> 
+
+        <view name="bottom" width="100%"> 
+            <stableborderlayout axis="x"/> 
+            <view resource="resources/bot_lft_slct.swf" fgcolor="0x527DA4"/> 
+            <view resource="resources/bot_mid_slct.swf" stretches="width"
+                  fgcolor="0x527DA4"/>
+            <view resource="resources/bot_rt_slct.swf" fgcolor="0x527DA4"/> 
+        </view>
+
+    </class>
+
+</library>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element_package iid="item_gfg_5" eid="16">
+
+<item_canvas id="IC">
+	<panel stereotype="stem" id="stem1" layout="vertical" spacing="10" x="0" width="800" y="74" height="100">
+		<text_widget id="stem1T1" halign="left" width="800">
+		<![CDATA[
+			Cells make up many different structures in an organism. What information is used to classify one of these structures as a tissue, an organ, or an organ system?
+		]]>
+		</text_widget>
+	</panel>
+	<!-- <panel stereotype="stimulus" x="0" y="186" width="400" height="340" layout="vertical" spacing="10" top_padding="20" left_padding="10">     
+		      <image_widget  halign="left" src="./images/asset9.swf" width="400" height="340"/>		      
+    </panel>  -->
+
+	<constructed_response_panel x="0" y="156" width="400" height="350" identifier="obj_con_response"/> 
+</item_canvas>
+
+<item_model type="question" iid="item_gfg_5" eid="16" number="0" answered="0" marked="0" correct="D" score="0" answer_text="">
+	<toolbar oneeighth_inch_ruler="required" mm_ruler="required" formula_card="required" highlighter="required" eraser="required" cm_ruler="required" scientific_calculator="required" standard_calculator="required" protractor="required" option_eliminator="required" half_inch_ruler="required" />
+
+	<interaction type="text_entry">
+		<text_entry obj_id_ref="obj_con_response"></text_entry>
+	</interaction>
+<!--
+	<interaction type="choice" max_choices="1">
+			<selector identifier="ok_demo01.a" obj_id_ref="ok_demo01.obj_a" user_action="n"/>
+			<selector identifier="ok_demo01.b" obj_id_ref="ok_demo01.obj_b" user_action="n"/>
+			<selector identifier="ok_demo01.c" obj_id_ref="ok_demo01.obj_c" user_action="n"/>
+			<selector identifier="ok_demo01.d" obj_id_ref="ok_demo01.obj_d" user_action="n"/>			
+	</interaction>
+-->
+</item_model>
+</element_package>

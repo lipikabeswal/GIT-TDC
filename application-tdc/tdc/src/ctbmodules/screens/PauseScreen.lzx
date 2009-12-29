@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library>
+
+    <include href="LoginButton.lzx"/>
+    <include href="ComeBackLaterButton.lzx"/>
+    <include href="LoginFields.lzx"/>
+
+    <class name="PauseScreen">
+        
+        <attribute name="font" value="Arial"/>
+
+        <datapath xpath="dslogin:/login_response/testing_session_data/cmi.core"/>
+
+        <attribute name="password" value="$path{ '@password' }"/>
+
+        <simplelayout axis="y"/>
+
+        <text name="studentName" fontsize="24" resize="true" fgcolor="white"/>
+        
+        <text name="prompt" fontsize="24" fgcolor="white" resize="true">
+            Log in to resume your paused test.
+        </text>
+
+        <view width="100%" name="id">
+            <text resize="true" x="${ 282 - width }"
+                  valign="middle" fgcolor="white" fontsize="12">
+                <b>Login ID:</b>
+            </text>
+            <edittext name="loginIdField" x="287" enabled="false"
+                      bgcolor="0x777777" fontsize="12" datapath="@userid"
+                      width="265"/>
+        </view>
+        <view name="pw">
+            <text resize="true" valign="middle"
+                  x="${ 282 - width }" fgcolor="white" fontsize="12">
+                <b>Password:</b>
+            </text>
+            <edittext name="passwordField" x="287" fontsize="12"
+                      password="true" width="265"/>
+        </view>
+        <view name="ac">
+            <text resize="true" fgcolor="white"
+                  valign="middle" fontsize="12"  x="${ 282 - width }">
+                <b>Access Code:</b>
+            </text>
+            <edittext name="accesscodeField" x="287" enabled="false"
+                      bgcolor="0x777777" fontsize="12" datapath="@accesscode"
+                      width="265"/>
+        </view>
+
+        <view x="${ classroot.width - width - 20 }">
+            <simplelayout axis="x" spacing="10"/>
+            <LoginButton y="3" enabled="${ gScreens.allowclick }">
+                <method name="docontinue" event="onclick">
+                    gScreens.clicked();
+                	var pwd = classroot.pw.passwordField.getText();
+                	if(pwd != null){
+                		pwd = pwd.toLowerCase();
+                	}
+                    if ( !gController.pausedContinue(pwd) ) {
+                        gScreens.resetClicked();
+                        classroot.prompt.setAttribute(
+                            'text',
+                            'Your password is not correct. Please try again.'
+                        );
+                    }
+                </method>
+            </LoginButton>
+        </view>
+    </class>
+
+</library>

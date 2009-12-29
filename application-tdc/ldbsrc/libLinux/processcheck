@@ -1,0 +1,110 @@
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 15:02 ?        00:00:00 init [5]                             
+root         2     1  0 15:02 ?        00:00:00 [migration/0]
+root         3     1  0 15:02 ?        00:00:00 [ksoftirqd/0]
+root         4     1  0 15:02 ?        00:00:00 [migration/1]
+root         5     1  0 15:02 ?        00:00:00 [ksoftirqd/1]
+root         6     1  0 15:02 ?        00:00:00 [events/0]
+root         7     1  0 15:02 ?        00:00:00 [events/1]
+root         8     6  0 15:02 ?        00:00:00 [khelper]
+root         9     6  0 15:02 ?        00:00:00 [kacpid]
+root        29     6  0 15:02 ?        00:00:00 [kblockd/0]
+root        30     6  0 15:02 ?        00:00:00 [kblockd/1]
+root        48     6  0 15:02 ?        00:00:00 [pdflush]
+root        49     6  0 15:02 ?        00:00:01 [pdflush]
+root        51     6  0 15:02 ?        00:00:00 [aio/0]
+root        52     6  0 15:02 ?        00:00:00 [aio/1]
+root        31     1  0 15:02 ?        00:00:00 [khubd]
+root        50     1  0 15:02 ?        00:00:00 [kswapd0]
+root       198     1  0 15:02 ?        00:00:00 [kseriod]
+root       304     7  0 15:02 ?        00:00:00 [ata/0]
+root       305     7  0 15:02 ?        00:00:00 [ata/1]
+root       309     1  0 15:02 ?        00:00:00 [scsi_eh_0]
+root       310     1  0 15:02 ?        00:00:00 [scsi_eh_1]
+root       332     1  0 15:02 ?        00:00:00 [kjournald]
+root      1458     1  0 15:02 ?        00:00:00 udevd
+root      2145     6  0 15:02 ?        00:00:00 [kauditd]
+root      2208     6  0 15:02 ?        00:00:00 [kmirrord]
+root      2231     1  0 15:02 ?        00:00:00 [kjournald]
+root      2232     1  0 15:02 ?        00:00:00 [kjournald]
+root      2233     1  0 15:02 ?        00:00:00 [kjournald]
+root      2234     1  0 15:02 ?        00:00:00 [kjournald]
+root      2235     1  0 15:02 ?        00:00:00 [kjournald]
+root      2236     1  0 15:02 ?        00:00:00 [kjournald]
+root      3037     1  0 15:02 ?        00:00:00 syslogd -m 0
+root      3041     1  0 15:02 ?        00:00:00 klogd -x
+root      3052     1  0 15:02 ?        00:00:00 irqbalance
+rpc       3064     1  0 15:02 ?        00:00:00 portmap
+root      3084     1  0 15:02 ?        00:00:00 rpc.statd
+root      3114     1  0 15:02 ?        00:00:00 rpc.idmapd
+root      3196     1  0 15:02 ?        00:00:00 /usr/sbin/smartd
+root      3206     1  0 15:02 ?        00:00:00 /usr/sbin/acpid
+root      3219     1  0 15:02 ?        00:00:00 cupsd
+root      3272     1  0 15:02 ?        00:00:00 /usr/sbin/sshd
+root      3287     1  0 15:02 ?        00:00:00 xinetd -stayalive -pidfile /var/run/xinetd.pid
+smmsp     3313     1  0 15:02 ?        00:00:00 sendmail: Queue runner@01:00:00 for /var/spool/clientmqueue
+root      3324     1  0 15:02 ?        00:00:00 gpm -m /dev/input/mice -t imps2
+root      3334     1  0 15:02 ?        00:00:00 crond
+xfs       3357     1  0 15:02 ?        00:00:00 xfs -droppriv -daemon
+root      3376     1  0 15:02 ?        00:00:00 /usr/sbin/atd
+dbus      3395     1  0 15:02 ?        00:00:00 dbus-daemon-1 --system
+root      3408     1  0 15:02 ?        00:00:00 cups-config-daemon
+root      3419     1  0 15:02 ?        00:00:02 hald
+root      3429     1  0 15:02 tty1     00:00:00 /sbin/mingetty tty1
+root      3430     1  0 15:02 tty2     00:00:00 /sbin/mingetty tty2
+root      3431     1  0 15:02 tty3     00:00:00 /sbin/mingetty tty3
+root      3434     1  0 15:02 tty4     00:00:00 /sbin/mingetty tty4
+root      3463     1  0 15:02 tty5     00:00:00 /sbin/mingetty tty5
+root      3464     1  0 15:02 tty6     00:00:00 /sbin/mingetty tty6
+root      3466     1  0 15:02 ?        00:00:00 /usr/bin/gdm-binary -nodaemon
+root      4133  3466  0 15:02 ?        00:00:00 /usr/bin/gdm-binary -nodaemon
+root      4157  4133  1 15:02 ?        00:03:14 /usr/X11R6/bin/X :0 -audit 0 -auth /var/gdm/:0.Xauth -nolisten tcp vt7
+root      4473  4133  0 15:05 ?        00:00:00 /usr/bin/gnome-session
+root      4532  4473  0 15:05 ?        00:00:00 /usr/bin/ssh-agent /usr/bin/dbus-launch --exit-with-session /etc/X11/xinit/Xclients
+root      4535     1  0 15:05 ?        00:00:00 /usr/bin/dbus-launch --exit-with-session /etc/X11/xinit/Xclients
+root      4536     1  0 15:05 ?        00:00:00 dbus-daemon-1 --fork --print-pid 8 --print-address 6 --session
+root      4540     1  0 15:05 ?        00:00:00 /usr/libexec/gconfd-2 5
+root      4543     1  0 15:05 ?        00:00:00 /usr/bin/gnome-keyring-daemon
+root      4545     1  0 15:05 ?        00:00:00 /usr/libexec/bonobo-activation-server --ac-activate --ior-output-fd=18
+root      4547     1  0 15:05 ?        00:00:00 /usr/libexec/gnome-settings-daemon --oaf-activate-iid=OAFIID:GNOME_SettingsDaemon --oaf-ior-fd=22
+root      4553     1  0 15:05 ?        00:00:00 /usr/libexec/gam_server
+root      4585     1  0 15:05 ?        00:00:08 /usr/bin/metacity --sm-client-id=default1
+root      4589     1  0 15:05 ?        00:00:03 gnome-panel --sm-client-id default2
+root      4591     1  0 15:05 ?        00:00:24 nautilus --no-default-window --sm-client-id default3
+root      4593     1  0 15:05 ?        00:00:00 gnome-volume-manager --sm-client-id default6
+root      4595     1  0 15:05 ?        00:00:00 eggcups --sm-client-id default5
+root      4597     1  0 15:05 ?        00:00:00 pam-panel-icon --sm-client-id default0
+root      4599     1  0 15:05 ?        00:00:02 /usr/bin/python /usr/bin/rhn-applet-gui --sm-client-id default4
+root      4600  4597  0 15:05 ?        00:00:00 /sbin/pam_timestamp_check -d root
+root      4605     1  0 15:05 ?        00:00:00 /usr/libexec/gnome-vfs-daemon --oaf-activate-iid=OAFIID:GNOME_VFS_Daemon_Factory --oaf-ior-fd=28
+root      4617     1  0 15:05 ?        00:00:00 /usr/libexec/mapping-daemon
+root      4619     1  0 15:05 ?        00:00:10 /usr/libexec/wnck-applet --oaf-activate-iid=OAFIID:GNOME_Wncklet_Factory --oaf-ior-fd=30
+root      4621     1  0 15:05 ?        00:00:00 /usr/libexec/mixer_applet2 --oaf-activate-iid=OAFIID:GNOME_MixerApplet_Factory --oaf-ior-fd=32
+root      4623     1  0 15:05 ?        00:00:00 /usr/libexec/clock-applet --oaf-activate-iid=OAFIID:GNOME_ClockApplet_Factory --oaf-ior-fd=34
+root      4625     1  0 15:05 ?        00:00:00 /usr/libexec/notification-area-applet --oaf-activate-iid=OAFIID:GNOME_NotificationAreaApplet_Factory --oaf-ior-fd=36
+root      4627     1  0 15:05 ?        00:01:02 gnome-terminal
+root      4628  4627  0 15:05 ?        00:00:00 gnome-pty-helper
+root      4629  4627  0 15:05 pts/1    00:00:00 bash
+root      5080  3272  0 16:40 ?        00:00:00 sshd: root@pts/2 
+root      5082  5080  0 16:40 pts/2    00:00:00 -bash
+root      5190  3272  0 16:46 ?        00:00:02 sshd: root@pts/3 
+root      5192  5190  0 16:46 pts/3    00:00:00 -bash
+root      5229     1  0 16:48 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+daemon    5249  5229  0 16:49 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+daemon    5252  5229  0 16:49 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+daemon    5253  5229  0 16:49 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+daemon    5299  5229  0 16:50 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+daemon    5481  5229  0 16:57 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+root      5537     1  0 17:01 ?        00:00:04 /usr/lib/ooo-1.1/program/soffice.bin /root/create .so.sxw
+daemon   14283  5229  0 17:48 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+daemon   14284  5229  0 17:48 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+daemon   14285  5229  0 17:48 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+root     14288  4627  0 17:48 pts/4    00:00:00 bash
+daemon   14364  5229  0 17:51 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+daemon   21717  5229  0 17:54 ?        00:00:00 /usr/local/apache/bin/httpd -d /usr/local/apache -k start
+root     16992  4629  6 18:17 pts/1    00:00:00 java -classpath .:com.ctb.tdc.bootstrap.processwrapper.LockdownBrowserWrapper com.ctb.tdc.bootstrap.processwrapper.Main
+root     17213 16992  0 18:17 pts/1    00:00:00 ./disablekeysobj
+root     17409 17213  0 18:17 pts/1    00:00:00 sh processcheck.sh
+root     17420 16992  0 18:17 pts/1    00:00:00 sh disable_printscreen.sh
+root     17422 17420  0 18:17 pts/1    00:00:00 killall -9 gnome-screenshot
+root     17423 17409  0 18:17 pts/1    00:00:00 ps -aef

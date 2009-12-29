@@ -1,0 +1,18 @@
+<canvas debug="false">
+	<include href="draganddroparea.lzx" />
+	<script language="javascript">
+		flash.external.ExternalInterface.addCallback("getResult", null, getResult);
+		flash.external.ExternalInterface.addCallback("setResult", null, setResult);
+		flash.external.ExternalInterface.addCallback("setupDDA", null, setupDDA);
+		function setResult(response){
+			canvas.dda.setResponse(response);
+		}
+		function getResult() {
+			return (canvas.dda.getResponse());
+		}
+		function setupDDA(xml){
+			canvas.dda.setup(xml);
+		}
+	</script>	
+	<draganddroparea name="dda" clip="true" />
+</canvas>

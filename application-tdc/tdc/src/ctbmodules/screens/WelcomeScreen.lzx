@@ -1,0 +1,149 @@
+<library>
+
+    <include href="ContinueButton.lzx"/>
+    <include href="StartButton.lzx"/>
+    <include href="StopButton.lzx"/>
+
+    <class name="WelcomeScreen">
+
+        <!--
+            restart, first screen
+            continuing to another subtest
+            first time, first screen
+        -->
+ 
+        <method name="setupContinue" args="minutes, questions, untimed, sn">
+            info.notes.updateText( minutes, questions, untimed, false );
+			updateStudentName(sn);
+            controls.getstarted.setAttribute(
+                'text',
+                'Continue taking this test?'
+            );
+
+            controls.dostart.remove();
+            controls.docontinue.apply();
+        </method>
+
+        <method name="setupRestart" args="minutes, questions, untimed, sn">
+            info.notes.updateText( minutes, questions, untimed, true );
+			updateStudentName(sn);
+
+            controls.getstarted.setAttribute(
+                'text',
+                'Continue taking this test?'
+            );
+
+            controls.dostart.remove();
+            controls.docontinue.apply();
+        </method>
+
+        <method name="setupNewSubtest" args="minutes, questions, untimed, sn">
+            info.notes.updateText( minutes, questions, untimed, false );
+			updateStudentName(sn);
+
+            controls.getstarted.setAttribute(
+                'text',
+                "Let's get started!"
+            );
+
+            controls.docontinue.remove();
+            controls.dostart.apply();
+        </method>
+
+		<method name="updateStudentName" args="sn">
+			this.studentName.setAttribute( 'text', 'Welcome ' + sn);
+		</method>
+		
+        <attribute name="font" value="Arial"/>
+
+        <simplelayout axis="y" spacing="3"/>
+
+        <text name="studentName" fgcolor="white" fontsize="24" resize="true" x="${ parent.info.x }"/>
+  
+        <view name="info" bgcolor="white" width="550" 
+        	x="5" height="94">
+            <simplelayout axis="y" spacing="5"/>
+            <text name="title" datapath="dssubtest:/subtest/sco/@title"
+                  resize="true" x="5">
+                <method name="applyData" args="d"><![CDATA[
+                    if ( d ) {
+                        setAttribute( 'text', '<b>Test Title:</b> ' + d + ' ');
+                    } 
+                ]]></method>
+            </text> 
+            <view name="line" height="1" width="100%" bgcolor="gray"/>
+            <text name="notes" width="520" x="5" multiline="true">
+                <method name="updateText" args="m, q, u, r"><![CDATA[
+                    var msingular = parseInt( m ) == 1;
+                    var qsingular = parseInt( q ) == 1;
+					var dynaText1 = (qsingular ? 'There is ' : 'There are ');
+					var dynaText2 = (r ? ' to be answered.' : '.');
+					
+                    if ( u ) {
+                        setAttribute(
+                            'text',
+                            '<b>Notes:</b> This test is untimed.' +
+                            '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+                            '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + 
+                            dynaText1 + q + ' question' + 
+                            (qsingular ? '' : 's') +
+                            dynaText2
+                        );
+                    } else {
+                        setAttribute(
+                            'text',
+                            '<b>Notes:</b> You have ' + m +
+                            ' minute' +
+                            (msingular ? '' : 's') +
+                            ' to complete ' + q + ' question' +
+                            (qsingular ? '' : 's') + 
+                            '.'
+                        );
+                    }
+
+                    if ( r ) {
+                        setAttribute( 'text', text + '<br/><br/>You will start where you left the test. Be sure to check your answers.' );
+                    }
+                ]]></method>
+            </text>
+        </view>
+
+        <view name="controls" x="${ parent.info.x }" width="550">
+            <text name="getstarted" valign="middle"
+                  fgcolor="white" fontsize="24" x="10" resize="true"/>
+
+            <state name="dostart" apply="false">
+                <StartButton x="${ parent.stopbutton.x - width - 10 }"
+                             valign="middle"
+                             enabled="${ gScreens.allowclick }">
+                    <method name="dostart" event="onclick">
+                        gScreens.clicked();
+                        gController.openTest();
+                    </method>
+                </StartButton>
+            </state>
+
+            <state name="docontinue" apply="false">
+                <ContinueButton x="${ parent.stopbutton.x - width - 10 }"
+                             valign="middle"
+                             enabled="${ gScreens.allowclick }">
+                    <method name="docontinue" event="onclick">
+                        gScreens.clicked();
+                        gController.openTest();
+                    </method>
+                </ContinueButton>
+            </state>
+
+            <StopButton name="stopbutton" x="${ parent.width - width }"
+                        valign="middle"
+                        enabled="${ gScreens.allowclick }">
+                <method name="dostop" event="onclick">
+                    gScreens.clicked();
+                    gController.terminate();
+                </method>
+            </StopButton>
+
+        </view>
+    </class>
+
+</library>

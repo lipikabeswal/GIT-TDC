@@ -1,0 +1,107 @@
+<library>
+
+    <include href="ManipulativeButton.lzx"/>
+    <include href="ScratchpadButton.lzx"/>
+
+    <class name="ManipulativeBar" bgcolor="0xC4C4C4"
+           datapath="dsstudentdata:/testing_client_model/current_item/item_model">
+
+		<attribute name="TYPE_SPACING" type="number" value="15" />
+		<attribute name="theme" type="boolean" value="$path{'@theme'}" />
+
+		<view datapath="manipulatives/global" name="globals" valign="middle" visible="${!classroot.theme}">
+			<simplelayout axis="x"/>
+			<ManipulativeButton resource="toolbar_choice_eliminator_btn"
+	                            toolid="option_eliminator"
+	                            tooltip="Option Eliminator"/>
+			<ManipulativeButton resource="toolbar_highlighter_btn"
+	                            toolid="highlighter"
+	                            tooltip="Highlighter"/>
+			<ManipulativeButton resource="toolbar_eraser_btn"
+	                            toolid="eraser"
+	                            tooltip="Eraser"/>
+			<ScratchpadButton   resource="toolbar_scratchpad_btn"
+	                            toolid="scratchpad"
+	                            tooltip="Scratchpad"/>
+		</view>
+	            
+		<view datapath="manipulatives/general" name="generals" valign="middle"
+		      x="${parent.globals.x + parent.globals.width + classroot.TYPE_SPACING}"
+		      visible="${!classroot.theme}">
+			<simplelayout axis="x"/>
+			<ManipulativeButton resource="toolbar_oneeighth_inch_ruler_btn"
+	                            toolid="oneeighth_inch_ruler"
+	                            tooltip="1/8&quot; ruler"/>
+			<ManipulativeButton resource="toolbar_half_inch_ruler_btn"
+	                            toolid="half_inch_ruler"
+	                            tooltip="1/2&quot; ruler"/>
+			<ManipulativeButton resource="toolbar_mm_ruler_btn"
+	                            toolid="mm_ruler"
+	                            tooltip="mm ruler"/>
+			<ManipulativeButton resource="toolbar_cm_ruler_btn"
+	                            toolid="cm_ruler"
+	                            tooltip="cm ruler"/>
+			<ManipulativeButton resource="toolbar_protractor_btn"
+	                            toolid="protractor"
+	                            tooltip="Protractor"/>
+			<ManipulativeButton resource="toolbar_formula_card_btn"
+	                            toolid="FCAT_formula_card"
+	                            tooltip="Reference Card"/>
+			<ManipulativeButton resource="toolbar_formula_card_btn"
+	                            toolid="TN_formula_card"
+	                            tooltip="Reference Card"/>
+			<ManipulativeButton resource="toolbar_formula_card_btn"
+	                            toolid="formula_card_resource"
+	                            tooltip="Reference Card"/>
+			<ManipulativeButton resource="toolbar_calculator_btn"
+	                            toolid="standard_calculator"
+	                            tooltip="Calculator"/>
+			<ManipulativeButton resource="toolbar_straight_edge_btn"
+	                            toolid="straight_edge"
+	                            tooltip="Straight Edge"/>
+		</view>
+		<basebutton name="stopreader" stretches="both" height="20" width="68"
+	                resource="toolbar_stopreader_btn"
+	                visible="${canvas.readable}" valign="middle"
+	                x="${classroot.theme ? parent.globals.x : (parent.generals.width == 0 ? parent.generals.x : parent.generals.x + parent.generals.width + classroot.TYPE_SPACING)}">
+	
+			<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
+	
+			<method event="onmouseover">
+				LzTimer.addTimer (tooltipdel, 500);
+			</method>
+	                
+			<method event="onmouseout">
+				gTooltip.hideTooltip ();    
+				LzTimer.removeTimer (this.tooltipdel);
+			</method>
+	
+			<method event="onclick">
+				LzTimer.removeTimer (this.tooltipdel);
+				gReadableText.stopReading();
+			</method>
+	
+			<method name="showTooltip">
+				gTooltip.showTooltip ('Stop Reading');
+			</method>
+	
+		</basebutton>
+
+		<!-- The tool to control the TTS speed -->
+		<radiogroup visible="${gController.hasTTSspeed &amp;&amp; parent.stopreader.visible}" name="speedController" height="20" x="${parent.stopreader.x + parent.stopreader.width + 2}" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
+		<datapath xpath="dslogin:/login_response/@tts_speed_value"></datapath>
+			<radiobutton value="'S'" text="Slow " height="15" valign="middle"/>
+			<radiobutton value="'M'" text="Medium " height="15" valign="middle" selected="true" />
+			<radiobutton value="'F'" text="Fast " height="15" valign="middle"/>
+
+			<handler name="onselect"><![CDATA[
+				if(gReadableText.isplaying && gReadableText.isReadable && 
+						gReadableText.clickable && gReadableText.currentText.length > 0) {
+
+					gReadableText.read(gReadableText.currentText,false);
+				}
+			]]></handler>
+		</radiogroup>
+    </class>
+
+</library>

@@ -1,0 +1,34 @@
+<consolidated_restart_data content="tsd">
+	<tsd lsid="11d1def534ea1be0:7bd613bc:10846571c19:7fe0"
+		 scid="sco.first"
+		 ads_token="ef2345_ADS_TOKEN_67890fe " >
+
+		<ast cur_eid ="8"  rem_sec="0" />
+
+		<ist dur="4" awd="0" mrk="1" cst="unknown" eid="6" iid="1">
+			<rv t="identifier" n="RESPONSE"><v/></rv>
+			<ov t="integer" n="SCORE"><v>0</v></ov>
+			<isc></isc>
+		</ist> 
+
+		<ist iid="item.mc.001" eid="8" cst="unknown" mrk="0" awd="1" dur="75">
+		<ov n="SCORE" t="integer"><v>1</v></ov>
+		<rv n="RESPONSE" t="identifier"><v>lion</v></rv><isc></isc></ist>
+
+		<ist iid="item.mc.002" eid="9" cst="unknown" mrk="1" awd="1" dur="25"><ov n="SCORE" t="integer"><v>1</v></ov><rv n="RESPONSE" t="identifier"><v>B</v></rv><isc></isc></ist>
+
+		<ist iid="item.mc.003" eid="12" cst="unknown" mrk="0" awd="1" dur="75"><ov n="SCORE" t="integer"><v>0</v></ov><rv n="RESPONSE" t="identifier"><v>ok_demo01.c</v></rv><isc></isc></ist>
+
+		<ist iid="item.mc.004" eid="17" cst="unknown" mrk="1" awd="1" dur="25"><ov n="SCORE" t="integer"><v>1</v></ov><rv n="RESPONSE" t="identifier"><v>ok_demo01.ba</v></rv><isc></isc></ist>
+
+		<ist iid="item.mc.005" eid="19" cst="unknown" mrk="1" awd="1" dur="25"><ov n="SCORE" t="integer"><v>1</v></ov><rv n="RESPONSE" t="identifier"><v>ok_demo01.ea</v></rv><isc></isc></ist>
+
+		<ist iid="item.mc.005" eid="16" cst="unknown" mrk="0" awd="1" dur="15">
+				<rv n="RESPONSE" t="string"><v> <P ALIGN="LEFT"><FONT FACE="arial" SIZE="16" COLOR="#000000"> This i+s <B>Constructed Response</B> text !  </FONT></P></v></rv></ist>
+
+
+
+
+	</tsd>
+</consolidated_restart_data>
+		  

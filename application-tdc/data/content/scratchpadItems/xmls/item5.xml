@@ -1,0 +1,94 @@
+<element_package eid="5" iid="TD.6.0_012" xslt_ver="145">
+	<item_canvas id="IC">
+		<stimulus_tabs_panel height="453" id="TD.6.0_012"
+			selectedTabNumber="1" stereotype="stimulus" width="381" x="12"
+			y="79">
+			<stimulus_tab id="widget789371000" title="Passage Tab 1">
+				<scrolling_text_widget halign="left" height="420"
+					id="TD.6.0_012" width="381">
+					<text_widget halign="left" id="widget789371001"
+						width="364">
+						Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+					</text_widget>
+					<text_widget halign="left" id="widget789371002"
+						width="364">
+						Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+					</text_widget>
+					<text_widget halign="left" id="widget789371003"
+						width="364">
+						Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+					</text_widget>
+				</scrolling_text_widget>
+			</stimulus_tab>
+			<stimulus_tab id="widget789371004" title="Passage Tab 2">
+				<scrolling_text_widget halign="left" height="420"
+					id="TD.6.0_012" width="381">
+					<image_widget autoenlargeable="no" enlargeable="no"
+						halign="left" height="372" image_ref="20-S_10mFCATfp06_demo"
+						width="275" src="01-03S-NewsPaper1_05rOAS.swf" />
+				</scrolling_text_widget>
+			</stimulus_tab>
+		</stimulus_tabs_panel>
+		<panel height="24" id="stem1" layout="vertical"
+			left_padding="12" spacing="12" stereotype="stem" width="387" x="393"
+			y="79">
+			<text_widget halign="left" id="widget789371005"
+				width="358">
+				This item has a tabbed passage and it has a scratchpad.
+			</text_widget>
+		</panel>
+		<answer_area_panel height="156" id="A1" layout="vertical"
+			left_padding="12" spacing="12" stereotype="answerArea"
+			top_padding="12" width="375" x="405" y="110">
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="363">
+				<selector_widget identifier="A" valign="top" />
+				<text_widget halign="left" id="widget789371008"
+					width="316">
+					Answer A
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="363">
+				<selector_widget identifier="B" valign="top" />
+				<text_widget halign="left" id="widget789371011"
+					width="316">
+					Answer B
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="363">
+				<selector_widget identifier="C" valign="top" />
+				<text_widget halign="left" id="widget789371014"
+					width="316">
+					Answer C
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="363">
+				<selector_widget identifier="D" valign="top" />
+				<text_widget halign="left" id="widget789371017"
+					width="316">
+					Answer D
+				</text_widget>
+			</answer_choice_widget>
+		</answer_area_panel>
+	</item_canvas>
+	<item_model answer_text="" answered="0" correct="A" eid="5"
+		iid="TD.6.0_012" marked="0" number="0" score="0" type="question">
+		<toolbar FCAT_formula_card="not provisioned"
+			TN_formula_card="not provisioned" cm_ruler="not provisioned"
+			eraser="required" half_inch_ruler="not provisioned"
+			highlighter="required" mm_ruler="not provisioned"
+			oneeighth_inch_ruler="not provisioned" option_eliminator="required"
+			protractor="not provisioned" scientific_calculator="not provisioned"
+			scratchpad="required" standard_calculator="not provisioned"
+			straight_edge="not provisioned" />
+		<interaction max_choices="1" type="choice">
+			<selector identifier="A" obj_id_ref="A" user_action="n" />
+			<selector identifier="B" obj_id_ref="B" user_action="n" />
+			<selector identifier="C" obj_id_ref="C" user_action="n" />
+			<selector identifier="D" obj_id_ref="D" user_action="n" />
+		</interaction>
+	</item_model>
+</element_package>

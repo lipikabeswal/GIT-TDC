@@ -1,0 +1,351 @@
+<library>
+
+    <include href="LoginScreen.lzx"/>
+
+    <include href="LoginErrorScreen.lzx"/>
+
+    <include href="DownloadScreen.lzx"/>
+
+    <include href="WelcomeScreen.lzx"/>
+    <include href="PauseScreen.lzx"/>
+    <include href="FinishScreen.lzx"/>
+    <include href="FeedbackScreen.lzx"/>
+
+    <include href="ErrorScreen.lzx"/>
+    <include href="OutOfTimeScreen.lzx"/>
+    <include href="GoodbyeScreen.lzx"/>
+
+   <include href="OptOutScreen.lzx"/>
+ 
+    <include href="Frame.lzx"/>
+
+    <class name="Screens" extends="Frame">
+
+       <attribute name="onFeedbackScreen" value="false"/>
+		
+        <attribute name="allowclick" value="false"/>
+
+
+        <method name="isOnFeedbackScreen">
+            return onFeedbackScreen;
+        </method>
+        
+        <method name="clicked">
+            setAttribute( 'allowclick', false );
+        </method>
+
+        <method name="resetClicked">
+            setAttribute( 'allowclick', true );
+        </method>
+
+
+		<method name="isOnFinishScreen"><![CDATA[
+
+			return (contents.fs.isinited && contents.fs.visible);
+
+		]]></method>
+
+		
+        <method name="removeAllStates">
+            setAttribute( 'allowclick', true );
+
+            if ( contents.ls.isinited ) contents.ls.setVisible( false );
+
+            if ( contents.les.isinited ) contents.les.setVisible( false );
+
+            if ( contents.ds.isinited ) contents.ds.setVisible( false );
+
+            if ( contents.es.isinited ) contents.es.setVisible( false );
+            if ( contents.fs.isinited ) contents.fs.setVisible( false );
+            if ( contents.fbs.isinited ) contents.fbs.setVisible( false );
+
+            if ( contents.ps.isinited ) contents.ps.setVisible( false );
+            if ( contents.os.isinited ) contents.os.setVisible( false );
+            if ( contents.ws.isinited ) contents.ws.setVisible( false );
+            if ( contents.gs.isinited ) contents.gs.setVisible( false );
+            if ( contents.oos.isinited ) contents.oos.setVisible( false );
+ 
+
+            prancingMan.remove();
+            standingMan.remove();
+        </method>
+
+        <method name="showDownload" args="totalSubtests">
+
+            removeAllStates();
+
+            if ( !contents.ds.isinited ) contents.ds.completeInstantiation();
+
+            contents.ds.setTotalSubtests(totalSubtests);
+
+            contents.ds.setVisible( true );
+
+            show();
+
+        </method>
+
+        
+
+        <method name="incrementSubtestDownload" args="totalItems">
+
+        	contents.ds.incrementSubtest(totalItems);
+
+        </method>
+
+        
+
+        <method name="incrementItemDownload">
+
+        	contents.ds.incrementItem();
+
+        </method>
+
+        
+
+         <method name="showError" args="xml">
+
+         Debug.write("gScreens.showError");
+
+         printBigString(xml);
+
+            removeAllStates();
+
+            if ( !contents.es.isinited ) contents.es.completeInstantiation();
+
+            contents.es.showError(xml);
+
+            contents.es.setVisible( true );
+
+            show();
+
+        </method>
+
+        <method name="showRestart" args="m,q,u, sn">
+            removeAllStates();
+            if ( !contents.ws.isinited ) contents.ws.completeInstantiation();
+            prancingMan.apply();
+            contents.ws.setupRestart( m, q, u, sn );
+            contents.ws.setVisible( true );
+            show();
+        </method>
+        <method name="showFinish" args="a, m">
+            removeAllStates();
+            if ( !contents.fs.isinited ) contents.fs.completeInstantiation();
+            standingMan.apply();
+            contents.fs.setStats( a, m );
+            contents.fs.setVisible( true );
+            show();
+        </method>
+        <method name="showOutOfTime" args="a, m">
+            removeAllStates();
+            if ( !contents.os.isinited ) contents.os.completeInstantiation();
+            standingMan.apply();
+            contents.os.setStats( a, m );
+            contents.os.setVisible( true );
+            show();
+        </method>
+        
+        <method name="resetTextFieldColor">
+            contents.ps.pw.passwordField.style.setAttribute('textfieldcolor', gController.answerBgColor);
+        </method>
+        
+        <method name="showPause" args="sn">
+            removeAllStates();
+            if ( !contents.ps.isinited ) contents.ps.completeInstantiation();
+            standingMan.apply();
+            contents.ps.pw.passwordField.setText( '' );
+            contents.ps.prompt.setText( 'Log in to resume your paused test.' );
+            contents.ps.studentName.setAttribute('text', 'Hello ' + sn);
+            contents.ps.pw.passwordField.style.setAttribute('textfieldcolor', 0xFFFFFF);
+            contents.ps.setVisible( true );
+            show();
+        	LzFocus.setFocus(contents.ps.pw.passwordField);
+        </method>
+        <method name="showLogin">
+
+            removeAllStates();
+
+//            if ( !contents.ls.isinited ) contents.ls.completeInstantiation();
+
+			contents.ls.li.loginIdField.setText("");
+
+			contents.ls.pw.passwordField.setText("");
+
+			contents.ls.ac.accesscodeField.setText("");
+
+            standingMan.apply();
+
+            contents.ls.setVisible( true );
+
+            show();
+
+        </method>
+        <method name="showLoginError" args="e">
+
+            removeAllStates();
+
+            if ( !contents.les.isinited ) contents.les.completeInstantiation();
+
+            standingMan.apply();
+
+            contents.les.setupError(e);
+
+            contents.les.setVisible( true );
+
+            show();
+
+        </method>
+
+        <method name="showWelcome" args="m,q,u, sn">
+            removeAllStates();
+            if ( !contents.ws.isinited ) contents.ws.completeInstantiation();
+			standingMan.remove();
+            prancingMan.apply();
+            contents.ws.setupNewSubtest( m, q, u, sn );
+            contents.ws.setVisible( true );
+            show();
+        </method>
+        <method name="showContinue" args="m,q,u, sn">
+            removeAllStates();
+            if ( !contents.ws.isinited ) contents.ws.completeInstantiation();
+            prancingMan.apply();
+            contents.ws.setupContinue( m, q, u , sn);
+            contents.ws.setVisible( true );
+            show();
+        </method>
+
+        <method name="showFeedback" args="feedback">
+
+            removeAllStates();
+
+            if ( !contents.fbs.isinited ) contents.fbs.completeInstantiation();
+
+            contents.fbs.showFeedback( feedback );
+
+            contents.fbs.setVisible( true );
+			setAttribute("onFeedbackScreen", true);
+            show();
+
+        </method>
+
+
+        <method name="nextFeedback">
+
+        	contents.fbs.next();
+
+        </method>
+
+
+
+		<method name="previousFeedback">
+
+			contents.fbs.previous();
+
+		</method>
+
+		
+
+        <method name="showFeedback" args="scoName, raw, max, unscored, index">
+
+            removeAllStates();
+
+			setAttribute("onFeedbackScreen", true);
+            if ( !contents.fbs.isinited ) contents.fbs.completeInstantiation();
+
+            contents.fbs.showFeedback( scoName, raw, max, unscored, index );
+
+            contents.fbs.setVisible( true );
+
+            show();
+
+        </method>
+
+
+
+        <method name="showGoodbye">
+
+            removeAllStates();
+
+            if ( !contents.gs.isinited ) contents.gs.completeInstantiation();
+
+            contents.gs.setVisible( true );
+
+            show();
+
+        </method>
+
+       <method name="showOptOut" args="sn">
+
+            removeAllStates();
+
+            if ( !contents.oos.isinited ) contents.oos.completeInstantiation();
+			contents.oos.setStudentName(sn);
+            contents.oos.setVisible( true );
+
+            show();
+
+        </method>
+
+         <method name="show">
+         	gItemInterface.setVisible(false);
+         	gTutorial.setVisible(false);
+            setVisible( true );
+            var hasmode = LzModeManager.hasMode( this );
+            Debug.write( 'show ', hasmode );
+            if ( !hasmode ) {
+                LzModeManager.makeModal( this );
+            }
+        </method>
+
+        <method name="hide">
+            setVisible( false );
+            LzModeManager.release( this );
+        </method>
+
+        <view name="contents" options="ignorelayout"
+              x="${ classroot.middle.center.x }"
+              y="${ classroot.middle.y }"
+              width="${ classroot.middle.center.width }"
+              height="${ classroot.middle.center.height }">
+
+            <LoginScreen   name="ls" width="100%" height="100%"
+                           initstage="immediate"/>
+
+            <LoginErrorScreen   name="les" width="100%" height="100%"
+                                initstage="defer"/>
+
+            <DownloadScreen   name="ds" width="100%" height="100%"
+                              initstage="defer"/>
+
+            <WelcomeScreen name="ws" width="100%" height="100%"
+                           initstage="defer"/>
+            <PauseScreen   name="ps" width="100%" height="100%"
+                           initstage="defer"/>
+            <FeedbackScreen  name="fbs" width="100%" height="100%"
+                          initstage="defer"/>
+
+            <FinishScreen  name="fs" width="100%" height="100%"
+                           initstage="defer"/>
+            <ErrorScreen   name="es" width="100%" height="100%"
+                           initstage="defer"/>
+            <OutOfTimeScreen name="os" width="100%" height="100%"
+                             initstage="defer"/>
+            <GoodbyeScreen name="gs" width="100%" height="100%"
+                             initstage="defer"/>
+            <OptOutScreen name="oos" width="100%" height="100%"
+                             initstage="defer"/>
+        </view>
+	
+        <state name="prancingMan" apply="false">
+            <view resource="animations/prancingMan.swf"
+                  x="-120" y="${ parent.contents.height }"/>
+        </state>
+
+        <state name="standingMan" apply="false">
+            <view resource="animations/standingMan.swf"
+                  x="500" y="${ parent.contents.height +50 }"/>
+        </state>
+
+    </class>
+
+</library>

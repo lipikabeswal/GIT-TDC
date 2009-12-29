@@ -1,0 +1,176 @@
+<library>
+
+    <include href="BackButton.lzx"/>
+    <include href="NextButton.lzx"/>
+	<include href="resources/resources.lzx"/>
+ 	<dataset   name="dsfeedback" />
+ 	
+    <class name="FeedbackScreen">
+    	<attribute name="scos" value="$once{new Array}"/>
+ 		<attribute name="currentScoIndex" type="number" value="0" />
+ 		<attribute name="totalMax" type="number" value="0" />
+ 		<attribute name="totalRaw" type="number" value="0" />
+ 		<attribute name="totalUnscored" type="number" value="0" />
+ 		<attribute name="correctNonSr" type="number" value="0" />
+        <datapointer name="dpfeedback"
+                     xpath="dsfeedback:/student_feedback_data"/>
+ 		
+ 		<method name="showFeedback" args="feedback"><![CDATA[
+ 			var allScos = new Array();
+   			var node = LzDataNode.stringToLzData(feedback);
+            dsfeedback.setChildNodes(new Array(node));
+			var name = gController.getStudentName();
+            studentName.setAttribute('text', name + ", this is how you did.");
+            info.testName.setAttribute('text', dpfeedback.xpathQuery('title/@name'));
+    		var unsortedScos = dpfeedback.xpathQuery('title/sco');
+			if(unsortedScos!=null)
+			{
+				if(unsortedScos instanceof LzDataElement){
+					 allScos[0] = unsortedScos;
+				}
+				else{ // array of LzDataElements
+					for(var i=0; i<unsortedScos.length; i++){
+						var sco = unsortedScos[i];  // this sco has the title, need to add the raw, max, and unscored from lms
+						var seq = new Number(sco.getAttr('seq'));
+						allScos[seq -1] = sco;
+					}
+				}
+			}
+			var scoIndex = 0;
+			for(var i=0; i<allScos.length; i++){		
+				var thisSco = allScos[i];
+				if(thisSco != null){
+					scos[scoIndex] = thisSco;
+					scoIndex++;
+				}
+			}
+			addScoValues();
+			showCurrentFeedback();
+ 		]]></method>
+
+		<method name="addScoValues"><![CDATA[
+			for(var i=0; i<scos.length; i++){
+				var sco = scos[i];  
+				var scoid = sco.getAttr('id');
+				var lmsXpath = "lms/sco[@scid='" + scoid + "']";
+				var unscoredXpath = lmsXpath +  "/lsv/ext.core/@number_of_unscored_items";
+				var coreXpath = lmsXpath + "/lsv/cmi.core";
+				var coreNode = dpfeedback.xpathQuery(coreXpath);
+				var max = coreNode.getAttr('score.max');
+				var raw = coreNode.getAttr('score.raw');
+				var unscored = dpfeedback.xpathQuery(unscoredXpath);
+				setAttribute('totalMax', totalMax + new Number(max));
+				setAttribute('totalRaw', totalRaw + new Number(raw));
+				setAttribute('totalUnscored', totalUnscored + new Number(unscored));
+				sco.setAttr('max', max);
+				sco.setAttr('raw', raw);
+				sco.setAttr('unscored', unscored);
+			}
+		]]></method>
+		
+		<method name="next"><![CDATA[
+			setAttribute('currentScoIndex', currentScoIndex + 1);
+			if(scos.length != 1 && currentScoIndex <= scos.length){
+				showCurrentFeedback();
+			}
+			else{
+				gController.terminate();
+			}		
+		]]></method>
+		
+		<method name="previous">
+			setAttribute('currentScoIndex', currentScoIndex - 1);
+			showCurrentFeedback();
+		</method>
+		
+		<method name="showCurrentFeedback"><![CDATA[
+			if(scos.length == 1 || currentScoIndex == scos.length){
+				showTotalFeedback()
+			}
+			else{
+				var sco = scos[currentScoIndex];
+				var title = sco.getAttr('title');
+				var raw = sco.getAttr('raw');
+				var max = sco.getAttr('max');
+				var unscored = sco.getAttr('unscored');
+    			showScoFeedback(title, raw, max, unscored);
+    		}
+		]]></method>
+		
+        <method name="showTotalFeedback"><![CDATA[
+            info.scoLabel.setAttribute('visible', false);
+            info.scoName.setAttribute('visible', false);
+            if(totalMax>1){
+				info.sr.setAttribute('text', "You answered " + totalRaw + " out of " + totalMax + " questions correctly.");
+			}		
+			else{
+				info.sr.setAttribute('text', "You answered " + totalRaw + " out of " + totalMax + " question correctly.");
+			}	
+			if((totalUnscored!=0) && (totalUnscored != null))
+			{	
+				if(totalUnscored>1){
+					info.cr.setAttribute('text', "Your responses for the remaining " + totalUnscored + " questions will be scored later.");
+				}		
+			 	else{
+					info.cr.setAttribute('text', "Your response for the remaining " + totalUnscored + " question will be scored later.");
+				}		
+			}
+			else{
+				info.cr.setAttribute('text', " ");
+			}
+        ]]></method>
+
+        <method name="showScoFeedback" args="title, raw, max, unscored"><![CDATA[
+        	info.scoLabel.setAttribute('visible', true);
+        	info.scoName.setAttribute('visible', true);
+            info.scoName.setAttribute('text', title);
+            if(max>1){
+				info.sr.setAttribute('text', "You answered " + raw + " out of " + max + " questions correctly.");
+			}		
+			else{
+				info.sr.setAttribute('text', "You answered " + raw + " out of " + max + " question correctly.");
+			}	
+
+			if((unscored != 0) && (unscored != null))
+			{	
+				if(unscored>1){
+					info.cr.setAttribute('text', "Your responses for the remaining " + unscored + " questions will be scored later.");
+				}		
+			 	else{
+					info.cr.setAttribute('text', "Your response for the remaining " + unscored + " question will be scored later.");
+				}		
+			}
+			else{
+				info.cr.setAttribute('text', " ");
+			}
+        ]]></method>
+
+        <attribute name="font" value="Arial"/>
+
+        <text name="studentName" x="5" y="0" fontsize="24" height="36" fgcolor="white" resize="true"/>
+  
+        <view name="info" bgcolor="white" width="450" x="5" height="120" fontsize="12" y="40">
+           	<text name="testLabel" y="7"  x="20" fgcolor="0x5D5D5D" fontstyle="bold" fontsize="12">Test:</text>
+           	<text name="testName"  y="7"  x="62" fgcolor="black"    fontstyle="bold" fontsize="12" resize="true" />
+           	<text name="scoLabel"  y="34" x="20" fgcolor="0x5D5D5D" fontstyle="bold" >Subtest:</text>
+           	<text name="scoName"   y="34" x="73" fgcolor="black"    fontstyle="bold" resize="true" />
+			<text name="sr"        y="55" x="73" fgcolor="black" resize="true" />
+			<text name="cr"        y="75" x="73" fgcolor="black" resize="true"/>
+        </view>
+
+        <view name="controls" x="${ parent.info.x }" y=" 200" width="550">
+			<BackButton x="350" valign="middle" enabled="${ gScreens.allowclick }" visible="${classroot.currentScoIndex &gt; 0}">
+				<method event="onclick">
+					classroot.previous();
+				</method>
+			</BackButton>
+			<NextButton x="450" valign="middle" enabled="${ gScreens.allowclick }" >
+				<method event="onclick">
+					classroot.next();
+				</method>
+			</NextButton>
+         </view>
+		
+		<view y="10" x="470" resource="feedbackWait"/>
+    </class>
+</library>

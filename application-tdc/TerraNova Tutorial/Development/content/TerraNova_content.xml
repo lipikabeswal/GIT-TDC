@@ -1,0 +1,853 @@
+<TerraNova_content>
+
+<!-- Answering a Question – Choosing an Option -->
+<Screen id="Screen_2" UserGuide="type3,type2,type17,type16">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 1]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[1. What is your favorite color?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[Purple]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[Yellow]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[Green]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[Blue]]>
+	</Block>
+</Screen>
+
+<!-- Answering a Question – Moving to the Next Question -->
+<Screen id="Screen_3" UserGuide="type1,type17,type2">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 1]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 1]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[2. What is your favorite color?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[Purple]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[Yellow]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[Green]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[Blue]]>
+	</Block>
+</Screen>
+
+<!-- Select an Answer And GoBack -->
+<Screen id="Screen_4" UserGuide="type1,type18,type17,type24,type25">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 2]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[What is a good name for a puppy?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[Sparkey]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[Bones]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[Spot]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[Rex]]>
+	</Block>
+</Screen>
+
+<!-- Answering a Question – Choosing a Different Answer -->
+<Screen id="Screen_5" UserGuide="type1,type18,type2">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 1]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[1. What is your favorite color?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[Purple]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[Yellow]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[Green]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[Blue]]>
+	</Block>
+</Screen>
+
+<!-- Answering a Question – Erasing Your Answer Choice -->
+<Screen id="Screen_6" UserGuide="type1,type18,type2,type4,type25,type22">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 2]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[2. What is a good name for a puppy?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[Sparkey]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[Bones]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[Spot]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[Rex]]>
+	</Block>
+</Screen>
+
+<!-- Answering a Question – Pausing a Test -->
+<Screen id="Screen_7" UserGuide="type1,type18,type2,type25,type23">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 3]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[ The <u>submarine</u> left the dock.]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[3. What is the meaning of the prefix in the word <u>submarine</u>?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[Over]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[Under]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[Through]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[Around]]>
+	</Block>
+</Screen>
+
+<!-- Answering a Question – Resuming a Test -->
+<Screen id="Screen_8" UserGuide="type1,type18,type2,type26,type23">
+	<Block id="">
+	<![CDATA[]]>
+	</Block>
+</Screen>
+
+
+<!-- Navigating –  Forward and Fast farward navigation button-->
+<Screen id="Screen_9" UserGuide="type1,type18,type2,type23,type25">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 3]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[ The <u>submarine</u> left the dock.]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[3. What is the meaning of the prefix in the word <u>submarine</u>?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[Over]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[Under]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[Through]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[Around]]>
+	</Block>
+</Screen>
+
+<!-- Navigating –  back  and Fast backward navigation button-->
+<Screen id="Screen_10" UserGuide="type1,type18,type2,type23,type25">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 3]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[ The <u>submarine</u> left the dock.]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[3. What is the meaning of the prefix in the word <u>submarine</u>?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[Over]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[Under]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[Through]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[Around]]>
+	</Block>
+</Screen>
+
+<!-- Navigating – You Are Here-->
+<Screen id="Screen_11" UserGuide="type3,type18,type2">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 3]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[ The <u>submarine</u> left the dock.]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[3. What is the meaning of the prefix in the word <u>submarine</u>?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[Over]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[Under]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[Through]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[Around]]>
+	</Block>
+</Screen>
+
+<!-- Navigating – Displaying the Theme Page on the Navigation Bar -->
+<Screen id="Screen_12" UserGuide="type3,type18,type2,type26,type23">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 3]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[ The <u>submarine</u> left the dock.]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[3. What is the meaning of the prefix in the word <u>submarine</u>?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[Over]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[Under]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[Through]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[Around]]>
+	</Block>
+</Screen>
+
+<!-- Navigating – Displaying the Theme Page -->
+<Screen id="Screen_13" UserGuide="type3,type18,type19">
+	<Block id="question_no">
+		<![CDATA[Question 4]]>
+	</Block>
+</Screen>
+
+<!-- Features – Using the Scrollbar -->
+<Screen id="Screen_14" UserGuide="type1,type18,type2,type27,type23,type4">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 5]]>
+	</Block>
+	<Block id="scrollContent">
+	<![CDATA[<p>The Caribou Woman</p><p>retold by Sylvia A.	Falconer</p><BR><BR><p>Long ago, in Alaska, there lived an old woman with no husband or children. An Eskimo woman with no husband and no children is a sad woman. She must hunt for fish for herself. She must look for berries and roots alone. In the summer she may be lucky to find enough to feed a squirrel, but in the winter she may go hungry.</p><BR><BR><p>This poor old woman had traveled from the great Yukon River down to the mouth of the Kuskokwim River looking for food. She went out on the frozen Kuskokwim Bay and cut a hole in the ice with her bone chisel, piling the ice blocks beside her. The wind was blowing across the bay, and she could feel the cold through her fur parka. She propped her sled beside her and covered it with a grass mat to block the wind.Then she dropped a fishing line into the hole. Occasionally she would catch a tomcod.</p><BR><BR><p>While she was fishing, she looked out at the tundra, which was flat and covered with snow. The sky was gray, and she could see darker clouds coming over the mountains in the distance. Soon it would snow again, and she had barely enough food for her supper. Then she saw a caribou running toward her. To her surprise, it stopped right in front of her, panting, its tongue hanging out. The old woman had never been so close to a live caribou.</p> <p>Then a strange thing happened. The caribou reached up with its hoof and pulled the skin from its face. Underneath was the face of a woman. "Help me. Please help me," said the caribou woman. "Wolves are chasing me, and I am exhausted. I cannot run any farther."The old woman saw the fear in the caribou woman's face. "You poor thing," she said. She put her fishing pole aside and pushed the ice blocks into a semicircle. "Now you hide right here."The caribou woman lay near the ice blocks. The old woman sat next to her and pulled the mat around them, hiding the caribou woman.  Soon a large pack of wolves came howling over the tundra.<BR><BR>The leader stopped near the old woman and pulled up his face skin. Underneath was the face of a man. "Old lady," said the wolf man, "have you seen a caribou? We have been chasing her all day and we have lost her trail.""Yes," said the old woman. "A caribou came running like the wind. She went down toward those mountains. I'm sure she's far away by now.""Not too far for us," said the wolf man. "We shall catch up with her." He pulled his wolf face down and led his pack toward the mountains.The old woman shivered. "How cold-blooded those wolves are," she said to the caribou woman.  "Now you must turn around and run in the direction you just came from. They'll never look for you there.<BR><BR>"The caribou woman crawled from under the grass mat. "You've saved my life. I can never thank you enough." From inside herself she pulled out a great pile of caribou fat and handed it to the old woman.  "May you always find plenty to eat," she said. She pulled the caribou face down and headed off across the tundra.The old woman cried for joy. She tasted the sweet fat. Now she would have enough to keep her warm all winter.  She dropped her line into the ice hole again and began pulling up cod as fast as she could drop the line.  For the rest of her life she never lacked for fish.  In the summer, she found baskets of greens and berries, enough to share with her neighbors. The Eskimo people say she was rewarded for being kind to the caribou woman. She was never hungry or cold again.<p><BR><BR>"The Caribou Woman" retold by Sylvia A. Falconer from Spider  Magazine's December 1999 issue, copyright (c) 1999 by Sylvia A.  Falconer. Used by permission.]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[5. How does the Eskimo Woman trick the wolves?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[She hides her food from them.]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[She pretends she is an animal.]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[She sends them in wrong direction.]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[She says she did not see the caribou woman.]]>
+	</Block>
+</Screen>
+
+<!--Features – Answer Choice Eliminator -->
+<Screen id="Screen_15" UserGuide="type3,type18,type20">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 5]]>
+	</Block>
+	<Block id="scrollContent">
+	<![CDATA[<p>The Caribou Woman</p><p>retold by Sylvia A.	Falconer</p><BR><BR><p>Long ago, in Alaska, there lived an old woman with no husband or children. An Eskimo woman with no husband and no children is a sad woman. She must hunt for fish for herself. She must look for berries and roots alone. In the summer she may be lucky to find enough to feed a squirrel, but in the winter she may go hungry.</p><BR><BR><p>This poor old woman had traveled from the great Yukon River down to the mouth of the Kuskokwim River looking for food. She went out on the frozen Kuskokwim Bay and cut a hole in the ice with her bone chisel, piling the ice blocks beside her. The wind was blowing across the bay, and she could feel the cold through her fur parka. She propped her sled beside her and covered it with a grass mat to block the wind.Then she dropped a fishing line into the hole. Occasionally she would catch a tomcod.</p><BR><BR><p>While she was fishing, she looked out at the tundra, which was flat and covered with snow. The sky was gray, and she could see darker clouds coming over the mountains in the distance. Soon it would snow again, and she had barely enough food for her supper. Then she saw a caribou running toward her. To her surprise, it stopped right in front of her, panting, its tongue hanging out. The old woman had never been so close to a live caribou.</p> <p>Then a strange thing happened. The caribou reached up with its hoof and pulled the skin from its face. Underneath was the face of a woman. "Help me. Please help me," said the caribou woman. "Wolves are chasing me, and I am exhausted. I cannot run any farther."The old woman saw the fear in the caribou woman's face. "You poor thing," she said. She put her fishing pole aside and pushed the ice blocks into a semicircle. "Now you hide right here."The caribou woman lay near the ice blocks. The old woman sat next to her and pulled the mat around them, hiding the caribou woman.  Soon a large pack of wolves came howling over the tundra.<BR><BR>The leader stopped near the old woman and pulled up his face skin. Underneath was the face of a man. "Old lady," said the wolf man, "have you seen a caribou? We have been chasing her all day and we have lost her trail.""Yes," said the old woman. "A caribou came running like the wind. She went down toward those mountains. I'm sure she's far away by now.""Not too far for us," said the wolf man. "We shall catch up with her." He pulled his wolf face down and led his pack toward the mountains.The old woman shivered. "How cold-blooded those wolves are," she said to the caribou woman.  "Now you must turn around and run in the direction you just came from. They'll never look for you there.<BR><BR>"The caribou woman crawled from under the grass mat. "You've saved my life. I can never thank you enough." From inside herself she pulled out a great pile of caribou fat and handed it to the old woman.  "May you always find plenty to eat," she said. She pulled the caribou face down and headed off across the tundra.The old woman cried for joy. She tasted the sweet fat. Now she would have enough to keep her warm all winter.  She dropped her line into the ice hole again and began pulling up cod as fast as she could drop the line.  For the rest of her life she never lacked for fish.  In the summer, she found baskets of greens and berries, enough to share with her neighbors. The Eskimo people say she was rewarded for being kind to the caribou woman. She was never hungry or cold again.<p><BR><BR>"The Caribou Woman" retold by Sylvia A. Falconer from Spider  Magazine's December 1999 issue, copyright (c) 1999 by Sylvia A.  Falconer. Used by permission.]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[5. How does the Eskimo Woman trick the wolves?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[She hides her food from them.]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[She pretends she is an animal.]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[She sends them in wrong direction.]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[She says she did not see the caribou woman.]]>
+	</Block>
+</Screen>
+
+<!-- Features – Highlighter  -->
+<Screen id="Screen_16" UserGuide="type3,type18,type20">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 6]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[Read the item and choose the correct answer.]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[6. What precent of $12.50 is $0.25?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[2%]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[5%]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[0.2%]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[0.5%]]>
+	</Block>
+</Screen>
+
+<!-- Features –  Erasor -->
+<Screen id="Screen_17" UserGuide="type3,type18,type20">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 6]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[Read the item and choose the correct answer.]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[6. What precent of $12.50 is $0.25?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[2%]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[5%]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[0.2%]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[0.5%]]>
+	</Block>
+</Screen>
+
+<!-- Features –  Calculator -->
+<Screen id="Screen_18" UserGuide="type3,type18,type20">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 6]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[Read the item and choose the correct answer.]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[6. What precent of $12.50 is $0.25?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[2%]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[5%]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[0.2%]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[0.5%]]>
+	</Block>
+</Screen>
+
+<!-- Features – Reference Card  -->
+<Screen id="Screen_19" UserGuide="type3,type18,type20">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 6]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[Read the item and choose the correct answer.]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[6. What precent of $12.50 is $0.25?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[2%]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[5%]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[0.2%]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[0.5%]]>
+	</Block>
+</Screen>
+
+<!--Features – Shared Stimulus Indicator  -->
+<Screen id="Screen_20" UserGuide="type3,type18,type2">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 6]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[Read the item and choose the correct answer.]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[6. What precent of $12.50 is $0.25?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[2%]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[5%]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[0.2%]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[0.5%]]>
+	</Block>
+</Screen>
+
+<!--Features - Zoom Button  -->
+<Screen id="Screen_21" UserGuide="type1,type18,type2,type26,type23">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 7]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[Susan looked at the map and counted the cities. She counted Casper San Antonio and New York. Jason said "Susan, You missed one." ]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[What city did Susan missed?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[San Fransisco]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[Casper]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[San Antonio]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[New York]]>
+	</Block>
+</Screen>
+
+<!-- Features -Mark for Later Review  -->
+<Screen id="Screen_22" UserGuide="type3,type18,type21,type26,type23">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 7]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[Susan looked at the map and counted the cities. She counted Casper San Antonio and New York. Jason said "Susan, You missed one." ]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[What city did Susan missed?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[San Fransisco]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[Casper]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[San Antonio]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[New York]]>
+	</Block>
+</Screen>
+
+<!--Features - Using a Ruler -->
+<Screen id="Screen_23" UserGuide="type3,type18,type20">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 8]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[8. Mario made a bookmark  6 centimeters long. Besty's bookmark is twice as long as Mario's. Which bookmark must be Besty's?]]>
+	</Block>
+</Screen>
+
+<!--Features - Tabbed Page  -->
+<Screen id="Screen_24" UserGuide="type3,type18,type21,type26,type23">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 9]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[8. Who tells this story? ]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[The spiderman]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[Lion]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[Rabbit]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[Elephant Uncle]]>
+	</Block>
+</Screen>
+
+<!--Features  -Show and Hide Timer  -->
+<Screen id="Screen_25" UserGuide="type3,type18,type20">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 9]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[9. Who tells this story? ]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[The spiderman]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[Lion]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[Rabbit]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[Elephant Uncle]]>
+	</Block>
+</Screen>
+<Screen id="Screen_26" UserGuide="type3,type18,type20">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 20]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[ ]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[20. Find the picture that shows what Kim probably did on Sunday night.]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[ate a good dinner]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[stayed up late]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[went to bed early]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[Around]]>
+	</Block>
+</Screen>
+<!-- Features – Finishing the Test   -->
+<Screen id="Screen_27" UserGuide="type3,type18,type20">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question_no">
+	<![CDATA[Question 20]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[ ]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[20. Find the picture that shows what Kim probably did on Sunday night.]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[ate a good dinner]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[stayed up late]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[went to bed early]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[Around]]>
+	</Block>
+</Screen>
+
+<Screen id="Screen_28">
+</Screen>
+
+<!-- The Screen Instructions  part starts here  -->
+
+<Screen id="UserGuide">
+<!-- These occure more then 15 times  in all the document-->
+	<GuideMessage id="type1">
+	<![CDATA[This is not the real test; this is just for practice. Follow the instructions on what to do next.]]>
+	</GuideMessage>		
+	<GuideMessage id="type2">
+	<![CDATA[Right now, you are practicing using other buttons. Do what the stickman is telling you to do next.]]>	
+	</GuideMessage>	
+	<GuideMessage id="type3">
+	<![CDATA[This is not the real test; this is just for practice. Follow the instructions on what to click next.]]>
+	</GuideMessage>
+	
+	<!-- These occure only once in all the document
+	<GuideMessage id="type4">
+	<![CDATA[Click the GO ON button to continue.]]>
+	</GuideMessage>
+	<GuideMessage id="type5">
+	<![CDATA[Click the GO ON button to practice moving forward. ]]>
+	</GuideMessage>
+	<GuideMessage id="type6">
+	<![CDATA[Click the Fast Forward button to practice how to move forward.]]>
+	</GuideMessage>
+	<GuideMessage id="type7">
+	<![CDATA[Click the Fast Backward button to practice how to move backward.]]>
+	</GuideMessage>
+	<GuideMessage id="type8">
+	<![CDATA[Practice clicking the up arrow.]]>
+	</GuideMessage>
+	<GuideMessage id="type9">
+	<![CDATA[You need to click the Reference Card icon again to close it.]]>
+	</GuideMessage>
+	<GuideMessage id="type10">
+	<![CDATA[Practice moving the ruler by dragging the ends of the ruler.]]>
+	</GuideMessage>
+	<GuideMessage id="type11">
+	<![CDATA[Practice moving to a different question by clicking the GO ON button. ]]>
+	</GuideMessage>
+	<GuideMessage id="type12">
+	<![CDATA[Practice hiding the timer by clicking the Hide Timer button now.]]>
+	</GuideMessage>
+	<GuideMessage id="type13">
+	<![CDATA[Please close the window to continue.]]>
+	</GuideMessage>
+	<GuideMessage id="type14">
+	<![CDATA[Please choose Option C.]]>
+	</GuideMessage>
+	<GuideMessage id="type15">
+	<![CDATA[Click the Yes, I have finished button now to end the test and log out.]]>
+	</GuideMessage>-->
+	<GuideMessage id="type16">
+	<![CDATA[This is just for practice. Read what the stickman is saying to find out what to do next.]]>
+	</GuideMessage>
+	<GuideMessage id="type17">
+	<![CDATA[Do not worry about the question. This is just for practice. Read what the stickman is telling you to do next.]]>
+	</GuideMessage>	
+	<GuideMessage id="type18">
+	<![CDATA[Do not worry about the question. This is just for practice. Read what the stickman is saying for what to do next.]]>
+	</GuideMessage>		
+	<GuideMessage id="type19">
+	<![CDATA[Right now, you are practicing using different buttons. Do what the stickman is telling you to try next.]]>
+	</GuideMessage>
+	<GuideMessage id="type20">
+	<![CDATA[Right now, you are practicing using all the different buttons. Do what the stickman is telling you to try next.]]>
+	</GuideMessage>
+	<GuideMessage id="type21">
+	<![CDATA[Right now, you are practicing using all the different buttons. Do what the stickman is telling you to do next.]]>
+	</GuideMessage>	
+	<GuideMessage id="type22">
+	<![CDATA[You need to follow these instructions to practice how to take the test. Make sure you read these instructions to practice taking the test.]]>
+	</GuideMessage>
+	<GuideMessage id="type23">
+	<![CDATA[You need to follow these instructions to practice how to take the test. Make sure you read them all.]]>
+	</GuideMessage>
+	<GuideMessage id="type24">
+	<![CDATA[You need to read and follow these instructions to practice taking the test. ]]>
+	</GuideMessage>
+	<GuideMessage id="type25">
+	<![CDATA[Make sure you read these instructions to practice taking the test.]]>
+	</GuideMessage>		
+	<GuideMessage id="type26">
+	<![CDATA[Make sure you read these instructions for how to practice taking the test.]]>
+	</GuideMessage>	
+	<GuideMessage id="type27">
+	<![CDATA[Make sure you read these instructions on how to practice taking the test.]]>
+	</GuideMessage>		
+</Screen>
+
+<!--
+<Screen id="Screen_5">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[Susan looked at the map and counted the cities. She counted Casper San Antonio and New York. Jason said "Susan, You missed one." ]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[What city did Susan missed?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[San Fransisco]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[Casper]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[San Antonio]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[New York]]>
+	</Block>
+</Screen>
+
+<Screen id="Screen_6">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[ the <u>submarine</u> left the dock]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[What is the meaning of the prefix in the word <u>submarine</u>?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[Over]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[Under]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[Through]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[Around]]>
+	</Block>
+</Screen>
+
+<Screen id="Screen_6">
+	<Block id="questionInst">
+	<![CDATA[]]>
+	</Block>
+	<Block id="questionData">
+	<![CDATA[]]>
+	</Block>
+	<Block id="question">
+	<![CDATA[Mario made a bookmark 6 centimeters long. Betsy's bookmark is twice as long as Mario's. Which bookmark must be Betsy's?]]>
+	</Block>
+	<Block id="ansChoice_1">
+	<![CDATA[]]>
+	</Block>
+	<Block id="ansChoice_2">
+	<![CDATA[]]>
+	</Block>
+	<Block id="ansChoice_3">
+	<![CDATA[]]>
+	</Block>
+	<Block id="ansChoice_4">
+	<![CDATA[]]>
+	</Block>
+</Screen>
+<Screen id="UserGuide">
+	<GuideMessage id="type1">
+	<![CDATA[type1]]>
+	</GuideMessage>
+	<GuideMessage id="type2">
+	<![CDATA[type2]]>
+	</GuideMessage>
+	<GuideMessage id="type3">
+	<![CDATA[Mario made a bookmark 6 centimeters long. Betsy's bookmark is twice as long as Mario's. Which bookmark must be Betsy's?]]>
+	</GuideMessage>
+	<GuideMessage id="type4">
+	<![CDATA[]]>
+	</GuideMessage>
+	<GuideMessage id="type5">
+	<![CDATA[]]>
+	</GuideMessage>
+	<GuideMessage id="type6">
+	<![CDATA[]]>
+	</GuideMessage>
+	<GuideMessage id="type7">
+	<![CDATA[]]>
+	</GuideMessage>
+</Screen> -->
+
+
+
+</TerraNova_content>

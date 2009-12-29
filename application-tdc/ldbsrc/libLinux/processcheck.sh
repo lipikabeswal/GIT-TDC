@@ -1,0 +1,349 @@
+ps -aef > processcheck
+check=0
+#SCREENCAPTURE
+if [ ! -z "$(cat processcheck | awk '/gnome-panel-screenshot/')" ]
+ then check=1
+ zenity --error --text "GNOME-PANEL-SCREENSHOT RUNNING !"
+
+  elif [ ! -z "$(cat processcheck | awk '/ksnapshot/')" ]
+   then check=1
+   zenity --error --text "KSANPSHOT RUNNING !"
+	
+
+
+    elif [ ! -z "$(cat processcheck | awk '/klipper/')" ]
+     then check=1
+     zenity --error --text "KLIPPER RUNNING !"
+
+
+      elif [ ! -z "$(cat processcheck | awk '/shutter/')" ]
+       then check=1
+       zenity --error --text "SHUTTER RUNNING !"
+
+
+        elif [ ! -z "$(cat processcheck | awk '/istanbul/')" ]
+         then check=1
+	 zenity --error --text "ISTANBUL RUNNING !"
+
+          elif [ ! -z "$(cat processcheck | awk '/hypercam/')" ]
+           then check=1
+	   zenity --error --text "HYPERCAM RUNNING !"
+
+
+            elif [ ! -z "$(cat processcheck | awk '/xvidcap/')" ]
+            then check=1
+	    zenity --error --text "XVIDCAP RUNNING !"
+
+
+             elif [ ! -z "$(cat processcheck | awk '/recordmydesktop/')" ]
+              then check=1
+              zenity --error --text "RECORD_MY_DESKTOP RUNNING !"
+
+
+                elif [ ! -z "$(cat processcheck | awk '/cankiri/')" ]
+                 then check=1
+		 zenity --error --text "CANKIRI RUNNING !"
+
+
+                  elif [ ! -z "$(cat processcheck | awk '/imagemagik/')" ]
+		   then check=1
+	           zenity --error --text "IMAGE_MAGIK RUNNING !"
+
+		    elif [ ! -z "$(cat processcheck | awk '/wink/')" ]
+		     then check=1
+		     zenity --error --text "WINK RUNNING !"
+
+
+	              elif [ ! -z "$(cat processcheck | awk '/vnc2swf/')" ]
+		       then check=1
+		       zenity --error --text "VNC2SWF RUNNING !"
+
+
+#BROWSERS
+
+elif [ ! -z "$(cat processcheck | awk '/amaya/')" ]
+then check=1
+zenity --error --text "AMAYA RUNNING !"
+
+
+ elif [ ! -z "$(cat processcheck | awk '/emacs/')" ]
+  then check=1
+  zenity --error --text "EMACS RUNNING !"
+
+   elif [ ! -z "$(cat processcheck | awk '/epiphany/')" ]
+    then check=1
+    zenity --error --text "EPIPHANY RUNNING !"
+
+
+     elif [ ! -z "$(cat processcheck | awk '/firefox/')" ]
+      then check=1
+      zenity --error --text "FIREFOX RUNNING !"
+
+
+	elif [ ! -z "$(cat processcheck | awk '/galeon/')" ]
+	 then check=1
+	 zenity --error --text "GALEON RUNNING !"
+
+
+	  elif [ ! -z "$(cat processcheck | awk '/hotjava/')" ]
+	   then check=1
+	   zenity --error --text "HOT_JAVA RUNNING !"
+
+
+            elif [ ! -z "$(cat processcheck | awk '/konqueror/')" ]
+	     then check=1
+	     zenity --error --text "KONQUEROR RUNNING !"
+
+
+	      elif [ ! -z "$(cat processcheck | awk '/lynx/')" ]
+	       then check=1
+	       zenity --error --text "LYNX RUNNING !"
+
+
+		elif [ ! -z "$(cat processcheck | awk '/mozilla-bin/')" ]
+		 then check=1
+		 zenity --error --text "MOZILLA RUNNING !"
+
+
+		   elif [ ! -z "$(cat processcheck | awk '/netscape/')" ]
+		    then check=1
+		    zenity --error --text "NETSCAPE RUNNING !"
+
+
+		     elif [ ! -z "$(cat processcheck | awk '/webcon/')" ]
+		      then check=1
+		      zenity --error --text "WEBCON RUNNING !"
+
+
+			elif [ ! -z "$(cat processcheck | awk '/opera/')" ]
+			 then check=1
+			 zenity --error --text "OPERA RUNNING !"
+
+
+			   elif [ ! -z "$(cat processcheck | awk '/flock/')" ]
+			    then check=1
+			    zenity --error --text "FLOCK RUNNING !"
+
+
+			      elif [ ! -z "$(cat processcheck | awk '/swiftfox/')" ]
+			       then check=1
+			       zenity --error --text "SWIFT_FOX RUNNING !"
+
+
+				 elif [ ! -z "$(cat processcheck | awk '/swiftweasel/')" ]
+				  then check=1
+				  zenity --error --text "SWIFT_WEASEL RUNNING !"
+
+
+				    elif [ ! -z "$(cat processcheck | awk '/seamonkey/')" ]
+                                     then check=1
+				     zenity --error --text "SEAMONKEY RUNNING !"
+
+
+					elif [ ! -z "$(cat processcheck | awk '/midori/')" ]
+					 then check=1
+					 zenity --error --text "MODORI RUNNING !"
+
+
+					 elif [ ! -z "$(cat processcheck | awk '/kazehakase/')" ]
+					  then check=1
+					  zenity --error --text "KAZEHAKASE RUNNING !"
+
+
+					    elif [ ! -z "$(cat processcheck | awk '/arora/')" ]
+					     then check=1
+					     zenity --error --text "ARORA RUNNING !"
+
+
+
+#IM
+
+elif [ ! -z "$(cat processcheck | awk '/gajim/')" ]
+then check=1
+zenity --error --text "GAJIM RUNNING !"
+
+   elif [ ! -z "$(cat processcheck | awk '/pidgin/')" ]
+    then check=1
+    zenity --error --text "PIDGIN RUNNING !"
+
+
+     elif [ ! -z "$(cat processcheck | awk '/kopete/')" ]
+      then check=1
+      zenity --error --text "KOPETE RUNNING !"
+
+
+	elif [ ! -z "$(cat processcheck | awk '/gabber/')" ]
+	 then check=1
+         zenity --error --text "GABBER RUNNING !"
+
+
+	  elif [ ! -z "$(cat processcheck | awk '/psi/')" ]
+	   then check=1
+           zenity --error --text "PSI RUNNING !"
+
+
+	     elif [ ! -z "$(cat processcheck | awk '/jabbim/')" ]
+	     then check=1
+	     zenity --error --text "JABBIM RUNNING !"
+
+
+	       elif [ ! -z "$(cat processcheck | awk '/kmess/')" ]
+		then check=1
+		zenity --error --text "KMESS RUNNING !"
+
+
+		 elif [ ! -z "$(cat processcheck | awk '/mercurymessenger/')" ]
+		  then check=1
+		  zenity --error --text "MERCURY_MESSENGER RUNNING !"
+
+
+		   elif [ ! -z "$(cat processcheck | awk '/amsn/')" ]
+		     then check=1
+		     zenity --error --text "aMSN RUNNING !"
+
+
+			elif [ ! -z "$(cat processcheck | awk '/bitlbee/')" ]
+			 then check=1
+			 zenity --error --text "BitLBee RUNNING !"
+
+
+			  elif [ ! -z "$(cat processcheck | awk '/emesene/')" ]
+			   then check=1
+			   zenity --error --text "EMESENE RUNNING !"
+
+
+			     elif [ ! -z "$(cat processcheck | awk '/gyacheimproved/')" ]
+			      then check=1
+			      zenity --error --text "GYACHE_IMPROVED RUNNING !"
+
+
+
+#EMAIL-CLIENTS
+
+elif [ ! -z "$(cat processcheck | awk '/thunderbird/')" ]
+then check=1
+zenity --error --text "MOZILLA_THUNDERBIRD RUNNING !"
+
+
+  elif [ ! -z "$(cat processcheck | awk '/evolution/')" ]
+   then check=1
+   zenity --error --text "EVOLUTION RUNNING !"
+
+
+     elif [ ! -z "$(cat processcheck | awk '/kmail/')" ]
+     then check=1
+     zenity --error --text "KMAIL RUNNING !"
+
+
+       elif [ ! -z "$(cat processcheck | awk '/alpine/')" ]
+        then check=1
+        zenity --error --text "ALPINE RUNNING !"
+
+
+	  elif [ ! -z "$(cat processcheck | awk '/mutt/')" ]
+	   then check=1
+	   zenity --error --text "MUTT RUNNING !"
+
+
+	     elif [ ! -z "$(cat processcheck | awk '/balsa/')" ]
+	      then check=1
+              zenity --error --text "BALSA RUNNING !"
+
+
+		elif [ ! -z "$(cat processcheck | awk '/clawsmail/')" ]
+		 then check=1
+		 zenity --error --text "CLAWS_MAIL RUNNING !"
+
+
+		   elif [ ! -z "$(cat processcheck | awk '/gnus/')" ]
+		    then check=1
+		    zenity --error --text "GNUS RUNNING !"
+
+
+		      elif [ ! -z "$(cat processcheck | awk '/sylpheed/')" ]
+		       then check=1
+ 		       zenity --error --text "SYLPHEED RUNNING !"
+
+
+
+#P2P
+
+elif [ ! -z "$(cat processcheck | awk '/edonkey2000/')" ]
+then check=1
+zenity --error --text "eDONKEY2000 RUNNING !"
+
+
+   elif [ ! -z "$(cat processcheck | awk '/kazaa/')" ]
+    then check=1
+    zenity --error --text "KAZAA RUNNING !"
+
+
+      elif [ ! -z "$(cat processcheck | awk '/gnutella/')" ]
+       then check=1
+       zenity --error --text "GNUTELLA RUNNING !"
+       
+
+	  elif [ ! -z "$(cat processcheck | awk '/qtella/')" ]
+	   then check=1
+	   zenity --error --text "QTELLA RUNNING !"
+
+
+
+#MULTIMEDIA
+
+elif [ ! -z "$(cat processcheck | awk '/helix/')" ]
+then check=1
+zenity --error --text "HELIX RUNNING !"
+
+
+   elif [ ! -z "$(cat processcheck | awk '/kdemediaplayer/')" ]
+    then check=1
+    zenity --error --text "KDE MEDIA PLAYER RUNNING !"
+
+
+      elif [ ! -z "$(cat processcheck | awk '/pytube/')" ]
+       then check=1
+       zenity --error --text "PYTUBE RUNNING !"
+
+
+	 elif [ ! -z "$(cat processcheck | awk '/utuberipper/')" ]
+	  then check=1
+	  zenity --error --text "UTUBE RIPPER RUNNING !"
+
+
+	    elif [ ! -z "$(cat processcheck | awk '/gnetvideoplayer/')" ]
+	     then check=1
+             zenity --error --text "GNET VIDEO PLAYER RUNNING !"
+
+
+
+#BLOG/TWITTER TOOLS
+
+elif [ ! -z "$(cat processcheck | awk '/gnomeblogentryposter/')" ]
+then check=1
+zenity --error --text "GNOME BLOG ENTRT POSTER RUNNING !"
+
+
+  elif [ ! -z "$(cat processcheck | awk '/driveljournaleditor/')" ]
+   then check=1
+   zenity --error --text "DRIVEL JOURNAL EDITOR RUNNING !"
+
+
+     elif [ ! -z "$(cat processcheck | awk '/blogtkblogeditor/')" ]
+      then check=1
+      zenity --error --text "BLOGTK BLOG EDITOR RUNNING !"
+
+
+	elif [ ! -z "$(cat processcheck | awk '/scribefirefirefoxextension/')" ]
+	 then check=1
+	 zenity --error --text "SCRIBEFIRE FIREFOX RUNNING !"
+
+
+	  elif [ ! -z "$(cat processcheck | awk '/googledocs/')" ]
+	  then check=1
+           zenity --error --text "GOOGLE_DOCS RUNNING !"
+
+fi
+exit $check
+
+

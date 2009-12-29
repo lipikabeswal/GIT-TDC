@@ -1,0 +1,121 @@
+<element_package eid="7" iid="TD.6.0_014" xslt_ver="145">
+	<item_canvas id="IC">
+		<panel height="24" id="stem1" layout="vertical"
+			left_padding="12" spacing="12" stereotype="stem" width="500" x="0"
+			y="79">
+			<text_widget halign="left" id="widget810161000"
+				width="471">
+				This is a gridded response item that has a scratchpad.
+			</text_widget>
+		</panel>
+		<gridded_response_panel height="359" id="A1" layout="vertical"
+			left_padding="0" spacing="0" stereotype="answerArea" top_padding="5"
+			width="260" x="12" y="110">
+			<gridresponse id="widget810161001">
+				<gridcol id="widget810161002" identifier="1">
+					<entry id="widget810161003" value="---" />
+					<entry display="" id="widget810161004" value="" />
+					<entry id="widget810161005" value="---" />
+					<entry display="?" id="widget810161006" value="." />
+					<entry id="widget810161007" value="---" />
+					<entry id="widget810161008" value="0" />
+					<entry id="widget810161009" value="1" />
+					<entry id="widget810161010" value="2" />
+					<entry id="widget810161011" value="3" />
+					<entry id="widget810161012" value="4" />
+					<entry id="widget810161013" value="5" />
+					<entry id="widget810161014" value="6" />
+					<entry id="widget810161015" value="7" />
+					<entry id="widget810161016" value="8" />
+					<entry id="widget810161017" value="9" />
+				</gridcol>
+				<gridcol id="widget810161018" identifier="2">
+					<entry id="widget810161019" value="---" />
+					<entry id="widget810161020" value="/" />
+					<entry id="widget810161021" value="---" />
+					<entry display="?" id="widget810161022" value="." />
+					<entry id="widget810161023" value="---" />
+					<entry id="widget810161024" value="0" />
+					<entry id="widget810161025" value="1" />
+					<entry id="widget810161026" value="2" />
+					<entry id="widget810161027" value="3" />
+					<entry id="widget810161028" value="4" />
+					<entry id="widget810161029" value="5" />
+					<entry id="widget810161030" value="6" />
+					<entry id="widget810161031" value="7" />
+					<entry id="widget810161032" value="8" />
+					<entry id="widget810161033" value="9" />
+				</gridcol>
+				<gridcol id="widget810161034" identifier="3">
+					<entry id="widget810161035" value="---" />
+					<entry id="widget810161036" value="/" />
+					<entry id="widget810161037" value="---" />
+					<entry display="?" id="widget810161038" value="." />
+					<entry id="widget810161039" value="---" />
+					<entry id="widget810161040" value="0" />
+					<entry id="widget810161041" value="1" />
+					<entry id="widget810161042" value="2" />
+					<entry id="widget810161043" value="3" />
+					<entry id="widget810161044" value="4" />
+					<entry id="widget810161045" value="5" />
+					<entry id="widget810161046" value="6" />
+					<entry id="widget810161047" value="7" />
+					<entry id="widget810161048" value="8" />
+					<entry id="widget810161049" value="9" />
+				</gridcol>
+				<gridcol id="widget810161050" identifier="4">
+					<entry id="widget810161051" value="---" />
+					<entry id="widget810161052" value="/" />
+					<entry id="widget810161053" value="---" />
+					<entry display="?" id="widget810161054" value="." />
+					<entry id="widget810161055" value="---" />
+					<entry id="widget810161056" value="0" />
+					<entry id="widget810161057" value="1" />
+					<entry id="widget810161058" value="2" />
+					<entry id="widget810161059" value="3" />
+					<entry id="widget810161060" value="4" />
+					<entry id="widget810161061" value="5" />
+					<entry id="widget810161062" value="6" />
+					<entry id="widget810161063" value="7" />
+					<entry id="widget810161064" value="8" />
+					<entry id="widget810161065" value="9" />
+				</gridcol>
+				<gridcol id="widget810161066" identifier="5">
+					<entry id="widget810161067" value="---" />
+					<entry display="" id="widget810161068" value="" />
+					<entry id="widget810161069" value="---" />
+					<entry display="?" id="widget810161070" value="." />
+					<entry id="widget810161071" value="---" />
+					<entry id="widget810161072" value="0" />
+					<entry id="widget810161073" value="1" />
+					<entry id="widget810161074" value="2" />
+					<entry id="widget810161075" value="3" />
+					<entry id="widget810161076" value="4" />
+					<entry id="widget810161077" value="5" />
+					<entry id="widget810161078" value="6" />
+					<entry id="widget810161079" value="7" />
+					<entry id="widget810161080" value="8" />
+					<entry id="widget810161081" value="9" />
+				</gridcol>
+			</gridresponse>
+		</gridded_response_panel>
+	</item_canvas>
+	<item_model answer_text="" answered="0" correct="" eid="7"
+		iid="TD.6.0_014" marked="0" number="0" score="" type="question">
+		<toolbar FCAT_formula_card="not provisioned"
+			TN_formula_card="not provisioned" cm_ruler="not provisioned"
+			eraser="required" half_inch_ruler="not provisioned"
+			highlighter="required" mm_ruler="not provisioned"
+			oneeighth_inch_ruler="not provisioned" option_eliminator="required"
+			protractor="not provisioned" scientific_calculator="not provisioned"
+			scratchpad="required" standard_calculator="not provisioned"
+			straight_edge="not provisioned" type="question" />
+		<interaction type="grid">
+			<response identifier="1" user_action=" " />
+			<response identifier="2" user_action=" " />
+			<response identifier="3" user_action=" " />
+			<response identifier="4" user_action=" " />
+			<response identifier="5" user_action=" " />
+		</interaction>
+	</item_model>
+</element_package>

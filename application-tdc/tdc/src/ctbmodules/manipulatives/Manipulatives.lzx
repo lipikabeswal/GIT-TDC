@@ -1,0 +1,338 @@
+<library>
+    
+	<include href="protractor/Protractor.lzx"/>
+    <include href="ruler/BaseRuler.lzx"/>
+	<include href="../question/cache/components/CachableRefCard.lzx"/>
+
+	<include href="calculator/standardCalculator.lzx"/>
+	<include href="calculator/scientificCalculator.lzx"/>
+	<include href="refcard/RefCard.lzx"/>
+	<include href="scratchpad/Scratchpad.lzx"/>
+	
+    <class name="Manipulatives" clip="true"
+           datapath="dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/general">
+
+		<!-- array of z order positions for manipulatives 
+		     the value of the array indicates the depth of the manipulative (eg 1 = on top)
+		     the index of the array indicates which manipulative - identified in INDEX constants below -->
+		<attribute name="zOrder" />
+		
+		<attribute name="NUMBER_OF_MANIPULATIVES" type="number" value="12" />
+		<attribute name="SCRATCHPAD_INDEX" type="number" value="0" />
+		<attribute name="PROTRACTOR_INDEX" type="number" value="1" />
+		<attribute name="STRAIGHT_EDGE_INDEX" type="number" value="2" />
+		<attribute name="ONEEIGHTH_INCH_RULER_INDEX" type="number" value="3" />
+		<attribute name="HALF_INCH_RULER_INDEX" type="number" value="4" />
+		<attribute name="MM_RULER_INDEX" type="number" value="5" />
+		<attribute name="CM_RULER_INDEX" type="number" value="6" />
+		<attribute name="FCAT_FORMULA_CARD_INDEX" type="number" value="7" />
+		<attribute name="TN_FORMULA_CARD_INDEX" type="number" value="8" />
+		<attribute name="STANDARD_CALCULATOR_INDEX" type="number" value="9" />
+		<attribute name="SCIENTIFIC_CALCULATOR_INDEX" type="number" value="10" />
+		<attribute name="FORMULA_CARD_INDEX" type="number" value="11" />
+	
+		<handler name="oninit">
+			this.reset();
+		</handler>
+		
+		<handler name="ondata" args="data"><![CDATA[
+			var fCardrsrc = dsstudentdata.getPointer().xpathQuery('testing_client_model/current_item/item_model/toolbar/@formula_card_resource');
+
+			//Clean the cachable ref cards used by previous item
+			for (var i in this.subviews) {
+				if (this.subviews [i] instanceof CachableComponent) {
+					this.cache.returnComponent (this.subviews [i]);
+		        }
+		    }
+
+			if(typeof fCardrsrc != "undefined" && fCardrsrc != null) {
+
+				var xmlString = '<formula_card_resource src="'+fCardrsrc+'" />'; //the string to be converted to datanode
+				var newNode = LzDataNode.stringToLzData(xmlString);// convert string to datanode
+				var oldNode = dsstudentdata.getPointer().xpathQuery('testing_client_model/current_item/item_model/manipulatives/general/formula_card_resource');
+						
+				if(oldNode != null) {
+					oldNode.setAttr('src', fCardrsrc);
+					newNode = oldNode;
+				}
+	
+				gManipulatives.cache.getComponent(newNode); //get the cachable ref card from cache
+			} 
+			this.arrangeAccordingToZOrder();
+		]]></handler>        
+
+		<method name="arrangeAccordingToZOrder"><![CDATA[
+            if (!data) return;
+			var manips = data.childNodes;
+			if(!manips) return;
+			var maxDepth = 0;
+			for(var i=0; i< manips.length; i++){
+				var newDepth = new Number(manips[i].getAttr('z_order'));
+				if(newDepth > maxDepth){
+					maxDepth = newDepth;
+				}
+			}
+			for(var j = maxDepth; j>=0; j--){
+				var manip = getManipForDepth(j, manips);
+				if(manip != null && typeof manip != 'undefined'){
+					manip.bringToFront();
+				}
+			}
+			if(gScratchpad.visible){
+				gScratchpad.bringToFront();
+			}
+		]]></method>
+		
+		<method name="getManipForDepth" args="depth, manips"><![CDATA[
+			var result = null;
+			for(var i=0; i< manips.length; i++){
+				var manip = manips[i];
+				var manipDepth = new Number(manip.getAttr('z_order'));
+				if(manipDepth == depth){
+					result = getInstanceForTool(manip.nodeName);
+				}
+			}
+			return result;
+		]]></method>
+		
+		<method name="sendToFront" args="tool"><![CDATA[
+			var theZ = this.getAttribute('zOrder');
+			if(theZ != null && typeof theZ != 'undefined'){
+				var toolIndex = this.getIndexForTool(tool);
+				var oldToolZOrder = this.zOrder[toolIndex];
+				for(var i=0; i < this.zOrder.length; i++){
+					var otherManipZOrder = this.zOrder[i];
+					if(i == toolIndex){
+						this.zOrder[i] = 1; // move this tool to the top
+					}
+					else if (otherManipZOrder != -1){
+						if( (oldToolZOrder == -1) || (oldToolZOrder >= otherManipZOrder)){
+							this.zOrder[i] = otherManipZOrder + 1;
+						}
+					}
+				}
+			}
+		]]></method>
+		
+		<method name="removeManipulative" args="tool"><![CDATA[
+			var theZ = this.getAttribute('zOrder');
+			if(theZ != null && typeof theZ != 'undefined'){
+				var toolIndex = this.getIndexForTool(tool);
+				var oldToolZOrder = this.zOrder[toolIndex];
+				if(oldToolZOrder != -1){
+					for(var i=0; i < this.zOrder.length; i++){
+						var otherManipZOrder = this.zOrder[i];
+						if(i == toolIndex){
+							this.zOrder[i] = -1; // remove this tool 
+						}
+						else if ((oldToolZOrder != -1) && (otherManipZOrder != -1) && (otherManipZOrder > oldToolZOrder)){
+							this.zOrder[i] = otherManipZOrder - 1;
+						}
+					}
+				}
+			}
+		]]></method>
+		
+		<method name="getIndexForTool" args="tool">
+			var result = -1;
+			if(tool == 'scratchpad'){
+				result = SCRATCHPAD_INDEX;
+			}
+			else if (tool == 'protractor'){
+				result = PROTRACTOR_INDEX;
+			}
+			else if (tool == 'straight_edge'){
+				result = STRAIGHT_EDGE_INDEX;
+			}
+			else if (tool == 'oneeighth_inch_ruler'){
+				result = ONEEIGHTH_INCH_RULER_INDEX;
+			}
+			else if (tool == 'half_inch_ruler'){
+				result = HALF_INCH_RULER_INDEX;
+			}
+			else if (tool == 'mm_ruler'){
+				result = MM_RULER_INDEX;
+			}
+			else if (tool == 'cm_ruler'){
+				result = CM_RULER_INDEX;
+			}
+			else if (tool == 'FCAT_formula_card'){
+				result = FCAT_FORMULA_CARD_INDEX;
+			}
+			else if (tool == 'TN_formula_card'){
+				result = TN_FORMULA_CARD_INDEX;
+			}
+			else if (tool == 'standard_calculator'){
+				result = STANDARD_CALCULATOR_INDEX;
+			}
+			else if (tool == 'scientific_calculator'){
+				result = SCIENTIFIC_CALCULATOR_INDEX;
+			}
+			else if (tool == 'formula_card'){
+				result = FORMULA_CARD_INDEX;
+			}
+			return result;
+		</method>
+		
+		<method name="getToolForIndex" args="index">
+			var result = 'uh oh';
+			if(index == SCRATCHPAD_INDEX){
+				result = 'scratchpad';
+			}
+			else if (index == PROTRACTOR_INDEX){
+				result = 'protractor';
+			}
+			else if (index == STRAIGHT_EDGE_INDEX){
+				result = 'straight_edge';
+			}
+			else if (index == ONEEIGHTH_INCH_RULER_INDEX){
+				result = 'oneeighth_inch_ruler';
+			}
+			else if (index == HALF_INCH_RULER_INDEX){
+				result = 'half_inch_ruler';
+			}
+			else if (index == MM_RULER_INDEX){
+				result = 'mm_ruler';
+			}
+			else if (index == CM_RULER_INDEX){
+				result = 'cm_ruler';
+			}
+			else if (index == FCAT_FORMULA_CARD_INDEX){
+				result = 'FCAT_formula_card';
+			}
+			else if (index == TN_FORMULA_CARD_INDEX){
+				result = 'TN_formula_card';
+			}
+			else if (index == STANDARD_CALCULATOR_INDEX){
+				result = 'standard_calculator';
+			}
+			else if (index == SCIENTIFIC_CALCULATOR_INDEX){
+				result = 'scientific_calculator';
+			}
+			else if (index == FORMULA_CARD_INDEX){
+				result = 'formula_card';
+			}
+			return result;
+		</method>
+		
+		<method name="getInstanceForTool" args="tool">
+			var result = null;
+			if(tool == 'scratchpad'){
+				result = gScratchpad;
+			}
+			else if (tool == 'protractor'){
+				result = gProtractor;
+			}
+			else if (tool == 'straight_edge'){
+				result = gStraightEdge;
+			}
+			else if (tool == 'oneeighth_inch_ruler'){
+				result = gEighthInchRuler;
+			}
+			else if (tool == 'half_inch_ruler'){
+				result = gHalfInchRuler;
+			}
+			else if (tool == 'mm_ruler'){
+				result = gMmRuler;
+			}
+			else if (tool == 'cm_ruler'){
+				result = gCmRuler;
+			}
+			else if (tool == 'FCAT_formula_card'){
+				result = gFcatFormulaCard;
+			}
+			else if (tool == 'TN_formula_card'){
+				result = gTnFormulaCard;
+			}
+			else if (tool == 'standard_calculator'){
+				result = gStandardCalculator;
+			}
+			else if (tool == 'scientific_calculator'){
+				result = gScientificCalculator;
+			}
+			else if (tool == 'formula_card'){
+				result = gFormulaCard;
+			}
+			return result;
+		</method>
+		
+		<method name="saveZOrders"><![CDATA[
+			var top = gController.dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/general/');
+			var nodes = top.childNodes;
+			for(var i = 0; i < nodes.length; i++){
+				var manip = nodes[i];
+				manip.setAttr('z_order', this.zOrder[this.getIndexForTool(manip.nodeName)]);
+			}
+		]]></method>
+		
+		<method name="reset"><![CDATA[
+			this.zOrder = new Array();
+			for(var i = 0; i < NUMBER_OF_MANIPULATIVES; i++){
+				this.zOrder[i] = -1;
+			}
+		]]></method>
+		
+        <Scratchpad name="scratchpad" 
+                    toolid="scratchpad"
+                    id="gScratchpad"/>
+
+        <Protractor name="protractor" 
+                    toolid="protractor"
+                    id="gProtractor"/>
+
+        <BaseRuler name="straight_edge"
+                   toolid="straight_edge"
+                   labelrsr="straight_label"
+                   id="gStraightEdge"/>
+                   
+        <BaseRuler name="oneeighth_inch_ruler"
+                   toolid="oneeighth_inch_ruler"
+                   tickmarksrsr="eighth_inch_tick_marks"
+                   labelrsr="inches_label"
+                   id="gEighthInchRuler"/>
+                   
+        <BaseRuler name="half_inch_ruler"
+                   toolid="half_inch_ruler"
+                   tickmarksrsr="half_inch_tick_marks"
+                   labelrsr="inches_label"
+                   id="gHalfInchRuler"/>
+                   
+        <BaseRuler name="mm_ruler"
+                   toolid="mm_ruler"
+                   tickmarksrsr="millimeter_tick_marks"
+                   labelrsr="centimeters_label"
+                   id="gMmRuler"/>
+                   
+		<BaseRuler name="cm_ruler"
+                   toolid="cm_ruler"
+                   tickmarksrsr="centimeter_tick_marks"
+                   labelrsr="centimeters_label"
+                   id="gCmRuler"/>
+
+        <RefCard name="FCAT_formula_card" 
+                 toolid="FCAT_formula_card"
+                 refCardRsrc="FCAT_refcard_contents"
+                 titleRsrc="FCAT_refcard_title"
+                 scrolls="true"
+                 id="gFcatFormulaCard"/>
+
+        <RefCard name="TN_formula_card" 
+                 toolid="TN_formula_card"
+                 refCardRsrc="TN_refcard_contents"
+                 titleRsrc="TN_refcard_title"
+                 scrolls="false"
+                 id="gTnFormulaCard"/>
+
+        <standardCalculator name="standard_calculator" 
+                            toolid="standard_calculator"
+                            id="gStandardCalculator"/>
+
+        <scientificCalculator name="scientific_calculator" 
+                            toolid="scientific_calculator"
+                            id="gScientificCalculator"/>
+
+		<ComponentCache name="cache" />
+    </class>
+
+
+</library>

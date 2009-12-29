@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library>
+
+    <include href="LoginButton.lzx"/>
+    <include href="CancelButton.lzx"/>
+    <include href="LoginFields.lzx"/>
+
+    <class name="LoginScreen">
+        
+        <attribute name="font" value="Arial"/>
+
+        <method name="login">
+        	gController.login(
+                li.loginIdField.getText(),
+                pw.passwordField.getText(),
+                ac.accesscodeField.getText()
+            );
+        </method>
+
+        <simplelayout axis="y"/>
+
+        <text fontsize="24" resize="true" fgcolor="white">
+            Hello, please log in to begin
+        </text>
+
+        <view width="100%" name="li">
+            <text resize="true" x="${ 282 - width }"
+                  valign="middle" fgcolor="white" fontsize="12">
+                <b>Login ID:</b>
+            </text>
+            <edittext name="loginIdField" x="287"
+                      fontsize="12" width="265" pattern="[a-zA-Z0-9_\-]*"/>
+        </view>
+        <view name="pw">
+            <text resize="true" valign="middle"
+                  x="${ 282 - width }" fgcolor="white" fontsize="12">
+                <b>Password:</b>
+            </text>
+            <edittext name="passwordField" x="287" fontsize="12"
+                      password="true" width="265" pattern="[a-zA-Z0-9_]*"/>
+        </view>
+        <view name="ac">
+            <text resize="true" fgcolor="white"
+                  valign="middle" fontsize="12"  x="${ 282 - width }">
+                <b>Access Code:</b>
+            </text>
+            <edittext name="accesscodeField" x="287" fontsize="12" width="265" pattern="[a-zA-Z0-9_]*"/>
+        </view>
+
+        <view x="${ classroot.width - width - 20 }">
+            <simplelayout axis="x" spacing="10"/>
+            <LoginButton y="3" enabled="${ gScreens.allowclick }">
+                <method name="docontinue" event="onclick">
+                    gScreens.clicked();
+                    classroot.login();
+                </method>
+            </LoginButton>
+            <CancelButton y="3" enabled="${ gScreens.allowclick }">
+                <method name="cancel" event="onclick">
+                    gScreens.clicked();
+                    gController.goToGoodbyeScreen();
+                </method>
+            </CancelButton>
+        </view>
+    </class>
+
+</library>

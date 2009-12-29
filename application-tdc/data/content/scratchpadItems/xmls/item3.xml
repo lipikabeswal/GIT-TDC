@@ -1,0 +1,118 @@
+<element_package eid="3" iid="TD.6.0_010" xslt_ver="145">
+	<item_canvas id="IC">
+		<scrolling_text_panel height="453" id="TD.6.0_010"
+			stereotype="stimulus" width="381" x="12" y="79">
+			<text_widget halign="left" id="widget769651000"
+				width="364">
+				Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+			</text_widget>
+			<text_widget halign="left" id="widget769651001"
+				width="364">
+				Nam liber &lt;footnote header=&quot;&amp;#9329;&amp;#9338; tempor:&quot; detail=&quot;Typi investigat&quot; readable=&quot;true&quot;&gt;&lt;a href=&quot;javascript:showFootnote(&apos;%26%239329%3B%26%239338%3B&amp;#43;tempor%3A&apos;);&quot;&gt;tempor&amp;#9329;&amp;#9338;&lt;/a&gt;&lt;/footnote&gt; cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius.
+			</text_widget>
+			<text_widget halign="left" id="widget769651002"
+				width="364">
+				&lt;i&gt;Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.&lt;/i&gt;
+			</text_widget>
+			<text_widget halign="left" id="widget769651003"
+				width="364">
+				Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum &lt;footnote header=&quot;&amp;#9330;&amp;#9338; praesents:&quot; detail=&quot;ulput iuscillum dignim&quot; readable=&quot;true&quot;&gt;&lt;a href=&quot;javascript:showFootnote(&apos;%26%239330%3B%26%239338%3B&amp;#43;praesents%3A&apos;);&quot;&gt;praesents&amp;#9330;&amp;#9338;&lt;/a&gt;&lt;/footnote&gt; eu feugiat nulla &lt;footnote header=&quot;&amp;#9331;&amp;#9338; feugait nulla facilisi:&quot; detail=&quot;esseniscin ulput iuscillum&quot; readable=&quot;true&quot;&gt;&lt;a href=&quot;javascript:showFootnote(&apos;%26%239331%3B%26%239338%3B&amp;#43;feugait&amp;#43;nulla&amp;#43;facilisi%3A&apos;);&quot;&gt;feugait nulla facilisi&amp;#9331;&amp;#9338;&lt;/a&gt;&lt;/footnote&gt; at vero eros et &lt;footnote header=&quot;&amp;#9332;&amp;#9338; accu:&quot; detail=&quot;ipisi te esseniscin ulput iuscillum&quot; readable=&quot;true&quot;&gt;&lt;a href=&quot;javascript:showFootnote(&apos;%26%239332%3B%26%239338%3B&amp;#43;accu%3A&apos;);&quot;&gt;accu&amp;#9332;&amp;#9338;&lt;/a&gt;&lt;/footnote&gt; et iusto odio &lt;footnote header=&quot;&amp;#9333;&amp;#9338; dignissim:&quot; detail=&quot;lobortis aliquip&quot; readable=&quot;true&quot;&gt;&lt;a href=&quot;javascript:showFootnote(&apos;%26%239333%3B%26%239338%3B&amp;#43;dignissim%3A&apos;);&quot;&gt;dignissim&amp;#9333;&amp;#9338;&lt;/a&gt;&lt;/footnote&gt; qui blandit &lt;footnote header=&quot;&amp;#9335;&amp;#9338; augue-commodo:&quot; detail=&quot;commodo, consequat&quot; readable=&quot;true&quot;&gt;&lt;a href=&quot;javascript:showFootnote(&apos;%26%239335%3B%26%239338%3B&amp;#43;augue-commodo%3A&apos;);&quot;&gt;augue-commodo&amp;#9335;&amp;#9338; &lt;/a&gt;&lt;/footnote&gt; luptatum zzril delenit duis dolore te feugait nulla &lt;footnote header=&quot;&amp;#9334;&amp;#9338; praesent:&quot; detail=&quot;hendrerit&quot; readable=&quot;true&quot;&gt;&lt;a href=&quot;javascript:showFootnote(&apos;%26%239334%3B%26%239338%3B&amp;#43;praesent%3A&apos;);&quot;&gt;praesent&amp;#9334;&amp;#9338;&lt;/a&gt;&lt;/footnote&gt;facilisi.
+			</text_widget>
+			<text_widget alt_text="" halign="left" id="widget769651004"
+				width="364">
+				&amp;#160;
+			</text_widget>
+			<text_widget halign="left" id="widget769651005"
+				text_magnification="0.83" width="364">
+				&lt;b&gt;&amp;#9329;&amp;#9338; tempor:&lt;/b&gt;&amp;#160;&amp;#160;Typi investigat
+			</text_widget>
+			<text_widget halign="left" id="widget769651006"
+				text_magnification="0.83" width="364">
+				&lt;b&gt;&amp;#9330;&amp;#9338; praesents:&lt;/b&gt;&amp;#160;&amp;#160;ulput iuscillum dignim
+			</text_widget>
+			<text_widget halign="left" id="widget769651007"
+				text_magnification="0.83" width="364">
+				&lt;b&gt;&amp;#9331;&amp;#9338; feugait nulla facilisi:&lt;/b&gt;&amp;#160;&amp;#160;esseniscin ulput iuscillum
+			</text_widget>
+			<text_widget halign="left" id="widget769651008"
+				text_magnification="0.83" width="364">
+				&lt;b&gt;&amp;#9332;&amp;#9338; accu:&lt;/b&gt;&amp;#160;&amp;#160;ipisi te esseniscin ulput iuscillum
+			</text_widget>
+			<text_widget halign="left" id="widget769651009"
+				text_magnification="0.83" width="364">
+				&lt;b&gt;&amp;#9333;&amp;#9338; dignissim:&lt;/b&gt;&amp;#160;&amp;#160;lobortis aliquip
+			</text_widget>
+			<text_widget halign="left" id="widget769651010"
+				text_magnification="0.83" width="364">
+				&lt;b&gt;&amp;#9335;&amp;#9338;
+				augue-commodo:&lt;/b&gt;&amp;#160;&amp;#160;commodo,
+				consequat
+			</text_widget>
+			<text_widget halign="left" id="widget769651011"
+				text_magnification="0.83" width="364">
+				&lt;b&gt;&amp;#9334;&amp;#9338; praesent:&lt;/b&gt;&amp;#160;&amp;#160;hendrerit
+			</text_widget>
+		</scrolling_text_panel>
+		<panel height="45" id="stem1" layout="vertical"
+			left_padding="12" spacing="12" stereotype="stem" width="387" x="393"
+			y="79">
+			<text_widget halign="left" id="widget769651012"
+				width="358">
+				This item has a passage that has footnotes, and it also has a scratchpad.
+			</text_widget>
+		</panel>
+		<answer_area_panel height="156" id="A1" layout="vertical"
+			left_padding="12" spacing="12" stereotype="answerArea"
+			top_padding="12" width="375" x="405" y="131">
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="363">
+				<selector_widget identifier="A" valign="top" />
+				<text_widget halign="left" id="widget769651015"
+					width="316">
+					Answer A
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="363">
+				<selector_widget identifier="B" valign="top" />
+				<text_widget halign="left" id="widget769651018"
+					width="316">
+					Answer B
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="363">
+				<selector_widget identifier="C" valign="top" />
+				<text_widget halign="left" id="widget769651021"
+					width="316">
+					Answer C
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="363">
+				<selector_widget identifier="D" valign="top" />
+				<text_widget halign="left" id="widget769651024"
+					width="316">
+					Answer D
+				</text_widget>
+			</answer_choice_widget>
+		</answer_area_panel>
+	</item_canvas>
+	<item_model answer_text="" answered="0" correct="A" eid="3"
+		iid="TD.6.0_010" marked="0" number="0" score="0" type="question">
+		<toolbar FCAT_formula_card="not provisioned"
+			TN_formula_card="not provisioned" cm_ruler="not provisioned"
+			eraser="required" half_inch_ruler="not provisioned"
+			highlighter="required" mm_ruler="not provisioned"
+			oneeighth_inch_ruler="not provisioned" option_eliminator="required"
+			protractor="not provisioned" scientific_calculator="not provisioned"
+			scratchpad="required" standard_calculator="not provisioned"
+			straight_edge="not provisioned" />
+		<interaction max_choices="1" type="choice">
+			<selector identifier="A" obj_id_ref="A" user_action="n" />
+			<selector identifier="B" obj_id_ref="B" user_action="n" />
+			<selector identifier="C" obj_id_ref="C" " user_action="n" />
+			<selector identifier="D" obj_id_ref="D" user_action="n" />
+		</interaction>
+	</item_model>
+</element_package>

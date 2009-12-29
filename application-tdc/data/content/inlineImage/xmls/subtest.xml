@@ -1,0 +1,24 @@
+	<ob_assessment>
+		<assessment_title>Mathematics 101</assessment_title>
+		<ob_element_list>
+			<f id="1" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="2" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="3" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="4" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="5" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="6" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="7" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+			<f id="8" h="F9AD5E06A6534A1374C5368CB119966F" k="1" />
+		</ob_element_list>
+		<ob_element_select_order>
+			<e id="1"/>
+			<e id="2"/>
+			<e id="3"/>
+			<e id="4"/>
+			<e id="5"/>
+			<e id="6"/>
+			<e id="7"/>
+			<e id="8"/>
+		</ob_element_select_order>
+	</ob_assessment>
+	

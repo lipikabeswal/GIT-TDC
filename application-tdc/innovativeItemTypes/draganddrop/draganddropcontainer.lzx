@@ -1,0 +1,145 @@
+<library>
+	<include href="dragobject.lzx" />
+	<include href="droplocation.lzx" />
+	<include href="dropareapoly.lzx" />
+	<include href="dropareacircle.lzx" />
+	<include href="droparearect.lzx" />
+	
+	<class name="draganddropcontainer" >
+		<attribute name="dragAndDropContainerId" type="string" />
+		<attribute name="locations" value="$once{new Array()}" />
+		<attribute name="imageMap" value="$once{new Array()}" />
+		<attribute name="isMap" type="boolean" value="false" />
+		<attribute name="POLYGON" type="string" value="poly" />
+		<attribute name="CIRCLE" type="string" value="circle" />
+		<attribute name="RECTANGLE" type="string" value="rect" />
+		
+		<attribute name="dp" value="$once{new LzDatapointer}" />
+		
+		<method name="setup" args="node, _master"><![CDATA[
+//Debug.write("draganddropcontainer.setup", node);
+
+			this.setAttribute('containerId', node.getAttr('containerId'));
+			this.setSource(node.getAttr('src'));
+			this.setAttribute('x', new Number(node.getAttr('x')));
+			this.setAttribute('y', new Number(node.getAttr('y')));
+			this.setAttribute('height', new Number(node.getAttr('height')));
+			this.setAttribute('width', new Number(node.getAttr('width')));
+
+			dp.setPointer(node);
+			var locationNodes = getArray(dp.xpathQuery('location'));
+			for(var i=0; i<locationNodes.length; i++){
+				var location = locationNodes[i];
+				var locX = new Number(location.getAttr('x'));
+				var locY = new Number(location.getAttr('y'));
+				var locId = location.getAttr('locationId');
+				var hash = {'locationId': locId, 'locationX': locX, 'locationY': locY};
+				locations.push(new lz.droplocation(this, hash));
+			}
+			var areaNodes = getArray(dp.xpathQuery('area'));
+			if(areaNodes != null){
+				for(var i=0; i<areaNodes.length; i++){
+					var area = areaNodes[i];
+					var shape = area.getAttr('shape');
+					var coords = area.getAttr('coords');
+					var hash = {'coords': coords};
+					if(shape == POLYGON){
+						imageMap.push(new lz.dropareapoly(this, hash));
+					}
+					else if(shape == CIRCLE){
+						imageMap.push(new lz.dropareacircle(this, hash));
+					}
+					else if (shape == RECTANGLE){
+						imageMap.push(new lz.droparearect(this, hash));
+					}
+				}
+			}
+			
+		]]></method>
+		
+		<method name="getArray" args="nodes">
+			if(nodes instanceof LzDataNode){
+				return new Array(nodes);
+			}
+			else{
+				return nodes;
+			}
+		</method>
+		
+		
+		<method name="addObject" args="obj, locId"><![CDATA[
+//Debug.write("container.addObject", obj, locId);
+			var added=false;
+			var addedLocationId = "not";
+			if(typeof locId != 'undefined'){ // just put the obj at the location
+//Debug.write("got locationid", locId);
+				setObjectLocation(obj, getLocation(locId));
+				added = true;
+			}
+			else{
+//Debug.write("no locationId", locations.length);
+				var i =0;
+				while(!added && i < locations.length){
+					var location = locations[i];
+//Debug.write("checkLocation", location);
+					if(!location['occupied']){
+						setObjectLocation(obj, location);
+						addedLocationId = location['locationId'];
+						added = true;
+					}
+					else{
+						i++;
+					}
+				}
+			}
+			
+			if(!added){
+				obj.sendBackToStart();
+			}
+			return addedLocationId;
+		]]></method>
+		
+		<method name="getLocation" args="locid"><![CDATA[
+			for (var i=0; i<locations.length; i++){
+				if(locid == locations[i]['locationId']){
+					return locations[i];
+				}
+			}
+		]]></method>
+		
+		<method name="setObjectLocation" args="obj, location">
+			location.setAttribute('occupied', true);
+//Debug.write("container.setObjectLocation", obj, location);
+			obj.setLocation(location['locationX'],
+				            location['locationY']);
+		</method>
+		
+		<method name="releaseLocation" args="locId"><![CDATA[
+//Debug.write("container.releaseLocation", this.containerId, locId);
+			var location = getLocation(locId);
+			location['occupied'] = false;
+		]]></method>
+		
+		<method name="getResult"><![CDATA[
+			var result = "";
+			return result;
+		]]></method>
+		
+		<method name="clearLocations"><![CDATA[
+			for(var i=0; i<locations.length; i++){
+				locations[i]['occupied'] = false;
+			}
+		]]></method>
+		
+		<method name="contains" args="_x, _y"><![CDATA[
+			var result = false;
+			for(var i=0; i<imageMap.length; i++){
+				if(imageMap[i].contains(_x, _y)){
+					result = true;
+					break;
+				}
+			}
+			return result;
+		]]></method>
+	</class>
+</library>
