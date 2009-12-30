@@ -7,7 +7,7 @@
 
     <class name="LoginScreen">
         
-        <attribute name="font" value="Arial"/>
+        <attribute name="font" value="CTB"/>
 
         <method name="login">
         	gController.login(
