@@ -386,7 +386,7 @@ public class Main {
 		ConsoleUtils.messageOut("Starting...");
 		ServerSocket ss = null; // keep variable in scope of the main method to maintain hold on it. 
 		try {
-			//ss = new ServerSocket(SOCKET_FOR_SINGLE_INSTANCE, 1);
+			ss = new ServerSocket(SOCKET_FOR_SINGLE_INSTANCE, 1);
 		} catch( Exception e ) {
 			String message = ResourceBundleUtils.getString("bootstrap.main.error.applicationAlreadyRunning");
 			ConsoleUtils.messageErr(message);
