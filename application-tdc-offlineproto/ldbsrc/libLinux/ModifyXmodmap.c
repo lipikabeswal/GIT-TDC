@@ -16,7 +16,7 @@ int isContain (char *);
 
 void writeFile (void);
 
-char* hotKeys[] = {"F1","Alt_L","Alt_R","F5","F10","F12","Print Sys_Req","F3"};
+char* hotKeys[] = {"F1","Control_R","Control_L","Alt_L","Alt_R","F5","F10","F12","Print Sys_Req","F3","Escape","Print Execute"};
 char array2[400][400];
 
 int main()

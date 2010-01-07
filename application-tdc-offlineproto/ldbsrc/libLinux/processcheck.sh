@@ -225,7 +225,7 @@ then check=1
 zenity --error --text "MOZILLA_THUNDERBIRD RUNNING !"
 
 
-  elif [ ! -z "$(cat processcheck | awk '/evolution/')" ]
+  elif [ ! -z "$(cat processcheck | awk '/evolution-exchange-storage/')" ]
    then check=1
    zenity --error --text "EVOLUTION RUNNING !"
 
