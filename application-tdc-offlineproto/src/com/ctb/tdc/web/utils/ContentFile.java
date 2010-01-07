@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 import org.bouncycastle.crypto.digests.MD5Digest;
 import org.bouncycastle.crypto.engines.RC4Engine;
@@ -82,8 +83,13 @@ public class ContentFile
         if (!exists(filePath))
         	return false;
     	byte[] buffer = readFromFile( filePath );
-        if ( Crypto.checkHash( hash, buffer ))
+        if ( Crypto.checkHash( hash, buffer )) {
+        	//Fix for 60 days content deletion 
+        	File file = new File(filePath);            
+            file.setLastModified(new Date().getTime());
         	return true;
+        }
+        	
         else
         	return false;
     }
