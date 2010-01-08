@@ -90,7 +90,7 @@ public class UtilityServlet extends HttpServlet {
         	if(isLinux()) {
         		Runtime.getRuntime().exec("killall OASTDC");
         	} else if(isMacOS()) {
-        		// do something here
+        		Runtime.getRuntime().exec("ps -eo comm,pid | awk '$1 == \"OASTDC\" {print $2}' | xargs kill -9");
         	} else {
         		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
         	}
