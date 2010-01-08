@@ -9,8 +9,8 @@ check=0
  if [ ! -z "$(cat processcheck | grep 'OmniWeb' | grep -v grep)" ]
  then check=1
  
- elif [ ! -z "$(cat processcheck | grep 'Shirra' | grep -v grep)" ]
- then check=2
+ #elif [ ! -z "$(cat processcheck | grep 'Shirra' | grep -v grep)" ]
+ #then check=2
 
  elif [ ! -z "$(cat processcheck | grep 'Camino' | grep -v grep)" ]
  then check=3
@@ -18,7 +18,7 @@ check=0
  elif [ ! -z "$(cat processcheck | grep 'Stainless' | grep -v grep)" ]
  then check=4
 
-# elif [ ! -z "$(cat processcheck | grep 'Safari' | grep -v grep)" ]
+ #elif [ ! -z "$(cat processcheck | grep 'Safari' | grep -v grep)" ]
  #then check=5
 
 #SCREENCAPTURE
@@ -125,14 +125,14 @@ elif [ ! -z "$(cat processcheck | grep 'Mac OS X Mail' | grep -v grep)" ]
 
  #LINUX
  #SCREENCAPTURE
-if [ ! -z "$(cat processcheck | awk '/gnome-panel-screenshot/')" ]
- then check=1
- zenity --error --text "GNOME-PANEL-SCREENSHOT RUNNING !"
+ elif [ ! -z "$(cat processcheck | awk '/gnome-panel-screenshot/')" ]
+   then check=1
+   zenity --error --text "GNOME-PANEL-SCREENSHOT RUNNING !"
+
 
   elif [ ! -z "$(cat processcheck | awk '/ksnapshot/')" ]
    then check=1
    zenity --error --text "KSANPSHOT RUNNING !"
-	
 
 
     elif [ ! -z "$(cat processcheck | awk '/klipper/')" ]
@@ -470,3 +470,4 @@ zenity --error --text "GNOME BLOG ENTRT POSTER RUNNING !"
  fi
 
 exit $check
+
