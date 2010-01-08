@@ -53,13 +53,18 @@ public class Main extends Thread {
 		Main.HotkeysDisable hotKeysDisable = new Main().new HotkeysDisable ();
 		//Main.KillRuntimeProcess killRuntimeProcess = new Main ().new KillRuntimeProcess ();
 		Main.HotKeysEnable hotKeysEnable = new Main().new HotKeysEnable ();
-		
+		Main.OpenInterface openInterface = new Main().new OpenInterface ();
 		processBlock.start();
 		processBlock.join();
 		
 		if (!flag) {
-			
+			//openInterface.start();
+			//Thread.sleep(1 * 1000);
 			hotKeysDisable.start();
+			Thread.sleep(1000);
+			openInterface.start();
+			//Thread.sleep(1 * 1000);
+			
 			//killRuntimeProcess.start();
 			//LockdownBrowserWrapper.Hot_Keys_Enable_Disable(false);
 			Thread.sleep(1 * 60 * 1000);
@@ -130,11 +135,8 @@ public class Main extends Thread {
 
 				flag = true;
 				System.out.println("Main Thread Started..........");
+				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(false);
 				
-				
-				
-				
-				 LockdownBrowserWrapper.Hot_Keys_Enable_Disable(false);
 
 			} catch (Exception e)  {
 
@@ -147,6 +149,14 @@ public class Main extends Thread {
 	}
 
 
-	
+	private class OpenInterface extends Thread {
+
+		public void run () {
+
+			LockdownBrowserWrapper.Open_Close_Interface(false);
+
+		}	
+
+	}
 
 }

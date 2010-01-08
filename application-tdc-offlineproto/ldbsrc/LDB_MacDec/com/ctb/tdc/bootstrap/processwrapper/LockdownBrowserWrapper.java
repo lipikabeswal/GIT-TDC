@@ -28,6 +28,7 @@ public class LockdownBrowserWrapper  {
         public static native int Get_Blacklist_Process_No(); 
 	public static native void Add_shortcuts(boolean flag);
         public static native void Rightclick_Enable_Disable(boolean flag);
+	public static native void Open_Close_Interface (boolean flag);
 	
 	// JNI lockdown library
 	static {
