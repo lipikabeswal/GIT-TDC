@@ -25,51 +25,29 @@ public class Main extends Thread {
 	static String processName = null;
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-
-		/*Main m = new Main();
-
-		Thread t = new Thread (m);
-		t.start();
-		Thread.sleep(1000);
-		//"C:\\Program Files\\CTB\\Online Assessment\\lockdownbrowser\\pc\\LockdownBrowser.exe"
-		if (flag) {
-
-
-			System.out.println("Main Thread Started..........");
-			//LockdownBrowserWrapper.Process_Desktop("window","C:\\Program Files\\Internet Explorer\\iexplore.exe");
-			Runtime.getRuntime().exec("C:\\Program Files\\Internet Explorer\\iexplore.exe");
-			System.out.println("Thread Name before sleep:"+Thread.currentThread().getName());
-			Thread.sleep(1 * 60 * 1000);
-			System.out.println("Thread Name after sleep:"+Thread.currentThread().getName());
-			System.out.println("Thread...Name..");
-			//LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(true);
-			LockdownBrowserWrapper.TaskSwitching_Enable_Disable(true);
-			System.out.println("WinLock-C.exe process killed");
-			System.exit(0);
-
-		}*/
 		
 		Main.ProcessBlock processBlock = new Main().new ProcessBlock ();
 		Main.HotkeysDisable hotKeysDisable = new Main().new HotkeysDisable ();
+		
 		//Main.KillRuntimeProcess killRuntimeProcess = new Main ().new KillRuntimeProcess ();
 		Main.HotKeysEnable hotKeysEnable = new Main().new HotKeysEnable ();
-		Main.OpenInterface openInterface = new Main().new OpenInterface ();
+		
 		processBlock.start();
 		processBlock.join();
 		
 		if (!flag) {
-			//openInterface.start();
-			//Thread.sleep(1 * 1000);
-			hotKeysDisable.start();
-			Thread.sleep(1000);
-			openInterface.start();
-			//Thread.sleep(1 * 1000);
 			
-			//killRuntimeProcess.start();
-			//LockdownBrowserWrapper.Hot_Keys_Enable_Disable(false);
-			Thread.sleep(1 * 60 * 1000);
+			LockdownBrowserWrapper.Open_Close_Interface(false);
+			Thread.sleep(1000);
+			hotKeysDisable.start();
+			hotKeysDisable.join();
+			LockdownBrowserWrapper.Open_Close_Interface(true);
+			Thread.sleep(1 * 15 * 1000);
+			LockdownBrowserWrapper.Open_Close_Interface(false);
+			Thread.sleep(1000);
 			hotKeysEnable.start();
-			//LockdownBrowserWrapper.Hot_Keys_Enable_Disable(true);
+			hotKeysEnable.join();
+			LockdownBrowserWrapper.Open_Close_Interface(true);
 			
 		} else {
 		
@@ -77,7 +55,7 @@ public class Main extends Thread {
 
 		}
 
-		//System.exit(0);
+	
 
 	}
 	private class HotKeysEnable extends Thread {
@@ -128,7 +106,7 @@ public class Main extends Thread {
 
 
 	private class HotkeysDisable extends Thread {
-
+		
 		public void run () {
 
 			try {
@@ -146,17 +124,6 @@ public class Main extends Thread {
 
 		}
 
-	}
-
-
-	private class OpenInterface extends Thread {
-
-		public void run () {
-
-			LockdownBrowserWrapper.Open_Close_Interface(false);
-
-		}	
-
-	}
+	}	
 
 }

@@ -9,11 +9,9 @@ JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowser
 	if(!bEnable_Disable)
 	{
 
-		// system("osascript openBrowser.scpt");
+			system("osascript Disable_Control.scpt");
+			system("osascript Disable_Command.scpt");		
 		
-		system("osascript Disable_Control.scpt");
-		//system("osascript openBrowser.scpt");
-		system("osascript Disable_Command.scpt");
 		
 		
 
@@ -47,6 +45,10 @@ JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowser
 
 		system("osascript openBrowser.scpt");
 
+	} else {
+	
+		system ("osascript closeBrowser.scpt");
+	
 	}
 
 }
