@@ -1,64 +1,52 @@
   UID   PID  PPID   C     STIME TTY           TIME CMD
-    0     1     0   0   0:00.42 ??         0:00.59 /sbin/launchd
-    0    10     1   0   0:00.77 ??         0:00.86 /usr/libexec/kextd
-    0    11     1   0   0:00.21 ??         0:00.34 /usr/sbin/notifyd
-    0    12     1   0   0:00.35 ??         0:00.82 /usr/sbin/syslogd
-    0    14     1   0   0:00.73 ??         0:01.11 /usr/sbin/ntpd -n -g -p /var/run/ntpd.pid -f /var/db/ntp.drift
-    0    15     1   0   0:09.49 ??         0:09.50 /usr/sbin/update
-    0    18     1   0   0:00.16 ??         0:00.35 /usr/sbin/securityd -i
-    0    20     1   0   0:19.87 ??         0:49.50 /System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Support/mds
-   65    21     1   0   0:00.16 ??         0:00.26 /usr/sbin/mDNSResponder -launchd
-  501    22     1   0   0:00.41 ??         0:00.98 /System/Library/CoreServices/loginwindow.app/Contents/MacOS/loginwindow console
-    0    23     1   0   0:00.02 ??         0:00.02 /usr/sbin/KernelEventAgent
-    0    25     1   0   0:00.01 ??         0:00.01 /usr/libexec/hidd
-    0    26     1   0   0:01.33 ??         0:01.92 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Support/fseventsd
-    0    28     1   0   0:00.01 ??         0:00.01 /sbin/dynamic_pager -F /private/var/vm/swapfile
-    0    31     1   0   0:00.59 ??         0:01.59 /usr/sbin/diskarbitrationd
-    0    32     1   0   0:01.01 ??         0:01.85 /usr/sbin/DirectoryService
-    0    34     1   0   0:01.40 ??         0:02.47 /usr/sbin/configd
-    0    37     1   0   0:00.01 ??         0:00.01 autofsd
-    0    39     1   0   0:00.37 ??         0:00.56 /usr/libexec/ApplicationFirewall/socketfilterfw
-    1    41     1   0   0:01.90 ??         0:03.98 /usr/sbin/distnoted
-    0    44     1   0   0:02.96 ??         0:05.53 /System/Library/CoreServices/coreservicesd
-    0    45     1   0   0:00.15 ??         0:00.25 /usr/sbin/blued
-   88    49     1   0   2:12.06 ??         4:56.82 /System/Library/Frameworks/ApplicationServices.framework/Frameworks/CoreGraphics.framework/Resources/WindowServer -daemon
-    0    62    14   0   0:00.03 ??         0:00.05 /usr/sbin/ntpd -n -g -p /var/run/ntpd.pid -f /var/db/ntp.drift
-  501    66     1   0   0:00.71 ??         0:01.00 /sbin/launchd
-  501    80    66   0   0:00.07 ??         0:00.17 /System/Library/CoreServices/AirPort Base Station Agent.app/Contents/MacOS/AirPort Base Station Agent -launchd -allowquit
-  501    84    66   0   0:00.15 ??         0:00.44 /System/Library/CoreServices/Spotlight.app/Contents/MacOS/Spotlight
-  501    85    66   0   0:00.17 ??         0:00.26 /usr/sbin/UserEventAgent -l Aqua
-  501    87    66   0   0:04.70 ??         0:17.32 /System/Library/CoreServices/Dock.app/Contents/MacOS/Dock -psn_0_32776
-  501    88    66   0   0:03.25 ??         0:06.24 /System/Library/Frameworks/ApplicationServices.framework/Frameworks/ATS.framework/Support/ATSServer
-  501    89    66   0   0:00.00 ??         0:00.00 /usr/sbin/pboard
-    0    90     1   0   0:00.75 ??         0:00.98 /usr/sbin/coreaudiod
-  501    91    66   0   0:02.90 ??         0:05.66 /System/Library/CoreServices/SystemUIServer.app/Contents/MacOS/SystemUIServer -psn_0_36873
-  501    92    66   0   0:21.53 ??         1:20.49 /System/Library/CoreServices/Finder.app/Contents/MacOS/Finder -psn_0_40970
-  501   123    66   0   0:05.69 ??         0:29.91 /Applications/Utilities/Terminal.app/Contents/MacOS/Terminal -psn_0_73746
-  501   323    66   0   0:00.59 ??         0:03.31 /Applications/AppleScript/Script Editor.app/Contents/MacOS/Script Editor -psn_0_118813
-  501   351    66   0   0:00.06 ??         0:00.16 /System/Library/Services/AppleSpell.service/Contents/MacOS/AppleSpell -psn_0_155686
-  501   393     1   0   0:11.38 ??         0:33.60 /System/Library/PrivateFrameworks/DiskImages.framework/Resources/diskimages-helper -uuid 7D05E653-F156-4BEC-88E8-DB4E2F8E588D -post-exec
-    0   406     1   0   0:00.68 ??         0:01.30 /System/Library/PrivateFrameworks/DiskImages.framework/Resources/hdiejectd
-  501   441     1   0   0:11.30 ??         0:40.42 /System/Library/PrivateFrameworks/DiskImages.framework/Resources/diskimages-helper -uuid 061BBDB1-F824-4DE0-BFCB-6BCF4AE51E23 -post-exec
-  501   702    66   0   0:00.12 ??         0:00.33 /Applications/Preview.app/Contents/MacOS/Preview -psn_0_303178
-  501   794     1   0   0:07.97 ??         0:22.38 /System/Library/PrivateFrameworks/DiskImages.framework/Resources/diskimages-helper -uuid 63219174-EC35-49CD-BB37-2E927033E722 -post-exec
-  501   795   794   0   0:01.26 ??         0:03.68 /System/Library/PrivateFrameworks/DiskImages.framework/Versions/A/Resources/DiskImages UI Agent.app/Contents/MacOS/DiskImages UI Agent
-  501   812    66   0   0:01.79 ??         0:05.46 /Developer/Applications/Dashcode.app/Contents/MacOS/Dashcode -psn_0_356439
-  501   842     1   0   0:06.88 ??         0:14.03 /System/Library/PrivateFrameworks/DiskImages.framework/Resources/diskimages-helper -uuid 89F585E0-FC0D-4CC6-81BF-92CB743098E5 -post-exec
-  501   868     1   0   0:06.64 ??         0:13.14 /System/Library/PrivateFrameworks/DiskImages.framework/Resources/diskimages-helper -uuid 38CBADCC-C4C1-4B69-8DAD-ED9F6525BEBC -post-exec
-  501   885     1   0   0:07.30 ??         0:14.90 /System/Library/PrivateFrameworks/DiskImages.framework/Resources/diskimages-helper -uuid 1C612A34-3CB6-463C-8E7C-23A4CB882B5A -post-exec
-  501  1181     1   0   0:05.61 ??         0:10.96 /System/Library/PrivateFrameworks/DiskImages.framework/Resources/diskimages-helper -uuid D66F716A-33A2-4DDF-9D3F-8060210A4864 -post-exec
-  501  7103    66   0   0:00.01 ??         0:00.02 /System/Library/CoreServices/rcd.app/Contents/MacOS/rcd
-  501  7830    66   0   0:25.33 ??         2:33.13 /Applications/Adobe Flex Builder 3/Flex Builder.app/Contents/MacOS/FlexBuilder -psn_0_835788
-  501  8037    66   0   0:00.45 ??         0:03.13 /Developer/Applications/Xcode.app/Contents/MacOS/Xcode -psn_0_954601
-  501  8578    66   0   0:00.14 ??         0:00.54 /Applications/Address Book.app/Contents/MacOS/Address Book -psn_0_1216809
-  501  9054    66   0   0:00.02 ??         0:00.03 /bin/sh /usr/X11/bin/startx
-  501  9157  9054   0   0:00.01 ??         0:00.01 xinit /usr/X11/lib/X11/xinit/xinitrc -- /usr/X11/bin/X :0 -nolisten tcp -auth /Users/mcgrawhillctb/.serverauth.9054
-  501  9158  9157   0   0:03.46 ??         0:05.80 /usr/X11/bin/X :0 -nolisten tcp -auth /Users/mcgrawhillctb/.serverauth.9054
-  501  9159  9157   0   0:00.02 ??         0:00.04 /usr/bin/quartz-wm
-  501  9398    66   0   0:00.25 ??         0:02.99 /System/Library/CoreServices/NetAuthAgent.app/Contents/MacOS/NetAuthAgent
-  501  9406     1   0   0:00.04 ??         0:00.18 /System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker MDSImporterWorker com.apple.Spotlight.ImporterWorker.501
-    0  7180   123   0   0:00.01 ttys000    0:00.01 login -pfq mcgrawhillctb /bin/bash
-  501  7181  7180   0   0:00.19 ttys000    0:00.39 -bash
-  501  9407  7181   0   0:00.03 ttys000    0:00.11 /usr/bin/java -classpath .:com.ctb.tdc.bootstrap.processwrapper.LockdownBrowserWrapper com.ctb.tdc.bootstrap.processwrapper.Main
-  501  9408  9407   0   0:00.00 ttys000    0:00.01 sh processcheck.sh
-    0  9409  9408   0   0:00.00 ttys000    0:00.00 ps -aef
+    0     1     0   0   0:00.18 ??         0:00.24 /sbin/launchd
+    0    10     1   0   0:00.68 ??         0:00.76 /usr/libexec/kextd
+    0    11     1   0   0:00.07 ??         0:00.11 /usr/sbin/notifyd
+    0    12     1   0   0:00.08 ??         0:00.16 /usr/sbin/syslogd
+    0    14     1   0   0:00.42 ??         0:00.66 /usr/sbin/ntpd -n -g -p /var/run/ntpd.pid -f /var/db/ntp.drift
+    0    15     1   0   0:02.89 ??         0:02.90 /usr/sbin/update
+    0    18     1   0   0:00.08 ??         0:00.17 /usr/sbin/securityd -i
+    0    20     1   0   0:03.40 ??         0:07.06 /System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Support/mds
+   65    21     1   0   0:00.04 ??         0:00.07 /usr/sbin/mDNSResponder -launchd
+  501    22     1   0   0:00.27 ??         0:01.46 /System/Library/CoreServices/loginwindow.app/Contents/MacOS/loginwindow console
+    0    23     1   0   0:00.00 ??         0:00.00 /usr/sbin/KernelEventAgent
+    0    25     1   0   0:00.00 ??         0:00.01 /usr/libexec/hidd
+    0    26     1   0   0:00.30 ??         0:00.40 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Support/fseventsd
+    0    28     1   0   0:00.00 ??         0:00.00 /sbin/dynamic_pager -F /private/var/vm/swapfile
+    0    31     1   0   0:00.10 ??         0:00.24 /usr/sbin/diskarbitrationd
+    0    32     1   0   0:00.46 ??         0:00.89 /usr/sbin/DirectoryService
+    0    34     1   0   0:01.88 ??         0:03.13 /usr/sbin/configd
+    0    37     1   0   0:00.00 ??         0:00.01 autofsd
+    0    39     1   0   0:00.18 ??         0:00.32 /usr/libexec/ApplicationFirewall/socketfilterfw
+    1    41     1   0   0:00.45 ??         0:00.95 /usr/sbin/distnoted
+    0    44     1   0   0:00.87 ??         0:01.72 /System/Library/CoreServices/coreservicesd
+    0    45     1   0   0:00.12 ??         0:00.20 /usr/sbin/blued
+   88    50     1   0   0:29.75 ??         1:02.50 /System/Library/Frameworks/ApplicationServices.framework/Frameworks/CoreGraphics.framework/Resources/WindowServer -daemon
+  501    63     1   0   0:00.14 ??         0:00.20 /sbin/launchd
+  501    77    63   0   0:00.02 ??         0:00.06 /System/Library/CoreServices/AirPort Base Station Agent.app/Contents/MacOS/AirPort Base Station Agent -launchd -allowquit
+  501    81    63   0   0:00.04 ??         0:00.13 /System/Library/CoreServices/Spotlight.app/Contents/MacOS/Spotlight
+  501    82    63   0   0:00.13 ??         0:00.20 /usr/sbin/UserEventAgent -l Aqua
+  501    83    63   0   0:00.61 ??         0:02.65 /System/Library/CoreServices/Dock.app/Contents/MacOS/Dock -psn_0_24582
+    0    84     1   0   0:01.32 ??         0:01.68 /usr/sbin/coreaudiod
+  501    85    63   0   0:00.77 ??         0:01.44 /System/Library/Frameworks/ApplicationServices.framework/Frameworks/ATS.framework/Support/ATSServer
+  501    86    63   0   0:01.60 ??         0:03.78 /System/Library/CoreServices/SystemUIServer.app/Contents/MacOS/SystemUIServer -psn_0_36873
+  501    87    63   0   0:08.98 ??         0:54.68 /System/Library/CoreServices/Finder.app/Contents/MacOS/Finder -psn_0_40970
+  501    88    63   0   0:00.00 ??         0:00.00 /usr/sbin/pboard
+    0    95    14   0   0:00.02 ??         0:00.03 /usr/sbin/ntpd -n -g -p /var/run/ntpd.pid -f /var/db/ntp.drift
+  501   107    63   0   0:06.38 ??         0:42.58 /Applications/Utilities/Terminal.app/Contents/MacOS/Terminal -psn_0_69649
+  501   167    63   0   0:00.24 ??         0:01.11 /Applications/TextEdit.app/Contents/MacOS/TextEdit -psn_0_77843
+  501   168    63   0   0:00.01 ??         0:00.03 /System/Library/Services/AppleSpell.service/Contents/MacOS/AppleSpell -psn_0_81940
+  501   174    63   0   0:00.30 ??         0:01.51 /Applications/AppleScript/Script Editor.app/Contents/MacOS/Script Editor -psn_0_90134
+  501   199    63   0   0:00.99 ??         0:08.50 /Developer/Applications/Xcode.app/Contents/MacOS/Xcode -psn_0_122910
+  501   491    63   0   0:00.84 ??         0:02.97 /Applications/Preview.app/Contents/MacOS/Preview -psn_0_266305
+  501   496    63   0   0:00.12 ??         0:00.30 /Applications/Image Capture.app/Contents/MacOS/Image Capture -psn_0_278596
+  501   498    63   0   0:00.19 ??         0:00.57 /System/Library/Image Capture/Support/Image Capture Extension.app/Contents/MacOS/Image Capture Extension -psn_0_282693
+  501   528    63   0   0:00.21 ??         0:01.00 /Applications/Safari.app/Contents/MacOS/Safari -psn_0_319566
+  501   775     1   0   0:00.03 ??         0:00.17 /System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker MDSImporterWorker com.apple.Spotlight.ImporterWorker.501
+    0   378   107   0   0:00.01 ttys000    0:00.01 login -pfq mcgrawhillctb /bin/bash
+  501   379   378   0   0:00.07 ttys000    0:00.27 -bash
+  501   776   379   0   0:00.03 ttys000    0:00.11 /usr/bin/java -cp .:com.ctb.tdc.bootstrap.processwrapper.LockdownBrowserWrapper:com.ctb.tdc.bootstrap.processwrapper.MacDisplayForbiddenprocess com.ctb.tdc.bootstrap.processwrapper.Main
+  501   777   776   0   0:00.00 ttys000    0:00.01 sh processcheck.sh
+    0   778   777   0   0:00.00 ttys000    0:00.00 ps -aef
+    0   428   107   0   0:00.01 ttys001    0:00.01 login -pfq mcgrawhillctb /bin/bash
+  501   429   428   0   0:00.04 ttys001    0:00.08 -bash
