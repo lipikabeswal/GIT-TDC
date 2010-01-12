@@ -3,7 +3,7 @@
 			 type="http"
 	         queuerequests="true" 
 	         querytype="post"
-	         timeout="10000" 
+	         timeout="30000" 
 	         ondata="gReadableText.getMp3()" />
  
     <text visible="false" width="0" height="0"
@@ -20,7 +20,7 @@
 	    <attribute name="TEXT_PARAM" type="string" value="text" />
 	    <attribute name="primed" type="boolean" value="false" />
 		<attribute name="dTimeout" value="$once{new LzDelegate(this, 'timedout')}" />
-		<attribute name="TIMEOUT_INTERVAL" type="number" value="10000" />
+		<attribute name="TIMEOUT_INTERVAL" type="number" value="30000" />
 		<attribute name="readingScratchpad" type="boolean" value="false" />
 		<!-- TTS CR -->
 		<attribute name="currentText" type="string" value="" />

@@ -6,7 +6,9 @@
     showFlexChrome="false" alwaysInFront="true" invoke="handleOnInvoke(event)"
     showGripper="false"
     showStatusBar="false"
-    showTitleBar="false">
+    showTitleBar="false"
+    deactivate="forcerestore(event)"
+    displayStateChange="forcerestore(event)">
 
 	<mx:HTML name="tdccanvas" id="tdccanvas" width="100%" height="100%" location="http://127.0.0.1:12345/login.html"/>
     <mx:Script>
@@ -31,6 +33,20 @@
             	stage.nativeWindow.maximize();
             	//tdccanvas.width = stage.fullScreenWidth;
             	//tdccanvas.height = stage.fullScreenHeight;
+            	stage.nativeWindow.alwaysInFront=false;
+            	stage.nativeWindow.alwaysInFront=true;
+            	stage.nativeWindow.orderToFront();
+            	stage.nativeWindow.activate();
+            	stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+            }
+            
+            private function forcerestore(evt:Event):void
+            {
+            	stage.displayState = StageDisplayState.NORMAL;
+            	stage.nativeWindow.alwaysInFront=false;
+            	stage.nativeWindow.alwaysInFront=true;
+            	stage.nativeWindow.orderToFront();
+            	stage.nativeWindow.activate();
             	stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
             }
             
