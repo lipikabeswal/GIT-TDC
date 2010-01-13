@@ -176,7 +176,7 @@
 
 		<method name="startRequestor">
 			//Debug.write("startRequestor...");
-			LzTimer.resetTimer(dRequestor, 30000);
+			LzTimer.resetTimer(dRequestor, 10000);
 		</method>
 
 		<method name="stopRequestor">
