@@ -382,12 +382,7 @@ int DLL_EXP_IMP WINAPI CTRLALTDEL_Enable_Disable(BOOL bEnableDisable)
 JNIEXPORT jboolean JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowserWrapper_Kill_1Task_1Mgr
   (JNIEnv *env, jclass obj)
 {
-	while (!finished) { 
-		CheckForTaskMgr();
-		Sleep(500);
-	}
-	return FALSE;
-	
+	return CheckForTaskMgr();
 }
 /*****************************************************************
  * Check for TaskMgr.exe *
@@ -432,6 +427,7 @@ DLL_EXP_IMP BOOL WINAPI CheckForTaskMgr()
 						if ((0 == strcmp(szProcessName, "taskmgr.exe")) || (0 == strcmp(szProcessName, "Taskmgr.exe")))
 						{
 							system("taskkill /F /IM taskmgr.exe /T");
+							system("taskkill /F /IM Taskmgr.exe /T");
 
 							//WinExec("taskkill /IM taskmgr.exe",SW_HIDE);
 							return 1;
