@@ -4,6 +4,7 @@
 
     <node id="gCommunicator">
     	<attribute name="error" type="boolean" value="false" />
+    	<attribute name="firstRequestDone" type="boolean" value="false" />
       	
       	<method name="updateLDB">
       		LzBrowser.loadJS('updateLDB()');
@@ -94,7 +95,7 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 		</method>
 
 		<method name="endSubtest" args="raw, max, exit, time, unscored">
-Debug.write("gCommunicator.endSubtest( " + raw + " , " + max + + " , " + exit + " , " + time + " , " + unscored + " ) ");
+//Debug.write("gCommunicator.endSubtest( " + raw + " , " + max + + " , " + exit + " , " + time + " , " + unscored + " ) ");
 			if(!error){
 				gRequest.endSubtest(raw,
                 					max,
@@ -104,24 +105,53 @@ Debug.write("gCommunicator.endSubtest( " + raw + " , " + max + + " , " + exit + 
 			}
 		</method>
 
-  		<method name="finishCall" args="result" >
+  		<method name="finishCall" args="result,ds" >
+  		//Debug.write("finishCall in communicator...:", result," : ", ds);
   			if(!error){
-	  			if(!checkShowError(result)){
+	  			if(!checkShowError(result,ds)){
 	  				gController.setAttribute("communicatorResponse", result);
 	  			}
 	  		}
   		</method>
   		
   		<!-- all servlet errors go through this method -->
-  		<method name="checkShowError" args="xml"><![CDATA[
-//Debug.write("gCommunicator.checkShowError");
+  		<method name="checkShowError" args="xml,ds"><![CDATA[
+//Debug.write("gCommunicator.checkShowError",ds.name);
 //printBigString(xml);
 			if(!error){
    				var node = LzDataNode.stringToLzData(xml);
   				if (node && node.nodeName == 'ERROR'){
-  					setAttribute('error', true);
-  					showError(xml);
+					if(firstRequestDone && gController.isWaitPopupOpen == false) {
+//Debug.write("checkShowError in if : ",node);
+	  					setAttribute('error', true);
+						gController.hideWaitPopup();
+						gController.unlockUI();
+	  					showError(xml);
+					}
+					else {
+//Debug.write("checkShowError in else : ",node);
+						if(ds != null) {
+							gRequest.sendRequest(ds);
+						}
+						if(!firstRequestDone) {
+							gController.showWaitPopupFor30Sec();
+							gController.stopHeartbeat();
+							gController.freezeUI();
+						}
+						firstRequestDone = true;
+						return true;
+					}
   				}
+				else {
+//Debug.write("checkShowError in outer else,isWaitPopupOpen : ",ds.name,gController.isWaitPopupOpen);
+					if(gController.isWaitPopupOpen) {
+//Debug.write("in outer else ",gController.isWaitPopupOpen);
+						firstRequestDone = false;
+						gController.hideWaitPopup();
+						gController.sendHeartbeat();
+						gController.unlockUI();
+					}
+				}
   			}
   			return error;
   		]]></method>
@@ -130,8 +160,9 @@ Debug.write("gCommunicator.endSubtest( " + raw + " , " + max + + " , " + exit + 
   			gController.showError(xml);
   		</method>
   		
-  		<method name="finishHeartbeatCall" args="result" >
-  			if(!checkShowError(result)){
+  		<method name="finishHeartbeatCall" args="result,ds" >
+  		//Debug.write("finishHeartbeatCall", ds);
+  			if(!checkShowError(result,ds)){
   				gController.setAttribute("heartbeatResult", result);
   			}
   		</method>

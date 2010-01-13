@@ -26,7 +26,12 @@
 		<attribute name="currentText" type="string" value="" />
 		<attribute name="SPEED_PARAM" type="string" value="speedValue" />
 	    <attribute name="isplaying" type="boolean" value="false" />
-	    
+
+		<!-- true, when wait popup is shown and second tts call is made  -->	
+	    <attribute name="speechRequestSent" type="boolean" value="false" />
+
+		<attribute name="dRequestor" value="$once{new LzDelegate(this, 'requestor')}" />  
+
         <method name="init">
             super.init();
         </method>
@@ -75,7 +80,19 @@
 		
 		<method name="timedout">
 	        LzTimer.removeTimer( dTimeout );
-			gCommunicator.finishCall(gXmlHelper.getSpeechErrorXml());
+			//For ISTEP CR	
+			if(gCommunicator.firstRequestDone == false) {
+				
+				gCommunicator.firstRequestDone = true;
+				gReadableText.speechRequestSent = true;
+				gController.showWaitPopupFor30Sec();
+				gController.stopHeartbeat();
+				gReadableText.getMp3();
+				gReadableText.startRequestor();	
+			}
+			else {
+				gCommunicator.finishCall(gXmlHelper.getSpeechErrorXml());
+			}
 		</method>
 		
         <method name="doRead" args="txt"><![CDATA[
@@ -150,11 +167,33 @@
         		audioPlayer.stop();
         	}
         ]]></method>
-        
+
+		<method name="requestor">
+			//Debug.write("requestor...");
+			getMp3();
+			startRequestor();
+		</method>
+
+		<method name="startRequestor">
+			//Debug.write("startRequestor...");
+			LzTimer.resetTimer(dRequestor, 10000);
+		</method>
+
+		<method name="stopRequestor">
+			LzTimer.removeTimer(dRequestor);
+		</method>
+		        
         <view name="audioPlayer" visible="false">
         	<handler name="onload">
         		gReadableText.isplaying = true; // TTS CR:when mp3 is loaded and ready to play
-        		//Debug.write("audioPlayer onload..");
+ 
+				if(gController.isWaitPopupOpen) {
+					gReadableText.speechRequestSent = false;
+					gCommunicator.firstRequestDone = false;
+					gController.hideWaitPopup();
+					gController.unlockUI();
+				}
+
         		if(!gCommunicator.error){  // if we get an onload and there is no error
 	        		LzTimer.removeTimer( parent.dTimeout );
 	        		if(parent.primed){
@@ -166,7 +205,7 @@
 	        	}
         	</handler>
 
-        	<!-- TTS CR: when play method is called, set isplaying true -->
+			<!-- TTS CR: when play method is called, set isplaying true -->
 			<handler name="onplay" args="f">
 				//Debug.write("audioPlayer onplay..", f);
 				gReadableText.isplaying = true;

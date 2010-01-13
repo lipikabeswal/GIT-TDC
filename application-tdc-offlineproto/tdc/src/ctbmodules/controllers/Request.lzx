@@ -6,8 +6,8 @@
 	         queuerequests="true" 
 	         querytype="post"
 	         timeout="30000" 
-	         onerror="gRequest.requestError()" 
-	         ontimeout="gRequest.requestTimeout()" 
+	         onerror="gRequest.requestError(this)" 
+	         ontimeout="gRequest.requestTimeout(this)" 
 	         ondata="gRequest._processResponse(this)" />
 	         
 	<dataset name="heartbeatDs" 
@@ -15,8 +15,8 @@
 	         queuerequests="true" 
 	         querytype="post"
 	         timeout="30000" 
-	         onerror="gRequest._returnHeartbeatError()" 
-	         ontimeout="gRequest._returnHeartbeatError()" 
+	         onerror="gRequest._returnHeartbeatError(this)" 
+	         ontimeout="gRequest._returnHeartbeatError(this)" 
 	         ondata="gRequest._heartbeatReturn(this)" />
 	         
 	<dataset name="contentDs" 
@@ -24,8 +24,8 @@
 	         queuerequests="true" 
 	         querytype="post"
 	         timeout="120000" 
-	         onerror="gRequest.requestError()" 
-	         ontimeout="gRequest.requestTimeout()" 
+	         onerror="gRequest.requestError(this)" 
+	         ontimeout="gRequest.requestTimeout(this)" 
 	         ondata="gRequest._processResponse(this)" />
 
     <node id="gRequest">
@@ -84,6 +84,7 @@
 //Debug.write("heartbeat saveXml: " + getTimer());
 //printBigString(xml);
 			_doRequest(heartbeatDs, SAVE_METHOD, xml);
+			//gController.setWaitPopupToShow();
 		</method>
 
 		<method name="save" args="params">
@@ -153,7 +154,7 @@
 //Debug.write("process response:")
 //Debug.write("timestamp1: " + timestamp1);
 //Debug.write("timestamp2: " + timestamp2);
-			gCommunicator.finishCall(datasetText);
+			gCommunicator.finishCall(datasetText,ds);
 		</method>
 		
  	   	<method name="_processDownload" args="ds">
@@ -169,36 +170,36 @@
 		</method>
 		
 		<method name="_heartbeatReturn" args="ds" >
-//Debug.write("_heartbeatReturn: " + ds);
-			gCommunicator.finishHeartbeatCall(getDatasetText(ds));
+Debug.write("_heartbeatReturn: " + ds);
+			gCommunicator.finishHeartbeatCall(getDatasetText(ds),ds);
 		</method>
 		
-		<method name="requestTimeout">
-//Debug.write("request timeout");
-			_returnError();
+		<method name="requestTimeout" args="ds">
+Debug.write("request timeout : ", ds);
+			_returnError(ds);
 		</method>
 		
-		<method name="requestError">
-//Debug.write("request error");
-			_returnError();
+		<method name="requestError" args="ds">
+Debug.write("request error : ", ds);
+			_returnError(ds);
 		</method>
-		<method name="_returnError">
-//Debug.write("_returnError");
+		<method name="_returnError" args="ds">
+Debug.write("_returnError : ", ds);
 			if(gScreens.isOnFeedbackScreen()){
-				gCommunicator.finishCall(gXmlHelper.getFeedbackErrorXml());
+				gCommunicator.finishCall(gXmlHelper.getFeedbackErrorXml(),ds);
 			}
 			else{
-				gCommunicator.finishCall(gXmlHelper.getErrorXml());
+				gCommunicator.finishCall(gXmlHelper.getErrorXml(),ds);
 			}
 		</method>
 		
-		<method name="_returnHeartbeatError">
-//Debug.write("_heartbeatReturnError");
+		<method name="_returnHeartbeatError" args="ds">
+Debug.write("_heartbeatReturnError : ", ds);
 			if(gScreens.isOnFeedbackScreen()){
-				gCommunicator.finishHeartbeatCall(gXmlHelper.getFeedbackErrorXml());
+				gCommunicator.finishHeartbeatCall(gXmlHelper.getFeedbackErrorXml(),ds);
 			}
 			else{
-				gCommunicator.finishHeartbeatCall(gXmlHelper.getErrorXml());
+				gCommunicator.finishHeartbeatCall(gXmlHelper.getErrorXml(),ds);
 			}
 		</method>
 		
@@ -273,6 +274,11 @@
 		
  	   	<method name="_finishDownload" args="result">
     	 	gCommunicator.finishDownload(result);
+		</method>
+
+ 	   	<method name="sendRequest" args="ds">
+ 	   	Debug.write("sendRequest : ", ds.name,ds);
+    	 	ds.doRequest();
 		</method>
 		
 	</node>

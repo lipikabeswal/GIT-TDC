@@ -199,8 +199,8 @@
 	         queuerequests="true" 
 	         querytype="post"
 	         timeout="120000" 
-	         onerror="gCommunicator.checkShowError(gXmlHelper.getContentErrorXml())" 
-	         ontimeout="gCommunicator.checkShowError(gXmlHelper.getContentErrorXml())" 
+	         onerror="gCommunicator.checkShowError(gXmlHelper.getContentErrorXml(),this)" 
+	         ontimeout="gCommunicator.checkShowError(gXmlHelper.getContentErrorXml(),this)" 
 	         ondata="gController.processItemResponse()"/>
 
     <dataset name="dsstudentdata" src="xmls/studentData.xml"/>
@@ -397,6 +397,13 @@
 		<!-- True, if login response contains tts speed value-->
 		<attribute name="hasTTSspeed" type="boolean" value="false"/>	
 
+		<!-- called to hide the wait popup, if open-->
+		<attribute name="dHideWaitPopup"
+                   value="$once{ new LzDelegate( this, 'hideWaitPopup' ) }"/>
+		
+		<!-- True, if login response contains tts speed value-->
+		<attribute name="isWaitPopupOpen" type="boolean" value="false"/>
+		
 		<!--
             ============================================================
             Datapointers
@@ -2238,7 +2245,7 @@
 
         <method name="unlockUI">
 		<![CDATA[
-		//Debug.write("unlockUI");
+		Debug.write("unlockUI");
 			if(doUnlockUI){
 	            --uisemaphore;
 	
@@ -2418,6 +2425,9 @@
             gEnlargePopup.shrink();
             gFootNotePopup.hide();
             gRationalePopup.hide();
+            
+			//for ISTEP CR
+            gPleaseWaitPopup.hide();
         </method>
 
         <method name="movedYouAreHere">
@@ -3109,6 +3119,37 @@
 					'AB','AB','BA','AB','BA','BA','BA','BA','AB','AB','AB',
 					'BA','AB','AB','BA','AB','BA','BA'];			
 		]]></method>
+
+		<method name="showWaitPopup">
+			this.isWaitPopupOpen = true;	
+			gPleaseWaitPopup.show();
+		</method>
+
+		<method name="hideWaitPopup"><![CDATA[
+//Debug.write("hideWaitPopup :");
+			this.isWaitPopupOpen = false;	
+			gPleaseWaitPopup.hide();
+			LzTimer.removeTimer(dHideWaitPopup);
+			gReadableText.stopRequestor();
+			gController.unlockUI();
+			
+			if(gCommunicator.firstRequestDone) {
+				if(gReadableText.speechRequestSent) {
+					showError(gXmlHelper.getSpeechErrorXml());
+				}
+				else {
+					showError(gXmlHelper.getErrorXml());
+				}
+			}
+		]]></method>
+
+		<method name="showWaitPopupFor30Sec">
+			if(!isWaitPopupOpen) {
+				showWaitPopup();
+				LzTimer.resetTimer( dHideWaitPopup, 30000 );
+			}
+		</method>
+
     </node>
 
 </library>
