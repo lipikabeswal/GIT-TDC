@@ -34,6 +34,7 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
+import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.log4j.Logger;
 import org.jdom.Element;
 
@@ -655,9 +656,12 @@ public class ServletUtils {
 		NameValuePair[] params = { new NameValuePair(METHOD_PARAM, method),
 				new NameValuePair(XML_PARAM, xml) };
 		post.setRequestBody(params);
-
+		
 //		send request to TMS
 		try {
+			Protocol myhttps = new Protocol("https", new com.ctb.tdc.web.utils.EasySSLProtocolSocketFactory(), 443);
+			Protocol.registerProtocol("https", new Protocol("https", new com.ctb.tdc.web.utils.EasySSLProtocolSocketFactory(),443));
+			
 			HttpClientParams clientParams = new HttpClientParams();
 			clientParams.setConnectionManagerTimeout(10 * SECOND); // timeout in 30 seconds
 			HttpClient client = new HttpClient(clientParams);
@@ -719,6 +723,9 @@ public class ServletUtils {
 
 //		send request to TMS
 		try {
+			Protocol myhttps = new Protocol("https", new com.ctb.tdc.web.utils.EasySSLProtocolSocketFactory(), 443);
+			Protocol.registerProtocol("https", new Protocol("https", new com.ctb.tdc.web.utils.EasySSLProtocolSocketFactory(),443));
+			
 			HttpClientParams clientParams = new HttpClientParams();
 			clientParams.setConnectionManagerTimeout(30 * SECOND); // timeout in 30 seconds
 			HttpClient client = new HttpClient(clientParams);

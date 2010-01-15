@@ -23,6 +23,7 @@ import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.httpclient.params.HttpClientParams;
+import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.log4j.Logger;
 
 import com.ctb.tdc.web.dto.StateVO;
@@ -123,7 +124,7 @@ public class PersistenceServlet extends HttpServlet {
     private void handleEvent(HttpServletResponse response, String method, String xml) throws IOException {
         String result = ServletUtils.OK;
         boolean validSettings = ServletUtils.validateServletSettings();
-        
+                
         // call method to perform an action only if servlet settings is valid
         if (! validSettings)
             result = ServletUtils.getServletSettingsErrorMessage();
