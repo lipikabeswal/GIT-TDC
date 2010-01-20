@@ -1,6 +1,27 @@
 <library>
 
 	<include href="ExitButton.lzx"/>
+	
+	<dataset name="goodbyeDs" 
+			 type="http"
+	         queuerequests="true" 
+	         querytype="get"
+	         timeout="10000" 
+	         onerror="exitRequest._dosomething(this)" 
+	         ontimeout="exitRequest._dosomething(this)" 
+	         ondata="exitRequest._dosomething(this)" />
+	         
+	<node id="errorExitRequest">
+		<method id="_dosomething" name="_dosomething" args="ds" >
+		</method>
+		
+		<method id="exit" name="exit">
+        	Debug.write("On Goodbye Screen");
+	    	var getUrl = LzBrowser.getInitArg( 'servletUrl' ) + '/UtilityServlet.do?method=exit';
+			goodbyeDs.setSrc(getUrl);
+			goodbyeDs.doRequest();
+		</method>
+	</node>
 
     <class name="ErrorScreen">
 		<attribute name="DEFAULT_ERROR_HEADER"  type="string" value="There is a problem between the server and this computer." />
@@ -90,7 +111,7 @@ Debug.write("xml null - show default error");
 		    <ExitButton align="right">
 				<method name="exit" event="onclick">
 					gScreens.clicked();
-					gCommunicator.closeBrowser();
+					errorExitRequest.exit();
 				</method>
 		    </ExitButton>
 	    </view>
