@@ -25,7 +25,7 @@
 
     <class name="ErrorScreen">
 		<attribute name="DEFAULT_ERROR_HEADER"  type="string" value="There is a problem between the server and this computer." />
-		<attribute name="DEFAULT_ERROR_MESSAGE" type="string" value="Ask the person in charge of this test to close this window. Log in again after at least two minutes, and you will return to your last saved answer." />
+		<attribute name="DEFAULT_ERROR_MESSAGE" type="string" value="Ask the person in charge of this test to close this window. Log in again in three minutes, and you will return to your last saved answer." />
 		<attribute name="DEFAULT_ERROR_CODE"    type="string" value="TDC556" />
 		<attribute name="FEEDBACK_ERROR_HEADER"  type="string" value="There has been a break in service." />
 		<attribute name="FEEDBACK_ERROR_MESSAGE" type="string" value="We have saved your responses and closed your test. You cannot log into this test session again. Talk to your proctor about getting your scores." />
