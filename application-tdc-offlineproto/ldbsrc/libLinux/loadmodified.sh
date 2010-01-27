@@ -1,2 +1,0 @@
-xmodmap xmodmap_modified
-
