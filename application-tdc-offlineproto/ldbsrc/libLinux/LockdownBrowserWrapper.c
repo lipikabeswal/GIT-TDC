@@ -13,7 +13,7 @@
 
 	void writeFile (void);
 
-	char* hotKeys[] = {"F1","Alt_L","Alt_R","F5","F10","F12","Print Sys_Req","F3","Escape","Print Execute"};
+	char* hotKeys[] = {"F1","Alt_L","Alt_R","F5","F10","F12","Print Sys_Req","F3","Escape","Print Execute","Print","Sys_Req","Execute"};
 	char array2[400][400];
 
 	static const char filename1[] = "xmodmap_original";
@@ -32,10 +32,14 @@ JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowser
 			xmod();
 			system("xmodmap xmodmap_modified");
 			system("xmodmap -e \"pointer = 1 9 8 7 6 5 4 3 2\"");
-			system("xmodmap -e \"keycode 0x09 = A\"");
-			system("killall -9 gnome-panel-screenshot");
-			system("killall -9 gnome-screenshot");
+			system("xmodmap -e \"keycode 0x09 = \"");
+			system("xmodmap -e \"keycode 107 = \"");
+			system("xmodmap -e \"keycode 218 = \"");
+			system("killall -q -9 gnome-panel-screenshot");
+			system("killall -q -9 gnome-screenshot");
+			system("killall -q -9 evolution-exchange-storage");
 			system("sh processcheck.sh");
+			system("xset -r 107");
 		}
 	else
 		{
@@ -45,6 +49,8 @@ JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowser
 			system("xmodmap xmodmap_original");
 			system("xmodmap -e \"pointer = 1 2 3 4 5 6 7 8 9\"");
 			system("xmodmap -e \"keycode 0x09 = Escape\"");
+			system("xmodmap -e \"keycode 107 = Print Sys_Req\"");
+			system("xmodmap -e \"keycode 218 = Print\"");
 		}
 }
 
@@ -62,8 +68,8 @@ JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowser
   (JNIEnv *env, jclass obj) {
 
 
-	system("killall -9 gnome-panel-screenshot");
-	system("killall -9 gnome-screenshot");
+	system("killall -q -9 gnome-panel-screenshot");
+	system("killall -q -9 gnome-screenshot");
 
 }
 

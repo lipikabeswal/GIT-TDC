@@ -2,10 +2,10 @@ package com.ctb.tdc.web.servlet;
   
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,12 +23,11 @@ import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.httpclient.params.HttpClientParams;
-import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.log4j.Logger;
 
 import com.ctb.tdc.web.dto.StateVO;
-import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.AuditFile;
+import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
      
 /** 
@@ -47,6 +46,20 @@ public class PersistenceServlet extends HttpServlet {
        
     private static final long serialVersionUID = 1L;
     static Logger logger = Logger.getLogger(PersistenceServlet.class);
+    
+    private static String unPersistedAudit;
+    
+    private String getUnPersistedAudit() {
+    	synchronized(PersistenceServlet.class) {
+    		return unPersistedAudit;
+    	}
+    }
+    
+    private void setUnPersistedAudit(String newval) {
+    	synchronized(PersistenceServlet.class) {
+    		unPersistedAudit = newval;
+    	}
+    }
      
 	/**
 	 * Constructor of the object.
@@ -383,7 +396,7 @@ public class PersistenceServlet extends HttpServlet {
      * @param String xml
      */
     private String uploadAuditFile(String xml) {
-        String result = ServletUtils.ERROR;
+    	String result = ServletUtils.ERROR;
         String errorMessage = null;
         int responseCode = HttpStatus.SC_OK;
         
@@ -392,6 +405,7 @@ public class PersistenceServlet extends HttpServlet {
         if (checkQueueClear != null) {
             return checkQueueClear;
         }
+        setUnPersistedAudit(xml);
         
         MemoryCache memoryCache = MemoryCache.getInstance();
         if (memoryCache.getSrvSettings().isTmsAuditUpload()) {
@@ -399,84 +413,92 @@ public class PersistenceServlet extends HttpServlet {
             String fileName = ServletUtils.buildFileName(xml);            
             File file = new File(fileName);
             
-            // get checksum value
-            long sumValue = ServletUtils.getChecksum(file);
-            if (sumValue == -1L) {
-                logger.error("Checksum error.");
-                return ServletUtils.ERROR;                
-            }
-            
-            // setup URL parameters
-            String tmsURL = ServletUtils.getTmsURLString(ServletUtils.UPLOAD_AUDIT_FILE_METHOD);
-            tmsURL += "?" + ServletUtils.XML_PARAM + "=" + xml;
-            tmsURL += "&" + ServletUtils.CHECKSUM_PARAM + "=" + sumValue;
-            
-            PostMethod filePost = new PostMethod(tmsURL);                         
-            try {                
-                // set multipart request
-                Part[] parts = { new FilePart(ServletUtils.AUDIT_FILE_PARAM, file) }; 
-                filePost.setRequestEntity( new MultipartRequestEntity(parts, filePost.getParams()) );
-                
-                // upload the file to TMS
-                HttpClientParams clientParams = new HttpClientParams();
-                clientParams.setConnectionManagerTimeout(30 * ServletUtils.SECOND);    // timeout in 30 seconds            
-                HttpClient client = new HttpClient(clientParams);                                
-                String proxyHost = ServletUtils.getProxyHost();
-            
-                if ((proxyHost != null) && (proxyHost.length() > 0)) {
-    				// apply proxy settings
-                    int proxyPort    = ServletUtils.getProxyPort();
-                    String username  = ServletUtils.getProxyUserName();
-                    String password  = ServletUtils.getProxyPassword();            
-                	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);
-                }
-                responseCode = client.executeMethod(filePost);    
-
-                // delete local file when upload successfully 
-                if (responseCode == HttpStatus.SC_OK) {                          
-                    InputStream isPost = filePost.getResponseBodyAsStream();
-                    BufferedReader in = new BufferedReader(new InputStreamReader(isPost));
-                    String inputLine = null;   
-                    String tmsResponse = "";
-                    while ((inputLine = in.readLine()) != null) {
-                        tmsResponse += inputLine;
-                    }
-                    in.close();     
-                    // if OK return from TMS, delete local file
-                    if (ServletUtils.isStatusOK(tmsResponse)) {                    
-                        logger.info("Upload audit file successfully");
-                        if (AuditFile.deleteLogger(fileName)) {                      
-                            logger.info("Delete audit file successfully");
-                            result = ServletUtils.OK;
-                        }
-                        else { 
-                            logger.error("Failed to delete audit file");
-                            errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.deleteAuditFileFailed");                            
-                            result = ServletUtils.buildXmlErrorMessage("", errorMessage, "");
-                        }
-                    }
-                    else {
-                        logger.error("Failed to upload audit file, tmsResponse=" + tmsResponse);
-                        errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.uploadFailed");                            
-                        result = ServletUtils.buildXmlErrorMessage("", errorMessage, "");
-                    }
-                }
-                else {
-                    logger.error("Failed to upload audit file, responseCode=" + HttpStatus.getStatusText(responseCode));
-                    result = ServletUtils.buildXmlErrorMessage("", HttpStatus.getStatusText(responseCode), "");                     
-                }
-            }
-            catch (Exception e) {
-                logger.error("Exception occured in uploadAuditFile() : " + ServletUtils.printStackTrace(e));
-                errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.uploadFailed");                            
-                result = ServletUtils.buildXmlErrorMessage("", errorMessage, ""); 
-            }
-            finally {
-                filePost.releaseConnection();
+            if(file.exists()) {
+	            // get checksum value
+	            long sumValue = ServletUtils.getChecksum(file);
+	            if (sumValue == -1L) {
+	                logger.error("Checksum error.");
+	                return ServletUtils.ERROR;                
+	            }
+	            
+	            // setup URL parameters
+	            String tmsURL = ServletUtils.getTmsURLString(ServletUtils.UPLOAD_AUDIT_FILE_METHOD);
+	            tmsURL += "?" + ServletUtils.XML_PARAM + "=" + xml;
+	            tmsURL += "&" + ServletUtils.CHECKSUM_PARAM + "=" + sumValue;
+	            
+	            PostMethod filePost = new PostMethod(tmsURL);                         
+	            try {                
+	                // set multipart request
+	                Part[] parts = { new FilePart(ServletUtils.AUDIT_FILE_PARAM, file) }; 
+	                filePost.setRequestEntity( new MultipartRequestEntity(parts, filePost.getParams()) );
+	                
+	                // upload the file to TMS
+	                HttpClientParams clientParams = new HttpClientParams();
+	                clientParams.setConnectionManagerTimeout(10 * ServletUtils.SECOND);    // timeout in 30 seconds            
+	                HttpClient client = new HttpClient(clientParams);                                
+	                String proxyHost = ServletUtils.getProxyHost();
+	            
+	                if ((proxyHost != null) && (proxyHost.length() > 0)) {
+	    				// apply proxy settings
+	                    int proxyPort    = ServletUtils.getProxyPort();
+	                    String username  = ServletUtils.getProxyUserName();
+	                    String password  = ServletUtils.getProxyPassword();            
+	                	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);
+	                }
+	                responseCode = client.executeMethod(filePost);    
+	
+	                // delete local file when upload successfully 
+	                if (responseCode == HttpStatus.SC_OK) {                          
+	                    InputStream isPost = filePost.getResponseBodyAsStream();
+	                    BufferedReader in = new BufferedReader(new InputStreamReader(isPost));
+	                    String inputLine = null;   
+	                    String tmsResponse = "";
+	                    while ((inputLine = in.readLine()) != null) {
+	                        tmsResponse += inputLine;
+	                    }
+	                    in.close();     
+	                    // if OK return from TMS, delete local file
+	                    if (ServletUtils.isStatusOK(tmsResponse)) {                    
+	                        logger.info("Upload audit file successfully");
+	                        if (AuditFile.deleteLogger(fileName)) {                      
+	                            logger.info("Delete audit file successfully");
+	                            result = ServletUtils.OK;
+	                        }
+	                        else { 
+	                            logger.error("Failed to delete audit file");
+	                            errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.deleteAuditFileFailed");                            
+	                            result = ServletUtils.buildXmlErrorMessage("", errorMessage, "");
+	                        }
+	                    }
+	                    else {
+	                        logger.error("Failed to upload audit file, tmsResponse=" + tmsResponse);
+	                        errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.uploadFailed");                            
+	                        result = ServletUtils.buildXmlErrorMessage("", errorMessage, "");
+	                    }
+	                }
+	                else {
+	                    logger.error("Failed to upload audit file, responseCode=" + HttpStatus.getStatusText(responseCode));
+	                    result = ServletUtils.buildXmlErrorMessage("", HttpStatus.getStatusText(responseCode), "");                     
+	                }
+	            }
+	            catch (Exception e) {
+	                logger.error("Exception occured in uploadAuditFile() : " + ServletUtils.printStackTrace(e));
+	                errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.uploadFailed");                            
+	                result = ServletUtils.buildXmlErrorMessage("", errorMessage, ""); 
+	            }
+	            finally {
+	                filePost.releaseConnection();
+	            }
+            } else {
+            	result = ServletUtils.OK;
             }
         }
         else {
-            result = ServletUtils.OK;        
+        	// file was already uploaded by another thread
+        	result = ServletUtils.OK;        
+        }
+        if(ServletUtils.OK.equals(result)) {
+        	setUnPersistedAudit(null);
         }
         return result;
     }
@@ -580,6 +602,23 @@ public class PersistenceServlet extends HttpServlet {
         String errorMsg = null;
         MemoryCache memoryCache = MemoryCache.getInstance();
         HashMap stateMap = ( HashMap )memoryCache.getStateMap();
+        
+        String outstandingAudit = getUnPersistedAudit();
+        int auditRetry = memoryCache.getSrvSettings().getTmsAckMessageRetry();
+        while(outstandingAudit != null && auditRetry > 0){
+        	auditRetry--;
+        	try {
+	        	setUnPersistedAudit(null);
+	        	uploadAuditFile(outstandingAudit);
+	        	Thread.sleep( ServletUtils.SECOND * 2 );
+        	} catch (Exception e) {
+        		errorMsg = ServletUtils.getErrorMessage( "tdc.servlet.error.noAuditAck" );
+                logger.error( errorMsg );
+                errorMsg = ServletUtils.buildXmlErrorMessage( "", errorMsg, "" );
+        	}
+        	outstandingAudit = getUnPersistedAudit();
+        }
+        
         if ( !stateMap.isEmpty() )
         {
             Set lsids = stateMap.keySet();
