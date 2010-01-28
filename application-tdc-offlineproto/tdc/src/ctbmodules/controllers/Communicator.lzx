@@ -116,39 +116,58 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
   		
   		<!-- all servlet errors go through this method -->
   		<method name="checkShowError" args="xml,ds"><![CDATA[
-//Debug.write("gCommunicator.checkShowError",ds.name);
-//printBigString(xml);
 			if(!error){
    				var node = LzDataNode.stringToLzData(xml);
+   				var code = "";
+
   				if (node && node.nodeName == 'ERROR'){
-					if(firstRequestDone && gController.isWaitPopupOpen == false) {
-//Debug.write("checkShowError in if : ",node);
+					
+					code = node.getElementsByTagName("CODE")[0].childNodes[0].data;
+
+					if(typeof code == "undefined") {
+						code = "";						
+					}
+
+					//show popup only for network error and tts error	
+					if(code == "" || code == "556" || code == "558") {
+Debug.write("in if code...", code);
+						if(firstRequestDone && gController.isWaitPopupOpen == false) {
+		  					setAttribute('error', true);
+							gController.hideWaitPopup();
+							gController.unlockUI();
+		  					showError(xml);
+						}
+						else {
+							if(ds != null) {
+								gRequest.sendRequest(ds);
+							}
+							if(!firstRequestDone) {
+								gController.showWaitPopupFor30Sec();
+								gController.stopHeartbeat();
+								//to stop the test timer
+								gController.stopQuestion();
+								gController.freezeUI();
+							}
+							firstRequestDone = true;
+							return true;
+						}
+					}
+					//for other errors, no popup will be shown
+					else {
+Debug.write("in else code...", code);
 	  					setAttribute('error', true);
 						gController.hideWaitPopup();
 						gController.unlockUI();
 	  					showError(xml);
 					}
-					else {
-//Debug.write("checkShowError in else : ",node);
-						if(ds != null) {
-							gRequest.sendRequest(ds);
-						}
-						if(!firstRequestDone) {
-							gController.showWaitPopupFor30Sec();
-							gController.stopHeartbeat();
-							gController.freezeUI();
-						}
-						firstRequestDone = true;
-						return true;
-					}
   				}
 				else {
-//Debug.write("checkShowError in outer else,isWaitPopupOpen : ",ds.name,gController.isWaitPopupOpen);
 					if(gController.isWaitPopupOpen) {
-//Debug.write("in outer else ",gController.isWaitPopupOpen);
 						firstRequestDone = false;
 						gController.hideWaitPopup();
 						gController.sendHeartbeat();
+						//to start the test timer 
+						gController.startQuestion();
 						gController.unlockUI();
 					}
 				}
