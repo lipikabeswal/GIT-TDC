@@ -223,11 +223,6 @@ zenity --error --text "GAJIM RUNNING !"
 elif [ ! -z "$(cat processcheck | awk '/thunderbird/')" ]
 then check=1
 zenity --error --text "MOZILLA_THUNDERBIRD RUNNING !"
-
-
-  elif [ ! -z "$(cat processcheck | awk '/evolution-exchange-storage/')" ]
-   then check=1
-   zenity --error --text "EVOLUTION RUNNING !"
    
    elif [ ! -z "$(cat processcheck | awk '/evolution /')" ]
    then check=1
