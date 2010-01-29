@@ -273,6 +273,17 @@ public class PersistenceServlet extends HttpServlet {
         String result = null; // must set to null to prevent sending response twice
         String errorMessage = null;
         try {
+        	boolean isEndSubtest = ServletUtils.isEndSubtest(xml);
+        	
+        	if(isEndSubtest) {
+        		// make sure the queue is empty before finishing subtest
+                String checkQueueClear = waitForQueueToBeClear();
+                if (checkQueueClear != null) {
+                	result = ServletUtils.buildXmlErrorMessage("", checkQueueClear, "");
+                    return result;
+                }
+        	}
+        	
             // parse request xml for information
             String lsid = ServletUtils.parseLsid(xml);    
             String mseq = ServletUtils.parseMseq(xml); 
@@ -290,7 +301,6 @@ public class PersistenceServlet extends HttpServlet {
                 if (hasResponse)
                 	AuditFile.log(ServletUtils.createAuditVO(xml, hasResponse));
 
-                boolean isEndSubtest = ServletUtils.isEndSubtest(xml);
                 if(!isEndSubtest){
                 	// return response to client
                 	ServletUtils.writeResponse(response, ServletUtils.OK);
@@ -603,7 +613,7 @@ public class PersistenceServlet extends HttpServlet {
         MemoryCache memoryCache = MemoryCache.getInstance();
         HashMap stateMap = ( HashMap )memoryCache.getStateMap();
         
-        String outstandingAudit = getUnPersistedAudit();
+        /* String outstandingAudit = getUnPersistedAudit();
         int auditRetry = memoryCache.getSrvSettings().getTmsAckMessageRetry();
         while(outstandingAudit != null && auditRetry > 0){
         	auditRetry--;
@@ -617,7 +627,7 @@ public class PersistenceServlet extends HttpServlet {
                 errorMsg = ServletUtils.buildXmlErrorMessage( "", errorMsg, "" );
         	}
         	outstandingAudit = getUnPersistedAudit();
-        }
+        } */
         
         if ( !stateMap.isEmpty() )
         {
