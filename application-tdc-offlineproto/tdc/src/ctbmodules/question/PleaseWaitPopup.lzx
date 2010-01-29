@@ -35,10 +35,12 @@ Debug.write("setup: " + fm + " , " + fc + " , " + bc);
 	
 	<method name="hide">
         this.setAttribute("visible", false);	
+		LzModeManager.release(this);	
     </method>
 	
     <method name="show">
         this.setAttribute("visible", true);
+        LzModeManager.makeModal(this);
     </method>
 
     <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">

@@ -5,6 +5,8 @@
     <node id="gCommunicator">
     	<attribute name="error" type="boolean" value="false" />
     	<attribute name="firstRequestDone" type="boolean" value="false" />
+
+      	<attribute name="dRequestTimer" value="$once{new LzDelegate(this,'sendRequest')}" />
       	
       	<method name="updateLDB">
       		LzBrowser.loadJS('updateLDB()');
@@ -138,15 +140,21 @@ Debug.write("in if code...", code);
 		  					showError(xml);
 						}
 						else {
+
 							if(ds != null) {
-								gRequest.sendRequest(ds);
+								setAttribute('dRequestDataSet',ds);
+								startRequestTimer();
 							}
+
 							if(!firstRequestDone) {
 								gController.showWaitPopupFor30Sec();
-								gController.stopHeartbeat();
-								//to stop the test timer
-								gController.stopQuestion();
-								gController.freezeUI();
+								if(gController.state != gController.LOGIN_STATE) {
+Debug.write("communicator stopQuestion......");
+									gController.stopHeartbeat();
+									//to stop the test timer
+									gController.stopQuestion();
+								}
+								//gController.freezeUI();  //not needed anymore
 							}
 							firstRequestDone = true;
 							return true;
@@ -165,9 +173,12 @@ Debug.write("in else code...", code);
 					if(gController.isWaitPopupOpen) {
 						firstRequestDone = false;
 						gController.hideWaitPopup();
-						gController.sendHeartbeat();
-						//to start the test timer 
-						gController.startQuestion();
+						if(gController.state != gController.LOGIN_STATE) {
+Debug.write("communicator startQuestion......");
+							gController.sendHeartbeat();
+							//to start the test timer 
+							gController.startQuestion();
+						}
 						gController.unlockUI();
 					}
 				}
@@ -185,6 +196,14 @@ Debug.write("in else code...", code);
   				gController.setAttribute("heartbeatResult", result);
   			}
   		</method>
+
+		<method name="startRequestTimer">
+			LzTimer.resetTimer(dRequestTimer,1000);
+		</method>		
+			
+		<method name="sendRequest">
+			gRequest.sendRequest(dRequestDataSet);
+		</method>  		
      </node>
 
 </library>

@@ -2776,8 +2776,10 @@
 		</method>
 		
         <method name="startQuestion">
+//Debug.write("startQuestion......");
             if ( 'true' != isuntimed ) {
                 updateTimeLeft();
+//Debug.write("in if startQuestion......",isuntimed);
                 LzTimer.resetTimer( dupdateTimeLeft, TIMER_INTERVAL );
             }
             this.qtimestamp = getTimer();
@@ -2853,9 +2855,10 @@
         ]]></method>
 
         <method name="stopQuestion">
+       Debug.write("stopQuestion....."); 
             if ( timing ) {
                 var timestamp = getTimer();
-
+Debug.write("in if stopQuestion.....", timing);
                 LzTimer.removeTimer( dupdateTimeLeft );
                 this.timing = false;
 

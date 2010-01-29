@@ -79,6 +79,7 @@
 		]]></method>
 		
 		<method name="timedout">
+		Debug.write("timedout...");
 	        LzTimer.removeTimer( dTimeout );
 			//For ISTEP CR	
 			if(gCommunicator.firstRequestDone == false) {
@@ -87,6 +88,8 @@
 				gReadableText.speechRequestSent = true;
 				gController.showWaitPopupFor30Sec();
 				gController.stopHeartbeat();
+				//to stop the test timer
+				gController.stopQuestion();
 				gReadableText.getMp3();
 				gReadableText.startRequestor();	
 			}
@@ -109,9 +112,14 @@
 			speechDs.doRequest();
        ]]></method>
         
-        <method name="getMp3" >
-        	audioPlayer.setSource(GET_URL);
-        </method>
+        <method name="getMp3" ><![CDATA[
+        	//ISTEP CR: to avoid browser caching of the mp3
+        	audioPlayer.setSource(GET_URL+"&"+timestamp()+".mp3");
+        ]]></method>
+
+		<method name="timestamp">
+			return "timestamp="+Math.random();	
+		</method>        
         
         <method name="getReadableTextForCharacter" args="c">
         	var result = c;
@@ -191,6 +199,9 @@
 					gReadableText.speechRequestSent = false;
 					gCommunicator.firstRequestDone = false;
 					gController.hideWaitPopup();
+					gController.sendHeartbeat();
+					//to start the test timer 
+					gController.startQuestion();
 					gController.unlockUI();
 				}
 
