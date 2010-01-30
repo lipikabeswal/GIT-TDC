@@ -92,7 +92,7 @@ public class ContentFile
         }
         	
         else {
-        	System.out.println("check: " + hash + "  actual: " + Crypto.generateHash(buffer));
+        	//System.out.println("check: " + hash + "  actual: " + Crypto.generateHash(buffer));
         	return false;
         } 	
     }
