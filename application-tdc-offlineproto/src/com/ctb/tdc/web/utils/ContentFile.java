@@ -83,6 +83,7 @@ public class ContentFile
         if (!exists(filePath))
         	return false;
     	byte[] buffer = readFromFile( filePath );
+    	
         if ( Crypto.checkHash( hash, buffer )) {
         	//Fix for 60 days content deletion 
         	File file = new File(filePath);            
@@ -90,8 +91,10 @@ public class ContentFile
         	return true;
         }
         	
-        else
+        else {
+        	System.out.println("check: " + hash + "  actual: " + Crypto.generateHash(buffer));
         	return false;
+        } 	
     }
     
     
