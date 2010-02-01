@@ -235,6 +235,11 @@ fi
    echo "EVOLUTION RUNNING !" >> plist
 fi
 
+if [ ! -z "$(cat processcheck | awk '/evolution /')" ]
+   then check=1
+   echo "EVOLUTION RUNNING !" >> plist
+fi
+
      if [ ! -z "$(cat processcheck | awk '/kmail/')" ]
      then check=1
      echo "KMAIL RUNNING !" >> plist
@@ -351,6 +356,7 @@ fi
 fi
 
 if [ $check -eq 1 ]; then 
+echo "You must close these applications in order to use the OAS software." >> plist
 cat plist|zenity --text-info --title="ERROR"
 fi
 
