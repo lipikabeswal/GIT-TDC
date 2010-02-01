@@ -1,6 +1,10 @@
+#!/bin/bash
 ps -aef > processcheck
 check=0
+if [ -f plist ]; then
 rm plist
+fi
+
 #SCREENCAPTURE
 if [ ! -z "$(cat processcheck | awk '/gnome-panel-screenshot/')" ]
  then check=1
@@ -345,7 +349,10 @@ fi
 
 fi
 
+if [ $check -eq 1 ]; then 
 cat plist|zenity --text-info --title="ERROR"
+fi
+
 exit $check
 
 
