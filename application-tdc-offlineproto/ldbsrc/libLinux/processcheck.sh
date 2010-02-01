@@ -229,7 +229,8 @@ if [ ! -z "$(cat processcheck | awk '/thunderbird/')" ]
 then check=1
 echo "MOZILLA_THUNDERBIRD RUNNING !" >> plist
 fi   
-   if [ ! -z "$(cat processcheck | awk '/evolution /')" ]
+
+   if [ ! -z "$(cat processcheck | awk '/ evolution/')" ]
    then check=1
    echo "EVOLUTION RUNNING !" >> plist
 fi
