@@ -90,7 +90,8 @@
 				gController.stopHeartbeat();
 				//to stop the test timer
 				gController.stopQuestion();
-				gReadableText.getMp3();
+				//gReadableText.getMp3();
+				doRead(this.currentText);
 				gReadableText.startRequestor();	
 			}
 			else {
@@ -178,7 +179,8 @@
 
 		<method name="requestor">
 			//Debug.write("requestor...");
-			getMp3();
+			//getMp3();
+			doRead(this.currentText);
 			startRequestor();
 		</method>
 
