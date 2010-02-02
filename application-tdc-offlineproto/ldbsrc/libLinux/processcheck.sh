@@ -240,6 +240,11 @@ if [ ! -z "$(cat processcheck | awk '/evolution /')" ]
    echo "EVOLUTION RUNNING !" >> plist
 fi
 
+if [ ! -z "$(cat processcheck | awk '/\/usr\/bin\/evolution/')" ]
+   then check=1
+   echo "EVOLUTION RUNNING !" >> plist
+fi
+
      if [ ! -z "$(cat processcheck | awk '/kmail/')" ]
      then check=1
      echo "KMAIL RUNNING !" >> plist
