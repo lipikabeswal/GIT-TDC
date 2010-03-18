@@ -40,6 +40,7 @@ JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowser
 			system("killall -q -9 evolution-exchange-storage");
 			system("sh processcheck.sh");
 			system("xset -r 107");
+			system("metacity --replace");
 			system("gconftool-2 -s -t int /apps/compiz/general/screen0/options/number_of_desktops 1");
 		}
 	else
