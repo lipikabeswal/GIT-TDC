@@ -26,7 +26,7 @@ JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowser
 		{
 			//system("gcc -g -o disablekeysobj disablekeys.c ");
 			//system("./disablekeysobj");
-
+			
 			system("chmod 777 wmctrl");
 			system("xmodmap -pke > xmodmap_original");
 			xmod();
@@ -40,6 +40,7 @@ JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowser
 			system("killall -q -9 evolution-exchange-storage");
 			system("sh processcheck.sh");
 			system("xset -r 107");
+			system("gconftool-2 -s -t int /apps/compiz/general/screen0/options/number_of_desktops 1");
 		}
 	else
 		{
@@ -51,6 +52,7 @@ JNIEXPORT void JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowser
 			system("xmodmap -e \"keycode 0x09 = Escape\"");
 			system("xmodmap -e \"keycode 107 = Print Sys_Req\"");
 			system("xmodmap -e \"keycode 218 = Print\"");
+			system("gconftool-2 -s -t int /apps/compiz/general/screen0/options/number_of_desktops 2");
 		}
 }
 
