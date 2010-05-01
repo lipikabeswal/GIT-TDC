@@ -163,19 +163,21 @@ public class ContentServlet extends HttpServlet {
 
 			if (!ContentFile.validateHash(filePath, hash)) {
 				String result = "";
-				int TMSRetry = 5;
+				MemoryCache memoryCache = MemoryCache.getInstance();
+	        	int TMSRetryCount = memoryCache.getSrvSettings().getTmsMessageRetryCount();
+	        	int TMSRetryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
 				AdssvcResponseDocument document = null;
 				ErrorDocument.Error error = null;
-				while (TMSRetry > 0) {
+				while (TMSRetryCount > 0) {
+					logger.info("***** downloadSubtest " + subtestId);
 					result = ServletUtils.httpClientSendRequest(ServletUtils.GET_SUBTEST_METHOD, xml);
-					// logger.info("************** getSubtest response:\n"+result);
 					document = AdssvcResponseDocument.Factory.parse(result);
 					error = document.getAdssvcResponse().getGetSubtest().getError();
 					if (error != null) {
-						Thread.sleep(2 * ServletUtils.SECOND);
-						TMSRetry--;
+						Thread.sleep(TMSRetryInterval * ServletUtils.SECOND);
+						TMSRetryCount--;
 					} else {
-						TMSRetry = 0;
+						TMSRetryCount = 0;
 					}
 				}
 				if (error != null) {
@@ -259,18 +261,20 @@ public class ContentServlet extends HttpServlet {
 					+ ContentFile.ITEM_FILE_EXTENSION;
 			
 			if (!ContentFile.validateHash(filePath, hash)) {
-				int TMSRetry = 5;
+				MemoryCache memoryCache = MemoryCache.getInstance();
+	        	int TMSRetryCount = memoryCache.getSrvSettings().getTmsMessageRetryCount();
+	        	int TMSRetryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
 				int errorIndex = 0;
 				String result = "";
-				while (TMSRetry > 0) {
+				while (TMSRetryCount > 0) {
+					logger.info("***** downloadItem " + itemId);
 					result = ServletUtils.httpClientSendRequest(ServletUtils.DOWNLOAD_ITEM_METHOD, xml);
-					// logger.info("************** downloadItem response:\n"+result);
 					errorIndex = result.indexOf("<ERROR>");
 					if (errorIndex >= 0) {
-						Thread.sleep(2 * ServletUtils.SECOND);
-						TMSRetry--;
+						Thread.sleep(TMSRetryInterval * ServletUtils.SECOND);
+						TMSRetryCount--;
 					} else {
-						TMSRetry = 0;
+						TMSRetryCount = 0;
 					}
 				}
 				if (errorIndex >= 0) {
