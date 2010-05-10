@@ -17,6 +17,7 @@ public class ServletSettings implements java.io.Serializable {
     private int tmsAckMessageWaitTime;
     private int tmsMessageRetryCount;
     private int tmsMessageRetryInterval;
+    private int tmsMessageRetryExpansionFactor;
     private boolean tmsAuditUpload;
 
     private String proxyHost;
@@ -58,6 +59,7 @@ public class ServletSettings implements java.io.Serializable {
             this.tmsAckMessageWaitTime = resourceBundleGetInt(rbTdc, "tms.ack.messageWaitTime", 0, 35);  
             this.tmsMessageRetryCount = resourceBundleGetInt(rbTdc, "tms.ack.messageRetryCount", 0, 10);
             this.tmsMessageRetryInterval = resourceBundleGetInt(rbTdc, "tms.ack.messageRetryInterval", 1, 30);
+            this.tmsMessageRetryExpansionFactor = resourceBundleGetInt(rbTdc, "tms.ack.messageRetryExpansionFactor", 1, 5);
             this.tmsAuditUpload = resourceBundleGetBoolean(rbTdc, "tms.audit.upload");
         }
         
@@ -78,6 +80,7 @@ public class ServletSettings implements java.io.Serializable {
         this.tmsAckMessageWaitTime = 30;
         this.tmsMessageRetryCount = 3;
         this.tmsMessageRetryInterval = 3;
+        this.tmsMessageRetryExpansionFactor = 2;
         this.tmsAuditUpload = false;
         this.proxyHost = null;
         this.proxyPort = 0;
@@ -295,5 +298,19 @@ public class ServletSettings implements java.io.Serializable {
 	 */
 	public void setTmsMessageRetryInterval(int tmsMessageRetryInterval) {
 		this.tmsMessageRetryInterval = tmsMessageRetryInterval;
+	}
+	
+	/**
+	 * @return Returns the tmsMessageRetryExpansionFactor.
+	 */
+	public int getTmsMessageRetryExpansionFactor() {
+		return tmsMessageRetryExpansionFactor;
+	}
+
+	/**
+	 * @param tmsMessageRetryExpansionFactor The tmsMessageRetryExpansionFactor to set.
+	 */
+	public void setTmsMessageRetryExpansionFactor(int tmsMessageRetryExpansionFactor) {
+		this.tmsMessageRetryExpansionFactor = tmsMessageRetryExpansionFactor;
 	}
 }

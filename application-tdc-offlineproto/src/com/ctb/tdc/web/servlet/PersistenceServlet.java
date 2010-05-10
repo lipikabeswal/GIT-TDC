@@ -239,6 +239,8 @@ public class PersistenceServlet extends HttpServlet {
         	MemoryCache memoryCache = MemoryCache.getInstance();
         	int TMSRetryCount = memoryCache.getSrvSettings().getTmsMessageRetryCount();
         	int TMSRetryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
+        	int expansion = memoryCache.getSrvSettings().getTmsMessageRetryExpansionFactor();
+        	int i = 1;
         	while (TMSRetryCount > 0) {
 	            // sent feedback request to TMS
         		logger.info("***** studentFeedback request");
@@ -250,9 +252,10 @@ public class PersistenceServlet extends HttpServlet {
 	            else {
 	                logger.error("TMS returns error in feedback() : " + result);    
 	                logger.error("Retrying . . .");
-	                Thread.sleep(TMSRetryInterval * ServletUtils.SECOND);
+	                Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
 	                TMSRetryCount--;
 	            }
+	            i = i*expansion;
         	}
         } 
         catch (Exception e) {
@@ -348,7 +351,9 @@ public class PersistenceServlet extends HttpServlet {
                 // send save request to TMS
             	int TMSRetryCount = memoryCache.getSrvSettings().getTmsMessageRetryCount();
             	int TMSRetryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
+            	int expansion = memoryCache.getSrvSettings().getTmsMessageRetryExpansionFactor();
             	String tmsResponse = "";
+            	int i = 1;
             	while(TMSRetryCount > 0) {
             		logger.info("***** persistence request");
             		tmsResponse = ServletUtils.httpClientSendRequest(ServletUtils.SAVE_METHOD, xml);
@@ -361,9 +366,10 @@ public class PersistenceServlet extends HttpServlet {
                     else {
                         logger.error("TMS returns error in save() : " + tmsResponse);
                         logger.error("Retrying . . .");
-                        Thread.sleep(TMSRetryInterval * ServletUtils.SECOND);
+                        Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
                         TMSRetryCount--;
                     }
+                    i = i*expansion;
             	}
                 if(isEndSubtest){
                 	result = tmsResponse;
@@ -525,16 +531,19 @@ public class PersistenceServlet extends HttpServlet {
     private boolean verifyAcknowledge(MemoryCache memoryCache, String lsid, String mseq) throws InterruptedException {
         int retryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
         int waitTime = memoryCache.getSrvSettings().getTmsAckMessageWaitTime();
+        int expansion = memoryCache.getSrvSettings().getTmsMessageRetryExpansionFactor();
         long startTime = System.currentTimeMillis();
         long currentTime = startTime;
         boolean timeout = false;
         boolean pendingState = inPendingState(memoryCache, lsid, mseq);
+        int i = 1;
         while (!timeout && pendingState) {
-            Thread.sleep(retryInterval * ServletUtils.SECOND); // delay 1 second and try again
+            Thread.sleep(retryInterval * ServletUtils.SECOND * i); // delay 1 second and try again
             pendingState = inPendingState(memoryCache, lsid, mseq);
             currentTime = System.currentTimeMillis();
             timeout = (currentTime - startTime) > (waitTime * ServletUtils.SECOND);
             logger.info("Waited " + ((currentTime - startTime)/ServletUtils.SECOND) + " for TMS response.");
+            i = i*expansion;
         }            
         return (! pendingState);
     } 

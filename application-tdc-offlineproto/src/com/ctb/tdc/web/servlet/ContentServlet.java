@@ -166,19 +166,22 @@ public class ContentServlet extends HttpServlet {
 				MemoryCache memoryCache = MemoryCache.getInstance();
 	        	int TMSRetryCount = memoryCache.getSrvSettings().getTmsMessageRetryCount();
 	        	int TMSRetryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
+	        	int expansion = memoryCache.getSrvSettings().getTmsMessageRetryExpansionFactor();
 				AdssvcResponseDocument document = null;
 				ErrorDocument.Error error = null;
+				int i = 1;
 				while (TMSRetryCount > 0) {
 					logger.info("***** downloadSubtest " + subtestId);
 					result = ServletUtils.httpClientSendRequest(ServletUtils.GET_SUBTEST_METHOD, xml);
 					document = AdssvcResponseDocument.Factory.parse(result);
 					error = document.getAdssvcResponse().getGetSubtest().getError();
 					if (error != null) {
-						Thread.sleep(TMSRetryInterval * ServletUtils.SECOND);
+						Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
 						TMSRetryCount--;
 					} else {
 						TMSRetryCount = 0;
 					}
+					i = i*expansion;
 				}
 				if (error != null) {
 					throw new TMSException(error.getErrorDetail());
@@ -264,18 +267,21 @@ public class ContentServlet extends HttpServlet {
 				MemoryCache memoryCache = MemoryCache.getInstance();
 	        	int TMSRetryCount = memoryCache.getSrvSettings().getTmsMessageRetryCount();
 	        	int TMSRetryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
+	        	int expansion = memoryCache.getSrvSettings().getTmsMessageRetryExpansionFactor();
 				int errorIndex = 0;
 				String result = "";
+				int i = 1;
 				while (TMSRetryCount > 0) {
 					logger.info("***** downloadItem " + itemId);
 					result = ServletUtils.httpClientSendRequest(ServletUtils.DOWNLOAD_ITEM_METHOD, xml);
 					errorIndex = result.indexOf("<ERROR>");
 					if (errorIndex >= 0) {
-						Thread.sleep(TMSRetryInterval * ServletUtils.SECOND);
+						Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
 						TMSRetryCount--;
 					} else {
 						TMSRetryCount = 0;
 					}
+					i = i*expansion;
 				}
 				if (errorIndex >= 0) {
 					throw new Exception(result);
