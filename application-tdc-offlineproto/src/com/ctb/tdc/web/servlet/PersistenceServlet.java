@@ -46,20 +46,6 @@ public class PersistenceServlet extends HttpServlet {
        
     private static final long serialVersionUID = 1L;
     static Logger logger = Logger.getLogger(PersistenceServlet.class);
-    
-    private static String unPersistedAudit;
-    
-    private String getUnPersistedAudit() {
-    	synchronized(PersistenceServlet.class) {
-    		return unPersistedAudit;
-    	}
-    }
-    
-    private void setUnPersistedAudit(String newval) {
-    	synchronized(PersistenceServlet.class) {
-    		unPersistedAudit = newval;
-    	}
-    }
      
 	/**
 	 * Constructor of the object.
@@ -432,7 +418,6 @@ public class PersistenceServlet extends HttpServlet {
         if (checkQueueClear != null) {
             return checkQueueClear;
         }
-        setUnPersistedAudit(xml);
         
         MemoryCache memoryCache = MemoryCache.getInstance();
         if (memoryCache.getSrvSettings().isTmsAuditUpload()) {
@@ -511,9 +496,7 @@ public class PersistenceServlet extends HttpServlet {
         	// file was already uploaded by another thread
         	result = ServletUtils.OK;        
         }
-        if(ServletUtils.OK.equals(result)) {
-        	setUnPersistedAudit(null);
-        }
+
         return result;
       }
     }
@@ -648,22 +631,6 @@ public class PersistenceServlet extends HttpServlet {
         String errorMsg = null;
         MemoryCache memoryCache = MemoryCache.getInstance();
         HashMap stateMap = ( HashMap )memoryCache.getStateMap();
-        
-        /* String outstandingAudit = getUnPersistedAudit();
-        int auditRetry = memoryCache.getSrvSettings().getTmsAckMessageRetry();
-        while(outstandingAudit != null && auditRetry > 0){
-        	auditRetry--;
-        	try {
-	        	setUnPersistedAudit(null);
-	        	uploadAuditFile(outstandingAudit);
-	        	Thread.sleep( ServletUtils.SECOND * 2 );
-        	} catch (Exception e) {
-        		errorMsg = ServletUtils.getErrorMessage( "tdc.servlet.error.noAuditAck" );
-                logger.error( errorMsg );
-                errorMsg = ServletUtils.buildXmlErrorMessage( "", errorMsg, "" );
-        	}
-        	outstandingAudit = getUnPersistedAudit();
-        } */
         
         if ( !stateMap.isEmpty() )
         {
