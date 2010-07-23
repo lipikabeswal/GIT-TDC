@@ -161,7 +161,7 @@ public class ContentServlet extends HttpServlet {
 			String filePath = ContentFile.getContentFolderPath() + subtestId
 					+ ContentFile.SUBTEST_FILE_EXTENSION;
 
-			if (!ContentFile.validateHash(filePath, hash)) {
+			/*if (!ContentFile.validateHash(filePath, hash)) {
 				String result = "";
 				MemoryCache memoryCache = MemoryCache.getInstance();
 	        	int TMSRetryCount = memoryCache.getSrvSettings().getTmsMessageRetryCount();
@@ -190,7 +190,7 @@ public class ContentServlet extends HttpServlet {
 				byte[] content = document.getAdssvcResponse().getGetSubtest()
 						.getContent();
 				ContentFile.writeToFile(content, filePath);
-			}
+			}*/
 			byte[] decryptedContent = ContentFile.decryptFile(filePath, hash,
 					key);
 			response.setContentType("text/xml");
@@ -263,7 +263,7 @@ public class ContentServlet extends HttpServlet {
 			String filePath = ContentFile.getContentFolderPath() + itemId
 					+ ContentFile.ITEM_FILE_EXTENSION;
 			
-			if (!ContentFile.validateHash(filePath, hash)) {
+			/*if (!ContentFile.validateHash(filePath, hash)) {
 				MemoryCache memoryCache = MemoryCache.getInstance();
 	        	int TMSRetryCount = memoryCache.getSrvSettings().getTmsMessageRetryCount();
 	        	int TMSRetryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
@@ -297,7 +297,7 @@ public class ContentServlet extends HttpServlet {
 				byte[] content = document.getAdssvcResponse().getDownloadItem()
 						.getContent();
 				ContentFile.writeToFile(content, filePath);
-			}
+			} */
 			ServletUtils.writeResponse(response, ServletUtils.OK);
 		} 
 		catch (TMSException e) {

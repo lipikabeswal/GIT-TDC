@@ -1,0 +1,25 @@
+<tmssvc_response method="login_response">
+	<login_response lsid="2383418:journey286" restart_flag="true" restart_number="1" random_distractor_seed_number="481">    
+		<status status_code="200"/>    
+		<testing_session_data>
+			<cmi.core student_id="1306971" student_last_name="Stu" student_first_name="Nate" student__middle_name=""/>
+			<lms.student.accommodations calculator="false" magnifier="false" screen_reader="false" untimed="false" rest_break="false" highlighter="true">
+				<stereotype_style stereotype="directions" font_magnification="1.0"/>
+				<stereotype_style stereotype="stimulus" font_magnification="1.0"/>
+				<stereotype_style stereotype="stem" font_magnification="1.0"/>
+				<stereotype_style stereotype="answerArea" font_magnification="1.0"/>
+			</lms.student.accommodations>
+		</testing_session_data>
+		<manifest title="TABE 10 Online Complete Battery">
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="272434" sco_duration_minutes="50" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TABE Reading" asmt_hash="310EE028B4C1991FBD2A469D36A2B00D" asmt_encryption_key="1971" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="36003" cmi.core.total_time="0:0:0"/>
+			<terminator id="SEE_YOU_LATER"/>
+		</manifest>
+		<consolidated_restart_data>
+			<tsd scid="272222" lsid="2383418:journey286">
+				<sp/>
+				<ast rem_sec="0.0"/>
+			</tsd>
+		</consolidated_restart_data>
+		<branding tdclogo="/resources/logoTABE.swf"/>
+	</login_response>
+</tmssvc_response>

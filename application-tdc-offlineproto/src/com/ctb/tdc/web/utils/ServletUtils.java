@@ -149,6 +149,8 @@ public class ServletUtils {
 	public static final String NONE = "-";
 	public static final long SECOND = 1000;
 
+	public static String auditFileName = "";
+	
 //	helper methods
 
 	/**
@@ -326,16 +328,15 @@ public class ServletUtils {
 	 */
 	public static AuditVO createAuditVO(String xml, boolean isItemResponse) {
 		AuditVO audit = null;
-		String fileName = buildFileName(xml);
 		String mseq = parseMseq(xml);
 		if (isItemResponse) {
 			String itemId = parseItemId(xml);
 			String response = parseResponse(xml);
-			audit = new AuditVO(fileName, mseq, itemId, response);
+			audit = new AuditVO(auditFileName, mseq, itemId, response);
 		}
 		else {
 			String modelData = parseModelData(xml);
-			audit = new AuditVO(fileName, mseq, modelData);
+			audit = new AuditVO(auditFileName, mseq, modelData);
 		}
 		return audit;
 	}
@@ -619,12 +620,13 @@ public class ServletUtils {
 	 */
 	public static String buildFileName(String xml) {
 		String fullFileName = null;
-		String lsid = parseLsid(xml);
+		String lsid = parseTag("user_name=", xml)+ ":" + parseTag("password=", xml) + ":" + parseTag("access_code=", xml);
 		if ((lsid != null) && (!lsid.equals("-"))) {
 			String fileName = lsid.replace(':', '_');
 			String tdcHome = System.getProperty(AuditFile.TDC_HOME);
 			fullFileName = tdcHome + AuditFile.AUDIT_FOLDER + fileName + AuditFile.AUDIT_EXTENSION;
 		}
+		auditFileName = fullFileName;
 		return fullFileName;
 	}
 

@@ -165,7 +165,7 @@ public class PersistenceServlet extends HttpServlet {
         }
         else {
             // properties file are valid, now check for TMS connection
-            errorMessage = ServletUtils.httpClientGetStatus();
+            //errorMessage = ServletUtils.httpClientGetStatus();
         }
         return errorMessage;
     }
@@ -187,9 +187,10 @@ public class PersistenceServlet extends HttpServlet {
         try {
             // sent login request to TMS
         	logger.info("***** login request");
-            result = ServletUtils.httpClientSendRequest(ServletUtils.LOGIN_METHOD, xml);
-            
-            if (ServletUtils.isLoginStatusOK(result)) {
+            //result = ServletUtils.httpClientSendRequest(ServletUtils.LOGIN_METHOD, xml);
+        	String filePath = System.getProperty(AuditFile.TDC_HOME) + "/data/loginresponse.xml";
+            result = new String(ServletUtils.readFromFile(new File(filePath)));
+        	if (ServletUtils.isLoginStatusOK(result)) {
                 // process encryptionKey to memory cache
                 ServletUtils.processContentKeys(result);
                 
@@ -221,7 +222,7 @@ public class PersistenceServlet extends HttpServlet {
      */
     private String feedback(String xml) {
         String result = ServletUtils.ERROR;
-        try {
+        /* try {
         	MemoryCache memoryCache = MemoryCache.getInstance();
         	int TMSRetryCount = memoryCache.getSrvSettings().getTmsMessageRetryCount();
         	int TMSRetryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
@@ -247,7 +248,7 @@ public class PersistenceServlet extends HttpServlet {
         catch (Exception e) {
             logger.error("Exception occured in feedback() : " + ServletUtils.printStackTrace(e));
             result = ServletUtils.buildXmlErrorMessage("", e.getMessage(), ""); 
-        }
+        } */
         return result;
     }
 
@@ -341,20 +342,20 @@ public class PersistenceServlet extends HttpServlet {
             	String tmsResponse = "";
             	int i = 1;
             	while(TMSRetryCount > 0) {
-            		logger.info("***** persistence request");
-            		tmsResponse = ServletUtils.httpClientSendRequest(ServletUtils.SAVE_METHOD, xml);
+            		//logger.info("***** persistence request");
+            		//tmsResponse = ServletUtils.httpClientSendRequest(ServletUtils.SAVE_METHOD, xml);
                     
                     // if OK return from TMS, set acknowledge state
-                    if (ServletUtils.isStatusOK(tmsResponse)) {
+                    //if (ServletUtils.isStatusOK(tmsResponse)) {
                         memoryCache.setAcknowledgeState(state);
                         TMSRetryCount = 0;
-                    }
-                    else {
-                        logger.error("TMS returns error in save() : " + tmsResponse);
-                        logger.error("Retrying . . .");
-                        Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
-                        TMSRetryCount--;
-                    }
+                    //}
+                    //else {
+                    //    logger.error("TMS returns error in save() : " + tmsResponse);
+                    //    logger.error("Retrying . . .");
+                    //    Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
+                    //    TMSRetryCount--;
+                    //}
                     i = i*expansion;
             	}
                 if(isEndSubtest){
@@ -389,7 +390,7 @@ public class PersistenceServlet extends HttpServlet {
             
             // sent writeToAuditFile request to TMS
             logger.info("***** uploadAuditFile request");
-            ServletUtils.httpClientSendRequest(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD, xml);            
+            //ServletUtils.httpClientSendRequest(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD, xml);            
             result = ServletUtils.OK; // nothing return from TMS
         } 
         catch (Exception e) {
