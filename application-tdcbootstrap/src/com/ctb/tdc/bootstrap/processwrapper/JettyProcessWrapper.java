@@ -59,6 +59,9 @@ public class JettyProcessWrapper extends Thread {
 	public JettyProcessWrapper(String tdcHome, boolean macOS) throws ProcessWrapperException {
 		super();
 
+		String javaHome = System.getProperty("java.home");
+		if(javaHome != null) javaHome = javaHome + "/bin/"; else javaHome = "";
+		
         this.macOS = macOS;
         
 		this.tdcHome     = tdcHome;
@@ -66,7 +69,7 @@ public class JettyProcessWrapper extends Thread {
 		this.jettyConfig = this.tdcHome + "/servletcontainer/tdc.xml";
 	
 		this.startCmd = new String[10];
-		this.startCmd[0] = "java";
+		this.startCmd[0] = javaHome + "java";
 		this.startCmd[1] = "-Dtdc.home=" + this.tdcHome;
 		this.startCmd[2] = "-Djetty.home=" + jettyHome;
 		this.startCmd[3] = "-Dorg.mortbay.log.LogFactory.noDiscovery=false";

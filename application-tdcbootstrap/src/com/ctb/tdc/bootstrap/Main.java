@@ -386,7 +386,7 @@ public class Main {
 		ConsoleUtils.messageOut("Starting...");
 		ServerSocket ss = null; // keep variable in scope of the main method to maintain hold on it. 
 		try {
-			//ss = new ServerSocket(SOCKET_FOR_SINGLE_INSTANCE, 1);
+			ss = new ServerSocket(SOCKET_FOR_SINGLE_INSTANCE, 1);
 		} catch( Exception e ) {
 			String message = ResourceBundleUtils.getString("bootstrap.main.error.applicationAlreadyRunning");
 			ConsoleUtils.messageErr(message);
@@ -426,6 +426,7 @@ public class Main {
 	            }
 	            else if (upgrade.contains(MAJOR_UPGRADE)){
 	    			ConsoleUtils.messageErr("Requires major upgrade.");
+	    			if (linux) splashWindow.hide();
 	    			SimpleMessageDialog.showErrorDialog(ResourceBundleUtils.getString("bootstrap.main.error.upgrade"));
 	    			ConsoleUtils.messageOut("Done.");
 					Main.deletePropertyFiles(tdcHome);        
@@ -434,6 +435,7 @@ public class Main {
             }
 		} catch( BootstrapException be ) {
 			ConsoleUtils.messageErr("An exception has occurred.", be);
+			if (linux) splashWindow.hide();
 			SimpleMessageDialog.showErrorDialog(be.getMessage());
 			ConsoleUtils.messageOut("Done.");
 			Main.deletePropertyFiles(tdcHome);        
@@ -450,6 +452,7 @@ public class Main {
 		} 
         catch( ProcessWrapperException pwe ) {
 			ConsoleUtils.messageErr("An exception has occurred.", pwe);
+			if (linux) splashWindow.hide();
 			SimpleMessageDialog.showErrorDialog(pwe.getMessage());
 			ConsoleUtils.messageOut("Done.");
 			Main.deletePropertyFiles(tdcHome);        
@@ -493,6 +496,7 @@ public class Main {
 
 			// Check the exit codes of the wrapper processes.
 			if( jetty.getExitCode() != 0 ) {
+    			if (linux) splashWindow.hide();
 				SimpleMessageDialog.showErrorDialog(jetty.getExitMessage());
 				exitCode = -1;
 			} else {
@@ -500,6 +504,7 @@ public class Main {
 			}
 			
 		} catch( InterruptedException ie ) {
+			if (linux) splashWindow.hide();
 			SimpleMessageDialog.showErrorDialog(ie.getMessage());
 			ConsoleUtils.messageErr("An exception has occurred.", ie);
 			exitCode = -1;

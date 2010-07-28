@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -30,6 +31,7 @@ public class LockdownBrowserWrapper extends Thread {
 	private SplashWindow splashWindow;
 	
 	private boolean islinux = false;
+	private boolean ismac = false;
 	
 	private String[] ldbCommand;
 	private boolean isAvailable = false;
@@ -45,6 +47,8 @@ public class LockdownBrowserWrapper extends Thread {
 	public static native void kill_printscreen_snapshot();
 	public static native boolean Kill_Task_Mgr();
 	public static native boolean Process_Check();
+	public static native int Get_Blacklist_Process_No();
+	
 	static volatile boolean flag = false;
 	
 	/**
@@ -59,12 +63,12 @@ public class LockdownBrowserWrapper extends Thread {
 		this.splashWindow = splashWindow;
             
 		if ( macOS ) {
-
+			this.ismac = true;
+			
 			File ldbHomeDir = new File(this.tdcHome + "/lockdownbrowser/mac");
 			this.ldbHome = ldbHomeDir.getAbsolutePath();
 			this.ldbCommand = new String[1];
-//            this.ldbCommand[0] = "/Applications/Safari.app/Contents/MacOS/Safari"; 
-			
+
 			/*Solution for Deferred Defect No: 50573 */
 			/* call the delete method of ObjectBankUtils class*/
 			objectBankUtils = new ObjectBankUtils();
@@ -125,6 +129,23 @@ public class LockdownBrowserWrapper extends Thread {
 			try {
 				LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(false);
 				LockdownBrowserWrapper.TaskSwitching_Enable_Disable(false);
+			} catch (Exception e) {
+				flag = false;
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private static class LockdownWinB extends Thread {
+		
+		private String tdcHome;
+		
+		public LockdownWinB(String tdcHome){
+			this.tdcHome = tdcHome;
+		}
+		
+		public void run() {
+			try {
 				LockdownBrowserWrapper.Kill_Task_Mgr();
 			} catch (Exception e) {
 				flag = false;
@@ -144,14 +165,50 @@ public class LockdownBrowserWrapper extends Thread {
 		public void run() {
 			try {
 				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(false);
-				Runtime.getRuntime().exec("xmodmap -e \"pointer = 1 9 8 7 6 5 4 3 2\"");
 				Thread.sleep(5000);
 				String wmctrl = "./wmctrl -r \"Online Assessment System\" -b \"toggle, fullscreen\"";
 				Runtime.getRuntime().exec(wmctrl, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+				try{
+					Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+				}catch (Exception e) {
+					// do nothing
+				}
 				while(true) {
 					LockdownBrowserWrapper.kill_printscreen_snapshot();
-					Thread.sleep(1000);
+					//Runtime.getRuntime().exec("./wmctrl -s \"Desk 1\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+					//Runtime.getRuntime().exec("./wmctrl -r \"Online Assessment System\" -t \"Desk 1\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+					//Thread.sleep(100);
+					//Runtime.getRuntime().exec("./wmctrl -n 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+					//Runtime.getRuntime().exec("./wmctrl -s 0", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+					//Runtime.getRuntime().exec("./wmctrl -r \"Online Assessment System\" -t 0", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+					//Runtime.getRuntime().exec("./wmctrl -R \"Online Assessment System\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+					Runtime.getRuntime().exec("./wmctrl -n 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+					Runtime.getRuntime().exec("./wmctrl -R \"Online Assessment System\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+					try{	
+						Runtime.getRuntime().exec("gconftool-2 -s -t int /apps/compiz/general/screen0/options/number_of_desktops 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+					} catch (Exception e) {
+						// do nothing
+					}
+					Thread.sleep(500);
 				}
+			} catch (Exception e) {
+				flag = false;
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private static class LockdownMac extends Thread {
+		
+		private String tdcHome;
+		
+		public LockdownMac(String tdcHome){
+			this.tdcHome = tdcHome;
+		}
+		
+		public void run() {
+			try {
+				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(false);
 			} catch (Exception e) {
 				flag = false;
 				e.printStackTrace();
@@ -169,7 +226,42 @@ public class LockdownBrowserWrapper extends Thread {
 		
 			unpackLock();
 		
-			if (islinux) {
+			if (ismac) {
+				// start the LDB first for Mac, so that user can't see applescript wizardry
+				ConsoleUtils.messageOut("AIR app started at " + System.currentTimeMillis());
+				Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome));
+				Thread.sleep(10000);
+				// Linux native lib
+				System.load(this.tdcHome + "/liblock.jnilib");
+				LockdownMac lockdown = new LockdownMac(this.tdcHome);
+				int value = LockdownBrowserWrapper.Get_Blacklist_Process_No();
+				if (value != 0) {
+					flag = false;
+					ConsoleUtils.messageOut("Process block failed.");				
+					String processName = MacDisplayForbiddenprocess.getProcessName(value);
+					MacDisplayForbiddenprocess.showMessageBox(processName);
+				} else {
+					flag = true;
+					
+					lockdown.start();
+					
+					ConsoleUtils.messageOut("Desktop Locked..........");
+				}
+				// Run the LDB...
+				ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
+				ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
+				
+				this.isAvailable = true;
+	
+				if (flag) {
+					ldb.waitFor();
+					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());	
+				}
+				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(true);
+				ConsoleUtils.messageOut("Desktop unlocked ...");
+				
+				this.isAvailable = false;	
+			} else if (islinux) {
 				// Linux native lib
 				System.load(this.tdcHome + "/liblock.so");
 				LockdownLinux lockdown = new LockdownLinux(this.tdcHome);
@@ -191,19 +283,34 @@ public class LockdownBrowserWrapper extends Thread {
 	
 				if (flag) {
 					ConsoleUtils.messageOut("AIR app started at " + System.currentTimeMillis());
-					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome));
+					
+					Map<String,String> env = System.getenv();
+					Iterator it = env.keySet().iterator();
+					String envp[] = new String[env.keySet().size()];
+					int i=0;
+					while(it.hasNext()) {
+						String key = (String) it.next();
+						if(!(key.startsWith("http") && key.endsWith("_proxy"))) {
+							envp[i] = key + "=" + (String) env.get(key);
+						} else {
+							envp[i] = i + "=" + i;
+						}
+						i++;
+					}
+					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, envp, new File(this.ldbHome));
 					ldb.waitFor();
-					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());
-					LockdownBrowserWrapper.Hot_Keys_Enable_Disable(true);
-					Runtime.getRuntime().exec("xmodmap -e \"pointer = 1 2 3 4 5 6 7 8 9\"");
-					ConsoleUtils.messageOut("Desktop unlocked ...");
+					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());	
 				}
+				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(true);
+				Runtime.getRuntime().exec("./wmctrl -n 2", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+				ConsoleUtils.messageOut("Desktop unlocked ...");
 				
 				this.isAvailable = false;	
 			} else {
 				// Windows native lib
 				System.load(this.tdcHome + "/lock.dll");
 				LockdownWin lockdown = new LockdownWin(this.tdcHome);
+				LockdownWinB lockdownB = new LockdownWinB(this.tdcHome);
 				
 				//boolean flag = false;
 				if (LockdownBrowserWrapper.Process_Block()) {
@@ -213,6 +320,7 @@ public class LockdownBrowserWrapper extends Thread {
 					flag = true;
 					
 					lockdown.start();
+					lockdownB.start();
 					
 					ConsoleUtils.messageOut("Desktop Locked..........");
 				}
@@ -230,18 +338,28 @@ public class LockdownBrowserWrapper extends Thread {
 					//Process ldb = Runtime.getRuntime().exec("C:\\Program Files\\Internet Explorer\\iexplore.exe -k");
 					ldb.waitFor();
 					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());
-					LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(true);
-					LockdownBrowserWrapper.TaskSwitching_Enable_Disable(true);
-					taskmgr = "taskbarshow.exe";
-					Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-					ConsoleUtils.messageOut("Desktop unlocked ...");	
-					Thread.sleep(1500);
 				}
+				LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(true);
+				LockdownBrowserWrapper.TaskSwitching_Enable_Disable(true);
+				String taskmgr = "taskbarshow.exe";
+				Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+				ConsoleUtils.messageOut("Desktop unlocked ...");	
+				Thread.sleep(1500);
 				
 				this.isAvailable = false;
 			}	
-			cleanupLock();
+			
 			this.splashWindow.show();
+			
+			if(islinux) {
+        		Runtime.getRuntime().exec("killall OASTDC");
+        	} else if(ismac) {
+        		Runtime.getRuntime().exec("killall OASTDC");
+        	} else {
+        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+        	}
+			
+			cleanupLock();
 		} catch (Exception e) {
 			ConsoleUtils.messageErr("An error has occured within " + this.getClass().getName(), e);
 		}
@@ -253,6 +371,17 @@ public class LockdownBrowserWrapper extends Thread {
 		Iterator it = lockFiles.iterator();
 		while (it.hasNext()) {
 			File file = new File((String)it.next());
+			file.delete();
+		}
+		if(islinux) {
+			String pcheckFile = this.tdcHome + "/processcheck";
+			File file = new File(pcheckFile);
+			file.delete();
+			pcheckFile = this.tdcHome + "/xmodmap_modified";
+			file = new File(pcheckFile);
+			file.delete();
+			pcheckFile = this.tdcHome + "/xmodmap_original";
+			file = new File(pcheckFile);
 			file.delete();
 		}
 	}
@@ -296,8 +425,12 @@ public class LockdownBrowserWrapper extends Thread {
 						}
 						fos.close();
 						lockFiles.add(zipEntryFilePath);
-						if(islinux) {
-							Runtime.getRuntime().exec("chmod u+x " + zipEntryFilePath);
+						if(islinux || ismac) {
+							Runtime.getRuntime().exec("chmod a+rwx " + zipEntryFilePath, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+							if(zipEntryFilePath.endsWith(".sh") || zipEntryFilePath.endsWith(".c")) {
+								Runtime.getRuntime().exec("tr -d '\015\032' < " + zipEntryFilePath + " > " + zipEntryFilePath + ".tmp", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+								Runtime.getRuntime().exec("mv " + zipEntryFilePath + ".tmp " + zipEntryFilePath, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+							}
 						}
                     }
                     
