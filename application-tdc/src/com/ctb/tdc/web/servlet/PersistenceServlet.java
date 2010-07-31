@@ -2,10 +2,10 @@ package com.ctb.tdc.web.servlet;
   
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,8 +26,8 @@ import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.log4j.Logger;
 
 import com.ctb.tdc.web.dto.StateVO;
-import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.AuditFile;
+import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
      
 /** 
@@ -123,7 +123,7 @@ public class PersistenceServlet extends HttpServlet {
     private void handleEvent(HttpServletResponse response, String method, String xml) throws IOException {
         String result = ServletUtils.OK;
         boolean validSettings = ServletUtils.validateServletSettings();
-        
+                
         // call method to perform an action only if servlet settings is valid
         if (! validSettings)
             result = ServletUtils.getServletSettingsErrorMessage();
@@ -186,6 +186,7 @@ public class PersistenceServlet extends HttpServlet {
     
         try {
             // sent login request to TMS
+        	logger.info("***** login request");
             result = ServletUtils.httpClientSendRequest(ServletUtils.LOGIN_METHOD, xml);
             
             if (ServletUtils.isLoginStatusOK(result)) {
@@ -221,20 +222,26 @@ public class PersistenceServlet extends HttpServlet {
     private String feedback(String xml) {
         String result = ServletUtils.ERROR;
         try {
-        	int TMSRetry = 5;
-        	while (TMSRetry > 0) {
+        	MemoryCache memoryCache = MemoryCache.getInstance();
+        	int TMSRetryCount = memoryCache.getSrvSettings().getTmsMessageRetryCount();
+        	int TMSRetryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
+        	int expansion = memoryCache.getSrvSettings().getTmsMessageRetryExpansionFactor();
+        	int i = 1;
+        	while (TMSRetryCount > 0) {
 	            // sent feedback request to TMS
+        		logger.info("***** studentFeedback request");
 	            result = ServletUtils.httpClientSendRequest(ServletUtils.FEEDBACK_METHOD, xml);
 	            if (ServletUtils.isStatusOK(result)) {
 	                logger.info("Get feedback successful.");
-	                TMSRetry = 0;
+	                TMSRetryCount = 0;
 	            }
 	            else {
 	                logger.error("TMS returns error in feedback() : " + result);    
 	                logger.error("Retrying . . .");
-	                Thread.sleep(2 * ServletUtils.SECOND);
-	                TMSRetry--;
+	                Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
+	                TMSRetryCount--;
 	            }
+	            i = i*expansion;
         	}
         } 
         catch (Exception e) {
@@ -259,6 +266,17 @@ public class PersistenceServlet extends HttpServlet {
         String result = null; // must set to null to prevent sending response twice
         String errorMessage = null;
         try {
+        	boolean isEndSubtest = ServletUtils.isEndSubtest(xml);
+        	
+        	if(isEndSubtest) {
+        		// make sure the queue is empty before finishing subtest
+                String checkQueueClear = waitForQueueToBeClear();
+                if (checkQueueClear != null) {
+                	result = ServletUtils.buildXmlErrorMessage("", checkQueueClear, "");
+                    return result;
+                }
+        	}
+        	
             // parse request xml for information
             String lsid = ServletUtils.parseLsid(xml);    
             String mseq = ServletUtils.parseMseq(xml); 
@@ -276,7 +294,6 @@ public class PersistenceServlet extends HttpServlet {
                 if (hasResponse)
                 	AuditFile.log(ServletUtils.createAuditVO(xml, hasResponse));
 
-                boolean isEndSubtest = ServletUtils.isEndSubtest(xml);
                 if(!isEndSubtest){
                 	// return response to client
                 	ServletUtils.writeResponse(response, ServletUtils.OK);
@@ -309,28 +326,36 @@ public class PersistenceServlet extends HttpServlet {
     	// send request to TMS
         if (memoryCache.getSrvSettings().isTmsPersist()) {
             // set pending state before send request to TMS
-            StateVO state = memoryCache.setPendingState(lsid, mseq, ServletUtils.SAVE_METHOD, xml);
+        	StateVO state = null;
+        	if(!isAcknowledged(memoryCache, lsid, mseq)) {
+        		state = memoryCache.setPendingState(lsid, mseq, ServletUtils.SAVE_METHOD, xml);
+        	}
             // setPendingState returns null if message was not added to cache,
             // this occurs in the case of duplicate messages - we don't forward those to TMS
             if (state != null) {
             	// message was added to pending list in cache,
                 // send save request to TMS
-            	int TMSRetry = 5;
+            	int TMSRetryCount = memoryCache.getSrvSettings().getTmsMessageRetryCount();
+            	int TMSRetryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
+            	int expansion = memoryCache.getSrvSettings().getTmsMessageRetryExpansionFactor();
             	String tmsResponse = "";
-            	while(TMSRetry > 0) {
+            	int i = 1;
+            	while(TMSRetryCount > 0) {
+            		logger.info("***** persistence request");
             		tmsResponse = ServletUtils.httpClientSendRequest(ServletUtils.SAVE_METHOD, xml);
                     
                     // if OK return from TMS, set acknowledge state
                     if (ServletUtils.isStatusOK(tmsResponse)) {
                         memoryCache.setAcknowledgeState(state);
-                        TMSRetry = 0;
+                        TMSRetryCount = 0;
                     }
                     else {
                         logger.error("TMS returns error in save() : " + tmsResponse);
                         logger.error("Retrying . . .");
-                        Thread.sleep(2 * ServletUtils.SECOND);
-	                    TMSRetry--;
+                        Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
+                        TMSRetryCount--;
                     }
+                    i = i*expansion;
             	}
                 if(isEndSubtest){
                 	result = tmsResponse;
@@ -363,6 +388,7 @@ public class PersistenceServlet extends HttpServlet {
             AuditFile.log(ServletUtils.createAuditVO(xml, false));
             
             // sent writeToAuditFile request to TMS
+            logger.info("***** uploadAuditFile request");
             ServletUtils.httpClientSendRequest(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD, xml);            
             result = ServletUtils.OK; // nothing return from TMS
         } 
@@ -382,7 +408,8 @@ public class PersistenceServlet extends HttpServlet {
      * @param String xml
      */
     private String uploadAuditFile(String xml) {
-        String result = ServletUtils.ERROR;
+      synchronized (ServletUtils.client) {	
+    	String result = ServletUtils.ERROR;
         String errorMessage = null;
         int responseCode = HttpStatus.SC_OK;
         
@@ -398,86 +425,80 @@ public class PersistenceServlet extends HttpServlet {
             String fileName = ServletUtils.buildFileName(xml);            
             File file = new File(fileName);
             
-            // get checksum value
-            long sumValue = ServletUtils.getChecksum(file);
-            if (sumValue == -1L) {
-                logger.error("Checksum error.");
-                return ServletUtils.ERROR;                
-            }
-            
-            // setup URL parameters
-            String tmsURL = ServletUtils.getTmsURLString(ServletUtils.UPLOAD_AUDIT_FILE_METHOD);
-            tmsURL += "?" + ServletUtils.XML_PARAM + "=" + xml;
-            tmsURL += "&" + ServletUtils.CHECKSUM_PARAM + "=" + sumValue;
-            
-            PostMethod filePost = new PostMethod(tmsURL);                         
-            try {                
-                // set multipart request
-                Part[] parts = { new FilePart(ServletUtils.AUDIT_FILE_PARAM, file) }; 
-                filePost.setRequestEntity( new MultipartRequestEntity(parts, filePost.getParams()) );
-                
-                // upload the file to TMS
-                HttpClientParams clientParams = new HttpClientParams();
-                clientParams.setConnectionManagerTimeout(30 * ServletUtils.SECOND);    // timeout in 30 seconds            
-                HttpClient client = new HttpClient(clientParams);                                
-                String proxyHost = ServletUtils.getProxyHost();
-            
-                if ((proxyHost != null) && (proxyHost.length() > 0)) {
-    				// apply proxy settings
-                    int proxyPort    = ServletUtils.getProxyPort();
-                    String username  = ServletUtils.getProxyUserName();
-                    String password  = ServletUtils.getProxyPassword();            
-                	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);
-                }
-                responseCode = client.executeMethod(filePost);    
-
-                // delete local file when upload successfully 
-                if (responseCode == HttpStatus.SC_OK) {                          
-                    InputStream isPost = filePost.getResponseBodyAsStream();
-                    BufferedReader in = new BufferedReader(new InputStreamReader(isPost));
-                    String inputLine = null;   
-                    String tmsResponse = "";
-                    while ((inputLine = in.readLine()) != null) {
-                        tmsResponse += inputLine;
-                    }
-                    in.close();     
-                    // if OK return from TMS, delete local file
-                    if (ServletUtils.isStatusOK(tmsResponse)) {                    
-                        logger.info("Upload audit file successfully");
-                        if (AuditFile.deleteLogger(fileName)) {                      
-                            logger.info("Delete audit file successfully");
-                            result = ServletUtils.OK;
-                        }
-                        else { 
-                            logger.error("Failed to delete audit file");
-                            errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.deleteAuditFileFailed");                            
-                            result = ServletUtils.buildXmlErrorMessage("", errorMessage, "");
-                        }
-                    }
-                    else {
-                        logger.error("Failed to upload audit file, tmsResponse=" + tmsResponse);
-                        errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.uploadFailed");                            
-                        result = ServletUtils.buildXmlErrorMessage("", errorMessage, "");
-                    }
-                }
-                else {
-                    logger.error("Failed to upload audit file, responseCode=" + HttpStatus.getStatusText(responseCode));
-                    result = ServletUtils.buildXmlErrorMessage("", HttpStatus.getStatusText(responseCode), "");                     
-                }
-            }
-            catch (Exception e) {
-                logger.error("Exception occured in uploadAuditFile() : " + ServletUtils.printStackTrace(e));
-                errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.uploadFailed");                            
-                result = ServletUtils.buildXmlErrorMessage("", errorMessage, ""); 
-            }
-            finally {
-                filePost.releaseConnection();
+            if(file.exists()) {
+	            // get checksum value
+	            long sumValue = ServletUtils.getChecksum(file);
+	            if (sumValue == -1L) {
+	                logger.error("Checksum error.");
+	                return ServletUtils.ERROR;                
+	            }
+	            
+	            // setup URL parameters
+	            String tmsURL = ServletUtils.getTmsURLString(ServletUtils.UPLOAD_AUDIT_FILE_METHOD);
+	            tmsURL += "?" + ServletUtils.XML_PARAM + "=" + xml;
+	            tmsURL += "&" + ServletUtils.CHECKSUM_PARAM + "=" + sumValue;
+	            
+	            PostMethod filePost = new PostMethod(tmsURL);                         
+	            try {                
+	                // set multipart request
+	                Part[] parts = { new FilePart(ServletUtils.AUDIT_FILE_PARAM, file) }; 
+	                filePost.setRequestEntity( new MultipartRequestEntity(parts, filePost.getParams()) );
+	                
+	                responseCode = ServletUtils.client.executeMethod(filePost);    
+	
+	                // delete local file when upload successfully 
+	                if (responseCode == HttpStatus.SC_OK) {                          
+	                    InputStream isPost = filePost.getResponseBodyAsStream();
+	                    BufferedReader in = new BufferedReader(new InputStreamReader(isPost));
+	                    String inputLine = null;   
+	                    String tmsResponse = "";
+	                    while ((inputLine = in.readLine()) != null) {
+	                        tmsResponse += inputLine;
+	                    }
+	                    in.close();     
+	                    // if OK return from TMS, delete local file
+	                    if (ServletUtils.isStatusOK(tmsResponse)) {                    
+	                        logger.info("Upload audit file successfully");
+	                        if (AuditFile.deleteLogger(fileName)) {                      
+	                            logger.info("Delete audit file successfully");
+	                            result = ServletUtils.OK;
+	                        }
+	                        else { 
+	                            logger.error("Failed to delete audit file");
+	                            errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.deleteAuditFileFailed");                            
+	                            result = ServletUtils.buildXmlErrorMessage("", errorMessage, "");
+	                        }
+	                    }
+	                    else {
+	                        logger.error("Failed to upload audit file, tmsResponse=" + tmsResponse);
+	                        errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.uploadFailed");                            
+	                        result = ServletUtils.buildXmlErrorMessage("", errorMessage, "");
+	                    }
+	                }
+	                else {
+	                    logger.error("Failed to upload audit file, responseCode=" + HttpStatus.getStatusText(responseCode));
+	                    result = ServletUtils.buildXmlErrorMessage("", HttpStatus.getStatusText(responseCode), "");                     
+	                }
+	            }
+	            catch (Exception e) {
+	                logger.error("Exception occured in uploadAuditFile() : " + ServletUtils.printStackTrace(e));
+	                errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.uploadFailed");                            
+	                result = ServletUtils.buildXmlErrorMessage("", errorMessage, ""); 
+	            }
+	            finally {
+	                filePost.releaseConnection();
+	            }
+            } else {
+            	result = ServletUtils.OK;
             }
         }
         else {
-            result = ServletUtils.OK;        
+        	// file was already uploaded by another thread
+        	result = ServletUtils.OK;        
         }
+
         return result;
+      }
     }
         
     /**
@@ -491,13 +512,21 @@ public class PersistenceServlet extends HttpServlet {
      * @param String mseq
      */
     private boolean verifyAcknowledge(MemoryCache memoryCache, String lsid, String mseq) throws InterruptedException {
-        int messageRetry = memoryCache.getSrvSettings().getTmsAckMessageRetry();
+        int retryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
+        int waitTime = memoryCache.getSrvSettings().getTmsAckMessageWaitTime();
+        int expansion = memoryCache.getSrvSettings().getTmsMessageRetryExpansionFactor();
+        long startTime = System.currentTimeMillis();
+        long currentTime = startTime;
+        boolean timeout = false;
         boolean pendingState = inPendingState(memoryCache, lsid, mseq);
-        while (pendingState && (messageRetry > 0)) {
-            logger.info("TmsAckMessageRetry=" + messageRetry);
-            messageRetry--;
-            Thread.sleep(ServletUtils.SECOND); // delay 1 second and try again
+        int i = 1;
+        while (!timeout && pendingState) {
+            Thread.sleep(retryInterval * ServletUtils.SECOND * i); // delay 1 second and try again
             pendingState = inPendingState(memoryCache, lsid, mseq);
+            currentTime = System.currentTimeMillis();
+            timeout = (currentTime - startTime) > (waitTime * ServletUtils.SECOND);
+            logger.info("Waited " + ((currentTime - startTime)/ServletUtils.SECOND) + " for TMS response.");
+            i = i*expansion;
         }            
         return (! pendingState);
     } 
@@ -538,6 +567,39 @@ public class PersistenceServlet extends HttpServlet {
         return pendingState;
     }
     
+    /**
+     * The inPendingState method of the servlet. <br>
+     * 
+     * verify if there is a pending state entry in the list
+     * the index is computed from 'tms.ack.maxLostMessage' in properties file
+     * mseqIndex = mseqCurrent - tmsAckMaxLostMessage;
+     * 
+     * @param MemoryCache memoryCache
+     * @param String lsid
+     * @param String mseq
+     */
+    public static boolean isAcknowledged(MemoryCache memoryCache, String lsid, String mseq) {  
+        boolean acknowledged = false;
+        boolean isTmsAckRequired = memoryCache.getSrvSettings().isTmsAckRequired();
+        
+        if (isTmsAckRequired) {
+            ArrayList states = (ArrayList)memoryCache.getStateMap().get(lsid);
+            if (states != null) {
+                int mseqCurrent = Integer.parseInt(mseq);
+                for (int i=0 ; i<states.size() ; i++) {
+                    StateVO state = (StateVO)states.get(i);
+                    if (state.getMseq() == mseqCurrent) {
+                        if (state.getState().equals(StateVO.ACKNOWLEDGED_STATE)) {
+                            acknowledged = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return acknowledged;
+    }
+    
     private static class retrier extends Thread {
     	private String method;
     	private String xml;
@@ -548,29 +610,19 @@ public class PersistenceServlet extends HttpServlet {
     	}
     	
     	public void run() {
-    		try {
-	    		int TMSRetry = 5;
-	        	String tmsResponse = "";
-	        	while(TMSRetry > 0) {
-	        		tmsResponse = ServletUtils.httpClientSendRequest(method, xml);
-	                // if OK return from TMS, set acknowledge state
-	                if (ServletUtils.isStatusOK(tmsResponse)) {
-	                	MemoryCache memoryCache = MemoryCache.getInstance();
-	                	String lsid = ServletUtils.parseLsid(xml);    
-	                    String mseq = ServletUtils.parseMseq(xml);
-	                    memoryCache.setAcknowledgeState(lsid, mseq);
-	                    TMSRetry = 0;
-	                }
-	                else {
-	                    logger.error("TMS returns error in save() : " + tmsResponse);
-	                    logger.error("Retrying . . .");
-	                    Thread.sleep(2 * ServletUtils.SECOND);
-	                    TMSRetry--;
-	                }
-	        	}
-    		} catch (InterruptedException ie) {
-    			// do nothing
-    		}
+			MemoryCache memoryCache = MemoryCache.getInstance();
+    		String tmsResponse = "";
+    		logger.info("***** unacknowledged persistence request retry");
+        	tmsResponse = ServletUtils.httpClientSendRequest(method, xml);
+            // if OK return from TMS, set acknowledge state
+            if (ServletUtils.isStatusOK(tmsResponse)) {
+            	String lsid = ServletUtils.parseLsid(xml);    
+                String mseq = ServletUtils.parseMseq(xml);
+                memoryCache.setAcknowledgeState(lsid, mseq);
+            }
+            else {
+                logger.error("TMS returns error in save() : " + tmsResponse);
+            }
     	}
     }
 
@@ -579,6 +631,7 @@ public class PersistenceServlet extends HttpServlet {
         String errorMsg = null;
         MemoryCache memoryCache = MemoryCache.getInstance();
         HashMap stateMap = ( HashMap )memoryCache.getStateMap();
+        
         if ( !stateMap.isEmpty() )
         {
             Set lsids = stateMap.keySet();
@@ -587,12 +640,12 @@ public class PersistenceServlet extends HttpServlet {
             {
                 String key = ( String )it.next();
                 ArrayList states = ( ArrayList )stateMap.get( key );
-                int messageRetry = memoryCache.getSrvSettings().getTmsAckMessageRetry();
+                int messageWait = memoryCache.getSrvSettings().getTmsAckMessageWaitTime();
                 try
                 {
-                    while( anyMessageInPending( states ) && ( messageRetry > 0) )
+                    while( anyMessageInPending( states ) && ( messageWait > 0) )
                     {
-                        messageRetry--;
+                    	messageWait--;
                         Thread.sleep( ServletUtils.SECOND ); 
                     }
                     if ( anyMessageInPending( states ) )

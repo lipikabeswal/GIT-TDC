@@ -87,10 +87,11 @@ public class UtilityServlet extends HttpServlet {
         else
         if (method.equals("exit")) {
         	System.out.println("Exit called");
+        	ServletUtils.client.getHttpConnectionManager().closeIdleConnections(1);
         	if(isLinux()) {
         		Runtime.getRuntime().exec("killall OASTDC");
         	} else if(isMacOS()) {
-        		// do something here
+        		Runtime.getRuntime().exec("killall OASTDC");
         	} else {
         		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
         	}

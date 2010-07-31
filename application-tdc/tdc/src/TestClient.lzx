@@ -152,6 +152,9 @@
             <Tutorial id="gTutorial" width="800" height="600"
                         visible="false"/>
 
+	        <!-- include the please wait popup -->
+	        <include href="ctbmodules/question/PleaseWaitPopup.lzx"/>
+
         </view>
 
     </view>

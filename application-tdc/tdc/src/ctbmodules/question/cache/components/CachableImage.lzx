@@ -167,7 +167,7 @@
 
 		<method name="getDefaultErrorMessage">
 		 	var errorStr1 = "The Online Assessment software is unable to connect with the server.";
-			var errorStr2 = "Ask the person in charge of this test to close this window. Log in again in five minutes, and you will return to your last saved answer.";
+			var errorStr2 = "Ask the person in charge of this test to close this window. Log in again in three minutes, and you will return to your last saved answer.";
 			var errorStr3 = "Error Code: TDC207";
 			return errorStr1 + "^" + errorStr2+ "^" + errorStr3;	
 		</method>
