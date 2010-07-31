@@ -8,14 +8,15 @@ import com.zerog.ia.api.pub.InstallerProxy;
 import com.zerog.ia.api.pub.UninstallerProxy;
 
 
-public class LoadPathAction extends CustomCodeAction {
+public class CheckFileExistsAction extends CustomCodeAction {
 
 	private void loadPath(InstallerProxy installerProxy) {
-        String filePath = installerProxy.substitute("$FILE_PATH$");
         String fileName = installerProxy.substitute("$FILE_NAME$");
-        String fullName = filePath + "\\" + fileName;
-
-        System.load(fullName);
+        File theFile = new File(fileName);
+        Boolean isExists = new Boolean( theFile.exists() );
+        String result = isExists.toString();
+         
+		installerProxy.setVariable("$FLASH_EXISTS$", result);		        
 	} 
 
 
