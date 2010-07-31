@@ -699,8 +699,14 @@ public class BandwidthMainWindow extends JFrame implements ActionListener {
 	}
 	
 	private JTextField getTextField() {
+		
+		
 		if (textField == null) {
-			textField = new JTextField(2);	// allow 3 characters
+	        String os = System.getProperty("os.name");
+	        if ((os != null) && (os.toLowerCase().indexOf("linux") != -1))
+				textField = new JTextField(3);	// allow 3 characters for Linux
+	        else
+	        	textField = new JTextField(2);	// allow 3 characters for PC and MAC
 			
 			FixedSizePlainDocument fspd = new FixedSizePlainDocument(3);
 			textField.setDocument(fspd);
