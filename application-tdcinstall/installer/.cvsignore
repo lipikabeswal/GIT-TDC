@@ -1,7 +1,5 @@
 buildlog.xml
-__tdc_*.iap_xml
-__tdc_*_Build_Output
-__tdc_*locales
+__*
 tdc_Build_Output
 tdclocales
 iabuild.properties
