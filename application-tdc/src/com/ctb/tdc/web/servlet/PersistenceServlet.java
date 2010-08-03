@@ -237,8 +237,10 @@ public class PersistenceServlet extends HttpServlet {
 	            }
 	            else {
 	                logger.error("TMS returns error in feedback() : " + result);    
-	                logger.error("Retrying . . .");
-	                Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
+	                if (TMSRetryCount > 1) {
+	                	logger.error("Retrying . . .");
+	                	Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);	
+	                }
 	                TMSRetryCount--;
 	            }
 	            i = i*expansion;
@@ -351,8 +353,10 @@ public class PersistenceServlet extends HttpServlet {
                     }
                     else {
                         logger.error("TMS returns error in save() : " + tmsResponse);
-                        logger.error("Retrying . . .");
-                        Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
+                        if (TMSRetryCount > 1) {
+                        	logger.error("Retrying . . .");
+                        	Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);	
+                        }
                         TMSRetryCount--;
                     }
                     i = i*expansion;

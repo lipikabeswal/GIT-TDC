@@ -176,7 +176,9 @@ public class ContentServlet extends HttpServlet {
 					document = AdssvcResponseDocument.Factory.parse(result);
 					error = document.getAdssvcResponse().getGetSubtest().getError();
 					if (error != null) {
-						Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
+						if(TMSRetryCount > 1) {
+							Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
+						}
 						TMSRetryCount--;
 					} else {
 						TMSRetryCount = 0;
@@ -276,7 +278,9 @@ public class ContentServlet extends HttpServlet {
 					result = ServletUtils.httpClientSendRequest(ServletUtils.DOWNLOAD_ITEM_METHOD, xml);
 					errorIndex = result.indexOf("<ERROR>");
 					if (errorIndex >= 0) {
-						Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
+						if(TMSRetryCount > 1) {
+							Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
+						}
 						TMSRetryCount--;
 					} else {
 						TMSRetryCount = 0;
