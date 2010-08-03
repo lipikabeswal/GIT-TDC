@@ -177,6 +177,7 @@ public class ContentServlet extends HttpServlet {
 					error = document.getAdssvcResponse().getGetSubtest().getError();
 					if (error != null) {
 						if(TMSRetryCount > 1) {
+							logger.error("Retrying message: " + xml);
 							Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
 						}
 						TMSRetryCount--;
@@ -279,6 +280,7 @@ public class ContentServlet extends HttpServlet {
 					errorIndex = result.indexOf("<ERROR>");
 					if (errorIndex >= 0) {
 						if(TMSRetryCount > 1) {
+							logger.error("Retrying message: " + xml);
 							Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
 						}
 						TMSRetryCount--;
