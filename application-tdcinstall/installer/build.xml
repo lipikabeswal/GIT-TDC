@@ -123,7 +123,7 @@
 			IAProjectFile="${installer.src}"
 			AutoPopulateLabels="false"
 			BuildLinuxWithVM="false"
-			BuildLinuxWithoutVM="false"
+			BuildLinuxWithoutVM="true"
 			BuildHPUXWithVM="false"
 			BuildHPUXWithoutVM="false"
 			BuildAIXWithVM="false"
