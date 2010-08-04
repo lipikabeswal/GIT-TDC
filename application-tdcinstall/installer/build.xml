@@ -61,17 +61,17 @@
 	</target>
 	
 	<target name="buildVanilla" description="Builds the generic installer" depends="init">
-		<copy file="${project.artifacts.webapp.resources.dir}/eliminatorVANILLA.swf" tofile="${project.artifacts.webapp.resources.dir}/eliminator.swf" overwrite="true" />
+		<!-- <copy file="${project.artifacts.webapp.resources.dir}/eliminatorVANILLA.swf" tofile="${project.artifacts.webapp.resources.dir}/eliminator.swf" overwrite="true" /> -->
 		<antcall target="buildInstaller">
 			<param name="installer.type" value="vanilla" />
 		</antcall>
 	</target>
 	
 	<target name="buildFCAT" description="Builds the FCAT installer" depends="init">
-		<copy file="${project.artifacts.webapp.resources.dir}/eliminatorFCAT.swf" tofile="${project.artifacts.webapp.resources.dir}/eliminator.swf" overwrite="true" />
+		<!-- <copy file="${project.artifacts.webapp.resources.dir}/eliminatorFCAT.swf" tofile="${project.artifacts.webapp.resources.dir}/eliminator.swf" overwrite="true" />
 		<antcall target="buildInstaller">
 			<param name="installer.type" value="fcat" />
-		</antcall>
+		</antcall> -->
 	</target>
 	
 	
