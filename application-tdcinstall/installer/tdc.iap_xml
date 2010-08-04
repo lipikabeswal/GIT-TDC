@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2008 VP1 Enterprise, Build 3571
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Sat Jun 12 22:02:58 PDT 2010 -->
+     DATE:   Wed Aug 04 11:39:54 PDT 2010 -->
 <InstallAnywhere_Deployment_Project increments="8678">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
@@ -10,7 +10,7 @@
 		<scriptID>12,42,11,69,49,55,55,57,82,81,81,68,81,81,68,81,81,55,81,70,81,82,70,81,57,70</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,86,105,115,116,97,44,32,54,46,48,44,32,120,56,54,59,32,74,97,118,97,32,49,46,53,46,48,95,49,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,32,35,-76,96,96,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,12,12,80,111,9,1,0,0</authorizationID>
+		<authorizationID>1,0,0,32,51,100,0,-112,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,7,10,87,110,10,1,0,0</authorizationID>
 	</essentialScriptInfo>
 	<installationObjects uniqueObjects="569">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
@@ -1088,9 +1088,9 @@ and any path to a file to read from that file]]></string>
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="8389f8439a27">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="51e56f728c77">
 													<property name="propertyValue">
-														<string><![CDATA[8.0]]></string>
+														<string><![CDATA[8.5]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
@@ -7621,7 +7621,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>false</boolean>
 							</property>
 							<property name="buildOutputLocation">
-								<string><![CDATA[C:\workspace\application-tdcinstall-oas7x\installer\tdc_Build_Output]]></string>
+								<string><![CDATA[C:\workspace\application-tdcinstall-OAS85\installer\tdc_Build_Output]]></string>
 							</property>
 							<property name="defaultWindowsUIMode">
 								<string><![CDATA[GUI]]></string>
@@ -7685,7 +7685,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.build.last.date]]></string>
-						<string><![CDATA[June 12, 2010 10:02:57 PM PDT]]></string>
+						<string><![CDATA[August 4, 2010 11:39:54 AM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.windows.vm]]></string>
@@ -7757,7 +7757,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[June 12, 2010 10:02:57 PM PDT]]></string>
+						<string><![CDATA[August 4, 2010 11:39:54 AM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -7966,7 +7966,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<int>8</int>
 							</property>
 							<property name="minor">
-								<int>0</int>
+								<int>5</int>
 							</property>
 							<property name="revision">
 								<int>0</int>
@@ -8653,15 +8653,15 @@ done
 							<method name="addElement">
 								<string><![CDATA[Linux]]></string>
 							</method>
+							<method name="addElement">
+								<string><![CDATA[Windows 2003]]></string>
+							</method>
 						</object>
 					</property>
 					<property name="doNotInstallOnPlatformList">
 						<object class="java.util.Vector">
 							<method name="addElement">
 								<string><![CDATA[Windows NT]]></string>
-							</method>
-							<method name="addElement">
-								<string><![CDATA[Windows 2003]]></string>
 							</method>
 							<method name="addElement">
 								<string><![CDATA[OS/2]]></string>
@@ -8997,7 +8997,7 @@ done
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>5313322</long>
+												<long>5313615</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -9090,7 +9090,7 @@ done
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>7104000</long>
+												<long>7100792</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -9811,7 +9811,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>399664</long>
+												<long>395568</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -11271,7 +11271,7 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[FCAT Student Comment Form.URL]]></string>
 											</property>
 											<property name="fileSize">
-												<long>65</long>
+												<long>67</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
@@ -11323,7 +11323,7 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[FCAT Student Comment Form.URL]]></string>
 											</property>
 											<property name="fileSize">
-												<long>65</long>
+												<long>67</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
