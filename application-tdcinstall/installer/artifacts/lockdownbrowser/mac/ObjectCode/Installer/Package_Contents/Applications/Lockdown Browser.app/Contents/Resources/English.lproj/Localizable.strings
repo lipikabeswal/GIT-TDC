@@ -1,0 +1,12 @@
+"Quit Button Title" = "Quit";
+"Cancel Button Title" = "Cancel ";		/* The space after Cancel is intentional to work around a Panther bug in NSAlert, see code for further details */
+/*"Home Button Title" = "Home"; -wdt: removed RC15 at request of Ken P */
+"Quit Confirmation Dialog Error String" = "This will TERMINATE the Testing Client Application!\n";
+"Quit Confirmation Dialog Info String" = "Click Quit to close the Testing Client Application.\nClick Cancel to remain in the Testing Client Application.\n\nVersion ";
+/*"Quit Confirmation Dialog Info String" = "Click Quit to close the Testing Client Application.\nClick Cancel to remain in the Testing Client Application.\nClick Home to go to the Home URL.\n\nVersion "; -wdt: modified RC15, per Ken P */
+"Settings File Not Found Error String" = "Lockdown Browser - There was a problem reading one or more attributes from the settings file.";	/*Lockdown Browser - Initialization URL not found */
+"Settings File Not Found Info String" = "Please Notify your Test Proctor";
+"Not Enough Free Disk Space Error Msg" = "The boot volume does not have enough Free disk space.";
+"Not Enough Free Disk Space Info String" = "Make sure there is 30MBs or more of free disk space and try again.";
+"No Other Apps String" = "No other applications can be running during test administration.";
+"No Other Apps Info String" = "Please quit the following applications and start the test again.\n";

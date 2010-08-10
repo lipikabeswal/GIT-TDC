@@ -1,0 +1,90 @@
+# Jamfile for configuration Release of target "LdB_Launcher" of project "LdB Launcher"
+
+
+JAVAC_SOURCE_FILE_ENCODING default = MacRoman ;
+
+# Implicitly computed project-wide settings for project "LdB Launcher"
+export deferred ANTICIPATED_BUILT_PRODUCTS_DIR = $(CONFIGURATION_BUILD_DIR) ;
+export deferred ANTICIPATED_TARGET_BUILD_DIR = $(CONFIGURATION_BUILD_DIR) ;
+export deferred BUILD_STYLE = "$(CONFIGURATION)" ;
+export deferred CONFIGURATION = Release ;
+export deferred CONFIGURATION_BUILD_DIR = $(BUILD_DIR)/$(CONFIGURATION) ;
+export deferred CONFIGURATION_TEMP_DIR = $(PROJECT_TEMP_DIR)/$(CONFIGURATION) ;
+export deferred DEVELOPMENT_LANGUAGE = English ;
+export deferred GROUP = staff ;
+export deferred PROJECT = $(PROJECT_NAME) ;
+export deferred PROJECT_DIR = /LockdownBrowser17/LdB Launcher ;
+export deferred PROJECT_FILE_PATH = /LockdownBrowser17/LdB Launcher/LdB Launcher.xcodeproj ;
+export deferred PROJECT_NAME = "LdB Launcher" ;
+export deferred PROJECT_TEMP_DIR = $(OBJROOT)/$(PROJECT_NAME).build ;
+export deferred SRCROOT = /LockdownBrowser17/LdB Launcher ;
+export deferred TARGET_TEMP_DIR = $(CONFIGURATION_TEMP_DIR)/$(TARGET_NAME).build ;
+export deferred TEMP_DIR = $(TARGET_TEMP_DIR) ;
+export deferred USER = bret ;
+
+# Project-wide settings for project "LdB Launcher"
+
+# User-defined project-wide settings for project "LdB Launcher"
+
+# Build Settings for target "LdB_Launcher"
+
+# Implicitly computed build settings for target "LdB_Launcher"
+export deferred CLONE_HEADERS = NO ;
+export deferred SKIP_INSTALL = YES ;
+export deferred TARGETNAME = $(TARGET_NAME) ;
+export deferred TARGET_NAME = LdB_Launcher ;
+
+# User-defined build settings for target "LdB_Launcher"
+export deferred COPY_PHASE_STRIP = YES ;
+export deferred GCC_ENABLE_FIX_AND_CONTINUE = NO ;
+export deferred JAVA_ARCHIVE_CLASSES = YES ;
+export deferred JAVA_ARCHIVE_COMPRESSION = NO ;
+export deferred JAVA_ARCHIVE_TYPE = JAR ;
+export deferred JAVA_COMPILER = /usr/bin/javac ;
+export deferred JAVA_MANIFEST_FILE = Manifest ;
+export deferred JAVA_SOURCE_SUBDIR = . ;
+export deferred PRODUCT_NAME = LdB_Launcher ;
+export deferred PURE_JAVA = YES ;
+export deferred REZ_EXECUTABLE = YES ;
+export deferred ZERO_LINK = NO ;
+
+# Target "LdB_Launcher"
+
+ConditionalDefinitions _ ;
+commitdeferred ;
+
+
+BeginTool "<LdB_Launcher>LdB_Launcher$(TOOL_SUFFIX)" ;
+
+# Sources
+LdB_Launcher.java_JAVA_IMPORTS = "" ;
+SOURCES = LdB_Launcher.java ;
+ProcessSources "<LdB_Launcher>LdB_Launcher$(TOOL_SUFFIX)" : "$(SOURCES)" : "" : BPTag000 ;
+
+# Java Resource Files
+JAVA_RESOURCE_FILES = ;
+ProcessJavaResourceFiles "<LdB_Launcher>LdB_Launcher$(TOOL_SUFFIX)" : "$(JAVA_RESOURCE_FILES)" : BPTag000 : BPTag001 ;
+
+# Frameworks & Libraries
+/System/Library/Frameworks/Cocoa.framework_ATTRIBUTES = AbsolutePath ;
+/System/Library/Frameworks/AppKit.framework_ATTRIBUTES = AbsolutePath ;
+/System/Library/Frameworks/Foundation.framework_ATTRIBUTES = AbsolutePath ;
+FRAMEWORKS_AND_LIBRARIES =
+	/System/Library/Frameworks/Cocoa.framework
+	/System/Library/Frameworks/AppKit.framework
+	/System/Library/Frameworks/Foundation.framework ;
+ProcessFrameworksAndLibraries "<LdB_Launcher>LdB_Launcher$(TOOL_SUFFIX)" : "$(FRAMEWORKS_AND_LIBRARIES)" : BPTag001 : BPTag002 ;
+
+# Copy Files
+COPY_FILES = "LdB Launcher.1" ;
+COPYFILES_DESTINATION_PATH = "$(INSTALL_ROOT)/usr/share/man/man1" ;
+if $(DEPLOYMENT_POSTPROCESSING) = YES {
+	ProcessCopyFiles "<LdB_Launcher>LdB_Launcher$(TOOL_SUFFIX)" : "$(COPY_FILES)" : BPTag002 : BPTag003 ;
+}
+else {
+	NoOp "<LdB_Launcher>LdB_Launcher$(TOOL_SUFFIX)" : "$(COPY_FILES)" : BPTag002 : BPTag003 ;
+}
+
+include $(TEMP_DIR)/HeaderDependencies.jam ;
+EndTool "<LdB_Launcher>LdB_Launcher$(TOOL_SUFFIX)" ;
+

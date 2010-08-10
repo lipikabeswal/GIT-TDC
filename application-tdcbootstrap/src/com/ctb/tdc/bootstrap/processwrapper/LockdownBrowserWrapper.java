@@ -69,12 +69,10 @@ public class LockdownBrowserWrapper extends Thread {
 			this.ldbHome = ldbHomeDir.getAbsolutePath();
 			this.ldbCommand = new String[1];
 
-			/*Solution for Deferred Defect No: 50573 */
-			/* call the delete method of ObjectBankUtils class*/
 			objectBankUtils = new ObjectBankUtils();
 			objectBankUtils.deleteContents();
 			
-            this.ldbCommand[0] = this.ldbHome + "/OASTDC.app/Contents/MacOS/OASTDC";            
+            this.ldbCommand[0] = this.ldbHome + "/Lockdown Browser.app/Contents/MacOS/Lockdown Browser";            
             this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
             
 		} else if ( linux ) {
@@ -198,24 +196,6 @@ public class LockdownBrowserWrapper extends Thread {
 		}
 	}
 	
-	private static class LockdownMac extends Thread {
-		
-		private String tdcHome;
-		
-		public LockdownMac(String tdcHome){
-			this.tdcHome = tdcHome;
-		}
-		
-		public void run() {
-			try {
-				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(false);
-			} catch (Exception e) {
-				flag = false;
-				e.printStackTrace();
-			}
-		}
-	}
-	
 	/**
 	 * Starts the LockdownBrowser.  This thread will block and wait for the LDB to finish
 	 * execution before this thread itself will die.
@@ -227,39 +207,12 @@ public class LockdownBrowserWrapper extends Thread {
 			unpackLock();
 		
 			if (ismac) {
-				// start the LDB first for Mac, so that user can't see applescript wizardry
-				ConsoleUtils.messageOut("AIR app started at " + System.currentTimeMillis());
-				Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome));
-				Thread.sleep(10000);
-				// Linux native lib
-				System.load(this.tdcHome + "/liblock.jnilib");
-				LockdownMac lockdown = new LockdownMac(this.tdcHome);
-				int value = LockdownBrowserWrapper.Get_Blacklist_Process_No();
-				if (value != 0) {
-					flag = false;
-					ConsoleUtils.messageOut("Process block failed.");				
-					String processName = MacDisplayForbiddenprocess.getProcessName(value);
-					MacDisplayForbiddenprocess.showMessageBox(processName);
-				} else {
-					flag = true;
-					
-					lockdown.start();
-					
-					ConsoleUtils.messageOut("Desktop Locked..........");
-				}
 				// Run the LDB...
 				ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
 				ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
-				
+				Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome) );
 				this.isAvailable = true;
-	
-				if (flag) {
-					ldb.waitFor();
-					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());	
-				}
-				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(true);
-				ConsoleUtils.messageOut("Desktop unlocked ...");
-				
+				ldb.waitFor();
 				this.isAvailable = false;	
 			} else if (islinux) {
 				// Linux native lib

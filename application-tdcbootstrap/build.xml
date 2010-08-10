@@ -35,8 +35,7 @@
 	<target name="build" description="Builds the JAR file." depends="clean">
 		<javac srcdir="${project.src}" destdir="${project.bin}"
 			 fork="yes" 
-			 executable="${project.java15.dir}/bin/javac"
-	         compiler="javac1.5">
+			 compiler="javac1.5">
 			<classpath>
 				<fileset dir="${project.application-tdc.dir}/webapp/WEB-INF/lib">
 					<include name="bcprov-jdk14-130.jar" />

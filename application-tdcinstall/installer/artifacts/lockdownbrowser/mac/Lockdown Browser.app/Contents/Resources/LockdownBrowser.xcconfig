@@ -1,0 +1,12 @@
+
+// The following version info is used to configure the LockdownBrowser.
+
+
+VISIBLE_VERSION_NUMBER = 1.0.22
+
+
+
+// $HeadURL: svn+ssh://ssontag@65.40.250.80/STG/Parts/Lockdown%20Browser/Trunk/Product/LockdownBrowser.xcconfig $
+// $LastChangedRevision: 6 $
+// $LastChangedDate: 2007-07-24 15:09:37 -0500 (Tue, 24 Jul 2007) $
+// $LastChangedBy: ssontag $
