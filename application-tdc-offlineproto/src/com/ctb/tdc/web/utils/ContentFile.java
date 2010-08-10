@@ -1,5 +1,7 @@
 package com.ctb.tdc.web.utils;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -55,7 +57,7 @@ public class ContentFile
     
     public static byte[] readFromFile( String filePath ) throws IOException
     {
-        FileInputStream aFileInputStream = new FileInputStream( filePath );
+        BufferedInputStream aFileInputStream = new BufferedInputStream(new FileInputStream( filePath ));
         int size = aFileInputStream.available();
         byte[] buffer = new byte[ size ];
         aFileInputStream.read( buffer );
@@ -72,7 +74,7 @@ public class ContentFile
     public static void writeToFile( byte[] data, String filePath ) throws Exception
     {
         File psFile = new File( filePath );
-        FileOutputStream psfile = new FileOutputStream( psFile );
+        BufferedOutputStream psfile = new BufferedOutputStream(new FileOutputStream( psFile ));
         psfile.write( data );
         psfile.flush();
         psfile.close(); 
