@@ -890,6 +890,10 @@ public class ServletUtils {
 		s = retVal.toString();
 		s = replaceAll( s, "&#+;", "&#x002B;" );
 		s = replaceAll( s, "+", "&#x002B;" );
+		//Defect# 64272: added for "<" Defect. 
+		s = s.replaceAll("&#x003C", "&LT;");
+		s = s.replaceAll("&lt;", "&LT;");
+
 		return s;
 	}
 
