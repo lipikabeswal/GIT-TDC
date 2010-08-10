@@ -38,6 +38,9 @@ public class LoadContentServlet extends HttpServlet {
     private static final int phaseOfOperation = 1;
     private static final String globalItemKey = "1u1piyyriN74U55CGnc4k1";
     static Logger logger = Logger.getLogger(LoadContentServlet.class);
+    private static final HashMap contentHash = new HashMap();
+    
+    
 	/**
 	 * Constructor of the object.
 	 */
@@ -66,7 +69,12 @@ public class LoadContentServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String method = request.getParameter("method");
+        
         if ((method != null) && (! method.equals("none"))) {    
+        	
+        	long startTime = System.currentTimeMillis();
+            System.out.print("called LoadContentServlet method: " + method);
+        	
             if (method.equals(ServletUtils.LOAD_SUBTEST_METHOD)) {
                 String itemSetId = ServletUtils.buildLoadContentParameters(request, method);
                 handleEvent(request, response, method, itemSetId, null, null);
@@ -86,6 +94,8 @@ public class LoadContentServlet extends HttpServlet {
                 String fileName = request.getParameter( ServletUtils.LOAD_LOCAL_IMAGE_PARAM );
                 getLocalImage( response, fileName );
             }
+            
+            System.out.print(", elapsed time: " + (System.currentTimeMillis() - startTime + "\n"));
         }
         else {
             doGet(request, response);            
@@ -106,6 +116,10 @@ public class LoadContentServlet extends HttpServlet {
 			throws ServletException, IOException {
         
         String method = ServletUtils.getMethod(request);
+        
+        long startTime = System.currentTimeMillis();
+        System.out.print("called LoadContentServlet method: " + method);
+        
         if ( method.equals( ServletUtils.LOAD_LOCAL_IMAGE_METHOD ) )
         {
             String fileName = request.getParameter( ServletUtils.LOAD_LOCAL_IMAGE_PARAM );
@@ -117,6 +131,8 @@ public class LoadContentServlet extends HttpServlet {
         String imageId = ServletUtils.getImageId(request);
         
         handleEvent(request, response, method, itemSetId, itemId, imageId);
+        
+        System.out.print(", elapsed time: " + (System.currentTimeMillis() - startTime + "\n"));
 	}
 
 
@@ -287,31 +303,41 @@ public class LoadContentServlet extends HttpServlet {
         try
         {
             String fileName = obAssessmentId + ".eam";
-            byte[] buffer = ServletUtils.readFromFile( new File( bankDir, fileName ) );
-            if ( Crypto.checkHash( hashValue, buffer ))
-            {
-                Crypto aCrypto = new Crypto();
-                byte[] dataValue = aCrypto.checkHashAndDecrypt( encryptionKey, hashValue, buffer, true, false );
-                String assxml = new String( dataValue );
-                org.jdom.Document itemDoc = aMemoryCache.saxBuilder.build( new ByteArrayInputStream( dataValue ) );
-                org.jdom.Element element = (org.jdom.Element) itemDoc.getRootElement();
-                List items = element.getChild( "ob_element_list" ).getChildren();
-                for ( int i = 0; i < items.size(); i++ )
-                {
-                    Element item = ( Element )items.get( i );
-                    String obItemId = item.getAttributeValue( "id" );
-                    String ItemHash = item.getAttributeValue( "h" );
-                    String ItemKeyId = item.getAttributeValue( "k" );
-                    handleItem( bankDir, obItemId, ItemHash, itemKey );
-                }
-                response.setContentType("text/xml");
+            String assxml = (String) contentHash.get(fileName);
+            if(assxml == null) {
+	            byte[] buffer = ServletUtils.readFromFile( new File( bankDir, fileName ) );
+	            if ( Crypto.checkHash( hashValue, buffer ))
+	            {
+	                Crypto aCrypto = new Crypto();
+	                byte[] dataValue = aCrypto.checkHashAndDecrypt( encryptionKey, hashValue, buffer, true, false );
+	                assxml = new String( dataValue );
+	                contentHash.put(fileName, assxml);
+	                org.jdom.Document itemDoc = aMemoryCache.saxBuilder.build( new ByteArrayInputStream( dataValue ) );
+	                org.jdom.Element element = (org.jdom.Element) itemDoc.getRootElement();
+	                List items = element.getChild( "ob_element_list" ).getChildren();
+	                for ( int i = 0; i < items.size(); i++ )
+	                {
+	                    Element item = ( Element )items.get( i );
+	                    String obItemId = item.getAttributeValue( "id" );
+	                    String ItemHash = item.getAttributeValue( "h" );
+	                    String ItemKeyId = item.getAttributeValue( "k" );
+	                    handleItem( bankDir, obItemId, ItemHash, itemKey );
+	                }
+	                response.setContentType("text/xml");
+	                PrintWriter myOutput = response.getWriter();
+	                myOutput.print( assxml );
+	                myOutput.flush();
+	                myOutput.close();
+	            }
+	            else
+	                result = false;
+            } else {
+            	response.setContentType("text/xml");
                 PrintWriter myOutput = response.getWriter();
                 myOutput.print( assxml );
                 myOutput.flush();
                 myOutput.close();
             }
-            else
-                result = false;
         }
         catch( Exception e )
         {

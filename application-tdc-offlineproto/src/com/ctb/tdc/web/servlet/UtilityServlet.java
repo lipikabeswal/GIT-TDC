@@ -59,6 +59,10 @@ public class UtilityServlet extends HttpServlet {
 			throws ServletException, IOException {
 
         String method = ServletUtils.getMethod(request);
+        
+        long startTime = System.currentTimeMillis();
+        System.out.print("called UtilityServlet method: " + method);
+        
         if (method.equals("deleteAuditFile")) {
             deleteAuditFile(request);
             ServletUtils.writeResponse(response, ServletUtils.OK);
@@ -96,6 +100,8 @@ public class UtilityServlet extends HttpServlet {
         		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
         	}
         }      
+        
+        System.out.print(", elapsed time: " + (System.currentTimeMillis() - startTime) + "\n");
     }
 	
     private static boolean isMacOS() {

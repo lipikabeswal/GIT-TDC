@@ -51,10 +51,15 @@ public class DownloadContentServlet extends HttpServlet {
         String itemSetId = ServletUtils.getItemSetId(request);
         String encryptionKey = ServletUtils.getEncryptionKey(request);
         
+        long startTime = System.currentTimeMillis();
+        System.out.print("called DownloadContentServlet method: " + method);
+        
         if (method.equals(ServletUtils.INITITAL_DOWNLOAD_CONTENT_METHOD))
             initialDownloadContent(response, itemSetId, encryptionKey);
         if (method.equals(ServletUtils.DOWNLOAD_CONTENT_METHOD))
             downloadContent(response, itemSetId, encryptionKey);
+        
+        System.out.print(", elapsed time: " + (System.currentTimeMillis() - startTime + "\n"));
 	}
 
 	/**
