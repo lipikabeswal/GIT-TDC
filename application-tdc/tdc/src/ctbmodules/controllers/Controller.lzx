@@ -285,6 +285,10 @@
         <attribute name="lsid"     value="0"/>
         <attribute name="scid"     value="0"/>
 
+        <!-- START Change for deferred Defect 63502-->
+		<attribute name="restartscid" value ="0"/>
+		<!-- END-->
+
 		<!--  
 			Whether the ui should be unlocked or not
 		-->
@@ -528,7 +532,10 @@
     	<method name="getInitialSubtestIndex"><![CDATA[
     		var result = 0;
     		if(dprestart.isValid()){
-    			var scoid = dprestart.xpathQuery('tsd/@scid');
+
+				//START Change for deferred Defect 63502
+    			var scoid = dprestart.xpathQuery('tsd[@scid = "'+ restartscid +'"]/@scid');
+    			//END
     			dp.setXPath('dslogin:/login_response/manifest');
 	    		var scos = dp.xpathQuery('sco');
 	    		var found = false;
@@ -670,8 +677,16 @@
             var sessiontime = hours + ':' + mins + ':' + secs; 
             var unscored = crtotal + grtotal + notSrOnRestart;
 
+			 //START Change for deferred Defect 63502
+			dprestart.selectChild();
+			//END
+
             // clear restart xml
             dprestart.deleteNode();
+
+			 //START Change for deferred Defect 63502
+			dprestart.selectParent();
+			//END
 			
 			setState(FINISH_SAVE_STATE);
 			gCommunicator.endSubtest( rawscore, maxpossible, completionmode, sessiontime, unscored );
@@ -707,6 +722,10 @@
 		<method name="getSubtestIndex" args="node"><![CDATA[
 			dp.setPointer(node);
 			var subtestId = dp.xpathQuery('save_testing_session_data/tsd/next_sco/@id');
+
+			//START Change for deferred Defect 63502
+			setAttribute('restartscid', dp.xpathQuery('save_testing_session_data/tsd/next_sco/@id'));
+			//END
 			var result = 0;
 			var found = false;
 			// this method will only be called if there is more than one subtest - eg subtests is an array
@@ -800,6 +819,12 @@
 	    		cmicore.setAttr('userid', userid);
 	    		cmicore.setAttr('accesscode', accesscode);
 	    		var loginResponse = dp.xpathQuery('login_response');
+
+				//START Change for deferred Defect 63502
+	    		setAttribute('restartscid', dp.xpathQuery('login_response/manifest/sco[1]/@id'));
+	    		var numIsts = countDataNodes(dp.xpathQuery('login_response/consolidated_restart_data/tsd[@scid = "'+ restartscid +'"]/ist'));
+	    		//END
+
 	    		var numIsts = countDataNodes(dp.xpathQuery('login_response/consolidated_restart_data/tsd/ist'));
 	    		dslogin.setChildNodes(new Array(loginResponse));
 	    		dp.selectChild();
@@ -900,6 +925,9 @@
 
         <method name="totalAnsweredOnRestart"><![CDATA[
  			var numanswered = 0;
+			//START Change for deferred Defect 63502
+ 			var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ist/rv/v' );
+	         //END
  			var awd = dprestart.xpathQuery( "tsd/ist/rv/v" );
             if ( awd && awd instanceof Array ) {
             	for (var i=0; i<awd.length; i++){
@@ -982,7 +1010,9 @@
             }
 
             if ( dprestart.isValid() ) {
-                var secs = dprestart.xpathQuery( 'tsd/ast/@rem_sec' );
+				//START Change for deferred Defect 63502
+				var secs = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@rem_sec' );
+				//END
                 if ( null == secs ) {
                     // can't find time remaining from restart,
                     // use duration in subtest data
@@ -1137,7 +1167,9 @@
 		<method name="setScratchpadForSubtest">
 			var spContents = "";
 			if(dprestart.isValid()){
-				var spContents = dprestart.xpathQuery( 'tsd/sp/text()');
+				//START Change for deferred Defect 63502
+				var spContents = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/sp/text()');
+				//END
 			}
 			gScratchpad.setText(unescape(spContents));
 		</method>
@@ -1168,12 +1200,15 @@
             Load and display first question.
         -->
         <method name="openTest">
-        	var fnode = getItemFromOffset( 0 );
-            if ( dprestart.isValid() ) {
+         //START Change for deferred Defect 63502
+        	var i = restartscid;			
+			var fnode = getItemFromOffset( 0 );
+			if ( dprestart.isValid() ) {
                 var fnode = dpsubtest.xpathQuery(
                     "ob_assessment/ob_element_list/f[@id='" +
-                        dprestart.xpathQuery( 'tsd/ast/@cur_eid' ) +
-                    "']" );
+                        dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@cur_eid' ) +
+                    "']");
+          //END
                 if ( !fnode ) {
                     fnode = getItemFromOffset( 0 );
                 }
@@ -2174,6 +2209,9 @@
 		<method name="goToFinishScreen">
 			this.clearInvalidCrResponses();
 			this.resetCrs();
+			//START Defect# 59282
+			this.resetCrFields();
+			//END
             closeOpenManipulatives();
             LzCursor.unlock();            
             gScreens.showFinish( totalQuestions() - totalAnswered(),
@@ -2245,7 +2283,7 @@
 
         <method name="unlockUI">
 		<![CDATA[
-		Debug.write("unlockUI");
+Debug.write("unlockUI method.....");
 			if(doUnlockUI){
 	            --uisemaphore;
 	
@@ -2306,7 +2344,7 @@
 			}
 			dsitem.setQueryParam(gRequest.METHOD_PARAM, gRequest.GET_ITEM_METHOD);
 			dsitem.setQueryParam(gRequest.XML_PARAM, xml);
-//Debug.write("loadItem");
+
 //Debug.write(xml);
 			dsitem.doRequest();        
             this.resetCrFields();
@@ -2347,7 +2385,7 @@
     	</method>
     	
      	<method name="getItemParams">
-//Debug.write("getItemParams:");
+
 //printBigString(dpstudentdata.serialize());
 			updateCrItemNode();
     		var result = null;
@@ -2855,10 +2893,10 @@
         ]]></method>
 
         <method name="stopQuestion">
-       Debug.write("stopQuestion....."); 
+    
             if ( timing ) {
                 var timestamp = getTimer();
-Debug.write("in if stopQuestion.....", timing);
+
                 LzTimer.removeTimer( dupdateTimeLeft );
                 this.timing = false;
 
