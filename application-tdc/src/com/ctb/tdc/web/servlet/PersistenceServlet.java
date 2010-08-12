@@ -563,6 +563,7 @@ public class PersistenceServlet extends HttpServlet {
                 for (int i=0 ; i<states.size() ; i++) {
                     StateVO state = (StateVO)states.get(i);
                     if (state.getMseq() <= mseqIndex) {
+                    	logger.warn("Found outstanding unacknowledged message, max in flight threshold exceeded. mseq " + state.getMseq() + ": " + state.getXml());
                         if (state.getState().equals(StateVO.PENDING_STATE)) {
                             pendingState = true;
                             new retrier(state.getMethod(), state.getXml(), mseq).start();

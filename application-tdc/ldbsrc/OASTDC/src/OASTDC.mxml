@@ -38,6 +38,8 @@
 				stage.nativeWindow.orderToFront();
 				stage.nativeWindow.activate();
 				stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+				stage.displayState = StageDisplayState.NORMAL;
+				stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 				tologin();
 			}
 			
@@ -49,6 +51,8 @@
 				stage.nativeWindow.orderToFront();
 				stage.nativeWindow.activate();
 				stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+				stage.nativeWindow.orderToFront();
+				stage.nativeWindow.activate();
 			}
 			
 			private function tologin():void {
