@@ -2,6 +2,8 @@
 
     <include href="ManipulativeButton.lzx"/>
     <include href="ScratchpadButton.lzx"/>
+    <include href="base/baseslider.lzx"/>
+    <include href="lz/slider.lzx"/>
 
     <class name="ManipulativeBar" bgcolor="0xC4C4C4"
            datapath="dsstudentdata:/testing_client_model/current_item/item_model">
@@ -104,15 +106,11 @@
 		</radiogroup>
 		
 		<!-- The tool to control the TTS volume -->
-		<radiogroup visible="${gController.hasTTSspeed &amp;&amp; parent.stopreader.visible}" name="volumeController" height="20" x="${parent.speedController.x + parent.speedController.width + 2}" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
-			<radiobutton value="10" text="Quiet " height="15" valign="middle"/>
-			<radiobutton value="50" text="Medium " height="15" valign="middle" selected="true" />
-			<radiobutton value="100" text="Loud " height="15" valign="middle"/>
-
-			<handler name="onselect"><![CDATA[
+		<slider value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" visible="${gController.hasTTSspeed &amp;&amp; parent.stopreader.visible}" name="volumeController" width="100" height="20" x="${parent.speedController.x + parent.speedController.width + 2}" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
+			<handler name="onvalue"><![CDATA[
 				gReadableText.audioPlayer.setVolume(this.value);
 			]]></handler>
-		</radiogroup>
+		</slider>
     </class>
 
 </library>
