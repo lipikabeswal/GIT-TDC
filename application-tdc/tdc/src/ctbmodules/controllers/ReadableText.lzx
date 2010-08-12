@@ -101,6 +101,7 @@
 		
         <method name="doRead" args="txt"><![CDATA[
         	this.currentText = txt;//TTS CR
+        	this.audioPlayer.setVolume(gManipulativeBar.volumeController.value);
 			LzTimer.resetTimer(this.dTimeout, TIMEOUT_INTERVAL);
  	    	stopReading();
  	        speechDs.setQueryParam(TEXT_PARAM, txt);
@@ -196,7 +197,9 @@
         <view name="audioPlayer" visible="false">
         	<handler name="onload">
         		gReadableText.isplaying = true; // TTS CR:when mp3 is loaded and ready to play
- 
+ 				
+ 				this.setVolume(gManipulativeBar.volumeController.value);
+ 				
 				if(gController.isWaitPopupOpen) {
 					gReadableText.speechRequestSent = false;
 					gCommunicator.firstRequestDone = false;

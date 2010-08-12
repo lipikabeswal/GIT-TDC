@@ -102,6 +102,17 @@
 				}
 			]]></handler>
 		</radiogroup>
+		
+		<!-- The tool to control the TTS volume -->
+		<radiogroup visible="${gController.hasTTSspeed &amp;&amp; parent.stopreader.visible}" name="volumeController" height="20" x="${parent.speedController.x + parent.speedController.width + 2}" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
+			<radiobutton value="10" text="Quiet " height="15" valign="middle"/>
+			<radiobutton value="50" text="Medium " height="15" valign="middle" selected="true" />
+			<radiobutton value="100" text="Loud " height="15" valign="middle"/>
+
+			<handler name="onselect"><![CDATA[
+				gReadableText.audioPlayer.setVolume(this.value);
+			]]></handler>
+		</radiogroup>
     </class>
 
 </library>

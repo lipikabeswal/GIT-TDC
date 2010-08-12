@@ -148,6 +148,7 @@ public class PersistenceServlet extends HttpServlet {
         
         // return response to client
         if (result != null) {
+        	//System.out.println(result);
             ServletUtils.writeResponse(response, result);
         }
     }
