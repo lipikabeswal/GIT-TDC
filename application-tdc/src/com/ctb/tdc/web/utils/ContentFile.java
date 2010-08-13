@@ -71,7 +71,7 @@ public class ContentFile
         writeToFile( data, newFilePath );
     }
     
-    public static void writeToFile( byte[] data, String filePath ) throws Exception
+    public static void writeToFile( byte[] data, String filePath ) throws IOException
     {
         File psFile = new File( filePath );
         BufferedOutputStream psfile = new BufferedOutputStream(new FileOutputStream( psFile ));

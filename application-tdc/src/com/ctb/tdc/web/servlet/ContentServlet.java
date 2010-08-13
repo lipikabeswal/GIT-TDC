@@ -1,7 +1,6 @@
 package com.ctb.tdc.web.servlet;
 
 import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,6 +23,7 @@ import org.apache.log4j.Logger;
 import org.bouncycastle.util.encoders.Base64;
 import org.jdom.output.XMLOutputter;
 
+import com.bea.xml.XmlException;
 import com.ctb.tdc.web.exception.DecryptionException;
 import com.ctb.tdc.web.exception.HashMismatchException;
 import com.ctb.tdc.web.exception.TMSException;
@@ -31,7 +31,6 @@ import com.ctb.tdc.web.utils.AssetInfo;
 import com.ctb.tdc.web.utils.ContentFile;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
-import com.stgglobal.util.CryptoLE.Crypto;
 
 /**
  * @author John_Wang
@@ -261,59 +260,70 @@ public class ContentServlet extends HttpServlet {
 				hash = document.getAdssvcRequest().getDownloadItem().getHash();
 			}
 		
-			if (itemId == null || "".equals(itemId.trim())) // invalid item id
-				throw new Exception("No item id in request.");
-			String filePath = ContentFile.getContentFolderPath() + itemId
-					+ ContentFile.ITEM_FILE_EXTENSION;
-			
-			if (!ContentFile.validateHash(filePath, hash)) {
-				MemoryCache memoryCache = MemoryCache.getInstance();
-	        	int TMSRetryCount = memoryCache.getSrvSettings().getTmsMessageRetryCount();
-	        	int TMSRetryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
-	        	int expansion = memoryCache.getSrvSettings().getTmsMessageRetryExpansionFactor();
-				int errorIndex = 0;
-				String result = "";
-				int i = 1;
-				while (TMSRetryCount > 0) {
-					logger.info("***** downloadItem " + itemId);
-					result = ServletUtils.httpClientSendRequest(ServletUtils.DOWNLOAD_ITEM_METHOD, xml);
-					errorIndex = result.indexOf("<ERROR>");
-					if (errorIndex >= 0) {
-						if(TMSRetryCount > 1) {
-							logger.error("Retrying message: " + xml);
-							Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
-						}
-						TMSRetryCount--;
-					} else {
-						TMSRetryCount = 0;
-					}
-					i = i*expansion;
-				}
-				if (errorIndex >= 0) {
-					throw new Exception(result);
+			if (itemId != null && !"".equals(itemId.trim())) {
+				String filePath = ContentFile.getContentFolderPath() + itemId
+						+ ContentFile.ITEM_FILE_EXTENSION;
+				
+				boolean hashValid = false;
+				try {
+					hashValid = ContentFile.validateHash(filePath, hash);
+				} catch (Exception e) {
+					hashValid = false;
 				}
 				
-				AdssvcResponseDocument document = AdssvcResponseDocument.Factory
-						.parse(result);
-				ErrorDocument.Error error = document.getAdssvcResponse()
-						.getDownloadItem().getError();
-				if (error != null)
-					throw new TMSException(error.getErrorDetail());
-
-				byte[] content = document.getAdssvcResponse().getDownloadItem()
-						.getContent();
-				ContentFile.writeToFile(content, filePath);
-			}
-			ServletUtils.writeResponse(response, ServletUtils.OK);
-		} 
+				if (!hashValid) {
+					MemoryCache memoryCache = MemoryCache.getInstance();
+		        	int TMSRetryCount = memoryCache.getSrvSettings().getTmsMessageRetryCount();
+		        	int TMSRetryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
+		        	int expansion = memoryCache.getSrvSettings().getTmsMessageRetryExpansionFactor();
+					int errorIndex = 0;
+					String result = "";
+					int i = 1;
+					while (TMSRetryCount > 0) {
+						logger.info("***** downloadItem " + itemId);
+						result = ServletUtils.httpClientSendRequest(ServletUtils.DOWNLOAD_ITEM_METHOD, xml);
+						errorIndex = result.indexOf("<ERROR>");
+						if (errorIndex >= 0) {
+							if(TMSRetryCount > 1) {
+								logger.error("Retrying message: " + xml);
+								try {
+									Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
+								} catch (InterruptedException ie) {
+									// do nothing
+								}
+							}
+							TMSRetryCount--;
+						} else {
+							TMSRetryCount = 0;
+						}
+						i = i*expansion;
+					}
+					if (errorIndex >= 0) {
+						throw new TMSException(result);
+					}
+					
+					AdssvcResponseDocument document = AdssvcResponseDocument.Factory
+							.parse(result);
+					ErrorDocument.Error error = document.getAdssvcResponse()
+							.getDownloadItem().getError();
+					if (error != null)
+						throw new TMSException(error.getErrorDetail());
+	
+					byte[] content = document.getAdssvcResponse().getDownloadItem()
+							.getContent();
+					ContentFile.writeToFile(content, filePath);
+				}
+				ServletUtils.writeResponse(response, ServletUtils.OK);
+			} 
+		}
 		catch (TMSException e) {
 			logger.error("TMS Exception occured in downloadItem("+itemId+") : "
 					+ ServletUtils.printStackTrace(e));
             String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
 		}
-		catch (Exception e) {
-			logger.error("Exception occured in downloadItem("+itemId+") : "
+		catch (XmlException e) {
+			logger.error("XML Exception occured in downloadItem("+itemId+") : "
 					+ ServletUtils.printStackTrace(e));
             String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
