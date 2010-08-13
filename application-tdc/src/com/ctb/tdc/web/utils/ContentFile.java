@@ -108,10 +108,10 @@ public class ContentFile
         try {
         	buffer = readFromFile( filePath );
         
-	        boolean hashChecked = Crypto.checkHash( hash, buffer );
+	        //boolean hashChecked = Crypto.checkHash( hash, buffer );
 	        
-	        if (!hashChecked)
-	        	throw new HashMismatchException("Hash doesn't match.");
+	        //if (!hashChecked)
+	        //	throw new HashMismatchException("Hash doesn't match.");
         	
 	        Crypto aCrypto = new Crypto();
 	        result = aCrypto.checkHashAndDecrypt( key, hash, buffer, true, false );
