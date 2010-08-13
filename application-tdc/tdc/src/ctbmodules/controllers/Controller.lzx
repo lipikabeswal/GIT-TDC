@@ -825,7 +825,6 @@
 	    		var numIsts = countDataNodes(dp.xpathQuery('login_response/consolidated_restart_data/tsd[@scid = "'+ restartscid +'"]/ist'));
 	    		//END
 
-	    		var numIsts = countDataNodes(dp.xpathQuery('login_response/consolidated_restart_data/tsd/ist'));
 	    		dslogin.setChildNodes(new Array(loginResponse));
 	    		dp.selectChild();
 				setAttribute('lsid', dp.getNodeAttribute('lsid'));
@@ -928,7 +927,6 @@
 			//START Change for deferred Defect 63502
  			var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ist/rv/v' );
 	         //END
- 			var awd = dprestart.xpathQuery( "tsd/ist/rv/v" );
             if ( awd && awd instanceof Array ) {
             	for (var i=0; i<awd.length; i++){
             		if(isAnswered(awd[i])){
