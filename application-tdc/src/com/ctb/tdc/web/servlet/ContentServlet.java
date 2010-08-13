@@ -155,54 +155,63 @@ public class ContentServlet extends HttpServlet {
 				key = document.getAdssvcRequest().getGetSubtest().getKey();
 			}
 
-			if (subtestId == null || "".equals(subtestId.trim())) // invalid subtest id
-				throw new Exception("No subtest id in request.");
-			String filePath = ContentFile.getContentFolderPath() + subtestId
-					+ ContentFile.SUBTEST_FILE_EXTENSION;
-
-			if (!ContentFile.validateHash(filePath, hash)) {
-				String result = "";
-				MemoryCache memoryCache = MemoryCache.getInstance();
-	        	int TMSRetryCount = memoryCache.getSrvSettings().getTmsMessageRetryCount();
-	        	int TMSRetryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
-	        	int expansion = memoryCache.getSrvSettings().getTmsMessageRetryExpansionFactor();
-				AdssvcResponseDocument document = null;
-				ErrorDocument.Error error = null;
-				int i = 1;
-				while (TMSRetryCount > 0) {
-					logger.info("***** downloadSubtest " + subtestId);
-					result = ServletUtils.httpClientSendRequest(ServletUtils.GET_SUBTEST_METHOD, xml);
-					document = AdssvcResponseDocument.Factory.parse(result);
-					error = document.getAdssvcResponse().getGetSubtest().getError();
-					if (error != null) {
-						if(TMSRetryCount > 1) {
-							logger.error("Retrying message: " + xml);
-							Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
+			if (subtestId != null && !"".equals(subtestId.trim()) && !"undefined".equals(subtestId.trim())) {
+				
+				String filePath = ContentFile.getContentFolderPath() + subtestId
+						+ ContentFile.SUBTEST_FILE_EXTENSION;
+	
+				boolean validHash = false;
+				
+				try {
+					validHash = ContentFile.validateHash(filePath, hash);
+				} catch (Exception e) {
+					validHash = false;
+				}
+				
+				if (!validHash) {
+					String result = "";
+					MemoryCache memoryCache = MemoryCache.getInstance();
+		        	int TMSRetryCount = memoryCache.getSrvSettings().getTmsMessageRetryCount();
+		        	int TMSRetryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
+		        	int expansion = memoryCache.getSrvSettings().getTmsMessageRetryExpansionFactor();
+					AdssvcResponseDocument document = null;
+					ErrorDocument.Error error = null;
+					int i = 1;
+					while (TMSRetryCount > 0) {
+						logger.info("***** downloadSubtest " + subtestId);
+						result = ServletUtils.httpClientSendRequest(ServletUtils.GET_SUBTEST_METHOD, xml);
+						document = AdssvcResponseDocument.Factory.parse(result);
+						error = document.getAdssvcResponse().getGetSubtest().getError();
+						if (error != null) {
+							if(TMSRetryCount > 1) {
+								logger.error("Retrying message: " + xml);
+								Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
+							}
+							TMSRetryCount--;
+						} else {
+							TMSRetryCount = 0;
 						}
-						TMSRetryCount--;
-					} else {
-						TMSRetryCount = 0;
+						i = i*expansion;
 					}
-					i = i*expansion;
+					if (error != null) {
+						throw new TMSException(error.getErrorDetail());
+					}
+	
+					byte[] content = document.getAdssvcResponse().getGetSubtest()
+							.getContent();
+					ContentFile.writeToFile(content, filePath);
 				}
-				if (error != null) {
-					throw new TMSException(error.getErrorDetail());
-				}
-
-				byte[] content = document.getAdssvcResponse().getGetSubtest()
-						.getContent();
-				ContentFile.writeToFile(content, filePath);
-			}
-			byte[] decryptedContent = ContentFile.decryptFile(filePath, hash,
-					key);
-			response.setContentType("text/xml");
-			int size = decryptedContent.length;
-			response.setContentLength(size);
-			ServletOutputStream myOutput = response.getOutputStream();
-			myOutput.write(decryptedContent);
-			myOutput.flush();
-			myOutput.close();
-		} 
+				byte[] decryptedContent = ContentFile.decryptFile(filePath, hash,
+						key);
+				response.setContentType("text/xml");
+				int size = decryptedContent.length;
+				response.setContentLength(size);
+				ServletOutputStream myOutput = response.getOutputStream();
+				myOutput.write(decryptedContent);
+				myOutput.flush();
+				myOutput.close();
+			} 
+		}
 		catch (HashMismatchException e) {
 			logger.error("Exception occured in getSubtest("+subtestId+") : "
 					+ ServletUtils.printStackTrace(e));
