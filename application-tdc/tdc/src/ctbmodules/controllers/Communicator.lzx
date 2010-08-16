@@ -178,7 +178,11 @@ Debug.write("in else code...", code);
 Debug.write("communicator startQuestion......");
 							gController.sendHeartbeat();
 							//to start the test timer 
+							//START Defect 64592
+							if(gController.state != gController.DOWNLOAD_STATE){
 							gController.startQuestion();
+							}
+							//END
 						}
 						gController.unlockUI();
 					}
