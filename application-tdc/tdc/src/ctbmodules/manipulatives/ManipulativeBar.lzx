@@ -106,7 +106,38 @@
 		</radiogroup>
 		
 		<!-- The tool to control the TTS volume -->
-		<slider value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" visible="${gController.hasTTSspeed &amp;&amp; parent.stopreader.visible}" name="volumeController" width="100" height="20" x="${parent.speedController.x + parent.speedController.width + 2}" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
+		<slider value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" 
+				visible="${gController.hasTTSspeed &amp;&amp; parent.stopreader.visible}" name="volumeController" width="80" 
+						x="${parent.speedController.x + parent.speedController.width + 2}" valign="middle" bgcolor="0xdfdfdf">
+
+			<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
+	
+			<method event="onmouseover">
+				LzTimer.addTimer (tooltipdel, 500);
+			</method>
+	                
+			<method event="onmouseout">
+				gTooltip.hideTooltip ();    
+				LzTimer.removeTimer (this.tooltipdel);
+			</method>
+	
+			<method event="onclick">
+				LzTimer.removeTimer (this.tooltipdel);
+				<!-- gReadableText.stopReading(); -->
+			</method>
+	
+			<method name="showTooltip">
+				gTooltip.showTooltip ('Volume Control');
+			</method>
+			
+		<!-- When canvas's accessible attribute is true, the text "undefined" comes over the slider thumb, 
+			 workaround is done in this version(3.3.3). Probably, this was a bug which is fixed in newer versions. 
+			 This is cross checked with latest laszlo release(4.8)	--> 
+			<handler name="oninit"><![CDATA[
+				//hide the text object displaying "undefined" text
+				this.subviews[0].subviews[2].subviews[3].setVisible(false);
+			]]></handler>
+
 			<handler name="onvalue"><![CDATA[
 				gReadableText.audioPlayer.setVolume(this.value);
 			]]></handler>
