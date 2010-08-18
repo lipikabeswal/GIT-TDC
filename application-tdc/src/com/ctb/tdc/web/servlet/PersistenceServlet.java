@@ -2,7 +2,6 @@ package com.ctb.tdc.web.servlet;
   
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,13 +15,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
-import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.log4j.Logger;
 
 import com.ctb.tdc.web.dto.StateVO;
@@ -288,7 +285,7 @@ public class PersistenceServlet extends HttpServlet {
             MemoryCache memoryCache = MemoryCache.getInstance();
 
             // check if TMS sent acknowledge before continue
-            if (verifyAcknowledge(memoryCache, lsid, mseq)) {
+            if (verifyAcknowledge(memoryCache, lsid, mseq, response)) {
             	// ncohen: I don't think we need this removeAcks bit,
             	// and I need all acks to check for dupe mseqs . . .
                 // so I'm commenting it out.
@@ -518,19 +515,20 @@ public class PersistenceServlet extends HttpServlet {
      * @param MemoryCache memoryCache
      * @param String lsid
      * @param String mseq
+     * @throws IOException 
      */
-    private boolean verifyAcknowledge(MemoryCache memoryCache, String lsid, String mseq) throws InterruptedException {
+    private boolean verifyAcknowledge(MemoryCache memoryCache, String lsid, String mseq, HttpServletResponse response) throws InterruptedException {
         int retryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
         int waitTime = memoryCache.getSrvSettings().getTmsAckMessageWaitTime();
         int expansion = memoryCache.getSrvSettings().getTmsMessageRetryExpansionFactor();
         long startTime = System.currentTimeMillis();
         long currentTime = startTime;
         boolean timeout = false;
-        boolean pendingState = inPendingState(memoryCache, lsid, mseq);
+        boolean pendingState = inPendingState(memoryCache, lsid, mseq, response);
         int i = 1;
         while (!timeout && pendingState) {
             Thread.sleep(retryInterval * ServletUtils.SECOND * i); // delay 1 second and try again
-            pendingState = inPendingState(memoryCache, lsid, mseq);
+            pendingState = inPendingState(memoryCache, lsid, mseq, response);
             currentTime = System.currentTimeMillis();
             timeout = (currentTime - startTime) > (waitTime * ServletUtils.SECOND);
             logger.info("mseq " + mseq + ": Waited " + ((currentTime - startTime)/ServletUtils.SECOND) + " for TMS response.");
@@ -549,8 +547,9 @@ public class PersistenceServlet extends HttpServlet {
      * @param MemoryCache memoryCache
      * @param String lsid
      * @param String mseq
+     * @throws IOException 
      */
-    public boolean inPendingState(MemoryCache memoryCache, String lsid, String mseq) {  
+    public boolean inPendingState(MemoryCache memoryCache, String lsid, String mseq, HttpServletResponse response) {  
         boolean pendingState = false;
         boolean isTmsAckRequired = memoryCache.getSrvSettings().isTmsAckRequired();
         int tmsAckMaxLostMessage = memoryCache.getSrvSettings().getTmsAckMaxLostMessage();
@@ -566,6 +565,8 @@ public class PersistenceServlet extends HttpServlet {
                     	if (state.getState().equals(StateVO.PENDING_STATE)) {
                     		logger.warn("Found outstanding unacknowledged message, max in flight threshold exceeded. mseq " + state.getMseq() + ": " + state.getXml());
                             pendingState = true;
+                            String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.noAck");
+                            ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
                             new retrier(state.getMethod(), state.getXml(), mseq).start();
                             break;
                         }

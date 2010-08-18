@@ -155,12 +155,16 @@ public class ServletUtils {
 	 * write xml content to response
 	 *
 	 */
-	public static void writeResponse(HttpServletResponse response, String xml) throws IOException {
-		response.setContentType("text/xml");
-		PrintWriter out = response.getWriter();
-		out.println(xml);
-		out.flush();
-		out.close();
+	public static void writeResponse(HttpServletResponse response, String xml) {
+		try {
+			response.setContentType("text/xml");
+			PrintWriter out = response.getWriter();
+			out.println(xml);
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			// do nothing, response already written
+		}
 	}
 
 	/**
