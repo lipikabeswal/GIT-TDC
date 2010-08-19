@@ -302,11 +302,15 @@ public class PersistenceServlet extends HttpServlet {
                 if (hasResponse)
                 	AuditFile.log(ServletUtils.createAuditVO(xml, hasResponse));
 
-                if(!isEndSubtest){
-                	new retrier(ServletUtils.SAVE_METHOD, xml, mseq).start();
-                	result = ServletUtils.OK;
-                } else {
-                	result = save(xml);
+                StateVO state = null;
+                if(!isAcknowledged(memoryCache, lsid, mseq)) {
+            		state = memoryCache.setPendingState(lsid, mseq, ServletUtils.SAVE_METHOD, xml);
+	                if(!isEndSubtest){
+	                	new retrier(ServletUtils.SAVE_METHOD, xml, mseq, state).start();
+	                	result = ServletUtils.OK;
+	                } else {
+	                	result = save(xml, state);
+	                }
                 }
             }
             else {       
@@ -326,7 +330,7 @@ public class PersistenceServlet extends HttpServlet {
         return result;
     }
     
-    private static String save(String xml) throws Exception {
+    private static String save(String xml, StateVO state) throws Exception {
     	String result = null;
     	MemoryCache memoryCache = MemoryCache.getInstance();
     	String lsid = ServletUtils.parseLsid(xml);    
@@ -334,43 +338,34 @@ public class PersistenceServlet extends HttpServlet {
         boolean isEndSubtest = ServletUtils.isEndSubtest(xml);
     	// send request to TMS
         if (memoryCache.getSrvSettings().isTmsPersist()) {
-            // set pending state before send request to TMS
-        	StateVO state = null;
-        	if(!isAcknowledged(memoryCache, lsid, mseq)) {
-        		state = memoryCache.setPendingState(lsid, mseq, ServletUtils.SAVE_METHOD, xml);
-        	}
-            // setPendingState returns null if message was not added to cache,
-            // this occurs in the case of duplicate messages - we don't forward those to TMS
-            if (state != null) {
-            	// message was added to pending list in cache,
-                // send save request to TMS
-            	int TMSRetryCount = memoryCache.getSrvSettings().getTmsMessageRetryCount();
-            	int TMSRetryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
-            	int expansion = memoryCache.getSrvSettings().getTmsMessageRetryExpansionFactor();
-            	String tmsResponse = "";
-            	int i = 1;
-            	while(TMSRetryCount > 0) {
-            		logger.info("mseq " + mseq + ": persistence request");
-            		tmsResponse = ServletUtils.httpClientSendRequest(ServletUtils.SAVE_METHOD, xml);
-                    
-                    // if OK return from TMS, set acknowledge state
-                    if (ServletUtils.isStatusOK(tmsResponse)) {
-                        memoryCache.setAcknowledgeState(state);
-                        TMSRetryCount = 0;
-                    }
-                    else {
-                        logger.error("mseq " + mseq + ": TMS returns error in save() : " + tmsResponse);
-                        if (TMSRetryCount > 1) {
-                        	logger.error("mseq " + mseq + ": Retrying message: " + xml);
-                        	Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);	
-                        }
-                        TMSRetryCount--;
-                    }
-                    i = i*expansion;
-            	}
-                if(isEndSubtest){
-                	result = tmsResponse;
+        	// message was added to pending list in cache,
+            // send save request to TMS
+        	int TMSRetryCount = memoryCache.getSrvSettings().getTmsMessageRetryCount();
+        	int TMSRetryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
+        	int expansion = memoryCache.getSrvSettings().getTmsMessageRetryExpansionFactor();
+        	String tmsResponse = "";
+        	int i = 1;
+        	while(TMSRetryCount > 0) {
+        		logger.info("mseq " + mseq + ": persistence request");
+        		tmsResponse = ServletUtils.httpClientSendRequest(ServletUtils.SAVE_METHOD, xml);
+                
+                // if OK return from TMS, set acknowledge state
+                if (ServletUtils.isStatusOK(tmsResponse)) {
+                    memoryCache.setAcknowledgeState(state);
+                    TMSRetryCount = 0;
                 }
+                else {
+                    logger.error("mseq " + mseq + ": TMS returns error in save() : " + tmsResponse);
+                    if (TMSRetryCount > 1) {
+                    	logger.error("mseq " + mseq + ": Retrying message: " + xml);
+                    	Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);	
+                    }
+                    TMSRetryCount--;
+                }
+                i = i*expansion;
+        	}
+            if(isEndSubtest){
+            	result = tmsResponse;
             }
         }
         return result;
@@ -556,7 +551,7 @@ public class PersistenceServlet extends HttpServlet {
                     	if (state.getState().equals(StateVO.PENDING_STATE)) {
                     		logger.warn("Found outstanding unacknowledged message, max in flight threshold exceeded. mseq " + state.getMseq() + ": " + state.getXml());
                             pendingState = true;
-                            new retrier(state.getMethod(), state.getXml(), mseq).start();
+                            new retrier(state.getMethod(), state.getXml(), mseq, state).start();
                             break;
                         }
                     }
@@ -603,11 +598,13 @@ public class PersistenceServlet extends HttpServlet {
     	private String method;
     	private String xml;
     	private String mseq;
+    	private StateVO state;
     	
-    	public retrier (String method, String xml, String mseq) {
+    	public retrier (String method, String xml, String mseq, StateVO state) {
     		this.method = method;
     		this.xml = xml;
     		this.mseq = mseq;
+    		this.state = state;
     	}
     	
     	public void run() {
@@ -622,14 +619,12 @@ public class PersistenceServlet extends HttpServlet {
              		
     		String tmsResponse = "";
     		//
-    		StateVO state = null;
     		String lsid = ServletUtils.parseLsid(xml);
         	
         	try {
 	            int i = 1;
 	            while (!timeout) {
 	            	if(!isAcknowledged(memoryCache, lsid, mseq)) {
-	            		state = memoryCache.setPendingState(lsid, mseq, ServletUtils.SAVE_METHOD, xml);
 	            		tmsResponse = ServletUtils.httpClientSendRequest(method, xml);
 	            		// if OK return from TMS, set acknowledge state
 		                if (ServletUtils.isStatusOK(tmsResponse)) {
