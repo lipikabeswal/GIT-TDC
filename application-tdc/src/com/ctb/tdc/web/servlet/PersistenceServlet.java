@@ -625,6 +625,10 @@ public class PersistenceServlet extends HttpServlet {
 	            int i = 1;
 	            while (!timeout) {
 	            	if(!isAcknowledged(memoryCache, lsid, mseq)) {
+	            		if(i>1) {
+	            			logger.info("mseq " + mseq + ": Waited " + ((currentTime - startTime)/ServletUtils.SECOND) + " for TMS response.");
+	            			logger.info("mseq " + mseq + ": Retrying message: " + xml);
+	            		}
 	            		tmsResponse = ServletUtils.httpClientSendRequest(method, xml);
 	            		// if OK return from TMS, set acknowledge state
 		                if (ServletUtils.isStatusOK(tmsResponse)) {
@@ -634,8 +638,6 @@ public class PersistenceServlet extends HttpServlet {
 		                	Thread.sleep(retryInterval * ServletUtils.SECOND * i); // delay 1 second and try again
 		                	currentTime = System.currentTimeMillis();
 		                	timeout = (currentTime - startTime) > (waitTime * ServletUtils.SECOND);
-		                	logger.info("mseq " + mseq + ": Waited " + ((currentTime - startTime)/ServletUtils.SECOND) + " for TMS response.");
-		                	logger.info("mseq " + mseq + ": Retrying message: " + xml);
 		                	i = i*expansion;
 		                }
 	            	} else {
