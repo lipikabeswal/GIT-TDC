@@ -13,7 +13,7 @@
 
 	void writeFile (void);
 
-	char* hotKeys[] = {"F1","Alt_L","Alt_R","F5","F10","F12","Print Sys_Req","F3","Escape","Print Execute","Print","Sys_Req","Execute"};
+	char* hotKeys[] = {"F1","F4","Alt_L","Alt_R","F5","F10","F12","Print Sys_Req","F3","Escape","Print Execute","Print","Sys_Req","Execute"};
 	char array2[400][400];
 
 	static const char filename1[] = "xmodmap_original";
