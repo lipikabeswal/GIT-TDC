@@ -48,6 +48,9 @@ public class DownloadContentServlet extends HttpServlet {
 			throws ServletException, IOException {
 
         String method = ServletUtils.getMethod(request);
+        
+        long startTime = System.currentTimeMillis();
+        
         String itemSetId = ServletUtils.getItemSetId(request);
         String encryptionKey = ServletUtils.getEncryptionKey(request);
         
@@ -55,6 +58,8 @@ public class DownloadContentServlet extends HttpServlet {
             initialDownloadContent(response, itemSetId, encryptionKey);
         if (method.equals(ServletUtils.DOWNLOAD_CONTENT_METHOD))
             downloadContent(response, itemSetId, encryptionKey);
+        
+        logger.info("DownloadContentServlet: " + method + " took " + (System.currentTimeMillis() - startTime) + "\n");
 	}
 
 	/**

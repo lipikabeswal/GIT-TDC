@@ -73,6 +73,10 @@ public class ContentServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String method = ServletUtils.getMethod(request);
+		
+		long startTime = System.currentTimeMillis();
+		
+		
 		if (method.equals(ServletUtils.GET_SUBTEST_METHOD)) {
 			getSubtest(request, response);
 		} else if (method.equals(ServletUtils.DOWNLOAD_ITEM_METHOD)) {
@@ -87,6 +91,8 @@ public class ContentServlet extends HttpServlet {
 		} else {
 			ServletUtils.writeResponse(response, ServletUtils.ERROR);
 		}
+		
+		logger.info("ContentServlet: " + method + " took " + (System.currentTimeMillis() - startTime) + "\n");
 
 	}
 

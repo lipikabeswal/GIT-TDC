@@ -103,8 +103,13 @@ public class PersistenceServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {    
         String method = ServletUtils.getMethod(request);
+        
+        long startTime = System.currentTimeMillis();
+        
         String xml = ServletUtils.getXml(request);
-        handleEvent(response, method, xml);         
+        handleEvent(response, method, xml);    
+        
+        logger.info("PersistenceServlet: " + method + " took " + (System.currentTimeMillis() - startTime) + "\n");
 	}
 
     /**
@@ -146,7 +151,8 @@ public class PersistenceServlet extends HttpServlet {
         // return response to client
         if (result != null) {
         	//System.out.println(result);
-            ServletUtils.writeResponse(response, result);
+        	String mseq = ServletUtils.parseMseq(xml);
+            ServletUtils.writeResponse(response, result, mseq);
         }
     }
     
@@ -297,17 +303,17 @@ public class PersistenceServlet extends HttpServlet {
                 	AuditFile.log(ServletUtils.createAuditVO(xml, hasResponse));
 
                 if(!isEndSubtest){
-                	// return response to client
-                	ServletUtils.writeResponse(response, ServletUtils.OK);
+                	new retrier(ServletUtils.SAVE_METHOD, xml, mseq).start();
+                	result = ServletUtils.OK;
+                } else {
+                	result = save(xml);
                 }
-                
-                result = save(xml);
             }
             else {       
                 // failed on checking acknowledge from TMS, return error to client
                 errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.noAck");
                 logger.error("mseq " + mseq + ": " + errorMessage);
-                result = ServletUtils.buildXmlErrorMessage("", errorMessage, ""); 
+                result = ServletUtils.ERROR; //ServletUtils.buildXmlErrorMessage("", errorMessage, ""); 
             }  
         } 
         catch (Exception e) {
@@ -518,22 +524,7 @@ public class PersistenceServlet extends HttpServlet {
      * @throws IOException 
      */
     private boolean verifyAcknowledge(MemoryCache memoryCache, String lsid, String mseq, HttpServletResponse response) throws InterruptedException {
-        int retryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
-        int waitTime = memoryCache.getSrvSettings().getTmsAckMessageWaitTime();
-        int expansion = memoryCache.getSrvSettings().getTmsMessageRetryExpansionFactor();
-        long startTime = System.currentTimeMillis();
-        long currentTime = startTime;
-        boolean timeout = false;
-        boolean pendingState = inPendingState(memoryCache, lsid, mseq, response);
-        int i = 1;
-        while (!timeout && pendingState) {
-            Thread.sleep(retryInterval * ServletUtils.SECOND * i); // delay 1 second and try again
-            pendingState = inPendingState(memoryCache, lsid, mseq, response);
-            currentTime = System.currentTimeMillis();
-            timeout = (currentTime - startTime) > (waitTime * ServletUtils.SECOND);
-            logger.info("mseq " + mseq + ": Waited " + ((currentTime - startTime)/ServletUtils.SECOND) + " for TMS response.");
-            i = i*expansion;
-        }            
+        boolean pendingState = inPendingState(memoryCache, lsid, mseq, response);    
         return (! pendingState);
     } 
      
@@ -565,8 +556,6 @@ public class PersistenceServlet extends HttpServlet {
                     	if (state.getState().equals(StateVO.PENDING_STATE)) {
                     		logger.warn("Found outstanding unacknowledged message, max in flight threshold exceeded. mseq " + state.getMseq() + ": " + state.getXml());
                             pendingState = true;
-                            String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.noAck");
-                            ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
                             new retrier(state.getMethod(), state.getXml(), mseq).start();
                             break;
                         }
@@ -622,19 +611,45 @@ public class PersistenceServlet extends HttpServlet {
     	}
     	
     	public void run() {
-			MemoryCache memoryCache = MemoryCache.getInstance();
+    		MemoryCache memoryCache = MemoryCache.getInstance();
+    		
+    		int retryInterval = memoryCache.getSrvSettings().getTmsMessageRetryInterval();
+            int waitTime = memoryCache.getSrvSettings().getTmsAckMessageWaitTime();
+            int expansion = memoryCache.getSrvSettings().getTmsMessageRetryExpansionFactor();
+            long startTime = System.currentTimeMillis();
+            long currentTime = startTime;
+            boolean timeout = false;
+             		
     		String tmsResponse = "";
-    		logger.warn("mseq " + mseq + ": Previously unacknowledged message retry: " + xml);
-        	tmsResponse = ServletUtils.httpClientSendRequest(method, xml);
-            // if OK return from TMS, set acknowledge state
-            if (ServletUtils.isStatusOK(tmsResponse)) {
-            	String lsid = ServletUtils.parseLsid(xml);    
-                String mseq = ServletUtils.parseMseq(xml);
-                memoryCache.setAcknowledgeState(lsid, mseq);
-            }
-            else {
-                logger.error("mseq " + mseq + ": TMS returns error in save() : " + tmsResponse);
-            }
+    		//
+    		StateVO state = null;
+    		String lsid = ServletUtils.parseLsid(xml);
+        	
+        	try {
+	            int i = 1;
+	            while (!timeout) {
+	            	if(!isAcknowledged(memoryCache, lsid, mseq)) {
+	            		state = memoryCache.setPendingState(lsid, mseq, ServletUtils.SAVE_METHOD, xml);
+	            		tmsResponse = ServletUtils.httpClientSendRequest(method, xml);
+	            		// if OK return from TMS, set acknowledge state
+		                if (ServletUtils.isStatusOK(tmsResponse)) {
+		                	memoryCache.setAcknowledgeState(state);
+		                    timeout = true;
+		                } else {
+		                	Thread.sleep(retryInterval * ServletUtils.SECOND * i); // delay 1 second and try again
+		                	currentTime = System.currentTimeMillis();
+		                	timeout = (currentTime - startTime) > (waitTime * ServletUtils.SECOND);
+		                	logger.info("mseq " + mseq + ": Waited " + ((currentTime - startTime)/ServletUtils.SECOND) + " for TMS response.");
+		                	logger.info("mseq " + mseq + ": Retrying message: " + xml);
+		                	i = i*expansion;
+		                }
+	            	} else {
+	            		timeout = true;
+	            	}  
+	            }
+        	} catch (InterruptedException ie) {
+        		// do nothing
+        	}
     	}
     }
 

@@ -151,17 +151,28 @@ public class ServletUtils {
 
 //	helper methods
 
+	private static String lastMseq;
+	
+	public static synchronized void writeResponse(HttpServletResponse response, String xml) {
+		writeResponse(response, xml, null);
+	}
+	
 	/**
 	 * write xml content to response
 	 *
 	 */
-	public static void writeResponse(HttpServletResponse response, String xml) {
+	public static synchronized void writeResponse(HttpServletResponse response, String xml, String mseq) {
 		try {
-			response.setContentType("text/xml");
-			PrintWriter out = response.getWriter();
-			out.println(xml);
-			out.flush();
-			out.close();
+			if((mseq == null || lastMseq == null) || !mseq.equals(lastMseq)) {
+				response.setContentType("text/xml");
+				response.setStatus(response.SC_OK);
+				PrintWriter out = response.getWriter();
+				out.println(xml);
+				out.flush();
+				out.close();
+				response.flushBuffer();
+				lastMseq = mseq;
+			}
 		} catch (Exception e) {
 			// do nothing, response already written
 		}
