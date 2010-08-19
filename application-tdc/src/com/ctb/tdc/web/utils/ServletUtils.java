@@ -151,7 +151,7 @@ public class ServletUtils {
 
 //	helper methods
 
-	private static String lastMseq;
+	//private static String lastMseq;
 	
 	public static synchronized void writeResponse(HttpServletResponse response, String xml) {
 		writeResponse(response, xml, null);
@@ -161,9 +161,9 @@ public class ServletUtils {
 	 * write xml content to response
 	 *
 	 */
-	public static synchronized void writeResponse(HttpServletResponse response, String xml, String mseq) {
+	public static void writeResponse(HttpServletResponse response, String xml, String mseq) {
 		try {
-			if((mseq == null || lastMseq == null) || !mseq.equals(lastMseq)) {
+			//if((mseq == null || lastMseq == null) || !mseq.equals(lastMseq)) {
 				response.setContentType("text/xml");
 				response.setStatus(response.SC_OK);
 				PrintWriter out = response.getWriter();
@@ -171,8 +171,8 @@ public class ServletUtils {
 				out.flush();
 				out.close();
 				response.flushBuffer();
-				lastMseq = mseq;
-			}
+			//	lastMseq = mseq;
+			//}
 		} catch (Exception e) {
 			// do nothing, response already written
 		}
