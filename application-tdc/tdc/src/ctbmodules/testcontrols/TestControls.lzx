@@ -106,30 +106,30 @@ Debug.write("Test Control......", "Actual : ",this.curranswer.getAttr('identifie
         <view name="btns" y="14" x="7">
             <simplelayout axis="y" spacing="3"/>
             <view name="navbtns">
-                <basebutton name="btnback" resource="go_back_btn" x="0"
+                <!-- <basebutton name="btnback" resource="go_back_btn" x="0"
                             enabled="${ classroot.uienabled == 'true' }"
                             onclick="gController.stepNavigateBack ()"
                             disabledResourceNumber="1"
-                            />
-                <basebutton name="btnforward" resource="go_on_btn" x="100"
+                            /> -->
+                <basebutton name="btnforward" resource="go_on_btn" x="50" y="14"
                             enabled="${ classroot.uienabled == 'true' }"
                             onclick="gController.stepNavigateForward ()"
                             disabledResourceNumber="1"
                             />
                 <basebutton name="btnfinish" resource="finish_test_btn" id="gFinishTestButton"
                             enabled="${ classroot.uienabled == 'true' }"
-                            visible="${!parent.btnforward.visible}" x="100"
+                            visible="${!parent.btnforward.visible}" x="50" y="14"
                             onclick="gController.finishTest ()"
                             disabledResourceNumber="1"
                             />
             </view>
-            <multistatebutton name="markbtn" align="center"
+            <!-- <multistatebutton name="markbtn" align="center"
                               clickable="${ classroot.uienabled == 'true' }"
                               resource="mark_unmark_btn" statelength="3"
                               maxstate="1" 
               				  onclick="gController.markQuestion (!classroot.iscurrmarked)"
               				  visible="${!classroot.theme}">
-            </multistatebutton>
+            </multistatebutton> -->
         </view>
     </class>
 

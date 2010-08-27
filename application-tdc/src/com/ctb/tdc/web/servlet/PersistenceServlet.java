@@ -192,6 +192,7 @@ public class PersistenceServlet extends HttpServlet {
             // sent login request to TMS
         	logger.info("***** login request");
             result = ServletUtils.httpClientSendRequest(ServletUtils.LOGIN_METHOD, xml);
+            System.out.println(result);
             
             if (ServletUtils.isLoginStatusOK(result)) {
                 // process encryptionKey to memory cache

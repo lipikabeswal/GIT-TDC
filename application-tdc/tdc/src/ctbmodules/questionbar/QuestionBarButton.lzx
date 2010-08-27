@@ -91,7 +91,7 @@
         ]]></method>
 
 
-        <view name="btn" resource="question_bar_btn" 
+        <!-- <view name="btn" resource="question_bar_btn" 
               width="100%" stretches="width"/>
 
         <view name="ball" resource="question_bar_ball"
@@ -104,7 +104,7 @@
         <text text="${classroot.itemnum}" resize="true" 
               font="Arial" fontsize="11" fontstyle="bold"
               y="22" align="center" visible="${!classroot.isTheme}"/>
-        <view resource="theme" y="24" align="center" visible="${classroot.isTheme}" />
+        <view resource="theme" y="24" align="center" visible="${classroot.isTheme}" /> -->
  
     </class>
 

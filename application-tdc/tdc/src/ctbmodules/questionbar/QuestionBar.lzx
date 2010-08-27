@@ -80,7 +80,7 @@
 			}  
         ]]></method>
         
-        <method name="showBtn" args="btn"><![CDATA[
+        <method name="showBtn" args="btn"><!-- <![CDATA[
             var bx = btn.getAttributeRelative ('x', this);
             var rightedge = this.width - this.morefastright.width - this.moreright.width - this.RIGHT_BUTTONS_OFFSET;
             var leftedge = this.morefastleft.width + this.moreleft.x + 1;
@@ -103,8 +103,8 @@
                 }
                 scrollarea.animate ('x', newx, this.ANIM_LENGTH);
             }
-            this.setAttribute('justSelectedLastItem', gController.onLastItem());
-        ]]></method>
+            this.setAttribute('justSelectedLastItem', gController.onLastItem()); 
+        ]]>--></method>
 
         <!-- list of scrolling buttons for item -->
         <view name="qbtns" height="100%"  x="${classroot.moreleft.x}" y="2" 
@@ -113,10 +113,9 @@
             <view name="scrollcontainer" height="100%"
                   width="${this.thebtns.width + this.thebtns.x}">
                 <view name="youarehere" options="ignorelayout">                    
-                    <view resource="you_are_here_txt" align="left"/>
-                    <view resource="you_are_here_mark" align="center"/>
+                    <!-- <view resource="you_are_here_txt" align="left"/>
+                    <view resource="you_are_here_mark" align="center"/> -->
                 </view>
-                <!-- the buttons below youarehere -->
                 <view name="thebtns" x="${classroot.moreleft.x}">
                     <simplelayout axis="x" spacing="14"/>
                     <QuestionBarButton y="13" datapath="runtime/item_model"/>
@@ -166,9 +165,7 @@
         
         <basebutton name="moreright" resource="moreright_btn" 
                     y="$once{classroot.SCROLL_Y}" x="${parent.morefastright.x - this.width}"
-                    visible="${classroot.isscrolling &amp;&amp;
-                               classroot.qbtns.scrollcontainer.x &gt; classroot.maxscrollleft &amp;&amp;
-                               !classroot.justSelectedLastItem}">
+                    visible="false">
             <!-- align="right" -->
             <attribute name="doscrolldel" 
                        value="$once {new LzDelegate (this, 'doScroll')}"/>
@@ -188,9 +185,7 @@
         <!-- add speed button right in nav bottomm bar -->
 		<basebutton name="morefastright" resource="morefastright_btn" 
                     y="$once{classroot.SCROLL_Y}" x="${parent.width - Math.round(this.width) - classroot.RIGHT_BUTTONS_OFFSET}"
-                    visible="${classroot.isscrolling &amp;&amp;
-                               classroot.qbtns.scrollcontainer.x &gt; classroot.maxscrollleft &amp;&amp;
-                               !classroot.justSelectedLastItem}">
+                    visible="false">
             <attribute name="doscrolldel" 
                        value="$once {new LzDelegate (this, 'doScroll')}"/>
 
