@@ -2158,7 +2158,7 @@
         </method>
 
 		<method name="save" args="lev">
-        	var saveParams = getSaveParams(lev);
+        	var saveParams = getSaveParams(lev, 1);
         	resetHeartbeat();
 			gCommunicator.save(saveParams);
 		</method>
@@ -2362,19 +2362,19 @@ Debug.write("unlockUI method.....");
 			return result;
 		</method>
 		
-     	<method name="getSaveParams" args="lev">
+     	<method name="getSaveParams" args="lev, mrk">
      		// method will return null if only ast needed, tsd params otherwise
      		var result = null; 
      		if(lev != null || isOnItemOrFinishScreen()){
-	    		result = getTsdParams(lev);
+	    		result = getTsdParams(lev, mrk);
     		}
     		return result;
     	</method>
     	
-    	<method name="getTsdParams" args="lev">
+    	<method name="getTsdParams" args="lev, mrk">
     		var result = new Array();
     		result[0] = lev;
-    		result[1] = getItemParams();
+    		result[1] = getItemParams(mrk);
     		return result;
     	</method>
     	
@@ -2382,7 +2382,7 @@ Debug.write("unlockUI method.....");
     		return escape(gScratchpad.getText());
     	</method>
     	
-     	<method name="getItemParams">
+     	<method name="getItemParams" args="mrk">
 
 //printBigString(dpstudentdata.serialize());
 			updateCrItemNode();
@@ -2393,7 +2393,7 @@ Debug.write("unlockUI method.....");
 	    			result = new Array();
 					result[0] = itemnode.getAttr( 'iid' ); // current iid
 					result[1] = itemnode.getAttr( 'eid' ); // current eid
-					result[2] = toNumString( itemnode.getAttr( 'marked' ) ); //current mrk
+					result[2] = mrk; //toNumString( itemnode.getAttr( 'marked' ) ); //current mrk
 					result[3] = toNumString( itemnode.getAttr( 'answered' ) ); //current awd
 					result[4] = currentDur(); //current dur
 					result[5] = getCurrentInteractionType();  // type
@@ -2704,7 +2704,7 @@ Debug.write("unlockUI method.....");
 
         <method name="sendHeartbeat">
 			resetHeartbeat();
-			gCommunicator.heartbeat(getSaveParams());
+			gCommunicator.heartbeat(getSaveParams(null, 0));
         </method>
 
 		<method name="resetHeartbeat">

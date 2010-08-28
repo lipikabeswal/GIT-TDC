@@ -274,6 +274,23 @@ public class ServletUtils {
 	public static String parseItemId(String xml) {
 		return parseTag("iid=", xml);
 	}
+	
+	/**
+	 * parse correct answer value in xml
+	 *
+	 */
+	public static String parseCorrectAnswer(String xml) {
+		return parseTag("correct=", xml);
+	}
+	
+	/**
+	 * parse marked value in xml
+	 *
+	 */
+	public static String parseMarked(String xml) {
+		return parseTag("mrk=", xml);
+	}
+	
 
 	/**
 	 * parse test roster id value in xml

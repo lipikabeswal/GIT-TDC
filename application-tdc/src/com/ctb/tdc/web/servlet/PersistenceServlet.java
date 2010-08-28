@@ -24,6 +24,7 @@ import org.apache.log4j.Logger;
 
 import com.ctb.tdc.web.dto.StateVO;
 import com.ctb.tdc.web.utils.AuditFile;
+import com.ctb.tdc.web.utils.CATEngineProxy;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
      
@@ -135,10 +136,24 @@ public class PersistenceServlet extends HttpServlet {
             if ( result == null )
                 result = verifyServletSettings();
         }
-        else if (method != null && method.equals(ServletUtils.LOGIN_METHOD))
+        else if (method != null && method.equals(ServletUtils.LOGIN_METHOD)) {
             result = login(xml);
-        else if (method != null && method.equals(ServletUtils.SAVE_METHOD))
-            result = save(response, xml);        
+            CATEngineProxy.initCAT("RD", 'M');
+        }
+        else if (method != null && method.equals(ServletUtils.SAVE_METHOD)) {
+            result = save(response, xml);      
+            Integer itemRawScore = getItemRawScoreFromResponse(response, xml);
+        	if(itemRawScore != null) {
+        		try {
+        			CATEngineProxy.scoreCurrentItem(itemRawScore.intValue());
+	        	} catch (Exception e) {
+	        		System.out.println("CAT Over!");
+	    			logger.info("CAT Over!");
+	                ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATEngineProxy.getAbilityScore() + ", SEM: " + CATEngineProxy.getSEM(), "000"));
+	                CATEngineProxy.deInitCAT();
+	        	}
+        	}
+        }
         else if (method != null && method.equals(ServletUtils.FEEDBACK_METHOD))
             result = feedback(xml);        
         else if (method != null && method.equals(ServletUtils.UPLOAD_AUDIT_FILE_METHOD))
@@ -154,6 +169,35 @@ public class PersistenceServlet extends HttpServlet {
         	String mseq = ServletUtils.parseMseq(xml);
             ServletUtils.writeResponse(response, result, mseq);
         }
+    }
+    
+    private Integer getItemRawScoreFromResponse(HttpServletResponse response, String xml) {
+    	try {
+	    	//System.out.println(xml);
+	    	if(xml.indexOf("<rv n=") >= 0) {
+	    		String marked = ServletUtils.parseMarked(xml);
+	    		if(marked != null && "1".equals(marked)) {
+		    		String itemresponse = ServletUtils.parseResponse(xml);
+		    		String correctResponse = (String) ContentServlet.itemCorrectMap.get(CATEngineProxy.getNextItem());
+		    		System.out.println("response: "+ itemresponse + ", Correct Response: "+ correctResponse);
+			    	if(correctResponse.equals(itemresponse)) {
+			    		return new Integer(1);
+			    	} else {
+			    		return new Integer(0);
+			    	}
+	    		} else {
+	    			return null;
+	    		}
+	    	} else {
+	    		return null;
+	    	}
+    	} catch (Exception e) {
+    		System.out.println("CAT Over!");
+			logger.info("CAT Over!");
+            ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATEngineProxy.getAbilityScore() + ", SEM: " + CATEngineProxy.getSEM(), "000"));
+            CATEngineProxy.deInitCAT();
+    	}
+    	return null;
     }
     
     /**
@@ -192,7 +236,7 @@ public class PersistenceServlet extends HttpServlet {
             // sent login request to TMS
         	logger.info("***** login request");
             result = ServletUtils.httpClientSendRequest(ServletUtils.LOGIN_METHOD, xml);
-            System.out.println(result);
+            //System.out.println(result);
             
             if (ServletUtils.isLoginStatusOK(result)) {
                 // process encryptionKey to memory cache
