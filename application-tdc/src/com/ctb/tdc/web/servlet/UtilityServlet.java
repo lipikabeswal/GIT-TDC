@@ -89,11 +89,11 @@ public class UtilityServlet extends HttpServlet {
         }
         else
         if (method.equals("exit")) {
-        	System.out.println("Exit called");
+        	logger.info("Exit called");
         	if(isLinux()) {
         		Runtime.getRuntime().exec("killall OASTDC");
         	} else if(isMacOS()) {
-        		Runtime.getRuntime().exec("killall \"Lockdown Browser\"");
+        		Runtime.getRuntime().exec("killall \"LockDownBrowser\"");
         	} else {
         		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
         	}
@@ -235,12 +235,12 @@ public class UtilityServlet extends HttpServlet {
 				
 				String filePath = this.RESOURCE_FOLDER_PATH + File.separator  + filename;
 				          
-				System.out.println("Image filepath : " + filePath);
+				//System.out.println("Image filepath : " + filePath);
                 int index= filename.lastIndexOf(".");
-                System.out.println(index);
+                //System.out.println(index);
 				String ext = filename.substring(filename.lastIndexOf(".")+1);
 				//String ext = filename.substring(filename.lastIndexOf("."),3);
-				System.out.println("ext" + ext);
+				//System.out.println("ext" + ext);
 				AssetInfo assetInfo = new AssetInfo();
 				assetInfo.setExt(ext);
 				String mimeType = assetInfo.getMIMEType();

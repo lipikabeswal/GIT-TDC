@@ -421,14 +421,14 @@ public class LoadContentServlet extends HttpServlet {
                 tryCount++;
                 if ( !ready )
                 {
-                    logger.info("file does not exists - " + fileName + "try count=" + tryCount);
+                    //logger.info("file does not exist - " + fileName + "try count=" + tryCount);
                     Thread.sleep( 1000 );
                 }
             }
         }
         catch( Exception e )
         {
-            logger.info("exception threw in imageReady()");
+            logger.error("exception thrown in imageReady()");
         }
         return ready;
     }

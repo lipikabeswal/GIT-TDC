@@ -1,14 +1,26 @@
 package com.ctb.tdc.bootstrap.processwrapper;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import com.ctb.tdc.bootstrap.processwrapper.exception.ProcessWrapperException;
 import com.ctb.tdc.bootstrap.ui.SplashWindow;
@@ -25,6 +37,8 @@ import com.ctb.tdc.bootstrap.util.TdcConfigEncryption;
  */
 public class LockdownBrowserWrapper extends Thread {
 
+	static volatile String processName = "";
+	
 	private String tdcHome;
 	private String ldbHome;
 	
@@ -72,7 +86,7 @@ public class LockdownBrowserWrapper extends Thread {
 			objectBankUtils = new ObjectBankUtils();
 			objectBankUtils.deleteContents();
 			
-            this.ldbCommand[0] = this.ldbHome + "/Lockdown Browser.app/Contents/MacOS/Lockdown Browser";            
+            this.ldbCommand[0] = this.ldbHome + "/LockDownBrowser.app/Contents/MacOS/LockDownBrowser";            
             this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
             
 		} else if ( linux ) {
@@ -207,13 +221,89 @@ public class LockdownBrowserWrapper extends Thread {
 			unpackLock();
 		
 			if (ismac) {
-				// Run the LDB...
-				ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
-				ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
-				Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome) );
-				this.isAvailable = true;
-				ldb.waitFor();
-				this.isAvailable = false;	
+				System.loadLibrary("lock");
+				
+				ProcessBlock processBlock = new ProcessBlock ();
+				processBlock.start();
+				processBlock.join();
+				
+				if (flag) {
+					// Run the LDB...
+					ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
+					ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
+					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome) );
+					this.isAvailable = true;
+					ldb.waitFor();
+					this.isAvailable = false;	
+				} else {
+					try {
+						SwingUtilities.invokeAndWait(new Runnable() {
+							public void run() {
+								
+								JFrame frame = new JFrame("LockDown Browser Forbidden Process ");
+								frame.setLayout(new BorderLayout());
+								
+								String labelDisplay = "";
+								
+								if (processName.contains(",")) {
+								
+									labelDisplay = "          Forbidden process "+processName+" are detected";
+									
+								} else {
+								
+									labelDisplay ="          Forbidden process "+processName+" is detected";
+								
+								}
+
+
+								final JLabel label = new JLabel(labelDisplay);
+								JPanel p = new JPanel(new BorderLayout());
+								p.add(label, BorderLayout.CENTER);
+
+								label.setPreferredSize(new Dimension(310, 180));
+
+								frame.add(label, BorderLayout.CENTER);
+
+								
+								Dimension screenSize = new Dimension (Toolkit.getDefaultToolkit().getScreenSize());
+								String processArr[] = processName.split(",");
+								if (processArr.length == 3) {
+								
+									frame.setPreferredSize(new Dimension(500,200));
+								
+								} else if (processArr.length >3 && processArr.length <=6) {
+								
+									frame.setPreferredSize(new Dimension(600,200));
+								
+								} else {
+								
+									frame.setPreferredSize(new Dimension(400,200));
+								
+								}
+								
+								Dimension windowSize = new Dimension (frame.getPreferredSize());
+								int wdwLeft = screenSize.width /2 - windowSize.width /2;
+								int wdwTop = screenSize.height /2 -windowSize.height /2;
+								frame.pack();
+								frame.setLocation (wdwLeft,wdwTop);
+								frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+								//frame.pack();
+								frame.setVisible(true);
+								
+							}
+						});
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (Exception e) {
+					
+							e.printStackTrace();
+					
+					}
+				}
 			} else if (islinux) {
 				// Linux native lib
 				System.load(this.tdcHome + "/liblock.so");
@@ -399,5 +489,66 @@ public class LockdownBrowserWrapper extends Thread {
         }
     }
 	
+	class ProcessBlock extends Thread {
+
+		public void run () {
+
+			try {
+			
+				LockdownBrowserWrapper.Get_Blacklist_Process_No();
+				BufferedReader in = new BufferedReader (new FileReader("temp_forbidden"));
+				String str = in.readLine();
+				int value = str.indexOf('|');
+				if (value != -1) {
+			
+					str = str.substring(1);
+					String []strArray = str.split("\\|");
+					for (String tempString : strArray) {
+		
+						System.out.println(tempString);
+						processName = processName +","+getProcessName(Integer.valueOf(tempString).intValue());
+		
+					}
+				
+					if ((processName.indexOf(',')) != -1) {
+						processName = processName.substring(1);
+					}
+
+					flag = false;
+				
+				} else {
+
+					flag = true;
+
+				}
+				
+				}catch (Exception e) {
+				
+				System.out.println("Exception Thrown");
+					e.printStackTrace();
+				
+				}
+
+		}
+
+	}
+	
+	private String getProcessName (int value) {
+
+		Properties prop = new Properties ();
+		String str = null;
+		try {
+
+			prop.load(new FileInputStream ("BlacklistProcess.properties"));
+			str = prop.getProperty(String.valueOf(value));
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+		return str;
+
+	}
 }
 

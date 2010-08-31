@@ -184,13 +184,13 @@ public class ContentServlet extends HttpServlet {
 					ErrorDocument.Error error = null;
 					int i = 1;
 					while (TMSRetryCount > 0) {
-						logger.info("***** downloadSubtest " + subtestId);
+						//logger.info("***** downloadSubtest " + subtestId);
 						result = ServletUtils.httpClientSendRequest(ServletUtils.GET_SUBTEST_METHOD, xml);
 						document = AdssvcResponseDocument.Factory.parse(result);
 						error = document.getAdssvcResponse().getGetSubtest().getError();
 						if (error != null) {
 							if(TMSRetryCount > 1) {
-								logger.error("Retrying message: " + xml);
+								//logger.error("Retrying message: " + xml);
 								Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
 							}
 							TMSRetryCount--;
@@ -295,12 +295,12 @@ public class ContentServlet extends HttpServlet {
 					String result = "";
 					int i = 1;
 					while (TMSRetryCount > 0) {
-						logger.info("***** downloadItem " + itemId);
+						//logger.info("***** downloadItem " + itemId);
 						result = ServletUtils.httpClientSendRequest(ServletUtils.DOWNLOAD_ITEM_METHOD, xml);
 						errorIndex = result.indexOf("<ERROR>");
 						if (errorIndex >= 0) {
 							if(TMSRetryCount > 1) {
-								logger.error("Retrying message: " + xml);
+								//logger.error("Retrying message: " + xml);
 								try {
 									Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);
 								} catch (InterruptedException ie) {

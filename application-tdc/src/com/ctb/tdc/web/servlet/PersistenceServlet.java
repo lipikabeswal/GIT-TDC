@@ -190,7 +190,7 @@ public class PersistenceServlet extends HttpServlet {
     
         try {
             // sent login request to TMS
-        	logger.info("***** login request");
+        	//logger.info("***** login request");
             result = ServletUtils.httpClientSendRequest(ServletUtils.LOGIN_METHOD, xml);
             
             if (ServletUtils.isLoginStatusOK(result)) {
@@ -202,10 +202,10 @@ public class PersistenceServlet extends HttpServlet {
                 if (AuditFile.exists(fileName)) {
                     // handle restart here in phase 2
                 }
-                logger.info("Login successfully.");                
+                //logger.info("Login successfully.");                
             }
             else {
-                logger.error("TMS returns error in login() : " + result);   
+                //logger.error("TMS returns error in login() : " + result);   
             }
         } 
         catch (Exception e) {
@@ -233,16 +233,16 @@ public class PersistenceServlet extends HttpServlet {
         	int i = 1;
         	while (TMSRetryCount > 0) {
 	            // sent feedback request to TMS
-        		logger.info("***** studentFeedback request");
+        		//logger.info("***** studentFeedback request");
 	            result = ServletUtils.httpClientSendRequest(ServletUtils.FEEDBACK_METHOD, xml);
 	            if (ServletUtils.isStatusOK(result)) {
-	                logger.info("Get feedback successful.");
+	                //logger.info("Get feedback successful.");
 	                TMSRetryCount = 0;
 	            }
 	            else {
-	                logger.error("TMS returns error in feedback() : " + result);    
+	                //logger.error("TMS returns error in feedback() : " + result);    
 	                if (TMSRetryCount > 1) {
-	                	logger.error("Retrying message: " + xml);
+	                	//logger.error("Retrying message: " + xml);
 	                	Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);	
 	                }
 	                TMSRetryCount--;
@@ -316,7 +316,7 @@ public class PersistenceServlet extends HttpServlet {
             else {       
                 // failed on checking acknowledge from TMS, return error to client
                 errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.noAck");
-                logger.error("mseq " + mseq + ": " + errorMessage);
+                //logger.error("mseq " + mseq + ": " + errorMessage);
                 result = ServletUtils.ERROR; //ServletUtils.buildXmlErrorMessage("", errorMessage, ""); 
             }  
         } 
@@ -346,7 +346,7 @@ public class PersistenceServlet extends HttpServlet {
         	String tmsResponse = "";
         	int i = 1;
         	while(TMSRetryCount > 0) {
-        		logger.info("mseq " + mseq + ": persistence request");
+        		//logger.info("mseq " + mseq + ": persistence request");
         		tmsResponse = ServletUtils.httpClientSendRequest(ServletUtils.SAVE_METHOD, xml);
                 
                 // if OK return from TMS, set acknowledge state
@@ -355,9 +355,9 @@ public class PersistenceServlet extends HttpServlet {
                     TMSRetryCount = 0;
                 }
                 else {
-                    logger.error("mseq " + mseq + ": TMS returns error in save() : " + tmsResponse);
+                    //logger.error("mseq " + mseq + ": TMS returns error in save() : " + tmsResponse);
                     if (TMSRetryCount > 1) {
-                    	logger.error("mseq " + mseq + ": Retrying message: " + xml);
+                    	//logger.error("mseq " + mseq + ": Retrying message: " + xml);
                     	Thread.sleep(TMSRetryInterval * ServletUtils.SECOND * i);	
                     }
                     TMSRetryCount--;
@@ -386,7 +386,7 @@ public class PersistenceServlet extends HttpServlet {
             // truncate the file if it is bigger than 200 KB before write model content
             String fileName = ServletUtils.buildFileName(xml);
             if (ServletUtils.isFileSizeTooBig(fileName)) {       
-                logger.info("Audit file is too big (> 200KB), file will be truncated before writing model data.");
+                //logger.info("Audit file is too big (> 200KB), file will be truncated before writing model data.");
                 AuditFile.deleteLogger(fileName);                      
             }
             
@@ -394,7 +394,7 @@ public class PersistenceServlet extends HttpServlet {
             AuditFile.log(ServletUtils.createAuditVO(xml, false));
             
             // sent writeToAuditFile request to TMS
-            logger.info("***** uploadAuditFile request");
+            //logger.info("***** uploadAuditFile request");
             ServletUtils.httpClientSendRequest(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD, xml);            
             result = ServletUtils.OK; // nothing return from TMS
         } 
@@ -435,7 +435,7 @@ public class PersistenceServlet extends HttpServlet {
 	            // get checksum value
 	            long sumValue = ServletUtils.getChecksum(file);
 	            if (sumValue == -1L) {
-	                logger.error("Checksum error.");
+	                //logger.error("Checksum error.");
 	                return ServletUtils.ERROR;                
 	            }
 	            
@@ -464,25 +464,25 @@ public class PersistenceServlet extends HttpServlet {
 	                    in.close();     
 	                    // if OK return from TMS, delete local file
 	                    if (ServletUtils.isStatusOK(tmsResponse)) {                    
-	                        logger.info("Upload audit file successfully");
+	                        //logger.info("Upload audit file successfully");
 	                        if (AuditFile.deleteLogger(fileName)) {                      
-	                            logger.info("Delete audit file successfully");
+	                            //logger.info("Delete audit file successfully");
 	                            result = ServletUtils.OK;
 	                        }
 	                        else { 
-	                            logger.error("Failed to delete audit file");
+	                            //logger.error("Failed to delete audit file");
 	                            errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.deleteAuditFileFailed");                            
 	                            result = ServletUtils.buildXmlErrorMessage("", errorMessage, "");
 	                        }
 	                    }
 	                    else {
-	                        logger.error("Failed to upload audit file, tmsResponse=" + tmsResponse);
+	                        //logger.error("Failed to upload audit file, tmsResponse=" + tmsResponse);
 	                        errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.uploadFailed");                            
 	                        result = ServletUtils.buildXmlErrorMessage("", errorMessage, "");
 	                    }
 	                }
 	                else {
-	                    logger.error("Failed to upload audit file, responseCode=" + HttpStatus.getStatusText(responseCode));
+	                    //logger.error("Failed to upload audit file, responseCode=" + HttpStatus.getStatusText(responseCode));
 	                    result = ServletUtils.buildXmlErrorMessage("", HttpStatus.getStatusText(responseCode), "");                     
 	                }
 	            }
@@ -549,7 +549,7 @@ public class PersistenceServlet extends HttpServlet {
                     StateVO state = (StateVO)states.get(i);
                     if (state.getMseq() <= mseqIndex) {
                     	if (state.getState().equals(StateVO.PENDING_STATE)) {
-                    		logger.warn("Found outstanding unacknowledged message, max in flight threshold exceeded. mseq " + state.getMseq() + ": " + state.getXml());
+                    		//logger.warn("Found outstanding unacknowledged message, max in flight threshold exceeded. mseq " + state.getMseq() + ": " + state.getXml());
                             pendingState = true;
                             new retrier(state.getMethod(), state.getXml(), mseq, state).start();
                             break;
@@ -626,8 +626,8 @@ public class PersistenceServlet extends HttpServlet {
 	            while (!timeout) {
 	            	if(!isAcknowledged(memoryCache, lsid, mseq)) {
 	            		if(i>1) {
-	            			logger.info("mseq " + mseq + ": Waited " + ((currentTime - startTime)/ServletUtils.SECOND) + " for TMS response.");
-	            			logger.info("mseq " + mseq + ": Retrying message: " + xml);
+	            			//logger.info("mseq " + mseq + ": Waited " + ((currentTime - startTime)/ServletUtils.SECOND) + " for TMS response.");
+	            			//logger.info("mseq " + mseq + ": Retrying message: " + xml);
 	            		}
 	            		tmsResponse = ServletUtils.httpClientSendRequest(method, xml);
 	            		// if OK return from TMS, set acknowledge state
@@ -675,7 +675,7 @@ public class PersistenceServlet extends HttpServlet {
                     if ( anyMessageInPending( states ) )
                     {
                         errorMsg = ServletUtils.getErrorMessage( "tdc.servlet.error.noAck" );
-                        logger.error( errorMsg );
+                        //logger.error( errorMsg );
                         errorMsg = ServletUtils.buildXmlErrorMessage( "", errorMsg, "" );
                     }
                 }
