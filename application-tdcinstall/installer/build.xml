@@ -48,6 +48,7 @@
 	<target name="build" description="Builds the various installers" depends="clean">
 		<antcall target="buildVanilla" />
 		<antcall target="buildFCAT" />
+		<antcall target="buildISTEP" />
 		<antcall target="postClean"></antcall>
 		<antcall target="buildTDCUpdate"></antcall>
 	</target>
@@ -74,6 +75,12 @@
 		</antcall> -->
 	</target>
 	
+	<target name="buildISTEP" description="Builds the ISTEP installer" depends="init">
+		<!-- <copy file="${project.artifacts.webapp.resources.dir}/eliminatorFCAT.swf" tofile="${project.artifacts.webapp.resources.dir}/eliminator.swf" overwrite="true" /> -->
+		<antcall target="buildInstaller">
+			<param name="installer.type" value="istep" />
+		</antcall>
+	</target>
 	
 	
 	<!-- Internal tasks **************************************************** -->
