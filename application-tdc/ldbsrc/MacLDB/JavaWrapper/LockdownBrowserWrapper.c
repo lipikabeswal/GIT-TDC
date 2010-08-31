@@ -8,7 +8,7 @@ JNIEXPORT jint JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBrowser
   (JNIEnv *env, jclass obj) {
 
               int a;
-              a = system("sh processcheck.sh");
+              a = system("sh macpcheck.sh");
 	      a= a/256;
               return a;    	
 }
