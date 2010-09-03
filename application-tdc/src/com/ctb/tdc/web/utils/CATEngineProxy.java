@@ -442,14 +442,17 @@ public class CATEngineProxy {
 			initCAT("RD", 'M');
 			String next = getNextItem();
 			while(next != null){
-				scoreCurrentItem(new Integer(1));
+				scoreCurrentItem(new Integer((int) Math.round(Math.random())));
 				next = getNextItem();
 			}
 			getAbilityScore();
 			getSEM();
-			deInitCAT();
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
+			getAbilityScore();
+			getSEM();
+		}finally {
+			deInitCAT();
 		}
 	}
 	
