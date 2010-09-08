@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.log4j.Logger;
 
 import com.ctb.tdc.web.dto.ServletSettings;
@@ -30,6 +31,8 @@ public class UtilityServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
     static Logger logger = Logger.getLogger(PersistenceServlet.class);
+    private static boolean LDBShutdown = false;
+    private static boolean HTTPClientShutdown = false;
     
 	/**
 	 * Constructor of the object.
@@ -90,18 +93,59 @@ public class UtilityServlet extends HttpServlet {
         else
         if (method.equals("exit")) {
         	logger.info("Exit called");
-        	if(isLinux()) {
-        		Runtime.getRuntime().exec("killall OASTDC");
-        	} else if(isMacOS()) {
-        		Runtime.getRuntime().exec("killall LockDownBrowser");
-        	} else {
-        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+        	
+        	try {
+	        	new KillThem().start();
+	        	new KillMe().start();
+	        	
+	        	while (!HTTPClientShutdown || !LDBShutdown) {
+	        		Thread.sleep(500);
+	        	}
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	} finally {
+        		System.exit(0);
         	}
-        	ServletUtils.client.getHttpConnectionManager().closeIdleConnections(1);
         }    
         
         logger.info("UtilityServlet: " + method + " took " + (System.currentTimeMillis() - startTime) + "\n");
     }
+	
+	private static class KillThem extends Thread {
+		public void run() {
+			try {
+				if(isLinux()) {
+	        		Runtime.getRuntime().exec("killall OASTDC");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("killall OASTDC");
+	        	} else if(isMacOS()) {
+	        		Runtime.getRuntime().exec("killall LockDownBrowser");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("killall LockDownBrowser");
+	        	} else {
+	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+	        	}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				LDBShutdown = true;
+			}
+		}
+	}
+	
+	private static class KillMe extends Thread {
+		public void run() {
+			try {
+				((MultiThreadedHttpConnectionManager)ServletUtils.client.getHttpConnectionManager()).shutdown();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				HTTPClientShutdown = true;
+			}
+		}
+	}
 	
     private static boolean isMacOS() {
         String os = System.getProperty("os.name");
