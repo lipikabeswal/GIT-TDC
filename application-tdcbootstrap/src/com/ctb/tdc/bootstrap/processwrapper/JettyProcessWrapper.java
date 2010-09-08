@@ -273,6 +273,7 @@ public class JettyProcessWrapper extends Thread {
 				shutdown();
 				
 			} else {
+				Thread.sleep(500);
 				this.isAvailable = true;
 				
 				// Jetty is up, wait for the process.
