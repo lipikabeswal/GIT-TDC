@@ -517,25 +517,27 @@ public class Main {
 			}
 			
 		} finally {
-			
-			if( !ss.isClosed() ) {
-				try {
-					ss.close();
-				} catch( IOException e ) {
-					ConsoleUtils.messageErr("An exception has occurred.", e);
+			try {
+				if( !ss.isClosed() ) {
+					try {
+						ss.close();
+					} catch( IOException e ) {
+						ConsoleUtils.messageErr("An exception has occurred.", e);
+					}
 				}
+				        
+	            if (macOS) {
+	                setFilePermission(tdcHome);
+	            }
+	            
+	            // Deactivate the disablers
+	            macScreenSaverDisabler.deactivate();
+	            
+				// Close out the application.
+				ConsoleUtils.messageOut("Done.");
+			} finally {
+				System.exit(exitCode);
 			}
-			        
-            if (macOS) {
-                setFilePermission(tdcHome);
-            }
-            
-            // Deactivate the disablers
-            macScreenSaverDisabler.deactivate();
-            
-			// Close out the application.
-			ConsoleUtils.messageOut("Done.");
-			System.exit(exitCode);
 		}
 
 	}

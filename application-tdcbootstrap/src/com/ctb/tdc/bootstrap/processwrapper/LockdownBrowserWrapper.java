@@ -22,6 +22,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
+
 import com.ctb.tdc.bootstrap.processwrapper.exception.ProcessWrapperException;
 import com.ctb.tdc.bootstrap.ui.SplashWindow;
 import com.ctb.tdc.bootstrap.util.ConsoleUtils;
@@ -44,8 +46,8 @@ public class LockdownBrowserWrapper extends Thread {
 	
 	private SplashWindow splashWindow;
 	
-	private boolean islinux = false;
-	private boolean ismac = false;
+	private static boolean islinux = false;
+	private static boolean ismac = false;
 	
 	private String[] ldbCommand;
 	private boolean isAvailable = false;
@@ -234,6 +236,12 @@ public class LockdownBrowserWrapper extends Thread {
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome) );
 					this.isAvailable = true;
 					ldb.waitFor();
+					Runtime.getRuntime().exec("echo '' | pbcopy", null, new File(this.ldbHome) );
+	        		Runtime.getRuntime().exec("rm -rf ~/Desktop/ScrCapture", null, new File(this.ldbHome) );
+	        		Runtime.getRuntime().exec("defaults write com.apple.screencapture disable-shadow -bool false", null, new File(this.ldbHome) );
+	        		Runtime.getRuntime().exec("defaults write com.apple.screencapture location ~/Desktop", null, new File(this.ldbHome) );
+	        		Runtime.getRuntime().exec("defaults write com.apple.screencapture name picture", null, new File(this.ldbHome) );
+	        		Runtime.getRuntime().exec("killall SystemUIServer", null, new File(this.ldbHome) );
 					this.isAvailable = false;	
 				} else {
 					try {
@@ -395,15 +403,10 @@ public class LockdownBrowserWrapper extends Thread {
 			
 			this.splashWindow.show();
 			
-			if(islinux) {
-        		Runtime.getRuntime().exec("killall OASTDC");
-        	} else if(ismac) {
-        		Runtime.getRuntime().exec("killall LockDownBrowser");
-        	} else {
-        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
-        	}
-			
 			cleanupLock();
+			
+			exit();
+			
 		} catch (Exception e) {
 			ConsoleUtils.messageErr("An error has occured within " + this.getClass().getName(), e);
 		}
@@ -550,6 +553,32 @@ public class LockdownBrowserWrapper extends Thread {
 		}
 		return str;
 
+	}
+	
+	public static synchronized void exit() {
+		new KillThem().start();
+	}
+	
+	private static class KillThem extends Thread {
+		public void run() {
+			try {
+				if(islinux) {
+	        		Runtime.getRuntime().exec("killall OASTDC");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("killall OASTDC");
+	        	} else if(ismac) {
+	        		Runtime.getRuntime().exec("killall LockDownBrowser");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("killall LockDownBrowser");
+	        	} else {
+	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+	        	}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
 

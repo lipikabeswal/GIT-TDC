@@ -94,22 +94,31 @@ public class UtilityServlet extends HttpServlet {
         if (method.equals("exit")) {
         	logger.info("Exit called");
         	
-        	try {
-	        	new KillThem().start();
-	        	new KillMe().start();
-	        	
-	        	while (!HTTPClientShutdown || !LDBShutdown) {
-	        		Thread.sleep(500);
-	        	}
-        	} catch (Exception e) {
-        		e.printStackTrace();
-        	} finally {
-        		System.exit(0);
-        	}
+        	exit();
         }    
         
         logger.info("UtilityServlet: " + method + " took " + (System.currentTimeMillis() - startTime) + "\n");
     }
+	
+	public static synchronized void exit() {
+		try {
+        	new KillThem().start();
+        	new KillMe().start();
+        	
+        	while (!HTTPClientShutdown || !LDBShutdown) {
+        		Thread.sleep(250);
+        	}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		try {
+    			Thread.sleep(500);
+    		} catch (Exception e) {
+    			// do nothing
+    		}
+    		System.exit(0);
+    	}
+	}
 	
 	private static class KillThem extends Thread {
 		public void run() {
