@@ -96,7 +96,10 @@ public class ServletUtils {
 	public static final String URL_WEBAPP_UPLOAD_AUDIT_FILE = "/TestDeliveryWeb/CTB/uploadAuditFile.do";
 	public static final String URL_WEBAPP_WRITE_TO_AUDIT_FILE = "/TestDeliveryWeb/CTB/writeToAuditFile.do";
 	public static final String URL_WEBAPP_GET_STATUS_METHOD = "/TestDeliveryWeb/CTB/getStatus.do";
-
+	public static final String URL_WEBAPP_GET_LOAD_TEST_CONFIG = "/TestDeliveryWeb/CTB/getLoadTestConfig.do";
+	public static final String URL_WEBAPP_UPLOAD_STATISTICS = "/TestDeliveryWeb/CTB/uploadStatistics.do";
+	public static final String URL_WEBAPP_UPLOAD_SYSTEM_INFO = "/TestDeliveryWeb/CTB/uploadSystemInfo.do";
+	
 //	methods
 	public static final String NONE_METHOD = "none";
 	public static final String DOWNLOAD_CONTENT_METHOD = "downloadContent";
@@ -117,7 +120,9 @@ public class ServletUtils {
 	public static final String GET_ITEM_METHOD = "getItem";
 	public static final String GET_IMAGE_METHOD = "getImage";
 	public static final String GET_LOCALRESOURCE_METHOD = "getLocalResource";
-
+	public static final String LOAD_TEST_METHOD = "getLoadTestConfig";
+	public static final String UPLOAD_STATISTICS_METHOD = "uploadStatistics";
+	public static final String UPLOAD_SYSTEM_INFO_METHOD = "uploadSystemInfo";
 
 //	parameters
 	public static final String FOLDER_PARAM = "folder";
@@ -445,7 +450,15 @@ public class ServletUtils {
 						else
 							if (method.equals(GET_STATUS_METHOD))
 								webApp = URL_WEBAPP_GET_STATUS_METHOD;
-
+							else
+								if (method.equals(LOAD_TEST_METHOD))
+									webApp = URL_WEBAPP_GET_LOAD_TEST_CONFIG;
+								else
+									if (method.equals(UPLOAD_STATISTICS_METHOD))
+										webApp = URL_WEBAPP_UPLOAD_STATISTICS;
+									else
+										if (method.equals(UPLOAD_SYSTEM_INFO_METHOD))
+											webApp = URL_WEBAPP_UPLOAD_SYSTEM_INFO;
 		return webApp;
 	}
 

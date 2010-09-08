@@ -19,6 +19,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -37,6 +38,7 @@ import com.ctb.tdc.tsutility.AppResourceBundleUtil;
 import com.ctb.tdc.tsutility.AppConstants.AnalysisState;
 import com.ctb.tdc.tsutility.analyzer.NetworkAnalyzer;
 import com.ctb.tdc.tsutility.io.SimpleTextFileWriter;
+import com.ctb.tdc.tsutility.io.TestSimulationFileUtils;
 
 /**
  * Test network connectivity.
@@ -60,7 +62,9 @@ public class MainWindow extends JFrame implements ActionListener {
 	private static final String TASK_QUESTION2 = AppResourceBundleUtil.getString("tsutility.mainWindow.question.oasdeliveryAvailable");  //  @jve:decl-index=0:
 	private static final String TASK_QUESTION3 = AppResourceBundleUtil.getString("tsutility.mainWindow.question.dynamicPagesNotCached");  //  @jve:decl-index=0:
 	private static final String TASK_QUESTION4 = AppResourceBundleUtil.getString("tsutility.mainWindow.question.downloadContent");  //  @jve:decl-index=0:
+	private static final String TASK_QUESTION5 = AppResourceBundleUtil.getString("tsutility.mainWindow.question.SimulateTest");  //  @jve:decl-index=0:
 	private static final String TASK_RESULT_PASS          = AppResourceBundleUtil.getString("tsutility.mainWindow.result.pass");  //  @jve:decl-index=0:
+	private static final String TASK_RESULT_INPROGRESS  = AppResourceBundleUtil.getString("tsutility.mainWindow.result.inprogress");  //  @jve:decl-index=0:
 	private static final String TASK_RESULT_FAIL          = AppResourceBundleUtil.getString("tsutility.mainWindow.result.fail");
 	private static final String TASK_RESULT_UNATTEMPTED   = AppResourceBundleUtil.getString("tsutility.mainWindow.result.unattempted");
 	private static final String TASK_RESULT_FAIL_DOWNLOAD = AppResourceBundleUtil.getString("tsutility.mainWindow.result.download.failed");
@@ -110,6 +114,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JLabel questionLabel2 = null;
 	private JLabel questionLabel3 = null;
 	private JLabel questionLabel4 = null;
+	private JLabel questionLabel5 = null;
 	
 	private JPanel resultPanel1 = null;
 	private JPanel resultInitialPanel1 = null;
@@ -145,6 +150,16 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JLabel resultFailIconLabel4 = null;
 	private JPanel resultProgressPanel4 = null;
 	private JProgressBar resultProgressBar4 = null;
+	private JPanel resultPanel5 = null;
+	private JPanel resultInitialPanel5 = null;
+	private JPanel resultPassPanel5 = null;
+	private JPanel resultFailPanel5 = null;
+	private JPanel resultUnattemptedPanel5 = null;
+	private JLabel resultPassIconLabel5 = null;
+	private JLabel resultUnattemptedLabel5 = null;
+	private JLabel resultFailIconLabel5= null;
+	private JPanel resultProgressPanel5= null;
+	private JLabel resultProgressIconLabel5 = null;
 	
 	private JFrame networkWindow = null;
 	private JFrame bandwidthWindow = null;
@@ -477,6 +492,11 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JPanel getTaskListPanel() {
 		if (taskListPanel == null) {
 
+			GridBagConstraints gridBagConstraints4 = new GridBagConstraints();
+			gridBagConstraints4.gridx = 1;
+			gridBagConstraints4.insets = new Insets(5, 5, 5, 5);
+			gridBagConstraints4.anchor = GridBagConstraints.WEST;
+			gridBagConstraints4.gridy = 4;
 			GridBagConstraints gridBagConstraints3 = new GridBagConstraints();
 			gridBagConstraints3.gridx = 1;
 			gridBagConstraints3.insets = new Insets(5, 5, 5, 5);
@@ -507,6 +527,16 @@ public class MainWindow extends JFrame implements ActionListener {
 			questionLabel4 = new JLabel();
 			questionLabel4.setText( TASK_QUESTION4 );
 			questionLabel4.setFont( WINDOW_FONT_PLAIN );
+			GridBagConstraints gbc5 = new GridBagConstraints();
+			gbc5.gridx = 0;
+			gbc5.anchor = GridBagConstraints.WEST;
+			gbc5.insets = new Insets(5, 5, 5, 5);
+			gbc5.fill = GridBagConstraints.HORIZONTAL;
+			gbc5.weightx = 1.0D;
+			gbc5.gridy = 4;
+			questionLabel5 = new JLabel();
+			questionLabel5.setText( TASK_QUESTION5 );
+			questionLabel5.setFont( WINDOW_FONT_PLAIN );
 			GridBagConstraints gbc3 = new GridBagConstraints();
 			gbc3.gridx = 0;
 			gbc3.insets = new Insets(5, 5, 5, 5);
@@ -547,10 +577,12 @@ public class MainWindow extends JFrame implements ActionListener {
 			taskListPanel.add(questionLabel2, gbc2);
 			taskListPanel.add(questionLabel3, gbc3);
 			taskListPanel.add(questionLabel4, gbc4);
+			taskListPanel.add(questionLabel5, gbc5);
 			taskListPanel.add(getResultPanel1(), gridBagConstraints);
 			taskListPanel.add(getResultPanel2(), gridBagConstraints1);
 			taskListPanel.add(getResultPanel3(), gridBagConstraints2);
 			taskListPanel.add(getResultPanel4(), gridBagConstraints3);
+			taskListPanel.add(getResultPanel5(), gridBagConstraints4);
 		}
 		return taskListPanel;
 	}
@@ -1022,8 +1054,134 @@ public class MainWindow extends JFrame implements ActionListener {
 		return resultProgressBar4;
 	}
 
+	/**
+	 * This method initializes resultPanel5	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getResultPanel5() {
+		if (resultPanel5 == null) {
+			resultPanel5 = new JPanel();
+			resultPanel5.setLayout(new CardLayout());
+			resultPanel5.add(getResultInitialPanel5(), getResultInitialPanel5().getName());
+			resultPanel5.add(getResultProgressPanel5(), getResultProgressPanel5().getName());
+			resultPanel5.add(getResultPassPanel5(), getResultPassPanel5().getName());
+			resultPanel5.add(getResultFailPanel5(), getResultFailPanel5().getName());
+			resultPanel5.add(getResultUnattemptedPanel5(), getResultUnattemptedPanel5().getName());
+		}
+		return resultPanel5;
+	}
 
+	/**
+	 * This method initializes resultInitialPanel5	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getResultInitialPanel5() {
+		if (resultInitialPanel5 == null) {
+			FlowLayout flowLayout = new FlowLayout();
+			flowLayout.setAlignment(FlowLayout.LEFT);
+			
+			resultInitialPanel5 = new JPanel();
+			resultInitialPanel5.setLayout(flowLayout);
+			resultInitialPanel5.setName("resultInitialPanel5");
+			resultInitialPanel5.setBackground( WINDOW_BACKGROUND_COLOR );
+		}
+		return resultInitialPanel5;
+	}
 
+	/**
+	 * This method initializes resultPassPanel5	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getResultPassPanel5() {
+		if (resultPassPanel5 == null) {
+			resultPassIconLabel5 = new JLabel();
+			resultPassIconLabel5.setIcon(new ImageIcon(getClass().getResource("images/pass.gif")));
+			resultPassIconLabel5.setFont( WINDOW_FONT_BOLD );
+			resultPassIconLabel5.setText( TASK_RESULT_PASS );
+			
+			FlowLayout flowLayout = new FlowLayout();
+			flowLayout.setAlignment(FlowLayout.LEFT);
+			
+			resultPassPanel5 = new JPanel();
+			resultPassPanel5.setLayout(flowLayout);
+			resultPassPanel5.setName("resultPassPanel5");
+			resultPassPanel5.setBackground( WINDOW_BACKGROUND_COLOR );
+			resultPassPanel5.add(resultPassIconLabel5, null);
+		}
+		return resultPassPanel5;
+	}
+
+	/**
+	 * This method initializes resultFailPanel5	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getResultFailPanel5() {
+		if (resultFailPanel5 == null) {
+			resultFailIconLabel5 = new JLabel();
+			resultFailIconLabel5.setIcon(new ImageIcon(getClass().getResource("images/fail.gif")));
+			resultFailIconLabel5.setFont( WINDOW_FONT_BOLD );
+			resultFailIconLabel5.setText( TASK_RESULT_FAIL_DOWNLOAD );
+			FlowLayout flowLayout = new FlowLayout();
+			flowLayout.setAlignment(FlowLayout.LEFT);
+			
+			resultFailPanel5 = new JPanel();
+			resultFailPanel5.setLayout(flowLayout);
+			resultFailPanel5.setName("resultFailPanel5");
+			resultFailPanel5.setBackground( WINDOW_BACKGROUND_COLOR );
+			resultFailPanel5.add(resultFailIconLabel5, null);
+		}
+		return resultFailPanel5;
+	}
+
+	/**
+	 * This method initializes resultUnattemptedPanel5	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getResultUnattemptedPanel5() {
+		if (resultUnattemptedPanel5 == null) {
+			resultUnattemptedLabel5 = new JLabel();
+			resultUnattemptedLabel5.setFont( WINDOW_FONT_BOLD );
+			resultUnattemptedLabel5.setText( TASK_RESULT_UNATTEMPTED );
+
+			FlowLayout flowLayout = new FlowLayout();
+			flowLayout.setAlignment(FlowLayout.LEFT);
+			
+			resultUnattemptedPanel5 = new JPanel();
+			resultUnattemptedPanel5.setLayout(flowLayout);
+			resultUnattemptedPanel5.setName("resultUnattemptedPanel5");
+			resultUnattemptedPanel5.setBackground( WINDOW_BACKGROUND_COLOR );
+			resultUnattemptedPanel5.add(resultUnattemptedLabel5, null);
+		}
+		return resultUnattemptedPanel5;
+	}
+
+	/**
+	 * This method initializes resultProgressPanel5	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getResultProgressPanel5() {
+		if (resultProgressPanel5 == null) {
+			resultProgressIconLabel5 = new JLabel();
+			resultProgressIconLabel5.setIcon(new ImageIcon(getClass().getResource("images/progress.gif")));
+			resultProgressIconLabel5.setFont( WINDOW_FONT_BOLD );
+			resultProgressIconLabel5.setText( TASK_RESULT_INPROGRESS );
+			
+			FlowLayout flowLayout = new FlowLayout();
+			flowLayout.setAlignment(FlowLayout.LEFT);
+			resultProgressPanel5 = new JPanel();
+			resultProgressPanel5.setLayout(flowLayout);
+			resultProgressPanel5.setName("resultInProgressPanel5");
+			resultProgressPanel5.setBackground( WINDOW_BACKGROUND_COLOR );
+			resultProgressPanel5.add(resultProgressIconLabel5, null);
+		}
+		return resultProgressPanel5;
+	}
 
 	
 	
@@ -1044,7 +1202,6 @@ public class MainWindow extends JFrame implements ActionListener {
 		this.networkTroubleshooter.start();
 		
 	}
-
 	
 	/**
 	 * 
@@ -1101,7 +1258,7 @@ public class MainWindow extends JFrame implements ActionListener {
 			getRunButton().setActionCommand(ACTION_START);
 			getRunButton().setEnabled(true);
 			getSaveButton().setEnabled(true);
-			getTaskDetailTextArea().setText( DETAILS_DONE );
+			getTaskDetailTextArea().setText(getSimResults());
 			
 		} else if( e.getActionCommand().equalsIgnoreCase(ACTION_SAVE) ) {
 			this.fileSaveDialog.setVisible(true);
@@ -1217,7 +1374,33 @@ public class MainWindow extends JFrame implements ActionListener {
 		}
 	}
 	
-
+	/**
+	 * 
+	 */
+	public void setResultForSimulateTest(AnalysisState result, String details, int percentComplete) {
+		
+		if( percentComplete < 0 ) 
+			percentComplete = 0;
+		else if( percentComplete > 100 ) 
+			percentComplete = 100;
+		
+		CardLayout cl = (CardLayout) getResultPanel5().getLayout();
+		
+		if( result == AnalysisState.PASS ) {
+			if( percentComplete == 100 ) {
+				cl.show( getResultPanel5(), getResultPassPanel5().getName() );
+			} else {
+				cl.show( getResultPanel5(), getResultProgressPanel5().getName() );
+			}
+		} else if( result == AnalysisState.FAIL ) {
+			cl.show( getResultPanel5(), getResultFailPanel5().getName() );
+			getTaskDetailTextArea().setText(details);
+		} else if( result == AnalysisState.UNATTEMPTED ) {
+			cl.show( getResultPanel5(), getResultUnattemptedPanel5().getName() );
+		} else {
+			cl.show( getResultPanel5(), getResultInitialPanel5().getName() );
+		}
+	}
 	
 	/**
 	 * 
@@ -1236,6 +1419,9 @@ public class MainWindow extends JFrame implements ActionListener {
 
 		cl = (CardLayout) getResultPanel4().getLayout();
 		cl.show( getResultPanel4(), getResultInitialPanel4().getName() );
+		
+		cl = (CardLayout) getResultPanel5().getLayout();
+		cl.show( getResultPanel5(), getResultInitialPanel5().getName() );
 		
 		getTaskDetailTextArea().setText("");
 	}
@@ -1335,6 +1521,29 @@ public class MainWindow extends JFrame implements ActionListener {
 							JOptionPane.ERROR_MESSAGE);
 		}
 		
+	}
+	
+	private static String getSimResults(){
+		
+		String result = DETAILS_DONE;
+		
+		String tdcHomeProperty = System.getProperty("tdc.home");
+
+		if( tdcHomeProperty == null ) {
+			
+			return result;
+		}
+		
+		File tdcHomeDir = new File( tdcHomeProperty );
+		if( !tdcHomeDir.isDirectory() ) {
+			return result;
+		}
+		result = TestSimulationFileUtils.getResult(tdcHomeDir.getAbsolutePath());
+		if(result == null){
+			result = DETAILS_DONE;
+		}
+		
+		return result;
 	}
 	
 }  //  @jve:decl-index=0:visual-constraint="7,7"

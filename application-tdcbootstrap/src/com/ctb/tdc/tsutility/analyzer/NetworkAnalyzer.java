@@ -8,6 +8,14 @@ import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import org.apache.commons.httpclient.methods.GetMethod;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.net.ServerSocket;
+
+
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.ProxyHost;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -18,22 +26,39 @@ import com.ctb.tdc.tsutility.AppResourceBundleUtil;
 import com.ctb.tdc.tsutility.AppConstants.AnalysisState;
 import com.ctb.tdc.tsutility.ui.MainWindow;
 
+import com.ctb.tdc.bootstrap.processwrapper.JettyProcessWrapper;
+import com.ctb.tdc.tsutility.io.TestSimulationFileUtils;
 
 public class NetworkAnalyzer extends Thread {
 
 	/* URLs to use from resource bundle. */
-	private static final String URL_OAS_HTTP          = AppResourceBundleUtil.getString("tsutility.networkAnalyzer.oas.http");
-	private static final String URL_OAS_HTTPS         = AppResourceBundleUtil.getString("tsutility.networkAnalyzer.oas.https");
-	private static final String URL_OASDELIVERY_HTTP  = AppResourceBundleUtil.getString("tsutility.networkAnalyzer.oasdelivery.http");
-	private static final String URL_OASDELIVERY_HTTPS = AppResourceBundleUtil.getString("tsutility.networkAnalyzer.oasdelivery.https");
-	private static final String URL_DYNAMIC_PAGES     = AppResourceBundleUtil.getString("tsutility.networkAnalyzer.dynamicPages");
-	private static final String URL_CONTENT_DOWNLOAD  = AppResourceBundleUtil.getString("tsutility.networkAnalyzer.contentDownload");
-	private static final int CONNECTION_TIMEOUT = 15 * 1000;
+	private static final String URL_OAS_HTTP          		= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.oas.http");
+	private static final String URL_OAS_HTTPS         		= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.oas.https");
+	private static final String URL_OASDELIVERY_HTTP  		= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.oasdelivery.http");
+	private static final String URL_OASDELIVERY_HTTPS 		= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.oasdelivery.https");
+	private static final String URL_DYNAMIC_PAGES     		= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.dynamicPages");
+	private static final String URL_CONTENT_DOWNLOAD  		= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.contentDownload");
+	private static final String SIM_COMPLETE		  		= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.simulation.Complete");
+	private static final String SIM_ERR_GENERAL  	  		= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.simulation.error.general");
+	private static final String SIM_ERR_TDC_HOME 	  		= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.simulation.error.tdcHomeNotFound");
+	private static final String SIM_ERR_CLIENT_RUNNING 		= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.simulation.error.testClientRunning");
+	private static final String SIM_ERR_STARTING_SERVLET	= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.simulation.error.startingLocalServlet");
+	private static final String SIM_ERR_READ_CTRL_FILE		= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.simulation.error.readControlFile");
+	private static final String SIM_ERR_WRTIRE_CTRL_FILE	= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.simulation.error.writeControlFile");
+	private static final String SIM_ERR_LOCAL_SERVLET		= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.simulation.error.localServlet");
+	private static final String SIM_ERR_CONNECTION_FAILED	= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.simulation.error.connectionFailed");
+	private static final String SIM_ERR_NOT_ALLOWED			= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.simulation.error.simulationNotAllowed");
 	
+	private static final int CONNECTION_TIMEOUT = 15 * 1000;
+	private static final String URL_LOAD_TEST = "http://127.0.0.1:12345/servlet/LoadTestServlet.do";
+	public static final int SOCKET_FOR_SINGLE_INSTANCE = 12344;
+	public static final int JETTY_SLEEP_INTERVAL = 5;
+	public static final String RESPONSE_OK = "<OK />";
 	
 	private MainWindow ui = null;
 	private HttpClient client = null;
 	private boolean userInterrupted = false;
+		
 	
 	
 	/**
@@ -57,7 +82,56 @@ public class NetworkAnalyzer extends Thread {
 	}
 	
 
+	private static String getTdcHome()   {
+
+		String tdcHomeProperty = System.getProperty("tdc.home");
+
+		if( tdcHomeProperty == null ) {
+			System.out.println("tdc home not defined");
+		}
+		
+		File tdcHome = new File( tdcHomeProperty );
+		if( !tdcHome.isDirectory() ) {
+			System.out.println("tdc home directory does not exist");
+		}
+
+		return tdcHome.getAbsolutePath();
+	}
 	
+	private static boolean isMacOS() {
+        String os = System.getProperty("os.name");
+        if (os == null) 
+            os = "";
+        return ( os.toLowerCase().indexOf("mac") != -1 );
+    }
+	
+	private static void copyPropertyFiles(String tdcHome)  {        
+        try {
+            String proxySrcFilePath = tdcHome + "/etc/proxy.properties";
+            File proxySrcFile = new File(proxySrcFilePath);        
+            FileInputStream proxySrcFos = new FileInputStream(proxySrcFile);
+            
+            String proxyDesFilePath = tdcHome + "/webapp/WEB-INF/classes/proxy.properties";
+            File proxyDesFile = new File(proxyDesFilePath);        
+            FileOutputStream proxyDesFos = new FileOutputStream(proxyDesFile, false);
+            
+            byte[] bytes = new byte[1024];
+            int read = proxySrcFos.read(bytes);
+            proxyDesFos.write(bytes, 0, read);
+            proxyDesFos.close();
+            proxySrcFos.close(); 
+        }
+        catch( IOException ioe ) {
+        	ioe.printStackTrace();
+        }
+    }
+	
+	private static void deletePropertyFiles(String tdcHome) {        
+	        String proxyFilePath = tdcHome + "/webapp/WEB-INF/classes/proxy.properties";
+	        File proxyFile = new File(proxyFilePath);
+	        proxyFile.delete();        
+	}
+	   
 	
 	/**
 	 * TODO: Break this big method up please.
@@ -168,7 +242,7 @@ public class NetworkAnalyzer extends Thread {
 					double percentDownloaded = ((double)(totalBytesRead) / (double)(fileSize)) * 100;
 					ui.setResultForDownloadContent( AnalysisState.PASS, "", (int)percentDownloaded, 1000);
 				}
-//System.out.println("totalBytesRead=" + totalBytesRead);			
+				//System.out.println("totalBytesRead=" + totalBytesRead);			
 
 			} else {
 				AnalyzerException ae = new AnalyzerException();
@@ -177,7 +251,7 @@ public class NetworkAnalyzer extends Thread {
 			}
 			Date endDate = new Date();
 			long duration = endDate.getTime() - startDate.getTime();
-//System.out.println("duration=" + duration);
+			//System.out.println("duration=" + duration);
 			
 			ui.setResultForDownloadContent( AnalysisState.PASS, "", 100, duration);
 			
@@ -191,7 +265,171 @@ public class NetworkAnalyzer extends Thread {
 			ui.setResultForDownloadContent( AnalysisState.FAIL, errorMessage, 0, 0);
 			return;
 		}
+		
+		/********************************************************************************/
+		/*       This section launches the test simulation task                         */
+		/*		        Added by ayan as part of OAS8.5                                 */
+		/********************************************************************************/
+		
+		ui.setResultForSimulateTest( AnalysisState.PASS, "", 0); //set task status to In progress		
+		String details = "";
+		boolean macOS = isMacOS();
+		boolean getConfig = false;
+		
+		String tdcHome = getTdcHome();
+		if (tdcHome == null){
+			ui.setAnalysisInterrupted();
+			ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_TDC_HOME, 0);
+			return;
+		}
+		
+		ServerSocket ss = null; // check if TDC is running on port 
+		try {
+			ss = new ServerSocket(SOCKET_FOR_SINGLE_INSTANCE, 1);
+		} catch( Exception e ) {
+			ui.setAnalysisInterrupted();
+			ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_CLIENT_RUNNING , 0);
+			return;
+		}
+		try{
+			ss.close(); //release the socket
+		}catch(IOException e){
+			ui.setAnalysisInterrupted();
+			ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_GENERAL , 0);
+			return;
+		}				
+		copyPropertyFiles(tdcHome); 
+		JettyProcessWrapper jetty = null;
+		try {
+			jetty = new JettyProcessWrapper(tdcHome, macOS);
+		}catch( Exception e ) {
+			ui.setAnalysisInterrupted();
+			ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_STARTING_SERVLET , 0);
+			return;
+		}
+		//check if load test run time has already been set, if not then send get load test config request
+		Date currentTime = new Date();
+		Date loadTestRunTime = TestSimulationFileUtils.getLoadTestRunTime(tdcHome);
+		
+		if (loadTestRunTime == null){
+			ui.setAnalysisInterrupted();
+			ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_READ_CTRL_FILE , 0);
+			return;
+		}
+		if (currentTime.compareTo(loadTestRunTime) < 0){
+			getConfig = true;
+			try{
+				//reset the last config request time forcing the load test servlet to always make a config request
+				TestSimulationFileUtils.resetConfigRequestTime(tdcHome); 
+			}catch(IOException e){
+				ui.setAnalysisInterrupted();
+				ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_WRTIRE_CTRL_FILE , 0);
+				return;
+			}
+		}				
+		jetty.start();
+		while( jetty.isAlive() ) {
+			try{
+				Thread.sleep( JETTY_SLEEP_INTERVAL * 1000 );
+			}catch(Exception e){
+				ui.setAnalysisInterrupted();
+				ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_LOCAL_SERVLET , 0);
+				return;
+			}								
+			
+			GetMethod downloadMethod = new GetMethod(URL_LOAD_TEST);					
+			if(getConfig){ //send get load test config request
+				try{
+					if( this.client.executeMethod(downloadMethod) != HttpURLConnection.HTTP_OK ) {
+						ui.setAnalysisInterrupted();
+						ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_CONNECTION_FAILED , 0);
+						downloadMethod.releaseConnection();
+						jetty.shutdown();
+						return;					
+					}
+					if( !downloadMethod.getResponseBodyAsString().contains(RESPONSE_OK) ) {
+						ui.setAnalysisInterrupted();
+						ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_CONNECTION_FAILED , 0);
+						downloadMethod.releaseConnection();
+						jetty.shutdown();
+						return;					
+					}
+					
+					if( downloadMethod.getResponseBodyAsString() == null  ) {
+						ui.setAnalysisInterrupted();
+						ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_CONNECTION_FAILED , 0);
+						downloadMethod.releaseConnection();
+						jetty.shutdown();
+						return;					
+					}
+					
+				}catch(Exception e){
+					ui.setAnalysisInterrupted();
+					ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_CONNECTION_FAILED , 0);
+					downloadMethod.releaseConnection();
+					jetty.shutdown();
+					return;
 
+				}				
+				//check for latest load test runtime 
+				loadTestRunTime = TestSimulationFileUtils.getLoadTestRunTime(tdcHome);
+				
+				if (loadTestRunTime == null){
+					ui.setAnalysisInterrupted();
+					ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_READ_CTRL_FILE , 0);
+					downloadMethod.releaseConnection();
+					jetty.shutdown();
+					return;
+				}
+				if (currentTime.compareTo(loadTestRunTime) < 0){
+					ui.setAnalysisInterrupted();
+					ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_NOT_ALLOWED , 0);
+					downloadMethod.releaseConnection();
+					jetty.shutdown();
+					return;
+				}	
+			}
+			
+			//Ok to simulate load test
+			try{
+				if( this.client.executeMethod(downloadMethod) != HttpURLConnection.HTTP_OK ) { //this request runs the load test
+					ui.setAnalysisInterrupted();
+					ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_CONNECTION_FAILED , 0);
+					downloadMethod.releaseConnection();
+					jetty.shutdown();
+					return;					
+				}
+				if( !downloadMethod.getResponseBodyAsString().contains(RESPONSE_OK)) {
+					ui.setAnalysisInterrupted();
+					ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_CONNECTION_FAILED , 0);
+					downloadMethod.releaseConnection();
+					jetty.shutdown();					
+					return;					
+				}
+			}catch(Exception e){
+				ui.setAnalysisInterrupted();
+				ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_CONNECTION_FAILED , 0);
+				downloadMethod.releaseConnection();
+				jetty.shutdown();
+				return;
+			}			
+			// Stop jetty...
+			jetty.shutdown();
+			try{
+				Thread.sleep( JETTY_SLEEP_INTERVAL * 1000 );
+			}catch(Exception e){
+				ui.setAnalysisInterrupted();
+				ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_LOCAL_SERVLET , 0);
+				downloadMethod.releaseConnection();
+				jetty.shutdown();
+				return;
+			}			
+            // delete proxy.properties
+			deletePropertyFiles(tdcHome); 
+			downloadMethod.releaseConnection();
+		}												
+		ui.setResultForSimulateTest( AnalysisState.PASS, SIM_COMPLETE , 100);	
+		
 		ui.setAnalysisComplete();
 	}
 	
