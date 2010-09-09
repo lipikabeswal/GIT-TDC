@@ -1,0 +1,778 @@
+<tmssvc_request><login_request user_name="wr_acctp6_0101" password="sure89" access_code="client12" sds_date_time="2007-01-29T10:44:07" sds_id="string"/></tmssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="0" mseq="1" cid="522789" tts_speed_value=""><ast/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="247601" hash="12A7B8898C7B226E1A71512DEE66A394" key="177"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="711701" hash="7129EF5FFFBFD48EB657719B7921AD02" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="711801" hash="378B76CD0ADEB57B9B9E536006A67486" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="247701" hash="263CF3F13C8F30B7AD7760754AD4250A" key="819"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="711901" hash="C74953BD5BA4DCCB4DF3AA037A75DCEF" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="712001" hash="DC93EA67EBA0A717F1D084BF58E3DA0F" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="712201" hash="BF4D272DE0091A8822C1088757AA1D59" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="712601" hash="74C9DF009DB0B243F18C99C5255AFF20" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="712301" hash="DB7875420C8F57E70E5DC6A71D268A8D" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="833701" hash="BDFD53CB57696C4F13ACD17A00A0CC62" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="712801" hash="4374463C38C0BAA7BF6B7E1FC11A35D0" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="712501" hash="CC94602D0E2A4F840E2A445B89D1ADA1" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="712701" hash="8387B8E10B8B76326D5258C64B56010D" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="712901" hash="44554B69A06641E6CC4B9155240241A8" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="713601" hash="474C4D7EEC16229474BABE6D7A90E4E5" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="713301" hash="24A824310B08BC1BE7D3CB154AF854EE" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="833801" hash="0E4B14C30FB6CB70F6F7F3B8666A8187" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="713801" hash="2251E4D03A7052B6BA3785DE47FB07E8" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="714201" hash="5405B2FFFFAE32903287616BE2A304F5" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="833901" hash="DFE04FF7E487252F1DA99234B1CE66E9" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="714501" hash="1556DA0E91EBBD32EC3F135F4F0741D6" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="834001" hash="08777CAD8FAE747B1CDDA5D0C9B2755F" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="714601" hash="C2DF90DEBD82B9F7C81B7AFBB5748FEC" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="714701" hash="803FA2B589CCDE2CEFB08599B07EE23C" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="834101" hash="73AF7A9E575D8972B2DFB148C8C177B3" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="714801" hash="B6FC295DBA3F73B9BD038742C3B39D7A" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="714901" hash="33E95C0DFE09873607C2DFAC25530417" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="247801" hash="F913B1D169480892172ADB564BAD1C27" key="1042"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="715001" hash="EF3FDF62BCA9203D6DC125397BC8BF22" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="715101" hash="C3E620682892E8D31692B3E3616F0185" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="247901" hash="58268B5DBA76D096F03D06F6DD38C182" key="494"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="715201" hash="B99712D583DA2D52303DEE9641D2EF13" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="834201" hash="896AD8A661D90E8730761163DF5702EB" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="715601" hash="C616086A6E27FC7B2FD14296B3547D7D" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="715701" hash="994B696A271E4158F760205800761A64" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="715401" hash="700A776DA0D2EE62C5619257ADFC17D4" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="715801" hash="5FD39A6717249A750DEE32EF408C471F" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="716301" hash="8A701D1E65661A3596099CC2D45416C1" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="716401" hash="4144710DB8E3BE7E072A0EF64C267A64" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="716501" hash="C5202818A18E54170BDE32B528626D23" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="715901" hash="C20EC40DECCD68C1808DAE75DAF1014E" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="716001" hash="7D07A8DD367E92F085A389EE7608BA13" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="834301" hash="B9D4D46AE8B965110F963B7FD25C4316" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="716801" hash="42347717F09EE8344DB431B05AC9F841" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="716901" hash="38D1A910D8AC26726D4D08BFD1AFC26C" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="717001" hash="867DD75EEFBE8A942CA123D984826A2F" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="834401" hash="A7C256B20D3F63A49DB965D4FA969279" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="717501" hash="F73227E6F90749EE8B1FB530F56BE221" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="717801" hash="2A0EFCD5376946407555D1694EE07FA2" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="717701" hash="D7AED10502D5B7EB35B43CC953C4DA33" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="719701" hash="70E8C253454FA16647A796AD0D461437" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="717901" hash="639462A585A776ADBA948C770138857B" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="718101" hash="588C1C4607072CDFEF506A1325798FC7" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="718201" hash="094AC9B14DA6853FBF4649A8210ADCB3" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="248001" hash="006A254ECC38316DFEB8538BDC8C6EA7" key="1384"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="718301" hash="2F6BAF0432F9A2C48607C897CF9BBED6" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="718401" hash="87F75D705575BF4088D03117C1FD2013" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="248101" hash="3EFF89954AE5B894A4FC86F8210DD754" key="992"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="723101" hash="221A422A82FAC242E2352066CC9A91B9" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="723301" hash="64AECE7C43CE63A2E20630873808A210" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="722401" hash="F653F6B4AADD36966854E0D5A82830AC" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="722501" hash="B8D691881545560510AA125956B5CBA0" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="722901" hash="6EB38F292D11679B99AF0E2C564797C5" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="723201" hash="90CB2FA406253BD6D4322E39034DFFF8" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="723401" hash="AC22A2CD75D1EC4C81126E78DD35B990" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="723001" hash="998C1E4A85E5125A3CE7D1EE9A4185B6" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="722201" hash="80EF8F0CD9463B31CC91C56E8160D509" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="722301" hash="169F7180E702069274EA0072D809CB07" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="718701" hash="E68D4C111800A3E4A0B8CA6B880651D7" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="718801" hash="C926816C4E4EBED5D52713DFED0637E4" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="718901" hash="A7EF188104EC3CF0EB504C1F7A6B907F" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="719001" hash="9B6A67738B1C286DDFB315B8B53DC03B" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="725101" hash="5B543518B863E6ED09AF9959141098BD" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="725201" hash="ED7E56F715F589DB5FFAEA94E8ECC09A" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="725301" hash="D242F5668595DB35C59F258E3A03D5D5" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="725501" hash="DB3AF6602638E1B1E3AF22E5FFE08ABB" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="834501" hash="900C33F604BCABCCE1A37932E613B86B" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="834601" hash="928A7C659445513C4C11EF79CD5A7174" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="834701" hash="B4758F0170437D07A50BF2F3FD1DF52A" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="834801" hash="5EEBA13F1E8C8A1466DBA9FEE050AA86" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="834901" hash="8CD649B67D3DD488E53C6B33C5733B65" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="248201" hash="4D58F388B1BA8588BAD31395B7AC76D7" key="331"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="724101" hash="7274EE2311190972339EFD0945439D22" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="724201" hash="604B068965246D52DE1ED15EA31E3CB0" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="248301" hash="B195CBC54860B9B794B9A554D2B36607" key="1383"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="727001" hash="9EED338413EEA680BA969B581A8B4C4F" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="835001" hash="CE577AC987AF4B240EA91ECF418D3D3A" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="723801" hash="DFEFDEEB3BD6A916BFABC10BF48B0CB9" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="723901" hash="261602B09635792C18E7E8344A9255B8" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="723601" hash="100382DD8B39EE41AC1BF8287886FBF5" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="723501" hash="336219FBAB8ACF7705636146E1A8ED2A" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="726901" hash="72DC643A24F492E711DBBB94A23FAEFC" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="719201" hash="6CBCAE54548D2995284236E9FF5C2151" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="719301" hash="A5819757F87EE7499245F36A2A7FECCB" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="719401" hash="EE91FD10637297AA20BB18FFCA142BE2" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="719501" hash="576D88F3953A81F63166F219D7233B64" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="721701" hash="05AE63AA56864A074EE7CE7589B91F61" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="724301" hash="8CD2DC12966444F2017B15720A6547EE" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="724401" hash="AD27A09839A4FEE5A505B64CC276CEDE" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="724501" hash="72EC953F64CA8EA1C3E66FFBB808F40D" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="724601" hash="94F6BBB32C1570822583893B93BDE52E" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="724701" hash="6EBE994464160304D47DFF86779486A2" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="724801" hash="5E1E7558C5A21FEE50D44E6D46F55BF7" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="726301" hash="0F379F805F6D73D2F5AE3E83A3049E07" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="726401" hash="F0FF004789E9159F922CC1AFCF6DAEFE" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="726601" hash="AF042DBE441168266D27AFCC1EA63D7F" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="726701" hash="1D96559931374F40C8361968E45414BD" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="248401" hash="2280B03B564E0D040A3925853933F7FA" key="215"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="727701" hash="775C2086200BFB79596CE97A696E13AF" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="248501" hash="6247E298271E32F515AD3D61CA552B6B" key="340"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="0" mseq="2" cid="522789" tts_speed_value=""><ast/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="727801" hash="7A5052B96E1128F3D25890B0E53366AF" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="727901" hash="92293C09C656F4AF6463E3791DD2C859" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="728001" hash="89BE9EAB04B538403F236294BBA9C75D" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="835101" hash="D05391921EB96168A88E7C8A251F5BBD" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="728201" hash="42631923D8887E68A7B673A4F51EBAB3" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="731201" hash="49F8B27507CBBCD6A808FC871F3A2E70" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="728401" hash="6539E00B4C35F2FF971EC6C8BCA428EC" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="835201" hash="7782C6FE9AF4D82398B1409938783B8C" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="728701" hash="F63C86BC00D56CEE76B7C2817ACD5613" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="728801" hash="C7FE5ED9D85C256ADC83D7BD6C906C10" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="729001" hash="49C39E2303AC28F14A6B783F355324FC" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="729801" hash="F6ACC544E95B806CEC1167EE7F18BD42" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="835301" hash="93B2EBC66AB272ADCC77CBAB84AB7412" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="730001" hash="2050B4607B4BB77F295D178246DAF415" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="730201" hash="BD7BC6820E1D51620B11BD6443064D7F" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="730301" hash="A4E42752DC8527C722021E667B6ED006" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="734701" hash="2AFC0D31164EDA2EF5F0CAA3D4124175" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="730601" hash="8E485F41F0DDB630E3B651B7F88AF9CC" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="730701" hash="B50751727361A59381A2DEC32A717874" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="835401" hash="ED19C0B8FCB61623338D656F66255580" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="835501" hash="B218A56DD42D3832DCEC926107F38B7C" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="732001" hash="8D532B6B959F867F3F03027C0EA894F5" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="731101" hash="2620EB3943246E316C79FB5F8ADC4CC1" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="248601" hash="65941B66E83F20386F25EAD3FEBB356D" key="619"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="730101" hash="AE9F63550652FBD4B815AFBB9E78D586" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="248701" hash="DF07B9B92E3C36DA6B62B55562CD582A" key="1949"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="728301" hash="05D5830C0A3B18CEED9461BD859FB5DA" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="731301" hash="9715B5997BDA11C085B1DA3B96435715" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="731401" hash="F83E230ABA59C71E93E804943FF0DFE9" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="731501" hash="536E2AA84C5A4406A04AB93AE34DBC4B" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="731601" hash="7648CAA1B7A93D698B84ECA386345947" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="731701" hash="D21B5E171A614293EFCC4F4683BF503B" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="732601" hash="1A1B281BC8427F44D6F955F490D44389" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="835601" hash="E301544B8B9E16E1AA36BF9B81C22CAE" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="731001" hash="88E99AECEEFE2B061FFA48F81A7DBA64" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="732101" hash="B9A5F40B1885735BEA328983A1CFD840" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="732301" hash="3BDF4E8FB495A46EBD461CC457CD8892" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="732401" hash="3CCF8A3183184831C08F1D268B0C138E" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="835701" hash="5B73395B7B4888EDB9F95FCF0D5814F4" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="731801" hash="83D2DF6BB7D8C38848963DD0C2B60D66" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="732901" hash="B6A7F668F1872800B4C7550B98372FD9" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="733101" hash="5EAEC5DE780BD024DB48C2E3D2BC0290" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="733201" hash="8D20020585C8F904C666DD06519D7902" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="835801" hash="27C613650C230C8A889865CBD079A49E" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="733501" hash="B4DBE85A11E01E4DC0B0142B6004FC08" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="733601" hash="4A08216338BC6E1E33DD78D6F7A315A9" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="734501" hash="66CA1060FB4F1F2784B30A20C4064689" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="downloadItem" sdsid="string" token="string"><download_item itemid="734301" hash="21FD76690DBCABFF88A658D2EB32EA2E" key="o4Leo18hH4S3"/></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="247601" hash="12A7B8898C7B226E1A71512DEE66A394" key="177"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273649" mseq="3" cid="522789" tts_speed_value=""><lev e="lms_initialize"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="711701" key="o4Leo18hH4S3" hash="7129EF5FFFBFD48EB657719B7921AD02"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="No_Calc_IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="No_Calc_IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="No_Calc_IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273649" mseq="4" cid="522789" tts_speed_value=""><ist iid="SR000DDD30" mrk="0" dur="4" eid="711701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="711801" key="o4Leo18hH4S3" hash="378B76CD0ADEB57B9B9E536006A67486"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273649" mseq="5" cid="522789" tts_speed_value=""><ist iid="GR000DDD34" mrk="0" dur="6" eid="711801"><isc><sp></sp></isc><rv n="RESPONSE" t="string"><v>%2011%2E1</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273649" mseq="6" cid="522789" tts_speed_value=""><ist iid="GR000DDD34" mrk="0" dur="7" eid="711801"><isc><sp></sp></isc><rv n="RESPONSE" t="string"><v>%2011%2E1</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="write_to_audit_file" sdsid="dummy"><write_to_audit_file><tsd lsid="3774669:client12" scid="273649" mseq="7"><audit_file_text>B|%2011%2E1</audit_file_text></tsd></write_to_audit_file></adssvc_request>
+<adssvc_request method="upload_audit_file" sdsid="dummy" token="dummy"><upload_audit_file><tsd lsid="3774669:client12" scid="273649" mseq="8"/></upload_audit_file></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273649" mseq="9" cid="522789"><lsv><cmi.core score.raw="0" score.max="2" exit="" session_time="000:000:00" lesson_status="completed"/><ext.core number_of_unscored_items="1"/></lsv></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273649" mseq="10" cid="522789"><lev e="lms_finish"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="247701" hash="263CF3F13C8F30B7AD7760754AD4250A" key="819"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="11" cid="522789" tts_speed_value=""><lev e="lms_initialize"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="711901" key="o4Leo18hH4S3" hash="C74953BD5BA4DCCB4DF3AA037A75DCEF"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="12" cid="522789" tts_speed_value=""><ist iid="SR000CD759" mrk="0" dur="3" eid="711901"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="712001" key="o4Leo18hH4S3" hash="DC93EA67EBA0A717F1D084BF58E3DA0F"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="13" cid="522789" tts_speed_value=""><ist iid="SR000CD763" mrk="0" dur="2" eid="712001"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="712201" key="o4Leo18hH4S3" hash="BF4D272DE0091A8822C1088757AA1D59"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="14" cid="522789" tts_speed_value=""><ist iid="SR000CD76B" mrk="0" dur="3" eid="712201"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="712601" key="o4Leo18hH4S3" hash="74C9DF009DB0B243F18C99C5255AFF20"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="15" cid="522789" tts_speed_value=""><ist iid="SR000C0635" mrk="0" dur="3" eid="712601"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="712301" key="o4Leo18hH4S3" hash="DB7875420C8F57E70E5DC6A71D268A8D"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="16" cid="522789" tts_speed_value=""><ist iid="GR000CD787" mrk="0" dur="14" eid="712301"><isc><sp></sp></isc><rv n="RESPONSE" t="string"><v>11%2E1%20</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="833701" key="o4Leo18hH4S3" hash="BDFD53CB57696C4F13ACD17A00A0CC62"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DCAB0_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DCAB0_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DCAB0_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="17" cid="522789" tts_speed_value=""><ist iid="GR000C0AF2" mrk="0" dur="13" eid="833701"><isc><sp></sp></isc><rv n="RESPONSE" t="string"><v>333%2E3</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="712801" key="o4Leo18hH4S3" hash="4374463C38C0BAA7BF6B7E1FC11A35D0"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DEC_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DEC_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DEC_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DEE_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DEE_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DEE_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DF0_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DF0_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DF0_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DF2_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DF2_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DF2_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="18" cid="522789" tts_speed_value=""><ist iid="SR000C0DC7" mrk="0" dur="3" eid="712801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="712501" key="o4Leo18hH4S3" hash="CC94602D0E2A4F840E2A445B89D1ADA1"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="protractor_icon"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="protractor_icon"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="protractor_icon"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="44SRB1A_7ma_sIN09"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="44SRB1A_7ma_sIN09"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="44SRB1A_7ma_sIN09"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="19" cid="522789" tts_speed_value=""><ist iid="SR0001F7C7" mrk="0" dur="3" eid="712501"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="712701" key="o4Leo18hH4S3" hash="8387B8E10B8B76326D5258C64B56010D"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="20" cid="522789" tts_speed_value=""><ist iid="SR000CD771" mrk="0" dur="4" eid="712701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="712901" key="o4Leo18hH4S3" hash="44554B69A06641E6CC4B9155240241A8"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="21" cid="522789" tts_speed_value=""><ist iid="GR000C08DE" mrk="0" dur="9" eid="712901"><isc><sp></sp></isc><rv n="RESPONSE" t="string"><v>%201000</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="713601" key="o4Leo18hH4S3" hash="474C4D7EEC16229474BABE6D7A90E4E5"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="22" cid="522789" tts_speed_value=""><ist iid="SR000C0B08" mrk="0" dur="3" eid="713601"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="713301" key="o4Leo18hH4S3" hash="24A824310B08BC1BE7D3CB154AF854EE"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C09BB_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C09BB_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C09BB_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C09BD_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C09BD_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C09BD_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C09BF_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C09BF_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C09BF_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C09C1_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C09C1_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C09C1_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="23" cid="522789" tts_speed_value=""><ist iid="SR000C09AC" mrk="0" dur="15" eid="713301"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="833801" key="o4Leo18hH4S3" hash="0E4B14C30FB6CB70F6F7F3B8666A8187"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="24" cid="522789" tts_speed_value=""><ist iid="SR000CD765" mrk="0" dur="3" eid="833801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="713801" key="o4Leo18hH4S3" hash="2251E4D03A7052B6BA3785DE47FB07E8"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="25" cid="522789" tts_speed_value=""><ist iid="SR000CD76F" mrk="0" dur="3" eid="713801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="714201" key="o4Leo18hH4S3" hash="5405B2FFFFAE32903287616BE2A304F5"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C23D2_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C23D2_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C23D2_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="26" cid="522789" tts_speed_value=""><ist iid="SR000C0DCD" mrk="0" dur="3" eid="714201"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="833901" key="o4Leo18hH4S3" hash="DFE04FF7E487252F1DA99234B1CE66E9"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0E1E_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0E1E_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0E1E_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0E20_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0E20_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0E20_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0E24_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0E24_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0E24_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0E22_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0E22_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0E22_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="27" cid="522789" tts_speed_value=""><ist iid="SR000C0DC9" mrk="0" dur="2" eid="833901"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="714501" key="o4Leo18hH4S3" hash="1556DA0E91EBBD32EC3F135F4F0741D6"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="28" cid="522789" tts_speed_value=""><ist iid="SR000C07DE" mrk="0" dur="3" eid="714501"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="834001" key="o4Leo18hH4S3" hash="08777CAD8FAE747B1CDDA5D0C9B2755F"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="29" cid="522789" tts_speed_value=""><ist iid="SR000C2283" mrk="0" dur="3" eid="834001"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="714601" key="o4Leo18hH4S3" hash="C2DF90DEBD82B9F7C81B7AFBB5748FEC"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD918_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD918_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD918_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="30" cid="522789" tts_speed_value=""><ist iid="SR000CD78F" mrk="0" dur="3" eid="714601"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="714701" key="o4Leo18hH4S3" hash="803FA2B589CCDE2CEFB08599B07EE23C"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="31" cid="522789" tts_speed_value=""><ist iid="SR00076420" mrk="0" dur="3" eid="714701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="834101" key="o4Leo18hH4S3" hash="73AF7A9E575D8972B2DFB148C8C177B3"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="32" cid="522789" tts_speed_value=""><ist iid="SR000C0B52" mrk="0" dur="3" eid="834101"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="714801" key="o4Leo18hH4S3" hash="B6FC295DBA3F73B9BD038742C3B39D7A"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C22AA_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C22AA_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C22AA_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="33" cid="522789" tts_speed_value=""><ist iid="SR000C228F" mrk="0" dur="3" eid="714801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="714901" key="o4Leo18hH4S3" hash="33E95C0DFE09873607C2DFAC25530417"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="34" cid="522789" tts_speed_value=""><ist iid="SR000C063D" mrk="0" dur="3" eid="714901"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="35" cid="522789" tts_speed_value=""><ist iid="SR000C063D" mrk="0" dur="5" eid="714901"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="write_to_audit_file" sdsid="dummy"><write_to_audit_file><tsd lsid="3774669:client12" scid="273650" mseq="36"><audit_file_text>C|D|B|D|11%2E1%20|333%2E3|C|A|C|%201000|C|A|B|C|C|A|C|A|B|A|A|C|D</audit_file_text></tsd></write_to_audit_file></adssvc_request>
+<adssvc_request method="upload_audit_file" sdsid="dummy" token="dummy"><upload_audit_file><tsd lsid="3774669:client12" scid="273650" mseq="37"/></upload_audit_file></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="38" cid="522789"><lsv><cmi.core score.raw="7" score.max="23" exit="" session_time="000:000:00" lesson_status="completed"/><ext.core number_of_unscored_items="3"/></lsv></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273650" mseq="39" cid="522789"><lev e="lms_finish"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="247801" hash="F913B1D169480892172ADB564BAD1C27" key="1042"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273652" mseq="40" cid="522789" tts_speed_value=""><lev e="lms_initialize"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="715001" key="o4Leo18hH4S3" hash="EF3FDF62BCA9203D6DC125397BC8BF22"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="Calculator_Icon"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="Calculator_Icon"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="Calculator_Icon"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273652" mseq="41" cid="522789" tts_speed_value=""><ist iid="SR000DDD2D" mrk="0" dur="3" eid="715001"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="715101" key="o4Leo18hH4S3" hash="C3E620682892E8D31692B3E3616F0185"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="SampleB_6m_09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="SampleB_6m_09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="SampleB_6m_09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273652" mseq="42" cid="522789" tts_speed_value=""><ist iid="GR000DDD24" mrk="0" dur="7" eid="715101"><isc><sp></sp></isc><rv n="RESPONSE" t="string"><v>22%20%2E0</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273652" mseq="43" cid="522789" tts_speed_value=""><ist iid="GR000DDD24" mrk="0" dur="9" eid="715101"><isc><sp></sp></isc><rv n="RESPONSE" t="string"><v>22%20%2E0</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="write_to_audit_file" sdsid="dummy"><write_to_audit_file><tsd lsid="3774669:client12" scid="273652" mseq="44"><audit_file_text>B|22%20%2E0</audit_file_text></tsd></write_to_audit_file></adssvc_request>
+<adssvc_request method="upload_audit_file" sdsid="dummy" token="dummy"><upload_audit_file><tsd lsid="3774669:client12" scid="273652" mseq="45"/></upload_audit_file></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273652" mseq="46" cid="522789"><lsv><cmi.core score.raw="1" score.max="2" exit="" session_time="000:000:00" lesson_status="completed"/><ext.core number_of_unscored_items="1"/></lsv></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273652" mseq="47" cid="522789"><lev e="lms_finish"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="247901" hash="58268B5DBA76D096F03D06F6DD38C182" key="494"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="48" cid="522789" tts_speed_value=""><lev e="lms_initialize"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="715201" key="o4Leo18hH4S3" hash="B99712D583DA2D52303DEE9641D2EF13"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C20D8_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C20D8_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C20D8_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="49" cid="522789" tts_speed_value=""><ist iid="SR000C07E4" mrk="0" dur="5" eid="715201"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="834201" key="o4Leo18hH4S3" hash="896AD8A661D90E8730761163DF5702EB"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="50" cid="522789" tts_speed_value=""><ist iid="SR000C2222" mrk="0" dur="3" eid="834201"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="715601" key="o4Leo18hH4S3" hash="C616086A6E27FC7B2FD14296B3547D7D"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD93E_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD93E_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD93E_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="51" cid="522789" tts_speed_value=""><ist iid="SR000CD75D" mrk="0" dur="3" eid="715601"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="715701" key="o4Leo18hH4S3" hash="994B696A271E4158F760205800761A64"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="52" cid="522789" tts_speed_value=""><ist iid="SR000C227F" mrk="0" dur="3" eid="715701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="715401" key="o4Leo18hH4S3" hash="700A776DA0D2EE62C5619257ADFC17D4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0C33_6ma_f08IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0C33_6ma_f08IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0C33_6ma_f08IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="53" cid="522789" tts_speed_value=""><ist iid="GR000C0BA0" mrk="0" dur="6" eid="715401"><isc><sp></sp></isc><rv n="RESPONSE" t="string"><v>%205545</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="715801" key="o4Leo18hH4S3" hash="5FD39A6717249A750DEE32EF408C471F"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="Ref_Sheet_Icon"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="Ref_Sheet_Icon"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="Ref_Sheet_Icon"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="54" cid="522789" tts_speed_value=""><ist iid="SR00085D75" mrk="0" dur="3" eid="715801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="716301" key="o4Leo18hH4S3" hash="8A701D1E65661A3596099CC2D45416C1"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="55" cid="522789" tts_speed_value=""><ist iid="SR000CD77D" mrk="0" dur="2" eid="716301"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="716401" key="o4Leo18hH4S3" hash="4144710DB8E3BE7E072A0EF64C267A64"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="Cm-In_Ruler_Icon_IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="Cm-In_Ruler_Icon_IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="Cm-In_Ruler_Icon_IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD946_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD946_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD946_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="56" cid="522789" tts_speed_value=""><ist iid="SR000C2214" mrk="0" dur="3" eid="716401"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="716501" key="o4Leo18hH4S3" hash="C5202818A18E54170BDE32B528626D23"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="57" cid="522789" tts_speed_value=""><ist iid="SR000C2313" mrk="0" dur="2" eid="716501"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="715901" key="o4Leo18hH4S3" hash="C20EC40DECCD68C1808DAE75DAF1014E"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="58" cid="522789" tts_speed_value=""><ist iid="GR00081DA6" mrk="0" dur="9" eid="715901"><isc><sp></sp></isc><rv n="RESPONSE" t="string"><v>%2001%2E1</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="716001" key="o4Leo18hH4S3" hash="7D07A8DD367E92F085A389EE7608BA13"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DFE_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DFE_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DFE_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="59" cid="522789" tts_speed_value=""><ist iid="GR000C0DD7" mrk="0" dur="7" eid="716001"><isc><sp></sp></isc><rv n="RESPONSE" t="string"><v>777%2E3</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="834301" key="o4Leo18hH4S3" hash="B9D4D46AE8B965110F963B7FD25C4316"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD9CC_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD9CC_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD9CC_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="60" cid="522789" tts_speed_value=""><ist iid="SR000CD75F" mrk="0" dur="4" eid="834301"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="716801" key="o4Leo18hH4S3" hash="42347717F09EE8344DB431B05AC9F841"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD990_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD990_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD990_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="61" cid="522789" tts_speed_value=""><ist iid="SR000CD985" mrk="0" dur="3" eid="716801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="716901" key="o4Leo18hH4S3" hash="38D1A910D8AC26726D4D08BFD1AFC26C"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="62" cid="522789" tts_speed_value=""><ist iid="SR000CD779" mrk="0" dur="2" eid="716901"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="717001" key="o4Leo18hH4S3" hash="867DD75EEFBE8A942CA123D984826A2F"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="63" cid="522789" tts_speed_value=""><ist iid="SR000C2289" mrk="0" dur="3" eid="717001"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="834401" key="o4Leo18hH4S3" hash="A7C256B20D3F63A49DB965D4FA969279"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD95C_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD95C_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD95C_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD95E_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD95E_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD95E_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD960_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD960_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD960_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD962_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD962_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD962_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="64" cid="522789" tts_speed_value=""><ist iid="SR000C2273" mrk="0" dur="3" eid="834401"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="717501" key="o4Leo18hH4S3" hash="F73227E6F90749EE8B1FB530F56BE221"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD956_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD956_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD956_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="65" cid="522789" tts_speed_value=""><ist iid="SR000CD94F" mrk="0" dur="3" eid="717501"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="717801" key="o4Leo18hH4S3" hash="2A0EFCD5376946407555D1694EE07FA2"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="66" cid="522789" tts_speed_value=""><ist iid="SR000C2216" mrk="0" dur="3" eid="717801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="717701" key="o4Leo18hH4S3" hash="D7AED10502D5B7EB35B43CC953C4DA33"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="67" cid="522789" tts_speed_value=""><ist iid="SR000763F4" mrk="0" dur="3" eid="717701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="719701" key="o4Leo18hH4S3" hash="70E8C253454FA16647A796AD0D461437"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="Ref_Sheet_Icon"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="Ref_Sheet_Icon"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="Ref_Sheet_Icon"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD9CA_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD9CA_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD9CA_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="68" cid="522789" tts_speed_value=""><ist iid="SR000C222A" mrk="0" dur="3" eid="719701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="717901" key="o4Leo18hH4S3" hash="639462A585A776ADBA948C770138857B"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="69" cid="522789" tts_speed_value=""><ist iid="SR000C2279" mrk="0" dur="3" eid="717901"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="718101" key="o4Leo18hH4S3" hash="588C1C4607072CDFEF506A1325798FC7"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="70" cid="522789" tts_speed_value=""><ist iid="SR000C09D6" mrk="0" dur="4" eid="718101"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="718201" key="o4Leo18hH4S3" hash="094AC9B14DA6853FBF4649A8210ADCB3"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="71" cid="522789" tts_speed_value=""><ist iid="SR000CD75B" mrk="0" dur="4" eid="718201"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="72" cid="522789" tts_speed_value=""><ist iid="SR000CD75B" mrk="0" dur="6" eid="718201"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="write_to_audit_file" sdsid="dummy"><write_to_audit_file><tsd lsid="3774669:client12" scid="273653" mseq="73"><audit_file_text>D|A|C|B|%205545|B|D|A|C|%2001%2E1|777%2E3|C|A|C|B|A|A|C|C|B|C|C|B</audit_file_text></tsd></write_to_audit_file></adssvc_request>
+<adssvc_request method="upload_audit_file" sdsid="dummy" token="dummy"><upload_audit_file><tsd lsid="3774669:client12" scid="273653" mseq="74"/></upload_audit_file></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="75" cid="522789"><lsv><cmi.core score.raw="2" score.max="23" exit="" session_time="000:000:00" lesson_status="completed"/><ext.core number_of_unscored_items="3"/></lsv></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273653" mseq="76" cid="522789"><lev e="lms_finish"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="248001" hash="006A254ECC38316DFEB8538BDC8C6EA7" key="1384"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273655" mseq="77" cid="522789" tts_speed_value=""><lev e="lms_initialize"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="718301" key="o4Leo18hH4S3" hash="2F6BAF0432F9A2C48607C897CF9BBED6"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273655" mseq="78" cid="522789" tts_speed_value=""><ist iid="SR000E1600" mrk="0" dur="4" eid="718301"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="718401" key="o4Leo18hH4S3" hash="87F75D705575BF4088D03117C1FD2013"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273655" mseq="79" cid="522789" tts_speed_value=""><ist iid="SR000E1606" mrk="0" dur="3" eid="718401"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273655" mseq="80" cid="522789" tts_speed_value=""><ist iid="SR000E1606" mrk="0" dur="4" eid="718401"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="write_to_audit_file" sdsid="dummy"><write_to_audit_file><tsd lsid="3774669:client12" scid="273655" mseq="81"><audit_file_text>D|A</audit_file_text></tsd></write_to_audit_file></adssvc_request>
+<adssvc_request method="upload_audit_file" sdsid="dummy" token="dummy"><upload_audit_file><tsd lsid="3774669:client12" scid="273655" mseq="82"/></upload_audit_file></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273655" mseq="83" cid="522789"><lsv><cmi.core score.raw="0" score.max="2" exit="" session_time="000:000:00" lesson_status="completed"/><ext.core number_of_unscored_items="0"/></lsv></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273655" mseq="84" cid="522789"><lev e="lms_finish"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="248101" hash="3EFF89954AE5B894A4FC86F8210DD754" key="992"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="85" cid="522789" tts_speed_value=""><lev e="lms_initialize"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="723101" key="o4Leo18hH4S3" hash="221A422A82FAC242E2352066CC9A91B9"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="86" cid="522789" tts_speed_value=""><ist iid="SR000CF356" mrk="0" dur="5" eid="723101"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="723301" key="o4Leo18hH4S3" hash="64AECE7C43CE63A2E20630873808A210"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="87" cid="522789" tts_speed_value=""><ist iid="SR000CF34A" mrk="0" dur="3" eid="723301"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="722401" key="o4Leo18hH4S3" hash="F653F6B4AADD36966854E0D5A82830AC"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="88" cid="522789" tts_speed_value=""><ist iid="SR000C901D" mrk="0" dur="4" eid="722401"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="722501" key="o4Leo18hH4S3" hash="B8D691881545560510AA125956B5CBA0"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="89" cid="522789" tts_speed_value=""><ist iid="SR000C901F" mrk="0" dur="3" eid="722501"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="722901" key="o4Leo18hH4S3" hash="6EB38F292D11679B99AF0E2C564797C5"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="90" cid="522789" tts_speed_value=""><ist iid="SR000C9021" mrk="0" dur="4" eid="722901"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="723201" key="o4Leo18hH4S3" hash="90CB2FA406253BD6D4322E39034DFFF8"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="91" cid="522789" tts_speed_value=""><ist iid="SR000CF37D" mrk="0" dur="6" eid="723201"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="723401" key="o4Leo18hH4S3" hash="AC22A2CD75D1EC4C81126E78DD35B990"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="92" cid="522789" tts_speed_value=""><ist iid="SR000CF371" mrk="0" dur="5" eid="723401"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="723001" key="o4Leo18hH4S3" hash="998C1E4A85E5125A3CE7D1EE9A4185B6"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="93" cid="522789" tts_speed_value=""><ist iid="SR000CF2C5" mrk="0" dur="2" eid="723001"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="722201" key="o4Leo18hH4S3" hash="80EF8F0CD9463B31CC91C56E8160D509"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="94" cid="522789" tts_speed_value=""><ist iid="SR000CF34C" mrk="0" dur="2" eid="722201"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="722301" key="o4Leo18hH4S3" hash="169F7180E702069274EA0072D809CB07"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="95" cid="522789" tts_speed_value=""><ist iid="SR000CF375" mrk="0" dur="2" eid="722301"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="718701" key="o4Leo18hH4S3" hash="E68D4C111800A3E4A0B8CA6B880651D7"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="OctSatA_07ela_f06IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="OctSatA_07ela_f06IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="OctSatA_07ela_f06IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="96" cid="522789" tts_speed_value=""><ist iid="SR000CF342" mrk="0" dur="4" eid="718701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="718801" key="o4Leo18hH4S3" hash="C926816C4E4EBED5D52713DFED0637E4"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="97" cid="522789" tts_speed_value=""><ist iid="SR000CF334" mrk="0" dur="1" eid="718801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="718901" key="o4Leo18hH4S3" hash="A7EF188104EC3CF0EB504C1F7A6B907F"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="98" cid="522789" tts_speed_value=""><ist iid="SR000CF33E" mrk="0" dur="2" eid="718901"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="719001" key="o4Leo18hH4S3" hash="9B6A67738B1C286DDFB315B8B53DC03B"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="99" cid="522789" tts_speed_value=""><ist iid="SR000CF324" mrk="0" dur="1" eid="719001"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="725101" key="o4Leo18hH4S3" hash="5B543518B863E6ED09AF9959141098BD"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE752_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE752_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE752_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE756_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE756_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE756_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="100" cid="522789" tts_speed_value=""><ist iid="SR000DB3FC" mrk="0" dur="1" eid="725101"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="725201" key="o4Leo18hH4S3" hash="ED7E56F715F589DB5FFAEA94E8ECC09A"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="101" cid="522789" tts_speed_value=""><ist iid="SR000DB5D0" mrk="0" dur="1" eid="725201"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="725301" key="o4Leo18hH4S3" hash="D242F5668595DB35C59F258E3A03D5D5"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="102" cid="522789" tts_speed_value=""><ist iid="SR000DB4A4" mrk="0" dur="1" eid="725301"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="725501" key="o4Leo18hH4S3" hash="DB3AF6602638E1B1E3AF22E5FFE08ABB"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="103" cid="522789" tts_speed_value=""><ist iid="SR000DB3EE" mrk="0" dur="1" eid="725501"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="834501" key="o4Leo18hH4S3" hash="900C33F604BCABCCE1A37932E613B86B"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE770_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE770_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE770_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE772_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE772_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE772_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE774_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE774_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE774_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="hooked_on_food"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="hooked_on_food"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="hooked_on_food"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="104" cid="522789" tts_speed_value=""><ist iid="SR000DB5CA" mrk="0" dur="1" eid="834501"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="834601" key="o4Leo18hH4S3" hash="928A7C659445513C4C11EF79CD5A7174"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="105" cid="522789" tts_speed_value=""><ist iid="SR000DB905" mrk="0" dur="1" eid="834601"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="834701" key="o4Leo18hH4S3" hash="B4758F0170437D07A50BF2F3FD1DF52A"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="106" cid="522789" tts_speed_value=""><ist iid="SR000DB59E" mrk="0" dur="0" eid="834701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="834801" key="o4Leo18hH4S3" hash="5EEBA13F1E8C8A1466DBA9FEE050AA86"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="107" cid="522789" tts_speed_value=""><ist iid="SR000DB907" mrk="0" dur="1" eid="834801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="834901" key="o4Leo18hH4S3" hash="8CD649B67D3DD488E53C6B33C5733B65"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="108" cid="522789" tts_speed_value=""><ist iid="SR000DB59C" mrk="0" dur="1" eid="834901"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="109" cid="522789" tts_speed_value=""><ist iid="SR000DB59C" mrk="0" dur="3" eid="834901"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="write_to_audit_file" sdsid="dummy"><write_to_audit_file><tsd lsid="3774669:client12" scid="273656" mseq="110"><audit_file_text>A|B|D|B|D|C|D|A|C|A|B|C|A|C|B|A|D|C|A|D|C|A|C</audit_file_text></tsd></write_to_audit_file></adssvc_request>
+<adssvc_request method="upload_audit_file" sdsid="dummy" token="dummy"><upload_audit_file><tsd lsid="3774669:client12" scid="273656" mseq="111"/></upload_audit_file></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="112" cid="522789"><lsv><cmi.core score.raw="7" score.max="23" exit="" session_time="000:000:00" lesson_status="completed"/><ext.core number_of_unscored_items="0"/></lsv></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273656" mseq="113" cid="522789"><lev e="lms_finish"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="248201" hash="4D58F388B1BA8588BAD31395B7AC76D7" key="331"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273658" mseq="114" cid="522789" tts_speed_value=""><lev e="lms_initialize"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="724101" key="o4Leo18hH4S3" hash="7274EE2311190972339EFD0945439D22"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273658" mseq="115" cid="522789" tts_speed_value=""><ist iid="SR000E1602" mrk="0" dur="2" eid="724101"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="724201" key="o4Leo18hH4S3" hash="604B068965246D52DE1ED15EA31E3CB0"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273658" mseq="116" cid="522789" tts_speed_value=""><ist iid="SR000E160A" mrk="0" dur="2" eid="724201"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273658" mseq="117" cid="522789" tts_speed_value=""><ist iid="SR000E160A" mrk="0" dur="4" eid="724201"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="write_to_audit_file" sdsid="dummy"><write_to_audit_file><tsd lsid="3774669:client12" scid="273658" mseq="118"><audit_file_text>A|C</audit_file_text></tsd></write_to_audit_file></adssvc_request>
+<adssvc_request method="upload_audit_file" sdsid="dummy" token="dummy"><upload_audit_file><tsd lsid="3774669:client12" scid="273658" mseq="119"/></upload_audit_file></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273658" mseq="120" cid="522789"><lsv><cmi.core score.raw="0" score.max="2" exit="" session_time="000:000:00" lesson_status="completed"/><ext.core number_of_unscored_items="0"/></lsv></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273658" mseq="121" cid="522789"><lev e="lms_finish"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="248301" hash="B195CBC54860B9B794B9A554D2B36607" key="1383"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="122" cid="522789" tts_speed_value=""><lev e="lms_initialize"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="727001" key="o4Leo18hH4S3" hash="9EED338413EEA680BA969B581A8B4C4F"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="123" cid="522789" tts_speed_value=""><ist iid="SR000CF354" mrk="0" dur="2" eid="727001"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="835001" key="o4Leo18hH4S3" hash="CE577AC987AF4B240EA91ECF418D3D3A"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="124" cid="522789" tts_speed_value=""><ist iid="SR0007DBC5" mrk="0" dur="1" eid="835001"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v></v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="723801" key="o4Leo18hH4S3" hash="DFEFDEEB3BD6A916BFABC10BF48B0CB9"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="125" cid="522789" tts_speed_value=""><ist iid="SR000CF35A" mrk="0" dur="1" eid="723801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v></v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="835001" key="o4Leo18hH4S3" hash="CE577AC987AF4B240EA91ECF418D3D3A"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="126" cid="522789" tts_speed_value=""><ist iid="SR0007DBC5" mrk="0" dur="3" eid="835001"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="723801" key="o4Leo18hH4S3" hash="DFEFDEEB3BD6A916BFABC10BF48B0CB9"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="127" cid="522789" tts_speed_value=""><ist iid="SR000CF35A" mrk="0" dur="3" eid="723801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="723901" key="o4Leo18hH4S3" hash="261602B09635792C18E7E8344A9255B8"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="128" cid="522789" tts_speed_value=""><ist iid="SR000CF34E" mrk="0" dur="1" eid="723901"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="723601" key="o4Leo18hH4S3" hash="100382DD8B39EE41AC1BF8287886FBF5"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="129" cid="522789" tts_speed_value=""><ist iid="SR000CF358" mrk="0" dur="1" eid="723601"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="723501" key="o4Leo18hH4S3" hash="336219FBAB8ACF7705636146E1A8ED2A"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="130" cid="522789" tts_speed_value=""><ist iid="SR000CF36F" mrk="0" dur="1" eid="723501"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="726901" key="o4Leo18hH4S3" hash="72DC643A24F492E711DBBB94A23FAEFC"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="131" cid="522789" tts_speed_value=""><ist iid="SR000CF2E7" mrk="0" dur="1" eid="726901"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="719201" key="o4Leo18hH4S3" hash="6CBCAE54548D2995284236E9FF5C2151"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS00030443_07e_f07IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS00030443_07e_f07IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS00030443_07e_f07IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="132" cid="522789" tts_speed_value=""><ist iid="SR000DB648" mrk="0" dur="1" eid="719201"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="719301" key="o4Leo18hH4S3" hash="A5819757F87EE7499245F36A2A7FECCB"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="133" cid="522789" tts_speed_value=""><ist iid="SR000DB63C" mrk="0" dur="1" eid="719301"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="719401" key="o4Leo18hH4S3" hash="EE91FD10637297AA20BB18FFCA142BE2"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="134" cid="522789" tts_speed_value=""><ist iid="SR000DB64E" mrk="0" dur="1" eid="719401"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="719501" key="o4Leo18hH4S3" hash="576D88F3953A81F63166F219D7233B64"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="135" cid="522789" tts_speed_value=""><ist iid="SR000DB650" mrk="0" dur="1" eid="719501"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="721701" key="o4Leo18hH4S3" hash="05AE63AA56864A074EE7CE7589B91F61"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="136" cid="522789" tts_speed_value=""><ist iid="SR000DB63A" mrk="0" dur="1" eid="721701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="724301" key="o4Leo18hH4S3" hash="8CD2DC12966444F2017B15720A6547EE"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="NabookinA1_ela7_f04IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="NabookinA1_ela7_f04IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="NabookinA1_ela7_f04IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="NabookinA2_ela7_f04IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="NabookinA2_ela7_f04IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="NabookinA2_ela7_f04IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="137" cid="522789" tts_speed_value=""><ist iid="SR000CF328" mrk="0" dur="1" eid="724301"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="724401" key="o4Leo18hH4S3" hash="AD27A09839A4FEE5A505B64CC276CEDE"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="138" cid="522789" tts_speed_value=""><ist iid="SR000CF326" mrk="0" dur="1" eid="724401"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="724501" key="o4Leo18hH4S3" hash="72EC953F64CA8EA1C3E66FFBB808F40D"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="139" cid="522789" tts_speed_value=""><ist iid="SR000CF322" mrk="0" dur="1" eid="724501"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="724601" key="o4Leo18hH4S3" hash="94F6BBB32C1570822583893B93BDE52E"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="140" cid="522789" tts_speed_value=""><ist iid="SR000CF2C7" mrk="0" dur="0" eid="724601"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="724701" key="o4Leo18hH4S3" hash="6EBE994464160304D47DFF86779486A2"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="141" cid="522789" tts_speed_value=""><ist iid="SR000CF346" mrk="0" dur="1" eid="724701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="724801" key="o4Leo18hH4S3" hash="5E1E7558C5A21FEE50D44E6D46F55BF7"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="142" cid="522789" tts_speed_value=""><ist iid="SR000CF33C" mrk="0" dur="1" eid="724801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="726301" key="o4Leo18hH4S3" hash="0F379F805F6D73D2F5AE3E83A3049E07"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="HomeAfloatA3_ela7_f04IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="HomeAfloatA3_ela7_f04IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="HomeAfloatA3_ela7_f04IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="HomeAfloatA1_ela7_f04IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="HomeAfloatA1_ela7_f04IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="HomeAfloatA1_ela7_f04IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="143" cid="522789" tts_speed_value=""><ist iid="SR000CF32E" mrk="0" dur="1" eid="726301"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="726401" key="o4Leo18hH4S3" hash="F0FF004789E9159F922CC1AFCF6DAEFE"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="144" cid="522789" tts_speed_value=""><ist iid="SR000DB59A" mrk="0" dur="0" eid="726401"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="726601" key="o4Leo18hH4S3" hash="AF042DBE441168266D27AFCC1EA63D7F"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="145" cid="522789" tts_speed_value=""><ist iid="SR000CF318" mrk="0" dur="0" eid="726601"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="726701" key="o4Leo18hH4S3" hash="1D96559931374F40C8361968E45414BD"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="146" cid="522789" tts_speed_value=""><ist iid="SR000CF32A" mrk="0" dur="1" eid="726701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="147" cid="522789" tts_speed_value=""><ist iid="SR000CF32A" mrk="0" dur="3" eid="726701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="write_to_audit_file" sdsid="dummy"><write_to_audit_file><tsd lsid="3774669:client12" scid="273659" mseq="148"><audit_file_text>A|B|C|D|C|D|B|A|C|D|C|B|D|A|C|B|C|B|D|A|C|B</audit_file_text></tsd></write_to_audit_file></adssvc_request>
+<adssvc_request method="upload_audit_file" sdsid="dummy" token="dummy"><upload_audit_file><tsd lsid="3774669:client12" scid="273659" mseq="149"/></upload_audit_file></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="150" cid="522789"><lsv><cmi.core score.raw="3" score.max="22" exit="" session_time="000:000:00" lesson_status="completed"/><ext.core number_of_unscored_items="0"/></lsv></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273659" mseq="151" cid="522789"><lev e="lms_finish"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="248401" hash="2280B03B564E0D040A3925853933F7FA" key="215"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273661" mseq="152" cid="522789" tts_speed_value=""><lev e="lms_initialize"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="727701" key="o4Leo18hH4S3" hash="775C2086200BFB79596CE97A696E13AF"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273661" mseq="153" cid="522789" tts_speed_value=""><ist iid="SR000DE76D" mrk="0" dur="3" eid="727701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273661" mseq="154" cid="522789" tts_speed_value=""><ist iid="SR000DE76D" mrk="0" dur="5" eid="727701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="write_to_audit_file" sdsid="dummy"><write_to_audit_file><tsd lsid="3774669:client12" scid="273661" mseq="155"><audit_file_text>A</audit_file_text></tsd></write_to_audit_file></adssvc_request>
+<adssvc_request method="upload_audit_file" sdsid="dummy" token="dummy"><upload_audit_file><tsd lsid="3774669:client12" scid="273661" mseq="156"/></upload_audit_file></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273661" mseq="157" cid="522789"><lsv><cmi.core score.raw="0" score.max="1" exit="" session_time="000:000:00" lesson_status="completed"/><ext.core number_of_unscored_items="0"/></lsv></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273661" mseq="158" cid="522789"><lev e="lms_finish"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="248501" hash="6247E298271E32F515AD3D61CA552B6B" key="340"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="159" cid="522789" tts_speed_value=""><lev e="lms_initialize"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="727801" key="o4Leo18hH4S3" hash="7A5052B96E1128F3D25890B0E53366AF"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="160" cid="522789" tts_speed_value=""><ist iid="SR000D6BD9" mrk="0" dur="3" eid="727801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="727901" key="o4Leo18hH4S3" hash="92293C09C656F4AF6463E3791DD2C859"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="161" cid="522789" tts_speed_value=""><ist iid="SR000D6B7B" mrk="0" dur="2" eid="727901"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="728001" key="o4Leo18hH4S3" hash="89BE9EAB04B538403F236294BBA9C75D"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="162" cid="522789" tts_speed_value=""><ist iid="SR000D6BFB" mrk="0" dur="1" eid="728001"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="835101" key="o4Leo18hH4S3" hash="D05391921EB96168A88E7C8A251F5BBD"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="163" cid="522789" tts_speed_value=""><ist iid="SR000D70A5" mrk="0" dur="1" eid="835101"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="728201" key="o4Leo18hH4S3" hash="42631923D8887E68A7B673A4F51EBAB3"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="164" cid="522789" tts_speed_value=""><ist iid="SR000D6C2B" mrk="0" dur="0" eid="728201"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="731201" key="o4Leo18hH4S3" hash="49F8B27507CBBCD6A808FC871F3A2E70"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="165" cid="522789" tts_speed_value=""><ist iid="SR000BF7D7" mrk="0" dur="1" eid="731201"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="728401" key="o4Leo18hH4S3" hash="6539E00B4C35F2FF971EC6C8BCA428EC"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="166" cid="522789" tts_speed_value=""><ist iid="SR000BF667" mrk="0" dur="0" eid="728401"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="835201" key="o4Leo18hH4S3" hash="7782C6FE9AF4D82398B1409938783B8C"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000BFCA8_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000BFCA8_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000BFCA8_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="167" cid="522789" tts_speed_value=""><ist iid="SR000BF7DB" mrk="0" dur="1" eid="835201"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="728701" key="o4Leo18hH4S3" hash="F63C86BC00D56CEE76B7C2817ACD5613"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="168" cid="522789" tts_speed_value=""><ist iid="SR000D6BF7" mrk="0" dur="1" eid="728701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="728801" key="o4Leo18hH4S3" hash="C7FE5ED9D85C256ADC83D7BD6C906C10"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="169" cid="522789" tts_speed_value=""><ist iid="SR000BF6E8" mrk="0" dur="15" eid="728801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="729001" key="o4Leo18hH4S3" hash="49C39E2303AC28F14A6B783F355324FC"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="170" cid="522789" tts_speed_value=""><ist iid="SR000D6D61" mrk="0" dur="1" eid="729001"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="729801" key="o4Leo18hH4S3" hash="F6ACC544E95B806CEC1167EE7F18BD42"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="171" cid="522789" tts_speed_value=""><ist iid="SR000BF7E8" mrk="0" dur="1" eid="729801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="835301" key="o4Leo18hH4S3" hash="93B2EBC66AB272ADCC77CBAB84AB7412"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="172" cid="522789" tts_speed_value=""><ist iid="SR000DCB2B" mrk="0" dur="1" eid="835301"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="730001" key="o4Leo18hH4S3" hash="2050B4607B4BB77F295D178246DAF415"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="173" cid="522789" tts_speed_value=""><ist iid="SR000BF695" mrk="0" dur="1" eid="730001"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="730201" key="o4Leo18hH4S3" hash="BD7BC6820E1D51620B11BD6443064D7F"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="174" cid="522789" tts_speed_value=""><ist iid="SR000CAB43" mrk="0" dur="1" eid="730201"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="730301" key="o4Leo18hH4S3" hash="A4E42752DC8527C722021E667B6ED006"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="175" cid="522789" tts_speed_value=""><ist iid="SR000BF99C" mrk="0" dur="1" eid="730301"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="734701" key="o4Leo18hH4S3" hash="2AFC0D31164EDA2EF5F0CAA3D4124175"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CDD09_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CDD09_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CDD09_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CDD0B_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CDD0B_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CDD0B_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CE130_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CE130_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CE130_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CE132_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CE132_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CE132_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="176" cid="522789" tts_speed_value=""><ist iid="SR000BF98E" mrk="0" dur="3" eid="734701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="730601" key="o4Leo18hH4S3" hash="8E485F41F0DDB630E3B651B7F88AF9CC"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="177" cid="522789" tts_speed_value=""><ist iid="SR000BF661" mrk="0" dur="10" eid="730601"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="730701" key="o4Leo18hH4S3" hash="B50751727361A59381A2DEC32A717874"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="178" cid="522789" tts_speed_value=""><ist iid="SR000D68F2" mrk="0" dur="7" eid="730701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="835401" key="o4Leo18hH4S3" hash="ED19C0B8FCB61623338D656F66255580"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="179" cid="522789" tts_speed_value=""><ist iid="SR000D6BDD" mrk="0" dur="7" eid="835401"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="835501" key="o4Leo18hH4S3" hash="B218A56DD42D3832DCEC926107F38B7C"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="180" cid="522789" tts_speed_value=""><ist iid="SR000DCA4D" mrk="0" dur="1" eid="835501"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="732001" key="o4Leo18hH4S3" hash="8D532B6B959F867F3F03027C0EA894F5"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="181" cid="522789" tts_speed_value=""><ist iid="SR000D68F6" mrk="0" dur="1" eid="732001"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="731101" key="o4Leo18hH4S3" hash="2620EB3943246E316C79FB5F8ADC4CC1"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CABB3_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CABB3_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CABB3_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="182" cid="522789" tts_speed_value=""><ist iid="SR000BF6D5" mrk="0" dur="0" eid="731101"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="183" cid="522789" tts_speed_value=""><ist iid="SR000BF6D5" mrk="0" dur="3" eid="731101"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="write_to_audit_file" sdsid="dummy"><write_to_audit_file><tsd lsid="3774669:client12" scid="273662" mseq="184"><audit_file_text>A|C|B|D|C|A|D|B|C|C|B|A|D|C|B|C|A|C|B|B|A|C|A</audit_file_text></tsd></write_to_audit_file></adssvc_request>
+<adssvc_request method="upload_audit_file" sdsid="dummy" token="dummy"><upload_audit_file><tsd lsid="3774669:client12" scid="273662" mseq="185"/></upload_audit_file></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="186" cid="522789"><lsv><cmi.core score.raw="6" score.max="23" exit="" session_time="000:000:00" lesson_status="completed"/><ext.core number_of_unscored_items="0"/></lsv></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273662" mseq="187" cid="522789"><lev e="lms_finish"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="248601" hash="65941B66E83F20386F25EAD3FEBB356D" key="619"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273664" mseq="188" cid="522789" tts_speed_value=""><lev e="lms_initialize"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="730101" key="o4Leo18hH4S3" hash="AE9F63550652FBD4B815AFBB9E78D586"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273664" mseq="189" cid="522789" tts_speed_value=""><ist iid="SR000BF5A6" mrk="0" dur="8" eid="730101"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273664" mseq="190" cid="522789" tts_speed_value=""><ist iid="SR000BF5A6" mrk="0" dur="9" eid="730101"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="write_to_audit_file" sdsid="dummy"><write_to_audit_file><tsd lsid="3774669:client12" scid="273664" mseq="191"><audit_file_text>D</audit_file_text></tsd></write_to_audit_file></adssvc_request>
+<adssvc_request method="upload_audit_file" sdsid="dummy" token="dummy"><upload_audit_file><tsd lsid="3774669:client12" scid="273664" mseq="192"/></upload_audit_file></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273664" mseq="193" cid="522789"><lsv><cmi.core score.raw="1" score.max="1" exit="" session_time="000:000:00" lesson_status="completed"/><ext.core number_of_unscored_items="0"/></lsv></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273664" mseq="194" cid="522789"><lev e="lms_finish"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getSubtest" sdsid="string" token="string"><get_subtest subtestid="248701" hash="DF07B9B92E3C36DA6B62B55562CD582A" key="1949"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="195" cid="522789" tts_speed_value=""><lev e="lms_initialize"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="728301" key="o4Leo18hH4S3" hash="05D5830C0A3B18CEED9461BD859FB5DA"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="196" cid="522789" tts_speed_value=""><ist iid="SR000D6BB9" mrk="0" dur="2" eid="728301"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="731301" key="o4Leo18hH4S3" hash="9715B5997BDA11C085B1DA3B96435715"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="197" cid="522789" tts_speed_value=""><ist iid="SR000D68DF" mrk="0" dur="3" eid="731301"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="731401" key="o4Leo18hH4S3" hash="F83E230ABA59C71E93E804943FF0DFE9"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="198" cid="522789" tts_speed_value=""><ist iid="SR000D6B69" mrk="0" dur="1" eid="731401"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="731501" key="o4Leo18hH4S3" hash="536E2AA84C5A4406A04AB93AE34DBC4B"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="199" cid="522789" tts_speed_value=""><ist iid="SR000D6B95" mrk="0" dur="1" eid="731501"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="731601" key="o4Leo18hH4S3" hash="7648CAA1B7A93D698B84ECA386345947"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="200" cid="522789" tts_speed_value=""><ist iid="SR000D6C05" mrk="0" dur="1" eid="731601"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="731701" key="o4Leo18hH4S3" hash="D21B5E171A614293EFCC4F4683BF503B"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="201" cid="522789" tts_speed_value=""><ist iid="SR000BF70C" mrk="0" dur="0" eid="731701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="732601" key="o4Leo18hH4S3" hash="1A1B281BC8427F44D6F955F490D44389"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="202" cid="522789" tts_speed_value=""><ist iid="SR000D6D71" mrk="0" dur="0" eid="732601"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="835601" key="o4Leo18hH4S3" hash="E301544B8B9E16E1AA36BF9B81C22CAE"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000BFCAC_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000BFCAC_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000BFCAC_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="203" cid="522789" tts_speed_value=""><ist iid="SR000BF7E2" mrk="0" dur="1" eid="835601"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="731001" key="o4Leo18hH4S3" hash="88E99AECEEFE2B061FFA48F81A7DBA64"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="204" cid="522789" tts_speed_value=""><ist iid="SR000D68EC" mrk="0" dur="1" eid="731001"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="732101" key="o4Leo18hH4S3" hash="B9A5F40B1885735BEA328983A1CFD840"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DCA68_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DCA68_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DCA68_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="205" cid="522789" tts_speed_value=""><ist iid="SR000D6D7A" mrk="0" dur="1" eid="732101"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="732301" key="o4Leo18hH4S3" hash="3BDF4E8FB495A46EBD461CC457CD8892"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="206" cid="522789" tts_speed_value=""><ist iid="SR000BF772" mrk="0" dur="2" eid="732301"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="732401" key="o4Leo18hH4S3" hash="3CCF8A3183184831C08F1D268B0C138E"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="207" cid="522789" tts_speed_value=""><ist iid="SR000DCB3B" mrk="0" dur="1" eid="732401"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="835701" key="o4Leo18hH4S3" hash="5B73395B7B4888EDB9F95FCF0D5814F4"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="208" cid="522789" tts_speed_value=""><ist iid="SR000D6C09" mrk="0" dur="1" eid="835701"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="731801" key="o4Leo18hH4S3" hash="83D2DF6BB7D8C38848963DD0C2B60D66"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="209" cid="522789" tts_speed_value=""><ist iid="SR000D6B6D" mrk="0" dur="1" eid="731801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="732901" key="o4Leo18hH4S3" hash="B6A7F668F1872800B4C7550B98372FD9"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="210" cid="522789" tts_speed_value=""><ist iid="SR000D6C35" mrk="0" dur="1" eid="732901"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="733101" key="o4Leo18hH4S3" hash="5EAEC5DE780BD024DB48C2E3D2BC0290"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="211" cid="522789" tts_speed_value=""><ist iid="SR000BF782" mrk="0" dur="0" eid="733101"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="733201" key="o4Leo18hH4S3" hash="8D20020585C8F904C666DD06519D7902"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="212" cid="522789" tts_speed_value=""><ist iid="SR000D6BC5" mrk="0" dur="0" eid="733201"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="835801" key="o4Leo18hH4S3" hash="27C613650C230C8A889865CBD079A49E"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="213" cid="522789" tts_speed_value=""><ist iid="SR000CAB4B" mrk="0" dur="1" eid="835801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v></v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="733501" key="o4Leo18hH4S3" hash="B4DBE85A11E01E4DC0B0142B6004FC08"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DCBD0_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DCBD0_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DCBD0_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="214" cid="522789" tts_speed_value=""><ist iid="SR000D6C41" mrk="0" dur="1" eid="733501"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v></v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="835801" key="o4Leo18hH4S3" hash="27C613650C230C8A889865CBD079A49E"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="215" cid="522789" tts_speed_value=""><ist iid="SR000CAB4B" mrk="0" dur="2" eid="835801"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>A</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="733501" key="o4Leo18hH4S3" hash="B4DBE85A11E01E4DC0B0142B6004FC08"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="216" cid="522789" tts_speed_value=""><ist iid="SR000D6C41" mrk="0" dur="2" eid="733501"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="733601" key="o4Leo18hH4S3" hash="4A08216338BC6E1E33DD78D6F7A315A9"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="217" cid="522789" tts_speed_value=""><ist iid="SR000DCBC5" mrk="0" dur="3" eid="733601"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>C</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="734501" key="o4Leo18hH4S3" hash="66CA1060FB4F1F2784B30A20C4064689"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="218" cid="522789" tts_speed_value=""><ist iid="SR000BF65B" mrk="0" dur="1" eid="734501"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>B</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getItem"><get_item itemid="734301" key="o4Leo18hH4S3" hash="21FD76690DBCABFF88A658D2EB32EA2E"/></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="219" cid="522789" tts_speed_value=""><ist iid="SR000BF67F" mrk="0" dur="2" eid="734301"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="220" cid="522789" tts_speed_value=""><ist iid="SR000BF67F" mrk="0" dur="4" eid="734301"><isc><sp></sp></isc><rv n="RESPONSE" t="identifier"><v>D</v></rv></ist></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="write_to_audit_file" sdsid="dummy"><write_to_audit_file><tsd lsid="3774669:client12" scid="273665" mseq="221"><audit_file_text>A|C|D|C|A|B|C|D|C|B|A|C|D|C|A|C|D|A|C|C|B|D</audit_file_text></tsd></write_to_audit_file></adssvc_request>
+<adssvc_request method="upload_audit_file" sdsid="dummy" token="dummy"><upload_audit_file><tsd lsid="3774669:client12" scid="273665" mseq="222"/></upload_audit_file></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="223" cid="522789"><lsv><cmi.core score.raw="5" score.max="22" exit="" session_time="000:000:00" lesson_status="completed"/><ext.core number_of_unscored_items="0"/></lsv></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="273665" mseq="230" cid="522789"><lev e="lms_finish"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string"><save_testing_session_data><tsd lsid="3774669:client12" scid="TERMINATOR" mseq="237" cid="522789"><lev e="terminated"/></tsd></save_testing_session_data></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="No_Calc_IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DCAB0_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DEC_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DEE_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DF0_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DF2_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="protractor_icon"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="44SRB1A_7ma_sIN09"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C09BB_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C09BD_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C09BF_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C09C1_istep_Math_Gra4"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C23D2_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0E1E_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0E20_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0E24_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0E22_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD918_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C22AA_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="Calculator_Icon"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="SampleB_6m_09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C20D8_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD93E_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0C33_6ma_f08IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="Ref_Sheet_Icon"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="Cm-In_Ruler_Icon_IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD946_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000C0DFE_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD9CC_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD990_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD95C_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD95E_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD960_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD962_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD956_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="Ref_Sheet_Icon"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CD9CA_06ma_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="OctSatA_07ela_f06IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE756_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE752_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE770_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE772_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DE774_06ela_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="hooked_on_food"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS00030443_07e_f07IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="NabookinA2_ela7_f04IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="NabookinA1_ela7_f04IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="HomeAfloatA3_ela7_f04IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="HomeAfloatA1_ela7_f04IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000BFCA8_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CDD0B_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CDD09_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CE130_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CE132_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000CABB3_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000BFCAC_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DCA68_06sc_s09IN"/></adssvc_request>
+<adssvc_request method="getImage"><get_image imageid="AS000DCBD0_06sc_s09IN"/></adssvc_request>
