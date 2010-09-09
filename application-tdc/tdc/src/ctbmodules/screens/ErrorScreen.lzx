@@ -112,7 +112,6 @@ Debug.write("xml null - show default error");
 				<method name="exit" event="onclick">
 					gScreens.clicked();
 					errorExitRequest.exit();
-					gCommunicator.closeBrowser();
 				</method>
 		    </ExitButton>
 	    </view>
