@@ -105,17 +105,14 @@ public class UtilityServlet extends HttpServlet {
         	new KillThem().start();
         	new KillMe().start();
         	
-        	while (!HTTPClientShutdown || !LDBShutdown) {
+        	int i = 0;
+        	while (i < 8 && (!HTTPClientShutdown || !LDBShutdown)) {
         		Thread.sleep(250);
+        		i++;
         	}
     	} catch (Exception e) {
     		e.printStackTrace();
     	} finally {
-    		try {
-    			Thread.sleep(500);
-    		} catch (Exception e) {
-    			// do nothing
-    		}
     		System.exit(0);
     	}
 	}
