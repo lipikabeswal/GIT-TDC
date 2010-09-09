@@ -44,6 +44,7 @@ import com.ctb.tdc.web.utils.LoadTestResultFile;
 import com.ctb.tdc.web.utils.SystemInfoFile;
 import com.ctb.tdc.web.utils.SystemIdFile;
 import com.ctb.tdc.web.dto.LoadTestSettings;
+import com.ctb.tdc.web.utils.MarkerFile;
 
 /** 
  * @author Ayan_Bandopadhyay
@@ -108,10 +109,12 @@ public class LoadTestServlet extends HttpServlet{
 		String systemInfoXML = "";
 		
 		
-		if(!SystemInfoFile.fileExists()){
+		if(!MarkerFile.fileExists()){
 			
-			boolean systemInfoError = SystemInfoFile.captureSystemInfo();
-			
+			boolean systemInfoError = false;
+			if(!SystemInfoFile.fileExists()){
+				systemInfoError = SystemInfoFile.captureSystemInfo();
+			}			
 			if (!systemInfoError){
 				systemInfoXML = SystemInfoFile.parseSystemInfoFile();
 			}
@@ -154,6 +157,9 @@ public class LoadTestServlet extends HttpServlet{
             	if (!responseXML.contains("OK")){
             		SystemInfoFile.deleteSystemInfoFile(); //delete the file so that the upload request is made next time this servlet is called
             		SystemIdFile.reset();
+            	}
+            	else{
+            		MarkerFile.create(); //create a marker file to indicate that the system info data was successfully uploaded
             	}
             } 
             catch (Exception e) {

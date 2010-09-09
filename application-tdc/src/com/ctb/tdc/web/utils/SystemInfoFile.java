@@ -98,7 +98,8 @@ public class SystemInfoFile {
 		            String hostName = st.nextToken();		
 		            //update system id with host name
 		            String systemId = SystemIdFile.getSystemId();
-		            SystemIdFile.setSystemId(systemId + ":" + hostName);
+		            if(!systemId.contains(":"))
+		            	SystemIdFile.setSystemId(systemId + ":" + hostName);
 		            
 		            String osName = st.nextToken();		            		            
 		            String osVersion = st.nextToken();
