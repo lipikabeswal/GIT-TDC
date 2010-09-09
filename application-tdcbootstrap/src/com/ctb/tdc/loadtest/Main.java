@@ -60,6 +60,13 @@ public class Main {
         return ( os.toLowerCase().indexOf("mac") != -1 );
     }
 	
+    public static boolean isLinux() {
+        String os = System.getProperty("os.name");
+        if (os == null) 
+            os = "";
+        return ( os.toLowerCase().indexOf("linux") != -1 );
+    }
+
 	private static void copyPropertyFiles(String tdcHome)  {        
         try {
             String proxySrcFilePath = tdcHome + "/etc/proxy.properties";
@@ -89,7 +96,8 @@ public class Main {
 	
 	public static void main(String args[]){
 		initSettings();
-		while (true){
+		boolean isWindows = true;
+		while (isWindows){
 			boolean appFlag = false;
 			boolean jettyFlag = false;
 			ServerSocket ss = null; // keep variable in scope of the main method to maintain hold on it. 
@@ -154,12 +162,17 @@ public class Main {
 						Main.deletePropertyFiles(tdcHome);        						
 					}					
 		        }	        							
-			}			
-			try{
-				Thread.sleep(MAIN_SLEEP_INTERVAL * 1000);
-			}catch(Exception e){
-				System.out.println("Main Sleep Exception!");
 			}
+			if(isMacOS() || isLinux()){
+				isWindows = false;
+			}else{
+				try{
+					Thread.sleep(MAIN_SLEEP_INTERVAL * 1000);
+				}catch(Exception e){
+					System.out.println("Main Sleep Exception!");
+				}
+			}
+			
 		}						
 	}
 }
