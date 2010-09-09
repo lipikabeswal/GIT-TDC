@@ -75,6 +75,18 @@
     <servlet-name>UtilityServlet</servlet-name>
     <url-pattern>/servlet/UtilityServlet.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <description>LoadTestServlet</description>
+    <display-name>LoadTestServlet</display-name>
+    <servlet-name>LoadTestServlet</servlet-name>
+    <servlet-class>com.ctb.tdc.web.servlet.LoadTestServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>LoadTestServlet</servlet-name>
+    <url-pattern>/servlet/LoadTestServlet.do</url-pattern>
+  </servlet-mapping>
 
 
 </web-app>
