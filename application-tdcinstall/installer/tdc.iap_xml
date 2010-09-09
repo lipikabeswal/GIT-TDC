@@ -9508,6 +9508,19 @@ Relative paths are relative to the launcher.]]></string>
 																</object>
 															</method>
 															<method name="addElement">
+																<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="4d831e238ee9">
+																	<property name="propertyValue">
+																		<string><![CDATA[$USER_INSTALL_DIR$]]></string>
+																	</property>
+																	<property name="propertyName">
+																		<string><![CDATA[tdc.home]]></string>
+																	</property>
+																	<property name="propertyComment">
+																		<string><![CDATA[path to the installdir magic folder]]></string>
+																	</property>
+																</object>
+															</method>
+															<method name="addElement">
 																<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="722460c68912">
 																	<property name="propertyValue">
 																		<string><![CDATA[$CMD_LINE_ARGUMENTS$]]></string>
@@ -12188,6 +12201,19 @@ Relative paths are relative to the launcher.]]></string>
 																	</property>
 																	<property name="propertyName">
 																		<string><![CDATA[lax.root.install.dir]]></string>
+																	</property>
+																	<property name="propertyComment">
+																		<string><![CDATA[path to the installdir magic folder]]></string>
+																	</property>
+																</object>
+															</method>
+															<method name="addElement">
+																<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="4d831e238ee9">
+																	<property name="propertyValue">
+																		<string><![CDATA[$USER_INSTALL_DIR$]]></string>
+																	</property>
+																	<property name="propertyName">
+																		<string><![CDATA[tdc.home]]></string>
 																	</property>
 																	<property name="propertyComment">
 																		<string><![CDATA[path to the installdir magic folder]]></string>
