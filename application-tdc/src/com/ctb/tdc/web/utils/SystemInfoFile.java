@@ -46,6 +46,7 @@ public class SystemInfoFile {
 		String errorString = "";
 		String resultString = "";
 		
+		
 		if(!LoadTestUtils.isMacOS() && !LoadTestUtils.isLinux()){
 			
 			String sysInfoCommand = "systeminfo /FO CSV  /NH";
@@ -98,8 +99,13 @@ public class SystemInfoFile {
 		            String hostName = st.nextToken();		
 		            //update system id with host name
 		            String systemId = SystemIdFile.getSystemId();
-		            if(!systemId.contains(":"))
-		            	SystemIdFile.setSystemId(systemId + ":" + hostName);
+		            if(systemId != null){
+		            	if(!systemId.contains(":"))
+			            	SystemIdFile.setSystemId(systemId + ":" + hostName);
+		            }else{
+		            	SystemIdFile.setSystemId(":" + hostName);
+		            }
+		            
 		            
 		            String osName = st.nextToken();		            		            
 		            String osVersion = st.nextToken();
