@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2008 VP1 Enterprise, Build 3571
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Fri Sep 10 12:52:38 PDT 2010 -->
-<InstallAnywhere_Deployment_Project increments="9016">
+     DATE:   Mon Sep 13 19:38:16 PDT 2010 -->
+<InstallAnywhere_Deployment_Project increments="9106">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="9" minor="5" revision="0"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,69,49,55,55,57,82,81,81,68,81,81,68,81,81,55,81,70,81,82,70,81,57,70</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,86,105,115,116,97,44,32,54,46,48,44,32,120,56,54,59,32,74,97,118,97,32,49,46,53,46,48,95,49,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,32,-13,60,-32,0,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,14,14,84,109,10,1,0,0</authorizationID>
+		<authorizationID>1,0,0,32,3,28,80,-48,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,3,15,91,110,11,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="602">
+	<installationObjects uniqueObjects="610">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="wizardME">
 				<object class="com.zerog.ia.installer.actions.MakeExecutable" objectID="85358c91894c">
@@ -1094,7 +1094,7 @@ and any path to a file to read from that file]]></string>
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="10b5d66d8c99">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="219c581a9469">
 													<property name="propertyValue">
 														<string><![CDATA[false]]></string>
 													</property>
@@ -6617,8 +6617,8 @@ Please check your workstation settings or consult your system administrator.  Cl
 												<string><![CDATA[Site Identification]]></string>
 											</property>
 											<property name="prompt">
-												<string><![CDATA[Please enter your Site ID below (Corporation + School ID). 
-If you do not know your Site ID, contact your School or Corporation Administrator.]]></string>
+												<string><![CDATA[Please enter your District ID and School ID below.
+If you do not know your District ID and School ID, contact your School or District Administrator.]]></string>
 											</property>
 											<property name="guiGroups">
 												<object class="java.util.Vector">
@@ -6635,13 +6635,52 @@ If you do not know your Site ID, contact your School or Corporation Administrato
 																	<method name="addElement">
 																		<object class="com.zerog.ia.installer.util.GUIComponentData" objectID="be5c00038c8a">
 																			<property name="label">
-																				<string><![CDATA[* Site ID:]]></string>
+																				<string><![CDATA[* District ID:]]></string>
 																			</property>
 																			<property name="defaultValue">
 																				<string><![CDATA[]]></string>
 																			</property>
 																			<property name="variableName">
 																				<string><![CDATA[$USER_INPUT_RESULT_0$]]></string>
+																			</property>
+																			<property name="bidiOption">
+																				<int>0</int>
+																			</property>
+																		</object>
+																	</method>
+																</object>
+															</property>
+															<property name="caption">
+																<string><![CDATA[]]></string>
+															</property>
+															<property name="additional">
+																<object class="java.lang.Integer">0</object>
+															</property>
+															<property name="bidiOption">
+																<int>0</int>
+															</property>
+														</object>
+													</method>
+													<method name="addElement">
+														<object class="com.zerog.ia.installer.util.GUIGroupData" objectID="2131970f8c86">
+															<property name="groupType">
+																<int>0</int>
+															</property>
+															<property name="componentType">
+																<int>0</int>
+															</property>
+															<property name="components">
+																<object class="java.util.Vector">
+																	<method name="addElement">
+																		<object class="com.zerog.ia.installer.util.GUIComponentData" objectID="213197108c86">
+																			<property name="label">
+																				<string><![CDATA[* School ID:]]></string>
+																			</property>
+																			<property name="defaultValue">
+																				<string><![CDATA[]]></string>
+																			</property>
+																			<property name="variableName">
+																				<string><![CDATA[$USER_INPUT_RESULT_1$]]></string>
 																			</property>
 																			<property name="bidiOption">
 																				<int>0</int>
@@ -6677,6 +6716,17 @@ If you do not know your Site ID, contact your School or Corporation Administrato
 												</object>
 											</property>
 										</object>
+										<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="218ef10f8c8e">
+											<property name="name">
+												<string><![CDATA[$ATV_SOURCE$]]></string>
+											</property>
+											<property name="value">
+												<string><![CDATA[$USER_INPUT_RESULT_0$]]></string>
+											</property>
+											<property name="passByValue">
+												<boolean>false</boolean>
+											</property>
+										</object>
 										<object class="com.zerog.ia.installer.actions.CustomAction" objectID="c33a7856b7d9">
 											<property name="showPleaseWaitPanel">
 												<boolean>false</boolean>
@@ -6702,7 +6752,7 @@ If you do not know your Site ID, contact your School or Corporation Administrato
 										</object>
 										<object class="com.zerog.ia.installer.actions.ActionGroup" objectID="be642da38dfe">
 											<property name="groupName">
-												<string><![CDATA[Check user input for Site Identification]]></string>
+												<string><![CDATA[Check user input for District ID]]></string>
 											</property>
 											<rules logicalOperation="AND">
 												<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="be6478f58e07">
@@ -6726,7 +6776,100 @@ If you do not know your Site ID, contact your School or Corporation Administrato
 														<string><![CDATA[User Input Missing]]></string>
 													</property>
 													<property name="narrative">
-														<string><![CDATA[Please enter your Site ID. This is a required field.
+														<string><![CDATA[Please enter your District ID. This is a required field.
+ ]]></string>
+													</property>
+													<property name="dismissalAction">
+														<int>0</int>
+													</property>
+													<property name="cancelDismissalAction">
+														<int>0</int>
+													</property>
+													<property name="detailsDismissalAction">
+														<int>1</int>
+													</property>
+													<property name="buttonLabel">
+														<string><![CDATA[OK]]></string>
+													</property>
+													<property name="cancelButtonLabel">
+														<string><![CDATA[Cancel]]></string>
+													</property>
+													<property name="detailsButtonLabel">
+														<string><![CDATA[Details...]]></string>
+													</property>
+													<property name="variableName">
+														<string><![CDATA[$CHOSEN_DIALOG_BUTTON$]]></string>
+													</property>
+													<property name="buttonCombination">
+														<int>0</int>
+													</property>
+													<property name="alertLevel">
+														<int>0</int>
+													</property>
+												</object>
+											</visualChildren>
+										</object>
+										<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="219174128c96">
+											<property name="name">
+												<string><![CDATA[$ATV_SOURCE$]]></string>
+											</property>
+											<property name="value">
+												<string><![CDATA[$USER_INPUT_RESULT_1$]]></string>
+											</property>
+											<property name="passByValue">
+												<boolean>false</boolean>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.actions.CustomAction" objectID="2192bae18c96">
+											<property name="showPleaseWaitPanel">
+												<boolean>false</boolean>
+											</property>
+											<property name="showIndeterminateDialog">
+												<boolean>false</boolean>
+											</property>
+											<property name="dialogLabel">
+												<string><![CDATA[Executing Custom Code...]]></string>
+											</property>
+											<property name="clientClassFullName">
+												<string><![CDATA[com.ctb.tdc.installer.action.CheckNonEmptyStringAction]]></string>
+											</property>
+											<property name="resourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
+											</property>
+											<property name="resourceName">
+												<string><![CDATA[tdcia.jar]]></string>
+											</property>
+											<property name="runsAfterFileDeletesNotBefore">
+												<boolean>false</boolean>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.actions.ActionGroup" objectID="21931e358c97">
+											<property name="groupName">
+												<string><![CDATA[Check user input for Site Identification]]></string>
+											</property>
+											<rules logicalOperation="AND">
+												<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="21931e368c97">
+													<property name="operation">
+														<string><![CDATA[does not equal]]></string>
+													</property>
+													<property name="operandOne">
+														<string><![CDATA[$EME_RESULT$]]></string>
+													</property>
+													<property name="operandTwo">
+														<string><![CDATA[true]]></string>
+													</property>
+												</object>
+											</rules>
+											<visualChildren>
+												<object class="com.zerog.ia.installer.actions.ShowDialogAction" objectID="21931e358c98">
+													<property name="title">
+														<string><![CDATA[Online Assessment Software]]></string>
+													</property>
+													<property name="label">
+														<string><![CDATA[User Input Missing]]></string>
+													</property>
+													<property name="narrative">
+														<string><![CDATA[Please enter your School ID. This is a required field.
  ]]></string>
 													</property>
 													<property name="dismissalAction">
@@ -7894,7 +8037,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.build.last.date]]></string>
-						<string><![CDATA[September 9, 2010 4:59:43 PM PDT]]></string>
+						<string><![CDATA[September 13, 2010 7:32:40 PM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.windows.vm]]></string>
@@ -7966,7 +8109,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[September 10, 2010 12:52:38 PM PDT]]></string>
+						<string><![CDATA[September 13, 2010 7:38:14 PM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -11877,7 +12020,8 @@ and any path to a file to read from that file]]></string>
 										</object>
 										<object class="com.zerog.ia.installer.actions.ASCIIFileManipulator" objectID="be74b9b695cd">
 											<property name="additionalText">
-												<string><![CDATA[$USER_INPUT_RESULT_0$]]></string>
+												<string><![CDATA[$USER_INPUT_RESULT_0$
+$USER_INPUT_RESULT_1$]]></string>
 											</property>
 											<property name="fileTargetType">
 												<int>0</int>

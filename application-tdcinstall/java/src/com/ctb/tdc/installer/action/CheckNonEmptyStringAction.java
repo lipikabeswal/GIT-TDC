@@ -11,7 +11,7 @@ import com.zerog.ia.api.pub.UninstallerProxy;
 public class CheckNonEmptyStringAction extends CustomCodeAction {
 
 	private void verifyString(InstallerProxy installerProxy) {
-        String inputStr = installerProxy.substitute("$USER_INPUT_RESULT_0$");
+        String inputStr = installerProxy.substitute("$ATV_SOURCE$");
         inputStr = inputStr.trim();
         Boolean result = new Boolean( inputStr.length() > 0 );
          
