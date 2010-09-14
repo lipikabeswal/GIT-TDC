@@ -46,6 +46,64 @@ public class SystemInfoFile {
 		String errorString = "";
 		String resultString = "";
 		
+		if(LoadTestUtils.isMacOS()){
+						
+			try{
+				Process p1 = Runtime.getRuntime().exec("uname -mn");
+				BufferedReader stdInput1 = new BufferedReader(new InputStreamReader(p1.getInputStream()));
+				
+				String hostName = stdInput1.readLine();
+				stdInput1.close();
+				
+				Process p2 = Runtime.getRuntime().exec("system_profiler|grep \"Model Name:\"");
+				BufferedReader stdInput2 = new BufferedReader(new InputStreamReader(p2.getInputStream()));
+				
+				String systemModel = stdInput2.readLine();
+				stdInput2.close();
+				
+				Process p3 = Runtime.getRuntime().exec("system_profiler|grep \"Memory:\"");
+				BufferedReader stdInput3 = new BufferedReader(new InputStreamReader(p3.getInputStream()));
+				
+				String physicalMemory = stdInput3.readLine();
+				stdInput3.close();
+				
+				Process p4 = Runtime.getRuntime().exec("system_profiler|grep \"Processor\"");
+				BufferedReader stdInput4 = new BufferedReader(new InputStreamReader(p4.getInputStream()));
+				
+				String processors = "";
+				String line = "";
+				while ((line = stdInput4.readLine()) != null){
+					processors = processors + line;
+				}
+				stdInput4.close();
+				
+				Process p5 = Runtime.getRuntime().exec("system_profiler|grep \"VRAM\"");
+				BufferedReader stdInput5 = new BufferedReader(new InputStreamReader(p5.getInputStream()));
+				
+				String virtualMemory = stdInput5.readLine();
+				stdInput5.close();
+				
+				Process p6 = Runtime.getRuntime().exec("sw_vers -productName");
+				BufferedReader stdInput6 = new BufferedReader(new InputStreamReader(p6.getInputStream()));
+				
+				String osVersion = stdInput6.readLine();
+				stdInput6.close();
+				
+				resultString = hostName + "|" + "MacOS" + "|" + osVersion + "|" + systemModel + "|" + physicalMemory + "|" + virtualMemory +  "|" +processors + "|" + "No network info";
+
+				FileWriter systemInfoFile = new FileWriter(tdcHome + LOAD_TEST_FOLDER + SYSTEM_INFO_FILE);
+				BufferedWriter systemInfoBr = new BufferedWriter(systemInfoFile);
+				
+				systemInfoBr.write(resultString);
+				systemInfoBr.flush();
+				systemInfoBr.close();
+				systemInfoFile.close();
+				
+			}catch(IOException e){
+				error=true;
+			}
+			
+		}
 		
 		if(!LoadTestUtils.isMacOS() && !LoadTestUtils.isLinux()){
 			
@@ -71,8 +129,7 @@ public class SystemInfoFile {
 			}						
 			if (!SystemInfoFile.fileExists()){
 				error = true;
-			}
-				
+			}				
 		}
 		
 		return error;
@@ -143,7 +200,45 @@ public class SystemInfoFile {
 				}catch(IOException ioe){
 					logger.error("Exception in parsing system info file : " + ServletUtils.printStackTrace(ioe));
 				}				
-			}			
+			}else if(LoadTestUtils.isMacOS()){
+				try{
+					FileReader systemInfoFile = new FileReader(tdcHome + LOAD_TEST_FOLDER + SYSTEM_INFO_FILE);
+					BufferedReader systemInfoBr = new BufferedReader(systemInfoFile);		            
+		            systemInfoRecord = systemInfoBr.readLine(); 
+		            
+		            StringTokenizer st = new StringTokenizer(systemInfoRecord, "|");
+		            
+		            String hostName = st.nextToken();		
+		            //update system id with host name
+		            String systemId = SystemIdFile.getSystemId();
+		            if(systemId != null){
+		            	if(!systemId.contains(":"))
+			            	SystemIdFile.setSystemId(systemId + ":" + hostName);
+		            }else{
+		            	SystemIdFile.setSystemId(":" + hostName);
+		            }
+		            
+		            String osName = st.nextToken();		            		            
+		            String osVersion = st.nextToken();
+		            String systemModel = st.nextToken();
+		            String physicalMemory = st.nextToken();		            		            
+		            String virtualMemory = st.nextToken();
+		            String processors = st.nextToken();
+		            String networkCards = st.nextToken();
+		            
+		            
+		            systemInfoXML = LoadTestUtils.setAttributeValue("system_id",SystemIdFile.getSystemId(),systemInfoXML);
+		            systemInfoXML = LoadTestUtils.setAttributeValue("os_name",osName,systemInfoXML);
+		            systemInfoXML = LoadTestUtils.setAttributeValue("os_version",osVersion,systemInfoXML);
+		            systemInfoXML = LoadTestUtils.setAttributeValue("system_model",systemModel,systemInfoXML);
+		            systemInfoXML = LoadTestUtils.setAttributeValue("physical_memory",physicalMemory,systemInfoXML);
+		            systemInfoXML = LoadTestUtils.setAttributeValue("virtual_memory",virtualMemory,systemInfoXML);
+		            systemInfoXML = LoadTestUtils.setAttributeValue("processors",processors,systemInfoXML);
+		            systemInfoXML = LoadTestUtils.setAttributeValue("network_cards",networkCards,systemInfoXML);
+				}catch(IOException ioe){
+					logger.error("Exception in parsing system info file : " + ServletUtils.printStackTrace(ioe));
+				}			            
+			}
 		}		
 		return systemInfoXML;
 	}
