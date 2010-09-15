@@ -1094,4 +1094,9 @@ return elementList;*/
         }		
 	}
 		
+	public static void shutdown() {
+		synchronized(client) {
+			((MultiThreadedHttpConnectionManager) ServletUtils.client.getHttpConnectionManager()).shutdown();
+		}
+	}
 }

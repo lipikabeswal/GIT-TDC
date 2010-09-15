@@ -144,7 +144,7 @@ public class UtilityServlet extends HttpServlet {
 	private static class KillMe extends Thread {
 		public void run() {
 			try {
-				((MultiThreadedHttpConnectionManager)ServletUtils.client.getHttpConnectionManager()).shutdown();
+				ServletUtils.shutdown();
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {

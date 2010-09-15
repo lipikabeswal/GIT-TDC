@@ -79,7 +79,7 @@ public class LockdownBrowserWrapper extends Thread {
 		this.splashWindow = splashWindow;
             
 		if ( macOS ) {
-			this.ismac = true;
+			LockdownBrowserWrapper.ismac = true;
 			
 			File ldbHomeDir = new File(this.tdcHome + "/lockdownbrowser/mac");
 			this.ldbHome = ldbHomeDir.getAbsolutePath();
@@ -92,7 +92,7 @@ public class LockdownBrowserWrapper extends Thread {
             this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
             
 		} else if ( linux ) {
-			this.islinux = true;
+			LockdownBrowserWrapper.islinux = true;
 			
 			File ldbHomeDir = new File(this.tdcHome + "/lockdownbrowser/linux");
 			this.ldbHome = ldbHomeDir.getAbsolutePath();
@@ -179,26 +179,33 @@ public class LockdownBrowserWrapper extends Thread {
 		public void run() {
 			try {
 				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(false);
+				boolean forcedFullscreen = false;
+				int retryCount = 0;
 				Thread.sleep(5000);
-				String wmctrl = "./wmctrl -r \"Online Assessment System\" -b \"toggle, fullscreen\"";
-				Runtime.getRuntime().exec(wmctrl, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-				try{
-					Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-				}catch (Exception e) {
-					// do nothing
+				while (!forcedFullscreen && retryCount < 3) {
+					try {
+						String wmctrl = "./wmctrl -r \"Online Assessment System\" -b \"toggle, fullscreen\"";
+						Runtime.getRuntime().exec(wmctrl, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+						Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+						forcedFullscreen = true;
+					} catch (Exception e) {
+						// do nothing
+					}
+					Thread.sleep(2500);
+					retryCount++;
 				}
 				while(true) {
-					LockdownBrowserWrapper.kill_printscreen_snapshot();
-					//Runtime.getRuntime().exec("./wmctrl -s \"Desk 1\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-					//Runtime.getRuntime().exec("./wmctrl -r \"Online Assessment System\" -t \"Desk 1\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-					//Thread.sleep(100);
-					//Runtime.getRuntime().exec("./wmctrl -n 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-					//Runtime.getRuntime().exec("./wmctrl -s 0", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-					//Runtime.getRuntime().exec("./wmctrl -r \"Online Assessment System\" -t 0", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-					//Runtime.getRuntime().exec("./wmctrl -R \"Online Assessment System\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-					Runtime.getRuntime().exec("./wmctrl -n 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-					Runtime.getRuntime().exec("./wmctrl -R \"Online Assessment System\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-					try{	
+					try{
+						LockdownBrowserWrapper.kill_printscreen_snapshot();
+						//Runtime.getRuntime().exec("./wmctrl -s \"Desk 1\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+						//Runtime.getRuntime().exec("./wmctrl -r \"Online Assessment System\" -t \"Desk 1\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+						//Thread.sleep(100);
+						//Runtime.getRuntime().exec("./wmctrl -n 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+						//Runtime.getRuntime().exec("./wmctrl -s 0", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+						//Runtime.getRuntime().exec("./wmctrl -r \"Online Assessment System\" -t 0", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+						//Runtime.getRuntime().exec("./wmctrl -R \"Online Assessment System\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+						Runtime.getRuntime().exec("./wmctrl -n 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+						Runtime.getRuntime().exec("./wmctrl -R \"Online Assessment System\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));	
 						Runtime.getRuntime().exec("gconftool-2 -s -t int /apps/compiz/general/screen0/options/number_of_desktops 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 					} catch (Exception e) {
 						// do nothing
@@ -402,10 +409,10 @@ public class LockdownBrowserWrapper extends Thread {
 			
 			cleanupLock();
 			
-			exit();
-			
 		} catch (Exception e) {
 			ConsoleUtils.messageErr("An error has occured within " + this.getClass().getName(), e);
+		} finally {
+			exit();
 		}
 	}
 	
@@ -553,28 +560,22 @@ public class LockdownBrowserWrapper extends Thread {
 	}
 	
 	public static synchronized void exit() {
-		new KillThem().start();
-	}
-	
-	private static class KillThem extends Thread {
-		public void run() {
-			try {
-				if(islinux) {
-	        		Runtime.getRuntime().exec("killall OASTDC");
-	        		Thread.sleep(250);
-	        		Runtime.getRuntime().exec("killall OASTDC");
-	        	} else if(ismac) {
-	        		Runtime.getRuntime().exec("killall LockDownBrowser");	        		
-	        		Thread.sleep(250);
-	        		Runtime.getRuntime().exec("killall LockDownBrowser");
-	        	} else {
-	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
-	        		Thread.sleep(250);
-	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
-	        	}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		try {
+			if(islinux) {
+        		Runtime.getRuntime().exec("killall OASTDC");
+        		Thread.sleep(250);
+        		Runtime.getRuntime().exec("killall OASTDC");
+        	} else if(ismac) {
+        		Runtime.getRuntime().exec("killall LockDownBrowser");
+        		Thread.sleep(250);
+        		Runtime.getRuntime().exec("killall LockDownBrowser");
+        	} else {
+        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+        		Thread.sleep(250);
+        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+        	}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

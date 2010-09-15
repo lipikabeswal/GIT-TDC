@@ -42,7 +42,7 @@ public class Main {
 	/**
 	 * Sleep interval for the polling while loop within the main method.
 	 */
-	public static final int SLEEP_INTERVAL = 3;
+	public static final int SLEEP_INTERVAL = 2;
 	/**
 	 * Port number used to guarantee only one instance of the bootstrap
 	 * can be running on the workstation.
@@ -471,8 +471,7 @@ public class Main {
 			jetty.start();
 			boolean ldbLaunched = false;
 			while( jetty.isAlive() ) {
-				Thread.sleep( Main.SLEEP_INTERVAL * 1000 );
-				
+
 				if( jetty.isAvailable() && !ldbLaunched ) {
 					splashWindow.setStatus(" ", 100);
 					ldb.start();
@@ -492,6 +491,8 @@ public class Main {
                     // delete proxy.properties
 					Main.deletePropertyFiles(tdcHome);        
 				}
+				
+				Thread.sleep( Main.SLEEP_INTERVAL * 1000 );
 			}
 
 			// Check the exit codes of the wrapper processes.
@@ -536,6 +537,7 @@ public class Main {
 				// Close out the application.
 				ConsoleUtils.messageOut("Done.");
 			} finally {
+				LockdownBrowserWrapper.exit();
 				System.exit(exitCode);
 			}
 		}
