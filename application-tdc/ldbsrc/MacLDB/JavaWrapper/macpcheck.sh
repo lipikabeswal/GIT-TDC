@@ -205,5 +205,33 @@ fi
 	strVal="$strVal|$check"
  fi
 
+#OTHERS
+
+ if [ ! -z "$(ps -ef | grep 'bash' | grep -v grep)" ]
+ 	then check=37
+	strVal="$strVal|$check"
+ fi
+
+ if [ ! -z "$(ps -ef | grep 'TextEdit' | grep -v grep)" ]
+ 	then check=38
+	strVal="$strVal|$check"
+ fi
+
+ if [ ! -z "$(ps -ef | grep 'Yahoo' | grep -v grep)" ]
+ 	then check=39
+	strVal="$strVal|$check"
+ fi
+
+ if [ ! -z "$(ps -ef | grep 'Microsoft Messenger' | grep -v grep)" ]
+ 	then check=40
+	strVal="$strVal|$check"
+ fi
+
+ if [ ! -z "$(ps -ef | grep 'Console' | grep -v grep)" ]
+ 	then check=41
+	strVal="$strVal|$check"
+ fi
+
+
 echo $strVal > temp_forbidden
 exit $check
