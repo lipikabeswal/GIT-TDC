@@ -4,7 +4,6 @@
 #import "FullscreenWindow.h"
 
 @implementation MyDocument
-
 @synthesize window;
 
 -(void)dealloc {
@@ -29,6 +28,9 @@
 -(void)windowControllerDidLoadNib:(NSWindowController *) aController {
     [super windowControllerDidLoadNib:aController];
 
+	[webView setFrameLoadDelegate:self];
+	[webView setDrawsBackground:NO];//to avoid default white background
+	
 	NSAutoreleasePool *pool;
 	pool = [NSAutoreleasePool new]; 
     
@@ -49,6 +51,13 @@
 
 	[pool drain];		
 }
+
+/*will do it later 
+- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
+{
+	NSURL *url = [webView mainFrameURL];
+	NSLog(@"didFinishLoadForFrame.....%@",url);
+}*/
 
 -(void)close {
     [webView close];
@@ -113,7 +122,8 @@ OSErr QuitAppleEventHandler (const AppleEvent *appleEvt, AppleEvent* reply, UInt
 		styleMask:NSBorderlessWindowMask
 		backing:NSBackingStoreBuffered
 		defer:YES screen:[NSScreen mainScreen]];
-			
+
+	[fullscreenWindow setBackgroundColor:[self colorWithHexColorString:@"6691B4"]];//settting blue background			
 	[fullscreenWindow setLevel:windowLevel];
 	[fullscreenWindow setContentView:[window contentView]];
 	[fullscreenWindow setFrame:
@@ -124,4 +134,26 @@ OSErr QuitAppleEventHandler (const AppleEvent *appleEvt, AppleEvent* reply, UInt
 	[window orderOut:nil];		
 }
 
+- (NSColor*)colorWithHexColorString:(NSString*)inColorString
+{
+	NSColor* result    = nil;
+	unsigned colorCode = 0;
+	unsigned char redByte, greenByte, blueByte;
+ 
+	if (nil != inColorString)
+	{
+		NSScanner* scanner = [NSScanner scannerWithString:inColorString];
+		(void) [scanner scanHexInt:&colorCode]; // ignore error
+	}
+	redByte   = (unsigned char)(colorCode >> 16);
+	greenByte = (unsigned char)(colorCode >> 8);
+	blueByte  = (unsigned char)(colorCode);     // masks off high bits
+ 
+	result = [NSColor
+		          colorWithCalibratedRed:(CGFloat)redByte    / 0xff
+		          green:(CGFloat)greenByte / 0xff
+		          blue:(CGFloat)blueByte   / 0xff
+		          alpha:1.0];
+	return result;
+}
 @end
