@@ -45,52 +45,53 @@ public class SystemInfoFile {
 		String tdcHome = FileUtils.getHome();
 		String errorString = "";
 		String resultString = "";
+
 		
 		if(LoadTestUtils.isMacOS()){
-						
+			String systemModel = "";
+			String physicalMemory = "";
+			String processors = "";
+			String virtualMemory = "";
+			String osVersion = "";
+			String line = "";
+			
 			try{
 				Process p1 = Runtime.getRuntime().exec("uname -mn");
 				BufferedReader stdInput1 = new BufferedReader(new InputStreamReader(p1.getInputStream()));
 				
 				String hostName = stdInput1.readLine();
+				
 				stdInput1.close();
 				
-				Process p2 = Runtime.getRuntime().exec("system_profiler|grep \"Model Name:\"");
+				Process p2 = Runtime.getRuntime().exec("system_profiler");
 				BufferedReader stdInput2 = new BufferedReader(new InputStreamReader(p2.getInputStream()));
+			
+				while ((line = stdInput2.readLine()) != null){
+					if (line.contains("Model Name:"))
+						systemModel = systemModel + line;
+					if (line.contains("Memory:"))
+						physicalMemory = physicalMemory + line;
+					if (line.contains("Processor"))
+						processors = processors + line;
+					if (line.contains("VRAM"))
+						virtualMemory = virtualMemory + line;
+					
+				}
 				
-				String systemModel = stdInput2.readLine();
 				stdInput2.close();
 				
-				Process p3 = Runtime.getRuntime().exec("system_profiler|grep \"Memory:\"");
-				BufferedReader stdInput3 = new BufferedReader(new InputStreamReader(p3.getInputStream()));
-				
-				String physicalMemory = stdInput3.readLine();
-				stdInput3.close();
-				
-				Process p4 = Runtime.getRuntime().exec("system_profiler|grep \"Processor\"");
-				BufferedReader stdInput4 = new BufferedReader(new InputStreamReader(p4.getInputStream()));
-				
-				String processors = "";
-				String line = "";
-				while ((line = stdInput4.readLine()) != null){
-					processors = processors + line;
-				}
-				stdInput4.close();
-				
-				Process p5 = Runtime.getRuntime().exec("system_profiler|grep \"VRAM\"");
-				BufferedReader stdInput5 = new BufferedReader(new InputStreamReader(p5.getInputStream()));
-				
-				String virtualMemory = stdInput5.readLine();
-				stdInput5.close();
-				
-				Process p6 = Runtime.getRuntime().exec("sw_vers -productName");
+				Process p6 = Runtime.getRuntime().exec("sw_vers");
 				BufferedReader stdInput6 = new BufferedReader(new InputStreamReader(p6.getInputStream()));
 				
-				String osVersion = stdInput6.readLine();
-				stdInput6.close();
 				
-				resultString = hostName + "|" + "MacOS" + "|" + osVersion + "|" + systemModel + "|" + physicalMemory + "|" + virtualMemory +  "|" +processors + "|" + "No network info";
+				while ((line = stdInput6.readLine()) != null){
+					osVersion = osVersion + line;
+				}
+			
+				stdInput6.close();
 
+				resultString = hostName + "|" + "MacOS" + "|" + osVersion + "|" + systemModel + "|" + physicalMemory + "|" + virtualMemory +  "|" +processors + "|" + "No network info";
+				
 				FileWriter systemInfoFile = new FileWriter(tdcHome + LOAD_TEST_FOLDER + SYSTEM_INFO_FILE);
 				BufferedWriter systemInfoBr = new BufferedWriter(systemInfoFile);
 				
@@ -101,6 +102,7 @@ public class SystemInfoFile {
 				
 			}catch(IOException e){
 				error=true;
+				logger.error("Mac Exception captturing system info : " + ServletUtils.printStackTrace(e));
 			}
 			
 		}

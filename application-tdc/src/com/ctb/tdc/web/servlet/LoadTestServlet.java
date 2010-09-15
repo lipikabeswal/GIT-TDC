@@ -155,8 +155,8 @@ public class LoadTestServlet extends HttpServlet{
             	responseXML = ServletUtils.httpClientSendRequest(ServletUtils.UPLOAD_SYSTEM_INFO_METHOD, requestXML);
             	
             	if (!responseXML.contains("OK")){
-            		SystemInfoFile.deleteSystemInfoFile(); //delete the file so that the upload request is made next time this servlet is called
-            		SystemIdFile.reset();
+            		//SystemInfoFile.deleteSystemInfoFile(); //delete the file so that the upload request is made next time this servlet is called
+            		
             	}
             	else{
             		MarkerFile.create(); //create a marker file to indicate that the system info data was successfully uploaded
@@ -166,7 +166,7 @@ public class LoadTestServlet extends HttpServlet{
                 logger.error("Exception occured in load test config request : " + ServletUtils.printStackTrace(e));
                 responseXML = ServletUtils.buildXmlErrorMessage("", e.getMessage(), "");
                 SystemInfoFile.deleteSystemInfoFile(); //delete the file so that the upload request is made next time this servlet is called
-                SystemIdFile.reset();
+               
             }
         }    	            
         return responseXML;
