@@ -236,12 +236,9 @@ public class LockdownBrowserWrapper extends Thread {
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome) );
 					this.isAvailable = true;
 					ldb.waitFor();
-					Runtime.getRuntime().exec("echo '' | pbcopy", null, new File(this.ldbHome) );
-	        		Runtime.getRuntime().exec("rm -rf ~/Desktop/ScrCapture", null, new File(this.ldbHome) );
-	        		Runtime.getRuntime().exec("defaults write com.apple.screencapture disable-shadow -bool false", null, new File(this.ldbHome) );
-	        		Runtime.getRuntime().exec("defaults write com.apple.screencapture location ~/Desktop", null, new File(this.ldbHome) );
-	        		Runtime.getRuntime().exec("defaults write com.apple.screencapture name picture", null, new File(this.ldbHome) );
-	        		Runtime.getRuntime().exec("killall SystemUIServer", null, new File(this.ldbHome) );
+	        		Runtime.getRuntime().exec("sh clear_clipboard.sh");
+	    			Runtime.getRuntime().exec("sh enable_screen_capture.sh");
+	        		System.out.println("enable print screen called");
 					this.isAvailable = false;	
 				} else {
 					try {
@@ -567,7 +564,7 @@ public class LockdownBrowserWrapper extends Thread {
 	        		Thread.sleep(250);
 	        		Runtime.getRuntime().exec("killall OASTDC");
 	        	} else if(ismac) {
-	        		Runtime.getRuntime().exec("killall LockDownBrowser");
+	        		Runtime.getRuntime().exec("killall LockDownBrowser");	        		
 	        		Thread.sleep(250);
 	        		Runtime.getRuntime().exec("killall LockDownBrowser");
 	        	} else {
