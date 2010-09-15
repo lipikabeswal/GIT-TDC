@@ -28,8 +28,8 @@
 	</xsl:template>
 
 
-	<xsl:template match="//object[@objectID='219c581a9469']">
-		<object class="com.zerog.ia.installer.util.VariablePropertyData" objectID="219c581a9469">
+	<xsl:template match="//object[@objectID='26bd66ee91d4']">
+		<object class="com.zerog.ia.installer.util.VariablePropertyData" objectID="26bd66ee91d4">
 			<property name="propertyValue">
 				<string><![CDATA[true]]></string>
 			</property>
