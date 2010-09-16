@@ -566,9 +566,9 @@ public class LockdownBrowserWrapper extends Thread {
         		Thread.sleep(250);
         		Runtime.getRuntime().exec("killall OASTDC");
         	} else if(ismac) {
-        		Runtime.getRuntime().exec("killall LockDownBrowser");
+        		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
         		Thread.sleep(250);
-        		Runtime.getRuntime().exec("killall LockDownBrowser");
+        		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
         	} else {
         		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
         		Thread.sleep(250);
