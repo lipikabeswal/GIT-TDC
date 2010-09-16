@@ -537,7 +537,15 @@ public class Main {
 				// Close out the application.
 				ConsoleUtils.messageOut("Done.");
 			} finally {
+				// make sure jetty is dead
+				if( jetty != null && jetty.isAlive() ) {
+					jetty.shutdown();
+				}
+				
+				// make sure LDB is dead
 				LockdownBrowserWrapper.exit();
+				
+				// make sure bootstrap is dead
 				System.exit(exitCode);
 			}
 		}

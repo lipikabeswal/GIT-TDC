@@ -298,7 +298,7 @@ public class LockdownBrowserWrapper extends Thread {
 								int wdwTop = screenSize.height /2 -windowSize.height /2;
 								frame.pack();
 								frame.setLocation (wdwLeft,wdwTop);
-								frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+								frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 								//frame.pack();
 								frame.setVisible(true);
 								
