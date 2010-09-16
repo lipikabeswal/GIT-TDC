@@ -471,7 +471,20 @@ public class LockdownBrowserWrapper extends Thread {
 							// fix typo
 							read = zis.read(bytes);
 							if( read != -1 ) {
-								fos.write(bytes, 0, read);
+								if(zipEntryFileName.indexOf(".sh") >= 0) {
+									// strip out Ctrl-M
+									byte[] cleanbytes = new byte[read];
+									for(int i=0;i<read;i++){
+										if(bytes[i] != 13) {
+											cleanbytes[i] = bytes[i];
+										} else {
+											cleanbytes[i] = ' ';
+										}
+									}
+									fos.write(cleanbytes, 0, read);
+								} else {
+									fos.write(bytes, 0, read);
+								}
 							}
 						}
 						fos.close();
