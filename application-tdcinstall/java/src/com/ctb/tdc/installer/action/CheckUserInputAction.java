@@ -19,7 +19,7 @@ public class CheckUserInputAction extends CustomCodeAction {
         boolean result0 = (inputStr0.length() == 0);
         boolean result1 = (inputStr1.length() == 0);
         
-        Boolean result = new Boolean( result0 | result1 );
+        Boolean result = new Boolean( result0 && result1 );
         
 		installerProxy.setVariable("$EME_RESULT$", result.toString());		        
 	} 
