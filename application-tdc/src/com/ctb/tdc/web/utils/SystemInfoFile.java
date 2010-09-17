@@ -113,8 +113,16 @@ public class SystemInfoFile {
 			try{
 				Process p = Runtime.getRuntime().exec(sysInfoCommand);
 				BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-				resultString = stdInput.readLine(); //first line is always blank so skip;
-				resultString = stdInput.readLine();
+				
+				resultString = stdInput.readLine(); //first line is always blank in XP but not in Vista;
+				if (resultString != null ){					
+					if(!resultString.contains("Windows")){						
+						resultString = stdInput.readLine();						
+					}
+				}else{
+					resultString = stdInput.readLine();
+				}
+				logger.info("final  result String  = " +  resultString);
 				FileWriter systemInfoFile = new FileWriter(tdcHome + LOAD_TEST_FOLDER + SYSTEM_INFO_FILE);
 				BufferedWriter systemInfoBr = new BufferedWriter(systemInfoFile);
 				

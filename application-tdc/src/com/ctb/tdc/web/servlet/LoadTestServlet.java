@@ -464,8 +464,7 @@ public class LoadTestServlet extends HttpServlet{
 		try {
 			HttpClientParams clientParams = new HttpClientParams();
 			clientParams.setConnectionManagerTimeout(5 * 1000); // timeout in 5 seconds
-			HttpClient client = new HttpClient(clientParams);		
-			
+			HttpClient client = new HttpClient(clientParams);					
 				
 			responseCode = client.executeMethod(post);	
 			
@@ -482,8 +481,7 @@ public class LoadTestServlet extends HttpServlet{
 				if(result.contains("ERROR"))
 				{
 					success = false;
-				}
-					
+				}					
 			}
 			else {
 				result = "Error " +  HttpStatus.getStatusText(responseCode);
