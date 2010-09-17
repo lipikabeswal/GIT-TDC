@@ -179,22 +179,8 @@ public class LockdownBrowserWrapper extends Thread {
 		public void run() {
 			try {
 				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(false);
-				boolean forcedFullscreen = false;
-				int retryCount = 0;
-				Thread.sleep(5000);
-				while (!forcedFullscreen && retryCount < 3) {
-					try {
-						String wmctrl = "./wmctrl -r \"Online Assessment System\" -b \"toggle, fullscreen\"";
-						Runtime.getRuntime().exec(wmctrl, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-						Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-						forcedFullscreen = true;
-					} catch (Exception e) {
-						// do nothing
-					}
-					Thread.sleep(2500);
-					retryCount++;
-				}
 				while(true) {
+					Thread.sleep(500);
 					try{
 						LockdownBrowserWrapper.kill_printscreen_snapshot();
 						//Runtime.getRuntime().exec("./wmctrl -s \"Desk 1\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
@@ -210,7 +196,6 @@ public class LockdownBrowserWrapper extends Thread {
 					} catch (Exception e) {
 						// do nothing
 					}
-					Thread.sleep(500);
 				}
 			} catch (Exception e) {
 				flag = false;
@@ -318,6 +303,7 @@ public class LockdownBrowserWrapper extends Thread {
 					}
 				}
 			} else if (islinux) {
+				this.isAvailable = true;
 				// Linux native lib
 				System.load(this.tdcHome + "/liblock.so");
 				LockdownLinux lockdown = new LockdownLinux(this.tdcHome);
@@ -334,8 +320,6 @@ public class LockdownBrowserWrapper extends Thread {
 				// Run the LDB...
 				ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
 				ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
-				
-				this.isAvailable = true;
 	
 				if (flag) {
 					ConsoleUtils.messageOut("AIR app started at " + System.currentTimeMillis());
@@ -354,6 +338,21 @@ public class LockdownBrowserWrapper extends Thread {
 						i++;
 					}
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, envp, new File(this.ldbHome));
+					boolean forcedFullscreen = false;
+					int retryCount = 0;
+					Thread.sleep(2500);
+					while (!forcedFullscreen && retryCount < 3) {
+						try {
+							String wmctrl = "./wmctrl -r \"Online Assessment System\" -b \"toggle, fullscreen\"";
+							Runtime.getRuntime().exec(wmctrl, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+							Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+							forcedFullscreen = true;
+						} catch (Exception e) {
+							// do nothing
+						}
+						Thread.sleep(2500);
+						retryCount++;
+					}
 					ldb.waitFor();
 					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());	
 				}
