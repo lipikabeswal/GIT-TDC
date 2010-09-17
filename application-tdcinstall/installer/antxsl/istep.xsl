@@ -27,7 +27,7 @@
 		</property>
 	</xsl:template>
 
- 
+   
 	<xsl:template match="//object[@objectID='342cae348ccf']">
 		<object class="com.zerog.ia.installer.util.VariablePropertyData" objectID="342cae348ccf">
 			<property name="propertyValue">
