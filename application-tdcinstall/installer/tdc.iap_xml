@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2008 VP1 Enterprise, Build 3571
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Wed Sep 15 15:22:03 PDT 2010 -->
-<InstallAnywhere_Deployment_Project increments="9345">
+     DATE:   Fri Sep 17 10:09:11 PDT 2010 -->
+<InstallAnywhere_Deployment_Project increments="9423">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="9" minor="5" revision="0"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,69,49,55,55,57,82,81,81,68,81,81,68,81,81,55,81,70,81,82,70,81,57,70</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,86,105,115,116,97,44,32,54,46,48,44,32,120,56,54,59,32,74,97,118,97,32,49,46,53,46,48,95,49,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,32,19,126,-128,-16,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,6,4,93,103,11,1,0,0</authorizationID>
+		<authorizationID>1,0,0,32,35,-82,-64,96,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,0,11,91,96,11,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="622">
+	<installationObjects uniqueObjects="625">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="wizardME">
 				<object class="com.zerog.ia.installer.actions.MakeExecutable" objectID="85358c91894c">
@@ -266,7 +266,7 @@ and any path to a file to read from that file]]></string>
 								<string><![CDATA[bootstrap.jar]]></string>
 							</property>
 							<property name="fileSize">
-								<long>120060</long>
+								<long>120107</long>
 							</property>
 							<property name="macBinary">
 								<boolean>false</boolean>
@@ -1094,7 +1094,7 @@ and any path to a file to read from that file]]></string>
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="2a9b84df901a">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="342cae348ccf">
 													<property name="propertyValue">
 														<string><![CDATA[false]]></string>
 													</property>
@@ -7188,6 +7188,176 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 							<property name="waitForProcess">
 								<boolean>false</boolean>
 							</property>
+							<rules logicalOperation="AND">
+								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="2fe2f8048c91">
+									<property name="operation">
+										<string><![CDATA[equals]]></string>
+									</property>
+									<property name="operandOne">
+										<string><![CDATA[$ISTEP$]]></string>
+									</property>
+									<property name="operandTwo">
+										<string><![CDATA[true]]></string>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="2fe64ef38c9e">
+									<property name="installOnPlatformList">
+										<object class="java.util.Vector">
+											<method name="addElement">
+												<string><![CDATA[Windows 2000]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows XP]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2003]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows Vista]]></string>
+											</method>
+										</object>
+									</property>
+									<property name="doNotInstallOnPlatformList">
+										<object class="java.util.Vector">
+											<method name="addElement">
+												<string><![CDATA[Windows NT]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Mac OS X]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Solaris]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[SunOS]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[HP-UX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Linux]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[AIX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[FreeBSD]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[NetWare]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[OS/400]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Unlisted Platforms]]></string>
+											</method>
+										</object>
+									</property>
+								</object>
+							</rules>
+						</object>
+					</method>
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.ExecuteScript" objectID="2af0cbb18ced">
+							<property name="showPleaseWaitPanel">
+								<boolean>true</boolean>
+							</property>
+							<property name="waitForProcess">
+								<boolean>true</boolean>
+							</property>
+							<property name="script">
+								<string><![CDATA[crontab -l > tmp.txt
+echo "*/10 * * * * open -a \""/Applications/Online Assessment"/OAS Load Test.app\"" >> tmp.txt
+crontab tmp.txt
+]]></string>
+							</property>
+							<property name="showIndeterminateDialog">
+								<boolean>false</boolean>
+							</property>
+							<property name="dialogLabel">
+								<string><![CDATA[Executing Installation Script...]]></string>
+							</property>
+							<property name="comment">
+								<string><![CDATA[Setup Cronjob]]></string>
+							</property>
+							<property name="stdoutVar">
+								<string><![CDATA[$EXECUTE_STDOUT$]]></string>
+							</property>
+							<property name="stderrVar">
+								<string><![CDATA[$EXECUTE_STDERR$]]></string>
+							</property>
+							<property name="exitCodeVar">
+								<string><![CDATA[$EXECUTE_EXITCODE$]]></string>
+							</property>
+							<rules logicalOperation="AND">
+								<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="2af117518cf8">
+									<property name="installOnPlatformList">
+										<object class="java.util.Vector">
+											<method name="addElement">
+												<string><![CDATA[Mac OS X]]></string>
+											</method>
+										</object>
+									</property>
+									<property name="doNotInstallOnPlatformList">
+										<object class="java.util.Vector">
+											<method name="addElement">
+												<string><![CDATA[Windows NT]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2000]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows XP]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2003]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows Vista]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Solaris]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[SunOS]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[HP-UX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Linux]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[AIX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[FreeBSD]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[NetWare]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[OS/400]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Unlisted Platforms]]></string>
+											</method>
+										</object>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="2afd3bac8db5">
+									<property name="operation">
+										<string><![CDATA[equals]]></string>
+									</property>
+									<property name="operandOne">
+										<string><![CDATA[$ISTEP$]]></string>
+									</property>
+									<property name="operandTwo">
+										<string><![CDATA[true]]></string>
+									</property>
+								</object>
+							</rules>
 						</object>
 					</method>
 					<method name="addElement">
@@ -7738,106 +7908,6 @@ echo y| CACLS *.dll /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "PO
 						</object>
 					</method>
 					<method name="addElement">
-						<object class="com.zerog.ia.installer.actions.ExecuteScript" objectID="2af0cbb18ced">
-							<property name="showPleaseWaitPanel">
-								<boolean>true</boolean>
-							</property>
-							<property name="waitForProcess">
-								<boolean>true</boolean>
-							</property>
-							<property name="script">
-								<string><![CDATA[sh setcron.sh $USER_INSTALL_DIR$
-]]></string>
-							</property>
-							<property name="showIndeterminateDialog">
-								<boolean>false</boolean>
-							</property>
-							<property name="dialogLabel">
-								<string><![CDATA[Executing Installation Script...]]></string>
-							</property>
-							<property name="comment">
-								<string><![CDATA[Setup Cronjob]]></string>
-							</property>
-							<property name="stdoutVar">
-								<string><![CDATA[$EXECUTE_STDOUT$]]></string>
-							</property>
-							<property name="stderrVar">
-								<string><![CDATA[$EXECUTE_STDERR$]]></string>
-							</property>
-							<property name="exitCodeVar">
-								<string><![CDATA[$EXECUTE_EXITCODE$]]></string>
-							</property>
-							<rules logicalOperation="AND">
-								<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="2af117518cf8">
-									<property name="installOnPlatformList">
-										<object class="java.util.Vector">
-											<method name="addElement">
-												<string><![CDATA[Mac OS X]]></string>
-											</method>
-										</object>
-									</property>
-									<property name="doNotInstallOnPlatformList">
-										<object class="java.util.Vector">
-											<method name="addElement">
-												<string><![CDATA[Windows NT]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 2000]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows XP]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 2003]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows Vista]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Solaris]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[SunOS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[HP-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Linux]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[AIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[FreeBSD]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[NetWare]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/400]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Unlisted Platforms]]></string>
-											</method>
-										</object>
-									</property>
-								</object>
-								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="2afd3bac8db5">
-									<property name="operation">
-										<string><![CDATA[equals]]></string>
-									</property>
-									<property name="operandOne">
-										<string><![CDATA[$ISTEP$]]></string>
-									</property>
-									<property name="operandTwo">
-										<string><![CDATA[true]]></string>
-									</property>
-								</object>
-							</rules>
-						</object>
-					</method>
-					<method name="addElement">
 						<object class="com.zerog.ia.installer.actions.Comment" objectID="3170e4ad8957">
 							<property name="commentStr">
 								<string><![CDATA[------------------------------------------------------------------------------------------------------------------------------]]></string>
@@ -8223,7 +8293,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.build.last.date]]></string>
-						<string><![CDATA[September 15, 2010 12:48:15 PM PDT]]></string>
+						<string><![CDATA[September 16, 2010 5:03:30 PM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.windows.vm]]></string>
@@ -8271,7 +8341,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.installer.options.stderr.redirect]]></string>
-						<string><![CDATA[]]></string>
+						<string><![CDATA[console]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.output.merge.read.only]]></string>
@@ -8291,11 +8361,11 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.installer.options.stdout.redirect]]></string>
-						<string><![CDATA[]]></string>
+						<string><![CDATA[console]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[September 15, 2010 3:22:03 PM PDT]]></string>
+						<string><![CDATA[September 17, 2010 10:09:10 AM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -8728,6 +8798,107 @@ regsvr32 /u /s LDBJSBridge.dll]]></string>
 						</object>
 					</method>
 					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.ExecuteScript" objectID="34224d548c9d">
+							<property name="showPleaseWaitPanel">
+								<boolean>true</boolean>
+							</property>
+							<property name="waitForProcess">
+								<boolean>true</boolean>
+							</property>
+							<property name="script">
+								<string><![CDATA[crontab -l > tmp.txt
+sed '/OAS Load Test/d' tmp.txt > tmp2.txt
+crontab tmp2.txt]]></string>
+							</property>
+							<property name="showIndeterminateDialog">
+								<boolean>false</boolean>
+							</property>
+							<property name="dialogLabel">
+								<string><![CDATA[Executing Installation Script...]]></string>
+							</property>
+							<property name="comment">
+								<string><![CDATA[Remove Cronjob]]></string>
+							</property>
+							<property name="stdoutVar">
+								<string><![CDATA[$EXECUTE_STDOUT$]]></string>
+							</property>
+							<property name="stderrVar">
+								<string><![CDATA[$EXECUTE_STDERR$]]></string>
+							</property>
+							<property name="exitCodeVar">
+								<string><![CDATA[$EXECUTE_EXITCODE$]]></string>
+							</property>
+							<rules logicalOperation="AND">
+								<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="3422c88b8ca6">
+									<property name="installOnPlatformList">
+										<object class="java.util.Vector">
+											<method name="addElement">
+												<string><![CDATA[Mac OS X]]></string>
+											</method>
+										</object>
+									</property>
+									<property name="doNotInstallOnPlatformList">
+										<object class="java.util.Vector">
+											<method name="addElement">
+												<string><![CDATA[Windows NT]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2000]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows XP]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2003]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows Vista]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Solaris]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[SunOS]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[HP-UX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Linux]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[AIX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[FreeBSD]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[NetWare]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[OS/400]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Unlisted Platforms]]></string>
+											</method>
+										</object>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="3422f5648ca6">
+									<property name="operation">
+										<string><![CDATA[equals]]></string>
+									</property>
+									<property name="operandOne">
+										<string><![CDATA[$ISTEP$]]></string>
+									</property>
+									<property name="operandTwo">
+										<string><![CDATA[true]]></string>
+									</property>
+								</object>
+							</rules>
+						</object>
+					</method>
+					<method name="addElement">
 						<object class="com.zerog.ia.installer.actions.DumpDebugInfo" objectID="3456b13a8b2a">
 							<property name="printingToConsole">
 								<boolean>true</boolean>
@@ -9138,106 +9309,6 @@ done
 												<string><![CDATA[Unlisted Platforms]]></string>
 											</method>
 										</object>
-									</property>
-								</object>
-							</rules>
-						</object>
-					</method>
-					<method name="addElement">
-						<object class="com.zerog.ia.installer.actions.ExecuteScript" objectID="2af6abfd8d24">
-							<property name="showPleaseWaitPanel">
-								<boolean>true</boolean>
-							</property>
-							<property name="waitForProcess">
-								<boolean>true</boolean>
-							</property>
-							<property name="script">
-								<string><![CDATA[sh delcron.sh
-]]></string>
-							</property>
-							<property name="showIndeterminateDialog">
-								<boolean>false</boolean>
-							</property>
-							<property name="dialogLabel">
-								<string><![CDATA[Executing Installation Script...]]></string>
-							</property>
-							<property name="comment">
-								<string><![CDATA[Remove Cronjob]]></string>
-							</property>
-							<property name="stdoutVar">
-								<string><![CDATA[$EXECUTE_STDOUT$]]></string>
-							</property>
-							<property name="stderrVar">
-								<string><![CDATA[$EXECUTE_STDERR$]]></string>
-							</property>
-							<property name="exitCodeVar">
-								<string><![CDATA[$EXECUTE_EXITCODE$]]></string>
-							</property>
-							<rules logicalOperation="AND">
-								<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="2af713188d2e">
-									<property name="installOnPlatformList">
-										<object class="java.util.Vector">
-											<method name="addElement">
-												<string><![CDATA[Mac OS X]]></string>
-											</method>
-										</object>
-									</property>
-									<property name="doNotInstallOnPlatformList">
-										<object class="java.util.Vector">
-											<method name="addElement">
-												<string><![CDATA[Windows NT]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 2000]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows XP]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 2003]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows Vista]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Solaris]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[SunOS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[HP-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Linux]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[AIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[FreeBSD]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[NetWare]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/400]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Unlisted Platforms]]></string>
-											</method>
-										</object>
-									</property>
-								</object>
-								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="2afde4b68db9">
-									<property name="operation">
-										<string><![CDATA[equals]]></string>
-									</property>
-									<property name="operandOne">
-										<string><![CDATA[$ISTEP$]]></string>
-									</property>
-									<property name="operandTwo">
-										<string><![CDATA[true]]></string>
 									</property>
 								</object>
 							</rules>
@@ -9728,7 +9799,7 @@ done
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>7150510</long>
+												<long>7150369</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -10449,7 +10520,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>76952</long>
+												<long>81487</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -12295,7 +12366,7 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[lock.enc]]></string>
 											</property>
 											<property name="fileSize">
-												<long>63405</long>
+												<long>63517</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
@@ -12777,6 +12848,61 @@ and any path to a file to read from that file]]></string>
 														<string><![CDATA[true]]></string>
 													</property>
 												</object>
+												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="2fe3e56e8c93">
+													<property name="installOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows 2000]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows XP]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2003]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows Vista]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="doNotInstallOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Mac OS X]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Solaris]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[SunOS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[HP-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Linux]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[AIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[FreeBSD]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[NetWare]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/400]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Unlisted Platforms]]></string>
+															</method>
+														</object>
+													</property>
+												</object>
 											</rules>
 										</object>
 										<object refID="c2f3759e8ccc"/>
@@ -12987,7 +13113,7 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[delcron.sh]]></string>
 											</property>
 											<property name="fileSize">
-												<long>-1</long>
+												<long>83</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
@@ -13016,7 +13142,7 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[setcron.sh]]></string>
 											</property>
 											<property name="fileSize">
-												<long>-1</long>
+												<long>106</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
