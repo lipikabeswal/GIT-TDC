@@ -375,9 +375,9 @@ public class LoadTestServlet extends HttpServlet{
 							minResponseTime = responseTime;
 						avgResponseTime = totalResponseTime/requestCounter;
 						if (success){
-							successCount +=1;
+							successCount +=1;						
 						}else{
-							failureCount +=1;
+							failureCount +=1;							
 							try{
 								Thread.sleep(10 * 1000);
 							}catch(InterruptedException e){
@@ -478,7 +478,12 @@ public class LoadTestServlet extends HttpServlet{
 				while ((inputLine = in.readLine()) != null) {
 					result += inputLine;
 				}
-				in.close();				
+				in.close();
+				if(result.contains("ERROR"))
+				{
+					success = false;
+				}
+					
 			}
 			else {
 				result = "Error " +  HttpStatus.getStatusText(responseCode);
