@@ -29,6 +29,7 @@ import com.ctb.tdc.bootstrap.ui.SplashWindow;
 import com.ctb.tdc.bootstrap.util.ConsoleUtils;
 import com.ctb.tdc.bootstrap.util.ObjectBankUtils;
 import com.ctb.tdc.bootstrap.util.TdcConfigEncryption;
+import com.ctb.tdc.bootstrap.processwrapper.CustomDialog;
 
 /**
  * Wrapper class for starting the LockdownBrowser process.  The Lockdown Browser
@@ -237,7 +238,8 @@ public class LockdownBrowserWrapper extends Thread {
 					try {
 						SwingUtilities.invokeAndWait(new Runnable() {
 							public void run() {
-								
+								new CustomDialog(processName);
+								/*
 								JFrame frame = new JFrame("LockDown Browser Forbidden Process ");
 								frame.setLayout(new BorderLayout());
 								
@@ -287,7 +289,7 @@ public class LockdownBrowserWrapper extends Thread {
 								frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 								//frame.pack();
 								frame.setVisible(true);
-								
+								*/
 							}
 						});
 						Thread.sleep(5000);
