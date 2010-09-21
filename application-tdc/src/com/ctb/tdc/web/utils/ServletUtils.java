@@ -389,7 +389,12 @@ public class ServletUtils {
 			}
 		}
 		srvSettings = memoryCache.getSrvSettings();
-		return srvSettings.isValidSettings();
+		boolean proxyOK = setupProxy();
+		if(proxyOK) {
+			return srvSettings.isValidSettings();
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -1069,6 +1074,23 @@ return elementList;*/
 		return xml;
 	}
 
+	public static boolean setupProxy() {
+		try {
+			String proxyHost = getProxyHost();
+		
+			if ((proxyHost != null) && (proxyHost.length() > 0)) {
+				// apply proxy settings
+	            int proxyPort    = getProxyPort();
+	            String username  = getProxyUserName();
+	            String password  = getProxyPassword();            
+	        	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);
+			}
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
 	public static void setProxyCredentials(HttpClient client, String proxyHost, int proxyPort, String username, String password) {
         boolean proxyHostDefined = proxyHost != null && proxyHost.length() > 0;
         boolean proxyPortDefined = proxyPort > 0;
