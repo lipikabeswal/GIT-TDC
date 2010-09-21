@@ -63,7 +63,7 @@ public class SystemInfoFile {
 				
 				stdInput1.close();
 				
-				Process p2 = Runtime.getRuntime().exec("system_profiler");
+				Process p2 = Runtime.getRuntime().exec("/usr/sbin/system_profiler");
 				BufferedReader stdInput2 = new BufferedReader(new InputStreamReader(p2.getInputStream()));
 			
 				while ((line = stdInput2.readLine()) != null){
