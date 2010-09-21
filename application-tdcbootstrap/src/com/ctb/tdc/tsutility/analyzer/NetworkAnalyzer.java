@@ -57,6 +57,7 @@ public class NetworkAnalyzer extends Thread {
 	
 	private MainWindow ui = null;
 	private HttpClient client = null;
+	private HttpClient ldclient = null;
 	private boolean userInterrupted = false;
 	private JettyProcessWrapper jetty = null;
 	private GetMethod downloadMethod = null;
@@ -72,6 +73,8 @@ public class NetworkAnalyzer extends Thread {
 		this.ui = window;
 		this.client = new HttpClient();
 		this.client.getHttpConnectionManager().getParams().setConnectionTimeout(CONNECTION_TIMEOUT);
+		this.ldclient = new HttpClient();
+		this.ldclient.getHttpConnectionManager().getParams().setConnectionTimeout(CONNECTION_TIMEOUT);
 	}
 
 	
@@ -372,7 +375,7 @@ public class NetworkAnalyzer extends Thread {
 			downloadMethod = new GetMethod(URL_LOAD_TEST);					
 			if(getConfig){ //send get load test config request
 				try{
-					if( this.client.executeMethod(downloadMethod) != HttpURLConnection.HTTP_OK ) {
+					if( this.ldclient.executeMethod(downloadMethod) != HttpURLConnection.HTTP_OK ) {
 						ui.setAnalysisInterrupted();
 						
 						if (loadTestUserInterrupt){
@@ -441,7 +444,7 @@ public class NetworkAnalyzer extends Thread {
 			
 			//Ok to simulate load test
 			try{
-				if( this.client.executeMethod(downloadMethod) != HttpURLConnection.HTTP_OK ) { //this request runs the load test
+				if( this.ldclient.executeMethod(downloadMethod) != HttpURLConnection.HTTP_OK ) { //this request runs the load test
 					ui.setAnalysisInterrupted();
 					if (loadTestUserInterrupt){
 						ui.setResultForSimulateTest( AnalysisState.FAIL, USER_INTERRUPT , 0);
