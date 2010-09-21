@@ -223,6 +223,7 @@ public class LockdownBrowserWrapper extends Thread {
 				
 				if (flag) {
 					// Run the LDB...
+					Runtime.getRuntime().exec("sh clear_clipboard.sh");
 					ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
 					ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome) );
