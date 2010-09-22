@@ -24,10 +24,15 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 
+
+
 public class CustomDialog extends JDialog {
 
+	public static volatile boolean dialogOpen = false;
+	
 	public CustomDialog(String processnames) {
 
+		CustomDialog.dialogOpen = true;
 	       
         JPanel topSpacer = new JPanel();
         topSpacer.setBounds(0,0,450,20);
@@ -91,6 +96,7 @@ public class CustomDialog extends JDialog {
         JButton  close = new JButton("Quit");
         close.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
+				CustomDialog.dialogOpen = false;
 				dispose();
 			}
 		});

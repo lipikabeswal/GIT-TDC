@@ -256,6 +256,8 @@ public class LockdownBrowserWrapper extends Thread {
 		try {
 			unpackLock();
 		
+			this.splashWindow.hide();
+			
 			if (ismac) {
 				System.loadLibrary("lock");
 				
@@ -271,14 +273,14 @@ public class LockdownBrowserWrapper extends Thread {
 					Runtime.getRuntime().exec("sh clear_clipboard.sh");
 					ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
 					ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
-					this.splashWindow.hide();
+					
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome) );
 					this.isAvailable = true;
 					ldb.waitFor();
+					this.isAvailable = false;
 	        		Runtime.getRuntime().exec("sh clear_clipboard.sh");
 	    			Runtime.getRuntime().exec("sh enable_screen_capture.sh");
-	        		System.out.println("enable print screen called");
-					this.isAvailable = false;	
+	        		System.out.println("enable print screen called");	
 				} else {
 					try {
 						SwingUtilities.invokeAndWait(new Runnable() {
@@ -337,7 +339,10 @@ public class LockdownBrowserWrapper extends Thread {
 								*/
 							}
 						});
-						Thread.sleep(5000);
+						long startTime = System.currentTimeMillis();
+						while(CustomDialog.dialogOpen && ((System.currentTimeMillis() - startTime) < 60000)) {
+							Thread.sleep(1000);
+						}
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -345,9 +350,7 @@ public class LockdownBrowserWrapper extends Thread {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (Exception e) {
-					
-							e.printStackTrace();
-					
+						e.printStackTrace();
 					}
 				}
 			} else if (islinux) {
@@ -380,7 +383,6 @@ public class LockdownBrowserWrapper extends Thread {
 						i++;
 					} 
 					
-					this.splashWindow.hide();
 					long startTime = System.currentTimeMillis();
 					LockdownLinux lockdown = new LockdownLinux(this.tdcHome);
 					ConsoleUtils.messageOut("AIR app started at " + startTime);
@@ -390,13 +392,12 @@ public class LockdownBrowserWrapper extends Thread {
 					ready = true;
 					this.isAvailable = true;
 					ldb.waitFor();
+					this.isAvailable = false;
 					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());	
 				}
 				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(true);
 				Runtime.getRuntime().exec("./wmctrl -n 2", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-				ConsoleUtils.messageOut("Desktop unlocked ...");
-				
-				this.isAvailable = false;	
+				ConsoleUtils.messageOut("Desktop unlocked ...");	
 			} else {
 				// Windows native lib
 				System.load(this.tdcHome + "/lock.dll");
@@ -419,16 +420,17 @@ public class LockdownBrowserWrapper extends Thread {
 				ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
 				ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
 				
-				this.isAvailable = true;
+				
 	
 				if (flag) {
 					String taskmgr = "taskbarhide.exe";
 					Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 					ConsoleUtils.messageOut("AIR app started at " + System.currentTimeMillis());
-					this.splashWindow.hide();
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome));
 					//Process ldb = Runtime.getRuntime().exec("C:\\Program Files\\Internet Explorer\\iexplore.exe -k");
+					this.isAvailable = true;
 					ldb.waitFor();
+					this.isAvailable = false;
 					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());
 				}
 				LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(true);
@@ -436,9 +438,7 @@ public class LockdownBrowserWrapper extends Thread {
 				String taskmgr = "taskbarshow.exe";
 				Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 				ConsoleUtils.messageOut("Desktop unlocked ...");	
-				Thread.sleep(1500);
-				
-				this.isAvailable = false;
+				Thread.sleep(1500);	
 			}	
 			
 			this.splashWindow.show();
