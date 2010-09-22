@@ -67,6 +67,7 @@ public class LockdownBrowserWrapper extends Thread {
 	public static native int Get_Blacklist_Process_No();
 	
 	static volatile boolean flag = false;
+	static volatile boolean ready = false;
 	
 	/**
 	 * Creates a new Lockdown Browser process wrapper with the given tdcHome value.
@@ -177,29 +178,71 @@ public class LockdownBrowserWrapper extends Thread {
 			this.tdcHome = tdcHome;
 		}
 		
+		public boolean forceFullScreen() {
+			try {
+				String wmctrl = "./wmctrl -r \"Online Assessment System\" -b \"toggle, fullscreen\"";
+				Runtime.getRuntime().exec(wmctrl, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+				Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+			} catch (Exception e) {
+				// do nothing
+				return false;
+			}
+			return true;
+		}
+		
 		public void run() {
 			try {
+				boolean forcedFullScreen = false;
+				ConsoleUtils.messageOut("Blocking hotkeys at " + System.currentTimeMillis());
 				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(false);
+				ConsoleUtils.messageOut("Starting lock loop at " + System.currentTimeMillis());
 				while(true) {
-					Thread.sleep(500);
-					try{
-						LockdownBrowserWrapper.kill_printscreen_snapshot();
-						//Runtime.getRuntime().exec("./wmctrl -s \"Desk 1\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-						//Runtime.getRuntime().exec("./wmctrl -r \"Online Assessment System\" -t \"Desk 1\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-						//Thread.sleep(100);
-						//Runtime.getRuntime().exec("./wmctrl -n 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-						//Runtime.getRuntime().exec("./wmctrl -s 0", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-						//Runtime.getRuntime().exec("./wmctrl -r \"Online Assessment System\" -t 0", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-						//Runtime.getRuntime().exec("./wmctrl -R \"Online Assessment System\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-						Runtime.getRuntime().exec("./wmctrl -n 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-						Runtime.getRuntime().exec("./wmctrl -R \"Online Assessment System\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));	
-						Runtime.getRuntime().exec("gconftool-2 -s -t int /apps/compiz/general/screen0/options/number_of_desktops 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-					} catch (Exception e) {
-						// do nothing
+					if(ready) {
+						if(!forcedFullScreen) {
+							ConsoleUtils.messageOut("trying to force fullscreen at " + System.currentTimeMillis());
+							forcedFullScreen = forceFullScreen();
+						}
+						try{
+							LockdownBrowserWrapper.kill_printscreen_snapshot();
+							//Runtime.getRuntime().exec("./wmctrl -s \"Desk 1\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+							//Runtime.getRuntime().exec("./wmctrl -r \"Online Assessment System\" -t \"Desk 1\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+							//Thread.sleep(100);
+							//Runtime.getRuntime().exec("./wmctrl -n 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+							//Runtime.getRuntime().exec("./wmctrl -s 0", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+							//Runtime.getRuntime().exec("./wmctrl -r \"Online Assessment System\" -t 0", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+							//Runtime.getRuntime().exec("./wmctrl -R \"Online Assessment System\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+							Runtime.getRuntime().exec("./wmctrl -n 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+							Runtime.getRuntime().exec("./wmctrl -R \"Online Assessment System\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));	
+							Runtime.getRuntime().exec("gconftool-2 -s -t int /apps/compiz/general/screen0/options/number_of_desktops 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+							ConsoleUtils.messageOut("completed lock loop at " + System.currentTimeMillis());
+						} catch (Exception e) {
+							// do nothing
+						}
 					}
+					Thread.sleep(1000);
 				}
 			} catch (Exception e) {
 				flag = false;
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private static class LockdownMac extends Thread {
+		
+		private String tdcHome;
+		
+		public LockdownMac(String tdcHome){
+			this.tdcHome = tdcHome;
+		}
+		
+		public void run() {
+			try {
+				while(true) {
+					Thread.sleep(10000);
+					Runtime.getRuntime().exec("sh clear_clipboard.sh");
+				}
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -211,8 +254,6 @@ public class LockdownBrowserWrapper extends Thread {
 	 */
 	public void run() {
 		try {
-			this.splashWindow.hide();
-		
 			unpackLock();
 		
 			if (ismac) {
@@ -222,11 +263,15 @@ public class LockdownBrowserWrapper extends Thread {
 				processBlock.start();
 				processBlock.join();
 				
+				LockdownMac lockdown = new LockdownMac(this.tdcHome);
+				lockdown.start();
+				
 				if (flag) {
 					// Run the LDB...
 					Runtime.getRuntime().exec("sh clear_clipboard.sh");
 					ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
 					ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
+					this.splashWindow.hide();
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome) );
 					this.isAvailable = true;
 					ldb.waitFor();
@@ -306,18 +351,14 @@ public class LockdownBrowserWrapper extends Thread {
 					}
 				}
 			} else if (islinux) {
-				this.isAvailable = true;
 				// Linux native lib
 				System.load(this.tdcHome + "/liblock.so");
-				LockdownLinux lockdown = new LockdownLinux(this.tdcHome);
+				
 				if (LockdownBrowserWrapper.Process_Check()) {
 					flag = false;
 					ConsoleUtils.messageOut("Process block failed.");
 				} else {
 					flag = true;
-					
-					lockdown.start();
-					
 					ConsoleUtils.messageOut("Desktop Locked..........");
 				}
 				// Run the LDB...
@@ -325,8 +366,6 @@ public class LockdownBrowserWrapper extends Thread {
 				ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
 	
 				if (flag) {
-					ConsoleUtils.messageOut("AIR app started at " + System.currentTimeMillis());
-					
 					Map<String,String> env = System.getenv();
 					Iterator it = env.keySet().iterator();
 					String envp[] = new String[env.keySet().size()];
@@ -339,23 +378,17 @@ public class LockdownBrowserWrapper extends Thread {
 							envp[i] = i + "=" + i;
 						}
 						i++;
-					}
+					} 
+					
+					this.splashWindow.hide();
+					long startTime = System.currentTimeMillis();
+					LockdownLinux lockdown = new LockdownLinux(this.tdcHome);
+					ConsoleUtils.messageOut("AIR app started at " + startTime);
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, envp, new File(this.ldbHome));
-					boolean forcedFullscreen = false;
-					int retryCount = 0;
-					Thread.sleep(2500);
-					while (!forcedFullscreen && retryCount < 3) {
-						try {
-							String wmctrl = "./wmctrl -r \"Online Assessment System\" -b \"toggle, fullscreen\"";
-							Runtime.getRuntime().exec(wmctrl, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-							Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-							forcedFullscreen = true;
-						} catch (Exception e) {
-							// do nothing
-						}
-						Thread.sleep(2500);
-						retryCount++;
-					}
+					Thread.sleep(10000);
+					lockdown.start();
+					ready = true;
+					this.isAvailable = true;
 					ldb.waitFor();
 					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());	
 				}
@@ -392,6 +425,7 @@ public class LockdownBrowserWrapper extends Thread {
 					String taskmgr = "taskbarhide.exe";
 					Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 					ConsoleUtils.messageOut("AIR app started at " + System.currentTimeMillis());
+					this.splashWindow.hide();
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome));
 					//Process ldb = Runtime.getRuntime().exec("C:\\Program Files\\Internet Explorer\\iexplore.exe -k");
 					ldb.waitFor();

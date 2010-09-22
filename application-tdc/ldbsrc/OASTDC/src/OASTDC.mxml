@@ -23,36 +23,27 @@
 			
 			private function onReady():void
 			{
-				setTimeout(fullscreen, 1000);
+				setTimeout(fullscreen, 3000);
 			}
 			
 			private function fullscreen():void
 			{
-				tdccanvas.width = stage.fullScreenWidth;
-				tdccanvas.height = stage.fullScreenHeight;
-				stage.nativeWindow.maximize();
-				stage.nativeWindow.minimize();
-				stage.nativeWindow.maximize();
-				stage.nativeWindow.alwaysInFront=false;
+				//tdccanvas.width = stage.fullScreenWidth;
+				//tdccanvas.height = stage.fullScreenHeight;
+				//stage.nativeWindow.maximize();
 				stage.nativeWindow.alwaysInFront=true;
 				stage.nativeWindow.orderToFront();
 				stage.nativeWindow.activate();
-				stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
-				stage.displayState = StageDisplayState.NORMAL;
 				stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 				tologin();
 			}
 			
 			private function forcerestore(evt:Event):void
 			{
-				stage.displayState = StageDisplayState.NORMAL;
-				stage.nativeWindow.alwaysInFront=false;
 				stage.nativeWindow.alwaysInFront=true;
 				stage.nativeWindow.orderToFront();
 				stage.nativeWindow.activate();
 				stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
-				stage.nativeWindow.orderToFront();
-				stage.nativeWindow.activate();
 			}
 			
 			private function tologin():void {
