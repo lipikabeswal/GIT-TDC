@@ -240,7 +240,7 @@ public class LockdownBrowserWrapper extends Thread {
 			try {
 				while(true) {
 					Thread.sleep(10000);
-					Runtime.getRuntime().exec("sh clear_clipboard.sh");
+					Runtime.getRuntime().exec("sh clear_clipboard.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -270,7 +270,7 @@ public class LockdownBrowserWrapper extends Thread {
 				
 				if (flag) {
 					// Run the LDB...
-					Runtime.getRuntime().exec("sh clear_clipboard.sh");
+					Runtime.getRuntime().exec("sh clear_clipboard.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 					ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
 					ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
 					
@@ -278,8 +278,8 @@ public class LockdownBrowserWrapper extends Thread {
 					this.isAvailable = true;
 					ldb.waitFor();
 					this.isAvailable = false;
-	        		Runtime.getRuntime().exec("sh clear_clipboard.sh");
-	    			Runtime.getRuntime().exec("sh enable_screen_capture.sh");
+	        		Runtime.getRuntime().exec("sh clear_clipboard.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+	    			Runtime.getRuntime().exec("sh enable_screen_capture.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 	        		System.out.println("enable print screen called");	
 				} else {
 					try {
