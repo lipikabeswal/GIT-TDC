@@ -12,6 +12,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
 	//NSLog(@"applicationDidFinishLaunching.......");
+	[self clearClipBoard];
 	[self hideAll];
 	[self disableScreenCapture];
 	[self killFrontRowProcess];
@@ -89,7 +90,8 @@
 - (void) killFrontRow {
 	//NSLog(@"killFrontRow....");	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	system("killall -9 \"Front Row\"");
+	system("rm -rf ~/Desktop/ScrCapture/*;"
+		   "killall -9 \"Front Row\"");
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
 	[self killFrontRowProcess];
 	[pool release];
