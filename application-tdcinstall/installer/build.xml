@@ -74,8 +74,8 @@
 		<antcall target="buildInstaller">
 			<param name="installer.type" value="istep" />
 		</antcall>
-		<copy file="${project.base.dir}/__tdc_istep_Build_Output/Web_Installers/InstData/Windows/NoVM/InstallOnlineAsmtt.exe" tofile="${project.base.dir}/../../../../../../../temp/InstallOnlineAsmtQA.exe" overwrite="true" />
-		<copy file="${project.base.dir}/__tdc_istep_Build_Output/Web_Installers/InstData/MacOSX/InstallOnlineAsmtt.zip" tofile="${project.base.dir}/../../../../../../../temp/InstallOnlineAsmtQA.zip" overwrite="true" />
+		<copy file="${project.base.dir}/__tdc_istep_Build_Output/Web_Installers/InstData/Windows/NoVM/InstallOnlineAsmtt.exe" tofile="${project.base.dir}/../../../../../../temp/InstallOnlineAsmtQA.exe" overwrite="true" />
+		<copy file="${project.base.dir}/__tdc_istep_Build_Output/Web_Installers/InstData/MacOSX/InstallOnlineAsmtt.zip" tofile="${project.base.dir}/../../../../../../temp/InstallOnlineAsmtQA.zip" overwrite="true" />
 
 		<copy file="${project.base.dir}/environment/Prod/bootstrap.jar" tofile="${project.artifacts.dir}/bootstrap.jar" overwrite="true" />
 		<copy file="${project.base.dir}/environment/Prod/tdc.properties" tofile="${project.artifacts.webapp.classes.dir}/tdc.properties" overwrite="true" />
