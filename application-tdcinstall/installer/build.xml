@@ -3,9 +3,11 @@
  	<property name="project.installer.application.dir" value="C:\Program Files\InstallAnywhere 2008 Enterprise" />
 	<property name="project.installer.src"             value="tdc.iap_xml" />
 	<property name="project.installer.xsl.dir"         value="${basedir}/antxsl" />
-	
+	<property name="project.base.dir"              		value="${basedir}" />
+	<property name="project.artifacts.dir"              value="${basedir}/artifacts" />
 	<property name="project.artifacts.etc.dir"              value="${basedir}/artifacts/etc" />
-	<property name="project.artifacts.webapp.resources.dir" value="${basedir}/artifacts/webapp/resources" />	
+	<property name="project.artifacts.webapp.resources.dir" value="${basedir}/artifacts/webapp/resources" />
+	<property name="project.artifacts.webapp.classes.dir" value="${basedir}/artifacts/webapp/WEB-INF/classes" />
 	
 	
 	<taskdef name="buildinstaller" 
@@ -46,6 +48,7 @@
 	
 	
 	<target name="build" description="Builds the various installers" depends="clean">
+		<antcall target="buildQA" />
 		<antcall target="buildVanilla" />
 		<antcall target="buildFCAT" />
 		<antcall target="buildISTEP" />
@@ -59,6 +62,22 @@
 			<include name="tdcupdate/**/tdcConfig.enc"/>
 			<include name="tdcupdate/**/upgrade.txt"/>
 		</tar>
+	</target>
+	
+	<target name="buildQA" description="Builds the generic installer" depends="init">
+		<copy file="${project.artifacts.dir}/bootstrap.jar" tofile="${project.base.dir}/environment/Prod/bootstrap.jar" overwrite="true" />
+		<copy file="${project.artifacts.webapp.classes.dir}/tdc.properties" tofile="${project.base.dir}/environment/Prod/tdc.properties" overwrite="true" />
+				
+		<copy file="${project.base.dir}/environment/QA/bootstrap.jar" tofile="${project.artifacts.dir}/bootstrap.jar" overwrite="true" />
+		<copy file="${project.base.dir}/environment/QA/tdc.properties" tofile="${project.artifacts.webapp.classes.dir}/tdc.properties" overwrite="true" />
+		
+		<antcall target="buildInstaller">
+			<param name="installer.type" value="istep" />
+		</antcall>
+		<copy file="${project.base.dir}/__tdc_istep_Build_Output/Web_Installers/InstData/Windows/NoVM/InstallOnlineAsmtt.exe" tofile="${project.base.dir}/../../InstallOnlineAsmtQA.exe" overwrite="true" />
+		
+		<copy file="${project.base.dir}/environment/Prod/bootstrap.jar" tofile="${project.artifacts.dir}/bootstrap.jar" overwrite="true" />
+		<copy file="${project.base.dir}/environment/Prod/tdc.properties" tofile="${project.artifacts.webapp.classes.dir}/tdc.properties" overwrite="true" />
 	</target>
 	
 	<target name="buildVanilla" description="Builds the generic installer" depends="init">
