@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -32,6 +34,7 @@ import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.log4j.Logger;
 
+import com.ctb.dex.utility.DExCrypto;
 import com.ctb.tdc.web.dto.StateVO;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.MemoryCache;
@@ -295,7 +298,7 @@ public class LoadTestServlet extends HttpServlet{
 	        	
 	        	Integer avgResponseTime = 0;
 	    		Integer maxResponseTime = 0;
-	    		Integer minResponseTime = 9999;
+	    		Integer minResponseTime = 999999;
 	    		Integer successCount = 0;
 	    		Integer failureCount = 0;
 	    		Integer totalResponseTime = 0;
@@ -310,96 +313,116 @@ public class LoadTestServlet extends HttpServlet{
 		  		String password = st.nextToken();
 		  		Integer requestCounter = 0;
 		  		
-	        	FileReader requestFile = new FileReader(tdcHome + testHarnessFolder + "requestfile");
-	            BufferedReader requestBr = new BufferedReader(requestFile);
+	        	//FileReader requestFile = new FileReader(tdcHome + testHarnessFolder + "requestfile");
+	            //BufferedReader requestBr = new BufferedReader(requestFile);
 	    			        
-		        while((xml = requestBr.readLine()) != null){
-		        	
-		        	Integer retryCount	= 0;
-		        	System.out.println("Request counter = " + requestCounter.toString());
-		        	//create post method with url based on method		    		
-		    		if ((method = LoadTestUtils.getAttributeValue("method",xml)) == null)
-		    			method = ServletUtils.LOGIN_METHOD;
-		    		else if (method.equals("save_testing_session_data"))
-		    			method = ServletUtils.SAVE_METHOD;
-		    		else if (method.equals("write_to_audit_file"))
-		    			method = ServletUtils.WRITE_TO_AUDIT_FILE_METHOD;
-		    		else if (method.equals("upload_audit_file"))
-		    			method = ServletUtils.UPLOAD_AUDIT_FILE_METHOD;	
-		    		
-		    		if (method.equals("login")){
-		    			xml = LoadTestUtils.setAttributeValue("user_name",loginId,xml);
-		    			xml = LoadTestUtils.setAttributeValue("password",password,xml);
-		    			xml = LoadTestUtils.setAttributeValue("access_code",accessCode,xml);
-		    		}
-		    		else if (method.equals("save")|| method.equals("writeToAuditFile") 
-		    				|| method.equals("uploadAuditFile")){
-		    			String lsid = testRosterId + ":" + accessCode;
-		    			xml = LoadTestUtils.setAttributeValue("lsid",lsid,xml);
-		    		}
-		    				    		
-		    		if (method.equals("getSubtest") || method.equals("downloadItem") || 
-		    				method.equals("getItem") || method.equals("getImage")){
-		    			
-		    			servletUrl = contentServlet;
-		    			try{
-		    			Thread.sleep(loadTestSettings.getContentRequestInterval() * 1000);
-		    			}
-		    			catch(InterruptedException e){
-		    				logger.error("Exception occured in thread sleep: " + ServletUtils.printStackTrace(e));
-		    			}
-		    		}		    			
-		    		else{
-		    			
-		    			servletUrl = persistenceServlet;
-		    			try{
-		    			Thread.sleep(loadTestSettings.getPersistenceRequestInterval() * 1000);
-		    			}
-		    			catch(InterruptedException e){
-		    				logger.error("Exception occured in thread sleep: " + ServletUtils.printStackTrace(e));
-		    			}		    			
-		    		}		    				    		 		    				    		
-		    		while(!success){
-		    			retryCount +=1;
-		    			requestCounter +=1;
-			    		requestStartTime = System.currentTimeMillis();
-			    		success = sendRequest(servletUrl,xml,method);
-			    		requestEndTime = System.currentTimeMillis();
+		        //while((xml = requestBr.readLine()) != null){
+		  		File file = new File(tdcHome + testHarnessFolder + "requestfile");
+    			int ch;
+    			StringBuffer strContent = new StringBuffer("");
+    			FileInputStream fin = null; 
+    			fin = new FileInputStream(file);
+      			while( (ch = fin.read()) != -1){
+    			
+        			if (ch != 42){
+        				strContent.append((char)ch);
+        				
+        			}else{
+        			    
+        			    String encryptedRecord = strContent.toString();
+        			    try{
+        			    	xml = DExCrypto.decryptUsingPassPhrase(encryptedRecord);
+        			    }catch(Exception e){
+        			    	logger.error("Exception occured in decrypting request xml " + ServletUtils.printStackTrace(e));
+        			    	break;
+        			    }
+        			    
+        			    strContent = new StringBuffer("");
+			        	
+        			    Integer retryCount	= 0;
+			        	System.out.println("Request counter = " + requestCounter.toString());
+			        	//create post method with url based on method		    		
+			    		if ((method = LoadTestUtils.getAttributeValue("method",xml)) == null)
+			    			method = ServletUtils.LOGIN_METHOD;
+			    		else if (method.equals("save_testing_session_data"))
+			    			method = ServletUtils.SAVE_METHOD;
+			    		else if (method.equals("write_to_audit_file"))
+			    			method = ServletUtils.WRITE_TO_AUDIT_FILE_METHOD;
+			    		else if (method.equals("upload_audit_file"))
+			    			method = ServletUtils.UPLOAD_AUDIT_FILE_METHOD;	
 			    		
-			    		Long longResponseTime = (requestEndTime - requestStartTime)/1000;
-						Integer responseTime = Integer.valueOf(longResponseTime.intValue());
-						totalResponseTime += responseTime;
-						if(responseTime > maxResponseTime)
-							maxResponseTime = responseTime;
-						if(responseTime < minResponseTime)
-							minResponseTime = responseTime;
-						avgResponseTime = totalResponseTime/requestCounter;
-						if (success){
-							successCount +=1;						
-						}else{
-							failureCount +=1;							
-							try{
-								Thread.sleep(10 * 1000);
-							}catch(InterruptedException e){
+			    		if (method.equals("login")){
+			    			xml = LoadTestUtils.setAttributeValue("user_name",loginId,xml);
+			    			xml = LoadTestUtils.setAttributeValue("password",password,xml);
+			    			xml = LoadTestUtils.setAttributeValue("access_code",accessCode,xml);
+			    		}
+			    		else if (method.equals("save")|| method.equals("writeToAuditFile") 
+			    				|| method.equals("uploadAuditFile")){
+			    			String lsid = testRosterId + ":" + accessCode;
+			    			xml = LoadTestUtils.setAttributeValue("lsid",lsid,xml);
+			    		}
+			    				    		
+			    		if (method.equals("getSubtest") || method.equals("downloadItem") || 
+			    				method.equals("getItem") || method.equals("getImage")){
+			    			
+			    			servletUrl = contentServlet;
+			    			try{
+			    			Thread.sleep(loadTestSettings.getContentRequestInterval() * 1000);
+			    			}
+			    			catch(InterruptedException e){
 			    				logger.error("Exception occured in thread sleep: " + ServletUtils.printStackTrace(e));
 			    			}
-						}
-			    		if (retryCount > 2){
-			    			break;			    			
-			    		}			    					    		
-		    		}		    		
-		    		if (!success){
-		    			result =  ServletUtils.ERROR;
-		    			break;
-		    		}	
-		    		
-		    		//re-initialize retry variables
-		    		retryCount =0;
-		    		success = false;
-		    		
+			    		}		    			
+			    		else{
+			    			
+			    			servletUrl = persistenceServlet;
+			    			try{
+			    			Thread.sleep(loadTestSettings.getPersistenceRequestInterval() * 1000);
+			    			}
+			    			catch(InterruptedException e){
+			    				logger.error("Exception occured in thread sleep: " + ServletUtils.printStackTrace(e));
+			    			}		    			
+			    		}		    				    		 		    				    		
+			    		while(!success){
+			    			retryCount +=1;
+			    			requestCounter +=1;
+				    		requestStartTime = System.currentTimeMillis();
+				    		success = sendRequest(servletUrl,xml,method);
+				    		requestEndTime = System.currentTimeMillis();
+				    		
+				    		Long longResponseTime = (requestEndTime - requestStartTime);
+							Integer responseTime = Integer.valueOf(longResponseTime.intValue());
+							totalResponseTime += responseTime;
+							if(responseTime > maxResponseTime)
+								maxResponseTime = responseTime;
+							if(responseTime < minResponseTime)
+								minResponseTime = responseTime;
+							avgResponseTime = totalResponseTime/requestCounter;
+							if (success){
+								successCount +=1;						
+							}else{
+								failureCount +=1;							
+								try{
+									Thread.sleep(10 * 1000);
+								}catch(InterruptedException e){
+				    				logger.error("Exception occured in thread sleep: " + ServletUtils.printStackTrace(e));
+				    			}
+							}
+				    		if (retryCount > 2){
+				    			break;			    			
+				    		}			    					    		
+			    		}		    		
+			    		if (!success){
+			    			result =  ServletUtils.ERROR;
+			    			break;
+			    		}	
+			    		
+			    		//re-initialize retry variables
+			    		retryCount =0;
+			    		success = false;
+      				}
 		        } //end request file loop
-		        requestBr.close();
-		        requestFile.close();
+      			fin.close();
 		        
 		        uploadStatistics(testRosterId, maxResponseTime, minResponseTime, avgResponseTime, failureCount, successCount);
 		        
