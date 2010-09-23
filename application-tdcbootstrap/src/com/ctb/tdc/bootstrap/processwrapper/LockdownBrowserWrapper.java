@@ -228,26 +228,6 @@ public class LockdownBrowserWrapper extends Thread {
 		}
 	}
 	
-	private static class LockdownMac extends Thread {
-		
-		private String tdcHome;
-		
-		public LockdownMac(String tdcHome){
-			this.tdcHome = tdcHome;
-		}
-		
-		public void run() {
-			try {
-				while(true) {
-					Thread.sleep(10000);
-					Runtime.getRuntime().exec("sh clear_clipboard.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
 	/**
 	 * Starts the LockdownBrowser.  This thread will block and wait for the LDB to finish
 	 * execution before this thread itself will die.
@@ -265,12 +245,9 @@ public class LockdownBrowserWrapper extends Thread {
 				processBlock.start();
 				processBlock.join();
 				
-				LockdownMac lockdown = new LockdownMac(this.tdcHome);
-				lockdown.start();
-				
 				if (flag) {
 					// Run the LDB...
-					Runtime.getRuntime().exec("sh clear_clipboard.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+					//Runtime.getRuntime().exec("sh clear_clipboard.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 					ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
 					ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
 					
@@ -279,8 +256,8 @@ public class LockdownBrowserWrapper extends Thread {
 					ldb.waitFor();
 					this.isAvailable = false;
 	        		Runtime.getRuntime().exec("sh clear_clipboard.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-	    			Runtime.getRuntime().exec("sh enable_screen_capture.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-	        		System.out.println("enable print screen called");	
+	    			//Runtime.getRuntime().exec("sh enable_screen_capture.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+	        		//System.out.println("enable print screen called");	
 				} else {
 					try {
 						SwingUtilities.invokeAndWait(new Runnable() {

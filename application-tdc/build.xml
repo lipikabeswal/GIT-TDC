@@ -150,6 +150,7 @@
 				<include name="**/objectbank/*" />
 				<exclude name="**/*.eam" />
 				<exclude name="**/*.ecp" />
+				<include name="**/loadtest/*" />
 			</fileset>
 		</copy>
 
