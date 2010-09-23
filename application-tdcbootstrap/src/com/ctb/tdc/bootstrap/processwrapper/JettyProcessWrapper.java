@@ -44,7 +44,7 @@ public class JettyProcessWrapper extends Thread {
 	private int exitCode = 0;
 	private String exitMessage = "";
 	
-	private int retryAttempts = 3;
+	private int retryAttempts = 5;
 	private int retryDelay = 5;
 
     private boolean macOS = false;    
