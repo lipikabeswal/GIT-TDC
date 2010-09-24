@@ -107,6 +107,95 @@ public class SystemInfoFile {
 			
 		}
 		
+		if(LoadTestUtils.isLinux()){
+			String systemModel = "";
+			String physicalMemory = "";
+			String processors = "";
+			String virtualMemory = " No Information Available";
+			String osVersion = "";
+			String osName = "";
+			String networkCards = "";
+			String line = "";
+			
+			try{
+				
+				Process p1 = Runtime.getRuntime().exec("uname -n");
+				BufferedReader stdInput1 = new BufferedReader(new InputStreamReader(p1.getInputStream()));
+				
+				String hostName = stdInput1.readLine();
+				
+				stdInput1.close();
+				
+				
+				Process p2 = Runtime.getRuntime().exec("uname -s");
+				BufferedReader stdInput2 = new BufferedReader(new InputStreamReader(p2.getInputStream()));
+			
+				while ((line = stdInput2.readLine()) != null){
+					osName = osName + line;					
+				}				
+				stdInput2.close();
+				
+				Process p3 = Runtime.getRuntime().exec("grep MemTotal /proc/meminfo");
+				BufferedReader stdInput3 = new BufferedReader(new InputStreamReader(p3.getInputStream()));
+			
+				while ((line = stdInput3.readLine()) != null){
+					physicalMemory = physicalMemory + line;					
+				}				
+				stdInput3.close();
+				
+				Process p4 = Runtime.getRuntime().exec("uname -a");
+				BufferedReader stdInput4 = new BufferedReader(new InputStreamReader(p4.getInputStream()));
+			
+				while ((line = stdInput4.readLine()) != null){
+					systemModel = systemModel + line;					
+				}				
+				stdInput4.close();
+				
+				Process p5 = Runtime.getRuntime().exec("cat /proc/cpuinfo");
+				BufferedReader stdInput5 = new BufferedReader(new InputStreamReader(p5.getInputStream()));
+			
+				while ((line = stdInput5.readLine()) != null){
+					if (line.contains("model name"))
+							processors = processors + line;					
+				}				
+				stdInput5.close();
+				
+				Process p6 = Runtime.getRuntime().exec("head -n1 /etc/issue");
+				BufferedReader stdInput6 = new BufferedReader(new InputStreamReader(p6.getInputStream()));
+								
+				while ((line = stdInput6.readLine()) != null){
+					osVersion = osVersion + line;
+				}			
+				stdInput6.close();
+				
+				Process p7 = Runtime.getRuntime().exec("ip link show");
+				BufferedReader stdInput7 = new BufferedReader(new InputStreamReader(p7.getInputStream()));
+								
+				while ((line = stdInput7.readLine()) != null){
+					networkCards = networkCards + line;
+				}			
+				stdInput7.close();
+				
+				resultString = hostName + "|" + osName + "|" + osVersion + "|" + systemModel + "|" + physicalMemory + "|" + virtualMemory +  "|" +processors + "|" + networkCards;
+				logger.info("resultString=" + resultString );
+				
+				resultString = resultString.replace("<","*");
+				resultString = resultString.replace(">","*");
+				
+				FileWriter systemInfoFile = new FileWriter(tdcHome + LOAD_TEST_FOLDER + SYSTEM_INFO_FILE);
+				BufferedWriter systemInfoBr = new BufferedWriter(systemInfoFile);
+				
+				systemInfoBr.write(resultString);
+				systemInfoBr.flush();
+				systemInfoBr.close();
+				systemInfoFile.close();
+				
+			}catch(IOException e){
+				error=true;
+				logger.error("Linux Exception capturing system info : " + ServletUtils.printStackTrace(e));
+			}
+
+		}
 		if(!LoadTestUtils.isMacOS() && !LoadTestUtils.isLinux()){
 			
 			String sysInfoCommand = "systeminfo /FO CSV  /NH";
@@ -210,7 +299,7 @@ public class SystemInfoFile {
 				}catch(IOException ioe){
 					logger.error("Exception in parsing system info file : " + ServletUtils.printStackTrace(ioe));
 				}				
-			}else if(LoadTestUtils.isMacOS()){
+			}else if(LoadTestUtils.isMacOS() || LoadTestUtils.isLinux()){
 				try{
 					FileReader systemInfoFile = new FileReader(tdcHome + LOAD_TEST_FOLDER + SYSTEM_INFO_FILE);
 					BufferedReader systemInfoBr = new BufferedReader(systemInfoFile);		            
