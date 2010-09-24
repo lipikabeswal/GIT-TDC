@@ -12,6 +12,7 @@
 		834B13820795DD1F00E4BF6C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834B13810795DD1F00E4BF6C /* WebKit.framework */; };
 		834B13D30795DE5200E4BF6C /* MyDocument.nib in Resources */ = {isa = PBXBuildFile; fileRef = 834B13D20795DE5200E4BF6C /* MyDocument.nib */; };
 		8A3C77E511180A0F00AB1817 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A3C77E411180A0F00AB1817 /* Carbon.framework */; };
+		8A3E4AD2124A151C00B963A6 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A3E4AD1124A151C00B963A6 /* ApplicationServices.framework */; };
 		8A6C97B1122CEA68004E0826 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8A6C97AF122CEA68004E0826 /* MainMenu.nib */; };
 		8A7309081148CE5000364B6B /* myfile in Resources */ = {isa = PBXBuildFile; fileRef = 8A7309071148CE5000364B6B /* myfile */; };
 		8AD373C7111988F5004AB349 /* FullscreenWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD373C6111988F5004AB349 /* FullscreenWindow.m */; };
@@ -32,6 +33,7 @@
 		834B12580795DCCD00E4BF6C /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MyDocument.nib; sourceTree = "<group>"; };
 		834B13810795DD1F00E4BF6C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		8A3C77E411180A0F00AB1817 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		8A3E4AD1124A151C00B963A6 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		8A6C97B0122CEA68004E0826 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		8A7309071148CE5000364B6B /* myfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = myfile; sourceTree = "<group>"; };
 		8A73F120122CE745006952EB /* LockDownBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LockDownBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,6 +50,7 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				834B13820795DD1F00E4BF6C /* WebKit.framework in Frameworks */,
 				8A3C77E511180A0F00AB1817 /* Carbon.framework in Frameworks */,
+				8A3E4AD2124A151C00B963A6 /* ApplicationServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +81,7 @@
 		29B97314FDCFA39411CA2CEA /* LockDownBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				8A3E4AD1124A151C00B963A6 /* ApplicationServices.framework */,
 				8A7309071148CE5000364B6B /* myfile */,
 				8A3C77E411180A0F00AB1817 /* Carbon.framework */,
 				080E96DDFE201D6D7F000001 /* Classes */,

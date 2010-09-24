@@ -3,6 +3,95 @@
 #import <WebKit/WebKit.h>
 #import "FullscreenWindow.h"
 
+	int cmdIsDown = 0;
+	int ctrlIsDown = 0;
+	int shiftIsDown = 0;
+	int optIsDown = 0;
+	int fnIsDown = 0;
+	
+static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, CGEventRef event, void *info)
+{
+
+	CGKeyCode keyCode = (CGKeyCode)CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode); 
+	
+	switch (event_type) {
+
+		case kCGEventFlagsChanged:
+			//NSLog(@"modifier key pressed....");
+
+			switch (keyCode) {
+	
+				case 55://command key
+					cmdIsDown = (cmdIsDown == 1) ? 0 : 1;
+				break;
+		
+				case 56://shift key
+					shiftIsDown = (shiftIsDown == 1) ? 0 : 1;
+				break;
+
+				case 58://option key
+					optIsDown = (optIsDown == 1) ? 0 : 1;
+				break;
+
+				case 59://control key
+					ctrlIsDown = (ctrlIsDown == 1) ? 0 : 1;
+				break;
+				
+				case 63://function key
+					fnIsDown = (fnIsDown == 1) ? 0 : 1;
+				break;
+				
+				default:
+				break;
+			}
+
+		break;		
+	
+		case kCGEventKeyDown:
+		
+			switch (keyCode) {
+	
+				case 96://F5					
+					//block voice over
+					if(cmdIsDown) { 
+						return NULL;
+					}
+				break;
+		
+				case 53://Esc
+					//block front row
+					if(cmdIsDown) { 
+						return NULL;
+					}
+				break;
+
+				case 20://3 
+					//block screen capture
+					if(cmdIsDown && shiftIsDown) { 
+						return NULL;
+					}
+				break;
+
+				case 21://4
+					//block selection capture
+					if(cmdIsDown && shiftIsDown) { 						
+						return NULL;
+					}
+				break;
+
+				default:
+				break;
+			}
+
+		break;
+
+		default:
+		break;
+	}
+
+    return event;
+}
+
 @implementation MyDocument
 @synthesize window;
 
@@ -25,6 +114,53 @@
     [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:URL]];
 }
 
+- (void)awakeFromNib {
+
+	//NSLog(@"awakeFromNib....");   
+    CGEventMask eventMask = 0;
+    CFMachPortRef eventTap = nil;
+    CFRunLoopSourceRef runLoopSource = nil;
+	CFRunLoopRef runLoop = nil;
+
+    eventMask = CGEventMaskBit(kCGEventKeyDown)|
+				CGEventMaskBit(kCGEventKeyUp)|
+				CGEventMaskBit(kCGEventFlagsChanged);
+	
+    eventTap = CGEventTapCreate(kCGSessionEventTap, 
+								kCGHeadInsertEventTap, 
+								kCGEventTapOptionDefault, 
+								eventMask, 
+								MouseCallback, 
+								self);        
+    if (!eventTap) {
+	
+        fprintf(stderr, "Failed to create event tap\n");
+        exit(1);    
+    }
+
+    // Create a run loop source.
+    runLoopSource = CFMachPortCreateRunLoopSource(NULL, eventTap, 0);
+	if(runLoopSource == NULL) {
+		
+		//NSLog(@"no event in run loop");
+	}
+	
+    CFRelease(eventTap);
+	
+	runLoop = CFRunLoopGetCurrent();
+	if(runLoop == NULL) {
+		
+		//NSLog(@"no run loop");
+	}
+	
+    // Add to the current run loop.
+    CFRunLoopAddSource([[NSRunLoop currentRunLoop] getCFRunLoop], runLoopSource, kCFRunLoopCommonModes);
+
+    // Enable the event tap.
+    CGEventTapEnable(eventTap, true);
+    CFRelease(runLoopSource);
+}
+
 -(void)windowControllerDidLoadNib:(NSWindowController *) aController {
     [super windowControllerDidLoadNib:aController];
 
@@ -38,9 +174,8 @@
 	//NSString *filepath = @"/Applications/LockDownBrowser.app/Contents/Resources/myfile"; //url of the properties file 
 
 	//weburl = [self getURLfromFile:filepath];
-	//weburl = @"http://google.com";
-	weburl = @"http://127.0.0.1:12345/login.html";
-		
+	weburl = @"http://127.0.0.1:12345/login.html";	
+	
     // Load the default URL
 	NSURL *URL = [NSURL URLWithString:weburl];
     [self loadURL:URL];

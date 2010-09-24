@@ -4,13 +4,11 @@
 
 @implementation FullscreenWindow
 
-- (BOOL)canBecomeKeyWindow
-{
+- (BOOL)canBecomeKeyWindow {
 	return YES;
 }
 
-- (BOOL)canBecomeMainWindow
-{
+- (BOOL)canBecomeMainWindow {
 	return YES;
 }
 

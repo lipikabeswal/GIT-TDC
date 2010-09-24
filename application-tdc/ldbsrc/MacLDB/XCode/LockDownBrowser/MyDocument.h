@@ -11,8 +11,6 @@
     IBOutlet NSWindow *window;
 	IBOutlet NSWindow *fullscreenWindow;
 	
-	SystemUIMode 	 outMode;
-	SystemUIOptions	 outOptions;
 }
 @property (assign) IBOutlet NSWindow	*window;
 
