@@ -168,7 +168,7 @@ public class SystemInfoFile {
 				}			
 				stdInput6.close();
 				
-				Process p7 = Runtime.getRuntime().exec("ip link show");
+				Process p7 = Runtime.getRuntime().exec("/sbin/ip link show");
 				BufferedReader stdInput7 = new BufferedReader(new InputStreamReader(p7.getInputStream()));
 								
 				while ((line = stdInput7.readLine()) != null){
