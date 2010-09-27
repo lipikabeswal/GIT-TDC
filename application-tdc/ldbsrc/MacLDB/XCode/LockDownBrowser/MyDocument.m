@@ -8,6 +8,8 @@
 	int shiftIsDown = 0;
 	int optIsDown = 0;
 	int fnIsDown = 0;
+
+    CFMachPortRef eventTap = nil;//required globally
 	
 static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, CGEventRef event, void *info)
 {
@@ -84,6 +86,11 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
 			}
 
 		break;
+		
+		case kCGEventTapDisabledByTimeout://event tab disabled
+			NSLog(@"kCGEventTapDisabledByTimeout fired");
+			CGEventTapEnable(eventTap, true);
+		break;
 
 		default:
 		break;
@@ -118,13 +125,14 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
 
 	//NSLog(@"awakeFromNib....");   
     CGEventMask eventMask = 0;
-    CFMachPortRef eventTap = nil;
+    //CFMachPortRef eventTap = nil;
     CFRunLoopSourceRef runLoopSource = nil;
 	CFRunLoopRef runLoop = nil;
 
     eventMask = CGEventMaskBit(kCGEventKeyDown)|
 				CGEventMaskBit(kCGEventKeyUp)|
-				CGEventMaskBit(kCGEventFlagsChanged);
+				CGEventMaskBit(kCGEventFlagsChanged)|
+				CGEventMaskBit(kCGEventTapDisabledByTimeout);
 	
     eventTap = CGEventTapCreate(kCGSessionEventTap, 
 								kCGHeadInsertEventTap, 
@@ -162,6 +170,7 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
 }
 
 -(void)windowControllerDidLoadNib:(NSWindowController *) aController {
+
     [super windowControllerDidLoadNib:aController];
 
 	[webView setFrameLoadDelegate:self];
