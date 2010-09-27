@@ -56,7 +56,7 @@ public class JettyProcessWrapper extends Thread {
 	 * @param tdcHome  The location of the Test Delivery Client's home folder containing the home folder of Jetty as well as configuration files and additional java libraries. 
 	 * @throws ProcessWrapperException If problems within initialization such as determing the default URL or if the port is already in use.
 	 */
-	public JettyProcessWrapper(String tdcHome, boolean macOS) throws ProcessWrapperException {
+	public JettyProcessWrapper(String tdcHome, boolean macOS, boolean loadTest) throws ProcessWrapperException {
 		super();
 
 		String javaHome = System.getProperty("java.home");
@@ -66,7 +66,11 @@ public class JettyProcessWrapper extends Thread {
         
 		this.tdcHome     = tdcHome;
 		this.jettyHome   = this.tdcHome + "/servletcontainer/jetty-5.1.11RC0";
-		this.jettyConfig = this.tdcHome + "/servletcontainer/tdc.xml";
+		if(loadTest) {
+			this.jettyConfig = this.tdcHome + "/servletcontainer/lt.xml";
+		} else {
+			this.jettyConfig = this.tdcHome + "/servletcontainer/tdc.xml";
+		}
 	
 		this.startCmd = new String[10];
 		this.startCmd[0] = javaHome + "java";

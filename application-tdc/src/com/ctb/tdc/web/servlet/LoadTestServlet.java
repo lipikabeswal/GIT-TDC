@@ -278,8 +278,8 @@ public class LoadTestServlet extends HttpServlet{
 	
 	private String runLoadTest(){
 		
-		String persistenceServlet = "http://127.0.0.1:12345/servlet/PersistenceServlet.do";
-		String contentServlet = "http://127.0.0.1:12345/servlet/ContentServlet.do";
+		String persistenceServlet = "http://127.0.0.1:12347/servlet/PersistenceServlet.do";
+		String contentServlet = "http://127.0.0.1:12347/servlet/ContentServlet.do";
 		
 		String result =  ServletUtils.OK;
 		String testHarnessFolder = "/data/loadtest/";

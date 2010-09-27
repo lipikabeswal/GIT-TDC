@@ -448,7 +448,7 @@ public class Main {
 		LockdownBrowserWrapper ldb = new LockdownBrowserWrapper(tdcHome, macOS, linux, splashWindow);
 		JettyProcessWrapper jetty = null;
 		try {
-			jetty = new JettyProcessWrapper(tdcHome, macOS);
+			jetty = new JettyProcessWrapper(tdcHome, macOS, false);
 		} 
         catch( ProcessWrapperException pwe ) {
 			ConsoleUtils.messageErr("An exception has occurred.", pwe);

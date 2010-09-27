@@ -17,8 +17,8 @@ import com.ctb.tdc.bootstrap.processwrapper.JettyProcessWrapper;
 public class Main {
 
 	private static final ResourceBundle rb = ResourceBundle.getBundle("loadtestResources");
-	private static final String URL_LOAD_TEST = "http://127.0.0.1:12345/servlet/LoadTestServlet.do";
-	private static final int SOCKET_FOR_SINGLE_INSTANCE = 12344;
+	private static final String URL_LOAD_TEST = "http://127.0.0.1:12347/servlet/LoadTestServlet.do";
+	private static final int SOCKET_FOR_SINGLE_INSTANCE = 12347;
 	private static int MAIN_SLEEP_INTERVAL;
 	private static int JETTY_SLEEP_INTERVAL;
 	
@@ -121,7 +121,7 @@ public class Main {
 				
 				JettyProcessWrapper jetty = null;
 				try {
-					jetty = new JettyProcessWrapper(tdcHome, macOS);
+					jetty = new JettyProcessWrapper(tdcHome, macOS, true);
 				} 
 		        catch( Exception e ) {
 		        	System.out.println("Jetty already running !!!");
