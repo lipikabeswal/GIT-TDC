@@ -50,8 +50,8 @@ public class NetworkAnalyzer extends Thread {
 	private static final String SIM_ERR_NOT_ALLOWED			= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.simulation.error.simulationNotAllowed");
 	private static final String USER_INTERRUPT				= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.error.interruptedByUser");
 	private static final int CONNECTION_TIMEOUT = 15 * 1000;
-	private static final String URL_LOAD_TEST = "http://127.0.0.1:12345/servlet/LoadTestServlet.do";
-	public static final int SOCKET_FOR_SINGLE_INSTANCE = 12345;
+	private static final String URL_LOAD_TEST = "http://127.0.0.1:12347/servlet/LoadTestServlet.do";
+	public static final int SOCKET_FOR_SINGLE_INSTANCE = 12347;
 	public static final int JETTY_SLEEP_INTERVAL = 5;
 	public static final String RESPONSE_OK = "<OK />";
 	
@@ -329,7 +329,7 @@ public class NetworkAnalyzer extends Thread {
 		copyPropertyFiles(tdcHome); 
 		//JettyProcessWrapper jetty = null;
 		try {
-			jetty = new JettyProcessWrapper(tdcHome, macOS, false);
+			jetty = new JettyProcessWrapper(tdcHome, macOS, true);
 		}catch( Exception e ) {
 			ui.setAnalysisInterrupted();
 			ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_STARTING_SERVLET , 0);

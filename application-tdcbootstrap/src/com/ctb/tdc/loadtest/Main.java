@@ -11,8 +11,13 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.util.ResourceBundle;
 import java.util.MissingResourceException;
+import java.util.Date;
+import java.util.Calendar;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import com.ctb.tdc.bootstrap.processwrapper.JettyProcessWrapper;
+import com.ctb.tdc.loadtest.utils.LoadTestFileUtils;
 
 public class Main {
 
@@ -21,6 +26,7 @@ public class Main {
 	private static final int SOCKET_FOR_SINGLE_INSTANCE = 12347;
 	private static int MAIN_SLEEP_INTERVAL;
 	private static int JETTY_SLEEP_INTERVAL;
+	private static int JETTY_LAUNCH_INTERVAL;
 	
 	private static String getTdcHome()   {
 
@@ -47,10 +53,16 @@ public class Main {
 				JETTY_SLEEP_INTERVAL = new Integer(rb.getString("loadtest.jetty.sleepInterval")).intValue();
 			}catch(MissingResourceException mre){
 				JETTY_SLEEP_INTERVAL = 5;
-			}			
+			}
+			try{
+				JETTY_LAUNCH_INTERVAL = new Integer(rb.getString("loadtest.jetty.launchInterval")).intValue();
+			}catch(MissingResourceException mre){
+				JETTY_LAUNCH_INTERVAL = 28800;
+			}
 		}else{
 			MAIN_SLEEP_INTERVAL = 600;
 			JETTY_SLEEP_INTERVAL = 5;
+			JETTY_LAUNCH_INTERVAL = 28800;
 		}
 	}
 	private static boolean isMacOS() {
@@ -100,6 +112,7 @@ public class Main {
 		while (isWindows){
 			boolean appFlag = false;
 			boolean jettyFlag = false;
+			boolean launchFlag = false;
 			ServerSocket ss = null; // keep variable in scope of the main method to maintain hold on it. 
 			try {
 				ss = new ServerSocket(SOCKET_FOR_SINGLE_INSTANCE, 1);
@@ -114,54 +127,76 @@ public class Main {
 				}catch(IOException e){
 					System.out.println("Error closing app socket!");
 				}				
-				
 				String tdcHome = Main.getTdcHome();
-				boolean macOS = isMacOS();
-				Main.copyPropertyFiles(tdcHome); 
+				Date loadTestRunTime = LoadTestFileUtils.getLoadTestRunTime(tdcHome); 
+				Date currentTime = new Date();
 				
-				JettyProcessWrapper jetty = null;
-				try {
-					jetty = new JettyProcessWrapper(tdcHome, macOS, true);
-				} 
-		        catch( Exception e ) {
-		        	System.out.println("Jetty already running !!!");
-		        	jettyFlag = true;
-				}
-		        
-		        if(!jettyFlag){
-		        	jetty.start();
+				if (currentTime.compareTo(loadTestRunTime) > 0){
+					launchFlag = true;					
 					
-					while( jetty.isAlive() ) {
-						try{
-							Thread.sleep( JETTY_SLEEP_INTERVAL * 1000 );
-						}catch(Exception e){
-							System.out.println("Jetty Sleep Exception!");
+				}			
+				Calendar calCurrTime = Calendar.getInstance();
+				Date lastConfigRequestTime = LoadTestFileUtils.getLastConfigRequestTime(tdcHome);			
+				Calendar cConfigRequestTime = Calendar.getInstance();
+				cConfigRequestTime.setTime(lastConfigRequestTime);
+				long diff = (calCurrTime.getTimeInMillis() -  cConfigRequestTime.getTimeInMillis())/1000;
+				
+				if (diff >= JETTY_LAUNCH_INTERVAL){
+					launchFlag = true;
+				}
+				
+				
+				if (launchFlag){
+					
+					boolean macOS = isMacOS();
+					Main.copyPropertyFiles(tdcHome); 
+					
+					JettyProcessWrapper jetty = null;
+					try {
+						jetty = new JettyProcessWrapper(tdcHome, macOS, true);
+					} 
+			        catch( Exception e ) {
+			        	System.out.println("Jetty already running !!!");
+			        	jettyFlag = true;
+					}
+			        
+			        if(!jettyFlag){
+			        	jetty.start();
+			        	LoadTestFileUtils.setConfigRequestTime(tdcHome);
+			        	
+						while( jetty.isAlive() ) {
+							try{
+								Thread.sleep( JETTY_SLEEP_INTERVAL * 1000 );
+							}catch(Exception e){
+								System.out.println("Jetty Sleep Exception!");
+							}					
+							
+							HttpClient client = new HttpClient();
+							GetMethod downloadMethod = new GetMethod(URL_LOAD_TEST);					
+							
+							try{
+								if( client.executeMethod(downloadMethod) == HttpURLConnection.HTTP_OK ) {
+									System.out.println("Success!");
+								}
+								else{
+									System.out.println("Failure!");
+								}
+							}catch(Exception e){
+								System.out.println("Exception!");
+							}												
+							// Stop jetty...
+							jetty.shutdown();
+							try{
+								Thread.sleep( JETTY_SLEEP_INTERVAL * 1000 );
+							}catch(Exception e){
+								System.out.println("Jetty Sleep Exception!");
+							}						
+			                // delete proxy.properties
+							Main.deletePropertyFiles(tdcHome);        						
 						}					
-						
-						HttpClient client = new HttpClient();
-						GetMethod downloadMethod = new GetMethod(URL_LOAD_TEST);					
-						
-						try{
-							if( client.executeMethod(downloadMethod) == HttpURLConnection.HTTP_OK ) {
-								System.out.println("Success!");
-							}
-							else{
-								System.out.println("Failure!");
-							}
-						}catch(Exception e){
-							System.out.println("Exception!");
-						}												
-						// Stop jetty...
-						jetty.shutdown();
-						try{
-							Thread.sleep( JETTY_SLEEP_INTERVAL * 1000 );
-						}catch(Exception e){
-							System.out.println("Jetty Sleep Exception!");
-						}						
-		                // delete proxy.properties
-						Main.deletePropertyFiles(tdcHome);        						
-					}					
-		        }	        							
+			        }
+				}
+					        							
 			}
 			if(isMacOS() || isLinux()){
 				isWindows = false;
