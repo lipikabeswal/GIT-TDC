@@ -187,11 +187,7 @@ public class Main {
 							}												
 							// Stop jetty...
 							//jetty.shutdown();
-							try{
-								Thread.sleep( JETTY_SLEEP_INTERVAL * 1000 );
-							}catch(Exception e){
-								System.out.println("Jetty Sleep Exception!");
-							}						
+												
 			                // delete proxy.properties
 							Main.deletePropertyFiles(tdcHome);        						
 						}					
@@ -199,6 +195,11 @@ public class Main {
 				} finally {
 					if(jetty != null && jettyStarted) {
 						jetty.shutdown();
+						try{
+							Thread.sleep( JETTY_SLEEP_INTERVAL * 1000 );
+						}catch(Exception e){
+							System.out.println("Jetty Sleep Exception!");
+						}	
 						System.out.println("Jetty stopped.");
 					}
 				}
