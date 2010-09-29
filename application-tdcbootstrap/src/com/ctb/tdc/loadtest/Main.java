@@ -109,6 +109,8 @@ public class Main {
 	public static void main(String args[]){
 		initSettings();
 		boolean isWindows = true;
+		HttpClient client = new HttpClient();
+		GetMethod downloadMethod = new GetMethod(URL_LOAD_TEST);
 		while (isWindows){
 			boolean appFlag = false;
 			boolean jettyFlag = false;
@@ -145,34 +147,33 @@ public class Main {
 					launchFlag = true;
 				}
 				
-				
-				if (launchFlag){
-					
-					boolean macOS = isMacOS();
-					Main.copyPropertyFiles(tdcHome); 
-					
-					JettyProcessWrapper jetty = null;
-					try {
-						jetty = new JettyProcessWrapper(tdcHome, macOS, true);
-					} 
-			        catch( Exception e ) {
-			        	System.out.println("Jetty already running !!!");
-			        	jettyFlag = true;
-					}
-			        
-			        if(!jettyFlag){
-			        	jetty.start();
-			        	LoadTestFileUtils.setConfigRequestTime(tdcHome);
-			        	
-						while( jetty.isAlive() ) {
+				JettyProcessWrapper jetty = null;
+				boolean jettyStarted = false;
+				try {
+					if (launchFlag){
+						
+						boolean macOS = isMacOS();
+						Main.copyPropertyFiles(tdcHome); 
+						
+						try {
+							jetty = new JettyProcessWrapper(tdcHome, macOS, true);
+						} 
+				        catch( Exception e ) {
+				        	System.out.println("Jetty already running !!!");
+				        	jettyFlag = true;
+						}
+				        
+				        if(!jettyFlag){
+				        	jetty.start();
+				        	jettyStarted = true;
+				        	System.out.println("Jetty started.");
+				        	LoadTestFileUtils.setConfigRequestTime(tdcHome);
+				        	
 							try{
 								Thread.sleep( JETTY_SLEEP_INTERVAL * 1000 );
 							}catch(Exception e){
 								System.out.println("Jetty Sleep Exception!");
 							}					
-							
-							HttpClient client = new HttpClient();
-							GetMethod downloadMethod = new GetMethod(URL_LOAD_TEST);					
 							
 							try{
 								if( client.executeMethod(downloadMethod) == HttpURLConnection.HTTP_OK ) {
@@ -185,7 +186,7 @@ public class Main {
 								System.out.println("Exception!");
 							}												
 							// Stop jetty...
-							jetty.shutdown();
+							//jetty.shutdown();
 							try{
 								Thread.sleep( JETTY_SLEEP_INTERVAL * 1000 );
 							}catch(Exception e){
@@ -194,9 +195,13 @@ public class Main {
 			                // delete proxy.properties
 							Main.deletePropertyFiles(tdcHome);        						
 						}					
-			        }
+					}
+				} finally {
+					if(jetty != null && jettyStarted) {
+						jetty.shutdown();
+						System.out.println("Jetty stopped.");
+					}
 				}
-					        							
 			}
 			if(isMacOS() || isLinux()){
 				isWindows = false;
