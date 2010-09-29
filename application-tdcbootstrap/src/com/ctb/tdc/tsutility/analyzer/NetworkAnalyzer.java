@@ -293,7 +293,7 @@ public class NetworkAnalyzer extends Thread {
 		
 		if (loadTestUserInterrupt){
 			ui.setAnalysisInterrupted();
-			ui.setResultForSimulateTest( AnalysisState.FAIL, USER_INTERRUPT , 0);
+			ui.setResultForSimulateTest( AnalysisState.UNATTEMPTED, USER_INTERRUPT , 0);
 			return;
 		}
 		String tdcHome = getTdcHome();
@@ -308,7 +308,7 @@ public class NetworkAnalyzer extends Thread {
 			ss = new ServerSocket(SOCKET_FOR_SINGLE_INSTANCE, 1);
 		} catch( Exception e ) {
 			ui.setAnalysisInterrupted();
-			ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_CLIENT_RUNNING , 0);
+			ui.setResultForSimulateTest( AnalysisState.UNATTEMPTED, SIM_ERR_CLIENT_RUNNING , 0);
 			return;
 		}
 
@@ -322,7 +322,7 @@ public class NetworkAnalyzer extends Thread {
 		
 		if (loadTestUserInterrupt){
 			ui.setAnalysisInterrupted();
-			ui.setResultForSimulateTest( AnalysisState.FAIL, USER_INTERRUPT , 0);
+			ui.setResultForSimulateTest( AnalysisState.UNATTEMPTED, USER_INTERRUPT , 0);
 			return;
 		}
 		
@@ -338,7 +338,7 @@ public class NetworkAnalyzer extends Thread {
 		
 		if (loadTestUserInterrupt){
 			ui.setAnalysisInterrupted();
-			ui.setResultForSimulateTest( AnalysisState.FAIL, USER_INTERRUPT , 0);
+			ui.setResultForSimulateTest( AnalysisState.UNATTEMPTED, USER_INTERRUPT , 0);
 			return;
 		}
 		
@@ -379,7 +379,7 @@ public class NetworkAnalyzer extends Thread {
 						ui.setAnalysisInterrupted();
 						
 						if (loadTestUserInterrupt){
-							ui.setResultForSimulateTest( AnalysisState.FAIL, USER_INTERRUPT , 0);
+							ui.setResultForSimulateTest( AnalysisState.UNATTEMPTED, USER_INTERRUPT , 0);
 						}else{
 							ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_CONNECTION_FAILED , 0);
 						}
@@ -390,7 +390,7 @@ public class NetworkAnalyzer extends Thread {
 					if( !downloadMethod.getResponseBodyAsString().contains(RESPONSE_OK) ) {
 						ui.setAnalysisInterrupted();
 						if (loadTestUserInterrupt){
-							ui.setResultForSimulateTest( AnalysisState.FAIL, USER_INTERRUPT , 0);
+							ui.setResultForSimulateTest( AnalysisState.UNATTEMPTED, USER_INTERRUPT , 0);
 						}else{
 							ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_CONNECTION_FAILED , 0);
 						}						
@@ -402,7 +402,7 @@ public class NetworkAnalyzer extends Thread {
 					if( downloadMethod.getResponseBodyAsString() == null  ) {
 						ui.setAnalysisInterrupted();
 						if (loadTestUserInterrupt){
-							ui.setResultForSimulateTest( AnalysisState.FAIL, USER_INTERRUPT , 0);
+							ui.setResultForSimulateTest( AnalysisState.UNATTEMPTED, USER_INTERRUPT , 0);
 						}else{
 							ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_CONNECTION_FAILED , 0);
 						}
@@ -414,7 +414,7 @@ public class NetworkAnalyzer extends Thread {
 				}catch(Exception e){
 					ui.setAnalysisInterrupted();
 					if (loadTestUserInterrupt){
-						ui.setResultForSimulateTest( AnalysisState.FAIL, USER_INTERRUPT , 0);
+						ui.setResultForSimulateTest( AnalysisState.UNATTEMPTED, USER_INTERRUPT , 0);
 					}else{
 						ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_CONNECTION_FAILED , 0);
 					}
@@ -435,7 +435,7 @@ public class NetworkAnalyzer extends Thread {
 				}
 				if (currentTime.compareTo(loadTestRunTime) < 0){
 					ui.setAnalysisInterrupted();
-					ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_NOT_ALLOWED , 0);
+					ui.setResultForSimulateTest( AnalysisState.UNATTEMPTED, SIM_ERR_NOT_ALLOWED , 0);
 					downloadMethod.releaseConnection();
 					jetty.shutdown();
 					return;
@@ -447,7 +447,7 @@ public class NetworkAnalyzer extends Thread {
 				if( this.ldclient.executeMethod(downloadMethod) != HttpURLConnection.HTTP_OK ) { //this request runs the load test
 					ui.setAnalysisInterrupted();
 					if (loadTestUserInterrupt){
-						ui.setResultForSimulateTest( AnalysisState.FAIL, USER_INTERRUPT , 0);
+						ui.setResultForSimulateTest( AnalysisState.UNATTEMPTED, USER_INTERRUPT , 0);
 					}else{
 						ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_CONNECTION_FAILED , 0);
 					}
@@ -458,7 +458,7 @@ public class NetworkAnalyzer extends Thread {
 				if( !downloadMethod.getResponseBodyAsString().contains(RESPONSE_OK)) {
 					ui.setAnalysisInterrupted();
 					if (loadTestUserInterrupt){
-						ui.setResultForSimulateTest( AnalysisState.FAIL, USER_INTERRUPT , 0);
+						ui.setResultForSimulateTest( AnalysisState.UNATTEMPTED, USER_INTERRUPT , 0);
 					}else{
 						ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_CONNECTION_FAILED , 0);
 					}
@@ -469,7 +469,7 @@ public class NetworkAnalyzer extends Thread {
 			}catch(Exception e){
 				ui.setAnalysisInterrupted();
 				if (loadTestUserInterrupt){
-					ui.setResultForSimulateTest( AnalysisState.FAIL, USER_INTERRUPT , 0);
+					ui.setResultForSimulateTest( AnalysisState.UNATTEMPTED, USER_INTERRUPT , 0);
 				}else{
 					ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_CONNECTION_FAILED , 0);
 				}
@@ -497,7 +497,7 @@ public class NetworkAnalyzer extends Thread {
 			ui.setResultForSimulateTest( AnalysisState.PASS, SIM_COMPLETE , 100);	
 		}else{
 			ui.setAnalysisInterrupted();
-			ui.setResultForSimulateTest( AnalysisState.FAIL, USER_INTERRUPT , 0);	
+			ui.setResultForSimulateTest( AnalysisState.UNATTEMPTED, USER_INTERRUPT , 0);	
 		}
 		
 		ui.setAnalysisComplete();

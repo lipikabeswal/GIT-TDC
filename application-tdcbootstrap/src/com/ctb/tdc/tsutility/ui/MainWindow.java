@@ -1397,6 +1397,7 @@ public class MainWindow extends JFrame implements ActionListener {
 			getTaskDetailTextArea().setText(details);
 		} else if( result == AnalysisState.UNATTEMPTED ) {
 			cl.show( getResultPanel5(), getResultUnattemptedPanel5().getName() );
+			getTaskDetailTextArea().setText(details);
 		} else {
 			cl.show( getResultPanel5(), getResultInitialPanel5().getName() );
 		}
