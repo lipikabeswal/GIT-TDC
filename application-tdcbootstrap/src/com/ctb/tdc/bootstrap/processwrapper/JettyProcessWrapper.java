@@ -66,35 +66,53 @@ public class JettyProcessWrapper extends Thread {
         
 		this.tdcHome     = tdcHome;
 		this.jettyHome   = this.tdcHome + "/servletcontainer/jetty-5.1.11RC0";
+		
+		String stopPort = "12355";
 		if(loadTest) {
+			stopPort = "12357";
 			this.jettyConfig = this.tdcHome + "/servletcontainer/lt.xml";
 		} else {
 			this.jettyConfig = this.tdcHome + "/servletcontainer/tdc.xml";
 		}
 	
-		this.startCmd = new String[10];
+		this.startCmd = new String[11];
 		this.startCmd[0] = javaHome + "java";
 		this.startCmd[1] = "-Dtdc.home=" + this.tdcHome;
-		this.startCmd[2] = "-Djetty.home=" + jettyHome;
-		this.startCmd[3] = "-Dorg.mortbay.log.LogFactory.noDiscovery=false";
-		this.startCmd[4] = "-Djetty.class.path=" + jettyHome + "/etc";
-		this.startCmd[5] = "-cp";
-		this.startCmd[6] = jettyHome + "/lib/org.mortbay.jetty.jar";
-		this.startCmd[7] = "-jar";
-		this.startCmd[8] = jettyHome + "/start.jar";
-		this.startCmd[9] = jettyConfig;
+		this.startCmd[2] = "-DSTOP.PORT=" + stopPort;
+		this.startCmd[3] = "-Djetty.home=" + jettyHome;
+		this.startCmd[4] = "-Dorg.mortbay.log.LogFactory.noDiscovery=false";
+		this.startCmd[5] = "-Djetty.class.path=" + jettyHome + "/etc";
+		this.startCmd[6] = "-cp";
+		this.startCmd[7] = jettyHome + "/lib/org.mortbay.jetty.jar";
+		this.startCmd[8] = "-jar";
+		this.startCmd[9] = jettyHome + "/start.jar";
+		this.startCmd[10] = jettyConfig;
 	
-		this.stopCmd = new String[10];
+		this.stopCmd = new String[11];
 		this.stopCmd[0] = "java";
 		this.stopCmd[1] = "-Dtdc.home=" + this.tdcHome;
-		this.stopCmd[2] = "-Djetty.home=" + jettyHome;
-		this.stopCmd[3] = "-Dorg.mortbay.log.LogFactory.noDiscovery=false";
-		this.stopCmd[4] = "-Djetty.class.path=" + jettyHome + "/etc";
-		this.stopCmd[5] = "-cp";
-		this.stopCmd[6] = jettyHome + "/lib/org.mortbay.jetty.jar";
-		this.stopCmd[7] = "-jar";
-		this.stopCmd[8] = jettyHome + "/stop.jar";
-		this.stopCmd[9] = jettyConfig;
+		this.stopCmd[2] = "-DSTOP.PORT=" + stopPort;
+		this.stopCmd[3] = "-Djetty.home=" + jettyHome;
+		this.stopCmd[4] = "-Dorg.mortbay.log.LogFactory.noDiscovery=false";
+		this.stopCmd[5] = "-Djetty.class.path=" + jettyHome + "/etc";
+		this.stopCmd[6] = "-cp";
+		this.stopCmd[7] = jettyHome + "/lib/org.mortbay.jetty.jar";
+		this.stopCmd[8] = "-jar";
+		this.stopCmd[9] = jettyHome + "/stop.jar";
+		this.stopCmd[10] = jettyConfig;
+	
+		/*this.stopCmd = new String[10];
+		this.stopCmd[0] = "java";
+		this.stopCmd[1] = "-Dtdc.home=" + this.tdcHome;
+		this.stopCmd[2] = "-DSTOP.PORT=" + stopPort;
+		this.stopCmd[3] = "-Djetty.home=" + jettyHome;
+		this.stopCmd[4] = "-Dorg.mortbay.log.LogFactory.noDiscovery=false";
+		this.stopCmd[5] = "-Djetty.class.path=" + jettyHome + "/etc";
+		this.stopCmd[6] = "-cp";
+		this.stopCmd[7] = jettyHome + "/lib/org.mortbay.jetty.jar";
+		this.stopCmd[8] = "-jar";
+		this.stopCmd[9] = jettyHome + "/stop.jar";
+		this.stopCmd[10] = jettyConfig; */
 		
 		// Parse the jetty configuration for port and url.  this.jettyPort and this.jettyUrl
 		// get set in that method.
