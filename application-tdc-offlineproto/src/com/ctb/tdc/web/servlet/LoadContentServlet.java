@@ -151,7 +151,7 @@ public class LoadContentServlet extends HttpServlet {
             throws ServletException, IOException {
         
         boolean good = false;
-        String filePath = System.getProperty(AuditFile.TDC_HOME) + "/data/objectbank";
+        String filePath = new File(".").getAbsolutePath() + "/../data/objectbank";
                         
         SubtestKeyVO theSubtestKeyVO = null;
         if ( phaseOfOperation > 1 )

@@ -623,7 +623,7 @@ public class ServletUtils {
 		String lsid = parseTag("user_name=", xml)+ ":" + parseTag("password=", xml) + ":" + parseTag("access_code=", xml);
 		if ((lsid != null) && (!lsid.equals("-"))) {
 			String fileName = lsid.replace(':', '_');
-			String tdcHome = System.getProperty(AuditFile.TDC_HOME);
+			String tdcHome = new File(".").getAbsolutePath() + "/..";
 			fullFileName = tdcHome + AuditFile.AUDIT_FOLDER + fileName + AuditFile.AUDIT_EXTENSION;
 		}
 		auditFileName = fullFileName;

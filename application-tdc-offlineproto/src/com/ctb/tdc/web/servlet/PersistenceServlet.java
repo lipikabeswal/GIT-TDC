@@ -127,8 +127,9 @@ public class PersistenceServlet extends HttpServlet {
      * @throws IOException 
      */
     private void handleEvent(HttpServletResponse response, String method, String xml) throws IOException {
-        String result = ServletUtils.OK;
-        boolean validSettings = ServletUtils.validateServletSettings();
+    	//System.out.println("In handleEvent method");
+    	String result = ServletUtils.OK;
+        boolean validSettings = true; //ServletUtils.validateServletSettings();
                 
         // call method to perform an action only if servlet settings is valid
         if (! validSettings)
@@ -163,28 +164,29 @@ public class PersistenceServlet extends HttpServlet {
      */
     private String verifyServletSettings() {
         String errorMessage = ServletUtils.OK;                
-        if (! ServletUtils.validateServletSettings()) {
+        //if (! ServletUtils.validateServletSettings()) {
             // return error message if values in properties file are invalid
-            errorMessage = ServletUtils.getServletSettingsErrorMessage();
-        }
-        else {
+        //    errorMessage = ServletUtils.getServletSettingsErrorMessage();
+        //}
+        //else {
             // properties file are valid, now check for TMS connection
             //errorMessage = ServletUtils.httpClientGetStatus();
-        }
+        //}
         return errorMessage;
     }
     
     private String login(String xml) {
+    	//System.out.println("In login method");
         String result = ServletUtils.ERROR;
-    
         try {
-            String filePath = System.getProperty(AuditFile.TDC_HOME) + "/data/loginresponse.xml";
+            String filePath = new File(".").getAbsolutePath() + "/../data/loginresponse.xml";
+            //System.out.println("Looking for login data at: " + filePath);
             result = new String(ServletUtils.readFromFile(new File(filePath)));
         	ServletUtils.processContentKeys(result);
-            logger.info("Login successfully.");                
+        	//System.out.println("Login successfully.");                
         } 
         catch (Exception e) {
-            logger.error("Exception occured in login() : " + ServletUtils.printStackTrace(e));
+        	System.out.println("Exception occured in login() : " + ServletUtils.printStackTrace(e));
             result = ServletUtils.buildXmlErrorMessage("", e.getMessage(), ""); 
         }
         return result;
@@ -195,11 +197,27 @@ public class PersistenceServlet extends HttpServlet {
     }
 
     private String save(HttpServletResponse response, String xml) {
-    	return ServletUtils.OK;
-    }
-    
-    private static String save(String xml) throws Exception {
-    	return ServletUtils.OK;
+    	//System.out.println(xml);
+    	boolean isEndSubtest = ServletUtils.isEndSubtest(xml);
+    	String result = null;
+    	if(isEndSubtest) {
+    		System.out.println("end subtest");
+    		String scid = ServletUtils.parseItemSetId(xml);
+    		System.out.println("got scid: " + scid);
+    		String endSubtestResponse = "<adssvc_response><save_testing_session_data><tsd lsid=\"1812625:allemand37\" scid=\"" + scid + "\" mseq=\"9\" status=\"OK\">nextScidVal</tsd></save_testing_session_data></adssvc_response>";
+    		if("26910".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"26911\"/>");
+    		} else if("26911".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"26913\"/>");
+    		} else {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "");
+    		}
+    		result = endSubtestResponse;
+    	} else { 
+    		result = ServletUtils.OK;
+    	}
+    	System.out.println(result);
+    	return result;
     }
 
     private String writeToAuditFile(String xml) {

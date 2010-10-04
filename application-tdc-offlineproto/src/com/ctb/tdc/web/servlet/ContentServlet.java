@@ -481,7 +481,7 @@ public class ContentServlet extends HttpServlet {
 	}
 	
 	public static final String TDC_HOME = "tdc.home";
-	public static final String RESOURCE_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
-		                             "webapp" + File.separator + "resources";
+	public static final String RESOURCE_FOLDER_PATH = new File(".").getAbsolutePath() + "/.." + File.separator + 
+		                             "data" + File.separator + "resources";
 
 }

@@ -30,7 +30,7 @@ public class ContentFile
     public static final String SUBTEST_FILE_EXTENSION = ".eam";
     public static final String ITEM_FILE_EXTENSION = ".ecp";
     public static final String CONTENT_FOLDER = "/data/objectbank/";
-    public static final String CONTENT_FOLDER_PATH = System.getProperty(TDC_HOME)+ CONTENT_FOLDER;
+    public static final String CONTENT_FOLDER_PATH = new File(".").getAbsolutePath() + "/.." + CONTENT_FOLDER;
     
     private ContentFile() 
     {

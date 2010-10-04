@@ -99,6 +99,7 @@ public class UtilityServlet extends HttpServlet {
         	} else {
         		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
         	}
+        	ServletUtils.writeResponse(response, ServletUtils.OK);
         }      
         
         System.out.print(", elapsed time: " + (System.currentTimeMillis() - startTime) + "\n");
@@ -185,7 +186,7 @@ public class UtilityServlet extends HttpServlet {
     
     private void deleteAuditFile(HttpServletRequest request) {
         String fileName = request.getParameter("fileName");
-        String tdcHome = System.getProperty(AuditFile.TDC_HOME);
+        String tdcHome = new File(".").getAbsolutePath() + "/..";
         fileName = tdcHome + AuditFile.AUDIT_FOLDER + fileName;
 
         try {
@@ -198,7 +199,7 @@ public class UtilityServlet extends HttpServlet {
     private boolean auditFileExists(HttpServletRequest request) {
         boolean exists = false;
         String fileName = request.getParameter("fileName");
-        String tdcHome = System.getProperty(AuditFile.TDC_HOME);
+        String tdcHome = new File(".").getAbsolutePath() + "/..";
         fileName = tdcHome + AuditFile.AUDIT_FOLDER + fileName;
 
         try {
@@ -211,7 +212,7 @@ public class UtilityServlet extends HttpServlet {
     
     private int auditFileGetLineCount(HttpServletRequest request) throws IOException {
         String fileName = request.getParameter("fileName");
-        String tdcHome = System.getProperty(AuditFile.TDC_HOME);
+        String tdcHome = new File(".").getAbsolutePath() + "/..";
         fileName = tdcHome + AuditFile.AUDIT_FOLDER + fileName;
         
         String buff = null;
@@ -276,7 +277,7 @@ public class UtilityServlet extends HttpServlet {
    }
 
 public static final String TDC_HOME = "tdc.home";
-public static final String RESOURCE_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
+public static final String RESOURCE_FOLDER_PATH = new File(".").getAbsolutePath() + "/.." + File.separator + 
 	                             "webapp" + File.separator + "resources";
 
    

@@ -1,6 +1,7 @@
 package com.ctb.tdc.web.utils;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,7 +37,7 @@ public class FileUtils {
      * 
      */
     public static String getHome() {
-        String tdcHome = System.getProperty(TDC_HOME);
+        String tdcHome = new File(".").getAbsolutePath() + "/..";
         return tdcHome;
     }
 

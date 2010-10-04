@@ -1,6 +1,0 @@
-<library>
-	<class name="droparea" visible="false">
-		<attribute name="isSetup" type="boolean" value="false" />
-		<attribute name="coords" type="string" />
-	</class>
-</library>
