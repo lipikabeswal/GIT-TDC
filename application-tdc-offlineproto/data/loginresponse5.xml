@@ -1,0 +1,21 @@
+<tmssvc_response method="login_response">
+	<login_response lsid="1812624:allemand37" restart_flag="false" restart_number="0" tts_speed_value="M">
+		<status status_code="200"/>
+		<testing_session_data>
+			<cmi.core student_id="1633631" student_last_name="Student" student_first_name="Demo" student__middle_name="A"/>
+			<lms.student.accommodations calculator="true" magnifier="true" screen_reader="false" untimed="true" rest_break="true" highlighter="true">
+				<stereotype_style stereotype="directions" bgcolor="0xFFFFFF" font_color="0x000000" font_magnification="1.0"/>
+				<stereotype_style stereotype="stimulus" bgcolor="0xFFFFFF" font_color="0x000000" font_magnification="1.0"/>
+				<stereotype_style stereotype="stem" bgcolor="0xFFFFFF" font_color="0x000000" font_magnification="1.0"/>
+				<stereotype_style stereotype="answerArea" bgcolor="0xFFFFB0" font_color="0x000000" font_magnification="1.0"/>
+			</lms.student.accommodations>
+		</testing_session_data>
+		<manifest title="Experience ISTEP Plus Online Gr 5">
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="26904" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="Sample Questions" asmt_hash="58F40F380D79CDC64C2CC9423229FF93" asmt_encryption_key="195" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8" adsid="9582802" cmi.core.total_time="0:0:0"/>
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="26905" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="Session 1" asmt_hash="CF029B815E7A0FDF0C7EA60BB353961E" asmt_encryption_key="204" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8" adsid="9582902" cmi.core.total_time="0:0:0"/>
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="26907" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="Session 2" asmt_hash="1C82F3C20911FF2E42CEF7C8C47CC1CE" asmt_encryption_key="725" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8" adsid="9583002" cmi.core.total_time="0:0:0"/>
+			<terminator id="SEE_YOU_LATER"/>
+		</manifest>
+		<branding tdclogo="/resources/logo.swf"/>
+	</login_response>
+</tmssvc_response>

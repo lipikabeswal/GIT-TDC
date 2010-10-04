@@ -48,8 +48,48 @@
   </servlet-mapping>
   
   <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servlet3/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servlet4/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servlet5/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servlet6-8/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
     <servlet-name>ContentServlet</servlet-name>
     <url-pattern>/servlet/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servlet3/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servlet4/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servlet5/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servlet6-8/ContentServlet.do</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -63,6 +103,26 @@
     <servlet-name>PersistenceServlet</servlet-name>
     <url-pattern>/servlet/PersistenceServlet.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servlet3/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servlet4/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servlet5/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servlet6-8/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
 
   <servlet>
     <description>UtilityServlet</description>
@@ -71,9 +131,29 @@
     <servlet-class>com.ctb.tdc.web.servlet.UtilityServlet</servlet-class>
   </servlet>
 
-  <servlet-mapping>
+<servlet-mapping>
     <servlet-name>UtilityServlet</servlet-name>
     <url-pattern>/servlet/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servlet3/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servlet4/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servlet5/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servlet6-8/UtilityServlet.do</url-pattern>
   </servlet-mapping>
 
 

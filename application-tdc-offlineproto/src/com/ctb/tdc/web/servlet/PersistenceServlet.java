@@ -86,7 +86,7 @@ public class PersistenceServlet extends HttpServlet {
         String method = null;                               // this line is for release        
         if ((method != null) && (! method.equals(ServletUtils.NONE_METHOD))) {    
             String xml = ServletUtils.buildPersistenceParameters(request, method);
-            handleEvent(response, method, xml);
+            handleEvent(request, response, method, xml);
         }
         else {
             doGet(request, response);            
@@ -111,7 +111,7 @@ public class PersistenceServlet extends HttpServlet {
         System.out.print("called PersistenceServlet method: " + method);
         
         String xml = ServletUtils.getXml(request);
-        handleEvent(response, method, xml);    
+        handleEvent(request, response, method, xml);    
         
         System.out.print(", elapsed time: " + (System.currentTimeMillis() - startTime + "\n"));
 	}
@@ -126,7 +126,7 @@ public class PersistenceServlet extends HttpServlet {
      * @param String xml
      * @throws IOException 
      */
-    private void handleEvent(HttpServletResponse response, String method, String xml) throws IOException {
+    private void handleEvent(HttpServletRequest request, HttpServletResponse response, String method, String xml) throws IOException {
     	//System.out.println("In handleEvent method");
     	String result = ServletUtils.OK;
         boolean validSettings = true; //ServletUtils.validateServletSettings();
@@ -139,7 +139,7 @@ public class PersistenceServlet extends HttpServlet {
             result = verifyServletSettings();
         }
         else if (method != null && method.equals(ServletUtils.LOGIN_METHOD))
-            result = login(xml);
+            result = login(request, xml);
         else if (method != null && method.equals(ServletUtils.SAVE_METHOD))
             result = save(response, xml);        
         else if (method != null && method.equals(ServletUtils.FEEDBACK_METHOD))
@@ -175,11 +175,21 @@ public class PersistenceServlet extends HttpServlet {
         return errorMessage;
     }
     
-    private String login(String xml) {
+    private String login(HttpServletRequest request, String xml) {
     	//System.out.println("In login method");
         String result = ServletUtils.ERROR;
         try {
-            String filePath = new File(".").getAbsolutePath() + "/../data/loginresponse.xml";
+        	String requestURI = request.getRequestURI();
+        	String filePath = new File(".").getAbsolutePath() + "/../data/loginresponse.xml";
+        	if(requestURI.indexOf("servlet6-8") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/loginresponse6-8.xml";
+        	} else if(requestURI.indexOf("servlet5") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/loginresponse5.xml";
+        	} else if(requestURI.indexOf("servlet4") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/loginresponse4.xml";
+        	} else if(requestURI.indexOf("servlet3") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/loginresponse3.xml";
+        	}
             //System.out.println("Looking for login data at: " + filePath);
             result = new String(ServletUtils.readFromFile(new File(filePath)));
         	ServletUtils.processContentKeys(result);
@@ -205,7 +215,19 @@ public class PersistenceServlet extends HttpServlet {
     		String scid = ServletUtils.parseItemSetId(xml);
     		System.out.println("got scid: " + scid);
     		String endSubtestResponse = "<adssvc_response><save_testing_session_data><tsd lsid=\"1812625:allemand37\" scid=\"" + scid + "\" mseq=\"9\" status=\"OK\">nextScidVal</tsd></save_testing_session_data></adssvc_response>";
-    		if("26910".equals(scid)) {
+    		if("26892".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"26893\"/>");
+    		} else if("26893".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"26895\"/>");
+    		} else if("26898".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"26899\"/>");
+    		} else if("26899".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"26901\"/>");
+    		} else if("26904".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"26905\"/>");
+    		} else if("26905".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"26907\"/>");
+    		} else if("26910".equals(scid)) {
     			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"26911\"/>");
     		} else if("26911".equals(scid)) {
     			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"26913\"/>");
