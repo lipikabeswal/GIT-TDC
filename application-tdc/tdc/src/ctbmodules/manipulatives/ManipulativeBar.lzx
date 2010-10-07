@@ -105,13 +105,14 @@
 			]]></handler>
 		</radiogroup>
 
-		<view x="${parent.speedController.x + parent.speedController.width + 2}" height="20" valign="middle" bgcolor="0xdfdfdf">
+		<view x="${parent.speedController.x + parent.speedController.width + 2}" height="20" valign="middle" 
+				visible="${parent.stopreader.visible}" bgcolor="0xdfdfdf">
 		<simplelayout axis="y"/>
-			<text name="volumeText" fontsize="9" resize="true" height="15" visible="${gController.hasTTSspeed &amp;&amp; parent.parent.stopreader.visible}"> Volume Control</text>
+			<text name="volumeText" fontsize="9" resize="true" height="15" align="center" fontstyle="bold">Volume</text>
 	
 			<!-- The tool to control the TTS volume -->
-			<slider value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" thumbwidth="16" thumbheight="12" 
-					visible="${gController.hasTTSspeed &amp;&amp; parent.parent.stopreader.visible}" name="volumeController" width="80">
+			<slider value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" 
+					thumbwidth="16" thumbheight="12" width="80">
 	
 				<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
 		
