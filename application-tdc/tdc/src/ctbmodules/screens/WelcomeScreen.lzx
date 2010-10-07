@@ -79,27 +79,12 @@
 					var dynaText1 = (qsingular ? 'There is ' : 'There are ');
 					var dynaText2 = (r ? ' to be answered.' : '.');
 					
-                    if ( u ) {
-                        setAttribute(
+                    setAttribute(
                             'text',
                             '<b>Notes:</b> This test is untimed.' +
                             '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
-                            '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + 
-                            dynaText1 + q + ' question' + 
-                            (qsingular ? '' : 's') +
-                            dynaText2
+                            '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
                         );
-                    } else {
-                        setAttribute(
-                            'text',
-                            '<b>Notes:</b> You have ' + m +
-                            ' minute' +
-                            (msingular ? '' : 's') +
-                            ' to complete ' + q + ' question' +
-                            (qsingular ? '' : 's') + 
-                            '.'
-                        );
-                    }
 
                     if ( r ) {
                         setAttribute( 'text', text + '<br/><br/>You will start where you left the test. Be sure to check your answers.' );
