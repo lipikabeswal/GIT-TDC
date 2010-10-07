@@ -88,24 +88,9 @@
 			</method>
 	
 		</basebutton>
-
-		<!-- The tool to control the TTS speed -->
-		<radiogroup visible="${gController.hasTTSspeed &amp;&amp; parent.stopreader.visible}" name="speedController" height="20" x="${parent.stopreader.x + parent.stopreader.width + 2}" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
-		<datapath xpath="dslogin:/login_response/@tts_speed_value"></datapath>
-			<radiobutton value="'S'" text="Slow " height="15" valign="middle"/>
-			<radiobutton value="'M'" text="Medium " height="15" valign="middle" selected="true" />
-			<radiobutton value="'F'" text="Fast " height="15" valign="middle"/>
-
-			<handler name="onselect"><![CDATA[
-				if(gReadableText.isplaying && gReadableText.isReadable && 
-						gReadableText.clickable && gReadableText.currentText.length > 0) {
-
-					gReadableText.read(gReadableText.currentText,false);
-				}
-			]]></handler>
-		</radiogroup>
-
-		<view x="${parent.speedController.x + parent.speedController.width + 2}" height="20" valign="middle" 
+		
+		
+		<view x="${parent.stopreader.x + parent.stopreader.width + 2}" height="20" valign="middle" 
 				visible="${parent.stopreader.visible}" bgcolor="0xdfdfdf">
 		<simplelayout axis="y"/>
 			<text name="volumeText" fontsize="9" resize="true" height="15" align="center" fontstyle="bold">Volume</text>
@@ -146,7 +131,27 @@
 					gReadableText.audioPlayer.setVolume(this.value);
 				]]></handler>
 			</slider>
+			
+			
 		</view>
+		
+		<!-- The tool to control the TTS speed -->
+			<radiogroup visible="${gController.hasTTSspeed &amp;&amp; parent.stopreader.visible}" name="speedController" height="20" x="${parent.stopreader.x + parent.stopreader.width + 84}" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
+				<datapath xpath="dslogin:/login_response/@tts_speed_value"></datapath>
+				<radiobutton value="'S'" text="Slow " height="15" valign="middle"/>
+				<radiobutton value="'M'" text="Medium " height="15" valign="middle" selected="true" />
+				<radiobutton value="'F'" text="Fast " height="15" valign="middle"/>
+
+				<handler name="onselect"><![CDATA[
+					if(gReadableText.isplaying && gReadableText.isReadable && 
+						gReadableText.clickable && gReadableText.currentText.length > 0) {
+
+					gReadableText.read(gReadableText.currentText,false);
+					}
+				]]></handler>
+			</radiogroup>		
+
+		
     </class>
 
 </library>
