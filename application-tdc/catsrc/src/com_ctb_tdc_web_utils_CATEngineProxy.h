@@ -10,26 +10,18 @@ extern "C" {
 /*
  * Class:     com_ctb_tdc_web_utils_CATEngineProxy
  * Method:    setup_cat
- * Signature: (Ljava/lang/String;C)I
+ * Signature: (Ljava/lang/String)I
  */
 JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_setup_1cat
-  (JNIEnv *, jclass, jstring, jchar);
+  (JNIEnv *, jclass, jstring);
 
 /*
  * Class:     com_ctb_tdc_web_utils_CATEngineProxy
- * Method:    getTestLength
+ * Method:    next_item
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_getTestLength
+JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_next_1item
   (JNIEnv *, jclass);
-
-/*
- * Class:     com_ctb_tdc_web_utils_CATEngineProxy
- * Method:    adapt_n_item
- * Signature: (I)I
- */
-JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_adapt_1n_1item
-  (JNIEnv *, jclass, jint);
 
 /*
  * Class:     com_ctb_tdc_web_utils_CATEngineProxy

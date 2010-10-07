@@ -10,14 +10,21 @@
 
 #define DLL_EXP_IMP __declspec(dllexport)
 
-DLL_EXP_IMP int WINAPI setup_cat(char subTest[], char testLevel);
+DLL_EXP_IMP int WINAPI setup_cat(char subTest[]);
 // long n_items, double loss, double hoss, long testLength);
-DLL_EXP_IMP int WINAPI getTestLength();
-void set_pItems();
+int getTestLength();
+int getNumItems();
+int getNumObj();
+double getLoss();
+double getHoss();
+char get_testLevel(double theta, char subTest[]);
+// void set_pItems();
 void print_pItems();
-int adapt_aItem(int obj, int aSt, double theta);
-DLL_EXP_IMP int WINAPI adapt_n_item(int n);
-int get_o_a(int *obj, int *aSt, int n);
+// int adapt_aItem(int obj, int aSt, double theta);
+// int adapt_aItemFromAll(double theta);  // no obj and alpha stratificatoin constraint.
+// int adapt_aItemFromIdx(double theta, int idx1, int idx2);
+DLL_EXP_IMP int WINAPI next_item();
+// int get_o_a(int *obj, int *aSt, int n);
 DLL_EXP_IMP double WINAPI score();
 DLL_EXP_IMP double WINAPI getSEM(double theta);
 void set_simuRWO(int rwo, double theta0); //simu

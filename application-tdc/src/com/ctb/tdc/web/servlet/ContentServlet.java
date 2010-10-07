@@ -44,6 +44,8 @@ public class ContentServlet extends HttpServlet {
 	private static final HashMap itemKeyMap = new HashMap();
 	public static final HashMap itemCorrectMap = new HashMap();
 
+	public static final HashMap itemSubstitutionMap = new HashMap();
+	
 	static Logger logger = Logger.getLogger(ContentServlet.class);
 
 	/**
@@ -411,6 +413,7 @@ public class ContentServlet extends HttpServlet {
 			} 
 			String originalItemId = itemId;
 			itemId = CATEngineProxy.getNextItem();
+			itemSubstitutionMap.put(originalItemId, itemId);
 			if(itemId != null) {
 				hash = (String) itemHashMap.get(itemId);
 				System.out.println("Hash for item " + itemId + " is " + hash);

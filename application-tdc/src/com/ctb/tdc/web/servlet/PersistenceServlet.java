@@ -138,9 +138,16 @@ public class PersistenceServlet extends HttpServlet {
         }
         else if (method != null && method.equals(ServletUtils.LOGIN_METHOD)) {
             result = login(xml);
-            CATEngineProxy.initCAT("RD", 'M');
+            CATEngineProxy.initCAT("MC");
         }
         else if (method != null && method.equals(ServletUtils.SAVE_METHOD)) {
+        	String originalItemId = ServletUtils.parseItemId(xml);
+        	if(originalItemId != null && !ServletUtils.NONE.equals(originalItemId)) {
+        		String realId = (String) ContentServlet.itemSubstitutionMap.get(originalItemId);
+        		if(realId != null) {
+        			xml.replace(originalItemId, realId);
+        		}
+        	}
             result = save(response, xml);      
             Integer itemRawScore = getItemRawScoreFromResponse(response, xml);
         	if(itemRawScore != null) {
