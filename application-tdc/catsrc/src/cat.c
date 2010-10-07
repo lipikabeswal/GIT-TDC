@@ -115,7 +115,7 @@ int DLL_EXP_IMP WINAPI setup_cat(char subTest[]) {
    strcpy(_subTest, subTest);
 
    strcpy(log_filename, "");
-   strcat(log_filename, ".\\Data\\");
+   strcat(log_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\");
    strcat(log_filename, subTest);
 //   tmpC[0] = '_';
 //   tmpC[1] = testLevel;
@@ -148,7 +148,7 @@ int DLL_EXP_IMP WINAPI setup_cat(char subTest[]) {
    _hoss = ssSts[3];
    */
 
-   strcpy(_NoItemsEachObjByLvl_filename, ".\\Data\\NoItemsAnObjByLvl.csv");
+   strcpy(_NoItemsEachObjByLvl_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\NoItemsAnObjByLvl.csv");
    /*
    condition_code = getNadmObj(NoItemsEachObjByLvl_filename, subTest, testLevel, _n_adm_obj);
    if (condition_code != GETN_ADMOBJ_OK) {
@@ -175,7 +175,7 @@ int DLL_EXP_IMP WINAPI setup_cat(char subTest[]) {
    }
 
    strcpy(par_filename, "");
-   strcat(par_filename, ".\\Data\\");
+   strcat(par_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\");
    strcat(par_filename, subTest);
    strcat(par_filename, ".csv");
    

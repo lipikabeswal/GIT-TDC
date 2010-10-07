@@ -2205,6 +2205,7 @@ public class CATEngineProxy {
 	}
 
 	public static void initCAT(String contentArea) {
+		System.out.println("Called initCAT()");
 		System.load("C:/Program Files/CTB/Online Assessment/CATABE.dll");
 		itemnum = 0;
 		setup_cat(contentArea);
@@ -2212,6 +2213,7 @@ public class CATEngineProxy {
 	}
 
 	public static String getNextItem() throws Exception{
+		System.out.println("Called getNextItem()");
 		if(nextItem == null) {
 				scoreCurrentItem(null);
 		}
@@ -2219,6 +2221,7 @@ public class CATEngineProxy {
 	}
 
 	public static void scoreCurrentItem(Integer currentItemRawScore) throws Exception {
+		System.out.println("Called scoreCurrentItem()");
 			if(currentItemRawScore != null) {
 				set_rwo(currentItemRawScore.intValue());
 				theta = score();
@@ -2237,17 +2240,20 @@ public class CATEngineProxy {
 	}
 
 	public static double getAbilityScore() {
+		System.out.println("Called getAbilityScore()");
 		System.out.println("Ability: " + theta);
 		return theta;
 	}
 
 	public static double getSEM() {
+		System.out.println("Called getSEM()");
 		SEM = getSEM(theta);
 		System.out.println("SEM: " + SEM);
 		return SEM;
 	}
 
 	public static void deInitCAT() {
+		System.out.println("Called deInitCAT()");
 		setoff_cat();
 	}
 }

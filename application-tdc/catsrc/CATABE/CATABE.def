@@ -3,7 +3,7 @@ LIBRARY	CATABE
 EXPORTS
 	setup_cat
 	getTestLength
-	adapt_n_item
+	next_item
 	score
 	getSEM
 	set_rwo

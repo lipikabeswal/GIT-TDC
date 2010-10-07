@@ -35,9 +35,11 @@ void getAdmItems(struct item_info *items, int *n_obj, int objID[]);
 /* Normal return, by convention defined to be zero */
 #define SETUP_CAT_OK                 0
 #define GET_O_A_OK                 0
+#define GETN_ADMOBJ_OK						0
 
 /* Fatal errors: 1-1000 */
 #define SETUP_CAT_FAILURE           1
 #define GET_O_A_FAILURE           1
+#define GET_NITEM_FAILURE         1
 
 #endif
