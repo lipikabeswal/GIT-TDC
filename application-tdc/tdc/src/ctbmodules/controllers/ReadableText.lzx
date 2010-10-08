@@ -61,6 +61,7 @@
         		gReadableText.setAttribute("readingScratchpad", false);
         	}
         	txt = trim(txt);
+        	//Debug.write("current Text"+txt);
         	this.currentText = txt;//TTS CR
         	if ( isReadable && clickable && txt.length > 0){
         		doRead(txt);
@@ -101,9 +102,10 @@
 		
         <method name="doRead" args="txt"><![CDATA[
         	this.currentText = txt;//TTS CR
-        	this.audioPlayer.setVolume(gManipulativeBar.volumeController.value);
+        	//Changes for Defect # 65040
+        	this.audioPlayer.setVolume(gManipulativeBar.volumeController.volumeControl.value);
 			LzTimer.resetTimer(this.dTimeout, TIMEOUT_INTERVAL);
- 	    	stopReading();
+ 	    	//stopReading();
  	        speechDs.setQueryParam(TEXT_PARAM, txt);
  	        //TTS CR
  	        if(gController.hasTTSspeed) {
@@ -111,11 +113,13 @@
  	        	var speedValue = getSpeedNumber(smf);
  	        	speechDs.setQueryParam(SPEED_PARAM, speedValue);
  	        }
+ 	        Debug.write("speechDs");
 			speechDs.doRequest();
        ]]></method>
         
         <method name="getMp3" ><![CDATA[
         	//ISTEP CR: to avoid browser caching of the mp3
+        	//Debug.write("getMp3" + GET_URL + ":"+timestamp());
         	audioPlayer.setSource(GET_URL+"&"+timestamp()+".mp3");
         ]]></method>
 
@@ -197,8 +201,8 @@
         <view name="audioPlayer" visible="false">
         	<handler name="onload">
         		gReadableText.isplaying = true; // TTS CR:when mp3 is loaded and ready to play
- 				
- 				this.setVolume(gManipulativeBar.volumeController.value);
+				//Changes for Defect # 65040
+ 				this.setVolume(gManipulativeBar.volumeController.volumeControl.value);
  				
 				if(gController.isWaitPopupOpen) {
 					gReadableText.speechRequestSent = false;
@@ -211,8 +215,10 @@
 				}
 
         		if(!gCommunicator.error){  // if we get an onload and there is no error
-	        		LzTimer.removeTimer( parent.dTimeout );
+	        	//	Debug.write("inside if of readable");
+					LzTimer.removeTimer( parent.dTimeout );
 	        		if(parent.primed){
+					//Debug.write("inside if of primed");
 		       			gController.unlockUI();
 	        		}
 	        		else{
@@ -235,7 +241,7 @@
 				
         	<!-- TTS CR: when whole mp3 is played and reaches at last frame, set isplaying false -->
         	<handler name="onlastframe">
-        		//Debug.write("onlastframe for audioplayer : ", gReadableText.isplaying);
+        	//	Debug.write("onlastframe for audioplayer : ", gReadableText.isplaying);
         		gReadableText.isplaying = false;
         	</handler>
          </view>
