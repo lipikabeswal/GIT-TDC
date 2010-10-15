@@ -72,10 +72,10 @@ public class ContentServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String method = ServletUtils.getMethod(request);
-		
 		long startTime = System.currentTimeMillis();
-		System.out.print("called ContentServlet method: " + method);
+		System.out.print("called ContentServlet method ");
+		
+		String method = ServletUtils.getMethod(request);
 		
 		if (method.equals(ServletUtils.GET_SUBTEST_METHOD)) {
 			getSubtest(request, response);
@@ -92,7 +92,7 @@ public class ContentServlet extends HttpServlet {
 			ServletUtils.writeResponse(response, ServletUtils.ERROR);
 		}
 		
-		System.out.print(", elapsed time: " + (System.currentTimeMillis() - startTime + "\n"));
+		System.out.print(method + ", elapsed time: " + (System.currentTimeMillis() - startTime + "\n"));
 
 	}
 
@@ -411,6 +411,8 @@ public class ContentServlet extends HttpServlet {
 		}
 	}
 	
+	private static final HashMap localResourceMap = new HashMap();
+	
 	private void getLocalResource(HttpServletRequest request,HttpServletResponse response) throws IOException {
     	String filename = request.getParameter("resourcePath");
     	  	
@@ -423,14 +425,18 @@ public class ContentServlet extends HttpServlet {
 
     		ServletOutputStream myOutput = response.getOutputStream();
     		
-    		// assume all local flash resources are encrypted
-    		FileInputStream input = new FileInputStream( filePath.replaceAll(".swf", ".enc"));
-            int size = input.available();
-            byte[] src = new byte[ size ];
-            input.read( src );
-            input.close();
-            
-            byte[] decrypted = ContentFile.decrypt(src);
+    		byte[] decrypted = (byte[]) localResourceMap.get(filePath);
+    		if(decrypted == null) {
+	    		// assume all local flash resources are encrypted
+	    		FileInputStream input = new FileInputStream( filePath.replaceAll(".swf", ".enc"));
+	            int size = input.available();
+	            byte[] src = new byte[ size ];
+	            input.read( src );
+	            input.close();
+	            
+	            decrypted = ContentFile.decrypt(src);
+	            localResourceMap.put(filePath, decrypted);
+    		}
 
             int index= filename.lastIndexOf(".");
     		String ext = filename.substring(index+1);
@@ -439,7 +445,7 @@ public class ContentServlet extends HttpServlet {
     		String mimeType = assetInfo.getMIMEType();
     		response.setContentType(mimeType);
     		
-    		response.setContentLength( size );
+    		response.setContentLength( decrypted.length );
     		
     		myOutput.write( decrypted );
 

@@ -57,31 +57,25 @@ public class UtilityServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
+		long startTime = System.currentTimeMillis();
+        System.out.print("called UtilityServlet ");
+		
         String method = ServletUtils.getMethod(request);
-        
-        long startTime = System.currentTimeMillis();
-        System.out.print("called UtilityServlet method: " + method);
-        
+
         if (method.equals("deleteAuditFile")) {
-            deleteAuditFile(request);
             ServletUtils.writeResponse(response, ServletUtils.OK);
         }
         else
         if (method.equals("auditFileGetLineCount")) {
-            int lineCount = auditFileGetLineCount(request);
-            String str = String.valueOf(lineCount);
-            ServletUtils.writeResponse(response, str);
+            ServletUtils.writeResponse(response, "0");
         }
         else
         if (method.equals("auditFileExists")) {
-            boolean exists = auditFileExists(request);
-            String str = String.valueOf(exists);
-            ServletUtils.writeResponse(response, str);
+           ServletUtils.writeResponse(response, "true");
         }
         else
         if (method.equals("servletSetting")) {
-            servletSetting(request);
             ServletUtils.writeResponse(response, ServletUtils.OK);
         }
         else
@@ -90,19 +84,10 @@ public class UtilityServlet extends HttpServlet {
         }
         else
         if (method.equals("exit")) {
-        	System.out.println("Exit called");
-        	ServletUtils.client.getHttpConnectionManager().closeIdleConnections(1);
-        	if(isLinux()) {
-        		Runtime.getRuntime().exec("killall OASTDC");
-        	} else if(isMacOS()) {
-        		Runtime.getRuntime().exec("killall OASTDC");
-        	} else {
-        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
-        	}
         	ServletUtils.writeResponse(response, ServletUtils.OK);
         }      
         
-        System.out.print(", elapsed time: " + (System.currentTimeMillis() - startTime) + "\n");
+        System.out.print(method + ", elapsed time: " + (System.currentTimeMillis() - startTime) + "\n");
     }
 	
     private static boolean isMacOS() {
@@ -216,12 +201,14 @@ public class UtilityServlet extends HttpServlet {
         fileName = tdcHome + AuditFile.AUDIT_FOLDER + fileName;
         
         String buff = null;
-        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+        FileReader fileReader = new FileReader(fileName);
+        BufferedReader reader = new BufferedReader(fileReader);
         int lineCount = 0;
         while((buff = reader.readLine()) != null) {
             lineCount++;
         }
         reader.close();
+        fileReader.close();
         return lineCount;
     }
     
@@ -264,6 +251,7 @@ public class UtilityServlet extends HttpServlet {
 				size = ((size / 4096) + 1) * 4096;
 				myOutput.write( data );
 				in.close();
+				fstream.close();
 		       
 		        response.setContentLength( size ); 
 		        myOutput.flush();

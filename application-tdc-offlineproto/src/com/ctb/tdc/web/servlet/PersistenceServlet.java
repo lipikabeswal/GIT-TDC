@@ -80,17 +80,8 @@ public class PersistenceServlet extends HttpServlet {
      * @throws ServletException if an error occurred
      * @throws IOException if an error occurred
      */
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {    
-        //String method = request.getParameter("method");   // this line use with test.html
-        String method = null;                               // this line is for release        
-        if ((method != null) && (! method.equals(ServletUtils.NONE_METHOD))) {    
-            String xml = ServletUtils.buildPersistenceParameters(request, method);
-            handleEvent(request, response, method, xml);
-        }
-        else {
-            doGet(request, response);            
-        }
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {    
+        	doGet(request, response);            
     }
 
 	/**
@@ -105,15 +96,15 @@ public class PersistenceServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {    
-        String method = ServletUtils.getMethod(request);
-        
-        long startTime = System.currentTimeMillis();
-        System.out.print("called PersistenceServlet method: " + method);
+		long startTime = System.currentTimeMillis();
+        System.out.print("called PersistenceServlet ");
+		
+		String method = ServletUtils.getMethod(request);
         
         String xml = ServletUtils.getXml(request);
         handleEvent(request, response, method, xml);    
         
-        System.out.print(", elapsed time: " + (System.currentTimeMillis() - startTime + "\n"));
+        System.out.print(method + ", elapsed time: " + (System.currentTimeMillis() - startTime + "\n"));
 	}
 
     /**
@@ -238,7 +229,7 @@ public class PersistenceServlet extends HttpServlet {
     	} else { 
     		result = ServletUtils.OK;
     	}
-    	System.out.println(result);
+    	//System.out.println(result);
     	return result;
     }
 

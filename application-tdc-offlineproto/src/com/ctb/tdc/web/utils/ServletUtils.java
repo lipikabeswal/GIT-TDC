@@ -830,6 +830,7 @@ public class ServletUtils {
 			buffer = new byte[size];
 			aBufferedInputStream.read(buffer);
 			aBufferedInputStream.close();
+			fis.close();
 		} catch (Exception e) {
 			logger.error("Exception occured in readFromFile() : " + printStackTrace(e));
 		}

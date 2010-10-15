@@ -68,12 +68,13 @@ public class LoadContentServlet extends HttpServlet {
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	long startTime = System.currentTimeMillis();
+        System.out.print("called LoadContentServlet ");
+    	
         String method = request.getParameter("method");
         
         if ((method != null) && (! method.equals("none"))) {    
-        	
-        	long startTime = System.currentTimeMillis();
-            System.out.print("called LoadContentServlet method: " + method);
         	
             if (method.equals(ServletUtils.LOAD_SUBTEST_METHOD)) {
                 String itemSetId = ServletUtils.buildLoadContentParameters(request, method);
@@ -95,7 +96,7 @@ public class LoadContentServlet extends HttpServlet {
                 getLocalImage( response, fileName );
             }
             
-            System.out.print(", elapsed time: " + (System.currentTimeMillis() - startTime + "\n"));
+            System.out.print(method + ", elapsed time: " + (System.currentTimeMillis() - startTime + "\n"));
         }
         else {
             doGet(request, response);            
@@ -114,11 +115,10 @@ public class LoadContentServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-        
+		long startTime = System.currentTimeMillis();
+        System.out.print("called LoadContentServlet ");
+		
         String method = ServletUtils.getMethod(request);
-        
-        long startTime = System.currentTimeMillis();
-        System.out.print("called LoadContentServlet method: " + method);
         
         if ( method.equals( ServletUtils.LOAD_LOCAL_IMAGE_METHOD ) )
         {
@@ -132,7 +132,7 @@ public class LoadContentServlet extends HttpServlet {
         
         handleEvent(request, response, method, itemSetId, itemId, imageId);
         
-        System.out.print(", elapsed time: " + (System.currentTimeMillis() - startTime + "\n"));
+        System.out.print(method + ", elapsed time: " + (System.currentTimeMillis() - startTime + "\n"));
 	}
 
 
