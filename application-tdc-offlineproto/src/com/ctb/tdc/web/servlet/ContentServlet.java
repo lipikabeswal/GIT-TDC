@@ -162,7 +162,7 @@ public class ContentServlet extends HttpServlet {
 				hash = document.getAdssvcRequest().getGetSubtest().getHash();
 				key = document.getAdssvcRequest().getGetSubtest().getKey();
 			}
-			String decryptedContent = (String) contentHash.get(subtestId);
+			String decryptedContent = (String) contentHash.get("subtest" + subtestId);
 			if(decryptedContent == null) {
 				if (subtestId == null || "".equals(subtestId.trim())) // invalid subtest id
 					throw new Exception("No subtest id in request.");
@@ -170,7 +170,7 @@ public class ContentServlet extends HttpServlet {
 						+ ContentFile.SUBTEST_FILE_EXTENSION;
 	
 				byte[]decryptedContentBytes = ContentFile.decryptFile(filePath, hash, key);
-				contentHash.put(subtestId, new String(decryptedContentBytes));
+				contentHash.put("subtest" + subtestId, new String(decryptedContentBytes));
 				response.setContentType("text/xml");
 				int size = decryptedContentBytes.length;
 				response.setContentLength(size);
@@ -271,7 +271,7 @@ public class ContentServlet extends HttpServlet {
 			String filePath = ContentFile.getContentFolderPath() + itemId
 					+ ContentFile.ITEM_FILE_EXTENSION;
 			
-			String itemxml = (String) contentHash.get(itemId);
+			String itemxml = (String) contentHash.get("item" + itemId);
 			if(itemxml == null) {
 				byte[] decryptedContent = ContentFile.decryptFile(filePath, hash,
 						key);
@@ -303,7 +303,7 @@ public class ContentServlet extends HttpServlet {
 				}
 				itemxml = updateItem(decryptedContent, assetMap);
 				itemxml = ServletUtils.doUTF8Chars(itemxml);
-				contentHash.put(itemId, itemxml);
+				contentHash.put("item" + itemId, itemxml);
 			}
 			ServletUtils.writeResponse(response, itemxml);
 			
@@ -384,14 +384,20 @@ public class ContentServlet extends HttpServlet {
 			if (imageId == null || "".equals(imageId.trim())) // invalid image id
 				throw new Exception("No image id in request.");
 			
-			if (!assetMap.containsKey(imageId)) 
-				throw new Exception("Image with id '"+imageId+
-						"' not found in memory cache. Please call getItem before getImage.");
-
-			AssetInfo assetInfo = (AssetInfo) assetMap.get(imageId);
-			if (assetInfo == null)
-				throw new Exception("Image with id '"+imageId+
-				"' not found in memory cache. Please call getItem before getImage.");
+			AssetInfo assetInfo = (AssetInfo) contentHash.get("image" + imageId);
+			if(assetInfo == null) {
+				if (!assetMap.containsKey(imageId)) 
+					throw new Exception("Image with id '"+imageId+
+							"' not found in memory cache. Please call getItem before getImage.");
+	
+				assetInfo = (AssetInfo) assetMap.get(imageId);
+				if (assetInfo == null) {
+					throw new Exception("Image with id '"+imageId+
+					"' not found in memory cache. Please call getItem before getImage.");
+				} else {
+					contentHash.put("image" + imageId, assetInfo);
+				}
+			}
             String MIMEType = assetInfo.getMIMEType();
             response.setContentType( MIMEType );
             byte[] data = assetInfo.getData();
