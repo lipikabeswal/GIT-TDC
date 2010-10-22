@@ -2176,10 +2176,8 @@ public class CATEngineProxy {
 				itemIdMap.put(String.valueOf(304968), Integer.valueOf(421501));
 	}
 
-
 	public static native int setup_cat(String contentArea);
-	//public static native int getTestLength();
-	public static native int adapt_n_item();
+        public static native int next_item();
 	public static native void set_rwo(int n);
 	public static native double score();
 	public static native double getSEM(double theta);
@@ -2227,7 +2225,8 @@ public class CATEngineProxy {
 				theta = score();
 				System.out.println("item score: " + currentItemRawScore + ", new theta: " + theta);
 			}
-			String nextitem = String.valueOf(adapt_n_item());
+		       
+		        String nextitem = String.valueOf(next_item());
 			if(nextitem == null || nextitem.equals("-1")) {
 				throw new Exception("CAT OVER!");
 			} else {

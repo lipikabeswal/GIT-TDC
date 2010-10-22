@@ -363,7 +363,7 @@ void set_obj_order(char subTest[], char testLevel){   // set rand obj order
 	 */
 }
 
-JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_adapt_1n_1item (JNIEnv * env, jclass theclass) {
+JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_next_1item (JNIEnv * env, jclass theclass) {
 	return next_item();
 }
 
