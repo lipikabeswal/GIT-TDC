@@ -129,9 +129,20 @@ public class UtilityServlet extends HttpServlet {
 	        		Thread.sleep(250);
 	        		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
 	        	} else {
-	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
-	        		Thread.sleep(250);
-	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+	        		try {
+		        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+		        		Thread.sleep(250);
+		        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+	        		} catch (Exception e) {
+	        			e.printStackTrace();
+	        		}
+	        		try {
+	        			Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
+		        		Thread.sleep(250);
+		        		Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
+	        		} catch (Exception e) {
+	        			e.printStackTrace();
+	        		}	
 	        	}
 			} catch (Exception e) {
 				e.printStackTrace();

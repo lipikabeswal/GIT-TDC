@@ -13,6 +13,7 @@
   <applications>
     <application path="OASTDC.mxml">
       <airExcludes>
+        <airExclude path="loc.cfg"/>
         <airExclude path="OASTDC.mxml.linux"/>
         <airExclude path="OASTDC.mxml.windows"/>
       </airExcludes>

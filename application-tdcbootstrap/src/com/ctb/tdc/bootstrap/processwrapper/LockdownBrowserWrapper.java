@@ -24,6 +24,7 @@ import javax.swing.SwingUtilities;
 
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 
+import com.ctb.tdc.bootstrap.Main;
 import com.ctb.tdc.bootstrap.processwrapper.exception.ProcessWrapperException;
 import com.ctb.tdc.bootstrap.ui.SplashWindow;
 import com.ctb.tdc.bootstrap.util.ConsoleUtils;
@@ -74,7 +75,7 @@ public class LockdownBrowserWrapper extends Thread {
 	 * @param tdcHome  The location of the Test Delivery Client's home folder containing the home folder of Jetty as well as configuration files and additional java libraries. 
 	 * @throws ProcessWrapperException If problems within initialization such as determing the default URL or if the port is already in use.
 	 */
-	public LockdownBrowserWrapper(String tdcHome, boolean macOS, boolean linux, SplashWindow splashWindow) {
+	public LockdownBrowserWrapper(String tdcHome, boolean macOS, boolean linux, SplashWindow splashWindow, int jettyPort) {
 		super();
 		
 		this.tdcHome = tdcHome;
@@ -98,7 +99,7 @@ public class LockdownBrowserWrapper extends Thread {
 			
 			File ldbHomeDir = new File(this.tdcHome + "/lockdownbrowser/linux");
 			this.ldbHome = ldbHomeDir.getAbsolutePath();
-			this.ldbCommand = new String[1];
+			this.ldbCommand = new String[2];
 			
 			/*Solution for Deferred Defect No: 50573 */
 			/* call the delete method of ObjectBankUtils class*/
@@ -107,6 +108,7 @@ public class LockdownBrowserWrapper extends Thread {
 			
             this.ldbCommand[0] = this.ldbHome + "/OASTDC/bin/OASTDC";          
             this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
+            this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";
 		} else {
 			
 			File ldbHomeDir = new File(tdcHome + "/lockdownbrowser/pc");
@@ -116,8 +118,9 @@ public class LockdownBrowserWrapper extends Thread {
 			objectBankUtils = new ObjectBankUtils();
 			objectBankUtils.deleteContents();
 			
-			this.ldbCommand = new String[1];
+			this.ldbCommand = new String[2];
 			this.ldbCommand[0] = this.ldbHome + "/LockdownBrowser.exe";
+			this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";
 		}
 		
 	}

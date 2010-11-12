@@ -34,7 +34,7 @@ import com.ctb.tdc.bootstrap.util.TdcConfigEncryption;
  * The class containing the main method used in launching, or bootstrapping, 
  * the necessary components utilized in the Test Delivery Client.
  * 
- * @author Giuseppe_Gennaro
+ * @author Giuseppe_Gennaro, Nate_Cohen
  *
  */
 public class Main {
@@ -47,7 +47,8 @@ public class Main {
 	 * Port number used to guarantee only one instance of the bootstrap
 	 * can be running on the workstation.
 	 */
-	public static final int SOCKET_FOR_SINGLE_INSTANCE = 12344;
+	public static int jettyPort = 0;
+	public static int stopPort = 0;
 	
 	public static final String TDC_CONFIG_FILENAME = "tdcConfig.enc";
 	public static final String UPGRADE_TXT_FILENAME = "upgrade.txt";
@@ -385,9 +386,51 @@ public class Main {
 		// Use a socket to check if the application is already running or not.
 		ConsoleUtils.messageOut("Starting...");
 		ServerSocket ss = null; // keep variable in scope of the main method to maintain hold on it. 
+		int i = 0;
 		try {
-			ss = new ServerSocket(SOCKET_FOR_SINGLE_INSTANCE, 1);
+			jettyPort = 12345;
+			ss = new ServerSocket(jettyPort, 1);
+			System.out.println("Using jetty port " + jettyPort);
+			ss.close();
+			i = 25;
 		} catch( Exception e ) {
+			jettyPort = 0;
+		}
+		while (i < 25) {
+			try {
+				jettyPort = 12345 + ((int) ((Math.random() + 1.0) * 250));
+				ss = new ServerSocket(jettyPort, 1);
+				ss.close();
+				System.out.println("Using jetty port " + jettyPort);
+				i = 25;
+			} catch( Exception e ) {
+				jettyPort = 0;
+			}
+		}
+		
+		i = 0;
+		try {
+			stopPort = 12355;
+			ss = new ServerSocket(stopPort, 1);
+			ss.close();
+			System.out.println("Using stop port " + stopPort);
+			i = 25;
+		} catch( Exception e ) {
+			stopPort = 0;
+		}
+		while (i < 25) {
+			try {
+				stopPort = 12345 + ((int) ((Math.random() + 1.0) * 250));
+				ss = new ServerSocket(stopPort, 1);
+				ss.close();
+				System.out.println("Using stop port " + stopPort);
+				i = 25;
+			} catch( Exception e ) {
+				stopPort = 0;
+			}
+		}
+		
+		if(jettyPort == 0 || stopPort == 0) {
 			String message = ResourceBundleUtils.getString("bootstrap.main.error.applicationAlreadyRunning");
 			ConsoleUtils.messageErr(message);
 			SimpleMessageDialog.showErrorDialog(message);
@@ -445,10 +488,10 @@ public class Main {
 		 
 		// The two (loosely) managed processes.
         ConsoleUtils.messageErr("Begin starting processes...");
-		LockdownBrowserWrapper ldb = new LockdownBrowserWrapper(tdcHome, macOS, linux, splashWindow);
+		LockdownBrowserWrapper ldb = new LockdownBrowserWrapper(tdcHome, macOS, linux, splashWindow, jettyPort);
 		JettyProcessWrapper jetty = null;
 		try {
-			jetty = new JettyProcessWrapper(tdcHome, macOS, false);
+			jetty = new JettyProcessWrapper(tdcHome, macOS, jettyPort, stopPort);
 		} 
         catch( ProcessWrapperException pwe ) {
 			ConsoleUtils.messageErr("An exception has occurred.", pwe);
