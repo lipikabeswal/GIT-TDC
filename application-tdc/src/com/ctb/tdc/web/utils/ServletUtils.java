@@ -923,7 +923,10 @@ public class ServletUtils {
 		//Defect# 64272: added for "<" Defect. 
 		s = s.replaceAll("&#x003C", "&LT;");
 		s = s.replaceAll("&lt;", "&LT;");
-
+		
+		//Added for defect #64691
+		s = s.replaceAll("&#","&amp;#");
+		
 		return s;
 	}
 
