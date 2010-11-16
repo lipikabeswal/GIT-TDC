@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2008 VP1 Enterprise, Build 3571
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Tue Sep 28 15:23:14 PDT 2010 -->
-<InstallAnywhere_Deployment_Project increments="9488">
+     DATE:   Mon Nov 15 21:52:25 PST 2010 -->
+<InstallAnywhere_Deployment_Project increments="9681">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="9" minor="5" revision="0"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,69,49,55,55,57,82,81,81,68,81,81,68,81,81,55,81,70,81,82,70,81,57,70</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,86,105,115,116,97,44,32,54,46,48,44,32,120,56,54,59,32,74,97,118,97,32,49,46,53,46,48,95,49,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,32,83,126,64,0,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,15,6,81,106,11,1,0,0</authorizationID>
+		<authorizationID>1,0,0,32,83,62,-64,96,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,4,5,93,99,12,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="629">
+	<installationObjects uniqueObjects="645">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="wizardME">
 				<object class="com.zerog.ia.installer.actions.MakeExecutable" objectID="85358c91894c">
@@ -266,7 +266,7 @@ and any path to a file to read from that file]]></string>
 								<string><![CDATA[bootstrap.jar]]></string>
 							</property>
 							<property name="fileSize">
-								<long>122239</long>
+								<long>124283</long>
 							</property>
 							<property name="macBinary">
 								<boolean>false</boolean>
@@ -1094,7 +1094,7 @@ and any path to a file to read from that file]]></string>
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="6df2152497a0">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="66be60139063">
 													<property name="propertyValue">
 														<string><![CDATA[false]]></string>
 													</property>
@@ -1107,9 +1107,9 @@ and any path to a file to read from that file]]></string>
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="51e56f728c77">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="6537dd3a8ca3">
 													<property name="propertyValue">
-														<string><![CDATA[8.5]]></string>
+														<string><![CDATA[8.6]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
@@ -1961,13 +1961,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 																<string><![CDATA[Windows 98]]></string>
 															</method>
 															<method name="addElement">
-																<string><![CDATA[Windows NT]]></string>
-															</method>
-															<method name="addElement">
 																<string><![CDATA[Windows Me]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 2003]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Mac OS X]]></string>
@@ -2019,6 +2013,12 @@ Please uninstall the previous copy before installing this one.]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[OS/400]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2003]]></string>
 															</method>
 														</object>
 													</property>
@@ -2129,6 +2129,81 @@ Please uninstall the previous copy before installing this one.]]></string>
 															</property>
 														</object>
 													</rules>
+												</object>
+											</visualChildren>
+										</object>
+										<object class="com.zerog.ia.installer.actions.ActionGroup" objectID="653c16128cc0">
+											<property name="groupName">
+												<string><![CDATA[No checking Processor Speed in Win2K3 and NT, set MET_CPU_REQ = true always]]></string>
+											</property>
+											<rules logicalOperation="AND">
+												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="653cf27b8ccb">
+													<property name="installOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2003]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="doNotInstallOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows 2000]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows XP]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows Vista]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Mac OS X]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Solaris]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[SunOS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[HP-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Linux]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[AIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[FreeBSD]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[NetWare]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/400]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Unlisted Platforms]]></string>
+															</method>
+														</object>
+													</property>
+												</object>
+											</rules>
+											<visualChildren>
+												<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="65540dfd8ccb">
+													<property name="name">
+														<string><![CDATA[$MET_CPU_REQ$]]></string>
+													</property>
+													<property name="value">
+														<string><![CDATA[true]]></string>
+													</property>
+													<property name="passByValue">
+														<boolean>false</boolean>
+													</property>
 												</object>
 											</visualChildren>
 										</object>
@@ -2702,7 +2777,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 										</object>
 										<object class="com.zerog.ia.installer.actions.ActionGroup" objectID="6c581b9a9b59">
 											<property name="groupName">
-												<string><![CDATA[No need to check Service Pack in MAC OS and Vista and Linux, set MET_OS_REQ = true always]]></string>
+												<string><![CDATA[No checking Service Pack in MAC OS and Vista and Linux, Win2K3, NT, set MET_OS_REQ = true always]]></string>
 											</property>
 											<rules logicalOperation="AND">
 												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="6c58c7b29b59">
@@ -2717,6 +2792,12 @@ Please uninstall the previous copy before installing this one.]]></string>
 															<method name="addElement">
 																<string><![CDATA[Linux]]></string>
 															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2003]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
 														</object>
 													</property>
 													<property name="doNotInstallOnPlatformList">
@@ -2728,9 +2809,6 @@ Please uninstall the previous copy before installing this one.]]></string>
 																<string><![CDATA[Windows 98]]></string>
 															</method>
 															<method name="addElement">
-																<string><![CDATA[Windows NT]]></string>
-															</method>
-															<method name="addElement">
 																<string><![CDATA[Windows Me]]></string>
 															</method>
 															<method name="addElement">
@@ -2738,9 +2816,6 @@ Please uninstall the previous copy before installing this one.]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Windows XP]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 2003]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[OS/2]]></string>
@@ -2979,7 +3054,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 												</object>
 												<object class="com.zerog.ia.installer.actions.EditMultipleVariables" objectID="aceac5338e48">
 													<property name="comment">
-														<string><![CDATA[Check min req for physical memory]]></string>
+														<string><![CDATA[Check min req for physical memory - 80% of 512 MB (Linux in Kilo Byte)]]></string>
 													</property>
 													<property name="propertyList">
 														<object class="java.util.Vector">
@@ -3010,9 +3085,9 @@ Please uninstall the previous copy before installing this one.]]></string>
 																</object>
 															</method>
 															<method name="addElement">
-																<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="b676397d8c70">
+																<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="669480a38c9d">
 																	<property name="propertyValue">
-																		<string><![CDATA[512000]]></string>
+																		<string><![CDATA[400000]]></string>
 																	</property>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND2$]]></string>
@@ -3036,7 +3111,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 														<boolean>false</boolean>
 													</property>
 													<rules logicalOperation="AND">
-														<object class="com.zerog.ia.installer.rules.CustomRule" objectID="b75f75ff8fc3">
+														<object class="com.zerog.ia.installer.rules.CustomRule" objectID="6695c6698c9d">
 															<property name="clientClassFullName">
 																<string><![CDATA[com.ctb.tdc.installer.rule.LongComparisonRule]]></string>
 															</property>
@@ -3079,13 +3154,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 																<string><![CDATA[Windows 98]]></string>
 															</method>
 															<method name="addElement">
-																<string><![CDATA[Windows NT]]></string>
-															</method>
-															<method name="addElement">
 																<string><![CDATA[Windows Me]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 2003]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Mac OS X]]></string>
@@ -3137,6 +3206,12 @@ Please uninstall the previous copy before installing this one.]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[OS/400]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2003]]></string>
 															</method>
 														</object>
 													</property>
@@ -3377,7 +3452,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 												</object>
 												<object class="com.zerog.ia.installer.actions.EditMultipleVariables" objectID="f136c57e89cc">
 													<property name="comment">
-														<string><![CDATA[Check min req for physical memory]]></string>
+														<string><![CDATA[Check min req for physical memory - 80% of 512 MB]]></string>
 													</property>
 													<property name="propertyList">
 														<object class="java.util.Vector">
@@ -3408,9 +3483,9 @@ Please uninstall the previous copy before installing this one.]]></string>
 																</object>
 															</method>
 															<method name="addElement">
-																<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="a3cd36478c7f">
+																<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="66a359e08ca5">
 																	<property name="propertyValue">
-																		<string><![CDATA[512000000]]></string>
+																		<string><![CDATA[400000000]]></string>
 																	</property>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND2$]]></string>
@@ -3434,7 +3509,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 														<boolean>false</boolean>
 													</property>
 													<rules logicalOperation="AND">
-														<object class="com.zerog.ia.installer.rules.CustomRule" objectID="f138f94789cf">
+														<object class="com.zerog.ia.installer.rules.CustomRule" objectID="66a5224b8cbc">
 															<property name="clientClassFullName">
 																<string><![CDATA[com.ctb.tdc.installer.rule.LongComparisonRule]]></string>
 															</property>
@@ -3446,6 +3521,81 @@ Please uninstall the previous copy before installing this one.]]></string>
 															</property>
 														</object>
 													</rules>
+												</object>
+											</visualChildren>
+										</object>
+										<object class="com.zerog.ia.installer.actions.ActionGroup" objectID="655610bb8ccb">
+											<property name="groupName">
+												<string><![CDATA[No checking RAM for all Windows platforms, set MET_MEMORY_REQ = true always]]></string>
+											</property>
+											<rules logicalOperation="AND">
+												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="6563a2888cd5">
+													<property name="installOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2003]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2000]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows XP]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows Vista]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="doNotInstallOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Mac OS X]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Solaris]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[SunOS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[HP-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Linux]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[AIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[FreeBSD]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[NetWare]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/400]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Unlisted Platforms]]></string>
+															</method>
+														</object>
+													</property>
+												</object>
+											</rules>
+											<visualChildren>
+												<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="6561143f8cd5">
+													<property name="name">
+														<string><![CDATA[$MET_MEMORY_REQ$]]></string>
+													</property>
+													<property name="value">
+														<string><![CDATA[true]]></string>
+													</property>
+													<property name="passByValue">
+														<boolean>false</boolean>
+													</property>
 												</object>
 											</visualChildren>
 										</object>
@@ -3676,9 +3826,9 @@ Please uninstall the previous copy before installing this one.]]></string>
 																</object>
 															</method>
 															<method name="addElement">
-																<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="604183d7a07f">
+																<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="6698aa608c9e">
 																	<property name="propertyValue">
-																		<string><![CDATA[512000000]]></string>
+																		<string><![CDATA[400000000]]></string>
 																	</property>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND2$]]></string>
@@ -3691,7 +3841,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 														</object>
 													</property>
 												</object>
-												<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="684a1b189a7b">
+												<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="f7b12bd28c95">
 													<property name="name">
 														<string><![CDATA[$MET_MEMORY_REQ$]]></string>
 													</property>
@@ -3702,7 +3852,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 														<boolean>false</boolean>
 													</property>
 													<rules logicalOperation="AND">
-														<object class="com.zerog.ia.installer.rules.CustomRule" objectID="684ae89b9a7b">
+														<object class="com.zerog.ia.installer.rules.CustomRule" objectID="669836f58c9d">
 															<property name="clientClassFullName">
 																<string><![CDATA[com.ctb.tdc.installer.rule.MemoryComparisonRule]]></string>
 															</property>
@@ -3881,13 +4031,7 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 																<string><![CDATA[Windows 98]]></string>
 															</method>
 															<method name="addElement">
-																<string><![CDATA[Windows NT]]></string>
-															</method>
-															<method name="addElement">
 																<string><![CDATA[Windows Me]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 2003]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Mac OS X]]></string>
@@ -3939,6 +4083,12 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[OS/400]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2003]]></string>
 															</method>
 														</object>
 													</property>
@@ -4013,6 +4163,165 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															</property>
 														</object>
 													</rules>
+												</object>
+												<object class="com.zerog.ia.installer.actions.ActionGroup" objectID="cb501ad89035">
+													<property name="groupName">
+														<string><![CDATA[If $MET_FLASH_REQ$ is FALSE check for Windows 64 bit]]></string>
+													</property>
+													<rules logicalOperation="AND">
+														<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="cb512cc2903f">
+															<property name="operation">
+																<string><![CDATA[does not equal]]></string>
+															</property>
+															<property name="operandOne">
+																<string><![CDATA[$MET_FLASH_REQ$]]></string>
+															</property>
+															<property name="operandTwo">
+																<string><![CDATA[true]]></string>
+															</property>
+														</object>
+													</rules>
+													<visualChildren>
+														<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="cb4e1695902c">
+															<property name="name">
+																<string><![CDATA[$FILE_NAME$]]></string>
+															</property>
+															<property name="value">
+																<string><![CDATA[C:\Program Files (x86)\Common Files\Adobe AIR\Versions\1.0\Adobe AIR.dll]]></string>
+															</property>
+															<property name="passByValue">
+																<boolean>false</boolean>
+															</property>
+														</object>
+														<object class="com.zerog.ia.installer.actions.CustomAction" objectID="cb519ddb903f">
+															<property name="showPleaseWaitPanel">
+																<boolean>false</boolean>
+															</property>
+															<property name="showIndeterminateDialog">
+																<boolean>false</boolean>
+															</property>
+															<property name="dialogLabel">
+																<string><![CDATA[Executing Custom Code...]]></string>
+															</property>
+															<property name="clientClassFullName">
+																<string><![CDATA[com.ctb.tdc.installer.action.CheckFileExistsAction]]></string>
+															</property>
+															<property name="resourcePath">
+																<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
+															</property>
+															<property name="resourceName">
+																<string><![CDATA[tdcia.jar]]></string>
+															</property>
+															<property name="runsAfterFileDeletesNotBefore">
+																<boolean>false</boolean>
+															</property>
+														</object>
+														<object class="com.zerog.ia.installer.actions.PrintToConsole" objectID="cb51d475903f">
+															<property name="theString">
+																<string><![CDATA[Adobe AIR exist  = $FLASH_EXISTS$
+]]></string>
+															</property>
+														</object>
+														<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="cb51f56d9040">
+															<property name="name">
+																<string><![CDATA[$MET_FLASH_REQ$]]></string>
+															</property>
+															<property name="value">
+																<string><![CDATA[true]]></string>
+															</property>
+															<property name="passByValue">
+																<boolean>false</boolean>
+															</property>
+															<rules logicalOperation="AND">
+																<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="cb51f56e9040">
+																	<property name="operation">
+																		<string><![CDATA[equals]]></string>
+																	</property>
+																	<property name="operandOne">
+																		<string><![CDATA[$FLASH_EXISTS$]]></string>
+																	</property>
+																	<property name="operandTwo">
+																		<string><![CDATA[true]]></string>
+																	</property>
+																</object>
+															</rules>
+														</object>
+													</visualChildren>
+												</object>
+											</visualChildren>
+										</object>
+										<object class="com.zerog.ia.installer.actions.ActionGroup" objectID="667862fa8ca2">
+											<property name="groupName">
+												<string><![CDATA[No checking Adobe AIR in Win2K3, NT, set MET_FLASH_REQ = true always]]></string>
+											</property>
+											<rules logicalOperation="AND">
+												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="6678f03b8cac">
+													<property name="installOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2003]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="doNotInstallOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows 2000]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows XP]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows Vista]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Mac OS X]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Solaris]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[SunOS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[HP-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Linux]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[AIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[FreeBSD]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[NetWare]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/400]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Unlisted Platforms]]></string>
+															</method>
+														</object>
+													</property>
+												</object>
+											</rules>
+											<visualChildren>
+												<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="6679c40c8cad">
+													<property name="name">
+														<string><![CDATA[$MET_FLASH_REQ$]]></string>
+													</property>
+													<property name="value">
+														<string><![CDATA[true]]></string>
+													</property>
+													<property name="passByValue">
+														<boolean>false</boolean>
+													</property>
 												</object>
 											</visualChildren>
 										</object>
@@ -7215,13 +7524,13 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 											<method name="addElement">
 												<string><![CDATA[Windows Vista]]></string>
 											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows NT]]></string>
+											</method>
 										</object>
 									</property>
 									<property name="doNotInstallOnPlatformList">
 										<object class="java.util.Vector">
-											<method name="addElement">
-												<string><![CDATA[Windows NT]]></string>
-											</method>
 											<method name="addElement">
 												<string><![CDATA[Mac OS X]]></string>
 											</method>
@@ -7294,6 +7603,12 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 													<method name="addElement">
 														<string><![CDATA[Windows Vista]]></string>
 													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows NT]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows 2003]]></string>
+													</method>
 												</object>
 											</property>
 											<property name="doNotInstallOnPlatformList">
@@ -7305,13 +7620,7 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 														<string><![CDATA[Windows 98]]></string>
 													</method>
 													<method name="addElement">
-														<string><![CDATA[Windows NT]]></string>
-													</method>
-													<method name="addElement">
 														<string><![CDATA[Windows Me]]></string>
-													</method>
-													<method name="addElement">
-														<string><![CDATA[Windows 2003]]></string>
 													</method>
 													<method name="addElement">
 														<string><![CDATA[Mac OS X]]></string>
@@ -7559,6 +7868,12 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 											<method name="addElement">
 												<string><![CDATA[Windows Vista]]></string>
 											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows NT]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2003]]></string>
+											</method>
 										</object>
 									</property>
 									<property name="doNotInstallOnPlatformList">
@@ -7570,13 +7885,7 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 												<string><![CDATA[Windows 98]]></string>
 											</method>
 											<method name="addElement">
-												<string><![CDATA[Windows NT]]></string>
-											</method>
-											<method name="addElement">
 												<string><![CDATA[Windows Me]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 2003]]></string>
 											</method>
 											<method name="addElement">
 												<string><![CDATA[Mac OS X]]></string>
@@ -7727,6 +8036,12 @@ echo y| CACLS *.dll /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "PO
 													<method name="addElement">
 														<string><![CDATA[Windows Vista]]></string>
 													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows NT]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows 2003]]></string>
+													</method>
 												</object>
 											</property>
 											<property name="doNotInstallOnPlatformList">
@@ -7738,13 +8053,7 @@ echo y| CACLS *.dll /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "PO
 														<string><![CDATA[Windows 98]]></string>
 													</method>
 													<method name="addElement">
-														<string><![CDATA[Windows NT]]></string>
-													</method>
-													<method name="addElement">
 														<string><![CDATA[Windows Me]]></string>
-													</method>
-													<method name="addElement">
-														<string><![CDATA[Windows 2003]]></string>
 													</method>
 													<method name="addElement">
 														<string><![CDATA[Mac OS X]]></string>
@@ -8123,7 +8432,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>false</boolean>
 							</property>
 							<property name="buildOutputLocation">
-								<string><![CDATA[C:\workspace\application-tdcinstall-OAS85\installer\tdc_Build_Output]]></string>
+								<string><![CDATA[C:\workspace\application-tdcinstall-OAS86\installer\tdc_Build_Output]]></string>
 							</property>
 							<property name="defaultWindowsUIMode">
 								<string><![CDATA[GUI]]></string>
@@ -8191,7 +8500,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.build.last.date]]></string>
-						<string><![CDATA[September 28, 2010 2:50:10 PM PDT]]></string>
+						<string><![CDATA[November 15, 2010 9:30:29 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.windows.vm]]></string>
@@ -8263,7 +8572,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[September 28, 2010 3:23:14 PM PDT]]></string>
+						<string><![CDATA[November 15, 2010 9:52:25 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -8472,7 +8781,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<int>8</int>
 							</property>
 							<property name="minor">
-								<int>5</int>
+								<int>6</int>
 							</property>
 							<property name="revision">
 								<int>0</int>
@@ -8619,6 +8928,12 @@ regsvr32 /u /s LDBJSBridge.dll]]></string>
 											<method name="addElement">
 												<string><![CDATA[Windows Vista]]></string>
 											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows NT]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2003]]></string>
+											</method>
 										</object>
 									</property>
 									<property name="doNotInstallOnPlatformList">
@@ -8630,13 +8945,7 @@ regsvr32 /u /s LDBJSBridge.dll]]></string>
 												<string><![CDATA[Windows 98]]></string>
 											</method>
 											<method name="addElement">
-												<string><![CDATA[Windows NT]]></string>
-											</method>
-											<method name="addElement">
 												<string><![CDATA[Windows Me]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 2003]]></string>
 											</method>
 											<method name="addElement">
 												<string><![CDATA[Mac OS X]]></string>
@@ -9022,6 +9331,12 @@ echo y| del *.*
 											<method name="addElement">
 												<string><![CDATA[Windows Vista]]></string>
 											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows NT]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2003]]></string>
+											</method>
 										</object>
 									</property>
 									<property name="doNotInstallOnPlatformList">
@@ -9033,13 +9348,7 @@ echo y| del *.*
 												<string><![CDATA[Windows 98]]></string>
 											</method>
 											<method name="addElement">
-												<string><![CDATA[Windows NT]]></string>
-											</method>
-											<method name="addElement">
 												<string><![CDATA[Windows Me]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 2003]]></string>
 											</method>
 											<method name="addElement">
 												<string><![CDATA[Mac OS X]]></string>
@@ -9367,13 +9676,13 @@ done
 							<method name="addElement">
 								<string><![CDATA[Windows 2003]]></string>
 							</method>
+							<method name="addElement">
+								<string><![CDATA[Windows NT]]></string>
+							</method>
 						</object>
 					</property>
 					<property name="doNotInstallOnPlatformList">
 						<object class="java.util.Vector">
-							<method name="addElement">
-								<string><![CDATA[Windows NT]]></string>
-							</method>
 							<method name="addElement">
 								<string><![CDATA[OS/2]]></string>
 							</method>
@@ -9577,7 +9886,7 @@ done
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>212740</long>
+												<long>214619</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -9708,7 +10017,7 @@ done
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>5313616</long>
+												<long>5313618</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -9801,7 +10110,7 @@ done
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>7157664</long>
+												<long>7164835</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -10322,7 +10631,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>386341</long>
+												<long>386195</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -10442,6 +10751,12 @@ and any path to a file to read from that file]]></string>
 															<method name="addElement">
 																<string><![CDATA[Windows Vista]]></string>
 															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2003]]></string>
+															</method>
 														</object>
 													</property>
 													<property name="doNotInstallOnPlatformList">
@@ -10453,13 +10768,7 @@ and any path to a file to read from that file]]></string>
 																<string><![CDATA[Windows 98]]></string>
 															</method>
 															<method name="addElement">
-																<string><![CDATA[Windows NT]]></string>
-															</method>
-															<method name="addElement">
 																<string><![CDATA[Windows Me]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 2003]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Mac OS X]]></string>
@@ -10522,7 +10831,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>77333</long>
+												<long>81517</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -10817,6 +11126,12 @@ and any path to a file to read from that file]]></string>
 															<method name="addElement">
 																<string><![CDATA[Windows Vista]]></string>
 															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2003]]></string>
+															</method>
 														</object>
 													</property>
 													<property name="doNotInstallOnPlatformList">
@@ -10828,13 +11143,7 @@ and any path to a file to read from that file]]></string>
 																<string><![CDATA[Windows 98]]></string>
 															</method>
 															<method name="addElement">
-																<string><![CDATA[Windows NT]]></string>
-															</method>
-															<method name="addElement">
 																<string><![CDATA[Windows Me]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 2003]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Mac OS X]]></string>
@@ -11689,6 +11998,12 @@ and any path to a file to read from that file]]></string>
 															<method name="addElement">
 																<string><![CDATA[Windows Vista]]></string>
 															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2003]]></string>
+															</method>
 														</object>
 													</property>
 													<property name="doNotInstallOnPlatformList">
@@ -11700,13 +12015,7 @@ and any path to a file to read from that file]]></string>
 																<string><![CDATA[Windows 98]]></string>
 															</method>
 															<method name="addElement">
-																<string><![CDATA[Windows NT]]></string>
-															</method>
-															<method name="addElement">
 																<string><![CDATA[Windows Me]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 2003]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Mac OS X]]></string>
@@ -12076,7 +12385,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>310487</long>
+												<long>310504</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -12865,13 +13174,13 @@ and any path to a file to read from that file]]></string>
 															<method name="addElement">
 																<string><![CDATA[Windows Vista]]></string>
 															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
 														</object>
 													</property>
 													<property name="doNotInstallOnPlatformList">
 														<object class="java.util.Vector">
-															<method name="addElement">
-																<string><![CDATA[Windows NT]]></string>
-															</method>
 															<method name="addElement">
 																<string><![CDATA[Mac OS X]]></string>
 															</method>
@@ -12958,7 +13267,7 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[requestfile]]></string>
 											</property>
 											<property name="fileSize">
-												<long>208394</long>
+												<long>210273</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
@@ -13709,16 +14018,16 @@ crontab tmp.txt
 											<method name="addElement">
 												<string><![CDATA[Mac OS X]]></string>
 											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2003]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows NT]]></string>
+											</method>
 										</object>
 									</property>
 									<property name="doNotInstallOnPlatformList">
 										<object class="java.util.Vector">
-											<method name="addElement">
-												<string><![CDATA[Windows NT]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 2003]]></string>
-											</method>
 											<method name="addElement">
 												<string><![CDATA[Solaris]]></string>
 											</method>
@@ -13784,16 +14093,16 @@ crontab tmp.txt
 											<method name="addElement">
 												<string><![CDATA[Mac OS X]]></string>
 											</method>
-										</object>
-									</property>
-									<property name="doNotInstallOnPlatformList">
-										<object class="java.util.Vector">
 											<method name="addElement">
 												<string><![CDATA[Windows NT]]></string>
 											</method>
 											<method name="addElement">
 												<string><![CDATA[Windows 2003]]></string>
 											</method>
+										</object>
+									</property>
+									<property name="doNotInstallOnPlatformList">
+										<object class="java.util.Vector">
 											<method name="addElement">
 												<string><![CDATA[Solaris]]></string>
 											</method>
