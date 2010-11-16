@@ -1,12 +1,10 @@
 package com.ctb.tdc.bootstrap.processwrapper;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.lang.reflect.InvocationTargetException;
@@ -17,20 +15,13 @@ import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
-
-import com.ctb.tdc.bootstrap.Main;
 import com.ctb.tdc.bootstrap.processwrapper.exception.ProcessWrapperException;
 import com.ctb.tdc.bootstrap.ui.SplashWindow;
 import com.ctb.tdc.bootstrap.util.ConsoleUtils;
 import com.ctb.tdc.bootstrap.util.ObjectBankUtils;
 import com.ctb.tdc.bootstrap.util.TdcConfigEncryption;
-import com.ctb.tdc.bootstrap.processwrapper.CustomDialog;
 
 /**
  * Wrapper class for starting the LockdownBrowser process.  The Lockdown Browser
@@ -479,41 +470,44 @@ public class LockdownBrowserWrapper extends Thread {
                     zipEntryFilePath = tdcHome + "/" + zipEntryFileName;
                     if ( zipEntryFilePath != null ) {
 						ConsoleUtils.messageOut( " - writing " + zipEntryFilePath );
-						File file = new File(zipEntryFilePath);
-						FileOutputStream fos = new FileOutputStream(file, false);
-						int read = 0;
-						while( read >= 0 && read < zipEntry.getSize() ) {
-							byte[] bytes = new byte[2048];
-							// fix typo
-							read = zis.read(bytes);
-							if( read != -1 ) {
-								if(zipEntryFileName.indexOf(".sh") >= 0) {
-									// strip out Ctrl-M
-									byte[] cleanbytes = new byte[read];
-									for(int i=0;i<read;i++){
-										if(bytes[i] != 13) {
-											cleanbytes[i] = bytes[i];
-										} else {
-											cleanbytes[i] = ' ';
+						try {
+							File file = new File(zipEntryFilePath);
+							FileOutputStream fos = new FileOutputStream(file, false);
+							int read = 0;
+							while( read >= 0 && read < zipEntry.getSize() ) {
+								byte[] bytes = new byte[2048];
+								// fix typo
+								read = zis.read(bytes);
+								if( read != -1 ) {
+									if(zipEntryFileName.indexOf(".sh") >= 0) {
+										// strip out Ctrl-M
+										byte[] cleanbytes = new byte[read];
+										for(int i=0;i<read;i++){
+											if(bytes[i] != 13) {
+												cleanbytes[i] = bytes[i];
+											} else {
+												cleanbytes[i] = ' ';
+											}
 										}
+										fos.write(cleanbytes, 0, read);
+									} else {
+										fos.write(bytes, 0, read);
 									}
-									fos.write(cleanbytes, 0, read);
-								} else {
-									fos.write(bytes, 0, read);
 								}
 							}
-						}
-						fos.close();
-						lockFiles.add(zipEntryFilePath);
-						if(islinux || ismac) {
-							Runtime.getRuntime().exec("chmod a+rwx " + zipEntryFilePath, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-							if(zipEntryFilePath.endsWith(".sh") || zipEntryFilePath.endsWith(".c")) {
-								Runtime.getRuntime().exec("tr -d '\015\032' < " + zipEntryFilePath + " > " + zipEntryFilePath + ".tmp", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-								Runtime.getRuntime().exec("mv " + zipEntryFilePath + ".tmp " + zipEntryFilePath, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+							fos.close();
+							lockFiles.add(zipEntryFilePath);
+							if(islinux || ismac) {
+								Runtime.getRuntime().exec("chmod a+rwx " + zipEntryFilePath, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+								if(zipEntryFilePath.endsWith(".sh") || zipEntryFilePath.endsWith(".c")) {
+									Runtime.getRuntime().exec("tr -d '\015\032' < " + zipEntryFilePath + " > " + zipEntryFilePath + ".tmp", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+									Runtime.getRuntime().exec("mv " + zipEntryFilePath + ".tmp " + zipEntryFilePath, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+								}
 							}
+						} catch (FileNotFoundException e) {
+							// couldn't write file as it's in use by another instance
 						}
                     }
-                    
 				} else {
 					new File(zipEntry.getName()).mkdir();
 				}
