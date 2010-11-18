@@ -250,6 +250,9 @@ public class SystemInfoFile {
 		            BufferedReader systemInfoBr = new BufferedReader(systemInfoFile);		            
 		            systemInfoRecord = systemInfoBr.readLine(); 
 		            
+		            //fix to handle null fields in systeminfo file
+		            systemInfoRecord = systemInfoRecord.replace("||", "|null|");
+		            
 		            StringTokenizer st = new StringTokenizer(systemInfoRecord, "|");
 		            
 		            String hostName = st.nextToken();		
