@@ -407,7 +407,11 @@ public class LockdownBrowserWrapper extends Thread {
 				LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(true);
 				LockdownBrowserWrapper.TaskSwitching_Enable_Disable(true);
 				String taskmgr = "taskbarshow.exe";
+				
 				Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+				Thread.sleep(500);	
+				Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+				
 				ConsoleUtils.messageOut("Desktop unlocked ...");	
 				Thread.sleep(1500);	
 			}	
@@ -593,9 +597,20 @@ public class LockdownBrowserWrapper extends Thread {
         		Thread.sleep(250);
         		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
         	} else {
-        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
-        		Thread.sleep(250);
-        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+        		try {
+	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+        		} catch (Exception e) {
+        			e.printStackTrace();
+        		}
+        		try {
+        			Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
+        		} catch (Exception e) {
+        			e.printStackTrace();
+        		}	
         	}
 		} catch (Exception e) {
 			e.printStackTrace();
