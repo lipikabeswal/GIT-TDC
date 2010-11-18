@@ -250,7 +250,6 @@ public class SystemInfoFile {
 		            BufferedReader systemInfoBr = new BufferedReader(systemInfoFile);		            
 		            systemInfoRecord = systemInfoBr.readLine(); 
 		            
-		            
 		            //fix to handle null fields in systeminfo file
 		            systemInfoRecord = systemInfoRecord.replace("||", "|null|");
 		            
