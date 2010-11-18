@@ -251,8 +251,10 @@ public class SystemInfoFile {
 		            systemInfoRecord = systemInfoBr.readLine(); 
 		            
 		            //fix to handle null fields in systeminfo file
-		            systemInfoRecord = systemInfoRecord.replace("||", "|null|");
-		            
+		            while(systemInfoRecord.contains("||")){
+		            	systemInfoRecord = systemInfoRecord.replace("||", "|null|");
+		            }
+		            		            
 		            StringTokenizer st = new StringTokenizer(systemInfoRecord, "|");
 		            
 		            String hostName = st.nextToken();		
