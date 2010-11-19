@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2008 VP1 Enterprise, Build 3571
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Tue Nov 16 15:18:59 PST 2010 -->
-<InstallAnywhere_Deployment_Project increments="9754">
+     DATE:   Fri Nov 19 10:43:43 PST 2010 -->
+<InstallAnywhere_Deployment_Project increments="9985">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="9" minor="5" revision="0"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,69,49,55,55,57,82,81,81,68,81,81,68,81,81,55,81,70,81,82,70,81,57,70</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,86,105,115,116,97,44,32,54,46,48,44,32,120,56,54,59,32,74,97,118,97,32,49,46,53,46,48,95,49,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,32,83,-2,-32,-48,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,10,10,91,102,12,1,0,0</authorizationID>
+		<authorizationID>1,0,0,32,99,126,-16,48,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,1,13,82,101,12,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="653">
+	<installationObjects uniqueObjects="665">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="wizardME">
 				<object class="com.zerog.ia.installer.actions.MakeExecutable" objectID="85358c91894c">
@@ -266,7 +266,7 @@ and any path to a file to read from that file]]></string>
 								<string><![CDATA[bootstrap.jar]]></string>
 							</property>
 							<property name="fileSize">
-								<long>124283</long>
+								<long>124353</long>
 							</property>
 							<property name="macBinary">
 								<boolean>false</boolean>
@@ -5278,9 +5278,9 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="5fa803159a54">
+														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="78eabd4d8caf">
 															<property name="propertyValue">
-																<string><![CDATA[<li>733 MHz processor speed]]></string>
+																<string><![CDATA[<li>1.0 GHz processor speed]]></string>
 															</property>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
@@ -5374,6 +5374,128 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[OS/400]]></string>
+															</method>
+														</object>
+													</property>
+												</object>
+											</rules>
+										</object>
+										<object class="com.zerog.ia.installer.actions.EditMultipleVariables" objectID="78e5a24d8cab">
+											<property name="comment">
+												<string><![CDATA[Set variables needed for PC (Win2K3)]]></string>
+											</property>
+											<property name="propertyList">
+												<object class="java.util.Vector">
+													<method name="addElement">
+														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="78e5a24d8cac">
+															<property name="propertyValue">
+																<string><![CDATA[$ATV_RESULT$]]></string>
+															</property>
+															<property name="propertyName">
+																<string><![CDATA[$ATV_SOURCE$]]></string>
+															</property>
+															<property name="passByValue">
+																<boolean>false</boolean>
+															</property>
+														</object>
+													</method>
+													<method name="addElement">
+														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="78eb0f338cb0">
+															<property name="propertyValue">
+																<string><![CDATA[<li>1.0 GHz processor speed]]></string>
+															</property>
+															<property name="propertyName">
+																<string><![CDATA[$ATV_VALUE$]]></string>
+															</property>
+															<property name="passByValue">
+																<boolean>false</boolean>
+															</property>
+														</object>
+													</method>
+												</object>
+											</property>
+											<rules logicalOperation="AND">
+												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="78e5a24e8cab">
+													<property name="installOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2003]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="doNotInstallOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows 95]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 98]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows Me]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Mac OS X]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/2]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Solaris]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[SunOS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[HP-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Linux]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[AIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Irix]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[DG-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Compaq's Digital UNIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[FreeBSD]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Rhapsody]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[NetWare]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[z/OS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/390]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Unlisted Platforms]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/400]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2000]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows XP]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows Vista]]></string>
 															</method>
 														</object>
 													</property>
@@ -5522,9 +5644,9 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="6411d4c093af">
+														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="78f040bc8cb5">
 															<property name="propertyValue">
-																<string><![CDATA[<li>500 MHz processor  ]]></string>
+																<string><![CDATA[<li>1.0 GHz processor  ]]></string>
 															</property>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
@@ -5680,16 +5802,16 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 													<method name="addElement">
 														<string><![CDATA[Linux]]></string>
 													</method>
-												</object>
-											</property>
-											<property name="doNotInstallOnPlatformList">
-												<object class="java.util.Vector">
 													<method name="addElement">
 														<string><![CDATA[Windows NT]]></string>
 													</method>
 													<method name="addElement">
 														<string><![CDATA[Windows 2003]]></string>
 													</method>
+												</object>
+											</property>
+											<property name="doNotInstallOnPlatformList">
+												<object class="java.util.Vector">
 													<method name="addElement">
 														<string><![CDATA[Windows Vista]]></string>
 													</method>
@@ -5859,6 +5981,128 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Linux]]></string>
+															</method>
+														</object>
+													</property>
+												</object>
+											</rules>
+										</object>
+										<object class="com.zerog.ia.installer.actions.EditMultipleVariables" objectID="78e2d0128ca6">
+											<property name="comment">
+												<string><![CDATA[Set variables needed by custome code]]></string>
+											</property>
+											<property name="propertyList">
+												<object class="java.util.Vector">
+													<method name="addElement">
+														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="78e2d0128ca7">
+															<property name="propertyValue">
+																<string><![CDATA[$ATV_RESULT$]]></string>
+															</property>
+															<property name="propertyName">
+																<string><![CDATA[$ATV_SOURCE$]]></string>
+															</property>
+															<property name="passByValue">
+																<boolean>false</boolean>
+															</property>
+														</object>
+													</method>
+													<method name="addElement">
+														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="78e3c7e78ca9">
+															<property name="propertyValue">
+																<string><![CDATA[<li>Windows 2003]]></string>
+															</property>
+															<property name="propertyName">
+																<string><![CDATA[$ATV_VALUE$]]></string>
+															</property>
+															<property name="passByValue">
+																<boolean>false</boolean>
+															</property>
+														</object>
+													</method>
+												</object>
+											</property>
+											<rules logicalOperation="AND">
+												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="78e2d0138ca6">
+													<property name="installOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2003]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="doNotInstallOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows 95]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 98]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows Me]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Mac OS X]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/2]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Solaris]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[SunOS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[HP-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[AIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Irix]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[DG-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Compaq's Digital UNIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[FreeBSD]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Rhapsody]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[NetWare]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[z/OS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/390]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Unlisted Platforms]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/400]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Linux]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows XP]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2000]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows Vista]]></string>
 															</method>
 														</object>
 													</property>
@@ -6172,9 +6416,9 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="3997fd198c76">
+														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="78f19c818cba">
 															<property name="propertyValue">
-																<string><![CDATA[<li>512 MB RAM]]></string>
+																<string><![CDATA[<li>400 MB RAM]]></string>
 															</property>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
@@ -6274,6 +6518,128 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 												</object>
 											</rules>
 										</object>
+										<object class="com.zerog.ia.installer.actions.EditMultipleVariables" objectID="78f10e858cb7">
+											<property name="comment">
+												<string><![CDATA[Set variables needed by custome code]]></string>
+											</property>
+											<property name="propertyList">
+												<object class="java.util.Vector">
+													<method name="addElement">
+														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="78f10e858cb8">
+															<property name="propertyValue">
+																<string><![CDATA[$ATV_RESULT$]]></string>
+															</property>
+															<property name="propertyName">
+																<string><![CDATA[$ATV_SOURCE$]]></string>
+															</property>
+															<property name="passByValue">
+																<boolean>false</boolean>
+															</property>
+														</object>
+													</method>
+													<method name="addElement">
+														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="78f1d9de8cbb">
+															<property name="propertyValue">
+																<string><![CDATA[<li>400 MB RAM]]></string>
+															</property>
+															<property name="propertyName">
+																<string><![CDATA[$ATV_VALUE$]]></string>
+															</property>
+															<property name="passByValue">
+																<boolean>false</boolean>
+															</property>
+														</object>
+													</method>
+												</object>
+											</property>
+											<rules logicalOperation="AND">
+												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="78f10e868cb7">
+													<property name="installOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows 2003]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="doNotInstallOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows 95]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 98]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows Me]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Mac OS X]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/2]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Solaris]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[SunOS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[HP-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Linux]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[AIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Irix]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[DG-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Compaq's Digital UNIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[FreeBSD]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Rhapsody]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[NetWare]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[z/OS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/390]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Unlisted Platforms]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/400]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows XP]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2000]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows Vista]]></string>
+															</method>
+														</object>
+													</property>
+												</object>
+											</rules>
+										</object>
 										<object class="com.zerog.ia.installer.actions.EditMultipleVariables" objectID="21772e2e8c7c">
 											<property name="comment">
 												<string><![CDATA[Set variables needed by custome code]]></string>
@@ -6294,9 +6660,9 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="64138bdd93b0">
+														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="78f2316f8cbc">
 															<property name="propertyValue">
-																<string><![CDATA[<li>512 MB RAM]]></string>
+																<string><![CDATA[<li>400 MB RAM]]></string>
 															</property>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
@@ -6416,9 +6782,9 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="5fe83f4c9d65">
+														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="78f265d78cbd">
 															<property name="propertyValue">
-																<string><![CDATA[<li>512 MB RAM]]></string>
+																<string><![CDATA[<li>400 MB RAM]]></string>
 															</property>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
@@ -6703,13 +7069,16 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<method name="addElement">
 																<string><![CDATA[Linux]]></string>
 															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2003]]></string>
+															</method>
 														</object>
 													</property>
 													<property name="doNotInstallOnPlatformList">
 														<object class="java.util.Vector">
-															<method name="addElement">
-																<string><![CDATA[Windows NT]]></string>
-															</method>
 															<method name="addElement">
 																<string><![CDATA[Mac OS X]]></string>
 															</method>
@@ -6736,9 +7105,6 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Unlisted Platforms]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 2003]]></string>
 															</method>
 														</object>
 													</property>
@@ -8324,7 +8690,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 						<string><![CDATA[]]></string>
 					</property>
 					<property name="macXMagicFolderPath">
-						<string><![CDATA[]]></string>
+						<string><![CDATA[$PRODUCT_NAME$]]></string>
 					</property>
 					<property name="win32MagicFolderPath">
 						<string><![CDATA[CTB\$PRODUCT_NAME$]]></string>
@@ -8585,7 +8951,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.build.last.date]]></string>
-						<string><![CDATA[November 16, 2010 3:10:20 PM PST]]></string>
+						<string><![CDATA[November 19, 2010 10:43:43 AM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.windows.vm]]></string>
@@ -8657,7 +9023,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[November 16, 2010 3:18:58 PM PST]]></string>
+						<string><![CDATA[November 19, 2010 10:43:43 AM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -10195,7 +10561,7 @@ done
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>7164835</long>
+												<long>7164920</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
