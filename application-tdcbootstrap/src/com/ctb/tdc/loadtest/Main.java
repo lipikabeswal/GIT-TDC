@@ -156,7 +156,7 @@ public class Main {
 						Main.copyPropertyFiles(tdcHome); 
 						
 						try {
-							jetty = new JettyProcessWrapper(tdcHome, macOS, 12355, 12357);
+							jetty = new JettyProcessWrapper(tdcHome, macOS, 12347, 12357);
 						} 
 				        catch( Exception e ) {
 				        	System.out.println("Jetty already running !!!");

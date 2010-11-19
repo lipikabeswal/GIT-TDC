@@ -329,7 +329,7 @@ public class NetworkAnalyzer extends Thread {
 		copyPropertyFiles(tdcHome); 
 		//JettyProcessWrapper jetty = null;
 		try {
-			jetty = new JettyProcessWrapper(tdcHome, macOS, 12355, 12357);
+			jetty = new JettyProcessWrapper(tdcHome, macOS, 12347, 12357);
 		}catch( Exception e ) {
 			ui.setAnalysisInterrupted();
 			ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_STARTING_SERVLET , 0);
