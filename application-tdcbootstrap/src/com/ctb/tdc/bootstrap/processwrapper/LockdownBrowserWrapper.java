@@ -432,9 +432,15 @@ public class LockdownBrowserWrapper extends Thread {
 	public void cleanupLock() {
 		Iterator it = lockFiles.iterator();
 		while (it.hasNext()) {
-			File file = new File((String)it.next());
-			file.delete();
+			try {
+				File file = new File((String)it.next());
+				file.delete();			
+			} catch (Exception e) {
+				ConsoleUtils.messageOut(e.getMessage());		
+			}
+			
 		}
+			
 		if(islinux) {
 			String pcheckFile = this.tdcHome + "/processcheck";
 			File file = new File(pcheckFile);
