@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2008 VP1 Enterprise, Build 3571
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Mon Nov 29 14:01:01 PST 2010 -->
+     DATE:   Thu Dec 02 15:30:21 PST 2010 -->
 <InstallAnywhere_Deployment_Project increments="10020">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
@@ -10,7 +10,7 @@
 		<scriptID>12,42,11,69,49,55,55,57,82,81,81,68,81,81,68,81,81,55,81,70,81,82,70,81,57,70</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,86,105,115,116,97,44,32,54,46,48,44,32,120,56,54,59,32,74,97,118,97,32,49,46,53,46,48,95,49,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,32,-109,-82,48,-96,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,9,6,87,105,12,1,0,0</authorizationID>
+		<authorizationID>1,0,0,32,-93,110,16,16,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,1,5,92,105,12,1,0,0</authorizationID>
 	</essentialScriptInfo>
 	<installationObjects uniqueObjects="666">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
@@ -266,7 +266,7 @@ and any path to a file to read from that file]]></string>
 								<string><![CDATA[bootstrap.jar]]></string>
 							</property>
 							<property name="fileSize">
-								<long>124357</long>
+								<long>124289</long>
 							</property>
 							<property name="macBinary">
 								<boolean>false</boolean>
@@ -1107,7 +1107,7 @@ and any path to a file to read from that file]]></string>
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="66be60139063">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="bcecdbce8ca8">
 													<property name="propertyValue">
 														<string><![CDATA[false]]></string>
 													</property>
@@ -8727,10 +8727,10 @@ The log is in $USER_INSTALL_DIR$]]></string>
 			<property name="shortcutDir">
 				<object class="com.zerog.ia.installer.util.magicfolders.ShortcutsMF" factoryID="158" objectID="72240f5388c0">
 					<property name="solarisMagicFolder">
-						<object refID="722382cb88bd"/>
+						<object class="com.zerog.ia.installer.util.magicfolders.DesktopMF" factoryID="16" objectID="72240f5388c1"/>
 					</property>
 					<property name="macMagicFolder">
-						<object class="com.zerog.ia.installer.util.magicfolders.DesktopMF" factoryID="16" objectID="72240f5388c1"/>
+						<object refID="72240f5388c1"/>
 					</property>
 					<property name="macXMagicFolder">
 						<object refID="72240f5388c1"/>
@@ -8739,13 +8739,13 @@ The log is in $USER_INSTALL_DIR$]]></string>
 						<object class="com.zerog.ia.installer.util.magicfolders.CommonProgramsMenuMF" factoryID="23" objectID="c9d46ea588c3"/>
 					</property>
 					<property name="solarisMagicFolderPath">
-						<string><![CDATA[$PRODUCT_NAME$]]></string>
+						<string><![CDATA[]]></string>
 					</property>
 					<property name="macMagicFolderPath">
 						<string><![CDATA[]]></string>
 					</property>
 					<property name="macXMagicFolderPath">
-						<string><![CDATA[$PRODUCT_NAME$]]></string>
+						<string><![CDATA[]]></string>
 					</property>
 					<property name="win32MagicFolderPath">
 						<string><![CDATA[CTB\$PRODUCT_NAME$]]></string>
@@ -9006,7 +9006,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.build.last.date]]></string>
-						<string><![CDATA[November 29, 2010 2:01:01 PM PST]]></string>
+						<string><![CDATA[December 2, 2010 1:56:15 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.windows.vm]]></string>
@@ -9078,7 +9078,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[November 29, 2010 2:01:01 PM PST]]></string>
+						<string><![CDATA[December 2, 2010 3:30:21 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -10616,7 +10616,7 @@ done
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>7165259</long>
+												<long>7165254</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>

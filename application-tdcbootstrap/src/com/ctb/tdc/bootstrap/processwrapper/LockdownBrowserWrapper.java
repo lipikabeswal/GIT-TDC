@@ -426,21 +426,27 @@ public class LockdownBrowserWrapper extends Thread {
 			exit();
 		}
 	}
-	
+	  
 	private ArrayList lockFiles = new ArrayList();
 	
 	public void cleanupLock() {
+		
+		String msg;
 		Iterator it = lockFiles.iterator();
 		while (it.hasNext()) {
+
 			try {
 				File file = new File((String)it.next());
-				file.delete();			
+				boolean ret = file.delete();
+				msg = "delete " + file.getName() + " = " + ret + "   ";
+				ConsoleUtils.messageOut(msg);	
 			} catch (Exception e) {
-				ConsoleUtils.messageOut(e.getMessage());		
+				msg = "failed to delete file" + e.getMessage();				
+				ConsoleUtils.messageOut(msg);		
 			}
 			
 		}
-			
+		
 		if(islinux) {
 			String pcheckFile = this.tdcHome + "/processcheck";
 			File file = new File(pcheckFile);
