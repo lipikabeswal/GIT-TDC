@@ -404,6 +404,9 @@ public class LockdownBrowserWrapper extends Thread {
 					this.isAvailable = false;
 					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());
 				}
+				
+				cleanupLock();
+
 				LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(true);
 				LockdownBrowserWrapper.TaskSwitching_Enable_Disable(true);
 				String taskmgr = "taskbarshow.exe";
@@ -446,6 +449,7 @@ public class LockdownBrowserWrapper extends Thread {
 			}
 			
 		}
+		lockFiles = new ArrayList();
 		
 		if(islinux) {
 			String pcheckFile = this.tdcHome + "/processcheck";
