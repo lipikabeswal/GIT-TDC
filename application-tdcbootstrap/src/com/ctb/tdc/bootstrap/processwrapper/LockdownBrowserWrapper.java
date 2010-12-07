@@ -56,7 +56,7 @@ public class LockdownBrowserWrapper extends Thread {
 	public static native void kill_printscreen_snapshot();
 	public static native boolean Kill_Task_Mgr();
 	public static native boolean Process_Check();
-	public static native int Get_Blacklist_Process_No();
+	//public static native int Get_Blacklist_Process_No();
 	
 	static volatile boolean flag = false;
 	static volatile boolean ready = false;
@@ -233,9 +233,11 @@ public class LockdownBrowserWrapper extends Thread {
 			this.splashWindow.hide();
 			
 			if (ismac) {
-				System.loadLibrary("lock");
+				// start change for mac 10.4
+				//System.loadLibrary("lock");
+				// endchange for mac 10.4
 				
-				ProcessBlock processBlock = new ProcessBlock ();
+				ProcessBlock processBlock = new ProcessBlock (this.tdcHome);
 				processBlock.start();
 				processBlock.join();
 				
@@ -405,8 +407,8 @@ public class LockdownBrowserWrapper extends Thread {
 					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());
 				}
 				
-				cleanupLock();
-
+				cleanupLock();	// call here for 64 bit Windows 7
+				
 				LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(true);
 				LockdownBrowserWrapper.TaskSwitching_Enable_Disable(true);
 				String taskmgr = "taskbarshow.exe";
@@ -448,7 +450,7 @@ public class LockdownBrowserWrapper extends Thread {
 				ConsoleUtils.messageOut(msg);		
 			}
 			
-		}
+		}	
 		lockFiles = new ArrayList();
 		
 		if(islinux) {
@@ -541,12 +543,18 @@ public class LockdownBrowserWrapper extends Thread {
     }
 	
 	class ProcessBlock extends Thread {
-
+		private String tdchome;
+		public ProcessBlock(String tdchome){
+			this.tdchome = tdchome;
+		}
 		public void run () {
 
 			try {
-			
-				LockdownBrowserWrapper.Get_Blacklist_Process_No();
+				// start change for mac 10.4
+				//LockdownBrowserWrapper.Get_Blacklist_Process_No();
+				Process lock = Runtime.getRuntime().exec("sh macpcheck.sh", null, new File(this.tdchome.replaceAll(" ", "\\ ")));
+				lock.waitFor();
+				// end change for mac 10.4
 				BufferedReader in = new BufferedReader (new FileReader("temp_forbidden"));
 				String str = in.readLine();
 				int value = str.indexOf('|');
