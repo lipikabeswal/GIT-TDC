@@ -407,7 +407,6 @@ public class LockdownBrowserWrapper extends Thread {
 					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());
 				}
 				
-				cleanupLock();	// call here for 64 bit Windows 7
 				
 				LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(true);
 				LockdownBrowserWrapper.TaskSwitching_Enable_Disable(true);
@@ -417,13 +416,16 @@ public class LockdownBrowserWrapper extends Thread {
 				Thread.sleep(500);	
 				Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 				
+				cleanupLock();	// call here to fix issue in 64 bit Windows 7 
+				
 				ConsoleUtils.messageOut("Desktop unlocked ...");	
-				Thread.sleep(1500);	
+				Thread.sleep(1500);
+				
 			}	
 			
 			this.splashWindow.show();
-			
-			cleanupLock();
+
+			cleanupLock();	
 			
 		} catch (Exception e) {
 			ConsoleUtils.messageErr("An error has occured within " + this.getClass().getName(), e);
@@ -451,7 +453,6 @@ public class LockdownBrowserWrapper extends Thread {
 			}
 			
 		}	
-		lockFiles = new ArrayList();
 		
 		if(islinux) {
 			String pcheckFile = this.tdcHome + "/processcheck";
