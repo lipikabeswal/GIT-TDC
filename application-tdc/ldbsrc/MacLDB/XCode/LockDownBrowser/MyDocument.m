@@ -104,7 +104,7 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
 
 -(void)dealloc {
 	//NSLog(@"dealloc called...");
-    [webView close];
+    //[webView close];
     [window release];
     [super dealloc];
 }
@@ -134,12 +134,20 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
 				CGEventMaskBit(kCGEventFlagsChanged)|
 				CGEventMaskBit(kCGEventTapDisabledByTimeout);
 	
-    eventTap = CGEventTapCreate(kCGSessionEventTap, 
+   /* eventTap = CGEventTapCreate(kCGSessionEventTap, 
 								kCGHeadInsertEventTap, 
 								kCGEventTapOptionDefault, 
 								eventMask, 
 								MouseCallback, 
-								self);        
+								self); */ 
+
+	eventTap = CGEventTapCreate(kCGSessionEventTap, 
+								kCGHeadInsertEventTap, 
+								0x00000000, //value of kCGEventTapOptionDefault taken from constants header file
+								eventMask, 
+								MouseCallback, 
+								self); 
+								      
     if (!eventTap) {
 	
         fprintf(stderr, "Failed to create event tap\n");
@@ -174,7 +182,7 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
     [super windowControllerDidLoadNib:aController];
 
 	[webView setFrameLoadDelegate:self];
-	[webView setDrawsBackground:NO];//to avoid default white background
+	//[webView setDrawsBackground:NO];//to avoid default white background
 	
 	NSAutoreleasePool *pool;
 	pool = [NSAutoreleasePool new]; 
@@ -204,7 +212,7 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
 }*/
 
 -(void)close {
-    [webView close];
+    //[webView close];
     [super close];
 }
 
@@ -267,7 +275,7 @@ OSErr QuitAppleEventHandler (const AppleEvent *appleEvt, AppleEvent* reply, UInt
 		backing:NSBackingStoreBuffered
 		defer:YES screen:[NSScreen mainScreen]];
 
-	[fullscreenWindow setBackgroundColor:[self colorWithHexColorString:@"6691B4"]];//settting blue background			
+	//[fullscreenWindow setBackgroundColor:[self colorWithHexColorString:@"6691B4"]];//settting blue background			
 	[fullscreenWindow setLevel:windowLevel];
 	[fullscreenWindow setContentView:[window contentView]];
 	[fullscreenWindow setFrame:
@@ -278,7 +286,7 @@ OSErr QuitAppleEventHandler (const AppleEvent *appleEvt, AppleEvent* reply, UInt
 	[window orderOut:nil];		
 }
 
-- (NSColor*)colorWithHexColorString:(NSString*)inColorString
+/*- (NSColor*)colorWithHexColorString:(NSString*)inColorString
 {
 	NSColor* result    = nil;
 	unsigned colorCode = 0;
@@ -299,5 +307,5 @@ OSErr QuitAppleEventHandler (const AppleEvent *appleEvt, AppleEvent* reply, UInt
 		          blue:(CGFloat)blueByte   / 0xff
 		          alpha:1.0];
 	return result;
-}
+}*/
 @end

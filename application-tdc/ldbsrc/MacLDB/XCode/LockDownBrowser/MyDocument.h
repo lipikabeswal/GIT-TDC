@@ -18,5 +18,5 @@
 - (void)disableEject;
 - (OSStatus)disableHotKeys;
 - (void)setFullScreenWindow;
-- (NSColor*)colorWithHexColorString:(NSString*)inColorString;
+//- (NSColor*)colorWithHexColorString:(NSString*)inColorString;
 @end

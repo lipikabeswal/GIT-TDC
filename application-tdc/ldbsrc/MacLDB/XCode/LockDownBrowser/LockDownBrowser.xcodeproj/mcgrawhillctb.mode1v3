@@ -202,6 +202,46 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
+				<string>8A7DBCB1127B0F2500ECC128</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>MyDocument.m</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>8A7DBCB2127B0F2500ECC128</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>MyDocument.m</string>
+						<key>_historyCapacity</key>
+						<integer>10</integer>
+						<key>bookmark</key>
+						<string>8A68E4D1127B136500DACC2C</string>
+						<key>history</key>
+						<array>
+							<string>8A7DBCC3127B102C00ECC128</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1202, 606}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>74 130 1202 647 0 0 1280 778 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
 				<string>8A6C33891250AC2B00E18A5F</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>MyDocument.h</string>
@@ -216,10 +256,10 @@
 						<key>_historyCapacity</key>
 						<integer>10</integer>
 						<key>bookmark</key>
-						<string>8A67DEE41250BD40005B81BF</string>
+						<string>8A68E4D2127B136500DACC2C</string>
 						<key>history</key>
 						<array>
-							<string>8A67DEC71250BCCB005B81BF</string>
+							<string>8A7DBCC4127B102C00ECC128</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -272,6 +312,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -380,8 +422,6 @@
 							<string>0pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -418,9 +458,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>8A67DEE21250BD40005B81BF</string>
+				<string>8A68E4CF127B136500DACC2C</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>8A67DEE31250BD40005B81BF</string>
+				<string>8A68E4D0127B136500DACC2C</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -554,8 +594,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>1C78EAAD065D492600B07095</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>8A3C77CE1118087A00AB1817</string>
 		<string>8A6C33891250AC2B00E18A5F</string>
+		<string>8A7DBCB1127B0F2500ECC128</string>
 		<string>/LDB_PROJECT_ZIPS/LockDownBrowser_27092010/LockDownBrowser.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -636,7 +679,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>8A3C77CE1118087A00AB1817</string>
-				<string>8A67DEE51250BD40005B81BF</string>
+				<string>8A68E4D3127B136500DACC2C</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -756,13 +799,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>8A67DE841250AD5D005B81BF</string>
+				<string>8A68E4D4127B136500DACC2C</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>8A67DE851250AD5D005B81BF</string>
-				<string>8A67DE861250AD5D005B81BF</string>
-				<string>8A67DE871250AD5D005B81BF</string>
-				<string>8A67DE881250AD5D005B81BF</string>
-				<string>8A67DE891250AD5D005B81BF</string>
+				<string>8A68E4D5127B136500DACC2C</string>
+				<string>8A68E4D6127B136500DACC2C</string>
+				<string>8A68E4D7127B136500DACC2C</string>
+				<string>8A68E4D8127B136500DACC2C</string>
+				<string>8A68E4D9127B136500DACC2C</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -881,8 +924,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -918,7 +959,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>8A67DE8A1250AD5D005B81BF</string>
+				<string>8A68E4DA127B136500DACC2C</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
