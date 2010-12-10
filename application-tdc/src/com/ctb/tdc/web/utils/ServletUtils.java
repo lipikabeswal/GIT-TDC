@@ -918,21 +918,12 @@ public class ServletUtils {
 			}
 		}
 		s = retVal.toString();
-		System.out.println("character string      "+s);
-		s = replaceAll( s, "&#+;", "&amp;#x002B;" );
-		s = replaceAll( s, "+", "&amp;#x002B;" );
-		
+		s = replaceAll( s, "&#+;", "&#x002B;" );
+		s = replaceAll( s, "+", "&#x002B;" );
 		//Defect# 64272: added for "<" Defect. 
 		s = s.replaceAll("&#x003C", "&LT;");
 		s = s.replaceAll("&lt;", "&LT;");
-		
-		System.out.println("character string2      "+s);
-	
-		//Added for defect #64691
-		s = s.replaceAll("&#","&amp;#");
-		s = s.replaceAll("&amp;#8722;", "&#8722;");
-		s = s.replaceAll("&amp;#x2212;","&#x2212;");
-		System.out.println("character string3      "+s);
+
 		return s;
 	}
 
