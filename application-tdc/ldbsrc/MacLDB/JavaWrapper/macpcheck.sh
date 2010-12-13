@@ -207,10 +207,10 @@ fi
  
 #OTHERS 
  
- if [ ! -z "$(ps -Ae | grep 'bash' | grep -v grep)" ] 
- 	then check=37 
-	strVal="$strVal|$check" 
- fi 
+ #if [ ! -z "$(ps -Ae | grep 'bash' | grep -v grep)" ] 
+ #	then check=37 
+ #	strVal="$strVal|$check" 
+ #fi 
  
  if [ ! -z "$(ps -Ae | grep 'TextEdit' | grep -v grep)" ] 
  	then check=38 
@@ -232,6 +232,15 @@ fi
 	strVal="$strVal|$check" 
  fi 
  
+ if [ ! -z "$(ps -Ae | grep 'Microsoft Word' | grep -v grep)" ]
+ 	then check=42
+	strVal="$strVal|$check"
+ fi
+
+ if [ ! -z "$(ps -Ae | grep 'Microsoft Excel' | grep -v grep)" ]
+ 	then check=43
+	strVal="$strVal|$check"
+ fi
  
 echo $strVal > temp_forbidden 
 exit $check
