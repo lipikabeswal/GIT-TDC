@@ -156,7 +156,12 @@ public class LockdownBrowserWrapper extends Thread {
 		
 		public void run() {
 			try {
-				LockdownBrowserWrapper.Kill_Task_Mgr();
+				//LockdownBrowserWrapper.Kill_Task_Mgr();
+				while(true){
+					Runtime.getRuntime().exec("taskkill /F /IM taskmgr.exe /T");
+					Thread.sleep(300);
+				}
+					
 			} catch (Exception e) {
 				flag = false;
 				e.printStackTrace();
@@ -253,7 +258,9 @@ public class LockdownBrowserWrapper extends Thread {
 					this.isAvailable = false;
 	        		Runtime.getRuntime().exec("sh clear_clipboard.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 	    			Runtime.getRuntime().exec("sh enable_screen_capture.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-	        		//System.out.println("enable print screen called");	
+	    			String[] appString = {"osascript","-e","set the clipboard to \"\""};
+	    			Runtime.getRuntime().exec(appString);
+	    			//System.out.println("enable print screen called");	
 				} else {
 					try {
 						SwingUtilities.invokeAndWait(new Runnable() {
