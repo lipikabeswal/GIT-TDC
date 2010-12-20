@@ -72,6 +72,26 @@
             }
         }
     </method>
+    <method name ="UTFDecode" args="b">
+    	<![CDATA[
+    	//Defect 64691- Added for footnote defect fix.
+    	// This method helps in decoding the decimal values of special characters from flash. 
+    	//This fix will help footnote to work for all the flash versions.
+		    var c= '';
+		   // Debug.write("UTF Decode")
+			for(i=0; i<b.length; i++){
+				if(b.charCodeAt(i)>127)
+				{ 
+				c += '&amp;#' + b.charCodeAt(i) + ';';
+				 }
+				 else
+				 { 
+				 c += b.charAt(i); 
+				 }
+		  	}
+		  	return c;
+    ]]>
+    </method>
 
 	<method name="setTabTextPanel" args="txt">
 		this.setAttribute("itemtxt", txt);
@@ -98,9 +118,9 @@
 
     <method name="show" args="header">
         <![CDATA[
-        if (this.itemtxt != ""){
-			var headerpos = this.itemtxt.indexOf("header=&quot;" + this.formatStr(header));
-        	if(headerpos != -1){
+         if (this.itemtxt != ""){
+			var headerpos = UTFDecode(this.itemtxt).indexOf("header=&quot;" + this.formatStr(header));
+		   	if(headerpos != -1){
         		reallyShow(header);
         	}
         	else{
@@ -116,7 +136,7 @@
         this.body.wrap.setAttribute("y", 0);
 
         //find the detail string
-        var headerpos = this.itemtxt.indexOf("header=&quot;" + this.formatStr(header));
+        var headerpos = UTFDecode(this.itemtxt).indexOf("header=&quot;" + this.formatStr(header));
 
         var detailstart = this.itemtxt.indexOf("detail=&quot;", headerpos) + 13;
         var detailend = this.itemtxt.indexOf("&quot;", detailstart);
