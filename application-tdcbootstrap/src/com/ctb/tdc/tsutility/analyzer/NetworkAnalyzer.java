@@ -366,8 +366,11 @@ public class NetworkAnalyzer extends Thread {
 				ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_LOCAL_SERVLET , 0);
 				return;
 			}								
-			
-			downloadMethod = new GetMethod(URL_LOAD_TEST);					
+		 	// Changes for defect 65267	
+		 	//START						
+			String urlloadTest = URL_LOAD_TEST + "?NetworkUitlity=" + "Yes";
+			downloadMethod = new GetMethod(urlloadTest);	
+			//END
 			if(getConfig){ //send get load test config request
 				try{
 					if( this.ldclient.executeMethod(downloadMethod) != HttpURLConnection.HTTP_OK ) {

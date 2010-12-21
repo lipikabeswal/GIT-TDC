@@ -60,6 +60,8 @@ public class LoadTestServlet extends HttpServlet{
 	static Logger logger = Logger.getLogger(LoadTestServlet.class);
 	public static final String LOAD_TEST_PROPERTIES = "loadtest";
 	private LoadTestSettings loadTestSettings;
+	//Changes for defect 65267
+	private String networkServiceUtility = "No";
 	/**
 	 * Constructor of the object.
 	 */
@@ -93,7 +95,7 @@ public class LoadTestServlet extends HttpServlet{
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {    
 		
-		handleEvent(response);    
+		handleEvent(request,response);    // Changes for defect 65267
 	}
 	
 	private void initLoadTestSettings(){
@@ -106,12 +108,15 @@ public class LoadTestServlet extends HttpServlet{
 	        loadTestSettings = new LoadTestSettings();
 	    }
 	}
-	private void handleEvent(HttpServletResponse response) throws IOException {
+	private void handleEvent(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		
 		String result = "<OK />";
 		String systemInfoXML = "";
+		 //START Changes for defect 65267
 		
-		
+		this.networkServiceUtility = request.getParameter("NetworkUitlity") != null ? request.getParameter("NetworkUitlity") : "No";
+		System.out.println("this.networkServiceUtility..........." + this.networkServiceUtility);
+		//END
 		if(!MarkerFile.fileExists()){
 			
 			boolean systemInfoError = false;
@@ -241,7 +246,9 @@ public class LoadTestServlet extends HttpServlet{
 		
 		int responseCode = HttpStatus.SC_OK;
 		String responseXML = ServletUtils.ERROR;
-		String requestXML = "<tmssvc_request><runLoad_request system_id=\"xx\" system_time=\"xx\"/></tmssvc_request>";
+		//Changes for Defect 65267
+		String requestXML = "<tmssvc_request><runLoad_request system_id=\"xx\" system_time=\"xx\" network_service=\"xx\"/></tmssvc_request>";
+		//END
 		String systemId = SystemIdFile.getSystemId();
 		
 		String method = "get_load_test_config";
@@ -254,7 +261,9 @@ public class LoadTestServlet extends HttpServlet{
         
         requestXML = LoadTestUtils.setAttributeValue("system_id",systemId,requestXML);
         requestXML = LoadTestUtils.setAttributeValue("system_time",systemDate,requestXML);
-        
+         //START Changes for defect 65267
+        requestXML = LoadTestUtils.setAttributeValue("network_service", this.networkServiceUtility, requestXML);
+        //END
         // call method to perform an action only if servlet settings is valid
         if (! validSettings){
         	
