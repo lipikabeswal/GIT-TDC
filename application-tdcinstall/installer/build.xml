@@ -48,10 +48,11 @@
 	
 	
 	<target name="build" description="Builds the various installers" depends="clean">
-		<antcall target="buildQA" />
+		<!-- <antcall target="buildQA" /> -->
 		<antcall target="buildVanilla" />
-		<antcall target="buildFCAT" />
+		<antcall target="buildVanillaThin" />
 		<antcall target="buildISTEP" />
+		<antcall target="buildISTEPThin" />
 		<antcall target="postClean"></antcall>
 		<antcall target="buildTDCUpdate"></antcall>
 	</target>
@@ -83,21 +84,28 @@
 	
 	<target name="buildVanilla" description="Builds the generic installer" depends="init">
 		<!-- <copy file="${project.artifacts.webapp.resources.dir}/eliminatorVANILLA.swf" tofile="${project.artifacts.webapp.resources.dir}/eliminator.swf" overwrite="true" /> -->
-		<antcall target="buildInstaller">
+		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="vanilla" />
 		</antcall>
 	</target>
 	
-	<target name="buildFCAT" description="Builds the FCAT installer" depends="init">
-		<!-- <copy file="${project.artifacts.webapp.resources.dir}/eliminatorFCAT.swf" tofile="${project.artifacts.webapp.resources.dir}/eliminator.swf" overwrite="true" />
-		<antcall target="buildInstaller">
-			<param name="installer.type" value="fcat" />
-		</antcall> -->
+	<target name="buildVanillaThin" description="Builds the generic installer" depends="init">
+		<!-- <copy file="${project.artifacts.webapp.resources.dir}/eliminatorVANILLA.swf" tofile="${project.artifacts.webapp.resources.dir}/eliminator.swf" overwrite="true" /> -->
+		<antcall target="buildThinClientInstaller">
+			<param name="installer.type" value="vanilla" />
+		</antcall>
 	</target>
 	
 	<target name="buildISTEP" description="Builds the ISTEP installer" depends="init">
 		<!-- <copy file="${project.artifacts.webapp.resources.dir}/eliminatorFCAT.swf" tofile="${project.artifacts.webapp.resources.dir}/eliminator.swf" overwrite="true" /> -->
-		<antcall target="buildInstaller">
+		<antcall target="buildNonThinClientInstaller">
+			<param name="installer.type" value="istep" />
+		</antcall>
+	</target>
+	
+	<target name="buildISTEPThin" description="Builds the ISTEP installer" depends="init">
+		<!-- <copy file="${project.artifacts.webapp.resources.dir}/eliminatorFCAT.swf" tofile="${project.artifacts.webapp.resources.dir}/eliminator.swf" overwrite="true" /> -->
+		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="istep" />
 		</antcall>
 	</target>
@@ -125,7 +133,8 @@
 	</target>
 	
 	
-	<target name="buildInstaller" if="installer.type">
+	<target name="buildNonThinClientInstaller" if="installer.type">
+		<copy file="${project.base.dir}/bootstrap-single.jar" tofile="${project.artifacts.dir}/bootstrap.jar" overwrite="true" />
 		<property name="installer.src"  value="__tdc_${installer.type}.iap_xml" />
 		<xslt style="${project.installer.xsl.dir}/${installer.type}.xsl" in="${project.installer.src}" out="${installer.src}" force="true">
 			  <outputproperty name="method" value="xml"/>
@@ -166,5 +175,48 @@
 		/>
 		
 	</target>
+	
+	<target name="buildThinClientInstaller" if="installer.type">
+		<copy file="${project.base.dir}/bootstrap-multi.jar" tofile="${project.artifacts.dir}/bootstrap.jar" overwrite="true" />
+			<property name="installer.src"  value="__tdc_${installer.type}.iap_xml" />
+			<xslt style="${project.installer.xsl.dir}/${installer.type}.xsl" in="${project.installer.src}" out="${installer.src}" force="true">
+				  <outputproperty name="method" value="xml"/>
+				  <outputproperty name="encoding" value="UTF-8"/>
+				  <outputproperty name="indent" value="yes"/>
+				  <outputproperty name="cdata-section-elements" value="string"/>
+			</xslt>
+			<fixcrlf srcdir="${basedir}" includes="${installer.src}"  />
+			<replace file="${installer.src}">
+			  <replacefilter token="@@EMPTY.STRING@@"             value=""/>
+			  <replacefilter token="@@PRODUCT.VERSION.MAJOR@@"    value="${project.artifacts.version.major}"/>
+			  <replacefilter token="@@PRODUCT.VERSION.MINOR@@"    value="${project.artifacts.version.minor}"/>
+			  <replacefilter token="@@PRODUCT.VERSION.REVISION@@" value="${project.artifacts.version.revision}"/>
+			</replace>
+			<replaceregexp file="${installer.src}" flags="g">
+				<regexp pattern="\]\]&gt;&lt;!\[CDATA\["/>
+				<substitution expression="" />
+			</replaceregexp>
+			
+			<buildinstaller
+				IAlocation="${project.installer.application.dir}"
+				IAProjectFile="${installer.src}"
+				AutoPopulateLabels="false"
+				BuildLinuxWithVM="false"
+				BuildLinuxWithoutVM="false"
+				BuildHPUXWithVM="false"
+				BuildHPUXWithoutVM="false"
+				BuildAIXWithVM="false"
+				BuildAIXWithoutVM="false"
+				BuildSolarisWithVM="false"
+				BuildSolarisWithoutVM="false"
+				BuildNamedUnixWithVM="false"
+				BuildNamedUnixWithoutVM="false"
+				BuildWindowsWithVM="false"
+				BuildWindowsWithoutVM="true"
+				BuildMacOSX="false" 
+				BuildPureJava="false"
+			/>
+			
+		</target>
 	
 </project>

@@ -2,7 +2,8 @@
 
 	<property name="project.src"      value="${basedir}/src" />
 	<property name="project.bin"      value="${basedir}/bin" />
-	<property name="project.artifact" value="${basedir}/bootstrap.jar" />
+	<property name="project.artifact.single" value="${basedir}/bootstrap-single.jar" />
+	<property name="project.artifact.multi" value="${basedir}/bootstrap-multi.jar" />
 	<property name="project.application-tdc.dir" value="${basedir}/../application-tdc" />
 	
 	<!--
@@ -31,8 +32,9 @@
 		<delete file="${project.artifact}" />
 	</target>
 	
+	<target name="build" depends="buildsingle,buildmulti"/>
 	
-	<target name="build" description="Builds the JAR file." depends="clean">
+	<target name="buildsingle" description="Builds the non-thin-client JAR file." depends="clean">
 		<javac srcdir="${project.src}" destdir="${project.bin}"
 			 fork="yes" 
 			 compiler="javac1.5">
@@ -54,10 +56,13 @@
 			</classpath>
 		</javac>
 
+		<copy file="${project.src}/bootstrapResources-single.properties" tofile="${project.bin}/bootstrapResources.properties" overwrite="true"/>
+		
 		<copy todir="${project.bin}">
 			<fileset dir="${project.src}">
 				<exclude name="**/*.java" />
 				<exclude name="**/*.html" />
+				<exclude name="bootstrapResources*.properties" />
 			</fileset>
 		</copy>
 		
@@ -67,8 +72,49 @@
 			<attribute name="Main-Class" value="com.ctb.tdc.bootstrap.Main"/>
 		</manifest>
 		
-		<jar jarfile="${project.artifact}" basedir="${project.bin}" manifest="bin/META-INF/MANIFEST.MF" />
+		<jar jarfile="${project.artifact.single}" basedir="${project.bin}" manifest="bin/META-INF/MANIFEST.MF" />
 	</target>
+	
+	<target name="buildmulti" description="Builds the thin client JAR file." depends="clean">
+			<javac srcdir="${project.src}" destdir="${project.bin}"
+				 fork="yes" 
+				 compiler="javac1.5">
+				<classpath>
+					<fileset dir="${project.application-tdc.dir}/webapp/WEB-INF/lib">
+						<include name="bcprov-jdk14-130.jar" />
+						<include name="commons-codec.jar" />
+						<include name="commons-httpclient-3.0.1.jar" />
+						<include name="commons-logging.jar.jar" />
+						<include name="jdom.jar" />
+						<include name="jl1.0.jar" />
+					</fileset>
+					<fileset dir="${project.application-tdc.dir}/servletcontainer/jetty-5.1.11RC0/ext">
+						<include name="commons-logging.jar" />
+					</fileset>
+					<fileset dir="${basedir}">
+						<include name="jniwrap-3.7.3.jar" />
+					</fileset>
+				</classpath>
+			</javac>
+
+			<copy file="${project.src}/bootstrapResources-multi.properties" tofile="${project.bin}/bootstrapResources.properties" overwrite="true"/>
+			
+			<copy todir="${project.bin}">
+				<fileset dir="${project.src}">
+					<exclude name="**/*.java" />
+					<exclude name="**/*.html" />
+					<exclude name="bootstrapResources*.properties" />
+				</fileset>
+			</copy>
+			
+			<mkdir dir="${project.bin}/META-INF" />
+			<manifest file="${project.bin}/META-INF/MANIFEST.MF">
+				<attribute name="Built-By" value="CTB/McGraw-Hill"/>
+				<attribute name="Main-Class" value="com.ctb.tdc.bootstrap.Main"/>
+			</manifest>
+			
+			<jar jarfile="${project.artifact.multi}" basedir="${project.bin}" manifest="bin/META-INF/MANIFEST.MF" />
+		</target>
 
 
 </project>

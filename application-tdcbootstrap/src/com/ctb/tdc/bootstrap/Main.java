@@ -381,7 +381,8 @@ public class Main {
 		int exitCode = -1;
 		boolean macOS = isMacOS();
 		boolean linux = isLinux();
-        
+		
+		boolean allowMulti = "true".equalsIgnoreCase(ResourceBundleUtils.getString("bootstrap.main.allowmulti"));
         
 		// Use a socket to check if the application is already running or not.
 		ConsoleUtils.messageOut("Starting...");
@@ -397,18 +398,6 @@ public class Main {
 		} catch( Exception e ) {
 			jettyPort = 0;
 		}
-		while (i < 25) {
-			try {
-				jettyPort = 12345 + ((int) ((Math.random() + 1.0) * 250));
-				startsocket = new ServerSocket(jettyPort, 1);
-				//startsocket.close();
-				System.out.println("Using jetty port " + jettyPort);
-				i = 25;
-			} catch( Exception e ) {
-				jettyPort = 0;
-			}
-		}
-		
 		i = 0;
 		try {
 			stopPort = 12355;
@@ -419,18 +408,31 @@ public class Main {
 		} catch( Exception e ) {
 			stopPort = 0;
 		}
-		while (i < 25) {
-			try {
-				stopPort = 12345 + ((int) ((Math.random() + 1.0) * 250));
-				stopsocket = new ServerSocket(stopPort, 1);
-				//stopsocket.close();
-				System.out.println("Using stop port " + stopPort);
-				i = 25;
-			} catch( Exception e ) {
-				stopPort = 0;
+		if(allowMulti) {
+			while (i < 25) {
+				try {
+					jettyPort = 12345 + ((int) ((Math.random() + 1.0) * 250));
+					startsocket = new ServerSocket(jettyPort, 1);
+					//startsocket.close();
+					System.out.println("Using jetty port " + jettyPort);
+					i = 25;
+				} catch( Exception e ) {
+					jettyPort = 0;
+				}
+			}
+			i = 0;
+			while (i < 25) {
+				try {
+					stopPort = 12345 + ((int) ((Math.random() + 1.0) * 250));
+					stopsocket = new ServerSocket(stopPort, 1);
+					//stopsocket.close();
+					System.out.println("Using stop port " + stopPort);
+					i = 25;
+				} catch( Exception e ) {
+					stopPort = 0;
+				}
 			}
 		}
-		
 		if(jettyPort == 0 || stopPort == 0) {
 			String message = ResourceBundleUtils.getString("bootstrap.main.error.applicationAlreadyRunning");
 			ConsoleUtils.messageErr(message);
