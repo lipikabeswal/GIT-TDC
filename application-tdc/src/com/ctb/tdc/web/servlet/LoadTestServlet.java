@@ -115,7 +115,7 @@ public class LoadTestServlet extends HttpServlet{
 		 //START Changes for defect 65267
 		
 		this.networkServiceUtility = request.getParameter("NetworkUitlity") != null ? request.getParameter("NetworkUitlity") : "No";
-		System.out.println("this.networkServiceUtility..........." + this.networkServiceUtility);
+		System.out.println("networkServiceUtility..........." + this.networkServiceUtility);
 		//END
 		if(!MarkerFile.fileExists()){
 			
