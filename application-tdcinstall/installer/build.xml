@@ -92,7 +92,7 @@
 	<target name="buildVanillaThin" description="Builds the generic installer" depends="init">
 		<!-- <copy file="${project.artifacts.webapp.resources.dir}/eliminatorVANILLA.swf" tofile="${project.artifacts.webapp.resources.dir}/eliminator.swf" overwrite="true" /> -->
 		<antcall target="buildThinClientInstaller">
-			<param name="installer.type" value="vanilla" />
+			<param name="installer.type" value="vanilla-thin" />
 		</antcall>
 	</target>
 	
@@ -106,7 +106,7 @@
 	<target name="buildISTEPThin" description="Builds the ISTEP installer" depends="init">
 		<!-- <copy file="${project.artifacts.webapp.resources.dir}/eliminatorFCAT.swf" tofile="${project.artifacts.webapp.resources.dir}/eliminator.swf" overwrite="true" /> -->
 		<antcall target="buildThinClientInstaller">
-			<param name="installer.type" value="istep" />
+			<param name="installer.type" value="istep-thin" />
 		</antcall>
 	</target>
 	
