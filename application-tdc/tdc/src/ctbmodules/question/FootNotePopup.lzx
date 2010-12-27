@@ -58,6 +58,7 @@
             }
             if (dnscrolltext) {
                 this.setAttribute("itemtxt", dnscrolltext.serialize());
+				
             } else {
                 this.setAttribute("itemtxt", "");
             }
@@ -75,6 +76,7 @@
     <method name ="UTFDecode" args="b">
     	<![CDATA[
     	//Defect 64691- Added for footnote defect fix.
+        //Defect 65619 & 65617 fix
     	// This method helps in decoding the decimal values of special characters from flash. 
     	//This fix will help footnote to work for all the flash versions.
 		    var c= '';
@@ -118,9 +120,12 @@
 
     <method name="show" args="header">
         <![CDATA[
-         if (this.itemtxt != ""){
-			var headerpos = UTFDecode(this.itemtxt).indexOf("header=&quot;" + this.formatStr(header));
-		   	if(headerpos != -1){
+		//Defect 64691- Added for footnote defect fix.
+		//Defect 65619 & 65617 fix
+		this.itemtxt = UTFDecode(this.itemtxt);
+		 if (this.itemtxt != ""){
+			var headerpos = this.itemtxt.indexOf("header=&quot;" + this.formatStr(header));
+			if(headerpos != -1){
         		reallyShow(header);
         	}
         	else{
@@ -136,11 +141,10 @@
         this.body.wrap.setAttribute("y", 0);
 
         //find the detail string
-        var headerpos = UTFDecode(this.itemtxt).indexOf("header=&quot;" + this.formatStr(header));
-
-        var detailstart = this.itemtxt.indexOf("detail=&quot;", headerpos) + 13;
-        var detailend = this.itemtxt.indexOf("&quot;", detailstart);
-        var detail = this.itemtxt.substring(detailstart, detailend);
+        var headerpos = this.itemtxt.indexOf("header=&quot;" + this.formatStr(header));
+		var detailstart = this.itemtxt.indexOf("detail=&quot;", headerpos) + 13;
+		var detailend = this.itemtxt.indexOf("&quot;", detailstart);
+		var detail = this.itemtxt.substring(detailstart, detailend);
 		detail = replaceAmp(detail);
 		setReadable(headerpos);
 		
