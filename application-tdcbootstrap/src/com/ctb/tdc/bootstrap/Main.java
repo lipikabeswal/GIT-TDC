@@ -382,33 +382,29 @@ public class Main {
 		boolean macOS = isMacOS();
 		boolean linux = isLinux();
 		
-		boolean allowMulti = "true".equalsIgnoreCase(ResourceBundleUtils.getString("bootstrap.main.allowmulti"));
-        
 		// Use a socket to check if the application is already running or not.
 		ConsoleUtils.messageOut("Starting...");
 		ServerSocket startsocket = null; // keep variable in scope of the main method to maintain hold on it. 
 		ServerSocket stopsocket = null;
-		int i = 0;
+		
 		try {
 			jettyPort = 12345;
 			startsocket = new ServerSocket(jettyPort, 1);
 			System.out.println("Using jetty port " + jettyPort);
-			//startsocket.close();
-			i = 25;
 		} catch( Exception e ) {
 			jettyPort = 0;
 		}
-		i = 0;
 		try {
 			stopPort = 12355;
 			stopsocket = new ServerSocket(stopPort, 1);
-			//stopsocket.close();
 			System.out.println("Using stop port " + stopPort);
-			i = 25;
 		} catch( Exception e ) {
 			stopPort = 0;
 		}
-		if(allowMulti) {
+		
+		boolean allowMulti = !"false".equalsIgnoreCase(ResourceBundleUtils.getString("bootstrap.main.allowmulti"));
+		if(allowMulti && (jettyPort == 0 || stopPort == 0)) {
+			int i = 0;
 			while (i < 25) {
 				try {
 					jettyPort = 12345 + ((int) ((Math.random() + 1.0) * 250));
