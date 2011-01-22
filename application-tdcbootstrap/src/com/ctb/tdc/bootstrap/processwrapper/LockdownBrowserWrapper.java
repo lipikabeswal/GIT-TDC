@@ -44,8 +44,6 @@ public class LockdownBrowserWrapper extends Thread {
 	
 	private String[] ldbCommand;
 	private boolean isAvailable = false;
-			
-	ObjectBankUtils objectBankUtils; /*Solution for Deferred defect No: 50573 */
 	
 	// JNI lockdown functions
 	public static native void TaskSwitching_Enable_Disable(boolean flag);
@@ -78,9 +76,6 @@ public class LockdownBrowserWrapper extends Thread {
 			File ldbHomeDir = new File(this.tdcHome + "/lockdownbrowser/mac");
 			this.ldbHome = ldbHomeDir.getAbsolutePath();
 			this.ldbCommand = new String[1];
-
-			objectBankUtils = new ObjectBankUtils();
-			objectBankUtils.deleteContents();
 			
             this.ldbCommand[0] = this.ldbHome + "/LockDownBrowser.app/Contents/MacOS/LockDownBrowser";            
             this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
@@ -92,11 +87,6 @@ public class LockdownBrowserWrapper extends Thread {
 			this.ldbHome = ldbHomeDir.getAbsolutePath();
 			this.ldbCommand = new String[2];
 			
-			/*Solution for Deferred Defect No: 50573 */
-			/* call the delete method of ObjectBankUtils class*/
-			objectBankUtils = new ObjectBankUtils();
-			objectBankUtils.deleteContents();
-			
             this.ldbCommand[0] = this.ldbHome + "/OASTDC/bin/OASTDC";          
             this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
             this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";
@@ -104,10 +94,6 @@ public class LockdownBrowserWrapper extends Thread {
 			
 			File ldbHomeDir = new File(tdcHome + "/lockdownbrowser/pc");
 			this.ldbHome = ldbHomeDir.getAbsolutePath();
-			
-			/*Solution for Deferred Defect No: 50573 */
-			objectBankUtils = new ObjectBankUtils();
-			objectBankUtils.deleteContents();
 			
 			this.ldbCommand = new String[2];
 			this.ldbCommand[0] = this.ldbHome + "/LockdownBrowser.exe";
