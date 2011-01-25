@@ -192,8 +192,11 @@ public class PersistenceServlet extends HttpServlet {
             // sent login request to TMS
         	//logger.info("***** login request");
             result = ServletUtils.httpClientSendRequest(ServletUtils.LOGIN_METHOD, xml);
+            System.out.println("login response..." + result);
             
             if (ServletUtils.isLoginStatusOK(result)) {
+            	System.out.println("isLoginStatus OK...");
+            	
                 // process encryptionKey to memory cache
                 ServletUtils.processContentKeys(result);
                 
@@ -202,10 +205,12 @@ public class PersistenceServlet extends HttpServlet {
                 if (AuditFile.exists(fileName)) {
                     // handle restart here in phase 2
                 }
-                //logger.info("Login successfully.");                
+                //logger.info("Login successfully.");   
+                ServletUtils.getCustomerTmsUrl(result);
             }
             else {
-                //logger.error("TMS returns error in login() : " + result);   
+                //logger.error("TMS returns error in login() : " + result); 
+            	System.out.println("isLoginStatus not OK...");
             }
         } 
         catch (Exception e) {
