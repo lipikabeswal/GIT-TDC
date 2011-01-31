@@ -24,8 +24,6 @@ import java.util.zip.Adler32;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import noNamespace.TmssvcResponseDocument;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
@@ -38,7 +36,6 @@ import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.log4j.Logger;
 import org.jdom.Element;
 
-import com.bea.xml.XmlException;
 import com.ctb.tdc.web.dto.AuditVO;
 import com.ctb.tdc.web.dto.ServletSettings;
 import com.ctb.tdc.web.dto.SubtestKeyVO;
@@ -57,9 +54,7 @@ public class ServletUtils {
 	public static final String SERVLET_NAME = "tdc";
 	public static final String PROXY_NAME = "proxy";
 	static Logger logger = Logger.getLogger(ServletUtils.class);
-	//static String tms_url;
-	
-	
+
 	public static HttpClient client;
 	
 	static {
@@ -712,9 +707,9 @@ public class ServletUtils {
 		synchronized(client) {
 			String result = OK;
 			int responseCode = HttpStatus.SC_OK;
-			
+	
+	//		create post method with url based on method
 			String tmsURL = getTmsURLString(method);
-			
 			PostMethod post = new PostMethod(tmsURL);
 	
 	//		setup parameters
@@ -762,9 +757,7 @@ public class ServletUtils {
 			// create post method with url based on method
 			try {
 				String method = GET_STATUS_METHOD;
-				
 				String tmsURL = getTmsURLString(method);
-				
 				post = new PostMethod(tmsURL);
 			}
 			catch (Exception e) {
@@ -1128,56 +1121,4 @@ return elementList;*/
 			((MultiThreadedHttpConnectionManager) ServletUtils.client.getHttpConnectionManager()).shutdown();
 		}
 	}
-	
-	/*
-	 * CR-ISTEP33 Changes start
-	 * 
-	 * */
-	public static void getCustomerTmsUrl(String xml){
-		String xmlTmsUrl = null;
-		TmssvcResponseDocument document;
-		try {
-			document = TmssvcResponseDocument.Factory.parse(xml);
-			xmlTmsUrl = document.getTmssvcResponse().getLoginResponse().getTmsUrl();
-			
-		} catch (XmlException e) {
-			
-			e.printStackTrace();
-		}
-		
-		
-		logger.info("xmlTmsUrl URL is "+ xmlTmsUrl);
-		
-		if(xmlTmsUrl != null){
-			String xmlTmsHost = null;
-			String xmlTmsPort = null;
-			
-			xmlTmsHost = xmlTmsUrl.substring(0,xmlTmsUrl.lastIndexOf(":"));
-			xmlTmsPort = xmlTmsUrl.substring(xmlTmsUrl.lastIndexOf(":")+1,xmlTmsUrl.length());
-			
-			ServletSettings srvSettings = null;
-			MemoryCache memoryCache = MemoryCache.getInstance();
-	 		
-			ResourceBundle rbTdc = ResourceBundle.getBundle(SERVLET_NAME);
-			ResourceBundle rbProxy = ResourceBundle.getBundle(PROXY_NAME);
-					
-			srvSettings = new ServletSettings(rbTdc, rbProxy);
-						
-			if (! memoryCache.isLoaded()) {
-				srvSettings.setTmsHost(xmlTmsHost);
-				srvSettings.setTmsPort(Integer.parseInt(xmlTmsPort));
-				memoryCache.setSrvSettings(srvSettings);
-				memoryCache.setStateMap(new HashMap());
-				memoryCache.setLoaded(true);
-			}else{
-				memoryCache.getSrvSettings().setTmsHost(xmlTmsHost);
-				memoryCache.getSrvSettings().setTmsPort(Integer.parseInt(xmlTmsPort));
-			}
-		}
-	}
-
-	/*
-	 * CR-ISTEP33 Changes end
-	 * 
-	 * */
 }
