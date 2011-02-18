@@ -181,7 +181,14 @@
 			//Debug.write("n : ", n);
 			return n * fact(n - 1);
 		}	
-	    			
+	    //For checking the version of mac
+		function isMac(){
+
+			var os = System.capabilities.os;
+			os = os.split(" ");
+			return os[0] == 'Mac';
+	
+		}			
     ]]></script>
 
     <!--

@@ -384,7 +384,7 @@ JNIEXPORT jboolean JNICALL Java_com_ctb_tdc_bootstrap_processwrapper_LockdownBro
 {
 	while (!finished) { 
 		CheckForTaskMgr();
-		Sleep(1000);
+		Sleep(500);
 	}
 	return FALSE;
 	
@@ -655,7 +655,7 @@ int isProcessOpen (TCHAR *szProcessName, char *result)
 	 ***********/
 	 if (0 == strcmp(szProcessName, "iexplore.exe"))
 	 {
-		strcat(result, " Microsoft Internet Explorer ");
+		strcat(result, " Internet Explorer ");
 		return 1;
 	 }
 	 if (0 == strcmp(szProcessName, "TabTip.exe"))
@@ -683,7 +683,7 @@ int isProcessOpen (TCHAR *szProcessName, char *result)
 
 	if (0 == strcmp(szProcessName, "msie.exe"))
 	{
-		strcat(result, " Microsoft Internet Explorer ");
+		strcat(result, " Internet Explorer ");
 		return 1;
 	}
 
@@ -707,7 +707,7 @@ int isProcessOpen (TCHAR *szProcessName, char *result)
 
 	if (0 == strcmp(szProcessName, "firefox.exe"))
 	{
-		strcat(result, " Mozilla Firefox ");
+		strcat(result, " Firefox ");
 		return 1;
 	}
 
@@ -743,7 +743,7 @@ int isProcessOpen (TCHAR *szProcessName, char *result)
 
 	if (0 == strcmp(szProcessName, "chrome.exe"))
 	{
-		strcat(result, " Google Chrome ");
+		strcat(result, " Chrome ");
 		return 1;
 	}
 
@@ -854,7 +854,7 @@ int isProcessOpen (TCHAR *szProcessName, char *result)
 	 ******/
 	if (0 == strcmp(szProcessName, "windowslive.exe"))
 	{
-		strcat(result, " Microsoft Live Messenger ");
+		strcat(result, " Live Messenger ");
 		return 1;
 	}
 	if (0 == strcmp(szProcessName, "trillian.exe"))
@@ -895,7 +895,7 @@ int isProcessOpen (TCHAR *szProcessName, char *result)
 
 	if (0 == strcmp(szProcessName, "messenger.exe"))
 	{
-		strcat(result, " Microsoft Messenger ");
+		strcat(result, " Messenger ");
 		return 1;
 	}
 
@@ -1008,13 +1008,13 @@ int isProcessOpen (TCHAR *szProcessName, char *result)
 	}
 	if (0 == strcmp(szProcessName, "EXCEL.EXE"))
 	{
-		strcat(result, " Microsoft Excel ");
+		strcat(result, " Excel ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "WINWORD.EXE"))
 	{
-		strcat(result, " Microsoft Word ");
+		strcat(result, " Word ");
 		return 1;
 	}
 	/*****************
@@ -1022,19 +1022,19 @@ int isProcessOpen (TCHAR *szProcessName, char *result)
 	 *****************/
 	if (0 == strcmp(szProcessName, "OUTLOOK.EXE"))
 	{
-		strcat(result, " Microsoft Outlook ");
+		strcat(result, " Outlook ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "outlookexpress.exe"))
 	{
-		strcat(result, " Microsoft Outlook Express ");
+		strcat(result, " Outlook Express ");
 		return 1;
 	}
 
 	if (0 == strcmp(szProcessName, "thunderbird.exe"))
 	{
-		strcat(result, " Mozilla Thunderbird ");
+		strcat(result, " Thunderbird ");
 		return 1;
 	}
 

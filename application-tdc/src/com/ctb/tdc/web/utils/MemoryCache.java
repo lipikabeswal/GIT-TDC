@@ -187,6 +187,7 @@ public class MemoryCache {
     	}
     }
     
+    // I don't understand why I add this synchronized keyword here.
     public HashMap getSubtestInfoMap()
     {
     	synchronized(this) {

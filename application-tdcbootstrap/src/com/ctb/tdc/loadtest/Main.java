@@ -23,7 +23,8 @@ public class Main {
 
 	private static final ResourceBundle rb = ResourceBundle.getBundle("loadtestResources");
 	private static final String URL_LOAD_TEST = "http://127.0.0.1:12347/servlet/LoadTestServlet.do";
-	private static final int SOCKET_FOR_SINGLE_INSTANCE = 12347;
+	private static final int START_PORT = 12347;
+	private static final int STOP_PORT = 12357;
 	private static int MAIN_SLEEP_INTERVAL;
 	private static int JETTY_SLEEP_INTERVAL;
 	private static int JETTY_LAUNCH_INTERVAL;
@@ -115,20 +116,16 @@ public class Main {
 			boolean appFlag = false;
 			boolean jettyFlag = false;
 			boolean launchFlag = false;
-			ServerSocket ss = null; // keep variable in scope of the main method to maintain hold on it. 
+			ServerSocket startsocket = null; // keep variable in scope of the main method to maintain hold on it. 
+			ServerSocket stopsocket = null;
 			try {
-				ss = new ServerSocket(SOCKET_FOR_SINGLE_INSTANCE, 1);
+				startsocket = new ServerSocket(START_PORT, 1);
+				stopsocket = new ServerSocket(STOP_PORT, 1);
 			} catch( Exception e ) {
 				System.out.println("App already running !!!");
 				appFlag = true;
 			}			
 			if (!appFlag){
-				
-				try{
-					ss.close(); //release the socket
-				}catch(IOException e){
-					System.out.println("Error closing app socket!");
-				}				
 				String tdcHome = Main.getTdcHome();
 				Date loadTestRunTime = LoadTestFileUtils.getLoadTestRunTime(tdcHome); 
 				Date currentTime = new Date();
@@ -156,7 +153,7 @@ public class Main {
 						Main.copyPropertyFiles(tdcHome); 
 						
 						try {
-							jetty = new JettyProcessWrapper(tdcHome, macOS, true);
+							jetty = new JettyProcessWrapper(tdcHome, macOS, START_PORT, STOP_PORT, startsocket, stopsocket);
 						} 
 				        catch( Exception e ) {
 				        	System.out.println("Jetty already running !!!");

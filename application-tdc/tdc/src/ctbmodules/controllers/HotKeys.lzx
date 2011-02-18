@@ -51,7 +51,7 @@
             LzKeys.callOnKeyCombo( dstop, [ 'control', 's' ] );
             LzKeys.callOnKeyCombo( dfinish, [ 'control', 'f' ] );
            
-            if ( gController.getClientMachine() == 'MAC' ) {
+		    if ( gController.getClientMachine() == 'MAC' || isMac()) {
                 dmacKeyHandler.register( LzKeys, 'onkeydown' );
             }
         </method>
@@ -104,9 +104,9 @@
             LzKeys.removeKeyComboCall( dpause, [ 'control', 'u' ] );
             LzKeys.removeKeyComboCall( dstop, [ 'control', 's' ] );
             LzKeys.removeKeyComboCall( dfinish, [ 'control', 'f' ] );
-         
-            if ( gController.getClientMachine() == 'MAC' ) {
-                dmacKeyHandler.unregisterFrom( LzKeys.onkeydown );
+
+		    if ( gController.getClientMachine() == 'MAC' || isMac()) {
+            	dmacKeyHandler.unregisterFrom( LzKeys.onkeydown );
             }
         </method>
 

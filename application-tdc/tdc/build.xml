@@ -25,7 +25,6 @@
 
 	
     <target name="TestClient" description="compile TestClient.lzx">
-    	<echo message="${lzc}"/>
         <exec executable="${lzc}" failonerror="true">
             <arg value="${TestClient.lzx}"/>
         	<arg value='"--runtime=swf8"'/>

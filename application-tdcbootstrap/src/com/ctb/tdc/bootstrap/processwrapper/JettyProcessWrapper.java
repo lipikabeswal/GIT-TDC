@@ -2,12 +2,11 @@ package com.ctb.tdc.bootstrap.processwrapper;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.ServerSocket;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,6 +37,9 @@ public class JettyProcessWrapper extends Thread {
 	private int jettyPort;
 	private String jettyUrl = null;
 	
+	private ServerSocket startsocket;
+	private ServerSocket stopsocket;
+	
 	private String[] startCmd;
 	private String[] stopCmd;
 	private boolean isAvailable = false;
@@ -56,7 +58,7 @@ public class JettyProcessWrapper extends Thread {
 	 * @param tdcHome  The location of the Test Delivery Client's home folder containing the home folder of Jetty as well as configuration files and additional java libraries. 
 	 * @throws ProcessWrapperException If problems within initialization such as determing the default URL or if the port is already in use.
 	 */
-	public JettyProcessWrapper(String tdcHome, boolean macOS, boolean loadTest) throws ProcessWrapperException {
+	public JettyProcessWrapper(String tdcHome, boolean macOS, int startPort, int stopPort, ServerSocket startsocket, ServerSocket stopsocket) throws ProcessWrapperException {
 		super();
 
 		String javaHome = System.getProperty("java.home");
@@ -67,26 +69,26 @@ public class JettyProcessWrapper extends Thread {
 		this.tdcHome     = tdcHome;
 		this.jettyHome   = this.tdcHome + "/servletcontainer/jetty-5.1.11RC0";
 		
-		String stopPort = "12355";
-		if(loadTest) {
-			stopPort = "12357";
-			this.jettyConfig = this.tdcHome + "/servletcontainer/lt.xml";
-		} else {
-			this.jettyConfig = this.tdcHome + "/servletcontainer/tdc.xml";
-		}
+		this.jettyConfig = this.tdcHome + "/servletcontainer/tdc.xml";
+		
+		this.jettyPort = startPort;
+		
+		this.startsocket = startsocket;
+		this.stopsocket = stopsocket;
 	
-		this.startCmd = new String[11];
+		this.startCmd = new String[12];
 		this.startCmd[0] = javaHome + "java";
 		this.startCmd[1] = "-Dtdc.home=" + this.tdcHome;
-		this.startCmd[2] = "-DSTOP.PORT=" + stopPort;
-		this.startCmd[3] = "-Djetty.home=" + jettyHome;
-		this.startCmd[4] = "-Dorg.mortbay.log.LogFactory.noDiscovery=false";
-		this.startCmd[5] = "-Djetty.class.path=" + jettyHome + "/etc";
-		this.startCmd[6] = "-cp";
-		this.startCmd[7] = jettyHome + "/lib/org.mortbay.jetty.jar";
-		this.startCmd[8] = "-jar";
-		this.startCmd[9] = jettyHome + "/start.jar";
-		this.startCmd[10] = jettyConfig;
+		this.startCmd[2] = "-Djetty.port=" + startPort;
+		this.startCmd[3] = "-DSTOP.PORT=" + stopPort;
+		this.startCmd[4] = "-Djetty.home=" + jettyHome;
+		this.startCmd[5] = "-Dorg.mortbay.log.LogFactory.noDiscovery=false";
+		this.startCmd[6] = "-Djetty.class.path=" + jettyHome + "/etc";
+		this.startCmd[7] = "-cp";
+		this.startCmd[8] = jettyHome + "/lib/org.mortbay.jetty.jar";
+		this.startCmd[9] = "-jar";
+		this.startCmd[10] = jettyHome + "/start.jar";
+		this.startCmd[11] = jettyConfig;
 	
 		this.stopCmd = new String[11];
 		this.stopCmd[0] = "java";
@@ -119,9 +121,9 @@ public class JettyProcessWrapper extends Thread {
 		parseJettyConfig();
 		
 		// Check if the port is in use.
-		if( ServerSocketUtils.isPortInUse(this.jettyPort) ) {
-			throw new ProcessWrapperException( ResourceBundleUtils.getString("bootstrap.jetty.error.portInUse") );
-		}
+		//if( ServerSocketUtils.isPortInUse(this.jettyPort) ) {
+		//	throw new ProcessWrapperException( ResourceBundleUtils.getString("bootstrap.jetty.error.portInUse") );
+		//}
 		
 	}
 
@@ -132,36 +134,7 @@ public class JettyProcessWrapper extends Thread {
 	 */
 	private void parseJettyConfig() throws ProcessWrapperException {
 		
-		try {
-			BufferedReader in = new BufferedReader(new FileReader(this.jettyConfig));
-			String line;
-			
-			Pattern p = Pattern.compile(".*SystemProperty\\s+name=\"jetty.port\"\\s+default=\"(\\d+)\".*");
-			Matcher m;
-			boolean found = false;
-			while( (line = in.readLine()) != null && !found ) {
-				m = p.matcher(line);
-				if( m.matches() ) {
-					this.jettyPort = Integer.valueOf( m.group(1) ).intValue();
-					this.jettyUrl = "http://127.0.0.1:" + this.jettyPort + "/servlet/PersistenceServlet.do?method=verifySettings";
-					found = true;
-				}
-			}
-			in.close();
-			 
-			if( this.jettyUrl == null ) {
-				throw new ProcessWrapperException( ResourceBundleUtils.getString("bootstrap.jetty.error.configFileParseFailure") );
-			} 
-
-		} catch(FileNotFoundException fnfe) {
-			String message = ResourceBundleUtils.getString("bootstrap.jetty.error.configFileNotFound");
-			ConsoleUtils.messageErr(message, fnfe);
-			throw new ProcessWrapperException(message, fnfe);
-		} catch(IOException ioe) {
-			String message = ResourceBundleUtils.getString("bootstrap.jetty.error.configFileIOError");
-			ConsoleUtils.messageErr(message, ioe);
-			throw new ProcessWrapperException(message, ioe);
-		}
+		this.jettyUrl = "http://127.0.0.1:" + this.jettyPort + "/servlet/PersistenceServlet.do?method=verifySettings";
 		
 	}
 
@@ -245,6 +218,9 @@ public class JettyProcessWrapper extends Thread {
             }
         
             ConsoleUtils.messageOut("jettyHome: " + this.jettyHome);
+            // close the reserved sockets right before starting jetty
+            this.startsocket.close();
+            this.stopsocket.close();
 			Process jetty = Runtime.getRuntime().exec(this.startCmd, null, new File(this.jettyHome) );
 			
 			// Start process monitoring threads

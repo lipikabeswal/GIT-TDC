@@ -1,12 +1,10 @@
 package com.ctb.tdc.bootstrap.processwrapper;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.lang.reflect.InvocationTargetException;
@@ -17,19 +15,13 @@ import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
-import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 
 import com.ctb.tdc.bootstrap.processwrapper.exception.ProcessWrapperException;
 import com.ctb.tdc.bootstrap.ui.SplashWindow;
 import com.ctb.tdc.bootstrap.util.ConsoleUtils;
 import com.ctb.tdc.bootstrap.util.ObjectBankUtils;
 import com.ctb.tdc.bootstrap.util.TdcConfigEncryption;
-import com.ctb.tdc.bootstrap.processwrapper.CustomDialog;
 
 /**
  * Wrapper class for starting the LockdownBrowser process.  The Lockdown Browser
@@ -52,8 +44,6 @@ public class LockdownBrowserWrapper extends Thread {
 	
 	private String[] ldbCommand;
 	private boolean isAvailable = false;
-			
-	ObjectBankUtils objectBankUtils; /*Solution for Deferred defect No: 50573 */
 	
 	// JNI lockdown functions
 	public static native void TaskSwitching_Enable_Disable(boolean flag);
@@ -64,7 +54,7 @@ public class LockdownBrowserWrapper extends Thread {
 	public static native void kill_printscreen_snapshot();
 	public static native boolean Kill_Task_Mgr();
 	public static native boolean Process_Check();
-	public static native int Get_Blacklist_Process_No();
+	//public static native int Get_Blacklist_Process_No();
 	
 	static volatile boolean flag = false;
 	static volatile boolean ready = false;
@@ -74,7 +64,7 @@ public class LockdownBrowserWrapper extends Thread {
 	 * @param tdcHome  The location of the Test Delivery Client's home folder containing the home folder of Jetty as well as configuration files and additional java libraries. 
 	 * @throws ProcessWrapperException If problems within initialization such as determing the default URL or if the port is already in use.
 	 */
-	public LockdownBrowserWrapper(String tdcHome, boolean macOS, boolean linux, SplashWindow splashWindow) {
+	public LockdownBrowserWrapper(String tdcHome, boolean macOS, boolean linux, SplashWindow splashWindow, int jettyPort) {
 		super();
 		
 		this.tdcHome = tdcHome;
@@ -86,9 +76,6 @@ public class LockdownBrowserWrapper extends Thread {
 			File ldbHomeDir = new File(this.tdcHome + "/lockdownbrowser/mac");
 			this.ldbHome = ldbHomeDir.getAbsolutePath();
 			this.ldbCommand = new String[1];
-
-			objectBankUtils = new ObjectBankUtils();
-			objectBankUtils.deleteContents();
 			
             this.ldbCommand[0] = this.ldbHome + "/LockDownBrowser.app/Contents/MacOS/LockDownBrowser";            
             this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
@@ -98,26 +85,19 @@ public class LockdownBrowserWrapper extends Thread {
 			
 			File ldbHomeDir = new File(this.tdcHome + "/lockdownbrowser/linux");
 			this.ldbHome = ldbHomeDir.getAbsolutePath();
-			this.ldbCommand = new String[1];
-			
-			/*Solution for Deferred Defect No: 50573 */
-			/* call the delete method of ObjectBankUtils class*/
-			objectBankUtils = new ObjectBankUtils();
-			objectBankUtils.deleteContents();
+			this.ldbCommand = new String[2];
 			
             this.ldbCommand[0] = this.ldbHome + "/OASTDC/bin/OASTDC";          
             this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
+            this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";
 		} else {
 			
 			File ldbHomeDir = new File(tdcHome + "/lockdownbrowser/pc");
 			this.ldbHome = ldbHomeDir.getAbsolutePath();
 			
-			/*Solution for Deferred Defect No: 50573 */
-			objectBankUtils = new ObjectBankUtils();
-			objectBankUtils.deleteContents();
-			
-			this.ldbCommand = new String[1];
+			this.ldbCommand = new String[2];
 			this.ldbCommand[0] = this.ldbHome + "/LockdownBrowser.exe";
+			this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";
 		}
 		
 	}
@@ -162,7 +142,12 @@ public class LockdownBrowserWrapper extends Thread {
 		
 		public void run() {
 			try {
-				LockdownBrowserWrapper.Kill_Task_Mgr();
+				//LockdownBrowserWrapper.Kill_Task_Mgr();
+				while(true){
+					Runtime.getRuntime().exec("taskkill /F /IM taskmgr.exe /T");
+					Thread.sleep(10000);
+				}
+					
 			} catch (Exception e) {
 				flag = false;
 				e.printStackTrace();
@@ -239,9 +224,11 @@ public class LockdownBrowserWrapper extends Thread {
 			this.splashWindow.hide();
 			
 			if (ismac) {
-				System.loadLibrary("lock");
+				// start change for mac 10.4
+				//System.loadLibrary("lock");
+				// endchange for mac 10.4
 				
-				ProcessBlock processBlock = new ProcessBlock ();
+				ProcessBlock processBlock = new ProcessBlock (this.tdcHome);
 				processBlock.start();
 				processBlock.join();
 				
@@ -257,7 +244,9 @@ public class LockdownBrowserWrapper extends Thread {
 					this.isAvailable = false;
 	        		Runtime.getRuntime().exec("sh clear_clipboard.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 	    			Runtime.getRuntime().exec("sh enable_screen_capture.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-	        		//System.out.println("enable print screen called");	
+	    			String[] appString = {"osascript","-e","set the clipboard to \"\""};
+	    			Runtime.getRuntime().exec(appString);
+	    			//System.out.println("enable print screen called");	
 				} else {
 					try {
 						SwingUtilities.invokeAndWait(new Runnable() {
@@ -410,17 +399,26 @@ public class LockdownBrowserWrapper extends Thread {
 					this.isAvailable = false;
 					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());
 				}
+				
+				
 				LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(true);
 				LockdownBrowserWrapper.TaskSwitching_Enable_Disable(true);
 				String taskmgr = "taskbarshow.exe";
+				
 				Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+				Thread.sleep(500);	
+				Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+				
+				cleanupLock();	// call here to fix issue in 64 bit Windows 7 
+				
 				ConsoleUtils.messageOut("Desktop unlocked ...");	
-				Thread.sleep(1500);	
+				Thread.sleep(1500);
+				
 			}	
 			
 			this.splashWindow.show();
-			
-			cleanupLock();
+
+			cleanupLock();	
 			
 		} catch (Exception e) {
 			ConsoleUtils.messageErr("An error has occured within " + this.getClass().getName(), e);
@@ -428,15 +426,27 @@ public class LockdownBrowserWrapper extends Thread {
 			exit();
 		}
 	}
-	
+	  
 	private ArrayList lockFiles = new ArrayList();
 	
 	public void cleanupLock() {
+		
+		String msg;
 		Iterator it = lockFiles.iterator();
 		while (it.hasNext()) {
-			File file = new File((String)it.next());
-			file.delete();
-		}
+
+			try {
+				File file = new File((String)it.next());
+				boolean ret = file.delete();
+				msg = "delete " + file.getName() + " = " + ret + "   ";
+				ConsoleUtils.messageOut(msg);	
+			} catch (Exception e) {
+				msg = "failed to delete file" + e.getMessage();				
+				ConsoleUtils.messageOut(msg);		
+			}
+			
+		}	
+		
 		if(islinux) {
 			String pcheckFile = this.tdcHome + "/processcheck";
 			File file = new File(pcheckFile);
@@ -476,41 +486,44 @@ public class LockdownBrowserWrapper extends Thread {
                     zipEntryFilePath = tdcHome + "/" + zipEntryFileName;
                     if ( zipEntryFilePath != null ) {
 						ConsoleUtils.messageOut( " - writing " + zipEntryFilePath );
-						File file = new File(zipEntryFilePath);
-						FileOutputStream fos = new FileOutputStream(file, false);
-						int read = 0;
-						while( read >= 0 && read < zipEntry.getSize() ) {
-							byte[] bytes = new byte[2048];
-							// fix typo
-							read = zis.read(bytes);
-							if( read != -1 ) {
-								if(zipEntryFileName.indexOf(".sh") >= 0) {
-									// strip out Ctrl-M
-									byte[] cleanbytes = new byte[read];
-									for(int i=0;i<read;i++){
-										if(bytes[i] != 13) {
-											cleanbytes[i] = bytes[i];
-										} else {
-											cleanbytes[i] = ' ';
+						try {
+							File file = new File(zipEntryFilePath);
+							FileOutputStream fos = new FileOutputStream(file, false);
+							int read = 0;
+							while( read >= 0 && read < zipEntry.getSize() ) {
+								byte[] bytes = new byte[2048];
+								// fix typo
+								read = zis.read(bytes);
+								if( read != -1 ) {
+									if(zipEntryFileName.indexOf(".sh") >= 0) {
+										// strip out Ctrl-M
+										byte[] cleanbytes = new byte[read];
+										for(int i=0;i<read;i++){
+											if(bytes[i] != 13) {
+												cleanbytes[i] = bytes[i];
+											} else {
+												cleanbytes[i] = ' ';
+											}
 										}
+										fos.write(cleanbytes, 0, read);
+									} else {
+										fos.write(bytes, 0, read);
 									}
-									fos.write(cleanbytes, 0, read);
-								} else {
-									fos.write(bytes, 0, read);
 								}
 							}
-						}
-						fos.close();
-						lockFiles.add(zipEntryFilePath);
-						if(islinux || ismac) {
-							Runtime.getRuntime().exec("chmod a+rwx " + zipEntryFilePath, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-							if(zipEntryFilePath.endsWith(".sh") || zipEntryFilePath.endsWith(".c")) {
-								Runtime.getRuntime().exec("tr -d '\015\032' < " + zipEntryFilePath + " > " + zipEntryFilePath + ".tmp", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-								Runtime.getRuntime().exec("mv " + zipEntryFilePath + ".tmp " + zipEntryFilePath, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+							fos.close();
+							lockFiles.add(zipEntryFilePath);
+							if(islinux || ismac) {
+								Runtime.getRuntime().exec("chmod a+rwx " + zipEntryFilePath, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+								if(zipEntryFilePath.endsWith(".sh") || zipEntryFilePath.endsWith(".c")) {
+									Runtime.getRuntime().exec("tr -d '\015\032' < " + zipEntryFilePath + " > " + zipEntryFilePath + ".tmp", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+									Runtime.getRuntime().exec("mv " + zipEntryFilePath + ".tmp " + zipEntryFilePath, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+								}
 							}
+						} catch (FileNotFoundException e) {
+							// couldn't write file as it's in use by another instance
 						}
                     }
-                    
 				} else {
 					new File(zipEntry.getName()).mkdir();
 				}
@@ -524,12 +537,18 @@ public class LockdownBrowserWrapper extends Thread {
     }
 	
 	class ProcessBlock extends Thread {
-
+		private String tdchome;
+		public ProcessBlock(String tdchome){
+			this.tdchome = tdchome;
+		}
 		public void run () {
 
 			try {
-			
-				LockdownBrowserWrapper.Get_Blacklist_Process_No();
+				// start change for mac 10.4
+				//LockdownBrowserWrapper.Get_Blacklist_Process_No();
+				Process lock = Runtime.getRuntime().exec("sh macpcheck.sh", null, new File(this.tdchome.replaceAll(" ", "\\ ")));
+				lock.waitFor();
+				// end change for mac 10.4
 				BufferedReader in = new BufferedReader (new FileReader("temp_forbidden"));
 				String str = in.readLine();
 				int value = str.indexOf('|');
@@ -596,9 +615,20 @@ public class LockdownBrowserWrapper extends Thread {
         		Thread.sleep(250);
         		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
         	} else {
-        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
-        		Thread.sleep(250);
-        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+        		try {
+	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+        		} catch (Exception e) {
+        			e.printStackTrace();
+        		}
+        		try {
+        			Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
+        		} catch (Exception e) {
+        			e.printStackTrace();
+        		}	
         	}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -181,7 +181,7 @@
         </view>
 
 
-        <view resource="protractorRotator_rsrc" y="110" x="${classroot.width-45}"
+        <view resource="protractorRotator_rsrc" y="110" x="${classroot.width-65}"
               onmousedown="classroot.bringToFront(); classroot.startRotate (); " 
               onmouseup="classroot.endRotate()"/>
     </class>

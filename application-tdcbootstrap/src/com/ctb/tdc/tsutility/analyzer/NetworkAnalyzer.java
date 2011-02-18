@@ -51,7 +51,8 @@ public class NetworkAnalyzer extends Thread {
 	private static final String USER_INTERRUPT				= AppResourceBundleUtil.getString("tsutility.networkAnalyzer.error.interruptedByUser");
 	private static final int CONNECTION_TIMEOUT = 15 * 1000;
 	private static final String URL_LOAD_TEST = "http://127.0.0.1:12347/servlet/LoadTestServlet.do";
-	public static final int SOCKET_FOR_SINGLE_INSTANCE = 12347;
+	private static final int START_PORT = 12347;
+	private static final int STOP_PORT = 12357;
 	public static final int JETTY_SLEEP_INTERVAL = 5;
 	public static final String RESPONSE_OK = "<OK />";
 	
@@ -303,20 +304,14 @@ public class NetworkAnalyzer extends Thread {
 			return;
 		}
 		
-		ServerSocket ss = null; // check if TDC is running on port 
+		ServerSocket startsocket = null; // keep variable in scope of the main method to maintain hold on it. 
+		ServerSocket stopsocket = null;
 		try {
-			ss = new ServerSocket(SOCKET_FOR_SINGLE_INSTANCE, 1);
+			startsocket = new ServerSocket(START_PORT, 1);
+			stopsocket = new ServerSocket(STOP_PORT, 1);
 		} catch( Exception e ) {
 			ui.setAnalysisInterrupted();
 			ui.setResultForSimulateTest( AnalysisState.UNATTEMPTED, SIM_ERR_CLIENT_RUNNING , 0);
-			return;
-		}
-
-		try{
-			ss.close(); //release the socket
-		}catch(IOException e){
-			ui.setAnalysisInterrupted();
-			ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_GENERAL , 0);
 			return;
 		}
 		
@@ -329,7 +324,7 @@ public class NetworkAnalyzer extends Thread {
 		copyPropertyFiles(tdcHome); 
 		//JettyProcessWrapper jetty = null;
 		try {
-			jetty = new JettyProcessWrapper(tdcHome, macOS, true);
+			jetty = new JettyProcessWrapper(tdcHome, macOS, START_PORT, STOP_PORT, startsocket, stopsocket);
 		}catch( Exception e ) {
 			ui.setAnalysisInterrupted();
 			ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_STARTING_SERVLET , 0);
@@ -371,8 +366,11 @@ public class NetworkAnalyzer extends Thread {
 				ui.setResultForSimulateTest( AnalysisState.FAIL, SIM_ERR_LOCAL_SERVLET , 0);
 				return;
 			}								
-			
-			downloadMethod = new GetMethod(URL_LOAD_TEST);					
+		 	// Changes for defect 65267	
+		 	//START						
+			String urlloadTest = URL_LOAD_TEST + "?NetworkUitlity=" + "Yes";
+			downloadMethod = new GetMethod(urlloadTest);	
+			//END
 			if(getConfig){ //send get load test config request
 				try{
 					if( this.ldclient.executeMethod(downloadMethod) != HttpURLConnection.HTTP_OK ) {
