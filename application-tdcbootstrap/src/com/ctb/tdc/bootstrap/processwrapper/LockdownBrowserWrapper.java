@@ -145,7 +145,7 @@ public class LockdownBrowserWrapper extends Thread {
 				//LockdownBrowserWrapper.Kill_Task_Mgr();
 				while(true){
 					Runtime.getRuntime().exec("taskkill /F /IM taskmgr.exe /T");
-					Thread.sleep(300);
+					Thread.sleep(10000);
 				}
 					
 			} catch (Exception e) {
