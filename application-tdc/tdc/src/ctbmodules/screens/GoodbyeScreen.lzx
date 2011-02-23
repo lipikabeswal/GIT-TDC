@@ -10,10 +10,11 @@
 	         ondata="exitRequest._dosomething(this)" />
 	         
 	<node id="exitRequest">
-		<method id="_dosomething" name="_dosomething" args="ds" >
+		<method name="_dosomething" args="ds" >
+			exitRequest.exit();
 		</method>
 		
-		<method id="exit" name="exit">
+		<method name="exit">
         	Debug.write("On Goodbye Screen");
 	    	var getUrl = LzBrowser.getInitArg( 'servletUrl' ) + '/UtilityServlet.do?method=exit';
 			goodbyeDs.setSrc(getUrl);

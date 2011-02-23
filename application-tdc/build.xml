@@ -150,6 +150,7 @@
 				<include name="**/objectbank/*" />
 				<exclude name="**/*.eam" />
 				<exclude name="**/*.ecp" />
+				<include name="**/loadtest/*" />
 			</fileset>
 		</copy>
 
@@ -168,7 +169,7 @@
 		<copy todir="${project.dist}/servletcontainer" overwrite="true">
 			<fileset dir="servletcontainer">
 				<exclude name="**/*.log" />
-				<include name="tdc.xml" />
+				<include name="*.xml" />
 				<include name="jetty-5.1.11RC0/*" />
 				<include name="jetty-5.1.11RC0/etc/*.txt" />
 				<include name="jetty-5.1.11RC0/etc/log4j.properties" />

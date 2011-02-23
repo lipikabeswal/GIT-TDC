@@ -4,6 +4,9 @@
 
     <node id="gCommunicator">
     	<attribute name="error" type="boolean" value="false" />
+    	<attribute name="firstRequestDone" type="boolean" value="false" />
+
+      	<attribute name="dRequestTimer" value="$once{new LzDelegate(this,'sendRequest')}" />
       	
       	<method name="updateLDB">
       		LzBrowser.loadJS('updateLDB()');
@@ -94,7 +97,7 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 		</method>
 
 		<method name="endSubtest" args="raw, max, exit, time, unscored">
-Debug.write("gCommunicator.endSubtest( " + raw + " , " + max + + " , " + exit + " , " + time + " , " + unscored + " ) ");
+//Debug.write("gCommunicator.endSubtest( " + raw + " , " + max + + " , " + exit + " , " + time + " , " + unscored + " ) ");
 			if(!error){
 				gRequest.endSubtest(raw,
                 					max,
@@ -104,24 +107,85 @@ Debug.write("gCommunicator.endSubtest( " + raw + " , " + max + + " , " + exit + 
 			}
 		</method>
 
-  		<method name="finishCall" args="result" >
+  		<method name="finishCall" args="result,ds" >
+  		//Debug.write("finishCall in communicator...:", result," : ", ds);
   			if(!error){
-	  			if(!checkShowError(result)){
+	  			if(!checkShowError(result,ds)){
 	  				gController.setAttribute("communicatorResponse", result);
 	  			}
 	  		}
   		</method>
   		
   		<!-- all servlet errors go through this method -->
-  		<method name="checkShowError" args="xml"><![CDATA[
-//Debug.write("gCommunicator.checkShowError");
-//printBigString(xml);
+  		<method name="checkShowError" args="xml,ds"><![CDATA[
 			if(!error){
    				var node = LzDataNode.stringToLzData(xml);
+   				var code = "";
+
   				if (node && node.nodeName == 'ERROR'){
-  					setAttribute('error', true);
-  					showError(xml);
+					
+					code = node.getElementsByTagName("CODE")[0].childNodes[0].data;
+
+					if(typeof code == "undefined") {
+						code = "";						
+					}
+
+					//show popup only for network error and tts error	
+					if(code == "" || code == "556" || code == "558") {
+Debug.write("in if code...", code);
+						if(firstRequestDone && gController.isWaitPopupOpen == false) {
+		  					setAttribute('error', true);
+							gController.hideWaitPopup();
+							gController.unlockUI();
+		  					showError(xml);
+						}
+						else {
+
+							if(ds != null) {
+								setAttribute('dRequestDataSet',ds);
+								startRequestTimer();
+							}
+
+							if(!firstRequestDone) {
+								gController.showWaitPopupFor30Sec();
+								if(gController.state != gController.LOGIN_STATE) {
+Debug.write("communicator stopQuestion......");
+									gController.stopHeartbeat();
+									//to stop the test timer
+									gController.stopQuestion();
+								}
+								//gController.freezeUI();  //not needed anymore
+							}
+							firstRequestDone = true;
+							return true;
+						}
+					}
+					//for other errors, no popup will be shown
+					else {
+Debug.write("in else code...", code);
+	  					setAttribute('error', true);
+						gController.hideWaitPopup();
+						gController.unlockUI();
+	  					showError(xml);
+					}
   				}
+				else {
+					if(gController.isWaitPopupOpen) {
+						firstRequestDone = false;
+						gController.hideWaitPopup();
+						if(gController.state != gController.LOGIN_STATE) {
+Debug.write("communicator startQuestion......");
+							gController.sendHeartbeat();
+							//to start the test timer 
+							//START Defect 64592
+							if(gController.state != gController.DOWNLOAD_STATE){
+							gController.startQuestion();
+							}
+							//END
+						}
+						gController.unlockUI();
+					}
+				}
   			}
   			return error;
   		]]></method>
@@ -130,11 +194,20 @@ Debug.write("gCommunicator.endSubtest( " + raw + " , " + max + + " , " + exit + 
   			gController.showError(xml);
   		</method>
   		
-  		<method name="finishHeartbeatCall" args="result" >
-  			if(!checkShowError(result)){
+  		<method name="finishHeartbeatCall" args="result,ds" >
+  		//Debug.write("finishHeartbeatCall", ds);
+  			if(!checkShowError(result,ds)){
   				gController.setAttribute("heartbeatResult", result);
   			}
   		</method>
+
+		<method name="startRequestTimer">
+			LzTimer.resetTimer(dRequestTimer,1000);
+		</method>		
+			
+		<method name="sendRequest">
+			gRequest.sendRequest(dRequestDataSet);
+		</method>  		
      </node>
 
 </library>

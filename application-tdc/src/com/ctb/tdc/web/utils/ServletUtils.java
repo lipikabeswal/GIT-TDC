@@ -5,14 +5,12 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,12 +26,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.ProxyHost;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.params.HttpClientParams;
+import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.log4j.Logger;
 import org.jdom.Element;
 
@@ -56,6 +55,34 @@ public class ServletUtils {
 	public static final String PROXY_NAME = "proxy";
 	static Logger logger = Logger.getLogger(ServletUtils.class);
 
+	public static HttpClient client;
+	
+	static {
+		try {
+			MultiThreadedHttpConnectionManager mgr = new MultiThreadedHttpConnectionManager();
+			mgr.getParams().setDefaultMaxConnectionsPerHost(1);
+			mgr.getParams().setMaxTotalConnections(1);
+			client = new HttpClient(mgr);
+			client.getParams().setConnectionManagerTimeout(10000);
+			
+			Protocol myhttps = new Protocol("https", new com.ctb.tdc.web.utils.EasySSLProtocolSocketFactory(), 443);
+			Protocol.registerProtocol("https", new Protocol("https", new com.ctb.tdc.web.utils.EasySSLProtocolSocketFactory(),443));
+			
+			String proxyHost = getProxyHost();
+	
+			if ((proxyHost != null) && (proxyHost.length() > 0)) {
+				// apply proxy settings
+	            int proxyPort    = getProxyPort();
+	            String username  = getProxyUserName();
+	            String password  = getProxyPassword();            
+	        	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);
+			}
+		} catch(Exception e) {
+			logger.error("Exception occured in ServletUtils initializer : " + printStackTrace(e));
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+	
 //	url for servlet and tms actions
 	public static final String URL_PERSISTENCE_SERVLET = "/servlet/PersistenceServlet";
 	public static final String URL_LOADCONTENT_SERVLET = "/servlet/LoadContentServlet";
@@ -66,7 +93,10 @@ public class ServletUtils {
 	public static final String URL_WEBAPP_UPLOAD_AUDIT_FILE = "/TestDeliveryWeb/CTB/uploadAuditFile.do";
 	public static final String URL_WEBAPP_WRITE_TO_AUDIT_FILE = "/TestDeliveryWeb/CTB/writeToAuditFile.do";
 	public static final String URL_WEBAPP_GET_STATUS_METHOD = "/TestDeliveryWeb/CTB/getStatus.do";
-
+	public static final String URL_WEBAPP_GET_LOAD_TEST_CONFIG = "/TestDeliveryWeb/CTB/getLoadTestConfig.do";
+	public static final String URL_WEBAPP_UPLOAD_STATISTICS = "/TestDeliveryWeb/CTB/uploadStatistics.do";
+	public static final String URL_WEBAPP_UPLOAD_SYSTEM_INFO = "/TestDeliveryWeb/CTB/uploadSystemInfo.do";
+	
 //	methods
 	public static final String NONE_METHOD = "none";
 	public static final String DOWNLOAD_CONTENT_METHOD = "downloadContent";
@@ -87,7 +117,9 @@ public class ServletUtils {
 	public static final String GET_ITEM_METHOD = "getItem";
 	public static final String GET_IMAGE_METHOD = "getImage";
 	public static final String GET_LOCALRESOURCE_METHOD = "getLocalResource";
-
+	public static final String LOAD_TEST_METHOD = "getLoadTestConfig";
+	public static final String UPLOAD_STATISTICS_METHOD = "uploadStatistics";
+	public static final String UPLOAD_SYSTEM_INFO_METHOD = "uploadSystemInfo";
 
 //	parameters
 	public static final String FOLDER_PARAM = "folder";
@@ -121,16 +153,31 @@ public class ServletUtils {
 
 //	helper methods
 
+	//private static String lastMseq;
+	
+	public static synchronized void writeResponse(HttpServletResponse response, String xml) {
+		writeResponse(response, xml, null);
+	}
+	
 	/**
 	 * write xml content to response
 	 *
 	 */
-	public static void writeResponse(HttpServletResponse response, String xml) throws IOException {
-		response.setContentType("text/xml");
-		PrintWriter out = response.getWriter();
-		out.println(xml);
-		out.flush();
-		out.close();
+	public static void writeResponse(HttpServletResponse response, String xml, String mseq) {
+		try {
+			//if((mseq == null || lastMseq == null) || !mseq.equals(lastMseq)) {
+				response.setContentType("text/xml");
+				response.setStatus(response.SC_OK);
+				PrintWriter out = response.getWriter();
+				out.println(xml);
+				out.flush();
+				out.close();
+				response.flushBuffer();
+			//	lastMseq = mseq;
+			//}
+		} catch (Exception e) {
+			// do nothing, response already written
+		}
 	}
 
 	/**
@@ -342,7 +389,12 @@ public class ServletUtils {
 			}
 		}
 		srvSettings = memoryCache.getSrvSettings();
-		return srvSettings.isValidSettings();
+		boolean proxyOK = setupProxy();
+		if(proxyOK) {
+			return srvSettings.isValidSettings();
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -400,7 +452,15 @@ public class ServletUtils {
 						else
 							if (method.equals(GET_STATUS_METHOD))
 								webApp = URL_WEBAPP_GET_STATUS_METHOD;
-
+							else
+								if (method.equals(LOAD_TEST_METHOD))
+									webApp = URL_WEBAPP_GET_LOAD_TEST_CONFIG;
+								else
+									if (method.equals(UPLOAD_STATISTICS_METHOD))
+										webApp = URL_WEBAPP_UPLOAD_STATISTICS;
+									else
+										if (method.equals(UPLOAD_SYSTEM_INFO_METHOD))
+											webApp = URL_WEBAPP_UPLOAD_SYSTEM_INFO;
 		return webApp;
 	}
 
@@ -606,7 +666,7 @@ public class ServletUtils {
 	 * Connect to TMS and send request using URLConnection
 	 *
 	 */
-	public static String urlConnectionSendRequest(String method, String xml) {
+/*	public static String urlConnectionSendRequest(String method, String xml) {
 		String result = OK;
 		try {
 //			get TMS url to make connection
@@ -633,7 +693,7 @@ public class ServletUtils {
 			result = ERROR;
 		}
 		return result;
-	}
+	} */
 
 	/**
 	 * httpConnectionSendRequest
@@ -644,55 +704,45 @@ public class ServletUtils {
 	 *
 	 */
 	public static String httpClientSendRequest(String method, String xml) {
-		String result = OK;
-		int responseCode = HttpStatus.SC_OK;
-
-//		create post method with url based on method
-		String tmsURL = getTmsURLString(method);
-		PostMethod post = new PostMethod(tmsURL);
-
-//		setup parameters
-		NameValuePair[] params = { new NameValuePair(METHOD_PARAM, method),
-				new NameValuePair(XML_PARAM, xml) };
-		post.setRequestBody(params);
-
-//		send request to TMS
-		try {
-			HttpClientParams clientParams = new HttpClientParams();
-			clientParams.setConnectionManagerTimeout(10 * SECOND); // timeout in 30 seconds
-			HttpClient client = new HttpClient(clientParams);
-			String proxyHost = getProxyHost();
-
-			if ((proxyHost != null) && (proxyHost.length() > 0)) {
-				// apply proxy settings
-	            int proxyPort    = getProxyPort();
-	            String username  = getProxyUserName();
-	            String password  = getProxyPassword();            
-            	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);
-			}
-			responseCode = client.executeMethod(post);
-			if (responseCode == HttpStatus.SC_OK) {
-				InputStream isPost = post.getResponseBodyAsStream();
-				BufferedReader in = new BufferedReader(new InputStreamReader(isPost));
-				String inputLine = null;
-				result = "";
-				while ((inputLine = in.readLine()) != null) {
-					result += inputLine;
+		synchronized(client) {
+			String result = OK;
+			int responseCode = HttpStatus.SC_OK;
+	
+	//		create post method with url based on method
+			String tmsURL = getTmsURLString(method);
+			PostMethod post = new PostMethod(tmsURL);
+	
+	//		setup parameters
+			NameValuePair[] params = { new NameValuePair(METHOD_PARAM, method),
+					new NameValuePair(XML_PARAM, xml) };
+			post.setRequestBody(params);
+			
+	//		send request to TMS
+			try {
+				responseCode = client.executeMethod(post);
+				if (responseCode == HttpStatus.SC_OK) {
+					InputStream isPost = post.getResponseBodyAsStream();
+					BufferedReader in = new BufferedReader(new InputStreamReader(isPost),16384);
+					String inputLine = null;
+					result = "";
+					while ((inputLine = in.readLine()) != null) {
+						result += inputLine;
+					}
+					in.close();
 				}
-				in.close();
+				else {
+					result = buildXmlErrorMessage("", HttpStatus.getStatusText(responseCode), "");
+				}
 			}
-			else {
-				result = buildXmlErrorMessage("", HttpStatus.getStatusText(responseCode), "");
+			catch (Exception e) {
+				logger.error("Exception occured in httpClientSendRequest() : " + printStackTrace(e));
+				result = buildXmlErrorMessage("", e.getMessage(), "");
 			}
+			finally {
+				post.releaseConnection();
+			}
+			return result;
 		}
-		catch (Exception e) {
-			logger.error("Exception occured in httpClientSendRequest() : " + printStackTrace(e));
-			result = buildXmlErrorMessage("", e.getMessage(), "");
-		}
-		finally {
-			post.releaseConnection();
-		}
-		return result;
 	}
 
 	/**
@@ -701,74 +751,62 @@ public class ServletUtils {
 	 *
 	 */
 	public static String httpClientGetStatus() {
-		String errorMessage = OK;
-		int responseCode = HttpStatus.SC_OK;
-
-//		create post method with url based on method
-		String method = GET_STATUS_METHOD;
-		String tmsURL = getTmsURLString(method);
-		PostMethod post = null;
-		try {
-			post = new PostMethod(tmsURL);
-		}
-		catch (Exception e) {
-			errorMessage = "There has been a communications failure: " + e.getMessage();
-			errorMessage = buildXmlErrorMessage("", errorMessage, "");
-			return errorMessage;
-		}
-
-//		send request to TMS
-		try {
-			HttpClientParams clientParams = new HttpClientParams();
-			clientParams.setConnectionManagerTimeout(30 * SECOND); // timeout in 30 seconds
-			HttpClient client = new HttpClient(clientParams);
-			String proxyHost = getProxyHost();
-
-			if ((proxyHost != null) && (proxyHost.length() > 0)) {
-				// apply proxy settings
-	            int proxyPort    = getProxyPort();
-	            String username  = getProxyUserName();
-	            String password  = getProxyPassword();            
-            	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);				
+		synchronized(client) {
+			String errorMessage = OK;
+			PostMethod post = null;
+			// create post method with url based on method
+			try {
+				String method = GET_STATUS_METHOD;
+				String tmsURL = getTmsURLString(method);
+				post = new PostMethod(tmsURL);
 			}
-			responseCode = client.executeMethod(post);
-
-			if (responseCode == HttpStatus.SC_OK) {
-				InputStream isPost = post.getResponseBodyAsStream();
-				BufferedReader in = new BufferedReader(new InputStreamReader(isPost));
-				String inputLine = null;
-				String tmsResponse = "";
-				while ((inputLine = in.readLine()) != null) {
-					tmsResponse += inputLine;
-				}
-				in.close();
-				if (! isStatusOK(tmsResponse)) {
-					errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.connectionFailed");
-					errorMessage = buildXmlErrorMessage("", errorMessage, "");
-				}
+			catch (Exception e) {
+				errorMessage = "There has been a communications failure: " + e.getMessage();
+				errorMessage = buildXmlErrorMessage("", errorMessage, "");
 			}
-			else {
-				if (responseCode == HttpStatus.SC_NOT_FOUND) {
-					errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.unknownHostException");
-					errorMessage = buildXmlErrorMessage("", errorMessage, "");
+			try {
+				int responseCode = HttpStatus.SC_OK;
+
+				// send request to TMS
+				responseCode = client.executeMethod(post);
+	
+				if (responseCode == HttpStatus.SC_OK) {
+					InputStream isPost = post.getResponseBodyAsStream();
+					BufferedReader in = new BufferedReader(new InputStreamReader(isPost));
+					String inputLine = null;
+					String tmsResponse = "";
+					while ((inputLine = in.readLine()) != null) {
+						tmsResponse += inputLine;
+					}
+					in.close();
+					if (! isStatusOK(tmsResponse)) {
+						errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.connectionFailed");
+						errorMessage = buildXmlErrorMessage("", errorMessage, "");
+					}
 				}
 				else {
-					errorMessage = buildXmlErrorMessage("", HttpStatus.getStatusText(responseCode), "");
+					if (responseCode == HttpStatus.SC_NOT_FOUND) {
+						errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.unknownHostException");
+						errorMessage = buildXmlErrorMessage("", errorMessage, "");
+					}
+					else {
+						errorMessage = buildXmlErrorMessage("", HttpStatus.getStatusText(responseCode), "");
+					}
 				}
 			}
+			catch (UnknownHostException e) {
+				errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.unknownHostException");
+				errorMessage = buildXmlErrorMessage("", errorMessage, "");
+			}
+			catch (Exception e) {
+				errorMessage = "There has been a communications failure: " + e.getMessage();
+				errorMessage = buildXmlErrorMessage("", errorMessage, "");
+			}
+			finally {
+				post.releaseConnection();
+			}
+			return errorMessage;
 		}
-		catch (UnknownHostException e) {
-			errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.unknownHostException");
-			errorMessage = buildXmlErrorMessage("", errorMessage, "");
-		}
-		catch (Exception e) {
-			errorMessage = "There has been a communications failure: " + e.getMessage();
-			errorMessage = buildXmlErrorMessage("", errorMessage, "");
-		}
-		finally {
-			post.releaseConnection();
-		}
-		return errorMessage;
 	}
 
 	public static void processContentKeys( String xml )throws Exception
@@ -882,6 +920,10 @@ public class ServletUtils {
 		s = retVal.toString();
 		s = replaceAll( s, "&#+;", "&#x002B;" );
 		s = replaceAll( s, "+", "&#x002B;" );
+		//Defect# 64272: added for "<" Defect. 
+		s = s.replaceAll("&#x003C", "&LT;");
+		s = s.replaceAll("&lt;", "&LT;");
+
 		return s;
 	}
 
@@ -1032,6 +1074,23 @@ return elementList;*/
 		return xml;
 	}
 
+	public static boolean setupProxy() {
+		try {
+			String proxyHost = getProxyHost();
+		
+			if ((proxyHost != null) && (proxyHost.length() > 0)) {
+				// apply proxy settings
+	            int proxyPort    = getProxyPort();
+	            String username  = getProxyUserName();
+	            String password  = getProxyPassword();            
+	        	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);
+			}
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
 	public static void setProxyCredentials(HttpClient client, String proxyHost, int proxyPort, String username, String password) {
         boolean proxyHostDefined = proxyHost != null && proxyHost.length() > 0;
         boolean proxyPortDefined = proxyPort > 0;
@@ -1057,4 +1116,9 @@ return elementList;*/
         }		
 	}
 		
+	public static void shutdown() {
+		synchronized(client) {
+			((MultiThreadedHttpConnectionManager) ServletUtils.client.getHttpConnectionManager()).shutdown();
+		}
+	}
 }

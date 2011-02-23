@@ -11,6 +11,11 @@
 	<attribute name="bg" type="color" value="0xFFFFFF"/>
 	<attribute name="fg" type="color" value="0x000000"/> 	
 	
+	<!-- the default setup should always be ready as this popup can be shown at login time also -->
+	<handler name="oninit">
+		setup();
+	</handler>
+	
 	<method name="setup" args="fm, fc, bc"><![CDATA[
 Debug.write("setup: " + fm + " , " + fc + " , " + bc);
 		if(fc != null && fc.length > 0){
@@ -30,10 +35,12 @@ Debug.write("setup: " + fm + " , " + fc + " , " + bc);
 	
 	<method name="hide">
         this.setAttribute("visible", false);	
+		LzModeManager.release(this);	
     </method>
 	
     <method name="show">
- //       this.setAttribute("visible", true);
+        this.setAttribute("visible", true);
+        LzModeManager.makeModal(this);
     </method>
 
     <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">
@@ -91,9 +98,10 @@ Debug.write("setup: " + fm + " , " + fc + " , " + bc);
           width="${parent.windowbg.width - 20}" height="${parent.windowbg.height - 10}">
         
         <text name="pleaseWait" 
+        	  font="CTB"	
               fontsize="18"
               fgcolor="${parent.parent.fg}"
-              text="Please wait ..." 
+              text="Please wait..." 
               align="center"
               valign="middle"
               width="115"

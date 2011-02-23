@@ -12,7 +12,8 @@
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/xbean.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/xerces.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/jl1.0.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JDK 150_04"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.5.0_22"/>
 	<classpathentry kind="lib" path="servletcontainer/jetty-5.1.11RC0/lib/javax.servlet.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/DExCrypto.jar"/>
 	<classpathentry kind="output" path="webapp/WEB-INF/classes"/>
 </classpath>

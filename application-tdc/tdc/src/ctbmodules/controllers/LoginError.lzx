@@ -27,7 +27,7 @@
 
 				default:
 					txErrorHdr =    "There is a problem between the server and this computer."
-					txErrorMsg1 = 	"Ask the person in charge of this test to close this window.  Log in again in five minutes, and youll return to your last saved answer."
+					txErrorMsg1 = 	"Ask the person in charge of this test to close this window.  Log in again in three minutes, and you will return to your last saved answer."
 					txErrorMsg2 = 	"Error code: " + errorCode;
 					break;
 			}

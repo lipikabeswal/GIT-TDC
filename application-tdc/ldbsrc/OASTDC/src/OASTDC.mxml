@@ -1,49 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:WindowedApplication
-    xmlns:mx="http://www.adobe.com/2006/mxml" 
-    xmlns:flexmdi="flexlib.mdi.containers.*" 
-    layout="absolute" width="100%" height="100%" backgroundColor="0x000000" applicationComplete="onReady()" 
-    showFlexChrome="false" alwaysInFront="true" invoke="handleOnInvoke(event)"
-    showGripper="false"
-    showStatusBar="false"
-    showTitleBar="false">
-
-	<mx:HTML name="tdccanvas" id="tdccanvas" width="100%" height="100%" location="http://127.0.0.1:12345/login.html"/>
-    <mx:Script>
-        <![CDATA[
-        	import flash.utils.setInterval;
-        	import mx.core.Window;
-            import mx.core.UIComponent;
-            import mx.controls.Button;
-            import mx.core.Application;
-            import mx.events.MenuEvent;
-            import flash.display.StageDisplayState;
-            
-            private function onReady():void
-            {
-            	setTimeout(fullscreen, 1000);
-            }
-            
-            private function fullscreen():void
-            {
-            	stage.nativeWindow.maximize();
-            	stage.nativeWindow.minimize();
-            	stage.nativeWindow.maximize();
-            	//tdccanvas.width = stage.fullScreenWidth;
-            	//tdccanvas.height = stage.fullScreenHeight;
-            	stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
-            }
-            
-            private function handleOnInvoke(event:InvokeEvent):void {
-            	var prefFile:File = event.currentDirectory;
-				prefFile = prefFile.resolvePath("loc.cfg");
-		
-				var stream:FileStream = new FileStream();
-				stream.open(prefFile, FileMode.READ);
-				var loc:String = stream.readUTFBytes(stream.bytesAvailable);
-				stream.close();
-		
-				this.tdccanvas.location = loc;
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:flexmdi="flexlib.mdi.containers.*" 
+	layout="absolute" width="100%" height="100%" backgroundColor="0x000000" 
+	applicationComplete="onReady()" 
+	showFlexChrome="false" alwaysInFront="true"
+	showGripper="false"
+	showStatusBar="false"
+	showTitleBar="false"
+	deactivate="forcerestore(event)"
+	displayStateChange="forcerestore(event)"
+	invoke="onInvoke(event)">
+	
+	<mx:HTML name="tdccanvas" id="tdccanvas" width="100%" height="100%" />
+	<mx:Script>
+		<![CDATA[
+			import flash.utils.setInterval;
+			import mx.core.Window;
+			import mx.core.UIComponent;
+			import mx.controls.Button;
+			import mx.core.Application;
+			import mx.events.MenuEvent;
+			import flash.display.StageDisplayState;
+			
+			private function onReady():void
+			{
+				setTimeout(fullscreen, 3000);
+			}
+			
+			private function fullscreen():void
+			{
+				//tdccanvas.width = stage.fullScreenWidth;
+				//tdccanvas.height = stage.fullScreenHeight;
+				//stage.nativeWindow.maximize();
+				stage.nativeWindow.alwaysInFront=true;
+				stage.nativeWindow.orderToFront();
+				stage.nativeWindow.activate();
+				stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+				tologin();
+			}
+			
+			private function forcerestore(evt:Event):void
+			{
+				stage.nativeWindow.alwaysInFront=true;
+				stage.nativeWindow.orderToFront();
+				stage.nativeWindow.activate();
+				stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+			}
+			
+			private function tologin():void {
+				//var prefFile:File = evt.currentDirectory;
+				//prefFile = prefFile.resolvePath("loc.cfg");
+				
+				//var stream:FileStream = new FileStream();
+				//stream.open(prefFile, FileMode.READ);
+				//var loc:String = stream.readUTFBytes(stream.bytesAvailable);
+				//stream.close();
+				
+				//this.tdccanvas.location = "http://127.0.0.1:12345/login.html";
 				
 				var customContextMenu:ContextMenu = new ContextMenu();
 				//hide the Flash menu
@@ -53,8 +67,13 @@
 				this.tdccanvas.contextMenu = customContextMenu;
 				stage.contextMenu = customContextMenu;
 				stage.showDefaultContextMenu = false;
-	    	}
-
-        ]]>
-    </mx:Script>
+			}
+			
+			private function onInvoke(event:InvokeEvent):void{
+				this.tdccanvas.location = event.arguments.toString();
+			}
+			
+			
+		]]>
+	</mx:Script>
 </mx:WindowedApplication>

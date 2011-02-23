@@ -1,5 +1,7 @@
 package com.ctb.tdc.web.utils;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,6 +9,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 import org.bouncycastle.crypto.digests.MD5Digest;
 import org.bouncycastle.crypto.engines.RC4Engine;
@@ -54,7 +57,7 @@ public class ContentFile
     
     public static byte[] readFromFile( String filePath ) throws IOException
     {
-        FileInputStream aFileInputStream = new FileInputStream( filePath );
+        BufferedInputStream aFileInputStream = new BufferedInputStream(new FileInputStream( filePath ));
         int size = aFileInputStream.available();
         byte[] buffer = new byte[ size ];
         aFileInputStream.read( buffer );
@@ -68,10 +71,10 @@ public class ContentFile
         writeToFile( data, newFilePath );
     }
     
-    public static void writeToFile( byte[] data, String filePath ) throws Exception
+    public static void writeToFile( byte[] data, String filePath ) throws IOException
     {
         File psFile = new File( filePath );
-        FileOutputStream psfile = new FileOutputStream( psFile );
+        BufferedOutputStream psfile = new BufferedOutputStream(new FileOutputStream( psFile ));
         psfile.write( data );
         psfile.flush();
         psfile.close(); 
@@ -82,10 +85,18 @@ public class ContentFile
         if (!exists(filePath))
         	return false;
     	byte[] buffer = readFromFile( filePath );
-        if ( Crypto.checkHash( hash, buffer ))
+    	
+        if ( Crypto.checkHash( hash, buffer )) {
+        	//Fix for 60 days content deletion 
+        	File file = new File(filePath);            
+            file.setLastModified(new Date().getTime());
         	return true;
-        else
+        }
+        	
+        else {
+        	//System.out.println("check: " + hash + "  actual: " + Crypto.generateHash(buffer));
         	return false;
+        } 	
     }
     
     
@@ -97,10 +108,10 @@ public class ContentFile
         try {
         	buffer = readFromFile( filePath );
         
-	        boolean hashChecked = Crypto.checkHash( hash, buffer );
+	        //boolean hashChecked = Crypto.checkHash( hash, buffer );
 	        
-	        if (!hashChecked)
-	        	throw new HashMismatchException("Hash doesn't match.");
+	        //if (!hashChecked)
+	        //	throw new HashMismatchException("Hash doesn't match.");
         	
 	        Crypto aCrypto = new Crypto();
 	        result = aCrypto.checkHashAndDecrypt( key, hash, buffer, true, false );
