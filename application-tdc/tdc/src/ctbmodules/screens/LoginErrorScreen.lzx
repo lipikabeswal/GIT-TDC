@@ -33,6 +33,7 @@
 				case "477":
 				case "500":
 				case "501":
+				case "560":
 					txErrorHdr = 	"Login Error";
 					txErrorMsg1 = 	"Sorry: Your request could not be processed by our server due to the following error:";
 					txErrorMsg2 =   errorCode + " - " + _getErrorText(errorCode);
@@ -40,7 +41,7 @@
 
 				default:
 					txErrorHdr =    "There is a problem between the server and this computer."
-					txErrorMsg1 = 	"Ask the person in charge of this test to close this window.  Log in again in five minutes, and youll return to your last saved answer."
+					txErrorMsg1 = 	"Ask the person in charge of this test to close this window.  Log in again in three minutes, and you will return to your last saved answer."
 					txErrorMsg2 = 	"Error code: " + errorCode;
 					break;
 			}
@@ -104,6 +105,10 @@
 		
 				case "501":
 					result = 	"A server error has occurred. Contact your proctor."
+					break;
+					
+				case "560":
+					result = 	"The test delivery system is very busy.Please try to log in again at a later time."
 					break;
 			}
 			return result;
