@@ -1,0 +1,38 @@
+<element_package iid="FCAT_TEST.001" security_classification_id="alg112">
+	<item_canvas id="IC">
+		<panel left_padding="12" stereotype="stimulus" id="FCAT_TEST.Landmarks" 
+		       layout="vertical" spacing="12" x="0" width="426" y="79" 
+		       height="453">
+			<text_widget halign="left" width="397" id="widget1000">
+				<![CDATA[Loreet adiat vel eum eliquisi blaore vent prat ad tat 
+				         lum num zzriure tat. Ut accumsandre dolore tie commy 
+				         nullutat in velenis iduis nis acipis nummy nulputate 
+				         tem qui essim ilisit vullan hent am, vullam]]>
+			</text_widget>
+			<image_widget enlargeable="yes" halign="left" id="01-S_10mFCATd06" 
+			              src="01-S_10mFCATd06.swf" height="261" 
+			              width="400" alt_text="Read me for I am the alt"/>
+		</panel>
+		<panel left_padding="12" stereotype="stem" id="stem1" layout="vertical" 
+		       spacing="12" width="368" x="426" y="79" height="87">
+			<text_widget halign="left" width="339" id="widget1001">
+				<![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing 
+				         elit, sed diam nonummy nibh euismod tincidunt ut 
+				         laoreet dolore magna aliquam erat volutpat. Ut wisi 
+				         enim ad minim veniam, quis nostrud exerci tation 
+				         ullamcorper suscipit lobortis]]>
+			</text_widget>
+		</panel>
+	</item_canvas>
+	<item_model iid="FCAT_TEST.001" eid="1" marked="0" answered="0" number="0" 
+	            type="question" correct="C">
+		<toolbar oneeighth_inch_ruler="required" mm_ruler="required" 
+		         formula_card="required" highlighter="required" 
+		         eraser="required" cm_ruler="required" 
+		         scientific_calculator="required" 
+		         standard_calculator="required" protractor="required" 
+		         option_eliminator="required" half_inch_ruler="required" 
+		         straight_edge="required" />
+		<interaction />
+	</item_model>
+</element_package>

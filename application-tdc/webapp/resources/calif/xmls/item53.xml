@@ -1,0 +1,479 @@
+<element_package iid="REG_TEST.070" security_classification_id="alg112">
+	<item_canvas id="IC">
+		<panel stereotype="directions" id="sd1" left_padding="12"
+			width="790" layout="vertical" spacing="12" height="45" x="0"
+			y="79">
+			<text_widget halign="left" width="761" id="widget1000">
+				<![CDATA[<b>Blanca needs more information on national parks to plan a trip next summer. She found this chart in a guide book. Look at the chart. Then do Numbers %start% through %end%.</b>]]>
+			</text_widget>
+		</panel>
+		<panel left_padding="12" stereotype="stimulus"
+			id="TABE.9A.RE.NationalParks" width="450" layout="vertical"
+			spacing="12" x="0" y="131" height="401">
+			<table halign="left" title="National Parks" border="yes"
+				showvlines="yes" showhlines="yes" enlargeable="yes"
+				autoenlargeable="fitpanel" height="725" width="565"
+				id="widget1001">
+				<row height="40" id="widget1002">
+					<cell bgcolor="0xE6E6E6" halign="center"
+						valign="middle" width="85" id="widget1003">
+						<text_widget halign="left" width="85"
+							id="widget1004">
+							<![CDATA[<b>Names of<br/>Parks</b>]]>
+						</text_widget>
+					</cell>
+					<cell bgcolor="0xE6E6E6" halign="center"
+						valign="middle" width="60" id="widget1005">
+						<text_widget halign="left" width="38"
+							id="widget1006">
+							<![CDATA[<b>State</b>]]>
+						</text_widget>
+					</cell>
+					<cell bgcolor="0xE6E6E6" halign="center"
+						valign="middle" width="80" id="widget1007">
+						<text_widget halign="left" width="80"
+							id="widget1008">
+							<![CDATA[<b>Year<br/>Established</b>]]>
+						</text_widget>
+					</cell>
+					<cell bgcolor="0xE6E6E6" halign="center"
+						valign="middle" width="100" id="widget1009">
+						<text_widget halign="left" width="100"
+							id="widget1010">
+							<![CDATA[<b>Size<br/>(square miles)</b>]]>
+						</text_widget>
+					</cell>
+					<cell bgcolor="0xE6E6E6" halign="center"
+						valign="middle" width="210" id="widget1011">
+						<text_widget halign="left" width="87"
+							id="widget1012">
+							<![CDATA[<b>Park Features</b>]]>
+						</text_widget>
+					</cell>
+				</row>
+				<row height="65" id="widget1013">
+					<cell halign="left" valign="middle" width="85"
+						id="widget1014">
+						<text_widget halign="left" width="85"
+							id="widget1015">
+							<![CDATA[&nbsp;&nbsp;Carlsbad<br/>&nbsp;&nbsp;Caverns]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="30"
+						id="widget1016">
+						<text_widget halign="left" width="30"
+							id="widget1017">
+							<![CDATA[NM]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="47"
+						id="widget1018">
+						<text_widget halign="left" width="35"
+							id="widget1019">
+							<![CDATA[1930]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="34"
+						id="widget1020">
+						<text_widget halign="left" width="22"
+							id="widget1021">
+							<![CDATA[73]]>
+						</text_widget>
+					</cell>
+					<cell halign="left" valign="middle" width="210"
+						id="widget1022">
+						<text_widget halign="left" width="210"
+							id="widget1023">
+							<![CDATA[&nbsp;&nbsp;One of the largest underground<br/>&nbsp;&nbsp;caverns in the world; many<br/>&nbsp;&nbsp;unexplored areas]]>
+						</text_widget>
+					</cell>
+				</row>
+				<row height="55" id="widget1024">
+					<cell halign="left" valign="middle" width="85"
+						id="widget1025">
+						<text_widget halign="left" width="85"
+							id="widget1026">
+							<![CDATA[&nbsp;&nbsp;Channel<br/>&nbsp;&nbsp;Islands]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="30"
+						id="widget1027">
+						<text_widget halign="left" width="30"
+							id="widget1028">
+							<![CDATA[CA]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="47"
+						id="widget1029">
+						<text_widget halign="left" width="35"
+							id="widget1030">
+							<![CDATA[1980]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="41"
+						id="widget1031">
+						<text_widget halign="left" width="29"
+							id="widget1032">
+							<![CDATA[390]]>
+						</text_widget>
+					</cell>
+					<cell halign="left" valign="middle" width="210"
+						id="widget1033">
+						<text_widget halign="left" width="210"
+							id="widget1034">
+							<![CDATA[&nbsp;&nbsp;sea lions, nesting sea birds,<br/>&nbsp;&nbsp;animal fossils, unique plants]]>
+						</text_widget>
+					</cell>
+				</row>
+				<row height="55" id="widget1035">
+					<cell halign="left" valign="middle" width="85"
+						id="widget1036">
+						<text_widget halign="left" width="85"
+							id="widget1037">
+							<![CDATA[&nbsp;&nbsp;Crater Lake]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="30"
+						id="widget1038">
+						<text_widget halign="left" width="30"
+							id="widget1039">
+							<![CDATA[OR]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="47"
+						id="widget1040">
+						<text_widget halign="left" width="35"
+							id="widget1041">
+							<![CDATA[1902]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="41"
+						id="widget1042">
+						<text_widget halign="left" width="29"
+							id="widget1043">
+							<![CDATA[286]]>
+						</text_widget>
+					</cell>
+					<cell halign="left" valign="middle" width="210"
+						id="widget1044">
+						<text_widget halign="left" width="210"
+							id="widget1045">
+							<![CDATA[&nbsp;&nbsp;deepest lake in the United States;<br/>&nbsp;&nbsp;located in crater of ancient volcano]]>
+						</text_widget>
+					</cell>
+				</row>
+				<row height="75" id="widget1046">
+					<cell halign="left" valign="middle" width="85"
+						id="widget1047">
+						<text_widget halign="left" width="85"
+							id="widget1048">
+							<![CDATA[&nbsp;&nbsp;Glacier Bay]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="30"
+						id="widget1049">
+						<text_widget halign="left" width="30"
+							id="widget1050">
+							<![CDATA[AK]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="47"
+						id="widget1051">
+						<text_widget halign="left" width="35"
+							id="widget1052">
+							<![CDATA[1980]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="51"
+						id="widget1053">
+						<text_widget halign="left" width="39"
+							id="widget1054">
+							<![CDATA[5,040]]>
+						</text_widget>
+					</cell>
+					<cell halign="left" valign="middle" width="210"
+						id="widget1055">
+						<text_widget halign="left" width="210"
+							id="widget1056">
+							<![CDATA[&nbsp;&nbsp;watch glaciers break up into the<br/>&nbsp;&nbsp;sea; whales, bears, wolves,<br/>&nbsp; 200 species of birds]]>
+						</text_widget>
+					</cell>
+				</row>
+				<row height="75" id="widget1057">
+					<cell halign="left" valign="middle" width="85"
+						id="widget1058">
+						<text_widget halign="left" width="85"
+							id="widget1059">
+							<![CDATA[&nbsp;&nbsp;Grand<br/>&nbsp;&nbsp;Canyon]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="30"
+						id="widget1060">
+						<text_widget halign="left" width="30"
+							id="widget1061">
+							<![CDATA[AZ]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="47"
+						id="widget1062">
+						<text_widget halign="left" width="35"
+							id="widget1063">
+							<![CDATA[1919]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="50"
+						id="widget1064">
+						<text_widget halign="left" width="38"
+							id="widget1065">
+							<![CDATA[1,902]]>
+						</text_widget>
+					</cell>
+					<cell halign="left" valign="middle" width="210"
+						id="widget1066">
+						<text_widget halign="left" width="210"
+							id="widget1067">
+							<![CDATA[&nbsp;&nbsp;one of the most spectacular canyons<br/>&nbsp;&nbsp;in the world; Colorado River flowing<br/>&nbsp;&nbsp;at bottom of canyon]]>
+						</text_widget>
+					</cell>
+				</row>
+				<row height="55" id="widget1068">
+					<cell halign="left" valign="middle" width="85"
+						id="widget1069">
+						<text_widget halign="left" width="85"
+							id="widget1070">
+							<![CDATA[&nbsp;&nbsp;Grand Teton]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="30"
+						id="widget1071">
+						<text_widget halign="left" width="30"
+							id="widget1072">
+							<![CDATA[WY]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="47"
+						id="widget1073">
+						<text_widget halign="left" width="35"
+							id="widget1074">
+							<![CDATA[1929]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="41"
+						id="widget1075">
+						<text_widget halign="left" width="29"
+							id="widget1076">
+							<![CDATA[484]]>
+						</text_widget>
+					</cell>
+					<cell halign="left" valign="middle" width="210"
+						id="widget1077">
+						<text_widget halign="left" width="210"
+							id="widget1078">
+							<![CDATA[&nbsp;&nbsp;most impressive part of the Teton<br/>&nbsp;&nbsp;Range; glaciers, lakes, buffalo, elk]]>
+						</text_widget>
+					</cell>
+				</row>
+				<row height="55" id="widget1079">
+					<cell halign="left" valign="middle" width="85"
+						id="widget1080">
+						<text_widget halign="left" width="85"
+							id="widget1081">
+							<![CDATA[&nbsp;&nbsp;Hawaii<br/>&nbsp;&nbsp;Volcanoes]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="30"
+						id="widget1082">
+						<text_widget halign="left" width="30"
+							id="widget1083">
+							<![CDATA[HI]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="46"
+						id="widget1084">
+						<text_widget halign="left" width="34"
+							id="widget1085">
+							<![CDATA[1961]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="41"
+						id="widget1086">
+						<text_widget halign="left" width="29"
+							id="widget1087">
+							<![CDATA[358]]>
+						</text_widget>
+					</cell>
+					<cell halign="left" valign="middle" width="210"
+						id="widget1088">
+						<text_widget halign="left" width="210"
+							id="widget1089">
+							<![CDATA[&nbsp;&nbsp;includes two active volcanoes,<br/>&nbsp;&nbsp;Mauna Loa and Kilauea]]>
+						</text_widget>
+					</cell>
+				</row>
+				<row height="65" id="widget1090">
+					<cell halign="left" valign="middle" width="85"
+						id="widget1091">
+						<text_widget halign="left" width="85"
+							id="widget1092">
+							<![CDATA[&nbsp;&nbsp;Hot Springs]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="30"
+						id="widget1093">
+						<text_widget halign="left" width="30"
+							id="widget1094">
+							<![CDATA[AR]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="46"
+						id="widget1095">
+						<text_widget halign="left" width="34"
+							id="widget1096">
+							<![CDATA[1921]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="27"
+						id="widget1097">
+						<text_widget halign="left" width="15"
+							id="widget1098">
+							<![CDATA[9]]>
+						</text_widget>
+					</cell>
+					<cell halign="left" valign="middle" width="210"
+						id="widget1099">
+						<text_widget halign="left" width="210"
+							id="widget1100">
+							<![CDATA[&nbsp;&nbsp;resort built around hot mineral<br/>&nbsp;&nbsp;springs; waters used for<br/>&nbsp;&nbsp;bathing and drinking]]>
+						</text_widget>
+					</cell>
+				</row>
+				<row height="60" id="widget1101">
+					<cell halign="left" valign="middle" width="85"
+						id="widget1102">
+						<text_widget halign="left" width="85"
+							id="widget1103">
+							<![CDATA[&nbsp;&nbsp;Yellowstone]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="45"
+						id="widget1104">
+						<text_widget halign="left" width="45"
+							id="widget1105">
+							<![CDATA[ID/MT/WY]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="47"
+						id="widget1106">
+						<text_widget halign="left" width="35"
+							id="widget1107">
+							<![CDATA[1872]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="51"
+						id="widget1108">
+						<text_widget halign="left" width="39"
+							id="widget1109">
+							<![CDATA[3,468]]>
+						</text_widget>
+					</cell>
+					<cell halign="left" valign="middle" width="210"
+						id="widget1110">
+						<text_widget halign="left" width="210"
+							id="widget1111">
+							<![CDATA[&nbsp;&nbsp;oldest national park; geysers,<br/>&nbsp;&nbsp;hot springs, spectacular waterfalls<br/>&nbsp;&nbsp;and canyons]]>
+						</text_widget>
+					</cell>
+				</row>
+				<row height="65" id="widget1112">
+					<cell halign="left" valign="middle" width="85"
+						id="widget1113">
+						<text_widget halign="left" width="65"
+							id="widget1114">
+							<![CDATA[&nbsp;&nbsp;Yosemite]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="30"
+						id="widget1115">
+						<text_widget halign="left" width="30"
+							id="widget1116">
+							<![CDATA[CA]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="47"
+						id="widget1117">
+						<text_widget halign="left" width="35"
+							id="widget1118">
+							<![CDATA[1890]]>
+						</text_widget>
+					</cell>
+					<cell halign="center" valign="middle" width="50"
+						id="widget1119">
+						<text_widget halign="left" width="38"
+							id="widget1120">
+							<![CDATA[1,189]]>
+						</text_widget>
+					</cell>
+					<cell halign="left" valign="middle" width="210"
+						id="widget1121">
+						<text_widget halign="left" width="210"
+							id="widget1122">
+							<![CDATA[&nbsp;&nbsp;numerous waterfalls, mountains,<br/>&nbsp;&nbsp;forests, lakes, rivers, groves of<br/>&nbsp;&nbsp;sequoia trees]]>
+						</text_widget>
+					</cell>
+				</row>
+			</table>
+		</panel>
+		<panel left_padding="12" stereotype="stem" id="stem1"
+			layout="vertical" spacing="12" width="330" x="450" y="124"
+			height="45">
+			<text_widget halign="left" width="301" id="widget1123">
+				<![CDATA[According to the chart, when did Hawaii Volcanoes National Park become part of the National Park Service?]]>
+			</text_widget>
+		</panel>
+		<answer_area_panel id="A1" stereotype="answerArea"
+			layout="vertical" spacing="12" width="318" x="462" height="156"
+			top_padding="12" left_padding="12" y="176">
+			<answer_choice_widget spacing="6" layout="horizontal"
+				width="306">
+				<selector_widget valign="top" identifier="A" />
+				<text_widget halign="left" width="259"
+					id="widget1126">
+					<![CDATA[1902]]>
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget spacing="6" layout="horizontal"
+				width="306">
+				<selector_widget valign="top" identifier="B" />
+				<text_widget halign="left" width="259"
+					id="widget1129">
+					<![CDATA[1921]]>
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget spacing="6" layout="horizontal"
+				width="306">
+				<selector_widget valign="top" identifier="C" />
+				<text_widget halign="left" width="259"
+					id="widget1132">
+					<![CDATA[1929]]>
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget spacing="6" layout="horizontal"
+				width="306">
+				<selector_widget valign="top" identifier="D" />
+				<text_widget halign="left" width="259"
+					id="widget1135">
+					<![CDATA[1961]]>
+				</text_widget>
+			</answer_choice_widget>
+		</answer_area_panel>
+	</item_canvas>
+	<item_model iid="REG_TEST.070" eid="53" marked="0" answered="0" number="0" type="question" correct="D">
+		<toolbar oneeighth_inch_ruler="not provisioned" mm_ruler="not provisioned" formula_card="not provisioned" highlighter="required" eraser="required" cm_ruler="not provisioned" scientific_calculator="not provisioned" standard_calculator="not provisioned" protractor="not provisioned" option_eliminator="required" half_inch_ruler="not provisioned" />
+		<interaction type="choice" max_choices="1">
+			<selector identifier="A" obj_id_ref="A" user_action="n" />
+			<selector identifier="B" obj_id_ref="B" user_action="n" />
+			<selector identifier="C" obj_id_ref="C" user_action="n" />
+			<selector identifier="D" obj_id_ref="D" user_action="n" />
+		</interaction>
+	</item_model>
+</element_package>

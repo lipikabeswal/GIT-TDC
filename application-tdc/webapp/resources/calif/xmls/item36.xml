@@ -1,0 +1,42 @@
+<element_package iid="REG_TEST.070" security_classification_id="alg112">
+	<item_canvas id="IC">
+		<panel stereotype="directions" id="sd1" left_padding="12" height="70" layout="horizontal" spacing="12" width="780" x="0" y="79">
+			<image_widget halign="left" id="Icon-Ruler_demo" src="Icon-Ruler_demo.swf" enlargeable="no" autoenlargeable="no" height="49" width="50" alt_text="A picture of a ruler." />
+			<text_widget halign="left" height="21" width="689" id="widget1000">
+				<![CDATA[<b>Use the ruler in the toolbar above to help you solve this problem. You can move the ruler by clicking on the blue bar in the middle or by clicking in the circle at either end.</b>]]>
+			</text_widget>
+		</panel>
+		<panel left_padding="12" stereotype="stem" id="stem1" height="40" layout="vertical" spacing="12" x="0" width="780" y="149">
+			<text_widget halign="left" alt_text="Which of these bracelets is 3 and a half inches long?" width="751" id="widget1001">
+				<![CDATA[Which of these bracelets is 3&#x00BD; inches long?]]>
+			</text_widget>
+		</panel>
+		<answer_area_panel id="A1" stereotype="answerArea" layout="vertical" spacing="12" width="768" x="12" height="167" top_padding="12" left_padding="12" y="196">
+			<answer_choice_widget spacing="6" layout="horizontal" width="756">
+				<selector_widget valign="top" identifier="A" />
+				<image_widget halign="left" id="SC-A_04mKY_demo" src="SC-A_04mKY_demo.swf" enlargeable="no" autoenlargeable="no" width="252" alt_text="Image not described. Ask your teacher if you need help reading the image." height="24" />
+			</answer_choice_widget>
+			<answer_choice_widget spacing="6" layout="horizontal" width="756">
+				<selector_widget valign="top" identifier="B" />
+				<image_widget halign="left" id="SC-B_04mKY_demo" src="SC-B_04mKY_demo.swf" enlargeable="no" autoenlargeable="no" width="299" alt_text="Image not described. Ask your teacher if you need help reading the image." height="29" />
+			</answer_choice_widget>
+			<answer_choice_widget spacing="6" layout="horizontal" width="756">
+				<selector_widget valign="top" identifier="C" />
+				<image_widget halign="left" id="SC-C_04mKY_demo" src="SC-C_04mKY_demo.swf" enlargeable="no" autoenlargeable="no" width="396" alt_text="Image not described. Ask your teacher if you need help reading the image." height="24" />
+			</answer_choice_widget>
+			<answer_choice_widget spacing="6" layout="horizontal" width="756">
+				<selector_widget valign="top" identifier="D" />
+				<image_widget halign="left" id="SC-D_04mKY_demo" src="SC-D_04mKY_demo.swf" enlargeable="no" autoenlargeable="no" width="367" alt_text="Image not described. Ask your teacher if you need help reading the image." height="30" />
+			</answer_choice_widget>
+		</answer_area_panel>
+	</item_canvas>
+	<item_model iid="REG_TEST.070" eid="36" marked="0" answered="0" number="0" type="question" correct="D">
+		<toolbar oneeighth_inch_ruler="not provisioned" mm_ruler="not provisioned" formula_card="not provisioned" highlighter="required" eraser="required" cm_ruler="not provisioned" scientific_calculator="not provisioned" standard_calculator="not provisioned" protractor="not provisioned" option_eliminator="required" half_inch_ruler="not provisioned" />
+		<interaction type="choice" max_choices="1">
+			<selector identifier="A" obj_id_ref="A" user_action="n" />
+			<selector identifier="B" obj_id_ref="B" user_action="n" />
+			<selector identifier="C" obj_id_ref="C" user_action="n" />
+			<selector identifier="D" obj_id_ref="D" user_action="n" />
+		</interaction>
+	</item_model>
+</element_package>
