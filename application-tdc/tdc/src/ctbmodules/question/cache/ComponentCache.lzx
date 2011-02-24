@@ -25,6 +25,7 @@
         <attribute name="WIDGET_SINGLE_LINE_ANSWER" value="single_line_answer" type="string"/>
         <attribute name="WIDGET_MULTI_LINE_ANSWER" value="multi_line_answer" type="string"/>
         <attribute name="WIDGET_REFERENCE_CARD" value="formula_card_resource" type="string"/>
+        <attribute name="WIDGET_RECORDER" value="recorder_widget" type="string"/>
     </node>
 
 
@@ -64,6 +65,7 @@
         <attribute name="cachedmultilineinput" value="$once{[]}"/>
         <attribute name="cachedaccmultilineinput" value="$once{[]}"/>
         <attribute name="cachedreferencecard" value="$once{[]}"/>
+        <attribute name="cachedrecorder" value="$once{[]}"/>
         
         <!-- ================================
              methods/events
@@ -206,8 +208,12 @@
                     arraytouse = cachedreferencecard;      
                     break;
                 }
+                case gCompTypes.WIDGET_RECORDER: {
+                    arraytouse = cachedrecorder;      
+                    break;
+                }
                 default: {
-//                    Debug.warn ('CACHE: unknown component type', type);
+                   Debug.warn ('CACHE: unknown component type', type);
                     break;
                 }     
 		    }
@@ -299,6 +305,10 @@
                 	hash['id'] = 'gFormulaCard';
 					toReturn = new CachableRefCard(parent, hash);
 			    	break;
+                }
+                case gCompTypes.WIDGET_RECORDER: {
+                	 toReturn = new CachableRecorder(parent);
+				    break;
                 }
                 default: {
  //                   Debug.write ('CACHE: create unknown component type', type);  

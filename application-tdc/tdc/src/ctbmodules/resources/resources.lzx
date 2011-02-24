@@ -388,4 +388,46 @@
  	<resource name="TN_refcard_contents" src="manipulatives/refcard/TN_refcard_contents.swf"/>
 
     <resource name="theme" src="iknow_navbar/themePage.swf" /> 
+    
+    <!-- ****************** Start Recorder Resources ************************************************* -->
+    <resource name="button_record">
+       	<frame src="components/recorder/button_record.jpg"/>
+       	<frame src="components/recorder/button_record_clicked.jpg"/>
+       	<frame src="components/recorder/button_record_disable.jpg"/>
+	</resource>
+	
+	<resource name="button_stop">
+       	<frame src="components/recorder/button_stop.jpg"/>
+       	<frame src="components/recorder/button_stop_clicked.jpg"/>
+       	<frame src="components/recorder/button_stop_disable.jpg"/>
+	</resource>
+
+	<resource name="button_reset">
+       	<frame src="components/recorder/button_reset.gif"/>
+       	<frame src="components/recorder/button_reset_hover.gif"/>
+       	<frame src="components/recorder/button_reset_disable.gif"/>
+	</resource>
+	
+	<resource name="button_submit">
+       	<frame src="components/recorder/button_submit.gif"/>
+       	<frame src="components/recorder/button_submit_clicked.jpeg"/>
+       	<frame src="components/recorder/button_submit_disable.gif" />
+	</resource>
+	<resource name="volumeter" src="components/recorder/volumemeter.jpg"/>
+	<resource name="pointer">
+		<frame src ="iknow_navbar/cursor_default.gif"/>
+	</resource>
+		
+			<resource name="heading_microphone">
+       	<frame src="components/recorder/microphone_red.gif"/>
+	</resource>
+	
+	<resource name="record_bullet_red">
+       	<frame src="components/recorder/Bullet-red.png"/>
+	</resource>
+	
+	<resource name="record_bullet_green">
+       	<frame src="components/recorder/Bullet-green.png"/>
+	</resource>
+	<!-- ****************** End Recorder Resources (Added by Priyanka)************************************************* -->
 </library>

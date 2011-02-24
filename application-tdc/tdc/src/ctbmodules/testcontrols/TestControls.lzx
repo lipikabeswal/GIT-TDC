@@ -31,6 +31,10 @@
         <attribute name="theme" 
                    value="$path{'current_item/item_model/@theme'}"/>
 
+		<attribute name="revisitAllowed" 
+                   value="$path{'current_item/item_model/@allow_revisit'}" 
+				   setter="setMarkForReview (revisitAllowed)" />
+
         <method name="setIsCurrAnswered" args="isanswered"><![CDATA[
             if (typeof (isanswered) == 'string') {
                isanswered = (isanswered == '1');
@@ -73,7 +77,9 @@ Debug.write("Test Control......", "Actual : ",this.curranswer.getAttr('identifie
         ]]></method>
 
         <method event="oncurritempos"><![CDATA[
+
             //handle nav visibility and positioning
+
 			var currentItemNumber = parseInt(this.curritempos);
 			
 			if(currentItemNumber != 1){
@@ -91,6 +97,25 @@ Debug.write("Test Control......", "Actual : ",this.curranswer.getAttr('identifie
             }
             
          ]]></method>
+		
+		<method name="setMarkForReview" args="isRevisitAllowed"><![CDATA[
+			if (typeof (isRevisitAllowed) == 'string') {
+               isRevisitAllowed = (isRevisitAllowed == 'true');
+            }
+			this.revisitAllowed = isRevisitAllowed;
+			if(!theme){
+
+				if(!revisitAllowed){
+					this.btns.markbtn.setAttribute ('visible', false);
+				}else{
+					this.btns.markbtn.setAttribute ('visible', true);
+				}
+			}else{
+
+				this.btns.markbtn.setAttribute ('visible', false);
+			}
+		]]></method>
+
 		<view name="answertxt" visible="${!classroot.theme}">
 	        <view name="answeristxt" visible="false" x="30"
 	              fgcolor="0x6590B3" fontstyle="bold" y="-4">
@@ -127,8 +152,7 @@ Debug.write("Test Control......", "Actual : ",this.curranswer.getAttr('identifie
                               clickable="${ classroot.uienabled == 'true' }"
                               resource="mark_unmark_btn" statelength="3"
                               maxstate="1" 
-              				  onclick="gController.markQuestion (!classroot.iscurrmarked)"
-              				  visible="${!classroot.theme}">
+              				  onclick="gController.markQuestion (!classroot.iscurrmarked)">
             </multistatebutton>
         </view>
     </class>

@@ -14,6 +14,10 @@
         <attribute name="clickable" value="${ isenabled == 'true' }"/>
 
         <attribute name="showconnector" value="false"/>
+        
+		<attribute name="allow_revisit" value="$path{'@allow_revisit'}"   />
+		<attribute name="allow_revisit_on_restart" value="$path{'@allow_revisit_on_restart'}"   />
+<attribute name="isvisited" value="$path{'@is_visited'}" setter="setIsVisited(isvisited)"/>		
 
         <attribute name="isanswered" value="$path{'@answered'}" 
                    setter="setIsAnswered (isanswered)"/>
@@ -23,8 +27,18 @@
                    value="${this.questionbar.selitemeid==this.itemeid}"/>
         
         <attribute name="questionbar" value="$once{classroot}"/>
+	
+		<method name="setIsVisited" args="isvisited">
+            if (typeof (isvisited) == 'string') {
+                isvisited = (isvisited == 'true');
+            } 
+
+            this.isvisited = isvisited;
+            this._changeStatus (false);
+        </method>
 
         <method name="setIsAnswered" args="isanswered">
+			//Debug.write("setIsAnswered" + isanswered)
             if (typeof (isanswered) == 'string') {
                 isanswered = (isanswered == '1');
             } 
@@ -49,16 +63,40 @@
                                     && dnselect.parentNode.getLastChild () != dnselect);
         ]]></method>
 
-        <method event="onisactive">
+        <method event="onisactive"><![CDATA[
+        //Debug.write("onisactive.....");
+        
             if (this.isactive) {
                 //make sure we're visible on the navigation bar
                 this.questionbar.showBtn (this);
                 var here = this.questionbar.qbtns.scrollcontainer.youarehere;
                 here.setAttribute ('x', this.getAttributeRelative ('x', here) - 29); //the text was off in its container - 29);
                 gController.movedYouAreHere();
+				
             }
+			else{
+			 if(this.allow_revisit != null){
+			  if(this.allow_revisit != 'true'){
+				if(this.isvisited || this.isanswered){
+						this.btn.setAttribute('clickable',true);
+						this.btn.setAttribute('showhandcursor',false);
+						this.btn.setAttribute('cursor',pointer);
+						this.btnText.setAttribute('fgcolor',0xFFFFFF);
+					}else{
+						this.btn.setAttribute('clickable',false);
+						this.btnText.setAttribute('fgcolor',0x000000);
+						this.btn.setAttribute('showhandcursor',true);
+
+					}
+				}else{
+					this.btn.setAttribute('clickable',false);
+					this.btnText.setAttribute('fgcolor',0x000000);
+ 					this.btn.setAttribute('showhandcursor',true);
+				}
+			}
+		}
             this._changeStatus (false);
-        </method>
+        ]]></method>
 
         <method event="onmouseover">
             this._changeStatus (true);
@@ -70,20 +108,31 @@
 
 
         <method name="navigate" event="onclick">
+        	Debug.write("navigate called" + this.questionbar);
             gController.navigateTo( itemeid );
         </method>
 
         <method name="_changeStatus" args="ismouseover"><![CDATA[
             var newframe = 1;
 
-            if (ismouseover) {
-                if (ismarked)               newframe = 6;
-                else if (isactive)          newframe = 2;
-                else                        newframe = 9;
+              if (ismouseover) {
+
+                if (ismarked)               	newframe = 6;
+                else if (isactive)         		newframe = 2;
+                else                        	newframe = 9;
             } else {
                 this.ball.setAttribute ('visible', this.isanswered ? true : false);
+
                 if (ismarked)               newframe = 5;
                 else if (isactive)          newframe = 2;
+				else if(this.allow_revisit != null){
+				if (isvisited &&
+						 allow_revisit != 'true')
+											newframe = 11;
+				else if (isanswered &&
+						 allow_revisit != 'true')
+											newframe = 11;
+				}
                 else                        newframe = 1;
             }
 
@@ -101,10 +150,10 @@
               x="${classroot.width}" y="24"
               visible="${classroot.showconnector}"/>
 
-        <text text="${classroot.itemnum}" resize="true" 
+        <text name="btnText" text="${classroot.itemnum}" resize="true" 
               font="Arial" fontsize="11" fontstyle="bold"
               y="22" align="center" visible="${!classroot.isTheme}"/>
-        <view resource="theme" y="24" align="center" visible="${classroot.isTheme}" />
+        <view name="themeBtn" resource="theme" y="24" align="center" visible="${classroot.isTheme}" />
  
     </class>
 
