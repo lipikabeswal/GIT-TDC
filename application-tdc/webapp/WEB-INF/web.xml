@@ -136,16 +136,6 @@
 		<url-pattern>/servlet/SoundRecorder.do</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<description>SoundRecorder</description>
-		<display-name>SoundRecorder</display-name>
-		<servlet-name>FSoundRecorder</servlet-name>
-		<servlet-class>com.ctb.tdc.web.servlet.fixed.SoundRecorder</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>FSoundRecorder</servlet-name>
-		<url-pattern>/servlet/fixed/SoundRecorder.do</url-pattern>
-	</servlet-mapping>
+
    	
 </web-app>
