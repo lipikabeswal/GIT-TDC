@@ -2021,7 +2021,7 @@ Debug.write("#############returnVal: "+returnVal);
             var fnode = eltlist.childNodes[ offset ];
             	if(typeof fnode != "undefined") {
 				var isAnswered 		  =	dpstudentdata.xpathQuery("runtime/item_model[@eid='"+fnode.getAttr('id')+"']/@answered") == '1';
-				var revisitAllowed =	dpstudentdata.xpathQuery("runtime/item_model[@eid='"+fnode.getAttr('id')+"']/@allow_revisit") == 'true';
+				var revisitAllowed =	dpstudentdata.xpathQuery("runtime/item_model[@eid='"+fnode.getAttr('id')+"']/@allow_revisit") != 'false';
 				var isVisited = dpstudentdata.xpathQuery("runtime/item_model[@eid='"+fnode.getAttr('id')+"']/@is_visited") == 'true';
 			//Debug.write("^^^^^^^^^^^^runtime/item_model[@eid='"+fnode.getAttr('id')+"']/@answered");
 			//Debug.write("^^^^^^^^^^^^isAnswered : "+isAnswered);
