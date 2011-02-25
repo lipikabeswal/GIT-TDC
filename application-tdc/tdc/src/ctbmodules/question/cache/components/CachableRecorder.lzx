@@ -368,14 +368,14 @@
 	    this.mc = this.getMCRef();
 	 	mc.attachAudio(myMic);
         var level = myMic.activityLevel;
-   	  	Debug.write("activity level : "+ level + Microphone.names);
+//   	  	Debug.write("activity level : "+ level + Microphone.names);
         
         var activityCalibrator = [];
         
         activityCalibrator.push(level);
         
         	myMic.onStatus = function(infoObject){
-        	Debug.warn(infoObject.code);
+//        	Debug.warn(infoObject.code);
         	
         	}
 		
@@ -384,12 +384,12 @@
 		myMic.onActivity = function(active){
 			_root.Debug.write("if activity" + active);
 		
-		if(active){
+/*		if(active){
 			Debug.write("if activity" + active);
 		}else{
 		Debug.write("else activity" + active);
 		}
-		
+*/		
 		}
 	//  Debug.write("level :" + myMic.activityLevel);
             if (level < 0) {
@@ -399,7 +399,7 @@
                 this.setAttribute("level", level);
             }
 
-		LzTimer.resetTimer(leveldel, 1000);
+		LzTimer.resetTimer(leveldel, 100);
           
        ]]> </method>
 
