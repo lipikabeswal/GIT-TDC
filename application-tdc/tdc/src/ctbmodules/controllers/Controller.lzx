@@ -2584,7 +2584,7 @@ Debug.write("#############returnVal: "+returnVal);
 					result[4] = currentDur(); //current dur
 					result[5] = getCurrentInteractionType();  // type
 					if(blockFileName && isAudioItem()) {
-						result[6] = null; //current option
+						result[6] = ""; //current option
 					}
 					else if(isThemeItem()){
 					
