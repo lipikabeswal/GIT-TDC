@@ -413,12 +413,14 @@
        	<frame src="components/recorder/button_submit_clicked.jpeg"/>
        	<frame src="components/recorder/button_submit_disable.gif" />
 	</resource>
+	
 	<resource name="volumeter" src="components/recorder/volumemeter.jpg"/>
-	<resource name="pointer">
+	
+<!--<resource name="pointer">
 		<frame src ="iknow_navbar/cursor_default.gif"/>
-	</resource>
+	</resource> -->
 		
-			<resource name="heading_microphone">
+	<resource name="heading_microphone">
        	<frame src="components/recorder/microphone_red.gif"/>
 	</resource>
 	
@@ -429,5 +431,5 @@
 	<resource name="record_bullet_green">
        	<frame src="components/recorder/Bullet-green.png"/>
 	</resource>
-	<!-- ****************** End Recorder Resources (Added by Priyanka)************************************************* -->
+	<!-- ****************** End Recorder Resources ************************************************* -->
 </library>
