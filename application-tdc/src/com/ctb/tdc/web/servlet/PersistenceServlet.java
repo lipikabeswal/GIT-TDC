@@ -151,6 +151,7 @@ public class PersistenceServlet extends HttpServlet {
 		}
 		else if (method != null && method.equals(ServletUtils.LOGIN_METHOD))
 			result = login(xml);
+		
 		else if (method != null && method.equals(ServletUtils.SAVE_METHOD))
 			result = save(response, xml, request);        
 		else if (method != null && method.equals(ServletUtils.FEEDBACK_METHOD))
@@ -168,6 +169,7 @@ public class PersistenceServlet extends HttpServlet {
 			String mseq = ServletUtils.parseMseq(xml);
 			ServletUtils.writeResponse(response, result, mseq);
 		}
+		
 	}
 
 	/**
@@ -209,44 +211,55 @@ public class PersistenceServlet extends HttpServlet {
 			//System.out.println("loginresponse xml "+ result);
 			String userHome = System.getProperty("user.home");
 			//Performing the FlashCookie Copy operation to avoid the flash security pop-up
-			File flashCookieSource = new File(getServletContext().getRealPath("/")+ "//settings.sol");
-			InputStream in = null;
-			try {
-				in = new FileInputStream(flashCookieSource);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			File flashCookieTarget = null;
-			if(osName.indexOf("win") >= 0){
-				flashCookieTarget = new File(userHome + windowsPath + "//settings.sol");
-			}else if(osName.indexOf("mac") >= 0) {
-				flashCookieTarget = new File(userHome + macPath + "//settings.sol");
-			}else{
-				flashCookieTarget = new File(userHome + unixPath + "//settings.sol");	
-			}
-			
-			OutputStream outFile = null;
-
-			try {
-				outFile = new FileOutputStream(flashCookieTarget);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try{
-				byte[] buf = new byte[1024];
-				int len;
-				while ((len = in.read(buf)) > 0){
-					outFile.write(buf, 0, len);
+				
+				File flashCookieSource = new File(getServletContext().getRealPath("/")+ "//settings.sol");
+				//System.out.println("flash Cookie Source exists" + flashCookieSource.exists());
+				InputStream in = null;
+				try {
+					in = new FileInputStream(flashCookieSource);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					System.out.println(e);
+					e.printStackTrace();
 				}
-				in.close();
-				outFile.close();
-			}
-			catch(Exception e){
-				e.printStackTrace();
-			}
+				
+				File flashCookieTarget = null;
+				if(osName.indexOf("win") >= 0){
+					System.out.println("Inside If");
+					boolean successWindows = new File(userHome+windowsPath).mkdirs();
+					flashCookieTarget = new File(userHome + windowsPath + "//settings.sol");
+				}else if(osName.indexOf("mac") >= 0) {
+					boolean successMac = new File(userHome+macPath).mkdirs();
+					flashCookieTarget = new File(userHome + macPath + "//settings.sol");
+					if(!flashCookieTarget.exists()) flashCookieTarget.createNewFile();
+				}else{
+					boolean successUnix = new File(userHome+unixPath).mkdirs();
+					flashCookieTarget = new File(userHome + unixPath + "//settings.sol");	
+					if(!flashCookieTarget.exists()) flashCookieTarget.createNewFile();
+				}
+				
+				OutputStream outFile = null;
+
+				try {
+					outFile = new FileOutputStream(flashCookieTarget);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try{
+					byte[] buf = new byte[1024];
+					int len;
+					while ((len = in.read(buf)) > 0){
+						outFile.write(buf, 0, len);
+					}
+					in.close();
+					outFile.close();
+				//	System.out.println("FileCopied");
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+				System.out.println("*******user Home********" + userHome);
 		
 			if (ServletUtils.isLoginStatusOK(result)) {
 				// process encryptionKey to memory cache

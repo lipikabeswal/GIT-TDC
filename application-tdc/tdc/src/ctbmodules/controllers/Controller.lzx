@@ -1022,16 +1022,14 @@
             var awd = dpstudentdata.xpathQuery(
                 "runtime/item_model[@answered='1']"
             );
-
-            if ( awd && awd instanceof Array ) {
+		    if ( awd && awd instanceof Array ) {
                 var numanswered = awd.length;
             } else if ( awd && awd instanceof LzDataElement ) {
                 var numanswered = 1;
             } else {
                 var numanswered = 0;
             }
-
-            return numanswered;
+       		return numanswered;
         ]]></method>
 
 		<method name="totalMarked"><![CDATA[    
@@ -2021,25 +2019,24 @@ Debug.write("#############returnVal: "+returnVal);
             var fnode = eltlist.childNodes[ offset ];
             	if(typeof fnode != "undefined") {
 				var isAnswered 		  =	dpstudentdata.xpathQuery("runtime/item_model[@eid='"+fnode.getAttr('id')+"']/@answered") == '1';
+				//START
 				var revisitAllowed =	dpstudentdata.xpathQuery("runtime/item_model[@eid='"+fnode.getAttr('id')+"']/@allow_revisit") != 'false';
+				//END
 				var isVisited = dpstudentdata.xpathQuery("runtime/item_model[@eid='"+fnode.getAttr('id')+"']/@is_visited") == 'true';
-			//Debug.write("^^^^^^^^^^^^runtime/item_model[@eid='"+fnode.getAttr('id')+"']/@answered");
-			//Debug.write("^^^^^^^^^^^^isAnswered : "+isAnswered);
-			//Debug.write("^^^^^^^^^^^^revisitAllowed : "+revisitAllowed);
-	
-				if(isVisited && !revisitAllowed) {
-					
+			//START
+		if(revisitAllowed != null){
+				if(!revisitAllowed){
+			  		if(isVisited || isAnswered){					
 						if(currItemOffset() > offset) {
-	Debug.write("^^^^^^^^^^^1" + currItemOffset() + "::" +  offset);
 							return getItemFromOffset(offset - 1);
 						}
 						else {
-	Debug.write("^^^^^^^^^^^2");
 							return getItemFromOffset(offset + 1);
 						}
-					
-				}	
-
+					}
+				}
+			}
+	//END
 			//Debug.write("fnode : "+fnode);
 	            return fnode;
 			}
