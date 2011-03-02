@@ -1020,16 +1020,24 @@
 
 		<method name="totalAnswered"><![CDATA[
             var awd = dpstudentdata.xpathQuery(
-                "runtime/item_model[@answered='1']"
+                "runtime/item_model[@answered = '1']"
             );
-		    if ( awd && awd instanceof Array ) {
+            
+            //For removing NI Item count 
+            var ni_count = 0;
+			for(var i=0; i< awd.length ; i++){
+			var ts =  dpsubtest.xpathQuery("ob_assessment/ob_element_list/f[@id='" + awd[i].getAttr('eid') + "']/@type");
+			if(ts == THEME_TYPE) ni_count++;
+			}
+            if ( awd && awd instanceof Array ) {
                 var numanswered = awd.length;
             } else if ( awd && awd instanceof LzDataElement ) {
                 var numanswered = 1;
             } else {
                 var numanswered = 0;
             }
-       		return numanswered;
+            numanswered = numanswered - ni_count;
+        	return numanswered;
         ]]></method>
 
 		<method name="totalMarked"><![CDATA[    
