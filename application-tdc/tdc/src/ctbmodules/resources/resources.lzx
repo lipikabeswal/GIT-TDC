@@ -387,7 +387,8 @@
   	<resource name="TN_refcard_title" src="manipulatives/refcard/TN_refcard_title.swf"/>
  	<resource name="TN_refcard_contents" src="manipulatives/refcard/TN_refcard_contents.swf"/>
 
-    <resource name="theme" src="iknow_navbar/themePage.swf" /> 
+    <resource name="theme" src="iknow_navbar/themePage.swf" />
+    
     
     <!-- ****************** Start Recorder Resources ************************************************* -->
     <resource name="button_record">
@@ -414,12 +415,14 @@
        	<frame src="components/recorder/button_submit_disable.gif" />
 	</resource>
 	
-	<resource name="volumeter" src="components/recorder/volumemeter.jpg"/>
+	<resource name="volume_meter">
+       	<frame src="components/recorder/seo-graph.png"/>
+	</resource>
 	
-<!--<resource name="pointer">
-		<frame src ="iknow_navbar/cursor_default.gif"/>
-	</resource> -->
-		
+	<resource name="volume_meter_flip">
+       	<frame src="components/recorder/seo-graph_flip.png"/>
+	</resource>
+	
 	<resource name="heading_microphone">
        	<frame src="components/recorder/microphone_red.gif"/>
 	</resource>
@@ -431,5 +434,10 @@
 	<resource name="record_bullet_green">
        	<frame src="components/recorder/Bullet-green.png"/>
 	</resource>
+	
+	<resource name="mic_not_connected">
+       	<frame src="components/recorder/Mute.png"/>
+	</resource>
+	
 	<!-- ****************** End Recorder Resources ************************************************* -->
 </library>
