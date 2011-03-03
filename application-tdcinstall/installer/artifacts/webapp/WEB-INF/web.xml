@@ -88,5 +88,18 @@
     <url-pattern>/servlet/LoadTestServlet.do</url-pattern>
   </servlet-mapping>
 
+	<servlet>
+		<description>SoundRecorder</description>
+		<display-name>SoundRecorder</display-name>
+		<servlet-name>SoundRecorder</servlet-name>
+		<servlet-class>com.ctb.tdc.web.servlet.SoundRecorder</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>SoundRecorder</servlet-name>
+		<url-pattern>/servlet/SoundRecorder.do</url-pattern>
+	</servlet-mapping>
 
+
+   	
 </web-app>
