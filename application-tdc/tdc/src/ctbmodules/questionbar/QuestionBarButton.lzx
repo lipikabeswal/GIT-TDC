@@ -80,9 +80,7 @@
 				if(this.isvisited || this.isanswered){
 						this.btn.setAttribute('clickable',true);
 						this.btn.setAttribute('showhandcursor',false);
-						//not needed
-						//this.btn.setAttribute('cursor',pointer);
-						this.btnText.setAttribute('fgcolor',0xFFFFFF);
+							this.btnText.setAttribute('fgcolor',0xDDEEEE);
 					}else{
 						this.btn.setAttribute('clickable',false);
 						this.btnText.setAttribute('fgcolor',0x000000);
