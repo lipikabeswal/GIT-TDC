@@ -30,6 +30,10 @@
             return onFeedbackScreen;
         </method>
         
+        <method name="isOnPauseScreen"><![CDATA[
+        	return (contents.ps.isinited && contents.ps.visible);
+        ]]></method>
+        
         <method name="clicked">
             setAttribute( 'allowclick', false );
         </method>
