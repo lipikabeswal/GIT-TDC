@@ -61,13 +61,11 @@
 		</method>
 
 		<handler name="oninit">
-			Debug.warn("Recorder Widget handler Init called");
 			this.timertext.setText(this.totalTime);
 		</handler>
 
 		<method event="ondata" args="data"><![CDATA[
 			this.reset();
-			Debug.warn("recorder widget data...."+data);
 			if(data.getAttr('x')) {
 				this.setAttribute('x', Number(data.getAttr('x')));
 			}
@@ -228,7 +226,7 @@
 		<view name="whitewrapperOverLay" bgcolor="white" x="2"
 			clickable="false" showhandcursor="false" y="20"
 			height="${parent.height - 25}" width="${parent.width - 5}"
-			onclick="return false;">
+			onclick="return false;" visible="false">
 			<simplelayout axis="x" inset="10" spacing="10" />
 			<view name="micNotConnected" valign="middle"
 				resource="mic_not_connected" />
@@ -268,13 +266,9 @@
 			sendRequest(methodname);
 			this.green.setVisible(true);
 			this.recordStatus.setText("AUDIO CAPTURED");
-			//this.recordButton.setAttribute("enabled", true);
-			//this.resetButton.setAttribute("enabled",true);
-
 			this.recordStarted = false;
 			this.stopCountDownTimer();
 			this.stopButton.setAttribute("enabled", false);
-			//this.submitButton.setAttribute("enabled", true);	
 		}
 		</method>
 
@@ -306,7 +300,6 @@
 			this.totalTime -= 1; 	
 			fillBarWithTime(increment);	
 			this.resetButton.setAttribute("enabled", false);
-			//Debug.write("countDownTimer", this.totalTime);	
 			if(this.totalTime <= 0) {
 				this.timertext.setText(this.totalTime);
 				stopblinker('stop');
@@ -320,13 +313,15 @@
 			}
 			this.timertext.setText(this.totalTime);
 			LzTimer.resetTimer(countDownDel, 1000);
+			if(gScreens.isOnPauseScreen() && !gItemInterface.visible){
+				this.stopblinker('stop');
+				LzTimer.removeTimer(countDownDel);
+		}
 		]]>
 		</method>
 
 		<method name="stopCountDownTimer">
-			//Debug.write("stopCountDownTimer");	
 			LzTimer.removeTimer(countDownDel);
-			//this.leveldel.unregisterAll();
 		</method>
 
 		<method name="fillBarWithTime" args="timeInSecs">
@@ -341,8 +336,6 @@
 			this.submitButton.setAttribute("enabled", false);
 			gController.setAttribute('blockFileName', false);
 			gController.save();
-			//gController.setAttribute('blockFileName', true);
-			//gController.resetAudioFields();
 		</method>
 
 		<method name="sendRequest" args="method">
@@ -358,14 +351,11 @@
 		<method name="handleResponseData" args="d">
 			var result = d.childNodes[0].data;
 			if(result == 'RECORDING_START'){
-				Debug.write('RECORDING_START called...');
 				startCountDownTimer();
 				blinker();
 				this.stopButton.setAttribute("enabled", true);
 			}
 			else if (result == 'RECORDING_STOP') {
-				Debug.write('RECORDING_STOP called...');
-
 				if(this.totalTime == 0) {
 					this.recordButton.setAttribute("enabled", false);
 					this.resetButton.setAttribute("enabled", false);
@@ -374,7 +364,7 @@
 					this.countLevel = 0;
 					return;
 				}
-				this.recordButton.setAttribute("enabled", true);
+				this.recordButton.setAttribute("enabled", false);
 				this.resetButton.setAttribute("enabled",true);
 				this.submitButton.setAttribute("enabled",true);
 			}
