@@ -307,14 +307,9 @@
 			fillBarWithTime(increment);	
 			this.resetButton.setAttribute("enabled", false);
 			//Debug.write("countDownTimer", this.totalTime);	
-			if(this.totalTime == 0) {
+			if(this.totalTime <= 0) {
 				this.timertext.setText(this.totalTime);
 				stopblinker('stop');
-				this.recordButton.setAttribute("enabled", false);
-				this.resetButton.setAttribute("enabled", false);
-				this.stopButton.setAttribute("enabled", false);
-				this.submitButton.setAttribute("enabled", true);
-				this.countLevel = 0;
 				return;
 			}
 		
@@ -370,6 +365,15 @@
 			}
 			else if (result == 'RECORDING_STOP') {
 				Debug.write('RECORDING_STOP called...');
+
+				if(this.totalTime == 0) {
+					this.recordButton.setAttribute("enabled", false);
+					this.resetButton.setAttribute("enabled", false);
+					this.stopButton.setAttribute("enabled", false);
+					this.submitButton.setAttribute("enabled", true);
+					this.countLevel = 0;
+					return;
+				}
 				this.recordButton.setAttribute("enabled", true);
 				this.resetButton.setAttribute("enabled",true);
 				this.submitButton.setAttribute("enabled",true);
