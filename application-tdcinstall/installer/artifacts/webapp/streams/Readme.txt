@@ -1,0 +1,1 @@
+Folder to temporarily contain generated speex audio files for audio items.
