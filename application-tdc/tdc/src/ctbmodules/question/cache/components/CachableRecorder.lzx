@@ -144,7 +144,7 @@
 							stretches="both" width="18" height="18" valign="middle">
 
 						</view>
-						<view name="green" opacity=".6" visible="false"
+						<view name="green" opacity=".7" visible="false"
 							x="${parent.x + 120}" y="11" resource="record_bullet_green"
 							stretches="both" width="${parent.red.width}"
 							height="${parent.red.height}" valign="middle">
@@ -313,10 +313,23 @@
 			}
 			this.timertext.setText(this.totalTime);
 			LzTimer.resetTimer(countDownDel, 1000);
+			//Changes to stop the recording if the student clicks the pause screen when
+			//recording is going on.
 			if(gScreens.isOnPauseScreen() && !gItemInterface.visible){
+				if(this.recordStarted){
 				this.stopblinker('stop');
 				LzTimer.removeTimer(countDownDel);
+				}
 		}
+			//Changes to stop the recording if the student clicks the stop button or finish button screen when
+			//recording is going on.
+			if(gScreens.isOnFinishScreen() && !gItemInterface.visible){
+				if(this.recordStarted){
+				this.stopblinker('stop');
+				LzTimer.removeTimer(countDownDel);
+				}
+		}
+		
 		]]>
 		</method>
 
