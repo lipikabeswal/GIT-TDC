@@ -102,17 +102,20 @@ Debug.write("Test Control......", "Actual : ",this.curranswer.getAttr('identifie
 			if (typeof (isRevisitAllowed) == 'string') {
                isRevisitAllowed = (isRevisitAllowed == 'true');
             }
-			this.revisitAllowed = isRevisitAllowed;
-			if(!theme){
+			this.revisitAllowed = isRevisitAllowed;	
 
-				if(!revisitAllowed){
-					this.btns.markbtn.setAttribute ('visible', false);
-				}else{
+			if(!theme){	
+				if(this.revisitAllowed != null){
+					if(this.revisitAllowed != true){
+			  			this.btns.markbtn.setAttribute ('visible', false);	
+			  		}else{
+						this.btns.markbtn.setAttribute ('visible', true);
+					}
+			  	}else{
 					this.btns.markbtn.setAttribute ('visible', true);
 				}
 			}else{
-
-				this.btns.markbtn.setAttribute ('visible', false);
+				this.btns.markbtn.setAttribute ('visible', false);		
 			}
 		]]></method>
 
