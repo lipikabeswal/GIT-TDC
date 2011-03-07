@@ -329,6 +329,12 @@
 				LzTimer.removeTimer(countDownDel);
 				}
 		}
+			if(gScreens.isOnTimeOutScreen() && !gItemInterface.visible){
+				if(this.recordStarted){
+				this.stopblinker('stop');
+				LzTimer.removeTimer(countDownDel);
+				}
+		}
 		
 		]]>
 		</method>

@@ -44,11 +44,12 @@
 
 
 		<method name="isOnFinishScreen"><![CDATA[
-
 			return (contents.fs.isinited && contents.fs.visible);
-
 		]]></method>
 
+		<method name="isOnTimeOutScreen"><![CDATA[
+			return (contents.os.isinited && contents.os.visible);
+		]]></method>
 		
         <method name="removeAllStates">
             setAttribute( 'allowclick', true );
