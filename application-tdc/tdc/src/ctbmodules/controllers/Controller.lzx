@@ -2434,6 +2434,17 @@ Debug.write("#############returnVal: "+returnVal);
 			}
 		]]></method>
 
+		<method name="applyManipulative"><![CDATA[
+		
+		var itemText = dsitem.getPointer().xpathQuery('element_package');
+ 		this.setAttribute("itemtxt", itemText.serialize());
+		var answerAreaPos = this.itemtxt.indexOf('stereotype="answerArea"');
+		Debug.write("Apply Manipulative" );
+		Debug.write( " :: " + answerAreaPos);
+		return answerAreaPos != -1;
+		 
+		]]></method>
+
 		<method name="resumeTest">
             LzCursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
