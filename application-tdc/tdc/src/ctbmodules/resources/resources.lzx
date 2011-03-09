@@ -388,6 +388,7 @@
  	<resource name="TN_refcard_contents" src="manipulatives/refcard/TN_refcard_contents.swf"/>
 
     <resource name="theme" src="iknow_navbar/themePage.swf" />
+     <resource name="theme_disable" src="iknow_navbar/themePage_disable.swf" />
     
     
     <!-- ****************** Start Recorder Resources ************************************************* -->

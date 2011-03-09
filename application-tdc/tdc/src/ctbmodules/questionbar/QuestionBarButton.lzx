@@ -26,6 +26,7 @@
         <attribute name="isactive" 
                    value="${this.questionbar.selitemeid==this.itemeid}"/>
         
+        <attribute name="themeResource" value="theme"/>
         <attribute name="questionbar" value="$once{classroot}"/>
 	
 		<method name="setIsVisited" args="isvisited">
@@ -65,35 +66,36 @@
 
         <method event="onisactive"><![CDATA[
         //Debug.write("onisactive.....");
-        
+        this.themeResource = 'theme';
             if (this.isactive) {
                 //make sure we're visible on the navigation bar
                 this.questionbar.showBtn (this);
                 var here = this.questionbar.qbtns.scrollcontainer.youarehere;
                 here.setAttribute ('x', this.getAttributeRelative ('x', here) - 29); //the text was off in its container - 29);
                 gController.movedYouAreHere();
-				
             }
 			else{
 			 if(this.allow_revisit != null){
 			  if(this.allow_revisit != 'true'){
+
 				if(this.isvisited || this.isanswered){
 						this.btn.setAttribute('clickable',true);
 						this.btn.setAttribute('showhandcursor',false);
 							this.btnText.setAttribute('fgcolor',0xDDEEEE);
+						this.themeResource = 'theme_disable';
 					}else{
-						this.btn.setAttribute('clickable',false);
 						this.btnText.setAttribute('fgcolor',0x000000);
+						this.btn.setAttribute('clickable',false);
 						this.btn.setAttribute('showhandcursor',true);
-
 					}
 				}else{
 					this.btn.setAttribute('clickable',false);
-					this.btnText.setAttribute('fgcolor',0x000000);
  					this.btn.setAttribute('showhandcursor',true);
+					this.btnText.setAttribute('fgcolor',0x000000);
 				}
 			}
 		}
+
             this._changeStatus (false);
         ]]></method>
 
@@ -152,10 +154,8 @@
         <text name="btnText" text="${classroot.itemnum}" resize="true" 
               font="Arial" fontsize="11" fontstyle="bold"
               y="22" align="center" visible="${!classroot.isTheme}"/>
-        <view name="themeBtn" resource="theme" y="24" align="center" visible="${classroot.isTheme}" />
+        <view name="themeBtn" resource="${classroot.themeResource}" y="24" align="center" visible="${classroot.isTheme}" />
  
     </class>
-
-
 
 </library>
