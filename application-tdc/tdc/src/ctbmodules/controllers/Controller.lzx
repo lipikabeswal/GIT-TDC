@@ -447,6 +447,8 @@
 
 		<attribute name="recorderField" value="$once{new Array()}" />
 		<attribute name="blockFileName" type="boolean" value="true" />
+
+		<attribute name="allowRevisit" type="boolean" value="true" />
 		
 		<!--
 			============================================================
@@ -1837,6 +1839,11 @@ Debug.write("#############returnVal: "+returnVal);
             var dnrtitemnew = dpstudentdata.xpathQuery(
                 "runtime/item_model [@eid = '"+newitem+"']"
             );
+		Debug.write("dnrtitemnew..."+dnrtitemnew);
+			var allowrevisit = dnrtitemnew.getAttr("allow_revisit");
+		Debug.write("allowrevisit..."+allowrevisit);
+			this.setAttribute("allowRevisit", (allowrevisit != "false"));
+		Debug.write("Controller variable allowRevisit..."+allowRevisit);
 
             var dnnewitem;
 
@@ -2078,8 +2085,8 @@ Debug.write("#############returnVal: "+returnVal);
         </method>
 
 		<!-- question state -->
-		<method name="toggleMark">
-        	if(!this.isThemePage()){
+		<method name="toggleMark"><![CDATA[
+        	if(!this.isThemePage() && this.allowRevisit){
 	        	freezeUI();
 	        	var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
 	        	var isMarked = dncurritem.getAttr( 'marked' );
@@ -2091,7 +2098,7 @@ Debug.write("#############returnVal: "+returnVal);
 	            }
 	            unlockUI();
 	        }
-        </method>
+        ]]></method>
 
 		<method name="isThemePage">
          	return dpstudentdata.xpathQuery('current_item/item_model/@theme');
