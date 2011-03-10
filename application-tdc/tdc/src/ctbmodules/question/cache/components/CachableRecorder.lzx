@@ -104,9 +104,11 @@
 		</method>
 
 		<method name="doReturnToCache"><![CDATA[
-		   this.stopblinker('stop');
-           this.getMCRef().attachAudio(false);
-           LzTimer.removeTimer(leveldel);
+		Debug.write("doReturnToCache...");
+			this.stopblinker('stop');
+			this.getMCRef().attachAudio(false);
+			audioDset.abort();
+			LzTimer.removeTimer(leveldel);
        ]]></method>
 
 		<view name="main" align="center" valign="middle"
@@ -370,11 +372,13 @@
 		<method name="handleResponseData" args="d">
 			var result = d.childNodes[0].data;
 			if(result == 'RECORDING_START'){
+			Debug.write("RECORDING_START..");
 				startCountDownTimer();
 				blinker();
 				this.stopButton.setAttribute("enabled", true);
 			}
 			else if (result == 'RECORDING_STOP') {
+			Debug.write("RECORDING_STOP..");
 				if(this.totalTime == 0) {
 					this.recordButton.setAttribute("enabled", false);
 					this.resetButton.setAttribute("enabled", false);
