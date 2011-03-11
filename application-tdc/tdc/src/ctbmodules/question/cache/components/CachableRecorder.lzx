@@ -95,7 +95,7 @@
 			gController.addAudioItem({"widget_id" : this.widget_id, "answered" : answered});
 			gController.setAttribute('blockFileName' , true);
 			doneLoading();
-			
+			gController.recorderComponent(this);
 			if(this.isinited && this.visible) {
 				Debug.write("ondata....");
 				this.updateLevel();
@@ -104,7 +104,7 @@
 		</method>
 
 		<method name="doReturnToCache"><![CDATA[
-		Debug.write("doReturnToCache...");
+			Debug.write("doreturn to cache");
 			this.stopblinker('stop');
 			this.getMCRef().attachAudio(false);
 			audioDset.abort();
@@ -317,26 +317,7 @@
 			LzTimer.resetTimer(countDownDel, 1000);
 			//Changes to stop the recording if the student clicks the pause screen when
 			//recording is going on.
-			if(gScreens.isOnPauseScreen() && !gItemInterface.visible){
-				if(this.recordStarted){
-				this.stopblinker('stop');
-				LzTimer.removeTimer(countDownDel);
-				}
-		}
-			//Changes to stop the recording if the student clicks the stop button or finish button screen when
-			//recording is going on.
-			if(gScreens.isOnFinishScreen() && !gItemInterface.visible){
-				if(this.recordStarted){
-				this.stopblinker('stop');
-				LzTimer.removeTimer(countDownDel);
-				}
-		}
-			if(gScreens.isOnTimeOutScreen() && !gItemInterface.visible){
-				if(this.recordStarted){
-				this.stopblinker('stop');
-				LzTimer.removeTimer(countDownDel);
-				}
-		}
+		
 		
 		]]>
 		</method>

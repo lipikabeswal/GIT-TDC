@@ -449,6 +449,7 @@
 		<attribute name="blockFileName" type="boolean" value="true" />
 
 		<attribute name="allowRevisit" type="boolean" value="true" />
+		<attribute name="recorder" value="null"/>
 		
 		<!--
 			============================================================
@@ -1990,6 +1991,7 @@ Debug.write("#############returnVal: "+returnVal);
 
 		<method name="changeItem" args="fnode">
 			//To reset the Audio Fields Array So that file name will be passed in the save call
+			if(this.recorder != null) this.recorder.stopblinker('stop');
 			this.resetAudioFields();
 			gReadableText.stopReading();
 			freezeUI();
@@ -2086,6 +2088,7 @@ Debug.write("#############returnVal: "+returnVal);
 
 		<!-- question state -->
 		<method name="toggleMark"><![CDATA[
+		//For Defect 65880
         	if(!this.isThemePage() && this.allowRevisit){
 	        	freezeUI();
 	        	var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
@@ -2368,7 +2371,10 @@ Debug.write("#############returnVal: "+returnVal);
 			this.clearInvalidCrResponses();
 			this.resetCrs();
             LzCursor.unlock();            
+            //For defect 65881         
+            if(this.recorder != null) this.recorder.stopblinker('stop');
             gScreens.showPause(getStudentName());
+           
 		</method>
 
 		<method name="pausedContinue" args="pw">
@@ -2414,8 +2420,11 @@ Debug.write("#############returnVal: "+returnVal);
 			this.resetAudioFields();
             closeOpenManipulatives();
             LzCursor.unlock();            
+            //For defect 65881        
+            if(this.recorder != null) this.recorder.stopblinker('stop');
             gScreens.showFinish( totalQuestions() - totalAnswered(),
                                  totalMarked() );
+            
 		</method>
 
 		<method name="closeOpenManipulatives"><![CDATA[
@@ -2446,8 +2455,6 @@ Debug.write("#############returnVal: "+returnVal);
 		var itemText = dsitem.getPointer().xpathQuery('element_package');
  		this.setAttribute("itemtxt", itemText.serialize());
 		var answerAreaPos = this.itemtxt.indexOf('stereotype="answerArea"');
-		Debug.write("Apply Manipulative" );
-		Debug.write( " :: " + answerAreaPos);
 		return answerAreaPos != -1;
 		 
 		]]></method>
@@ -2472,7 +2479,10 @@ Debug.write("#############returnVal: "+returnVal);
 		<method name="stopTest">
             finishTest();
         </method>
-
+		<!--For defect 65881-->
+		<method name="recorderComponent" args="recObject">
+		this.recorder = recObject;
+		</method>
 		<method name="finishTestShortcut">
             if ( onLastItem() ) {
                 finishTest();
@@ -3051,8 +3061,10 @@ Debug.write("#############returnVal: "+returnVal);
 		<method name="goToTimeoutScreen">
             LzCursor.unlock();
             gReadableText.stopReading();
+            if(this.recorder != null) this.recorder.stopblinker('stop');
             gScreens.showOutOfTime( totalQuestions() - totalAnswered(),
                                     totalMarked() );
+                                    
 		</method>
 
 		<method name="updateTimeLeft"><![CDATA[
