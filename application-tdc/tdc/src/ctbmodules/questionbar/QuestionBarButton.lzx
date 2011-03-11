@@ -81,7 +81,8 @@
 				if(this.isvisited || this.isanswered){
 						this.btn.setAttribute('clickable',true);
 						this.btn.setAttribute('showhandcursor',false);
-							this.btnText.setAttribute('fgcolor',0xDDEEEE);
+						//For Defect 65886
+						this.btnText.setAttribute('fgcolor',gray);
 						this.themeResource = 'theme_disable';
 					}else{
 						this.btnText.setAttribute('fgcolor',0x000000);
