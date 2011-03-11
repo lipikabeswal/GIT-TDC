@@ -108,7 +108,7 @@
 					break;
 					
 				case "560":
-					result = 	"The test delivery system is very busy.Please try to log in again at a later time."
+					result = 	"The test delivery system is very busy. Please try to log in again at a later time."
 					break;
 			}
 			return result;
