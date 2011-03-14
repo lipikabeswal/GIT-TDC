@@ -27,6 +27,7 @@
              method
              ================================= -->
         <method name="init">
+        Debug.write("cachable image init called...");
             super.init();
         </method>
 
@@ -65,7 +66,7 @@
 			var trimmedFileName = trimFileName(fileName);
 			var xml = gXmlHelper.getGetImageXml(fileName);
 			var result = servletBase + xml;
-//Debug.write("got imageUrl: " + result);
+Debug.write("got imageUrl: " + result);
 			return result;
 		]]></method>
 		
@@ -84,6 +85,7 @@
 		]]></method>
         
 		<method event="ondata" args="data"><![CDATA[
+Debug.write("cachable image ondata");
             this.setAttribute ('retrycount', 0);
             this.setAttribute ('timeoutretrycount', 0);
 
@@ -177,6 +179,7 @@
 		</method>
 		
         <method event="onload" reference="this.imageview">
+Debug.write("cachable image onload....", this.imageview);        
         	updateImageLayout();
         </method>
 
@@ -192,7 +195,7 @@
         </method>
 
 		<method name="updateImageLayout"><![CDATA[
-
+Debug.write("cachable image updateImageLayout....");
             if (this['autoenlarge'] == "yes" && gController.hasFontAccommodation) {
         
                 var offset = 0;
@@ -285,29 +288,63 @@
 		]]></method>
 
         <view name="imageview" stretches="both" clickable="${classroot.readable}">
+        	        	
+        	<handler name="onframe" args="f"><![CDATA[
+        	//var totalNoOfFrames  = this.imageview.getAttribute("totalframes");
+        	
+			//Debug.write("onframe" + f);
+		
+			if(f == 10){
+        		//gController.freezeUI();
+			}
+        	]]></handler>
+        	
+        	<handler name="onlastframe">
+			Debug.write("onlast frame");
+	        	//gController.unlockUI();
+        	</handler>
+
+        	<handler name ="onstop">
+    	    	Debug.write("onstop");
+        	</handler>
+			
+        	<handler name ="onplay">
+    	    	Debug.write("onplay");
+        	</handler>
+
+        	<handler name ="onstart">
+    	    	Debug.write("onstart");
+        	</handler>
+
         	<method event="onclick">
         		classroot.read();
         	</method>
+
             <attribute name="reloadDel" value="$once{new LzDelegate(this, '_reload')}" />
             <!--  This is to fix a weird bug that Laszlo couldnt explain - sometimes the request would return a 
                   resource of height 0 and width 0.  It wouldnt error - it would return successfully
                   without the image ..  This is to retry the request if that happens. -->
             <method event="onload" args="d"><![CDATA[
+Debug.write("imageview onload : ",d);
             	if(!gCommunicator.checkShowError(d) && (this.resourceheight == 0 || 
                                                         this.resourcewidth == 0)) {
-            
+Debug.write("gCommunicator.checkShowError if");            
                     classroot.setAttribute ('retrycount', classroot.retrycount + 1);
                     if (classroot.retrycount < 5) {
                         LzIdle.callOnIdle(reloadDel);
+Debug.write("classroot.retrycount : ", classroot.retrycount);
                     } else {
+Debug.write("else of classroot.retrycount");
                         gCommunicator.checkShowError(gXmlHelper.getContentErrorXml());
                     }
                 } else {
+Debug.write("doneLoading called...");
 					classroot.doneLoading();
                 }
             ]]></method>
             
             <method name="_reload">
+Debug.write("_reload,...",this.resource);
                 this.unload();
                 this.setSource (this.resource);
             </method>
@@ -315,9 +352,11 @@
             <method event="onerror">
                 gCommunicator.checkShowError(gXmlHelper.getContentErrorXml());
             </method>
+
             <method event="ontimeout">
             <![CDATA[
-                //Debug.warn( resource + ' ontimeout ', classroot.timeoutretrycount );
+Debug.write("ontimeout....",this.resource);
+                Debug.warn( resource + ' ontimeout ', classroot.timeoutretrycount );
                 if ( classroot.timeoutretrycount < 1 )
                 {
                     classroot.setAttribute('timeoutretrycount', classroot.timeoutretrycount + 1);

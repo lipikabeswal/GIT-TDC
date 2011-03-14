@@ -101,6 +101,13 @@
 
         <method name="returnComponent" args="toReturn">
 //Debug.write ('CACHE: return ', toReturn.comptype, toReturn.parent);
+Debug.showInternalProperties=true;
+			if (toReturn.comptype == gCompTypes.WIDGET_IMAGE) {
+				Debug.write(toReturn.imageview.getMCRef());
+				toReturn.imageview.resource = null;
+				toReturn.imageview.getMCRef().unloadMovie();
+			
+			}
 
             var arraytouse = this._findArray (toReturn.comptype);
 			
