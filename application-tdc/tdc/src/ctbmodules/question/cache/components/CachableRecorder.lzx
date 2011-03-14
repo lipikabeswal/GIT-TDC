@@ -97,7 +97,11 @@
 			doneLoading();
 			gController.recorderComponent(this);
 			if(this.isinited && this.visible) {
-				Debug.write("ondata....");
+				Debug.write("cachable recorder ondata....");
+				this.myMic = Microphone.get();
+				this.mc = this.getMCRef();
+				mc.attachAudio(myMic);
+				this.myMic.setUseEchoSuppression(true);
 				this.updateLevel();
 			}
 		]]>
@@ -378,6 +382,7 @@
 		<method event="oninit">
 			var base = LzBrowser.getInitArg( 'servletUrl' );
 			audioDset.setSrc(base + '/SoundRecorder.do');
+			this.setVolume(0);
 		</method>
 
 		<method name="setReferences">
@@ -416,10 +421,17 @@
 
 		<!-- Volumeter Prototype -->
 		<method name="updateLevel"><![CDATA[
-			var myMic = Microphone.get();
+
+/*			var myMic = Microphone.get();
 			var isMicAttached;
 			this.mc = this.getMCRef();
 			mc.attachAudio(myMic);
+			 
+			myMic.setUseEchoSuppression(true);
+		
+			Debug.write("myMic.setUseEchoSuppression", myMic.muted);
+*/			
+			var isMicAttached;
 			var level = myMic.activityLevel;
 	
 			if(activityArray.length < 6) { activityArray.push(level) };
