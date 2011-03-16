@@ -1990,15 +1990,18 @@ Debug.write("#############returnVal: "+returnVal);
         ]]></method>
 
 		<method name="changeItem" args="fnode">
+Debug.write("changeItem...");
+			if(this.recorder != null) {
+				this.blockFileName = false;
+				this.recorder.stopblinker('stop');
+			}
 			//To reset the Audio Fields Array So that file name will be passed in the save call
-			if(this.recorder != null) this.recorder.stopblinker('stop');
 			this.resetAudioFields();
 			gReadableText.stopReading();
 			freezeUI();
 			stopQuestion();
 			canvas.setAttribute('focusobj', null);
 			saveLoadItem( fnode );
-			
 		</method>
 
 		<method name="onFirstItem">
