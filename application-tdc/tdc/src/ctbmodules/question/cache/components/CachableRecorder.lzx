@@ -247,14 +247,14 @@
 		if(!this.recordStarted) {	
 			sendRequest(methodname);
 			this.increment = bar.width / this.defaultTotalTime;
-			Debug.write("bar.width " + bar.width+"  :: " + this.defaultTotalTime + " ::: "  + this.increment);
+			//Debug.write("bar.width " + bar.width+"  :: " + this.defaultTotalTime + " ::: "  + this.increment);
 			this.recordStarted = true;		
 			this.recordButton.setAttribute("enabled", false);
 			this.green.setVisible(false);
 			this.recordStatus.setText("RECORDING...");
 			//this.resetButton.setAttribute("enabled",true);
 			gController.updateAudioField(this.widget_id, true);
-			gController.save();
+			//gController.save();
 		}		
 		</method>
 
@@ -279,8 +279,11 @@
 		</method>
 
 		<method name="reset" args="methodname">
-			//Debug.write("reset called : ", methodname);
+			Debug.write("reset called : ", methodname);
 			//stopblinker(methodname);
+			if(methodname == 'reset') {
+				sendRequest(methodname);
+			}
 			this.totalTime = this.defaultTotalTime;
 			this.recordButton.setAttribute("enabled", true);
 			this.submitButton.setAttribute("enabled", false);
