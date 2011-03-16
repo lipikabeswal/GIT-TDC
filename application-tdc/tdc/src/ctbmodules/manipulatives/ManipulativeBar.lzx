@@ -12,6 +12,8 @@
 		<attribute name="theme" type="boolean" value="$path{'@theme'}" />
 		<attribute name="hasResponseArea" type="boolean" value="true" />
 
+		<simplelayout axis="x" spacing="15"></simplelayout>
+
 		<handler name="ondata" args="data">
 			//Debug.write("ondata 1...", theme);
 			if(theme) {
@@ -37,7 +39,6 @@
 		</view>
 	            
 		<view datapath="manipulatives/general" name="generals" valign="middle"
-		      x="${parent.globals.x + parent.globals.width + classroot.TYPE_SPACING}"
 		      visible="${!classroot.theme  || (classroot.theme &amp;&amp; classroot.hasResponseArea)}">
 			<simplelayout axis="x"/>
 			<ManipulativeButton resource="toolbar_oneeighth_inch_ruler_btn"
@@ -71,118 +72,121 @@
 	                            toolid="straight_edge"
 	                            tooltip="Straight Edge"/>
 		</view>
-		<basebutton name="stopreader" stretches="both" height="20" width="68"
-	                resource="toolbar_stopreader_btn"
-	                visible="${canvas.readable}" valign="middle"
-	                x="${classroot.hasResponseArea ? (parent.generals.width == 0 ? parent.generals.x : parent.generals.x + parent.generals.width + classroot.TYPE_SPACING) : parent.globals.x}">
-	
-			<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
-	
-			<method event="onmouseover">
-				LzTimer.addTimer (tooltipdel, 500);
-			</method>
-	                
-			<method event="onmouseout">
-				gTooltip.hideTooltip ();    
-				LzTimer.removeTimer (this.tooltipdel);
-			</method>
-	
-			<method event="onclick">
-				LzTimer.removeTimer (this.tooltipdel);
-				gReadableText.stopReading();
-			</method>
-	
-			<method name="showTooltip">
-				gTooltip.showTooltip ('Stop Reading');
-			</method>
-	
-		</basebutton>
 		
-		<!--Changes done for defect #65040 and #65041-->
-		<view name="volumeController" x="${parent.stopreader.x + parent.stopreader.width + 2}" height="20" valign="middle" 
-				visible="${parent.stopreader.visible}" bgcolor="0xdfdfdf">
-		<simplelayout axis="y"/>
-			
-			<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
-	
-			<method event="onmouseover">
-				LzTimer.addTimer (tooltipdel, 500);
-			</method>
-	                
-			<method event="onmouseout">
-				gTooltip.hideTooltip ();    
-				LzTimer.removeTimer (this.tooltipdel);
-			</method>
-	
-			<method event="onclick">
-				LzTimer.removeTimer (this.tooltipdel);
-				<!-- gReadableText.stopReading(); -->
-			</method>
-	
-			<method name="showTooltip">
-				gTooltip.showTooltip ('Volume Control');
-			</method>
-
-			<text name="volumeText" fontsize="9" resize="true" height="15" align="center" fontstyle="bold">Volume</text>
-	
-			<!-- The tool to control the TTS volume -->
-			<!--START Changes done for defect #65040 and #65041-->
-			<slider name="volumeControl" value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" 
-					thumbwidth="16" thumbheight="12" width="80">
-
-			<!-- When canvas's accessible attribute is true, the text "undefined" comes over the slider thumb, 
-				 workaround is done in this version(3.3.3). Probably, this was a bug which is fixed in newer versions. 
-				 This is cross checked with latest laszlo release(4.8)	--> 
-				<handler name="oninit"><![CDATA[
-					//hide the text object displaying "undefined" text
-					this.subviews[0].subviews[2].subviews[3].setVisible(false);
-
-					registerThumb(this.track.thumb);
-				]]></handler>
-				
-				<!-- since, the thumb is inside the slider class we have to register delegates from outside-->
-				<method name="registerThumb" args="b"> 
-
-			        if( typeof this.delOver == "undefined" )  {
-			            this.delOver = new LzDelegate( this, "mouseover" );
-						this.delOut = new LzDelegate( this, "mouseout" );
-						this.delClick = new LzDelegate( this, "click" );
-						this.tooltipdel = new LzDelegate( this, "showTooltip" );
-			        }      
-			
-			        this.delOver.register( b, "onmouseover" );
-					this.delOut.register( b, "onmouseout" );
-					this.delClick.register( b, "onclick" );
-			    </method> 
-
-				<method name="mouseover">
+		<view name="screenreader" valign="middle" height="100%">
+		<simplelayout axis="x" spacing="2"></simplelayout>
+			<basebutton name="stopreader" stretches="both" height="20" width="68"
+		                resource="toolbar_stopreader_btn"
+		                visible="${canvas.readable}" valign="middle">
+		
+				<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
+		
+				<method event="onmouseover">
 					LzTimer.addTimer (tooltipdel, 500);
 				</method>
 		                
-				<method name="mouseout">
+				<method event="onmouseout">
 					gTooltip.hideTooltip ();    
 					LzTimer.removeTimer (this.tooltipdel);
 				</method>
 		
-				<method name="click">
+				<method event="onclick">
+					LzTimer.removeTimer (this.tooltipdel);
+					gReadableText.stopReading();
+				</method>
+		
+				<method name="showTooltip">
+					gTooltip.showTooltip ('Stop Reading');
+				</method>
+		
+			</basebutton>
+			
+			<!--Changes done for defect #65040 and #65041-->
+			<view name="volumeController" height="20" valign="middle" 
+					visible="${parent.stopreader.visible}" bgcolor="0xdfdfdf">
+			<simplelayout axis="y"/>
+				
+				<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
+		
+				<method event="onmouseover">
+					LzTimer.addTimer (tooltipdel, 500);
+				</method>
+		                
+				<method event="onmouseout">
+					gTooltip.hideTooltip ();    
+					LzTimer.removeTimer (this.tooltipdel);
+				</method>
+		
+				<method event="onclick">
 					LzTimer.removeTimer (this.tooltipdel);
 					<!-- gReadableText.stopReading(); -->
 				</method>
-			<!--END Changes done for defect #65040 and #65041-->
-				
+		
 				<method name="showTooltip">
 					gTooltip.showTooltip ('Volume Control');
 				</method>
 	
-				<handler name="onvalue"><![CDATA[
-					gReadableText.audioPlayer.setVolume(this.value);
-				]]></handler>
-			</slider>
-			
-		</view>
+				<text name="volumeText" fontsize="9" resize="true" height="15" align="center" fontstyle="bold">Volume</text>
 		
+				<!-- The tool to control the TTS volume -->
+				<!--START Changes done for defect #65040 and #65041-->
+				<slider name="volumeControl" value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" 
+						thumbwidth="16" thumbheight="12" width="80">
+	
+				<!-- When canvas's accessible attribute is true, the text "undefined" comes over the slider thumb, 
+					 workaround is done in this version(3.3.3). Probably, this was a bug which is fixed in newer versions. 
+					 This is cross checked with latest laszlo release(4.8)	--> 
+					<handler name="oninit"><![CDATA[
+						//hide the text object displaying "undefined" text
+						this.subviews[0].subviews[2].subviews[3].setVisible(false);
+	
+						registerThumb(this.track.thumb);
+					]]></handler>
+					
+					<!-- since, the thumb is inside the slider class we have to register delegates from outside-->
+					<method name="registerThumb" args="b"> 
+	
+				        if( typeof this.delOver == "undefined" )  {
+				            this.delOver = new LzDelegate( this, "mouseover" );
+							this.delOut = new LzDelegate( this, "mouseout" );
+							this.delClick = new LzDelegate( this, "click" );
+							this.tooltipdel = new LzDelegate( this, "showTooltip" );
+				        }      
+				
+				        this.delOver.register( b, "onmouseover" );
+						this.delOut.register( b, "onmouseout" );
+						this.delClick.register( b, "onclick" );
+				    </method> 
+	
+					<method name="mouseover">
+						LzTimer.addTimer (tooltipdel, 500);
+					</method>
+			                
+					<method name="mouseout">
+						gTooltip.hideTooltip ();    
+						LzTimer.removeTimer (this.tooltipdel);
+					</method>
+			
+					<method name="click">
+						LzTimer.removeTimer (this.tooltipdel);
+						<!-- gReadableText.stopReading(); -->
+					</method>
+				<!--END Changes done for defect #65040 and #65041-->
+					
+					<method name="showTooltip">
+						gTooltip.showTooltip ('Volume Control');
+					</method>
+		
+					<handler name="onvalue"><![CDATA[
+						gReadableText.audioPlayer.setVolume(this.value);
+					]]></handler>
+				</slider>
+				
+			</view>
+
+		</view>
 		<!-- The tool to control the TTS speed -->
-			<radiogroup visible="${gController.hasTTSspeed &amp;&amp; parent.stopreader.visible}" name="speedController" height="20" x="${parent.volumeController.x + parent.volumeController.width + 2}" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
+			<radiogroup visible="${gController.hasTTSspeed &amp;&amp; parent.screenreader.stopreader.visible}" name="speedController" height="20" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
 				<datapath xpath="dslogin:/login_response/@tts_speed_value"></datapath>
 				<radiobutton value="'S'" text="Slow " height="15" valign="middle"/>
 				<radiobutton value="'M'" text="Medium " height="15" valign="middle" selected="true" />

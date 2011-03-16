@@ -103,7 +103,7 @@
         <method name="doRead" args="txt"><![CDATA[
         	this.currentText = txt;//TTS CR
         	//Changes for Defect # 65040
-        	this.audioPlayer.setVolume(gManipulativeBar.volumeController.volumeControl.value);
+        	this.audioPlayer.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
 			LzTimer.resetTimer(this.dTimeout, TIMEOUT_INTERVAL);
  	    	//stopReading();
  	        speechDs.setQueryParam(TEXT_PARAM, txt);
@@ -202,7 +202,7 @@
         	<handler name="onload">
         		gReadableText.isplaying = true; // TTS CR:when mp3 is loaded and ready to play
 				//Changes for Defect # 65040
- 				this.setVolume(gManipulativeBar.volumeController.volumeControl.value);
+ 				this.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
  				
 				if(gController.isWaitPopupOpen) {
 					gReadableText.speechRequestSent = false;
