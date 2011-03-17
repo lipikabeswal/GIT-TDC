@@ -3032,10 +3032,10 @@ Debug.write("#############returnVal: "+returnVal);
 		<method name="saveEndSubtest"><![CDATA[+
 			//to set audio data in save call, its required
 			this.resetAudioFields();
-        	setAttribute("doUnlockUI", false);
         	copyCurrentToRuntime();
 			setState(SAVE_END_SUBTEST_STATE);
 			save();
+        	setAttribute("doUnlockUI", false);
         ]]></method>
 
 		<method name="_handleWriteToAuditFileResponse">
@@ -3294,10 +3294,14 @@ Debug.write("resetAudioFields...");
 		]]></method>
 
 		<method name="setAudioItemState" args="answer"><![CDATA[
-Debug.write("setAudioItemState...");
+Debug.write("setAudioItemState 1...");
             freezeUI();
             var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
-            if (dncurritem == null) return;
+            if (dncurritem == null) {
+Debug.write("setAudioItemState 2...",dncurritem);
+				unlockUI();			
+				return;
+			}
                 var curritem = Number(dncurritem.getAttr('eid'));
             var dnruntimeitem = dpstudentdata.xpathQuery ("runtime/item_model [@eid = '"+curritem+"']");
             dncurritem.setAttr( 'answer_text', escape( answer ) );
