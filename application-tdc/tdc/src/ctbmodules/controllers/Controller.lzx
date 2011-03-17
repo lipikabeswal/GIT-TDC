@@ -2634,7 +2634,8 @@ Debug.write("#############returnVal: "+returnVal);
 					}
 					else if(isThemeItem()){
 						Debug.write("condition 2....");
-					result[6] = '';
+						result[6] = '';
+						this.blockFileName = false;//this attribute was set true by an audio item
 					}
 					else {
 						Debug.write("condition 3....", itemnode.getAttr( 'answer_text' ));	
@@ -3241,7 +3242,7 @@ Debug.write("#############returnVal: "+returnVal);
 		]]></method>
 
 		<method name="updateAudioItem"><![CDATA[
-Debug.write("updateAudioItem.. 1 ");
+Debug.write("updateAudioItem.. 1 ",isAudioItem()," : ",this.blockFileName);
 		if(isAudioItem() || this.blockFileName){//this will differentiate the audio item save call with the heartbeat
 Debug.write("updateAudioItem.. 2 ");
 			Debug.write("audio item length" + this.audioFields.length);
