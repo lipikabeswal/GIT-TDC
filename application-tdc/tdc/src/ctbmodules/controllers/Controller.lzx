@@ -450,6 +450,7 @@
 
 		<attribute name="allowRevisit" type="boolean" value="true" />
 		<attribute name="recorder" value="null"/>
+		<attribute name="imageLIArray" value="$once{new Array()}"/>
 		
 		<!--
 			============================================================
@@ -2486,6 +2487,11 @@ Debug.write("#############returnVal: "+returnVal);
 		<method name="recorderComponent" args="recObject">
 		this.recorder = recObject;
 		</method>
+
+		<method name="imageComponent" args="imgObject">
+		imageLIArray.push(imgObject);
+		</method>
+
 		<method name="finishTestShortcut">
             if ( onLastItem() ) {
                 finishTest();
@@ -2620,8 +2626,11 @@ Debug.write("#############returnVal: "+returnVal);
 					result[4] = currentDur(); //current dur
 					result[5] = getCurrentInteractionType();  // type
 					if(blockFileName && isAudioItem()) {
-						Debug.write("condition 1....");
+						if(itemnode.getAttr( 'answered' ) == 1 )
+							result[6] = itemnode.getAttr( 'answer_text' ); //current option
+						else 
 						result[6] = ""; //current option
+							
 					}
 					else if(isThemeItem()){
 						Debug.write("condition 2....");
@@ -3025,6 +3034,14 @@ Debug.write("#############returnVal: "+returnVal);
         </method>
 
 		<method name="endSubtest" args="cm"><![CDATA[
+		if(imageLIArray.length > 0){
+
+			for(var i = 0 ; i < this.imageLIArray.length ; i++){
+				this.imageLIArray[i].imageview.getMCRef().unloadMovie();
+			}
+		}
+		this.resetImageArray();
+
 			setState(WRITE_TO_AUDIT_FILE_STATE);
 			gCommunicator.writeToAuditFile(lsid, scid, getModelString());
         ]]></method>
@@ -3291,6 +3308,14 @@ Debug.write("resetAudioFields...");
                 delete this.audioFields[i];
             }
             this.audioFields.length = 0;
+		]]></method>
+
+		<method name="resetImageArray"><![CDATA[
+
+		 for (var i = 0; i < this.imageLIArray.length; i++) {
+                delete this.imageLIArray[i];
+            }
+            this.imageLIArray.length = 0;
 		]]></method>
 
 		<method name="setAudioItemState" args="answer"><![CDATA[
