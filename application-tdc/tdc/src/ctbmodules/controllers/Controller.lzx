@@ -2625,17 +2625,17 @@ Debug.write("#############returnVal: "+returnVal);
 					result[3] = toNumString( itemnode.getAttr( 'answered' ) ); //current awd
 					result[4] = currentDur(); //current dur
 					result[5] = getCurrentInteractionType();  // type
-					if(blockFileName && isAudioItem()) {
+
+					if(isThemeItem()){
+						Debug.write("condition 2....");
+						result[6] = '';
+						this.blockFileName = false;//this attribute was set true by an audio item
+					}
+					else if(blockFileName && isAudioItem()) {
 						if(itemnode.getAttr( 'answered' ) == 1 )
 							result[6] = itemnode.getAttr( 'answer_text' ); //current option
 						else 
 						result[6] = ""; //current option
-							
-					}
-					else if(isThemeItem()){
-						Debug.write("condition 2....");
-						result[6] = '';
-						this.blockFileName = false;//this attribute was set true by an audio item
 					}
 					else {
 						Debug.write("condition 3....", itemnode.getAttr( 'answer_text' ));	
