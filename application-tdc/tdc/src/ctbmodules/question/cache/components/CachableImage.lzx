@@ -27,7 +27,7 @@
              method
              ================================= -->
         <method name="init">
-        Debug.write("cachable image init called...");
+        //Debug.write("cachable image init called...");
             super.init();
         </method>
 
@@ -66,7 +66,7 @@
 			var trimmedFileName = trimFileName(fileName);
 			var xml = gXmlHelper.getGetImageXml(fileName);
 			var result = servletBase + xml;
-Debug.write("got imageUrl: " + result);
+//Debug.write("got imageUrl: " + result);
 			return result;
 		]]></method>
 		
@@ -85,7 +85,7 @@ Debug.write("got imageUrl: " + result);
 		]]></method>
         
 		<method event="ondata" args="data"><![CDATA[
-Debug.write("cachable image ondata");
+//Debug.write("cachable image ondata");
             this.setAttribute ('retrycount', 0);
             this.setAttribute ('timeoutretrycount', 0);
 
@@ -179,7 +179,7 @@ Debug.write("cachable image ondata");
 		</method>
 		
         <method event="onload" reference="this.imageview">
-Debug.write("cachable image onload....", this.imageview);        
+//Debug.write("cachable image onload....", this.imageview);        
         	updateImageLayout();
         </method>
 
@@ -195,7 +195,7 @@ Debug.write("cachable image onload....", this.imageview);
         </method>
 
 		<method name="updateImageLayout"><![CDATA[
-Debug.write("cachable image updateImageLayout....");
+//Debug.write("cachable image updateImageLayout....");
             if (this['autoenlarge'] == "yes" && gController.hasFontAccommodation) {
         
                 var offset = 0;
@@ -300,20 +300,20 @@ Debug.write("cachable image updateImageLayout....");
         	]]></handler>
         	
         	<handler name="onlastframe">
-			Debug.write("onlast frame");
+			//Debug.write("onlast frame");
 	        	//gController.unlockUI();
         	</handler>
 
         	<handler name ="onstop">
-    	    	Debug.write("onstop");
+    	    	//Debug.write("onstop");
         	</handler>
 			
         	<handler name ="onplay">
-    	    	Debug.write("onplay");
+    	    	//Debug.write("onplay");
         	</handler>
 
         	<handler name ="onstart">
-    	    	Debug.write("onstart");
+    	    	//Debug.write("onstart");
         	</handler>
 
         	<method event="onclick">
@@ -325,26 +325,26 @@ Debug.write("cachable image updateImageLayout....");
                   resource of height 0 and width 0.  It wouldnt error - it would return successfully
                   without the image ..  This is to retry the request if that happens. -->
             <method event="onload" args="d"><![CDATA[
-Debug.write("imageview onload : ",d);
+//Debug.write("imageview onload : ",d);
             	if(!gCommunicator.checkShowError(d) && (this.resourceheight == 0 || 
                                                         this.resourcewidth == 0)) {
-Debug.write("gCommunicator.checkShowError if");            
+//Debug.write("gCommunicator.checkShowError if");            
                     classroot.setAttribute ('retrycount', classroot.retrycount + 1);
                     if (classroot.retrycount < 5) {
                         LzIdle.callOnIdle(reloadDel);
-Debug.write("classroot.retrycount : ", classroot.retrycount);
+//Debug.write("classroot.retrycount : ", classroot.retrycount);
                     } else {
-Debug.write("else of classroot.retrycount");
+//Debug.write("else of classroot.retrycount");
                         gCommunicator.checkShowError(gXmlHelper.getContentErrorXml());
                     }
                 } else {
-Debug.write("doneLoading called...");
+//Debug.write("doneLoading called...");
 					classroot.doneLoading();
                 }
             ]]></method>
             
             <method name="_reload">
-Debug.write("_reload,...",this.resource);
+//Debug.write("_reload,...",this.resource);
                 this.unload();
                 this.setSource (this.resource);
             </method>
@@ -355,8 +355,8 @@ Debug.write("_reload,...",this.resource);
 
             <method event="ontimeout">
             <![CDATA[
-Debug.write("ontimeout....",this.resource);
-                Debug.warn( resource + ' ontimeout ', classroot.timeoutretrycount );
+//Debug.write("ontimeout....",this.resource);
+                //Debug.warn( resource + ' ontimeout ', classroot.timeoutretrycount );
                 if ( classroot.timeoutretrycount < 1 )
                 {
                     classroot.setAttribute('timeoutretrycount', classroot.timeoutretrycount + 1);
