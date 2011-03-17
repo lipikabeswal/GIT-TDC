@@ -65,7 +65,10 @@
 		</handler>
 
 		<method event="ondata" args="data"><![CDATA[
+			Debug.write("cachable recorder ondata 1....");
 			this.reset();
+			//for setting the background color to white
+			this.parent.setAttribute ('bgcolor', white);
 			if(data.getAttr('x')) {
 				this.setAttribute('x', Number(data.getAttr('x')));
 			}
@@ -97,7 +100,7 @@
 			doneLoading();
 			gController.recorderComponent(this);
 			if(this.isinited && this.visible) {
-				Debug.write("cachable recorder ondata....");
+				Debug.write("cachable recorder ondata 2....");
 				this.myMic = Microphone.get();
 				this.mc = this.getMCRef();
 				mc.attachAudio(myMic);
@@ -141,7 +144,7 @@
 							y="11" width="41" resource="volume_meter" height="35">
 							<view name="volumebar" x="0" y="0"
 								width="41" height="0" resource="volume_meter_flip"
-								stretches="both" opacity=".8" bgcolor="white">
+								opacity=".7" bgcolor="white" clip="true">
 							</view>
 						</view>
 
@@ -324,7 +327,10 @@
 			LzTimer.resetTimer(countDownDel, 1000);
 			//Changes to stop the recording if the student clicks the pause screen when
 			//recording is going on.
-		
+		Debug.write("### "+gController.getAttribute('isWaitPopupOpen'));
+			if(gController.getAttribute('isWaitPopupOpen') == true){
+				stopblinker('stop');
+			}
 		
 		]]>
 		</method>
