@@ -397,11 +397,15 @@ public class PersistenceServlet extends HttpServlet {
 			//System.out.println("inside if of xml replace");
 			decodedXml = URLDecoder.decode(xml);
 			decodedItemResponse = URLDecoder.decode(itemResponse);
-
+			
+			//System.out.println("decodedItemResponse : " + decodedItemResponse);
+			
 			String[] answersTags = decodedItemResponse.split(fileName);
 			//System.out.println("answersTags length : " + answersTags.length);
+			//System.out.println("file name : " + fileName);
 			if (answersTags.length > 1) {
 				//System.out.println("inside if answers tag loop");
+
 				//prepare answer tags
 				startAnswerTag = URLEncoder.encode(answersTags[0]);
 				endAnswerTag = URLEncoder.encode(answersTags[1]);
@@ -409,23 +413,23 @@ public class PersistenceServlet extends HttpServlet {
 				String base64String = null;
 				base64String = generateBase64String(fileName);
 
-				//prepare answer string with actual audio data
-				replacedItemResponse = startAnswerTag + "" + base64String + ""
-						+ endAnswerTag;
-				//replacedItemResponse = startAnswerTag+""+audioResponseString+""+endAnswerTag;
-
+				//System.out.println("base64String : "+base64String);
+				
+				if(base64String != "") {	
+					//prepare answer string with actual audio data
+					replacedItemResponse = startAnswerTag + "" + base64String + ""
+							+ endAnswerTag;
+				}
+				else {
+					replacedItemResponse = base64String;
+				}
+				
 				//replace the audio file name with actual audio data
 				xml = decodedXml.replaceAll(decodedItemResponse,
 						replacedItemResponse);
-				//System.out.println("xml inside loop" + xml);
+
 				containsAudioResponse = true;
-				//now the session is not required, invalidate it
-				/*if (request.getSession(false) != null) {
-					request.getSession(false).invalidate();
-				}*/
 			}
-			//audioResponseString = null;
-			//			}
 
 			boolean isEndSubtest = ServletUtils.isEndSubtest(xml);
 
