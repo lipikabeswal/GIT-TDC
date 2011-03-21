@@ -286,6 +286,8 @@
 			//stopblinker(methodname);
 			if(methodname == 'reset') {
 				sendRequest(methodname);
+				 //For Defect 65909
+				gController.setAudioAnswered(false);				
 			}
 			this.totalTime = this.defaultTotalTime;
 			this.recordButton.setAttribute("enabled", true);
@@ -443,8 +445,21 @@
 			var isMicAttached;
 			var level = myMic.activityLevel;
 	
-			if(activityArray.length < 6) { activityArray.push(level) };
-			if(activityArray.length == 5) {	isMicAttached = activityCalibrate(activityArray) };
+			if(activityArray.length < 16) {
+				//Debug.write("activityArray.length : "+activityArray.length, level);
+				if(level == 0) {
+					activityArray.push(level);
+				}
+				else {
+					isMicAttached = true;
+					activityArray.length = 0;
+					//Debug.write("lastVal");
+				} 
+			}
+			if(activityArray.length == 15) {
+				Debug.write("activityArray length 15");	
+				isMicAttached = activityCalibrate(activityArray); 
+			}
 	                
 			if (level < 0) {
 				level = 1;
@@ -474,14 +489,19 @@
 	    ]]></method>
 
 		<method name="activityCalibrate" args="arrVal"><![CDATA[
-	       var i = 0;
-	       var temp = 0;
-	       for (i =0; i<arrVal.length; i++){
-	       temp =  temp + arrVal[i];
-	       }
-		   this.activityArray = [];
-	       return temp > 0;
-       ]]></method>
+			Debug.write("activityCalibrate : "+arrVal);
+			var i = 0;
+			var temp = 0;
+			for (i = 0; i < arrVal.length; i++){
+				temp =  temp + arrVal[i];
+				if(temp > 0) {
+					Debug.write("got mic connectivity....");	
+					break;				
+				}
+			}
+			this.activityArray = [];
+			return temp > 0;
+		]]></method>
 
 	</class>
 </library>
