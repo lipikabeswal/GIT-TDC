@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,7 +14,6 @@ import java.io.OutputStream;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -33,6 +33,7 @@ import org.apache.log4j.Logger;
 import com.ctb.tdc.web.dto.StateVO;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.Base64;
+import com.ctb.tdc.web.utils.FileListFilter;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
 
@@ -440,7 +441,13 @@ public class PersistenceServlet extends HttpServlet {
 				//START - change for deleting audio files at end of subtest
 				File speexFile = new File(getServletContext().getRealPath("/")
 						+ "//streams");
-				File[] files = speexFile.listFiles();
+				
+				// Define a filter for spx files beginning with rosterId coming from Laszlo
+			    FilenameFilter select = new FileListFilter(rosterId, "spx");
+			    
+			    //System.out.println("rosterId...."+rosterId);
+				File[] files = speexFile.listFiles(select);
+
 				for (int i = 0; i < files.length; i++) {
 					files[i].delete();
 				}
