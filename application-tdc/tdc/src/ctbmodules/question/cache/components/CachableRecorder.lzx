@@ -49,7 +49,7 @@
 		<attribute name="level" type="number" value="0" />
 		<attribute name="activityArray" value="$once{new Array()}" />
 		<attribute name="countlevel" type="number" value="0" />
-
+		<attribute name="recordState" type="number" value="0" />	
 		<dataset name="audioDset"
 			ondata="classroot.handleResponseData(this.data)" type="http"
 			onerror="classroot.requestError(this)" request="false">
@@ -256,8 +256,8 @@
 			this.green.setVisible(false);
 			this.recordStatus.setText("RECORDING...");
 			//this.resetButton.setAttribute("enabled",true);
-			gController.updateAudioField(this.widget_id, true);
 			//gController.save();
+			this.recordState = 0;
 		}		
 		</method>
 
@@ -278,6 +278,7 @@
 			this.recordStarted = false;
 			this.stopCountDownTimer();
 			this.stopButton.setAttribute("enabled", false);
+			this.recordState = 1;			
 		}
 		</method>
 
@@ -286,8 +287,6 @@
 			//stopblinker(methodname);
 			if(methodname == 'reset') {
 				sendRequest(methodname);
-				 //For Defect 65909
-				gController.setAudioAnswered(false);				
 			}
 			this.totalTime = this.defaultTotalTime;
 			this.recordButton.setAttribute("enabled", true);
@@ -300,7 +299,9 @@
 			this.increment = 0;
 			this.countLevel =0;
 			this.resetButton.setAttribute("enabled",false);
-			gController.updateAudioField(this.widget_id, false);
+			this.recordState = -1;
+		// Not required
+		//	gController.updateAudioField(this.widget_id, false);
 		</method>
 
 		<method name="startCountDownTimer">
@@ -489,7 +490,6 @@
 	    ]]></method>
 
 		<method name="activityCalibrate" args="arrVal"><![CDATA[
-			Debug.write("activityCalibrate : "+arrVal);
 			var i = 0;
 			var temp = 0;
 			for (i = 0; i < arrVal.length; i++){

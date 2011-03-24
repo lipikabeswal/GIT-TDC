@@ -481,12 +481,7 @@
 		<datapointer name="dpitem" xpath="dsitem:/element_package" />
 
 		<datapointer name="dpstudentdata"
-			xpath="dsstudentdata:/testing_client_model">
-			<method event="ondata">
-			var items =  dpstudentdata.xpathQuery("testing_client_model");
-			//Debug.write("dpstudent data *************items" + items);
-			</method>
-		</datapointer>
+			xpath="dsstudentdata:/testing_client_model" />
 
 		<datapointer name="dpdisplay" xpath="dsdisplay:/display" />
 
@@ -1351,7 +1346,6 @@ if(stimulusid > 0){
                 var vnode = dprestart.xpathQuery(istxpath + "/rv/v");
                 var isTheme = items[i].getAttr('type') == THEME_TYPE;
                 var isVisited = "false";
-           		var isAudioAnswered = isAnswered(vnode)==1 ? true : false; //For Defect 65909
                 if ( dprestart.isValid() && restartnode ) {
                     var attrs =
                     {
@@ -1365,8 +1359,7 @@ if(stimulusid > 0){
                         item_no:		itemNumber,
                         theme:          isTheme,
 						allow_revisit:	allowRevisit,
-						allow_revisit_on_restart:allowRevisitOnRestart,
-						audio_answered:	isAudioAnswered  //For Defect 65909
+						allow_revisit_on_restart:allowRevisitOnRestart
                     };
 
                     var score = dprestart.xpathQuery(
@@ -1390,8 +1383,7 @@ if(stimulusid > 0){
                     	item_no: 		itemNumber,
                     	theme:			isTheme,
 						allow_revisit:	allowRevisit,
-						allow_revisit_on_restart:allowRevisitOnRestart,
-						audio_answered:	false  //For Defect 65909
+						allow_revisit_on_restart:allowRevisitOnRestart
                     };
                 }
                 var newitemdn = new LzDataElement( 'item_model', attrs, null );
@@ -1400,7 +1392,7 @@ if(stimulusid > 0){
                 	itemNumber = itemNumber + 1;
                 }
             }
-
+Debug.write("##runtimearr:",runtimearr);
             dn.setChildNodes( runtimearr );
         ]]></method>
 
@@ -1992,13 +1984,14 @@ Debug.write("#############returnVal: "+returnVal);
      
         ]]></method>
 
-		<method name="changeItem" args="fnode">
+		<method name="changeItem" args="fnode"><![CDATA[		
 			if(this.recorder != null) {
-				//this.blockFileName = false;
+				var recordState = this.recorder.recordState;
 				this.recorder.stopblinker('stop');
+				if(recordState !='-1'){
+				this.updateAudioField(this.recorder.widget_id, true);
+				}
 			}
-			 //For Defect 65909
-				setAudioAnswered(true);
 			//To reset the Audio Fields Array So that file name will be passed in the save call
 			this.resetAudioFields();
 			gReadableText.stopReading();
@@ -2006,7 +1999,7 @@ Debug.write("#############returnVal: "+returnVal);
 			stopQuestion();
 			canvas.setAttribute('focusobj', null);
 			saveLoadItem( fnode );
-		</method>
+		]]></method>
 
 		<method name="onFirstItem">
             return 0 == currItemOffset();
@@ -2364,9 +2357,16 @@ Debug.write("#############returnVal: "+returnVal);
                 freezeUI();
                 stopQuestion();
 		   //For defect 65881         
-            if(this.recorder != null) this.recorder.stopblinker('stop');
-			 //For Defect 65909
-			setAudioAnswered(true);
+            if(this.recorder != null)
+			{
+			var recordState = this.recorder.recordState;
+			 this.recorder.stopblinker('stop');
+			 this.blockFileName = false;
+				if(recordState !='-1'){
+				this.updateAudioField(this.recorder.widget_id, true);
+				}
+	
+			}
                 setState(PAUSE_STATE);
                 save(PAUSE_LEV);
             }
@@ -2416,9 +2416,15 @@ Debug.write("#############returnVal: "+returnVal);
         	gReadableText.stopReading();
             freezeUI();
          //For Defect 65881        
-            if(this.recorder != null) this.recorder.stopblinker('stop');		
-		 //For Defect 65909
-			setAudioAnswered(true);
+            if(this.recorder != null)
+			{
+			var recordState = this.recorder.recordState;
+			 this.recorder.stopblinker('stop');
+			 this.blockFileName = false;
+			if(recordState !='-1'){
+				this.updateAudioField(this.recorder.widget_id, true);
+				}
+			}		
             setState(FINISH_STATE);
             save();
         </method>
@@ -2633,20 +2639,15 @@ Debug.write("#############returnVal: "+returnVal);
 					result[5] = getCurrentInteractionType();  // type
 
 					if(isThemeItem()){
-						Debug.write("condition 2....");
 						result[6] = '';
 						this.blockFileName = false;//this attribute was set true by an audio item
 					}
 					else if(blockFileName && isAudioItem()) {
-						if(itemnode.getAttr( 'answered' ) == 1 && itemnode.getAttr( 'audio_answered' ))  //For Defect 65909
-							result[6] = itemnode.getAttr( 'answer_text' ); //current option
-						else 
 						result[6] = ""; //current option
 					}
 					else {
-						Debug.write("condition 3....", itemnode.getAttr( 'answer_text' ));	
 						result[6] = itemnode.getAttr( 'answer_text' ); //current option
-						this.blockFileName = false;//this attribute was set true by an audio item 	
+						this.blockFileName = false;
 					}
 					result[7] = itemnode.getAttr( 'score' ); //current score
 					result[8] = getSpText();
@@ -3247,10 +3248,7 @@ Debug.write("#############returnVal: "+returnVal);
 		]]></method>
 
 		<method name="updateAudioItem"><![CDATA[
-Debug.write("updateAudioItem.. 1 ",isAudioItem()," : ",this.blockFileName);
 		if(isAudioItem() || this.blockFileName){//this will differentiate the audio item save call with the heartbeat
-Debug.write("updateAudioItem.. 2 ");
-			Debug.write("audio item length" + this.audioFields.length);
            	var xmls = "<answers>";
 			xmls = xmls.concat(generateAudioFileName());
            	xmls = xmls.concat("</answers>");
@@ -3259,11 +3257,9 @@ Debug.write("updateAudioItem.. 2 ");
 		]]></method>
 		
 		<method name="generateAudioFileName">
-Debug.write("generateAudioFileName...1");
 				var roster_id = this.lsid.split(":");
 				var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
 				var item_id = itemnode.getAttr("iid");
-Debug.write("generateAudioFileName 2..."+roster_id[0] +'_' + item_id);
 				return roster_id[0] +"_" + item_id;
 		</method>
 		
@@ -3284,7 +3280,6 @@ Debug.write("generateAudioFileName 2..."+roster_id[0] +'_' + item_id);
 				var currentEid = currentitem.getAttr('eid');
 	            // Update the XML resulting in the blue ball appearing
 	            var runtimeitem = dpstudentdata.xpathQuery("runtime/item_model[@eid = '"+currentEid+"']");
-	            var currentitem = dpstudentdata.xpathQuery("current_item/item_model");
 				   for (var i = 0; i < this.audioFields.length; i++) {
 		               if (this.audioFields[i]['answered'] == true) {
 	                   answered = true;
@@ -3308,7 +3303,6 @@ Debug.write("generateAudioFileName 2..."+roster_id[0] +'_' + item_id);
 		]]></method>
 
 		<method name="resetAudioFields"><![CDATA[
-Debug.write("resetAudioFields...");
 		 for (var i = 0; i < this.audioFields.length; i++) {
                 delete this.audioFields[i];
             }
@@ -3324,7 +3318,6 @@ Debug.write("resetAudioFields...");
 		]]></method>
 
 		<method name="setAudioItemState" args="answer"><![CDATA[
-Debug.write("setAudioItemState 1...");
             freezeUI();
             var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
             if (dncurritem == null) {
@@ -3552,17 +3545,7 @@ Debug.write("setAudioItemState 2...",dncurritem);
 				LzTimer.resetTimer( dHideWaitPopup, 30000 );
 			}
 		</method>
-		 <!--For Defect 65909-->
-		<method name="setAudioAnswered" args="status">
-		var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
-		if(status){
-			if(dncurrentItem.getAttr('answered') == '1'){
-				dncurrentItem.setAttr( 'audio_answered', true );
-			}
-		}else{
-			dncurrentItem.setAttr( 'audio_answered', false );
-			}
-		</method>
+		
 
 	</node>
 
