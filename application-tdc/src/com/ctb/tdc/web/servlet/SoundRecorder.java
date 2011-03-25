@@ -103,7 +103,6 @@ public class SoundRecorder extends HttpServlet {
 		} catch (Exception e) {
 			//e.printStackTrace();
 			result = ServletUtils.buildXmlErrorMessage("", e.getMessage(), "");
-			System.exit(0);
 		}
 		return result;
 	}
@@ -189,17 +188,18 @@ public class SoundRecorder extends HttpServlet {
 	private String resetAudio(HttpServletResponse response) {
 		try {
 			System.out.println("resetAudio....");
-			boolean fileDeleted = false;
+			boolean fileDeleted = true;
 			targetDataLine.stop();
 			targetDataLine.drain();
 			targetDataLine.close();
 
-			fileDeleted = new File(getServletContext().getRealPath("/")
-					+ "//streams//" + fileName + ".spx").delete();
-
+			File SpeexFile = new File(getServletContext().getRealPath("/")
+					+ "//streams//" + fileName + ".spx");
+			if(SpeexFile.exists()){
+				fileDeleted = SpeexFile.delete();
+			}
 			if (!fileDeleted) {
-				FileNotFoundException fn = new FileNotFoundException();
-				throw fn;
+				logger.warn( "Audio" + fileName+".spx is not Deleted");
 			}
 			PrintWriter out = response.getWriter();
 			out.write("<result>AUDIO_DELETED</result>");
