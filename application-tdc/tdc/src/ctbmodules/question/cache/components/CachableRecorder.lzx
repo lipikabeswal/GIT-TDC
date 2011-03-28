@@ -20,8 +20,8 @@
 		<attribute name="recordStarted" type="boolean" value="false" />
 		<attribute name="increment" type="boolean" value="0" />
 
-		<attribute name="width" value="250" />
-		<attribute name="height" value="120" />
+		<attribute name="width" value="270" />
+		<attribute name="height" value="150" />
 		<attribute name="bgcolor" value="0x6F0F0F" /><!-- iceblue -->
 
 		<attribute name="recordButton" />
@@ -50,6 +50,8 @@
 		<attribute name="activityArray" value="$once{new Array()}" />
 		<attribute name="countlevel" type="number" value="0" />
 		<attribute name="recordState" type="number" value="0" />	
+		<attribute name="factor" type="number" value="1.5" /><!-- for flexible recorder -->
+		
 		<dataset name="audioDset"
 			ondata="classroot.handleResponseData(this.data)" type="http"
 			onerror="classroot.requestError(this)" request="false">
@@ -62,6 +64,8 @@
 
 		<handler name="oninit">
 			this.timertext.setText(this.totalTime);
+			this.setAttribute('width', this.width*factor);
+			this.setAttribute('height', this.height*factor);
 		</handler>
 
 		<method event="ondata" args="data"><![CDATA[
@@ -77,9 +81,6 @@
 				this.setAttribute('y', Number(data.getAttr('y')));
 			}
 			
-			this.setAttribute('width', this.width);
-			this.setAttribute('height', this.height);
-	
 			if(data.getAttr('id')){
 				this.setAttribute('widget_id', data.getAttr('id'));
 			}
@@ -110,6 +111,28 @@
 		]]>
 		</method>
 
+		<method name="doneLoading"><![CDATA[	
+	//		if (!(gController.hasFontAccommodation)) {	
+	//			this.setAttribute('width', this.width / this.factor);
+	//			this.setAttribute('height', this.height / this.factor);
+	//			this.setAttribute('factor', 1 );
+    //        }
+Debug.write("parent.width = "+parent.width);
+Debug.write("this.width = " + this.width);
+if(this.width>=parent.width)
+{
+this.setAttribute('width', parent.width);
+this.setAttribute('height', 150);
+this.setAttribute('factor', 1 );
+}
+else{
+this.setAttribute('factor',1.5);
+this.setAttribute('width', 270*this.factor);
+this.setAttribute('height', 150*this.factor);
+}
+            super.doneLoading();
+        ]]></method>
+		
 		<method name="doReturnToCache"><![CDATA[
 			Debug.write("doreturn to cache");
 			this.stopblinker('stop');
@@ -125,10 +148,10 @@
 				bgcolor="0x3F1F0F">
 				<simplelayout axis="x" />
 				<view resource="heading_microphone" stretches="both"
-					width="20" height="18">
+					width="${parent.height}" height="${parent.height-2}">
 				</view>
-				<text valign="middle" font="CTB" fontsize="11"
-					fontstyle="bold" fgcolor="white">
+				<text valign="middle" font="CTB" fontsize="${12 * classroot.factor}"
+					fontstyle="bold" fgcolor="white" width="90%" height ="100%">
 					Sound Recorder
 				</text>
 			</view>
@@ -137,54 +160,54 @@
 				<simplelayout />
 				<view name="recorddisplay" align="left" width="100%">
 					<simplelayout axis="x" spacing="2" />
-					<view width="5" height="10"></view>
 
-					<view name="recordicons" width="100" height="40">
-						<view name="meterContainer" x="${parent.x + 7}"
-							y="11" width="41" resource="volume_meter" height="35">
+					<view name="recordicons" height="${40 * classroot.factor}">
+						<view name="meterContainer" x="${parent.parent.parent.bar.x}"
+							y="${11 * classroot.factor}" width="${41 * classroot.factor}" resource="volume_meter" height="${35 * classroot.factor}">
 							<view name="volumebar" x="0" y="0"
-								width="41" height="0" resource="volume_meter_flip"
+								width="${41 * classroot.factor}" height="0" resource="volume_meter_flip"
 								opacity=".7" bgcolor="white" clip="true">
 							</view>
 						</view>
 
 						<view name="red" opacity=".6" visible="false"
-							x="${parent.x + 120}" y="11" resource="record_bullet_red"
-							stretches="both" width="18" height="18" valign="middle">
+							x="${parent.parent.parent.bar.width/2}" resource="record_bullet_red" y="11"
+							stretches="both" width="${20 * classroot.factor}" height="${20 * classroot.factor}"
+							valign="middle">
 
 						</view>
-						<view name="green" opacity=".7" visible="false"
-							x="${parent.x + 120}" y="11" resource="record_bullet_green"
+						<view name="green" opacity=".7" visible="false" y="11"
+							x="${parent.parent.parent.bar.width/2}" resource="record_bullet_green"
 							stretches="both" width="${parent.red.width}"
 							height="${parent.red.height}" valign="middle">
-
 						</view>
 
 					</view>
 
-					<view y="11" name="showStatus">
-						<text name="recordStatus" fontsize="8"
-							font="CTB" resize="true" x="42" y="1" fontstyle="bold">
+					<view name="showStatus" y="11" width="${20 * classroot.factor}" height="${40 * classroot.factor}">
+						<text name="recordStatus" fontsize="${12 * classroot.factor}"
+							font="CTB" resize="true" fontstyle="bold" height="100%">
 						</text>
 					</view>
 
 				</view>
-				<view name="recordtimer" x="${parent.bar.x + 90}"
-					y="${parent.bar.height-15}" height="15">
+
+				<view name="recordtimer" x="${parent.bar.x + parent.bar.width - parent.recordtimer.width}"
+					y="${parent.bar.y - parent.recordtimer.height}" height="${20 * classroot.factor}">
 					<simplelayout axis="x" spacing="0" />
-					<text name="remaining" fontsize="9" font="Arial"
-						resize="true" valign="bottom">
+					<text name="remaining" fontsize="${12 * classroot.factor}" font="CTB" fontstyle="bold"
+						resize="true" valign="bottom" height="100%">
 						TIME REMAINING:
 					</text>
-					<text name="timertext" fontsize="9" fontstyle="bold"
-						font="Arial" fgcolor="0x008000" resize="true" valign="bottom">
+					<text name="timertext" fontsize="${12 * classroot.factor}" fontstyle="bold"
+						font="CTB" fgcolor="0x008000" resize="true" valign="bottom" height="100%">
 					</text>
-					<text fontsize="8" font="Arial" y="1" resize="true"
-						valign="bottom">
+					<text fontsize="${12 * classroot.factor}" font="CTB" resize="true" fontstyle="bold"
+						valign="bottom" height="100%">
 						secs
 					</text>
 				</view>
-				<view name="bar" align="center" width="80%" height="6"
+				<view name="bar" align="center" width="80%" height="${6 * classroot.factor}"
 					bgcolor="0xcccccc">
 					<view name="barfilled" width="0" height="100%"
 						bgcolor="0x328693">
@@ -192,27 +215,27 @@
 				</view>
 
 				<view name="justforspace" align="center" width="100%"
-					height="5%">
+					height="10%">
 				</view>
 				<view name="widgetbuttons" width="100%" height="18%">
 					<view name="whitewrapper" height="100%"
-						bgcolor="white" x="26">
-						<simplelayout axis="x" spacing="65" />
+						bgcolor="white" x="${parent.parent.bar.x}" >
+						<!--simplelayout axis="x" spacing="65" /-->
 						<view name="buttons">
 							<simplelayout axis="x" spacing="6" />
 							<basebutton resource="button_record"
-								name="recordButton" width="23" height="23" stretches="both"
+								name="recordButton" width="${23 * classroot.factor}" height="${23 * classroot.factor}" stretches="both"
 								align="left" onclick="classroot.startblinker('record')" />
 							<basebutton resource="button_stop"
-								name="stopButton" width="23" height="23" stretches="both"
+								name="stopButton" width="${parent.recordButton.width}" height="${parent.recordButton.height}" stretches="both"
 								enabled="false" onclick="classroot.stopblinker('stop')" />
 							<basebutton resource="button_reset"
-								name="resetButton" width="23" height="23" stretches="both"
+								name="resetButton" width="${parent.recordButton.width}" height="${parent.recordButton.height}" stretches="both"
 								enabled="false" onclick="classroot.reset('reset')" />
 						</view>
-						<view name="submit">
-							<basebutton resource="button_submit"
-								name="submitButton" width="50" height="20" stretches="both"
+						<view name="submit" x="${parent.parent.parent.bar.width - parent.submit.width}">
+							<basebutton resource="button_submit" x="0"
+								name="submitButton" width="${50 * classroot.factor}" height="${20 * classroot.factor}" stretches="both"
 								enabled="false" onclick="classroot.submit('submit')" />
 						</view>
 					</view>
@@ -221,26 +244,17 @@
 				<view name="justforspace2" align="center" width="100%"
 					height="10%">
 				</view>
-				<!--view align="center" width="100%" height="10%" name="overLay">
-					<text align="center" fgcolor="red">Please attach mic!!</text>
-					</view-->
 			</view>
-
-			<!--view bgcolor="red" opacity=".5"
-				width="${parent.width - 3}" height="${parent.height - 3}" 
-				x="${parent.x}" y="${parent.y}" visible="false" clickable="false">
-				<text>Please attach mic!!</text>
-				</view-->
 		</view>
 		<view name="whitewrapperOverLay" bgcolor="white" x="2"
-			clickable="false" showhandcursor="false" y="20"
-			height="${parent.height - 25}" width="${parent.width - 5}"
+			clickable="false" showhandcursor="false" y="${parent.y + 28}"
+			height="${parent.height - 30}" width="${parent.width - 5}"
 			onclick="return false;" visible="false">
 			<simplelayout axis="x" inset="10" spacing="10" />
 			<view name="micNotConnected" valign="middle"
 				resource="mic_not_connected" />
-			<text name="attachMic" fontsize="10" font="CTB"
-				resize="true" valign="middle">
+			<text y="parent.micNotConnected.y" name="attachMic" fontsize="${12 * classroot.factor}" font="CTB"
+				resize="true" valign="middle" height = "parent.micNotConnected.height">
 				Microphone is not connected ...
 			</text>
 		</view>
@@ -254,7 +268,7 @@
 			this.recordStarted = true;		
 			this.recordButton.setAttribute("enabled", false);
 			this.green.setVisible(false);
-			this.recordStatus.setText("RECORDING...");
+		//	this.recordStatus.setText("RECORDING...");
 			//this.resetButton.setAttribute("enabled",true);
 			//gController.save();
 			this.recordState = 0;
