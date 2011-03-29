@@ -20,8 +20,12 @@
 		<attribute name="recordStarted" type="boolean" value="false" />
 		<attribute name="increment" type="boolean" value="0" />
 
-		<attribute name="width" value="270" />
+		<attribute name="width" value="250" />
 		<attribute name="height" value="150" />
+
+		<attribute name="defaultWidth" value="250" />
+		<attribute name="defaultHeight" value="150" />
+
 		<attribute name="bgcolor" value="0x6F0F0F" /><!-- iceblue -->
 
 		<attribute name="recordButton" />
@@ -50,7 +54,7 @@
 		<attribute name="activityArray" value="$once{new Array()}" />
 		<attribute name="countlevel" type="number" value="0" />
 		<attribute name="recordState" type="number" value="0" />	
-		<attribute name="factor" type="number" value="1.5" /><!-- for flexible recorder -->
+		<attribute name="factor" type="number" value="1" /><!-- for flexible recorder -->
 		
 		<dataset name="audioDset"
 			ondata="classroot.handleResponseData(this.data)" type="http"
@@ -106,30 +110,29 @@
 				this.mc = this.getMCRef();
 				mc.attachAudio(myMic);
 				this.myMic.setUseEchoSuppression(true);
-				this.updateLevel();
+				//this.updateLevel();
 			}
 		]]>
 		</method>
 
 		<method name="doneLoading"><![CDATA[	
-	//		if (!(gController.hasFontAccommodation)) {	
-	//			this.setAttribute('width', this.width / this.factor);
-	//			this.setAttribute('height', this.height / this.factor);
-	//			this.setAttribute('factor', 1 );
-    //        }
-Debug.write("parent.width = "+parent.width);
-Debug.write("this.width = " + this.width);
-if(this.width>=parent.width)
-{
-this.setAttribute('width', parent.width);
-this.setAttribute('height', 150);
-this.setAttribute('factor', 1 );
-}
-else{
-this.setAttribute('factor',1.5);
-this.setAttribute('width', 270*this.factor);
-this.setAttribute('height', 150*this.factor);
-}
+			//Debug.write("parent.width = "+parent.width);
+			//Debug.write("this.width = " + this.width);
+			
+			if(gController.hasFontAccommodation) {	
+			//Debug.write("gController.hasFontAccommodation = " + gController.hasFontAccommodation);
+				if(this.width >= parent.width)
+				{
+					this.setAttribute('width', parent.width);
+					this.setAttribute('height', this.defaultHeight);
+					this.setAttribute('factor', 1 );
+				}
+				else{
+					this.setAttribute('factor',1.5);
+					this.setAttribute('width', this.defaultWidth * this.factor);
+					this.setAttribute('height', this.defaultHeight * this.factor);
+				}
+			}
             super.doneLoading();
         ]]></method>
 		
@@ -165,7 +168,7 @@ this.setAttribute('height', 150*this.factor);
 						<view name="meterContainer" x="${parent.parent.parent.bar.x}"
 							y="${11 * classroot.factor}" width="${41 * classroot.factor}" resource="volume_meter" height="${35 * classroot.factor}">
 							<view name="volumebar" x="0" y="0"
-								width="${41 * classroot.factor}" height="0" resource="volume_meter_flip"
+								width="${41 * classroot.factor}" height="$once{parent.height}" resource="volume_meter_flip"
 								opacity=".7" bgcolor="white" clip="true">
 							</view>
 						</view>
@@ -225,13 +228,34 @@ this.setAttribute('height', 150*this.factor);
 							<simplelayout axis="x" spacing="6" />
 							<basebutton resource="button_record"
 								name="recordButton" width="${23 * classroot.factor}" height="${23 * classroot.factor}" stretches="both"
-								align="left" onclick="classroot.startblinker('record')" />
+								align="left" onclick="classroot.startblinker('record')" >
+								<method event="onmouseover">
+									gTooltip.showTooltip('Record');
+								</method>						                
+								<method event="onmouseout">
+									gTooltip.hideTooltip ();    
+								</method>
+							</basebutton>
 							<basebutton resource="button_stop"
 								name="stopButton" width="${parent.recordButton.width}" height="${parent.recordButton.height}" stretches="both"
-								enabled="false" onclick="classroot.stopblinker('stop')" />
+								enabled="false" onclick="classroot.stopblinker('stop')" >
+								<method event="onmouseover">
+									gTooltip.showTooltip('Stop');
+								</method>						                
+								<method event="onmouseout">
+									gTooltip.hideTooltip ();    
+								</method>
+							</basebutton>
 							<basebutton resource="button_reset"
 								name="resetButton" width="${parent.recordButton.width}" height="${parent.recordButton.height}" stretches="both"
-								enabled="false" onclick="classroot.reset('reset')" />
+								enabled="false" onclick="classroot.reset('reset')" >
+								<method event="onmouseover">
+									gTooltip.showTooltip('Start Over');
+								</method>						                
+								<method event="onmouseout">
+									gTooltip.hideTooltip ();    
+								</method>
+							</basebutton>
 						</view>
 						<view name="submit" x="${parent.parent.parent.bar.width - parent.submit.width}">
 							<basebutton resource="button_submit" x="0"
@@ -260,18 +284,14 @@ this.setAttribute('height', 150*this.factor);
 		</view>
 
 		<method name="startblinker" args="methodname">
-		//Debug.write("startblinker");
 		if(!this.recordStarted) {	
+			updateLevel();//capture mic activity only when recording starts			
 			sendRequest(methodname);
 			this.increment = bar.width / this.defaultTotalTime;
-			//Debug.write("bar.width " + bar.width+"  :: " + this.defaultTotalTime + " ::: "  + this.increment);
 			this.recordStarted = true;		
 			this.recordButton.setAttribute("enabled", false);
 			this.green.setVisible(false);
-		//	this.recordStatus.setText("RECORDING...");
-			//this.resetButton.setAttribute("enabled",true);
-			//gController.save();
-			this.recordState = 0;
+			gController.updateAudioField(this.widget_id, true);
 		}		
 		</method>
 
@@ -283,6 +303,8 @@ this.setAttribute('height', 150*this.factor);
 		<method name="stopblinker" args="methodname">
 		this.red.setVisible(false);
 		LzTimer.removeTimer(blinkerDel); 
+		LzTimer.removeTimer(leveldel);//remove activity meter timer 
+		resetActivityMeterHeight();//for showing zero actvity bar
 		this.countLevel = 0;
 		if(this.recordStarted || methodname == 'reset') {
 		Debug.write("in if stopblinker called : ",methodname, this.recordStarted);
@@ -292,13 +314,12 @@ this.setAttribute('height', 150*this.factor);
 			this.recordStarted = false;
 			this.stopCountDownTimer();
 			this.stopButton.setAttribute("enabled", false);
-			this.recordState = 1;			
+			//this.recordState = 1;			
 		}
 		</method>
 
 		<method name="reset" args="methodname">
 			Debug.write("reset called : ", methodname);
-			//stopblinker(methodname);
 			if(methodname == 'reset') {
 				sendRequest(methodname);
 			}
@@ -313,9 +334,8 @@ this.setAttribute('height', 150*this.factor);
 			this.increment = 0;
 			this.countLevel =0;
 			this.resetButton.setAttribute("enabled",false);
-			this.recordState = -1;
-		// Not required
-		//	gController.updateAudioField(this.widget_id, false);
+			//this.recordState = -1;
+			gController.updateAudioField(this.widget_id, false);
 		</method>
 
 		<method name="startCountDownTimer">
@@ -424,9 +444,7 @@ this.setAttribute('height', 150*this.factor);
 			this.green			= main.content.recorddisplay.recordicons.green;
 			this.meterContainer = main.content.recorddisplay.recordicons.meterContainer;
 			this.volumeMeter	= main.content.recorddisplay.recordicons.meterContainer.volumebar;
-			//this.micNotConnected= main.content.recorddisplay.recordicons.micNotConnected;
 			this.recordIconsView= main.content.recorddisplay.recordicons;
-			//this.attachMic 		= main.content.recorddisplay.recordicons.attachMic;		
 			this.widgetbuttons 	=main.content.widgetbuttons;
 			this.recordStatus 	= main.content.recorddisplay.showStatus.recordStatus;
 			this.whitewrapperOverLay= whitewrapperOverLay;
@@ -448,18 +466,10 @@ this.setAttribute('height', 150*this.factor);
 		<!-- Volumeter Prototype -->
 		<method name="updateLevel"><![CDATA[
 
-/*			var myMic = Microphone.get();
-			var isMicAttached;
-			this.mc = this.getMCRef();
-			mc.attachAudio(myMic);
-			 
-			myMic.setUseEchoSuppression(true);
-		
-			Debug.write("myMic.setUseEchoSuppression", myMic.muted);
-*/			
 			var isMicAttached;
 			var level = myMic.activityLevel;
-	
+			var vMeterHeight = 0;
+
 			if(activityArray.length < 16) {
 				//Debug.write("activityArray.length : "+activityArray.length, level);
 				if(level == 0) {
@@ -472,7 +482,7 @@ this.setAttribute('height', 150*this.factor);
 				} 
 			}
 			if(activityArray.length == 15) {
-				Debug.write("activityArray length 15");	
+				//Debug.write("activityArray length 15");	
 				isMicAttached = activityCalibrate(activityArray); 
 			}
 	                
@@ -496,10 +506,18 @@ this.setAttribute('height', 150*this.factor);
 				this.setAttribute("level", level);
 			}
 	 
-			this.volumeMeter.setAttribute('height',this.meterContainer.getAttribute('height') - this.level * .5);
-			if(this.volumeMeter.getAttribute('height') <= 0){
-				this.volumeMeter.setAttribute('height',0);
+			vMeterHeight = this.meterContainer.height - this.level * .5;
+			//Debug.write("vMeterHeight : ",vMeterHeight);
+
+			if(vMeterHeight < 0) {
+				vMeterHeight = 0;
 			}
+			this.volumeMeter.setAttribute('height', vMeterHeight);
+
+			//this.volumeMeter.setAttribute('height',this.meterContainer.getAttribute('height') - this.level * .5);
+			//if(this.volumeMeter.getAttribute('height') <= 0)){
+			//	this.volumeMeter.setAttribute('height', 0);
+			//}
 	       LzTimer.resetTimer(leveldel, 100); 
 	    ]]></method>
 
@@ -517,5 +535,8 @@ this.setAttribute('height', 150*this.factor);
 			return temp > 0;
 		]]></method>
 
+		<method name="resetActivityMeterHeight">
+			this.volumeMeter.setHeight(this.meterContainer.height);
+		</method>
 	</class>
 </library>
