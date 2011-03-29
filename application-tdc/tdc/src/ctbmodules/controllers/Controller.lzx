@@ -1986,11 +1986,11 @@ Debug.write("#############returnVal: "+returnVal);
 
 		<method name="changeItem" args="fnode"><![CDATA[		
 			if(this.recorder != null) {
-				var recordState = this.recorder.recordState;
+				//var recordState = this.recorder.recordState;
 				this.recorder.stopblinker('stop');
-				if(recordState !='-1'){
-				this.updateAudioField(this.recorder.widget_id, true);
-				}
+				//if(recordState !='-1'){
+				//this.updateAudioField(this.recorder.widget_id, true);
+				//}
 			}
 			//To reset the Audio Fields Array So that file name will be passed in the save call
 			this.resetAudioFields();
@@ -2359,12 +2359,12 @@ Debug.write("#############returnVal: "+returnVal);
 		   //For defect 65881         
             if(this.recorder != null)
 			{
-			var recordState = this.recorder.recordState;
+			//var recordState = this.recorder.recordState;
 			 this.recorder.stopblinker('stop');
 			 this.blockFileName = false;
-				if(recordState !='-1'){
-				this.updateAudioField(this.recorder.widget_id, true);
-				}
+			//	if(recordState !='-1'){
+			//	this.updateAudioField(this.recorder.widget_id, true);
+			//	}
 	
 			}
                 setState(PAUSE_STATE);
@@ -2418,12 +2418,12 @@ Debug.write("#############returnVal: "+returnVal);
          //For Defect 65881        
             if(this.recorder != null)
 			{
-			var recordState = this.recorder.recordState;
+			//var recordState = this.recorder.recordState;
 			 this.recorder.stopblinker('stop');
 			 this.blockFileName = false;
-			if(recordState !='-1'){
-				this.updateAudioField(this.recorder.widget_id, true);
-				}
+			//if(recordState !='-1'){
+			//	this.updateAudioField(this.recorder.widget_id, true);
+			//	}
 			}		
             setState(FINISH_STATE);
             save();
