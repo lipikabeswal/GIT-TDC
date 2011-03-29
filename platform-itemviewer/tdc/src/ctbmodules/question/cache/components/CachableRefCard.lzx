@@ -1,0 +1,439 @@
+<library>
+
+	<include href="CachableComponent.lzx"/>
+
+    <class name="CachableRefCard" comptype="$once {gCompTypes.WIDGET_REFERENCE_CARD}" extends="CachableComponent">
+		<attribute name="innerHeight" value="400" type="number"/>
+		<attribute name="defaultInnerHeight" value="400" type="number"/>
+		<attribute name="innerWidth" value="500" type="number"/>
+		<attribute name="REF_CARD_X" value="10" type="number"/>
+		<attribute name="REF_CARD_Y" value="26" type="number"/>
+		<attribute name="MIN_WIDTH" value="121" type="number"/>
+		<attribute name="MIN_HEIGHT" value="101" type="number"/>
+		<attribute name="LINE_PADDING" value="30" type="number"/>
+		<attribute name="RESOURCE_DIMENSION" value="69" type="number"/> <!-- the height and width of the stretching resource -->
+		<attribute name="refCardRsrc" type="string"/>
+		<attribute name="titleRsrc" type="string"/>
+		<attribute name="scrolls" type="boolean" value="false" />
+		
+		<!-- 
+			when mouse is down on the scrollbar, it will be true
+			-->
+		<attribute name="isScrolling" type="boolean" value="false" />
+
+		<attribute name="toolid" type="string" value="formula_card_resource"/>
+        <attribute name="toolstate" value="$once{new LzDatapointer ()}"/>
+		<attribute name="visible" value="${(this.toolstate.data == 'sel') ? true : false}"/>
+
+		<handler name="onvisible" args="v"><![CDATA[
+		//To control the visibility according to the toolstate
+			if(this.toolstate.data != 'sel' && v) {
+				this.setVisible(false);
+			}
+			else
+			{
+				this.bringToFront();
+			}	
+		]]></handler>
+
+       <attribute name="retrycount" value="0"/>
+       <attribute name="timeoutretrycount" value="0"/>
+
+       <attribute name="retrycountForTitle" value="0"/>
+       <attribute name="timeoutretrycountForTitle" value="0"/>
+
+       <attribute name="servletBase" type="string" />
+
+		<datapath />
+		<method event="oninit"><![CDATA[
+		    var params = "";
+            if (typeof canvas.folder != "undefined") 
+               params = params.concat("&folder=" + canvas.folder);
+			else if (typeof canvas.user != "undefined") 
+               params = params.concat("&user=" + canvas.user);
+
+			if (params == "") {
+			   setAttribute('servletBase', LzBrowser.getInitArg( 'servletUrl' ) 
+					          + '/ContentServlet.do?method=getLocalResource&resourcePath=');
+			}
+            else {
+				
+			   setAttribute('servletBase', LzBrowser.getInitArg( 'servletUrl' ) 
+					          + '/ContentServlet.do?method=getLocalResource' + params
+							  + '&resourcePath=');
+			}
+            //Debug.write("XXX servletBase : " + servletBase);
+
+		]]></method>
+
+		<method name="getImageUrl" args="fileName"><![CDATA[
+			var trimmedFileName = trimFileName(fileName);
+			//var xml = gXmlHelper.getGetImageXml(fileName);
+			//var result = servletBase + xml;
+			var result = servletBase + trimmedFileName;
+			return result;
+		]]></method>
+		
+		<method name="trimFileName" args="fileName"><![CDATA[
+			var result = fileName == null ? "" : fileName;
+			if (fileName != null && fileName.indexOf('file:///') == 0) {
+				result = fileName.substring(8, fileName.length);
+			}
+			if (result.indexOf('~STG~local') == 0) {
+                var index = result.indexOf('/tmp');
+                if (index > 0) {
+                    result = result.substring(index, result.length);                
+                }
+			}
+			return result;
+		]]></method>
+		
+		<method event="ondata">
+			this.toolstate.setAttribute ('rerunxpath', true);
+            this.toolstate.setXPath (parent.datapath.xpath + '/@' + this.toolid);
+            this.datapath.setXPath (this.toolid);
+		</method>
+		
+        <dragstate name="dragger"
+                   drag_min_x="$once{-(this.width - 100)}" 
+                   drag_min_y="$once{-(this.height - 100)}"
+                   drag_max_x="$once{parent.width - 100}"
+                   drag_max_y="$once{parent.height - 100}"/>
+
+        <method event="ondata" args="data"><![CDATA[
+            this.setAttribute ('retrycount', 0);
+            this.setAttribute ('timeoutretrycount', 0);
+
+			this.setAttribute("height", null);
+			this.setAttribute("width", null);
+			this.refCardContents.contents.setAttribute("height", null);
+			this.refCardContents.contents.setAttribute("width", null);
+			
+			var theSrc = null;
+			var theTitleSrc = null;
+
+			if(data != null && data.hasAttr('src')) {
+				theSrc = getImageUrl(data.getAttr('src'));
+				var title = String(data.getAttr('src'));
+				title = title.substr(0,title.length - 4)+'_title.swf';
+				theTitleSrc = getImageUrl(title);
+			}
+			
+			if(data != null && theSrc != null){
+                this.setAttribute ('refCardRsrc', theSrc);
+				this.setAttribute ('titleRsrc', theTitleSrc);
+            }
+
+			if(data != null && data.hasAttr('scrolls')){
+                this.setAttribute ('scrolls', data.getAttr ('scrolls'));
+            }
+
+			if (data != null && data.hasAttr ('width')) {
+    			this.setAttribute ('width', Number (data.getAttr ('width')));
+			} else {
+                this.setAttribute ('width', null);
+            }
+
+			if (data != null && data.hasAttr ('height')) {
+				this.setAttribute ('height', Number (data.getAttr ('height')));
+			} else {
+                this.setAttribute ('height', null);
+            }
+
+  			if (this.refCardContents.contents['resource'] != refCardRsrc) {
+  				this.refCardContents.contents.setSource ( refCardRsrc );
+			} else {
+				adjustDimensions(data);
+                doneLoading();
+            }
+
+  			if (this.title.real_title['resource'] != titleRsrc) {
+  				this.title.real_title.setSource ( titleRsrc );
+			} else {
+				adjustDimensions(data);
+                doneLoading();
+            }
+
+            // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
+            if(data != null && gScratchpad.visible){
+                gScratchpad.bringToFront();
+            }
+          ]]></method>
+
+        <method event="onmouseover">
+            gController.setCurrentCursor('cangrab_cursor');
+        </method>
+
+        <method event="onmouseout">
+            gController.clearAndRestoreCurrentCursor();
+        </method>
+
+        <method event="onmousedown">
+        	this.bringToFront();
+            LzCursor.setCursorGlobal ('grabbing_cursor');
+            LzCursor.lock ();
+            this.dragger.apply ();
+        </method>
+
+        <method event="onmouseup">
+            LzCursor.unlock ();
+            gController.restoreCurrentCursor();
+            this.dragger.remove ();
+
+            this.datapath.p.setAttr ('x', this.x);
+            this.datapath.p.setAttr ('y', this.y);
+        </method>
+
+		<!-- To be called by the views having resources, when their load events will fire -->
+		<method name="adjustDimensions" args="data"><![CDATA[
+        	var scrollerWidth = refCardContents.scroller.width;
+
+			if(refCardContents.contents.resourceheight > this.innerHeight) {
+				this.scrolls = true;	
+			}
+			else {
+				this.scrolls = false;
+			}
+			
+        	if(!this.scrolls){
+        		this.setAttribute('innerHeight', refCardContents.contents.resourceheight);
+        		scrollerWidth = 0; 
+        	}
+        	else {
+        		this.setAttribute('innerHeight', this.defaultInnerHeight);
+        	}
+
+			this.setAttribute('innerWidth', refCardContents.contents.resourcewidth + scrollerWidth);
+			var halfWidth = (this.innerWidth - title.real_title.resourcewidth - this.LINE_PADDING)/2 ;
+			title.leftLines.setAttribute('width', halfWidth);
+			title.rightLines.setAttribute('width', halfWidth);
+
+			if(data != null && data.hasAttr('x')){
+                this.setAttribute ('x', data.getAttr ('x'));
+            }
+            else{
+             	this.setAttribute ('x', (parent.width - this.width)/2);
+            }
+            if(data != null && data.hasAttr('y')){
+            	this.setAttribute ('y', data.getAttr ('y'));
+            }
+            else{
+           		this.setAttribute ('y', (parent.height - this.height)/2);
+            }
+
+            if(data != null && data.hasAttr('scrollTo')){
+            	refCardContents.contents.setAttribute ('y', Number(data.getAttr('scrollTo')));
+            }
+            else {
+            	refCardContents.contents.setAttribute ('y', 0);
+            } 
+
+		]]></method>
+
+		<method name="updateScrollTo" args="value"><![CDATA[
+            if (this.data != null)
+			    this.datapath.p.setAttr ('scrollTo', value);
+		]]></method>
+
+		<!-- 
+			For handling load events of content and title resources 
+			-->		
+		<method name="handleLoadEvent" args="imgObj,count,d"><![CDATA[
+            	if(!gCommunicator.checkShowError(d) && (imgObj.resourceheight == 0 || 
+                                                        imgObj.resourcewidth == 0)) {
+            
+                    this.setAttribute (Number(count), Number(count) + 1);
+                    if (count < 5) {
+                        LzIdle.callOnIdle(imgObj.reloadDel);
+                    } else {
+                        gCommunicator.checkShowError(gXmlHelper.getContentErrorXml());
+                    }
+                } else {
+					this.adjustDimensions(data);
+					this.doneLoading();
+                }
+		]]></method>	
+		
+		<view name="background" >
+			<simplelayout axis="y" spacing="0" />
+			<view name="top">
+			    <simplelayout axis="x" spacing="0" />
+			    <view  name="topLeft" 
+			           resource="rc_top_left"
+			           height="$once{classroot.RESOURCE_DIMENSION}"
+			           width="$once{classroot.RESOURCE_DIMENSION}"
+			           stretches="both"/>
+			    <view name="topMiddle"
+			          resource="rc_top_middle"
+			          height="$once{classroot.RESOURCE_DIMENSION}"
+			          width="${classroot.innerWidth-classroot.MIN_WIDTH}" 
+			          stretches="both" />
+			    <view name="topRight"
+			          resource="rc_top_right" 
+			          height="$once{classroot.RESOURCE_DIMENSION}"
+			          width="$once{classroot.RESOURCE_DIMENSION}"
+			          stretches="both"/>
+			</view>
+			<view name="center">
+			    <simplelayout axis="x" spacing="0" />
+			    <view name="centerLeft"
+			          resource="rc_center_left" 
+			          height="${classroot.innerHeight-classroot.MIN_HEIGHT}"
+			          width="$once{classroot.RESOURCE_DIMENSION}"
+			          stretches="both"/>
+			    <view name="centerMiddle"
+			          resource="rc_center_middle"
+			          height="${classroot.innerHeight-classroot.MIN_HEIGHT}" 
+			          width="${classroot.innerWidth-classroot.MIN_WIDTH}" 
+			          stretches="both"/>
+			    <view name="centerRight"
+			          resource="rc_center_right" 
+			          height="${classroot.innerHeight-classroot.MIN_HEIGHT}"
+			          width="$once{classroot.RESOURCE_DIMENSION}"
+			          stretches="both"/>
+			</view>
+			<view name="bottom">
+			    <simplelayout axis="x" spacing="0" />
+			    <view name="bottomLeft"
+			          resource="rc_bottom_left"
+			          height="$once{classroot.RESOURCE_DIMENSION}"
+			          width="$once{classroot.RESOURCE_DIMENSION}"
+			          stretches="both"/>
+			    <view name="bottomMiddle"
+			          resource="rc_bottom_middle" 
+			          height="$once{classroot.RESOURCE_DIMENSION}"
+			          width="${classroot.innerWidth-classroot.MIN_WIDTH}" 
+			          stretches="both"/>
+			    <view name="bottomRight"
+			          resource="rc_bottom_right"
+			          height="$once{classroot.RESOURCE_DIMENSION}"
+			          width="$once{classroot.RESOURCE_DIMENSION}"
+			          stretches="both"/>
+			</view>
+		</view>
+		<view name="title" y="8">
+			<simplelayout axis="x" spacing="5" inset="10"/>
+			<view name="leftLines"
+				  resource="rc_lines"
+				  stretches="width" />
+			<view name="real_title">
+            <attribute name="reloadDel" value="$once{new LzDelegate(this, '_reload')}" />
+
+	            <method event="onload" args="d"><![CDATA[
+					classroot.handleLoadEvent(this,'retrycountForTitle',d);
+	            ]]></method>
+	            
+	            <method name="_reload">
+	                this.unload();
+	                this.setSource (this.resource);
+	            </method>
+	            
+	            <method event="onerror">
+	                gCommunicator.checkShowError(gXmlHelper.getContentErrorXml());
+	            </method>
+	
+	            <method event="ontimeout">
+	            <![CDATA[
+	                if ( classroot.timeoutretrycountForTitle < 1 )
+	                {
+	                    classroot.setAttribute('timeoutretrycountForTitle', classroot.timeoutretrycountForTitle + 1);
+	                    LzIdle.callOnIdle( reloadDel );
+	                }
+	                else 
+	                {
+	                	gCommunicator.checkShowError(gXmlHelper.getContentTimeoutXml());
+	                }
+				]]>
+	            </method>
+		
+			</view>
+			<view name="rightLines"
+				  resource="rc_lines"
+				  stretches="width" />
+			<basebutton resource="ref_card_close_btn" height="${this.resourceheight + 1}">
+				<method event="onclick">
+			    	gController.setManipulativeSelState (classroot.toolid, 'up');
+			    </method>
+			</basebutton>
+		</view>
+	    <view name="refCardContents" 
+		      x="$once{classroot.REF_CARD_X}" 
+		      y="$once{classroot.REF_CARD_Y}" 
+		      width="${classroot.innerWidth}" 
+		      height="${classroot.innerHeight}" 
+		      clip="true" 
+		      bgcolor="0xFFFFFF" >
+			<view name="contents"
+			      width="${classroot.innerWidth - parent.scroller.width}">
+            <attribute name="reloadDel" value="$once{new LzDelegate(this, '_reload')}" />
+
+	            <method event="onload" args="d"><![CDATA[
+					classroot.handleLoadEvent(this,'retrycount',d);
+	            ]]></method>
+	            
+	            <method name="_reload">
+	                this.unload();
+	                this.setSource (this.resource);
+	            </method>
+	            
+	            <method event="onerror">
+	                gCommunicator.checkShowError(gXmlHelper.getContentErrorXml());
+	            </method>
+	
+	            <method event="ontimeout">
+	            <![CDATA[
+	                if ( classroot.timeoutretrycount < 1 )
+	                {
+	                    classroot.setAttribute('timeoutretrycount', classroot.timeoutretrycount + 1);
+	                    LzIdle.callOnIdle( reloadDel );
+	                }
+	                else 
+	                {
+	                	gCommunicator.checkShowError(gXmlHelper.getContentTimeoutXml());
+	                }
+				]]>
+	            </method>
+
+				<method event="ony"><![CDATA[
+					// When user is actually scrolling the view, then only update the value of 'scrollTo' 
+					if(typeof(this.isloaded) != "undefined" && this.isloaded && classroot.isScrolling) {
+			            	classroot.updateScrollTo(this.y);
+					}
+				]]></method>
+
+			</view>
+		    <vscrollbar name="scroller" visible="${this.scrollable}">
+
+			<!--
+				These are the handlers used to check the mouse state on the scrollbar,
+					update attribute 'isScrolling' accordingly
+					JMC: removed reference="LzGlobalMouse" from onmousedown & onmouseup
+					Jaivardhan: had to add the same attribute so as to get the clicks from any of 
+					the child views of the vscrollbar otherwise for every child view, a seperate 
+					click handler has to be written.	 	
+				-->	
+				<handler name="onmousedown" args="Obj" reference="LzGlobalMouse"><![CDATA[
+					if(typeof Obj != "undefined" && Obj.childOf(this)) {
+						classroot.setAttribute("isScrolling", true);	
+//Debug.write("onmousedown is called....", Obj, this);
+					}
+				]]></handler>
+
+				<handler name="onmouseup" args="Obj" reference="LzGlobalMouse"><![CDATA[
+					if(typeof Obj != "undefined" && Obj.childOf(this)) {
+//Debug.write("onmouseup is called....", Obj, this);					
+						classroot.setAttribute("isScrolling", false);	
+					}
+				]]></handler>
+
+				<handler name="onmouseupoutside"><![CDATA[
+//Debug.write("onmouseupoutside is called....", this);
+						classroot.setAttribute("isScrolling", false);	
+				]]></handler>
+			
+			<!-- till here -->
+			</vscrollbar>	
+		</view>
+    </class>
+
+</library>

@@ -1,0 +1,55 @@
+<element_package iid="FCAT_TEST.005"
+	security_classification_id="alg112">
+	<item_canvas id="IC">
+		<panel left_padding="12" stereotype="stem" id="stem1"
+			width="500" layout="vertical" spacing="2" x="0" y="79"
+			height="318">
+			<text_widget halign="left" width="471" id="widget1000"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.]]></text_widget>
+			<image_widget halign="left" id="08-S_10mFCATd06"
+				src="08-S_10mFCATd06.swf" height="227" width="435" />
+			<text_widget halign="left" width="471" id="widget1001"><![CDATA[Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.]]></text_widget>
+		</panel>
+		<answer_area_panel id="A1" stereotype="answerArea" width="500"
+			layout="vertical" spacing="8" x="12" top_padding="12"
+			left_padding="12" y="404" height="128">
+			<answer_choice_widget spacing="6" layout="horizontal"
+				width="488">
+				<selector_widget valign="top" identifier="A" />
+				<text_widget halign="left" width="441"
+					id="widget1004"><![CDATA[12 ipsum]]></text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget spacing="6" layout="horizontal"
+				width="488">
+				<selector_widget valign="top" identifier="B" />
+				<text_widget halign="left" width="441"
+					id="widget1007"><![CDATA[34 ipsum]]></text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget spacing="6" layout="horizontal"
+				width="488">
+				<selector_widget valign="top" identifier="C" />
+				<text_widget halign="left" width="441"
+					id="widget1010"><![CDATA[56 ipsum]]></text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget spacing="6" layout="horizontal"
+				width="488">
+				<selector_widget valign="top" identifier="D" />
+				<text_widget halign="left" width="441"
+					id="widget1013"><![CDATA[78 ipsum]]></text_widget>
+			</answer_choice_widget>
+		</answer_area_panel>
+	</item_canvas>
+	<item_model iid="FCAT_TEST.005" eid="5" marked="0" answered="0"
+		number="0" type="question" correct="C">
+		<toolbar oneeighth_inch_ruler="required" mm_ruler="required"
+			formula_card="required" highlighter="required" eraser="required"
+			cm_ruler="required" scientific_calculator="required"
+			standard_calculator="required" protractor="required"
+			option_eliminator="required" half_inch_ruler="required" />
+		<interaction type="choice" max_choices="1">
+			<selector identifier="A" obj_id_ref="A" user_action="n" />
+			<selector identifier="B" obj_id_ref="B" user_action="n" />
+			<selector identifier="C" obj_id_ref="C" user_action="n" />
+			<selector identifier="D" obj_id_ref="D" user_action="n" />
+		</interaction>
+	</item_model>
+</element_package>

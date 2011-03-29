@@ -1,0 +1,70 @@
+<element_package iid="FCAT_TEST.008" security_classification_id="alg112">
+	<item_canvas id="IC">
+		<panel left_padding="12" stereotype="stimulus" id="FCAT_TEST.F" 
+		       layout="vertical" spacing="12" x="0" width="400" y="79" 
+		       height="453">
+			<text_widget halign="left" width="371" id="widget1000">
+				<![CDATA[Loreet adiat vel eum eliquisi blaore 
+				         vent prat ad tat lum num zzriure tat. 
+				         Ut accumsandre dolore tie commy nullutat 
+				         in velenis iduis nis acipis nummy nulputate 
+				         tem qui essim ilisit vullan hent am]]>
+			</text_widget>
+			<image_widget halign="left" id="03-S_10mFCATd06" 
+			              src="03-S_10mFCATd06.swf" height="203" 
+			              width="232" />
+		</panel>
+		<panel left_padding="12" stereotype="stem" id="stem1" 
+		       layout="vertical" spacing="12" width="394" x="400" 
+		       y="79" height="66">
+			<text_widget halign="left" width="365" id="widget1001">
+			<![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing 
+			         elit, sed diam nonummy nibh euismod tincidunt ut 
+			         laoreet dolore magna aliquam erat volutpat.]]>
+			</text_widget>
+		</panel>
+		<answer_choices_absolute_positioned_panel id="A1" 
+		        stereotype="answerArea" width="382" x="412" height="252" 
+		        layout="absolute" spacing="0" y="152">
+			<answer_choice_widget layout="vertical" spacing="6" width="72" 
+			                      x="12" y="12" height="102">
+				<image_widget id="03-A_10mFCATd06" src="03-A_10mFCATd06.swf" 
+				              width="72" halign="center" height="72" />
+				<selector_widget halign="center" identifier="A" />
+			</answer_choice_widget>
+			<answer_choice_widget layout="vertical" spacing="6" width="72" 
+			                      x="12" y="138" height="102">
+				<image_widget id="03-B_10mFCATd06" src="03-B_10mFCATd06.swf" 
+				              width="72" halign="center" height="72" />
+				<selector_widget halign="center" identifier="B" />
+			</answer_choice_widget>
+			<answer_choice_widget layout="vertical" spacing="6" width="72" 
+			                       x="197" y="12" height="102">
+				<image_widget id="03-C_10mFCATd06" src="03-C_10mFCATd06.swf" 
+				              width="72" halign="center" height="72" />
+				<selector_widget halign="center" identifier="C" />
+			</answer_choice_widget>
+			<answer_choice_widget layout="vertical" spacing="6" width="72" 
+			                      x="197" y="138" height="102">
+				<image_widget id="03-D_10mFCATd06" src="03-D_10mFCATd06.swf" 
+				              width="72" halign="center" height="72" />
+				<selector_widget halign="center" identifier="D" />
+			</answer_choice_widget>
+		</answer_choices_absolute_positioned_panel>
+	</item_canvas>
+	<item_model iid="FCAT_TEST.008" eid="8" marked="0" answered="0" number="0" 
+	            type="question" correct="D">
+		<toolbar oneeighth_inch_ruler="required" mm_ruler="required"
+		         formula_card="required" highlighter="required" eraser="required" 
+		         cm_ruler="required" scientific_calculator="required" 
+		         standard_calculator="required" protractor="required" 
+		         option_eliminator="required" half_inch_ruler="required" />
+		<interaction type="choice" max_choices="1">
+			<selector identifier="A" obj_id_ref="A" user_action="n" />
+			<selector identifier="B" obj_id_ref="B" user_action="n" />
+			<selector identifier="C" obj_id_ref="C" user_action="n" />
+			<selector identifier="D" obj_id_ref="D" user_action="n" />
+		</interaction>
+	</item_model>
+</element_package>
+

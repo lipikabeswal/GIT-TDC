@@ -1,0 +1,158 @@
+<canvas bgcolor="0x6691B4" 
+        proxied="false" 
+        debug="false"
+        accessible="true" >
+
+    <debug x="0" y="0" width="80%" height="400"/>
+
+    <include href="ctbmodules"/>
+
+    <script src="lzmodules/lfc/focuspatch.js">
+    </script>
+	<attribute name="focusobj" />
+	
+    <handler name="onfocus">
+       Debug.write("NK XXX canvas has focus");
+    </handler>
+
+    <script src="lzmodules/lfc/browserpatch.js">
+    </script>
+
+    <resource name="waitcursor" src="redmond/resources/lzwaitcursor_rsc.swf"/>
+
+    <script><![CDATA[
+        function printBigString( s ) {
+            Debug.write( '==========' );
+            if (s == null) return;
+            for ( var i = 0; i < s.length; i += 100 ) {
+                Debug.write(s.substring( i, i + 100 ) );
+            }
+        }
+    ]]></script>
+    <script><![CDATA[
+        function round( s ) {
+            var prev = Math.floor(s);
+            var next = Math.ceil(s);
+            var toNext = next - s;
+            var toPrev = s - prev;
+            var result = prev;
+            if(toNext < toPrev){
+            	result = next;
+            }
+            return result;
+        }
+    ]]></script>
+    <script><![CDATA[
+    	/**
+    	 * This method trims the blank spaces ' ' or new lines '\n' from the front
+    	 * and end of a string
+    	 * @param str - The string that is to be parsed
+    	 * @return str - The parsed string after it has been trimmed    
+    	 */
+        function trim( str ) {
+        	if(str == null){
+        		str = '';
+        		return str;
+        	}
+            while (str.substr(0,1) == ' ' || str.substr(0,1)=='\n') {
+               str = str.substr(1, str.length);
+            }
+            while (str.substr(str.length-1, str.length) == ' '|| str.substr(str.length-1, str.length) =='\n') {
+               str = str.substr(0,str.length-1);
+            }
+            return str;		
+        }
+    ]]></script>
+
+    <attribute name="Copyrite" type="string" value="CTB/McGraw-Hill" />
+	<attribute name="copyriteColor" type="color" value="0x527DA4" />
+	<attribute name="basefontsize" type="number" value="12" />
+	<attribute name="readable" value="false" type="boolean" />
+    <attribute name="focusclass" value="null"/>
+    <attribute name="footnotedata"/>
+    <attribute name="itemxml"/>
+	<attribute name="currentCursor" value="null"/>
+	<attribute name="eliminatorRsrc" value="$once{LzBrowser.getInitArg('eliminatorResource')}" type="string" />
+	<attribute name="useDefaultEliminator" type="boolean" value="true" />
+    
+	<method name="setCrFocus">
+		var fo = canvas.getAttribute('focusobj');
+		if(typeof fo == 'object'){
+			fo.onfocus.sendEvent();
+		}
+	</method>
+    <method event="onfootnotedata" args="data">
+        gFootNotePopup.show(data);
+    </method>
+    <method event="onitemxml" args="data">
+        Debug.write('data'+data);
+    </method>
+
+	<method event="oninit">
+    	Debug.write("HTML Embed Setting:" + Stage.showMenu);
+    	Stage.showMenu = false;
+    	Debug.write("Active Setting:" + Stage.showMenu);
+  	</method>
+	
+
+    <method name="init">
+    Debug.warn("*****************init**************");
+       super.init();
+       var folder = LzBrowser.getInitArg('folder');
+       if (folder) this.setAttribute("folder", folder);
+       var user = LzBrowser.getInitArg('user');
+       if (user) this.setAttribute("user", user);
+       var itemNum = LzBrowser.getInitArg('itemNum');
+       if (itemNum) this.setAttribute("itemNum", itemNum);
+       Debug.warn("*****************init**************"+itemNum);
+       <!-- canvas.setDefaultContextMenu(null); -->
+       var cmenu = new LzContextMenu();
+       cmenu.hideBuiltInItems();
+       cmenu.setDelegate(doNothing);
+	   canvas.setDefaultContextMenu(cmenu);
+	   Stage.showMenu = false;
+	   dshowClient.register( this, 'itemuiready' );
+		gController.loadItem();
+    </method>
+    
+    <method name="doNothing">
+    </method>
+
+<!--  this view tests whether or not the eliminator resource is available -->
+	<view name="eliminatorTester" visible="false" height="0" width="0">
+		<method event="oninit">
+			canvas.setAttribute('medialoadtimeout', 3000);
+			var eliminatorUrl = LzBrowser.getInitArg('eliminatorResource');
+			this.setSource(eliminatorUrl);
+			var folderUrl = LzBrowser.getInitArg('folder');
+			if (folderUrl) {
+			   canvas.folder = folderUrl;
+			}
+		</method>
+		<method event="onload">
+			canvas.setAttribute('medialoadtimeout', 30000);
+			canvas.setAttribute('useDefaultEliminator', false);
+			this.unload();
+		</method>
+		
+	</view>
+    <view name="scalingView"
+          stretches="both"
+          height="${ canvas.width/canvas.height &lt; 1.33 
+                     ? this.width * unstretchedheight/unstretchedwidth 
+                     : canvas.height}" 
+          width="${  canvas.width/canvas.height &lt;1.33 
+                     ? canvas.width 
+                     : this.height * unstretchedwidth/unstretchedheight}"
+          valign="middle" align="center">
+
+
+        <view name="gView" width="800" height="600">
+
+            <ItemInterface id="gItemInterface" width="800" height="600"
+                        visible="true"/>
+        </view>
+
+    </view>
+
+</canvas>

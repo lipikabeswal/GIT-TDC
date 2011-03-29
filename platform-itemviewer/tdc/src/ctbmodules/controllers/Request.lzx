@@ -1,0 +1,119 @@
+<library>
+	<include href="XmlHelper.lzx" />
+       
+	<dataset name="contentDs" 
+	         type="http"
+	         queuerequests="true" 
+	         querytype="post"
+	         timeout="120000" 
+	         onerror="gRequest.requestError(this)" 
+	         ontimeout="gRequest.requestTimeout(this)" 
+	         ondata="gRequest._processResponse(this)" />
+
+    <node id="gRequest">
+		<attribute name="METHOD_PARAM"   type="string" value="method" />
+		<attribute name="FOLDER_PARAM"   type="string" value="folder" />
+		<attribute name="ITEMNUM_PARAM"   type="string" value="itemNum" />
+		<attribute name="USER_PARAM"     type="string" value="user" />
+		<attribute name="XML_PARAM"      type="string" value="requestXML" />
+		<attribute name="SAVE_METHOD"    type="string" value="save" />
+		<attribute name="LOGIN_METHOD"   type="string" value="login" />
+		<attribute name="FEEDBACK_METHOD" type="string" value="feedback" />
+		<attribute name="WRITE_TO_AUDIT_FILE_METHOD" type="string" value="writeToAuditFile" />
+		<attribute name="UPLOAD_AUDIT_FILE_METHOD" type="string" value="uploadAuditFile" />
+		<attribute name="GET_SUBTEST_METHOD" type="string" value="getSubtest" />
+		<attribute name="GET_ITEM_METHOD" type="string" value="getItem" />
+		<attribute name="DOWNLOAD_ITEM_METHOD" type="string" value="downloadItem" />
+		<attribute name="mseq" type="number" value="1" />
+		<attribute name="cid" value="$once{Math.floor(Math.random() * 1000000)}" />
+		<attribute name="uploadAuditFileLsid" value="null"/>
+		<attribute name="uploadAuditFileScid" value="null"/>
+		<attribute name="pendingSaveEid" value="null" />
+		
+		<attribute name="_GENDER_PARAM" type="string" value="gender" />
+		<attribute name="_TEXT_PARAM" type="string" value="text" />
+		<attribute name="_SERVER_VALUE" type="string" value="server" />
+		<attribute name="_GENDER_VALUE" type="string" value="female" />
+		
+		<method event="oninit">
+			var base = LzBrowser.getInitArg( 'servletUrl' );
+			contentDs.setSrc(base + '/ContentServlet.do');
+		</method>
+			
+		
+		<method name="loadItem" args="params">
+			var xml = gXmlHelper.getLoadItemXml(params);
+			_doRequest(contentDs, LOAD_ITEM_METHOD, xml);
+		</method>
+		
+		<method name="_processResponse" args="ds" >
+//Debug.write("_processResponse: " + ds);
+//var timestamp1 = getTimer();
+			var datasetText = getDatasetText(ds);
+//var timestamp2 = getTimer();
+//Debug.write("process response:")
+//Debug.write("timestamp1: " + timestamp1);
+//Debug.write("timestamp2: " + timestamp2);
+			gCommunicator.finishCall(datasetText,ds);
+		</method>
+		
+		
+		<method name="getDatasetText" args="ds">
+			var dp = ds.getPointer();
+//Debug.write("getDatasetText");
+//printBigString(ds.serialize());
+			dp.selectChild();
+			return dp.serialize();
+		</method>
+		
+		
+		<method name="requestTimeout" args="ds">
+Debug.write("request timeout : ", ds);
+			_returnError(ds);
+		</method>
+		
+		<method name="requestError" args="ds">
+Debug.write("request error : ", ds);
+			_returnError(ds);
+		</method>
+
+		<method name="_returnError" args="ds">
+Debug.write("_returnError : ", ds);
+			if(gScreens.isOnFeedbackScreen()){
+				gCommunicator.finishCall(gXmlHelper.getFeedbackErrorXml(),ds);
+			}
+			else{
+				gCommunicator.finishCall(gXmlHelper.getErrorXml(),ds);
+			}
+		</method>
+		
+		
+		
+    	<method name="_doRequest" args="ds, _method, xml">
+      	<![CDATA[
+//Debug.write("doRequest: " + ds + " , " + _method + " , " + xml);  
+		    if (typeof canvas.folder != "undefined") {
+//Debug.write("XXX: folder " + canvas.folder);
+				ds.setQueryParam(FOLDER_PARAM, canvas.folder);
+			}
+		    if (typeof canvas.user != "undefined") {
+				ds.setQueryParam(USER_PARAM, canvas.user);
+			}
+
+			if(_method != null){
+				ds.setQueryParam(METHOD_PARAM, _method);
+			}
+			if(xml != null){
+				ds.setQueryParam(XML_PARAM, xml);
+			}
+			ds.doRequest();
+		]]>
+		</method>
+ 
+ 	   	<method name="sendRequest" args="ds">
+ 	   	Debug.write("sendRequest : ", ds.name,ds);
+    	 	ds.doRequest();
+		</method>
+		
+	</node>
+</library>

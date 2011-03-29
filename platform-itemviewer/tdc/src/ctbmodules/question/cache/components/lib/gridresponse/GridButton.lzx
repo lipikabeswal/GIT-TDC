@@ -1,0 +1,182 @@
+<library>
+
+    <script><![CDATA[
+        function isDigit ( s ) {
+            switch (s) {
+                case '0': return true;
+                case '1': return true;
+                case '2': return true;
+                case '3': return true;
+                case '4': return true;
+                case '5': return true;
+                case '6': return true;
+                case '7': return true;
+                case '8': return true;
+                case '9': return true;
+            }
+            return false;
+        }
+    ]]></script>
+
+    <!-- =====================
+         Grid Button
+         
+         A single button for the gridded response.  
+         ===================== -->
+    <class name="GridButton" fontsize="12"
+           width="${this.fontsize + 16}" height="${this.fontsize + 11}">
+
+        <!-- ========
+             attributes
+             ======== -->
+        <!-- the value we're displaying -->
+        <attribute name="value" type="string" value="$path {'@value'}"/>
+        <attribute name="display" type="string" value="$path{ '@display' }"/>
+
+        <!-- the column we belong to -->
+        <attribute name="column" value="$once{parent.classroot}"/>
+
+        <attribute name="ignoremouse" value="false"/>
+
+
+        <attribute name="SEPARATOR_TAG" value="'---'"/>
+
+        
+
+        <!-- ========
+             event handlers
+             ======== -->
+        <!-- add our value to the column has of accepted keys -->
+        <method event="oninit"><![CDATA[
+            if (value != this.SEPARATOR_TAG && value != '' && value != null) {
+                //special case for .
+                if (value == '.') {
+                    column.acceptedkeyshash[190] = value;
+                    column.acceptedkeyshash[110] = value;
+//                    this.column.acceptedkeyshash [value] = 190;
+                } else {
+                    column.acceptedkeyshash[ LzKeys.keyCodes[value] ] = value;
+                    if ( isDigit( value ) ) {
+                        var padcode = LzKeys.keyCodes[ 'numbpad' + value ];
+                        column.acceptedkeyshash[ padcode ] = value;
+                    } else {
+                        // check for other number pad keycodes
+                        switch ( value ) {
+                            case '+':
+                                column.acceptedkeyshash[107] = value; break;
+                            case '-':
+                                column.acceptedkeyshash[109] = value; break;
+                            case '*':
+                                column.acceptedkeyshash[106] = value; break;
+                            case '/':
+                                column.acceptedkeyshash[111] = value; break;
+                            case '=':
+                                column.acceptedkeyshash[12] = value; break;
+                        }
+                    }
+//                    this.column.acceptedkeyshash [value] = LzKeys.keyCodes [value];
+                }
+            }
+        ]]></method>
+
+        <!-- ========
+             states
+             ======== -->
+        <!-- if we have a bonafide value -->
+        <state name="valuestate"
+               apply="${classroot.value != '' &amp;&amp; classroot.value != classroot.SEPARATOR_TAG}">
+
+            <method event="onmouseover" reference="circle">
+                if (!this.ignoremouse) {
+                    this.column.onmouseover.sendEvent ();
+                    if (!this.column.selman.isSelected (this)) {
+                        this.column.hlselman.select (this); 
+                    }
+                }
+                this.setAttribute ('ignoremouse', false);
+            </method>
+
+		
+            <method event="onmousedown" reference="circle">
+            	column.selectThisColumn();
+            	var txt = this.getReadableTextForButton();
+                if (this.column.responseval == this.value) {
+                    this.column.clear ();
+                } else {
+                    gController.setGrState( column.data.getOffset(),
+                                                this.value );
+                }
+            </method>
+
+            <method event="onmouseout" reference="circle">
+                if ( !this.ignoremouse ) {
+                    this.column.hlselman.clearSelection ();
+                }
+            </method>
+
+            <method args="r" event="onresponseval" reference="column">
+                if ( r  == this.value ) {
+                    this.column.selman.select (this);
+                }
+            </method>
+
+
+            <!-- show selected/up state -->
+            <method name="setSelected" args="isselected">
+                if (isselected) {
+                    this.circle.setResourceNumber (this.column.backcolor == black ? 2 : 3);
+                    this.wrapper.text.setAttribute ('fgcolor', this.column.backcolor);
+                } else {
+                    this.circle.setResourceNumber (1);
+                    this.wrapper.text.setAttribute ('fgcolor', this.column.textcolor);
+                }
+            </method>
+
+            <!-- show highlighted state -->
+            <method name="setHighlighted" args="ishl">
+                if (!this.column.selman.isSelected (this))
+                {
+                    if (ishl) {
+                        this.circle.setResourceNumber (this.column.backcolor == black ? 3 : 2);
+                    } else {
+                        this.circle.setResourceNumber (1);
+                        this.wrapper.text.setAttribute ('fgcolor', this.column.textcolor);
+                    }
+                }
+            </method>
+
+            <view name="circle" resource="circle_btn" stretches="both"
+                  height="${classroot.fontsize + 5}" width="${this.height}"
+                  align="center" valign="middle" 
+                  clickable="${ 'true' == uienabled }"
+                  clickregion="../../../../../resources/components/griddedresponse/circle_selected.swf">
+                <attribute name="uienabled" value="$path{ 'dsdisplay:/display/@enabled' }"/>
+            </view>
+
+            <!-- button text -->
+            <view name="wrapper" valign="middle" align="center">
+                <text name="text" 
+                      text="${ classroot.display ? classroot.display : classroot.value}"
+                      fgcolor="$once {classroot.column.textcolor}">
+                    <method event="ontext">
+                        this.setAttribute ('width', this.getTextWidth () + 1);
+                    </method>
+                </text>
+            </view>
+        </state>
+
+
+
+        <!-- state if we're a separator -->
+        <state name="separatorstate"
+               apply="${classroot.value == classroot.SEPARATOR_TAG}"
+               height="5">
+            <view width="${classroot.width + 2}" x="-1" 
+                  height="1" bgcolor="${classroot.column.textcolor}" 
+                  valign="middle"/>
+        </state>
+
+    </class>
+
+
+</library>

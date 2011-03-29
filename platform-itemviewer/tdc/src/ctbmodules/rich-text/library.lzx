@@ -1,0 +1,22 @@
+
+<library>
+
+<include href="shadowbox.lzx"/>
+<include href="custombutton.lzx"/>
+<include href="baseedittext.lzx"/>
+<include href="lzcombobox.lzx"/>
+<include href="borderinput.lzx"/>
+<include href="textstyle.lzx"/>
+<include href="tooltip/tooltip.lzx"/>
+<include href="tooltip/tooltipview.lzx" />
+    
+<include href="richtexttoolbar.lzx"/>
+<include href="richtexteditarea.lzx"/>
+<include href="formatfontface.lzx"/>
+<include href="formatfontcolor.lzx"/>
+<include href="formatbtn.lzx"/>
+<include href="cpbtn.lzx"/>
+<include href="linkdialog.lzx"/>
+<include href="scrollrichedittext.lzx"/>
+
+</library>

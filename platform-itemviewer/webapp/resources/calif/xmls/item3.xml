@@ -1,0 +1,129 @@
+<element_package iid="FCAT_TEST.003"
+	security_classification_id="alg112">
+	<item_canvas id="IC">
+		<panel left_padding="12" stereotype="stimulus"
+			id="FCAT_TEST.Cost" layout="vertical" spacing="12" x="0" width="558"
+			y="79" height="453">
+			<text_widget halign="left" width="509" id="widget1000"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis]]></text_widget>
+			<image_widget enlargeable="yes" halign="left"
+				id="19-S_10mFCATd06" src="19-S_10mFCATd06.swf" height="238"
+				width="512" />
+		</panel>
+		<panel left_padding="12" stereotype="stem" id="stem1"
+			layout="vertical" spacing="12" width="256" x="558" y="79"
+			height="87">
+			<text_widget halign="left" width="227" id="widget1001"><![CDATA[Loreet adiat vel eum eliquisi blaore vent prat ad tat lum num zzriure tat. Ut accumsandre dolore tie commy nullutat in velenis ilisit vullan hent am]]></text_widget>
+		</panel>
+		<gridded_response_panel top_padding="5" left_padding="0"
+			stereotype="answerArea" id="A1" layout="vertical" spacing="0" x="570"
+			width="230" y="173" height="359">
+			<gridresponse id="widget1002">
+				<gridcol identifier="1" id="widget1003">
+					<entry value="---" id="widget1004" />
+					<entry  value="/"  id="widget1005" />
+					<entry value="---" id="widget1006" />
+					<entry display="&amp;#xF8DE;" value="."
+						id="widget1007" />
+					<entry value="---" id="widget1008" />
+					<entry value="0" id="widget1009" />
+					<entry value="1" id="widget1010" />
+					<entry value="2" id="widget1011" />
+					<entry value="3" id="widget1012" />
+					<entry value="4" id="widget1013" />
+					<entry value="5" id="widget1014" />
+					<entry value="6" id="widget1015" />
+					<entry value="7" id="widget1016" />
+					<entry value="8" id="widget1017" />
+					<entry value="9" id="widget1018" />
+				</gridcol>
+				<gridcol identifier="2" id="widget1019">
+					<entry value="---" id="widget1020" />
+					<entry value="/" id="widget1021" />
+					<entry value="---" id="widget1022" />
+					<entry display="&amp;#xF8DE;" value="."
+						id="widget1023" />
+					<entry value="---" id="widget1024" />
+					<entry value="0" id="widget1025" />
+					<entry value="1" id="widget1026" />
+					<entry value="2" id="widget1027" />
+					<entry value="3" id="widget1028" />
+					<entry value="4" id="widget1029" />
+					<entry value="5" id="widget1030" />
+					<entry value="6" id="widget1031" />
+					<entry value="7" id="widget1032" />
+					<entry value="8" id="widget1033" />
+					<entry value="9" id="widget1034" />
+				</gridcol>
+				<gridcol identifier="3" id="widget1035">
+					<entry value="---" id="widget1036" />
+					<entry value="/" id="widget1037" />
+					<entry value="---" id="widget1038" />
+					<entry display="&amp;#xF8DE;" value="."
+						id="widget1039" />
+					<entry value="---" id="widget1040" />
+					<entry value="0" id="widget1041" />
+					<entry value="1" id="widget1042" />
+					<entry value="2" id="widget1043" />
+					<entry value="3" id="widget1044" />
+					<entry value="4" id="widget1045" />
+					<entry value="5" id="widget1046" />
+					<entry value="6" id="widget1047" />
+					<entry value="7" id="widget1048" />
+					<entry value="8" id="widget1049" />
+					<entry value="9" id="widget1050" />
+				</gridcol>
+				<gridcol identifier="4" id="widget1051">
+					<entry value="---" id="widget1052" />
+					<entry value="/" id="widget1053" />
+					<entry value="---" id="widget1054" />
+					<entry display="&amp;#xF8DE;" value="."
+						id="widget1055" />
+					<entry value="---" id="widget1056" />
+					<entry value="0" id="widget1057" />
+					<entry value="1" id="widget1058" />
+					<entry value="2" id="widget1059" />
+					<entry value="3" id="widget1060" />
+					<entry value="4" id="widget1061" />
+					<entry value="5" id="widget1062" />
+					<entry value="6" id="widget1063" />
+					<entry value="7" id="widget1064" />
+					<entry value="8" id="widget1065" />
+					<entry value="9" id="widget1066" />
+				</gridcol>
+				<gridcol identifier="5" id="widget1067">
+					<entry value="---" id="widget1068" />
+					<entry value="/" id="widget1069" />
+					<entry value="---" id="widget1070" />
+					<entry display="&amp;#xF8DE;" value="."
+						id="widget1071" />
+					<entry value="---" id="widget1072" />
+					<entry value="0" id="widget1073" />
+					<entry value="1" id="widget1074" />
+					<entry value="2" id="widget1075" />
+					<entry value="3" id="widget1076" />
+					<entry value="4" id="widget1077" />
+					<entry value="5" id="widget1078" />
+					<entry value="6" id="widget1079" />
+					<entry value="7" id="widget1080" />
+					<entry value="8" id="widget1081" />
+					<entry value="9" id="widget1082" />
+				</gridcol>
+			</gridresponse>
+		</gridded_response_panel>
+	</item_canvas>
+	<item_model iid="FCAT_TEST.003" eid="3" marked="0" answered="0"
+		number="0" type="question">
+		<toolbar oneeighth_inch_ruler="required" mm_ruler="required"
+			formula_card="required" highlighter="required" eraser="required"
+			cm_ruler="required" scientific_calculator="required"
+			standard_calculator="required" protractor="required"
+			option_eliminator="required" half_inch_ruler="required" />
+		<interaction type="grid">
+			<response identifier="1" user_action=" " />
+			<response identifier="2" user_action=" " />
+			<response identifier="3" user_action=" " />
+			<response identifier="4" user_action=" " />
+			<response identifier="5" user_action=" " />
+		</interaction>
+	</item_model>
+</element_package>

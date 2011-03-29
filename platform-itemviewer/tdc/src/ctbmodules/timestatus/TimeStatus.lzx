@@ -1,0 +1,80 @@
+<library>
+
+    <class name="TimeStatus"
+           datapath="dssubtest:/subtest">
+
+        <attribute name="uienabled"
+                   value="$path{ 'dsdisplay:/display/@enabled' }"/>
+        <attribute name="pausable"
+                   value="$path{ 'dssubtest:/subtest/testing_session_data/lms.student.accommodations/@rest_break' }"/>
+
+        <simplelayout axis="x" spacing="10"/>
+
+        <view y="22">
+            <simplelayout axis="x" spacing="10"/>
+            <basebutton resource="pause_time_btn" id="gPauseButton"
+                        enabled="${ classroot.uienabled == 'true' }"
+                        onclick="gController.pauseTest ()"
+                        visible="${ classroot.pausable == 'true' }"
+                        disabledResourceNumber="0"
+                        />
+            <basebutton resource="stop_time_btn" name="stopbutton" id="gStopButton"
+                        enabled="${ classroot.uienabled == 'true' }"
+                        onclick="gController.stopTest ()"
+                        disabledResourceNumber="0"
+                        />
+
+            <text visible="${ classroot.timerctrl.isuntimed == 'true' }"
+                  options="ignorelayout" fgcolor="white" fontsize="15"
+                  x="${ parent.stopbutton.x + ((parent.stopbutton.width - width)/2) }"
+                  y="-24">
+                Untimed Test
+            </text>
+        </view>
+
+        <view name="timerctrl">
+
+            <attribute name="showtime"
+                       value="$path{ 'dsdisplay:/display/@showtime' }"
+                       setter="setShowTime( showtime )"/>
+            <attribute name="isuntimed"
+                       value="$path{ 'dsdisplay:/display/@untimed' }"/>
+
+            <method args="u" event="onisuntimed"><![CDATA[
+                setShowTime( showtime );
+            ]]></method>
+
+            <method name="setShowTime" args="show">
+                if ( 'true' == isuntimed ) {
+                    thetime.setAttribute( 'visible', false );
+                    showhidetime.setAttribute( 'visible', false );
+                } else {
+                    if ( typeof( show ) == 'string' ) {
+                        show = show == 'true';
+                    }
+                    showhidetime.setAttribute( 'visible', true );
+                    showhidetime.setAttribute( 'statenum', show ? 1 : 0 );
+                    thetime.setAttribute( 'visible', show );
+                }
+                this.showtime = show;
+            </method>
+            
+            <text name="thetime" x="68" y="-2"
+                  resize="true" fgcolor="white" fontsize="15"
+                  datapath="dsdisplay:/display/@timeleft"/>
+
+            <multistatebutton name="showhidetime" y="22" 
+                              resource="show_hide_timer_btn"
+                              statelength="3" maxstate="1"
+                              enabled="${ classroot.uienabled == 'true' }"
+                              disabledResourceNumber="0">
+                <method name="toggle" event="onclick">
+                    gController.toggleTimer();
+                </method>
+            </multistatebutton>
+        </view>
+
+    </class>
+
+    
+</library>

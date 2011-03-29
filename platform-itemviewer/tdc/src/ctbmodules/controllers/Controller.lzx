@@ -1,0 +1,869 @@
+<library>
+   <script><![CDATA[
+        function countDataNodes ( nodes ) {
+            if ( null == nodes ) {
+                return 0;
+            } else if ( nodes instanceof LzDataNode ) {
+                return 1;
+            } else if ( nodes instanceof Array ) {
+                return nodes.length;
+            } else {
+                return NaN;
+            }
+        }
+
+        function nullOrSpace( s ) {
+            return s == null || s == '' || s == ' ';
+        }
+
+        function removeFileExtn( s ) {
+			return s.split('.')[0];
+		}
+
+		function sumNumDigits(num) {
+			var digitSum = 0;
+			num = String(num);
+			num = num.split("");
+			for(var i = 0; i < num.length; i++) {
+				digitSum += Number(num[i]);
+			}
+			//Debug.write("digitSum : ", digitSum);
+
+			return digitSum;
+		}	
+
+		/**************************
+		 * to be internally called by 'sort' method of Array Object
+		 * when passed as an argument
+		 * @param anode
+		 * @param bnode
+		 * @return anode - bnode
+		 **************************/
+		function sortNodes(anode,bnode) {
+			var codeA = 0;
+			var codeB = 0;
+			anode = LzDataNode.stringToLzData(anode);
+			bnode = LzDataNode.stringToLzData(bnode);
+			codeA = anode.getElementsByTagName('selector_widget')[0].getAttr("randomIdentifier").charCodeAt();
+			codeB = bnode.getElementsByTagName('selector_widget')[0].getAttr("randomIdentifier").charCodeAt();
+			
+			//Debug.write("codeA, codeB : ", codeA, codeB);
+			return codeA - codeB;
+		}
+
+		/**************************
+		 * reverses the input string
+		 * @param input
+		 * @return input
+		 **************************/
+		function reverseString(input) {
+			input = input.split("");
+			input = input.reverse();
+			input = input.join("");
+			return input;
+		}
+		
+
+	 
+		function isMac(){
+
+			var os = System.capabilities.os;
+			os = os.split(" ");
+			return os[0] == 'Mac';
+	
+		}			
+    ]]></script>
+
+	<!--
+		==================================================
+		Datasets
+		==================================================
+	-->
+	
+	<dataset name="dsdisplay" src="xmls/display.xml" />
+
+	
+
+	<dataset name="dsitem" type="http" queuerequests="true"
+		querytype="post" timeout="120000"
+		onerror="gCommunicator.checkShowError(gXmlHelper.getContentErrorXml(),this)"
+		ontimeout="gCommunicator.checkShowError(gXmlHelper.getContentErrorXml(),this)"
+		ondata="gController.processItemResponse()" />
+
+	<dataset name="dsstudentdata" src="xmls/studentData.xml" />
+
+	<dataset name="dstemp" />
+
+	<!--
+		==================================================
+		Test Controller
+		==================================================
+	-->
+	<node id="gController">
+		<!--  
+			Convenience datapointers
+		-->
+		<attribute name="dp" value="$once{new LzDatapointer()}" />
+		<attribute name="answerdp" value="$once{new LzDatapointer()}" />
+		
+		<!-- 
+			Requests to the communicator result in setting the communicatorResponse with
+			the text of the http response.  The controller needs to know what the request was 
+			that correlates to this response.  The controller maintains a state that indicates
+			what request was made to the communicator.
+		-->
+		<attribute name="communicatorResponse" type="string"
+			value="null" />
+		<attribute name="state" type="string" value="$once{NONE_STATE}" />
+		<attribute name="NONE_STATE" type="string" value="none" />
+		<attribute name="LOGIN_STATE" type="string" value="login" />
+		<attribute name="DOWNLOAD_STATE" type="string" value="download" />
+		<attribute name="SAVE_LOAD_STATE" type="string"
+			value="saveload" />
+		<attribute name="PAUSE_STATE" type="string" value="pause" />
+		<attribute name="PAUSED_RESUME_STATE" type="string"
+			value="pausedResume" />
+		<attribute name="TIMEOUT_STATE" type="string" value="timeout" />
+		<attribute name="SUBTEST_STATE" type="string" value="subtest" />
+		<attribute name="OUT_OF_TIME_OPEN_STATE" type="string"
+			value="outOfTimeOpen" />
+		<attribute name="FINISH_STATE" type="string" value="finish" />
+		<attribute name="WRITE_TO_AUDIT_FILE_STATE" type="string"
+			value="writeToAuditFile" />
+		<attribute name="UPLOAD_AUDIT_FILE_STATE" type="string"
+			value="uploadAuditFile" />
+		<attribute name="FINISH_SAVE_STATE" type="string"
+			value="finishSave" />
+		<attribute name="SUBTEST_FINISH_STATE" type="string"
+			value="subtestFinish" />
+		<attribute name="FEEDBACK_STATE" type="string" value="feedback" />
+		<attribute name="SAVE_END_SUBTEST_STATE" type="string"
+			value="saveEndSubtest" />
+		<attribute name="TUTORIAL_COMPLETE_STATE" type="string"
+			value="tutorialComplete" />
+
+		<!-- 
+			Lifecycle events
+		-->
+		<attribute name="INIT_LEV" type="string" value="lms_initialize" />
+		<attribute name="FINISH_LEV" type="string" value="lms_finish" />
+		<attribute name="PAUSE_LEV" type="string" value="stu_pause" />
+		<attribute name="STOP_LEV" type="string" value="stu_stop" />
+		<attribute name="RESUME_LEV" type="string" value="stu_resume" />
+		<attribute name="TERMINATED_LEV" type="string"
+			value="terminated" />
+
+		<!-- 
+			Item types - theme or normal
+		-->
+		<attribute name="THEME_TYPE" type="string" value="NI" />
+		<attribute name="DEFAULT_TYPE" type="string" value="UN" />
+
+		
+
+		<!-- 
+			Convenience attributes to access commonly used information in
+			various xml datasets
+		-->
+		<attribute name="hasFontAccommodation" type="boolean"
+			value="false" />
+		
+		<attribute name="questionBgColor" type="color" value="0xFFFFFF" />
+		<attribute name="questionFontColor" type="color"
+			value="0x000000" />
+		<attribute name="answerBgColor" type="color" value="0xFFFFB0" />
+		<attribute name="answerFontColor" type="color" value="0x000000" />
+		<attribute name="lsid" value="0" />
+		<attribute name="scid" value="0" />
+
+		
+		<!--  
+			Whether the ui should be unlocked or not
+		-->
+		<attribute name="doUnlockUI" type="boolean" value="true" />
+
+		<!-- 
+			The node for the item that is being loaded
+		-->
+		<attribute name="loadNode" />
+
+		<!-- 
+			The index of the subtest that is in progress
+		-->
+		<attribute name="currentSubtestIndex" type="number" value="0" />
+
+		<!-- 
+			An array of accommodation styles
+		-->
+		<attribute name="accomstyles" />
+
+		<!-- 
+			Is this the firstSubtest in the session?
+		-->
+		<attribute name="firstSubtest" type="boolean" value="true" />
+
+		<!-- 
+			Is the swf being used in the previewer?
+		-->
+		<attribute name="isPreviewer" type="boolean"
+			value="$once{LzBrowser.getInitArg( 'gPreviewer' ) == 'true'}" />
+
+		<!--  
+			Should focus be set onto the Gr?
+		-->
+		<attribute name="focusOnGr" type="boolean" value="false" />
+
+		<!-- 
+			CR variables
+		-->
+		<attribute name="crFields" value="$once{new Array()}" />
+		<attribute name="MAX_CR_ID" type="number" value="10000000000" />
+		<attribute name="currentCrId" type="number" value="10000000000" />
+
+
+	
+		<!-- 
+			Is the panel being loaded for the sizer?
+		-->
+		<attribute name="isSizer" value="false" type="boolean" />
+
+		<!-- 
+			Is the application between startQuestion and stopQuestion?
+		-->
+		<attribute name="inQuestion" value="false" type="boolean" />
+
+		
+		<!--
+			to check whether an item has any of the static formula cards i.e. FCAT or TN	
+		-->
+		<attribute name="hasTNorFCATrefCard" value="false"
+			type="boolean" />
+
+		
+
+
+		<!-- true if item has rationale tag -->
+		<attribute name="itemHasRationalNode" type="boolean"
+			value="false" />
+
+		<!-- Alphabet String-->
+		<attribute name="alphabetString" type="string"
+			value="ABCDEFGHIJKLMNOPQRSTUVWXYZ" />
+
+		<!-- True, if login response contains tts speed value-->
+		<attribute name="hasTTSspeed" type="boolean" value="false" />
+
+		<!-- called to hide the wait popup, if open-->
+		<attribute name="dHideWaitPopup"
+			value="$once{ new LzDelegate( this, 'hideWaitPopup' ) }" />
+
+		<!-- True, if login response contains tts speed value-->
+		<attribute name="isWaitPopupOpen" type="boolean" value="false" />
+
+
+<attribute name="gStimulusId" type="number" value="0"/>
+<attribute name="gPrevStimulusId" type="number" value="0"/>
+<attribute name="gCurrentItemPos" type="number" value="0"/>
+<attribute name="gAnsweredCount" type="number" value="0"/>
+
+		<attribute name="recorderField" value="$once{new Array()}" />
+		<attribute name="blockFileName" type="boolean" value="true" />
+		
+		<!--
+			============================================================
+			Datapointers
+			============================================================
+		-->
+		
+
+		
+		<datapointer name="dpstimulus"
+			xpath="dsstudentdata:/testing_client_model/shared_stimulus" />
+
+		
+		<datapointer name="dpitem" xpath="dsitem:/element_package" />
+
+		
+
+		<datapointer name="dpdisplay" xpath="dsdisplay:/display" />
+
+		
+
+		<!-- 
+			Subtest xml may or may not specify the item type.  Our code relies on the item type being populated.
+			We need to populate the item type to the default type if it is not present in the xml.
+		-->
+
+	
+
+		<method event="oninit">
+			//gController.openTest();
+			var base = LzBrowser.getInitArg( 'servletUrl' );
+			dsitem.setSrc(base + '/ContentServlet.do');        	
+        </method>
+		<method name="processItemResponse">
+            this.setAttribute('currentCrId', this.MAX_CR_ID);
+		  </method>
+
+		<method name="showError" args="xml">
+			//stopHeartbeat();
+            LzCursor.unlock();
+           // gReadableText.stopReading();
+            gScreens.showError(xml);
+		</method>
+		<method name="setState" args="_state">
+			setAttribute('state', _state);
+		</method>
+
+		<method event="oncommunicatorResponse" args="response">
+			var responseState = state;
+	
+			if(state != DOWNLOAD_STATE){
+				setState(NONE_STATE);
+			}
+			if(_isCommunicationError(response)){
+				_handleError(response);
+			}
+			else {
+				switch (responseState){
+					case SUBTEST_STATE:
+						_handleSubtestResponse(response);
+						break;
+					case SAVE_LOAD_STATE:	
+						_handleSaveLoadResponse(response);
+						break;
+					default:
+						break;
+				}
+			}
+		</method>
+
+		<attribute name="dcloseBrowser"
+			value="$once{ new LzDelegate( this, 'closeBrowser' ) }" />
+
+		<method name="closeBrowser">
+			gCommunicator.closeBrowser();
+		</method>
+
+		<method name="_handleSaveLoadResponse" args="response">
+			loadItem();
+		</method>
+		<method name="setupPopups">
+			var stereotype = dpsubtest.xpathQuery ('testing_session_data/lms.student.accommodations/stereotype_style[@stereotype="stem"]');
+			var mag = null;
+			var bc = null;
+			var fc = null;
+ 			if(stereotype != null){
+ 				mag = stereotype.getAttr('font_magnification');
+ 				fc = stereotype.getAttr('font_color');
+ 				bc = stereotype.getAttr('bgcolor');
+ 			}
+ 			gRationalePopup.setup(mag, fc, bc);
+  		</method>
+		<method name="_isCommunicationError" args="response">
+			return false;
+		</method>
+		<!--
+			Called after subtest xml (and restart xml, if available) has been
+			received. Sets subtest state and displays welcome screen. Does
+			not load first question.
+		-->
+	
+		<!--
+			Load and display first question.
+		-->
+		<method name="openTest">
+            saveLoadItem(INIT_LEV);
+            dshowClient.register( this, 'itemuiready' );
+        </method>
+
+		<method name="saveLoadItem" args="fnode, lev"><![CDATA[
+        	setState(SAVE_LOAD_STATE);
+			Debug.write("saveLoadItem");
+			save(lev);
+        ]]></method>
+
+		<attribute name="dshowClient"
+			value="$once{ new LzDelegate( this, 'showClient' ) }" />
+		<method name="showClient">
+            dshowClient.unregisterAll();
+            showItemInterface();
+        </method>
+		<method name="directionsSubstitution" args="txt"><![CDATA[
+ 			if(txt.indexOf("%current%") != -1 || 
+ 			   txt.indexOf("%start%") != -1 ||
+ 			   txt.indexOf("%end%") != -1){
+				var eid = dsitem.getPointer().xpathQuery('element_package/item_model/@eid');
+				var current = getItemNumber(eid);
+				var start = current;
+				var end = current;
+				// if it's a shared stimulus item - find out the start and end item numbers
+				var gNodes = dpsubtest.xpathQuery("ob_assessment/ob_element_select_order/g/e[@id='"+eid+"']/../e");
+				if(gNodes instanceof Array){
+					var found = false;
+					var index = 0;
+					while(!found){
+						var node = gNodes[index];
+						var nodeEid = node.getAttr('id');
+						if(nodeEid != eid){
+							index = index + 1;
+						}
+						else{
+							found = true;
+						}
+					}
+					start = current - index;
+					end = start + gNodes.length - 1;
+				}
+				txt = replace(txt, "%current%", current);
+				txt = replace(txt, "%start%", start);
+				txt = replace(txt, "%end%", end);
+			}
+			return txt;
+		]]></method>
+
+		<method name="getItemNumber" args="eid"><![CDATA[ 
+			return Number(dpstudentdata.xpathQuery("runtime/item_model [@eid = '"+eid+"']/@item_no"));
+		]]></method>
+
+		<method name="formatXml" args="txt"><![CDATA[
+        	var result = txt;
+        	if(typeof txt != "undefined"){
+        		result = replace(txt, '&', '&amp;');
+				result = replace(result, '<', '&lt;');
+				result = replace(result, '>', '&gt;');
+				result = replace(result, '"', '&quot;');
+				result = replace(result, "'", '&apos;');
+			}
+			return result;
+        ]]></method>
+
+		<method name="replace" args="s, t, u"><![CDATA[
+			  /*
+			  **  Replace a token in a string
+			  **    s  string to be processed
+			  **    t  token to be found and removed
+			  **    u  token to be inserted
+			  **  returns new String
+			  */
+			var i = s.indexOf(t);
+			var r = "";
+			if (i == -1) return s;
+			r += s.substring(0,i) + u;
+			if ( i + t.length < s.length)
+				r += replace(s.substring(i + t.length, s.length), t, u);
+			return r;
+		]]></method>
+
+		<method name="replaceOld" args="input, from, to"><![CDATA[ 
+			var output='';
+			while(input.length >= from.length && input.length > 0 && from.length > 0){
+				if(input.substring(0,from.length) == from){
+					output += to;
+					input = input.substring(from.length);
+				}else{
+					output += input.substring(0,1);
+					input = input.substring(1);
+				}
+			}
+			return output + input;
+		]]></method>
+
+		<method name="copyCurrentToRuntime"><![CDATA[
+            var curritem = Number(
+                dpstudentdata.xpathQuery( 'current_item/item_model/@eid' )
+            );
+             if ( curritem ) {
+                var dnrtitemold = dpstudentdata.xpathQuery(
+                    "runtime/item_model [@eid = '"+curritem+"']"
+                );
+                var dncurritem =
+                    dpstudentdata.xpathQuery ('current_item/item_model/');
+                dnrtitemold.parentNode.replaceChild (dncurritem, dnrtitemold);
+            }
+         ]]></method>
+
+		<!-- swapping current item -->
+		
+
+		<method name="getSharedStimulusHighlights"><![CDATA[
+		// copy shared stimulus highlights into current item highlights
+			var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model/');
+			var stimulusid = dncurritem.getAttr('stimulus_id');
+			if(stimulusid != 0){ // this item uses a shared stimulus
+				var curreid = dncurritem.getAttr('eid');
+				var dnhighlighter = 
+				    dpstudentdata.xpathQuery('current_item/item_model/manipulatives/global/highlighter');
+				if(dnhighlighter == null){  // need to create highlighter node
+					var dnglobal = dpstudentdata.xpathQuery('current_item/item_model/manipulatives/global');
+					dnglobal.appendChild(new LzDataElement('highlighter', null, null));
+				}
+				dnhighlighter = 
+				    dpstudentdata.xpathQuery('current_item/item_model/manipulatives/global/highlighter');
+				var sharedstimulushighlights = 
+				    dpstudentdata.xpathQuery('shared_stimulus/stimulus_highlight[@stimulus_id="' + stimulusid + '"]/highlightarea');
+				if(sharedstimulushighlights != null) {  
+				// there are existing stimulus highlights that need to get copied
+					if(sharedstimulushighlights instanceof Array){
+						for(var i = 0; i < sharedstimulushighlights.length; i++){
+							dnhighlighter.appendChild(sharedstimulushighlights[i]);
+						}
+					}
+					else if (sharedstimulushighlights instanceof LzDataElement){
+						dnhighlighter.appendChild(sharedstimulushighlights);
+					}
+				}
+			}
+		]]></method>
+
+		<method name="getRationaleText" args="selid">
+		// need to find the answer_choice_widgets
+		// item xml may have been changed for accommodated layout, so need to look for them in all the places they might be
+		// xpath allows you to just use '//answer_choice_widget..." to find it anywhere in the xml, but that doesn't seem to work
+			var result = dpitem.xpathQuery('item_canvas/*/answer_choice_widget/selector_widget[@identifier="' + selid + '"]/../rationale/text()')
+			if(result == null){
+				result = dpitem.xpathQuery('item_canvas/panel/*/answer_choice_widget/selector_widget[@identifier="' + selid + '"]/../rationale/text()')
+			}
+			if(result == null){
+				result = dpitem.xpathQuery('item_canvas/panel/panel/*/answer_choice_widget/selector_widget[@identifier="' + selid + '"]/../rationale/text()')
+			}
+			return result;
+		</method>
+
+		
+
+		<method name="restoreCurrentCursor">
+			LzCursor.restoreCursor();
+        	if(canvas.currentCursor != null){
+            	LzCursor.setCursorGlobal(canvas.currentCursor);
+            }
+		</method>
+
+		<method name="setCurrentCursor" args="cursorName">
+			LzCursor.setCursorGlobal(cursorName);
+			canvas.setAttribute('currentCursor', cursorName);
+		</method>
+
+		<method name="clearCurrentCursor">
+			canvas.setAttribute('currentCursor', null);
+		</method>
+
+		<method name="clearAndRestoreCurrentCursor">
+			clearCurrentCursor();
+			restoreCurrentCursor();
+		</method>
+
+		
+
+		<method name="loadItem"><![CDATA[
+            this.itemloaded    = false;
+            this.runtimeready  = false;
+            this.youarehereset = false;
+        	//var loadParams = getLoadParams();
+        	if (typeof canvas.itemNum != "undefined") {
+				dsitem.setQueryParam(gRequest.ITEMNUM_PARAM, canvas.itemNum);
+			}
+        	Debug.write("XML " + canvas.itemNum);
+        	Debug.write("XML " +  canvas.folder);
+        	
+			if (typeof canvas.folder != "undefined") {
+				dsitem.setQueryParam(gRequest.FOLDER_PARAM, canvas.folder);
+			}
+			if (typeof canvas.user != "undefined") {
+				dsitem.setQueryParam(gRequest.USER_PARAM, canvas.user);
+			}
+			dsitem.setQueryParam(gRequest.METHOD_PARAM, gRequest.GET_ITEM_METHOD);
+			//dsitem.setQueryParam(gRequest.XML_PARAM, xml);
+			dsitem.doRequest();  
+            this.resetCrFields();
+			this.resetAudioFields();
+		]]></method>
+
+	
+
+		<attribute name="pending" value="$once{ {} }" />
+		<!--
+			true once all components have been constructed,
+			false once they have all called componentDone
+		-->
+		<attribute name="trackingcomponents" value="false" />
+		<method args="t" event="ontrackingcomponents">
+            if ( t ) {
+
+                checkCompProgress();
+            }
+        </method>
+
+		<method name="waitOnComponent" args="c, ownerdoc">
+            if ( ownerdoc == dsitem ) {
+                var uid = c.getUID();
+                if ( pending[uid] ) {
+  //                  Debug.warn ( uid + ' maps to ', pending[uid], ' not ', c );
+                } else {
+                    pending[uid] = c;
+                }
+            }
+        </method>
+
+		<method name="componentDone" args="c, ownerdoc">
+	
+            if ( ownerdoc == dsitem ) {
+
+                var uid = c.getUID();
+                if ( pending[uid] == c ) {
+                    pending[uid] = null;
+                    delete pending[uid];
+				    checkCompProgress();
+                } else {
+//                    Debug.warn ( uid + ' maps to ' + pending[uid] + ' not ' + c );
+                }
+            }
+        </method>
+
+		<method name="checkCompProgress">
+
+	           if ( trackingcomponents ) {
+                var done = true;
+                for ( var i in pending ) {
+					done = false;
+                    break;
+                }
+
+                if ( done ) {
+					this.trackingcomponents = false;
+                    this.itemloaded = true;
+                    checkItemStatus();
+                }
+            }
+        </method>
+
+		<method name="exitPopups">
+            gEnlargePopup.shrink();
+            gFootNotePopup.hide();
+            gRationalePopup.hide();
+            
+			
+        </method>
+
+		<method name="movedYouAreHere">
+Debug.write(this.youarehereset);
+            this.youarehereset = true;
+            checkItemStatus();
+        </method>
+
+		<attribute name="youarehereset" value="false" />
+		<attribute name="itemloaded" value="false" />
+		<attribute name="runtimeready" value="false" />
+
+		<attribute name="requestPending" type="boolean" value="false" />
+
+		<method name="updateRequestPending" args="val, error">
+			this.setAttribute('requestPending', val);
+			if(error){
+				unlockUI();
+			}
+			else{
+				if(val){
+					freezeUI();
+				}
+				else{
+					unlockIfItemReady();
+				}
+			}
+		</method>
+
+		<method name="checkItemStatus"><![CDATA[
+
+           if ( itemloaded && runtimeready  ) {
+	
+                unlockUI();
+                startQuestion();
+                if ( !this['itemuiready'] ) new LzEvent( this, 'itemuiready' );
+                itemuiready.sendEvent();
+                canvas.setCrFocus();
+           }
+        ]]></method>
+
+		<method name="unlockIfItemReady"><![CDATA[
+            if ( itemloaded && runtimeready && youarehereset &&
+                 !requestPending) {
+                unlockUI();
+             }
+        ]]></method>
+
+	
+
+		<method name="toNumString" args="b">
+            if ( typeof( b ) == 'boolean' ) {
+                return b ? '1' : '0';
+            } else if ( typeof( b ) == 'string' ) {
+                return b;
+            } else if ( typeof( b ) == 'number' ) {
+                return String( b );
+            } 
+        </method>
+
+		
+
+		<method name="getCurrentInteractionType">
+            var typeNode = dpstudentdata.xpathQuery( 'current_item/item_model/interaction' );
+            if (typeNode == null) return null;
+            var interactionType = typeNode.getAttr( 'type' );
+            var type = interactionType == 'choice' ? 'identifier' : 'string';
+            return type;
+		</method>
+
+		
+		<method name="startQuestion">
+            
+            
+            exitPopups();  
+            this.setAttribute("inQuestion", true);
+Debug.write("inQuestion");
+        </method>
+
+		<attribute name="dupdateTimeLeft"
+			value="$once{ new LzDelegate( this, 'updateTimeLeft' ) }" />
+
+
+		<attribute name="WARNING_MINUTE" value="3" />
+		<attribute name="isuntimed"
+			value="$path{ 'dsdisplay:/display/@untimed' }" />
+
+		<method name="getModelString">
+			var result = '';
+			var separator = "|";
+			dpstudentdata.setXPath( 'runtime' );
+			if(dpstudentdata.selectChild()){
+				result = translateResponse(dpstudentdata.xpathQuery( '@answer_text' ));
+				while (dpstudentdata.selectNext()){
+					result = result + separator + translateResponse(dpstudentdata.xpathQuery( '@answer_text' ));
+				}
+			}
+			dpstudentdata.setXPath("dsstudentdata:/testing_client_model");
+			return result;
+		</method>
+
+		<method name="translateResponse" args="response">
+			var result = '';
+			if(response != null){
+				result = response;
+			}
+			return result;
+		</method>
+
+		<method name="getClientMachine">
+			var clientMachine = dpsubtest.xpathQuery('client/@machine');
+			//Debug.write("clientMachine.." + clientMachine)
+			return dpsubtest.xpathQuery('client/@machine');
+		</method>
+
+		<method name="stopHeartbeat">
+			LzTimer.removeTimer( dsendHeartbeat );
+		</method>
+
+	
+	<!-- Las Links Audio Item Processing methods -->
+		
+	
+	<!-- For NI Item Detection-->	
+	<method name="isThemeItem" args=""><![CDATA[
+		
+	  var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
+	  var eid = itemnode.getAttr( 'eid' );
+	  return dpsubtest.xpathQuery("ob_assessment/ob_element_list/f[@id='" + eid + "']/@type") == 'NI';  
+		
+		
+		]]></method>
+		
+	
+
+		<method name="wrapInCdata" args="txt"><![CDATA[
+			var result = "";
+			if(txt.length > 0){
+				result = "<![CDATA";
+				result = result + "[";
+				result = result + txt;
+				result = result + "]]";
+				result = result + ">";
+			}
+			return result;
+		]]></method>
+
+		<method name="substituteInputText" args="txt"><![CDATA[
+			var result = "";
+			var remainder = txt;
+			var startIndex = 0;
+			var endIndex = 0;
+			var inputField;
+			var widgetId;
+			while(startIndex != -1){
+				startIndex = remainder.indexOf('%widget', startIndex);
+				if(startIndex != -1){  // found substitution string
+						// add text up to substitution string to result
+					result = result + remainder.substring(0 , startIndex);
+					// get text to substitute for this input field
+					endIndex = remainder.indexOf('%', startIndex + 7);
+					widgetId = remainder.substring(startIndex+1, endIndex);
+					var widgetText = getTextForInputField(widgetId);
+					result = result + widgetText;
+					remainder = remainder.substring(endIndex + 1, remainder.length);//remainder.indexOf('%widget', endIndex + 1));
+					startIndex=0;
+				}
+				else{  // no more substition strings - add rest of string
+					result = result + remainder.substring(0, remainder.length);
+				}
+			}
+			return result;
+		]]></method>
+
+	
+		<method name="showItemInterface">
+        	gItemInterface.setVisible(true);
+        </method>
+
+		<!-- 
+			If any of the fixed formula cards is required, 
+			set a boolean attribute to true. 
+		-->
+		<method name="checkTNorFCATrefCard" args="tool"><![CDATA[
+           	if(tool == 'FCAT_formula_card' || tool == 'TN_formula_card'){
+				this.setAttribute("hasTNorFCATrefCard", true);
+				return true;	
+			}
+			return false;
+		]]></method>
+
+		<!-- considering 2 answer choice items as special case of randomization -->
+		<method name="getDistractorArrayFor2"><![CDATA[
+			return ['AB','BA','BA','BA','AB','BA','BA','AB','AB','AB','AB',
+					'BA','AB','BA','AB','AB','AB','BA','AB','BA','AB','BA',
+					'BA','BA','AB','BA','AB','BA','BA','AB','AB','AB','BA',
+					'AB','AB','BA','AB','BA','BA','BA','BA','AB','AB','AB',
+					'BA','AB','AB','BA','AB','BA','BA'];			
+		]]></method>
+
+		<method name="showWaitPopup">
+			this.isWaitPopupOpen = true;	
+			gPleaseWaitPopup.show();
+		</method>
+
+		<method name="hideWaitPopup"><![CDATA[
+			this.isWaitPopupOpen = false;	
+			gPleaseWaitPopup.hide();
+			LzTimer.removeTimer(dHideWaitPopup);
+			//gReadableText.stopRequestor();
+			gController.unlockUI();
+		7
+		]]></method>
+
+		<method name="showWaitPopupFor30Sec">
+			if(!isWaitPopupOpen) {
+				showWaitPopup();
+				LzTimer.resetTimer( dHideWaitPopup, 30000 );
+			}
+		</method>
+
+	</node>
+
+</library>

@@ -1,0 +1,25 @@
+<element_package iid="FCAT_TEST.004"
+	security_classification_id="alg112">
+	<item_canvas id="IC">
+		<panel left_padding="12" stereotype="stem" id="stem1"
+			width="620" layout="vertical" spacing="12" x="0" y="79"
+			height="94">
+			<text_widget halign="left" width="591" id="widget1000"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.]]></text_widget>
+		</panel>
+	</item_canvas>
+	<item_model iid="FCAT_TEST.004" eid="4" marked="0" answered="0"
+		number="0" type="question">
+		<toolbar oneeighth_inch_ruler="required" mm_ruler="required"
+			formula_card="required" highlighter="required" eraser="required"
+			cm_ruler="required" scientific_calculator="required"
+			standard_calculator="required" protractor="required"
+			option_eliminator="required" half_inch_ruler="required" />
+		<interaction type="grid">
+			<response identifier="1" user_action=" " />
+			<response identifier="2" user_action=" " />
+			<response identifier="3" user_action=" " />
+			<response identifier="4" user_action=" " />
+			<response identifier="5" user_action=" " />
+		</interaction>
+	</item_model>
+</element_package>

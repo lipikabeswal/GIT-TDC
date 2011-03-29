@@ -1,0 +1,333 @@
+<library>
+
+	<include href="CachableComponent.lzx"/>
+		
+	<!-- ************************************
+         CachableImage
+         
+         A cachable image.  Will set the resource of the view
+         with information passed in
+
+         *************************************-->
+
+	<class name="CachableImage" extends="CachableComponent" 
+           comptype="${gCompTypes.WIDGET_IMAGE}" aaactive="true">
+
+       <attribute name="hasAltText" value="false"/>
+       <attribute name="altText" type="string" />
+        <attribute name="autoenlarge" value="" type="string" />
+       <attribute name="retrycount" value="0"/>
+       <attribute name="timeoutretrycount" value="0"/>
+       <attribute name="servletBase" type="string" />
+       <attribute name="verticalAlign" type="string"/>       
+        <!-- ================================
+             method
+             ================================= -->
+        <method name="init">
+            super.init();
+        </method>
+
+		<method event="oninit"><![CDATA[
+		    var params = "";
+            if (typeof canvas.folder != "undefined") 
+               params = params.concat("&folder=" + canvas.folder);
+			else if (typeof canvas.user != "undefined") 
+               params = params.concat("&user=" + canvas.user);
+
+			if (params == "") {
+			   setAttribute('servletBase', LzBrowser.getInitArg( 'servletUrl' ) 
+					          + '/ContentServlet.do?method=getImage&requestXML=');
+			}
+            else {
+				
+			   setAttribute('servletBase', LzBrowser.getInitArg( 'servletUrl' ) 
+					          + '/ContentServlet.do?method=getImage' + params
+							  + '&requestXML=');
+			}
+            //Debug.write("XXX servletBase : " + servletBase);
+		]]></method>
+		
+       
+		
+		<!--
+		override our super classes initComponent to also
+		set the source of the view
+		-->
+
+		<method name="getImageUrl" args="fileName"><![CDATA[
+			var trimmedFileName = trimFileName(fileName);
+			var xml = gXmlHelper.getGetImageXml(fileName);
+			var result = servletBase + xml;
+//Debug.write("got imageUrl: " + result);
+			return result;
+		]]></method>
+		
+		<method name="trimFileName" args="fileName"><![CDATA[
+			var result = fileName == null ? "" : fileName;
+			if (fileName != null && fileName.indexOf('file:///') == 0) {
+				result = fileName.substring(8, fileName.length);
+			}
+			if (result.indexOf('~STG~local') == 0) {
+                var index = result.indexOf('/tmp');
+                if (index > 0) {
+                    result = result.substring(index, result.length);                
+                }
+			}
+			return result;
+		]]></method>
+        
+		<method event="ondata" args="data"><![CDATA[
+            this.setAttribute ('retrycount', 0);
+            this.setAttribute ('timeoutretrycount', 0);
+
+			this.setAttribute("height", null);
+			this.setAttribute("width", null);
+			this.imageview.setAttribute("height", null);
+			this.imageview.setAttribute("width", null);
+			var theSrc = "";
+	
+	//Image url may come in either attribute name "src" or "image_ref", so take care of both.
+			if(data.hasAttr('src')) {
+				theSrc = getImageUrl(data.getAttr('src'));
+			}
+			else {
+				if(data.hasAttr('image_ref')) {
+					theSrc = getImageUrl(data.getAttr('image_ref'));
+				}
+			}
+				
+			if (data.hasAttr ('width')) {
+    			this.setAttribute ('width', Number (data.getAttr ('width')));
+    			Debug.warn("Image Widget Width", this.width);
+			} else {
+                this.setAttribute ('width', null);
+            }
+
+			if (data.hasAttr ('height')) {
+				this.setAttribute ('height', Number (data.getAttr ('height')));
+			} else {
+                this.setAttribute ('height', null);
+            }
+
+			if (data.hasAttr ('valign')) {
+				this.setAttribute ('verticalAlign', data.getAttr ('valign'));
+				Debug.warn("Image Widget Width", this.valign);
+			}
+            //
+            // When the XML attribute enlargeable is set to 
+            // "yes"		 : Display a zoom button for all users 
+            // "no"			 : Don't display a zoom button
+            // "accommodated : Only display a zoom button for accommodated users
+            //
+            // This logic needs to be re-entrant, so it is tricky
+			var enlargeAttr = data.getAttr("enlargeable");
+			var isEnlargeable = false;
+   			if (enlargeAttr == "yes"){ 
+   				isEnlargeable = true;
+   			}
+   			else if (enlargeAttr == "accommodated"){
+   				isEnlargeable = gController.getAttribute("hasFontAccommodation");
+   			}
+            if (isEnlargeable) {
+               this.enlarge.setAttribute("visible", true);
+//               parent.wrapper.setAttribute("height", parent.wrapper.height + 35);
+   			}
+            else {
+               this.enlarge.setAttribute("visible", false);
+            }
+
+			// Handle the XML "autoenlargeable" attribute within 
+			// the "updateImageLayout" method
+            this.autoenlarge = data.getAttr("autoenlargeable");
+
+            if (data.hasAttr( 'alt_text' ) ) {
+            	var dataAltText = data.getAttr( 'alt_text' );
+                this.setAttribute( 'hasAltText', true );
+                this.setAttribute('altText',  dataAltText );
+                this.setAAText(dataAltText);
+            } else {
+                this.setAttribute( 'hasAltText', false );
+            }
+
+  			if (this.imageview['resource'] != theSrc) {
+  				this.imageview.setSource ( theSrc );
+			} else {
+				updateImageLayout();
+                doneLoading();
+            }
+
+
+		]]>
+		</method>
+
+		<method name="getDefaultErrorMessage">
+		 	var errorStr1 = "The Online Assessment software is unable to connect with the server.";
+			var errorStr2 = "Ask the person in charge of this test to close this window. Log in again in three minutes, and you will return to your last saved answer.";
+			var errorStr3 = "Error Code: TDC207";
+			return errorStr1 + "^" + errorStr2+ "^" + errorStr3;	
+		</method>
+		
+		<method name="showError">
+			canvas.setAttribute("g_error", getDefaultErrorMessage());
+		</method>
+		
+        <method event="onload" reference="this.imageview">
+        	updateImageLayout();
+        </method>
+
+        <method name="getAttrRelComp" args="attr, from">
+            var p = from.immediateparent;
+            var toreturn = from[attr];
+
+            while (!(p instanceof CachableComponent)) {
+                toreturn += getAttrRelComp(attr, p);
+                p = p.immediateparent;
+            }
+            return toreturn;
+        </method>
+
+		<method name="updateImageLayout"><![CDATA[
+
+            if (this['autoenlarge'] == "yes" && gController.hasFontAccommodation) {
+        
+                var offset = 0;
+                if(!this.data.hasAttr("halign") || 
+                  (this.data.getAttr("halign") != "center"))
+                {
+                    //use our own get relative to because ours is flaking out.  This will
+                    //essentially give us the attribute relative to our parent
+                    var offset = getAttrRelComp("x", this); 
+                }
+
+                var fontmag = this.fontsize/canvas.basefontsize;
+                var factor = Math.max((parent.width - offset - 1)/this.width, 1);
+
+                //make sure we're not magnified beyond fontmag
+                if (factor > fontmag) {
+                    factor = fontmag;
+                }   
+                var newh = factor * this.height;
+
+                // make room for the scrollbar if necessary
+                if (!this.panel.growtocontents
+                    && parent.height + (newh-this.height) > this.panel.height
+                    && factor != fontmag) 
+                {
+                    factor = Math.max((parent.width - offset - 15)/this.width, 1);
+                    newh = factor * this.height;
+                }
+
+				/** since, same class is used for inline images so,
+				  * when used as inline image, the factor will  
+				  * always be related to fontsize and not to the 
+				  * position of the image */
+				if((this.parent instanceof CachableTextField) && this.parent['embedded_inline_image'] == true) {
+					factor = fontmag;
+                    newh = factor * this.height;
+				}
+
+                //set the size
+                this.imageview.setAttribute("stretches", "both");
+                this.imageview.setAttribute("width", this.width * factor);
+                this.imageview.setAttribute("height", newh);
+                // Allow this panel to grow to reflect font size
+                this.setWidth(null);
+                this.setHeight(null);
+
+            } 
+            else if (this['autoenlarge'] == "zoom") {
+                // This contains the updated height and width values
+                // from the newly created panel
+                var orig_height = data.getAttr("height");
+                var orig_width = data.getAttr("width");
+
+                var offset = 40;
+//Debug.write("CachableImage updateImageLayout, w : " + orig_width + " h : " 
+//                        + orig_height + " ratio : " + orig_width/orig_height);
+                var mult_factor  = (gEnlargePopup.width - offset)/orig_width;
+//Debug.write("mult_factor : " + mult_factor + " w : " + orig_width + " h : " + orig_height);
+                var width = gEnlargePopup.width - offset;
+                var height = Math.ceil(orig_height * mult_factor);
+//Debug.write("updated w : " + 700 + " h : " + height);
+
+                // Controls the size of the image
+                this.imageview.setAttribute("stretches", "both");
+                this.imageview.setAttribute("width", width);
+                this.imageview.setAttribute("height", height); 
+
+                // Turn off the scrollbar when the image height is less
+				// than the popup's height 
+                if (height < gEnlargePopup.height) {
+                   gEnlargePopup.contents.scaler.scroller.setAttribute("visible", false);
+                }
+                else {
+                   gEnlargePopup.contents.scaler.scroller.setAttribute("visible", true);
+                }
+
+                // Controls the physical dimensions of the panel 
+                parent.wrapper.setHeight(height);
+            }
+            else {
+                this.imageview.setAttribute("width", this.width);
+                this.imageview.setAttribute("height", this.height); 
+
+            }
+
+            this.doAlign ();
+            if ( immediateparent['updateSelector'] ) {
+                immediateparent.updateSelector();
+            }
+		]]></method>
+
+        <view name="imageview" stretches="both" clickable="false">
+        	<method event="onclick">
+        	
+        	</method>
+            <attribute name="reloadDel" value="$once{new LzDelegate(this, '_reload')}" />
+            <!--  This is to fix a weird bug that Laszlo couldnt explain - sometimes the request would return a 
+                  resource of height 0 and width 0.  It wouldnt error - it would return successfully
+                  without the image ..  This is to retry the request if that happens. -->
+            <method event="onload" args="d"><![CDATA[
+            	if(!gCommunicator.checkShowError(d) && (this.resourceheight == 0 || 
+                                                        this.resourcewidth == 0)) {
+            
+                    classroot.setAttribute ('retrycount', classroot.retrycount + 1);
+                    if (classroot.retrycount < 5) {
+                        LzIdle.callOnIdle(reloadDel);
+                    } else {
+                        gCommunicator.checkShowError(gXmlHelper.getContentErrorXml());
+                    }
+                } else {
+					classroot.doneLoading();
+                }
+            ]]></method>
+            
+            <method name="_reload">
+                this.unload();
+                this.setSource (this.resource);
+            </method>
+            
+            <method event="onerror">
+                gCommunicator.checkShowError(gXmlHelper.getContentErrorXml());
+            </method>
+            <method event="ontimeout">
+            <![CDATA[
+                //Debug.warn( resource + ' ontimeout ', classroot.timeoutretrycount );
+                if ( classroot.timeoutretrycount < 1 )
+                {
+                    classroot.setAttribute('timeoutretrycount', classroot.timeoutretrycount + 1);
+                    LzIdle.callOnIdle( reloadDel );
+                }
+                else 
+                {
+                	gCommunicator.checkShowError(gXmlHelper.getContentTimeoutXml());
+                }
+			]]>
+            </method>
+        </view>
+        <EnlargeButton name="enlarge"
+                    x="${classroot.width-this.width}"
+                    y="0"/>
+	</class>
+
+</library>

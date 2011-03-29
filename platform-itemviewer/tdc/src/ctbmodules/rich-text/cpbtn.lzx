@@ -1,0 +1,58 @@
+<library>
+    
+    <!-- dependencies  -->
+    <include href="stylishbutton.lzx" />
+    <include href="tooltip/tooltip.lzx" />
+    
+    <!--- cpbtn
+        class for use richtexttoolbar buttons  -->
+    <class name="cpbtn" extends="stylishbutton" width="26" 
+           focusable="false" style="formatbtn_style">
+        <!--- the format type that the button will control -->
+        <attribute name="format" type="string" />
+        <!--- a reference to the toolbar parent -->
+        <attribute name="toolbar" value="$once{this.parent}" />
+        <!--- a reference to toolbar's editor -->
+        <attribute name="editor" value="$once{this.parent.editor}" />
+
+                
+        <!--- Text to show in tooltip -->
+        <attribute name="tooltiptext" value="" type="string" />
+
+        <!--- Special tooltip which changes its text depending on whether the
+            formatbtn is active. -->
+        <tooltip name="tooltip" text="standin only"/>
+        
+        <method name="init">
+            super.init();
+            toolbar.registerTool(this,format);
+        </method>
+        
+       
+     <!--- 
+            Called when the user clicks the button. Asks the editor to apply the 
+            format.
+            @keywords private -->
+        <method event="onclick" name="doClick">
+Debug.write("ZZZ formatbtn");
+            // toggle it
+            
+        </method>
+
+        <!--- @keywords private -->
+        <method event="onmouseover">          
+            this.editor.saveSelectionRegion();            
+        </method>
+
+        <method name="setState" args="state">
+        </method>
+        
+    </class>
+
+
+</library> 
+<!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
+* Copyright 2006 Laszlo Systems, Inc. All Rights Reserved.                    *
+* Use is subject to license terms.                                            *
+* X_LZ_COPYRIGHT_END ****************************************************** -->
+<!-- @LZX_VERSION@                                                         -->

@@ -1,0 +1,44 @@
+<library>
+
+    <class name="EnlargeButton" extends="basebutton"
+           resource="zoom_in_btn">
+
+        <attribute name="highlighterstatus" value="$once{new LzDatapointer()}"/>
+        <attribute name="iszoomin" value="true"/>
+        <attribute name="isenabled"
+                   value="$path{ 'dsdisplay:/display/@enabled' }"/>
+        <attribute name="clickable" value="${ isenabled == 'true' }"/>
+
+        <method event="oninit">
+            this.highlighterstatus.setAttribute ('rerunxpath', true);
+            this.highlighterstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@highlighter')
+        </method>
+
+        <method event="onclick">
+            if (this.iszoomin) {
+                gEnlargePopup.enlarge(classroot.datapath.p, 
+                                      classroot.width, 
+                                      classroot.height,
+                                      classroot.panel.bgcolor,
+                                      classroot.panel.stereotype);
+
+                if(gController.showHighlighter){
+                	gController.setManipulativeSelState ("highlighter", "up");
+                }
+                gController.setManipulativeSelState ("eraser", "up");
+                gController.setManipulativeSelState ("option_eliminator", "up");
+
+            } else {
+                gEnlargePopup.shrink();
+            }
+        </method>
+        <method event="onmouseover">
+            LzCursor.restoreCursor();
+        </method>
+        <method event="onmouseout"><![CDATA[
+	        gController.restoreCurrentCursor();
+        ]]></method>
+
+    </class>
+
+</library>
