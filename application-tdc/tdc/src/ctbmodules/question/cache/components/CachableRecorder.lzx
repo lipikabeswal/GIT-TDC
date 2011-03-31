@@ -52,7 +52,7 @@
 			value="$once{new LzDelegate(this, 'updateLevel')}" />
 		<attribute name="level" type="number" value="0" />
 		<attribute name="activityArray" value="$once{new Array()}" />
-		<attribute name="countlevel" type="number" value="0" />
+		<!--<attribute name="countlevel" type="number" value="0" />-->
 		<attribute name="recordState" type="number" value="0" />	
 		<attribute name="factor" type="number" value="1" /><!-- for flexible recorder -->
 		
@@ -271,24 +271,24 @@
 			</view>
 		</view>
 		<view name="whitewrapperOverLay" bgcolor="white" x="2"
-			clickable="false" showhandcursor="false" y="${parent.y + 28}"
+			y="${parent.y + 28}"
 			height="${parent.height - 30}" width="${parent.width - 5}"
-			onclick="return false;" visible="false">
+			clickable="true" showhandcursor="false" visible="false" onmouseover="this.setAttribute('showhandcursor',false)">
 			<simplelayout axis="x" inset="10" spacing="10" />
 			<view name="micNotConnected" valign="middle"
-				resource="mic_not_connected" />
-			<text y="parent.micNotConnected.y" name="attachMic" fontsize="${12 * classroot.factor}" font="CTB"
-				resize="true" valign="middle" height = "parent.micNotConnected.height">
+				resource="mic_not_connected"/>
+			<text name="attachMic" fontsize="${12 * classroot.factor}" font="CTB"
+				resize="true" valign="middle">
 				Microphone is not connected ...
 			</text>
 		</view>
 
 		<method name="startblinker" args="methodname">
 		if(!this.recordStarted) {	
-			updateLevel();//capture mic activity only when recording starts			
 			sendRequest(methodname);
 			this.increment = bar.width / this.defaultTotalTime;
 			this.recordStarted = true;		
+			updateLevel();//capture mic activity only when recording starts			
 			this.recordButton.setAttribute("enabled", false);
 			this.green.setVisible(false);
 			gController.updateAudioField(this.widget_id, true);
@@ -301,21 +301,21 @@
 		</method>
 
 		<method name="stopblinker" args="methodname">
-		this.red.setVisible(false);
-		LzTimer.removeTimer(blinkerDel); 
-		LzTimer.removeTimer(leveldel);//remove activity meter timer 
-		resetActivityMeterHeight();//for showing zero actvity bar
-		this.countLevel = 0;
-		if(this.recordStarted || methodname == 'reset') {
-		Debug.write("in if stopblinker called : ",methodname, this.recordStarted);
-			sendRequest(methodname);
-			this.green.setVisible(true);
-			this.recordStatus.setText("AUDIO CAPTURED");
-			this.recordStarted = false;
-			this.stopCountDownTimer();
-			this.stopButton.setAttribute("enabled", false);
-			//this.recordState = 1;			
-		}
+			this.red.setVisible(false);
+			//LzTimer.removeTimer(blinkerDel); 
+			LzTimer.removeTimer(leveldel);//remove activity meter timer 
+			resetActivityMeterHeight();//for showing zero actvity bar
+			//this.countLevel = 0;
+			if(this.recordStarted || methodname == 'reset') {
+			Debug.write("in if stopblinker called : ",methodname, this.recordStarted);
+				sendRequest(methodname);
+				this.green.setVisible(true);
+				this.recordStatus.setText("AUDIO CAPTURED");
+				this.recordStarted = false;
+				this.stopCountDownTimer();
+				this.stopButton.setAttribute("enabled", false);
+				//this.recordState = 1;			
+			}
 		</method>
 
 		<method name="reset" args="methodname">
@@ -332,10 +332,11 @@
 			this.recordStatus.setText(" ");	
 			this.barfilled.setWidth(0);
 			this.increment = 0;
-			this.countLevel =0;
+			//this.countLevel =0;
 			this.resetButton.setAttribute("enabled",false);
 			//this.recordState = -1;
 			gController.updateAudioField(this.widget_id, false);
+			this.whitewrapperOverLay.setVisible(false);
 		</method>
 
 		<method name="startCountDownTimer">
@@ -415,7 +416,7 @@
 					this.resetButton.setAttribute("enabled", false);
 					this.stopButton.setAttribute("enabled", false);
 					this.submitButton.setAttribute("enabled", true);
-					this.countLevel = 0;
+					//this.countLevel = 0;
 					return;
 				}
 				this.recordButton.setAttribute("enabled", false);
@@ -445,9 +446,9 @@
 			this.meterContainer = main.content.recorddisplay.recordicons.meterContainer;
 			this.volumeMeter	= main.content.recorddisplay.recordicons.meterContainer.volumebar;
 			this.recordIconsView= main.content.recorddisplay.recordicons;
-			this.widgetbuttons 	=main.content.widgetbuttons;
+			this.widgetbuttons 	= main.content.widgetbuttons;
 			this.recordStatus 	= main.content.recorddisplay.showStatus.recordStatus;
-			this.whitewrapperOverLay= whitewrapperOverLay;
+			this.whitewrapperOverLay = whitewrapperOverLay;
 		</method>
 
 		<method name="requestError" args="ds">
@@ -465,7 +466,7 @@
 
 		<!-- Volumeter Prototype -->
 		<method name="updateLevel"><![CDATA[
-
+Debug.write("updateLevel....");
 			var isMicAttached;
 			var level = myMic.activityLevel;
 			var vMeterHeight = 0;
@@ -494,12 +495,16 @@
 				this.meterContainer.setAttribute('visible',false);
 				this.whitewrapperOverLay.setVisible(true);
 				stopblinker('stop');
-				if(this.totalTime > 0)
-				this.countLevel ++;
+				//if(this.totalTime > 0)
+				//this.countLevel ++;
 			}
 			else if(isMicAttached == true) {
 				this.meterContainer.setAttribute('visible',true);
 				this.whitewrapperOverLay.setVisible(false);	
+				if(this.recordStarted == false) {
+					LzTimer.removeTimer(leveldel);//remove activity meter timer because recording is stopped now
+					return;	
+				}
 			}
 	
 			if (level != this.level) {
