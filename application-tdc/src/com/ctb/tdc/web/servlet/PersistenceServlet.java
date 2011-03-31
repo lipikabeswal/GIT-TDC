@@ -373,6 +373,7 @@ public class PersistenceServlet extends HttpServlet {
 		String paramXml = xml;
 		boolean containsAudioResponse = false;
 		String audioResponseString = null;
+		String base64String = null;
 		/*
 		 //check only for existing session but don't create
 		 if(request.getSession(false) != null && request.getSession(false).getAttribute("encodedString") != null){
@@ -410,7 +411,7 @@ public class PersistenceServlet extends HttpServlet {
 				startAnswerTag = URLEncoder.encode(answersTags[0]);
 				endAnswerTag = URLEncoder.encode(answersTags[1]);
 
-				String base64String = null;
+				
 				base64String = generateBase64String(fileName);
 
 				//System.out.println("base64String : "+base64String);
@@ -501,22 +502,19 @@ public class PersistenceServlet extends HttpServlet {
 		}
 		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^result^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+  result);
 		
-		//START - change for deleting audio files at end of subtest
-		if(fileName != null){
-			if(result == ServletUtils.OK){
-				File speexFile = new File(getServletContext().getRealPath("/")
-						+ "//streams//" + fileName+".spx");
-				/*	File[] files = speexFile.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			files[i].delete();
-		}*/
-				if(speexFile.exists()){
-					speexFile.delete();
+		if (fileName != null) {
+			if (result == ServletUtils.OK) {
+				if (base64String != null) {
+					File speexFile = new File(getServletContext().getRealPath(
+							"/")
+							+ "//streams//" + fileName + ".spx");
+
+					if (speexFile.exists()) {
+						speexFile.delete();
+					}
 				}
 			}
 		}
-		
-		//END - change for deleting audio files at end of subtest
 		return result;
 	}
 
@@ -927,6 +925,8 @@ public class PersistenceServlet extends HttpServlet {
 	 * @return
 	 */
 	private String generateBase64String(String fileName) {
+	
+	System.out.println("Generate Base 64 String Not generated" +  fileName);
 		String base64EncodedString = "";
 		try {
 			File file = new File(getServletContext().getRealPath("/")
@@ -951,6 +951,7 @@ public class PersistenceServlet extends HttpServlet {
 
 		} catch (Exception e) {
 			logger.error("Base64String Not Generated");
+			e.printStackTrace();
 		}
 		return base64EncodedString;
 
