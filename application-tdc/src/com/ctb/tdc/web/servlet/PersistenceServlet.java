@@ -926,11 +926,16 @@ public class PersistenceServlet extends HttpServlet {
 	 */
 	private String generateBase64String(String fileName) {
 	
-	System.out.println("Generate Base 64 String Not generated" +  fileName);
+	//System.out.println("file passed in generateBase64String : " +  fileName);
 		String base64EncodedString = "";
 		try {
 			File file = new File(getServletContext().getRealPath("/")
 					+ "//streams//" + fileName + ".spx");
+			
+			if (!file.exists()) {
+				
+				return base64EncodedString;//file does not exist so return empty string
+			}
 
 			FileInputStream fis = new FileInputStream(file);
 
