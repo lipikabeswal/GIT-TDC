@@ -55,6 +55,7 @@
 		<!--<attribute name="countlevel" type="number" value="0" />-->
 		<attribute name="recordState" type="number" value="0" />	
 		<attribute name="factor" type="number" value="1" /><!-- for flexible recorder -->
+		<attribute name="micState" type="boolean" value="false"/>
 		
 		<dataset name="audioDset"
 			ondata="classroot.handleResponseData(this.data)" type="http"
@@ -286,12 +287,15 @@
 		<method name="startblinker" args="methodname">
 		if(!this.recordStarted) {	
 			sendRequest(methodname);
-			this.increment = bar.width / this.defaultTotalTime;
 			this.recordStarted = true;		
-			updateLevel();//capture mic activity only when recording starts			
+			this.updateLevel();	
+			<!-- Changes for defect 65977 -->		//capture mic activity only when recording starts	
+			if(this.micState){			
+			this.increment = bar.width / this.defaultTotalTime;
 			this.recordButton.setAttribute("enabled", false);
 			this.green.setVisible(false);
 			gController.updateAudioField(this.widget_id, true);
+		}		
 		}		
 		</method>
 
@@ -495,10 +499,12 @@ Debug.write("updateLevel....");
 				this.meterContainer.setAttribute('visible',false);
 				this.whitewrapperOverLay.setVisible(true);
 				stopblinker('stop');
+				this.micState = false;//Changes for defect 65977 
 				//if(this.totalTime > 0)
 				//this.countLevel ++;
 			}
 			else if(isMicAttached == true) {
+				this.micState = true;//Changes for defect 65977 
 				this.meterContainer.setAttribute('visible',true);
 				this.whitewrapperOverLay.setVisible(false);	
 				if(this.recordStarted == false) {
