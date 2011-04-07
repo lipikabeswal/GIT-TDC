@@ -56,7 +56,7 @@
 		<attribute name="recordState" type="number" value="0" />	
 		<attribute name="factor" type="number" value="1" /><!-- for flexible recorder -->
 		<attribute name="micState" type="boolean" value="false"/>
-		
+		<attribute name="stopCalled" type="boolean" value="false"/>
 		<dataset name="audioDset"
 			ondata="classroot.handleResponseData(this.data)" type="http"
 			onerror="classroot.requestError(this)" request="false">
@@ -74,7 +74,7 @@
 		</handler>
 
 		<method event="ondata" args="data"><![CDATA[
-			Debug.write("cachable recorder ondata 1....");
+			//Debug.write("cachable recorder ondata 1....");
 			this.reset();
 			//for setting the background color to white
 			this.parent.setAttribute ('bgcolor', white);
@@ -106,7 +106,7 @@
 			doneLoading();
 			gController.recorderComponent(this);
 			if(this.isinited && this.visible) {
-				Debug.write("cachable recorder ondata 2....");
+				//Debug.write("cachable recorder ondata 2....");
 				this.myMic = Microphone.get();
 				this.mc = this.getMCRef();
 				mc.attachAudio(myMic);
@@ -185,7 +185,6 @@
 							stretches="both" width="${parent.red.width}"
 							height="${parent.red.height}" valign="middle">
 						</view>
-
 					</view>
 
 					<view name="showStatus" y="11" width="${20 * classroot.factor}" height="${40 * classroot.factor}">
@@ -193,7 +192,6 @@
 							font="CTB" resize="true" fontstyle="bold" height="100%">
 						</text>
 					</view>
-
 				</view>
 
 				<view name="recordtimer" x="${parent.bar.x + parent.bar.width - parent.recordtimer.width}"
@@ -285,18 +283,19 @@
 		</view>
 
 		<method name="startblinker" args="methodname">
-		if(!this.recordStarted) {	
-			sendRequest(methodname);
-			this.recordStarted = true;		
-			this.updateLevel();	
-			<!-- Changes for defect 65977 -->		//capture mic activity only when recording starts	
-			if(this.micState){			
-			this.increment = bar.width / this.defaultTotalTime;
-			this.recordButton.setAttribute("enabled", false);
-			this.green.setVisible(false);
-			gController.updateAudioField(this.widget_id, true);
-		}		
-		}		
+			this.stopCalled = false;		//to re-use this attribute, reset it 
+			if(!this.recordStarted) {	
+				this.updateLevel();	
+				<!-- Changes for defect 65977 -->			
+				if(this.micState) {				//micState will be set by updateLevel method			
+					this.recordStarted = true;		//if mic is connected, then only set this attribute to true 	
+					sendRequest(methodname);	
+					this.increment = bar.width / this.defaultTotalTime;
+					this.recordButton.setAttribute("enabled", false);
+					this.green.setVisible(false);
+					gController.updateAudioField(this.widget_id, true);
+				}		
+			}		
 		</method>
 
 		<method name="blinker">
@@ -306,19 +305,19 @@
 
 		<method name="stopblinker" args="methodname">
 			this.red.setVisible(false);
-			//LzTimer.removeTimer(blinkerDel); 
-			LzTimer.removeTimer(leveldel);//remove activity meter timer 
-			resetActivityMeterHeight();//for showing zero actvity bar
-			//this.countLevel = 0;
+			LzTimer.removeTimer(leveldel);	//remove activity meter timer 
+			this.stopCalled = true;			//let the timer stop first or this attribute will disturb the flow
+			this.micState = false;			//same behavior as above for this
+			resetActivityMeterHeight();		//for showing zero actvity bar
+
 			if(this.recordStarted || methodname == 'reset') {
-			Debug.write("in if stopblinker called : ",methodname, this.recordStarted);
+//Debug.write("in if stopblinker called : ",methodname, this.recordStarted);
 				sendRequest(methodname);
 				this.green.setVisible(true);
 				this.recordStatus.setText("AUDIO CAPTURED");
 				this.recordStarted = false;
 				this.stopCountDownTimer();
 				this.stopButton.setAttribute("enabled", false);
-				//this.recordState = 1;			
 			}
 		</method>
 
@@ -327,6 +326,10 @@
 			if(methodname == 'reset') {
 				sendRequest(methodname);
 			}
+//Debug.write("this.stopCalled,this.micState : ",this.stopCalled,this.micState);
+			this.stopCalled = true;			//set true 
+			this.micState = false;			//reset this attribute also
+
 			this.totalTime = this.defaultTotalTime;
 			this.recordButton.setAttribute("enabled", true);
 			this.submitButton.setAttribute("enabled", false);
@@ -336,9 +339,7 @@
 			this.recordStatus.setText(" ");	
 			this.barfilled.setWidth(0);
 			this.increment = 0;
-			//this.countLevel =0;
 			this.resetButton.setAttribute("enabled",false);
-			//this.recordState = -1;
 			gController.updateAudioField(this.widget_id, false);
 			this.whitewrapperOverLay.setVisible(false);
 		</method>
@@ -369,7 +370,7 @@
 			LzTimer.resetTimer(countDownDel, 1000);
 			//Changes to stop the recording if the student clicks the pause screen when
 			//recording is going on.
-		Debug.write("### "+gController.getAttribute('isWaitPopupOpen'));
+		//Debug.write("### "+gController.getAttribute('isWaitPopupOpen'));
 			if(gController.getAttribute('isWaitPopupOpen') == true){
 				stopblinker('stop');
 			}
@@ -420,7 +421,6 @@
 					this.resetButton.setAttribute("enabled", false);
 					this.stopButton.setAttribute("enabled", false);
 					this.submitButton.setAttribute("enabled", true);
-					//this.countLevel = 0;
 					return;
 				}
 				this.recordButton.setAttribute("enabled", false);
@@ -470,24 +470,27 @@
 
 		<!-- Volumeter Prototype -->
 		<method name="updateLevel"><![CDATA[
-Debug.write("updateLevel....");
+//Debug.write("updateLevel....");
 			var isMicAttached;
 			var level = myMic.activityLevel;
 			var vMeterHeight = 0;
 
 			if(activityArray.length < 16) {
-				//Debug.write("activityArray.length : "+activityArray.length, level);
+//Debug.write("activityArray.length : "+activityArray.length, level);
 				if(level == 0) {
+					Debug.write("if level : "+level);
 					activityArray.push(level);
 				}
 				else {
+					Debug.write("else level : "+level);
 					isMicAttached = true;
 					activityArray.length = 0;
-					//Debug.write("lastVal");
+//Debug.write("lastVal");
 				} 
 			}
+
 			if(activityArray.length == 15) {
-				//Debug.write("activityArray length 15");	
+				Debug.write("activityArray length 15");	
 				isMicAttached = activityCalibrate(activityArray); 
 			}
 	                
@@ -500,15 +503,14 @@ Debug.write("updateLevel....");
 				this.whitewrapperOverLay.setVisible(true);
 				stopblinker('stop');
 				this.micState = false;//Changes for defect 65977 
-				//if(this.totalTime > 0)
-				//this.countLevel ++;
 			}
 			else if(isMicAttached == true) {
 				this.micState = true;//Changes for defect 65977 
 				this.meterContainer.setAttribute('visible',true);
 				this.whitewrapperOverLay.setVisible(false);	
-				if(this.recordStarted == false) {
+				if(this.recordStarted == false && this.stopCalled == true) {
 					LzTimer.removeTimer(leveldel);//remove activity meter timer because recording is stopped now
+					this.micState = false;//when regained connectivity in recording stop mode
 					return;	
 				}
 			}
@@ -518,18 +520,13 @@ Debug.write("updateLevel....");
 			}
 	 
 			vMeterHeight = this.meterContainer.height - this.level * .5;
-			//Debug.write("vMeterHeight : ",vMeterHeight);
 
 			if(vMeterHeight < 0) {
 				vMeterHeight = 0;
 			}
-			this.volumeMeter.setAttribute('height', vMeterHeight);
 
-			//this.volumeMeter.setAttribute('height',this.meterContainer.getAttribute('height') - this.level * .5);
-			//if(this.volumeMeter.getAttribute('height') <= 0)){
-			//	this.volumeMeter.setAttribute('height', 0);
-			//}
-	       LzTimer.resetTimer(leveldel, 100); 
+			this.volumeMeter.setAttribute('height', vMeterHeight);
+			LzTimer.resetTimer(leveldel, 100); 
 	    ]]></method>
 
 		<method name="activityCalibrate" args="arrVal"><![CDATA[
