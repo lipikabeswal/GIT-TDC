@@ -31,7 +31,6 @@
 		<attribute name="recordButton" />
 		<attribute name="stopButton" />
 		<attribute name="resetButton" />
-		<attribute name="submitButton" />
 		<attribute name="bar" />
 		<attribute name="barfilled" />
 		<attribute name="timertext" />
@@ -57,6 +56,7 @@
 		<attribute name="factor" type="number" value="1" /><!-- for flexible recorder -->
 		<attribute name="micState" type="boolean" value="false"/>
 		<attribute name="stopCalled" type="boolean" value="false"/>
+		<attribute name="blinkerVal" type="number" value="0"/>
 		<dataset name="audioDset"
 			ondata="classroot.handleResponseData(this.data)" type="http"
 			onerror="classroot.requestError(this)" request="false">
@@ -122,17 +122,17 @@
 			
 			if(gController.hasFontAccommodation) {	
 			//Debug.write("gController.hasFontAccommodation = " + gController.hasFontAccommodation);
-				if(this.width >= parent.width)
-				{
-					this.setAttribute('width', parent.width);
-					this.setAttribute('height', this.defaultHeight);
-					this.setAttribute('factor', 1 );
-				}
-				else{
+				//if(this.width >= parent.width)
+				//{
+				//	this.setAttribute('width', parent.width);
+				//	this.setAttribute('height', this.defaultHeight);
+				//	this.setAttribute('factor', 1 );
+				//}
+				//else{
 					this.setAttribute('factor',1.5);
 					this.setAttribute('width', this.defaultWidth * this.factor);
 					this.setAttribute('height', this.defaultHeight * this.factor);
-				}
+				//}
 			}
             super.doneLoading();
         ]]></method>
@@ -159,35 +159,40 @@
 					Sound Recorder
 				</text>
 			</view>
-			<view name="content" width="100%" height="85%"
-				bgcolor="white">
+			<view name="content" width="100%" height="85%" bgcolor="white">
 				<simplelayout />
 				<view name="recorddisplay" align="left" width="100%">
 					<simplelayout axis="x" spacing="2" />
 
 					<view name="recordicons" height="${40 * classroot.factor}">
 						<view name="meterContainer" x="${parent.parent.parent.bar.x}"
-							y="${11 * classroot.factor}" width="${41 * classroot.factor}" resource="volume_meter" height="${35 * classroot.factor}">
+							y="${11 * classroot.factor}" width="${41 * classroot.factor}" resource="volume_meter" height="35">
 							<view name="volumebar" x="0" y="0"
 								width="${41 * classroot.factor}" height="$once{parent.height}" resource="volume_meter_flip"
 								opacity=".7" bgcolor="white" clip="true">
 							</view>
 						</view>
 
-						<view name="red" opacity=".6" visible="false"
-							x="${parent.parent.parent.bar.width/2}" resource="record_bullet_red" y="11"
-							stretches="both" width="${20 * classroot.factor}" height="${20 * classroot.factor}"
+						<view name="red" opacity=".7" visible="false"
+							x="${parent.parent.parent.bar.width/2}" resource="record_bullet_red" y="${11 * classroot.factor}"
+							stretches="both" width="${15 * classroot.factor}" height="${15 * classroot.factor}"
 							valign="middle">
 
 						</view>
-						<view name="green" opacity=".7" visible="false" y="11"
+						<view name="green" opacity=".7" visible="false" y="${11 * classroot.factor}"
 							x="${parent.parent.parent.bar.width/2}" resource="record_bullet_green"
 							stretches="both" width="${parent.red.width}"
 							height="${parent.red.height}" valign="middle">
 						</view>
+						<view name="redReplace" visible="false" bgcolor="white"
+							x="${parent.parent.parent.bar.width/2}" y="${11 * classroot.factor}"
+							width="${15 * classroot.factor}" height="${15 * classroot.factor}"
+							valign="middle">
+
+					</view>
 					</view>
 
-					<view name="showStatus" y="11" width="${20 * classroot.factor}" height="${40 * classroot.factor}">
+					<view name="showStatus" y="${9 * classroot.factor}" x="0" width="${20 * classroot.factor}" height="${40 * classroot.factor}">
 						<text name="recordStatus" fontsize="${12 * classroot.factor}"
 							font="CTB" resize="true" fontstyle="bold" height="100%">
 						</text>
@@ -256,12 +261,7 @@
 								</method>
 							</basebutton>
 						</view>
-						<view name="submit" x="${parent.parent.parent.bar.width - parent.submit.width}">
-							<basebutton resource="button_submit" x="0"
-								name="submitButton" width="${50 * classroot.factor}" height="${20 * classroot.factor}" stretches="both"
-								enabled="false" onclick="classroot.submit('submit')" />
 						</view>
-					</view>
 				</view>
 
 				<view name="justforspace2" align="center" width="100%"
@@ -270,15 +270,17 @@
 			</view>
 		</view>
 		<view name="whitewrapperOverLay" bgcolor="white" x="2"
-			y="${parent.y + 28}"
-			height="${parent.height - 30}" width="${parent.width - 5}"
+			y="${parent.y + 35}"
+			height="${parent.height - 40}" width="${parent.width - 5}"
 			clickable="true" showhandcursor="false" visible="false" onmouseover="this.setAttribute('showhandcursor',false)">
 			<simplelayout axis="x" inset="10" spacing="10" />
 			<view name="micNotConnected" valign="middle"
-				resource="mic_not_connected"/>
+				resource="mic_not_connected" stretches="both" width="${36 * classroot.factor}" height="${34 * classroot.factor}"/>
 			<text name="attachMic" fontsize="${12 * classroot.factor}" font="CTB"
-				resize="true" valign="middle">
-				Microphone is not connected ...
+				valign="middle" multiline="true" width="${parent.width - parent.attachMic.x}">
+				It appears your mic is not plugged in, 
+				please adjust your microphone input volume up 
+				and make sure your microphone is connected.
 			</text>
 		</view>
 
@@ -305,13 +307,15 @@
 
 		<method name="stopblinker" args="methodname">
 			this.red.setVisible(false);
+			this.redReplace.setVisible(false);
+
 			LzTimer.removeTimer(leveldel);	//remove activity meter timer 
 			this.stopCalled = true;			//let the timer stop first or this attribute will disturb the flow
 			this.micState = false;			//same behavior as above for this
+			this.blinkerVal = 0;			//reset this for blinking the red ball
 			resetActivityMeterHeight();		//for showing zero actvity bar
 
 			if(this.recordStarted || methodname == 'reset') {
-//Debug.write("in if stopblinker called : ",methodname, this.recordStarted);
 				sendRequest(methodname);
 				this.green.setVisible(true);
 				this.recordStatus.setText("AUDIO CAPTURED");
@@ -329,10 +333,10 @@
 //Debug.write("this.stopCalled,this.micState : ",this.stopCalled,this.micState);
 			this.stopCalled = true;			//set true 
 			this.micState = false;			//reset this attribute also
+			this.blinkerVal = 0;			//reset this for blinking the red ball
 
 			this.totalTime = this.defaultTotalTime;
 			this.recordButton.setAttribute("enabled", true);
-			this.submitButton.setAttribute("enabled", false);
 			this.green.setVisible(false);
 			this.timertext.setText(this.totalTime);		
 			this.timertext.setAttribute("fgcolor",0x008000);	
@@ -347,7 +351,6 @@
 		<method name="startCountDownTimer">
 			countDownTimer();
 			this.green.setVisible(false);
-			this.submitButton.setAttribute("enabled", false);			
 		</method>
 
 		<method name="countDownTimer">
@@ -386,16 +389,6 @@
 			this.barfilled.setAttribute("width",  barfilled.width + increment);
 		</method>
 
-		<method name="submit" args="methodname">
-			stopblinker(methodname);
-			this.recordButton.setAttribute("enabled", false);
-			this.resetButton.setAttribute("enabled", false);
-			this.stopButton.setAttribute("enabled", false);
-			this.submitButton.setAttribute("enabled", false);
-			gController.setAttribute('blockFileName', false);
-			gController.save();
-		</method>
-
 		<method name="sendRequest" args="method">
 	         var d = audioDset;
 	         var p = new LzParam();
@@ -420,12 +413,10 @@
 					this.recordButton.setAttribute("enabled", false);
 					this.resetButton.setAttribute("enabled", false);
 					this.stopButton.setAttribute("enabled", false);
-					this.submitButton.setAttribute("enabled", true);
 					return;
 				}
 				this.recordButton.setAttribute("enabled", false);
 				this.resetButton.setAttribute("enabled",true);
-				this.submitButton.setAttribute("enabled",true);
 			}
 			gCommunicator.finishCall(d,audioDset);
 		</method>
@@ -441,12 +432,12 @@
 			this.recordButton	= main.content.widgetbuttons.whitewrapper.buttons.recordButton;
 			this.stopButton 	= main.content.widgetbuttons.whitewrapper.buttons.stopButton;
 			this.resetButton 	= main.content.widgetbuttons.whitewrapper.buttons.resetButton;
-			this.submitButton 	= main.content.widgetbuttons.whitewrapper.submit.submitButton;
 			this.bar 			= main.content.bar;
 			this.barfilled		= main.content.bar.barfilled;
 			this.timertext		= main.content.recordtimer.timertext;//recorddisplay.recordtimer.
 			this.red			= main.content.recorddisplay.recordicons.red;
 			this.green			= main.content.recorddisplay.recordicons.green;
+			this.redReplace		= main.content.recorddisplay.recordicons.redReplace;
 			this.meterContainer = main.content.recorddisplay.recordicons.meterContainer;
 			this.volumeMeter	= main.content.recorddisplay.recordicons.meterContainer.volumebar;
 			this.recordIconsView= main.content.recorddisplay.recordicons;
@@ -470,13 +461,16 @@
 
 		<!-- Volumeter Prototype -->
 		<method name="updateLevel"><![CDATA[
-//Debug.write("updateLevel....");
 			var isMicAttached;
 			var level = myMic.activityLevel;
 			var vMeterHeight = 0;
 
+/*			if(this.blinkerVal == 5){
+				this.toggleRedDisplay();
+				this.blinkerVal = 0;
+			}			
+*/
 			if(activityArray.length < 16) {
-//Debug.write("activityArray.length : "+activityArray.length, level);
 				if(level == 0) {
 					Debug.write("if level : "+level);
 					activityArray.push(level);
@@ -485,19 +479,17 @@
 					Debug.write("else level : "+level);
 					isMicAttached = true;
 					activityArray.length = 0;
-//Debug.write("lastVal");
 				} 
 			}
 
 			if(activityArray.length == 15) {
-				Debug.write("activityArray length 15");	
 				isMicAttached = activityCalibrate(activityArray); 
 			}
 	                
 			if (level < 0) {
 				level = 1;
 			}
-	      
+Debug.write("isMicAttached :"+isMicAttached+" : "+this.blinkerVal);	      
 			if(isMicAttached == false) {
 				this.meterContainer.setAttribute('visible',false);
 				this.whitewrapperOverLay.setVisible(true);
@@ -505,12 +497,17 @@
 				this.micState = false;//Changes for defect 65977 
 			}
 			else if(isMicAttached == true) {
+				if(this.blinkerVal >= 3){
+					this.toggleRedDisplay();
+					this.blinkerVal = 0;
+				}
 				this.micState = true;//Changes for defect 65977 
 				this.meterContainer.setAttribute('visible',true);
 				this.whitewrapperOverLay.setVisible(false);	
 				if(this.recordStarted == false && this.stopCalled == true) {
 					LzTimer.removeTimer(leveldel);//remove activity meter timer because recording is stopped now
 					this.micState = false;//when regained connectivity in recording stop mode
+					this.blinkerVal = 0;
 					return;	
 				}
 			}
@@ -526,8 +523,11 @@
 			}
 
 			this.volumeMeter.setAttribute('height', vMeterHeight);
+			this.blinkerVal = this.blinkerVal + 1;
+
 			LzTimer.resetTimer(leveldel, 100); 
-	    ]]></method>
+	    ]]>
+		</method>
 
 		<method name="activityCalibrate" args="arrVal"><![CDATA[
 			var i = 0;
@@ -545,6 +545,16 @@
 
 		<method name="resetActivityMeterHeight">
 			this.volumeMeter.setHeight(this.meterContainer.height);
+		</method>
+		
+		<method name="toggleRedDisplay">
+			if(this.red.visible == false) {
+				this.redReplace.setVisible(false);
+				this.red.setVisible(true);
+			}else {
+				this.redReplace.setVisible(true);
+				this.red.setVisible(false);
+			}
 		</method>
 	</class>
 </library>
