@@ -1,0 +1,127 @@
+<view id="gRevisitFalsePopup" 
+      valign="middle"
+      align="center" 
+      visible="false"
+      clickable="false"
+      showhandcursor="false">
+
+	<attribute name="popupHeight" type="number" value="180"/>
+	<attribute name="popupWidth" type="number" value="300"/>
+	<attribute name="bg" type="color" value="0xFFFFFF"/>
+	<attribute name="fg" type="color" value="0x1D4896"/>
+	<attribute name="navigateFrom"/>
+	
+	<!-- the default setup should always be ready as this popup can be shown at login time also -->
+	<handler name="oninit">
+		setup();
+	</handler>
+	
+	<method name="setup" args="fm, fc, bc"><![CDATA[
+Debug.write("setup: " + fm + " , " + fc + " , " + bc);
+		if(fc != null && fc.length > 0){
+			this.setAttribute("fg", new Number(fc));
+		}
+		else{
+			this.setAttribute("fg", new Number("0xE0E0E0"));
+		}
+		if(bc != null && bc.length > 0){
+			this.setAttribute("bg", new Number(bc));
+		}
+		else{
+			this.setAttribute("bg", new Number("0x1D4896"));
+		}
+		this.windowbg.drawMe();
+	]]></method>
+	
+	<method name="hide">
+        this.setAttribute("visible", false);	
+		LzModeManager.release(this);	
+    </method>
+	
+    <method name="show" args="calledFrom">
+        this.setAttribute("visible", true);
+		this.setAttribute("navigateFrom",calledFrom);
+        LzModeManager.makeModal(this);
+    </method>
+
+	
+    <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">
+
+        <method name="drawMe">
+            this.clear();
+            
+            var roundness = 5;
+            var thickness = 3;
+            var shadow = 4;
+
+            this.changeColor(parent.bg, parent.fg);
+         </method>
+
+        <method name="changeColor" args="bgcolor, fgcolor">
+            var roundness = 5;
+            var thickness = 8;
+
+            drawRoundRect (thickness, thickness, this.width - thickness, this.height - thickness, 
+                           roundness,
+                           bgcolor, fgcolor, 1);
+        </method>
+
+        <method name="drawRoundRect" args="x0, y0, x1, y1, roundness, fill, stroke, alpha">
+            this.beginPath();
+            this.moveTo(roundness + x0 , y0);
+
+            this.lineTo(x1 - roundness, y0);
+            this.quadraticCurveTo(x1, y0, x1, roundness + y0);
+
+            this.lineTo(x1, y1 - roundness);
+            this.quadraticCurveTo(x1, y1, x1 - roundness, y1 );
+
+            this.lineTo(x0 + roundness, y1);
+            this.quadraticCurveTo(x0, y1, x0, y1 - roundness);
+
+            this.lineTo(x0, y0 + roundness);
+            this.quadraticCurveTo(x0 , y0, roundness, y0);
+
+            this.closePath();
+
+
+            this.setAttribute("globalAlpha", alpha);
+
+            if (fill) {
+                this.setAttribute("fillStyle", fill);
+                this.fill();
+            }
+            if (stroke) {
+                this.setAttribute("strokeStyle", stroke);
+                this.stroke();
+            }
+
+            this.setAttribute("globalAlpha", 1);
+        </method>
+
+    </drawview>
+
+    <view name="contents" x="10" y="10"
+          width="${parent.windowbg.width - 20}" height="${parent.windowbg.height - 20}" bgcolor="0xCBCBCB"><!--97B8E2"-->
+		         
+        <text name="revisitFalse" 
+        	  font="CTB"	
+              fontsize="15"
+              fgcolor="0x000000"
+              width="260"
+              height="160" multiline="true" x="10" y="20">
+				You may not return to this question.  
+				  Are you sure you do not want to give an answer?
+		</text>
+        <basebutton	name="okButton"	resource="popupOk" x="40" y="120">
+		<method event="onclick">
+gController.setNavigation(1,parent.parent.getAttribute("navigateFrom"));        
+        </method>
+		</basebutton>
+		<basebutton	name="cancelButton"	resource="popupCancel" x="180" y="120">
+		<method event="onclick">
+gController.setNavigation(0,parent.parent.getAttribute("navigateFrom"));  
+        </method>
+		</basebutton>
+    </view>
+</view>

@@ -438,6 +438,9 @@
 		<!-- True, if login response contains tts speed value-->
 		<attribute name="isWaitPopupOpen" type="boolean" value="false" />
 
+		<!-- True, if login response contains tts speed value-->
+		<attribute name="isRevisitPopupOpen" type="boolean" value="false" />
+
 		<attribute name="applyFlashFix" type="boolean" value="false" />
 
 <attribute name="gStimulusId" type="number" value="0"/>
@@ -451,6 +454,9 @@
 		<attribute name="allowRevisit" type="boolean" value="true" />
 		<attribute name="recorder" value="null"/>
 		<attribute name="imageLIArray" value="$once{new Array()}"/>
+		<attribute name="nextItem" type="number" value="0"/>
+		<attribute name="navigateConfirm" type="boolean" value="false"/>
+
 		
 		<!--
 			============================================================
@@ -881,6 +887,10 @@
 				gScreens.showLoginError(gXmlHelper.getStatusCode(response));
 			}
 			else{
+				
+				
+
+
 	    		var node = LzDataNode.stringToLzData(response);
 	    		dp.setPointer(node);
 	    		setShowHighlighter();
@@ -1969,6 +1979,29 @@ Debug.write("#############returnVal: "+returnVal);
 			}
 		]]></method>
 
+	<method name="setNavigation" args="val,navigateFrom">
+	if(val == 1){
+		this.setAttribute("navigateConfirm",true);
+		if(navigateFrom == "goOn"){
+			//changeItem( getItemFromOffset( currItemOffset() + 1 ) );
+			stepNavigateForward();
+			this.setAttribute("navigateConfirm",false);
+		}else if(navigateFrom == "goBack"){
+			//changeItem( getItemFromOffset( currItemOffset() - 1 ) );
+			stepNavigateBack();
+			this.setAttribute("navigateConfirm",false);
+		}else{
+			navigateTo(this.nextItem);
+			this.setAttribute("navigateConfirm",false);
+		}
+	}else{
+		this.setAttribute("navigateConfirm",false);
+	}
+		this.hideRevisitPopup();
+		
+	</method>
+	
+
 		<!-- nav -->
 		<method name="navigateTo" args="itemeid"><![CDATA[
             var curreid = Number(
@@ -1976,15 +2009,21 @@ Debug.write("#############returnVal: "+returnVal);
             );
             var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
             dncurrentItem.setAttr('is_visited' , true);
+			
+			if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm){
+            	this.showRevisitPopup("quesBar");
+			}else{
             if ( itemeid != curreid ) {
+
             	changeItem(dpsubtest.xpathQuery( "ob_assessment/ob_element_list/f[@id='" + itemeid + "']" ));
             }
-            
+            }
             
      
         ]]></method>
 
 		<method name="changeItem" args="fnode"><![CDATA[		
+			
 			if(this.recorder != null) {
 				//var recordState = this.recorder.recordState;
 				this.recorder.stopblinker('stop');
@@ -1999,6 +2038,7 @@ Debug.write("#############returnVal: "+returnVal);
 			stopQuestion();
 			canvas.setAttribute('focusobj', null);
 			saveLoadItem( fnode );
+			
 		]]></method>
 
 		<method name="onFirstItem">
@@ -2074,17 +2114,27 @@ Debug.write("#############returnVal: "+returnVal);
             }
         </method>
 
-		<method name="stepNavigateBack">
+		<method name="stepNavigateBack"><![CDATA[
             if ( !onFirstItem() ) {
+				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
+				if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm){
+            		this.showRevisitPopup("goBack");
+				}else{
 				changeItem( getItemFromOffset( currItemOffset() - 1 ) );
             }
-        </method>
+            }
+        ]]></method>
 
-		<method name="stepNavigateForward">
+		<method name="stepNavigateForward"><![CDATA[
             if ( !onLastItem() ) {
+				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
+				if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm){
+            		this.showRevisitPopup("goOn");
+				}else{
 				changeItem( getItemFromOffset( currItemOffset() + 1 ) );
             }
-        </method>
+            }
+        ]]></method>
 
 		<!-- question state -->
 		<method name="toggleMark"><![CDATA[
@@ -3545,7 +3595,16 @@ Debug.write("setAudioItemState 2...",dncurritem);
 				LzTimer.resetTimer( dHideWaitPopup, 30000 );
 			}
 		</method>
+		<method name="showRevisitPopup" args="calledFrom">
+			this.isRevisitPopupOpen = true;	
+Debug.write("##calledFrom 1 "+calledFrom);
+			gRevisitFalsePopup.show(calledFrom);
+		</method>
 		
+		<method name="hideRevisitPopup"><![CDATA[
+			this.isRevisitPopupOpen = false;	
+			gRevisitFalsePopup.hide();
+		]]></method>
 
 	</node>
 

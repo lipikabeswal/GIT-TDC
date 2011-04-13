@@ -416,6 +416,12 @@
        	<frame src="components/recorder/button_submit_disable.gif" />
 	</resource>
 	
+	<resource name="button_startover">
+       	<frame src="components/recorder/button_startover.gif"/>
+       	<frame src="components/recorder/button_startover_clicked.gif"/>
+       	<frame src="components/recorder/button_startover_disabled.png"/> 
+	</resource>
+	
 	<resource name="volume_meter">
        	<frame src="components/recorder/seo-graph.png"/>
 	</resource>
@@ -438,6 +444,14 @@
 	
 	<resource name="mic_not_connected">
        	<frame src="components/recorder/Mute.png"/>
+	</resource>
+	
+	<resource name="popupCancel">
+       	<frame src="components/recorder/cancel.gif"/>
+	</resource>
+	
+	<resource name="popupOk">
+       	<frame src="components/recorder/ok.gif"/>
 	</resource>
 	
 	<!-- ****************** End Recorder Resources ************************************************* -->
