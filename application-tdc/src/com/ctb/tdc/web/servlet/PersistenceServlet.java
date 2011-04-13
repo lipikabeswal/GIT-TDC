@@ -285,6 +285,16 @@ public class PersistenceServlet extends HttpServlet {
 			} else {
 				//logger.error("TMS returns error in login() : " + result);   
 			}
+			
+			File speexFile = new File(getServletContext().getRealPath("/")
+					+ "//streams//");
+				File[] files = speexFile.listFiles();
+				System.out.println("files length" + files.length);
+				if(files.length>0){
+					for (int i = 0; i < files.length; i++) {
+						files[i].delete();
+					}
+				}
 		}
 
 		catch (Exception e) {
