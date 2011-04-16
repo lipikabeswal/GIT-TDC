@@ -418,7 +418,7 @@
 	
 	<resource name="button_startover">
        	<frame src="components/recorder/button_startover.gif"/>
-       	<frame src="components/recorder/button_startover_clicked.gif"/>
+       	<frame src="components/recorder/button_startover_hover.jpg"/>
        	<frame src="components/recorder/button_startover_disabled.png"/> 
 	</resource>
 	

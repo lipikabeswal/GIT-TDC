@@ -71,13 +71,13 @@
 				currsel = this.curranswer.getAttr('randomIdentifier');
 
 			}
-Debug.write("Test Control......", "Actual : ",this.curranswer.getAttr('identifier'), "|| Random : ",currsel, "|| Correct : ", gController.dpstudentdata.xpathQuery("current_item/item_model/@correct"));
+//Debug.write("Test Control......", "Actual : ",this.curranswer.getAttr('identifier'), "|| Random : ",currsel, "|| Correct : ", gController.dpstudentdata.xpathQuery("current_item/item_model/@correct"));
                 this.answertxt.answeristxt.selitem.setAttribute ('text', currsel);
             }  
         ]]></method>
 
         <method event="oncurritempos"><![CDATA[
-
+//Debug.write("oncurritempos called...",this.curritempos);
             //handle nav visibility and positioning
 
 			var currentItemNumber = parseInt(this.curritempos);
@@ -88,8 +88,8 @@ Debug.write("Test Control......", "Actual : ",this.curranswer.getAttr('identifie
 			else{
                 this.btns.navbtns.btnback.setAttribute ('visible', false);
 			}
-			
-            if (currentItemNumber != parseInt(this.totalitemno)) {
+//Debug.write("currentItemNumber : "+currentItemNumber+" : "+gController.getNextNavigableOffset(currentItemNumber));			
+            if (currentItemNumber < parseInt(this.totalitemno) && gController.getNextNavigableOffset(currentItemNumber) < parseInt(this.totalitemno)) {
                 this.btns.navbtns.btnforward.setAttribute ('visible', true);
             }
             else{

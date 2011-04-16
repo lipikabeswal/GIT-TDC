@@ -78,6 +78,7 @@
 		<method event="ondata" args="data"><![CDATA[
 			//Debug.write("cachable recorder ondata 1....");
 			this.resetCalled=false;
+			this.blinkerVal = 0;
 			this.reset();
 			//for setting the background color to white
 			this.parent.setAttribute ('bgcolor', white);
@@ -256,7 +257,7 @@
 						</view>
 						<view name="startOver" x="${parent.parent.parent.bar.width - parent.startOver.width}">
 							<basebutton resource="button_startover" x="0"
-								name="resetButton" width="${50 * classroot.factor}" height="${20 * classroot.factor}" stretches="both"
+								name="resetButton" width="${60 * classroot.factor}" height="${20 * classroot.factor}" stretches="both"
 								enabled="false" onclick="classroot.reset('reset')" >
 								<method event="onmouseover">
 									gTooltip.showTooltip('Start Over');
@@ -331,28 +332,28 @@
 
 		<method name="reset" args="methodname">
 		
-				Debug.write("resetCalled "+this.resetCalled);
-			if(this.resetCalled==false){
-			if(methodname == 'reset') {
-				sendRequest(methodname);
-					this.resetCalled=true;
-			}
-			this.stopCalled = true;			//set true 
-			this.micState = false;			//reset this attribute also
-			this.blinkerVal = 0;			//reset this for blinking the red ball
-
-			this.totalTime = this.defaultTotalTime;
-			this.recordButton.setAttribute("enabled", true);
-			this.green.setVisible(false);
-				this.red.setVisible(false);
-			this.timertext.setText(this.totalTime);		
-			this.timertext.setAttribute("fgcolor",0x008000);	
-			this.recordStatus.setText(" ");	
-			this.barfilled.setWidth(0);
-			this.increment = 0;
-			this.resetButton.setAttribute("enabled",false);
-			gController.updateAudioField(this.widget_id, false);
-			this.whitewrapperOverLay.setVisible(false);
+Debug.write("resetCalled "+this.resetCalled);
+			if(this.resetCalled == false) {
+				if(methodname == 'reset') {
+					sendRequest(methodname);
+					this.resetCalled = true;
+				}
+				this.stopCalled = true;			//set true 
+				this.micState = false;			//reset this attribute also
+				this.blinkerVal = 0;			//reset this for blinking the red ball
+	
+				this.totalTime = this.defaultTotalTime;
+				this.recordButton.setAttribute("enabled", true);
+				this.green.setVisible(false);
+					this.red.setVisible(false);
+				this.timertext.setText(this.totalTime);		
+				this.timertext.setAttribute("fgcolor",0x008000);	
+				this.recordStatus.setText(" ");	
+				this.barfilled.setWidth(0);
+				this.increment = 0;
+				this.resetButton.setAttribute("enabled",false);
+				gController.updateAudioField(this.widget_id, false);
+				this.whitewrapperOverLay.setVisible(false);
 			}
 			
 		</method>
@@ -384,6 +385,7 @@
 			//recording is going on.
 			if(gController.getAttribute('isWaitPopupOpen') == true){
 				stopblinker('stop');
+				this.resetCalled = false; 
 			}
 		
 		]]>
@@ -408,6 +410,7 @@
  		</method>
 
 		<method name="handleResponseData" args="d">
+			this.blinkerVal = 0;
 			var result = d.childNodes[0].data;
 			if(result == 'RECORDING_START'){
 			Debug.write("RECORDING_START..");
@@ -500,12 +503,18 @@
 				this.meterContainer.setAttribute('visible',false);
 				this.whitewrapperOverLay.setVisible(true);
 				stopblinker('stop');
+				this.resetCalled = false;
 				this.micState = false;//Changes for defect 65977 
 			}
 			else if(isMicAttached == true) {
-				if(this.blinkerVal == 3){
+				//Debug.write("blinker val before if"  + this.blinkerVal);
+				if(this.recordStarted == true){
+					if(this.blinkerVal >= 3){
+					//Debug.write("blinker val"  + this.blinkerVal);
 					this.toggleRedDisplay();
 					this.blinkerVal = 0;
+				}
+					this.blinkerVal = this.blinkerVal + 1;
 				}
 				this.micState = true;//Changes for defect 65977 
 				this.meterContainer.setAttribute('visible',true);
@@ -513,9 +522,11 @@
 				if(this.recordStarted == false && this.stopCalled == true) {
 					LzTimer.removeTimer(leveldel);//remove activity meter timer because recording is stopped now
 					this.micState = false;//when regained connectivity in recording stop mode
-					//this.blinkerVal = 0;
+					this.blinkerVal = 0;
 					return;	
 				}
+			
+
 			}
 	
 			if (level != this.level) {
@@ -529,7 +540,7 @@
 			}
 
 			this.volumeMeter.setAttribute('height', vMeterHeight);
-			this.blinkerVal = this.blinkerVal + 1;
+
 
 			LzTimer.resetTimer(leveldel, 100); 
 	    ]]>

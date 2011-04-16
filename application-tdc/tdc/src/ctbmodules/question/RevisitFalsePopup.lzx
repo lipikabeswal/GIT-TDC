@@ -8,7 +8,7 @@
 	<attribute name="popupHeight" type="number" value="180"/>
 	<attribute name="popupWidth" type="number" value="300"/>
 	<attribute name="bg" type="color" value="0xFFFFFF"/>
-	<attribute name="fg" type="color" value="0x1D4896"/>
+	<attribute name="fg" type="color" value="0xE0E0E0"/>
 	<attribute name="navigateFrom"/>
 	
 	<!-- the default setup should always be ready as this popup can be shown at login time also -->
@@ -17,9 +17,9 @@
 	</handler>
 	
 	<method name="setup" args="fm, fc, bc"><![CDATA[
-Debug.write("setup: " + fm + " , " + fc + " , " + bc);
+//Debug.write("setup: " + this.fm + " , " + this.fc + " , " + this.bc);
 		if(fc != null && fc.length > 0){
-			this.setAttribute("fg", new Number(fc));
+			this.setAttribute("fg", new Number(this.fc));
 		}
 		else{
 			this.setAttribute("fg", new Number("0xE0E0E0"));
@@ -39,9 +39,11 @@ Debug.write("setup: " + fm + " , " + fc + " , " + bc);
     </method>
 	
     <method name="show" args="calledFrom">
-        this.setAttribute("visible", true);
-		this.setAttribute("navigateFrom",calledFrom);
-        LzModeManager.makeModal(this);
+	    if(this.visible == false) {
+	        this.setAttribute("visible", true);
+			this.setAttribute("navigateFrom",calledFrom);
+	        LzModeManager.makeModal(this);
+	     }
     </method>
 
 	
@@ -59,16 +61,18 @@ Debug.write("setup: " + fm + " , " + fc + " , " + bc);
 
         <method name="changeColor" args="bgcolor, fgcolor">
             var roundness = 5;
-            var thickness = 8;
+            var thickness = 0;
 
-            drawRoundRect (thickness, thickness, this.width - thickness, this.height - thickness, 
+            drawRoundRect (thickness, thickness, this.width, this.height, 
                            roundness,
                            bgcolor, fgcolor, 1);
         </method>
 
         <method name="drawRoundRect" args="x0, y0, x1, y1, roundness, fill, stroke, alpha">
+			
             this.beginPath();
-            this.moveTo(roundness + x0 , y0);
+            this.rect(x0 , y0 , x1 , y1 , roundness);
+/*            this.moveTo(roundness + x0 , y0);
 
             this.lineTo(x1 - roundness, y0);
             this.quadraticCurveTo(x1, y0, x1, roundness + y0);
@@ -81,7 +85,7 @@ Debug.write("setup: " + fm + " , " + fc + " , " + bc);
 
             this.lineTo(x0, y0 + roundness);
             this.quadraticCurveTo(x0 , y0, roundness, y0);
-
+*/
             this.closePath();
 
 
@@ -101,8 +105,8 @@ Debug.write("setup: " + fm + " , " + fc + " , " + bc);
 
     </drawview>
 
-    <view name="contents" x="10" y="10"
-          width="${parent.windowbg.width - 20}" height="${parent.windowbg.height - 20}" bgcolor="0xCBCBCB"><!--97B8E2"-->
+    <view name="contents" x="5" y="5"
+          width="${parent.windowbg.width - 10}" height="${parent.windowbg.height - 10}" bgcolor="0xCBCBCB"><!--97B8E2"-->
 		         
         <text name="revisitFalse" 
         	  font="CTB"	
