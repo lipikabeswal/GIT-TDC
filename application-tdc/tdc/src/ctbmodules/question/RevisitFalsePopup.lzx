@@ -36,6 +36,7 @@
 	<method name="hide">
         this.setAttribute("visible", false);	
 		LzModeManager.release(this);	
+		gHotKeys.enableKeys();
     </method>
 	
     <method name="show" args="calledFrom">
@@ -43,6 +44,7 @@
 	        this.setAttribute("visible", true);
 			this.setAttribute("navigateFrom",calledFrom);
 	        LzModeManager.makeModal(this);
+	        gHotKeys.disableKeys();
 	     }
     </method>
 
