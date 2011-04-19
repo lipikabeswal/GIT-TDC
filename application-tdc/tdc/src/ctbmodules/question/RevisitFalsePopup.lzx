@@ -5,8 +5,8 @@
       clickable="false"
       showhandcursor="false">
 
-	<attribute name="popupHeight" type="number" value="180"/>
-	<attribute name="popupWidth" type="number" value="300"/>
+	<attribute name="popupHeight" type="number" value="157"/>
+	<attribute name="popupWidth" type="number" value="310"/>
 	<attribute name="bg" type="color" value="0xFFFFFF"/>
 	<attribute name="fg" type="color" value="0xE0E0E0"/>
 	<attribute name="navigateFrom"/>
@@ -74,23 +74,8 @@
 			
             this.beginPath();
             this.rect(x0 , y0 , x1 , y1 , roundness);
-/*            this.moveTo(roundness + x0 , y0);
 
-            this.lineTo(x1 - roundness, y0);
-            this.quadraticCurveTo(x1, y0, x1, roundness + y0);
-
-            this.lineTo(x1, y1 - roundness);
-            this.quadraticCurveTo(x1, y1, x1 - roundness, y1 );
-
-            this.lineTo(x0 + roundness, y1);
-            this.quadraticCurveTo(x0, y1, x0, y1 - roundness);
-
-            this.lineTo(x0, y0 + roundness);
-            this.quadraticCurveTo(x0 , y0, roundness, y0);
-*/
             this.closePath();
-
-
             this.setAttribute("globalAlpha", alpha);
 
             if (fill) {
@@ -108,25 +93,24 @@
     </drawview>
 
     <view name="contents" x="5" y="5"
-          width="${parent.windowbg.width - 10}" height="${parent.windowbg.height - 10}" bgcolor="0xCBCBCB"><!--97B8E2"-->
+          width="${parent.windowbg.width - 10}" height="${parent.windowbg.height - 10}" bgcolor="0xC0C0C0"><!--97B8E2"-->
 		         
         <text name="revisitFalse" 
         	  font="CTB"	
               fontsize="15"
               fgcolor="0x000000"
               width="260"
-              height="160" multiline="true" x="10" y="20">
-				You may not return to this question.  
-				  Are you sure you do not want to give an answer?
-		</text>
-        <basebutton	name="okButton"	resource="popupOk" x="40" y="120">
+              multiline="true" y="20" align="center">
+				You may not return to this question once you move on. Do you want to stay on this screen?
+		</text>        
+		<basebutton	name="okButton"	resource="popupOk" x="46" y="110" width="70" height="25" stretches="both">
 		<method event="onclick">
-gController.setNavigation(1,parent.parent.getAttribute("navigateFrom"));        
+gController.setNavigation(0,parent.parent.getAttribute("navigateFrom"));        
         </method>
 		</basebutton>
-		<basebutton	name="cancelButton"	resource="popupCancel" x="180" y="120">
+		<basebutton	name="cancelButton"	resource="popupCancel" x="164" y="110" width="85" height="25" stretches="both">
 		<method event="onclick">
-gController.setNavigation(0,parent.parent.getAttribute("navigateFrom"));  
+gController.setNavigation(1,parent.parent.getAttribute("navigateFrom"));  
         </method>
 		</basebutton>
     </view>

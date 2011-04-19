@@ -447,11 +447,16 @@
 	</resource>
 	
 	<resource name="popupCancel">
-       	<frame src="components/recorder/cancel.gif"/>
+       	<frame  src="components/recorder/move_next.png"/>
+       	<frame  src="components/recorder/move_next_hover.png"/>
+       	<frame  src="components/recorder/move_next_down.png"/>
 	</resource>
+       
 	
 	<resource name="popupOk">
-       	<frame src="components/recorder/ok.gif"/>
+       	<frame src="components/recorder/stay.png"/>
+       	<frame  src="components/recorder/stay_hover.png"/>
+       	<frame  src="components/recorder/stay_down.png"/>
 	</resource>
 	
 	<!-- ****************** End Recorder Resources ************************************************* -->
