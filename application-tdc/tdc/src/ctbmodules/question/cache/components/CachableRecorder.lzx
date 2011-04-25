@@ -80,8 +80,14 @@
 			this.resetCalled=false;
 			this.blinkerVal = 0;
 			this.reset();
-			//for setting the background color to white
-			this.parent.setAttribute ('bgcolor', white);
+			//for setting the background color
+			var style = gController.getAccomStyleForType ("stem");
+            Debug.write("style.bgcolor - "+style.bgcolor);
+            if(style.bgcolor != null){
+            	this.parent.setAttribute ('bgcolor', style.bgcolor);
+            }
+			
+			
 			if(data.getAttr('x')) {
 				this.setAttribute('x', Number(data.getAttr('x')));
 			}
