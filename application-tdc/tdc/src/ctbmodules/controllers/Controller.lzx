@@ -2523,7 +2523,7 @@ Debug.write("#############returnVal: "+returnVal);
 			this.clearInvalidCrResponses();
 			this.resetCrs();
 			//START Defect# 59282
-			this.resetCrFields();
+			//this.resetCrFields(); //due to Defects# 64829, 64830, 64837
 			//END
 			//this.resetAudioFields();
             closeOpenManipulatives();
@@ -3473,14 +3473,18 @@ Debug.write("setAudioItemState 2...",dncurritem);
 		<method name="updateBlueBallForCrItem"><![CDATA[
 			if(this.inQuestion){
 	            var answered = false;
+				
 	            var currentitem = dpstudentdata.xpathQuery("current_item/item_model");
+				
+
 				var currentEid = currentitem.getAttr('eid');
 	            for (var i = 0; i < this.crFields.length; i++) {
-	               if (this.crFields[i]['answered'] == true) {
-	                   answered = true;
-	                   break;
-	               }
+	               	if (this.crFields[i]['answered'] == true) {
+	                   	answered = true;
+	                   	break;
+	               	}
 	            }
+				
 	            
 	            // Update the XML resulting in the blue ball appearing
 	            var runtimeitem = dpstudentdata.xpathQuery("runtime/item_model[@eid = '"+currentEid+"']");

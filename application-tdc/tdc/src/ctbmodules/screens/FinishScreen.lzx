@@ -60,6 +60,9 @@
                 <method name="finished" event="onclick">
                     gScreens.clicked();
                     gController.saveEndSubtest( '' );
+                    //START Defect# 59282
+                    gController.resetCrFields();
+                    //END
                 </method>
             </YesFinishedButton>
             <NoGoBackToTestButton name="goback"
