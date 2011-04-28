@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -24,15 +23,26 @@ import java.util.zip.Adler32;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.ProxyHost;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScope;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.protocol.Protocol;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.NTCredentials;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.params.ConnRoutePNames;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
+import org.apache.http.conn.ssl.TrustStrategy;
+import org.apache.http.conn.ssl.X509HostnameVerifier;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import org.jdom.Element;
 
@@ -55,18 +65,20 @@ public class ServletUtils {
 	public static final String PROXY_NAME = "proxy";
 	static Logger logger = Logger.getLogger(ServletUtils.class);
 
-	public static HttpClient client;
+	public static DefaultHttpClient client;
 	
 	static {
 		try {
-			MultiThreadedHttpConnectionManager mgr = new MultiThreadedHttpConnectionManager();
-			mgr.getParams().setDefaultMaxConnectionsPerHost(1);
-			mgr.getParams().setMaxTotalConnections(1);
-			client = new HttpClient(mgr);
-			client.getParams().setConnectionManagerTimeout(10000);
-			
-			Protocol myhttps = new Protocol("https", new com.ctb.tdc.web.utils.EasySSLProtocolSocketFactory(), 443);
-			Protocol.registerProtocol("https", new Protocol("https", new com.ctb.tdc.web.utils.EasySSLProtocolSocketFactory(),443));
+			TrustStrategy trustStrategy = new EasyTrustStrategy(); 
+			X509HostnameVerifier hostnameVerifier = new AllowAllHostnameVerifier(); 
+			SSLSocketFactory sslSf = new SSLSocketFactory(trustStrategy, hostnameVerifier); 
+			Scheme https = new Scheme("https", 443, sslSf); 
+			SchemeRegistry schemeRegistry = new SchemeRegistry(); 
+			schemeRegistry.register(https); 
+			ThreadSafeClientConnManager mgr = new ThreadSafeClientConnManager(schemeRegistry); 
+			mgr.setMaxTotal(1);
+			client = new DefaultHttpClient(mgr);
+			//client.getParams().setConnectionManagerTimeout(10000);
 			
 			String proxyHost = getProxyHost();
 	
@@ -74,8 +86,9 @@ public class ServletUtils {
 				// apply proxy settings
 	            int proxyPort    = getProxyPort();
 	            String username  = getProxyUserName();
-	            String password  = getProxyPassword();            
-	        	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);
+	            String password  = getProxyPassword();   
+	            String domain = getProxyDomain();
+	        	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password, domain);
 			}
 		} catch(Exception e) {
 			logger.error("Exception occured in ServletUtils initializer : " + printStackTrace(e));
@@ -537,6 +550,19 @@ public class ServletUtils {
 			password = null;
 		return password;
 	}
+	
+	/**
+	 * get predefined proxy NT domain
+	 *
+	 */
+	public static String getProxyDomain() throws MalformedURLException {
+		MemoryCache memoryCache = MemoryCache.getInstance();
+		ServletSettings srvSettings = memoryCache.getSrvSettings();
+		String domain = srvSettings.getProxyDomain().trim();
+		if (domain.length() == 0)
+			domain = null;
+		return domain;
+	}
 
 	/**
 	 * getMethod
@@ -710,36 +736,39 @@ public class ServletUtils {
 	
 	//		create post method with url based on method
 			String tmsURL = getTmsURLString(method);
-			PostMethod post = new PostMethod(tmsURL);
+			HttpPost post = new HttpPost(tmsURL);
 	
-	//		setup parameters
-			NameValuePair[] params = { new NameValuePair(METHOD_PARAM, method),
-					new NameValuePair(XML_PARAM, xml) };
-			post.setRequestBody(params);
-			
 	//		send request to TMS
 			try {
-				responseCode = client.executeMethod(post);
+				// setup parameters
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+				nameValuePairs.add(new BasicNameValuePair(METHOD_PARAM, method));
+				nameValuePairs.add(new BasicNameValuePair(XML_PARAM, xml));
+				post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+				
+				HttpResponse response = client.execute(post);
+				responseCode = response.getStatusLine().getStatusCode();
 				if (responseCode == HttpStatus.SC_OK) {
-					InputStream isPost = post.getResponseBodyAsStream();
-					BufferedReader in = new BufferedReader(new InputStreamReader(isPost),16384);
+					BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()),131072);
 					String inputLine = null;
 					result = "";
 					while ((inputLine = in.readLine()) != null) {
+						//System.out.println(inputLine);
 						result += inputLine;
 					}
 					in.close();
 				}
 				else {
-					result = buildXmlErrorMessage("", HttpStatus.getStatusText(responseCode), "");
+					result = buildXmlErrorMessage("", response.getStatusLine().getReasonPhrase(), "");
 				}
 			}
 			catch (Exception e) {
+				e.printStackTrace();
 				logger.error("Exception occured in httpClientSendRequest() : " + printStackTrace(e));
 				result = buildXmlErrorMessage("", e.getMessage(), "");
 			}
 			finally {
-				post.releaseConnection();
+				//post.releaseConnection();
 			}
 			return result;
 		}
@@ -753,12 +782,12 @@ public class ServletUtils {
 	public static String httpClientGetStatus() {
 		synchronized(client) {
 			String errorMessage = OK;
-			PostMethod post = null;
+			HttpPost post = null;
 			// create post method with url based on method
 			try {
 				String method = GET_STATUS_METHOD;
 				String tmsURL = getTmsURLString(method);
-				post = new PostMethod(tmsURL);
+				post = new HttpPost(tmsURL);
 			}
 			catch (Exception e) {
 				errorMessage = "There has been a communications failure: " + e.getMessage();
@@ -768,11 +797,11 @@ public class ServletUtils {
 				int responseCode = HttpStatus.SC_OK;
 
 				// send request to TMS
-				responseCode = client.executeMethod(post);
+				HttpResponse response = client.execute(post);
+				responseCode = response.getStatusLine().getStatusCode();
 	
 				if (responseCode == HttpStatus.SC_OK) {
-					InputStream isPost = post.getResponseBodyAsStream();
-					BufferedReader in = new BufferedReader(new InputStreamReader(isPost));
+					BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 					String inputLine = null;
 					String tmsResponse = "";
 					while ((inputLine = in.readLine()) != null) {
@@ -790,7 +819,7 @@ public class ServletUtils {
 						errorMessage = buildXmlErrorMessage("", errorMessage, "");
 					}
 					else {
-						errorMessage = buildXmlErrorMessage("", HttpStatus.getStatusText(responseCode), "");
+						errorMessage = buildXmlErrorMessage("", response.getStatusLine().getReasonPhrase(), "");
 					}
 				}
 			}
@@ -803,7 +832,7 @@ public class ServletUtils {
 				errorMessage = buildXmlErrorMessage("", errorMessage, "");
 			}
 			finally {
-				post.releaseConnection();
+				//post.releaseConnection();
 			}
 			return errorMessage;
 		}
@@ -1082,8 +1111,9 @@ return elementList;*/
 				// apply proxy settings
 	            int proxyPort    = getProxyPort();
 	            String username  = getProxyUserName();
-	            String password  = getProxyPassword();            
-	        	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);
+	            String password  = getProxyPassword();   
+	            String domain  = getProxyDomain(); 
+	        	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password, domain);
 			}
 			return true;
 		} catch (Exception e) {
@@ -1091,17 +1121,21 @@ return elementList;*/
 		}
 	}
 	
-	public static void setProxyCredentials(HttpClient client, String proxyHost, int proxyPort, String username, String password) {
+	public static void setProxyCredentials(DefaultHttpClient client, String proxyHost, int proxyPort, String username, String password, String domain) {
         boolean proxyHostDefined = proxyHost != null && proxyHost.length() > 0;
         boolean proxyPortDefined = proxyPort > 0;
         boolean proxyUsernameDefined = username != null && username.length() > 0;
+        boolean proxyDomainDefined = domain != null && domain.trim().length() > 0;
 
-	    if( proxyHostDefined && proxyPortDefined ) 
-	    	client.getHostConfiguration().setProxy(proxyHost, proxyPort);
-	    else 
-	    if( proxyHostDefined )  
-	    	client.getHostConfiguration().setProxyHost(new ProxyHost(proxyHost) );
+        HttpHost proxy = null;
         
+	    if( proxyHostDefined && proxyPortDefined ) {
+	    	proxy = new HttpHost(proxyHost, proxyPort);
+	    	client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);  
+	    }else if( proxyHostDefined )  {
+	    	proxy = new HttpHost(proxyHost);
+	    	client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
+	    }
         if( proxyHostDefined && proxyUsernameDefined ) {
             AuthScope proxyScope;
             
@@ -1110,15 +1144,24 @@ return elementList;*/
             else
                 proxyScope = new AuthScope(proxyHost, AuthScope.ANY_PORT, AuthScope.ANY_REALM);
 
-    		UsernamePasswordCredentials upc = new UsernamePasswordCredentials(username, password);            
-            client.getParams().setAuthenticationPreemptive(false);
-            client.getState().setProxyCredentials(proxyScope, upc);
+            UsernamePasswordCredentials upc = new UsernamePasswordCredentials(username, password);            
+            NTCredentials ntc = new NTCredentials(domain + "/" + username + ":" + password);
+    		
+    		if(!proxyDomainDefined) {
+	    		client.getCredentialsProvider().setCredentials(
+	    		        proxyScope, 
+	    		        upc);
+    		} else {
+    			client.getCredentialsProvider().setCredentials(
+	    		        proxyScope,
+	    		        ntc);
+    		}
         }		
 	}
 		
 	public static void shutdown() {
 		synchronized(client) {
-			((MultiThreadedHttpConnectionManager) ServletUtils.client.getHttpConnectionManager()).shutdown();
+			((ThreadSafeClientConnManager) ServletUtils.client.getConnectionManager()).shutdown();
 		}
 	}
 }

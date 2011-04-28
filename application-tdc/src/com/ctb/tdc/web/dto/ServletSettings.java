@@ -24,8 +24,9 @@ public class ServletSettings implements java.io.Serializable {
     private int proxyPort;
     private String proxyUserName;
     private String proxyPassword;
+    private String proxyDomain;
 
-    private boolean validSettings;
+	private boolean validSettings;
     private String errorMessage;
 
     public ServletSettings() {
@@ -68,6 +69,7 @@ public class ServletSettings implements java.io.Serializable {
             this.proxyPort = resourceBundleGetInt(rbProxy, "proxy.port");        
             this.proxyUserName = resourceBundleGetString(rbProxy, "proxy.username");
             this.proxyPassword = resourceBundleGetString(rbProxy, "proxy.password");
+            this.proxyDomain = resourceBundleGetString(rbProxy, "proxy.ntlmdomain");
         }
     }
 
@@ -90,6 +92,16 @@ public class ServletSettings implements java.io.Serializable {
         this.errorMessage = "";
     }
          
+    
+
+    public String getProxyDomain() {
+		return proxyDomain;
+	}
+
+	public void setProxyDomain(String proxyDomain) {
+		this.proxyDomain = proxyDomain;
+	}
+	
     public String getProxyHost() {
         return proxyHost;
     }
