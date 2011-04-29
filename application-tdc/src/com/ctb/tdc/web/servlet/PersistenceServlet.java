@@ -28,6 +28,9 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.FileEntity;
 import org.apache.log4j.Logger;
 
 import com.ctb.tdc.web.dto.StateVO;
@@ -651,29 +654,36 @@ public class PersistenceServlet extends HttpServlet {
 					tmsURL += "&" + ServletUtils.CHECKSUM_PARAM + "="
 							+ sumValue;
 
-					PostMethod filePost = new PostMethod(tmsURL);
+					//PostMethod filePost = new PostMethod(tmsURL);
+					HttpPost filePost = new HttpPost(tmsURL);
 					try {
+						FileEntity reqEntity = new FileEntity(file, "text/plain");
+						filePost.setEntity(reqEntity);
+						
 						// set multipart request
-						Part[] parts = { new FilePart(
+						/*Part[] parts = { new FilePart(
 								ServletUtils.AUDIT_FILE_PARAM, file) };
 						filePost.setRequestEntity(new MultipartRequestEntity(
-								parts, filePost.getParams()));
-
-						responseCode = ServletUtils.client
-								.executeMethod(filePost);
-
+								parts, filePost.getParams()));*/
+						
+						
+						HttpResponse res  = ServletUtils.client.execute(filePost);
+						
+					
 						// delete local file when upload successfully 
-						if (responseCode == HttpStatus.SC_OK) {
-							InputStream isPost = filePost
-									.getResponseBodyAsStream();
+						if (res.toString().contains("OK")) {
+							/*InputStream isPost = res.
 							BufferedReader in = new BufferedReader(
 									new InputStreamReader(isPost));
-							String inputLine = null;
-							String tmsResponse = "";
-							while ((inputLine = in.readLine()) != null) {
+							String inputLine = null;*/
+							
+							String tmsResponse = res.toString();
+							/*while ((inputLine = in.readLine()) != null) {
 								tmsResponse += inputLine;
 							}
-							in.close();
+							in.close();*/
+							
+							
 							// if OK return from TMS, delete local file
 							if (ServletUtils.isStatusOK(tmsResponse)) {
 								//logger.info("Upload audit file successfully");
@@ -708,7 +718,7 @@ public class PersistenceServlet extends HttpServlet {
 						result = ServletUtils.buildXmlErrorMessage("",
 								errorMessage, "");
 					} finally {
-						filePost.releaseConnection();
+						
 					}
 				} else {
 					result = ServletUtils.OK;
