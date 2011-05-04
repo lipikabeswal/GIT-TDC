@@ -2035,6 +2035,7 @@ Debug.write("#############returnVal: "+returnVal);
 			if(fnode != null) {			
 				if(this.recorder != null) {
 					this.recorder.stopblinker('stop');
+					this.recorder.whitewrapperOverLay.setVisible(false);
 				}
 				//To reset the Audio Fields Array So that file name will be passed in the save call
 				this.resetAudioFields();
@@ -2451,6 +2452,7 @@ Debug.write("#############returnVal: "+returnVal);
 			{
 			//var recordState = this.recorder.recordState;
 			 this.recorder.stopblinker('stop');
+			 this.recorder.whitewrapperOverLay.setVisible(false);
 			 this.blockFileName = false;
 			//	if(recordState !='-1'){
 			//	this.updateAudioField(this.recorder.widget_id, true);
@@ -2510,6 +2512,7 @@ Debug.write("#############returnVal: "+returnVal);
 			{
 			//var recordState = this.recorder.recordState;
 			 this.recorder.stopblinker('stop');
+			 this.recorder.whitewrapperOverLay.setVisible(false);
 			 this.blockFileName = false;
 			//if(recordState !='-1'){
 			//	this.updateAudioField(this.recorder.widget_id, true);
@@ -3184,7 +3187,10 @@ Debug.write("#############returnVal: "+returnVal);
 		<method name="goToTimeoutScreen">
             LzCursor.unlock();
             gReadableText.stopReading();
-            if(this.recorder != null) this.recorder.stopblinker('stop');
+            if(this.recorder != null) {
+				this.recorder.stopblinker('stop');
+				this.recorder.whitewrapperOverLay.setVisible(false);
+			}
             gScreens.showOutOfTime( totalQuestions() - totalAnswered(),
                                     totalMarked() );
                                     

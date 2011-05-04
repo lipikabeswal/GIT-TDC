@@ -51,6 +51,7 @@
 			value="$once{new LzDelegate(this, 'updateLevel')}" />
 		<attribute name="level" type="number" value="0" />
 		<attribute name="activityArray" value="$once{new Array()}" />
+<attribute name="fakeActivityArray" value="$once{new Array()}" />
 		<!--<attribute name="countlevel" type="number" value="0" />-->
 		<attribute name="recordState" type="number" value="0" />	
 		<attribute name="factor" type="number" value="1" /><!-- for flexible recorder -->
@@ -290,7 +291,7 @@
 				resource="mic_not_connected" stretches="both" width="${36 * classroot.factor}" height="${34 * classroot.factor}"/>
 			<text name="attachMic" fontsize="${12 * classroot.factor}" font="CTB"
 				valign="middle" multiline="true" width="${parent.width - parent.attachMic.x}">
-				It appears your mic is not plugged in, 
+				It appears your microphone is not plugged in, 
 				please adjust your microphone input volume up 
 				and make sure your microphone is connected.
 			</text>
@@ -482,18 +483,51 @@ Debug.write("resetCalled "+this.resetCalled);
 		<!-- Volumeter Prototype -->
 		<method name="updateLevel"><![CDATA[
 			var isMicAttached;
-			var level = myMic.activityLevel;
+			var level = 0;
 			var vMeterHeight = 0;
+			var reClaimedMicObj = null;
+			//if(this.myMic == null || this.myMic.activityLevel == -1) {
+			//	this.mc.attachAudio(false);
+			//}
+			this.myMic = Microphone.get();
+			this.mc.attachAudio(this.myMic);
+		
+			Debug.write("myMic...."+ this.myMic+" : "+this.myMic.activityLevel);
 
-
+			if(this.myMic != null) {
+		//Debug.write("if myMic....");
+				level = this.myMic.activityLevel;
+			}
+			else {
+				reClaimedMicObj = Microphone.get();
+//Debug.write("Microphone.get() ", Microphone.get());
+				if(reClaimedMicObj != null) {
+					this.myMic = reClaimedMicObj;
+					this.mc.attachAudio(this.myMic);	
+				}
+				//Debug.write("else myMic...."+reClaimedMicObj);
+			}
+			
 			if(activityArray.length < 16) {
-				if(level == 0) {
+				if(level <= 0) {
 					activityArray.push(level);
 				}
 				else {
 					isMicAttached = true;
 					activityArray.length = 0;
 				} 
+			}
+			fakeActivityArray.push(level);
+
+			if(fakeActivityArray.length == 15) {
+//Debug.write("if of fakeActivityArray length 15...");
+				var isFakeMicActivity = isFakeActivity(fakeActivityArray); 
+//Debug.write("isFakeMicActivity : "+isFakeMicActivity);
+
+				if(isFakeMicActivity) {
+					this.mc.attachAudio(false);
+				}
+				fakeActivityArray.length = 0;
 			}
 
 			if(activityArray.length == 15) {
@@ -564,6 +598,27 @@ Debug.write("resetCalled "+this.resetCalled);
 			}
 			this.activityArray = [];
 			return temp > 0;
+		]]></method>
+
+		<method name="isFakeActivity" args="arrVal"><![CDATA[
+			Debug.write("isFakeActivity..");
+			var i = 0;
+			var temp = 0;
+			var result = true;	
+			for (i = 0; i < arrVal.length; i++){
+				if(i == 0) {
+					temp = arrVal[i];
+					continue;				
+				}
+				if(temp == arrVal[i]) {
+					temp = arrVal[i];
+				}
+				else {
+					result = false;
+					break;
+				}	
+			}
+			return result;
 		]]></method>
 
 		<method name="resetActivityMeterHeight">
