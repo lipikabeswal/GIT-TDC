@@ -486,16 +486,15 @@ Debug.write("resetCalled "+this.resetCalled);
 			var level = 0;
 			var vMeterHeight = 0;
 			var reClaimedMicObj = null;
-			//if(this.myMic == null || this.myMic.activityLevel == -1) {
-			//	this.mc.attachAudio(false);
-			//}
+			var micArray = Microphone.names;
+
 			this.myMic = Microphone.get();
 			this.mc.attachAudio(this.myMic);
 		
-			Debug.write("myMic...."+ this.myMic+" : "+this.myMic.activityLevel);
+Debug.write("myMic...."+ this.myMic+" : "+this.myMic.activityLevel+" : "+Microphone.names.length);
 
 			if(this.myMic != null) {
-		//Debug.write("if myMic....");
+//Debug.write("if myMic....");
 				level = this.myMic.activityLevel;
 			}
 			else {
@@ -505,7 +504,7 @@ Debug.write("resetCalled "+this.resetCalled);
 					this.myMic = reClaimedMicObj;
 					this.mc.attachAudio(this.myMic);	
 				}
-				//Debug.write("else myMic...."+reClaimedMicObj);
+//Debug.write("else myMic...."+reClaimedMicObj);
 			}
 			
 			if(activityArray.length < 16) {
@@ -540,7 +539,7 @@ Debug.write("resetCalled "+this.resetCalled);
 
 			if(isMicAttached == false) {
 				this.blinkerVal = 0;
-				this.meterContainer.setAttribute('visible',false);
+				//this.meterContainer.setAttribute('visible',false);
 				this.whitewrapperOverLay.setVisible(true);
 				stopblinker('stop');
 				this.resetCalled = false;
@@ -557,7 +556,7 @@ Debug.write("resetCalled "+this.resetCalled);
 					this.blinkerVal = this.blinkerVal + 1;
 				}
 				this.micState = true;//Changes for defect 65977 
-				this.meterContainer.setAttribute('visible',true);
+				//this.meterContainer.setAttribute('visible',true);
 				this.whitewrapperOverLay.setVisible(false);	
 				if(this.recordStarted == false && this.stopCalled == true) {
 					LzTimer.removeTimer(leveldel);//remove activity meter timer because recording is stopped now
