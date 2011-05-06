@@ -119,9 +119,14 @@
 			if(this.isinited && this.visible) {
 				//Debug.write("cachable recorder ondata 2....");
 				this.myMic = Microphone.get();
+				if(this.myMic != null) {
+					//this.myMic.setGain(100);
+					//this.myMic.setRate(11);
+					//this.myMic.setSilenceLevel(0);
+				}
 				this.mc = this.getMCRef();
 				mc.attachAudio(myMic);
-				this.myMic.setUseEchoSuppression(true);
+				//this.myMic.setUseEchoSuppression(true);
 				//this.updateLevel();
 			}
 		]]>
@@ -435,10 +440,10 @@ Debug.write("resetCalled "+this.resetCalled);
 				}
 				this.recordButton.setAttribute("enabled", false);
 				if(this.resetCalled == false){
-				this.resetButton.setAttribute("enabled",true);
+					this.resetButton.setAttribute("enabled",true);
+				}
 			}
-			}
-			gCommunicator.finishCall(d,audioDset);
+			//gCommunicator.finishCall(d,audioDset);
 		</method>
 
 		<method event="oninit">
@@ -489,22 +494,30 @@ Debug.write("resetCalled "+this.resetCalled);
 			var micArray = Microphone.names;
 
 			this.myMic = Microphone.get();
-			this.mc.attachAudio(this.myMic);
-		
-Debug.write("myMic...."+ this.myMic+" : "+this.myMic.activityLevel+" : "+Microphone.names.length);
+
+			//this.myMic = Microphone.get();
+			//this.myMic.setGain(100);
+			//this.myMic.setRate(11);
+			//this.myMic.setSilenceLevel(0);
+			//this.mc.attachAudio(this.myMic);
+					
+Debug.write("myMic...."+ this.myMic+" : "+this.myMic.gain+" : "+this.myMic.activityLevel+" : "+Microphone.names.length);
 
 			if(this.myMic != null) {
-//Debug.write("if myMic....");
+Debug.write("if myMic....");
 				level = this.myMic.activityLevel;
+				this.myMic.setGain(100);
+				this.myMic.setRate(11);
+				this.myMic.setSilenceLevel(0);
+				this.mc.attachAudio(this.myMic);
 			}
 			else {
 				reClaimedMicObj = Microphone.get();
-//Debug.write("Microphone.get() ", Microphone.get());
 				if(reClaimedMicObj != null) {
 					this.myMic = reClaimedMicObj;
 					this.mc.attachAudio(this.myMic);	
 				}
-//Debug.write("else myMic...."+reClaimedMicObj);
+Debug.write("else myMic...."+reClaimedMicObj);
 			}
 			
 			if(activityArray.length < 16) {
@@ -524,7 +537,7 @@ Debug.write("myMic...."+ this.myMic+" : "+this.myMic.activityLevel+" : "+Microph
 //Debug.write("isFakeMicActivity : "+isFakeMicActivity);
 
 				if(isFakeMicActivity) {
-					this.mc.attachAudio(false);
+					//this.mc.attachAudio(false);
 				}
 				fakeActivityArray.length = 0;
 			}
