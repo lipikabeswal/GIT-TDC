@@ -480,7 +480,7 @@ public class PersistenceServlet extends HttpServlet {
 				// failed on checking acknowledge from TMS, return error to client
 				errorMessage = ServletUtils
 						.getErrorMessage("tdc.servlet.error.noAck");
-				logger.error("mseq " + mseq + ": " + errorMessage);
+				//logger.error("mseq " + mseq + ": " + errorMessage);
 				//result = ServletUtils.ERROR; //ServletUtils.buildXmlErrorMessage("", errorMessage, "");
 				result = ServletUtils.buildXmlErrorMessage("", errorMessage, "");
 			}
@@ -529,7 +529,7 @@ public class PersistenceServlet extends HttpServlet {
 			String tmsResponse = "";
 			int i = 1;
 			while (TMSRetryCount > 0) {
-				logger.info("mseq " + mseq + ": persistence request");
+				//logger.info("mseq " + mseq + ": persistence request");
 				tmsResponse = ServletUtils.httpClientSendRequest(
 						ServletUtils.SAVE_METHOD, xml);
 System.out.println("tmsResponse"+tmsResponse);
@@ -538,9 +538,9 @@ System.out.println("tmsResponse"+tmsResponse);
 					memoryCache.setAcknowledgeState(state);
 					TMSRetryCount = 0;
 				} else {
-					logger.error("mseq " + mseq + ": TMS returns error in save() : " + tmsResponse);
+					//logger.error("mseq " + mseq + ": TMS returns error in save() : " + tmsResponse);
 					if (TMSRetryCount > 1) {
-						logger.error("mseq " + mseq + ": Retrying message: " + xml);
+						//logger.error("mseq " + mseq + ": Retrying message: " + xml);
 						Thread.sleep(TMSRetryInterval * ServletUtils.SECOND	* i);
 					}
 					TMSRetryCount--;
@@ -663,26 +663,26 @@ System.out.println("tmsResponse"+tmsResponse);
 							
 							// if OK return from TMS, delete local file
 							if (ServletUtils.isStatusOK(tmsResponse)) {
-								logger.info("Upload audit file successfully");
+								//logger.info("Upload audit file successfully");
 								if (AuditFile.deleteLogger(fileName)) {
-									logger.info("Delete audit file successfully");
+									//logger.info("Delete audit file successfully");
 									result = ServletUtils.OK;
 								} else {
-									logger.error("Failed to delete audit file");
+									//logger.error("Failed to delete audit file");
 									errorMessage = ServletUtils
 											.getErrorMessage("tdc.servlet.error.deleteAuditFileFailed");
 									result = ServletUtils.buildXmlErrorMessage(
 											"", errorMessage, "");
 								}
 							} else {
-								logger.error("Failed to upload audit file, tmsResponse=" + tmsResponse);
+								//logger.error("Failed to upload audit file, tmsResponse=" + tmsResponse);
 								errorMessage = ServletUtils
 										.getErrorMessage("tdc.servlet.error.uploadFailed");
 								result = ServletUtils.buildXmlErrorMessage("",
 										errorMessage, "");
 							}
 						} else {
-							logger.error("Failed to upload audit file, responseCode=" + HttpStatus.getStatusText(responseCode));
+							//logger.error("Failed to upload audit file, responseCode=" + HttpStatus.getStatusText(responseCode));
 							result = ServletUtils.buildXmlErrorMessage("",
 									HttpStatus.getStatusText(responseCode), "");
 						}
@@ -756,7 +756,7 @@ System.out.println("tmsResponse"+tmsResponse);
 					StateVO state = (StateVO) states.get(i);
 					if (state.getMseq() <= mseqIndex) {
 						if (state.getState().equals(StateVO.PENDING_STATE)) {
-							logger.warn("Found outstanding unacknowledged message, max in flight threshold exceeded. mseq " + state.getMseq() + ": " + state.getXml());
+							//logger.warn("Found outstanding unacknowledged message, max in flight threshold exceeded. mseq " + state.getMseq() + ": " + state.getXml());
 							pendingState = true;
 							new retrier(state.getMethod(), state.getXml(),
 									mseq, state).start();
@@ -839,7 +839,7 @@ System.out.println("tmsResponse"+tmsResponse);
 				while (!timeout) {
 					if (!isAcknowledged(memoryCache, lsid, mseq)) {
 						if (i > 1) {
-							logger.info("mseq " + mseq + ": Waited " + ((currentTime - startTime)/ServletUtils.SECOND) + " for TMS response.");
+							//logger.info("mseq " + mseq + ": Waited " + ((currentTime - startTime)/ServletUtils.SECOND) + " for TMS response.");
 							//logger.info("mseq " + mseq + ": Retrying message: " + xml);
 						}
 						tmsResponse = ServletUtils.httpClientSendRequest(
