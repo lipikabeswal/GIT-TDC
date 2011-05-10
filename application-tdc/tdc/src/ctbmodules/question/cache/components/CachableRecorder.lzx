@@ -83,7 +83,7 @@
 			this.reset();
 			//for setting the background color
 			var style = gController.getAccomStyleForType ("stem");
-            Debug.write("style.bgcolor - "+style.bgcolor);
+            //Debug.write("style.bgcolor - "+style.bgcolor);
             if(style.bgcolor != null){
             	this.parent.setAttribute ('bgcolor', style.bgcolor);
             }
@@ -349,6 +349,7 @@ Debug.write("resetCalled "+this.resetCalled);
 				if(methodname == 'reset') {
 					sendRequest(methodname);
 					this.resetCalled = true;
+					gController.updateAudioField(this.widget_id, false);
 				}
 				this.stopCalled = true;			//set true 
 				this.micState = false;			//reset this attribute also
@@ -357,14 +358,14 @@ Debug.write("resetCalled "+this.resetCalled);
 				this.totalTime = this.defaultTotalTime;
 				this.recordButton.setAttribute("enabled", true);
 				this.green.setVisible(false);
-					this.red.setVisible(false);
+				this.red.setVisible(false);
 				this.timertext.setText(this.totalTime);		
 				this.timertext.setAttribute("fgcolor",0x008000);	
 				this.recordStatus.setText(" ");	
 				this.barfilled.setWidth(0);
 				this.increment = 0;
 				this.resetButton.setAttribute("enabled",false);
-				gController.updateAudioField(this.widget_id, false);
+				//gController.updateAudioField(this.widget_id, false);
 				this.whitewrapperOverLay.setVisible(false);
 			}
 			
@@ -422,6 +423,7 @@ Debug.write("resetCalled "+this.resetCalled);
  		</method>
 
 		<method name="handleResponseData" args="d">
+Debug.write("handleResponseData :"+d);
 			this.blinkerVal = 0;
 			var result = d.childNodes[0].data;
 			if(result == 'RECORDING_START'){
@@ -501,10 +503,10 @@ Debug.write("resetCalled "+this.resetCalled);
 			//this.myMic.setSilenceLevel(0);
 			//this.mc.attachAudio(this.myMic);
 					
-Debug.write("myMic...."+ this.myMic+" : "+this.myMic.gain+" : "+this.myMic.activityLevel+" : "+Microphone.names.length);
+//Debug.write("myMic...."+ this.myMic+" : "+this.myMic.gain+" : "+this.myMic.activityLevel+" : "+Microphone.names.length);
 
 			if(this.myMic != null) {
-Debug.write("if myMic....");
+//Debug.write("if myMic....");
 				level = this.myMic.activityLevel;
 				this.myMic.setGain(100);
 				this.myMic.setRate(11);
@@ -517,7 +519,7 @@ Debug.write("if myMic....");
 					this.myMic = reClaimedMicObj;
 					this.mc.attachAudio(this.myMic);	
 				}
-Debug.write("else myMic...."+reClaimedMicObj);
+//Debug.write("else myMic...."+reClaimedMicObj);
 			}
 			
 			if(activityArray.length < 16) {
@@ -604,7 +606,7 @@ Debug.write("else myMic...."+reClaimedMicObj);
 			for (i = 0; i < arrVal.length; i++){
 				temp =  temp + arrVal[i];
 				if(temp > 0) {
-					Debug.write("got mic connectivity....");	
+					//Debug.write("got mic connectivity....");	
 					break;				
 				}
 			}
@@ -613,7 +615,7 @@ Debug.write("else myMic...."+reClaimedMicObj);
 		]]></method>
 
 		<method name="isFakeActivity" args="arrVal"><![CDATA[
-			Debug.write("isFakeActivity..");
+			//Debug.write("isFakeActivity..");
 			var i = 0;
 			var temp = 0;
 			var result = true;	
