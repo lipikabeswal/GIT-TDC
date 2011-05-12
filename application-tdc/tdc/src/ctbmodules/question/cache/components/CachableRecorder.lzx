@@ -307,16 +307,21 @@
 			this.blinkerVal = 0;
 			if(!this.recordStarted) {	
 				this.updateLevel();	
+				playProgress(methodname);
 				<!-- Changes for defect 65977 -->			
-				if(this.micState) {				//micState will be set by updateLevel method			
-					this.recordStarted = true;		//if mic is connected, then only set this attribute to true 	
-					sendRequest(methodname);	
-					this.increment = bar.width / this.defaultTotalTime;
-					this.recordButton.setAttribute("enabled", false);
-					this.green.setVisible(false);
-					gController.updateAudioField(this.widget_id, true);
-				}		
+						
 			}		
+		</method>
+		
+		<method name="playProgress" args="methodname">
+			if(this.micState) {				//micState will be set by updateLevel method			
+				this.recordStarted = true;		//if mic is connected, then only set this attribute to true 	
+				sendRequest(methodname);	
+				this.increment = bar.width / this.defaultTotalTime;
+				this.recordButton.setAttribute("enabled", false);
+				this.green.setVisible(false);
+				gController.updateAudioField(this.widget_id, true);					
+			}
 		</method>
 
 		<method name="blinker">
@@ -445,6 +450,9 @@ Debug.write("handleResponseData :"+d);
 					this.resetButton.setAttribute("enabled",true);
 				}
 			}
+			else {
+				Debug.write("Result Default...."+result);	
+			}
 			//gCommunicator.finishCall(d,audioDset);
 		</method>
 
@@ -552,6 +560,10 @@ Debug.write("handleResponseData :"+d);
 				level = 1;
 			}
 
+			if (level != this.level) {
+				this.setAttribute("level", level);
+			}
+
 			if(isMicAttached == false) {
 				this.blinkerVal = 0;
 				//this.meterContainer.setAttribute('visible',false);
@@ -561,18 +573,27 @@ Debug.write("handleResponseData :"+d);
 				this.micState = false;//Changes for defect 65977 
 			}
 			else if(isMicAttached == true) {
-				//Debug.write("blinker val before if"  + this.blinkerVal);
+				
+				this.micState = true;//Changes for defect 65977
+					
+				//this.meterContainer.setAttribute('visible',true);
+				this.whitewrapperOverLay.setVisible(false);	 				
 				if(this.recordStarted == true){
 					if(this.blinkerVal >= 3){
-					//Debug.write("blinker val"  + this.blinkerVal);
-					this.toggleRedDisplay();
-					this.blinkerVal = 0;
-				}
+						this.toggleRedDisplay();
+						this.blinkerVal = 0;
+					}
 					this.blinkerVal = this.blinkerVal + 1;
+					
+					vMeterHeight = this.meterContainer.height - this.level * .5;
+
+					if(vMeterHeight < 0) {
+						vMeterHeight = 0;
+					}
+					this.volumeMeter.setAttribute('height', vMeterHeight);
 				}
-				this.micState = true;//Changes for defect 65977 
-				//this.meterContainer.setAttribute('visible',true);
-				this.whitewrapperOverLay.setVisible(false);	
+				
+				
 				if(this.recordStarted == false && this.stopCalled == true) {
 					LzTimer.removeTimer(leveldel);//remove activity meter timer because recording is stopped now
 					this.micState = false;//when regained connectivity in recording stop mode
@@ -581,20 +602,7 @@ Debug.write("handleResponseData :"+d);
 				}
 			
 
-			}
-	
-			if (level != this.level) {
-				this.setAttribute("level", level);
-			}
-	 
-			vMeterHeight = this.meterContainer.height - this.level * .5;
-
-			if(vMeterHeight < 0) {
-				vMeterHeight = 0;
-			}
-
-			this.volumeMeter.setAttribute('height', vMeterHeight);
-
+			}	
 
 			LzTimer.resetTimer(leveldel, 100); 
 	    ]]>
