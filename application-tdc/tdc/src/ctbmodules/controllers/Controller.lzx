@@ -877,6 +877,7 @@
 		</method>
 
 		<method name="_handleSaveLoadResponse" args="response">
+		Debug.write("_handleSaveLoadResponse");
 			loadItem();
 		</method>
 
@@ -2167,9 +2168,17 @@ Debug.write("#############returnVal: "+returnVal);
         ]]></method>
 
 		<method name="stepNavigateForward"><![CDATA[
-            if ( !onLastItem() ) {
+           	var curritem = Number(
+                dpstudentdata.xpathQuery( 'current_item/@itempos' )
+            );
+			var totalitem = Number(
+				dpstudentdata.xpathQuery( 'question_number/@total_including_theme')  );
+            
+			if ( !onLastItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
-				if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm){
+				if(this.allowRevisit != null && !this.allowRevisit && 
+					dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm 
+					&& !(gController.getNextNavigableOffset(curritem) == totalitem)){
             		this.showRevisitPopup("goOn");
 				}else{
 				changeItem( getItemFromOffset( currItemOffset() + 1 ) );
@@ -2597,11 +2606,16 @@ Debug.write("#############returnVal: "+returnVal);
 		imageLIArray.push(imgObject);
 		</method>
 
-		<method name="finishTestShortcut">
-            if ( onLastItem() ) {
+		<method name="finishTestShortcut"><![CDATA[
+		var curritem = Number(
+                dpstudentdata.xpathQuery( 'current_item/@itempos' )
+            );
+		var totalitem = Number(
+					dpstudentdata.xpathQuery( 'question_number/@total_including_theme')  );
+            if ( onLastItem() || (gController.getNextNavigableOffset(curritem) == totalitem)) {
                 finishTest();
             }
-        </method>
+        ]]></method>
 
 		<!-- unlock on start, without a previous freeze -->
 		<attribute name="uisemaphore" value="1" />
@@ -3417,7 +3431,7 @@ Debug.write("#############returnVal: "+returnVal);
             freezeUI();
             var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
             if (dncurritem == null) {
-Debug.write("setAudioItemState 2...",dncurritem);
+//Debug.write("setAudioItemState 2...",dncurritem);
 				unlockUI();			
 				return;
 			}
@@ -3647,7 +3661,7 @@ Debug.write("setAudioItemState 2...",dncurritem);
 		</method>
 		<method name="showRevisitPopup" args="calledFrom">
 			this.isRevisitPopupOpen = true;	
-Debug.write("##calledFrom 1 "+calledFrom);
+//Debug.write("##calledFrom 1 "+calledFrom);
 			gRevisitFalsePopup.show(calledFrom);
 		</method>
 		
