@@ -494,7 +494,11 @@
 		<datapointer name="dptemp" xpath="dstemp:/answers" />
 
 		<handler name="onheartbeatResult">
+//Debug.write("onheartbeatResult..");
 			if(gScratchpad.scratchpadHasFocus){ gHotKeys.disableKeys();
+			}
+			if(this.getAttribute('isRevisitPopupOpen') == true){
+			 gHotKeys.disableKeys();
 			}
 		</handler>
 		<!-- 
