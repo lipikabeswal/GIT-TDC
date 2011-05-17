@@ -1,6 +1,5 @@
 package com.ctb.tdc.web.servlet;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,12 +7,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -24,10 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.multipart.FilePart;
-import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
-import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.FileEntity;
@@ -480,9 +473,10 @@ public class PersistenceServlet extends HttpServlet {
 				// failed on checking acknowledge from TMS, return error to client
 				errorMessage = ServletUtils
 						.getErrorMessage("tdc.servlet.error.noAck");
-				//logger.error("mseq " + mseq + ": " + errorMessage);
-				//result = ServletUtils.ERROR; //ServletUtils.buildXmlErrorMessage("", errorMessage, "");
-				result = ServletUtils.buildXmlErrorMessage("", errorMessage, "");
+				//Defect Fix 66284
+				result = ServletUtils.ERROR; 
+				//result = ServletUtils.buildXmlErrorMessage("", errorMessage, "");
+				
 			}
 		} catch (Exception e) {
 			logger.error("mseq " + mseq + ": Exception occured in save() : "
@@ -532,7 +526,6 @@ public class PersistenceServlet extends HttpServlet {
 				//logger.info("mseq " + mseq + ": persistence request");
 				tmsResponse = ServletUtils.httpClientSendRequest(
 						ServletUtils.SAVE_METHOD, xml);
-System.out.println("tmsResponse"+tmsResponse);
 				// if OK return from TMS, set acknowledge state
 				if (ServletUtils.isStatusOK(tmsResponse)) {
 					memoryCache.setAcknowledgeState(state);

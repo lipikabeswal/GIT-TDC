@@ -33,6 +33,8 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.params.ConnRoutePNames;
+import org.apache.http.conn.scheme.HostNameResolver;
+import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
@@ -67,21 +69,25 @@ public class ServletUtils {
 
 	public static DefaultHttpClient client;
 	
+	
 	static {
 		try {
 			TrustStrategy trustStrategy = new EasyTrustStrategy(); 
 			X509HostnameVerifier hostnameVerifier = new AllowAllHostnameVerifier(); 
-			SSLSocketFactory sslSf = new SSLSocketFactory(trustStrategy, hostnameVerifier); 
-			Scheme https = new Scheme("https", 443, sslSf); 
+			SSLSocketFactory sslSf = new SSLSocketFactory(trustStrategy, hostnameVerifier);
+			//PlainSocketFactory sf = new PlainSocketFactory();
+
+			Scheme https = new Scheme("https", 443, sslSf);
+			Scheme http = new Scheme("http", 8080, PlainSocketFactory.getSocketFactory());
+
 			SchemeRegistry schemeRegistry = new SchemeRegistry(); 
-			schemeRegistry.register(https); 
+			schemeRegistry.register(https);
+			schemeRegistry.register(http); 
 			ThreadSafeClientConnManager mgr = new ThreadSafeClientConnManager(schemeRegistry); 
 			mgr.setMaxTotal(1);
 			client = new DefaultHttpClient(mgr);
 			//client.getParams().setConnectionManagerTimeout(10000);
-			
 			String proxyHost = getProxyHost();
-	
 			if ((proxyHost != null) && (proxyHost.length() > 0)) {
 				// apply proxy settings
 	            int proxyPort    = getProxyPort();
@@ -89,7 +95,7 @@ public class ServletUtils {
 	            String password  = getProxyPassword();   
 	            String domain = getProxyDomain();
 	        	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password, domain);
-			}
+			}			
 		} catch(Exception e) {
 			logger.error("Exception occured in ServletUtils initializer : " + printStackTrace(e));
 			throw new RuntimeException(e.getMessage());
@@ -745,7 +751,6 @@ public class ServletUtils {
 				nameValuePairs.add(new BasicNameValuePair(METHOD_PARAM, method));
 				nameValuePairs.add(new BasicNameValuePair(XML_PARAM, xml));
 				post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-				
 				HttpResponse response = client.execute(post);
 				responseCode = response.getStatusLine().getStatusCode();
 				if (responseCode == HttpStatus.SC_OK) {
@@ -1122,14 +1127,15 @@ return elementList;*/
 	}
 	
 	public static void setProxyCredentials(DefaultHttpClient client, String proxyHost, int proxyPort, String username, String password, String domain) {
+		
         boolean proxyHostDefined = proxyHost != null && proxyHost.length() > 0;
         boolean proxyPortDefined = proxyPort > 0;
         boolean proxyUsernameDefined = username != null && username.length() > 0;
         boolean proxyDomainDefined = domain != null && domain.trim().length() > 0;
 
         HttpHost proxy = null;
-        
 	    if( proxyHostDefined && proxyPortDefined ) {
+	    	
 	    	proxy = new HttpHost(proxyHost, proxyPort);
 	    	client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);  
 	    }else if( proxyHostDefined )  {
@@ -1146,7 +1152,6 @@ return elementList;*/
 
             UsernamePasswordCredentials upc = new UsernamePasswordCredentials(username, password);            
             NTCredentials ntc = new NTCredentials(domain + "/" + username + ":" + password);
-    		
     		if(!proxyDomainDefined) {
 	    		client.getCredentialsProvider().setCredentials(
 	    		        proxyScope, 
