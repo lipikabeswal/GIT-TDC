@@ -166,6 +166,11 @@
 			</fileset>
 		</copy>
 
+		<copy todir="${project.dist}/tuningutilitybrowser" overwrite="true">
+					<fileset dir="tuningutilitybrowser">
+						<exclude name="**/*.doc" />
+					</fileset>
+		</copy>
 		<copy todir="${project.dist}/servletcontainer" overwrite="true">
 			<fileset dir="servletcontainer">
 				<exclude name="**/*.log" />
