@@ -1,0 +1,45 @@
+<element_package iid="FCAT_TEST.002" security_classification_id="alg112">
+	<item_canvas id="IC">
+		<panel left_padding="12" stereotype="stem" id="stem1" width="500" 
+		       layout="vertical" spacing="12" x="0" y="79" height="37">
+			<text_widget halign="left" x="0" width="414" id="widget1000">
+				<![CDATA[<font size="22"><B>Workstation Tuning Utility</B></font>]]>
+			</text_widget>
+		</panel>
+		<scrolling_text_panel stereotype="stem" id="stem2" y="131" width="415" height="368" x="12" spacing="12" >
+		    <text_widget halign="left" width="397" id="widget1003"><![CDATA[<br/><font size="14"><B>Please go through the following checklist before running the workstation tuning utility:</B></font><br/>]]></text_widget>
+			<text_widget halign="left" width="397" id="widget1004"><![CDATA[  -  Check to see that your microphone is connected]]></text_widget>
+			<text_widget halign="left" width="397" id="widget1005"><![CDATA[  -  Check to ensure your microphone is not on set to "Mute"]]></text_widget>
+			<text_widget halign="left" width="397" id="widget1006"><![CDATA[  -  Set your microphone recording level to at least 50%; <br/>     do not set the microphone to a low recording volume]]></text_widget>
+			<text_widget halign="left" width="397" id="widget1007"><![CDATA[  -  Make sure the microphone is not in "Disabled" mode in your <br/>     Control Panel]]></text_widget>
+			<text_widget halign="left" width="397" id="widget1008"><![CDATA[  -  Make sure the speaker volume is turned up to an audible level
+]]></text_widget>
+		</scrolling_text_panel>
+		<panel left_padding="12" stereotype="stem" id="stem3" layout="vertical" spacing="12" width="320" x="450" y="124" height="143">
+			<text_widget halign="left" width="300" id="widget1012">
+				<![CDATA[To test recording and playback capability, click the Record button and speak in a normal voice. When finished, press the Stop button. (To re-record, press Start Over.)  Now press the Play button to test your recorded voice for volume control. If the audio you recorded is not audible, please go through the steps in the checklist and try again.]]>
+			</text_widget>
+		</panel>
+		<answer_area_panel id="A1" stereotype="answerArea" width="280" 
+		                   layout="vertical" spacing="12" x="470" height="180" 
+		                   top_padding="12" left_padding="12" y="274">
+		<recorder_widget x="1" y="1" ></recorder_widget>
+		</answer_area_panel>
+	</item_canvas>
+	<item_model iid="FCAT_TEST.002" eid="2" marked="0" answered="0" number="0" 
+	            type="question" correct="A">
+		<toolbar oneeighth_inch_ruler="required" mm_ruler="required" 
+		         formula_card="required" FCAT_formula_card="required" TN_formula_card="required" highlighter="required" 
+		         eraser="required" cm_ruler="required" 
+		         scientific_calculator="required" 
+		         standard_calculator="required" protractor="required" 
+		         option_eliminator="required" half_inch_ruler="required" 
+		         straight_edge="required" />
+		<interaction type="choice" max_choices="1">
+			<selector identifier="A" obj_id_ref="A" user_action="n" />
+			<selector identifier="B" obj_id_ref="B" user_action="n" />
+			<selector identifier="C" obj_id_ref="C" user_action="n" />
+			<selector identifier="D" obj_id_ref="D" user_action="n" />
+		</interaction>
+	</item_model>
+</element_package>

@@ -42,6 +42,13 @@
     <servlet-class>com.ctb.tdc.web.servlet.ContentServlet</servlet-class>
   </servlet>
   
+  <servlet>
+    <description>TuningUtilityContentServlet</description>
+    <display-name>TuningUtilityContentServlet</display-name>
+    <servlet-name>TContentServlet</servlet-name>
+    <servlet-class>com.ctb.tdc.web.servlet.TuningUtilityContentServlet</servlet-class>
+  </servlet> 
+  
   <servlet-mapping>
     <servlet-name>SpeechServlet</servlet-name>
     <url-pattern>/servlet/SpeechServlet.do</url-pattern>
@@ -50,6 +57,11 @@
   <servlet-mapping>
     <servlet-name>ContentServlet</servlet-name>
     <url-pattern>/servlet/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>TContentServlet</servlet-name>
+    <url-pattern>/servlet/TuningUtilityContentServlet.do</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -100,6 +112,15 @@
 		<url-pattern>/servlet/SoundRecorder.do</url-pattern>
 	</servlet-mapping>
 
-
-   	
+	<servlet>
+    <description>TuningUtilitySoundRecorder</description>
+    <display-name>TuningUtilitySoundRecorder</display-name>
+    <servlet-name>TSoundRecorder</servlet-name>
+    <servlet-class>com.ctb.tdc.web.servlet.TuningUtilitySoundRecorder</servlet-class>
+  </servlet> 
+  
+  <servlet-mapping>
+    <servlet-name>TSoundRecorder</servlet-name>
+    <url-pattern>/servlet/TuningUtilitySoundRecorder.do</url-pattern>
+  </servlet-mapping>
 </web-app>
