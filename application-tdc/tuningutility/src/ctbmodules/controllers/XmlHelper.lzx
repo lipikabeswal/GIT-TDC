@@ -1,0 +1,218 @@
+<library>
+	<dataset name="saveDs"              src="xmls/save.xml" />
+    <dataset name="tsdDs"               src="xmls/tsd.xml" />
+    <dataset name="astDs"               src="xmls/ast.xml" />
+    <dataset name="istDs"               src="xmls/ist.xml" />
+    <dataset name="levDs"               src="xmls/lev.xml" />
+    <dataset name="getItemDs"           src="xmls/getItem.xml" />
+    <dataset name="getImageDs"          src="xmls/getImage.xml" />
+    <dataset name="errorDs"             src="xmls/error.xml" />
+     <dataset name="contentErrorDs"      src="xmls/contentError.xml" />
+    <dataset name="finishRequestDs"     src="xmls/finishRequest.xml" />
+    <dataset name="tutorialCompleteDs"  src="xmls/tutorialComplete.xml" />
+ 
+    <node id="gXmlHelper">
+    	<attribute name="dp"  value="$once{new LzDatapointer}" />
+    	<attribute name="dp2" value="$once{new LzDatapointer}" />
+    	<attribute name="dp3" value="$once{new LzDatapointer}" />
+    	
+    	<attribute name="OK_STATUS_CODE" type="string" value="200" />
+    	<attribute name="STATUS_CODE" type="string" value="status_code"/>
+    	<attribute name="CONTENT_ERROR_CODE"   type="string" value="TDC210"/>
+    	<attribute name="CONTENT_TIMEOUT_CODE" type="string" value="TDC211"/>
+    	<attribute name="SPEECH_ERROR_CODE" type="string" value="558"/>
+    	<attribute name="NETWORK_ERROR_CODE" type="string" value="556"/>
+    	
+    	
+		<method name="getContentErrorXml">
+			dp.setXPath("contentErrorDs:/ERROR/CODE");
+			dp.setNodeText(CONTENT_ERROR_CODE);
+			dp.setXPath("contentErrorDs:/ERROR");
+			return dp.serialize();
+		</method>
+		
+		<method name="getSpeechErrorXml">
+			return getErrorXml(SPEECH_ERROR_CODE);
+		</method>
+		
+    	<method name="getErrorXml" args="code">
+    		if(code == null || typeof code == 'undefined'){
+    			code = NETWORK_ERROR_CODE;
+    		}
+			dp.setXPath("errorDs:/ERROR/CODE");
+			dp.setNodeText(code);
+			dp.setXPath("errorDs:/ERROR");
+			return dp.serialize();
+    	</method>
+    	
+		<method name="getContentTimeoutXml">
+			dp.setXPath("contentErrorDs:/ERROR/CODE");
+			dp.setNodeText(CONTENT_TIMEOUT_CODE);
+			dp.setXPath("contentErrorDs:/ERROR");
+			return dp.serialize();
+		</method>
+		
+		
+    	
+    	
+    	
+     	<method name="getGetItemXml" args="id, hash, key">
+	   		dp.setXPath("getItemDs:/adssvc_request/get_item");
+    		dp.setNodeAttribute("itemid", id);
+    		dp.setNodeAttribute("hash", hash);
+    		dp.setNodeAttribute("key", key);
+     		dp.setXPath("getItemDs:/adssvc_request");
+    		return dp.serialize();
+      	</method>
+    	
+      	<method name="getGetImageXml" args="id">
+	   		dp.setXPath("getImageDs:/adssvc_request/get_image");
+    		dp.setNodeAttribute("imageid", id);
+      		dp.setXPath("getImageDs:/adssvc_request");
+    		return dp.serialize();
+      	</method>
+    	
+    	<method name="getSaveXml" args="lsid, scid, cid, params, tts_speed_value">
+			clearSaveDs();
+    		dp.setXPath("saveDs:/adssvc_request/save_testing_session_data/tsd");
+    		dp.setNodeAttribute('lsid', lsid);
+    		dp.setNodeAttribute('scid', scid);
+    		dp.setNodeAttribute('cid', cid);
+    		if(gController.hasTTSspeed) {
+   				dp.setNodeAttribute('tts_speed_value', tts_speed_value);
+    		}
+    		
+    		if(params == null){  // ast 
+    			dp.addNodeFromPointer(_getAstDp());
+    		}
+    		else{ // ist / lev / sp 
+    			if(params[0] != null){
+    				dp.addNodeFromPointer(_getLevDp(params[0]));
+    			}
+    			if(params[1] != null){
+    				dp.addNodeFromPointer(_getIstDp(params[1]));
+     			}
+    		}
+//    		if(tsdParams != null &amp;&amp; tsdParams.length &gt; 0){
+//    			dp.addNodeFromPointer(_getTsdDp(lsid, scid, mseq, cid, tsdParams));
+//    		}
+//   		if(astParams != null &amp;&amp; astParams.length &gt; 0){
+//    			dp.addNodeFromPointer(_getAstDp(astParams));
+//    		}
+    		dp.setXPath("saveDs:/adssvc_request");
+    		return dp.serialize();
+    	</method>
+    	
+    
+    	
+    	<method name="_getLevDp" args="lev">
+    		dp2.setXPath("levDs:/lev");
+    		dp2.setNodeAttribute("e", lev);
+    		return dp2;
+    	</method>
+    	
+    	<method name="_getIstDp" args="params">
+    		dp3.setXPath("istDs:/ist");
+	    	dp3.setNodeAttribute("iid", params[0]);
+	    	dp3.setNodeAttribute("eid", params[1]);
+	    	dp3.setNodeAttribute("mrk", params[2]);
+//	    	dp3.setNodeAttribute("awd", params[3]);
+	    	dp3.setNodeAttribute("dur", params[4]);
+	   		dp3.setXPath("istDs:/ist/rv");
+	   		dp3.setNodeAttribute("t", params[5]);
+	    	dp3.setXPath("istDs:/ist/rv/v");
+	    	dp3.setNodeText(params[6]);
+	    	dp3.setXPath("istDs:/ist/ov/v");
+	    	dp3.setNodeText(params[7]);
+	    	dp3.setXPath("istDs:/ist/isc/sp");
+	    	dp3.setNodeText(params[8]);
+    		dp3.setXPath("istDs:/ist");
+     		return dp3;
+    	</method>
+    	
+    	
+    	
+    	
+    	<method name="clearSaveDs">
+    		deleteDsNode('saveDs:/adssvc_request/save_testing_session_data/tsd/ist');
+    		deleteDsNode('saveDs:/adssvc_request/save_testing_session_data/tsd/ast');
+    		deleteDsNode('saveDs:/adssvc_request/save_testing_session_data/tsd/lev');
+    	</method>
+    	
+    	<method name="deleteDsNode" args="theXpath">
+     		dp.setXPath(theXpath);
+     		if(dp != null){
+    			dp.deleteNode();
+    		}
+    	</method>
+    
+    	
+    	
+    	<method name="getFeedbackErrorXml">
+    		dp.setXPath("feedbackErrorDs:/");
+    		dp.selectChild();
+    		return dp.serialize();
+    	</method>
+    	
+    	<method name="_getTsdDp" args="lsid, scid, mseq, cid, params">
+    		var lifecycleParams = params[0];
+    		var responseParams  = params[1];
+    		dp2.setXPath("tsdDs:/tsd");
+    		dp2.setNodeAttribute("lsid", lsid);
+    		dp2.setNodeAttribute("scid", scid);
+    		dp2.setNodeAttribute("mseq", mseq);
+    		dp2.setNodeAttribute("cid", cid);
+    		if(lifecycleParams != null &amp;&amp; lifecycleParams.length &gt; 0){
+    			dp3.setXPath("levDs:/lev");
+    			dp3.setNodeAttribute("e", lifecycleParams[0]);
+    			dp2.addNodeFromPointer(dp3);
+    		}
+    		if(responseParams != null &amp;&amp; responseParams.length &gt; 0){
+	    		dp3.setXPath("istDs:/ist");
+	    		dp3.setNodeAttribute("iid", responseParams[0]);
+	    		dp3.setNodeAttribute("eid", responseParams[1]);
+	    		dp3.setNodeAttribute("mrk", responseParams[2]);
+//	    		dp3.setNodeAttribute("awd", responseParams[3]);
+	    		dp3.setNodeAttribute("dur", responseParams[4]);
+	   		    dp3.setXPath("istDs:/ist/rv");
+	   		    dp3.setNodeAttribute("t", responseParams[5]);
+	    		dp3.setXPath("istDs:/ist/rv/v");
+	    		dp3.setNodeText(responseParams[6]);
+	    		dp3.setXPath("istDs:/ist/ov/v");
+	    		dp3.setNodeText(responseParams[7]);
+    			dp3.setXPath("istDs:/ist");
+    			dp2.addNodeFromPointer(dp3);
+    		}
+    		return dp2;
+    	</method>
+    	
+     	<method name="_getAstDp">
+    		dp2.setXPath("astDs:/ast");
+    		return dp2;
+    	</method>
+    	
+		
+	   	
+		<method name="isErrorResponse" args="response">
+			var statusCode = getStatusCode(response);
+//Debug.write("gXmlHelper.isErrorResponse: " + response);
+//Debug.write("statusCode: " + statusCode);
+//Debug.write("return: " + (statusCode != OK_STATUS_CODE));
+			return (statusCode != null &amp;&amp; statusCode != OK_STATUS_CODE);
+		</method>
+		
+		<method name="getStatusCode" args="response">
+			var result = null;
+			var responseNode = LzDataNode.stringToLzData( response );	
+			var dp = new LzDatapointer();
+			dp.setPointer(responseNode);
+			if(dp.selectChild(2)){
+				var statusCode = dp.getNodeAttribute(STATUS_CODE);
+				if(statusCode != null){
+					result = statusCode;
+				}
+			}	
+			return result;
+		</method>
+   	</node>
+</library>

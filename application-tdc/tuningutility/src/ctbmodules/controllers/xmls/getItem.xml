@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adssvc_request method="getItem">
+	<get_item itemid="" key="" hash=""/>
+</adssvc_request>

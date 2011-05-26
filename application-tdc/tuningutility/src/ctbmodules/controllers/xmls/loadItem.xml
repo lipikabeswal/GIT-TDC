@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adssvc_request method="loadItem" sdsid="" token="" xmlns="">
+    <load_item_request itemid="" hash="" key=""/>
+</adssvc_request>
+
