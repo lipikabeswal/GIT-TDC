@@ -1,23 +1,12 @@
 package com.ctb.tdc.tuningutility.processwrapper;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Properties;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import com.ctb.tdc.bootstrap.processwrapper.exception.ProcessWrapperException;
 import com.ctb.tdc.bootstrap.ui.SplashWindow;
 import com.ctb.tdc.bootstrap.util.ConsoleUtils;
-import com.ctb.tdc.bootstrap.util.TdcConfigEncryption;
 
 /**
  * Wrapper class for starting the tuningutilitybrowser process.  The WorkstationTuning Browser
@@ -38,19 +27,7 @@ public class TuningUtilityBrowserWrapper extends Thread {
 	
 	private String[] wtbCommand;
 	private boolean isAvailable = false;
-	
-	// JNI WorkstationTuning functions
-/*	public static native void TaskSwitching_Enable_Disable(boolean flag);
-	public static native void Process_Desktop(String windowName, String command);
-	public static native boolean Process_Block();
-	public static native void CtrlAltDel_Enable_Disable (boolean flag);
-	public static native void Hot_Keys_Enable_Disable(boolean flag);
-	public static native void kill_printscreen_snapshot();
-	public static native boolean Kill_Task_Mgr();
-	public static native boolean Process_Check();
-	//public static native int Get_Blacklist_Process_No();
-*/	
-	static volatile boolean flag = false;
+	private boolean flag = false;
 	static volatile boolean ready = false;
 	
 	/**
@@ -67,10 +44,12 @@ public class TuningUtilityBrowserWrapper extends Thread {
 			
 			File wtbHomeDir = new File(this.tdcHome + "/tuningutilitybrowser/mac");
 			this.wtbHome = wtbHomeDir.getAbsolutePath();
-			this.wtbCommand = new String[1];
-			
-            this.wtbCommand[0] = this.wtbHome + "/WorkStationTuningUtilityBrowser.app/Contents/MacOS/WorkStationTuningUtilityBrowser";            
+			this.wtbCommand = new String[2];
+			ConsoleUtils.messageOut("12 Using wtbHome = " + this.wtbHome);
+            //this.wtbCommand[0] = this.wtbHome + "/WorkStationTuningUtilityBrowser.app/Contents/MacOS/WorkStationTuningUtilityBrowser";            
+            this.wtbCommand[0] = " /usr/bin/open -a " + this.wtbHome + "/WorkStationTuningUtilityBrowser.app";
             this.wtbCommand[0] = this.wtbCommand[0].replaceAll(" ", "\\ ");
+            this.wtbCommand[1] = "http://127.0.0.1:" + jettyPort + "/tuningutility.html";
             
 		} else if ( linux ) {
 			TuningUtilityBrowserWrapper.islinux = true;
@@ -81,13 +60,13 @@ public class TuningUtilityBrowserWrapper extends Thread {
 			
             this.wtbCommand[0] = this.wtbHome + "/bin/WorkStationTuningUtilityBrowser";          
             this.wtbCommand[0] = this.wtbCommand[0].replaceAll(" ", "\\ ");
-            this.wtbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";
+            this.wtbCommand[1] = "http://127.0.0.1:" + jettyPort + "/tuningutility.html";
 		} else {
 			
 			File wtbHomeDir = new File(tdcHome + "/tuningutilitybrowser/pc");
-			this.wtbHome = wtbHomeDir.getAbsolutePath();
-			
+			this.wtbHome = wtbHomeDir.getAbsolutePath();			
 			this.wtbCommand = new String[2];
+			ConsoleUtils.messageOut(" Using wtbHome = " + this.wtbHome);
 			this.wtbCommand[0] = this.wtbHome + "/WorkStationTuningUtilityBrowser.exe";
 			this.wtbCommand[1] = "http://127.0.0.1:" + jettyPort + "/tuningutility.html";
 		}
@@ -130,7 +109,7 @@ public class TuningUtilityBrowserWrapper extends Thread {
 				ConsoleUtils.messageOut(" Using wtbHome = " + this.wtbHome);
 				ConsoleUtils.messageOut(" Executing " + this.wtbCommand[0]);
 	
-				if (flag) {
+				
 					Map<String,String> env = System.getenv();
 					Iterator it = env.keySet().iterator();
 					String envp[] = new String[env.keySet().size()];
@@ -149,12 +128,12 @@ public class TuningUtilityBrowserWrapper extends Thread {
 					ConsoleUtils.messageOut("AIR app started at " + startTime);
 					Process wtb = Runtime.getRuntime().exec(this.wtbCommand, envp, new File(this.wtbHome));
 					Thread.sleep(10000);
-					ready = true;
+					//ready = true;
 					this.isAvailable = true;
 					wtb.waitFor();
 					this.isAvailable = false;
 					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());	
-				}
+				
 				
 			} else {
 				// Run the WTB...
@@ -178,9 +157,9 @@ public class TuningUtilityBrowserWrapper extends Thread {
 		}
 	}
 	  
-	private ArrayList lockFiles = new ArrayList();
+	//private ArrayList lockFiles = new ArrayList();
 	
-	public void cleanupLock() {
+/*	public void cleanupLock() {
 		
 		String msg;
 		Iterator it = lockFiles.iterator();
@@ -209,9 +188,9 @@ public class TuningUtilityBrowserWrapper extends Thread {
 			file = new File(pcheckFile);
 			file.delete();
 		}
-	}
+	} */
 	
-	public void unpackLock() throws Exception
+	/*public void unpackLock() throws Exception
     {
         try
         {
@@ -285,9 +264,9 @@ public class TuningUtilityBrowserWrapper extends Thread {
             System.err.println("Exception : "  + e.getMessage());
             e.printStackTrace();
         }
-    }
+    } */
 	
-	class ProcessBlock extends Thread {
+/*	class ProcessBlock extends Thread {
 		private String tdchome;
 		public ProcessBlock(String tdchome){
 			this.tdchome = tdchome;
@@ -335,9 +314,9 @@ public class TuningUtilityBrowserWrapper extends Thread {
 
 		}
 
-	}
+	}*/
 	
-	private String getProcessName (int value) {
+/*	private String getProcessName (int value) {
 
 		Properties prop = new Properties ();
 		String str = null;
@@ -353,7 +332,7 @@ public class TuningUtilityBrowserWrapper extends Thread {
 		}
 		return str;
 
-	}
+	} */
 	
 	public static synchronized void exit() {
 		try {

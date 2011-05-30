@@ -266,9 +266,12 @@ public class Main {
 					splashWindow.setStatus(" ", 100);
 					wtb.start();
 					wtbLaunched = true;
+					splashWindow.setVisible(false);
 				}
 				
 				if( jetty.isAvailable() && wtbLaunched && !wtb.isAlive() ) {
+					
+					splashWindow.setVisible(true);
 					// Stopping the client...
 					splashWindow.setStatus(ResourceBundleUtils.getString("bootstrap.main.splashWindow.status.stopping"), -1);
 
@@ -287,7 +290,7 @@ public class Main {
 
 			// Check the exit codes of the wrapper processes.
 			if( jetty.getExitCode() != 0 ) {
-    			if (linux) splashWindow.hide();
+    			if (linux) splashWindow.setVisible(false);
 				SimpleMessageDialog.showErrorDialog(jetty.getExitMessage());
 				exitCode = -1;
 			} else {
@@ -295,7 +298,7 @@ public class Main {
 			}
 			
 		} catch( InterruptedException ie ) {
-			if (linux) splashWindow.hide();
+			if (linux) splashWindow.setVisible(false);
 			SimpleMessageDialog.showErrorDialog(ie.getMessage());
 			ConsoleUtils.messageErr("An exception has occurred.", ie);
 			exitCode = -1;
