@@ -9,7 +9,7 @@
 		<scrolling_text_panel stereotype="stem" id="stem2" y="131" width="415" height="368" x="12" spacing="12" >
 		    <text_widget halign="left" width="397" id="widget1003"><![CDATA[<br/><font size="14"><B>Please go through the following checklist before running the workstation tuning utility:</B></font><br/>]]></text_widget>
 			<text_widget halign="left" width="397" id="widget1004"><![CDATA[  -  Check to see that your microphone is connected]]></text_widget>
-			<text_widget halign="left" width="397" id="widget1005"><![CDATA[  -  Check to ensure your microphone is not on set to "Mute"]]></text_widget>
+			<text_widget halign="left" width="397" id="widget1005"><![CDATA[  -  Check to ensure your microphone is not set to "Mute"]]></text_widget>
 			<text_widget halign="left" width="397" id="widget1006"><![CDATA[  -  Set your microphone recording level to at least 50%; <br/>     do not set the microphone to a low recording volume]]></text_widget>
 			<text_widget halign="left" width="397" id="widget1007"><![CDATA[  -  Make sure the microphone is not in "Disabled" mode in your <br/>     Control Panel]]></text_widget>
 			<text_widget halign="left" width="397" id="widget1008"><![CDATA[  -  Make sure the speaker volume is turned up to an audible level
