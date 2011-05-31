@@ -47,7 +47,7 @@ public class TuningUtilityBrowserWrapper extends Thread {
 			this.wtbCommand = new String[2];
 			ConsoleUtils.messageOut("12 Using wtbHome = " + this.wtbHome);
             //this.wtbCommand[0] = this.wtbHome + "/WorkStationTuningUtilityBrowser.app/Contents/MacOS/WorkStationTuningUtilityBrowser";            
-            this.wtbCommand[0] = " /usr/bin/open -a " + this.wtbHome + "/WorkStationTuningUtilityBrowser.app";
+            this.wtbCommand[0] = "open -a " + this.wtbHome + "/WorkStationTuningUtilityBrowser.app";
             this.wtbCommand[0] = this.wtbCommand[0].replaceAll(" ", "\\ ");
             this.wtbCommand[1] = "http://127.0.0.1:" + jettyPort + "/tuningutility.html";
             
@@ -94,7 +94,9 @@ public class TuningUtilityBrowserWrapper extends Thread {
 			//unpackLock();
 		
 			//this.splashWindow.hide();
-			
+			ConsoleUtils.messageOut(" Using wtbHome = " + this.wtbHome);
+			ConsoleUtils.messageOut(" wtbCommand[0] " + this.wtbCommand[0]);
+			ConsoleUtils.messageOut(" wtbCommand[1] " + this.wtbCommand[1]);
 			if (ismac) {
 				// Run the WTB...
 				ConsoleUtils.messageOut(" Using wtbHome = " + this.wtbHome);
