@@ -186,14 +186,14 @@ public class Main {
 		ServerSocket stopsocket = null;
 		
 		try {
-			jettyPort = 12345;
+			jettyPort = 12389;
 			startsocket = new ServerSocket(jettyPort, 1);
 			System.out.println("Using jetty port " + jettyPort);
 		} catch( Exception e ) {
 			jettyPort = 0;
 		}
 		try {
-			stopPort = 12355;
+			stopPort = 12399;
 			stopsocket = new ServerSocket(stopPort, 1);
 			System.out.println("Using stop port " + stopPort);
 		} catch( Exception e ) {
