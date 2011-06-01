@@ -80,9 +80,7 @@
 		==================================================
 	-->
 	
-	<dataset name="dsdisplay" src="xmls/display.xml" />
-
-	
+	<dataset name="dsdisplay" src="xmls/display.xml" />	
 
 	<dataset name="dsitem" type="http" queuerequests="true"
 		querytype="post" timeout="120000"

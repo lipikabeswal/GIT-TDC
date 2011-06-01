@@ -1,8 +1,8 @@
 <library>
 
     <include href="question/Question.lzx"/>
-    
-    
+	<include href="manipulatives"/>
+        
     <class name="ItemInterface"
            fontsize="12" font="CTB"> 
 		
@@ -24,34 +24,17 @@
 						</method>
                         <view x="5" fgcolor="white" fontsize="15">
                             <simplelayout axis="y" spacing="-3"/>
-                            <!--<text datapath="dssubtest:/subtest/sco/@title"
-                                  resize="true"/>-->
-                            <view fontstyle="bold"
-                                  
-                                  id="gItemNumber">
+                            <view fontstyle="bold" id="gItemNumber">
                                 <attribute name="theme" value="false"/>
-                                
-                                
                                 <simplelayout axis="x" spacing="3"/>
-                                <text id= "QuestTxt" text="Question" visible= "false"/>
-                                <!--<text text="${parent.itemno}"
-                                      visible="${!parent.theme}">
-                                      <text datapath="dsitem:/element_package/item_model/@eid"
-                                      visible="${!parent.theme}">
-                               		<method event="ontext">
-                                		var textWidth = this.getTextWidth();
-                                		this.setAttribute('width', textWidth + 1);
-										QuestTxt.setAttribute("visible",true);
-                                		
-                                	</method>
-                               </text>-->
-                                
+                                <text id= "QuestTxt" text="Question" visible= "false"/> 
                             </view>
-                        </view>
-                       
+                        </view>                       
                          <view id="gLogo" x="695" valign="middle" />
                     </view>
-                   
+                   <view width="100%" options="releasetolayout">
+						<Tooltip id="gTooltip" options="ignorelayout"/>
+                   </view>
                 </view>
                
             </view>

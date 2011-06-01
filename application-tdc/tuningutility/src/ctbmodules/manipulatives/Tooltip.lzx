@@ -1,22 +1,15 @@
 <library>
-
-    <class name="Tooltip" visible="false"
-           datapath="dssubtest:/subtest/testing_session_data/lms.student.accommodations/stereotype_style[@stereotype = 'answerArea']">
-
-
-        <method event="ondata" args="data">
-            if (data.hasAttr ('bgcolor')) {
-            	var backgroundColor = data.getAttr('bgcolor');
+    <class name="Tooltip" visible="false">
+        <method event="oninit">
+            Debug.write("tooltip oninit");
+            	var backgroundColor = "0XFFFF99";
+				var fgroundColor = "0XFFCCCC";
+				var fontColor = "0X000000";
                 this.box.contents.setAttribute ('bgcolor', backgroundColor);
                 this.point.setResource(this.getResourceForColor(backgroundColor));
-            } 
-            if (data.hasAttr ('font_color')) {
-                this.box.contents.label.setAttribute ('fgcolor', Number (data.getAttr ('font_color')));
-                this.box.setAttribute('bgcolor', Number (data.getAttr ('font_color')));
-            } 
-            if (data.hasAttr ('font_magnification')) {
-                this.box.contents.label.setAttribute ('fontsize', data.getAttr ('font_magnification') * canvas.fontsize);
-            }
+                this.box.contents.label.setAttribute ('fgcolor', fgroundColor);
+                this.box.setAttribute('bgcolor', fontColor);
+            
         </method>
 
 		<method name="getResourceForColor" args="backgroundColor">

@@ -235,24 +235,44 @@
 							<basebutton resource="button_record"
 								name="recordButton" width="${23 * classroot.factor}" height="${23 * classroot.factor}" stretches="both"
 								align="left" onclick="classroot.startblinker('record')" >
-								
+								<method event="onmouseover">
+									gTooltip.showTooltip('Record');
+								</method>						                
+								<method event="onmouseout">
+									gTooltip.hideTooltip ();    
+								</method>
 							</basebutton>
 							<basebutton resource="button_play"
 								name="playButton" width="${parent.recordButton.width}" height="${parent.recordButton.height}" stretches="both"
 								enabled="false" onclick="classroot.startPlay('play')" >
-								
+								<method event="onmouseover">
+									gTooltip.showTooltip('Play');
+								</method>						                
+								<method event="onmouseout">
+									gTooltip.hideTooltip ();    
+								</method>
 							</basebutton>
 							<basebutton resource="button_stop"
 								name="stopButton" width="${parent.recordButton.width}" height="${parent.recordButton.height}" stretches="both"
 								enabled="false" onclick="classroot.stopblinker('stop')" >
-								
+								<method event="onmouseover">
+									gTooltip.showTooltip('Stop');
+								</method>						                
+								<method event="onmouseout">
+									gTooltip.hideTooltip ();    
+								</method>
 							</basebutton>
 						</view>
 						<view name="startOver" x="${parent.parent.parent.bar.width - parent.startOver.width}">
 							<basebutton resource="button_startover" x="0"
 								name="resetButton" width="${60 * classroot.factor}" height="${20 * classroot.factor}" stretches="both"
 								enabled="false" onclick="classroot.reset('reset')" >
-								
+								<method event="onmouseover">
+									gTooltip.showTooltip('Start Over');
+								</method>						                
+								<method event="onmouseout">
+									gTooltip.hideTooltip ();    
+								</method>
 							</basebutton>
 						</view>
 						</view>
