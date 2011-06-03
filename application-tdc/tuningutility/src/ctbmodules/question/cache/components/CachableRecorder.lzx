@@ -61,7 +61,11 @@
 		<attribute name="stopCalled" type="boolean" value="false"/>
 		<attribute name="blinkerVal" type="number" value="0"/>
 		<attribute name="resetCalled" type="boolean" value="false"/>
-		<attribute name="checkMic" type="boolean" value="true"/>
+		<attribute name="checkMic" type="boolean" value="false"/>
+<attribute name="checkMic1" type="boolean" value="false"/>
+<attribute name="checkMic2" type="boolean" value="false"/>
+<attribute name="checkResponse" type="boolean" value="false"/>
+
 		
 		<attribute name="remainingTime" value="0"/>
 
@@ -85,9 +89,8 @@
 			//Debug.write("cachable recorder ondata 1....");
 			this.resetCalled=false;
 			this.blinkerVal = 0;
-			this.activityArray.length = 0;
 			this.reset();		
-			
+			this.checkMic1 = false;
 			if(data.getAttr('x')) {
 				this.setAttribute('x', Number(data.getAttr('x')));
 			}
@@ -140,7 +143,7 @@
         ]]></method>
 		
 		<method name="doReturnToCache"><![CDATA[
-			Debug.write("doreturn to cache");
+			//Debug.write("doreturn to cache");
 			this.stopblinker('stop');
 			this.getMCRef().attachAudio(false);
 			audioDset.abort();
@@ -300,17 +303,23 @@
 		</view>
 
 		<method name="startblinker" args="methodname"><![CDATA[
+			this.checkMic1 = false;
 			this.stopCalled = false;		//to re-use this attribute, reset it 
 			this.blinkerVal = 0;
 			if(!this.recordStarted) {
-				this.updateLevel();	
-				playProgress(methodname);						
+Debug.write("1 activity array length :"+activityArray.length+": mic state:"+this.micState);
+				this.updateLevel();
+Debug.write("2 activity array length :"+activityArray.length+": mic state:"+this.micState);				
+					playProgress(methodname);
+				
 			}		
 		]]></method>
 		
 		<method name="playProgress" args="methodname"><![CDATA[
-			if(this.micState && this.checkMic) {				//micState will be set by updateLevel method
-			Debug.write("inside playprogress");			
+							//micState will be set by updateLevel method
+if(this.micState) {	
+			Debug.write("inside playprogress");	
+			Debug.write("###micState :"+this.micState);			
 				this.recordStarted = true;		//if mic is connected, then only set this attribute to true 	
 				this.playStarted = false;
 				sendRequest(methodname);	
@@ -320,7 +329,7 @@
 				this.playButton.setAttribute("enabled", false);
 				this.green.setVisible(false);
 				//gController.updateAudioField(this.widget_id, true);					
-			}
+		}	
 		]]></method>
 
 		<method name="blinker">
@@ -375,7 +384,7 @@
 				this.stopCalled = true;			//set true 
 				this.micState = false;			//reset this attribute also
 				this.blinkerVal = 0;			//reset this for blinking the red ball
-	
+				this.checkMic1 = false;
 				this.totalTime = this.defaultTotalTime;
 				this.recordButton.setAttribute("enabled", true);
 				this.green.setVisible(false);
@@ -396,7 +405,7 @@
 
 		<method name="startPlay" args="methodname">
 			if(methodname == 'play') {
-			Debug.write("inside play");
+			//Debug.write("inside play");
 				sendRequest(methodname);
 				this.recordStatus.setText(" ");	
 				this.playStarted = true;
@@ -418,7 +427,7 @@
 		<method name="countDownTimer">
 		<![CDATA[	
 			this.totalTime -= 1; 
-			Debug.write("countDownTimer totalTime remaining: "+this.totalTime)	
+			//Debug.write("countDownTimer totalTime remaining: "+this.totalTime)	
 			fillBarWithTime(increment);	
 			this.resetButton.setAttribute("enabled", false);
 			if(this.totalTime <= 0) {
@@ -457,7 +466,7 @@
  		</method>
 
 		<method name="handleResponseData" args="d">
-Debug.write("handleResponseData :"+d);
+//Debug.write("handleResponseData :"+d);
 			this.blinkerVal = 0;
 			var result = d.childNodes[0].data;
 			if(result == 'RECORDING_START'){
@@ -465,6 +474,7 @@ Debug.write("handleResponseData :"+d);
 				startCountDownTimer();
 				blinker();
 				this.stopButton.setAttribute("enabled", true);
+				this.checkResponse = true;
 			}
 			else if (result == 'RECORDING_STOP') {
 			Debug.write("RECORDING_STOP..");
@@ -484,14 +494,14 @@ Debug.write("handleResponseData :"+d);
 				if(this.recordStarted) this.recordStarted = false;
 			}
 			else if (result == 'PLAY_START') {
-				Debug.write("PLAY_START..");	
+				//Debug.write("PLAY_START..");	
 				this.remainingTime = this.getRemainingTime();
-				Debug.write("this.remainingTime : "+this.remainingTime);
+				//Debug.write("this.remainingTime : "+this.remainingTime);
 				blinker();
 				this.startPlayTimer();
 			}
 			else {
-				Debug.write("Result Default...."+result);	
+				//Debug.write("Result Default...."+result);	
 			}
 			//gCommunicator.finishCall(d,audioDset);
 		</method>
@@ -546,10 +556,10 @@ Debug.write("handleResponseData :"+d);
 			//this.myMic.setSilenceLevel(0);
 			//this.mc.attachAudio(this.myMic);
 					
-Debug.write("myMic...."+ this.myMic+" : "+this.myMic.gain+" : "+this.myMic.activityLevel+" : "+Microphone.names.length);
+//Debug.write("myMic...."+ this.myMic+" : "+this.myMic.gain+" : "+this.myMic.activityLevel+" : "+Microphone.names.length);
 
 			if(this.myMic != null) {
-//Debug.write("if myMic....");
+
 				level = this.myMic.activityLevel;
 				this.myMic.setGain(100);
 				this.myMic.setRate(8);
@@ -562,22 +572,29 @@ Debug.write("myMic...."+ this.myMic+" : "+this.myMic.gain+" : "+this.myMic.activ
 					this.myMic = reClaimedMicObj;
 					this.mc.attachAudio(this.myMic);	
 				}
-//Debug.write("else myMic...."+reClaimedMicObj);
-			}
-			
-			if(activityArray.length < 16) {
-//Debug.write("activityArray.length :"+activityArray.length);
-				if(level <= 0) {
-					activityArray.push(level);
-					
-				}
-				else {
-					isMicAttached = true;
-					activityArray.length = 0;
-					this.checkMic = true;
-				} 
+Debug.write("else myMic...."+reClaimedMicObj);
 			}
 
+
+			if(activityArray.length < 16) {
+				if(activityArray.length == 15) {
+Debug.write("1");
+					isMicAttached = activityCalibrate(activityArray); 				
+				}else{
+					if(level <= 0) {
+						Debug.write("2 level pushing...."+level);
+						activityArray.push(level);
+					}
+					else {
+Debug.write("3");
+						isMicAttached = true;
+						
+					
+					}
+				}
+
+			}
+Debug.write("activityArray.length...."+activityArray.length+":  isMicAttached:"+isMicAttached);
 			fakeActivityArray.push(level);
 
 			if(fakeActivityArray.length == 15) {
@@ -591,9 +608,7 @@ Debug.write("myMic...."+ this.myMic+" : "+this.myMic.gain+" : "+this.myMic.activ
 				fakeActivityArray.length = 0;
 			}
 
-			if(activityArray.length == 15) {
-				isMicAttached = activityCalibrate(activityArray); 				
-			}
+			
 	                
 			if (level < 0) {
 				level = 1;
@@ -603,34 +618,45 @@ Debug.write("myMic...."+ this.myMic+" : "+this.myMic.gain+" : "+this.myMic.activ
 				this.setAttribute("level", level);
 			}
 
+			
 			if(isMicAttached == false) {
 				this.blinkerVal = 0;
 				//this.meterContainer.setAttribute('visible',false);
+				//this.checkMic = false;
 				this.whitewrapperOverLay.setVisible(true);
 				stopblinker('stop');
 				this.resetCalled = false;
 				this.micState = false;//Changes for defect 65977 
+				this.checkMic1 = true;
 			}
-			else if(isMicAttached == true) {
-				
+			else if(isMicAttached == true) {			
 				this.micState = true;//Changes for defect 65977
+				this.whitewrapperOverLay.setVisible(false);	
+				if(this.checkMic1 == false){ 				
+				//if(this.recordStarted == true && this.checkMic1 == false){
+					//if(this.checkResponse == true){
+						if(this.blinkerVal >= 3){
+							this.toggleRedDisplay();
+							this.blinkerVal = 0;
+						}
+						this.blinkerVal = this.blinkerVal + 1;
 					
-				//this.meterContainer.setAttribute('visible',true);
-				this.whitewrapperOverLay.setVisible(false);	 				
-				if(this.recordStarted == true){
-					if(this.blinkerVal >= 3){
-						this.toggleRedDisplay();
-						this.blinkerVal = 0;
-					}
-					this.blinkerVal = this.blinkerVal + 1;
-					
-					vMeterHeight = this.meterContainer.height - this.level * .5;
+						vMeterHeight = this.meterContainer.height - this.level * .5;
 
-					if(vMeterHeight < 0) {
-						vMeterHeight = 0;
-					}
-					this.volumeMeter.setAttribute('height', vMeterHeight);
+						if(vMeterHeight < 0) {
+							vMeterHeight = 0;
+						}
+						this.volumeMeter.setAttribute('height', vMeterHeight);
+				//}else if(this.recordStarted == false && this.checkMic1 == false){
+						if(this.checkMic == false){
+							this.checkMic = true;
+							this.stopCalled = false;		//to re-use this attribute, reset it 
+							this.blinkerVal = 0;
+							playProgress('record');
+						}
+					//}					
 				}
+				//}
 				
 				
 				if(this.recordStarted == false && this.stopCalled == true) {
@@ -655,10 +681,9 @@ Debug.write("myMic...."+ this.myMic+" : "+this.myMic.gain+" : "+this.myMic.activ
 				if(temp > 0) {
 					//Debug.write("got mic connectivity....");	
 					break;				
-				}else{
-					this.checkMic = false;
 				}
 			}
+
 			this.activityArray = [];
 			return temp > 0;
 		]]></method>
@@ -703,7 +728,7 @@ Debug.write("myMic...."+ this.myMic+" : "+this.myMic.gain+" : "+this.myMic.activ
 		</method>
 		
 		<method name="startPlayTimer">
-			Debug.write("startPlayTimer this.remainingTime : "+this.remainingTime);	
+			//Debug.write("startPlayTimer this.remainingTime : "+this.remainingTime);	
 			if(typeof this.playDel == "undefined") {
 				this.playDel = new LzDelegate(this, "startPlayTimer");
 			}
@@ -714,7 +739,7 @@ Debug.write("myMic...."+ this.myMic+" : "+this.myMic.gain+" : "+this.myMic.activ
 				return;
 			}
 			this.remainingTime -= 1;
-			Debug.write(this.playDel);
+			//Debug.write(this.playDel);
 			LzTimer.resetTimer(this.playDel, 1000);
 		</method>
 
