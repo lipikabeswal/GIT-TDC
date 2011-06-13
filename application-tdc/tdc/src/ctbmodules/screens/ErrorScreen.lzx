@@ -2,7 +2,7 @@
 
 	<include href="ExitButton.lzx"/>
 	
-	<dataset name="goodbyeDs" 
+	<dataset name="goodbyewhenerrorDs" 
 			 type="http"
 	         queuerequests="true" 
 	         querytype="get"
@@ -18,8 +18,8 @@
 		<method name="exit">
         	Debug.write("On Goodbye Screen");
 	    	var getUrl = LzBrowser.getInitArg( 'servletUrl' ) + '/UtilityServlet.do?method=exit';
-			goodbyeDs.setSrc(getUrl);
-			goodbyeDs.doRequest();
+			goodbyewhenerrorDs.setSrc(getUrl);
+			goodbyewhenerrorDs.doRequest();
 		</method>
 	</node>
 
@@ -111,6 +111,7 @@ Debug.write("xml null - show default error");
 		    <ExitButton align="right">
 				<method name="exit" event="onclick">
 					gScreens.clicked();
+					gMusicPlayer.stop();
 					errorExitRequest.exit();
 				</method>
 		    </ExitButton>

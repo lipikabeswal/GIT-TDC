@@ -16,6 +16,7 @@
 		
 		<method name="exit">
         	Debug.write("On Goodbye Screen");
+        	gMusicPlayer.stop();
 	    	var getUrl = LzBrowser.getInitArg( 'servletUrl' ) + '/UtilityServlet.do?method=exit';
 			goodbyeDs.setSrc(getUrl);
 			goodbyeDs.doRequest();

@@ -4,8 +4,10 @@
     <include href="testcontrols/TestControls.lzx"/>
     <include href="questionbar/QuestionBar.lzx"/>
     <include href="timestatus/TimeStatus.lzx"/>
-    <include href="manipulatives"/>
-
+    <include href="manipulatives"/>	
+    <include href="lz/slider.lzx"/>    
+    <include href="base/baseslider.lzx"/>
+    
     <class name="ItemInterface"
            fontsize="12" font="CTB"
            datapath="dssubtest:/">
