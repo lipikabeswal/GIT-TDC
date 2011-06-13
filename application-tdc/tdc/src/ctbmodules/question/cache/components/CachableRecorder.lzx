@@ -49,6 +49,9 @@
 			type="string" />
 		<attribute name="leveldel"
 			value="$once{new LzDelegate(this, 'updateLevel')}" />
+			<!-- For LLO128-->
+		<attribute name="linuxLevelDel"
+			value="$once{new LzDelegate(this, 'updateLinux')}" />
 		<attribute name="level" type="number" value="0" />
 		<attribute name="activityArray" value="$once{new Array()}" />
 <attribute name="fakeActivityArray" value="$once{new Array()}" />
@@ -116,7 +119,9 @@
 			gController.setAttribute('blockFileName' , true);
 			doneLoading();
 			gController.recorderComponent(this);
-			if(this.isinited && this.visible) {
+			// For LLO128
+			var os =  isLinux();
+			if(this.isinited && this.visible && !isLinux()) {
 				//Debug.write("cachable recorder ondata 2....");
 				this.myMic = Microphone.get();
 				if(this.myMic != null) {
@@ -152,13 +157,27 @@
 			}
             super.doneLoading();
         ]]></method>
-		
+        <!-- For LLO128-->
+		<method name="isLinux" args="arg">
+		Debug.write("isLinux fired");
+		var os = System.capabilities.os;
+		os = os.split(" ");
+		if(os[0] == 'ubuntu' || os[0] == 'Fedora' || os[0] == 'Redhat' || os[0] == 'Linux' || os[0] == 'solaris'){
+		return true;
+		}
+		return false;
+		</method>
 		<method name="doReturnToCache"><![CDATA[
 			Debug.write("doreturn to cache");
 			this.stopblinker('stop');
+			if(!isLinux()){
 			this.getMCRef().attachAudio(false);
+			}
 			audioDset.abort();
+			if(!isLinux())
 			LzTimer.removeTimer(leveldel);
+			else
+			LzTimer.resetTimer(linuxLevelDel, 100); 
        ]]></method>
 
 		<view name="main" align="center" valign="middle"
@@ -185,7 +204,7 @@
 							y="${11 * classroot.factor}" width="${41 * classroot.factor}" resource="volume_meter" height="35">
 							<view name="volumebar" x="0" y="0"
 								width="${41 * classroot.factor}" height="$once{parent.height}" resource="volume_meter_flip"
-								opacity=".7" bgcolor="white" clip="true">
+								opacity=".7" bgcolor="white" clip="true" visible="${!classroot.isLinux()}">
 							</view>
 						</view>
 
@@ -305,8 +324,13 @@
 		<method name="startblinker" args="methodname">
 			this.stopCalled = false;		//to re-use this attribute, reset it 
 			this.blinkerVal = 0;
-			if(!this.recordStarted) {	
+			if(!this.recordStarted) {
+				if(!isLinux()){	
 				this.updateLevel();	
+				}else{
+				Debug.write("Update level linux");
+				this.updateLinux();
+				}
 				playProgress(methodname);
 				<!-- Changes for defect 65977 -->			
 						
@@ -333,7 +357,10 @@
 			this.red.setVisible(false);
 			this.redReplace.setVisible(false);
 			this.blinkerVal = 0;			//reset this for blinking the red ball
+			if(!isLinux())
 			LzTimer.removeTimer(leveldel);	//remove activity meter timer 
+			else
+			LzTimer.removeTimer(linuxLevelDel); 
 			this.stopCalled = true;			//let the timer stop first or this attribute will disturb the flow
 			this.micState = false;		
 			resetActivityMeterHeight();		//for showing zero actvity bar
@@ -605,6 +632,19 @@ Debug.write("handleResponseData :"+d);
 			}	
 
 			LzTimer.resetTimer(leveldel, 100); 
+	    ]]>
+		</method>
+		
+		<method name="updateLinux"><![CDATA[
+			this.micState = true;
+			if(this.recordStarted == true){
+					if(this.blinkerVal >= 3){
+						this.toggleRedDisplay();
+						this.blinkerVal = 0;
+					}
+					this.blinkerVal = this.blinkerVal + 1;
+				}
+		LzTimer.resetTimer(linuxLevelDel, 100); 
 	    ]]>
 		</method>
 
