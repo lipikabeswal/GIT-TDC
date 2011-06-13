@@ -899,6 +899,7 @@
 	    		var node = LzDataNode.stringToLzData(response);
 	    		dp.setPointer(node);
 	    		setShowHighlighter();
+	    		setShowMaskingRuler();
 	    		var restartNumber = dp.xpathQuery('login_response/@restart_number');
 				gTutorialManager.setAttribute('tutorialNode', dp.xpathQuery('login_response/tutorial'));
 	    		var logo = dp.xpathQuery('login_response/branding/@tdclogo');
@@ -966,6 +967,11 @@
 		<method name="setShowHighlighter">
 			var sh = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@highlighter');
 			this.setAttribute('showHighlighter', (sh != 'false'));
+		</method>
+		
+		<method name="setShowMaskingRuler">
+			var smr = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@masking_ruler');
+			this.setAttribute('showMaskingRuler', (smr != 'false'));
 		</method>
 
 		<method name="setupPopups">
@@ -1311,6 +1317,11 @@
                     fnode = getItemFromOffset( 0 );
                 }
              }
+             
+             if(gController.audible == 'true'){
+				gMusicPlayer.play();
+				gMusicPlayer.setAttribute('playStarted',true);
+			}
             saveLoadItem(fnode, INIT_LEV);
             dshowClient.register( this, 'itemuiready' );
         </method>
@@ -2185,8 +2196,8 @@ Debug.write("#############returnVal: "+returnVal);
 					&& !(gController.getNextNavigableOffset(curritem) == totalitem)){
             		this.showRevisitPopup("goOn");
 				}else{
-				changeItem( getItemFromOffset( currItemOffset() + 1 ) );
-            }
+					changeItem( getItemFromOffset( currItemOffset() + 1 ) );
+            	}
             }
         ]]></method>
 
@@ -2454,12 +2465,16 @@ Debug.write("#############returnVal: "+returnVal);
 
 		<attribute name="pausable"
 			value="$path{ 'dssubtest:/subtest/testing_session_data/lms.student.accommodations/@rest_break' }" />
-
+		
+		<attribute name="audible"
+			value="$path{ 'dssubtest:/subtest/testing_session_data/lms.student.accommodations/@auditory_calming' }" />
+			
 		<method name="pauseTest">
             if ( pausable == 'true' ) {
             	gReadableText.stopReading();
                 freezeUI();
                 stopQuestion();
+				gMusicPlayer.hide();
 		   //For defect 65881         
             if(this.recorder != null)
 			{
@@ -2543,6 +2558,7 @@ Debug.write("#############returnVal: "+returnVal);
 			//END
 			//this.resetAudioFields();
             closeOpenManipulatives();
+			gMusicPlayer.hide();
             LzCursor.unlock();            
             gScreens.showFinish( totalQuestions() - totalAnswered(),
                                  totalMarked() );
@@ -2567,6 +2583,30 @@ Debug.write("#############returnVal: "+returnVal);
 					var state = dn.getAttr(manip);
 					if(state == "sel"){
 			 			gController.setManipulativeSelState (manip, 'up');
+					}
+				}
+				var dnGlobal = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');
+				var manipsGlobal = new Array("masking_ruler");
+				for (var i = 0; i < manipsGlobal.length; i++){
+					var manipGlobal = manipsGlobal[i];
+					var stateGlobal = dnGlobal.getAttr(manipGlobal);
+					if(stateGlobal == "sel"){
+			 			gController.setManipulativeSelState (manipGlobal, 'up');
+					}
+				}
+			}
+		]]></method>
+
+		<method name="closeOpenMaskingManipulatives"><![CDATA[
+			if(!isMarked()){       
+				
+				var dnGlobal = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');
+				var manipsGlobal = new Array("masking_ruler");
+				for (var i = 0; i < manipsGlobal.length; i++){
+					var manipGlobal = manipsGlobal[i];
+					var stateGlobal = dnGlobal.getAttr(manipGlobal);
+					if(stateGlobal == "sel"){
+			 			gController.setManipulativeSelState (manipGlobal, 'up');
 					}
 				}
 			}
@@ -2878,6 +2918,7 @@ Debug.write("#############returnVal: "+returnVal);
 
 		<!-- manipulators -->
 		<method name="initManipulativeData"><![CDATA[
+			closeOpenMaskingManipulatives();
             var dnmanip = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives');
             var dngeneral = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/general');
             var initglobal = (dnmanip == null);
@@ -2958,6 +2999,9 @@ Debug.write("#############returnVal: "+returnVal);
                         	if(i == 'highlighter' && !this.showHighlighter){
                         		dnglobal.setAttr('highlighter', 'disable');
                         	}
+                        	else if(i == 'masking_ruler' && !this.showMaskingRuler){
+                        		dnglobal.setAttr('masking_ruler', 'disable');
+                        	}
                         	else {
                         	   	dnglobal.setAttr (i, toolstate);
                         	}
@@ -2985,17 +3029,20 @@ Debug.write("#############returnVal: "+returnVal);
        ]]></method>
 
 		<method name="setManipulativeSelState" args="which, value"><![CDATA[
-
+Debug.write("setManipulativeSelState....",which, value);
             var dn;
 
             if (this._isGlobalManipulator (which)) {
+Debug.write("if ...."+this._isGlobalManipulator (which));
+            
                 dn = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');
                 if(this._isRadioGlobalManipulator(which)){
                 //make global manipulators act like radio buttons
 	                if (value == 'sel') {
 	                    for (var i in dn.attributes) {
 	                        if (i != which){
-	                        	if(!((i == 'highlighter' && !this.showHighlighter) || i == 'scratchpad')){
+	                        	if(!((i == 'highlighter' && !this.showHighlighter) || i == 'scratchpad' || (i == 'masking_ruler' && !this.showMaskingRuler))){
+	                        		Debug.write(i, this.showMaskingRuler);
 	                        		dn.setAttr (i, 'up');
 	                        	}
 	                        }
@@ -3020,7 +3067,7 @@ Debug.write("#############returnVal: "+returnVal);
 					}
                     dn.appendChild (dnmanip);
                 }
-            } else if (!this._isGlobalManipulator (which)) {
+            } else if (!this._isGlobalManipulator (which) || which == 'masking_ruler') {
                 if (dnmanip) {
                     dn.removeChild (dnmanip);
                 }
@@ -3037,7 +3084,8 @@ Debug.write("#############returnVal: "+returnVal);
 		<method name="_isGlobalManipulator" args="manipname">
             var result = false;
             if(_isRadioGlobalManipulator(manipname) ||
-                manipname == 'scratchpad') {
+                manipname == 'scratchpad' || 
+				manipname == 'masking_ruler') {
                 result = true;
             }
             return result;
