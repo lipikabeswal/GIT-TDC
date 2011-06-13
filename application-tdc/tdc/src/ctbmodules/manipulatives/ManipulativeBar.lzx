@@ -36,6 +36,9 @@
 			<ScratchpadButton   resource="toolbar_scratchpad_btn"
 	                            toolid="scratchpad"
 	                            tooltip="Scratchpad"/>
+			<ManipulativeButton resource="toolbar_masking_ruler_btn"
+	                            toolid="masking_ruler"
+	                            tooltip="Masking Ruler"/>
 		</view>
 	            
 		<view datapath="manipulatives/general" name="generals" valign="middle"

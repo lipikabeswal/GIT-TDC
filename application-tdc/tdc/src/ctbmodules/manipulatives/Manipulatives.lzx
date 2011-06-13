@@ -2,6 +2,7 @@
     
 	<include href="protractor/Protractor.lzx"/>
     <include href="ruler/BaseRuler.lzx"/>
+	<include href="ruler/MaskingRuler.lzx"/>
 	<include href="../question/cache/components/CachableRefCard.lzx"/>
 
 	<include href="calculator/standardCalculator.lzx"/>
@@ -17,7 +18,7 @@
 		     the index of the array indicates which manipulative - identified in INDEX constants below -->
 		<attribute name="zOrder" />
 		
-		<attribute name="NUMBER_OF_MANIPULATIVES" type="number" value="12" />
+		<attribute name="NUMBER_OF_MANIPULATIVES" type="number" value="13" />
 		<attribute name="SCRATCHPAD_INDEX" type="number" value="0" />
 		<attribute name="PROTRACTOR_INDEX" type="number" value="1" />
 		<attribute name="STRAIGHT_EDGE_INDEX" type="number" value="2" />
@@ -30,7 +31,7 @@
 		<attribute name="STANDARD_CALCULATOR_INDEX" type="number" value="9" />
 		<attribute name="SCIENTIFIC_CALCULATOR_INDEX" type="number" value="10" />
 		<attribute name="FORMULA_CARD_INDEX" type="number" value="11" />
-	
+		<attribute name="MASKING_RULER_INDEX" type="number" value="12" />
 		<handler name="oninit">
 			this.reset();
 		</handler>
@@ -171,6 +172,9 @@
 			else if (tool == 'formula_card'){
 				result = FORMULA_CARD_INDEX;
 			}
+			else if (tool == 'masking_ruler'){
+				result = MASKING_RULER_INDEX;
+			}
 			return result;
 		</method>
 		
@@ -211,6 +215,9 @@
 			}
 			else if (index == FORMULA_CARD_INDEX){
 				result = 'formula_card';
+			}
+			else if (index == MASKING_RULER_INDEX){
+				result = 'masking_ruler';
 			}
 			return result;
 		</method>
@@ -253,6 +260,9 @@
 			else if (tool == 'formula_card'){
 				result = gFormulaCard;
 			}
+			else if (tool == 'masking_ruler'){
+				result = gMaskingRuler;
+			}
 			return result;
 		</method>
 		
@@ -275,7 +285,7 @@
         <Scratchpad name="scratchpad" 
                     toolid="scratchpad"
                     id="gScratchpad"/>
-
+		
         <Protractor name="protractor" 
                     toolid="protractor"
                     id="gProtractor"/>
@@ -284,7 +294,12 @@
                    toolid="straight_edge"
                    labelrsr="straight_label"
                    id="gStraightEdge"/>
-                   
+         
+        <MaskingRuler name="masking_ruler"
+                   toolid="masking_ruler"
+                   labelrsr="masking_label"
+                   id="gMaskingRuler"/>
+                             
         <BaseRuler name="oneeighth_inch_ruler"
                    toolid="oneeighth_inch_ruler"
                    tickmarksrsr="eighth_inch_tick_marks"
