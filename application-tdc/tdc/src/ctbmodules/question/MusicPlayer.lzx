@@ -1,0 +1,191 @@
+<view id="gMusicPlayer" 
+      y="${gMusicButton.parent.y + gMusicButton.height - 3}"
+      x="${gMusicButton.parent.parent.x - gMusicButton.width + 3}" 
+      visible="false"
+      clickable="false"
+      showhandcursor="false" play="false">
+
+	<attribute name="popupHeight" type="number" value="72"/>
+	<attribute name="popupWidth" type="number" value="90"/>
+	<attribute name="bg" type="color" value="0xD6D6D6"/>
+	<attribute name="fg" type="color" value="0xE3E3E3"/>
+	<attribute name="playStarted" type="boolean" value="false"/>
+	<attribute name="stopCalled" type="boolean" value="true"/>
+	<attribute name="autoPlay" type="boolean" value="false"/>
+	
+	<!-- the default setup should always be ready as this popup can be shown at login time also -->
+	<handler name="oninit">
+		Debug.write("revisit false:"+gMusicButton.width);
+		setup();
+		//this.setAttribute("resource", "http:resources/music.mp3");// commenting out for now	
+			
+	</handler>
+	
+	<method name="setup" args="fm, fc, bc"><![CDATA[
+//Debug.write("setup: " + this.fm + " , " + this.fc + " , " + this.bc);
+		if(fc != null && fc.length > 0){
+			this.setAttribute("fg", new Number(this.fc));
+		}
+		else{
+			this.setAttribute("fg", new Number("0xE3E3E3"));
+		}
+		if(bc != null && bc.length > 0){
+			this.setAttribute("bg", new Number(bc));
+		}
+		else{
+			this.setAttribute("bg", new Number("0xD6D6D6"));
+		}
+		this.windowbg.drawMe();
+	]]></method>
+	
+	<method name="hide">
+        this.setAttribute("visible", false);
+		//LzModeManager.release(this);	
+		//gHotKeys.enableKeys();
+    </method>
+	
+    <method name="show">      
+	    if(this.visible == false) {
+	        this.setAttribute("visible", true);
+	        //LzModeManager.makeModal(this);
+	        //gHotKeys.disableKeys();
+	     }
+    </method>
+
+	<method name="togglePopup">      
+	    if(this.getAttribute("visible") == false) {
+	        show();
+	        popout();
+	     }else if(this.getAttribute("visible") == true) {
+	     	hide();
+	     }
+    </method>
+	
+	<method name="popout">          
+          //this.animate("height",50,1000,true,{motion:'linear'});
+          //this.contents.anm.doStart();
+          //this.anm_outer.doStart();
+          
+    </method>
+	
+	<method event="onframe">    	
+    </method>
+    
+    <method event="onplay">
+    	this.playStarted = true;    	
+    </method>
+	
+    <method event="onlastframe">
+    	if(this.playStarted == true){
+    		gMusicPlayer.setAttribute("frame",1);
+    		gMusicPlayer.play();
+    	}
+    </method>
+	
+    <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">
+
+        <method name="drawMe">
+            this.clear();
+            
+            var roundness = 5;
+            var thickness = 3;
+            var shadow = 4;
+			
+            this.changeColor(parent.bg, parent.fg);
+         </method>
+
+        <method name="changeColor" args="bgcolor, fgcolor">
+            var roundness = 5;
+            var thickness = 3;
+
+            drawRoundRect (thickness, thickness, this.width, this.height, 
+                           roundness,
+                           bgcolor, fgcolor, 1);
+            
+        </method>
+
+        <method name="drawRoundRect" args="x0, y0, x1, y1, roundness, fill, stroke, alpha">
+			
+            this.beginPath();
+            this.rect(x0 , y0 , x1 , y1 , roundness);
+
+            this.closePath();
+            this.setAttribute("globalAlpha", alpha);
+
+            if (fill) {
+                this.setAttribute("fillStyle", fill);
+                this.fill();
+            }
+            if (stroke) {
+                this.setAttribute("strokeStyle", stroke);
+                this.stroke();
+            }
+
+            this.setAttribute("globalAlpha", 1);
+        </method>
+		<animator name="anm_outer" attribute="height" from="0" to="50"
+                    duration="1000" start="false" motion="linear"/>
+    </drawview>
+
+    <view name="contents" x="5" y="5"
+          width="${parent.windowbg.width - 5}" height="${parent.windowbg.height - 5}" bgcolor="0xE3E3E3"><!--97B8E2"-->
+	    <simplelayout spacing="8" axis="y"/>
+	    <view x="12" y="2" name="playerContainer">
+			<simplelayout spacing="10" axis="x"/>
+         	<animator name="anm" attribute="height" from="0" to="40"
+                    duration="1000" start="false" motion="easeboth"/>
+              
+			<basebutton	name="playButton" resource="music_play_btn" 
+					width="25" height="25" stretches="both">
+				<method event="onclick"> 
+				
+					gMusicPlayer.play(); 
+					
+        		</method>
+			</basebutton>
+			<basebutton	name="stopButton" resource="music_stop_btn"
+					width="25" height="25" stretches="both">
+				<method event="onclick">
+					 gMusicPlayer.stop();
+					 this.setAttribute("stopCalled",true); 
+					 this.setAttribute("playStarted",false);
+        		</method>
+			</basebutton>
+		</view>
+		<view x="2" height="20" valign="middle" >
+			<simplelayout axis="y"/>
+			<text name="volumeText" fontsize="7" resize="true" height="15" align="center" fontstyle="bold">Volume</text>
+			<slider value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" 
+						thumbwidth="16" thumbheight="12" width="80">
+				<method event="onvalue"><![CDATA[
+		 			if (gMusicPlayer != null) { 
+						gMusicPlayer.setVolume(this.value); 
+					}
+				]]></method>
+				<handler name="oninit"><![CDATA[
+						//hide the text object displaying "undefined" text
+						this.subviews[0].subviews[2].subviews[3].setVisible(false);
+	
+						registerThumb(this.track.thumb);
+					]]></handler>
+					
+					<!-- since, the thumb is inside the slider class we have to register delegates from outside-->
+					<method name="registerThumb" args="b"> 
+	
+				        if( typeof this.delOver == "undefined" )  {
+				            this.delOver = new LzDelegate( this, "mouseover" );
+							this.delOut = new LzDelegate( this, "mouseout" );
+							this.delClick = new LzDelegate( this, "click" );
+							//this.tooltipdel = new LzDelegate( this, "showTooltip" );
+				        }      
+				
+				        this.delOver.register( b, "onmouseover" );
+						this.delOut.register( b, "onmouseout" );
+						this.delClick.register( b, "onclick" );
+				    </method> 
+	
+				<!--END Changes done for defect #65040 and #65041-->		
+			</slider>
+        </view>
+    </view>
+</view>

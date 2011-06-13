@@ -53,6 +53,7 @@
                 if ( dsitem == data.ownerDocument ) {
                     gController.setAttribute( 'trackingcomponents', true );
                 }
+                gMusicPlayer.hide();
             }
         ]]></method>
 
