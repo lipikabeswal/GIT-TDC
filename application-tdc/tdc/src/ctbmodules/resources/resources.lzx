@@ -39,6 +39,13 @@
 		<frame src="iknow_toolbar/toolbar_eraser_on.swf"/>        
 		<frame src="iknow_toolbar/toolbar_eraser_disabled.swf"/>
 	</resource>
+	
+	<!-- Toolbar Button masking ruler-->
+	<resource name="toolbar_masking_ruler_btn">      
+		<frame src="iknow_toolbar/toolbar_rulerMasking_off.png"/>   
+		<frame src="iknow_toolbar/toolbar_rulerMasking_on.png"/>        
+		<frame src="iknow_toolbar/toolbar_rulerMasking_disabled.png"/>
+	</resource>
 
 	<!-- Toolbar Button scartchpad-->
 	<resource name="toolbar_scratchpad_btn">      
@@ -200,7 +207,28 @@
 
     <!-- =====================
          Time Status
-         =====================-->    
+         =====================-->  
+    <!-- Music Button-->
+	<resource name="music_btn">      
+		<frame src="iknow_buttons/music/music_off.png" />   
+		<frame src="iknow_buttons/music/music_on.png" />   
+		<frame src="iknow_buttons/music/music_click.png" />   
+	</resource>    
+	
+	<resource name="music_play_btn">      
+		<!--frame src="iknow_buttons/music/music_play_off.png" />   
+		<frame src="iknow_buttons/music/music_play_on.png" />   
+		<frame src="iknow_buttons/music/music_play_click.png" /-->   
+		<frame src="iknow_buttons/music/play.gif" />  
+	</resource>    
+	
+	<resource name="music_stop_btn">      
+		<!-- frame src="iknow_buttons/music/music_stop_off.png" />   
+		<frame src="iknow_buttons/music/music_stop_on.png" />   
+		<frame src="iknow_buttons/music/music_stop_click.png" /-->  
+		<frame src="iknow_buttons/music/stop.gif" />   
+	</resource>    
+       
 	<!-- Pause Button-->
 	<resource name="pause_time_btn">      
 		<frame src="iknow_buttons/pause_test/pausetest_off.swf" />   
@@ -357,6 +385,10 @@
     <resource name="ruler_background" src="manipulatives/ruler/ruler_background.swf"/>
     <resource name="ruler_lines" src="manipulatives/ruler/ruler_lines.swf"/>
     
+    <resource name="masking_ruler_lines" src="manipulatives/ruler/masking_ruler_lines.swf"/>
+    
+    <resource name="masking_ruler_background" src="manipulatives/ruler/masking_ruler_background.swf"/>
+    
     <resource name="eighth_inch_tick_marks" src="manipulatives/ruler/eighth_inch_tick_marks.swf"/>
     <resource name="half_inch_tick_marks" src="manipulatives/ruler/half_inch_tick_marks.swf"/>
     <resource name="millimeter_tick_marks" src="manipulatives/ruler/millimeter_tick_marks.swf"/>
@@ -365,6 +397,7 @@
     <resource name="inches_label" src="manipulatives/ruler/inches_label.swf"/>
     <resource name="centimeters_label" src="manipulatives/ruler/centimeters_label.swf"/>
     <resource name="straight_label" src="manipulatives/ruler/straight_label.swf"/>
+    <resource name="masking_label" src="manipulatives/ruler/masking_label.png"/>
 
     <!-- reference card -->
 	<resource name="ref_card_close_btn">
