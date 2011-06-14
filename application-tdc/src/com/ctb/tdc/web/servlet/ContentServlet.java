@@ -3,9 +3,13 @@ package com.ctb.tdc.web.servlet;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.Blob;
 import java.util.HashMap;
 import java.util.List;
 
@@ -76,7 +80,7 @@ public class ContentServlet extends HttpServlet {
 		
 		long startTime = System.currentTimeMillis();
 		
-		
+		System.out.println("Method Name: " +  method);
 		if (method.equals(ServletUtils.GET_SUBTEST_METHOD)) {
 			getSubtest(request, response);
 		} else if (method.equals(ServletUtils.DOWNLOAD_ITEM_METHOD)) {
@@ -88,7 +92,11 @@ public class ContentServlet extends HttpServlet {
 		}
 		else if (method.equals(ServletUtils.GET_LOCALRESOURCE_METHOD)) {
 		     getLocalResource(request,response);
-		} else {
+		}else if (method.equals(ServletUtils.GET_MUSIC_DATA_METHOD)) {
+			System.out.println("####doGet getMusicData");
+			getMusicData(request,response);
+		}
+		else {
 			ServletUtils.writeResponse(response, ServletUtils.ERROR);
 		}
 		
@@ -480,7 +488,7 @@ public class ContentServlet extends HttpServlet {
 	 * 
 	 */
 	private void getImage(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+		HttpServletResponse response) throws IOException {
 		MemoryCache aMemoryCache = MemoryCache.getInstance();
 		HashMap assetMap = aMemoryCache.getAssetMap();
 
@@ -596,5 +604,43 @@ public class ContentServlet extends HttpServlet {
 	public static final String TDC_HOME = "tdc.home";
 	public static final String RESOURCE_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
 		                             "webapp" + File.separator + "resources";
+	
+	private String getMusicData(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		String musicId = request.getParameter("musicId");
+		String filePath = this.RESOURCE_FOLDER_PATH + File.separator  + "music_" + musicId+".mp3";
+		System.out.println("musicId :"+musicId);
+		System.out.println("filePath :"+filePath);
+		PrintWriter out = null;
+		String result = null;
+		File f1 = new File(filePath);
+/*		if(f1.exists()){
+			System.out.println("F1.exists");
+			out = response.getWriter();
+			out.write("<result>File_Downloaded</result>");
+			out.flush();
+		}else{
+*/
+		if(!f1.exists()){
+			System.out.println("Else part");
+			try {
+				InputStream input = ServletUtils.httpClientSendRequestBlob(ServletUtils.LOAD_MUSIC_DATA_METHOD, musicId);
+				
+				FileOutputStream os= new FileOutputStream(filePath);
+	            byte[] buffer = new byte[1024];
+				for (int length = 0; (length = input.read(buffer)) != -1;) {
+						os.write(buffer, 0, length);
+				}
+				os.close();
+			} catch (Exception e) {
+				result = ServletUtils.buildXmlErrorMessage("", e.getMessage(), "");
+			}
+		}
 
+		out = response.getWriter();
+		out.write("<result>File_Downloaded</result>");
+		out.flush();
+
+		return result;
+
+	}
 }

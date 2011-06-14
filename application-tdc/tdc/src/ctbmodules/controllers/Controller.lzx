@@ -207,7 +207,17 @@
 		onerror="gCommunicator.checkShowError(gXmlHelper.getContentErrorXml(),this)"
 		ontimeout="gCommunicator.checkShowError(gXmlHelper.getContentErrorXml(),this)"
 		ondata="gController.processItemResponse()" />
-
+		
+	<dataset name="dsMusic" type="http" queuerequests="true"
+		timeout="120000"  request="false"
+		ondata="gController.getMusicData(this.data)" 
+		ontimeout="Debug.write('dsMusic ontimeout')"
+		 >
+	<handler name="onerror" args="e">
+		Debug.write('dsMusic onerror : ',e);
+	</handler>
+ 	</dataset>
+		
 	<dataset name="dsstudentdata" src="xmls/studentData.xml" />
 
 	<dataset name="dstemp" />
@@ -559,7 +569,8 @@
 		<method event="oninit">
         	gScreens.showLogin();
 			var base = LzBrowser.getInitArg( 'servletUrl' );
-			dsitem.setSrc(base + '/ContentServlet.do');        	
+			dsitem.setSrc(base + '/ContentServlet.do'); 
+			dsMusic.setSrc(base + '/ContentServlet.do');       	
         </method>
 
 		<method name="login" args="_userid, _password, _accesscode">
@@ -1134,6 +1145,7 @@
             			gReadableText.stopReading();
             			this.setAttribute('firstSubtest', false);
             			this.outOfTimeOpen();
+						gMusicPlayer.hide();
                      } else {
                         var mins = Math.floor( secsnum / 60 );
                         resetTestTimer( secsnum );
@@ -1318,10 +1330,10 @@
                 }
              }
              
-             if(gController.audible == 'true'){
+            /* if(gController.audible == 'true'){
 				gMusicPlayer.play();
 				gMusicPlayer.setAttribute('playStarted',true);
-			}
+			}*/
             saveLoadItem(fnode, INIT_LEV);
             dshowClient.register( this, 'itemuiready' );
         </method>
@@ -1337,6 +1349,11 @@
 			Initializes runtime nodes that store state for each question.
 		-->
 		<method name="initStudentData"><![CDATA[
+		Debug.write("initStudentData");
+			if(gController.audible == 'true'){
+		Debug.warn("Inside if of gController.audible");
+				loadMusicData();
+			}
             var dn = dpstudentdata.xpathQuery( 'title' );
             dn.setAttr( 'product_name', dpsubtest.xpathQuery( 'sco/@title' ) );
  			gItemInterfaceStudentName.setAttribute('text', getStudentName());
@@ -2468,6 +2485,10 @@ Debug.write("#############returnVal: "+returnVal);
 		
 		<attribute name="audible"
 			value="$path{ 'dssubtest:/subtest/testing_session_data/lms.student.accommodations/@auditory_calming' }" />
+
+		<attribute name="musicId"
+			value="$path{ 'dssubtest:/subtest/testing_session_data/lms.student.accommodations/@music_file_id' }" />
+		
 			
 		<method name="pauseTest">
             if ( pausable == 'true' ) {
@@ -2740,6 +2761,28 @@ Debug.write("#############returnVal: "+returnVal);
             this.resetCrFields();
 			this.resetAudioFields();
 		]]></method>
+
+		<method name="loadMusicData"><![CDATA[
+			Debug.write("inside loadMusicData");
+			dsMusic.setQueryParam(gRequest.METHOD_PARAM, gRequest.GET_MUSIC_DATA);
+			Debug.write("inside loadMusicData"+gRequest.GET_MUSIC_DATA);
+			dsMusic.setQueryParam("musicId", gController.musicId);
+			Debug.write("inside loadMusicData"+gController.musicId);
+			dsMusic.setAttribute("reqtype","POST"); 
+			dsMusic.doRequest();     
+		]]></method>
+
+		<method name="getMusicData" args="d"><![CDATA[
+		Debug.write("inside getMusicData : ",d);
+        	var result = d.childNodes[0].data;
+			Debug.write("getMusicData result" , result , d);
+        	//result == 'File_Downloaded' &&  
+			if(gController.audible == 'true'){
+				gMusicPlayer.setSource("http:resources/music_"+gController.musicId+".mp3");
+				gMusicPlayer.play();
+				gMusicPlayer.setAttribute('playStarted',true);
+			}
+        ]]></method>
 
 		<method name="isOnItemOrFinishScreen">
 			return (gItemInterface.visible || gScreens.isOnFinishScreen());
@@ -3686,6 +3729,7 @@ Debug.write("if ...."+this._isGlobalManipulator (which));
 		<method name="showWaitPopup">
 			this.isWaitPopupOpen = true;	
 			gPleaseWaitPopup.show();
+			gMusicPlayer.hide();
 		</method>
 
 		<method name="hideWaitPopup"><![CDATA[

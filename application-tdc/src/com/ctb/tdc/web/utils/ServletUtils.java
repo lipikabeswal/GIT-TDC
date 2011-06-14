@@ -5,12 +5,14 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -47,6 +49,7 @@ import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import org.jdom.Element;
+import org.omg.CORBA.portable.InputStream;
 
 import com.ctb.tdc.web.dto.AuditVO;
 import com.ctb.tdc.web.dto.ServletSettings;
@@ -115,6 +118,7 @@ public class ServletUtils {
 	public static final String URL_WEBAPP_GET_LOAD_TEST_CONFIG = "/TestDeliveryWeb/CTB/getLoadTestConfig.do";
 	public static final String URL_WEBAPP_UPLOAD_STATISTICS = "/TestDeliveryWeb/CTB/uploadStatistics.do";
 	public static final String URL_WEBAPP_UPLOAD_SYSTEM_INFO = "/TestDeliveryWeb/CTB/uploadSystemInfo.do";
+	public static final String URL_WEBAPP_DOWNLOAD_MP3 = "/TestDeliveryWeb/CTB/getMp3.do";
 	
 //	methods
 	public static final String NONE_METHOD = "none";
@@ -139,7 +143,10 @@ public class ServletUtils {
 	public static final String LOAD_TEST_METHOD = "getLoadTestConfig";
 	public static final String UPLOAD_STATISTICS_METHOD = "uploadStatistics";
 	public static final String UPLOAD_SYSTEM_INFO_METHOD = "uploadSystemInfo";
-
+	public static final String GET_MUSIC_DATA_METHOD = "getMusicData";
+	public static final String LOAD_MUSIC_DATA_METHOD = "getMp3";
+	
+	
 //	parameters
 	public static final String FOLDER_PARAM = "folder";
 	public static final String USER_PARAM = "user";
@@ -752,17 +759,19 @@ public class ServletUtils {
 				nameValuePairs.add(new BasicNameValuePair(XML_PARAM, xml));
 				post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 				HttpResponse response = client.execute(post);
-				responseCode = response.getStatusLine().getStatusCode();
-				if (responseCode == HttpStatus.SC_OK) {
-					BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()),131072);
-					String inputLine = null;
-					result = "";
-					while ((inputLine = in.readLine()) != null) {
-						//System.out.println(inputLine);
-						result += inputLine;
+				
+					responseCode = response.getStatusLine().getStatusCode();
+					if (responseCode == HttpStatus.SC_OK) {
+						BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()),131072);
+						String inputLine = null;
+						result = "";
+						while ((inputLine = in.readLine()) != null) {
+							//System.out.println(inputLine);
+							result += inputLine;
+						}
+						in.close();
 					}
-					in.close();
-				}
+				
 				else {
 					result = buildXmlErrorMessage("", response.getStatusLine().getReasonPhrase(), "");
 				}
@@ -778,6 +787,58 @@ public class ServletUtils {
 			return result;
 		}
 	}
+	
+	/**
+	 * httpConnectionSendRequest
+	 * @param String xml
+	 * @param String method
+	 *
+	 * Connect to TMS and send request using HttpClient
+	 *
+	 */
+	public static java.io.InputStream httpClientSendRequestBlob(String method, String xml) {
+		synchronized(client) {
+			java.io.InputStream result = null;
+			int responseCode = HttpStatus.SC_OK;
+	
+	//		create post method with url based on method
+			String tmsURL = getTmsURLString(method);
+			HttpPost post = new HttpPost(tmsURL);
+	
+	//		send request to TMS
+			try {
+				// setup parameters
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+				nameValuePairs.add(new BasicNameValuePair("musicId", xml));
+				post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+				HttpResponse response = client.execute(post);
+				System.out.println("requestXml" + xml);
+				responseCode = response.getStatusLine().getStatusCode();	
+
+	            //write to file
+	            
+				if (responseCode == HttpStatus.SC_OK) {
+					
+					result = response.getEntity().getContent();
+					
+					System.out.println("result size" + result);
+				
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				logger.error("Exception occured in httpClientSendRequest() : " + printStackTrace(e));
+				//result = buildXmlErrorMessage("", e.getMessage(), "");
+			}
+			finally {
+				//post.releaseConnection();
+			}
+			
+			return result;
+		}
+	}
+
 
 	/**
 	 * httpClientTestConnection
@@ -1169,4 +1230,6 @@ return elementList;*/
 			((ThreadSafeClientConnManager) ServletUtils.client.getConnectionManager()).shutdown();
 		}
 	}
+	
+	
 }
