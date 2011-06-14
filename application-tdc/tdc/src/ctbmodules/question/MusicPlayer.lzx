@@ -12,13 +12,15 @@
 	<attribute name="playStarted" type="boolean" value="false"/>
 	<attribute name="stopCalled" type="boolean" value="true"/>
 	<attribute name="autoPlay" type="boolean" value="false"/>
+	<attribute name="alreadyCalled" type="boolean" value="false"/>
 	
 	<!-- the default setup should always be ready as this popup can be shown at login time also -->
 	<handler name="oninit">
-		Debug.write("revisit false:"+gMusicButton.width);
 		setup();
-		//this.setAttribute("resource", "http:resources/music.mp3");// commenting out for now	
-			
+	</handler>
+
+	<handler name="onload">
+		this.setVolume(50);
 	</handler>
 	
 	<method name="setup" args="fm, fc, bc"><![CDATA[
@@ -60,17 +62,7 @@
 	     	hide();
 	     }
     </method>
-	
-	<method name="popout">          
-          //this.animate("height",50,1000,true,{motion:'linear'});
-          //this.contents.anm.doStart();
-          //this.anm_outer.doStart();
-          
-    </method>
-	
-	<method event="onframe">    	
-    </method>
-    
+
     <method event="onplay">
 Debug.write("onplay....");
     	this.playStarted = true;
@@ -139,17 +131,20 @@ Debug.write("onplay....");
 			<basebutton	name="playButton" resource="music_play_btn" 
 					width="25" height="25" stretches="both">
 				<method event="onclick"> 
-				
-					gMusicPlayer.play(); 
-					
+					if(gMusicPlayer.playStarted == false) {
+						gMusicPlayer.play(); 
+						this.setAttribute("playStarted",true);
+					}
         		</method>
 			</basebutton>
 			<basebutton	name="stopButton" resource="music_stop_btn"
 					width="25" height="25" stretches="both">
 				<method event="onclick">
-					 gMusicPlayer.stop();
-					 this.setAttribute("stopCalled",true); 
-					 this.setAttribute("playStarted",false);
+					if(gMusicPlayer.playStarted == true) {
+						gMusicPlayer.stop();
+						this.setAttribute("stopCalled",true); 
+						this.setAttribute("playStarted",false);
+					}
         		</method>
 			</basebutton>
 		</view>

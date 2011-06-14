@@ -62,7 +62,11 @@
 		<attribute name="stopCalled" type="boolean" value="false"/>
 		<attribute name="blinkerVal" type="number" value="0"/>
 		<attribute name="resetCalled" type="boolean" value="false"/>
-
+		<attribute name="checkMic" type="boolean" value="false"/>
+		<attribute name="checkMic1" type="boolean" value="false"/>
+		<attribute name="checkMic2" type="boolean" value="false"/>
+			
+		
 		<dataset name="audioDset"
 			ondata="classroot.handleResponseData(this.data)" type="http"
 			onerror="classroot.requestError(this)" request="false">
@@ -83,7 +87,9 @@
 			//Debug.write("cachable recorder ondata 1....");
 			this.resetCalled=false;
 			this.blinkerVal = 0;
+			this.activityArray.length = 0;
 			this.reset();
+			this.checkMic1 = false;
 			//for setting the background color
 			var style = gController.getAccomStyleForType ("stem");
             //Debug.write("style.bgcolor - "+style.bgcolor);
@@ -171,7 +177,7 @@
 			Debug.write("doreturn to cache");
 			this.stopblinker('stop');
 			if(!isLinux()){
-			this.getMCRef().attachAudio(false);
+				this.getMCRef().attachAudio(false);
 			}
 			audioDset.abort();
 			if(!isLinux())
@@ -321,7 +327,8 @@
 			</text>
 		</view>
 
-		<method name="startblinker" args="methodname">
+		<method name="startblinker" args="methodname"><![CDATA[
+            this.checkMic1 = false;
 			this.stopCalled = false;		//to re-use this attribute, reset it 
 			this.blinkerVal = 0;
 			if(!this.recordStarted) {
@@ -332,13 +339,14 @@
 				this.updateLinux();
 				}
 				playProgress(methodname);
-				<!-- Changes for defect 65977 -->			
+				// Changes for defect 65977 	
 						
 			}		
-		</method>
+		]]></method>
 		
-		<method name="playProgress" args="methodname">
-			if(this.micState) {				//micState will be set by updateLevel method			
+		<method name="playProgress" args="methodname"><![CDATA[
+			if(this.micState) {				//micState will be set by updateLevel method
+			Debug.write("inside playprogress");			
 				this.recordStarted = true;		//if mic is connected, then only set this attribute to true 	
 				sendRequest(methodname);	
 				this.increment = bar.width / this.defaultTotalTime;
@@ -346,7 +354,7 @@
 				this.green.setVisible(false);
 				gController.updateAudioField(this.widget_id, true);					
 			}
-		</method>
+		]]></method>
 
 		<method name="blinker">
 			this.red.setVisible(true);
@@ -386,7 +394,7 @@ Debug.write("resetCalled "+this.resetCalled);
 				this.stopCalled = true;			//set true 
 				this.micState = false;			//reset this attribute also
 				this.blinkerVal = 0;			//reset this for blinking the red ball
-	
+				this.checkMic1 = false;
 				this.totalTime = this.defaultTotalTime;
 				this.recordButton.setAttribute("enabled", true);
 				this.green.setVisible(false);
@@ -558,14 +566,24 @@ Debug.write("handleResponseData :"+d);
 			}
 			
 			if(activityArray.length < 16) {
-				if(level <= 0) {
-					activityArray.push(level);
+				if(activityArray.length == 15) {
+Debug.write("1");
+					isMicAttached = activityCalibrate(activityArray); 				
+				}else{
+					if(level <= 0) {
+						Debug.write("2 level pushing...."+level);
+						activityArray.push(level);
+					}
+					else {
+Debug.write("3");
+						isMicAttached = true;
+						
+					
+					}
 				}
-				else {
-					isMicAttached = true;
-					activityArray.length = 0;
-				} 
+
 			}
+Debug.write("activityArray.length...."+activityArray.length+":  isMicAttached:"+isMicAttached);
 			fakeActivityArray.push(level);
 
 			if(fakeActivityArray.length == 15) {
@@ -579,9 +597,7 @@ Debug.write("handleResponseData :"+d);
 				fakeActivityArray.length = 0;
 			}
 
-			if(activityArray.length == 15) {
-				isMicAttached = activityCalibrate(activityArray); 
-			}
+			
 	                
 			if (level < 0) {
 				level = 1;
@@ -594,31 +610,41 @@ Debug.write("handleResponseData :"+d);
 			if(isMicAttached == false) {
 				this.blinkerVal = 0;
 				//this.meterContainer.setAttribute('visible',false);
+				//this.checkMic = false;
 				this.whitewrapperOverLay.setVisible(true);
 				stopblinker('stop');
 				this.resetCalled = false;
 				this.micState = false;//Changes for defect 65977 
+				this.checkMic1 = true;
 			}
-			else if(isMicAttached == true) {
-				
+			else if(isMicAttached == true) {			
 				this.micState = true;//Changes for defect 65977
+				this.whitewrapperOverLay.setVisible(false);	
+				if(this.checkMic1 == false){ 				
+				//if(this.recordStarted == true && this.checkMic1 == false){
+					//if(this.checkResponse == true){
+						if(this.blinkerVal >= 3){
+							this.toggleRedDisplay();
+							this.blinkerVal = 0;
+						}
+						this.blinkerVal = this.blinkerVal + 1;
 					
-				//this.meterContainer.setAttribute('visible',true);
-				this.whitewrapperOverLay.setVisible(false);	 				
-				if(this.recordStarted == true){
-					if(this.blinkerVal >= 3){
-						this.toggleRedDisplay();
-						this.blinkerVal = 0;
-					}
-					this.blinkerVal = this.blinkerVal + 1;
-					
-					vMeterHeight = this.meterContainer.height - this.level * .5;
+						vMeterHeight = this.meterContainer.height - this.level * .5;
 
-					if(vMeterHeight < 0) {
-						vMeterHeight = 0;
-					}
-					this.volumeMeter.setAttribute('height', vMeterHeight);
+						if(vMeterHeight < 0) {
+							vMeterHeight = 0;
+						}
+						this.volumeMeter.setAttribute('height', vMeterHeight);
+				//}else if(this.recordStarted == false && this.checkMic1 == false){
+						if(this.checkMic == false){
+							this.checkMic = true;
+							this.stopCalled = false;		//to re-use this attribute, reset it 
+							this.blinkerVal = 0;
+							playProgress('record');
+						}
+					//}					
 				}
+				//}
 				
 				
 				if(this.recordStarted == false && this.stopCalled == true) {

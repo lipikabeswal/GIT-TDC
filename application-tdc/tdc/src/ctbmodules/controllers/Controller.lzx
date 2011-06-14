@@ -1344,7 +1344,7 @@
 		-->
 		<method name="initStudentData"><![CDATA[
 		Debug.write("initStudentData");
-			if(gController.audible == 'true'){
+			if(gController.audible == 'true' && !gMusicPlayer.alreadyCalled){
 		Debug.warn("Inside if of gController.audible");
 				loadMusicData();
 			}
@@ -2772,6 +2772,7 @@ Debug.write("#############returnVal: "+returnVal);
 			Debug.write("getMusicData result" , result , d);
         	//result == 'File_Downloaded' &&  
 			if(gController.audible == 'true'){
+				gMusicPlayer.alreadyCalled = true;				
 				gMusicPlayer.setSource("http:resources/music_"+gController.musicId+".mp3");
 				//gMusicPlayer.play();
 				gMusicPlayer.setAttribute('playStarted',true);
