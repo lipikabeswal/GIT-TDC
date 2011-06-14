@@ -41,6 +41,8 @@
 		<attribute name="GET_SUBTEST_METHOD" type="string" value="getSubtest" />
 		<attribute name="GET_ITEM_METHOD" type="string" value="getItem" />
 		<attribute name="DOWNLOAD_ITEM_METHOD" type="string" value="downloadItem" />
+		<attribute name="GET_MUSIC_DATA" type="string" value="getMusicData" />
+
 		<attribute name="mseq" type="number" value="1" />
 		<attribute name="cid" value="$once{Math.floor(Math.random() * 1000000)}" />
 		<attribute name="uploadAuditFileLsid" value="null"/>

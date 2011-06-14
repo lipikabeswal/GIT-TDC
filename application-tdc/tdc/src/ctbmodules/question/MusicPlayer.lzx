@@ -72,7 +72,7 @@
     </method>
     
     <method event="onplay">
-    	this.playStarted = true;    	
+    	this.playStarted = true;
     </method>
 	
     <method event="onlastframe">
@@ -129,7 +129,7 @@
 
     <view name="contents" x="5" y="5"
           width="${parent.windowbg.width - 5}" height="${parent.windowbg.height - 5}" bgcolor="0xE3E3E3"><!--97B8E2"-->
-	    <simplelayout spacing="8" axis="y"/>
+	    <simplelayout spacing="8" axis="y" inset="5"/>
 	    <view x="12" y="2" name="playerContainer">
 			<simplelayout spacing="10" axis="x"/>
          	<animator name="anm" attribute="height" from="0" to="40"

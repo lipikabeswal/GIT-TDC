@@ -210,13 +210,7 @@
 		
 	<dataset name="dsMusic" type="http" queuerequests="true"
 		timeout="120000"  request="false"
-		ondata="gController.getMusicData(this.data)" 
-		ontimeout="Debug.write('dsMusic ontimeout')"
-		 >
-	<handler name="onerror" args="e">
-		Debug.write('dsMusic onerror : ',e);
-	</handler>
- 	</dataset>
+		ondata="gController.getMusicData(this.data)" />
 		
 	<dataset name="dsstudentdata" src="xmls/studentData.xml" />
 

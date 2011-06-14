@@ -14,8 +14,8 @@
             <simplelayout axis="x" spacing="10"/>
              <basebutton resource="music_btn" id="gMusicButton"
                         enabled="${ classroot.uienabled == 'true' }"
-                        onclick="gMusicPlayer.togglePopup()"
-                        visible="false"
+                        onclick="gMusicPlayer.togglePopup();"
+                        visible="${gController.audible == 'true'}"
                         disabledResourceNumber="0"
                         width="30" height="30" stretches="both"
                         />
