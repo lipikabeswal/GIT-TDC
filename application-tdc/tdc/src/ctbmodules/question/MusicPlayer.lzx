@@ -3,7 +3,7 @@
       x="${gMusicButton.parent.parent.x - gMusicButton.width + 3}" 
       visible="false"
       clickable="false"
-      showhandcursor="false" play="false">
+      showhandcursor="false">
 
 	<attribute name="popupHeight" type="number" value="72"/>
 	<attribute name="popupWidth" type="number" value="90"/>
@@ -72,6 +72,7 @@
     </method>
     
     <method event="onplay">
+Debug.write("onplay....");
     	this.playStarted = true;
     </method>
 	

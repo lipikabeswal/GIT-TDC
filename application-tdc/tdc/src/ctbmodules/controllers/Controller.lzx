@@ -2773,7 +2773,7 @@ Debug.write("#############returnVal: "+returnVal);
         	//result == 'File_Downloaded' &&  
 			if(gController.audible == 'true'){
 				gMusicPlayer.setSource("http:resources/music_"+gController.musicId+".mp3");
-				gMusicPlayer.play();
+				//gMusicPlayer.play();
 				gMusicPlayer.setAttribute('playStarted',true);
 			}
         ]]></method>
