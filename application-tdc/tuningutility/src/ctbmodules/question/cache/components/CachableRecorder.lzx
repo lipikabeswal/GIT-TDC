@@ -51,6 +51,9 @@
 			type="string" />
 		<attribute name="leveldel"
 			value="$once{new LzDelegate(this, 'updateLevel')}" />
+		<!-- For LLO128-->
+		<attribute name="linuxLevelDel"
+			value="$once{new LzDelegate(this, 'updateLinux')}" />
 		<attribute name="level" type="number" value="0" />
 		<attribute name="activityArray" value="$once{new Array()}" />
 		<attribute name="fakeActivityArray" value="$once{new Array()}" />
@@ -61,11 +64,10 @@
 		<attribute name="stopCalled" type="boolean" value="false"/>
 		<attribute name="blinkerVal" type="number" value="0"/>
 		<attribute name="resetCalled" type="boolean" value="false"/>
+		<!-- For LLO128-->
 		<attribute name="checkMic" type="boolean" value="false"/>
-<attribute name="checkMic1" type="boolean" value="false"/>
-<attribute name="checkMic2" type="boolean" value="false"/>
-<attribute name="checkResponse" type="boolean" value="false"/>
-
+		<attribute name="checkMic1" type="boolean" value="false"/>
+		<attribute name="checkMic2" type="boolean" value="false"/>
 		
 		<attribute name="remainingTime" value="0"/>
 
@@ -118,7 +120,9 @@
 			gController.setAttribute('blockFileName' , true);
 			doneLoading();
 			gController.recorderComponent(this);
-			if(this.isinited && this.visible) {
+			// For LLO128
+			var os =  isLinux();
+			if(this.isinited && this.visible && !isLinux()) {
 				//Debug.write("cachable recorder ondata 2....");
 				this.myMic = Microphone.get();
 				if(this.myMic != null) {
@@ -140,14 +144,28 @@
 			
 			
             super.doneLoading();
-        ]]></method>
-		
+        ]]></method>		
+ 		<!-- For LLO128-->
+		<method name="isLinux" args="arg">
+		Debug.write("isLinux fired");
+		var os = System.capabilities.os;
+		os = os.split(" ");
+		if(os[0] == 'ubuntu' || os[0] == 'Fedora' || os[0] == 'Redhat' || os[0] == 'Linux' || os[0] == 'solaris'){
+		return true;
+		}
+		return false;
+		</method>
 		<method name="doReturnToCache"><![CDATA[
 			//Debug.write("doreturn to cache");
 			this.stopblinker('stop');
-			this.getMCRef().attachAudio(false);
+			if(!isLinux()){
+				this.getMCRef().attachAudio(false);
+			}
 			audioDset.abort();
+			if(!isLinux())
 			LzTimer.removeTimer(leveldel);
+			else
+			LzTimer.resetTimer(linuxLevelDel, 100);
        ]]></method>
 
 		<view name="main" align="center" valign="middle"
@@ -174,7 +192,7 @@
 							y="${11 * classroot.factor}" width="${41 * classroot.factor}" resource="volume_meter" height="35">
 							<view name="volumebar" x="0" y="0"
 								width="${41 * classroot.factor}" height="$once{parent.height}" resource="volume_meter_flip"
-								opacity=".7" bgcolor="white" clip="true">
+								opacity=".7" bgcolor="white" clip="true" visible="${!classroot.isLinux()}">
 							</view>
 						</view>
 
@@ -307,19 +325,19 @@
 			this.stopCalled = false;		//to re-use this attribute, reset it 
 			this.blinkerVal = 0;
 			if(!this.recordStarted) {
-Debug.write("1 activity array length :"+activityArray.length+": mic state:"+this.micState);
-				this.updateLevel();
-Debug.write("2 activity array length :"+activityArray.length+": mic state:"+this.micState);				
-					playProgress(methodname);
-				
+				if(!isLinux()){	
+					this.updateLevel();	
+				}else{
+					Debug.write("Update level linux");
+					this.updateLinux();
+				}
+				playProgress(methodname);
 			}		
 		]]></method>
 		
 		<method name="playProgress" args="methodname"><![CDATA[
-							//micState will be set by updateLevel method
-if(this.micState) {	
-			Debug.write("inside playprogress");	
-			Debug.write("###micState :"+this.micState);			
+		//micState will be set by updateLevel method
+			if(this.micState) {		
 				this.recordStarted = true;		//if mic is connected, then only set this attribute to true 	
 				this.playStarted = false;
 				sendRequest(methodname);	
@@ -329,7 +347,7 @@ if(this.micState) {
 				this.playButton.setAttribute("enabled", false);
 				this.green.setVisible(false);
 				//gController.updateAudioField(this.widget_id, true);					
-		}	
+			}	
 		]]></method>
 
 		<method name="blinker">
@@ -347,7 +365,11 @@ if(this.micState) {
 			this.red.setVisible(false);
 			this.redReplace.setVisible(false);
 			this.blinkerVal = 0;			//reset this for blinking the red ball
-			LzTimer.removeTimer(leveldel);	//remove activity meter timer 
+			if(!isLinux())
+				LzTimer.removeTimer(leveldel);	//remove activity meter timer 
+			else
+				LzTimer.removeTimer(linuxLevelDel);
+			
 			this.stopCalled = true;			//let the timer stop first or this attribute will disturb the flow
 			this.micState = false;		
 			resetActivityMeterHeight();		//for showing zero actvity bar
@@ -474,7 +496,6 @@ if(this.micState) {
 				startCountDownTimer();
 				blinker();
 				this.stopButton.setAttribute("enabled", true);
-				this.checkResponse = true;
 			}
 			else if (result == 'RECORDING_STOP') {
 			Debug.write("RECORDING_STOP..");
@@ -618,7 +639,6 @@ Debug.write("activityArray.length...."+activityArray.length+":  isMicAttached:"+
 				this.setAttribute("level", level);
 			}
 
-			
 			if(isMicAttached == false) {
 				this.blinkerVal = 0;
 				//this.meterContainer.setAttribute('visible',false);
@@ -670,6 +690,19 @@ Debug.write("activityArray.length...."+activityArray.length+":  isMicAttached:"+
 			}	
 
 			LzTimer.resetTimer(leveldel, 100); 
+	    ]]>
+		</method>
+		
+		<method name="updateLinux"><![CDATA[
+			this.micState = true;
+			if(this.recordStarted == true){
+					if(this.blinkerVal >= 3){
+						this.toggleRedDisplay();
+						this.blinkerVal = 0;
+					}
+					this.blinkerVal = this.blinkerVal + 1;
+				}
+		LzTimer.resetTimer(linuxLevelDel, 100); 
 	    ]]>
 		</method>
 
