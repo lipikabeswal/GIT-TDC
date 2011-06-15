@@ -57,14 +57,13 @@
 	<method name="togglePopup">      
 	    if(this.getAttribute("visible") == false) {
 	        show();
-	        popout();
 	     }else if(this.getAttribute("visible") == true) {
 	     	hide();
 	     }
     </method>
 
     <method event="onplay">
-Debug.write("onplay....");
+//Debug.write("onplay....");
     	this.playStarted = true;
     </method>
 	
@@ -131,19 +130,21 @@ Debug.write("onplay....");
 			<basebutton	name="playButton" resource="music_play_btn" 
 					width="25" height="25" stretches="both">
 				<method event="onclick"> 
+//Debug.write("play clicked : "+gMusicPlayer.playStarted);
 					if(gMusicPlayer.playStarted == false) {
 						gMusicPlayer.play(); 
-						this.setAttribute("playStarted",true);
+						gMusicPlayer.setAttribute("playStarted",true);
 					}
         		</method>
 			</basebutton>
 			<basebutton	name="stopButton" resource="music_stop_btn"
 					width="25" height="25" stretches="both">
 				<method event="onclick">
+//Debug.write("stop clicked : "+gMusicPlayer.playStarted);
 					if(gMusicPlayer.playStarted == true) {
 						gMusicPlayer.stop();
 						this.setAttribute("stopCalled",true); 
-						this.setAttribute("playStarted",false);
+						gMusicPlayer.setAttribute("playStarted",false);
 					}
         		</method>
 			</basebutton>

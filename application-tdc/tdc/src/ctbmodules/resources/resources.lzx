@@ -216,17 +216,15 @@
 	</resource>    
 	
 	<resource name="music_play_btn">      
-		<!--frame src="iknow_buttons/music/music_play_off.png" />   
-		<frame src="iknow_buttons/music/music_play_on.png" />   
-		<frame src="iknow_buttons/music/music_play_click.png" /-->   
-		<frame src="iknow_buttons/music/play.gif" />  
+		<frame src="iknow_buttons/music/play.jpg" />  
+		<frame src="iknow_buttons/music/play_hover.jpg" />  
+		<frame src="iknow_buttons/music/play_down.jpg" />  
 	</resource>    
 	
 	<resource name="music_stop_btn">      
-		<!-- frame src="iknow_buttons/music/music_stop_off.png" />   
-		<frame src="iknow_buttons/music/music_stop_on.png" />   
-		<frame src="iknow_buttons/music/music_stop_click.png" /-->  
-		<frame src="iknow_buttons/music/stop.gif" />   
+		<frame src="iknow_buttons/music/stop.jpg" />   
+		<frame src="iknow_buttons/music/stop_hover.jpg" />   
+		<frame src="iknow_buttons/music/stop_down.jpg" />   
 	</resource>    
        
 	<!-- Pause Button-->
