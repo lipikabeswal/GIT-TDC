@@ -2757,25 +2757,25 @@ Debug.write("#############returnVal: "+returnVal);
 		]]></method>
 
 		<method name="loadMusicData"><![CDATA[
-			Debug.write("inside loadMusicData");
 			dsMusic.setQueryParam(gRequest.METHOD_PARAM, gRequest.GET_MUSIC_DATA);
-			Debug.write("inside loadMusicData"+gRequest.GET_MUSIC_DATA);
 			dsMusic.setQueryParam("musicId", gController.musicId);
-			Debug.write("inside loadMusicData"+gController.musicId);
 			dsMusic.setAttribute("reqtype","POST"); 
 			dsMusic.doRequest();     
 		]]></method>
 
 		<method name="getMusicData" args="d"><![CDATA[
-		Debug.write("inside getMusicData : ",d);
+			Debug.write("inside getMusicData : ",d);
         	var result = d.childNodes[0].data;
 			Debug.write("getMusicData result" , result , d);
         	//result == 'File_Downloaded' &&  
 			if(gController.audible == 'true'){
 				gMusicPlayer.alreadyCalled = true;				
 				gMusicPlayer.setSource("http:resources/music_"+gController.musicId+".mp3");
-				//gMusicPlayer.play();
 				gMusicPlayer.setAttribute('playStarted',true);
+				//Start - changes for Defect 66424
+				gMusicPlayer.playButton.setAttribute('visible',false);
+				gMusicPlayer.stopButton.setAttribute('visible',true);
+				//End  - changes for Defect 66424
 			}
         ]]></method>
 

@@ -1,18 +1,20 @@
 <view id="gMusicPlayer" 
       y="${gMusicButton.parent.y + gMusicButton.height - 3}"
-      x="${gMusicButton.parent.parent.x - gMusicButton.width + 3}" 
+      x="${gMusicButton.parent.parent.x - gMusicButton.width - gMusicButton.width/2}" 
       visible="false"
       clickable="false"
       showhandcursor="false">
 
-	<attribute name="popupHeight" type="number" value="72"/>
-	<attribute name="popupWidth" type="number" value="90"/>
+	<attribute name="popupHeight" type="number" value="40"/>
+	<attribute name="popupWidth" type="number" value="130"/>
 	<attribute name="bg" type="color" value="0xD6D6D6"/>
 	<attribute name="fg" type="color" value="0xE3E3E3"/>
 	<attribute name="playStarted" type="boolean" value="false"/>
 	<attribute name="stopCalled" type="boolean" value="true"/>
 	<attribute name="autoPlay" type="boolean" value="false"/>
 	<attribute name="alreadyCalled" type="boolean" value="false"/>
+	<attribute name="playButton" type="string"/>
+	<attribute name="stopButton" type="string"/>
 	
 	<!-- the default setup should always be ready as this popup can be shown at login time also -->
 	<handler name="oninit">
@@ -37,6 +39,8 @@
 		else{
 			this.setAttribute("bg", new Number("0xD6D6D6"));
 		}
+		this.playButton = gMusicPlayer.contents.playerContainer.playButton;
+		this.stopButton = gMusicPlayer.contents.playerContainer.stopButton;
 		this.windowbg.drawMe();
 	]]></method>
 	
@@ -121,37 +125,40 @@
 
     <view name="contents" x="5" y="5"
           width="${parent.windowbg.width - 5}" height="${parent.windowbg.height - 5}" bgcolor="0xE3E3E3"><!--97B8E2"-->
-	    <simplelayout spacing="8" axis="y" inset="5"/>
-	    <view x="12" y="2" name="playerContainer">
-			<simplelayout spacing="10" axis="x"/>
-         	<animator name="anm" attribute="height" from="0" to="40"
-                    duration="1000" start="false" motion="easeboth"/>
-              
+	    <view x="5" y="5" name="playerContainer">
+			<simplelayout spacing="10" axis="x"/>              
 			<basebutton	name="playButton" resource="music_play_btn" 
-					width="25" height="25" stretches="both">
+					width="23" height="23" stretches="both">
 				<method event="onclick"> 
 //Debug.write("play clicked : "+gMusicPlayer.playStarted);
 					if(gMusicPlayer.playStarted == false) {
 						gMusicPlayer.play(); 
 						gMusicPlayer.setAttribute("playStarted",true);
+						//Start - changes for Defect 66424
+						parent.playButton.setAttribute('visible',false);
+						parent.stopButton.setAttribute('visible',true);
+						//End - changes for Defect 66424
 					}
         		</method>
 			</basebutton>
 			<basebutton	name="stopButton" resource="music_stop_btn"
-					width="25" height="25" stretches="both">
+					width="23" height="23" stretches="both">
 				<method event="onclick">
 //Debug.write("stop clicked : "+gMusicPlayer.playStarted);
 					if(gMusicPlayer.playStarted == true) {
 						gMusicPlayer.stop();
 						this.setAttribute("stopCalled",true); 
 						gMusicPlayer.setAttribute("playStarted",false);
+						//Start - changes for Defect 66424
+						parent.stopButton.setAttribute('visible',false);
+						parent.playButton.setAttribute('visible',true);
+						//End - changes for Defect 66424
 					}
         		</method>
 			</basebutton>
-		</view>
-		<view x="2" height="20" valign="middle" >
+			<view height="44" valign="middle">
 			<simplelayout axis="y"/>
-			<text name="volumeText" fontsize="7" resize="true" height="15" align="center" fontstyle="bold">Volume</text>
+			<text name="volumeText" fontsize="7" resize="true" height="15" align="center" fontstyle="bold">Volume</text>			
 			<slider value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" 
 						thumbwidth="16" thumbheight="12" width="80">
 				<method event="onvalue"><![CDATA[
@@ -184,5 +191,7 @@
 				<!--END Changes done for defect #65040 and #65041-->		
 			</slider>
         </view>
+		</view>
+		
     </view>
 </view>
