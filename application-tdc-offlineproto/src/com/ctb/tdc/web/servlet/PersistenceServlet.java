@@ -180,8 +180,10 @@ public class PersistenceServlet extends HttpServlet {
         		filePath = new File(".").getAbsolutePath() + "/../data/loginresponse4.xml";
         	} else if(requestURI.indexOf("servlet3") >= 0) {
         		filePath = new File(".").getAbsolutePath() + "/../data/loginresponse3.xml";
+        	} else if(requestURI.indexOf("servletii1") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/IIloginresponse1.xml";
         	}
-            //System.out.println("Looking for login data at: " + filePath);
+        	System.out.println("***** Looking for login response XML: " + filePath);
             result = new String(ServletUtils.readFromFile(new File(filePath)));
         	ServletUtils.processContentKeys(result);
         	//System.out.println("Login successfully.");                

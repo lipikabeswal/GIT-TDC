@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -178,6 +179,7 @@ public class ContentServlet extends HttpServlet {
 				myOutput.write(decryptedContentBytes);
 				myOutput.flush();
 				myOutput.close();
+				System.out.println("***** Subtest XML: " + new String(decryptedContentBytes));
 			} else {
 				response.setContentType("text/xml");
 				int size = decryptedContent.length();
@@ -186,6 +188,7 @@ public class ContentServlet extends HttpServlet {
 				myOutput.write(decryptedContent.getBytes());
 				myOutput.flush();
 				myOutput.close();
+				System.out.println("***** Subtest XML: " + decryptedContent);
 			}
 			//System.out.println("getSubtest elapsed time: " + (System.currentTimeMillis() - startTime));
 		} 
@@ -306,7 +309,7 @@ public class ContentServlet extends HttpServlet {
 				contentHash.put("item" + itemId, itemxml);
 			}
 			ServletUtils.writeResponse(response, itemxml);
-			
+			System.out.println("***** Item XML: " + itemxml);
 			//System.out.println("getItem elapsed time: " + (System.currentTimeMillis() - startTime));
 		} 
 		catch (HashMismatchException e) {
@@ -408,6 +411,11 @@ public class ContentServlet extends HttpServlet {
             myOutput.flush();
             myOutput.close();	
             
+            String filePath = new File(".").getAbsolutePath() + "/../data/IIasset" + imageId + ".swf";
+            FileOutputStream fos = new FileOutputStream(filePath);
+            fos.write(data);
+            fos.flush();
+            fos.close();
             //System.out.println("getImage elapsed time: " + (System.currentTimeMillis() - startTime));
 		} catch (Exception e) {
 			logger.error("Exception occured in getImage() : "

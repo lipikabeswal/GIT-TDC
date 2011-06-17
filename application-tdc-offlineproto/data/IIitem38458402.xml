@@ -1,0 +1,59 @@
+<element_package eid="38458402" iid="ISTEP.OA.SP11_SR.3.M.003" xslt_ver="145">
+	<item_canvas id="IC">
+		<panel height="60" id="sd1" layout="vertical" left_padding="12" spacing="12" stereotype="directions" width="500" x="0" y="79">
+			<table autoenlargeable="yes" border="no" enlargeable="no" halign="left" height="116" id="widget5975271000" showhlines="no" showvlines="no" title="" width="320">
+				<row height="56" id="widget5975271001">
+					<cell halign="center" id="widget5975271002" valign="middle" width="62">
+						<image_widget autoenlargeable="no" enlargeable="no" halign="left" height="50" image_ref="Cm-In_Ruler_Icon_IN" width="50" src="Cm-In_Ruler_Icon_IN" />
+					</cell>
+					<cell halign="left" id="widget5975271003" valign="middle" width="228">
+						<text_widget halign="left" id="widget5975271004" width="216">
+							<![CDATA[<b>Use your ruler to solve this problem.</b>]]>
+						</text_widget>
+					</cell>
+				</row>
+			</table>
+		</panel>
+		<panel height="96" id="stem1" layout="vertical" left_padding="12" spacing="12" stereotype="stem" width="500" x="0" y="139">
+			<text_widget halign="left" id="widget5975271005" width="471">
+				<![CDATA[What is the length, in inches, of the paper clip below?]]>
+			</text_widget>
+			<image_widget autoenlargeable="no" enlargeable="no" halign="left" height="60" image_ref="paper_clip_s10IN" width="125" src="paper_clip_s10IN" />
+		</panel>
+		<answer_area_panel height="156" id="A1" layout="vertical" left_padding="12" spacing="12" stereotype="answerArea" top_padding="12" width="488" x="12" y="242">
+			<answer_choice_widget layout="horizontal" spacing="6" width="476">
+				<selector_widget identifier="A" valign="top" />
+				<text_widget halign="left" id="widget5975271008" width="429">
+					<![CDATA[1.5 inches]]>
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6" width="476">
+				<selector_widget identifier="B" valign="top" />
+				<text_widget halign="left" id="widget5975271011" width="429">
+					<![CDATA[2.0inches]]>
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6" width="476">
+				<selector_widget identifier="C" valign="top" />
+				<text_widget halign="left" id="widget5975271014" width="429">
+					<![CDATA[3.5 inches]]>
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6" width="476">
+				<selector_widget identifier="D" valign="top" />
+				<text_widget halign="left" id="widget5975271017" width="429">
+					<![CDATA[4.0 inches]]>
+				</text_widget>
+			</answer_choice_widget>
+		</answer_area_panel>
+	</item_canvas>
+	<item_model answer_text="" answered="0" correct="A" eid="38458402" iid="ISTEP.OA.SP11_SR.3.M.003" marked="0" number="0" score="0" type="question">
+		<toolbar FCAT_formula_card="not provisioned" TN_formula_card="not provisioned" cm_ruler="required" eraser="required" half_inch_ruler="required" highlighter="required" mm_ruler="not provisioned" oneeighth_inch_ruler="not provisioned" option_eliminator="required" protractor="not provisioned" scientific_calculator="not provisioned" scratchpad="not provisioned" standard_calculator="not provisioned" straight_edge="not provisioned" />
+		<interaction max_choices="1" type="choice">
+			<selector identifier="A" obj_id_ref="A" user_action="n" />
+			<selector identifier="B" obj_id_ref="B" user_action="n" />
+			<selector identifier="C" obj_id_ref="C" user_action="n" />
+			<selector identifier="D" obj_id_ref="D" user_action="n" />
+		</interaction>
+	</item_model>
+</element_package>
