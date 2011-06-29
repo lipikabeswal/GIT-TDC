@@ -38,7 +38,7 @@
 		</method>
 
 		<method name="changeColor" args="bgcolor, fgcolor">
-            var roundness = 5;
+            var roundness = 0;
             var thickness = 0;
 			Debug.write("changecolor", this.width,this.height);
             drawRoundRect (thickness, thickness, this.width, this.height, 
