@@ -47,6 +47,11 @@
 		<frame src="iknow_toolbar/toolbar_rulerMasking_disabled.png"/>
 	</resource>
 
+	<!-- Toolbar Button magnifying glass-->
+	<resource name="toolbar_magnifying_glass_btn">      
+		<frame src="magnifier/toolbar_magnifyingGlass_disabled.png"/>   
+		<frame src="magnifier/toolbar_magnifyingGlass_on.png"/>        
+	</resource>
 	<!-- Toolbar Button scartchpad-->
 	<resource name="toolbar_scratchpad_btn">      
 		<frame src="iknow_toolbar/toolbar_scratchpad_off.swf"/>   
@@ -116,6 +121,7 @@
 		<frame src="iknow_toolbar/toolbar_stopreader_on.swf"/>        
 		<frame src="iknow_toolbar/toolbar_stopreader_disabled.swf"/> 
 	</resource>
+
 
 	<!-- Read button-->
 	<resource name="read_btn">      
@@ -380,6 +386,7 @@
     <resource name="grabber_rsrc" src="manipulatives/ruler/grabber.swf"/>
     <resource name="rotateResizer_rsrc" src="manipulatives/ruler/rotateResizer.swf"/>
     
+    
     <resource name="ruler_background" src="manipulatives/ruler/ruler_background.swf"/>
     <resource name="ruler_lines" src="manipulatives/ruler/ruler_lines.swf"/>
     
@@ -396,7 +403,10 @@
     <resource name="centimeters_label" src="manipulatives/ruler/centimeters_label.swf"/>
     <resource name="straight_label" src="manipulatives/ruler/straight_label.swf"/>
     <resource name="masking_label" src="manipulatives/ruler/masking_label.png"/>
-
+    
+    <!-- magnifier handle -->
+    <resource name="magnifierHandle" src="magnifier/handle.png"/>
+	<resource name="magnifierBlank" src="magnifier/blank.png"/>
     <!-- reference card -->
 	<resource name="ref_card_close_btn">
     	<frame src="manipulatives/refcard/closebutton_off.swf"/>

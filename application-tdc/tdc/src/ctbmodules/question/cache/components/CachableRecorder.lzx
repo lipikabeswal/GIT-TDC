@@ -138,6 +138,22 @@
 				}
 				this.mc = this.getMCRef();
 				mc.attachAudio(myMic);
+				
+/*				if(ns != null){
+					ns.close();
+				}
+				
+				nc = new NetConnection();
+				nc.connect("rtmp://localhost/oflaDemo");
+				nc.onStatus = function(info){
+					//_root.Debug.write("OnStatus Info Code " + info.code);
+					if(info.code=='NetConnection.Connect.Success'){
+					Debug.write("****RTMP Connection Established*****");
+				}
+				}
+				ns = new NetStream(nc);
+				ns.attachAudio(myMic);
+*/
 				//this.myMic.setUseEchoSuppression(true);
 				//this.updateLevel();
 			}
@@ -166,10 +182,10 @@
         ]]></method>
         <!-- For LLO128-->
 		<method name="isLinux" args="arg">
-		Debug.write("isLinux fired");
+		//Debug.write("isLinux fired");
 		var os = System.capabilities.os;
 		os = os.split(" ");
-Debug.write("os name : ",os);
+//Debug.write("os name : ",os);
 		if(os[0] == 'ubuntu' || os[0] == 'Fedora' || os[0] == 'Redhat' || os[0] == 'Linux' || os[0] == 'solaris'){
 		return true;
 		}
@@ -177,10 +193,10 @@ Debug.write("os name : ",os);
 		</method>
 
 		<method name="isVista" args="arg">
-		Debug.write("isLinux fired");
+		//Debug.write("isLinux fired");
 		var os = System.capabilities.os;
 		os = os.split(" ");
-Debug.write("os name : ",os);
+//Debug.write("os name : ",os);
 		if(os[1] == 'Vista'){
 		return true;
 		}
@@ -348,7 +364,7 @@ Debug.write("os name : ",os);
 				if(!isLinux()){	
 				this.updateLevel();	
 				}else{
-				Debug.write("Update level linux");
+				//Debug.write("Update level linux");
 				this.updateLinux();
 				}
 				//playProgress(methodname);//put delay of 500 miliseconds
@@ -357,7 +373,7 @@ Debug.write("os name : ",os);
 		]]></method>
 
 		<method name="callRecordMethod">
-Debug.write("callRecordMethod.....");	
+//Debug.write("callRecordMethod.....");	
 			playProgress('record');
 		</method>		
 
@@ -371,12 +387,12 @@ Debug.write("callRecordMethod.....");
 		<method name="playProgress" args="methodname"><![CDATA[
 		//micState will be set by updateLevel method
 			if(this.micState) {		
-			Debug.write("inside playProgress");
+			//Debug.write("inside playProgress");
 				this.recordStarted = true;		//if mic is connected, then only set this attribute to true 	
 				
 				
 				if(this.requestSent == false){
-					Debug.write("requestSent :"+this.requestSent);
+					//Debug.write("requestSent :"+this.requestSent);
 					this.requestSent = true;
 					sendRequest(methodname);
 				}		
@@ -415,7 +431,7 @@ Debug.write("callRecordMethod.....");
 
 		<method name="reset" args="methodname">
 		
-Debug.write("resetCalled "+this.resetCalled);
+//Debug.write("resetCalled "+this.resetCalled);
 			if(this.resetCalled == false) {
 				if(methodname == 'reset') {
 					sendRequest(methodname);
@@ -495,17 +511,17 @@ Debug.write("resetCalled "+this.resetCalled);
  		</method>
 
 		<method name="handleResponseData" args="d">
-Debug.write("handleResponseData :"+d);
+//Debug.write("handleResponseData :"+d);
 			this.blinkerVal = 0;
 			var result = d.childNodes[0].data;
 			if(result == 'RECORDING_START'){
-			Debug.write("RECORDING_START..");
+			//Debug.write("RECORDING_START..");
 				startCountDownTimer();
 				blinker();
 				this.stopButton.setAttribute("enabled", true);
 			}
 			else if (result == 'RECORDING_STOP') {
-			Debug.write("RECORDING_STOP..");
+			//Debug.write("RECORDING_STOP..");
 				if(this.totalTime == 0) {
 					this.recordButton.setAttribute("enabled", false);
 					this.resetButton.setAttribute("enabled", false);
@@ -582,13 +598,13 @@ Debug.write("handleResponseData :"+d);
 					this.micConnected = true;
 				} 			
 				else if(Microphone.names.length == 0) {
-	Debug.write("micArray length is zero")			
+	//Debug.write("micArray length is zero")			
 					this.micConnected = false;
 					this.myMic = null;
 				}	
 			}
 			
-	Debug.write("myMic...."+ this.myMic+" : "+this.myMic.activityLevel+" : "+Microphone.names.length);
+	//Debug.write("myMic...."+ this.myMic+" : "+this.myMic.activityLevel+" : "+Microphone.names.length);
 
 			if(this.myMic != null) {
 				level = this.myMic.activityLevel;
@@ -596,15 +612,15 @@ Debug.write("handleResponseData :"+d);
 
 			if(activityArray.length < 16) {
 				if(activityArray.length == 15) {
-Debug.write("1");
+//Debug.write("1");
 					isMicAttached = activityCalibrate(activityArray); 				
 				}else{
 					if(level <= 0) {
-						Debug.write("2 level pushing...."+level);
+						//Debug.write("2 level pushing...."+level);
 						activityArray.push(level);
 					}
 					else {
-Debug.write("3");
+//Debug.write("3");
 						isMicAttached = true;
 					
 					}
@@ -647,7 +663,7 @@ Debug.write("3");
 					this.volumeMeter.setAttribute('height', vMeterHeight);
 				}
 				else {
-					Debug.write("Mic Connected and Record Started.....")
+					//Debug.write("Mic Connected and Record Started.....")
 				}
 				
 				

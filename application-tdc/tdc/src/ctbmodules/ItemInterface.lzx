@@ -28,7 +28,7 @@
 
             <resizelayout axis="y"/>
 
-            <view width="100%" options="releasetolayout">
+            <view name="itemScreen" width="100%" options="releasetolayout">
 				<Question width="100%" height="100%" id="gQuestion"
                           datapath="dsitem:/element_package/item_canvas"
                           bgcolor="${gController.questionBgColor}"/>

@@ -207,11 +207,11 @@
 		onerror="gCommunicator.checkShowError(gXmlHelper.getContentErrorXml(),this)"
 		ontimeout="gCommunicator.checkShowError(gXmlHelper.getContentErrorXml(),this)"
 		ondata="gController.processItemResponse()" />
-		
+
 	<dataset name="dsMusic" type="http" queuerequests="true"
-		timeout="120000"  request="false"
+		timeout="120000" request="false"
 		ondata="gController.getMusicData(this.data)" />
-		
+
 	<dataset name="dsstudentdata" src="xmls/studentData.xml" />
 
 	<dataset name="dstemp" />
@@ -443,25 +443,27 @@
 		<attribute name="isWaitPopupOpen" type="boolean" value="false" />
 
 		<!-- True, if login response contains tts speed value-->
-		<attribute name="isRevisitPopupOpen" type="boolean" value="false" />
+		<attribute name="isRevisitPopupOpen" type="boolean"
+			value="false" />
 
 		<attribute name="applyFlashFix" type="boolean" value="false" />
 
-<attribute name="gStimulusId" type="number" value="0"/>
-<attribute name="gPrevStimulusId" type="number" value="0"/>
-<attribute name="gCurrentItemPos" type="number" value="0"/>
-<attribute name="gAnsweredCount" type="number" value="0"/>
+		<attribute name="gStimulusId" type="number" value="0" />
+		<attribute name="gPrevStimulusId" type="number" value="0" />
+		<attribute name="gCurrentItemPos" type="number" value="0" />
+		<attribute name="gAnsweredCount" type="number" value="0" />
 
 		<attribute name="recorderField" value="$once{new Array()}" />
 		<attribute name="blockFileName" type="boolean" value="false" />
 
 		<attribute name="allowRevisit" type="boolean" value="true" />
-		<attribute name="recorder" value="null"/>
-		<attribute name="imageLIArray" value="$once{new Array()}"/>
-		<attribute name="nextItem" type="number" value="0"/>
-		<attribute name="navigateConfirm" type="boolean" value="false"/>
-
+		<attribute name="recorder" value="null" />
+		<attribute name="imageLIArray" value="$once{new Array()}" />
+		<attribute name="nextItem" type="number" value="0" />
+		<attribute name="navigateConfirm" type="boolean" value="false" />
+		<attribute name="magnifierState" value="false" />
 		
+		<attribute name="magnifierVisible" value="false" />
 		<!--
 			============================================================
 			Datapointers
@@ -498,19 +500,17 @@
 		<datapointer name="dptemp" xpath="dstemp:/answers" />
 
 		<handler name="onheartbeatResult">
-//Debug.write("onheartbeatResult..");
+			//Debug.write("onheartbeatResult..");
 			if(gScratchpad.scratchpadHasFocus){ gHotKeys.disableKeys();
-			}
-			if(this.getAttribute('isRevisitPopupOpen') == true){
-			 gHotKeys.disableKeys();
-			}
+			} if(this.getAttribute('isRevisitPopupOpen') == true){
+			gHotKeys.disableKeys(); }
 		</handler>
 		<!-- 
 			Subtest xml may or may not specify the item type.  Our code relies on the item type being populated.
 			We need to populate the item type to the default type if it is not present in the xml.
 		-->
 
-<!-- Can be used in the future to detect the flash versions for applying the fix to any particular versions -->
+		<!-- Can be used in the future to detect the flash versions for applying the fix to any particular versions -->
 		<method name="detectFlashVersion"><![CDATA[
          	//For Flash 
 			var version = System.capabilities.version; 
@@ -897,14 +897,12 @@
 				gScreens.showLoginError(gXmlHelper.getStatusCode(response));
 			}
 			else{
-				
-				
-
 
 	    		var node = LzDataNode.stringToLzData(response);
 	    		dp.setPointer(node);
 	    		setShowHighlighter();
 	    		setShowMaskingRuler();
+	    		setShowMagnifyingGlass();
 	    		var restartNumber = dp.xpathQuery('login_response/@restart_number');
 				gTutorialManager.setAttribute('tutorialNode', dp.xpathQuery('login_response/tutorial'));
 	    		var logo = dp.xpathQuery('login_response/branding/@tdclogo');
@@ -973,10 +971,22 @@
 			var sh = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@highlighter');
 			this.setAttribute('showHighlighter', (sh != 'false'));
 		</method>
-		
+
 		<method name="setShowMaskingRuler">
 			var smr = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@masking_ruler');
 			this.setAttribute('showMaskingRuler', (smr != 'false'));
+		</method>
+
+		<method name="setShowMagnifyingGlass">
+			var smg = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@magnifying_glass');
+			if ( (smg == "1") ||
+                 (smg == "true") ||
+                 (smg == true) ) {
+				this.setAttribute( 'magnifierVisible', true );
+			}
+			else{
+				this.setAttribute( 'magnifierVisible', false );
+			}
 		</method>
 
 		<method name="setupPopups">
@@ -1948,6 +1958,15 @@ Debug.write("#############returnVal: "+returnVal);
             this.setAttribute('focusOnGr', !isMarkedForReviewWithManipulativeOpen());
             this.runtimeready = true;
             checkItemStatus();
+            
+			if(this.magnifierVisible) {
+	            if(this.isAudioItem()) {
+					gManipulativeBar.magnifyingGlass.setVisible(false);
+				}
+				else {
+					gManipulativeBar.magnifyingGlass.setVisible(true);
+				}
+			}
         ]]></method>
 
 		<method name="saveSharedStimulusHighlights"><![CDATA[
@@ -2056,6 +2075,9 @@ Debug.write("#############returnVal: "+returnVal);
 	            	changeItem(dpsubtest.xpathQuery( "ob_assessment/ob_element_list/f[@id='" + itemeid + "']" ));
 	            }
             }
+           if(this.magnifierState)  {
+		   		gMagnifyingGlass.hideGlass();  
+		   }   
         ]]></method>
 
 		<method name="changeItem" args="fnode"><![CDATA[		
@@ -2516,7 +2538,10 @@ Debug.write("#############returnVal: "+returnVal);
 		<method name="goToPauseScreen">
 			this.clearInvalidCrResponses();
 			this.resetCrs();
-            LzCursor.unlock();            
+            LzCursor.unlock();  
+            if(this.magnifierState)  {
+		    gMagnifyingGlass.hideGlass();  
+		    }              
             gScreens.showPause(getStudentName());
 		</method>
 
@@ -2539,6 +2564,9 @@ Debug.write("#############returnVal: "+returnVal);
             unlockUI();
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
+            if(this.magnifierState)  {
+		    gMagnifyingGlass.setAttribute("visible",true); 
+		    } 
 		</method>
 
 		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
@@ -2573,6 +2601,9 @@ Debug.write("#############returnVal: "+returnVal);
 			//END
 			//this.resetAudioFields();
             closeOpenManipulatives();
+            if(this.magnifierState)  {
+		    gMagnifyingGlass.hideGlass();  
+		    }  
 			gMusicPlayer.hide();
             LzCursor.unlock();            
             gScreens.showFinish( totalQuestions() - totalAnswered(),
@@ -2642,6 +2673,9 @@ Debug.write("#############returnVal: "+returnVal);
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
             unlockUI();
+            if(this.magnifierState)  {
+		    gMagnifyingGlass.setAttribute("visible",true); 
+		    } 
         </method>
 
 		<method name="continueTest">
@@ -3067,6 +3101,10 @@ Debug.write("#############returnVal: "+returnVal);
        ]]></method>
 
 		<method name="setManipulativeSelState" args="which, value"><![CDATA[
+		if(this.magnifierState){
+			gMagnifyingGlass.hideGlass();
+			gManipulativeBar.magnifyingGlass.setResourceNumber(1);
+		}
 Debug.write("setManipulativeSelState....",which, value);
             var dn;
 
@@ -3291,6 +3329,9 @@ Debug.write("if ...."+this._isGlobalManipulator (which));
 		<method name="goToTimeoutScreen">
             LzCursor.unlock();
             gReadableText.stopReading();
+            if(this.magnifierState){
+            	gMagnifyingGlass.hideGlass(); 
+            }
             if(this.recorder != null) {
 				this.recorder.stopblinker('stop');
 				this.recorder.whitewrapperOverLay.setVisible(false);
@@ -3549,8 +3590,8 @@ Debug.write("if ...."+this._isGlobalManipulator (which));
             return result;
 		]]></method>
 
-	<!-- For NI Item Detection-->	
-	<method name="isThemeItem" args=""><![CDATA[
+		<!-- For NI Item Detection-->
+		<method name="isThemeItem" args=""><![CDATA[
 		
 	  var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
 	  var eid = itemnode.getAttr( 'eid' );
@@ -3725,6 +3766,10 @@ Debug.write("if ...."+this._isGlobalManipulator (which));
 			this.isWaitPopupOpen = true;	
 			gPleaseWaitPopup.show();
 			gMusicPlayer.hide();
+		if(this.magnifierState)  {
+		   	gMagnifyingGlass.hideGlass();  
+		   }   
+			
 		</method>
 
 		<method name="hideWaitPopup"><![CDATA[
@@ -3733,7 +3778,10 @@ Debug.write("if ...."+this._isGlobalManipulator (which));
 			LzTimer.removeTimer(dHideWaitPopup);
 			gReadableText.stopRequestor();
 			gController.unlockUI();
-			
+		   if(this.magnifierState)  {
+		   	gMagnifyingGlass.setAttribute("visible",true); 
+		   }   
+		
 			if(gCommunicator.firstRequestDone) {
 				if(gReadableText.speechRequestSent) {
 					showError(gXmlHelper.getSpeechErrorXml());

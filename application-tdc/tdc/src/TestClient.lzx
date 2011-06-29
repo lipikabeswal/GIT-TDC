@@ -1,26 +1,25 @@
-<canvas bgcolor="0x6691B4" 
-        proxied="false" 
-        debug="false"
-        accessible="true" >
+<canvas bgcolor="0x6691B4" proxied="false" debug="false"
+	accessible="true">
 
-    <debug x="0" y="0" width="80%" height="400"/>
+	<debug x="0" y="0" width="80%" height="400" />
 
-    <include href="ctbmodules"/>
+	<include href="ctbmodules" />
 
-    <script src="lzmodules/lfc/focuspatch.js">
+	<script src="lzmodules/lfc/focuspatch.js">
     </script>
 	<attribute name="focusobj" />
-	
-    <handler name="onfocus">
-       Debug.write("NK XXX canvas has focus");
-    </handler>
 
-    <script src="lzmodules/lfc/browserpatch.js">
+	<handler name="onfocus">
+		Debug.write("NK XXX canvas has focus");
+	</handler>
+
+	<script src="lzmodules/lfc/browserpatch.js">
     </script>
 
-    <resource name="waitcursor" src="redmond/resources/lzwaitcursor_rsc.swf"/>
+	<resource name="waitcursor"
+		src="redmond/resources/lzwaitcursor_rsc.swf" />
 
-    <script><![CDATA[
+	<script><![CDATA[
         function printBigString( s ) {
             Debug.write( '==========' );
             if (s == null) return;
@@ -29,7 +28,7 @@
             }
         }
     ]]></script>
-    <script><![CDATA[
+	<script><![CDATA[
         function round( s ) {
             var prev = Math.floor(s);
             var next = Math.ceil(s);
@@ -42,7 +41,7 @@
             return result;
         }
     ]]></script>
-    <script><![CDATA[
+	<script><![CDATA[
     	/**
     	 * This method trims the blank spaces ' ' or new lines '\n' from the front
     	 * and end of a string
@@ -64,23 +63,24 @@
         }
     ]]></script>
 
-    <attribute name="Copyrite" type="string" value="CTB/McGraw-Hill" />
+	<attribute name="Copyrite" type="string" value="CTB/McGraw-Hill" />
 	<attribute name="copyriteColor" type="color" value="0x527DA4" />
 	<attribute name="basefontsize" type="number" value="12" />
 	<attribute name="readable" value="false" type="boolean" />
-    <attribute name="focusclass" value="null"/>
-    <attribute name="footnotedata"/>
-	<attribute name="currentCursor" value="null"/>
-	<attribute name="eliminatorRsrc" value="$once{LzBrowser.getInitArg('eliminatorResource')}" type="string" />
+	<attribute name="focusclass" value="null" />
+	<attribute name="footnotedata" />
+	<attribute name="currentCursor" value="null" />
+	<attribute name="eliminatorRsrc"
+		value="$once{LzBrowser.getInitArg('eliminatorResource')}"
+		type="string" />
 	<attribute name="useDefaultEliminator" type="boolean" value="true" />
-    
 	<method name="setCrFocus">
 		var fo = canvas.getAttribute('focusobj');
 		if(typeof fo == 'object'){
 			fo.onfocus.sendEvent();
 		}
 	</method>
-    <method event="onfootnotedata" args="data">
+	<method event="onfootnotedata" args="data">
         gFootNotePopup.show(data);
     </method>
 
@@ -89,9 +89,9 @@
     	Stage.showMenu = false;
     	Debug.write("Active Setting:" + Stage.showMenu);
   	</method>
-	
 
-    <method name="init">
+
+	<method name="init">
        super.init();
        var folder = LzBrowser.getInitArg('folder');
        if (folder) this.setAttribute("folder", folder);
@@ -104,12 +104,13 @@
 	   canvas.setDefaultContextMenu(cmenu);
 	   Stage.showMenu = false;
     </method>
-    
-    <method name="doNothing">
+
+	<method name="doNothing">
     </method>
 
-<!--  this view tests whether or not the eliminator resource is available -->
-	<view name="eliminatorTester" visible="false" height="0" width="0">
+	<!--  this view tests whether or not the eliminator resource is available -->
+	<view name="eliminatorTester" visible="false" height="0"
+		width="0">
 		<method event="oninit">
 			canvas.setAttribute('medialoadtimeout', 3000);
 			var eliminatorUrl = LzBrowser.getInitArg('eliminatorResource');
@@ -128,23 +129,27 @@
 			canvas.setAttribute('medialoadtimeout', 30000);
 		</method>
 	</view>
-    <view name="scalingView"
-          stretches="both"
-          height="${ canvas.width/canvas.height &lt; 1.33 
+	<view name="titleView" width="100%" height="100%" >
+	<view name="mainView"  width="100%" height="100%" bgcolor="0x6691B4">
+		<handler name="oninit">
+
+		</handler>
+	<view name="scalingView"  stretches ="both"
+		height="${ canvas.width/canvas.height &lt; 1.33 
                      ? this.width * unstretchedheight/unstretchedwidth 
-                     : canvas.height}" 
-          width="${  canvas.width/canvas.height &lt;1.33 
+                     : canvas.height}"
+		width="${  canvas.width/canvas.height &lt;1.33 
                      ? canvas.width 
                      : this.height * unstretchedwidth/unstretchedheight}"
-          valign="middle" align="center">
+		valign="middle" align="center">
 
 
-        <view name="gView" width="800" height="600">
+		<view name="gView" width="800" height="600" >
 
-            <ItemInterface id="gItemInterface" width="800" height="600"
-                        visible="false"/>
-            <Screens id="gScreens" x="100" y="200"
-                     width="600" height="200" visible="false">
+			<ItemInterface id="gItemInterface" name="gItemInterface" width="800" height="600"
+				visible="false" />
+			<Screens id="gScreens" x="100" y="200" width="600"
+				height="200" visible="false">
                 <text y="200" font="Arial" fontsize="12" 
 			        fgcolor="${canvas.copyriteColor}" height="16" 
 				    text="${canvas.Copyrite}"/>
@@ -159,5 +164,10 @@
         </view>
 
     </view>
+    </view>
+  
+</view>
+    	<include href="ctbmodules/manipulatives/magnifier/MagnifyingGlass.lzx"/>  
+    
 
 </canvas>
