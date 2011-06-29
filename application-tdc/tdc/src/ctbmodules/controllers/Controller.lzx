@@ -592,6 +592,9 @@
 			stopHeartbeat();
             LzCursor.unlock();
             gReadableText.stopReading();
+           if(this.magnifierState) {
+	     		gMagnifyingGlass.hideGlass();  
+	     	}
             gScreens.showError(xml);
 		</method>
 
