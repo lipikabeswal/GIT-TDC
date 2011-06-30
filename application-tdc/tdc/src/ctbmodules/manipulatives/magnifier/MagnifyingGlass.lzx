@@ -1,78 +1,58 @@
 <view name="magnifyingGlass" id="gMagnifyingGlass"
-	x="$once{canvas.width/2 - this.width/2}" valign="middle" width="320"
-	height="128" bgcolor="gray" visible="false">
+	x="$once{canvas.width/2 - this.width/2}" valign="middle" width="${canvas.width/4}"
+	height="${canvas.height/8}" visible="false">
 	<dragstate name="dragger" drag_axis="both" drag_min_x="0"
 		drag_max_x="$once{canvas.width - this.width}" drag_min_y="0"
 		drag_max_y="$once{canvas.height - this.height}" />
-	<attribute name="bg" type="color" value="0xFFD700" />
-	<attribute name="fg" type="color" value="0xE0E0E0" />
+	<attribute name="bg" type="color" value="gray" />
+	<attribute name="fg" type="color" value="gray" />
 
 	<attribute name="trackDel"
-		value="$once{new LzDelegate( this , 'mouseMove' ) }" />
+		value="$once{new LzDelegate( this , 'magnify' ) }" />
 	<attribute name="lastxpos" value="0" type="number" />
 	<attribute name="lastypos" value="0" type="number" />
 	<attribute name="isEnabled" value="false" />
 
-	<method event="oninit">
+		<method event="onwidth">
+			//Debug.write("onwidth....");
+			magnifyingGlass.width = canvas.width/4;
+			magnifyingGlass.height = canvas.height/8;
 			this.windowbg.drawMe();
-	</method>
-
-	<method event="onvisible">
-		this.setX(canvas.width / 2 - this.width / 2);
-		this.ratioW = this.width/(canvas.width + this.width);
-		this.ratioH = this.height/(canvas.height + this.height);
-	</method>
-
-	<view name="handle" x="${parent.width -27}"
-		y="${parent.height -27}" resource="magnifierHandle" />
-
-	<drawview name="windowbg" width="${parent.width}"
-		height="${parent.height}">
-
-		<method name="drawMe">
-			this.clear();
-			var roundness = 5;
-			var thickness = 3;
-			var shadow = 4;
-			this.changeColor(parent.bg, parent.fg);
+			this.ratioW = this.width/(canvas.width + this.width);
+			this.ratioH = this.height/(canvas.height + this.height);
+			mouseMove();
 		</method>
 
-		<method name="changeColor" args="bgcolor, fgcolor">
-            var roundness = 0;
-            var thickness = 0;
-			Debug.write("changecolor", this.width,this.height);
-            drawRoundRect (thickness, thickness, this.width, this.height, 
-                           roundness,
-                           bgcolor, fgcolor, 1);
-        </method>
+		<method event="onheight">
+			//Debug.write("onheight....");
+			magnifyingGlass.width = canvas.width/4;
+			magnifyingGlass.height = canvas.height/8;
+			this.windowbg.drawMe();
+			this.ratioW = this.width/(canvas.width + this.width);
+			this.ratioH = this.height/(canvas.height + this.height);
+			mouseMove();
+		</method>
 
-		<method name="drawRoundRect"
-			args="x0, y0, x1, y1, roundness, fill, stroke, alpha">
-			
-            this.beginPath();
-            this.rect(x0 , y0 , x1 , y1 , roundness);
-
-            this.closePath();
-            this.setAttribute("globalAlpha", alpha);
-
-            if (fill) {
-                this.setAttribute("fillStyle", fill);
-                this.fill();
-            }
-            if (stroke) {
-                this.setAttribute("strokeStyle", stroke);
-                this.stroke();
-            }
-        </method>
+		<method event="onvisible">
+			//Debug.write("onvisible....", this.visible);
+			if(this.isinited) {	
+				magnifyingGlass.width = canvas.width/4;
+				magnifyingGlass.height = canvas.height/8;
+				this.windowbg.drawMe();
+				//this.setX(canvas.width / 2 - this.width / 2);
+				this.ratioW = this.width/(canvas.width + this.width);
+				this.ratioH = this.height/(canvas.height + this.height);
+				mouseMove();
+			}
+		</method>
 
 		<method event="onmousedown">
-			Debug.write("startTracking");
-		    magnifyingGlass.dragger.apply();
-			magnifyingGlass.mouseMove();
+			magnifyingGlass.dragger.apply();
+			magnifyingGlass.magnify();
 			LzCursor.setCursorGlobal ('grabbing_cursor');
 		    LzCursor.lock();		
 		</method>
-
+		
 		<method event="onmouseup">
 	        magnifyingGlass.dragger.remove();
 			LzTimer.removeTimer(magnifyingGlass.trackDel);
@@ -80,29 +60,102 @@
 	        gController.restoreCurrentCursor();
   		</method>
 
+		<drawview name="windowbg" width="${canvas.width/4}"
+			height="${canvas.height/8}">
+			
+			<method name="drawMe">
+				//Debug.write("parent width", parent.width);
+	            this.clear();
+	            
+	            var roundness = 5;
+	            var thickness = 3;
+	            var shadow = 4;
+	
+	            this.changeColor(parent.bg, parent.fg);
+	         </method>
+	
+			<method name="changeColor" args="bgcolor, fgcolor">
+	            var roundness = 5;
+	            var thickness = 0;
+				//Debug.write("changecolor", parent.width,this.height);
+	            drawRoundRect (thickness, thickness, this.width, this.height, 
+	                           roundness,
+	                           bgcolor, fgcolor, 1);
+	        </method>
+	
+			<method name="drawRoundRect"
+				args="x0, y0, x1, y1, roundness, fill, stroke, alpha">
+				
+	            this.beginPath();
+	            this.rect(x0 , y0 , x1 , y1 , roundness);
+	
+	            this.closePath();
+	            this.setAttribute("globalAlpha", alpha);
+	
+	            if (fill) {
+	                this.setAttribute("fillStyle", fill);
+	                this.fill();
+	            }
+	            if (stroke) {
+	                this.setAttribute("strokeStyle", stroke);
+	                this.stroke();
+	            }
+	        </method>
+	
 		<view name="magnifiedContent" x="5" y="5"
-			width="${parent.width - 10}" height="${parent.height - 10}"
-			bgcolor="gray" opacity="1" resource="magnifierBlank" />
+				width="${parent.width - 10}" height="${parent.height - 10}"
+				bgcolor="gray" opacity="0.9" resource="magnifierBlank" />
+		</drawview>
 
-	</drawview>
+	<!--	<view name="magnifiedContent" x="5" y="5"
+		width="${parent.windowbg.width - 10}"
+		height="${parent.windowbg.height - 10}" bgcolor="0xC0C0C0" />-->
+
+		<drawview name="handle" x="${parent.width - 15}" y="${parent.height - 1}"
+		bgcolor="0x333333" rotation="-45" height="${parent.height}" width="20">
+
+				<method event="onmousedown">
+				//Debug.write("startTracking2");
+			    magnifyingGlass.dragger.apply();
+				magnifyingGlass.magnify();
+				LzCursor.setCursorGlobal ('grabbing_cursor');
+			    LzCursor.lock();		
+			</method>
+			
+			<method event="onmouseup">
+		        magnifyingGlass.dragger.remove();
+				LzTimer.removeTimer(magnifyingGlass.trackDel);
+				LzCursor.unlock();
+		        gController.restoreCurrentCursor();
+	  		</method>
+		</drawview>
 
 	<method name="setUpGlass">
-		 this.setAttribute("visible", true);	
 		 this.setAttribute("x",canvas.width/2 - this.width/2);
 		 this.setAttribute("valign",'middle');
+		 this.setAttribute("visible", true);	
 	</method>
 
 	<method name="hideGlass">
-		Debug.write("hideglass called");
 		this.setAttribute("visible", false);
 	</method>
 
+	<method name="showGlass">
+		this.setAttribute("visible", true);
+	</method>
+
+	<method name="magnify">
+		mouseMove();
+		LzTimer.resetTimer(trackDel, 10); 
+	</method>
+	
 	<method name="mouseMove">
             <![CDATA[
-            var xpos = Math.round( canvas.getMouse("x") );
-            var ypos = Math.round( canvas.getMouse("y") );
+//Debug.write("mouseMove...");
+            //var xpos = Math.round( canvas.getMouse("x") );
+            //var ypos = Math.round( canvas.getMouse("y") );
 			var temp_mc = this.windowbg.magnifiedContent.getMCRef();
-
+			
 			var colorTransform = new flash.geom.ColorTransform();
 			var rect = new flash.geom.Rectangle(0, 0, this.width, this.height);
 			var mainView_mc = canvas.titleView.getMCRef();
@@ -113,10 +166,10 @@
 			var h;
 			var bitmap;
 			var matrix = new flash.geom.Matrix();
-            if ( (this.lastxpos != xpos) 
-              || (this.lastypos != ypos) ) {
-                this.lastxpos = xpos;
-                this.lastypos = ypos;
+            //if ( (this.lastxpos != xpos) 
+            //  || (this.lastypos != ypos) ) {
+                //this.lastxpos = xpos;
+                //this.lastypos = ypos;
 				
 				x = this.x;
 				y = this.y;
@@ -129,8 +182,8 @@
 				bitmap.draw(mainView_mc, matrix, colorTransform, 1, rect);
 				temp_mc.attachBitmap(bitmap,1);
 				bitmap = null;
-		    }
-			LzTimer.resetTimer(trackDel, 25); 
+		    //}
+			//LzTimer.resetTimer(trackDel, 20); 
             ]]>
 	</method>
 

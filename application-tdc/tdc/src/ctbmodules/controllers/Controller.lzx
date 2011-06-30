@@ -592,9 +592,7 @@
 			stopHeartbeat();
             LzCursor.unlock();
             gReadableText.stopReading();
-           if(this.magnifierState) {
-	     		gMagnifyingGlass.hideGlass();  
-	     	}
+        	hideMagnifierGlass();
             gScreens.showError(xml);
 		</method>
 
@@ -889,7 +887,7 @@
 		</method>
 
 		<method name="_handleSaveLoadResponse" args="response">
-		Debug.write("_handleSaveLoadResponse");
+		//Debug.write("_handleSaveLoadResponse");
 			loadItem();
 		</method>
 
@@ -1356,9 +1354,9 @@
 			Initializes runtime nodes that store state for each question.
 		-->
 		<method name="initStudentData"><![CDATA[
-		Debug.write("initStudentData");
+		//Debug.write("initStudentData");
 			if(gController.audible == 'true' && !gMusicPlayer.alreadyCalled){
-		Debug.warn("Inside if of gController.audible");
+		//Debug.warn("Inside if of gController.audible");
 				loadMusicData();
 			}
             var dn = dpstudentdata.xpathQuery( 'title' );
@@ -1442,7 +1440,7 @@ if(stimulusid > 0){
                 	itemNumber = itemNumber + 1;
                 }
             }
-Debug.write("##runtimearr:",runtimearr);
+//Debug.write("##runtimearr:",runtimearr);
             dn.setChildNodes( runtimearr );
         ]]></method>
 
@@ -1649,7 +1647,7 @@ Debug.write("##runtimearr:",runtimearr);
 					}
 				}
 
-Debug.write("#############returnVal: "+returnVal);								
+//Debug.write("#############returnVal: "+returnVal);								
 			gPrevStimulusId = stimulusId;
 			return returnVal;
 		]]>
@@ -1964,10 +1962,10 @@ Debug.write("#############returnVal: "+returnVal);
             
 			if(this.magnifierVisible) {
 	            if(this.isAudioItem()) {
-					gManipulativeBar.magnifyingGlass.setVisible(false);
+					gManipulativeBar.globals.magnifyingGlass.setVisible(false);
 				}
 				else {
-					gManipulativeBar.magnifyingGlass.setVisible(true);
+					gManipulativeBar.globals.magnifyingGlass.setVisible(true);
 				}
 			}
         ]]></method>
@@ -2078,9 +2076,7 @@ Debug.write("#############returnVal: "+returnVal);
 	            	changeItem(dpsubtest.xpathQuery( "ob_assessment/ob_element_list/f[@id='" + itemeid + "']" ));
 	            }
             }
-           if(this.magnifierState)  {
-		   		gMagnifyingGlass.hideGlass();  
-		   }   
+         //hideMagnifierGlass(); 
         ]]></method>
 
 		<method name="changeItem" args="fnode"><![CDATA[		
@@ -2542,9 +2538,7 @@ Debug.write("#############returnVal: "+returnVal);
 			this.clearInvalidCrResponses();
 			this.resetCrs();
             LzCursor.unlock();  
-            if(this.magnifierState)  {
-		    gMagnifyingGlass.hideGlass();  
-		    }              
+        	checkHideMagnifierGlass();             
             gScreens.showPause(getStudentName());
 		</method>
 
@@ -2567,9 +2561,7 @@ Debug.write("#############returnVal: "+returnVal);
             unlockUI();
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
-            if(this.magnifierState)  {
-		    gMagnifyingGlass.setAttribute("visible",true); 
-		    } 
+            checkShowMagnifierGlass();
 		</method>
 
 		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
@@ -2604,9 +2596,7 @@ Debug.write("#############returnVal: "+returnVal);
 			//END
 			//this.resetAudioFields();
             closeOpenManipulatives();
-            if(this.magnifierState)  {
-		    gMagnifyingGlass.hideGlass();  
-		    }  
+     		checkHideMagnifierGlass();
 			gMusicPlayer.hide();
             LzCursor.unlock();            
             gScreens.showFinish( totalQuestions() - totalAnswered(),
@@ -2676,9 +2666,7 @@ Debug.write("#############returnVal: "+returnVal);
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
             unlockUI();
-            if(this.magnifierState)  {
-		    gMagnifyingGlass.setAttribute("visible",true); 
-		    } 
+            checkShowMagnifierGlass();
         </method>
 
 		<method name="continueTest">
@@ -2791,6 +2779,7 @@ Debug.write("#############returnVal: "+returnVal);
 			dsitem.doRequest();        
             this.resetCrFields();
 			this.resetAudioFields();
+			hideMagnifierGlass();
 		]]></method>
 
 		<method name="loadMusicData"><![CDATA[
@@ -2801,9 +2790,9 @@ Debug.write("#############returnVal: "+returnVal);
 		]]></method>
 
 		<method name="getMusicData" args="d"><![CDATA[
-			Debug.write("inside getMusicData : ",d);
+			//Debug.write("inside getMusicData : ",d);
         	var result = d.childNodes[0].data;
-			Debug.write("getMusicData result" , result , d);
+			//Debug.write("getMusicData result" , result , d);
         	//result == 'File_Downloaded' &&  
 			if(gController.audible == 'true'){
 				gMusicPlayer.alreadyCalled = true;				
@@ -3104,15 +3093,11 @@ Debug.write("#############returnVal: "+returnVal);
        ]]></method>
 
 		<method name="setManipulativeSelState" args="which, value"><![CDATA[
-		if(this.magnifierState){
-			gMagnifyingGlass.hideGlass();
-			gManipulativeBar.magnifyingGlass.setResourceNumber(1);
-		}
-Debug.write("setManipulativeSelState....",which, value);
+//Debug.write("setManipulativeSelState....",which, value);
             var dn;
 
             if (this._isGlobalManipulator (which)) {
-Debug.write("if ...."+this._isGlobalManipulator (which));
+//Debug.write("if ...."+this._isGlobalManipulator (which));
             
                 dn = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');
                 if(this._isRadioGlobalManipulator(which)){
@@ -3121,7 +3106,7 @@ Debug.write("if ...."+this._isGlobalManipulator (which));
 	                    for (var i in dn.attributes) {
 	                        if (i != which){
 	                        	if(!((i == 'highlighter' && !this.showHighlighter) || i == 'scratchpad' || (i == 'masking_ruler' && !this.showMaskingRuler))){
-	                        		Debug.write(i, this.showMaskingRuler);
+	                        		//Debug.write(i, this.showMaskingRuler);
 	                        		dn.setAttr (i, 'up');
 	                        	}
 	                        }
@@ -3332,9 +3317,7 @@ Debug.write("if ...."+this._isGlobalManipulator (which));
 		<method name="goToTimeoutScreen">
             LzCursor.unlock();
             gReadableText.stopReading();
-            if(this.magnifierState){
-            	gMagnifyingGlass.hideGlass(); 
-            }
+            hideMagnifierGlass();
             if(this.recorder != null) {
 				this.recorder.stopblinker('stop');
 				this.recorder.whitewrapperOverLay.setVisible(false);
@@ -3769,10 +3752,7 @@ Debug.write("if ...."+this._isGlobalManipulator (which));
 			this.isWaitPopupOpen = true;	
 			gPleaseWaitPopup.show();
 			gMusicPlayer.hide();
-		if(this.magnifierState)  {
-		   	gMagnifyingGlass.hideGlass();  
-		   }   
-			
+			checkHideMagnifierGlass();
 		</method>
 
 		<method name="hideWaitPopup"><![CDATA[
@@ -3781,9 +3761,7 @@ Debug.write("if ...."+this._isGlobalManipulator (which));
 			LzTimer.removeTimer(dHideWaitPopup);
 			gReadableText.stopRequestor();
 			gController.unlockUI();
-		   if(this.magnifierState)  {
-		   	gMagnifyingGlass.setAttribute("visible",true); 
-		   }   
+		 	checkShowMagnifierGlass();
 		
 			if(gCommunicator.firstRequestDone) {
 				if(gReadableText.speechRequestSent) {
@@ -3801,17 +3779,42 @@ Debug.write("if ...."+this._isGlobalManipulator (which));
 				LzTimer.resetTimer( dHideWaitPopup, 30000 );
 			}
 		</method>
+
 		<method name="showRevisitPopup" args="calledFrom">
 			this.isRevisitPopupOpen = true;	
-//Debug.write("##calledFrom 1 "+calledFrom);
 			gRevisitFalsePopup.show(calledFrom);
+			checkHideMagnifierGlass();
 		</method>
 		
 		<method name="hideRevisitPopup"><![CDATA[
 			this.isRevisitPopupOpen = false;	
 			gRevisitFalsePopup.hide();
+			checkShowMagnifierGlass();
 		]]></method>
+		
+		<method name="hideMagnifierGlass">
+			if(this.magnifierState)  {
+				gManipulativeBar.globals.magnifyingGlass.hide();
+		   }   
+		</method>
 
+		<method name="showMagnifierGlass">
+		   if(this.magnifierState == false)  {
+				gManipulativeBar.globals.magnifyingGlass.show();
+		   }   
+		</method>
+
+		<method name="checkHideMagnifierGlass">
+			if(this.magnifierState)  {
+				gMagnifyingGlass.hideGlass();
+		   }   
+		</method>
+
+		<method name="checkShowMagnifierGlass">
+		   if(this.magnifierState)  {
+				gMagnifyingGlass.showGlass();
+		   }   
+		</method>
 	</node>
 
 </library>

@@ -15,18 +15,15 @@
 		<simplelayout axis="x" spacing="15"></simplelayout>
 
 		<handler name="ondata" args="data">
-		//	Debug.write("Manipulative Bar ondata 1...",theme);
 			if(theme) {
-				//Debug.write("ondata 2...", theme, gController.applyManipulative());
 				this.setAttribute("hasResponseArea", gController.applyManipulative());
 			}
-			this.magnifyingGlass.setResourceNumber(1);
-			Debug.write("this.magnifyingGlass",this.magnifyingGlass);
+			this.globals.magnifyingGlass.setResourceNumber(1);
 		</handler>
 
 		<view datapath="manipulatives/global" name="globals" valign="middle" visible="${!classroot.theme || (classroot.theme &amp;&amp; classroot.hasResponseArea)}">
 			<handler name="ondata" args="data">
-			Debug.write("On data global",data);
+			//Debug.write("On data global",data);
 			</handler>
 			<simplelayout axis="x"/>
 			<ManipulativeButton resource="toolbar_choice_eliminator_btn"
@@ -44,13 +41,63 @@
 			<ManipulativeButton resource="toolbar_masking_ruler_btn"
 	                            toolid="masking_ruler"
 	                            tooltip="Masking Ruler"/>
-<!--			<ManipulativeButton resource="toolbar_magnifying_glass_btn"
-	                            toolid="toolbar_magnifying_glass"
-	                            tooltip="Magnifying Glass"
-							    toolPopUp="true"/>
--->	       
+
+			<view name="gap" width="1" height="20" valign="middle"/>
+
+			<!-- Magnifier Glass Button -->
+			<view name="magnifyingGlass" visible="${gController.magnifierVisible}"  resource="toolbar_magnifying_glass_btn" valign="middle" height="20" width="28">
+				<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
+				<attribute name="isEnabled" value="false"/>
+				<attribute name="isSelected" value="false"/>
+					
+					<method event="onmouseover">
+						this.setResourceNumber(2);
+						LzTimer.addTimer (tooltipdel, 500);
+					</method>
+			                
+					<method event="onmouseout">
+						gTooltip.hideTooltip (); 
+						if(!this.isEnabled) {
+							this.setResourceNumber(1);
+						}   
+						LzTimer.removeTimer (this.tooltipdel);
+					</method>
+			
+					<method event="onclick">
+						LzTimer.removeTimer (this.tooltipdel);
+						if(gMagnifyingGlass.visible){
+							hide();
+						} else {
+							setup();
+						}
+					</method>
+					
+					<method name="showTooltip">
+						gTooltip.showTooltip ('Magnifying Glass');
+					</method>
+
+					<method name="setup">
+						gMagnifyingGlass.setUpGlass();
+						show();
+					</method>
+					
+					<method name="show">
+						gMagnifyingGlass.showGlass();
+						this.isEnabled = true;
+						gController.setAttribute("magnifierState", true);
+						this.setResourceNumber(2);
+					</method>
+
+					<method name="hide">
+						gMagnifyingGlass.hideGlass();
+						this.isEnabled = false;
+						gController.setAttribute("magnifierState", false);
+						this.setResourceNumber(1);
+					</method>
+			</view>
+    
 		</view>
-	            
+		
 		<view datapath="manipulatives/general" name="generals" valign="middle"
 		      visible="${!classroot.theme  || (classroot.theme &amp;&amp; classroot.hasResponseArea)}">
 			<simplelayout axis="x"/>
@@ -84,45 +131,6 @@
 			<ManipulativeButton resource="toolbar_straight_edge_btn"
 	                            toolid="straight_edge"
 	                            tooltip="Straight Edge"/>
-		</view>
-		
-		<view name="magnifyingGlass" visible="${gController.magnifierVisible}"  resource="toolbar_magnifying_glass_btn" valign="middle" height="20" width="28">
-			<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
-			<attribute name="isEnabled" value="false"/>
-			<attribute name="isSelected" value="false"/>
-				
-				<method event="onmouseover">
-					this.setResourceNumber(2);
-					LzTimer.addTimer (tooltipdel, 500);
-				</method>
-		                
-				<method event="onmouseout">
-					gTooltip.hideTooltip (); 
-					if(!this.isEnabled)
-					this.setResourceNumber(1);   
-					LzTimer.removeTimer (this.tooltipdel);
-				</method>
-		
-				<method event="onclick">
-					LzTimer.removeTimer (this.tooltipdel);
-
-					if(gMagnifyingGlass.visible){
-						gMagnifyingGlass.hideGlass();
-						this.isEnabled = false;
-						gController.setAttribute("magnifierState", false);
-					}else{
-						this.isEnabled = true;
-						gController.setAttribute("magnifierState", true);
-						this.setResourceNumber(2);
-						gMagnifyingGlass.setUpGlass();
-					}
-					gController.closeOpenManipulatives();
-				</method>
-				
-				<method name="showTooltip">
-					gTooltip.showTooltip ('Magnifying Glass');
-				</method>
-
 		</view>
 		
 		<view name="screenreader" valign="middle" height="100%">

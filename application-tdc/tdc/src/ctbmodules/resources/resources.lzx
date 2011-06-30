@@ -405,7 +405,7 @@
     <resource name="masking_label" src="manipulatives/ruler/masking_label.png"/>
     
     <!-- magnifier handle -->
-    <resource name="magnifierHandle" src="magnifier/handle.png"/>
+    <resource name="magnifierHandle" src="magnifier/handle.swf"/>
 	<resource name="magnifierBlank" src="magnifier/blank.png"/>
     <!-- reference card -->
 	<resource name="ref_card_close_btn">
