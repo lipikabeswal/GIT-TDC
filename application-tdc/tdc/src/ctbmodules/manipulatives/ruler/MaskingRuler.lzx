@@ -20,17 +20,12 @@
 			}
 		</method>
 		
-        <attribute name="rotatedel" 
-                   value="$once{new LzDelegate (this, 'doRotate')}"/>
-        <attribute name="sizedel" 
-                   value="$once{new LzDelegate (this, 'doSize')}"/>
-
         <attribute name="dragxmin" value="null"/>
         <attribute name="dragymin" value="null"/>
         <attribute name="dragxmax" value="null"/>
         <attribute name="dragymax" value="null"/>
 		<attribute name="minLength" value="100" type="number" />
-		<attribute name="maxLength" value="510" type="number" />
+		<attribute name="maxLength" value="800" type="number" />
 		
 		<attribute name="LABEL_PADDING" value="10"/>
 		<attribute name="GRABBER_PADDING" value="35"/>
@@ -201,9 +196,8 @@ Debug.write("if "+data +" : "+ hasstate);
              } else {
 Debug.write("else "+data +" : "+ hasstate);
                 this.setAttribute ('rotation', 0);
-                this.ruler.setAttribute ('width', null);
-
-                this.setAttribute ('x', (classroot.width - this.width)/2);
+				this.ruler.setAttribute ('width', classroot.width);
+                this.setAttribute ('x', 0);
                 this.setAttribute ('y', (classroot.height - this.height)/2);
 
                 //set default values in data    
@@ -215,121 +209,12 @@ Debug.write("else "+data +" : "+ hasstate);
                 }
             }
             
-        ]]></method>
-
-        <method name="startRotate" args="xpos, ypos">
-            this.rotatedel.register (LzIdle, 'onidle');
-            
-            this.setAttribute ('xoffset', xpos);
-            this.setAttribute ('yoffset', ypos);
-            
-            var rads = degreesToRads(this.rotation);
-            var sin = Math.sin(rads);
-            var cos = Math.cos(rads);
-            
-            var dx = cos * xpos - sin * ypos;
-            var dy = sin * xpos + cos * ypos;
-            
-            this.setAttribute ('x', this.x + dx);
-            this.setAttribute ('y', this.y + dy);                
-        </method>
-
-        <method name="endRotate" args="xpos, ypos">
-            this.rotatedel.unregisterAll ();
-            
-            this.setAttribute ('xoffset', 0);
-            this.setAttribute ('yoffset', 0);
-            
-            var rads = degreesToRads(this.rotation);
-            var sin = Math.sin(rads);
-            var cos = Math.cos(rads);
-            
-            var dx = cos * xpos - sin * ypos;
-            var dy = sin * xpos + cos * ypos;
-            
-            this.setAttribute ('x', this.x - dx);
-            this.setAttribute ('y', this.y - dy);                
-
-			updateDraggerAttributes();
-            //save new pos and rotation
-            datapath.p.setAttr ('rotation', this.rotation);
-            datapath.p.setAttr ('x', this.x);
-            datapath.p.setAttr ('y', this.y);
-        </method>
-
-        <method name="doRotate"><![CDATA[
-            var mx = parent.getMouse ('x') - this.x;
-            var my = parent.getMouse ('y') - this.y;
-            
-            if (isRotator()) {
-                mx = -mx;
-                my = -my;
-            }
-
-            var mousedist = Math.sqrt (mx*mx + my*my);
-            var endang = Math.asin (my/mousedist) * (180/Math.PI);
-
-            if (mx < 0) endang = 180 - endang;
-			if(isValidRotation(endang)){
-            	this.setRotation (endang);
-            }
-        ]]></method>
+        ]]></method>    
         
-        <method name="isRotator"><![CDATA[
-        	return (this.xoffset > this.width/2)
-        ]]></method>
-        
-        <method name="isValidRotation" args="ang">
-        	return isValidLocation(ang, this.ruler.width);
-        </method>
-        
-        <method name="isValidSize" args="lngth">
-        	return isValidLocation(this.rotation, lngth);
-        </method>
-        
-        <method name="isValidLocation" args="degrees, lngth"><![CDATA[
-         	var gb = getGrabberBounds(degrees, lngth);
-        	var xmin = gb[0];
-        	var ymin = gb[1];
-        	var xmax = gb[2];
-        	var ymax = gb[3];
-        	
-        	return (xmin >= DRAGGER_MIN_X &&
-	      	        xmax <= DRAGGER_MAX_X &&
-        	        ymin >= DRAGGER_MIN_Y &&
-        	        ymax <= DRAGGER_MAX_Y);
-
-        ]]></method>
-        
-        <method name="doSize"><![CDATA[
-            var mx = parent.getMouse ('x') - this.x;
-            var my = parent.getMouse ('y') - this.y;
-            
-            var mousedist = Math.sqrt (mx*mx + my*my);
-            var newwidth = mousedist;
-
-            if (newwidth < this.minLength) newwidth = this.minLength; 
-            if (newwidth > this.maxLength) newwidth = this.maxLength;
-
-			if(isValidSize(newwidth)){
-	            this.ruler.setAttribute ('width', newwidth);
-	            updateDraggerAttributes();
-	        }
-        ]]></method>
-
 		<method name="getRelativeOrigin" args="degrees">
 			var result = new Array();
-			if(isRotator()){
-				var deltas = getDeltas(this.ruler.width, 0, degrees);
-				var dx = deltas[0];
-				var dy = deltas[1];
-            	result[0] = this.x - dx;
-            	result[1] = this.y - dy;                
-			}
-			else{
 				result[0] = this.x;
 				result[1] = this.y;
-			}
 			return result;
 		</method>
 
@@ -346,29 +231,17 @@ Debug.write("else "+data +" : "+ hasstate);
 			return result;
 		</method>
 		
-        <view name="ruler" 
-              x="${classroot.rotator.x}" 
-              clip="true">
+        <view name="ruler" x="0" clip="true">
             <view name="bg" 
                   resource="masking_ruler_background" 
-                  opacity="1" >
+                  opacity="1" stretches="both" width="${this.parent.width}">
                 <method event="onload">
             		classroot.setAttribute("maxLength", this.resourcewidth);
             	</method>
             </view>
-            <view name="lines" resource="masking_ruler_lines"/>            
-            <view name="label" 
-                  align="center" 
-                  y="$once{classroot.LABEL_Y}"
-                  oninit="if(classroot.labelrsr != null) this.setResource (classroot.labelrsr)">
-            	<method event="onload"><![CDATA[
-            		var minWidth = this.resourcewidth < parent.grabber.resourcewidth ? 
-            		               parent.grabber.resourcewidth + classroot.GRABBER_PADDING : 
-            		               this.resourcewidth;
-           			classroot.setAttribute("minLength", minWidth);
-            	]]></method>
-            </view>
-            
+
+            <view name="lines" resource="masking_ruler_lines" stretches="both" width="${this.parent.width}"/>            
+                       
 			<view name="grabber" resource="grabber_rsrc" y="$once{classroot.GRABBER_Y}" align="center" visible="false">
                   <method event="onmouseover">
                       gController.setCurrentCursor('cangrab_cursor');
@@ -391,55 +264,22 @@ Debug.write("else "+data +" : "+ hasstate);
                       classroot.datapath.p.setAttr ('y', classroot.y);
                   </method>
             </view>
-        </view>
+        </view>       
 
-        <view name="rotator"
-              resource="rotator_rsrc" 
-              x="$once{this.resourcewidth/2}"
-              y="$once{classroot.ROTATOR_Y}"
-              yoffset="${this.resourceheight/2}"
-              xoffset="${this.resourcewidth/2}" visible="false">
-            <method event="onmousedown">
-                classroot.bringToFront();
-                classroot.startRotate (classroot.rotateResizer.x, classroot.rotateResizer.y);
-            </method>
-            <method event="onmouseup">
-                classroot.endRotate (classroot.rotateResizer.x, classroot.rotateResizer.y);
-            </method>
-        </view>
-
-        <view name="rotateResizer"
-              resource="rotateResizer_rsrc" 
-              x="${classroot.ruler.x + classroot.ruler.width}"
-              y="$once{classroot.ROTATOR_Y}"
-              yoffset="${this.resourceheight/2}"
-              xoffset="${this.resourcewidth/2}" visible="false">
-            <method event="onmousedown">
-                classroot.bringToFront();
-                classroot.startRotate (classroot.rotator.x, classroot.rotator.y);
-                classroot.sizedel.register (LzIdle, 'onidle');
-            </method>
-            <method event="onmouseup">
-                classroot.endRotate (classroot.rotator.x, classroot.rotator.y);
-                classroot.sizedel.unregisterAll ();
-                classroot.datapath.p.setAttr ('rulerlength', classroot.ruler.width);
-            </method>
-        </view>
-
-                  <method event="onmousedown">
-                  	  this.bringToFront();
-                      LzCursor.setCursorGlobal ('grabbing_cursor');
-                      LzCursor.lock ();
-                      this.dragger.apply ();
-                  </method>
-                  <method event="onmouseup">
-                      LzCursor.unlock ();
-                      gController.restoreCurrentCursor();
-                      this.dragger.remove ();
+        <method event="onmousedown">
+        	this.bringToFront();
+            LzCursor.setCursorGlobal ('grabbing_cursor');
+            LzCursor.lock ();
+            this.dragger.apply ();
+        </method>
+        <method event="onmouseup">
+            LzCursor.unlock ();
+            gController.restoreCurrentCursor();
+            this.dragger.remove ();
 Debug.write("masking ruler datapath ",this.datapath.p);
-                      this.datapath.p.setAttr ('x', this.x);
-                      this.datapath.p.setAttr ('y', this.y);
-                  </method>
+            this.datapath.p.setAttr ('x', this.x);
+            this.datapath.p.setAttr ('y', this.y);
+        </method>
         
     </class>
 

@@ -40,7 +40,7 @@
 	                            tooltip="Scratchpad"/>
 			<ManipulativeButton resource="toolbar_masking_ruler_btn"
 	                            toolid="masking_ruler"
-	                            tooltip="Masking Ruler"/>
+	                            tooltip="Blocking Ruler"/>
 
 			<view name="gap" width="1" height="20" valign="middle"/>
 
