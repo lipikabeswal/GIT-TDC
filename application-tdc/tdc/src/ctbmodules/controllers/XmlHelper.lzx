@@ -161,6 +161,9 @@
 	    	dp3.setNodeAttribute("mrk", params[2]);
 //	    	dp3.setNodeAttribute("awd", params[3]);
 	    	dp3.setNodeAttribute("dur", params[4]);
+
+	    	dp3.setNodeAttribute("audioItem", params[9]); 	//changes for sending the item type as 
+															//parameter to avoid db hit in TMS
 	   		dp3.setXPath("istDs:/ist/rv");
 	   		dp3.setNodeAttribute("t", params[5]);
 	    	dp3.setXPath("istDs:/ist/rv/v");

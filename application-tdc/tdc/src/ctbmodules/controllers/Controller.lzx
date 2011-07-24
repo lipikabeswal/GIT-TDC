@@ -357,6 +357,7 @@
 
 		<!--For Las Links-->
 		<attribute name="audioFields" value="$once{new Array()}" />
+		<attribute name="audioItem" value="false" type="boolean" />
 		<!-- 
 			Is the panel being loaded for the sizer?
 		-->
@@ -2866,6 +2867,12 @@ if(stimulusid > 0){
 					}
 					result[7] = itemnode.getAttr( 'score' ); //current score
 					result[8] = getSpText();
+					
+					result[9] = 0;
+					if(!isThemeItem()){
+						if(this.getAttribute("audioItem"))
+							result[9] = 1;
+					}
 				}
     		}
     	//	this.setAttribute('blockFileName' , true);
@@ -3476,10 +3483,13 @@ if(stimulusid > 0){
 
 		<method name="updateAudioItem"><![CDATA[
 		if(isAudioItem() || this.blockFileName){//this will differentiate the audio item save call with the heartbeat
+           	gController.setAttribute("audioItem",true);
            	var xmls = "<answers>";
 			xmls = xmls.concat(generateAudioFileName());
            	xmls = xmls.concat("</answers>");
            	gController.setAudioItemState(xmls);
+		}else{
+			gController.setAttribute("audioItem",false);
 		}
 		]]></method>
 		
