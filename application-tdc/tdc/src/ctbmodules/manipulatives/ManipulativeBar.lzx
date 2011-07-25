@@ -95,6 +95,67 @@
 						this.setResourceNumber(1);
 					</method>
 			</view>
+			
+	<view name="gap1" width="5" height="20" valign="middle"/>	
+
+	<view name="maskingAnswer" visible="${gController.showMaskingAnswerPopUp}" resource="toolbar_msaking_choice_btn" valign="middle" height="20" width="28">
+				<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
+				<attribute name="isEnabled" value="false"/>
+				<attribute name="isSelected" value="false"/>
+					<method event="oninit">
+					Debug.write("oninit masking answer width" , this.x, this.y, this.width,this.height);
+					</method>
+					<method event="onvisible">
+					Debug.write("onvisible masking answer x" , this.x , this.y, this.width,this.height);
+						setup();
+					</method>
+					<method event="onmouseover">
+						this.setResourceNumber(2);
+						LzTimer.addTimer (tooltipdel, 500);
+					</method>
+			                
+					<method event="onmouseout">
+						gTooltip.hideTooltip (); 
+						if(!this.isEnabled) {
+							this.setResourceNumber(1);
+						}   
+						LzTimer.removeTimer (this.tooltipdel);
+					</method>
+			
+					<method event="onclick">
+					Debug.write("onclick masking answer x" , this.x, gManipulatives.y, gManipulativeBar.x);
+						gTooltip.hideTooltip (); 
+						LzTimer.removeTimer (this.tooltipdel);
+						if(gMaskingAnswer.visible){
+							hide();
+						} else {
+							show();
+						}
+					</method>
+					
+					<method name="showTooltip">
+						gTooltip.showTooltip ('Masking Tool');
+					</method>
+
+					<method name="setup">
+						gMaskingAnswer.setUpPopUp(this.x);
+						//show();
+					</method>
+					
+					<method name="show">
+						gMaskingAnswer.showPopUp();
+						this.isEnabled = true;
+						gController.setAttribute("maskingAnswerDDState", true);
+						this.setResourceNumber(2);
+					</method>
+
+					<method name="hide">
+						gMaskingAnswer.hidePopUp();
+						this.isEnabled = false;
+						gController.setAttribute("maskingAnswerDDState", false);
+						this.setResourceNumber(1);
+					</method>
+			</view>
     
 		</view>
 		

@@ -52,6 +52,15 @@
 		<frame src="magnifier/toolbar_magnifyingGlass_disabled.png"/>   
 		<frame src="magnifier/toolbar_magnifyingGlass_on.png"/>        
 	</resource>
+
+	<!-- Toolbar Button Masking Answer Choice-->
+	<resource name="toolbar_msaking_choice_btn">      
+		<frame src="iknow_toolbar/toolbar_maskingChoice_off.PNG"/>   
+		<frame src="iknow_toolbar/toolbar_maskingChoice_on.PNG"/>        
+		<frame src="iknow_toolbar/toolbar_maskingChoice_disabled.PNG"/> 
+	</resource>
+
+
 	<!-- Toolbar Button scartchpad-->
 	<resource name="toolbar_scratchpad_btn">      
 		<frame src="iknow_toolbar/toolbar_scratchpad_off.swf"/>   
@@ -281,6 +290,40 @@
         <frame src="iknow_answerchoices/answerF_on.swf"/>
 
         <frame src="iknow_answerchoices/answer_blueballselect.swf"/>
+    </resource>
+
+ 	<!-- masking answer selection button -->
+    <!--resource name="masking_answer_choice_btn">
+		<frame src="masking_answerchoices/hideA_off.png"/>
+		<frame src="masking_answerchoices/hideB_off.png"/>
+		<frame src="masking_answerchoices/hideC_off.png"/>
+		<frame src="masking_answerchoices/hideD_off.png"/>
+		<frame src="masking_answerchoices/hideE_off.png"/>
+		<frame src="masking_answerchoices/hideF_off.png"/>
+		<frame src="masking_answerchoices/showA_off.png"/>
+		<frame src="masking_answerchoices/showB_off.png"/>
+		<frame src="masking_answerchoices/showC_off.png"/>
+		<frame src="masking_answerchoices/showD_off.png"/>
+		<frame src="masking_answerchoices/showE_off.png"/>
+		<frame src="masking_answerchoices/showF_off.png"/>		
+		<frame src="masking_answerchoices/showAll_off.png"/>
+		<frame src="masking_answerchoices/showAll_on.png"/>
+    </resource-->
+
+	<resource name="masking_answer_choice_btn">
+		<frame src="masking_answerchoices/masking_choice_off.png"/>
+		<frame src="masking_answerchoices/masking_choice_on.png"/>
+    </resource>
+
+	<!-- masking answer show all button -->
+    <resource name="masking_answer_choice_showall">
+		<frame src="masking_answerchoices/showAll_off.png"/>
+		<frame src="masking_answerchoices/showAll_off.png"/>
+    </resource>
+
+	<!-- masking answer background -->
+    <resource name="masking_answer_choice_bg">
+		<frame src="masking_answerchoices/maskingAnswerbg.png"/>		
     </resource>
 
     <!-- =====================

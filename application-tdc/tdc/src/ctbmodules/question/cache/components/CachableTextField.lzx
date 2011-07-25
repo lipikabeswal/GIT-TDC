@@ -1116,10 +1116,22 @@ parse the text string and store text and image string in an array at different i
 				}
 			}
 		]]></method>
+		
+
 
         <!-- ===============
              = VIEWS
              =============== -->
+         <method name="hide">
+            	this.setAttribute('opacity',0);
+            	//Debug.write("hide...", this.isReadable);
+            	 this.subviews[0].setAttribute('clickable',false);
+		</method>
+		<method name="show">
+            	this.setAttribute('opacity',100);
+            	if(this.isReadable)
+            	this.subviews[0].setAttribute('clickable',true);
+		</method>
         
         <state apply="${classroot.embedded_input == false &amp;&amp; classroot.embedded_inline_image == false}">
            <view name="clickregion"

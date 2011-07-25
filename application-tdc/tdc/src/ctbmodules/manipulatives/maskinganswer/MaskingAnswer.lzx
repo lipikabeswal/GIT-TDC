@@ -1,0 +1,100 @@
+<view name="maskingAnswer" id="gMaskingAnswer"
+	width="70" 
+	height="${canvas.height/8}" visible="false">
+	
+	<attribute name="stereotype" value="$path{'@stereotype'}"/>
+	<attribute name="bg" type="color" value="white" />
+	<attribute name="fg" type="color" value="white" />
+	<attribute name="lastxpos" value="0" type="number" />
+	<attribute name="lastypos" value="0" type="number" />
+	<attribute name="isEnabled" value="false" />
+	<attribute name="dp" value="$once{new LzDatapointer()}" />
+	<attribute name="choicelen" value ="0" type="number"/>
+	
+	<method event="ondata" args="data"><![CDATA[
+
+	Debug.write("masking answer iondata");	
+	]]></method>
+
+		<method event="onvisible">
+			Debug.write("onvisible....", this.visible);
+	
+		</method>
+
+		<method event="onmousedown">
+				Debug.write("onvisible....", this.visible);
+		</method>
+		
+		<method event="onmouseup">
+	        Debug.write("onvisible....", this.visible);
+  		</method>
+
+		<drawview name="windowbg" width="70"
+			height="${canvas.height/8}" >
+				
+			<view name="maskingAnswerArea" x="0" y="2"
+					bgcolor="#C0D9EB" width="70" resource="magnifierBlank">
+				<simplelayout name="mylayout" axis="y" spacing="2"/>
+				<handler name="oninit"><![CDATA[  
+					//  var ansChoiceName = "choice"; 
+				  //    for(var i = 0; i < 4; i++){
+				  //    this.subviews.push(new myclass(this, {bgcolor:gray, width:60, height:25, name:ansChoiceName+i, clickable:true}));
+				  //  }
+				//this.subviews.push(new myclass(this, {bgcolor:gray, width:60, height:25, name:ansChoiceName, clickable:true}));
+				 ]]></handler>
+	 			 <method name="clearOut">
+					Debug.write("clear fired");
+      			  for (var i in this.subviews) {
+           			 this.subviews[i].destroy();
+       			 }
+   				 </method>
+				<method name="clicktest" args="id">
+				Debug.write("click Test.....Test", id);
+				</method>
+			</view>
+		</drawview>
+
+	<method name="choice" args="obj">
+	Debug.write("Choice after click....", obj);
+
+	</method>
+
+	<method name="mask">
+	Debug.write("mask called");
+	</method>
+	<method name="setUpPopUp" args="x,y">
+		var selwidget = [];
+		var answidget = [];
+		Debug.write("Settin Up Masking Answer Area", x , this.y);
+		 this.setAttribute("x",gManipulativeBar.globals.maskingAnswer.x);
+		 this.setAttribute("y",70);		
+		this.choicelen = gController.returnNumberOfOptions();
+		createChoices();
+
+	</method>
+
+	<method name="createChoices"><![CDATA[
+		gMaskingAnswer.windowbg.maskingAnswerArea.clearOut();
+		var ansChoiceName = "choice";
+		if(gController.returnNumberOfOptions() > 0){
+			for(var i = 0; i < gController.returnNumberOfOptions(); i++){				
+				gMaskingAnswer.windowbg.maskingAnswerArea.subviews.push(new myclass(gMaskingAnswer.windowbg.maskingAnswerArea, {name:ansChoiceName+i, clickable:true, resource:'masking_answer_choice_btn', x:3, y:2, curState:curState == 'Hide' ? 'Show':'Hide'}));
+			}
+			gMaskingAnswer.windowbg.maskingAnswerArea.subviews.push(new myclass(gMaskingAnswer.windowbg.maskingAnswerArea, {name:ansChoiceName, clickable:true, resource:'masking_answer_choice_btn', x:3, y:2, curState:'Show All'}));
+		}
+	]]></method>
+
+	<method name="hidePopUp">
+		this.setAttribute("visible", false);
+	</method>
+
+	<method name="showPopUp">
+		this.setAttribute("visible", true);
+	</method>
+	
+	<method name="createSubViews" args="view">
+	
+	</method>
+</view>
+
+

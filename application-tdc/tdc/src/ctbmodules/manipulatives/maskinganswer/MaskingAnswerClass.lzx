@@ -1,0 +1,81 @@
+ <library>
+	 <class name="myclass" onclick="choice(this)" oninit="setup(this)">
+	 <attribute name="curState" type="string"/>
+		<attribute name="curTxt" type="string"/>
+	 
+		  <text name="mytext" x="3" fontsize="10" fontstyle="bold"/>
+			<method name="setup" args="data">
+				var name = data.name;
+				name = name.substring(6,7);
+				Debug.write("myclass....name",name);
+				
+				if(name == 0)  {
+					this.curTxt = "[A]";
+				}
+				if(name == 1)  {
+					//this.mytext.setText(curState+" 'B'");
+					this.curTxt = "[B]";
+					//this.setResourceNumber(1);
+				}
+				if(name == 2)  {
+					//this.mytext.setText(curState+" 'C'");
+					this.curTxt = "[C]";
+					//this.setResourceNumber(1);
+					}
+				if(name == 3)  {
+					//this.mytext.setText(curState+" 'D'");
+					this.curTxt = "[D]";
+					//this.setResourceNumber(1);
+				}
+				if(name == 4)  {
+					//this.mytext.setText(curState+" 'E'");
+					this.curTxt = "[E]";
+					//this.setResourceNumber(1);
+				}
+				if(name == 5)  {
+					//this.mytext.setText(curState+" F");
+					this.curTxt = "[F]";
+					//this.setResourceNumber(1);
+				}
+				if(name == "undefined" || name == "" || name == null) {
+					//this.mytext.setText(" Show All");
+					this.curTxt = "Show All";
+					
+					//this.setResourceNumber(13);
+				}
+				
+				this.setTextVal();
+			</method>
+		  	
+		  	<method name="choice" args="data">
+				//this.mytext.setText(data.name);
+				//Debug.write("sano",data.name);
+				gController.maskChoice(data.name,curState);
+				if(this.curState == 'Hide'){
+					this.setAttribute("curState",'Show');
+				}else if(curState == 'Show'){
+					this.setAttribute("curState",'Hide');
+				}else if(curState =='Show All'){
+					Debug.write("gManipulativeBar.globals.maskingAnswer",gManipulativeBar.globals.maskingAnswer);
+					gManipulativeBar.globals.maskingAnswer.setup();
+				}
+				
+				this.setTextVal();	
+				
+			</method>
+
+			<method event="onmouseover">
+				this.setResourceNumber(2);
+			</method>
+			                
+			<method event="onmouseout">
+				this.setResourceNumber(1);
+			</method>
+		<method name="setTextVal">
+			if(curTxt == 'Show All')
+				this.mytext.setText(curTxt);
+			else
+				this.mytext.setText(curState+" "+curTxt);
+		</method>
+	 </class>
+ </library>

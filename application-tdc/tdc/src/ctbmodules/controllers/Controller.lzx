@@ -4,6 +4,7 @@
 	<include href="TutorialManager.lzx" />
 
 	<script><![CDATA[
+		
         function countDataNodes ( nodes ) {
             if ( null == nodes ) {
                 return 0;
@@ -465,6 +466,10 @@
 		<attribute name="magnifierState" value="false" />
 		
 		<attribute name="magnifierVisible" value="false" />
+		<attribute name="showMaskingAnswerPopUp" value="false"/>
+		<attribute name="maskingAnswerDDState" value="false"/>
+		
+		<attribute name="answerArray" value="$once{new Array()}" />
 		<!--
 			============================================================
 			Datapointers
@@ -594,6 +599,7 @@
             LzCursor.unlock();
             gReadableText.stopReading();
         	hideMagnifierGlass();
+			hideMaskingChoiceDD();
             gScreens.showError(xml);
 		</method>
 
@@ -905,6 +911,7 @@
 	    		setShowHighlighter();
 	    		setShowMaskingRuler();
 	    		setShowMagnifyingGlass();
+	    		setShowMaskingAnswer();
 	    		var restartNumber = dp.xpathQuery('login_response/@restart_number');
 				gTutorialManager.setAttribute('tutorialNode', dp.xpathQuery('login_response/tutorial'));
 	    		var logo = dp.xpathQuery('login_response/branding/@tdclogo');
@@ -988,6 +995,19 @@
 			}
 			else{
 				this.setAttribute( 'magnifierVisible', false );
+			}
+		</method>
+
+		<method name="setShowMaskingAnswer">
+			var sma = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@masking_tool');
+			Debug.write("sma*********",sma);
+			if ( (sma == "1") ||
+                 (sma == "true") ||
+                 (sma == true) ) {
+				this.setAttribute( 'showMaskingAnswerPopUp', true );
+			}
+			else{
+				this.setAttribute( 'showMaskingAnswerPopUp', false );
 			}
 		</method>
 
@@ -1969,6 +1989,12 @@ if(stimulusid > 0){
 					gManipulativeBar.globals.magnifyingGlass.setVisible(true);
 				}
 			}
+			
+			if(this.showMaskingAnswerPopUp && gController.returnNumberOfOptions() > 0){
+				gManipulativeBar.globals.maskingAnswer.setVisible(true);
+			}else{
+				gManipulativeBar.globals.maskingAnswer.setVisible(false);
+			}
         ]]></method>
 
 		<method name="saveSharedStimulusHighlights"><![CDATA[
@@ -2539,7 +2565,9 @@ if(stimulusid > 0){
 			this.clearInvalidCrResponses();
 			this.resetCrs();
             LzCursor.unlock();  
-        	checkHideMagnifierGlass();             
+        	checkHideMagnifierGlass();
+			checkHideMaskingChoiceDD();    
+          
             gScreens.showPause(getStudentName());
 		</method>
 
@@ -2563,6 +2591,7 @@ if(stimulusid > 0){
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
             checkShowMagnifierGlass();
+			checkShowMaskingChoiceDD();
 		</method>
 
 		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
@@ -2598,6 +2627,7 @@ if(stimulusid > 0){
 			//this.resetAudioFields();
             closeOpenManipulatives();
      		checkHideMagnifierGlass();
+			checkHideMaskingChoiceDD();
 			gMusicPlayer.hide();
             LzCursor.unlock();            
             gScreens.showFinish( totalQuestions() - totalAnswered(),
@@ -2668,6 +2698,7 @@ if(stimulusid > 0){
             restoreScratchpadFocusIfNeeded();
             unlockUI();
             checkShowMagnifierGlass();
+			checkShowMaskingChoiceDD();
         </method>
 
 		<method name="continueTest">
@@ -2781,6 +2812,7 @@ if(stimulusid > 0){
             this.resetCrFields();
 			this.resetAudioFields();
 			hideMagnifierGlass();
+			hideMaskingChoiceDD();
 		]]></method>
 
 		<method name="loadMusicData"><![CDATA[
@@ -3325,6 +3357,7 @@ if(stimulusid > 0){
             LzCursor.unlock();
             gReadableText.stopReading();
             hideMagnifierGlass();
+			hideMaskingChoiceDD();
             if(this.recorder != null) {
 				this.recorder.stopblinker('stop');
 				this.recorder.whitewrapperOverLay.setVisible(false);
@@ -3763,6 +3796,7 @@ if(stimulusid > 0){
 			gPleaseWaitPopup.show();
 			gMusicPlayer.hide();
 			checkHideMagnifierGlass();
+			checkHideMaskingChoiceDD();
 		</method>
 
 		<method name="hideWaitPopup"><![CDATA[
@@ -3772,6 +3806,7 @@ if(stimulusid > 0){
 			gReadableText.stopRequestor();
 			gController.unlockUI();
 		 	checkShowMagnifierGlass();
+			checkShowMaskingChoiceDD();
 		
 			if(gCommunicator.firstRequestDone) {
 				if(gReadableText.speechRequestSent) {
@@ -3794,12 +3829,14 @@ if(stimulusid > 0){
 			this.isRevisitPopupOpen = true;	
 			gRevisitFalsePopup.show(calledFrom);
 			checkHideMagnifierGlass();
+			checkHideMaskingChoiceDD();
 		</method>
 		
 		<method name="hideRevisitPopup"><![CDATA[
 			this.isRevisitPopupOpen = false;	
 			gRevisitFalsePopup.hide();
 			checkShowMagnifierGlass();
+			checkShowMaskingChoiceDD();
 		]]></method>
 		
 		<method name="hideMagnifierGlass">
@@ -3825,6 +3862,222 @@ if(stimulusid > 0){
 				gMagnifyingGlass.showGlass();
 		   }   
 		</method>
+			<method name="hideMaskingChoiceDD">
+			if(this.maskingAnswerDDState)  {
+				gManipulativeBar.globals.maskingAnswer.hide();
+		   }   
+		</method>
+
+		<method name="showMaskingChoiceDD">
+		   if(this.maskingAnswerDDState == false)  {
+				gManipulativeBar.globals.maskingAnswer.show();
+		   }   
+		</method>
+
+		<method name="checkHideMaskingChoiceDD">
+			if(this.maskingAnswerDDState)  {
+				gMaskingAnswer.hidePopUp();
+		   }   
+		</method>
+
+		<method name="checkShowMaskingChoiceDD">
+		   if(this.maskingAnswerDDState)  {
+				gMaskingAnswer.showPopUp();
+		   }   
+		</method>
+
+		<method name="setAnswerPanel" args="ansObject"><![CDATA[
+		Debug.write("ansObject fired", ansObject,answerArray.length);
+		if(answerArray.length < returnNumberOfOptions()){
+		
+			answerArray.push(ansObject);
+		}
+		
+		//ansObject.hide();
+		
+
+		]]></method>
+
+		
+		
+		<method name="contains" args="answerArray,ansObject"><![CDATA[
+		var k = ansObject.subviews[0].subviews[0].type;
+		if(k == null){
+			k =  ansObject.subviews[0].subviews[0].type;
+		}
+		for (var i =0 ; i < answerArray.length; i++){
+			if(answerArray[i].subviews[0].subviews[0].type == k)
+			{Debug.write("matchin>>>>>>>>>>>>>>>>");
+				 return true;
+			}
+		}
+		
+			return false; 
+		]]></method>
+
+		<method name="returnNumberOfOptions"><![CDATA[
+			var result = [];
+			
+			 result = dpitem.xpathQuery('item_canvas/*/answer_choice_widget/selector_widget')
+			
+			if(result == null){
+ 			result =dpitem.xpathQuery('item_canvas/panel/*/answer_choice_widget/selector_widget')
+			} 
+			if(result == null){ 
+			Debug.write("1.............1");
+			 result	= dpitem.xpathQuery('item_canvas/panel/panel/*/answer_choice_widget/selector_widget')
+			}
+			
+			//Debug.write("result length for masking answer choice", result.length);
+			return result.length;
+			
+
+		]]></method>
+		
+		<method name="maskChoice" args="data,state"><![CDATA[
+			
+			var index =data.substring(6,7);
+			Debug.write("answer Array", answerArray[0],answerArray[1],answerArray[2],answerArray[3])
+
+			var type =  answerArray[0].subviews[0].subviews[0].type;
+			Debug.write("typetype ",type);
+			var change = false;
+			if(type == null ){
+			Debug.write("inside type");
+			change = true;
+			}
+			
+			var actualIndex = returnIndex(answerArray,index,change);
+		
+			if(state == 'Hide'){
+			if(index != null && index != ""){
+				answerArray[actualIndex].subviews[0].hide();
+				answerArray[actualIndex].subviews[1].hide();
+				answerArray[actualIndex].subviews[2].hide();				
+			}
+			}
+			else if(state == 'Show'){
+			if(index != null && index != ""){
+				answerArray[actualIndex].subviews[0].show();
+				answerArray[actualIndex].subviews[1].show();
+				answerArray[actualIndex].subviews[2].show();				
+			}
+			}
+
+
+			
+			//var obj = new Object();
+		
+			if(index == null || index == "" || index == " " || index == NaN || index == "NaN" || index == 'NaN'){
+				Debug.write("inside answerArray", answerArray);
+				for (var i = 0; i < answerArray.length; i++){
+						//answerArray[i].show();
+				answerArray[i].subviews[0].show();
+				answerArray[i].subviews[1].show();
+				answerArray[i].subviews[2].show();
+						
+				}
+			}
+
+		]]></method>
+		
+		<method name="clearAll" args="arr"><![CDATA[
+				for (var i = 0; i < answerArray.length; i++){
+						//answerArray[i].show();
+				answerArray[i].subviews[0].show();
+				answerArray[i].subviews[1].show();
+				answerArray[i].subviews[2].show();
+						
+				}
+			resetAnswerArray();
+		]]></method>
+		<method name="returnIndex" args="arr,index,change"><![CDATA[
+	
+		
+		  switch ( index ) {
+	        	case  0:
+                   	for(var i=0; i < arr.length; i++){
+					if(answerArray[i].subviews[0].subviews[0].type == 'A' && !change){
+					return i;
+					}
+					else if(answerArray[i].subviews[1].subviews[0].type == 'A'){
+					return i;
+					}
+					}
+                    break;
+				case 1: 
+                    for(var i=0; i < arr.length; i++){
+					if(answerArray[i].subviews[0].subviews[0].type == 'B' && !change){
+					return i;
+					}
+					else if(answerArray[i].subviews[1].subviews[0].type == 'B'){
+					return i;
+					}
+					}
+                    break;
+				case 2: 
+                   	for(var i=0; i < arr.length; i++){
+					if(answerArray[i].subviews[0].subviews[0].type == 'C' && !change){
+					return i;
+					}
+					else if(answerArray[i].subviews[1].subviews[0].type == 'C'){
+					return i;
+					}
+					}
+                    break;
+				case 3: 
+                    for(var i=0; i < arr.length; i++){
+					if(answerArray[i].subviews[0].subviews[0].type == 'D' && !change){
+					return i;
+					}
+					else if(answerArray[i].subviews[1].subviews[0].type == 'D'){
+					return i;
+					}
+					}
+                    break;
+				case 4:
+                   	for(var i=0; i < arr.length; i++){
+					if(answerArray[i].subviews[0].subviews[0].type == 'E' && !change){
+					return i;
+					}
+					else if(answerArray[i].subviews[1].subviews[0].type == 'E'){
+					return i;
+					}
+					}
+                    break;
+				case 5: 
+                   	for(var i=0; i < arr.length; i++){
+					if(answerArray[i].subviews[0].subviews[0].type == 'F' && !change){
+					return i;
+					}
+					else if(answerArray[i].subviews[1].subviews[0].type == 'F'){
+					return i;
+					}
+					} 
+                    break;
+				case 6: 
+                    for(var i=0; i < arr.length; i++){
+					if(answerArray[i].subviews[0].subviews[0].type == 'G' && !change){
+					return i;
+					}
+					else if(answerArray[i].subviews[1].subviews[0].type == 'G'){
+					return i;
+					}
+					}
+                    break;
+	 		}
+		]]></method>
+		<method name="resetAnswerArray"><![CDATA[
+		
+		  for (var i = 0; i < this.answerArray.length; i++) {
+                delete this.answerArray[i];
+            }
+            this.answerArray.length = 0;
+		]]></method>
+
+	
+		
+	
 	</node>
 
 </library>

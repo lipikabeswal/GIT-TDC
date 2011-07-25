@@ -286,6 +286,18 @@
                 immediateparent.updateSelector();
             }
 		]]></method>
+		
+		
+		<method name="hide">
+            	this.setAttribute('opacity',0);
+            	//Debug.write("hide...", this.isReadable);
+            	 this.imageview.setAttribute('clickable',false);
+		</method>
+		<method name="show">
+            	this.setAttribute('opacity',100);
+            	if(this.readable)
+            	this.imageview.setAttribute('clickable',true);
+		</method>
 
         <view name="imageview" stretches="both" clickable="${classroot.readable}">
         	        	

@@ -9,5 +9,6 @@
     <include href="screens/Screens.lzx"/>
     <include href="screens/Tutorial.lzx"/>
     <include href="rich-text"/>
+    <include href="manipulatives/maskinganswer/MaskingAnswerClass.lzx" />
 
 </library>
