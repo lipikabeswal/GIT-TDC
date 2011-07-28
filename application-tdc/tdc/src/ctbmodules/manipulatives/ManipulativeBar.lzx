@@ -40,30 +40,33 @@
 	                            tooltip="Scratchpad"/>
 			<ManipulativeButton resource="toolbar_masking_ruler_btn"
 	                            toolid="masking_ruler"
-	                            tooltip="Blocking Ruler"/>
-
-			<view name="gap" width="1" height="20" valign="middle"/>
+	                            tooltip="Blocking Ruler"/>		
 
 			<!-- Magnifier Glass Button -->
-			<view name="magnifyingGlass" visible="${gController.magnifierVisible}"  resource="toolbar_magnifying_glass_btn" valign="middle" height="20" width="28">
-				<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
-				<attribute name="isEnabled" value="false"/>
-				<attribute name="isSelected" value="false"/>
-					
-					<method event="onmouseover">
+			<view name="magnifyingGlass"
+				visible="${gController.magnifierVisible}"
+				resource="toolbar_magnifying_glass_btn" valign="middle" height="20"
+				width="28">
+				<attribute name="tooltipdel"
+					value="$once{new LzDelegate (this, 'showTooltip')}"
+				/>
+				<attribute name="isEnabled" value="false" />
+				<attribute name="isSelected" value="false" />
+
+				<method event="onmouseover">
 						this.setResourceNumber(2);
 						LzTimer.addTimer (tooltipdel, 500);
 					</method>
-			                
-					<method event="onmouseout">
+
+				<method event="onmouseout">
 						gTooltip.hideTooltip (); 
 						if(!this.isEnabled) {
 							this.setResourceNumber(1);
 						}   
 						LzTimer.removeTimer (this.tooltipdel);
 					</method>
-			
-					<method event="onclick">
+
+				<method event="onclick">
 						LzTimer.removeTimer (this.tooltipdel);
 						if(gMagnifyingGlass.visible){
 							hide();
@@ -71,60 +74,57 @@
 							setup();
 						}
 					</method>
-					
-					<method name="showTooltip">
+
+				<method name="showTooltip">
 						gTooltip.showTooltip ('Magnifying Glass');
 					</method>
 
-					<method name="setup">
+				<method name="setup">
 						gMagnifyingGlass.setUpGlass();
 						show();
 					</method>
-					
-					<method name="show">
+
+				<method name="show">
 						gMagnifyingGlass.showGlass();
 						this.isEnabled = true;
 						gController.setAttribute("magnifierState", true);
 						this.setResourceNumber(2);
 					</method>
 
-					<method name="hide">
+				<method name="hide">
 						gMagnifyingGlass.hideGlass();
 						this.isEnabled = false;
 						gController.setAttribute("magnifierState", false);
 						this.setResourceNumber(1);
 					</method>
 			</view>
-			
-	<view name="gap1" width="5" height="20" valign="middle"/>	
 
-	<view name="maskingAnswer" visible="${gController.showMaskingAnswerPopUp}" resource="toolbar_msaking_choice_btn" valign="middle" height="20" width="28">
-				<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
-				<attribute name="isEnabled" value="false"/>
-				<attribute name="isSelected" value="false"/>
-					<method event="oninit">
-					Debug.write("oninit masking answer width" , this.x, this.y, this.width,this.height);
-					</method>
-					<method event="onvisible">
-					Debug.write("onvisible masking answer x" , this.x , this.y, this.width,this.height);
-						setup();
-					</method>
-					<method event="onmouseover">
+			<view name="gap" width="7" height="20" valign="middle"/>
+
+			<view name="maskingAnswer"
+				visible="${gController.showMaskingAnswerPopUp}"
+				resource="toolbar_msaking_choice_btn" valign="middle" height="20"
+				width="34">
+				<attribute name="tooltipdel"
+					value="$once{new LzDelegate (this, 'showTooltip')}"/>
+				<attribute name="isEnabled" value="false" />
+				<attribute name="isSelected" value="false" />
+				<method event="onmouseover">
 						this.setResourceNumber(2);
-						LzTimer.addTimer (tooltipdel, 500);
+						if(!gMaskingAnswer.visible)
+							LzTimer.addTimer (tooltipdel, 500);
 					</method>
-			                
-					<method event="onmouseout">
+
+				<method event="onmouseout">
 						gTooltip.hideTooltip (); 
 						if(!this.isEnabled) {
 							this.setResourceNumber(1);
 						}   
 						LzTimer.removeTimer (this.tooltipdel);
 					</method>
-			
-					<method event="onclick">
+
+				<method event="onclick">
 					Debug.write("onclick masking answer x" , this.x, gManipulatives.y, gManipulativeBar.x);
-						gTooltip.hideTooltip (); 
 						LzTimer.removeTimer (this.tooltipdel);
 						if(gMaskingAnswer.visible){
 							hide();
@@ -132,31 +132,26 @@
 							show();
 						}
 					</method>
-					
-					<method name="showTooltip">
+
+				<method name="showTooltip">
 						gTooltip.showTooltip ('Masking Tool');
 					</method>
 
-					<method name="setup">
-						gMaskingAnswer.setUpPopUp(this.x);
-						//show();
-					</method>
-					
-					<method name="show">
+				<method name="show">
 						gMaskingAnswer.showPopUp();
 						this.isEnabled = true;
 						gController.setAttribute("maskingAnswerDDState", true);
 						this.setResourceNumber(2);
 					</method>
 
-					<method name="hide">
+				<method name="hide">
 						gMaskingAnswer.hidePopUp();
 						this.isEnabled = false;
 						gController.setAttribute("maskingAnswerDDState", false);
 						this.setResourceNumber(1);
 					</method>
 			</view>
-    
+
 		</view>
 		
 		<view datapath="manipulatives/general" name="generals" valign="middle"

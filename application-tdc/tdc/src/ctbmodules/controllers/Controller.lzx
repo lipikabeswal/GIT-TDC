@@ -2811,6 +2811,7 @@ if(stimulusid > 0){
 			dsitem.doRequest();        
             this.resetCrFields();
 			this.resetAudioFields();
+			gMaskingAnswer.setAttribute("withState",false);
 			hideMagnifierGlass();
 			hideMaskingChoiceDD();
 		]]></method>
@@ -2899,11 +2900,13 @@ if(stimulusid > 0){
 					}
 					result[7] = itemnode.getAttr( 'score' ); //current score
 					result[8] = getSpText();
-					
+					Debug.write("getItemParams...",this.getAttribute("audioItem"));
 					result[9] = 0;
 					if(!isThemeItem()){
-						if(this.getAttribute("audioItem"))
+						if(this.getAttribute("audioItem")) {
+							Debug.write("in if of getItemParams...",this.getAttribute("audioItem"));
 							result[9] = 1;
+							}
 					}
 				}
     		}
@@ -3515,6 +3518,7 @@ if(stimulusid > 0){
 		]]></method>
 
 		<method name="updateAudioItem"><![CDATA[
+		Debug.write("updateAudioItem....");
 		if(isAudioItem() || this.blockFileName){//this will differentiate the audio item save call with the heartbeat
            	gController.setAttribute("audioItem",true);
            	var xmls = "<answers>";
@@ -3524,6 +3528,7 @@ if(stimulusid > 0){
 		}else{
 			gController.setAttribute("audioItem",false);
 		}
+		Debug.write("updateAudioItem audioItem...."+this.audioItem);
 		]]></method>
 		
 		<method name="generateAudioFileName">
@@ -3935,20 +3940,24 @@ if(stimulusid > 0){
 		]]></method>
 		
 		<method name="maskChoice" args="data,state"><![CDATA[
-			
+			var actualIndex;
 			var index =data.substring(6,7);
 			Debug.write("answer Array", answerArray[0],answerArray[1],answerArray[2],answerArray[3])
 
 			var type =  answerArray[0].subviews[0].subviews[0].type;
-			Debug.write("typetype ",type);
+
 			var change = false;
 			if(type == null ){
 			Debug.write("inside type");
 			change = true;
 			}
-			
-			var actualIndex = returnIndex(answerArray,index,change);
-		
+
+			if(isLoginResponseHavingSeed){
+			actualIndex = answerArray.length - index -1;
+			Debug.write("login response seed",actualIndex);
+			}else{
+			actualIndex = returnIndex(answerArray,index,change);
+			}
 			if(state == 'Hide'){
 			if(index != null && index != ""){
 				answerArray[actualIndex].subviews[0].hide();

@@ -29,7 +29,7 @@
         <method event="ondata" args="data"><![CDATA[
         	//Clearing Masking Tool states
         	 gController.clearAll();
-        	 gManipulativeBar.globals.maskingAnswer.setup();
+        	 //gManipulativeBar.globals.maskingAnswer.setup();
             if (data) {
             	this.setAttribute("directionsHeight", 0);
             	this.setAttribute("leftPanelWidth", _LEFTPANELWIDTH);

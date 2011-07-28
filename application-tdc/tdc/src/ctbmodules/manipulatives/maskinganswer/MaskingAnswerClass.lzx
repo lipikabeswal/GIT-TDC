@@ -1,8 +1,7 @@
  <library>
 	 <class name="myclass" onclick="choice(this)" oninit="setup(this)">
 	 <attribute name="curState" type="string"/>
-		<attribute name="curTxt" type="string"/>
-	 
+		<attribute name="curTxt" type="string"/>	 
 		  <text name="mytext" x="3" fontsize="10" fontstyle="bold"/>
 			<method name="setup" args="data">
 				var name = data.name;
@@ -13,35 +12,22 @@
 					this.curTxt = "[A]";
 				}
 				if(name == 1)  {
-					//this.mytext.setText(curState+" 'B'");
 					this.curTxt = "[B]";
-					//this.setResourceNumber(1);
 				}
 				if(name == 2)  {
-					//this.mytext.setText(curState+" 'C'");
 					this.curTxt = "[C]";
-					//this.setResourceNumber(1);
 					}
 				if(name == 3)  {
-					//this.mytext.setText(curState+" 'D'");
 					this.curTxt = "[D]";
-					//this.setResourceNumber(1);
 				}
 				if(name == 4)  {
-					//this.mytext.setText(curState+" 'E'");
 					this.curTxt = "[E]";
-					//this.setResourceNumber(1);
 				}
 				if(name == 5)  {
-					//this.mytext.setText(curState+" F");
 					this.curTxt = "[F]";
-					//this.setResourceNumber(1);
 				}
 				if(name == "undefined" || name == "" || name == null) {
-					//this.mytext.setText(" Show All");
 					this.curTxt = "Show All";
-					
-					//this.setResourceNumber(13);
 				}
 				
 				this.setTextVal();
@@ -53,14 +39,17 @@
 				gController.maskChoice(data.name,curState);
 				if(this.curState == 'Hide'){
 					this.setAttribute("curState",'Show');
+					gMaskingAnswer.setAttribute("withState",true);					
+					this.setTextVal();	
 				}else if(curState == 'Show'){
 					this.setAttribute("curState",'Hide');
+					gMaskingAnswer.setAttribute("withState",true);					
+					this.setTextVal();	
 				}else if(curState =='Show All'){
+					gMaskingAnswer.setAttribute("withState",false);
 					Debug.write("gManipulativeBar.globals.maskingAnswer",gManipulativeBar.globals.maskingAnswer);
-					gManipulativeBar.globals.maskingAnswer.setup();
-				}
-				
-				this.setTextVal();	
+					gMaskingAnswer.setUpPopUp();
+				}			
 				
 			</method>
 
