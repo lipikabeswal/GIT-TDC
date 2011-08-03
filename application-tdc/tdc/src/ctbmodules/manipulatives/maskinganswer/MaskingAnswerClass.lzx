@@ -1,8 +1,8 @@
  <library>
-	 <class name="myclass" onclick="choice(this)" oninit="setup(this)">
+	 <class name="myclass" onclick="choice(this)" oninit="setup(this)" width="65" >
 	 <attribute name="curState" type="string"/>
 		<attribute name="curTxt" type="string"/>	 
-		  <text name="mytext" x="3" fontsize="10" fontstyle="bold"/>
+		  <text name="mytext" x="5" valign="middle" fontsize="10" fontstyle="bold"/>
 			<method name="setup" args="data">
 				var name = data.name;
 				name = name.substring(6,7);
@@ -26,6 +26,18 @@
 				if(name == 5)  {
 					this.curTxt = "[F]";
 				}
+				if(name == 6)  {
+					this.curTxt = "[G]";
+				}
+				if(name == 7)  {
+					this.curTxt = "[H]";
+				}
+				if(name == 8)  {
+					this.curTxt = "[I]";
+				}
+				if(name == 9)  {
+					this.curTxt = "[J]";
+				}
 				if(name == "undefined" || name == "" || name == null) {
 					this.curTxt = "Show All";
 				}
@@ -39,10 +51,12 @@
 				gController.maskChoice(data.name,curState);
 				if(this.curState == 'Hide'){
 					this.setAttribute("curState",'Show');
+					this.mytext.setAttribute("x",1);
 					gMaskingAnswer.setAttribute("withState",true);					
 					this.setTextVal();	
 				}else if(curState == 'Show'){
 					this.setAttribute("curState",'Hide');
+					this.mytext.setAttribute("x",5);
 					gMaskingAnswer.setAttribute("withState",true);					
 					this.setTextVal();	
 				}else if(curState =='Show All'){
@@ -61,10 +75,14 @@
 				this.setResourceNumber(1);
 			</method>
 		<method name="setTextVal">
-			if(curTxt == 'Show All')
-				this.mytext.setText(curTxt);
-			else
-				this.mytext.setText(curState+" "+curTxt);
+			if(curTxt == 'Show All'){
+				this.mytext.setText(" "+curTxt);
+				
+			}
+			else{
+				this.mytext.setText(" "+curState+" "+curTxt);
+			}	
+					
 		</method>
 	 </class>
  </library>

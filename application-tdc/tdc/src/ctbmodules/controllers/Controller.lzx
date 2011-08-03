@@ -358,7 +358,6 @@
 
 		<!--For Las Links-->
 		<attribute name="audioFields" value="$once{new Array()}" />
-		<attribute name="audioItem" value="false" type="boolean" />
 		<!-- 
 			Is the panel being loaded for the sizer?
 		-->
@@ -2876,6 +2875,7 @@ if(stimulusid > 0){
 			updateCrItemNode();
 			updateAudioItem();
     		var result = null;
+			var itemType = [];
     		if(isOnItemOrFinishScreen()){
                 var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
                 if(itemnode != null){
@@ -2900,17 +2900,27 @@ if(stimulusid > 0){
 					}
 					result[7] = itemnode.getAttr( 'score' ); //current score
 					result[8] = getSpText();
-					Debug.write("getItemParams...",this.getAttribute("audioItem"));
-					result[9] = 0;
+					
+					result[9] = 0;					
+ 					itemType = dpitem.xpathQuery('item_canvas/*/recorder_widget')
+			
+					if(itemType == null){
+			 			itemType = dpitem.xpathQuery('item_canvas/panel/*/recorder_widget')
+					} 
+					if(itemType == null){
+						itemType = dpitem.xpathQuery('item_canvas/panel/panel/*/recorder_widget')
+					}
+
+					Debug.write("###itemType :",itemType);
 					if(!isThemeItem()){
-						if(this.getAttribute("audioItem")) {
-							Debug.write("in if of getItemParams...",this.getAttribute("audioItem"));
-							result[9] = 1;
-							}
+						if(itemType != null){
+							result[9] = 1;							
+						}
 					}
 				}
     		}
-    	//	this.setAttribute('blockFileName' , true);
+		Debug.write("### result :", result);
+    	//this.setAttribute('blockFileName' , true);
 		//setting the item is visited 
                 var dncurritem =
                     dpstudentdata.xpathQuery ('current_item/item_model/');
@@ -3520,16 +3530,13 @@ if(stimulusid > 0){
 		<method name="updateAudioItem"><![CDATA[
 		Debug.write("updateAudioItem....");
 		if(isAudioItem() || this.blockFileName){//this will differentiate the audio item save call with the heartbeat
-           	gController.setAttribute("audioItem",true);
-           	var xmls = "<answers>";
+			var xmls = "<answers>";
 			xmls = xmls.concat(generateAudioFileName());
            	xmls = xmls.concat("</answers>");
            	gController.setAudioItemState(xmls);
-		}else{
-			gController.setAttribute("audioItem",false);
 		}
-		Debug.write("updateAudioItem audioItem...."+this.audioItem);
-		]]></method>
+		]]>
+		</method>
 		
 		<method name="generateAudioFileName">
 				var roster_id = this.lsid.split(":");

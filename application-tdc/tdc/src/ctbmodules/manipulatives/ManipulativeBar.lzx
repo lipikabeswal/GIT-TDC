@@ -46,7 +46,7 @@
 			<view name="magnifyingGlass"
 				visible="${gController.magnifierVisible}"
 				resource="toolbar_magnifying_glass_btn" valign="middle" height="20"
-				width="28">
+				width="34">
 				<attribute name="tooltipdel"
 					value="$once{new LzDelegate (this, 'showTooltip')}"
 				/>

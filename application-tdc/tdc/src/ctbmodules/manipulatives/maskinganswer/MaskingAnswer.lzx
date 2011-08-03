@@ -29,9 +29,9 @@
 	        Debug.write("onvisible....", this.visible);
   		</method>
 
-		<view name="windowbg" width="70">				
+		<view name="windowbg" width="65">				
 			<view name="maskingAnswerArea" x="0" y="2"
-					bgcolor="#C0D9EB" width="70" resource="magnifierBlank">
+					bgcolor="#C0D9EB" width="65" resource="magnifierBlank">
 				<simplelayout name="mylayout" axis="y" spacing="2"/>				
 	 			 <method name="clearOut">
       			  	for (var i in this.subviews) {
@@ -41,14 +41,7 @@
 			</view>
 		</view>
 
-	<method name="choice" args="obj">
-	Debug.write("Choice after click....", obj);
 
-	</method>
-
-	<method name="mask">
-	Debug.write("mask called");
-	</method>
 	<method name="setUpPopUp" args="x,y">
 		var selwidget = [];
 		var answidget = [];
@@ -64,9 +57,9 @@
 		var ansChoiceName = "choice";
 		if(gController.returnNumberOfOptions() > 0){
 			for(var i = 0; i < gController.returnNumberOfOptions(); i++){				
-				gMaskingAnswer.windowbg.maskingAnswerArea.subviews.push(new myclass(gMaskingAnswer.windowbg.maskingAnswerArea, {name:ansChoiceName+i, clickable:true, resource:'masking_answer_choice_btn', x:3, y:2, curState:curState == 'Hide' ? 'Show':'Hide'}));
+				gMaskingAnswer.windowbg.maskingAnswerArea.subviews.push(new myclass(gMaskingAnswer.windowbg.maskingAnswerArea, {name:ansChoiceName+i, clickable:true, resource:'masking_answer_choice_btn', curState:curState == 'Hide' ? 'Show':'Hide'}));
 			}
-			gMaskingAnswer.windowbg.maskingAnswerArea.subviews.push(new myclass(gMaskingAnswer.windowbg.maskingAnswerArea, {name:ansChoiceName, clickable:true, resource:'masking_answer_choice_btn', x:3, y:2, curState:'Show All'}));
+			gMaskingAnswer.windowbg.maskingAnswerArea.subviews.push(new myclass(gMaskingAnswer.windowbg.maskingAnswerArea, {name:ansChoiceName, clickable:true, resource:'masking_answer_choice_btn', curState:'Show All'}));
 		}
 	]]></method>
 
