@@ -10,6 +10,8 @@ public class ServletSettings implements java.io.Serializable {
     static final long serialVersionUID = 1L;
 
     private String tmsHost;
+    private String backupURL;
+    
     private int tmsPort;
     private boolean tmsPersist;
     private boolean tmsAckRequired;
@@ -43,6 +45,11 @@ public class ServletSettings implements java.io.Serializable {
             	this.tmsHost = null;
             	throw new RuntimeException("ERROR: TMS url is not secure!");
             }
+            this.backupURL = resourceBundleGetString(rbTdc, "tms.server.backupURL");
+            if(!this.backupURL.startsWith("https")) {
+            	this.backupURL = null;
+            	throw new RuntimeException("ERROR: TMS url is not secure!");
+            }            
             this.tmsPort = resourceBundleGetInt(rbTdc, "tms.server.port");      
             try {
                 this.tmsPersist = resourceBundleGetBoolean(rbTdc, "tms.server.persist");
@@ -75,6 +82,7 @@ public class ServletSettings implements java.io.Serializable {
 
     private void init() {
         this.tmsHost = null;
+        this.backupURL = null;
         this.tmsPort = 0;
         this.tmsPersist = true;
         this.tmsAckRequired = true;
@@ -195,6 +203,13 @@ public class ServletSettings implements java.io.Serializable {
             return (tmsHost + ":" + tmsPort);
         else
             return tmsHost;
+    }
+    
+    public String getBackupURLHostPort() {
+        if (tmsPort > 0)
+            return (backupURL + ":" + tmsPort);
+        else
+            return backupURL;
     }
     
     public String getProxyHostPort() {
@@ -324,5 +339,19 @@ public class ServletSettings implements java.io.Serializable {
 	 */
 	public void setTmsMessageRetryExpansionFactor(int tmsMessageRetryExpansionFactor) {
 		this.tmsMessageRetryExpansionFactor = tmsMessageRetryExpansionFactor;
+	}
+
+	/**
+	 * @return the altTmsHost
+	 */
+	public String getBackupURL() {
+		return backupURL;
+	}
+
+	/**
+	 * @param altTmsHost the altTmsHost to set
+	 */
+	public void setBackupURL(String backupURL) {
+		this.backupURL = backupURL;
 	}
 }

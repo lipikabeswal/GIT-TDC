@@ -34,6 +34,7 @@ import org.apache.http.auth.NTCredentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.conn.scheme.HostNameResolver;
 import org.apache.http.conn.scheme.PlainSocketFactory;
@@ -503,6 +504,18 @@ public class ServletUtils {
 	}
 
 	/**
+	 * get predefined Backup URL as string for a method
+	 *
+	 */
+	public static String getBackupURLString(String method) {
+		MemoryCache memoryCache = MemoryCache.getInstance();
+		ServletSettings srvSettings = memoryCache.getSrvSettings();
+		String tmsHostPort = srvSettings.getBackupURLHostPort();
+		String tmsWebApp = getWebAppName(method);
+		return (tmsHostPort + tmsWebApp);
+	}
+
+	/**
 	 * get predefined TMS URL for a method
 	 *
 	 */
@@ -848,26 +861,47 @@ public class ServletUtils {
 	public static String httpClientGetStatus() {
 		synchronized(client) {
 			String errorMessage = OK;
+			boolean connFlag = true;
 			HttpPost post = null;
-			// create post method with url based on method
-			try {
-				String method = GET_STATUS_METHOD;
-				String tmsURL = getTmsURLString(method);
-				post = new HttpPost(tmsURL);
-			}
-			catch (Exception e) {
-				errorMessage = "There has been a communications failure: " + e.getMessage();
-				errorMessage = buildXmlErrorMessage("", errorMessage, "");
-			}
+			String method = GET_STATUS_METHOD;
+			HttpResponse response = null;
+			String tmsURL = "";
+			
 			try {
 				int responseCode = HttpStatus.SC_OK;
-
-				// send request to TMS
-				HttpResponse response = client.execute(post);
-				responseCode = response.getStatusLine().getStatusCode();
-	
+				tmsURL = getTmsURLString(method);
+				post = getHttpPost(tmsURL);
+				
+				try{
+					response = client.execute(post);
+				}
+				catch(HttpHostConnectException e){
+						connFlag = false;
+						logger.error("Exception occured in : Connection refused to " + tmsURL);
+						tmsURL = swapTmsUrl(method);		// if connection to primary tms url is refused,
+															// backupURL is stored in tmsURL.
+				}
+				if(connFlag){
+					responseCode = response.getStatusLine().getStatusCode();
+					if (responseCode != HttpStatus.SC_OK) {
+						connFlag = false;
+						logger.error("Error occured in : could not Connect to " + tmsURL);
+						tmsURL = swapTmsUrl(method);		// if response status is not OK from primary tms url, 
+															// backupURL is stored in tmsURL.
+						logger.error("Error occured in : swapping Connection to " + tmsURL);
+						
+					}
+				}
+				if(!connFlag){
+					post = getHttpPost(tmsURL);
+					response = client.execute(post);		
+					responseCode = response.getStatusLine().getStatusCode();
+				}
+				
+				
 				if (responseCode == HttpStatus.SC_OK) {
-					BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+					BufferedReader in = new BufferedReader(new 
+							InputStreamReader(response.getEntity().getContent()));
 					String inputLine = null;
 					String tmsResponse = "";
 					while ((inputLine = in.readLine()) != null) {
@@ -885,7 +919,8 @@ public class ServletUtils {
 						errorMessage = buildXmlErrorMessage("", errorMessage, "");
 					}
 					else {
-						errorMessage = buildXmlErrorMessage("", response.getStatusLine().getReasonPhrase(), "");
+						errorMessage = buildXmlErrorMessage("",
+								response.getStatusLine().getReasonPhrase(), "");
 					}
 				}
 			}
@@ -902,6 +937,49 @@ public class ServletUtils {
 			}
 			return errorMessage;
 		}
+	}
+
+
+	/**
+	 * 
+	 * This method is responsible to return backup URL by passing method
+	 * @param method
+	 * @return String
+	 */
+
+	private static String swapTmsUrl (String method) {
+		
+		String backupURL = "";
+		backupURL = getBackupURLString(method);
+		//setting the backupURL in tmsHost
+		MemoryCache memoryCache = MemoryCache.getInstance();				
+		ServletSettings srvSettings = memoryCache.getSrvSettings();
+		srvSettings.setTmsHost(srvSettings.getBackupURL());
+
+		return backupURL;
+	}
+	
+	
+	/**
+	 * 
+	 * This method is responsible to return HttpPost Object by passing tms URL
+	 * @param tmsURL
+	 * @return HttpPost
+	 */
+
+	private static HttpPost getHttpPost (String tmsURL) {
+
+		HttpPost post = null;
+		String errorMessage = OK;
+		try {
+			post = new HttpPost(tmsURL);
+		}
+		catch (Exception e) {
+			errorMessage = "There has been a communications failure: " + e.getMessage();
+			errorMessage = buildXmlErrorMessage("", errorMessage, "");
+		} 
+		return post;
+
 	}
 
 	public static void processContentKeys( String xml )throws Exception
