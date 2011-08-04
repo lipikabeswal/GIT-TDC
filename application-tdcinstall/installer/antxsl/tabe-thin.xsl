@@ -19,17 +19,19 @@
 			<int>@@PRODUCT.VERSION.REVISION@@</int>
 		</property>
 	</xsl:template>
-	
+
+
 	<xsl:template match="//property[@name='installerName']">
 		<property name="installerName">
-			<string><![CDATA[InstallOnlineAsmtthin]]></string>
+			<string><![CDATA[InstallOnlineAsmtthin_TB]]></string>
 		</property>
 	</xsl:template>
 
+   
 	<xsl:template match="@*|node()">
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()"/>
 		</xsl:copy>
 	</xsl:template>
-	
+		
 </xsl:stylesheet>

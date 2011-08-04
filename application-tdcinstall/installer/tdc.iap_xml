@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2008 VP1 Enterprise, Build 3571
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Fri May 27 08:05:52 PDT 2011 -->
-<InstallAnywhere_Deployment_Project increments="10680">
+     DATE:   Tue Aug 02 16:55:55 PDT 2011 -->
+<InstallAnywhere_Deployment_Project increments="10692">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="9" minor="5" revision="0"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,69,49,55,55,57,82,81,81,68,81,81,68,81,81,55,81,70,81,82,70,81,57,70</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,86,105,115,116,97,44,32,54,46,48,44,32,120,56,54,59,32,74,97,118,97,32,49,46,53,46,48,95,49,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,48,51,-12,112,-96,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,14,7,109,97,0,1,0,0</authorizationID>
+		<authorizationID>1,0,0,48,-125,-28,-64,32,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,11,15,108,108,1,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="704">
+	<installationObjects uniqueObjects="705">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="wizardME">
 				<object class="com.zerog.ia.installer.actions.MakeExecutable" objectID="85358c91894c">
@@ -9174,7 +9174,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[May 27, 2011 8:05:52 AM PDT]]></string>
+						<string><![CDATA[August 2, 2011 4:55:54 PM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -10796,6 +10796,25 @@ done
 																	</property>
 																	<property name="matchString">
 																		<string><![CDATA[.#]]></string>
+																	</property>
+																	<property name="ignoresCase">
+																		<string><![CDATA[Yes]]></string>
+																	</property>
+																	<property name="typeOption">
+																		<string><![CDATA[Files]]></string>
+																	</property>
+																</object>
+															</method>
+															<method name="addElement">
+																<object class="com.zerog.ia.installer.PatternAtom" objectID="a06cee498d3d">
+																	<property name="searchDescription">
+																		<string><![CDATA[Contains]]></string>
+																	</property>
+																	<property name="includeExcludeState">
+																		<string><![CDATA[Excludes]]></string>
+																	</property>
+																	<property name="matchString">
+																		<string><![CDATA[tdc_url.properties]]></string>
 																	</property>
 																	<property name="ignoresCase">
 																		<string><![CDATA[Yes]]></string>
