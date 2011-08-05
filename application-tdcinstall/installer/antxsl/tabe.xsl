@@ -23,7 +23,7 @@
 
 	<xsl:template match="//property[@name='installerName']">
 		<property name="installerName">
-			<string><![CDATA[InstallOnlineAsmt_TB]]></string>
+			<string><![CDATA[TABE]]></string>
 		</property>
 	</xsl:template>
 

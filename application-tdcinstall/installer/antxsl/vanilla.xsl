@@ -20,6 +20,12 @@
 		</property>
 	</xsl:template>
 
+	<xsl:template match="//property[@name='installerName']">
+		<property name="installerName">
+			<string><![CDATA[OAS]]></string>
+		</property>
+	</xsl:template>
+
 	<xsl:template match="@*|node()">
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()"/>

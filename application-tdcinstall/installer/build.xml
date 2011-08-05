@@ -59,16 +59,16 @@
 		<antcall target="buildISTEPThin" />
 		
 		<antcall target="buildTABE" />
-		<antcall target="buildTABEThin" />
-
+		<!-- <antcall target="buildTABEThin" />	-->
+		
 		<antcall target="buildLasLink" />
-		<antcall target="buildLasLinkThin" />
+		<!-- <antcall target="buildLasLinkThin" /> -->
 
 		<antcall target="buildGA" />
-		<antcall target="buildGAThin" />
+		<!-- <antcall target="buildGAThin" /> -->
 
 		<antcall target="buildTN" />
-		<antcall target="buildTNThin" />
+		<!-- <antcall target="buildTNThin" /> -->
 		
 		<antcall target="postClean"></antcall>
 		<antcall target="buildTDCUpdate"></antcall>
