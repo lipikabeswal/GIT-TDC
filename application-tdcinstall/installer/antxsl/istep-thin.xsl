@@ -21,13 +21,6 @@
 	</xsl:template>
 
 
-	<xsl:template match="//property[@name='installerName']">
-		<property name="installerName">
-			<string><![CDATA[InstallOnlineAsmtthin_IN]]></string>
-		</property>
-	</xsl:template>
-
-   
 	<xsl:template match="//object[@objectID='d6d194cd8c98']">
 		<object class="com.zerog.ia.installer.util.VariablePropertyData" objectID="d6d194cd8c98">
 			<property name="propertyValue">
@@ -38,6 +31,13 @@
 			</property>
 		</object>
 	</xsl:template>
+
+	<xsl:template match="//property[@name='installerName']">
+		<property name="installerName">
+			<string><![CDATA[InstallOnlineAsmtthin_IN]]></string>
+		</property>
+	</xsl:template>
+   
 
 	<xsl:template match="@*|node()">
 		<xsl:copy>
