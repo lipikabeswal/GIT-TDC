@@ -263,6 +263,9 @@
 			BuildMacOSX="true" 
 			BuildPureJava="false"
 		/>
+		
+		<copy file="${project.artifacts.webapp.classes.dir}/tdc_url.properties" tofile="${project.artifacts.webapp.classes.dir}/tdc.properties" overwrite="true" />
+		
 	</target>
 	
 	
@@ -314,6 +317,10 @@
 				BuildMacOSX="false" 
 				BuildPureJava="false"
 			/>
-		</target>
+
+			<copy file="${project.artifacts.webapp.classes.dir}/tdc_url.properties" tofile="${project.artifacts.webapp.classes.dir}/tdc.properties" overwrite="true" />
+		
+	</target>
+	
 	
 </project>
