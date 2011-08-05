@@ -34,7 +34,7 @@
 				<string><![CDATA[true]]></string>
 			</property>
 			<property name="propertyName">
-				<string><![CDATA[$ISTEP$]]></string>
+				<string><![CDATA[InstallOnlineAsmt_IN]]></string>
 			</property>
 		</object>
 	</xsl:template>
