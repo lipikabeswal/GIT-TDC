@@ -52,22 +52,24 @@
 	<!-- **************************** build ******************************* -->	
 	<target name="build" description="Builds the various installers" depends="clean">
 		
+		<!--
 		<antcall target="buildVanilla" />
 		<antcall target="buildVanillaThin" />
 		
 		<antcall target="buildISTEP" />
 		<antcall target="buildISTEPThin" />
+		-->
 		
 		<antcall target="buildTABE" />
 		<!-- <antcall target="buildTABEThin" />	-->
 		
-		<antcall target="buildLasLink" />
+		<!-- <antcall target="buildLasLink" />	-->
 		<!-- <antcall target="buildLasLinkThin" /> -->
 
-		<antcall target="buildGA" />
+		<!-- <antcall target="buildGA" />	-->
 		<!-- <antcall target="buildGAThin" /> -->
 
-		<antcall target="buildTN" />
+		<!-- <antcall target="buildTN" />	-->
 		<!-- <antcall target="buildTNThin" /> -->
 		
 		<antcall target="postClean"></antcall>
@@ -217,9 +219,9 @@
 	
 	<!-- ************** buildNonThinClientInstaller *************************** -->	
 	<target name="buildNonThinClientInstaller" if="installer.type">
-		<!--
+		
 		<copy file="${project.artifacts.webapp.classes.dir}/tdc_url.properties" tofile="${project.artifacts.webapp.classes.dir}/tdc.properties" overwrite="true" />
-		-->
+		
 		
 		<replace file="${project.artifacts.webapp.classes.dir}/tdc.properties">
 		  <replacefilter token="primary-url" value="${installer.primary.url}"/>
@@ -271,9 +273,9 @@
 	
 	<!-- ************** buildThinClientInstaller *************************** -->	
 	<target name="buildThinClientInstaller" if="installer.type">
-		<!--
+		
 		<copy file="${project.artifacts.webapp.classes.dir}/tdc_url.properties" tofile="${project.artifacts.webapp.classes.dir}/tdc.properties" overwrite="true" />
-		-->
+		
 		<replace file="${project.artifacts.webapp.classes.dir}/tdc.properties">
 		  <replacefilter token="primary-url" value="${installer.primary.url}"/>
 		  <replacefilter token="secondary-url" value="${installer.secondary.url}"/>
