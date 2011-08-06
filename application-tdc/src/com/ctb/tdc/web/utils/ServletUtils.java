@@ -879,12 +879,18 @@ public class ServletUtils {
 						connFlag = false;
 						logger.error("Exception occured in : Connection refused to " + tmsURL);
 						tmsURL = swapTmsUrl(method);		// if connection to primary tms url is refused,
-															// backupURL is stored in tmsURL.
 				}
+				catch(UnknownHostException e){
+					connFlag = false;
+					logger.error("Exception occured in : Connection refused to " + tmsURL);
+					tmsURL = swapTmsUrl(method);		// if connection to primary tms url is refused,
+				}
+				
 				if(connFlag){
 					responseCode = response.getStatusLine().getStatusCode();
 					if (responseCode != HttpStatus.SC_OK) {
 						connFlag = false;
+						post.abort();
 						logger.error("Error occured in : could not Connect to " + tmsURL);
 						tmsURL = swapTmsUrl(method);		// if response status is not OK from primary tms url, 
 															// backupURL is stored in tmsURL.
@@ -898,7 +904,7 @@ public class ServletUtils {
 					responseCode = response.getStatusLine().getStatusCode();
 				}
 				
-				
+				//System.out.println("responseCode..."+responseCode+" : "+tmsURL);
 				if (responseCode == HttpStatus.SC_OK) {
 					BufferedReader in = new BufferedReader(new 
 							InputStreamReader(response.getEntity().getContent()));
