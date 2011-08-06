@@ -61,13 +61,13 @@
 		<antcall target="buildTABE" />
 		<!-- <antcall target="buildTABEThin" />	-->
 		
-		<!-- <antcall target="buildLasLink" />	-->
+		<antcall target="buildLasLink" />
 		<!-- <antcall target="buildLasLinkThin" /> -->
 
-		<!-- <antcall target="buildGA" />	-->
+		<antcall target="buildGA" />	
 		<!-- <antcall target="buildGAThin" /> -->
 
-		<!-- <antcall target="buildTN" />	-->
+		<antcall target="buildTN" />	
 		<!-- <antcall target="buildTNThin" /> -->
 		
 		<antcall target="postClean"></antcall>
