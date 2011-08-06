@@ -49,7 +49,7 @@
 				<string><![CDATA[true]]></string>
 			</property>
 			<property name="propertyName">
-				<string><![CDATA[InstallOnlineAsmtFCAT]]></string>
+				<string><![CDATA[InstallOAS_FCAT]]></string>
 			</property>
 		</object>
 	</xsl:template>
