@@ -20,10 +20,20 @@
 		</property>
 	</xsl:template>
 
+	<xsl:template match="//object[@objectID='c02e67b28c29']">
+		<object class="com.zerog.ia.installer.util.VariablePropertyData" objectID="c02e67b28c29">
+			<property name="propertyValue">
+				<string><![CDATA[FCAT]]></string>
+			</property>
+			<property name="propertyName">
+				<string><![CDATA[$PRODUCT_TYPE$]]></string>
+			</property>
+		</object>
+	</xsl:template>
 
 	<xsl:template match="//property[@name='installerName']">
 		<property name="installerName">
-			<string><![CDATA[FCAT]]></string>
+			<string><![CDATA[InstallOAS_FCAT]]></string>
 		</property>
 	</xsl:template>
 

@@ -1,5 +1,5 @@
 <project name="application-tdcinstall InstallAnywhere Installer" default="usage" basedir=".">
-
+ 
  	<property name="project.installer.application.dir" value="C:\Program Files\InstallAnywhere 2008 Enterprise" />
 	<property name="project.installer.src"             value="tdc.iap_xml" />
 	<property name="project.installer.xsl.dir"         value="${basedir}/antxsl" />
@@ -53,21 +53,21 @@
 	<target name="build" description="Builds the various installers" depends="clean">
 		
 		<antcall target="buildVanilla" />
-		<antcall target="buildVanillaThin" />
+		<antcall target="buildVanillaThin" /> 
 		
-		<antcall target="buildISTEP" />
-		<antcall target="buildISTEPThin" />
+		<antcall target="buildISTEP" /> 
+		<antcall target="buildISTEPThin" /> 
 		
 		<antcall target="buildTABE" />
-		<!-- <antcall target="buildTABEThin" />	-->
+		<!-- <antcall target="buildTABEThin" />  -->
 		
-		<antcall target="buildLasLink" />
+		<antcall target="buildLasLink" />  
 		<!-- <antcall target="buildLasLinkThin" /> -->
 
-		<antcall target="buildGA" />	
+		<antcall target="buildGA" />  	
 		<!-- <antcall target="buildGAThin" /> -->
 
-		<antcall target="buildTN" />	
+		<antcall target="buildTN" />  
 		<!-- <antcall target="buildTNThin" /> -->
 		
 		<antcall target="postClean"></antcall>
@@ -80,7 +80,7 @@
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="vanilla" />
 			<param name="installer.primary.url" value="https://oas.ctb.com" />
-			<param name="installer.secondary.url" value="https://dr.oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://oas-dr.ctb.com" />
 		</antcall>
 	</target>
 	
@@ -88,7 +88,7 @@
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="vanilla-thin" />
 			<param name="installer.primary.url" value="https://oas.ctb.com" />
-			<param name="installer.secondary.url" value="https://dr.oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://oas-dr.ctb.com" />
 		</antcall>
 	</target>
 	
@@ -265,6 +265,8 @@
 			BuildPureJava="false"
 		/>
 		
+		<delete file="${project.artifacts.webapp.classes.dir}/tdc.properties"/>
+		
 	</target>
 	
 	
@@ -317,6 +319,8 @@
 				BuildMacOSX="false" 
 				BuildPureJava="false"
 			/>
+		
+			<delete file="${project.artifacts.webapp.classes.dir}/tdc.properties"/>
 		
 	</target>
 	
