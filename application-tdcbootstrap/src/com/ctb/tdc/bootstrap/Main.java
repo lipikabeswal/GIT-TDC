@@ -7,10 +7,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
+import java.net.UnknownHostException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.ProxyHost;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -341,13 +343,24 @@ public class Main {
                 client.getParams().setAuthenticationPreemptive(true);
                 client.getState().setProxyCredentials(proxyScope, upc);
             }
-            
-            if (client.executeMethod(method) == HttpStatus.SC_OK) {
-				result = method.getResponseBodyAsString();
-                ConsoleUtils.messageOut("Got upgrade.");
-			} else {
-				throw new BootstrapException( ResourceBundleUtils.getString("bootstrap.main.error.clientConfigNotRetrieved"));
-			}
+            try{
+                if (client.executeMethod(method) == HttpStatus.SC_OK) {
+    				result = method.getResponseBodyAsString();
+                    ConsoleUtils.messageOut("Got upgrade.");
+    			} else {
+    				System.out.println("Error getting upgrade from " + upgradeUrl);
+    				
+    			}
+
+            }catch(HttpException e){
+            	System.out.println("Exception occured in : Connection refused to " + upgradeUrl);
+				
+            }
+            catch(UnknownHostException e){
+			
+            	System.out.println("Exception occured in : Connection refused to " + upgradeUrl);
+            	
+            }
 			
 		} catch( IOException ioe ) {
 			ioe.printStackTrace();
@@ -357,7 +370,21 @@ public class Main {
 	}
 	
 	private static String getUpgradeDirectoryUrl(){
-		String base = ResourceBundleUtils.getString("bootstrap.main.base.url");
+		String productType = System.getProperty("product.type");
+		String base = "";
+		if(productType.equals("ISTEP"))
+			base = ResourceBundleUtils.getString("bootstrap.main.istep.url");
+		else if(productType.equals("GEORGIA"))
+			base = ResourceBundleUtils.getString("bootstrap.main.ga.url");
+		else if(productType.equals("TABE"))
+			base = ResourceBundleUtils.getString("bootstrap.main.tabe.url");
+		else if(productType.equals("TERRANOVA"))
+			base = ResourceBundleUtils.getString("bootstrap.main.tn.url");
+		else if(productType.equals("LASLINKS"))
+			base = ResourceBundleUtils.getString("bootstrap.main.llo.url");
+		else 
+			base = ResourceBundleUtils.getString("bootstrap.main.base.url");
+		
 		String version = ResourceBundleUtils.getVersionString("tdc.version");
 		version = "v" + version.substring(0, version.lastIndexOf("."));
 		String result = base + "/" + version + "/";
