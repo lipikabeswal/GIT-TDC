@@ -143,10 +143,6 @@ public class UtilityServlet extends HttpServlet {
         if (tmsAckRequired != null) {
             srvSettings.setTmsAckRequired(tmsAckRequired.equals("true"));
         }
-        String tmsAckMaxLostMessage = request.getParameter("tmsAckMaxLostMessage");
-        if (tmsAckMaxLostMessage != null) {
-            srvSettings.setTmsAckMaxLostMessage(Integer.parseInt(tmsAckMaxLostMessage));
-        }
         String proxyHost = request.getParameter("proxyHost");
         if (proxyHost != null) {
             srvSettings.setProxyHost(proxyHost);
