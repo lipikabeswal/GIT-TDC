@@ -101,16 +101,16 @@
               fgcolor="0x000000"
               width="260"
               multiline="true" y="20" align="center">
-				You may not return to this question once you move on. Do you want to stay on this screen?
+				Do you want to stay on this question? If you move on, you <u>can not</u> go back to this question.
 		</text>        
 		<basebutton	name="okButton"	resource="popupOk" x="46" y="110" width="70" height="25" stretches="both">
 		<method event="onclick">
-gController.setNavigation(0,parent.parent.getAttribute("navigateFrom"));        
+			gController.setNavigation(0,parent.parent.getAttribute("navigateFrom"));        
         </method>
 		</basebutton>
 		<basebutton	name="cancelButton"	resource="popupCancel" x="164" y="110" width="85" height="25" stretches="both">
 		<method event="onclick">
-gController.setNavigation(1,parent.parent.getAttribute("navigateFrom"));  
+			gController.setNavigation(1,parent.parent.getAttribute("navigateFrom"));  
         </method>
 		</basebutton>
     </view>
