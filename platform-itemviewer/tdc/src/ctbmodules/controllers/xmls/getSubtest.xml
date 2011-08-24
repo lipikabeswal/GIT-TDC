@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<adssvc_request method="getSubtest" sdsid="string" token="string" xmlns="">
-	<get_subtest subtestid="" hash="" key=""/>
-</adssvc_request>
-
