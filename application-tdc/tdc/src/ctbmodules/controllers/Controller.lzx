@@ -3839,7 +3839,7 @@ if(stimulusid > 0){
 		<method name="showWaitPopupFor30Sec">
 			if(!isWaitPopupOpen) {
 				showWaitPopup();
-				LzTimer.resetTimer( dHideWaitPopup, 30000 );
+				LzTimer.resetTimer( dHideWaitPopup, 300000 );
 			}
 		</method>
 

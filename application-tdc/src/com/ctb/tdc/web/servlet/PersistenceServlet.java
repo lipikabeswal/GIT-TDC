@@ -142,14 +142,10 @@ public class PersistenceServlet extends HttpServlet {
 		// call method to perform an action only if servlet settings is valid
 		if (!validSettings)
 			result = ServletUtils.getServletSettingsErrorMessage();
-		else if (method != null
-				&& method.equals(ServletUtils.VERIFY_SETTINGS_METHOD)) {
-			result = waitForQueueToBeClear();
-			if (result == null)
-				result = verifyServletSettings();
+		else if (method != null && method.equals(ServletUtils.VERIFY_SETTINGS_METHOD)) {
+			result = verifyServletSettings();
 		} else if (method != null && method.equals(ServletUtils.LOGIN_METHOD))
 			result = login(xml);
-
 		else if (method != null && method.equals(ServletUtils.SAVE_METHOD))
 			result = save(response, xml, request);
 		else if (method != null && method.equals(ServletUtils.FEEDBACK_METHOD))
@@ -312,34 +308,10 @@ public class PersistenceServlet extends HttpServlet {
 	private String feedback(String xml) {
 		String result = ServletUtils.ERROR;
 		try {
-			MemoryCache memoryCache = MemoryCache.getInstance();
-			int TMSRetryCount = memoryCache.getSrvSettings()
-					.getTmsMessageRetryCount();
-			int TMSRetryInterval = memoryCache.getSrvSettings()
-					.getTmsMessageRetryInterval();
-			int expansion = memoryCache.getSrvSettings()
-					.getTmsMessageRetryExpansionFactor();
-			int i = 1;
-			while (TMSRetryCount > 0) {
-				// sent feedback request to TMS
-				//logger.info("***** studentFeedback request");
-				result = ServletUtils.httpClientSendRequest(
-						ServletUtils.FEEDBACK_METHOD, xml);
-				if (ServletUtils.isStatusOK(result)) {
-					//logger.info("Get feedback successful.");
-					TMSRetryCount = 0;
-				} else {
-					//logger.error("TMS returns error in feedback() : " + result);    
-					if (TMSRetryCount > 1) {
-						//logger.error("Retrying message: " + xml);
-						Thread
-								.sleep(TMSRetryInterval * ServletUtils.SECOND
-										* i);
-					}
-					TMSRetryCount--;
-				}
-				i = i * expansion;
-			}
+			// sent feedback request to TMS
+			//logger.info("***** studentFeedback request");
+			result = ServletUtils.httpClientSendRequest(
+					ServletUtils.FEEDBACK_METHOD, xml);
 		} catch (Exception e) {
 			logger.error("Exception occured in feedback() : "
 					+ ServletUtils.printStackTrace(e));
@@ -363,7 +335,6 @@ public class PersistenceServlet extends HttpServlet {
 			HttpServletRequest request) {
 
 		String result = null; // must set to null to prevent sending response twice
-		System.out.println("result set to NULL");
 		String errorMessage = null;
 		// parse request xml for information
 		String lsid = ServletUtils.parseLsid(xml);
@@ -414,70 +385,24 @@ public class PersistenceServlet extends HttpServlet {
 
 			boolean isEndSubtest = ServletUtils.isEndSubtest(xml);
 
-			if (isEndSubtest) {
-				// make sure the queue is empty before finishing subtest
-				String checkQueueClear = waitForQueueToBeClear();
-				//delete the audio file list.
-				
-				if (checkQueueClear != null) {
-					result = ServletUtils.buildXmlErrorMessage("",
-							checkQueueClear, "");
-					System.out.println("checkQueueClear returning result :"+result);
-					return result;
-				}
-			}
-
 			MemoryCache memoryCache = MemoryCache.getInstance();
 
-			// check if TMS sent acknowledge before continue
-			if (verifyAcknowledge(memoryCache, lsid, mseq, response)) {
-				// ncohen: I don't think we need this removeAcks bit,
-				// and I need all acks to check for dupe mseqs . . .
-				// so I'm commenting it out.
-				//memoryCache.removeAcknowledgeStates(lsid);
-				System.out.println("if of verifyAcknowledge....");	
-				// log an entry into audit file
-				boolean hasResponse = ServletUtils.hasResponse(xml);
-				if (hasResponse) {
-					if (containsAudioResponse) {
-						//	System.out.println("containsaudioresponse");
-						AuditFile.log(ServletUtils.createAuditVO(paramXml,
-								hasResponse));
-					} else {
+			// log an entry into audit file
+			boolean hasResponse = ServletUtils.hasResponse(xml);
+			if (hasResponse) {
+				if (containsAudioResponse) {
+					//	System.out.println("containsaudioresponse");
+					AuditFile.log(ServletUtils.createAuditVO(paramXml,
+							hasResponse));
+				} else {
 
-						AuditFile.log(ServletUtils.createAuditVO(xml,
-								hasResponse));
-					}
+					AuditFile.log(ServletUtils.createAuditVO(xml,
+							hasResponse));
 				}
-
-				StateVO state = null;
-				if (!isAcknowledged(memoryCache, lsid, mseq)) {
-					System.out.println("in !isAcknowledged....");
-					state = memoryCache.setPendingState(lsid, mseq,
-							ServletUtils.SAVE_METHOD, xml);
-					if (!isEndSubtest) {
-						new retrier(ServletUtils.SAVE_METHOD, xml, mseq, state)
-								.start();
-						result = ServletUtils.OK;
-					} else {
-						System.out.println("inside else of save method");
-						result = save(xml, state);
-					}
-					System.out.println("returning result in !isAcknowledged....");
-				}
-				else {//this else part is added for Defect#66192
-					result = ServletUtils.OK;//if acknowledged, do nothing but return OK to client
-				}
-			} else {
-				System.out.println("else of verifyAcknowledge....");
-				// failed on checking acknowledge from TMS, return error to client
-				errorMessage = ServletUtils
-						.getErrorMessage("tdc.servlet.error.noAck");
-				//Defect Fix 66284
-				result = ServletUtils.ERROR; 
-				//result = ServletUtils.buildXmlErrorMessage("", errorMessage, "");
-				
 			}
+
+			result = save(xml);
+
 		} catch (Exception e) {
 			logger.error("mseq " + mseq + ": Exception occured in save() : "
 					+ e.getMessage());
@@ -486,7 +411,6 @@ public class PersistenceServlet extends HttpServlet {
 					.getErrorMessage("tdc.servlet.error.noAck");
 			result = ServletUtils.buildXmlErrorMessage("", errorMessage, "");
 		}
-		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^result^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+  result);
 		
 		if (fileName != null) {
 			if (result == ServletUtils.OK) {
@@ -504,7 +428,7 @@ public class PersistenceServlet extends HttpServlet {
 		return result;
 	}
 
-	private static String save(String xml, StateVO state) throws Exception {
+	private static String save(String xml) throws Exception {
 		String result = null;
 		MemoryCache memoryCache = MemoryCache.getInstance();
 		String lsid = ServletUtils.parseLsid(xml);
@@ -514,34 +438,16 @@ public class PersistenceServlet extends HttpServlet {
 		if (memoryCache.getSrvSettings().isTmsPersist()) {
 			// message was added to pending list in cache,
 			// send save request to TMS
-			int TMSRetryCount = memoryCache.getSrvSettings()
-					.getTmsMessageRetryCount();
-			int TMSRetryInterval = memoryCache.getSrvSettings()
-					.getTmsMessageRetryInterval();
-			int expansion = memoryCache.getSrvSettings()
-					.getTmsMessageRetryExpansionFactor();
 			String tmsResponse = "";
-			int i = 1;
-			while (TMSRetryCount > 0) {
-				//logger.info("mseq " + mseq + ": persistence request");
-				tmsResponse = ServletUtils.httpClientSendRequest(
-						ServletUtils.SAVE_METHOD, xml);
-				// if OK return from TMS, set acknowledge state
-				if (ServletUtils.isStatusOK(tmsResponse)) {
-					memoryCache.setAcknowledgeState(state);
-					TMSRetryCount = 0;
-				} else {
-					//logger.error("mseq " + mseq + ": TMS returns error in save() : " + tmsResponse);
-					if (TMSRetryCount > 1) {
-						//logger.error("mseq " + mseq + ": Retrying message: " + xml);
-						Thread.sleep(TMSRetryInterval * ServletUtils.SECOND	* i);
-					}
-					TMSRetryCount--;
-				}
-				i = i * expansion;
-			}
+			
+			//logger.info("mseq " + mseq + ": persistence request");
+			tmsResponse = ServletUtils.httpClientSendRequest(ServletUtils.SAVE_METHOD, xml);
 			if (isEndSubtest) {
 				result = tmsResponse;
+			} else {
+				if (ServletUtils.isStatusOK(tmsResponse)) {
+					result = ServletUtils.OK;
+				}
 			}
 		}
 		return result;
@@ -596,12 +502,6 @@ public class PersistenceServlet extends HttpServlet {
 			String result = ServletUtils.ERROR;
 			String errorMessage = null;
 			int responseCode = HttpStatus.SC_OK;
-
-			// make sure the queue is empty before upload audit file
-			String checkQueueClear = waitForQueueToBeClear();
-			if (checkQueueClear != null) {
-				return checkQueueClear;
-			}
 
 			MemoryCache memoryCache = MemoryCache.getInstance();
 			if (memoryCache.getSrvSettings().isTmsAuditUpload()) {
@@ -700,211 +600,6 @@ public class PersistenceServlet extends HttpServlet {
 
 			return result;
 		}
-	}
-
-	/**
-	 * The verifyAcknowledge method of the servlet. <br>
-	 * 
-	 * verify if there is an acknowledge message returned from TMS to continue
-	 * if there is no ack then try again (tms.ack.messageRetry), each time delay 1 second 
-	 * 
-	 * @param MemoryCache memoryCache
-	 * @param String lsid
-	 * @param String mseq
-	 * @throws IOException 
-	 */
-	private boolean verifyAcknowledge(MemoryCache memoryCache, String lsid,
-			String mseq, HttpServletResponse response)
-			throws InterruptedException {
-		boolean pendingState = inPendingState(memoryCache, lsid, mseq, response);
-		return (!pendingState);
-	}
-
-	/**
-	 * The inPendingState method of the servlet. <br>
-	 * 
-	 * verify if there is a pending state entry in the list
-	 * the index is computed from 'tms.ack.maxLostMessage' in properties file
-	 * mseqIndex = mseqCurrent - tmsAckMaxLostMessage;
-	 * 
-	 * @param MemoryCache memoryCache
-	 * @param String lsid
-	 * @param String mseq
-	 * @throws IOException 
-	 */
-	public boolean inPendingState(MemoryCache memoryCache, String lsid,
-			String mseq, HttpServletResponse response) {
-		boolean pendingState = false;
-		boolean isTmsAckRequired = memoryCache.getSrvSettings()
-				.isTmsAckRequired();
-		int tmsAckMaxLostMessage = memoryCache.getSrvSettings()
-				.getTmsAckMaxLostMessage();
-
-		if (isTmsAckRequired) {
-			ArrayList states = (ArrayList) memoryCache.getStateMap().get(lsid);
-			if (states != null) {
-				int mseqCurrent = Integer.parseInt(mseq);
-				int mseqIndex = mseqCurrent - tmsAckMaxLostMessage;
-				for (int i = 0; i < states.size(); i++) {
-					StateVO state = (StateVO) states.get(i);
-					if (state.getMseq() <= mseqIndex) {
-						if (state.getState().equals(StateVO.PENDING_STATE)) {
-							//logger.warn("Found outstanding unacknowledged message, max in flight threshold exceeded. mseq " + state.getMseq() + ": " + state.getXml());
-							pendingState = true;
-							new retrier(state.getMethod(), state.getXml(),
-									mseq, state).start();
-							break;
-						}
-					}
-				}
-			}
-		}
-		return pendingState;
-	}
-
-	/**
-	 * The inPendingState method of the servlet. <br>
-	 * 
-	 * verify if there is a pending state entry in the list
-	 * the index is computed from 'tms.ack.maxLostMessage' in properties file
-	 * mseqIndex = mseqCurrent - tmsAckMaxLostMessage;
-	 * 
-	 * @param MemoryCache memoryCache
-	 * @param String lsid
-	 * @param String mseq
-	 */
-	public static boolean isAcknowledged(MemoryCache memoryCache, String lsid,
-			String mseq) {
-		boolean acknowledged = false;
-		boolean isTmsAckRequired = memoryCache.getSrvSettings()
-				.isTmsAckRequired();
-
-		if (isTmsAckRequired) {
-			ArrayList states = (ArrayList) memoryCache.getStateMap().get(lsid);
-			if (states != null) {
-				int mseqCurrent = Integer.parseInt(mseq);
-				for (int i = 0; i < states.size(); i++) {
-					StateVO state = (StateVO) states.get(i);
-					if (state.getMseq() == mseqCurrent) {
-						if (state.getState().equals(StateVO.ACKNOWLEDGED_STATE)) {
-							acknowledged = true;
-							break;
-						}
-					}
-				}
-			}
-		}
-		return acknowledged;
-	}
-
-	private static class retrier extends Thread {
-		private String method;
-		private String xml;
-		private String mseq;
-		private StateVO state;
-
-		public retrier(String method, String xml, String mseq, StateVO state) {
-			this.method = method;
-			this.xml = xml;
-			this.mseq = mseq;
-			this.state = state;
-		}
-
-		public void run() {
-			MemoryCache memoryCache = MemoryCache.getInstance();
-
-			int retryInterval = memoryCache.getSrvSettings()
-					.getTmsMessageRetryInterval();
-			int waitTime = memoryCache.getSrvSettings()
-					.getTmsAckMessageWaitTime();
-			int expansion = memoryCache.getSrvSettings()
-					.getTmsMessageRetryExpansionFactor();
-			long startTime = System.currentTimeMillis();
-			long currentTime = startTime;
-			boolean timeout = false;
-
-			String tmsResponse = "";
-			//
-			String lsid = ServletUtils.parseLsid(xml);
-
-			try {
-				int i = 1;
-				while (!timeout) {
-					if (!isAcknowledged(memoryCache, lsid, mseq)) {
-						if (i > 1) {
-							//logger.info("mseq " + mseq + ": Waited " + ((currentTime - startTime)/ServletUtils.SECOND) + " for TMS response.");
-							//logger.info("mseq " + mseq + ": Retrying message: " + xml);
-						}
-						tmsResponse = ServletUtils.httpClientSendRequest(
-								method, xml);
-						// if OK return from TMS, set acknowledge state
-						if (ServletUtils.isStatusOK(tmsResponse)) {
-							memoryCache.setAcknowledgeState(state);
-							timeout = true;
-						} else {
-							Thread.sleep(retryInterval * ServletUtils.SECOND
-									* i); // delay 1 second and try again
-							currentTime = System.currentTimeMillis();
-							timeout = (currentTime - startTime) > (waitTime * ServletUtils.SECOND);
-							i = i * expansion;
-						}
-					} else {
-						timeout = true;
-					}
-				}
-			} catch (InterruptedException ie) {
-				// do nothing
-			}
-		}
-	}
-
-	public String waitForQueueToBeClear() {
-		String errorMsg = null;
-		MemoryCache memoryCache = MemoryCache.getInstance();
-		HashMap stateMap = (HashMap) memoryCache.getStateMap();
-
-		if (!stateMap.isEmpty()) {
-			Set lsids = stateMap.keySet();
-			Iterator it = lsids.iterator();
-			if (it.hasNext()) {
-				String key = (String) it.next();
-				ArrayList states = (ArrayList) stateMap.get(key);
-				int messageWait = memoryCache.getSrvSettings()
-						.getTmsAckMessageWaitTime();
-				try {
-					while (anyMessageInPending(states) && (messageWait > 0)) {
-						messageWait--;
-						Thread.sleep(ServletUtils.SECOND);
-					}
-					if (anyMessageInPending(states)) {
-						errorMsg = ServletUtils
-								.getErrorMessage("tdc.servlet.error.noAck");
-						//logger.error( errorMsg );
-						errorMsg = ServletUtils.buildXmlErrorMessage("",
-								errorMsg, "");
-					}
-				} catch (Exception e) {
-					errorMsg = ServletUtils
-							.getErrorMessage("tdc.servlet.error.noAck");
-					logger.error(errorMsg);
-					errorMsg = ServletUtils.buildXmlErrorMessage("", errorMsg,
-							"");
-				}
-			}
-		}
-		return errorMsg;
-	}
-
-	public boolean anyMessageInPending(ArrayList states) {
-		boolean somethingPending = false;
-		if (states != null) {
-			for (int i = 0; i < states.size() && !somethingPending; i++) {
-				StateVO state = (StateVO) states.get(i);
-				if (state.getState().equals(StateVO.PENDING_STATE))
-					somethingPending = true;
-			}
-		}
-		return somethingPending;
 	}
 
 	/***

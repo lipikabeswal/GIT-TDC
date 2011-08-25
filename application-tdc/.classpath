@@ -16,5 +16,13 @@
 	<classpathentry kind="lib" path="servletcontainer/jetty-5.1.11RC0/lib/javax.servlet.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/DExCrypto.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/jspeex.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/httpclient-4.1.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/httpclient-cache-4.1.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/httpcore-4.1.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/httpmime-4.1.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/jsapi.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/log4j.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/speech.jar"/>
 	<classpathentry kind="output" path="webapp/WEB-INF/classes"/>
 </classpath>

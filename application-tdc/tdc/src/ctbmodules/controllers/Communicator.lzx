@@ -202,7 +202,7 @@ Debug.write("communicator startQuestion......");
   		</method>
 
 		<method name="startRequestTimer">
-			LzTimer.resetTimer(dRequestTimer,1000);
+			LzTimer.resetTimer(dRequestTimer,30000);
 		</method>		
 			
 		<method name="sendRequest">

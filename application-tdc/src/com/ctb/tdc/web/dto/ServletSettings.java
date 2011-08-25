@@ -15,11 +15,6 @@ public class ServletSettings implements java.io.Serializable {
     private int tmsPort;
     private boolean tmsPersist;
     private boolean tmsAckRequired;
-    private int tmsAckMaxLostMessage;
-    private int tmsAckMessageWaitTime;
-    private int tmsMessageRetryCount;
-    private int tmsMessageRetryInterval;
-    private int tmsMessageRetryExpansionFactor;
     private boolean tmsAuditUpload;
 
     private String proxyHost;
@@ -41,16 +36,16 @@ public class ServletSettings implements java.io.Serializable {
         
         if (rbTdc != null) {
             this.tmsHost = resourceBundleGetString(rbTdc, "tms.server.host");
-            if(!this.tmsHost.startsWith("https")) {
+            /*if(!this.tmsHost.startsWith("https")) {
             	this.tmsHost = null;
             	throw new RuntimeException("ERROR: TMS url is not secure!");
-            }
+            }*/
             //this.backupURL = resourceBundleGetString(rbTdc, "tms.server.backupURL");
             this.backupURL = resourceBundleGetString(rbTdc, "tms.dr.server.host");
-            if(!this.backupURL.startsWith("https")) {
+            /*if(!this.backupURL.startsWith("https")) {
             	this.backupURL = null;
             	throw new RuntimeException("ERROR: TMS url is not secure!");
-            }            
+            } */           
             this.tmsPort = resourceBundleGetInt(rbTdc, "tms.server.port");      
             try {
                 this.tmsPersist = resourceBundleGetBoolean(rbTdc, "tms.server.persist");
@@ -64,11 +59,6 @@ public class ServletSettings implements java.io.Serializable {
             catch (MissingResourceException mre) {
                 this.tmsAckRequired = true;            
             }
-            this.tmsAckMaxLostMessage = resourceBundleGetInt(rbTdc, "tms.ack.maxLostMessage", 1, 10);        
-            this.tmsAckMessageWaitTime = resourceBundleGetInt(rbTdc, "tms.ack.messageWaitTime", 0, 35);  
-            this.tmsMessageRetryCount = resourceBundleGetInt(rbTdc, "tms.ack.messageRetryCount", 0, 10);
-            this.tmsMessageRetryInterval = resourceBundleGetInt(rbTdc, "tms.ack.messageRetryInterval", 1, 30);
-            this.tmsMessageRetryExpansionFactor = resourceBundleGetInt(rbTdc, "tms.ack.messageRetryExpansionFactor", 1, 5);
             this.tmsAuditUpload = resourceBundleGetBoolean(rbTdc, "tms.audit.upload");
         }
         
@@ -87,11 +77,6 @@ public class ServletSettings implements java.io.Serializable {
         this.tmsPort = 0;
         this.tmsPersist = true;
         this.tmsAckRequired = true;
-        this.tmsAckMaxLostMessage = 2;
-        this.tmsAckMessageWaitTime = 30;
-        this.tmsMessageRetryCount = 3;
-        this.tmsMessageRetryInterval = 3;
-        this.tmsMessageRetryExpansionFactor = 2;
         this.tmsAuditUpload = false;
         this.proxyHost = null;
         this.proxyPort = 0;
@@ -141,22 +126,6 @@ public class ServletSettings implements java.io.Serializable {
 
     public void setProxyUserName(String proxyUserName) {
         this.proxyUserName = proxyUserName;
-    }
-
-    public int getTmsAckMaxLostMessage() {
-        return tmsAckMaxLostMessage;
-    }
-
-    public void setTmsAckMaxLostMessage(int tmsAckMaxLostMessage) {
-        this.tmsAckMaxLostMessage = tmsAckMaxLostMessage;
-    }
-    
-    public int getTmsAckMessageWaitTime() {
-        return tmsAckMessageWaitTime;
-    }
-
-    public void setTmsAckMessageWaitTime(int tmsAckMessageWaitTime) {
-        this.tmsAckMessageWaitTime = tmsAckMessageWaitTime;
     }
 
     public boolean isTmsAckRequired() {
@@ -299,48 +268,6 @@ public class ServletSettings implements java.io.Serializable {
         String errStr = rb.getString(error);        
         return (commonText + name + errStr);
     }
-
-	/**
-	 * @return Returns the tmsMessageRetryCount.
-	 */
-	public int getTmsMessageRetryCount() {
-		return tmsMessageRetryCount;
-	}
-
-	/**
-	 * @param tmsMessageRetryCount The tmsMessageRetryCount to set.
-	 */
-	public void setTmsMessageRetryCount(int tmsMessageRetryCount) {
-		this.tmsMessageRetryCount = tmsMessageRetryCount;
-	}
-
-	/**
-	 * @return Returns the tmsMessageRetryInterval.
-	 */
-	public int getTmsMessageRetryInterval() {
-		return tmsMessageRetryInterval;
-	}
-
-	/**
-	 * @param tmsMessageRetryInterval The tmsMessageRetryInterval to set.
-	 */
-	public void setTmsMessageRetryInterval(int tmsMessageRetryInterval) {
-		this.tmsMessageRetryInterval = tmsMessageRetryInterval;
-	}
-	
-	/**
-	 * @return Returns the tmsMessageRetryExpansionFactor.
-	 */
-	public int getTmsMessageRetryExpansionFactor() {
-		return tmsMessageRetryExpansionFactor;
-	}
-
-	/**
-	 * @param tmsMessageRetryExpansionFactor The tmsMessageRetryExpansionFactor to set.
-	 */
-	public void setTmsMessageRetryExpansionFactor(int tmsMessageRetryExpansionFactor) {
-		this.tmsMessageRetryExpansionFactor = tmsMessageRetryExpansionFactor;
-	}
 
 	/**
 	 * @return the altTmsHost

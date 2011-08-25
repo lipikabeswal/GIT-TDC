@@ -5,14 +5,12 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -36,21 +34,21 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.conn.params.ConnRoutePNames;
-import org.apache.http.conn.scheme.HostNameResolver;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
 import org.apache.http.conn.ssl.SSLSocketFactory;
-import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.log4j.Logger;
 import org.jdom.Element;
-import org.omg.CORBA.portable.InputStream;
 
 import com.ctb.tdc.web.dto.AuditVO;
 import com.ctb.tdc.web.dto.ServletSettings;
@@ -79,18 +77,20 @@ public class ServletUtils {
 			TrustStrategy trustStrategy = new EasyTrustStrategy(); 
 			X509HostnameVerifier hostnameVerifier = new AllowAllHostnameVerifier(); 
 			SSLSocketFactory sslSf = new SSLSocketFactory(trustStrategy, hostnameVerifier);
-			//PlainSocketFactory sf = new PlainSocketFactory();
+			PlainSocketFactory sf = PlainSocketFactory.getSocketFactory();
 
 			Scheme https = new Scheme("https", 443, sslSf);
-			Scheme http = new Scheme("http", 8080, PlainSocketFactory.getSocketFactory());
+			Scheme http = new Scheme("http", 8080, sf);
 
 			SchemeRegistry schemeRegistry = new SchemeRegistry(); 
 			schemeRegistry.register(https);
 			schemeRegistry.register(http); 
 			ThreadSafeClientConnManager mgr = new ThreadSafeClientConnManager(schemeRegistry); 
 			mgr.setMaxTotal(1);
-			client = new DefaultHttpClient(mgr);
-			//client.getParams().setConnectionManagerTimeout(10000);
+			HttpParams httpParams = new BasicHttpParams();
+			HttpConnectionParams.setConnectionTimeout(httpParams, 30000);
+			HttpConnectionParams.setSoTimeout(httpParams, 30000);
+			client = new DefaultHttpClient(mgr, httpParams);
 			String proxyHost = getProxyHost();
 			if ((proxyHost != null) && (proxyHost.length() > 0)) {
 				// apply proxy settings
@@ -407,7 +407,6 @@ public class ServletUtils {
 				rbProxy = ResourceBundle.getBundle(PROXY_NAME);
 				srvSettings = new ServletSettings(rbTdc, rbProxy);
 				memoryCache.setSrvSettings(srvSettings);
-				memoryCache.setStateMap(new HashMap());
 				memoryCache.setLoaded(true);
 			}
 			catch (MissingResourceException e) {
