@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry path="src" kind="src"/>
-	<classpathentry path="lib/log4j.jar" kind="lib"/>
-	<classpathentry path="lib/jdom.jar" kind="lib"/>
-	<classpathentry sourcepath="lib/commons-httpclient-3.0.1.jar" path="lib/commons-httpclient-3.0.1.jar" kind="lib"/>
-	<classpathentry path="lib/bcprov-jdk14-130.jar" kind="lib"/>
-	<classpathentry path="C:/bea/user_projects/applications/application-tdc/dist/servletcontainer/jetty-5.1.11RC0/lib/javax.servlet.jar" kind="lib"/>
-	<classpathentry path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JDK 150_04" kind="con"/>
-	<classpathentry path="classes" kind="output"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/log4j.jar"/>
+	<classpathentry kind="lib" path="lib/jdom.jar"/>
+	<classpathentry kind="lib" path="lib/bcprov-jdk14-130.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-4.1.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-cache-4.1.jar"/>
+	<classpathentry kind="lib" path="lib/httpcore-4.1.jar"/>
+	<classpathentry kind="lib" path="lib/httpmime-4.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.5.0_22"/>
+	<classpathentry kind="lib" path="/application-tdc/servletcontainer/jetty-5.1.11RC0/lib/javax.servlet.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging.jar"/>
+	<classpathentry kind="output" path="classes"/>
 </classpath>

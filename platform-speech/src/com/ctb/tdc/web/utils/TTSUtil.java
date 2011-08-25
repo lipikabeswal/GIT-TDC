@@ -9,17 +9,37 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.params.HttpClientParams;
-import org.apache.commons.httpclient.protocol.Protocol;
+import org.apache.http.Header;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.NTCredentials;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.params.ConnRoutePNames;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.conn.ssl.TrustStrategy;
+import org.apache.http.conn.ssl.X509HostnameVerifier;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.bouncycastle.crypto.digests.MD5Digest;
 import org.bouncycastle.crypto.engines.RC4Engine;
 import org.bouncycastle.crypto.params.KeyParameter;
@@ -33,21 +53,108 @@ public class TTSUtil {
 	
 	public static HashMap mp3CacheMap = new HashMap();
 	
+	public static DefaultHttpClient client;
+	
+	static {
+		try {
+			// setup SSL
+			TrustStrategy trustStrategy = new EasyTrustStrategy(); 
+			X509HostnameVerifier hostnameVerifier = new AllowAllHostnameVerifier(); 
+			SSLSocketFactory sslSf = new SSLSocketFactory(trustStrategy, hostnameVerifier); 
+			PlainSocketFactory pSf = new PlainSocketFactory(); 
+			Scheme https = new Scheme("https", 443, sslSf); 
+			Scheme http = new Scheme("http", 80, pSf); 
+			SchemeRegistry schemeRegistry = new SchemeRegistry(); 
+			schemeRegistry.register(https);
+			schemeRegistry.register(http);
+			
+			ThreadSafeClientConnManager mgr = new ThreadSafeClientConnManager(schemeRegistry); 
+			mgr.setMaxTotal(10);
+			HttpParams httpParams = new BasicHttpParams();
+			HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
+			HttpConnectionParams.setSoTimeout(httpParams, 10000);
+			client = new DefaultHttpClient(mgr, httpParams);
+			
+			// setup proxy
+			String proxyHost = SpeechServletUtils.getProxyHost();;
+	
+			if ((proxyHost != null) && (proxyHost.length() > 0)) {
+				// apply proxy settings
+	            int proxyPort    = SpeechServletUtils.getProxyPort();;
+	            String username  = SpeechServletUtils.getProxyUserName();
+	            String password  = SpeechServletUtils.getProxyPassword();   
+	            String domain = SpeechServletUtils.getProxyDomain();
+	        	TTSUtil.setProxyCredentials(client, proxyHost, proxyPort, username, password, domain);
+			}
+			
+			// setup BASIC auth
+			TTSSettings ttsSettings = getTTSSettings();
+			TTSUtil.setTTSCredentials(client, ttsSettings.getHost(), ttsSettings.getUserName(), ttsSettings.getPassword());
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+	
+	public static void setProxyCredentials(DefaultHttpClient client, String proxyHost, int proxyPort, String username, String password, String domain) {
+        boolean proxyHostDefined = proxyHost != null && proxyHost.length() > 0;
+        boolean proxyPortDefined = proxyPort > 0;
+        boolean proxyUsernameDefined = username != null && username.length() > 0;
+        boolean proxyDomainDefined = domain != null && domain.trim().length() > 0;
+
+        HttpHost proxy = null;
+        
+	    if( proxyHostDefined && proxyPortDefined ) {
+	    	proxy = new HttpHost(proxyHost, proxyPort);
+	    	client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);  
+	    }else if( proxyHostDefined )  {
+	    	proxy = new HttpHost(proxyHost);
+	    	client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
+	    }
+        if( proxyHostDefined && proxyUsernameDefined ) {
+            AuthScope proxyScope;
+            
+            if( proxyPortDefined )
+                proxyScope = new AuthScope(proxyHost, proxyPort, AuthScope.ANY_REALM);
+            else
+                proxyScope = new AuthScope(proxyHost, AuthScope.ANY_PORT, AuthScope.ANY_REALM);
+
+    		UsernamePasswordCredentials upc = new UsernamePasswordCredentials(username, password);            
+            NTCredentials ntc = new NTCredentials(domain + "/" + username + ":" + password);
+    		
+    		if(!proxyDomainDefined) {
+	    		client.getCredentialsProvider().setCredentials(
+	    		        proxyScope, 
+	    		        upc);
+    		} else {
+    			client.getCredentialsProvider().setCredentials(
+	    		        proxyScope,
+	    		        ntc);
+    		}
+        }		
+	}
+	
+	public static void setTTSCredentials(DefaultHttpClient client, String proxyHost, String username, String password) {
+        AuthScope proxyScope = new AuthScope(proxyHost, AuthScope.ANY_PORT, AuthScope.ANY_REALM);
+        UsernamePasswordCredentials upc = new UsernamePasswordCredentials(username, password);            
+        client.getCredentialsProvider().setCredentials(proxyScope, upc);	
+	}
+	
 	public static class MP3 {
 		private long length;
 		private InputStream stream;
-		private GetMethod request;
+		private HttpGet request;
 		
 		/**
 		 * @return Returns the request.
 		 */
-		public GetMethod getRequest() {
+		public HttpGet getRequest() {
 			return request;
 		}
 		/**
 		 * @param request The request to set.
 		 */
-		public void setRequest(GetMethod request) {
+		public void setRequest(HttpGet request) {
 			this.request = request;
 		}
 		/**
@@ -93,6 +200,79 @@ public class TTSUtil {
 			MP3 mp3 = textHelpMP3(mp3URL);
 			return mp3;
 		}
+		// remote synth using ReadSpeaker webservice
+		/*String speechURL = "http://app.readspeaker.com/cgi-bin/rsent";
+		MP3 result = null;
+		try {
+			client.getConnectionManager().closeIdleConnections(1, TimeUnit.MICROSECONDS);
+			HttpPost post = new HttpPost(speechURL);
+			post.addHeader("Referer", "http://184.73.162.113");
+	
+			// setup parameters
+			List nameValuePairs = new ArrayList(8);
+			nameValuePairs.add(new BasicNameValuePair("customerid", "5857"));
+			nameValuePairs.add(new BasicNameValuePair("text", text));
+			nameValuePairs.add(new BasicNameValuePair("speed", String.valueOf(((Integer.parseInt(speedValue) + 3)*100))));
+			nameValuePairs.add(new BasicNameValuePair("pitch", "100"));
+			nameValuePairs.add(new BasicNameValuePair("voice", "Kate"));
+			nameValuePairs.add(new BasicNameValuePair("lang", "en_us"));
+			nameValuePairs.add(new BasicNameValuePair("mp3bitrate", "32"));
+			nameValuePairs.add(new BasicNameValuePair("output", "audio"));
+			
+			post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+			HttpResponse response = client.execute(post);
+			int responseCode = response.getStatusLine().getStatusCode();
+			int responseLen = 0;
+			if(response.getHeaders("content-length") != null) {
+				responseLen = Integer.valueOf(response.getHeaders("content-length")[0].getValue()).intValue();
+			}
+				
+			System.out.println("*****  Text Status: " + responseCode + " Length: " + responseLen);
+			
+			if (responseCode == HttpStatus.SC_OK && responseLen > 0) {
+				System.out.println("***** Direct audio."); 
+				result = new MP3();
+				result.setStream(response.getEntity().getContent());
+				result.setLength(responseLen);
+			} else if (responseCode == HttpStatus.SC_MOVED_TEMPORARILY) {
+				
+				System.out.print("***** 302 for audio. Location: ");
+				String location = "";	
+				Header [] headers = response.getAllHeaders();
+				for(int i=0;i<headers.length;i++) {
+					String name = headers[i].getName();
+					String value = headers[i].getValue();
+					//System.out.println(name + ": " + value);
+					if("Location".equals(name)) location = value;
+				}
+				int read = response.getEntity().getContent().read();
+				response.getEntity().getContent().close();
+				
+				HttpGet get = new HttpGet(location);
+				//get.addHeader("Referer", "http://184.73.162.113");
+				System.out.print(location + "\n");
+				System.out.println("*****  Doing GET");
+				HttpResponse mp3response = client.execute(get);
+				System.out.println("*****  GET complete");
+				responseCode = mp3response.getStatusLine().getStatusCode();
+				if(mp3response.getHeaders("content-length") != null) {
+					responseLen = Integer.valueOf(mp3response.getHeaders("content-length")[0].getValue()).intValue();
+				}
+				
+				System.out.println("*****  Audio Status: " + responseCode + " Length: " + responseLen);
+				
+				if (responseCode == HttpStatus.SC_OK && responseLen > 0) {
+					result = new MP3();
+					result.setStream(mp3response.getEntity().getContent());
+					result.setLength(responseLen);
+					result.setRequest(get);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;*/
 	}
 	
 	private static String stripchars(String in) {
@@ -124,7 +304,7 @@ public class TTSUtil {
 	
 	public static void cacheFile(String text, MP3 mp3) {
 		try {
-			String filename = "cache/" + createFilename(text) + ".mp3";
+			String filename = createFilename(text) + ".mp3";
 			
 			System.out.println("TTS: cache miss, new cache file: " + filename);
 			
@@ -138,9 +318,9 @@ public class TTSUtil {
 	    	}
 	    	out.close();
 	    	in.close();
-	    	if(mp3.getRequest() != null) {
+	    	/*if(mp3.getRequest() != null) {
 	    		mp3.getRequest().releaseConnection();
-	    	}
+	    	}*/
 			
 			mp3CacheMap.put(text, filename);
 			
@@ -179,9 +359,10 @@ public class TTSUtil {
 	
 	public static void main(String argv[]) {
 		try {
-			String thResponse = textHelpRequest("testing","-2");
-			String mp3URL = thResponse.substring(thResponse.indexOf("mp3=") + 4);
-			String result = textHelpMP3(mp3URL).toString();
+			//String thResponse = textHelpRequest("testing","-2");
+			//String mp3URL = thResponse.substring(thResponse.indexOf("mp3=") + 4);
+			//String result = textHelpMP3(mp3URL).toString();
+			speak("testing testing 1 2 3", "-2");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -333,44 +514,31 @@ public class TTSUtil {
 			if(speechURL == null || "".equals(speechURL.trim())) {
 				speechURL = "https://168.116.31.62/SpeechServer/";
 			}
-			
-			PostMethod post = new PostMethod(speechURL);
-			post.setFollowRedirects(false);
-			NameValuePair[] params = { new NameValuePair("text", text),
-					   new NameValuePair("voiceName", voice),
-					   new NameValuePair("speedValue", this.speedValue)};
-			post.setRequestBody(params);
-
-			// send request to TextHelp
 			try {
-				HttpClientParams clientParams = new HttpClientParams();
-				clientParams.setConnectionManagerTimeout(30000); // timeout in 30 seconds
-				
-				Protocol myhttps = new Protocol("https", new EasySSLProtocolSocketFactory(), 443);
-				Protocol.registerProtocol("https", new Protocol("https", new EasySSLProtocolSocketFactory(),443));
-				
-				HttpClient client = new HttpClient(clientParams);
+				HttpPost post = new HttpPost(speechURL);
+				//post.setFollowRedirects(false);
+				// setup parameters
+				List nameValuePairs = new ArrayList(3);
+				nameValuePairs.add(new BasicNameValuePair("text", text));
+				nameValuePairs.add(new BasicNameValuePair("voiceName", voice));
+				nameValuePairs.add(new BasicNameValuePair("speedValue", this.speedValue));
+				post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 	
-				if(ttsSettings.getUrl().startsWith("https")) {
-					setupClient(client, ttsSettings);
-				} else {
-					setupClientNonSecure(client, ttsSettings);
-				}
-				
+				// send request to TextHelp
 				int TTSRetry = 5;
 				while(TTSRetry > 0) {
 					try {
-						responseCode = client.executeMethod(post);
+						HttpResponse response = client.execute(post);
+						responseCode = response.getStatusLine().getStatusCode();
 						int responseLen = 0;
-						if(post.getResponseHeader("content-length") != null) {
-							responseLen = Integer.valueOf(post.getResponseHeader("content-length").getValue()).intValue();
+						if(response.getHeaders("content-length") != null) {
+							responseLen = Integer.valueOf(response.getHeaders("content-length")[0].getValue()).intValue();
 						}
 						
 						System.out.println("Text Status: " + responseCode + " Length: " + responseLen);
 						
 						if (responseCode == HttpStatus.SC_OK && responseLen > 0) {
-							InputStream isPost = post.getResponseBodyAsStream();
-							BufferedReader in = new BufferedReader(new InputStreamReader(isPost));
+							BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()),131072);
 							String inputLine = null;
 							result = "";
 							while ((inputLine = in.readLine()) != null) {
@@ -402,9 +570,6 @@ public class TTSUtil {
 			catch (Exception e) {
 				e.printStackTrace();
 			}
-			finally {
-				post.releaseConnection();
-			}
 		}
 	}
     
@@ -430,66 +595,6 @@ public class TTSUtil {
 		System.out.println("Text returning null");
 		return null;
 	}
-
-	private static void setupClient(HttpClient client, TTSSettings ttsSettings) throws Exception {
-		//proxy setyp
-		String proxyHost = SpeechServletUtils.getProxyHost();
-		//System.out.println("Proxy host: " + proxyHost);
-        if ((proxyHost != null) && (proxyHost.length() > 0)) {
-			// apply proxy settings
-            int proxyPort    = SpeechServletUtils.getProxyPort();
-            //System.out.println("Proxy port: " + proxyPort);
-            String username  = SpeechServletUtils.getProxyUserName();
-            //System.out.println("Proxy user: " + username);
-            String password  = SpeechServletUtils.getProxyPassword();
-            //System.out.println("Proxy pass: " + password);
-        	SpeechServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);
-        }
-		
-		client.getHostConfiguration().setHost(ttsSettings.getHost().toString());
-		String ttsHost = client.getHostConfiguration().getHost();
-		//System.out.println("TTS host: " + ttsHost);
-		if ((ttsHost != null) && (ttsHost.length() > 0)) {
-			// apply proxy settings
-			int ttsPort = 443;
-			//System.out.println("TTS port: " + ttsPort);
-            String username  = ttsSettings.getUserName();
-            //System.out.println("TTS user: " + username);
-            String password  = ttsSettings.getPassword();
-            //System.out.println("TTS pass: " + password);
-            SpeechServletUtils.setTTSCredentials(client, ttsHost, ttsPort, username, password);				
-		}
-	}
-	
-	private static void setupClientNonSecure(HttpClient client, TTSSettings ttsSettings) throws Exception {
-		//proxy setyp
-		String proxyHost = SpeechServletUtils.getProxyHost();
-		//System.out.println("Proxy host: " + proxyHost);
-        if ((proxyHost != null) && (proxyHost.length() > 0)) {
-			// apply proxy settings
-            int proxyPort    = SpeechServletUtils.getProxyPort();
-            //System.out.println("Proxy port: " + proxyPort);
-            String username  = SpeechServletUtils.getProxyUserName();
-            //System.out.println("Proxy user: " + username);
-            String password  = SpeechServletUtils.getProxyPassword();
-            //System.out.println("Proxy pass: " + password);
-        	SpeechServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password);
-        }
-		
-		client.getHostConfiguration().setHost(ttsSettings.getHost().toString());
-		String ttsHost = client.getHostConfiguration().getHost();
-		//System.out.println("TTS host: " + ttsHost);
-		if ((ttsHost != null) && (ttsHost.length() > 0)) {
-			// apply proxy settings
-			int ttsPort = 80;
-			//System.out.println("TTS port: " + ttsPort);
-            String username  = ttsSettings.getUserName();
-            //System.out.println("TTS user: " + username);
-            String password  = ttsSettings.getPassword();
-            //System.out.println("TTS pass: " + password);
-            SpeechServletUtils.setTTSCredentials(client, ttsHost, ttsPort, username, password);				
-		}
-	}
 	
 	public static class MP3Request extends Thread {
 		public String url;
@@ -510,30 +615,26 @@ public class TTSUtil {
 			
 			TTSSettings ttsSettings = getTTSSettings();
 			
-			GetMethod get = new GetMethod(this.url);
+			HttpGet get = new HttpGet(this.url);
 			
 			// send request to TextHelp
-			try {
-				HttpClientParams clientParams = new HttpClientParams();
-				clientParams.setConnectionManagerTimeout(30000); // timeout in 30 seconds
-				HttpClient client = new HttpClient(clientParams);
-				
-				setupClientNonSecure(client, ttsSettings);
-				
+			try {			
 				int TTSRetry = 5;
 				while(TTSRetry > 0) {
 					try {
-						responseCode = client.executeMethod(get);
+						HttpResponse response = client.execute(get);
+						responseCode = response.getStatusLine().getStatusCode();
 						int responseLen = 0;
-						if(get.getResponseHeader("content-length") != null) {
-							responseLen = Integer.valueOf(get.getResponseHeader("content-length").getValue()).intValue();
+						if(response.getHeaders("content-length") != null) {
+							responseLen = Integer.valueOf(response.getHeaders("content-length")[0].getValue()).intValue();
 						}
+						
 						System.out.println("Audio Status: " + responseCode + " Length: " + responseLen);
 						
 						if (responseCode == HttpStatus.SC_OK && responseLen > 0) {
 							result = new MP3();
-							result.setStream(get.getResponseBodyAsStream());
-							result.setLength(get.getResponseContentLength());
+							result.setStream(response.getEntity().getContent());
+							result.setLength(responseLen);
 							result.setRequest(get);
 							TTSRetry = 0;
 							completed = true;
