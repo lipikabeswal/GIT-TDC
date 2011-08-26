@@ -14,13 +14,18 @@
                 ( unanswered == 1 ? ' question ' : ' questions ' ) +
                 'not answered'
             );
-
-            stats.marked.setAttribute(
-                'text',
-                marked +
-                ( marked == 1 ? ' question ' : ' questions ' ) +
-                'marked for review'
-            );
+			if(!gController.fwdOnly){
+	            stats.marked.setAttribute(
+	                'text',
+	                marked +
+	                ( marked == 1 ? ' question ' : ' questions ' ) +
+	                'marked for review'
+	            );
+			}else{		//	added for LLO-207
+            	var leftQues = gController.totalQuestions() - gController.totalVisited();
+            	stats.marked.setAttribute(
+                	'text','You have '+leftQues+' questions left. Would you like to return to the test?');
+            }
         </method>
 
         <simplelayout axis="y" spacing="3"/>

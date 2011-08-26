@@ -276,13 +276,18 @@
 	        	gController.toggleItemSelState( 'J' ); 
 	        }
         </method>        
-        <method name="goBack"> 
-        	if(!gController.onFirstItem()){
-        		LzFocus.clearFocus();
-        	}
-            this.exitPopups();
-        	gController.stepNavigateBack();        
-        </method>
+        <method name="goBack">
+		<![CDATA[
+			if(!gController.fwdOnly){
+        		if(!gController.onFirstItem()){
+        			LzFocus.clearFocus();
+        		}
+        	
+            	this.exitPopups();
+        		gController.stepNavigateBack();
+			}      
+       	]]>
+		</method>
         <method name="goOn"> 
         	if(!gController.onLastItem()){
         		LzFocus.clearFocus();
