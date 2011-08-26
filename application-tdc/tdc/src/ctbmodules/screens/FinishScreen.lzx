@@ -11,25 +11,23 @@
         <method name="setStats" args="unanswered, marked">
         <![CDATA[
             if(!gController.fwdOnly){
-            stats.notanswered.setAttribute(
+            	stats.notanswered.setAttribute(
                 'text',
                 unanswered +
                 ( unanswered == 1 ? ' question ' : ' questions ' ) +
                 'not answered.&nbsp;&nbsp;'
-            );
-            }
-            else{		//	added for LLO-207
-            	var leftQues = gController.totalQuestions() - gController.totalVisited();
-            	stats.notanswered.setAttribute(
-                	'text','You have '+leftQues+' questions left.');
-            }
-			if(!gController.fwdOnly){
-            	stats.marked.setAttribute(
+            	);
+				stats.marked.setAttribute(
                 	'text',
                	 marked +
                	 ( marked == 1 ? ' question ' : ' questions ' ) +
                	 'marked for review.&nbsp;&nbsp;'
             	);
+            }
+            else{		//	added for LLO-207
+            	var leftQues = gController.totalQuestions() - gController.totalVisited();
+            	stats.notanswered.setAttribute(
+                	'text','You have '+leftQues+' questions left.');
             }
 		]]>            
         </method>
@@ -59,7 +57,7 @@
            </text>
             <view height="1" bgcolor="gray" width="100%"/>
             <text name="notanswered" resize="true" x="200"/>
-            <text name="marked" resize="true" x="150"/>
+            <text name="marked" resize="true" x="200"/>
         </view>
 
         <view x="${ parent.width - width - 10 }" name="buttons">
