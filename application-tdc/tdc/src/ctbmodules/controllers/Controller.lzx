@@ -503,7 +503,9 @@
 		<datapointer name="dpdisplay" xpath="dsdisplay:/display" />
 
 		<datapointer name="dptemp" xpath="dstemp:/answers" />
-
+		
+		<attribute name="fwdOnly" value="false" type="boolean" />
+			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
 			if(gScratchpad.scratchpadHasFocus){ gHotKeys.disableKeys();
@@ -1116,6 +1118,52 @@
             return nummarked;
         ]]></method>
 
+		<method name="totalVisited">
+			Debug.write("item_no...",dpstudentdata.xpathQuery( 'current_item/item_model/@item_no'));
+			var totalVisited = dpstudentdata.xpathQuery( 'current_item/item_model/@item_no');
+			
+			if(this.isThemePage()) {
+				totalVisited -= 1;
+			}
+Debug.write("totalVisited...",totalVisited);
+			return totalVisited;
+		</method>
+
+<!--		<method name="totalVisited"><![CDATA[    
+            var vstd = dpstudentdata.xpathQuery(
+                "runtime/item_model[@is_visited='true']"
+            );
+			
+			 var ni_count = 0;
+            if ( vstd && vstd instanceof Array ) {
+                for(var i=0; i< vstd.length ; i++){
+					var ts =  dpsubtest.xpathQuery("ob_assessment/ob_element_list/f[@id='" + vstd[i].getAttr('eid') + "']/@type");
+					if(ts == THEME_TYPE) ni_count++;
+				}
+            } else if ( vstd && vstd instanceof LzDataElement ) {
+                var ts =  dpstudentdata.xpathQuery("runtime/item_model[@is_visited = 'true']/@theme");
+               	if(ts) ni_count = 1;
+            }			
+			
+            
+            if ( vstd && vstd instanceof Array ) {
+                var numvisited = vstd.length;
+            } else if ( vstd && vstd instanceof LzDataElement ) {
+                var numvisited = 1;
+            } else {
+                var numvisited = 0;
+            }
+			
+			 var currItemTheme = dpstudentdata.xpathQuery(
+                "current_item/item_model/@theme"
+            );
+			if(currItemTheme) 
+				numvisited = numvisited - ni_count;
+			else
+				numvisited = numvisited - ni_count + 1;
+            return numvisited;
+        ]]></method>
+-->
 		<method name="resetTestTimer" args="durseconds">
             this.durationms = durseconds * 1000;
             this.elapsedms  = 0;
@@ -1214,6 +1262,28 @@
 			//Debug.write("seed, total : ", seed, total);
  			populateRandomIndexArray(seed, total);
  		}
+
+		/*var fwdOnly = dpsubtest.xpathQuery( 'sco/@fwd_only' );
+		if(fwdOnly == 'true')
+			this.setAttribute("fwdOnly",true);
+		else
+			this.setAttribute("fwdOnly",false);*/
+		var subtestTitle = dpsubtest.xpathQuery( 'sco/@title' );
+		var escuchando = "ESCUCHANDO";
+		var hablando = "HABLANDO";
+        var speaking = "SPEAKING";
+		var listening = "LISTENING";
+        var contentAreaName = subtestTitle.toUpperCase();
+
+        if((contentAreaName.indexOf(escuchando) != -1) ||
+					(contentAreaName.indexOf(hablando) != -1 ) ||
+						(contentAreaName.indexOf(speaking) != -1)  ||
+							(contentAreaName.indexOf(listening) != -1) )
+		{	
+			this.setAttribute("fwdOnly",true);	
+		}else{
+ 			this.setAttribute("fwdOnly",false);	
+		}
         ]]></method>
 
 		<!-- populates random index array with the mods of the fibonacci series -->
@@ -2257,7 +2327,7 @@ if(stimulusid > 0){
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && 
 					dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm 
-					&& !(gController.getNextNavigableOffset(curritem) == totalitem)){
+					&& !(gController.getNextNavigableOffset(curritem) == totalitem )){
             		this.showRevisitPopup("goOn");
 				}else{
 					changeItem( getItemFromOffset( currItemOffset() + 1 ) );
@@ -2268,7 +2338,7 @@ if(stimulusid > 0){
 		<!-- question state -->
 		<method name="toggleMark"><![CDATA[
 		//For Defect 65880
-        	if(!this.isThemePage() && this.allowRevisit){
+        	if(!this.isThemePage() && this.allowRevisit && !gController.fwdOnly){
 	        	freezeUI();
 	        	var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
 	        	var isMarked = dncurritem.getAttr( 'marked' );
@@ -2800,6 +2870,7 @@ if(stimulusid > 0){
         ]]></method>
 
 		<method name="loadItem"><![CDATA[
+Debug.write("############ loadItem ############");
             this.itemloaded    = false;
             this.runtimeready  = false;
             this.youarehereset = false;
@@ -3839,8 +3910,8 @@ if(stimulusid > 0){
 		<method name="showWaitPopupFor30Sec">
 			if(!isWaitPopupOpen) {
 				showWaitPopup();
-				LzTimer.resetTimer( dHideWaitPopup, 300000 );
-			}
+						LzTimer.resetTimer( dHideWaitPopup, 300000 );
+	}
 		</method>
 
 		<method name="showRevisitPopup" args="calledFrom">
