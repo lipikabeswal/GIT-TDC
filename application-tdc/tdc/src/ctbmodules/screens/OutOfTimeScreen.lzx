@@ -26,7 +26,7 @@
             else{		//	added for LLO-207
             	var leftQues = gController.totalQuestions() - gController.totalVisited();
             	stats.notanswered.setAttribute(
-                	'text','You have '+leftQues+' questions left.');
+                	'text','You have '+leftQues+' '+((leftQues == 1) ? 'question' :'questions')+' left.');
             }
 		]]>            
         </method>
