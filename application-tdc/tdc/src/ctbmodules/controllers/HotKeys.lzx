@@ -155,8 +155,10 @@
         			gController.finishTestShortcut();      // CTRL F ?
                     break;
 				case 10: 
-                    this.exitPopups();
-                    gController.stepNavigateBack();  
+					if(!gController.fwdOnly){
+	                    this.exitPopups();
+	                    gController.stepNavigateBack();  
+					}
                     break;
 				case 11: 
                     this.exitPopups();
@@ -276,13 +278,18 @@
 	        	gController.toggleItemSelState( 'J' ); 
 	        }
         </method>        
-        <method name="goBack"> 
-        	if(!gController.onFirstItem()){
-        		LzFocus.clearFocus();
-        	}
-            this.exitPopups();
-        	gController.stepNavigateBack();        
-        </method>
+        <method name="goBack">
+		<![CDATA[
+			if(!gController.fwdOnly){
+        		if(!gController.onFirstItem()){
+        			LzFocus.clearFocus();
+        		}
+        	
+            	this.exitPopups();
+        		gController.stepNavigateBack();
+			}      
+       	]]>
+		</method>
         <method name="goOn"> 
         	if(!gController.onLastItem()){
         		LzFocus.clearFocus();
