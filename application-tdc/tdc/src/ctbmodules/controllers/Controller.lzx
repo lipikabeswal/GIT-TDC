@@ -1119,7 +1119,18 @@
             return nummarked;
         ]]></method>
 
-		<method name="totalVisited"><![CDATA[    
+		<method name="totalVisited">
+			Debug.write("item_no...",dpstudentdata.xpathQuery( 'current_item/item_model/@item_no'));
+			var totalVisited = dpstudentdata.xpathQuery( 'current_item/item_model/@item_no');
+			
+			if(this.isThemePage()) {
+				totalVisited -= 1;
+			}
+Debug.write("totalVisited...",totalVisited);
+			return totalVisited;
+		</method>
+
+<!--		<method name="totalVisited"><![CDATA[    
             var vstd = dpstudentdata.xpathQuery(
                 "runtime/item_model[@is_visited='true']"
             );
@@ -1153,7 +1164,7 @@
 				numvisited = numvisited - ni_count + 1;
             return numvisited;
         ]]></method>
-
+-->
 		<method name="resetTestTimer" args="durseconds">
             this.durationms = durseconds * 1000;
             this.elapsedms  = 0;
