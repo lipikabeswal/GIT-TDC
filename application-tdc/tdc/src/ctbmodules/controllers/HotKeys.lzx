@@ -155,8 +155,10 @@
         			gController.finishTestShortcut();      // CTRL F ?
                     break;
 				case 10: 
-                    this.exitPopups();
-                    gController.stepNavigateBack();  
+					if(!gController.fwdOnly){
+	                    this.exitPopups();
+	                    gController.stepNavigateBack();  
+					}
                     break;
 				case 11: 
                     this.exitPopups();
