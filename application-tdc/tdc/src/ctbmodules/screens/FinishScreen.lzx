@@ -10,19 +10,25 @@
 
         <method name="setStats" args="unanswered, marked">
         <![CDATA[
-            stats.notanswered.setAttribute(
+            if(!gController.fwdOnly){
+            	stats.notanswered.setAttribute(
                 'text',
                 unanswered +
                 ( unanswered == 1 ? ' question ' : ' questions ' ) +
                 'not answered.&nbsp;&nbsp;'
-            );
-
-            stats.marked.setAttribute(
-                'text',
-                marked +
-                ( marked == 1 ? ' question ' : ' questions ' ) +
-                'marked for review.&nbsp;&nbsp;'
-            );
+            	);
+				stats.marked.setAttribute(
+                	'text',
+               	 marked +
+               	 ( marked == 1 ? ' question ' : ' questions ' ) +
+               	 'marked for review.&nbsp;&nbsp;'
+            	);
+            }
+            else{		//	added for LLO-207
+            	var leftQues = gController.totalQuestions() - gController.totalVisited();
+            	stats.notanswered.setAttribute(
+                	'text','You have '+leftQues+' '+((leftQues == 1) ? 'question' :'questions')+' left.');
+            }
 		]]>            
         </method>
 

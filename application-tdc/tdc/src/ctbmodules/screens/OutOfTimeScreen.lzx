@@ -7,20 +7,28 @@
 
         <attribute name="font" value="Arial"/>
 
-        <method name="setStats" args="unanswered, marked">
-            stats.notanswered.setAttribute(
+         <method name="setStats" args="unanswered, marked">
+        <![CDATA[
+            if(!gController.fwdOnly){
+            	stats.notanswered.setAttribute(
                 'text',
                 unanswered +
                 ( unanswered == 1 ? ' question ' : ' questions ' ) +
-                'not answered'
-            );
-
-            stats.marked.setAttribute(
-                'text',
-                marked +
-                ( marked == 1 ? ' question ' : ' questions ' ) +
-                'marked for review'
-            );
+                'not answered.&nbsp;&nbsp;'
+            	);
+				stats.marked.setAttribute(
+                	'text',
+               	 marked +
+               	 ( marked == 1 ? ' question ' : ' questions ' ) +
+               	 'marked for review.&nbsp;&nbsp;'
+            	);
+            }
+            else{		//	added for LLO-207
+            	var leftQues = gController.totalQuestions() - gController.totalVisited();
+            	stats.notanswered.setAttribute(
+                	'text','You have '+leftQues+' '+((leftQues == 1) ? 'question' :'questions')+' left.');
+            }
+		]]>            
         </method>
 
         <simplelayout axis="y" spacing="3"/>
