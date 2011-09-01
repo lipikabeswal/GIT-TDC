@@ -69,7 +69,7 @@ public class TTSUtil {
 			schemeRegistry.register(http);
 			
 			ThreadSafeClientConnManager mgr = new ThreadSafeClientConnManager(schemeRegistry); 
-			mgr.setMaxTotal(10);
+			mgr.setMaxTotal(1);
 			HttpParams httpParams = new BasicHttpParams();
 			HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
 			HttpConnectionParams.setSoTimeout(httpParams, 10000);
