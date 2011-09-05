@@ -123,7 +123,7 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
    				var code = "";
 
   				if (node && node.nodeName == 'ERROR'){
-					
+
 					code = node.getElementsByTagName("CODE")[0].childNodes[0].data;
 
 					if(typeof code == "undefined") {
@@ -134,22 +134,24 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 					if(code == "" || code == "556" || code == "558") {
 Debug.write("in if code...", code);
 						if(firstRequestDone && gController.isWaitPopupOpen == false) {
+      Debug.write("####checkShowError...1");                  
 		  					setAttribute('error', true);
-							gController.hideWaitPopup();
-							gController.unlockUI();
-		  					showError(xml);
+		  					gPleaseWaitPopup.showControls();
 						}
 						else {
-
-							if(ds != null) {
+                         	if(ds != null) {
+                             Debug.write("####checkShowError...2");   
 								setAttribute('dRequestDataSet',ds);
 								startRequestTimer();
 							}
 
 							if(!firstRequestDone) {
-								gController.showWaitPopupFor30Sec();
+								Debug.write("####checkShowError...3");   
+								gController.showWaitPopupFor60Sec();
+								
+
 								if(gController.state != gController.LOGIN_STATE) {
-Debug.write("communicator stopQuestion......");
+                                   Debug.write("####checkShowError...4");   
 									gController.stopHeartbeat();
 									//to stop the test timer
 									gController.stopQuestion();
@@ -162,17 +164,21 @@ Debug.write("communicator stopQuestion......");
 					}
 					//for other errors, no popup will be shown
 					else {
-Debug.write("in else code...", code);
+						
 	  					setAttribute('error', true);
 						gController.hideWaitPopup();
+						//gPleaseWaitPopup.hide();
 						gController.unlockUI();
-	  					showError(xml);
+	  					showError(xml);	  					
 					}
   				}
 				else {
+                    Debug.write("in else code...", 6);
 					if(gController.isWaitPopupOpen) {
+                       Debug.write("in else code...", 7);
 						firstRequestDone = false;
 						gController.hideWaitPopup();
+						//gPleaseWaitPopup.hide();
 						if(gController.state != gController.LOGIN_STATE) {
 Debug.write("communicator startQuestion......");
 							gController.sendHeartbeat();
@@ -195,8 +201,9 @@ Debug.write("communicator startQuestion......");
   		</method>
   		
   		<method name="finishHeartbeatCall" args="result,ds" >
-  		//Debug.write("finishHeartbeatCall", ds);
+  		Debug.write("finishHeartbeatCall", ds, result);
   			if(!checkShowError(result,ds)){
+                //gPleaseWaitPopup.contents.networkLost.inBar.setAttribute("visible", false);
   				gController.setAttribute("heartbeatResult", result);
   			}
   		</method>
@@ -206,6 +213,7 @@ Debug.write("communicator startQuestion......");
 		</method>		
 			
 		<method name="sendRequest">
+			//gPleaseWaitPopup.contents.networkLost.inBar.setAttribute("visible", true);
 			gRequest.sendRequest(dRequestDataSet);
 		</method>  		
      </node>

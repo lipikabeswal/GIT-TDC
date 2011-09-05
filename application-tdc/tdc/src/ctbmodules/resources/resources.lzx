@@ -52,6 +52,26 @@
 		<frame src="magnifier/toolbar_magnifyingGlass_disabled.png"/>   
 		<frame src="magnifier/toolbar_magnifyingGlass_on.png"/>        
 	</resource>
+	
+	<!-- Network connectivity lost animation-->
+    <resource name="system_btn">      
+		<frame src="delay_screen_buttons/computer.png"/>          
+	</resource>
+
+    <!-- Network connectivity lost animation-->
+    <resource name="globe_btn">      
+		<frame src="delay_screen_buttons/globe.png"/>          
+	</resource>
+	
+    <!-- Network connectivity lost animation-->
+    <resource name="simple_bar_btn">      
+		<frame src="delay_screen_buttons/grayBar.png"/>          
+	</resource>
+	
+	 <!-- Network connectivity lost animation-->
+    <resource name="bar_btn">      
+		<frame src="delay_screen_buttons/greenBar.png"/>          
+	</resource>
 
 	<!-- Toolbar Button Masking Answer Choice-->
 	<resource name="toolbar_msaking_choice_btn">      

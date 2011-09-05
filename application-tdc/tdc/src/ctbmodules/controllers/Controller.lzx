@@ -437,12 +437,15 @@
 		<attribute name="hasTTSspeed" type="boolean" value="false" />
 
 		<!-- called to hide the wait popup, if open-->
-		<attribute name="dHideWaitPopup"
-			value="$once{ new LzDelegate( this, 'hideWaitPopup' ) }" />
+		<attribute name="dNetworkLostPopup"
+			value="$once{ new LzDelegate( this, 'networkLostPopup' ) }" />
 
-		<!-- True, if login response contains tts speed value-->
+       	<!-- True, if login response contains tts speed value-->
 		<attribute name="isWaitPopupOpen" type="boolean" value="false" />
 
+        <!-- True, if login response contains tts speed value-->
+		<attribute name="isWaitPopupAfter60SecOpen" type="boolean" value="false" />
+		
 		<!-- True, if login response contains tts speed value-->
 		<attribute name="isRevisitPopupOpen" type="boolean"
 			value="false" />
@@ -505,12 +508,18 @@
 		<datapointer name="dptemp" xpath="dstemp:/answers" />
 		
 		<attribute name="fwdOnly" value="false" type="boolean" />
+ 
+		<attribute name="showPleaseWaitOver" value="false" type="boolean" />
 			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
-			if(gScratchpad.scratchpadHasFocus){ gHotKeys.disableKeys();
-			} if(this.getAttribute('isRevisitPopupOpen') == true){
-			gHotKeys.disableKeys(); }
+			if(gScratchpad.scratchpadHasFocus) { 
+				gHotKeys.disableKeys();
+			} 
+			
+			if(this.getAttribute('isRevisitPopupOpen') == true || this.isWaitPopupOpen == true){
+				gHotKeys.disableKeys(); 
+			}
 		</handler>
 		<!-- 
 			Subtest xml may or may not specify the item type.  Our code relies on the item type being populated.
@@ -3881,39 +3890,49 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="showWaitPopup">
-			this.isWaitPopupOpen = true;	
+            this.isWaitPopupOpen = true;	
 			gPleaseWaitPopup.show();
 			gMusicPlayer.hide();
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
 		</method>
 
+		<method name="networkLostPopup"><![CDATA[
+			this.isWaitPopupOpen = false;
+			LzTimer.removeTimer(dNetworkLostPopup);
+			if(gCommunicator.firstRequestDone) {
+				
+						gPleaseWaitPopup.hide();
+						showWaitPopup();
+						gPleaseWaitPopup.showControls();
+				
+			}
+            
+		]]></method>
+
 		<method name="hideWaitPopup"><![CDATA[
 			this.isWaitPopupOpen = false;	
 			gPleaseWaitPopup.hide();
-			LzTimer.removeTimer(dHideWaitPopup);
+			LzTimer.removeTimer(dNetworkLostPopup);
 			gReadableText.stopRequestor();
 			gController.unlockUI();
-		 	checkShowMagnifierGlass();
-			checkShowMaskingChoiceDD();
-		
-			if(gCommunicator.firstRequestDone) {
+			
+			/*if(gCommunicator.firstRequestDone) {
 				if(gReadableText.speechRequestSent) {
 					showError(gXmlHelper.getSpeechErrorXml());
 				}
 				else {
 					showError(gXmlHelper.getErrorXml());
 				}
-			}
+			}*/
 		]]></method>
 
-		<method name="showWaitPopupFor30Sec">
-			if(!isWaitPopupOpen) {
+       <method name="showWaitPopupFor60Sec">
+			if(!isWaitPopupOpen){
 				showWaitPopup();
-						LzTimer.resetTimer( dHideWaitPopup, 300000 );
-	}
+ 				LzTimer.resetTimer( dNetworkLostPopup, 60000 );
+				}	
 		</method>
-
 		<method name="showRevisitPopup" args="calledFrom">
 			this.isRevisitPopupOpen = true;	
 			gRevisitFalsePopup.show(calledFrom);

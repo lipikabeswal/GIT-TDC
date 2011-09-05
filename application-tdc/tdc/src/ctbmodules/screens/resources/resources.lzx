@@ -86,6 +86,7 @@
 		<frame src="exit_off.swf"/>
 		<frame src="exit_on.swf"/>
 		<frame src="exit_click.swf"/>
+		<frame src="exit_test_disabled.png"/>
 	</resource>
 
 	<!--AA021806:	Use this next_button_rsc  resource and 
