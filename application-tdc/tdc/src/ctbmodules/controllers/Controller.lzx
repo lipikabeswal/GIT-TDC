@@ -1272,27 +1272,12 @@ Debug.write("totalVisited...",totalVisited);
  			populateRandomIndexArray(seed, total);
  		}
 
-		/*var fwdOnly = dpsubtest.xpathQuery( 'sco/@fwd_only' );
+		var fwdOnly = dpsubtest.xpathQuery( 'sco/@fwd_only' );
 		if(fwdOnly == 'true')
 			this.setAttribute("fwdOnly",true);
 		else
-			this.setAttribute("fwdOnly",false);*/
-		var subtestTitle = dpsubtest.xpathQuery( 'sco/@title' );
-		var escuchando = "ESCUCHANDO";
-		var hablando = "HABLANDO";
-        var speaking = "SPEAKING";
-		var listening = "LISTENING";
-        var contentAreaName = subtestTitle.toUpperCase();
-
-        if((contentAreaName.indexOf(escuchando) != -1) ||
-					(contentAreaName.indexOf(hablando) != -1 ) ||
-						(contentAreaName.indexOf(speaking) != -1)  ||
-							(contentAreaName.indexOf(listening) != -1) )
-		{	
-			this.setAttribute("fwdOnly",true);	
-		}else{
- 			this.setAttribute("fwdOnly",false);	
-		}
+			this.setAttribute("fwdOnly",false);
+		
         ]]></method>
 
 		<!-- populates random index array with the mods of the fibonacci series -->
@@ -3916,6 +3901,8 @@ Debug.write("############ loadItem ############");
 			LzTimer.removeTimer(dNetworkLostPopup);
 			gReadableText.stopRequestor();
 			gController.unlockUI();
+			checkShowMagnifierGlass();
+			checkShowMaskingChoiceDD();
 			
 			/*if(gCommunicator.firstRequestDone) {
 				if(gReadableText.speechRequestSent) {

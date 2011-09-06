@@ -207,8 +207,7 @@
 				if(gController.isWaitPopupOpen) {
 					gReadableText.speechRequestSent = false;
 					gCommunicator.firstRequestDone = false;
-					//gController.hideWaitPopup();
-					gPleaseWaitPopup.hide();
+					gController.hideWaitPopup();
 					gController.sendHeartbeat();
 					//to start the test timer 
 					gController.startQuestion();

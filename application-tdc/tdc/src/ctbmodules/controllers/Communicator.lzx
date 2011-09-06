@@ -132,27 +132,20 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 
 					//show popup only for network error and tts error	
 					if(code == "" || code == "556" || code == "558") {
-Debug.write("in if code...", code);
 						if(firstRequestDone && gController.isWaitPopupOpen == false) {
-      Debug.write("####checkShowError...1");                  
 		  					setAttribute('error', true);
 		  					gPleaseWaitPopup.showControls();
 						}
 						else {
-                         	if(ds != null) {
-                             Debug.write("####checkShowError...2");   
+                         	if(ds != null) { 
 								setAttribute('dRequestDataSet',ds);
 								startRequestTimer();
 							}
 
 							if(!firstRequestDone) {
-								Debug.write("####checkShowError...3");   
-								gController.showWaitPopupFor60Sec();
-								
-
+								gController.showWaitPopupFor60Sec();								
 								if(gController.state != gController.LOGIN_STATE) {
-                                   Debug.write("####checkShowError...4");   
-									gController.stopHeartbeat();
+                                   	gController.stopHeartbeat();
 									//to stop the test timer
 									gController.stopQuestion();
 								}
@@ -164,23 +157,18 @@ Debug.write("in if code...", code);
 					}
 					//for other errors, no popup will be shown
 					else {
-						
-	  					setAttribute('error', true);
+						setAttribute('error', true);
 						gController.hideWaitPopup();
-						//gPleaseWaitPopup.hide();
 						gController.unlockUI();
 	  					showError(xml);	  					
 					}
   				}
 				else {
-                    Debug.write("in else code...", 6);
 					if(gController.isWaitPopupOpen) {
-                       Debug.write("in else code...", 7);
-						firstRequestDone = false;
+                        firstRequestDone = false;
 						gController.hideWaitPopup();
-						//gPleaseWaitPopup.hide();
+						Debug.warn("checkShowError outer else");
 						if(gController.state != gController.LOGIN_STATE) {
-Debug.write("communicator startQuestion......");
 							gController.sendHeartbeat();
 							//to start the test timer 
 							//START Defect 64592
@@ -203,8 +191,7 @@ Debug.write("communicator startQuestion......");
   		<method name="finishHeartbeatCall" args="result,ds" >
   		Debug.write("finishHeartbeatCall", ds, result);
   			if(!checkShowError(result,ds)){
-                //gPleaseWaitPopup.contents.networkLost.inBar.setAttribute("visible", false);
-  				gController.setAttribute("heartbeatResult", result);
+               gController.setAttribute("heartbeatResult", result);
   			}
   		</method>
 
@@ -213,7 +200,6 @@ Debug.write("communicator startQuestion......");
 		</method>		
 			
 		<method name="sendRequest">
-			//gPleaseWaitPopup.contents.networkLost.inBar.setAttribute("visible", true);
 			gRequest.sendRequest(dRequestDataSet);
 		</method>  		
      </node>

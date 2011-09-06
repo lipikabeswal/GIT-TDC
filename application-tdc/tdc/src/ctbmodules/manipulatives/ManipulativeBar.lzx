@@ -41,7 +41,7 @@
 			<ManipulativeButton resource="toolbar_masking_ruler_btn"
 	                            toolid="masking_ruler"
 	                            tooltip="Blocking Ruler"/>		
-
+			<view name="gap" width="2" height="20" valign="middle"/>
 			<!-- Magnifier Glass Button -->
 			<view name="magnifyingGlass"
 				visible="${gController.magnifierVisible}"
@@ -99,7 +99,7 @@
 					</method>
 			</view>
 
-			<view name="gap" width="7" height="20" valign="middle"/>
+			<view name="gap1" width="2" height="20" valign="middle"/>
 
 			<view name="maskingAnswer"
 				visible="${gController.showMaskingAnswerPopUp}"
