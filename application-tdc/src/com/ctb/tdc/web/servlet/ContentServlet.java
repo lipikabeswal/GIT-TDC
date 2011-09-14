@@ -27,7 +27,6 @@ import org.apache.log4j.Logger;
 import org.bouncycastle.util.encoders.Base64;
 import org.jdom.output.XMLOutputter;
 
-import com.bea.xml.XmlException;
 import com.ctb.tdc.web.exception.DecryptionException;
 import com.ctb.tdc.web.exception.HashMismatchException;
 import com.ctb.tdc.web.exception.TMSException;
@@ -309,8 +308,8 @@ public class ContentServlet extends HttpServlet {
             String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
 		}
-		catch (XmlException e) {
-			logger.error("XML Exception occured in downloadItem("+itemId+") : "
+		catch (Exception e) {
+			logger.error("Exception occured in downloadItem("+itemId+") : "
 					+ ServletUtils.printStackTrace(e));
             String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));

@@ -3,6 +3,7 @@ package com.ctb.tdc.web.utils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ResourceBundle;
 
 import org.apache.log4j.Category;
 import org.apache.log4j.FileAppender;
@@ -23,6 +24,13 @@ public class AuditFile
     public static final String AUDIT_FOLDER = "/data/audit/";
     public static final String XML_FOLDER = "/data/xmls/";
     public static final String IMAGE_FOLDER = "/data/images/";
+    
+    private static boolean doAudit;
+    
+    static {
+    	ResourceBundle rb = ResourceBundle.getBundle("tdc");
+    	doAudit = "true".equals(rb.getString("tms.audit.write"));
+    }
     
     // format:  millis, mseq, <itemId|response>
     private AuditFile() 
@@ -60,11 +68,13 @@ public class AuditFile
     
     public static void log( AuditVO audit ) throws Exception
     {
-        String fileName = audit.getFileName();
-        if (fileName != null) {
-            org.apache.log4j.Category logger = getLogger(fileName);
-            logger.log( Priority.INFO, audit.toString() );            
-        }
+    	if(doAudit) {
+	        String fileName = audit.getFileName();
+	        if (fileName != null) {
+	            org.apache.log4j.Category logger = getLogger(fileName);
+	            logger.log( Priority.INFO, audit.toString() );            
+	        }
+    	}
     }
     
     public static boolean exists(String fileName) {

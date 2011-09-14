@@ -228,10 +228,12 @@ public class ContentFile
     
     public static String getContentFolderPath() 
     {
-//	    String tdcHome = System.getProperty(ContentFile.TDC_HOME);
-//	    String filePath = tdcHome + ContentFile.CONTENT_FOLDER;
-//	    return filePath;
-    	return CONTENT_FOLDER_PATH;
+    	String tdchome = System.getProperty(TDC_HOME);
+    	if(tdchome == null || "null".equals(tdchome)) {
+    		return "";
+    	} else {
+    		return CONTENT_FOLDER_PATH;
+    	}
     } 
     
 }
