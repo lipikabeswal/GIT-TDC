@@ -158,29 +158,7 @@ public class PersistenceServlet extends HttpServlet {
 		} else if (method != null && method.equals(ServletUtils.LOGIN_METHOD))
 			result = login(xml);
 		else if (method != null && method.equals(ServletUtils.SAVE_METHOD)) {
-			if(!ServletUtils.isEndSubtest(xml)) {
-				synchronized(PersistenceServlet.class) {
-					if(!isSaveQueue()) {
-						setSaveQueue(true);
-						String mseq = ServletUtils.parseMseq(xml);
-						ServletUtils.writeResponse(response, result, mseq);
-						save(response, xml, request);
-						setSaveQueue(false);
-						return;
-					} else {
-						while(isSaveQueue()) {
-							try {
-								Thread.sleep(100);
-							} catch (InterruptedException ie) {
-								// do nothing
-							}
-						}
-						result = save(response, xml, request);
-					}
-				}
-			} else {
-				result = save(response, xml, request);
-			}
+			result = save(response, xml, request);
 		} else if (method != null && method.equals(ServletUtils.FEEDBACK_METHOD))
 			result = feedback(xml);
 		else if (method != null
