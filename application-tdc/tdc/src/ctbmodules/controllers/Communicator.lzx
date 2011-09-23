@@ -125,7 +125,8 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
   				if (node && node.nodeName == 'ERROR'){
 
 					code = node.getElementsByTagName("CODE")[0].childNodes[0].data;
-
+					var msg = node.getElementsByTagName("MESSAGE")[0].childNodes[0].data;
+					
 					if(typeof code == "undefined") {
 						code = "";						
 					}
@@ -154,6 +155,18 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 							firstRequestDone = true;
 							return true;
 						}
+						
+					}else if(code == "000"){
+						var scoreArr = msg.split("|");
+						var abScore = scoreArr[0];
+						var sem =  scoreArr[1];
+						var objScore =  scoreArr[2];
+						gController.setAttribute("abScore",abScore);
+						gController.setAttribute("sem",sem);
+						gController.setAttribute("objScore",objScore);						
+						gController.setAttribute("catOver",true);					
+						gController.setAttribute("isStopTest",false);
+						gController.finishTest();
 					}
 					//for other errors, no popup will be shown
 					else {

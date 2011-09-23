@@ -307,6 +307,9 @@
 		<attribute name="answerFontColor" type="color" value="0x000000" />
 		<attribute name="lsid" value="0" />
 		<attribute name="scid" value="0" />
+		<attribute name="abScore" value="0" />
+		<attribute name="sem" value="0" />
+		<attribute name="objScore" value="0" />
 
 		<!-- START Change for deferred Defect 63502-->
 		<attribute name="restartscid" value="0" />
@@ -472,6 +475,10 @@
 		<attribute name="maskingAnswerDDState" value="false"/>
 		
 		<attribute name="answerArray" value="$once{new Array()}" />
+		<attribute name="sendCatSave" value="true" type="boolean" />
+		<attribute name="catOver" value="false" type="boolean" />
+		<attribute name="isStopTest" value="true" type="boolean" />	
+		 
 		<!--
 			============================================================
 			Datapointers
@@ -508,6 +515,7 @@
 		<datapointer name="dptemp" xpath="dstemp:/answers" />
 		
 		<attribute name="fwdOnly" value="false" type="boolean" />
+		<attribute name="adaptive" value="$path{ 'dssubtest:/subtest/sco/@adaptive' }"/>
  
 		<attribute name="showPleaseWaitOver" value="false" type="boolean" />
 			
@@ -2620,6 +2628,7 @@ if(stimulusid > 0){
 	
 			}
                 setState(PAUSE_STATE);
+                this.setAttribute("sendCatSave",false);
                 save(PAUSE_LEV);
             }
         </method>
@@ -2684,6 +2693,7 @@ if(stimulusid > 0){
 			//	}
 			}		
             setState(FINISH_STATE);
+            this.setAttribute("sendCatSave",false);
             save();
         </method>
 
@@ -2698,10 +2708,20 @@ if(stimulusid > 0){
      		checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
 			gMusicPlayer.hide();
-            LzCursor.unlock();            
-            gScreens.showFinish( totalQuestions() - totalAnswered(),
-                                 totalMarked() );
-            
+            LzCursor.unlock();
+			
+			if(this.adaptive == 'true'){
+				if (gScreens.isOnFinishScreen()) {
+					 gController.saveEndSubtest( '' );
+				}else {
+					gScreens.showFinish( totalQuestions() - totalAnswered(),
+	                                 totalMarked() );
+	             }
+			}else{
+				gScreens.showFinish( totalQuestions() - totalAnswered(),
+	                                 totalMarked() );
+			}
+                       
 		</method>
 
 		<method name="closeOpenManipulatives"><![CDATA[
@@ -2780,6 +2800,8 @@ if(stimulusid > 0){
 		-->
 
 		<method name="stopTest">
+			this.setAttribute("isStopTest",true);
+			this.setAttribute("catOver",false);
             finishTest();
         </method>
 		<!--For defect 65881-->
@@ -2860,6 +2882,7 @@ if(stimulusid > 0){
 		<method name="saveLoadItem" args="fnode, lev"><![CDATA[
         	setState(SAVE_LOAD_STATE);
 			setAttribute("loadNode", fnode);
+			this.setAttribute("sendCatSave",true);
 			save(lev);
         ]]></method>
 
@@ -2982,12 +3005,16 @@ Debug.write("############ loadItem ############");
 						itemType = dpitem.xpathQuery('item_canvas/panel/panel/*/recorder_widget')
 					}
 
-					Debug.write("###itemType :",itemType);
 					if(!isThemeItem()){
 						if(itemType != null){
 							result[9] = 1;							
 						}
 					}
+					
+					result[10] = 0;			
+					if(this.getAttribute("sendCatSave") == true)
+						result[10] = 1;
+						
 				}
     		}
 		Debug.write("### result :", result);
@@ -3303,6 +3330,7 @@ Debug.write("############ loadItem ############");
 
 		<method name="sendHeartbeat">
 			resetHeartbeat();
+			this.setAttribute("sendCatSave",false);
 			gCommunicator.heartbeat(getSaveParams());
         </method>
 
@@ -3388,23 +3416,24 @@ Debug.write("############ loadItem ############");
         </method>
 
 		<method name="endSubtest" args="cm"><![CDATA[
-		if(imageLIArray.length > 0){
-
-			for(var i = 0 ; i < this.imageLIArray.length ; i++){
-				this.imageLIArray[i].imageview.getMCRef().unloadMovie();
+			if(imageLIArray.length > 0){
+	
+				for(var i = 0 ; i < this.imageLIArray.length ; i++){
+					this.imageLIArray[i].imageview.getMCRef().unloadMovie();
+				}
 			}
-		}
-		this.resetImageArray();
+			this.resetImageArray();
 
 			setState(WRITE_TO_AUDIT_FILE_STATE);
 			gCommunicator.writeToAuditFile(lsid, scid, getModelString());
         ]]></method>
 
-		<method name="saveEndSubtest"><![CDATA[+
+		<method name="saveEndSubtest"><![CDATA[
 			//to set audio data in save call, its required
 			this.resetAudioFields();
         	copyCurrentToRuntime();
 			setState(SAVE_END_SUBTEST_STATE);
+			this.setAttribute("sendCatSave",true);
 			save();
         	setAttribute("doUnlockUI", false);
         ]]></method>

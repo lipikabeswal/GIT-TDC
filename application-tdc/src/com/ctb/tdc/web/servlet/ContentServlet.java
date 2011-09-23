@@ -27,6 +27,8 @@ import org.apache.log4j.Logger;
 import org.bouncycastle.util.encoders.Base64;
 import org.jdom.output.XMLOutputter;
 
+import com.bea.xml.XmlException;
+import com.ctb.tdc.web.dto.SubtestKeyVO;
 import com.ctb.tdc.web.exception.DecryptionException;
 import com.ctb.tdc.web.exception.HashMismatchException;
 import com.ctb.tdc.web.exception.TMSException;
@@ -34,6 +36,7 @@ import com.ctb.tdc.web.utils.AssetInfo;
 import com.ctb.tdc.web.utils.ContentFile;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
+import com.ctb.tdc.web.utils.CATEngineProxy;
 
 /**
  * @author John_Wang
@@ -41,7 +44,14 @@ import com.ctb.tdc.web.utils.ServletUtils;
 public class ContentServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	
+	private static final HashMap itemHashMap = new HashMap();
+	private static final HashMap itemKeyMap = new HashMap();
+	public static final HashMap itemCorrectMap = new HashMap();
 
+	public static final HashMap itemSubstitutionMap = new HashMap();
+	public static Integer getSubtestCount = 0; 
+	
 	static Logger logger = Logger.getLogger(ContentServlet.class);
 
 	/**
@@ -172,6 +182,24 @@ public class ContentServlet extends HttpServlet {
 						+ ContentFile.SUBTEST_FILE_EXTENSION;
 	
 				boolean validHash = false;
+				getSubtestCount++;
+				
+				SubtestKeyVO theSubtestKeyVO = null;				
+				MemoryCache aMemoryCache = MemoryCache.getInstance();
+				HashMap subtestInfoMap = aMemoryCache.getSubtestInfoMap();									
+				String itemSetId = ( String )ServletUtils.itemSetMap.get( subtestId );
+				SubtestKeyVO subtestDetails = ( SubtestKeyVO )subtestInfoMap.get( itemSetId );				
+				
+				String isAdaptive = subtestDetails.getAdaptive();
+				String cArea = subtestDetails.getContentArea();
+				if("True".equalsIgnoreCase(isAdaptive)){
+					ServletUtils.isCurSubtestAdaptive = true;
+					if(getSubtestCount > ServletUtils.itemSetMap.size()){
+						CATEngineProxy.initCAT(cArea);
+					}
+				}else{
+					ServletUtils.isCurSubtestAdaptive = false;
+				}	
 				
 				try {
 					validHash = ContentFile.validateHash(filePath, hash);
@@ -251,11 +279,13 @@ public class ContentServlet extends HttpServlet {
 		String xml = ServletUtils.getXml(request);
 		String itemId = null;
 		String hash;
+		String key;
 		
 		try {
 			if (xml == null) {
 				itemId = ServletUtils.getItemId(request);
 				hash = ServletUtils.getHash(request);
+				key = ServletUtils.getKey(request);
 				xml = ServletUtils.buildContentRequest(request,
 						ServletUtils.DOWNLOAD_ITEM_METHOD);
 			}
@@ -263,6 +293,7 @@ public class ContentServlet extends HttpServlet {
 				AdssvcRequestDocument document = AdssvcRequestDocument.Factory.parse(xml);
 				itemId = document.getAdssvcRequest().getDownloadItem().getItemid();
 				hash = document.getAdssvcRequest().getDownloadItem().getHash();
+				key = document.getAdssvcRequest().getDownloadItem().getKey();
 			}
 		
 			if (itemId != null && !"".equals(itemId.trim())) {
@@ -299,6 +330,28 @@ public class ContentServlet extends HttpServlet {
 							.getContent();
 					ContentFile.writeToFile(content, filePath);
 				}
+				
+				if(ServletUtils.isCurSubtestAdaptive){
+					String catItemIdPattern = ".TABECAT";
+					try {
+						byte[] decryptedContent = ContentFile.decryptFile(filePath, hash, key);
+						String itemXML = new String(decryptedContent);
+						
+						//System.out.println(itemXML);
+						itemCorrectMap.put(itemId, ServletUtils.parseCorrectAnswer(itemXML));
+						itemHashMap.put(itemId, hash);
+						itemKeyMap.put(itemId, key);
+						
+						String iid = ServletUtils.parseItemId(itemXML);
+						iid = iid.substring(0, iid.length() - catItemIdPattern.length());
+						Integer peId = Integer.parseInt(iid);
+						Integer adsItemId = Integer.parseInt( itemId );
+						CATEngineProxy.itemIdMap.put(String.valueOf(peId), Integer.valueOf(adsItemId));					
+					} catch (Exception e) {
+						e.printStackTrace();
+					} 
+				}
+				
 				ServletUtils.writeResponse(response, ServletUtils.OK);
 			} 
 		}
@@ -308,8 +361,8 @@ public class ContentServlet extends HttpServlet {
             String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
 		}
-		catch (Exception e) {
-			logger.error("Exception occured in downloadItem("+itemId+") : "
+		catch (XmlException e) {
+			logger.error("XML Exception occured in downloadItem("+itemId+") : "
 					+ ServletUtils.printStackTrace(e));
             String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
@@ -357,45 +410,67 @@ public class ContentServlet extends HttpServlet {
 				
 //System.out.println("itemId="+itemId+" hash="+hash+" key="+key);				
 			
+			} 
+			String originalItemId = null;
+			if(ServletUtils.isCurSubtestAdaptive){
+				originalItemId = itemId;
+				itemId = CATEngineProxy.getNextItem();
+				itemSubstitutionMap.put(originalItemId, itemId);
 			}
+			if(itemId != null) {
+				if(ServletUtils.isCurSubtestAdaptive){
+					hash = (String) itemHashMap.get(itemId);
+					key = (String) itemKeyMap.get(itemId);
+				}
 
-			if (itemId == null || "".equals(itemId.trim())) // invalid item id
-				throw new Exception("No item id in request.");
-			String filePath = ContentFile.getContentFolderPath() + itemId
-					+ ContentFile.ITEM_FILE_EXTENSION;
-			
-			byte[] decryptedContent = ContentFile.decryptFile(filePath, hash,
-					key);
-			if (decryptedContent == null)
-				throw new DecryptionException("Cannot decrypt '" + filePath + "'");
-			org.jdom.Document itemDoc = null;
-			synchronized(aMemoryCache.saxBuilder) {
-				itemDoc = aMemoryCache.saxBuilder.build(new ByteArrayInputStream(decryptedContent));
-			}
-			org.jdom.Element element = (org.jdom.Element) itemDoc.getRootElement();
-			element = element.getChild("assets");
-			if (element != null) {
-				List imageList = element.getChildren();
-				for (int i = 0; i < imageList.size(); i++) {
-					element = (org.jdom.Element) imageList.get(i);
-					String imageId = element.getAttributeValue("id");
-					if (!assetMap.containsKey(imageId)) {
-						String mimeType = element.getAttributeValue("type");
-						String ext = mimeType.substring(mimeType
-								.lastIndexOf("/") + 1);
-						String b64data = element.getText();
-						byte[] imageData = Base64.decode(b64data);
-						AssetInfo aAssetInfo = new AssetInfo();
-						aAssetInfo.setData(imageData);
-						aAssetInfo.setExt(ext);
-						assetMap.put(imageId, aAssetInfo);
+				if (itemId == null || "".equals(itemId.trim())) // invalid item id
+					throw new Exception("No item id in request.");
+				String filePath = ContentFile.getContentFolderPath() + itemId
+						+ ContentFile.ITEM_FILE_EXTENSION;
+				
+				byte[] decryptedContent = ContentFile.decryptFile(filePath, hash,
+						key);
+				if (decryptedContent == null)
+					throw new DecryptionException("Cannot decrypt '" + filePath + "'");
+				org.jdom.Document itemDoc = null;
+				synchronized(aMemoryCache.saxBuilder) {
+					itemDoc = aMemoryCache.saxBuilder.build(new ByteArrayInputStream(decryptedContent));
+				}
+				org.jdom.Element element = (org.jdom.Element) itemDoc.getRootElement();
+				element = element.getChild("assets");
+				if (element != null) {
+					List imageList = element.getChildren();
+					for (int i = 0; i < imageList.size(); i++) {
+						element = (org.jdom.Element) imageList.get(i);
+						String imageId = element.getAttributeValue("id");
+						if (!assetMap.containsKey(imageId)) {
+							String mimeType = element.getAttributeValue("type");
+							String ext = mimeType.substring(mimeType
+									.lastIndexOf("/") + 1);
+							String b64data = element.getText();
+							byte[] imageData = Base64.decode(b64data);
+							AssetInfo aAssetInfo = new AssetInfo();
+							aAssetInfo.setData(imageData);
+							aAssetInfo.setExt(ext);
+							assetMap.put(imageId, aAssetInfo);
+						}
 					}
 				}
+				String itemxml = updateItem(decryptedContent, assetMap);
+				itemxml = ServletUtils.doUTF8Chars(itemxml);
+				if(ServletUtils.isCurSubtestAdaptive){
+					itemxml = itemxml.replaceAll(itemId, originalItemId);
+				}
+				//System.out.println(itemxml);
+				ServletUtils.writeResponse(response, itemxml);
+			} else {
+				if(ServletUtils.isCurSubtestAdaptive){
+					System.out.println("CAT Over!");
+					logger.info("CAT Over!");
+					ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATEngineProxy.getAbilityScore() + ", SEM: " + CATEngineProxy.getSEM(), "000"));
+					CATEngineProxy.deInitCAT();
+				}
 			}
-			String itemxml = updateItem(decryptedContent, assetMap);
-			itemxml = ServletUtils.doUTF8Chars(itemxml);
-			ServletUtils.writeResponse(response, itemxml);
-
 		} 
 		catch (HashMismatchException e) {
 			logger.error("Exception occured in getItem("+itemId+") : "
@@ -571,8 +646,6 @@ public class ContentServlet extends HttpServlet {
 	private String getMusicData(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String musicId = request.getParameter("musicId");
 		String filePath = this.RESOURCE_FOLDER_PATH + File.separator  + "music_" + musicId+".mp3";
-		System.out.println("musicId :"+musicId);
-		System.out.println("filePath :"+filePath);
 		PrintWriter out = null;
 		String result = null;
 		File f1 = new File(filePath);

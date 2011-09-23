@@ -11,6 +11,7 @@
         <method name="setStats" args="unanswered, marked">
         <![CDATA[
             if(!gController.fwdOnly){
+           // Debug.write("###############fwdOnly false");
             	stats.notanswered.setAttribute(
                 'text',
                 unanswered +
@@ -24,10 +25,18 @@
                	 'marked for review.&nbsp;&nbsp;'
             	);
             }
-            else{		//	added for LLO-207
-            	var leftQues = gController.totalQuestions() - gController.totalVisited();
-            	stats.notanswered.setAttribute(
+            else{	
+				var leftQues="";
+                if(gController.adaptive == 'false'){                   
+            		leftQues = gController.totalQuestions() - gController.totalVisited();
+            		stats.notanswered.setAttribute(
                 	'text','You have '+leftQues+' '+((leftQues == 1) ? 'question' :'questions')+' left.');
+                }
+                else{                     
+                     leftQues = "Tabe Cat text"   ; 
+             		 stats.notanswered.setAttribute(
+                	'text',leftQues);
+					}
             }
 		]]>            
         </method>
@@ -72,7 +81,7 @@
                 </method>
             </YesFinishedButton>
             <NoGoBackToTestButton name="goback"
-                                  enabled="${ gScreens.allowclick }">
+                                  enabled="${ gScreens.allowclick }" visible= "${gController.isStopTest}">
                 <method name="goback" event="onclick">
                     gScreens.clicked();
                     gController.resumeTest();

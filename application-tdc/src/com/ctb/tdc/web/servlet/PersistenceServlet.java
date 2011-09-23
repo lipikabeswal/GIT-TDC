@@ -29,8 +29,10 @@ import org.apache.log4j.Logger;
 import com.ctb.tdc.web.dto.StateVO;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.Base64;
+import com.ctb.tdc.web.utils.LoadTestUtils;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
+import com.ctb.tdc.web.utils.CATEngineProxy;
 
 /** 
  * @author Tai_Truong
@@ -70,6 +72,7 @@ public class PersistenceServlet extends HttpServlet {
 	 */
 	public void init() throws ServletException {
 		// do nothing
+		//verifyServletSettings();
 	}
 
 	/**
@@ -124,16 +127,6 @@ public class PersistenceServlet extends HttpServlet {
 				+ (System.currentTimeMillis() - startTime) + "\n");
 	}
 
-	private static boolean saveQueue = false;
-	
-	private static synchronized boolean isSaveQueue() {
-		return saveQueue;
-	}
-	
-	private static synchronized void setSaveQueue(boolean value) {
-		saveQueue = value;
-	}
-	
 	/**
 	 * The handleEvent method of the servlet. <br>
 	 * 
@@ -143,7 +136,6 @@ public class PersistenceServlet extends HttpServlet {
 	 * @param String method
 	 * @param String xml
 	 * @throws IOException 
-	 * @throws InterruptedException 
 	 */
 	private void handleEvent(HttpServletResponse response, String method,
 			String xml, HttpServletRequest request) throws IOException {
@@ -157,9 +149,52 @@ public class PersistenceServlet extends HttpServlet {
 			result = verifyServletSettings();
 		} else if (method != null && method.equals(ServletUtils.LOGIN_METHOD))
 			result = login(xml);
-		else if (method != null && method.equals(ServletUtils.SAVE_METHOD)) {
-			result = save(response, xml, request);
-		} else if (method != null && method.equals(ServletUtils.FEEDBACK_METHOD))
+		else if (method != null && method.equals(ServletUtils.SAVE_METHOD))
+		{
+			if(ServletUtils.isCurSubtestAdaptive){
+				String originalItemId = ServletUtils.parseAdsItemId(xml);
+	        	if(originalItemId != null && !ServletUtils.NONE.equals(originalItemId)) {
+	        		String realId = (String) ContentServlet.itemSubstitutionMap.get(originalItemId);
+	        		if(realId != null) {
+	        			xml.replace(originalItemId, realId);
+	        		}
+	        	}        	
+
+    			Boolean isStopCat = ServletUtils.isScoreSubtest(xml);    			
+    			if (isStopCat) {
+    				Double abilityScore = CATEngineProxy.getAbilityScore();
+        			Double sem = CATEngineProxy.getSEM();
+        			Double objScore = CATEngineProxy.getObjScore();	
+        			
+    				xml = LoadTestUtils.setAttributeValue("score.ability",abilityScore.toString(), xml);
+    				xml = LoadTestUtils.setAttributeValue("score.sem",sem.toString(), xml);
+    				xml = LoadTestUtils.setAttributeValue("score.objective",objScore.toString(), xml);
+	        		System.out.println("XML after Integrating: " + xml);	        		
+	        	}            
+    			Integer itemRawScore = getItemRawScoreFromResponse(response, xml);
+    			
+    			String isCatOver = ServletUtils.parseCatOver(xml);
+    			
+	    		if(isCatOver != null && ("false".equals(isCatOver) || "-".equals(isCatOver))) {	    		
+		        	if(itemRawScore != null) {
+		        		try {
+		        			CATEngineProxy.scoreCurrentItem(itemRawScore.intValue()); 
+	
+			        	} catch (Exception e) {
+			        		System.out.println("CAT Over!");
+			    			logger.info("CAT Over!");
+			                //ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATEngineProxy.getAbilityScore() + ", SEM: " + CATEngineProxy.getSEM(), "000"));
+			    			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", CATEngineProxy.getAbilityScore() + "|" + CATEngineProxy.getSEM() + "|" + CATEngineProxy.getObjScore() , "000"));
+			    			//CATEngineProxy.deInitCAT();
+			        	}
+		        	}	
+	    		}
+	        	result = save(response, xml, request);    
+			}else{
+				result = save(response, xml, request);     
+			}
+        }
+		else if (method != null && method.equals(ServletUtils.FEEDBACK_METHOD))
 			result = feedback(xml);
 		else if (method != null
 				&& method.equals(ServletUtils.UPLOAD_AUDIT_FILE_METHOD))
@@ -179,6 +214,35 @@ public class PersistenceServlet extends HttpServlet {
 
 	}
 
+	private Integer getItemRawScoreFromResponse(HttpServletResponse response, String xml) {
+    	try {
+	    	//System.out.println(xml);
+	    	if(xml.indexOf("<rv n=") >= 0) {
+	    		String marked = ServletUtils.parseCatSave(xml);
+	    		System.out.println(" sendcatsave : "+marked);
+	    		if(marked != null && "1".equals(marked)) {
+		    		String itemresponse = ServletUtils.parseResponse(xml);
+		    		String correctResponse = (String) ContentServlet.itemCorrectMap.get(CATEngineProxy.getNextItem());
+		    		if(correctResponse.equals(itemresponse)) {
+			    		return new Integer(1);
+			    	} else {
+			    		return new Integer(0);
+			    	}
+	    		} else {
+	    			return null;
+	    		}
+	    	} else {
+	    		return null;
+	    	}
+    	} catch (Exception e) {
+    		System.out.println("CAT Over!");
+			logger.info("CAT Over!");
+			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATEngineProxy.getAbilityScore() + ", SEM: " + CATEngineProxy.getSEM(), "000"));
+            //CATEngineProxy.deInitCAT();
+    	}
+    	return null;
+    }    
+    
 	/**
 	 * The verifyServletSettings method of the servlet. <br>
 	 * 
@@ -455,6 +519,9 @@ public class PersistenceServlet extends HttpServlet {
 			tmsResponse = ServletUtils.httpClientSendRequest(ServletUtils.SAVE_METHOD, xml);
 			if (isEndSubtest) {
 				result = tmsResponse;
+				if(ServletUtils.isCurSubtestAdaptive){
+					CATEngineProxy.deInitCAT();
+				}
 			} else {
 				if (ServletUtils.isStatusOK(tmsResponse)) {
 					result = ServletUtils.OK;

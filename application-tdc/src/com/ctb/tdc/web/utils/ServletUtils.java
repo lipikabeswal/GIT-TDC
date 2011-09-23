@@ -72,6 +72,7 @@ public class ServletUtils {
 	public static DefaultHttpClient client;
 	
 	
+	
 	static {
 		try {
 			TrustStrategy trustStrategy = new EasyTrustStrategy(); 
@@ -177,6 +178,8 @@ public class ServletUtils {
 //	misc
 	public static final String NONE = "-";
 	public static final long SECOND = 1000;
+	public static HashMap itemSetMap = new HashMap();
+	public static boolean isCurSubtestAdaptive = false;
 
 //	helper methods
 
@@ -226,6 +229,29 @@ public class ServletUtils {
 		return itemResponse;
 	}
 
+	
+	public static String parseMarked(String xml) {
+		return parseTag("mrk=", xml);
+	}
+	/**
+	 * This method is for parsing the actual save boolean from tdc
+	 *  
+	 */
+	public static String parseCatSave(String xml) {
+		return parseTag("sendCatSave=", xml);
+	}
+	/**
+	 * This method is for parsing the catOver boolean from tdc
+	 *  
+	 */
+	public static String parseCatOver(String xml) {
+		return parseTag("catOver=", xml);
+	}	
+
+	public static String parseCorrectAnswer(String xml) {
+		return parseTag("correct=", xml);
+	}
+	
 	/**
 	 * parse response value in xml
 	 *
@@ -263,6 +289,15 @@ public class ServletUtils {
         return (index > 0);
     }
     
+	/**
+     * parse to find if value in xml equals 'lms_finish'
+     * 
+     */
+    public static boolean isScoreSubtest(String xml) {
+        int index = xml.indexOf("score.ability=\"");
+        return (index > 0);
+    }
+    
     /**
 	 * parse status_code value in xml if equals 'OK'
 	 *
@@ -296,6 +331,10 @@ public class ServletUtils {
 		return parseTag("lsid=", xml);
 	}
 
+	
+	public static String parseCmi(String xml) {
+		return parseTag("score.raw=", xml);
+	}
 	/**
 	 * parse item id value in xml
 	 *
@@ -303,7 +342,10 @@ public class ServletUtils {
 	public static String parseItemId(String xml) {
 		return parseTag("iid=", xml);
 	}
-
+	
+	public static String parseAdsItemId(String xml) {
+		return parseTag("eid=", xml);
+	}
 	/**
 	 * parse test roster id value in xml
 	 *
@@ -756,13 +798,15 @@ public class ServletUtils {
 	 */
 	public static String httpClientSendRequest(String method, String xml) {
 		synchronized(client) {
+			//System.out.println("******************************httpClientSendReq");
 			String result = OK;
 			int responseCode = HttpStatus.SC_OK;
 	
 	//		create post method with url based on method
 			String tmsURL = getTmsURLString(method);
 			HttpPost post = new HttpPost(tmsURL);
-	
+			
+			//System.out.println("******************************httpClientSendReq" + post);
 	//		send request to TMS
 			try {
 				// setup parameters
@@ -771,8 +815,11 @@ public class ServletUtils {
 				nameValuePairs.add(new BasicNameValuePair(XML_PARAM, xml));
 				post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 				HttpResponse response = client.execute(post);
+			//	System.out.println("response ");
 				
 					responseCode = response.getStatusLine().getStatusCode();
+				//	System.out.println("response " + responseCode);
+					
 					if (responseCode == HttpStatus.SC_OK) {
 						BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()),131072);
 						String inputLine = null;
@@ -1005,22 +1052,42 @@ public class ServletUtils {
 			for ( int i = 0; i < subtests.size(); i++ )
 			{
 				Element subtest = ( Element )subtests.get( i );
+				String contentArea = null;
 				String itemSetId = subtest.getAttributeValue( "id" );
 				String adsItemSetId = subtest.getAttributeValue( "adsid" );
 				String asmtHash = subtest.getAttributeValue( "asmt_hash" );
 				String asmtEncryptionKey = subtest.getAttributeValue( "asmt_encryption_key" );
 				String item_encryption_key = subtest.getAttributeValue( "item_encryption_key" );
+				
+				String title = subtest.getAttributeValue("title");		
+				System.out.println("processContentKeys title : "+title);
+				String adaptive = subtest.getAttributeValue("adaptive");
+				System.out.println("processContentKeys adaptive : "+adaptive);
+				if("True".equalsIgnoreCase(adaptive)){
+					System.out.println("processContentKeys adaptive inside if : "+adaptive);
+					contentArea = getshortContentArea(title);
+				}
+				System.out.println("processContentKeys contentArea : "+contentArea);
+				
 				if ( itemSetId != null && adsItemSetId != null
 						&& asmtHash != null && asmtEncryptionKey != null
 						&& item_encryption_key != null )
 				{
+					
 					SubtestKeyVO aSubtestKeyVO = new SubtestKeyVO();
 					aSubtestKeyVO.setItemSetId( itemSetId );
 					aSubtestKeyVO.setAdsItemSetId( adsItemSetId );
 					aSubtestKeyVO.setAsmtHash( asmtHash );
 					aSubtestKeyVO.setAsmtEncryptionKey( asmtEncryptionKey );
 					aSubtestKeyVO.setItem_encryption_key( item_encryption_key );
+					
+					aSubtestKeyVO.setContentArea( contentArea );
+					aSubtestKeyVO.setAdaptive( adaptive );
+					
 					subtestInfoMap.put( itemSetId, aSubtestKeyVO );
+					itemSetMap.put( adsItemSetId, itemSetId );
+					System.out.println("Item Set Map + " + adsItemSetId  + " :: " + itemSetId);
+					
 				}
 			}
 		}
@@ -1313,6 +1380,45 @@ return elementList;*/
 			((ThreadSafeClientConnManager) ServletUtils.client.getConnectionManager()).shutdown();
 		}
 	}
+	/**
+	* This method is used to retrieve the content Area  
+	*/
+
+	
+	
+	 public static String getshortContentArea(String contentTitle)throws Exception{
+		 String contentArea = null;
+			 if(contentTitle.contains("Applied Mathematics")){
+				 contentArea = "AM";
+			 }
+			 if(contentTitle.contains("Mathematics Computation")){
+				 contentArea = "MC";
+			 }
+
+			 if(contentTitle.contains("Language")){
+				 if(contentTitle.contains("Mechanics")){
+					 contentArea = "LM";
+				 }
+				 else{
+					 contentArea = "LA";
+				 }
+			 }
+			 if(contentTitle.contains("Reading")){
+				 contentArea = "RD";
+
+			 }
+			 if(contentTitle.contains("Vocabulary")){
+				 contentArea = "VO";
+
+			 }
+			 if(contentTitle.contains("Spelling")){
+				 contentArea = "SP";
+			 }
+
+		 return contentArea;
+	 }
+	 
+	
 	
 	
 }

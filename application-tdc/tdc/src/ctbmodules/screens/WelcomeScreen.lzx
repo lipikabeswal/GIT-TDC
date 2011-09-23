@@ -79,7 +79,10 @@
 					var dynaText1 = (qsingular ? 'There is ' : 'There are ');
 					var dynaText2 = (r ? ' to be answered.' : '.');
 					
-                    if ( u ) {
+                     if ( u ) {
+                     	if(gController.adaptive == 'false')
+						{
+                        
                         setAttribute(
                             'text',
                             '<b>Notes:</b> This test is untimed.' +
@@ -87,8 +90,17 @@
                             '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + 
                             dynaText1 + q + ' question' + 
                             (qsingular ? '' : 's') +
-                            dynaText2
-                        );
+                            dynaText2);
+						}
+						else
+						{
+                           
+                             setAttribute(
+                            'text',
+                            '<b>Notes:</b> This test is untimed.' +
+                            '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'  );
+						}    
+                        
                     } else {
                         setAttribute(
                             'text',

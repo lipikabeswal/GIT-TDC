@@ -114,6 +114,7 @@
     		dp.setNodeAttribute('scid', scid);
     		dp.setNodeAttribute('mseq', mseq);
     		dp.setNodeAttribute('cid', cid);
+
     		if(gController.hasTTSspeed) {
    				dp.setNodeAttribute('tts_speed_value', tts_speed_value);
     		}
@@ -161,10 +162,12 @@
 	    	dp3.setNodeAttribute("mrk", params[2]);
 //	    	dp3.setNodeAttribute("awd", params[3]);
 	    	dp3.setNodeAttribute("dur", params[4]);
-
 	    	dp3.setNodeAttribute("audioItem", params[9]); 	//changes for sending the item type as 
 															//parameter to avoid db hit in TMS
-	   		dp3.setXPath("istDs:/ist/rv");
+			dp3.setNodeAttribute("sendCatSave", params[10]);// for differentiating the heartbeat call sending to Cat engine when saving
+			dp3.setNodeAttribute("catOver", gController.catOver);
+
+			dp3.setXPath("istDs:/ist/rv");
 	   		dp3.setNodeAttribute("t", params[5]);
 	    	dp3.setXPath("istDs:/ist/rv/v");
 	    	dp3.setNodeText(params[6]);
@@ -231,7 +234,7 @@
     		return dp.serialize();
 	   	</method>
     	
-		<method name="getEndSubtestXml" args="lsid, scid, cid, mseq, raw, max, exit, time, unscored" >
+		<method name="getEndSubtestXml" args="lsid, scid, cid, mseq, raw, max, exit, time, unscored, abScore, sem, objScore" >
     		dp.setXPath("endSubtestDs:/adssvc_request/save_testing_session_data/tsd");
     		dp.setNodeAttribute("lsid", lsid);
     		dp.setNodeAttribute("scid", scid);
@@ -242,6 +245,9 @@
     		dp.setNodeAttribute("score.max", max);
      		dp.setNodeAttribute("exit", exit);
     		dp.setNodeAttribute("session_time", time);
+    		dp.setNodeAttribute("score.ability", abScore);
+    		dp.setNodeAttribute("score.objective", sem);
+    		dp.setNodeAttribute("score.sem", objScore);
      		dp.setXPath("endSubtestDs:/adssvc_request/save_testing_session_data/tsd/lsv/ext.core");
      		dp.setNodeAttribute("number_of_unscored_items", unscored);
       		dp.setXPath("endSubtestDs:/adssvc_request");

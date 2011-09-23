@@ -127,7 +127,7 @@
 		
 		<method name="endSubtest" args="raw, max, exit, time, unscored">
 			var xml = gXmlHelper.getEndSubtestXml(gController.lsid, gController.scid, cid, _getAndIncrementMseq(), 
-			                                      raw, max, exit, time, unscored);
+			                                      raw, max, exit, time, unscored, gController.abScore, gController.sem, gController.objScore);
 //Debug.write("endSubtestXml: ");
 //printBigString(xml);
 			_doRequest(persistenceDs, SAVE_METHOD, xml);

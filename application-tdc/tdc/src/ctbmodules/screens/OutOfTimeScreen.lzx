@@ -24,9 +24,17 @@
             	);
             }
             else{		//	added for LLO-207
-            	var leftQues = gController.totalQuestions() - gController.totalVisited();
-            	stats.notanswered.setAttribute(
+            	var leftQues="";
+                if(gController.adaptive == 'false'){                   
+            		leftQues = gController.totalQuestions() - gController.totalVisited();
+            		stats.notanswered.setAttribute(
                 	'text','You have '+leftQues+' '+((leftQues == 1) ? 'question' :'questions')+' left.');
+                }
+                else{                     
+                     leftQues = "Tabe Cat text"   ; 
+             		 stats.notanswered.setAttribute(
+                	'text',leftQues);
+					}
             }
 		]]>            
         </method>
