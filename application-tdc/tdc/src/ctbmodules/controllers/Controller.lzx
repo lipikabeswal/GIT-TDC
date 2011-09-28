@@ -2713,6 +2713,7 @@ if(stimulusid > 0){
 			
 			if(this.adaptive == 'true'){				
 				//if (gScreens.isOnFinishScreen()) {
+				Debug.write("goToFinishScreen :"+ gScreens.isOnFinishScreen() +"::"+ this.isStopScreen);
 				if(gScreens.isOnFinishScreen() && this.isStopScreen){
 					 gController.saveEndSubtest( '' );
 				}else {
@@ -2783,7 +2784,7 @@ if(stimulusid > 0){
 		]]></method>
 
 		<method name="resumeTest">
-			this.isStopScreen = false;
+			
             LzCursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
             gQuestion.setGrFocus();
@@ -2791,6 +2792,8 @@ if(stimulusid > 0){
             unlockUI();
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
+			
+			
         </method>
 
 		<method name="continueTest">
@@ -2805,7 +2808,7 @@ if(stimulusid > 0){
 		<method name="stopTest">
 			this.setAttribute("isStopTest",true);
 			this.setAttribute("catOver",false);
-			this.isStopScreen = true;
+			this.isStopScreen = false;
             finishTest();
         </method>
 		<!--For defect 65881-->

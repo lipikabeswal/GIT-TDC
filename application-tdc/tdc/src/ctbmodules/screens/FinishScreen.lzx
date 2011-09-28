@@ -11,7 +11,7 @@
         <method name="setStats" args="unanswered, marked">
         <![CDATA[
             if(!gController.fwdOnly){
-           // Debug.write("###############fwdOnly false");
+            Debug.write("###############fwdOnly false");
             	stats.notanswered.setAttribute(
                 'text',
                 unanswered +
@@ -74,6 +74,7 @@
             <YesFinishedButton enabled="${ gScreens.allowclick }">
                 <method name="finished" event="onclick">
                     gScreens.clicked();
+                    gController.isStopScreen = true;
                     gController.saveEndSubtest( '' );
                     //START Defect# 59282
                     gController.resetCrFields();

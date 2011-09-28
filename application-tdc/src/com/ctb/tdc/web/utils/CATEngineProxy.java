@@ -440,7 +440,7 @@ public class CATEngineProxy {
 	public static double getSEM() {
 		//System.out.println("Called getSEM()");
 		SEM = getSEM(theta);
-		//System.out.println("SEM: " + SEM);
+		//System.out.println("SEM: " + SEM + "::"+ theta);
 		return SEM;
 	}
 	
@@ -470,7 +470,10 @@ public class CATEngineProxy {
 	            	   scoreString = scoreString + "|" + obj_id +","+ obj_rs +","+ totObj_rs +","+ obj_score +","+ obj_SSsem +","+ obj_lvl +","+ obj_masteryLvl ;
 			   }
 			   else {
-				   scoreString = scoreString + "|" + "0|0|0|0|0|0|0";
+				   if(scoreString == null)
+					   scoreString = "0,0,0,0,0,0,0";
+				else
+				   scoreString = scoreString + "|" + "0,0,0,0,0,0,0";
 			   }  // not report objective score
 		}
 		return scoreString;
