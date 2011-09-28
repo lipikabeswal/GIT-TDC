@@ -2714,7 +2714,7 @@ if(stimulusid > 0){
 			if(this.adaptive == 'true'){				
 				//if (gScreens.isOnFinishScreen()) {
 				Debug.write("goToFinishScreen :"+ gScreens.isOnFinishScreen() +"::"+ this.isStopScreen);
-				if(gScreens.isOnFinishScreen() && this.isStopScreen){
+				if(gScreens.isOnFinishScreen()){
 					 gController.saveEndSubtest( '' );
 				}else {
 					gScreens.showFinish( totalQuestions() - totalAnswered(),
@@ -2792,7 +2792,9 @@ if(stimulusid > 0){
             unlockUI();
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
-			
+			if(this.adaptive == 'true'){
+				gScreens.removeFinishState();
+			}
 			
         </method>
 

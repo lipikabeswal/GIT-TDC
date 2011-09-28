@@ -46,6 +46,10 @@
 		<method name="isOnFinishScreen"><![CDATA[
 			return (contents.fs.isinited && contents.fs.visible);
 		]]></method>
+		
+			<method name="removeFinishState"><![CDATA[
+			 contents.fs.setVisible (false);
+		]]></method>
 
 		<method name="isOnTimeOutScreen"><![CDATA[
 			return (contents.os.isinited && contents.os.visible);
