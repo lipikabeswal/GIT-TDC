@@ -160,16 +160,16 @@ public class PersistenceServlet extends HttpServlet {
 	        		}
 	        	}        	
 
-    			Boolean isStopCat = ServletUtils.isScoreSubtest(xml);    			
+    			Boolean isStopCat = ServletUtils.isScoreSubtest(xml);
     			if (isStopCat) {
     				Double abilityScore = CATEngineProxy.getAbilityScore();
         			Double sem = CATEngineProxy.getSEM();
-        			Double objScore = CATEngineProxy.getObjScore();	
+        			String objScore = CATEngineProxy.getObjScore();	
         			
     				xml = LoadTestUtils.setAttributeValue("score.ability",abilityScore.toString(), xml);
     				xml = LoadTestUtils.setAttributeValue("score.sem",sem.toString(), xml);
-    				xml = LoadTestUtils.setAttributeValue("score.objective",objScore.toString(), xml);
-	        		System.out.println("XML after Integrating: " + xml);	        		
+    				xml = LoadTestUtils.setAttributeValue("score.objective",objScore, xml);
+	        		System.out.println("XML after Integrating: " + xml);
 	        	}            
     			Integer itemRawScore = getItemRawScoreFromResponse(response, xml);
     			

@@ -1,7 +1,7 @@
 package com.ctb.tdc.web.utils;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class CATEngineProxy {
 
@@ -10,8 +10,14 @@ public class CATEngineProxy {
 	private static double SEM;
 	private static String nextItem;
 	private static int totObjNum;
-	private static int objID;
-	private static double objScore;
+	private static int obj_id;
+	private static double obj_score;
+	private static char obj_lvl;  // E, M, D, A
+	   
+	private static double obj_SSsem;
+	private static int obj_rs ;
+	private static int totObj_rs ;
+	private static int obj_masteryLvl; 
 
 	public static HashMap itemIdMap = new HashMap();
 	//public static HashMap itemIdMap;
@@ -353,8 +359,15 @@ public class CATEngineProxy {
 	public static native void setoff_cat();
 	public static native int get_nObj();
 	public static native int get_objID(int j);
-	public static native double get_objScore(double theta, int j);
-
+	public static native double get_objScaleScore(char obj_lvl, int obj_id);
+	public static native char get_objLvl(double theta);  // E, M, D, A
+	public static native double get_objSSsem(double obj_score, int obj_id);  
+	public static native int get_objRS();
+	public static native int get_totObjRS();
+	public static native int get_objMasteryLvl(double obj_score, int obj_id, char obj_lvl);
+	public static native int getTestLength();
+	
+	
 	public static void main(String [] args){
 		try {
 			initCAT("MC");
@@ -431,33 +444,41 @@ public class CATEngineProxy {
 		return SEM;
 	}
 	
-	public static double getObjScore() {
+	public static String getObjScore() {
 		//System.out.println("Called getObjScore()");
 		totObjNum = get_nObj();
+		String scoreString = null;
 		for ( int j = 0; j < totObjNum; j++) {
-			   objID = get_objID(j);
-			   objScore = 100.0*get_objScore(theta, j);
-	           //System.out.println( (j+1) +  ", objID "+ objID + ", objScore " + objScore);
+			   obj_id = get_objID(j);
+			   obj_lvl = get_objLvl(theta);  // E, M, D, A
+			   obj_score = get_objScaleScore(obj_lvl, obj_id);
+			   if (obj_score > 0) {
+				   obj_SSsem = get_objSSsem(obj_score, obj_id);
+			       obj_rs = get_objRS();
+				   totObj_rs = get_totObjRS();
+			       obj_masteryLvl = get_objMasteryLvl(obj_score, obj_id, obj_lvl); // 0 = Non-Mastery, 1=Partial-Mastery, 2=Mastery
+	               if (obj_masteryLvl < 0){
+	            	   System.out.println("Error: invalid objective level call. \n");
+	               }else{
+					   System.out.println( (j+1) + " id= " + obj_id + " rs= "+ obj_rs + " totRS= " + totObj_rs 
+							   + " SS = "+ obj_score + " sem= " + obj_SSsem + " lvl = "+ obj_lvl +
+							   " Mastery-level = " + obj_masteryLvl);
+	               }
+	               if(scoreString == null)
+	            	   scoreString = obj_id +","+ obj_rs +","+ totObj_rs +","+ obj_score +","+ obj_SSsem +","+ obj_lvl +","+ obj_masteryLvl ;
+	               else
+	            	   scoreString = scoreString + "|" + obj_id +","+ obj_rs +","+ totObj_rs +","+ obj_score +","+ obj_SSsem +","+ obj_lvl +","+ obj_masteryLvl ;
+			   }
+			   else {
+				   scoreString = scoreString + "|" + "0|0|0|0|0|0|0";
+			   }  // not report objective score
 		}
-		return objScore;
+		return scoreString;
 	}
+	
 
 	public static void deInitCAT() {
 		System.out.println("Called deInitCAT()");
 		setoff_cat();
 	}
-	
-
-	 public static void displayMap(HashMap Map)throws Exception
-	    {
-	    	System.out.println("Size of map :"+Map.size());
-	    	Iterator CAIterator =Map.keySet().iterator();
-	    	int count=0;
-			while(CAIterator.hasNext()) { 
-				String key = CAIterator.next().toString();  
-				String value =Map.get(key).toString(); 
-				System.out.println("Count# "+ count + key + " " + value);   
-				count++;
-				} 	
-	    }
 }

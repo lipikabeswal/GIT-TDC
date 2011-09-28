@@ -246,8 +246,8 @@
      		dp.setNodeAttribute("exit", exit);
     		dp.setNodeAttribute("session_time", time);
     		dp.setNodeAttribute("score.ability", abScore);
-    		dp.setNodeAttribute("score.objective", sem);
-    		dp.setNodeAttribute("score.sem", objScore);
+    		dp.setNodeAttribute("score.objective", objScore);
+    		dp.setNodeAttribute("score.sem", sem);
      		dp.setXPath("endSubtestDs:/adssvc_request/save_testing_session_data/tsd/lsv/ext.core");
      		dp.setNodeAttribute("number_of_unscored_items", unscored);
       		dp.setXPath("endSubtestDs:/adssvc_request");

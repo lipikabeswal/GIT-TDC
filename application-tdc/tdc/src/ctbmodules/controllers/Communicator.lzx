@@ -166,7 +166,9 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 						gController.setAttribute("objScore",objScore);						
 						gController.setAttribute("catOver",true);					
 						gController.setAttribute("isStopTest",false);
+						gController.setAttribute("isStopScreen",false);
 						gController.finishTest();
+						return true;
 					}
 					//for other errors, no popup will be shown
 					else {

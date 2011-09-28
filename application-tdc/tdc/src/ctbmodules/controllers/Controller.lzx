@@ -309,7 +309,8 @@
 		<attribute name="scid" value="0" />
 		<attribute name="abScore" value="0" />
 		<attribute name="sem" value="0" />
-		<attribute name="objScore" value="0" />
+		<attribute name="objScore" value="null" />
+		<attribute name="isStopScreen" type="boolean" value="false" />
 
 		<!-- START Change for deferred Defect 63502-->
 		<attribute name="restartscid" value="0" />
@@ -2697,7 +2698,7 @@ if(stimulusid > 0){
             save();
         </method>
 
-		<method name="goToFinishScreen">
+		<method name="goToFinishScreen"><![CDATA[
 			this.clearInvalidCrResponses();
 			this.resetCrs();
 			//START Defect# 59282
@@ -2710,8 +2711,9 @@ if(stimulusid > 0){
 			gMusicPlayer.hide();
             LzCursor.unlock();
 			
-			if(this.adaptive == 'true'){
-				if (gScreens.isOnFinishScreen()) {
+			if(this.adaptive == 'true'){				
+				//if (gScreens.isOnFinishScreen()) {
+				if(gScreens.isOnFinishScreen() && this.isStopScreen){
 					 gController.saveEndSubtest( '' );
 				}else {
 					gScreens.showFinish( totalQuestions() - totalAnswered(),
@@ -2722,7 +2724,7 @@ if(stimulusid > 0){
 	                                 totalMarked() );
 			}
                        
-		</method>
+		]]></method>
 
 		<method name="closeOpenManipulatives"><![CDATA[
 			if(!isMarked()){       
@@ -2781,6 +2783,7 @@ if(stimulusid > 0){
 		]]></method>
 
 		<method name="resumeTest">
+			this.isStopScreen = false;
             LzCursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
             gQuestion.setGrFocus();
@@ -2802,6 +2805,7 @@ if(stimulusid > 0){
 		<method name="stopTest">
 			this.setAttribute("isStopTest",true);
 			this.setAttribute("catOver",false);
+			this.isStopScreen = true;
             finishTest();
         </method>
 		<!--For defect 65881-->
