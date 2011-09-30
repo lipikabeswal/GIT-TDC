@@ -395,6 +395,7 @@ public class CATEngineProxy {
 		System.load("C:/Program Files/CTB/Online Assessment/CATABE.dll");
 		//System.load("C:/cat.dll");
 		itemnum = 0;
+		nextItem = null;//set null to make it ready for next subtest
 		setup_cat(contentArea);
 		//initItemMap();
 	}
