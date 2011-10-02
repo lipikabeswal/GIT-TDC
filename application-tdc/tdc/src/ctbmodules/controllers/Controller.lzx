@@ -311,6 +311,7 @@
 		<attribute name="sem" value="0" />
 		<attribute name="objScore" value="null" />
 		<attribute name="isStopScreen" type="boolean" value="false" />
+		<attribute name="subtestLength" type="number" value="0" />
 
 		<!-- START Change for deferred Defect 63502-->
 		<attribute name="restartscid" value="0" />
@@ -787,6 +788,10 @@
                 )
             );
             var maxpossible = totalQuestions();
+            if(this.adaptive == 'true'){
+            	maxpossible = gController.getAttribute("subtestLength");
+            }
+            
             var completionmode = ""; // empty string or 'time-out' - need to fix for timeout
             // time left in hh:mm:ss format
             var sessiontime = hours + ':' + mins + ':' + secs; 
@@ -1486,7 +1491,15 @@ Debug.write("totalVisited...",totalVisited);
 			createSharedStimulusNodes();
             var runtimearr = [];
 			var itemNumber = Number(getStartNumber());
-			for ( var i = 0; i < items.length; i++ ) {
+			
+			var itemCount = items.length;
+			if(this.adaptive == 'true') { 
+			 	itemCount = dpsubtest.xpathQuery('ob_assessment/ob_element_list/@itemCount');
+			 	this.setAttribute("subtestLength",itemCount);
+				Debug.write ("ItemCount from subtest xml" , itemCount);
+			}
+			
+			for ( var i = 0; i < itemCount; i++ ) {
                 var eid = items[i].getAttr( 'id' );
 				var allowRevisit = items[i].getAttr( 'allow_revisit' );
 				var allowRevisitOnRestart = items[i].getAttr( 'allow_revisit_on_restart' );
@@ -1983,7 +1996,9 @@ if(stimulusid > 0){
                 var dncurritem =
                     dpstudentdata.xpathQuery ('current_item/item_model/');
 				
+				if ( this.adaptive =="false"){
 				saveSharedStimulusHighlights();
+				}
                 dncurritem.parentNode.removeChild (dncurritem);
                 dnrtitemold.parentNode.replaceChild (dncurritem, dnrtitemold);
             }
@@ -2065,7 +2080,9 @@ if(stimulusid > 0){
             dncurritem.appendChild (dnnewitem);
             dncurritem.setAttr( 'itempos', getOffsetFromEid( newitem ) + 1 );
             this.initManipulativeData ();
+			if (this.adaptive == 'false'){
 			getSharedStimulusHighlights();
+			}
             this.setAttribute('focusOnGr', !isMarkedForReviewWithManipulativeOpen());
             this.runtimeready = true;
             checkItemStatus();

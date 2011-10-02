@@ -33,9 +33,9 @@
                 	'text','You have '+leftQues+' '+((leftQues == 1) ? 'question' :'questions')+' left.');
                 }
                 else{                     
-                     leftQues = "Tabe Cat text"   ; 
+                     leftQues = gController.subtestLength - gController.totalVisited();
              		 stats.notanswered.setAttribute(
-                	'text',leftQues);
+                	'text','You have '+leftQues+' '+((leftQues == 1) ? 'question' :'questions')+' left.');
 					}
             }
 		]]>            

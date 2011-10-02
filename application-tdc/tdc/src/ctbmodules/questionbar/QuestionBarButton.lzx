@@ -59,9 +59,11 @@
             var dnselect = gController.dpsubtest.xpathQuery (
                                 'ob_assessment/ob_element_select_order/g/e[@id="'+this.itemeid+'"]'
                            );
-            this.setAttribute ('showconnector', 
+            if (gController.adaptive == 'false') {
+            	this.setAttribute ('showconnector', 
                                 dnselect != null
                                     && dnselect.parentNode.getLastChild () != dnselect);
+            }            
         ]]></method>
 
         <method event="onisactive"><![CDATA[

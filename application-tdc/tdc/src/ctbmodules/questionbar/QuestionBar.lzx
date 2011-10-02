@@ -109,7 +109,7 @@
         <!-- list of scrolling buttons for item -->
         <view name="qbtns" height="100%"  x="${classroot.moreleft.x}" y="2" 
               width="${classroot.width - classroot.morefastleft.width - classroot.morefastright.width - classroot.RIGHT_BUTTONS_OFFSET}"
-              clip="true" visible="${gController.adaptive == 'false'}">
+              clip="true">
             <view name="scrollcontainer" height="100%"
                   width="${this.thebtns.width + this.thebtns.x}">
                 <view name="youarehere" options="ignorelayout">                    
@@ -126,14 +126,14 @@
 
             </view>
         </view>
-		<view name="qbtnsOverlay" height="100%" visible="${(gController.adaptive == 'false') &amp;&amp; gController.fwdOnly }"
+		<view name="qbtnsOverlay" height="100%" visible="${gController.fwdOnly }"
               width="100%"
               clip="true" clickable="true" showhandcursor="false" onmouseover="this.setAttribute('showhandcursor',false)" opacity=".4" bgcolor="gray">
         </view>
          <basebutton name="moreleft" resource="moreleft_btn" 
                 x="${parent.x + parent.morefastleft.width}"
                 y="$once{classroot.SCROLL_Y}"
-                visible="${(gController.adaptive == 'false') &amp;&amp; classroot.isscrolling &amp;&amp; 
+                visible="${classroot.isscrolling &amp;&amp; 
                            classroot.qbtns.scrollcontainer.x &lt; 0}">
             <!-- align="left" valign="bottom"-->
             <attribute name="doscrolldel" value="$once {new LzDelegate (this, 'doScroll')}"/>
@@ -153,7 +153,7 @@
         <!-- add speed button left in nav bottom bar -->
 		<basebutton name="morefastleft" resource="morefastleft_btn" 
                     y="$once{classroot.SCROLL_Y}" x="${parent.x}"
-                    visible="${(gController.adaptive == 'false') &amp;&amp; classroot.isscrolling &amp;&amp; 
+                    visible="${classroot.isscrolling &amp;&amp; 
                                classroot.qbtns.scrollcontainer.x &lt; 0}">
             <attribute name="doscrolldel" value="$once {new LzDelegate (this, 'doScroll')}"/>
 
@@ -171,7 +171,7 @@
         
         <basebutton name="moreright" resource="moreright_btn" 
                     y="$once{classroot.SCROLL_Y}" x="${parent.morefastright.x - this.width}"
-                    visible="${(gController.adaptive == 'false') &amp;&amp; classroot.isscrolling &amp;&amp;
+                    visible="${classroot.isscrolling &amp;&amp;
                                classroot.qbtns.scrollcontainer.x &gt; classroot.maxscrollleft &amp;&amp;
                                !classroot.justSelectedLastItem}">
             <!-- align="right" -->
@@ -193,7 +193,7 @@
         <!-- add speed button right in nav bottomm bar -->
 		<basebutton name="morefastright" resource="morefastright_btn" 
                     y="$once{classroot.SCROLL_Y}" x="${parent.width - Math.round(this.width) - classroot.RIGHT_BUTTONS_OFFSET}"
-                    visible="${(gController.adaptive == 'false') &amp;&amp; classroot.isscrolling &amp;&amp;
+                    visible="${classroot.isscrolling &amp;&amp;
                                classroot.qbtns.scrollcontainer.x &gt; classroot.maxscrollleft &amp;&amp;
                                !classroot.justSelectedLastItem}">
             <attribute name="doscrolldel" 

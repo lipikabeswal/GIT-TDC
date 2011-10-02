@@ -74,15 +74,18 @@
             <view name="line" height="1" width="100%" bgcolor="gray"/>
             <text name="notes" width="520" x="5" multiline="true">
                 <method name="updateText" args="m, q, u, r"><![CDATA[
+				if(gController.adaptive == 'true')
+				{
+					q=gController.subtestLength;
+				}
+
                     var msingular = parseInt( m ) == 1;
                     var qsingular = parseInt( q ) == 1;
 					var dynaText1 = (qsingular ? 'There is ' : 'There are ');
 					var dynaText2 = (r ? ' to be answered.' : '.');
 					
                      if ( u ) {
-                     	if(gController.adaptive == 'false')
-						{
-                        
+                     	
                         setAttribute(
                             'text',
                             '<b>Notes:</b> This test is untimed.' +
@@ -91,16 +94,7 @@
                             dynaText1 + q + ' question' + 
                             (qsingular ? '' : 's') +
                             dynaText2);
-						}
-						else
-						{
-                           
-                             setAttribute(
-                            'text',
-                            '<b>Notes:</b> This test is untimed.' +
-                            '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'  );
-						}    
-                        
+						
                     } else {
                         setAttribute(
                             'text',

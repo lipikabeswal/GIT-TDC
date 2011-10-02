@@ -25,6 +25,8 @@ import noNamespace.ErrorDocument;
 
 import org.apache.log4j.Logger;
 import org.bouncycastle.util.encoders.Base64;
+import org.jdom.Attribute;
+import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
 import com.bea.xml.XmlException;
@@ -160,6 +162,8 @@ public class ContentServlet extends HttpServlet {
 		String subtestId = null;
 		String hash;
 		String key;
+		org.jdom.Document itemDoc = null;
+		SAXBuilder saxBuilder = new SAXBuilder();
 		
 		try {
 			if (xml == null) {
@@ -195,9 +199,10 @@ public class ContentServlet extends HttpServlet {
 				if("True".equalsIgnoreCase(isAdaptive)){
 					ServletUtils.isCurSubtestAdaptive = true;
 					if(getSubtestCount > ServletUtils.itemSetMap.size()){
-						CATEngineProxy.initCAT(cArea);
+						CATEngineProxy.initCAT(cArea);						
 					}
-				}else{
+				}
+				else{
 					ServletUtils.isCurSubtestAdaptive = false;
 				}	
 				
@@ -227,11 +232,20 @@ public class ContentServlet extends HttpServlet {
 				}
 				byte[] decryptedContent = ContentFile.decryptFile(filePath, hash,
 						key);
+				itemDoc = saxBuilder.build(new ByteArrayInputStream(decryptedContent));
+				if (ServletUtils.isCurSubtestAdaptive && (getSubtestCount > ServletUtils.itemSetMap.size())) {
+					org.jdom.Element element = (org.jdom.Element) itemDoc.getRootElement();
+					org.jdom.Attribute attribute = new Attribute("itemCount","0");
+					org.jdom.Element objectElement = element.getChild("ob_element_list");
+					objectElement.setAttribute("itemCount", new Integer(CATEngineProxy.getTestLength()).toString());
+				}
+				
+				
 				response.setContentType("text/xml");
 				int size = decryptedContent.length;
 				response.setContentLength(size);
 				ServletOutputStream myOutput = response.getOutputStream();
-				myOutput.write(decryptedContent);
+				new XMLOutputter().output(itemDoc, myOutput);
 				myOutput.flush();
 				myOutput.close();
 			} 
@@ -336,17 +350,16 @@ public class ContentServlet extends HttpServlet {
 					try {
 						byte[] decryptedContent = ContentFile.decryptFile(filePath, hash, key);
 						String itemXML = new String(decryptedContent);
-						
 						//System.out.println(itemXML);
 						itemCorrectMap.put(itemId, ServletUtils.parseCorrectAnswer(itemXML));
 						itemHashMap.put(itemId, hash);
 						itemKeyMap.put(itemId, key);
-						
 						String iid = ServletUtils.parseItemId(itemXML);
 						iid = iid.substring(0, iid.length() - catItemIdPattern.length());
 						Integer peId = Integer.parseInt(iid);
 						Integer adsItemId = Integer.parseInt( itemId );
-						CATEngineProxy.itemIdMap.put(String.valueOf(peId), Integer.valueOf(adsItemId));					
+						System.out.println("Populating map: " + peId +  " :: " +adsItemId);
+						CATEngineProxy.itemIdMap.put(String.valueOf(peId), Integer.valueOf(adsItemId));		
 					} catch (Exception e) {
 						e.printStackTrace();
 					} 
