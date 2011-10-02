@@ -802,6 +802,11 @@
 			 //START Change for deferred Defect 63502
 			dprestart.selectParent();
 			//END
+			if(this.adaptive == 'false'){
+				gController.setAttribute("abScore", 0);
+				gController.setAttribute("sem", 0);
+				gController.setAttribute("objScore", null);
+			}
 			
 			setState(FINISH_SAVE_STATE);
 			gCommunicator.endSubtest( rawscore, maxpossible, completionmode, sessiontime, unscored );
@@ -918,8 +923,8 @@
 		</method>
 
 		<method name="_handleLoginResponse" args="response"><![CDATA[
-			//Debug.write("loginResponse:");
-			//printBigString(response);
+			Debug.write("loginResponse:");
+			printBigString(response);
 			if(gXmlHelper.isErrorResponse(response)){
 				gScreens.showLoginError(gXmlHelper.getStatusCode(response));
 			}
@@ -1189,7 +1194,10 @@ Debug.write("totalVisited...",totalVisited);
             this.timing     = false;
         </method>
 
-
+		<method name="resetCatAttributes">
+			this.setAttribute("catOver",false);
+            this.setAttribute("isStopTest",true);
+		</method>
 		<!--
 			Called after subtest xml (and restart xml, if available) has been
 			received. Sets subtest state and displays welcome screen. Does
@@ -1199,6 +1207,8 @@ Debug.write("totalVisited...",totalVisited);
         	// remove timer in case previous test was timed but this test is untimed
         	//Debug.warn("*****************************Init Test***************************");
             LzTimer.removeTimer( dupdateTimeLeft );
+            resetCatAttributes();
+            
             initStudentData();
             setReadableFlag();
             if(canvas.readable && !gReadableText.primed){
@@ -1286,6 +1296,7 @@ Debug.write("totalVisited...",totalVisited);
 			this.setAttribute("fwdOnly",true);
 		else
 			this.setAttribute("fwdOnly",false);
+		
 		
         ]]></method>
 
@@ -2714,13 +2725,18 @@ if(stimulusid > 0){
 			if(this.adaptive == 'true'){				
 				//if (gScreens.isOnFinishScreen()) {
 				Debug.write("goToFinishScreen :"+ gScreens.isOnFinishScreen() +"::"+ this.isStopScreen);
+				
+					
 				if(gScreens.isOnFinishScreen()){
+					Debug.write("isOnFinishScreen1");
 					 gController.saveEndSubtest( '' );
 				}else {
+					Debug.write("isOnFinishScreen2");
 					gScreens.showFinish( totalQuestions() - totalAnswered(),
 	                                 totalMarked() );
 	             }
 			}else{
+				this.setAttribute("isStopTest",true);
 				gScreens.showFinish( totalQuestions() - totalAnswered(),
 	                                 totalMarked() );
 			}

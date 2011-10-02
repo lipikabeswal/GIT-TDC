@@ -168,6 +168,7 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 						gController.setAttribute("isStopTest",false);
 						gController.setAttribute("isStopScreen",false);
 						gController.finishTest();
+						gController.unlockUI();
 						return true;
 					}
 					//for other errors, no popup will be shown
