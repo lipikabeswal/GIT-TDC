@@ -62,7 +62,7 @@
 		</method>
 		
 		<method name="login" args="username, password, accesscode" >
-			var xml = gXmlHelper.getLoginXml(username, password, accesscode);
+			var xml = gXmlHelper.getLoginXml(username, password, accesscode, cid);
 			_doRequest(persistenceDs, LOGIN_METHOD, xml);
 		</method>
 		
