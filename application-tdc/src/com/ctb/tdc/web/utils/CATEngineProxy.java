@@ -366,6 +366,7 @@ public class CATEngineProxy {
 	public static native int get_totObjRS();
 	public static native int get_objMasteryLvl(double obj_score, int obj_id, char obj_lvl);
 	public static native int getTestLength();
+	public static native void resumeCAT(int itemCount,int [] itemC,int [] itemScore);
 	
 	
 	public static void main(String [] args){
@@ -390,14 +391,16 @@ public class CATEngineProxy {
 		}
 	}
 
-	public static void initCAT(String contentArea) {
+	public static void initCAT(String contentArea){
 		System.out.println("Called initCAT()");
-		System.load("C:/Program Files/CTB/Online Assessment/CATABE.dll");
+		String dllPath = System.getProperty("tdc.home") + "/CATABE.dll";
 		//System.load("C:/cat.dll");
+		System.load(dllPath);
 		itemnum = 0;
 		nextItem = null;//set null to make it ready for next subtest
 		setup_cat(contentArea);
 		//initItemMap();
+		//resumeCAT(itemCount,itemC,itemScore);
 	}
 
 	public static String getNextItem() throws Exception{
@@ -465,6 +468,7 @@ public class CATEngineProxy {
 							   + " SS = "+ obj_score + " sem= " + obj_SSsem + " lvl = "+ obj_lvl +
 							   " Mastery-level = " + obj_masteryLvl);
 	               }
+	               System.out.println("obj_masteryLvl :"+obj_masteryLvl);
 	               if(scoreString == null)
 	            	   scoreString = obj_id +","+ obj_rs +","+ totObj_rs +","+ obj_score +","+ obj_SSsem +","+ obj_lvl +","+ obj_masteryLvl ;
 	               else
