@@ -5,9 +5,7 @@
 /* Commented below lines while removing windows related dependency */
 // #include <windows.h>
 // #include <tlhelp32.h>
-
-
-
+// #include <tchar.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,7 +13,6 @@
 #include <string.h>
 #include <math.h>
 #include <time.h>
-
 
 #include "item.h"
 #include "irt.h"
@@ -32,8 +29,8 @@
 #define MAX_NUM_OBJ 10
 #define MAX_NUM_LVL 6
 #define Qs 101   // q points
-
-HINSTANCE	hInst;		    // Instance handle
+/*Removed  below HINSTANCE while removing windows related dependency*/
+//HINSTANCE	hInst;		    // Instance handle
 
 char par_filename[MAX_FILENAME_LENGTH]= "";
 char ssByLvl_filename[MAX_FILENAME_LENGTH]="";
@@ -161,7 +158,7 @@ int setup_cat(char subTest[]) {
 
    strcpy(log_filename, "");
    // strcat(log_filename, ".\\Data\\");
-   strcat(log_filename, "C:\\CTB Files\\Data\\");
+   strcat(log_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\");
    strcat(log_filename, subTest);
 //   tmpC[0] = '_';
 //   tmpC[1] = testLevel;
@@ -195,7 +192,7 @@ int setup_cat(char subTest[]) {
    */
 
   // strcpy(_NoItemsEachObjByLvl_filename, ".\\Data\\NoItemsAnObjByLvl.csv");
-   strcpy(_NoItemsEachObjByLvl_filename, "C:\\CTB Files\\Data\\NoItemsAnObjByLvl.csv");
+   strcpy(_NoItemsEachObjByLvl_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\NoItemsAnObjByLvl.csv");
    /*
    condition_code = getNadmObj(NoItemsEachObjByLvl_filename, subTest, testLevel, _n_adm_obj);
    if (condition_code != GETN_ADMOBJ_OK) {
@@ -252,7 +249,7 @@ int setup_cat(char subTest[]) {
 
    strcpy(par_filename, "");
  //  strcat(par_filename, ".\\Data\\");
-   strcat(par_filename, "C:\\CTB Files\\Data\\");
+   strcat(par_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\");
    strcat(par_filename, subTest);
    strcat(par_filename, ".csv");
    
@@ -295,7 +292,7 @@ int setup_cat(char subTest[]) {
    */ 
 
 	// set level specified loss and hoss
-	strcpy(lvlLH_filename,"C:\\CTB Files\\Data\\TabeScaleBounds.csv");
+	strcpy(lvlLH_filename,"C:\\Program Files\\CTB\\Online Assessment\\Data\\TabeScaleBounds.csv");
 	condition_code = get_LH4lvl(lvlLH_filename, subTest, _lvl_loss, _lvl_hoss);
 	if (condition_code != GETPAR_OK) {
         fprintf(log_file, "Error: get_LH4lvl failed in Data\TabeScaleBounds.cvs. \n"); 
@@ -305,7 +302,7 @@ int setup_cat(char subTest[]) {
 	// set obj level specified cut scores
 	
 	strcpy(objLvlCut_filename, "");
-    strcat(objLvlCut_filename, "C:\\CTB Files\\Data\\");
+    strcat(objLvlCut_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\");
     strcat(objLvlCut_filename, subTest);
     strcat(objLvlCut_filename, "-Lvl-Obj-Cuts.csv");
 	_objSS_cut = (struct objSScut *) malloc(_n_new_obj * sizeof(struct objSScut));
@@ -331,7 +328,7 @@ int setup_cat(char subTest[]) {
 // get FT items
    strcpy(parFT_filename, "");
  //  strcat(parFT_filename, ".\\Data\\");
-   strcat(parFT_filename, "C:\\CTB Files\\Data\\");
+   strcat(parFT_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\");
    strcat(parFT_filename, subTest);
    strcat(parFT_filename, "_FT.csv");
    
@@ -1239,7 +1236,50 @@ JNIEXPORT void JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_resumeCAT (JNIE
 }
 
 void resumeCAT(int nItems, int itemIDs[], int rwo[]){
-	
+	int i, j, k;
+	int flag = 1;
+	double theta;
+
+	for (i = 0; i < nItems; i++) {
+		for (j = 0; j < _n_items; j++) {
+			if (itemIDs[i] == _items[j].item_id){
+				_ik = j;
+				_isFTitem = 0;
+				if (i == (nItems -1)) {
+					if (_items[j].psg_id)
+						_is_psg = 1;
+					else
+                        _is_psg = 0;
+				}
+				update_iBank();
+				set_rwo(rwo[i]);
+
+				if (i != (nItems -1)) 
+				    theta = score();
+//				printf("%d,   %d,   %d \n", _items[j].item_id, _items[j].new_obj_id, rwo[i]);
+				flag = 0;
+				break;
+			}
+		}
+
+		if (flag) {
+		    for (k = 0; k < _n_FTitems; k++) {
+			    if (itemIDs[i] == _FTitems[k].item_id){
+				    _ik_FT = k;
+					_isFTitem = 1;
+					if (i == (nItems -1)) {
+					    if (_FTitems[k].psg_id) 
+						    _is_FTpsg = 1;
+					    else
+                            _is_FTpsg = 0;
+				    }
+				    update_FTiBank();
+				    break;
+			    }
+		    }
+		}
+		flag = 1;
+	}
 }
 
 // simulation
@@ -1252,7 +1292,8 @@ JNIEXPORT void JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_set_1rwo (JNIEn
 }
 
 void set_rwo(int rwo) {
-   _item_adm[_iadm -1].rwo = rwo;
+	if (!_isFTitem)
+       _item_adm[_iadm -1].rwo = rwo;
 }
 
 JNIEXPORT jdouble JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_score (JNIEnv * env, jclass theclass) {
@@ -1468,7 +1509,7 @@ double get_objSSsem(double theta, int obj_id) {  // NC SEM
     double sumOFvar = 0.0;
     int j;
 
-    for ( j = 0; j < _iadm; j++) {  
+    for ( j = 0; j < _testLength; j++) {  
 	    if (_item_adm[j].new_obj_id == obj_id ) {
 		    sumOFdEdtheta += respProb3PL_derivs(theta, _item_adm[j].parameters);
 		    sumOFvar += respProb3PL_variance(theta, _item_adm[j].parameters);	     
@@ -1486,10 +1527,11 @@ int get_rs(int obj_id) {
 	int j;
 	int rs = 0;
 	int num_obj = 0;
-	for ( j = 0; j < _iadm; j++) {  // to do need to be changed to final_theta
+	for ( j = 0; j < _testLength; j++) {  
 		if (_item_adm[j].new_obj_id == obj_id ) {
            rs = rs + _item_adm[j].rwo;	
 		   num_obj++;
+//		   printf("%d,   %d,   %d \n", _item_adm[j].item_id, _item_adm[j].new_obj_id, _item_adm[j].rwo);
 		}
 	} 
 	_obj_rs = rs;
@@ -1641,13 +1683,6 @@ int simSS(int nStudents, double ss[], double mean, double std, double loss, doub
     int i;
 	long init_ran = -1;
 
-    srand((int)time(0));
-  //  ran1(&init_ran);
-	ran0(init_ran);
-	for (i = 0; i < nStudents; i++) {	
-       ss[i] = genNormDis(mean, std, loss, hoss);
-	   // set ss in normal distribution from loss and hoss
-	}
     return 0;
 }
 
@@ -1665,16 +1700,60 @@ void getAdmItems(struct item_info *items, int *n_obj, int objID[]){
 	}
     *n_obj = _n_obj;
 }
+
+int checkPsgID() {
+	int i,j, k;
+	int itemOrder[6];
+	int indx[6];
+	int kk;
+	for (i = 0; i < (_n_items-1); i++) {
+		itemOrder[0] = _items[i].item_order;
+		k = 1;
+		if (_items[i].psg_id != 0) {
+		    for (j = 0; j < _n_items; j++) {
+	            if  ((_items[i].psg_id == _items[j].psg_id) && (i != j)){
+				    if (_items[i].item_order == _items[j].item_order) {
+					    printf("Error: duplicated psg_id and item_order %d at i = %d, j = % d, \n", _items[i].psg_id, i, j);
+					    return PSGID_DUP;
+				    }
+				    itemOrder[k] = _items[j].item_order;
+				    k++;
+			    }
+		    }
+		    // check item order within the passage
+		    if (k > 3) {
+			    printf("Error: psg size is over 3 for psg_id = %d \n", _items[i].psg_id );
+			    return PSGID_DUP;
+		    }
+            
+			if (k > 1) {
+			    indInt(k, itemOrder, indx);
+		        if (itemOrder[indx[0]] != 1) {
+                    printf("Error: the starting item_order is not 1 for psg_id = %d \n", _items[i].psg_id );
+			        return PSGID_DUP;
+		        }
+
+			     for (kk = 0; kk < (k -1); kk++) {
+		             if ( itemOrder[indx[kk+1]] != (itemOrder[indx[kk]] + 1)) {
+					      printf("Error: item_order is not a seq. number for psg_id = %d \n", _items[i].psg_id );
+			              return PSGID_DUP;
+				     }
+			     }
+			}
+	   }
+	}
+
+	return PSGID_OK ;
+}
+/*Removed  below HINSTANCE while removing windows related dependency*/
 /***********************
  * LIBRARY ENTRY POINT.*
  ***********************/
 /*Removed  WINAPI from the signature while removing windows related dependency*/
 // BOOL WINAPI DllMain(HINSTANCE hInstDll, DWORD fdwReason, LPVOID lpReserved)
-BOOL DllMain(HINSTANCE hInstDll, DWORD fdwReason, LPVOID lpReserved)
+/*BOOL DllMain(HINSTANCE hInstDll, DWORD fdwReason, LPVOID lpReserved)
 {
     hInst = hInstDll;
 
 	return TRUE;
-}
-
-
+}*/

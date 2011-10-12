@@ -49,12 +49,15 @@ void resumeCAT(int nItems, int itemIDs[], int rwo[]);
 void setoff_cat();
 int simSS(int nStudents, double ss[], double mean, double std, double loss, double hoss);
 void getAdmItems(struct item_info *items, int *n_obj, int objID[]);
+int checkPsgID();
 /* Normal return, by convention defined to be zero */
 #define SETUP_CAT_OK                 0
 #define GET_O_A_OK                 0
+#define PSGID_OK     0
 
 /* Fatal errors: 1-1000 */
 #define SETUP_CAT_FAILURE           1
 #define GET_O_A_FAILURE           1
+#define PSGID_DUP     1
 
 #endif

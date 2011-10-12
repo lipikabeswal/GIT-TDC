@@ -6,19 +6,11 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "windows.h"
+// #include "windows.h"
 
 /* Includes required by the cat C API */
 #include "cat.h"
 #include "genRandomDis.h"   // for randomNoBetween, so it can be commented out
-// #pragma comment(lib, "CATABE.lib")
-
-/*
- __declspec(dllimport) int WINAPI setup_cat(char subTest[]);
- __declspec(dllimport) int WINAPI next_item();
- __declspec(dllimport) double WINAPI score();
- __declspec(dllimport) double WINAPI getSEM(double theta);
- */
 
 // #define MAX_FILENAME_LENGTH 300
 // FILE *log_file;
@@ -38,7 +30,7 @@ int main() {
  
 //	char log_filename[MAX_FILENAME_LENGTH];
     
-    int n_students= 10;
+    int n_students= 8;
 	int n;
 	int testLength = 50;
 	int itemID;
@@ -59,16 +51,25 @@ int main() {
 	int obj_rs = 0;
 	int totObj_rs = 0;
 
-    // HINSTANCE hInstLibrary = LoadLibrary(TEXT("CATABE.dll"));
+ //   HINSTANCE hInstLibrary = LoadLibrary(TEXT("CATABE.dll"));
 
 	for ( k = 0; k < n_students; k++) {
        
-       condition_code = setup_cat("RD");
+       condition_code = setup_cat("AM");
 
 	   if (condition_code != SETUP_CATok) {
 	       printf("Error: setup_cat failed! \n");
 	       return 1; 
 	   }
+
+	   /*
+	   condition_code = checkPsgID();  // to check duplicated passageID in item bank
+	   if (condition_code != PSGID_OK) {
+	       printf("Error: duplicated passageID found! \n");
+	       return 1; 
+	   }
+	   */
+
 	   testLength = getTestLength();
 	   printf( "testLength = %d \n", testLength);
 	   printf("Item#,   ItemID,   rwo,   theta  \n");
@@ -87,7 +88,6 @@ int main() {
             if (itemID != END_ITEM) {
 			    rwo = randomNoBetween(0,1); // get raw score for item n by comparing student answer with key.
 		                               // if (right) rwo = 1 else rwo = 0;
-
 		        set_rwo(rwo);  // rwo = 0 or 1
 		        theta = score();
 				printf("%d,   %d,   %d,   %6.2lf \n", n, itemID, rwo, theta);
