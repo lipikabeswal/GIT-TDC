@@ -41,8 +41,9 @@
 		<attribute name="GET_SUBTEST_METHOD" type="string" value="getSubtest" />
 		<attribute name="GET_ITEM_METHOD" type="string" value="getItem" />
 		<attribute name="DOWNLOAD_ITEM_METHOD" type="string" value="downloadItem" />
+		<attribute name="DOWNLOAD_FILE_PART_METHOD" type="string" value="downloadFileParts" />
 		<attribute name="GET_MUSIC_DATA" type="string" value="getMusicData" />
-
+		<attribute name="GET_ITEM_COUNT" type="string" value="getItemCount" />
 		<attribute name="mseq" type="number" value="1" />
 		<attribute name="cid" value="$once{Math.floor(Math.random() * 1000000)}" />
 		<attribute name="uploadAuditFileLsid" value="null"/>
@@ -62,7 +63,7 @@
 		</method>
 		
 		<method name="login" args="username, password, accesscode" >
-			var xml = gXmlHelper.getLoginXml(username, password, accesscode, cid);
+			var xml = gXmlHelper.getLoginXml(username, password, accesscode);
 			_doRequest(persistenceDs, LOGIN_METHOD, xml);
 		</method>
 		
@@ -74,6 +75,10 @@
 		<method name="downloadItem" args="id, hash, key">
 			var xml = gXmlHelper.getDownloadItemXml(id, hash, key);
 			_doRequest(contentDs, DOWNLOAD_ITEM_METHOD, xml);
+		</method>
+		<method name="downloadFilePart" args="name,sequenceNo,next">
+			var xml = gXmlHelper.getDownloadFilePartXml(name,sequenceNo,next);
+			_doRequest(contentDs, DOWNLOAD_FILE_PART_METHOD, xml);
 		</method>
 		
 		<method name="getItem" args="id, hash, key">
@@ -240,7 +245,7 @@ Debug.write("_heartbeatReturnError : ", ds);
 		</method>
     	<method name="_doRequest" args="ds, _method, xml">
       	<![CDATA[
-//Debug.write("doRequest: " + ds + " , " + _method + " , " + xml);  
+		//Debug.write("doRequest: " + ds + " , " + _method + " , " + xml);  
 		    if (typeof canvas.folder != "undefined") {
 //Debug.write("XXX: folder " + canvas.folder);
 				ds.setQueryParam(FOLDER_PARAM, canvas.folder);

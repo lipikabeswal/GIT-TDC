@@ -12,6 +12,7 @@
     <dataset name="getItemDs"           src="xmls/getItem.xml" />
     <dataset name="getImageDs"          src="xmls/getImage.xml" />
     <dataset name="downloadItemDs"      src="xmls/downloadItem.xml" />
+    <dataset name="downloadFilePartDs"  src="xmls/downloadFilePart.xml" />
     <dataset name="errorDs"             src="xmls/error.xml" />
     <dataset name="feedbackErrorDs"     src="xmls/feedbackError.xml" />
     <dataset name="lifecycleDs"         src="xmls/lifecycle.xml" />
@@ -64,7 +65,7 @@
 			return dp.serialize();
 		</method>
 		
-		<method name="getLoginXml" args="username, password, accesscode, cid" >
+		<method name="getLoginXml" args="username, password, accesscode" >
    			dp.setXPath("loginDs:/tmssvc_request/login_request");
     		dp.setNodeAttribute("user_name", username);
     		dp.setNodeAttribute("password", password);
@@ -89,6 +90,15 @@
     		dp.setNodeAttribute("hash", hash);
      		dp.setNodeAttribute("key", key);
      		dp.setXPath("downloadItemDs:/adssvc_request");
+    		return dp.serialize();
+      	</method>
+      	
+      	<method name="getDownloadFilePartXml" args="name,sequenceNo,next">
+ 	   		dp.setXPath("downloadFilePartDs:/adssvc_request/download_file_part");
+    		dp.setNodeAttribute("name", name);
+    		dp.setNodeAttribute("sequence_number", sequenceNo);
+    		dp.setNodeAttribute("next", next);
+    		dp.setXPath("downloadFilePartDs:/adssvc_request");
     		return dp.serialize();
       	</method>
     	

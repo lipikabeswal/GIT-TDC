@@ -33,6 +33,12 @@
        			gRequest.downloadItem(id, hash, key);
        		}
        	</method>
+       	
+       	<method name="downloadFilePart" args="name,sequenceNo,next">
+       		if(!error){
+       			gRequest.downloadFilePart(name,sequenceNo,next);
+       		}
+       	</method>
   		
       	<method name="getSubtest" args="id, hash, key">
        		if(!error){
@@ -184,7 +190,7 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 					if(gController.isWaitPopupOpen) {
                         firstRequestDone = false;
 						gController.hideWaitPopup();
-						Debug.warn("checkShowError outer else");
+						//Debug.warn("checkShowError outer else");
 						if(gController.state != gController.LOGIN_STATE) {
 							gController.sendHeartbeat();
 							//to start the test timer 
