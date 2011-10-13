@@ -72,7 +72,6 @@ public class ServletUtils {
 	public static DefaultHttpClient client;
 	
 	
-	
 	static {
 		try {
 			TrustStrategy trustStrategy = new EasyTrustStrategy(); 
@@ -147,6 +146,8 @@ public class ServletUtils {
 	public static final String UPLOAD_SYSTEM_INFO_METHOD = "uploadSystemInfo";
 	public static final String GET_MUSIC_DATA_METHOD = "getMusicData";
 	public static final String LOAD_MUSIC_DATA_METHOD = "getMp3";
+	public static final String GET_FILE_PARTS = "downloadFileParts";
+	
 	
 	
 //	parameters
@@ -174,12 +175,17 @@ public class ServletUtils {
 //	returned values
 	public static final String OK = "<OK />";
 	public static final String ERROR = "<ERROR />";
+	
+	public static final String FILE_PART_OK ="<FILE_PART_OK />" ;
 
 //	misc
 	public static final String NONE = "-";
 	public static final long SECOND = 1000;
 	public static HashMap itemSetMap = new HashMap();
 	public static boolean isCurSubtestAdaptive = false;
+	
+	public static final String outputPath = "data"+File.separator + "objectbank"+File.separator ;
+	public static final String tempPath = "data"+File.separator;
 
 //	helper methods
 
@@ -798,15 +804,13 @@ public class ServletUtils {
 	 */
 	public static String httpClientSendRequest(String method, String xml) {
 		synchronized(client) {
-			//System.out.println("******************************httpClientSendReq");
 			String result = OK;
 			int responseCode = HttpStatus.SC_OK;
 	
 	//		create post method with url based on method
 			String tmsURL = getTmsURLString(method);
 			HttpPost post = new HttpPost(tmsURL);
-			
-			//System.out.println("******************************httpClientSendReq" + post);
+	
 	//		send request to TMS
 			try {
 				// setup parameters
@@ -815,11 +819,8 @@ public class ServletUtils {
 				nameValuePairs.add(new BasicNameValuePair(XML_PARAM, xml));
 				post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 				HttpResponse response = client.execute(post);
-			//	System.out.println("response ");
 				
 					responseCode = response.getStatusLine().getStatusCode();
-				//	System.out.println("response " + responseCode);
-					
 					if (responseCode == HttpStatus.SC_OK) {
 						BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()),131072);
 						String inputLine = null;
@@ -1060,14 +1061,10 @@ public class ServletUtils {
 				String item_encryption_key = subtest.getAttributeValue( "item_encryption_key" );
 				
 				String title = subtest.getAttributeValue("title");		
-				System.out.println("processContentKeys title : "+title);
 				String adaptive = subtest.getAttributeValue("adaptive");
-				System.out.println("processContentKeys adaptive : "+adaptive);
 				if("True".equalsIgnoreCase(adaptive)){
-					System.out.println("processContentKeys adaptive inside if : "+adaptive);
 					contentArea = getshortContentArea(title);
 				}
-				System.out.println("processContentKeys contentArea : "+contentArea);
 				
 				if ( itemSetId != null && adsItemSetId != null
 						&& asmtHash != null && asmtEncryptionKey != null
@@ -1086,7 +1083,6 @@ public class ServletUtils {
 					
 					subtestInfoMap.put( itemSetId, aSubtestKeyVO );
 					itemSetMap.put( adsItemSetId, itemSetId );
-					System.out.println("Item Set Map + " + adsItemSetId  + " :: " + itemSetId);
 					
 				}
 			}

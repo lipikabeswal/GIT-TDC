@@ -1,5 +1,6 @@
 package com.ctb.tdc.web.servlet;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +14,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -25,11 +27,12 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.FileEntity;
 import org.apache.log4j.Logger;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
 
 import com.ctb.tdc.web.dto.StateVO;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.Base64;
-import com.ctb.tdc.web.utils.ContentFile;
 import com.ctb.tdc.web.utils.LoadTestUtils;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
@@ -364,6 +367,8 @@ public class PersistenceServlet extends HttpServlet {
 						files[i].delete();
 					}
 				}
+				processLoginResponse(result);
+								
 		}
 
 		catch (Exception e) {
@@ -725,6 +730,42 @@ public class PersistenceServlet extends HttpServlet {
 		}
 		return base64EncodedString;
 
+	}
+	/**
+	 * 
+	 * Method created to populate the content Download URI from login response
+	 * @param loginResponse
+	 */
+	private void  processLoginResponse(String loginResponse){
+		System.out.println("Process Login Response"  + loginResponse);
+		MemoryCache memCache = MemoryCache.getInstance();
+		HashMap contentDownloadMap = new HashMap();
+		org.jdom.Document loginReponseDocument = null;
+		System.out.println("processLoginResponse");
+		SAXBuilder saxBuilder = new SAXBuilder();
+		try {
+			loginReponseDocument = saxBuilder.build(new ByteArrayInputStream(loginResponse.getBytes()));
+		} catch (JDOMException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		org.jdom.Element element = (org.jdom.Element) loginReponseDocument.getRootElement().getChild("login_response");
+		element = element.getChild("manifest");
+		if (element != null){
+			List subtestList = element.getChildren("sco");
+			for (int i=0; i < subtestList.size(); i++){
+
+				element = (org.jdom.Element) subtestList.get(i);
+				contentDownloadMap.put(element.getAttributeValue("adsid"),  element.getAttributeValue("contentURI"));
+
+			}
+
+			memCache.setContentDownloadMap(contentDownloadMap);
+
+		}
 	}
 
 }

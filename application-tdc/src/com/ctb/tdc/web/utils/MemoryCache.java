@@ -1,5 +1,6 @@
 package com.ctb.tdc.web.utils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,6 +24,8 @@ public class MemoryCache {
     public SAXBuilder saxBuilder;
     private boolean loaded = false;
     private HashMap imageMap;
+    private HashMap contentDownloadMap;
+
     
     public TTSSettings getTTSSettings() {
     	synchronized(this) {
@@ -43,6 +46,7 @@ public class MemoryCache {
         clearContent();
         saxBuilder = new SAXBuilder();
         this.imageMap = new HashMap();
+        this.contentDownloadMap = new HashMap();       
     }
 
     public static MemoryCache getInstance() {
@@ -119,5 +123,25 @@ public class MemoryCache {
     		return subtestInfoMap;
     	}
     }
+
+	/**
+	 * @return the contentDownloadMap
+	 */
+	public HashMap getContentDownloadMap() {
+		synchronized (this) {
+			return contentDownloadMap;
+		}
+	}
+
+	/**
+	 * @param contentDownloadMap the contentDownloadMap to set
+	 */
+	public void setContentDownloadMap(HashMap contentDownloadMap) {
+		synchronized (this) {
+			this.contentDownloadMap = contentDownloadMap;
+		}
+	}
+    
+
    
 }

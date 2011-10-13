@@ -6,10 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.Blob;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,6 +24,7 @@ import noNamespace.ErrorDocument;
 import org.apache.log4j.Logger;
 import org.bouncycastle.util.encoders.Base64;
 import org.jdom.Attribute;
+import org.jdom.Content;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
@@ -35,10 +34,11 @@ import com.ctb.tdc.web.exception.DecryptionException;
 import com.ctb.tdc.web.exception.HashMismatchException;
 import com.ctb.tdc.web.exception.TMSException;
 import com.ctb.tdc.web.utils.AssetInfo;
+import com.ctb.tdc.web.utils.CATEngineProxy;
 import com.ctb.tdc.web.utils.ContentFile;
+import com.ctb.tdc.web.utils.ContentRetriever;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
-import com.ctb.tdc.web.utils.CATEngineProxy;
 
 /**
  * @author John_Wang
@@ -46,14 +46,20 @@ import com.ctb.tdc.web.utils.CATEngineProxy;
 public class ContentServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private static final HashMap itemHashMap = new HashMap();
 	private static final HashMap itemKeyMap = new HashMap();
 	public static final HashMap itemCorrectMap = new HashMap();
 
 	public static final HashMap itemSubstitutionMap = new HashMap();
-	public static Integer getSubtestCount = 0; 
-	
+	private static Integer getSubtestCount = 0; 
+	private static String trackerXml = null;
+	private static String currentSubtestId = null;
+	private static String currentSubtestHash = null;
+	private static HashMap trackerStatus = new HashMap();
+	private Boolean ContentDownloaded = false;
+
+
 	static Logger logger = Logger.getLogger(ContentServlet.class);
 
 	/**
@@ -104,6 +110,8 @@ public class ContentServlet extends HttpServlet {
 		     getLocalResource(request,response);
 		}else if (method.equals(ServletUtils.GET_MUSIC_DATA_METHOD)) {
 			getMusicData(request,response);
+		}else if (method.equals(ServletUtils.GET_FILE_PARTS)){
+			downloadFileParts (request,response);
 		}
 		else {
 			ServletUtils.writeResponse(response, ServletUtils.ERROR);
@@ -162,9 +170,10 @@ public class ContentServlet extends HttpServlet {
 		String subtestId = null;
 		String hash;
 		String key;
-		org.jdom.Document subtestDoc = null;
+		org.jdom.Document itemDoc = null;
+		org.jdom.Document trackerDoc = null;
 		SAXBuilder saxBuilder = new SAXBuilder();
-		
+
 		try {
 			if (xml == null) {
 				subtestId = ServletUtils.getSubtestId(request);
@@ -181,19 +190,21 @@ public class ContentServlet extends HttpServlet {
 			}
 
 			if (subtestId != null && !"".equals(subtestId.trim()) && !"undefined".equals(subtestId.trim())) {
-				
+
+				currentSubtestId = subtestId;
+				currentSubtestHash = hash;
 				String filePath = ContentFile.getContentFolderPath() + subtestId
-						+ ContentFile.SUBTEST_FILE_EXTENSION;
-	
+				+ ContentFile.SUBTEST_FILE_EXTENSION;
+
 				boolean validHash = false;
 				getSubtestCount++;
-				
+
 				SubtestKeyVO theSubtestKeyVO = null;				
 				MemoryCache aMemoryCache = MemoryCache.getInstance();
 				HashMap subtestInfoMap = aMemoryCache.getSubtestInfoMap();									
 				String itemSetId = ( String )ServletUtils.itemSetMap.get( subtestId );
 				SubtestKeyVO subtestDetails = ( SubtestKeyVO )subtestInfoMap.get( itemSetId );				
-				
+
 				String isAdaptive = subtestDetails.getAdaptive();
 				String cArea = subtestDetails.getContentArea();
 				if("True".equalsIgnoreCase(isAdaptive)){
@@ -205,7 +216,7 @@ public class ContentServlet extends HttpServlet {
 				else{
 					ServletUtils.isCurSubtestAdaptive = false;
 				}	
-				
+
 				try {
 					validHash = ContentFile.validateHash(filePath, hash);
 				} catch (Exception e) {
@@ -225,53 +236,72 @@ public class ContentServlet extends HttpServlet {
 					if (error != null) {
 						throw new TMSException(error.getErrorDetail());
 					}
-	
+
 					byte[] content = document.getAdssvcResponse().getGetSubtest()
-							.getContent();
+					.getContent();
 					ContentFile.writeToFile(content, filePath);
+					this.ContentDownloaded = false;
+				}else {
+
+					this.ContentDownloaded = true;
 				}
 				byte[] decryptedContent = ContentFile.decryptFile(filePath, hash,
 						key);
-				subtestDoc = saxBuilder.build(new ByteArrayInputStream(decryptedContent));
+				itemDoc = saxBuilder.build(new ByteArrayInputStream(decryptedContent));
 				if (ServletUtils.isCurSubtestAdaptive && (getSubtestCount > ServletUtils.itemSetMap.size())) {
-					org.jdom.Element element = (org.jdom.Element) subtestDoc.getRootElement();
+					org.jdom.Element element = (org.jdom.Element) itemDoc.getRootElement();
 					org.jdom.Attribute attribute = new Attribute("itemCount","0");
 					org.jdom.Element objectElement = element.getChild("ob_element_list");
 					objectElement.setAttribute("itemCount", new Integer(CATEngineProxy.getTestLength()).toString());
 				}
-				
-				
+
+				if(!trackerStatus.containsKey(currentSubtestId)){
+					trackerXml = ContentRetriever.getTrackerXML(currentSubtestId,currentSubtestHash);
+					trackerDoc = saxBuilder.build(new ByteArrayInputStream(trackerXml.getBytes()));
+					int numberOfFileParts = trackerDoc.getRootElement().getChildren("tracker").size();
+
+					List children = itemDoc.getRootElement().getChildren();
+					Content trackerFiles = null;
+
+					for (int i=0; i < numberOfFileParts; i++){
+
+						trackerFiles=	trackerDoc.getRootElement().getChild("tracker").detach();
+						children.add(trackerFiles);
+
+					}
+					trackerStatus.put(currentSubtestId, currentSubtestHash);
+				}
+
+
 				response.setContentType("text/xml");
-				int size = decryptedContent.length;
-				response.setContentLength(size);
-				ServletOutputStream myOutput = response.getOutputStream();
-				new XMLOutputter().output(subtestDoc, myOutput);
-				myOutput.flush();
-				myOutput.close();
+				PrintWriter out = response.getWriter();
+				new XMLOutputter().output(itemDoc, out);
+				out.flush();
+				out.close();
 			} 
 		}
 		catch (HashMismatchException e) {
 			logger.error("Exception occured in getSubtest("+subtestId+") : "
 					+ ServletUtils.printStackTrace(e));
-            String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.hashMismatch");                            
+			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.hashMismatch");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
 		}
 		catch (DecryptionException e) {
 			logger.error("Exception occured in getSubtest("+subtestId+") : "
 					+ ServletUtils.printStackTrace(e));
-            String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.decryptionFailed");                            
+			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.decryptionFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
 		}
 		catch (TMSException e) {
 			logger.error("TMS Exception occured in getSubtest("+subtestId+") : "
 					+ ServletUtils.printStackTrace(e));
-            String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
+			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
 		}
 		catch (Exception e) {
 			logger.error("Exception occured in getSubtest("+subtestId+") : "
 					+ ServletUtils.printStackTrace(e));
-            String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
+			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
 			//ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
 		}
 	}
@@ -294,7 +324,7 @@ public class ContentServlet extends HttpServlet {
 		String itemId = null;
 		String hash;
 		String key;
-		
+
 		try {
 			if (xml == null) {
 				itemId = ServletUtils.getItemId(request);
@@ -309,18 +339,18 @@ public class ContentServlet extends HttpServlet {
 				hash = document.getAdssvcRequest().getDownloadItem().getHash();
 				key = document.getAdssvcRequest().getDownloadItem().getKey();
 			}
-		
+
 			if (itemId != null && !"".equals(itemId.trim())) {
 				String filePath = ContentFile.getContentFolderPath() + itemId
-						+ ContentFile.ITEM_FILE_EXTENSION;
-				
+				+ ContentFile.ITEM_FILE_EXTENSION;
+
 				boolean hashValid = false;
 				try {
 					hashValid = ContentFile.validateHash(filePath, hash);
 				} catch (Exception e) {
 					hashValid = false;
 				}
-				
+
 				if (!hashValid) {
 					int errorIndex = 0;
 					String result = "";
@@ -332,19 +362,19 @@ public class ContentServlet extends HttpServlet {
 					if (errorIndex >= 0) {
 						throw new TMSException(result);
 					}
-					
+
 					AdssvcResponseDocument document = AdssvcResponseDocument.Factory
-							.parse(result);
+					.parse(result);
 					ErrorDocument.Error error = document.getAdssvcResponse()
-							.getDownloadItem().getError();
+					.getDownloadItem().getError();
 					if (error != null)
 						throw new TMSException(error.getErrorDetail());
-	
+
 					byte[] content = document.getAdssvcResponse().getDownloadItem()
-							.getContent();
+					.getContent();
 					ContentFile.writeToFile(content, filePath);
 				}
-				
+
 				if(ServletUtils.isCurSubtestAdaptive){
 					String catItemIdPattern = ".TABECAT";
 					try {
@@ -364,23 +394,24 @@ public class ContentServlet extends HttpServlet {
 						e.printStackTrace();
 					} 
 				}
-				
+
 				ServletUtils.writeResponse(response, ServletUtils.OK);
 			} 
 		}
 		catch (TMSException e) {
 			logger.error("TMS Exception occured in downloadItem("+itemId+") : "
 					+ ServletUtils.printStackTrace(e));
-            String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
+			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
 		}
 		catch (XmlException e) {
 			logger.error("XML Exception occured in downloadItem("+itemId+") : "
 					+ ServletUtils.printStackTrace(e));
-            String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
+			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
 		}
 	}
+
 
 	/**
 	 * Get item from local objectbank
@@ -396,7 +427,7 @@ public class ContentServlet extends HttpServlet {
 			HttpServletResponse response) throws IOException {
 		MemoryCache aMemoryCache = MemoryCache.getInstance();
 		HashMap assetMap = aMemoryCache.getAssetMap();
-		
+
 		//clear up image cache for each getItem call
 		//assetMap.clear();
 
@@ -404,7 +435,7 @@ public class ContentServlet extends HttpServlet {
 		String itemId = null;
 		String hash;
 		String key;
-		
+
 		try {
 			if (xml == null) {
 				itemId = ServletUtils.getItemId(request);
@@ -420,9 +451,9 @@ public class ContentServlet extends HttpServlet {
 				itemId = getAttributeValue("itemid", xml);
 				hash = getAttributeValue("hash", xml);
 				key = getAttributeValue("key", xml);
-				
-//System.out.println("itemId="+itemId+" hash="+hash+" key="+key);				
-			
+
+//				System.out.println("itemId="+itemId+" hash="+hash+" key="+key);				
+
 			} 
 			String originalItemId = null;
 			if(ServletUtils.isCurSubtestAdaptive){
@@ -439,8 +470,8 @@ public class ContentServlet extends HttpServlet {
 				if (itemId == null || "".equals(itemId.trim())) // invalid item id
 					throw new Exception("No item id in request.");
 				String filePath = ContentFile.getContentFolderPath() + itemId
-						+ ContentFile.ITEM_FILE_EXTENSION;
-				
+				+ ContentFile.ITEM_FILE_EXTENSION;
+
 				byte[] decryptedContent = ContentFile.decryptFile(filePath, hash,
 						key);
 				if (decryptedContent == null)
@@ -488,47 +519,85 @@ public class ContentServlet extends HttpServlet {
 		catch (HashMismatchException e) {
 			logger.error("Exception occured in getItem("+itemId+") : "
 					+ ServletUtils.printStackTrace(e));
-            String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.hashMismatch");                            
+			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.hashMismatch");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
 		}
 		catch (DecryptionException e) {
 			logger.error("Exception occured in getItem("+itemId+") : "
 					+ ServletUtils.printStackTrace(e));
-            String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.decryptionFailed");                            
+			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.decryptionFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
 		}
 		catch (Exception e) {
 			logger.error("Exception occured in getItem("+itemId+") : "
 					+ ServletUtils.printStackTrace(e));
-            String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
+			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
 		}
 	}
-	
+
+	/**
+	 * 
+	 * Method Included for downloading the File Parts from the file Server.
+	 * This method is added for improving the performance during download.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+
+	private void downloadFileParts(HttpServletRequest request,
+			HttpServletResponse response) throws IOException{
+
+
+		try{
+			if (! this.ContentDownloaded){
+				String xml = ServletUtils.getXml(request);
+				String downloadFilePart = getAttributeValue("name", xml);
+				String sequence_number = getAttributeValue("sequence_number", xml);
+				String next = getAttributeValue("next", xml);
+				String status = ContentRetriever.getContent(downloadFilePart);
+				System.out.println("Download File Parts: " + downloadFilePart + " :: "+ sequence_number +" :: " + next );
+				if (next.equalsIgnoreCase("NULL")){
+					ContentRetriever.mergeFile(trackerXml,currentSubtestId,currentSubtestHash);
+					ContentRetriever.unCompressFile(currentSubtestId,currentSubtestHash);
+					deleteFile(ServletUtils.tempPath+currentSubtestId+ "$" +currentSubtestHash+".zip");
+					
+				}
+			}
+			ServletUtils.writeResponse(response, ServletUtils.FILE_PART_OK);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
+			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
+		}
+
+	}
 	private String updateItem( byte[] itemBytes, HashMap assetMap ) throws Exception
-    {
+	{
 		MemoryCache aMemoryCache = MemoryCache.getInstance();
 		org.jdom.Document itemDoc = null;
 		synchronized(aMemoryCache.saxBuilder) {
-          itemDoc = aMemoryCache.saxBuilder.build( new ByteArrayInputStream( itemBytes ) );
+			itemDoc = aMemoryCache.saxBuilder.build( new ByteArrayInputStream( itemBytes ) );
 		}
-        org.jdom.Element rootElement = (org.jdom.Element) itemDoc.getRootElement();
-        if (rootElement.getChild( "assets" )!=null)
-        	rootElement.getChild( "assets" ).detach();
-        List items = ServletUtils.extractAllElement( ".//image_widget", rootElement);
-        for ( int i = 0; i < items.size(); i++ )
-        {
-            org.jdom.Element element = ( org.jdom.Element )items.get( i );
-            String id = element.getAttributeValue( "image_ref" );
-            if ( id != null && assetMap.containsKey( id ))
-                element.setAttribute( "src", id );
-        }
-        XMLOutputter aXMLOutputter = new XMLOutputter();
-        StringWriter aStringWriter = new StringWriter();
-        aXMLOutputter.output( rootElement, aStringWriter );
-        return aStringWriter.getBuffer().toString();
-    }
-	
+		org.jdom.Element rootElement = (org.jdom.Element) itemDoc.getRootElement();
+		if (rootElement.getChild( "assets" )!=null)
+			rootElement.getChild( "assets" ).detach();
+		List items = ServletUtils.extractAllElement( ".//image_widget", rootElement);
+		for ( int i = 0; i < items.size(); i++ )
+		{
+			org.jdom.Element element = ( org.jdom.Element )items.get( i );
+			String id = element.getAttributeValue( "image_ref" );
+			if ( id != null && assetMap.containsKey( id ))
+				element.setAttribute( "src", id );
+		}
+		XMLOutputter aXMLOutputter = new XMLOutputter();
+		StringWriter aStringWriter = new StringWriter();
+		aXMLOutputter.output( rootElement, aStringWriter );
+		return aStringWriter.getBuffer().toString();
+	}
+
 	/**
 	 * Get iamge from memory cache
 	 * 
@@ -539,13 +608,13 @@ public class ContentServlet extends HttpServlet {
 	 * 
 	 */
 	private void getImage(HttpServletRequest request,
-		HttpServletResponse response) throws IOException {
+			HttpServletResponse response) throws IOException {
 		MemoryCache aMemoryCache = MemoryCache.getInstance();
 		HashMap assetMap = aMemoryCache.getAssetMap();
 
 		String xml = ServletUtils.getXml(request);
 		String imageId;
-		
+
 		try {
 			if (xml == null) {
 				imageId = ServletUtils.getImageId(request);
@@ -557,76 +626,76 @@ public class ContentServlet extends HttpServlet {
 
 			if (imageId == null || "".equals(imageId.trim())) // invalid image id
 				throw new Exception("No image id in request.");
-			
+
 			if (!assetMap.containsKey(imageId)) 
 				throw new Exception("Image with id '"+imageId+
-						"' not found in memory cache. Please call getItem before getImage.");
+				"' not found in memory cache. Please call getItem before getImage.");
 
 			AssetInfo assetInfo = (AssetInfo) assetMap.get(imageId);
 			if (assetInfo == null)
 				throw new Exception("Image with id '"+imageId+
 				"' not found in memory cache. Please call getItem before getImage.");
-            String MIMEType = assetInfo.getMIMEType();
-            response.setContentType( MIMEType );
-            byte[] data = assetInfo.getData();
-            int size = data.length;
-            response.setContentLength( size );
-            ServletOutputStream myOutput = response.getOutputStream();
-            myOutput.write( data );
-            myOutput.flush();
-            myOutput.close();				
+			String MIMEType = assetInfo.getMIMEType();
+			response.setContentType( MIMEType );
+			byte[] data = assetInfo.getData();
+			int size = data.length;
+			response.setContentLength( size );
+			ServletOutputStream myOutput = response.getOutputStream();
+			myOutput.write( data );
+			myOutput.flush();
+			myOutput.close();				
 		} catch (Exception e) {
 			logger.error("Exception occured in getImage() : "
 					+ ServletUtils.printStackTrace(e));
-            String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
+			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
 		}
 	}
-	
+
 	private void getLocalResource(HttpServletRequest request,HttpServletResponse response) throws IOException {
-    	String filename = request.getParameter("resourcePath");
-    	  	
-    	try {
-    		
-    		if (filename == null || "".equals(filename.trim())) 
-    			throw new Exception("No  in request.");
+		String filename = request.getParameter("resourcePath");
 
-    		String filePath = this.RESOURCE_FOLDER_PATH + File.separator  + filename;
+		try {
 
-    		ServletOutputStream myOutput = response.getOutputStream();
-    		
-    		// assume all local flash resources are encrypted
-    		FileInputStream input = new FileInputStream( filePath.replaceAll(".swf", ".enc"));
-            int size = input.available();
-            byte[] src = new byte[ size ];
-            input.read( src );
-            input.close();
-            
-            byte[] decrypted = ContentFile.decrypt(src);
+			if (filename == null || "".equals(filename.trim())) 
+				throw new Exception("No  in request.");
 
-            int index= filename.lastIndexOf(".");
-    		String ext = filename.substring(index+1);
-    		AssetInfo assetInfo = new AssetInfo();
-    		assetInfo.setExt(ext);
-    		String mimeType = assetInfo.getMIMEType();
-    		response.setContentType(mimeType);
-    		
-    		response.setContentLength( size );
-    		
-    		myOutput.write( decrypted );
+			String filePath = this.RESOURCE_FOLDER_PATH + File.separator  + filename;
 
-    		myOutput.flush();
-    		myOutput.close();	
+			ServletOutputStream myOutput = response.getOutputStream();
 
-	        
-	 } catch (Exception e) {
-		logger.error("Exception occured in getLocalResource() : "
-				+ ServletUtils.printStackTrace(e));
-		ServletUtils.writeResponse(response, ServletUtils.ERROR);
-	 }
-   }
+			// assume all local flash resources are encrypted
+			FileInputStream input = new FileInputStream( filePath.replaceAll(".swf", ".enc"));
+			int size = input.available();
+			byte[] src = new byte[ size ];
+			input.read( src );
+			input.close();
 
-	
+			byte[] decrypted = ContentFile.decrypt(src);
+
+			int index= filename.lastIndexOf(".");
+			String ext = filename.substring(index+1);
+			AssetInfo assetInfo = new AssetInfo();
+			assetInfo.setExt(ext);
+			String mimeType = assetInfo.getMIMEType();
+			response.setContentType(mimeType);
+
+			response.setContentLength( size );
+
+			myOutput.write( decrypted );
+
+			myOutput.flush();
+			myOutput.close();	
+
+
+		} catch (Exception e) {
+			logger.error("Exception occured in getLocalResource() : "
+					+ ServletUtils.printStackTrace(e));
+			ServletUtils.writeResponse(response, ServletUtils.ERROR);
+		}
+	}
+
+
 
 	private String getAttributeValue(String attributeName, String xml) {
 		String result = null;
@@ -640,7 +709,7 @@ public class ContentServlet extends HttpServlet {
 				result = xml.substring(startIndex, endIndex);
 		}
 		return result;
-		
+
 	}
 
 	private void writeResponse(HttpServletResponse response, String xml)
@@ -651,33 +720,33 @@ public class ContentServlet extends HttpServlet {
 		out.flush();
 		out.close();
 	}
-	
+
 	public static final String TDC_HOME = "tdc.home";
 	public static final String RESOURCE_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
-		                             "webapp" + File.separator + "resources";
-	
+	"webapp" + File.separator + "resources";
+
 	private String getMusicData(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String musicId = request.getParameter("musicId");
 		String filePath = this.RESOURCE_FOLDER_PATH + File.separator  + "music_" + musicId+".mp3";
 		PrintWriter out = null;
 		String result = null;
 		File f1 = new File(filePath);
-/*		if(f1.exists()){
+		/*		if(f1.exists()){
 			System.out.println("F1.exists");
 			out = response.getWriter();
 			out.write("<result>File_Downloaded</result>");
 			out.flush();
 		}else{
-*/
+		 */
 		if(!f1.exists()){
-			System.out.println("Else part");
+
 			try {
 				InputStream input = ServletUtils.httpClientSendRequestBlob(ServletUtils.LOAD_MUSIC_DATA_METHOD, musicId);
-				
+
 				FileOutputStream os= new FileOutputStream(filePath);
-	            byte[] buffer = new byte[1024];
+				byte[] buffer = new byte[1024];
 				for (int length = 0; (length = input.read(buffer)) != -1;) {
-						os.write(buffer, 0, length);
+					os.write(buffer, 0, length);
 				}
 				os.close();
 			} catch (Exception e) {
@@ -691,5 +760,18 @@ public class ContentServlet extends HttpServlet {
 
 		return result;
 
+	}
+	
+	
+	
+	private static void deleteFile(String filename) {
+		File f = new File(filename);
+		if(f.exists()) {
+			System.gc();
+			Boolean status = f.delete();
+			System.out.println("Deleting Content servlet file" + filename +" :: " + status );
+			
+		}
+		
 	}
 }
