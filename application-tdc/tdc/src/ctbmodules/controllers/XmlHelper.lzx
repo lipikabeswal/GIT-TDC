@@ -65,7 +65,7 @@
 			return dp.serialize();
 		</method>
 		
-		<method name="getLoginXml" args="username, password, accesscode" >
+		<method name="getLoginXml" args="username, password, accesscode, cid" >
    			dp.setXPath("loginDs:/tmssvc_request/login_request");
     		dp.setNodeAttribute("user_name", username);
     		dp.setNodeAttribute("password", password);
