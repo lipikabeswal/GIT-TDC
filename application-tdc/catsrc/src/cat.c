@@ -29,6 +29,15 @@
 #define MAX_NUM_OBJ 10
 #define MAX_NUM_LVL 6
 #define Qs 101   // q points
+
+#include <string.h>
+#include <stdlib.h>
+#include <sys/types.h>
+//#include <sys/dir.h>
+#include <sys/param.h>
+static char* path[MAXPATHLEN];
+
+
 /*Removed  below HINSTANCE while removing windows related dependency*/
 //HINSTANCE	hInst;		    // Instance handle
 
@@ -157,8 +166,10 @@ int setup_cat(char subTest[]) {
    strcpy(_subTest, subTest);   //@todo set to up case
 
    strcpy(log_filename, "");
+     (char *) getcwd(path);
+   
    // strcat(log_filename, ".\\Data\\");
-   strcat(log_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\");
+   strcat(log_filename, "..\\..\\Data\\");
    strcat(log_filename, subTest);
 //   tmpC[0] = '_';
 //   tmpC[1] = testLevel;
@@ -167,8 +178,10 @@ int setup_cat(char subTest[]) {
    strcat(log_filename, ".log");
 
    log_file = fopen(log_filename, "w");
+  fprintf(log_file, " %s \n", path);
   
    if (log_file == NULL) {
+   printf ("Error: current working directory is : %s \n", path);
         printf ("Error: Couldn't open log file: %s \n", log_filename);
         return SETUP_CAT_FAILURE;
    }
@@ -192,7 +205,7 @@ int setup_cat(char subTest[]) {
    */
 
   // strcpy(_NoItemsEachObjByLvl_filename, ".\\Data\\NoItemsAnObjByLvl.csv");
-   strcpy(_NoItemsEachObjByLvl_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\NoItemsAnObjByLvl.csv");
+   strcpy(_NoItemsEachObjByLvl_filename, "..\\..\\Data\\NoItemsAnObjByLvl.csv");
    /*
    condition_code = getNadmObj(NoItemsEachObjByLvl_filename, subTest, testLevel, _n_adm_obj);
    if (condition_code != GETN_ADMOBJ_OK) {
@@ -249,7 +262,7 @@ int setup_cat(char subTest[]) {
 
    strcpy(par_filename, "");
  //  strcat(par_filename, ".\\Data\\");
-   strcat(par_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\");
+   strcat(par_filename, "..\\..\\Data\\");
    strcat(par_filename, subTest);
    strcat(par_filename, ".csv");
    
@@ -292,7 +305,7 @@ int setup_cat(char subTest[]) {
    */ 
 
 	// set level specified loss and hoss
-	strcpy(lvlLH_filename,"C:\\Program Files\\CTB\\Online Assessment\\Data\\TabeScaleBounds.csv");
+	strcpy(lvlLH_filename,"..\\..\\Data\\TabeScaleBounds.csv");
 	condition_code = get_LH4lvl(lvlLH_filename, subTest, _lvl_loss, _lvl_hoss);
 	if (condition_code != GETPAR_OK) {
         fprintf(log_file, "Error: get_LH4lvl failed in Data\TabeScaleBounds.cvs. \n"); 
@@ -302,7 +315,7 @@ int setup_cat(char subTest[]) {
 	// set obj level specified cut scores
 	
 	strcpy(objLvlCut_filename, "");
-    strcat(objLvlCut_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\");
+    strcat(objLvlCut_filename, "..\\..\\Data\\");
     strcat(objLvlCut_filename, subTest);
     strcat(objLvlCut_filename, "-Lvl-Obj-Cuts.csv");
 	_objSS_cut = (struct objSScut *) malloc(_n_new_obj * sizeof(struct objSScut));
@@ -328,7 +341,7 @@ int setup_cat(char subTest[]) {
 // get FT items
    strcpy(parFT_filename, "");
  //  strcat(parFT_filename, ".\\Data\\");
-   strcat(parFT_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\");
+   strcat(parFT_filename, "..\\..\\Data\\");
    strcat(parFT_filename, subTest);
    strcat(parFT_filename, "_FT.csv");
    
