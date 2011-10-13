@@ -11,11 +11,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -30,13 +27,13 @@ import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
-import com.ctb.tdc.web.dto.StateVO;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.Base64;
+import com.ctb.tdc.web.utils.CATEngineProxy;
+import com.ctb.tdc.web.utils.ContentFile;
 import com.ctb.tdc.web.utils.LoadTestUtils;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
-import com.ctb.tdc.web.utils.CATEngineProxy;
 
 /** 
  * @author Tai_Truong
@@ -353,7 +350,8 @@ public class PersistenceServlet extends HttpServlet {
 				if (AuditFile.exists(fileName)) {
 					// handle restart here in phase 2
 				}
-				//logger.info("Login successfully.");                
+				//logger.info("Login successfully.");    
+				processLoginResponse(result);
 			} else {
 				//logger.error("TMS returns error in login() : " + result);   
 			}
@@ -367,7 +365,8 @@ public class PersistenceServlet extends HttpServlet {
 						files[i].delete();
 					}
 				}
-				processLoginResponse(result);
+			
+
 								
 		}
 
