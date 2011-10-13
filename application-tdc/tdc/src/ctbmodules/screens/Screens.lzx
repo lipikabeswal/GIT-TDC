@@ -86,7 +86,6 @@
             if ( !contents.ds.isinited ) contents.ds.completeInstantiation();
 
             contents.ds.setTotalSubtests(totalSubtests);
-
             contents.ds.setVisible( true );
 
             show();
@@ -95,13 +94,15 @@
 
         
 
-        <method name="incrementSubtestDownload" args="totalItems">
+        <method name="incrementSubtestDownload" args="totalItems,totalFileParts">
 
-        	contents.ds.incrementSubtest(totalItems);
+        	contents.ds.incrementSubtest(totalItems, totalFileParts);
 
         </method>
 
-        
+        <method name="incrementFilePartDownload" args="totalItems">
+        	contents.ds.incrementFilePart();
+        </method>
 
         <method name="incrementItemDownload">
 
