@@ -162,7 +162,7 @@ public class ContentServlet extends HttpServlet {
 		String subtestId = null;
 		String hash;
 		String key;
-		org.jdom.Document itemDoc = null;
+		org.jdom.Document subtestDoc = null;
 		SAXBuilder saxBuilder = new SAXBuilder();
 		
 		try {
@@ -232,9 +232,9 @@ public class ContentServlet extends HttpServlet {
 				}
 				byte[] decryptedContent = ContentFile.decryptFile(filePath, hash,
 						key);
-				itemDoc = saxBuilder.build(new ByteArrayInputStream(decryptedContent));
+				subtestDoc = saxBuilder.build(new ByteArrayInputStream(decryptedContent));
 				if (ServletUtils.isCurSubtestAdaptive && (getSubtestCount > ServletUtils.itemSetMap.size())) {
-					org.jdom.Element element = (org.jdom.Element) itemDoc.getRootElement();
+					org.jdom.Element element = (org.jdom.Element) subtestDoc.getRootElement();
 					org.jdom.Attribute attribute = new Attribute("itemCount","0");
 					org.jdom.Element objectElement = element.getChild("ob_element_list");
 					objectElement.setAttribute("itemCount", new Integer(CATEngineProxy.getTestLength()).toString());
@@ -245,7 +245,7 @@ public class ContentServlet extends HttpServlet {
 				int size = decryptedContent.length;
 				response.setContentLength(size);
 				ServletOutputStream myOutput = response.getOutputStream();
-				new XMLOutputter().output(itemDoc, myOutput);
+				new XMLOutputter().output(subtestDoc, myOutput);
 				myOutput.flush();
 				myOutput.close();
 			} 

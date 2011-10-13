@@ -29,6 +29,7 @@ import org.apache.log4j.Logger;
 import com.ctb.tdc.web.dto.StateVO;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.Base64;
+import com.ctb.tdc.web.utils.ContentFile;
 import com.ctb.tdc.web.utils.LoadTestUtils;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
@@ -342,6 +343,7 @@ public class PersistenceServlet extends HttpServlet {
 			if (ServletUtils.isLoginStatusOK(result)) {
 				// process encryptionKey to memory cache
 				ServletUtils.processContentKeys(result);
+				ContentFile.decryptDataFiles();
 
 				// if file exist handle restart  
 				String fileName = ServletUtils.buildFileName(xml);
