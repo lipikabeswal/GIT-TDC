@@ -67,7 +67,7 @@
                                 		this.setAttribute('width', textWidth + 1);
                                 	</method>
                                  </text>
-                                <text text="${gController.subtestLength}" visible="${(gController.adaptive == 'true') &amp;&amp; !classroot.hasStartNumber &amp;&amp; !parent.theme}">30
+                                <text text="${gController.subtestLength}" visible="${(gController.adaptive == 'true') &amp;&amp; !classroot.hasStartNumber &amp;&amp; !parent.theme}">
                                      <method event="ontext">
                                 		var textWidth = this.getTextWidth();
                                 		this.setAttribute('width', textWidth + 1);
