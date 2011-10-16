@@ -1,4 +1,4 @@
-package com.ctb.contentretriever.util;
+package com.ctb.tdc.web.utils;
 
 import java.io.Closeable;
 import java.io.IOException;
