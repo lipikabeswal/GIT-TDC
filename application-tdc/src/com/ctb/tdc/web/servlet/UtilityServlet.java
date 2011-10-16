@@ -5,7 +5,6 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -95,20 +94,7 @@ public class UtilityServlet extends HttpServlet {
         else
         if (method.equals("exit")) {
         	logger.info("Exit called");
-        	File dataFiles = new File(ContentFile.DATA_FOLDER_DECRYPTED);
-    		
-    		FilenameFilter filefilterDec = new FilenameFilter() {
-    			public boolean accept(File dir, String name) {
-    		        return name.endsWith(".csv");
-    		      }
-    		};
-    		
-        	File[] decFiles = dataFiles.listFiles(filefilterDec);   	
-    		if (decFiles.length > 0){
-    			for (int i = 0; i < decFiles.length; i++) {
-    				decFiles[i].delete();
-    			}
-    		}
+        	ContentFile.deleteDataFiles();
         	exit();
         }    
         

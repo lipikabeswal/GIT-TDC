@@ -343,7 +343,9 @@ public class PersistenceServlet extends HttpServlet {
 			if (ServletUtils.isLoginStatusOK(result)) {
 				// process encryptionKey to memory cache
 				ServletUtils.processContentKeys(result);
-				ContentFile.decryptDataFiles();
+				
+				//moved this call to Content Servlet for calling decryption only for adaptive subtest
+				//ContentFile.decryptDataFiles();  
 
 				// if file exist handle restart  
 				String fileName = ServletUtils.buildFileName(xml);

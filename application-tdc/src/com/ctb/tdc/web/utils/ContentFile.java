@@ -275,4 +275,24 @@ public class ContentFile
     		e.printStackTrace();
     	}
     }
+    
+    public static void deleteDataFiles(){
+    	try{
+    		File plainDataFiles = new File(DATA_FOLDER_DECRYPTED);
+    		FilenameFilter filefilter = new FilenameFilter() {
+    			public boolean accept(File dir, String name) {
+    		        return name.endsWith(".csv");
+    		      }
+    		};    		
+    		File[] files = plainDataFiles.listFiles(filefilter);
+    		if (files.length > 0){
+    			for (int i = 0; i < files.length; i++) {
+    				deleteFile(files[i].getAbsolutePath());
+    			}   				
+    		}
+    		
+    	}catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    }
 }

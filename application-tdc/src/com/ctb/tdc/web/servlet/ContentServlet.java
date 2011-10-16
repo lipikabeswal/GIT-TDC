@@ -210,6 +210,7 @@ public class ContentServlet extends HttpServlet {
 				if("True".equalsIgnoreCase(isAdaptive)){
 					ServletUtils.isCurSubtestAdaptive = true;
 					if(getSubtestCount > ServletUtils.itemSetMap.size()){
+						ContentFile.decryptDataFiles();
 						CATEngineProxy.initCAT(cArea);						
 					}
 				}
