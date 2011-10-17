@@ -184,8 +184,10 @@ public class ServletUtils {
 	public static HashMap itemSetMap = new HashMap();
 	public static boolean isCurSubtestAdaptive = false;
 	
-	public static final String outputPath = "data"+File.separator + "objectbank"+File.separator ;
-	public static final String tempPath = "data"+File.separator;
+	
+	public static final String TDC_HOME = "tdc.home";
+	public static final String outputPath =  System.getProperty(TDC_HOME) +File.separator+ "data"+File.separator + "objectbank"+File.separator ;
+	public static final String tempPath =  System.getProperty(TDC_HOME) +File.separator+ "data"+File.separator;
 
 //	helper methods
 
