@@ -312,6 +312,7 @@
 		<attribute name="objScore" value="null" />
 		<attribute name="isStopScreen" type="boolean" value="false" />
 		<attribute name="subtestLength" type="number" value="0" />
+		<attribute name="istLength" type="number" value="0" />
 
 		<!-- START Change for deferred Defect 63502-->
 		<attribute name="restartscid" value="0" />
@@ -479,7 +480,7 @@
 		<attribute name="answerArray" value="$once{new Array()}" />
 		<attribute name="sendCatSave" value="true" type="boolean" />
 		<attribute name="catOver" value="false" type="boolean" />
-		<attribute name="isStopTest" value="true" type="boolean" />	
+		<attribute name="isStopTest" value="true" type="boolean" /> 
 		 
 		<!--
 			============================================================
@@ -1087,19 +1088,26 @@
 		<method name="totalAnsweredOnRestart"><![CDATA[
  			var numanswered = 0;
 			//START Change for deferred Defect 63502
- 			var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ist/rv/v' );
-	         //END
-            if ( awd && awd instanceof Array ) {
-            	for (var i=0; i<awd.length; i++){
-            		if(isAnswered(awd[i])){
-            			numanswered++;
-            		}
-            	}
-            } else if ( awd && awd instanceof LzDataElement ) {
-                if(isAnswered(awd)){
-                	numanswered = 1;
-                }
-            } 
+			if(this.adaptive == 'true'){
+ 				var awd = dprestart.xpathQuery( 'tsd/ist' );
+ 				numanswered = awd.length;
+ 			}else{
+ 				var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ist/rv/v' );
+ 			
+		         //END
+		         
+	            if ( awd && awd instanceof Array ) {
+	            	for (var i=0; i<awd.length; i++){
+	            		if(isAnswered(awd[i])){
+	            			numanswered++;
+	            		}
+	            	}
+	            } else if ( awd && awd instanceof LzDataElement ) {
+	                if(isAnswered(awd)){
+	                	numanswered = 1;
+	                }
+	            } 
+            }
             return numanswered;
  			
         ]]></method>
@@ -1220,6 +1228,10 @@ Debug.write("totalVisited...",totalVisited);
             	gReadableText.doRead("Hi");
               }
             var total = totalQuestions();
+            if(this.adaptive == 'true'){
+            	total = this.subtestLength;
+            }
+            Debug.write("total:"+total);
 			dpdisplay.setNodeAttribute( 'shownWarningMinute', 'false' );
             if ( '0' == dpsubtest.xpathQuery( 'sco/@sco_duration_minutes' ) ||
                  'true' == dpsubtest.xpathQuery(
@@ -1448,6 +1460,8 @@ Debug.write("totalVisited...",totalVisited);
                 if ( !fnode ) {
                     fnode = getItemFromOffset( 0 );
                 }
+                var dnruntimeitem = dpstudentdata.xpathQuery ("runtime/item_model [@eid = '"+dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@cur_eid' )+"']");
+                dnruntimeitem.setAttr ('eid', dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@cur_eid' ) );
              }
              
             /* if(gController.audible == 'true'){
@@ -1465,6 +1479,119 @@ Debug.write("totalVisited...",totalVisited);
             showItemInterface();
         </method>
 
+
+		<method name="getAdptiveRestartNodes"><![CDATA[
+			var istArr = [];
+			var runtimeCount = this.subtestLength + 1;
+			dprestart.xpathQuery( istxpath );
+			var numIsts = countDataNodes(dprestart.xpathQuery('tsd/ist'));
+			var elist = dprestart.xpathQuery('tsd');
+			elist.AddSort("@mseq", "ascending");            
+            var items = elist.getElementsByTagName( 'ist' );
+            var landingItem = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@cur_eid' );
+            var landingFnode = dpsubtest.xpathQuery('ob_assessment/ob_element_list/@restart_ast');
+            var itemNumber = Number(getStartNumber());
+			this.istLength = items.length;
+			
+			 
+			for (var j=0; j < items.length-1; j++)
+			{
+				for(var i=0; i < (items.length-j); i++){
+			 		var mseq1=parseInt(items[i].getAttr( 'mseq' ));
+			 		var mseq2=parseInt(items[i+1].getAttr( 'mseq' ));
+					if (mseq2 < mseq1){
+			   			 var temp=items[i+1];
+			   			 items[i+1]=items[i];
+			   			 items[i]=temp;
+					 }
+				}
+			}
+			 
+			for(var i=0; i < items.length; i++){
+			 	var eid = items[i].getAttr( 'eid' );
+			 	var istxpath = "tsd/ist[@eid='" + eid + "']";
+                var restartnode = dprestart.xpathQuery( istxpath );
+                var vnode = dprestart.xpathQuery(istxpath + "/rv/v");
+                var isTheme = items[i].getAttr('type') == THEME_TYPE;
+                var isVisited = "false";
+                
+                var flist = dpsubtest.xpathQuery('ob_assessment/ob_element_list');
+           		var fitems = flist.getElementsByTagName( 'f' );
+				var fnodeEid = fitems[itemNumber-1].getAttr( 'id' );    
+            		
+			 	Debug.write("eid:"+eid);
+			 	 var attrs =
+                    {
+                        eid:            fnodeEid,
+                        stimulus_id:    stimulusid,
+                        answered:       isAnswered(vnode),
+                        is_visited:     isVisited, 
+                        marked:         restartnode.getAttr( 'mrk' ) == '1',
+                        dur:            restartnode.getAttr( 'dur' ),
+                        not_sr:         getNotSr(restartnode),
+                        item_no:		itemNumber,
+                        theme:          isTheme,
+						allow_revisit:	allowRevisit,
+						allow_revisit_on_restart:allowRevisitOnRestart
+                    };
+
+                    var score = dprestart.xpathQuery(
+                        istxpath + "/ov[@n='SCORE']/v/text()"
+                    );
+                    if ( typeof( score ) == 'string' ) {
+                        attrs.score = score;
+                    }
+
+                    var response = dprestart.xpathQuery(
+                        istxpath + "/rv[@n='RESPONSE']/v/text()"
+                    );
+                    if ( typeof( response ) == 'string' ) {
+                        attrs.answer_text = response;
+                    }
+                   
+                    if(eid == landingItem){
+			 			attrs.item_no = items.length;
+			 			//attrs.eid = landingFnode;
+			 		}
+                
+                var dnrtitem = dpstudentdata.xpathQuery("runtime/item_model");
+                
+               /* for(var j=0; j<dnrtitem.length; j++){
+                	if(dnrtitem[j].getAttr("eid") == eid){
+                		attrs.eid = fitems[runtimeCount].getAttr( 'id' );
+                		runtimeCount++;
+                	}
+                }*/
+                 
+                var newitemdn = new LzDataElement( 'item_model', attrs, null );
+               
+                if(eid != landingItem){
+                	var dnrtitemold = dpstudentdata.xpathQuery(
+                    	"runtime/item_model [@item_no = '"+itemNumber+"']"
+                			);
+                	
+                	if(!isTheme){
+                		itemNumber = itemNumber + 1;
+               		}
+                	
+                }else{
+                	var itemLen = items.length;
+                	Debug.write("##itemLen::"+itemLen);
+                	if(eid == landingItem){
+                		var dnrtitemold = dpstudentdata.xpathQuery(
+                    		"runtime/item_model [@item_no = '"+itemLen+"']"
+                				);
+                		
+                	}
+                }
+                
+                dnrtitemold.parentNode.replaceChild (newitemdn, dnrtitemold);
+                //istArr.push (newitemdn);               
+                    
+			 }
+
+             //Debug.write("##istArr:",istArr);
+		]]></method>
 		<!--
 			Initializes runtime nodes that store state for each question.
 		-->
@@ -1474,6 +1601,7 @@ Debug.write("totalVisited...",totalVisited);
 		//Debug.warn("Inside if of gController.audible");
 				loadMusicData();
 			}
+			    
             var dn = dpstudentdata.xpathQuery( 'title' );
             dn.setAttr( 'product_name', dpsubtest.xpathQuery( 'sco/@title' ) );
  			gItemInterfaceStudentName.setAttribute('text', getStudentName());
@@ -1500,24 +1628,24 @@ Debug.write("totalVisited...",totalVisited);
 			}
 			
 			for ( var i = 0; i < itemCount; i++ ) {
-                var eid = items[i].getAttr( 'id' );
+				var eid = items[i].getAttr( 'id' );
 				var allowRevisit = items[i].getAttr( 'allow_revisit' );
-				var allowRevisitOnRestart = items[i].getAttr( 'allow_revisit_on_restart' );
-				
-//Debug.write("item traversing start");
+				var allowRevisitOnRestart = items[i].getAttr( 'allow_revisit_on_restart' );				
                 var stimulusid = getStimulusIdByEid(eid);
 
-// for shared stimulas 
-if(stimulusid > 0){
-               	allowRevisitOnRestart = getStimulusItemsIdByEid(stimulusid,eid);				
-}
-//Debug.write("allow_revisit: "+items[i].getAttr( 'allow_revisit' ));
+				// for shared stimulas 
+				if(stimulusid > 0){
+				               	allowRevisitOnRestart = getStimulusItemsIdByEid(stimulusid,eid);				
+				}		
+
                 var istxpath = "tsd/ist[@eid='" + eid + "']";
+                Debug.write("istxpath:"+istxpath);
                 var restartnode = dprestart.xpathQuery( istxpath );
                 var vnode = dprestart.xpathQuery(istxpath + "/rv/v");
                 var isTheme = items[i].getAttr('type') == THEME_TYPE;
                 var isVisited = "false";
-                if ( dprestart.isValid() && restartnode ) {
+                
+                if ( this.adaptive == 'false' && dprestart.isValid() && restartnode ) {                	
                     var attrs =
                     {
                         eid:            eid,
@@ -1565,6 +1693,11 @@ if(stimulusid > 0){
             }
 //Debug.write("##runtimearr:",runtimearr);
             dn.setChildNodes( runtimearr );
+            if (this.adaptive == 'true' && dprestart.isValid()) {    
+           		Debug.write("##calling getAdptiveRestartNodes:",dprestart.isValid());
+            	getAdptiveRestartNodes();
+            }
+            Debug.write("##runtimearr:",runtimearr);
         ]]></method>
 
 		<method name="getTotalNumberOfItems" args="includeThemePages">
@@ -3012,6 +3145,8 @@ Debug.write("############ loadItem ############");
 			updateAudioItem();
     		var result = null;
 			var itemType = [];
+			var itemNo;
+			var curEid;
     		if(isOnItemOrFinishScreen()){
                 var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
                 if(itemnode != null){
@@ -3057,6 +3192,17 @@ Debug.write("############ loadItem ############");
 					if(this.getAttribute("sendCatSave") == true)
 						result[10] = 1;
 						
+					/*itemNo = itemnode.getAttr( 'item_no' ); // current item no
+					curEid = itemnode.getAttr( 'eid' ); // current eid
+					
+					var elist = dpsubtest.xpathQuery('ob_assessment/ob_element_list');
+            		var items = elist.getElementsByTagName( 'f' );
+            		var fnodeEid;
+            		if (this.adaptive == 'true' && dprestart.isValid()) { 
+            			fnodeEid = items[itemNo-1].getAttr( 'id' );
+            		}*/
+            		
+            					
 				}
     		}
 		Debug.write("### result :", result);
@@ -3065,7 +3211,38 @@ Debug.write("############ loadItem ############");
                 var dncurritem =
                     dpstudentdata.xpathQuery ('current_item/item_model/');
 				dncurritem.setAttr('is_visited','true');
+				/*if(this.adaptive == 'true' && dprestart.isValid()){
+					Debug.write("### getItemParam :"+ this.istLength +"::"+itemNo);
+					Debug.write("### getItemParam :"+ curEid +"::"+fnodeEid);
+					if(this.istLength == itemNo){
+						dncurritem.setAttr( 'eid', fnodeEid); // current iid
+					}	
+				}*/
     		return result;
+    	]]></method>
+    	
+    	<method name="replaceAdaptiveCurEid"><![CDATA[
+	    	Debug.write("_handleSaveLoadResponse");
+			var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
+			itemNo = itemnode.getAttr( 'item_no' ); // current item no
+			curEid = itemnode.getAttr( 'eid' ); // current eid
+						
+			var elist = dpsubtest.xpathQuery('ob_assessment/ob_element_list');
+	        var items = elist.getElementsByTagName( 'f' );
+	        var fnodeEid;
+	        if (this.adaptive == 'true' && dprestart.isValid()) { 
+	            fnodeEid = items[itemNo-1].getAttr( 'id' );
+	        }            		
+	            		
+			var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model/');
+			if(this.adaptive == 'true' && dprestart.isValid()){
+				Debug.write("### _handleSaveLoadResponse :"+ this.istLength +"::"+itemNo);
+				Debug.write("### _handleSaveLoadResponse :"+ curEid +"::"+fnodeEid);
+				if(this.istLength == itemNo){
+					Debug.write("### _handleSaveLoadResponse setting :"+curEid+" to "+fnodeEid);
+					itemnode.setAttr( 'eid', fnodeEid); // current iid
+				}	
+			}    	
     	]]></method>
 
 		<attribute name="pending" value="$once{ {} }" />

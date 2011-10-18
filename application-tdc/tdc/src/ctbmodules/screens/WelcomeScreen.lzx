@@ -13,6 +13,7 @@
         -->
  
         <method name="setupContinue" args="minutes, questions, untimed, sn">
+        Debug.write("setupContinue:"+questions);
             info.notes.updateText( minutes, questions, untimed, false );
 			updateStudentName(sn);
             controls.getstarted.setAttribute(
@@ -25,6 +26,7 @@
         </method>
 
         <method name="setupRestart" args="minutes, questions, untimed, sn">
+        	Debug.write("setupRestart:"+questions);
             info.notes.updateText( minutes, questions, untimed, true );
 			updateStudentName(sn);
 
@@ -74,11 +76,7 @@
             <view name="line" height="1" width="100%" bgcolor="gray"/>
             <text name="notes" width="520" x="5" multiline="true">
                 <method name="updateText" args="m, q, u, r"><![CDATA[
-				if(gController.adaptive == 'true')
-				{
-					q=gController.subtestLength;
-				}
-
+                	
                     var msingular = parseInt( m ) == 1;
                     var qsingular = parseInt( q ) == 1;
 					var dynaText1 = (qsingular ? 'There is ' : 'There are ');
