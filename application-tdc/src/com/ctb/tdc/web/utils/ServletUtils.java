@@ -188,6 +188,13 @@ public class ServletUtils {
 	public static final String TDC_HOME = "tdc.home";
 	public static final String outputPath =  System.getProperty(TDC_HOME) +File.separator+ "data"+File.separator + "objectbank"+File.separator ;
 	public static final String tempPath =  System.getProperty(TDC_HOME) +File.separator+ "data"+File.separator;
+	
+	public static boolean isRestart = false;
+	public static int restartItemCount = 0;
+	public static int [] restartItemsArr ={};
+	public static int [] restartItemsRawScore ={};
+	public static String landingItem;
+	public static String landingFnode;
 
 //	helper methods
 
@@ -1089,6 +1096,66 @@ public class ServletUtils {
 				}
 			}
 		}
+	}
+	
+
+	public static void getConsolidatedRestartData(String loginXml) throws Exception{
+		System.out.println("getConsolidatedRestartData called 1");
+		final String endPattern = "</tsd>";
+		int start = loginXml.indexOf( "<tsd " );
+		int end = loginXml.indexOf( "</tsd>" );
+		String catItemIdPattern = ".TABECAT";
+		System.out.println("loginXml:"+loginXml);
+		if ( start >= 0 && end > 5 )
+		{
+			isRestart = true;
+			System.out.println("getConsolidatedRestartData called 2::"+isRestart);
+			String consRestartData = loginXml.substring(start, end + endPattern.length());
+			org.jdom.input.SAXBuilder saxBuilder = new org.jdom.input.SAXBuilder();
+			ByteArrayInputStream bais = new ByteArrayInputStream(consRestartData.getBytes( "UTF-8" ));
+			org.jdom.Document restartDocs = saxBuilder.build( bais );			
+			Element ele = restartDocs.getRootElement();
+
+			Element restartItem = ele.getChild( "ast" );
+			String curItem = restartItem.getAttributeValue("cur_eid");
+			landingItem = curItem;
+			System.out.println("landingItem::"+landingItem);
+			
+			List restartItems = ele.getChildren( "ist" );
+			restartItemCount = restartItems.size();
+			restartItemsArr =  new int [restartItemCount];
+			restartItemsRawScore  = new int [restartItemCount];
+			for(int i=0; i<restartItems.size(); i++){
+				Element item = ( Element ) restartItems.get( i );
+				String itemIId = item.getAttributeValue( "iid" );
+				boolean isString = false;				
+				String eId = item.getAttributeValue( "eid" );
+				System.out.println("eId::"+eId+"::"+itemIId);
+				if(eId != landingItem){
+					if(itemIId != null && itemIId.indexOf(catItemIdPattern) != -1){
+						itemIId = itemIId.substring(0, itemIId.length() - catItemIdPattern.length());
+						try {
+							Long.parseLong(itemIId);
+						} catch (Exception e) {
+							isString = true;
+						}
+						if(!isString)
+							restartItemsArr[i] = Integer.parseInt( itemIId );
+					}
+						
+					Element rawScore = item.getChild( "ov" );
+					Element score = rawScore.getChild( "v" );
+					String scoreVal = score.getText();
+					
+					restartItemsRawScore[i] = Integer.parseInt( scoreVal );	
+				}
+			}	
+			restartItemCount = restartItemCount - 1;
+			System.out.println("restartItemCount :"+restartItemCount);
+			System.out.println("restartItemsArr :"+restartItemsArr);
+			System.out.println("restartItemsRawScore :"+restartItemsRawScore);
+			
+		}		
 	}
 
 	public static byte[] readFromFile(File file)

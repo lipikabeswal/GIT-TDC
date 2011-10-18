@@ -11,8 +11,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -153,11 +156,11 @@ public class PersistenceServlet extends HttpServlet {
 		else if (method != null && method.equals(ServletUtils.SAVE_METHOD))
 		{
 			if(ServletUtils.isCurSubtestAdaptive){
-				String originalItemId = ServletUtils.parseAdsItemId(xml);
-	        	if(originalItemId != null && !ServletUtils.NONE.equals(originalItemId)) {
-	        		String realId = (String) ContentServlet.itemSubstitutionMap.get(originalItemId);
+				String adsItemId = ServletUtils.parseAdsItemId(xml);
+				if(adsItemId != null && !ServletUtils.NONE.equals(adsItemId)) {
+	        		String realId = (String) ContentServlet.itemSubstitutionMap.get(adsItemId);
 	        		if(realId != null) {
-	        			xml.replace(originalItemId, realId);
+	        			xml = xml.replaceAll(adsItemId, realId);
 	        		}
 	        	}        	
 
@@ -176,7 +179,7 @@ public class PersistenceServlet extends HttpServlet {
     			
     			String isCatOver = ServletUtils.parseCatOver(xml);
     			
-	    		if(isCatOver != null && ("false".equals(isCatOver) || "-".equals(isCatOver))) {	    		
+	    		if(isCatOver != null && ("false".equals(isCatOver) || ServletUtils.NONE.equals(isCatOver))) {	    		
 		        	if(itemRawScore != null) {
 		        		try {
 		        			CATEngineProxy.scoreCurrentItem(itemRawScore.intValue()); 
@@ -344,6 +347,9 @@ public class PersistenceServlet extends HttpServlet {
 				// process encryptionKey to memory cache
 				ServletUtils.processContentKeys(result);
 				
+				//if(ServletUtils.isCurSubtestAdaptive){
+					ServletUtils.getConsolidatedRestartData(result);
+				//}
 				//moved this call to Content Servlet for calling decryption only for adaptive subtest
 				//ContentFile.decryptDataFiles();  
 

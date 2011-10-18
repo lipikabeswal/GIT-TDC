@@ -6,8 +6,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.Blob;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,6 +27,7 @@ import org.apache.log4j.Logger;
 import org.bouncycastle.util.encoders.Base64;
 import org.jdom.Attribute;
 import org.jdom.Content;
+import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
@@ -170,7 +173,7 @@ public class ContentServlet extends HttpServlet {
 		String subtestId = null;
 		String hash;
 		String key;
-		org.jdom.Document itemDoc = null;
+		org.jdom.Document subtestDoc = null;
 		org.jdom.Document trackerDoc = null;
 		SAXBuilder saxBuilder = new SAXBuilder();
 
@@ -212,6 +215,9 @@ public class ContentServlet extends HttpServlet {
 					if(getSubtestCount > ServletUtils.itemSetMap.size()){
 						ContentFile.decryptDataFiles();
 						CATEngineProxy.initCAT(cArea);						
+						if(ServletUtils.isRestart){
+							CATEngineProxy.resumeCAT(ServletUtils.restartItemCount,ServletUtils.restartItemsArr,ServletUtils.restartItemsRawScore);
+						}
 					}
 				}
 				else{
@@ -248,12 +254,26 @@ public class ContentServlet extends HttpServlet {
 				}
 				byte[] decryptedContent = ContentFile.decryptFile(filePath, hash,
 						key);
-				itemDoc = saxBuilder.build(new ByteArrayInputStream(decryptedContent));
+				subtestDoc = saxBuilder.build(new ByteArrayInputStream(decryptedContent));
 				if (ServletUtils.isCurSubtestAdaptive && (getSubtestCount > ServletUtils.itemSetMap.size())) {
-					org.jdom.Element element = (org.jdom.Element) itemDoc.getRootElement();
+					org.jdom.Element element = (org.jdom.Element) subtestDoc.getRootElement();
 					org.jdom.Attribute attribute = new Attribute("itemCount","0");
 					org.jdom.Element objectElement = element.getChild("ob_element_list");
 					objectElement.setAttribute("itemCount", new Integer(CATEngineProxy.getTestLength()).toString());
+					if(ServletUtils.isRestart){
+						org.jdom.Attribute restartAttr = new Attribute("restart_ast","0");
+						List fNodes = objectElement.getChildren("f");
+						for(int i=0; i<(ServletUtils.restartItemCount+1); i++){
+							if(i == ServletUtils.restartItemCount){							
+								Element item = ( Element ) fNodes.get( i );
+								String itemEid = item.getAttributeValue( "id" );
+								ServletUtils.landingFnode = itemEid;
+								objectElement.setAttribute("restart_ast", itemEid);
+								break;
+							}
+						}
+					}
+					
 				}
 
 				if(!trackerStatus.containsKey(currentSubtestId)){
@@ -261,7 +281,7 @@ public class ContentServlet extends HttpServlet {
 					trackerDoc = saxBuilder.build(new ByteArrayInputStream(trackerXml.getBytes()));
 					int numberOfFileParts = trackerDoc.getRootElement().getChildren("tracker").size();
 
-					List children = itemDoc.getRootElement().getChildren();
+					List children = subtestDoc.getRootElement().getChildren();
 					Content trackerFiles = null;
 
 					for (int i=0; i < numberOfFileParts; i++){
@@ -276,7 +296,7 @@ public class ContentServlet extends HttpServlet {
 
 				response.setContentType("text/xml");
 				PrintWriter out = response.getWriter();
-				new XMLOutputter().output(itemDoc, out);
+				new XMLOutputter().output(subtestDoc, out);
 				out.flush();
 				out.close();
 			} 
@@ -457,10 +477,20 @@ public class ContentServlet extends HttpServlet {
 
 			} 
 			String originalItemId = null;
+			boolean isRestart = false;
 			if(ServletUtils.isCurSubtestAdaptive){
-				originalItemId = itemId;
-				itemId = CATEngineProxy.getNextItem();
-				itemSubstitutionMap.put(originalItemId, itemId);
+				if(ServletUtils.isRestart && ServletUtils.landingItem != null){
+					//itemId = ServletUtils.landingItem;
+					originalItemId = ServletUtils.landingFnode;
+					itemId = ServletUtils.landingItem;
+					itemSubstitutionMap.put(originalItemId, itemId);
+					ServletUtils.isRestart = false;
+					isRestart = true;
+				}else{
+					originalItemId = itemId;
+					itemId = CATEngineProxy.getNextItem();
+					itemSubstitutionMap.put(originalItemId, itemId);
+				}
 			}
 			if(itemId != null) {
 				if(ServletUtils.isCurSubtestAdaptive){
