@@ -3554,7 +3554,7 @@ Debug.write("############ loadItem ############");
         </method>
 
 		<method name="resetHeartbeat">
-			LzTimer.resetTimer( dsendHeartbeat, 30000 );
+			LzTimer.resetTimer( dsendHeartbeat, 120000 );
 		</method>
 
 		<method name="getCurrentInteractionType">

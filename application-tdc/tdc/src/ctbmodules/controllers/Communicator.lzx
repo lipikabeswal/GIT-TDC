@@ -55,7 +55,7 @@
      	<method name="heartbeat" args="params">
        		if(!error){
        			<!-- TDC-TMS comms are now synchronous, heartbeats aren't needed -->
-       			<!-- gRequest.heartbeat(params); -->
+       			gRequest.heartbeat(params);
        		}
        	</method>
   		
