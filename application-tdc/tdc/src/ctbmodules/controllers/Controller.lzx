@@ -481,7 +481,8 @@
 		<attribute name="sendCatSave" value="true" type="boolean" />
 		<attribute name="catOver" value="false" type="boolean" />
 		<attribute name="isStopTest" value="true" type="boolean" /> 
-		 
+		<attribute name="isFinishTest" value="false" type="boolean" />
+		
 		<!--
 			============================================================
 			Datapointers
@@ -1089,8 +1090,13 @@
  			var numanswered = 0;
 			//START Change for deferred Defect 63502
 			if(this.adaptive == 'true'){
- 				var awd = dprestart.xpathQuery( 'tsd/ist' );
- 				numanswered = awd.length;
+ 				var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ist' );
+ 				if ( awd && awd instanceof Array ) {
+ 					if(awd.length > 0)
+ 						numanswered = awd.length;
+ 				}else if ( awd && awd instanceof LzDataElement ) {
+ 					numanswered = 1;
+ 				}
  			}else{
  				var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ist/rv/v' );
  			
@@ -1210,6 +1216,7 @@ Debug.write("totalVisited...",totalVisited);
 		<method name="resetCatAttributes">
 			this.setAttribute("catOver",false);
             this.setAttribute("isStopTest",true);
+            this.setAttribute("isFinishTest",false);
 		</method>
 		<!--
 			Called after subtest xml (and restart xml, if available) has been
@@ -1221,7 +1228,11 @@ Debug.write("totalVisited...",totalVisited);
         	//Debug.warn("*****************************Init Test***************************");
             LzTimer.removeTimer( dupdateTimeLeft );
             resetCatAttributes();
-            
+            if(this.adaptive == 'true') { 
+			 	itemCount = dpsubtest.xpathQuery('ob_assessment/ob_element_list/@itemCount');
+			 	this.setAttribute("subtestLength",itemCount);
+				Debug.write ("ItemCount from subtest xml" , itemCount);
+			}
             initStudentData();
             setReadableFlag();
             if(canvas.readable && !gReadableText.primed){
@@ -1622,8 +1633,7 @@ Debug.write("totalVisited...",totalVisited);
 			
 			var itemCount = items.length;
 			if(this.adaptive == 'true') { 
-			 	itemCount = dpsubtest.xpathQuery('ob_assessment/ob_element_list/@itemCount');
-			 	this.setAttribute("subtestLength",itemCount);
+			 	itemCount = this.subtestLength;
 				Debug.write ("ItemCount from subtest xml" , itemCount);
 			}
 			
@@ -2843,6 +2853,7 @@ Debug.write("totalVisited...",totalVisited);
 		<method name="finishTest">
         	gReadableText.stopReading();
             freezeUI();
+            
          //For Defect 65881        
             if(this.recorder != null)
 			{
@@ -2855,7 +2866,12 @@ Debug.write("totalVisited...",totalVisited);
 			//	}
 			}		
             setState(FINISH_STATE);
-            this.setAttribute("sendCatSave",false);
+            if(this.isStopTest){
+            	this.setAttribute("sendCatSave",false);
+            }else{
+            	this.isFinishTest = true;
+            	this.setAttribute("sendCatSave",true);
+            }
             save();
         </method>
 
@@ -2874,12 +2890,12 @@ Debug.write("totalVisited...",totalVisited);
 			
 			if(this.adaptive == 'true'){				
 				//if (gScreens.isOnFinishScreen()) {
-				Debug.write("goToFinishScreen :"+ gScreens.isOnFinishScreen() +"::"+ this.isStopScreen);
+				Debug.write("goToFinishScreen :"+ gScreens.isOnFinishScreen() +"::"+ this.isStopTest);
 				
 					
 				if(gScreens.isOnFinishScreen()){
 					Debug.write("isOnFinishScreen1");
-					 gController.saveEndSubtest( '' );
+					gController.saveEndSubtest( '' );
 				}else {
 					Debug.write("isOnFinishScreen2");
 					gScreens.showFinish( totalQuestions() - totalAnswered(),

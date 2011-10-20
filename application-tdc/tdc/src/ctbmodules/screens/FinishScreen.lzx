@@ -82,7 +82,7 @@
                 </method>
             </YesFinishedButton>
             <NoGoBackToTestButton name="goback"
-                                  enabled="${ gScreens.allowclick }" visible= "${gController.isStopTest}">
+                                  enabled="${ gScreens.allowclick }" visible= "${gController.isStopTest || !gController.isFinishTest}">
                 <method name="goback" event="onclick">
                     gScreens.clicked();
                     gController.resumeTest();

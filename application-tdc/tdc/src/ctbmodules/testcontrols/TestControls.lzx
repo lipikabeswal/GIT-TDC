@@ -89,12 +89,17 @@
                 this.btns.navbtns.btnback.setAttribute ('visible', false);
 			}
 //Debug.write("currentItemNumber : "+currentItemNumber+" : "+gController.getNextNavigableOffset(currentItemNumber));			
-            if (currentItemNumber < parseInt(this.totalitemno) && gController.getNextNavigableOffset(currentItemNumber) < parseInt(this.totalitemno)) {
-                this.btns.navbtns.btnforward.setAttribute ('visible', true);
-            }
-            else{
-                this.btns.navbtns.btnforward.setAttribute ('visible', false);
-            }
+            if(gController.adaptive == 'true'&& currentItemNumber == gController.subtestLength){
+				this.btns.navbtns.btnforward.setAttribute ('visible', false);
+			}
+			else{
+		    	if (currentItemNumber < parseInt(this.totalitemno) && gController.getNextNavigableOffset(currentItemNumber) < parseInt(this.totalitemno)) {
+		    		this.btns.navbtns.btnforward.setAttribute ('visible', true);
+		    	}
+		    else{
+		    	this.btns.navbtns.btnforward.setAttribute ('visible', false);
+		    	}
+		    }  
             
          ]]></method>
 		
@@ -147,9 +152,12 @@
                 <basebutton name="btnfinish" resource="finish_test_btn" id="gFinishTestButton"
                             enabled="${ classroot.uienabled == 'true' }"
                             visible="${!parent.btnforward.visible}" x="100"
-                            onclick="gController.finishTest ()"
-                            disabledResourceNumber="1"
-                            />
+                            disabledResourceNumber="1">
+                            <method event="onclick">
+                            gController.setAttribute("isStopTest",false);
+                            gController.finishTest ();
+                            </method>
+                 </basebutton>
             </view>
             <multistatebutton name="markbtn" align="center"
                               clickable="${ classroot.uienabled == 'true' }"
