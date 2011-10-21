@@ -1622,7 +1622,11 @@ Debug.write("totalVisited...",totalVisited);
             var items = elist.getElementsByTagName( 'f' );
             dn = dpstudentdata.xpathQuery( 'question_number' );
             dn.setAttr( 'total', getTotalNumberOfItems(false) );
-            dn.setAttr( 'total_including_theme', getTotalNumberOfItems(true));
+            if(this.adaptive == 'true') { 
+            	dn.setAttr( 'total_including_theme', this.subtestLength);
+            }else{
+            	dn.setAttr( 'total_including_theme', getTotalNumberOfItems(true));
+            }
  			
             dn = dpstudentdata.xpathQuery( 'runtime' );
             dn.setAttr ('starting_question_number', getStartNumber());
@@ -3008,11 +3012,12 @@ Debug.write("totalVisited...",totalVisited);
 		var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/@itempos' )
             );
-		var totalitem = Number(
+        var totalitem = Number(
 					dpstudentdata.xpathQuery( 'question_number/@total_including_theme')  );
-            if ( onLastItem() || (gController.getNextNavigableOffset(curritem) == totalitem)) {
-                finishTest();
-            }
+		if ( onLastItem() || (gController.getNextNavigableOffset(curritem) == totalitem)) {
+        	gController.setAttribute("isStopTest",false);
+            finishTest();
+        }
         ]]></method>
 
 		<!-- unlock on start, without a previous freeze -->

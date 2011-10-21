@@ -174,7 +174,6 @@
                     break;
 				case 19: 
                     this.exitPopups();
-                    gController.setAttribute("isStopTest",true);
                     gController.finishTest(); 
                     break;
 				case 21: 
@@ -311,13 +310,14 @@
         		LzFocus.clearFocus();
         	}
             this.exitPopups(); 
-        	gController.pauseTest();               
+        	if(gItemInterface.getAttribute('visible') == true || gTutorial.getAttribute('visible') == true)
+        		gController.pauseTest();
         </method>
         <method name="stop">       
         	LzFocus.clearFocus();
-            this.exitPopups(); 
-            gController.setAttribute("isStopTest",true);
-        	gController.finishTest();              
+            this.exitPopups();
+        	if(gItemInterface.getAttribute('visible') == true || gTutorial.getAttribute('visible') == true)
+        		gController.finishTest();              
         </method>
         <method name="finish">     
         	LzFocus.clearFocus();

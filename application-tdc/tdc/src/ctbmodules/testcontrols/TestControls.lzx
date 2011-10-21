@@ -89,17 +89,17 @@
                 this.btns.navbtns.btnback.setAttribute ('visible', false);
 			}
 //Debug.write("currentItemNumber : "+currentItemNumber+" : "+gController.getNextNavigableOffset(currentItemNumber));			
-            if(gController.adaptive == 'true'&& currentItemNumber == gController.subtestLength){
-				this.btns.navbtns.btnforward.setAttribute ('visible', false);
-			}
-			else{
+            //if(gController.adaptive == 'true' && currentItemNumber == gController.subtestLength){
+				//this.btns.navbtns.btnforward.setAttribute ('visible', false);
+			//}
+			//else{
 		    	if (currentItemNumber < parseInt(this.totalitemno) && gController.getNextNavigableOffset(currentItemNumber) < parseInt(this.totalitemno)) {
 		    		this.btns.navbtns.btnforward.setAttribute ('visible', true);
 		    	}
 		    else{
 		    	this.btns.navbtns.btnforward.setAttribute ('visible', false);
 		    	}
-		    }  
+		   // }  
             
          ]]></method>
 		
