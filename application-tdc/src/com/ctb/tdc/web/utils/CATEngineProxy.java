@@ -393,14 +393,42 @@ public class CATEngineProxy {
 
 	public static void initCAT(String contentArea){
 		System.out.println("Called initCAT()");
-		String dllPath = System.getProperty("tdc.home") + "/CATABE.dll";
-		//System.load("C:/cat.dll");
-		System.load(dllPath);
+		//Determine the type of OS
+		String dllPath="";
+		String ostype=System.getProperty("os.name").toLowerCase();
+		if (ostype.indexOf( "win" ) >= 0){
+			System.out.println("For Windows ");
+			dllPath = System.getProperty("tdc.home") + "/CATABE.dll";
+			//System.load(dllPath);
+		}
+		else 
+			if (ostype.indexOf( "mac" ) >= 0){
+				System.out.println("For MAC");
+				
+					dllPath = System.getProperty("tdc.home") + "/libCATABE.jnilib";
+					//System.load("/Users/mcgrawhillctb/documents/CAT_mac/libCATABE.jnilib")
+				
+			}
+		else 
+			if (ostype.indexOf( "nix") >=0 || ostype.indexOf( "nux") >=0){
+				System.out.println("For UNIX/LINUX");
+				dllPath = System.getProperty("tdc.home") + "/libCATABE.so";
+				//System.loadLibrary("libCATABE.so");
+			}
+		else
+			System.out.println("OS Not supported");
+        try{
+        	System.load(dllPath); 
+        }catch(UnsatisfiedLinkError e){
+			System.err.println("Failed Load"+e);
+		}
+		
 		itemnum = 0;
 		nextItem = null;//set null to make it ready for next subtest
+		System.out.println("caling setup_cat");
 		setup_cat(contentArea);
 		//initItemMap();
-		//resumeCAT(itemCount,itemC,itemScore);
+		
 	}
 
 	public static String getNextItem() throws Exception{
@@ -415,11 +443,12 @@ public class CATEngineProxy {
 	public static void scoreCurrentItem(Integer currentItemRawScore) throws Exception {
 		System.out.println("Called scoreCurrentItem()");
 			if(currentItemRawScore != null) {
+				// System.out.println("Called set_rwo()");
 				set_rwo(currentItemRawScore.intValue());
 				theta = score();
 				System.out.println("item score: " + currentItemRawScore + ", new theta: " + theta);
 			}
-		       
+			    // System.out.println("Called next_item()");
 		        String nextitem = String.valueOf(next_item());
 		        
 		        
