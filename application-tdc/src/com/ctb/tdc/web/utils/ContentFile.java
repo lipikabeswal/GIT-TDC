@@ -264,7 +264,7 @@ public class ContentFile
     				infile = readFromFile(files[i].getAbsolutePath());
 					hash = Crypto.generateHash(infile);
 					outfile = decryptFile(files[i].getAbsolutePath(), hash, key);
-					fos = new FileOutputStream(DATA_FOLDER_DECRYPTED+"\\" + files[i].getName().substring(0,files[i].getName().length()-4));
+					fos = new FileOutputStream(DATA_FOLDER_DECRYPTED+ File.separator + files[i].getName().substring(0,files[i].getName().length()-4));
 					fos.write(outfile);
 					fos.close();
 				}
