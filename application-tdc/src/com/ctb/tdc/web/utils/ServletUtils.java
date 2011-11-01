@@ -233,7 +233,7 @@ public class ServletUtils {
 		String itemResponse = NONE;
 		if (xml != null) {
 			int startIndex = xml.indexOf("<v>");
-			int endIndex = xml.lastIndexOf("</v>");
+			int endIndex = xml.lastIndexOf("</v></rv>");
 			if ((startIndex > 0) && (endIndex > 0) && (endIndex < xml.length())) {
 				if ((startIndex + 3) >= endIndex)
 					itemResponse = "";
@@ -1141,6 +1141,7 @@ public class ServletUtils {
 						}
 						if(!isString)
 							restartItemsArr[i] = Integer.parseInt( itemIId );
+						    logger.info("restartItemsArr: item " + i + ": " + restartItemsArr[i] );
 					}
 						
 					Element rawScore = item.getChild( "ov" );
@@ -1148,12 +1149,12 @@ public class ServletUtils {
 					String scoreVal = score.getText();
 					
 					restartItemsRawScore[i] = Integer.parseInt( scoreVal );	
+					logger.info("restartItemsRawScore: item " + i + ": " + restartItemsRawScore[i] );
 				}
 			}	
 			restartItemCount = restartItemCount - 1;
 			System.out.println("restartItemCount :"+restartItemCount);
-			System.out.println("restartItemsArr :"+restartItemsArr);
-			System.out.println("restartItemsRawScore :"+restartItemsRawScore);
+			
 			
 		}		
 	}
