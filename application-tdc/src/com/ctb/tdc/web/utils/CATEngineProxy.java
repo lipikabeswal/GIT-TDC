@@ -513,7 +513,14 @@ public class CATEngineProxy {
 		return scoreString;
 	}
 	
-
+	public static void restartCAT(int itemCount,int [] itemArray,int [] itemArray){
+		 System.out.println("Calling Resume CAT");
+		 
+		 //Initailize nextItem here
+		 
+		 resumeCAT(itemCount, itemArray, itemArray);
+		 
+	}
 	public static void deInitCAT() {
 		System.out.println("Called deInitCAT()");
 		setoff_cat();

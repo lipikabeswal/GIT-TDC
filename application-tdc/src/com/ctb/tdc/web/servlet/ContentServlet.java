@@ -216,7 +216,7 @@ public class ContentServlet extends HttpServlet {
 						ContentFile.decryptDataFiles();
 						CATEngineProxy.initCAT(cArea);						
 						if(ServletUtils.isRestart){
-							CATEngineProxy.resumeCAT(ServletUtils.restartItemCount,ServletUtils.restartItemsArr,ServletUtils.restartItemsRawScore);
+							CATEngineProxy.restartCAT(ServletUtils.restartItemCount,ServletUtils.restartItemsArr,ServletUtils.restartItemsRawScore);
 						}
 					}
 				}
