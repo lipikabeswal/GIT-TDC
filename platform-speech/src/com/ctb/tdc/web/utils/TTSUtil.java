@@ -189,16 +189,23 @@ public class TTSUtil {
 		// remote synth using TextHelp server
 		System.out.println("TTS: sending speech request");
 		String thResponse = textHelpRequest(text,speedValue);
-		System.out.println("TTS: got response: " + thResponse +" text : "+ text +" speedvalue : "+speedValue);
-		if(thResponse.indexOf("error") >= 0) {
+		if(thResponse == null) {
+			System.out.println("TTS: No response from TextHelp - TTS server is specified incorrectly or is down");
+			throw new Exception("No response from TextHelp.");
+		} else if(thResponse.indexOf("error") >= 0) {
 			System.out.println("TTS: response contains error");
-			throw new Exception("error response from TextHelp: " + thResponse);
+			throw new Exception("Error response from TextHelp: " + thResponse);
 		} else {
-			System.out.println("TTS: sending MP3 request");
+			System.out.println("TTS: Sending MP3 request");
 			String mp3URL = thResponse.substring(thResponse.indexOf("mp3=") + 4);
-			System.out.println("TTS: success, MP3 URL: " + mp3URL);
+			System.out.println("TTS: MP3 URL: " + mp3URL);
 			MP3 mp3 = textHelpMP3(mp3URL);
-			return mp3;
+			if(mp3 == null) {
+				System.out.println("TTS: no response from TextHelp - TTS server is specified incorrectly or is down");
+				throw new Exception("No response from TextHelp.");
+			} else {
+				return mp3;
+			}
 		}
 		// remote synth using ReadSpeaker webservice
 		/*String speechURL = "http://app.readspeaker.com/cgi-bin/rsent";
@@ -473,210 +480,106 @@ public class TTSUtil {
     	return buff.toString();
     }
 	
-    private static class SpeechRequest extends Thread {
-		public String text;
-		public String speedValue;
-		public static String result = null;
-		public static boolean completed = false;
-		public boolean waiting;
-		public Thread mainThread;
-		
-		public SpeechRequest(String text, Thread mainThread, String aSpeedValue){
-			this.text = text;
-			this.mainThread = mainThread;
-			this.speedValue = aSpeedValue;
-		}
-		
-		public void run() {
-			int responseCode = HttpStatus.SC_OK;
-			System.out.println("this.speedValue1 : " + this.speedValue);
-			TTSSettings ttsSettings = getTTSSettings();
-			String voice = ttsSettings.getVoiceName();
-			
-			if(voice == null || "".equals(voice.trim())) {
-				voice = "ScanSoft Jill_Full_22kHz";
-			}
-			if(this.speedValue  == null || "".equals(this.speedValue.trim())) {
-				this.speedValue = ttsSettings.getSpeedValue();
-				if(this.speedValue == null || "".equals(this.speedValue.trim())) {
-					this.speedValue = "-2";
-				}
-			}
-			
-			
-			System.out.println("this.speedValue2 : " + this.speedValue);
-			//if "speedValue" coming from client has some value, override the tts.properties value with this one
-		/*	if(this.speedValue  != null && !"".equals(this.speedValue.trim())) {
-				speedvalue = this.speedValue;
-			}*/
-
-			String speechURL = ttsSettings.getUrl();
-			if(speechURL == null || "".equals(speechURL.trim())) {
-				speechURL = "https://168.116.31.62/SpeechServer/";
-			}
-			try {
-				HttpPost post = new HttpPost(speechURL);
-				//post.setFollowRedirects(false);
-				// setup parameters
-				List nameValuePairs = new ArrayList(3);
-				nameValuePairs.add(new BasicNameValuePair("text", text));
-				nameValuePairs.add(new BasicNameValuePair("voiceName", voice));
-				nameValuePairs.add(new BasicNameValuePair("speedValue", this.speedValue));
-				post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+    private static String execSpeechRequest (String text, String speedValue){
+		String result = null;
 	
-				// send request to TextHelp
-				int TTSRetry = 5;
-				while(TTSRetry > 0) {
-					try {
-						HttpResponse response = client.execute(post);
-						responseCode = response.getStatusLine().getStatusCode();
-						int responseLen = 0;
-						if(response.getHeaders("content-length") != null) {
-							responseLen = Integer.valueOf(response.getHeaders("content-length")[0].getValue()).intValue();
-						}
-						
-						System.out.println("Text Status: " + responseCode + " Length: " + responseLen);
-						
-						if (responseCode == HttpStatus.SC_OK && responseLen > 0) {
-							BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()),131072);
-							String inputLine = null;
-							result = "";
-							while ((inputLine = in.readLine()) != null) {
-								result += inputLine;
-							}
-							if(result.indexOf("mp3=") >= 0) {
-								in.close();
-								completed = true;
-								TTSRetry = 0;
-								mainThread.interrupt();
-							} else {
-								SpeechRequest.result = null;
-								Thread.sleep(1000);
-								TTSRetry--;
-							}
-						}
-						else {
-							Thread.sleep(1000);
-							TTSRetry--;
-						}
-					}
-					catch (Exception e) {
-						e.printStackTrace();
-						Thread.sleep(1000);
-						TTSRetry--;
-					}
-				}
-			}
-			catch (Exception e) {
-				e.printStackTrace();
+		int responseCode = HttpStatus.SC_OK;
+		System.out.println("this.speedValue1 : " + speedValue);
+		TTSSettings ttsSettings = getTTSSettings();
+		String voice = ttsSettings.getVoiceName();
+		
+		if(voice == null || "".equals(voice.trim())) {
+			voice = "ScanSoft Jill_Full_22kHz";
+		}
+		if(speedValue  == null || "".equals(speedValue.trim())) {
+			speedValue = ttsSettings.getSpeedValue();
+			if(speedValue == null || "".equals(speedValue.trim())) {
+				speedValue = "-2";
 			}
 		}
+
+		String speechURL = ttsSettings.getUrl();
+		if(speechURL == null || "".equals(speechURL.trim())) {
+			speechURL = "https://oastts.ctb.com/SpeechServer/";
+		}
+		try {
+			HttpPost post = new HttpPost(speechURL);
+			//post.setFollowRedirects(false);
+			// setup parameters
+			List nameValuePairs = new ArrayList(3);
+			nameValuePairs.add(new BasicNameValuePair("text", text));
+			nameValuePairs.add(new BasicNameValuePair("voiceName", voice));
+			nameValuePairs.add(new BasicNameValuePair("speedValue", speedValue));
+			post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+			// send request to TextHelp
+			HttpResponse response = client.execute(post);
+			responseCode = response.getStatusLine().getStatusCode();
+			int responseLen = 0;
+			if(response.getHeaders("content-length") != null) {
+				responseLen = Integer.valueOf(response.getHeaders("content-length")[0].getValue()).intValue();
+			}
+			
+			System.out.println("Text Status: " + responseCode + " Length: " + responseLen);
+			
+			if (responseCode == HttpStatus.SC_OK && responseLen > 0) {
+				result = "";
+				BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()),131072);
+				String inputLine = null;
+				
+				while ((inputLine = in.readLine()) != null) {
+					result += inputLine;
+				}
+				if(result.indexOf("mp3=") >= 0) {
+					in.close();
+				} else {
+					result = null;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
     
 	public static String textHelpRequest(String text, String speedValue) {
 		text = text.replaceAll("<", "less than");
-		System.out.println("### Speed Value: " + speedValue);
-		for(int i=0;i<2;i++) {
-			SpeechRequest request = new SpeechRequest(text, Thread.currentThread(), speedValue);
-			try {
-				request.start();
-				Thread.sleep(15000);
-				if(SpeechRequest.completed && SpeechRequest.result != null) {
-					System.out.println("Text returning after wait: " + SpeechRequest.result);
-					return SpeechRequest.result;
-				}
-			} catch (InterruptedException ie) {
-				if(SpeechRequest.completed && SpeechRequest.result != null) {
-					System.out.println("Text returning after interrupt: " + SpeechRequest.result);
-					return SpeechRequest.result;
-				}
-			}
-		}
-		System.out.println("Text returning null");
-		return null;
+		String result = execSpeechRequest(text, speedValue);
+		return result;
 	}
 	
-	public static class MP3Request extends Thread {
-		public String url;
-		public static MP3 result = null;
-		public static boolean completed = false;
-		public Thread mainThread;
-		
-		public MP3Request(String url, Thread mainThread){
-			this.url = url;
-			this.mainThread = mainThread;
-		}
-		
-		public void run() {
-			
-			//System.out.println("mp3 request URL: " + this.url);
-	
-			int responseCode = HttpStatus.SC_OK;
-			
+	public static MP3 execMP3Request (String url) {
+		MP3 result = null;
+		int responseCode = HttpStatus.SC_OK;
+		try {
 			TTSSettings ttsSettings = getTTSSettings();
 			
-			HttpGet get = new HttpGet(this.url);
+			HttpGet get = new HttpGet(url);
 			
-			// send request to TextHelp
-			try {			
-				int TTSRetry = 5;
-				while(TTSRetry > 0) {
-					try {
-						HttpResponse response = client.execute(get);
-						responseCode = response.getStatusLine().getStatusCode();
-						int responseLen = 0;
-						if(response.getHeaders("content-length") != null) {
-							responseLen = Integer.valueOf(response.getHeaders("content-length")[0].getValue()).intValue();
-						}
-						
-						System.out.println("Audio Status: " + responseCode + " Length: " + responseLen);
-						
-						if (responseCode == HttpStatus.SC_OK && responseLen > 0) {
-							result = new MP3();
-							result.setStream(response.getEntity().getContent());
-							result.setLength(responseLen);
-							result.setRequest(get);
-							TTSRetry = 0;
-							completed = true;
-							mainThread.interrupt();
-						}
-						else {
-							Thread.sleep(1000);
-							TTSRetry--;
-						}
-					}
-					catch (Exception e) {
-						e.printStackTrace();
-						Thread.sleep(1000);
-						TTSRetry--;
-					}
-				}
+			HttpResponse response = client.execute(get);
+			responseCode = response.getStatusLine().getStatusCode();
+			int responseLen = 0;
+			if(response.getHeaders("content-length") != null) {
+				responseLen = Integer.valueOf(response.getHeaders("content-length")[0].getValue()).intValue();
 			}
-			catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("error: exception while making TextHelp request: " + e.getMessage());
+						
+			System.out.println("Audio Status: " + responseCode + " Length: " + responseLen);
+						
+			if (responseCode == HttpStatus.SC_OK && responseLen > 0) {
+				result = new MP3();
+				result.setStream(response.getEntity().getContent());
+				result.setLength(responseLen);
+				result.setRequest(get);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("error: exception while making TextHelp request: " + e.getMessage());
 		}
+		return result;
 	}
 	
 	public static MP3 textHelpMP3(String url) {
-		for(int i=0;i<2;i++) {
-			MP3Request request = new MP3Request(url, Thread.currentThread());
-			try {
-				request.start();
-				Thread.sleep(15000);
-				if(MP3Request.completed && MP3Request.result != null) {
-					System.out.println("Audio returning after wait: " + MP3Request.result.getLength());
-					return MP3Request.result;
-				}
-			} catch (InterruptedException ie) {
-				if(MP3Request.completed && MP3Request.result != null) {
-					System.out.println("Audio returning after interrupt: " + MP3Request.result.getLength());
-					return MP3Request.result;
-				}
-			}
-		} 
-		System.out.println("Audio returning null");
-		return null;
+		MP3 result = execMP3Request(url);
+		return result;
 	}	
 }
