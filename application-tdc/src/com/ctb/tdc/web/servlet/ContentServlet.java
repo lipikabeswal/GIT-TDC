@@ -213,8 +213,12 @@ public class ContentServlet extends HttpServlet {
 				if("True".equalsIgnoreCase(isAdaptive)){
 					ServletUtils.isCurSubtestAdaptive = true;
 					if(getSubtestCount > ServletUtils.itemSetMap.size()){
-						ContentFile.decryptDataFiles();
-						CATEngineProxy.initCAT(cArea);						
+						//if(!ServletUtils.isDataDecrypted){
+							//ContentFile.deleteDataFiles();
+							ContentFile.decryptDataFiles();
+							//ServletUtils.isDataDecrypted = true;
+						//}						
+						CATEngineProxy.initCAT(cArea);
 						if(ServletUtils.isRestart){
 							CATEngineProxy.restartCAT(ServletUtils.restartItemCount,ServletUtils.restartItemsArr,ServletUtils.restartItemsRawScore);
 						}
@@ -476,6 +480,7 @@ public class ContentServlet extends HttpServlet {
 //				System.out.println("itemId="+itemId+" hash="+hash+" key="+key);				
 
 			} 
+			//System.out.println(" subtest returned Item id:"+itemId);
 			String originalItemId = null;
 			boolean isRestart = false;
 			if(ServletUtils.isCurSubtestAdaptive){
@@ -489,8 +494,11 @@ public class ContentServlet extends HttpServlet {
 				}else{
 					originalItemId = itemId;
 					itemId = CATEngineProxy.getNextItem();
+					//System.out.println("get item itemId:"+itemId);
 					itemSubstitutionMap.put(originalItemId, itemId);
 				}
+				//System.out.println(" originalItemId:"+originalItemId);
+				//System.out.println(" cat returned Item id:"+itemId);
 			}
 			if(itemId != null) {
 				if(ServletUtils.isCurSubtestAdaptive){
@@ -533,9 +541,11 @@ public class ContentServlet extends HttpServlet {
 				}
 				String itemxml = updateItem(decryptedContent, assetMap);
 				itemxml = ServletUtils.doUTF8Chars(itemxml);
+				//System.out.println(" original get Item xml:"+itemxml);
 				if(ServletUtils.isCurSubtestAdaptive){
 					itemxml = itemxml.replaceAll(itemId, originalItemId);
 				}
+				//System.out.println(" replaced get Item xml:"+itemxml);
 				//System.out.println(itemxml);
 				ServletUtils.writeResponse(response, itemxml);
 			} else {
