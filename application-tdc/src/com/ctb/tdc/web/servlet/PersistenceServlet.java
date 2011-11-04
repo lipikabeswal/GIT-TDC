@@ -155,6 +155,7 @@ public class PersistenceServlet extends HttpServlet {
 			result = login(xml);
 		else if (method != null && method.equals(ServletUtils.SAVE_METHOD))
 		{
+			//System.out.println(" original save xml:"+xml);			
 			if(ServletUtils.isCurSubtestAdaptive){
 				String adsItemId = ServletUtils.parseAdsItemId(xml);
 				if(adsItemId != null && !ServletUtils.NONE.equals(adsItemId)) {
@@ -163,7 +164,7 @@ public class PersistenceServlet extends HttpServlet {
 	        			xml = xml.replaceAll(adsItemId, realId);
 	        		}
 	        	}        	
-
+				//System.out.println(" replaced save xml:"+xml);
     			Boolean isStopCat = ServletUtils.isScoreSubtest(xml);
     			if (isStopCat) {
     				Double abilityScore = CATEngineProxy.getAbilityScore();
@@ -350,6 +351,7 @@ public class PersistenceServlet extends HttpServlet {
 				//if(ServletUtils.isCurSubtestAdaptive){
 					ServletUtils.getConsolidatedRestartData(result);
 				//}
+				//System.out.println("login landing item: "+ServletUtils.landingItem);
 				//moved this call to Content Servlet for calling decryption only for adaptive subtest
 				//ContentFile.decryptDataFiles();  
 
@@ -533,6 +535,7 @@ public class PersistenceServlet extends HttpServlet {
 			tmsResponse = ServletUtils.httpClientSendRequest(ServletUtils.SAVE_METHOD, xml);
 			if (isEndSubtest) {
 				result = tmsResponse;
+				ServletUtils.isRestart = false;
 				if(ServletUtils.isCurSubtestAdaptive){
 					CATEngineProxy.deInitCAT();
 				}
