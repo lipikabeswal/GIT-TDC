@@ -304,6 +304,11 @@ public class ServletUtils {
         return (index > 0);
     }
     
+    public static boolean hasLev(String xml) {
+        int index = xml.indexOf("lev e=\"");
+        return (index > 0);
+    }
+    
 	/**
      * parse to find if value in xml equals 'lms_finish'
      * 

@@ -544,6 +544,11 @@ public class PersistenceServlet extends HttpServlet {
 					result = ServletUtils.OK;
 				}
 			}
+			boolean hasLev = ServletUtils.hasLev(xml);
+			if(hasLev) {
+				//space out lifecycle events a little bit
+				Thread.sleep(1000);
+			}
 		}
 		return result;
 	}
