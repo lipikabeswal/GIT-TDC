@@ -111,6 +111,7 @@
 		<basebutton	name="cancelButton"	resource="popupCancel" x="164" y="110" width="85" height="25" stretches="both">
 		<method event="onclick">
 			gController.setNavigation(1,parent.parent.getAttribute("navigateFrom"));  
+			gController.unlockUI();
         </method>
 		</basebutton>
     </view>
