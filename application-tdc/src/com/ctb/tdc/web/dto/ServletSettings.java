@@ -36,16 +36,16 @@ public class ServletSettings implements java.io.Serializable {
         
         if (rbTdc != null) {
             this.tmsHost = resourceBundleGetString(rbTdc, "tms.server.host");
-            /*if(!this.tmsHost.startsWith("https")) {
+            if(!this.tmsHost.startsWith("https")) {
             	this.tmsHost = null;
             	throw new RuntimeException("ERROR: TMS url is not secure!");
-            }*/
+            }
             //this.backupURL = resourceBundleGetString(rbTdc, "tms.server.backupURL");
             this.backupURL = resourceBundleGetString(rbTdc, "tms.dr.server.host");
-            /*if(!this.backupURL.startsWith("https")) {
+            if(!this.backupURL.startsWith("https")) {
             	this.backupURL = null;
             	throw new RuntimeException("ERROR: TMS url is not secure!");
-            } */           
+            }           
             this.tmsPort = resourceBundleGetInt(rbTdc, "tms.server.port");      
             try {
                 this.tmsPersist = resourceBundleGetBoolean(rbTdc, "tms.server.persist");
