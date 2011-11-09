@@ -25,7 +25,7 @@ static int getCurrentline(char *line, int max, FILE *fp) {
     return strlen(line);
 }
 
-// get max line length in par file
+/* get max line length in par file */
 static int get_maxLineLen (char inPar[]) {
   FILE *fp;
   int maxLineLen = 0;
@@ -61,20 +61,20 @@ char *getStrByIndex(char inStr[], int begin_index, int end_index){
     outStr = (char *) malloc(outStrLen * sizeof(char));
 
 	strcpy(tmpStr, inStr);
-	memmove(tmpStr, &tmpStr[begin_index], outStrLen ); // move str to the beginning of tmpStr
-	strncpy(outStr,tmpStr,outStrLen);// then copy it.
+	memmove(tmpStr, &tmpStr[begin_index], outStrLen ); /* move str to the beginning of tmpStr */
+	strncpy(outStr,tmpStr,outStrLen);/* then copy it. */
     outStr[outStrLen] = '\0';
     
 	return outStr;
 }
 
-// change inFileName extension to newExtension
+/* change inFileName extension to newExtension */
 char *changeFileNameExtension(char inFileName[], char newExtension[]){
  
 	char *tmpStr = NULL;  
 	tmpStr = (char *) malloc((strlen(inFileName) + 1) * sizeof(char));
     
-	strcpy(tmpStr, inFileName); // to keep inFileName after this call
+	strcpy(tmpStr, inFileName); /* to keep inFileName after this call */
     strcpy(tmpStr, strtok(tmpStr,"."));
 	if (tmpStr == NULL) {
 		printf("Error: Invalid file name s% without . extension!", inFileName);
@@ -89,7 +89,7 @@ char *getFileNameExtension(char inFileName[]) {
 	char *tmpStr = NULL;
     
 	tmpStr = (char *) malloc((strlen(inFileName) + 1) * sizeof(char));    
-	strcpy(tmpStr, inFileName); // to keep inFileName after this call
+	strcpy(tmpStr, inFileName); /* to keep inFileName after this call */
 
     strtok(tmpStr,".");
 	if (tmpStr == NULL) {

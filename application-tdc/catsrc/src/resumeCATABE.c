@@ -60,7 +60,7 @@ int main() {
     // HINSTANCE hInstLibrary = LoadLibrary(TEXT("CATABE.dll"));
 	FILE *fp;
 	char aLine[lineLen_max];
-    fp = fopen(".\\Data\\resumeData.txt", "r");	
+    fp = fopen("C:\\Works\\C\\CATABE\\Data\\resumeData.txt", "r");	
   
     if ( fp  ==  NULL ) {
         printf ("Couldn't open resumeData.txt file: %s \n");
@@ -70,7 +70,7 @@ int main() {
 	fgets (aLine, lineLen_max,fp);
 	fgets (aLine, lineLen_max,fp);
 
-	nItems = 29;
+	nItems = 15;
 //	printf("Item#,   ItemID,   rwo \n");
 	for ( j = 0; j < nItems; j++) {
 		 fgets (aLine, lineLen_max,fp);

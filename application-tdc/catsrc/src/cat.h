@@ -10,27 +10,29 @@
 
 #define DLL_EXP_IMP __declspec(dllexport)
 
-// DLL_EXP_IMP int WINAPI setup_cat(char subTest[]);
+/* DLL_EXP_IMP int WINAPI setup_cat(char subTest[]); */
 int setup_cat(char subTest[]);
-// long n_items, double loss, double hoss, long testLength);
+/* long n_items, double loss, double hoss, long testLength); */
 int getTestLength();
 int getNumItems();
-int getNumObj();  // original number of objectives
-//DLL_EXP_IMP int WINAPI  get_nObj();   // number of collapsed objectives
+int getNumObj();  /* original number of objectives */
+/* DLL_EXP_IMP int WINAPI  get_nObj();   // number of collapsed objectives
 //DLL_EXP_IMP int WINAPI  get_objID(int k);  // return collapsed objective ID, given objective number
-int get_nObj();   // number of collapsed objectives
+*/
+int get_nObj();   /* number of collapsed objectives */
 int get_objID(int k);
 double getLoss();
 double getHoss();
 char get_testLevel(double theta, char subTest[]);
 char get_objLvl(double theta);
-// void set_pItems();
-void print_pItems();
+/* void set_pItems();
+// void print_pItems();
 // int adapt_aItem(int obj, int aSt, double theta);
 // int adapt_aItemFromAll(double theta);  // no obj and alpha stratificatoin constraint.
 // int adapt_aItemFromIdx(double theta, int idx1, int idx2);
+*/
 int next_item();
-// int get_o_a(int *obj, int *aSt, int n);
+/* int get_o_a(int *obj, int *aSt, int n); */
 double score();
 double getSEM(double theta);
 double get_objScore(double theta, int obj_id);
@@ -43,7 +45,7 @@ int get_objRS();
 
 int get_objMasteryLvl(double obj_score, int obj_id, char obj_lvl);
 
-void set_simuRWO(int rwo, double theta0); //simu
+void set_simuRWO(int rwo, double theta0); /* simu */
 void set_rwo(int rwo);
 void resumeCAT(int nItems, int itemIDs[], int rwo[]);
 void setoff_cat();

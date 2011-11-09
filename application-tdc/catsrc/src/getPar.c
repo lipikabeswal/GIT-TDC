@@ -38,7 +38,7 @@ int getItems (char inPar[], struct item_info items[], int n_items, int *n_obj, i
   char aLine[lineLen_max];
   int lineLen = 0, n_line = 0;
   int n_objs;
-  int n_new_objs; // collpased obj 
+  int n_new_objs; /* collpased obj  */
   int *indx;
   int *tmp;
 
@@ -54,7 +54,7 @@ int getItems (char inPar[], struct item_info items[], int n_items, int *n_obj, i
   i = 0;
   n_objs = 0;
   n_new_objs = 0;
-  fgets (aLine, lineLen_max,fp); // get the first line
+  fgets (aLine, lineLen_max,fp); /* get the first line */
 
   /* 
    * lineLen_max must be >= the line width of par files ***below read items@todo
@@ -71,7 +71,7 @@ int getItems (char inPar[], struct item_info items[], int n_items, int *n_obj, i
 	  
 	  ad = atof(strtok(NULL,",")); 
 	  b = atof(strtok(NULL,",")); 
-	  c3 = atof(strtok(NULL,",\n"));   // note
+	  c3 = atof(strtok(NULL,",\n"));   /* note */
 	  /* convert 3PL to 2PPC metric */
         ad = 1.7*ad;
         b = ad*b;
@@ -86,7 +86,7 @@ int getItems (char inPar[], struct item_info items[], int n_items, int *n_obj, i
       items[i].parameters[2] = c3;
 
       items[i].obj_id = atoi(strtok(NULL,",")); 
-	  items[i].new_obj_id = atoi(strtok(NULL,","));  // collapsed objective IDs
+	  items[i].new_obj_id = atoi(strtok(NULL,","));  /* collapsed objective IDs */
 
 	  strtok(NULL,",");  /* skip CTB_Passage_ID */
 
@@ -94,15 +94,15 @@ int getItems (char inPar[], struct item_info items[], int n_items, int *n_obj, i
 	  items[i].item_order = atoi(strtok(NULL,","));
 	  strcpy(items[i].obj_title,strtok(NULL,",")); 
 
-//	  printf(" %d %d %d %d \n", items[i].item_id, items[i].obj_id, items[i].psg_id,  items[i].item_order );
+/*	  printf(" %d %d %d %d \n", items[i].item_id, items[i].obj_id, items[i].psg_id,  items[i].item_order ); */
 
 	  items[i].adm_flag = 1;
-      items[i].rwo = 9;  // initialize rwo to 9
+      items[i].rwo = 9;  /* initialize rwo to 9 */
 
-      if (i == 0) {    // item bank must be sorted by obj_id
+      if (i == 0) {    /* item bank must be sorted by obj_id */
 		  objID[n_objs] = items[i].obj_id;
 	  }
-	  else if (( i > 0) & (items[i].obj_id != items[i-1].obj_id)){
+	  else if (( i > 0) && (items[i].obj_id != items[i-1].obj_id)){
 		  n_objs++;
           objID[n_objs] = items[i].obj_id;
 	  }
@@ -110,10 +110,10 @@ int getItems (char inPar[], struct item_info items[], int n_items, int *n_obj, i
 
       n_obj_items[n_objs]++;
 
-	  if (i == 0) {     // note duplicated new_objID is possible as item bank was not sorted by new_ obj_id
+	  if (i == 0) {     /* note duplicated new_objID is possible as item bank was not sorted by new_ obj_id */
 		  new_objID[n_new_objs] = items[i].new_obj_id;
 	  }
-	  else if (( i > 0) & (items[i].new_obj_id != items[i-1].new_obj_id)){
+	  else if (( i > 0) && (items[i].new_obj_id != items[i-1].new_obj_id)){
 		  n_new_objs++;
           new_objID[n_new_objs] = items[i].new_obj_id;
 	  }
@@ -131,10 +131,10 @@ int getItems (char inPar[], struct item_info items[], int n_items, int *n_obj, i
 
   n_new_objs++;
 
-  rmdup(new_objID, &n_new_objs);   // removed duplicated new_objID
+  rmdup(new_objID, &n_new_objs);   /* removed duplicated new_objID */
   indx = (int *) malloc(n_new_objs*sizeof(int));
   tmp = (int *) malloc(n_new_objs*sizeof(int));
-  indInt(n_new_objs, new_objID, indx);  // sort new obj ID
+  indInt(n_new_objs, new_objID, indx);  /* sort new obj ID */
 
   for (i = 0; i < n_new_objs; i++) {
 	  tmp[i] = new_objID[indx[i]];
@@ -159,7 +159,6 @@ int getItems (char inPar[], struct item_info items[], int n_items, int *n_obj, i
 
 int getSSstats (char inFileByLvl[], char inFileByCnt[], char subTest[], char testLevel, double ssSts[]){
   FILE *fp;
-//  FILE *fp2;
   int  i;
   char aLine[lineLen_max];  
   char content[2];
@@ -172,17 +171,17 @@ int getSSstats (char inFileByLvl[], char inFileByCnt[], char subTest[], char tes
     return  GETPAR_FAILURE;
   }
 
-  if (!((testLevel == 'L') | ( testLevel == 'E') |
-	 ( testLevel == 'D') | (testLevel ==  'A') | (testLevel ==  'T')))
-     testLevel = 'M';       // use 'M' if no testLevel inputs
+  if (!((testLevel == 'L') || ( testLevel == 'E') ||
+	 ( testLevel == 'D') || (testLevel ==  'A') || (testLevel ==  'T')))
+     testLevel = 'M';       /* use 'M' if no testLevel inputs */
   
-  fgets (aLine, lineLen_max,fp); // get the first line
+  fgets (aLine, lineLen_max,fp); /* get the first line */
 	   
   while (getCurrentline (aLine, lineLen_max, fp) > 1 ) {
      strcpy(content, strtok(aLine,","));  
-     level = strtok(NULL,",")[0];  // note 
-     if ( (!strcmp(content, subTest)) & ( level == testLevel )) {
-       //  strtok(NULL,",");  // skip N
+     level = strtok(NULL,",")[0];  
+     if ( (!strcmp(content, subTest)) && ( level == testLevel )) {
+       /*  strtok(NULL,",");  // skip N */
 	     for (i = 0; i < 4; i++) 
 		     ssSts[i] = atof(strtok(NULL,",\n")); 
 		 fclose(fp);
@@ -223,7 +222,7 @@ int getNadmObj(char inFileNoItemObj[], char subTest[], char testLevel, int n_adm
   }
 
   for (i = 0; i < 6; i++) {
-     fgets (aLine, lineLen_max,fp); // skip the first 6 lines
+     fgets (aLine, lineLen_max,fp); /* skip the first 6 lines */
   }
   
   j = 0;
@@ -237,10 +236,10 @@ int getNadmObj(char inFileNoItemObj[], char subTest[], char testLevel, int n_adm
 		 case 'D': n_skip = 5; break;
 		 case 'A': n_skip = 6; break;
 		 case 'T': n_skip = 7; break;
-		 default : n_skip = 4; break;   //use 'M' if no testLevel  
+		 default : n_skip = 4; break;   /* use 'M' if no testLevel  */
 		 }
          for (i = 0; i < n_skip; i++) 
-            strtok(NULL,",");  // skip N
+            strtok(NULL,",");  /* skip N */
          
 		 n_adm_obj[j] = atoi(strtok(NULL,",\n"));
          j++;
@@ -268,7 +267,7 @@ int get_n_items(char inPar[]){
     return  GET_NITEM_FAILURE;
   }
 
-  fgets (aLine, lineLen_max,fp); // get the first line
+  fgets (aLine, lineLen_max,fp); /* get the first line */
 
   while (getCurrentline (aLine, lineLen_max, fp) > 1 ) 
 	n_line ++;
@@ -300,7 +299,7 @@ int getFT_Items (char inPar[], struct item_info items[], int n_items, int n_FTit
     
   i = 0;
   n_objs = 0;
-  fgets (aLine, lineLen_max,fp); // get the first line
+  fgets (aLine, lineLen_max,fp); /* get the first line */
 
   /* 
    * lineLen_max must be >= the line width of par files ***below read items@todo
@@ -334,10 +333,10 @@ int getFT_Items (char inPar[], struct item_info items[], int n_items, int n_FTit
 	  items[i].psg_id = 0;   // non passage item
 	  items[i].item_order = 0;  // non passage item
 
-//	  printf(" %d %d %d %d \n", items[i].item_id, items[i].obj_id, items[i].psg_id,  items[i].item_order );
+/*	  printf(" %d %d %d %d \n", items[i].item_id, items[i].obj_id, items[i].psg_id,  items[i].item_order ); */
 
 	  items[i].adm_flag = 1;
-      items[i].rwo = 9;  // initialize rwo to 9
+      items[i].rwo = 9;  /* initialize rwo to 9 */
 
 	  /*
 	  switch(items[i].level){
@@ -379,7 +378,7 @@ int get_LH4lvl(char inFile[], char subTest[], double loss[], double hoss[]){
      }
   
      i = 0;
-     fgets (aLine, lineLen_max,fp); // get the first line
+     fgets (aLine, lineLen_max,fp); /* get the first line */
 
   /* 
    * lineLen_max must be >= the line width of par files 
@@ -415,7 +414,7 @@ int get_objLvlCut(char inFile[], int objID[], struct objSScut objSS_cut[]) {
   
      i = 0;
 	 j = 0;
-     fgets (aLine, lineLen_max,fp); // get the first line
+     fgets (aLine, lineLen_max,fp); /* get the first line */
 
 	 while (getCurrentline (aLine, lineLen_max, fp) > 1 ) {
 		 obj_id = atoi(strtok(aLine,","));
