@@ -60,20 +60,22 @@ struct item_info {
 	int item_no;
 	int omit_flag;
 	int item_type;
-	int	item_levels;  // CR score levels
+	int	item_levels;  /* CR score levels */
 	double *parameters;
 	int item_id;
 	int answer_key;
 	int obj_id;
-	int new_obj_id;   // collapsed objective IDs
+	int new_obj_id;   /* collapsed objective IDs */
 	char obj_title[50];
-//	int obj_n;  /* total number of objectives */
-//	int a_level;  /* a parameter stratified levels */
+	/*
+//	int obj_n;  // total number of objectives 
+//	int a_level;  // a parameter stratified levels
+	*/
 	int psg_id;
 	int item_order;
 	int adm_flag; /* initialized as 1, set to 0 after item is administrated */
 	int rwo;
-	char level; // FT item level: E, M, D, A, T etc 
+	char level; /* FT item level: E, M, D, A, T etc */
 };
 
 #define VALID_ITEMS   0
