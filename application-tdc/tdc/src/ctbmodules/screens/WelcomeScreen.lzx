@@ -77,12 +77,21 @@
             <text name="notes" width="520" x="5" multiline="true">
                 <method name="updateText" args="m, q, u, r"><![CDATA[
                 	
-                    var msingular = parseInt( m ) == 1;
+                	var msingular = parseInt( m ) == 1;
                     var qsingular = parseInt( q ) == 1;
-					var dynaText1 = (qsingular ? 'There is ' : 'There are ');
-					var dynaText2 = (r ? ' to be answered.' : '.');
+                    var dynaText1;
+                    var dynaText2;
+                    
+					if ( r && gController.getAttribute("fwdOnly") == true){
+                   	     dynaText1 = 'You have ';
+                   	     dynaText2 = (r ? ' left.' : '.');
+					}
+					else{
+						 dynaText1 = (qsingular ? 'There is ' : 'There are ');
+						 dynaText2 = (r ? ' to be answered.' : '.');
+					}
 					
-                     if ( u ) {
+                    if ( u ) {
                      	
                         setAttribute(
                             'text',
@@ -106,7 +115,12 @@
                     }
 
                     if ( r ) {
-                        setAttribute( 'text', text + '<br/><br/>You will start where you left the test. Be sure to check your answers.' );
+						if (gController.getAttribute("fwdOnly") == true){
+                   		    setAttribute( 'text', text + '<br/><br/>You will start where you left the test.' );
+						}
+						else {
+                          setAttribute( 'text', text + '<br/><br/>You will start where you left the test. Be sure to check your answers.' );
+						}
                     }
                 ]]></method>
             </text>

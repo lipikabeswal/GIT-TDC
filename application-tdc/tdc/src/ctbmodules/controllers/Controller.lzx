@@ -482,7 +482,7 @@
 		<attribute name="catOver" value="false" type="boolean" />
 		<attribute name="isStopTest" value="true" type="boolean" /> 
 		<attribute name="isFinishTest" value="false" type="boolean" />
-		
+		<attribute name="restartItemCount" type="number" value="0" />
 		<!--
 			============================================================
 			Datapointers
@@ -1089,14 +1089,19 @@
 		<method name="totalAnsweredOnRestart"><![CDATA[
  			var numanswered = 0;
 			//START Change for deferred Defect 63502
-			if(this.adaptive == 'true'){
- 				var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ist' );
- 				if ( awd && awd instanceof Array ) {
- 					if(awd.length > 0)
- 						numanswered = awd.length;
- 				}else if ( awd && awd instanceof LzDataElement ) {
- 					numanswered = 1;
- 				}
+            
+           	if(this.getAttribute("fwdOnly") == true){
+				if(this.adaptive == 'true'){
+	 				var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ist' );
+	        		if ( awd && awd instanceof Array ) {
+	                	if(awd.length > 0)
+	 						numanswered = awd.length;
+	 				}else if ( awd && awd instanceof LzDataElement ) {
+	 					numanswered = 1;
+	 				}
+				}else{
+					numanswered = this.restartItemCount;
+				}
  			}else{
  				var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ist/rv/v' );
  			
@@ -1233,6 +1238,12 @@ Debug.write("totalVisited...",totalVisited);
 			 	this.setAttribute("subtestLength",itemCount);
 				Debug.write ("ItemCount from subtest xml" , itemCount);
 			}
+            var fwdOnly = dpsubtest.xpathQuery( 'sco/@fwd_only' );
+
+			if(fwdOnly == 'true')
+				this.setAttribute("fwdOnly",true);
+			else
+				this.setAttribute("fwdOnly",false);
             initStudentData();
             setReadableFlag();
             if(canvas.readable && !gReadableText.primed){
@@ -1318,14 +1329,7 @@ Debug.write("totalVisited...",totalVisited);
 			//Debug.write("seed, total : ", seed, total);
  			populateRandomIndexArray(seed, total);
  		}
-
-		var fwdOnly = dpsubtest.xpathQuery( 'sco/@fwd_only' );
-		if(fwdOnly == 'true')
-			this.setAttribute("fwdOnly",true);
-		else
-			this.setAttribute("fwdOnly",false);
-		
-		
+ 		
         ]]></method>
 
 		<!-- populates random index array with the mods of the fibonacci series -->
@@ -1688,6 +1692,9 @@ Debug.write("totalVisited...",totalVisited);
                     if ( typeof( response ) == 'string' ) {
                         attrs.answer_text = response;
                     }
+					if(!isTheme){
+						this.restartItemCount=itemNumber;
+					}
                  } else {
                     var attrs = 
                     { 
