@@ -130,7 +130,7 @@ double fisherInfo(double theta, double parameters[]) {
  *   double *d1              Output: The first derivative of the correct
  *                           3PL response function.
  */
-// Wendy's spec pp 93
+/* Wendy's spec pp 93 */
 double respProb3PL_derivs(double ability, double parameters[]) {
     double p = respProb3PL(1, ability, parameters);
     
@@ -139,7 +139,7 @@ double respProb3PL_derivs(double ability, double parameters[]) {
 	return d1;
 }
 
-// Return var: variance of the correct 3PL response item
+/* Return var: variance of the correct 3PL response item */
 double respProb3PL_variance(double ability, double parameters[]) {
 	double p = respProb3PL(1, ability, parameters);
     double var = p*((double)1.0 - p);;	

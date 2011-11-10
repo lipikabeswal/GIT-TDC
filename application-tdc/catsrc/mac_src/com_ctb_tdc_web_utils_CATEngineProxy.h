@@ -49,7 +49,7 @@ JNIEXPORT jdouble JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_getSEM
 
 JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1nObj (JNIEnv *, jclass);
 JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objID (JNIEnv *, jclass, jint);
-// JNIEXPORT jdouble JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objScore (JNIEnv *, jclass, jdouble, jint);
+/* JNIEXPORT jdouble JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objScore (JNIEnv *, jclass, jdouble, jint); */
 JNIEXPORT jdouble JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objScaleScore (JNIEnv *, jclass, jchar, jint);
 JNIEXPORT jdouble JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objSSsem (JNIEnv *, jclass, jdouble, jint);
 
