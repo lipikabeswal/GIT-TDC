@@ -435,7 +435,7 @@ int setup_cat(char subTest[]) {
 	
 //	set_obj_order(subTest, testLevel); // set randomly obj adapt order
 */
-	ran0(-1);  /* for simulation */
+/*	ran0(-1);   for simulation */
 
 	/* initilize variables */
 	_is_psg = 0;
@@ -1732,7 +1732,12 @@ void setoff_cat(){  /* For no obj and aStr case */
    free(_objSS_cut);
    free(_FTitems); /* note there is no parameters in FT. */
    free_items(_n_items, _items); 
-   free_items(_testLength, _item_adm);
+   
+   if (_iadm == _testLength)
+      free_items(_testLength, _item_adm);
+   else
+      free(_item_adm);
+
 /*   free(_n_a);
 //   free(_max_nItem_obj);
 */
