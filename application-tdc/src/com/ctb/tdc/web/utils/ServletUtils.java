@@ -1113,7 +1113,7 @@ public class ServletUtils {
 		System.out.println("loginXml:"+loginXml);
 		if ( start >= 0 && end > 5 )
 		{
-			isRestart = true;
+			//isRestart = true;
 			System.out.println("getConsolidatedRestartData called 2::"+isRestart);
 			String consRestartData = loginXml.substring(start, end + endPattern.length());
 			org.jdom.input.SAXBuilder saxBuilder = new org.jdom.input.SAXBuilder();
@@ -1130,6 +1130,9 @@ public class ServletUtils {
 			restartItemCount = restartItems.size();
 			restartItemsArr =  new int [restartItemCount];
 			restartItemsRawScore  = new int [restartItemCount];
+			if(restartItems.size() > 0){
+				isRestart = true;
+			}
 			for(int i=0; i<restartItems.size(); i++){
 				Element item = ( Element ) restartItems.get( i );
 				String itemIId = item.getAttributeValue( "iid" );
@@ -1159,7 +1162,8 @@ public class ServletUtils {
 			}	
 			restartItemCount = restartItemCount - 1;
 			System.out.println("restartItemCount :"+restartItemCount);
-			
+			System.out.println("restartItemsArr :"+restartItemsArr);
+			System.out.println("restartItemsRawScore :"+restartItemsRawScore);
 			
 		}		
 	}
