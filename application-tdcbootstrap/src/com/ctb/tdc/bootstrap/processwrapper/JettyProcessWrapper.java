@@ -76,19 +76,22 @@ public class JettyProcessWrapper extends Thread {
 		this.startsocket = startsocket;
 		this.stopsocket = stopsocket;
 	
-		this.startCmd = new String[12];
+		this.startCmd = new String[13];
 		this.startCmd[0] = javaHome + "java";
 		this.startCmd[1] = "-Dtdc.home=" + this.tdcHome;
-		this.startCmd[2] = "-Djetty.port=" + startPort;
-		this.startCmd[3] = "-DSTOP.PORT=" + stopPort;
-		this.startCmd[4] = "-Djetty.home=" + jettyHome;
-		this.startCmd[5] = "-Dorg.mortbay.log.LogFactory.noDiscovery=false";
-		this.startCmd[6] = "-Djetty.class.path=" + jettyHome + "/etc";
-		this.startCmd[7] = "-cp";
-		this.startCmd[8] = jettyHome + "/lib/org.mortbay.jetty.jar";
-		this.startCmd[9] = "-jar";
-		this.startCmd[10] = jettyHome + "/start.jar";
-		this.startCmd[11] = jettyConfig;
+		this.startCmd[2] = "-Djava_opts = -Xms256m -Xmx1024m";
+		//this.startCmd[2] = "-Dvmargs -Xmx1024m -Xms512m";
+		//this.startCmd[2] = "";
+		this.startCmd[3] = "-Djetty.port=" + startPort;
+		this.startCmd[4] = "-DSTOP.PORT=" + stopPort;
+		this.startCmd[5] = "-Djetty.home=" + jettyHome;
+		this.startCmd[6] = "-Dorg.mortbay.log.LogFactory.noDiscovery=false";
+		this.startCmd[7] = "-Djetty.class.path=" + jettyHome + "/etc";
+		this.startCmd[8] = "-cp";
+		this.startCmd[9] = jettyHome + "/lib/org.mortbay.jetty.jar";
+		this.startCmd[10] = "-jar";
+		this.startCmd[11] = jettyHome + "/start.jar";
+		this.startCmd[12] = jettyConfig;
 	
 		this.stopCmd = new String[11];
 		this.stopCmd[0] = "java";
