@@ -483,6 +483,7 @@
 		<attribute name="isStopTest" value="true" type="boolean" /> 
 		<attribute name="isFinishTest" value="false" type="boolean" />
 		<attribute name="restartItemCount" type="number" value="0" />
+		<attribute name="prevItemId" type="number" value="0" />
 		<!--
 			============================================================
 			Datapointers
@@ -1501,8 +1502,7 @@ Debug.write("totalVisited...",totalVisited);
 			dprestart.xpathQuery( istxpath );
 			var numIsts = countDataNodes(dprestart.xpathQuery('tsd/ist'));
 			var elist = dprestart.xpathQuery('tsd');
-			elist.AddSort("@mseq", "ascending");            
-            var items = elist.getElementsByTagName( 'ist' );
+			var items = elist.getElementsByTagName( 'ist' );
             var landingItem = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@cur_eid' );
             var landingFnode = dpsubtest.xpathQuery('ob_assessment/ob_element_list/@restart_ast');
             var itemNumber = Number(getStartNumber());
@@ -1657,7 +1657,7 @@ Debug.write("totalVisited...",totalVisited);
 				}		
 
                 var istxpath = "tsd/ist[@eid='" + eid + "']";
-                Debug.write("istxpath:"+istxpath);
+                //Debug.write("istxpath:"+istxpath);
                 var restartnode = dprestart.xpathQuery( istxpath );
                 var vnode = dprestart.xpathQuery(istxpath + "/rv/v");
                 var isTheme = items[i].getAttr('type') == THEME_TYPE;
@@ -2881,10 +2881,29 @@ Debug.write("totalVisited...",totalVisited);
             	this.setAttribute("sendCatSave",false);
             }else{
             	this.isFinishTest = true;
-            	this.setAttribute("sendCatSave",true);
+            	this.setAttribute("isStopTest",false);
+            	//this.setAttribute("sendCatSave",true);
+            	setSendCatSave();
             }
             save();
         </method>
+	
+		<method name="setSendCatSave">
+		var curItemId;
+        var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
+        	if(itemnode != null){
+					curItemId = itemnode.getAttr( 'eid' );
+			}
+			
+			if(Number(curItemId) != Number(this.prevItemId))
+			{
+				this.setAttribute("sendCatSave",true);
+				this.prevItemId = curItemId;
+				Debug.write("curItemId:"+curItemId+"::prevItemId:"+this.prevItemId);
+			}else{
+				this.setAttribute("sendCatSave",false);
+			}
+		</method>
 
 		<method name="goToFinishScreen"><![CDATA[
 			this.clearInvalidCrResponses();
@@ -3083,10 +3102,31 @@ Debug.write("totalVisited...",totalVisited);
 		</method>
 
 		<method name="saveLoadItem" args="fnode, lev"><![CDATA[
-        	setState(SAVE_LOAD_STATE);
+			Debug.write("############ saveLoadItem ############");
+			//this.setAttribute("sendCatSave",true);
+        	//setSendCatSave();
+        	var curItemId;
+       		var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
+        	if(itemnode != null){
+					curItemId = itemnode.getAttr( 'eid' );
+			}			
+			
+			setState(SAVE_LOAD_STATE);
 			setAttribute("loadNode", fnode);
-			this.setAttribute("sendCatSave",true);
-			save(lev);
+			
+			if(this.adaptive == 'true'){
+				if(Number(curItemId) != Number(this.prevItemId))
+				{
+					this.setAttribute("sendCatSave",true);
+					this.prevItemId = curItemId;
+					Debug.write("curItemId:"+curItemId+"::prevItemId:"+this.prevItemId);
+					save(lev);
+				}else{
+					this.setAttribute("sendCatSave",false);
+				}	
+			}else{
+				save(lev);
+			}
         ]]></method>
 
 		<method name="loadItem"><![CDATA[
@@ -3876,8 +3916,9 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="updateAudioItem"><![CDATA[
-		Debug.write("updateAudioItem....");
+		
 		if(isAudioItem() || this.blockFileName){//this will differentiate the audio item save call with the heartbeat
+			Debug.write("updateAudioItem....");
 			var xmls = "<answers>";
 			xmls = xmls.concat(generateAudioFileName());
            	xmls = xmls.concat("</answers>");
