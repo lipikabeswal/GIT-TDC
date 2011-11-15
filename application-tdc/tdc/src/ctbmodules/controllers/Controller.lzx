@@ -3678,6 +3678,7 @@ Debug.write("############ loadItem ############");
 		<method name="saveEndSubtest"><![CDATA[
 			//to set audio data in save call, its required
 			this.resetAudioFields();
+			stopQuestion();
         	copyCurrentToRuntime();
 			setState(SAVE_END_SUBTEST_STATE);
 			this.setAttribute("sendCatSave",true);
