@@ -79,7 +79,7 @@ public class JettyProcessWrapper extends Thread {
 		this.startCmd = new String[13];
 		this.startCmd[0] = javaHome + "java";
 		this.startCmd[1] = "-Dtdc.home=" + this.tdcHome;
-		this.startCmd[2] = "-Djava_opts = -Xms256m -Xmx1024m";
+		this.startCmd[2] = "-Djava_opts = -Xms128m -Xmx512m";
 		//this.startCmd[2] = "-Dvmargs -Xmx1024m -Xms512m";
 		//this.startCmd[2] = "";
 		this.startCmd[3] = "-Djetty.port=" + startPort;
