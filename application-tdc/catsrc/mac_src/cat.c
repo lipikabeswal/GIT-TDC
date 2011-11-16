@@ -159,7 +159,7 @@ int setup_cat(char subTest[]) {
 
    strcpy(log_filename, "");
    /* strcat(log_filename, ".\\Data\\"); */
-   strcat(log_filename, "..//..//Data//");
+   strcat(log_filename, "..//..//data//");
    strcat(log_filename, subTest);
    strcat(log_filename, ".log");
 
@@ -189,7 +189,7 @@ int setup_cat(char subTest[]) {
    */
 
   /* strcpy(_NoItemsEachObjByLvl_filename, ".\\Data\\NoItemsAnObjByLvl.csv"); */
-   strcpy(_NoItemsEachObjByLvl_filename, "..//..//Data//NoItemsAnObjByLvl.csv");
+   strcpy(_NoItemsEachObjByLvl_filename, "..//..//data//NoItemsAnObjByLvl.csv");
    /*
    condition_code = getNadmObj(NoItemsEachObjByLvl_filename, subTest, testLevel, _n_adm_obj);
    if (condition_code != GETN_ADMOBJ_OK) {
@@ -245,7 +245,7 @@ int setup_cat(char subTest[]) {
 
    strcpy(par_filename, "");
  /*  strcat(par_filename, ".\\Data\\"); */
-   strcat(par_filename, "..//..//Data//");
+   strcat(par_filename, "..//..//data//");
    strcat(par_filename, subTest);
    strcat(par_filename, ".csv");
    
@@ -288,7 +288,7 @@ int setup_cat(char subTest[]) {
    */ 
 
 	/* set level specified loss and hoss */
-	strcpy(lvlLH_filename,"..//..//Data//TabeScaleBounds.csv");
+	strcpy(lvlLH_filename,"..//..//data//TabeScaleBounds.csv");
 	condition_code = get_LH4lvl(lvlLH_filename, subTest, _lvl_loss, _lvl_hoss);
 	if (condition_code != GETPAR_OK) {
         fprintf(log_file, "Error: get_LH4lvl failed in Data\TabeScaleBounds.cvs. \n"); 
@@ -298,7 +298,7 @@ int setup_cat(char subTest[]) {
 	/* set obj level specified cut scores */
 	
 	strcpy(objLvlCut_filename, "");
-    strcat(objLvlCut_filename, "..//..//Data//");
+    strcat(objLvlCut_filename, "..//..//data//");
     strcat(objLvlCut_filename, subTest);
     strcat(objLvlCut_filename, "-Lvl-Obj-Cuts.csv");
 	_objSS_cut = (struct objSScut *) malloc(_n_new_obj * sizeof(struct objSScut));
@@ -324,7 +324,7 @@ int setup_cat(char subTest[]) {
 /* get FT items */
    strcpy(parFT_filename, "");
  /*  strcat(parFT_filename, ".\\Data\\"); */
-   strcat(parFT_filename, "..//..//Data//");
+   strcat(parFT_filename, "..//..//data//");
    strcat(parFT_filename, subTest);
    strcat(parFT_filename, "_FT.csv");
    
@@ -435,7 +435,7 @@ int setup_cat(char subTest[]) {
 	
 //	set_obj_order(subTest, testLevel); // set randomly obj adapt order
 */
-	ran0(-1);  /* for simulation */
+/*	ran0(-1);   for simulation */
 
 	/* initilize variables */
 	_is_psg = 0;
@@ -1732,7 +1732,12 @@ void setoff_cat(){  /* For no obj and aStr case */
    free(_objSS_cut);
    free(_FTitems); /* note there is no parameters in FT. */
    free_items(_n_items, _items); 
-   free_items(_testLength, _item_adm);
+   
+   if (_iadm == _testLength)
+      free_items(_testLength, _item_adm);
+   else
+      free(_item_adm);
+
 /*   free(_n_a);
 //   free(_max_nItem_obj);
 */
