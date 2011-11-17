@@ -238,7 +238,7 @@ public class Main {
         TuningUtilityBrowserWrapper wtb = new TuningUtilityBrowserWrapper(tdcHome, macOS, linux, splashWindow, jettyPort);
 		JettyProcessWrapper jetty = null;
 		try {
-			jetty = new JettyProcessWrapper(tdcHome, macOS, jettyPort, stopPort, startsocket, stopsocket);
+			jetty = new JettyProcessWrapper(tdcHome, macOS, jettyPort, stopPort, startsocket, stopsocket, "");
 		} 
         catch( ProcessWrapperException pwe ) {
 			ConsoleUtils.messageErr("An exception has occurred.", pwe);

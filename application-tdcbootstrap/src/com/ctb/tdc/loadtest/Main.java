@@ -153,7 +153,7 @@ public class Main {
 						Main.copyPropertyFiles(tdcHome); 
 						
 						try {
-							jetty = new JettyProcessWrapper(tdcHome, macOS, START_PORT, STOP_PORT, startsocket, stopsocket);
+							jetty = new JettyProcessWrapper(tdcHome, macOS, START_PORT, STOP_PORT, startsocket, stopsocket, "");
 						} 
 				        catch( Exception e ) {
 				        	System.out.println("Jetty already running !!!");

@@ -58,7 +58,7 @@ public class JettyProcessWrapper extends Thread {
 	 * @param tdcHome  The location of the Test Delivery Client's home folder containing the home folder of Jetty as well as configuration files and additional java libraries. 
 	 * @throws ProcessWrapperException If problems within initialization such as determing the default URL or if the port is already in use.
 	 */
-	public JettyProcessWrapper(String tdcHome, boolean macOS, int startPort, int stopPort, ServerSocket startsocket, ServerSocket stopsocket) throws ProcessWrapperException {
+	public JettyProcessWrapper(String tdcHome, boolean macOS, int startPort, int stopPort, ServerSocket startsocket, ServerSocket stopsocket, String baseurl) throws ProcessWrapperException {
 		super();
 
 		String javaHome = System.getProperty("java.home");
@@ -76,22 +76,25 @@ public class JettyProcessWrapper extends Thread {
 		this.startsocket = startsocket;
 		this.stopsocket = stopsocket;
 	
-		this.startCmd = new String[13];
+		String proxy = System.getProperty("tdc.proxy");
+		
+		this.startCmd = new String[15];
 		this.startCmd[0] = javaHome + "java";
-		this.startCmd[1] = "-Dtdc.home=" + this.tdcHome;
-		this.startCmd[2] = "-Djava_opts = -Xms128m -Xmx512m";
-		//this.startCmd[2] = "-Dvmargs -Xmx1024m -Xms512m";
-		//this.startCmd[2] = "";
-		this.startCmd[3] = "-Djetty.port=" + startPort;
-		this.startCmd[4] = "-DSTOP.PORT=" + stopPort;
-		this.startCmd[5] = "-Djetty.home=" + jettyHome;
-		this.startCmd[6] = "-Dorg.mortbay.log.LogFactory.noDiscovery=false";
-		this.startCmd[7] = "-Djetty.class.path=" + jettyHome + "/etc";
-		this.startCmd[8] = "-cp";
-		this.startCmd[9] = jettyHome + "/lib/org.mortbay.jetty.jar";
-		this.startCmd[10] = "-jar";
-		this.startCmd[11] = jettyHome + "/start.jar";
-		this.startCmd[12] = jettyConfig;
+		this.startCmd[1] = "-Dtdc.proxy=" + proxy;
+		this.startCmd[2] = "-Dtdc.home=" + this.tdcHome;
+		this.startCmd[3] = "-Djava_opts = -Xms128m -Xmx512m";
+		if(baseurl == null) baseurl = "";
+		this.startCmd[4] = "-Dtdc.baseurl=" + baseurl;
+		this.startCmd[5] = "-Djetty.port=" + startPort;
+		this.startCmd[6] = "-DSTOP.PORT=" + stopPort;
+		this.startCmd[7] = "-Djetty.home=" + jettyHome;
+		this.startCmd[8] = "-Dorg.mortbay.log.LogFactory.noDiscovery=false";
+		this.startCmd[9] = "-Djetty.class.path=" + jettyHome + "/etc";
+		this.startCmd[10] = "-cp";
+		this.startCmd[11] = jettyHome + "/lib/org.mortbay.jetty.jar";
+		this.startCmd[12] = "-jar";
+		this.startCmd[13] = jettyHome + "/start.jar";
+		this.startCmd[14] = jettyConfig;
 	
 		this.stopCmd = new String[11];
 		this.stopCmd[0] = "java";

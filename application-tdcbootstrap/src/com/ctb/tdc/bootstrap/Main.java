@@ -5,20 +5,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.ServerSocket;
-import java.net.UnknownHostException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.ProxyHost;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScope;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.protocol.Protocol;
 
 import com.ctb.tdc.bootstrap.disablers.MacScreenSaverDisabler;
 import com.ctb.tdc.bootstrap.exception.BootstrapException;
@@ -29,6 +18,7 @@ import com.ctb.tdc.bootstrap.ui.SimpleMessageDialog;
 import com.ctb.tdc.bootstrap.ui.SplashWindow;
 import com.ctb.tdc.bootstrap.util.ConsoleUtils;
 import com.ctb.tdc.bootstrap.util.ResourceBundleUtils;
+import com.ctb.tdc.bootstrap.util.ServletUtils;
 import com.ctb.tdc.bootstrap.util.SwfFilenameFilter;
 import com.ctb.tdc.bootstrap.util.TdcConfigEncryption;
 
@@ -40,6 +30,8 @@ import com.ctb.tdc.bootstrap.util.TdcConfigEncryption;
  *
  */
 public class Main {
+	
+	public static String baseurl = System.getProperty("tdc.baseurl");
 	
 	/**
 	 * Sleep interval for the polling while loop within the main method.
@@ -209,90 +201,55 @@ public class Main {
         
 		try {
             ConsoleUtils.messageOut("Retrieving client configuration: " + tdcConfigUrl);
-			HttpClient client = new HttpClient();
-			GetMethod method = new GetMethod(tdcConfigUrl);
-            String proxyHost = ResourceBundleUtils.getProxyString("proxy.host");
-            String proxyPort = ResourceBundleUtils.getProxyString("proxy.port");
-            String proxyUsername = ResourceBundleUtils.getProxyString("proxy.username");
-            String proxyPassword = ResourceBundleUtils.getProxyString("proxy.password");
+			byte[] inBuff = ServletUtils.httpClientSendRequest(tdcConfigUrl).getBytes();
+        	byte[] outBuff = TdcConfigEncryption.decrypt(inBuff);
+            ByteArrayInputStream decrypted = new ByteArrayInputStream( outBuff );
 
-            boolean proxyHostDefined = proxyHost != null && proxyHost.length() > 0;
-            boolean proxyPortDefined = proxyPort != null && proxyPort.length() > 0;
-            boolean proxyUsernameDefined = proxyUsername != null && proxyUsername.length() > 0;
-            
-            if( proxyHostDefined && proxyPortDefined ) {
-                client.getHostConfiguration().setProxy(proxyHost, Integer.valueOf(proxyPort));
-            } else if( proxyHostDefined ) {
-                client.getHostConfiguration().setProxyHost(new ProxyHost(proxyHost) );
-            }
-            
-            if( proxyHostDefined && proxyUsernameDefined ) {
-                AuthScope proxyScope;
-                
-                if( proxyPortDefined )
-                    proxyScope = new AuthScope(proxyHost, Integer.valueOf(proxyPort), AuthScope.ANY_REALM);
-                else
-                    proxyScope = new AuthScope(proxyHost, AuthScope.ANY_PORT, AuthScope.ANY_REALM);
-                
-                UsernamePasswordCredentials upc = new UsernamePasswordCredentials(proxyUsername, proxyPassword);
-                client.getParams().setAuthenticationPreemptive(true);
-                client.getState().setProxyCredentials(proxyScope, upc);
-            }
-            
-            if (client.executeMethod(method) == HttpStatus.SC_OK) {
-            	byte[] inBuff = method.getResponseBody();
-            	byte[] outBuff = TdcConfigEncryption.decrypt(inBuff);
-                ByteArrayInputStream decrypted = new ByteArrayInputStream( outBuff );
-
-				ZipInputStream zis = new ZipInputStream( decrypted );
-				ZipEntry zipEntry;
-				
-				ConsoleUtils.messageOut("Zip entries...");
-				while( (zipEntry = zis.getNextEntry()) != null ) {
-					if( !zipEntry.isDirectory() ) {
-                        String zipEntryFilePath = null;
-                        String zipEntryFileName = zipEntry.getName();
-                        if ( zipEntryFileName.indexOf("LockdownBrowser.ini") >= 0 ) {
-                            if ( ! macOS ) {
-                                zipEntryFilePath = tdcHome + "/" + zipEntryFileName;
-                            }
-                        }
-                        else
-                        if ( zipEntryFileName.indexOf("LDB Settings.plst") >= 0 ) {
-                            if ( macOS ) {
-                                zipEntryFilePath = "/Library/Application Support/LockdownBrowser/" + zipEntryFileName;
-                            }
-                        }
-                        else {
+			ZipInputStream zis = new ZipInputStream( decrypted );
+			ZipEntry zipEntry;
+			
+			ConsoleUtils.messageOut("Zip entries...");
+			while( (zipEntry = zis.getNextEntry()) != null ) {
+				if( !zipEntry.isDirectory() ) {
+                    String zipEntryFilePath = null;
+                    String zipEntryFileName = zipEntry.getName();
+                    if ( zipEntryFileName.indexOf("LockdownBrowser.ini") >= 0 ) {
+                        if ( ! macOS ) {
                             zipEntryFilePath = tdcHome + "/" + zipEntryFileName;
                         }
-                        
-                        if ( zipEntryFilePath != null ) {
-    						ConsoleUtils.messageOut( " - writing " + zipEntryFilePath );
-    						File file = new File(zipEntryFilePath);
-    						FileOutputStream fos = new FileOutputStream(file, false);
-    						int read = 0;
-    						while( read >= 0 && read < zipEntry.getSize() ) {
-    							byte[] bytes = new byte[2048];
-    							// fix typo
-    							read = zis.read(bytes);
-    							if( read != -1 ) {
-    								fos.write(bytes, 0, read);
-    							}
-    						}
-    						fos.close();
+                    }
+                    else
+                    if ( zipEntryFileName.indexOf("LDB Settings.plst") >= 0 ) {
+                        if ( macOS ) {
+                            zipEntryFilePath = "/Library/Application Support/LockdownBrowser/" + zipEntryFileName;
                         }
-                        
-					} else {
-						new File(zipEntry.getName()).mkdir();
-					}
+                    }
+                    else {
+                        zipEntryFilePath = tdcHome + "/" + zipEntryFileName;
+                    }
+                    
+                    if ( zipEntryFilePath != null ) {
+						ConsoleUtils.messageOut( " - writing " + zipEntryFilePath );
+						File file = new File(zipEntryFilePath);
+						FileOutputStream fos = new FileOutputStream(file, false);
+						int read = 0;
+						while( read >= 0 && read < zipEntry.getSize() ) {
+							byte[] bytes = new byte[2048];
+							// fix typo
+							read = zis.read(bytes);
+							if( read != -1 ) {
+								fos.write(bytes, 0, read);
+							}
+						}
+						fos.close();
+                    }
+                    
+				} else {
+					new File(zipEntry.getName()).mkdir();
 				}
-				zis.close();
-                ConsoleUtils.messageOut("Done with zip entries.");
-			} else {
-				throw new BootstrapException( ResourceBundleUtils.getString("bootstrap.main.error.clientConfigNotRetrieved"));
 			}
-			
+			zis.close();
+            ConsoleUtils.messageOut("Done with zip entries.");
 		} catch( IOException ioe ) {
 			ioe.printStackTrace();
 			throw new BootstrapException( ResourceBundleUtils.getString("bootstrap.main.error.clientConfigIOException") );
@@ -311,58 +268,14 @@ public class Main {
 		try {
             ConsoleUtils.messageOut("Retrieving upgrade: " + upgradeUrl);
             
-            Protocol myhttps = new Protocol("https", new com.ctb.tdc.bootstrap.util.EasySSLProtocolSocketFactory(), 443);
-			Protocol.registerProtocol("https", new Protocol("https", new com.ctb.tdc.bootstrap.util.EasySSLProtocolSocketFactory(),443));
-            
-			HttpClient client = new HttpClient();
-			GetMethod method = new GetMethod(upgradeUrl);
-            String proxyHost = ResourceBundleUtils.getProxyString("proxy.host");
-            String proxyPort = ResourceBundleUtils.getProxyString("proxy.port");
-            String proxyUsername = ResourceBundleUtils.getProxyString("proxy.username");
-            String proxyPassword = ResourceBundleUtils.getProxyString("proxy.password");
-
-            boolean proxyHostDefined = proxyHost != null && proxyHost.length() > 0;
-            boolean proxyPortDefined = proxyPort != null && proxyPort.length() > 0;
-            boolean proxyUsernameDefined = proxyUsername != null && proxyUsername.length() > 0;
-            
-            if( proxyHostDefined && proxyPortDefined ) {
-                client.getHostConfiguration().setProxy(proxyHost, Integer.valueOf(proxyPort));
-            } else if( proxyHostDefined ) {
-                client.getHostConfiguration().setProxyHost(new ProxyHost(proxyHost) );
-            }
-            
-            if( proxyHostDefined && proxyUsernameDefined ) {
-                AuthScope proxyScope;
-                
-                if( proxyPortDefined )
-                    proxyScope = new AuthScope(proxyHost, Integer.valueOf(proxyPort), AuthScope.ANY_REALM);
-                else
-                    proxyScope = new AuthScope(proxyHost, AuthScope.ANY_PORT, AuthScope.ANY_REALM);
-                
-                UsernamePasswordCredentials upc = new UsernamePasswordCredentials(proxyUsername, proxyPassword);
-                client.getParams().setAuthenticationPreemptive(true);
-                client.getState().setProxyCredentials(proxyScope, upc);
-            }
-            try{
-                if (client.executeMethod(method) == HttpStatus.SC_OK) {
-    				result = method.getResponseBodyAsString();
-                    ConsoleUtils.messageOut("Got upgrade.");
-    			} else {
-    				System.out.println("Error getting upgrade from " + upgradeUrl);
-    				
-    			}
-
-            }catch(HttpException e){
-            	System.out.println("Exception occured in : Connection refused to " + upgradeUrl);
-				
-            }
-            catch(UnknownHostException e){
-			
-            	System.out.println("Exception occured in : Connection refused to " + upgradeUrl);
-            	
-            }
-			
-		} catch( IOException ioe ) {
+            result = ServletUtils.httpClientSendRequest(upgradeUrl);
+            if(result != null) {
+        		ConsoleUtils.messageOut("Got upgrade.");
+			} else {
+				System.out.println("Error getting upgrade from " + upgradeUrl);
+				throw new BootstrapException( ResourceBundleUtils.getString("bootstrap.main.error.clientConfigIOException") );    				
+			}
+		} catch( Exception ioe ) {
 			ioe.printStackTrace();
 			throw new BootstrapException( ResourceBundleUtils.getString("bootstrap.main.error.clientConfigIOException") );
 		}
@@ -372,19 +285,25 @@ public class Main {
 	private static String getUpgradeDirectoryUrl(){
 		String productType = System.getProperty("product.type");
 		String base = "";
-		if(productType.equals("ISTEP"))
-			base = ResourceBundleUtils.getString("bootstrap.main.istep.url");
-		else if(productType.equals("GEORGIA"))
-			base = ResourceBundleUtils.getString("bootstrap.main.ga.url");
-		else if(productType.equals("TABE"))
-			base = ResourceBundleUtils.getString("bootstrap.main.tabe.url");
-		else if(productType.equals("TERRANOVA"))
-			base = ResourceBundleUtils.getString("bootstrap.main.tn.url");
-		else if(productType.equals("LASLINKS"))
-			base = ResourceBundleUtils.getString("bootstrap.main.llo.url");
-		else 
-			base = ResourceBundleUtils.getString("bootstrap.main.base.url");
-		
+		baseurl = System.getProperty("tdc.baseurl");
+		if(baseurl != null && !"".equals(baseurl.trim())) {
+			base = baseurl + "/tdcupdate";
+		} else {
+			if(productType.equals("ISTEP"))
+				base = ResourceBundleUtils.getString("bootstrap.main.istep.url");
+			else if(productType.equals("GEORGIA"))
+				base = ResourceBundleUtils.getString("bootstrap.main.ga.url");
+			else if(productType.equals("TABE"))
+				base = ResourceBundleUtils.getString("bootstrap.main.tabe.url");
+			else if(productType.equals("TERRANOVA"))
+				base = ResourceBundleUtils.getString("bootstrap.main.tn.url");
+			else if(productType.equals("LASLINKS"))
+				base = ResourceBundleUtils.getString("bootstrap.main.llo.url");
+			else 
+				base = ResourceBundleUtils.getString("bootstrap.main.base.url");
+			
+			baseurl = base.substring(0, base.indexOf("/tdcupdate"));
+		}		
 		String version = ResourceBundleUtils.getVersionString("tdc.version");
 		version = "v" + version.substring(0, version.lastIndexOf("."));
 		String result = base + "/" + version + "/";
@@ -486,7 +405,8 @@ public class Main {
 		// check upgrade, download and config if required, show upgrade message if required.
 		try {
 			splashWindow.setStatus(ResourceBundleUtils.getString("bootstrap.main.splashWindow.status.default"), -1);
-            Main.copyPropertyFiles(tdcHome);     
+            Main.copyPropertyFiles(tdcHome);   
+            ServletUtils.validateServletSettings();
             String upgrade = Main.getUpgrade();
             if(upgrade != null){
 	            if(upgrade.contains(MINOR_UPGRADE)){
@@ -517,7 +437,7 @@ public class Main {
 		LockdownBrowserWrapper ldb = new LockdownBrowserWrapper(tdcHome, macOS, linux, splashWindow, jettyPort);
 		JettyProcessWrapper jetty = null;
 		try {
-			jetty = new JettyProcessWrapper(tdcHome, macOS, jettyPort, stopPort, startsocket, stopsocket);
+			jetty = new JettyProcessWrapper(tdcHome, macOS, jettyPort, stopPort, startsocket, stopsocket, baseurl);
 		} 
         catch( ProcessWrapperException pwe ) {
 			ConsoleUtils.messageErr("An exception has occurred.", pwe);

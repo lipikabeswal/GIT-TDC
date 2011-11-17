@@ -752,7 +752,7 @@ public class PersistenceServlet extends HttpServlet {
 	 * @param loginResponse
 	 */
 	private void  processLoginResponse(String loginResponse){
-		System.out.println("Process Login Response"  + loginResponse);
+		//System.out.println("Process Login Response"  + loginResponse);
 		MemoryCache memCache = MemoryCache.getInstance();
 		HashMap contentDownloadMap = new HashMap();
 		org.jdom.Document loginReponseDocument = null;

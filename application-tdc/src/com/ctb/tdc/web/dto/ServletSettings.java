@@ -62,12 +62,47 @@ public class ServletSettings implements java.io.Serializable {
             this.tmsAuditUpload = resourceBundleGetBoolean(rbTdc, "tms.audit.upload");
         }
         
-        if (rbProxy != null) {
-            this.proxyHost = resourceBundleGetString(rbProxy, "proxy.host");
-            this.proxyPort = resourceBundleGetInt(rbProxy, "proxy.port");        
-            this.proxyUserName = resourceBundleGetString(rbProxy, "proxy.username");
-            this.proxyPassword = resourceBundleGetString(rbProxy, "proxy.password");
-            this.proxyDomain = resourceBundleGetString(rbProxy, "proxy.ntlmdomain");
+        String proxy = System.getProperty("tdc.proxy");
+        if(proxy == null || "".equals(proxy.trim())) {
+	        if (rbProxy != null) {
+	            this.proxyHost = resourceBundleGetString(rbProxy, "proxy.host");
+	            this.proxyPort = resourceBundleGetInt(rbProxy, "proxy.port");        
+	            this.proxyUserName = resourceBundleGetString(rbProxy, "proxy.username");
+	            this.proxyPassword = resourceBundleGetString(rbProxy, "proxy.password");
+	            this.proxyDomain = resourceBundleGetString(rbProxy, "proxy.ntlmdomain");
+	        }
+        } else {
+        	try {
+	        	int bsIndex = proxy.indexOf("\\");
+	        	if(bsIndex >= 0) {
+	        		this.proxyDomain = proxy.substring(0, bsIndex - 1);
+	        		proxy = proxy.substring(bsIndex + 1, proxy.length());
+	        	}
+	        	int colonIndex = proxy.indexOf(":");
+	        	int lastColonIndex = proxy.lastIndexOf(":");
+	        	if(colonIndex >= 0 && colonIndex != lastColonIndex) {
+	        		this.proxyUserName = proxy.substring(0, colonIndex - 1);
+	        		System.out.println("Proxy user: " + this.proxyUserName);
+	        		proxy = proxy.substring(colonIndex + 1, proxy.length());
+	        	}
+	        	int atIndex = proxy.indexOf("@");
+	        	if(atIndex >= 0) {
+	        		this.proxyPassword = proxy.substring(0, atIndex - 1);
+	        		System.out.println("Proxy password: " + this.proxyPassword);
+	        		proxy = proxy.substring(atIndex + 1, proxy.length());
+	        	}
+	        	colonIndex = proxy.indexOf(":");
+	        	if(colonIndex >= 0 && colonIndex != lastColonIndex) {
+	        		this.proxyHost = proxy.substring(0, colonIndex - 1);
+	        		System.out.println("Proxy host: " + this.proxyHost);
+	        		proxy = proxy.substring(colonIndex + 1, proxy.length());
+	        	}
+	        	this.proxyPort = Integer.valueOf(proxy);
+	        	System.out.println("Proxy port: " + this.proxyPort);
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        		System.out.println("Error setting proxy using override value!");
+        	}
         }
     }
 
@@ -168,18 +203,28 @@ public class ServletSettings implements java.io.Serializable {
         this.tmsPort = tmsPort;
     }
     
+    private static String baseurl = System.getProperty("tdc.baseurl");
+    
     public String getTmsHostPort() {
-        if (tmsPort > 0)
-            return (tmsHost + ":" + tmsPort);
-        else
-            return tmsHost;
+    	if(baseurl == null || "".equals(baseurl.trim())) {
+	    	if (tmsPort > 0)
+	            return (tmsHost + ":" + tmsPort);
+	        else
+	            return tmsHost;
+    	} else {
+    		return baseurl;
+    	}
     }
     
     public String getBackupURLHostPort() {
-        if (tmsPort > 0)
-            return (backupURL + ":" + tmsPort);
-        else
-            return backupURL;
+    	if(baseurl == null || "".equals(baseurl.trim())) {
+	        if (tmsPort > 0)
+	            return (backupURL + ":" + tmsPort);
+	        else
+	            return backupURL;
+    	} else {
+    		return baseurl;
+    	}
     }
     
     public String getProxyHostPort() {

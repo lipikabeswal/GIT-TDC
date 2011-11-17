@@ -40,12 +40,7 @@
 			 compiler="javac1.5">
 			<classpath>
 				<fileset dir="${project.application-tdc.dir}/webapp/WEB-INF/lib">
-					<include name="bcprov-jdk14-130.jar" />
-					<include name="commons-codec.jar" />
-					<include name="commons-httpclient-3.0.1.jar" />
-					<include name="commons-logging.jar.jar" />
-					<include name="jdom.jar" />
-					<include name="jl1.0.jar" />
+					<include name="*.jar" />
 				</fileset>
 				<fileset dir="${project.application-tdc.dir}/servletcontainer/jetty-5.1.11RC0/ext">
 					<include name="commons-logging.jar" />

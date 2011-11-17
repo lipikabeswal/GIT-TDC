@@ -120,7 +120,7 @@ public class ContentServlet extends HttpServlet {
 			ServletUtils.writeResponse(response, ServletUtils.ERROR);
 		}
 		
-		logger.info("ContentServlet: " + method + " took " + (System.currentTimeMillis() - startTime) + "\n");
+		//logger.info("ContentServlet: " + method + " took " + (System.currentTimeMillis() - startTime) + "\n");
 
 	}
 
@@ -413,7 +413,7 @@ public class ContentServlet extends HttpServlet {
 						iid = iid.substring(0, iid.length() - catItemIdPattern.length());
 						Integer peId = Integer.parseInt(iid);
 						Integer adsItemId = Integer.parseInt( itemId );
-						System.out.println("Populating map: " + peId +  " :: " +adsItemId);
+						//System.out.println("Populating map: " + peId +  " :: " +adsItemId);
 						CATEngineProxy.itemIdMap.put(String.valueOf(peId), Integer.valueOf(adsItemId));		
 					} catch (Exception e) {
 						e.printStackTrace();

@@ -1,4 +1,4 @@
-package com.ctb.tdc.web.utils;
+package com.ctb.tdc.bootstrap.util;
   
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -20,9 +20,6 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.zip.Adler32;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -31,6 +28,7 @@ import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.NTCredentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.conn.params.ConnRoutePNames;
@@ -50,9 +48,9 @@ import org.apache.http.params.HttpParams;
 import org.apache.log4j.Logger;
 import org.jdom.Element;
 
-import com.ctb.tdc.web.dto.AuditVO;
 import com.ctb.tdc.web.dto.ServletSettings;
-import com.ctb.tdc.web.dto.SubtestKeyVO;
+import com.ctb.tdc.web.utils.EasyTrustStrategy;
+import com.ctb.tdc.web.utils.MemoryCache;
 
 /**
  * @author Tai_Truong
@@ -196,34 +194,8 @@ public class ServletUtils {
 	public static String landingItem;
 	public static String landingFnode;
 
-//	helper methods
+	
 
-	//private static String lastMseq;
-	
-	public static synchronized void writeResponse(HttpServletResponse response, String xml) {
-		writeResponse(response, xml, null);
-	}
-	
-	/**
-	 * write xml content to response
-	 *
-	 */
-	public static void writeResponse(HttpServletResponse response, String xml, String mseq) {
-		try {
-			//if((mseq == null || lastMseq == null) || !mseq.equals(lastMseq)) {
-				response.setContentType("text/xml");
-				response.setStatus(response.SC_OK);
-				PrintWriter out = response.getWriter();
-				out.println(xml);
-				out.flush();
-				out.close();
-				response.flushBuffer();
-			//	lastMseq = mseq;
-			//}
-		} catch (Exception e) {
-			// do nothing, response already written
-		}
-	}
 
 	/**
 	 * parse response value in xml
@@ -427,26 +399,6 @@ public class ServletUtils {
 	}
 
 	/**
-	 * create AuditVO
-	 *
-	 */
-	public static AuditVO createAuditVO(String xml, boolean isItemResponse) {
-		AuditVO audit = null;
-		String fileName = buildFileName(xml);
-		String mseq = parseMseq(xml);
-		if (isItemResponse) {
-			String itemId = parseItemId(xml);
-			String response = parseResponse(xml);
-			audit = new AuditVO(fileName, mseq, itemId, response);
-		}
-		else {
-			String modelData = parseModelData(xml);
-			audit = new AuditVO(fileName, mseq, modelData);
-		}
-		return audit;
-	}
-
-	/**
 	 * initialize memory cache object from values read from resource bundle
 	 *
 	 */
@@ -565,18 +517,6 @@ public class ServletUtils {
 	}
 
 	/**
-	 * get predefined Backup URL as string for a method
-	 *
-	 */
-	public static String getBackupURLString(String method) {
-		MemoryCache memoryCache = MemoryCache.getInstance();
-		ServletSettings srvSettings = memoryCache.getSrvSettings();
-		String tmsHostPort = srvSettings.getBackupURLHostPort();
-		String tmsWebApp = getWebAppName(method);
-		return (tmsHostPort + tmsWebApp);
-	}
-
-	/**
 	 * get predefined TMS URL for a method
 	 *
 	 */
@@ -651,86 +591,6 @@ public class ServletUtils {
 		return domain;
 	}
 
-	/**
-	 * getMethod
-	 *
-	 */
-	public static String getMethod(HttpServletRequest request) {
-		return request.getParameter(METHOD_PARAM);
-	}
-
-	public static String getFolder(HttpServletRequest request) {
-		return request.getParameter(FOLDER_PARAM);
-	}
-
-	public static String getUser(HttpServletRequest request) {
-		return request.getParameter(USER_PARAM);
-	}
-
-	/**
-	 * getItemSetId
-	 *
-	 */
-	public static String getItemSetId(HttpServletRequest request) {
-		return request.getParameter(ITEM_SET_ID_PARAM);
-	}
-
-	/**
-	 * getItemId
-	 *
-	 */
-	public static String getItemId(HttpServletRequest request) {
-		return request.getParameter(ITEM_ID_PARAM);
-	}
-
-	/**
-	 * getImageId
-	 *
-	 */
-	public static String getImageId(HttpServletRequest request) {
-		return request.getParameter(IMAGE_ID_PARAM);
-	}
-
-	/**
-	 * getEncryptionKey
-	 *
-	 */
-	public static String getEncryptionKey(HttpServletRequest request) {
-		return request.getParameter(ENCRYPTION_KEY_PARAM);
-	}
-
-	/**
-	 * getXml
-	 *
-	 */
-	public static String getXml(HttpServletRequest request) {
-		return request.getParameter(XML_PARAM);
-	}
-
-	/**
-	 * getSubtestId
-	 *
-	 */
-	public static String getSubtestId(HttpServletRequest request) {
-		return request.getParameter(SUBTEST_ID_PARAM);
-	}
-
-	/**
-	 * getHash
-	 *
-	 */
-	public static String getHash(HttpServletRequest request) {
-		return request.getParameter(HASH_PARAM);
-	}
-
-	/**
-	 * getKey
-	 *
-	 */
-	public static String getKey(HttpServletRequest request) {
-		return request.getParameter(KEY_PARAM);
-	}
-
 
 	/**
 	 * hasResponse
@@ -754,21 +614,6 @@ public class ServletUtils {
 		if ("jpg".equals(ext))
 			mimeType = "image/jpg";
 		return mimeType;
-	}
-
-	/**
-	 * construct a file name from xml
-	 *
-	 */
-	public static String buildFileName(String xml) {
-		String fullFileName = null;
-		String lsid = parseLsid(xml);
-		if ((lsid != null) && (!lsid.equals("-"))) {
-			String fileName = lsid.replace(':', '_');
-			String tdcHome = System.getProperty(AuditFile.TDC_HOME);
-			fullFileName = tdcHome + AuditFile.AUDIT_FOLDER + fileName + AuditFile.AUDIT_EXTENSION;
-		}
-		return fullFileName;
 	}
 
 	/**
@@ -816,53 +661,30 @@ public class ServletUtils {
 	 * Connect to TMS and send request using HttpClient
 	 *
 	 */
-	public static String httpClientSendRequest(String method, String xml) {
+	public static String httpClientSendRequest(String requestURL) {
+		String result = null;
 		synchronized(client) {
-			if(!method.equals(ServletUtils.DOWNLOAD_ITEM_METHOD) && !method.equals(ServletUtils.DOWNLOAD_CONTENT_METHOD)) {
-				System.out.println(xml);
-			}
-			String result = OK;
 			int responseCode = HttpStatus.SC_OK;
-	
-	//		create post method with url based on method
-			String tmsURL = getTmsURLString(method);
-			HttpPost post = new HttpPost(tmsURL);
-	
-	//		send request to TMS
+			HttpGet get = new HttpGet(requestURL);
 			try {
-				// setup parameters
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-				nameValuePairs.add(new BasicNameValuePair(METHOD_PARAM, method));
-				nameValuePairs.add(new BasicNameValuePair(XML_PARAM, xml));
-				post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-				HttpResponse response = client.execute(post);
-				
-					responseCode = response.getStatusLine().getStatusCode();
-					if (responseCode == HttpStatus.SC_OK) {
-						BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()),131072);
-						String inputLine = null;
-						result = "";
-						while ((inputLine = in.readLine()) != null) {
-							//System.out.println(inputLine);
-							result += inputLine;
-						}
-						in.close();
+				HttpResponse response = client.execute(get);
+				responseCode = response.getStatusLine().getStatusCode();
+				if (responseCode == HttpStatus.SC_OK) {
+					BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()),131072);
+					String inputLine = null;
+					result = "";
+					while ((inputLine = in.readLine()) != null) {
+						//System.out.println(inputLine);
+						result += inputLine;
 					}
-				
-				else {
-					result = buildXmlErrorMessage("", response.getStatusLine().getReasonPhrase(), "");
+					in.close();
 				}
 			}
 			catch (Exception e) {
 				e.printStackTrace();
-				logger.error("Exception occured in httpClientSendRequest() : " + printStackTrace(e));
-				result = buildXmlErrorMessage("", e.getMessage(), "");
 			}
 			finally {
 				//post.releaseConnection();
-			}
-			if(!method.equals(ServletUtils.DOWNLOAD_ITEM_METHOD) && !method.equals(ServletUtils.DOWNLOAD_CONTENT_METHOD)) {
-				System.out.println(result);
 			}
 			return result;
 		}
@@ -918,119 +740,6 @@ public class ServletUtils {
 			return result;
 		}
 	}
-
-
-	/**
-	 * httpClientTestConnection
-	 * Test if be able to connect to TMS using HttpClient
-	 *
-	 */
-	public static String httpClientGetStatus() {
-		synchronized(client) {
-			String errorMessage = OK;
-			boolean connFlag = true;
-			HttpPost post = null;
-			String method = GET_STATUS_METHOD;
-			HttpResponse response = null;
-			String tmsURL = "";
-			
-			try {
-				int responseCode = HttpStatus.SC_OK;
-				tmsURL = getTmsURLString(method);
-				post = getHttpPost(tmsURL);
-				
-				try{
-					response = client.execute(post);
-				}
-				catch(HttpHostConnectException e){
-						connFlag = false;
-						logger.error("Exception occured in : Connection refused to " + tmsURL);
-						tmsURL = swapTmsUrl(method);		// if connection to primary tms url is refused,
-				}
-				catch(UnknownHostException e){
-					connFlag = false;
-					logger.error("Exception occured in : Connection refused to " + tmsURL);
-					tmsURL = swapTmsUrl(method);		// if connection to primary tms url is refused,
-				}
-				
-				if(connFlag){
-					responseCode = response.getStatusLine().getStatusCode();
-					if (responseCode != HttpStatus.SC_OK) {
-						connFlag = false;
-						post.abort();
-						logger.error("Error occured in : could not Connect to " + tmsURL);
-						tmsURL = swapTmsUrl(method);		// if response status is not OK from primary tms url, 
-															// backupURL is stored in tmsURL.
-						logger.error("Error occured in : swapping Connection to " + tmsURL);
-						
-					}
-				}
-				if(!connFlag){
-					post = getHttpPost(tmsURL);
-					response = client.execute(post);		
-					responseCode = response.getStatusLine().getStatusCode();
-				}
-				
-				//System.out.println("responseCode..."+responseCode+" : "+tmsURL);
-				if (responseCode == HttpStatus.SC_OK) {
-					BufferedReader in = new BufferedReader(new 
-							InputStreamReader(response.getEntity().getContent()));
-					String inputLine = null;
-					String tmsResponse = "";
-					while ((inputLine = in.readLine()) != null) {
-						tmsResponse += inputLine;
-					}
-					in.close();
-					if (! isStatusOK(tmsResponse)) {
-						errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.connectionFailed");
-						errorMessage = buildXmlErrorMessage("", errorMessage, "");
-					}
-				}
-				else {
-					if (responseCode == HttpStatus.SC_NOT_FOUND) {
-						errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.unknownHostException");
-						errorMessage = buildXmlErrorMessage("", errorMessage, "");
-					}
-					else {
-						errorMessage = buildXmlErrorMessage("",
-								response.getStatusLine().getReasonPhrase(), "");
-					}
-				}
-			}
-			catch (UnknownHostException e) {
-				errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.unknownHostException");
-				errorMessage = buildXmlErrorMessage("", errorMessage, "");
-			}
-			catch (Exception e) {
-				errorMessage = "There has been a communications failure: " + e.getMessage();
-				errorMessage = buildXmlErrorMessage("", errorMessage, "");
-			}
-			finally {
-				//post.releaseConnection();
-			}
-			return errorMessage;
-		}
-	}
-
-
-	/**
-	 * 
-	 * This method is responsible to return backup URL by passing method
-	 * @param method
-	 * @return String
-	 */
-
-	private static String swapTmsUrl (String method) {
-		
-		String backupURL = "";
-		backupURL = getBackupURLString(method);
-		//setting the backupURL in tmsHost
-		MemoryCache memoryCache = MemoryCache.getInstance();				
-		ServletSettings srvSettings = memoryCache.getSrvSettings();
-		srvSettings.setTmsHost(srvSettings.getBackupURL());
-
-		return backupURL;
-	}
 	
 	
 	/**
@@ -1053,60 +762,6 @@ public class ServletUtils {
 		} 
 		return post;
 
-	}
-
-	public static void processContentKeys( String xml )throws Exception
-	{
-		final String endPattern = "</manifest>";
-		int start = xml.indexOf( "<manifest " );
-		int end = xml.indexOf( "</manifest>" );
-		if ( start >= 0 && end > 10 )
-		{
-			String manifest = xml.substring( start, end + endPattern.length() );
-			org.jdom.input.SAXBuilder saxBuilder = new org.jdom.input.SAXBuilder();
-			ByteArrayInputStream bais = new ByteArrayInputStream( manifest.getBytes( "UTF-8" ));
-			org.jdom.Document assessmentDoc = saxBuilder.build( bais );
-			Element inElement = assessmentDoc.getRootElement();
-			List subtests = inElement.getChildren( "sco" );
-			MemoryCache aMemoryCache = MemoryCache.getInstance();
-			HashMap subtestInfoMap = aMemoryCache.getSubtestInfoMap();
-			for ( int i = 0; i < subtests.size(); i++ )
-			{
-				Element subtest = ( Element )subtests.get( i );
-				String contentArea = null;
-				String itemSetId = subtest.getAttributeValue( "id" );
-				String adsItemSetId = subtest.getAttributeValue( "adsid" );
-				String asmtHash = subtest.getAttributeValue( "asmt_hash" );
-				String asmtEncryptionKey = subtest.getAttributeValue( "asmt_encryption_key" );
-				String item_encryption_key = subtest.getAttributeValue( "item_encryption_key" );
-				
-				String title = subtest.getAttributeValue("title");		
-				String adaptive = subtest.getAttributeValue("adaptive");
-				if("True".equalsIgnoreCase(adaptive)){
-					contentArea = getshortContentArea(title);
-				}
-				
-				if ( itemSetId != null && adsItemSetId != null
-						&& asmtHash != null && asmtEncryptionKey != null
-						&& item_encryption_key != null )
-				{
-					
-					SubtestKeyVO aSubtestKeyVO = new SubtestKeyVO();
-					aSubtestKeyVO.setItemSetId( itemSetId );
-					aSubtestKeyVO.setAdsItemSetId( adsItemSetId );
-					aSubtestKeyVO.setAsmtHash( asmtHash );
-					aSubtestKeyVO.setAsmtEncryptionKey( asmtEncryptionKey );
-					aSubtestKeyVO.setItem_encryption_key( item_encryption_key );
-					
-					aSubtestKeyVO.setContentArea( contentArea );
-					aSubtestKeyVO.setAdaptive( adaptive );
-					
-					subtestInfoMap.put( itemSetId, aSubtestKeyVO );
-					itemSetMap.put( adsItemSetId, itemSetId );
-					
-				}
-			}
-		}
 	}
 	
 
@@ -1317,87 +972,6 @@ return elementList;*/
 			result = "Nested Exception inside ServletUtils::getStackTrace";
 		}
 		return result;
-	}
-
-	public static String buildPersistenceParameters(HttpServletRequest request, String method) {
-		String xml = null;
-		if (method != null) {
-			if (method.equals("login")) {
-				String user_name = request.getParameter("user_name");
-				String password = request.getParameter("password");
-				String access_code = request.getParameter("access_code");
-				if (user_name != null && password != null && access_code != null) {
-					xml = "<tmssvc_request method=\"login\" xmlns=\"\">" +
-					"<login_request user_name=\"" + user_name + "\" password=\"" + password + "\" access_code=\"" + access_code + "\" os_enum=\"Mac\" browser_agent_enum=\"MSIE\" user_agent_string=\"string\" sds_date_time=\"2013-11-23T06:44:07\" sds_id=\"string\" token=\"string\"/>" +
-					"</tmssvc_request>";
-				}
-			}
-			else
-				if (method.equals("save")) {
-					String res = request.getParameter("response");
-					String lsid = request.getParameter("lsid");
-					String mseq = request.getParameter("mseq");
-					String itemId = request.getParameter("itemId");
-					if (res != null && lsid != null && mseq != null && itemId != null) {
-						xml = "<adssvc_request method=\"save_testing_session_data\"><save_testing_session_data><tsd lsid=\"" + lsid + "\" scid=\"24009\" mseq=\"" + mseq + "\"><ist dur=\"2\" awd=\"1\" mrk=\"0\" iid=\"" + itemId + "\"><rv t=\"identifier\" n=\"RESPONSE\"><v>" + res + "</v></rv></ist></tsd></save_testing_session_data></adssvc_request>";
-					}
-				}
-				else
-					if (method.equals("uploadAuditFile")) {
-						String file_name = request.getParameter("file_name");
-						if (file_name != null) {
-							xml = "<adssvc_request method=\"save_testing_session_data\"><save_testing_session_data><tsd lsid=\"" + file_name + "\" scid=\"24009\" ><ist dur=\"2\" awd=\"1\" mrk=\"0\" iid=\"OKPT_SR.EOI.BIO.001\"></ist></tsd></save_testing_session_data></adssvc_request>";
-						}
-					}
-		}
-		return xml;
-	}
-
-	public static String buildLoadContentParameters(HttpServletRequest request, String method) {
-		String result = null;
-		if (method.equals("loadSubtest")) {
-			result = request.getParameter("itemSetIdParam");
-		}
-		else
-			if (method.equals("loadItem")) {
-				result = request.getParameter("itemIdParam");
-			}
-			else
-				if (method.equals("loadImage")) {
-					result = request.getParameter("imageIdParam");
-				}
-		return result;
-	}
-
-	public static String buildContentRequest(HttpServletRequest request, String method) {
-		String xml = null;
-		if (method != null) {
-			if (method.equals(GET_SUBTEST_METHOD)) {
-				String subtestId = ServletUtils.getSubtestId(request);
-				String hash = ServletUtils.getHash(request);
-				
-				String key = ServletUtils.getKey(request);
-				if (subtestId != null && hash != null && key != null) {
-					xml = "<adssvc_request method=\"getSubtest\" sdsid=\"string\" token=\"string\" xmlns=\"\">" +
-					"<get_subtest subtestid=\""+subtestId+"\" hash=\""+hash+"\" key=\""+key+"\"/>" +
-					"</adssvc_request>";
-				}
-			}
-			else if (method.equals(DOWNLOAD_ITEM_METHOD)) {
-				String itemId = ServletUtils.getItemId(request);
-				String hash = ServletUtils.getHash(request);
-				String key = ServletUtils.getKey(request);
-				itemId = "81502";
-			    hash = "AAF02CDAD1CFCA9C7F259E811299297B";
-			    key = "n7673nBJ2n27bB4oAfme7Ugl5VV42g8";
-				if (itemId != null && hash != null && key != null) {
-					xml = "<adssvc_request method=\"downloadItem\" sdsid=\"string\" token=\"string\" xmlns=\"\">" +
-					"<download_item itemid=\""+itemId+"\" hash=\""+hash+"\" key=\""+key+"\"/>" +
-					"</adssvc_request>";
-				}
-			}
-		}
-		return xml;
 	}
 
 	public static boolean setupProxy() {
