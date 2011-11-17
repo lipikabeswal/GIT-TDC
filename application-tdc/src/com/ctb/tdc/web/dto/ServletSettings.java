@@ -100,8 +100,14 @@ public class ServletSettings implements java.io.Serializable {
 	        	this.proxyPort = Integer.valueOf(proxy);
 	        	System.out.println("Proxy port: " + this.proxyPort);
         	} catch (Exception e) {
-        		e.printStackTrace();
         		System.out.println("Error setting proxy using override value!");
+        		if (rbProxy != null) {
+    	            this.proxyHost = resourceBundleGetString(rbProxy, "proxy.host");
+    	            this.proxyPort = resourceBundleGetInt(rbProxy, "proxy.port");        
+    	            this.proxyUserName = resourceBundleGetString(rbProxy, "proxy.username");
+    	            this.proxyPassword = resourceBundleGetString(rbProxy, "proxy.password");
+    	            this.proxyDomain = resourceBundleGetString(rbProxy, "proxy.ntlmdomain");
+    	        }
         	}
         }
     }
