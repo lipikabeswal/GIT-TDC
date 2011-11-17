@@ -258,6 +258,8 @@ public class ContentServlet extends HttpServlet {
 				}
 				byte[] decryptedContent = ContentFile.decryptFile(filePath, hash,
 						key);
+				/*String subtestXML = new String(decryptedContent);
+				System.out.println(subtestXML);*/
 				subtestDoc = saxBuilder.build(new ByteArrayInputStream(decryptedContent));
 				if (ServletUtils.isCurSubtestAdaptive && (getSubtestCount > ServletUtils.itemSetMap.size())) {
 					org.jdom.Element element = (org.jdom.Element) subtestDoc.getRootElement();
@@ -267,6 +269,9 @@ public class ContentServlet extends HttpServlet {
 					if(ServletUtils.isRestart){
 						org.jdom.Attribute restartAttr = new Attribute("restart_ast","0");
 						List fNodes = objectElement.getChildren("f");
+						Element fItem = ( Element ) fNodes.get(ServletUtils.restartItemCount);
+						ServletUtils.landingItem = fItem.getAttributeValue( "id" );
+						
 						for(int i=0; i<(ServletUtils.restartItemCount+1); i++){
 							if(i == ServletUtils.restartItemCount){							
 								Element item = ( Element ) fNodes.get( i );
@@ -485,9 +490,10 @@ public class ContentServlet extends HttpServlet {
 			boolean isRestart = false;
 			if(ServletUtils.isCurSubtestAdaptive){
 				if(ServletUtils.isRestart && ServletUtils.landingItem != null){
+					//originalItemId = ServletUtils.landingFnode;
 					//itemId = ServletUtils.landingItem;
-					originalItemId = ServletUtils.landingFnode;
-					itemId = ServletUtils.landingItem;
+					originalItemId = ServletUtils.landingItem;
+					itemId = CATEngineProxy.getNextItem();					
 					itemSubstitutionMap.put(originalItemId, itemId);
 					ServletUtils.isRestart = false;
 					isRestart = true;

@@ -1145,7 +1145,7 @@ public class ServletUtils {
 				boolean isString = false;				
 				String eId = item.getAttributeValue( "eid" );
 				System.out.println("eId::"+eId+"::"+itemIId);
-				if(eId != landingItem){
+				//if(eId != landingItem){
 					if(itemIId != null && itemIId.indexOf(catItemIdPattern) != -1){
 						itemIId = itemIId.substring(0, itemIId.length() - catItemIdPattern.length());
 						try {
@@ -1162,11 +1162,11 @@ public class ServletUtils {
 					Element score = rawScore.getChild( "v" );
 					String scoreVal = score.getText();
 					
-					restartItemsRawScore[i] = Integer.parseInt( scoreVal );	
+					restartItemsRawScore[i] = Integer.parseInt( scoreVal );
 					logger.info("restartItemsRawScore: item " + i + ": " + restartItemsRawScore[i] );
-				}
+				//}
 			}	
-			restartItemCount = restartItemCount - 1;
+			restartItemCount = restartItemCount;
 			System.out.println("restartItemCount :"+restartItemCount);
 			System.out.println("restartItemsArr :"+restartItemsArr);
 			System.out.println("restartItemsRawScore :"+restartItemsRawScore);

@@ -1504,7 +1504,7 @@ Debug.write("totalVisited...",totalVisited);
 			var elist = dprestart.xpathQuery('tsd');
 			var items = elist.getElementsByTagName( 'ist' );
             var landingItem = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@cur_eid' );
-            var landingFnode = dpsubtest.xpathQuery('ob_assessment/ob_element_list/@restart_ast');
+            //var landingFnode = dpsubtest.xpathQuery('ob_assessment/ob_element_list/@restart_ast');
             var itemNumber = Number(getStartNumber());
 			this.istLength = items.length;
 			
@@ -1580,7 +1580,7 @@ Debug.write("totalVisited...",totalVisited);
                  
                 var newitemdn = new LzDataElement( 'item_model', attrs, null );
                
-                if(eid != landingItem){
+                //if(eid != landingItem){
                 	var dnrtitemold = dpstudentdata.xpathQuery(
                     	"runtime/item_model [@item_no = '"+itemNumber+"']"
                 			);
@@ -1589,8 +1589,8 @@ Debug.write("totalVisited...",totalVisited);
                 		itemNumber = itemNumber + 1;
                		}
                 	
-                }else{
-                	var itemLen = items.length;
+               // }else{
+                /*	var itemLen = items.length;
                 	Debug.write("##itemLen::"+itemLen);
                 	if(eid == landingItem){
                 		var dnrtitemold = dpstudentdata.xpathQuery(
@@ -1598,7 +1598,7 @@ Debug.write("totalVisited...",totalVisited);
                 				);
                 		
                 	}
-                }
+                }*/
                 
                 dnrtitemold.parentNode.replaceChild (newitemdn, dnrtitemold);
                 //istArr.push (newitemdn);               
@@ -1616,7 +1616,7 @@ Debug.write("totalVisited...",totalVisited);
 		//Debug.warn("Inside if of gController.audible");
 				loadMusicData();
 			}
-			    
+			this.restartItemCount = 0;    
             var dn = dpstudentdata.xpathQuery( 'title' );
             dn.setAttr( 'product_name', dpsubtest.xpathQuery( 'sco/@title' ) );
  			gItemInterfaceStudentName.setAttribute('text', getStudentName());
