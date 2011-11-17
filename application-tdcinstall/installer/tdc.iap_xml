@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2008 VP1 Enterprise, Build 3571
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Thu Nov 17 11:23:02 PST 2011 -->
-<InstallAnywhere_Deployment_Project increments="10948">
+     DATE:   Thu Nov 17 14:00:44 PST 2011 -->
+<InstallAnywhere_Deployment_Project increments="11022">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="9" minor="5" revision="0"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,69,49,55,55,57,82,81,81,68,81,81,68,81,81,55,81,70,81,82,70,81,57,70</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,86,105,115,116,97,44,32,54,46,48,44,32,120,56,54,59,32,74,97,118,97,32,49,46,53,46,48,95,49,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,48,-77,-2,96,-112,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,2,14,107,98,3,1,0,0</authorizationID>
+		<authorizationID>1,0,0,48,-77,-113,-64,-96,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,15,15,107,99,3,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="719">
+	<installationObjects uniqueObjects="724">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="wizardME">
 				<object class="com.zerog.ia.installer.actions.MakeExecutable" objectID="85358c91894c">
@@ -279,7 +279,7 @@ and any path to a file to read from that file]]></string>
 								<string><![CDATA[bootstrap.jar]]></string>
 							</property>
 							<property name="fileSize">
-								<long>130707</long>
+								<long>131133</long>
 							</property>
 							<property name="macBinary">
 								<boolean>false</boolean>
@@ -710,7 +710,7 @@ and any path to a file to read from that file]]></string>
 										<string><![CDATA[commons-logging.jar]]></string>
 									</property>
 									<property name="fileSize">
-										<long>-1</long>
+										<long>38015</long>
 									</property>
 									<property name="macBinary">
 										<boolean>false</boolean>
@@ -739,7 +739,7 @@ and any path to a file to read from that file]]></string>
 										<string><![CDATA[httpclient-4.1.jar]]></string>
 									</property>
 									<property name="fileSize">
-										<long>-1</long>
+										<long>349959</long>
 									</property>
 									<property name="macBinary">
 										<boolean>false</boolean>
@@ -768,7 +768,7 @@ and any path to a file to read from that file]]></string>
 										<string><![CDATA[httpclient-cache-4.1.jar]]></string>
 									</property>
 									<property name="fileSize">
-										<long>-1</long>
+										<long>105970</long>
 									</property>
 									<property name="macBinary">
 										<boolean>false</boolean>
@@ -797,7 +797,7 @@ and any path to a file to read from that file]]></string>
 										<string><![CDATA[httpcore-4.1.jar]]></string>
 									</property>
 									<property name="fileSize">
-										<long>-1</long>
+										<long>181041</long>
 									</property>
 									<property name="macBinary">
 										<boolean>false</boolean>
@@ -826,7 +826,7 @@ and any path to a file to read from that file]]></string>
 										<string><![CDATA[httpmime-4.1.jar]]></string>
 									</property>
 									<property name="fileSize">
-										<long>-1</long>
+										<long>26813</long>
 									</property>
 									<property name="macBinary">
 										<boolean>false</boolean>
@@ -855,7 +855,7 @@ and any path to a file to read from that file]]></string>
 										<string><![CDATA[log4j.jar]]></string>
 									</property>
 									<property name="fileSize">
-										<long>-1</long>
+										<long>352668</long>
 									</property>
 									<property name="macBinary">
 										<boolean>false</boolean>
@@ -898,6 +898,118 @@ and any path to a file to read from that file]]></string>
 							</property>
 							<visualChildren>
 								<object refID="3b2bb8428d81"/>
+								<object class="com.zerog.ia.installer.actions.InstallDirCont" objectID="c6f59aa18cab">
+									<property name="useFilterExtensions">
+										<boolean>false</boolean>
+									</property>
+									<property name="totalSize">
+										<long>2904</long>
+									</property>
+									<property name="unixPermissions">
+										<string><![CDATA[775]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="directoryChosen">
+										<boolean>true</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp\WEB-INF\classes]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[classes\]]></string>
+									</property>
+									<property name="createDirectory">
+										<boolean>true</boolean>
+									</property>
+									<property name="directoryName">
+										<string><![CDATA[classes]]></string>
+									</property>
+									<property name="patternMatcher">
+										<object class="com.zerog.ia.installer.SimplePatternMatcher" objectID="c6f59aa28cab">
+											<property name="includePatterns">
+												<object class="java.util.Vector"/>
+											</property>
+											<property name="excludePatterns">
+												<object class="java.util.Vector">
+													<method name="addElement">
+														<object class="com.zerog.ia.installer.PatternAtom" objectID="c6f9956e8cf7">
+															<property name="searchDescription">
+																<string><![CDATA[Begins With]]></string>
+															</property>
+															<property name="includeExcludeState">
+																<string><![CDATA[Excludes]]></string>
+															</property>
+															<property name="matchString">
+																<string><![CDATA[.#]]></string>
+															</property>
+															<property name="ignoresCase">
+																<string><![CDATA[Yes]]></string>
+															</property>
+															<property name="typeOption">
+																<string><![CDATA[Files]]></string>
+															</property>
+														</object>
+													</method>
+													<method name="addElement">
+														<object class="com.zerog.ia.installer.PatternAtom" objectID="c6f9ea3e8cf7">
+															<property name="searchDescription">
+																<string><![CDATA[Regular Expression]]></string>
+															</property>
+															<property name="includeExcludeState">
+																<string><![CDATA[Excludes]]></string>
+															</property>
+															<property name="matchString">
+																<string><![CDATA[CVS]]></string>
+															</property>
+															<property name="ignoresCase">
+																<string><![CDATA[No]]></string>
+															</property>
+															<property name="typeOption">
+																<string><![CDATA[Folders]]></string>
+															</property>
+														</object>
+													</method>
+													<method name="addElement">
+														<object class="com.zerog.ia.installer.PatternAtom" objectID="c70a66b99404">
+															<property name="searchDescription">
+																<string><![CDATA[Regular Expression]]></string>
+															</property>
+															<property name="includeExcludeState">
+																<string><![CDATA[Excludes]]></string>
+															</property>
+															<property name="matchString">
+																<string><![CDATA[com]]></string>
+															</property>
+															<property name="ignoresCase">
+																<string><![CDATA[No]]></string>
+															</property>
+															<property name="typeOption">
+																<string><![CDATA[Files and Folders]]></string>
+															</property>
+														</object>
+													</method>
+												</object>
+											</property>
+										</object>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+									<property name="recursivelyUninstall">
+										<boolean>false</boolean>
+									</property>
+								</object>
 							</visualChildren>
 						</object>
 					</method>
@@ -1023,6 +1135,9 @@ and any path to a file to read from that file]]></string>
 					</method>
 					<method name="addElement">
 						<object refID="c66fac068c25"/>
+					</method>
+					<method name="addElement">
+						<object refID="c6f59aa18cab"/>
 					</method>
 				</object>
 			</property>
@@ -9320,7 +9435,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.build.last.date]]></string>
-						<string><![CDATA[November 1, 2011 9:05:08 PM PDT]]></string>
+						<string><![CDATA[November 17, 2011 1:53:04 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.windows.vm]]></string>
@@ -9392,7 +9507,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[November 17, 2011 11:23:01 AM PST]]></string>
+						<string><![CDATA[November 17, 2011 2:00:44 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -10930,7 +11045,7 @@ done
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>8539652</long>
+												<long>8615459</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -15343,7 +15458,7 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[CATABE.dll]]></string>
 											</property>
 											<property name="fileSize">
-												<long>84831</long>
+												<long>79527</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
@@ -15481,7 +15596,7 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[libCATABE.jnilib]]></string>
 											</property>
 											<property name="fileSize">
-												<long>183248</long>
+												<long>165724</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
@@ -15510,7 +15625,7 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[libCATABE.so]]></string>
 											</property>
 											<property name="fileSize">
-												<long>65875</long>
+												<long>65693</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
@@ -15526,6 +15641,7 @@ and any path to a file to read from that file]]></string>
 										<object refID="c66fac088c24"/>
 										<object refID="c66fac068c25"/>
 										<object refID="3b2bb8428d81"/>
+										<object refID="c6f59aa18cab"/>
 										<object refID="3b2bb8118d48"/>
 										<object refID="3b2bb8068d37"/>
 									</installChildren>
