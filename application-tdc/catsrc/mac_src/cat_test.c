@@ -138,7 +138,12 @@ int next_psg_item(int psg_id);
 int get_1st_psg_item(int psg_id);
 double psg_info(int psg_id, double theta);
 
-JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_setup_1cat (JNIEnv * env, jclass theclass, jstring subtest) {
+/*JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_setup_1cat (JNIEnv * env, jclass theclass, jstring subtest) {
+	const jchar* subtestS = (*env)->GetStringUTFChars( env, subtest, 0 );
+	char* subtestString = (char*) subtestS;
+	return setup_cat(subtestString);
+}*/
+JNIEXPORT jint JNICALL Java_CATEngineProxy_setup_1cat (JNIEnv * env, jclass theclass, jstring subtest) {
 	const jchar* subtestS = (*env)->GetStringUTFChars( env, subtest, 0 );
 	char* subtestString = (char*) subtestS;
 	return setup_cat(subtestString);
@@ -449,7 +454,7 @@ int setup_cat(char subTest[]) {
 	return SETUP_CAT_OK;
 }
 
-JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_getTestLength (JNIEnv * env, jclass theclass) {
+JNIEXPORT jint JNICALL Java_CATEngineProxy_getTestLength (JNIEnv * env, jclass theclass) {
 	return getTestLength();
 }
 
@@ -465,7 +470,7 @@ int getNumObj(){
 	return _n_obj;
 }
 
-JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1nObj (JNIEnv * env, jclass theclass) {
+JNIEXPORT jint JNICALL Java_CATEngineProxy_get_1nObj (JNIEnv * env, jclass theclass) {
 	return get_nObj();
 }
 
@@ -473,7 +478,7 @@ int get_nObj(){
 	return _n_new_obj;
 }
 
-JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objID (JNIEnv * env, jclass theclass, jint k) {
+JNIEXPORT jint JNICALL Java_CATEngineProxy_get_1objID (JNIEnv * env, jclass theclass, jint k) {
 	return get_objID(k);
 }
 
@@ -534,7 +539,7 @@ void set_obj_order(char subTest[], char testLevel){   // set rand obj order
 	 
 }
 */
-JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_next_1item (JNIEnv * env, jclass theclass) {
+JNIEXPORT jint JNICALL Java_CATEngineProxy_next_1item (JNIEnv * env, jclass theclass) {
 	return next_item();
 }
 
@@ -809,7 +814,7 @@ char get_testLevel(double theta, char subTest[]){
 	return lvl;
 }
 
-JNIEXPORT jchar JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objLvl (JNIEnv * env, jclass theclass, jdouble theta) {
+JNIEXPORT jchar JNICALL Java_CATEngineProxy_get_1objLvl (JNIEnv * env, jclass theclass, jdouble theta) {
 	return get_objLvl(theta);
 }
 
@@ -1277,7 +1282,7 @@ void update_FTiBank(){
    _iadmFT++;
 }
 
-JNIEXPORT void JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_resumeCAT (JNIEnv * env, jclass theclass, jint nItems, jintArray itemIDs, jintArray rwos) {
+JNIEXPORT void JNICALL Java_CATEngineProxy_resumeCAT (JNIEnv * env, jclass theclass, jint nItems, jintArray itemIDs, jintArray rwos) {
 	jint* itemID = (*env)->GetIntArrayElements(env, itemIDs, 0);
 	jint* rwo = (*env)->GetIntArrayElements(env, rwos, 0);
 	int * itemID0 = (int*) itemID;
@@ -1352,7 +1357,7 @@ void set_simuRWO(int rwo, double theta0) {
 
 }
 
-JNIEXPORT void JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_set_1rwo (JNIEnv * env, jclass theclass, jint raw) {
+JNIEXPORT void JNICALL Java_CATEngineProxy_set_1rwo (JNIEnv * env, jclass theclass, jint raw) {
 	set_rwo(raw);
 }
 
@@ -1361,7 +1366,7 @@ void set_rwo(int rwo) {
        _item_adm[_iadm -1].rwo = rwo;
 }
 
-JNIEXPORT jdouble JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_score (JNIEnv * env, jclass theclass) {
+JNIEXPORT jdouble JNICALL Java_CATEngineProxy_score (JNIEnv * env, jclass theclass) {
 	return score();
 }
 
@@ -1452,7 +1457,7 @@ double score(){
 
 	return theta;
 }
-JNIEXPORT jdouble JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_getSEM (JNIEnv * env, jclass theclass, jdouble theta) {
+JNIEXPORT jdouble JNICALL Java_CATEngineProxy_getSEM (JNIEnv * env, jclass theclass, jdouble theta) {
 	return getSEM(theta);
 }
 
@@ -1466,7 +1471,7 @@ double getSEM(double theta) {
 	return 1.0/sqrt(p);
 }
 
-JNIEXPORT jdouble JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objScore (JNIEnv * env, jclass theclass, jdouble theta, jint obj_id) {
+JNIEXPORT jdouble JNICALL Java_CATEngineProxy_get_1objScore (JNIEnv * env, jclass theclass, jdouble theta, jint obj_id) {
 	return get_objScore(theta, obj_id);
 }
 
@@ -1487,7 +1492,7 @@ double get_objScore(double theta, int obj_id) {
 		return -1.0;
 }
 
-JNIEXPORT jdouble JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objScaleScore (JNIEnv * env, jclass theclass, jchar obj_lvl, jint obj_id) {
+JNIEXPORT jdouble JNICALL Java_CATEngineProxy_get_1objScaleScore (JNIEnv * env, jclass theclass, jchar obj_lvl, jint obj_id) {
 	return get_objScaleScore(obj_lvl, obj_id);
 }
 
@@ -1564,7 +1569,7 @@ int get_i_obj(char obj_lvl){
 	return i;
 }
 
-JNIEXPORT jdouble JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objSSsem (JNIEnv * env, jclass theclass, jdouble theta, jint obj_id) {
+JNIEXPORT jdouble JNICALL Java_CATEngineProxy_get_1objSSsem (JNIEnv * env, jclass theclass, jdouble theta, jint obj_id) {
 	return get_objSSsem(theta, obj_id);
 }
 
@@ -1604,7 +1609,7 @@ int get_rs(int obj_id) {
 	return rs;
 }
 
-JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1totObjRS (JNIEnv * env, jclass theclass) {
+JNIEXPORT jint JNICALL Java_CATEngineProxy_get_1totObjRS (JNIEnv * env, jclass theclass) {
 	return get_totObjRS();
 }
 
@@ -1612,7 +1617,7 @@ int get_totObjRS() {
 	return _tot_obj_rs;  /* must be called after get_rs() or get_objScaleScore() */
 }
 
-JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objRS (JNIEnv * env, jclass theclass) {
+JNIEXPORT jint JNICALL Java_CATEngineProxy_get_1objRS (JNIEnv * env, jclass theclass) {
 	return get_objRS();
 }
 
@@ -1620,7 +1625,7 @@ int get_objRS() {
 	return _obj_rs;  /* must be called after get_rs() or get_objScaleScore() */
 }
 
-JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objMasteryLvl (JNIEnv * env, jclass theclass, jdouble obj_score, jint obj_id, jchar obj_lvl) {
+JNIEXPORT jint JNICALL Java_CATEngineProxy_get_1objMasteryLvl (JNIEnv * env, jclass theclass, jdouble obj_score, jint obj_id, jchar obj_lvl) {
 	return get_objMasteryLvl(obj_score, obj_id, obj_lvl);
 }
 
@@ -1722,7 +1727,7 @@ void print_pItems(){
  
 }
 */
-JNIEXPORT void JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_setoff_1cat (JNIEnv * env, jclass theclass) {
+JNIEXPORT void JNICALL Java_CATEngineProxy_setoff_1cat (JNIEnv * env, jclass theclass) {
 	setoff_cat();
 }
 

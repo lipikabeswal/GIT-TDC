@@ -157,21 +157,22 @@ int setup_cat(char subTest[]) {
  
    strcpy(_subTest, subTest);   /* @todo set to up case */
 
-   strcpy(log_filename, "");
-   /* strcat(log_filename, ".\\Data\\"); */
-   strcat(log_filename, "..\\..\\Data\\");
-   strcat(log_filename, subTest);
-   strcat(log_filename, ".log");
+   if (LOG_FILE_FLAG) {
+       strcpy(log_filename, "");
+       /* strcat(log_filename, ".\\Data\\"); */
+       strcat(log_filename, "..\\..\\data\\");
+       strcat(log_filename, subTest);
+       strcat(log_filename, ".log");
 
-   log_file = fopen(log_filename, "w");
+       log_file = fopen(log_filename, "w");
   
-   if (log_file == NULL) {
-        printf ("Error: Couldn't open log file: %s \n", log_filename);
-        return SETUP_CAT_FAILURE;
+       if (log_file == NULL) {
+           printf ("Error: Couldn't open log file: %s \n", log_filename);
+           return SETUP_CAT_FAILURE;
+        }
+
+        fprintf(log_file, " %s \n", versionInfo);
    }
-
-   fprintf(log_file, " %s \n", versionInfo);
-
    /*
    strcpy(ssByLvl_filename, ".\\Data\\SSstatsByLevel.csv");
  //  strcpy(ssByCnt_filename, ".\\Data\\SSstatsByContent.csv");
@@ -189,7 +190,7 @@ int setup_cat(char subTest[]) {
    */
 
   /* strcpy(_NoItemsEachObjByLvl_filename, ".\\Data\\NoItemsAnObjByLvl.csv"); */
-   strcpy(_NoItemsEachObjByLvl_filename, "..\\..\\Data\\NoItemsAnObjByLvl.csv");
+   strcpy(_NoItemsEachObjByLvl_filename, "..\\..\\data\\NoItemsAnObjByLvl.csv");
    /*
    condition_code = getNadmObj(NoItemsEachObjByLvl_filename, subTest, testLevel, _n_adm_obj);
    if (condition_code != GETN_ADMOBJ_OK) {
@@ -245,20 +246,20 @@ int setup_cat(char subTest[]) {
 
    strcpy(par_filename, "");
  /*  strcat(par_filename, ".\\Data\\"); */
-   strcat(par_filename, "..\\..\\Data\\");
+   strcat(par_filename, "..\\..\\data\\");
    strcat(par_filename, subTest);
    strcat(par_filename, ".csv");
    
    _n_items = get_n_items(par_filename);
    if (_n_items == GET_NITEM_FAILURE ) {
-       fprintf(log_file, "Error: get_n_items failed in %s \n", par_filename);
+       if (LOG_FILE_FLAG) fprintf(log_file, "Error: get_n_items failed in %s \n", par_filename);
 	   return SETUP_CAT_FAILURE; 
    }
 
    _items = (struct item_info *) malloc(_n_items * sizeof(struct item_info));
 	
     if (_items == NULL) {
-		fprintf(log_file, "Error: malloc _items failed! \n");
+		if (LOG_FILE_FLAG) fprintf(log_file, "Error: malloc _items failed! \n");
         return  SETUP_CAT_FAILURE;
     }
     
@@ -277,7 +278,7 @@ int setup_cat(char subTest[]) {
 	}
     */
     if (condition_code != GETPAR_OK) {
-        fprintf(log_file, "Error: getItems failed %s \n", par_filename); 
+        if (LOG_FILE_FLAG) fprintf(log_file, "Error: getItems failed %s \n", par_filename); 
         return SETUP_CAT_FAILURE;
 	}
 
@@ -288,28 +289,28 @@ int setup_cat(char subTest[]) {
    */ 
 
 	/* set level specified loss and hoss */
-	strcpy(lvlLH_filename,"..\\..\\Data\\TabeScaleBounds.csv");
+	strcpy(lvlLH_filename,"..\\..\\data\\TabeScaleBounds.csv");
 	condition_code = get_LH4lvl(lvlLH_filename, subTest, _lvl_loss, _lvl_hoss);
 	if (condition_code != GETPAR_OK) {
-        fprintf(log_file, "Error: get_LH4lvl failed in Data\TabeScaleBounds.cvs. \n"); 
+        if (LOG_FILE_FLAG) fprintf(log_file, "Error: get_LH4lvl failed in Data\TabeScaleBounds.cvs. \n"); 
         return SETUP_CAT_FAILURE;
 	}
 
 	/* set obj level specified cut scores */
 	
 	strcpy(objLvlCut_filename, "");
-    strcat(objLvlCut_filename, "..\\..\\Data\\");
+    strcat(objLvlCut_filename, "..\\..\\data\\");
     strcat(objLvlCut_filename, subTest);
     strcat(objLvlCut_filename, "-Lvl-Obj-Cuts.csv");
 	_objSS_cut = (struct objSScut *) malloc(_n_new_obj * sizeof(struct objSScut));
 	
     if (_objSS_cut == NULL) {
-		fprintf(log_file, "Error: malloc _objSS_cut failed! \n");
+		if (LOG_FILE_FLAG) fprintf(log_file, "Error: malloc _objSS_cut failed! \n");
         return  SETUP_CAT_FAILURE;
     }
 	condition_code = get_objLvlCut(objLvlCut_filename, _new_objID, _objSS_cut);
 	if (condition_code != GETPAR_OK) {
-        fprintf(log_file, "Error: get_objLvlCut failed in %s. \n", objLvlCut_filename); 
+        if (LOG_FILE_FLAG) fprintf(log_file, "Error: get_objLvlCut failed in %s. \n", objLvlCut_filename); 
         return SETUP_CAT_FAILURE;
 	}
 
@@ -324,20 +325,20 @@ int setup_cat(char subTest[]) {
 /* get FT items */
    strcpy(parFT_filename, "");
  /*  strcat(parFT_filename, ".\\Data\\"); */
-   strcat(parFT_filename, "..\\..\\Data\\");
+   strcat(parFT_filename, "..\\..\\data\\");
    strcat(parFT_filename, subTest);
    strcat(parFT_filename, "_FT.csv");
    
    _n_FTitems = get_n_items(parFT_filename);
    if (_n_FTitems == GET_NITEM_FAILURE ) {
-       fprintf(log_file, "Error: get_n_items failed in %s \n", parFT_filename);
+       if (LOG_FILE_FLAG) fprintf(log_file, "Error: get_n_items failed in %s \n", parFT_filename);
 	   return SETUP_CAT_FAILURE; 
    }
 
    _FTitems = (struct item_info *) malloc(_n_FTitems * sizeof(struct item_info));
 	
     if (_FTitems == NULL) {
-		fprintf(log_file, "Error: malloc _FTitems failed! \n");
+		if (LOG_FILE_FLAG) fprintf(log_file, "Error: malloc _FTitems failed! \n");
         return  SETUP_CAT_FAILURE;
     }
     
@@ -349,7 +350,7 @@ int setup_cat(char subTest[]) {
 	condition_code = getFT_Items(parFT_filename, _FTitems, _n_FTitems, _n_FTitemsLvl);
  
     if (condition_code != GETPAR_OK) {
-        fprintf(log_file, "Error: getFT_Items failed %s \n", parFT_filename); 
+        if (LOG_FILE_FLAG) fprintf(log_file, "Error: getFT_Items failed %s \n", parFT_filename); 
         return SETUP_CAT_FAILURE;
 	}
 
@@ -362,7 +363,7 @@ int setup_cat(char subTest[]) {
     
     _theta = (double*) malloc((_testLength+1) * sizeof(double));
 	if (_theta == NULL) {
-		fprintf(log_file, "Error: malloc _theta failed! \n");
+		if (LOG_FILE_FLAG) fprintf(log_file, "Error: malloc _theta failed! \n");
         return  SETUP_CAT_FAILURE;
     }
 	_theta[0] = mean; // 0.5*(_loss+_hoss);
@@ -371,7 +372,7 @@ int setup_cat(char subTest[]) {
     _tq = (double*) malloc((Qs+1) * sizeof(double));
     _ft = (double*) malloc((Qs+1) * sizeof(double));
     if ((_tq == NULL) || (_ft == NULL) ) {
-		fprintf(log_file, "Error: malloc _tq or _ft failed! \n");
+		if (LOG_FILE_FLAG) fprintf(log_file, "Error: malloc _tq or _ft failed! \n");
         return  SETUP_CAT_FAILURE;
     }
 
@@ -381,7 +382,7 @@ int setup_cat(char subTest[]) {
 	}
     _item_adm = (struct item_info *) malloc( _testLength * sizeof(struct item_info));
     if (_item_adm == NULL) {
-		fprintf(log_file, "Error: malloc _item_adm failed! \n");
+		if (LOG_FILE_FLAG) fprintf(log_file, "Error: malloc _item_adm failed! \n");
         return  SETUP_CAT_FAILURE;
     }
 
@@ -390,7 +391,7 @@ int setup_cat(char subTest[]) {
     
     condition_code = new3DIntArray(_n_obj, _aStrata_o, 2, &_pItems);
     if (condition_code != ARRAY_MALLOC_OK) {
-        fprintf(log_file, "Error:  malloc 3D array failed! \n");
+        if (LOG_FILE_FLAG) fprintf(log_file, "Error:  malloc 3D array failed! \n");
 	    return SETUP_CAT_FAILURE;	
 	} 
 /*
@@ -416,7 +417,7 @@ int setup_cat(char subTest[]) {
     _indx_a = (int *) malloc(_n_items * sizeof(int));
 	a = (double *) malloc(_n_items * sizeof(double));
     if ( (_itemInfo == NULL) || (_indx == NULL) || (_indx_a == NULL ) || (a == NULL )) {
-		fprintf(log_file, "Error: malloc _itemInfo or _indx failed! \n");
+		if (LOG_FILE_FLAG) fprintf(log_file, "Error: malloc _itemInfo or _indx failed! \n");
         return  SETUP_CAT_FAILURE;
     }
 	
@@ -435,7 +436,7 @@ int setup_cat(char subTest[]) {
 	
 //	set_obj_order(subTest, testLevel); // set randomly obj adapt order
 */
-	ran0(-1);  /* for simulation */
+	/* ran0(-1);   for simulation */
 
 	/* initilize variables */
 	_is_psg = 0;
@@ -559,7 +560,7 @@ int next_item() {
 			lvl = get_testLevel(theta, _subTest);
             condition_code = getNadmObj(_NoItemsEachObjByLvl_filename, _subTest, lvl, _n_adm_obj);
             if (condition_code != GETN_ADMOBJ_OK) {
-	             fprintf(log_file, "Error: getNadmObj failed for subTest %s and Level %c \n", _subTest, lvl);
+	             if (LOG_FILE_FLAG) fprintf(log_file, "Error: getNadmObj failed for subTest %s and Level %c \n", _subTest, lvl);
 	             return NEXT_ITEM_FAILURE; 
 			}
 			/* sort by obj_id and a parameter?? No! It already was sorted this way. */
@@ -640,8 +641,9 @@ int next_item() {
 	    }  
 	    if ( itemID != NEXT_ITEM_FAILURE ) 
             update_iBank();
-	    else
-            fprintf(log_file, "Error: NEXT_ITEM_FAILURE in next_item() \n");
+	    else {
+            if (LOG_FILE_FLAG) fprintf(log_file, "Error: NEXT_ITEM_FAILURE in next_item() \n");
+		}
 	}
 /*	printf("item_no = %d, itemID = %d, psg_id = %d, item_order = %d   \n", _items[_ik].item_no, itemID, _items[_ik].psg_id, _items[_ik].item_order);
 */
@@ -705,7 +707,7 @@ int adapt_aFTitem() {
 			}
 		
 			if (! findItemFlag  ) {
-				    fprintf(log_file, "Error: run out of FT_ITEMs in adapt_aFTitem() \n");
+				    if (LOG_FILE_FLAG) fprintf(log_file, "Error: run out of FT_ITEMs in adapt_aFTitem() \n");
 			        return NEXT_ITEM_FAILURE;
 			}
 
@@ -714,7 +716,7 @@ int adapt_aFTitem() {
 					return itemID;
 			}
 			else {
-					fprintf(log_file, "Error: return FT_ITEM_FAILURE in adapt_aFTitem() \n");
+					if (LOG_FILE_FLAG) fprintf(log_file, "Error: return FT_ITEM_FAILURE in adapt_aFTitem() \n");
 			        return NEXT_ITEM_FAILURE;
 			}
 }
@@ -916,7 +918,7 @@ int adapt_aItemFromIdx(double theta, int idx1, int idx2) {  /* no obj and alpha 
    k = idx2 - idx1;
    
    if (n_cell_items < 1) {
-	   fprintf(log_file, "Error: run out of item in pool \n");
+	   if (LOG_FILE_FLAG) fprintf(log_file, "Error: run out of item in pool \n");
 	   return NEXT_ITEM_FAILURE;
    }
    indexDescend( k, _itemInfo, _indx);  
@@ -1037,7 +1039,7 @@ int get_itemID_fromIdx(int idx) {
 	          _is_psg = 0;
 		}
 		else {
-			 fprintf(log_file, "Error: get_itemID_fromIdx failed for item idx = %d , this item was already taken \n", idx);
+			 if (LOG_FILE_FLAG) fprintf(log_file, "Error: get_itemID_fromIdx failed for item idx = %d , this item was already taken \n", idx);
              return NEXT_ITEM_FAILURE;
 		}
     }
@@ -1114,8 +1116,9 @@ double psg_info(int psg_id, double theta) {
 	}
 	if (n_psg > 0)
 	    itemInfo = itemInfo / (double)n_psg;
-	else
-		fprintf(log_file,"Error: no psg item for psg_id = %d in psg_info \n", psg_id);
+	else {
+		if (LOG_FILE_FLAG) fprintf(log_file,"Error: no psg item for psg_id = %d in psg_info \n", psg_id);
+	}
 
 	return itemInfo;
 }
@@ -1142,7 +1145,7 @@ int adapt_aItemFromAll(double theta) {  /* no obj and alpha stratificatoin const
    }
 
    if (n_cell_items < 1) {
-	   fprintf(log_file, "Error: run out of not-psg-item in pool \n");
+	   if (LOG_FILE_FLAG) fprintf(log_file, "Error: run out of not-psg-item in pool \n");
 	   return NEXT_ITEM_FAILURE;
    }
    indexDescend( _n_items, _itemInfo, _indx);  
@@ -1184,7 +1187,7 @@ int adapt_aItem(int obj, int aSt, double theta) {
 		   if (!_items[k].psg_id) 
 	           _itemInfo[i] = fisherInfo(theta, _items[k].parameters);     
 		   else /* average info over the same psg_id */
-			   _itemInfo[i] = psg_info(_items[_indx_a[k]].psg_id, theta);
+			   _itemInfo[i] = psg_info(_items[k].psg_id, theta);
 	   }
 	   else
 		   _itemInfo[i] = -9.0;
@@ -1193,7 +1196,7 @@ int adapt_aItem(int obj, int aSt, double theta) {
    k = _pItems[obj][aSt][1] - _pItems[obj][aSt][0] + 1;
    
    if (n_cell_items < 1) {
-	   fprintf(log_file, "Error: run out of item in pool \n");
+	   if (LOG_FILE_FLAG) fprintf(log_file, "Error: run out of item in pool \n");
 	   return NEXT_ITEM_FAILURE;
    }
    
@@ -1208,7 +1211,7 @@ int adapt_aItem(int obj, int aSt, double theta) {
 	    _ik = _pItems[obj][aSt][0] + _indx[i];
 	    if (_items[_ik].psg_id) {   /* psg_id = 0 for non-passage item. */
 			 psg_size = get_psg_size(_items[_ik].psg_id);
-			 if ((_testLength - (_iadm + 1)) >= psg_size ) {
+			 if ((_testLength - _iadm ) >= psg_size ) {
 				 psg_size_flag = 0;
 				 break;
 			 }
@@ -1220,17 +1223,17 @@ int adapt_aItem(int obj, int aSt, double theta) {
    }
 
    if (psg_size_flag) {
-	   fprintf(log_file, "Warning: items in obj = %d failed to meet [psg_size <= _testLength - (iadm+1)] condition. \n", obj);
+	   if (LOG_FILE_FLAG) fprintf(log_file, "Warning: items in obj = %d failed to meet [psg_size <= _testLength - (iadm+1)] condition. \n", obj);
        _ik = _pItems[obj][aSt][0] + _indx[0]; /* to adapted the item with the highest info, regardless its psg_size. */
    }
 
    itemID = get_itemID_fromIdx(_ik);
    if ( itemID == NEXT_ITEM_FAILURE ) {
-	   fprintf(log_file, "Warning: run out of items in obj = %d. \n", obj);
+	   if (LOG_FILE_FLAG) fprintf(log_file, "Warning: run out of items in obj = %d. \n", obj);
 	   /* to adapt a none psg item from the whole item bank */
 	   itemID = adapt_aItemFromAll(theta); /* randomly pick up one of best 5 items */
 	   if ( itemID == NEXT_ITEM_FAILURE ) {
-	        fprintf(log_file, "Error: run out of not psg items in the whole item bank  \n");
+	        if (LOG_FILE_FLAG) fprintf(log_file, "Error: run out of not psg items in the whole item bank  \n");
 	   }
    }
    return itemID;
@@ -1259,7 +1262,7 @@ void update_iBank(){
 
    _item_adm[_iadm].parameters = (double *) malloc( 3*sizeof(double) );
     if (_item_adm[_iadm].parameters == NULL)  {
-		fprintf(log_file, "Error: malloc _item_adm[%d].parameters failed! \n", _iadm );
+		if (LOG_FILE_FLAG) fprintf(log_file, "Error: malloc _item_adm[%d].parameters failed! \n", _iadm );
 		exit(EXIT_FAILURE);
 /*		return ADAPT_N_ITEM_FAILURE; */
     }
@@ -1306,7 +1309,7 @@ void resumeCAT(int nItems, int itemIDs[], int rwo[]){
 			        lvl = get_testLevel(theta, _subTest);
                     condition_code = getNadmObj(_NoItemsEachObjByLvl_filename, _subTest, lvl, _n_adm_obj);
                     if (condition_code != GETN_ADMOBJ_OK) {
-	                      fprintf(log_file, "Error: getNadmObj failed for subTest %s and Level %c in resumeCAT() \n", _subTest, lvl);
+	                      if (LOG_FILE_FLAG) fprintf(log_file, "Error: getNadmObj failed for subTest %s and Level %c in resumeCAT() \n", _subTest, lvl);
 	                      exit(EXIT_FAILURE); 
 			        }
 			        /* sort by obj_id and a parameter?? No! It already was sorted this way. */
@@ -1725,19 +1728,24 @@ JNIEXPORT void JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_setoff_1cat (JN
 
 void setoff_cat(){  /* For no obj and aStr case */
 
-   fclose(log_file);
+   if (LOG_FILE_FLAG) fclose(log_file);
    free(_theta);
    free(_tq);
    free(_ft);
    free(_objSS_cut);
    free(_FTitems); /* note there is no parameters in FT. */
    free_items(_n_items, _items); 
-   free_items(_testLength, _item_adm);
+
+   if (_iadm == _testLength)
+      free_items(_iadm, _item_adm);
+   else
+	  free(_item_adm);
 /*   free(_n_a);
 //   free(_max_nItem_obj);
 */
    free(_itemInfo);
    free(_indx);
+   free(_indx_a); 
    free3DIntArray(_pItems);
 /*   free2DIntArray(_nItems_a_c); */
 }

@@ -27,6 +27,7 @@
 #define GET_NITEM_FAILURE 1    /* Fatal errors  */
 
 #define lineLen_max 300
+#define LOG_FILE_FLAG 0   /* 0/1 turned off/on log_file output */
 
 struct objSScut {
 	double s50[4];

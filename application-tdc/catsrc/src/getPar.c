@@ -45,7 +45,7 @@ int getItems (char inPar[], struct item_info items[], int n_items, int *n_obj, i
   fp = fopen(inPar, "r");	
   
   if ( fp  ==  NULL ) {
-    fprintf (log_file, "Couldn't open par file: %s \n", inPar);
+    if (LOG_FILE_FLAG) fprintf (log_file, "Couldn't open par file: %s \n", inPar);
     return  GETPAR_FAILURE;
   }
   
@@ -78,7 +78,7 @@ int getItems (char inPar[], struct item_info items[], int n_items, int *n_obj, i
           
       items[i].parameters = (double *) malloc(3*sizeof(double));
       if (items[i].parameters == NULL) {
-		fprintf (log_file, "Error: malloc item[%d].parameters failed! \n", i);
+		if (LOG_FILE_FLAG) fprintf (log_file, "Error: malloc item[%d].parameters failed! \n", i);
         return  GETPAR_FAILURE;
       }	    
       items[i].parameters[0] = ad;
@@ -125,7 +125,7 @@ int getItems (char inPar[], struct item_info items[], int n_items, int *n_obj, i
 
   *n_obj = n_objs + 1;
   if (i != n_items) {
-    fprintf (log_file, "Error: Number of items in Par are different from that in Dat or Rwo: %s \n", inPar);
+    if (LOG_FILE_FLAG) fprintf (log_file, "Error: Number of items in Par are different from that in Dat or Rwo: %s \n", inPar);
     return GETPAR_FAILURE;
   }
 
@@ -167,7 +167,7 @@ int getSSstats (char inFileByLvl[], char inFileByCnt[], char subTest[], char tes
   fp = fopen(inFileByLvl, "r");	
   
   if ( fp  ==  NULL ) {
-    fprintf (log_file, "Couldn't open file: %s \n", inFileByLvl);
+    if (LOG_FILE_FLAG) fprintf (log_file, "Couldn't open file: %s \n", inFileByLvl);
     return  GETPAR_FAILURE;
   }
 
@@ -217,7 +217,7 @@ int getNadmObj(char inFileNoItemObj[], char subTest[], char testLevel, int n_adm
   fp = fopen(inFileNoItemObj, "r");	
   
   if ( fp  ==  NULL ) {
-    fprintf (log_file, "Error: Couldn't open file: %s \n", inFileNoItemObj);
+    if (LOG_FILE_FLAG) fprintf (log_file, "Error: Couldn't open file: %s \n", inFileNoItemObj);
     return  GETN_ADMOBJ_FAILURE;
   }
 
@@ -263,7 +263,7 @@ int get_n_items(char inPar[]){
   fp = fopen(inPar, "r");	
   
   if ( fp  ==  NULL ) {
-    fprintf (log_file, "Error: Couldn't open file: %s in get_n_items. \n", inPar);
+    if (LOG_FILE_FLAG) fprintf (log_file, "Error: Couldn't open file: %s in get_n_items. \n", inPar);
     return  GET_NITEM_FAILURE;
   }
 
@@ -291,7 +291,7 @@ int getFT_Items (char inPar[], struct item_info items[], int n_items, int n_FTit
   fp = fopen(inPar, "r");	
   
   if ( fp  ==  NULL ) {
-    fprintf (log_file, "Couldn't open par file: %s \n", inPar);
+    if (LOG_FILE_FLAG) fprintf (log_file, "Couldn't open par file: %s \n", inPar);
     return  GETPAR_FAILURE;
   }
   
@@ -355,7 +355,7 @@ int getFT_Items (char inPar[], struct item_info items[], int n_items, int n_FTit
   }  /* end while */
 
   if (i != n_items) {
-    fprintf (log_file, "Error: Number of items in Par are different from that in Dat or Rwo: %s \n", inPar);
+    if (LOG_FILE_FLAG) fprintf (log_file, "Error: Number of items in Par are different from that in Dat or Rwo: %s \n", inPar);
     return GETPAR_FAILURE;
   }
 
@@ -373,7 +373,7 @@ int get_LH4lvl(char inFile[], char subTest[], double loss[], double hoss[]){
      fp = fopen(inFile, "r");	
   
     if ( fp  ==  NULL ) {
-        fprintf (log_file, "Couldn't open par file: %s \n", inFile);
+        if (LOG_FILE_FLAG) fprintf (log_file, "Couldn't open par file: %s \n", inFile);
         return  GETPAR_FAILURE;
      }
   
@@ -408,7 +408,7 @@ int get_objLvlCut(char inFile[], int objID[], struct objSScut objSS_cut[]) {
      fp = fopen(inFile, "r");	
   
      if ( fp  ==  NULL ) {
-        fprintf (log_file, "Couldn't open par file: %s \n", inFile);
+        if (LOG_FILE_FLAG) fprintf (log_file, "Couldn't open par file: %s \n", inFile);
         return  GETPAR_FAILURE;
      }
   
@@ -430,12 +430,12 @@ int get_objLvlCut(char inFile[], int objID[], struct objSScut objSS_cut[]) {
 				  }
 			 }
 			 else {
-				 fprintf (log_file, "Error: level mismatch in: %s \n", inFile);
+				 if (LOG_FILE_FLAG) fprintf (log_file, "Error: level mismatch in: %s \n", inFile);
                  return  GETPAR_FAILURE;
 			 }
 		 }
 		 else {
-			  fprintf (log_file, "Error: objective ID mismatch in: %s \n", inFile);
+			  if (LOG_FILE_FLAG) fprintf (log_file, "Error: objective ID mismatch in: %s \n", inFile);
               return  GETPAR_FAILURE;
 		 }
 	 }
