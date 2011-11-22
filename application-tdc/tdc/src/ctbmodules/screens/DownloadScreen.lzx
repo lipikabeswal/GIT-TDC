@@ -64,8 +64,11 @@
 		</method>
 
 		<method name="setFilePartWidth">
-		var theWidth = ((completedFileParts*100)/totalFileParts) *4;
-		filePartText.setAttribute ("width", theWidth);
+			if(totalFileParts == 0){
+				totalFileParts = 1;
+			}
+			var theWidth = ((completedFileParts*100)/totalFileParts) *4;
+			filePartText.setAttribute ("width", theWidth);
 		</method>
 				
          <simplelayout axis="y"/>
