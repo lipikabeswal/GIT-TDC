@@ -1161,8 +1161,8 @@ public class ServletUtils {
 					Element rawScore = item.getChild( "ov" );
 					Element score = rawScore.getChild( "v" );
 					String scoreVal = score.getText();
-					
-					restartItemsRawScore[i] = Integer.parseInt( scoreVal );
+					if(scoreVal != null && !scoreVal.equals(""))
+						restartItemsRawScore[i] = Integer.parseInt( scoreVal );
 					logger.info("restartItemsRawScore: item " + i + ": " + restartItemsRawScore[i] );
 				//}
 			}	
