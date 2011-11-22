@@ -51,15 +51,17 @@
             }
             
             private function handleOnInvoke(event:InvokeEvent):void {
-            	var prefFile:File = event.currentDirectory;
-				prefFile = prefFile.resolvePath("loc.cfg");
+            	//var prefFile:File = event.currentDirectory;
+				//prefFile = prefFile.resolvePath("loc.cfg");
 		
-				var stream:FileStream = new FileStream();
-				stream.open(prefFile, FileMode.READ);
-				var loc:String = stream.readUTFBytes(stream.bytesAvailable);
-				stream.close();
+				//var stream:FileStream = new FileStream();
+				//stream.open(prefFile, FileMode.READ);
+				//var loc:String = stream.readUTFBytes(stream.bytesAvailable);
+				//stream.close();
 		
-				this.tdccanvas.location = loc;
+				//this.tdccanvas.location = loc;
+				
+				this.tdccanvas.location = event.arguments.toString();
 				
 				var customContextMenu:ContextMenu = new ContextMenu();
 				//hide the Flash menu
