@@ -59,6 +59,12 @@ public class LockdownBrowserWrapper extends Thread {
 	static volatile boolean flag = false;
 	static volatile boolean ready = false;
 	
+	private static Process ldbProcess;
+	
+	public static Process getLdbProcess() {
+		return ldbProcess;
+	}
+	
 	/**
 	 * Creates a new Lockdown Browser process wrapper with the given tdcHome value.
 	 * @param tdcHome  The location of the Test Delivery Client's home folder containing the home folder of Jetty as well as configuration files and additional java libraries. 
@@ -239,6 +245,7 @@ public class LockdownBrowserWrapper extends Thread {
 					ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
 					
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome) );
+					ldbProcess = ldb;
 					this.isAvailable = true;
 					ldb.waitFor();
 					this.isAvailable = false;
@@ -353,6 +360,7 @@ public class LockdownBrowserWrapper extends Thread {
 					LockdownLinux lockdown = new LockdownLinux(this.tdcHome);
 					ConsoleUtils.messageOut("AIR app started at " + startTime);
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, envp, new File(this.ldbHome));
+					ldbProcess = ldb;
 					Thread.sleep(10000);
 					lockdown.start();
 					ready = true;
@@ -393,6 +401,7 @@ public class LockdownBrowserWrapper extends Thread {
 					Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 					ConsoleUtils.messageOut("AIR app started at " + System.currentTimeMillis());
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome));
+					ldbProcess = ldb;
 					//Process ldb = Runtime.getRuntime().exec("C:\\Program Files\\Internet Explorer\\iexplore.exe -k");
 					this.isAvailable = true;
 					ldb.waitFor();
@@ -606,30 +615,7 @@ public class LockdownBrowserWrapper extends Thread {
 	
 	public static synchronized void exit() {
 		try {
-			if(islinux) {
-        		Runtime.getRuntime().exec("killall OASTDC");
-        		Thread.sleep(250);
-        		Runtime.getRuntime().exec("killall OASTDC");
-        	} else if(ismac) {
-        		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
-        		Thread.sleep(250);
-        		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
-        	} else {
-        		try {
-	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
-	        		Thread.sleep(250);
-	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
-        		} catch (Exception e) {
-        			e.printStackTrace();
-        		}
-        		try {
-        			Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
-	        		Thread.sleep(250);
-	        		Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
-        		} catch (Exception e) {
-        			e.printStackTrace();
-        		}	
-        	}
+			ldbProcess.destroy();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
