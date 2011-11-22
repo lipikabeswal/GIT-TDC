@@ -34,10 +34,10 @@ public class LockdownBrowserWrapper extends Thread {
 
 	static volatile String processName = "";
 	
-	private String tdcHome;
-	private String ldbHome;
+	private static String tdcHome;
+	private static String ldbHome;
 	
-	private SplashWindow splashWindow;
+	private static SplashWindow splashWindow;
 	
 	private static boolean islinux = false;
 	private static boolean ismac = false;
@@ -62,6 +62,7 @@ public class LockdownBrowserWrapper extends Thread {
 	private static Process ldbProcess;
 	
 	public static Process getLdbProcess() {
+		unlock();
 		return ldbProcess;
 	}
 	
@@ -401,8 +402,8 @@ public class LockdownBrowserWrapper extends Thread {
 					Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 					ConsoleUtils.messageOut("AIR app started at " + System.currentTimeMillis());
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome));
+					//Process ldb = Runtime.getRuntime().exec("C:\\Program Files\\Internet Explorer\\iexplore.exe -k http://127.0.0.1:12345/login.html");
 					ldbProcess = ldb;
-					//Process ldb = Runtime.getRuntime().exec("C:\\Program Files\\Internet Explorer\\iexplore.exe -k");
 					this.isAvailable = true;
 					ldb.waitFor();
 					this.isAvailable = false;
@@ -435,10 +436,50 @@ public class LockdownBrowserWrapper extends Thread {
 			exit();
 		}
 	}
-	  
-	private ArrayList lockFiles = new ArrayList();
 	
-	public void cleanupLock() {
+	/**
+	 * Starts the LockdownBrowser.  This thread will block and wait for the LDB to finish
+	 * execution before this thread itself will die.
+	 */
+	public static void unlock() {
+		try {
+			if (ismac) {
+        		Runtime.getRuntime().exec("sh clear_clipboard.sh", null, new File(tdcHome.replaceAll(" ", "\\ ")));
+    			Runtime.getRuntime().exec("sh enable_screen_capture.sh", null, new File(tdcHome.replaceAll(" ", "\\ ")));
+    			String[] appString = {"osascript","-e","set the clipboard to \"\""};
+    			Runtime.getRuntime().exec(appString);
+			} else if (islinux) {
+				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(true);
+				Runtime.getRuntime().exec("./wmctrl -n 2", null, new File(tdcHome.replaceAll(" ", "\\ ")));
+				ConsoleUtils.messageOut("Desktop unlocked ...");	
+			} else {
+				LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(true);
+				LockdownBrowserWrapper.TaskSwitching_Enable_Disable(true);
+				String taskmgr = "taskbarshow.exe";
+				
+				Runtime.getRuntime().exec(taskmgr, null, new File(tdcHome.replaceAll(" ", "\\ ")));
+				Thread.sleep(500);	
+				Runtime.getRuntime().exec(taskmgr, null, new File(tdcHome.replaceAll(" ", "\\ ")));
+				
+				cleanupLock();	// call here to fix issue in 64 bit Windows 7 
+				
+				ConsoleUtils.messageOut("Desktop unlocked ...");	
+				Thread.sleep(1500);
+			}	
+			
+			splashWindow.show();
+			cleanupLock();	
+			
+		} catch (Exception e) {
+			ConsoleUtils.messageErr("An error has occured within LockdownBrowserWrapper", e);
+		} finally {
+			exit();
+		}
+	}
+	  
+	private static ArrayList lockFiles = new ArrayList();
+	
+	public static void cleanupLock() {
 		
 		String msg;
 		Iterator it = lockFiles.iterator();
@@ -457,13 +498,13 @@ public class LockdownBrowserWrapper extends Thread {
 		}	
 		
 		if(islinux) {
-			String pcheckFile = this.tdcHome + "/processcheck";
+			String pcheckFile = tdcHome + "/processcheck";
 			File file = new File(pcheckFile);
 			file.delete();
-			pcheckFile = this.tdcHome + "/xmodmap_modified";
+			pcheckFile = tdcHome + "/xmodmap_modified";
 			file = new File(pcheckFile);
 			file.delete();
-			pcheckFile = this.tdcHome + "/xmodmap_original";
+			pcheckFile = tdcHome + "/xmodmap_original";
 			file = new File(pcheckFile);
 			file.delete();
 		}
