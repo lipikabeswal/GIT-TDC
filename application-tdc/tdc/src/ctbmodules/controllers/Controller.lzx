@@ -3134,6 +3134,9 @@ Debug.write("############ loadItem ############");
             this.itemloaded    = false;
             this.runtimeready  = false;
             this.youarehereset = false;
+			if(isCrItem()){
+				this.inQuestion = false;
+			}
         	var loadParams = getLoadParams();
         	var xml = gXmlHelper.getGetItemXml(loadParams[0], loadParams[1], loadParams[2]);
 			if (typeof canvas.folder != "undefined") {
