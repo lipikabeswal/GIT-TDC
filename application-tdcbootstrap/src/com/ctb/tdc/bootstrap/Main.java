@@ -301,8 +301,6 @@ public class Main {
 				base = ResourceBundleUtils.getString("bootstrap.main.llo.url");
 			else 
 				base = ResourceBundleUtils.getString("bootstrap.main.base.url");
-			
-			baseurl = base.substring(0, base.indexOf("/tdcupdate"));
 		}		
 		String version = ResourceBundleUtils.getVersionString("tdc.version");
 		version = "v" + version.substring(0, version.lastIndexOf("."));
