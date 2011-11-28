@@ -411,29 +411,29 @@ public class LockdownBrowserWrapper extends Thread {
 				}
 				
 				
-				LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(true);
-				LockdownBrowserWrapper.TaskSwitching_Enable_Disable(true);
-				String taskmgr = "taskbarshow.exe";
+				//LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(true);
+				//LockdownBrowserWrapper.TaskSwitching_Enable_Disable(true);
+				//String taskmgr = "taskbarshow.exe";
 				
-				Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-				Thread.sleep(500);	
-				Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+				//Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+				//Thread.sleep(500);	
+				//Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 				
-				cleanupLock();	// call here to fix issue in 64 bit Windows 7 
+				//cleanupLock();	// call here to fix issue in 64 bit Windows 7 
 				
-				ConsoleUtils.messageOut("Desktop unlocked ...");	
-				Thread.sleep(1500);
+				//ConsoleUtils.messageOut("Desktop unlocked ...");	
+				//Thread.sleep(1500);
 				
 			}	
 			
 			this.splashWindow.show();
 
-			cleanupLock();	
+			//cleanupLock();	
 			
 		} catch (Exception e) {
 			ConsoleUtils.messageErr("An error has occured within " + this.getClass().getName(), e);
 		} finally {
-			exit();
+			//exit();
 		}
 	}
 	
