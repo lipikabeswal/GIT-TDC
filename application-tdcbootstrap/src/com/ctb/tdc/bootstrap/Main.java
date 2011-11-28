@@ -272,12 +272,11 @@ public class Main {
             if(result != null) {
         		ConsoleUtils.messageOut("Got upgrade.");
 			} else {
-				System.out.println("Error getting upgrade from " + upgradeUrl);
-				throw new BootstrapException( ResourceBundleUtils.getString("bootstrap.main.error.clientConfigIOException") );    				
+				System.out.println("Error getting upgrade from " + upgradeUrl);   				
 			}
-		} catch( Exception ioe ) {
-			ioe.printStackTrace();
-			throw new BootstrapException( ResourceBundleUtils.getString("bootstrap.main.error.clientConfigIOException") );
+		} catch( Exception e ) {
+			e.printStackTrace();
+			result = null;
 		}
 		return result;
 	}
