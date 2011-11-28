@@ -29,7 +29,11 @@ public class AuditFile
     
     static {
     	ResourceBundle rb = ResourceBundle.getBundle("tdc");
-    	doAudit = "true".equals(rb.getString("tms.audit.write"));
+    	try{
+    		doAudit = "true".equals(rb.getString("tms.audit.write"));
+    	}catch(Exception e){
+    		doAudit = false;
+    	}
     }
     
     // format:  millis, mseq, <itemId|response>
