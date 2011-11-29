@@ -62,7 +62,7 @@ public class LockdownBrowserWrapper extends Thread {
 	private static Process ldbProcess;
 	
 	public static Process getLdbProcess() {
-		unlock();
+		//unlock();
 		return ldbProcess;
 	}
 	
