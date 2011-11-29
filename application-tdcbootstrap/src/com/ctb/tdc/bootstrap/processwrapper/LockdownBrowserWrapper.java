@@ -250,10 +250,6 @@ public class LockdownBrowserWrapper extends Thread {
 					this.isAvailable = true;
 					ldb.waitFor();
 					this.isAvailable = false;
-	        		Runtime.getRuntime().exec("sh clear_clipboard.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-	    			Runtime.getRuntime().exec("sh enable_screen_capture.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-	    			String[] appString = {"osascript","-e","set the clipboard to \"\""};
-	    			Runtime.getRuntime().exec(appString);
 	    			//System.out.println("enable print screen called");	
 				} else {
 					try {
@@ -369,10 +365,7 @@ public class LockdownBrowserWrapper extends Thread {
 					ldb.waitFor();
 					this.isAvailable = false;
 					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());	
-				}
-				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(true);
-				Runtime.getRuntime().exec("./wmctrl -n 2", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-				ConsoleUtils.messageOut("Desktop unlocked ...");	
+				}	
 			} else {
 				// Windows native lib
 				System.load(this.tdcHome + "/lock.dll");
@@ -409,26 +402,9 @@ public class LockdownBrowserWrapper extends Thread {
 					this.isAvailable = false;
 					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());
 				}
-				
-				
-				//LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(true);
-				//LockdownBrowserWrapper.TaskSwitching_Enable_Disable(true);
-				//String taskmgr = "taskbarshow.exe";
-				
-				//Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-				//Thread.sleep(500);	
-				//Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-				
-				//cleanupLock();	// call here to fix issue in 64 bit Windows 7 
-				
-				//ConsoleUtils.messageOut("Desktop unlocked ...");	
-				//Thread.sleep(1500);
-				
 			}	
 			
-			this.splashWindow.show();
-
-			//cleanupLock();	
+			unlock();	
 			
 		} catch (Exception e) {
 			ConsoleUtils.messageErr("An error has occured within " + this.getClass().getName(), e);
