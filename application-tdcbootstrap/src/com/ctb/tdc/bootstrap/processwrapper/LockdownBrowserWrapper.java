@@ -34,10 +34,10 @@ public class LockdownBrowserWrapper extends Thread {
 
 	static volatile String processName = "";
 	
-	private static String tdcHome;
-	private static String ldbHome;
+	private String tdcHome;
+	private String ldbHome;
 	
-	private static SplashWindow splashWindow;
+	private SplashWindow splashWindow;
 	
 	private static boolean islinux = false;
 	private static boolean ismac = false;
@@ -58,13 +58,6 @@ public class LockdownBrowserWrapper extends Thread {
 	
 	static volatile boolean flag = false;
 	static volatile boolean ready = false;
-	
-	private static Process ldbProcess;
-	
-	public static Process getLdbProcess() {
-		//unlock();
-		return ldbProcess;
-	}
 	
 	/**
 	 * Creates a new Lockdown Browser process wrapper with the given tdcHome value.
@@ -246,10 +239,13 @@ public class LockdownBrowserWrapper extends Thread {
 					ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
 					
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome) );
-					ldbProcess = ldb;
 					this.isAvailable = true;
 					ldb.waitFor();
 					this.isAvailable = false;
+	        		Runtime.getRuntime().exec("sh clear_clipboard.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+	    			Runtime.getRuntime().exec("sh enable_screen_capture.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+	    			String[] appString = {"osascript","-e","set the clipboard to \"\""};
+	    			Runtime.getRuntime().exec(appString);
 	    			//System.out.println("enable print screen called");	
 				} else {
 					try {
@@ -357,7 +353,6 @@ public class LockdownBrowserWrapper extends Thread {
 					LockdownLinux lockdown = new LockdownLinux(this.tdcHome);
 					ConsoleUtils.messageOut("AIR app started at " + startTime);
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, envp, new File(this.ldbHome));
-					ldbProcess = ldb;
 					Thread.sleep(10000);
 					lockdown.start();
 					ready = true;
@@ -365,7 +360,10 @@ public class LockdownBrowserWrapper extends Thread {
 					ldb.waitFor();
 					this.isAvailable = false;
 					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());	
-				}	
+				}
+				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(true);
+				Runtime.getRuntime().exec("./wmctrl -n 2", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+				ConsoleUtils.messageOut("Desktop unlocked ...");	
 			} else {
 				// Windows native lib
 				System.load(this.tdcHome + "/lock.dll");
@@ -395,67 +393,43 @@ public class LockdownBrowserWrapper extends Thread {
 					Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 					ConsoleUtils.messageOut("AIR app started at " + System.currentTimeMillis());
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome));
-					//Process ldb = Runtime.getRuntime().exec("C:\\Program Files\\Internet Explorer\\iexplore.exe -k http://127.0.0.1:12345/login.html");
-					ldbProcess = ldb;
+					//Process ldb = Runtime.getRuntime().exec("C:\\Program Files\\Internet Explorer\\iexplore.exe -k");
 					this.isAvailable = true;
 					ldb.waitFor();
 					this.isAvailable = false;
 					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());
 				}
-			}	
-			
-			unlock();	
-			
-		} catch (Exception e) {
-			ConsoleUtils.messageErr("An error has occured within " + this.getClass().getName(), e);
-		} finally {
-			//exit();
-		}
-	}
-	
-	/**
-	 * Starts the LockdownBrowser.  This thread will block and wait for the LDB to finish
-	 * execution before this thread itself will die.
-	 */
-	public static void unlock() {
-		try {
-			if (ismac) {
-        		Runtime.getRuntime().exec("sh clear_clipboard.sh", null, new File(tdcHome.replaceAll(" ", "\\ ")));
-    			Runtime.getRuntime().exec("sh enable_screen_capture.sh", null, new File(tdcHome.replaceAll(" ", "\\ ")));
-    			String[] appString = {"osascript","-e","set the clipboard to \"\""};
-    			Runtime.getRuntime().exec(appString);
-			} else if (islinux) {
-				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(true);
-				Runtime.getRuntime().exec("./wmctrl -n 2", null, new File(tdcHome.replaceAll(" ", "\\ ")));
-				ConsoleUtils.messageOut("Desktop unlocked ...");	
-			} else {
+				
+				
 				LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(true);
 				LockdownBrowserWrapper.TaskSwitching_Enable_Disable(true);
 				String taskmgr = "taskbarshow.exe";
 				
-				Runtime.getRuntime().exec(taskmgr, null, new File(tdcHome.replaceAll(" ", "\\ ")));
+				Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 				Thread.sleep(500);	
-				Runtime.getRuntime().exec(taskmgr, null, new File(tdcHome.replaceAll(" ", "\\ ")));
+				Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 				
 				cleanupLock();	// call here to fix issue in 64 bit Windows 7 
 				
 				ConsoleUtils.messageOut("Desktop unlocked ...");	
 				Thread.sleep(1500);
+				
 			}	
 			
-			splashWindow.show();
+			this.splashWindow.show();
+
 			cleanupLock();	
 			
 		} catch (Exception e) {
-			ConsoleUtils.messageErr("An error has occured within LockdownBrowserWrapper", e);
+			ConsoleUtils.messageErr("An error has occured within " + this.getClass().getName(), e);
 		} finally {
 			exit();
 		}
 	}
 	  
-	private static ArrayList lockFiles = new ArrayList();
+	private ArrayList lockFiles = new ArrayList();
 	
-	public static void cleanupLock() {
+	public void cleanupLock() {
 		
 		String msg;
 		Iterator it = lockFiles.iterator();
@@ -474,13 +448,13 @@ public class LockdownBrowserWrapper extends Thread {
 		}	
 		
 		if(islinux) {
-			String pcheckFile = tdcHome + "/processcheck";
+			String pcheckFile = this.tdcHome + "/processcheck";
 			File file = new File(pcheckFile);
 			file.delete();
-			pcheckFile = tdcHome + "/xmodmap_modified";
+			pcheckFile = this.tdcHome + "/xmodmap_modified";
 			file = new File(pcheckFile);
 			file.delete();
-			pcheckFile = tdcHome + "/xmodmap_original";
+			pcheckFile = this.tdcHome + "/xmodmap_original";
 			file = new File(pcheckFile);
 			file.delete();
 		}
@@ -632,7 +606,30 @@ public class LockdownBrowserWrapper extends Thread {
 	
 	public static synchronized void exit() {
 		try {
-			ldbProcess.destroy();
+			if(islinux) {
+        		Runtime.getRuntime().exec("killall OASTDC");
+        		Thread.sleep(250);
+        		Runtime.getRuntime().exec("killall OASTDC");
+        	} else if(ismac) {
+        		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
+        		Thread.sleep(250);
+        		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
+        	} else {
+        		try {
+	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+        		} catch (Exception e) {
+        			e.printStackTrace();
+        		}
+        		try {
+        			Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
+        		} catch (Exception e) {
+        			e.printStackTrace();
+        		}	
+        	}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
