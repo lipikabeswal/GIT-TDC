@@ -20,8 +20,8 @@
 		</property>
 	</xsl:template>
 
-	<xsl:template match="//object[@objectID='c02e67b28c29']">
-		<object class="com.zerog.ia.installer.util.VariablePropertyData" objectID="c02e67b28c29">
+	<xsl:template match="//object[@objectID='c0c6f1828b45']">
+		<object class="com.zerog.ia.installer.util.VariablePropertyData" objectID="c0c6f1828b45">
 			<property name="propertyValue">
 				<string><![CDATA[ISTEP]]></string>
 			</property>
@@ -31,8 +31,8 @@
 		</object>
 	</xsl:template>
 
-	<xsl:template match="//object[@objectID='d6d194cd8c98']">
-		<object class="com.zerog.ia.installer.util.VariablePropertyData" objectID="d6d194cd8c98">
+	<xsl:template match="//object[@objectID='c02e67b28c29']">
+		<object class="com.zerog.ia.installer.util.VariablePropertyData" objectID="c02e67b28c29">
 			<property name="propertyValue">
 				<string><![CDATA[true]]></string>
 			</property>
