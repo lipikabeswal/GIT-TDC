@@ -32,8 +32,14 @@
             		stats.notanswered.setAttribute(
                 	'text','You have '+leftQues+' '+((leftQues == 1) ? 'question' :'questions')+' left.');
                 }
-                else{                     
-                     leftQues = gController.subtestLength - gController.totalVisited();
+                else{    
+					if(gController.getAttribute("RestartTest") == "true"){
+						//Debug.write("For Restart scenario");
+							leftQues = 0;
+						}
+					else{       
+                     		leftQues = gController.subtestLength - gController.totalVisited();
+						}
              		 stats.notanswered.setAttribute(
                 	'text','You have '+leftQues+' '+((leftQues == 1) ? 'question' :'questions')+' left.');
 					}

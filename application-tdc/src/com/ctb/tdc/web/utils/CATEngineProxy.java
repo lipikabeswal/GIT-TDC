@@ -513,7 +513,7 @@ public class CATEngineProxy {
 		return scoreString;
 	}
 	
-	public static void restartCAT(int itemCount,int [] itemArray,int [] itemScoreArray) throws Exception {
+	public static int restartCAT(int itemCount,int [] itemArray,int [] itemScoreArray) throws Exception {
 		System.out.println("Calling Resume CAT");
 		
 		//nextItem = String.valueOf(ServletUtils.landingItem);
@@ -523,7 +523,8 @@ public class CATEngineProxy {
 	        
 	        
 			if(nextitem == null || nextitem.equals("-1")) {
-				throw new Exception("CAT OVER!");
+				//throw new Exception("CAT OVER!");
+				return 0;
 			} else {
 				itemnum++;
 				System.out.println(" restartCAT scoreCurrentItem CATEngineProxy itemIdMap size :"+CATEngineProxy.itemIdMap.size());
@@ -532,7 +533,7 @@ public class CATEngineProxy {
 				System.out.print("restartCAT ADS ID: " + adsitem + "\n");
 				nextItem = String.valueOf(adsitem.intValue());
 			}
-		 
+		return 1; 
 	}
 	public static void deInitCAT() {
 		System.out.println("Called deInitCAT()");

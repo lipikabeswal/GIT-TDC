@@ -145,10 +145,28 @@
                 <ContinueButton x="${ parent.stopbutton.x - width - 10 }"
                              valign="middle"
                              enabled="${ gScreens.allowclick }">
-                    <method name="docontinue" event="onclick">
+                    <method name="docontinue" event="onclick"><![CDATA[
                         gScreens.clicked();
-                        gController.openTest();
-                    </method>
+                        Debug.write("gController.istRestartLength"+gController.istRestartLength);
+                        Debug.write("gController.adaptive"+gController.adaptive);
+                        if(gController.istRestartLength== gController.subtestLength){
+                        	if(gController.adaptive=='true'){
+                        		gController.RestartTest= "true";
+                        		gController.unlockUI();
+								gController.finishTest();
+								gController.istRestartLength=0;
+								}
+							else{
+                        	gController.openTest();
+                        	gController.RestartTest= "false";
+                        	}
+			 			}
+                         else{
+                        	gController.openTest();
+                        	gController.RestartTest= "false";
+                        	}
+                        
+                    ]]></method>
                 </ContinueButton>
             </state>
 

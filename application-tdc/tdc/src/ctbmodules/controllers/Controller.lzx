@@ -313,6 +313,7 @@
 		<attribute name="isStopScreen" type="boolean" value="false" />
 		<attribute name="subtestLength" type="number" value="0" />
 		<attribute name="istLength" type="number" value="0" />
+		<attribute name="istRestartLength" type="number" value="0" />
 
 		<!-- START Change for deferred Defect 63502-->
 		<attribute name="restartscid" value="0" />
@@ -523,6 +524,7 @@
 		<attribute name="adaptive" value="$path{ 'dssubtest:/subtest/sco/@adaptive' }"/>
  
 		<attribute name="showPleaseWaitOver" value="false" type="boolean" />
+		<attribute name="RestartTest" value="false" type="boolean" />
 			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -1464,6 +1466,7 @@ Debug.write("totalVisited...",totalVisited);
 			Load and display first question.
 		-->
 		<method name="openTest">
+			this.istRestartLength=0;
          //START Change for deferred Defect 63502
         	var i = restartscid;			
 			var fnode = getItemFromOffset( 0 );
@@ -1507,8 +1510,8 @@ Debug.write("totalVisited...",totalVisited);
             //var landingFnode = dpsubtest.xpathQuery('ob_assessment/ob_element_list/@restart_ast');
             var itemNumber = Number(getStartNumber());
 			this.istLength = items.length;
-			
-			 
+			this.istRestartLength=this.istLength;
+						
 			for (var j=0; j < items.length-1; j++)
 			{
 				for(var i=0; i < (items.length-j); i++){
@@ -2921,8 +2924,11 @@ Debug.write("totalVisited...",totalVisited);
 			if(this.adaptive == 'true'){				
 				//if (gScreens.isOnFinishScreen()) {
 				Debug.write("goToFinishScreen :"+ gScreens.isOnFinishScreen() +"::"+ this.isStopTest);
-				
-					
+				if(this.RestartTest=="true"){
+				//Debug.write(" finish test for restart");
+					this.setAttribute("isStopTest",false);
+					this.setAttribute("isFinishTest",true);
+					}	
 				if(gScreens.isOnFinishScreen()){
 					Debug.write("isOnFinishScreen1");
 					gController.saveEndSubtest( '' );

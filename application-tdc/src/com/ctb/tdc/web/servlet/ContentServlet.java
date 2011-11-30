@@ -220,7 +220,7 @@ public class ContentServlet extends HttpServlet {
 						//}						
 						CATEngineProxy.initCAT(cArea);
 						if(ServletUtils.isRestart){
-							CATEngineProxy.restartCAT(ServletUtils.restartItemCount,ServletUtils.restartItemsArr,ServletUtils.restartItemsRawScore);
+							int x=CATEngineProxy.restartCAT(ServletUtils.restartItemCount,ServletUtils.restartItemsArr,ServletUtils.restartItemsRawScore);
 						}
 					}
 				}
