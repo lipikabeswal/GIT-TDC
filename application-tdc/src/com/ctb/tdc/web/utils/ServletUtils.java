@@ -988,7 +988,7 @@ public class ServletUtils {
 				}
 				else {
 					if (responseCode == HttpStatus.SC_NOT_FOUND) {
-						errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.unknownHostException");
+						errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.connectionFailed");
 						errorMessage = buildXmlErrorMessage("", errorMessage, "");
 					}
 					else {
@@ -998,7 +998,7 @@ public class ServletUtils {
 				}
 			}
 			catch (UnknownHostException e) {
-				errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.unknownHostException");
+				errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.connectionFailed");
 				errorMessage = buildXmlErrorMessage("", errorMessage, "");
 			}
 			catch (Exception e) {
