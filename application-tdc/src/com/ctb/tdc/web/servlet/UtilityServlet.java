@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.log4j.Logger;
 
-import com.ctb.tdc.bootstrap.processwrapper.LockdownBrowserWrapper;
 import com.ctb.tdc.web.dto.ServletSettings;
 import com.ctb.tdc.web.utils.AssetInfo;
 import com.ctb.tdc.web.utils.AuditFile;
@@ -122,7 +121,30 @@ public class UtilityServlet extends HttpServlet {
 	private static class KillThem extends Thread {
 		public void run() {
 			try {
-				LockdownBrowserWrapper.getLdbProcess().destroy();
+				if(isLinux()) {
+	        		Runtime.getRuntime().exec("killall OASTDC");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("killall OASTDC");
+	        	} else if(isMacOS()) {
+	        		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
+	        	} else {
+	        		try {
+		        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+		        		Thread.sleep(250);
+		        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+	        		} catch (Exception e) {
+	        			e.printStackTrace();
+	        		}
+	        		try {
+	        			Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
+		        		Thread.sleep(250);
+		        		Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
+	        		} catch (Exception e) {
+	        			e.printStackTrace();
+	        		}	
+	        	}
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
