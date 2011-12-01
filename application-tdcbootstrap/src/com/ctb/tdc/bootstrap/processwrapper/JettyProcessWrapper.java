@@ -78,23 +78,24 @@ public class JettyProcessWrapper extends Thread {
 	
 		String proxy = System.getProperty("tdc.proxy");
 		
-		this.startCmd = new String[15];
+		this.startCmd = new String[16];
 		this.startCmd[0] = javaHome + "java";
 		this.startCmd[1] = "-Dtdc.proxy=" + proxy;
 		this.startCmd[2] = "-Dtdc.home=" + this.tdcHome;
-		this.startCmd[3] = "-Djava_opts = -Xms128m -Xmx512m";
+		this.startCmd[3] = "-Xms128m";
+		this.startCmd[4] = "-Xmx256m";
 		if(baseurl == null) baseurl = "";
-		this.startCmd[4] = "-Dtdc.baseurl=" + baseurl;
-		this.startCmd[5] = "-Djetty.port=" + startPort;
-		this.startCmd[6] = "-DSTOP.PORT=" + stopPort;
-		this.startCmd[7] = "-Djetty.home=" + jettyHome;
-		this.startCmd[8] = "-Dorg.mortbay.log.LogFactory.noDiscovery=false";
-		this.startCmd[9] = "-Djetty.class.path=" + jettyHome + "/etc";
-		this.startCmd[10] = "-cp";
-		this.startCmd[11] = jettyHome + "/lib/org.mortbay.jetty.jar";
-		this.startCmd[12] = "-jar";
-		this.startCmd[13] = jettyHome + "/start.jar";
-		this.startCmd[14] = jettyConfig;
+		this.startCmd[5] = "-Dtdc.baseurl=" + baseurl;
+		this.startCmd[6] = "-Djetty.port=" + startPort;
+		this.startCmd[7] = "-DSTOP.PORT=" + stopPort;
+		this.startCmd[8] = "-Djetty.home=" + jettyHome;
+		this.startCmd[9] = "-Dorg.mortbay.log.LogFactory.noDiscovery=false";
+		this.startCmd[10] = "-Djetty.class.path=" + jettyHome + "/etc";
+		this.startCmd[11] = "-cp";
+		this.startCmd[12] = jettyHome + "/lib/org.mortbay.jetty.jar";
+		this.startCmd[13] = "-jar";
+		this.startCmd[14] = jettyHome + "/start.jar";
+		this.startCmd[15] = jettyConfig;
 	
 		this.stopCmd = new String[11];
 		this.stopCmd[0] = "java";
@@ -217,7 +218,7 @@ public class JettyProcessWrapper extends Thread {
             if ( this.macOS ) {
                 this.startCmd[1] = this.startCmd[1].replaceAll(" ", "\\ ");
                 this.startCmd[2] = this.startCmd[2].replaceAll(" ", "\\ ");
-                this.startCmd[4] = this.startCmd[4].replaceAll(" ", "\\ ");
+                this.startCmd[5] = this.startCmd[4].replaceAll(" ", "\\ ");
                 this.startCmd[6] = this.startCmd[6].replaceAll(" ", "\\ ");
                 this.startCmd[8] = this.startCmd[8].replaceAll(" ", "\\ ");
                 this.startCmd[9] = this.startCmd[9].replaceAll(" ", "\\ ");
