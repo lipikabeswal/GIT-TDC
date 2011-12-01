@@ -68,7 +68,7 @@ public class Main {
 	 */
 	private static String getTdcHome() throws BootstrapException {
 
-		String tdcHomeProperty = System.getProperty("tdc.home");
+		String tdcHomeProperty = System.getProperty("tdc.home").replaceAll("\"", "");
 
 		if( tdcHomeProperty == null ) {
 			throw new BootstrapException(ResourceBundleUtils.getString("bootstrap.main.error.tdcHomeNotSpecified"));
@@ -76,7 +76,7 @@ public class Main {
 		
 		File tdcHome = new File( tdcHomeProperty );
 		if( !tdcHome.isDirectory() ) {
-			throw new BootstrapException(ResourceBundleUtils.getString("bootstrap.main.error.tdcHomeNotDirectory"));
+			throw new BootstrapException(ResourceBundleUtils.getString("bootstrap.main.error.tdcHomeNotDirectory") + ": " + tdcHomeProperty);
 		}
 
 		return tdcHome.getAbsolutePath();

@@ -63,7 +63,7 @@ public class ObjectBankUtils {
 		if ( !contentpath.isDirectory() ) {
 			throw new BootstrapException(
 					ResourceBundleUtils.getString(
-					"bootstrap.main.error.tdcHomeNotDirectory"));
+					"bootstrap.main.error.tdcHomeNotDirectory") + ": " + folderPath);
 		}
 
 
