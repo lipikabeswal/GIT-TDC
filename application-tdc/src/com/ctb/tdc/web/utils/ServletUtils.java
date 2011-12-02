@@ -80,7 +80,7 @@ public class ServletUtils {
 			PlainSocketFactory sf = PlainSocketFactory.getSocketFactory();
 
 			Scheme https = new Scheme("https", 443, sslSf);
-			Scheme http = new Scheme("http", 8080, sf);
+			Scheme http = new Scheme("http", 80, sf);
 
 			SchemeRegistry schemeRegistry = new SchemeRegistry(); 
 			schemeRegistry.register(https);
