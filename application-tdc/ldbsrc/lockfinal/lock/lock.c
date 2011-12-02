@@ -1091,6 +1091,16 @@ int isProcessOpen (TCHAR *szProcessName, char *result)
 		strcat(result, " claws-mail ");
 		return 1;
 	}
+	if (0 == strcmp(szProcessName, "conf.exe"))
+	{
+		strcat(result, " Net Meeting ");
+		return 1;
+	}
+	if (0 == strcmp(szProcessName, "atmgr.exe"))
+	{
+		strcat(result, " WebEx ");
+		return 1;
+	}
 	return 0;
 
 }//END OF isProcessOpen
