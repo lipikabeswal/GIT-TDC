@@ -195,6 +195,8 @@ public class ServletUtils {
 	public static int [] restartItemsRawScore ={};
 	public static String landingItem;
 	public static String landingFnode;
+	
+	public static boolean blockContentDownload = false;
 
 //	helper methods
 
@@ -557,11 +559,11 @@ public class ServletUtils {
 	 *
 	 */
 	public static String getTmsURLString(String method) {
-			MemoryCache memoryCache = MemoryCache.getInstance();
-			ServletSettings srvSettings = memoryCache.getSrvSettings();
-			String tmsHostPort = srvSettings.getTmsHostPort();
-			String tmsWebApp = getWebAppName(method);
-			return (tmsHostPort + tmsWebApp);
+		MemoryCache memoryCache = MemoryCache.getInstance();
+		ServletSettings srvSettings = memoryCache.getSrvSettings();
+		String tmsHostPort = srvSettings.getTmsHostPort();
+		String tmsWebApp = getWebAppName(method);
+		return (tmsHostPort + tmsWebApp);
 	}
 
 	/**
@@ -1067,6 +1069,8 @@ public class ServletUtils {
 			ByteArrayInputStream bais = new ByteArrayInputStream( manifest.getBytes( "UTF-8" ));
 			org.jdom.Document assessmentDoc = saxBuilder.build( bais );
 			Element inElement = assessmentDoc.getRootElement();
+			blockContentDownload = "True".equalsIgnoreCase(inElement.getAttributeValue("block_content_download")) ? true : false;
+			System.out.println("blockContentDownload:"+blockContentDownload);
 			List subtests = inElement.getChildren( "sco" );
 			MemoryCache aMemoryCache = MemoryCache.getInstance();
 			HashMap subtestInfoMap = aMemoryCache.getSubtestInfoMap();

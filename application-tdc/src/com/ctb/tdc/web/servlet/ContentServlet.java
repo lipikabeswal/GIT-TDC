@@ -234,7 +234,7 @@ public class ContentServlet extends HttpServlet {
 					validHash = false;
 				}
 				
-				if (!validHash) {
+				if (!validHash && !ServletUtils.blockContentDownload) {
 					String result = "";
 					AdssvcResponseDocument document = null;
 					ErrorDocument.Error error = null;
@@ -381,7 +381,7 @@ public class ContentServlet extends HttpServlet {
 					hashValid = false;
 				}
 
-				if (!hashValid) {
+				if (!hashValid && !ServletUtils.blockContentDownload) {
 					int errorIndex = 0;
 					String result = "";
 					int i = 1;
