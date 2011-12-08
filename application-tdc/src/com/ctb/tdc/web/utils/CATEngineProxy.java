@@ -461,6 +461,8 @@ public class CATEngineProxy {
 				Integer adsitem = (Integer)itemIdMap.get(nextitem);
 				System.out.print("ADS ID: " + adsitem + "\n");
 				nextItem = String.valueOf(adsitem.intValue());
+				ServletUtils.currentItem = nextItem;
+				System.out.print("engine currentItem : " + ServletUtils.currentItem );
 			}
 	}
 

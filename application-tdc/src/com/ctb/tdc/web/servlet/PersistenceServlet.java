@@ -155,16 +155,17 @@ public class PersistenceServlet extends HttpServlet {
 			result = login(xml);
 		else if (method != null && method.equals(ServletUtils.SAVE_METHOD))
 		{
-			//System.out.println(" original save xml:"+xml);			
+			System.out.println(" original save xml:"+xml);			
 			if(ServletUtils.isCurSubtestAdaptive){
+				String realId = null;
 				String adsItemId = ServletUtils.parseAdsItemId(xml);
 				if(adsItemId != null && !ServletUtils.NONE.equals(adsItemId)) {
-	        		String realId = (String) ContentServlet.itemSubstitutionMap.get(adsItemId);
-	        		if(realId != null) {
+	        		realId = (String) ContentServlet.itemSubstitutionMap.get(adsItemId);
+	        		if(realId != null) {	        			
 	        			xml = xml.replaceAll(adsItemId, realId);
 	        		}
 	        	}        	
-				//System.out.println(" replaced save xml:"+xml);
+				System.out.println(" replaced save xml:"+xml);
     			Boolean isStopCat = ServletUtils.isScoreSubtest(xml);
     			if (isStopCat) {
     				Double abilityScore = CATEngineProxy.getAbilityScore();
@@ -177,21 +178,26 @@ public class PersistenceServlet extends HttpServlet {
 	        		System.out.println("XML after Integrating: " + xml);
 	        	}            
     			Integer itemRawScore = getItemRawScoreFromResponse(response, xml);
-    			
+    			System.out.println("itemRawScore:"+itemRawScore);
     			String isCatOver = ServletUtils.parseCatOver(xml);
     			
-	    		if(isCatOver != null && ("false".equals(isCatOver) || ServletUtils.NONE.equals(isCatOver))) {	    		
+	    		if(isCatOver != null && ("false".equals(isCatOver) || ServletUtils.NONE.equals(isCatOver))) {
+	    			
+	    			System.out.println("CurrentItem :"+ServletUtils.currentItem+":: itemid:"+realId);
+	    			
 		        	if(itemRawScore != null) {
-		        		try {
-		        			CATEngineProxy.scoreCurrentItem(itemRawScore.intValue()); 
-	
-			        	} catch (Exception e) {
-			        		System.out.println("CAT Over!");
-			    			logger.info("CAT Over!");
-			                //ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATEngineProxy.getAbilityScore() + ", SEM: " + CATEngineProxy.getSEM(), "000"));
-			    			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", CATEngineProxy.getAbilityScore() + "|" + CATEngineProxy.getSEM() + "|" + CATEngineProxy.getObjScore() , "000"));
-			    			//CATEngineProxy.deInitCAT();
-			        	}
+		        		if(ServletUtils.currentItem == realId){
+			        		try {
+			        			System.out.println("inside condition!");
+			        			CATEngineProxy.scoreCurrentItem(itemRawScore.intValue());	
+				        	} catch (Exception e) {
+				        		System.out.println("CAT Over!");
+				    			logger.info("CAT Over!");
+				                //ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATEngineProxy.getAbilityScore() + ", SEM: " + CATEngineProxy.getSEM(), "000"));
+				    			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", CATEngineProxy.getAbilityScore() + "|" + CATEngineProxy.getSEM() + "|" + CATEngineProxy.getObjScore() , "000"));
+				    			//CATEngineProxy.deInitCAT();
+				        	}
+		        		}
 		        	}	
 	    		}
 	        	result = save(response, xml, request);    

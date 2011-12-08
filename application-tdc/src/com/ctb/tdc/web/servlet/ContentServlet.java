@@ -235,6 +235,7 @@ public class ContentServlet extends HttpServlet {
 				}
 				
 				if (!validHash && !ServletUtils.blockContentDownload) {
+					System.out.println("not a valid hash and block content download false");
 					String result = "";
 					AdssvcResponseDocument document = null;
 					ErrorDocument.Error error = null;
@@ -503,8 +504,9 @@ public class ContentServlet extends HttpServlet {
 					//System.out.println("get item itemId:"+itemId);
 					itemSubstitutionMap.put(originalItemId, itemId);
 				}
-				//System.out.println(" originalItemId:"+originalItemId);
-				//System.out.println(" cat returned Item id:"+itemId);
+				ServletUtils.currentItem = itemId;
+				System.out.println(" originalItemId:"+originalItemId);
+				System.out.println(" cat returned Item id:"+itemId);
 			}
 			if(itemId != null) {
 				if(ServletUtils.isCurSubtestAdaptive){

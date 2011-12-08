@@ -195,7 +195,7 @@ public class ServletUtils {
 	public static int [] restartItemsRawScore ={};
 	public static String landingItem;
 	public static String landingFnode;
-	
+	public static String currentItem = null;
 	public static boolean blockContentDownload = false;
 
 //	helper methods
