@@ -3,11 +3,15 @@ package com.ctb.tdc.web.dto;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author Tai_Truong
  */
 public class ServletSettings implements java.io.Serializable {
     static final long serialVersionUID = 1L;
+    
+    static Logger logger = Logger.getLogger(ServletSettings.class);
 
     private String tmsHost;
     private String backupURL;
@@ -75,32 +79,36 @@ public class ServletSettings implements java.io.Serializable {
         	try {
 	        	int bsIndex = proxy.indexOf("\\");
 	        	if(bsIndex >= 0) {
-	        		this.proxyDomain = proxy.substring(0, bsIndex - 1);
+	        		this.proxyDomain = proxy.substring(0, bsIndex);
 	        		proxy = proxy.substring(bsIndex + 1, proxy.length());
+	        		logger.info("Proxy domain: " + this.proxyDomain);
 	        	}
 	        	int colonIndex = proxy.indexOf(":");
-	        	int lastColonIndex = proxy.lastIndexOf(":");
-	        	if(colonIndex >= 0 && colonIndex != lastColonIndex) {
-	        		this.proxyUserName = proxy.substring(0, colonIndex - 1);
-	        		System.out.println("Proxy user: " + this.proxyUserName);
+	        	int atIndex = proxy.indexOf("@");
+	        	if(colonIndex >= 0 && colonIndex < atIndex) {
+	        		this.proxyUserName = proxy.substring(0, colonIndex);
+	        		logger.info("Proxy user: " + this.proxyUserName);
 	        		proxy = proxy.substring(colonIndex + 1, proxy.length());
 	        	}
-	        	int atIndex = proxy.indexOf("@");
+	        	atIndex = proxy.indexOf("@");
 	        	if(atIndex >= 0) {
-	        		this.proxyPassword = proxy.substring(0, atIndex - 1);
-	        		System.out.println("Proxy password: " + this.proxyPassword);
+	        		this.proxyPassword = proxy.substring(0, atIndex);
+	        		logger.info("Proxy password: " + this.proxyPassword);
 	        		proxy = proxy.substring(atIndex + 1, proxy.length());
 	        	}
 	        	colonIndex = proxy.indexOf(":");
-	        	if(colonIndex >= 0 && colonIndex != lastColonIndex) {
-	        		this.proxyHost = proxy.substring(0, colonIndex - 1);
-	        		System.out.println("Proxy host: " + this.proxyHost);
+	        	if(colonIndex >= 0) {
+	        		this.proxyHost = proxy.substring(0, colonIndex);
+	        		logger.info("Proxy host: " + this.proxyHost);
 	        		proxy = proxy.substring(colonIndex + 1, proxy.length());
+	        		this.proxyPort = Integer.valueOf(proxy);
+		        	logger.info("Proxy port: " + this.proxyPort);
+	        	} else {
+	        		this.proxyHost = proxy;
+	        		logger.info("Proxy host: " + this.proxyHost);
 	        	}
-	        	this.proxyPort = Integer.valueOf(proxy);
-	        	System.out.println("Proxy port: " + this.proxyPort);
         	} catch (Exception e) {
-        		System.out.println("Error setting proxy using override value!");
+        		logger.info("Error setting proxy using override value!", e);
         		if (rbProxy != null) {
     	            this.proxyHost = resourceBundleGetString(rbProxy, "proxy.host");
     	            this.proxyPort = resourceBundleGetInt(rbProxy, "proxy.port");        
@@ -110,6 +118,11 @@ public class ServletSettings implements java.io.Serializable {
     	        }
         	}
         }
+        logger.info("Final proxy host: " + this.proxyHost);
+        logger.info("Final proxy port: " + this.proxyPort);
+        logger.info("Final proxy user: " + this.proxyUserName);
+        logger.info("Final proxy pass: " + this.proxyPassword);
+        logger.info("Final proxy domain: " + this.proxyDomain);
     }
 
     private void init() {

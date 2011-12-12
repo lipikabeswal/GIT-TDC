@@ -77,6 +77,7 @@ public class JettyProcessWrapper extends Thread {
 		this.stopsocket = stopsocket;
 	
 		String proxy = System.getProperty("tdc.proxy");
+		ConsoleUtils.messageOut("Bootstrap passing proxy info: " + proxy);
 		
 		this.startCmd = new String[16];
 		this.startCmd[0] = javaHome + "java";
