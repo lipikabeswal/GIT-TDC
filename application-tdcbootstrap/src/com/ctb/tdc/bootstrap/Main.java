@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import java.util.zip.ZipInputStream;
 
 import com.ctb.tdc.bootstrap.disablers.MacScreenSaverDisabler;
@@ -18,7 +19,7 @@ import com.ctb.tdc.bootstrap.ui.SimpleMessageDialog;
 import com.ctb.tdc.bootstrap.ui.SplashWindow;
 import com.ctb.tdc.bootstrap.util.ConsoleUtils;
 import com.ctb.tdc.bootstrap.util.ResourceBundleUtils;
-import com.ctb.tdc.bootstrap.util.ServletUtils;
+import com.ctb.tdc.web.utils.ServletUtils;
 import com.ctb.tdc.bootstrap.util.SwfFilenameFilter;
 import com.ctb.tdc.bootstrap.util.TdcConfigEncryption;
 
@@ -227,21 +228,24 @@ public class Main {
                     else {
                         zipEntryFilePath = tdcHome + "/" + zipEntryFileName;
                     }
-                    
-                    if ( zipEntryFilePath != null ) {
-						ConsoleUtils.messageOut( " - writing " + zipEntryFilePath );
-						File file = new File(zipEntryFilePath);
-						FileOutputStream fos = new FileOutputStream(file, false);
-						int read = 0;
-						while( read >= 0 && read < zipEntry.getSize() ) {
-							byte[] bytes = new byte[2048];
-							// fix typo
-							read = zis.read(bytes);
-							if( read != -1 ) {
-								fos.write(bytes, 0, read);
+                    try {
+	                    if ( zipEntryFilePath != null ) {
+							ConsoleUtils.messageOut( " - writing " + zipEntryFilePath );
+							File file = new File(zipEntryFilePath);
+							FileOutputStream fos = new FileOutputStream(file, false);
+							int read = 0;
+							while( read >= 0 && read < zipEntry.getSize() ) {
+								byte[] bytes = new byte[2048];
+								// fix typo
+								read = zis.read(bytes);
+								if( read != -1 ) {
+									fos.write(bytes, 0, read);
+								}
 							}
-						}
-						fos.close();
+							fos.close();
+	                    }
+                    } catch(ZipException ze) {
+                    	ConsoleUtils.messageOut("Exception reading file from zip: " + zipEntryFilePath);
                     }
                     
 				} else {

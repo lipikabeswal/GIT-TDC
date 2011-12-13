@@ -31,6 +31,7 @@ import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.NTCredentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.conn.params.ConnRoutePNames;
@@ -645,11 +646,15 @@ public class ServletUtils {
 	 *
 	 */
 	public static String getProxyDomain() throws MalformedURLException {
+		String domain = null;
 		MemoryCache memoryCache = MemoryCache.getInstance();
 		ServletSettings srvSettings = memoryCache.getSrvSettings();
-		String domain = srvSettings.getProxyDomain().trim();
-		if (domain.length() == 0)
-			domain = null;
+		if(srvSettings.getProxyDomain() != null) {
+			domain = srvSettings.getProxyDomain().trim();
+			if (domain.length() == 0) {
+				domain = null;
+			}
+		}
 		return domain;
 	}
 
@@ -818,10 +823,47 @@ public class ServletUtils {
 	 * Connect to TMS and send request using HttpClient
 	 *
 	 */
+	public static String httpClientSendRequest(String requestURL) {
+		String result = null;
+		synchronized(client) {
+			int responseCode = HttpStatus.SC_OK;
+			HttpGet get = new HttpGet(requestURL);
+			try {
+				HttpResponse response = client.execute(get);
+				responseCode = response.getStatusLine().getStatusCode();
+				if (responseCode == HttpStatus.SC_OK) {
+					BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()),131072);
+					String inputLine = null;
+					result = "";
+					while ((inputLine = in.readLine()) != null) {
+						//System.out.println(inputLine);
+						result += inputLine;
+					}
+					in.close();
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				//post.releaseConnection();
+			}
+			return result;
+		}
+	}
+	
+	/**
+	 * httpConnectionSendRequest
+	 * @param String xml
+	 * @param String method
+	 *
+	 * Connect to TMS and send request using HttpClient
+	 *
+	 */
 	public static String httpClientSendRequest(String method, String xml) {
 		synchronized(client) {
 			if(!method.equals(ServletUtils.DOWNLOAD_ITEM_METHOD) && !method.equals(ServletUtils.DOWNLOAD_CONTENT_METHOD)) {
-				System.out.println(xml);
+				logger.debug(xml);
 			}
 			String result = OK;
 			int responseCode = HttpStatus.SC_OK;
@@ -853,6 +895,7 @@ public class ServletUtils {
 				
 				else {
 					result = buildXmlErrorMessage("", response.getStatusLine().getReasonPhrase(), "");
+					logger.warn(result);
 				}
 			}
 			catch (Exception e) {
@@ -1418,6 +1461,7 @@ return elementList;*/
 			}
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
