@@ -13,10 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
-import org.apache.http.Header;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -76,14 +74,14 @@ public class TTSUtil {
 			client = new DefaultHttpClient(mgr, httpParams);
 			
 			// setup proxy
-			String proxyHost = SpeechServletUtils.getProxyHost();;
+			String proxyHost = ServletUtils.getProxyHost();
 	
 			if ((proxyHost != null) && (proxyHost.length() > 0)) {
 				// apply proxy settings
-	            int proxyPort    = SpeechServletUtils.getProxyPort();;
-	            String username  = SpeechServletUtils.getProxyUserName();
-	            String password  = SpeechServletUtils.getProxyPassword();   
-	            String domain = SpeechServletUtils.getProxyDomain();
+	            int proxyPort    = ServletUtils.getProxyPort();;
+	            String username  = ServletUtils.getProxyUserName();
+	            String password  = ServletUtils.getProxyPassword();   
+	            String domain = ServletUtils.getProxyDomain();
 	        	TTSUtil.setProxyCredentials(client, proxyHost, proxyPort, username, password, domain);
 			}
 			
