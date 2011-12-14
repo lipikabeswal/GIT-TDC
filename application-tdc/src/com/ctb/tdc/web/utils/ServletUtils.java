@@ -600,9 +600,16 @@ public class ServletUtils {
 	 *
 	 */
 	public static String getProxyHost() throws MalformedURLException {
+		String host = null;
 		MemoryCache memoryCache = MemoryCache.getInstance();
 		ServletSettings srvSettings = memoryCache.getSrvSettings();
-		return srvSettings.getProxyHost();
+		if(srvSettings.getProxyHost() != null) {
+			host = srvSettings.getProxyHost().trim();
+			if (host.length() == 0) {
+				host = null;
+			}
+		}
+		return host;
 	}
 
 	/**
@@ -620,11 +627,15 @@ public class ServletUtils {
 	 *
 	 */
 	public static String getProxyUserName() throws MalformedURLException {
+		String userName = null;
 		MemoryCache memoryCache = MemoryCache.getInstance();
 		ServletSettings srvSettings = memoryCache.getSrvSettings();
-		String userName = srvSettings.getProxyUserName().trim();
-		if (userName.length() == 0)
-			userName = null;
+		if(srvSettings.getProxyUserName() != null) {
+			userName = srvSettings.getProxyUserName().trim();
+			if (userName.length() == 0) {
+				userName = null;
+			}
+		}
 		return userName;
 	}
 
@@ -633,11 +644,15 @@ public class ServletUtils {
 	 *
 	 */
 	public static String getProxyPassword() throws MalformedURLException {
+		String password = null;
 		MemoryCache memoryCache = MemoryCache.getInstance();
 		ServletSettings srvSettings = memoryCache.getSrvSettings();
-		String password = srvSettings.getProxyPassword().trim();
-		if (password.length() == 0)
-			password = null;
+		if(srvSettings.getProxyPassword() != null) {
+			password = srvSettings.getProxyPassword().trim();
+			if (password.length() == 0) {
+				password = null;
+			}
+		}
 		return password;
 	}
 	
