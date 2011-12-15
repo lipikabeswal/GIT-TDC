@@ -33,6 +33,7 @@ import org.jdom.output.XMLOutputter;
 
 import com.bea.xml.XmlException;
 import com.ctb.tdc.web.dto.SubtestKeyVO;
+import com.ctb.tdc.web.exception.BlockedContentException;
 import com.ctb.tdc.web.exception.DecryptionException;
 import com.ctb.tdc.web.exception.HashMismatchException;
 import com.ctb.tdc.web.exception.TMSException;
@@ -257,6 +258,11 @@ public class ContentServlet extends HttpServlet {
 
 					this.ContentDownloaded = true;
 				}
+				
+				if(!validHash && ServletUtils.blockContentDownload) {
+					throw new BlockedContentException();
+				}
+				
 				byte[] decryptedContent = ContentFile.decryptFile(filePath, hash,
 						key);
 				/*String subtestXML = new String(decryptedContent);
@@ -328,6 +334,13 @@ public class ContentServlet extends HttpServlet {
 					+ ServletUtils.printStackTrace(e));
 			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
+		}
+		//added for displaying separate error screen for blocked content
+		catch (BlockedContentException e) {
+			logger.error("Exception occured in getSubtest("+subtestId+") : "
+					+ ServletUtils.printStackTrace(e));
+			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.contentBlocked");                            
+			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, "209"));
 		}
 		catch (Exception e) {
 			logger.error("Exception occured in getSubtest("+subtestId+") : "
@@ -404,6 +417,9 @@ public class ContentServlet extends HttpServlet {
 					byte[] content = document.getAdssvcResponse().getDownloadItem()
 					.getContent();
 					ContentFile.writeToFile(content, filePath);
+				} 
+				else if(!hashValid && ServletUtils.blockContentDownload) {
+					throw new BlockedContentException();
 				}
 
 				if(ServletUtils.isCurSubtestAdaptive){
@@ -440,6 +456,13 @@ public class ContentServlet extends HttpServlet {
 					+ ServletUtils.printStackTrace(e));
 			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
+		}
+		//added for displaying separate error screen for blocked content
+		catch (BlockedContentException e) {
+			logger.error("Exception occured in downloadItem("+itemId+") : "
+					+ ServletUtils.printStackTrace(e));
+			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.contentBlocked");                            
+			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, "209"));
 		}
 	}
 
@@ -505,8 +528,8 @@ public class ContentServlet extends HttpServlet {
 					itemSubstitutionMap.put(originalItemId, itemId);
 				}
 				ServletUtils.currentItem = itemId;
-				System.out.println(" originalItemId:"+originalItemId);
-				System.out.println(" cat returned Item id:"+itemId);
+				//System.out.println(" originalItemId:"+originalItemId);
+				//System.out.println(" cat returned Item id:"+itemId);
 			}
 			if(itemId != null) {
 				if(ServletUtils.isCurSubtestAdaptive){
