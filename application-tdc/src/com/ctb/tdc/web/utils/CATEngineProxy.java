@@ -18,6 +18,7 @@ public class CATEngineProxy {
 	private static int obj_rs ;
 	private static int totObj_rs ;
 	private static int obj_masteryLvl; 
+	private static boolean studentStop;
 
 	public static HashMap itemIdMap = new HashMap();
 	//public static HashMap itemIdMap;
@@ -425,6 +426,7 @@ public class CATEngineProxy {
 		
 		itemnum = 0;
 		nextItem = null;//set null to make it ready for next subtest
+		studentStop = true;
 		System.out.println("caling setup_cat");
 		setup_cat(contentArea);
 		//initItemMap();
@@ -453,6 +455,7 @@ public class CATEngineProxy {
 		        
 		        
 			if(nextitem == null || nextitem.equals("-1")) {
+				studentStop = false;
 				throw new Exception("CAT OVER!");
 			} else {
 				itemnum++;
@@ -537,6 +540,11 @@ public class CATEngineProxy {
 			}
 		return 1; 
 	}
+	public static boolean isStudentStop(){
+		System.out.println("Insite isStudentStop- studentStop = " + studentStop);
+		return(studentStop);
+	}
+	
 	public static void deInitCAT() {
 		System.out.println("Called deInitCAT()");
 		setoff_cat();

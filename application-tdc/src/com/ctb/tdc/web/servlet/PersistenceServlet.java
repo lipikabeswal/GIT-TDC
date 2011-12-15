@@ -176,6 +176,8 @@ public class PersistenceServlet extends HttpServlet {
     				xml = LoadTestUtils.setAttributeValue("score.sem",sem.toString(), xml);
     				xml = LoadTestUtils.setAttributeValue("score.objective",objScore, xml);
     				System.out.println("Student Stop: " + CATEngineProxy.isStudentStop());
+    				
+    				//setting unscored_items=1 to detect student stop. 
     				if (CATEngineProxy.isStudentStop()){
     					xml = LoadTestUtils.setAttributeValue("number_of_unscored_items","1", xml);
     				}
