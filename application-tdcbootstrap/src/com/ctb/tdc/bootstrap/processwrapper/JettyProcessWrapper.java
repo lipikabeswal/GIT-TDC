@@ -16,7 +16,8 @@ import com.ctb.tdc.bootstrap.processwrapper.monitor.ProcessStdErrMonitor;
 import com.ctb.tdc.bootstrap.processwrapper.monitor.ProcessStdOutMonitor;
 import com.ctb.tdc.bootstrap.util.ConsoleUtils;
 import com.ctb.tdc.bootstrap.util.ResourceBundleUtils;
-import com.ctb.tdc.bootstrap.util.ServerSocketUtils;
+import com.ctb.tdc.web.dto.ServletSettings;
+import com.ctb.tdc.web.utils.MemoryCache;
   
 
 /**
@@ -76,7 +77,13 @@ public class JettyProcessWrapper extends Thread {
 		this.startsocket = startsocket;
 		this.stopsocket = stopsocket;
 	
-		String proxy = System.getProperty("tdc.proxy");
+		//String proxy = System.getProperty("tdc.proxy");
+		ServletSettings settings = MemoryCache.getInstance().getSrvSettings();
+		String proxy = settings.getProxyDomain() + "\\" 
+					 + settings.getProxyUserName() + ":" 
+					 + settings.getProxyPassword() + "@"
+					 + settings.getProxyHost() + ":"
+					 + settings.getProxyPort();
 		ConsoleUtils.messageOut("Bootstrap passing proxy info: " + proxy);
 		
 		this.startCmd = new String[16];
