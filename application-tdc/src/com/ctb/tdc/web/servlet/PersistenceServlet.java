@@ -175,6 +175,10 @@ public class PersistenceServlet extends HttpServlet {
     				xml = LoadTestUtils.setAttributeValue("score.ability",abilityScore.toString(), xml);
     				xml = LoadTestUtils.setAttributeValue("score.sem",sem.toString(), xml);
     				xml = LoadTestUtils.setAttributeValue("score.objective",objScore, xml);
+    				System.out.println("Student Stop: " + CATEngineProxy.isStudentStop());
+    				if (CATEngineProxy.isStudentStop()){
+    					xml = LoadTestUtils.setAttributeValue("number_of_unscored_items","1", xml);
+    				}
 	        		System.out.println("XML after Integrating: " + xml);
 	        	}            
     			Integer itemRawScore = getItemRawScoreFromResponse(response, xml);
