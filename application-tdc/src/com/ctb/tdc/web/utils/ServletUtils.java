@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
@@ -867,6 +868,36 @@ public class ServletUtils {
 		}
 	}
 	
+	
+	public static byte[] httpClientSendRequest4Update(String requestURL) {
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		synchronized(client) {
+			int responseCode = HttpStatus.SC_OK;
+			HttpGet get = new HttpGet(requestURL);
+			try {
+				HttpResponse response = client.execute(get);
+				responseCode = response.getStatusLine().getStatusCode();
+				if (responseCode == HttpStatus.SC_OK) {
+					InputStreamReader is = new InputStreamReader(response.getEntity().getContent());
+					int next = is.read();
+					while ( next!= -1) {
+						//System.out.println(inputLine);
+						bos.write(next);
+						next = is.read();
+					}
+					bos.flush();
+					is.close();
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				//post.releaseConnection();
+			}
+			return bos.toByteArray();
+		}
+	}
 	/**
 	 * httpConnectionSendRequest
 	 * @param String xml
