@@ -17,6 +17,7 @@ import com.ctb.tdc.bootstrap.ui.SplashWindow;
 import com.ctb.tdc.bootstrap.util.ConsoleUtils;
 import com.ctb.tdc.bootstrap.util.ResourceBundleUtils;
 import com.ctb.tdc.tuningutility.processwrapper.TuningUtilityBrowserWrapper;
+import com.ctb.tdc.web.utils.ServletUtils;
 
 /**
  * The class containing the main method used in launching, or bootstrapping, 
@@ -234,6 +235,7 @@ public class Main {
 			e1.printStackTrace();
 		}    
 		// The two (loosely) managed processes.
+		ServletUtils.validateServletSettings();
         ConsoleUtils.messageErr("Begin starting processes...");
         TuningUtilityBrowserWrapper wtb = new TuningUtilityBrowserWrapper(tdcHome, macOS, linux, splashWindow, jettyPort);
 		JettyProcessWrapper jetty = null;
