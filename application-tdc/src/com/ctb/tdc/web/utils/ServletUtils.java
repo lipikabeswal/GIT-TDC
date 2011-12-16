@@ -4,8 +4,10 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -873,6 +875,8 @@ public class ServletUtils {
 	
 	public static byte[] httpClientSendRequest4Update(String requestURL) {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		DataInputStream dis = null;
+		InputStream is = null;
 		synchronized(client) {
 			int responseCode = HttpStatus.SC_OK;
 			HttpGet get = new HttpGet(requestURL);
@@ -880,15 +884,14 @@ public class ServletUtils {
 				HttpResponse response = client.execute(get, localcontext);
 				responseCode = response.getStatusLine().getStatusCode();
 				if (responseCode == HttpStatus.SC_OK) {
-					InputStreamReader is = new InputStreamReader(response.getEntity().getContent());
-					int next = is.read();
-					while ( next!= -1) {
-						//System.out.println(inputLine);
-						bos.write(next);
-						next = is.read();
+					 is =response.getEntity().getContent();
+					 dis = new DataInputStream( new BufferedInputStream(is));
+					byte[] buffer = new byte[8 * 1024];
+					int bytesRead;
+					while ((bytesRead = dis.read(buffer)) != -1) {
+						bos.write(buffer, 0, bytesRead);
 					}
 					bos.flush();
-					is.close();
 				}
 			}
 			catch (Exception e) {
