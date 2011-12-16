@@ -3,10 +3,10 @@ package com.ctb.tdc.web.utils;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
@@ -49,6 +49,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.BasicHttpContext;
 import org.apache.log4j.Logger;
 import org.jdom.Element;
 
@@ -73,6 +74,7 @@ public class ServletUtils {
 
 	public static DefaultHttpClient client;
 	
+	private static BasicHttpContext localcontext = new BasicHttpContext();
 	
 	static {
 		try {
@@ -845,7 +847,7 @@ public class ServletUtils {
 			int responseCode = HttpStatus.SC_OK;
 			HttpGet get = new HttpGet(requestURL);
 			try {
-				HttpResponse response = client.execute(get);
+				HttpResponse response = client.execute(get, localcontext);
 				responseCode = response.getStatusLine().getStatusCode();
 				if (responseCode == HttpStatus.SC_OK) {
 					BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()),131072);
@@ -875,7 +877,7 @@ public class ServletUtils {
 			int responseCode = HttpStatus.SC_OK;
 			HttpGet get = new HttpGet(requestURL);
 			try {
-				HttpResponse response = client.execute(get);
+				HttpResponse response = client.execute(get, localcontext);
 				responseCode = response.getStatusLine().getStatusCode();
 				if (responseCode == HttpStatus.SC_OK) {
 					InputStreamReader is = new InputStreamReader(response.getEntity().getContent());
@@ -925,7 +927,7 @@ public class ServletUtils {
 				nameValuePairs.add(new BasicNameValuePair(METHOD_PARAM, method));
 				nameValuePairs.add(new BasicNameValuePair(XML_PARAM, xml));
 				post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-				HttpResponse response = client.execute(post);
+				HttpResponse response = client.execute(post, localcontext);
 				
 					responseCode = response.getStatusLine().getStatusCode();
 					if (responseCode == HttpStatus.SC_OK) {
@@ -983,7 +985,7 @@ public class ServletUtils {
 				nameValuePairs.add(new BasicNameValuePair("musicId", xml));
 				post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
-				HttpResponse response = client.execute(post);
+				HttpResponse response = client.execute(post, localcontext);
 				System.out.println("requestXml" + xml);
 				responseCode = response.getStatusLine().getStatusCode();	
 
@@ -1031,7 +1033,7 @@ public class ServletUtils {
 				post = getHttpPost(tmsURL);
 				
 				try{
-					response = client.execute(post);
+					response = client.execute(post, localcontext);
 				}
 				catch(HttpHostConnectException e){
 						connFlag = false;
