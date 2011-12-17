@@ -201,22 +201,35 @@ public class Main {
 		String tdcConfigUrl = Main.getTdcConfigUrl();
         
 		try {
-            ConsoleUtils.messageOut("Retrieving client configuration: " + tdcConfigUrl);
-			byte[] inBuff = ServletUtils.httpClientSendRequest(tdcConfigUrl).getBytes();
-        	byte[] outBuff = TdcConfigEncryption.decrypt(inBuff);
-            ByteArrayInputStream decrypted = new ByteArrayInputStream( outBuff );
+            ConsoleUtils.messageOut("Retrieving client configuration: " + tdcConfigUrl);           
+            
+			byte[] inBuff = null;
+					
+			if (isLinux()){
+				inBuff = ServletUtils.httpClientSendRequest4Update(tdcConfigUrl);        						
+			}else{
+				inBuff = ServletUtils.httpClientSendRequest(tdcConfigUrl).getBytes();
+			}
+			
+			
+			byte[] outBuff = TdcConfigEncryption.decrypt(inBuff);       	        	                               	
+            ByteArrayInputStream decrypted = new ByteArrayInputStream( outBuff );           
 
 			ZipInputStream zis = new ZipInputStream( decrypted );
 			ZipEntry zipEntry;
 			
 			ConsoleUtils.messageOut("Zip entries...");
 			while( (zipEntry = zis.getNextEntry()) != null ) {
+				
 				if( !zipEntry.isDirectory() ) {
                     String zipEntryFilePath = null;
                     String zipEntryFileName = zipEntry.getName();
+                    
+                    System.out.println("zipEntry.getName =" + zipEntryFileName);
                     if ( zipEntryFileName.indexOf("LockdownBrowser.ini") >= 0 ) {
                         if ( ! macOS ) {
                             zipEntryFilePath = tdcHome + "/" + zipEntryFileName;
+                           
                         }
                     }
                     else
@@ -228,8 +241,10 @@ public class Main {
                     else {
                         zipEntryFilePath = tdcHome + "/" + zipEntryFileName;
                     }
+                    System.out.println("zipEntryFilePath =" + zipEntryFilePath);
                     try {
 	                    if ( zipEntryFilePath != null ) {
+	                    	 System.out.println("Check 3");
 							ConsoleUtils.messageOut( " - writing " + zipEntryFilePath );
 							File file = new File(zipEntryFilePath);
 							FileOutputStream fos = new FileOutputStream(file, false);
@@ -242,9 +257,12 @@ public class Main {
 									fos.write(bytes, 0, read);
 								}
 							}
+							
 							fos.close();
+							
 	                    }
                     } catch(ZipException ze) {
+                    	
                     	ConsoleUtils.messageOut("Exception reading file from zip: " + zipEntryFilePath);
                     }
                     
@@ -252,6 +270,7 @@ public class Main {
 					new File(zipEntry.getName()).mkdir();
 				}
 			}
+			
 			zis.close();
             ConsoleUtils.messageOut("Done with zip entries.");
 		} catch( IOException ioe ) {
