@@ -669,7 +669,9 @@ public class ServletUtils {
 		String domain = null;
 		MemoryCache memoryCache = MemoryCache.getInstance();
 		ServletSettings srvSettings = memoryCache.getSrvSettings();
-		if(srvSettings.getProxyDomain() != null) {
+		if(srvSettings.getProxyDomain() != null && 
+				!srvSettings.getProxyDomain().equalsIgnoreCase("null")) {//somehow null was coming as string
+
 			domain = srvSettings.getProxyDomain().trim();
 			if (domain.length() == 0) {
 				domain = null;
