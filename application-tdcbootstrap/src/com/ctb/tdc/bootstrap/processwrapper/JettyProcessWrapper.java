@@ -226,7 +226,8 @@ public class JettyProcessWrapper extends Thread {
             if ( this.macOS ) {
                 this.startCmd[1] = this.startCmd[1].replaceAll(" ", "\\ ");
                 this.startCmd[2] = this.startCmd[2].replaceAll(" ", "\\ ");
-                this.startCmd[5] = this.startCmd[4].replaceAll(" ", "\\ ");
+                //this.startCmd[5] = this.startCmd[4].replaceAll(" ", "\\ ");
+                this.startCmd[5] = this.startCmd[5].replaceAll(" ", "\\ ");//mapping corrected, tdc.baseurl was coming null
                 this.startCmd[6] = this.startCmd[6].replaceAll(" ", "\\ ");
                 this.startCmd[8] = this.startCmd[8].replaceAll(" ", "\\ ");
                 this.startCmd[9] = this.startCmd[9].replaceAll(" ", "\\ ");
