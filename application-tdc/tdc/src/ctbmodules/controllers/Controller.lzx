@@ -802,16 +802,18 @@
             var sessiontime = hours + ':' + mins + ':' + secs; 
             var unscored = crtotal + grtotal + notSrOnRestart;
 
-			 //START Change for deferred Defect 63502
-			dprestart.selectChild();
+			//delete consolidated_restart_data node if there is one or no child tsd nodes 
+			deleteParentIfNoOrOneChild(dprestart);
+
+			//START Change for deferred Defect 63502
+			//dprestart.selectChild();
+			//END
+            //clear restart xml
+            //dprestart.deleteNode();
+			//START Change for deferred Defect 63502
+			//dprestart.selectParent();
 			//END
 
-            // clear restart xml
-            dprestart.deleteNode();
-
-			 //START Change for deferred Defect 63502
-			dprestart.selectParent();
-			//END
 			if(this.adaptive == 'false'){
 				gController.setAttribute("abScore", 0);
 				gController.setAttribute("sem", 0);
@@ -3247,7 +3249,7 @@ Debug.write("############ loadItem ############");
 						this.blockFileName = false;
 					}
 					result[7] = itemnode.getAttr( 'score' ); //current score
-					result[8] = getSpText();
+					result[8] = (getSpText() != null && getSpText() != "null") ? getSpText() : "";//sp data is coming as 'null'
 					
 					result[9] = 0;					
  					itemType = dpitem.xpathQuery('item_canvas/*/recorder_widget')
@@ -4362,40 +4364,51 @@ Debug.write("############ loadItem ############");
 			Debug.write("answer Array", answerArray[0],answerArray[1],answerArray[2],answerArray[3])
 
 			var type =  answerArray[0].subviews[0].subviews[0].type;
-
+			if(type == null ){
+				for(var i=0; i < answerArray.length; i++){
+					if(type == null ){
+						type = answerArray[i].subviews[0].subviews[0].type;
+					} 
+				}
+			}
 			var change = false;
 			if(type == null ){
-			Debug.write("inside type");
-			change = true;
+				Debug.write("inside type");
+				change = true;
 			}
-
-			if(isLoginResponseHavingSeed){
-			actualIndex = answerArray.length - index -1;
-			Debug.write("login response seed",actualIndex);
+			//Debug.write("choice index",index);
+			if(isLoginResponseHavingSeed &&
+					!itemHasRationalNode && 
+						!nullOrSpace(seed)){
+				var selid = getChoiceName(index);
+				Debug.write("selid :"+selid);
+				actualIndex = returnRandomIndex(answerArray,selid);
+				//actualIndex = answerArray.length - index -1;
+				Debug.write("login response seed",actualIndex);
 			}else{
-			actualIndex = returnIndex(answerArray,index,change);
+				actualIndex = returnIndex(answerArray,index,change);
 			}
 			if(state == 'Hide'){
-			if(index != null && index != ""){
-				answerArray[actualIndex].subviews[0].hide();
-				answerArray[actualIndex].subviews[1].hide();
-				answerArray[actualIndex].subviews[2].hide();				
-			}
+				if(index != null && index != ""){
+					answerArray[actualIndex].subviews[0].hide();
+					answerArray[actualIndex].subviews[1].hide();
+					answerArray[actualIndex].subviews[2].hide();				
+				}
 			}
 			else if(state == 'Show'){
-			if(index != null && index != ""){
-				answerArray[actualIndex].subviews[0].show();
-				answerArray[actualIndex].subviews[1].show();
-				answerArray[actualIndex].subviews[2].show();				
-			}
+				if(index != null && index != ""){
+					answerArray[actualIndex].subviews[0].show();
+					answerArray[actualIndex].subviews[1].show();
+					answerArray[actualIndex].subviews[2].show();				
+				}
 			}
 
 
-			
+
 			//var obj = new Object();
-		
+
 			if(index == null || index == "" || index == " " || index == NaN || index == "NaN" || index == 'NaN'){
-				Debug.write("inside answerArray", answerArray);
+				//Debug.write("inside answerArray", answerArray);
 				for (var i = 0; i < answerArray.length; i++){
 						//answerArray[i].show();
 				answerArray[i].subviews[0].show();
@@ -4406,6 +4419,16 @@ Debug.write("############ loadItem ############");
 			}
 
 		]]></method>
+		
+		<method name="getChoiceName" args="index">
+		if(index == 0)return 'A';
+		else if(index == 1)return 'B';
+		else if(index == 2)return 'C';
+		else if(index == 3)return 'D';
+		else if(index == 4)return 'E';
+		else if(index == 5)return 'F';
+		else if(index == 6)return 'G';
+		</method>
 		
 		<method name="clearAll" args="arr"><![CDATA[
 				for (var i = 0; i < answerArray.length; i++){
@@ -4417,91 +4440,158 @@ Debug.write("############ loadItem ############");
 				}
 			resetAnswerArray();
 		]]></method>
+		
 		<method name="returnIndex" args="arr,index,change"><![CDATA[
 	
-		
+		Debug.write("returnIndex :"+arr.length,index,change);
 		  switch ( index ) {
 	        	case  0:
+	        	Debug.write("returnIndex case 0");
                    	for(var i=0; i < arr.length; i++){
-					if(answerArray[i].subviews[0].subviews[0].type == 'A' && !change){
-					return i;
-					}
-					else if(answerArray[i].subviews[1].subviews[0].type == 'A'){
-					return i;
-					}
+						if(answerArray[i].subviews[0].subviews[0].type == 'A' && !change){
+							Debug.write("returnIndex i 1:"+i);
+							return i;
+						}
+						else if(answerArray[i].subviews[1].subviews[0].type == 'A'){
+							Debug.write("returnIndex i 2:"+i);
+							return i;
+						}
 					}
                     break;
 				case 1: 
+				Debug.write("returnIndex case 1");
                     for(var i=0; i < arr.length; i++){
-					if(answerArray[i].subviews[0].subviews[0].type == 'B' && !change){
-					return i;
-					}
-					else if(answerArray[i].subviews[1].subviews[0].type == 'B'){
-					return i;
-					}
+						if(answerArray[i].subviews[0].subviews[0].type == 'B' && !change){
+							Debug.write("returnIndex i 1:"+i);
+							return i;
+						}
+						else if(answerArray[i].subviews[1].subviews[0].type == 'B'){
+							Debug.write("returnIndex i 2:"+i);
+							return i;
+						}
 					}
                     break;
 				case 2: 
+				Debug.write("returnIndex case 2");
                    	for(var i=0; i < arr.length; i++){
-					if(answerArray[i].subviews[0].subviews[0].type == 'C' && !change){
-					return i;
-					}
-					else if(answerArray[i].subviews[1].subviews[0].type == 'C'){
-					return i;
-					}
+						if(answerArray[i].subviews[0].subviews[0].type == 'C' && !change){
+							Debug.write("returnIndex i 1:"+i);
+							return i;
+						}
+						else if(answerArray[i].subviews[1].subviews[0].type == 'C'){
+							Debug.write("returnIndex i 2:"+i);
+							return i;
+						}
 					}
                     break;
 				case 3: 
+				Debug.write("returnIndex case 3");
                     for(var i=0; i < arr.length; i++){
-					if(answerArray[i].subviews[0].subviews[0].type == 'D' && !change){
-					return i;
-					}
-					else if(answerArray[i].subviews[1].subviews[0].type == 'D'){
-					return i;
-					}
+						if(answerArray[i].subviews[0].subviews[0].type == 'D' && !change){
+							Debug.write("returnIndex i 1:"+i);
+							return i;
+						}
+						else if(answerArray[i].subviews[1].subviews[0].type == 'D'){
+							Debug.write("returnIndex i 2:"+i);
+							return i;
+						}
 					}
                     break;
 				case 4:
+				Debug.write("returnIndex case 4");
                    	for(var i=0; i < arr.length; i++){
-					if(answerArray[i].subviews[0].subviews[0].type == 'E' && !change){
-					return i;
-					}
-					else if(answerArray[i].subviews[1].subviews[0].type == 'E'){
-					return i;
-					}
+						if(answerArray[i].subviews[0].subviews[0].type == 'E' && !change){
+							Debug.write("returnIndex i 1:"+i);
+							return i;
+						}
+						else if(answerArray[i].subviews[1].subviews[0].type == 'E'){
+							Debug.write("returnIndex i 2:"+i);
+							return i;
+						}
 					}
                     break;
 				case 5: 
+				Debug.write("returnIndex case 5");
                    	for(var i=0; i < arr.length; i++){
-					if(answerArray[i].subviews[0].subviews[0].type == 'F' && !change){
-					return i;
-					}
-					else if(answerArray[i].subviews[1].subviews[0].type == 'F'){
-					return i;
-					}
+						if(answerArray[i].subviews[0].subviews[0].type == 'F' && !change){
+							Debug.write("returnIndex i 1:"+i);
+							return i;
+						}
+						else if(answerArray[i].subviews[1].subviews[0].type == 'F'){
+							Debug.write("returnIndex i 2:"+i);
+							return i;
+						}
 					} 
                     break;
 				case 6: 
+				Debug.write("returnIndex case 6");
                     for(var i=0; i < arr.length; i++){
-					if(answerArray[i].subviews[0].subviews[0].type == 'G' && !change){
-					return i;
-					}
-					else if(answerArray[i].subviews[1].subviews[0].type == 'G'){
-					return i;
-					}
+						if(answerArray[i].subviews[0].subviews[0].type == 'G' && !change){
+							Debug.write("returnIndex i 1:"+i);
+							return i;
+						}
+						else if(answerArray[i].subviews[1].subviews[0].type == 'G'){
+							Debug.write("returnIndex i 2:"+i);
+							return i;
+						}
 					}
                     break;
 	 		}
 		]]></method>
-		<method name="resetAnswerArray"><![CDATA[
 		
-		  for (var i = 0; i < this.answerArray.length; i++) {
+		<method name="returnRandomIndex" args="arr,selId"><![CDATA[
+		Debug.write("returnRandomIndex :"+arr.length);
+		dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@randomIdentifier='"+selId+"']");
+		var actSelid = dnsel.getAttr("identifier");		
+		/*Debug.write("returnRandomIndex random selected id :"+selId);
+		Debug.write("returnRandomIndex actual selected id :"+selid1);
+		Debug.write("dnsel :",dnsel);*/
+				
+		for(var i=0; i < arr.length; i++){
+			if(answerArray[i].subviews[0].subviews[0].type == actSelid){
+				//Debug.write("returnRandomIndex i 1:"+i+"::"+answerArray[i].subviews[0].subviews[0].type);
+				return i;
+			}
+			else if(answerArray[i].subviews[1].subviews[0].type == actSelid){
+				//Debug.write("returnRandomIndex i 2:"+i+"::"+answerArray[i].subviews[1].subviews[0].type);
+				return i;
+			}
+			//Debug.write("returnRandomIndex i 3:"+i+"::"+answerArray[i].subviews[0].subviews[0].type);
+		}
+		]]></method>
+		
+		
+		<method name="resetAnswerArray"><![CDATA[
+
+			for (var i = 0; i < this.answerArray.length; i++) {
                 delete this.answerArray[i];
             }
             this.answerArray.length = 0;
 		]]></method>
 
-	
+		<method name="deleteParentIfNoOrOneChild" args="argsNodePtr"><![CDATA[
+			var tsdTageCount = 0;
+			var argsNodeArr;
+			var argsNodeArrLen = 0;
+
+			if(argsNodePtr.data != null) {//for first login cases i.e. no restart data
+				argsNodeArr = argsNodePtr.xpathQuery("tsd");
+				if(argsNodeArr instanceof LzDataNode) {
+					argsNodeArr = new Array(argsNodeArr);
+				}	
+				argsNodeArrLen = argsNodeArr.length;
+				if(argsNodeArrLen > 1) {
+					Debug.write("dprestart has more than one child....",argsNodeArrLen," : ",argsNodePtr.data);
+					argsNodePtr.selectChild()
+					argsNodePtr.deleteNode();
+					argsNodePtr.selectParent();		
+				}
+				else {
+					Debug.write("dprestart has one or no child....",argsNodeArrLen," : ",argsNodePtr.data);
+					argsNodePtr.deleteNode(); 
+				}	
+			}
+		]]></method>	
 		
 	
 	</node>
