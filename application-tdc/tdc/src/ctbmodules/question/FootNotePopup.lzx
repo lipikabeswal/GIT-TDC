@@ -81,8 +81,8 @@
     	//This fix will help footnote to work for all the flash versions.
 		    var c= '';
 		   // Debug.write("UTF Decode")
-			for(i=0; i<b.length; i++){
-				if(b.charCodeAt(i)>127)
+			for(var i=0; i < b.length; i++){
+				if(b.charCodeAt(i) > 127)
 				{ 
 				c += '&amp;#' + b.charCodeAt(i) + ';';
 				 }
