@@ -164,6 +164,10 @@ public class PersistenceServlet extends HttpServlet {
         		filePath = new File(".").getAbsolutePath() + "/../data/loginresponse3.xml";
         	} else if(requestURI.indexOf("servletii1") >= 0) {
         		filePath = new File(".").getAbsolutePath() + "/../data/IIloginresponse1.xml";
+        	} else if(requestURI.indexOf("servletTABEFixed") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/TABEFixedloginresponse.xml";
+        	} else if(requestURI.indexOf("servletTABEAdaptive") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/TABEAdaptiveloginresponse.xml";
         	}
         	System.out.println("***** Looking for login response XML: " + filePath);
             result = new String(ServletUtils.readFromFile(new File(filePath)));

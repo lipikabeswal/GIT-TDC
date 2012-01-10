@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ob_assessment>
+	<assessment_title />
+	<ob_element_list>
+		<!-- <f allow_revisit="false" h="CB6BDDAABB9AC2C36F06C04901BEC57B" id="418603" k="203" /> -->
+		<f allow_revisit="false" h="7C111F9608313A4A33E376B64D23E3D5" id="418703" k="203" />
+		<!-- <f allow_revisit="false" h="2A3B261CF03BF92735F0A246D4FB4AB5" id="418803" k="203" /> -->
+		<f allow_revisit="false" h="333B84E400503E3C9F6BD530A9FC8B8C" id="418903" k="203" />
+		<!-- <f allow_revisit="false" h="4A8CD44255DBA9E0CD50E38454A01817" id="419003" k="203" /> -->
+		<f allow_revisit="false" h="36C366D111D11F22434489924F608B1A" id="419103" k="203" />
+		<f allow_revisit="false" h="B46426BC59853C276E190361FAF80F53" id="419203" k="203" />
+		<f allow_revisit="false" h="8E786B1A03B086DD8D6A9C206FB61647" id="419303" k="203" />
+		<f allow_revisit="false" h="7893FE3D37620743EB6FA1980C65AA4A" id="419403" k="203" />
+		<!-- <f allow_revisit="false" h="0D9CEFCBE9FF12ABB288678C3EEBC3F6" id="419503" k="203" /> -->
+	</ob_element_list>
+	<ob_element_select_order>
+		<!-- <e id="418603" /> -->
+		<e id="418703" />
+		<!-- <e id="418803" /> -->
+		<e id="418903" />
+		<!-- <e id="419003" /> -->
+		<g ai="1">
+			<e id="419103" />
+			<e id="419203" />
+			<e id="419303" />
+		</g>
+		<e id="419403" />
+		<!-- <e id="419503" /> -->
+	</ob_element_select_order>
+</ob_assessment>

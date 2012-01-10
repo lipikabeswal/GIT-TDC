@@ -146,6 +146,7 @@ public class ServletUtils {
 	public static final String UPLOAD_SYSTEM_INFO_METHOD = "uploadSystemInfo";
 	public static final String GET_MUSIC_DATA_METHOD = "getMusicData";
 	public static final String LOAD_MUSIC_DATA_METHOD = "getMp3";
+	public static final String GET_FILE_PARTS = "downloadFileParts";
 	
 	
 //	parameters

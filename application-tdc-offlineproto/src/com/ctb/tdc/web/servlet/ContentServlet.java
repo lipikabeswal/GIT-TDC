@@ -89,6 +89,8 @@ public class ContentServlet extends HttpServlet {
 		}
 		else if (method.equals(ServletUtils.GET_LOCALRESOURCE_METHOD)) {
 		     getLocalResource(request,response);
+		} else if (method.equals(ServletUtils.GET_FILE_PARTS)){
+			downloadFileParts (request,response);
 		} else {
 			ServletUtils.writeResponse(response, ServletUtils.ERROR);
 		}
@@ -127,6 +129,13 @@ public class ContentServlet extends HttpServlet {
 		// do nothing
 	}
 
+	private void downloadFileParts(HttpServletRequest request,
+			HttpServletResponse response) throws IOException{
+
+		ServletUtils.writeResponse(response, "<FILE_PART_OK />");
+
+	}
+	
 	/**
 	 * Get subtest from TMS
 	 * 

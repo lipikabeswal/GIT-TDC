@@ -85,6 +85,8 @@ public class IIContentServlet extends HttpServlet {
 			getItem(request, response);
 		} else if (method.equals(ServletUtils.GET_IMAGE_METHOD)) {
 			getImage(request, response);
+		} else if (method.equals(ServletUtils.GET_FILE_PARTS)){
+			downloadFileParts (request,response);
 		}
 		else if (method.equals(ServletUtils.GET_LOCALRESOURCE_METHOD)) {
 		     getLocalResource(request,response);
@@ -126,6 +128,13 @@ public class IIContentServlet extends HttpServlet {
 		// do nothing
 	}
 
+	private void downloadFileParts(HttpServletRequest request,
+			HttpServletResponse response) throws IOException{
+
+		ServletUtils.writeResponse(response, "<FILE_PART_OK />");
+
+	}
+	
 	private void getSubtest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String requestURI = request.getRequestURI();
 		String filePath = null;

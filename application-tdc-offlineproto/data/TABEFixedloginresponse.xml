@@ -1,0 +1,25 @@
+<tmssvc_response method="login_response">
+	<login_response lsid="3733987:NOBODY3948" restart_flag="false" restart_number="0">
+		<status status_code="200"/>
+		<testing_session_data>
+			<cmi.core student_id="2560616" student_last_name="Student" student_first_name="Demo" student__middle_name="A"/>
+			<lms.student.accommodations calculator="true" magnifier="true" screen_reader="false" untimed="false" rest_break="false" 
+			 highlighter="true" masking_ruler="false" magnifying_glass="true" auditory_calming="false" 
+			 music_file_id="3" extended_time="false" masking_tool="false">
+				<stereotype_style stereotype="directions" font_magnification="1.0"/>
+				<stereotype_style stereotype="stimulus" font_magnification="1.0"/>
+				<stereotype_style stereotype="stem" font_magnification="1.0"/>
+				<stereotype_style stereotype="answerArea" font_magnification="1.0"/>
+			</lms.student.accommodations>
+		</testing_session_data>
+		<manifest block_content_download="false" title="TABE 9 &amp; 10 Online Tutorial">
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="272592" sco_duration_minutes="60" 
+				sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TABE 9 &amp; 10 Online Tutorial" 
+				asmt_hash="9DC1EF5A81C9DC1C94051982DFB7A735" asmt_encryption_key="547" 
+				item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="49103" fwd_only="false" adaptive="false" 
+				contentURI="https://oas.ctb.com/content/" cmi.core.total_time="0:0:0"/>
+			<terminator id="SEE_YOU_LATER"/>
+		</manifest>
+		<branding tdclogo="/resources/logoTABE.swf"/>
+	</login_response>
+</tmssvc_response>
