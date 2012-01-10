@@ -528,6 +528,7 @@ public class CATEngineProxy {
 	        
 	        
 			if(nextitem == null || nextitem.equals("-1")) {
+				studentStop = false;
 				//throw new Exception("CAT OVER!");
 				return 0;
 			} else {
