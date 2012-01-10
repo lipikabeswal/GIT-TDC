@@ -1,4 +1,4 @@
-<project name="application-tdc" default="usage" basedir=".">
+<project name="application-tdc" default="dist" basedir=".">
 	
 	<property name="project.src"           value="${basedir}/src" />
 	<property name="project.dist"          value="${basedir}/dist" />
@@ -19,7 +19,7 @@
 	
 	<!-- TASK: dist ........................................................-->
 	<property name="file.name" value="standalone.war" />  
-		<target name="dist">  
+		<target name="ear">  
 			<war destfile="${file.name}" webxml="webapp/WEB-INF/web.xml">  
 				<classes dir="webapp/WEB-INF/classes" />
 				<lib dir="webapp/WEB-INF/lib" />
@@ -71,6 +71,18 @@
 
 		<copy todir="${basedir}/webapp/WEB-INF/classes">
 			<fileset dir="${project.src}" excludes="**/*.java"/>
+		</copy>
+	</target>
+	
+	<target name="dist" depends="build, ear">
+		<copy todir="${basedir}/dist/webapps/">
+			<fileset dir="${basedir}" includes="standalone.war"/>
+		</copy>
+		<copy todir="${basedir}/dist/data">
+			<fileset dir="${basedir}/data" includes="**/*"/>
+		</copy>
+		<copy todir="${basedir}/dist/webapps/ROOT/">
+			<fileset dir="${basedir}/static" includes="**/*"/>
 		</copy>
 	</target>
 

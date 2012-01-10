@@ -49,6 +49,13 @@
     <servlet-class>com.ctb.tdc.web.servlet.IIContentServlet</servlet-class>
   </servlet>
   
+  <servlet>
+    <description>TABEAdaptiveContentServlet</description>
+    <display-name>TABEAdaptiveContentServlet</display-name>
+    <servlet-name>TABEAdaptiveContentServlet</servlet-name>
+    <servlet-class>com.ctb.tdc.web.servlet.TABEAdaptiveContentServlet</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
     <servlet-name>SpeechServlet</servlet-name>
     <url-pattern>/servlet/SpeechServlet.do</url-pattern>
@@ -80,6 +87,16 @@
   </servlet-mapping>
   
   <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletTABEFixed/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletTABEAdaptive/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
     <servlet-name>ContentServlet</servlet-name>
     <url-pattern>/servlet/ContentServlet.do</url-pattern>
   </servlet-mapping>
@@ -107,6 +124,16 @@
   <servlet-mapping>
     <servlet-name>IIContentServlet</servlet-name>
     <url-pattern>/servletii1/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletTABEFixed/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>TABEAdaptiveContentServlet</servlet-name>
+    <url-pattern>/servletTABEAdaptive/ContentServlet.do</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -144,6 +171,16 @@
   <servlet-mapping>
     <servlet-name>PersistenceServlet</servlet-name>
     <url-pattern>/servletii1/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletTABEFixed/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletTABEAdaptive/PersistenceServlet.do</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -183,5 +220,14 @@
     <url-pattern>/servletii1/UtilityServlet.do</url-pattern>
   </servlet-mapping>
 
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletTABEFixed/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletTABEAdaptive/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
 
 </web-app>
