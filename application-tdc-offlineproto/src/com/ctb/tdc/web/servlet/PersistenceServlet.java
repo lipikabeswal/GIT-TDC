@@ -210,6 +210,20 @@ public class PersistenceServlet extends HttpServlet {
     			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"26911\"/>");
     		} else if("26911".equals(scid)) {
     			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"26913\"/>");
+    		} else if("272592".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"272373\"/>");
+    		} else if("272373".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"272382\"/>");
+    		} else if("272382".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"272391\"/>");
+    		} else if("272391".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"272400\"/>");
+    		} else if("272400".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"272409\"/>");
+    		} else if("272409".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"272418\"/>");
+    		} else if("272418".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"272427\"/>");
     		} else {
     			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "");
     		}

@@ -188,7 +188,7 @@ public class ContentServlet extends HttpServlet {
 				myOutput.write(decryptedContentBytes);
 				myOutput.flush();
 				myOutput.close();
-				System.out.println("***** Subtest XML: " + new String(decryptedContentBytes));
+				//System.out.println("***** Subtest XML: " + new String(decryptedContentBytes));
 			} else {
 				response.setContentType("text/xml");
 				int size = decryptedContent.length();
@@ -197,7 +197,7 @@ public class ContentServlet extends HttpServlet {
 				myOutput.write(decryptedContent.getBytes());
 				myOutput.flush();
 				myOutput.close();
-				System.out.println("***** Subtest XML: " + decryptedContent);
+				//System.out.println("***** Subtest XML: " + decryptedContent);
 			}
 			//System.out.println("getSubtest elapsed time: " + (System.currentTimeMillis() - startTime));
 		} 
@@ -318,7 +318,7 @@ public class ContentServlet extends HttpServlet {
 				contentHash.put("item" + itemId, itemxml);
 			}
 			ServletUtils.writeResponse(response, itemxml);
-			System.out.println("***** Item XML: " + itemxml);
+			//System.out.println("***** Item XML: " + itemxml);
 			//System.out.println("getItem elapsed time: " + (System.currentTimeMillis() - startTime));
 		} 
 		catch (HashMismatchException e) {

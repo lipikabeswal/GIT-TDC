@@ -74,7 +74,7 @@ public class TABEAdaptiveContentServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		long startTime = System.currentTimeMillis();
-		System.out.print("called ContentServlet method ");
+		//System.out.print("called ContentServlet method ");
 		
 		String method = ServletUtils.getMethod(request);
 		
@@ -95,7 +95,7 @@ public class TABEAdaptiveContentServlet extends HttpServlet {
 			ServletUtils.writeResponse(response, ServletUtils.ERROR);
 		}
 		
-		System.out.print(method + ", elapsed time: " + (System.currentTimeMillis() - startTime + "\n"));
+		//System.out.print(method + ", elapsed time: " + (System.currentTimeMillis() - startTime + "\n"));
 
 	}
 
@@ -141,17 +141,85 @@ public class TABEAdaptiveContentServlet extends HttpServlet {
 	 *            local directory - return decrypted content to client
 	 * 
 	 */
-	private void getSubtest(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	private void getSubtest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+			
+		String xml = ServletUtils.getXml(request);
+		String subtestId = null;
+		String hash;
+		String key;
+
+		try {
+			if (xml == null) {
+				subtestId = ServletUtils.getSubtestId(request);
+				hash = ServletUtils.getHash(request);
+				key = ServletUtils.getKey(request);
+				xml = ServletUtils.buildContentRequest(request,
+						ServletUtils.GET_SUBTEST_METHOD);
+			}
+			else {
+				AdssvcRequestDocument document = AdssvcRequestDocument.Factory.parse(xml);
+				subtestId = document.getAdssvcRequest().getGetSubtest().getSubtestid();
+				hash = document.getAdssvcRequest().getGetSubtest().getHash();
+				key = document.getAdssvcRequest().getGetSubtest().getKey();
+			}
+			//System.out.println("@@@@@ " + subtestId);
+			if("49103".equals(subtestId)) {
+				String filePath = new File(".").getAbsolutePath() + "/../data/TABEAdaptivesubtest1.xml";
+				System.out.println("***** Looking for subtest XML: " + filePath);
+				
+		        String result = new String(ServletUtils.readFromFile(new File(filePath)));
+				BufferedOutputStream myOutput = new BufferedOutputStream(response.getOutputStream());
+				myOutput.write(result.getBytes());
+				myOutput.flush();
+				myOutput.close();
+			} else {
+				String decryptedContent = (String) contentHash.get("subtest" + subtestId);
+				if(decryptedContent == null) {
+					if (subtestId == null || "".equals(subtestId.trim())) // invalid subtest id
+						throw new Exception("No subtest id in request.");
+					String filePath = ContentFile.getContentFolderPath() + subtestId
+							+ ContentFile.SUBTEST_FILE_EXTENSION;
 		
-		String filePath = new File(".").getAbsolutePath() + "/../data/TABEAdaptivesubtest1.xml";
-		System.out.println("***** Looking for subtest XML: " + filePath);
-		
-        String result = new String(ServletUtils.readFromFile(new File(filePath)));
-		BufferedOutputStream myOutput = new BufferedOutputStream(response.getOutputStream());
-		myOutput.write(result.getBytes());
-		myOutput.flush();
-		myOutput.close();
+					byte[]decryptedContentBytes = ContentFile.decryptFile(filePath, hash, key);
+					contentHash.put("subtest" + subtestId, new String(decryptedContentBytes));
+				}
+				decryptedContent = (String) contentHash.get("subtest" + subtestId);
+				decryptedContent = decryptedContent.replaceAll("<f h", "<f allow_revisit=\"false\" h");
+				decryptedContent = decryptedContent.replaceAll("<f allow_revisit=\"true\" ", "<f allow_revisit=\"false\" ");
+				//System.out.println(decryptedContent);
+				response.setContentType("text/xml");
+				int size = decryptedContent.length();
+				response.setContentLength(size);
+				BufferedOutputStream myOutput = new BufferedOutputStream(response.getOutputStream());
+				myOutput.write(decryptedContent.getBytes());
+				myOutput.flush();
+				myOutput.close();
+			} 
+		}
+		catch (HashMismatchException e) {
+			logger.error("Exception occured in getSubtest("+subtestId+") : "
+					+ ServletUtils.printStackTrace(e));
+            String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.hashMismatch");                            
+			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
+		}
+		catch (DecryptionException e) {
+			logger.error("Exception occured in getSubtest("+subtestId+") : "
+					+ ServletUtils.printStackTrace(e));
+            String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.decryptionFailed");                            
+			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
+		}
+		catch (TMSException e) {
+			logger.error("TMS Exception occured in getSubtest("+subtestId+") : "
+					+ ServletUtils.printStackTrace(e));
+            String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
+			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
+		}
+		catch (Exception e) {
+			logger.error("Exception occured in getSubtest("+subtestId+") : "
+					+ ServletUtils.printStackTrace(e));
+            String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
+			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
+		}
 	}
 	
 	private void downloadFileParts(HttpServletRequest request,
@@ -253,7 +321,7 @@ public class TABEAdaptiveContentServlet extends HttpServlet {
 				contentHash.put("item" + itemId, itemxml);
 			}
 			ServletUtils.writeResponse(response, itemxml);
-			System.out.println("***** Item XML: " + itemxml);
+			//System.out.println("***** Item XML: " + itemxml);
 			//System.out.println("getItem elapsed time: " + (System.currentTimeMillis() - startTime));
 		} 
 		catch (HashMismatchException e) {
