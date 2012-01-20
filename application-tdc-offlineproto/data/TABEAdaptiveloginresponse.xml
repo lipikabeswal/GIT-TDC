@@ -38,7 +38,7 @@
 				asmt_hash="0EF41E3706E9F73C0942982AA04D01E8" asmt_encryption_key="1530" 
 				item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="33703" fwd_only="true" adaptive="false" 
 				contentURI="https://oas.ctb.com/content/" cmi.core.total_time="0:0:0"/>	
-			<sco force_logout="false" cmi.core.entry="ab-initio" id="272409" sco_duration_minutes="0" 
+			<!-- <sco force_logout="false" cmi.core.entry="ab-initio" id="272409" sco_duration_minutes="0" 
 				sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TABE Vocabulary Sample Questions" 
 				asmt_hash="28DE94E69CA11749A60DD47195B5E8F5" asmt_encryption_key="1279" 
 				item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="33903" fwd_only="true" adaptive="false" 
@@ -52,7 +52,7 @@
 				sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TABE Spelling Sample Questions" 
 				asmt_hash="3E318FC0878B2621E8757C8BB7AC86B8" asmt_encryption_key="614" 
 				item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="34303" fwd_only="true" adaptive="false" 
-				contentURI="https://oas.ctb.com/content/" cmi.core.total_time="0:0:0"/>
+				contentURI="https://oas.ctb.com/content/" cmi.core.total_time="0:0:0"/> -->
 			<terminator id="SEE_YOU_LATER"/>
 		</manifest>
 		<branding tdclogo="/resources/logoTABE.swf"/>

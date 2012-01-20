@@ -273,18 +273,18 @@ end workaround */
 function lzSetCanvasAttribute(n, v, h) {
     var i = 'lzevent';
     var o = '<object id="utility" name="h.swf" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,14,0" width="1" height="1">' + 
-'<param name="movie" value="'+top.webapproot+'/h.swf" />' +	 //GS100305:  To set the URl for the swf in the local includes folder
+'<param name="movie" value="/standalone/includes/h.swf" />' +	 //GS100305:  To set the URl for the swf in the local includes folder
 '<param name="FlashVars" value="n=' + escape(n) + '&v=' + escape(v) + '&__lzevent=1&__lzhistconn='+top.connuid+'"/>' +
 '<param name="quality" value="high" />' +
 '<param name="bgcolor" value="#FFFFFF" />' +
 '<param name="profile" value="false" />' +
  //GS100305:  To set the URl for the swf in the local includes folder
-'<embed id="utilityEmbed" name="h.swf" src="'+top.webapproot+'/h.swf" type="application/x-shockwave-flash" flashvars="n='+ escape(n) + '&v=' + escape(v) +'&__lzevent=1&__lzhistconn='+top.connuid+'" profile="false" quality="high" bgcolor="#FFFFFF" width="0" height="1" align="" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed>' +
+'<embed id="utilityEmbed" name="h.swf" src="/standalone/includes/h.swf" type="application/x-shockwave-flash" flashvars="n='+ escape(n) + '&v=' + escape(v) +'&__lzevent=1&__lzhistconn='+top.connuid+'" profile="false" quality="high" bgcolor="#FFFFFF" width="0" height="1" align="" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed>' +
 '</object>';
     //alert(o);
     if (h) {
 		 //GS100305:  To set the URl for the swf in the local includes folder
-        top.frames['_lzhist'].location = top.webapproot+'/h.html?n='+ escape(n) + '&v=' + escape(v) +'&__lzevent=1';
+        top.frames['_lzhist'].location = '/standalone/includes/h.html?n='+ escape(n) + '&v=' + escape(v) +'&__lzevent=1';
     } else {
         if (document.layers) {
             var oLayer = document.layers[i].document;
