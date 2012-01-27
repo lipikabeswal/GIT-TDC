@@ -3,7 +3,7 @@
 		<status status_code="200"/>
 		<testing_session_data>
 			<cmi.core student_id="2560616" student_last_name="Student" student_first_name="Demo" student__middle_name="A"/>
-			<lms.student.accommodations calculator="true" magnifier="true" screen_reader="false" untimed="true" rest_break="false" 
+			<lms.student.accommodations calculator="true" magnifier="true" screen_reader="false" untimed="false" rest_break="false" 
 			 highlighter="true" masking_ruler="false" magnifying_glass="false" auditory_calming="false" 
 			 music_file_id="3" extended_time="false" masking_tool="false">
 				<stereotype_style stereotype="directions" font_magnification="1.0"/>
@@ -18,22 +18,22 @@
 				asmt_hash="9DC1EF5A81C9DC1C94051982DFB7A735" asmt_encryption_key="547" 
 				item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="49103" fwd_only="true" adaptive="false" 
 				contentURI="https://oas.ctb.com/content/" cmi.core.total_time="0:0:0"/>
-			<sco force_logout="false" cmi.core.entry="ab-initio" id="272373" sco_duration_minutes="0" 
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="272373" sco_duration_minutes="60" 
 				sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TABE Reading Sample Questions" 
 				asmt_hash="BC5321D4585ECB72AE70288D47E065D5" asmt_encryption_key="825" 
 				item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="33103" fwd_only="true" adaptive="false" 
 				contentURI="https://oas.ctb.com/content/" cmi.core.total_time="0:0:0"/>
-			<sco force_logout="false" cmi.core.entry="ab-initio" id="272382" sco_duration_minutes="0" 
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="272382" sco_duration_minutes="60" 
 				sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TABE Mathematics Computation Sample Questions" 
 				asmt_hash="4F0D2BE21A8539721CFD4F98D8A784C6" asmt_encryption_key="990" 
 				item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="33303" fwd_only="true" adaptive="false" 
 				contentURI="https://oas.ctb.com/content/" cmi.core.total_time="0:0:0"/>
-			<sco force_logout="false" cmi.core.entry="ab-initio" id="272391" sco_duration_minutes="0" 
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="272391" sco_duration_minutes="60" 
 				sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TABE Applied Mathematics Sample Questions" 
 				asmt_hash="91A0E2A9A3952FE193BD668571CEFC6A" asmt_encryption_key="1145" 
 				item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="33503" fwd_only="true" adaptive="false" 
 				contentURI="https://oas.ctb.com/content/" cmi.core.total_time="0:0:0"/>	
-			<sco force_logout="false" cmi.core.entry="ab-initio" id="272400" sco_duration_minutes="0" 
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="272400" sco_duration_minutes="60" 
 				sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TABE Language Sample Questions" 
 				asmt_hash="0EF41E3706E9F73C0942982AA04D01E8" asmt_encryption_key="1530" 
 				item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="33703" fwd_only="true" adaptive="false" 
