@@ -174,7 +174,13 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 						gController.setAttribute("catOver",true);					
 						gController.setAttribute("isStopTest",false);
 						gController.setAttribute("isStopScreen",false);
-						gController.stopQuestion();
+						//gController.stopQuestion();//to let timeleft timer running on progress page
+						if(gController.state == gController.TIMEOUT_STATE ||
+							gController.state == gController.OUT_OF_TIME_OPEN_STATE) {
+							gController.unlockUI();
+							gHotKeys.disableKeys();
+							return false;							
+						}
 						gController.finishTest();
 						gController.unlockUI();
 						gHotKeys.disableKeys();

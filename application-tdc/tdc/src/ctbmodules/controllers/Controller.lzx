@@ -3756,14 +3756,18 @@ Debug.write("############ loadItem ############");
 		<attribute name="dupdateTimeLeft"
 			value="$once{ new LzDelegate( this, 'updateTimeLeft' ) }" />
 
-		<method name="outOfTime">
+		<method name="outOfTime"><![CDATA[
             if ( 0 == uisemaphore ) {
                 freezeUI();
             }
             stopQuestion();
             setState(TIMEOUT_STATE);
+			//to call adaptive engine 
+			if(this.adaptive && !this.catOver) {
+				this.setAttribute("sendCatSave",true);
+			}
             save();
-        </method>
+        ]]></method>
 
 		<method name="goToTimeoutScreen">
             LzCursor.unlock();
@@ -3776,7 +3780,6 @@ Debug.write("############ loadItem ############");
 			}
             gScreens.showOutOfTime( totalQuestions() - totalAnswered(),
                                     totalMarked() );
-                                    
 		</method>
 
 		<method name="updateTimeLeft"><![CDATA[
