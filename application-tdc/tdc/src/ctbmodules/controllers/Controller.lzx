@@ -1177,7 +1177,11 @@
 			if(this.isThemePage()) {
 				totalVisited -= 1;
 			}
-Debug.write("totalVisited...",totalVisited);
+			
+			if(totalVisited == null) {
+				totalVisited = totalAnsweredOnRestart();//if test was timed out and restarted.
+			}
+			//Debug.write("totalVisited...",totalVisited," : getStartNumber() : ",totalAnsweredOnRestart());
 			return totalVisited;
 		</method>
 
