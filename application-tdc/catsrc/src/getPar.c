@@ -403,7 +403,7 @@ int get_objLvlCut(char inFile[], int objID[], struct objSScut objSS_cut[]) {
 	 char aLine[lineLen_max];
      int  i, j;
 	 int obj_id;
-	 char lvl[]="EMDA";
+//	 char lvl[]="EMDA";
   
      fp = fopen(inFile, "r");	
   
@@ -418,21 +418,11 @@ int get_objLvlCut(char inFile[], int objID[], struct objSScut objSS_cut[]) {
 
 	 while (getCurrentline (aLine, lineLen_max, fp) > 1 ) {
 		 obj_id = atoi(strtok(aLine,","));
-		 if (obj_id == objID[i]) {
-			 if (lvl[j] == strtok(NULL,",")[0]) {
-                  objSS_cut[i].s50[j] = atof(strtok(NULL,","));
-				  objSS_cut[i].s75[j] = atof(strtok(NULL,","));
-				  j++;
-				  if (j == 4) {
+		 if (obj_id == objID[i]) {   /* objID[] are sorted by number already  */
+			      for (j = 0; j < 4; j++) 
+				      objSS_cut[i].s75[j] = atof(strtok(NULL,","));
 					  objSS_cut[i].objID = obj_id;
 					  i++;
-					  j= 0;
-				  }
-			 }
-			 else {
-				 if (LOG_FILE_FLAG) fprintf (log_file, "Error: level mismatch in: %s \n", inFile);
-                 return  GETPAR_FAILURE;
-			 }
 		 }
 		 else {
 			  if (LOG_FILE_FLAG) fprintf (log_file, "Error: objective ID mismatch in: %s \n", inFile);

@@ -70,14 +70,14 @@ int main() {
 	fgets (aLine, lineLen_max,fp);
 	fgets (aLine, lineLen_max,fp);
 
-	nItems = 15;
+	nItems = 10;
 //	printf("Item#,   ItemID,   rwo \n");
 	for ( j = 0; j < nItems; j++) {
 		 fgets (aLine, lineLen_max,fp);
 		 strtok(aLine,",");  /* skip first obs */
          itemIDs[j] = atoi(strtok(NULL,",")); 
 		 rwos[j] = atoi(strtok(NULL,",")); 
-//		 printf(" %d ,  %d,   %d \n", (j+1), itemIDs[j], rwos[j]);
+		 printf(" %d ,  %d,   %d \n", (j+1), itemIDs[j], rwos[j]);
 	}
 	fclose(fp);
 
@@ -112,7 +112,7 @@ int main() {
             if (itemID != END_ITEM) {
 			    rwo = randomNoBetween(0,1); // get raw score for item n by comparing student answer with key.
 		                               // if (right) rwo = 1 else rwo = 0;
-
+				rwo = 1;
 		        set_rwo(rwo);  // rwo = 0 or 1
 		        theta = score();
 				printf("%d,   %d,   %d,   %6.2lf \n", n, itemID, rwo, theta);
@@ -127,20 +127,20 @@ int main() {
        printf(" %d,  %6.2lf,  %8.3lf \n", k, theta, SEM);  // report student scale score with SEM after test.
 
 	   tot_n_objs = get_nObj();  // number of collapsed objectives
-	   printf(" Obj #, Obj_ID, rs, tot_rs, SS, sem, level, Mastery_Level   \n");
+	   printf(" Obj #, Obj_ID, rs, tot_rs, SS, sem, Mastery_Level   \n");
 	   for ( j = 0; j < tot_n_objs; j++) {
 		   obj_id = get_objID(j);
-		   obj_lvl = get_objLvl(theta);  // E, M, D, A
-		   obj_score = get_objScaleScore(obj_lvl, obj_id);
+	//	   obj_lvl = get_objLvl(theta);  // E, M, D, A
+		   obj_score = get_objScaleScore(obj_id);
 		   if (obj_score > 0) {
 			   obj_SSsem = get_objSSsem(obj_score, obj_id);
 		       obj_rs = get_objRS();
 			   totObj_rs = get_totObjRS();
-		       obj_masteryLvl = get_objMasteryLvl(obj_score, obj_id, obj_lvl); // 0 = Non-Mastery, 1=Partial-Mastery, 2=Mastery
+		       obj_masteryLvl = get_objMasteryLvl(obj_score, obj_id); // 0 = Non-Mastery, 1=Partial-Mastery, 2=Mastery
                if (obj_masteryLvl < 0) 
 				   printf("Error: invalid objective level call. \n");
 			   else
-			       printf(" %d,  %d,  %d,  %d, %8.2lf, %8.2lf,  %c,  %d \n", (j+1), obj_id, obj_rs, totObj_rs, obj_score, obj_SSsem, obj_lvl, obj_masteryLvl);
+			       printf(" %d,  %d,  %d,  %d, %8.2lf, %8.2lf,  %d \n", (j+1), obj_id, obj_rs, totObj_rs, obj_score, obj_SSsem, obj_masteryLvl);
 		   }
 		   else {}  // not report objective score
 	   }

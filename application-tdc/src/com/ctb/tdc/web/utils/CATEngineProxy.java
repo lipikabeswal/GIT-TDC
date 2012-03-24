@@ -24,7 +24,7 @@ public class CATEngineProxy {
 	//public static HashMap itemIdMap;
 	
 	private static void initItemMap() {
-		/*itemIdMap.put(String.valueOf(299817), Integer.valueOf(38682402));
+	/*	itemIdMap.put(String.valueOf(299817), Integer.valueOf(38682402));
 		itemIdMap.put(String.valueOf(299997), Integer.valueOf(38682502));
 		itemIdMap.put(String.valueOf(299813), Integer.valueOf(38682602));
 		itemIdMap.put(String.valueOf(299977), Integer.valueOf(38682702));
@@ -360,18 +360,18 @@ public class CATEngineProxy {
 	public static native void setoff_cat();
 	public static native int get_nObj();
 	public static native int get_objID(int j);
-	public static native double get_objScaleScore(char obj_lvl, int obj_id);
-	public static native char get_objLvl(double theta);  // E, M, D, A
+	public static native double get_objScaleScore(int obj_id);
 	public static native double get_objSSsem(double obj_score, int obj_id);  
 	public static native int get_objRS();
 	public static native int get_totObjRS();
-	public static native int get_objMasteryLvl(double obj_score, int obj_id, char obj_lvl);
+	public static native int get_objMasteryLvl(double obj_score, int obj_id);
 	public static native int getTestLength();
 	public static native void resumeCAT(int itemCount,int [] itemC,int [] itemScore);
 	
 	
 	public static void main(String [] args){
 		try {
+			//initItemMap();
 			initCAT("MC");
 			String next = getNextItem();
 			while(next != null){
@@ -398,8 +398,8 @@ public class CATEngineProxy {
 		String dllPath="";
 		String ostype=System.getProperty("os.name").toLowerCase();
 		if (ostype.indexOf( "win" ) >= 0){
-			System.out.println("For Windows ");
-			dllPath = System.getProperty("tdc.home") + "/CATABE.dll";
+			System.out.println("For Windows " + System.getProperty("tdc_home"));
+			dllPath = System.getProperty("tdc.home") + "/CATTABE.dll";
 			//System.load(dllPath);
 		}
 		else 
@@ -450,8 +450,7 @@ public class CATEngineProxy {
 				theta = score();
 				System.out.println("item score: " + currentItemRawScore + ", new theta: " + theta);
 			}
-			    // System.out.println("Called next_item()");
-		        String nextitem = String.valueOf(next_item());
+			    String nextitem = String.valueOf(next_item());
 		        
 		        
 			if(nextitem == null || nextitem.equals("-1")) {
@@ -488,31 +487,30 @@ public class CATEngineProxy {
 		String scoreString = null;
 		for ( int j = 0; j < totObjNum; j++) {
 			   obj_id = get_objID(j);
-			   obj_lvl = get_objLvl(theta);  // E, M, D, A
-			   obj_score = get_objScaleScore(obj_lvl, obj_id);
+			  // obj_lvl = get_objLvl(theta);  // E, M, D, A
+			   obj_score = get_objScaleScore(obj_id);
 			   if (obj_score > 0) {
 				   obj_SSsem = get_objSSsem(obj_score, obj_id);
 			       obj_rs = get_objRS();
 				   totObj_rs = get_totObjRS();
-			       obj_masteryLvl = get_objMasteryLvl(obj_score, obj_id, obj_lvl); // 0 = Non-Mastery, 1=Partial-Mastery, 2=Mastery
+			       obj_masteryLvl = get_objMasteryLvl(obj_score, obj_id); // 0 = Non-Mastery, 1=Partial-Mastery, 2=Mastery
 	               if (obj_masteryLvl < 0){
 	            	   System.out.println("Error: invalid objective level call. \n");
 	               }else{
 					   System.out.println( (j+1) + " id= " + obj_id + " rs= "+ obj_rs + " totRS= " + totObj_rs 
-							   + " SS = "+ obj_score + " sem= " + obj_SSsem + " lvl = "+ obj_lvl +
-							   " Mastery-level = " + obj_masteryLvl);
+							   + " SS = "+ obj_score + " sem= " + obj_SSsem + " Mastery-level = " + obj_masteryLvl);
 	               }
 	               System.out.println("obj_masteryLvl :"+obj_masteryLvl);
 	               if(scoreString == null)
-	            	   scoreString = obj_id +","+ obj_rs +","+ totObj_rs +","+ obj_score +","+ obj_SSsem +","+ obj_lvl +","+ obj_masteryLvl ;
+	            	   scoreString = obj_id +","+ obj_rs +","+ totObj_rs +","+ obj_score +","+ obj_SSsem +","+ obj_masteryLvl ;
 	               else
-	            	   scoreString = scoreString + "|" + obj_id +","+ obj_rs +","+ totObj_rs +","+ obj_score +","+ obj_SSsem +","+ obj_lvl +","+ obj_masteryLvl ;
+	            	   scoreString = scoreString + "|" + obj_id +","+ obj_rs +","+ totObj_rs +","+ obj_score +","+ obj_SSsem +","+ obj_masteryLvl ;
 			   }
 			   else {
 				   if(scoreString == null)
-					   scoreString = "0,0,0,0,0,0,0";
+					   scoreString = "0,0,0,0,0,0";
 				else
-				   scoreString = scoreString + "|" + "0,0,0,0,0,0,0";
+				   scoreString = scoreString + "|" + "0,0,0,0,0,0";
 			   }  // not report objective score
 		}
 		return scoreString;
