@@ -410,7 +410,7 @@ public class CATEngineProxy {
 			if (ostype.indexOf( "mac" ) >= 0){
 				System.out.println("For MAC");
 				
-					dllPath = System.getProperty("tdc.home") + "/libCATABE.jnilib";
+					dllPath = "/libCATABE.jnilib";
 					//System.load("/Users/mcgrawhillctb/documents/CAT_mac/libCATABE.jnilib")
 				
 			}
