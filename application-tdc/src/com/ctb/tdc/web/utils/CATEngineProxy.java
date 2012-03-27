@@ -399,7 +399,7 @@ public class CATEngineProxy {
 		String ostype=System.getProperty("os.name").toLowerCase();
 		if (ostype.indexOf( "win" ) >= 0){
 			System.out.println("For Windows " + System.getProperty("tdc_home"));
-			dllPath = System.getProperty("tdc.home") + "/CATTABE.dll";
+			dllPath = System.getProperty("tdc.home") + "/CATABE.dll";
 			//System.load(dllPath);
 		}
 		else 
