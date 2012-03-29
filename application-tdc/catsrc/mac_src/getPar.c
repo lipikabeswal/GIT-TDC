@@ -60,7 +60,7 @@ int getItems (char inPar[], struct item_info items[], int n_items, int *n_obj, i
    * lineLen_max must be >= the line width of par files ***below read items@todo
    */
  	   
-  while (getCurrentline (aLine, lineLen_max, fp) > 1 ) {
+  while (getCurrentline (aLine, lineLen_max, fp) > 2 ) {
 	
 	items[i].item_no = i+1;
 
@@ -177,7 +177,7 @@ int getSSstats (char inFileByLvl[], char inFileByCnt[], char subTest[], char tes
   
   fgets (aLine, lineLen_max,fp); /* get the first line */
 	   
-  while (getCurrentline (aLine, lineLen_max, fp) > 1 ) {
+  while (getCurrentline (aLine, lineLen_max, fp) > 2 ) {
      strcpy(content, strtok(aLine,","));  
      level = strtok(NULL,",")[0];  
      if ( (!strcmp(content, subTest)) && ( level == testLevel )) {
@@ -226,7 +226,7 @@ int getNadmObj(char inFileNoItemObj[], char subTest[], char testLevel, int n_adm
   }
   
   j = 0;
-  while (getCurrentline (aLine, lineLen_max, fp) > 1 ) {
+  while (getCurrentline (aLine, lineLen_max, fp) > 2 ) {
      strcpy(content, strtok(aLine,","));  
      if ( !strcmp(content, subTest)) {
 		 switch(testLevel){
@@ -269,7 +269,7 @@ int get_n_items(char inPar[]){
 
   fgets (aLine, lineLen_max,fp); /* get the first line */
 
-  while (getCurrentline (aLine, lineLen_max, fp) > 1 ) 
+  while (getCurrentline (aLine, lineLen_max, fp) > 2 ) 
 	n_line ++;
   
   fclose(fp);
@@ -305,7 +305,7 @@ int getFT_Items (char inPar[], struct item_info items[], int n_items, int n_FTit
    * lineLen_max must be >= the line width of par files ***below read items@todo
    */
  	   
-  while (getCurrentline (aLine, lineLen_max, fp) > 1 ) {
+  while (getCurrentline (aLine, lineLen_max, fp) > 2 ) {
 	
 	items[i].item_no = i+1;
 
@@ -384,7 +384,7 @@ int get_LH4lvl(char inFile[], char subTest[], double loss[], double hoss[]){
    * lineLen_max must be >= the line width of par files 
    */
  	   
-     while (getCurrentline (aLine, lineLen_max, fp) > 1 ) {
+     while (getCurrentline (aLine, lineLen_max, fp) > 2 ) {
 	     strcpy(content, strtok(aLine,","));  
          if ( !strcmp(content, subTest)) {
 			      strtok(NULL,","); 
@@ -416,7 +416,7 @@ int get_objLvlCut(char inFile[], int objID[], struct objSScut objSS_cut[]) {
 	 j = 0;
      fgets (aLine, lineLen_max,fp); /* get the first line */
 
-	 while (getCurrentline (aLine, lineLen_max, fp) > 1 ) {
+	 while (getCurrentline (aLine, lineLen_max, fp) > 2 ) {
 		 obj_id = atoi(strtok(aLine,","));
 		 if (obj_id == objID[i]) {   /* objID[] are sorted by number already  */
 			      for (j = 0; j < 4; j++) 

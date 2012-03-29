@@ -444,7 +444,7 @@ int setup_cat(char subTest[]) {
 	
 //	set_obj_order(subTest, testLevel); // set randomly obj adapt order
 */
-	ran0(-1); /*  for simulation */
+//	ran0(-1); /*  for simulation */
 
 	/* initilize variables */
 	_is_psg = 0;
