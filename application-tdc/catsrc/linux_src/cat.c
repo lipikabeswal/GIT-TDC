@@ -103,8 +103,10 @@ static int _isFTitem = 0;
 
 static int _tot_obj_rs = 0;
 static int _obj_rs = 0;
+static double _sumCs = 0.0;
 static double _lvl_loss[4];
 static double _lvl_hoss[4];
+static double _ss1 = 0.0; /* objective scale score at raw score = perfect RS - 1. */
 static struct objSScut *_objSS_cut = NULL;
 char objLvlCut_filename[MAX_FILENAME_LENGTH];
 char lvlLH_filename[MAX_FILENAME_LENGTH];
@@ -137,6 +139,10 @@ int get_psg_size(int psg_id);
 int next_psg_item(int psg_id);
 int get_1st_psg_item(int psg_id);
 double psg_info(int psg_id, double theta);
+int get_loss(int obj_id);
+int get_hoss(int obj_id);
+double TCCinverse(double rs, int obj_id, int loss, int hoss);
+int getMasterLvlFromSS(double ss, int obj_id);
 
 JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_setup_1cat (JNIEnv * env, jclass theclass, jstring subtest) {
 	const jchar* subtestS = (*env)->GetStringUTFChars( env, subtest, 0 );
@@ -153,7 +159,7 @@ int setup_cat(char subTest[]) {
    int condition_code = 0;  /* Returned condition code  */
    int i, j;
    double *a;
-   char versionInfo[]="TABE CAT version 1.4 (Build 005), 11/8/2011.";
+   char versionInfo[]="TABE CAT version 1.5 (Build 006), 2/27/2012.";
  
    strcpy(_subTest, subTest);   /* @todo set to up case */
 
@@ -289,19 +295,21 @@ int setup_cat(char subTest[]) {
    */ 
 
 	/* set level specified loss and hoss */
+	/*
 	strcpy(lvlLH_filename,"..//..//data//TabeScaleBounds.csv");
 	condition_code = get_LH4lvl(lvlLH_filename, subTest, _lvl_loss, _lvl_hoss);
 	if (condition_code != GETPAR_OK) {
         if (LOG_FILE_FLAG) fprintf(log_file, "Error: get_LH4lvl failed in Data\TabeScaleBounds.cvs. \n"); 
         return SETUP_CAT_FAILURE;
 	}
-
+	*/
 	/* set obj level specified cut scores */
 	
 	strcpy(objLvlCut_filename, "");
     strcat(objLvlCut_filename, "..//..//data//");
     strcat(objLvlCut_filename, subTest);
-    strcat(objLvlCut_filename, "-Lvl-Obj-Cuts.csv");
+ //   strcat(objLvlCut_filename, "-Lvl-Obj-Cuts.csv");
+    strcat(objLvlCut_filename, "-Obj-Cuts.csv");
 	_objSS_cut = (struct objSScut *) malloc(_n_new_obj * sizeof(struct objSScut));
 	
     if (_objSS_cut == NULL) {
@@ -318,7 +326,7 @@ int setup_cat(char subTest[]) {
 	for ( i = 0; i < _n_new_obj; i++) {
         printf(" %d = %d \n", _new_objID[i], _objSS_cut[i].objID); 
 		for (j= 0; j < 4; j++) {
-			printf(" %5.0lf   %5.0lf \n", _objSS_cut[i].s50[j], _objSS_cut[i].s75[j]); 
+			printf(" %5.0lf \n", _objSS_cut[i].s75[j]); 
 		}
 	}*/
 
@@ -436,7 +444,7 @@ int setup_cat(char subTest[]) {
 	
 //	set_obj_order(subTest, testLevel); // set randomly obj adapt order
 */
-	/* ran0(-1);   for simulation */
+//	ran0(-1); /*  for simulation */
 
 	/* initilize variables */
 	_is_psg = 0;
@@ -809,6 +817,7 @@ char get_testLevel(double theta, char subTest[]){
 	return lvl;
 }
 
+/*
 JNIEXPORT jchar JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objLvl (JNIEnv * env, jclass theclass, jdouble theta) {
 	return get_objLvl(theta);
 }
@@ -840,19 +849,11 @@ char get_objLvl(double theta){
         else if ((theta > 523) && (theta <= 559) ) lvl = 'D';
         else lvl = 'A';
 	} 
-	/*
-	else if ( !strcmp("SP", _subTest)) {  
-        if (theta <= 338) lvl = 'L';
-        else if ((theta > 338) && (theta <= 394) ) lvl = 'E';
-        else if ((theta > 394) && (theta <= 467) ) lvl = 'M';
-        else if ((theta > 467) && (theta <= 539) ) lvl = 'D';
-        else if ((theta > 539) && (theta <= 577) ) lvl = 'A';
-        else lvl = 'T';
-	}*/
-	else {} /* @todo */
+	else {} 
 
 	return lvl;
 }
+*/
 /*
 int get_o_a(int *obj, int *aSt, int n){                                                         
    int nItems = 0;
@@ -1349,7 +1350,16 @@ void resumeCAT(int nItems, int itemIDs[], int rwo[]){
 
 /* simulation */
 void set_simuRWO(int rwo, double theta0) {
+// simulated studies
+   double p0;
+  // double theta0 = 400.0;
+   p0 = 1.0- respProb3PL(1, theta0, _item_adm[_iadm-1].parameters);
+   if (p0 >= ran0(1)) rwo = 0;
+   else rwo = 1;
+   // end of simulation
 
+   _item_adm[_iadm -1].rwo = rwo;
+   _items[_ik].rwo = rwo;   // simulation
 }
 
 JNIEXPORT void JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_set_1rwo (JNIEnv * env, jclass theclass, jint raw) {
@@ -1487,11 +1497,11 @@ double get_objScore(double theta, int obj_id) {
 		return -1.0;
 }
 
-JNIEXPORT jdouble JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objScaleScore (JNIEnv * env, jclass theclass, jchar obj_lvl, jint obj_id) {
-	return get_objScaleScore(obj_lvl, obj_id);
+JNIEXPORT jdouble JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objScaleScore (JNIEnv * env, jclass theclass, jint obj_id) {
+	return get_objScaleScore(obj_id);
 }
 
-double get_objScaleScore(char obj_lvl, int obj_id) {
+double get_objScaleScore(int obj_id) {
 	int j, k;
 	double TCC0 = 0.0;
     double TCC = 0.0;
@@ -1501,10 +1511,15 @@ double get_objScaleScore(char obj_lvl, int obj_id) {
 	int loss = (int)_loss;
 	int hoss = (int)_hoss;
 
+	double sumCs = 0.0;
+
+
 	rs = get_rs(obj_id);
-	num_obj = get_totObjRS();
+	num_obj = get_totObjRS();  /* max_rs */
+	sumCs = get_sumCs();
 
 	/* set level loss and hoss */
+	/*
 	k = get_i_obj(obj_lvl);
 	if (k < 0) {
 		printf ("Error: invalid objective level in get_objScaleScore calls get_i_obj() \n"); 
@@ -1513,9 +1528,26 @@ double get_objScaleScore(char obj_lvl, int obj_id) {
 
 	loss = _lvl_loss[k]; 
 	hoss = _lvl_hoss[k];
-
+	*/
 	if (num_obj >= _min_nItems4Obj_score) {
         /* set loss hoss based on level @todo? */
+		loss = get_loss(obj_id);
+		hoss = get_hoss(obj_id);
+		if (rs <= sumCs) theta = (double)loss;
+		else if (rs == num_obj) theta = (double)hoss;
+		else theta = TCCinverse((double)rs, obj_id, loss, hoss);  
+		return theta;
+	}
+	else
+		return -1.0;	
+}
+
+double TCCinverse(double rs, int obj_id, int loss, int hoss) {
+	double theta = -1.0;
+	double TCC0 = 0.0;
+	double TCC = 0.0;
+	int k, j;
+
 	    for (k = loss; k <= hoss; k++) {
 			 TCC0 = TCC; // for TCC at k-1
 		     TCC = 0.0;
@@ -1528,7 +1560,7 @@ double get_objScaleScore(char obj_lvl, int obj_id) {
 				 if (k == loss) 
 				     theta = (double)k;
 				 else {
-					 if ((TCC + TCC0) <= 2.0*(double)rs) 
+					 if ((TCC + TCC0) <= 2.0*rs) 
 					      theta = (double)k;
 					 else
 						  theta = (double)(k-1);
@@ -1544,12 +1576,35 @@ double get_objScaleScore(char obj_lvl, int obj_id) {
 	    } 	
 		
 		if (theta < 0) {
-			printf("Warning: TCC inverse failed for objective ID %d \n", obj_id);
+			if (LOG_FILE_FLAG) fprintf(log_file, "Warning: TCC inverse failed for objective ID %d \n", obj_id);
 		}
 	    return theta;
-	}
-	else
-		return -1.0;
+}
+
+int get_loss(int obj_id){
+	int loss = (int)_loss;
+	double rs1 = _sumCs + 1.0;
+	double rs2 = _sumCs + 2.0;
+	double ss1 = TCCinverse(rs1, obj_id, loss, (int)_hoss);
+	double ss2 = TCCinverse(rs2, obj_id, loss, (int)_hoss);
+//	printf(" %6.2lf ", (2.0*ss1 - ss2));
+	loss = (int)(2.0*ss1 - ss2);
+//	printf(" %d  %d \n", loss, (int)_loss);
+	if (loss < (int)_loss) loss = (int)_loss;
+	return loss;
+}
+
+int get_hoss(int obj_id){
+	int hoss = (int)_hoss;
+	double rs1 = _tot_obj_rs - 1.0;
+	double rs2 = _tot_obj_rs - 2.0;	
+	double ss2 = TCCinverse(rs2, obj_id, (int)_loss, hoss);
+
+	_ss1 = TCCinverse(rs1, obj_id, (int)_loss, hoss);
+	hoss = (int)(2.0*_ss1 - ss2);
+//	printf(" %d  %d \n", hoss, (int)_hoss);
+	if (hoss > (int)_hoss) hoss = (int)_hoss;
+	return hoss;
 }
 
 int get_i_obj(char obj_lvl){
@@ -1592,15 +1647,20 @@ int get_rs(int obj_id) {
 	int j;
 	int rs = 0;
 	int num_obj = 0;
+	double sumCs = 0.0;
 	for ( j = 0; j < _testLength; j++) {  
 		if (_item_adm[j].new_obj_id == obj_id ) {
            rs = rs + _item_adm[j].rwo;	
 		   num_obj++;
-/*		   printf("%d,   %d,   %d \n", _item_adm[j].item_id, _item_adm[j].new_obj_id, _item_adm[j].rwo); */
+		   sumCs = sumCs + _item_adm[j].parameters[2];
+/*		   printf("%d,   %d,   %d  %lf \n", _item_adm[j].item_id, _item_adm[j].new_obj_id, _item_adm[j].rwo, _item_adm[j].parameters[2]); */
 		}
 	} 
 	_obj_rs = rs;
 	_tot_obj_rs = num_obj;
+	_sumCs = sumCs;
+
+/*	printf("sumCs =   %lf \n", _sumCs); */
 	return rs;
 }
 
@@ -1612,6 +1672,10 @@ int get_totObjRS() {
 	return _tot_obj_rs;  /* must be called after get_rs() or get_objScaleScore() */
 }
 
+int get_sumCs() {
+	return _sumCs;  /* must be called after get_rs() or get_objScaleScore() */
+}
+
 JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objRS (JNIEnv * env, jclass theclass) {
 	return get_objRS();
 }
@@ -1620,32 +1684,50 @@ int get_objRS() {
 	return _obj_rs;  /* must be called after get_rs() or get_objScaleScore() */
 }
 
-JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objMasteryLvl (JNIEnv * env, jclass theclass, jdouble obj_score, jint obj_id, jchar obj_lvl) {
-	return get_objMasteryLvl(obj_score, obj_id, obj_lvl);
+JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objMasteryLvl (JNIEnv * env, jclass theclass, jdouble obj_score, jint obj_id) {
+	return get_objMasteryLvl(obj_score, obj_id);
 }
 
-int get_objMasteryLvl(double obj_score, int obj_id, char obj_lvl){ /* todo */
+// int get_objMasteryLvl(double obj_score, int obj_id, char obj_lvl){ /* todo */
+int get_objMasteryLvl(double obj_score, int obj_id){
 	int MasteryLvl = -1;
 	int k;
 	int j;
+	int masteryLvl1, masteryLvl2;
 
+	/*
 	k = get_i_obj(obj_lvl);
 	if (k < 0) {
 		printf ("Error: invalid objective level in get_objMasteryLvl calls get_i_obj() \n"); 
 		return -1.0;
 	}
+	*/
 
-	/* find obj_id */
+	if (_obj_rs <= _sumCs) return 0;
+	if (_obj_rs == _tot_obj_rs) {
+		// use _ss1 & obj_score to determine level
+		masteryLvl1 = getMasterLvlFromSS(_ss1, obj_id) + 1;
+		masteryLvl2 = getMasterLvlFromSS(obj_score, obj_id);
+		if (masteryLvl2 > masteryLvl1) return masteryLvl1;
+		else return masteryLvl2;
+	}
+	return getMasterLvlFromSS(obj_score, obj_id);
+}
+
+int getMasterLvlFromSS(double ss, int obj_id) {
+	int j;
+	int MasteryLvl = -1;
 	for (j = 0; j < _n_new_obj; j++) {
 		if (obj_id == _objSS_cut[j].objID) {
-			if (obj_score < _objSS_cut[j].s50[k]) MasteryLvl = 0;   /* non-mastery */
-			else if (obj_score >= _objSS_cut[j].s75[k]) MasteryLvl = 2;  /* mastery */
-			else MasteryLvl = 1;  /* partial mastery */
+			if (ss < _objSS_cut[j].s75[0]) MasteryLvl = 0;   /* non-mastery */
+			else if ((ss >= _objSS_cut[j].s75[0]) && (ss < _objSS_cut[j].s75[1])) MasteryLvl = 1;  /* begining mastery */
+			else if ((ss >= _objSS_cut[j].s75[1]) && (ss < _objSS_cut[j].s75[2])) MasteryLvl = 2;  /* partical mastery */
+			else if ((ss >= _objSS_cut[j].s75[2]) && (ss < _objSS_cut[j].s75[3])) MasteryLvl = 3;  /* mastery */
+			else MasteryLvl = 4;  /* advanced mastery */
 			break;
 		}
 	}
-	
-	return MasteryLvl;
+    return MasteryLvl;
 }
 
 void set_pItems(){
@@ -1772,6 +1854,13 @@ int simSS(int nStudents, double ss[], double mean, double std, double loss, doub
     int i;
 	long init_ran = -1;
 
+    srand((int)time(0));
+  //  ran1(&init_ran);
+	ran0(init_ran);
+	for (i = 0; i < nStudents; i++) {	
+       ss[i] = genNormDis(mean, std, loss, hoss);
+	   // set ss in normal distribution from loss and hoss
+	}
     return 0;
 }
 
