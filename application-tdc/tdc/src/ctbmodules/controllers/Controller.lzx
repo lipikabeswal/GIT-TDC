@@ -3143,6 +3143,7 @@
 
 		<method name="loadItem"><![CDATA[
 Debug.write("############ loadItem ############");
+			canvas.setAttribute('focusobj', null);
             this.itemloaded    = false;
             this.runtimeready  = false;
             this.youarehereset = false;
