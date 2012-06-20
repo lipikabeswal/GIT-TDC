@@ -177,7 +177,7 @@
 															//parameter to avoid db hit in TMS
 			dp3.setNodeAttribute("sendCatSave", params[10]);// for differentiating the heartbeat call sending to Cat engine when saving
 			dp3.setNodeAttribute("catOver", gController.catOver);
-
+			dp3.setNodeAttribute("isCatStop", gController.isCatStop);
 			dp3.setXPath("istDs:/ist/rv");
 	   		dp3.setNodeAttribute("t", params[5]);
 	    	dp3.setXPath("istDs:/ist/rv/v");
