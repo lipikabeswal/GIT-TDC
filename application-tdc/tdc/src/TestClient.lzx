@@ -69,6 +69,7 @@
 	<attribute name="readable" value="false" type="boolean" />
 	<attribute name="focusclass" value="null" />
 	<attribute name="footnotedata" />
+	<attribute name="isMultiAudio"/>
 	<attribute name="currentCursor" value="null" />
 	<attribute name="eliminatorRsrc"
 		value="$once{LzBrowser.getInitArg('eliminatorResource')}"
@@ -84,7 +85,20 @@
 	<method event="onfootnotedata" args="data">
         gFootNotePopup.show(data);
     </method>
+    
+    <method event="onisMultiAudio"><![CDATA[
+		var attr = this.isMultiAudio;
+		var temp = attr.substring(attr.indexOf("isPlaying="));
 
+		var id = attr.substring(attr.indexOf("audioId=")+"audioId=".length);
+		var isPlaying = temp.substring((temp.indexOf("isPlaying=")+"isPlaying=".length),temp.indexOf(","));
+
+		gController.setAttribute('audioId',id);
+		gController.setAttribute('isAudioPlaying',isPlaying);
+    	gController.enableAudio();
+	    ]]>
+    </method>
+    
 	<method event="oninit">
     	Debug.write("HTML Embed Setting:" + Stage.showMenu);
     	Stage.showMenu = false;

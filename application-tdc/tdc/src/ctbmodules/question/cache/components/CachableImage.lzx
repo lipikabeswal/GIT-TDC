@@ -22,7 +22,15 @@
        <attribute name="retrycount" value="0"/>
        <attribute name="timeoutretrycount" value="0"/>
        <attribute name="servletBase" type="string" />
-       <attribute name="verticalAlign" type="string"/>       
+       <attribute name="verticalAlign" type="string"/>   
+
+		<attribute name="hasPlayed" type="boolean" value="false"/>
+		<attribute name="widget_id"/>
+		<attribute name="playorder"/> 
+		<attribute name="isaudio"/>
+		<attribute name="disableAnswerArea"/>
+		<attribute name="enableWhenAnswered"/>
+		
         <!-- ================================
              method
              ================================= -->
@@ -94,7 +102,30 @@
 			this.imageview.setAttribute("height", null);
 			this.imageview.setAttribute("width", null);
 			var theSrc = "";
+			
+			if(data.getAttr('isaudio')){
+				this.setAttribute('isaudio',data.getAttr('isaudio'));
+				gController.setAttribute('isaudio',true);
+
+				if(data.hasAttr('disableAnswerArea')){
+					this.setAttribute('disableAnswerArea', data.getAttr('disableAnswerArea'));
+				}
+
+				if(data.getAttr('widget_id')){
+					this.setAttribute('widget_id', data.getAttr('widget_id'));
+				}
 	
+				if(data.getAttr('playorder')){
+					this.setAttribute('playorder', data.getAttr('playorder'));
+				}
+				if(data.hasAttr('enableWhenAnswered')){
+					this.setAttribute('enableWhenAnswered',data.getAttr('enableWhenAnswered'));
+				}
+				this.setAttribute('hasPlayed',false);
+	
+				gController.addImageFields({"this.widget_id" : this.widget_id, "imageComponent" : this, "isPlayed" : false});
+			}
+
 	//Image url may come in either attribute name "src" or "image_ref", so take care of both.
 			if(data.hasAttr('src')) {
 				theSrc = getImageUrl(data.getAttr('src'));
@@ -331,6 +362,15 @@
         	<method event="onclick">
         		classroot.read();
         	</method>
+        	
+        	<handler name="onload">
+				if(classroot.isaudio){
+					if(classroot.playorder != 1){
+						Debug.write("playorder not 1");
+						this.getMCRef().disableBtn();
+					}
+				}
+		  	</handler>
 
             <attribute name="reloadDel" value="$once{new LzDelegate(this, '_reload')}" />
             <!--  This is to fix a weird bug that Laszlo couldnt explain - sometimes the request would return a 
@@ -381,6 +421,15 @@
 			]]>
             </method>
         </view>
+
+		 <view name="overlay" visible="false"
+				clickable="false"
+				opacity="0"
+				width="${this.parent.imageview.width}"
+				height="${this.parent.imageview.height}"
+				x="${this.parent.imageview.x}"
+				y="${this.parent.imageview.y}"/>
+
         <EnlargeButton name="enlarge"
                     x="${classroot.width-this.width}"
                     y="0"/>

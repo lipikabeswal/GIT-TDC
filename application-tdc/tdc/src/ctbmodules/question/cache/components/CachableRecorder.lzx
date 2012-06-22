@@ -356,6 +356,12 @@
 				and make sure your microphone is connected.
 			</text>
 		</view>
+		
+		<view name="blackOverLay" bgcolor="black" x="${parent.main.x}"
+			y="${parent.main.y}" opacity="0.5"
+			height="${parent.height}" width="${parent.width}"
+			clickable="true" showhandcursor="false" visible="false" onmouseover="this.setAttribute('showhandcursor',false)">
+		</view>
 
 		<method name="startblinker" args="methodname"><![CDATA[
 			this.stopCalled = false;		//to re-use this attribute, reset it 
@@ -368,6 +374,9 @@
 				this.updateLinux();
 				}
 				//playProgress(methodname);//put delay of 500 miliseconds
+				if(gController.isaudio){
+					gController.disableAllAudio();
+				}
 				setRecordDelegate();
 			}		
 		]]></method>
@@ -409,6 +418,9 @@
 		</method>
 
 		<method name="stopblinker" args="methodname">
+			if(gController.isaudio){
+					gController.enableAllAudio();
+				}
 			this.red.setVisible(false);
 			this.redReplace.setVisible(false);
 			this.blinkerVal = 0;			//reset this for blinking the red ball

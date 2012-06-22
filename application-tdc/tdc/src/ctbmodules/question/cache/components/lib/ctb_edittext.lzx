@@ -71,7 +71,12 @@
         </method>
 		<method name="enable">
 			this.field.setAttribute('isCtrl', false);
-			this.field.setEnabled(true);
+			this.field.setAttribute('enabled',true);
+		</method>
+		
+		<method name="disable">
+			this.field.setAttribute('isCtrl', false);
+			this.field.setAttribute('enabled',false);
 		</method>
         
         <!--- @keywords private -->

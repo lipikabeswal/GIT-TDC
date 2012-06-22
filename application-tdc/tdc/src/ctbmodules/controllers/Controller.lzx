@@ -365,6 +365,12 @@
 
 		<!--For Las Links-->
 		<attribute name="audioFields" value="$once{new Array()}" />
+		<attribute name="idImageFields" value="$once{new Array()}" />
+		<attribute name="idImageFieldTemp" value="$once{new Array()}" />
+		<attribute name="audioArray" value="$once{new Array()}" />
+		<attribute name="audioId"/>
+		<attribute name="isaudio" type="boolean" value="false"/>
+		<attribute name="isAudioPlaying"/>
 		<!-- 
 			Is the panel being loaded for the sizer?
 		-->
@@ -519,6 +525,8 @@
 		<datapointer name="dpdisplay" xpath="dsdisplay:/display" />
 
 		<datapointer name="dptemp" xpath="dstemp:/answers" />
+		
+		<datapointer name="dpsubtestdata" xpath="dssubtest:/subtest/ob_assessment/assessment_title"/>
 		
 		<attribute name="fwdOnly" value="false" type="boolean" />
 		<attribute name="adaptive" value="$path{ 'dssubtest:/subtest/sco/@adaptive' }"/>
@@ -2380,15 +2388,23 @@
 				if(this.recorder != null) {
 					this.recorder.stopblinker('stop');
 					this.recorder.whitewrapperOverLay.setVisible(false);
+					this.recorder.blackOverLay.setVisible(false);
 				}
 				//To reset the Audio Fields Array So that file name will be passed in the save call
 				this.resetAudioFields();
+				this.resetImageField();
 				gReadableText.stopReading();
 				freezeUI();
 				stopQuestion();
 				canvas.setAttribute('focusobj', null);
 				saveLoadItem( fnode );
 			}
+			this.setattribute('isaudio',false);
+			resetRecorder();
+		]]></method>
+
+		<method name="resetRecorder"><![CDATA[
+	         this.recorder = null;
 		]]></method>
 
 		<method name="onFirstItem">
@@ -2647,6 +2663,10 @@
                         dnruntimeitem.setAttr( 'score', score );
                         dncurritem.setAttr ('answered', 1 );
                         dnruntimeitem.setAttr ('answered', 1 );
+                        
+                        if(this.isaudio){
+                        	enableMoreInfo();
+                        }
           
                         var rationaleText = getRationaleText(selid);
               //Debug.write("rationaleText: " + rationaleText);
@@ -2813,6 +2833,7 @@
 			//var recordState = this.recorder.recordState;
 			 this.recorder.stopblinker('stop');
 			 this.recorder.whitewrapperOverLay.setVisible(false);
+			 this.recorder.blackOverLay.setVisible(false);
 			 this.blockFileName = false;
 			//	if(recordState !='-1'){
 			//	this.updateAudioField(this.recorder.widget_id, true);
@@ -2880,6 +2901,7 @@
 			//var recordState = this.recorder.recordState;
 			 this.recorder.stopblinker('stop');
 			 this.recorder.whitewrapperOverLay.setVisible(false);
+			 this.recorder.blackOverLay.setVisible(false);
 			 this.blockFileName = false;
 			//if(recordState !='-1'){
 			//	this.updateAudioField(this.recorder.widget_id, true);
@@ -3163,6 +3185,7 @@ Debug.write("############ loadItem ############");
 			dsitem.doRequest();        
             this.resetCrFields();
 			this.resetAudioFields();
+			this.resetImageField();
 			gMaskingAnswer.setAttribute("withState",false);
 			hideMagnifierGlass();
 			hideMaskingChoiceDD();
@@ -3726,7 +3749,7 @@ Debug.write("############ loadItem ############");
 				}
 			}
 			this.resetImageArray();
-
+			this.setattribute('isaudio',false);
 			setState(WRITE_TO_AUDIT_FILE_STATE);
 			gCommunicator.writeToAuditFile(lsid, scid, getModelString());
         ]]></method>
@@ -3782,6 +3805,7 @@ Debug.write("############ loadItem ############");
             if(this.recorder != null) {
 				this.recorder.stopblinker('stop');
 				this.recorder.whitewrapperOverLay.setVisible(false);
+				this.recorder.blackOverLay.setVisible(false);
 			}
             gScreens.showOutOfTime( totalQuestions() - totalAnswered(),
                                     totalMarked() );
@@ -4093,6 +4117,9 @@ Debug.write("############ loadItem ############");
 	                //Debug.write("Turned on blue ball for " + currentEid);
 	                currentitem.setAttr("answered", 1);
 	                runtimeitem.setAttr("answered", 1);
+	                if(this.isaudio){
+                    	enableMoreInfo();
+                    }
 	            }
 	            else {
 	               //Debug.write("Turned off blue ball for " + currentEid);
@@ -4427,6 +4454,27 @@ Debug.write("############ loadItem ############");
 			}
 
 		]]></method>
+
+		<method name="disableAnswerOptions"><![CDATA[
+			var id = isAnswerToBeDisabled();
+			if(id != null){
+				for (var i = 0; i < answerArray.length; i++){
+					answerArray[i].subviews[0].notclickable();
+				}
+			}
+		]]>
+		</method>
+		
+		<method name="enableAnswerOptions"><![CDATA[
+			var id = isAnswerToBeDisabled();
+			var isPlaying = checkIfPlaying(id);
+			if(isPlaying){
+				for (var i = 0; i < answerArray.length; i++){
+					answerArray[i].subviews[0].clickable();
+				}
+			}
+		]]>
+		</method>
 		
 		<method name="getChoiceName" args="index">
 		if(index == 0)return 'A';
@@ -4601,7 +4649,258 @@ Debug.write("############ loadItem ############");
 			}
 		]]></method>	
 		
+	<method name="addImageFields" args="field"><![CDATA[
+		this.idImageFields.push(field);
+		Debug.write("idImageFields********  ",this.idImageFields);
+		]]></method>
+
+	<attribute name="dCheckPlaying"
+			value="$once{ new LzDelegate( this, 'isPlayed' )}" />
+
+	<method name="enableAudio"><![CDATA[
+		sortByPlayorder();
+		if(answerArray != null)
+			enableAnswerOptions();
+		if(crFields != null)
+			enableResponseArea();
+		
+		for(var i =0;i<this.idImageFields.length;i++){
+			var cachableImage = this.idImageFields[i];
+			if(cachableImage['imageComponent'] instanceof CachableImage){
+				if(cachableImage['imageComponent'].imageview.getMCRef().isPlaying && this.isAudioPlaying && !cachableImage['imageComponent'].hasPlayed){
+					Debug.write("hasPlayed********   ",cachableImage['imageComponent'].hasPlayed);
+				
+					cachableImage['imageComponent'].widget_id = this.audioId;
+					cachableImage['imageComponent'].setAttribute('hasPlayed',true);
+
+					this.idImageFieldTemp=cachableImage['imageComponent'];
+					this.idImageFieldTemp.overlay.setAttribute("visible",true);
+					this.idImageFieldTemp.overlay.setAttribute("clickable",true);
+
+					if(this.recorder != null) {
+						disableRecorder();
+					}
+					
+					isPlayed();	
+				}
+				else if(cachableImage['imageComponent'].imageview.getMCRef().isPlaying && this.isAudioPlaying && cachableImage['imageComponent'].hasPlayed){
+					this.idImageFieldTemp=cachableImage['imageComponent'];
+					if(this.recorder != null) {
+						disableRecorder();
+					}
+					isPlayed();
+				}
+			}
+		}
+	]]>	
+	</method>
+
+	<method name="enableNextAudio" args="widgetId"><![CDATA[
+		var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
 	
+		for(var i=0;i<this.idImageFields.length;i++){
+			var cachableImage = this.idImageFields[i];
+
+			if(cachableImage['imageComponent'].widget_id == widgetId){
+				for(var j =i+1;j<this.idImageFields.length;j++){
+					var cachableImageTemp = this.idImageFields[j];
+					if(Number(cachableImage['imageComponent'].playorder) == Number(cachableImageTemp['imageComponent'].playorder)-1){
+						if(cachableImage['imageComponent'].getAttribute('hasPlayed') && !cachableImageTemp['imageComponent'].getAttribute('hasPlayed')){
+							if(j==this.idImageFields.length-1 && cachableImageTemp['imageComponent'].enableWhenAnswered){
+								if(dncurritem.getAttr ('answered')==1){
+									cachableImageTemp['imageComponent'].imageview.getMCRef().enableBtn();
+								}
+							}else{
+								cachableImageTemp['imageComponent'].imageview.getMCRef().enableBtn();
+							}
+						}
+					}
+				}
+			}
+		}
+		]]>
+	</method>
+
+	<method name="isPlayed">
+		<![CDATA[
+		if(!this.idImageFieldTemp.imageview.getMCRef().isPlaying){
+			this.idImageFieldTemp.overlay.setAttribute("visible",false);
+			this.idImageFieldTemp.overlay.setAttribute("clickable",false);
+			if(this.recorder != null) {
+				enableRecorder();
+			}
+			stopCheckPlaying();
+		}else{
+			resetCheckPlaying();
+		}
+	]]>	
+	</method>
+
+	<method name="resetCheckPlaying">
+		LzTimer.resetTimer( dCheckPlaying, 1000 );
+	</method>
+
+	<method name="stopCheckPlaying"><![CDATA[
+		LzTimer.removeTimer(dCheckPlaying);
+		enableNextAudio(this.idImageFieldTemp.widget_id);
+		this.idImageFieldTemp = null;		
+	]]>
+	</method>
+	
+	<method name="resetImageField"><![CDATA[
+		 for (var i = 0; i < this.idImageFields.length; i++) {
+			 var cachableImage = this.idImageFields[i];
+			 cachableImage['imageComponent'].setAttribute("hasPlayed",false);
+             delete this.idImageFields[i];
+         }
+         this.idImageFields.length = 0;
+	]]></method>
+
+	<method name="enableRecorder">
+		if(this.recorder != null) {
+			this.recorder.blackOverLay.setAttribute('visible',false);
+		}
+	</method>
+
+	<method name="disableRecorder">
+		if(this.recorder != null) {
+			this.recorder.blackOverLay.setAttribute('visible',true);
+		}
+	</method>
+
+	<method name="sortByPlayorder"><![CDATA[
+		var temp;
+		 for (var i = 0; i < this.idImageFields.length; i++) {
+			 for (var j =1; j < this.idImageFields.length-i; j++) {
+				var order = this.idImageFields[j-1];
+				var orderTemp = this.idImageFields[j];
+
+				if(order['imageComponent'].playorder > orderTemp['imageComponent'].playorder){
+					temp=this.idImageFields[j-1];
+					this.idImageFields[j-1]=this.idImageFields[j];
+					this.idImageFields[j]=temp;
+				}
+			}
+		}
+	]]>
+	</method>
+	
+	<method name="disableAllAudio"><![CDATA[	
+		for(var i =0;i<this.idImageFields.length;i++){
+			var cachableImage = this.idImageFields[i];
+			if(cachableImage['imageComponent'] instanceof CachableImage){
+				if(!cachableImage['imageComponent'].imageview.getMCRef().disabled){
+					cachableImage['imageComponent'].imageview.getMCRef().disableBtn();
+					this.audioArray.push(cachableImage['imageComponent'].widget_id);
+				}
+			}
+		}
+		]]>
+	</method>
+
+	<method name="enableAllAudio"><![CDATA[
+		for(var i =0;i<this.idImageFields.length;i++){
+			var cachableImage = this.idImageFields[i];
+			for(var j=0; j<this.audioArray.length; j++){
+				if(cachableImage['imageComponent'] instanceof CachableImage){
+					if(this.audioArray[j]==cachableImage['imageComponent'].widget_id){
+						cachableImage['imageComponent'].imageview.getMCRef().enableBtn();
+					}
+				}
+			}
+		}
+		for(var k=0; k<this.audioArray.length; k++){
+			delete this.audioArray[k];
+		}
+		this.audioArray.length=0
+	]]>	
+	</method>
+
+	<method name="disableResponseArea"><![CDATA[
+		var id = isAnswerToBeDisabled();
+		if(id != null){
+			for (var i = 0; i < this.crFields.length; i++){
+				var crField = this.crFields[i];
+				if(crField['ref'] instanceof CachableMultiLineAnswer){
+					crField['ref'].outer.rich.answer.setAttribute('enabled',false);
+				}
+				if(crField['ref'] instanceof CachableSingleLineAnswer){
+					crField['ref'].answer.disable();
+				}
+			}
+		}
+	]]>
+	</method>
+	
+	<method name="enableResponseArea"><![CDATA[
+		var id = isAnswerToBeDisabled();
+		var isPlaying = checkIfPlaying(id);
+		if(isPlaying){
+			for (var i = 0; i < this.crFields.length; i++){
+				var crField = this.crFields[i];
+				if(crField['ref'] instanceof CachableMultiLineAnswer){
+					crField['ref'].outer.rich.answer.setAttribute('enabled',true);
+				}
+				if(crField['ref'] instanceof CachableSingleLineAnswer){
+					crField['ref'].answer.enable();
+				}
+			}
+		}
+	]]>
+	</method>
+
+	<method name="isAnswerToBeDisabled"><![CDATA[
+		var id;
+		for(var i =0;i<this.idImageFields.length;i++){
+			var cachableImage = this.idImageFields[i];
+			if(cachableImage['imageComponent'] instanceof CachableImage){
+				if(cachableImage['imageComponent'].disableAnswerArea){
+					id = cachableImage['imageComponent'].widget_id;
+					break;
+				}
+			}
+		}
+		return id;
+	]]>
+	</method>
+
+	<method name="checkIfPlaying" args="id"><![CDATA[
+		var isPlaying = false;
+		for(var i =0;i<this.idImageFields.length;i++){
+			var cachableImage = this.idImageFields[i];
+			if(cachableImage['imageComponent'] instanceof CachableImage){
+				if(cachableImage['imageComponent'].widget_id == id && cachableImage['imageComponent'].imageview.getMCRef().isPlaying){
+					isPlaying = true;
+					break;
+				}
+			}
+		}
+		return isPlaying;
+	]]>
+	</method>
+	
+	<method name="enableMoreInfo"><![CDATA[
+		Debug.write("idImageFields********** ",this.idImageFields);
+		var contentArea = dpsubtestdata.getNodeText();
+		for(var i =0;i<this.idImageFields.length;i++){
+			var cachableImage = this.idImageFields[i];
+			if(cachableImage['imageComponent'] instanceof CachableImage){
+				if(contentArea == "Reading" || contentArea == 'Listening'){
+					if(i>0){
+						var prevCachableImage = this.idImageFields[i-1];
+					}
+					Debug.write("prevCachableImage****  ",cachableImage['imageComponent'].enableWhenAnswered,i==this.idImageFields.length-1,prevCachableImage['imageComponent'].hasPlayed);
+					
+					if(cachableImage['imageComponent'].enableWhenAnswered && i==this.idImageFields.length-1 
+						&& prevCachableImage['imageComponent'].hasPlayed && !prevCachableImage['imageComponent'].imageview.getMCRef().isPlaying){
+						cachableImage['imageComponent'].imageview.getMCRef().enableBtn();
+					}
+				}
+			}
+		}
+		]]>
+	</method>
+
 	</node>
 
 </library>

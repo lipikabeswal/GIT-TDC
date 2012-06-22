@@ -37,7 +37,8 @@
 			super.returnComponent(this);
         </method>
 
-        <AnswerSelectionButton name="selbutton"/>
+        <AnswerSelectionButton name="selbutton" clickable="true"/>
+
 		<method event="onwidth">
             if ( immediateparent['updateSelector'] ) {
                 immediateparent.updateSelector();
@@ -49,6 +50,12 @@
 		</method>
 		<method name="show">
             	this.setAttribute('visible',true);
+		</method>
+		<method name="notclickable">
+            	this.selbutton.setAttribute('clickable',false);
+		</method>
+		<method name="clickable">
+            	this.selbutton.setAttribute('clickable',true);
 		</method>
 	</class>
 
