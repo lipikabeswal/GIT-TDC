@@ -28,6 +28,12 @@ function closeBrowser()
 		LDBJSBridgeCTL.closeLockdownBrowser();
 	}
 }
+
+function swfCallback(isPlaying, id) {
+	var attr = 'isMultiAudio=true,isPlaying='+isPlaying+',audioId='+id;
+	lzSetCanvasAttribute('isMultiAudio',attr);
+}
+
 //-->
 </SCRIPT>
 </HEAD>
