@@ -28,8 +28,8 @@
 		<attribute name="widget_id"/>
 		<attribute name="playorder"/> 
 		<attribute name="isaudio"/>
-		<attribute name="disableAnswerArea"/>
-		<attribute name="enableWhenAnswered"/>
+		<attribute name="disableAnswerArea" type="boolean" value="false"/>
+		<attribute name="enableWhenAnswered" type="boolean" value="false"/>
 		
         <!-- ================================
              method

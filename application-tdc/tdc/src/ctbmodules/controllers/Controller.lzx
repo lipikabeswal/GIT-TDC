@@ -4696,6 +4696,7 @@ Debug.write("############ loadItem ############");
 	</method>
 
 	<method name="enableNextAudio" args="widgetId"><![CDATA[
+		var contentArea = dpsubtestdata.getNodeText();
 		var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
 	
 		for(var i=0;i<this.idImageFields.length;i++){
@@ -4706,7 +4707,9 @@ Debug.write("############ loadItem ############");
 					var cachableImageTemp = this.idImageFields[j];
 					if(Number(cachableImage['imageComponent'].playorder) == Number(cachableImageTemp['imageComponent'].playorder)-1){
 						if(cachableImage['imageComponent'].getAttribute('hasPlayed') && !cachableImageTemp['imageComponent'].getAttribute('hasPlayed')){
-							if(j==this.idImageFields.length-1 && cachableImageTemp['imageComponent'].enableWhenAnswered){
+							if(j==this.idImageFields.length-1 
+								&& (cachableImageTemp['imageComponent'].enableWhenAnswered == true || cachableImageTemp['imageComponent'].enableWhenAnswered == 'true')
+								&& (contentArea == "Reading" || contentArea == 'Listening')){
 								if(dncurritem.getAttr ('answered')==1){
 									cachableImageTemp['imageComponent'].imageview.getMCRef().enableBtn();
 								}
@@ -4854,7 +4857,7 @@ Debug.write("############ loadItem ############");
 		for(var i =0;i<this.idImageFields.length;i++){
 			var cachableImage = this.idImageFields[i];
 			if(cachableImage['imageComponent'] instanceof CachableImage){
-				if(cachableImage['imageComponent'].disableAnswerArea){
+				if(cachableImage['imageComponent'].disableAnswerArea == true || cachableImage['imageComponent'].disableAnswerArea == 'true'){
 					id = cachableImage['imageComponent'].widget_id;
 					break;
 				}
@@ -4889,9 +4892,8 @@ Debug.write("############ loadItem ############");
 					if(i>0){
 						var prevCachableImage = this.idImageFields[i-1];
 					}
-					Debug.write("prevCachableImage****  ",cachableImage['imageComponent'].enableWhenAnswered,i==this.idImageFields.length-1,prevCachableImage['imageComponent'].hasPlayed);
 					
-					if(cachableImage['imageComponent'].enableWhenAnswered && i==this.idImageFields.length-1 
+					if((cachableImage['imageComponent'].enableWhenAnswered == true || cachableImage['imageComponent'].enableWhenAnswered == 'true') && i==this.idImageFields.length-1 
 						&& prevCachableImage['imageComponent'].hasPlayed && !prevCachableImage['imageComponent'].imageview.getMCRef().isPlaying){
 						cachableImage['imageComponent'].imageview.getMCRef().enableBtn();
 					}
