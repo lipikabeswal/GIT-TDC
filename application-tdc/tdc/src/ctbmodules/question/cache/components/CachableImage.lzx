@@ -106,6 +106,7 @@
 			if(data.getAttr('isaudio')){
 				this.setAttribute('isaudio',data.getAttr('isaudio'));
 				gController.setAttribute('isaudio',true);
+				gController.freezeUI();
 
 				if(data.hasAttr('disableAnswerArea')){
 					this.setAttribute('disableAnswerArea', data.getAttr('disableAnswerArea'));

@@ -371,6 +371,7 @@
 		<attribute name="audioId"/>
 		<attribute name="isaudio" type="boolean" value="false"/>
 		<attribute name="isAudioPlaying"/>
+		<attribute name="lastPlayOrderId"/>
 		<!-- 
 			Is the panel being loaded for the sizer?
 		-->
@@ -4651,7 +4652,6 @@ Debug.write("############ loadItem ############");
 		
 	<method name="addImageFields" args="field"><![CDATA[
 		this.idImageFields.push(field);
-		Debug.write("idImageFields********  ",this.idImageFields);
 		]]></method>
 
 	<attribute name="dCheckPlaying"
@@ -4668,9 +4668,10 @@ Debug.write("############ loadItem ############");
 			var cachableImage = this.idImageFields[i];
 			if(cachableImage['imageComponent'] instanceof CachableImage){
 				if(cachableImage['imageComponent'].imageview.getMCRef().isPlaying && this.isAudioPlaying && !cachableImage['imageComponent'].hasPlayed){
-					Debug.write("hasPlayed********   ",cachableImage['imageComponent'].hasPlayed);
-				
 					cachableImage['imageComponent'].widget_id = this.audioId;
+					if(i==this.idImageFields.length-1){
+						this.setAttribute("lastPlayOrderId",cachableImage['imageComponent'].widget_id);
+					}
 					cachableImage['imageComponent'].setAttribute('hasPlayed',true);
 
 					this.idImageFieldTemp=cachableImage['imageComponent'];
@@ -4690,6 +4691,10 @@ Debug.write("############ loadItem ############");
 					}
 					isPlayed();
 				}
+				else if(!cachableImage['imageComponent'].imageview.getMCRef().isPlaying){
+					cachableImage['imageComponent'].overlay.setAttribute("visible",true);
+					cachableImage['imageComponent'].overlay.setAttribute("clickable",true);
+				}
 			}
 		}
 	]]>	
@@ -4701,6 +4706,8 @@ Debug.write("############ loadItem ############");
 	
 		for(var i=0;i<this.idImageFields.length;i++){
 			var cachableImage = this.idImageFields[i];
+			cachableImage['imageComponent'].overlay.setAttribute("visible",false);
+			cachableImage['imageComponent'].overlay.setAttribute("clickable",false);
 
 			if(cachableImage['imageComponent'].widget_id == widgetId){
 				for(var j =i+1;j<this.idImageFields.length;j++){
@@ -4744,7 +4751,11 @@ Debug.write("############ loadItem ############");
 	</method>
 
 	<method name="stopCheckPlaying"><![CDATA[
+		--uisemaphore;
 		LzTimer.removeTimer(dCheckPlaying);
+		if(this.idImageFieldTemp.widget_id == this.lastPlayOrderId){
+			unlockUI();
+		}
 		enableNextAudio(this.idImageFieldTemp.widget_id);
 		this.idImageFieldTemp = null;		
 	]]>
