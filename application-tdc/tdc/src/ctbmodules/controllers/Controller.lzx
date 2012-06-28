@@ -3018,6 +3018,7 @@ Debug.write("out of time 3");
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
             unlockUI();
+			this.setAttribute("isCatStop", false);            
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
 			if(this.adaptive == 'true'){
