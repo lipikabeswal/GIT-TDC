@@ -11,5 +11,7 @@ char *getStrByIndex(char inStr[], int begin_index, int end_index);
 char *changeFileNameExtension(char inFileName[], char newExtension[]);
 char *getFileNameExtension(char inFileName[]);
 char *toUpperStr(char *str);
+/* Prototypes. */
+char *trim(char *);
 #endif
 

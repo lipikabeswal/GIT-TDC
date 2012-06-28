@@ -24,7 +24,7 @@ int get_objID(int k);
 double getLoss();
 double getHoss();
 char get_testLevel(double theta, char subTest[]);
-char get_objLvl(double theta);
+// char get_objLvl(double theta);
 /* void set_pItems();
 // void print_pItems();
 // int adapt_aItem(int obj, int aSt, double theta);
@@ -36,14 +36,18 @@ int next_item();
 double score();
 double getSEM(double theta);
 double get_objScore(double theta, int obj_id);
-double get_objScaleScore(char obj_lvl, int obj_id);
+double get_objScaleScore(int obj_id);
 double get_objSSsem(double theta, int obj_id);
 
 int get_rs(int obj_id);
 int get_totObjRS();
 int get_objRS();
+int get_sumCs();
+int get_psgID();
+int get_enemyID();
 
-int get_objMasteryLvl(double obj_score, int obj_id, char obj_lvl);
+// int get_objMasteryLvl(double obj_score, int obj_id, char obj_lvl);
+int get_objMasteryLvl(double obj_score, int obj_id);
 
 void set_simuRWO(int rwo, double theta0); /* simu */
 void set_rwo(int rwo);
@@ -51,7 +55,10 @@ void resumeCAT(int nItems, int itemIDs[], int rwo[]);
 void setoff_cat();
 int simSS(int nStudents, double ss[], double mean, double std, double loss, double hoss);
 void getAdmItems(struct item_info *items, int *n_obj, int objID[]);
+void getAdmItemPars(struct item_info *items);
 int checkPsgID();
+void set_initial_theta (double theta0);
+double get_theta0(double theta, char subTest[], int level);
 /* Normal return, by convention defined to be zero */
 #define SETUP_CAT_OK                 0
 #define GET_O_A_OK                 0

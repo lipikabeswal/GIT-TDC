@@ -88,13 +88,14 @@ int getItems (char inPar[], struct item_info items[], int n_items, int *n_obj, i
       items[i].obj_id = atoi(strtok(NULL,",")); 
 	  items[i].new_obj_id = atoi(strtok(NULL,","));  /* collapsed objective IDs */
 
-	  strtok(NULL,",");  /* skip CTB_Passage_ID */
+	  items[i].org_psg_id = atoi(strtok(NULL,","));  /* read original CTB_Passage_ID for data QA purpose */
 
       items[i].psg_id = atoi(strtok(NULL,","));  /* read new ctb_passage_id */
 	  items[i].item_order = atoi(strtok(NULL,","));
-	  strcpy(items[i].obj_title,strtok(NULL,",")); 
+	  items[i].enemy = atoi(strtok(NULL,",")); /* read enemy item, put enemy after item order in item bank */
+	  strcpy(items[i].obj_title,strtok(NULL,",")); 	  
 
-/*	  printf(" %d %d %d %d \n", items[i].item_id, items[i].obj_id, items[i].psg_id,  items[i].item_order ); */
+	//  printf(" %d %d %d %d \n", items[i].item_id, items[i].obj_id, items[i].psg_id,  items[i].item_order ); 
 
 	  items[i].adm_flag = 1;
       items[i].rwo = 9;  /* initialize rwo to 9 */
@@ -125,7 +126,7 @@ int getItems (char inPar[], struct item_info items[], int n_items, int *n_obj, i
 
   *n_obj = n_objs + 1;
   if (i != n_items) {
-    if (LOG_FILE_FLAG) fprintf (log_file, "Error: Number of items in Par are different from that in Dat or Rwo: %s \n", inPar);
+    if (LOG_FILE_FLAG) fprintf (log_file, "Error: Number of items in Par are different from that in : %s \n", inPar);
     return GETPAR_FAILURE;
   }
 
@@ -403,7 +404,7 @@ int get_objLvlCut(char inFile[], int objID[], struct objSScut objSS_cut[]) {
 	 char aLine[lineLen_max];
      int  i, j;
 	 int obj_id;
-	 char lvl[]="EMDA";
+//	 char lvl[]="EMDA";
   
      fp = fopen(inFile, "r");	
   
@@ -418,21 +419,11 @@ int get_objLvlCut(char inFile[], int objID[], struct objSScut objSS_cut[]) {
 
 	 while (getCurrentline (aLine, lineLen_max, fp) > 2 ) {
 		 obj_id = atoi(strtok(aLine,","));
-		 if (obj_id == objID[i]) {
-			 if (lvl[j] == strtok(NULL,",")[0]) {
-                  objSS_cut[i].s50[j] = atof(strtok(NULL,","));
-				  objSS_cut[i].s75[j] = atof(strtok(NULL,","));
-				  j++;
-				  if (j == 4) {
+		 if (obj_id == objID[i]) {   /* objID[] are sorted by number already  */
+			      for (j = 0; j < 4; j++) 
+				      objSS_cut[i].s75[j] = atof(strtok(NULL,","));
 					  objSS_cut[i].objID = obj_id;
 					  i++;
-					  j= 0;
-				  }
-			 }
-			 else {
-				 if (LOG_FILE_FLAG) fprintf (log_file, "Error: level mismatch in: %s \n", inFile);
-                 return  GETPAR_FAILURE;
-			 }
 		 }
 		 else {
 			  if (LOG_FILE_FLAG) fprintf (log_file, "Error: objective ID mismatch in: %s \n", inFile);
