@@ -12,6 +12,7 @@
 
 
 #define GET_LINELEN_FAILURE 1               /* Fatal errors  */
+#define WHITESPACE_CHARS  " \f\n\r\t\v"
 
 
 static int getCurrentline(char *line, int max, FILE *fp); 
@@ -109,4 +110,31 @@ char *toUpperStr(char *str) {
   }
 
   return str;
+}
+
+/* Create a copy of a NULL-terminated string. */
+/* Remove leading and trailing whitespace characters from the copy. */
+/* Return the copy. */
+char *trim(char *string)
+{
+    char *result = NULL, *ptr = NULL;
+
+    /* Ignore NULL pointers.  */
+    if (string)
+    {
+        ptr = string;
+        /* Skip leading whitespace.  */
+        while (strchr(WHITESPACE_CHARS, *ptr))
+            ++ptr;
+        /* Make a copy of the remainder.  */
+        result = strdup(ptr);
+        /* Move to the last character of the copy (that is, until the NULL char is reached).  */
+        for (ptr = result; *ptr; ptr++);
+        /* Move to the last non-whitespace character of the copy.  */
+        for (--ptr; strchr(WHITESPACE_CHARS, *ptr); --ptr);
+        /* Remove trailing whitespace. */
+        *(++ptr) = '\0';
+    }
+
+    return result;
 }

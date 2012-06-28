@@ -30,7 +30,7 @@
 #define LOG_FILE_FLAG 0   /* 0/1 turned off/on log_file output */
 
 struct objSScut {
-	double s50[4];
+//	double s50[4];
 	double s75[4];
 	int objID;
 };
