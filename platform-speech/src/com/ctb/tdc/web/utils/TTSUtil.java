@@ -83,11 +83,13 @@ public class TTSUtil {
 	            String password  = ServletUtils.getProxyPassword();   
 	            String domain = ServletUtils.getProxyDomain();
 	        	TTSUtil.setProxyCredentials(client, proxyHost, proxyPort, username, password, domain);
+	        	
+	        	System.out.println(proxyHost + ":" + proxyPort);
 			}
 			
 			// setup BASIC auth
-			TTSSettings ttsSettings = getTTSSettings();
-			TTSUtil.setTTSCredentials(client, ttsSettings.getHost(), ttsSettings.getUserName(), ttsSettings.getPassword());
+			//TTSSettings ttsSettings = getTTSSettings();
+			//TTSUtil.setTTSCredentials(client, ttsSettings.getHost(), ttsSettings.getUserName(), ttsSettings.getPassword());
 		} catch(Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
@@ -380,10 +382,6 @@ public class TTSUtil {
 		if(ttsSettings == null) {
 			ResourceBundle ttsConfig = ResourceBundle.getBundle("tts");
 			ttsSettings = new TTSSettings(ttsConfig);
-			String decryptedUser = new String(decrypt(ttsSettings.getUserName()));
-			ttsSettings.setUserName(decryptedUser);
-			String decryptedPass = new String(decrypt(ttsSettings.getPassword()));
-			ttsSettings.setPassword(decryptedPass);
 			memoryCache.setTTSSettings(ttsSettings);
 		}
 		return ttsSettings;
@@ -477,18 +475,31 @@ public class TTSUtil {
         buff.append(src.substring(39, 40));
     	return buff.toString();
     }
-	
+    
     private static String execSpeechRequest (String text, String speedValue){
 		String result = null;
 	
 		int responseCode = HttpStatus.SC_OK;
-		System.out.println("this.speedValue1 : " + speedValue);
+		TTSSettings ttsSettings = getTTSSettings();
+		
+		String method = ttsSettings.getMethod();
+		
+		if(TTSSettings.READSPEAKERMETHOD.equals(method)) {
+			return execReadspeakerSpeechRequest(text, speedValue);
+		} else if (TTSSettings.TEXTHELPMETHOD.equals(method)) {
+			return execTexthelpSpeechRequest(text, speedValue);
+		} else {
+			return null;
+		}
+	}
+	
+    private static String execTexthelpSpeechRequest (String text, String speedValue){
+		String result = null;
+	
+		int responseCode = HttpStatus.SC_OK;
 		TTSSettings ttsSettings = getTTSSettings();
 		String voice = ttsSettings.getVoiceName();
-		
-		if(voice == null || "".equals(voice.trim())) {
-			voice = "ScanSoft Jill_Full_22kHz";
-		}
+
 		if(speedValue  == null || "".equals(speedValue.trim())) {
 			speedValue = ttsSettings.getSpeedValue();
 			if(speedValue == null || "".equals(speedValue.trim())) {
@@ -498,18 +509,24 @@ public class TTSUtil {
 
 		String speechURL = ttsSettings.getUrl();
 		if(speechURL == null || "".equals(speechURL.trim())) {
-			speechURL = "https://oastts.ctb.com/SpeechServer/";
+			speechURL = "http://ctb.speechstream.net/SpeechServices/index.html";
 		}
 		try {
 			HttpPost post = new HttpPost(speechURL);
 			//post.setFollowRedirects(false);
 			// setup parameters
-			List nameValuePairs = new ArrayList(3);
+			List nameValuePairs = new ArrayList(4);
+			nameValuePairs.add(new BasicNameValuePair("userName", "ctb"));
 			nameValuePairs.add(new BasicNameValuePair("text", text));
 			nameValuePairs.add(new BasicNameValuePair("voiceName", voice));
 			nameValuePairs.add(new BasicNameValuePair("speedValue", speedValue));
 			post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
+			System.out.println(speechURL);
+			System.out.println(voice);
+			System.out.println(speedValue);
+			System.out.println(text);
+			
 			// send request to TextHelp
 			HttpResponse response = client.execute(post);
 			responseCode = response.getStatusLine().getStatusCode();
@@ -534,6 +551,82 @@ public class TTSUtil {
 					result = null;
 				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+    
+    private static String execReadspeakerSpeechRequest (String text, String speedValue){
+		String result = null;
+	
+		int responseCode = HttpStatus.SC_OK;
+		TTSSettings ttsSettings = getTTSSettings();
+		String voice = ttsSettings.getVoiceName();
+
+		if(speedValue  == null || "".equals(speedValue.trim())) {
+			speedValue = ttsSettings.getSpeedValue();
+			if(speedValue == null || "".equals(speedValue.trim())) {
+				speedValue = "-2";
+			}
+		}
+		if("-1".equals(speedValue)) speedValue = "175";
+		else if ("-2".equals(speedValue)) speedValue = "100";
+		else if ("-3".equals(speedValue)) speedValue = "75";
+		else speedValue = "100";
+		//speedValue = String.valueOf((Integer.parseInt(speedValue) * -50));
+
+		String speechURL = ttsSettings.getUrl();
+		if(speechURL == null || "".equals(speechURL.trim())) {
+			speechURL = "http://app.readspeaker.com/cgi-bin/rsent";
+		}
+		try {
+			HttpPost post = new HttpPost(speechURL);
+			//post.setFollowRedirects(false);
+			// setup parameters
+			List nameValuePairs = new ArrayList(4);
+			nameValuePairs.add(new BasicNameValuePair("customerid", "5857"));
+			nameValuePairs.add(new BasicNameValuePair("lang", "en_us"));
+			nameValuePairs.add(new BasicNameValuePair("output", "audiolink"));
+			nameValuePairs.add(new BasicNameValuePair("text", text));
+			nameValuePairs.add(new BasicNameValuePair("voice", voice));
+			nameValuePairs.add(new BasicNameValuePair("speed", speedValue));
+			post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+			System.out.println(speechURL);
+			System.out.println(voice);
+			System.out.println(speedValue);
+			System.out.println(text);
+			
+			// send request to TextHelp
+			HttpResponse response = client.execute(post);
+			responseCode = response.getStatusLine().getStatusCode();
+			
+			System.out.println(responseCode);
+			
+			//int responseLen = 0;
+			//if(response.getHeaders("content-length") != null) {
+			//	responseLen = Integer.valueOf(response.getHeaders("content-length")[0].getValue()).intValue();
+			//}
+			
+			System.out.println("Text Status: " + responseCode); // + " Length: " + responseLen);
+			
+			//if (responseCode == HttpStatus.SC_OK && responseLen > 0) {
+				result = "";
+				BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()),131072);
+				String inputLine = null;
+				
+				while ((inputLine = in.readLine()) != null) {
+					result += inputLine;
+				}
+				System.out.println(result);
+				if(result.indexOf("mp3") >= 0) {
+					result = "mp3=" + result;
+					in.close();
+				} else {
+					result = null;
+				}
+			//}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
