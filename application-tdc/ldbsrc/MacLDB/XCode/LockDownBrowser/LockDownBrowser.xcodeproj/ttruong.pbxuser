@@ -1,0 +1,81 @@
+// !$*UTF8*$!
+{
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Release;
+		activeExecutable = 44EEFD3C124D2E3700D3C0B5 /* LockDownBrowser */;
+		activeTarget = 8D1107260486CEB800E47090 /* LockDownBrowser */;
+		codeSenseManager = 44EEFD4F124D2E4400D3C0B5 /* Code sense */;
+		executables = (
+			44EEFD3C124D2E3700D3C0B5 /* LockDownBrowser */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					422,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 307048408;
+			PBXWorkspaceStateSaveDate = 307048408;
+		};
+		sourceControlManager = 44EEFD4E124D2E4400D3C0B5 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	44EEFD3C124D2E3700D3C0B5 /* LockDownBrowser */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = LockDownBrowser;
+		sourceDirectories = (
+		);
+	};
+	44EEFD4E124D2E4400D3C0B5 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+	};
+	44EEFD4F124D2E4400D3C0B5 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	8D1107260486CEB800E47090 /* LockDownBrowser */ = {
+		activeExec = 0;
+		executables = (
+			44EEFD3C124D2E3700D3C0B5 /* LockDownBrowser */,
+		);
+	};
+}
