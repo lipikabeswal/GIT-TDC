@@ -66,6 +66,9 @@ public class LoadContentServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String method = request.getParameter("method");
+        
+        long startTime = System.currentTimeMillis();
+        
         if ((method != null) && (! method.equals("none"))) {    
             if (method.equals(ServletUtils.LOAD_SUBTEST_METHOD)) {
                 String itemSetId = ServletUtils.buildLoadContentParameters(request, method);
@@ -90,6 +93,8 @@ public class LoadContentServlet extends HttpServlet {
         else {
             doGet(request, response);            
         }
+        
+        logger.info("LoadContentServlet: " + method + " took " + (System.currentTimeMillis() - startTime) + "\n");
     }
     
 	/**
@@ -106,6 +111,10 @@ public class LoadContentServlet extends HttpServlet {
 			throws ServletException, IOException {
         
         String method = ServletUtils.getMethod(request);
+        
+        long startTime = System.currentTimeMillis();
+        logger.info("LoadContentServlet: " + method + " . . . ");
+        
         if ( method.equals( ServletUtils.LOAD_LOCAL_IMAGE_METHOD ) )
         {
             String fileName = request.getParameter( ServletUtils.LOAD_LOCAL_IMAGE_PARAM );
@@ -117,6 +126,8 @@ public class LoadContentServlet extends HttpServlet {
         String imageId = ServletUtils.getImageId(request);
         
         handleEvent(request, response, method, itemSetId, itemId, imageId);
+        
+        logger.info("took " + (System.currentTimeMillis() - startTime) + "\n");
 	}
 
 
@@ -410,14 +421,14 @@ public class LoadContentServlet extends HttpServlet {
                 tryCount++;
                 if ( !ready )
                 {
-                    logger.info("file does not exists - " + fileName + "try count=" + tryCount);
+                    //logger.info("file does not exist - " + fileName + "try count=" + tryCount);
                     Thread.sleep( 1000 );
                 }
             }
         }
         catch( Exception e )
         {
-            logger.info("exception threw in imageReady()");
+            logger.error("exception thrown in imageReady()");
         }
         return ready;
     }

@@ -1,5 +1,6 @@
 package com.ctb.tdc.web.utils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,7 +16,6 @@ import com.ctb.tdc.web.dto.TTSSettings;
 public class MemoryCache {
     static final long serialVersionUID = 1L;
 
-    private HashMap stateMap;
     private HashMap subtestInfoMap;
     private ServletSettings srvSettings;
     private TTSSettings ttsSettings;
@@ -24,6 +24,8 @@ public class MemoryCache {
     public SAXBuilder saxBuilder;
     private boolean loaded = false;
     private HashMap imageMap;
+    private HashMap contentDownloadMap;
+
     
     public TTSSettings getTTSSettings() {
     	synchronized(this) {
@@ -39,12 +41,12 @@ public class MemoryCache {
 
 	private MemoryCache() {
         this.loaded = false;
-        this.stateMap = new HashMap();
         this.subtestInfoMap = new HashMap();
         this.srvSettings = new ServletSettings();
         clearContent();
         saxBuilder = new SAXBuilder();
         this.imageMap = new HashMap();
+        this.contentDownloadMap = new HashMap();       
     }
 
     public static MemoryCache getInstance() {
@@ -66,18 +68,6 @@ public class MemoryCache {
     public void setSrvSettings(ServletSettings srvSettings) {
     	synchronized(this) {
     		this.srvSettings = srvSettings;
-    	}
-    }
-
-    public HashMap getStateMap() {
-    	synchronized(this) {
-    		return stateMap;
-    	}
-    }
-
-    public void setStateMap(HashMap stateMap) {
-    	synchronized(this) {
-    		this.stateMap = stateMap;
     	}
     }
     
@@ -105,66 +95,6 @@ public class MemoryCache {
     	}
     }
     
-    public StateVO setPendingState(String lsid, String mseq, String method, String xml) {
-    	synchronized(MemoryCache.class) {
-    		boolean duplicate = false;
-    		StateVO state = null;
-	        if (this.srvSettings.isTmsAckRequired()) {
-	            ArrayList states = (ArrayList)this.stateMap.get(lsid);
-	            if (states == null) 
-	                states = new ArrayList();
-	            for (int i=0 ; i<states.size() ; i++) {
-	                state = (StateVO)states.get(i);
-	                if (Integer.parseInt(mseq) == state.getMseq()) {
-	                    duplicate = true;
-	                }
-	            }
-	            if(!duplicate) {
-	            	state = new StateVO(Integer.parseInt(mseq), StateVO.PENDING_STATE, method, xml);            
-	            	states.add(state);
-	            	this.stateMap.put(lsid, states);
-	            }
-	        }
-	        return state;
-    	}
-    }
-
-    public void setAcknowledgeState(StateVO state) {
-    	synchronized(this) {
-	        if ((state != null) && this.srvSettings.isTmsAckRequired()) {
-	            state.setState(StateVO.ACKNOWLEDGED_STATE);
-	        }
-    	}
-    }
-    
-    public void setAcknowledgeState(String lsid, String mseq) {
-    	synchronized(this) {
-    		StateVO state = null;
-	        ArrayList states = (ArrayList)this.stateMap.get(lsid);
-	        for (int i=0 ; i<states.size() ; i++) {
-	        	state = (StateVO)states.get(i);
-                if (Integer.parseInt(mseq) == state.getMseq()) {
-                	state.setState(StateVO.ACKNOWLEDGED_STATE);
-                	break;
-                }
-	        }
-    	}
-    }
-    
-    public void removeAcknowledgeStates(String lsid) {
-    	synchronized(this) {
-	        ArrayList states = (ArrayList)this.stateMap.get(lsid);
-	        if (states != null) {
-	            for (int i=states.size()-1 ; i>=0 ; i--) { 
-	                StateVO state = (StateVO)states.get(i);
-	                if (state.getState().equals(StateVO.ACKNOWLEDGED_STATE)) {
-	                    states.remove(i);
-	                }
-	            }
-	        }
-    	}
-    }
-    
     public void clearContent()
     {
     	synchronized(this) {
@@ -187,12 +117,31 @@ public class MemoryCache {
     	}
     }
     
-    // I don't understand why I add this synchronized keyword here.
     public HashMap getSubtestInfoMap()
     {
     	synchronized(this) {
     		return subtestInfoMap;
     	}
     }
+
+	/**
+	 * @return the contentDownloadMap
+	 */
+	public HashMap getContentDownloadMap() {
+		synchronized (this) {
+			return contentDownloadMap;
+		}
+	}
+
+	/**
+	 * @param contentDownloadMap the contentDownloadMap to set
+	 */
+	public void setContentDownloadMap(HashMap contentDownloadMap) {
+		synchronized (this) {
+			this.contentDownloadMap = contentDownloadMap;
+		}
+	}
+    
+
    
 }

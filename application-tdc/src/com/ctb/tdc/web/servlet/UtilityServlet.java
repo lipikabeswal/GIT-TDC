@@ -15,11 +15,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.log4j.Logger;
 
 import com.ctb.tdc.web.dto.ServletSettings;
 import com.ctb.tdc.web.utils.AssetInfo;
 import com.ctb.tdc.web.utils.AuditFile;
+import com.ctb.tdc.web.utils.ContentFile;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
  
@@ -30,6 +32,8 @@ public class UtilityServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
     static Logger logger = Logger.getLogger(PersistenceServlet.class);
+    private static boolean LDBShutdown = false;
+    private static boolean HTTPClientShutdown = false;
     
 	/**
 	 * Constructor of the object.
@@ -59,6 +63,9 @@ public class UtilityServlet extends HttpServlet {
 			throws ServletException, IOException {
 
         String method = ServletUtils.getMethod(request);
+        
+        long startTime = System.currentTimeMillis();
+        
         if (method.equals("deleteAuditFile")) {
             deleteAuditFile(request);
             ServletUtils.writeResponse(response, ServletUtils.OK);
@@ -86,16 +93,77 @@ public class UtilityServlet extends HttpServlet {
         }
         else
         if (method.equals("exit")) {
-        	System.out.println("Exit called");
-        	if(isLinux()) {
-        		Runtime.getRuntime().exec("killall OASTDC");
-        	} else if(isMacOS()) {
-        		// do something here
-        	} else {
-        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
-        	}
-        }      
+        	logger.info("Exit called");
+        	ContentFile.deleteDataFiles();
+        	exit();
+        }    
+        
+        logger.info("UtilityServlet: " + method + " took " + (System.currentTimeMillis() - startTime) + "\n");
     }
+	
+	public static synchronized void exit() {
+		try {
+        	new KillThem().start();
+        	new KillMe().start();
+        	
+        	int i = 0;
+        	while (i < 8 && (!HTTPClientShutdown || !LDBShutdown)) {
+        		Thread.sleep(250);
+        		i++;
+        	}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		System.exit(0);
+    	}
+	}
+	
+	private static class KillThem extends Thread {
+		public void run() {
+			try {
+				if(isLinux()) {
+	        		Runtime.getRuntime().exec("killall OASTDC");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("killall OASTDC");
+	        	} else if(isMacOS()) {
+	        		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
+	        	} else {
+	        		try {
+		        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+		        		Thread.sleep(250);
+		        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+	        		} catch (Exception e) {
+	        			e.printStackTrace();
+	        		}
+	        		try {
+	        			Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
+		        		Thread.sleep(250);
+		        		Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
+	        		} catch (Exception e) {
+	        			e.printStackTrace();
+	        		}	
+	        	}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				LDBShutdown = true;
+			}
+		}
+	}
+	
+	private static class KillMe extends Thread {
+		public void run() {
+			try {
+				ServletUtils.shutdown();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				HTTPClientShutdown = true;
+			}
+		}
+	}
 	
     private static boolean isMacOS() {
         String os = System.getProperty("os.name");
@@ -150,10 +218,6 @@ public class UtilityServlet extends HttpServlet {
         if (tmsAckRequired != null) {
             srvSettings.setTmsAckRequired(tmsAckRequired.equals("true"));
         }
-        String tmsAckMaxLostMessage = request.getParameter("tmsAckMaxLostMessage");
-        if (tmsAckMaxLostMessage != null) {
-            srvSettings.setTmsAckMaxLostMessage(Integer.parseInt(tmsAckMaxLostMessage));
-        }
         String proxyHost = request.getParameter("proxyHost");
         if (proxyHost != null) {
             srvSettings.setProxyHost(proxyHost);
@@ -171,8 +235,7 @@ public class UtilityServlet extends HttpServlet {
             srvSettings.setProxyPassword(proxyPassword);
         }
         
-        memoryCache.setSrvSettings(srvSettings);
-        memoryCache.setStateMap(new HashMap());        
+        memoryCache.setSrvSettings(srvSettings);       
         memoryCache.setLoaded(true);
     }
     
@@ -229,12 +292,12 @@ public class UtilityServlet extends HttpServlet {
 				
 				String filePath = this.RESOURCE_FOLDER_PATH + File.separator  + filename;
 				          
-				System.out.println("Image filepath : " + filePath);
+				//System.out.println("Image filepath : " + filePath);
                 int index= filename.lastIndexOf(".");
-                System.out.println(index);
+                //System.out.println(index);
 				String ext = filename.substring(filename.lastIndexOf(".")+1);
 				//String ext = filename.substring(filename.lastIndexOf("."),3);
-				System.out.println("ext" + ext);
+				//System.out.println("ext" + ext);
 				AssetInfo assetInfo = new AssetInfo();
 				assetInfo.setExt(ext);
 				String mimeType = assetInfo.getMIMEType();

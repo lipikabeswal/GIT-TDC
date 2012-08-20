@@ -1,16 +1,22 @@
 package com.ctb.tdc.web.utils;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.Security;
+import java.util.Date;
 
 import org.bouncycastle.crypto.digests.MD5Digest;
 import org.bouncycastle.crypto.engines.RC4Engine;
 import org.bouncycastle.crypto.params.KeyParameter;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import com.ctb.tdc.web.exception.DecryptionException;
 import com.ctb.tdc.web.exception.HashMismatchException;
@@ -28,6 +34,8 @@ public class ContentFile
     public static final String ITEM_FILE_EXTENSION = ".ecp";
     public static final String CONTENT_FOLDER = "/data/objectbank/";
     public static final String CONTENT_FOLDER_PATH = System.getProperty(TDC_HOME)+ CONTENT_FOLDER;
+    public static final String DATA_FOLDER = System.getProperty(TDC_HOME)+ "/data/databank/"; 	//"C:\\Program Files\\CTB\\Online Assessment\\data\\databank\\";
+    public static final String DATA_FOLDER_DECRYPTED = System.getProperty(TDC_HOME)+ "/data/"; 	//"C:\\Program Files\\CTB\\Online Assessment\\data\\";
     
     private ContentFile() 
     {
@@ -54,7 +62,7 @@ public class ContentFile
     
     public static byte[] readFromFile( String filePath ) throws IOException
     {
-        FileInputStream aFileInputStream = new FileInputStream( filePath );
+        BufferedInputStream aFileInputStream = new BufferedInputStream(new FileInputStream( filePath ));
         int size = aFileInputStream.available();
         byte[] buffer = new byte[ size ];
         aFileInputStream.read( buffer );
@@ -68,10 +76,10 @@ public class ContentFile
         writeToFile( data, newFilePath );
     }
     
-    public static void writeToFile( byte[] data, String filePath ) throws Exception
+    public static void writeToFile( byte[] data, String filePath ) throws IOException
     {
         File psFile = new File( filePath );
-        FileOutputStream psfile = new FileOutputStream( psFile );
+        BufferedOutputStream psfile = new BufferedOutputStream(new FileOutputStream( psFile ));
         psfile.write( data );
         psfile.flush();
         psfile.close(); 
@@ -82,10 +90,18 @@ public class ContentFile
         if (!exists(filePath))
         	return false;
     	byte[] buffer = readFromFile( filePath );
-        if ( Crypto.checkHash( hash, buffer ))
+    	
+        if ( Crypto.checkHash( hash, buffer )) {
+        	//Fix for 60 days content deletion 
+        	File file = new File(filePath);            
+            file.setLastModified(new Date().getTime());
         	return true;
-        else
+        }
+        	
+        else {
+        	//System.out.println("check: " + hash + "  actual: " + Crypto.generateHash(buffer));
         	return false;
+        } 	
     }
     
     
@@ -97,10 +113,10 @@ public class ContentFile
         try {
         	buffer = readFromFile( filePath );
         
-	        boolean hashChecked = Crypto.checkHash( hash, buffer );
+	        //boolean hashChecked = Crypto.checkHash( hash, buffer );
 	        
-	        if (!hashChecked)
-	        	throw new HashMismatchException("Hash doesn't match.");
+	        //if (!hashChecked)
+	        //	throw new HashMismatchException("Hash doesn't match.");
         	
 	        Crypto aCrypto = new Crypto();
 	        result = aCrypto.checkHashAndDecrypt( key, hash, buffer, true, false );
@@ -217,10 +233,66 @@ public class ContentFile
     
     public static String getContentFolderPath() 
     {
-//	    String tdcHome = System.getProperty(ContentFile.TDC_HOME);
-//	    String filePath = tdcHome + ContentFile.CONTENT_FOLDER;
-//	    return filePath;
-    	return CONTENT_FOLDER_PATH;
+    	String tdchome = System.getProperty(TDC_HOME);
+    	if(tdchome == null || "null".equals(tdchome)) {
+    		return "";
+    	} else {
+    		return CONTENT_FOLDER_PATH;
+    	}
     } 
     
+    public static void decryptDataFiles(){
+    	try {
+    		String key =   "n7673nBJ2n27bB4oAfme7Ugl5VV42g8";
+    		byte[] infile = null;
+    		String hash = null;
+    		byte[] outfile = null;
+    		FileOutputStream fos = null;
+    		Security.insertProviderAt(new BouncyCastleProvider(), 2);
+    		File encDataFiles = new File(DATA_FOLDER);
+    		
+    		FilenameFilter filefilter = new FilenameFilter() {
+    			public boolean accept(File dir, String name) {
+    		        return name.endsWith(".ecp");
+    		      }
+    		};    		
+
+    		File[] files = encDataFiles.listFiles(filefilter);
+    		if (files.length > 0){
+    			System.out.println("Files.length" + files.length);
+    			for (int i = 0; i < files.length; i++) {
+    				infile = readFromFile(files[i].getAbsolutePath());
+					hash = Crypto.generateHash(infile);
+					outfile = decryptFile(files[i].getAbsolutePath(), hash, key);
+					fos = new FileOutputStream(DATA_FOLDER_DECRYPTED+ File.separator + files[i].getName().substring(0,files[i].getName().length()-4));
+					fos.write(outfile);
+					fos.close();
+				}
+    			
+    		}
+    		
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    public static void deleteDataFiles(){
+    	try{
+    		File plainDataFiles = new File(DATA_FOLDER_DECRYPTED);
+    		FilenameFilter filefilter = new FilenameFilter() {
+    			public boolean accept(File dir, String name) {
+    		        return name.endsWith(".csv");
+    		      }
+    		};    		
+    		File[] files = plainDataFiles.listFiles(filefilter);
+    		if (files.length > 0){
+    			for (int i = 0; i < files.length; i++) {
+    				deleteFile(files[i].getAbsolutePath());
+    			}   				
+    		}
+    		
+    	}catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    }
 }

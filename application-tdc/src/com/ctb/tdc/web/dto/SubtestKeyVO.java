@@ -19,8 +19,16 @@ public class SubtestKeyVO
     String asmtHash;
     String asmtEncryptionKey;
     String item_encryption_key;
+    String contentArea;
+    String adaptive;
     
-    public SubtestKeyVO() 
+    public String getAdaptive() {
+		return adaptive;
+	}
+	public void setAdaptive(String adaptive) {
+		this.adaptive = adaptive;
+	}
+	public SubtestKeyVO() 
     {
         super();
     }
@@ -84,4 +92,10 @@ public class SubtestKeyVO
     public void setItemSetId(String itemSetId) {
         this.itemSetId = itemSetId;
     }
+	public String getContentArea() {
+		return contentArea;
+	}
+	public void setContentArea(String contentArea) {
+		this.contentArea = contentArea;
+	}
 }
