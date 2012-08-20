@@ -34,6 +34,11 @@
 		<method name="enable">
 			this.answer.enable();
 		</method>
+		
+		<method name="disable">
+			this.answer.disable();
+		</method>		
+		
         <handler name="ondata" args="data"><![CDATA[
 
             if (data.getAttr("id")) {  
@@ -67,6 +72,9 @@
                 this.setAttribute("rmargin", data.getAttr("rmargin"));
             }
             this.setAttribute("showhandcursor", false);
+            if(gController.isaudio){
+				gController.disableResponseArea();
+			}
             doneLoading();
         ]]></handler>
 

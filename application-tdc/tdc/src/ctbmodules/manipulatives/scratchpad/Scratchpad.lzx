@@ -169,7 +169,10 @@
 				</handler>
 				
 				<handler name="onblur" reference="inp">
-					gHotKeys.enableKeys();
+					//Debug.write("onblur.....");
+					if(gItemInterface.getAttribute('visible') == true || gTutorial.getAttribute('visible') == true){
+						gHotKeys.enableKeys();
+					}
 				</handler>
 				
 				<handler name="onkeyup" reference="inp">

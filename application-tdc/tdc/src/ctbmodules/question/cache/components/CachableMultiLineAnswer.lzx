@@ -94,6 +94,9 @@
 			if (data.getAttr("rmargin"))
                 this.setAttribute("rmargin", Number(data.getAttr("rmargin")));
             this.setAttribute("showhandcursor", false);
+            if(gController.isaudio){
+				gController.disableResponseArea();
+			}
             doneLoading();
         ]]></handler>
         

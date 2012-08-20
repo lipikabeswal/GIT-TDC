@@ -22,11 +22,20 @@
        <attribute name="retrycount" value="0"/>
        <attribute name="timeoutretrycount" value="0"/>
        <attribute name="servletBase" type="string" />
-       <attribute name="verticalAlign" type="string"/>       
+       <attribute name="verticalAlign" type="string"/>   
+
+		<attribute name="hasPlayed" type="boolean" value="false"/>
+		<attribute name="widget_id"/>
+		<attribute name="playorder"/> 
+		<attribute name="isaudio"/>
+		<attribute name="disableAnswerArea" type="boolean" value="false"/>
+		<attribute name="enableWhenAnswered" type="boolean" value="false"/>
+		
         <!-- ================================
              method
              ================================= -->
         <method name="init">
+        //Debug.write("cachable image init called...");
             super.init();
         </method>
 
@@ -84,6 +93,7 @@
 		]]></method>
         
 		<method event="ondata" args="data"><![CDATA[
+//Debug.write("cachable image ondata");
             this.setAttribute ('retrycount', 0);
             this.setAttribute ('timeoutretrycount', 0);
 
@@ -92,7 +102,31 @@
 			this.imageview.setAttribute("height", null);
 			this.imageview.setAttribute("width", null);
 			var theSrc = "";
+			
+			if(data.getAttr('isaudio')){
+				this.setAttribute('isaudio',data.getAttr('isaudio'));
+				gController.setAttribute('isaudio',true);
+				gController.freezeUI();
+
+				if(data.hasAttr('disableAnswerArea')){
+					this.setAttribute('disableAnswerArea', data.getAttr('disableAnswerArea'));
+				}
+
+				if(data.getAttr('widget_id')){
+					this.setAttribute('widget_id', data.getAttr('widget_id'));
+				}
 	
+				if(data.getAttr('playorder')){
+					this.setAttribute('playorder', data.getAttr('playorder'));
+				}
+				if(data.hasAttr('enableWhenAnswered')){
+					this.setAttribute('enableWhenAnswered',data.getAttr('enableWhenAnswered'));
+				}
+				this.setAttribute('hasPlayed',false);
+	
+				gController.addImageFields({"this.widget_id" : this.widget_id, "imageComponent" : this, "isPlayed" : false});
+			}
+
 	//Image url may come in either attribute name "src" or "image_ref", so take care of both.
 			if(data.hasAttr('src')) {
 				theSrc = getImageUrl(data.getAttr('src'));
@@ -144,7 +178,7 @@
 			// Handle the XML "autoenlargeable" attribute within 
 			// the "updateImageLayout" method
             this.autoenlarge = data.getAttr("autoenlargeable");
-
+			gController.imageComponent(this);
             if (data.hasAttr( 'alt_text' ) ) {
             	var dataAltText = data.getAttr( 'alt_text' );
                 this.setAttribute( 'hasAltText', true );
@@ -167,7 +201,7 @@
 
 		<method name="getDefaultErrorMessage">
 		 	var errorStr1 = "The Online Assessment software is unable to connect with the server.";
-			var errorStr2 = "Ask the person in charge of this test to close this window. Log in again in five minutes, and you will return to your last saved answer.";
+			var errorStr2 = "Ask the person in charge of this test to close this window. Log in again in three minutes, and you will return to your last saved answer.";
 			var errorStr3 = "Error Code: TDC207";
 			return errorStr1 + "^" + errorStr2+ "^" + errorStr3;	
 		</method>
@@ -177,6 +211,7 @@
 		</method>
 		
         <method event="onload" reference="this.imageview">
+//Debug.write("cachable image onload....", this.imageview);        
         	updateImageLayout();
         </method>
 
@@ -192,7 +227,7 @@
         </method>
 
 		<method name="updateImageLayout"><![CDATA[
-
+//Debug.write("cachable image updateImageLayout....");
             if (this['autoenlarge'] == "yes" && gController.hasFontAccommodation) {
         
                 var offset = 0;
@@ -283,31 +318,86 @@
                 immediateparent.updateSelector();
             }
 		]]></method>
+		
+		
+		<method name="hide">
+            	this.setAttribute('opacity',0);
+            	//Debug.write("hide...", this.isReadable);
+            	 this.imageview.setAttribute('clickable',false);
+		</method>
+		<method name="show">
+            	this.setAttribute('opacity',100);
+            	if(this.readable)
+            	this.imageview.setAttribute('clickable',true);
+		</method>
 
         <view name="imageview" stretches="both" clickable="${classroot.readable}">
+        	        	
+        	<handler name="onframe" args="f"><![CDATA[
+        	//var totalNoOfFrames  = this.imageview.getAttribute("totalframes");
+        	
+			//Debug.write("onframe" + f);
+		
+			if(f == 10){
+        		//gController.freezeUI();
+			}
+        	]]></handler>
+        	
+        	<handler name="onlastframe">
+			//Debug.write("onlast frame");
+	        	//gController.unlockUI();
+        	</handler>
+
+        	<handler name ="onstop">
+    	    	//Debug.write("onstop");
+        	</handler>
+			
+        	<handler name ="onplay">
+    	    	//Debug.write("onplay");
+        	</handler>
+
+        	<handler name ="onstart">
+    	    	//Debug.write("onstart");
+        	</handler>
+
         	<method event="onclick">
         		classroot.read();
         	</method>
+        	
+        	<handler name="onload">
+				if(classroot.isaudio){
+					if(classroot.playorder != 1){
+						Debug.write("playorder not 1");
+						this.getMCRef().disableBtn();
+					}
+				}
+		  	</handler>
+
             <attribute name="reloadDel" value="$once{new LzDelegate(this, '_reload')}" />
             <!--  This is to fix a weird bug that Laszlo couldnt explain - sometimes the request would return a 
                   resource of height 0 and width 0.  It wouldnt error - it would return successfully
                   without the image ..  This is to retry the request if that happens. -->
             <method event="onload" args="d"><![CDATA[
+//Debug.write("imageview onload : ",d);
             	if(!gCommunicator.checkShowError(d) && (this.resourceheight == 0 || 
                                                         this.resourcewidth == 0)) {
-            
+//Debug.write("gCommunicator.checkShowError if");            
                     classroot.setAttribute ('retrycount', classroot.retrycount + 1);
                     if (classroot.retrycount < 5) {
                         LzIdle.callOnIdle(reloadDel);
+//Debug.write("classroot.retrycount : ", classroot.retrycount);
                     } else {
+//Debug.write("else of classroot.retrycount");
                         gCommunicator.checkShowError(gXmlHelper.getContentErrorXml());
                     }
                 } else {
+//Debug.write("doneLoading called...");
 					classroot.doneLoading();
                 }
             ]]></method>
             
             <method name="_reload">
+//Debug.write("_reload,...",this.resource);
                 this.unload();
                 this.setSource (this.resource);
             </method>
@@ -315,8 +405,10 @@
             <method event="onerror">
                 gCommunicator.checkShowError(gXmlHelper.getContentErrorXml());
             </method>
+
             <method event="ontimeout">
             <![CDATA[
+//Debug.write("ontimeout....",this.resource);
                 //Debug.warn( resource + ' ontimeout ', classroot.timeoutretrycount );
                 if ( classroot.timeoutretrycount < 1 )
                 {
@@ -330,6 +422,15 @@
 			]]>
             </method>
         </view>
+
+		 <view name="overlay" visible="false"
+				clickable="false"
+				opacity="0"
+				width="${this.parent.imageview.width}"
+				height="${this.parent.imageview.height}"
+				x="${this.parent.imageview.x}"
+				y="${this.parent.imageview.y}"/>
+
         <EnlargeButton name="enlarge"
                     x="${classroot.width-this.width}"
                     y="0"/>

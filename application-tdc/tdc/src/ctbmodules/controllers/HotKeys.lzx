@@ -51,7 +51,7 @@
             LzKeys.callOnKeyCombo( dstop, [ 'control', 's' ] );
             LzKeys.callOnKeyCombo( dfinish, [ 'control', 'f' ] );
            
-            if ( gController.getClientMachine() == 'MAC' ) {
+		    if ( gController.getClientMachine() == 'MAC' || isMac()) {
                 dmacKeyHandler.register( LzKeys, 'onkeydown' );
             }
         </method>
@@ -104,9 +104,9 @@
             LzKeys.removeKeyComboCall( dpause, [ 'control', 'u' ] );
             LzKeys.removeKeyComboCall( dstop, [ 'control', 's' ] );
             LzKeys.removeKeyComboCall( dfinish, [ 'control', 'f' ] );
-         
-            if ( gController.getClientMachine() == 'MAC' ) {
-                dmacKeyHandler.unregisterFrom( LzKeys.onkeydown );
+
+		    if ( gController.getClientMachine() == 'MAC' || isMac()) {
+            	dmacKeyHandler.unregisterFrom( LzKeys.onkeydown );
             }
         </method>
 
@@ -155,8 +155,10 @@
         			gController.finishTestShortcut();      // CTRL F ?
                     break;
 				case 10: 
-                    this.exitPopups();
-                    gController.stepNavigateBack();  
+					if(!gController.fwdOnly){
+	                    this.exitPopups();
+	                    gController.stepNavigateBack();  
+					}
                     break;
 				case 11: 
                     this.exitPopups();
@@ -276,13 +278,18 @@
 	        	gController.toggleItemSelState( 'J' ); 
 	        }
         </method>        
-        <method name="goBack"> 
-        	if(!gController.onFirstItem()){
-        		LzFocus.clearFocus();
-        	}
-            this.exitPopups();
-        	gController.stepNavigateBack();        
-        </method>
+        <method name="goBack">
+		<![CDATA[
+			if(!gController.fwdOnly){
+        		if(!gController.onFirstItem()){
+        			LzFocus.clearFocus();
+        		}
+        	
+            	this.exitPopups();
+        		gController.stepNavigateBack();
+			}      
+       	]]>
+		</method>
         <method name="goOn"> 
         	if(!gController.onLastItem()){
         		LzFocus.clearFocus();
@@ -303,12 +310,14 @@
         		LzFocus.clearFocus();
         	}
             this.exitPopups(); 
-        	gController.pauseTest();               
+        	if(gItemInterface.getAttribute('visible') == true || gTutorial.getAttribute('visible') == true)
+        		gController.pauseTest();
         </method>
         <method name="stop">       
         	LzFocus.clearFocus();
-            this.exitPopups(); 
-        	gController.finishTest();              
+            this.exitPopups();
+        	if(gItemInterface.getAttribute('visible') == true || gTutorial.getAttribute('visible') == true)
+        		gController.finishTest();              
         </method>
         <method name="finish">     
         	LzFocus.clearFocus();

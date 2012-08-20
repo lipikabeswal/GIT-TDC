@@ -10,19 +10,40 @@
 
         <method name="setStats" args="unanswered, marked">
         <![CDATA[
-            stats.notanswered.setAttribute(
+            if(!gController.fwdOnly){
+            Debug.write("###############fwdOnly false");
+            	stats.notanswered.setAttribute(
                 'text',
                 unanswered +
                 ( unanswered == 1 ? ' question ' : ' questions ' ) +
                 'not answered.&nbsp;&nbsp;'
-            );
-
-            stats.marked.setAttribute(
-                'text',
-                marked +
-                ( marked == 1 ? ' question ' : ' questions ' ) +
-                'marked for review.&nbsp;&nbsp;'
-            );
+            	);
+				stats.marked.setAttribute(
+                	'text',
+               	 marked +
+               	 ( marked == 1 ? ' question ' : ' questions ' ) +
+               	 'marked for review.&nbsp;&nbsp;'
+            	);
+            }
+            else{	
+				var leftQues="";
+                if(gController.adaptive == 'false'){                   
+            		leftQues = gController.totalQuestions() - gController.totalVisited();
+            		stats.notanswered.setAttribute(
+                	'text','You have '+leftQues+' '+((leftQues == 1) ? 'question' :'questions')+' left.');
+                }
+                else{    
+					if(gController.getAttribute("RestartTest") == "true"){
+						//Debug.write("For Restart scenario");
+							leftQues = 0;
+						}
+					else{       
+                     		leftQues = gController.subtestLength - gController.totalVisited();
+						}
+             		 stats.notanswered.setAttribute(
+                	'text','You have '+leftQues+' '+((leftQues == 1) ? 'question' :'questions')+' left.');
+					}
+            }
 		]]>            
         </method>
 
@@ -59,11 +80,15 @@
             <YesFinishedButton enabled="${ gScreens.allowclick }">
                 <method name="finished" event="onclick">
                     gScreens.clicked();
+                    gController.isStopScreen = true;
                     gController.saveEndSubtest( '' );
+                    //START Defect# 59282
+                    gController.resetCrFields();
+                    //END
                 </method>
             </YesFinishedButton>
             <NoGoBackToTestButton name="goback"
-                                  enabled="${ gScreens.allowclick }">
+                                  enabled="${ gScreens.allowclick }" visible= "${gController.isStopTest || !gController.isFinishTest}">
                 <method name="goback" event="onclick">
                     gScreens.clicked();
                     gController.resumeTest();

@@ -1,0 +1,134 @@
+<library>
+	<font name="CTB">
+		<face src="fonts/OASmathv3.ttf" style="plain" />
+		<face src="fonts/OASmathv3 Bold.ttf" style="bold" />
+		<face src="fonts/OASmathv3 Italic.ttf" style="italic" />
+		<face src="fonts/OASmathv3 BoldItalic.ttf" style="bold italic" />
+	</font>
+
+    <!-- tooltip -->
+    <resource name="tooltip_point_CCECFF" src="iknow_toolbar/tooltip_pointer_up_CCECFF.png"/>
+    <resource name="tooltip_point_FFCCCC" src="iknow_toolbar/tooltip_pointer_up_FFCCCC.png"/>
+    <resource name="tooltip_point_FFFFB0" src="iknow_toolbar/tooltip_pointer_up_FFFFB0.png"/>
+    <resource name="tooltip_point_FFFFFF" src="iknow_toolbar/tooltip_pointer_up_FFFFFF.png"/>
+    <resource name="tooltip_point_000000" src="iknow_toolbar/tooltip_pointer_up_000000.png"/>
+    <resource name="tooltip_point_000080" src="iknow_toolbar/tooltip_pointer_up_000080.png"/>
+    <resource name="tooltip_point_663300" src="iknow_toolbar/tooltip_pointer_up_663300.png"/>
+    <resource name="tooltip_point_FFFF99" src="iknow_toolbar/tooltip_pointer_up_FFFF99.png"/>
+    <resource name="tooltip_point_00CC00" src="iknow_toolbar/tooltip_pointer_up_00CC00.png"/>
+    <!-- =====================
+         Tabs
+         =====================-->    
+    <resource name="tab_contents_left">
+        <frame src="components/tabs/tab_contents_dslct_lft.swf"/>
+        <frame src="components/tabs/tab_contents_dslct_lft.swf"/>
+        <frame src="components/tabs/tab_contents_slct_lft.swf"/>
+    </resource>
+
+    <resource name="tab_contents_mid">
+        <frame src="components/tabs/tab_contents_dslct_mid.swf"/>
+        <frame src="components/tabs/tab_contents_dslct_mid.swf"/>
+        <frame src="components/tabs/tab_contents_slct_mid.swf"/>
+    </resource>
+
+    <resource name="tab_contents_right">
+        <frame src="components/tabs/tab_contents_dslct_rt.swf"/>
+        <frame src="components/tabs/tab_contents_dslct_rt.swf"/>
+        <frame src="components/tabs/tab_contents_slct_rt.swf"/>
+    </resource>
+
+     <resource name="tab_border_left">
+        <frame src="components/tabs/tab_border_dslct_lft.swf"/>
+        <frame src="components/tabs/tab_border_dslct_lft.swf"/>
+        <frame src="components/tabs/tab_border_slct_lft.swf"/>
+    </resource>
+
+    <resource name="tab_border_mid">
+        <frame src="components/tabs/tab_border_dslct_mid.swf"/>
+        <frame src="components/tabs/tab_border_dslct_mid.swf"/>
+        <frame src="components/tabs/tab_border_slct_mid.swf"/>
+    </resource>
+
+    <resource name="tab_border_right">
+        <frame src="components/tabs/tab_border_dslct_rt.swf"/>
+        <frame src="components/tabs/tab_border_dslct_rt.swf"/>
+        <frame src="components/tabs/tab_border_slct_rt.swf"/>
+    </resource> 
+
+    <!-- =====================
+         Manipulatives
+         =====================-->    
+    <!-- tooltip -->
+    
+<!-- ****************** Start Recorder Resources ************************************************* -->
+    <resource name="button_record">
+       	<frame src="components/recorder/button_record.jpg"/>
+       	<frame src="components/recorder/button_record_clicked.jpg"/>
+       	<frame src="components/recorder/button_record_disable.jpg"/>
+	</resource>
+	
+	<resource name="button_stop">
+       	<frame src="components/recorder/button_stop.jpg"/>
+       	<frame src="components/recorder/button_stop_clicked.jpg"/>
+       	<frame src="components/recorder/button_stop_disable.jpg"/>
+	</resource>
+	
+	<resource name="button_play">
+       	<frame src="components/recorder/button_play.gif"/>
+       	<frame src="components/recorder/button_play_clicked.gif"/>
+       	<frame src="components/recorder/button_play_disable.gif"/>
+	</resource>
+	
+	<resource name="button_playstop">
+       	<frame src="components/recorder/button_playstop.jpg"/>
+       	<frame src="components/recorder/button_playstop_clicked.jpg"/>
+       	<frame src="components/recorder/button_playstop_disable.jpg"/>
+	</resource>
+	
+	<resource name="button_reset">
+       	<frame src="components/recorder/button_reset.gif"/>
+       	<frame src="components/recorder/button_reset_hover.gif"/>
+       	<frame src="components/recorder/button_reset_disable.gif"/>
+	</resource>
+	
+	<resource name="button_submit">
+       	<frame src="components/recorder/button_submit.gif"/>
+       	<frame src="components/recorder/button_submit_clicked.jpeg"/>
+       	<frame src="components/recorder/button_submit_disable.gif" />
+	</resource>
+	
+	<resource name="button_startover">
+       	<!--frame src="components/recorder/button_startover.gif"/>
+       	<frame src="components/recorder/button_startover_hover.jpg"/>
+       	<frame src="components/recorder/button_startover_disabled.png"/-->
+	<frame src="components/recorder/start_over.png"/>
+       	<frame src="components/recorder/start_over_hover.png"/>
+       	<frame src="components/recorder/start_over_disable.png"/>
+	</resource>
+	
+	<resource name="volume_meter">
+       	<frame src="components/recorder/seo-graph.png"/>
+	</resource>
+	
+	<resource name="volume_meter_flip">
+       	<frame src="components/recorder/seo-graph_flip.png"/>
+	</resource>
+	
+	<resource name="heading_microphone">
+       	<frame src="components/recorder/microphone_red.gif"/>
+	</resource>
+	
+	<resource name="record_bullet_red">
+       	<frame src="components/recorder/Bullet-red.png"/>
+	</resource>
+	
+	<resource name="record_bullet_green">
+       	<frame src="components/recorder/Bullet-green.png"/>
+	</resource>
+	
+	<resource name="mic_not_connected">
+       	<frame src="components/recorder/Mute.png"/>
+	</resource>	
+	
+	<!-- ****************** End Recorder Resources ************************************************* -->
+</library>

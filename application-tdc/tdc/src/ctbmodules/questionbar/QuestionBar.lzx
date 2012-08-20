@@ -119,12 +119,17 @@
                 <!-- the buttons below youarehere -->
                 <view name="thebtns" x="${classroot.moreleft.x}">
                     <simplelayout axis="x" spacing="14"/>
-                    <QuestionBarButton y="13" datapath="runtime/item_model"/>
+                    <QuestionBarButton y="13" datapath="runtime/item_model">
+						<datapath pooling="true"></datapath>
+					</QuestionBarButton>
                 </view>
 
             </view>
         </view>
-
+		<view name="qbtnsOverlay" height="100%" visible="${gController.fwdOnly }"
+              width="100%"
+              clip="true" clickable="true" showhandcursor="false" onmouseover="this.setAttribute('showhandcursor',false)" opacity=".4" bgcolor="gray">
+        </view>
          <basebutton name="moreleft" resource="moreleft_btn" 
                 x="${parent.x + parent.morefastleft.width}"
                 y="$once{classroot.SCROLL_Y}"

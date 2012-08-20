@@ -6,8 +6,8 @@
 	         queuerequests="true" 
 	         querytype="post"
 	         timeout="30000" 
-	         onerror="gRequest.requestError()" 
-	         ontimeout="gRequest.requestTimeout()" 
+	         onerror="gRequest.requestError(this)" 
+	         ontimeout="gRequest.requestTimeout(this)" 
 	         ondata="gRequest._processResponse(this)" />
 	         
 	<dataset name="heartbeatDs" 
@@ -15,8 +15,8 @@
 	         queuerequests="true" 
 	         querytype="post"
 	         timeout="30000" 
-	         onerror="gRequest._returnHeartbeatError()" 
-	         ontimeout="gRequest._returnHeartbeatError()" 
+	         onerror="gRequest._returnHeartbeatError(this)" 
+	         ontimeout="gRequest._returnHeartbeatError(this)" 
 	         ondata="gRequest._heartbeatReturn(this)" />
 	         
 	<dataset name="contentDs" 
@@ -24,8 +24,8 @@
 	         queuerequests="true" 
 	         querytype="post"
 	         timeout="120000" 
-	         onerror="gRequest.requestError()" 
-	         ontimeout="gRequest.requestTimeout()" 
+	         onerror="gRequest.requestError(this)" 
+	         ontimeout="gRequest.requestTimeout(this)" 
 	         ondata="gRequest._processResponse(this)" />
 
     <node id="gRequest">
@@ -41,6 +41,9 @@
 		<attribute name="GET_SUBTEST_METHOD" type="string" value="getSubtest" />
 		<attribute name="GET_ITEM_METHOD" type="string" value="getItem" />
 		<attribute name="DOWNLOAD_ITEM_METHOD" type="string" value="downloadItem" />
+		<attribute name="DOWNLOAD_FILE_PART_METHOD" type="string" value="downloadFileParts" />
+		<attribute name="GET_MUSIC_DATA" type="string" value="getMusicData" />
+		<attribute name="GET_ITEM_COUNT" type="string" value="getItemCount" />
 		<attribute name="mseq" type="number" value="1" />
 		<attribute name="cid" value="$once{Math.floor(Math.random() * 1000000)}" />
 		<attribute name="uploadAuditFileLsid" value="null"/>
@@ -60,7 +63,7 @@
 		</method>
 		
 		<method name="login" args="username, password, accesscode" >
-			var xml = gXmlHelper.getLoginXml(username, password, accesscode);
+			var xml = gXmlHelper.getLoginXml(username, password, accesscode, cid);
 			_doRequest(persistenceDs, LOGIN_METHOD, xml);
 		</method>
 		
@@ -73,6 +76,10 @@
 			var xml = gXmlHelper.getDownloadItemXml(id, hash, key);
 			_doRequest(contentDs, DOWNLOAD_ITEM_METHOD, xml);
 		</method>
+		<method name="downloadFilePart" args="name,sequenceNo,next">
+			var xml = gXmlHelper.getDownloadFilePartXml(name,sequenceNo,next);
+			_doRequest(contentDs, DOWNLOAD_FILE_PART_METHOD, xml);
+		</method>
 		
 		<method name="getItem" args="id, hash, key">
 			var xml = gXmlHelper.getGetItemXml(id, hash, key);
@@ -84,6 +91,7 @@
 //Debug.write("heartbeat saveXml: " + getTimer());
 //printBigString(xml);
 			_doRequest(heartbeatDs, SAVE_METHOD, xml);
+			//gController.setWaitPopupToShow();
 		</method>
 
 		<method name="save" args="params">
@@ -124,7 +132,7 @@
 		
 		<method name="endSubtest" args="raw, max, exit, time, unscored">
 			var xml = gXmlHelper.getEndSubtestXml(gController.lsid, gController.scid, cid, _getAndIncrementMseq(), 
-			                                      raw, max, exit, time, unscored);
+			                                      raw, max, exit, time, unscored, gController.abScore, gController.sem, gController.objScore);
 //Debug.write("endSubtestXml: ");
 //printBigString(xml);
 			_doRequest(persistenceDs, SAVE_METHOD, xml);
@@ -153,7 +161,7 @@
 //Debug.write("process response:")
 //Debug.write("timestamp1: " + timestamp1);
 //Debug.write("timestamp2: " + timestamp2);
-			gCommunicator.finishCall(datasetText);
+			gCommunicator.finishCall(datasetText,ds);
 		</method>
 		
  	   	<method name="_processDownload" args="ds">
@@ -169,36 +177,36 @@
 		</method>
 		
 		<method name="_heartbeatReturn" args="ds" >
-//Debug.write("_heartbeatReturn: " + ds);
-			gCommunicator.finishHeartbeatCall(getDatasetText(ds));
+Debug.write("_heartbeatReturn: " + ds);
+			gCommunicator.finishHeartbeatCall(getDatasetText(ds),ds);
 		</method>
 		
-		<method name="requestTimeout">
-//Debug.write("request timeout");
-			_returnError();
+		<method name="requestTimeout" args="ds">
+Debug.write("request timeout : ", ds);
+			_returnError(ds);
 		</method>
 		
-		<method name="requestError">
-//Debug.write("request error");
-			_returnError();
+		<method name="requestError" args="ds">
+Debug.write("request error : ", ds);
+			_returnError(ds);
 		</method>
-		<method name="_returnError">
-//Debug.write("_returnError");
+		<method name="_returnError" args="ds">
+Debug.write("_returnError : ", ds);
 			if(gScreens.isOnFeedbackScreen()){
-				gCommunicator.finishCall(gXmlHelper.getFeedbackErrorXml());
+				gCommunicator.finishCall(gXmlHelper.getFeedbackErrorXml(),ds);
 			}
 			else{
-				gCommunicator.finishCall(gXmlHelper.getErrorXml());
+				gCommunicator.finishCall(gXmlHelper.getErrorXml(),ds);
 			}
 		</method>
 		
-		<method name="_returnHeartbeatError">
-//Debug.write("_heartbeatReturnError");
+		<method name="_returnHeartbeatError" args="ds">
+Debug.write("_heartbeatReturnError : ", ds);
 			if(gScreens.isOnFeedbackScreen()){
-				gCommunicator.finishHeartbeatCall(gXmlHelper.getFeedbackErrorXml());
+				gCommunicator.finishHeartbeatCall(gXmlHelper.getFeedbackErrorXml(),ds);
 			}
 			else{
-				gCommunicator.finishHeartbeatCall(gXmlHelper.getErrorXml());
+				gCommunicator.finishHeartbeatCall(gXmlHelper.getErrorXml(),ds);
 			}
 		</method>
 		
@@ -237,7 +245,7 @@
 		</method>
     	<method name="_doRequest" args="ds, _method, xml">
       	<![CDATA[
-//Debug.write("doRequest: " + ds + " , " + _method + " , " + xml);  
+		//Debug.write("doRequest: " + ds + " , " + _method + " , " + xml);  
 		    if (typeof canvas.folder != "undefined") {
 //Debug.write("XXX: folder " + canvas.folder);
 				ds.setQueryParam(FOLDER_PARAM, canvas.folder);
@@ -273,6 +281,11 @@
 		
  	   	<method name="_finishDownload" args="result">
     	 	gCommunicator.finishDownload(result);
+		</method>
+
+ 	   	<method name="sendRequest" args="ds">
+ 	   	Debug.write("sendRequest : ", ds.name,ds);
+    	 	ds.doRequest();
 		</method>
 		
 	</node>

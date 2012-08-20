@@ -1,0 +1,4 @@
+<library>
+    <include href="AbsoluteLayout.lzx"/>
+    <include href="DynamicSimplelayout.lzx"/>
+</library>

@@ -1,4 +1,4 @@
-<project name="tdc" default="TestClient" basedir=".">
+<project name="tdc-android" default="TestClient" basedir=".">
 
 	
     <property name="src"   value="${basedir}/src"/>

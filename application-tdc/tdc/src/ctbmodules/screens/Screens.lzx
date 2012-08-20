@@ -30,6 +30,10 @@
             return onFeedbackScreen;
         </method>
         
+        <method name="isOnPauseScreen"><![CDATA[
+        	return (contents.ps.isinited && contents.ps.visible);
+        ]]></method>
+        
         <method name="clicked">
             setAttribute( 'allowclick', false );
         </method>
@@ -40,11 +44,16 @@
 
 
 		<method name="isOnFinishScreen"><![CDATA[
-
 			return (contents.fs.isinited && contents.fs.visible);
-
+		]]></method>
+		
+			<method name="removeFinishState"><![CDATA[
+			 contents.fs.setVisible (false);
 		]]></method>
 
+		<method name="isOnTimeOutScreen"><![CDATA[
+			return (contents.os.isinited && contents.os.visible);
+		]]></method>
 		
         <method name="removeAllStates">
             setAttribute( 'allowclick', true );
@@ -77,7 +86,6 @@
             if ( !contents.ds.isinited ) contents.ds.completeInstantiation();
 
             contents.ds.setTotalSubtests(totalSubtests);
-
             contents.ds.setVisible( true );
 
             show();
@@ -86,13 +94,15 @@
 
         
 
-        <method name="incrementSubtestDownload" args="totalItems">
+        <method name="incrementSubtestDownload" args="totalItems,totalFileParts">
 
-        	contents.ds.incrementSubtest(totalItems);
+        	contents.ds.incrementSubtest(totalItems, totalFileParts);
 
         </method>
 
-        
+        <method name="incrementFilePartDownload" args="totalItems">
+        	contents.ds.incrementFilePart();
+        </method>
 
         <method name="incrementItemDownload">
 
@@ -105,7 +115,7 @@
          <method name="showError" args="xml">
 
          Debug.write("gScreens.showError");
-
+			gMusicPlayer.stop();
          printBigString(xml);
 
             removeAllStates();
