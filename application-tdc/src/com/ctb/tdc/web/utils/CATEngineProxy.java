@@ -19,6 +19,8 @@ public class CATEngineProxy {
 	private static int totObj_rs ;
 	private static int obj_masteryLvl; 
 	private static boolean studentStop;
+	private static boolean reportable = true;
+	private static final Double unReportable = -1.0;
 
 	public static HashMap itemIdMap = new HashMap();
 	//public static HashMap itemIdMap;
@@ -375,7 +377,8 @@ public class CATEngineProxy {
 			initCAT("MC");
 			String next = getNextItem();
 			while(next != null){
-				scoreCurrentItem(new Integer((int) Math.round(Math.random())));
+				//scoreCurrentItem(new Integer((int) Math.round(Math.random())), true);
+				scoreCurrentItem(null, false);
 				next = getNextItem();
 			}
 			getAbilityScore();
@@ -397,9 +400,11 @@ public class CATEngineProxy {
 		//Determine the type of OS
 		String dllPath="";
 		String ostype=System.getProperty("os.name").toLowerCase();
+		reportable = true;
 		if (ostype.indexOf( "win" ) >= 0){
 			System.out.println("For Windows " + System.getProperty("tdc_home"));
-			dllPath = System.getProperty("tdc.home") + "/CATABE.dll";
+			//dllPath = System.getProperty("tdc.home") + "/CATABE.dll";
+			dllPath = "C:/Program Files/CTB/Online Assessment/CATABE.dll";
 			//System.load(dllPath);
 		}
 		else 
@@ -427,57 +432,76 @@ public class CATEngineProxy {
 		itemnum = 0;
 		nextItem = null;//set null to make it ready for next subtest
 		studentStop = true;
-		System.out.println("caling setup_cat");
+		//System.out.println("caling setup_cat");
 		setup_cat(contentArea);
 		//initItemMap();
 		
 	}
 
 	public static String getNextItem() throws Exception{
-		System.out.println("Called getNextItem()" + itemIdMap.size());
+		//System.out.println("Called getNextItem()" + itemIdMap.size());
 		
 		if(nextItem == null) {
-				scoreCurrentItem(null);
+				scoreCurrentItem(null,false);
 		}
 		return nextItem;
 	}
 
-	public static void scoreCurrentItem(Integer currentItemRawScore) throws Exception {
+	public static void scoreCurrentItem(Integer currentItemRawScore, Boolean itemSkip) throws Exception {
 		System.out.println("Called scoreCurrentItem()");
 			if(currentItemRawScore != null) {
 				// System.out.println("Called set_rwo()");
 				set_rwo(currentItemRawScore.intValue());
 				theta = score();
-				System.out.println("item score: " + currentItemRawScore + ", new theta: " + theta);
+				//System.out.println("item score: " + currentItemRawScore + ", new theta: " + theta);
 			}
-			    String nextitem = String.valueOf(next_item());
-		        
-		        
+
+			 String nextitem = String.valueOf(next_item());
+			 
+			 //System.out.println("the nextitem is =  "+nextitem);
+		      
+			 if(itemSkip){  
+				 set_rwo(-9);
+				 theta = score();
+				 //System.out.println("itemskip theta: " + theta);
+			 }
+
+	        
+			
 			if(nextitem == null || nextitem.equals("-1")) {
 				studentStop = false;
 				throw new Exception("CAT OVER!");
 			} else {
 				itemnum++;
-				System.out.println(" scoreCurrentItem CATEngineProxy itemIdMap size :"+CATEngineProxy.itemIdMap.size());
-				System.out.print("PEID ID: " + nextitem + ", ");
+				//System.out.println(" scoreCurrentItem CATEngineProxy itemIdMap size :"+CATEngineProxy.itemIdMap.size());
+				//System.out.print("PEID ID: " + nextitem + ", ");
 				Integer adsitem = (Integer)itemIdMap.get(nextitem);
-				System.out.print("ADS ID: " + adsitem + "\n");
+				//System.out.print("ADS ID: " + adsitem + "\n");
 				nextItem = String.valueOf(adsitem.intValue());
 				ServletUtils.currentItem = nextItem;
-				System.out.print("engine currentItem : " + ServletUtils.currentItem );
+				//System.out.print("engine currentItem : " + ServletUtils.currentItem );
 			}
 	}
 
+
 	public static double getAbilityScore() {
-		//System.out.println("Called getAbilityScore()");
-		//System.out.println("Ability: " + theta);
+		 if (theta == unReportable){
+			 reportable = false;
+		 }
 		return theta;
 	}
 
 	public static double getSEM() {
-		//System.out.println("Called getSEM()");
+
+		if(reportable){
 		SEM = getSEM(theta);
-		//System.out.println("SEM: " + SEM + "::"+ theta);
+
+		}else{
+			SEM = 0;
+		}
+		//System.out.println("Called SEM: " + SEM + "::"+ theta + " :: "+ reportable );
+
+		
 		return SEM;
 	}
 	
@@ -485,34 +509,39 @@ public class CATEngineProxy {
 		//System.out.println("Called getObjScore()");
 		totObjNum = get_nObj();
 		String scoreString = null;
-		for ( int j = 0; j < totObjNum; j++) {
-			   obj_id = get_objID(j);
-			  // obj_lvl = get_objLvl(theta);  // E, M, D, A
-			   obj_score = get_objScaleScore(obj_id);
-			   if (obj_score > 0) {
-				   obj_SSsem = get_objSSsem(obj_score, obj_id);
-			       obj_rs = get_objRS();
-				   totObj_rs = get_totObjRS();
-			       obj_masteryLvl = get_objMasteryLvl(obj_score, obj_id); // 0 = Non-Mastery, 1=Partial-Mastery, 2=Mastery
-	               if (obj_masteryLvl < 0){
-	            	   System.out.println("Error: invalid objective level call. \n");
-	               }else{
-					   System.out.println( (j+1) + " id= " + obj_id + " rs= "+ obj_rs + " totRS= " + totObj_rs 
-							   + " SS = "+ obj_score + " sem= " + obj_SSsem + " Mastery-level = " + obj_masteryLvl);
-	               }
-	               System.out.println("obj_masteryLvl :"+obj_masteryLvl);
-	               if(scoreString == null)
-	            	   scoreString = obj_id +","+ obj_rs +","+ totObj_rs +","+ obj_score +","+ obj_SSsem +","+ obj_masteryLvl ;
-	               else
-	            	   scoreString = scoreString + "|" + obj_id +","+ obj_rs +","+ totObj_rs +","+ obj_score +","+ obj_SSsem +","+ obj_masteryLvl ;
-			   }
-			   else {
-				   if(scoreString == null)
-					   scoreString = "0,0,0,0,0,0";
-				else
-				   scoreString = scoreString + "|" + "0,0,0,0,0,0";
-			   }  // not report objective score
+		if(reportable){
+			for ( int j = 0; j < totObjNum; j++) {
+				obj_id = get_objID(j);
+				// obj_lvl = get_objLvl(theta);  // E, M, D, A
+				obj_score = get_objScaleScore(obj_id);
+				//System.out.println("objScaleScore"   + obj_score);
+				if (obj_score > 0) {
+					obj_SSsem = get_objSSsem(obj_score, obj_id);
+					obj_rs = get_objRS();
+					totObj_rs = get_totObjRS();
+					obj_masteryLvl = get_objMasteryLvl(obj_score, obj_id); // 0 = Non-Mastery, 1=Partial-Mastery, 2=Mastery
+					if (obj_masteryLvl < 0){
+						System.out.println("Error: invalid objective level call. \n");
+					}else{
+						System.out.println( (j+1) + " id= " + obj_id + " rs= "+ obj_rs + " totRS= " + totObj_rs 
+								+ " SS = "+ obj_score + " sem= " + obj_SSsem + " Mastery-level = " + obj_masteryLvl);
+					}
+					System.out.println("obj_masteryLvl :"+obj_masteryLvl);
+					if(scoreString == null)
+						scoreString = obj_id +","+ obj_rs +","+ totObj_rs +","+ obj_score +","+ obj_SSsem +","+ obj_masteryLvl ;
+					else
+						scoreString = scoreString + "|" + obj_id +","+ obj_rs +","+ totObj_rs +","+ obj_score +","+ obj_SSsem +","+ obj_masteryLvl ;
+				}
+				else {
+					if(scoreString == null)
+						scoreString = "0,0,0,0,0,0";
+					else
+						scoreString = scoreString + "|" + "0,0,0,0,0,0";
+				}  // not report objective score
+			}
+			
 		}
+		//System.out.println("Called getObjScore() reportable" + reportable);
 		return scoreString;
 	}
 	
@@ -531,10 +560,10 @@ public class CATEngineProxy {
 				return 0;
 			} else {
 				itemnum++;
-				System.out.println(" restartCAT scoreCurrentItem CATEngineProxy itemIdMap size :"+CATEngineProxy.itemIdMap.size());
-				System.out.print("restartCAT PEID ID: " + nextitem + ", ");
+				//System.out.println(" restartCAT scoreCurrentItem CATEngineProxy itemIdMap size :"+CATEngineProxy.itemIdMap.size());
+				//System.out.print("restartCAT PEID ID: " + nextitem + ", ");
 				Integer adsitem = (Integer)itemIdMap.get(nextitem);
-				System.out.print("restartCAT ADS ID: " + adsitem + "\n");
+				//System.out.print("restartCAT ADS ID: " + adsitem + "\n");
 				nextItem = String.valueOf(adsitem.intValue());
 			}
 		return 1; 
