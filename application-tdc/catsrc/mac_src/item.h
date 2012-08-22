@@ -71,11 +71,13 @@ struct item_info {
 //	int obj_n;  // total number of objectives 
 //	int a_level;  // a parameter stratified levels
 	*/
+	int org_psg_id; /* original psg id for QA data purpose */
 	int psg_id;
 	int item_order;
 	int adm_flag; /* initialized as 1, set to 0 after item is administrated */
 	int rwo;
 	char level; /* FT item level: E, M, D, A, T etc */
+	int enemy;
 };
 
 #define VALID_ITEMS   0

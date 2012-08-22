@@ -492,6 +492,7 @@
 		<attribute name="isFinishTest" value="false" type="boolean" />
 		<attribute name="restartItemCount" type="number" value="0" />
 		<attribute name="prevItemId" type="number" value="0" />
+		<attribute name="isCatStop" value="false" type="boolean" />
 		<!--
 			============================================================
 			Datapointers
@@ -620,6 +621,7 @@
 			setState(SUBTEST_STATE);
 			var params = getCurrentSubtestParams();
 			gCommunicator.getSubtest(params[0], params[1], params[2]);
+			this.setAttribute("isCatStop", false);
 		</method>
 
 		<method name="processItemResponse">
@@ -3037,6 +3039,7 @@
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
             unlockUI();
+			this.setAttribute("isCatStop", false);            
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
 			if(this.adaptive == 'true'){
@@ -3055,6 +3058,14 @@
 		-->
 
 		<method name="stopTest">
+			Debug.write("STOP test button");
+		    var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
+        	if(itemnode != null){
+					curItemId = itemnode.getAttr( 'eid' );
+			}		
+			var isAnswered 	   = dpstudentdata.xpathQuery("runtime/item_model[@eid='"+curItemId+"']/@answered") == '1';
+			this.setAttribute("isCatStop", true);
+			Debug.write("isAnswered" + isAnswered);
 			this.setAttribute("isStopTest",true);
 			this.setAttribute("catOver",false);
 			this.isStopScreen = false;
@@ -3786,6 +3797,15 @@ Debug.write("############ loadItem ############");
 			value="$once{ new LzDelegate( this, 'updateTimeLeft' ) }" />
 
 		<method name="outOfTime"><![CDATA[
+		  var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
+        	if(itemnode != null){
+					curItemId = itemnode.getAttr( 'eid' );
+			}		
+			var isAnswered 	   = dpstudentdata.xpathQuery("runtime/item_model[@eid='"+curItemId+"']/@answered") == '1';
+
+Debug.write("out of time 1 ans" + isAnswered);
+			
+			this.setAttribute("isCatStop",true);
             if ( 0 == uisemaphore ) {
                 freezeUI();
             }

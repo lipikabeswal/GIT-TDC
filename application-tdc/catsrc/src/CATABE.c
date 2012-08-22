@@ -41,6 +41,7 @@ int main() {
 	int NEXT_ITEM_FAILURE = -999;
 	int END_ITEM = -1;
 	int SETUP_CATok = 0;
+	double UnReportableScore = -1.0;
 
 	int tot_n_objs = 0;
 	int obj_id = 0;
@@ -50,6 +51,7 @@ int main() {
 	int obj_masteryLvl;
 	int obj_rs = 0;
 	int totObj_rs = 0;
+	int psgID = 0;
 
  //   HINSTANCE hInstLibrary = LoadLibrary(TEXT("CATABE.dll"));
 
@@ -63,13 +65,12 @@ int main() {
 	   }
 
 //	   setoff_cat();  
-	   /*
+	   
 	   condition_code = checkPsgID();  // to check duplicated passageID in item bank
 	   if (condition_code != PSGID_OK) {
 	       printf("Error: duplicated passageID found! \n");
 	       return 1; 
 	   }
-	   */
 
 	   testLength = getTestLength();
 	   printf( "testLength = %d \n", testLength);
@@ -79,6 +80,7 @@ int main() {
 	   itemID = 0;
 	   while (itemID != END_ITEM) {
            itemID = next_item(); 
+		//   psgID = get_psgID();
 		   n++;
            if (itemID == NEXT_ITEM_FAILURE) {
                 printf("Error: adapt item # %d failed! \n", n);
@@ -93,43 +95,49 @@ int main() {
             if (itemID != END_ITEM) {
 			    rwo = randomNoBetween(0,1); // get raw score for item n by comparing student answer with key.
 		                               // if (right) rwo = 1 else rwo = 0;
-		//		rwo = 0;
-		        set_rwo(rwo);  // rwo = 0 or 1
+				if (n == 20) 
+					rwo = -9;   // test stops 
+		        
+				set_rwo(rwo);  // rwo = 0 or 1
 					
 		        theta = score();
-				printf("%d,   %d,   %d,   %6.2lf \n", n, itemID, rwo, theta);
+		//		printf("%d,   %d,  %d,  %d,   %6.2lf \n", n, itemID, psgID, rwo, theta);
+				printf("%d,   %d,  %d,   %6.2lf \n", n, itemID, rwo, theta);
 			}
 	    }
 	    n--;
         // n is the test Length
-		if (n != testLength ){
+/*		if (n != testLength ){
 			printf("Error: test length n = %d, \n", n);
 			return 0;
 		}
+*/
+       if ( theta != UnReportableScore ) { /* -1.0 */
+	       // final theta with SEM print out there for student # k;
+	       SEM = getSEM(theta);
+           printf(" student #,   theta,    SEM   \n");
+           printf(" %d,  %6.2lf,  %8.3lf \n", k, theta, SEM);  // report student scale score with SEM after test.
 
-	   // final theta with SEM print out there for student # k;
-	   SEM = getSEM(theta);
-       printf(" student #,   theta,    SEM   \n");
-       printf(" %d,  %6.2lf,  %8.3lf \n", k, theta, SEM);  // report student scale score with SEM after test.
-
-	   tot_n_objs = get_nObj();  // number of collapsed objectives
-	   printf(" Obj #, Obj_ID, rs, tot_rs, SS, sem, Mastery_Level   \n");
-	   for ( j = 0; j < tot_n_objs; j++) {
-		   obj_id = get_objID(j);
-		//   obj_lvl = get_objLvl(theta);  // E, M, D, A
-		   obj_score = get_objScaleScore(obj_id);
-		   if (obj_score > 0) {
-			   obj_SSsem = get_objSSsem(obj_score, obj_id);
-		       obj_rs = get_objRS();
-			   totObj_rs = get_totObjRS();
-		       obj_masteryLvl = get_objMasteryLvl(obj_score, obj_id); // 0 = Non-Mastery, 1=Partial-Mastery, 2=Mastery
-               if (obj_masteryLvl < 0) 
-				   printf("Error: invalid objective level call. \n");
-			   else
-			       printf(" %d,  %d,  %d,  %d, %8.2lf, %8.2lf,  %d \n", (j+1), obj_id, obj_rs, totObj_rs, obj_score, obj_SSsem, obj_masteryLvl);
-		   }
-		   else {}  // not report objective score
-	   }
+	       tot_n_objs = get_nObj();  // number of collapsed objectives
+	       printf(" Obj #, Obj_ID, rs, tot_rs, SS, sem, Mastery_Level   \n");
+	       for ( j = 0; j < tot_n_objs; j++) {
+		       obj_id = get_objID(j);
+		       //   obj_lvl = get_objLvl(theta);  // E, M, D, A
+		       obj_score = get_objScaleScore(obj_id);
+		       if (obj_score > 0) {
+			       obj_SSsem = get_objSSsem(obj_score, obj_id);
+		           obj_rs = get_objRS();
+			       totObj_rs = get_totObjRS();
+		           obj_masteryLvl = get_objMasteryLvl(obj_score, obj_id); // 0 = Non-Mastery, 1= begin Mastery, 2=Partial-Mastery, 3=Mastery
+                   if (obj_masteryLvl < 0)                                // 4 = Advanced Mastery 
+				       printf("Error: invalid objective level call. \n");
+			       else
+			           printf(" %d,  %d,  %d,  %d, %8.2lf, %8.2lf,  %d \n", (j+1), obj_id, obj_rs, totObj_rs, obj_score, obj_SSsem, obj_masteryLvl);
+		       }
+		       else {}  // not report objective score
+	       }
+	    }
+	   else {} // not report scale score
 	   setoff_cat();  
 	}
 

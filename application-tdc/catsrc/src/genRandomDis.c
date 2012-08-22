@@ -19,14 +19,14 @@ double ran01();
 
 double gasdev(long idum);
 /* double gasdev(long *idum); */
-int random();
+int random_num();
 
 /* Return random number from x to y inclusive */
 int randomNoBetween(int x, int y) {
-    return (random() %(y-x+1))+x;
+    return (random_num() %(y-x+1))+x;
 }
 
-int random() {
+int random_num() {
   return (rand()<<15) | rand();
 }
 

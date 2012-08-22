@@ -271,6 +271,10 @@ public class ServletUtils {
 		return parseTag("catOver=", xml);
 	}	
 
+	
+	public static String parseCatStop(String xml){
+		return parseTag("isCatStop=", xml);
+	}
 	public static String parseCorrectAnswer(String xml) {
 		return parseTag("correct=", xml);
 	}

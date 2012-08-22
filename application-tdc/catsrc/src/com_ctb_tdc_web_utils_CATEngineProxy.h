@@ -61,6 +61,7 @@ JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objRS (JNI
 
 JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objMasteryLvl (JNIEnv * env, jclass, jdouble, jint);
 JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_getTestLength(JNIEnv *, jclass);
+JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1psgID(JNIEnv *, jclass);
 JNIEXPORT void JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_resumeCAT (JNIEnv *, jclass, jint, jintArray, jintArray);
 /*
  * Class:     com_ctb_tdc_web_utils_CATEngineProxy

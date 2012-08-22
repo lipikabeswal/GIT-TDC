@@ -43,6 +43,8 @@ int get_rs(int obj_id);
 int get_totObjRS();
 int get_objRS();
 int get_sumCs();
+int get_psgID();
+int get_enemyID();
 
 // int get_objMasteryLvl(double obj_score, int obj_id, char obj_lvl);
 int get_objMasteryLvl(double obj_score, int obj_id);
@@ -53,7 +55,10 @@ void resumeCAT(int nItems, int itemIDs[], int rwo[]);
 void setoff_cat();
 int simSS(int nStudents, double ss[], double mean, double std, double loss, double hoss);
 void getAdmItems(struct item_info *items, int *n_obj, int objID[]);
+void getAdmItemPars(struct item_info *items);
 int checkPsgID();
+void set_initial_theta (double theta0);
+double get_theta0(double theta, char subTest[], int level);
 /* Normal return, by convention defined to be zero */
 #define SETUP_CAT_OK                 0
 #define GET_O_A_OK                 0

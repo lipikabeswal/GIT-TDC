@@ -299,7 +299,7 @@
          <method name="show">
          	gItemInterface.setVisible(false);
          	gTutorial.setVisible(false);
-            setVisible( true );
+            this.setVisible( true );
             var hasmode = LzModeManager.hasMode( this );
             Debug.write( 'show ', hasmode );
             if ( !hasmode ) {
@@ -308,7 +308,7 @@
         </method>
 
         <method name="hide">
-            setVisible( false );
+            this.setVisible( false );
             LzModeManager.release( this );
         </method>
 

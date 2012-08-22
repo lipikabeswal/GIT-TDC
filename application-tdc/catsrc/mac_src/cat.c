@@ -30,6 +30,7 @@
 #define MAX_NUM_OBJ 10
 #define MAX_NUM_LVL 6
 #define Qs 101   /* q points */
+#define UnReportableScore -1.0
 
 //HINSTANCE	hInst;		    /* Instance handle */
 
@@ -45,6 +46,7 @@ static double _hoss;
 static int _testLength = 25;
 static int _1st_nItems = 5;
 static int _2nd_nItems = 5;
+static int _max_psg_size_1st_nItems = 3; /* 3 for reading & LA */
 
 double std;
 double mean;
@@ -85,7 +87,8 @@ static double ssSts[5];
 static char _subTest[3];
 static int _is_psg = 0;
 int NEXT_ITEM_FAILURE = -999;
-int END_ITEM = -1;
+int END_ITEM = -1; /* end of test when tester comlete the test: itemID = -1 */ 
+int END_TEST = -9; /* end of test due to running out of time or termination by tester: rwo = -9 */ 
 
 static struct item_info *_FTitems = NULL;   /* FT items */
 char parFT_filename[MAX_FILENAME_LENGTH]= "";  /* FT item bank name  */
@@ -100,6 +103,14 @@ static int _i_lvlFT = 0;     /* level index for FT items */
 static char _lvlFT;    
 static int _min_nItems4Obj_score = 4;  /* min number of items for objective scores. */
 static int _isFTitem = 0;
+static int _enemy_item = 0;
+static int _psg_id = 0;
+static int _enemy_id = 0;
+static int _i_stop = -1;
+static double _mean_b;
+static double _min_a;
+static double _mean_c = 0.0;
+static int _report_ss = 0;    /* report scale score flag: 0 do not report, otherwise report */
 
 static int _tot_obj_rs = 0;
 static int _obj_rs = 0;
@@ -127,13 +138,16 @@ void set_pItems();
 int adapt_aItem(int obj, int aSt, double theta);
 int adapt_aItemFromAll(double theta);  /* no obj and alpha stratificatoin constraint. */
 int adapt_aItemFromIdx(double theta, int idx1, int idx2);
+int adapt_aItemFromIdx2(double theta, int idx1, int idx2);
 /* int get_o_a(int *obj, int *aSt, int n); */
 
 int get_objID_idx();
 /* void set_obj_order(char subTest[], char testLevel); */
 /* void set_testLength(); */
 
+void turnOff_enemy();
 void update_iBank();
+void update_iBank_stop();
 int get_itemID_fromIdx(int idx);
 int get_psg_size(int psg_id);
 int next_psg_item(int psg_id);
@@ -143,6 +157,7 @@ int get_loss(int obj_id);
 int get_hoss(int obj_id);
 double TCCinverse(double rs, int obj_id, int loss, int hoss);
 int getMasterLvlFromSS(double ss, int obj_id);
+void set_psgID(int psg_id);
 
 JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_setup_1cat (JNIEnv * env, jclass theclass, jstring subtest) {
 	const jchar* subtestS = (*env)->GetStringUTFChars( env, subtest, 0 );
@@ -159,11 +174,11 @@ int setup_cat(char subTest[]) {
    int condition_code = 0;  /* Returned condition code  */
    int i, j;
    double *a;
-   char versionInfo[]="TABE CAT version 1.5 (Build 006), 2/27/2012.";
+   char versionInfo[]="TABE CAT version 1.6 (Build 007), 5/25/2012.";
  
    strcpy(_subTest, subTest);   /* @todo set to up case */
 
-   if (LOG_FILE_FLAG) {
+	if (LOG_FILE_FLAG) {
        strcpy(log_filename, "");
        /* strcat(log_filename, ".\\Data\\"); */
        strcat(log_filename, "..//..//data//");
@@ -178,7 +193,8 @@ int setup_cat(char subTest[]) {
         }
 
         fprintf(log_file, " %s \n", versionInfo);
-   }
+	}
+   
    /*
    strcpy(ssByLvl_filename, ".\\Data\\SSstatsByLevel.csv");
  //  strcpy(ssByCnt_filename, ".\\Data\\SSstatsByContent.csv");
@@ -204,21 +220,40 @@ int setup_cat(char subTest[]) {
 	   return SETUP_CAT_FAILURE; 
    }
    */
-
+    _mean_c = 0.0;
    if ( !strcmp("MC", subTest)) {  
        _loss = 235;
        _hoss = 755;
        _testLength = 20;  
+	//   _min_a =   0.00908;  // min a parameter in 2PPC metric
+	//   _mean_b = 4.2713;
+	
+	   _min_a =   0.02884;   // geometric mean of a parameters in 2PPC metric
+       _mean_b =  13.5675, 
+	   _mean_c = 0.15624;
    }
    else if ( !strcmp("AM", subTest)) {
        _loss = 200;
        _hoss = 795;  
-       _testLength = 25;  
+       _testLength = 25; 
+	//   _min_a =  0.00612 ; 
+	//   _mean_b = 3.2017; 
+
+	   _min_a =   0.02636;  // geometric mean of a parameters in 2PPC metric
+       _mean_b =  13.7912;
+	   _mean_c = 0.20595;
    }
    else if ( !strcmp("RD", subTest)) {
        _loss = 175;
        _hoss = 812;  
-       _testLength = 25;  
+       _testLength = 25; 
+//	    _min_a =  0.00532;
+//      _mean_b = 2.5974; 
+
+	   _min_a =   0.02555;  // geometric mean of a parameters in 2PPC metric
+       _mean_b =  12.4706;
+	   _mean_c = 0.21325;
+	  
    }
    else if ( !strcmp("VO", subTest)) {
        _loss = 175;
@@ -229,6 +264,13 @@ int setup_cat(char subTest[]) {
        _loss = 235;
        _hoss = 826;   
        _testLength = 25;  /* @todo should be max test length for all levels; then reset after 10 item test. */
+//	   _min_a = 0.00869;
+//	   _mean_b = 4.3393;
+
+	   _min_a = 0.02631;   // geometric mean of a parameters in 2PPC metric
+       _mean_b =  13.1265;
+	   _mean_c = 0.21312;
+ //      _testLength = 20;
    }
    else if ( !strcmp("LM", subTest)) {
        _loss = 235;
@@ -444,7 +486,7 @@ int setup_cat(char subTest[]) {
 	
 //	set_obj_order(subTest, testLevel); // set randomly obj adapt order
 */
-//	ran0(-1); /*  for simulation */
+	//ran0(-1); /*  for simulation */
 
 	/* initilize variables */
 	_is_psg = 0;
@@ -454,7 +496,15 @@ int setup_cat(char subTest[]) {
 	_is_FTpsg = 0;
 	_ik_FT = 0;
 	_isFTitem = 0;
+	_enemy_item = 0;
+	_psg_id = 0;
+	_i_stop = -1;
+	_report_ss = 0;
 	return SETUP_CAT_OK;
+}
+
+void set_initial_theta (double theta0){
+	_theta[0] = theta0;
 }
 
 JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_getTestLength (JNIEnv * env, jclass theclass) {
@@ -495,6 +545,35 @@ double getLoss(){
 
 double getHoss(){
 	return _hoss;
+}
+
+void set_psgID(int psg_id){
+	_psg_id = psg_id;
+}
+
+void set_enemyID(int enemy_id) {
+	_enemy_id = enemy_id;
+}
+
+int get_enemyID() {
+	return _enemy_id;
+}
+
+JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1psgID (JNIEnv * env, jclass theclass) {
+	return get_psgID();
+}
+int get_psgID() {
+	/*
+	int j;
+	if ( _items[_ik].item_id == 304698 ) {
+	    for (j = 0; j < _n_items; j++) {
+		    if (_items[j].enemy == 17 ) {
+	           if (LOG_FILE_FLAG) fprintf(log_file, "j = %d  itemID = %d  adm_flag = %d ", j, _items[j].item_id, _items[j].adm_flag);
+			}
+		}
+	}
+	*/
+	return _psg_id;
 }
 
 /*
@@ -559,7 +638,7 @@ int next_item() {
 	int i_FTflag = 0;
 	int psg_size = 0;
 
-    if ( (_iadm == _testLength) && (_iadmFT == _FTtestLength ))  return END_ITEM;
+    if (( (_iadm == _testLength) && (_iadmFT == _FTtestLength )) || (_i_stop >= 0))  return END_ITEM;
 
     theta = _theta[_iadm];
 
@@ -607,7 +686,11 @@ int next_item() {
 */
                 return itemID;
 		    }
-		    else _is_psg = 0;
+		    else {  /* end of passage item */
+				// turn off enemy passage item here.
+			//	turnOff_enemy(); moved to update_ibank()
+				_is_psg = 0;		// this may never be reached??
+			}
 	     }
 	}
 
@@ -642,7 +725,7 @@ int next_item() {
         if (_iadm < _1st_nItems )
             itemID = adapt_aItemFromIdx(theta, 0, _idx1);
 	    else if ((_iadm >= _1st_nItems) && ( _iadm < (_1st_nItems + _2nd_nItems ) ) )
-		    itemID = adapt_aItemFromIdx(theta, _idx1, _idx2);
+		    itemID = adapt_aItemFromIdx2(theta, _idx1, _idx2);
 	    else {	
             objID_idx = get_objID_idx();
 		    itemID = adapt_aItem(objID_idx, (_aStrata_o -1), theta); 
@@ -657,6 +740,8 @@ int next_item() {
 */
 	return itemID;
 }
+
+
 
 int adapt_aFTitem() {
 	int i,j,kj,psg_size;
@@ -817,6 +902,46 @@ char get_testLevel(double theta, char subTest[]){
 	return lvl;
 }
 
+double get_theta0(double theta, char subTest[], int level){
+	double theta0;
+
+	if ( !strcmp("MC", subTest)) { /* simulation for MC only */
+	/*	loss = 235;   hoss = 755; */
+		switch(level){
+		   case -1:  /* guess one level lower */
+               if (theta <= 304) theta0 = 0.5*(_loss + 304);
+               else if ((theta > 304) && (theta <= 435) ) theta0 = 0.5*(_loss + 304);
+               else if ((theta > 435) && (theta <= 506) ) theta0 = 0.5*(435 + 305);
+               else if ((theta > 506) && (theta <= 575) ) theta0 = 0.5*(436 + 506);
+               else if ((theta > 575) && (theta <= 602) ) theta0 = 0.5*(575 + 507);
+               else theta0 = 0.5*(576 + 602);
+		       break;
+		   case 0:  /* guess on level */
+               if (theta <= 304) theta0 = 0.5*(_loss + 304);
+               else if ((theta > 304) && (theta <= 435) ) theta0 = 0.5*(435 + 305);
+               else if ((theta > 435) && (theta <= 506) ) theta0 = 0.5*(436 + 506);
+               else if ((theta > 506) && (theta <= 575) ) theta0 = 0.5*(575 + 507);
+               else if ((theta > 575) && (theta <= 602) ) theta0 = 0.5*(576 + 602);
+               else theta0 = 0.5*(_hoss + 603);
+		       break;
+           case 1:  /* guess one level higher*/
+               if (theta <= 304) theta0 = 0.5*(435 + 305);
+               else if ((theta > 304) && (theta <= 435) ) theta0 = 0.5*(436 + 506);
+               else if ((theta > 435) && (theta <= 506) ) theta0 = 0.5*(575 + 507);
+               else if ((theta > 506) && (theta <= 575) ) theta0 = 0.5*(576 + 602);
+               else if ((theta > 575) && (theta <= 602) ) theta0 = 0.5*(_hoss + 603);
+               else theta0 = 0.5*(_hoss + 603);
+		       break;
+
+		   default : theta0 = 0.5*(_hoss + _loss); break; /* start from the middle of scale in the pool */
+		}
+	}
+	else
+		theta0 = 0.5*(_hoss + _loss); // other contents than MC
+
+	return theta0;
+}
+
 /*
 JNIEXPORT jchar JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objLvl (JNIEnv * env, jclass theclass, jdouble theta) {
 	return get_objLvl(theta);
@@ -902,7 +1027,141 @@ int adapt_aItemFromIdx(double theta, int idx1, int idx2) {  /* no obj and alpha 
    int psg_size = 1;
    int j;
    int findItemFlag = 0;
+   int min_psg_size = 10;
+   int save_ik = -1;
+   int findItemFlag2 = 0;
    
+   for (k = idx1; k < idx2; k++) { 
+	   if ( _items[_indx_a[k]].adm_flag ) {
+		   n_cell_items ++;
+		   if (!_items[_indx_a[k]].psg_id) 
+	           _itemInfo[i] = fisherInfo(theta, _items[_indx_a[k]].parameters);  
+		   else /* average info over the same psg_id */
+			    _itemInfo[i] = psg_info(_items[_indx_a[k]].psg_id, theta);
+	   }
+	   else
+		   _itemInfo[i] = -9.0;
+	   i++;
+   }
+
+   k = idx2 - idx1;
+   
+   if (n_cell_items < 1) {
+	   if (LOG_FILE_FLAG) fprintf(log_file, "Error: run out of item in pool \n");
+	   return NEXT_ITEM_FAILURE;
+   }
+   indexDescend( k, _itemInfo, _indx);  
+   /*
+   printf("theta = %lf \n", theta);
+   for (i =0; i < 11; i++) {
+	   printf("i = %d, ID = %d, info = %lf \n", i, _items[_indx_a[_indx[i] + idx1]].item_id, _itemInfo[_indx[i]]);
+   }
+   */
+
+   /* set best 10% in the pool */
+   ns = (int)( _n_rate * n_cell_items );
+   if (ns < 1 ) 
+       ns = n_cell_items;
+
+   /* rand select one of first n _indx, available items are n_cell_items */
+   if (ns == 1 )
+	  i = 0;
+   else
+      i = randomNoBetween(0, (ns -1));  /* rand select from best ns items */
+
+//   printf(" random i = %d, ns = %d \n", i, ns);
+
+/* check passage size in the starting item groups.
+   for (j = 0; j < ns; j++) {		    
+			        _ik = _indx_a[_indx[j] + idx1];
+					if ( _items[_ik].adm_flag ) {
+						      psg_size = 1;
+			             if (_items[_ik].psg_id) {
+			                  psg_size = get_psg_size(_items[_ik].psg_id);	
+						 }
+                    printf(" j = %d, ItemID = %d, psg_id = %d, psg_size= %d \n", j,  _items[_ik].item_id, _items[_ik].psg_id, psg_size);
+					}
+   }
+*/
+   _ik = _indx_a[_indx[i] + idx1];
+ //  save_ik = _ik;
+   if (_items[_ik].psg_id) {
+	   psg_size = get_psg_size(_items[_ik].psg_id);
+/*	   printf("psg_size = %d \n", psg_size); */
+ // first 5 items to avoid psg_size > 2, _max_psg_size_1st_nItems
+	   if (psg_size > _max_psg_size_1st_nItems) {
+			   if (i > (int) ns*0.5)  {
+		         for (j = (i-1); j >= 0; j--) {
+			        _ik = _indx_a[_indx[j] + idx1];
+					if ( _items[_ik].adm_flag ) {
+			             if (_items[_ik].psg_id) {
+			                  psg_size = get_psg_size(_items[_ik].psg_id);
+						      if (_max_psg_size_1st_nItems >= psg_size ) {findItemFlag = 1; break;}
+			              }
+			              else {findItemFlag = 1; break;}
+					}
+			     }
+		       }
+	           else {
+			      for (j = (i+1); j < ns; j++) {
+			        _ik = _indx_a[_indx[j] + idx1];
+					if ( _items[_ik].adm_flag ) {
+			            if (_items[_ik].psg_id) {
+			                psg_size = get_psg_size(_items[_ik].psg_id);
+			                if (_max_psg_size_1st_nItems >= psg_size ) {findItemFlag = 1; break;}
+			            }
+			            else {findItemFlag = 1; break;}
+					}
+			      }
+		      }
+	      	   
+		   /* if still do not find, we need search other way around. */
+	     if (!findItemFlag) {
+	/*		   printf(" *** findItemFlag in adapt_aItemFromIdx() *** \n"); */
+			   for (j = 0; j < ns; j++) {		    
+			        _ik = _indx_a[_indx[j] + idx1];
+					if ( _items[_ik].adm_flag ) {
+			             if (_items[_ik].psg_id) {
+			                  psg_size = get_psg_size(_items[_ik].psg_id);	
+							  /* This results in the same starting item if psg_size always > max_psg_size_1st_nItems ?*/
+                              if (psg_size < min_psg_size) {
+								  min_psg_size = psg_size;
+								  save_ik = _ik;
+							  }
+							  if (_max_psg_size_1st_nItems >= psg_size ) {findItemFlag2 =1; break;}
+			              }
+			              else { findItemFlag2 =1; break;}
+					}
+			   }
+		}	
+	    if ((!findItemFlag2) && (!findItemFlag) && (save_ik != -1)) { // still do not find the item with psg_size < min_psg_size.
+			_ik = save_ik;
+		}
+/*	   printf("psg_size2 = %d \n", psg_size); */
+      }
+   }
+
+   itemID = get_itemID_fromIdx(_ik);
+/*   printf("itemID = %d \n", itemID); */
+
+   return itemID;
+}
+
+int adapt_aItemFromIdx2(double theta, int idx1, int idx2) {  /* no obj and alpha stratificatoin constraint.
+    // found best n items with highest item info at theta
+	// randomly select one of above n items
+	// return item ID and set it as adminitrated. */
+   int k, i=0;
+   int n_cell_items = 0; 
+   int ns;  /* from best 5 items */
+   int itemID;
+   int psg_size = 1;
+   int j;
+   int findItemFlag = 0;
+   int min_psg_size = 10;
+   int save_ik = -1;
+   int findItemFlag2 = 0;
+
    for (k = idx1; k < idx2; k++) { 
 	   if ( _items[_indx_a[k]].adm_flag ) {
 		   n_cell_items ++;
@@ -948,6 +1207,7 @@ int adapt_aItemFromIdx(double theta, int idx1, int idx2) {  /* no obj and alpha 
    if (_items[_ik].psg_id) {
 	   psg_size = get_psg_size(_items[_ik].psg_id);
 /*	   printf("psg_size = %d \n", psg_size); */
+
 	   if ((_1st_nItems + _2nd_nItems - (_iadm + 1)) < psg_size ) {
 		   if (i > (int) ns*0.5) {
 		       for (j = (i-1); j >= 0; j--) {
@@ -973,22 +1233,28 @@ int adapt_aItemFromIdx(double theta, int idx1, int idx2) {  /* no obj and alpha 
 					}
 			   }
 		   }
-
-		   /* if still do not find, we need search other way around. */
-		   if (!findItemFlag) {
+	   }
+	   		   /* if still do not find, we need search other way around. */
+	     if (!findItemFlag) {
 	/*		   printf(" *** findItemFlag in adapt_aItemFromIdx() *** \n"); */
 			   for (j = 0; j < ns; j++) {		    
 			        _ik = _indx_a[_indx[j] + idx1];
 					if ( _items[_ik].adm_flag ) {
 			             if (_items[_ik].psg_id) {
 			                  psg_size = get_psg_size(_items[_ik].psg_id);
-			                  if ((_1st_nItems + _2nd_nItems - (_iadm + 1)) >= psg_size ) { break;}
+                              if (psg_size < min_psg_size) {
+								  min_psg_size = psg_size;
+								  save_ik = _ik;
+							  }
+							  if ((_1st_nItems + _2nd_nItems - (_iadm + 1)) >= psg_size ) {findItemFlag2 =1; break;}
 			              }
-			              else { break;}
+			              else { findItemFlag2 =1; break;}
 					}
 			   }
-		   }
-	   }
+		}	
+	    if ((!findItemFlag2) && (!findItemFlag) && (save_ik != -1)) { // still do not find the item, then give the items with min psg size.
+			_ik = save_ik;
+		}
 /*	   printf("psg_size2 = %d \n", psg_size); */
    }
 
@@ -997,7 +1263,6 @@ int adapt_aItemFromIdx(double theta, int idx1, int idx2) {  /* no obj and alpha 
 
    return itemID;
 }
-
 int get_psg_size(int psg_id){
 	int psg_size = 0;
 	int j;
@@ -1040,7 +1305,7 @@ int get_itemID_fromIdx(int idx) {
 	          _is_psg = 0;
 		}
 		else {
-			 if (LOG_FILE_FLAG) fprintf(log_file, "Error: get_itemID_fromIdx failed for item idx = %d , this item was already taken \n", idx);
+			 if (LOG_FILE_FLAG) fprintf(log_file, "Error: get_itemID_fromIdx failed for item idx = %d , this item ID = %d was already taken \n", idx, _items[idx].item_id);
              return NEXT_ITEM_FAILURE;
 		}
     }
@@ -1101,7 +1366,7 @@ int next_psg_item(int psg_id){
 			return itemID;
 	    }
 	}
-	return itemID;
+	return itemID; /* NEXT_ITEM_FAILURE for the end of passage item */
 }
 
 double psg_info(int psg_id, double theta) {
@@ -1125,7 +1390,8 @@ double psg_info(int psg_id, double theta) {
 }
 
 
-int adapt_aItemFromAll(double theta) {  /* no obj and alpha stratificatoin constraint, from not psg items only!
+int adapt_aItemFromAll(double theta) {  /* no obj and alpha stratificatoin constraint, from not psg items only first!
+										if none-psg item runs out, then use psg items; if psg item also run out, return error.
     // found best n items with highest item info at theta
 	// randomly select one of above n items
 	// return item ID and set it as adminitrated.*/
@@ -1146,8 +1412,26 @@ int adapt_aItemFromAll(double theta) {  /* no obj and alpha stratificatoin const
    }
 
    if (n_cell_items < 1) {
-	   if (LOG_FILE_FLAG) fprintf(log_file, "Error: run out of not-psg-item in pool \n");
-	   return NEXT_ITEM_FAILURE;
+	   if (LOG_FILE_FLAG) fprintf(log_file, "Warning: run out of not-psg-item in pool \n");
+	   /* In LA, we run out of none-psg item in the pool, so we will use psg-items */
+	   i = 0;
+	   n_cell_items = 0;
+       for (k = 0; k < _n_items; k++) { 
+	     if (_items[k].adm_flag ) {
+			 n_cell_items ++;
+		     if (!_items[k].psg_id)  /* from none-psg-items only */
+	           _itemInfo[i] = fisherInfo(theta, _items[k].parameters);  
+		     else   /* for the psg items */
+               _itemInfo[i] = psg_info(_items[k].psg_id, theta);
+	     }
+	     else
+		   _itemInfo[i] = -9.0;
+	     i++;
+       }   
+   }
+   if (n_cell_items < 1) {
+	      if (LOG_FILE_FLAG) fprintf(log_file, "Error: run out of item in pool \n");
+	      return NEXT_ITEM_FAILURE;
    }
    indexDescend( _n_items, _itemInfo, _indx);  
 
@@ -1155,7 +1439,7 @@ int adapt_aItemFromAll(double theta) {  /* no obj and alpha stratificatoin const
    ns = (int)( _n_rate * n_cell_items );
    if (ns < 1 ) 
        ns = n_cell_items;
-   if (ns >10) ns = 10; /* one of best 10 items */
+   if (ns > 5) ns = 5; /* one of best 5 items */
 
    /* rand select one of first n _indx, available items are n_cell_items */
    if (ns == 1 )
@@ -1164,9 +1448,14 @@ int adapt_aItemFromAll(double theta) {  /* no obj and alpha stratificatoin const
       i = randomNoBetween(0, (ns -1));  /* rand select from best ns items */
 
    _ik = _indx[i];
-   
-   itemID = _items[_ik].item_id;
-   
+   /*
+   if ( (_itemInfo[_ik] < 0 ) || (!_items[_ik].adm_flag ))
+	   itemID = 0;
+	*/
+
+   itemID = get_itemID_fromIdx(_ik);
+ //  itemID = _items[_ik].item_id;
+
    return itemID;
 }
 
@@ -1208,7 +1497,7 @@ int adapt_aItem(int obj, int aSt, double theta) {
 
    // make sure _items[ik].psg_id size <= _testLength - (_iadm + 1)
    */
-   for (i = 0; i < k; i++) {
+   for (i = 0; i < n_cell_items; i++) {
 	    _ik = _pItems[obj][aSt][0] + _indx[i];
 	    if (_items[_ik].psg_id) {   /* psg_id = 0 for non-passage item. */
 			 psg_size = get_psg_size(_items[_ik].psg_id);
@@ -1231,10 +1520,10 @@ int adapt_aItem(int obj, int aSt, double theta) {
    itemID = get_itemID_fromIdx(_ik);
    if ( itemID == NEXT_ITEM_FAILURE ) {
 	   if (LOG_FILE_FLAG) fprintf(log_file, "Warning: run out of items in obj = %d. \n", obj);
-	   /* to adapt a none psg item from the whole item bank */
-	   itemID = adapt_aItemFromAll(theta); /* randomly pick up one of best 5 items */
+	   /* to adapt a none psg item from the whole item bank first; if failed, then use psg items */
+	   itemID = adapt_aItemFromAll(theta); /* randomly pick up one of top 10% items in the pool */
 	   if ( itemID == NEXT_ITEM_FAILURE ) {
-	        if (LOG_FILE_FLAG) fprintf(log_file, "Error: run out of not psg items in the whole item bank  \n");
+	        if (LOG_FILE_FLAG) fprintf(log_file, "Error: run out of items in the whole item bank  \n");
 	   }
    }
    return itemID;
@@ -1242,15 +1531,20 @@ int adapt_aItem(int obj, int aSt, double theta) {
 
 void update_iBank(){
 	int i;
+	int itemID =0;
+	int save_ik;
    _items[_ik].adm_flag = 0;   /* set this items as administrated */
 
    /* copy items to item_adm with continue index */
    _item_adm[_iadm].item_id = _items[_ik].item_id;
    _item_adm[_iadm].item_no = _items[_ik].item_no;
    _item_adm[_iadm].obj_id = _items[_ik].obj_id;
+   _enemy_item = _items[_ik].enemy;
 
- /*  printf("_iadm = %d , obj_id = %d \n", _iadm, _item_adm[_iadm].obj_id); */
-
+   /*
+   printf("_iadm = %d , itemID = %d, psgID = %d, itemOrder = %d, obj_id = %d ", _iadm, _item_adm[_iadm].item_id, _items[_ik].psg_id, _items[_ik].item_order, _item_adm[_iadm].obj_id); 
+   printf(" _is_psg = %d \n", _is_psg);
+   */
    _item_adm[_iadm].new_obj_id = _items[_ik].new_obj_id;  /* collapsed obj */
 
    /* trace number of items in obj[j] have been adapted */
@@ -1270,12 +1564,70 @@ void update_iBank(){
    _item_adm[_iadm].parameters[0] = _items[_ik].parameters[0];
    _item_adm[_iadm].parameters[1] = _items[_ik].parameters[1];
    _item_adm[_iadm].parameters[2] = _items[_ik].parameters[2];
+
+   if (_items[_ik].psg_id) 
+	   set_psgID(_items[_ik].psg_id);
+   else
+       set_psgID(0);
+
+   if (_enemy_item ) {
+	   set_enemyID(_enemy_item);
+	   if (!_is_psg) 
+	       turnOff_enemy();  /* turned off enemy items if adapted item is not psg item. */
+	   else {  // if it is a passage item
+		   save_ik = _ik;
+	       itemID = next_psg_item(_items[_ik].psg_id);  // do not update _ik in this call!!
+		   _ik = save_ik;
+	       if ( itemID == NEXT_ITEM_FAILURE ) {  // end of passage item
+		        turnOff_enemy(); 
+		        _is_psg =0;
+	       }
+	   }
+   }
+   else set_enemyID(0);
+
    _iadm++;
+}
+
+void turnOff_enemy(){
+	int j;
+	if (_enemy_item) {
+	    for (j = 0; j < _n_items; j++) {
+		    if (_enemy_item == _items[j].enemy ) {
+			   _items[j].adm_flag = 0; 
+			}
+	    }
+	}
+	_enemy_item = 0;
 }
 
 void update_FTiBank(){
    _FTitems[_ik_FT].adm_flag = 0;   /* set this items as administrated */
+   set_psgID(0); // @todo: we assume there is no psg items in FT items and initialize id for OP items.
+   _enemy_item = 0;
+   set_enemyID(0); // @todo: we assume there is no enemy items in FT items and initialize id for OP items.
+   
    _iadmFT++;
+}
+
+void update_iBank_stop(){
+
+   /* copy items to item_adm with continue index */
+   _item_adm[_iadm].obj_id = 0;
+   _item_adm[_iadm].new_obj_id = 0;  /* collapsed obj */
+
+   _item_adm[_iadm].parameters = (double *) malloc( 3*sizeof(double) );
+    if (_item_adm[_iadm].parameters == NULL)  {
+		if (LOG_FILE_FLAG) fprintf(log_file, "Error: malloc _item_adm[%d].parameters failed! \n", _iadm );
+		exit(EXIT_FAILURE);
+/*		return ADAPT_N_ITEM_FAILURE; */
+    }
+
+   _item_adm[_iadm].parameters[0] = _min_a;
+   _item_adm[_iadm].parameters[1] = _mean_b;
+   _item_adm[_iadm].parameters[2] = _mean_c;
+
+   _iadm++;
 }
 
 JNIEXPORT void JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_resumeCAT (JNIEnv * env, jclass theclass, jint nItems, jintArray itemIDs, jintArray rwos) {
@@ -1353,13 +1705,17 @@ void set_simuRWO(int rwo, double theta0) {
 // simulated studies
    double p0;
   // double theta0 = 400.0;
-   p0 = 1.0- respProb3PL(1, theta0, _item_adm[_iadm-1].parameters);
-   if (p0 >= ran0(1)) rwo = 0;
-   else rwo = 1;
-   // end of simulation
+  if (!_isFTitem) {
+      p0 = 1.0- respProb3PL(1, theta0, _item_adm[_iadm-1].parameters);
+      if (p0 >= ran0(1)) rwo = 0;
+      else rwo = 1;
+       // end of simulation
 
-   _item_adm[_iadm -1].rwo = rwo;
-   _items[_ik].rwo = rwo;   // simulation
+      _item_adm[_iadm -1].rwo = rwo;
+      _items[_ik].rwo = rwo;   // simulation
+	  if (!_report_ss) 
+		 _report_ss = 1;   // always report ss
+  }
 }
 
 JNIEXPORT void JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_set_1rwo (JNIEnv * env, jclass theclass, jint raw) {
@@ -1367,8 +1723,21 @@ JNIEXPORT void JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_set_1rwo (JNIEn
 }
 
 void set_rwo(int rwo) {
+	if (rwo == END_TEST) {
+		if (!_isFTitem)
+		    _i_stop = _iadm -1;
+		else 
+            _i_stop = _iadm;
+		
+		rwo = 0;
+	}
 	if (!_isFTitem)
        _item_adm[_iadm -1].rwo = rwo;
+
+	if (!_report_ss) {
+		if ((rwo == 1) || (_iadm >= 6 )) _report_ss = 1;      /* report scale score, if answered any one item right or answered >= 5 items */
+	}
+
 }
 
 JNIEXPORT jdouble JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_score (JNIEnv * env, jclass theclass) {
@@ -1383,7 +1752,20 @@ double score(){
 	int max_i, loss_i, hoss_i;
     int i, j;
 	double final_theta, old_max_pq;
+	
+    if (_i_stop >= 0) { // test termination in the middle of test 	
+		if (!_report_ss) return UnReportableScore;   // 0 score means NOT reporting scale score 
 
+		if (!_isFTitem)
+		    _iadm--; // reset item parameters and response for the current item that tester runs out of time. 
+
+		_isFTitem = 0;
+		for (j = _i_stop; j < _testLength; j++) {
+			update_iBank_stop();
+			set_rwo(0);
+		} 
+	}
+    
 	if (_isFTitem) return _theta[_iadm];
 
 	sfpq = 0.0;
@@ -1393,18 +1775,19 @@ double score(){
 		pq = 1.0;
         for ( j = 0; j < _iadm; j++) {
             p = respProb3PL(1, _tq[i], _item_adm[j].parameters);
-			if (_item_adm[j].rwo )
+			if (_item_adm[j].rwo == 1)
 		           pq = pq*p;
 			else
 			       pq = pq*(1.0-p);
 		}
-
-		if (_iadm == _testLength) { /* last item so use exhuasitive search */
+		
+		if (_iadm == _testLength) { // last item so use exhuasitive search 
             if (max_pq <= pq) {
 				max_pq = pq;
 				max_i = i;
 			}
 		}
+	   
         fpq = _ft[i]*pq;
 		sfpq = sfpq + fpq;
 		tfpq = tfpq + _tq[i]*fpq;
@@ -1414,6 +1797,7 @@ double score(){
     _theta[_iadm] = theta;
     
 	if (_iadm == _testLength) { /* final theta */
+		
 		if ( max_i == 0 ) {
 			loss_i = (int)_tq[max_i];
 			hoss_i = (int)_tq[1];
@@ -1426,12 +1810,16 @@ double score(){
 			loss_i = (int)_tq[max_i - 1];
 			hoss_i = (int)_tq[max_i + 1];
 		}
-
+	
+	//	loss_i = (int)_loss;
+	//	hoss_i = (int)_hoss;
+		
 		old_max_pq = max_pq;
         for ( i = loss_i; i <= hoss_i; i++) {
 		   pq = 1.0;
            for ( j = 0; j < _iadm; j++) {
                p = respProb3PL(1, (double)i, _item_adm[j].parameters);
+
 			   if (_item_adm[j].rwo )
 		           pq = pq*p;
 			   else
@@ -1450,12 +1838,15 @@ double score(){
 		for ( j = 0; j < _iadm; j++) 
 		   fprintf(log_file, "%d ", _item_adm[j].item_no);
         fprintf(log_file, "\n");
-
-		for ( j = 0; j < _iadm; j++) 
-		   fprintf(log_file, "%d", _item_adm[j].rwo);
-		fprintf(log_file, "\n");
 		*/
-
+		/*
+		for ( j = 0; j < _iadm; j++) {
+		   fprintf(log_file, "%d", _item_adm[j].rwo);
+           if ((_item_adm[j].rwo != 0 ) && (_item_adm[j].rwo != 1) )
+		       ;
+		}
+		fprintf(log_file, "\n");
+	    */
 		theta = final_theta;  /* final theta from ES. */
         _theta[_iadm] = theta; 
 	}
@@ -1468,12 +1859,18 @@ JNIEXPORT jdouble JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_getSEM (JNIE
 
 double getSEM(double theta) {
 	int j;
-	double p = 0.0;
+	double info = 0.0;
+	double sem = 0.0;
     for ( j = 0; j < _iadm; j++) {  /* to do need to be changed to final_theta */
-         p = p + fisherInfo(theta, _item_adm[j].parameters);		
+         info = info + fisherInfo(theta, _item_adm[j].parameters);		
 	} 
+
+	if (info > 0.000001)
+        sem = (double)1.0/ sqrt(info) ;
+	else 
+		sem = 999.0;
     
-	return 1.0/sqrt(p);
+	return sem;
 }
 
 JNIEXPORT jdouble JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_get_1objScore (JNIEnv * env, jclass theclass, jdouble theta, jint obj_id) {
@@ -1539,7 +1936,7 @@ double get_objScaleScore(int obj_id) {
 		return theta;
 	}
 	else
-		return -1.0;	
+		return UnReportableScore;	
 }
 
 double TCCinverse(double rs, int obj_id, int loss, int hoss) {
@@ -1864,6 +2261,21 @@ int simSS(int nStudents, double ss[], double mean, double std, double loss, doub
     return 0;
 }
 
+void getAdmItemPars(struct item_info *items){
+    int i;
+    for (i = 0; i < _testLength; i++) {
+		 items[i].parameters = (double *) malloc(3*sizeof(double));
+        if (items[i].parameters == NULL) {
+		    if (LOG_FILE_FLAG) fprintf (log_file, "Error: malloc item[%d].parameters failed! \n", i);
+            exit;
+        }	  
+		items[i].rwo = _item_adm[i].rwo;
+		items[i].parameters[0] = _item_adm[i].parameters[0];
+		items[i].parameters[1] = _item_adm[i].parameters[1];
+		items[i].parameters[2] = _item_adm[i].parameters[2];
+	}
+}
+
 void getAdmItems(struct item_info *items, int *n_obj, int objID[]){
     int i, j;
     for (i = 0; i < _n_items; i++) {
@@ -1872,6 +2284,10 @@ void getAdmItems(struct item_info *items, int *n_obj, int objID[]){
        items[i].obj_id = _items[i].obj_id; 
    /*    items[i].obj_n = _items[i].obj_n;  */
 	   items[i].rwo = _items[i].rwo; 
+       items[i].org_psg_id = _items[i].org_psg_id;
+	   items[i].item_id = _items[i].item_id;
+	   items[i].enemy = _items[i].enemy;
+
 	}
     for (j = 0; j < _n_obj; j++) {
        objID[j] = _objID[j];    
@@ -1884,7 +2300,41 @@ int checkPsgID() {
 	int itemOrder[6];
 	int indx[6];
 	int kk;
-	for (i = 0; i < (_n_items-1); i++) {
+	double min_a = 99.0; /* 3PL metric */
+	double mean_b = 0.0;
+	double mean_c = 0.0;
+	double geo_mean_a = 0.0;
+
+	for (i = 0; i < _n_items; i++) {
+
+		/* find lowest a and compute average b */
+        mean_b = mean_b + _items[i].parameters[1]/_items[i].parameters[0];  /* b in 3pl metric */
+		if (min_a > _items[i].parameters[0])
+			min_a = _items[i].parameters[0];
+
+       geo_mean_a = geo_mean_a + log(_items[i].parameters[0]);
+	   mean_c = mean_c + _items[i].parameters[2];
+		/* check duplicated item IDs */
+		for (j = 0; j < _n_items; j++) {           
+				if  ((_items[i].item_id == _items[j].item_id) && (i != j)){
+					    printf("Error: duplicated Item ID %d at i = %d, j = % d, \n", _items[i].item_id, i, j);
+					    return PSGID_DUP;
+			    }
+		}
+
+		/* add check original passage id and enemy item */
+		if (_items[i].org_psg_id != 0) {
+		    for (j = 0; j < _n_items; j++) {           
+				if  ((_items[i].org_psg_id == _items[j].org_psg_id) && (i != j)){
+				    if (_items[i].enemy != _items[j].enemy) {
+					    printf("Error: same org_psg_id has different enemy ID %d at i = %d, j = % d, \n", _items[i].org_psg_id, i, j);
+					    return PSGID_DUP;
+				    } 
+			    }
+			}
+		}
+
+		/* check new passage id and item order */
 		itemOrder[0] = _items[i].item_order;
 		k = 1;
 		if (_items[i].psg_id != 0) {
@@ -1896,10 +2346,18 @@ int checkPsgID() {
 				    }
 				    itemOrder[k] = _items[j].item_order;
 				    k++;
+
+					/* check new psg_id is a part of org_psg_id */
+					 if (_items[i].org_psg_id != _items[j].org_psg_id) {
+					    printf("Error: org_psg_id = %d at i = %d, NOT= it at j = % d, \n", _items[i].org_psg_id, i, j);
+					    return PSGID_DUP;
+				    }
 			    }
+				
 		    }
-		    /* check item order within the passage */
-		    if (k > 3) {
+		    /* check max item size within the passage */
+			/* old max size = 3; new max size = 5? */
+		    if (k > 5) {
 			    printf("Error: psg size is over 3 for psg_id = %d \n", _items[i].psg_id );
 			    return PSGID_DUP;
 		    }
@@ -1920,6 +2378,15 @@ int checkPsgID() {
 			}
 	   }
 	}
+	min_a = min_a/1.7;  /* from 2PPC to 3PL */
+	
+	mean_b = mean_b/(double)_n_items;
+	mean_c = mean_c/(double)_n_items;
+    geo_mean_a = exp(geo_mean_a/(double)_n_items);
+	geo_mean_a = geo_mean_a/1.7;
+
+	printf("Content = %s, min_a =  %8.5lf, geo_mean_a = %8.5lf,  mean_b = %8.4lf, mean_c = %8.5lf in 3PL metric \n", _subTest,min_a, geo_mean_a, mean_b, mean_c );
+    printf("Content = %s, min_a =  %8.5lf, geo_mean_a = %8.5lf,  mean_b = %8.4lf, mean_c = %8.5lf in 2PPC metric \n", _subTest, min_a*1.7, geo_mean_a*1.7, mean_b*geo_mean_a*1.7, mean_c);
 
 	return PSGID_OK ;
 }
