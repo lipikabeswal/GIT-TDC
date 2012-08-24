@@ -18,6 +18,7 @@
    <include href="OptOutScreen.lzx"/>
  
     <include href="Frame.lzx"/>
+	<include href="DisplayScoresScreen.lzx"/>
 
     <class name="Screens" extends="Frame">
 
@@ -73,6 +74,8 @@
             if ( contents.ws.isinited ) contents.ws.setVisible( false );
             if ( contents.gs.isinited ) contents.gs.setVisible( false );
             if ( contents.oos.isinited ) contents.oos.setVisible( false );
+            
+            if ( contents.ss.isinited ) contents.ss.setVisible( false );
  
 
             prancingMan.remove();
@@ -269,15 +272,25 @@
             show();
 
         </method>
+        
+        <method name="showScores" args="response">
+        	removeAllStates();
+        	if ( !contents.ss.isinited ) contents.ss.completeInstantiation();
 
+            contents.ss.showScores( response );
 
+            contents.ss.setVisible( true );
+            show();
+        </method>
+        
 
         <method name="showGoodbye">
 
             removeAllStates();
 
             if ( !contents.gs.isinited ) contents.gs.completeInstantiation();
-
+            
+            contents.gs.isTimeout();
             contents.gs.setVisible( true );
 
             show();
@@ -332,6 +345,8 @@
             <PauseScreen   name="ps" width="100%" height="100%"
                            initstage="defer"/>
             <FeedbackScreen  name="fbs" width="100%" height="100%"
+                          initstage="defer"/>
+			<DisplayScoresScreen name="ss" width="100%" height="100%"
                           initstage="defer"/>
 
             <FinishScreen  name="fs" width="100%" height="100%"
