@@ -260,6 +260,7 @@
 		<attribute name="SUBTEST_FINISH_STATE" type="string"
 			value="subtestFinish" />
 		<attribute name="FEEDBACK_STATE" type="string" value="feedback" />
+		<attribute name="SCORES_STATE" type="string" value="scores"/>
 		<attribute name="SAVE_END_SUBTEST_STATE" type="string"
 			value="saveEndSubtest" />
 		<attribute name="TUTORIAL_COMPLETE_STATE" type="string"
@@ -492,6 +493,11 @@
 		<attribute name="isFinishTest" value="false" type="boolean" />
 		<attribute name="restartItemCount" type="number" value="0" />
 		<attribute name="prevItemId" type="number" value="0" />
+
+		<attribute name="lastxpos" value="0" type="number" />
+        <attribute name="lastypos" value="0" type="number" />
+        <attribute name="testTimeout" type="boolean" value="false"/>
+		
 		<attribute name="isCatStop" value="false" type="boolean" />
 		<!--
 			============================================================
@@ -532,9 +538,12 @@
 		
 		<attribute name="fwdOnly" value="false" type="boolean" />
 		<attribute name="adaptive" value="$path{ 'dssubtest:/subtest/sco/@adaptive' }"/>
+		<attribute name="isSample" value="$path{'dssubtest:/subtest/sco/@isSample'}"/>
  
 		<attribute name="showPleaseWaitOver" value="false" type="boolean" />
 		<attribute name="RestartTest" value="false" type="boolean" />
+		<attribute name="trackTimer" type="number" value="0"/>
+		<attribute name="isOK" type="string" value="F"/>
 			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -618,6 +627,7 @@
 
 		<method name="getSubtest">
 			setAttribute("doUnlockUI", true);
+			recalltrackMouseMove();
 			setState(SUBTEST_STATE);
 			var params = getCurrentSubtestParams();
 			gCommunicator.getSubtest(params[0], params[1], params[2]);
@@ -754,6 +764,9 @@
 					case FEEDBACK_STATE:
 						_handleFeedbackResponse(response);
 						break;
+					case SCORES_STATE:
+						_handleScoresResponse(response);
+						break;
 					case TUTORIAL_COMPLETE_STATE:
 						_handleTutorialCompleteResponse(response);
 						break;
@@ -785,6 +798,7 @@
                     "runtime/item_model[@score='1']"
                 )
             );
+            gController.setAttribute('totalRaw',rawscore);
 
             var crtotal = countDataNodes(
                 dpstudentdata.xpathQuery(
@@ -840,6 +854,11 @@
     		gScreens.showFeedback(response);
 		]]></method>
 
+		<method name="_handleScoresResponse" args="response"><![CDATA[
+			LzTimer.removeTimer( dupdateTimeLeft );
+    		gScreens.showScores(response);
+		]]></method>
+		
 		<method name="_handleTutorialCompleteResponse"
 			args="response"><![CDATA[
 			gTutorialManager.tutorialComplete();
@@ -852,9 +871,13 @@
 		<method name="_handleSubtestFinishResponse" args="response">
 			var node = LzDataNode.stringToLzData(response);
 			var nextSubtestIndex = getSubtestIndex(node);
+			removeTrackTimer();
 			if(nextSubtestIndex != -1){
 				setAttribute('currentSubtestIndex', nextSubtestIndex);
 				getSubtest();
+			}
+			else if(this.getAttribute('isOK') == 'T'){
+				getScoreSheet();
 			}
 			else if(isFeedback()){
 				getFeedback();
@@ -905,6 +928,11 @@
 			return feedback != null;
 		</method>
 
+		<method name="getScoreSheet">
+			setState(SCORES_STATE);
+			gCommunicator.feedback(lsid);
+		</method>
+
 		<method name="_handleFinishSaveResponse" args="response">
 			setState(SUBTEST_FINISH_STATE);
 			resetHeartbeat();
@@ -917,6 +945,7 @@
 
 		<method name="goToGoodbyeScreen">
 			stopHeartbeat();
+			removeTrackTimer();
 			gScreens.showGoodbye();
 			LzTimer.addTimer( dcloseBrowser, 5000 );
 		</method>
@@ -964,6 +993,8 @@
 	    		var logo = dp.xpathQuery('login_response/branding/@tdclogo');
        			canvas.setAttribute("logoRsrc", logo);
 	    		var cmicore = dp.xpathQuery('login_response/testing_session_data/cmi.core');
+				var isOK = dp.xpathQuery('login_response/testing_session_data/cmi.core/@isOK');
+				gController.setAttribute('isOK',isOK);
 	    		cmicore.setAttr('password', password);
 	    		cmicore.setAttr('userid', userid);
 	    		cmicore.setAttr('accesscode', accesscode);
@@ -1506,6 +1537,7 @@
 			}*/
             saveLoadItem(fnode, INIT_LEV);
             dshowClient.register( this, 'itemuiready' );
+			trackMouseMove();
         </method>
 
 		<attribute name="dshowClient"
@@ -2830,6 +2862,7 @@
                 freezeUI();
                 stopQuestion();
 				gMusicPlayer.hide();
+        		removeTrackTimer();
 		   //For defect 65881         
             if(this.recorder != null)
 			{
@@ -2870,6 +2903,7 @@
                 LzCursor.setCursorGlobal( 'waitcursor' );
 				setState(PAUSED_RESUME_STATE);
 				resetHeartbeat();
+				recalltrackMouseMove();
 				gCommunicator.lifecycle(RESUME_LEV);
                 return true;
             } else {
@@ -2881,6 +2915,7 @@
 			showItemInterface();
 			gScreens.resetTextFieldColor();
             startQuestion();
+			recalltrackMouseMove();
             unlockUI();
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
@@ -2919,6 +2954,8 @@
             	//this.setAttribute("sendCatSave",true);
             	setSendCatSave();
             }
+			this.setAttribute('trackTimer',0);
+			removeTrackTimer();
             save();
         </method>
 	
@@ -3036,6 +3073,7 @@
 			
             LzCursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
+			recalltrackMouseMove();
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
             unlockUI();
@@ -3676,6 +3714,54 @@ Debug.write("############ loadItem ############");
 			LzTimer.resetTimer( dsendHeartbeat, 120000 );
 		</method>
 
+		<!--added for tdc timeout OK start-->
+
+		<attribute name="trackDel" 
+                   value="$once{new LzDelegate( this , 'trackMouseMove' ) }" />
+
+		<method name="trackMouseMove" >
+            <![CDATA[
+            var xpos = Math.round( canvas.getMouse("x") );
+            var ypos = Math.round( canvas.getMouse("y") );
+            if ( (this.lastxpos != xpos) 
+              || (this.lastypos != ypos) ) {
+                this.lastxpos = xpos;
+                this.lastypos = ypos;
+				this.setAttribute('trackTimer',0);
+                resetTrackTimer();
+            }else{
+            	this.setAttribute('trackTimer',Math.round(this.trackTimer+1000));
+            	if(this.trackTimer >= 300000){
+            		testTimeout();
+            	}else{
+					resetTrackTimer();
+				}
+            }
+            ]]>
+        </method>
+        
+        <method name="resetTrackTimer">
+			Debug.write("trackTimer",this.trackTimer);
+			LzTimer.resetTimer(trackDel,1000);
+		</method>
+		
+		<method name="testTimeout">
+			this.setAttribute('testTimeout',true);
+			terminate();
+		</method>
+
+		<method name="removeTrackTimer">
+			this.setAttribute('trackTimer',0);
+			LzTimer.removeTimer(trackDel);
+		</method>
+
+		<method name="recalltrackMouseMove">
+			this.setAttribute('trackTimer',0);
+			trackMouseMove();
+		</method>
+	
+		<!--added for tdc timeout OK end-->
+
 		<method name="getCurrentInteractionType">
             var typeNode = dpstudentdata.xpathQuery( 'current_item/item_model/interaction' );
             if (typeNode == null) return null;
@@ -3810,6 +3896,7 @@ Debug.write("out of time 1 ans" + isAnswered);
                 freezeUI();
             }
             stopQuestion();
+			removeTrackTimer();
             setState(TIMEOUT_STATE);
 			//to call adaptive engine 
 			if(this.adaptive && !this.catOver) {
@@ -3821,6 +3908,7 @@ Debug.write("out of time 1 ans" + isAnswered);
 		<method name="goToTimeoutScreen">
             LzCursor.unlock();
             gReadableText.stopReading();
+			removeTrackTimer();
             hideMagnifierGlass();
 			hideMaskingChoiceDD();
             if(this.recorder != null) {
@@ -4283,6 +4371,7 @@ Debug.write("out of time 1 ans" + isAnswered);
 		<method name="hideWaitPopup"><![CDATA[
 			this.isWaitPopupOpen = false;	
 			gPleaseWaitPopup.hide();
+			recalltrackMouseMove();
 			LzTimer.removeTimer(dNetworkLostPopup);
 			gReadableText.stopRequestor();
 			gController.unlockUI();
