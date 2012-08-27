@@ -80,8 +80,8 @@ public class TdcConfigEncryption
         try
         {
         	String operation = "encrypt";
-        	String inputFile = "C:\\tdcupdates\\lock.zip";
-        	String outputFile = "C:\\tdcupdates\\lock.enc";
+        	String inputFile = "C:\\tdcupdates\\tdcConfig.zip";
+        	String outputFile = "C:\\tdcupdates\\tdcConfig.enc";
         	
         	/*if(args.length > 1) {
 	        	inputFile = args[0];
