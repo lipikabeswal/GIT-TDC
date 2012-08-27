@@ -46,7 +46,7 @@
         LzModeManager.makeModal(this);
         resetControls();
         gHotKeys.disableKeys();
-        
+        gController.removeTrackTimer();
     </method>
 
     <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">

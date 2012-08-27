@@ -24,6 +24,16 @@
 	</node>
 	
     <class name="GoodbyeScreen">
-		<text font="Arial" fontsize="24" height="36" align="center" valign="middle" fgcolor="white">Good-bye!</text>    
+    	<method name="isTimeout">
+			if(gController.testTimeout == true){
+				this.timeoutText.setVisible(true);
+				this.goodbye.setVisible(false);
+			}else{
+				this.timeoutText.setVisible(false);
+				this.goodbye.setVisible(true);
+			}
+		</method>
+		<text font="Arial" fontsize="24" height="36" align="center" valign="middle" fgcolor="white" name="goodbye" visible="true">Good-bye!</text> 
+		<text font="Arial" fontsize="24" height="36" align="center" valign="middle" fgcolor="white" name="timeoutText" visible="false">Your test session has timed out and will now close.</text>
 	</class>
 </library>
