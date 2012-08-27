@@ -544,6 +544,7 @@
 		<attribute name="RestartTest" value="false" type="boolean" />
 		<attribute name="trackTimer" type="number" value="0"/>
 		<attribute name="isOK" type="string" value="F"/>
+		<attribute name="countdownTimer" type="number" value="0"/>
 			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -627,7 +628,7 @@
 
 		<method name="getSubtest">
 			setAttribute("doUnlockUI", true);
-			recalltrackMouseMove();
+			//recalltrackMouseMove();
 			setState(SUBTEST_STATE);
 			var params = getCurrentSubtestParams();
 			gCommunicator.getSubtest(params[0], params[1], params[2]);
@@ -2894,8 +2895,8 @@
             LzCursor.unlock();  
         	checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();    
-          
             gScreens.showPause(getStudentName());
+			trackCountdownTimer();
 		</method>
 
 		<method name="pausedContinue" args="pw">
@@ -2921,6 +2922,7 @@
             restoreScratchpadFocusIfNeeded();
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
+			removeCountdownTimer();
 		</method>
 
 		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
@@ -3731,7 +3733,7 @@ Debug.write("############ loadItem ############");
                 resetTrackTimer();
             }else{
             	this.setAttribute('trackTimer',Math.round(this.trackTimer+1000));
-            	if(this.trackTimer >= 300000){
+            	if(this.trackTimer >= 1200000){
             		testTimeout();
             	}else{
 					resetTrackTimer();
@@ -3741,7 +3743,7 @@ Debug.write("############ loadItem ############");
         </method>
         
         <method name="resetTrackTimer">
-			Debug.write("trackTimer",this.trackTimer);
+			//Debug.write("trackTimer",this.trackTimer);
 			LzTimer.resetTimer(trackDel,1000);
 		</method>
 		
@@ -3758,6 +3760,28 @@ Debug.write("############ loadItem ############");
 		<method name="recalltrackMouseMove">
 			this.setAttribute('trackTimer',0);
 			trackMouseMove();
+		</method>
+
+		<attribute name="trackCountdown" 
+                   value="$once{new LzDelegate( this , 'trackCountdownTimer' ) }" />
+
+		<method name="trackCountdownTimer">
+				this.setAttribute('countdownTimer',Math.round(this.countdownTimer+1000));
+            	if(this.countdownTimer >= 1200000){
+            		testTimeout();
+				}else{
+					resetCountdownTimer();
+				}
+		</method>
+
+		<method name="resetCountdownTimer">
+			//Debug.write("countdownTimer",this.countdownTimer);
+			LzTimer.resetTimer(trackCountdown,1000);
+		</method>
+
+		<method name="removeCountdownTimer">
+			this.setAttribute('countdownTimer',0);
+			LzTimer.removeTimer(trackCountdown);
 		</method>
 	
 		<!--added for tdc timeout OK end-->

@@ -15,7 +15,20 @@
            value="$path{ 'subtest/ob_assessment/@starting_question_number' }"/>
 
         <attribute name="hasStartNumber" value="false"/>
-
+        
+		<handler name="onkeydown" reference="LzKeys" args="k">
+			if(this.visible) {
+				 gController.setAttribute('trackTimer',0);
+				 gController.resetTrackTimer();
+			}
+		</handler>
+	
+		<handler name="onmousedown" reference="LzGlobalMouse">
+			 if(this.visible) {
+				 gController.setAttribute('trackTimer',0);
+				 gController.resetTrackTimer();
+			}
+		</handler>
         <method args="n" event="onstartNumber"><![CDATA[
             setAttribute(
                 'hasStartNumber',
