@@ -1,9 +1,12 @@
 package com.ctb.tdc.bootstrap.util;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import org.bouncycastle.crypto.digests.MD5Digest;
 import org.bouncycastle.crypto.engines.RC4Engine;
@@ -75,10 +78,41 @@ public class TdcConfigEncryption
         return result;
     }
     
+    public static final void zipDirectory( String directory, String zip ) throws IOException {
+        ZipOutputStream zos = new ZipOutputStream( new FileOutputStream( zip ) );
+        zip( new File(directory), new File(directory), zos );
+          zos.close();
+      }
+      
+      private static final void zip(File directory, File base,
+          ZipOutputStream zos) throws IOException {
+        File[] files = directory.listFiles();
+        byte[] buffer = new byte[8192];
+        int read = 0;
+        for (int i = 0, n = files.length; i < n; i++) {
+          if (files[i].isDirectory()) {
+            zip(files[i], base, zos);
+          } else {
+            FileInputStream in = new FileInputStream(files[i]);
+            ZipEntry entry = new ZipEntry(files[i].getPath().substring(
+                base.getPath().length() + 1));
+            zos.putNextEntry(entry);
+            while (-1 != (read = in.read(buffer))) {
+              zos.write(buffer, 0, read);
+            }
+            in.close();
+          }
+        }
+      }
+
+
+
+    
     public static void main( String[] args ) throws Exception
     {
         try
         {
+        	zipDirectory("C:\\tdcupdates\\input\\", "C:\\tdcupdates\\tdcConfig.zip");
         	String operation = "encrypt";
         	String inputFile = "C:\\tdcupdates\\tdcConfig.zip";
         	String outputFile = "C:\\tdcupdates\\tdcConfig.enc";
