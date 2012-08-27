@@ -60,7 +60,7 @@ int getItems (char inPar[], struct item_info items[], int n_items, int *n_obj, i
    * lineLen_max must be >= the line width of par files ***below read items@todo
    */
  	   
-  while (getCurrentline (aLine, lineLen_max, fp) > 2 ) {
+  while (getCurrentline (aLine, lineLen_max, fp) > 1 ) {
 	
 	items[i].item_no = i+1;
 
@@ -178,7 +178,7 @@ int getSSstats (char inFileByLvl[], char inFileByCnt[], char subTest[], char tes
   
   fgets (aLine, lineLen_max,fp); /* get the first line */
 	   
-  while (getCurrentline (aLine, lineLen_max, fp) > 2 ) {
+  while (getCurrentline (aLine, lineLen_max, fp) > 1 ) {
      strcpy(content, strtok(aLine,","));  
      level = strtok(NULL,",")[0];  
      if ( (!strcmp(content, subTest)) && ( level == testLevel )) {
@@ -227,7 +227,7 @@ int getNadmObj(char inFileNoItemObj[], char subTest[], char testLevel, int n_adm
   }
   
   j = 0;
-  while (getCurrentline (aLine, lineLen_max, fp) > 2 ) {
+  while (getCurrentline (aLine, lineLen_max, fp) > 1 ) {
      strcpy(content, strtok(aLine,","));  
      if ( !strcmp(content, subTest)) {
 		 switch(testLevel){
@@ -270,7 +270,7 @@ int get_n_items(char inPar[]){
 
   fgets (aLine, lineLen_max,fp); /* get the first line */
 
-  while (getCurrentline (aLine, lineLen_max, fp) > 2 ) 
+  while (getCurrentline (aLine, lineLen_max, fp) > 1 ) 
 	n_line ++;
   
   fclose(fp);
@@ -306,7 +306,7 @@ int getFT_Items (char inPar[], struct item_info items[], int n_items, int n_FTit
    * lineLen_max must be >= the line width of par files ***below read items@todo
    */
  	   
-  while (getCurrentline (aLine, lineLen_max, fp) > 2 ) {
+  while (getCurrentline (aLine, lineLen_max, fp) > 1 ) {
 	
 	items[i].item_no = i+1;
 
@@ -331,8 +331,8 @@ int getFT_Items (char inPar[], struct item_info items[], int n_items, int n_FTit
 	  items[i].level = strtok(NULL,",")[0];
 	  */
 	  items[i].obj_id = 9999;
-	  items[i].psg_id = 0;   // non passage item
-	  items[i].item_order = 0;  // non passage item
+	  items[i].psg_id = atoi(strtok(NULL,","));    // added passage id and item order after item id in FT data on 8-22-12
+	  items[i].item_order = atoi(strtok(NULL,","));   //  
 
 /*	  printf(" %d %d %d %d \n", items[i].item_id, items[i].obj_id, items[i].psg_id,  items[i].item_order ); */
 
@@ -385,7 +385,7 @@ int get_LH4lvl(char inFile[], char subTest[], double loss[], double hoss[]){
    * lineLen_max must be >= the line width of par files 
    */
  	   
-     while (getCurrentline (aLine, lineLen_max, fp) > 2 ) {
+     while (getCurrentline (aLine, lineLen_max, fp) > 1 ) {
 	     strcpy(content, strtok(aLine,","));  
          if ( !strcmp(content, subTest)) {
 			      strtok(NULL,","); 
@@ -417,7 +417,7 @@ int get_objLvlCut(char inFile[], int objID[], struct objSScut objSS_cut[]) {
 	 j = 0;
      fgets (aLine, lineLen_max,fp); /* get the first line */
 
-	 while (getCurrentline (aLine, lineLen_max, fp) > 2 ) {
+	 while (getCurrentline (aLine, lineLen_max, fp) > 1 ) {
 		 obj_id = atoi(strtok(aLine,","));
 		 if (obj_id == objID[i]) {   /* objID[] are sorted by number already  */
 			      for (j = 0; j < 4; j++) 

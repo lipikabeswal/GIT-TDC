@@ -331,8 +331,8 @@ int getFT_Items (char inPar[], struct item_info items[], int n_items, int n_FTit
 	  items[i].level = strtok(NULL,",")[0];
 	  */
 	  items[i].obj_id = 9999;
-	  items[i].psg_id = 0;   // non passage item
-	  items[i].item_order = 0;  // non passage item
+	  items[i].psg_id = atoi(strtok(NULL,","));    // added passage id and item order after item id in FT data on 8-22-12
+	  items[i].item_order = atoi(strtok(NULL,","));   //  
 
 /*	  printf(" %d %d %d %d \n", items[i].item_id, items[i].obj_id, items[i].psg_id,  items[i].item_order ); */
 

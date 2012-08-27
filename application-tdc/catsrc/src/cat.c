@@ -158,6 +158,7 @@ int get_hoss(int obj_id);
 double TCCinverse(double rs, int obj_id, int loss, int hoss);
 int getMasterLvlFromSS(double ss, int obj_id);
 void set_psgID(int psg_id);
+int next_item_RD();
 
 JNIEXPORT jint JNICALL Java_com_ctb_tdc_web_utils_CATEngineProxy_setup_1cat (JNIEnv * env, jclass theclass, jstring subtest) {
 	const jchar* subtestS = (*env)->GetStringUTFChars( env, subtest, 0 );
@@ -174,14 +175,14 @@ int setup_cat(char subTest[]) {
    int condition_code = 0;  /* Returned condition code  */
    int i, j;
    double *a;
-   char versionInfo[]="TABE CAT version 1.6 (Build 007), 5/25/2012.";
+   char versionInfo[]="TABE CAT version 1.7 (Build 008), 8/25/2012.";
  
    strcpy(_subTest, subTest);   /* @todo set to up case */
 
    if (LOG_FILE_FLAG) {
        strcpy(log_filename, "");
        /* strcat(log_filename, ".\\Data\\"); */
-       strcat(log_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\");
+       strcat(log_filename, "..//..//data//");
        strcat(log_filename, subTest);
        strcat(log_filename, ".log");
 
@@ -211,7 +212,7 @@ int setup_cat(char subTest[]) {
    */
 
   /* strcpy(_NoItemsEachObjByLvl_filename, ".\\Data\\NoItemsAnObjByLvl.csv"); */
-   strcpy(_NoItemsEachObjByLvl_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\NoItemsAnObjByLvl.csv");
+   strcpy(_NoItemsEachObjByLvl_filename, "..//..//data//NoItemsAnObjByLvl.csv");
    /*
    condition_code = getNadmObj(NoItemsEachObjByLvl_filename, subTest, testLevel, _n_adm_obj);
    if (condition_code != GETN_ADMOBJ_OK) {
@@ -293,7 +294,7 @@ int setup_cat(char subTest[]) {
 
    strcpy(par_filename, "");
  /*  strcat(par_filename, ".\\Data\\"); */
-   strcat(par_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\");
+   strcat(par_filename, "..//..//data//");
    strcat(par_filename, subTest);
    strcat(par_filename, ".csv");
    
@@ -337,7 +338,7 @@ int setup_cat(char subTest[]) {
 
 	/* set level specified loss and hoss */
 	/*
-	strcpy(lvlLH_filename,"C:\\Program Files\\CTB\\Online Assessment\\Data\\TabeScaleBounds.csv");
+	strcpy(lvlLH_filename,"..//..//data//TabeScaleBounds.csv");
 	condition_code = get_LH4lvl(lvlLH_filename, subTest, _lvl_loss, _lvl_hoss);
 	if (condition_code != GETPAR_OK) {
         if (LOG_FILE_FLAG) fprintf(log_file, "Error: get_LH4lvl failed in Data\TabeScaleBounds.cvs. \n"); 
@@ -347,7 +348,7 @@ int setup_cat(char subTest[]) {
 	/* set obj level specified cut scores */
 	
 	strcpy(objLvlCut_filename, "");
-    strcat(objLvlCut_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\");
+    strcat(objLvlCut_filename, "..//..//data//");
     strcat(objLvlCut_filename, subTest);
  //   strcat(objLvlCut_filename, "-Lvl-Obj-Cuts.csv");
     strcat(objLvlCut_filename, "-Obj-Cuts.csv");
@@ -374,7 +375,7 @@ int setup_cat(char subTest[]) {
 /* get FT items */
    strcpy(parFT_filename, "");
  /*  strcat(parFT_filename, ".\\Data\\"); */
-   strcat(parFT_filename, "C:\\Program Files\\CTB\\Online Assessment\\Data\\");
+   strcat(parFT_filename, "..//..//data//");
    strcat(parFT_filename, subTest);
    strcat(parFT_filename, "_FT.csv");
    
@@ -637,6 +638,10 @@ int next_item() {
 	int i_FTflag = 0;
 	int psg_size = 0;
 
+	if ( !strcmp("RD", _subTest)) {
+		return next_item_RD();
+	}
+
     if (( (_iadm == _testLength) && (_iadmFT == _FTtestLength )) || (_i_stop >= 0))  return END_ITEM;
 
     theta = _theta[_iadm];
@@ -740,6 +745,100 @@ int next_item() {
 	return itemID;
 }
 
+int next_item_RD() {
+	char lvl;
+    int itemID;
+	int objID_idx;
+	int condition_code;
+	double theta;
+	int new_ik = 0;
+	int i = 0;
+	int j = 0;
+	int k = 0, kj=0;
+	int i_FTflag = 0;
+	int psg_size = 0;
+
+    if (( (_iadm == _testLength) && (_iadmFT == _FTtestLength )) || (_i_stop >= 0))  return END_ITEM;
+
+    theta = _theta[_iadm];
+
+	/* set target objectives for level */
+	if (_iadm == (_1st_nItems + _2nd_nItems ) ) { 
+			lvl = get_testLevel(theta, _subTest);
+            condition_code = getNadmObj(_NoItemsEachObjByLvl_filename, _subTest, lvl, _n_adm_obj);
+            if (condition_code != GETN_ADMOBJ_OK) {
+	             if (LOG_FILE_FLAG) fprintf(log_file, "Error: getNadmObj failed for subTest %s and Level %c \n", _subTest, lvl);
+	             return NEXT_ITEM_FAILURE; 
+			}
+			/* sort by obj_id and a parameter?? No! It already was sorted this way. */
+			set_pItems();   
+		/*	set_testLength(); */
+	}
+
+	if (_iadm < _testLength ) {
+	    if ( _is_psg ) {  
+		    itemID = next_psg_item(_items[_ik].psg_id);
+		    if ( itemID != NEXT_ITEM_FAILURE ) {
+			    _isFTitem = 0;   
+			    update_iBank();
+/*			printf("item_no = %d, itemID = %d, psg_id = %d, item_order = %d   \n", _items[_ik].item_no, itemID, _items[_ik].psg_id, _items[_ik].item_order);
+*/
+                return itemID;
+		    }
+		    else {  /* end of passage item */
+				// turn off enemy passage item here.
+			//	turnOff_enemy(); moved to update_ibank()
+				_is_psg = 0;		// this may never be reached??
+			}
+	     }
+	}
+
+	if ((_isFTitem) && (_iadmFT < _FTtestLength) && (_iadm >= _testLength)) {
+	     if ( _is_FTpsg ) {  /* assume no passage item in FT */
+		    itemID = next_FTpsg_item(_FTitems[_ik_FT].psg_id);
+		    if ( itemID != NEXT_ITEM_FAILURE ) {
+			    update_FTiBank();
+/*			printf("item_no = %d, itemID = %d, psg_id = %d, item_order = %d   \n", _items[_ik].item_no, itemID, _items[_ik].psg_id, _items[_ik].item_order);
+*/
+                return itemID;
+		    }
+		    else _is_FTpsg = 0;
+	     }
+	}
+	/* deal with field test items */
+	if ((_iadm >= _testLength) && (_iadmFT < _FTtestLength)) {
+		i_FTflag = 1;
+	/*	printf("random = %d \n", i_FTflag); */
+        if ( i_FTflag || (_iadm >= _testLength) ) { /* gives FT items */
+			itemID =  adapt_aFTitem();
+			if ( itemID != NEXT_ITEM_FAILURE ) {
+					update_FTiBank();
+					return itemID;
+			}
+		}
+	}
+
+	/* memo 9 */
+	if (_iadm < _testLength ) {
+		_isFTitem = 0;
+        if (_iadm < _1st_nItems )
+            itemID = adapt_aItemFromIdx(theta, 0, _idx1);
+	    else if ((_iadm >= _1st_nItems) && ( _iadm < (_1st_nItems + _2nd_nItems ) ) )
+		    itemID = adapt_aItemFromIdx2(theta, _idx1, _idx2);
+	    else {	
+            objID_idx = get_objID_idx();
+		    itemID = adapt_aItem(objID_idx, (_aStrata_o -1), theta); 
+	    }  
+	    if ( itemID != NEXT_ITEM_FAILURE ) 
+            update_iBank();
+	    else {
+            if (LOG_FILE_FLAG) fprintf(log_file, "Error: NEXT_ITEM_FAILURE in next_item() \n");
+		}
+	}
+/*	printf("item_no = %d, itemID = %d, psg_id = %d, item_order = %d   \n", _items[_ik].item_no, itemID, _items[_ik].psg_id, _items[_ik].item_order);
+*/
+	return itemID;
+}
 
 
 int adapt_aFTitem() {
@@ -747,7 +846,11 @@ int adapt_aFTitem() {
 	int itemID;
 	int findItemFlag = 0;
             _isFTitem = 1;
-			i = randomNoBetween(0, (_n_FTitems-1));
+			if ( !strcmp("RD", _subTest)) {
+				i = 3;  // adapted item number 4 in RD_FT.cvs as the first RD FT item
+			}
+			else i = randomNoBetween(0, (_n_FTitems-1));
+
 			if (_FTitems[i].psg_id) 
                  psg_size = get_FTpsg_size(_FTitems[i].psg_id);
 			else psg_size = 1;
@@ -1564,10 +1667,7 @@ void update_iBank(){
    _item_adm[_iadm].parameters[1] = _items[_ik].parameters[1];
    _item_adm[_iadm].parameters[2] = _items[_ik].parameters[2];
 
-   if (_items[_ik].psg_id) 
-	   set_psgID(_items[_ik].psg_id);
-   else
-       set_psgID(0);
+   set_psgID(_items[_ik].psg_id);
 
    if (_enemy_item ) {
 	   set_enemyID(_enemy_item);
@@ -1602,7 +1702,7 @@ void turnOff_enemy(){
 
 void update_FTiBank(){
    _FTitems[_ik_FT].adm_flag = 0;   /* set this items as administrated */
-   set_psgID(0); // @todo: we assume there is no psg items in FT items and initialize id for OP items.
+   set_psgID(_FTitems[_ik_FT].psg_id); // set FT item passage id on 8-22-12, note FT item passage id can be the same as OP item psg_id
    _enemy_item = 0;
    set_enemyID(0); // @todo: we assume there is no enemy items in FT items and initialize id for OP items.
    

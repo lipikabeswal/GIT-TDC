@@ -1,0 +1,10 @@
+LIBRARY	CATABE
+
+EXPORTS
+	setup_cat
+	getTestLength
+	next_item
+	score
+	getSEM
+	set_rwo
+	setoff_cat
