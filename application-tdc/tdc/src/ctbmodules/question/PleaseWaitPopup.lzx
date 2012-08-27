@@ -38,6 +38,7 @@
         this.setAttribute("visible", false);
 		this.contents.networkLost.inBar.barAnimator.stop();
 		LzModeManager.release(this);
+		recalltrackMouseMove();
     </method>
 	
     <method name="show">
