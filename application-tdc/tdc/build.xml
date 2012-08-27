@@ -22,13 +22,13 @@
     <property name="ctbmodules" value="${basedir}/src/ctbmodules"/>
     <property name="lzmodules" value="${basedir}/src/lzmodules"/>
 
- 
+
 	
     <target name="TestClient" description="compile TestClient.lzx">
     	<echo message="${lzc}"/>
         <exec executable="${lzc}" failonerror="true">
             <arg value="${TestClient.lzx}"/>
-        	<arg value='"--runtime=swf10"'/>
+        	<arg value='"--runtime=swf8"'/>
         </exec>
         <copy file="${TestClient.lzx.swf}" todir="${webappDir}"/>
         <delete file="${TestClient.swf}"/>
@@ -36,7 +36,7 @@
     </target>
 
     <target name="Debug" description="update files on webapp folder from tdc/src">
-    	<unzip src="${basedir}/../openlaszlo-4.9.0-servlet.war" dest="${webappDir}">    		
+    	<unzip src="${basedir}/../openlaszlo-3.3.3-servlet.war" dest="${webappDir}">    		
     		<patternset>
     			<exclude name="**/WEB-INF/web.xml"/>
     			<exclude name="**/META-INF/MANIFEST.MF"/>
