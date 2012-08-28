@@ -12,6 +12,12 @@
 	<handler name="onfocus">
 		Debug.write("NK XXX canvas has focus");
 	</handler>
+	
+	<handler name="onkeydown" reference="LzKeys" args="k">
+		 gController.setAttribute('trackTimer',0);
+		 gController.resetTrackTimer();
+	</handler>
+
 
 	<script src="lzmodules/lfc/browserpatch.js">
     </script>
