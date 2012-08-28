@@ -18,8 +18,8 @@
 	<attribute name="BOOKTITLE_DISPLAY_STYLE" type="string" value="BOOKTITLE" />
 	<attribute name="readingFootNote" type="boolean" value="false" />
 	
-    <method name="findScrollingTextPanel" args="inDP">
-        if(inDP.getNodeName() == gCompTypes.WIDGET_SCROLLING_TEXT_PANEL) {
+    <method name="findScrollingTextPanel" args="inDP,compType">
+        if(inDP.getNodeName() == compType) {
             return inDP.p;
         }
 
@@ -29,7 +29,7 @@
 
             do
             {
-                var res = findScrollingTextPanel(dp);
+                var res = findScrollingTextPanel(dp,compType);
                 if(res != null) {
                     return res;
                 }
@@ -42,25 +42,80 @@
 
 	<attribute name="readable" type="boolean" value="false" />
 	
-    <method event="ondata" reference="gController.dpitem">
+    <method event="ondata" reference="gController.dpitem"><![CDATA[
         //find the text in the scroll text panel node.  We'll use this to find
         //the details for a particular header
+       	var itemTextStr = "";
+		var stimulusTextStr = "";
+		var stimulusTextData;
+		var panelTextData;
+		var scrollTextData;
+
         if (gController.dpitem.data) {
             var dnscrolltext = gController.dpitem.xpathQuery("item_canvas/scrolling_text_panel");
-            if(dnscrolltext == null) {
-                dnscrolltext = findScrollingTextPanel(gController.dpitem);
-            }
-            if(dnscrolltext == null){
-            	dnscrolltext = gController.dpitem.xpathQuery("item_canvas/stimulus_tabs_panel/stimulus_tab");
-            	if(dnscrolltext != null){
-            		dnscrolltext = dnscrolltext[0];
-            	}
-            }
-            if (dnscrolltext) {
-                this.setAttribute("itemtxt", dnscrolltext.serialize());
+			if(dnscrolltext != null) {
+				if(dnscrolltext instanceof LzDataElement) {
+					itemTextStr= itemTextStr + dnscrolltext.serialize();
+				}
+				else {
+	           		for(var i=0; i <dnscrolltext.length; i++) {
+						scrollTextData = dnscrolltext[i];
+						if(scrollTextData != null) {
+							itemTextStr= itemTextStr + scrollTextData.serialize();
+							//printBigString(scrollTextData.serialize());
+						}
+					}
+				}
+           	}
+			else {
+				dnscrolltext = findScrollingTextPanel(gController.dpitem,gCompTypes.WIDGET_SCROLLING_TEXT_PANEL);
+				if(dnscrolltext) {
+					itemTextStr= itemTextStr + dnscrolltext.serialize();
+				}
+			}
+            
+          	dnstimulustext = gController.dpitem.xpathQuery("item_canvas/stimulus_tabs_panel/stimulus_tab");
+           	if(dnstimulustext != null){
+           		dnstimulustext = dnstimulustext[0];
+           	}	
+           	if(dnstimulustext) {
+				stimulusTextStr = dnstimulustext.serialize();
+			}
+                       
+            var dnpaneltext = gController.dpitem.xpathQuery("item_canvas/panel");
+           	if(dnpaneltext != null) {
+				if(dnpaneltext instanceof LzDataElement) {
+					itemTextStr= itemTextStr + dnpaneltext.serialize();
+				}
+				else {
+	           		for(var i=0; i <dnpaneltext.length; i++) {
+						panelTextData = dnpaneltext[i];
+						if(panelTextData != null) {
+							itemTextStr= itemTextStr + panelTextData.serialize();
+							//printBigString(panelTextData.serialize());
+						}
+					}
+				}
+           	}
+			else {
+				dnpaneltext = findScrollingTextPanel(gController.dpitem,gCompTypes.WIDGET_PANEL);
+				if(dnpaneltext) {
+					itemTextStr= itemTextStr + dnpaneltext.serialize();
+				}
+			}
+           	            
+            if (itemTextStr != null) {
+                this.setAttribute("itemtxtpanels", itemTextStr);
 				
             } else {
-                this.setAttribute("itemtxt", "");
+                this.setAttribute("itemtxtpanels", "");
+            }
+
+			if (stimulusTextStr != null) {
+                this.setAttribute("itemtxtstimulus", stimulusTextStr);
+				
+            } else {
+                this.setAttribute("itemtxtstimulus", "");
             }
 
             if(canvas.readable){
@@ -72,7 +127,7 @@
             	this.arrow.setAttribute("showhandcursor", false);
             }
         }
-    </method>
+    ]]></method>
     <method name ="UTFDecode" args="b">
     	<![CDATA[
     	//Defect 64691- Added for footnote defect fix.
@@ -96,7 +151,7 @@
     </method>
 
 	<method name="setTabTextPanel" args="txt">
-		this.setAttribute("itemtxt", txt);
+		this.setAttribute("itemtxtstimulus", txt);
 	</method>
 	
 	<method name="readMe"><![CDATA[
@@ -122,6 +177,15 @@
         <![CDATA[
 		//Defect 64691- Added for footnote defect fix.
 		//Defect 65619 & 65617 fix
+		if(this.itemtxtpanels != "" && this.itemtxtstimulus != "") {
+			this.itemtxt = this.itemtxtpanels + this.itemtxtstimulus;
+		}
+		else if(this.itemtxtpanels != "") {
+			this.itemtxt = this.itemtxtpanels;
+		}
+		else if(this.itemtxtstimulus != "") {
+			this.itemtxt = this.itemtxtstimulus;
+		}
 		this.itemtxt = UTFDecode(this.itemtxt);
 		 if (this.itemtxt != ""){
 			var headerpos = this.itemtxt.indexOf("header=&quot;" + this.formatStr(header));
@@ -129,6 +193,7 @@
         		reallyShow(header);
         	}
         	else{
+				getNextText(gController.dpitem);
         		hide();
         	}
         }
