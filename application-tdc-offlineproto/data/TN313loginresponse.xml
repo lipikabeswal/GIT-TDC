@@ -1,0 +1,20 @@
+<tmssvc_response method="login_response">
+	<login_response lsid="3733987:NOBODY3948" restart_flag="false" restart_number="0">
+		<status status_code="200"/>
+		<testing_session_data>
+			<cmi.core student_id="2560616" student_last_name="Student" student_first_name="Demo" student__middle_name="A"/>
+			<lms.student.accommodations calculator="true" magnifier="true" screen_reader="false" untimed="false" rest_break="false" 
+			 highlighter="true" masking_ruler="true" magnifying_glass="true" auditory_calming="false" 
+			 music_file_id="3" extended_time="false" masking_tool="true">
+				<stereotype_style stereotype="directions" font_magnification="1.0"/>
+				<stereotype_style stereotype="stimulus" font_magnification="1.0"/>
+				<stereotype_style stereotype="stem" font_magnification="1.0"/>
+				<stereotype_style stereotype="answerArea" font_magnification="1.0"/>
+			</lms.student.accommodations>
+		</testing_session_data>
+		<manifest block_content_download="false" title="Experience TerraNova, Third Edition, Online Level 13"><sco force_logout="false" cmi.core.entry="ab-initio" id="281182" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TerraNova Tips and Sample Questions" asmt_hash="1CCCD00E3C0C52650E046A3438E7E58F" asmt_encryption_key="660" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70084600" fwd_only="false" adaptive="false" contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0"/><sco force_logout="false" cmi.core.entry="ab-initio" id="281184" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TerraNova Reading" asmt_hash="5DCF0498763FBFA7A7BA084A6178D66E" asmt_encryption_key="276" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70084700" fwd_only="false" adaptive="false" contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0"/><sco force_logout="false" cmi.core.entry="ab-initio" id="281186" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TerraNova Language" asmt_hash="C0A9CE1652F78E43BECE24A87973D57C" asmt_encryption_key="808" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70084800" fwd_only="false" adaptive="false" contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0"/><sco force_logout="false" cmi.core.entry="ab-initio" id="281188" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TerraNova Mathematics" asmt_hash="94F7ADD83CDB285E65C259D479EA67EA" asmt_encryption_key="1962" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70084900" fwd_only="false" adaptive="false" contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0"/><sco force_logout="false" cmi.core.entry="ab-initio" id="281190" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TerraNova Science" asmt_hash="48EBF7CA67ED7C125B90E9BAC4FD0C40" asmt_encryption_key="465" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70085000" fwd_only="false" adaptive="false" contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0"/><sco force_logout="false" cmi.core.entry="ab-initio" id="281192" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TerraNova Social Studies" asmt_hash="A914C99D45BCD5A9DEC8453D0240A9F0" asmt_encryption_key="110" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70085100" fwd_only="false" adaptive="false" contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0"/>
+			<terminator id="SEE_YOU_LATER"/>
+		</manifest>
+		<branding tdclogo="/resources/logoTN3.swf"/>
+	</login_response>
+</tmssvc_response>

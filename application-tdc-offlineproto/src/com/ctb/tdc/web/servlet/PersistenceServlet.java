@@ -166,6 +166,14 @@ public class PersistenceServlet extends HttpServlet {
         		filePath = new File(".").getAbsolutePath() + "/../data/IIloginresponse1.xml";
         	} else if(requestURI.indexOf("servletTABEFixed") >= 0) {
         		filePath = new File(".").getAbsolutePath() + "/../data/TABEFixedloginresponse.xml";
+        	} else if(requestURI.indexOf("servletTN312") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/TN312loginresponse.xml";
+        	} else if(requestURI.indexOf("servletTN313") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/TN313loginresponse.xml";
+        	} else if(requestURI.indexOf("servletTN314") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/TN314loginresponse.xml";
+        	} else if(requestURI.indexOf("servletTN316") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/TN316loginresponse.xml";
         	} else if(requestURI.indexOf("servletTABEAdaptive") >= 0) {
         		filePath = new File(".").getAbsolutePath() + "/../data/TABEAdaptiveloginresponse.xml";
         	}
@@ -224,6 +232,44 @@ public class PersistenceServlet extends HttpServlet {
     			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"272418\"/>");
     		} else if("272418".equals(scid)) {
     			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"272427\"/>");
+    		} else if("281171".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281173\"/>");
+    		} else if("281173".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281175\"/>");
+    		} else if("281175".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281177\"/>");
+    		} else if("281177".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281179\"/>");
+    		} else if("281182".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281184\"/>");
+    		} else if("281184".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281186\"/>");
+    		} else if("281186".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281188\"/>");
+    		} else if("281188".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281190\"/>");
+    		} else if("281190".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281192\"/>");
+    		} else if("281195".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281197\"/>");
+    		} else if("281197".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281199\"/>");
+    		} else if("281199".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281201\"/>");
+    		} else if("281201".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281203\"/>");
+    		} else if("281203".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281205\"/>");
+    		} else if("281208".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281210\"/>");
+    		} else if("281210".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281212\"/>");
+    		} else if("281212".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281214\"/>");
+    		} else if("281214".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281216\"/>");
+    		} else if("281216".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281218\"/>");
     		} else {
     			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "");
     		}
