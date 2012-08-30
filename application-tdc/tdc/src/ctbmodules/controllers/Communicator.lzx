@@ -1,15 +1,17 @@
 <library>
     <include href="Request.lzx"/>
     <include href="../Screens/GoodbyeScreen.lzx"/>
-
+	
+	
     <node id="gCommunicator">
     	<attribute name="error" type="boolean" value="false" />
     	<attribute name="firstRequestDone" type="boolean" value="false" />
 
-      	<attribute name="dRequestTimer" value="$once{new LzDelegate(this,'sendRequest')}" />
+      	<attribute name="dRequestTimer" value="$once{new lz.Delegate(this,'sendRequest')}" />
+      	<dataset name="dRequestDataSet"/>
       	
       	<method name="updateLDB">
-      		LzBrowser.loadJS('updateLDB()');
+      		lz.Browser.loadJS('updateLDB()');
        	</method>
   		
       	<method name="closeBrowser">
@@ -126,7 +128,7 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
   		<!-- all servlet errors go through this method -->
   		<method name="checkShowError" args="xml,ds"><![CDATA[
 			if(!error){
-   				var node = LzDataNode.stringToLzData(xml);
+   				var node = lz.DataElement.stringToLzData(xml);
    				var code = "";
 
   				if (node && node.nodeName == 'ERROR'){
@@ -227,7 +229,7 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
   		</method>
 
 		<method name="startRequestTimer">
-			LzTimer.resetTimer(dRequestTimer,30000);
+			lz.Timer.resetTimer(dRequestTimer,30000);
 		</method>		
 			
 		<method name="sendRequest">

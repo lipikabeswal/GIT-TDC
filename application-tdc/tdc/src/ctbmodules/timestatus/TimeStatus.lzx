@@ -14,7 +14,6 @@
             <simplelayout axis="x" spacing="10"/>
              <basebutton resource="music_btn" id="gMusicButton"
                         enabled="${ classroot.uienabled == 'true' }"
-                        onclick="gMusicPlayer.togglePopup();"
                         visible="${gController.audible == 'true'}"
                         disabledResourceNumber="0"
                         width="30" height="30" stretches="both"
@@ -48,9 +47,9 @@
             <attribute name="isuntimed"
                        value="$path{ 'dsdisplay:/display/@untimed' }"/>
 
-            <method args="u" event="onisuntimed"><![CDATA[
+            <handler args="u" name="onisuntimed"><![CDATA[
                 setShowTime( showtime );
-            ]]></method>
+            ]]></handler>
 
             <method name="setShowTime" args="show">
                 if ( 'true' == isuntimed ) {
@@ -76,7 +75,8 @@
                               statelength="3" maxstate="1"
                               enabled="${ classroot.uienabled == 'true' }"
                               disabledResourceNumber="0">
-                <method name="toggle" event="onclick">
+                <handler name="onclick" method="toggle" />
+                <method name="toggle">
                     gController.toggleTimer();
                 </method>
             </multistatebutton>
