@@ -10,7 +10,7 @@
 	<class name="CachableSelector" extends="CachableComponent" 
 		comptype="${gCompTypes.WIDGET_SELECTOR}">
         
-        <method event="ondata" args="data"><![CDATA[
+        <handler name="ondata" args="data"><![CDATA[
 
             var selid = data.getAttr ('identifier');
 			this.selbutton.setAttribute ('type', selid);
@@ -27,7 +27,7 @@
 
            doneLoading();
             
-        ]]></method>
+        ]]></handler>
 
         <method name="returnComponent" args="toReturn">
 			this.selbutton.setAttribute("randomtype", null);
@@ -39,11 +39,11 @@
 
         <AnswerSelectionButton name="selbutton" clickable="true"/>
 
-		<method event="onwidth">
-            if ( immediateparent['updateSelector'] ) {
-                immediateparent.updateSelector();
+		<handler name="onwidth">
+            if ( this.immediateparent['updateSelector'] ) {
+                this.immediateparent.updateSelector();
             }
-		</method>
+		</handler>
 		
 		<method name="hide">
             	this.setAttribute('visible',false);
@@ -51,10 +51,10 @@
 		<method name="show">
             	this.setAttribute('visible',true);
 		</method>
-		<method name="notclickable">
+		<method name="setNotClick">
             	this.selbutton.setAttribute('clickable',false);
 		</method>
-		<method name="clickable">
+		<method name="setClick">
             	this.selbutton.setAttribute('clickable',true);
 		</method>
 	</class>

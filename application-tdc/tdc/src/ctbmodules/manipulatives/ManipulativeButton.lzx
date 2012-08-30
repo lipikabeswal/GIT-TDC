@@ -8,13 +8,13 @@
         <attribute name="isselected" value="false"/>
         <attribute name="tooltip" type="string"/>
 
-        <attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
+        <attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
 
-        <method event="oninit">
+        <handler name="oninit">
             this.datapath.setXPath ('@' + this.toolid);
-        </method>
+        </handler>
 
-        <method event="ondata" args="data"><![CDATA[
+        <handler name="ondata" args="data"><![CDATA[
             this.setAttribute ('isselected', data == 'sel');
             if(data == null || data == 'disable'){
 	            this.setAttribute ('isenabled', false);
@@ -25,32 +25,32 @@
 	            this.setAttribute ('visible', true);
             }
 
-            this.setResourceNumber (this.isselected ? 2 : 1);
+            this.setAttribute('frame', this.isselected ? 2 : 1);
 
             if (!this.isselected) {
-                this.setResourceNumber (this.isenabled  ? 1 : 3);
+                this.setAttribute('frame', this.isenabled  ? 1 : 3);
             }
             
-        ]]></method>
+        ]]></handler>
 
-        <method event="onmouseover"><![CDATA[
-            if (!this.isselected && this.isenabled) this.setResourceNumber (2); 
-            LzTimer.addTimer (tooltipdel, 500);
-        ]]></method>
+        <handler name="onmouseover"><![CDATA[
+            if (!this.isselected && this.isenabled) this.setAttribute('frame', 2); 
+            lz.Timer.addTimer (tooltipdel, 500);
+        ]]></handler>
 
-        <method event="onmouseout"><![CDATA[
-            if (!this.isselected && this.isenabled) this.setResourceNumber (1); 
+        <handler name="onmouseout"><![CDATA[
+            if (!this.isselected && this.isenabled) this.setAttribute('frame', 1); 
             gTooltip.hideTooltip ();
-            LzTimer.removeTimer (this.tooltipdel);
-        ]]></method>
+            lz.Timer.removeTimer (this.tooltipdel);
+        ]]></handler>
 
-        <method event="onclick">
+        <handler name="onclick">
             if (this.isenabled) {
                 gController.setManipulativeSelState (this.toolid, 
                                                          this.isselected ? 'up' : 'sel');
             }
-            LzTimer.removeTimer (this.tooltipdel);
-        </method>
+            lz.Timer.removeTimer (this.tooltipdel);
+        </handler>
 
         <method name="showTooltip">
             gTooltip.showTooltip (this.tooltip);

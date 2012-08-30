@@ -5,12 +5,13 @@
       visible="false"
       clickable="true"
       showhandcursor="false" >
-
+      
+      
     <dataset name="dsenlarge">
         <question/>
     </dataset>
 
-	<attribute name="clickdel" value="$once{new LzDelegate(this, 'checkClick')}" />
+	<attribute name="clickdel" value="$once{new lz.Delegate(this, 'checkClick')}" />
 	
  	<method name="checkClick">
 		if(!this.containsPt(this.getMouse('x'), this.getMouse('y'))){
@@ -25,7 +26,7 @@
    </method>
 	
    <method name="enlarge" args="dn, w, h, color, stereotype">
-        this.clickdel.register (LzGlobalMouse, 'onmousedown');        
+        this.clickdel.register (lz.GlobalMouse, 'onmousedown');        
         var dnq = this.dsenlarge.getPointer().p.childNodes[0];
         var v = this.contents.scaler.stretcher.scaled;
         var clone = dn.cloneNode(true);
@@ -80,8 +81,17 @@
     </method>
 
     <drawview name="windowbg" width="750" height="415">
+	
+	 <attribute name="isready" value="false" type="boolean" />
+			  <handler name="oncontext">
+			    this.setAttribute("isready", true);
+			    var roundness = 5;
+            var thickness = 3;
+            var shadow = 4;
 
-        <method event="oninit">
+			  </handler>
+			  
+        <handler name="oninit">
             this.clear();
             
             var roundness = 5;
@@ -90,12 +100,12 @@
 
             drawRoundRect (shadow, shadow, this.width + shadow, this.height + shadow, 
                            roundness,
-                           gray70, null, .5);
+                           0xE0E0E0, null, .5);
             drawRoundRect (0, 0, this.width, this.height, 
                            roundness,
                            0xC4C4C4, 0x7195B1, 1);
-            this.changeColor(white);
-        </method>
+            this.changeColor(0xFFFFFF);
+        </handler>
 
         <method name="changeColor" args="color">
             var roundness = 5;
@@ -107,6 +117,7 @@
         </method>
 
         <method name="drawRoundRect" args="x0, y0, x1, y1, roundness, fill, stroke, alpha">
+        	if(this.isready){
             this.beginPath();
             this.moveTo(roundness + x0 , y0);
             this.lineTo(x1 - roundness, y0);
@@ -132,6 +143,7 @@
             }
 
             this.setAttribute("globalAlpha", 1);
+            }
         </method>
 
     </drawview>
@@ -199,12 +211,12 @@
                        //dp.setNodeAttribute("width", table_width);
 Debug.write("Updated dp : ", dp);
                    ]]> </method>
-                   <method event="onwidth">
+                   <handler name="onwidth">
                        this.calcSize();
-                   </method>
-                   <method event="onheight">
+                   </handler>
+                   <handler name="onheight">
                        this.calcSize();
-                   </method>
+                   </handler>
                </Question>
           </view>
           <vscrollbar name="scroller"/>  

@@ -36,12 +36,12 @@
 
         <method name="show">
             setVisible( true );
-            LzModeManager.makeModal( this );
+            lz.ModeManager.makeModal( this );
         </method>
 
         <method name="hide">
             setVisible( false );
-            LzModeManager.release( this );
+            lz.ModeManager.release( this );
         </method>
 
         

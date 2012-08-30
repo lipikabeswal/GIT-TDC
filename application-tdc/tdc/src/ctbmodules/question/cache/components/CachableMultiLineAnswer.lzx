@@ -49,7 +49,7 @@
 			else{
 				this.setAttribute("showFormatBar", false);
 			}
-            this.outer.rich.answer.inp.setMaxLength(cl);
+            this.outer.rich.answer.inp.setAttribute('maxlength', cl);
 //Debug.write(this, "set characterLimit", cl);
             this.setAttribute("characterLimit", cl);
 
@@ -78,7 +78,7 @@
                 this.setAttribute('editTextWidth', Number(data.getAttr("acc_width")));
             }
             if (data.getAttr("height")){
-                this.setHeight(Number(data.getAttr("height"))); 
+                this.setAttribute('height', Number(data.getAttr("height"))); 
             }
             if (data.getAttr('acc_height') && gController.hasFontAccommodation){
             	this.setAttribute('height', Number(data.getAttr("acc_height")));
@@ -100,23 +100,23 @@
             doneLoading();
         ]]></handler>
         
-        <method event="onwidget_id">
+        <handler name="onwidget_id">
 			var num = this.widget_id.substring(6, this.widget_id.length);
         	this.setAttribute('w_id', new Number(num));
-        </method>
+        </handler>
         
-       <method event="onw_id"><![CDATA[
+       <handler name="onw_id"><![CDATA[
 			if(this.w_id < gController.currentCrId){
 				gController.setAttribute('currentCrId', this.w_id);
 				canvas.setAttribute('focusobj', this.outer.rich.answer.inp);
 			}
-        ]]></method>
+        ]]></handler>
         
         <method name="setAnswer" args="text">
-          var currentFocus = LzFocus.getFocus();
+          var currentFocus = lz.Focus.getFocus();
           this.outer.rich.answer.inp.onfocus.sendEvent();
           this.outer.rich.answer.inp.onblur.sendEvent();
-          this.outer.rich.answer.setText(text);
+          this.outer.rich.answer.setAttribute('text', text);
           if(currentFocus != null){
           	currentFocus.onfocus.sendEvent();
           }
@@ -136,7 +136,7 @@
 		
 		<method name="updateCharacterMeter"><![CDATA[
 //Debug.write(this, "updateCharacterMeter", this.numCharacters, this.characterLimit, this.numCharacters/this.characterLimit, this.outer.controls.meter.limit.width);
-			this.outer.controls.meter.limit.used.setWidth(this.outer.controls.meter.limit.width * (this.numCharacters/this.characterLimit));
+			this.outer.controls.meter.limit.used.setAttribute('width', this.outer.controls.meter.limit.width * (this.numCharacters/this.characterLimit));
 		]]></method>
 		
         <!-- ===============
@@ -157,9 +157,9 @@
 	 					<view name="used" width="0" height="${parent.height}" bgcolor="0x6691B4" >
 	 						<drawview width="${parent.width}" 
 		                          height="${parent.height}">
-			             		<method event="onwidth">
+			             		<handler name="onwidth">
 			                		this.draw();
-			            		</method>
+			            		</handler>
 			            		<method name="draw"><![CDATA[
 				                	this.clear ();
 			            			var minX = .5;
@@ -177,12 +177,12 @@
 						<drawview width="${parent.width}" 
 		                          height="${parent.height}">
 		
-		             		<method event="onwidth">
+		             		<handler name="onwidth">
 		                		this.draw();
-		            		</method>
-		            		<method event="onheight">
+		            		</handler>
+		            		<handler name="onheight">
 		                		this.draw();
-		            		</method>
+		            		</handler>
 		
 		            		<method name="draw"><![CDATA[
 			                	this.clear ();
@@ -216,9 +216,9 @@
 	              	this.style.setAttribute("textfieldcolor", gController.answerBgColor);
 					this.setFontColor(gController.answerFontColor);
 				 	if(gController.hasFontAccommodation)
-							this.setFontSize(18);
+							this.setAttribute('fontsize', 18);
 						else
-							this.setFontSize(12);
+							this.setAttribute('fontsize', 12);
 	              </method>
 	
 	              <handler name="ontext"><![CDATA[
@@ -267,21 +267,21 @@
 		<basebutton resource="read_btn" 
  		            name="readBtn"
  		            visible="${canvas.readable}">
-			<method event="onclick">
+			<handler name="onclick">
                 classroot.read();
-			</method>
-			<method event="onmouseover">
+			</handler>
+			<handler name="onmouseover">
 				classroot.setSelectionVars();
-			</method>
+			</handler>
 		</basebutton>
 		 <drawview options="ignorelayout" width="${classroot.editTextWidth + classroot.lmargin}" 
 		                  height="${classroot.height}">
-		            <method event="onwidth">
+		            <handler name="onwidth">
 		                this.draw();
-		            </method>
-		            <method event="onheight">
+		            </handler>
+		            <handler name="onheight">
 		                this.draw();
-		            </method>
+		            </handler>
 		
 		            <method name="draw">
 		                this.clear ();

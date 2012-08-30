@@ -1,0 +1,4 @@
+<canvas>
+<include href="CachableTextField.lzx"/>
+	<CachableTextField/>
+</canvas>

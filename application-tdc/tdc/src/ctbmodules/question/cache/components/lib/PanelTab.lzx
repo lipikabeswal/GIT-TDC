@@ -83,10 +83,10 @@
                 <attribute name="frame" value="${classroot.theframe}"/>
            </view>
         </view>
-        <method event="oninit">
+        <handler name="oninit">
             thetitle.setAttribute('fgcolor', Number(gController.questionFontColor)); 
 			thetitle.setAttribute ('y', (this.height - this.thetitle.height)/2 + this.height/5);
-        </method>
+        </handler>
  
         <method name="selectIt">
         	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text));
@@ -133,10 +133,10 @@
         </method>
 
         <text name="thetitle" datapath="@title" resize="true" align="center">
-	        <method event="onclick">
+	        <handler name="onclick">
 	        	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text));
 	            parent.selectIt();
-	        </method>
+	        </handler>
         
         </text>
 

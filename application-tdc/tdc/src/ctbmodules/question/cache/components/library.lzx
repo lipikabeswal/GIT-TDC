@@ -7,5 +7,8 @@
     <include href="CachableSelector.lzx"/>
     <include href="CachableTextField.lzx"/>
 	<include href="CachableImage.lzx"/>
+	<!-- <include href="CachableSingleLineAnswer.lzx"/>-->
+	<!-- <include href="CachableMultiLineAnswer.lzx"/>-->
+
 
  </library>

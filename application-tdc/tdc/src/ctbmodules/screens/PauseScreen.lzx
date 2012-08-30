@@ -21,7 +21,7 @@
             Log in to resume your paused test.
         </text>
 
-        <view width="100%" name="id">
+        <view width="100%" name="Id">
             <text resize="true" x="${ 282 - width }"
                   valign="middle" fgcolor="white" fontsize="12">
                 <b>Login ID:</b>
@@ -51,7 +51,8 @@
         <view x="${ classroot.width - width - 20 }">
             <simplelayout axis="x" spacing="10"/>
             <LoginButton y="3" enabled="${ gScreens.allowclick }">
-                <method name="docontinue" event="onclick">
+                <handler name="onclick" method="docontinue"/>
+                <method name="docontinue">
                     gScreens.clicked();
                 	var pwd = classroot.pw.passwordField.getText();
                 	if(pwd != null){

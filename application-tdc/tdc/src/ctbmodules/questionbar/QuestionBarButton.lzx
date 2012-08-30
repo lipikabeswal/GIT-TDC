@@ -26,7 +26,7 @@
         <attribute name="isactive" 
                    value="${this.questionbar.selitemeid==this.itemeid}"/>
         
-        <attribute name="themeResource" value="theme"/>
+        <attribute name="themeResource" value="theme" type="string"/>
         <attribute name="questionbar" value="$once{classroot}"/>
 	
 		<method name="setIsVisited" args="isvisited">
@@ -55,7 +55,7 @@
             this._changeStatus (false);
         </method>
 
-        <method event="ondata"><![CDATA[
+        <handler name="ondata"><![CDATA[
             var dnselect = gController.dpsubtest.xpathQuery (
                                 'ob_assessment/ob_element_select_order/g/e[@id="'+this.itemeid+'"]'
                            );
@@ -64,9 +64,9 @@
                                 dnselect != null
                                     && dnselect.parentNode.getLastChild () != dnselect);
             }            
-        ]]></method>
+        ]]></handler>
 
-        <method event="onisactive"><![CDATA[
+        <handler name="onisactive"><![CDATA[
         //Debug.write("onisactive.....");
         this.themeResource = 'theme';
             if (this.isactive) {
@@ -84,7 +84,7 @@
 						this.btn.setAttribute('clickable',true);
 						this.btn.setAttribute('showhandcursor',false);
 						//For Defect 65886
-						this.btnText.setAttribute('fgcolor',gray);
+						this.btnText.setAttribute('fgcolor',0xE0E0E0);
 						this.themeResource = 'theme_disable';
 					}else{
 						this.btnText.setAttribute('fgcolor',0x000000);
@@ -100,18 +100,18 @@
 		}
 
             this._changeStatus (false);
-        ]]></method>
+        ]]></handler>
 
-        <method event="onmouseover">
+        <handler name="onmouseover">
             this._changeStatus (true);
-        </method>
+        </handler>
 
-        <method event="onmouseout">
+        <handler name="onmouseout">
             this._changeStatus (false);
-        </method>
+        </handler>
 
 
-        <method name="navigate" event="onclick">
+        <handler name="onclick">
 			gController.setAttribute("nextItem", itemeid ); 
 			gController.setAttribute("navigateConfirm",false);
 			//Debug.write(" navigate to" + gController.getAttribute("navigateConfirm"));
@@ -122,7 +122,7 @@
 			}
 			
             gController.navigateTo( itemeid );
-        </method>
+        </handler>
 
         <method name="_changeStatus" args="ismouseover"><![CDATA[
             var newframe = 1;

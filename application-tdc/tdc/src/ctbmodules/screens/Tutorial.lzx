@@ -2,10 +2,10 @@
 <library>
 	<class name="Tutorial" play="true" onerror="showError()" ontimeout="showTimeout()">
 		<attribute name="dEndTutorial" 
-	               value="$once{ new LzDelegate( this, 'endTutorial' ) }"/>
+	               value="$once{ new lz.Delegate( this, 'endTutorial' ) }"/>
 	    <attribute name="LAST_SCREEN_DURATION" type="number" value="3000" />
 		<method name="endTutorial">
-			LzTimer.removeTimer( dEndTutorial );
+			lz.Timer.removeTimer( dEndTutorial );
 			gTutorialManager.endTutorial();
 		</method>
 		<method name="setTutorial" args="url">
@@ -16,7 +16,7 @@
 			this.setAttribute('visible', true);
 		</handler>
 		<handler name="onlastframe">
-			LzTimer.addTimer(dEndTutorial, LAST_SCREEN_DURATION);
+			lz.Timer.addTimer(dEndTutorial, LAST_SCREEN_DURATION);
 		</handler>
 		<method name="showError">
 			gCommunicator.checkShowError(gXmlHelper.getContentErrorXml());

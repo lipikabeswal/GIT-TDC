@@ -1,0 +1,4 @@
+<canvas>
+	<include href="components"/>
+		<CachableTextField name="text" />
+</canvas>
