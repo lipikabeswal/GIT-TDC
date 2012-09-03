@@ -19,7 +19,7 @@
 	    <attribute name="GET_URL" type="string" />
 	    <attribute name="TEXT_PARAM" type="string" value="text" />
 	    <attribute name="primed" type="boolean" value="false" />
-		<attribute name="dTimeout" value="$once{new LzDelegate(this, 'timedout')}" />
+		<attribute name="dTimeout" value="$once{new lz.Delegate(this, 'timedout')}" />
 		<attribute name="TIMEOUT_INTERVAL" type="number" value="30000" />
 		<attribute name="readingScratchpad" type="boolean" value="false" />
 		<!-- TTS CR -->
@@ -30,7 +30,7 @@
 		<!-- true, when wait popup is shown and second tts call is made  -->	
 	    <attribute name="speechRequestSent" type="boolean" value="false" />
 
-		<attribute name="dRequestor" value="$once{new LzDelegate(this, 'requestor')}" />  
+		<attribute name="dRequestor" value="$once{new lz.Delegate(this, 'requestor')}" />  
 
         <method name="init">
             super.init();
@@ -42,12 +42,12 @@
         	}
         </method>
         
-		<method event="oninit">
-			var postUrl = LzBrowser.getInitArg( 'servletUrl' ) + '/SpeechServlet.do';
+		<handler name="oninit">
+			var postUrl = lz.Browser.getInitArg( 'servletUrl' ) + '/SpeechServlet.do';
 			var getUrl = postUrl + '?file=speech.mp3';
 			setAttribute('GET_URL', getUrl);
-			speechDs.setSrc(postUrl);
-		</method>
+			speechDs.setAttribute('src', postUrl);
+		</handler>
 		
 		<method name="getSelectionRemoved">
 			return READ_SELECTION_REMOVED;
@@ -71,8 +71,10 @@
 
 		<method name="stripHtmlTags" args="txt"><![CDATA[
 			if(txt != null && typeof txt != 'undefined' && txt.length > 0){
-	       		this.setText(txt);
-				return this.__LZtextclip.text;
+	       		this.setAttribute('text', txt);
+	       		Debug.write("stripHtmlTags*** ",txt);
+				//return this.__lz.textclip.text;
+				return txt;
 			}
 			else{
 				return "";
@@ -81,7 +83,7 @@
 		
 		<method name="timedout">
 		Debug.write("timedout...");
-	        LzTimer.removeTimer( dTimeout );
+	        lz.Timer.removeTimer( dTimeout );
 			//For ISTEP CR	
 			if(gCommunicator.firstRequestDone == false) {
 				
@@ -104,7 +106,7 @@
         	this.currentText = txt;//TTS CR
         	//Changes for Defect # 65040
         	this.audioPlayer.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
-			LzTimer.resetTimer(this.dTimeout, TIMEOUT_INTERVAL);
+			lz.Timer.resetTimer(this.dTimeout, TIMEOUT_INTERVAL);
  	    	//stopReading();
  	        speechDs.setQueryParam(TEXT_PARAM, txt);
  	        //TTS CR
@@ -191,11 +193,11 @@
 
 		<method name="startRequestor">
 			//Debug.write("startRequestor...");
-			LzTimer.resetTimer(dRequestor, 10000);
+			lz.Timer.resetTimer(dRequestor, 10000);
 		</method>
 
 		<method name="stopRequestor">
-			LzTimer.removeTimer(dRequestor);
+			lz.Timer.removeTimer(dRequestor);
 		</method>
 		        
         <view name="audioPlayer" visible="false">
@@ -216,7 +218,7 @@
 
         		if(!gCommunicator.error){  // if we get an onload and there is no error
 	        	//	Debug.write("inside if of readable");
-					LzTimer.removeTimer( parent.dTimeout );
+					lz.Timer.removeTimer( parent.dTimeout );
 	        		if(parent.primed){
 					//Debug.write("inside if of primed");
 		       			gController.unlockUI();

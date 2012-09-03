@@ -27,9 +27,9 @@
         <attribute name="panel" value="${parent.panel}"/>
 
         <attribute name="valigndel"
-                   value="$once{new LzDelegate (this, 'doAlign')}"/>
+                   value="$once{new lz.Delegate (this, 'doAlign')}"/>
         <attribute name="haligndel"
-                   value="$once{new LzDelegate (this, 'doAlign')}"/>
+                   value="$once{new lz.Delegate (this, 'doAlign')}"/>
         
         <!-- which view to align relative to -->
         <attribute name="alignto" value="$once{this}"/>
@@ -39,7 +39,9 @@
 
         <!-- font color  -->
         <attribute name="fontcolor" value="${parent.fontcolor}"/>
-
+        
+        <attribute name="aadescription"/>
+		<attribute name="aaname"/>
         <!-- ===============
              = METHODS
              =============== -->
@@ -49,9 +51,9 @@
         </method>
 
         <method name="doReturnToCache"><![CDATA[
-           for (var i in this.subviews) {
+            for (var i in this.subviews) {
 
-                if (this.subviews [i] instanceof CachableComponent &&
+                if (this.subviews [i] instanceof lz.CachableComponent &&
                         this.subviews [i].visible) {
                     this.cache.returnComponent (this.subviews [i]);
                 }
@@ -59,7 +61,7 @@
         ]]></method>
 
         <method name="doAlign"><![CDATA[
-			if(!(this instanceof CachableImage && this.parent instanceof CachableTextField)) {     
+			if(!(this instanceof lz.CachableImage && this.parent instanceof lz.CachableTextField)) {     
 	            var alignto = parent.alignto;
 	
 	            //halign
@@ -120,15 +122,14 @@
         ]]></method>
 
         <attribute name="ddoneLoading"
-                   value="$once{ new LzDelegate( this, 'doneLoading' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'doneLoading' ) }"/>
         <method name="doneLoading"><![CDATA[
-			
-            gController.componentDone( this, datapath.p.ownerDocument );
+            gController.componentDone( this, this.datapath.p.ownerDocument );
         ]]></method>
 
 		<method name="setAAText" args="txt">
-			this.setAADescription(txt);
-			this.setAAName(txt);
+			this.setAttribute('aadescription', txt);
+			this.setAttribute('aaname', txt);
 		</method>
 
 	</class>

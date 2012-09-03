@@ -7,7 +7,6 @@
     <include href="CachableTextField.lzx"/>
     <include href="CachableImage.lzx"/>
     <include href="CachableConstructedResponsePanel.lzx"/>
-    <include href="CachableRecorder.lzx"/>
 
     <include href="lib"/>
 

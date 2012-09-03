@@ -1,3 +1,7 @@
+<!---
+      @topic Incubator
+      @subtopic Components
+  -->
 <library>
 
 <include href="base/basebutton.lzx" />
@@ -30,10 +34,10 @@
     >
         <!--- Control the look of the button. These attributes can and should
               be controlled with css. --> 
-        <attribute name="tint" value="0xD9DCF5" />
+        <attribute name="tint" value="0xD9DCF5" type="color" />
         <attribute name="font" value="Verdana" />
         <attribute name="fontsize" value="11" /> 
-        <attribute name="fontcolor" value="0x373B56" />
+        <attribute name="fontcolor" value="0x373B56" type="color" />
 
         <!--- text to display in the button (can leave empty) -->
         <attribute name="text"      value=""  />
@@ -71,12 +75,12 @@
         
         <method name="updatePositions">
         
-            if (this["txt"]) txt.setText(this.text); 
+            if (this["txt"]) this.txt.setAttribute('text', this.text); 
         
-            var lw = (this["left"] ? left.width : 0) + (this["showleftborder"] ? 1 : 0); 
-            var rw = (this["right"] ? right.width : 0) + (this["showrightborder"] ? 1 : 0);
-            var iw = (this["icon"] ? icon.width : 0);
-            var tw = (this["txt"] ? txt.width : 0);         
+            var lw = (this["left"] ? this.left.width : 0) + (this["showleftborder"] ? 1 : 0); 
+            var rw = (this["right"] ? this.right.width : 0) + (this["showrightborder"] ? 1 : 0);
+            var iw = (this["icon"] ? this.icon.width : 0);
+            var tw = (this["txt"] ? this.txt.width : 0);         
             // used to offset the icon - 0 for no offset
             var nside=0;
 
@@ -86,14 +90,14 @@
             var extraWidth = Math.max(0, Math.round( (width - needsWidth) / 2)); 
             
             if (this["leftborder"]) {
-                leftborder.setX(curX); 
+                this.leftborder.setAttribute('x', curX); 
                 curX += 1; 
             }
             
             // show the left resource
             if (this["left"]) {
-                left.setX(curX);
-                curX += left.width;
+                this.left.setAttribute('x', curX);
+                curX += this.left.width;
                 // add to offset left
                 nside+=1;
             }
@@ -106,80 +110,80 @@
                         
             // position the middle view.
             // it goes behind the icon and text
-            middle.setX(curX);
+            middle.setAttribute('x', curX);
             
             curX += extraWidth; 
 
             // position the icon
             if (this["icon"]) {
-                icon.setX(Math.round(curX-(.25*iw*(nside)))); 
-                curX += icon.width;
+                this.icon.setAttribute('x', Math.round(curX-(.25*iw*(nside)))); 
+                curX += this.icon.width;
                 // Center icon vertically unless icony has been set explicitly
-                icon.setY( (icony != 0) ? icony : Math.round(height-icon.height )/2);
+                this.icon.setAttribute('y', (icony != 0) ? icony : Math.round(height-this.icon.height )/2);
             }
             
             if (this["txt"]) {
                 // position the text
-                txt.setX(curX);
-                txt.setText(this.text); 
+                this.txt.setAttribute('x', curX);
+                this.txt.setAttribute('text', this.text); 
                 // Center text vertically unless texty was set explicitly
-                txt.setY( (texty != 0) ? texty : (height-txt.height )/2);
-                curX += txt.width;
+                this.txt.setAttribute('y', (texty != 0) ? texty : (height-this.txt.height )/2);
+                curX += this.txt.width;
                 curX += spacing;
             }
             
             curX += extraWidth; 
-            middle.setWidth(curX - middle.x);           
+            middle.setAttribute('width', curX - middle.x);           
             
             // position the right thingy
             if (this["right"]) {
-                right.setX(curX);
-                curX += right.width;
+                this.right.setAttribute('x', curX);
+                curX += this.right.width;
             } 
                         
             if (this["rightborder"]) {
-                rightborder.setX(curX - 1);
+                this.rightborder.setAttribute('x', curX - 1);
             }
 
-            this.setWidth(curX); 
+            this.setAttribute('width', curX); 
         </method>
         
         <method name="init"><![CDATA[
             super.init();
             
             if (showleftedge) {
-                new LzView(this, {name: "left", resource: this.leftresource, pixellock: true}); 
+                new lz.view(this, {name: "left", resource: this.leftresource, pixellock: true}); 
                 this.setTint(this.left, this.tint);
                 this.left.sendToBack();
             } 
             
             if (showrightedge) {
-                new LzView(this, {name: "right", resource: this.rightresource, pixellock: true}); 
+                new lz.view(this, {name: "right", resource: this.rightresource, pixellock: true}); 
                 this.setTint(this.right, this.tint);
                 this.right.sendToBack(); 
             } 
             
             if (iconname) { 
-                new LzView(this, {name: "icon", resource: iconname + "_icon_rsc", pixellock: true});
+                new lz.view(this, {name: "icon", resource: iconname + "_icon_rsc", pixellock: true});
             }                        
 
             // We always have a middle. 
-            middle.setResource(middleresource);
+            middle.setAttribute('resource', middleresource);
                         
             if (showleftborder) {
-                new LzView(this,    {name: "leftborder", bgcolor: white, 
+                new lz.view(this,    {name: "leftborder", bgcolor: 0xFFFFFF, 
                                      width: 1, y : 1, height: this.height-2, 
                                     pixellock: true});                 
             }
 
             if (showrightborder) {
-                new LzView(this,    {name: "rightborder", bgcolor: black, 
+                new lz.view(this,    {name: "rightborder", bgcolor: 0x000000, 
                                     width: 1, y : 0, height: this.height-2,
                                     pixellock: true})
             }
 
             if (text != "") {
-                new LzText(this, {name: "txt", text: text, fgcolor: fontcolor, resize: true, fontsize: fontsize});
+                new lz.text(this, {name: "txt", text: text, fgcolor: fontcolor, resize: true, fontsize: fontsize});
             }
 
             this.setTint(this.middle, this.tint); 
@@ -200,7 +204,7 @@
 </class>
 </library>
 <!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
-* Copyright 2005-2006 Laszlo Systems, Inc. All Rights Reserved.                    *
+* Copyright 2005-2009 Laszlo Systems, Inc. All Rights Reserved.                    *
 * Use is subject to license terms.                                            *
 * X_LZ_COPYRIGHT_END ****************************************************** -->
 <!-- @LZX_VERSION@                                                         -->

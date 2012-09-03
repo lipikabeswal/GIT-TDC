@@ -18,7 +18,6 @@
    <include href="OptOutScreen.lzx"/>
  
     <include href="Frame.lzx"/>
-	<include href="DisplayScoresScreen.lzx"/>
 
     <class name="Screens" extends="Frame">
 
@@ -49,7 +48,7 @@
 		]]></method>
 		
 			<method name="removeFinishState"><![CDATA[
-			 contents.fs.setVisible (false);
+			 contents.fs.setAttribute('visible', false);
 		]]></method>
 
 		<method name="isOnTimeOutScreen"><![CDATA[
@@ -59,23 +58,21 @@
         <method name="removeAllStates">
             setAttribute( 'allowclick', true );
 
-            if ( contents.ls.isinited ) contents.ls.setVisible( false );
+            if ( contents.ls.isinited ) contents.ls.setAttribute('visible', false );
 
-            if ( contents.les.isinited ) contents.les.setVisible( false );
+            if ( contents.les.isinited ) contents.les.setAttribute('visible', false );
 
-            if ( contents.ds.isinited ) contents.ds.setVisible( false );
+            if ( contents.ds.isinited ) contents.ds.setAttribute('visible', false );
 
-            if ( contents.es.isinited ) contents.es.setVisible( false );
-            if ( contents.fs.isinited ) contents.fs.setVisible( false );
-            if ( contents.fbs.isinited ) contents.fbs.setVisible( false );
+            if ( contents.es.isinited ) contents.es.setAttribute('visible', false );
+            if ( contents.fs.isinited ) contents.fs.setAttribute('visible', false );
+            if ( contents.fbs.isinited ) contents.fbs.setAttribute('visible', false );
 
-            if ( contents.ps.isinited ) contents.ps.setVisible( false );
-            if ( contents.os.isinited ) contents.os.setVisible( false );
-            if ( contents.ws.isinited ) contents.ws.setVisible( false );
-            if ( contents.gs.isinited ) contents.gs.setVisible( false );
-            if ( contents.oos.isinited ) contents.oos.setVisible( false );
-            
-            if ( contents.ss.isinited ) contents.ss.setVisible( false );
+            if ( contents.ps.isinited ) contents.ps.setAttribute('visible', false );
+            if ( contents.os.isinited ) contents.os.setAttribute('visible', false );
+            if ( contents.ws.isinited ) contents.ws.setAttribute('visible', false );
+            if ( contents.gs.isinited ) contents.gs.setAttribute('visible', false );
+            if ( contents.oos.isinited ) contents.oos.setAttribute('visible', false );
  
 
             prancingMan.remove();
@@ -89,7 +86,7 @@
             if ( !contents.ds.isinited ) contents.ds.completeInstantiation();
 
             contents.ds.setTotalSubtests(totalSubtests);
-            contents.ds.setVisible( true );
+            contents.ds.setAttribute('visible', true );
 
             show();
 
@@ -103,7 +100,7 @@
 
         </method>
 
-        <method name="incrementFilePartDownload" args="totalItems">
+        <method name="incrementFilePartDownload">
         	contents.ds.incrementFilePart();
         </method>
 
@@ -118,7 +115,7 @@
          <method name="showError" args="xml">
 
          Debug.write("gScreens.showError");
-			gMusicPlayer.stop();
+			//gMusicPlayer.stop();
          printBigString(xml);
 
             removeAllStates();
@@ -127,7 +124,7 @@
 
             contents.es.showError(xml);
 
-            contents.es.setVisible( true );
+            contents.es.setAttribute('visible', true );
 
             show();
 
@@ -138,7 +135,7 @@
             if ( !contents.ws.isinited ) contents.ws.completeInstantiation();
             prancingMan.apply();
             contents.ws.setupRestart( m, q, u, sn );
-            contents.ws.setVisible( true );
+            contents.ws.setAttribute('visible', true );
             show();
         </method>
         <method name="showFinish" args="a, m">
@@ -146,7 +143,7 @@
             if ( !contents.fs.isinited ) contents.fs.completeInstantiation();
             standingMan.apply();
             contents.fs.setStats( a, m );
-            contents.fs.setVisible( true );
+            contents.fs.setAttribute('visible', true );
             show();
         </method>
         <method name="showOutOfTime" args="a, m">
@@ -154,7 +151,7 @@
             if ( !contents.os.isinited ) contents.os.completeInstantiation();
             standingMan.apply();
             contents.os.setStats( a, m );
-            contents.os.setVisible( true );
+            contents.os.setAttribute('visible', true );
             show();
         </method>
         
@@ -166,13 +163,13 @@
             removeAllStates();
             if ( !contents.ps.isinited ) contents.ps.completeInstantiation();
             standingMan.apply();
-            contents.ps.pw.passwordField.setText( '' );
-            contents.ps.prompt.setText( 'Log in to resume your paused test.' );
+            contents.ps.pw.passwordField.setAttribute('text', '' );
+            contents.ps.prompt.setAttribute('text', 'Log in to resume your paused test.' );
             contents.ps.studentName.setAttribute('text', 'Hello ' + sn);
             contents.ps.pw.passwordField.style.setAttribute('textfieldcolor', 0xFFFFFF);
-            contents.ps.setVisible( true );
+            contents.ps.setAttribute('visible', true );
             show();
-        	LzFocus.setFocus(contents.ps.pw.passwordField);
+        	lz.Focus.setFocus(contents.ps.pw.passwordField);
         </method>
         <method name="showLogin">
 
@@ -180,15 +177,15 @@
 
 //            if ( !contents.ls.isinited ) contents.ls.completeInstantiation();
 
-			contents.ls.li.loginIdField.setText("");
+			contents.ls.li.loginIdField.setAttribute('text', "");
 
-			contents.ls.pw.passwordField.setText("");
+			contents.ls.pw.passwordField.setAttribute('text', "");
 
-			contents.ls.ac.accesscodeField.setText("");
+			contents.ls.ac.accesscodeField.setAttribute('text', "");
 
             standingMan.apply();
 
-            contents.ls.setVisible( true );
+            contents.ls.setAttribute('visible', true );
 
             show();
 
@@ -203,7 +200,7 @@
 
             contents.les.setupError(e);
 
-            contents.les.setVisible( true );
+            contents.les.setAttribute('visible', true );
 
             show();
 
@@ -215,7 +212,7 @@
 			standingMan.remove();
             prancingMan.apply();
             contents.ws.setupNewSubtest( m, q, u, sn );
-            contents.ws.setVisible( true );
+            contents.ws.setAttribute('visible', true );
             show();
         </method>
         <method name="showContinue" args="m,q,u, sn">
@@ -223,7 +220,7 @@
             if ( !contents.ws.isinited ) contents.ws.completeInstantiation();
             prancingMan.apply();
             contents.ws.setupContinue( m, q, u , sn);
-            contents.ws.setVisible( true );
+            contents.ws.setAttribute('visible', true );
             show();
         </method>
 
@@ -235,7 +232,7 @@
 
             contents.fbs.showFeedback( feedback );
 
-            contents.fbs.setVisible( true );
+            contents.fbs.setAttribute('visible', true );
 			setAttribute("onFeedbackScreen", true);
             show();
 
@@ -258,7 +255,7 @@
 
 		
 
-        <method name="showFeedback" args="scoName, raw, max, unscored, index">
+        <method name="showFeedback1" args="scoName, raw, max, unscored, index">
 
             removeAllStates();
 
@@ -267,31 +264,21 @@
 
             contents.fbs.showFeedback( scoName, raw, max, unscored, index );
 
-            contents.fbs.setVisible( true );
+            contents.fbs.setAttribute('visible', true );
 
             show();
 
         </method>
-        
-        <method name="showScores" args="response">
-        	removeAllStates();
-        	if ( !contents.ss.isinited ) contents.ss.completeInstantiation();
 
-            contents.ss.showScores( response );
 
-            contents.ss.setVisible( true );
-            show();
-        </method>
-        
 
         <method name="showGoodbye">
 
             removeAllStates();
 
             if ( !contents.gs.isinited ) contents.gs.completeInstantiation();
-            
-            contents.gs.isTimeout();
-            contents.gs.setVisible( true );
+
+            contents.gs.setAttribute('visible', true );
 
             show();
 
@@ -303,26 +290,26 @@
 
             if ( !contents.oos.isinited ) contents.oos.completeInstantiation();
 			contents.oos.setStudentName(sn);
-            contents.oos.setVisible( true );
+            contents.oos.setAttribute('visible', true );
 
             show();
 
         </method>
 
          <method name="show">
-         	gItemInterface.setVisible(false);
-         	gTutorial.setVisible(false);
-            this.setVisible( true );
-            var hasmode = LzModeManager.hasMode( this );
+         	gItemInterface.setAttribute('visible', false);
+         	gTutorial.setAttribute('visible', false);
+            this.setAttribute('visible',true );
+            var hasmode = lz.ModeManager.hasMode( this );
             Debug.write( 'show ', hasmode );
             if ( !hasmode ) {
-                LzModeManager.makeModal( this );
+                lz.ModeManager.makeModal( this );
             }
         </method>
 
         <method name="hide">
-            this.setVisible( false );
-            LzModeManager.release( this );
+            this.setAttribute('visible',false );
+            lz.ModeManager.release( this );
         </method>
 
         <view name="contents" options="ignorelayout"
@@ -345,8 +332,6 @@
             <PauseScreen   name="ps" width="100%" height="100%"
                            initstage="defer"/>
             <FeedbackScreen  name="fbs" width="100%" height="100%"
-                          initstage="defer"/>
-			<DisplayScoresScreen name="ss" width="100%" height="100%"
                           initstage="defer"/>
 
             <FinishScreen  name="fs" width="100%" height="100%"

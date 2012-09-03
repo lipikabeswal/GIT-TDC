@@ -119,8 +119,8 @@
                 <!-- the buttons below youarehere -->
                 <view name="thebtns" x="${classroot.moreleft.x}">
                     <simplelayout axis="x" spacing="14"/>
-                    <QuestionBarButton y="13" datapath="runtime/item_model">
-						<datapath pooling="true"></datapath>
+                    <QuestionBarButton y="13" >
+						<datapath xpath="runtime/item_model" pooling="true"/>
 					</QuestionBarButton>
                 </view>
 
@@ -136,14 +136,14 @@
                 visible="${classroot.isscrolling &amp;&amp; 
                            classroot.qbtns.scrollcontainer.x &lt; 0}">
             <!-- align="left" valign="bottom"-->
-            <attribute name="doscrolldel" value="$once {new LzDelegate (this, 'doScroll')}"/>
+            <attribute name="doscrolldel" value="$once {new lz.Delegate (this, 'doScroll')}"/>
 
-            <method event="onmousedown">
-                this.doscrolldel.register (LzIdle, 'onidle');
-            </method>
-            <method event="onmouseup">
+            <handler name="onmousedown">
+                this.doscrolldel.register (lz.Idle, 'onidle');
+            </handler>
+            <handler name="onmouseup">
                 this.doscrolldel.unregisterAll ();
-            </method>
+            </handler>
             <method name="doScroll">
                 classroot.scroll (false);
             </method>
@@ -155,14 +155,14 @@
                     y="$once{classroot.SCROLL_Y}" x="${parent.x}"
                     visible="${classroot.isscrolling &amp;&amp; 
                                classroot.qbtns.scrollcontainer.x &lt; 0}">
-            <attribute name="doscrolldel" value="$once {new LzDelegate (this, 'doScroll')}"/>
+            <attribute name="doscrolldel" value="$once {new lz.Delegate(this, 'doScroll')}"/>
 
-            <method event="onmousedown">
-                this.doscrolldel.register (LzIdle, 'onidle');
-            </method>
-            <method event="onmouseup">
+            <handler name="onmousedown">
+                this.doscrolldel.register (lz.Idle, 'onidle');
+            </handler>
+            <handler name="onmouseup">
                 this.doscrolldel.unregisterAll ();
-            </method>
+            </handler>
             <method name="doScroll">
                 classroot.scrollFast(false);
             </method>
@@ -176,14 +176,14 @@
                                !classroot.justSelectedLastItem}">
             <!-- align="right" -->
             <attribute name="doscrolldel" 
-                       value="$once {new LzDelegate (this, 'doScroll')}"/>
+                       value="$once {new lz.Delegate (this, 'doScroll')}"/>
 
-            <method event="onmousedown">
-                this.doscrolldel.register (LzIdle, 'onidle');
-            </method>
-            <method event="onmouseup">
+            <handler name="onmousedown">
+                this.doscrolldel.register (lz.Idle, 'onidle');
+            </handler>
+            <handler name="onmouseup">
                 this.doscrolldel.unregisterAll ();
-            </method>
+            </handler>
             <method name="doScroll">
                 classroot.scroll (true);
             </method>
@@ -197,14 +197,14 @@
                                classroot.qbtns.scrollcontainer.x &gt; classroot.maxscrollleft &amp;&amp;
                                !classroot.justSelectedLastItem}">
             <attribute name="doscrolldel" 
-                       value="$once {new LzDelegate (this, 'doScroll')}"/>
+                       value="$once {new lz.Delegate (this, 'doScroll')}"/>
 
-            <method event="onmousedown">
-                this.doscrolldel.register (LzIdle, 'onidle');
-            </method>
-            <method event="onmouseup">
+            <handler name="onmousedown">
+                this.doscrolldel.register (lz.Idle, 'onidle');
+            </handler>
+            <handler name="onmouseup">
                 this.doscrolldel.unregisterAll ();
-            </method>
+            </handler>
             <method name="doScroll">
                 classroot.scrollFast(true);
             </method>

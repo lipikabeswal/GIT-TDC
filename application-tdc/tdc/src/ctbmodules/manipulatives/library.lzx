@@ -4,5 +4,4 @@
     <include href="ManipulativeBar.lzx"/>
     <include href="Tooltip.lzx"/>
 
-
 </library>

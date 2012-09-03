@@ -78,7 +78,8 @@
         <view x="${ parent.width - width - 10 }" name="buttons">
             <simplelayout axis="x" spacing="10"/>
             <YesFinishedButton enabled="${ gScreens.allowclick }">
-                <method name="finished" event="onclick">
+               <handler name="onclick" method="finished"/>
+                <method name="finished">
                     gScreens.clicked();
                     gController.isStopScreen = true;
                     gController.saveEndSubtest( '' );
@@ -89,7 +90,8 @@
             </YesFinishedButton>
             <NoGoBackToTestButton name="goback"
                                   enabled="${ gScreens.allowclick }" visible= "${gController.isStopTest || !gController.isFinishTest}">
-                <method name="goback" event="onclick">
+                <handler name="onclick" method="goback"/>
+                <method name="goback">
                     gScreens.clicked();
                     gController.resumeTest();
                 </method>

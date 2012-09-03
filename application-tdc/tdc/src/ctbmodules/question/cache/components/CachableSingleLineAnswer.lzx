@@ -48,7 +48,7 @@
                 gController.addCrField({"widget_id" : this.widget_id, 
                                               "answered" : answered, "answer" : answer, "ref" : this}); 
                 this.setAnswer(answer);
-//this.answer.setText("<huh/>");
+//this.answer.setAttribute('text', "<huh/>");
             }
             
             if (data.getAttr("width")){
@@ -113,12 +113,12 @@
  		<basebutton resource="read_btn" 
  		            name="readBtn"
  		            visible="${canvas.readable}">
-			<method event="onclick">
+			<handler name="onclick">
                 classroot.read();
-			</method>
-			<method event="onmouseover">
+			</handler>
+			<handler name="onmouseover">
 				classroot.setSelectionVars();
-			</method>
+			</handler>
 		</basebutton>
     </class>
 </library>

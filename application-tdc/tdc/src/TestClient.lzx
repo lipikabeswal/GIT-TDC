@@ -1,10 +1,12 @@
-<canvas bgcolor="0x6691B4" proxied="false" debug="false"
+<canvas bgcolor="0x6691B4" proxied="false" debug="true"
 	accessible="true">
 
 	<debug x="0" y="0" width="80%" height="400" />
 
 	<include href="ctbmodules" />
-
+	
+	<Sarsystem id="flash"/>
+	
 	<script src="lzmodules/lfc/focuspatch.js">
     </script>
 	<attribute name="focusobj" />
@@ -17,7 +19,7 @@
     </script>
 
 	<resource name="waitcursor"
-		src="redmond/resources/lzwaitcursor_rsc.swf" />
+		src="ctbmodules/resources/components/lzwaitcursor_rsc.swf" />
 
 	<script><![CDATA[
         function printBigString( s ) {
@@ -72,7 +74,7 @@
 	<attribute name="isMultiAudio"/>
 	<attribute name="currentCursor" value="null" />
 	<attribute name="eliminatorRsrc"
-		value="$once{LzBrowser.getInitArg('eliminatorResource')}"
+		value="$once{lz.Browser.getInitArg('eliminatorResource')}"
 		type="string" />
 	<attribute name="useDefaultEliminator" type="boolean" value="true" />
 	  
@@ -82,11 +84,11 @@
 			fo.onfocus.sendEvent();
 		}
 	</method>
-	<method event="onfootnotedata" args="data">
+	<handler name="onfootnotedata" args="data">
         gFootNotePopup.show(data);
-    </method>
+    </handler>
     
-    <method event="onisMultiAudio"><![CDATA[
+    <handler name="onisMultiAudio"><![CDATA[
 		var attr = this.isMultiAudio;
 		var temp = attr.substring(attr.indexOf("isPlaying="));
 
@@ -97,27 +99,27 @@
 		gController.setAttribute('isAudioPlaying',isPlaying);
     	gController.enableAudio();
 	    ]]>
-    </method>
+    </handler>
     
-	<method event="oninit">
-    	Debug.write("HTML Embed Setting:" + Stage.showMenu);
-    	Stage.showMenu = false;
-    	Debug.write("Active Setting:" + Stage.showMenu);
-  	</method>
+	<handler name="oninit">
+    	//Debug.write("HTML Embed Setting:" + flashSystem.Stage.showMenu);
+    	//flashSystem.Stage.showMenu = false;
+    	//Debug.write("Active Setting:" + flashSystem.Stage.showMenu);
+  	</handler>
 
 
 	<method name="init">
        super.init();
-       var folder = LzBrowser.getInitArg('folder');
+       var folder = lz.Browser.getInitArg('folder');
        if (folder) this.setAttribute("folder", folder);
-       var user = LzBrowser.getInitArg('user');
+       var user = lz.Browser.getInitArg('user');
        if (user) this.setAttribute("user", user);
        <!-- canvas.setDefaultContextMenu(null); -->
        var cmenu = new LzContextMenu();
        cmenu.hideBuiltInItems();
-       cmenu.setDelegate(doNothing);
+       cmenu.setAttribute('delegate',new lz.Delegate(this,'doNothing'));
 	   canvas.setDefaultContextMenu(cmenu);
-	   Stage.showMenu = false;
+	   //flashSystem.Stage.showMenu = false;
     </method>
 
 	<method name="doNothing">
@@ -126,29 +128,29 @@
 	<!--  this view tests whether or not the eliminator resource is available -->
 	<view name="eliminatorTester" visible="false" height="0"
 		width="0">
-		<method event="oninit">
+		<handler name="oninit">
 			canvas.setAttribute('medialoadtimeout', 3000);
-			var eliminatorUrl = LzBrowser.getInitArg('eliminatorResource');
+			var eliminatorUrl = lz.Browser.getInitArg('eliminatorResource');
 			this.setSource(eliminatorUrl);
-			var folderUrl = LzBrowser.getInitArg('folder');
+			var folderUrl = lz.Browser.getInitArg('folder');
 			if (folderUrl) {
 			   canvas.folder = folderUrl;
 			}
-		</method>
-		<method event="onload">
+		</handler>
+		<handler name="onload">
 			canvas.setAttribute('medialoadtimeout', 30000);
 			canvas.setAttribute('useDefaultEliminator', false);
 			this.unload();
-		</method>
-		<method event="ontimeout">
+		</handler>
+		<handler name="ontimeout">
 			canvas.setAttribute('medialoadtimeout', 30000);
-		</method>
+		</handler>
 	</view>
 	<view name="titleView" width="100%" height="100%" >
 	<view name="mainView"  width="100%" height="100%" bgcolor="0x6691B4">
-		<handler name="oninit">
+		<!--<handler name="oninit">
 
-		</handler>
+		</handler>-->
 	<view name="scalingView"  stretches ="both"
 		height="${ canvas.width/canvas.height &lt; 1.33 
                      ? this.width * unstretchedheight/unstretchedwidth 
@@ -173,9 +175,7 @@
                         visible="false"/>
 
 	        <!-- include the please wait popup -->
-	        <include href="ctbmodules/question/RevisitFalsePopup.lzx"/>
 			<include href="ctbmodules/question/PleaseWaitPopup.lzx"/>
-			<include href="ctbmodules/question/MusicPlayer.lzx"/>
 			<include href="ctbmodules/manipulatives/maskinganswer/MaskingAnswer.lzx"/>
         </view>
 
@@ -183,7 +183,6 @@
     </view>
   
 </view>
-    	<include href="ctbmodules/manipulatives/magnifier/MagnifyingGlass.lzx"/>  
     
 
 </canvas>

@@ -1,38 +1,49 @@
 <!---
-linkdialog
-A dialog to let the user set a hyperlink on the currently selected text.
-[ben 7.26.05]
--->
+      @topic Incubator
+      @subtopic Rich Text Editor
+  -->
 <library>
 
     
     <!-- dependencies  -->
     <!-- include href="../borderinput.lzx" /--> 
         
+    <!---
+    A dialog to let the user set a hyperlink on the currently selected text.
+    @author ben 7.26.05
+    -->
     <class name="linkdialog" width="${parent.toolbar.width}" height="${parent.toolbar.height}" bgcolor="0xD4D7E6" visible="false">
         
         <!--- Reference to the associated richtexteditor. (default: grte) --> 
-        <attribute name="editor" value="${grte}"/>
+        <attribute name="editor" value="${'grte'}"/>
         
         <attribute name="ystart" value="110"/>
+        
+        <!--- the start index of the text to mark as an url --> 
+        <attribute name="ssel" value="0" />
+        <!--- the end index of the text to mark as an url --> 
+        <attribute name="esel" value="0" />
+
         
         <animator 
             name="_animShow" attribute="y" to="0" 
             from="${-parent.height}" 
-            duration="500" start="false" onstart="parent.setVisible(true)" 
+            duration="500" start="false" onstart="parent.setAttribute('visible', true)" 
         />
         
         <!--- Used to hide dialog.
             @keywords private -->
         <animator name="_animHide" attribute="y" from="0" 
             to="${-parent.height}" 
-            duration="200" start="false" onstop="parent.setVisible(false)" 
+            duration="200" start="false" onstop="parent.setAttribute('visible', false)" 
         />
         
         <!--- show
             slides in the dialog. -->
         <method name="show">
-            this.urlfield.setText("http://");
+            this.ssel = this.editor._ssel;
+            this.esel = this.editor._esel; 
+            this.urlfield.setAttribute('text', "http://");
             var ntextlength = this.urlfield.getText().length;
             this.urlfield.setSelection(ntextlength,ntextlength);
             this._animShow.doStart();
@@ -48,14 +59,21 @@ A dialog to let the user set a hyperlink on the currently selected text.
         <!--- makelink
             Assigns link and standard link formatting to text selected in the editor. --> 
         <method name="makelink">
-            var url = urlfield.getText();
-            var fmt = this.editor.currentformat; 
+            if (this.ssel == this.esel) {
+                // it doesn't make sense to make a link to an empty selection, so, 
+                // let's see if the editor has a more useful selection. 
+                this.ssel = this.editor._ssel;
+                this.esel = this.editor._esel; 
+            }
+        
+            var url = this.urlfield.getText();
+            var fmt = this.editor.getTextFormat(this.ssel, this.esel); 
             fmt.url = url;
-            fmt.color = blue; 
+            fmt.color = 0x0000FF; 
             fmt.target = "_new"; 
             fmt.underline = true; 
-            this.editor.setCurrentFormat(fmt); 
-            var ncaratinsertpoint = this.editor.getAttribute("_esel");
+            this.editor.setTextFormat(fmt, this.ssel, this.esel);
+            var ncaratinsertpoint = this.editor._esel;
 
             // make sure that next onfocus, which will be triggered by doing setSelection here, is ignored by editor.
             this.editor._ignorenextfocus = true;
@@ -94,7 +112,7 @@ A dialog to let the user set a hyperlink on the currently selected text.
     
 </library> 
 <!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
-* Copyright 2006 Laszlo Systems, Inc.  All Rights Reserved.              *
+* Copyright 2006-2009 Laszlo Systems, Inc.  All Rights Reserved.              *
 * Use is subject to license terms.                                            *
 * X_LZ_COPYRIGHT_END ****************************************************** -->
 <!-- @LZX_VERSION@                                                         -->

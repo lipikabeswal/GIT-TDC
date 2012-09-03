@@ -51,24 +51,24 @@
         <!--- @keywords private -->
         <attribute name="_initialtext" value="" type="string"/>
         
-        <method event="onwidget_id">
+        <handler name="onwidget_id">
 			var num = this.widget_id.substring(6, this.widget_id.length);
         	this.setAttribute('w_id', new Number(num));
-        </method>
+        </handler>
         
-        <method event="onw_id"><![CDATA[
+        <handler name="onw_id"><![CDATA[
 			if(this.w_id < gController.currentCrId){
 				gController.setAttribute('currentCrId', this.w_id);
 				canvas.setAttribute('focusobj', this.field);
 			}
-        ]]></method>
+        ]]></handler>
 		<method name="setAnswer" args="txt">
 			this.setText(txt);
 		</method>
 	<!-- @Set the char_limit for single_line_answer of type standalone -->
-	<method event="onmaxlength">
-          field.setMaxLength(this.maxlength);
-        </method>
+	<handler name="onmaxlength">
+          field.setAttribute('maxlength', this.maxlength);
+        </handler>
 		<method name="enable">
 			this.field.setAttribute('isCtrl', false);
 			this.field.setAttribute('enabled',true);
@@ -93,7 +93,7 @@
                 this.setText( this._initialtext );
             }
 
-            field.setMaxLength(this.maxlength);
+            field.setAttribute('maxlength', this.maxlength);
             this.setAttribute('bgcolor', Number(gController.answerBgColor));
 			this.setAttribute('fontcolor', Number(gController.answerFontColor));
             ]]>
@@ -165,7 +165,7 @@
             
 
             <handler name="onblur" args="s">
-            	this.setEnabled(true);
+            	this.setAttribute('enabled', true);
             	this.setAttribute('isCtrl', false);
             </handler>
 
@@ -188,7 +188,7 @@
 
             <handler name="onkeyup" args="k"> <![CDATA[
 	 			if(k==17){
-			      this.setEnabled(true);
+			      this.setAttribute('enabled', true);
 			      this.setAttribute('isCtrl', false);
 			  	}	
                   ]]>
@@ -199,11 +199,11 @@
 	      			this.setAttribute('isCtrl', true);
 	  			}else if(isCtrl 
 	           		&& (k!=67 && k!=86 && k!=88)){
-	      			this.setEnabled(false);
+	      			this.setAttribute('enabled', false);
 	  			}
 
 				  if(k==-1){
-				     this.setEnabled(true);
+				     this.setAttribute('enabled', true);
 				  }
                   ]]>
             </handler>
@@ -219,8 +219,8 @@
  			-->
             <handler name="onfocus" reference="this.textclip"> 
             <![CDATA[ 
-                this.textColor = textclip.textColor;
-                this.fgcolor = textclip.textColor;
+                this.textColor = this.textclip.textColor;
+                this.fgcolor = this.textclip.textColor;
                 if(this.bgcolor == 0x000000 && this.textColor == 0xFFFFFF) 
                 { 
                     this.setHighlight();
@@ -259,15 +259,20 @@
          </inputtext>
         <drawview width="100%" 
                   height="100%">
-
-            <method event="onwidth">
+			 <attribute name="isready" value="false" type="boolean" />
+			  <handler name="oncontext">
+			    this.setAttribute("isready", true);
+			    this.draw();
+			  </handler>
+            <handler name="onwidth">
                 this.draw();
-            </method>
-            <method event="onheight">
+            </handler>
+            <handler name="onheight">
                 this.draw();
-            </method>
+            </handler>
 
             <method name="draw">
+            	if(this.isready){
                 this.clear ();
                 this.beginPath ();
                 
@@ -281,6 +286,7 @@
                 this.strokeStyle = Number(gController.answerFontColor);
                 this.strokeWidth = 1;
                 this.stroke();
+                }
             </method>
 
         </drawview>

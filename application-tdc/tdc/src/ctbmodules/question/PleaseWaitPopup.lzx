@@ -14,7 +14,7 @@
 	
 	<!-- the default setup should always be ready as this popup can be shown at login time also -->
 	<handler name="oninit">
-		setup(); 
+		setup("","",""); 
 	</handler>
 	
 	<method name="setup" args="fm, fc, bc"><![CDATA[
@@ -37,17 +37,16 @@
 	<method name="hide">
         this.setAttribute("visible", false);
 		this.contents.networkLost.inBar.barAnimator.stop();
-		LzModeManager.release(this);
-		recalltrackMouseMove();
+		lz.ModeManager.release(this);
     </method>
 	
     <method name="show">
         this.setAttribute("visible", true);
         this.contents.networkLost.inBar.barAnimator.doStart();
-        LzModeManager.makeModal(this);
+        lz.ModeManager.makeModal(this);
         resetControls();
         gHotKeys.disableKeys();
-        gController.removeTrackTimer();
+        
     </method>
 
     <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">
@@ -137,11 +136,11 @@
        </view> 
 
 		<basebutton	name="exitButton" enabled="false" resource="exit_button_rsc" x="220" y="120"  width="62" height="32" stretches="both">
-		<method event="onclick">
-		    gController.exitPopups();
-			gController.terminate();  
-			resetControls();
-        </method>
+			<handler name="onclick">
+			    gController.exitPopups();
+				gController.terminate();  
+				gPleaseWaitPopup.resetControls();
+	        </handler>
 		</basebutton>
    
 	</view>

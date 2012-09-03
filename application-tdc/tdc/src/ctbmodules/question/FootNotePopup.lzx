@@ -5,7 +5,7 @@
       clickable="true">
 
     <attribute name="scrolltext"/>
-    <attribute name="backcolor" value="white"/>
+    <attribute name="backcolor" value="0xFFFFFF"/>
     <attribute name="scrollpaneltxt" type="string" value=""/> 
 	
     <attribute name="BORDER_SIZE" value="6"/>
@@ -18,10 +18,10 @@
 	<attribute name="BOOKTITLE_DISPLAY_STYLE" type="string" value="BOOKTITLE" />
 	<attribute name="readingFootNote" type="boolean" value="false" />
 	
-    <method name="findScrollingTextPanel" args="inDP,compType">
-        if(inDP.getNodeName() == compType) {
+    <method name="findScrollingTextPanel" args="inDP">
+        /*if(inDP.getNodeName() == gCompTypes.WIDGET_SCROLLING_TEXT_PANEL) {
             return inDP.p;
-        }
+        }*/
 
         var dp = inDP.dupePointer();
         if(dp.selectChild())
@@ -29,7 +29,7 @@
 
             do
             {
-                var res = findScrollingTextPanel(dp,compType);
+                var res = findScrollingTextPanel(dp);
                 if(res != null) {
                     return res;
                 }
@@ -42,80 +42,25 @@
 
 	<attribute name="readable" type="boolean" value="false" />
 	
-    <method event="ondata" reference="gController.dpitem"><![CDATA[
+    <handler name="ondata" reference="gController.dpitem">
         //find the text in the scroll text panel node.  We'll use this to find
         //the details for a particular header
-       	var itemTextStr = "";
-		var stimulusTextStr = "";
-		var stimulusTextData;
-		var panelTextData;
-		var scrollTextData;
-
         if (gController.dpitem.data) {
             var dnscrolltext = gController.dpitem.xpathQuery("item_canvas/scrolling_text_panel");
-			if(dnscrolltext != null) {
-				if(dnscrolltext instanceof LzDataElement) {
-					itemTextStr= itemTextStr + dnscrolltext.serialize();
-				}
-				else {
-	           		for(var i=0; i <dnscrolltext.length; i++) {
-						scrollTextData = dnscrolltext[i];
-						if(scrollTextData != null) {
-							itemTextStr= itemTextStr + scrollTextData.serialize();
-							//printBigString(scrollTextData.serialize());
-						}
-					}
-				}
-           	}
-			else {
-				dnscrolltext = findScrollingTextPanel(gController.dpitem,gCompTypes.WIDGET_SCROLLING_TEXT_PANEL);
-				if(dnscrolltext) {
-					itemTextStr= itemTextStr + dnscrolltext.serialize();
-				}
-			}
-            
-          	dnstimulustext = gController.dpitem.xpathQuery("item_canvas/stimulus_tabs_panel/stimulus_tab");
-           	if(dnstimulustext != null){
-           		dnstimulustext = dnstimulustext[0];
-           	}	
-           	if(dnstimulustext) {
-				stimulusTextStr = dnstimulustext.serialize();
-			}
-                       
-            var dnpaneltext = gController.dpitem.xpathQuery("item_canvas/panel");
-           	if(dnpaneltext != null) {
-				if(dnpaneltext instanceof LzDataElement) {
-					itemTextStr= itemTextStr + dnpaneltext.serialize();
-				}
-				else {
-	           		for(var i=0; i <dnpaneltext.length; i++) {
-						panelTextData = dnpaneltext[i];
-						if(panelTextData != null) {
-							itemTextStr= itemTextStr + panelTextData.serialize();
-							//printBigString(panelTextData.serialize());
-						}
-					}
-				}
-           	}
-			else {
-				dnpaneltext = findScrollingTextPanel(gController.dpitem,gCompTypes.WIDGET_PANEL);
-				if(dnpaneltext) {
-					itemTextStr= itemTextStr + dnpaneltext.serialize();
-				}
-			}
-           	            
-            if (itemTextStr != null) {
-                this.setAttribute("itemtxtpanels", itemTextStr);
-				
-            } else {
-                this.setAttribute("itemtxtpanels", "");
+            if(dnscrolltext == null) {
+                dnscrolltext = findScrollingTextPanel(gController.dpitem);
             }
-
-			if (stimulusTextStr != null) {
-                this.setAttribute("itemtxtstimulus", stimulusTextStr);
+            if(dnscrolltext == null){
+            	dnscrolltext = gController.dpitem.xpathQuery("item_canvas/stimulus_tabs_panel/stimulus_tab");
+            	if(dnscrolltext != null){
+            		dnscrolltext = dnscrolltext[0];
+            	}
+            }
+            if (dnscrolltext) {
+                this.setAttribute("itemtxt", dnscrolltext.serialize());
 				
             } else {
-                this.setAttribute("itemtxtstimulus", "");
+                this.setAttribute("itemtxt", "");
             }
 
             if(canvas.readable){
@@ -127,7 +72,7 @@
             	this.arrow.setAttribute("showhandcursor", false);
             }
         }
-    ]]></method>
+    </handler>
     <method name ="UTFDecode" args="b">
     	<![CDATA[
     	//Defect 64691- Added for footnote defect fix.
@@ -151,7 +96,7 @@
     </method>
 
 	<method name="setTabTextPanel" args="txt">
-		this.setAttribute("itemtxtstimulus", txt);
+		this.setAttribute("itemtxt", txt);
 	</method>
 	
 	<method name="readMe"><![CDATA[
@@ -162,30 +107,21 @@
 	]]></method>
 	
     <attribute name="clickdel" 
-               value="$once{new LzDelegate(this, 'checkClick')}"/>
+               value="$once{new lz.Delegate(this, 'checkClick')}"/>
 
-    <method event="onscrolltext">
+    <handler name="onscrolltext">
         //init font color and background color
         var fgc = this.scrolltext['fontcolor'] ? this.scrolltext.fontcolor : "white";
         var bc = this.scrolltext['panel'] &amp;&amp; this.scrolltext.panel['bgcolor'] ? this.scrolltext.panel.bgcolor : "black";
         
         this.body.wrap.setAttribute("fgcolor", fgc);
 		this.setAttribute("backcolor", bc);
-    </method>
+    </handler>
 
     <method name="show" args="header">
         <![CDATA[
 		//Defect 64691- Added for footnote defect fix.
 		//Defect 65619 & 65617 fix
-		if(this.itemtxtpanels != "" && this.itemtxtstimulus != "") {
-			this.itemtxt = this.itemtxtpanels + this.itemtxtstimulus;
-		}
-		else if(this.itemtxtpanels != "") {
-			this.itemtxt = this.itemtxtpanels;
-		}
-		else if(this.itemtxtstimulus != "") {
-			this.itemtxt = this.itemtxtstimulus;
-		}
 		this.itemtxt = UTFDecode(this.itemtxt);
 		 if (this.itemtxt != ""){
 			var headerpos = this.itemtxt.indexOf("header=&quot;" + this.formatStr(header));
@@ -193,7 +129,6 @@
         		reallyShow(header);
         	}
         	else{
-				getNextText(gController.dpitem);
         		hide();
         	}
         }
@@ -270,7 +205,7 @@
         this.arrow.setAttribute("y", arrowy);
 
         this.setAttribute("visible", true);
-        this.clickdel.register(LzGlobalMouse, "onmousedown");
+        this.clickdel.register(lz.GlobalMouse, "onmousedown");
         ]]>
     </method>
 
@@ -379,83 +314,105 @@
     <drawview width="100%" height="100%" 
               x="$once{parent.DROP_SHADOW_SIZE}" 
               y="$once{parent.DROP_SHADOW_SIZE}">
-        <method event="onwidth">
+        <attribute name="isready" value="false" type="boolean" />
+			  <handler name="oncontext">
+			    this.setAttribute("isready", true);
+			    this.redraw();
+			  </handler>
+        <handler name="onwidth">
             this.redraw();
-        </method>
-        <method event="onheight">
+        </handler>
+        <handler name="onheight">
             this.redraw();
-        </method>
+        </handler>
         <method name="redraw">
-            this.clear();
-            var roundness = 5;
-            this.beginPath();
-            this.moveTo(roundness, 0);
-            this.lineTo(this.width - roundness, 0);
-            this.quadraticCurveTo(this.width, 0, this.width, roundness);
-            this.lineTo(this.width, this.height - roundness);
-            this.quadraticCurveTo(this.width, this.height, this.width - roundness, this.height);
-            this.lineTo(roundness, this.height);
-            this.quadraticCurveTo(0, this.height, 0, this.height - roundness);
-            this.lineTo(0, roundness);
-            this.quadraticCurveTo(0, 0, roundness, 0);
-            this.closePath();
-
-            var g = this.createRadialGradient(-this.width * .5, -this.height *.5, .7, 1.5 * this.width, 1.5 * this.height, 0)
-            this.globalAlpha = 0;
-            g.addColorStop(0, 0x000000);
-            this.globalAlpha = .8;
-            g.addColorStop(1, 0xffffff);
-
-            this.setAttribute("fillStyle", g);
-            this.fill();
+        	if(this.isready){
+	            this.clear();
+	            var roundness = 5;
+	            this.beginPath();
+	            this.moveTo(roundness, 0);
+	            this.lineTo(this.width - roundness, 0);
+	            this.quadraticCurveTo(this.width, 0, this.width, roundness);
+	            this.lineTo(this.width, this.height - roundness);
+	            this.quadraticCurveTo(this.width, this.height, this.width - roundness, this.height);
+	            this.lineTo(roundness, this.height);
+	            this.quadraticCurveTo(0, this.height, 0, this.height - roundness);
+	            this.lineTo(0, roundness);
+	            this.quadraticCurveTo(0, 0, roundness, 0);
+	            this.closePath();
+	
+	            var g = this.createRadialGradient(-this.width * .5, -this.height *.5, .7, 1.5 * this.width, 1.5 * this.height, 0)
+	            this.globalAlpha = 0;
+	            g.addColorStop(0, 0x000000);
+	            this.globalAlpha = .8;
+	            g.addColorStop(1, 0xffffff);
+	
+	            this.setAttribute("fillStyle", g);
+	            this.fill();
+            }
         </method>
     </drawview>
 
     <drawview name="bubble" width="100%" height="100%">
-        <method event="onwidth">
+           <attribute name="isready" value="false" type="boolean" />
+			  <handler name="oncontext">
+			    this.setAttribute("isready", true);
+			    this.redraw();
+			  </handler>
+    
+        <handler name="onwidth">
             this.redraw();
-        </method>
-        <method event="onheight">
+        </handler>
+        <handler name="onheight">
             this.redraw();
-        </method>
-        <method event="onbackcolor" reference="parent">
+        </handler>
+        <handler name="onbackcolor" reference="parent">
             this.redraw();
-        </method>
+        </handler>
         <method name="redraw">
-            this.clear();
-            var roundness = 5;
-            this.beginPath();
-            this.moveTo(roundness, 0);
-            this.lineTo(this.width - roundness, 0);
-            this.quadraticCurveTo(this.width, 0, this.width, roundness);
-            this.lineTo(this.width, this.height - roundness);
-            this.quadraticCurveTo(this.width, this.height, this.width - roundness, this.height);
-            this.lineTo(roundness, this.height);
-            this.quadraticCurveTo(0, this.height, 0, this.height - roundness);
-            this.lineTo(0, roundness);
-            this.quadraticCurveTo(0, 0, roundness, 0);
-            this.closePath();
-
-            this.setAttribute("fillStyle", parent.backcolor);
-            this.fill();
-            
-            this.setAttribute("strokeStyle", black);
-            this.stroke();
+        	if(this.isready){
+	            this.clear();
+	            var roundness = 5;
+	            this.beginPath();
+	            this.moveTo(roundness, 0);
+	            this.lineTo(this.width - roundness, 0);
+	            this.quadraticCurveTo(this.width, 0, this.width, roundness);
+	            this.lineTo(this.width, this.height - roundness);
+	            this.quadraticCurveTo(this.width, this.height, this.width - roundness, this.height);
+	            this.lineTo(roundness, this.height);
+	            this.quadraticCurveTo(0, this.height, 0, this.height - roundness);
+	            this.lineTo(0, roundness);
+	            this.quadraticCurveTo(0, 0, roundness, 0);
+	            this.closePath();
+	
+	            this.setAttribute("fillStyle", parent.backcolor);
+	            this.fill();
+	            
+	            this.setAttribute("strokeStyle", 0x000000);
+	            this.stroke();
+            }
         </method>
     </drawview>
 
     <drawview name="arrow" width="10" height="10" clickable="true">
+    
         <attribute name="direction" type="string" value="up"/>
-        <method event="oninit">
+        <attribute name="isready" value="false" type="boolean" />
+			  <handler name="oncontext">
+			    this.setAttribute("isready", true);
+			    this.redraw();
+			  </handler>
+        <handler name="oninit">
             this.redraw();
-        </method>
-        <method event="onbackcolor" reference="parent">
+        </handler>
+        <handler name="onbackcolor" reference="parent">
             this.redraw();
-        </method>
-        <method event="ondirection">
+        </handler>
+        <handler name="ondirection">
             this.redraw();
-        </method>
+        </handler>
         <method name="redraw">
+        	if(this.isready){
             this.clear();
             this.beginPath();
 
@@ -489,6 +446,7 @@
                 this.lineTo(10, 10);
                 this.stroke();
             }
+            }
         </method>
     </drawview>
 
@@ -514,7 +472,7 @@
                     resetHeight();
                 </handler>
                 <method name="resetHeight">
-                    this.setHeight(this.getTextHeight()*1.2);
+                    this.setAttribute('height', this.getTextHeight()*1.2);
                 </method>
             </text>
 
@@ -523,10 +481,10 @@
                               gFootNotePopup.scrolltext &amp;&amp;
                               (gFootNotePopup.scrolltext['fontsize'] != null)
                             ? gFootNotePopup.scrolltext.fontsize  : 12}">
-                <method event="ontext">
+                <handler name="ontext">
                     parent.setAttribute("ismulti", 
                         this.getTextWidth() > (gFootNotePopup.MIN_WIDTH - 2 * gFootNotePopup.BORDER_SIZE)); 
-                </method>
+                </handler>
                 <handler name="onfontsize">
                     resetHeight();
                 </handler>
@@ -534,7 +492,7 @@
                     resetHeight();
                 </handler>
                 <method name="resetHeight">
-                    this.setHeight(this.getTextHeight()*1.2);
+                    this.setAttribute('height', this.getTextHeight()*1.2);
                 </method>
             </text>
             <text name="detailmulti" multiline="true"
@@ -555,9 +513,9 @@
                 resource="footnote_close_btn" 
                 y="5" 
                 x="${parent.width - this.width - 5}">
-        <method event="onclick">
+        <handler name="onclick">
             parent.hide();
-        </method>
+        </handler>
     </basebutton>
 </view>    
 

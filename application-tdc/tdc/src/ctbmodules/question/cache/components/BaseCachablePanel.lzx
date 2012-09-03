@@ -11,14 +11,14 @@
 	<class name="BaseCachablePanel" extends="CachableComponent" 
            comptype="$once {gCompTypes.WIDGET_PANEL}"
            defaultplacement="contents" panel="${this}"
-           bgcolor="white" fontcolor="black" 
+           bgcolor="white" fontcolor="lz.colors.black" 
            width="${this.wrapper.width}" height="${this.wrapper.height}">
 
         <attribute name="stereotype" value="$path{'@stereotype'}"/>
         <attribute name="enablehl" value="true"/>
         <attribute name="isaccom" value="false"/>
         <attribute name="passageId" type="string" value="-1" />
-        <attribute name="dp" value="$once{new LzDatapointer()}" />
+        <attribute name="dp" value="$once{new lz.datapointer()}" />
 
         <attribute name="growtocontents" value="false"/>
         <!-- ================================
@@ -28,21 +28,22 @@
 		<method name="setGrFocus">
 			for(var i in wrapper.scrollcontainer.offsetwrapper.contents.subviews){
 				var sv = wrapper.scrollcontainer.offsetwrapper.contents.subviews[i];
-				if(sv instanceof CachableGriddedResponse ||
-				   sv instanceof BaseCachablePanel){
+				if(sv instanceof lz.CachableGriddedResponse ||
+				   sv instanceof lz.BaseCachablePanel){
 					sv.setGrFocus();
 				}
 			}
 		</method>
 		
-        <method event="oninit">
+        <handler name="oninit">
             this.setAttribute ('alignto', this.wrapper.scrollcontainer);
-        </method>
+        </handler>
         <!--
             When the data changes reset all of our properties/info
         -->
 
-		<method event="ondata" name="initComp" args="data"><![CDATA[
+		<handler name="ondata"  method="initComp" />
+		<method name="initComp" args="data"><![CDATA[
             if (!data) return;
 			
 			//Randomization will only be applied if login response has seed with it
@@ -100,7 +101,7 @@
                     this.setAttribute ('bgcolor', style.bgcolor);
                     isaccom = true;
                 }
-                else if (!(this instanceof CachableAnswerAreaPanel || this instanceof CachableAnswerAreaAbsolutePanel)){
+                else if (!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
 					this.setAttribute('bgcolor', gController.questionBgColor);
                 }
                 if (style ['font_color']) {
@@ -114,7 +115,7 @@
                     this.setAttribute ('fontsize', canvas.basefontsize);
                 }
             }
-            else if(!(this instanceof CachableAnswerAreaPanel || this instanceof CachableAnswerAreaAbsolutePanel)){
+            else if(!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
 				this.setAttribute('bgcolor', gController.questionBgColor);
             }
             
@@ -123,12 +124,11 @@
             //make subviews
             this._initSubnodes ();
 
-            doneLoading();
+            super.doneLoading();
             
             //inform gFootNotePopup footnotes
-            if((this instanceof CachableScrollingTextPanel) 
-                || this instanceof CachableTabsPanel
-                || this instanceof CachablePanel)  
+            if((this instanceof lz.CachableScrollingTextPanel) 
+                || this instanceof lz.CachableTabsPanel) 
             {
                 gFootNotePopup.setAttribute("scrolltext", this);
             }                
@@ -159,7 +159,7 @@
 				var tempNode = null;
 				var ansWidNode = null;
 								
-				dp = new LzDatapointer();
+				dp = new lz.datapointer();
 				dp.setPointer(dnode);
 				rationaleNode = dp.xpathQuery('answer_choice_widget/rationale');
 
@@ -206,7 +206,7 @@
 				tempArr.sort(sortNodes);
 				
 				for(var i = 0; i < tempArr.length; i++) {
-					tempNode = LzDataNode.stringToLzData(tempArr[i]);
+					tempNode = LzDataElement.stringToLzData(tempArr[i]);
 					ansWidNode = answidget[i];
 
 					if(ansWidNode.hasAttr("x")) {
@@ -235,7 +235,7 @@
             this.setAttribute('enablehl', true);
             for (var i in contsubviews) {
 
-                if (contsubviews [i] instanceof CachableComponent &&
+                if (contsubviews [i] instanceof lz.CachableComponent &&
                         contsubviews [i].visible) {
                     this.cache.returnComponent (contsubviews [i]);
                 }
@@ -281,9 +281,9 @@
                            width="100%" height="100%"
                            stereotype="${classroot.stereotype}"
                            passageId="${classroot.passageId}" 
-						   vscroll="$once{classroot.parent instanceof BaseCachablePanel ? classroot.parent.wrapper.vscroll : parent.parent.vscroll}"
-                           hscroll="$once{classroot.parent instanceof BaseCachablePanel ? classroot.parent.wrapper.hscroll : parent.parent.hscroll}"
-                           scrollport="$once{classroot.parent instanceof BaseCachablePanel ? classroot.parent.wrapper : parent.parent}"                           options="ignorelayout" 
+						   vscroll="$once{classroot.parent instanceof lz.BaseCachablePanel ? classroot.parent.wrapper.vscroll : parent.parent.vscroll}"
+                           hscroll="$once{classroot.parent instanceof lz.BaseCachablePanel ? classroot.parent.wrapper.hscroll : parent.parent.hscroll}"
+                           scrollport="$once{classroot.parent instanceof lz.BaseCachablePanel ? classroot.parent.wrapper : parent.parent}"                           options="ignorelayout" 
                            visible="${classroot.enablehl}"/>
             </view>
             <vscrollbar name="vscroll"
@@ -345,15 +345,21 @@
                   visible="${(classroot.wrapper.vscroll.visible
                            || classroot.wrapper.hscroll.visible)
                            &amp;&amp; !classroot.growtocontents}">
+            <attribute name="isready" value="false" type="boolean" />
+			  <handler name="oncontext">
+			    this.setAttribute("isready", true);
+			    this.draw();
+			  </handler>
 
-            <method event="onwidth">
+            <handler name="onwidth">
                 this.draw ();
-            </method>
-            <method event="onheight">
+            </handler>
+            <handler name="onheight">
                 this.draw ();
-            </method>
+            </handler>
 
             <method name="draw">
+            	if(this.isready){
                 this.clear ();
                 this.beginPath ();
                 
@@ -367,6 +373,7 @@
                 this.strokeStyle = Number(gController.questionFontColor);
                 this.strokeWidth = 1;
                 this.stroke ();
+                }
             </method>
 
         </drawview>

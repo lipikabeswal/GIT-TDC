@@ -55,7 +55,8 @@
 
         <OkButton x="${ parent.width - width - 15 }"
                         enabled="${ gScreens.allowclick }">
-            <method name="docontinue" event="onclick">
+           <handler name="onclick" method="docontinue"/>
+            <method name="docontinue">
                 gScreens.clicked();
                 gController.endSubtest( 'time-out' );
                 gScreens.hide();

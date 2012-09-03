@@ -1,6 +1,6 @@
 <library>
 
-    <include href="ItemInterface.lzx"/>
+  <include href="ItemInterface.lzx"/>
 
     <include href="resources/resources.lzx"/>
     <include href="controllers/Communicator.lzx"/>
@@ -8,7 +8,6 @@
     <include href="controllers/Controller.lzx"/>
     <include href="screens/Screens.lzx"/>
     <include href="screens/Tutorial.lzx"/>
-    <include href="rich-text"/>
-    <include href="manipulatives/maskinganswer/MaskingAnswerClass.lzx" />
-
+   <!--  <include href="rich-text"/>-->
+   <include href="manipulatives/maskinganswer/MaskingAnswerClass.lzx" />
 </library>

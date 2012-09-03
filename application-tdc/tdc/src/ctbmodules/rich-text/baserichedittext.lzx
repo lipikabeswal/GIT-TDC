@@ -2,6 +2,7 @@
     <!-- temp removed to integrate platform and emerald-->
     <!--include href="../emerald-contrib/baseedittext.lzx"/-->
     
+    <include href="extensions/views/richinputtext.lzx" />
     <!-- _richinternalinputtext
          class for use in windowtext takes its parent's arguments
          when it constructs 
@@ -21,33 +22,33 @@
             super.construct(  parent, args );
         </method>
         
+        <handler name="oninit">
+            this.setHTML(true);
+        </handler>     
+
         <!--- Sent if whenever the focus moves into _internalinputtext. 
             @param Object s: view that is losing focus -->
-        <method event="onfocus" args="s">
-        //Debug.write("onfocus : " + s);
+        <handler name="onfocus" args="s">
             if (parent['onfocus']) {
-               //Debug.write("parent.onfocus");
-               //Debug.write(parent.onfocus);
-               //parent.onfocus.sendEvent(s);
+            	//parent.onfocus.sendEvent(s);
             }
-        </method>
+        </handler>
         <!--- Sent if whenever the focus moves out of _internalinputtext. 
             @param Object s: view that is gaining focus -->
-        <method event="onblur" args="s">
+        <handler name="onblur" args="s">
             if (parent['onblur']) parent.onblur.sendEvent(s);
-        </method>
+        </handler>
         <!--- Sent whenever a user enters a valid new character. -->
-        <method event="ontext" name="doOnText">
-        //Debug.write("ontext");
+        <handler name="ontext">
             if (! this.ignorecallup) {
                 parent.setValue(this.getText(),false,true);
             }
             this.ignorecallup = false;
-        </method>
+        </handler>
         <!--- Get focus bracket for _internalinputtext to be the dimensions of
               baseedittext.
               @keywords private -->
-        <method name="getFocusRect" >
+       <method name="getFocusRect" >
            var fx = parent.getAttributeRelative('x',canvas);
            var fy = parent.getAttributeRelative('y',canvas);
            var fw = parent.getAttributeRelative('width',canvas);
@@ -83,11 +84,10 @@
               @param Boolean isinitvalue: true if the appended text should be
               considered the initial value. -->
         <method name="appendText" args="str,isHTML,isinitvalue">
-        //Debug.write("appendText : " + str, " " + isHTML + " " + isinitvalue);
             this._field.appendText(str, isHTML); 
 
             // Set value of richedittext and send event.
-            this.setValue(this._field.getText(),isinitvalue,true);
+            this.setValue(this._field.getText(),isinitvalue);
         </method>
 
         <!--- Wrapper to setValue. 
@@ -98,7 +98,7 @@
             this._field.setHTMLText(t);
 
             // Set value of richedittext and send event.
-            this.setValue(this._field.getText(),isinitvalue,true);
+            this.setValue(this._field.getText(),isinitvalue);
         </method>
 
         <!--- Returns the contents as html text. 
@@ -113,7 +113,7 @@
         
         <!---
             Applies the format to the text between start and end. 
-            @param LzTextFormat format: format to apply region. 
+            @param textformat format: format to apply region. 
             @param Number start: start index of text to format.
             @param Number end: end index of text to format.
         -->
@@ -125,7 +125,7 @@
             Gets the format of the text in the specified region.
             @param Number start: start index to get text format.
             @param Number end: end index to get text format.
-            @return LzTextFormat format: the text format of the range of characters 
+            @return textformat format: the text format of the range of characters 
         -->
         <method name="getTextFormat" args ="start, end">
             return this._field.getTextFormat(start, end); 
@@ -143,7 +143,7 @@
     </class>
 </library>
 <!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
-* Copyright 2005 Laszlo Systems, Inc. All Rights Reserved.                    *
+* Copyright 2007, 2009 Laszlo Systems, Inc. All Rights Reserved.                    *
 * Use is subject to license terms.                                            *
 * X_LZ_COPYRIGHT_END ****************************************************** -->
 <!-- @LZX_VERSION@                                                         -->

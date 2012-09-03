@@ -9,7 +9,7 @@
         <attribute name="TEXT_RIGHT_PADDING" type="number" value="0"/>
         <attribute name="passageId" type="string" value="-1" />
         
-        <method event="ondata" args="data">
+        <handler name="ondata" args="data">
             if (data.hasAttr ('width')) {
                 this.setAttribute ('width', Number (data.getAttr ('width')));
             }
@@ -26,7 +26,7 @@
 
 			this.contents.textarea.scrollarea.scrollcontents.dynlayout.update();
 			doneLoading();
-        </method>
+        </handler>
         
 
         <method name="doReturnToCache"><![CDATA[
@@ -35,7 +35,7 @@
 
             var contsubviews = this.contents.textarea.scrollarea.scrollcontents.subviews;
             for (var i in contsubviews) {
-                if (contsubviews [i] instanceof CachableComponent &&
+                if (contsubviews [i] instanceof lz.CachableComponent &&
                         contsubviews [i].visible) {
                     //contsubviews[i].destroy();
                     this.cache.returnComponent (contsubviews [i]);
@@ -59,7 +59,7 @@
         
                     newcomp = this.cache.getComponent (subnodes [i]);
         
-                    if(newcomp instanceof CachableTextField)
+                    if(newcomp instanceof lz.CachableTextField)
                     {
                         newcomp.setAttribute("leftPadding", TEXT_LEFT_PADDING);
                         newcomp.setAttribute("rightPadding", TEXT_RIGHT_PADDING);
@@ -99,12 +99,12 @@
 
         <!-- border  -->
         <drawview width="100%" height="100%" options="ignorelayout">
-            <method event="onwidth">
+            <handler name="onwidth">
                 this.draw ();
-            </method>
-            <method event="onheight">
+            </handler>
+            <handler name="onheight">
                 this.draw ();
-            </method>
+            </handler>
 
             <method name="draw">
                 this.clear ();

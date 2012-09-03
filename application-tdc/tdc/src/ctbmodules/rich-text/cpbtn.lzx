@@ -33,16 +33,17 @@
             Called when the user clicks the button. Asks the editor to apply the 
             format.
             @keywords private -->
-        <method event="onclick" name="doClick">
+        <handler name="onclick" method="doClick"/>
+        <method name="doClick">
 Debug.write("ZZZ formatbtn");
             // toggle it
             
         </method>
 
         <!--- @keywords private -->
-        <method event="onmouseover">          
+        <handler name="onmouseover">          
             this.editor.saveSelectionRegion();            
-        </method>
+        </handler>
 
         <method name="setState" args="state">
         </method>
