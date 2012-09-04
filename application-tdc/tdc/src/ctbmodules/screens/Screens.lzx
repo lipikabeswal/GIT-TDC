@@ -25,12 +25,6 @@
        <attribute name="onFeedbackScreen" value="false"/>
 		
         <attribute name="allowclick" value="false"/>
-        
-        <handler name="oninit">
-        	Debug.write("colors*********  ",this.getAttribute('bgcolor'),this.contents.getAttribute('bgcolor'),this.parent.getAttribute('bgcolor'));
-        	
-        </handler>
-
 
         <method name="isOnFeedbackScreen">
             return onFeedbackScreen;
@@ -180,7 +174,7 @@
         	LzFocus.setFocus(contents.ps.pw.passwordField);
         </method>
         <method name="showLogin">
-
+			
             removeAllStates();
 
 //            if ( !contents.ls.isinited ) contents.ls.completeInstantiation();
