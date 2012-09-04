@@ -127,7 +127,8 @@
             
             //inform gFootNotePopup footnotes
             if((this instanceof CachableScrollingTextPanel) 
-                || this instanceof CachableTabsPanel) 
+                || this instanceof CachableTabsPanel
+                || this instanceof CachablePanel)  
             {
                 gFootNotePopup.setAttribute("scrolltext", this);
             }                
