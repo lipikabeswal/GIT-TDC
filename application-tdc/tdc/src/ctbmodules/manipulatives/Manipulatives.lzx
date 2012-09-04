@@ -1,5 +1,14 @@
 <library>
     
+	<include href="protractor/Protractor.lzx"/>
+    <include href="ruler/BaseRuler.lzx"/>
+	<include href="ruler/MaskingRuler.lzx"/>
+	<include href="../question/cache/components/CachableRefCard.lzx"/>
+
+	<include href="calculator/standardCalculator.lzx"/>
+	<include href="calculator/scientificCalculator.lzx"/>
+	<include href="refcard/RefCard.lzx"/>
+	<include href="scratchpad/Scratchpad.lzx"/>
 	
     <class name="Manipulatives" clip="true"
            datapath="dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/general">
@@ -32,7 +41,7 @@
 
 			//Clean the cachable ref cards used by previous item
 			for (var i in this.subviews) {
-				if (this.subviews [i] instanceof lz.CachableComponent) {
+				if (this.subviews [i] instanceof CachableComponent) {
 					this.cache.returnComponent (this.subviews [i]);
 		        }
 		    }
@@ -40,7 +49,7 @@
 			if(typeof fCardrsrc != "undefined" && fCardrsrc != null) {
 
 				var xmlString = '<formula_card_resource src="'+fCardrsrc+'" />'; //the string to be converted to datanode
-				var newNode = LzDataElement.stringToLzData(xmlString);// convert string to datanode
+				var newNode = LzDataNode.stringToLzData(xmlString);// convert string to datanode
 				var oldNode = dsstudentdata.getPointer().xpathQuery('testing_client_model/current_item/item_model/manipulatives/general/formula_card_resource');
 						
 				if(oldNode != null) {
@@ -70,9 +79,9 @@
 					manip.bringToFront();
 				}
 			}
-			/*if(gScratchpad.visible){
+			if(gScratchpad.visible){
 				gScratchpad.bringToFront();
-			}*/
+			}
 		]]></method>
 		
 		<method name="getManipForDepth" args="depth, manips"><![CDATA[
@@ -215,7 +224,7 @@
 		
 		<method name="getInstanceForTool" args="tool">
 			var result = null;
-			/*if(tool == 'scratchpad'){
+			if(tool == 'scratchpad'){
 				result = gScratchpad;
 			}
 			else if (tool == 'protractor'){
@@ -253,18 +262,16 @@
 			}
 			else if (tool == 'masking_ruler'){
 				result = gMaskingRuler;
-			}*/
+			}
 			return result;
 		</method>
 		
 		<method name="saveZOrders"><![CDATA[
 			var top = gController.dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/general/');
-			if(top!=null){
-				var nodes = top.childNodes;
-				for(var i = 0; i < nodes.length; i++){
-					var manip = nodes[i];
-					manip.setAttr('z_order', this.zOrder[this.getIndexForTool(manip.nodeName)]);
-				}
+			var nodes = top.childNodes;
+			for(var i = 0; i < nodes.length; i++){
+				var manip = nodes[i];
+				manip.setAttr('z_order', this.zOrder[this.getIndexForTool(manip.nodeName)]);
 			}
 		]]></method>
 		
@@ -275,8 +282,15 @@
 			}
 		]]></method>
 		
+        <Scratchpad name="scratchpad" 
+                    toolid="scratchpad"
+                    id="gScratchpad"/>
+		
+        <Protractor name="protractor" 
+                    toolid="protractor"
+                    id="gProtractor"/>
 
-        <!-- <BaseRuler name="straight_edge"
+        <BaseRuler name="straight_edge"
                    toolid="straight_edge"
                    labelrsr="straight_label"
                    id="gStraightEdge"/>
@@ -284,8 +298,54 @@
         <MaskingRuler name="masking_ruler"
                    toolid="masking_ruler"
                    labelrsr="masking_label"
-                   id="gMaskingRuler"/> -->
-      
+                   id="gMaskingRuler"/>
+                             
+        <BaseRuler name="oneeighth_inch_ruler"
+                   toolid="oneeighth_inch_ruler"
+                   tickmarksrsr="eighth_inch_tick_marks"
+                   labelrsr="inches_label"
+                   id="gEighthInchRuler"/>
+                   
+        <BaseRuler name="half_inch_ruler"
+                   toolid="half_inch_ruler"
+                   tickmarksrsr="half_inch_tick_marks"
+                   labelrsr="inches_label"
+                   id="gHalfInchRuler"/>
+                   
+        <BaseRuler name="mm_ruler"
+                   toolid="mm_ruler"
+                   tickmarksrsr="millimeter_tick_marks"
+                   labelrsr="centimeters_label"
+                   id="gMmRuler"/>
+                   
+		<BaseRuler name="cm_ruler"
+                   toolid="cm_ruler"
+                   tickmarksrsr="centimeter_tick_marks"
+                   labelrsr="centimeters_label"
+                   id="gCmRuler"/>
+
+        <RefCard name="FCAT_formula_card" 
+                 toolid="FCAT_formula_card"
+                 refCardRsrc="FCAT_refcard_contents"
+                 titleRsrc="FCAT_refcard_title"
+                 scrolls="true"
+                 id="gFcatFormulaCard"/>
+
+        <RefCard name="TN_formula_card" 
+                 toolid="TN_formula_card"
+                 refCardRsrc="TN_refcard_contents"
+                 titleRsrc="TN_refcard_title"
+                 scrolls="false"
+                 id="gTnFormulaCard"/>
+
+        <standardCalculator name="standard_calculator" 
+                            toolid="standard_calculator"
+                            id="gStandardCalculator"/>
+
+        <scientificCalculator name="scientific_calculator" 
+                            toolid="scientific_calculator"
+                            id="gScientificCalculator"/>
+
 		<ComponentCache name="cache" />
     </class>
 

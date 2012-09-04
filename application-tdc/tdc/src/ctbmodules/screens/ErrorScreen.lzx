@@ -17,8 +17,8 @@
 		
 		<method name="exit">
         	Debug.write("On Goodbye Screen");
-	    	var getUrl = lz.Browser.getInitArg( 'servletUrl' ) + '/UtilityServlet.do?method=exit';
-			goodbyewhenerrorDs.setAttribute('src', getUrl);
+	    	var getUrl = LzBrowser.getInitArg( 'servletUrl' ) + '/UtilityServlet.do?method=exit';
+			goodbyewhenerrorDs.setSrc(getUrl);
 			goodbyewhenerrorDs.doRequest();
 		</method>
 	</node>
@@ -30,12 +30,12 @@
 		<attribute name="FEEDBACK_ERROR_HEADER"  type="string" value="There has been a break in service." />
 		<attribute name="FEEDBACK_ERROR_MESSAGE" type="string" value="We have saved your responses and closed your test. You cannot log into this test session again. Talk to your proctor about getting your scores." />
 		<attribute name="FEEDBACK_ERROR_CODE"    type="string" value="null" />
-		<attribute name="dp" value="$once{new lz.datapointer()}" />
+		<attribute name="dp" value="$once{new LzDatapointer()}" />
 		<method name="showError" args="xml"><![CDATA[
 Debug.write("ErrorScreen.showError");
 printBigString(xml);
 			if(xml != null){
-				var node = LzDataElement.stringToLzData(xml);
+				var node = LzDataNode.stringToLzData(xml);
 Debug.write("node name: " + node.nodeName);
 printBigString(node.serialize());
 				if(node.nodeName == "ERROR"){
@@ -109,10 +109,9 @@ Debug.write("xml null - show default error");
            
 	    <view width="420">
 		    <ExitButton align="right">
-		    	<handler name="onclick" method="exit" />
-				<method name="exit">
+				<method name="exit" event="onclick">
 					gScreens.clicked();
-					//gMusicPlayer.stop();
+					gMusicPlayer.stop();
 					errorExitRequest.exit();
 				</method>
 		    </ExitButton>

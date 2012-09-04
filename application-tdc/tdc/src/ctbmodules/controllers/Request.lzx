@@ -56,15 +56,14 @@
 		<attribute name="_GENDER_VALUE" type="string" value="female" />
 		
 		<handler name="oninit">
-			var base = lz.Browser.getInitArg( 'servletUrl' );
-			persistenceDs.setAttribute('src', base + '/PersistenceServlet.do');
-			heartbeatDs.setAttribute('src', base + '/PersistenceServlet.do');
-			contentDs.setAttribute('src', base + '/ContentServlet.do');
+			var base = LzBrowser.getInitArg( 'servletUrl' );
+			persistenceDs.setSrc(base + '/PersistenceServlet.do');
+			heartbeatDs.setSrc(base + '/PersistenceServlet.do');
+			contentDs.setSrc(base + '/ContentServlet.do');
 		</handler>
 		
 		<method name="login" args="username, password, accesscode" >
 			var xml = gXmlHelper.getLoginXml(username, password, accesscode, cid);
-			Debug.write("Login XMl: " , xml);
 			_doRequest(persistenceDs, LOGIN_METHOD, xml);
 		</method>
 		
@@ -88,19 +87,15 @@
 		</method>
 		
 		<method name="heartbeat" args="params">
-			Debug.write("heartbeat saveXml: " ,gController.lsid);
-			//Commented because manipulative bar is not there
-			//var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, gManipulativeBar.speedController.value);
-			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, 2);
-			Debug.write("heartbeat saveXml 2 xml: " + xml);
-			//printBigString(xml);
+			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, gManipulativeBar.speedController.value);
+//Debug.write("heartbeat saveXml: " + getTimer());
+//printBigString(xml);
 			_doRequest(heartbeatDs, SAVE_METHOD, xml);
 			//gController.setWaitPopupToShow();
 		</method>
 
 		<method name="save" args="params">
-			//var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, gManipulativeBar.speedController.value);
-			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, 2);
+			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, gManipulativeBar.speedController.value);
 //Debug.write("saveXml: " + getTimer());
 //printBigString(xml);
 			_doRequest(persistenceDs, SAVE_METHOD, xml);
@@ -150,12 +145,12 @@
 		
 		<method name="downloadSubtest" args="id, hash, key">
 			var xml = gXmlHelper.getGetSubtestXml(id, hash, key);
-			<!-- _doRequest(downloadDs, GET_SUBTEST_METHOD, xml);-->
+			_doRequest(downloadDs, GET_SUBTEST_METHOD, xml);
 		</method>
 		
 		<method name="loadItem" args="params">
 			var xml = gXmlHelper.getLoadItemXml(params);
-			<!-- _doRequest(contentDs, LOAD_ITEM_METHOD, xml);-->
+			_doRequest(contentDs, LOAD_ITEM_METHOD, xml);
 		</method>
 		
 		<method name="_processResponse" args="ds" >
@@ -201,7 +196,7 @@ Debug.write("_returnError : ", ds);
 				gCommunicator.finishCall(gXmlHelper.getFeedbackErrorXml(),ds);
 			}
 			else{
-				gCommunicator.finishCall(gXmlHelper.getErrorXml(null),ds);
+				gCommunicator.finishCall(gXmlHelper.getErrorXml(),ds);
 			}
 		</method>
 		
@@ -211,17 +206,17 @@ Debug.write("_heartbeatReturnError : ", ds);
 				gCommunicator.finishHeartbeatCall(gXmlHelper.getFeedbackErrorXml(),ds);
 			}
 			else{
-				gCommunicator.finishHeartbeatCall(gXmlHelper.getErrorXml(null),ds);
+				gCommunicator.finishHeartbeatCall(gXmlHelper.getErrorXml(),ds);
 			}
 		</method>
 		
 		<method name="setMseqFromRestartNumber" args="restart_number">
        <![CDATA[
-//Debug.write("setMseqFromRestartNumber: " + restart_number);
+Debug.write("setMseqFromRestartNumber: " + restart_number);
 			if(restart_number != null){
 				var restartNum = new Number(restart_number);
 				var newMseq = 1000000*restartNum + 1;
-//Debug.write("setting mseq: " + newMseq);
+Debug.write("setting mseq: " + newMseq);
 				this.setAttribute('mseq', newMseq);
 			}
 		]]>

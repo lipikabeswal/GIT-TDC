@@ -26,8 +26,8 @@
         <attribute name="randomtype" type="string"/>
         <attribute name="selstate" value="$path{'@user_action'}"/>
 
-        <attribute name="eliminatorstatus" value="$once{new lz.datapointer()}"/>
-        <attribute name="eraserstatus" value="$once{new lz.datapointer()}"/>
+        <attribute name="eliminatorstatus" value="$once{new LzDatapointer()}"/>
+        <attribute name="eraserstatus" value="$once{new LzDatapointer()}"/>
 
         <attribute name="uienabled"
                    value="$path{ 'dsdisplay:/display/@enabled' }"/>
@@ -45,31 +45,31 @@
 			}
 		]]></handler>
 		
-        <handler name="oninit">
+        <method event="oninit">
             this.eliminatorstatus.setAttribute ('rerunxpath', true);
             this.eliminatorstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@option_eliminator')
 
             this.eraserstatus.setAttribute ('rerunxpath', true);
             this.eraserstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@eraser');
             this.eliminator.setSource(canvas.eliminatorRsrc);
-        </handler>
+        </method>
 
-        <handler name="onmouseover"><![CDATA[
+        <method event="onmouseover"><![CDATA[
             setCursorState();
             if (this.selstate == 'n') {
-                this.setAttribute('frame', this.statenum * this.statelength + 2);
+                this.setResourceNumber (this.statenum * this.statelength + 2);
             }
-        ]]></handler>
+        ]]></method>
 
-        <handler name="onmouseout">
+        <method event="onmouseout">
             gController.clearAndRestoreCurrentCursor();
 
             if (this.selstate == 'n') {
-                this.setAttribute('frame', this.statenum * this.statelength + 1);
+                this.setResourceNumber (this.statenum * this.statelength + 1);
             }
-        </handler>
+        </method>
 
-        <handler name="onclick"><![CDATA[
+        <method event="onclick"><![CDATA[
         	var readableText = this.type;
 
 			if(gController.isLoginResponseHavingSeed &&	
@@ -93,7 +93,7 @@
                                                  this.selstate != 's' ? 's' : 'n');
             }
             setCursorState();
-        ]]></handler>
+        ]]></method>
 
 		<method name="getReadableTextForSelection" args="letter, isSelecting">
 			if(isSelecting){
@@ -122,7 +122,7 @@
             }
 		]]></method>
 
-        <handler name="ontype">
+        <method event="ontype">
             switch (this.type) {
                 case 'A': 
                     this.setAttribute ('statenum', 0);
@@ -158,9 +158,9 @@
 //                    Debug.write ("ANSWERSELECTIONBUTTON: unknown type: ", type);
                     break;
             }
-        </handler>
+        </method>
 
-        <handler name="onrandomtype">
+        <method event="onrandomtype">
             switch (this.randomtype) {
                 case 'A': 
                     this.setAttribute ('statenum', 0);
@@ -196,9 +196,9 @@
 //                    Debug.write ("ANSWERSELECTIONBUTTON: unknown randomtype: ", randomtype);
                     break;
             }
-        </handler>
+        </method>
 
-        <handler name="onselstate">
+        <method event="onselstate">
             var newresource = 1;
 
             switch (this.selstate) {
@@ -210,8 +210,8 @@
                     break;
             }
 
-            this.setAttribute('frame', newresource);
-        </handler>
+            this.setResourceNumber (newresource);
+        </method>
  		<view name="eliminator" 
 		      visible="${classroot.selstate == 'e'}"
 		      align="center" 

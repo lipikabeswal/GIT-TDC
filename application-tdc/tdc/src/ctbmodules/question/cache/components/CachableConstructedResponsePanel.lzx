@@ -5,7 +5,7 @@
            bgcolor="white" comptype="$once {gCompTypes.WIDGET_CONSTRUCTED_RESPONSE_PANEL}">
 
 
-		<handler name="ondata" args="data">
+		<method event="ondata" args="data">
             //width and height
 			if (data.hasAttr ('width')) {
 				this.setAttribute ('width', Number (data.getAttr ('width')));
@@ -23,7 +23,7 @@
 			}
 
             doneLoading();
-		</handler>
+		</method>
 
 	</class>
 

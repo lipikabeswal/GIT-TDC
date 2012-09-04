@@ -2,15 +2,13 @@
 	<include href="ReadableText.lzx" />
 	<include href="DownloadManager.lzx" />
 	<include href="TutorialManager.lzx" />
-	<include href="Sarsystem.lzx"/>
-	
-	<Sarsystem id="flashSystem" />
+
 	<script><![CDATA[
 		
         function countDataNodes ( nodes ) {
             if ( null == nodes ) {
                 return 0;
-            } else if ( nodes instanceof lz.DataNode ) {
+            } else if ( nodes instanceof LzDataNode ) {
                 return 1;
             } else if ( nodes instanceof Array ) {
                 return nodes.length;
@@ -50,8 +48,8 @@
 		function sortNodes(anode,bnode) {
 			var codeA = 0;
 			var codeB = 0;
-			anode = lz.DataElement.stringToLzData(anode);
-			bnode = lz.DataElement.stringToLzData(bnode);
+			anode = LzDataNode.stringToLzData(anode);
+			bnode = LzDataNode.stringToLzData(bnode);
 			codeA = anode.getElementsByTagName('selector_widget')[0].getAttr("randomIdentifier").charCodeAt();
 			codeB = bnode.getElementsByTagName('selector_widget')[0].getAttr("randomIdentifier").charCodeAt();
 			
@@ -142,7 +140,7 @@
 	      var perm = null;
 			
 	      // Step #1 - Find factoradic of k
-	      var factoradic = [order];
+	      factoradic = [order];
 	      for (var j = 1; j <= order; ++j)
 	      {
 			factoradic[order - j] = k % j;
@@ -187,9 +185,11 @@
 		}	
 	    
 		function isMac(){
-			var os = flashSystem.system.capabilities.os;
+
+			var os = System.capabilities.os;
 			os = os.split(" ");
-			return os[0] == 'Mac';	
+			return os[0] == 'Mac';
+	
 		}			
     ]]></script>
 
@@ -226,8 +226,8 @@
 		<!--  
 			Convenience datapointers
 		-->
-		<attribute name="dp" value="$once{new lz.datapointer()}" />
-		<attribute name="answerdp" value="$once{new lz.datapointer()}" />
+		<attribute name="dp" value="$once{new LzDatapointer()}" />
+		<attribute name="answerdp" value="$once{new LzDatapointer()}" />
 		<attribute name="heartbeatResult" type="string" value="null" />
 		<!-- 
 			Requests to the communicator result in setting the communicatorResponse with
@@ -260,6 +260,7 @@
 		<attribute name="SUBTEST_FINISH_STATE" type="string"
 			value="subtestFinish" />
 		<attribute name="FEEDBACK_STATE" type="string" value="feedback" />
+		<attribute name="SCORES_STATE" type="string" value="scores"/>
 		<attribute name="SAVE_END_SUBTEST_STATE" type="string"
 			value="saveEndSubtest" />
 		<attribute name="TUTORIAL_COMPLETE_STATE" type="string"
@@ -273,7 +274,6 @@
 		<attribute name="PAUSE_LEV" type="string" value="stu_pause" />
 		<attribute name="STOP_LEV" type="string" value="stu_stop" />
 		<attribute name="RESUME_LEV" type="string" value="stu_resume" />
-		<attribute name="SAVE_LEV" type="string" value="stu_save" />
 		<attribute name="TERMINATED_LEV" type="string"
 			value="terminated" />
 
@@ -349,7 +349,7 @@
 			Is the swf being used in the previewer?
 		-->
 		<attribute name="isPreviewer" type="boolean"
-			value="$once{lz.Browser.getInitArg( 'gPreviewer' ) == 'true'}" />
+			value="$once{LzBrowser.getInitArg( 'gPreviewer' ) == 'true'}" />
 
 		<!--  
 			Should focus be set onto the Gr?
@@ -453,7 +453,7 @@
 
 		<!-- called to hide the wait popup, if open-->
 		<attribute name="dNetworkLostPopup"
-			value="$once{ new lz.Delegate( this, 'networkLostPopup' ) }" />
+			value="$once{ new LzDelegate( this, 'networkLostPopup' ) }" />
 
        	<!-- True, if login response contains tts speed value-->
 		<attribute name="isWaitPopupOpen" type="boolean" value="false" />
@@ -493,6 +493,12 @@
 		<attribute name="isFinishTest" value="false" type="boolean" />
 		<attribute name="restartItemCount" type="number" value="0" />
 		<attribute name="prevItemId" type="number" value="0" />
+
+		<attribute name="lastxpos" value="0" type="number" />
+        <attribute name="lastypos" value="0" type="number" />
+        <attribute name="testTimeout" type="boolean" value="false"/>
+		
+		<attribute name="isCatStop" value="false" type="boolean" />
 		<!--
 			============================================================
 			Datapointers
@@ -532,17 +538,21 @@
 		
 		<attribute name="fwdOnly" value="false" type="boolean" />
 		<attribute name="adaptive" value="$path{ 'dssubtest:/subtest/sco/@adaptive' }"/>
+		<attribute name="isSample" value="$path{'dssubtest:/subtest/sco/@isSample'}"/>
  
 		<attribute name="showPleaseWaitOver" value="false" type="boolean" />
 		<attribute name="RestartTest" value="false" type="boolean" />
+		<attribute name="trackTimer" type="number" value="0"/>
+		<attribute name="isOK" type="string" value="F"/>
+		<attribute name="countdownTimer" type="number" value="0"/>
 			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
-			/*if(gScratchpad.scratchpadHasFocus) { 
+			if(gScratchpad.scratchpadHasFocus) { 
 				gHotKeys.disableKeys();
-			}*/ 
+			} 
 			
-			if(this.isRevisitPopupOpen == true || this.isWaitPopupOpen == true){
+			if(this.getAttribute('isRevisitPopupOpen') == true || this.isWaitPopupOpen == true){
 				gHotKeys.disableKeys(); 
 			}
 		</handler>
@@ -554,10 +564,10 @@
 		<!-- Can be used in the future to detect the flash versions for applying the fix to any particular versions -->
 		<method name="detectFlashVersion"><![CDATA[
          	//For Flash 
-			var version = flashSystem.system.capabilities.version; 
-			var os = 	flashSystem.system.capabilities.os;
+			var version = System.capabilities.version; 
+			var os = 	System.capabilities.os;
 			
-			var flashVersion = version.split(" ");
+			flashVersion = version.split(" ");
 			
 			version = flashVersion[1].split(",");
 			var currentVersion =version[0];
@@ -585,7 +595,7 @@
 		<method name="updateItemTypes"><![CDATA[
 			var items = dpsubtest.xpathQuery("ob_assessment/ob_element_list/f");
 			//Debug.write("updateItemTypes" + items);
-			if (items instanceof lz.DataNode){
+			if (items instanceof LzDataNode){
 				items = new Array(items);
 			}
 			for(var i=0; i<items.length; i++){
@@ -598,15 +608,14 @@
 
 		<method name="clearScratchpad">
 			this.setAttribute("scratchpadOpen", false);
-			//gScratchpad.setAttribute('text', "");
+			gScratchpad.setText("");
 		</method>
 
 		<handler name="oninit">
         	gScreens.showLogin();
-			var base = lz.Browser.getInitArg( 'servletUrl' );
-			dsitem.setAttribute('src', base + '/ContentServlet.do'); 
-			dsMusic.setAttribute('src', base + '/ContentServlet.do');   
-			Debug.write("On Init Controller");
+			var base = LzBrowser.getInitArg( 'servletUrl' );
+			dsitem.setSrc(base + '/ContentServlet.do'); 
+			dsMusic.setSrc(base + '/ContentServlet.do');       	
         </handler>
 
 		<method name="login" args="_userid, _password, _accesscode">
@@ -615,26 +624,26 @@
 			setAttribute('accesscode', _accesscode == null ? null : _accesscode.toLowerCase());
 			setState(LOGIN_STATE);
 			gCommunicator.login(userid, password, accesscode);
-			Debug.write("On Init Controller login");
 		</method>
 
 		<method name="getSubtest">
 			setAttribute("doUnlockUI", true);
+			//recalltrackMouseMove();
 			setState(SUBTEST_STATE);
 			var params = getCurrentSubtestParams();
 			gCommunicator.getSubtest(params[0], params[1], params[2]);
+			this.setAttribute("isCatStop", false);
 		</method>
 
 		<method name="processItemResponse">
             this.setAttribute('currentCrId', this.MAX_CR_ID);
 			gController.massageItemLml();
 			gController.changeCurrItemData ();
-			Debug.write("after processItemResponse");
         </method>
 
 		<method name="showError" args="xml">
 			stopHeartbeat();
-            lz.Cursor.unlock();
+            LzCursor.unlock();
             gReadableText.stopReading();
         	hideMagnifierGlass();
 			hideMaskingChoiceDD();
@@ -651,9 +660,8 @@
 
 		<method name="getCurrentSubtest"><![CDATA[
 			var subtests = dplogin.xpathQuery('manifest/sco');
-			Debug.write("subtest: " , subtests);
 			var result = null;
-			if(subtests instanceof lz.DataElement){
+			if(subtests instanceof LzDataElement){
 				if(currentSubtestIndex == 0){
 					result = subtests;
 				}
@@ -692,7 +700,7 @@
 		<method name="getSubtestList"><![CDATA[
     		dp.setXPath('dslogin:/login_response/manifest');
     		var result = dp.xpathQuery('sco');
-    		if(result instanceof lz.DataElement){
+    		if(result instanceof LzDataElement){
     			result = [result];
     		}
      		return result;
@@ -708,7 +716,7 @@
 				setState(NONE_STATE);
 			}
 			if(_isCommunicationError(response)){
-				//_handleError(response);
+				_handleError(response);
 			}
 			else {
 				switch (responseState){
@@ -757,6 +765,9 @@
 					case FEEDBACK_STATE:
 						_handleFeedbackResponse(response);
 						break;
+					case SCORES_STATE:
+						_handleScoresResponse(response);
+						break;
 					case TUTORIAL_COMPLETE_STATE:
 						_handleTutorialCompleteResponse(response);
 						break;
@@ -788,6 +799,7 @@
                     "runtime/item_model[@score='1']"
                 )
             );
+            gController.setAttribute('totalRaw',rawscore);
 
             var crtotal = countDataNodes(
                 dpstudentdata.xpathQuery(
@@ -839,10 +851,15 @@
 		]]></method>
 
 		<method name="_handleFeedbackResponse" args="response"><![CDATA[
-			lz.Timer.removeTimer( dupdateTimeLeft );
+			LzTimer.removeTimer( dupdateTimeLeft );
     		gScreens.showFeedback(response);
 		]]></method>
 
+		<method name="_handleScoresResponse" args="response"><![CDATA[
+			LzTimer.removeTimer( dupdateTimeLeft );
+    		gScreens.showScores(response);
+		]]></method>
+		
 		<method name="_handleTutorialCompleteResponse"
 			args="response"><![CDATA[
 			gTutorialManager.tutorialComplete();
@@ -853,11 +870,15 @@
 		</method>
 
 		<method name="_handleSubtestFinishResponse" args="response">
-			var node = lz.DataElement.stringToLzData(response);
+			var node = LzDataNode.stringToLzData(response);
 			var nextSubtestIndex = getSubtestIndex(node);
+			removeTrackTimer();
 			if(nextSubtestIndex != -1){
 				setAttribute('currentSubtestIndex', nextSubtestIndex);
 				getSubtest();
+			}
+			else if(this.getAttribute('isOK') == 'T'){
+				getScoreSheet();
 			}
 			else if(isFeedback()){
 				getFeedback();
@@ -903,9 +924,14 @@
 			gCommunicator.feedback(lsid);
 		</method>
 
-		<method name="isFeedback">
+		<method name="isFeedback" args="subtest">
 			var feedback = dplogin.xpathQuery('manifest/feedback');
 			return feedback != null;
+		</method>
+
+		<method name="getScoreSheet">
+			setState(SCORES_STATE);
+			gCommunicator.feedback(lsid);
 		</method>
 
 		<method name="_handleFinishSaveResponse" args="response">
@@ -920,12 +946,13 @@
 
 		<method name="goToGoodbyeScreen">
 			stopHeartbeat();
+			removeTrackTimer();
 			gScreens.showGoodbye();
-			lz.Timer.addTimer( dcloseBrowser, 5000 );
+			LzTimer.addTimer( dcloseBrowser, 5000 );
 		</method>
 
 		<attribute name="dcloseBrowser"
-			value="$once{ new lz.Delegate( this, 'closeBrowser' ) }" />
+			value="$once{ new LzDelegate( this, 'closeBrowser' ) }" />
 
 		<method name="closeBrowser">
 			gCommunicator.closeBrowser();
@@ -944,7 +971,7 @@
 		</method>
 
 		<method name="_handleSaveLoadResponse" args="response">
-		Debug.write("_handleSaveLoadResponse");
+		//Debug.write("_handleSaveLoadResponse");
 			loadItem();
 		</method>
 
@@ -956,7 +983,7 @@
 			}
 			else{
 
-	    		var node = lz.DataElement.stringToLzData(response);
+	    		var node = LzDataNode.stringToLzData(response);
 	    		dp.setPointer(node);
 	    		setShowHighlighter();
 	    		setShowMaskingRuler();
@@ -967,6 +994,8 @@
 	    		var logo = dp.xpathQuery('login_response/branding/@tdclogo');
        			canvas.setAttribute("logoRsrc", logo);
 	    		var cmicore = dp.xpathQuery('login_response/testing_session_data/cmi.core');
+				var isOK = dp.xpathQuery('login_response/testing_session_data/cmi.core/@isOK');
+				gController.setAttribute('isOK',isOK);
 	    		cmicore.setAttr('password', password);
 	    		cmicore.setAttr('userid', userid);
 	    		cmicore.setAttr('accesscode', accesscode);
@@ -976,8 +1005,8 @@
 	    		setAttribute('restartscid', dp.xpathQuery('login_response/manifest/sco[1]/@id'));
 	    		var numIsts = countDataNodes(dp.xpathQuery('login_response/consolidated_restart_data/tsd[@scid = "'+ restartscid +'"]/ist'));
 	    		//END
-				
-	    		dslogin.setAttribute('childNodes',new Array(loginResponse));
+
+	    		dslogin.setChildNodes(new Array(loginResponse));
 	    		dp.selectChild();
 				setAttribute('lsid', dp.getNodeAttribute('lsid'));
 				//Debug.write("lsid" + lsid);
@@ -986,16 +1015,14 @@
 				if(numIsts == 0 && dprestart.isValid()){
             		dprestart.deleteNode();
 				}
-				Debug.write("Send Heartbeat");
-				//sendHeartbeat();   // starts heartbeats
-				Debug.write("Send Heartbeat 2");
+				sendHeartbeat();   // starts heartbeats
 				if(gTutorialManager.hasTutorial){
 					gTutorialManager.doTutorialFlow();
 				}
 				else{
 					gDownloadManager.downloadContent();
 				}
-				Debug.write("Download Content 2");
+
 				dp.setPointer(node);				
 				var dSeed = dp.xpathQuery('login_response/@random_distractor_seed_number');	
 
@@ -1021,12 +1048,11 @@
 				else {
 					this.isLoginResponseHavingSeed = false;
 				}
-				var dpspeed = new lz.datapointer();
+				var dpspeed = new LzDatapointer();
 				dpspeed.setXPath("dslogin://login_response");
 				this.hasTTSspeed = dpspeed.data.hasAttr("tts_speed_value");
 				
 			}
-			Debug.write("loginResponse completed:");
 		]]></method>
 
 		<method name="setShowHighlighter">
@@ -1087,12 +1113,13 @@
 		</method>
 
 		<method name="updateSubtest" args="response">
-    		var subtest = new lz.DataElement('subtest');
-    		var obAssessment = lz.DataElement.stringToLzData(response);
+    		var subtest = new LzDataElement();
+    		subtest.setNodeName('subtest');
+    		var obAssessment = LzDataNode.stringToLzData(response);
     		var sco = getCurrentSubtest();
     		var testingSessionData = getTestingSessionData();
-    		subtest.setAttribute('childNodes',new Array(obAssessment, sco, testingSessionData));
-			dssubtest.setAttribute('childNodes',new Array(subtest));
+    		subtest.setChildNodes(new Array(obAssessment, sco, testingSessionData));
+			dssubtest.setChildNodes(new Array(subtest));
     	</method>
 
 		<method name="getTestingSessionData">
@@ -1117,7 +1144,7 @@
 	        		if ( awd && awd instanceof Array ) {
 	                	if(awd.length > 0)
 	 						numanswered = awd.length;
-	 				}else if ( awd && awd instanceof lz.DataElement ) {
+	 				}else if ( awd && awd instanceof LzDataElement ) {
 	 					numanswered = 1;
 	 				}
 				}else{
@@ -1134,7 +1161,7 @@
 	            			numanswered++;
 	            		}
 	            	}
-	            } else if ( awd && awd instanceof lz.DataElement ) {
+	            } else if ( awd && awd instanceof LzDataElement ) {
 	                if(isAnswered(awd)){
 	                	numanswered = 1;
 	                }
@@ -1156,14 +1183,14 @@
 					var ts =  dpsubtest.xpathQuery("ob_assessment/ob_element_list/f[@id='" + awd[i].getAttr('eid') + "']/@type");
 					if(ts == THEME_TYPE) ni_count++;
 				}
-            } else if ( awd && awd instanceof lz.DataElement ) {
+            } else if ( awd && awd instanceof LzDataElement ) {
                 var ts =  dpstudentdata.xpathQuery("runtime/item_model[@answered = '1']/@theme");
                	if(ts) ni_count = 1;
             }
 			
 			if ( awd && awd instanceof Array ) {
                 var numanswered = awd.length;
-            } else if ( awd && awd instanceof lz.DataElement ) {
+            } else if ( awd && awd instanceof LzDataElement ) {
                 var numanswered = 1;
             } else {
                 var numanswered = 0;
@@ -1178,7 +1205,7 @@
             );
             if ( mrk && mrk instanceof Array ) {
                 var nummarked = mrk.length;
-            } else if ( mrk && mrk instanceof lz.DataElement ) {
+            } else if ( mrk && mrk instanceof LzDataElement ) {
                 var nummarked = 1;
             } else {
                 var nummarked = 0;
@@ -1212,7 +1239,7 @@
 					var ts =  dpsubtest.xpathQuery("ob_assessment/ob_element_list/f[@id='" + vstd[i].getAttr('eid') + "']/@type");
 					if(ts == THEME_TYPE) ni_count++;
 				}
-            } else if ( vstd && vstd instanceof lz.DataElement ) {
+            } else if ( vstd && vstd instanceof LzDataElement ) {
                 var ts =  dpstudentdata.xpathQuery("runtime/item_model[@is_visited = 'true']/@theme");
                	if(ts) ni_count = 1;
             }			
@@ -1220,7 +1247,7 @@
             
             if ( vstd && vstd instanceof Array ) {
                 var numvisited = vstd.length;
-            } else if ( vstd && vstd instanceof lz.DataElement ) {
+            } else if ( vstd && vstd instanceof LzDataElement ) {
                 var numvisited = 1;
             } else {
                 var numvisited = 0;
@@ -1256,9 +1283,8 @@
 		<method name="initTest"><![CDATA[
         	// remove timer in case previous test was timed but this test is untimed
         	//Debug.warn("*****************************Init Test***************************");
-            lz.Timer.removeTimer( dupdateTimeLeft );
+            LzTimer.removeTimer( dupdateTimeLeft );
             resetCatAttributes();
-            var itemCount;
             if(this.adaptive == 'true') { 
 			 	itemCount = dpsubtest.xpathQuery('ob_assessment/ob_element_list/@itemCount');
 			 	this.setAttribute("subtestLength",itemCount);
@@ -1317,7 +1343,7 @@
             			gReadableText.stopReading();
             			this.setAttribute('firstSubtest', false);
             			this.outOfTimeOpen();
-						//gMusicPlayer.hide();
+						gMusicPlayer.hide();
                      } else {
                         var mins = Math.floor( secsnum / 60 );
                         resetTestTimer( secsnum );
@@ -1346,9 +1372,9 @@
             }
             this.setAttribute('firstSubtest', false);
            	gLogo.setSource(canvas.logoRsrc);
-           	/*if(!gScratchpad.isinited){
+           	if(!gScratchpad.isinited){
 				gScratchpad.completeInstantiation();
-			}*/
+			}
  			setScratchpadForSubtest();
 
  		if(isLoginResponseHavingSeed && !nullOrSpace(seed)) {
@@ -1460,7 +1486,7 @@
 				var spContents = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/sp/text()');
 				//END
 			}
-			//gScratchpad.setAttribute('text', unescape(spContents));
+			gScratchpad.setText(unescape(spContents));
 		</method>
 
 		<method name="outOfTimeOpen">
@@ -1468,7 +1494,7 @@
 			this.save(INIT_LEV);
 		</method>
 
-		<method name="_handleOutOfTimeOpenResponse" args="response"><![CDATA[
+		<method name="_handleOutOfTimeOpenResponse"><![CDATA[
          	this.goToTimeoutScreen();
         ]]></method>
 
@@ -1511,16 +1537,14 @@
 				gMusicPlayer.setAttribute('playStarted',true);
 			}*/
             saveLoadItem(fnode, INIT_LEV);
-            Debug.write("saveLoadItem done*****");
-            //dshowClient.register( this, 'itemuiready' );
-			showClient();
+            dshowClient.register( this, 'itemuiready' );
+			trackMouseMove();
         </method>
 
 		<attribute name="dshowClient"
-			value="$once{ new lz.Delegate( this, 'showClient' ) }" />
+			value="$once{ new LzDelegate( this, 'showClient' ) }" />
 		<method name="showClient">
-			Debug.write("inside showClient");
-            //dshowClient.unregisterAll();
+            dshowClient.unregisterAll();
             showItemInterface();
         </method>
 
@@ -1553,7 +1577,6 @@
 			 
 			for(var i=0; i < items.length; i++){
 			 	var eid = items[i].getAttr( 'eid' );
-			 	var stimulusid = items[i].getAttr('stimulus_id');
 			 	var istxpath = "tsd/ist[@eid='" + eid + "']";
                 var restartnode = dprestart.xpathQuery( istxpath );
                 var vnode = dprestart.xpathQuery(istxpath + "/rv/v");
@@ -1562,8 +1585,7 @@
                 
                 var flist = dpsubtest.xpathQuery('ob_assessment/ob_element_list');
            		var fitems = flist.getElementsByTagName( 'f' );
-				var fnodeEid = fitems[itemNumber-1].getAttr( 'id' );   
-				var allowRevisitOnRestart = items[i].getAttr( 'allow_revisit_on_restart' );	 
+				var fnodeEid = fitems[itemNumber-1].getAttr( 'id' );    
             		
 			 	Debug.write("eid:"+eid);
 			 	 var attrs =
@@ -1609,7 +1631,7 @@
                 	}
                 }*/
                  
-                var newitemdn = new lz.DataElement( 'item_model', attrs, null );
+                var newitemdn = new LzDataElement( 'item_model', attrs, null );
                
                 //if(eid != landingItem){
                 	var dnrtitemold = dpstudentdata.xpathQuery(
@@ -1643,9 +1665,10 @@
 		-->
 		<method name="initStudentData"><![CDATA[
 		//Debug.write("initStudentData");
-			/*if(gController.audible == 'true' && !gMusicPlayer.alreadyCalled){
+			if(gController.audible == 'true' && !gMusicPlayer.alreadyCalled){
+		//Debug.warn("Inside if of gController.audible");
 				loadMusicData();
-			}*/
+			}
 			this.restartItemCount = 0;    
             var dn = dpstudentdata.xpathQuery( 'title' );
             dn.setAttr( 'product_name', dpsubtest.xpathQuery( 'sco/@title' ) );
@@ -1736,14 +1759,14 @@
 						allow_revisit_on_restart:allowRevisitOnRestart
                     };
                 }
-                var newitemdn = new lz.DataElement( 'item_model', attrs, null );
+                var newitemdn = new LzDataElement( 'item_model', attrs, null );
                 runtimearr.push (newitemdn);
                 if(!isTheme){
                 	itemNumber = itemNumber + 1;
                 }
             }
 //Debug.write("##runtimearr:",runtimearr);
-            dn.setAttribute('childNodes', runtimearr );
+            dn.setChildNodes( runtimearr );
             if (this.adaptive == 'true' && dprestart.isValid()) {    
            		Debug.write("##calling getAdptiveRestartNodes:",dprestart.isValid());
             	getAdptiveRestartNodes();
@@ -1835,7 +1858,7 @@
 
 		<method name="isCrAnswered" args="xml"><![CDATA[
 			var result = false;
-			var node = lz.DataElement.stringToLzData(xml);
+			var node = LzDataNode.stringToLzData(xml);
             if (node) {
  			   	answerdp.setPointer(node);
                	answerdp.selectChild();
@@ -1856,18 +1879,18 @@
 		<method name="createSharedStimulusNodes"><![CDATA[
 			deleteSharedStimulusNode();
             var root = dpstudentdata.xpathQuery( '' );
-            var newStimulusNode = new lz.DataElement("shared_stimulus");
+            var newStimulusNode = new LzDataElement("shared_stimulus");
 			
             var stimuli = dpsubtest.xpathQuery('ob_assessment/ob_element_select_order/g');
             if(stimuli instanceof Array){  // more than one shared stimulus
 	            for(var j = 1; j <= stimuli.length; j++){
 	            	var stimulusattrs = { stimulus_id: j };
-	            	newStimulusNode.appendChild(new lz.DataElement('stimulus_highlight', stimulusattrs, null));
+	            	newStimulusNode.appendChild(new LzDataElement('stimulus_highlight', stimulusattrs, null));
 	            }
 	        }
-	        else if (stimuli instanceof lz.DataElement){ // only one shared stimulus
+	        else if (stimuli instanceof LzDataElement){ // only one shared stimulus
 	            var stimulusattrs = { stimulus_id: 1 };
-	        	newStimulusNode.appendChild(new lz.DataElement('stimulus_highlight', stimulusattrs, null));
+	        	newStimulusNode.appendChild(new LzDataElement('stimulus_highlight', stimulusattrs, null));
 	        }
 	        // else no shared stimuli
 
@@ -1877,7 +1900,7 @@
 		<method name="deleteSharedStimulusNode">
             var oldStimulusNode = dpstudentdata.xpathQuery('shared_stimulus');
             if(oldStimulusNode != null){
-            	var poldStimulus = new lz.datapointer();
+            	var poldStimulus = new LzDatapointer();
             	poldStimulus.setPointer(oldStimulusNode);
             	poldStimulus.deleteNode();
             }
@@ -1966,29 +1989,29 @@
             var qnumber = dpstudentdata.xpathQuery( 'question_number' );
             var current = dpstudentdata.xpathQuery( 'current_item' );
             var runtime = dpstudentdata.xpathQuery( 'runtime' );
-                        
-            timer.setAttribute('childNodes', [] );
-            title.setAttribute('childNodes', [] );
-            qnumber.setAttribute('childNodes', [] );
-            current.setAttribute('childNodes', [] );
-            runtime.setAttribute('childNodes', [] );
             
-            timer.setAttr( "show", '0'  );
-            title.setAttribute('attributes', {} );
-            qnumber.setAttribute('attributes', {} );
-            current.setAttribute('attributes', {} );
-            runtime.setAttribute('attributes', {} );
-			
+            timer.setChildNodes( [] );
+            title.setChildNodes( [] );
+            qnumber.setChildNodes( [] );
+            current.setChildNodes( [] );
+            runtime.setChildNodes( [] );
+
+            timer.setAttrs( { show: '0' } );
+            title.setAttrs( {} );
+            qnumber.setAttrs( {} );
+            current.setAttrs( {} );
+            runtime.setAttrs( {} );
+
             dpdisplay.setNodeAttribute( 'showtime', 'false' );
         </method>
 
 		<method name="backup_answers">
 
           if (typeof this.del == "undefined") {
-             this.del = new lz.Delegate(this, "backup_answers");
-             lz.Timer.addTimer(this.del, 5000);
+             this.del = new LzDelegate(this, "backup_answers");
+             LzTimer.addTimer(this.del, 5000);
           }
-          else lz.Timer.resetTimer(this.del, 5000);
+          else LzTimer.resetTimer(this.del, 5000);
        </method>
 
 		<method name="massageItemLml"><![CDATA[
@@ -2001,7 +2024,7 @@
                     toolbarattrs[i] = itemmodel.attributes[i];
                 }
                 var newtoolbar =
-                    new lz.DataElement( 'toolbar', itemmodel, toolbarattrs );
+                    new LzDataElement( 'toolbar', itemmodel, toolbarattrs );
                 itemmodel.appendChild( newtoolbar );
             }
             
@@ -2020,7 +2043,7 @@
 
                 var selectors = [];
                 for ( var i = 0; i < ids.length; i++ ) {
-                    var s = new lz.DataElement(
+                    var s = new LzDataElement(
                         'selector',
                         {
                             identifier:  ids[i],
@@ -2032,7 +2055,7 @@
                     selectors.push( s );
                 }
                 
-                var newinteraction = new lz.DataElement( 
+                var newinteraction = new LzDataElement( 
                     'interaction', 
                     { type: 'choice', max_choices: numchoices },
                     selectors
@@ -2055,7 +2078,7 @@
 		<method name="getAnswerForInputWidgetId" args="widgetId"><![CDATA[
 			var eid = loadNode.getAttr('id');
 			var answers = dpstudentdata.xpathQuery( "runtime/item_model [@eid = '"+eid+"']/@answer_text");
-			var node = lz.DataElement.stringToLzData(unescape(answers));
+			var node = LzDataNode.stringToLzData(unescape(answers));
 			//Debug.write("getAnswerForInputWidgetId node", node);
             if (node) {
                node.setOwnerDocument(dstemp);
@@ -2172,20 +2195,19 @@
                 dpstudentdata.xpathQuery( 'current_item/item_model/@eid' )
             );
             //store off our old curr item into the runtime data
-            if ( curritem != null ) {
+            if ( curritem ) {
             	gManipulatives.saveZOrders();
                 var dnrtitemold = dpstudentdata.xpathQuery(
                     "runtime/item_model [@eid = '"+curritem+"']"
                 );
                 var dncurritem =
                     dpstudentdata.xpathQuery ('current_item/item_model/');
-				if (this.adaptive =="false"){
-					saveSharedStimulusHighlights();
+				
+				if ( this.adaptive =="false"){
+				saveSharedStimulusHighlights();
 				}
-				if(dncurritem!=null)
-					dncurritem.parentNode.removeChild (dncurritem);
-				if(dncurritem!=null && dnrtitemold!=null)
-					dnrtitemold.parentNode.replaceChild (dncurritem, dnrtitemold);
+                dncurritem.parentNode.removeChild (dncurritem);
+                dnrtitemold.parentNode.replaceChild (dncurritem, dnrtitemold);
             }
 
             //find if we have saved state in our run time
@@ -2213,14 +2235,13 @@
 			//Debug.write("dnnewItem" + dnnewitem.getAttr( 'answered' ));
                 // merge in attributes from runtime (we may have restart data
                 // stored)
-
+                
                 for ( var i in dnrtitemnew.attributes ) {
                     dnnewitem.setAttr( i, dnrtitemnew.getAttr( i ) );
                 }
 
-                var dp = new lz.datapointer();
+                var dp = new LzDatapointer();
                 dp.setPointer( dnnewitem );
-				Debug.write("datapointer********  ",dp.xpathQuery( 'interaction/@type' ));
                 switch ( dp.xpathQuery( 'interaction/@type' ) ) {
                     case 'choice':
                         if ( dnnewitem.getAttr( 'answered' ) == '1' &&
@@ -2265,8 +2286,6 @@
             var dncurritem = dpstudentdata.xpathQuery ('current_item');
             dncurritem.appendChild (dnnewitem);
             dncurritem.setAttr( 'itempos', getOffsetFromEid( newitem ) + 1 );
-
-			Debug.write("dncurritem****  ",dncurritem);
             this.initManipulativeData ();
 			if (this.adaptive == 'false'){
 			getSharedStimulusHighlights();
@@ -2274,47 +2293,44 @@
             this.setAttribute('focusOnGr', !isMarkedForReviewWithManipulativeOpen());
             this.runtimeready = true;
             checkItemStatus();
-			/*if(this.magnifierVisible) {
+            
+			if(this.magnifierVisible) {
 	            if(this.isAudioItem()) {
-					gManipulativeBar.globals.magnifyingGlass.setAttribute('visible', false);
+					gManipulativeBar.globals.magnifyingGlass.setVisible(false);
 				}
 				else {
-					gManipulativeBar.globals.magnifyingGlass.setAttribute('visible', true);
+					gManipulativeBar.globals.magnifyingGlass.setVisible(true);
 				}
-			}*/
-			Debug.write("after checkItemStatus");
-			if(this.showMaskingAnswerPopUp && gController.returnNumberOfOptions() > 0){
-				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', true);
-			}else{
-				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', false);
 			}
-			Debug.write("after showMaskingAnswerPopUp");
+			
+			if(this.showMaskingAnswerPopUp && gController.returnNumberOfOptions() > 0){
+				gManipulativeBar.globals.maskingAnswer.setVisible(true);
+			}else{
+				gManipulativeBar.globals.maskingAnswer.setVisible(false);
+			}
         ]]></method>
 
 		<method name="saveSharedStimulusHighlights"><![CDATA[
 			var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model/');
-			Debug.write("dncurritem--------- ",dncurritem);
-			if(dncurritem!=null){
 			var stimulusid = dncurritem.getAttr('stimulus_id');
-				if(stimulusid != 0){  //  shared stimulus
-					var sharedStimulusHighlights = 
-						dpstudentdata.xpathQuery('shared_stimulus/stimulus_highlight[@stimulus_id="' + stimulusid + '"]');
-					var childNodes = new Array();
-					var currentStimulusHighlights = 
-						dpstudentdata.xpathQuery('current_item/item_model/manipulatives/global/highlighter/highlightarea[@stereotype="stimulus"]');
-					if(currentStimulusHighlights instanceof Array){
-						for (var i=0; i<currentStimulusHighlights.length; i++){
-							var stimulusHighlight = currentStimulusHighlights[i];
-							childNodes.push(stimulusHighlight);
-							stimulusHighlight.parentNode.removeChild(stimulusHighlight);
-						}
+			if(stimulusid != 0){  //  shared stimulus
+				var sharedStimulusHighlights = 
+				    dpstudentdata.xpathQuery('shared_stimulus/stimulus_highlight[@stimulus_id="' + stimulusid + '"]');
+				var childNodes = new Array();
+				var currentStimulusHighlights = 
+				    dpstudentdata.xpathQuery('current_item/item_model/manipulatives/global/highlighter/highlightarea[@stereotype="stimulus"]');
+				if(currentStimulusHighlights instanceof Array){
+					for (var i=0; i<currentStimulusHighlights.length; i++){
+						var stimulusHighlight = currentStimulusHighlights[i];
+						childNodes.push(stimulusHighlight);
+						stimulusHighlight.parentNode.removeChild(stimulusHighlight);
 					}
-					else if(currentStimulusHighlights instanceof lz.DataElement){
-						childNodes.push(currentStimulusHighlights);
-						currentStimulusHighlights.parentNode.removeChild(currentStimulusHighlights);
-					}
-					sharedStimulusHighlights.setAttribute('childNodes',childNodes);
 				}
+				else if(currentStimulusHighlights instanceof LzDataElement){
+					childNodes.push(currentStimulusHighlights);
+					currentStimulusHighlights.parentNode.removeChild(currentStimulusHighlights);
+				}
+				sharedStimulusHighlights.setChildNodes(childNodes);
 			}
 	//Debug.write("saveSharedStimulusHighlights");
 	//printBigString(dpstimulus.serialize());
@@ -2330,7 +2346,7 @@
 				    dpstudentdata.xpathQuery('current_item/item_model/manipulatives/global/highlighter');
 				if(dnhighlighter == null){  // need to create highlighter node
 					var dnglobal = dpstudentdata.xpathQuery('current_item/item_model/manipulatives/global');
-					dnglobal.appendChild(new lz.DataElement('highlighter', null, null));
+					dnglobal.appendChild(new LzDataElement('highlighter', null, null));
 				}
 				dnhighlighter = 
 				    dpstudentdata.xpathQuery('current_item/item_model/manipulatives/global/highlighter');
@@ -2343,7 +2359,7 @@
 							dnhighlighter.appendChild(sharedstimulushighlights[i]);
 						}
 					}
-					else if (sharedstimulushighlights instanceof lz.DataElement){
+					else if (sharedstimulushighlights instanceof LzDataElement){
 						dnhighlighter.appendChild(sharedstimulushighlights);
 					}
 				}
@@ -2407,8 +2423,8 @@
 			if(fnode != null) {			
 				if(this.recorder != null) {
 					this.recorder.stopblinker('stop');
-					this.recorder.whitewrapperOverLay.setAttribute('visible', false);
-					this.recorder.blackOverLay.setAttribute('visible', false);
+					this.recorder.whitewrapperOverLay.setVisible(false);
+					this.recorder.blackOverLay.setVisible(false);
 				}
 				//To reset the Audio Fields Array So that file name will be passed in the save call
 				this.resetAudioFields();
@@ -2417,7 +2433,7 @@
 				freezeUI();
 				stopQuestion();
 				canvas.setAttribute('focusobj', null);
-				saveLoadItem( fnode , SAVE_LEV);
+				saveLoadItem( fnode );
 			}
 			this.setattribute('isaudio',false);
 			resetRecorder();
@@ -2769,7 +2785,7 @@
 				var dnruntimeitem = dpstudentdata.xpathQuery ("runtime/item_model [@eid = '"+curritem+"']");
 
 				var responses = dpstudentdata.xpathQuery( 'current_item/item_model/interaction/response' );
-				if ( responses instanceof lz.DataNode ) {
+				if ( responses instanceof LzDataNode ) {
 					responses = [responses];
 				} else if ( null == responses ) {
 					responses = [];
@@ -2846,14 +2862,15 @@
             	gReadableText.stopReading();
                 freezeUI();
                 stopQuestion();
-				//gMusicPlayer.hide();
+				gMusicPlayer.hide();
+        		removeTrackTimer();
 		   //For defect 65881         
             if(this.recorder != null)
 			{
 			//var recordState = this.recorder.recordState;
 			 this.recorder.stopblinker('stop');
-			 this.recorder.whitewrapperOverLay.setAttribute('visible', false);
-			 this.recorder.blackOverLay.setAttribute('visible', false);
+			 this.recorder.whitewrapperOverLay.setVisible(false);
+			 this.recorder.blackOverLay.setVisible(false);
 			 this.blockFileName = false;
 			//	if(recordState !='-1'){
 			//	this.updateAudioField(this.recorder.widget_id, true);
@@ -2875,18 +2892,19 @@
 		<method name="goToPauseScreen">
 			this.clearInvalidCrResponses();
 			this.resetCrs();
-            lz.Cursor.unlock();  
+            LzCursor.unlock();  
         	checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();    
-          
             gScreens.showPause(getStudentName());
+			trackCountdownTimer();
 		</method>
 
 		<method name="pausedContinue" args="pw">
             if ( pw == dpsubtest.xpathQuery( 'testing_session_data/cmi.core/@password' ) ) {
-                lz.Cursor.setCursorGlobal( 'waitcursor' );
+                LzCursor.setCursorGlobal( 'waitcursor' );
 				setState(PAUSED_RESUME_STATE);
 				resetHeartbeat();
+				recalltrackMouseMove();
 				gCommunicator.lifecycle(RESUME_LEV);
                 return true;
             } else {
@@ -2898,17 +2916,19 @@
 			showItemInterface();
 			gScreens.resetTextFieldColor();
             startQuestion();
+			recalltrackMouseMove();
             unlockUI();
-           // gQuestion.setGrFocus();
+            gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
+			removeCountdownTimer();
 		</method>
 
 		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
-           /*	if(this.focusOnScratchpad  && gScratchpad.visible){
+           	if(this.focusOnScratchpad  && gScratchpad.visible){
             	gScratchpad.restoreFocusAndCursor();
-            }*/
+            }
  		]]></method>
 
 		<method name="finishTest">
@@ -2920,8 +2940,8 @@
 			{
 			//var recordState = this.recorder.recordState;
 			 this.recorder.stopblinker('stop');
-			 this.recorder.whitewrapperOverLay.setAttribute('visible', false);
-			 this.recorder.blackOverLay.setAttribute('visible', false);
+			 this.recorder.whitewrapperOverLay.setVisible(false);
+			 this.recorder.blackOverLay.setVisible(false);
 			 this.blockFileName = false;
 			//if(recordState !='-1'){
 			//	this.updateAudioField(this.recorder.widget_id, true);
@@ -2936,7 +2956,9 @@
             	//this.setAttribute("sendCatSave",true);
             	setSendCatSave();
             }
-            save(null);
+			this.setAttribute('trackTimer',0);
+			removeTrackTimer();
+            save();
         </method>
 	
 		<method name="setSendCatSave">
@@ -2966,8 +2988,8 @@
             closeOpenManipulatives();
      		checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
-			//gMusicPlayer.hide();
-            lz.Cursor.unlock();
+			gMusicPlayer.hide();
+            LzCursor.unlock();
 			
 			if(this.adaptive == 'true'){				
 				//if (gScreens.isOnFinishScreen()) {
@@ -3030,13 +3052,11 @@
 				
 				var dnGlobal = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');
 				var manipsGlobal = new Array("masking_ruler");
-				if(dnGlobal!=null){
-					for (var i = 0; i < manipsGlobal.length; i++){
-						var manipGlobal = manipsGlobal[i];
-						var stateGlobal = dnGlobal.getAttr(manipGlobal);
-						if(stateGlobal == "sel"){
-							gController.setManipulativeSelState (manipGlobal, 'up');
-						}
+				for (var i = 0; i < manipsGlobal.length; i++){
+					var manipGlobal = manipsGlobal[i];
+					var stateGlobal = dnGlobal.getAttr(manipGlobal);
+					if(stateGlobal == "sel"){
+			 			gController.setManipulativeSelState (manipGlobal, 'up');
 					}
 				}
 			}
@@ -3053,11 +3073,13 @@
 
 		<method name="resumeTest">
 			
-            lz.Cursor.setCursorGlobal( 'waitcursor' );
+            LzCursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
-            //gQuestion.setGrFocus();
+			recalltrackMouseMove();
+            gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
             unlockUI();
+			this.setAttribute("isCatStop", false);            
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
 			if(this.adaptive == 'true'){
@@ -3076,6 +3098,14 @@
 		-->
 
 		<method name="stopTest">
+			Debug.write("STOP test button");
+		    var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
+        	if(itemnode != null){
+					curItemId = itemnode.getAttr( 'eid' );
+			}		
+			var isAnswered 	   = dpstudentdata.xpathQuery("runtime/item_model[@eid='"+curItemId+"']/@answered") == '1';
+			this.setAttribute("isCatStop", true);
+			Debug.write("isAnswered" + isAnswered);
 			this.setAttribute("isStopTest",true);
 			this.setAttribute("catOver",false);
 			this.isStopScreen = false;
@@ -3111,7 +3141,7 @@
             if ( dsdisplay.childNodes[0].getAttr( 'enabled' ) == 'true' ) {
                 gHotKeys.disableKeys();
                 dsdisplay.childNodes[0].setAttr( 'enabled', 'false' );
-                lz.Cursor.setCursorGlobal( 'waitcursor' );
+                LzCursor.setCursorGlobal( 'waitcursor' );
             }
         </method>
 
@@ -3125,26 +3155,26 @@
 					uisemaphore = 0;
 				}
 	            if ( 0 == uisemaphore ) {
-	                lz.Cursor.unlock();
+	                LzCursor.unlock();
 	                restoreCurrentCursor();
 	                dsdisplay.childNodes[0].setAttr( 'enabled', 'true' );
-	                //if(!gScratchpad.scratchpadHasFocus){
+	                if(!gScratchpad.scratchpadHasFocus){
 	                	gHotKeys.enableKeys();
-	                //}
+	                }
 	            }
 	        }
 		]]>
         </method>
 
 		<method name="restoreCurrentCursor">
-			lz.Cursor.restoreCursor();
+			LzCursor.restoreCursor();
         	if(canvas.currentCursor != null){
-            	lz.Cursor.setCursorGlobal(canvas.currentCursor);
+            	LzCursor.setCursorGlobal(canvas.currentCursor);
             }
 		</method>
 
 		<method name="setCurrentCursor" args="cursorName">
-			lz.Cursor.setCursorGlobal(cursorName);
+			LzCursor.setCursorGlobal(cursorName);
 			canvas.setAttribute('currentCursor', cursorName);
 		</method>
 
@@ -3158,7 +3188,7 @@
 		</method>
 
 		<method name="saveLoadItem" args="fnode, lev"><![CDATA[
-			Debug.write("############ saveLoadItem ############",fnode,lev);
+			Debug.write("############ saveLoadItem ############");
 			//this.setAttribute("sendCatSave",true);
         	//setSendCatSave();
         	var curItemId;
@@ -3169,7 +3199,7 @@
 			
 			setState(SAVE_LOAD_STATE);
 			setAttribute("loadNode", fnode);
-			Debug.write("this.adaptive------ ",this.adaptive,lev);
+			
 			if(this.adaptive == 'true'){
 				if(Number(curItemId) != Number(this.prevItemId))
 				{
@@ -3195,7 +3225,6 @@ Debug.write("############ loadItem ############");
 				this.inQuestion = false;
 			}
         	var loadParams = getLoadParams();
-			Debug.write("loadParams",loadParams);
         	var xml = gXmlHelper.getGetItemXml(loadParams[0], loadParams[1], loadParams[2]);
 			if (typeof canvas.folder != "undefined") {
 				dsitem.setQueryParam(gRequest.FOLDER_PARAM, canvas.folder);
@@ -3209,7 +3238,7 @@ Debug.write("############ loadItem ############");
             this.resetCrFields();
 			this.resetAudioFields();
 			this.resetImageField();
-			//gMaskingAnswer.setAttribute("withState",false);
+			gMaskingAnswer.setAttribute("withState",false);
 			hideMagnifierGlass();
 			hideMaskingChoiceDD();
 		]]></method>
@@ -3227,19 +3256,17 @@ Debug.write("############ loadItem ############");
 			//Debug.write("getMusicData result" , result , d);
         	//result == 'File_Downloaded' &&  
 			if(gController.audible == 'true'){
-				/*gMusicPlayer.alreadyCalled = true;				
+				gMusicPlayer.alreadyCalled = true;				
 				gMusicPlayer.setSource("http:resources/music_"+gController.musicId+".mp3");
-				gMusicPlayer.setAttribute('playStarted',true);*/
+				gMusicPlayer.setAttribute('playStarted',true);
 				//Start - changes for Defect 66424
-				/*gMusicPlayer.playButton.setAttribute('visible',false);
-				gMusicPlayer.stopButton.setAttribute('visible',true);*/
+				gMusicPlayer.playButton.setAttribute('visible',false);
+				gMusicPlayer.stopButton.setAttribute('visible',true);
 				//End  - changes for Defect 66424
 			}
         ]]></method>
 
 		<method name="isOnItemOrFinishScreen">
-			Debug.write("gItemInterface.visible**** ",gItemInterface.visible || gScreens.isOnFinishScreen());
-			//Debug.write("gScreens.isOnFinishScreen()---- ",gScreens.isOnFinishScreen());
 			return (gItemInterface.visible || gScreens.isOnFinishScreen());
 		</method>
 
@@ -3269,19 +3296,18 @@ Debug.write("############ loadItem ############");
     	</method>
 
 		<method name="getSpText">
-    		//return escape(gScratchpad.getText());
+    		return escape(gScratchpad.getText());
     	</method>
 
 		<method name="getItemParams"><![CDATA[
 			updateCrItemNode();
 			updateAudioItem();
-			var result = null;
+    		var result = null;
 			var itemType = [];
 			var itemNo;
 			var curEid;
     		if(isOnItemOrFinishScreen()){
-			Debug.write("isOnItemOrFinishScreen after");            
-			var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
+                var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
                 if(itemnode != null){
 	    			result = new Array();
 					result[0] = itemnode.getAttr( 'iid' ); // current iid
@@ -3290,7 +3316,7 @@ Debug.write("############ loadItem ############");
 					result[3] = toNumString( itemnode.getAttr( 'answered' ) ); //current awd
 					result[4] = currentDur(); //current dur
 					result[5] = getCurrentInteractionType();  // type
-				Debug.write("getCurrentInteractionType after");      
+
 					if(isThemeItem()){
 						result[6] = '';
 						this.blockFileName = false;//this attribute was set true by an audio item
@@ -3304,9 +3330,10 @@ Debug.write("############ loadItem ############");
 					}
 					result[7] = itemnode.getAttr( 'score' ); //current score
 					result[8] = (getSpText() != null && getSpText() != "null") ? getSpText() : "";//sp data is coming as 'null'
-					Debug.write("getSpText after");  
+					
 					result[9] = 0;					
  					itemType = dpitem.xpathQuery('item_canvas/*/recorder_widget')
+			
 					if(itemType == null){
 			 			itemType = dpitem.xpathQuery('item_canvas/panel/*/recorder_widget')
 					} 
@@ -3329,24 +3356,20 @@ Debug.write("############ loadItem ############");
 					
 					var elist = dpsubtest.xpathQuery('ob_assessment/ob_element_list');
             		var items = elist.getElementsByTagName( 'f' );
-            		Debug.write("items after");  	
-					var fnodeEid;
+            		var fnodeEid;
             		if (this.adaptive == 'true' && dprestart.isValid()) { 
             			fnodeEid = items[itemNo-1].getAttr( 'id' );
             		}*/
             		
-            		Debug.write("done after");  			
+            					
 				}
     		}
 		Debug.write("### result :", result);
     	//this.setAttribute('blockFileName' , true);
 		//setting the item is visited 
-		
-		printBigString(dpstudentdata);
                 var dncurritem =
                     dpstudentdata.xpathQuery ('current_item/item_model/');
-				if(dncurritem!=null)	
-					dncurritem.setAttr('is_visited','true');
+				dncurritem.setAttr('is_visited','true');
 				/*if(this.adaptive == 'true' && dprestart.isValid()){
 					Debug.write("### getItemParam :"+ this.istLength +"::"+itemNo);
 					Debug.write("### getItemParam :"+ curEid +"::"+fnodeEid);
@@ -3360,8 +3383,8 @@ Debug.write("############ loadItem ############");
     	<method name="replaceAdaptiveCurEid"><![CDATA[
 	    	Debug.write("_handleSaveLoadResponse");
 			var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
-			var itemNo = itemnode.getAttr( 'item_no' ); // current item no
-			var curEid = itemnode.getAttr( 'eid' ); // current eid
+			itemNo = itemnode.getAttr( 'item_no' ); // current item no
+			curEid = itemnode.getAttr( 'eid' ); // current eid
 						
 			var elist = dpsubtest.xpathQuery('ob_assessment/ob_element_list');
 	        var items = elist.getElementsByTagName( 'f' );
@@ -3387,11 +3410,11 @@ Debug.write("############ loadItem ############");
 			false once they have all called componentDone
 		-->
 		<attribute name="trackingcomponents" value="false" />
-		<handler args="t" name="ontrackingcomponents">
+		<method args="t" event="ontrackingcomponents">
             if ( t ) {
                 checkCompProgress();
             }
-        </handler>
+        </method>
 
 		<method name="waitOnComponent" args="c, ownerdoc">
             if ( ownerdoc == dsitem ) {
@@ -3434,7 +3457,7 @@ Debug.write("############ loadItem ############");
         </method>
 
 		<method name="exitPopups">
-           // gEnlargePopup.shrink();
+            gEnlargePopup.shrink();
             gFootNotePopup.hide();
             gRationalePopup.hide();
             
@@ -3469,12 +3492,11 @@ Debug.write("############ loadItem ############");
 		</method>
 
 		<method name="checkItemStatus"><![CDATA[
-			Debug.write("itemloaded && runtimeready && youarehereset", itemloaded,runtimeready,youarehereset);
             if ( itemloaded && runtimeready && youarehereset ) {
                 unlockUI();
                 startQuestion();
-                if ( !this['itemuiready'] ) new lz.Event( this, 'itemuiready' );
-                this.itemuiready.sendEvent();
+                if ( !this['itemuiready'] ) new LzEvent( this, 'itemuiready' );
+                itemuiready.sendEvent();
                 canvas.setCrFocus();
             }
         ]]></method>
@@ -3510,15 +3532,15 @@ Debug.write("############ loadItem ############");
 
             if (!dnmanip)
             {
-                var dnglobal = new lz.DataElement ('global', {}, []);
-                dnmanip = new lz.DataElement ('manipulatives', {}, [dnglobal]);
+                dnglobal = new LzDataElement ('global', {}, []);
+                dnmanip = new LzDataElement ('manipulatives', {}, [dnglobal]);
 
                 var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
                 dncurritem.appendChild (dnmanip);
             }
 
             if (initgeneral) {
-                dngeneral = new lz.DataElement ('general', {}, []);
+                dngeneral = new LzDataElement ('general', {}, []);
                 dnmanip.appendChild (dngeneral);
             }
 
@@ -3623,13 +3645,13 @@ Debug.write("############ loadItem ############");
                 dn = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/general');
             }
 
-            var dp = new lz.datapointer ();
+            var dp = new LzDatapointer ();
             dp.setPointer (dn);
             var dnmanip = dp.xpathQuery (which);
 
             if (value == 'sel') {
                 if (!dnmanip) {
-                    dnmanip = new lz.DataElement (which, {}, []);
+                    dnmanip = new LzDataElement (which, {}, []);
 
 			var fCardrsrc = dpstudentdata.xpathQuery('current_item/item_model/toolbar/@formula_card_resource');
 					if(which == 'formula_card_resource' && fCardrsrc != null) {						
@@ -3682,18 +3704,87 @@ Debug.write("############ loadItem ############");
         </method>
 
 		<attribute name="dsendHeartbeat"
-			value="$once{ new lz.Delegate( this, 'sendHeartbeat' )}" />
+			value="$once{ new LzDelegate( this, 'sendHeartbeat' )}" />
 
 		<method name="sendHeartbeat">
 			resetHeartbeat();
 			this.setAttribute("sendCatSave",false);
-			var params = getSaveParams(null); 
-			gCommunicator.heartbeat(params);
+			gCommunicator.heartbeat(getSaveParams());
         </method>
 
 		<method name="resetHeartbeat">
-			lz.Timer.resetTimer( dsendHeartbeat, 120000 );
+			LzTimer.resetTimer( dsendHeartbeat, 120000 );
 		</method>
+
+		<!--added for tdc timeout OK start-->
+
+		<attribute name="trackDel" 
+                   value="$once{new LzDelegate( this , 'trackMouseMove' ) }" />
+
+		<method name="trackMouseMove" >
+            <![CDATA[
+            var xpos = Math.round( canvas.getMouse("x") );
+            var ypos = Math.round( canvas.getMouse("y") );
+            if ( (this.lastxpos != xpos) 
+              || (this.lastypos != ypos) ) {
+                this.lastxpos = xpos;
+                this.lastypos = ypos;
+				this.setAttribute('trackTimer',0);
+                resetTrackTimer();
+            }else{
+            	this.setAttribute('trackTimer',Math.round(this.trackTimer+1000));
+            	if(this.trackTimer >= 1200000){
+            		testTimedout();
+            	}else{
+					resetTrackTimer();
+				}
+            }
+            ]]>
+        </method>
+        
+        <method name="resetTrackTimer">
+			//Debug.write("trackTimer",this.trackTimer);
+			LzTimer.resetTimer(trackDel,1000);
+		</method>
+		
+		<method name="testTimedout">
+			this.setAttribute('testTimeout',true);
+			terminate();
+		</method>
+
+		<method name="removeTrackTimer">
+			this.setAttribute('trackTimer',0);
+			LzTimer.removeTimer(trackDel);
+		</method>
+
+		<method name="recalltrackMouseMove">
+			this.setAttribute('trackTimer',0);
+			trackMouseMove();
+		</method>
+
+		<attribute name="trackCountdown" 
+                   value="$once{new LzDelegate( this , 'trackCountdownTimer' ) }" />
+
+		<method name="trackCountdownTimer">
+				this.setAttribute('countdownTimer',Math.round(this.countdownTimer+1000));
+            	if(this.countdownTimer >= 1200000){
+            		testTimedout();
+				}else{
+					resetCountdownTimer();
+				}
+		</method>
+
+		<method name="resetCountdownTimer">
+			//Debug.write("countdownTimer",this.countdownTimer);
+			LzTimer.resetTimer(trackCountdown,1000);
+		</method>
+
+		<method name="removeCountdownTimer">
+			this.setAttribute('countdownTimer',0);
+			LzTimer.removeTimer(trackCountdown);
+		</method>
+	
+		<!--added for tdc timeout OK end-->
 
 		<method name="getCurrentInteractionType">
             var typeNode = dpstudentdata.xpathQuery( 'current_item/item_model/interaction' );
@@ -3754,7 +3845,7 @@ Debug.write("############ loadItem ############");
 			var result = 0;
 			var dur = dpstudentdata.xpathQuery('current_item/item_model/@dur');
 			if ( timing ) {
-				var timestamp = lz.Timer.getTimer();
+				var timestamp = getTimer();
   				var diff = Math.floor( (timestamp - qtimestamp) / 1000 );
 
 				if ( typeof( dur ) == 'string' ) {
@@ -3792,11 +3883,11 @@ Debug.write("############ loadItem ############");
         	copyCurrentToRuntime();
 			setState(SAVE_END_SUBTEST_STATE);
 			this.setAttribute("sendCatSave",true);
-			save(null);
+			save();
         	setAttribute("doUnlockUI", false);
         ]]></method>
 
-		<method name="_handleWriteToAuditFileResponse" args="response">
+		<method name="_handleWriteToAuditFileResponse">
 			setState(UPLOAD_AUDIT_FILE_STATE);
 			gCommunicator.uploadAuditFile(lsid, scid);
 		</method>
@@ -3804,46 +3895,57 @@ Debug.write("############ loadItem ############");
 		<method name="startQuestion">
             if ( 'true' != isuntimed ) {
                 updateTimeLeft();
-                lz.Timer.resetTimer( dupdateTimeLeft, TIMER_INTERVAL );
+                LzTimer.resetTimer( dupdateTimeLeft, TIMER_INTERVAL );
             }
-            this.qtimestamp = lz.Timer.getTimer();
+            this.qtimestamp = getTimer();
             this.timing = true;
             exitPopups();  
             this.setAttribute("inQuestion", true);
         </method>
 
 		<attribute name="dupdateTimeLeft"
-			value="$once{ new lz.Delegate( this, 'updateTimeLeft' ) }" />
+			value="$once{ new LzDelegate( this, 'updateTimeLeft' ) }" />
 
 		<method name="outOfTime"><![CDATA[
+		  var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
+        	if(itemnode != null){
+					curItemId = itemnode.getAttr( 'eid' );
+			}		
+			var isAnswered 	   = dpstudentdata.xpathQuery("runtime/item_model[@eid='"+curItemId+"']/@answered") == '1';
+
+Debug.write("out of time 1 ans" + isAnswered);
+			
+			this.setAttribute("isCatStop",true);
             if ( 0 == uisemaphore ) {
                 freezeUI();
             }
             stopQuestion();
+			removeTrackTimer();
             setState(TIMEOUT_STATE);
 			//to call adaptive engine 
 			if(this.adaptive && !this.catOver) {
 				this.setAttribute("sendCatSave",true);
 			}
-            save(null);
+            save();
         ]]></method>
 
 		<method name="goToTimeoutScreen">
-            lz.Cursor.unlock();
+            LzCursor.unlock();
             gReadableText.stopReading();
+			removeTrackTimer();
             hideMagnifierGlass();
 			hideMaskingChoiceDD();
             if(this.recorder != null) {
 				this.recorder.stopblinker('stop');
-				this.recorder.whitewrapperOverLay.setAttribute('visible', false);
-				this.recorder.blackOverLay.setAttribute('visible', false);
+				this.recorder.whitewrapperOverLay.setVisible(false);
+				this.recorder.blackOverLay.setVisible(false);
 			}
             gScreens.showOutOfTime( totalQuestions() - totalAnswered(),
                                     totalMarked() );
 		</method>
 
 		<method name="updateTimeLeft"><![CDATA[
-            var timestamp = lz.Timer.getTimer();
+            var timestamp = getTimer();
             if ( timing ) {
                 var remainingms =
                     durationms - elapsedms - (timestamp - qtimestamp);
@@ -3856,7 +3958,7 @@ Debug.write("############ loadItem ############");
                     );
                     dpdisplay.setNodeAttribute( 'timeleft', timeleft );
 
-                    lz.Timer.resetTimer( dupdateTimeLeft, TIMER_INTERVAL );
+                    LzTimer.resetTimer( dupdateTimeLeft, TIMER_INTERVAL );
 
                     if ( (remainingms / 1000) / 60 <= WARNING_MINUTE ) {
                     	var shownWarning = dpdisplay.getNodeAttribute( 'shownWarningMinute');
@@ -3892,9 +3994,9 @@ Debug.write("############ loadItem ############");
 		<method name="stopQuestion">
     
             if ( timing ) {
-                var timestamp = lz.Timer.getTimer();
+                var timestamp = getTimer();
 
-                lz.Timer.removeTimer( dupdateTimeLeft );
+                LzTimer.removeTimer( dupdateTimeLeft );
                 this.timing = false;
 
                 this.elapsedms += (timestamp - qtimestamp);
@@ -3966,7 +4068,7 @@ Debug.write("############ loadItem ############");
 		</method>
 
 		<method name="stopHeartbeat">
-			lz.Timer.removeTimer( dsendHeartbeat );
+			LzTimer.removeTimer( dsendHeartbeat );
 		</method>
 
 		<method name="isMarkedForReviewWithManipulativeOpen"><![CDATA[
@@ -4087,7 +4189,7 @@ Debug.write("############ loadItem ############");
 		<method name="hasCrField" args="widgetid"><![CDATA[
 			var result = false;
             for (var i = 0; i < this.crFields.length && result; i++) {
-                if(this.crFields['widget_id'] == widgetid){
+                if(this.crFields['widget_id'] == widgetId){
                 	result = true;
                 }
             }
@@ -4243,10 +4345,9 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="showItemInterface">
-			Debug.write("showItemInterface");
         	gScreens.hide();
-        	gTutorial.setAttribute('visible', false);
-        	gItemInterface.setAttribute('visible', true);
+        	gTutorial.setVisible(false);
+        	gItemInterface.setVisible(true);
         </method>
 
 		<!-- 
@@ -4273,14 +4374,14 @@ Debug.write("############ loadItem ############");
 		<method name="showWaitPopup">
             this.isWaitPopupOpen = true;	
 			gPleaseWaitPopup.show();
-			//gMusicPlayer.hide();
+			gMusicPlayer.hide();
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
 		</method>
 
 		<method name="networkLostPopup"><![CDATA[
 			this.isWaitPopupOpen = false;
-			lz.Timer.removeTimer(dNetworkLostPopup);
+			LzTimer.removeTimer(dNetworkLostPopup);
 			if(gCommunicator.firstRequestDone) {
 				
 						gPleaseWaitPopup.hide();
@@ -4294,7 +4395,8 @@ Debug.write("############ loadItem ############");
 		<method name="hideWaitPopup"><![CDATA[
 			this.isWaitPopupOpen = false;	
 			gPleaseWaitPopup.hide();
-			lz.Timer.removeTimer(dNetworkLostPopup);
+			recalltrackMouseMove();
+			LzTimer.removeTimer(dNetworkLostPopup);
 			gReadableText.stopRequestor();
 			gController.unlockUI();
 			checkShowMagnifierGlass();
@@ -4313,19 +4415,19 @@ Debug.write("############ loadItem ############");
        <method name="showWaitPopupFor60Sec">
 			if(!isWaitPopupOpen){
 				showWaitPopup();
- 				lz.Timer.resetTimer( dNetworkLostPopup, 60000 );
+ 				LzTimer.resetTimer( dNetworkLostPopup, 60000 );
 				}	
 		</method>
 		<method name="showRevisitPopup" args="calledFrom">
 			this.isRevisitPopupOpen = true;	
-			//gRevisitFalsePopup.show(calledFrom);
+			gRevisitFalsePopup.show(calledFrom);
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
 		</method>
 		
 		<method name="hideRevisitPopup"><![CDATA[
 			this.isRevisitPopupOpen = false;	
-			//gRevisitFalsePopup.hide();
+			gRevisitFalsePopup.hide();
 			checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
 		]]></method>
@@ -4344,13 +4446,13 @@ Debug.write("############ loadItem ############");
 
 		<method name="checkHideMagnifierGlass">
 			if(this.magnifierState)  {
-				//gMagnifyingGlass.hideGlass();
+				gMagnifyingGlass.hideGlass();
 		   }   
 		</method>
 
 		<method name="checkShowMagnifierGlass">
 		   if(this.magnifierState)  {
-				//gMagnifyingGlass.showGlass();
+				gMagnifyingGlass.showGlass();
 		   }   
 		</method>
 			<method name="hideMaskingChoiceDD">
@@ -4367,13 +4469,13 @@ Debug.write("############ loadItem ############");
 
 		<method name="checkHideMaskingChoiceDD">
 			if(this.maskingAnswerDDState)  {
-				//gMaskingAnswer.hidePopUp();
+				gMaskingAnswer.hidePopUp();
 		   }   
 		</method>
 
 		<method name="checkShowMaskingChoiceDD">
 		   if(this.maskingAnswerDDState)  {
-				//gMaskingAnswer.showPopUp();
+				gMaskingAnswer.showPopUp();
 		   }   
 		</method>
 
@@ -4408,18 +4510,17 @@ Debug.write("############ loadItem ############");
 
 		<method name="returnNumberOfOptions"><![CDATA[
 			var result = [];
+			
 			 result = dpitem.xpathQuery('item_canvas/*/answer_choice_widget/selector_widget')
 			
 			if(result == null){
  			result =dpitem.xpathQuery('item_canvas/panel/*/answer_choice_widget/selector_widget')
 			} 
 			if(result == null){ 
+			Debug.write("1.............1");
 			 result	= dpitem.xpathQuery('item_canvas/panel/panel/*/answer_choice_widget/selector_widget')
 			}
 			
-			if(result == null){ 
-				result = [];
-			}
 			//Debug.write("result length for masking answer choice", result.length);
 			return result.length;
 			
@@ -4492,7 +4593,7 @@ Debug.write("############ loadItem ############");
 			var id = isAnswerToBeDisabled();
 			if(id != null){
 				for (var i = 0; i < answerArray.length; i++){
-					answerArray[i].subviews[0].setNotClick();
+					answerArray[i].subviews[0].notclickable();
 				}
 			}
 		]]>
@@ -4503,7 +4604,7 @@ Debug.write("############ loadItem ############");
 			var isPlaying = checkIfPlaying(id);
 			if(isPlaying){
 				for (var i = 0; i < answerArray.length; i++){
-					answerArray[i].subviews[0].setClick();
+					answerArray[i].subviews[0].clickable();
 				}
 			}
 		]]>
@@ -4519,7 +4620,7 @@ Debug.write("############ loadItem ############");
 		else if(index == 6)return 'G';
 		</method>
 		
-		<method name="clearAll"><![CDATA[
+		<method name="clearAll" args="arr"><![CDATA[
 				for (var i = 0; i < answerArray.length; i++){
 						//answerArray[i].show();
 				answerArray[i].subviews[0].show();
@@ -4630,7 +4731,7 @@ Debug.write("############ loadItem ############");
 		
 		<method name="returnRandomIndex" args="arr,selId"><![CDATA[
 		Debug.write("returnRandomIndex :"+arr.length);
-		var dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@randomIdentifier='"+selId+"']");
+		dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@randomIdentifier='"+selId+"']");
 		var actSelid = dnsel.getAttr("identifier");		
 		/*Debug.write("returnRandomIndex random selected id :"+selId);
 		Debug.write("returnRandomIndex actual selected id :"+selid1);
@@ -4665,7 +4766,7 @@ Debug.write("############ loadItem ############");
 
 			if(argsNodePtr.data != null) {//for first login cases i.e. no restart data
 				argsNodeArr = argsNodePtr.xpathQuery("tsd");
-				if(argsNodeArr instanceof lz.DataNode) {
+				if(argsNodeArr instanceof LzDataNode) {
 					argsNodeArr = new Array(argsNodeArr);
 				}	
 				argsNodeArrLen = argsNodeArr.length;
@@ -4687,7 +4788,7 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 	<attribute name="dCheckPlaying"
-			value="$once{ new lz.Delegate( this, 'isPlayed' )}" />
+			value="$once{ new LzDelegate( this, 'isPlayed' )}" />
 
 	<method name="enableAudio"><![CDATA[
 		sortByPlayorder();
@@ -4698,7 +4799,7 @@ Debug.write("############ loadItem ############");
 		
 		for(var i =0;i<this.idImageFields.length;i++){
 			var cachableImage = this.idImageFields[i];
-			/*if(cachableImage['imageComponent'] instanceof CachableImage){
+			if(cachableImage['imageComponent'] instanceof CachableImage){
 				if(cachableImage['imageComponent'].imageview.getMCRef().isPlaying && this.isAudioPlaying && !cachableImage['imageComponent'].hasPlayed){
 					cachableImage['imageComponent'].widget_id = this.audioId;
 					if(i==this.idImageFields.length-1){
@@ -4727,7 +4828,7 @@ Debug.write("############ loadItem ############");
 					cachableImage['imageComponent'].overlay.setAttribute("visible",true);
 					cachableImage['imageComponent'].overlay.setAttribute("clickable",true);
 				}
-			}*/
+			}
 		}
 	]]>	
 	</method>
@@ -4779,12 +4880,12 @@ Debug.write("############ loadItem ############");
 	</method>
 
 	<method name="resetCheckPlaying">
-		lz.Timer.resetTimer( dCheckPlaying, 1000 );
+		LzTimer.resetTimer( dCheckPlaying, 1000 );
 	</method>
 
 	<method name="stopCheckPlaying"><![CDATA[
 		--uisemaphore;
-		lz.Timer.removeTimer(dCheckPlaying);
+		LzTimer.removeTimer(dCheckPlaying);
 		if(this.idImageFieldTemp.widget_id == this.lastPlayOrderId){
 			unlockUI();
 		}
@@ -4834,12 +4935,12 @@ Debug.write("############ loadItem ############");
 	<method name="disableAllAudio"><![CDATA[	
 		for(var i =0;i<this.idImageFields.length;i++){
 			var cachableImage = this.idImageFields[i];
-			/*if(cachableImage['imageComponent'] instanceof CachableImage){
+			if(cachableImage['imageComponent'] instanceof CachableImage){
 				if(!cachableImage['imageComponent'].imageview.getMCRef().disabled){
 					cachableImage['imageComponent'].imageview.getMCRef().disableBtn();
 					this.audioArray.push(cachableImage['imageComponent'].widget_id);
 				}
-			}*/
+			}
 		}
 		]]>
 	</method>
@@ -4848,11 +4949,11 @@ Debug.write("############ loadItem ############");
 		for(var i =0;i<this.idImageFields.length;i++){
 			var cachableImage = this.idImageFields[i];
 			for(var j=0; j<this.audioArray.length; j++){
-				/*if(cachableImage['imageComponent'] instanceof CachableImage){
+				if(cachableImage['imageComponent'] instanceof CachableImage){
 					if(this.audioArray[j]==cachableImage['imageComponent'].widget_id){
 						cachableImage['imageComponent'].imageview.getMCRef().enableBtn();
 					}
-				}*/
+				}
 			}
 		}
 		for(var k=0; k<this.audioArray.length; k++){
@@ -4867,12 +4968,12 @@ Debug.write("############ loadItem ############");
 		if(id != null){
 			for (var i = 0; i < this.crFields.length; i++){
 				var crField = this.crFields[i];
-				/*if(crField['ref'] instanceof CachableMultiLineAnswer){
+				if(crField['ref'] instanceof CachableMultiLineAnswer){
 					crField['ref'].outer.rich.answer.setAttribute('enabled',false);
 				}
 				if(crField['ref'] instanceof CachableSingleLineAnswer){
 					crField['ref'].answer.disable();
-				}*/
+				}
 			}
 		}
 	]]>
@@ -4884,12 +4985,12 @@ Debug.write("############ loadItem ############");
 		if(isPlaying){
 			for (var i = 0; i < this.crFields.length; i++){
 				var crField = this.crFields[i];
-				/*if(crField['ref'] instanceof CachableMultiLineAnswer){
+				if(crField['ref'] instanceof CachableMultiLineAnswer){
 					crField['ref'].outer.rich.answer.setAttribute('enabled',true);
 				}
 				if(crField['ref'] instanceof CachableSingleLineAnswer){
 					crField['ref'].answer.enable();
-				}*/
+				}
 			}
 		}
 	]]>
@@ -4899,12 +5000,12 @@ Debug.write("############ loadItem ############");
 		var id;
 		for(var i =0;i<this.idImageFields.length;i++){
 			var cachableImage = this.idImageFields[i];
-			/*if(cachableImage['imageComponent'] instanceof CachableImage){
+			if(cachableImage['imageComponent'] instanceof CachableImage){
 				if(cachableImage['imageComponent'].disableAnswerArea == true || cachableImage['imageComponent'].disableAnswerArea == 'true'){
 					id = cachableImage['imageComponent'].widget_id;
 					break;
 				}
-			}*/
+			}
 		}
 		return id;
 	]]>
@@ -4914,12 +5015,12 @@ Debug.write("############ loadItem ############");
 		var isPlaying = false;
 		for(var i =0;i<this.idImageFields.length;i++){
 			var cachableImage = this.idImageFields[i];
-			/*if(cachableImage['imageComponent'] instanceof CachableImage){
+			if(cachableImage['imageComponent'] instanceof CachableImage){
 				if(cachableImage['imageComponent'].widget_id == id && cachableImage['imageComponent'].imageview.getMCRef().isPlaying){
 					isPlaying = true;
 					break;
 				}
-			}*/
+			}
 		}
 		return isPlaying;
 	]]>
@@ -4930,7 +5031,7 @@ Debug.write("############ loadItem ############");
 		var contentArea = dpsubtestdata.getNodeText();
 		for(var i =0;i<this.idImageFields.length;i++){
 			var cachableImage = this.idImageFields[i];
-			/*if(cachableImage['imageComponent'] instanceof CachableImage){
+			if(cachableImage['imageComponent'] instanceof CachableImage){
 				if(contentArea == "Reading" || contentArea == 'Listening'){
 					if(i>0){
 						var prevCachableImage = this.idImageFields[i-1];
@@ -4941,7 +5042,7 @@ Debug.write("############ loadItem ############");
 						cachableImage['imageComponent'].imageview.getMCRef().enableBtn();
 					}
 				}
-			}*/
+			}
 		}
 		]]>
 	</method>

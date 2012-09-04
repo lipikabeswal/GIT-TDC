@@ -1,16 +1,15 @@
-<!---
-      @topic Incubator
-      @subtopic Components
-  -->
+<!--
+    borderinput.lzx
+-->
 <library >
     <class name="borderinput">
         <attribute name="changed" value="${this.txt.changed}" />
-        <attribute name="text" setter="this.setText(text, false)" />
+        <attribute name="text" setter="this.setText(text)" />
         <attribute name="labelwidth" type="number" value="80"/>
 
         <!-- label -->
         <attribute name="label" type="string"
-                   when="once" setter="label_text.setAttribute('text', label)"/>
+                   when="once" setter="label_text.setText(label)"/>
 
         <!--- should be an object of type "textstyle" -->
         <attribute name="labelstyle" value="null" when="once" />
@@ -42,14 +41,14 @@
         </baseedittext>
 
         <!--- @keywords private -->
-        <setter name="width" args="w">
-            super.setAttribute('width', w);
+        <method name="setWidth" args="w">
+            super.setWidth(w);
             if (this.isinited ) {
-                this.border.setAttribute('width', w - this.labelwidth);
-                this.txt.setAttribute('width', w - this.labelwidth - 2);
+                this.border.setWidth(w - this.labelwidth);
+                this.txt.setWidth(w - this.labelwidth - 2);
 
             }
-        </setter>
+        </method>
         
         <!--- Set text for border input.
               @param String t: text to set. 
@@ -63,23 +62,23 @@
         <!-- set the selection for border input.
             @param Number ns: start of selection range.
             @param Number ne: end of selection range. -->
-        <method name="setSelection" args="ns,ne=null">
+        <method name="setSelection" args="ns,ne">
             this.txt.setSelection(ns,ne);
         </method>
 
         <!--- Get text from border input. -->
         <method name="getText" >
-            return this.txt.value;
+            return this.txt.text;
         </method>
         
         <!--- @keywords private -->
         <method name="init" >
             super.init();
-            this.setAttribute('width', width);
-            this.border.setAttribute('height', this.txt.height + 2 );
-            this.label_text.setAttribute('x', this.labelwidth - 6 - this.label_text.width);
-            this.border.setAttribute('x', this.labelwidth);
-            this.txt.setAttribute('x', this.labelwidth + 1);
+            this.setWidth(width);
+            this.border.setHeight( this.txt.height + 2 );
+            this.label_text.setX(this.labelwidth - 6 - this.label_text.width);
+            this.border.setX(this.labelwidth);
+            this.txt.setX(this.labelwidth + 1);
             if (this.labelstyle != null)
                 this._applystyle(this.labelstyle);
         </method>
@@ -90,14 +89,14 @@
                 this.label_text.setAttribute("fgcolor", s.textcolor);
                 this.label_text.setAttribute("font", s.font);
                 this.label_text.setAttribute("fontsize", s.fontsize);
-                this.label_text.setAttribute('x', this.labelwidth - 6 - this.label_text.width);
+                this.label_text.setX(this.labelwidth - 6 - this.label_text.width);
            }
         </method>
 
     </class>
 </library>
 <!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
-* Copyright 2007, 2009 Laszlo Systems, Inc. All Rights Reserved.                    *
+* Copyright 2006 Laszlo Systems, Inc. All Rights Reserved.                    *
 * Use is subject to license terms.                                            *
 * X_LZ_COPYRIGHT_END ****************************************************** -->
 <!-- @LZX_VERSION@                                                         -->

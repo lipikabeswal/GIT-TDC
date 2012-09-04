@@ -1,75 +1,116 @@
 <library>
 
 <include href="tooltipview.lzx"/>
-<!--
-    @devnote Individual tooltips are very lightweight, they contain
-    only their text, a few parameters, and a handler for their
-    parent's mouseover that causes the tooltipview to start thinking
-    about displaying it.
+<!--- This class allows you to show a floating "tooltip" on any
+    view.  To use it you make it a child of a view.  For example:
+
+    @START_CODE
+        <button text="OK">
+            <tooltip>This is a tip.</tooltip>
+        </button>
+    @END_CODE
+
+    The appearance of the tooltip is determined by a view on the canvas
+    which must be named "tooltipview" and have a setText method and
+    options="ignorelayout"
 -->
-<class name="tooltip" extends="node" initstage="late">
-    <!---
-        The text that will be displayed by the tooltip.  If the text
-        is <code>null</code> or empty, no tooltip will be displayed.
-    -->
-    <attribute name="text" type="text" />
-    <!---
-        The vertical offset of tooltip from the mouse position.
-    -->
-    <attribute name="yoffset" value="25" />
-    <!---
-        Whether the tooltip is horizontally aligned by it's left edge
-        (default) or right edge relative to the mouse position.
-
-        @lzxtype right | left
-    -->
-    <attribute name="tipalign" value="left" type="string" />
-    <!---
-        Whether the tooltip shows up above or below the mouse
-        position. Default will position heuristically to keep
-        the tooltip visible on the canvas.
-
-        @lzxtype above | below | default
-    -->
-    <attribute name="tipvalign" value="default" type="string" />
+<class name="tooltip" initstage="late">
+    <!--- text that appears in the tooltip.  null or empty string means tooltip will not show. -->
+    <attribute name="text" type="text"/>
+    <!--- @keywords private -->
+    <attribute name="_mousein" value="false" type="boolean"/>
+    <!--- @keywords private -->
+    <attribute name="_checkdel" value="null"/>
+    <!--- @keywords private -->
+    <attribute name="_lastmousex" value="0"/>
+    <!--- @keywords private -->
+    <attribute name="_lastmousey" value="0"/>
+    <!--- offset of tooltip from parent view-->
+    <attribute name="p_yoffset" value="15" />
+    <!--- values = "'right',''" 
+          attribute to align a tooltip 'right' so that it's right edge is flush 
+          with it's parent's right edge ( minus 10 pixel inset ).   -->
+    <attribute name="tipalign" value="" type="string" />
+    
+    <!--- @keywords private -->
+    <method event="oninit">
+        this.overdel = new LzDelegate(this, "startCheck", parent, "onmouseover");
+        this.outdel = new LzDelegate(this, "hideTip", parent, "onmouseout");
+        this.outdel.register(parent, "onclick");
+    </method>
 
     <!--- @keywords private -->
-    <handler name="onmouseover" args="ignore" reference="this.parent"><![CDATA[
-        if (this.text && (this.text != "")) {
-          canvas.tooltipview.setAttribute('tooltip', this);
+    <method name="startCheck">
+        <![CDATA[
+        if (this.text != null && this.text != "") {
+            this._mousein = true;
+            if (!this._checkdel) this._checkdel = new LzDelegate(this, "checkTip");
+            this._lastmousex = canvas.getMouse('x');
+            this._lastmousey = canvas.getMouse('y');
+            this.lasttime = new Date();
+
+            LzIdle.callOnIdle(this._checkdel);
         }
-    ]]></handler>
+        ]]>
+    </method>
 
-    <doc>
-      <tag name="shortdesc"><text>A floating "tooltip" for a view.</text></tag>
-      <text>
-        <p>
-          The <classname>tooltip</classname> allows you to show a floating "tooltip" on any
-          view.  To use it you make it a child of a view.  The parent view has
-          to be clickable for the tooltip to work.  Setting clickable to false
-          will disable the tooltip.
-        </p>
+    <!--- @keywords private -->
+    <method name="checkTip">
+        if (!this._mousein) return;
+        var now = new Date();
+        var newmousex = canvas.getMouse('x');
+        var newmousey = canvas.getMouse('y');
+        var timediff = now.getTime() - this.lasttime.getTime();
 
-        <example title="Tooltip"><![CDATA[
-          <canvas height="60" layout="axis:y; spacing: 10">
-            <text>Mouse over the button to see the tip</text>
-            <button text="Button, button">
-              <tooltip>Click or mouse out to hide tip</tooltip>
-            </button>
-          </canvas>
-        ]]></example>
+        if ((this._lastmousex != newmousex) || (this._lastmousey != newmousey)) {
+            this._lastmousex = newmousex;
+            this._lastmousey = newmousey;
+            this.lasttime = now;
+        }
+        if (timediff > 500) {
+            this.showTip();
+        } else {
+            LzIdle.callOnIdle(this._checkdel);
+        }
+    </method>
 
-        <p>
-          The appearance of the tooltip is determined by the canvas.tooltipview element
-        </p>
+    <!--- @keywords private -->
+    <method name="showTip"> <![CDATA[
+        canvas.tooltipview.setText(this.text);
+        
+        var py = parent.getAttributeRelative( 'y', canvas )
+        var tipy = this._lastmousey + 25;
+        var tipx = canvas.width;
+        if ( tipalign == 'right' ) {
+            tipx = parent.getAttributeRelative( 'x', canvas ) + parent.width;
+        }
 
-      </text>
-    </doc>
+        tipx = Math.min(tipx - canvas.tooltipview.width - 10, this._lastmousex - 5);
+
+
+        var pointerontop = true;
+        if (tipy > canvas.height - 30) {
+          tipy = this._lastmousey - 25;
+          pointerontop = false;
+        }
+
+        canvas.tooltipview.setX( tipx );
+        canvas.tooltipview.setY( tipy );
+        canvas.tooltipview.setPointerX( this._lastmousex, pointerontop );
+        canvas.tooltipview.bringToFront( this.text );
+        canvas.tooltipview.setVisible( true );
+    ]]></method>
+
+    <!--- @keywords private -->
+    <method name="hideTip">
+        this._mousein = false;
+        canvas.tooltipview.setVisible( false );
+    </method>
 </class>
 
 </library>
 <!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
-* Copyright 2006-2010 Laszlo Systems, Inc. All Rights Reserved.               *
+* Copyright 2006 Laszlo Systems, Inc. All Rights Reserved.                    *
 * Use is subject to license terms.                                            *
 * X_LZ_COPYRIGHT_END ****************************************************** -->
 <!-- @LZX_VERSION@                                                         -->

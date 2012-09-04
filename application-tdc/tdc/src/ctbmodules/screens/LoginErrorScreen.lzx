@@ -9,9 +9,9 @@
 
 		<method name="setupError" args="e" >
 			var errorArray = _getErrorArray(e);
-			header.setAttribute('text', errorArray[0]);
-			message.setAttribute('text', errorArray[1]);
-			description.setAttribute('text', errorArray[2]);
+			header.setText(errorArray[0]);
+			message.setText(errorArray[1]);
+			description.setText(errorArray[2]);
 		</method>
 		<method name="_getErrorArray" args="errorCode">
 			var txErrorHdr="";
@@ -126,10 +126,10 @@
 
         <view x="${ classroot.width - width - 10 }">
             <BackToLoginButton y="3" enabled="${ gScreens.allowclick }">
-                <handler name="onclick">
+                <method event="onclick">
                     gScreens.clicked();
                     gScreens.showLogin();
-                </handler>
+                </method>
             </BackToLoginButton>
          </view>
     </class>

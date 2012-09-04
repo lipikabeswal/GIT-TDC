@@ -1,7 +1,3 @@
-<!---
-      @topic Incubator
-      @subtopic Components
-  -->
 <library>
     <!-- blank resource to use as a placeholder -->
     <resource name="transparent_button_rsc">
@@ -36,18 +32,15 @@
     <include href="base/basebutton.lzx" />
     
     <!--- The custombutton class can include text and/or an icon, with our app-specific background graphic
-        <example>
-          &lt;canvas&gt;
-            &lt;include href="incubator/custombutton.lzx"/&gt;
-            &lt;custombutton iconname="target" text="Hit Me"/&gt;
-          &lt;/canvas&gt;
-        </example>
+        @START_CODE
+        <custombutton iconname="target" text="Hit Me"/>
+        @END_CODE
 
         the icon should be a resource with a name ending in "_icon_rsc";
         the iconname should be that resource name, without the "_icon_rsc"
     -->
    <class name="custombutton" extends="basebutton" focusable="true"
-          resourceviewcount="3" doesenter="true" styleable="true"
+          resourceviewcount="3" doesenter="true" style="$once{custombutton_style}" styleable="true"
           height="18" fontsize="10">
            
         <!-- text attributes -->
@@ -79,9 +72,15 @@
 
         <!-- button background -->
         <!-- have to use placeholder resources so that basebutton initializes correctly -->     
-        <view name="left"   resource="transparent_button_rsc" height="${parent.height}" x="0" stretches="height" visible="$once{classroot.leftrsc != ''}"/>
-        <view name="middle" resource="transparent_button_rsc" height="${parent.height}" x="${parent.left.width}" width="${parent.width-parent.left.width-parent.right.width}" stretches="both"/>
-        <view name="right"  resource="transparent_button_rsc" height="${parent.height}" x="${parent.width-width}" stretches="height" visible="$once{classroot.rightrsc != ''}"/>
+        <view name="left"   resource="transparent_button_rsc" height="${parent.height}" x="0" stretches="height" visible="$once{classroot.leftrsc != ''}">
+            <method event="onload">this.updateResourceSize();</method>
+        </view>
+        <view name="middle" resource="transparent_button_rsc" height="${parent.height}" x="${parent.left.width}" width="${parent.width-parent.left.width-parent.right.width}" stretches="both">
+            <method event="onload">this.updateResourceSize();</method>
+        </view>
+        <view name="right"  resource="transparent_button_rsc" height="${parent.height}" x="${parent.width-width}" stretches="height" visible="$once{classroot.rightrsc != ''}">
+            <method event="onload">this.updateResourceSize();</method>
+        </view>
          
         <view name="content" x="${Math.round((parent.width - width) / 2)}" height="${parent.height}">
             <simplelayout name="contentlayout" axis="x" spacing="$once{classroot.iconspace}" />
@@ -98,7 +97,7 @@
                         this.setAttribute("stretches", classroot.iconstretches);
                         
                         // scale the resource proportionally to the view height
-                        this.setAttribute('width', Math.round(this.resourcewidth*height*1.0/this.resourceheight) );
+                        this.setWidth( Math.round(this.resourcewidth*height*1.0/this.resourceheight) );
                     }
 
                     // FIXME: [gse 2006-02-06] for some reason play="false" causes a hard loop on startup
@@ -122,20 +121,20 @@
             if ( leftrsc != "" )
             {
                 // set resource.  also need to set tint again.
-                this.left.setAttribute('resource', leftrsc);
+                this.left.setResource(leftrsc);
                 if (this.style != null && this.style.basecolor != null)
                     this.setTint(this.left, this.style.basecolor);
             }
                 
             if ( middlersc != "" )
             {
-                this.middle.setAttribute('resource', middlersc);
+                this.middle.setResource(middlersc);
                 this.setTint(this.middle, this.style.basecolor);
             }
             
             if ( rightrsc != "" )
             {
-                this.right.setAttribute('resource', rightrsc);
+                this.right.setResource(rightrsc);
                 this.setTint(this.right, this.style.basecolor);
             }
             ]]>
@@ -144,7 +143,7 @@
         <method name="doEnterDown">
             <![CDATA[
             if ( this._enabled) {
-                this.doShowDown();
+                this.showDown();
             }
             ]]>
         </method>
@@ -154,25 +153,25 @@
             <![CDATA[
             if ( this._enabled) {
                 this.onclick.sendEvent();
-                this.doShowUp();
+                this.showUp();
             }
             ]]>
         </method>
 
         <!---  @keywords private -->
-        <method name="doShowOver">
+        <method name="showOver">
             super.showOver();
             if (this.content.txt.visible)
                 this.content.txt.setAttribute('fgcolor', this.enabled ? this.style.texthilitecolor : this.style.textdisabledcolor );
        </method>
         <!---  @keywords private -->
-        <method name="doShowUp">
+        <method name="showUp">
             super.showUp();
             if (this.content.txt.visible)
                 this.content.txt.setAttribute('fgcolor', this.enabled ? this.style.textcolor : this.style.textdisabledcolor );
         </method>
         <!---  @keywords private -->
-        <method name="doShowDown">
+        <method name="showDown">
             super.showDown();
             if (this.content.txt.visible)
                 this.content.txt.setAttribute('fgcolor', this.enabled ? this.style.textselectedcolor : this.style.textdisabledcolor );
@@ -189,8 +188,8 @@
                 var tc = s.textcolor*1;
                 //Debug.write("Button style .. s.textcolor,tc",s.textcolor, tc);
                 //this.content.txt.setAttribute("fgcolor", this.enabled ? tc : s.textdisabledcolor);
-                if (s['font']) this.content.txt.setAttribute("font", s.font);
-                if (s['fontsize']) this.content.txt.setAttribute("fontsize", s.fontsize);
+                this.content.txt.setAttribute("font", s.font);
+                this.content.txt.setAttribute("fontsize", s.fontsize);
             }
         </method>
 
@@ -208,7 +207,7 @@
 
 </library>
 <!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
-* Copyright 2009 Laszlo Systems, Inc. All Rights Reserved.                    *
+* Copyright 2006 Laszlo Systems, Inc. All Rights Reserved.                    *
 * Use is subject to license terms.                                            *
 * X_LZ_COPYRIGHT_END ****************************************************** -->
 <!-- @LZX_VERSION@                                                         -->

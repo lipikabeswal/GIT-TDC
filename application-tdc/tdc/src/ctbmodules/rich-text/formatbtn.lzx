@@ -1,13 +1,11 @@
-<!---
-      @topic Incubator
-      @subtopic Rich Text Editor
-  -->
 <library>
     
     <!-- dependencies  -->
     <include href="stylishbutton.lzx" />
+    <include href="tooltip/tooltip.lzx" />
     
-    <!--- class for use of <xref linkend="lz.richtexttoolbar" /> buttons  -->
+    <!--- formatbtn
+        class for use richtexttoolbar buttons  -->
     <class name="formatbtn" extends="stylishbutton" width="26" 
            focusable="false" style="formatbtn_style">
         <!--- the format type that the button will control -->
@@ -61,10 +59,8 @@
             Called when the user clicks the button. Asks the editor to apply the 
             format.
             @keywords private -->
-
-        <handler name="onclick" method="doClick"/>
-        <method name="doClick" args="ignore=null">
-
+        <method event="onclick" name="doClick">
+Debug.write("ZZZ formatbtn");
             // toggle it
             this.setActive(!this.isactive);
             if (this.toolbar._passthruchanges) {
@@ -78,10 +74,10 @@
         </method>
 
         <!--- @keywords private -->
-        <handler name="onmouseover">          
+        <method event="onmouseover">          
             this.editor.saveSelectionRegion();            
-        </handler>
-
+        </method>
+        
         <method name="getValue">
             return isactive;
         </method>
@@ -100,7 +96,7 @@
 
 </library> 
 <!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
-* Copyright 2006-2010 Laszlo Systems, Inc. All Rights Reserved.               *
+* Copyright 2006 Laszlo Systems, Inc. All Rights Reserved.                    *
 * Use is subject to license terms.                                            *
 * X_LZ_COPYRIGHT_END ****************************************************** -->
 <!-- @LZX_VERSION@                                                         -->

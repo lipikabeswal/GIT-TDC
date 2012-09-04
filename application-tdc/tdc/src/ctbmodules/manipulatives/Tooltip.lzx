@@ -4,11 +4,11 @@
            datapath="dssubtest:/subtest/testing_session_data/lms.student.accommodations/stereotype_style[@stereotype = 'answerArea']">
 
 
-        <handler name="ondata" args="data">
+        <method event="ondata" args="data">
             if (data.hasAttr ('bgcolor')) {
             	var backgroundColor = data.getAttr('bgcolor');
                 this.box.contents.setAttribute ('bgcolor', backgroundColor);
-                this.point.setAttribute('resource', this.getResourceForColor(backgroundColor));
+                this.point.setResource(this.getResourceForColor(backgroundColor));
             } 
             if (data.hasAttr ('font_color')) {
                 this.box.contents.label.setAttribute ('fgcolor', Number (data.getAttr ('font_color')));
@@ -17,7 +17,7 @@
             if (data.hasAttr ('font_magnification')) {
                 this.box.contents.label.setAttribute ('fontsize', data.getAttr ('font_magnification') * canvas.fontsize);
             }
-        </handler>
+        </method>
 
 		<method name="getResourceForColor" args="backgroundColor">
 			var bgc = backgroundColor.toUpperCase();

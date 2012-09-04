@@ -1,6 +1,6 @@
 <library>
 
-	<resource name="cut_icon_rsc"   src="resources/cut.png"/>
+    <resource name="cut_icon_rsc"   src="resources/cut.png"/>
     <resource name="paste_icon_rsc" src="resources/paste.png"/>
 
     <resource name="bold_icon_rsc" src="resources/bold.png"/>

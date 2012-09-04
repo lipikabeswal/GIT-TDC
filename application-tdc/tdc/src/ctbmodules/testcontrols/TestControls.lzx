@@ -20,8 +20,7 @@
                    setter="setIsCurrMarked (iscurrmarked)"/>
 
         <attribute name="curranswer" 
-                   value="$path{'current_item/item_model/interaction/selector/@user_action'}"
-				   setter="answerSelected (curranswer)"/>
+                   value="$path{'current_item/item_model/interaction/selector [@user_action='s']'}"/>
 
         <attribute name="itemtype"
                    value="$path{'current_item/item_model/interaction/@type'}"/>
@@ -60,16 +59,7 @@
             this.btns.markbtn.setAttribute ('statenum', ismarked ? 1 : 0);
         </method>
 
-		<method name="answerSelected" args="chosenanswer">
-			if (typeof (curranswer) == 'string'){
-				if(chosenanswer == 's'){
-					this.curranswer = chosenanswer;
-				}
-			}
-			
-						
-		</method>
-        <handler name="oncurranswer"><![CDATA[
+        <method event="oncurranswer"><![CDATA[
             if (this.curranswer) {
                 var currsel = this.curranswer.getAttr ('identifier');
 
@@ -84,9 +74,9 @@
 //Debug.write("Test Control......", "Actual : ",this.curranswer.getAttr('identifier'), "|| Random : ",currsel, "|| Correct : ", gController.dpstudentdata.xpathQuery("current_item/item_model/@correct"));
                 this.answertxt.answeristxt.selitem.setAttribute ('text', currsel);
             }  
-        ]]></handler>
+        ]]></method>
 
-        <handler name="oncurritempos"><![CDATA[
+        <method event="oncurritempos"><![CDATA[
 //Debug.write("oncurritempos called...",this.curritempos);
             //handle nav visibility and positioning
 
@@ -111,7 +101,7 @@
 		    	}
 		   // }  
             
-         ]]></handler>
+         ]]></method>
 		
 		<method name="setMarkForReview" args="isRevisitAllowed"><![CDATA[
 			if (typeof (isRevisitAllowed) == 'string') {
@@ -163,10 +153,10 @@
                             enabled="${ classroot.uienabled == 'true' }"
                             visible="${!parent.btnforward.visible}" x="100"
                             disabledResourceNumber="1">
-                            <handler name="onclick">
+                            <method event="onclick">
                             gController.setAttribute("isStopTest",false);
                             gController.finishTest ();
-                            </handler>
+                            </method>
                  </basebutton>
             </view>
             <multistatebutton name="markbtn" align="center"

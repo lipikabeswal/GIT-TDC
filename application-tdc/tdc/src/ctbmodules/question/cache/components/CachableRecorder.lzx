@@ -1,0 +1,759 @@
+<library>
+	<include href="CachableComponent.lzx" />
+	<include href="../../../resources/resources.lzx" />
+	<!-- ************************************
+		CachableRecorder
+		
+		A Cachable Recorder Widget for recording student's 
+		voice as a response to an Audio item.  
+		*************************************-->
+
+	<class name="CachableRecorder" extends="CachableComponent"
+		comptype="${gCompTypes.WIDGET_RECORDER}" aaactive="true"
+		aasilent="false">
+		<attribute name="blinkerDel"
+			value="$once{new LzDelegate(this,'blinker')}" />
+		<attribute name="countDownDel"
+			value="$once{new LzDelegate(this,'countDownTimer')}" />
+		<attribute name="defaultTotalTime" value="90" />
+		<attribute name="totalTime" value="90" />
+		<attribute name="recordStarted" type="boolean" value="false" />
+		<attribute name="increment" type="boolean" value="0" />
+
+		<attribute name="width" value="250" />
+		<attribute name="height" value="150" />
+
+		<attribute name="defaultWidth" value="250" />
+		<attribute name="defaultHeight" value="150" />
+
+		<attribute name="bgcolor" value="0x6F0F0F" /><!-- iceblue -->
+
+		<attribute name="recordButton" />
+		<attribute name="stopButton" />
+		<attribute name="resetButton" />
+		<attribute name="bar" />
+		<attribute name="barfilled" />
+		<attribute name="timertext" />
+		<attribute name="meterContainer" />
+		<attribute name="volumeMeter" />
+		<attribute name="micNotConnected" />
+		<attribute name="recordIconsView" />
+		<attribute name="attachMic" />
+		<attribute name="whitewrapperOverLay" />
+		<attribute name="recordStatus" />
+		<attribute name="widgetbuttons" />
+		<attribute name="red" />
+		<attribute name="green" />
+		<attribute name="allow_revisit" type="boolean" value="false" />
+		<attribute name="widget_id" value="widget10000000000"
+			type="string" />
+		<attribute name="leveldel"
+			value="$once{new LzDelegate(this, 'updateLevel')}" />
+			<!-- For LLO128-->
+		<attribute name="linuxLevelDel"
+			value="$once{new LzDelegate(this, 'updateLinux')}" />
+		<attribute name="level" type="number" value="0" />
+		<attribute name="activityArray" value="$once{new Array()}" />
+<attribute name="fakeActivityArray" value="$once{new Array()}" />
+		<!--<attribute name="countlevel" type="number" value="0" />-->
+		<attribute name="recordState" type="number" value="0" />	
+		<attribute name="factor" type="number" value="1" /><!-- for flexible recorder -->
+		<attribute name="micState" type="boolean" value="false"/>
+		<attribute name="stopCalled" type="boolean" value="false"/>
+		<attribute name="blinkerVal" type="number" value="0"/>
+		<attribute name="resetCalled" type="boolean" value="false"/>
+		<!-- For LLO128-->
+		<attribute name="requestSent" type="boolean" value="false"/>
+		<attribute name="micConnected" type="boolean" value="false"/>
+
+
+
+<dataset name="audioDset"
+			ondata="classroot.handleResponseData(this.data)" type="http"
+			onerror="classroot.requestError(this)" request="false">
+		</dataset>
+
+		<method name="init">
+			super.init();
+			setReferences();
+		</method>
+
+		<handler name="oninit">
+			this.timertext.setText(this.totalTime);
+			this.setAttribute('width', this.width*factor);
+			this.setAttribute('height', this.height*factor);
+		</handler>
+
+		<method event="ondata" args="data"><![CDATA[
+			//Debug.write("cachable recorder ondata 1....");
+			this.resetCalled=false;
+			this.requestSent = false;
+			this.blinkerVal = 0;
+			this.reset();
+			//for setting the background color
+			var style = gController.getAccomStyleForType ("stem");
+            //Debug.write("style.bgcolor - "+style.bgcolor);
+            if(style.bgcolor != null){
+            	this.parent.setAttribute ('bgcolor', style.bgcolor);
+            }
+			
+			
+			
+			if(data.getAttr('x')) {
+				this.setAttribute('x', Number(data.getAttr('x')));
+			}
+			
+			if(data.getAttr('y')) {
+				this.setAttribute('y', Number(data.getAttr('y')));
+			}
+			
+			if(data.getAttr('id')){
+				this.setAttribute('widget_id', data.getAttr('id'));
+			}
+			
+			if(data.getAttr('allow_revisit')){
+				this.setAttribute('allow_revisit', data.getAttr('allow_revisit'));
+			}
+			
+			if(data.getAttr('totalTime')){
+				this.setAttribute('totalTime', data.getAttr('totalTime'));		
+				this.setAttribute('defaultTotalTime', data.getAttr('totalTime'));
+				this.timertext.setText(this.totalTime);		
+			}
+
+			var answered = false;
+			gController.addAudioItem({"widget_id" : this.widget_id, "answered" : answered});
+			gController.setAttribute('blockFileName' , true);
+			doneLoading();
+			gController.recorderComponent(this);
+			// For LLO128
+			var os =  isLinux();
+			if(this.isinited && this.visible && !isLinux()) {
+				//Debug.write("cachable recorder ondata 2....");
+				this.myMic = Microphone.get();
+				if(this.myMic != null) {
+					this.myMic.setGain(100);
+					this.myMic.setRate(11);
+					this.myMic.setSilenceLevel(0);
+				}
+				this.mc = this.getMCRef();
+				mc.attachAudio(myMic);
+				
+/*				if(ns != null){
+					ns.close();
+				}
+				
+				nc = new NetConnection();
+				nc.connect("rtmp://localhost/oflaDemo");
+				nc.onStatus = function(info){
+					//_root.Debug.write("OnStatus Info Code " + info.code);
+					if(info.code=='NetConnection.Connect.Success'){
+					Debug.write("****RTMP Connection Established*****");
+				}
+				}
+				ns = new NetStream(nc);
+				ns.attachAudio(myMic);
+*/
+				//this.myMic.setUseEchoSuppression(true);
+				//this.updateLevel();
+			}
+		]]>
+		</method>
+
+		<method name="doneLoading"><![CDATA[	
+			//Debug.write("parent.width = "+parent.width);
+			//Debug.write("this.width = " + this.width);
+			
+			if(gController.hasFontAccommodation) {	
+			//Debug.write("gController.hasFontAccommodation = " + gController.hasFontAccommodation);
+				//if(this.width >= parent.width)
+				//{
+				//	this.setAttribute('width', parent.width);
+				//	this.setAttribute('height', this.defaultHeight);
+				//	this.setAttribute('factor', 1 );
+				//}
+				//else{
+					this.setAttribute('factor',1.5);
+					this.setAttribute('width', this.defaultWidth * this.factor);
+					this.setAttribute('height', this.defaultHeight * this.factor);
+				//}
+			}
+            super.doneLoading();
+        ]]></method>
+        <!-- For LLO128-->
+		<method name="isLinux" args="arg">
+		//Debug.write("isLinux fired");
+		var os = System.capabilities.os;
+		os = os.split(" ");
+//Debug.write("os name : ",os);
+		if(os[0] == 'ubuntu' || os[0] == 'Fedora' || os[0] == 'Redhat' || os[0] == 'Linux' || os[0] == 'solaris'){
+		return true;
+		}
+		return false;
+		</method>
+
+		<method name="isVista" args="arg">
+		//Debug.write("isLinux fired");
+		var os = System.capabilities.os;
+		os = os.split(" ");
+//Debug.write("os name : ",os);
+		if(os[1] == 'Vista'){
+		return true;
+		}
+		return false;
+		</method>
+
+		<method name="doReturnToCache"><![CDATA[
+			//Debug.write("doreturn to cache");
+			this.stopblinker('stop');
+			if(!isLinux()){
+				this.getMCRef().attachAudio(false);
+			}
+			audioDset.abort();
+			if(!isLinux())
+			LzTimer.removeTimer(leveldel);
+			else
+			LzTimer.resetTimer(linuxLevelDel, 100);
+       ]]></method>
+
+		<view name="main" align="center" valign="middle"
+			width="${parent.width - 3}" height="${parent.height - 3}">
+			<simplelayout />
+			<view name="header" width="100%" height="15%"
+				bgcolor="0x3F1F0F">
+				<simplelayout axis="x" />
+				<view resource="heading_microphone" stretches="both"
+					width="${parent.height}" height="${parent.height-2}">
+				</view>
+				<text valign="middle" font="CTB" fontsize="${12 * classroot.factor}"
+					fontstyle="bold" fgcolor="white" width="90%" height ="100%">
+					Sound Recorder
+				</text>
+			</view>
+			<view name="content" width="100%" height="85%" bgcolor="white">
+				<simplelayout />
+				<view name="recorddisplay" align="left" width="100%">
+					<simplelayout axis="x" spacing="2" />
+
+					<view name="recordicons" height="${40 * classroot.factor}">
+						<view name="meterContainer" x="${parent.parent.parent.bar.x}"
+							y="${11 * classroot.factor}" width="${41 * classroot.factor}" resource="volume_meter" height="35">
+							<view name="volumebar" x="0" y="0"
+								width="${41 * classroot.factor}" height="$once{parent.height}" resource="volume_meter_flip"
+								opacity=".7" bgcolor="white" clip="true" visible="${!classroot.isLinux()}">
+							</view>
+						</view>
+
+						<view name="red" opacity=".7" visible="false"
+							x="${parent.parent.parent.bar.width/2}" resource="record_bullet_red" y="${11 * classroot.factor}"
+							stretches="both" width="${15 * classroot.factor}" height="${15 * classroot.factor}"
+							valign="middle">
+
+						</view>
+						<view name="green" opacity=".7" visible="false" y="${11 * classroot.factor}"
+							x="${parent.parent.parent.bar.width/2}" resource="record_bullet_green"
+							stretches="both" width="${parent.red.width}"
+							height="${parent.red.height}" valign="middle">
+						</view>
+						<view name="redReplace" visible="false" bgcolor="white"
+							x="${parent.parent.parent.bar.width/2}" y="${11 * classroot.factor}"
+							width="${15 * classroot.factor}" height="${15 * classroot.factor}"
+							valign="middle">
+
+					</view>
+					</view>
+
+					<view name="showStatus" y="${9 * classroot.factor}" x="0" width="${20 * classroot.factor}" height="${40 * classroot.factor}">
+						<text name="recordStatus" fontsize="${12 * classroot.factor}"
+							font="CTB" resize="true" fontstyle="bold" height="100%">
+						</text>
+					</view>
+				</view>
+
+				<view name="recordtimer" x="${parent.bar.x + parent.bar.width - parent.recordtimer.width}"
+					y="${parent.bar.y - parent.recordtimer.height}" height="${20 * classroot.factor}">
+					<simplelayout axis="x" spacing="0" />
+					<text name="remaining" fontsize="${12 * classroot.factor}" font="CTB" fontstyle="bold"
+						resize="true" valign="bottom" height="100%">
+						TIME REMAINING:
+					</text>
+					<text name="timertext" fontsize="${12 * classroot.factor}" fontstyle="bold"
+						font="CTB" fgcolor="0x008000" resize="true" valign="bottom" height="100%">
+					</text>
+					<text fontsize="${12 * classroot.factor}" font="CTB" resize="true" fontstyle="bold"
+						valign="bottom" height="100%">
+						secs
+					</text>
+				</view>
+				<view name="bar" align="center" width="80%" height="${6 * classroot.factor}"
+					bgcolor="0xcccccc">
+					<view name="barfilled" width="0" height="100%"
+						bgcolor="0x328693">
+					</view>
+				</view>
+
+				<view name="justforspace" align="center" width="100%"
+					height="10%">
+				</view>
+				<view name="widgetbuttons" width="100%" height="18%">
+					<view name="whitewrapper" height="100%"
+						bgcolor="white" x="${parent.parent.bar.x}" >
+						<!--simplelayout axis="x" spacing="65" /-->
+						<view name="buttons">
+							<simplelayout axis="x" spacing="6" />
+							<basebutton resource="button_record"
+								name="recordButton" width="${23 * classroot.factor}" height="${23 * classroot.factor}" stretches="both"
+								align="left" onclick="classroot.startblinker('record')" >
+								<method event="onmouseover">
+									gTooltip.showTooltip('Record');
+								</method>						                
+								<method event="onmouseout">
+									gTooltip.hideTooltip ();    
+								</method>
+							</basebutton>
+							<basebutton resource="button_stop"
+								name="stopButton" width="${parent.recordButton.width}" height="${parent.recordButton.height}" stretches="both"
+								enabled="false" onclick="classroot.stopblinker('stop')" >
+								<method event="onmouseover">
+									gTooltip.showTooltip('Stop');
+								</method>						                
+								<method event="onmouseout">
+									gTooltip.hideTooltip ();    
+								</method>
+							</basebutton>
+						</view>
+						<view name="startOver" x="${parent.parent.parent.bar.width - parent.startOver.width}">
+							<basebutton resource="button_startover" x="0"
+								name="resetButton" width="${60 * classroot.factor}" height="${20 * classroot.factor}" stretches="both"
+								enabled="false" onclick="classroot.reset('reset')" >
+								<method event="onmouseover">
+									gTooltip.showTooltip('Start Over');
+								</method>						                
+								<method event="onmouseout">
+									gTooltip.hideTooltip ();    
+								</method>
+							</basebutton>
+						</view>
+						</view>
+				</view>
+
+				<view name="justforspace2" align="center" width="100%"
+					height="10%">
+				</view>
+			</view>
+		</view>
+		<view name="whitewrapperOverLay" bgcolor="white" x="2"
+			y="${parent.y + 35}"
+			height="${parent.height - 40}" width="${parent.width - 5}"
+			clickable="true" showhandcursor="false" visible="false" onmouseover="this.setAttribute('showhandcursor',false)">
+			<simplelayout axis="x" inset="10" spacing="10" />
+			<view name="micNotConnected" valign="middle"
+				resource="mic_not_connected" stretches="both" width="${36 * classroot.factor}" height="${34 * classroot.factor}"/>
+			<text name="attachMic" fontsize="${12 * classroot.factor}" font="CTB"
+				valign="middle" multiline="true" width="${parent.width - parent.attachMic.x}">
+				It appears your microphone is not plugged in, 
+				please adjust your microphone input volume up 
+				and make sure your microphone is connected.
+			</text>
+		</view>
+		
+		<view name="blackOverLay" bgcolor="black" x="${parent.main.x}"
+			y="${parent.main.y}" opacity="0.5"
+			height="${parent.height}" width="${parent.width}"
+			clickable="true" showhandcursor="false" visible="false" onmouseover="this.setAttribute('showhandcursor',false)">
+		</view>
+
+		<method name="startblinker" args="methodname"><![CDATA[
+			this.stopCalled = false;		//to re-use this attribute, reset it 
+			this.blinkerVal = 0;
+			if(!this.recordStarted) {
+				if(!isLinux()){	
+				this.updateLevel();	
+				}else{
+				//Debug.write("Update level linux");
+				this.updateLinux();
+				}
+				//playProgress(methodname);//put delay of 500 miliseconds
+				if(gController.isaudio){
+					gController.disableAllAudio();
+				}
+				setRecordDelegate();
+			}		
+		]]></method>
+
+		<method name="callRecordMethod">
+//Debug.write("callRecordMethod.....");	
+			playProgress('record');
+		</method>		
+
+		<method name="setRecordDelegate">
+			if(typeof this.recordDel == "undefined") {	
+				this.recordDel = new LzDelegate(this, "callRecordMethod");
+			}
+			LzTimer.resetTimer(this.recordDel, 300);
+		</method>		
+
+		<method name="playProgress" args="methodname"><![CDATA[
+		//micState will be set by updateLevel method
+			if(this.micState) {		
+			//Debug.write("inside playProgress");
+				this.recordStarted = true;		//if mic is connected, then only set this attribute to true 	
+				
+				
+				if(this.requestSent == false){
+					//Debug.write("requestSent :"+this.requestSent);
+					this.requestSent = true;
+					sendRequest(methodname);
+				}		
+				this.increment = bar.width / this.defaultTotalTime;
+				this.recordButton.setAttribute("enabled", false);
+				this.green.setVisible(false);
+				gController.updateAudioField(this.widget_id, true);					
+			}
+		]]></method>
+
+		<method name="blinker">
+			this.red.setVisible(true);
+			this.recordStatus.setText("RECORDING...");
+		</method>
+
+		<method name="stopblinker" args="methodname">
+			if(gController.isaudio){
+					gController.enableAllAudio();
+				}
+			this.red.setVisible(false);
+			this.redReplace.setVisible(false);
+			this.blinkerVal = 0;			//reset this for blinking the red ball
+			if(!isLinux())
+			LzTimer.removeTimer(leveldel);	//remove activity meter timer 
+			else
+			LzTimer.removeTimer(linuxLevelDel); 
+			this.stopCalled = true;			//let the timer stop first or this attribute will disturb the flow
+			this.micState = false;		
+			resetActivityMeterHeight();		//for showing zero actvity bar
+			if(this.recordStarted || methodname == 'reset') {
+				sendRequest(methodname);
+				this.green.setVisible(true);
+				this.recordStatus.setText("AUDIO CAPTURED");
+				this.recordStarted = false;
+				this.stopCountDownTimer();
+				this.stopButton.setAttribute("enabled", false);
+			}
+		</method>
+
+		<method name="reset" args="methodname">
+		
+//Debug.write("resetCalled "+this.resetCalled);
+			if(this.resetCalled == false) {
+				if(methodname == 'reset') {
+					sendRequest(methodname);
+					this.requestSent = false;
+					this.resetCalled = true;
+					gController.updateAudioField(this.widget_id, false);
+				}
+				this.stopCalled = true;			//set true 
+				this.micState = false;			//reset this attribute also
+				this.blinkerVal = 0;			//reset this for blinking the red ball
+				this.totalTime = this.defaultTotalTime;
+				this.recordButton.setAttribute("enabled", true);
+				this.green.setVisible(false);
+				this.red.setVisible(false);
+				this.timertext.setText(this.totalTime);		
+				this.timertext.setAttribute("fgcolor",0x008000);	
+				this.recordStatus.setText(" ");	
+				this.barfilled.setWidth(0);
+				this.increment = 0;
+				this.resetButton.setAttribute("enabled",false);
+				//gController.updateAudioField(this.widget_id, false);
+				this.whitewrapperOverLay.setVisible(false);
+			}
+			
+		</method>
+
+		<method name="startCountDownTimer">
+			countDownTimer();
+			this.green.setVisible(false);
+		</method>
+
+		<method name="countDownTimer">
+		<![CDATA[	
+			this.totalTime -= 1; 	
+			fillBarWithTime(increment);	
+			this.resetButton.setAttribute("enabled", false);
+			if(this.totalTime <= 0) {
+				this.timertext.setText(this.totalTime);
+				stopblinker('stop');
+				return;
+			}
+		
+			if(this.totalTime <= 15) {
+				this.timertext.setAttribute('fgcolor',0xff0000);
+			}else{
+				this.timertext.setAttribute('fgcolor',0x008000);
+			}
+			this.timertext.setText(this.totalTime);
+			LzTimer.resetTimer(countDownDel, 1000);
+			//Changes to stop the recording if the student clicks the pause screen when
+			//recording is going on.
+			if(gController.getAttribute('isWaitPopupOpen') == true){
+				stopblinker('stop');
+				this.resetCalled = false; 
+			}
+		
+		]]>
+		</method>
+
+		<method name="stopCountDownTimer">
+			LzTimer.removeTimer(countDownDel);
+		</method>
+
+		<method name="fillBarWithTime" args="timeInSecs">
+			this.barfilled.setAttribute("width",  barfilled.width + increment);
+		</method>
+
+		<method name="sendRequest" args="method">
+	         
+	         var d = audioDset;
+	         var p = new LzParam();
+	         p.addValue( "method", method, true);
+	         p.addValue( "filename", gController.generateAudioFileName(),true);
+	         d.setQueryString( p );
+	         d.setAttribute("reqtype","POST"); 
+	         d.doRequest();
+ 		</method>
+
+		<method name="handleResponseData" args="d">
+//Debug.write("handleResponseData :"+d);
+			this.blinkerVal = 0;
+			var result = d.childNodes[0].data;
+			if(result == 'RECORDING_START'){
+			//Debug.write("RECORDING_START..");
+				startCountDownTimer();
+				blinker();
+				this.stopButton.setAttribute("enabled", true);
+			}
+			else if (result == 'RECORDING_STOP') {
+			//Debug.write("RECORDING_STOP..");
+				if(this.totalTime == 0) {
+					this.recordButton.setAttribute("enabled", false);
+					this.resetButton.setAttribute("enabled", false);
+					this.stopButton.setAttribute("enabled", false);
+					return;
+				}
+				this.recordButton.setAttribute("enabled", false);
+				if(this.resetCalled == false){
+					this.resetButton.setAttribute("enabled",true);
+				}
+			}
+			else {
+				Debug.write("Result Default...."+result);	
+			}
+			//gCommunicator.finishCall(d,audioDset);
+		</method>
+
+		<method event="oninit">
+			var base = LzBrowser.getInitArg( 'servletUrl' );
+			audioDset.setSrc(base + '/SoundRecorder.do');
+			this.setVolume(0);
+		</method>
+
+		<method name="setReferences">
+			//Debug.write("setReferences....");
+			this.recordButton	= main.content.widgetbuttons.whitewrapper.buttons.recordButton;
+			this.stopButton 	= main.content.widgetbuttons.whitewrapper.buttons.stopButton;
+			//this.resetButton 	= main.content.widgetbuttons.whitewrapper.buttons.resetButton;
+			this.resetButton 	= main.content.widgetbuttons.whitewrapper.startOver.resetButton;
+			this.bar 			= main.content.bar;
+			this.barfilled		= main.content.bar.barfilled;
+			this.timertext		= main.content.recordtimer.timertext;//recorddisplay.recordtimer.
+			this.red			= main.content.recorddisplay.recordicons.red;
+			this.green			= main.content.recorddisplay.recordicons.green;
+			this.redReplace		= main.content.recorddisplay.recordicons.redReplace;
+			this.meterContainer = main.content.recorddisplay.recordicons.meterContainer;
+			this.volumeMeter	= main.content.recorddisplay.recordicons.meterContainer.volumebar;
+			this.recordIconsView= main.content.recorddisplay.recordicons;
+			this.widgetbuttons 	= main.content.widgetbuttons;
+			this.recordStatus 	= main.content.recorddisplay.showStatus.recordStatus;
+			this.whitewrapperOverLay = whitewrapperOverLay;
+		</method>
+
+		<method name="requestError" args="ds">
+			_returnError(ds);
+		</method>
+
+		<method name="_returnError" args="ds">
+			if(gScreens.isOnFeedbackScreen()){
+				gCommunicator.finishCall(gXmlHelper.getFeedbackErrorXml(),ds);
+			}
+			else{
+				gCommunicator.finishCall(gXmlHelper.getErrorXml(),ds);
+			}
+		</method>
+
+		<!-- Volumeter Prototype -->
+		<method name="updateLevel"><![CDATA[
+			var isMicAttached;
+			var level = 0;
+			var vMeterHeight = 0;
+			var reClaimedMicObj = null;
+			var micArray = Microphone.names;
+			var micIsSet = false;
+			
+			if(this.isVista()) {
+				if(Microphone.names.length > 0 && this.micConnected == false) {
+					this.myMic = Microphone.get();
+					this.myMic.setGain(100);
+					this.myMic.setRate(11);
+					this.myMic.setSilenceLevel(0);
+					this.mc.attachAudio(false);				
+					this.mc.attachAudio(this.myMic);
+					this.micConnected = true;
+				} 			
+				else if(Microphone.names.length == 0) {
+	//Debug.write("micArray length is zero")			
+					this.micConnected = false;
+					this.myMic = null;
+				}	
+			}
+			
+	//Debug.write("myMic...."+ this.myMic+" : "+this.myMic.activityLevel+" : "+Microphone.names.length);
+
+			if(this.myMic != null) {
+				level = this.myMic.activityLevel;
+			}
+
+			if(activityArray.length < 16) {
+				if(activityArray.length == 15) {
+//Debug.write("1");
+					isMicAttached = activityCalibrate(activityArray); 				
+				}else{
+					if(level <= 0) {
+						//Debug.write("2 level pushing...."+level);
+						activityArray.push(level);
+					}
+					else {
+//Debug.write("3");
+						isMicAttached = true;
+					
+					}
+				}
+
+			}
+	                
+			if (level < 0) {
+				level = 1;
+			}
+
+			if (level != this.level) {
+				this.setAttribute("level", level);
+			}
+
+			if(isMicAttached == false) {
+				this.blinkerVal = 0;
+				this.whitewrapperOverLay.setVisible(true);
+				stopblinker('stop');
+				this.resetCalled = false;
+				this.micState = false;//Changes for defect 65977 
+			}
+			else if(isMicAttached == true) {			
+				this.micState = true;//Changes for defect 65977
+					
+				//this.meterContainer.setAttribute('visible',true);
+				this.whitewrapperOverLay.setVisible(false);	 				
+				if(this.recordStarted == true){
+					if(this.blinkerVal >= 3){
+						this.toggleRedDisplay();
+						this.blinkerVal = 0;
+					}
+					this.blinkerVal = this.blinkerVal + 1;
+					
+					vMeterHeight = this.meterContainer.height - this.level * .5;
+
+					if(vMeterHeight < 0) {
+						vMeterHeight = 0;
+					}
+					this.volumeMeter.setAttribute('height', vMeterHeight);
+				}
+				else {
+					//Debug.write("Mic Connected and Record Started.....")
+				}
+				
+				
+				if(this.recordStarted == false && this.stopCalled == true) {
+					LzTimer.removeTimer(leveldel);//remove activity meter timer because recording is stopped now
+					this.micState = false;//when regained connectivity in recording stop mode
+					this.blinkerVal = 0;
+					return;	
+				}
+			
+
+			}	
+
+			LzTimer.resetTimer(leveldel, 100); 
+	    ]]>
+		</method>
+		
+		<method name="updateLinux"><![CDATA[
+			this.micState = true;
+			if(this.recordStarted == true){
+				if(this.blinkerVal >= 3){
+					this.toggleRedDisplay();
+					this.blinkerVal = 0;
+				}
+				this.blinkerVal = this.blinkerVal + 1;
+			}
+		LzTimer.resetTimer(linuxLevelDel, 100); 
+	    ]]>
+		</method>
+
+		<method name="activityCalibrate" args="arrVal"><![CDATA[
+			var i = 0;
+			var temp = 0;
+			for (i = 0; i < arrVal.length; i++){
+				temp =  temp + arrVal[i];
+				if(temp > 0) {
+					//Debug.write("got mic connectivity....");	
+					break;				
+				}
+			}
+
+			this.activityArray = [];
+			return temp > 0;
+		]]></method>
+
+		<method name="isFakeActivity" args="arrVal"><![CDATA[
+			//Debug.write("isFakeActivity..");
+			var i = 0;
+			var temp = 0;
+			var result = true;	
+			for (i = 0; i < arrVal.length; i++){
+				if(i == 0) {
+					temp = arrVal[i];
+					continue;				
+				}
+				if(temp == arrVal[i]) {
+					temp = arrVal[i];
+				}
+				else {
+					result = false;
+					break;
+				}	
+			}
+			return result;
+		]]></method>
+
+		<method name="resetActivityMeterHeight">
+			this.volumeMeter.setHeight(this.meterContainer.height);
+		</method>
+		
+		<method name="toggleRedDisplay">
+			if(this.red.visible == false) {
+				this.redReplace.setVisible(false);
+				this.red.setVisible(true);
+			}else {
+				this.redReplace.setVisible(true);
+				this.red.setVisible(false);
+			}
+		</method>
+	</class>
+</library>

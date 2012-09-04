@@ -1,6 +1,7 @@
 <library>
 
     <include href="ManipulativeButton.lzx"/>
+    <include href="ScratchpadButton.lzx"/>
     <include href="base/baseslider.lzx"/>
     <include href="lz/slider.lzx"/>
 
@@ -17,7 +18,7 @@
 			if(theme) {
 				this.setAttribute("hasResponseArea", gController.applyManipulative());
 			}
-			//this.globals.magnifyingGlass.setAttribute('frame', 1);
+			this.globals.magnifyingGlass.setResourceNumber(1);
 		</handler>
 
 		<view datapath="manipulatives/global" name="globals" valign="middle" visible="${!classroot.theme || (classroot.theme &amp;&amp; classroot.hasResponseArea)}">
@@ -34,12 +35,73 @@
 			<ManipulativeButton resource="toolbar_eraser_btn"
 	                            toolid="eraser"
 	                            tooltip="Eraser"/>
+			<ScratchpadButton   resource="toolbar_scratchpad_btn"
+	                            toolid="scratchpad"
+	                            tooltip="Scratchpad"/>
 			<ManipulativeButton resource="toolbar_masking_ruler_btn"
 	                            toolid="masking_ruler"
 	                            tooltip="Blocking Ruler"/>		
-	         <view name="gap1" width="2" height="20" valign="middle"/>                   
-	                            
-	         <view name="maskingAnswer"
+			<view name="gap" width="2" height="20" valign="middle"/>
+			<!-- Magnifier Glass Button -->
+			<view name="magnifyingGlass"
+				visible="${gController.magnifierVisible}"
+				resource="toolbar_magnifying_glass_btn" valign="middle" height="20"
+				width="34">
+				<attribute name="tooltipdel"
+					value="$once{new LzDelegate (this, 'showTooltip')}"
+				/>
+				<attribute name="isEnabled" value="false" />
+				<attribute name="isSelected" value="false" />
+
+				<method event="onmouseover">
+						this.setResourceNumber(2);
+						LzTimer.addTimer (tooltipdel, 500);
+					</method>
+
+				<method event="onmouseout">
+						gTooltip.hideTooltip (); 
+						if(!this.isEnabled) {
+							this.setResourceNumber(1);
+						}   
+						LzTimer.removeTimer (this.tooltipdel);
+					</method>
+
+				<method event="onclick">
+						LzTimer.removeTimer (this.tooltipdel);
+						if(gMagnifyingGlass.visible){
+							hide();
+						} else {
+							setup();
+						}
+					</method>
+
+				<method name="showTooltip">
+						gTooltip.showTooltip ('Magnifying Glass');
+					</method>
+
+				<method name="setup">
+						gMagnifyingGlass.setUpGlass();
+						show();
+					</method>
+
+				<method name="show">
+						gMagnifyingGlass.showGlass();
+						this.isEnabled = true;
+						gController.setAttribute("magnifierState", true);
+						this.setResourceNumber(2);
+					</method>
+
+				<method name="hide">
+						gMagnifyingGlass.hideGlass();
+						this.isEnabled = false;
+						gController.setAttribute("magnifierState", false);
+						this.setResourceNumber(1);
+					</method>
+			</view>
+
+			<view name="gap1" width="2" height="20" valign="middle"/>
+
+			<view name="maskingAnswer"
 				visible="${gController.showMaskingAnswerPopUp}"
 				resource="toolbar_msaking_choice_btn" valign="middle" height="20"
 				width="34">
@@ -47,29 +109,29 @@
 					value="$once{new LzDelegate (this, 'showTooltip')}"/>
 				<attribute name="isEnabled" value="false" />
 				<attribute name="isSelected" value="false" />
-				<handler name="onmouseover">
+				<method event="onmouseover">
 						this.setResourceNumber(2);
 						if(!gMaskingAnswer.visible)
-							lz.Timer.addTimer (tooltipdel, 500);
-					</handler>
+							LzTimer.addTimer (tooltipdel, 500);
+					</method>
 
-				<handler name="onmouseout">
+				<method event="onmouseout">
 						gTooltip.hideTooltip (); 
 						if(!this.isEnabled) {
 							this.setResourceNumber(1);
 						}   
-						lz.Timer.removeTimer (this.tooltipdel);
-					</handler>
+						LzTimer.removeTimer (this.tooltipdel);
+					</method>
 
-				<handler name="onclick">
+				<method event="onclick">
 					Debug.write("onclick masking answer x" , this.x, gManipulatives.y, gManipulativeBar.x);
-						lz.Timer.removeTimer (this.tooltipdel);
+						LzTimer.removeTimer (this.tooltipdel);
 						if(gMaskingAnswer.visible){
 							hide();
 						} else {
 							show();
 						}
-					</handler>
+					</method>
 
 				<method name="showTooltip">
 						gTooltip.showTooltip ('Masking Tool');
@@ -88,8 +150,10 @@
 						gController.setAttribute("maskingAnswerDDState", false);
 						this.setResourceNumber(1);
 					</method>
-			</view>                   
-	    </view>                       
+			</view>
+
+		</view>
+		
 		<view datapath="manipulatives/general" name="generals" valign="middle"
 		      visible="${!classroot.theme  || (classroot.theme &amp;&amp; classroot.hasResponseArea)}">
 			<simplelayout axis="x"/>
@@ -133,19 +197,19 @@
 		
 				<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
 		
-				<handler name="onmouseover">
-					lz.Timer.addTimer (tooltipdel, 500);
-				</handler>
+				<method event="onmouseover">
+					LzTimer.addTimer (tooltipdel, 500);
+				</method>
 		                
-				<handler name="onmouseout">
+				<method event="onmouseout">
 					gTooltip.hideTooltip ();    
-					lz.Timer.removeTimer (this.tooltipdel);
-				</handler>
+					LzTimer.removeTimer (this.tooltipdel);
+				</method>
 		
-				<handler name="onclick">
-					lz.Timer.removeTimer (this.tooltipdel);
+				<method event="onclick">
+					LzTimer.removeTimer (this.tooltipdel);
 					gReadableText.stopReading();
-				</handler>
+				</method>
 		
 				<method name="showTooltip">
 					gTooltip.showTooltip ('Stop Reading');
@@ -160,19 +224,19 @@
 				
 				<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
 		
-				<handler name="onmouseover">
-					lz.Timer.addTimer (tooltipdel, 500);
-				</handler>
+				<method event="onmouseover">
+					LzTimer.addTimer (tooltipdel, 500);
+				</method>
 		                
-				<handler name="onmouseout">
+				<method event="onmouseout">
 					gTooltip.hideTooltip ();    
-					lz.Timer.removeTimer (this.tooltipdel);
-				</handler>
+					LzTimer.removeTimer (this.tooltipdel);
+				</method>
 		
-				<handler name="onclick">
-					lz.Timer.removeTimer (this.tooltipdel);
+				<method event="onclick">
+					LzTimer.removeTimer (this.tooltipdel);
 					<!-- gReadableText.stopReading(); -->
-				</handler>
+				</method>
 		
 				<method name="showTooltip">
 					gTooltip.showTooltip ('Volume Control');
@@ -184,8 +248,6 @@
 				<!--START Changes done for defect #65040 and #65041-->
 				<slider name="volumeControl" value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" 
 						thumbwidth="16" thumbheight="12" width="80">
-						
-						<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
 	
 				<!-- When canvas's accessible attribute is true, the text "undefined" comes over the slider thumb, 
 					 workaround is done in this version(3.3.3). Probably, this was a bug which is fixed in newer versions. 
@@ -213,16 +275,16 @@
 				    </method> 
 	
 					<method name="mouseover">
-						lz.Timer.addTimer (tooltipdel, 500);
+						LzTimer.addTimer (tooltipdel, 500);
 					</method>
 			                
 					<method name="mouseout">
 						gTooltip.hideTooltip ();    
-						lz.Timer.removeTimer (this.tooltipdel);
+						LzTimer.removeTimer (this.tooltipdel);
 					</method>
 			
 					<method name="click">
-						lz.Timer.removeTimer (this.tooltipdel);
+						LzTimer.removeTimer (this.tooltipdel);
 						<!-- gReadableText.stopReading(); -->
 					</method>
 				<!--END Changes done for defect #65040 and #65041-->
@@ -239,7 +301,21 @@
 			</view>
 
 		</view>
+		<!-- The tool to control the TTS speed -->
+			<radiogroup visible="${gController.hasTTSspeed &amp;&amp; parent.screenreader.stopreader.visible}" name="speedController" height="20" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
+				<datapath xpath="dslogin:/login_response/@tts_speed_value"></datapath>
+				<radiobutton value="'S'" text="Slow " height="15" valign="middle"/>
+				<radiobutton value="'M'" text="Medium " height="15" valign="middle" selected="true" />
+				<radiobutton value="'F'" text="Fast " height="15" valign="middle"/>
 
+				<handler name="onselect"><![CDATA[
+					if(gReadableText.isplaying && gReadableText.isReadable && 
+						gReadableText.clickable && gReadableText.currentText.length > 0) {
+
+					gReadableText.read(gReadableText.currentText,false);
+					}
+				]]></handler>
+			</radiogroup>		
 
 		
     </class>

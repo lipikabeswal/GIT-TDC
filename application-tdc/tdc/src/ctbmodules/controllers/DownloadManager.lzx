@@ -1,5 +1,5 @@
 <library>
-    <node id="gDownloadManager">
+    <node name="gDownloadManager">
     	<attribute name="subtestList"  />
     	<attribute name="itemList" />
     	<attribute name="itemKey" />
@@ -15,8 +15,7 @@
    		<attribute name="ERROR_NAME" type="string" value="ERROR" />
   		<attribute name="SUBTEST_NAME" type="string" value="ob_assessment" />
   		<attribute name="FILE_PART" type="string" value="FILE_PART_OK" />
-   		<attribute name="dp" value="$once{new lz.datapointer()}" />
-   		
+   		<attribute name="dp" value="$once{new LzDatapointer()}" />
    		<attribute name="error" value="false" />
   		<handler name="ondownloadResult">
   			if(_receivedError()){
@@ -58,39 +57,37 @@
    		</handler>
    		
    		<method name="_receivedError">
-   			var node = lz.DataElement.stringToLzData(downloadResult);
+   			var node = LzDataNode.stringToLzData(downloadResult);
    			return (node.nodeName == ERROR_NAME);
    		</method>
    		
     	<method name="downloadContent">
-			Debug.write("Download Content");
 			gController.setState(gController.DOWNLOAD_STATE);
+			Debug.write("gController.getSubtestList()*********  ",gController.getSubtestList(),subtestList.length);
     		setAttribute('subtestList', gController.getSubtestList());
     		setAttribute("totalSubtests", subtestList.length);
     		gScreens.showDownload(totalSubtests);
     		_downloadNextSubtest();
-			Debug.write("Download Content 2");
-			
     	</method>
     	
    		<method name="_receivedSubtest">
-   			var node = lz.DataElement.stringToLzData(downloadResult);
+   			var node = LzDataNode.stringToLzData(downloadResult);
    			var name = node.nodeName;
 			return (name == SUBTEST_NAME);
    		</method>
    		
    		<method name="_receivedFilePart">
-   			var node = lz.DataElement.stringToLzData(downloadResult);
+   			var node = LzDataNode.stringToLzData(downloadResult);
    			var name = node.nodeName;
 			return (name == FILE_PART);
    		</method>
    		
    		<method name="_populateItemList">
-   			var node = lz.DataElement.stringToLzData(downloadResult);
+   			var node = LzDataNode.stringToLzData(downloadResult);
    			dp.setPointer(node);
    			var items = dp.xpathQuery('ob_element_list/f');
    			var itemArray = new Array();
-   			if ( items instanceof lz.DataElement ) {
+   			if ( items instanceof LzDataNode ) {
                 itemArray[0] = items;
             }
             else if ( items instanceof Array ) {
@@ -101,13 +98,13 @@
    		</method>
    		
    		<method name="_populateFilePartList">
-	   		var node = lz.DataElement.stringToLzData(downloadResult);
+	   		var node = LzDataNode.stringToLzData(downloadResult);
  	  		dp.setPointer(node);
 		
  	  		var fileParts = dp.xpathQuery('tracker');
  	  	
  	  		var filePartsArray = new Array();
- 	  		if ( fileParts instanceof lz.DataElement ) {
+ 	  		if ( fileParts instanceof LzDataNode ) {
                 filePartsArray[0] = fileParts;
             }
             else if ( fileParts instanceof Array ) {
@@ -154,27 +151,15 @@
     		}
     	</method>
     	
-    	<method name="_downloadNextFilePart"><![CDATA[
-			Debug.write("_download Next File part");
-			var filePart = null;
-			var fileName = null;
-			var sequenceNo = null;
-			var next = null;
+    	<method name="_downloadNextFilePart">
      		if(!error){
-					Debug.write("filePartList",filePartList);
-					Debug.write("nextFilePartIndex",nextFilePartIndex);
-	    		filePart = filePartList[nextFilePartIndex];
-				if(filePart != undefined){
-					Debug.write("filePart",filePart);
-					Debug.write("filePart get",filePart.value);
-					Debug.write("filePart",filePart.getAttribute('value'));
-					fileName = filePart.getAttr('value');
-					sequenceNo = filePart.getAttr('sequence_number');
-					next = filePart.getAttr('next');
-				}
+	    		var filePart = filePartList[nextFilePartIndex];
+	    		var fileName = filePart.getAttr('value');
+	    		var sequenceNo = filePart.getAttr('sequence_number');
+	    		var next = filePart.getAttr('next');
 				gCommunicator.downloadFilePart(fileName,sequenceNo,next);
     		}
-    	]]></method>
+    	</method>
 
      </node>
 </library>

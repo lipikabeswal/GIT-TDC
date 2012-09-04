@@ -48,6 +48,10 @@
 	</resource>
 
 	<!-- Toolbar Button magnifying glass-->
+	<resource name="toolbar_magnifying_glass_btn">      
+		<frame src="magnifier/toolbar_magnifyingGlass_disabled.png"/>   
+		<frame src="magnifier/toolbar_magnifyingGlass_on.png"/>        
+	</resource>
 	
 	<!-- Network connectivity lost animation-->
     <resource name="system_btn">      
@@ -326,15 +330,38 @@
 		<frame src="masking_answerchoices/showAll_on.png"/>
     </resource-->
 
+	<resource name="masking_answer_choice_btn">
+		<frame src="masking_answerchoices/masking_choice_off.png"/>
+		<frame src="masking_answerchoices/masking_choice_on.png"/>
+    </resource>
+
+	<!-- masking answer show all button -->
+    <resource name="masking_answer_choice_showall">
+		<frame src="masking_answerchoices/showAll_off.png"/>
+		<frame src="masking_answerchoices/showAll_off.png"/>
+    </resource>
 
 	<!-- masking answer background -->
-
+    <resource name="masking_answer_choice_bg">
+		<frame src="masking_answerchoices/maskingAnswerbg.png"/>		
+    </resource>
 
     <!-- =====================
          Gridded response
          =====================-->    
     <!-- circle btn -->
-   
+    <resource name="circle_btn">
+        <frame src="components/griddedresponse/circle_up.swf"/>
+        <frame src="components/griddedresponse/circle_over.swf"/>
+        <frame src="components/griddedresponse/circle_selected.swf"/>
+    </resource>
+
+    <!-- erase btn -->
+    <resource name="erase_btn">
+        <frame src="components/griddedresponse/erase_up.swf"/>
+        <frame src="components/griddedresponse/erase_over.swf"/>
+        <frame src="components/griddedresponse/erase_down.swf"/>
+    </resource>
     
     <!-- =====================
          Tabs
@@ -426,6 +453,9 @@
     <resource name="ruler_background" src="manipulatives/ruler/ruler_background.swf"/>
     <resource name="ruler_lines" src="manipulatives/ruler/ruler_lines.swf"/>
     
+    <resource name="masking_ruler_lines" src="manipulatives/ruler/masking_ruler_lines.swf"/>
+    
+    <resource name="masking_ruler_background" src="manipulatives/ruler/masking_ruler_background.swf"/>
     
     <resource name="eighth_inch_tick_marks" src="manipulatives/ruler/eighth_inch_tick_marks.swf"/>
     <resource name="half_inch_tick_marks" src="manipulatives/ruler/half_inch_tick_marks.swf"/>
@@ -437,7 +467,10 @@
     <resource name="straight_label" src="manipulatives/ruler/straight_label.swf"/>
     <resource name="masking_label" src="manipulatives/ruler/masking_label.png"/>
     
-
+    <!-- magnifier handle -->
+    <resource name="magnifierHandle" src="magnifier/handle.swf"/>
+	<resource name="magnifierBlank" src="magnifier/blank.png"/>
+    <!-- reference card -->
 	<resource name="ref_card_close_btn">
     	<frame src="manipulatives/refcard/closebutton_off.swf"/>
      	<frame src="manipulatives/refcard/closebutton_on.swf"/>
@@ -463,8 +496,75 @@
     
     
     <!-- ****************** Start Recorder Resources ************************************************* -->
+    <resource name="button_record">
+       	<frame src="components/recorder/button_record.jpg"/>
+       	<frame src="components/recorder/button_record_clicked.jpg"/>
+       	<frame src="components/recorder/button_record_disable.jpg"/>
+	</resource>
+	
+	<resource name="button_stop">
+       	<frame src="components/recorder/button_stop.jpg"/>
+       	<frame src="components/recorder/button_stop_clicked.jpg"/>
+       	<frame src="components/recorder/button_stop_disable.jpg"/>
+	</resource>
 
-   
+	<resource name="button_reset">
+       	<frame src="components/recorder/button_reset.gif"/>
+       	<frame src="components/recorder/button_reset_hover.gif"/>
+       	<frame src="components/recorder/button_reset_disable.gif"/>
+	</resource>
+	
+	<resource name="button_submit">
+       	<frame src="components/recorder/button_submit.gif"/>
+       	<frame src="components/recorder/button_submit_clicked.jpeg"/>
+       	<frame src="components/recorder/button_submit_disable.gif" />
+	</resource>
+	
+	<resource name="button_startover">
+       	<!--frame src="components/recorder/button_startover.gif"/>
+       	<frame src="components/recorder/button_startover_hover.jpg"/>
+       	<frame src="components/recorder/button_startover_disabled.png"/-->
+	<frame src="components/recorder/start_over.png"/>
+       	<frame src="components/recorder/start_over_hover.png"/>
+       	<frame src="components/recorder/start_over_disable.png"/>
+	</resource>
+	
+	<resource name="volume_meter">
+       	<frame src="components/recorder/seo-graph.png"/>
+	</resource>
+	
+	<resource name="volume_meter_flip">
+       	<frame src="components/recorder/seo-graph_flip.png"/>
+	</resource>
+	
+	<resource name="heading_microphone">
+       	<frame src="components/recorder/microphone_red.gif"/>
+	</resource>
+	
+	<resource name="record_bullet_red">
+       	<frame src="components/recorder/Bullet-red.png"/>
+	</resource>
+	
+	<resource name="record_bullet_green">
+       	<frame src="components/recorder/Bullet-green.png"/>
+	</resource>
+	
+	<resource name="mic_not_connected">
+       	<frame src="components/recorder/Mute.png"/>
+	</resource>
+	
+	<resource name="popupCancel">
+       	<frame  src="components/recorder/move_next.png"/>
+       	<frame  src="components/recorder/move_next_hover.png"/>
+       	<frame  src="components/recorder/move_next_down.png"/>
+	</resource>
+       
+	
+	<resource name="popupOk">
+       	<frame src="components/recorder/stay.png"/>
+       	<frame  src="components/recorder/stay_hover.png"/>
+       	<frame  src="components/recorder/stay_down.png"/>
+	</resource>
 	
 	<!-- ****************** End Recorder Resources ************************************************* -->
 </library>

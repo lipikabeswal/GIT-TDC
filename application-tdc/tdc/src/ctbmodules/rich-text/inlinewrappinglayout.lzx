@@ -1,5 +1,5 @@
 <class name="inlinewrappinglayout" extends="wrappinglayout">
-  <method name="update" args="ignore=null">
+  <method name="update">
         <![CDATA[
         if ( this.locked ) return;
         var l = this.subviews.length;
@@ -22,7 +22,7 @@
         for(var i=0; i < l; i++) {
             var s = this.subviews[i];
 
-//			if((s instanceof lz.CachableInputTextField && s.resize == true)) {
+//			if((s instanceof CachableInputTextField && s.resize == true)) {
 //				Debug.write("fontSize, s.height : ", fontSize, s.height);
 //				fontSize = s.height;
 //				Debug.write("lineHeight, s.height : ", parent.lineHeight, s.height);	
@@ -38,7 +38,7 @@
 		               pos += space;
 				}
 
-				if(s instanceof lz.CachableImage) {
+				if(s instanceof CachableImage) {
 					var alignment = s.verticalAlign;
 					switch 	(alignment) {
 						case 'top':
@@ -69,7 +69,7 @@
 					}
 				}
 				else {
-					if(s instanceof lz.CachableImage) {
+					if(s instanceof CachableImage) {
 						s.setAttribute(this.otherAxis,otherpos + Math.abs(imgValign));
 					}
 				}	

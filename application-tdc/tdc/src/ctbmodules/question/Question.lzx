@@ -19,14 +19,14 @@
 		<method name="setGrFocus" >
 			for(var i in this.subviews){
 				var sv = this.subviews[i];
-				if(sv instanceof lz.BaseCachablePanel){
+				if(sv instanceof BaseCachablePanel){
 					sv.setGrFocus();
 				}
 			}
 			canvas.setCrFocus();
 		</method>
 		
-        <handler name="ondata" args="data"><![CDATA[
+        <method event="ondata" args="data"><![CDATA[
         	//Clearing Masking Tool states
         	 gController.clearAll();
         	 //gManipulativeBar.globals.maskingAnswer.setup();
@@ -37,10 +37,10 @@
                     this.convertToAccLayout(data);
                     data = this.datapath.p;
                 }
-				Debug.write("Question ondata ----- ",data);
+
                 for (var i in this.subviews) {
     
-                    if (this.subviews [i] instanceof lz.CachableComponent &&
+                    if (this.subviews [i] instanceof CachableComponent &&
                         this.subviews [i].visible) {
                         this.cache.returnComponent (this.subviews [i]);
                     }
@@ -48,7 +48,6 @@
         
                 var subnodes = data.childNodes;
                 for (var i = 0; i < subnodes.length; i++) {
-                Debug.write("subnodes[i]",subnodes[i]);
                     if ( subnodes[i] instanceof LzDataElement ) {
                         this.cache.getComponent (subnodes [i]);
                     }
@@ -57,13 +56,13 @@
                 if ( dsitem == data.ownerDocument ) {
                     gController.setAttribute( 'trackingcomponents', true );
                 }
-               // gMusicPlayer.hide();
+                gMusicPlayer.hide();
             }
-        ]]></handler>
+        ]]></method>
 
         <!-- Figure out if we need one or two columns -->
 
-        <method name="convertToAccLayout" args="data"><![CDATA[
+        <method name="convertToAccLayout"><![CDATA[
             var issinglecol = true;
     
             var xarr = this.datapath.xpathQuery("*/@x");
@@ -313,7 +312,7 @@
             	if(answerChoiceWidgetNode.nodeName == gCompTypes.WIDGET_ANSWER_CHOICE){
             		answerChoiceWidgetNode.attributes.width = nw;
             		var spacing = new Number(answerChoiceWidgetNode.attributes.spacing);
-            		var childarr = answerChoiceWidgetNode.childNodes;
+            		childarr = answerChoiceWidgetNode.childNodes;
             		var childNode;
             		for(var j=0; j < childarr.length; j++){
             			childNode = childarr[j];

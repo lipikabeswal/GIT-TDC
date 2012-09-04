@@ -16,20 +16,20 @@
 		<attribute name="altText" type="string" />
 		<attribute name="readableText" type="string" />
 		<attribute name="hasReadableText" type="boolean" value="$once{canvas.readable}"/>
-        <attribute name="hlstatus" value="$once{new lz.datapointer()}"/>
+        <attribute name="hlstatus" value="$once{new LzDatapointer()}"/>
 		<attribute name="isHighlighter" type="boolean" value="false"/>
-        <attribute name="eraserstatus" value="$once{new lz.datapointer()}"/>        
+        <attribute name="eraserstatus" value="$once{new LzDatapointer()}"/>        
 		<attribute name="isEraser" type="boolean" value="false"/>
 		<attribute name="isReadable" type="boolean" 
                       value="${!isHighlighter &amp;&amp; !isEraser &amp;&amp; hasReadableText}"/>
         
-        <handler name="ondata" args="data" reference="hlstatus">
+        <method event="ondata" args="data" reference="hlstatus">
             this.setAttribute ('isHighlighter', data == 'sel');
-        </handler>
+        </method>
 
-        <handler name="ondata" args="data" reference="eraserstatus">
+        <method event="ondata" args="data" reference="eraserstatus">
             this.setAttribute ('isEraser', data == 'sel');
-		</handler>
+		</method>
 
         <method name="init">
             super.init();
@@ -38,7 +38,7 @@
 		<method name="setText" args="txt">
 			thetext.setAttribute('text', txt);
 			//no need for this
-			//thetext.setAttribute('width', thetext.getWidth() + 1);
+			//thetext.setWidth(thetext.getWidth() + 1);
 		</method>
 		
 		<method name="setAltText" args="altTxt">
@@ -50,13 +50,13 @@
 			this.setAttribute("readableText", txt);
 		</method>
 		
-        <handler name="oninit">
+        <method event="oninit">
             this.hlstatus.setAttribute ('rerunxpath', true);
             this.eraserstatus.setAttribute ('rerunxpath', true);
  
             this.hlstatus.setXPath('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@highlighter');
             this.eraserstatus.setXPath('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@eraser');
-        </handler>
+        </method>
 
         <method name="read" args="s">
         	var txt = gController.substituteInputText(this.readableText);
@@ -76,13 +76,13 @@
              = VIEWS
              =============== -->
         
-           <view name="clickregionreader"
+           <view name="clickregion"
                  width="${classroot.thetext.width}"
                  height="${classroot.thetext.height}"
                  clickable="${classroot.isReadable}">
-               <handler name="onclick">
+               <method event="onclick">
                    classroot.read();
-               </handler>
+               </method>
            </view>
 
            <text name="thetext" multiline="false" resize="true"
@@ -93,13 +93,13 @@
 //					Debug.write('xin..', classroot.parent.parent, classroot.parent.parent.getAttribute("comptype"));	
 					if(this.width > classroot.parent.width - xin) {
 //					Debug.write('this.width, parent.width - xin..',this.width, parent.width - xin);
-						this.setAttribute('resize', false);
+						this.setResize(false);
 						this.setMultiline(true);
-						this.setAttribute('width', classroot.parent.width - xin);
-						this.setAttribute('height', this.getTextHeight() + 6);
+						this.setWidth(classroot.parent.width - xin);
+						this.setHeight(this.getTextHeight() + 6);
 					}
 					else {
-						this.setAttribute('resize', true);
+						this.setResize(true);
 						this.setMultiline(false);
 					}
                ]]></handler>

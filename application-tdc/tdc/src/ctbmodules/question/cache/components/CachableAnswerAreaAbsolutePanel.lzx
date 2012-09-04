@@ -99,7 +99,7 @@
 
                         // Per Giuseppe on 12/27, if we're growing the answer
                         // images, then we allow the answer panel to grow also
-                        wrapper.setAttribute('height', null);
+                        wrapper.setHeight(null);
             
                     }        
             
@@ -137,7 +137,7 @@
             When the data changes reset all of our properties/info
         -->
 
-		<handler name="ondata" args="data">
+		<method event="ondata" args="data">
             //width and height
 			if (data.hasAttr ('width')) {
 				this.setAttribute ('width', Number (data.getAttr ('width')));
@@ -183,7 +183,7 @@
             this._initSubnodes ();
 
             doneLoading();
-		</handler>
+		</method>
 
 
 

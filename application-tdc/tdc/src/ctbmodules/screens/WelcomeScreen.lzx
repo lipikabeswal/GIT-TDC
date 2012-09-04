@@ -134,8 +134,7 @@
                 <StartButton x="${ parent.stopbutton.x - width - 10 }"
                              valign="middle"
                              enabled="${ gScreens.allowclick }">
-                   <handler name="onclick" method="dostart"/>
-                    <method name="dostart">
+                    <method name="dostart" event="onclick">
                         gScreens.clicked();
                         gController.openTest();
                     </method>
@@ -146,8 +145,7 @@
                 <ContinueButton x="${ parent.stopbutton.x - width - 10 }"
                              valign="middle"
                              enabled="${ gScreens.allowclick }">
-                   <handler name="onclick" method="docontinue"/>
-                    <method name="docontinue"><![CDATA[
+                    <method name="docontinue" event="onclick"><![CDATA[
                         gScreens.clicked();
                         Debug.write("gController.istRestartLength"+gController.istRestartLength);
                         Debug.write("gController.adaptive"+gController.adaptive);
@@ -175,8 +173,7 @@
             <StopButton name="stopbutton" x="${ parent.width - width }"
                         valign="middle"
                         enabled="${ gScreens.allowclick }">
-                <handler name="onclick" method="dostop"/>
-                <method name="dostop">
+                <method name="dostop" event="onclick">
                     gScreens.clicked();
                     gController.terminate();
                 </method>

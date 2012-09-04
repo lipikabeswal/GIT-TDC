@@ -14,8 +14,8 @@
           @keywords private -->
     <class name="_newinternalinputtext" extends="inputtext">
 
-        <!--- True means that doSetValue called internal inputtext and inputtext
-              should not call doSetValue back. -->
+        <!--- True means that setValue called internal inputtext and inputtext
+              should not call setValue back. -->
         <attribute name="ignorecallup" value="false" />
 
         <!--- Values like password and textwidth, which can't be changed at
@@ -29,28 +29,27 @@
         </method>
 
         <!--- Sent if whenever the focus moves into _internalinputtext. -->
-        <handler name="onfocus" args="s">
+        <method event="onfocus" args="s">
             if (parent['onfocus']) parent.onfocus.sendEvent(s);
-        </handler>
+        </method>
         <!--- Sent if whenever the focus moves out of _internalinputtext. -->
-        <handler name="onblur" args="s">
+        <method event="onblur" args="s">
              if (parent['onblur']) parent.onblur.sendEvent(s);
-        </handler>
+        </method>
         <!--- Sent whenever a user keys up. -->
-        <handler name="onkeyup" args="kc"> <![CDATA[
+        <method event="onkeyup" args="kc"> <![CDATA[
               if (parent['onkeyup']) parent.onkeyup.sendEvent(kc);
               ]]>
-        </handler>
+        </method>
         <!--- Sent whenever a user keys down. -->
-        <handler name="onkeydown" args="kc"> <![CDATA[
+        <method event="onkeydown" args="kc"> <![CDATA[
               if (parent['onkeydown']) parent.onkeydown.sendEvent(kc);
               ]]>
-        </handler>
+        </method>
         <!--- Sent whenever a user enters a valid new character. -->
-        <handler name="ontext" method="doOnText" />
-        <method name="doOnText" args="ignore">
+        <method event="ontext" name="doOnText">
             if (! this.ignorecallup) {
-                parent.doSetValue(this.getText(),false,true);
+                parent.setValue(this.getText(),false,true);
             }
             this.ignorecallup = false;
         </method>
@@ -84,17 +83,19 @@
     <class name="baseedittext" extends="baseformitem" focusable="false">
         <!--- The text that appears in the component. Text and value are the
               same. -->
-        <attribute name="text" type="html" setter="this.doSetValue(text, false, false)"/>
+        <attribute name="text" type="html" setter="this.setValue(text)"/>
 
         <!--- The text that appears in the component. Text and value are the
               same. -->
-        <attribute name="value" value="null" setter="this.doSetValue(value, false, false)"/>
+        <attribute name="value" value="null" setter="this.setValue(value)"/>
 
-        <!--- Set to true for multiple lines. -->
-        <attribute name="multiline" value="false"/>
+        <!--- Set to true for multiple lines. Default is false. -->
+        <attribute name="multiline" value="false" 
+                  setter="setMultiline(multiline)"/>
 
         <!--- Set to true for a password field. Text will appear as ****. 
               This attribute cannot be changed at runtime.
+              Default: false.
               @keywords final -->
         <attribute name="password" value="false" />
 
@@ -108,17 +109,17 @@
               maxlength. Default is any character. -->
         <attribute name="pattern" value="$once{null}" type="string" />
 
-        <!--- The height of the edit text box. -->
-        <attribute name="height" value="20"/>
+        <!--- The height of the edit text box, default: 20. -->
+        <attribute name="height" value="20" setter="this.setHeight(height)"/>
 
-        <!--- The width of the edit text box. -->
+        <!--- The width of the edit text box, default: 106. -->
         <attribute name="width" value="106"/>
 
-        <!--- Font size of the text. -->
+        <!--- Font size of the text. Default is 13. -->
         <attribute name="fontsize" value="13"/>
 
         <!--- Sent when the value of the text changes. -->
-        <event name="onvalue" />
+        <attribute name="onvalue" value="null" />
 
         <!--- Setting the fgcolor of text has the unfortunate effect of setting
               the hilite color as well, so it is disabled here.
@@ -147,33 +148,33 @@
         <!--- Set baseedittext height and correctly place text for
               internalinputfield using _placeTextY().
               @keywords private -->
-        <setter name="height" args="h">
-            super.setAttribute('height', h);
+        <method name="setHeight" args="h">
+            super.setHeight(h);
             this._initialtexty = (!this._initcomplete);
             if (this._initcomplete) this._placeTextY()
-        </setter>
+        </method>
 
         <!--- Set edittext's and _field's multiline attributes. Will affect text
               placement if multiline attribute changes.
               @keywords private -->
-        <setter name="multiline" args="newMultiline">
-            this.multiline = newMultiline;
+        <method name="setMultiline" args="ml">
+            this.multiline = ml;
             if (this._initcomplete) {
-                this._field.setAttribute('multiline', newMultiline);
+                this._field.setMultiline(ml);
                 this._placeTextY();
             }
-        </setter>
+        </method>
 
         <!--- If multiline, places text two pixels from top, else it calculates
               the middle point for the textbox. 
               @keywords private -->
         <method name="_placeTextY">
-            if (this._field) {
-                if (this.multiline) {
-                    this._field.setAttribute('y', 2);
-                } else {
-                    this._field.setAttribute('y', (this.height - this._field.fontsize) / 2 - 3);
-                }
+            if (this.multiline) {
+                this._field.setY(2);
+            } else {
+                this._field.setY( 
+                    (this.height - this._field.getTextHeight()) / 2 - 3 
+                );
             }
         </method>
 
@@ -186,7 +187,7 @@
             this.rollbackvalue = "";
             // Check to see if we have to set text during init.
             if ( this['_initialtext'] != null ){
-                this.doSetValue( this._initialtext, true, false );
+                this.setValue( this._initialtext, true );
             }
             // Make sure value and text are in sync
             this.value = this.text;
@@ -196,47 +197,31 @@
                 this._placeTextY()
             }
 
-            if (this._field) {  // if you instantiate a baseedittext, 
-                                // it will not have an _field
-                if (this.multiline != this._field.multiline) {
-                    this._field.setAttribute("multiline", this.multiline);
-                }
-                if (this.maxlength != null) {
-                    this._field.setAttribute('maxlength', this.maxlength);
-                }
-                if (this.pattern != null) {
-                    this._field.setAttribute('pattern', this.pattern);
-                }
+            if (this.multiline != this._field.multiline) {
+                this._field.setMultiline(this.multiline);
+            }
+            if (this.maxlength != null) {
+                this._field.setMaxLength(this.maxlength);
+            }
+            if (this.pattern != null) {
+                this._field.setPattern(this.pattern);
             }
             ]]>
         </method>
 
-        <!--- Set text. Wraps doSetValue().
+        <!--- Set text. Wraps setValue().
               @param String t: text to set.
               @param Boolean isinitvalue: if the text to set is an
               initvalue. -->
-        <method name="setText" args="t,isinitvalue=false">
-            if (! isinitvalue) {
-              if ($debug) {
-                Debug.deprecated(this, arguments.callee, this.setAttribute);
-              }
-            }
-            this.doSetValue(t,isinitvalue, false);
-        </method>
-
-        <!--- Override acceptValue to pass the magic second argument
-             to doSetValue so the new value is an initializer
-
-            @access private -->
-        <method name="acceptValue" args="data, type=null">
-          if (type == null) type = this.type;
-          this.doSetValue(lz.Type.acceptTypeValue(type, data, this, 'value'), true, false);
+        <method name="setText" args="t,isinitvalue">
+            this.setValue(t,isinitvalue);
         </method>
 
         <!--- Set the value (text) of baseedittext.
               @param String value: the string to set.
-              @param Boolean isinitvalue: if the string is an initvalue. -->
-        <method name="doSetValue" args="value,isinitvalue,_ignorecalldown"><![CDATA[
+              @param Boolean isinitvalue: if the string is an initvalue.
+              @param Boolean isHTML: set HTML text. -->
+        <method name="setValue" args="value,isinitvalue,_ignorecalldown"><![CDATA[
               //----------------------------------------------------------------
               // @param Boolean _ignorecalldown: if true, means that setValue
               // should not call internal inputtext since that's what called
@@ -247,18 +232,16 @@
             if (this._initcomplete) {
 
                 if (! _ignorecalldown) {
-                    if (this._field) {
-                        // Have to set internal inputtext's nocallback attr. It
-                        // can't be passed into _field.setAttribute('text', ) since it's not an
-                        // laszlo method. Nocallback means that setValue called
-                        // internal inputtext and inputtext should not call setValue
-                        // back.
-                        this._field.ignorecallup = true;
+                    // Have to set internal inputtext's nocallback attr. It
+                    // can't be passed into _field.setText() since it's not an
+                    // laszlo method. Nocallback means that setValue called
+                    // internal inputtext and inputtext should not call setValue
+                    // back.
+                    this._field.ignorecallup = true;
 
-                        // _internalinputtext's ontext will trigger an ontext and
-                        // onvalue event so we don't send those events here.
-                        this._field.setAttribute('text', value);
-                    }
+                    // _internalinputtext's ontext will trigger an ontext and
+                    // onvalue event so we don't send those events here.
+                    this._field.setText(value);
                 }
                
                 this.text = value;
@@ -271,7 +254,7 @@
                 if (this['ontext']) this.ontext.sendEvent(value);
 
             } else {
-                if (this._initialtext == '' || this._initialtext == null) {
+                if (this._initialtext == '') {
                     this._initialtext = value;
                 }
             }
@@ -282,7 +265,7 @@
               @param Boolean isinitvalue: if true, clear and set empty string as
               initial value.. -->
         <method name="clearText" args="isinitvalue">
-            this.doSetValue('', isinitvalue, false);
+            this.setValue('', isinitvalue);
         </method>
 
         <!-- Sets the maxmimum number of characters which can be entered.
@@ -301,7 +284,7 @@
               @param Number end: (optional) The end of the text selection. If
               not given, then the text cursor is positioned at the start point,
               but no text is selected. -->
-        <method name="setSelection" args="start,end=null">
+        <method name="setSelection" args="start,end">
             this._field.setSelection(start, end);
         </method>
 
@@ -317,30 +300,17 @@
             return this._field.getSelectionSize();
         </method>
 
-        <!-- @private -->
-        <method name="setPattern" args="r">
-          if ($debug) {
-            Debug.deprecated(this, arguments.callee, this.setAttribute);
-          }
-          this.setAttribute('pattern', r);
-        </method>
-
-        <!--- @private -->
-        <event name="onpattern" />
         <!-- Set the characters which can be entered into a text field. -->
-        <setter name="pattern" args="r">
-            this.pattern = r;
-            if (this.onpattern.ready) { this.onpattern.sendEvent(r); }
-            if (this._initcomplete) {
-              this._field.setAttribute('pattern', r);
-            }
-        </setter>
+        <method name="setPattern" args="r">
+            this.setAttribute('pattern', r);
+            this._field.setPattern(r);
+        </method>
 
         <!--- Returns string displayed in this component. Also see getText().
               @return String: the text string in input box. -->
         <method name="getValue">
             if (this._initcomplete) {
-                return (this._field ? this._field.getText() : "");
+                return this._field.getText();
             } else {
                 return this._initialtext;
             }
@@ -351,7 +321,7 @@
               @return String: the string displayed. -->
         <method name="getText">
             if (this._initcomplete) {
-                return  (this._field ? this._field.getText() : "");
+                return this._field.getText();
             } else {
                 return this._initialtext;
             }
@@ -359,7 +329,7 @@
 
         <!--- @keywords private -->
         <method name="_showEnabled">
-            this._field.setAttribute('enabled', this._enabled);
+            this._field.setEnabled(this._enabled);
         </method>
 
         <!--- @keywords private -->
@@ -377,7 +347,7 @@
 
 </library>
 <!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
-* Copyright 2006-2010 Laszlo Systems, Inc. All Rights Reserved.               *
+* Copyright 2006 Laszlo Systems, Inc. All Rights Reserved.                    *
 * Use is subject to license terms.                                            *
 * X_LZ_COPYRIGHT_END ****************************************************** -->
-<!-- @LZX_VERSION@                                                          -->
+<!-- @LZX_VERSION@                                                         -->

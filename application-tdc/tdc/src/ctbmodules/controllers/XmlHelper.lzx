@@ -25,9 +25,9 @@
     <dataset name="tutorialCompleteDs"  src="xmls/tutorialComplete.xml" />
  
     <node id="gXmlHelper">
-    	<attribute name="dp"  value="$once{new lz.datapointer()}" />
-    	<attribute name="dp2" value="$once{new lz.datapointer()}" />
-    	<attribute name="dp3" value="$once{new lz.datapointer()}" />
+    	<attribute name="dp"  value="$once{new LzDatapointer}" />
+    	<attribute name="dp2" value="$once{new LzDatapointer}" />
+    	<attribute name="dp3" value="$once{new LzDatapointer}" />
     	
     	<attribute name="OK_STATUS_CODE" type="string" value="200" />
     	<attribute name="STATUS_CODE" type="string" value="status_code"/>
@@ -119,18 +119,17 @@
       	</method>
     	
     	<method name="getSaveXml" args="lsid, scid, mseq, cid, params, tts_speed_value">
-			Debug.write("getSaveXMl");
 			clearSaveDs();
     		dp.setXPath("saveDs:/adssvc_request/save_testing_session_data/tsd");
     		dp.setNodeAttribute('lsid', lsid);
     		dp.setNodeAttribute('scid', scid);
     		dp.setNodeAttribute('mseq', mseq);
     		dp.setNodeAttribute('cid', cid);
-			Debug.write("getSaveXMl1");
+
     		if(gController.hasTTSspeed) {
    				dp.setNodeAttribute('tts_speed_value', tts_speed_value);
     		}
-    		Debug.write("getSaveXMl2");
+    		
     		if(params == null){  // ast 
     			dp.addNodeFromPointer(_getAstDp());
     		}
@@ -142,7 +141,6 @@
     				dp.addNodeFromPointer(_getIstDp(params[1]));
      			}
     		}
-			Debug.write("getSaveXMl3");
 //    		if(tsdParams != null &amp;&amp; tsdParams.length &gt; 0){
 //    			dp.addNodeFromPointer(_getTsdDp(lsid, scid, mseq, cid, tsdParams));
 //    		}
@@ -179,7 +177,7 @@
 															//parameter to avoid db hit in TMS
 			dp3.setNodeAttribute("sendCatSave", params[10]);// for differentiating the heartbeat call sending to Cat engine when saving
 			dp3.setNodeAttribute("catOver", gController.catOver);
-
+			dp3.setNodeAttribute("isCatStop", gController.isCatStop);
 			dp3.setXPath("istDs:/ist/rv");
 	   		dp3.setNodeAttribute("t", params[5]);
 	    	dp3.setXPath("istDs:/ist/rv/v");
@@ -344,8 +342,8 @@
 		
 		<method name="getStatusCode" args="response">
 			var result = null;
-			var responseNode = LzDataElement.stringToLzData( response );	
-			var dp = new lz.datapointer();
+			var responseNode = LzDataNode.stringToLzData( response );	
+			var dp = new LzDatapointer();
 			dp.setPointer(responseNode);
 			if(dp.selectChild(2)){
 				var statusCode = dp.getNodeAttribute(STATUS_CODE);

@@ -17,7 +17,7 @@
  		
  		<method name="showFeedback" args="feedback"><![CDATA[
  			var allScos = new Array();
-   			var node = LzDataElement.stringToLzData(feedback);
+   			var node = LzDataNode.stringToLzData(feedback);
             dsfeedback.setChildNodes(new Array(node));
 			var name = gController.getStudentName();
             studentName.setAttribute('text', name + ", this is how you did.");
@@ -160,14 +160,14 @@
 
         <view name="controls" x="${ parent.info.x }" y=" 200" width="550">
 			<BackButton x="350" valign="middle" enabled="${ gScreens.allowclick }" visible="${classroot.currentScoIndex &gt; 0}">
-				<handler name="onclick">
+				<method event="onclick">
 					classroot.previous();
-				</handler>
+				</method>
 			</BackButton>
 			<NextButton x="450" valign="middle" enabled="${ gScreens.allowclick }" >
-				<handler name="onclick">
+				<method event="onclick">
 					classroot.next();
-				</handler>
+				</method>
 			</NextButton>
          </view>
 		

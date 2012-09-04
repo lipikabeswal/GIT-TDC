@@ -18,22 +18,22 @@
 		<method name="setSelectionVars">
 			answer.setSelectionVars();
 		</method>
-		<handler name="onchar_limit">
+		<method event="onchar_limit">
 			this.setAttribute("maxlength",Number(this.char_limit));
 			answer.setAttribute("maxlength",Number(this.char_limit));
-		</handler>
-        <handler name="onwidth">
+		</method>
+        <method event="onwidth">
         // hash of properties from CachableTextField is setting height as a string - need to convert to number
             if(typeof this.width == 'string'){
             	this.setAttribute('width', Number(this.width));
             }
-		</handler>
+		</method>
 		
 		<method name="setAnswer" args="txt">
 			this.answer.setAnswer(txt);
 		</method>
 		
-		<handler name="oninit">
+		<method event="oninit">
 			if(typeof(this.acc_width) != "undefined"){
 				var w = Number(this.acc_width);
 				if(canvas.readable){
@@ -45,7 +45,7 @@
 			}
 			this.setEditTextWidth();
             this.setAttribute("showhandcursor", false);
-		</handler>
+		</method>
 		<method name="setEditTextWidth">
 			if (canvas.readable){
 				this.setAttribute('editTextWidth', Number(this.width) - 32);
@@ -68,12 +68,12 @@
  		<basebutton resource="read_btn" 
  		            name="readBtn"
  		            visible="${canvas.readable}">
-			<handler name="onclick">
+			<method event="onclick">
                 classroot.read();
-			</handler>
-			<handler name="onmouseover">
+			</method>
+			<method event="onmouseover">
 				classroot.setSelectionVars();
-			</handler>
+			</method>
 		</basebutton>
      </class>
 

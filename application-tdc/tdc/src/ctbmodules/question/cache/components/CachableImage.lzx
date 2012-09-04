@@ -39,7 +39,7 @@
             super.init();
         </method>
 
-		<handler name="oninit"><![CDATA[
+		<method event="oninit"><![CDATA[
 		    var params = "";
             if (typeof canvas.folder != "undefined") 
                params = params.concat("&folder=" + canvas.folder);
@@ -47,17 +47,17 @@
                params = params.concat("&user=" + canvas.user);
 
 			if (params == "") {
-			   setAttribute('servletBase', lz.Browser.getInitArg( 'servletUrl' ) 
+			   setAttribute('servletBase', LzBrowser.getInitArg( 'servletUrl' ) 
 					          + '/ContentServlet.do?method=getImage&requestXML=');
 			}
             else {
 				
-			   setAttribute('servletBase', lz.Browser.getInitArg( 'servletUrl' ) 
+			   setAttribute('servletBase', LzBrowser.getInitArg( 'servletUrl' ) 
 					          + '/ContentServlet.do?method=getImage' + params
 							  + '&requestXML=');
 			}
             //Debug.write("XXX servletBase : " + servletBase);
-		]]></handler>
+		]]></method>
 		
         <method name="read">
             if ( this['readable'] ) {
@@ -92,7 +92,7 @@
 			return result;
 		]]></method>
         
-		<handler name="ondata" args="data"><![CDATA[
+		<method event="ondata" args="data"><![CDATA[
 //Debug.write("cachable image ondata");
             this.setAttribute ('retrycount', 0);
             this.setAttribute ('timeoutretrycount', 0);
@@ -197,7 +197,7 @@
 
 
 		]]>
-		</handler>
+		</method>
 
 		<method name="getDefaultErrorMessage">
 		 	var errorStr1 = "The Online Assessment software is unable to connect with the server.";
@@ -210,16 +210,16 @@
 			canvas.setAttribute("g_error", getDefaultErrorMessage());
 		</method>
 		
-        <handler name="onload" reference="this.imageview">
+        <method event="onload" reference="this.imageview">
 //Debug.write("cachable image onload....", this.imageview);        
         	updateImageLayout();
-        </handler>
+        </method>
 
         <method name="getAttrRelComp" args="attr, from">
             var p = from.immediateparent;
             var toreturn = from[attr];
 
-            while (!(p instanceof lz.CachableComponent)) {
+            while (!(p instanceof CachableComponent)) {
                 toreturn += getAttrRelComp(attr, p);
                 p = p.immediateparent;
             }
@@ -261,7 +261,7 @@
 				  * when used as inline image, the factor will  
 				  * always be related to fontsize and not to the 
 				  * position of the image */
-				if((this.parent instanceof lz.CachableTextField) && this.parent['embedded_inline_image'] == true) {
+				if((this.parent instanceof CachableTextField) && this.parent['embedded_inline_image'] == true) {
 					factor = fontmag;
                     newh = factor * this.height;
 				}
@@ -271,8 +271,8 @@
                 this.imageview.setAttribute("width", this.width * factor);
                 this.imageview.setAttribute("height", newh);
                 // Allow this panel to grow to reflect font size
-                this.setAttribute('width', null);
-                this.setAttribute('height', null);
+                this.setWidth(null);
+                this.setHeight(null);
 
             } 
             else if (this['autoenlarge'] == "zoom") {
@@ -305,7 +305,7 @@
                 }
 
                 // Controls the physical dimensions of the panel 
-                parent.wrapper.setAttribute('height', height);
+                parent.wrapper.setHeight(height);
             }
             else {
                 this.imageview.setAttribute("width", this.width);
@@ -360,9 +360,9 @@
     	    	//Debug.write("onstart");
         	</handler>
 
-        	<handler name="onclick">
+        	<method event="onclick">
         		classroot.read();
-        	</handler>
+        	</method>
         	
         	<handler name="onload">
 				if(classroot.isaudio){
@@ -373,18 +373,18 @@
 				}
 		  	</handler>
 
-            <attribute name="reloadDel" value="$once{new lz.Delegate(this, '_reload')}" />
+            <attribute name="reloadDel" value="$once{new LzDelegate(this, '_reload')}" />
             <!--  This is to fix a weird bug that Laszlo couldnt explain - sometimes the request would return a 
                   resource of height 0 and width 0.  It wouldnt error - it would return successfully
                   without the image ..  This is to retry the request if that happens. -->
-            <handler name="onload" args="d"><![CDATA[
+            <method event="onload" args="d"><![CDATA[
 //Debug.write("imageview onload : ",d);
             	if(!gCommunicator.checkShowError(d) && (this.resourceheight == 0 || 
                                                         this.resourcewidth == 0)) {
 //Debug.write("gCommunicator.checkShowError if");            
                     classroot.setAttribute ('retrycount', classroot.retrycount + 1);
                     if (classroot.retrycount < 5) {
-                        lz.Idle.callOnIdle(reloadDel);
+                        LzIdle.callOnIdle(reloadDel);
 //Debug.write("classroot.retrycount : ", classroot.retrycount);
                     } else {
 //Debug.write("else of classroot.retrycount");
@@ -394,7 +394,7 @@
 //Debug.write("doneLoading called...");
 					classroot.doneLoading();
                 }
-            ]]></handler>
+            ]]></method>
             
             <method name="_reload">
 //Debug.write("_reload,...",this.resource);
@@ -402,25 +402,25 @@
                 this.setSource (this.resource);
             </method>
             
-            <handler name="onerror">
+            <method event="onerror">
                 gCommunicator.checkShowError(gXmlHelper.getContentErrorXml());
-            </handler>
+            </method>
 
-            <handler name="ontimeout">
+            <method event="ontimeout">
             <![CDATA[
 //Debug.write("ontimeout....",this.resource);
                 //Debug.warn( resource + ' ontimeout ', classroot.timeoutretrycount );
                 if ( classroot.timeoutretrycount < 1 )
                 {
                     classroot.setAttribute('timeoutretrycount', classroot.timeoutretrycount + 1);
-                    lz.Idle.callOnIdle( reloadDel );
+                    LzIdle.callOnIdle( reloadDel );
                 }
                 else 
                 {
                 	gCommunicator.checkShowError(gXmlHelper.getContentTimeoutXml());
                 }
 			]]>
-            </handler>
+            </method>
         </view>
 
 		 <view name="overlay" visible="false"

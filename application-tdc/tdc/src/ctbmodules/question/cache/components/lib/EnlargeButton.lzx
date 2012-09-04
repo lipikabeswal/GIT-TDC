@@ -3,20 +3,19 @@
     <class name="EnlargeButton" extends="basebutton"
            resource="zoom_in_btn">
 
-        <attribute name="highlighterstatus" value="$once{new lz.datapointer()}"/>
+        <attribute name="highlighterstatus" value="$once{new LzDatapointer()}"/>
         <attribute name="iszoomin" value="true"/>
         <attribute name="isenabled"
                    value="$path{ 'dsdisplay:/display/@enabled' }"/>
         <attribute name="clickable" value="${ isenabled == 'true' }"/>
 
-        <handler name="oninit">
+        <method event="oninit">
             this.highlighterstatus.setAttribute ('rerunxpath', true);
             this.highlighterstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@highlighter')
-        </handler>
+        </method>
 
-        <handler name="onclick">
+        <method event="onclick">
             if (this.iszoomin) {
-            	gFootNotePopup.setAttribute("scrolltext", this);
                 gEnlargePopup.enlarge(classroot.datapath.p, 
                                       classroot.width, 
                                       classroot.height,
@@ -32,13 +31,13 @@
             } else {
                 gEnlargePopup.shrink();
             }
-        </handler>
-        <handler name="onmouseover">
-            lz.Cursor.restoreCursor();
-        </handler>
-        <handler name="onmouseout"><![CDATA[
+        </method>
+        <method event="onmouseover">
+            LzCursor.restoreCursor();
+        </method>
+        <method event="onmouseout"><![CDATA[
 	        gController.restoreCurrentCursor();
-        ]]></handler>
+        ]]></method>
 
     </class>
 
