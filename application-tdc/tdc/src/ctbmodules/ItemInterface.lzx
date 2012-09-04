@@ -15,13 +15,26 @@
            value="$path{ 'subtest/ob_assessment/@starting_question_number' }"/>
 
         <attribute name="hasStartNumber" value="false"/>
-
-        <handler args="n" name="onstartNumber"><![CDATA[
+        
+		<handler name="onkeydown" reference="LzKeys" args="k">
+			if(this.visible) {
+				 gController.setAttribute('trackTimer',0);
+				 gController.resetTrackTimer();
+			}
+		</handler>
+	
+		<handler name="onmousedown" reference="LzGlobalMouse">
+			 if(this.visible) {
+				 gController.setAttribute('trackTimer',0);
+				 gController.resetTrackTimer();
+			}
+		</handler>
+        <method args="n" event="onstartNumber"><![CDATA[
             setAttribute(
                 'hasStartNumber',
                 typeof( n ) == 'string'
             );
-        ]]></handler>
+        ]]></method>
 
         <view name="contents" width="800" height="600"
               datapath="subtest/ob_assessment">
@@ -29,17 +42,17 @@
             <resizelayout axis="y"/>
 
             <view name="itemScreen" width="100%" options="releasetolayout">
-				 <Question width="100%" height="100%" id="gQuestion"
+				<Question width="100%" height="100%" id="gQuestion"
                           datapath="dsitem:/element_package/item_canvas"
                           bgcolor="${gController.questionBgColor}"/>
                 <view width="100%" height="100%">
                     <resizelayout axis="y"/>
                     <view width="${classroot.contents.width + 2}" height="50"
                           bgcolor="0x6691B4" x="-1" clickable="true" showhandcursor="false">
-						<handler name="onmouseover">
+						<method event="onmouseover">
 							gController.clearCurrentCursor();
 							this.setAttribute('showhandcursor', false);
-						</handler>
+						</method>
                         <view x="5" fgcolor="white" fontsize="15">
                             <simplelayout axis="y" spacing="-3"/>
                             <text datapath="dssubtest:/subtest/sco/@title"
@@ -53,25 +66,25 @@
                                 <text text="Question" visible="${!parent.theme}"/>
                                 <text text="${parent.itemno}"
                                       visible="${!parent.theme}">
-                               		<handler name="ontext">
+                               		<method event="ontext">
                                 		var textWidth = this.getTextWidth();
                                 		this.setAttribute('width', textWidth + 1);
-                                	</handler>
+                                	</method>
                                </text>
                                 <text text="of"
                                       visible="${!classroot.hasStartNumber &amp;&amp; !parent.theme}"/>
                                 <text datapath="question_number/@total"
                                       visible="${(gController.adaptive == 'false') &amp;&amp; !classroot.hasStartNumber &amp;&amp; !parent.theme}">
-                               		<handler name="ontext">
+                               		<method event="ontext">
                                 		var textWidth = this.getTextWidth();
                                 		this.setAttribute('width', textWidth + 1);
-                                	</handler>
+                                	</method>
                                  </text>
                                 <text text="${gController.subtestLength}" visible="${(gController.adaptive == 'true') &amp;&amp; !classroot.hasStartNumber &amp;&amp; !parent.theme}">
-                                     <handler name="ontext">
+                                     <method event="ontext">
                                 		var textWidth = this.getTextWidth();
                                 		this.setAttribute('width', textWidth + 1);
-                                	</handler>
+                                	</method>
                                 	</text>
                                 
                             </view>
