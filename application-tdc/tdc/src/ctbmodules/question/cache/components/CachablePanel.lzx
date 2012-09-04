@@ -18,6 +18,7 @@
         -->
 
 		<method name="initComp" args="data">
+		Debug.write("initComp of Panel  ",data);
             super.initComp (data);
     
             //the layout

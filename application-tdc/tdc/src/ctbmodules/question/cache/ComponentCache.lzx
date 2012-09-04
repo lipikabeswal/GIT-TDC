@@ -71,19 +71,20 @@
              methods/events
              ================================= -->
 
-       <method name="getComponent" args="datanode">
+        <method name="getComponent" args="datanode">
         <![CDATA[
+        Debug.write("datanode** ",datanode);
 	    	var newcomp = null;
             var type = datanode.nodeName;
     		var arraytouse = this._findArray (type);
 
             if (arraytouse.length) {
                 newcomp = arraytouse.pop ();
-//Debug.write ('CACHE: used cached ', type, newcomp);
+Debug.write ('CACHE: used cached ', type, newcomp);
 
             } else {
                 newcomp = this._createNewComponent (type);
-//Debug.write ('CACHE: create new ', type, newcomp, datanode);
+Debug.write ('CACHE: create new ', type, newcomp, datanode);
             }
     
             newcomp.doRemoveFromCache ();

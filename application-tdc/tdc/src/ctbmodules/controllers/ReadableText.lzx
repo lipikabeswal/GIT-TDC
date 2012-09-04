@@ -72,7 +72,9 @@
 		<method name="stripHtmlTags" args="txt"><![CDATA[
 			if(txt != null && typeof txt != 'undefined' && txt.length > 0){
 	       		this.setAttribute('text', txt);
-				return this.__LZtextclip.text;
+	       		Debug.write("stripHtmlTags*** ",txt);
+				//return this.__lz.textclip.text;
+				return txt;
 			}
 			else{
 				return "";

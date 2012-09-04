@@ -176,6 +176,7 @@
 
 	        <!-- include the please wait popup -->
 			<include href="ctbmodules/question/PleaseWaitPopup.lzx"/>
+			<include href="ctbmodules/manipulatives/maskinganswer/MaskingAnswer.lzx"/>
         </view>
 
     </view>

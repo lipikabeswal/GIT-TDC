@@ -1,4 +1,4 @@
-<project name="tdc" default="TestClient" basedir=".">
+<project name="tdc-backup" default="TestClient" basedir=".">
 
 	
     <property name="src"   value="${basedir}/src"/>
@@ -22,47 +22,19 @@
     <property name="ctbmodules" value="${basedir}/src/ctbmodules"/>
     <property name="lzmodules" value="${basedir}/src/lzmodules"/>
 
-
-	
+    
     <target name="TestClient" description="compile TestClient.lzx">
     	<echo message="${lzc}"/>
         <exec executable="${lzc}" failonerror="true">
             <arg value="${TestClient.lzx}"/>
-        	<arg value='"--runtime=swf8"'/>
+        	<arg value="--runtime=swf10"/>
         </exec>
         <copy file="${TestClient.lzx.swf}" todir="${webappDir}"/>
         <delete file="${TestClient.swf}"/>
         <delete file="${TestClient.lzx.swf}"/>
     </target>
 
-    <target name="Debug" description="update files on webapp folder from tdc/src">
-    	<unzip src="${basedir}/../openlaszlo-3.3.3-servlet.war" dest="${webappDir}">    		
-    		<patternset>
-    			<exclude name="**/WEB-INF/web.xml"/>
-    			<exclude name="**/META-INF/MANIFEST.MF"/>
-    			<exclude name="**/my-apps/copy-of-hello.lzx"/>
-    		</patternset>
-    	</unzip>
-    	<copy file="${TestClient.lzx}" todir="${webappDir}" overwrite="false"/>
-        <copy file="${basedir}/../etc/proxy.properties" todir="${webappDir}/WEB-INF/classes" overwrite="false"/>
- 
-    	<copy file="${basedir}/../webLZDebug.xml" tofile="${webappDir}/WEB-INF/web.xml" overwrite="true" />
-    	<copy file="${webappDir}/tutorial.html" tofile="${webappDir}/debug.html" overwrite="true" />
-		<replace file="${webappDir}/debug.html">
-			<replacetoken><![CDATA[lzEmbed({url: 'TestClient.lzx.swf?lzt=swf&folder=calif&servletUrl=http://127.0.0.1:12345/servlet/fixed&eliminatorResource=resources/eliminator.swf&__lzhistconn='+top.connuid+'&__lzhisturl=' + escape('includes/h.html?h='), bgcolor: '#6691B4"',  width: '100%', height: '100%'});]]></replacetoken>
-			<replacevalue><![CDATA[lzEmbed({url: 'TestClient.lzx?debug=true&lzt=swf&folder=calif&servletUrl=http://127.0.0.1:12345/servlet/fixed&eliminatorResource=resources/eliminator.swf&__lzhistconn='+top.connuid+'&__lzhisturl=' + escape('includes/h.html?h='), bgcolor: '#6691B4"',  width: '100%', height: '100%'});]]></replacevalue>
-		</replace>
-    	
-    	<copy todir="${webappDir}/ctbmodules" overwrite="true">
-        	<fileset dir="${ctbmodules}"></fileset>
-        </copy>
-        <copy todir="${webappDir}/lzmodules" overwrite="false">
-			<fileset dir="${lzmodules}"></fileset>
-        </copy>
-
-    	
-
-    </target>
+   
 
 	<target name="help" description="describes usage">
         <echo>

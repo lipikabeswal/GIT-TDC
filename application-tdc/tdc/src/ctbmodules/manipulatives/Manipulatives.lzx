@@ -259,10 +259,12 @@
 		
 		<method name="saveZOrders"><![CDATA[
 			var top = gController.dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/general/');
-			var nodes = top.childNodes;
-			for(var i = 0; i < nodes.length; i++){
-				var manip = nodes[i];
-				manip.setAttr('z_order', this.zOrder[this.getIndexForTool(manip.nodeName)]);
+			if(top!=null){
+				var nodes = top.childNodes;
+				for(var i = 0; i < nodes.length; i++){
+					var manip = nodes[i];
+					manip.setAttr('z_order', this.zOrder[this.getIndexForTool(manip.nodeName)]);
+				}
 			}
 		]]></method>
 		

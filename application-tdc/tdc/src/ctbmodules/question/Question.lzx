@@ -1,6 +1,7 @@
 <library>
 
-   <include href="cache/ComponentCache.lzx"/>
+    <include href="cache/ComponentCache.lzx"/>
+
     <class name="Question">
 
         <attribute name="doaccomlayout" value="true"/>
@@ -36,7 +37,7 @@
                     this.convertToAccLayout(data);
                     data = this.datapath.p;
                 }
-
+				Debug.write("Question ondata ----- ",data);
                 for (var i in this.subviews) {
     
                     if (this.subviews [i] instanceof lz.CachableComponent &&
@@ -47,6 +48,7 @@
         
                 var subnodes = data.childNodes;
                 for (var i = 0; i < subnodes.length; i++) {
+                Debug.write("subnodes[i]",subnodes[i]);
                     if ( subnodes[i] instanceof LzDataElement ) {
                         this.cache.getComponent (subnodes [i]);
                     }
@@ -326,7 +328,7 @@
 
 
         <!-- User to figure out how large the directions area is -->
-         <CachablePanel name="sizer" visible="false"/>
+        <CachablePanel name="sizer" visible="false"/>
 
     </class>
 

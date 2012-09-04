@@ -44,7 +44,6 @@
 
 
 		<method name="isOnFinishScreen"><![CDATA[
-			Debug.write("isOnFinishScreen: " , contents.fs.isinited , contents.fs.visible);
 			return (contents.fs.isinited && contents.fs.visible);
 		]]></method>
 		

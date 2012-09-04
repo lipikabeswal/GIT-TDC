@@ -75,6 +75,7 @@
              =============== -->
         <handler name="ondata" args="data"><![CDATA[
             //width
+            Debug.write("TextField ondata fired**** ",data);
             if (data.hasAttr("width")) {
                 this.setAttribute("width", Number(data.getAttr("width")));
             } else {
@@ -95,6 +96,7 @@
             }
 
         	if (data.getAttr("input") == "yes" || data.getAttr("inline_image") == "yes") {
+				Debug.write("inside if");
             	
                	if(data.getAttr("input") == "yes"){
                		this.setAttribute("embedded_input", true);
@@ -114,14 +116,13 @@
 
             	
                	
-               	doneLoading();
+               	super.doneLoading();
                	return;
             }
             else{
                 this.setAttribute("embedded_input", false);
                 this.setAttribute("embedded_inline_image", false);
             }
-
 			setTextReaderAttributes(data);
 			
             var dataText = data.getFirstChild().data;
@@ -129,29 +130,39 @@
 			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
 				dataText = gController.directionsSubstitution(dataText);
 			}  
-
+			
 			var doubleBrIndex = dataText.lastIndexOf('<br/><br/>');
 			if(doubleBrIndex != -1 && ((dataText.length - doubleBrIndex) == 10)){
        			dataText = dataText.substr(0, dataText.length - 5);
 			}
 			
             //alignment
+			Debug.write("valign****** ",data.hasAttr("valign"));
+			
             var valign = "top";
             if (data.hasAttr("valign")) {
+				Debug.write("valign value****** ",data.getAttr("valign"));
                 valign = data.getAttr("valign");
             }
+			Debug.write("valign default value****** ",valign,this);
             this.setAttribute('valign', valign);
-
+			Debug.write("after valign ");
             //justification
             var just = "left";
             if (data.hasAttr("halign")) {
                 just = data.getAttr("halign");
             }
             this.setAttribute('align', just);
+			Debug.write("after just ");
+
             this.thetext.setAttribute("text",
                 '<p align="' + just + '">' + dataText + '</p>');
 
-            doneLoading();
+			Debug.write("after text set", this.thetext);
+
+            super.doneLoading();
+
+			Debug.write("after loading");
 
             //this.doAlign();
             ]]>
@@ -159,10 +170,12 @@
 
 		<method name="setTextReaderAttributes" args="data"><![CDATA[
             var dataText = data.getFirstChild().data;
+			Debug.write("inside setTextReaderAttributes ",panel);
 			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
 			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
 				dataText = gReadableText.stripHtmlTags(gController.directionsSubstitution(dataText));
 			}  
+			Debug.write("dataText after stripHtmlTags ",dataText);
             if ( data.hasAttr( 'alt_text' ) ) {
             	var dataAltText = trim(data.getAttr( 'alt_text' ));
             	if(canvas.readable && dataAltText.length > 0){
@@ -175,9 +188,10 @@
                 setAttribute( 'hasAltText', true );
                 this.setAAText(dataAltText);
             } else {
+				Debug.write("inside else ",canvas.readable);
             	setAttribute('hasReadableText', canvas.readable);
                 setAttribute( 'hasAltText', false );
-                this.setAAText(dataText);
+                //this.setAAText(dataText);
             }
 		]]></method>
 		
