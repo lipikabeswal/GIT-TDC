@@ -144,7 +144,7 @@
 		
 				<handler name="onclick">
 					lz.Timer.removeTimer (this.tooltipdel);
-					gReadableText.stopReading();
+					gReadableText.stopReading(false);
 				</handler>
 		
 				<method name="showTooltip">

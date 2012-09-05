@@ -187,7 +187,7 @@
 		}	
 	    
 		function isMac(){
-			var os = flashSystem.system.capabilities.os;
+			var os = flashSystem.capabilities.os;
 			os = os.split(" ");
 			return os[0] == 'Mac';	
 		}			
@@ -493,6 +493,7 @@
 		<attribute name="isFinishTest" value="false" type="boolean" />
 		<attribute name="restartItemCount" type="number" value="0" />
 		<attribute name="prevItemId" type="number" value="0" />
+		<attribute name="dshowClient" value="$once{ new lz.Delegate( this, 'showClient' ) }" />
 		<!--
 			============================================================
 			Datapointers
@@ -635,7 +636,7 @@
 		<method name="showError" args="xml">
 			stopHeartbeat();
             lz.Cursor.unlock();
-            gReadableText.stopReading();
+            gReadableText.stopReading(false);
         	hideMagnifierGlass();
 			hideMaskingChoiceDD();
             gScreens.showError(xml);
@@ -1255,6 +1256,9 @@
 		-->
 		<method name="initTest"><![CDATA[
         	// remove timer in case previous test was timed but this test is untimed
+        	Debug.write("timeout check",dpsubtest.xpathQuery( 'sco/@sco_duration_minutes' ),dpsubtest.xpathQuery(
+                     'testing_session_data/lms.student.accommodations/@untimed'
+                 ));
         	//Debug.warn("*****************************Init Test***************************");
             lz.Timer.removeTimer( dupdateTimeLeft );
             resetCatAttributes();
@@ -1281,6 +1285,7 @@
             }
             Debug.write("total:"+total);
 			dpdisplay.setNodeAttribute( 'shownWarningMinute', 'false' );
+			
             if ( '0' == dpsubtest.xpathQuery( 'sco/@sco_duration_minutes' ) ||
                  'true' == dpsubtest.xpathQuery(
                      'testing_session_data/lms.student.accommodations/@untimed'
@@ -1292,12 +1297,14 @@
                 var untimed = false;
                 dpdisplay.setNodeAttribute( 'untimed', 'false' );
             }
+            Debug.write("dpdisplay--------- ",dpdisplay);
 
             if ( dprestart.isValid() ) {
-            //Debug.warn("*****************************restart***************************");
+            Debug.warn("*****************************restart***************************");
 				//START Change for deferred Defect 63502
 				var secs = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@rem_sec' );
 				//END
+				Debug.write("secs***** ",secs,dprestart);
                 if ( null == secs ) {
                     // can't find time remaining from restart,
                     // use duration in subtest data
@@ -1312,9 +1319,10 @@
                         getStudentName()
                     );
                 } else {
+                	Debug.write("inside else of initTest");
                     var secsnum = parseInt( secs );
                     if ( secsnum <= 0 && !untimed ) {
-            			gReadableText.stopReading();
+            			gReadableText.stopReading(false);
             			this.setAttribute('firstSubtest', false);
             			this.outOfTimeOpen();
 						//gMusicPlayer.hide();
@@ -1511,16 +1519,15 @@
 				gMusicPlayer.setAttribute('playStarted',true);
 			}*/
             saveLoadItem(fnode, INIT_LEV);
-            Debug.write("saveLoadItem done*****");
-            //dshowClient.register( this, 'itemuiready' );
-			showClient();
+            Debug.write("*****saveLoadItem done*****");
+            dshowClient.register( this, 'itemuiready' );
+			//showClient();
         </method>
 
-		<attribute name="dshowClient"
-			value="$once{ new lz.Delegate( this, 'showClient' ) }" />
+
 		<method name="showClient">
-			Debug.write("inside showClient");
-            //dshowClient.unregisterAll();
+			Debug.write("inside showClient called through delegate");
+            dshowClient.unregisterAll();
             showItemInterface();
         </method>
 
@@ -2221,6 +2228,7 @@
                 var dp = new lz.datapointer();
                 dp.setPointer( dnnewitem );
 				Debug.write("datapointer********  ",dp.xpathQuery( 'interaction/@type' ));
+				Debug.write("dnnewitem ",dnnewitem,dnnewitem.getAttr( 'answered' ),dnnewitem.hasAttr( 'answer_text' ));
                 switch ( dp.xpathQuery( 'interaction/@type' ) ) {
                     case 'choice':
                         if ( dnnewitem.getAttr( 'answered' ) == '1' &&
@@ -2230,6 +2238,7 @@
                               dnnewitem.getAttr( 'answer_text' ) +
                             "']"
                             );
+                            Debug.write("selectornode--------- ",selectornode);
                             if ( selectornode ) {
                                 // assumes that no other selector has been
                                 // marked s
@@ -2258,6 +2267,7 @@
                         // not handled
                         break;
                 }
+                Debug.write("end of switch case ",dp);
 
             }
             // remove not_sr attribute - this will be detected by interaction type
@@ -2351,7 +2361,7 @@
 		]]></method>
 
 		<method name="fixFocus" args="questionBar">
-			//Debug.warn("fixFocus Called");
+			Debug.warn("fixFocus Called");
 			this.questionBar =  questionBar;
 		</method>
 
@@ -2413,7 +2423,7 @@
 				//To reset the Audio Fields Array So that file name will be passed in the save call
 				this.resetAudioFields();
 				this.resetImageField();
-				gReadableText.stopReading();
+				gReadableText.stopReading(false);
 				freezeUI();
 				stopQuestion();
 				canvas.setAttribute('focusobj', null);
@@ -2615,15 +2625,15 @@
 				selid = dnsel.getAttr("identifier");	
 			}
 
-			//Debug.write("has seed2", selid, dnsel);
+			Debug.write("has seed2", selid, dnsel);
 
             if ( dnsel ) {
                 if ( 's' == dnsel.getAttr( 'user_action' ) ) {
-                //Debug.write("toggleItemSelState to N");
+                Debug.write("toggleItemSelState to N");
                     readKeySelection( actualSelId, 'n');
                     setItemSelState( selid, 'n');
                 } else {
-                //Debug.write("toggleItemSelState to s");
+                Debug.write("toggleItemSelState to s");
                     readKeySelection( actualSelId, 's');
                     setItemSelState( selid, 's');
                 }
@@ -2843,7 +2853,7 @@
 			
 		<method name="pauseTest">
             if ( pausable == 'true' ) {
-            	gReadableText.stopReading();
+            	gReadableText.stopReading(false);
                 freezeUI();
                 stopQuestion();
 				//gMusicPlayer.hide();
@@ -2912,7 +2922,7 @@
  		]]></method>
 
 		<method name="finishTest">
-        	gReadableText.stopReading();
+        	gReadableText.stopReading(false);
             freezeUI();
             
          //For Defect 65881        
@@ -3754,7 +3764,15 @@ Debug.write("############ loadItem ############");
 			var result = 0;
 			var dur = dpstudentdata.xpathQuery('current_item/item_model/@dur');
 			if ( timing ) {
-				var timestamp = lz.Timer.getTimer();
+				//var timestamp = lz.Timer.getTimer();
+				/*var date = new Date();
+				var timestamp = date.getTime();*/
+				var timestamp;
+				if($dhtml){
+					timestamp = getTimer()
+				}else{ 
+					timestamp = LzTimeKernel.getTimer();
+				}
   				var diff = Math.floor( (timestamp - qtimestamp) / 1000 );
 
 				if ( typeof( dur ) == 'string' ) {
@@ -3802,11 +3820,19 @@ Debug.write("############ loadItem ############");
 		</method>
 
 		<method name="startQuestion">
+			Debug.write("isuntimed",isuntimed);
             if ( 'true' != isuntimed ) {
                 updateTimeLeft();
                 lz.Timer.resetTimer( dupdateTimeLeft, TIMER_INTERVAL );
             }
-            this.qtimestamp = lz.Timer.getTimer();
+            //this.qtimestamp = lz.Timer.getTimer();
+           /* var date = new Date();
+			this.qtimestamp = date.getTime();*/
+			if($dhtml){
+				this.qtimestamp = getTimer()
+			}else{ 
+				this.qtimestamp = LzTimeKernel.getTimer();
+			}
             this.timing = true;
             exitPopups();  
             this.setAttribute("inQuestion", true);
@@ -3830,7 +3856,7 @@ Debug.write("############ loadItem ############");
 
 		<method name="goToTimeoutScreen">
             lz.Cursor.unlock();
-            gReadableText.stopReading();
+            gReadableText.stopReading(false);
             hideMagnifierGlass();
 			hideMaskingChoiceDD();
             if(this.recorder != null) {
@@ -3843,7 +3869,17 @@ Debug.write("############ loadItem ############");
 		</method>
 
 		<method name="updateTimeLeft"><![CDATA[
-            var timestamp = lz.Timer.getTimer();
+			Debug.write("inside updateTimeLeft");
+			//var date = new Date();
+			var timestamp;
+            //var timestamp = lz.Timer.getTimer();
+            //var timestamp = date.getTime();
+			if($dhtml){
+				timestamp = getTimer()
+			}else{ 
+				timestamp = LzTimeKernel.getTimer();
+			}
+			Debug.write("timestamp------ ",durationms,elapsedms,timestamp,qtimestamp);
             if ( timing ) {
                 var remainingms =
                     durationms - elapsedms - (timestamp - qtimestamp);
@@ -3892,7 +3928,15 @@ Debug.write("############ loadItem ############");
 		<method name="stopQuestion">
     
             if ( timing ) {
-                var timestamp = lz.Timer.getTimer();
+				var timestamp;
+                //var timestamp = lz.Timer.getTimer();
+                /*var date = new Date();
+				var timestamp = date.getTime();*/
+				if($dhtml){
+					timestamp = getTimer()
+				}else{ 
+					timestamp = LzTimeKernel.getTimer();
+				}
 
                 lz.Timer.removeTimer( dupdateTimeLeft );
                 this.timing = false;

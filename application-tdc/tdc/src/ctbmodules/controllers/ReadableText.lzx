@@ -70,11 +70,21 @@
         ]]></method>
 
 		<method name="stripHtmlTags" args="txt"><![CDATA[
+			/*if(txt != null && typeof txt != 'undefined' && txt.length > 0){
+	       		this.setAttribute('text', txt);
+				var mc = this.sprite;
+				return mc.textfield.text;
+			}
+			else{
+				return "";
+			}*/
 			if(txt != null && typeof txt != 'undefined' && txt.length > 0){
 	       		this.setAttribute('text', txt);
-	       		Debug.write("stripHtmlTags*** ",txt);
-				//return this.__lz.textclip.text;
-				return txt;
+				if ($dhtml) {
+					return this.getDisplayObject().textContent;
+				} else {
+					return this.getDisplayObject().textfield.text;
+				}
 			}
 			else{
 				return "";
@@ -179,6 +189,7 @@
                              canvas.readable
                            }"/>
         <method name="stopReading" args="fromSp"><![CDATA[
+        	Debug.write("audioPlayer***** ",audioPlayer);
         	if(fromSp != true || (fromSp == true && gReadableText.readingScratchpad)){
         		audioPlayer.stop();
         	}

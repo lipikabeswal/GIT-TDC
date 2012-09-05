@@ -168,6 +168,10 @@ Debug.showInternalProperties=true;
 				    arraytouse = cachedselectors;
 				    break;
 			    }
+			    case gCompTypes.WIDGET_SELECTOR: {
+				    arraytouse = cachedselectors;
+				    break;
+			    }
 			    case gCompTypes.WIDGET_SCROLLING_TEXT_PANEL: {
                     arraytouse = cachedscrolltextpanels;
                     break;

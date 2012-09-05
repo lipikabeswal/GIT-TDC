@@ -137,28 +137,20 @@
 			}
 			
             //alignment
-			Debug.write("valign****** ",data.hasAttr("valign"));
-			
             var valign = "top";
             if (data.hasAttr("valign")) {
-				Debug.write("valign value****** ",data.getAttr("valign"));
                 valign = data.getAttr("valign");
             }
-			Debug.write("valign default value****** ",valign,this);
             this.setAttribute('valign', valign);
-			Debug.write("after valign ");
             //justification
             var just = "left";
             if (data.hasAttr("halign")) {
                 just = data.getAttr("halign");
             }
             this.setAttribute('align', just);
-			Debug.write("after just ");
 
             this.thetext.setAttribute("text",
                 '<p align="' + just + '">' + dataText + '</p>');
-
-			Debug.write("after text set", this.thetext);
 
             super.doneLoading();
 
@@ -191,7 +183,7 @@
 				Debug.write("inside else ",canvas.readable);
             	setAttribute('hasReadableText', canvas.readable);
                 setAttribute( 'hasAltText', false );
-                //this.setAAText(dataText);
+                this.setAAText(dataText);
             }
 		]]></method>
 		
@@ -1150,7 +1142,7 @@ parse the text string and store text and image string in an array at different i
             	this.subviews[0].setAttribute('clickable',true);
 		</method>
         
-        <state apply="${classroot.embedded_input == false &amp;&amp; classroot.embedded_inline_image == false}">
+        <state applied="${classroot.embedded_input == false &amp;&amp; classroot.embedded_inline_image == false}">
            <view name="clickregionreader"
                  width="${classroot.thetext.width}"
                  height="${classroot.thetext.height}"

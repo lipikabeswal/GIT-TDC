@@ -78,11 +78,11 @@
 		type="string" />
 	<attribute name="useDefaultEliminator" type="boolean" value="true" />
 	  
-	<method name="setCrFocus">
-		var fo = canvas.getAttribute('focusobj');
-		if(typeof fo == 'object'){
+	<method name="setCrFocus"><![CDATA[
+		var fo = canvas.focusobj;
+		if(typeof fo == 'object' && fo!=null){
 			fo.onfocus.sendEvent();
-		}
+		}]]>
 	</method>
 	<handler name="onfootnotedata" args="data">
         gFootNotePopup.show(data);
