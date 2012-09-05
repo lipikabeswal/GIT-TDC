@@ -1,0 +1,83 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta http-equiv="X-UA-Compatible" content="chrome=1"><link rel="SHORTCUT ICON" href="http://www.laszlosystems.com/favicon.ico"><meta name="viewport" content="width=device-width; initial-scale=1.0;"><title>OpenLaszlo 4.9.0: loginScreen (lps-4.9.0/Login/loginScreen)</title><script type="text/javascript" src="lps/includes/embed-compressed.js"></script>
+   <script type="text/javascript" charset="utf-8" src="cordova-1.8.0.js"></script>
+   <script type="text/javascript" charset="utf-8" src="main.js"></script>
+   <script type="text/javascript" charset="utf-8" src="samplePlugin.js"></script>
+   <script type="text/javascript" charset="utf-8" src="jquery-1.7.2.js"></script>
+   <script type="text/javascript">
+   		
+		function sendRequest(method,xml){
+			alert("Hi.............");
+			var jsonObj = {param1 : method, param2 : xml};
+       		window.plugins.SamplePlugin.LOGIN
+	        (
+	            function(result)
+	            {
+	            	alert(result.time);
+	            	console.log("result callback" + result.time);
+	            	
+	                setResponse(result);
+	            },
+	            function(error)
+	            {
+	                console.log(error);
+	            },
+	            jsonObj
+	        );
+		}
+		
+		function ping(){
+			var method="login";
+			var xml = "xml";
+			Android.doRequest(method,xml);
+		}
+		
+		function setResponse(result){
+		
+			lz.embed.setCanvasAttribute("response", result.time);
+		
+		}
+   </script>
+   
+   <!--[if lt IE 9]><script type="text/javascript" src="lps/includes/excanvas.js"></script><![endif]--><style type="text/css">
+            html, body
+            {
+                /* http://www.quirksmode.org/css/100percheight.html */
+                height: 100%;
+                /* prevent browser decorations */
+                margin: 0;
+                padding: 0;
+                border: 0 none;
+            }
+            body {
+                background-color: #323b55;
+            }
+            img { border: 0 none; }
+        </style><!--[if IE]>
+        <style type="text/css">
+            /* Fix IE scrollbar braindeath */
+            html { overflow: auto; overflow-x: hidden; }
+        </style>
+        <![endif]--></head><body>
+        
+        <div id="appcontainer"></div><div id="lzsplash" style="z-index: 10000000; top: 0; left: 0; width: 100%; height: 100%; position: fixed; display: table"><p style="display: table-cell; vertical-align: middle;"><img src="lps/includes/spinner.gif" style="display: block; margin: 20% auto" alt="application initializing"></p></div><script type="text/javascript" defer>
+                  lz.embed.resizeWindow('100%', '100%');
+                  lz.embed.dhtml({url: 'loginScreen.lzx.js', lfcurl: 'lps/includes/lfc/LFCdhtml.js', serverroot: 'lps/resources/', bgcolor: '#323b55', width: '100%', height: '100%', id: 'lzapp', accessible: 'false', cancelmousewheel: false, cancelkeyboardcontrol: false, skipchromeinstall: false, usemastersprite: false, approot: '', appenddivid: 'appcontainer'});
+                  lz.embed.applications.lzapp.onload = function loaded() {
+                    // called when this application is done loading
+                    var el = document.getElementById('lzsplash');
+                    if (el.parentNode) {
+                        el.parentNode.removeChild(el);
+                    }
+                  }
+                </script><noscript>
+                Please enable JavaScript in order to use this application.
+            </noscript>
+            
+            </body></html>
