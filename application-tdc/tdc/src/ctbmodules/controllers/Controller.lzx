@@ -507,7 +507,7 @@
 		<datapointer name="dplogin" xpath="dslogin:/login_response" />
 
 		<datapointer name="dpsubtest" xpath="dssubtest:/subtest">
-			<handler name="ondata">
+			<method event="ondata">
            
             	gController.updateItemTypes();
                 gController.clearStudentData();
@@ -515,7 +515,7 @@
                 gController._getAccomStyles ();
                 gController.setupPopups();
                 gController.initTest();
-             </handler>
+             </method>
 		</datapointer>
 
 		<datapointer name="dpstimulus"
@@ -544,8 +544,12 @@
 		<attribute name="RestartTest" value="false" type="boolean" />
 		<attribute name="trackTimer" type="number" value="0"/>
 		<attribute name="isOK" type="string" value="F"/>
-		<attribute name="countdownTimer" type="number" value="0"/>
-			
+		<attribute name="elapsedmsforpause" type="number" value="0" />
+		<attribute name="durationmsforpause" type="number" value="0" />
+		<attribute name="qtimestampforpause" type="number" value="0" />
+		<attribute name="timingforpause" type="boolean" value="false" />
+		<attribute name="isHandlerInactive" type="boolean" value="false" />
+			 
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
 			if(gScratchpad.scratchpadHasFocus) { 
@@ -611,12 +615,14 @@
 			gScratchpad.setText("");
 		</method>
 
-		<handler name="oninit">
+		<method event="oninit">
+			this.setAttribute('isHandlerInactive', true);
         	gScreens.showLogin();
 			var base = LzBrowser.getInitArg( 'servletUrl' );
 			dsitem.setSrc(base + '/ContentServlet.do'); 
-			dsMusic.setSrc(base + '/ContentServlet.do');       	
-        </handler>
+			dsMusic.setSrc(base + '/ContentServlet.do');
+			       	
+        </method>
 
 		<method name="login" args="_userid, _password, _accesscode">
 			setAttribute('userid', _userid == null ? null : _userid.toLowerCase());
@@ -710,7 +716,7 @@
 			setAttribute('state', _state);
 		</method>
 
-		<handler name="oncommunicatorResponse" args="response">
+		<method event="oncommunicatorResponse" args="response">
 			var responseState = state;
 			if(state != DOWNLOAD_STATE){
 				setState(NONE_STATE);
@@ -775,7 +781,7 @@
 						break;
 				}
 			}
-		</handler>
+		</method>
 
 		<method name="_handleUploadAuditFileResponse" args="response"><![CDATA[
             // clock is stopped
@@ -872,19 +878,24 @@
 		<method name="_handleSubtestFinishResponse" args="response">
 			var node = LzDataNode.stringToLzData(response);
 			var nextSubtestIndex = getSubtestIndex(node);
-			removeTrackTimer();
-			if(nextSubtestIndex != -1){
-				setAttribute('currentSubtestIndex', nextSubtestIndex);
-				getSubtest();
-			}
-			else if(this.getAttribute('isOK') == 'T'){
-				getScoreSheet();
-			}
-			else if(isFeedback()){
-				getFeedback();
+			//removeTrackTimer();
+			if(this.getAttribute('testTimeout') == true) {
+				terminate();
 			}
 			else {
-				terminate();
+				if(nextSubtestIndex != -1){
+					setAttribute('currentSubtestIndex', nextSubtestIndex);
+					getSubtest();
+				}
+				else if(this.getAttribute('isOK') == 'T'){
+					getScoreSheet();
+				}
+				else if(isFeedback()){
+					getFeedback();
+				}
+				else {
+					terminate();
+				}
 			}
 		</method>
 		<method name="getSubtestIndex" args="node"><![CDATA[
@@ -937,7 +948,7 @@
 		<method name="_handleFinishSaveResponse" args="response">
 			setState(SUBTEST_FINISH_STATE);
 			resetHeartbeat();
-			gCommunicator.lifecycle(FINISH_LEV);
+				gCommunicator.lifecycle(FINISH_LEV);
 		</method>
 
 		<method name="_handleFinishResponse" args="response">
@@ -947,8 +958,16 @@
 		<method name="goToGoodbyeScreen">
 			stopHeartbeat();
 			removeTrackTimer();
+			removePauseTimer();
 			gScreens.showGoodbye();
 			LzTimer.addTimer( dcloseBrowser, 5000 );
+		</method>
+
+		<method name="goToTimedoutScreen">
+			stopHeartbeat();
+			removeTrackTimer();
+			removePauseTimer();
+			gScreens.showTimeout();
 		</method>
 
 		<attribute name="dcloseBrowser"
@@ -982,7 +1001,7 @@
 				gScreens.showLoginError(gXmlHelper.getStatusCode(response));
 			}
 			else{
-
+				dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
 	    		var node = LzDataNode.stringToLzData(response);
 	    		dp.setPointer(node);
 	    		setShowHighlighter();
@@ -1364,6 +1383,7 @@
                 }
 				
 				if(firstSubtest){
+					recalltrackMouseMove();
                 	gScreens.showWelcome( mins, total, untimed, getStudentName() );
                 }
                 else{
@@ -1538,7 +1558,7 @@
 			}*/
             saveLoadItem(fnode, INIT_LEV);
             dshowClient.register( this, 'itemuiready' );
-			trackMouseMove();
+			//trackMouseMove();
         </method>
 
 		<attribute name="dshowClient"
@@ -2894,9 +2914,13 @@
 			this.resetCrs();
             LzCursor.unlock();  
         	checkHideMagnifierGlass();
-			checkHideMaskingChoiceDD();    
+			checkHideMaskingChoiceDD(); 
+			removeTrackTimer();
+			resetPauseTimer(1200);
+			startPauseTimer();
             gScreens.showPause(getStudentName());
-			trackCountdownTimer();
+			gPauseTimerScreen.setVisible(true);
+			
 		</method>
 
 		<method name="pausedContinue" args="pw">
@@ -2922,7 +2946,9 @@
             restoreScratchpadFocusIfNeeded();
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
-			removeCountdownTimer();
+			removePauseTimer();
+			gPauseTimerScreen.setVisible(false);
+			dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
 		</method>
 
 		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
@@ -2956,8 +2982,8 @@
             	//this.setAttribute("sendCatSave",true);
             	setSendCatSave();
             }
-			this.setAttribute('trackTimer',0);
-			removeTrackTimer();
+			//this.setAttribute('trackTimer',0);
+			//removeTrackTimer();
             save();
         </method>
 	
@@ -3734,7 +3760,12 @@ Debug.write("############ loadItem ############");
             }else{
             	this.setAttribute('trackTimer',Math.round(this.trackTimer+1000));
             	if(this.trackTimer >= 1200000){
-            		testTimedout();
+					stopQuestion();
+					removeTrackTimer();
+					gScreens.showTimeoutForInactivity();
+					canvas.setPromptDimension();
+            		timeoutDialog.open();
+
             	}else{
 					resetTrackTimer();
 				}
@@ -3743,45 +3774,89 @@ Debug.write("############ loadItem ############");
         </method>
         
         <method name="resetTrackTimer">
-			//Debug.write("trackTimer",this.trackTimer);
+			Debug.write("trackTimer",this.trackTimer);
 			LzTimer.resetTimer(trackDel,1000);
 		</method>
 		
 		<method name="testTimedout">
+			gPauseTimerScreen.setVisible(false);
+			timeoutDialog.close();
 			this.setAttribute('testTimeout',true);
-			terminate();
+			endSubtest( 'time-out' );
 		</method>
 
 		<method name="removeTrackTimer">
+			this.setAttribute('isHandlerInactive', true);
 			this.setAttribute('trackTimer',0);
 			LzTimer.removeTimer(trackDel);
 		</method>
 
 		<method name="recalltrackMouseMove">
+			this.setAttribute('isHandlerInactive', false);
 			this.setAttribute('trackTimer',0);
 			trackMouseMove();
 		</method>
 
-		<attribute name="trackCountdown" 
-                   value="$once{new LzDelegate( this , 'trackCountdownTimer' ) }" />
+		<method name="startPauseTimer">
+            updateTimeLeftForPause();
+            LzTimer.resetTimer( dupdateTimeLeftForPause, 1000 );
+            this.qtimestampforpause = getTimer();
+            this.timingforpause = true;
+            exitPopups();
+        </method>
 
-		<method name="trackCountdownTimer">
-				this.setAttribute('countdownTimer',Math.round(this.countdownTimer+1000));
-            	if(this.countdownTimer >= 1200000){
-            		testTimedout();
-				}else{
-					resetCountdownTimer();
-				}
-		</method>
+		<method name="updateTimeLeftForPause"><![CDATA[
+            var timestamp = getTimer();
+            if ( timingforpause ) {
+                var remainingmsforpause =
+                    durationmsforpause - (timestamp - qtimestampforpause);
+                if ( remainingmsforpause <= 0 ) {
+                    dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
+					canvas.setPromptDimension();
+					timeoutDialog.open();
+                } else {
+                    var timeleftforpause = secondsToString(
+                        Math.floor( remainingmsforpause / 1000 )
+                    );
+                    dpdisplay.setNodeAttribute( 'timeleftforpause', timeleftforpause );
 
-		<method name="resetCountdownTimer">
-			//Debug.write("countdownTimer",this.countdownTimer);
-			LzTimer.resetTimer(trackCountdown,1000);
-		</method>
+                    LzTimer.resetTimer( dupdateTimeLeftForPause, 1000 );
 
-		<method name="removeCountdownTimer">
-			this.setAttribute('countdownTimer',0);
-			LzTimer.removeTimer(trackCountdown);
+                    if ( (remainingmsforpause / 1000) / 60 <= WARNING_MINUTE ) {
+                    	var shownWarning = dpdisplay.getNodeAttribute( 'shownWarningMinute');
+                    	if(shownWarning == 'false'){
+	                        showHideTimer( true );
+	                        dpdisplay.setNodeAttribute( 'shownWarningMinute', 'true' );
+                        }
+                    }
+                }
+            } else {
+                var remainingmsforpause = durationmsforpause - elapsedmsforpause;
+                if ( remainingmsforpause <= 0 ) {
+                    dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
+					canvas.setPromptDimension();
+					timeoutDialog.open();
+                } else {
+                    var timeleftforpause = secondsToString(
+                        Math.floor( remainingmsforpause / 1000 )
+                    );
+                    dpdisplay.setNodeAttribute( 'timeleftforpause', timeleftforpause );
+                }
+            }
+        ]]></method> 
+
+		<attribute name="dupdateTimeLeftForPause"
+			value="$once{ new LzDelegate( this, 'updateTimeLeftForPause' ) }" />
+
+		<method name="resetPauseTimer" args="durseconds">
+            this.durationmsforpause = durseconds * 1000;
+            this.elapsedmsforpause  = 0;
+            this.qtimestampforpause = 0;
+            this.timingforpause     = false;
+        </method>
+
+		<method name="removePauseTimer">
+			LzTimer.removeTimer(dupdateTimeLeftForPause);
 		</method>
 	
 		<!--added for tdc timeout OK end-->

@@ -10,5 +10,6 @@
     <include href="screens/Tutorial.lzx"/>
     <include href="rich-text"/>
     <include href="manipulatives/maskinganswer/MaskingAnswerClass.lzx" />
+    <include href="screens/PauseTimerScreen.lzx" />
 
 </library>

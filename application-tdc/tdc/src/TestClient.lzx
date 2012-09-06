@@ -1,4 +1,4 @@
-<canvas bgcolor="0x6691B4" proxied="false" debug="true"
+<canvas bgcolor="0x6691B4" proxied="false" debug="false"
 	accessible="true">
 
 	<debug x="0" y="0" width="80%" height="400" />
@@ -75,7 +75,19 @@
 		value="$once{LzBrowser.getInitArg('eliminatorResource')}"
 		type="string" />
 	<attribute name="useDefaultEliminator" type="boolean" value="true" />
-	  
+	<handler name="onkeydown" reference="LzKeys" args="k"><![CDATA[
+		if(gController.getAttribute('isHandlerInactive') == false) {
+			gController.setAttribute('trackTimer',0);
+			gController.resetTrackTimer();
+		}
+	]]></handler>
+	
+	 <handler name="onmousedown" reference="LzGlobalMouse"><![CDATA[
+	 	if(gController.getAttribute('isHandlerInactive') == false) {
+			gController.setAttribute('trackTimer',0);
+			gController.resetTrackTimer();
+		}
+	]]></handler>   
 	<method name="setCrFocus">
 		var fo = canvas.getAttribute('focusobj');
 		if(typeof fo == 'object'){
@@ -122,6 +134,14 @@
 
 	<method name="doNothing">
     </method>
+	
+	<method name="setPromptDimension">
+		if(gPauseTimerScreen.visible) {
+			titleView.mainView.timeoutDialog.setY(200);
+		} else {
+			titleView.mainView.timeoutDialog.setY(20);
+		}
+	</method>
     
 	<!--  this view tests whether or not the eliminator resource is available -->
 	<view name="eliminatorTester" visible="false" height="0"
@@ -146,9 +166,7 @@
 	</view>
 	<view name="titleView" width="100%" height="100%" >
 	<view name="mainView"  width="100%" height="100%" bgcolor="0x6691B4">
-		<handler name="oninit">
-
-		</handler>
+		
 	<view name="scalingView"  stretches ="both"
 		height="${ canvas.width/canvas.height &lt; 1.33 
                      ? this.width * unstretchedheight/unstretchedwidth 
@@ -171,15 +189,41 @@
             </Screens>
             <Tutorial id="gTutorial" width="800" height="600"
                         visible="false"/>
-
+			<PauseTimerScreen id="gPauseTimerScreen" name="gPauseTimerScreen" 
+				width="800" height="200" visible="false"/>
+			
 	        <!-- include the please wait popup -->
 	        <include href="ctbmodules/question/RevisitFalsePopup.lzx"/>
 			<include href="ctbmodules/question/PleaseWaitPopup.lzx"/>
 			<include href="ctbmodules/question/MusicPlayer.lzx"/>
 			<include href="ctbmodules/manipulatives/maskinganswer/MaskingAnswer.lzx"/>
         </view>
-
+			
     </view>
+	<modaldialog id="timeoutDialog" name="timeoutDialog" title="OAS"
+			width="400" height="160" visible="false" bgcolor="0xC0C0C0" x="470" y="20">
+	    <text font="CTB"	
+             fontsize="15" 
+             fgcolor="0x1D4896">
+             The 20-minute time limit has been exceeded.
+           </text>
+		<text font="CTB"	
+             fontsize="15" 
+             fgcolor="0x1D4896">
+             Please click ok to close OAS.
+           </text>
+	    <view align="center" layout="axis:x; spacing:20">
+	      <OkButton y="3" enabled="${ gScreens.allowclick }">
+               <method name="continue" event="onclick">
+                   gScreens.clicked();
+                   gController.testTimedout();
+               </method>
+           </OkButton>
+	    </view>
+	    <simplelayout spacing="5"/>
+  </modaldialog>
+
+
     </view>
   
 </view>

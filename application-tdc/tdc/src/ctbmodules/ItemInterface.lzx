@@ -16,7 +16,7 @@
 
         <attribute name="hasStartNumber" value="false"/>
         
-		<handler name="onkeydown" reference="LzKeys" args="k">
+		 <!-- <handler name="onkeydown" reference="LzKeys" args="k">
 			if(this.visible) {
 				 gController.setAttribute('trackTimer',0);
 				 gController.resetTrackTimer();
@@ -28,7 +28,7 @@
 				 gController.setAttribute('trackTimer',0);
 				 gController.resetTrackTimer();
 			}
-		</handler>
+		</handler> -->
         <method args="n" event="onstartNumber"><![CDATA[
             setAttribute(
                 'hasStartNumber',
