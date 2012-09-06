@@ -33,7 +33,7 @@
 
 	<xsl:template match="//property[@name='installerName']">
 		<property name="installerName">
-			<string><![CDATA[InstallOAS_TERR3]]></string>
+			<string><![CDATA[InstallOAS_TERRANOVA3]]></string>
 		</property>
 	</xsl:template>
 
