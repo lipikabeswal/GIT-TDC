@@ -70,6 +70,9 @@
 		<antcall target="buildTN" />  
 		<!-- <antcall target="buildTNThin" /> -->
 		
+		<antcall target="buildTNG" />  
+		<!-- <antcall target="buildTNGThin" /> -->
+		
 		<antcall target="postClean"></antcall>
 		<antcall target="buildTDCUpdate"></antcall>
 	</target>
@@ -178,6 +181,22 @@
 	</target>
 	
 	
+	<!-- **************************** TerraNova Form G ******************************* -->	
+	<target name="buildTNG" description="Builds the TNG installer" depends="init">
+		<antcall target="buildNonThinClientInstaller">
+			<param name="installer.type" value="tng" />
+			<param name="installer.primary.url" value="https://tn-oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://tn-oasdr.ctb.com" />
+		</antcall>
+	</target>
+
+	<target name="buildTNGThin" description="Builds the TNG installer" depends="init">
+		<antcall target="buildThinClientInstaller">
+			<param name="installer.type" value="tng-thin" />
+			<param name="installer.primary.url" value="https://tn-oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://tn-oasdr.ctb.com" />
+		</antcall>
+	</target>
 	
 	
 	<!-- Internal tasks **************************************************** -->
