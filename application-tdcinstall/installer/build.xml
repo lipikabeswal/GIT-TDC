@@ -1,4 +1,4 @@
-<project name="application-tdcinstall InstallAnywhere Installer" default="usage" basedir=".">
+<project name="application-tdcinstall InstallAnywhere Installer" default="usage" basedir="."> 
  
  	<property name="project.installer.application.dir" value="C:\Program Files\InstallAnywhere 2008 Enterprise" />
 	<property name="project.installer.src"             value="tdc.iap_xml" />
