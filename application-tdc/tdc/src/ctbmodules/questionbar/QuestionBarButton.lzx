@@ -11,7 +11,7 @@
 
         <attribute name="isenabled"
                    value="$path{ 'dsdisplay:/display/@enabled' }"/>
-        <attribute name="clickable" value="${ isenabled == 'true' }"/>
+        <attribute name="clickable" value="${ isenabled == true }"/>
 
         <attribute name="showconnector" value="false"/>
         
@@ -48,6 +48,7 @@
         </method>
 
         <method name="setIsMarked" args="ismarked">
+		Debug.write("setIsMarked" + ismarked);
             if (typeof (ismarked) == 'string') {
                 ismarked = (ismarked == '1');
             } 
@@ -114,11 +115,8 @@
         <handler name="onclick">
 			gController.setAttribute("nextItem", itemeid ); 
 			gController.setAttribute("navigateConfirm",false);
-			//Debug.write(" navigate to" + gController.getAttribute("navigateConfirm"));
-			if(!gController.getAttribute("navigateConfirm")){
-			//Debug.warn("Inside IF question bar");
-			gController.fixFocus(this);
-			
+			if(!gController.navigateConfirm){
+				gController.fixFocus(this);
 			}
 			
             gController.navigateTo( itemeid );
@@ -148,7 +146,7 @@
                 else                        newframe = 1;
             }
 
-            this.btn.setAttribute ('frame', newframe);
+            this.btn.setAttribute('frame', newframe);
         ]]></method>
 
 

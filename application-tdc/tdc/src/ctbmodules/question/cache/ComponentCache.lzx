@@ -180,6 +180,22 @@ Debug.showInternalProperties=true;
                     arraytouse = cachedscrolltexts;
                     break;
                 }
+                case gCompTypes.WIDGET_STIMULUS_TABS_PANEL: {
+                    arraytouse = cachedstimulustabspanels;
+                    break;
+                }
+                case gCompTypes.WIDGET_STIMULUS_TAB: {
+                    arraytouse = cachedstimulustab;
+                    break;
+                }
+                case gCompTypes.WIDGET_TABLE: {
+                    arraytouse = cachedtables;
+                    break;
+                }
+                case gCompTypes.WIDGET_TABLE_CELL: {
+                    arraytouse = cachedtablecells;      
+                    break;
+                }
               <!--   case gCompTypes.WIDGET_SINGLE_LINE_ANSWER: {
                     arraytouse = cachedsinglelineinput;      
                     break;
@@ -188,6 +204,10 @@ Debug.showInternalProperties=true;
                     arraytouse = cachedmultilineinput;      
                     break;
                 }-->
+                case gCompTypes.WIDGET_REFERENCE_CARD: {
+                    arraytouse = cachedreferencecard;      
+                    break;
+                }
                 default: {
                    Debug.warn ('CACHE: unknown component type', type);
                     break;
@@ -236,14 +256,38 @@ Debug.showInternalProperties=true;
 				    toReturn = new lz.CachableSelector (parent);
 				    break;
 			    }
-			<!--     case gCompTypes.WIDGET_SCROLLING_TEXT_PANEL: {
+			    case gCompTypes.WIDGET_SCROLLING_TEXT_PANEL: {
+			    	Debug.write("inside WIDGET_SCROLLING_TEXT_PANEL",parent);
 				    toReturn = new lz.CachableScrollingTextPanel (parent);
+					Debug.write("toReturn",toReturn);
 				    break;
 			    }
 			    case gCompTypes.WIDGET_SCROLLING_TEXT: {
 				    toReturn = new lz.CachableScrollingText (parent);
 				    break;
-			    }-->                
+			    }
+			    case gCompTypes.WIDGET_STIMULUS_TABS_PANEL: {
+				    toReturn = new lz.CachableTabsPanel (parent);
+				    break;
+			    }
+			    case gCompTypes.WIDGET_STIMULUS_TAB: {
+				    toReturn = new lz.CachableTab (parent);
+				    break;
+			    }
+			    case gCompTypes.WIDGET_TABLE: {
+				    toReturn = new lz.CachableTable (parent);
+				    break;
+                }
+                case gCompTypes.WIDGET_TABLE_CELL: {
+				    toReturn = new lz.CachableTableCell (parent);
+				    break;
+                }
+                case gCompTypes.WIDGET_REFERENCE_CARD: {
+                	var hash = new Array();
+                	hash['id'] = 'gFormulaCard';
+					toReturn = new lz.CachableRefCard(parent, hash);
+			    	break;
+                }                
              <!--    case gCompTypes.WIDGET_SINGLE_LINE_ANSWER: {
 					toReturn = new lz.CachableSingleLineAnswer(parent);
 			    	break;
@@ -257,7 +301,7 @@ Debug.showInternalProperties=true;
                     break;
                 }
             }
-//Debug.write(" ComponentCache, Create new ", toReturn);
+Debug.write(" ComponentCache, Create new ", toReturn);
 		    return toReturn;
         </method> 
 

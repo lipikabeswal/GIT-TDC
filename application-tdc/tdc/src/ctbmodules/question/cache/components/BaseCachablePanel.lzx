@@ -42,15 +42,15 @@
             When the data changes reset all of our properties/info
         -->
 
-		<handler name="ondata"  method="initComp" args="data"/>
+		<handler name="ondata"  method="initComp" />
 		<method name="initComp" args="data"><![CDATA[
-            Debug.write("initComp ",data);
             if (!data) return;
+			
 			//Randomization will only be applied if login response has seed with it
 			if(gController.isLoginResponseHavingSeed && !nullOrSpace(gController.seed) && data != null) {
 				applyRandomDistractors(data);	
 			}
-			Debug.write("after applyRandomDistractors");
+
 			setPassageIdFromData(data);
             var contents = this.wrapper.scrollcontainer.offsetwrapper.contents;
 
@@ -127,11 +127,11 @@
             super.doneLoading();
             
             //inform gFootNotePopup footnotes
-            /*if((this instanceof lz.CachableScrollingTextPanel) 
+			/*if((this instanceof lz.CachableScrollingTextPanel) 
                 || this instanceof lz.CachableTabsPanel) 
             {
                 gFootNotePopup.setAttribute("scrolltext", this);
-            } */               
+            }       */       
         ]]></method>
 
 		<!-- 

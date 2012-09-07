@@ -151,13 +151,7 @@
 		<!--<handler name="oninit">
 
 		</handler>-->
-	<view name="scalingView"  stretches ="both"
-		height="${ canvas.width/canvas.height &lt; 1.33 
-                     ? this.width * unstretchedheight/unstretchedwidth 
-                     : canvas.height}"
-		width="${  canvas.width/canvas.height &lt;1.33 
-                     ? canvas.width 
-                     : this.height * unstretchedwidth/unstretchedheight}"
+	<view name="scalingView"  stretches ="both" width="800" height="600"
 		valign="middle" align="center">
 
 

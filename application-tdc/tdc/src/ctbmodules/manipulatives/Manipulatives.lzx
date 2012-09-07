@@ -1,5 +1,7 @@
 <library>
     
+	<include href="../question/cache/components/CachableRefCard.lzx"/>
+	<include href="refcard/RefCard.lzx"/>
 	
     <class name="Manipulatives" clip="true"
            datapath="dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/general">
@@ -40,7 +42,7 @@
 			if(typeof fCardrsrc != "undefined" && fCardrsrc != null) {
 
 				var xmlString = '<formula_card_resource src="'+fCardrsrc+'" />'; //the string to be converted to datanode
-				var newNode = LzDataElement.stringToLzData(xmlString);// convert string to datanode
+				var newNode = lz.DataElement.stringToLzData(xmlString);// convert string to datanode
 				var oldNode = dsstudentdata.getPointer().xpathQuery('testing_client_model/current_item/item_model/manipulatives/general/formula_card_resource');
 						
 				if(oldNode != null) {
@@ -236,13 +238,13 @@
 			else if (tool == 'cm_ruler'){
 				result = gCmRuler;
 			}
-			else if (tool == 'FCAT_formula_card'){
+			else*/ if (tool == 'FCAT_formula_card'){
 				result = gFcatFormulaCard;
 			}
 			else if (tool == 'TN_formula_card'){
 				result = gTnFormulaCard;
 			}
-			else if (tool == 'standard_calculator'){
+			/*else if (tool == 'standard_calculator'){
 				result = gStandardCalculator;
 			}
 			else if (tool == 'scientific_calculator'){
@@ -250,8 +252,8 @@
 			}
 			else if (tool == 'formula_card'){
 				result = gFormulaCard;
-			}
-			else if (tool == 'masking_ruler'){
+			}*/
+			/*else if (tool == 'masking_ruler'){
 				result = gMaskingRuler;
 			}*/
 			return result;
@@ -285,6 +287,19 @@
                    toolid="masking_ruler"
                    labelrsr="masking_label"
                    id="gMaskingRuler"/> -->
+        <RefCard name="FCAT_formula_card" 
+                 toolid="FCAT_formula_card"
+                 refCardRsrc="FCAT_refcard_contents"
+                 titleRsrc="FCAT_refcard_title"
+                 scrolls="true"
+                 id="gFcatFormulaCard"/>
+
+        <RefCard name="TN_formula_card" 
+                 toolid="TN_formula_card"
+                 refCardRsrc="TN_refcard_contents"
+                 titleRsrc="TN_refcard_title"
+                 scrolls="false"
+                 id="gTnFormulaCard"/>
       
 		<ComponentCache name="cache" />
     </class>

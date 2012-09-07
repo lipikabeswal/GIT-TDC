@@ -10,13 +10,19 @@
 		var rR = 255;
 		var rG = 255;
 		var rB = 255;
-		var color = Number(newColor);
-
+		var color;
+		if(newColor is Number){
+			color = newColor;
+		}else{
+			color = Number(newColor);
+		}
+		Debug.write("color ------------ ",color);
 	    var r =	parseInt('0x'+newColor.substr(2,2));
 	    var g =	parseInt('0x'+newColor.substr(4,2));
 	    var b =	parseInt('0x'+newColor.substr(6,2));
 	    
-	    obj.setColorTransform ({ab: 0, aa: 100, 
+		Debug.write("rgb colors********* ",r,g,b);
+	    obj.setAttribute('colortransform',{ab: 0, aa: 100, 
 	                            bb: b-rB, ba: 100, 
 	                            gb: g-rG,  ga: 100, 
 	                            rb: r-rR,  ra: 100});   
@@ -89,8 +95,8 @@
         </handler>
  
         <method name="selectIt">
-        	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text));
-            setSelected(true, true);
+        	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text),false);
+            this.setSelectedTab(true, true);
         </method>
         
 		<method name="initColors">
@@ -134,7 +140,7 @@
 
         <text name="thetitle" datapath="@title" resize="true" align="center">
 	        <handler name="onclick">
-	        	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text));
+	        	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text),false);
 	            parent.selectIt();
 	        </handler>
         

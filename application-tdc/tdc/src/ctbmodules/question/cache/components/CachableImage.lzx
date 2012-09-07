@@ -379,7 +379,7 @@
                   without the image ..  This is to retry the request if that happens. -->
             <handler name="onload" args="d"><![CDATA[
 //Debug.write("imageview onload : ",d);
-            	if(!gCommunicator.checkShowError(d) && (this.resourceheight == 0 || 
+            	if(!gCommunicator.checkShowError(null,d) && (this.resourceheight == 0 || 
                                                         this.resourcewidth == 0)) {
 //Debug.write("gCommunicator.checkShowError if");            
                     classroot.setAttribute ('retrycount', classroot.retrycount + 1);

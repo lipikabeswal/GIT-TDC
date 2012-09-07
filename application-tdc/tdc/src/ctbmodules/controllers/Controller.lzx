@@ -499,7 +499,11 @@
 			Datapointers
 			============================================================
 		-->
-		<datapointer name="dplogin" xpath="dslogin:/login_response" />
+		<datapointer name="dplogin" xpath="dslogin:/login_response" >
+			<handler name="ondata">
+				Debug.write("dplogin on data========= ",this);
+			</handler>
+		</datapointer>
 
 		<datapointer name="dpsubtest" xpath="dssubtest:/subtest">
 			<handler name="ondata">
@@ -1285,7 +1289,6 @@
             }
             Debug.write("total:"+total);
 			dpdisplay.setNodeAttribute( 'shownWarningMinute', 'false' );
-			
             if ( '0' == dpsubtest.xpathQuery( 'sco/@sco_duration_minutes' ) ||
                  'true' == dpsubtest.xpathQuery(
                      'testing_session_data/lms.student.accommodations/@untimed'
@@ -1297,14 +1300,12 @@
                 var untimed = false;
                 dpdisplay.setNodeAttribute( 'untimed', 'false' );
             }
-            Debug.write("dpdisplay--------- ",dpdisplay);
 
             if ( dprestart.isValid() ) {
-            Debug.warn("*****************************restart***************************");
+            //Debug.warn("*****************************restart***************************");
 				//START Change for deferred Defect 63502
 				var secs = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@rem_sec' );
 				//END
-				Debug.write("secs***** ",secs,dprestart);
                 if ( null == secs ) {
                     // can't find time remaining from restart,
                     // use duration in subtest data
@@ -1319,7 +1320,6 @@
                         getStudentName()
                     );
                 } else {
-                	Debug.write("inside else of initTest");
                     var secsnum = parseInt( secs );
                     if ( secsnum <= 0 && !untimed ) {
             			gReadableText.stopReading(false);
@@ -2228,7 +2228,6 @@
                 var dp = new lz.datapointer();
                 dp.setPointer( dnnewitem );
 				Debug.write("datapointer********  ",dp.xpathQuery( 'interaction/@type' ));
-				Debug.write("dnnewitem ",dnnewitem,dnnewitem.getAttr( 'answered' ),dnnewitem.hasAttr( 'answer_text' ));
                 switch ( dp.xpathQuery( 'interaction/@type' ) ) {
                     case 'choice':
                         if ( dnnewitem.getAttr( 'answered' ) == '1' &&
@@ -2238,7 +2237,6 @@
                               dnnewitem.getAttr( 'answer_text' ) +
                             "']"
                             );
-                            Debug.write("selectornode--------- ",selectornode);
                             if ( selectornode ) {
                                 // assumes that no other selector has been
                                 // marked s
@@ -2267,7 +2265,6 @@
                         // not handled
                         break;
                 }
-                Debug.write("end of switch case ",dp);
 
             }
             // remove not_sr attribute - this will be detected by interaction type
@@ -2361,7 +2358,7 @@
 		]]></method>
 
 		<method name="fixFocus" args="questionBar">
-			Debug.warn("fixFocus Called");
+			//Debug.warn("fixFocus Called");
 			this.questionBar =  questionBar;
 		</method>
 
@@ -2579,7 +2576,7 @@
 		<method name="toggleMark"><![CDATA[
 		//For Defect 65880
         	if(!this.isThemePage() && this.allowRevisit && !gController.fwdOnly){
-	        	freezeUI();
+	        	freezeUI();Debug.write("UpdaterequestPending4");
 	        	var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
 	        	var isMarked = dncurritem.getAttr( 'marked' );
 	        	if(isMarked == null || isMarked == '0'){
@@ -2625,15 +2622,15 @@
 				selid = dnsel.getAttr("identifier");	
 			}
 
-			Debug.write("has seed2", selid, dnsel);
+			//Debug.write("has seed2", selid, dnsel);
 
             if ( dnsel ) {
                 if ( 's' == dnsel.getAttr( 'user_action' ) ) {
-                Debug.write("toggleItemSelState to N");
+                //Debug.write("toggleItemSelState to N");
                     readKeySelection( actualSelId, 'n');
                     setItemSelState( selid, 'n');
                 } else {
-                Debug.write("toggleItemSelState to s");
+                //Debug.write("toggleItemSelState to s");
                     readKeySelection( actualSelId, 's');
                     setItemSelState( selid, 's');
                 }
@@ -2656,7 +2653,7 @@
 
 		<method name="setItemSelState" args="selid, value"><![CDATA[
 
-			freezeUI();
+			freezeUI();Debug.write("UpdaterequestPending5");
 
             var dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@identifier='"+selid+"']");
             if ( dnsel ) {
@@ -2754,7 +2751,7 @@
 		</method>
 
 		<method name="setItemCRState" args="answer"><![CDATA[
-            freezeUI();
+            freezeUI();Debug.write("UpdaterequestPending6");
 
             var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
             if (dncurritem == null) return;
@@ -2797,7 +2794,7 @@
 						gReadableText.read(gReadableText.getSelectionRemoved());
 					}
 				}
-			   freezeUI();
+			   freezeUI();Debug.write("UpdaterequestPending7");
 				
 				if ( (value != orig) && !(orignull && valuenull) ) {
 					responses[colnum].setAttr( 'user_action', value );
@@ -2826,7 +2823,7 @@
 		<!-- timing -->
 
 		<method name="toggleTimer">
-			freezeUI();
+			freezeUI();Debug.write("UpdaterequestPending8");
 			var currentSetting = dpdisplay.getNodeAttribute( 'showtime' );
 			if(currentSetting == 'true'){
 				showHideTimer( 'false' );
@@ -3116,8 +3113,10 @@
 		<attribute name="uisemaphore" value="1" />
 
 		<method name="freezeUI">
+			Debug.write("*****Freeze UI****");
             ++uisemaphore;
-
+			Debug.write("dsdisplay", dsdisplay);
+			Debug.write("dsdisplay", dsdisplay.childNodes);
             if ( dsdisplay.childNodes[0].getAttr( 'enabled' ) == 'true' ) {
                 gHotKeys.disableKeys();
                 dsdisplay.childNodes[0].setAttr( 'enabled', 'false' );
@@ -3331,7 +3330,7 @@ Debug.write("############ loadItem ############");
 					}
 					
 					result[10] = 0;			
-					if(this.getAttribute("sendCatSave") == true)
+					if(this.sendCatSave == true)
 						result[10] = 1;
 						
 					/*itemNo = itemnode.getAttr( 'item_no' ); // current item no
@@ -3471,6 +3470,7 @@ Debug.write("############ loadItem ############");
 			else{
 				if(val){
 					freezeUI();
+					Debug.write("UpdaterequestPending");
 				}
 				else{
 					unlockIfItemReady();
@@ -3820,8 +3820,8 @@ Debug.write("############ loadItem ############");
 		</method>
 
 		<method name="startQuestion">
-			Debug.write("isuntimed",isuntimed);
-            if ( 'true' != isuntimed ) {
+               if ( false == isuntimed ) {
+				//Debug.write("isuntimed false then in if");
                 updateTimeLeft();
                 lz.Timer.resetTimer( dupdateTimeLeft, TIMER_INTERVAL );
             }
@@ -3844,6 +3844,7 @@ Debug.write("############ loadItem ############");
 		<method name="outOfTime"><![CDATA[
             if ( 0 == uisemaphore ) {
                 freezeUI();
+				Debug.write("UpdaterequestPending1");
             }
             stopQuestion();
             setState(TIMEOUT_STATE);
@@ -3869,7 +3870,7 @@ Debug.write("############ loadItem ############");
 		</method>
 
 		<method name="updateTimeLeft"><![CDATA[
-			Debug.write("inside updateTimeLeft");
+			//Debug.write("inside updateTimeLeft");
 			//var date = new Date();
 			var timestamp;
             //var timestamp = lz.Timer.getTimer();
@@ -3879,7 +3880,7 @@ Debug.write("############ loadItem ############");
 			}else{ 
 				timestamp = LzTimeKernel.getTimer();
 			}
-			Debug.write("timestamp------ ",durationms,elapsedms,timestamp,qtimestamp);
+			//Debug.write("timestamp------ ",durationms,elapsedms,timestamp,qtimestamp);
             if ( timing ) {
                 var remainingms =
                     durationms - elapsedms - (timestamp - qtimestamp);
@@ -4107,7 +4108,7 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="setAudioItemState" args="answer"><![CDATA[
-            freezeUI();
+            freezeUI();Debug.write("UpdaterequestPending2");
             var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
             if (dncurritem == null) {
 //Debug.write("setAudioItemState 2...",dncurritem);
@@ -4422,7 +4423,7 @@ Debug.write("############ loadItem ############");
 		</method>
 
 		<method name="setAnswerPanel" args="ansObject"><![CDATA[
-		Debug.write("ansObject fired", ansObject,answerArray.length);
+		//Debug.write("ansObject fired", ansObject,answerArray.length);
 		if(answerArray.length < returnNumberOfOptions()){
 		
 			answerArray.push(ansObject);

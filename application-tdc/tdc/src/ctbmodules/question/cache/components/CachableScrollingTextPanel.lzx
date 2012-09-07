@@ -21,7 +21,6 @@
                                passageId="${classroot.passageId}"
                                fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" 
                                fontcolor="${classroot.fontcolor}">
-            <datapath/>
             <method name="doneLoading">
                 // empty, because not retrieved from cache
             </method>

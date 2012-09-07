@@ -44,7 +44,7 @@
 				resource="toolbar_msaking_choice_btn" valign="middle" height="20"
 				width="34">
 				<attribute name="tooltipdel"
-					value="$once{new LzDelegate (this, 'showTooltip')}"/>
+					value="$once{new lz.Delegate (this, 'showTooltip')}"/>
 				<attribute name="isEnabled" value="false" />
 				<attribute name="isSelected" value="false" />
 				<handler name="onmouseover">
@@ -131,7 +131,7 @@
 		                resource="toolbar_stopreader_btn"
 		                visible="${canvas.readable}" valign="middle">
 		
-				<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
+				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
 		
 				<handler name="onmouseover">
 					lz.Timer.addTimer (tooltipdel, 500);
@@ -144,7 +144,7 @@
 		
 				<handler name="onclick">
 					lz.Timer.removeTimer (this.tooltipdel);
-					gReadableText.stopReading(false);
+					gReadableText.stopReading();
 				</handler>
 		
 				<method name="showTooltip">
@@ -158,7 +158,7 @@
 					visible="${parent.stopreader.visible}" bgcolor="0xdfdfdf">
 			<simplelayout axis="y"/>
 				
-				<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
+				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
 		
 				<handler name="onmouseover">
 					lz.Timer.addTimer (tooltipdel, 500);
@@ -185,14 +185,14 @@
 				<slider name="volumeControl" value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" 
 						thumbwidth="16" thumbheight="12" width="80">
 						
-						<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
+						<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
 	
 				<!-- When canvas's accessible attribute is true, the text "undefined" comes over the slider thumb, 
 					 workaround is done in this version(3.3.3). Probably, this was a bug which is fixed in newer versions. 
 					 This is cross checked with latest laszlo release(4.8)	--> 
 					<handler name="oninit"><![CDATA[
 						//hide the text object displaying "undefined" text
-						this.subviews[0].subviews[2].subviews[3].setVisible(false);
+						this.subviews[0].subviews[2].subviews[3].setAttribute('visible',false);
 	
 						registerThumb(this.track.thumb);
 					]]></handler>
@@ -201,10 +201,10 @@
 					<method name="registerThumb" args="b"> 
 	
 				        if( typeof this.delOver == "undefined" )  {
-				            this.delOver = new LzDelegate( this, "mouseover" );
-							this.delOut = new LzDelegate( this, "mouseout" );
-							this.delClick = new LzDelegate( this, "click" );
-							this.tooltipdel = new LzDelegate( this, "showTooltip" );
+				            this.delOver = new lz.Delegate( this, "mouseover" );
+							this.delOut = new lz.Delegate( this, "mouseout" );
+							this.delClick = new lz.Delegate( this, "click" );
+							this.tooltipdel = new lz.Delegate( this, "showTooltip" );
 				        }      
 				
 				        this.delOver.register( b, "onmouseover" );

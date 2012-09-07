@@ -63,9 +63,9 @@
 
         <method name="read" args="s">
             if ( this.hasAltText ) {
-                gReadableText.read( this.altText );
+                gReadableText.read( this.altText , false);
             } else {
-                gReadableText.read( s );
+                gReadableText.read( s ,false);
             }
         </method>
 
@@ -76,14 +76,16 @@
         <handler name="ondata" args="data"><![CDATA[
             //width
             Debug.write("TextField ondata fired**** ",data);
+		
+
             if (data.hasAttr("width")) {
                 this.setAttribute("width", Number(data.getAttr("width")));
             } else {
                 this.setAttribute("width", immediateparent.width);
             }
-
+		
             //text magnification
-            this.magnification = this.fontsize/canvas.basefontsize;;
+            this.magnification = this.fontsize/canvas.basefontsize;
             var txtmag = 1;
             
             //this might not be used for anything
@@ -94,10 +96,9 @@
             if (parent['fontsize']) {
                this.setAttribute("fontsize", parent.fontsize * txtmag);
             }
-
+		
         	if (data.getAttr("input") == "yes" || data.getAttr("inline_image") == "yes") {
-				Debug.write("inside if");
-            	
+		            	
                	if(data.getAttr("input") == "yes"){
                		this.setAttribute("embedded_input", true);
                		this.embedded_input_field(data);
@@ -113,9 +114,7 @@
                	else{ 
                		this.setAttribute("embedded_inline_image", false);
                	}
-
-            	
-               	
+              	
                	super.doneLoading();
                	return;
             }
@@ -123,8 +122,8 @@
                 this.setAttribute("embedded_input", false);
                 this.setAttribute("embedded_inline_image", false);
             }
-			setTextReaderAttributes(data);
 			
+			setTextReaderAttributes(data);
             var dataText = data.getFirstChild().data;
 			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
 			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
@@ -137,25 +136,24 @@
 			}
 			
             //alignment
+						
             var valign = "top";
             if (data.hasAttr("valign")) {
-                valign = data.getAttr("valign");
+			    valign = data.getAttr("valign");
             }
-            this.setAttribute('valign', valign);
+			this.setAttribute('valign', valign);
+			
             //justification
             var just = "left";
             if (data.hasAttr("halign")) {
                 just = data.getAttr("halign");
             }
             this.setAttribute('align', just);
-
+			
             this.thetext.setAttribute("text",
                 '<p align="' + just + '">' + dataText + '</p>');
 
             super.doneLoading();
-
-			Debug.write("after loading");
-
             //this.doAlign();
             ]]>
         </handler>
@@ -1142,8 +1140,8 @@ parse the text string and store text and image string in an array at different i
             	this.subviews[0].setAttribute('clickable',true);
 		</method>
         
-        <state applied="${classroot.embedded_input == false &amp;&amp; classroot.embedded_inline_image == false}">
-           <view name="clickregionreader"
+        <state name="textState" applied="${classroot.embedded_input == false &amp;&amp; classroot.embedded_inline_image == false}">
+           <view name="clickregion"
                  width="${classroot.thetext.width}"
                  height="${classroot.thetext.height}"
                  clickable="${classroot.isReadable}">
