@@ -200,16 +200,16 @@
         </view>
 			
     </view>
-	<modaldialog id="timeoutDialog" name="timeoutDialog" title="OAS"
-			width="400" height="160" visible="false" bgcolor="0xC0C0C0" x="470" y="20">
+	<modaldialog id="timeoutDialog" name="timeoutDialog" title="OAS" 
+			width="400" height="160" visible="false" bgcolor="0x6691B4" x="470" y="20">
 	    <text font="CTB"	
              fontsize="15" 
-             fgcolor="0x1D4896">
+             fgcolor="white">
              The 20-minute time limit has been exceeded.
            </text>
 		<text font="CTB"	
              fontsize="15" 
-             fgcolor="0x1D4896">
+             fgcolor="white">
              Please click ok to close OAS.
            </text>
 	    <view align="center" layout="axis:x; spacing:20">
