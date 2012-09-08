@@ -1,0 +1,152 @@
+<library>
+
+    <!-- =====================
+         buttons 
+         ===================== -->
+    <!-- text fornumbers -->
+    <resource name="zero_txt"  src="0.swf"/>
+    <resource name="one_txt"   src="1.swf"/>
+    <resource name="two_txt"   src="2.swf"/>
+    <resource name="three_txt" src="3.swf"/>
+    <resource name="four_txt"  src="4.swf"/>
+    <resource name="five_txt"  src="5.swf"/>
+    <resource name="six_txt"   src="6.swf"/>
+    <resource name="seven_txt" src="7.swf"/>
+    <resource name="eight_txt" src="8.swf"/>
+    <resource name="nine_txt"  src="9.swf"/>
+
+    <!-- text for other keys -->
+    <resource name="backspace_txt"  src="backspace.swf"/>
+    <resource name="C_txt"          src="C.swf"/>
+    <resource name="CE_txt"         src="CE.swf"/>
+    <resource name="changesign_txt" src="changesign.swf"/>
+    <resource name="cos_txt"        src="cos.swf"/>
+    <resource name="decimal_txt"    src="decimal.swf"/>
+    <resource name="divide_txt"     src="divide.swf"/>
+    <resource name="equal_txt"      src="equal.swf"/>
+    <resource name="ln_txt"         src="ln.swf"/>
+    <resource name="log_txt"        src="log.swf"/>
+    <resource name="minus_txt"      src="minus.swf"/>
+    <resource name="mod_txt"        src="mod.swf"/>
+    <resource name="percent_txt"    src="percent.swf"/>
+    <resource name="pi_txt"         src="Pi.swf"/>
+    <resource name="plus_txt"       src="plus.swf"/>
+    <resource name="root_txt"       src="root.swf"/>
+    <resource name="sin_txt"        src="sin.swf"/>
+    <resource name="sqr_txt"        src="sqr.swf"/>
+    <resource name="multiply_txt"   src="star.swf"/>
+    <resource name="tan_txt"        src="tan.swf"/>
+    <resource name="memoryrecall_txt" src="memoryrecall.swf"/>
+    <resource name="memoryclear_txt"  src="memoryclear.swf"/>
+    <resource name="memoryplus_txt"   src="memoryplus.swf"/>
+    <resource name="memoryminus_txt"  src="memoryminus.swf"/>
+   
+
+
+    <!-- the btn bgs  -->
+    <resource name="calc_btn">
+        <frame src="calc_buttonSTANDRD_off.swf"/>
+        <frame src="calc_buttonSTANDRD_on.swf"/>
+        <frame src="calc_buttonSTANDRD_click.swf"/>
+    </resource>
+    
+    <resource name="calc_sci_func_btn">
+        <frame src="calc_buttonSCIFUNCT_off.swf"/>
+        <frame src="calc_buttonSCIFUNCT_on.swf"/>
+        <frame src="calc_buttonSCIFUNCT_click.swf"/>
+    </resource>
+
+    <resource name="backspace_btn">
+        <frame src="calc_buttonBACKSPC_off.swf"/>
+        <frame src="calc_buttonBACKSPC_on.swf"/>
+        <frame src="calc_buttonBACKSPC_click.swf"/>
+    </resource>
+
+    <resource name="equal_btn">
+        <frame src="calc_buttonEQUAL_off.swf"/>
+        <frame src="calc_buttonEQUAL_on.swf"/>
+        <frame src="calc_buttonEQUAL_click.swf"/>
+    </resource>
+
+	<resource name="calc_close_btn">
+    	<frame src="closebutton_off.swf"/>
+     	<frame src="closebutton_on.swf"/>
+    	<frame src="closebutton_click.swf"/>
+  	</resource>
+
+
+    <!-- =====================
+         bg
+         ===================== -->
+
+    <!-- standard -->
+    <resource name="calc_chrome" src="calc_4f_chrome.swf"/>
+    <resource name="calc_face"   src="calc_4f_face.swf"/>
+    <resource name="calc_title"  src="calc_4f_title.swf"/>
+    <resource name="calc_display" src="calculatorDisplay.swf"/>
+
+    <!-- scientific -->
+    <resource name="calc_sci_chrome" src="calc_sci_chrome.swf"/>
+    <resource name="calc_sci_face"   src="calc_sci_face.swf"/>
+    <resource name="calc_sci_title" src="calc_sci_title.swf"/>
+    <resource name="calc_sci_display" src="calc_sci_display.swf"/>
+
+    <!--
+        JSB resources from before Ming 428:466 merge
+    -->
+	<resource name="closeButton_rsrc">
+    	<frame src="closebutton_off.swf"/>
+     	<frame src="closebutton_on.swf"/>
+    	<frame src="closebutton_click.swf"/>
+  	</resource>
+	<resource name="standardButton_rsrc">
+    	<frame src="calc_buttonSTANDRD_off.swf"/>
+     	<frame src="calc_buttonSTANDRD_on.swf"/>
+    	<frame src="calc_buttonSTANDRD_click.swf"/>
+  	</resource>
+	<resource name="operatorButton_rsrc">
+    	<frame src="black_button.swf"/>
+     	<frame src="ltblue_button_std.swf"/>
+    	<frame src="dkblue_button_std.swf"/>
+  	</resource>
+	<resource name="doubleButton_rsrc">
+    	<frame src="button_double_off.swf"/>
+     	<frame src="button_double_on.swf"/>
+    	<frame src="button_double_click.swf"/>
+  	</resource>
+	<resource name="tripleButton_rsrc">
+    	<frame src="button_triple_off.swf"/>
+     	<frame src="button_triple_on.swf"/>
+    	<frame src="button_triple_click.swf"/>
+  	</resource>
+	<resource name="backspaceButton_rsrc">
+    	<frame src="calc_buttonBACKSPC_off.swf"/>
+     	<frame src="calc_buttonBACKSPC_on.swf"/>
+    	<frame src="calc_buttonBACKSPC_click.swf"/>
+  	</resource>
+	<resource name="equalButton_rsrc">
+    	<frame src="calc_buttonEQUAL_off.swf"/>
+     	<frame src="calc_buttonEQUAL_on.swf"/>
+    	<frame src="calc_buttonEQUAL_click.swf"/>
+  	</resource>
+ 	<resource name="sciFunctButton_rsrc">
+    	<frame src="calc_buttonSCIFUNCT_off.swf"/>
+     	<frame src="calc_buttonSCIFUNCT_on.swf"/>
+    	<frame src="calc_buttonSCIFUNCT_click.swf"/>
+  	</resource>
+  	
+	<resource name="black_plusminus_rsrc" src="black_plusminus.swf"/>
+	<resource name="black_percent_rsrc" src="black_percent.swf"/>
+	<resource name="black_sqrt_rsrc" src="newblack_sqrt.swf"/>
+	<resource name="black_divide_rsrc" src="black_divide.swf"/>
+	<resource name="black_multiply_rsrc" src="black_multiply.swf"/>
+	<resource name="black_plus_rsrc" src="black_plus.swf"/>
+	<resource name="black_minus_rsrc" src="black_minus.swf"/>
+	<resource name="white_plusminus_rsrc" src="white_plusminus.swf"/>
+	<resource name="white_percent_rsrc" src="white_percent.swf"/>
+	<resource name="white_sqrt_rsrc" src="newwhite_sqrt.swf"/>
+	<resource name="white_divide_rsrc" src="white_divide.swf"/>
+	<resource name="white_multiply_rsrc" src="white_multiply.swf"/>
+	<resource name="white_plus_rsrc" src="white_plus.swf"/>
+	<resource name="white_minus_rsrc" src="white_minus.swf"/>
+</library>

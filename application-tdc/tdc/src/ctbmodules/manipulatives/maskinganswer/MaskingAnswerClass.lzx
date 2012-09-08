@@ -68,19 +68,19 @@
 			</method>
 
 			<handler name="onmouseover">
-				this.setResourceNumber(2);
+				this.setAttribute('frame',2);
 			</handler>
 			                
 			<handler name="onmouseout">
-				this.setResourceNumber(1);
+				this.setAttribute('frame',1);
 			</handler>
 		<method name="setTextVal">
 			if(curTxt == 'Show All'){
-				this.mytext.setText(" "+curTxt);
+				this.mytext.setAttribute('text'," "+curTxt);
 				
 			}
 			else{
-				this.mytext.setText(" "+curState+" "+curTxt);
+				this.mytext.setAttribute('text'," "+curState+" "+curTxt);
 			}	
 					
 		</method>

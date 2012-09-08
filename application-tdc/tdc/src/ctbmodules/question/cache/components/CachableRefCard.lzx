@@ -22,7 +22,7 @@
 		<attribute name="isScrolling" type="boolean" value="false" />
 
 		<attribute name="toolid" type="string" value="formula_card_resource"/>
-        <attribute name="toolstate" value="$once{new lz.Datapointer ()}"/>
+        <attribute name="toolstate" value="$once{new lz.datapointer ()}"/>
 		<attribute name="visible" value="${(this.toolstate.data == 'sel') ? true : false}"/>
 
 		<handler name="onvisible" args="v"><![CDATA[

@@ -954,7 +954,7 @@
 		</method>
 
 		<method name="_handleLoginResponse" args="response"><![CDATA[
-			Debug.write("loginResponse:");
+			Debug.write("loginResponse:",response);
 			printBigString(response);
 			if(gXmlHelper.isErrorResponse(response)){
 				gScreens.showLoginError(gXmlHelper.getStatusCode(response));
@@ -2576,7 +2576,7 @@
 		<method name="toggleMark"><![CDATA[
 		//For Defect 65880
         	if(!this.isThemePage() && this.allowRevisit && !gController.fwdOnly){
-	        	freezeUI();Debug.write("UpdaterequestPending4");
+	        	freezeUI();
 	        	var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
 	        	var isMarked = dncurritem.getAttr( 'marked' );
 	        	if(isMarked == null || isMarked == '0'){
@@ -2653,7 +2653,7 @@
 
 		<method name="setItemSelState" args="selid, value"><![CDATA[
 
-			freezeUI();Debug.write("UpdaterequestPending5");
+			freezeUI();
 
             var dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@identifier='"+selid+"']");
             if ( dnsel ) {
@@ -2751,7 +2751,7 @@
 		</method>
 
 		<method name="setItemCRState" args="answer"><![CDATA[
-            freezeUI();Debug.write("UpdaterequestPending6");
+            freezeUI();
 
             var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
             if (dncurritem == null) return;
@@ -2794,7 +2794,7 @@
 						gReadableText.read(gReadableText.getSelectionRemoved());
 					}
 				}
-			   freezeUI();Debug.write("UpdaterequestPending7");
+			   freezeUI();
 				
 				if ( (value != orig) && !(orignull && valuenull) ) {
 					responses[colnum].setAttr( 'user_action', value );
@@ -2823,7 +2823,7 @@
 		<!-- timing -->
 
 		<method name="toggleTimer">
-			freezeUI();Debug.write("UpdaterequestPending8");
+			freezeUI();
 			var currentSetting = dpdisplay.getNodeAttribute( 'showtime' );
 			if(currentSetting == 'true'){
 				showHideTimer( 'false' );
@@ -3113,10 +3113,10 @@
 		<attribute name="uisemaphore" value="1" />
 
 		<method name="freezeUI">
-			Debug.write("*****Freeze UI****");
+			Debug.write("freezeUI is called",uisemaphore);
             ++uisemaphore;
-			Debug.write("dsdisplay", dsdisplay);
-			Debug.write("dsdisplay", dsdisplay.childNodes);
+			Debug.write("freezeUI uisemaphore------- ",uisemaphore);
+			
             if ( dsdisplay.childNodes[0].getAttr( 'enabled' ) == 'true' ) {
                 gHotKeys.disableKeys();
                 dsdisplay.childNodes[0].setAttr( 'enabled', 'false' );
@@ -3820,8 +3820,9 @@ Debug.write("############ loadItem ############");
 		</method>
 
 		<method name="startQuestion">
-               if ( false == isuntimed ) {
-				//Debug.write("isuntimed false then in if");
+			Debug.write("isuntimed*********** ",isuntimed);
+            if ( false == isuntimed ) {
+				Debug.write("isuntimed false then in if");
                 updateTimeLeft();
                 lz.Timer.resetTimer( dupdateTimeLeft, TIMER_INTERVAL );
             }
@@ -3844,7 +3845,6 @@ Debug.write("############ loadItem ############");
 		<method name="outOfTime"><![CDATA[
             if ( 0 == uisemaphore ) {
                 freezeUI();
-				Debug.write("UpdaterequestPending1");
             }
             stopQuestion();
             setState(TIMEOUT_STATE);
@@ -4108,7 +4108,7 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="setAudioItemState" args="answer"><![CDATA[
-            freezeUI();Debug.write("UpdaterequestPending2");
+            freezeUI();
             var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
             if (dncurritem == null) {
 //Debug.write("setAudioItemState 2...",dncurritem);
@@ -4474,6 +4474,7 @@ Debug.write("############ loadItem ############");
 		<method name="maskChoice" args="data,state"><![CDATA[
 			var actualIndex;
 			var index =data.substring(6,7);
+			Debug.write("state--------",data,state,index);
 			Debug.write("answer Array", answerArray[0],answerArray[1],answerArray[2],answerArray[3])
 
 			var type =  answerArray[0].subviews[0].subviews[0].type;
@@ -4501,8 +4502,11 @@ Debug.write("############ loadItem ############");
 			}else{
 				actualIndex = returnIndex(answerArray,index,change);
 			}
+			Debug.write("after returnIndex");
 			if(state == 'Hide'){
+				Debug.write("inside hide",index != null,actualIndex);
 				if(index != null && index != ""){
+					Debug.write("answerArray[actualIndex].subviews[0]******* ",answerArray);
 					answerArray[actualIndex].subviews[0].hide();
 					answerArray[actualIndex].subviews[1].hide();
 					answerArray[actualIndex].subviews[2].hide();				
@@ -4578,6 +4582,8 @@ Debug.write("############ loadItem ############");
 		<method name="returnIndex" args="arr,index,change"><![CDATA[
 	
 		Debug.write("returnIndex :"+arr.length,index,change);
+		Debug.write("index--------- ",Number(index));
+		index = Number(index);
 		  switch ( index ) {
 	        	case  0:
 	        	Debug.write("returnIndex case 0");

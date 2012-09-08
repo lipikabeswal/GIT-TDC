@@ -48,7 +48,7 @@
 				<attribute name="isEnabled" value="false" />
 				<attribute name="isSelected" value="false" />
 				<handler name="onmouseover">
-						this.setResourceNumber(2);
+						this.setAttribute('frame',2);
 						if(!gMaskingAnswer.visible)
 							lz.Timer.addTimer (tooltipdel, 500);
 					</handler>
@@ -56,7 +56,7 @@
 				<handler name="onmouseout">
 						gTooltip.hideTooltip (); 
 						if(!this.isEnabled) {
-							this.setResourceNumber(1);
+							this.setAttribute('frame',1);
 						}   
 						lz.Timer.removeTimer (this.tooltipdel);
 					</handler>
@@ -79,14 +79,14 @@
 						gMaskingAnswer.showPopUp();
 						this.isEnabled = true;
 						gController.setAttribute("maskingAnswerDDState", true);
-						this.setResourceNumber(2);
+						this.setAttribute('frame',2);
 					</method>
 
 				<method name="hide">
 						gMaskingAnswer.hidePopUp();
 						this.isEnabled = false;
 						gController.setAttribute("maskingAnswerDDState", false);
-						this.setResourceNumber(1);
+						this.setAttribute('frame',1);
 					</method>
 			</view>                   
 	    </view>                       

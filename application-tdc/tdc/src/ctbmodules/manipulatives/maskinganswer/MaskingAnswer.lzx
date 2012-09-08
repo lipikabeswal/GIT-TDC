@@ -8,7 +8,7 @@
 	<attribute name="lastxpos" value="0" type="number" />
 	<attribute name="lastypos" value="0" type="number" />
 	<attribute name="isEnabled" value="false" />
-	<attribute name="dp" value="$once{new LzDatapointer()}" />
+	<attribute name="dp" value="$once{new lz.datapointer()}" />
 	<attribute name="choicelen" value ="0" type="number"/>
 	<attribute name="withState" value ="false" type="boolean"/>
 	
@@ -55,7 +55,7 @@
 	<method name="createChoices"><![CDATA[
 		gMaskingAnswer.windowbg.maskingAnswerArea.clearOut();
 		var ansChoiceName = "choice";
-		var currState= lz.myclass.getAttribute('curState');
+		var currState= lz.myclass.curState;
 		Debug.write("currState******** ",currState);
 		if(gController.returnNumberOfOptions() > 0){
 			for(var i = 0; i < gController.returnNumberOfOptions(); i++){				
@@ -63,6 +63,7 @@
 			}
 			gMaskingAnswer.windowbg.maskingAnswerArea.subviews.push(new lz.myclass(gMaskingAnswer.windowbg.maskingAnswerArea, {name:ansChoiceName, clickable:true, resource:'masking_answer_choice_btn', curState:'Show All'}));
 		}
+		Debug.write("gMaskingAnswer******** ",gMaskingAnswer.windowbg.maskingAnswerArea.subviews);
 	]]></method>
 
 	<method name="hidePopUp">
@@ -72,7 +73,7 @@
 	<method name="showPopUp">
 		this.setAttribute("visible", true);
 		
-		if(this.getAttribute("withState") == false ){
+		if(this.withState == false ){
 			this.setUpPopUp();
 		}
 	</method>
