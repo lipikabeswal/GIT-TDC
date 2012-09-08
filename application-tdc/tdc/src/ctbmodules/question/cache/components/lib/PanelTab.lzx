@@ -7,6 +7,8 @@
 	
 	function setResourceColor(obj, newColor){
 		// this is the resource color of the swfs used to create the tabs
+		Debug.write(" this is the resource color ",obj,newColor);
+		Debug.write("if number" , newColor is Number, newColor instanceof Number);
 		var rR = 255;
 		var rG = 255;
 		var rB = 255;
@@ -140,8 +142,8 @@
 
         <text name="thetitle" datapath="@title" resize="true" align="center">
 	        <handler name="onclick">
-	        	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text),false);
-	            parent.selectIt();
+				gReadableText.read(gReadableText.stripHtmlTags(this.text),false);
+				parent.selectIt();
 	        </handler>
         
         </text>

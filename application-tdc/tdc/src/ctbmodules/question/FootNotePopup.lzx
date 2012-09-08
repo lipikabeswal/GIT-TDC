@@ -226,7 +226,7 @@
     <method name="hide">
         this.setAttribute("visible", false);
         if(this.readingFootNote == true){
-        		gReadableText.stopReading();
+        		gReadableText.stopReading(false);
          		this.setAttribute("readingFootNote",false);
         	}   
         this.clickdel.unregisterAll();

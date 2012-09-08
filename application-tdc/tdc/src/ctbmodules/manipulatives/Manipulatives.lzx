@@ -90,7 +90,7 @@
 		]]></method>
 		
 		<method name="sendToFront" args="tool"><![CDATA[
-			var theZ = this.getAttribute('zOrder');
+			var theZ = this.zOrder;
 			if(theZ != null && typeof theZ != 'undefined'){
 				var toolIndex = this.getIndexForTool(tool);
 				var oldToolZOrder = this.zOrder[toolIndex];
@@ -109,7 +109,7 @@
 		]]></method>
 		
 		<method name="removeManipulative" args="tool"><![CDATA[
-			var theZ = this.getAttribute('zOrder');
+			var theZ = this.zOrder;
 			if(theZ != null && typeof theZ != 'undefined'){
 				var toolIndex = this.getIndexForTool(tool);
 				var oldToolZOrder = this.zOrder[toolIndex];
