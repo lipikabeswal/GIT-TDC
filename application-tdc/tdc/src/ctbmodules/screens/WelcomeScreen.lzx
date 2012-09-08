@@ -82,7 +82,7 @@
                     var dynaText1;
                     var dynaText2;
                     
-					if ( r && gController.getAttribute("fwdOnly") == true){
+					if ( r && gController.fwdOnly == true){
                    	     dynaText1 = 'You have ';
                    	     dynaText2 = (r ? ' left.' : '.');
 					}
@@ -115,7 +115,7 @@
                     }
 
                     if ( r ) {
-						if (gController.getAttribute("fwdOnly") == true){
+						if (gController.fwdOnly == true){
                    		    setAttribute( 'text', text + '<br/><br/>You will start where you left the test.' );
 						}
 						else {

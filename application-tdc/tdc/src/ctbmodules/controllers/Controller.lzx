@@ -1114,7 +1114,7 @@
  			var numanswered = 0;
 			//START Change for deferred Defect 63502
             
-           	if(this.getAttribute("fwdOnly") == true){
+           	if(this.fwdOnly == true){
 				if(this.adaptive == 'true'){
 	 				var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ist' );
 	        		if ( awd && awd instanceof Array ) {
