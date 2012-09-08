@@ -976,33 +976,31 @@
 	    		cmicore.setAttr('userid', userid);
 	    		cmicore.setAttr('accesscode', accesscode);
 	    		var loginResponse = dp.xpathQuery('login_response');
-
 				//START Change for deferred Defect 63502
 	    		setAttribute('restartscid', dp.xpathQuery('login_response/manifest/sco[1]/@id'));
 	    		var numIsts = countDataNodes(dp.xpathQuery('login_response/consolidated_restart_data/tsd[@scid = "'+ restartscid +'"]/ist'));
-	    		//END
-				
+
+				//END
+				setAttribute('lsid', dp.xpathQuery('login_response/@lsid'));
+				var dSeed = dp.xpathQuery('login_response/@random_distractor_seed_number');	
 	    		dslogin.setAttribute('childNodes',new Array(loginResponse));
-	    		dp.selectChild();
-				setAttribute('lsid', dp.getNodeAttribute('lsid'));
-				//Debug.write("lsid" + lsid);
+				//dp.selectChild();
+
+			
 				setAttribute('currentSubtestIndex', getInitialSubtestIndex());
 				gRequest.setMseqFromRestartNumber(restartNumber);
 				if(numIsts == 0 && dprestart.isValid()){
             		dprestart.deleteNode();
 				}
-				Debug.write("Send Heartbeat");
 				sendHeartbeat();   // starts heartbeats
-				Debug.write("Send Heartbeat 2");
 				if(gTutorialManager.hasTutorial){
 					gTutorialManager.doTutorialFlow();
 				}
 				else{
 					gDownloadManager.downloadContent();
 				}
-				Debug.write("Download Content 2");
-				dp.setPointer(node);				
-				var dSeed = dp.xpathQuery('login_response/@random_distractor_seed_number');	
+
+				//dp.setPointer(node);				
 
 				if(!nullOrSpace(dSeed)) {
 					
@@ -2424,7 +2422,8 @@
 				freezeUI();
 				stopQuestion();
 				canvas.setAttribute('focusobj', null);
-				saveLoadItem( fnode , SAVE_LEV);
+				var lev;
+				saveLoadItem( fnode , lev);
 			}
 			this.setattribute('isaudio',false);
 			resetRecorder();
@@ -3820,9 +3819,8 @@ Debug.write("############ loadItem ############");
 		</method>
 
 		<method name="startQuestion">
-			Debug.write("isuntimed*********** ",isuntimed);
-            if ( false == isuntimed ) {
-				Debug.write("isuntimed false then in if");
+               if ( false == isuntimed ) {
+				//Debug.write("isuntimed false then in if");
                 updateTimeLeft();
                 lz.Timer.resetTimer( dupdateTimeLeft, TIMER_INTERVAL );
             }

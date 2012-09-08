@@ -166,8 +166,6 @@
 	    		filePart = filePartList[nextFilePartIndex];
 				if(filePart != undefined){
 					Debug.write("filePart",filePart);
-					Debug.write("filePart get",filePart.value);
-					Debug.write("filePart",filePart.getAttribute('value'));
 					fileName = filePart.getAttr('value');
 					sequenceNo = filePart.getAttr('sequence_number');
 					next = filePart.getAttr('next');
