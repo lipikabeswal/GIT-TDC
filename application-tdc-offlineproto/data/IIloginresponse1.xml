@@ -3,7 +3,7 @@
 		<status status_code="200"/>
 		<testing_session_data>
 			<cmi.core student_id="1633631" student_last_name="Student" student_first_name="Demo" student__middle_name="A"/>
-			<lms.student.accommodations calculator="true" magnifier="true" screen_reader="false" untimed="true" rest_break="true" highlighter="true">
+			<lms.student.accommodations calculator="true" magnifier="true" screen_reader="true" untimed="true" rest_break="true" highlighter="true">
 				<stereotype_style stereotype="directions" bgcolor="0xFFFFFF" font_color="0x000000" font_magnification="1.0"/>
 				<stereotype_style stereotype="stimulus" bgcolor="0xFFFFFF" font_color="0x000000" font_magnification="1.0"/>
 				<stereotype_style stereotype="stem" bgcolor="0xFFFFFF" font_color="0x000000" font_magnification="1.0"/>

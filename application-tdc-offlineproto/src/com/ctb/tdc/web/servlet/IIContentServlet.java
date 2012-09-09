@@ -181,6 +181,9 @@ public class IIContentServlet extends HttpServlet {
 			byte[] decryptedContent = ServletUtils.readFromFile(new File(filePath));
 			
 			String itemxml = new String(decryptedContent);
+			
+			System.out.println(itemxml);
+					
 			itemxml = ServletUtils.doUTF8Chars(itemxml);
 
 			ServletUtils.writeResponse(response, itemxml);

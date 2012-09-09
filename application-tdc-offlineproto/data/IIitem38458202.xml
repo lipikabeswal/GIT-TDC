@@ -1,0 +1,53 @@
+<element_package eid="38458202" iid="LK.DEMO.01" xslt_ver="145">
+	<item_canvas id="IC">
+		<panel left_padding="12" stereotype="stem" id="stem1" layout="vertical" spacing="12" x="0" width="500" y="79" height="144">
+			<text_widget halign="left" width="471" id="widget8306751000">
+				<![CDATA[Which sentence in the answer choices should be rewritten with the following statements?]]>
+			</text_widget>
+			<text_widget halign="left" width="471" id="widget8306751001">
+				<![CDATA[The floodwaters benefit concert was a community project.]]>
+			</text_widget>
+			<text_widget halign="left" width="471" id="widget8306751002">
+				<![CDATA[Sharon, what is the effective correlation of sonar and fiberglass earbuds?]]>
+			</text_widget>
+			<text_widget halign="left" width="471" id="widget8306751003">
+				<![CDATA[Choloropasts and mitochondria concepts were on the entrance exam.]]>
+			</text_widget>
+		</panel>
+		<answer_area_panel id="A1" stereotype="answerArea" layout="vertical" spacing="12" width="488" x="12" height="174" top_padding="12" left_padding="12" y="230">
+			<answer_choice_widget spacing="6" layout="horizontal" width="476">
+				<selector_widget valign="top" identifier="A" />
+				<text_widget halign="left" width="429" id="widget8306751006">
+					<![CDATA[Latoya and Liam record the perimeter and the prime meridian of the hexagon on the written exam.]]>
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget spacing="6" layout="horizontal" width="476">
+				<selector_widget valign="top" identifier="B" />
+				<text_widget halign="left" width="429" id="widget8306751009">
+					<![CDATA[Racquel and Jared, what is the multiple of angle X?]]>
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget spacing="6" layout="horizontal" width="476">
+				<selector_widget valign="top" identifier="C" />
+				<text_widget halign="left" width="429" id="widget8306751012">
+					<![CDATA[Mitch&apos;s chess cloth has orange produce sewn onto it.]]>
+				</text_widget>
+			</answer_choice_widget>
+			<answer_choice_widget spacing="6" layout="horizontal" width="476">
+				<selector_widget valign="top" identifier="D" />
+				<text_widget halign="left" width="429" id="widget8306751015">
+					<![CDATA[Trina&apos;s birdwatching professor was featured at the airshow.]]>
+				</text_widget>
+			</answer_choice_widget>
+		</answer_area_panel>
+	</item_canvas>
+	<item_model iid="LK.DEMO.01" eid="38458202" marked="0" answered="0" number="0" type="question" correct="A">
+		<toolbar straight_edge="not provisioned" mm_ruler="not provisioned" FCAT_formula_card="not provisioned" masking_ruler="required" cm_ruler="not provisioned" scratchpad="not provisioned" scientific_calculator="not provisioned" protractor="not provisioned" half_inch_ruler="not provisioned" oneeighth_inch_ruler="not provisioned" highlighter="required" eraser="required" standard_calculator="not provisioned" TN_formula_card="not provisioned" option_eliminator="required" />
+		<interaction type="choice" max_choices="1">
+			<selector identifier="A" obj_id_ref="A" user_action="n" />
+			<selector identifier="B" obj_id_ref="B" user_action="n" />
+			<selector identifier="C" obj_id_ref="C" user_action="n" />
+			<selector identifier="D" obj_id_ref="D" user_action="n" />
+		</interaction>
+	</item_model>
+</element_package>
