@@ -113,7 +113,7 @@
                 <animator name="barAnimator" attribute="x" from="50" to="136" motion="linear" duration="3000" repeat="9" start="false">
                     <handler name="onstop">
 						this.setAttribute('x',50);
-                    	if(gPleaseWaitPopup.getAttribute("visible") == true){	                         	
+                    	if(gPleaseWaitPopup.visible == true){	                         	
                       	this.doStart();
                       }
                    </handler>

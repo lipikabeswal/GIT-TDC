@@ -102,7 +102,7 @@
                 this.table_ht -=  24;
    			}
    			else if (enlargeAttr == "accommodated"){
-   				isEnlargeable = gController.getAttribute("hasFontAccommodation");
+   				isEnlargeable = gController.hasFontAccommodation;
    			}
             this.enlarge.setAttribute("visible", isEnlargeable);
 

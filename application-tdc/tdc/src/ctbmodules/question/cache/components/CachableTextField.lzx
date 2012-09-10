@@ -162,6 +162,7 @@
 
 		<method name="setTextReaderAttributes" args="data"><![CDATA[
             var dataText = data.getFirstChild().data;
+            Debug.write("setTextReaderAttributes",dataText);
 			Debug.write("inside setTextReaderAttributes ",panel);
 			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
 			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
@@ -183,7 +184,9 @@
 				Debug.write("inside else ",canvas.readable);
             	setAttribute('hasReadableText', canvas.readable);
                 setAttribute( 'hasAltText', false );
+                Debug.write("inside else hasReadableText",this.hasReadableText,this.hasAltText);
                 this.setAAText(dataText);
+                Debug.write("after setAAText");
             }
 		]]></method>
 		
@@ -191,6 +194,8 @@
         	setTextReaderAttributes(data);
         	var allFields = new Array();
 			var dataText = data.getFirstChild().data;
+			Debug.write("dataText----------- ",dataText);
+			
 			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
 			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
 				dataText = gController.directionsSubstitution(dataText);
@@ -351,7 +356,8 @@
             		theField.setReadableText(gReadableText.stripHtmlTags(readableText));
             	}
             }
-            var xin = parent.getAttribute("comptype") == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
+            Debug.write("theField------------- ",allFields);
+            var xin = parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
 			// For inline cr, to avoid overlapping of text objects, set value to 0
             var xsp = gController.hasFontAccommodation ? 0 : (this.embedded_input ? 0 : -1); ;
             this.setAttribute('wl', new lz.inlinewrappinglayout(this, { axis : "x", xinset : xin, xspacing : xsp } ));
@@ -580,7 +586,7 @@
             		theField.setReadableText(gReadableText.stripHtmlTags(readableText));
             	}
             }
-            var xin = parent.getAttribute("comptype") == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
+            var xin = parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
 			// For inline images, to avoid overlapping of text objects, set value to 0
             var xsp = gController.hasFontAccommodation ? 0 : (this.embedded_inline_image ? 0 : -1);
             this.setAttribute('wl', new inlinewrappinglayout(this, { axis : "x", xinset : xin, xspacing : xsp } ));
@@ -704,7 +710,7 @@
             }
 
 
-            var xin = parent.getAttribute("comptype") == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
+            var xin = parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
 			// For inline images, to avoid overlapping of text objects, set value to 0
             var xsp = gController.hasFontAccommodation ? 0 : (this.embedded_inline_image ? 0 : -1);
             this.setAttribute('wl', new lz.inlinewrappinglayout(this, { axis : "x", xinset : xin, xspacing : xsp } ));
@@ -758,7 +764,7 @@
 				var dText = txt;
 				splitTextAndImage(dText);			
 				var parentWidth = this.width;
-				var xin = parent.getAttribute("comptype") == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
+				var xin = parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
 				parentWidth = parentWidth - xin;
 				var hasSecondLine = false;
 				var previousWidth = 0;

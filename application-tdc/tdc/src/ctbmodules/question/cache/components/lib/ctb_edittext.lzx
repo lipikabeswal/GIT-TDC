@@ -208,7 +208,15 @@
                   ]]>
             </handler>
             <handler name="oninit"><![CDATA[ 
-                this.textclip = this.__LZtextclip;
+                //this.textclip = this.__lz.textclip;
+				if ($dhtml) {
+					Debug.write("DHTML ",this.getDisplayObject());
+					this.textclip = this.getDisplayObject()
+				} else {				
+					var mc = this.sprite;
+					Debug.write("AS# ",mc.textfield);
+					this.textclip = mc.textfield;
+				}
             ]]> 
             </handler>
             
@@ -219,6 +227,7 @@
  			-->
             <handler name="onfocus" reference="this.textclip"> 
             <![CDATA[ 
+            	Debug.write("this.textclip*********** ",this.textclip);
                 this.textColor = this.textclip.textColor;
                 this.fgcolor = this.textclip.textColor;
                 if(this.bgcolor == 0x000000 && this.textColor == 0xFFFFFF) 
@@ -226,12 +235,13 @@
                     this.setHighlight();
                     this.textclip.textColor = 0x000000;//text set to black because transform reverses it
                 } 
+                Debug.write("this.textclip.textColor  ",this.textclip.textColor);
             ]]> 
             </handler> 
 
             <method name="setHighlight"> 
             	var color = { ab: 0, aa: 100, bb: 0xff, ba: -100, gb: 0xff, ga: -100, rb:  0xff, ra: -100 }; 
-                this.setColorTransform(color); 
+                this.setAttribute('colortransform',color); 
             </method> 
 
 

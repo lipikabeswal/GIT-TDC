@@ -13,7 +13,7 @@
     <include href="CachableTab.lzx"/>
     <include href="CachableTable.lzx"/>
     <include href="CachableTableCell.lzx"/>
-	<!-- <include href="CachableSingleLineAnswer.lzx"/>-->
+	<include href="CachableSingleLineAnswer.lzx"/>
 	<!-- <include href="CachableMultiLineAnswer.lzx"/>-->
 
 

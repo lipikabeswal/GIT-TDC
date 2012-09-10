@@ -89,8 +89,8 @@
                fgcolor="${classroot.fontcolor}"
                fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" width="1">
                <handler name="onwidth" args="w"><![CDATA[
-					var xin = classroot.parent.parent.getAttribute("comptype") == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
-//					Debug.write('xin..', classroot.parent.parent, classroot.parent.parent.getAttribute("comptype"));	
+					var xin = classroot.parent.parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
+//					Debug.write('xin..', classroot.parent.parent, classroot.parent.parent.comptype);	
 					if(this.width > classroot.parent.width - xin) {
 //					Debug.write('this.width, parent.width - xin..',this.width, parent.width - xin);
 						this.setAttribute('resize', false);

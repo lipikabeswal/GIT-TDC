@@ -165,7 +165,7 @@
    				isEnlargeable = true;
    			}
    			else if (enlargeAttr == "accommodated"){
-   				isEnlargeable = gController.getAttribute("hasFontAccommodation");
+   				isEnlargeable = gController.hasFontAccommodation;
    			}
             if (isEnlargeable) {
                this.enlarge.setAttribute("visible", true);
@@ -334,7 +334,7 @@
         <view name="imageview" stretches="both" clickable="${classroot.readable}">
         	        	
         	<handler name="onframe" args="f"><![CDATA[
-        	//var totalNoOfFrames  = this.imageview.getAttribute("totalframes");
+        	//var totalNoOfFrames  = this.imageview.totalframes;
         	
 			//Debug.write("onframe" + f);
 		

@@ -15,12 +15,12 @@
 		</handler>
 		<handler name="ontickmarksrsr">
 			if(this.tickmarksrsr != null){
-				this.ruler.tickmarks.setResource(this.tickmarksrsr);
+				this.ruler.tickmarks.setAttribute('resource',this.tickmarksrsr);
 			}
 		</handler>
 		<handler name="onlabelrsr">
 			if(this.labelrsr != null){
-				this.ruler.label.setResource(this.labelrsr);
+				this.ruler.label.setAttribute('resource',this.labelrsr);
 			}
 		</handler>
 		
@@ -67,6 +67,7 @@
 
 		<method name="updateDraggerAttributes">
 			var dv = getDraggerValues(this.rotation, ruler.width);
+			Debug.write("updateDraggerAttributes***** ",dv);
 
            	this.setAttribute ('dragxmin', dv[0]);
 			this.setAttribute ('dragymin', dv[1]);
@@ -88,7 +89,9 @@
 		<method name="getRelativeGrabberBounds" args="degrees, lngth">
 			var result = new Array();
 			var rads = degreesToRads(degrees);
+			Debug.write("rads******* ",rads);
 			var grabber = ruler.grabber;
+			Debug.write("grabber---------- ",grabber);
             var sin = Math.sin(rads);
             var cos = Math.cos(rads);
             var gx = this.ruler.x + lngth/2 - grabber.width/2;
@@ -183,13 +186,14 @@
 		</method>
 		
         <handler name="ondata" args="data"><![CDATA[
+			Debug.write("ondata***** ",dragger);
             if (!data) return;
             var hasstate = false;
             for (var i in data.attributes) {
                 hasstate = true;
                 break;
             }
-
+			Debug.write("rotation--------- ",data.getAttr ('rotation'));
             if (data && hasstate) {
                 this.setAttribute ('rotation', data.getAttr ('rotation'));
                 this.ruler.setAttribute ('width', data.getAttr ('rulerlength'));
@@ -215,7 +219,7 @@
                     data.setAttr ('y', this.y);
                 }
             }
-            
+            Debug.write("rotation base ruler--------- ",this.rotation);
         ]]></handler>
 
         <method name="startRotate" args="xpos, ypos">
@@ -272,7 +276,7 @@
 
             if (mx < 0) endang = 180 - endang;
 			if(isValidRotation(endang)){
-            	this.setRotation (endang);
+            	this.setAttribute('rotation',endang);
             }
         ]]></method>
         
@@ -360,11 +364,11 @@
             <view name="lines" 
                   resource="ruler_lines"/>
             <view name="tickMarks" 
-                  oninit="if(classroot.tickmarksrsr != null) this.setResource (classroot.tickmarksrsr)"/>
+                  oninit="if(classroot.tickmarksrsr != null) this.setAttribute('resource',classroot.tickmarksrsr)"/>
             <view name="label" 
                   align="center" 
                   y="$once{classroot.LABEL_Y}"
-                  oninit="if(classroot.labelrsr != null) this.setResource (classroot.labelrsr)">
+                  oninit="if(classroot.labelrsr != null) this.setAttribute('resource',classroot.labelrsr)">
             	<handler name="onload"><![CDATA[
             		var minWidth = this.resourcewidth < parent.grabber.resourcewidth ? 
             		               parent.grabber.resourcewidth + classroot.GRABBER_PADDING : 

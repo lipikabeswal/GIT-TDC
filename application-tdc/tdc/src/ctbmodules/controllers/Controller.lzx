@@ -813,7 +813,7 @@
             );
             var maxpossible = totalQuestions();
             if(this.adaptive == 'true'){
-            	maxpossible = gController.getAttribute("subtestLength");
+            	maxpossible = gController.subtestLength;
             }
             
             var completionmode = ""; // empty string or 'time-out' - need to fix for timeout
@@ -4410,13 +4410,13 @@ Debug.write("############ loadItem ############");
 
 		<method name="checkHideMaskingChoiceDD">
 			if(this.maskingAnswerDDState)  {
-				//gMaskingAnswer.hidePopUp();
+				gMaskingAnswer.hidePopUp();
 		   }   
 		</method>
 
 		<method name="checkShowMaskingChoiceDD">
 		   if(this.maskingAnswerDDState)  {
-				//gMaskingAnswer.showPopUp();
+				gMaskingAnswer.showPopUp();
 		   }   
 		</method>
 
@@ -4504,17 +4504,27 @@ Debug.write("############ loadItem ############");
 			if(state == 'Hide'){
 				Debug.write("inside hide",index != null,actualIndex);
 				if(index != null && index != ""){
-					Debug.write("answerArray[actualIndex].subviews[0]******* ",answerArray);
-					answerArray[actualIndex].subviews[0].hide();
+					Debug.write("answerArray[actualIndex].subviews[0]******* ",answerArray[actualIndex]);
+					/*answerArray[actualIndex].subviews[0].hide();
 					answerArray[actualIndex].subviews[1].hide();
-					answerArray[actualIndex].subviews[2].hide();				
+					answerArray[actualIndex].subviews[2].hide();	*/		
+					if(answerArray[actualIndex].subviews.length > 0){
+						for(var i=0;i<answerArray[actualIndex].subviews.length;i++){
+							answerArray[actualIndex].subviews[i].hide();
+						}
+					}	
 				}
 			}
 			else if(state == 'Show'){
 				if(index != null && index != ""){
-					answerArray[actualIndex].subviews[0].show();
+					/*answerArray[actualIndex].subviews[0].show();
 					answerArray[actualIndex].subviews[1].show();
-					answerArray[actualIndex].subviews[2].show();				
+					answerArray[actualIndex].subviews[2].show();	*/		
+					if(answerArray[actualIndex].subviews.length > 0){
+						for(var i=0;i<answerArray[actualIndex].subviews.length;i++){
+							answerArray[actualIndex].subviews[i].show();
+						}
+					}	
 				}
 			}
 
@@ -4526,9 +4536,14 @@ Debug.write("############ loadItem ############");
 				//Debug.write("inside answerArray", answerArray);
 				for (var i = 0; i < answerArray.length; i++){
 						//answerArray[i].show();
-				answerArray[i].subviews[0].show();
+				/*answerArray[i].subviews[0].show();
 				answerArray[i].subviews[1].show();
-				answerArray[i].subviews[2].show();
+				answerArray[i].subviews[2].show();*/
+				if(answerArray[i].subviews.length > 0){
+					for(var j=0;j<answerArray[i].subviews.length;j++){
+						answerArray[i].subviews[j].show();
+					}
+				}
 						
 				}
 			}
@@ -4794,7 +4809,7 @@ Debug.write("############ loadItem ############");
 				for(var j =i+1;j<this.idImageFields.length;j++){
 					var cachableImageTemp = this.idImageFields[j];
 					if(Number(cachableImage['imageComponent'].playorder) == Number(cachableImageTemp['imageComponent'].playorder)-1){
-						if(cachableImage['imageComponent'].getAttribute('hasPlayed') && !cachableImageTemp['imageComponent'].getAttribute('hasPlayed')){
+						if(cachableImage['imageComponent'].hasPlayed && !cachableImageTemp['imageComponent'].hasPlayed){
 							if(j==this.idImageFields.length-1 
 								&& (cachableImageTemp['imageComponent'].enableWhenAnswered == true || cachableImageTemp['imageComponent'].enableWhenAnswered == 'true')
 								&& (contentArea == "Reading" || contentArea == 'Listening')){

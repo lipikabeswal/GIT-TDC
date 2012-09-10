@@ -150,7 +150,7 @@
 
             if (mx < 0) endang = 180 - endang;
 
-            this.setRotation (endang);
+            this.setAttribute ('rotation',endang);
         ]]></method>
 
 

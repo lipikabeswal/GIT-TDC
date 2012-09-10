@@ -33,7 +33,7 @@
                 	'text','You have '+leftQues+' '+((leftQues == 1) ? 'question' :'questions')+' left.');
                 }
                 else{    
-					if(gController.getAttribute("RestartTest") == "true"){
+					if(gController.RestartTest == "true"){
 						//Debug.write("For Restart scenario");
 							leftQues = 0;
 						}

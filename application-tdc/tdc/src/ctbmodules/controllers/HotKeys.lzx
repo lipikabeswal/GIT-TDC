@@ -310,13 +310,13 @@
         		lz.focus.clearFocus();
         	}
             this.exitPopups(); 
-        	if(gItemInterface.getAttribute('visible') == true || gTutorial.getAttribute('visible') == true)
+        	if(gItemInterface.visible == true || gTutorial.visible == true)
         		gController.pauseTest();
         </method>
         <method name="stop">       
         	lz.focus.clearFocus();
             this.exitPopups();
-        	if(gItemInterface.getAttribute('visible') == true || gTutorial.getAttribute('visible') == true)
+        	if(gItemInterface.visible == true || gTutorial.visible == true)
         		gController.finishTest();              
         </method>
         <method name="finish">     
