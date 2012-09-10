@@ -12,36 +12,7 @@
 				<stereotype_style stereotype="answerArea" font_magnification="1.0"/>
 			</lms.student.accommodations>
 		</testing_session_data>
-		<manifest block_content_download="false" title="Experience TerraNova, Third Edition, Online Level 12">
-			<sco force_logout="false" cmi.core.entry="ab-initio" id="281171" sco_duration_minutes="0" 
-				sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" 
-				title="TerraNova Tips and Sample Questions" asmt_hash="95043ECFAD7AA7ECF5FCD98FBF29210D" 
-				asmt_encryption_key="589" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70084100" 
-				fwd_only="false" adaptive="false" contentURI="https://oastest.ctb.com/content/" 
-				cmi.core.total_time="0:0:0"/>
-			<sco force_logout="false" cmi.core.entry="ab-initio" id="281173" sco_duration_minutes="0" 
-				sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" 
-				title="TerraNova Reading and Language" asmt_hash="C97C3D8C70FF26FCD425014CEE14071F" 
-				asmt_encryption_key="1468" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70084200" 
-				fwd_only="false" adaptive="false" contentURI="https://oastest.ctb.com/content/" 
-				cmi.core.total_time="0:0:0"/>
-			<sco force_logout="false" cmi.core.entry="ab-initio" id="281175" sco_duration_minutes="0" 
-				sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TerraNova Mathematics" 
-				asmt_hash="9769113EE150415EA9E3DA84EA16A350" asmt_encryption_key="241" 
-				item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70084300" fwd_only="false" adaptive="false" 
-				contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0"/>
-			<sco force_logout="false" cmi.core.entry="ab-initio" id="281177" sco_duration_minutes="0" 
-				sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TerraNova Science" 
-				asmt_hash="22DD219BB2B7DB6056A8B5D52FC6CF97" asmt_encryption_key="1533" 
-				item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70084400" fwd_only="false" adaptive="false" 
-				contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0"/>
-			<sco force_logout="false" cmi.core.entry="ab-initio" id="281179" sco_duration_minutes="0" 
-				sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TerraNova Social Studies" 
-				asmt_hash="B0E23F83FF0C084D1E0B319497009934" asmt_encryption_key="790" 
-				item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70084500" fwd_only="false" adaptive="false" 
-				contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0"/>
-			<terminator id="SEE_YOU_LATER"/>
-		</manifest>
+		<manifest block_content_download="false" title="Experience TerraNova, Third Edition, Online Level 12"><sco force_logout="false" cmi.core.entry="ab-initio" id="281171" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TerraNova Tips and Sample Questions" asmt_hash="D44D5FCEC0D4F266CEEB8D1D1133B659" asmt_encryption_key="1693" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70084100" fwd_only="false" adaptive="false" isSample="false" contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0"/><sco force_logout="false" cmi.core.entry="ab-initio" id="281173" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TerraNova Reading and Language" asmt_hash="7445BEB725F321BB625DA587241C56AF" asmt_encryption_key="267" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70084200" fwd_only="false" adaptive="false" isSample="false" contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0"/><sco force_logout="false" cmi.core.entry="ab-initio" id="281175" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TerraNova Mathematics" asmt_hash="D890C3A79AAE86B3A74133EE8CCDDF0B" asmt_encryption_key="511" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70084300" fwd_only="false" adaptive="false" isSample="false" contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0"/><sco force_logout="false" cmi.core.entry="ab-initio" id="281177" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TerraNova Science" asmt_hash="EC9AA2BC35EE6A0B51C6B76D1F992286" asmt_encryption_key="1354" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70084400" fwd_only="false" adaptive="false" isSample="false" contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0"/><sco force_logout="false" cmi.core.entry="ab-initio" id="281179" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="TerraNova Social Studies" asmt_hash="E69D66758481B8E26F180A3BEAA661A5" asmt_encryption_key="1654" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70084500" fwd_only="false" adaptive="false" isSample="false" contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0"/><terminator id="SEE_YOU_LATER"/></manifest>
 		<branding tdclogo="/resources/logoTN3.swf"/>
 	</login_response>
 </tmssvc_response>
