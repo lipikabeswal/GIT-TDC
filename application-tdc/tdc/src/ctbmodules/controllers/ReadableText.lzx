@@ -11,7 +11,7 @@
 
         <attribute name="isenabled"
                    value="$path{ 'dsdisplay:/display/@enabled' }"/>
-        <attribute name="clickable" value="${ isenabled == 'true' }"/>
+        <attribute name="clickable" value="${ isenabled == true }"/>
 		<attribute name="READ_SPACE" type="string" value="blank" />
 		<attribute name="READ_PERIOD" type="string" value="point" />
 		<attribute name="READ_SLASH" type="string" value="slash" />
