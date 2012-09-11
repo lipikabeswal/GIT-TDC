@@ -16,7 +16,7 @@
 
 		<handler name="onlabelrsr">
 			if(this.labelrsr != null){
-				this.ruler.label.setResource(this.labelrsr);
+				this.ruler.label.setAttribute('resource',this.labelrsr);
 			}
 		</handler>
 		

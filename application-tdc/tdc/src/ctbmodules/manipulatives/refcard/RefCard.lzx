@@ -15,8 +15,8 @@
 		<attribute name="titleRsrc" type="string"/>
 		<attribute name="scrolls" type="boolean" value="false" />
 		<handler name="oninit">
-			refCardContents.contents.setResource(refCardRsrc);
-			title.real_title.setResource(titleRsrc);
+			refCardContents.contents.setAttribute('resource',refCardRsrc);
+			title.real_title.setAttribute('resource',titleRsrc);
 		</handler>
 		
         <dragstate name="dragger"

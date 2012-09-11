@@ -82,7 +82,7 @@
                 <method name="finished">
                     gScreens.clicked();
                     gController.isStopScreen = true;
-                    gController.saveEndSubtest( '' );
+                    gController.saveEndSubtest();
                     //START Defect# 59282
                     gController.resetCrFields();
                     //END
