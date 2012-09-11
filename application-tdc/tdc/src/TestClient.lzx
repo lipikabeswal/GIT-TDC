@@ -151,7 +151,7 @@
 		<!--<handler name="oninit">
 
 		</handler>-->
-	<view name="scalingView"  stretches ="both" width="800" height="600"
+	<view name="scalingView"
 		valign="middle" align="center">
 
 

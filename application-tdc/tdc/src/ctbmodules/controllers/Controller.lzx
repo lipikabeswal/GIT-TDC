@@ -4857,7 +4857,7 @@ Debug.write("############ loadItem ############");
 	</method>
 
 	<method name="stopCheckPlaying"><![CDATA[
-		--uisemaphore;
+		-uisemaphore;
 		lz.Timer.removeTimer(dCheckPlaying);
 		if(this.idImageFieldTemp.widget_id == this.lastPlayOrderId){
 			unlockUI();
