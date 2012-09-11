@@ -12,7 +12,7 @@
     		calculator.bringToFront();
     	</handler>
         <handler name="oninit">
-            this.textView.setResource (txtresource);
+            this.textView.setAttribute('resource',txtresource);
         </handler>
     </class>
 
@@ -52,7 +52,7 @@
 		<view name="face" align="center" valign="middle"/>
 		<method name="init">
 			super.init();
-			face.setResource(faceRsrc);
+			face.setAttribute('resource',faceRsrc);
 		</method>
 	</class>
 	<class name="multiFaceCalculatorBaseButton" extends="basebutton">	
@@ -63,8 +63,8 @@
 		<view name="otherFace" align="center" valign="middle" visible="false" />
 		<method name="init">
 			super.init();
-			offFace.setResource(offFaceRsrc);
-			otherFace.setResource(otherFaceRsrc);
+			offFace.setAttribute('resource',offFaceRsrc);
+			otherFace.setAttribute('resource',otherFaceRsrc);
 		</method>
 		<handler name="onmousedown">
 			calculator.bringToFront();
@@ -120,8 +120,8 @@
 		<view name="otherFace" align="center" valign="middle" visible="false" />
 		<method name="init">
 			super.init();
-			offFace.setResource(offFaceRsrc);
-			otherFace.setResource(otherFaceRsrc);
+			offFace.setAttribute('resource',offFaceRsrc);
+			otherFace.setAttribute('resource',otherFaceRsrc);
 			face.setText(theText);
 		</method>
 		<handler name="onmouseover">

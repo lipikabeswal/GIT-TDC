@@ -47,7 +47,7 @@
 		  	
 		  	<method name="choice" args="data">
 				//this.mytext.setText(data.name);
-				Debug.write("sano",data.name,curState);
+				//Debug.write("sano",data.name);
 				gController.maskChoice(data.name,curState);
 				if(this.curState == 'Hide'){
 					this.setAttribute("curState",'Show');
