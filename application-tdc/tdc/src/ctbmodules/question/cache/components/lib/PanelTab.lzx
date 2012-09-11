@@ -7,24 +7,16 @@
 	
 	function setResourceColor(obj, newColor){
 		// this is the resource color of the swfs used to create the tabs
-		Debug.write(" this is the resource color ",obj,newColor);
-		Debug.write("if number" , newColor is Number, newColor instanceof Number);
 		var rR = 255;
 		var rG = 255;
 		var rB = 255;
-		var color;
-		if(newColor is Number){
-			color = newColor;
-		}else{
-			color = Number(newColor);
-		}
-		Debug.write("color ------------ ",color);
-	    var r =	parseInt('0x'+newColor.substr(2,2));
+		var color = Number(newColor);
+		
+		var r =	parseInt('0x'+newColor.substr(2,2));
 	    var g =	parseInt('0x'+newColor.substr(4,2));
 	    var b =	parseInt('0x'+newColor.substr(6,2));
 	    
-		Debug.write("rgb colors********* ",r,g,b);
-	    obj.setAttribute('colortransform',{ab: 0, aa: 100, 
+		obj.setAttribute('colortransform',{ab: 0, aa: 100, 
 	                            bb: b-rB, ba: 100, 
 	                            gb: g-rG,  ga: 100, 
 	                            rb: r-rR,  ra: 100});   
@@ -102,11 +94,15 @@
         </method>
         
 		<method name="initColors">
-			setResourceColor(bg, gController.questionBgColor); 
-			var fg = gController.questionFontColor;
+			var bgcolor="0x"+ gController.questionBgColor.toString(16);
+			setResourceColor(bg, bgcolor); 
+			
+			/*var fg = gController.questionFontColor;
 		    if(fg == 0){
 		       fg = "0x000000";
-		    }
+		    }*/
+		    var fg = "0x"+ gController.questionFontColor.toString(16);
+		    
 	        setResourceColor(borders, fg); 
 		</method>
 		
@@ -114,7 +110,7 @@
             if (issel) {
             	this.thetitle.setAttribute('clickable', false);
                 this.setAttribute ('theframe', 3);
-                this.bringToFront ();
+                this.bringToFront();
                 if (this ['thetitle']) {
                     this.thetitle.setAttribute ('y', (this.height - this.thetitle.height)/2 + this.height/10);
                 }

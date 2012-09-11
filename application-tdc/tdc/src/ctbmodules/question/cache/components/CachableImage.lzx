@@ -368,7 +368,7 @@
 				if(classroot.isaudio){
 					if(classroot.playorder != 1){
 						Debug.write("playorder not 1");
-						this.getMCRef().disableBtn();
+						//this.getMCRef().disableBtn();
 					}
 				}
 		  	</handler>

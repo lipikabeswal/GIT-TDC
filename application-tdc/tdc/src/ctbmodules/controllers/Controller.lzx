@@ -2395,6 +2395,7 @@
                 dpstudentdata.xpathQuery( 'current_item/item_model/@eid' )
             );
             var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
+			//Debug.write("dncurrentItem********** ",dncurrentItem);
             dncurrentItem.setAttr('is_visited' , true);
 			
 			if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm && itemeid != curreid ){
@@ -2410,14 +2411,14 @@
 
 		<method name="changeItem" args="fnode"><![CDATA[		
 			if(fnode != null) {			
-				if(this.recorder != null) {
+				/*if(this.recorder != null) {
 					this.recorder.stopblinker('stop');
 					this.recorder.whitewrapperOverLay.setAttribute('visible', false);
 					this.recorder.blackOverLay.setAttribute('visible', false);
-				}
+				}*/
 				//To reset the Audio Fields Array So that file name will be passed in the save call
 				this.resetAudioFields();
-				this.resetImageField();
+				//this.resetImageField();
 				gReadableText.stopReading(false);
 				freezeUI();
 				stopQuestion();
@@ -2425,8 +2426,8 @@
 				var lev;
 				saveLoadItem( fnode , lev);
 			}
-			this.setattribute('isaudio',false);
-			resetRecorder();
+			//this.setAttribute('isaudio',false);
+			//resetRecorder();
 		]]></method>
 
 		<method name="resetRecorder"><![CDATA[
@@ -2690,9 +2691,9 @@
                         dncurritem.setAttr ('answered', 1 );
                         dnruntimeitem.setAttr ('answered', 1 );
                         
-                        if(this.isaudio){
+                        /*if(this.isaudio){
                         	enableMoreInfo();
-                        }
+                        }*/
           
                         var rationaleText = getRationaleText(selid);
               //Debug.write("rationaleText: " + rationaleText);
@@ -3216,7 +3217,7 @@ Debug.write("############ loadItem ############");
 			dsitem.doRequest();        
             this.resetCrFields();
 			this.resetAudioFields();
-			this.resetImageField();
+			//this.resetImageField();
 			//gMaskingAnswer.setAttribute("withState",false);
 			hideMagnifierGlass();
 			hideMaskingChoiceDD();
@@ -3793,11 +3794,17 @@ Debug.write("############ loadItem ############");
 			if(imageLIArray.length > 0){
 	
 				for(var i = 0 ; i < this.imageLIArray.length ; i++){
-					this.imageLIArray[i].imageview.getMCRef().unloadMovie();
+					//this.imageLIArray[i].imageview.getMCRef().unloadMovie();
+					if ($dhtml) {
+						this.imageLIArray[i].imageview.getDisplayObject().imgLoader.unload();
+					} else {				
+						var mc = this.imageLIArray[i].imageview.sprite;
+						mc.imgLoader.unload();
+					}
 				}
 			}
 			this.resetImageArray();
-			this.setattribute('isaudio',false);
+			//this.setattribute('isaudio',false);
 			setState(WRITE_TO_AUDIT_FILE_STATE);
 			gCommunicator.writeToAuditFile(lsid, scid, getModelString());
         ]]></method>
@@ -4191,9 +4198,9 @@ Debug.write("############ loadItem ############");
 	                //Debug.write("Turned on blue ball for " + currentEid);
 	                currentitem.setAttr("answered", 1);
 	                runtimeitem.setAttr("answered", 1);
-	                if(this.isaudio){
+	               /* if(this.isaudio){
                     	enableMoreInfo();
-                    }
+                    }*/
 	            }
 	            else {
 	               //Debug.write("Turned off blue ball for " + currentEid);
@@ -4550,7 +4557,7 @@ Debug.write("############ loadItem ############");
 
 		]]></method>
 
-		<method name="disableAnswerOptions"><![CDATA[
+		<!--<method name="disableAnswerOptions"><![CDATA[
 			var id = isAnswerToBeDisabled();
 			if(id != null){
 				for (var i = 0; i < answerArray.length; i++){
@@ -4569,7 +4576,7 @@ Debug.write("############ loadItem ############");
 				}
 			}
 		]]>
-		</method>
+		</method>-->
 		
 		<method name="getChoiceName" args="index">
 		if(index == 0)return 'A';
@@ -4584,9 +4591,12 @@ Debug.write("############ loadItem ############");
 		<method name="clearAll"><![CDATA[
 				for (var i = 0; i < answerArray.length; i++){
 						//answerArray[i].show();
-				answerArray[i].subviews[0].show();
+				/*answerArray[i].subviews[0].show();
 				answerArray[i].subviews[1].show();
-				answerArray[i].subviews[2].show();
+				answerArray[i].subviews[2].show();*/
+					for(var j = 0; j < answerArray[i].subviews.length; j++){
+						answerArray[i].subviews[j].show();
+					}
 						
 				}
 			resetAnswerArray();
@@ -4750,7 +4760,7 @@ Debug.write("############ loadItem ############");
 		this.idImageFields.push(field);
 		]]></method>
 
-	<attribute name="dCheckPlaying"
+	<!--<attribute name="dCheckPlaying"
 			value="$once{ new lz.Delegate( this, 'isPlayed' )}" />
 
 	<method name="enableAudio"><![CDATA[
@@ -4847,7 +4857,7 @@ Debug.write("############ loadItem ############");
 	</method>
 
 	<method name="stopCheckPlaying"><![CDATA[
-		--uisemaphore;
+		-uisemaphore;
 		lz.Timer.removeTimer(dCheckPlaying);
 		if(this.idImageFieldTemp.widget_id == this.lastPlayOrderId){
 			unlockUI();
@@ -5008,7 +5018,7 @@ Debug.write("############ loadItem ############");
 			}*/
 		}
 		]]>
-	</method>
+	</method>-->
 
 	</node>
 

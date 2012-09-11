@@ -102,13 +102,22 @@ Debug.write ('CACHE: create new ', type, newcomp, datanode);
 
         <method name="returnComponent" args="toReturn">
 //Debug.write ('CACHE: return ', toReturn.comptype, toReturn.parent);
-Debug.showInternalProperties=true;
+//Debug.showInternalProperties=true;
 			if (toReturn.comptype == gCompTypes.WIDGET_IMAGE) {
+				toReturn.imageview.resource = null;
+				if ($dhtml) {
+					toReturn.imageview.getDisplayObject().imgLoader.unload();
+				} else {				
+					var mc = toReturn.imageview.sprite;
+					mc.imgLoader.unload();
+				}
+			}
+			/*if (toReturn.comptype == gCompTypes.WIDGET_IMAGE) {
 				Debug.write(toReturn.imageview.getMCRef());
 				toReturn.imageview.resource = null;
 				toReturn.imageview.getMCRef().unloadMovie();
 			
-			}
+			}*/
 
             var arraytouse = this._findArray (toReturn.comptype);
 			

@@ -77,9 +77,9 @@
 						
 				gController.setAnswerPanel(this);
 			}
-			if(gController.isaudio){
+			/*if(gController.isaudio){
 				gController.disableAnswerOptions();
-			}
+			}*/
 		 ]]></method>
 	</class>
 
