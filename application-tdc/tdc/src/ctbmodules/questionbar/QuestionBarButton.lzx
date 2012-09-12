@@ -79,7 +79,7 @@
             }
 			else{
 			 if(this.allow_revisit != null){
-			  if(this.allow_revisit != 'true'){
+			  if(this.allow_revisit != true){
 
 				if(this.isvisited || this.isanswered){
 						this.btn.setAttribute('clickable',true);
@@ -87,15 +87,18 @@
 						//For Defect 65886
 						this.btnText.setAttribute('fgcolor',0xE0E0E0);
 						this.themeResource = 'theme_disable';
+						Debug.write("**********btn disable*********");
 					}else{
 						this.btnText.setAttribute('fgcolor',0x000000);
 						this.btn.setAttribute('clickable',false);
 						this.btn.setAttribute('showhandcursor',true);
+						Debug.write("**********btn clickable false*********");
 					}
 				}else{
 					this.btn.setAttribute('clickable',false);
  					this.btn.setAttribute('showhandcursor',true);
 					this.btnText.setAttribute('fgcolor',0x000000);
+					Debug.write("**********btn clickable false*********");
 				}
 			}
 		}
@@ -137,16 +140,17 @@
                 else if (isactive)          newframe = 2;
 				else if(this.allow_revisit != null){
 				if (isvisited &&
-						 allow_revisit != 'true')
+						 this.allow_revisit != true)
 											newframe = 11;
 				else if (isanswered &&
-						 allow_revisit != 'true')
+						 this.allow_revisit != true)
 											newframe = 11;
 				}
                 else                        newframe = 1;
             }
 
             this.btn.setAttribute('frame', newframe);
+
         ]]></method>
 
 

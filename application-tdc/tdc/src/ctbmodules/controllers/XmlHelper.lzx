@@ -119,18 +119,15 @@
       	</method>
     	
     	<method name="getSaveXml" args="lsid, scid, mseq, cid, params, tts_speed_value">
-			Debug.write("getSaveXMl");
 			clearSaveDs();
     		dp.setXPath("saveDs:/adssvc_request/save_testing_session_data/tsd");
     		dp.setNodeAttribute('lsid', lsid);
     		dp.setNodeAttribute('scid', scid);
     		dp.setNodeAttribute('mseq', mseq);
     		dp.setNodeAttribute('cid', cid);
-			Debug.write("getSaveXMl1");
     		if(gController.hasTTSspeed) {
    				dp.setNodeAttribute('tts_speed_value', tts_speed_value);
     		}
-    		Debug.write("getSaveXMl2");
     		if(params == null){  // ast 
     			dp.addNodeFromPointer(_getAstDp());
     		}
@@ -142,7 +139,7 @@
     				dp.addNodeFromPointer(_getIstDp(params[1]));
      			}
     		}
-			Debug.write("getSaveXMl3");
+
 //    		if(tsdParams != null &amp;&amp; tsdParams.length &gt; 0){
 //    			dp.addNodeFromPointer(_getTsdDp(lsid, scid, mseq, cid, tsdParams));
 //    		}

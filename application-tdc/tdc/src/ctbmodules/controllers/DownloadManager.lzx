@@ -161,11 +161,8 @@
 			var sequenceNo = null;
 			var next = null;
      		if(!error){
-					Debug.write("filePartList",filePartList);
-					Debug.write("nextFilePartIndex",nextFilePartIndex);
 	    		filePart = filePartList[nextFilePartIndex];
 				if(filePart != undefined){
-					Debug.write("filePart",filePart);
 					fileName = filePart.getAttr('value');
 					sequenceNo = filePart.getAttr('sequence_number');
 					next = filePart.getAttr('next');

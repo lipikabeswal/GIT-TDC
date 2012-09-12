@@ -96,7 +96,7 @@
             }
 		
         	if (data.getAttr("input") == "yes" || data.getAttr("inline_image") == "yes") {
-				Debug.write("inside if");
+
             	
                	if(data.getAttr("input") == "yes"){
                		this.setAttribute("embedded_input", true);
@@ -1148,8 +1148,8 @@ parse the text string and store text and image string in an array at different i
             	this.subviews[0].setAttribute('clickable',true);
 		</method>
         
-        <state applied="${classroot.embedded_input == false &amp;&amp; classroot.embedded_inline_image == false}">
-           <view name="clickregionreader"
+        <state name="textState" applied="${classroot.embedded_input == false &amp;&amp; classroot.embedded_inline_image == false}">
+           <view name="clickregion"
                  width="${classroot.thetext.width}"
                  height="${classroot.thetext.height}"
                  clickable="${classroot.isReadable}">

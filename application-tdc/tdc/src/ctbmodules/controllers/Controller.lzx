@@ -494,6 +494,7 @@
 		<attribute name="restartItemCount" type="number" value="0" />
 		<attribute name="prevItemId" type="number" value="0" />
 		<attribute name="dshowClient" value="$once{ new lz.Delegate( this, 'showClient' ) }" />
+		<attribute name="testSessionData" value="null" />
 		<!--
 			============================================================
 			Datapointers
@@ -1089,14 +1090,17 @@
 			}
 		</method>
 
-		<method name="updateSubtest" args="response">
+		<method name="updateSubtest" args="response"><![CDATA[
     		var subtest = new lz.DataElement('subtest');
     		var obAssessment = lz.DataElement.stringToLzData(response);
     		var sco = getCurrentSubtest();
-    		var testingSessionData = getTestingSessionData();
-    		subtest.setAttribute('childNodes',new Array(obAssessment, sco, testingSessionData));
+			
+			if(this.testSessionData == null){
+				this.testSessionData = getTestingSessionData();
+			}
+    		subtest.setAttribute('childNodes',new Array(obAssessment, sco, this.testSessionData));
 			dssubtest.setAttribute('childNodes',new Array(subtest));
-    	</method>
+    	]]></method>
 
 		<method name="getTestingSessionData">
     		return dplogin.xpathQuery('testing_session_data');
