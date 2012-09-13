@@ -26,7 +26,7 @@
            width="${this.bg.width}" 
            height="${this.bg.height}">
 
-        <attribute name="theframe" value="1"/>
+        <attribute name="theframe" type="number" value="1"/>
         
         <view name="bg" 
               width="${classroot.thetitle.width + 22}"
@@ -106,19 +106,31 @@
 	        setResourceColor(borders, fg); 
 		</method>
 		
-        <method name="select" args="issel">
+        <method name="select" args="issel"><![CDATA[
+			var cln;		
+			var clones = classroot.tabctrl.tab.clones;
+			for(var i=0;i<clones.length;i++){
+				if(clones[i].clonenumber == this.clonenumber){
+					cln=clones[i];
+					break;
+				}
+			}
             if (issel) {
-            	this.thetitle.setAttribute('clickable', false);
+				if(cln.thetitle){
+            		cln.thetitle.setAttribute('clickable', false);
+				}
                 this.setAttribute ('theframe', 3);
                 this.bringToFront();
-                if (this ['thetitle']) {
-                    this.thetitle.setAttribute ('y', (this.height - this.thetitle.height)/2 + this.height/10);
+                if (cln ['thetitle']) {
+                    cln.thetitle.setAttribute ('y', (this.height - cln.thetitle.height)/2 + this.height/10);
                 }
             } else {
-            	this.thetitle.setAttribute('clickable', true);
+				if(cln.thetitle){
+            		cln.thetitle.setAttribute('clickable', true);
+				}
                 this.setAttribute ('theframe', 1);
-                if (this ['thetitle']) {
-                    this.thetitle.setAttribute ('y', (this.height - this.thetitle.height)/2 + this.height/5);
+                if (cln ['thetitle']) {
+                    cln.thetitle.setAttribute ('y', (this.height - cln.thetitle.height)/2 + this.height/5);
                 }
             }
             if(gController.hasFontAccommodation){
@@ -133,7 +145,7 @@
             }
             else{
             	this.setAttribute('y', 1.5);
-            }
+            }]]>
         </method>
 
         <text name="thetitle" datapath="@title" resize="true" align="center">

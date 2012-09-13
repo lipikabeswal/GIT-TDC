@@ -116,7 +116,7 @@
 
             	
                	
-               	super.doneLoading();
+               	doneLoading();
                	return;
             }
             else{
@@ -152,9 +152,7 @@
             this.thetext.setAttribute("text",
                 '<p align="' + just + '">' + dataText + '</p>');
 
-            super.doneLoading();
-
-			Debug.write("after loading");
+            doneLoading();
 
             //this.doAlign();
             ]]>

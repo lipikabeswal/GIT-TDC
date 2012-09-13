@@ -124,7 +124,7 @@
             //make subviews
             this._initSubnodes ();
 
-            super.doneLoading();
+            doneLoading();
             
             //inform gFootNotePopup footnotes
 			/*if((this instanceof lz.CachableScrollingTextPanel) 
