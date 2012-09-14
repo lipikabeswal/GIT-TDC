@@ -3,7 +3,8 @@
         multistatebutton name="markbtn". bgcolor="0xFFFFCC" removed for name=TestControls-->
     <class name="TestControls"
            datapath="dsstudentdata:/testing_client_model/">
-
+           
+        
         <attribute name="curritempos" 
                    value="$path{'current_item/@itempos'}"/>
 
@@ -20,8 +21,8 @@
                    setter="setIsCurrMarked (iscurrmarked)"/>
 
         <attribute name="curranswer" 
-                   value="$path{'current_item/item_model/interaction/selector/@user_action'}"
-				   setter="answerSelected (curranswer)"/>
+                   value="$path{'current_item/item_model/@answer_text'}"
+				   />
 
         <attribute name="itemtype"
                    value="$path{'current_item/item_model/interaction/@type'}"/>
@@ -37,9 +38,16 @@
 				   setter="setMarkForReview (revisitAllowed)" />
 
         <method name="setIsCurrAnswered" args="isanswered"><![CDATA[
+        	Debug.write("setIsCurrAnswered============== ",isanswered);
             if (typeof (isanswered) == 'string') {
                isanswered = (isanswered == '1');
             }
+            
+            /*if(isanswered){
+            	var selAns = datapath.xpathQuery ("current_item/item_model/interaction/selector[@user_action='s']");
+            	this.curranswer = selAns;
+				this.oncurranswer.sendEvent();
+            }*/
 
             var isgr = itemtype == 'grid'; 
 			var iscr = itemtype == 'text_entry';
@@ -61,26 +69,29 @@
         </method>
 
 		<method name="answerSelected" args="chosenanswer">
-			if (typeof (curranswer) == 'string'){
+			Debug.write("answerSelected*************** ",dpanswer);
+			/*if (typeof (curranswer) == 'string'){
 				if(chosenanswer == 's'){
 					this.curranswer = chosenanswer;
 				}
-			}
-			
-						
+			}*/
+			this.curranswer = chosenanswer;
+			Debug.write("this.curranswer************ ",this.curranswer);			
 		</method>
         <handler name="oncurranswer"><![CDATA[
+			Debug.write("this.curranswer ***************** ",this.curranswer);
             if (this.curranswer) {
-                var currsel = this.curranswer.getAttr ('identifier');
+                //var currsel = this.curranswer.getAttr ('identifier');
+                var currsel = this.curranswer;
 
 		  /** if login response xml has seed, replace currsel by random 
 		 	* value assigned to this distractor */
-			if(gController.isLoginResponseHavingSeed &&
+			/*if(gController.isLoginResponseHavingSeed &&
 				this.curranswer.hasAttr('randomIdentifier')) {         
 
 				currsel = this.curranswer.getAttr('randomIdentifier');
 
-			}
+			}*/
 //Debug.write("Test Control......", "Actual : ",this.curranswer.getAttr('identifier'), "|| Random : ",currsel, "|| Correct : ", gController.dpstudentdata.xpathQuery("current_item/item_model/@correct"));
                 this.answertxt.answeristxt.selitem.setAttribute ('text', currsel);
             }  

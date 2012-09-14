@@ -68,7 +68,7 @@
             var subnodes = this.datapath.p.childNodes;
             if (subnodes == null) return;
             for (var i = 0; i < subnodes.length; i++) {
-                if ( subnodes[i] instanceof LzDataElement ) {
+                if ( subnodes[i] instanceof lz.DataElement ) {
                     subnodes[i].removeAttr("enlargeable");
                     var newcomp = this.cache.getComponent (subnodes [i]);
                     this.wrapper.dynlayout.addSubview (newcomp);

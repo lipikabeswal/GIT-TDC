@@ -28,7 +28,7 @@
             </text>
             <edittext name="loginIdField" x="287" enabled="false"
                       bgcolor="0x777777" fontsize="12" datapath="@userid"
-                      width="265"/>
+                      width="265" visible="true"/>
         </view>
         <view name="pw">
             <text resize="true" valign="middle"
@@ -45,7 +45,7 @@
             </text>
             <edittext name="accesscodeField" x="287" enabled="false"
                       bgcolor="0x777777" fontsize="12" datapath="@accesscode"
-                      width="265"/>
+                      width="265" visible="true"/>
         </view>
 
         <view x="${ classroot.width - width - 20 }">

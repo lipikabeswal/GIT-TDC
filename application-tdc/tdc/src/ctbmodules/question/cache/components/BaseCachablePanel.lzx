@@ -127,11 +127,21 @@
             doneLoading();
             
             //inform gFootNotePopup footnotes
-			/*if((this instanceof lz.CachableScrollingTextPanel) 
+			if((this instanceof lz.CachableScrollingTextPanel) 
                 || this instanceof lz.CachableTabsPanel) 
             {
                 gFootNotePopup.setAttribute("scrolltext", this);
-            }       */       
+            }       
+            Debug.write("this.wrapper******** ",this.wrapper); 
+            Debug.write("this.wrapper.hscroll******** ",this.wrapper.hscroll); 
+            Debug.write("this.wrapper.vscroll******** ",this.wrapper.vscroll); 
+			
+			if(this.wrapper.scrollcontainer.width <= this.wrapper.width){
+				this.wrapper.hscroll.setAttribute('scrollable',false);
+			}
+			if(this.wrapper.scrollcontainer.height <= this.wrapper.height){
+				this.wrapper.vscroll.setAttribute('scrollable',false);
+			}
         ]]></method>
 
 		<!-- 
@@ -206,7 +216,7 @@
 				tempArr.sort(sortNodes);
 				
 				for(var i = 0; i < tempArr.length; i++) {
-					tempNode = LzDataElement.stringToLzData(tempArr[i]);
+					tempNode = lz.DataElement.stringToLzData(tempArr[i]);
 					ansWidNode = answidget[i];
 
 					if(ansWidNode.hasAttr("x")) {
@@ -234,7 +244,9 @@
             var contsubviews = this.wrapper.scrollcontainer.offsetwrapper.contents.subviews;
             this.setAttribute('enablehl', true);
             for (var i in contsubviews) {
-
+				Debug.write("doReturnToCache in basecachablepanel",contsubviews [i],contsubviews [i] instanceof lz.CachableComponent,
+                        contsubviews [i].visible);
+				Debug.write("doReturnToCache****this.cache****** in basecachablepanel",this.cache);                        
                 if (contsubviews [i] instanceof lz.CachableComponent &&
                         contsubviews [i].visible) {
                     this.cache.returnComponent (contsubviews [i]);

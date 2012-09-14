@@ -31,7 +31,7 @@
                 var answerChoices = 
                     this.datapath.xpathQuery("answer_choice_widget");
                 
-                if(answerChoices instanceof LzDataElement) {
+                if(answerChoices instanceof lz.DataElement) {
                     answerChoices = new Array(answerChoices);
                 }
                 

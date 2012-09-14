@@ -654,7 +654,7 @@
 			
 					this.ibox = new lz.CachableImage(this); // create cachable image instance
 					//var newNode = LzDataNode.stringToLzData(image_string); //convert the string to datanode
-					var newNode = LzDataElement.stringToLzData(words[i]); //convert the string to datanode
+					var newNode = lz.DataElement.stringToLzData(words[i]); //convert the string to datanode
 					newNode.setOwnerDocument(this.datapath.p.ownerDocument);
 //					this.ibox.datapath.setPointer (newNode);
 					this.ibox.data = newNode;
@@ -785,7 +785,7 @@
 								var lastT = textImgArr [textImgArr.length - 1];
 
 								if (lastT.lastIndexOf("<image_widget") != -1) {
-									var tempElementT = LzDataElement.stringToLzData(lastT);
+									var tempElementT = lz.DataElement.stringToLzData(lastT);
 									var tempImgWidthT = tempElementT.getAttr("width") * this.magnification;
 //Debug.write('tempImgWidthT..', tempImgWidthT);									
 									if (tempImgWidthT < parentWidth - previousWidth) {
@@ -927,7 +927,7 @@
 					else {
 						totalWidth = 0;
 						//hasSecondLine = true;
-						var tempElement = LzDataElement.stringToLzData(initTextImgArr[i]);
+						var tempElement = lz.DataElement.stringToLzData(initTextImgArr[i]);
 						var tempImgWidth = tempElement.getAttr("width") * this.magnification;
 
 //		Debug.write('in else for image', tempStr);			
@@ -952,7 +952,7 @@
 //											if (textImgArr.length > 1) {
 												var thirdLastVal = trim(textImgArr[textImgArr.length - 2]);
 												if (thirdLastVal.indexOf("<image_widget") != -1) {
-													var thirdElementT = LzDataElement.stringToLzData(thirdLastVal);
+													var thirdElementT = lz.DataElement.stringToLzData(thirdLastVal);
 													var imgWidthT = thirdElementT.getAttr("width") * this.magnification;
 													textObj.setAttribute('text', trim(secondLastVal));
 													var secondObjWidthT = textObj.width;	
@@ -1005,7 +1005,7 @@
 					if (secondObject.indexOf("<image_widget") == -1) {// check second last object
 						var thirdObject = textImgArr[textImgArr.length - 2];
 						if (thirdObject.indexOf("<image_widget") != -1) {// check third last object
-							var thirdElement = LzDataElement.stringToLzData(thirdObject);
+							var thirdElement = lz.DataElement.stringToLzData(thirdObject);
 							var imgWidth = thirdElement.getAttr("width") * this.magnification;
 							textObj.setAttribute('text', trim(secondObject));
 							var secondObjWidth = textObj.width;	

@@ -341,7 +341,7 @@
 		
 		<method name="getStatusCode" args="response">
 			var result = null;
-			var responseNode = LzDataElement.stringToLzData( response );	
+			var responseNode = lz.DataElement.stringToLzData( response );	
 			var dp = new lz.datapointer();
 			dp.setPointer(responseNode);
 			if(dp.selectChild(2)){

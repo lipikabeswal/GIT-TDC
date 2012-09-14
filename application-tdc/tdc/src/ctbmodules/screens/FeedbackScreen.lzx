@@ -17,7 +17,7 @@
  		
  		<method name="showFeedback" args="feedback"><![CDATA[
  			var allScos = new Array();
-   			var node = LzDataElement.stringToLzData(feedback);
+   			var node = lz.DataElement.stringToLzData(feedback);
             dsfeedback.setChildNodes(new Array(node));
 			var name = gController.getStudentName();
             studentName.setAttribute('text', name + ", this is how you did.");
@@ -25,10 +25,10 @@
     		var unsortedScos = dpfeedback.xpathQuery('title/sco');
 			if(unsortedScos!=null)
 			{
-				if(unsortedScos instanceof LzDataElement){
+				if(unsortedScos instanceof lz.DataElement){
 					 allScos[0] = unsortedScos;
 				}
-				else{ // array of LzDataElements
+				else{ // array of lz.DataElements
 					for(var i=0; i<unsortedScos.length; i++){
 						var sco = unsortedScos[i];  // this sco has the title, need to add the raw, max, and unscored from lms
 						var seq = new Number(sco.getAttr('seq'));

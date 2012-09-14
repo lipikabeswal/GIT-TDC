@@ -35,7 +35,7 @@
 Debug.write("ErrorScreen.showError");
 printBigString(xml);
 			if(xml != null){
-				var node = LzDataElement.stringToLzData(xml);
+				var node = lz.DataElement.stringToLzData(xml);
 Debug.write("node name: " + node.nodeName);
 printBigString(node.serialize());
 				if(node.nodeName == "ERROR"){

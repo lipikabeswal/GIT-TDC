@@ -49,7 +49,7 @@
                 var subnodes = data.childNodes;
                 for (var i = 0; i < subnodes.length; i++) {
                 Debug.write("subnodes[i]",subnodes[i]);
-                    if ( subnodes[i] instanceof LzDataElement ) {
+                    if ( subnodes[i] instanceof lz.DataElement ) {
                         this.cache.getComponent (subnodes [i]);
                     }
                 }
@@ -89,7 +89,7 @@
             var panelarr = this.datapath.p.childNodes;
 
             //create top level panel node
-            var dntoppanel = new LzDataElement("panel", {x        : 0, 
+            var dntoppanel = new lz.DataElement("panel", {x        : 0, 
                                                          y        : 79,
                                                          width    : 794,
                                                          height   : 453,
@@ -115,7 +115,7 @@
 
             //create the left panel, the right panel, and the wrapper panel for
             //the two
-            var dntwopanel = new LzDataElement("panel", {
+            var dntwopanel = new lz.DataElement("panel", {
                 x            : 0, 
                 y            : 79,
                 left_padding : this._LEFTPANELPADDING,
@@ -124,12 +124,12 @@
                 layout       : "horizontal",
                 enablehl     : false});
 
-            var dnleftpanel = new LzDataElement("panel", {x       : 0, 
+            var dnleftpanel = new lz.DataElement("panel", {x       : 0, 
                                                          y        : 0,
                                                          height   : 453,
                                                          layout   : "vertical",
                                                          enablehl : false});
-            var dnrightpanel = new LzDataElement("panel", {x      : 0, 
+            var dnrightpanel = new lz.DataElement("panel", {x      : 0, 
                                                          y        : 0,
                                                          height   : 453,
                                                          layout   : "vertical",
@@ -209,7 +209,7 @@
             for (var i = 0; i < dnarr.length; i++) {
 
                 dn = dnarr[i];
-                if (!(dn instanceof LzDataElement)) break;
+                if (!(dn instanceof lz.DataElement)) break;
 
                 //don't bother changing table, image and cr nodes.  They
                 //need to have a specified width and height

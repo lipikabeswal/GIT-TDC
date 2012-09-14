@@ -612,7 +612,7 @@
 			var base = lz.Browser.getInitArg( 'servletUrl' );
 			dsitem.setAttribute('src', base + '/ContentServlet.do'); 
 			dsMusic.setAttribute('src', base + '/ContentServlet.do');   
-			Debug.write("On Init Controller");
+			//Debug.write("On Init Controller");
         </handler>
 
 		<method name="login" args="_userid, _password, _accesscode">
@@ -621,7 +621,7 @@
 			setAttribute('accesscode', _accesscode == null ? null : _accesscode.toLowerCase());
 			setState(LOGIN_STATE);
 			gCommunicator.login(userid, password, accesscode);
-			Debug.write("On Init Controller login");
+			//Debug.write("On Init Controller login");
 		</method>
 
 		<method name="getSubtest">
@@ -635,7 +635,7 @@
             this.setAttribute('currentCrId', this.MAX_CR_ID);
 			gController.massageItemLml();
 			gController.changeCurrItemData ();
-			Debug.write("after processItemResponse");
+			//Debug.write("after processItemResponse");
         </method>
 
 		<method name="showError" args="xml">
@@ -813,7 +813,7 @@
                 )
             );
             var maxpossible = totalQuestions();
-            if(this.adaptive == 'true'){
+            if(this.adaptive == true){
             	maxpossible = gController.subtestLength;
             }
             
@@ -834,7 +834,7 @@
 			//dprestart.selectParent();
 			//END
 
-			if(this.adaptive == 'false'){
+			if(this.adaptive == false){
 				gController.setAttribute("abScore", 0);
 				gController.setAttribute("sem", 0);
 				gController.setAttribute("objScore", null);
@@ -950,7 +950,7 @@
 		</method>
 
 		<method name="_handleSaveLoadResponse" args="response">
-		Debug.write("_handleSaveLoadResponse");
+		//Debug.write("_handleSaveLoadResponse");
 			loadItem();
 		</method>
 
@@ -1030,7 +1030,7 @@
 				this.hasTTSspeed = dpspeed.data.hasAttr("tts_speed_value");
 				
 			}
-			Debug.write("loginResponse completed:");
+			//Debug.write("loginResponse completed:");
 		]]></method>
 
 		<method name="setShowHighlighter">
@@ -1057,7 +1057,7 @@
 
 		<method name="setShowMaskingAnswer">
 			var sma = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@masking_tool');
-			Debug.write("sma*********",sma);
+			//Debug.write("sma*********",sma);
 			if ( (sma == "1") ||
                  (sma == "true") ||
                  (sma == true) ) {
@@ -1119,7 +1119,7 @@
 			//START Change for deferred Defect 63502
             
            	if(this.fwdOnly == true){
-				if(this.adaptive == 'true'){
+				if(this.adaptive == true){
 	 				var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ist' );
 	        		if ( awd && awd instanceof Array ) {
 	                	if(awd.length > 0)
@@ -1180,8 +1180,11 @@
         ]]></method>
 
 		<method name="totalMarked"><![CDATA[    
-            var mrk = dpstudentdata.xpathQuery(
+			/*var mrk = dpstudentdata.xpathQuery(
                 "runtime/item_model[@marked='1']"
+            );*/
+            var mrk = dpstudentdata.xpathQuery(
+                "runtime/item_model[@marked='true']"
             );
             if ( mrk && mrk instanceof Array ) {
                 var nummarked = mrk.length;
@@ -1194,7 +1197,7 @@
         ]]></method>
 
 		<method name="totalVisited">
-			Debug.write("item_no...",dpstudentdata.xpathQuery( 'current_item/item_model/@item_no'));
+			//Debug.write("item_no...",dpstudentdata.xpathQuery( 'current_item/item_model/@item_no'));
 			var totalVisited = dpstudentdata.xpathQuery( 'current_item/item_model/@item_no');
 			
 			if(this.isThemePage()) {
@@ -1262,14 +1265,14 @@
 		-->
 		<method name="initTest"><![CDATA[
         	// remove timer in case previous test was timed but this test is untimed
-        	Debug.write("timeout check",dpsubtest.xpathQuery( 'sco/@sco_duration_minutes' ),dpsubtest.xpathQuery(
+        	/*Debug.write("timeout check",dpsubtest.xpathQuery( 'sco/@sco_duration_minutes' ),dpsubtest.xpathQuery(
                      'testing_session_data/lms.student.accommodations/@untimed'
-                 ));
-        	//Debug.warn("*****************************Init Test***************************");
+                 ));*/
+        	Debug.warn("*****************************Init Test***************************");
             lz.Timer.removeTimer( dupdateTimeLeft );
             resetCatAttributes();
             var itemCount;
-            if(this.adaptive == 'true') { 
+            if(this.adaptive == true) { 
 			 	itemCount = dpsubtest.xpathQuery('ob_assessment/ob_element_list/@itemCount');
 			 	this.setAttribute("subtestLength",itemCount);
 				Debug.write ("ItemCount from subtest xml" , itemCount);
@@ -1286,7 +1289,7 @@
             	gReadableText.doRead("Hi");
               }
             var total = totalQuestions();
-            if(this.adaptive == 'true'){
+            if(this.adaptive == true){
             	total = this.subtestLength;
             }
             Debug.write("total:"+total);
@@ -1665,7 +1668,7 @@
             var items = elist.getElementsByTagName( 'f' );
             dn = dpstudentdata.xpathQuery( 'question_number' );
             dn.setAttr( 'total', getTotalNumberOfItems(false) );
-            if(this.adaptive == 'true') { 
+            if(this.adaptive == true) { 
             	dn.setAttr( 'total_including_theme', this.subtestLength);
             }else{
             	dn.setAttr( 'total_including_theme', getTotalNumberOfItems(true));
@@ -1679,7 +1682,7 @@
 			var itemNumber = Number(getStartNumber());
 			
 			var itemCount = items.length;
-			if(this.adaptive == 'true') { 
+			if(this.adaptive == true) { 
 			 	itemCount = this.subtestLength;
 				Debug.write ("ItemCount from subtest xml" , itemCount);
 			}
@@ -2230,6 +2233,7 @@
                 var dp = new lz.datapointer();
                 dp.setPointer( dnnewitem );
 				Debug.write("datapointer********  ",dp.xpathQuery( 'interaction/@type' ));
+				Debug.write("dnnewitem------------ ",dnnewitem);
                 switch ( dp.xpathQuery( 'interaction/@type' ) ) {
                     case 'choice':
                         if ( dnnewitem.getAttr( 'answered' ) == '1' &&
@@ -2853,7 +2857,7 @@
 		
 			
 		<method name="pauseTest">
-            if ( pausable == 'true' ) {
+            if ( pausable == true ) {
             	gReadableText.stopReading(false);
                 freezeUI();
                 stopQuestion();
@@ -3182,7 +3186,7 @@
 			
 			setState(SAVE_LOAD_STATE);
 			setAttribute("loadNode", fnode);
-			Debug.write("this.adaptive------ ",this.adaptive,lev);
+			Debug.write("this.adaptive------ ",this.adaptive,this.adaptive==false,this.adaptive==true,this.adaptive==null,lev);
 			if(this.adaptive == 'true'){
 				if(Number(curItemId) != Number(this.prevItemId))
 				{

@@ -115,7 +115,7 @@
         <method name="_initSubnodes"><![CDATA[
             var subnodes = this.datapath.p.childNodes;
             for (var i = 0; i < subnodes.length; i++) {
-                if ( subnodes[i] instanceof LzDataElement ) {
+                if ( subnodes[i] instanceof lz.DataElement ) {
                     var newcomp = this.cache.getComponent (subnodes [i]);
                 }
             }

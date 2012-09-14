@@ -87,7 +87,7 @@
                 this.setAttribute("halign", data.getAttr("halign")); 
 			if (data.getAttr("lmargin")){
 				var lm = Number(data.getAttr("lmargin"));
-				var newEditTextWidth = this.getAttribute('editTextWidth') - lm;
+				var newEditTextWidth = this.editTextWidth - lm;
 				this.setAttribute('editTextWidth', newEditTextWidth);
                 this.setAttribute("lmargin", lm); 
             }

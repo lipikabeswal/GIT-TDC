@@ -61,13 +61,13 @@
                                 <text text="of"
                                       visible="${!classroot.hasStartNumber &amp;&amp; !parent.theme}"/>
                                 <text datapath="question_number/@total"
-                                      visible="${(gController.adaptive == 'false') &amp;&amp; !classroot.hasStartNumber &amp;&amp; !parent.theme}">
+                                      visible="${(gController.adaptive == false) &amp;&amp; !classroot.hasStartNumber &amp;&amp; !parent.theme}">
                                		<handler name="ontext">
                                 		var textWidth = this.getTextWidth();
                                 		this.setAttribute('width', textWidth + 1);
                                 	</handler>
                                  </text>
-                                <text text="${gController.subtestLength}" visible="${(gController.adaptive == 'true') &amp;&amp; !classroot.hasStartNumber &amp;&amp; !parent.theme}">
+                                <text text="${gController.subtestLength}" visible="${(gController.adaptive == true) &amp;&amp; !classroot.hasStartNumber &amp;&amp; !parent.theme}">
                                      <handler name="ontext">
                                 		var textWidth = this.getTextWidth();
                                 		this.setAttribute('width', textWidth + 1);

@@ -133,8 +133,8 @@ Debug.write ('CACHE: create new ', type, newcomp, datanode);
 	            toReturn.setAttribute ('y', 0);
 			}
 			else {
-	            toReturn.setAttribute ('width', null);
-	            toReturn.setAttribute ('height', null);
+	            toReturn.setAttribute('width',0);
+	            toReturn.setAttribute('height',0);
 	            toReturn.data = null;
 			}
         </method>
