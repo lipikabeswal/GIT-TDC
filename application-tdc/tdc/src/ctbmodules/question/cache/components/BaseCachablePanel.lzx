@@ -129,21 +129,12 @@
 
             
             //inform gFootNotePopup footnotes
-			if((this instanceof lz.CachableScrollingTextPanel) 
+	/*		if((this instanceof lz.CachableScrollingTextPanel) 
                 || this instanceof lz.CachableTabsPanel) 
             {
                 gFootNotePopup.setAttribute("scrolltext", this);
-            }       
-            Debug.write("this.wrapper******** ",this.wrapper); 
-            Debug.write("this.wrapper.hscroll******** ",this.wrapper.hscroll); 
-            Debug.write("this.wrapper.vscroll******** ",this.wrapper.vscroll); 
-			
-			if(this.wrapper.scrollcontainer.width <= this.wrapper.width){
-				this.wrapper.hscroll.setAttribute('scrollable',false);
-			}
-			if(this.wrapper.scrollcontainer.height <= this.wrapper.height){
-				this.wrapper.vscroll.setAttribute('scrollable',false);
-			}
+            } */      
+
         ]]></method>
 
 		<!-- 
