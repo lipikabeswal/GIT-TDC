@@ -124,7 +124,9 @@
             //make subviews
             this._initSubnodes ();
 
-            doneLoading();
+            super.doneLoading();
+			
+
             
             //inform gFootNotePopup footnotes
 			if((this instanceof lz.CachableScrollingTextPanel) 
@@ -242,12 +244,17 @@
 
         <method name="doReturnToCache"><![CDATA[
             var contsubviews = this.wrapper.scrollcontainer.offsetwrapper.contents.subviews;
+			this.wrapper.setAttribute('width',0);
+			this.wrapper.setAttribute('height',0);
+			this.wrapper.scrollcontainer.setAttribute('width',0);
+			this.wrapper.scrollcontainer.setAttribute('height',0);
+			this.wrapper.scrollcontainer.offsetwrapper.setAttribute('width',0);
+			this.wrapper.scrollcontainer.offsetwrapper.setAttribute('height',0);
+			this.wrapper.scrollcontainer.offsetwrapper.contents.setAttribute('width',0);
+			this.wrapper.scrollcontainer.offsetwrapper.contents.setAttribute('width',0);
             this.setAttribute('enablehl', true);
             for (var i in contsubviews) {
-				Debug.write("doReturnToCache in basecachablepanel",contsubviews [i],contsubviews [i] instanceof lz.CachableComponent,
-                        contsubviews [i].visible);
-				Debug.write("doReturnToCache****this.cache****** in basecachablepanel",this.cache);                        
-                if (contsubviews [i] instanceof lz.CachableComponent &&
+				 if (contsubviews [i] instanceof lz.CachableComponent &&
                         contsubviews [i].visible) {
                     this.cache.returnComponent (contsubviews [i]);
                 }
