@@ -112,11 +112,11 @@
     <handler name="onscrolltext">
         //init font color and background color
         //Debug.write("onscrolltext*********** ",this.scrolltext['fontcolor'],this.scrolltext['panel'],this.scrolltext.panel['bgcolor']);
-        var fgc = this.scrolltext['fontcolor'] ? this.scrolltext.fontcolor : "0xFFFFFF";
+    /*    var fgc = this.scrolltext['fontcolor'] ? this.scrolltext.fontcolor : "0xFFFFFF";
         var bc = this.scrolltext['panel'] &amp;&amp; this.scrolltext.panel['bgcolor'] ? this.scrolltext.panel.bgcolor : "0x000000";
         
         this.body.wrap.setAttribute("fgcolor", fgc);
-		this.setAttribute("backcolor", bc);
+		this.setAttribute("backcolor", bc);*/
     </handler>
 
     <method name="show" args="header">
