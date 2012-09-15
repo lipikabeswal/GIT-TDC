@@ -71,7 +71,8 @@
                 if ( subnodes[i] instanceof lz.DataElement ) {
                     subnodes[i].removeAttr("enlargeable");
                     var newcomp = this.cache.getComponent (subnodes [i]);
-                    this.wrapper.dynlayout.addSubview (newcomp);
+                    if(newcomp!=null)
+                    	this.wrapper.dynlayout.addSubview (newcomp);
                 }
             }
         ]]></method>

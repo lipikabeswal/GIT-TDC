@@ -57,13 +57,13 @@
         <attribute name="cachedscrolltexts" value="$once{[]}"/>
         <attribute name="cachedstimulustabspanels" value="$once{[]}"/>
         <attribute name="cachedstimulustab" value="$once{[]}"/>
-		<attribute name="cachedgriddedresponsepanels" value="$once{[]}"/>
-        <attribute name="cachedgriddedresponses" value="$once{[]}"/>
+		<!--<attribute name="cachedgriddedresponsepanels" value="$once{[]}"/>
+        <attribute name="cachedgriddedresponses" value="$once{[]}"/>-->
         <attribute name="cachedtables" value="$once{[]}"/>
         <attribute name="cachedtablecells" value="$once{[]}"/>
         <attribute name="cachedsinglelineinput" value="$once{[]}"/>
-        <attribute name="cachedmultilineinput" value="$once{[]}"/>
-        <attribute name="cachedaccmultilineinput" value="$once{[]}"/>
+        <!--<attribute name="cachedmultilineinput" value="$once{[]}"/>
+        <attribute name="cachedaccmultilineinput" value="$once{[]}"/>-->
         <attribute name="cachedreferencecard" value="$once{[]}"/>
         <attribute name="cachedrecorder" value="$once{[]}"/>
         
@@ -73,29 +73,35 @@
 
         <method name="getComponent" args="datanode">
         <![CDATA[
-        Debug.write("datanode** ",datanode);
 	    	var newcomp = null;
             var type = datanode.nodeName;
-    		var arraytouse = this._findArray (type);
-
-            if (arraytouse.length) {
-                newcomp = arraytouse.pop ();
-Debug.write ('CACHE: used cached ', type, newcomp);
-
-            } else {
-                newcomp = this._createNewComponent (type);
-Debug.write ('CACHE: create new ', type, newcomp, datanode);
+            if(type == gCompTypes.WIDGET_GRIDDED_RESPONSE_PANEL || gCompTypes.WIDGET_GRIDDED_RESPONSE || gCompTypes.WIDGET_MULTI_LINE_ANSWER){
+            	//datanode.removeChild(type);
+            	datanode.parentNode.removeChild(datanode);
             }
-    
-            newcomp.doRemoveFromCache ();
-
-            gController.waitOnComponent( newcomp, datanode.ownerDocument );
-			// allow single line answers to size to fit contents
-            if(type == gCompTypes.WIDGET_SINGLE_LINE_ANSWER){
-            	datanode.removeAttr('height');
-            }
-            newcomp.datapath.setPointer (datanode);
-
+            var arraytouse = this._findArray (type);
+			
+			if(arraytouse!=null){
+	            if (arraytouse.length) {
+	                newcomp = arraytouse.pop ();
+//	Debug.write ('CACHE: used cached ', type, newcomp);
+	
+	            } else {
+	                newcomp = this._createNewComponent (type);
+//	Debug.write ('CACHE: create new ', type, newcomp, datanode);
+	            }
+	        }
+            
+    		if(newcomp!=null){
+	            newcomp.doRemoveFromCache ();
+	
+	            gController.waitOnComponent( newcomp, datanode.ownerDocument );
+				// allow single line answers to size to fit contents
+	            if(type == gCompTypes.WIDGET_SINGLE_LINE_ANSWER){
+	            	datanode.removeAttr('height');
+	            }
+	            newcomp.datapath.setPointer (datanode);
+	        }
             return newcomp;
         ]]>
         </method>
@@ -197,6 +203,14 @@ Debug.write ('CACHE: create new ', type, newcomp, datanode);
                     arraytouse = cachedstimulustab;
                     break;
                 }
+			    case gCompTypes.WIDGET_GRIDDED_RESPONSE_PANEL: { 
+				    //arraytouse = cachedgriddedresponsepanels;
+				    break;
+			    }
+			    case gCompTypes.WIDGET_GRIDDED_RESPONSE: {
+				    //arraytouse = cachedgriddedresponses;
+				    break;
+			    }
                 case gCompTypes.WIDGET_TABLE: {
                     arraytouse = cachedtables;
                     break;
@@ -209,10 +223,10 @@ Debug.write ('CACHE: create new ', type, newcomp, datanode);
                     arraytouse = cachedsinglelineinput;      
                     break;
                 }
-                <!--case gCompTypes.WIDGET_MULTI_LINE_ANSWER: {
-                    arraytouse = cachedmultilineinput;      
+                case gCompTypes.WIDGET_MULTI_LINE_ANSWER: {
+                    //arraytouse = cachedmultilineinput;      
                     break;
-                }-->
+                }
                 case gCompTypes.WIDGET_REFERENCE_CARD: {
                     arraytouse = cachedreferencecard;      
                     break;
@@ -281,6 +295,14 @@ Debug.write ('CACHE: create new ', type, newcomp, datanode);
 				    toReturn = new lz.CachableTab (parent);
 				    break;
 			    }
+			    case gCompTypes.WIDGET_GRIDDED_RESPONSE_PANEL: {
+    			   // toReturn = new CachableGriddedResponsePanel (parent);
+				    break;
+			    }
+                case gCompTypes.WIDGET_GRIDDED_RESPONSE: {
+                   // toReturn = new CachableGriddedResponse (parent);
+                    break;
+                }
 			    case gCompTypes.WIDGET_TABLE: {
 				    toReturn = new lz.CachableTable (parent);
 				    break;
@@ -299,10 +321,10 @@ Debug.write ('CACHE: create new ', type, newcomp, datanode);
 					toReturn = new lz.CachableSingleLineAnswer(parent);
 			    	break;
                 }
-               <!-- case gCompTypes.WIDGET_MULTI_LINE_ANSWER: {
-					toReturn = new lz.CachableMultiLineAnswer(parent);
+               case gCompTypes.WIDGET_MULTI_LINE_ANSWER: {
+					//toReturn = new lz.CachableMultiLineAnswer(parent);
 			    	break;
-                } -->              
+                }               
                 default: {
  //                   Debug.write ('CACHE: create unknown component type', type);  
                     break;

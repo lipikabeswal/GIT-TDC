@@ -64,8 +64,8 @@
                         newcomp.setAttribute("leftPadding", TEXT_LEFT_PADDING);
                         newcomp.setAttribute("rightPadding", TEXT_RIGHT_PADDING);
                     }
-        
-                    dynlayout.addSubview (newcomp);
+        			if(newcomp!=null)
+                    	dynlayout.addSubview (newcomp);
         
                 }
         

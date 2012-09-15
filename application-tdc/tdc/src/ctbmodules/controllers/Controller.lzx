@@ -955,6 +955,11 @@
 		</method>
 
 		<method name="_handleLoginResponse" args="response"><![CDATA[
+			var testnode = new lz.DataElement('');
+			testnode.setAttribute('ownerDocument',lz.DataElement.stringToLzData(response));
+			testnode.appendChild(lz.DataElement.stringToLzData(response));
+			var tmssvc_response = testnode.getElementsByTagName('tmssvc_response')[0];
+			
 			Debug.write("loginResponse:",response);
 			printBigString(response);
 			if(gXmlHelper.isErrorResponse(response)){
@@ -962,17 +967,20 @@
 			}
 			else{
 
-	    		var node = lz.DataElement.stringToLzData(response);
-	    		dp.setPointer(node);
+	    		//var node = lz.DataElement.stringToLzData(response);
+	    		dp.setPointer(tmssvc_response);
+				Debug.write("dp------------- :",dp);
 	    		setShowHighlighter();
 	    		setShowMaskingRuler();
 	    		setShowMagnifyingGlass();
 	    		setShowMaskingAnswer();
 	    		var restartNumber = dp.xpathQuery('login_response/@restart_number');
+				//Debug.write("login_response/tutorial----- ",dp.xpathQuery('login_response/tutorial'),dp.xpathQuery('login_response/branding/@tdclogo'));
 				gTutorialManager.setAttribute('tutorialNode', dp.xpathQuery('login_response/tutorial'));
 	    		var logo = dp.xpathQuery('login_response/branding/@tdclogo');
        			canvas.setAttribute("logoRsrc", logo);
 	    		var cmicore = dp.xpathQuery('login_response/testing_session_data/cmi.core');
+				//Debug.write("cmicore************** ",cmicore);
 	    		cmicore.setAttr('password', password);
 	    		cmicore.setAttr('userid', userid);
 	    		cmicore.setAttr('accesscode', accesscode);
@@ -984,8 +992,10 @@
 				//END
 				setAttribute('lsid', dp.xpathQuery('login_response/@lsid'));
 				var dSeed = dp.xpathQuery('login_response/@random_distractor_seed_number');	
+				//Debug.write("loginResponse********** ",loginResponse);
 	    		dslogin.setAttribute('childNodes',new Array(loginResponse));
-				//dp.selectChild();
+				//Debug.write("dslogin********** ",dslogin);
+				dp.selectChild();
 
 			
 				setAttribute('currentSubtestIndex', getInitialSubtestIndex());
@@ -1001,7 +1011,7 @@
 					gDownloadManager.downloadContent();
 				}
 
-				//dp.setPointer(node);				
+				dp.setPointer(tmssvc_response);				
 
 				if(!nullOrSpace(dSeed)) {
 					
@@ -1030,7 +1040,7 @@
 				this.hasTTSspeed = dpspeed.data.hasAttr("tts_speed_value");
 				
 			}
-			//Debug.write("loginResponse completed:");
+			//Debug.write("loginResponse completed:",dslogin);
 		]]></method>
 
 		<method name="setShowHighlighter">
@@ -2390,7 +2400,8 @@
 			}
 			else {
 				this.setAttribute("navigateConfirm",false);
-				this.questionBar._changeStatus(false);
+				Debug.write("this.questionBar********* ",this);
+				//this.questionBar._changeStatus(false);
 				//Debug.warn("question bar change status called");
 			}
 
@@ -4376,14 +4387,14 @@ Debug.write("############ loadItem ############");
 		</method>
 		<method name="showRevisitPopup" args="calledFrom">
 			this.isRevisitPopupOpen = true;	
-			//gRevisitFalsePopup.show(calledFrom);
+			gRevisitFalsePopup.show(calledFrom);
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
 		</method>
 		
 		<method name="hideRevisitPopup"><![CDATA[
 			this.isRevisitPopupOpen = false;	
-			//gRevisitFalsePopup.hide();
+			gRevisitFalsePopup.hide();
 			checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
 		]]></method>
