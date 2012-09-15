@@ -105,6 +105,10 @@
     	//Debug.write("HTML Embed Setting:" + flashSystem.Stage.showMenu);
     	//flashSystem.Stage.showMenu = false;
     	//Debug.write("Active Setting:" + flashSystem.Stage.showMenu);
+				
+		if(canvas.debug){
+			canvas.titleView.mainView.scalingView.setAttribute('xscale',canvas.titleView.width/800);
+		}
   	</handler>
 
 
@@ -151,7 +155,10 @@
 		<!--<handler name="oninit">
 
 		</handler>-->
-	<view name="scalingView" width="100%" height="100%"
+	<view name="scalingView" width="${canvas.width/canvas.height &lt; 1.33 
+                     ? parent.width : 800}" 
+					 height="${canvas.width/canvas.height &lt; 1.33 
+                     ? parent.height : parent.height}" xscale="${this.width/800}" yscale="${this.height/600}" 
 		valign="middle" align="center">
 
 
@@ -170,6 +177,7 @@
 
 	        <!-- include the please wait popup -->
 			<include href="ctbmodules/question/PleaseWaitPopup.lzx"/>
+
 			<include href="ctbmodules/manipulatives/maskinganswer/MaskingAnswer.lzx"/>
         </view>
 
