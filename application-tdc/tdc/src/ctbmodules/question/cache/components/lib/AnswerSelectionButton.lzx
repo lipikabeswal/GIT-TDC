@@ -31,8 +31,8 @@
 
         <attribute name="uienabled"
                    value="$path{ 'dsdisplay:/display/@enabled' }"/>
-        <attribute name="enabled" value="${ uienabled == 'true' }"/>
-        <attribute name="clickable" value="${ uienabled == 'true' }"/>
+        <attribute name="enabled" value="${ uienabled == true }"/>
+        <attribute name="clickable" value="${ uienabled == true }"/>
 
 		<handler name="ondata" args="dnode"><![CDATA[
 			if(gController.isLoginResponseHavingSeed &&	

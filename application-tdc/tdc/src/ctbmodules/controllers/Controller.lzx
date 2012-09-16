@@ -495,6 +495,7 @@
 		<attribute name="prevItemId" type="number" value="0" />
 		<attribute name="dshowClient" value="$once{ new lz.Delegate( this, 'showClient' ) }" />
 		<attribute name="testSessionData" value="null" />
+		<attribute name="totalNumberOfTests" value="null" />
 		<!--
 			============================================================
 			Datapointers
@@ -657,16 +658,21 @@
 
 		<method name="getCurrentSubtest"><![CDATA[
 			var subtests = dplogin.xpathQuery('manifest/sco');
+			if(this.totalNumberOfTests == null){
+				this.totalNumberOfTests = subtests;
+			}
+
 			Debug.write("subtest: " , subtests);
+		
 			var result = null;
-			if(subtests instanceof lz.DataElement){
+			if(this.totalNumberOfTests instanceof lz.DataElement){
 				if(currentSubtestIndex == 0){
-					result = subtests;
+					result = this.totalNumberOfTests;
 				}
 			}
 			else{
-				if(currentSubtestIndex < subtests.length){
-					result = subtests[currentSubtestIndex];
+				if(currentSubtestIndex < this.totalNumberOfTests.length){
+					result = this.totalNumberOfTests[currentSubtestIndex];
 				}
 			}
 			return result;
@@ -855,7 +861,7 @@
 		]]></method>
 
 		<method name="_handleSaveEndSubtestResponse" args="response">
-			endSubtest('');
+			endSubtest();
 		</method>
 
 		<method name="_handleSubtestFinishResponse" args="response">
@@ -882,9 +888,14 @@
 			var result = 0;
 			var found = false;
 			// this method will only be called if there is more than one subtest - eg subtests is an array
+			
 			var subtests = dplogin.xpathQuery('manifest/sco');
-			while(result < subtests.length && !found){
-				var subtest = subtests[result];
+			
+			if(this.totalNumberOfTests == null){
+				this.totalNumberOfTests = subtests;
+			}
+			while(result < this.totalNumberOfTests.length && !found){
+				var subtest = this.totalNumberOfTests[result];
 				if(subtest.getAttr('id') == subtestId){
 					found = true;
 				}
@@ -955,20 +966,23 @@
 		</method>
 
 		<method name="_handleLoginResponse" args="response"><![CDATA[
-			var testnode = new lz.DataElement('');
+			/*var testnode = new lz.DataElement('');
 			testnode.setAttribute('ownerDocument',lz.DataElement.stringToLzData(response));
 			testnode.appendChild(lz.DataElement.stringToLzData(response));
 			var tmssvc_response = testnode.getElementsByTagName('tmssvc_response')[0];
 			
-			Debug.write("loginResponse:",response);
+			Debug.write("loginResponse:",tmssvc_response);
+			var mydp = new lz.datapointer();
+			mydp.setPointer(tmssvc_response);
+			Debug.write("mydp============ ",mydp);*/
 			printBigString(response);
 			if(gXmlHelper.isErrorResponse(response)){
 				gScreens.showLoginError(gXmlHelper.getStatusCode(response));
 			}
 			else{
 
-	    		//var node = lz.DataElement.stringToLzData(response);
-	    		dp.setPointer(tmssvc_response);
+	    		var node = lz.DataElement.stringToLzData(response);
+	    		dp.setPointer(node);
 				Debug.write("dp------------- :",dp);
 	    		setShowHighlighter();
 	    		setShowMaskingRuler();
@@ -988,13 +1002,13 @@
 				//START Change for deferred Defect 63502
 	    		setAttribute('restartscid', dp.xpathQuery('login_response/manifest/sco[1]/@id'));
 	    		var numIsts = countDataNodes(dp.xpathQuery('login_response/consolidated_restart_data/tsd[@scid = "'+ restartscid +'"]/ist'));
-
+				Debug.write("consolidated_restart_data--------------- ",numIsts);
 				//END
 				setAttribute('lsid', dp.xpathQuery('login_response/@lsid'));
 				var dSeed = dp.xpathQuery('login_response/@random_distractor_seed_number');	
 				//Debug.write("loginResponse********** ",loginResponse);
 	    		dslogin.setAttribute('childNodes',new Array(loginResponse));
-				//Debug.write("dslogin********** ",dslogin);
+				Debug.write("dprestart********** ",dprestart);
 				dp.selectChild();
 
 			
@@ -1011,7 +1025,7 @@
 					gDownloadManager.downloadContent();
 				}
 
-				dp.setPointer(tmssvc_response);				
+				dp.setPointer(node);				
 
 				if(!nullOrSpace(dSeed)) {
 					
@@ -1541,7 +1555,7 @@
 
 
 		<method name="showClient">
-			Debug.write("inside showClient called through delegate");
+			//Debug.write("inside showClient called through delegate");
             dshowClient.unregisterAll();
             showItemInterface();
         </method>
@@ -1715,7 +1729,7 @@
                 var isTheme = items[i].getAttr('type') == THEME_TYPE;
                 var isVisited = "false";
                 
-                if ( this.adaptive == 'false' && dprestart.isValid() && restartnode ) {                	
+                if ( this.adaptive == false && dprestart.isValid() && restartnode ) {                	
                     var attrs =
                     {
                         eid:            eid,
@@ -1766,7 +1780,7 @@
             }
 //Debug.write("##runtimearr:",runtimearr);
             dn.setAttribute('childNodes', runtimearr );
-            if (this.adaptive == 'true' && dprestart.isValid()) {    
+            if (this.adaptive == true && dprestart.isValid()) {    
            		Debug.write("##calling getAdptiveRestartNodes:",dprestart.isValid());
             	getAdptiveRestartNodes();
             }
@@ -2201,7 +2215,7 @@
                 );
                 var dncurritem =
                     dpstudentdata.xpathQuery ('current_item/item_model/');
-				if (this.adaptive =="false"){
+				if (this.adaptive == false){
 					saveSharedStimulusHighlights();
 				}
 				if(dncurritem!=null)
@@ -2242,11 +2256,9 @@
 
                 var dp = new lz.datapointer();
                 dp.setPointer( dnnewitem );
-				Debug.write("datapointer********  ",dp.xpathQuery( 'interaction/@type' ));
-				Debug.write("dnnewitem------------ ",dnnewitem);
                 switch ( dp.xpathQuery( 'interaction/@type' ) ) {
                     case 'choice':
-                        if ( dnnewitem.getAttr( 'answered' ) == '1' &&
+                        if ( (dnnewitem.getAttr( 'answered' ) == '1' || dnnewitem.getAttr( 'answered' ) == 'true')&&
                              dnnewitem.hasAttr( 'answer_text' ) ) {
                             var selectornode = dp.xpathQuery(
                          "interaction[@type='choice']/selector[@identifier='" +
@@ -2289,9 +2301,8 @@
             dncurritem.appendChild (dnnewitem);
             dncurritem.setAttr( 'itempos', getOffsetFromEid( newitem ) + 1 );
 
-			Debug.write("dncurritem****  ",dncurritem);
             this.initManipulativeData ();
-			if (this.adaptive == 'false'){
+			if (this.adaptive == false){
 			getSharedStimulusHighlights();
 			}
             this.setAttribute('focusOnGr', !isMarkedForReviewWithManipulativeOpen());
@@ -2305,13 +2316,13 @@
 					gManipulativeBar.globals.magnifyingGlass.setAttribute('visible', true);
 				}
 			}*/
-			Debug.write("after checkItemStatus");
+	
 			if(this.showMaskingAnswerPopUp && gController.returnNumberOfOptions() > 0){
 				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', true);
 			}else{
 				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', false);
 			}
-			Debug.write("after showMaskingAnswerPopUp");
+			
         ]]></method>
 
 		<method name="saveSharedStimulusHighlights"><![CDATA[
@@ -2400,7 +2411,6 @@
 			}
 			else {
 				this.setAttribute("navigateConfirm",false);
-				Debug.write("this.questionBar********* ",this);
 				//this.questionBar._changeStatus(false);
 				//Debug.warn("question bar change status called");
 			}
@@ -2995,7 +3005,7 @@
 			//gMusicPlayer.hide();
             lz.Cursor.unlock();
 			
-			if(this.adaptive == 'true'){				
+			if(this.adaptive == true){				
 				//if (gScreens.isOnFinishScreen()) {
 				Debug.write("goToFinishScreen :"+ gScreens.isOnFinishScreen() +"::"+ this.isStopTest);
 				if(this.RestartTest=="true"){
@@ -3086,7 +3096,7 @@
             unlockUI();
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
-			if(this.adaptive == 'true'){
+			if(this.adaptive == true){
 				gScreens.removeFinishState();
 			}
 			
@@ -3132,10 +3142,8 @@
 		<attribute name="uisemaphore" value="1" />
 
 		<method name="freezeUI">
-			Debug.write("freezeUI is called",uisemaphore);
+
             ++uisemaphore;
-			Debug.write("freezeUI uisemaphore------- ",uisemaphore);
-			
             if ( dsdisplay.childNodes[0].getAttr( 'enabled' ) == 'true' ) {
                 gHotKeys.disableKeys();
                 dsdisplay.childNodes[0].setAttr( 'enabled', 'false' );
@@ -3197,8 +3205,8 @@
 			
 			setState(SAVE_LOAD_STATE);
 			setAttribute("loadNode", fnode);
-			Debug.write("this.adaptive------ ",this.adaptive,this.adaptive==false,this.adaptive==true,this.adaptive==null,lev);
-			if(this.adaptive == 'true'){
+
+			if(this.adaptive == true){
 				if(Number(curItemId) != Number(this.prevItemId))
 				{
 					this.setAttribute("sendCatSave",true);
@@ -3266,8 +3274,6 @@ Debug.write("############ loadItem ############");
         ]]></method>
 
 		<method name="isOnItemOrFinishScreen">
-			Debug.write("gItemInterface.visible**** ",gItemInterface.visible || gScreens.isOnFinishScreen());
-			//Debug.write("gScreens.isOnFinishScreen()---- ",gScreens.isOnFinishScreen());
 			return (gItemInterface.visible || gScreens.isOnFinishScreen());
 		</method>
 
@@ -3308,7 +3314,7 @@ Debug.write("############ loadItem ############");
 			var itemNo;
 			var curEid;
     		if(isOnItemOrFinishScreen()){
-			Debug.write("isOnItemOrFinishScreen after");            
+			//Debug.write("isOnItemOrFinishScreen after");            
 			var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
                 if(itemnode != null){
 	    			result = new Array();
@@ -3359,7 +3365,7 @@ Debug.write("############ loadItem ############");
             		var items = elist.getElementsByTagName( 'f' );
             		Debug.write("items after");  	
 					var fnodeEid;
-            		if (this.adaptive == 'true' && dprestart.isValid()) { 
+            		if (this.adaptive == true && dprestart.isValid()) { 
             			fnodeEid = items[itemNo-1].getAttr( 'id' );
             		}*/
             		
@@ -3394,12 +3400,12 @@ Debug.write("############ loadItem ############");
 			var elist = dpsubtest.xpathQuery('ob_assessment/ob_element_list');
 	        var items = elist.getElementsByTagName( 'f' );
 	        var fnodeEid;
-	        if (this.adaptive == 'true' && dprestart.isValid()) { 
+	        if (this.adaptive == true && dprestart.isValid()) { 
 	            fnodeEid = items[itemNo-1].getAttr( 'id' );
 	        }            		
 	            		
 			var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model/');
-			if(this.adaptive == 'true' && dprestart.isValid()){
+			if(this.adaptive == true && dprestart.isValid()){
 				Debug.write("### _handleSaveLoadResponse :"+ this.istLength +"::"+itemNo);
 				Debug.write("### _handleSaveLoadResponse :"+ curEid +"::"+fnodeEid);
 				if(this.istLength == itemNo){
@@ -3498,7 +3504,7 @@ Debug.write("############ loadItem ############");
 		</method>
 
 		<method name="checkItemStatus"><![CDATA[
-			Debug.write("itemloaded && runtimeready && youarehereset", itemloaded,runtimeready,youarehereset);
+			//Debug.write("itemloaded && runtimeready && youarehereset", itemloaded,runtimeready,youarehereset);
             if ( itemloaded && runtimeready && youarehereset ) {
                 unlockUI();
                 startQuestion();
@@ -3809,7 +3815,7 @@ Debug.write("############ loadItem ############");
  			return result;
         </method>
 
-		<method name="endSubtest" args="cm"><![CDATA[
+		<method name="endSubtest" ><![CDATA[
 			if(imageLIArray.length > 0){
 	
 				for(var i = 0 ; i < this.imageLIArray.length ; i++){
@@ -3823,7 +3829,7 @@ Debug.write("############ loadItem ############");
 				}
 			}
 			this.resetImageArray();
-			//this.setattribute('isaudio',false);
+			//this.setAttribute('isaudio',false);
 			setState(WRITE_TO_AUDIT_FILE_STATE);
 			gCommunicator.writeToAuditFile(lsid, scid, getModelString());
         ]]></method>
@@ -4312,7 +4318,7 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="showItemInterface">
-			Debug.write("showItemInterface");
+			//Debug.write("showItemInterface");
         	gScreens.hide();
         	gTutorial.setAttribute('visible', false);
         	gItemInterface.setAttribute('visible', true);
@@ -4498,9 +4504,6 @@ Debug.write("############ loadItem ############");
 		<method name="maskChoice" args="data,state"><![CDATA[
 			var actualIndex;
 			var index =data.substring(6,7);
-			Debug.write("state--------",data,state,index);
-			Debug.write("answer Array", answerArray[0],answerArray[1],answerArray[2],answerArray[3])
-
 			var type =  answerArray[0].subviews[0].subviews[0].type;
 			if(type == null ){
 				for(var i=0; i < answerArray.length; i++){
@@ -4511,7 +4514,6 @@ Debug.write("############ loadItem ############");
 			}
 			var change = false;
 			if(type == null ){
-				Debug.write("inside type");
 				change = true;
 			}
 			//Debug.write("choice index",index);
@@ -4519,18 +4521,14 @@ Debug.write("############ loadItem ############");
 					!itemHasRationalNode && 
 						!nullOrSpace(seed)){
 				var selid = getChoiceName(index);
-				Debug.write("selid :"+selid);
 				actualIndex = returnRandomIndex(answerArray,selid);
 				//actualIndex = answerArray.length - index -1;
-				Debug.write("login response seed",actualIndex);
 			}else{
 				actualIndex = returnIndex(answerArray,index,change);
 			}
-			Debug.write("after returnIndex");
 			if(state == 'Hide'){
-				Debug.write("inside hide",index != null,actualIndex);
 				if(index != null && index != ""){
-					Debug.write("answerArray[actualIndex].subviews[0]******* ",answerArray[actualIndex]);
+					
 					/*answerArray[actualIndex].subviews[0].hide();
 					answerArray[actualIndex].subviews[1].hide();
 					answerArray[actualIndex].subviews[2].hide();	*/		
@@ -4876,7 +4874,7 @@ Debug.write("############ loadItem ############");
 	</method>
 
 	<method name="stopCheckPlaying"><![CDATA[
-		-uisemaphore;
+		//-uisemaphore;
 		lz.Timer.removeTimer(dCheckPlaying);
 		if(this.idImageFieldTemp.widget_id == this.lastPlayOrderId){
 			unlockUI();
