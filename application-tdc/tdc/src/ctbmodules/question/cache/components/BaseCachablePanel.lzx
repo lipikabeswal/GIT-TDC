@@ -129,11 +129,11 @@
 
             
             //inform gFootNotePopup footnotes
-	/*		if((this instanceof lz.CachableScrollingTextPanel) 
+			if((this instanceof lz.CachableScrollingTextPanel) 
                 || this instanceof lz.CachableTabsPanel) 
             {
                 gFootNotePopup.setAttribute("scrolltext", this);
-            } */      
+            }      
 
         ]]></method>
 

@@ -69,7 +69,6 @@
         </method>
 
 		<method name="answerSelected" args="chosenanswer">
-			Debug.write("answerSelected*************** ",dpanswer);
 			/*if (typeof (curranswer) == 'string'){
 				if(chosenanswer == 's'){
 					this.curranswer = chosenanswer;

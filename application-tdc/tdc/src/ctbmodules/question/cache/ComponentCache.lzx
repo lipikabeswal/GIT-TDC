@@ -75,10 +75,6 @@
         <![CDATA[
 	    	var newcomp = null;
             var type = datanode.nodeName;
-            if(type == gCompTypes.WIDGET_GRIDDED_RESPONSE_PANEL || gCompTypes.WIDGET_GRIDDED_RESPONSE || gCompTypes.WIDGET_MULTI_LINE_ANSWER){
-            	//datanode.removeChild(type);
-            	datanode.parentNode.removeChild(datanode);
-            }
             var arraytouse = this._findArray (type);
 			
 			if(arraytouse!=null){

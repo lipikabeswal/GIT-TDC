@@ -5,17 +5,20 @@
 
 
         <handler name="ondata" args="data">
-            if (data.hasAttr ('bgcolor')) {
-            	var backgroundColor = data.getAttr('bgcolor');
-                this.box.contents.setAttribute ('bgcolor', backgroundColor);
-                this.point.setAttribute('resource', this.getResourceForColor(backgroundColor));
-            } 
-            if (data.hasAttr ('font_color')) {
-                this.box.contents.label.setAttribute ('fgcolor', Number (data.getAttr ('font_color')));
-                this.box.setAttribute('bgcolor', Number (data.getAttr ('font_color')));
-            } 
-            if (data.hasAttr ('font_magnification')) {
-                this.box.contents.label.setAttribute ('fontsize', data.getAttr ('font_magnification') * canvas.fontsize);
+        	if(data!=null){
+	            if (data.hasAttr ('bgcolor')) {
+	            	var backgroundColor = data.getAttr('bgcolor');
+	            	Debug.write("backgroundColor************ ",backgroundColor);
+	                this.box.contents.setAttribute ('bgcolor', backgroundColor);
+	                this.point.setAttribute('resource', this.getResourceForColor(backgroundColor));
+	            } 
+	            if (data.hasAttr ('font_color')) {
+	                this.box.contents.label.setAttribute ('fgcolor', Number (data.getAttr ('font_color')));
+	                this.box.setAttribute('bgcolor', Number (data.getAttr ('font_color')));
+	            } 
+	            if (data.hasAttr ('font_magnification')) {
+	                this.box.contents.label.setAttribute ('fontsize', data.getAttr ('font_magnification') * canvas.fontsize);
+	            }
             }
         </handler>
 
@@ -88,7 +91,7 @@
         </method>
 
 
-        <view name="box" y="3" bgcolor="black"
+        <view name="box" y="3" bgcolor="0x000000"
               width="${this.contents.width + 2}" height="${this.contents.height + 2}">
             <view name="contents" y="1" x="1" bgcolor="0xFFFFCC"
                   width="${this.label.width + this.label.fontsize/2}"
