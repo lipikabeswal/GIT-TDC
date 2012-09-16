@@ -2671,10 +2671,10 @@
 //Debug.write("values sent to readKeySelection are ::::"+selid+"and"+value);
 			if((selid == 'A' || selid == 'B' || selid == 'C' || selid == 'D' || selid == 'E' ||
 						selid == 'F' || selid == 'G' || selid == 'H' || selid == 'I' || selid == 'J') && value == 's'){
-   					gReadableText.read(selid + ". Selected");			
+   					gReadableText.read(selid + ". Selected",false);			
    				}
    				else{
-		            gReadableText.read(gReadableText.getSelectionRemoved());
+		            gReadableText.read(gReadableText.getSelectionRemoved(),false);
    				}
    			}
    				]]>		
