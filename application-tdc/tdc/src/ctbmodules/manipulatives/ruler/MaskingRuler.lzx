@@ -43,12 +43,15 @@
                    drag_max_x="${this.dragxmax}"
                    drag_max_y="${this.dragymax}">
             <attribute name="rrotation" value="$once{this.rotation * (Math.PI/180)}"/>
+           <attribute name="actualX" value="$once{this.xoffset - this.getMouse( 'x' )}" />
+			<attribute name="actualY" value="$once{this.yoffset - this.getMouse( 'y' )}" />
+			
             <attribute name="__dragstate_ydoffset" 
-                       value="$once {this.getMouse('x') * Math.sin (this.rrotation) +
-                                     this.getMouse('y') * Math.cos (this.rrotation)}"/>
+                       value="$once {this.actualX * Math.sin (this.rrotation) +
+                                     this.actualY * Math.cos (this.rrotation)}"/>
             <attribute name="__dragstate_xdoffset" 
-                       value="$once {this.getMouse('x') * Math.cos (this.rrotation) -
-                                     this.getMouse('y') * Math.sin (this.rrotation)}"/>
+                       value="$once {this.actualX * Math.cos (this.rrotation) -
+                                     this.actualY * Math.sin (this.rrotation)}"/>
 
             <handler name="onapply">
                 classroot.updateDraggerAttributes();

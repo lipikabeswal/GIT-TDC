@@ -34,9 +34,16 @@
                        value="$once {this.getMouse('x') * Math.cos (this.rrotation) -
                                      this.getMouse('y') * Math.sin (this.rrotation)}"/>
 
-
-            <handler name="onapply">
+			
+			<handler name="on__dragstate_xdoffset" args="data">
+				Debug.write("on__dragstate_xdoffset data");
+				Debug.write("Mouse X Mouse Y", this.getMouse('x'), this.getMouse('y'));
+				Debug.write("xpos,yoffset", parent.getAttr('xpos'), parent.ypos,parent.xoffset,parent.yoffset);
+				Debug.write("x,y", classroot.x, classroot.y);								
+			</handler>
+            <method event="onapply">
                 var rotation = classroot.rotation * (Math.PI/180);
+				Debug.write("classroot.roation",classroot.rotation, this.rotation );
                 var grabber = classroot.grabber;
 
                 var gxstart = (grabber.x) * Math.cos (rotation) -
@@ -49,6 +56,8 @@
                 var gyend   = (grabber.x + grabber.width) * Math.sin (rotation) +
                                  (grabber.y + grabber.height/2) * Math.cos (rotation);
 
+				Debug.write("gxstart:gystart",gxstart,gxend ,gystart,gyend);
+				Debug.write("getMouseX: getMouseY",this.getMouse('x'),this.getMouse('y'), this.__dragstate_ydoffset,__dragstate_xdoffset ,this);
                 //set drag max and min
                 classroot.setAttribute ('dragxmin', - (Math.min (gxstart, gxend)));
                 classroot.setAttribute ('dragymin', - (Math.min (gystart, gyend)));
@@ -57,19 +66,20 @@
                                         classroot.parent.width - (Math.max (gxstart, gxend)));
                 classroot.setAttribute ('dragymax', 
                                         classroot.parent.height - 6  - (Math.max (gystart, gyend)));
-            </handler>
+                Debug.write("classroot.parent.width,classroot.parent.height", classroot.parent.width,classroot.parent.height);
+            </method>
 
         </dragstate>
         
-        <handler name="oninit">
+        <method event="oninit">
             this.setAttribute ('xpos', this.width/2);
             this.setAttribute ('ypos', this.height);
-        </handler>
+        </method>
 		<handler name="onmousedown">
 			this.bringToFront();
 		</handler>
 
-        <handler name="ondata" args="data"><![CDATA[
+        <method event="ondata" args="data"><![CDATA[
             var hasstate = false;
             for (var i in data.attributes) {
                 hasstate = true;
@@ -82,9 +92,9 @@
                 this.setAttribute ('x', data.getAttr ('x'));
                 this.setAttribute ('y', data.getAttr ('y'));
 	            // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
-	            /*if(gScratchpad.visible){
+	            if(gScratchpad.visible){
 	                gScratchpad.bringToFront();
-	            }*/
+	            }
             } else {
                 this.setAttribute ('rotation', 0);
 
@@ -99,11 +109,11 @@
                 }
             }
             
-        ]]></handler>
+        ]]></method>
 
 
         <method name="startRotate">
-            this.rotatedel.register (lz.Idle, 'onidle');
+            this.rotatedel.register (LzIdle, 'onidle');
             
             this.setAttribute ('xoffset', this.xpos);
             this.setAttribute ('yoffset', this.ypos);
@@ -150,7 +160,7 @@
 
             if (mx < 0) endang = 180 - endang;
 
-            this.setAttribute ('rotation',endang);
+            this.setRotation (endang);
         ]]></method>
 
 
@@ -158,26 +168,26 @@
         <view resource="protractorMarks_rsrc"/>
 
         <view name="grabber" resource="protractorHandle_rsrc" y="97" align="center" >
-            <handler name="onmouseover">
+            <method event="onmouseover">
                 gController.setCurrentCursor('cangrab_cursor');
-            </handler>
-            <handler name="onmouseout">
+            </method>
+            <method event="onmouseout">
                 gController.clearAndRestoreCurrentCursor();
-            </handler>
-            <handler name="onmousedown">
+            </method>
+            <method event="onmousedown">
             	classroot.bringToFront();
-                lz.Cursor.setCursorGlobal ('grabbing_cursor');
-                lz.Cursor.lock ();
+                LzCursor.setCursorGlobal ('grabbing_cursor');
+                LzCursor.lock ();
                 classroot.dragger.apply ();
-            </handler>
-            <handler name="onmouseup">
-                lz.Cursor.unlock ();
+            </method>
+            <method event="onmouseup">
+                LzCursor.unlock ();
                 gController.restoreCurrentCursor();
                 classroot.dragger.remove ();
                 
                 classroot.datapath.p.setAttr ('x', classroot.x);
                 classroot.datapath.p.setAttr ('y', classroot.y);
-            </handler>
+            </method>
         </view>
 
 

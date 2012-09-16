@@ -70,12 +70,12 @@
 			calculator.bringToFront();
 		</handler>
 		<handler name="onmouseover">
-			offFace.seAttribute('visible',false);
-			otherFace.seAttribute('visible',true);
+			offFace.setAttribute('visible',false);
+			otherFace.setAttribute('visible',true);
 		</handler>
 		<handler name="onmouseout">
-			offFace.seAttribute('visible',true);
-			otherFace.seAttribute('visible',false);
+			offFace.setAttribute('visible',true);
+			otherFace.setAttribute('visible',false);
 		</handler>
 	</class>
 	<class name="operatorCalculatorButton" extends="multiFaceCalculatorBaseButton" 
