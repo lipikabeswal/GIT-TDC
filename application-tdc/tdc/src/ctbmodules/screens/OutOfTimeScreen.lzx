@@ -58,7 +58,7 @@
            <handler name="onclick" method="docontinue"/>
             <method name="docontinue">
                 gScreens.clicked();
-                gController.endSubtest( 'time-out' );
+                gController.endSubtest();
                 gScreens.hide();
             </method>
         </OkButton>
