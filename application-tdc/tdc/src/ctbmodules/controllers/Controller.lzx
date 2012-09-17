@@ -496,6 +496,7 @@
 		<attribute name="dshowClient" value="$once{ new lz.Delegate( this, 'showClient' ) }" />
 		<attribute name="testSessionData" value="null" />
 		<attribute name="totalNumberOfTests" value="null" />
+		<attribute name="stuLoginDetails" value="$once{new Object()}"/>
 		<!--
 			============================================================
 			Datapointers
@@ -997,8 +998,13 @@
 				//Debug.write("cmicore************** ",cmicore);
 	    		cmicore.setAttr('password', password);
 	    		cmicore.setAttr('userid', userid);
-	    		cmicore.setAttr('accesscode', accesscode);
-	    		var loginResponse = dp.xpathQuery('login_response');
+	    		cmicore.setAttr('accesscode', accesscode);				
+				this.stuLoginDetails.fn = dp.xpathQuery('login_response/testing_session_data/cmi.core/@student_first_name');
+				this.stuLoginDetails.mn = dp.xpathQuery('login_response/testing_session_data/cmi.core/@student_middle_name');
+				this.stuLoginDetails.ln = dp.xpathQuery('login_response/testing_session_data/cmi.core/@student_last_name');
+			
+			
+				var loginResponse = dp.xpathQuery('login_response');
 				//START Change for deferred Defect 63502
 	    		setAttribute('restartscid', dp.xpathQuery('login_response/manifest/sco[1]/@id'));
 	    		var numIsts = countDataNodes(dp.xpathQuery('login_response/consolidated_restart_data/tsd[@scid = "'+ restartscid +'"]/ist'));
@@ -1797,9 +1803,10 @@
 		</method>
 
 		<method name="getStudentName"><![CDATA[
-            var fn = dplogin.xpathQuery('testing_session_data/cmi.core/@student_first_name');
-            var mn = dplogin.xpathQuery('testing_session_data/cmi.core/@student_middle_name');
-            var ln = dplogin.xpathQuery('testing_session_data/cmi.core/@student_last_name');
+            var fn = this.stuLoginDetails.fn;
+            var mn = this.stuLoginDetails.mn;
+            var ln = this.stuLoginDetails.ln;
+
             var sn = "";
             if(fn != null){
             	sn = fn;

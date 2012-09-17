@@ -27,7 +27,7 @@
                 <b>Login ID:</b>
             </text>
             <edittext name="loginIdField" x="287" enabled="false"
-                      bgcolor="0x777777" fontsize="12" datapath="@userid"
+                      bgcolor="0x777777" fontsize="12" text="${gController.userid}"
                       width="265" visible="true"/>
         </view>
         <view name="pw">
@@ -44,7 +44,7 @@
                 <b>Access Code:</b>
             </text>
             <edittext name="accesscodeField" x="287" enabled="false"
-                      bgcolor="0x777777" fontsize="12" datapath="@accesscode"
+                      bgcolor="0x777777" fontsize="12" text="${gController.accesscode}"
                       width="265" visible="true"/>
         </view>
 
