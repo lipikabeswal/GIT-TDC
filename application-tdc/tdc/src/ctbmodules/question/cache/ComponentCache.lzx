@@ -61,7 +61,7 @@
         <attribute name="cachedgriddedresponses" value="$once{[]}"/>-->
         <attribute name="cachedtables" value="$once{[]}"/>
         <attribute name="cachedtablecells" value="$once{[]}"/>
-        <attribute name="cachedsinglelineinput" value="$once{[]}"/>
+        <!--<attribute name="cachedsinglelineinput" value="$once{[]}"/>-->
         <!--<attribute name="cachedmultilineinput" value="$once{[]}"/>
         <attribute name="cachedaccmultilineinput" value="$once{[]}"/>-->
         <attribute name="cachedreferencecard" value="$once{[]}"/>
@@ -93,9 +93,9 @@
 	
 	            gController.waitOnComponent( newcomp, datanode.ownerDocument );
 				// allow single line answers to size to fit contents
-	            if(type == gCompTypes.WIDGET_SINGLE_LINE_ANSWER){
+	            /*if(type == gCompTypes.WIDGET_SINGLE_LINE_ANSWER){
 	            	datanode.removeAttr('height');
-	            }
+	            }*/
 	            newcomp.datapath.setPointer (datanode);
 	        }
             return newcomp;
@@ -216,7 +216,7 @@
                     break;
                 }
                 case gCompTypes.WIDGET_SINGLE_LINE_ANSWER: {
-                    arraytouse = cachedsinglelineinput;      
+                    //arraytouse = cachedsinglelineinput;      
                     break;
                 }
                 case gCompTypes.WIDGET_MULTI_LINE_ANSWER: {
@@ -314,7 +314,7 @@
 			    	break;
                 }                
                  case gCompTypes.WIDGET_SINGLE_LINE_ANSWER: {
-					toReturn = new lz.CachableSingleLineAnswer(parent);
+					//toReturn = new lz.CachableSingleLineAnswer(parent);
 			    	break;
                 }
                case gCompTypes.WIDGET_MULTI_LINE_ANSWER: {
