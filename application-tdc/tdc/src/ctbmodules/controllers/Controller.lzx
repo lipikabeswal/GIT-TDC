@@ -1065,12 +1065,12 @@
 
 		<method name="setShowHighlighter">
 			var sh = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@highlighter');
-			this.setAttribute('showHighlighter', (sh != 'false'));
+			this.setAttribute('showHighlighter', (sh != false));
 		</method>
 
 		<method name="setShowMaskingRuler">
 			var smr = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@masking_ruler');
-			this.setAttribute('showMaskingRuler', (smr != 'false'));
+			this.setAttribute('showMaskingRuler', (smr != false));
 		</method>
 
 		<method name="setShowMagnifyingGlass">
