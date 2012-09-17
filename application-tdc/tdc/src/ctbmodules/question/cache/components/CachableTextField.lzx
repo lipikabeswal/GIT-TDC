@@ -340,10 +340,10 @@
                var name = new lz.CachableInputTextField(this, { "resize" : true });
                allFields.push(name);
                if (i == 0)
-                  name.setAttribute('text', "<p>" + words[i]);
+                  name.setText("<p>" + words[i]);
                if (i == words.length-1)
-                      name.setAttribute('text', words[i] + "</p>");
-               name.setAttribute('text', words[i]);
+                      name.setText(words[i] + "</p>");
+               name.setText(words[i]);
                name.setAttribute('fgcolor', this.fontcolor);
             }
 
@@ -655,7 +655,7 @@
 					this.ibox = new lz.CachableImage(this); // create cachable image instance
 					//var newNode = LzDataNode.stringToLzData(image_string); //convert the string to datanode
 					var newNode = lz.DataElement.stringToLzData(words[i]); //convert the string to datanode
-					newNode.setOwnerDocument(this.datapath.p.ownerDocument);
+					newNode.setAttribute('ownerDocument',this.datapath.p.ownerDocument);
 //					this.ibox.datapath.setPointer (newNode);
 					this.ibox.data = newNode;
 					this.ibox.ondata.sendEvent(newNode); // fire the ondata event
@@ -690,12 +690,12 @@
                allFields.push(name);
 
                if (i == 0)
-                  name.setAttribute('text', "<p>" + words[i]);
+                  name.setText("<p>" + words[i]);
                if (i == words.length-1)
-                      name.setAttribute('text', words[i] + "</p>");
-               name.setAttribute('text', words[i]);
+                      name.setText(words[i] + "</p>");
+               name.setText(words[i]);
                name.setAttribute('fgcolor', this.fontcolor);
-            }
+			}
 
 //Debug.write("image_string : ",image_string);
 

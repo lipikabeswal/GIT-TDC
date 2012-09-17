@@ -242,7 +242,7 @@
 			this.wrapper.scrollcontainer.offsetwrapper.setAttribute('width',0);
 			this.wrapper.scrollcontainer.offsetwrapper.setAttribute('height',0);
 			this.wrapper.scrollcontainer.offsetwrapper.contents.setAttribute('width',0);
-			this.wrapper.scrollcontainer.offsetwrapper.contents.setAttribute('width',0);
+			this.wrapper.scrollcontainer.offsetwrapper.contents.setAttribute('height',0);
             this.setAttribute('enablehl', true);
             for (var i in contsubviews) {
 				 if (contsubviews [i] instanceof lz.CachableComponent &&

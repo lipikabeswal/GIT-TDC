@@ -103,7 +103,8 @@
 			this.imageview.setAttribute("width", null);
 			var theSrc = "";
 			
-			if(data.getAttr('isaudio')){
+			//Changes for laslink multi audio play
+			/*if(data.getAttr('isaudio')){
 				this.setAttribute('isaudio',data.getAttr('isaudio'));
 				gController.setAttribute('isaudio',true);
 				gController.freezeUI();
@@ -125,7 +126,7 @@
 				this.setAttribute('hasPlayed',false);
 	
 				gController.addImageFields({"this.widget_id" : this.widget_id, "imageComponent" : this, "isPlayed" : false});
-			}
+			}*/
 
 	//Image url may come in either attribute name "src" or "image_ref", so take care of both.
 			if(data.hasAttr('src')) {
@@ -397,8 +398,14 @@
             ]]></handler>
             
             <method name="_reload">
-//Debug.write("_reload,...",this.resource);
-                this.unload();
+//Debug.write("_reload,...",this.resource,this.getDisplayObject());
+                //this.unload();
+                if ($dhtml) {
+					this.getDisplayObject().imgLoader.unload();
+				} else {				
+					var mc = this.sprite;
+					mc.imgLoader.unload();
+				}
                 this.setSource (this.resource);
             </method>
             

@@ -68,7 +68,7 @@
         ]]></handler>
 
         <handler name="onisactive"><![CDATA[
-        //Debug.write("onisactive.....");
+        //Debug.write("onisactive.....",this.btnText,this.btn);
         this.themeResource = 'theme';
             if (this.isactive) {
                 //make sure we're visible on the navigation bar
@@ -155,7 +155,7 @@
 
 
         <view name="btn" resource="question_bar_btn" 
-              width="200%"/>
+              xscale="1.3"/>
 
         <view name="ball" resource="question_bar_ball"
               align="center" y="3" visible="false"/>
@@ -166,7 +166,7 @@
 
         <text name="btnText" text="${classroot.itemnum}" resize="true" 
               font="Arial" fontsize="11" fontstyle="bold"
-              y="22" textalign="center" x="3" visible="${!classroot.isTheme}"/>
+              y="22" align="center" visible="${!classroot.isTheme}"/>
         <view name="themeBtn" resource="${classroot.themeResource}" y="24" align="center" visible="${classroot.isTheme}" />
  
     </class>

@@ -124,7 +124,8 @@
         <attribute name="ddoneLoading"
                    value="$once{ new lz.Delegate( this, 'doneLoading' ) }"/>
         <method name="doneLoading"><![CDATA[
-            gController.componentDone( this, this.datapath.p.ownerDocument );
+        	if(this!=null && this.datapath.p!=null)
+            	gController.componentDone( this, this.datapath.p.ownerDocument );
         ]]></method>
 
 		<method name="setAAText" args="txt">
