@@ -1013,7 +1013,7 @@
 	    		var logo = dp.xpathQuery('login_response/branding/@tdclogo');
        			canvas.setAttribute("logoRsrc", logo);
 	    		var cmicore = dp.xpathQuery('login_response/testing_session_data/cmi.core');
-				var isOK = dp.xpathQuery('login_response/testing_session_data/cmi.core/@isOK');
+				var isOK = dp.xpathQuery('login_response/@isOK');
 				gController.setAttribute('isOK',isOK);
 	    		cmicore.setAttr('password', password);
 	    		cmicore.setAttr('userid', userid);
@@ -1036,9 +1036,11 @@
 				}
 				sendHeartbeat();   // starts heartbeats
 				if(gTutorialManager.hasTutorial){
+					recalltrackMouseMove();
 					gTutorialManager.doTutorialFlow();
 				}
 				else{
+					recalltrackMouseMove();
 					gDownloadManager.downloadContent();
 				}
 
@@ -3821,14 +3823,6 @@ Debug.write("############ loadItem ############");
                     dpdisplay.setNodeAttribute( 'timeleftforpause', timeleftforpause );
 
                     LzTimer.resetTimer( dupdateTimeLeftForPause, 1000 );
-
-                    if ( (remainingmsforpause / 1000) / 60 <= WARNING_MINUTE ) {
-                    	var shownWarning = dpdisplay.getNodeAttribute( 'shownWarningMinute');
-                    	if(shownWarning == 'false'){
-	                        showHideTimer( true );
-	                        dpdisplay.setNodeAttribute( 'shownWarningMinute', 'true' );
-                        }
-                    }
                 }
             } else {
                 var remainingmsforpause = durationmsforpause - elapsedmsforpause;
@@ -3995,7 +3989,7 @@ Debug.write("out of time 1 ans" + isAnswered);
                 freezeUI();
             }
             stopQuestion();
-			removeTrackTimer();
+			//removeTrackTimer();
             setState(TIMEOUT_STATE);
 			//to call adaptive engine 
 			if(this.adaptive && !this.catOver) {
@@ -4007,7 +4001,7 @@ Debug.write("out of time 1 ans" + isAnswered);
 		<method name="goToTimeoutScreen">
             LzCursor.unlock();
             gReadableText.stopReading();
-			removeTrackTimer();
+			//removeTrackTimer();
             hideMagnifierGlass();
 			hideMaskingChoiceDD();
             if(this.recorder != null) {
