@@ -549,6 +549,7 @@
 		<attribute name="qtimestampforpause" type="number" value="0" />
 		<attribute name="timingforpause" type="boolean" value="false" />
 		<attribute name="isHandlerInactive" type="boolean" value="false" />
+		<attribute name="timerInterval" type="number" value="30000" />
 			 
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -2918,7 +2919,7 @@
         	checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD(); 
 			removeTrackTimer();
-			resetPauseTimer(1200);
+			resetPauseTimer(timerInterval);
 			startPauseTimer();
             gScreens.showPause(getStudentName());
 			gPauseTimerScreen.setVisible(true);
@@ -3761,7 +3762,7 @@ Debug.write("############ loadItem ############");
                 resetTrackTimer();
             }else{
             	this.setAttribute('trackTimer',Math.round(this.trackTimer+1000));
-            	if(this.trackTimer >= 1200000){
+            	if(this.trackTimer >= timerInterval){
 					stopQuestion();
 					removeTrackTimer();
 					gScreens.showTimeoutForInactivity();
@@ -3843,7 +3844,7 @@ Debug.write("############ loadItem ############");
 			value="$once{ new LzDelegate( this, 'updateTimeLeftForPause' ) }" />
 
 		<method name="resetPauseTimer" args="durseconds">
-            this.durationmsforpause = durseconds * 1000;
+            this.durationmsforpause = durseconds;
             this.elapsedmsforpause  = 0;
             this.qtimestampforpause = 0;
             this.timingforpause     = false;
