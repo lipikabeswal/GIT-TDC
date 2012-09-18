@@ -14,11 +14,11 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.FileEntity;
-import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.Base64;
@@ -43,7 +43,7 @@ import com.ctb.tdc.web.utils.ServletUtils;
  */
 public class PersistenceAction {
 
-	static Logger logger = Logger.getLogger(PersistenceAction.class);
+	
 
 	/**
 	 * Constructor of the object.
@@ -153,7 +153,7 @@ public class PersistenceAction {
 
 							} catch (Exception e) {
 								System.out.println("CAT Over!");
-								logger.info("CAT Over!");
+								Log.e("CAT Over!","CAT Over!");
 								// ServletUtils.writeResponse(response,
 								// ServletUtils.buildXmlErrorMessage("CAT OVER",
 								// "Ability: " +
@@ -228,7 +228,7 @@ public class PersistenceAction {
 			}
 		} catch (Exception e) {
 			System.out.println("CAT Over!");
-			logger.info("CAT Over!");
+			Log.e("CAT Over!","CAT Over!");
 			ServletUtils.writeResponse(ServletUtils.buildXmlErrorMessage(
 					"CAT OVER", "Ability: " + CATEngineProxy.getAbilityScore()
 							+ ", SEM: " + CATEngineProxy.getSEM(), "000"));
@@ -305,8 +305,8 @@ public class PersistenceAction {
 		}
 
 		catch (Exception e) {
-			logger.error("Exception occured in login() : "
-					+ ServletUtils.printStackTrace(e));
+			Log.e("Exception occured in login() : "
+					, ServletUtils.printStackTrace(e));
 			result = ServletUtils.buildXmlErrorMessage("", e.getMessage(), "");
 		}
 		return result;
@@ -329,8 +329,8 @@ public class PersistenceAction {
 			result = ServletUtils.httpClientSendRequest(
 					ServletUtils.FEEDBACK_METHOD, xml);
 		} catch (Exception e) {
-			logger.error("Exception occured in feedback() : "
-					+ ServletUtils.printStackTrace(e));
+			Log.e("Exception occured in feedback() : "
+					, ServletUtils.printStackTrace(e));
 			result = ServletUtils.buildXmlErrorMessage("", e.getMessage(), "");
 		}
 		return result;
@@ -422,8 +422,8 @@ public class PersistenceAction {
 			result = save(xml);
 
 		} catch (Exception e) {
-			logger.error("mseq " + mseq + ": Exception occured in save() : "
-					+ e.getMessage());
+			Log.e("mseq " + mseq + ": Exception occured in save() : "
+					,e.getMessage());
 			e.printStackTrace();
 			errorMessage = ServletUtils
 					.getErrorMessage("tdc.servlet.error.noAck");
@@ -511,8 +511,8 @@ public class PersistenceAction {
 					ServletUtils.WRITE_TO_AUDIT_FILE_METHOD, xml);
 			result = ServletUtils.OK; // nothing return from TMS
 		} catch (Exception e) {
-			logger.error("Exception occured in writeToAuditFile() : "
-					+ ServletUtils.printStackTrace(e));
+			Log.e("Exception occured in writeToAuditFile() : "
+					, ServletUtils.printStackTrace(e));
 			errorMessage = ServletUtils
 					.getErrorMessage("tdc.servlet.error.writeToAuditFileFailed");
 			result = ServletUtils.buildXmlErrorMessage("", errorMessage, "");
@@ -604,8 +604,8 @@ public class PersistenceAction {
 									HttpStatus.getStatusText(responseCode), "");
 						}
 					} catch (Exception e) {
-						logger.error("Exception occured in uploadAuditFile() : "
-								+ ServletUtils.printStackTrace(e));
+						Log.e("Exception occured in uploadAuditFile() : "
+								, ServletUtils.printStackTrace(e));
 						errorMessage = ServletUtils
 								.getErrorMessage("tdc.servlet.error.uploadFailed");
 						result = ServletUtils.buildXmlErrorMessage("",
@@ -667,7 +667,7 @@ public class PersistenceAction {
 			base64EncodedString = Base64.encode(bytes);
 
 		} catch (Exception e) {
-			logger.error("Base64String Not Generated");
+			Log.e("Base64String Not Generated","Base64String Not Generated");
 			e.printStackTrace();
 		}
 		return base64EncodedString;

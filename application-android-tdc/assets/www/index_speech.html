@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+
+ <script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"></script>
+  
+   <script type="text/javascript" charset="utf-8" src="samplePlugin.js"></script>
+   <script type="text/javascript" charset="utf-8" src="jQuery.js"></script>
+<script type="text/javascript">
+   		
+		function sendRequest(){
+			if(document.getElementById("speech").value=="")
+			{
+			 alert("Text data is required");
+			 retun;
+			}
+			var xml1="<data speedValue=\"-2\" text='"+document.getElementById("speech").value+"'></data>";
+           
+			var jsonObj = {param1 : xml1};
+       		window.plugins.SamplePlugin.LOGIN
+	        (
+	            function(result)
+	            {
+	            	
+	                setResponse(result);
+	            },
+	            function(error)
+	            {
+	                console.log(error);
+	            },
+	            jsonObj
+	        );
+		}
+		
+		
+		
+		function setResponse(result){
+		
+			
+		
+		}
+   </script>
+</head>
+<body>
+<Br/><Br/><Br/><Br/><Br/><Br/>
+Enter the text: <input type="text" name="speech" size="30" id="speech" />
+  
+  <input type="submit" value="speechRead" onclick="sendRequest();" />
+
+</body>
+</html> 

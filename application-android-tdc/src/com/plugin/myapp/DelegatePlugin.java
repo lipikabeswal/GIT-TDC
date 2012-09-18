@@ -26,53 +26,123 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.ctb.tdc.web.processingAction.ContentAction;
-import com.ctb.tdc.web.processingAction.processTest;
-
 import android.util.Log;
+
+import com.ctb.tdc.web.TTSServlet.Servlet.SpeechServlet;
+import com.ctb.tdc.web.processingAction.ContentAction;
+import com.ctb.tdc.web.processingAction.PersistenceAction;
+import com.ctb.tdc.web.utils.ServletUtils;
 
 
 public class DelegatePlugin extends Plugin {
 	
     public static final String TAG                = "ExamplePlugin";
     public static final String LOGIN_ACTION    	  = "LOGIN";
- 
+    PersistenceAction persistenceAction=null;
     @Override
     public PluginResult execute(String action, JSONArray data, String callbackId) {
         Log.d(TAG, "execute() called. Action: " + action);
         PluginResult result = null;
         JSONObject json_data = null;
-        System.out.println("hi.............");
-        if (LOGIN_ACTION.equals(action)) {
+        String xmlData=null;
+       
+       
             try {
-            	
-            	processTest process=new processTest();
-            	String val=process.getValue();
-            
-            	for(int i=0;i<data.length();i++) {
-                    json_data = data.getJSONObject(i);
-                    Log.d(TAG, " Value of param1 " + json_data.getString("param1"));
-                    Log.d(TAG, " Value of param2 " + json_data.getString("param2"));
-            	}
-            	//postData("http://192.168.14.172:8080/TMS/TMSServlet", json_data);
+            	 String method=null,xmlRequest=null,actionName=null;
+            	/*ContentAction contentAction=new ContentAction();
+            	contentAction.downloadItem("d");*/
+            	PersistenceAction persistenceAction=null;
             	JSONObject systemTime = new JSONObject();
                 systemTime.put("time", "Login Success at time "+System.currentTimeMillis());
+                method="downloadFileParts";
+               // method="getSubtest";
                 
-                result = new PluginResult(Status.OK, systemTime);
-                Log.d(TAG, " Value of result " + result);
+               //  method = json_data.getString("param1");
+			   // xmlRequest = json_data.getString("param2");
+				// actionName = json_data.getString("param3");
+                for(int i=0;i<data.length();i++) {
+                    json_data = data.getJSONObject(i);
+                    xmlData=json_data.getString("param1");
+                                      
+            	}
+               
+				 actionName="TT";
+				if (actionName.equals("PA")) {
+					persistenceAction = new PersistenceAction();
+					if ((method != null)
+							&& (!method.equals(ServletUtils.NONE_METHOD))) {
+						String xml = ServletUtils.buildPersistenceParameters(
+								method, xmlRequest);
+						
+						try {
+							xmlData=persistenceAction.handleEvent(method, xml);
+						} catch (IOException e) {
+							// TODO: handle exception
+						}
+					} else {
+						xmlData=doGetpersisXml(method);
+					}
+				}
+				if (actionName.equals("CO")) {
+					
+					ContentAction contentAction=new ContentAction();
+					try{
+					if (method !=null &&  method.equals(ServletUtils.GET_SUBTEST_METHOD)) {
+						contentAction.getSubtest(xmlRequest);
+					} else if (method.equals(ServletUtils.DOWNLOAD_ITEM_METHOD)) {
+						xmlData=contentAction.downloadItem(xmlRequest);
+					} else if (method.equals(ServletUtils.GET_ITEM_METHOD)) {
+						xmlData=contentAction.getItem(xmlRequest);
+					} else if (method.equals(ServletUtils.GET_IMAGE_METHOD)) {
+						xmlData=contentAction.getImage(xmlRequest);//need to check again throughly
+					}
+					else if (method.equals(ServletUtils.GET_LOCALRESOURCE_METHOD)) {
+						xmlData=contentAction.getLocalResource(xmlRequest);
+					}else if (method.equals(ServletUtils.GET_MUSIC_DATA_METHOD)) {
+						xmlData=contentAction.getMusicData(xmlRequest);
+					}else if (method.equals(ServletUtils.GET_FILE_PARTS)){
+						contentAction.downloadFileParts (xmlRequest);
+					}
+					else {
+						ServletUtils.writeResponse(ServletUtils.ERROR);
+					}
+					}
+					catch(IOException ioEx){
+						
+					}
+				}
+				if(actionName.equals("TT")){
+					
+					SpeechServlet speechServlet=new SpeechServlet();
+					xmlData=speechServlet.readPostDataRequest(xmlData);
+					
+				}
+				
+              else {
+                result = new PluginResult(Status.INVALID_ACTION);
+                Log.e(TAG, "Invalid action: " + action);
+            }
             } catch (JSONException jsonEx) {
                 Log.e(TAG, "Got JSON Exception " + jsonEx.getMessage());
                 jsonEx.printStackTrace();
                 result = new PluginResult(Status.JSON_EXCEPTION);
             }
-         
-        } else {
-            result = new PluginResult(Status.INVALID_ACTION);
-            Log.e(TAG, "Invalid action: " + action);
-        }
+      
         return result;
-    }
-    
+}
+    public  String doGetpersisXml(String reqMethod)  {
+
+  		String method = ServletUtils.getMethod(reqMethod);
+  		long startTime = System.currentTimeMillis();
+  		String xml = ServletUtils.getXml(method);
+  		try {
+  			return persistenceAction.handleEvent(method, xml);
+  		} catch (IOException e) {
+  			// TODO: handle exception
+  		}
+  		Log.e(TAG,"PersistenceServlet: " + method + " took "+ (System.currentTimeMillis() - startTime) + "\n");
+        return xml;	
+  	}
     public void  postData(String result,JSONObject json_data) {
         // Create a new HttpClient and Post Header
     
@@ -92,7 +162,7 @@ public class DelegatePlugin extends Plugin {
 	        Integer response_code = response.getStatusLine().getStatusCode();
 	        Log.i("tag ", response_code.toString());
 	        String temp = EntityUtils.toString(response.getEntity());
-	       System.out.println(response_code +"sd "+temp);
+	        System.out.println(response_code +"sd "+temp);
 	        //Log.i("tag ", temp);
         } catch (ClientProtocolException e) {
         	Log.e(TAG, "Error: " + e);
