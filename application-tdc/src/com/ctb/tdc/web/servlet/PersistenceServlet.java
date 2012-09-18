@@ -11,11 +11,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,6 +27,7 @@ import org.apache.http.entity.FileEntity;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
+import org.jdom.output.XMLOutputter;
 
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.Base64;
@@ -387,7 +386,7 @@ public class PersistenceServlet extends HttpServlet {
 				//System.out.println("login landing item: "+ServletUtils.landingItem);
 				//moved this call to Content Servlet for calling decryption only for adaptive subtest
 				//ContentFile.decryptDataFiles();  
-
+				result = getCustomerInformation(result);
 				// if file exist handle restart  
 				String fileName = ServletUtils.buildFileName(xml);
 				if (AuditFile.exists(fileName)) {
@@ -814,6 +813,45 @@ public class PersistenceServlet extends HttpServlet {
 			memCache.setContentDownloadMap(contentDownloadMap);
 
 		}
+	}
+	
+	
+	private String  getCustomerInformation(String loginResponse){
+		org.jdom.Document loginReponseDocument = null;
+		System.out.println("getCustomerInformation");
+		SAXBuilder saxBuilder = new SAXBuilder();
+		String result = null;
+		String resultXml = null;
+		Properties props = new Properties();
+		try {
+			loginReponseDocument = saxBuilder.build(new ByteArrayInputStream(loginResponse.getBytes()));			
+			//ResourceBundle rb = ResourceBundle.getBundle("tdc");
+			//String filePath = rb.getString("tdc.lax.filepath"); 
+			props.load(new FileInputStream("C:\\CTB\\Online Assessment\\Online Assessment.lax"));
+		} catch (JDOMException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String productType = props.getProperty("product.type");
+		
+		if(productType != null && productType.equals("TABE")) {
+			loginReponseDocument.getRootElement().getChild("login_response").setAttribute("isOK", "T");
+		}
+		else {
+			loginReponseDocument.getRootElement().getChild("login_response").setAttribute("isOK", "F");
+		}
+		
+		 resultXml = new XMLOutputter().outputString(loginReponseDocument);
+		 result = resultXml.substring(resultXml.indexOf("<tmssvc_response"));
+		 
+		 return result;
 	}
 
 }
