@@ -13,7 +13,8 @@
 
             this.setAttribute("width", data.attributes.width);
             this.setAttribute("height", data.attributes.height);
-
+			this.setAttribute("fontsize",null);
+			
             //color
             var isaccom = panel.isaccom;
             if (data.hasAttr("bgcolor") && !isaccom) {
@@ -27,6 +28,10 @@
             }else {
                 this.setAttribute("fontcolor", this.panel.fontcolor);
             }
+
+			if (parent.autoenlarge == "fixed" && gController.hasFontAccommodation) {
+				this.setAttribute("fontsize",12);			
+			}
 
             // Increase fontsize of text
             if (parent.autoenlarge == "fixed" && this.fontsize < 16 && gController.hasFontAccommodation) {

@@ -201,6 +201,7 @@
 
         <method name="doReturnToCache">
             <![CDATA[
+			this.fontsize = 0;
             var table = this.thetable.contents.borderview.table;
             for (var i in table.subviews) {
 
