@@ -656,7 +656,7 @@
 					//var newNode = LzDataNode.stringToLzData(image_string); //convert the string to datanode
 					var newNode = lz.DataElement.stringToLzData(words[i]); //convert the string to datanode
 					newNode.setAttribute('ownerDocument',this.datapath.p.ownerDocument);
-//					this.ibox.datapath.setPointer (newNode);
+					this.ibox.datapath.setPointer (newNode);
 					this.ibox.data = newNode;
 					this.ibox.ondata.sendEvent(newNode); // fire the ondata event
 
@@ -736,13 +736,12 @@
         <method name="doReturnToCache"><![CDATA[
             var destroy = false;
             var contsubviews = this.subviews;
-            for (var i in contsubviews) {
+			for (var i in contsubviews) {
                 if (contsubviews [i].visible && 
                      contsubviews[i] instanceof lz.CachableInputTextField) {
                        destroy = true;
                 }
             }
-            
             // Release all (text and wrappinglayout) resources for an inline input field
             if (destroy) {
               	var par = contsubviews[0].parent;
@@ -750,6 +749,9 @@
                     contsubviews[i].destroy();
                 }
                 wl.destroy();
+				for (var i in wl.subviews) {
+        			wl.subviews[i].destroy();
+    			}
             }
         ]]></method>
 

@@ -60,7 +60,7 @@
             var dnselect = gController.dpsubtest.xpathQuery (
                                 'ob_assessment/ob_element_select_order/g/e[@id="'+this.itemeid+'"]'
                            );
-            if (gController.adaptive == 'false') {
+            if (gController.adaptive == false) {
             	this.setAttribute ('showconnector', 
                                 dnselect != null
                                     && dnselect.parentNode.getLastChild () != dnselect);

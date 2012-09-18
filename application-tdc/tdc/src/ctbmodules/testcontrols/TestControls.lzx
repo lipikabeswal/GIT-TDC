@@ -71,8 +71,7 @@
 			this.curranswer = chosenanswer;
 		</method>
         <handler name="oncurranswer"><![CDATA[
-			Debug.write("this.curranswer ***************** ",this.curranswer);
-            if (this.curranswer) {
+			if (this.curranswer) {
             	var selAns = datapath.xpathQuery ("current_item/item_model/interaction/selector[@user_action='s']");
             	this.curranswer = selAns;
                 var currsel = this.curranswer.getAttr ('identifier');

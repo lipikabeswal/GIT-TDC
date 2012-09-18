@@ -666,7 +666,8 @@
 			Debug.write("subtest: " , subtests);
 		
 			var result = null;
-			if(this.totalNumberOfTests instanceof lz.DataElement){
+			
+			if(this.totalNumberOfTests instanceof LzDataElement){
 				if(currentSubtestIndex == 0){
 					result = this.totalNumberOfTests;
 				}
@@ -689,6 +690,11 @@
     			dp.setXPath('dslogin:/login_response/manifest');
 	    		var scos = dp.xpathQuery('sco');
 	    		var found = false;
+				Debug.write("getInitialSubtestIndex scos",scos);
+				if(scos instanceof LzDataElement){				
+					return result;
+				}
+				
 	    		while(scos && result < scos.length && !found){
 	    			var sco = scos[result];
 	    			if(sco.getAttr('id') == scoid){

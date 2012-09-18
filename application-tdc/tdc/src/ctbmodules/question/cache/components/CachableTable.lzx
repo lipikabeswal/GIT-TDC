@@ -229,7 +229,7 @@
             if (data.hasAttr("halign")) {
                 align = data.getAttr("halign");
             }
-            this.setAlign(align);
+            this.setAttribute('align',align);
 
 //Debug.write("this width : " + this.width + " x : " + this.x, this);
 //Debug.write("parent width : " + parent.width + " x : " + parent.x, parent);
@@ -288,7 +288,7 @@
                // to use an aspect ratio to correct for the margins 
                table.setAttribute("stretches", "both");
                table.setAttribute("width", width);
-               table.setHeight(Math.ceil((orig_height - title_ht) * mult_factor));
+               table.setAttribute('height',Math.ceil((orig_height - title_ht) * mult_factor));
 
                // nklein : hack that shouldn't be necessary
                // Need to examine why this occurs
@@ -298,7 +298,7 @@
                // Sets the height for the scrollbar
                // Account for margins and the height of the title
 //Debug.write("table h : " + table.height + " title h : " + title.height);
-               parent.wrapper.setHeight(table.height + (offset - 40) + title.height);
+               parent.wrapper.setAttribute('height',table.height + (offset - 40) + title.height);
 
                // Remove the scrollbar when the table fits within the popup
                if (parent.wrapper.height + (offset - 40) < gEnlargePopup.height) 
