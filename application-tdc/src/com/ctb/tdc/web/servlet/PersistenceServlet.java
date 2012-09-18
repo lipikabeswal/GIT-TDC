@@ -827,7 +827,7 @@ public class PersistenceServlet extends HttpServlet {
 			loginReponseDocument = saxBuilder.build(new ByteArrayInputStream(loginResponse.getBytes()));			
 			//ResourceBundle rb = ResourceBundle.getBundle("tdc");
 			//String filePath = rb.getString("tdc.lax.filepath"); 
-			props.load(new FileInputStream("C:\\CTB\\Online Assessment\\Online Assessment.lax"));
+			props.load(new FileInputStream("C:\\Program Files\\CTB\\Online Assessment\\Online Assessment.lax"));
 		} catch (JDOMException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

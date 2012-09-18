@@ -5,6 +5,7 @@
 <class name="DisplayScoresScreen">
 
 	<datapath name="dpscore" xpath="dsscore:/student_feedback_data"/>
+	<datapointer name="dpsubtest" xpath="dssubtest:/subtest"/> 
 	<attribute name="scos" value="$once{new Array}"/>
 	<attribute name="totalRaw" type="number" value="0"/>
 	<attribute name="totalRecords" type="number" value="0"/>
@@ -14,6 +15,8 @@
 	<method name="showScores" args="response"><![CDATA[
 		var allScos = new Array();
 		var node = LzDataNode.stringToLzData(response);
+		//Debug.write("feedback response*********", response);
+		//printBigString(response);
         dsscore.setChildNodes(new Array(node));
    		var unsortedScos = dpscore.xpathQuery('title/sco');
 		if(unsortedScos!=null)
@@ -48,6 +51,27 @@
 				scoIndex--;
 			}
 		} 
+		
+		var subtest = dpsubtest.xpathQuery('sco');
+		var currscotitle = subtest.getAttr('title');
+		var currsubtesttitle = currscotitle.substring(0, (currscotitle.indexOf('-') - 1));
+		
+		var dpcontent = new LzDatapointer();
+		dpcontent.setPointer( dsscore );
+		for(var i=1 ; i<=scoIndex; i++){
+			var xp="dsscore:/student_feedback_data/title/sco[" + i + "]";
+			dpcontent.setXPath(xp);
+			var scotitle = dpcontent.getNodeAttribute('title');
+			var scoTitleArr = scotitle.split("::");
+			var subtitle = scoTitleArr[2];
+			var subtesttitle = subtitle.substring(0, (subtitle.indexOf('-') - 1));
+			if(subtesttitle != currsubtesttitle) {
+				dpcontent.deleteNode();
+				i--;
+				scoIndex--;
+			}
+		}
+		
 		this.setAttribute('totalRecords',scoIndex);
 		addScoValues();
 		this.scoringGrid.settingDimension();
@@ -58,29 +82,46 @@
 			var sco = scos[i];  
 			var scoid = sco.getAttr('id');
 			var isSample = sco.getAttr('isSample');
+			var title = sco.getAttr('title');
+			var titleArr = title.split("::");
+			var contentArea = titleArr[2];
+			var form = titleArr[3];
 			var lmsXpath = "lms/sco[@scid='" + scoid + "']";
 			var unscoredXpath = lmsXpath +  "/lsv/ext.core/@number_of_unscored_items";
 			var coreXpath = lmsXpath + "/lsv/cmi.core";
 			var coreNode = dpscore.xpathQuery(coreXpath);
 			var raw = coreNode.getAttr('score.raw');
-			var plScore = getPLScore(raw);
+			var perfLevel = getPLScore(raw,form);
 			setAttribute('totalRaw', totalRaw + new Number(raw));
+			sco.setAttr('contentArea', contentArea);
 			sco.setAttr('raw', raw);
-			sco.setAttr('plScore', plScore);
+			sco.setAttr('plScore', perfLevel);
 		}
 	]]></method>
 
-	<method name="getPLScore" args="raw"><![CDATA[
-		var PLScore = 0;
-		if(raw >=0 && raw < 20)
-			PLScore=20;
-		else if(raw >=20 && raw < 40)
-			PLScore=30;
-		else if(raw >=40 && raw < 60)
-			PLScore=50;
-		else 
-			PLScore=70;
-		return PLScore;
+	<method name="getPLScore" args="raw,form"><![CDATA[
+		var PerfLevel = "";
+		if(form == 'B') {
+			if(raw >=0 && raw <= 18)
+				PerfLevel="Unsatisfactory";
+			else if(raw >=19 && raw <=27)
+				PerfLevel="Limited knowledge";
+			else if(raw >=28 && raw <=42)
+				PerfLevel="Proficient";
+			else if(raw >=43 && raw <=55)
+				PerfLevel="Advanced";
+		}
+		else if(form == 'Retest') {
+			if(raw >=0 && raw <= 19)
+				PerfLevel="Unsatisfactory";
+			else if(raw >=20 && raw <=27)
+				PerfLevel="Limited knowledge";
+			else if(raw >=28 && raw <=42)
+				PerfLevel="Proficient";
+			else if(raw >=43 && raw <=55)
+				PerfLevel="Advanced";
+		}
+		return PerfLevel;
 	]]>
 	</method>
 		
@@ -90,26 +131,28 @@
 			showvlines="true" x="${parent.score.x}" y="${parent.score.y+parent.score.height+5}">
 		<method name="settingDimension"><![CDATA[
 			classroot.setAttribute('gridHeight',parent.scoringGrid.getHeight());
-			classroot.setAttribute('gridColumnHeight',parent.scoringGrid.contentArea.getHeight()* classroot.getAttribute('totalRecords'));
+			classroot.setAttribute('gridColumnHeight',parent.scoringGrid.contentArea.subTitle.getHeight()* classroot.getAttribute('totalRecords'));
 			if(classroot.getAttribute('gridHeight') > classroot.getAttribute('gridColumnHeight')) {
-				parent.scoringGrid.setHeight(classroot.getAttribute('gridColumnHeight')+15);
+				parent.scoringGrid.setHeight(classroot.getAttribute('gridColumnHeight')+20);
 			}]]>
 		</method>
-		<gridcolumn name="contentArea" width="270" showheader="false">
-			<view bgcolor="#B2DFEE" width="270" height="20" placement="header">
+		<gridcolumn name="contentArea" width="295" showheader="false">
+			<view bgcolor="#B2DFEE" width="295" height="20" placement="header">
 				<text>Content Area</text>
 		    </view>
-		    <text datapath="@title"/>
+		    <view name="subTitle" width="295">
+		    	<text width="295" datapath="@contentArea"/>
+		    </view>
 	    </gridcolumn>
-		<gridcolumn showheader="false" width="90" resizable="false"> 
-			<view bgcolor="#B2DFEE" width="90" height="20" placement="header">
+		<gridcolumn showheader="false" width="65" resizable="false"> 
+			<view bgcolor="#B2DFEE" width="65" height="20" placement="header">
 		    	<text>Raw Score</text>
 		    </view>
 	      	<text datapath="@raw"/>
 	    </gridcolumn>
-		<gridcolumn showheader="false" width="90" resizable="false"> 
-			<view bgcolor="#B2DFEE" width="90" height="20" placement="header">
-		    	<text>PL Score</text>
+		<gridcolumn name="performanceLevel" showheader="false" width="110" resizable="false"> 
+			<view bgcolor="#B2DFEE" width="110" height="20" placement="header">
+		    	<text>Performance Level</text>
 		    </view>
 	      	<text datapath="@plScore"/>
 	    </gridcolumn>
