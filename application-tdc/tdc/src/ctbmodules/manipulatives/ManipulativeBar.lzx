@@ -187,6 +187,12 @@
 			<ManipulativeButton resource="toolbar_straight_edge_btn"
 	                            toolid="straight_edge"
 	                            tooltip="Straight Edge"/>
+			<ManipulativeButton resource="toolbar_calculator_btn"
+	                            toolid="ti_scientific_calculator"
+	                            tooltip="TI Scientific Calculator"/>
+			<ManipulativeButton resource="toolbar_calculator_btn"
+	                            toolid="ti_scientific_graphic_calculator"
+	                            tooltip="TI Scientific Graphic Calculator"/>	                            
 		</view>
 		
 		<view name="screenreader" valign="middle" height="100%">

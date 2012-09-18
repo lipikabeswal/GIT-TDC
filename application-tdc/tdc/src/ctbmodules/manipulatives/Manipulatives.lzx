@@ -9,7 +9,10 @@
 	<include href="calculator/scientificCalculator.lzx"/>
 	<include href="refcard/RefCard.lzx"/>
 	<include href="scratchpad/Scratchpad.lzx"/>
-	
+
+	<include href="calculator/ti-scientific_calculator/TiScientificCalculator.lzx"/>
+	<include href="calculator/ti-scientific_graphic_calculator/TiScientificGraphicCalculator.lzx"/>
+
     <class name="Manipulatives" clip="true"
            datapath="dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/general">
 
@@ -32,6 +35,8 @@
 		<attribute name="SCIENTIFIC_CALCULATOR_INDEX" type="number" value="10" />
 		<attribute name="FORMULA_CARD_INDEX" type="number" value="11" />
 		<attribute name="MASKING_RULER_INDEX" type="number" value="12" />
+		<attribute name="TI_SCIENTIFIC_CALCULATOR_INDEX" type="number" value="13" />
+		<attribute name="TI_SCIENTIFIC_GRAPHIC_CALCULATOR_INDEX" type="number" value="14" />
 		<handler name="oninit">
 			this.reset();
 		</handler>
@@ -175,6 +180,12 @@
 			else if (tool == 'masking_ruler'){
 				result = MASKING_RULER_INDEX;
 			}
+			else if (tool == 'ti_scientific_calculator') {
+				result = TI_SCIENTIFIC_CALCULATOR_INDEX;
+			}
+			else if (tool == 'ti_scientific_graphic_calculator') {
+				result = TI_SCIENTIFIC_GRAPHIC_CALCULATOR_INDEX;
+			}
 			return result;
 		</method>
 		
@@ -219,6 +230,12 @@
 			else if (index == MASKING_RULER_INDEX){
 				result = 'masking_ruler';
 			}
+			else if (index == TI_SCIENTIFIC_CALCULATOR_INDEX) {
+				result = 'ti_scientific_calculator';
+			}
+			else if (index == TI_SCIENTIFIC_GRAPHIC_CALCULATOR_INDEX) {
+				result = 'ti_scientific_graphic_calculator';
+			}		
 			return result;
 		</method>
 		
@@ -262,6 +279,12 @@
 			}
 			else if (tool == 'masking_ruler'){
 				result = gMaskingRuler;
+			}
+			else if (tool == 'ti_scientific_calculator') {
+				result = TI_SCIENTIFIC_CALCULATOR_INDEX;
+			}
+			else if (tool == 'ti_scientific_graphic_calculator') {
+				result = TI_SCIENTIFIC_GRAPHIC_CALCULATOR_INDEX;
 			}
 			return result;
 		</method>
@@ -345,6 +368,20 @@
         <scientificCalculator name="scientific_calculator" 
                             toolid="scientific_calculator"
                             id="gScientificCalculator"/>
+
+        <TiScientificCalculator name="ti_scientific_calculator" 
+                            toolid="ti_scientific_calculator"
+                            refCardRsrc="ti_scientific_calculator"
+                 			titleRsrc="TN_refcard_title"
+                			scrolls="false"
+							id="gTiScientificCalculator"/>
+
+        <TiScientificGraphicCalculator name="ti_scientific_graphic_calculator" 
+                            toolid="ti_scientific_graphic_calculator"
+                            refCardRsrc="ti_scientific_graphic_calculator"
+                 			titleRsrc="TN_refcard_title"
+                			scrolls="false" 
+							id="gTiScientificGraphicCalculator"/>
 
 		<ComponentCache name="cache" />
     </class>
