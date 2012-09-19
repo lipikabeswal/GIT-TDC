@@ -2102,6 +2102,7 @@
 		]]></method>
 
 		<method name="getAnswerForInputWidgetId" args="widgetId"><![CDATA[
+			var result="";
 			var eid = loadNode.getAttr('id');
 			var answers = dpstudentdata.xpathQuery( "runtime/item_model [@eid = '"+eid+"']/@answer_text");
 			var node = lz.DataElement.stringToLzData(unescape(answers));
@@ -2111,8 +2112,8 @@
                dstemp.appendChild(node);
                //Debug.write("widgetId : " + widgetId + " node : " , node);
 			   dp.setPointer(node);
-            
-			   var result = dp.xpathQuery("dstemp://answers/answer[@id = '"+widgetId+"']/text()");
+				
+			  result = dp.xpathQuery("dstemp://answers/answer[@id = '"+widgetId+"']/text()");
 			//Debug.write("getAnswerForInputWidgetId result: " , result);
                dstemp.removeChild(node);
             }
@@ -3542,6 +3543,7 @@ Debug.write("############ loadItem ############");
             var initglobal = (dnmanip == null);
             var initgeneral = (dngeneral == null);
             var ismarked = dpstudentdata.xpathQuery ('current_item/item_model/@marked');
+            
             if (typeof (ismarked) == 'string') {
                 ismarked = (ismarked == '1');
             }
@@ -3624,9 +3626,9 @@ Debug.write("############ loadItem ############");
                         	   	dnglobal.setAttr (i, toolstate);
                         	}
                         }
-                      if (i == 'scratchpad' && dnglobal.getAttr(i) != 'disable'){  // force override scratchpad to obey global value
+                      /*if (i == 'scratchpad' && dnglobal.getAttr(i) != 'disable'){  // force override scratchpad to obey global value
                        		dnglobal.setAttr(i, scratchpadOpen ? 'sel' : 'up');
-                      }
+                      }*/
                     } else if (initgeneral) {
                         dngeneral.setAttr (i, toolstate);
                     }
