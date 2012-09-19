@@ -841,7 +841,7 @@ public class PersistenceServlet extends HttpServlet {
 		
 		String productType = props.getProperty("product.type");
 		
-		if(productType != null && productType.equals("TABE")) {
+		if(productType != null && productType.equals("OKLAHOMA")) {
 			loginReponseDocument.getRootElement().getChild("login_response").setAttribute("isOK", "T");
 		}
 		else {
