@@ -549,7 +549,7 @@
 		<attribute name="qtimestampforpause" type="number" value="0" />
 		<attribute name="timingforpause" type="boolean" value="false" />
 		<attribute name="isHandlerInactive" type="boolean" value="false" />
-		<attribute name="timerInterval" type="number" value="30000" />
+		<attribute name="timerInterval" type="number" value="1200000" />
 			 
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
