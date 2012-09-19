@@ -88,21 +88,13 @@
 		</method>
 		
 		<method name="heartbeat" args="params">
-			Debug.write("heartbeat saveXml: " ,gController.lsid);
-			//Commented because manipulative bar is not there
-			//var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, gManipulativeBar.speedController.value);
-			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, 2);
-			Debug.write("heartbeat saveXml 2 xml: " + xml);
-			//printBigString(xml);
-			_doRequest(heartbeatDs, SAVE_METHOD, xml);
-			//gController.setWaitPopupToShow();
+			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, gManipulativeBar.speedController.value);
+			_doRequest(heartbeatDs, SAVE_METHOD, xml);			
 		</method>
 
 		<method name="save" args="params">
-			//var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, gManipulativeBar.speedController.value);
-			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, 2);
-//Debug.write("saveXml: " + getTimer());
-//printBigString(xml);
+			Debug.write("OpenLaszlo Save");
+			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, gManipulativeBar.speedController.value);
 			_doRequest(persistenceDs, SAVE_METHOD, xml);
 		</method>
 		
