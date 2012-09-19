@@ -901,6 +901,10 @@
 			if(this.totalNumberOfTests == null){
 				this.totalNumberOfTests = subtests;
 			}
+			
+			if (this.totalNumberOfTests instanceof LzDataElement){			
+				return -1;
+			}
 			while(result < this.totalNumberOfTests.length && !found){
 				var subtest = this.totalNumberOfTests[result];
 				if(subtest.getAttr('id') == subtestId){
@@ -2112,7 +2116,6 @@
                dstemp.appendChild(node);
                //Debug.write("widgetId : " + widgetId + " node : " , node);
 			   dp.setPointer(node);
-				
 			  result = dp.xpathQuery("dstemp://answers/answer[@id = '"+widgetId+"']/text()");
 			//Debug.write("getAnswerForInputWidgetId result: " , result);
                dstemp.removeChild(node);
@@ -3543,7 +3546,6 @@ Debug.write("############ loadItem ############");
             var initglobal = (dnmanip == null);
             var initgeneral = (dngeneral == null);
             var ismarked = dpstudentdata.xpathQuery ('current_item/item_model/@marked');
-            
             if (typeof (ismarked) == 'string') {
                 ismarked = (ismarked == '1');
             }
@@ -3626,24 +3628,26 @@ Debug.write("############ loadItem ############");
                         	   	dnglobal.setAttr (i, toolstate);
                         	}
                         }
-                      /*if (i == 'scratchpad' && dnglobal.getAttr(i) != 'disable'){  // force override scratchpad to obey global value
-                       		dnglobal.setAttr(i, scratchpadOpen ? 'sel' : 'up');
-                      }*/
+					
+                      if (i == 'scratchpad' && dnglobal && dnglobal.getAttr(i) != 'disable'){  // force override scratchpad to obey global value
+                       	dnglobal.setAttr(i, this.scratchpadOpen ? 'sel' : 'up');						
+                      }
                     } else if (initgeneral) {
-                        dngeneral.setAttr (i, toolstate);
+                        dngeneral.setAttr (i, toolstate);						
                     }
 
                 }
 
 				// if item has fixed card and dynamic card both,in that case dynamic card will be disabled 
-				if(hasTNorFCATrefCard) {
+				if(this.hasTNorFCATrefCard) {
 					dngeneral.setAttr('formula_card_resource', 'disable');
 				}
 
 				//set To default values
-				hasDynamicRefCard = false;	
-				hasTNorFCATrefCard = false;	
-				formulaCardResource = null;
+				this.hasDynamicRefCard = false;	
+				this.hasTNorFCATrefCard = false;	
+				this.formulaCardResource = null;
+
 				
             }
        ]]></method>
