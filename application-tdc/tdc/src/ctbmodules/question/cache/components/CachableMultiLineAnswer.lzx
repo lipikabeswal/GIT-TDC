@@ -1,5 +1,6 @@
 <library>
     <include href="CachableComponent.lzx"/>
+	<include href="incubator/scrolledittext.lzx" /> 
 
     <!-- ===============
          ==
@@ -49,7 +50,7 @@
 			else{
 				this.setAttribute("showFormatBar", false);
 			}
-            this.outer.rich.answer.inp.setAttribute('maxlength', cl);
+            this.outer.rich.answer.setAttribute('maxlength', cl);
 //Debug.write(this, "set characterLimit", cl);
             this.setAttribute("characterLimit", cl);
 
@@ -108,14 +109,14 @@
        <handler name="onw_id"><![CDATA[
 			if(this.w_id < gController.currentCrId){
 				gController.setAttribute('currentCrId', this.w_id);
-				canvas.setAttribute('focusobj', this.outer.rich.answer.inp);
+				canvas.setAttribute('focusobj', this.outer.rich.answer);
 			}
         ]]></handler>
         
         <method name="setAnswer" args="text">
           var currentFocus = lz.Focus.getFocus();
-          this.outer.rich.answer.inp.onfocus.sendEvent();
-          this.outer.rich.answer.inp.onblur.sendEvent();
+          this.outer.rich.answer.onfocus.sendEvent();
+          this.outer.rich.answer.onblur.sendEvent();
           this.outer.rich.answer.setAttribute('text', text);
           if(currentFocus != null){
           	currentFocus.onfocus.sendEvent();
@@ -127,7 +128,7 @@
 			if(txt.length == 0){
 				txt = gReadableText.getReadableTextForCharacter(' ');
 			}
-			gReadableText.read(txt);
+			gReadableText.read(txt,false);
 		</method>
 
 		<method name="setSelectionVars">
@@ -157,10 +158,16 @@
 	 					<view name="used" width="0" height="${parent.height}" bgcolor="0x6691B4" >
 	 						<drawview width="${parent.width}" 
 		                          height="${parent.height}">
+								   <attribute name="isready" value="false" type="boolean" />
+									  <handler name="oncontext">
+										this.setAttribute("isready", true);
+										this.draw();
+									  </handler>
 			             		<handler name="onwidth">
 			                		this.draw();
 			            		</handler>
 			            		<method name="draw"><![CDATA[
+								  if(this.isready){
 				                	this.clear ();
 			            			var minX = .5;
 			            			var endX = this.width - .5;
@@ -171,11 +178,17 @@
 			                		this.strokeStyle = 0x000000;
 			                		this.strokeWidth = 1;
 			                		this.stroke();
+									}
 			            		]]></method>
 		 					</drawview>
 	 					</view>
 						<drawview width="${parent.width}" 
 		                          height="${parent.height}">
+						<attribute name="isready" value="false" type="boolean" />
+									  <handler name="oncontext">
+										this.setAttribute("isready", true);
+										this.draw();
+									  </handler>
 		
 		             		<handler name="onwidth">
 		                		this.draw();
@@ -185,36 +198,38 @@
 		            		</handler>
 		
 		            		<method name="draw"><![CDATA[
-			                	this.clear ();
-		                		this.beginPath ();
-			                
-			                	//has to be .5 so is draws exactly inside the border of the view
-			               		this.moveTo (.5,.5);
-			                	this.lineTo (this.width - .5, .5);
-			                	this.lineTo (this.width - .5, this.height - .5);
-			                	this.lineTo (.5, this.height - .5);
-			                	this.lineTo (.5, .5);
-			                	this.strokeStyle = 0x000000;
-			                	this.strokeWidth = 1;
-			                	this.stroke();
+								if(this.isready){
+									this.clear ();
+									this.beginPath ();
+								
+									//has to be .5 so is draws exactly inside the border of the view
+									this.moveTo (.5,.5);
+									this.lineTo (this.width - .5, .5);
+									this.lineTo (this.width - .5, this.height - .5);
+									this.lineTo (.5, this.height - .5);
+									this.lineTo (.5, .5);
+									this.strokeStyle = 0x000000;
+									this.strokeWidth = 1;
+									this.stroke();
+								}
 		                	]]></method>
 		 				</drawview>
 	 				</view>
 	 			</view>
  	 		</view>
-	        <view name="rich" bgcolor="${Number(gController.answerBgColor)}">
-	           <richtexteditarea name="answer" 
+	        <view name="rich" bgcolor="${Number(gController.answerBgColor)}" clip="true">
+	           <inputtext name="answer" 
 	                             height="${classroot.showFormatBar ? classroot.height - classroot.outer.controls.height : classroot.height}" 
 	                             width="${classroot.editTextWidth}" 
-	                             defaultfontcolor="0x336699" 
 	                             focusable="false"
+								 multiline="true"
 	                             x="${classroot.lmargin}">
 	            	<attribute name="start" type="number" value="0" />
 	            	<attribute name="end" type="number" value="0" />
 	              <method name="init">
-	                 super.init();
-	              	this.style.setAttribute("textfieldcolor", gController.answerBgColor);
-					this.setFontColor(gController.answerFontColor);
+	                 //super.init();
+	              	//this.style.setAttribute("textfieldcolor", gController.answerBgColor);
+					//this.setFontColor(gController.answerFontColor);
 				 	if(gController.hasFontAccommodation)
 							this.setAttribute('fontsize', 18);
 						else
@@ -260,9 +275,12 @@
 					}
 					this.setAttribute('start', pos);
 					this.setAttribute('end', pos + size);
-				</method>
-	          </richtexteditarea>
-	         </view>
+				</method>				
+	          </inputtext>
+			<vscrollbar/>
+			
+		 </view>
+
          </view>
 		<basebutton resource="read_btn" 
  		            name="readBtn"
@@ -276,6 +294,11 @@
 		</basebutton>
 		 <drawview options="ignorelayout" width="${classroot.editTextWidth + classroot.lmargin}" 
 		                  height="${classroot.height}">
+					<attribute name="isready" value="false" type="boolean" />
+									  <handler name="oncontext">
+										this.setAttribute("isready", true);
+										this.draw();
+									  </handler>
 		            <handler name="onwidth">
 		                this.draw();
 		            </handler>
@@ -284,6 +307,7 @@
 		            </handler>
 		
 		            <method name="draw">
+						if(this.isready){
 		                this.clear ();
 		                this.beginPath ();
 		                
@@ -300,6 +324,7 @@
 		                this.strokeStyle = Number(gController.answerFontColor);
 		                this.strokeWidth = 1;
 		                this.stroke();
+						}
 		            </method>
 		
 		 </drawview>

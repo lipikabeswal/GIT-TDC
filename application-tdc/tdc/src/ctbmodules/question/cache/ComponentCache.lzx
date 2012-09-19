@@ -61,9 +61,8 @@
         <attribute name="cachedgriddedresponses" value="$once{[]}"/>-->
         <attribute name="cachedtables" value="$once{[]}"/>
         <attribute name="cachedtablecells" value="$once{[]}"/>
-        <!--<attribute name="cachedsinglelineinput" value="$once{[]}"/>-->
-        <!--<attribute name="cachedmultilineinput" value="$once{[]}"/>
-        <attribute name="cachedaccmultilineinput" value="$once{[]}"/>-->
+        <attribute name="cachedsinglelineinput" value="$once{[]}"/>
+       <attribute name="cachedmultilineinput" value="$once{[]}"/>
         <attribute name="cachedreferencecard" value="$once{[]}"/>
         <attribute name="cachedrecorder" value="$once{[]}"/>
         
@@ -216,11 +215,11 @@
                     break;
                 }
                 case gCompTypes.WIDGET_SINGLE_LINE_ANSWER: {
-                    //arraytouse = cachedsinglelineinput;      
+                    arraytouse = cachedsinglelineinput;      
                     break;
                 }
                 case gCompTypes.WIDGET_MULTI_LINE_ANSWER: {
-                    //arraytouse = cachedmultilineinput;      
+                    arraytouse = cachedmultilineinput;      
                     break;
                 }
                 case gCompTypes.WIDGET_REFERENCE_CARD: {
@@ -314,11 +313,11 @@
 			    	break;
                 }                
                  case gCompTypes.WIDGET_SINGLE_LINE_ANSWER: {
-					//toReturn = new lz.CachableSingleLineAnswer(parent);
+					toReturn = new lz.CachableSingleLineAnswer(parent);
 			    	break;
                 }
                case gCompTypes.WIDGET_MULTI_LINE_ANSWER: {
-					//toReturn = new lz.CachableMultiLineAnswer(parent);
+					toReturn = new lz.CachableMultiLineAnswer(parent);
 			    	break;
                 }               
                 default: {

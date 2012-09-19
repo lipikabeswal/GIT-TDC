@@ -14,7 +14,7 @@
     <include href="CachableTable.lzx"/>
     <include href="CachableTableCell.lzx"/>
 	<include href="CachableSingleLineAnswer.lzx"/>
-	<!-- <include href="CachableMultiLineAnswer.lzx"/>-->
+	<include href="CachableMultiLineAnswer.lzx"/>
 
 
  </library>
