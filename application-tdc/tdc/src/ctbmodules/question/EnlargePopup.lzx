@@ -26,10 +26,14 @@
    </method>
 	
    <method name="enlarge" args="dn, w, h, color, stereotype">
+   		//Debug.write("arguments ",dn, w, h, color, stereotype);
         this.clickdel.register (lz.GlobalMouse, 'onmousedown');        
+		//Debug.write("this.dsenlarge",this.dsenlarge);
         var dnq = this.dsenlarge.getPointer().p.childNodes[0];
         var v = this.contents.scaler.stretcher.scaled;
+        //Debug.write("this.contents",v,dn,this.contents);
         var clone = dn.cloneNode(true);
+        //Debug.write("clone",clone);
 		var hl = false;
 		
         this.setAttribute("stereotype", stereotype);
@@ -40,7 +44,7 @@
                                          dn.getAttr("enlargeable")) {
            
            // Create panel based on original XML values for both panel and table
-           var dnpanel = new LzDataElement("panel",
+           var dnpanel = new lz.DataElement("panel",
                                         { width      : this.width,
                                           height     : this.height,
                                           orig_h     : h,
@@ -51,7 +55,7 @@
         }
         else {
            // Create panel using params passed in
-           var dnpanel = new LzDataElement("panel",
+           var dnpanel = new lz.DataElement("panel",
                                         { width      : w,
                                           height     : h,
                                           stereotype : stereotype,
@@ -65,15 +69,18 @@
         clone.setAttr("enlargeable", "no");
 
         // The "scale" view now contains the full XML (panel + table)
-        dnq.setChildNodes([dnpanel]);
+        //dnq.setChildNodes([dnpanel]);
+        dnq.setAttribute('childNodes',[dnpanel]);
 
         // Attach out view to the data 
         // This results in an onwidth event being sent that calls calcSize
         v.datapath.setPointer(dnq);
+		//Debug.write("v.datapath.setPointer(dnq) ",v);
 
         //set some props
         this.windowbg.changeColor(color);
         this.setAttribute("visible", true);
+		v.setAttribute("visible", true);
         
         // why do I need to set this again - it hasn't changed ??!!
         this.setAttribute('showhandcursor', false);
@@ -163,7 +170,7 @@
                      iszoomin="false"/>
         <view name="scaler" clip="true" y="25" 
                   height="${parent.height-25}" width="${parent.width}"> 
-           <view name="stretcher" stretches="both"> 
+           <view name="stretcher" xscale="1" yscale="1"> 
                <Question name="scaled" doaccomlayout="false">
                    <datapath/> 
                    <attribute name="enlarged" value="false"/>

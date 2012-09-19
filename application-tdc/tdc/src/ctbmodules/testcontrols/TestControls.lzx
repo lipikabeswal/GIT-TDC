@@ -73,19 +73,21 @@
         <handler name="oncurranswer"><![CDATA[
 			if (this.curranswer) {
             	var selAns = datapath.xpathQuery ("current_item/item_model/interaction/selector[@user_action='s']");
-            	this.curranswer = selAns;
-                var currsel = this.curranswer.getAttr ('identifier');
-
-		  /** if login response xml has seed, replace currsel by random 
-		 	* value assigned to this distractor */
-			if(gController.isLoginResponseHavingSeed &&
-				this.curranswer.hasAttr('randomIdentifier')) {         
-
-				currsel = this.curranswer.getAttr('randomIdentifier');
-
-			}
-//Debug.write("Test Control......", "Actual : ",this.curranswer.getAttr('identifier'), "|| Random : ",currsel, "|| Correct : ", gController.dpstudentdata.xpathQuery("current_item/item_model/@correct"));
-                this.answertxt.answeristxt.selitem.setAttribute ('text', currsel);
+				if(selAns!=null && selAns!="undefined"){
+	            	this.curranswer = selAns;
+	                var currsel = this.curranswer.getAttr ('identifier');
+	
+			  /** if login response xml has seed, replace currsel by random 
+			 	* value assigned to this distractor */
+				if(gController.isLoginResponseHavingSeed &&
+					this.curranswer.hasAttr('randomIdentifier')) {         
+	
+					currsel = this.curranswer.getAttr('randomIdentifier');
+	
+				}
+	//Debug.write("Test Control......", "Actual : ",this.curranswer.getAttr('identifier'), "|| Random : ",currsel, "|| Correct : ", gController.dpstudentdata.xpathQuery("current_item/item_model/@correct"));
+	                this.answertxt.answeristxt.selitem.setAttribute ('text', currsel);
+				}
             }  
         ]]></handler>
 
