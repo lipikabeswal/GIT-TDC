@@ -17,10 +17,7 @@
         <attribute name="hasStartNumber" value="false"/>
 
         <handler args="n" name="onstartNumber"><![CDATA[
-            setAttribute(
-                'hasStartNumber',
-                typeof( n ) == 'string'
-            );
+            setAttribute('hasStartNumber', typeof( n ) == 'string' || typeof( n ) == 'number');
         ]]></handler>
 
         <view name="contents" width="800" height="600"
