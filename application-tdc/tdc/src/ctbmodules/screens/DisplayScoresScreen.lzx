@@ -84,7 +84,9 @@
 			var isSample = sco.getAttr('isSample');
 			var title = sco.getAttr('title');
 			var titleArr = title.split("::");
-			var contentArea = titleArr[2];
+			var testName = titleArr[1];
+			var subtestName = titleArr[2];
+			var contentArea = testName+" "+subtestName;
 			var form = titleArr[3];
 			var lmsXpath = "lms/sco[@scid='" + scoid + "']";
 			var unscoredXpath = lmsXpath +  "/lsv/ext.core/@number_of_unscored_items";
@@ -101,17 +103,7 @@
 
 	<method name="getPLScore" args="raw,form"><![CDATA[
 		var PerfLevel = "";
-		if(form == 'OP') {
-			if(raw >=0 && raw <= 18)
-				PerfLevel="Unsatisfactory";
-			else if(raw >=19 && raw <=27)
-				PerfLevel="Limited knowledge";
-			else if(raw >=28 && raw <=42)
-				PerfLevel="Proficient";
-			else if(raw >=43 && raw <=55)
-				PerfLevel="Advanced";
-		}
-		else if(form == 'EQ') {
+		if(form == 'EQ') {
 			if(raw >=0 && raw <= 17)
 				PerfLevel="Unsatisfactory";
 			else if(raw >=18 && raw <=26)
@@ -141,6 +133,16 @@
 			else if(raw >=42 && raw <=54)
 				PerfLevel="Advanced";
 		}
+		else if(form == 'OP') {
+			if(raw >=0 && raw <= 18)
+				PerfLevel="Unsatisfactory";
+			else if(raw >=19 && raw <=27)
+				PerfLevel="Limited knowledge";
+			else if(raw >=28 && raw <=42)
+				PerfLevel="Proficient";
+			else if(raw >=43 && raw <=55)
+				PerfLevel="Advanced";
+		} 
 		return PerfLevel;
 	]]>
 	</method>
@@ -156,22 +158,22 @@
 				parent.scoringGrid.setHeight(classroot.getAttribute('gridColumnHeight')+20);
 			}]]>
 		</method>
-		<gridcolumn name="contentArea" width="295" showheader="false">
-			<view bgcolor="#B2DFEE" width="295" height="20" placement="header">
+		<gridcolumn name="contentArea" width="260" showheader="false">
+			<view bgcolor="#B2DFEE" width="260" height="20" placement="header">
 				<text>Content Area</text>
 		    </view>
-		    <view name="subTitle" width="295">
-		    	<text width="295" datapath="@contentArea"/>
+		    <view name="subTitle" width="260">
+		    	<text width="260" datapath="@contentArea"/>
 		    </view>
 	    </gridcolumn>
-		<gridcolumn showheader="false" width="65" resizable="false"> 
-			<view bgcolor="#B2DFEE" width="65" height="20" placement="header">
+		<gridcolumn showheader="false" width="70" resizable="false"> 
+			<view bgcolor="#B2DFEE" width="70" height="20" placement="header">
 		    	<text>Raw Score</text>
 		    </view>
 	      	<text datapath="@raw"/>
 	    </gridcolumn>
-		<gridcolumn name="performanceLevel" showheader="false" width="110" resizable="false"> 
-			<view bgcolor="#B2DFEE" width="110" height="20" placement="header">
+		<gridcolumn name="performanceLevel" showheader="false" width="135" resizable="false"> 
+			<view bgcolor="#B2DFEE" width="135" height="20" placement="header">
 		    	<text>Performance Level</text>
 		    </view>
 	      	<text datapath="@plScore"/>
