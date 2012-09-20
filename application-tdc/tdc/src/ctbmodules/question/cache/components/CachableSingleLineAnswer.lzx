@@ -44,10 +44,18 @@
             if (data.getAttr("id")) {  
                 this.setAttribute('widget_id', data.getAttr("id"));
             	var answer = gController.getAnswerForInputWidgetId(this.widget_id);
+				Debug.write("Single line CR" , answer);
             	var answered = (typeof answer != "undefined" && answer.length != 0);
                 gController.addCrField({"widget_id" : this.widget_id, 
                                               "answered" : answered, "answer" : answer, "ref" : this}); 
-                this.setAnswer(answer);
+											  
+				
+
+				if(answer){				
+					this.setAnswer(answer);
+				}else{
+					this.setAnswer('');
+				}				
 //this.answer.setAttribute('text', "<huh/>");
             }
             

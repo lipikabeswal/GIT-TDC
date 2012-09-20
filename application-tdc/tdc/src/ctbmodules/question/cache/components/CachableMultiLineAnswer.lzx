@@ -2,6 +2,7 @@
     <include href="CachableComponent.lzx"/>
 	<include href="incubator/scrolledittext.lzx" /> 
 
+
     <!-- ===============
          ==
          == CachableMultiLineAnswer
@@ -35,6 +36,8 @@
          <attribute name="characterLimit" type="number" value="10000" />
          <attribute name="numCharacters" type="number" value="0" />
          <attribute name="showFormatBar" type="boolean" value="false" />
+		 
+
          
         <!-- ===============
              = METHODS
@@ -50,7 +53,8 @@
 			else{
 				this.setAttribute("showFormatBar", false);
 			}
-            this.outer.rich.answer.setAttribute('maxlength', cl);
+			
+			
 //Debug.write(this, "set characterLimit", cl);
             this.setAttribute("characterLimit", cl);
 
@@ -72,7 +76,7 @@
             }
             
             if (data.getAttr("width")) {
-                this.setAttribute('editTextWidth', Number(data.getAttr("width")));
+                this.setAttribute('editTextWidth', Number(data.getAttr("width")));				
             }
             if(data.getAttr('acc_width') && gController.hasFontAccommodation){
 //Debug.write("CachableMultiLineAnswer", "got acc_width", data.getAttr('acc_width'));
@@ -145,9 +149,10 @@
              =============== -->
 
  		<simplelayout axis="x" spacing="5" />
- 		<view name="outer">
-	 		<simplelayout axis="y" spacing="0"/>
-	 		<view name="controls" width="${parent.rich.width}" height="30" bgcolor="0xC4C4C4" 
+		
+			<view name="outer">
+				<simplelayout axis="y" spacing="0"/>				
+					 		<view name="controls" width="${parent.rich.width}" height="30" bgcolor="0xC4C4C4" 
 	 		      visible="${classroot.showFormatBar}">
 	 			<view align="center" name="meter" height="20" width="${parent.width - 20}">
 	 				<view name="limit" width="${parent.width - 10}" height="${parent.height}" 
@@ -157,27 +162,27 @@
 	 					</handler>
 	 					<view name="used" width="0" height="${parent.height}" bgcolor="0x6691B4" >
 	 						<drawview width="${parent.width}" 
-		                          height="${parent.height}">
-								   <attribute name="isready" value="false" type="boolean" />
-									  <handler name="oncontext">
-										this.setAttribute("isready", true);
-										this.draw();
-									  </handler>
+		                          height="${parent.height}">								  
+						<attribute name="isready" value="false" type="boolean" />
+							<handler name="oncontext">
+								this.setAttribute("isready", true);
+								this.draw();
+							</handler>
 			             		<handler name="onwidth">
 			                		this.draw();
 			            		</handler>
 			            		<method name="draw"><![CDATA[
-								  if(this.isready){
-				                	this.clear ();
-			            			var minX = .5;
-			            			var endX = this.width - .5;
-			            			if(endX < minX) endX = minX;
-			                		this.beginPath ();
-			                		this.moveTo (endX, .5);
-			                		this.lineTo (endX, this.height - .5);
-			                		this.strokeStyle = 0x000000;
-			                		this.strokeWidth = 1;
-			                		this.stroke();
+									if(this.isready){
+										this.clear ();
+										var minX = .5;
+										var endX = this.width - .5;
+										if(endX < minX) endX = minX;
+										this.beginPath ();
+										this.moveTo (endX, .5);
+										this.lineTo (endX, this.height - .5);
+										this.strokeStyle = 0x000000;
+										this.strokeWidth = 1;
+										this.stroke();
 									}
 			            		]]></method>
 		 					</drawview>
@@ -185,10 +190,10 @@
 						<drawview width="${parent.width}" 
 		                          height="${parent.height}">
 						<attribute name="isready" value="false" type="boolean" />
-									  <handler name="oncontext">
-										this.setAttribute("isready", true);
-										this.draw();
-									  </handler>
+							<handler name="oncontext">
+								this.setAttribute("isready", true);
+								this.draw();
+							</handler>
 		
 		             		<handler name="onwidth">
 		                		this.draw();
@@ -217,71 +222,87 @@
 	 				</view>
 	 			</view>
  	 		</view>
-	        <view name="rich" bgcolor="${Number(gController.answerBgColor)}" clip="true">
-	           <inputtext name="answer" 
-	                             height="${classroot.showFormatBar ? classroot.height - classroot.outer.controls.height : classroot.height}" 
-	                             width="${classroot.editTextWidth}" 
-	                             focusable="false"
-								 multiline="true"
-	                             x="${classroot.lmargin}">
-	            	<attribute name="start" type="number" value="0" />
-	            	<attribute name="end" type="number" value="0" />
-	              <method name="init">
-	                 //super.init();
-	              	//this.style.setAttribute("textfieldcolor", gController.answerBgColor);
-					//this.setFontColor(gController.answerFontColor);
-				 	if(gController.hasFontAccommodation)
-							this.setAttribute('fontsize', 18);
-						else
-							this.setAttribute('fontsize', 12);
-	              </method>
-	
-	              <handler name="ontext"><![CDATA[
-	                 if(!classroot.isInitialText){
-		                 if (text) {
-		                 	var answered = false;
-		               		for(var i=0; (i< text.length) && !answered; i++){
-		               			var c = text.substring(i, i+1);
-		               			if(c != ' ' && c!= '\n' && c!= '\r'){
-		               				answered = true;
-		               			}
-		               		}
-		                    gController.updateCrField(classroot.widget_id, text, answered);
-		                 }
-		                 else {  // Field is now empty
-		                    gController.updateCrField(classroot.widget_id, '', false);
-		                 }
-		             }
-//Debug.write(classroot, "ontext", text.length);
-		             classroot.setAttribute("numCharacters", text.length);
-		             classroot.updateCharacterMeter();
-		             classroot.setAttribute("isInitialText", false);
-	               ]]></handler>
-	
-				<method name="getSelectedText">
-					if(end == 0){
-						return '';
-					}
-					else{
-						return getText().substring(start, end);
-					}
-				</method>
-				<method name="setSelectionVars">
-					var pos = getSelectionPosition();
-					var size = getSelectionSize();
-					if(pos == -1 || size == -1 || size == 0){
-						pos = 0;
-						size = getText().length;
-					}
-					this.setAttribute('start', pos);
-					this.setAttribute('end', pos + size);
-				</method>				
-	          </inputtext>
-			<vscrollbar/>
-			
-		 </view>
+				<view name="rich" bgcolor="${Number(gController.answerBgColor)}">
+				   <scrolledittext name="answer" 
+									 height="${classroot.showFormatBar ? classroot.height - classroot.outer.controls.height : classroot.height }" 
+									 width="${classroot.editTextWidth + 5}" >
+										<attribute name="start" type="number" value="0" />
+						<attribute name="end" type="number" value="0" />
+					  <method name="init">
+						 super.init();
+						this.style.setAttribute("textfieldcolor", gController.answerBgColor);
+						//this.setFontColor(gController.answerFontColor);
+						if(gController.hasFontAccommodation)
+								this.setAttribute('fontsize', 18);
+							else
+								this.setAttribute('fontsize', 12);
+					  </method>
+					  
+					  
+				  	<method name="updateText" args="a">
+						this.setAttribute('text',a);	
+					</method>
+		
+					  <handler name="ontext"><![CDATA[
+						 if(!classroot.isInitialText){
+							 if (text) {
+								var answered = false;
+								for(var i=0; (i< text.length) && !answered; i++){
+									var c = text.substring(i, i+1);
+									if(c != ' ' && c!= '\n' && c!= '\r'){
+										answered = true;
+									}
+								}
+								gController.updateCrField(classroot.widget_id, text, answered);
+							 }
+							 else {  // Field is now empty
+								gController.updateCrField(classroot.widget_id, '', false);
+							 }
+						 }
+	//Debug.write(classroot, "ontext", text.length);
+						 classroot.setAttribute("numCharacters", text.length);
+						 classroot.updateCharacterMeter();
+						 classroot.setAttribute("isInitialText", false);
+						 
+						 	if(this.text.length > Number(classroot.characterLimit)){
+								var textContent = this.text;
+								textContent = textContent.substring(0,Number(classroot.characterLimit));
+								updateText(textContent);
+							}
+												 
+						 
+					   ]]></handler>
+		
+					<method name="getSelectedText">
+						if(end == 0){
+							return '';
+						}
+						else{
+						Debug.write("getTExt.subtsring (start,end)", getText().substring(start, end) );
+							return getText().substring(start, end);
+						}
+					</method>
+					<method name="setSelectionVars">
+						var pos = getSelectionPosition();
+						var size = getSelectionSize();
+						if(pos == -1 || size == -1 || size == 0){
+							pos = 0;
+							size = getText().length;
+						}
+						this.setAttribute('start', pos);
+						this.setAttribute('end', pos + size);
+					</method>
+					
+					
+									 
+					<method name="updateText" args="a">
+						this.setAttribute('text',a);		
+					</method>
 
-         </view>
+				  </scrolledittext>
+				 </view>
+			</view>
+
 		<basebutton resource="read_btn" 
  		            name="readBtn"
  		            visible="${canvas.readable}">
