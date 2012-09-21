@@ -823,11 +823,21 @@ public class PersistenceServlet extends HttpServlet {
 		String result = null;
 		String resultXml = null;
 		Properties props = new Properties();
+		String filePath="";
 		try {
 			loginReponseDocument = saxBuilder.build(new ByteArrayInputStream(loginResponse.getBytes()));			
 			//ResourceBundle rb = ResourceBundle.getBundle("tdc");
 			//String filePath = rb.getString("tdc.lax.filepath"); 
-			props.load(new FileInputStream("C:\\Program Files\\CTB\\Online Assessment\\Online Assessment.lax"));
+			if (osName.indexOf("win") >= 0) {
+				filePath ="C://Program Files//CTB//Online Assessment//Online Assessment.lax";
+			}
+			else if(osName.indexOf("mac") >= 0) {
+				filePath = "//Applications//Online Assessment//Online Assessment.lax";
+			}
+			else {
+				filePath ="//usr//local//Online Assessment//Online Assessment.lax";
+			}
+			props.load(new FileInputStream(filePath));
 		} catch (JDOMException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
