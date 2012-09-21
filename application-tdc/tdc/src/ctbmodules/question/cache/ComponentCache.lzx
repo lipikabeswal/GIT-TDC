@@ -92,9 +92,9 @@
 	
 	            gController.waitOnComponent( newcomp, datanode.ownerDocument );
 				// allow single line answers to size to fit contents
-	            /*if(type == gCompTypes.WIDGET_SINGLE_LINE_ANSWER){
+	            if(type == gCompTypes.WIDGET_SINGLE_LINE_ANSWER){
 	            	datanode.removeAttr('height');
-	            }*/
+	            }
 	            newcomp.datapath.setPointer (datanode);
 	        }
             return newcomp;
