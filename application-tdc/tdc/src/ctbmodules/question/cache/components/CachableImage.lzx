@@ -103,7 +103,7 @@
 			this.imageview.setAttribute("width", null);
 			var theSrc = "";
 			
-			if(data.getAttr('isaudio') == false){
+			if(data.getAttr('isaudio') == true){
 				this.setAttribute('isaudio',data.getAttr('isaudio'));
 				gController.setAttribute('isaudio',true);
 				gController.freezeUI();
