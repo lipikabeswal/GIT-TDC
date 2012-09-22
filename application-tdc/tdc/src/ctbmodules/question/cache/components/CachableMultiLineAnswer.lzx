@@ -293,12 +293,6 @@
 						this.setAttribute('end', pos + size);
 					</method>
 					
-					
-									 
-					<method name="updateText" args="a">
-						this.setAttribute('text',a);		
-					</method>
-
 				  </scrolledittext>
 				 </view>
 			</view>
