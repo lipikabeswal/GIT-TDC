@@ -3547,7 +3547,10 @@ Debug.write("############ loadItem ############");
             var initgeneral = (dngeneral == null);
             var ismarked = dpstudentdata.xpathQuery ('current_item/item_model/@marked');
             if (typeof (ismarked) == 'string') {
-                ismarked = (ismarked == '1');
+                ismarked = (ismarked == '1' || ismarked == 'true');
+            }
+            else if(typeof (ismarked) == 'boolean') {
+                ismarked = (ismarked == true);
             }
         	// clear previous manipulative data if not marked for review
             if (!ismarked) {
