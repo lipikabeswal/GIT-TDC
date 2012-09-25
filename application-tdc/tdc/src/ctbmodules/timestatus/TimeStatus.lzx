@@ -17,6 +17,7 @@
                         visible="${gController.audible == true}"
                         disabledResourceNumber="0"
                         width="30" height="30" stretches="both"
+                        onclick="gMusicPlayer.togglePopup()"
                         />
 			
             <basebutton resource="pause_time_btn" id="gPauseButton"

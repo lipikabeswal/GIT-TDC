@@ -5,6 +5,7 @@
 	<include href="ruler/MaskingRuler.lzx"/>
 	<include href="../question/cache/components/CachableRefCard.lzx"/>
 
+
 	<include href="calculator/standardCalculator.lzx"/>
 	<include href="calculator/scientificCalculator.lzx"/>
 	<include href="refcard/RefCard.lzx"/>
@@ -226,7 +227,7 @@
 			/*if(tool == 'scratchpad'){
 				result = gScratchpad;
 			}
-			else*/ if (tool == 'protractor'){
+			else */if (tool == 'protractor'){
 				result = gProtractor;
 			}
 			else if (tool == 'straight_edge'){
@@ -282,7 +283,7 @@
 				this.zOrder[i] = -1;
 			}
 		]]></method>
-		
+
 		<Protractor name="protractor" 
                     toolid="protractor"
                     id="gProtractor"/>

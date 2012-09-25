@@ -34,9 +34,69 @@
 			<ManipulativeButton resource="toolbar_eraser_btn"
 	                            toolid="eraser"
 	                            tooltip="Eraser"/>
+
 			<ManipulativeButton resource="toolbar_masking_ruler_btn"
 	                            toolid="masking_ruler"
-	                            tooltip="Blocking Ruler"/>		
+	                            tooltip="Blocking Ruler"/>	
+	                            
+	                            <view name="gap" width="2" height="20" valign="middle"/>
+			<!-- Magnifier Glass Button -->
+			<view name="magnifyingGlass"
+				visible="${gController.magnifierVisible}"
+				resource="toolbar_magnifying_glass_btn" valign="middle" height="20"
+				width="34">
+				<attribute name="tooltipdel"
+					value="$once{new LzDelegate (this, 'showTooltip')}"
+				/>
+				<attribute name="isEnabled" value="false" />
+				<attribute name="isSelected" value="false" />
+
+				<handler name="onmouseover">
+						this.setAttribute('frame',2);
+						lz.Timer.addTimer (tooltipdel, 500);
+					</handler>
+
+				<handler name="onmouseout">
+						gTooltip.hideTooltip (); 
+						if(!this.isEnabled) {
+							this.setAttribute('frame',1);
+						}   
+						lz.Timer.removeTimer (this.tooltipdel);
+					</handler>
+
+				<handler name="onclick">
+						lz.Timer.removeTimer (this.tooltipdel);
+						if(gMagnifyingGlass.visible){
+							hide();
+						} else {
+							setup();
+						}
+					</handler>
+
+				<method name="showTooltip">
+						gTooltip.showTooltip ('Magnifying Glass');
+					</method>
+
+				<method name="setup">
+						gMagnifyingGlass.setUpGlass();
+						show();
+					</method>
+
+				<method name="show">
+						gMagnifyingGlass.showGlass();
+						this.isEnabled = true;
+						gController.setAttribute("magnifierState", true);
+						this.setAttribute('frame',2);
+					</method>
+
+				<method name="hide">
+						gMagnifyingGlass.hideGlass();
+						this.isEnabled = false;
+						gController.setAttribute("magnifierState", false);
+						this.setAttribute('frame',1);
+					</method>
+			</view>
+                            	
 	         <view name="gap1" width="2" height="20" valign="middle"/>                   
 	                            
 	         <view name="maskingAnswer"

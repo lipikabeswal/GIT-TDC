@@ -17,6 +17,7 @@
         <handler name="onclick">
             if (this.iszoomin) {
             	gFootNotePopup.setAttribute("scrolltext", this);
+				Debug.write("gEnlargePopup button: ", classroot.datapath);
                 gEnlargePopup.enlarge(classroot.datapath.p, 
                                       classroot.width, 
                                       classroot.height,

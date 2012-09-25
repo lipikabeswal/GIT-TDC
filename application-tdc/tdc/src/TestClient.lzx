@@ -1,5 +1,87 @@
 <canvas bgcolor="0x6691B4" proxied="false" debug="false" width="100%" height="100%"
 	accessible="true">
+	<script when="immediate"><![CDATA[
+	class FlashUtils {
+	#passthrough (toplevel: true) {
+		import flash.media.Microphone;
+		import flash.display.DisplayObject;
+		import flash.geom.Rectangle;		
+		import flash.geom.Matrix;		
+		import flash.geom.ColorTransform;		
+		import flash.display.Bitmap;		
+		import flash.display.BitmapData;		
+		import flash.filters.*;		
+		import flash.events.MouseEvent;
+	}#
+	
+	var mic:Microphone = Microphone.getMicrophone();
+	var main:lz.view;
+	var temp:lz.view;
+	var colorTransform:ColorTransform;
+	var rect:Rectangle;
+
+	public function getObject(){
+		var micOb:Microphone = Microphone.getMicrophone();
+	return micOb;
+	}
+	
+	public function getMicNames(){
+	return Microphone.names;
+	}
+	
+
+	public function getActivityLevel(){	
+		return mic.activityLevel;
+	}
+
+	
+	public function doMouseMove(x:Number,y:Number,ratioW:Number,ratioH:Number) {
+		if(temp!= null){
+			var x = x;
+			var y = y;
+			var w = temp.width;
+			var h = temp.height;
+			var scale = 1.5;				
+			var bitmap:BitmapData = new flash.display.BitmapData(w, h, false);
+			var matrix = new flash.geom.Matrix();
+			matrix.scale(scale, scale);
+			matrix.translate(-x * (scale + ratioW), -y * (scale + ratioH));
+			bitmap.draw(main.sprite, matrix, colorTransform, "normal", rect);
+		
+			var myfilter = new flash.filters.DropShadowFilter();
+			myfilter.quality = 5;
+			myfilter.strength = 2;
+			myfilter.angle = 45;
+			myfilter.distance = 10;
+			temp.sprite.filters = [myfilter];
+			var bm:Bitmap = new Bitmap(bitmap);
+			temp.sprite.addChild (bm);
+			bitmap = null;
+			matrix = null;
+			//bitmap.remove();
+		}
+	};
+	
+	public function show (m:lz.view, t:lz.view) {
+	Debug.write("Show called");
+	main = m;
+	temp = t;
+	var temp_mc = temp.sprite; 
+	var mainView_mc = main.sprite; 
+	var scale = 1.5;
+	var x;
+	var y;
+	var w;
+	var h;
+	//temp_mc.createEmptyMovieClip("bmp", temp_mc.getNextHighestDepth());
+	colorTransform = new flash.geom.ColorTransform();
+	Debug.write("Show called flashutils", temp.width,temp.height);
+	rect = new flash.geom.Rectangle(0, 0, temp.width, temp.height);
+	}	
+	
+	}
+	lz.FlashUtils = new FlashUtils();
+	]]></script>
 
 	<debug x="0" y="0" width="80%" height="400" />
 
@@ -192,6 +274,6 @@
     </view>
   
 </view>
-    
+ <include href="ctbmodules/manipulatives/magnifier/MagnifyingGlass.lzx"/>   
 
 </canvas>

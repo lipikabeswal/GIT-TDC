@@ -2290,7 +2290,7 @@
                         }
                         break;
                     case 'grid':
-                        if ( dnnewitem.getAttr( 'answered' ) == '1' &&
+                    	if ( dnnewitem.getAttr( 'answered' )&&
                              dnnewitem.hasAttr( 'answer_text' ) ) {
                             var text =
                                 dnnewitem.getAttr( 'answer_text' );
@@ -2325,14 +2325,14 @@
             this.setAttribute('focusOnGr', !isMarkedForReviewWithManipulativeOpen());
             this.runtimeready = true;
             checkItemStatus();
-			/*if(this.magnifierVisible) {
+			if(this.magnifierVisible) {
 	            if(this.isAudioItem()) {
 					gManipulativeBar.globals.magnifyingGlass.setAttribute('visible', false);
 				}
 				else {
 					gManipulativeBar.globals.magnifyingGlass.setAttribute('visible', true);
 				}
-			}*/
+			}
 	
 			if(this.showMaskingAnswerPopUp && gController.returnNumberOfOptions() > 0){
 				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', true);
@@ -2452,16 +2452,16 @@
 	            	changeItem(dpsubtest.xpathQuery( "ob_assessment/ob_element_list/f[@id='" + itemeid + "']" ));
 	            }
             }
-         //hideMagnifierGlass(); 
+         hideMagnifierGlass(); 
         ]]></method>
 
 		<method name="changeItem" args="fnode"><![CDATA[		
 			if(fnode != null) {			
-				/*if(this.recorder != null) {
+				if(this.recorder != null) {
 					this.recorder.stopblinker('stop');
 					this.recorder.whitewrapperOverLay.setAttribute('visible', false);
 					this.recorder.blackOverLay.setAttribute('visible', false);
-				}*/
+				}
 				//To reset the Audio Fields Array So that file name will be passed in the save call
 				this.resetAudioFields();
 				//this.resetImageField();
@@ -2473,7 +2473,7 @@
 				saveLoadItem( fnode , lev);
 			}
 			this.setAttribute('isaudio',false);
-			//resetRecorder();
+			resetRecorder();
 		]]></method>
 
 		<method name="resetRecorder"><![CDATA[
@@ -2834,10 +2834,10 @@
 
 				if(value != orig){
 					if(typeof value != 'undefined' && value != null && value.length > 0){
-						gReadableText.read(gReadableText.getReadableTextForCharacter(value) + " selected.");
+						gReadableText.read(gReadableText.getReadableTextForCharacter(value) + " selected.",false);
 					}
 					else{
-						gReadableText.read(gReadableText.getSelectionRemoved());
+						gReadableText.read(gReadableText.getSelectionRemoved(),false);
 					}
 				}
 			   freezeUI();
@@ -2952,7 +2952,7 @@
 			gScreens.resetTextFieldColor();
             startQuestion();
             unlockUI();
-           // gQuestion.setGrFocus();
+            gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
@@ -3108,7 +3108,7 @@
 			
             lz.Cursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
-            //gQuestion.setGrFocus();
+            gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
             unlockUI();
             checkShowMagnifierGlass();
@@ -3262,7 +3262,7 @@ Debug.write("############ loadItem ############");
             this.resetCrFields();
 			this.resetAudioFields();
 			//this.resetImageField();
-			//gMaskingAnswer.setAttribute("withState",false);
+			gMaskingAnswer.setAttribute("withState",false);
 			hideMagnifierGlass();
 			hideMaskingChoiceDD();
 		]]></method>
@@ -3805,7 +3805,11 @@ Debug.write("############ loadItem ############");
         ]]></method>
 
 		<method name="getAccomStyleForType" args="type">
-            return this.accomstyles [type];
+			if (this.accomstyles [type]){
+				return this.accomstyles [type];
+			}else{
+				return '';
+			}
         </method>
 
 		<method name="currentDur">
@@ -3851,8 +3855,10 @@ Debug.write("############ loadItem ############");
 					}
 				}
 			}
+			Debug.write("Reset Call");
 			this.resetImageArray();
 			this.setAttribute('isaudio',false);
+			
 			setState(WRITE_TO_AUDIT_FILE_STATE);
 			gCommunicator.writeToAuditFile(lsid, scid, getModelString());
         ]]></method>
@@ -4153,11 +4159,12 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="resetImageArray"><![CDATA[
-
+		if(this.imageLIArray){
 		 for (var i = 0; i < this.imageLIArray.length; i++) {
                 delete this.imageLIArray[i];
             }
             this.imageLIArray.length = 0;
+			}
 		]]></method>
 
 		<method name="setAudioItemState" args="answer"><![CDATA[
@@ -4247,7 +4254,7 @@ Debug.write("############ loadItem ############");
 	                currentitem.setAttr("answered", 1);
 	                runtimeitem.setAttr("answered", 1);
 	                if(this.isaudio){
-                    	enableMoreInfo();
+                    	//enableMoreInfo();
                     }
 	            }
 	            else {
@@ -4442,13 +4449,13 @@ Debug.write("############ loadItem ############");
 
 		<method name="checkHideMagnifierGlass">
 			if(this.magnifierState)  {
-				//gMagnifyingGlass.hideGlass();
+				gMagnifyingGlass.hideGlass();
 		   }   
 		</method>
 
 		<method name="checkShowMagnifierGlass">
 		   if(this.magnifierState)  {
-				//gMagnifyingGlass.showGlass();
+				gMagnifyingGlass.showGlass();
 		   }   
 		</method>
 			<method name="hideMaskingChoiceDD">
