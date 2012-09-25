@@ -118,7 +118,7 @@
 				this.column.clear();
             	column.selectThisColumn();
             	var txt = this.getReadableTextForButton();
-            	Debug.write("onmousedown gridbutton" , this.column.responseval,this.value)
+
                 if (this.column.responseval == this.value) {
                     this.column.clear ();
                 } else {
@@ -135,12 +135,10 @@
 
             <handler args="r" name="onresponseval" reference="column">
                 if ( r  == this.value ) {
-					
                     this.column.selman.select (this);   
                     this.circle.setAttribute ('frame',this.column.backcolor == lz.colors.black ? 2 : 3);
                     this.wrapper.textg.setAttribute ('fgcolor', this.column.backcolor);	
-					this.setAttribute('ref',this);
-                    
+					this.setAttribute('ref',this);                    
                 }
             </handler>
 
