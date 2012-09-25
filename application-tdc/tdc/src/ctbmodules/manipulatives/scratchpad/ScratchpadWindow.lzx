@@ -21,7 +21,7 @@
             setAttribute('_usecontentheight', false);
         </method>
 
-        <state name="resizeable" apply="${this.classroot.resizable}">
+        <state name="resizeable" applied="${this.classroot.resizable}">
             <view name="_resizeControl" placement="null"
                 x="${classroot.width - this.width - classroot.inset_right}"
                 y="${classroot.height - this.height - classroot.inset_right}"
@@ -46,10 +46,10 @@
             options="releasetolayout" bgcolor="0x6A6A6A">
             <view name="wcontent" x="1" y="1"
                 clip="true" bgcolor="${classroot.content.bgcolor}">
-                <state apply="${!classroot._usecontentwidth}">
+                <state applied="${!classroot._usecontentwidth}">
                     <attribute name="width" value="${parent.immediateparent.width - 2}"/>
                 </state>
-                <state apply="${!classroot._usecontentheight}">
+                <state applied="${!classroot._usecontentheight}">
                     <attribute name="height"
                         value="${parent.immediateparent.height -
                                 parent.immediateparent.menubar.height -
@@ -73,7 +73,7 @@
     </class>
 
     <!--- A modal dialog window. -->
-    <class name="modaldialog" extends="windowpanel"
+    <class name="modaldialogscratchpad" extends="windowpanel"
         x="${(immediateparent.width - this.width)/2}"
         y="${(immediateparent.height - this.height)/3}"
         focustrap="true"
@@ -99,11 +99,11 @@
             height="${mdcontent.height + parent.content_inset_top + parent.content_inset_bottom}">
             <view x="${classroot.content_inset_left}" y="${classroot.content_inset_top}"
                 name="mdcontent">
-            <state apply="${!classroot._usecontentwidth}">
+            <state applied="${!classroot._usecontentwidth}">
                 <attribute name="width" value="${parent.immediateparent.width
                      - classroot.content_inset_left- classroot.content_inset_right }"/>
             </state>
-            <state apply="${!classroot._usecontentheight}">
+            <state applied="${!classroot._usecontentheight}">
                 <attribute name="height"
                     value="${parent.immediateparent.height
                             - classroot.content_inset_top- classroot.content_inset_bottom}"/>
@@ -119,15 +119,15 @@
             //need to show this before taking the mode, so that any default
             //buttons contained by the this window will get hasdefault=true
             this.setVisible( true );
-            LzModeManager.makeModal( this );
+            lz.ModeManager.makeModal( this );
             this.bringToFront();
         </method>
 
         <!--- Closes the dialog. -->
         <method name="close">
             this.setVisible( false );
-            LzFocus.clearFocus();
-            LzModeManager.release( this );
+            lz.Focus.clearFocus();
+            lz.ModeManager.release( this );
         </method>
 
         <!--- @keywords private -->
@@ -137,7 +137,7 @@
    </class>
 
    
-    <class name="alert" extends="modaldialog">
+    <class name="alertscratchpad" extends="modaldialogscratchpad">
 
         <!--- Alert shows only this button, if button2 isn't set. Default: "OK".
               You may specify a different string to change the text of the

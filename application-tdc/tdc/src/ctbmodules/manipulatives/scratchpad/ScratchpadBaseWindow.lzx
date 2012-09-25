@@ -116,8 +116,8 @@
             }
 
             super.init();
-            this.mousedown_del = new LzDelegate ( this, "_mousedown", this , "onmousedown" );
-            this.mouseup_del = new LzDelegate ( this, "_mouseup", this , "onmouseup" );
+            this.mousedown_del = new lz.Delegate ( this, "_mousedown", this , "onmousedown" );
+            this.mouseup_del = new lz.Delegate ( this, "_mouseup", this , "onmouseup" );
 
             if (this.visible) {
                 var wlist = parent.options['windowlist'];
@@ -303,9 +303,9 @@
                     }
                 }
                 if (!this.mousedel) {
-                    this.mousedel = new LzDelegate(this, '_checkmouse');
+                    this.mousedel = new lz.Delegate(this, '_checkmouse');
                 }
-                this.mousedel.register(LzGlobalMouse, 'onmousedown');
+                this.mousedel.register(lz.GlobalMouse, 'onmousedown');
             } else {
                 if (this.mousedel) this.mousedel.unregisterAll();
                 setAttribute('state', 2);
