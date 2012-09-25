@@ -104,10 +104,11 @@
 			var theSrc = "";
 			
 			//Changes for laslink multi audio play
-			/*if(data.getAttr('isaudio')){
+			//Debug.write("isaudio************************* ",data.getAttr('isaudio'),data.getAttr('isaudio')==true,data.getAttr('isaudio')=='true');
+			if(data.getAttr('isaudio')=='true'){
 				this.setAttribute('isaudio',data.getAttr('isaudio'));
 				gController.setAttribute('isaudio',true);
-				gController.freezeUI();
+				//gController.freezeUI();
 
 				if(data.hasAttr('disableAnswerArea')){
 					this.setAttribute('disableAnswerArea', data.getAttr('disableAnswerArea'));
@@ -126,7 +127,7 @@
 				this.setAttribute('hasPlayed',false);
 	
 				gController.addImageFields({"this.widget_id" : this.widget_id, "imageComponent" : this, "isPlayed" : false});
-			}*/
+			}
 
 	//Image url may come in either attribute name "src" or "image_ref", so take care of both.
 			if(data.hasAttr('src')) {
@@ -368,7 +369,7 @@
         	<handler name="onload">
 				if(classroot.isaudio){
 					if(classroot.playorder != 1){
-						Debug.write("playorder not 1");
+						Debug.write("playorder not 1",this.getDisplayObject());
 						//this.getMCRef().disableBtn();
 					}
 				}

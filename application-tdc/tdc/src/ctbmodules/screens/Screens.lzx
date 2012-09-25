@@ -115,7 +115,7 @@
          <method name="showError" args="xml">
 
          Debug.write("gScreens.showError");
-			//gMusicPlayer.stop();
+			gMusicPlayer.stop();
          printBigString(xml);
 
             removeAllStates();

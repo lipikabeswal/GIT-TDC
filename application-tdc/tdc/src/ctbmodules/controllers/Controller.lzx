@@ -1370,7 +1370,7 @@
             			gReadableText.stopReading(false);
             			this.setAttribute('firstSubtest', false);
             			this.outOfTimeOpen();
-						//gMusicPlayer.hide();
+						gMusicPlayer.hide();
                      } else {
                         var mins = Math.floor( secsnum / 60 );
                         resetTestTimer( secsnum );
@@ -1694,10 +1694,10 @@
 			Initializes runtime nodes that store state for each question.
 		-->
 		<method name="initStudentData"><![CDATA[
-		//Debug.write("initStudentData");
-			/*if(gController.audible == 'true' && !gMusicPlayer.alreadyCalled){
+			//Debug.write("initStudentData",gController.audible == 'true',gController.audible == true);
+			if(gController.audible == true && !gMusicPlayer.alreadyCalled){
 				loadMusicData();
-			}*/
+			}
 			this.restartItemCount = 0;    
             var dn = dpstudentdata.xpathQuery( 'title' );
             dn.setAttr( 'product_name', dpsubtest.xpathQuery( 'sco/@title' ) );
@@ -2472,7 +2472,7 @@
 				var lev;
 				saveLoadItem( fnode , lev);
 			}
-			//this.setAttribute('isaudio',false);
+			this.setAttribute('isaudio',false);
 			//resetRecorder();
 		]]></method>
 
@@ -2737,9 +2737,9 @@
                         dncurritem.setAttr ('answered', 1 );
                         dnruntimeitem.setAttr ('answered', 1 );
                         
-                        /*if(this.isaudio){
+                        if(this.isaudio){
                         	enableMoreInfo();
-                        }*/
+                        }
           
                         var rationaleText = getRationaleText(selid);
               //Debug.write("rationaleText: " + rationaleText);
@@ -2899,7 +2899,7 @@
             	gReadableText.stopReading(false);
                 freezeUI();
                 stopQuestion();
-				//gMusicPlayer.hide();
+				gMusicPlayer.hide();
 		   //For defect 65881         
             if(this.recorder != null)
 			{
@@ -3019,7 +3019,7 @@
             closeOpenManipulatives();
      		checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
-			//gMusicPlayer.hide();
+			gMusicPlayer.hide();
             lz.Cursor.unlock();
 			
 			if(this.adaptive == true){				
@@ -3275,17 +3275,18 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="getMusicData" args="d"><![CDATA[
-			//Debug.write("inside getMusicData : ",d);
+			Debug.write("inside getMusicData : ",d);
         	var result = d.childNodes[0].data;
-			//Debug.write("getMusicData result" , result , d);
+			Debug.write("getMusicData result" , result , d);
         	//result == 'File_Downloaded' &&  
-			if(gController.audible == 'true'){
-				/*gMusicPlayer.alreadyCalled = true;				
+        	Debug.write("gController.audible*************** ",gController.audible == 'true',gController.audible == true);
+			if(gController.audible == true){
+				gMusicPlayer.alreadyCalled = true;				
 				gMusicPlayer.setSource("http:resources/music_"+gController.musicId+".mp3");
-				gMusicPlayer.setAttribute('playStarted',true);*/
+				gMusicPlayer.setAttribute('playStarted',true);
 				//Start - changes for Defect 66424
-				/*gMusicPlayer.playButton.setAttribute('visible',false);
-				gMusicPlayer.stopButton.setAttribute('visible',true);*/
+				gMusicPlayer.playButton.setAttribute('visible',false);
+				gMusicPlayer.stopButton.setAttribute('visible',true);
 				//End  - changes for Defect 66424
 			}
         ]]></method>
@@ -3851,7 +3852,7 @@ Debug.write("############ loadItem ############");
 				}
 			}
 			this.resetImageArray();
-			//this.setAttribute('isaudio',false);
+			this.setAttribute('isaudio',false);
 			setState(WRITE_TO_AUDIT_FILE_STATE);
 			gCommunicator.writeToAuditFile(lsid, scid, getModelString());
         ]]></method>
@@ -4245,9 +4246,9 @@ Debug.write("############ loadItem ############");
 	                //Debug.write("Turned on blue ball for " + currentEid);
 	                currentitem.setAttr("answered", 1);
 	                runtimeitem.setAttr("answered", 1);
-	               /* if(this.isaudio){
+	                if(this.isaudio){
                     	enableMoreInfo();
-                    }*/
+                    }
 	            }
 	            else {
 	               //Debug.write("Turned off blue ball for " + currentEid);
@@ -4370,7 +4371,7 @@ Debug.write("############ loadItem ############");
 		<method name="showWaitPopup">
             this.isWaitPopupOpen = true;	
 			gPleaseWaitPopup.show();
-			//gMusicPlayer.hide();
+			gMusicPlayer.hide();
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
 		</method>
@@ -4596,7 +4597,7 @@ Debug.write("############ loadItem ############");
 
 		]]></method>
 
-		<!--<method name="disableAnswerOptions"><![CDATA[
+		<method name="disableAnswerOptions"><![CDATA[
 			var id = isAnswerToBeDisabled();
 			if(id != null){
 				for (var i = 0; i < answerArray.length; i++){
@@ -4615,7 +4616,7 @@ Debug.write("############ loadItem ############");
 				}
 			}
 		]]>
-		</method>-->
+		</method>
 		
 		<method name="getChoiceName" args="index">
 		if(index == 0)return 'A';
@@ -4799,7 +4800,7 @@ Debug.write("############ loadItem ############");
 		this.idImageFields.push(field);
 		]]></method>
 
-	<!--<attribute name="dCheckPlaying"
+	<attribute name="dCheckPlaying"
 			value="$once{ new lz.Delegate( this, 'isPlayed' )}" />
 
 	<method name="enableAudio"><![CDATA[
@@ -4863,10 +4864,10 @@ Debug.write("############ loadItem ############");
 								&& (cachableImageTemp['imageComponent'].enableWhenAnswered == true || cachableImageTemp['imageComponent'].enableWhenAnswered == 'true')
 								&& (contentArea == "Reading" || contentArea == 'Listening')){
 								if(dncurritem.getAttr ('answered')==1){
-									cachableImageTemp['imageComponent'].imageview.getMCRef().enableBtn();
+									//cachableImageTemp['imageComponent'].imageview.getMCRef().enableBtn();
 								}
 							}else{
-								cachableImageTemp['imageComponent'].imageview.getMCRef().enableBtn();
+								//cachableImageTemp['imageComponent'].imageview.getMCRef().enableBtn();
 							}
 						}
 					}
@@ -4878,7 +4879,7 @@ Debug.write("############ loadItem ############");
 
 	<method name="isPlayed">
 		<![CDATA[
-		if(!this.idImageFieldTemp.imageview.getMCRef().isPlaying){
+		/*if(!this.idImageFieldTemp.imageview.getMCRef().isPlaying){
 			this.idImageFieldTemp.overlay.setAttribute("visible",false);
 			this.idImageFieldTemp.overlay.setAttribute("clickable",false);
 			if(this.recorder != null) {
@@ -4887,7 +4888,7 @@ Debug.write("############ loadItem ############");
 			stopCheckPlaying();
 		}else{
 			resetCheckPlaying();
-		}
+		}*/
 	]]>	
 	</method>
 
@@ -4896,7 +4897,7 @@ Debug.write("############ loadItem ############");
 	</method>
 
 	<method name="stopCheckPlaying"><![CDATA[
-		//-uisemaphore;
+		--uisemaphore;
 		lz.Timer.removeTimer(dCheckPlaying);
 		if(this.idImageFieldTemp.widget_id == this.lastPlayOrderId){
 			unlockUI();
@@ -4980,12 +4981,12 @@ Debug.write("############ loadItem ############");
 		if(id != null){
 			for (var i = 0; i < this.crFields.length; i++){
 				var crField = this.crFields[i];
-				/*if(crField['ref'] instanceof CachableMultiLineAnswer){
+				if(crField['ref'] instanceof lz.CachableMultiLineAnswer){
 					crField['ref'].outer.rich.answer.setAttribute('enabled',false);
 				}
-				if(crField['ref'] instanceof CachableSingleLineAnswer){
+				if(crField['ref'] instanceof lz.CachableSingleLineAnswer){
 					crField['ref'].answer.disable();
-				}*/
+				}
 			}
 		}
 	]]>
@@ -4997,12 +4998,12 @@ Debug.write("############ loadItem ############");
 		if(isPlaying){
 			for (var i = 0; i < this.crFields.length; i++){
 				var crField = this.crFields[i];
-				/*if(crField['ref'] instanceof CachableMultiLineAnswer){
+				if(crField['ref'] instanceof lz.CachableMultiLineAnswer){
 					crField['ref'].outer.rich.answer.setAttribute('enabled',true);
 				}
-				if(crField['ref'] instanceof CachableSingleLineAnswer){
+				if(crField['ref'] instanceof lz.CachableSingleLineAnswer){
 					crField['ref'].answer.enable();
-				}*/
+				}
 			}
 		}
 	]]>
@@ -5012,12 +5013,12 @@ Debug.write("############ loadItem ############");
 		var id;
 		for(var i =0;i<this.idImageFields.length;i++){
 			var cachableImage = this.idImageFields[i];
-			/*if(cachableImage['imageComponent'] instanceof CachableImage){
+			if(cachableImage['imageComponent'] instanceof lz.CachableImage){
 				if(cachableImage['imageComponent'].disableAnswerArea == true || cachableImage['imageComponent'].disableAnswerArea == 'true'){
 					id = cachableImage['imageComponent'].widget_id;
 					break;
 				}
-			}*/
+			}
 		}
 		return id;
 	]]>
@@ -5027,7 +5028,7 @@ Debug.write("############ loadItem ############");
 		var isPlaying = false;
 		for(var i =0;i<this.idImageFields.length;i++){
 			var cachableImage = this.idImageFields[i];
-			/*if(cachableImage['imageComponent'] instanceof CachableImage){
+			/*if(cachableImage['imageComponent'] instanceof lz.CachableImage){
 				if(cachableImage['imageComponent'].widget_id == id && cachableImage['imageComponent'].imageview.getMCRef().isPlaying){
 					isPlaying = true;
 					break;
@@ -5057,7 +5058,7 @@ Debug.write("############ loadItem ############");
 			}*/
 		}
 		]]>
-	</method>-->
+	</method>
 
 	</node>
 
