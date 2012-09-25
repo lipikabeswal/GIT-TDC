@@ -7,10 +7,11 @@
 	<datapath name="dpscore" xpath="dsscore:/student_feedback_data"/>
 	<datapointer name="dpsubtest" xpath="dssubtest:/subtest"/> 
 	<attribute name="scos" value="$once{new Array}"/>
-	<attribute name="totalRaw" type="number" value="0"/>
 	<attribute name="totalRecords" type="number" value="0"/>
 	<attribute name="gridHeight" type="number"/>
 	<attribute name="gridColumnHeight" type="number"/>
+	<attribute name="subtestCount" type="number" value="0"/>
+	<attribute name="statusCount" type="number" value="0"/>
 
 	<method name="showScores" args="response"><![CDATA[
 		var allScos = new Array();
@@ -52,7 +53,7 @@
 			}
 		} 
 		
-		var subtest = dpsubtest.xpathQuery('sco');
+		/*var subtest = dpsubtest.xpathQuery('sco');
 		var currscotitle = subtest.getAttr('title');
 		var currsubtesttitle = currscotitle.substring(0, (currscotitle.indexOf('-') - 1));
 		
@@ -70,35 +71,45 @@
 				i--;
 				scoIndex--;
 			}
-		}
+		}*/
 		
+		this.setAttribute('subtestCount',scoIndex)
 		this.setAttribute('totalRecords',scoIndex);
 		addScoValues();
-		this.scoringGrid.settingDimension();
+		//this.scoringGrid.settingDimension();
 		]]></method>
 
 	<method name="addScoValues"><![CDATA[
-		for(var i=0; i<scos.length; i++){
-			var sco = scos[i];  
+		var totalRaw = 0;
+		var completionCount = 0;
+		var scoArr = dpscore.xpathQuery('title/sco');
+		for(var i=0; i<scoArr.length; i++){
+			var sco = scoArr[i];  
 			var scoid = sco.getAttr('id');
 			var isSample = sco.getAttr('isSample');
 			var title = sco.getAttr('title');
 			var titleArr = title.split("::");
+			var completionStatus = titleArr[6];
+			if(completionStatus == 'CO') {
+				completionCount++;
+			}
 			var testName = titleArr[1];
-			var subtestName = titleArr[2];
-			var contentArea = testName+" "+subtestName;
+			var subtestName = titleArr[2];			
+			//var subtestTitle = subtestName.substring(0, (subtestName.indexOf('-') - 1));
 			var form = titleArr[3];
 			var lmsXpath = "lms/sco[@scid='" + scoid + "']";
 			var unscoredXpath = lmsXpath +  "/lsv/ext.core/@number_of_unscored_items";
 			var coreXpath = lmsXpath + "/lsv/cmi.core";
 			var coreNode = dpscore.xpathQuery(coreXpath);
 			var raw = coreNode.getAttr('score.raw');
-			var perfLevel = getPLScore(raw,form);
-			setAttribute('totalRaw', totalRaw + new Number(raw));
-			sco.setAttr('contentArea', contentArea);
-			sco.setAttr('raw', raw);
-			sco.setAttr('plScore', perfLevel);
+			totalRaw = Number(totalRaw) + Number(raw);
+			info.testName.setAttribute('text',testName);
+			info.raw.setAttribute('text',totalRaw);
 		}
+			this.setAttribute('statusCount',completionCount);
+			var perfLevel = getPLScore(totalRaw,form);
+			info.perfLevel.setAttribute('text',perfLevel);
+		
 	]]></method>
 
 	<method name="getPLScore" args="raw,form"><![CDATA[
@@ -146,11 +157,26 @@
 		return PerfLevel;
 	]]>
 	</method>
-		
 	
-	<text name="score" x="5" y="0" fontsize="24" height="36" fgcolor="white"> Score Sheet</text>
-	<grid name="scoringGrid" datapath="dsscore:/student_feedback_data/title" contentpath="sco" height="130" showhlines="true"
-			showvlines="true" x="${parent.score.x}" y="${parent.score.y+parent.score.height+5}">
+	<method name="isTestCompleted">
+		if(this.getAttribute('subtestCount') == this.getAttribute('statusCount')) {
+			this.info.setVisible(true);
+			this.score.setVisible(true);
+			this.controls.setVisible(true);
+			this.feedbackWait.setVisible(true);
+		}
+		else {
+			this.info.setVisible(false);
+			this.score.setVisible(false);
+			this.controls.setVisible(false);
+			this.feedbackWait.setVisible(false);
+			gController.terminate();
+		}
+	</method>	
+	
+	<text name="score" x="5" y="0" fontsize="24" height="36" fgcolor="white" visible="false"> Score Sheet</text>
+	<!--<grid name="scoringGrid" datapath="dsscore:/student_feedback_data/title" contentpath="sco" height="130" showhlines="true"
+			showvlines="true" x="${parent.score.x}" y="${parent.score.y+parent.score.height+5}" visible="false">
 		<method name="settingDimension"><![CDATA[
 			classroot.setAttribute('gridHeight',parent.scoringGrid.getHeight());
 			classroot.setAttribute('gridColumnHeight',parent.scoringGrid.contentArea.subTitle.getHeight()* classroot.getAttribute('totalRecords'));
@@ -170,7 +196,7 @@
 			<view bgcolor="#B2DFEE" width="70" height="20" placement="header">
 		    	<text>Raw Score</text>
 		    </view>
-	      	<text datapath="@raw"/>
+	      	<text datapath="@totalRaw"/>
 	    </gridcolumn>
 		<gridcolumn name="performanceLevel" showheader="false" width="135" resizable="false"> 
 			<view bgcolor="#B2DFEE" width="135" height="20" placement="header">
@@ -178,9 +204,17 @@
 		    </view>
 	      	<text datapath="@plScore"/>
 	    </gridcolumn>
-	</grid>
+	</grid> -->
+	<view name="info" bgcolor="white" width="450" x="5" height="120" fontsize="12" y="40" visible="false">
+           	<text name="testLabel" y="20" x="20" fgcolor="0x5D5D5D" fontstyle="bold" fontsize="12">Content Area:</text>
+           	<text name="testName"  y="20" x="120" fgcolor="black" fontstyle="bold" fontsize="12" width="350"/>
+           	<text name="rawScoreLabel" y="45" x="20" fgcolor="0x5D5D5D" fontstyle="bold" fontsize="12">Raw Score:</text>
+           	<text name="raw" y="45" x="100" fgcolor="black" fontstyle="bold" fontsize="12" />
+			<text name="perfLevelLabel" y="70" x="20" fgcolor="0x5D5D5D" fontstyle="bold" fontsize="12">Performance Level:</text>
+			<text name="perfLevel" y="70" x="160" fgcolor="black" fontstyle="bold" fontsize="12" width="300"/>
+        </view>
 
-	<view name="controls" y=" 200" width="550">
+	<view name="controls" y=" 200" width="550" visible="false">
 		<OkButton x="${ parent.width - width - 15 }"
                         enabled="${ gScreens.allowclick }">
             <handler name="onclick">
@@ -188,7 +222,7 @@
             </handler>
         </OkButton>
    	</view>
-	<view y="10" x="470" resource="feedbackWait"/>
+	<view name="feedbackWait" y="10" x="470" resource="feedbackWait" visible="false"/>
 
 </class>
 </library>

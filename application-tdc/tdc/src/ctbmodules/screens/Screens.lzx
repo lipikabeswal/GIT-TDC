@@ -279,7 +279,7 @@
         	if ( !contents.ss.isinited ) contents.ss.completeInstantiation();
 
             contents.ss.showScores( response );
-
+			contents.ss.isTestCompleted();
             contents.ss.setVisible( true );
             show();
         </method>
