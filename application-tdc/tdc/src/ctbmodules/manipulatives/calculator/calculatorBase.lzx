@@ -196,9 +196,9 @@
                 		}
                 	}
 	                // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
-	            	/*if(gScratchpad.visible){
+	            	if(gScratchpad.visible){
 	                	gScratchpad.bringToFront();
-	            	}*/
+	            	}
                 }
                 else{
                 	this.datapath.addNode( 'operators' );

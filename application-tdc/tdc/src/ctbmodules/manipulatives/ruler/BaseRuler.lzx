@@ -204,9 +204,9 @@
                 this.setAttribute ('x', data.getAttr ('x'));
                 this.setAttribute ('y', data.getAttr ('y'));
                 // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
-            	/*if(gScratchpad.visible){
+            	if(gScratchpad.visible){
                 	gScratchpad.bringToFront();
-            	}*/
+            	}
              } else {
                 this.setAttribute ('rotation', 0);
                 this.ruler.setAttribute ('width', null);

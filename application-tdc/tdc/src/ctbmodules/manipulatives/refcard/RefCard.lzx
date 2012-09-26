@@ -55,9 +55,9 @@
             	refCardContents.contents.setAttribute ('y', 0);
             } 
             // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
-            /*if(data != null && gScratchpad.visible){
+            if(data != null && gScratchpad.visible){
                 gScratchpad.bringToFront();
-            }*/
+            }
             
           ]]></handler>
 

@@ -9,6 +9,7 @@
 	<include href="calculator/standardCalculator.lzx"/>
 	<include href="calculator/scientificCalculator.lzx"/>
 	<include href="refcard/RefCard.lzx"/>
+		<include href="scratchpad/Scratchpad.lzx"/>
 	
     <class name="Manipulatives" clip="true"
            datapath="dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/general">
@@ -79,9 +80,9 @@
 					manip.bringToFront();
 				}
 			}
-			/*if(gScratchpad.visible){
+			if(gScratchpad.visible){
 				gScratchpad.bringToFront();
-			}*/
+			}
 		]]></method>
 		
 		<method name="getManipForDepth" args="depth, manips"><![CDATA[
@@ -224,10 +225,11 @@
 		
 		<method name="getInstanceForTool" args="tool">
 			var result = null;
-			/*if(tool == 'scratchpad'){
+			if(tool == 'scratchpad'){
 				result = gScratchpad;
+				Debug.write("gScratchPad",gScratchpad);
 			}
-			else */if (tool == 'protractor'){
+			else if (tool == 'protractor'){
 				result = gProtractor;
 			}
 			else if (tool == 'straight_edge'){
@@ -283,6 +285,11 @@
 				this.zOrder[i] = -1;
 			}
 		]]></method>
+		
+		
+		 <Scratchpad name="scratchpad" 
+                    toolid="scratchpad"
+                    id="gScratchpad"/>
 
 		<Protractor name="protractor" 
                     toolid="protractor"

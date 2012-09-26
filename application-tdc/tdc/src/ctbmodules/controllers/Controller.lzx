@@ -546,9 +546,9 @@
 			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
-			/*if(gScratchpad.scratchpadHasFocus) { 
+			if(gScratchpad.scratchpadHasFocus) { 
 				gHotKeys.disableKeys();
-			}*/ 
+			} 
 			
 			if(this.isRevisitPopupOpen == true || this.isWaitPopupOpen == true){
 				gHotKeys.disableKeys(); 
@@ -606,7 +606,7 @@
 
 		<method name="clearScratchpad">
 			this.setAttribute("scratchpadOpen", false);
-			//gScratchpad.setAttribute('text', "");
+			gScratchpad.setAttribute('text', "");
 		</method>
 
 		<handler name="oninit">
@@ -1399,9 +1399,9 @@
             }
             this.setAttribute('firstSubtest', false);
            	gLogo.setSource(canvas.logoRsrc);
-           	/*if(!gScratchpad.isinited){
+           	if(!gScratchpad.isinited){
 				gScratchpad.completeInstantiation();
-			}*/
+			}
  			setScratchpadForSubtest();
 
  		if(isLoginResponseHavingSeed && !nullOrSpace(seed)) {
@@ -1513,7 +1513,7 @@
 				var spContents = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/sp/text()');
 				//END
 			}
-			//gScratchpad.setAttribute('text', unescape(spContents));
+			gScratchpad.setAttribute('text', unescape(spContents));
 		</method>
 
 		<method name="outOfTimeOpen">
@@ -2959,9 +2959,9 @@
 		</method>
 
 		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
-           /*	if(this.focusOnScratchpad  && gScratchpad.visible){
+          	if(this.focusOnScratchpad  && gScratchpad.visible){
             	gScratchpad.restoreFocusAndCursor();
-            }*/
+            }
  		]]></method>
 
 		<method name="finishTest">
@@ -3181,9 +3181,9 @@
 	                lz.Cursor.unlock();
 	                restoreCurrentCursor();
 	                dsdisplay.childNodes[0].setAttr( 'enabled', 'true' );
-	                //if(!gScratchpad.scratchpadHasFocus){
+	              if(!gScratchpad.scratchpadHasFocus){
 	                	gHotKeys.enableKeys();
-	                //}
+	               }
 	            }
 	        }
 		]]>
@@ -3321,7 +3321,7 @@ Debug.write("############ loadItem ############");
     	</method>
 
 		<method name="getSpText">
-    		//return escape(gScratchpad.getText());
+    		return escape(gScratchpad.getText());
     	</method>
 
 		<method name="getItemParams"><![CDATA[

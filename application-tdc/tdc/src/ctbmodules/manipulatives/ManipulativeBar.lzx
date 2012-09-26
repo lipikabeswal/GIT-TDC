@@ -3,6 +3,7 @@
     <include href="ManipulativeButton.lzx"/>
     <include href="base/baseslider.lzx"/>
     <include href="lz/slider.lzx"/>
+   <include href="ScratchpadButton.lzx"/>
 
     <class name="ManipulativeBar" bgcolor="0xC4C4C4"
            datapath="dsstudentdata:/testing_client_model/current_item/item_model">
@@ -34,6 +35,9 @@
 			<ManipulativeButton resource="toolbar_eraser_btn"
 	                            toolid="eraser"
 	                            tooltip="Eraser"/>
+	        <ScratchpadButton   resource="toolbar_scratchpad_btn"
+	                            toolid="scratchpad"
+	                            tooltip="Scratchpad"/>
 
 			<ManipulativeButton resource="toolbar_masking_ruler_btn"
 	                            toolid="masking_ruler"
