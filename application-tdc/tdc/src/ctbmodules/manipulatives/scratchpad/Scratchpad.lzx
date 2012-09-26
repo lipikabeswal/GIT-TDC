@@ -1,6 +1,6 @@
 <library>
  	
-	
+	<include href="../../rich-text/library.lzx" />
 	<include href="ScratchpadWindow.lzx" />
 
     <class name="Scratchpad" 
@@ -26,7 +26,7 @@
 		<attribute name="DEFAULT_X" type="number" value="200" />
 		<attribute name="DEFAULT_Y" type="number" value="113" />
         <attribute name="toolid" type="string"/>
-        <attribute name="toolstate" value="$once{new lz.Datapointer ()}"/>
+        <attribute name="toolstate" value="$once{new LzDatapointer ()}"/>
         <attribute name="scratchpadHasFocus" type="boolean" value="false"/>
         <attribute name="scratchpadJustLostFocus" value="false" />
         
@@ -37,7 +37,7 @@
             LzCursor.lock ();
         </handler>
 
-		<handler name="onmouseup" reference="lz.GlobalMouse" args="who">
+		<handler name="onmouseup" reference="LzGlobalMouse" args="who">
 			if(LzFocus.getFocus() == sp.inp){  // user may have changed selection using mouse
 				this.sp.storeSelection();
 			}
@@ -109,16 +109,16 @@
         <method name="setText" args="txt">
           sp.inp.onfocus.sendEvent();
           sp.inp.onblur.sendEvent();
-          sp.setAttribute('text',gController.formatXml(txt));
+          sp.setText(gController.formatXml(txt));
         </method>
         
-        <handler name="oninit">
+        <method event="oninit">
             this.toolstate.setAttribute ('rerunxpath', true);
             this.toolstate.setXPath (this.datapath.xpath + '/@' + this.toolid);
             this.datapath.setXPath (this.toolid);
-        </handler>
+        </method>
 
-        <handler name="onvisible">
+        <method event="onvisible">
 			if(this.visible){  // restore defaults
 				this.setAttribute("height", this.DEFAULT_HEIGHT);
 				this.setAttribute("width", this.DEFAULT_WIDTH);
@@ -128,25 +128,25 @@
            }else{
            		gReadableText.stopReading(true);
             }       
-         </handler>
+         </method>
          
          <handler name="onblur" reference="sp.inp">
 			this.setAttribute("scratchpadHasFocus", false);
 			this.setAttribute("scratchpadJustLostFocus", true);
          </handler>
          
-	     <scrolledittext name="sp" 
+	     <richtexteditarea name="sp" 
 	                             height="${immediateparent.height}" 
 	                             width="${immediateparent.width}" 
-
+	                             defaultfontcolor="0x336699"
 	                             focusable="false">
 	            	<attribute name="start" type="number" value="0" />
 	            	<attribute name="end" type="number" value="0" />
 	            	<attribute name="scrollPos" type="number" value="0" />
 	            <method name="init">
 	                super.init();
-	              //	this.style.setAttribute("textfieldcolor", gController.answerBgColor);
-					this.setAttribute('fontcolor',gController.answerFontColor);
+	              	this.style.setAttribute("textfieldcolor", gController.answerBgColor);
+					this.setFontColor(gController.answerFontColor);
 				 	if(gController.hasFontAccommodation){
 						this.setFontSize(18);
 					}
@@ -205,6 +205,6 @@
 						return getText().substring(start, end);
 					}
 				</method>
-	          </scrolledittext>
+	          </richtexteditarea>
      </class>
 </library>
