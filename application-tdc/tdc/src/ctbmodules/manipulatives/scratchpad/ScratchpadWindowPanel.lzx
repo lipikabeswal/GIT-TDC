@@ -258,7 +258,8 @@
             <view name="gripper_right" y="1" resource="window_gripper_rsc"
                 clip="true" frame="${classroot.state}"/>
 
-            <view name="controls">
+            <view name="controls" align="right">
+                <simplelayout axis="x" spacing="5"/>
                 <state name="closeable" applied="${classroot.closeable}">
                 <basebutton resource="read_btn" 
 			 		        name="readBtn"
@@ -270,7 +271,23 @@
 				</basebutton>
                     <basebutton x="2" name="close_btn" styleable="true"
                         resource="window_closebtn_rsc"
-                        onclick="classroot.close()" />
+                        onclick="classroot.close()" >
+                        
+                        
+                      <handler name="onmouseover">
+						gTooltip.showTooltip("Save and Close");
+					</handler>
+					<handler name="onmouseout">
+						gTooltip.hideTooltip();
+					</handler>
+		 			<handler name="onmousedown">
+		 				classroot.bringToFront();
+		 			</handler>
+					<handler name="onclick" >
+						gController.setManipulativeSelState("scratchpad", "up");
+		 			</handler>
+		 			</basebutton>
+		 			
                 </state>
             </view>
 

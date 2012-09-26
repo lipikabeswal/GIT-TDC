@@ -156,6 +156,19 @@
 					}
 					this.inp.setMaxLength(10000);
 	            </method>
+	            
+	            <method name="updateScrollText" args="a">
+						this.setAttribute('text',a);	
+				</method>
+				
+				<handler name="ontext"><![CDATA[
+				 	if(this.text.length > 10000){
+								var textContent = this.text;
+								textContent = textContent.substring(0,Number(classroot.characterLimit));
+								updateScrollText(textContent);
+							}
+				]]></handler>
+					
          		  
          		<handler name="onpos" reference="this.inp" args="_pos">
 				  	if(typeof _pos == 'number'){
@@ -171,7 +184,7 @@
 				
 				<handler name="onblur" reference="inp">
 					//Debug.write("onblur.....");
-					if(gItemInterface.getAttribute('visible') == true || gTutorial.getAttribute('visible') == true){
+					if(gItemInterface.visible == true || gTutorial.visible == true){
 						gHotKeys.enableKeys();
 					}
 				</handler>
