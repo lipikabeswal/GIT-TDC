@@ -1,0 +1,11 @@
+<library>
+
+
+    <class name="CachableGriddedResponse" 
+           comptype="$once{gCompTypes.WIDGET_GRIDDED_RESPONSE}"
+           visible="false">
+
+   
+    </class>
+
+</library>

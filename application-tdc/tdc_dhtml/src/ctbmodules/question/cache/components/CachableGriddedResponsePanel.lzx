@@ -1,0 +1,17 @@
+<library>
+
+	<include href="CachablePanel.lzx"/>
+
+	<!-- ************************************
+         CachableGriddedResponsePanel
+         
+         A cachable gridded response panel.  
+         *************************************-->
+	<class name="CachableGriddedResponsePanel" extends="CachablePanel" 
+           comptype="$once{gCompTypes.WIDGET_GRIDDED_RESPONSE_PANEL}"
+           clip="true"  bgcolor="white" enablehl="false">
+
+
+    </class>
+
+</library>

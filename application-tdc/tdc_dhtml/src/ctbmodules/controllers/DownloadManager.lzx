@@ -1,0 +1,175 @@
+<library>
+    <node id="gDownloadManager">
+    	<attribute name="subtestList"  />
+    	<attribute name="itemList" />
+    	<attribute name="itemKey" />
+    	<attribute name="filePartList" />
+    	<attribute name="filePartName" /> 
+    	<attribute name="totalSubtests" type="number" value="0" />
+    	<attribute name="totalItems"    type="number" value="0" />
+    	<attribute name="nextSubtestIndex" type="number" value="0" />
+    	<attribute name="nextItemIndex"    type="number" value="0" />
+    	<attribute name="nextFilePartIndex" type="number" value="0" />
+    	<attribute name="totalFileParts" type="number" value="0"/>
+   		<attribute name="downloadResult" />
+   		<attribute name="ERROR_NAME" type="string" value="ERROR" />
+  		<attribute name="SUBTEST_NAME" type="string" value="ob_assessment" />
+  		<attribute name="FILE_PART" type="string" value="FILE_PART_OK" />
+   		<attribute name="dp" value="$once{new lz.datapointer()}" />
+   		
+   		<attribute name="error" value="false" />
+  		<handler name="ondownloadResult">
+  			if(_receivedError()){
+  				setAttribute('error', true);
+  				gScreens.showDefaultError();
+  			}
+   			if(_receivedSubtest()){
+   			     nextSubtestIndex++;
+   				_populateItemList();
+   				_populateFilePartList();
+  				gScreens.incrementSubtestDownload(totalItems, totalFileParts);
+				_downloadNextFilePart();
+   				//_downloadNextItem();   			
+   			} else if (_receivedFilePart()){
+   				gScreens.incrementFilePartDownload();
+   				nextFilePartIndex++;
+   				if (_isLastFilePart()){
+   				_downloadNextItem();
+   				}else {
+   				_downloadNextFilePart();
+   				}
+   			}
+   			else {   				
+   				gScreens.incrementItemDownload();
+   				nextItemIndex++;
+   				if(_isLastItem()){   					
+   					if(_isLastSubtest()){
+   						//gCommunicator.updateLDB();
+   						gController.getSubtest();   						
+   					}
+   					else{
+   						_downloadNextSubtest();
+   					}
+   				}
+   				else{
+   					_downloadNextItem();
+   				}
+   			}
+   		</handler>
+   		
+   		<method name="_receivedError">
+   			var node = lz.DataElement.stringToLzData(downloadResult);
+   			return (node.nodeName == ERROR_NAME);
+   		</method>
+   		
+    	<method name="downloadContent">
+			Debug.write("Download Content");
+			gController.setState(gController.DOWNLOAD_STATE);
+    		setAttribute('subtestList', gController.getSubtestList());
+    		setAttribute("totalSubtests", subtestList.length);
+    		gScreens.showDownload(totalSubtests);
+    		_downloadNextSubtest();
+			Debug.write("Download Content 2");
+			
+    	</method>
+    	
+   		<method name="_receivedSubtest">
+   			var node = lz.DataElement.stringToLzData(downloadResult);
+   			var name = node.nodeName;
+			return (name == SUBTEST_NAME);
+   		</method>
+   		
+   		<method name="_receivedFilePart">
+   			var node = lz.DataElement.stringToLzData(downloadResult);
+   			var name = node.nodeName;
+			return (name == FILE_PART);
+   		</method>
+   		
+   		<method name="_populateItemList">
+   			var node = lz.DataElement.stringToLzData(downloadResult);
+   			dp.setPointer(node);
+   			var items = dp.xpathQuery('ob_element_list/f');
+   			var itemArray = new Array();
+   			if ( items instanceof lz.DataElement ) {
+                itemArray[0] = items;
+            }
+            else if ( items instanceof Array ) {
+                itemArray = items;
+            }
+   			setAttribute('itemList', itemArray);
+   			setAttribute("totalItems", itemList.length);
+   		</method>
+   		
+   		<method name="_populateFilePartList">
+	   		var node = lz.DataElement.stringToLzData(downloadResult);
+ 	  		dp.setPointer(node);
+		
+ 	  		var fileParts = dp.xpathQuery('tracker');
+ 	  	
+ 	  		var filePartsArray = new Array();
+ 	  		if ( fileParts instanceof lz.DataElement ) {
+                filePartsArray[0] = fileParts;
+            }
+            else if ( fileParts instanceof Array ) {
+                filePartsArray = fileParts;
+            }
+          	setAttribute('filePartList', filePartsArray);
+   			setAttribute("totalFileParts", filePartList.length);			
+			
+   		</method>
+   		
+   		
+   		<method name="_isLastItem"><![CDATA[
+   			return (nextItemIndex >= totalItems);
+   		]]></method>
+   		
+   		<method name="_isLastSubtest"><![CDATA[
+   			return (nextSubtestIndex >= totalSubtests)
+   		]]></method>
+   		
+   		<method name="_isLastFilePart"><![CDATA[
+   			return (nextFilePartIndex >= totalFileParts)
+   		]]></method>
+   		
+    	<method name="_downloadNextSubtest">
+    		if(!error){
+	    		setAttribute("nextItemIndex", 0);
+	    		setAttribute("nextFilePartIndex", 0);	    		
+	    		var subtest = subtestList[nextSubtestIndex];	    		
+	    		var id = subtest.getAttr('adsid');
+	    		var hash = subtest.getAttr('asmt_hash');
+	    		var key = subtest.getAttr('asmt_encryption_key');
+	    		setAttribute("itemKey", subtest.getAttr("item_encryption_key"));
+	    		gCommunicator.downloadSubtest(id, hash, key);
+    		}
+    	</method>
+    	
+     	<method name="_downloadNextItem">
+     		if(!error){
+     			var item = itemList[nextItemIndex];
+	    		var id = item.getAttr('id');
+	    		var hash = item.getAttr('h');
+	    		var key = itemKey;
+	    		gCommunicator.downloadItem(id, hash, key);
+    		}
+    	</method>
+    	
+    	<method name="_downloadNextFilePart"><![CDATA[
+			Debug.write("_download Next File part");
+			var filePart = null;
+			var fileName = null;
+			var sequenceNo = null;
+			var next = null;
+     		if(!error){
+	    		filePart = filePartList[nextFilePartIndex];
+				if(filePart != undefined){
+					fileName = filePart.getAttr('value');
+					sequenceNo = filePart.getAttr('sequence_number');
+					next = filePart.getAttr('next');
+				}
+				gCommunicator.downloadFilePart(fileName,sequenceNo,next);
+    		}
+    	]]></method>
+
+     </node>
+</library>

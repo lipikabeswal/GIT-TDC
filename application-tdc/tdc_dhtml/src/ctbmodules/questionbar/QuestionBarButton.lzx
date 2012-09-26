@@ -1,0 +1,174 @@
+<library>
+
+
+    <class name="QuestionBarButton"  
+           clickregion="../resources/iknow_navbar/click_region.swf" 
+           width="26">
+
+        <attribute name="itemeid" value="$path{ '@eid' }"/>
+        <attribute name="itemnum" value="$path{ '@item_no' }"/>
+        <attribute name="isTheme" value="$path{ '@theme' }"/>
+
+        <attribute name="isenabled"
+                   value="$path{ 'dsdisplay:/display/@enabled' }"/>
+        <attribute name="clickable" value="${ isenabled == true }"/>
+
+        <attribute name="showconnector" value="false"/>
+        
+		<attribute name="allow_revisit" value="$path{'@allow_revisit'}"   />
+		<attribute name="allow_revisit_on_restart" value="$path{'@allow_revisit_on_restart'}"   />
+<attribute name="isvisited" value="$path{'@is_visited'}" setter="setIsVisited(isvisited)"/>		
+
+        <attribute name="isanswered" value="$path{'@answered'}" 
+                   setter="setIsAnswered (isanswered)"/>
+        <attribute name="ismarked" value="$path{'@marked'}"
+                   setter="setIsMarked (ismarked)"/>
+        <attribute name="isactive" 
+                   value="${this.questionbar.selitemeid==this.itemeid}"/>
+        
+        <attribute name="themeResource" value="theme" type="string"/>
+        <attribute name="questionbar" value="$once{classroot}"/>
+	
+		<method name="setIsVisited" args="isvisited">
+            if (typeof (isvisited) == 'string') {
+                isvisited = (isvisited == 'true');
+            } 
+
+            this.isvisited = isvisited;
+            this._changeStatus (false);
+        </method>
+
+        <method name="setIsAnswered" args="isanswered">
+			//Debug.write("setIsAnswered" + isanswered)
+            if (typeof (isanswered) == 'string') {
+                isanswered = (isanswered == '1');
+            } 
+            this.isanswered = isanswered;
+            this._changeStatus (false);
+        </method>
+
+        <method name="setIsMarked" args="ismarked">
+		//Debug.write("setIsMarked" + ismarked);
+            if (typeof (ismarked) == 'string') {
+                ismarked = (ismarked == '1');
+            } 
+            this.ismarked = ismarked;
+            this._changeStatus (false);
+        </method>
+
+        <handler name="ondata"><![CDATA[
+            var dnselect = gController.dpsubtest.xpathQuery (
+                                'ob_assessment/ob_element_select_order/g/e[@id="'+this.itemeid+'"]'
+                           );
+            if (gController.adaptive == false) {
+            	this.setAttribute ('showconnector', 
+                                dnselect != null
+                                    && dnselect.parentNode.getLastChild () != dnselect);
+            }            
+        ]]></handler>
+
+        <handler name="onisactive"><![CDATA[
+        //Debug.write("onisactive.....");
+        this.themeResource = 'theme';
+            if (this.isactive) {
+                //make sure we're visible on the navigation bar
+                this.questionbar.showBtn (this);
+                var here = this.questionbar.qbtns.scrollcontainer.youarehere;
+                here.setAttribute ('x', this.getAttributeRelative ('x', here) - 29); //the text was off in its container - 29);
+                gController.movedYouAreHere();
+            }
+			else{
+			 if(this.allow_revisit != null){
+			  if(this.allow_revisit != true){
+
+				if(this.isvisited || this.isanswered){
+						this.btn.setAttribute('clickable',true);
+						this.btn.setAttribute('showhandcursor',false);
+						//For Defect 65886
+						this.btnText.setAttribute('fgcolor',0xE0E0E0);
+						this.themeResource = 'theme_disable';
+						//Debug.write("**********btn disable*********");
+					}else{
+						this.btnText.setAttribute('fgcolor',0x000000);
+						this.btn.setAttribute('clickable',false);
+						this.btn.setAttribute('showhandcursor',true);
+						//Debug.write("**********btn clickable false*********");
+					}
+				}else{
+					this.btn.setAttribute('clickable',false);
+ 					this.btn.setAttribute('showhandcursor',true);
+					this.btnText.setAttribute('fgcolor',0x000000);
+					//Debug.write("**********btn clickable false*********");
+				}
+			}
+		}
+
+            this._changeStatus (false);
+        ]]></handler>
+
+        <handler name="onmouseover">
+            this._changeStatus (true);
+        </handler>
+
+        <handler name="onmouseout">
+            this._changeStatus (false);
+        </handler>
+
+
+        <handler name="onclick">
+			gController.setAttribute("nextItem", itemeid ); 
+			gController.setAttribute("navigateConfirm",false);
+			if(!gController.navigateConfirm){
+				gController.fixFocus(this);
+			}
+			
+            gController.navigateTo( itemeid );
+        </handler>
+
+        <method name="_changeStatus" args="ismouseover"><![CDATA[
+            var newframe = 1;
+
+              if (ismouseover) {
+
+                if (ismarked)               	newframe = 6;
+                else if (isactive)         		newframe = 2;
+                else                        	newframe = 9;
+            } else {
+                this.ball.setAttribute ('visible', this.isanswered ? true : false);
+
+                if (ismarked)               newframe = 5;
+                else if (isactive)          newframe = 2;
+				else if(this.allow_revisit != null){
+				if (isvisited &&
+						 this.allow_revisit != true)
+											newframe = 11;
+				else if (isanswered &&
+						 this.allow_revisit != true)
+											newframe = 11;
+				}
+                else                        newframe = 1;
+            }
+
+            this.btn.setAttribute('frame', newframe);
+
+        ]]></method>
+
+
+        <view name="btn" resource="question_bar_btn" 
+              xscale="1.3"/>
+
+        <view name="ball" resource="question_bar_ball"
+              align="center" y="3" visible="false"/>
+
+        <view resource="question_bar_btn_connector"
+              x="${classroot.width}" y="24"
+              visible="${classroot.showconnector}"/>
+
+        <text name="btnText" text="${classroot.itemnum}" resize="true" 
+              font="Arial" fontsize="11" fontstyle="bold"
+              y="22" align="center" visible="${!classroot.isTheme}"/>
+        <view name="themeBtn" resource="${classroot.themeResource}" y="24" align="center" visible="${classroot.isTheme}" />
+ 
+    </class>
+
+</library>

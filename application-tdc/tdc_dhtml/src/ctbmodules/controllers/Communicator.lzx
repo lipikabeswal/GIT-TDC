@@ -1,0 +1,240 @@
+<library>
+    <include href="Request.lzx"/>
+    <include href="../Screens/GoodbyeScreen.lzx"/>
+	
+	
+    <node id="gCommunicator">
+    	<attribute name="error" type="boolean" value="false" />
+    	<attribute name="firstRequestDone" type="boolean" value="false" />
+
+      	<attribute name="dRequestTimer" value="$once{new lz.Delegate(this,'sendRequest')}" />
+      	<dataset name="dRequestDataSet"/>
+      	
+      	<method name="updateLDB">
+      		//lz.Browser.loadJS('updateLDB()');
+       	</method>
+  		
+      	<method name="closeBrowser">
+      		exitRequest.exit();
+       	</method>
+  		
+      	<method name="login" args="username, password, accessCode">
+      		if(!error){
+       			gRequest.login(username, password, accessCode);
+       		}
+       	</method>
+  		
+      	<method name="downloadSubtest" args="id, hash, key">
+     		if(!error){
+       			gRequest.getSubtest(id, hash, key);
+       		}
+       	</method>
+  		
+      	<method name="downloadItem" args="id, hash, key">
+       		if(!error){
+       			gRequest.downloadItem(id, hash, key);
+       		}
+       	</method>
+       	
+       	<method name="downloadFilePart" args="name,sequenceNo,next">
+       		if(!error){
+       			gRequest.downloadFilePart(name,sequenceNo,next);
+       		}
+       	</method>
+  		
+      	<method name="getSubtest" args="id, hash, key">
+       		if(!error){
+       			gRequest.getSubtest(id, hash, key);
+       		}
+       	</method>
+  		
+      	<method name="getItem" args="params">
+       		if(!error){
+       			gRequest.getItem(params[0], params[1], params[2]);
+       		}
+       	</method>
+  		
+     	<method name="heartbeat" args="params">
+       		if(!error){
+       			<!-- TDC-TMS comms are now synchronous, heartbeats aren't needed -->
+       			gRequest.heartbeat(params);
+       		}
+       	</method>
+  		
+     	<method name="save" args="params">
+       		if(!error){
+       			gRequest.save(params);
+       		}
+       	</method>
+  		
+     	<method name="tutorialComplete">
+       		if(!error){
+       			gRequest.tutorialComplete();
+       		}
+       	</method>
+  		
+     	<method name="feedback" args="lsid">
+       		if(!error){
+       			gRequest.feedback(lsid);
+       		}
+       	</method>
+  		
+      	<method name="lifecycle" args="lev">
+       		if(!error){
+       			gRequest.lifecycle(lev);
+       		}
+       	</method>
+		
+      	<method name="terminate">
+       		if(!error){
+       			gRequest.terminate();
+       		}
+       	</method>
+		
+		<method name="writeToAuditFile" args="lsid, scid, txt">
+Debug.write("gCommunicator.writeToAuditFile( " + lsid + " , " + scid + " , " + txt + " ) ");
+			if(!error){
+				gRequest.writeToAuditFile(lsid, scid, txt);
+			}
+		</method>
+
+		<method name="uploadAuditFile" args="lsid, scid">
+Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
+			if(!error){
+				gRequest.uploadAuditFile(lsid, scid);
+			}
+		</method>
+
+		<method name="endSubtest" args="raw, max, exit, time, unscored">
+//Debug.write("gCommunicator.endSubtest( " + raw + " , " + max + + " , " + exit + " , " + time + " , " + unscored + " ) ");
+			if(!error){
+				gRequest.endSubtest(raw,
+                					max,
+                					exit,
+                					time,
+                					unscored)
+			}
+		</method>
+
+  		<method name="finishCall" args="result,ds" >
+  		//Debug.write("finishCall in communicator...:", result," : ", ds);
+  			if(!error){
+	  			if(!checkShowError(result,ds)){
+	  				gController.setAttribute("communicatorResponse", result);
+	  			}
+	  		}
+  		</method>
+  		
+  		<!-- all servlet errors go through this method -->
+  		<method name="checkShowError" args="xml,ds"><![CDATA[
+			if(!error){
+   				var node = lz.DataElement.stringToLzData(xml);
+   				var code = "";
+
+  				if (node && node.nodeName == 'ERROR'){
+
+					code = node.getElementsByTagName("CODE")[0].childNodes[0].data;
+					var msg = node.getElementsByTagName("MESSAGE")[0].childNodes[0].data;
+					
+					if(typeof code == "undefined") {
+						code = "";						
+					}
+
+					//show popup only for network error and tts error	
+					if(code == "" || code == "556" || code == "558") {
+						if(firstRequestDone && gController.isWaitPopupOpen == false) {
+		  					setAttribute('error', true);
+		  					gPleaseWaitPopup.showControls();
+						}
+						else {
+                         	if(ds != null) { 
+								setAttribute('dRequestDataSet',ds);
+								startRequestTimer();
+							}
+
+							if(!firstRequestDone) {
+								gController.showWaitPopupFor60Sec();								
+								if(gController.state != gController.LOGIN_STATE) {
+                                   	gController.stopHeartbeat();
+									//to stop the test timer
+									gController.stopQuestion();
+								}
+								//gController.freezeUI();  //not needed anymore
+							}
+							firstRequestDone = true;
+							return true;
+						}
+						
+					}else if(code == "000"){
+						var scoreArr = msg.split("|");
+						var abScore = scoreArr[0];
+						var sem =  scoreArr[1];
+						var objScore =  scoreArr[2];
+						gController.setAttribute("abScore",abScore);
+						gController.setAttribute("sem",sem);
+						gController.setAttribute("objScore",objScore);						
+						gController.setAttribute("catOver",true);					
+						gController.setAttribute("isStopTest",false);
+						gController.setAttribute("isStopScreen",false);
+						//gController.stopQuestion();//to let timeleft timer running on progress page
+						if(gController.state == gController.TIMEOUT_STATE ||
+							gController.state == gController.OUT_OF_TIME_OPEN_STATE) {
+							gController.unlockUI();
+							gHotKeys.disableKeys();
+							return false;							
+						}
+						gController.finishTest();
+						gController.unlockUI();
+						gHotKeys.disableKeys();
+						return true;
+					}
+					//for other errors, no popup will be shown
+					else {
+						setAttribute('error', true);
+						gController.hideWaitPopup();
+						gController.unlockUI();
+	  					showError(xml);	  					
+					}
+  				}
+				else {
+					if(gController.isWaitPopupOpen) {
+                        firstRequestDone = false;
+						gController.hideWaitPopup();
+						//Debug.warn("checkShowError outer else");
+						if(gController.state != gController.LOGIN_STATE) {
+							gController.sendHeartbeat();
+							//to start the test timer 
+							//START Defect 64592
+							if(gController.state != gController.DOWNLOAD_STATE){
+							gController.startQuestion();
+							}
+							//END
+						}
+						gController.unlockUI();
+					}
+				}
+  			}
+  			return error;
+  		]]></method>
+  		
+  		<method name="showError" args="xml">
+  			gController.showError(xml);
+  		</method>
+  		
+  		<method name="finishHeartbeatCall" args="result,ds" >
+  		Debug.write("finishHeartbeatCall", ds, result);
+  			if(!checkShowError(result,ds)){
+               gController.setAttribute("heartbeatResult", result);
+  			}
+  		</method>
+
+		<method name="startRequestTimer">
+			lz.Timer.resetTimer(dRequestTimer,30000);
+		</method>		
+			
+		<method name="sendRequest">
+			gRequest.sendRequest(dRequestDataSet);
+		</method>  		
+     </node>
+
+</library>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<canvas debug="true" bgcolor="#6691B4">
+
+	<debug x="0" y="${parent.height-this.height-canvas.buttonPanel.height}" width="100%" height="10"/>
+
+	<include href="ContinueScreen.lzx"/>
+	<include href="FinishScreen.lzx"/>
+	<include href="LoginScreen.lzx"/>
+	<include href="PauseScreen.lzx"/>
+	<include href="SeeyouScreen.lzx"/>
+	<include href="WelcomeScreen.lzx"/>
+
+	<attribute name="applyState" value="false"/>
+
+	<view name="ninePanelBox" align="center" valign="middle">
+		<simplelayout axis="y"/>
+		<view name="top" width="${parent.middle.width}"> 
+			<stableborderlayout axis="x"/> 
+			<view resource="resources/top_lft_slct.png"/> 
+			<view resource="resources/top_mid_slct.png" stretches="width"/> 
+			<view resource="resources/top_rt_slct.png"/> 
+		</view> 
+		<view name="middle" height="${parent.contents.height}"> 
+			<simplelayout axis="x"/> 
+			<view resource="resources/mid_lft_slct.png" height="100%" stretches="height"/> 
+			<view resource="resources/mid_mid_slct.png" stretches="both" width="${parent.parent.contents.width}" height="100%"/> 
+			<view resource="resources/mid_rt_slct.png" height="100%" stretches="height"/> 
+		</view> 
+		<view name="bottom" width="${parent.middle.width}"> 
+			<stableborderlayout axis="x"/> 
+			<view resource="resources/bot_lft_slct.png"/> 
+			<view resource="resources/bot_mid_slct.png" stretches="width"/> 
+			<view resource="resources/bot_rt_slct.png"/> 
+		</view>
+		<view name="contents" options="ignorelayout" bgcolor="#527DA4" valign="middle" align="center">
+			<state name="showContinueScreen">
+				<ContinueScreen options="ignoreLayout"/>
+			</state>
+			<state name="showFinishScreen">
+				<FinishScreen options="ignoreLayout"/>
+			</state>
+			<state name="showLoginScreen">
+				<LoginScreen options="ignoreLayout"/>
+			</state>
+			<state name="showPauseScreen">
+				<PauseScreen options="ignoreLayout"/>
+			</state>
+			<state name="showSeeyouScreen">
+				<SeeyouScreen options="ignoreLayout"/>
+			</state>
+			<state name="showWelcomeScreen">
+				<WelcomeScreen options="ignoreLayout"/>
+			</state>
+		</view>
+	</view>
+<!--  	<view name="embellishments" options="ignorelayout" bgcolor="#6691B4" >
+		<state name="showFinishEmbellishmentScreen" apply="${canvas.applyState}">
+			<view resource="animations/prancingMan.swf" x="0" y="${canvas.ninePanelBox.y + canvas.ninePanelBox.height}" />
+		</state>
+		<state name="showLoginEmbellishmentScreen">
+			<view resource="animations/prancingMan.swf" x="0" y="${canvas.ninePanelBox.y + canvas.ninePanelBox.height}"/>
+		</state>
+	</view>-->
+
+	<method name="removeAllStates">
+		canvas.ninePanelBox.contents.showContinueScreen.remove();
+		canvas.ninePanelBox.contents.showFinishScreen.remove();
+		//canvas.embellishments.showFinishEmbellishmentScreen.remove();
+		canvas.ninePanelBox.contents.showLoginScreen.remove();
+		//canvas.embellishments.showLoginEmbellishmentScreen.remove();
+		canvas.ninePanelBox.contents.showPauseScreen.remove();
+		canvas.ninePanelBox.contents.showSeeyouScreen.remove();
+		canvas.ninePanelBox.contents.showWelcomeScreen.remove();
+	</method>
+
+	<method name="showContinue">
+		canvas.removeAllStates();
+		ninePanelBox.contents.showContinueScreen.apply();
+	</method>
+	<method name="showDownload">
+		canvas.removeAllStates();
+		ninePanelBox.contents.showDownloadScreen.apply();
+	</method>
+	<method name="showFinish">
+		canvas.removeAllStates();
+		ninePanelBox.contents.showFinishScreen.apply();
+		canvas.embellishments.showFinishEmbellishmentScreen.apply();
+	</method>
+	<method name="showLogin">
+		canvas.removeAllStates();
+		ninePanelBox.contents.showLoginScreen.apply();
+		canvas.embellishments.showFinishEmbellishmentScreen.apply();
+	</method>
+	<method name="showPause">
+		canvas.removeAllStates();
+		ninePanelBox.contents.showPauseScreen.apply();
+	</method>
+	<method name="showSeeyou">
+		canvas.removeAllStates();
+		ninePanelBox.contents.showSeeyouScreen.apply();
+	</method>
+	<method name="showWelcome">
+		canvas.removeAllStates();
+		ninePanelBox.contents.showWelcomeScreen.apply();
+	</method>
+
+	<view name="buttonPanel" options="ignorelayout" x="${parent.width - this.width}" y="${parent.height - this.height}">
+		<simplelayout axis="x"/>
+		<button name="showContinueScreenButton" onclick="canvas.showContinue()">ShowContinue()</button>
+		<button name="showFinishScreenButton" onclick="canvas.showFinish()">ShowFinish()</button>
+		<button name="showLoginScreenButton" onclick="canvas.showLogin()">ShowLogin()</button>
+		<button name="showPauseScreenButton" onclick="canvas.showPause()">ShowPause()</button>
+		<button name="showSeeyouScreenButton" onclick="canvas.showSeeyou()">ShowSeeyou()</button>
+		<button name="showWelcome" onclick="canvas.showWelcome()">ShowWelcome()</button>
+	</view>
+
+</canvas>

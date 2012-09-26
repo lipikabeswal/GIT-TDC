@@ -1,0 +1,356 @@
+<library>
+	<dataset name="loginDs"             src="xmls/login.xml" />
+	<dataset name="saveDs"              src="xmls/save.xml" />
+    <dataset name="tsdDs"               src="xmls/tsd.xml" />
+    <dataset name="astDs"               src="xmls/ast.xml" />
+    <dataset name="istDs"               src="xmls/ist.xml" />
+    <dataset name="levDs"               src="xmls/lev.xml" />
+    <dataset name="feedbackDs"          src="xmls/feedback.xml" />
+    <dataset name="uploadAuditFileDs"   src="xmls/uploadAuditFile.xml" />
+    <dataset name="writeToAuditFileDs"  src="xmls/writeToAuditFile.xml" />
+    <dataset name="getSubtestDs"        src="xmls/getSubtest.xml" />
+    <dataset name="getItemDs"           src="xmls/getItem.xml" />
+    <dataset name="getImageDs"          src="xmls/getImage.xml" />
+    <dataset name="downloadItemDs"      src="xmls/downloadItem.xml" />
+    <dataset name="downloadFilePartDs"  src="xmls/downloadFilePart.xml" />
+    <dataset name="errorDs"             src="xmls/error.xml" />
+    <dataset name="feedbackErrorDs"     src="xmls/feedbackError.xml" />
+    <dataset name="lifecycleDs"         src="xmls/lifecycle.xml" />
+    <dataset name="endSubtestDs"        src="xmls/endSubtest.xml" />
+    <dataset name="contentErrorDs"      src="xmls/contentError.xml" />
+    <dataset name="terminateDs"         src="xmls/terminate.xml" />
+    <dataset name="finishRequestDs"     src="xmls/finishRequest.xml" />
+    <dataset name="endSubtestLsv1Ds"    src="xmls/endSubtestLsv1.xml" />
+    <dataset name="endSubtestLsv2Ds"    src="xmls/endSubtestLsv2.xml" />
+    <dataset name="tutorialCompleteDs"  src="xmls/tutorialComplete.xml" />
+ 
+    <node id="gXmlHelper">
+    	<attribute name="dp"  value="$once{new lz.datapointer()}" />
+    	<attribute name="dp2" value="$once{new lz.datapointer()}" />
+    	<attribute name="dp3" value="$once{new lz.datapointer()}" />
+    	
+    	<attribute name="OK_STATUS_CODE" type="string" value="200" />
+    	<attribute name="STATUS_CODE" type="string" value="status_code"/>
+    	<attribute name="CONTENT_ERROR_CODE"   type="string" value="TDC210"/>
+    	<attribute name="CONTENT_TIMEOUT_CODE" type="string" value="TDC211"/>
+    	<attribute name="SPEECH_ERROR_CODE" type="string" value="558"/>
+    	<attribute name="NETWORK_ERROR_CODE" type="string" value="556"/>
+    	
+    	
+		<method name="getContentErrorXml">
+			dp.setXPath("contentErrorDs:/ERROR/CODE");
+			dp.setNodeText(CONTENT_ERROR_CODE);
+			dp.setXPath("contentErrorDs:/ERROR");
+			return dp.serialize();
+		</method>
+		
+		<method name="getSpeechErrorXml">
+			return getErrorXml(SPEECH_ERROR_CODE);
+		</method>
+		
+    	<method name="getErrorXml" args="code">
+    		if(code == null || typeof code == 'undefined'){
+    			code = NETWORK_ERROR_CODE;
+    		}
+			dp.setXPath("errorDs:/ERROR/CODE");
+			dp.setNodeText(code);
+			dp.setXPath("errorDs:/ERROR");
+			return dp.serialize();
+    	</method>
+    	
+		<method name="getContentTimeoutXml">
+			dp.setXPath("contentErrorDs:/ERROR/CODE");
+			dp.setNodeText(CONTENT_TIMEOUT_CODE);
+			dp.setXPath("contentErrorDs:/ERROR");
+			return dp.serialize();
+		</method>
+		
+		<method name="getLoginXml" args="username, password, accesscode, cid" >
+   			dp.setXPath("loginDs:/tmssvc_request/login_request");
+    		dp.setNodeAttribute("user_name", username);
+    		dp.setNodeAttribute("password", password);
+    		dp.setNodeAttribute("access_code", accesscode);
+    		dp.setNodeAttribute("cid", cid);
+     		dp.setXPath("loginDs:/tmssvc_request");
+    		return dp.serialize();
+	   	</method>
+    	
+    	<method name="getGetSubtestXml" args="id, hash, key">
+	   		dp.setXPath("getSubtestDs:/adssvc_request/get_subtest");
+    		dp.setNodeAttribute("subtestid", id);
+    		dp.setNodeAttribute("hash", hash);
+    		dp.setNodeAttribute("key", key);
+     		dp.setXPath("getSubtestDs:/adssvc_request");
+    		return dp.serialize();
+      	</method>
+    	
+    	<method name="getDownloadItemXml" args="id, hash, key">
+ 	   		dp.setXPath("downloadItemDs:/adssvc_request/download_item");
+    		dp.setNodeAttribute("itemid", id);
+    		dp.setNodeAttribute("hash", hash);
+     		dp.setNodeAttribute("key", key);
+     		dp.setXPath("downloadItemDs:/adssvc_request");
+    		return dp.serialize();
+      	</method>
+      	
+      	<method name="getDownloadFilePartXml" args="name,sequenceNo,next">
+ 	   		dp.setXPath("downloadFilePartDs:/adssvc_request/download_file_part");
+    		dp.setNodeAttribute("name", name);
+    		dp.setNodeAttribute("sequence_number", sequenceNo);
+    		dp.setNodeAttribute("next", next);
+    		dp.setXPath("downloadFilePartDs:/adssvc_request");
+    		return dp.serialize();
+      	</method>
+    	
+     	<method name="getGetItemXml" args="id, hash, key">
+	   		dp.setXPath("getItemDs:/adssvc_request/get_item");
+    		dp.setNodeAttribute("itemid", id);
+    		dp.setNodeAttribute("hash", hash);
+    		dp.setNodeAttribute("key", key);
+     		dp.setXPath("getItemDs:/adssvc_request");
+    		return dp.serialize();
+      	</method>
+    	
+      	<method name="getGetImageXml" args="id">
+	   		dp.setXPath("getImageDs:/adssvc_request/get_image");
+    		dp.setNodeAttribute("imageid", id);
+      		dp.setXPath("getImageDs:/adssvc_request");
+    		return dp.serialize();
+      	</method>
+    	
+    	<method name="getSaveXml" args="lsid, scid, mseq, cid, params, tts_speed_value">
+			clearSaveDs();
+    		dp.setXPath("saveDs:/adssvc_request/save_testing_session_data/tsd");
+    		dp.setNodeAttribute('lsid', lsid);
+    		dp.setNodeAttribute('scid', scid);
+    		dp.setNodeAttribute('mseq', mseq);
+    		dp.setNodeAttribute('cid', cid);
+    		if(gController.hasTTSspeed) {
+   				dp.setNodeAttribute('tts_speed_value', tts_speed_value);
+    		}
+    		if(params == null){  // ast 
+    			dp.addNodeFromPointer(_getAstDp());
+    		}
+    		else{ // ist / lev / sp 
+    			if(params[0] != null){
+    				dp.addNodeFromPointer(_getLevDp(params[0]));
+    			}
+    			if(params[1] != null){
+    				dp.addNodeFromPointer(_getIstDp(params[1]));
+     			}
+    		}
+
+//    		if(tsdParams != null &amp;&amp; tsdParams.length &gt; 0){
+//    			dp.addNodeFromPointer(_getTsdDp(lsid, scid, mseq, cid, tsdParams));
+//    		}
+//   		if(astParams != null &amp;&amp; astParams.length &gt; 0){
+//    			dp.addNodeFromPointer(_getAstDp(astParams));
+//    		}
+    		dp.setXPath("saveDs:/adssvc_request");
+    		return dp.serialize();
+    	</method>
+    	
+    	<method name="getTutorialCompleteXml" args="lsid, mseq, cid">
+    		dp.setXPath("tutorialCompleteDs:/adssvc_request/complete_tutorial");
+    		dp.setNodeAttribute('lsid', lsid);
+    		dp.setNodeAttribute('mseq', mseq);
+    		dp.setNodeAttribute('cid', cid);
+    		dp.setXPath("tutorialCompleteDs:/adssvc_request");
+    		return dp.serialize();
+    	</method>
+    	
+    	<method name="_getLevDp" args="lev">
+    		dp2.setXPath("levDs:/lev");
+    		dp2.setNodeAttribute("e", lev);
+    		return dp2;
+    	</method>
+    	
+    	<method name="_getIstDp" args="params">
+    		dp3.setXPath("istDs:/ist");
+	    	dp3.setNodeAttribute("iid", params[0]);
+	    	dp3.setNodeAttribute("eid", params[1]);
+	    	dp3.setNodeAttribute("mrk", params[2]);
+//	    	dp3.setNodeAttribute("awd", params[3]);
+	    	dp3.setNodeAttribute("dur", params[4]);
+	    	dp3.setNodeAttribute("audioItem", params[9]); 	//changes for sending the item type as 
+															//parameter to avoid db hit in TMS
+			dp3.setNodeAttribute("sendCatSave", params[10]);// for differentiating the heartbeat call sending to Cat engine when saving
+			dp3.setNodeAttribute("catOver", gController.catOver);
+
+			dp3.setXPath("istDs:/ist/rv");
+	   		dp3.setNodeAttribute("t", params[5]);
+	    	dp3.setXPath("istDs:/ist/rv/v");
+	    	dp3.setNodeText(params[6]);
+	    	dp3.setXPath("istDs:/ist/ov/v");
+	    	dp3.setNodeText(params[7]);
+	    	dp3.setXPath("istDs:/ist/isc/sp");
+	    	dp3.setNodeText(params[8]);
+    		dp3.setXPath("istDs:/ist");
+     		return dp3;
+    	</method>
+    	
+    	<method name="getLifecycleXml" args="lsid, scid, mseq, cid, lev">
+    		dp.setXPath("lifecycleDs:/adssvc_request/save_testing_session_data/tsd");
+    		dp.setNodeAttribute('lsid', lsid);
+    		dp.setNodeAttribute('scid', scid);
+    		dp.setNodeAttribute('mseq', mseq);
+    		dp.setNodeAttribute('cid', cid);
+    		dp.setXPath("lifecycleDs:/adssvc_request/save_testing_session_data/tsd/lev");
+    		dp.setNodeAttribute("e", lev);
+    		dp.setXPath("lifecycleDs:/adssvc_request");
+    		return dp.serialize();
+    	</method>
+    	
+    	<method name="getTerminateXml" args="lsid, mseq, cid">
+    		dp.setXPath("terminateDs:/adssvc_request/save_testing_session_data/tsd");
+    		dp.setNodeAttribute('lsid', lsid);
+    		dp.setNodeAttribute('mseq', mseq);
+    		dp.setNodeAttribute('cid', cid);
+     		dp.setXPath("terminateDs:/adssvc_request");
+    		return dp.serialize();
+    	</method>
+    	
+    	<method name="clearSaveDs">
+    		deleteDsNode('saveDs:/adssvc_request/save_testing_session_data/tsd/ist');
+    		deleteDsNode('saveDs:/adssvc_request/save_testing_session_data/tsd/ast');
+    		deleteDsNode('saveDs:/adssvc_request/save_testing_session_data/tsd/lev');
+    	</method>
+    	
+    	<method name="deleteDsNode" args="theXpath">
+     		dp.setXPath(theXpath);
+     		if(dp != null){
+    			dp.deleteNode();
+    		}
+    	</method>
+    	
+		<method name="getUploadAuditFileXml" args="lsid, scid, mseq" >
+    		dp.setXPath("uploadAuditFileDs:/adssvc_request/upload_audit_file/tsd");
+    		dp.setNodeAttribute("lsid", lsid);
+    		dp.setNodeAttribute("scid", scid);
+     		dp.setNodeAttribute("mseq", mseq);
+
+     		dp.setXPath("uploadAuditFileDs:/adssvc_request");
+    		return dp.serialize();
+	   	</method>
+    	
+		<method name="getWriteToAuditFileXml" args="lsid, scid, mseq, txt" >
+    		dp.setXPath("writeToAuditFileDs:/adssvc_request/write_to_audit_file/tsd");
+    		dp.setNodeAttribute("lsid", lsid);
+    		dp.setNodeAttribute("scid", scid);
+     		dp.setNodeAttribute("mseq", mseq);
+    		dp.setXPath("writeToAuditFileDs:/adssvc_request/write_to_audit_file/tsd/audit_file_text");
+			dp.setNodeText(txt);
+     		dp.setXPath("writeToAuditFileDs:/adssvc_request");
+    		return dp.serialize();
+	   	</method>
+    	
+		<method name="getEndSubtestXml" args="lsid, scid, cid, mseq, raw, max, exit, time, unscored, abScore, sem, objScore" >
+    		dp.setXPath("endSubtestDs:/adssvc_request/save_testing_session_data/tsd");
+    		dp.setNodeAttribute("lsid", lsid);
+    		dp.setNodeAttribute("scid", scid);
+     		dp.setNodeAttribute("cid", cid);
+     		dp.setNodeAttribute("mseq", mseq);
+    		dp.setXPath("endSubtestDs:/adssvc_request/save_testing_session_data/tsd/lsv/cmi.core");
+    		dp.setNodeAttribute("score.raw", raw);
+    		dp.setNodeAttribute("score.max", max);
+     		dp.setNodeAttribute("exit", exit);
+    		dp.setNodeAttribute("session_time", time);
+    		dp.setNodeAttribute("score.ability", abScore);
+    		dp.setNodeAttribute("score.objective", objScore);
+    		dp.setNodeAttribute("score.sem", sem);
+     		dp.setXPath("endSubtestDs:/adssvc_request/save_testing_session_data/tsd/lsv/ext.core");
+     		dp.setNodeAttribute("number_of_unscored_items", unscored);
+      		dp.setXPath("endSubtestDs:/adssvc_request");
+    		return dp.serialize();
+	   	</method>
+	   	
+    	<method name="getFeedbackXml" args="lsid">
+	   		dp.setXPath("feedbackDs:/adssvc_request/get_feedback_data");
+    		dp.setNodeAttribute("lsid", lsid);
+     		dp.setXPath("feedbackDs:/adssvc_request");
+    		return dp.serialize();
+      	</method>
+    	
+    	<method name="getFeedbackErrorXml">
+    		dp.setXPath("feedbackErrorDs:/");
+    		dp.selectChild();
+    		return dp.serialize();
+    	</method>
+    	
+    	<method name="_getTsdDp" args="lsid, scid, mseq, cid, params">
+    		var lifecycleParams = params[0];
+    		var responseParams  = params[1];
+    		dp2.setXPath("tsdDs:/tsd");
+    		dp2.setNodeAttribute("lsid", lsid);
+    		dp2.setNodeAttribute("scid", scid);
+    		dp2.setNodeAttribute("mseq", mseq);
+    		dp2.setNodeAttribute("cid", cid);
+    		if(lifecycleParams != null &amp;&amp; lifecycleParams.length &gt; 0){
+    			dp3.setXPath("levDs:/lev");
+    			dp3.setNodeAttribute("e", lifecycleParams[0]);
+    			dp2.addNodeFromPointer(dp3);
+    		}
+    		if(responseParams != null &amp;&amp; responseParams.length &gt; 0){
+	    		dp3.setXPath("istDs:/ist");
+	    		dp3.setNodeAttribute("iid", responseParams[0]);
+	    		dp3.setNodeAttribute("eid", responseParams[1]);
+	    		dp3.setNodeAttribute("mrk", responseParams[2]);
+//	    		dp3.setNodeAttribute("awd", responseParams[3]);
+	    		dp3.setNodeAttribute("dur", responseParams[4]);
+	   		    dp3.setXPath("istDs:/ist/rv");
+	   		    dp3.setNodeAttribute("t", responseParams[5]);
+	    		dp3.setXPath("istDs:/ist/rv/v");
+	    		dp3.setNodeText(responseParams[6]);
+	    		dp3.setXPath("istDs:/ist/ov/v");
+	    		dp3.setNodeText(responseParams[7]);
+    			dp3.setXPath("istDs:/ist");
+    			dp2.addNodeFromPointer(dp3);
+    		}
+    		return dp2;
+    	</method>
+    	
+     	<method name="_getAstDp">
+    		dp2.setXPath("astDs:/ast");
+    		return dp2;
+    	</method>
+    	
+		<method name="getEndSubtestXml_old" args="raw, max, exit, time, unscored" >
+    		dp.setXPath("endSubtestLsv1Ds:/lsv/cmi.core");
+    		dp.setNodeAttribute("score.raw", raw);
+    		dp.setNodeAttribute("score.max", max);
+     		dp.setNodeAttribute("exit", exit);
+    		dp.setNodeAttribute("session_time", time);
+    		dp.setXPath("endSubtestLsv1Ds:/lsv");
+    		var result = dp.serialize();
+    		
+    		dp.setXPath("endSubtestLsv2Ds:/lsv/ext.core");
+     		dp.setNodeAttribute("number_of_unscored_items", unscored);
+      		
+     		dp.setXPath("endSubtestLsv2Ds:/lsv");
+     		result = result + dp.serialize();
+    		return result;
+	   	</method>
+	   	
+		<method name="isErrorResponse" args="response">
+			var statusCode = getStatusCode(response);
+//Debug.write("gXmlHelper.isErrorResponse: " + response);
+//Debug.write("statusCode: " + statusCode);
+//Debug.write("return: " + (statusCode != OK_STATUS_CODE));
+			return (statusCode != null &amp;&amp; statusCode != OK_STATUS_CODE);
+		</method>
+		
+		<method name="getStatusCode" args="response">
+			var result = null;
+			var responseNode = lz.DataElement.stringToLzData( response );	
+			var dp = new lz.datapointer();
+			dp.setPointer(responseNode);
+			if(dp.selectChild(2)){
+				var statusCode = dp.getNodeAttribute(STATUS_CODE);
+				if(statusCode != null){
+					result = statusCode;
+				}
+			}	
+			return result;
+		</method>
+   	</node>
+</library>

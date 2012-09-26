@@ -1,0 +1,30 @@
+<library>
+
+    <!-- *************************************
+         absolutelayout
+         
+         moves view coordinates to layout's frame of reference
+         *************************************** -->
+    <class name="AbsoluteLayout" extends="layout">
+
+        <method name="addSubview" args="newsub"><![CDATA[
+            //prevent a double add
+            var add = true;
+            for (var i in this.subviews) {
+                if (this.subviews [i] == newsub) {
+                    add = false;
+                    break;
+                }
+            }
+            
+            if (add) this.subviews.push (newsub);
+        ]]></method>
+
+
+        <method name="clearSubviews">
+            this.subviews = [];
+        </method>
+
+    </class>
+
+</library>

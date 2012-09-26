@@ -1,0 +1,13 @@
+<library>
+
+    <include href="CachablePanel.lzx"/>
+    <include href="CachableAnswerAreaPanel.lzx"/>
+    <include href="CachableAnswerChoice.lzx"/>
+    <include href="CachableSelector.lzx"/>
+    <include href="CachableTextField.lzx"/>
+    <include href="CachableImage.lzx"/>
+    <include href="CachableConstructedResponsePanel.lzx"/>
+
+    <include href="lib"/>
+
+</library>

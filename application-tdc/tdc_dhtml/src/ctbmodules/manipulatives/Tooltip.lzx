@@ -1,0 +1,107 @@
+<library>
+
+    <class name="Tooltip" visible="false"
+           datapath="dssubtest:/subtest/testing_session_data/lms.student.accommodations/stereotype_style[@stereotype = 'answerArea']">
+
+
+        <handler name="ondata" args="data">
+        	if(data!=null){
+	            if (data.hasAttr ('bgcolor')) {
+	            	var backgroundColor = data.getAttr('bgcolor');
+	            	Debug.write("backgroundColor************ ",backgroundColor);
+	                this.box.contents.setAttribute ('bgcolor', backgroundColor);
+	                this.point.setAttribute('resource', this.getResourceForColor(backgroundColor));
+	            } 
+	            if (data.hasAttr ('font_color')) {
+	                this.box.contents.label.setAttribute ('fgcolor', Number (data.getAttr ('font_color')));
+	                this.box.setAttribute('bgcolor', Number (data.getAttr ('font_color')));
+	            } 
+	            if (data.hasAttr ('font_magnification')) {
+	                this.box.contents.label.setAttribute ('fontsize', data.getAttr ('font_magnification') * canvas.fontsize);
+	            }
+            }
+        </handler>
+
+		<method name="getResourceForColor" args="backgroundColor">
+			var bgc = backgroundColor.toUpperCase();
+			var result = 'tooltip_point_FFFFB0';
+			if(bgc == "0XCCECFF"){
+				result = 'tooltip_point_CCECFF';
+			}
+			else if(bgc == "0XFFCCCC"){
+				result = 'tooltip_point_FFCCCC';
+			}
+			else if(bgc == "0XFFFFB0"){
+				result = 'tooltip_point_FFFFB0';
+			}
+			else if(bgc == "0XFFFFFF"){
+				result = 'tooltip_point_FFFFFF';
+			}
+			else if(bgc == "0X000000"){
+				result = 'tooltip_point_000000';
+			}
+			else if(bgc == "0X000080"){
+				result = 'tooltip_point_000080';
+			}
+			else if(bgc == "0X663300"){
+				result = 'tooltip_point_663300';
+			}
+			else if(bgc == "0XFFFF99"){
+				result = 'tooltip_point_FFFF99';
+			}
+			else if(bgc == "0X00CC00"){
+				result = 'tooltip_point_00CC00';
+			}
+			return result;
+		</method>
+		
+        <method name="showTooltip" args="text">
+        	// reset point x - it might have changed
+        	this.point.setAttribute('x', 5);
+            var label = this.box.contents.label;
+            label.setAttribute ('text', text);
+            label.setAttribute ('height', 
+                                 label.getTextHeight () + label.fontsize/3);
+			
+			// need to confine tooltip to the item canvas
+			var tooltipX = parent.getMouse ('x') - this.point.x;
+			var tooltipY = parent.getMouse ('y') + 13;
+			if( tooltipX + this.width &gt; 800){
+				this.point.setAttribute('x', tooltipX + this.width - 800);
+				tooltipX = 800 - this.width;
+			}
+			else if(tooltipX &lt; 0){
+				tooltipX = 0;
+			}
+			if(tooltipY + this.height &gt; 453){
+				tooltipY = 453 - this.height;
+			}
+			else if(tooltipY &lt; 0){
+				tooltipY = 0;
+			}
+
+            this.setAttribute ('x', tooltipX);
+            this.setAttribute ('y', tooltipY);
+            this.setAttribute ('visible', true);
+            this.bringToFront();
+        </method>
+
+        <method name="hideTooltip">
+            this.setAttribute ('visible', false);
+        </method>
+
+
+        <view name="box" y="3" bgcolor="0x000000"
+              width="${this.contents.width + 2}" height="${this.contents.height + 2}">
+            <view name="contents" y="1" x="1" bgcolor="0xFFFFCC"
+                  width="${this.label.width + this.label.fontsize/2}"
+                  height="${this.label.height}">
+                <text name="label" align="center" valign="middle" 
+                      resize="true" fontstyle="bold"/>
+            </view>
+        </view>
+
+        <view name="point" resource="tooltip_point_FFFFB0" x="5"/>
+    </class>
+
+</library>

@@ -1,0 +1,108 @@
+<library>
+    <include href="CachableComponent.lzx"/>
+    <include href="../../../Controllers/ReadableText.lzx"/>
+
+    <!-- ===============
+         ==
+         == CachableInputTextField
+         ==
+         ==  A cachable text field to be used with inline cr answer area.  
+         ==
+         =============== -->
+
+    <class name="CachableInputTextField" extends="CachableComponent" 
+           comptype="$once {gCompTypes.WIDGET_INPUT_TEXT}" aaactive="true" aasilent="false"> 
+
+		<attribute name="altText" type="string" />
+		<attribute name="readableText" type="string" />
+		<attribute name="hasReadableText" type="boolean" value="$once{canvas.readable}"/>
+        <attribute name="hlstatus" value="$once{new lz.datapointer()}"/>
+		<attribute name="isHighlighter" type="boolean" value="false"/>
+        <attribute name="eraserstatus" value="$once{new lz.datapointer()}"/>        
+		<attribute name="isEraser" type="boolean" value="false"/>
+		<attribute name="isReadable" type="boolean" 
+                      value="${!isHighlighter &amp;&amp; !isEraser &amp;&amp; hasReadableText}"/>
+        
+        <handler name="ondata" args="data" reference="hlstatus">
+            this.setAttribute ('isHighlighter', data == 'sel');
+        </handler>
+
+        <handler name="ondata" args="data" reference="eraserstatus">
+            this.setAttribute ('isEraser', data == 'sel');
+		</handler>
+
+        <method name="init">
+            super.init();
+        </method>
+        
+		<method name="setText" args="txt">
+			thetext.setAttribute('text', txt);
+			//no need for this
+			//thetext.setAttribute('width', thetext.getWidth() + 1);
+		</method>
+		
+		<method name="setAltText" args="altTxt">
+//Debug.write("CachableInputTextField.setAltText: " + altTxt);
+			thetext.setAttribute('altText', altTxt);
+		</method>
+		
+		<method name="setReadableText" args="txt">
+			this.setAttribute("readableText", txt);
+		</method>
+		
+        <handler name="oninit">
+            this.hlstatus.setAttribute ('rerunxpath', true);
+            this.eraserstatus.setAttribute ('rerunxpath', true);
+ 
+            this.hlstatus.setXPath('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@highlighter');
+            this.eraserstatus.setXPath('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@eraser');
+        </handler>
+
+        <method name="read" args="s">
+        	var txt = gController.substituteInputText(this.readableText);
+			gReadableText.read(gReadableText.getReadableTextForCharacter(txt),false);
+        </method>
+
+
+        <!-- ===============
+             = METHODS
+             =============== -->
+        <method name="updateReadableText"><![CDATA[
+//Debug.write("CachableInputTextField updateReadableText");
+        	setAttribute('hasReadableText', canvas.readable);
+        ]]></method>
+
+        <!-- ===============
+             = VIEWS
+             =============== -->
+        
+           <view name="clickregionreader"
+                 width="${classroot.thetext.width}"
+                 height="${classroot.thetext.height}"
+                 clickable="${classroot.isReadable}">
+               <handler name="onclick">
+                   classroot.read();
+               </handler>
+           </view>
+
+           <text name="thetext" multiline="false" resize="true"
+               fgcolor="${classroot.fontcolor}"
+               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" width="1">
+               <handler name="onwidth" args="w"><![CDATA[
+					var xin = classroot.parent.parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
+//					Debug.write('xin..', classroot.parent.parent, classroot.parent.parent.comptype);	
+					if(this.width > classroot.parent.width - xin) {
+//					Debug.write('this.width, parent.width - xin..',this.width, parent.width - xin);
+						this.setAttribute('resize', false);
+						this.setAttribute('multiline',true);
+						this.setAttribute('width', classroot.parent.width - xin);
+						this.setAttribute('height', this.getTextHeight() + 6);
+					}
+					else {
+						this.setAttribute('resize', true);
+						this.setAttribute('multiline',false);
+					}
+               ]]></handler>
+           </text>
+ 	</class>
+</library>

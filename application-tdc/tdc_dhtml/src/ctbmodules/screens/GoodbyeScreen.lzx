@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library>
+	<dataset name="goodbyeDs" 
+			 type="http"
+	         queuerequests="true" 
+	         querytype="get"
+	         timeout="10000" 
+	         onerror="exitRequest._dosomething(this)" 
+	         ontimeout="exitRequest._dosomething(this)" 
+	         ondata="exitRequest._dosomething(this)" />
+	         
+	<node id="exitRequest">
+		<method name="_dosomething" args="ds" >
+			exitRequest.exit();
+		</method>
+		
+		<method name="exit">
+        	Debug.write("On Goodbye Screen");
+        	//gMusicPlayer.stop();
+	    	//var getUrl = lz.Browser.getInitArg( 'servletUrl' ) + '/UtilityServlet.do?method=exit';
+	    	var base = "http://192.168.15.33:12345/servlet/fixed";
+	    	var getUrl = base + '/UtilityServlet.do?method=exit';
+			goodbyeDs.setAttribute('src', getUrl);
+			goodbyeDs.doRequest();
+		</method>
+	</node>
+	
+    <class name="GoodbyeScreen">
+		<text font="Arial" fontsize="24" height="36" align="center" valign="middle" fgcolor="white">Good-bye!</text>    
+	</class>
+</library>

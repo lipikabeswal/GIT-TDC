@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string" xmlns="">
+	<save_testing_session_data>
+		<tsd lsid="" scid="" mseq="" cid="" >	
+			<lev e=""/>
+		</tsd>
+	</save_testing_session_data>
+</adssvc_request>
