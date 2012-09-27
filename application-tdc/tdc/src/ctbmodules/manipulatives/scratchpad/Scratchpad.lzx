@@ -38,27 +38,29 @@
         </handler>
 
 		<handler name="onmouseup" reference="lz.GlobalMouse" args="who">
-			if(lz.Focus.getFocus() == sp.inp){  // user may have changed selection using mouse
-				this.sp.storeSelection();
-			}
-			else if(isScratchpadSubcomponent(who)){ // user clicked on scrollbar, etc.
-				gScratchpad.restoreFocusAndCursor();
-			}
-			else if (who == this){
-				this.sp.inp.setSelectable(true);
-            	lz.Cursor.unlock ();
-            	gController.restoreCurrentCursor();
-            	restoreFocusAndCursor();
-			}
-			else if (who == gPauseButton || who == gStopButton || who == gFinishTestButton){
-				if(this.scratchpadJustLostFocus){
-					gController.setAttribute("focusOnScratchpad", true);
+			if(who){
+				if(lz.Focus.getFocus() == sp.inp){  // user may have changed selection using mouse
+					this.sp.storeSelection();
 				}
+				else if(isScratchpadSubcomponent(who)){ // user clicked on scrollbar, etc.
+					gScratchpad.restoreFocusAndCursor();
+				}
+				else if (who == this){
+					this.sp.inp.setSelectable(true);
+	            	lz.Cursor.unlock ();
+	            	gController.restoreCurrentCursor();
+	            	restoreFocusAndCursor();
+				}
+				else if (who == gPauseButton || who == gStopButton || who == gFinishTestButton){
+					if(this.scratchpadJustLostFocus){
+						gController.setAttribute("focusOnScratchpad", true);
+					}
+				}
+				else if (gItemInterface.visible){
+					gController.setAttribute("focusOnScratchpad", false);
+				}
+				this.setAttribute("scratchpadJustLostFocus", false);
 			}
-			else if (gItemInterface.visible){
-				gController.setAttribute("focusOnScratchpad", false);
-			}
-			this.setAttribute("scratchpadJustLostFocus", false);
 		</handler>
 		
 		<method name="isScratchpadSubcomponent" args="who">
