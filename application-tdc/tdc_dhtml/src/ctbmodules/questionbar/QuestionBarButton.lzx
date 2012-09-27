@@ -1,8 +1,8 @@
 <library>
-
+	<include href="../resources/resources.lzx"/>
 
     <class name="QuestionBarButton"  
-           clickregion="../resources/iknow_navbar/click_region.swf" 
+           clickregion="question_bar_btn_click_region"
            width="26">
 
         <attribute name="itemeid" value="$path{ '@eid' }"/>

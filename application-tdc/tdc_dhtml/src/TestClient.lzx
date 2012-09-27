@@ -106,7 +106,6 @@
     	//Debug.write("HTML Embed Setting:" + flashSystem.Stage.showMenu);
     	//flashSystem.Stage.showMenu = false;
     	//Debug.write("Active Setting:" + flashSystem.Stage.showMenu);
-		gController.setAttribute("servletUrl","http://192.168.15.33:12345/servlet/fixed");
 				
 		if(canvas.debug){
 			canvas.titleView.mainView.scalingView.setAttribute('xscale',canvas.titleView.width/800);
@@ -117,19 +116,18 @@
 	<method name="init">
        super.init();
        Debug.write("on init of canvas");
-       /*Debug.write("folder name************* ",lz.Browser.getInitArg('folder'));
+       Debug.write("folder name************* ",lz.Browser.getInitArg('folder'));
        var folder = lz.Browser.getInitArg('folder');
        if (folder) this.setAttribute("folder", folder);
        var user = lz.Browser.getInitArg('user');
-       if (user) this.setAttribute("user", user);*/
+       if (user) this.setAttribute("user", user);
        <!-- canvas.setDefaultContextMenu(null); -->
        /*var cmenu = new lz.ContextMenu();
        cmenu.hideBuiltInItems();
        cmenu.setAttribute('delegate',new lz.Delegate(this,'doNothing'));
 	   canvas.setDefaultContextMenu(cmenu);*/
 	   
-	   this.setAttribute("folder", "calif");
-	   //this.setAttribute("user", user);
+	   //this.setAttribute("folder", "calif");
 	   //flashSystem.Stage.showMenu = false;
     </method>
 

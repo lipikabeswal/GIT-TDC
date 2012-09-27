@@ -17,9 +17,9 @@
 		<method name="exit">
         	Debug.write("On Goodbye Screen");
         	//gMusicPlayer.stop();
-	    	//var getUrl = lz.Browser.getInitArg( 'servletUrl' ) + '/UtilityServlet.do?method=exit';
-	    	var base = "http://192.168.15.33:12345/servlet/fixed";
-	    	var getUrl = base + '/UtilityServlet.do?method=exit';
+	    	var getUrl = lz.Browser.getInitArg( 'servletUrl' ) + '/UtilityServlet.do?method=exit';
+	    	/*var base = "http://192.168.15.33:12345/servlet/fixed";
+	    	var getUrl = base + '/UtilityServlet.do?method=exit';*/
 			goodbyeDs.setAttribute('src', getUrl);
 			goodbyeDs.doRequest();
 		</method>

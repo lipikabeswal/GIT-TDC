@@ -56,8 +56,8 @@
 		<attribute name="_GENDER_VALUE" type="string" value="female" />
 		
 		<handler name="oninit">
-			//var base = lz.Browser.getInitArg( 'servletUrl' );
-			var base = "http://192.168.15.33:12345/servlet/fixed";
+			var base = lz.Browser.getInitArg( 'servletUrl' );
+			//var base = "http://192.168.15.33:12345/servlet/fixed";
 			persistenceDs.setAttribute('src', base + '/PersistenceServlet.do');
 			heartbeatDs.setAttribute('src', base + '/PersistenceServlet.do');
 			contentDs.setAttribute('src', base + '/ContentServlet.do');

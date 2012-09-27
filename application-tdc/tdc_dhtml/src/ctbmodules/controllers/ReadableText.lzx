@@ -43,9 +43,9 @@
         </method>
         
 		<handler name="oninit">
-			//var postUrl = lz.Browser.getInitArg( 'servletUrl' ) + '/SpeechServlet.do';
-			var base = "http://192.168.15.33:12345/servlet/fixed";
-			var postUrl = base + '/SpeechServlet.do';
+			var postUrl = lz.Browser.getInitArg( 'servletUrl' ) + '/SpeechServlet.do';
+			/*var base = "http://192.168.15.33:12345/servlet/fixed";
+			var postUrl = base + '/SpeechServlet.do';*/
 			var getUrl = postUrl + '?file=speech.mp3';
 			setAttribute('GET_URL', getUrl);
 			speechDs.setAttribute('src', postUrl);

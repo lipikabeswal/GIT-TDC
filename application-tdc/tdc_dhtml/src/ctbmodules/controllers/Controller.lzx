@@ -499,7 +499,6 @@
 		<attribute name="totalNumberOfTests" value="null" />
 		<attribute name="stuLoginDetails" value="$once{new Object()}"/>
 		
-		<attribute name="servletUrl"/>
 		<!--
 			============================================================
 			Datapointers
@@ -614,8 +613,8 @@
 
 		<handler name="oninit">
         	gScreens.showLogin();
-			//var base = lz.Browser.getInitArg( 'servletUrl' );
-			var base = "http://192.168.15.33:12345/servlet/fixed";
+			var base = lz.Browser.getInitArg( 'servletUrl' );
+			//var base = "http://192.168.15.33:12345/servlet/fixed";
 			dsitem.setAttribute('src', base + '/ContentServlet.do'); 
 			dsMusic.setAttribute('src', base + '/ContentServlet.do');   
 			//Debug.write("On Init Controller");
@@ -1135,6 +1134,9 @@
 		</method>
 
 		<method name="updateSubtest" args="response"><![CDATA[
+			/*var s = "javascript:checkVals('updateSubtest   ','"+ response +"','')";
+			lz.Browser.loadJS(s);*/
+			
     		var subtest = new lz.DataElement('subtest');
     		var obAssessment = lz.DataElement.stringToLzData(response);
     		var sco = getCurrentSubtest();
@@ -1144,6 +1146,15 @@
 			}
     		subtest.setAttribute('childNodes',new Array(obAssessment, sco, this.testSessionData));
 			dssubtest.setAttribute('childNodes',new Array(subtest));
+			var dsarray = dssubtest.childNodes;
+			for(var i=0;i<dsarray.length;i++){
+				var s = "javascript:checkVals('updateSubtest   ','"+ dsarray[i] +"','')";
+				lz.Browser.loadJS(s);
+
+				var p = "javascript:checkVals('updateSubtest   break','','')";
+				lz.Browser.loadJS(p);
+			}
+
     	]]></method>
 
 		<method name="getTestingSessionData">
@@ -2459,7 +2470,12 @@
          //hideMagnifierGlass(); 
         ]]></method>
 
-		<method name="changeItem" args="fnode"><![CDATA[		
+		<method name="changeItem" args="fnode"><![CDATA[	
+			var p = (fnode != null);
+			var s = "javascript:checkVals('inside changeItem ','"+p+"','"+fnode+"')";
+					lz.Browser.loadJS(s);
+			
+				
 			if(fnode != null) {			
 				/*if(this.recorder != null) {
 					this.recorder.stopblinker('stop');
@@ -2495,7 +2511,7 @@
             return currItemOffset() == (totalitems - 1);
         </method>
 
-		<method name="currItemOffset">
+		<method name="currItemOffset"><![CDATA[
             var curreid = Number(
                 dpstudentdata.xpathQuery( 'current_item/item_model/@eid' )
             );
@@ -2506,9 +2522,28 @@
                 "']"
             );
 
-            if (fnode)
+			var dsarray = dpsubtest.xpathQuery(
+                "/subtest/ob_assessment/ob_element_list/f[@id='2']");
+			var s = "javascript:checkVals('currItemOffset  dpsubtest ','"+ dsarray +"','')";
+			lz.Browser.loadJS(s);
+
+			Debug.write("fnode****************** ",fnode);
+
+			/*var s = "javascript:checkVals('"+curreid+"  ','"+fnode+"')";
+			lz.Browser.loadJS(s);*/
+
+			/*var off = fnode.getOffset();
+
+			var s = "javascript:checkVals('currItemOffset','"+curreid+"  ','"+off+"')";
+			lz.Browser.loadJS(s);*/
+
+            if (fnode){
+				var s = "javascript:checkVals('fnode is present','"+fnode.getOffset()+"','')";
+				lz.Browser.loadJS(s);
                return fnode.getOffset();
+			}
             return 0;
+		]]>
         </method>
 		
 		<!-- recursively get the next navigable item's offset -->
@@ -2545,9 +2580,18 @@
 		]]></method>
 		
 		<method name="getItemFromOffset" args="offset"><![CDATA[
+			var s = "javascript:checkVals('inside getItemFromOffset  ','"+offset+"','')";
+				lz.Browser.loadJS(s);
+
+
 //Debug.write("getItemFromOffset called with offset: "+offset);			
             var eltlist = dpsubtest.xpathQuery('/subtest/ob_assessment/ob_element_list');
             var fnode = eltlist.childNodes[ offset ];
+
+			var abc = dpstudentdata.xpathQuery("runtime/item_model[@eid='"+fnode.getAttr('id')+"']");
+
+			var p = "javascript:checkVals('inside getItemFromOffset dpstudentdata ','"+abc+"','')";
+				lz.Browser.loadJS(p);
 
 //Debug.write("offset : fnode : "+offset+" : "+fnode);
            	if(typeof fnode != "undefined") {
@@ -2610,13 +2654,24 @@
 			var totalitem = Number(
 				dpstudentdata.xpathQuery( 'question_number/@total_including_theme')  );
             
+			var s = "javascript:checkVals('stepNavigateForward ','"+curritem+"','"+totalitem+"')";
+			lz.Browser.loadJS(s);
+			
 			if ( !onLastItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && 
 					dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm 
 					&& !(gController.getNextNavigableOffset(curritem) == totalitem )){
+					var s = "javascript:checkVals('stepNavigateForward inside if ','','')";
+					lz.Browser.loadJS(s);
+					
             		this.showRevisitPopup("goOn");
 				}else{
+					var d = currItemOffset();
+					if(d!=null){
+					var s = "javascript:checkVals('stepNavigateForward inside else ','"+d+"','')";
+					lz.Browser.loadJS(s);	}					
+
 					changeItem( getItemFromOffset( currItemOffset() + 1 ) );
             	}
             }

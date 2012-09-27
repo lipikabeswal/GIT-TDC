@@ -195,12 +195,12 @@
                 Debug.write("after setAAText");
             }
 		]]></method>
-		
-		<method name="embedded_input_field" args="data"><![CDATA[
+		<method name="embedded_input_field" args="data"/>
+		<!--<method name="embedded_input_field" args="data"><![CDATA[
         	setTextReaderAttributes(data);
         	var allFields = new Array();
 			var dataText = data.getFirstChild().data;
-			Debug.write("dataText----------- ",dataText);
+			Debug.write("dataText ",dataText);
 			
 			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
 			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
@@ -362,7 +362,7 @@
             		theField.setReadableText(gReadableText.stripHtmlTags(readableText));
             	}
             }
-            Debug.write("theField------------- ",allFields);
+            Debug.write("theField ",allFields);
             var xin = parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
 			// For inline cr, to avoid overlapping of text objects, set value to 0
             var xsp = gController.hasFontAccommodation ? 0 : (this.embedded_input ? 0 : -1); ;
@@ -387,7 +387,7 @@
 			if (data.getAttr("rmargin"))
                 this.setAttribute("rmargin", data.getAttr("rmargin"));
             this.ibox.bringToFront();
-        ]]></method>
+        ]]></method>-->
 		
 <!--          <method name="embedded_field" args="data"><![CDATA[
         	setTextReaderAttributes(data);
@@ -637,7 +637,10 @@
             }
         ]]></method>
  -->		
-         <method name="embedded_inlineimage_field" args="data"><![CDATA[
+        
+        <method name="embedded_inlineimage_field" args="data"/>
+        
+        <!-- <method name="embedded_inlineimage_field" args="data"><![CDATA[
         	setTextReaderAttributes(data);
         	var allFields = new Array();
 			var dataText = data.getFirstChild().data;
@@ -739,7 +742,7 @@
 			if (data.getAttr("rmargin"))
                 this.setAttribute("rmargin", data.getAttr("rmargin"));
             this.ibox.bringToFront();
-        ]]></method>
+        ]]></method>-->
  
         <method name="doReturnToCache"><![CDATA[
             var destroy = false;
