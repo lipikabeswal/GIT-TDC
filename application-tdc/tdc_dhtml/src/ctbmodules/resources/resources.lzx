@@ -490,11 +490,11 @@
     <resource name="half_inch_tick_marks" src="manipulatives/ruler/half_inch_tick_marks.png"/>
     <resource name="millimeter_tick_marks" src="manipulatives/ruler/millimeter_tick_marks.png"/>
     <!-- <resource name="centimeter_tick_marks" src="manipulatives/ruler/centimeter_tick_marks.png"/> -->
-    <resource name="centimeter_tick_marks" src="manipulatives/ruler/millimeter_tick_marks.png"/>
+    <resource name="centimeter_tick_marks" src="manipulatives/ruler/centimeter_tick_marks.png"/>
 
     <resource name="inches_label" src="manipulatives/ruler/inches_label.png"/>
     <!-- <resource name="centimeters_label" src="manipulatives/ruler/centimeters_label.png"/>-->
-    <resource name="centimeters_label" src="manipulatives/ruler/inches_label.png"/>
+    <resource name="centimeters_label" src="manipulatives/ruler/centimeters_label.png"/>
     <resource name="straight_label" src="manipulatives/ruler/straight_label.png"/>
     <resource name="masking_label" src="manipulatives/ruler/masking_label.png"/>
     
@@ -521,8 +521,8 @@
  	<resource name="FCAT_refcard_contents" src="manipulatives/refcard/FCAT_refcard_contents.png"/>
   	<!-- <resource name="TN_refcard_title" src="manipulatives/refcard/TN_refcard_title.swf"/>
  	<resource name="TN_refcard_contents" src="manipulatives/refcard/TN_refcard_contents.swf"/> -->
- 	<resource name="TN_refcard_title" src="manipulatives/refcard/FCAT_refcard_title.png"/>
- 	<resource name="TN_refcard_contents" src="manipulatives/refcard/FCAT_refcard_contents.png"/>
+ 	<resource name="TN_refcard_title" src="manipulatives/refcard/TN_refcard_title.png"/>
+ 	<resource name="TN_refcard_contents" src="manipulatives/refcard/TN_refcard_contents.png"/>
 
     <resource name="theme" src="iknow_navbar/themePage.png" />
      <resource name="theme_disable" src="iknow_navbar/themePage_disable.png" />
