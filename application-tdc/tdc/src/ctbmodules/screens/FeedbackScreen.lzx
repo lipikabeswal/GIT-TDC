@@ -14,8 +14,11 @@
  		<attribute name="correctNonSr" type="number" value="0" />
         <datapointer name="dpfeedback"
                      xpath="dsfeedback:/student_feedback_data"/>
+		<datapointer name="dplogin" xpath="dslogin:/login_response"/>		
  		
  		<method name="showFeedback" args="feedback"><![CDATA[
+			//Debug.write("feedback response*********", feedback);
+			//printBigString(feedback);
  			var allScos = new Array();
    			var node = LzDataNode.stringToLzData(feedback);
             dsfeedback.setChildNodes(new Array(node));
@@ -36,14 +39,36 @@
 					}
 				}
 			}
-			var scoIndex = 0;
-			for(var i=0; i<allScos.length; i++){		
-				var thisSco = allScos[i];
-				if(thisSco != null){
-					scos[scoIndex] = thisSco;
-					scoIndex++;
+
+			var subtestArr = new Array();
+			var subtests = dplogin.xpathQuery('manifest/sco');
+			if(subtests instanceof LzDataElement) {
+				subtestArr[0] = subtests.getAttr('id');
+			}
+			else {
+				for(var i=0; i<subtests.length; i++) {
+					var subtest = subtests[i];
+					var subtestId = subtest.getAttr('id');
+					subtestArr[i] = subtestId;
 				}
 			}
+			
+			var scoIndex = 0;			
+			for(var i=0; i<allScos.length; i++){		
+				var thisSco = allScos[i];
+				var thisScoId = thisSco.getAttr('id');				
+				if(thisSco != null){
+					for(var j=0; j<subtestArr.length; j++) {
+						var currSubtestId = subtestArr[j];
+						if(currSubtestId == thisScoId) {
+							scos[scoIndex] = thisSco;
+							scoIndex++;
+							break;
+						}
+					}
+				}
+			}
+		
 			addScoValues();
 			showCurrentFeedback();
  		]]></method>
@@ -89,7 +114,9 @@
 			}
 			else{
 				var sco = scos[currentScoIndex];
-				var title = sco.getAttr('title');
+				var scoTitle = sco.getAttr('title');
+				var titleArr = scoTitle.split("::");
+				var title = titleArr[2];
 				var raw = sco.getAttr('raw');
 				var max = sco.getAttr('max');
 				var unscored = sco.getAttr('unscored');
