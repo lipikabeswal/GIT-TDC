@@ -2,7 +2,7 @@
 	<include href="../resources/resources.lzx"/>
 
     <class name="QuestionBarButton"  
-           clickregion="question_bar_btn_click_region"
+           
            width="26">
 
         <attribute name="itemeid" value="$path{ '@eid' }"/>
