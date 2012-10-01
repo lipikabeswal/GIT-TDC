@@ -4,15 +4,20 @@
 
         <stableborderlayout axis="y"/>
         
-        <view name="top" width="100%">
+        <view name="middle">
+            <view resource="resources/screens_background.png" 
+                   tintcolor="0x527DA4"/>
+        </view>
+        
+        <!-- <view name="top" width="100%">
             <stableborderlayout axis="x"/> 
             <view resource="resources/top_lft_slct.png" tintcolor="0x527DA4" height="100%" width="3%"/> 
             <view resource="resources/top_mid_slct.png" 
                   tintcolor="0x527DA4" height="100%" width="3%"/> 
             <view resource="resources/top_rt_slct.png" tintcolor="0x527DA4" height="100%" width="3%"/> 
-        </view>
+        </view> -->
 
-        <!--<view name="middle" width="100%">
+        <!--<view name="middle" width="100%">		screens_background
             <stableborderlayout axis="x"/>
             <view resource="resources/mid_lft_slct.png"
                   width="2%" height="100%" tintcolor="0x527DA4"/>
@@ -22,7 +27,7 @@
                  width="2%" tintcolor="0x527DA4" /> 
         </view> -->
 		
-		<view name="middle" width="100%">
+		<!-- <view name="middle" width="100%">
             <stableborderlayout axis="x"/>
             <view resource="resources/mid_lft_slct.png" width="2%" 
                    tintcolor="0x527DA4"/>
@@ -38,7 +43,7 @@
             <view resource="resources/bot_mid_slct.png" 
                   tintcolor="0x527DA4" height="100%" width="3%"/>
             <view resource="resources/bot_rt_slct.png" tintcolor="0x527DA4" height="100%" width="3%"/> 
-        </view>
+        </view> -->
 
     </class>
 

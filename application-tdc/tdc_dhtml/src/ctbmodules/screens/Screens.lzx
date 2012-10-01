@@ -313,10 +313,10 @@
         </method>
 
        	  <view name="contents" options="ignorelayout"
-              x="${ classroot.middle.center.x }"
-              y="${ classroot.middle.y }"
-              width="${ classroot.middle.center.width }"
-              height="${ classroot.middle.center.height }">
+              x="${ classroot.middle.x+15 }"
+              y="${ classroot.middle.y+15}"
+              width="${ classroot.middle.width -20}"
+              height="${ classroot.middle.height }">
 
             <LoginScreen   name="ls" width="100%" height="100%"
                            initstage="immediate"/>
