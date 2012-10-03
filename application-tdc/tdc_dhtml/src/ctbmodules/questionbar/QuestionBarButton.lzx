@@ -83,7 +83,7 @@
 
 				if(this.isvisited || this.isanswered){
 						this.btn.setAttribute('clickable',true);
-						this.btn.setAttribute('showhandcursor',false);
+						//this.btn.setAttribute('showhandcursor',false);
 						//For Defect 65886
 						this.btnText.setAttribute('fgcolor',0xE0E0E0);
 						this.themeResource = 'theme_disable';
@@ -91,12 +91,12 @@
 					}else{
 						this.btnText.setAttribute('fgcolor',0x000000);
 						this.btn.setAttribute('clickable',false);
-						this.btn.setAttribute('showhandcursor',true);
+						//this.btn.setAttribute('showhandcursor',true);
 						//Debug.write("**********btn clickable false*********");
 					}
 				}else{
 					this.btn.setAttribute('clickable',false);
- 					this.btn.setAttribute('showhandcursor',true);
+ 					//this.btn.setAttribute('showhandcursor',true);
 					this.btnText.setAttribute('fgcolor',0x000000);
 					//Debug.write("**********btn clickable false*********");
 				}
