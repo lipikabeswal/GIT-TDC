@@ -135,6 +135,7 @@
 
             <handler args="r" name="onresponseval" reference="column">
                 if ( r  == this.value ) {
+					this.column.clear();
                     this.column.selman.select (this);   
                     this.circle.setAttribute ('frame',this.column.backcolor == lz.colors.black ? 2 : 3);
                     this.wrapper.textg.setAttribute ('fgcolor', this.column.backcolor);	
