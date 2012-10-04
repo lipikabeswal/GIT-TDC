@@ -2621,11 +2621,11 @@
 		<!-- question state -->
 		<method name="toggleMark"><![CDATA[
 		//For Defect 65880
-        	if(!this.isThemePage() && this.allowRevisit && !gController.fwdOnly){
+			if(this.isThemePage()!='true' && this.allowRevisit && !gController.fwdOnly){
 	        	freezeUI();
 	        	var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
 	        	var isMarked = dncurritem.getAttr( 'marked' );
-	        	if(isMarked == null || isMarked == '0'){
+	        	if(isMarked == null || isMarked == '0' || isMarked == 'false'){
 	        		markQuestion( true );
 	        	}
 	        	else{
@@ -3855,7 +3855,6 @@ Debug.write("############ loadItem ############");
 					}
 				}
 			}
-			Debug.write("Reset Call");
 			this.resetImageArray();
 			this.setAttribute('isaudio',false);
 			

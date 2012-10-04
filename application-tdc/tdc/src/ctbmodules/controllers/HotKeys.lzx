@@ -282,7 +282,7 @@
 		<![CDATA[
 			if(!gController.fwdOnly){
         		if(!gController.onFirstItem()){
-        			lz.focus.clearFocus();
+        			lz.Focus.clearFocus();
         		}
         	
             	this.exitPopups();
@@ -292,7 +292,7 @@
 		</method>
         <method name="goOn"> 
         	if(!gController.onLastItem()){
-        		lz.focus.clearFocus();
+        		lz.Focus.clearFocus();
         	}
             this.exitPopups(); 
         	gController.stepNavigateForward();     
@@ -307,20 +307,20 @@
         </method>
         <method name="pause"> 
         	if(gController.pausable == 'true'){
-        		lz.focus.clearFocus();
+        		lz.Focus.clearFocus();
         	}
             this.exitPopups(); 
         	if(gItemInterface.visible == true || gTutorial.visible == true)
         		gController.pauseTest();
         </method>
         <method name="stop">       
-        	lz.focus.clearFocus();
+        	lz.Focus.clearFocus();
             this.exitPopups();
         	if(gItemInterface.visible == true || gTutorial.visible == true)
         		gController.finishTest();              
         </method>
         <method name="finish">     
-        	lz.focus.clearFocus();
+        	lz.Focus.clearFocus();
             this.exitPopups(); 
         	gController.finishTestShortcut();      
         </method>
