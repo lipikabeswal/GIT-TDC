@@ -93,6 +93,17 @@
 			}
 		</handler>
 
+		<method name="setSelected" args="isselected">
+			Debug.write("setSelected gridButton" , isselected);
+                if (isselected) {
+                    this.circle.setAttribute('frame',this.column.backcolor == lz.colors.black ? 2 : 3);
+                    this.wrapper.textg.setAttribute ('fgcolor', this.column.backcolor);
+                } else {
+                    this.circle.setAttribute('frame',1);
+                    this.wrapper.textg.setAttribute ('fgcolor', this.column.textcolor);
+                }
+            </method>
+
         <!-- ========
              states
              ======== -->
@@ -135,18 +146,17 @@
 
             <handler args="r" name="onresponseval" reference="column">
                 if ( r  == this.value ) {
-					this.column.clear();
-                    this.column.selman.select (this);   
+                    this.column.selman.select (this); 
                     this.circle.setAttribute ('frame',this.column.backcolor == lz.colors.black ? 2 : 3);
                     this.wrapper.textg.setAttribute ('fgcolor', this.column.backcolor);	
-					this.setAttribute('ref',this);                    
+					this.setAttribute('ref',this);       
                 }
             </handler>
 
 
 
             <!-- show selected/up state -->
-	 <!-- 	<method name="setSelected" args="isselected">
+	 	<!--<method name="setSelected" args="isselected">
 			Debug.write("setSelected gridButton" , isselected);
                 if (isselected) {
                     this.circle.setAttribute('frame',this.column.backcolor == lz.colors.black ? 2 : 3);
