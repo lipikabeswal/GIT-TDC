@@ -208,7 +208,7 @@
                     }
                     super.addSubview( newsub );
                 </method>
-                <method name="update" args="v=null">
+                <!--  <method name="update" args="v=null">
                     <![CDATA[
                     if ( this.locked ) return;
                     var gripper_left = 15, gripper_right = 15;
@@ -246,17 +246,21 @@
                     parent.gripper_right.setAttribute('x', next_x);
                     parent.gripper_right.setAttribute('width', parent.controls.x - next_x);
                     ]]>
-                </method>
+                </method>-->
             </layout>
-            <view name="gripper_left" y="1" resource="window_gripper_rsc" width="16"
+            <view name="gripper_left" y="1" resource="window_gripper_rsc" width="${((parent.width - parent.title.width - parent.controls.width)/2) - 5}"
                 clip="true" frame="${classroot.state}" />
 
             <view name="icon"/>
             <text name="title" fgcolor="${classroot['style'] ? classroot.style.textcolor : null}"
                 opacity="${classroot.state == 2 ? .7 : 1}"
-                    text="${classroot.title}" y="-1" resize="false" width="100%"/>
+                    text="${classroot.title}" y="-3" 
+					x="${parent.gripper_left.x + parent.gripper_left.width + 5 &lt; 0 ? 0 : parent.gripper_left.x + parent.gripper_left.width + 5 }"
+					resize="false" />
             <view name="gripper_right" y="1" resource="window_gripper_rsc"
-                clip="true" frame="${classroot.state}"/>
+                clip="true" frame="${classroot.state}"
+				width="${parent.gripper_left.width - 5}"
+				x="${parent.title.x + parent.title.width + 5}"/>
 
             <view name="controls" align="right">
                 <simplelayout axis="x" spacing="5"/>
