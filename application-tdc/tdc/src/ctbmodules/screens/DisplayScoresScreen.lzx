@@ -40,21 +40,6 @@
 				scoIndex++;
 			}
 		}
-		
-		var completionCount = 0;
-		var scoArray = dpscore.xpathQuery('title/sco');
-		for(var i=0; i<scoArray.length; i++){
-			var sco = scoArray[i]; 
-			var title = sco.getAttr('title');
-			var titleArray = title.split("::");
-			var completionStatus = titleArray[6];
-			if(completionStatus == 'CO') {
-				completionCount++;
-			}
-		}
-		
-		this.setAttribute('statusCount',completionCount);
-		this.setAttribute('subtestCount',scoIndex);
 
 		var scdp = new LzDatapointer();
         scdp.setPointer( dsscore );
@@ -68,6 +53,20 @@
 			}
 		}
 		
+		var completionCount = 0;
+		var scoArray = dpscore.xpathQuery('title/sco');
+		for(var i=0; i<scoArray.length; i++){
+			var sco = scoArray[i]; 
+			var title = sco.getAttr('title');
+			var titleArray = title.split("::");
+			var completionStatus = titleArray[6];
+			if(completionStatus == 'CO') {
+				completionCount++;
+			}
+		}
+		
+		this.setAttribute('statusCount',completionCount);		
+		this.setAttribute('subtestCount',scoIndex)
 		this.setAttribute('totalRecords',scoIndex);
 		if(this.getAttribute('subtestCount') == this.getAttribute('statusCount')) {
 			addScoValues();
@@ -82,7 +81,7 @@
 			var sco = scoArr[i];  
 			var scoid = sco.getAttr('id');
 			var title = sco.getAttr('title');
-			var titleArr = title.split("::");
+			var titleArr = title.split("::");			
 			var testName = titleArr[1];
 			var form = titleArr[3];
 			var lmsXpath = "lms/sco[@scid='" + scoid + "']";
@@ -168,7 +167,7 @@
 		}
 	</method>	
 	
-	<text name="score" x="5" y="0" fontsize="24" height="36" fgcolor="white" visible="false"> Score Sheet</text>
+	<text name="score" x="5" y="0" fontsize="24" height="36" fgcolor="white" visible="false"> Your Test Results</text>
 	<!--<grid name="scoringGrid" datapath="dsscore:/student_feedback_data/title" contentpath="sco" height="130" showhlines="true"
 			showvlines="true" x="${parent.score.x}" y="${parent.score.y+parent.score.height+5}" visible="false">
 		<method name="settingDimension"><![CDATA[
