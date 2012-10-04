@@ -41,9 +41,6 @@
 
         <attribute name="SEPARATOR_TAG" value="'---'"/>
 
-		<attribute name="CLEARSTATE" />
-
-
         
 
         <!-- ========
@@ -84,14 +81,6 @@
 
         ]]></handler>
 
-
-		<handler name="onCLEARSTATE">
-
-			if(this.circle){
-				this.circle.setAttribute('frame',1);
-            	this.wrapper.textg.setAttribute ('fgcolor', this.column.textcolor);
-			}
-		</handler>
 
 		<method name="setSelected" args="isselected">
 			Debug.write("setSelected gridButton" , isselected);
@@ -146,10 +135,7 @@
 
             <handler args="r" name="onresponseval" reference="column">
                 if ( r  == this.value ) {
-                    this.column.selman.select (this); 
-                    this.circle.setAttribute ('frame',this.column.backcolor == lz.colors.black ? 2 : 3);
-                    this.wrapper.textg.setAttribute ('fgcolor', this.column.backcolor);	
-					this.setAttribute('ref',this);       
+                    this.column.selman.select (this);
                 }
             </handler>
 
