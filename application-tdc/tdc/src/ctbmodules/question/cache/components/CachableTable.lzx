@@ -161,6 +161,11 @@
             doneLoading();
             ]]>
         </handler>
+        
+        <method name="show">
+        //Dummy method which will be called by masking answer dont remove this
+        
+        </method>
 
         <method name="decodeBrackets" args="s"><![CDATA[
 	        var ltstr = "";
