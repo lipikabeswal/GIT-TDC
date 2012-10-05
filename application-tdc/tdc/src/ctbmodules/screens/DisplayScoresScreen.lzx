@@ -95,7 +95,7 @@
 		}
 			var testTitle = dpscore.xpathQuery('title/@name');
 			if(testTitle.indexOf('Geometry')>0 || testTitle.indexOf('Algebra I')>0 || testTitle.indexOf('Algebra II')>0) {
-				var perfLevel = getPLScore(totalRaw,form);
+				var perfLevel = getPLScore(totalRaw,form,testTitle);
 				info.perfLevel.setAttribute('text',perfLevel);
 			} 
 			else {
@@ -105,48 +105,113 @@
 		
 	]]></method>
 
-	<method name="getPLScore" args="raw,form"><![CDATA[
+	<method name="getPLScore" args="raw,form,testTitle"><![CDATA[
+	Debug.write("raw,form,testTitle : ",raw," : ",form," : ",testTitle);
 		var PerfLevel = "";
-		if(form == 'EQ') {
-			if(raw >=0 && raw <= 17)
-				PerfLevel="Unsatisfactory";
-			else if(raw >=18 && raw <=26)
-				PerfLevel="Limited knowledge";
-			else if(raw >=27 && raw <=42)
-				PerfLevel="Proficient";
-			else if(raw >=43 && raw <=55)
-				PerfLevel="Advanced";
+		if(testTitle.indexOf('Geometry')>0){//GEOMETRY
+			if(form == 'EQ') {
+				if(raw >=0 && raw <= 17)
+					PerfLevel="Unsatisfactory";
+				else if(raw >=18 && raw <=26)
+					PerfLevel="Limited knowledge";
+				else if(raw >=27 && raw <=42)
+					PerfLevel="Proficient";
+				else if(raw >=43 && raw <=55)
+					PerfLevel="Advanced";
+			}
+			else if(form == 'Retest') {
+				if(raw >=0 && raw <= 19)
+					PerfLevel="Unsatisfactory";
+				else if(raw >=20 && raw <=27)
+					PerfLevel="Limited knowledge";
+				else if(raw >=28 && raw <=42)
+					PerfLevel="Proficient";
+				else if(raw >=43 && raw <=55)
+					PerfLevel="Advanced";
+			}
+			/*else if(form == '1') {
+				if(raw >=0 && raw <= 17)
+					PerfLevel="Unsatisfactory";
+				else if(raw >=18 && raw <=27)
+					PerfLevel="Limited knowledge";
+				else if(raw >=28 && raw <=41)
+					PerfLevel="Proficient";
+				else if(raw >=42 && raw <=54)
+					PerfLevel="Advanced";
+			}*/
+			else if(form == '1') {
+				if(raw >=0 && raw <= 18)
+					PerfLevel="Unsatisfactory";
+				else if(raw >=19 && raw <=27)
+					PerfLevel="Limited knowledge";
+				else if(raw >=28 && raw <=42)
+					PerfLevel="Proficient";
+				else if(raw >=43 && raw <=55)
+					PerfLevel="Advanced";
+			} 
+		}else if(testTitle.indexOf('Algebra I')>0){//Algebra I
+			if(form == 'EQ') {
+				if(raw >=0 && raw <= 19)
+					PerfLevel="Unsatisfactory";
+				else if(raw >=20 && raw <=26)
+					PerfLevel="Limited knowledge";
+				else if(raw >=27 && raw <=39)
+					PerfLevel="Proficient";
+				else if(raw >=40 && raw <=55)
+					PerfLevel="Advanced";
+			}
+			else if(form == 'Retest') {
+				if(raw >=0 && raw <= 19)
+					PerfLevel="Unsatisfactory";
+				else if(raw >=20 && raw <=25)
+					PerfLevel="Limited knowledge";
+				else if(raw >=26 && raw <=40)
+					PerfLevel="Proficient";
+				else if(raw >=41 && raw <=55)
+					PerfLevel="Advanced";
+			}
+			else if(form == '1') {
+				if(raw >=0 && raw <= 17)
+					PerfLevel="Unsatisfactory";
+				else if(raw >=18 && raw <=25)
+					PerfLevel="Limited knowledge";
+				else if(raw >=26 && raw <=41)
+					PerfLevel="Proficient";
+				else if(raw >=42 && raw <=55)
+					PerfLevel="Advanced";
+			}
+		}else if(testTitle.indexOf('Algebra II')>0){//Algebra II
+			if(form == 'EQ') {
+				if(raw >=0 && raw <= 19)
+					PerfLevel="Unsatisfactory";
+				else if(raw >=20 && raw <=24)
+					PerfLevel="Limited knowledge";
+				else if(raw >=25 && raw <=40)
+					PerfLevel="Proficient";
+				else if(raw >=41 && raw <=55)
+					PerfLevel="Advanced";
+			}
+			else if(form == 'Retest') {
+				if(raw >=0 && raw <= 18)
+					PerfLevel="Unsatisfactory";
+				else if(raw >=19 && raw <=25)
+					PerfLevel="Limited knowledge";
+				else if(raw >=26 && raw <=40)
+					PerfLevel="Proficient";
+				else if(raw >=41 && raw <=55)
+					PerfLevel="Advanced";
+			}
+			else if(form == '1') {
+				if(raw >=0 && raw <= 19)
+					PerfLevel="Unsatisfactory";
+				else if(raw >=20 && raw <=25)
+					PerfLevel="Limited knowledge";
+				else if(raw >=26 && raw <=40)
+					PerfLevel="Proficient";
+				else if(raw >=41 && raw <=55)
+					PerfLevel="Advanced";
+			}
 		}
-		else if(form == 'Retest') {
-			if(raw >=0 && raw <= 19)
-				PerfLevel="Unsatisfactory";
-			else if(raw >=20 && raw <=27)
-				PerfLevel="Limited knowledge";
-			else if(raw >=28 && raw <=42)
-				PerfLevel="Proficient";
-			else if(raw >=43 && raw <=55)
-				PerfLevel="Advanced";
-		}
-		else if(form == '1') {
-			if(raw >=0 && raw <= 17)
-				PerfLevel="Unsatisfactory";
-			else if(raw >=18 && raw <=27)
-				PerfLevel="Limited knowledge";
-			else if(raw >=28 && raw <=41)
-				PerfLevel="Proficient";
-			else if(raw >=42 && raw <=54)
-				PerfLevel="Advanced";
-		}
-		else if(form == 'OP') {
-			if(raw >=0 && raw <= 18)
-				PerfLevel="Unsatisfactory";
-			else if(raw >=19 && raw <=27)
-				PerfLevel="Limited knowledge";
-			else if(raw >=28 && raw <=42)
-				PerfLevel="Proficient";
-			else if(raw >=43 && raw <=55)
-				PerfLevel="Advanced";
-		} 
 		return PerfLevel;
 	]]>
 	</method>
