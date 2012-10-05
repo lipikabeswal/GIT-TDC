@@ -10,7 +10,7 @@
         function countDataNodes ( nodes ) {
             if ( null == nodes ) {
                 return 0;
-            } else if ( nodes instanceof lz.DataNode ) {
+            } else if ( nodes instanceof lz.DataElement ) {
                 return 1;
             } else if ( nodes instanceof Array ) {
                 return nodes.length;
@@ -593,7 +593,7 @@
 		<method name="updateItemTypes"><![CDATA[
 			var items = dpsubtest.xpathQuery("ob_assessment/ob_element_list/f");
 			//Debug.write("updateItemTypes" + items);
-			if (items instanceof lz.DataNode){
+			if (items instanceof lz.DataElement){
 				items = new Array(items);
 			}
 			for(var i=0; i<items.length; i++){
@@ -2822,7 +2822,7 @@
 				var dnruntimeitem = dpstudentdata.xpathQuery ("runtime/item_model [@eid = '"+curritem+"']");
 
 				var responses = dpstudentdata.xpathQuery( 'current_item/item_model/interaction/response' );
-				if ( responses instanceof lz.DataNode ) {
+				if ( responses instanceof lz.DataElement ) {
 					responses = [responses];
 				} else if ( null == responses ) {
 					responses = [];
@@ -4785,7 +4785,7 @@ Debug.write("############ loadItem ############");
 
 			if(argsNodePtr.data != null) {//for first login cases i.e. no restart data
 				argsNodeArr = argsNodePtr.xpathQuery("tsd");
-				if(argsNodeArr instanceof lz.DataNode) {
+				if(argsNodeArr instanceof lz.DataElement) {
 					argsNodeArr = new Array(argsNodeArr);
 				}	
 				argsNodeArrLen = argsNodeArr.length;

@@ -76,7 +76,7 @@
 		</method>
 		
 		<method name="getReadableTextForColumn"><![CDATA[
-		return gReadableText.getReadableTextForCharacter(this.responseval);
+			return gReadableText.getReadableTextForCharacter(this.responseval);
 		]]></method>
 		
         <handler args="d" name="ondata" reference="dpresponse"><![CDATA[
@@ -178,7 +178,7 @@
         <!-- clear out our value -->
         <method name="clear"><![CDATA[
             gController.setGrState( data.getOffset(), '' );
-			  var btns = this.thecol.contents.thebtns.subviews;
+			  /*var btns = this.thecol.contents.thebtns.subviews;
 			  Debug.write(this.thecol.contents.thebtns.subviews);
 			  Debug.write(this.thecol.contents.thebtns.gridbtn);
 			  
@@ -186,7 +186,7 @@
                 		//Debug.write("Button clearstate gr" ,btns[i] );
                     	//btns[i].clearState();
                     	btns[i].setAttribute('CLEARSTATE', "1");
-                }
+                }*/
 
 
         ]]></method>

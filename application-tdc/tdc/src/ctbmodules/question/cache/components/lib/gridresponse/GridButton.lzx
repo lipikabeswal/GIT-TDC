@@ -115,14 +115,18 @@
 			]]></method>
 
             <handler name="onmousedown" reference="circle">
-				this.column.clear();
-            	column.selectThisColumn();
+				column.selectThisColumn();
             	var txt = this.getReadableTextForButton();
-
+				Debug.write("onmousedown this.value",this.value);
+				Debug.write("onmousedown this.column.responseval",this.column,this.column.responseval);
                 if (this.column.responseval == this.value) {
+                	Debug.write("onmousedown if");
                     this.column.clear ();
+                    this.circle.setAttribute('frame',1);
+                    this.wrapper.textg.setAttribute ('fgcolor', this.column.textcolor);
                 } else {
-                    gController.setGrState( column.data.getOffset(),
+                	Debug.write("onmousedown else");
+                	gController.setGrState( column.data.getOffset(),
                                                 this.value );
                 }
             </handler>
