@@ -51,11 +51,9 @@
 
             this.eraserstatus.setAttribute ('rerunxpath', true);
             this.eraserstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@eraser');
-            this.eliminator.setSource(canvas.eliminatorRsrc);
         </handler>
 
         <handler name="onmouseover"><![CDATA[
-            setCursorState();
             if (this.selstate == 'n') {
                 this.setAttribute('frame', this.statenum * this.statelength + 2);
             }
@@ -216,6 +214,6 @@
 		      visible="${classroot.selstate == 'e'}"
 		      align="center" 
 		      valign="middle" 
-		      clickable="false" />
+		      clickable="false" resource="eliminator"/>
  	</class>
 </library>

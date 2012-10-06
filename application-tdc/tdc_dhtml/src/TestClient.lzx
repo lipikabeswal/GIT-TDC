@@ -85,7 +85,6 @@
 		}]]>
 	</method>
 	<handler name="onfootnotedata" args="data">
-		Debug.write("onfootnotedata************ ",data);
         gFootNotePopup.show(data);
     </handler>
     
@@ -115,19 +114,15 @@
 
 	<method name="init">
        super.init();
-       Debug.write("on init of canvas");
-       Debug.write("folder name************* ",lz.Browser.getInitArg('folder'));
        var folder = lz.Browser.getInitArg('folder');
        if (folder) this.setAttribute("folder", folder);
        var user = lz.Browser.getInitArg('user');
        if (user) this.setAttribute("user", user);
        <!-- canvas.setDefaultContextMenu(null); -->
-       /*var cmenu = new lz.ContextMenu();
+       var cmenu = new LzContextMenu();
        cmenu.hideBuiltInItems();
        cmenu.setAttribute('delegate',new lz.Delegate(this,'doNothing'));
-	   canvas.setDefaultContextMenu(cmenu);*/
-	   
-	   //this.setAttribute("folder", "calif");
+	   canvas.setDefaultContextMenu(cmenu);
 	   //flashSystem.Stage.showMenu = false;
     </method>
 
@@ -135,7 +130,7 @@
     </method>
     
 	<!--  this view tests whether or not the eliminator resource is available -->
-	<!--<view name="eliminatorTester" visible="false" height="0"
+	<!-- <view name="eliminatorTester" visible="false" height="0"
 		width="0">
 		<handler name="oninit">
 			canvas.setAttribute('medialoadtimeout', 3000);
@@ -154,8 +149,7 @@
 		<handler name="ontimeout">
 			canvas.setAttribute('medialoadtimeout', 30000);
 		</handler>
-	</view>
-	-->
+	</view>-->
 	<view name="titleView" width="100%" height="100%" >
 	<view name="mainView"  width="100%" height="100%">
 	
@@ -190,13 +184,14 @@
 	        <!-- include the please wait popup -->
 	        <include href="ctbmodules/question/RevisitFalsePopup.lzx"/>
 			<include href="ctbmodules/question/PleaseWaitPopup.lzx"/>
-			<!-- <include href="ctbmodules/manipulatives/maskinganswer/MaskingAnswer.lzx"/> -->
+			<include href="ctbmodules/question/MusicPlayer.lzx"/>
+			<include href="ctbmodules/manipulatives/maskinganswer/MaskingAnswer.lzx"/>
         </view>
 
     </view>
     </view>
   
 </view>
-    
+ <include href="ctbmodules/manipulatives/magnifier/MagnifyingGlass.lzx"/>   
 
 </canvas>

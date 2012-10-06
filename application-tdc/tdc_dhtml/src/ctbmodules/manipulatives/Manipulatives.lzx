@@ -1,13 +1,15 @@
 <library>
     
-	<!-- <include href="protractor/Protractor.lzx"/>
+	<include href="protractor/Protractor.lzx"/>
     <include href="ruler/BaseRuler.lzx"/>
 	<include href="ruler/MaskingRuler.lzx"/>
 	<include href="../question/cache/components/CachableRefCard.lzx"/>
 
+
 	<include href="calculator/standardCalculator.lzx"/>
 	<include href="calculator/scientificCalculator.lzx"/>
-	<include href="refcard/RefCard.lzx"/>-->
+	<include href="refcard/RefCard.lzx"/>
+		<include href="scratchpad/Scratchpad.lzx"/>
 	
     <class name="Manipulatives" clip="true"
            datapath="dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/general">
@@ -78,9 +80,9 @@
 					manip.bringToFront();
 				}
 			}
-			/*if(gScratchpad.visible){
+			if(gScratchpad.visible){
 				gScratchpad.bringToFront();
-			}*/
+			}
 		]]></method>
 		
 		<method name="getManipForDepth" args="depth, manips"><![CDATA[
@@ -223,10 +225,10 @@
 		
 		<method name="getInstanceForTool" args="tool">
 			var result = null;
-			/*if(tool == 'scratchpad'){
+			if(tool == 'scratchpad'){
 				result = gScratchpad;
 			}
-			else*/ /*if (tool == 'protractor'){
+			else if (tool == 'protractor'){
 				result = gProtractor;
 			}
 			else if (tool == 'straight_edge'){
@@ -255,13 +257,13 @@
 			}
 			else if (tool == 'scientific_calculator'){
 				result = gScientificCalculator;
-			}*/
+			}
 			/*else if (tool == 'formula_card'){
 				result = gFormulaCard;
 			}*/
-			/*else if (tool == 'masking_ruler'){
+			else if (tool == 'masking_ruler'){
 				result = gMaskingRuler;
-			}*/
+			}
 			return result;
 		</method>
 		
@@ -283,7 +285,12 @@
 			}
 		]]></method>
 		
-		<!-- <Protractor name="protractor" 
+		
+		 <Scratchpad name="scratchpad" 
+                    toolid="scratchpad"
+                    id="gScratchpad"/>
+
+		<Protractor name="protractor" 
                     toolid="protractor"
                     id="gProtractor"/>
 
@@ -343,7 +350,7 @@
                             toolid="scientific_calculator"
                             id="gScientificCalculator"/>
 
-		<ComponentCache name="cache" />-->
+		<ComponentCache name="cache" />
     </class>
 
 

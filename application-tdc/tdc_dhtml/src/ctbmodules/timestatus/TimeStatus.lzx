@@ -17,11 +17,12 @@
                         visible="${gController.audible == true}"
                         disabledResourceNumber="0"
                         width="30" height="30" stretches="both"
+                        onclick="gMusicPlayer.togglePopup()"
                         />
 			
             <basebutton resource="pause_time_btn" id="gPauseButton"
                         enabled="${ classroot.uienabled == true }"
-                        onclick="gController.pauseTest()"
+                        onclick="gController.pauseTest ()"
                         visible="${ classroot.pausable == true }"
                         disabledResourceNumber="0"
                         />
@@ -76,8 +77,8 @@
                               resource="show_hide_timer_btn"
                               statelength="3" maxstate="1"
                               enabled="${ classroot.uienabled == true}"
-                              disabledResourceNumber="0"
-                              onclick="this.toggle()">
+                              disabledResourceNumber="0">
+                <handler name="onclick" method="toggle" />
                 <method name="toggle">
                     gController.toggleTimer();
                 </method>

@@ -11,7 +11,7 @@
       	<dataset name="dRequestDataSet"/>
       	
       	<method name="updateLDB">
-      		//lz.Browser.loadJS('updateLDB()');
+      		lz.Browser.loadJS('updateLDB()');
        	</method>
   		
       	<method name="closeBrowser">

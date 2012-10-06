@@ -1,5 +1,5 @@
 <library>
-
+	
     <include href="CachablePanel.lzx"/>
     <include href="CachableAnswerAreaPanel.lzx"/>
     <include href="CachableAnswerAreaAbsolutePanel.lzx"/>
@@ -13,8 +13,11 @@
     <include href="CachableTab.lzx"/> -->
     <include href="CachableTable.lzx"/>
     <include href="CachableTableCell.lzx"/>
-	<!-- <include href="CachableSingleLineAnswer.lzx"/>
-	<include href="CachableMultiLineAnswer.lzx"/> -->
+	<include href="CachableSingleLineAnswer.lzx"/>
+	<include href="CachableMultiLineAnswer.lzx"/>
+	<!--<include href="CachableRecorder.lzx"/>-->
+	<include href="CachableGriddedResponsePanel.lzx"/>
+    <include href="CachableGriddedResponse.lzx"/>
 
 
  </library>

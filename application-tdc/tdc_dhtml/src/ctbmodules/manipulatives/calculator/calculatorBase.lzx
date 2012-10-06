@@ -136,9 +136,11 @@
                 }
                 
                 if (data.hasAttr ('isNegative')) {
+					Debug.write(" isNegative ondata-------- ",data.getAttr ('isNegative'));
                     this.setAttribute ('isNegative', data.getAttr ('isNegative'));
                 }
                 else{
+					Debug.write(" isNegative ondata---else----- ",this.defaultIsNegative);
                 	this.setAttribute('isNegative', this.defaultIsNegative);
                 }
                 
@@ -175,6 +177,7 @@
                 this.operators = new Array();
                  
                 if(data.hasChildNodes()){  
+					Debug.write("ondata of calculator ",data);
                 	operandP.setPointer(data);
                 	operandP.setXPath('operands');
                 	if(operandP.selectChild()){
@@ -196,14 +199,15 @@
                 		}
                 	}
 	                // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
-	            	/*if(gScratchpad.visible){
+	            	if(gScratchpad.visible){
 	                	gScratchpad.bringToFront();
-	            	}*/
+	            	}
                 }
                 else{
                 	this.datapath.addNode( 'operators' );
                 	this.datapath.addNode( 'operands' );
                 }
+				Debug.write("operators************** ",operators,operands,this.datapath);
             }   
             updateDisplay();
             
@@ -333,6 +337,7 @@
 		</method>
 		
 		<method name="_doMemoryModification" args="add">
+			Debug.write("_doMemoryModification*********");
 			if(!isErrorState()){
 				var displayedNumber = new Number(this.displayValue); 
 				var addend = add ? displayedNumber : 0 - displayedNumber;
@@ -360,9 +365,11 @@
 		
 		<method name="getInputNumber">
 			if(this.isNegative){
+				Debug.write("getInputNumber*****if*** ",this.input);
 				return "-" + this.input;
 			}
 			else{
+				Debug.write("getInputNumber*****else*** ",this.input);
 				return this.input;
 			}
 		</method>
@@ -479,6 +486,7 @@
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 				if(this.isEditing){
+					Debug.write("handleReverseSign********** ",this.isNegative);
 					setDataAttribute('isNegative', !this.isNegative);
 				}
 				else{
@@ -514,11 +522,15 @@
 		
 		<method name="updateDisplay">
 		<![CDATA[   
+			Debug.write("updateDisplay of calculator************ ",this.isEditing,this.isNegative);
 			if(this.isEditing){  
+				Debug.write("updateDisplay of calculator****isEditing******** ");
 				if(this.isNegative){
+					Debug.write("updateDisplay of calculator****isNegative******** true ");
 					setDataAttribute('displayValue', "-" + this.input);
 				}
 				else{
+					Debug.write("updateDisplay of calculator****isNegative******** false ");
 					setDataAttribute('displayValue', this.input);
 				}
 			}
@@ -914,7 +926,9 @@
 		<method name="decimalFormat" args="num">
 		<![CDATA[      
 			var result = num.toString();
+			Debug.write("decimalFormat******* ",result);
 			if(this.isExponentialFormat(result)){
+				Debug.write("after isExponentialFormat");
 				result = this.convertExponentialFormatToDecimalFormat(result);
 			}
 			else{
@@ -924,6 +938,7 @@
 			if(result.indexOf(".") == -1){
 				result = result + ".";
 			}
+			Debug.write("decimalFormat*****final** ",result);
 			return result;
 		]]>
 		</method>
@@ -940,6 +955,7 @@
 			var mantissa = this.getMantissa(numText);
 			var isNegative = false;
 			if(mantissa &lt; 0){
+				Debug.write("mantissa of convertExponentialFormatToDecimalFormat****  ",mantissa);
 				isNegative = true;
 				mantissa = -mantissa;
 			}
@@ -1020,9 +1036,11 @@
 					result = this.exponentialFormat(num);
 				}
 				else{
+					Debug.write("displayFormat************ ",num);
 					result = this.decimalFormat(num);
 				}
 			}
+			Debug.write("displayFormat****final******** ",num);
 			return result;
 		]]>
 		</method>

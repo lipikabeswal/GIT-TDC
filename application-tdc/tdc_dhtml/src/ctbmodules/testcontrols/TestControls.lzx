@@ -108,7 +108,7 @@
 				//this.btns.navbtns.btnforward.setAttribute ('visible', false);
 			//}
 			//else{
-		    if (currentItemNumber < parseInt(this.totalitemno) && gController.getNextNavigableOffset(currentItemNumber) < parseInt(this.totalitemno)) {
+		    	if (currentItemNumber < parseInt(this.totalitemno) && gController.getNextNavigableOffset(currentItemNumber) < parseInt(this.totalitemno)) {
 		    		this.btns.navbtns.btnforward.setAttribute ('visible', true);
 		    	}
 		    else{

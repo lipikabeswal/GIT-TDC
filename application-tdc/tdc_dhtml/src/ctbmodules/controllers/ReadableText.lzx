@@ -44,8 +44,6 @@
         
 		<handler name="oninit">
 			var postUrl = lz.Browser.getInitArg( 'servletUrl' ) + '/SpeechServlet.do';
-			/*var base = "http://192.168.15.33:12345/servlet/fixed";
-			var postUrl = base + '/SpeechServlet.do';*/
 			var getUrl = postUrl + '?file=speech.mp3';
 			setAttribute('GET_URL', getUrl);
 			speechDs.setAttribute('src', postUrl);
@@ -121,14 +119,13 @@
         <method name="doRead" args="txt"><![CDATA[
         	this.currentText = txt;//TTS CR
         	//Changes for Defect # 65040
-        	//this.audioPlayer.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
+        	this.audioPlayer.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
 			lz.Timer.resetTimer(this.dTimeout, TIMEOUT_INTERVAL);
  	    	//stopReading();
  	        speechDs.setQueryParam(TEXT_PARAM, txt);
  	        //TTS CR
  	        if(gController.hasTTSspeed) {
- 	        	//var smf = gManipulativeBar.speedController.value;  //SMF => Slow, Medium, Fast
- 	        	var smf = 2;
+ 	        	var smf = gManipulativeBar.speedController.value;  //SMF => Slow, Medium, Fast
  	        	var speedValue = getSpeedNumber(smf);
  	        	speechDs.setQueryParam(SPEED_PARAM, speedValue);
  	        }
@@ -139,7 +136,9 @@
         <method name="getMp3" ><![CDATA[
         	//ISTEP CR: to avoid browser caching of the mp3
         	//Debug.write("getMp3" + GET_URL + ":"+timestamp());
-        	audioPlayer.setSource(GET_URL+"&"+timestamp()+".mp3");
+        	//audioPlayer.setSource(GET_URL+"&"+timestamp()+".mp3");
+			var audioFile = GET_URL+"&"+timestamp()+".mp3";
+			lz.embed.audiokernel.callMethod('audioplayer.setSource(\'audioFile\')')
         ]]></method>
 
 		<method name="timestamp">
@@ -221,7 +220,7 @@
         	<handler name="onload">
         		gReadableText.isplaying = true; // TTS CR:when mp3 is loaded and ready to play
 				//Changes for Defect # 65040
- 				//this.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
+ 				this.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
  				
 				if(gController.isWaitPopupOpen) {
 					gReadableText.speechRequestSent = false;

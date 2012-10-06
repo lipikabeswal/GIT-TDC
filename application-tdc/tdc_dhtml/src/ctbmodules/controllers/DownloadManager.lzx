@@ -44,7 +44,7 @@
    				nextItemIndex++;
    				if(_isLastItem()){   					
    					if(_isLastSubtest()){
-   						//gCommunicator.updateLDB();
+   						gCommunicator.updateLDB();
    						gController.getSubtest();   						
    					}
    					else{

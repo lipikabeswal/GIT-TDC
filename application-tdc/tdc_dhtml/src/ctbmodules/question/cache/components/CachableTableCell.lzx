@@ -57,9 +57,9 @@
             //finally set wrapper alignment now that our children
             //have sizes
             if(align != null)
-            	this.wrapper.setAlign(align);
+            	this.wrapper.setAttribute('align',align);
 			if(valign != null)
-            	this.wrapper.setValign(valign);
+            	this.wrapper.setAttribute('valign',valign);
 
             this.doneLoading();
         ]]></handler>

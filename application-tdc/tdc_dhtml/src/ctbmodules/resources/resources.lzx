@@ -337,6 +337,10 @@
 
         <frame src="iknow_answerchoices/answer_blueballselect.png"/>
     </resource>
+    
+    <resource name="eliminator">
+    	<frame src="iknow_answerchoices/eliminator.png"/>
+    </resource>
 
  	<!-- masking answer selection button -->
     <!--resource name="masking_answer_choice_btn">
@@ -402,12 +406,9 @@
     </resource>
 
     <resource name="tab_contents_mid">
-        <!-- <frame src="components/tabs/tab_contents_dslct_mid.swf"/>
-        <frame src="components/tabs/tab_contents_dslct_mid.swf"/>
-        <frame src="components/tabs/tab_contents_slct_mid.swf"/> -->
-        <frame src="components/tabs/tab_contents_dslct_rt.png"/>
-        <frame src="components/tabs/tab_contents_dslct_rt.png"/>
-        <frame src="components/tabs/tab_contents_slct_rt.png"/>
+        <frame src="components/tabs/tab_contents_dslct_mid.png"/>
+        <frame src="components/tabs/tab_contents_dslct_mid.png"/>
+        <!-- <frame src="components/tabs/tab_contents_slct_mid.swf"/> -->
     </resource>
 
     <resource name="tab_contents_right">
@@ -423,11 +424,9 @@
     </resource>
 
     <resource name="tab_border_mid">
-        <!-- <frame src="components/tabs/tab_border_dslct_mid.swf"/>
-        <frame src="components/tabs/tab_border_dslct_mid.swf"/>
-        <frame src="components/tabs/tab_border_slct_mid.swf"/> -->
-        <frame src="components/tabs/tab_border_dslct_rt.png"/>
-        <frame src="components/tabs/tab_border_dslct_rt.png"/>
+        <frame src="components/tabs/tab_border_dslct_mid.png"/>
+        <frame src="components/tabs/tab_border_dslct_mid.png"/>
+        <!-- <frame src="components/tabs/tab_border_slct_mid.swf"/>-->
     </resource>
 
     <resource name="tab_border_right">

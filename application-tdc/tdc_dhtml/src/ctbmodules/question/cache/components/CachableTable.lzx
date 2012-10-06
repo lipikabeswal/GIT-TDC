@@ -161,6 +161,11 @@
             doneLoading();
             ]]>
         </handler>
+        
+        <method name="show">
+        //Dummy method which will be called by masking answer dont remove this
+        
+        </method>
 
         <method name="decodeBrackets" args="s"><![CDATA[
 	        var ltstr = "";
@@ -341,6 +346,7 @@
                 this.thetable.setAttribute("width", this.thetable.contents.width);
                 this.thetable.setAttribute("height", this.thetable.contents.height);
             }
+            
             super.doneLoading();
         ]]></method>
 

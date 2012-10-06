@@ -57,8 +57,8 @@
         <attribute name="cachedscrolltexts" value="$once{[]}"/>
         <attribute name="cachedstimulustabspanels" value="$once{[]}"/>
         <attribute name="cachedstimulustab" value="$once{[]}"/>
-		<!--<attribute name="cachedgriddedresponsepanels" value="$once{[]}"/>
-        <attribute name="cachedgriddedresponses" value="$once{[]}"/>-->
+		<attribute name="cachedgriddedresponsepanels" value="$once{[]}"/>
+        <attribute name="cachedgriddedresponses" value="$once{[]}"/>
         <attribute name="cachedtables" value="$once{[]}"/>
         <attribute name="cachedtablecells" value="$once{[]}"/>
         <attribute name="cachedsinglelineinput" value="$once{[]}"/>
@@ -92,9 +92,9 @@
 	
 	            gController.waitOnComponent( newcomp, datanode.ownerDocument );
 				// allow single line answers to size to fit contents
-	            /*if(type == gCompTypes.WIDGET_SINGLE_LINE_ANSWER){
+	            if(type == gCompTypes.WIDGET_SINGLE_LINE_ANSWER){
 	            	datanode.removeAttr('height');
-	            }*/
+	            }
 	            newcomp.datapath.setPointer (datanode);
 	        }
             return newcomp;
@@ -199,11 +199,11 @@
                     break;
                 }
 			    case gCompTypes.WIDGET_GRIDDED_RESPONSE_PANEL: { 
-				    //arraytouse = cachedgriddedresponsepanels;
+				    arraytouse = cachedgriddedresponsepanels;
 				    break;
 			    }
 			    case gCompTypes.WIDGET_GRIDDED_RESPONSE: {
-				    //arraytouse = cachedgriddedresponses;
+				    arraytouse = cachedgriddedresponses;
 				    break;
 			    }
                 case gCompTypes.WIDGET_TABLE: {
@@ -215,15 +215,19 @@
                     break;
                 }
                 case gCompTypes.WIDGET_SINGLE_LINE_ANSWER: {
-                    //arraytouse = cachedsinglelineinput;      
+                    arraytouse = cachedsinglelineinput;      
                     break;
                 }
                 case gCompTypes.WIDGET_MULTI_LINE_ANSWER: {
-                    //arraytouse = cachedmultilineinput;      
+                    arraytouse = cachedmultilineinput;      
                     break;
                 }
                 case gCompTypes.WIDGET_REFERENCE_CARD: {
                     arraytouse = cachedreferencecard;      
+                    break;
+                }
+				case gCompTypes.WIDGET_RECORDER: {
+                    //arraytouse = cachedrecorder;      
                     break;
                 }
                 default: {
@@ -291,11 +295,11 @@
 				    break;
 			    }
 			    case gCompTypes.WIDGET_GRIDDED_RESPONSE_PANEL: {
-    			   // toReturn = new CachableGriddedResponsePanel (parent);
+    			    toReturn = new lz.CachableGriddedResponsePanel (parent);
 				    break;
 			    }
                 case gCompTypes.WIDGET_GRIDDED_RESPONSE: {
-                   // toReturn = new CachableGriddedResponse (parent);
+                   toReturn = new lz.CachableGriddedResponse (parent);
                     break;
                 }
 			    case gCompTypes.WIDGET_TABLE: {
@@ -313,13 +317,17 @@
 			    	break;
                 }                
                  case gCompTypes.WIDGET_SINGLE_LINE_ANSWER: {
-					//toReturn = new lz.CachableSingleLineAnswer(parent);
+					toReturn = new lz.CachableSingleLineAnswer(parent);
 			    	break;
                 }
                case gCompTypes.WIDGET_MULTI_LINE_ANSWER: {
-					//toReturn = new lz.CachableMultiLineAnswer(parent);
+					toReturn = new lz.CachableMultiLineAnswer(parent);
 			    	break;
-                }               
+                }  
+				case gCompTypes.WIDGET_RECORDER: {
+                	 //toReturn = new lz.CachableRecorder(parent);
+				    break;
+                }
                 default: {
  //                   Debug.write ('CACHE: create unknown component type', type);  
                     break;

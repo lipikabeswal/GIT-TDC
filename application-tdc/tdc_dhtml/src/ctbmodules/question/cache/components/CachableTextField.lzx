@@ -76,12 +76,6 @@
         <handler name="ondata" args="data"><![CDATA[
             //width
             Debug.write("TextField ondata fired**** ",data);
-			var text = data.getFirstChild().data;
-			if(text.indexOf("<footnote")!=-1){
-				text = text.substring(text.indexOf("<footnote"),text.indexOf("</footnote>")+"</footnote>".length)
-				Debug.write("footnote text********* ",text);
-			}
-			
             if (data.hasAttr("width")) {
                 this.setAttribute("width", Number(data.getAttr("width")));
             } else {
@@ -129,7 +123,6 @@
                 this.setAttribute("embedded_input", false);
                 this.setAttribute("embedded_inline_image", false);
             }
-			Debug.write("text data************ ",data);
 			setTextReaderAttributes(data);
 			
             var dataText = data.getFirstChild().data;
@@ -156,7 +149,6 @@
             }
             this.setAttribute('align', just);
 
-			Debug.write("dataText********** ",dataText);
             this.thetext.setAttribute("text",
                 '<p align="' + just + '">' + dataText + '</p>');
 
@@ -1173,11 +1165,7 @@ parse the text string and store text and image string in an array at different i
                x="${classroot.leftPadding}"
                width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
                fgcolor="${classroot.fontcolor}"
-               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" >
-				<handler name="ontext">
-					Debug.write("thetext********** ",this.text);
-				</handler>
-			</text>
+               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" />
         </state>
     </class>
 

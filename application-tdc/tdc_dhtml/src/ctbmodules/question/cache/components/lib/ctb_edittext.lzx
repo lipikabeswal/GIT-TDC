@@ -63,6 +63,9 @@
 			}
         ]]></handler>
 		<method name="setAnswer" args="txt">
+			var s = "checkStop('setAnswer','"+txt+"','')";
+			lz.Browser.loadJS(s);
+
 			this.setText(txt);
 		</method>
 	<!-- @Set the char_limit for single_line_answer of type standalone -->
@@ -110,12 +113,17 @@
         <!--- @keywords private -->
         <method name="setText" args="t">
             this.text = t;
+			var s = "checkStop('setText','"+this._initcomplete+"','"+t+"')";
+			lz.Browser.loadJS(s);
+
             if (this._initcomplete) {
                 this.field.setText(t);
                 if (this['ontext']) this.ontext.sendEvent();
             } else {
                 this._initialtext = t;
             }
+			/*var s = "checkStop('setText after','"+this._initcomplete+"','"+this.field.text+"')";
+			lz.Browser.loadJS(s);*/
         </method>
 
         <!--- Clears the text field. -->
@@ -153,7 +161,7 @@
 			bgcolor="${Number(gController.answerBgColor)}"
 			fgcolor="${Number(gController.answerFontColor)}"
 			fontsize="${parent.fontsize}"
-            pattern="[A-Za-z0-9!@:;#$%\^*()_\-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[]\\|`~ ]*" >
+            pattern="[A-Za-z0-9!@:;#$%\\^*()_\\-\\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[]\\|`~ ]*" >
             
             <attribute name="start" type="number" value="0" />
             <attribute name="end" type="number" value="0" />
@@ -211,10 +219,12 @@
                 //this.textclip = this.__lz.textclip;
 				if ($dhtml) {
 					Debug.write("DHTML ",this.getDisplayObject());
-					this.textclip = this.getDisplayObject()
+					this.textclip = this.getDisplayObject();
+					var s = "checkStop('oninit of inputtext','"+this.textclip+"','"+this.textclip.textColor+"')";
+					lz.Browser.loadJS(s);
 				} else {				
 					var mc = this.sprite;
-					Debug.write("AS# ",mc.textfield);
+					Debug.write("AS# ",mc.textfield,mc.textfield.textColor);
 					this.textclip = mc.textfield;
 				}
             ]]> 
@@ -236,6 +246,8 @@
                     this.textclip.textColor = 0x000000;//text set to black because transform reverses it
                 } 
                 Debug.write("this.textclip.textColor  ",this.textclip.textColor);
+				var s = "checkStop('onfocus of inputtext','"+this.textclip+"','"+this.textclip.textColor+"')";
+					lz.Browser.loadJS(s);
             ]]> 
             </handler> 
 

@@ -2,6 +2,6 @@
 
     <include href="Manipulatives.lzx"/>
     <include href="ManipulativeBar.lzx"/>
-    <include href="Tooltip.lzx"/> 
+    <include href="Tooltip.lzx"/>
 
 </library>

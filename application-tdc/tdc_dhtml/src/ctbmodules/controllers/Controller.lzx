@@ -349,8 +349,8 @@
 		<!-- 
 			Is the swf being used in the previewer?
 		-->
-		<!-- <attribute name="isPreviewer" type="boolean"
-			value="$once{lz.Browser.getInitArg( 'gPreviewer' ) == 'true'}" />-->
+		<attribute name="isPreviewer" type="boolean"
+			value="$once{lz.Browser.getInitArg( 'gPreviewer' ) == 'true'}" />
 
 		<!--  
 			Should focus be set onto the Gr?
@@ -548,9 +548,9 @@
 			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
-			/*if(gScratchpad.scratchpadHasFocus) { 
+			if(gScratchpad.scratchpadHasFocus) { 
 				gHotKeys.disableKeys();
-			}*/ 
+			} 
 			
 			if(this.isRevisitPopupOpen == true || this.isWaitPopupOpen == true){
 				gHotKeys.disableKeys(); 
@@ -595,7 +595,7 @@
 		<method name="updateItemTypes"><![CDATA[
 			var items = dpsubtest.xpathQuery("ob_assessment/ob_element_list/f");
 			//Debug.write("updateItemTypes" + items);
-			if (items instanceof lz.DataNode){
+			if (items instanceof lz.DataElement){
 				items = new Array(items);
 			}
 			for(var i=0; i<items.length; i++){
@@ -608,7 +608,7 @@
 
 		<method name="clearScratchpad">
 			this.setAttribute("scratchpadOpen", false);
-			//gScratchpad.setAttribute('text', "");
+			gScratchpad.setAttribute('text', "");
 		</method>
 
 		<handler name="oninit">
@@ -1078,6 +1078,8 @@
 
 		<method name="setShowHighlighter">
 			var sh = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@highlighter');
+			var s = "checkStop('setShowHighlighter','"+sh+"','"+(sh != false)+"')";
+			lz.Browser.loadJS(s);
 			this.setAttribute('showHighlighter', (sh != false));
 		</method>
 
@@ -1134,9 +1136,6 @@
 		</method>
 
 		<method name="updateSubtest" args="response"><![CDATA[
-			/*var s = "javascript:checkVals('updateSubtest   ','"+ response +"','')";
-			lz.Browser.loadJS(s);*/
-			
     		var subtest = new lz.DataElement('subtest');
     		var obAssessment = lz.DataElement.stringToLzData(response);
     		var sco = getCurrentSubtest();
@@ -1146,15 +1145,6 @@
 			}
     		subtest.setAttribute('childNodes',new Array(obAssessment, sco, this.testSessionData));
 			dssubtest.setAttribute('childNodes',new Array(subtest));
-			var dsarray = dssubtest.childNodes;
-			for(var i=0;i<dsarray.length;i++){
-				var s = "javascript:checkVals('updateSubtest   ','"+ dsarray[i] +"','')";
-				lz.Browser.loadJS(s);
-
-				var p = "javascript:checkVals('updateSubtest   break','','')";
-				lz.Browser.loadJS(p);
-			}
-
     	]]></method>
 
 		<method name="getTestingSessionData">
@@ -1385,7 +1375,7 @@
             			gReadableText.stopReading(false);
             			this.setAttribute('firstSubtest', false);
             			this.outOfTimeOpen();
-						//gMusicPlayer.hide();
+						gMusicPlayer.hide();
                      } else {
                         var mins = Math.floor( secsnum / 60 );
                         resetTestTimer( secsnum );
@@ -1414,9 +1404,9 @@
             }
             this.setAttribute('firstSubtest', false);
            	gLogo.setSource(canvas.logoRsrc);
-           	/*if(!gScratchpad.isinited){
+           	if(!gScratchpad.isinited){
 				gScratchpad.completeInstantiation();
-			}*/
+			}
  			setScratchpadForSubtest();
 
  		if(isLoginResponseHavingSeed && !nullOrSpace(seed)) {
@@ -1528,7 +1518,7 @@
 				var spContents = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/sp/text()');
 				//END
 			}
-			//gScratchpad.setAttribute('text', unescape(spContents));
+			gScratchpad.setAttribute('text', unescape(spContents));
 		</method>
 
 		<method name="outOfTimeOpen">
@@ -1709,10 +1699,10 @@
 			Initializes runtime nodes that store state for each question.
 		-->
 		<method name="initStudentData"><![CDATA[
-		//Debug.write("initStudentData");
-			/*if(gController.audible == 'true' && !gMusicPlayer.alreadyCalled){
+			//Debug.write("initStudentData",gController.audible == 'true',gController.audible == true);
+			if(gController.audible == true && !gMusicPlayer.alreadyCalled){
 				loadMusicData();
-			}*/
+			}
 			this.restartItemCount = 0;    
             var dn = dpstudentdata.xpathQuery( 'title' );
             dn.setAttr( 'product_name', dpsubtest.xpathQuery( 'sco/@title' ) );
@@ -2305,7 +2295,7 @@
                         }
                         break;
                     case 'grid':
-                        if ( dnnewitem.getAttr( 'answered' ) == '1' &&
+                    	if ( dnnewitem.getAttr( 'answered' )&&
                              dnnewitem.hasAttr( 'answer_text' ) ) {
                             var text =
                                 dnnewitem.getAttr( 'answer_text' );
@@ -2340,20 +2330,20 @@
             this.setAttribute('focusOnGr', !isMarkedForReviewWithManipulativeOpen());
             this.runtimeready = true;
             checkItemStatus();
-			/*if(this.magnifierVisible) {
+			if(this.magnifierVisible) {
 	            if(this.isAudioItem()) {
 					gManipulativeBar.globals.magnifyingGlass.setAttribute('visible', false);
 				}
 				else {
 					gManipulativeBar.globals.magnifyingGlass.setAttribute('visible', true);
 				}
-			}*/
+			}
 	
-			/*if(this.showMaskingAnswerPopUp && gController.returnNumberOfOptions() > 0){
+			if(this.showMaskingAnswerPopUp && gController.returnNumberOfOptions() > 0){
 				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', true);
 			}else{
 				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', false);
-			}*/
+			}
 			
         ]]></method>
 
@@ -2467,15 +2457,10 @@
 	            	changeItem(dpsubtest.xpathQuery( "ob_assessment/ob_element_list/f[@id='" + itemeid + "']" ));
 	            }
             }
-         //hideMagnifierGlass(); 
+         hideMagnifierGlass(); 
         ]]></method>
 
-		<method name="changeItem" args="fnode"><![CDATA[	
-			var p = (fnode != null);
-			var s = "javascript:checkVals('inside changeItem ','"+p+"','"+fnode+"')";
-					lz.Browser.loadJS(s);
-			
-				
+		<method name="changeItem" args="fnode"><![CDATA[		
 			if(fnode != null) {			
 				/*if(this.recorder != null) {
 					this.recorder.stopblinker('stop');
@@ -2511,7 +2496,7 @@
             return currItemOffset() == (totalitems - 1);
         </method>
 
-		<method name="currItemOffset"><![CDATA[
+		<method name="currItemOffset">
             var curreid = Number(
                 dpstudentdata.xpathQuery( 'current_item/item_model/@eid' )
             );
@@ -2522,28 +2507,9 @@
                 "']"
             );
 
-			var dsarray = dpsubtest.xpathQuery(
-                "/subtest/ob_assessment/ob_element_list/f[@id='2']");
-			var s = "javascript:checkVals('currItemOffset  dpsubtest ','"+ dsarray +"','')";
-			lz.Browser.loadJS(s);
-
-			Debug.write("fnode****************** ",fnode);
-
-			/*var s = "javascript:checkVals('"+curreid+"  ','"+fnode+"')";
-			lz.Browser.loadJS(s);*/
-
-			/*var off = fnode.getOffset();
-
-			var s = "javascript:checkVals('currItemOffset','"+curreid+"  ','"+off+"')";
-			lz.Browser.loadJS(s);*/
-
-            if (fnode){
-				var s = "javascript:checkVals('fnode is present','"+fnode.getOffset()+"','')";
-				lz.Browser.loadJS(s);
+            if (fnode)
                return fnode.getOffset();
-			}
             return 0;
-		]]>
         </method>
 		
 		<!-- recursively get the next navigable item's offset -->
@@ -2580,18 +2546,9 @@
 		]]></method>
 		
 		<method name="getItemFromOffset" args="offset"><![CDATA[
-			var s = "javascript:checkVals('inside getItemFromOffset  ','"+offset+"','')";
-				lz.Browser.loadJS(s);
-
-
 //Debug.write("getItemFromOffset called with offset: "+offset);			
             var eltlist = dpsubtest.xpathQuery('/subtest/ob_assessment/ob_element_list');
             var fnode = eltlist.childNodes[ offset ];
-
-			var abc = dpstudentdata.xpathQuery("runtime/item_model[@eid='"+fnode.getAttr('id')+"']");
-
-			var p = "javascript:checkVals('inside getItemFromOffset dpstudentdata ','"+abc+"','')";
-				lz.Browser.loadJS(p);
 
 //Debug.write("offset : fnode : "+offset+" : "+fnode);
            	if(typeof fnode != "undefined") {
@@ -2654,24 +2611,13 @@
 			var totalitem = Number(
 				dpstudentdata.xpathQuery( 'question_number/@total_including_theme')  );
             
-			var s = "javascript:checkVals('stepNavigateForward ','"+curritem+"','"+totalitem+"')";
-			lz.Browser.loadJS(s);
-			
 			if ( !onLastItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && 
 					dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm 
 					&& !(gController.getNextNavigableOffset(curritem) == totalitem )){
-					var s = "javascript:checkVals('stepNavigateForward inside if ','','')";
-					lz.Browser.loadJS(s);
-					
             		this.showRevisitPopup("goOn");
 				}else{
-					var d = currItemOffset();
-					if(d!=null){
-					var s = "javascript:checkVals('stepNavigateForward inside else ','"+d+"','')";
-					lz.Browser.loadJS(s);	}					
-
 					changeItem( getItemFromOffset( currItemOffset() + 1 ) );
             	}
             }
@@ -2680,11 +2626,11 @@
 		<!-- question state -->
 		<method name="toggleMark"><![CDATA[
 		//For Defect 65880
-        	if(!this.isThemePage() && this.allowRevisit && !gController.fwdOnly){
+			if(this.isThemePage()!='true' && this.allowRevisit && !gController.fwdOnly){
 	        	freezeUI();
 	        	var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
 	        	var isMarked = dncurritem.getAttr( 'marked' );
-	        	if(isMarked == null || isMarked == '0'){
+	        	if(isMarked == null || isMarked == '0' || isMarked == 'false'){
 	        		markQuestion( true );
 	        	}
 	        	else{
@@ -2881,7 +2827,7 @@
 				var dnruntimeitem = dpstudentdata.xpathQuery ("runtime/item_model [@eid = '"+curritem+"']");
 
 				var responses = dpstudentdata.xpathQuery( 'current_item/item_model/interaction/response' );
-				if ( responses instanceof lz.DataNode ) {
+				if ( responses instanceof lz.DataElement ) {
 					responses = [responses];
 				} else if ( null == responses ) {
 					responses = [];
@@ -2893,10 +2839,10 @@
 
 				if(value != orig){
 					if(typeof value != 'undefined' && value != null && value.length > 0){
-						gReadableText.read(gReadableText.getReadableTextForCharacter(value) + " selected.");
+						gReadableText.read(gReadableText.getReadableTextForCharacter(value) + " selected.",false);
 					}
 					else{
-						gReadableText.read(gReadableText.getSelectionRemoved());
+						gReadableText.read(gReadableText.getSelectionRemoved(),false);
 					}
 				}
 			   freezeUI();
@@ -3011,16 +2957,16 @@
 			gScreens.resetTextFieldColor();
             startQuestion();
             unlockUI();
-           // gQuestion.setGrFocus();
+            gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
 		</method>
 
 		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
-           /*	if(this.focusOnScratchpad  && gScratchpad.visible){
+          	if(this.focusOnScratchpad  && gScratchpad.visible){
             	gScratchpad.restoreFocusAndCursor();
-            }*/
+            }
  		]]></method>
 
 		<method name="finishTest">
@@ -3167,7 +3113,7 @@
 			
             lz.Cursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
-            //gQuestion.setGrFocus();
+            gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
             unlockUI();
             checkShowMagnifierGlass();
@@ -3240,9 +3186,9 @@
 	                lz.Cursor.unlock();
 	                restoreCurrentCursor();
 	                dsdisplay.childNodes[0].setAttr( 'enabled', 'true' );
-	                //if(!gScratchpad.scratchpadHasFocus){
+	              if(!gScratchpad.scratchpadHasFocus){
 	                	gHotKeys.enableKeys();
-	                //}
+	               }
 	            }
 	        }
 		]]>
@@ -3321,7 +3267,7 @@ Debug.write("############ loadItem ############");
             this.resetCrFields();
 			this.resetAudioFields();
 			//this.resetImageField();
-			//gMaskingAnswer.setAttribute("withState",false);
+			gMaskingAnswer.setAttribute("withState",false);
 			hideMagnifierGlass();
 			hideMaskingChoiceDD();
 		]]></method>
@@ -3338,13 +3284,14 @@ Debug.write("############ loadItem ############");
         	var result = d.childNodes[0].data;
 			//Debug.write("getMusicData result" , result , d);
         	//result == 'File_Downloaded' &&  
-			if(gController.audible == 'true'){
-				/*gMusicPlayer.alreadyCalled = true;				
+        	Debug.write("gController.audible*************** ",gController.audible == 'true',gController.audible == true);
+			if(gController.audible == true){
+				gMusicPlayer.alreadyCalled = true;				
 				gMusicPlayer.setSource("http:resources/music_"+gController.musicId+".mp3");
-				gMusicPlayer.setAttribute('playStarted',true);*/
+				gMusicPlayer.setAttribute('playStarted',true);
 				//Start - changes for Defect 66424
-				/*gMusicPlayer.playButton.setAttribute('visible',false);
-				gMusicPlayer.stopButton.setAttribute('visible',true);*/
+				gMusicPlayer.playButton.setAttribute('visible',false);
+				gMusicPlayer.stopButton.setAttribute('visible',true);
 				//End  - changes for Defect 66424
 			}
         ]]></method>
@@ -3379,7 +3326,7 @@ Debug.write("############ loadItem ############");
     	</method>
 
 		<method name="getSpText">
-    		//return escape(gScratchpad.getText());
+    		return escape(gScratchpad.getText());
     	</method>
 
 		<method name="getItemParams"><![CDATA[
@@ -3863,7 +3810,11 @@ Debug.write("############ loadItem ############");
         ]]></method>
 
 		<method name="getAccomStyleForType" args="type">
-            return this.accomstyles [type];
+			if (this.accomstyles [type]){
+				return this.accomstyles [type];
+			}else{
+				return '';
+			}
         </method>
 
 		<method name="currentDur">
@@ -4211,11 +4162,12 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="resetImageArray"><![CDATA[
-
+		if(this.imageLIArray){
 		 for (var i = 0; i < this.imageLIArray.length; i++) {
                 delete this.imageLIArray[i];
             }
             this.imageLIArray.length = 0;
+			}
 		]]></method>
 
 		<method name="setAudioItemState" args="answer"><![CDATA[
@@ -4500,13 +4452,13 @@ Debug.write("############ loadItem ############");
 
 		<method name="checkHideMagnifierGlass">
 			if(this.magnifierState)  {
-				//gMagnifyingGlass.hideGlass();
+				gMagnifyingGlass.hideGlass();
 		   }   
 		</method>
 
 		<method name="checkShowMagnifierGlass">
 		   if(this.magnifierState)  {
-				//gMagnifyingGlass.showGlass();
+				gMagnifyingGlass.showGlass();
 		   }   
 		</method>
 			<method name="hideMaskingChoiceDD">
@@ -4523,13 +4475,13 @@ Debug.write("############ loadItem ############");
 
 		<method name="checkHideMaskingChoiceDD">
 			if(this.maskingAnswerDDState)  {
-//				gMaskingAnswer.hidePopUp();
+				gMaskingAnswer.hidePopUp();
 		   }   
 		</method>
 
 		<method name="checkShowMaskingChoiceDD">
 		   if(this.maskingAnswerDDState)  {
-			//	gMaskingAnswer.showPopUp();
+				gMaskingAnswer.showPopUp();
 		   }   
 		</method>
 
@@ -4837,7 +4789,7 @@ Debug.write("############ loadItem ############");
 
 			if(argsNodePtr.data != null) {//for first login cases i.e. no restart data
 				argsNodeArr = argsNodePtr.xpathQuery("tsd");
-				if(argsNodeArr instanceof lz.DataNode) {
+				if(argsNodeArr instanceof lz.DataElement) {
 					argsNodeArr = new Array(argsNodeArr);
 				}	
 				argsNodeArrLen = argsNodeArr.length;

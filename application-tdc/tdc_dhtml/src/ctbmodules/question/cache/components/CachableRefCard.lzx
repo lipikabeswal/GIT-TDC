@@ -53,19 +53,14 @@
                params = params.concat("&user=" + canvas.user);
 
 			if (params == "") {
-			   /*setAttribute('servletBase', lz.Browser.getInitArg( 'servletUrl' ) 
-					          + '/ContentServlet.do?method=getLocalResource&resourcePath=');*/
-				setAttribute('servletBase', gController.servletUrl
-					          + '/ContentServlet.do?method=getLocalResource&resourcePath=');	          
+			   setAttribute('servletBase', lz.Browser.getInitArg( 'servletUrl' ) 
+					          + '/ContentServlet.do?method=getLocalResource&resourcePath=');
 			}
             else {
 				
-			  /* setAttribute('servletBase', gController.servletUrl
+			   setAttribute('servletBase', lz.Browser.getInitArg( 'servletUrl' ) 
 					          + '/ContentServlet.do?method=getLocalResource' + params
-							  + '&resourcePath=');*/
-				setAttribute('servletBase', lz.Browser.getInitArg( 'servletUrl' ) 
-					          + '/ContentServlet.do?method=getLocalResource' + params
-							  + '&resourcePath=');			  
+							  + '&resourcePath=');
 			}
             //Debug.write("XXX servletBase : " + servletBase);
 
@@ -244,14 +239,14 @@
 			For handling load events of content and title resources 
 			-->		
 		<method name="handleLoadEvent" args="imgObj,count,d"><![CDATA[
-            	if(!gCommunicator.checkShowError(d) && (imgObj.resourceheight == 0 || 
+            	if(!gCommunicator.checkShowError(d,null) && (imgObj.resourceheight == 0 || 
                                                         imgObj.resourcewidth == 0)) {
             
                     //this.setAttribute (Number(count), Number(count) + 1);
                     if (count < 5) {
                         lz.Idle.callOnIdle(imgObj.reloadDel);
                     } else {
-                        gCommunicator.checkShowError(gXmlHelper.getContentErrorXml());
+                        gCommunicator.checkShowError(gXmlHelper.getContentErrorXml(),null);
                     }
                 } else {
 					this.adjustDimensions(data);
@@ -334,7 +329,7 @@
 	            </method>
 	            
 	            <handler name="onerror">
-	                gCommunicator.checkShowError(gXmlHelper.getContentErrorXml());
+	                gCommunicator.checkShowError(gXmlHelper.getContentErrorXml(),null);
 	            </handler>
 	
 	            <handler name="ontimeout">
@@ -346,7 +341,7 @@
 	                }
 	                else 
 	                {
-	                	gCommunicator.checkShowError(gXmlHelper.getContentTimeoutXml());
+	                	gCommunicator.checkShowError(gXmlHelper.getContentTimeoutXml(),null);
 	                }
 				]]>
 	            </handler>
@@ -382,7 +377,7 @@
 	            </method>
 	            
 	            <handler name="onerror">
-	                gCommunicator.checkShowError(gXmlHelper.getContentErrorXml());
+	                gCommunicator.checkShowError(gXmlHelper.getContentErrorXml(),null);
 	            </handler>
 	
 	            <handler name="ontimeout">
@@ -394,7 +389,7 @@
 	                }
 	                else 
 	                {
-	                	gCommunicator.checkShowError(gXmlHelper.getContentTimeoutXml());
+	                	gCommunicator.checkShowError(gXmlHelper.getContentTimeoutXml(),null);
 	                }
 				]]>
 	            </handler>
@@ -418,14 +413,15 @@
 					click handler has to be written.	 	
 				-->	
 				<handler name="onmousedown" args="Obj" reference="lz.GlobalMouse"><![CDATA[
-					if(typeof Obj != "undefined" && Obj.childOf(this)) {
+				
+					if(Obj && Obj.childOf(this)) {
 						classroot.setAttribute("isScrolling", true);	
 //Debug.write("onmousedown is called....", Obj, this);
 					}
 				]]></handler>
 
 				<handler name="onmouseup" args="Obj" reference="lz.GlobalMouse"><![CDATA[
-					if(typeof Obj != "undefined" && Obj.childOf(this)) {
+					if(Obj && Obj.childOf(this)) {
 //Debug.write("onmouseup is called....", Obj, this);					
 						classroot.setAttribute("isScrolling", false);	
 					}

@@ -5,4 +5,5 @@
     <include href="EnlargeButton.lzx"/>
     <include href="ctb_edittext.lzx"/>
     <include href="input_box.lzx"/>
+	<include href="gridresponse/GridResponse.lzx"/>
 </library>

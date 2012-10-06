@@ -239,7 +239,7 @@
 					  </method>
 					  
 					  
-				  	<method name="updateText" args="a">
+				  	<method name="updateScrollText" args="a">
 						this.setAttribute('text',a);	
 					</method>
 		
@@ -267,7 +267,7 @@
 						 	if(this.text.length > Number(classroot.characterLimit)){
 								var textContent = this.text;
 								textContent = textContent.substring(0,Number(classroot.characterLimit));
-								updateText(textContent);
+								updateScrollText(textContent);
 							}
 												 
 						 
@@ -293,6 +293,12 @@
 						this.setAttribute('end', pos + size);
 					</method>
 					
+					
+									 
+					<method name="updateText" args="a">
+						this.setAttribute('text',a);		
+					</method>
+
 				  </scrolledittext>
 				 </view>
 			</view>
