@@ -18,6 +18,7 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import com.ctb.tdc.web.utils.AuditFile;
@@ -291,7 +292,7 @@ public class PersistenceAction {
 				// logger.error("TMS returns error in login() : " + result);
 			}
 
-			File speexFile = new File(Context.MODE_PRIVATE + ("/")
+			/*File speexFile = new File( Environment.getExternalStorageDirectory()  
 					+ "//streams//");
 
 			File[] files = speexFile.listFiles();
@@ -300,7 +301,7 @@ public class PersistenceAction {
 				for (int i = 0; i < files.length; i++) {
 					files[i].delete();
 				}
-			}
+			}*/
 
 		}
 
