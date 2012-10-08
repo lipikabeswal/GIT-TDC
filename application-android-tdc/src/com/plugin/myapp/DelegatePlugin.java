@@ -57,17 +57,17 @@ public class DelegatePlugin extends Plugin {
                 method="downloadFileParts";
                // method="getSubtest";
                 
-               //  method = json_data.getString("param1");
-			   // xmlRequest = json_data.getString("param2");
-				// actionName = json_data.getString("param3");
+                
                 for(int i=0;i<data.length();i++) {
                     json_data = data.getJSONObject(i);
                     xmlData=json_data.getString("param1");
                                       
             	}
-               
-				 actionName="TT";
-				if (actionName.equals("PA")) {
+                method = json_data.getString("param1");
+			      xmlRequest = json_data.getString("param2");
+				 actionName = json_data.getString("param3");
+				
+				if (actionName.equals("PersistenceAction")) {
 					persistenceAction = new PersistenceAction();
 					if ((method != null)
 							&& (!method.equals(ServletUtils.NONE_METHOD))) {
@@ -83,7 +83,7 @@ public class DelegatePlugin extends Plugin {
 						xmlData=doGetpersisXml(method);
 					}
 				}
-				if (actionName.equals("CO")) {
+				else if (actionName.equals("CO")) {
 					
 					ContentAction contentAction=new ContentAction();
 					try{
@@ -111,7 +111,7 @@ public class DelegatePlugin extends Plugin {
 						
 					}
 				}
-				if(actionName.equals("TT")){
+				else if(actionName.equals("TT")){
 					
 					SpeechServlet speechServlet=new SpeechServlet();
 					xmlData=speechServlet.readPostDataRequest(xmlData);
@@ -119,7 +119,7 @@ public class DelegatePlugin extends Plugin {
 				}
 				
               else {
-                result = new PluginResult(Status.INVALID_ACTION);
+                result = new PluginResult(Status.ERROR,xmlData);
                 Log.e(TAG, "Invalid action: " + action);
             }
             } catch (JSONException jsonEx) {
