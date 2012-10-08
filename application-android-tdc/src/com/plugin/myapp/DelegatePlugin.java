@@ -28,7 +28,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-import com.ctb.tdc.web.TTSServlet.Servlet.SpeechServlet;
+import com.ctb.tdc.web.TTSservlet.servlet.SpeechServlet;
 import com.ctb.tdc.web.processingAction.ContentAction;
 import com.ctb.tdc.web.processingAction.PersistenceAction;
 import com.ctb.tdc.web.utils.ServletUtils;
