@@ -5,7 +5,7 @@
 -->
 <library>
      <include href="base/basebutton.lzx" />
-    <include href="base/basewindow.lzx" />
+    <include href="ScratchpadBaseWindow.lzx" />
     <include href="base/resizeview.lzx" />
     <include href="utils/layouts/stableborderlayout.lzx"/>
 
@@ -97,7 +97,7 @@
         <frame src="resources/window/resizebtn_dsbl.swf"/>
     </resource>
 
-    <class name="ScratchpadWindowPanel" extends="basewindow">
+    <class name="ScratchpadWindowPanel" extends="ScratchpadBaseWindow">
         <!--- the title of a window : this string appears at the top
               of the window. -->
         <attribute name="title" value="" type="string"/>
