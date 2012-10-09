@@ -39,7 +39,6 @@
 				magnifyingGlass.width = canvas.width/4;
 				magnifyingGlass.height = canvas.height/8;
 				this.windowbg.drawMe();
-				//this.setX(canvas.width / 2 - this.width / 2);
 				this.ratioW = this.width/(canvas.width + this.width);
 				this.ratioH = this.height/(canvas.height + this.height);
 				mouseMove();
@@ -146,8 +145,14 @@
 
 	<method name="setUpGlass">
 		 this.setAttribute("x",canvas.width/2 - this.width/2);
-		 this.setAttribute("valign",'middle');
 		 this.setAttribute("visible", true);	
+			
+		 if(gController.magnifierY){
+		 	this.setAttribute("y",gController.magnifierY);
+		}else{
+			this.setAttribute("valign",'middle');
+			gController.setAttribute("magnifierY",this.y);
+		}
 	</method>
 
 	<method name="hideGlass">

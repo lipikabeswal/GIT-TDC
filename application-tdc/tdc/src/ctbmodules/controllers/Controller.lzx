@@ -483,6 +483,7 @@
 		<attribute name="magnifierState" value="false" />
 		
 		<attribute name="magnifierVisible" value="false" />
+		<attribute name="magnifierY" value="null"/>
 		<attribute name="showMaskingAnswerPopUp" value="false"/>
 		<attribute name="maskingAnswerDDState" value="false"/>
 		
