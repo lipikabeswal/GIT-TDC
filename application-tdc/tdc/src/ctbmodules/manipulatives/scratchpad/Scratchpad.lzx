@@ -136,6 +136,7 @@
          <handler name="onblur" reference="sp.inp">
 			this.setAttribute("scratchpadHasFocus", false);
 			this.setAttribute("scratchpadJustLostFocus", true);
+			gHotKeys.enableKeys();
          </handler>
          
 	     <scrolledittext name="sp" 
@@ -164,6 +165,7 @@
 				</method>
 				
 				<handler name="ontext"><![CDATA[
+					storeSelection();
 				 	if(this.text.length > 10000){
 								var textContent = this.text;
 								textContent = textContent.substring(0,Number(classroot.characterLimit));

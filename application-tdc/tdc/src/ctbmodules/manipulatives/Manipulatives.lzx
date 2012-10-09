@@ -227,7 +227,6 @@
 			var result = null;
 			if(tool == 'scratchpad'){
 				result = gScratchpad;
-				Debug.write("gScratchPad",gScratchpad);
 			}
 			else if (tool == 'protractor'){
 				result = gProtractor;

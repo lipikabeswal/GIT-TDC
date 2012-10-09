@@ -359,7 +359,7 @@
 		</method>
 		
 		<method name="getInputNumber">
-			if(this.isNegative){
+			if(this.isNegative == true || this.isNegative == 'true'){
 				return "-" + this.input;
 			}
 			else{
@@ -515,7 +515,7 @@
 		<method name="updateDisplay">
 		<![CDATA[   
 			if(this.isEditing){  
-				if(this.isNegative){
+				if(this.isNegative == true || this.isNegative == 'true'){
 					setDataAttribute('displayValue', "-" + this.input);
 				}
 				else{
@@ -951,7 +951,7 @@
 			else{
 				result = numText;
 			}
-			if(isNegative){
+			if(this.isNegative == true || this.isNegative == 'true'){
 				result = "-" + result;
 			}
 			return result;
