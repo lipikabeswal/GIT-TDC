@@ -427,6 +427,7 @@
 				}
 				this.resetState();
 				setDataAttribute('currentOperand', result);
+				setDataAttribute('input', result);
 				setDataAttribute('operandSet', true);
 				updateDisplay();
 			}
