@@ -835,7 +835,7 @@ public class PersistenceServlet extends HttpServlet {
 				filePath = "//Applications//Online Assessment//Online Assessment.lax";
 			}
 			else {
-				filePath ="//usr//local//Online Assessment//Online Assessment.lax";
+				filePath ="//usr//local//Online Assessment//Online_Assessment.lax";
 			}
 			props.load(new FileInputStream(filePath));
 		} catch (JDOMException e) {
