@@ -96,7 +96,7 @@
 		]]></method>
 		
 		<method name="timedout">
-		Debug.write("timedout...");
+		/*Debug.write("timedout...");
 	        lz.Timer.removeTimer( dTimeout );
 			//For ISTEP CR	
 			if(gCommunicator.firstRequestDone == false) {
@@ -109,27 +109,30 @@
 				gController.stopQuestion();
 				//gReadableText.getMp3();
 				doRead(this.currentText);
-				gReadableText.startRequestor();	
+				//gReadableText.startRequestor();	
 			}
 			else {
 				gCommunicator.finishCall(gXmlHelper.getSpeechErrorXml());
-			}
+			}*/
 		</method>
 		
         <method name="doRead" args="txt"><![CDATA[
+			var speedValue;
         	this.currentText = txt;//TTS CR
         	//Changes for Defect # 65040
-        	this.audioPlayer.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
-			lz.Timer.resetTimer(this.dTimeout, TIMEOUT_INTERVAL);
+        	//this.audioPlayer.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
+			//lz.Timer.resetTimer(this.dTimeout, TIMEOUT_INTERVAL);
  	    	//stopReading();
  	        speechDs.setQueryParam(TEXT_PARAM, txt);
  	        //TTS CR
- 	        if(gController.hasTTSspeed) {
+ 	        //if(gController.hasTTSspeed) {
  	        	var smf = gManipulativeBar.speedController.value;  //SMF => Slow, Medium, Fast
- 	        	var speedValue = getSpeedNumber(smf);
- 	        	speechDs.setQueryParam(SPEED_PARAM, speedValue);
- 	        }
+ 	        	speedValue = getSpeedNumber(smf);
+				speechDs.setQueryParam(SPEED_PARAM, speedValue);
+ 	       // }
  	        Debug.write("speechDs");
+ 	        var s = "sendRequest('"+txt+"','"+speedValue+"','')";
+			lz.Browser.loadJS(s);   
 			speechDs.doRequest();
        ]]></method>
         
@@ -137,8 +140,6 @@
         	//ISTEP CR: to avoid browser caching of the mp3
         	//Debug.write("getMp3" + GET_URL + ":"+timestamp());
         	//audioPlayer.setSource(GET_URL+"&"+timestamp()+".mp3");
-			var audioFile = GET_URL+"&"+timestamp()+".mp3";
-			lz.embed.audiokernel.callMethod('audioplayer.setSource(\'audioFile\')')
         ]]></method>
 
 		<method name="timestamp">
