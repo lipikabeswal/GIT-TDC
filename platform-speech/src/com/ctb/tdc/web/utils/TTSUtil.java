@@ -598,6 +598,8 @@ public class TTSUtil {
 			System.out.println(speedValue);
 			System.out.println(text);
 			
+			post.addHeader("x-readspeaker-api-key", "ac678cf868483de0b733cf4d81b6367b");
+			
 			// send request to TextHelp
 			HttpResponse response = client.execute(post);
 			responseCode = response.getStatusLine().getStatusCode();
