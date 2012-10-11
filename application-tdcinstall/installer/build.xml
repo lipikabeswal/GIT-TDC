@@ -72,6 +72,9 @@
 		
 		<antcall target="buildTNG" />  
 		<!-- <antcall target="buildTNGThin" /> -->
+
+		<antcall target="buildOK" />  
+		<!-- <antcall target="buildOKThin" /> -->
 		
 		<antcall target="postClean"></antcall>
 		<antcall target="buildTDCUpdate"></antcall>
@@ -198,6 +201,23 @@
 		</antcall>
 	</target>
 	
+
+	<!-- **************************** Oklahoma ******************************* -->	
+	<target name="buildOK" description="Builds the Oklahoma installer" depends="init">
+		<antcall target="buildNonThinClientInstaller">
+			<param name="installer.type" value="ok" />
+			<param name="installer.primary.url" value="https://oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://oasdr.ctb.com" />
+		</antcall>
+	</target>
+
+	<target name="buildOKThin" description="Builds the Oklahoma installer" depends="init">
+		<antcall target="buildThinClientInstaller">
+			<param name="installer.type" value="ok-thin" />
+			<param name="installer.primary.url" value="https://oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://oasdr.ctb.com" />
+		</antcall>
+	</target>
 	
 	<!-- Internal tasks **************************************************** -->
 		
