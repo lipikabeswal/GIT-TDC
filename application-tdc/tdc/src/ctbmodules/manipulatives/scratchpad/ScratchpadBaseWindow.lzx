@@ -7,7 +7,7 @@
 
 <include href="base/basecomponent.lzx" />
 <include href="utils/states/dragstate.lzx"/>
-<include href="utils/states/resizestatemin.lzx"/>
+<include href="resizestateminmax.lzx"/>
 
 <!--- The basewindow class defines methods, attributes that are used by window
       subclasses.-->
@@ -16,10 +16,12 @@
         <!--- Minimum width for the window.
               @keywords final -->
         <attribute name="minwidth" value="60"/>
+        <attribute name="maxwidth" value="640"/>
 
         <!--- Minimum height for the window.
               @keywords final -->
         <attribute name="minheight" value="50"/>
+        <attribute name="maxheight" value="362"/>
 
         <!--- True if the window is frontmost. Set this
               attribute to bring the window to the fore of its sibling
@@ -91,9 +93,9 @@
             ]]>
         </method> 
 
-        <!-- resizestatemin uses minwidth and minheight attribute-->
-        <resizestatemin name="_windowResize" resize_min_width="${this.minwidth}" resize_min_height="${this.minheight}" onapply="parent.setAttribute('haswindowfocus', true)"/>
-
+             <!-- resizestatemin uses minwidth and minheight attribute-->
+        <resizestateminmax name="_windowResize" onapply="parent.setAttribute('haswindowfocus', true)"/>
+        
         <!--- @keywords private -->
         <method name="construct" args="parent,args">
             super.construct(parent, args);
