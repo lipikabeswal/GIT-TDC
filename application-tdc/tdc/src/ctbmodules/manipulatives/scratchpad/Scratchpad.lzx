@@ -142,8 +142,7 @@
 	     <scrolledittext name="sp" 
 	                             height="${immediateparent.height}" 
 	                             width="${immediateparent.width}" 
-
-	                             focusable="false">
+	                             focusable="true">
 	            	<attribute name="start" type="number" value="0" />
 	            	<attribute name="end" type="number" value="0" />
 	            	<attribute name="scrollPos" type="number" value="0" />
