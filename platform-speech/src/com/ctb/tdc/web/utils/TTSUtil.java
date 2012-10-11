@@ -7,31 +7,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.Socket;
 import java.net.URLEncoder;
-import java.net.UnknownHostException;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.HttpVersion;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.NTCredentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -42,15 +28,16 @@ import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
 import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.conn.ssl.TrustStrategy;
+import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
-import org.apache.http.params.HttpProtocolParams;
-import org.apache.http.protocol.HTTP;
 import org.bouncycastle.crypto.digests.MD5Digest;
 import org.bouncycastle.crypto.engines.RC4Engine;
 import org.bouncycastle.crypto.params.KeyParameter;
@@ -64,11 +51,22 @@ public class TTSUtil {
 	
 	public static HashMap mp3CacheMap = new HashMap();
 	
-	public static DefaultHttpClient client; 
+	public static DefaultHttpClient client;
 	
 	static {
 		try {
-			ThreadSafeClientConnManager mgr = new ThreadSafeClientConnManager();
+			// setup SSL
+			TrustStrategy trustStrategy = new EasyTrustStrategy(); 
+			X509HostnameVerifier hostnameVerifier = new AllowAllHostnameVerifier(); 
+			SSLSocketFactory sslSf = new SSLSocketFactory(trustStrategy, hostnameVerifier); 
+			PlainSocketFactory pSf = new PlainSocketFactory(); 
+			Scheme https = new Scheme("https", 443, sslSf); 
+			Scheme http = new Scheme("http", 80, pSf); 
+			SchemeRegistry schemeRegistry = new SchemeRegistry(); 
+			schemeRegistry.register(https);
+			schemeRegistry.register(http);
+			
+			ThreadSafeClientConnManager mgr = new ThreadSafeClientConnManager(schemeRegistry); 
 			mgr.setMaxTotal(1);
 			HttpParams httpParams = new BasicHttpParams();
 			HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
@@ -85,11 +83,13 @@ public class TTSUtil {
 	            String password  = ServletUtils.getProxyPassword();   
 	            String domain = ServletUtils.getProxyDomain();
 	        	TTSUtil.setProxyCredentials(client, proxyHost, proxyPort, username, password, domain);
+	        	
+	        	System.out.println(proxyHost + ":" + proxyPort);
 			}
 			
 			// setup BASIC auth
-			TTSSettings ttsSettings = getTTSSettings();
-			TTSUtil.setTTSCredentials(client, ttsSettings.getHost(), ttsSettings.getUserName(), ttsSettings.getPassword());
+			//TTSSettings ttsSettings = getTTSSettings();
+			//TTSUtil.setTTSCredentials(client, ttsSettings.getHost(), ttsSettings.getUserName(), ttsSettings.getPassword());
 		} catch(Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
@@ -382,10 +382,6 @@ public class TTSUtil {
 		if(ttsSettings == null) {
 			ResourceBundle ttsConfig = ResourceBundle.getBundle("tts");
 			ttsSettings = new TTSSettings(ttsConfig);
-			String decryptedUser = new String(decrypt(ttsSettings.getUserName()));
-			ttsSettings.setUserName(decryptedUser);
-			String decryptedPass = new String(decrypt(ttsSettings.getPassword()));
-			ttsSettings.setPassword(decryptedPass);
 			memoryCache.setTTSSettings(ttsSettings);
 		}
 		return ttsSettings;
@@ -479,18 +475,31 @@ public class TTSUtil {
         buff.append(src.substring(39, 40));
     	return buff.toString();
     }
-	
+    
     private static String execSpeechRequest (String text, String speedValue){
 		String result = null;
 	
 		int responseCode = HttpStatus.SC_OK;
-		System.out.println("this.speedValue1 : " + speedValue);
+		TTSSettings ttsSettings = getTTSSettings();
+		
+		String method = ttsSettings.getMethod();
+		
+		if(TTSSettings.READSPEAKERMETHOD.equals(method)) {
+			return execReadspeakerSpeechRequest(text, speedValue);
+		} else if (TTSSettings.TEXTHELPMETHOD.equals(method)) {
+			return execTexthelpSpeechRequest(text, speedValue);
+		} else {
+			return null;
+		}
+	}
+	
+    private static String execTexthelpSpeechRequest (String text, String speedValue){
+		String result = null;
+	
+		int responseCode = HttpStatus.SC_OK;
 		TTSSettings ttsSettings = getTTSSettings();
 		String voice = ttsSettings.getVoiceName();
-		
-		if(voice == null || "".equals(voice.trim())) {
-			voice = "ScanSoft Jill_Full_22kHz";
-		}
+
 		if(speedValue  == null || "".equals(speedValue.trim())) {
 			speedValue = ttsSettings.getSpeedValue();
 			if(speedValue == null || "".equals(speedValue.trim())) {
@@ -500,18 +509,24 @@ public class TTSUtil {
 
 		String speechURL = ttsSettings.getUrl();
 		if(speechURL == null || "".equals(speechURL.trim())) {
-			speechURL = "http://oastts.ctb.com/SpeechServer/";
+			speechURL = "http://ctb.speechstream.net/SpeechServices/index.html";
 		}
 		try {
 			HttpPost post = new HttpPost(speechURL);
 			//post.setFollowRedirects(false);
 			// setup parameters
-			List nameValuePairs = new ArrayList(3);
+			List nameValuePairs = new ArrayList(4);
+			nameValuePairs.add(new BasicNameValuePair("userName", "ctb"));
 			nameValuePairs.add(new BasicNameValuePair("text", text));
 			nameValuePairs.add(new BasicNameValuePair("voiceName", voice));
 			nameValuePairs.add(new BasicNameValuePair("speedValue", speedValue));
 			post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
+			System.out.println(speechURL);
+			System.out.println(voice);
+			System.out.println(speedValue);
+			System.out.println(text);
+			
 			// send request to TextHelp
 			HttpResponse response = client.execute(post);
 			responseCode = response.getStatusLine().getStatusCode();
@@ -536,6 +551,82 @@ public class TTSUtil {
 					result = null;
 				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+    
+    private static String execReadspeakerSpeechRequest (String text, String speedValue){
+		String result = null;
+	
+		int responseCode = HttpStatus.SC_OK;
+		TTSSettings ttsSettings = getTTSSettings();
+		String voice = ttsSettings.getVoiceName();
+
+		if(speedValue  == null || "".equals(speedValue.trim())) {
+			speedValue = ttsSettings.getSpeedValue();
+			if(speedValue == null || "".equals(speedValue.trim())) {
+				speedValue = "-2";
+			}
+		}
+		if("-1".equals(speedValue)) speedValue = "175";
+		else if ("-2".equals(speedValue)) speedValue = "100";
+		else if ("-3".equals(speedValue)) speedValue = "75";
+		else speedValue = "100";
+		//speedValue = String.valueOf((Integer.parseInt(speedValue) * -50));
+
+		String speechURL = ttsSettings.getUrl();
+		if(speechURL == null || "".equals(speechURL.trim())) {
+			speechURL = "http://app.readspeaker.com/cgi-bin/rsent";
+		}
+		try {
+			HttpPost post = new HttpPost(speechURL);
+			//post.setFollowRedirects(false);
+			// setup parameters
+			List nameValuePairs = new ArrayList(4);
+			nameValuePairs.add(new BasicNameValuePair("customerid", "5857"));
+			nameValuePairs.add(new BasicNameValuePair("lang", "en_us"));
+			nameValuePairs.add(new BasicNameValuePair("output", "audiolink"));
+			nameValuePairs.add(new BasicNameValuePair("text", text));
+			nameValuePairs.add(new BasicNameValuePair("voice", voice));
+			nameValuePairs.add(new BasicNameValuePair("speed", speedValue));
+			post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+			System.out.println(speechURL);
+			System.out.println(voice);
+			System.out.println(speedValue);
+			System.out.println(text);
+			
+			// send request to TextHelp
+			HttpResponse response = client.execute(post);
+			responseCode = response.getStatusLine().getStatusCode();
+			
+			System.out.println(responseCode);
+			
+			//int responseLen = 0;
+			//if(response.getHeaders("content-length") != null) {
+			//	responseLen = Integer.valueOf(response.getHeaders("content-length")[0].getValue()).intValue();
+			//}
+			
+			System.out.println("Text Status: " + responseCode); // + " Length: " + responseLen);
+			
+			//if (responseCode == HttpStatus.SC_OK && responseLen > 0) {
+				result = "";
+				BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()),131072);
+				String inputLine = null;
+				
+				while ((inputLine = in.readLine()) != null) {
+					result += inputLine;
+				}
+				System.out.println(result);
+				if(result.indexOf("mp3") >= 0) {
+					result = "mp3=" + result;
+					in.close();
+				} else {
+					result = null;
+				}
+			//}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
