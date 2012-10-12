@@ -1,10 +1,14 @@
 package com.ctb.demo;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import com.ti.eps.emu84.testAgency.EmulatorComponent;
 
@@ -16,7 +20,11 @@ public class CalcDemo {
      */
     private static void createAndShowGUI() {
         //Create and set up the window.
-        JFrame frame = new JFrame("CalcDemo");
+        JFrame frame = new JFrame("Graphing Calculator");
+        
+        frame.setAlwaysOnTop(true);
+        frame.setResizable(false);
+        frame.setIconImage(new ImageIcon("calc.png").getImage());
         
         EmulatorComponent emu = new EmulatorComponent(frame);
         
