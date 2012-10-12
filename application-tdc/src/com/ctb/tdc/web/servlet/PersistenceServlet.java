@@ -1,11 +1,13 @@
 package com.ctb.tdc.web.servlet;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -32,7 +34,6 @@ import org.jdom.output.XMLOutputter;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.Base64;
 import com.ctb.tdc.web.utils.CATEngineProxy;
-import com.ctb.tdc.web.utils.ContentFile;
 import com.ctb.tdc.web.utils.LoadTestUtils;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
@@ -824,6 +825,8 @@ public class PersistenceServlet extends HttpServlet {
 		String resultXml = null;
 		Properties props = new Properties();
 		String filePath="";
+		boolean isMac = false;
+		boolean isOK = false; //true for Oklahoma product
 		try {
 			loginReponseDocument = saxBuilder.build(new ByteArrayInputStream(loginResponse.getBytes()));			
 			//ResourceBundle rb = ResourceBundle.getBundle("tdc");
@@ -832,12 +835,28 @@ public class PersistenceServlet extends HttpServlet {
 				filePath ="C://Program Files//CTB//Online Assessment//Online Assessment.lax";
 			}
 			else if(osName.indexOf("mac") >= 0) {
-				filePath = "//Applications//Online Assessment//Online Assessment.lax";
+				filePath = "//Applications//Online Assessment//Online Assessment.app//Contents//info.plist";
+				isMac = true;
 			}
 			else {
 				filePath ="//usr//local//Online Assessment//Online_Assessment.lax";
 			}
-			props.load(new FileInputStream(filePath));
+
+			if(isMac) {//if Mac, read the info.list file for Oklahoma product
+				BufferedReader in = new BufferedReader(new FileReader(filePath));
+				String temp = in.readLine();
+				while(temp != null){
+					if(temp.indexOf("OKLAHOMA") > -1){
+						isOK = true;
+						break;
+					}
+					temp = in.readLine();
+				}
+			}
+			else {//Resume normal flow for Windows and Linux
+				props.load(new FileInputStream(filePath));
+			}
+			
 		} catch (JDOMException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -849,13 +868,18 @@ public class PersistenceServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		String productType = props.getProperty("product.type");
-		
-		if(productType != null && productType.equals("OKLAHOMA")) {
-			loginReponseDocument.getRootElement().getChild("login_response").setAttribute("isOK", "T");
+		if(!isMac) {//Resume normal flow for Windows and Linux
+			String productType = props.getProperty("product.type");
+			
+			if(productType != null && productType.equals("OKLAHOMA")) {
+				loginReponseDocument.getRootElement().getChild("login_response").setAttribute("isOK", "T");
+			}
+			else {
+				loginReponseDocument.getRootElement().getChild("login_response").setAttribute("isOK", "F");
+			}
 		}
 		else {
-			loginReponseDocument.getRootElement().getChild("login_response").setAttribute("isOK", "F");
+			loginReponseDocument.getRootElement().getChild("login_response").setAttribute("isOK", isOK ? "T" : "F");
 		}
 		
 		 resultXml = new XMLOutputter().outputString(loginReponseDocument);
