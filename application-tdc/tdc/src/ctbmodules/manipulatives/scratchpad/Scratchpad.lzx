@@ -148,7 +148,7 @@
 	            	<attribute name="scrollPos" type="number" value="0" />
 	            <method name="init">
 	                super.init();
-	              //	this.style.setAttribute("textfieldcolor", gController.answerBgColor);
+	                this.style.setAttribute("textfieldcolor", gController.answerBgColor);
 					this.setAttribute('fontcolor',gController.answerFontColor);
 				 	if(gController.hasFontAccommodation){
 						this.setAttribute('fontsize',18);

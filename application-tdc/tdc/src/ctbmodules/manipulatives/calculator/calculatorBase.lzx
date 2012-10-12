@@ -411,7 +411,7 @@
 		<method name="handleEquals">
 			if(!isErrorState()){
 				var result;
-				if(this.isPercentEquals){
+				if(this.isPercentEquals == true || this.isPercentEquals == 'true'){
 					this.pushOperand(this.currentOperand);
 					this.pushOperand(this.percentOperand);
 					this.pushOperator(this.percentOperator);
@@ -1024,6 +1024,7 @@
 					result = this.decimalFormat(num);
 				}
 			}
+			setDataAttribute('input', result);
 			return result;
 		]]>
 		</method>
