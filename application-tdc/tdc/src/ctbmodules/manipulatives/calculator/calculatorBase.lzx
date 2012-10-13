@@ -534,7 +534,7 @@
 			if(!isErrorState()){
 			    if(this.canAddDigit()){ 
 				    if(this.isEditing){
-						if(this.input == "0"){
+						if(this.input == "0" || this.input == "0."){
 							setDataAttribute('input', "" + digit);
 						}
 						else{

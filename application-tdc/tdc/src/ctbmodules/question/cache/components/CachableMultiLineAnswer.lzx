@@ -69,8 +69,10 @@
                 gController.addCrField({"widget_id" : this.widget_id, 
                                               "answered" : answered, "answer" : answer, "ref" : this}); 
                 this.setAttribute("isInitialText", true);
-                if (answered) 
-                   this.setAnswer(gController.formatXml(answer));
+                if (answered) {
+                   //this.setAnswer(gController.formatXml(answer));
+                   this.setAnswer(answer);
+                   }
                 else
                    this.setAnswer("");
             }
@@ -140,8 +142,9 @@
 		</method>
 		
 		<method name="updateCharacterMeter"><![CDATA[
-//Debug.write(this, "updateCharacterMeter", this.numCharacters, this.characterLimit, this.numCharacters/this.characterLimit, this.outer.controls.meter.limit.width);
-			this.outer.controls.meter.limit.used.setAttribute('width', this.outer.controls.meter.limit.width * (this.numCharacters/this.characterLimit));
+	//Debug.write(this, "updateCharacterMeter", this.numCharacters, this.characterLimit, this.numCharacters/this.characterLimit, this.outer.controls.meter.limit.width);
+			if(this.numCharacters <= this.characterLimit)
+				this.outer.controls.meter.limit.used.setAttribute('width', this.outer.controls.meter.limit.width * (this.numCharacters/this.characterLimit));
 		]]></method>
 		
         <!-- ===============
