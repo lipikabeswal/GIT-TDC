@@ -408,7 +408,7 @@
     <resource name="tab_contents_mid">
         <frame src="components/tabs/tab_contents_dslct_mid.png"/>
         <frame src="components/tabs/tab_contents_dslct_mid.png"/>
-        <!-- <frame src="components/tabs/tab_contents_slct_mid.swf"/> -->
+        <frame src="components/tabs/tab_contents_slct_mid.png"/>
     </resource>
 
     <resource name="tab_contents_right">
@@ -426,13 +426,13 @@
     <resource name="tab_border_mid">
         <frame src="components/tabs/tab_border_dslct_mid.png"/>
         <frame src="components/tabs/tab_border_dslct_mid.png"/>
-        <!-- <frame src="components/tabs/tab_border_slct_mid.swf"/>-->
+        <frame src="components/tabs/tab_border_slct_mid.png"/>
     </resource>
 
     <resource name="tab_border_right">
         <frame src="components/tabs/tab_border_dslct_rt.png"/>
         <frame src="components/tabs/tab_border_dslct_rt.png"/>
-       <!--  <frame src="components/tabs/tab_border_slct_rt.swf"/> -->
+        <frame src="components/tabs/tab_border_slct_rt.png"/>
     </resource>
 
     <!-- =====================
@@ -520,8 +520,6 @@
  	<resource name="rc_lines" src="manipulatives/refcard/rc_lines.png"/>
   	<resource name="FCAT_refcard_title" src="manipulatives/refcard/FCAT_refcard_title.png"/>
  	<resource name="FCAT_refcard_contents" src="manipulatives/refcard/FCAT_refcard_contents.png"/>
-  	<!-- <resource name="TN_refcard_title" src="manipulatives/refcard/TN_refcard_title.swf"/>
- 	<resource name="TN_refcard_contents" src="manipulatives/refcard/TN_refcard_contents.swf"/> -->
  	<resource name="TN_refcard_title" src="manipulatives/refcard/TN_refcard_title.png"/>
  	<resource name="TN_refcard_contents" src="manipulatives/refcard/TN_refcard_contents.png"/>
 
