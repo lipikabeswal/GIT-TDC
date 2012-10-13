@@ -3012,7 +3012,7 @@
 
 		<method name="goToFinishScreen"><![CDATA[
 			this.clearInvalidCrResponses();
-			this.resetCrs();
+			//this.resetCrs();
 			//START Defect# 59282
 			//this.resetCrFields(); //due to Defects# 64829, 64830, 64837
 			//END
