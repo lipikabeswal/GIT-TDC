@@ -42,7 +42,6 @@ public class CalcDemo {
         frame.pack();
         
         frame.setVisible(true);
-        
     }
 
     public static void main(String[] args) {
