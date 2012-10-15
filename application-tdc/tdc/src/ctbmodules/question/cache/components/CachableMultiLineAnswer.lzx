@@ -42,6 +42,13 @@
         <!-- ===============
              = METHODS
              =============== -->
+		<method name="enable">
+			//Empty method to handle enable() made from controller for cr responses dont delete it.
+		</method>
+		
+		<method name="disable">
+			//Empty method to handle enable() made from controller for cr responses dont delete it.
+		</method>
 
         <handler name="ondata" args="data"><![CDATA[
 //Debug.write("cachableMulti : " + data);
