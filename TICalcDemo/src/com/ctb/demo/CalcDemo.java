@@ -1,14 +1,10 @@
 package com.ctb.demo;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
 
-import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import com.ti.eps.emu84.testAgency.EmulatorComponent;
 
