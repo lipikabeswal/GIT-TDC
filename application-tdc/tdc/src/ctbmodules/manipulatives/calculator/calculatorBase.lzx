@@ -533,7 +533,7 @@
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 			    if(this.canAddDigit()){ 
-				    if(this.isEditing){
+					if(this.isEditing==true || this.isEditing=='true'){
 						if(this.input == "0" || this.input == "0."){
 							setDataAttribute('input', "" + digit);
 						}
@@ -542,7 +542,7 @@
 			    		}
 				    }
 				    else{
-				    	resetCurrentOperandState();
+						resetCurrentOperandState();
 						setDataAttribute('currentOperand', new Number(digit));
 						setDataAttribute('input', "" + digit);
 				    }
@@ -1024,7 +1024,7 @@
 					result = this.decimalFormat(num);
 				}
 			}
-			setDataAttribute('input', result);
+			//setDataAttribute('input', result);
 			return result;
 		]]>
 		</method>
