@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import com.ti.eps.emu84.testAgency.EmulatorComponent;
+import com.ti.eps.ngiexamcalc.gui.CalcContainer;
+import com.ti.eps.ngiexamcalc.utils.CalcType;
 
 public class CalcDemo {
     /**
@@ -14,7 +16,7 @@ public class CalcDemo {
      * this method should be invoked from the
      * event-dispatching thread.
      */
-    private static void createAndShowGUI() {
+    private static void createAndShowTI84() {
         //Create and set up the window.
         JFrame frame = new JFrame("Graphing Calculator");
         
@@ -45,7 +47,7 @@ public class CalcDemo {
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createAndShowGUI();
+                createAndShowTI84();
             }
         });
     }

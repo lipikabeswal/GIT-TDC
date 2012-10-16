@@ -12,5 +12,7 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="TICalcDemo/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/examcalc-dep.jar"/>
+	<classpathentry kind="lib" path="lib/examcalc.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
