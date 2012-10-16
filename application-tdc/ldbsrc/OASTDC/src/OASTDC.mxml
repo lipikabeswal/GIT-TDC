@@ -4,7 +4,7 @@
 	xmlns:flexmdi="flexlib.mdi.containers.*" 
 	layout="absolute" width="100%" height="100%" backgroundColor="0x000000" 
 	applicationComplete="onReady()" 
-	showFlexChrome="false" alwaysInFront="true"
+	showFlexChrome="false" alwaysInFront="false"
 	showGripper="false"
 	showStatusBar="false"
 	showTitleBar="false"
@@ -33,7 +33,7 @@
 				//tdccanvas.width = stage.fullScreenWidth;
 				//tdccanvas.height = stage.fullScreenHeight;
 				//stage.nativeWindow.maximize();
-				stage.nativeWindow.alwaysInFront=true;
+				//stage.nativeWindow.alwaysInFront=true;
 				stage.nativeWindow.orderToFront();
 				stage.nativeWindow.activate();
 				stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
@@ -42,7 +42,7 @@
 			
 			private function forcerestore(evt:Event):void
 			{
-				stage.nativeWindow.alwaysInFront=true;
+				//stage.nativeWindow.alwaysInFront=true;
 				stage.nativeWindow.orderToFront();
 				stage.nativeWindow.activate();
 				stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
