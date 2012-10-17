@@ -499,7 +499,8 @@
 					setDataAttribute('input', '0');
 				}
 				setDataAttribute('isEditing', true);
-				if(!this.inputHasDecimal()){
+				var hasDecimal = this.inputHasDecimal();
+				if(hasDecimal==false || hasDecimal=='false'){
 					setDataAttribute('input', this.input + ".");
 					if(this.operands.length != 0){
 						setDataAttribute('operandSet', true);
@@ -534,7 +535,7 @@
 			if(!isErrorState()){
 			    if(this.canAddDigit()){ 
 					if(this.isEditing==true || this.isEditing=='true'){
-						if(this.input == "0" || this.input == "0."){
+						if(this.input == "0"){
 							setDataAttribute('input', "" + digit);
 						}
 						else{

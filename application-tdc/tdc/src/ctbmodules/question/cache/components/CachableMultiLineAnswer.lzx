@@ -149,9 +149,14 @@
 		</method>
 		
 		<method name="updateCharacterMeter"><![CDATA[
-	//Debug.write(this, "updateCharacterMeter", this.numCharacters, this.characterLimit, this.numCharacters/this.characterLimit, this.outer.controls.meter.limit.width);
-			if(this.numCharacters <= this.characterLimit)
+			//Debug.write(this, "updateCharacterMeter", this.numCharacters, this.characterLimit, this.numCharacters/this.characterLimit, this.outer.controls.meter.limit.width);
+			var ratio = this.numCharacters/this.characterLimit;
+			if(ratio<=1){
 				this.outer.controls.meter.limit.used.setAttribute('width', this.outer.controls.meter.limit.width * (this.numCharacters/this.characterLimit));
+			}
+			else if(ratio>1){
+				this.outer.controls.meter.limit.used.setAttribute('width', this.outer.controls.meter.limit.width * (1));
+			}
 		]]></method>
 		
         <!-- ===============
