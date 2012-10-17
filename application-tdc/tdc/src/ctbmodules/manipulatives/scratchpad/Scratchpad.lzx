@@ -130,6 +130,7 @@
            		this.restoreFocusAndCursor();
            }else{
            		gReadableText.stopReading(true);
+				gScratchpad.sp.inp.onblur.sendEvent();
             }       
          </handler>
          
