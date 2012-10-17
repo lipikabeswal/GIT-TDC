@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.http.HttpResponse;
+
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.FileEntity;
 import org.jdom.JDOMException;
@@ -61,7 +62,7 @@ public class PersistenceAction {
 	@SuppressWarnings("unused")
 	public String handleEvent(String method, String xml) throws IOException {
 		String result = ServletUtils.OK;
-		boolean validSettings = ServletUtils.validateServletSettings();
+ 		boolean validSettings = ServletUtils.validateServletSettings();
 		Double abilityScore = 0.0;
 		Double sem = 0.0;
 		String xmlRes = null;
@@ -435,7 +436,7 @@ public class PersistenceAction {
 			if (result == ServletUtils.OK) {
 				if (base64String != null) {
 
-					File speexFile = new File(Context.MODE_PRIVATE + ("/")
+					File speexFile = new File(Environment.getExternalStorageDirectory() + ("/")
 							+ "//streams//" + fileName + ".spx");
 
 					if (speexFile.exists()) {
@@ -601,7 +602,7 @@ public class PersistenceAction {
 							}
 						} else {
 
-							result = ServletUtils.buildXmlErrorMessage("",
+						result = ServletUtils.buildXmlErrorMessage("",
 									HttpStatus.getStatusText(responseCode), "");
 						}
 					} catch (Exception e) {
