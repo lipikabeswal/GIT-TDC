@@ -1,7 +1,5 @@
 package com.ctb.tdc.web.utils;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.jdom.input.SAXBuilder;

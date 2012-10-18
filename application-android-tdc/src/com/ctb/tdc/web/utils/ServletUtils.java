@@ -274,7 +274,8 @@ public class ServletUtils {
 	public static boolean isCurSubtestAdaptive = false;
 
 	public static final String TDC_HOME = "tdc.home";
-	public static final String outputPath = System.getProperty(TDC_HOME)
+	public static final String outputPath = Environment
+			.getExternalStorageDirectory()
 			+ File.separator + "data" + File.separator + "objectbank"
 			+ File.separator;
 	public static final String tempPath = Environment
@@ -282,6 +283,8 @@ public class ServletUtils {
 			+ File.separator
 			+ "content"
 			+ File.separator + "data" + File.separator;
+	public static final String contentFolder =	"/content"+ File.separator + "data";
+			
 
 	public static boolean isRestart = false;
 	public static int restartItemCount = 0;

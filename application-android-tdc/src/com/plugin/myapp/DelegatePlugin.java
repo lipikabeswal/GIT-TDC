@@ -45,16 +45,17 @@ public class DelegatePlugin extends Plugin {
         PluginResult result = null;
         JSONObject json_data = null;
         String xmlData=null;
-       
+        JSONObject response = new JSONObject();
        
             try {
+            	 response.put("OK", "OK");
             	 String method=null,xmlRequest=null,actionName=null;
             	/*ContentAction contentAction=new ContentAction();
             	contentAction.downloadItem("d");*/
             	PersistenceAction persistenceAction=null;
-            	JSONObject systemTime = new JSONObject();
-                systemTime.put("time", "Login Success at time "+System.currentTimeMillis());
-                method="downloadFileParts";
+            	
+               // systemTime.put("time", "Login Success at time "+System.currentTimeMillis());
+              //  method="downloadFileParts";
                // method="getSubtest";
                 
                 
@@ -63,7 +64,8 @@ public class DelegatePlugin extends Plugin {
                     xmlData=json_data.getString("param1");
                                       
             	}
-                method = json_data.getString("param1");
+                
+                 method = json_data.getString("param1");
 			      xmlRequest = json_data.getString("param2");
 				 actionName = json_data.getString("param3");
 				
@@ -71,24 +73,26 @@ public class DelegatePlugin extends Plugin {
 					persistenceAction = new PersistenceAction();
 					if ((method != null)
 							&& (!method.equals(ServletUtils.NONE_METHOD))) {
-						String xml = ServletUtils.buildPersistenceParameters(
-								method, xmlRequest);
+						//String xml = ServletUtils.buildPersistenceParameters(	method, xmlRequest);
+						String xml=xmlRequest;
 						
 						try {
 							xmlData=persistenceAction.handleEvent(method, xml);
-						} catch (IOException e) {
+							
+						} catch (Exception e) {
 							// TODO: handle exception
 						}
 					} else {
 						xmlData=doGetpersisXml(method);
 					}
+					 response.put("OK", xmlData);
 				}
-				else if (actionName.equals("CO")) {
+				else if (actionName.equals("ContentAction")) {
 					
 					ContentAction contentAction=new ContentAction();
 					try{
 					if (method !=null &&  method.equals(ServletUtils.GET_SUBTEST_METHOD)) {
-						contentAction.getSubtest(xmlRequest);
+						xmlData=contentAction.getSubtest(xmlRequest);
 					} else if (method.equals(ServletUtils.DOWNLOAD_ITEM_METHOD)) {
 						xmlData=contentAction.downloadItem(xmlRequest);
 					} else if (method.equals(ServletUtils.GET_ITEM_METHOD)) {
@@ -101,33 +105,40 @@ public class DelegatePlugin extends Plugin {
 					}else if (method.equals(ServletUtils.GET_MUSIC_DATA_METHOD)) {
 						xmlData=contentAction.getMusicData(xmlRequest);
 					}else if (method.equals(ServletUtils.GET_FILE_PARTS)){
-						contentAction.downloadFileParts (xmlRequest);
+						xmlData=contentAction.downloadFileParts (xmlRequest);
 					}
 					else {
-						ServletUtils.writeResponse(ServletUtils.ERROR);
+						xmlData=ServletUtils.writeResponse(ServletUtils.ERROR);
 					}
+					 response.put("OK", xmlData);
 					}
+					
 					catch(IOException ioEx){
 						
 					}
 				}
-				else if(actionName.equals("TT")){
+				else if(actionName.equals("SpeechAction")){
 					
 					SpeechServlet speechServlet=new SpeechServlet();
-					xmlData=speechServlet.readPostDataRequest(xmlData);
+				//	xmlData=speechServlet.readPostDataRequest(xmlData);
+					response.put("OK", ServletUtils.OK);
 					
 				}
 				
               else {
-                result = new PluginResult(Status.ERROR,xmlData);
+            	response.put("OK", ServletUtils.OK);
+               // result = new PluginResult(Status.ERROR);
                 Log.e(TAG, "Invalid action: " + action);
+               
             }
             } catch (JSONException jsonEx) {
                 Log.e(TAG, "Got JSON Exception " + jsonEx.getMessage());
                 jsonEx.printStackTrace();
                 result = new PluginResult(Status.JSON_EXCEPTION);
+                return result;
             }
-      
+           
+            result = new PluginResult(Status.OK,response);
         return result;
 }
     public  String doGetpersisXml(String reqMethod)  {

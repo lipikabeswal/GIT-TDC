@@ -3,11 +3,15 @@ package com.ctb.tdc.web.utils;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
+
+import android.os.Environment;
+
 import com.ctb.tdc.web.utils.ServletUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -18,7 +22,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 public class HttpUtil {
 
-	private static String currentUrl;
+	private static String currentUrl="http://152.159.127.61/downloadfiles/content/";
 	@SuppressWarnings("deprecation")
 	public static String getTracker(String file,
 			String subtestId) throws Exception {
@@ -36,6 +40,8 @@ public class HttpUtil {
 		System.out.println("Subtest Id map" + subtestIdMap.get(subtestId));
 		currentUrl =(String) subtestIdMap.get(subtestId);
 		//currentUrl = "http://localhost:8080/lps-4.9.0/cat/";
+		//currentUrl="https://10.201.226.77/content/";
+		
 		HttpGet httpget = new HttpGet(currentUrl +  file+".xml");
 		HttpResponse response = client.execute(httpget);
 		int responseCode = HttpStatus.SC_OK;
@@ -101,6 +107,18 @@ public class HttpUtil {
 				is =  response.getEntity().getContent();
 				input = new DataInputStream(new BufferedInputStream(is));
 				//isDownLoadCompleted = true;
+				String folderName=ServletUtils.contentFolder;
+				 File psFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),folderName);
+			        if(!psFile.exists()) { 
+			        	System.err.println("It seems like parent directory does not exist...");  
+			        	if(!psFile.mkdirs())     {         
+			        		System.err.println("And we cannot create it..."); 
+			        		// we have to return, throw or something else  
+			        		} 
+			        	} 
+			        			
+				
+				
 				FileUtil.saveHttpDownloadContentIntoFile(input, ServletUtils.tempPath + file);
 			}finally {
 				FileUtil.closeResource(input);

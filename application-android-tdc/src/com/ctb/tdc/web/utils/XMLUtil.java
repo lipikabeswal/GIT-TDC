@@ -4,8 +4,13 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.util.List;
 import java.util.TreeMap;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 
 import org.jdom.Document;
 import org.jdom.Element;
@@ -28,10 +33,16 @@ public class XMLUtil {
 		InputStream is = null;
 		Document doc = null;
 		try {
-			System.setProperty("file.encoding", FILE_ENCODING_ISO_8859);
-			is = new ByteArrayInputStream(xmlstring.getBytes());
-			doc = new SAXBuilder("org.apache.xerces.parsers.SAXParser", false)
-					.build(new InputStreamReader(is));
+			SAXBuilder sb = new SAXBuilder();
+			 doc = sb.build(new StringReader(xmlstring));
+			 System.out.println(doc.toString());
+			    
+			//System.setProperty("file.encoding", FILE_ENCODING_ISO_8859);
+			//is = new ByteArrayInputStream(xmlstring.getBytes());
+			//doc = new SAXBuilder("org.apache.xerces.parsers.SAXParser", false)
+				//	.build(new InputStreamReader(is));
+			 
+		   // doc=new SAXBuilder().build(is);
 
 		} finally {
 			ClosableHelper.close(is);

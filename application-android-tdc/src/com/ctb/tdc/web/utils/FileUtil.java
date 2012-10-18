@@ -21,6 +21,8 @@ import java.util.zip.ZipInputStream;
 
 import org.jdom.JDOMException;
 
+import android.os.Environment;
+
 import com.ctb.tdc.web.dto.TrackerData;
 
 
@@ -100,7 +102,7 @@ public class FileUtil {
 
 	public static boolean isFileExists(String filename) {
 
-		File f = new File(filename);
+		File f = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(),filename);
 		return f.exists();
 
 	}
@@ -116,7 +118,7 @@ public class FileUtil {
 
 	public static String readFileIntoString(String filePath) throws IOException {
 		StringBuilder fileData = new StringBuilder(1000);
-		BufferedReader reader = new BufferedReader(new FileReader(filePath));
+		BufferedReader reader = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getAbsoluteFile()+filePath));
 		char[] buf = new char[1024];
 		int numRead = 0;
 		try {
