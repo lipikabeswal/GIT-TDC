@@ -37,7 +37,7 @@ Debug.write("Cachaable html widget ondata");
 	        var answer = gController.getStateForInputWidgetId(this.widget_id);
 		
 			if(answer){
-				this.setAttribute('answered',false);
+				this.setAttribute('answered',false); //We are setting answered as false so that we can setTheState properly. This has to be revisited 
 				var selectedValuesArr = [];
 				if(answer['checkedVals']){
 					var selectedValues = answer['checkedVals'];
