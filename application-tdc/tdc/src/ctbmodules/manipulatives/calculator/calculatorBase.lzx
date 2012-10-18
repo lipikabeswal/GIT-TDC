@@ -1025,7 +1025,7 @@
 					result = this.decimalFormat(num);
 				}
 			}
-			//setDataAttribute('input', result);
+			setDataAttribute('input', result);
 			return result;
 		]]>
 		</method>
