@@ -567,8 +567,8 @@
 	</resource>
 
 	
-	<resource name="ti_scientific_calculator" src="manipulatives/ti_calculators/ti_scientific_calculator.jpg"/>
-	<resource name="ti_scientific_graphic_calculator" src="manipulatives/ti_calculators/ti_scientific_calculator.jpg"/>
+	<!-- <resource name="ti_scientific_calculator" src="manipulatives/ti_calculators/ti_scientific_calculator.jpg"/>
+	<resource name="ti_scientific_graphic_calculator" src="manipulatives/ti_calculators/ti_scientific_calculator.jpg"/>-->
 	
 	<!-- ****************** End Recorder Resources ************************************************* -->
 </library>

@@ -3652,7 +3652,13 @@ Debug.write("############ loadItem ############");
 		<method name="setManipulativeSelState" args="which, value"><![CDATA[
 //Debug.write("setManipulativeSelState....",which, value);
             var dn;
-
+            if(which == 'ti_scientific_calculator') {
+				gCommunicator.showOkCalculator("TI30");
+            }
+            else if (which =='ti_scientific_graphic_calculator') {
+				gCommunicator.showOkCalculator("TI84");
+            }
+			else {
             if (this._isGlobalManipulator (which)) {
 //Debug.write("if ...."+this._isGlobalManipulator (which));
             
@@ -3696,6 +3702,7 @@ Debug.write("############ loadItem ############");
             
             if(which == 'scratchpad'){  // keep track of scratchpad state globally
 				this.setAttribute('scratchpadOpen', value=='sel');
+            }
             }
             dn.setAttr (which, value);
         ]]></method>
@@ -3777,7 +3784,7 @@ Debug.write("############ loadItem ############");
         </method>
         
         <method name="resetTrackTimer">
-			Debug.write("trackTimer",this.trackTimer);
+			//Debug.write("trackTimer",this.trackTimer);
 			LzTimer.resetTimer(trackDel,1000);
 		</method>
 		

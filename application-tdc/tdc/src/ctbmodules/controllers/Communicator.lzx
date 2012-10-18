@@ -232,7 +232,12 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 			
 		<method name="sendRequest">
 			gRequest.sendRequest(dRequestDataSet);
-		</method>  		
+		</method> 
+		 	
+		<method name="showOkCalculator" args="calcType">
+			gRequest.showOkCalculator(calcType);
+		</method>  	
+			
      </node>
 
 </library>

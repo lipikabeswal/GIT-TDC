@@ -1,5 +1,6 @@
 package com.ctb.tdc.web.servlet;
 
+import java.awt.BorderLayout;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -11,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -21,6 +23,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.http.HttpResponse;
@@ -34,9 +38,12 @@ import org.jdom.output.XMLOutputter;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.Base64;
 import com.ctb.tdc.web.utils.CATEngineProxy;
+import com.ctb.tdc.web.utils.CalculatorJFrame;
 import com.ctb.tdc.web.utils.LoadTestUtils;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
+import com.ti.eps.emu84.testAgency.EmulatorComponent;
+import com.ti.eps.ngiexamcalc.gui.ti30.CalcPaneTI30;
 
 /** 
  * @author Tai_Truong
@@ -61,6 +68,14 @@ public class PersistenceServlet extends HttpServlet {
 	private static final String unixPath = "//.macromedia//Flash_Player//macromedia.com//support//flashplayer//sys";
 
 	private static HashMap<String, String> audioResponseHash = new HashMap<String, String>();
+	
+	private static CalculatorJFrame calculatorFrame = null;
+	private static final String TDC_HOME = "tdc.home";
+	private static final String RESOURCE_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
+		                             					"webapp" + File.separator + "resources";
+	private static final String WEBINF_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
+														"webapp" + File.separator + "WEB-INF";
+
 
 	/**
 	 * Constructor of the object.
@@ -240,6 +255,9 @@ public class PersistenceServlet extends HttpServlet {
 		else if (method != null
 				&& method.equals(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD))
 			result = writeToAuditFile(xml);
+		else if (method != null
+				&& method.equals(ServletUtils.OK_CALCULATOR))
+			result = showOkCalculator(request.getParameter("calcType"));
 		else
 			result = ServletUtils.ERROR;
 
@@ -887,5 +905,120 @@ public class PersistenceServlet extends HttpServlet {
 		 
 		 return result;
 	}
+	
+	public static String showOkCalculator(final String calcType) {
+		try {
+			//Schedule a job for the event-dispatching thread:
+	        //creating and showing this application's GUI.
+			if(calculatorFrame == null || !calculatorFrame.isCalculatorRunning()) {
+		        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+		            public void run() {
+		            	if("TI84".equals(calcType)) {
+		            		createAndShowTI84();
+		            	} else {
+		            		createAndShowTI30();
+		            	}
+		            }
+		        });
+			} else {
+				calculatorFrame.dispose();
+			}
+	        return ServletUtils.OK;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ServletUtils.ERROR;
+	}
+	
+	/**
+     * Create the GUI and show it.  For thread safety,
+     * this method should be invoked from the
+     * event-dispatching thread.
+     */
+    private static void createAndShowTI84() {
+    	
+    	String javaLibPath = System.getProperty("java.library.path");
+		System.setProperty("java.library.path", WEBINF_FOLDER_PATH + File.separator + "lib");
+    	try {
+			Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
+			fieldSysPath.setAccessible(true);
+			fieldSysPath.set(null, null);
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		//Create and set up the window.
+    	calculatorFrame = new CalculatorJFrame();
+        
+    	calculatorFrame.setAlwaysOnTop(true);
+    	calculatorFrame.setResizable(false);
+    	calculatorFrame.setIconImage(new ImageIcon(RESOURCE_FOLDER_PATH + File.separator + "calc.png").getImage());
+        
+        EmulatorComponent emu = new EmulatorComponent(calculatorFrame);
+        
+        emu.setFaceSize(EmulatorComponent.MEDIUM);
+        emu.ResetEmulator();
+        
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        JLabel emptyLabel = new JLabel("");
+        //emptyLabel.setPreferredSize(new Dimension(175, 100));
+        calculatorFrame.getContentPane().add(emptyLabel, BorderLayout.CENTER);
+
+        //Display the window.
+        calculatorFrame.getContentPane().add(emu);
+        calculatorFrame.pack();
+        
+        calculatorFrame.setVisible(true);
+        
+        System.setProperty("java.library.path", javaLibPath);
+    	try {
+			Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
+			fieldSysPath.setAccessible(true);
+			fieldSysPath.set(null, null);
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    private static void createAndShowTI30() {
+        //Create and set up the window.
+    	calculatorFrame = new CalculatorJFrame();
+    	
+    	calculatorFrame.setAlwaysOnTop(true);
+    	calculatorFrame.setResizable(false);
+    	calculatorFrame.setIconImage(new ImageIcon(RESOURCE_FOLDER_PATH + File.separator + "calc.png").getImage());
+    	calculatorFrame.setSize(300, 600);
+    	//calculatorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	
+    	CalcPaneTI30 emu = new CalcPaneTI30(calculatorFrame.getContentPane());
+        calculatorFrame.add(emu, BorderLayout.CENTER);
+         
+        calculatorFrame.setVisible(true);
+    }
+    
+    public static void main(String args[]) {
+    	final String calcType = "TI84";
+    	System.setProperty("java.library.path", "C:\\OAS_Workspace_Curr_Prod\\TICalcDemo\\xx\\TIemulator.dll");
+    	javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+            	if("TI84".equals(calcType)) {
+            		createAndShowTI84();
+            	} else {
+            		createAndShowTI30();
+            	}
+            }
+        });
+    }
 }

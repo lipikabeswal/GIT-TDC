@@ -54,6 +54,8 @@
 		<attribute name="_TEXT_PARAM" type="string" value="text" />
 		<attribute name="_SERVER_VALUE" type="string" value="server" />
 		<attribute name="_GENDER_VALUE" type="string" value="female" />
+		<attribute name="OK_CALCULATOR" type="string" value="okCalculator" />
+
 		
 		<handler name="oninit">
 			var base = LzBrowser.getInitArg( 'servletUrl' );
@@ -245,9 +247,9 @@ Debug.write("setting mseq: " + newMseq);
 		</method>
     	<method name="_doRequest" args="ds, _method, xml">
       	<![CDATA[
-		//Debug.write("doRequest: " + ds + " , " + _method + " , " + xml);  
+		Debug.write("doRequest: " + ds + " , " + _method + " , " + xml);  
 		    if (typeof canvas.folder != "undefined") {
-//Debug.write("XXX: folder " + canvas.folder);
+Debug.write("XXX: folder " + canvas.folder);
 				ds.setQueryParam(FOLDER_PARAM, canvas.folder);
 			}
 		    if (typeof canvas.user != "undefined") {
@@ -255,18 +257,18 @@ Debug.write("setting mseq: " + newMseq);
 			}
 
 			if(_method != null){
-//Debug.write("set method param: " + _method);
+Debug.write("set method param: " + _method);
 				ds.setQueryParam(METHOD_PARAM, _method);
 			}
 			if(xml != null){
-//Debug.write("set xml param: " + xml);
+Debug.write("set xml param: " + xml);
 				ds.setQueryParam(XML_PARAM, xml);
 			}
 //Debug.write("folder: " + canvas.folder);
 //Debug.write("src: " + ds.getSrc());
 //Debug.write("params: " + ds.getParams());
 //var timestamp = getTimer();
-//Debug.write("do request " + _method + " timestamp: " + timestamp);
+Debug.write("do request " + _method + " timestamp: " + timestamp);
 			ds.doRequest();
 		]]>
 		</method>
@@ -287,6 +289,14 @@ Debug.write("setting mseq: " + newMseq);
  	   	Debug.write("sendRequest : ", ds.name,ds);
     	 	ds.doRequest();
 		</method>
+
+		<method name="showOkCalculator" args="calcType">
+ 	   	Debug.write("showOkCalculator ");
+		 persistenceDs.setQueryParam("calcType",calcType);
+    	 _doRequest(persistenceDs, OK_CALCULATOR, "");
+		</method>
+
+		
 		
 	</node>
 </library>
