@@ -94,6 +94,9 @@
                 <method name="goback">
                     gScreens.clicked();
                     gController.resumeTest();
+                 if(gController.htmlFields != null){
+					gController.showHtmlWidgets();
+				}
                 </method>
             </NoGoBackToTestButton>
         </view>

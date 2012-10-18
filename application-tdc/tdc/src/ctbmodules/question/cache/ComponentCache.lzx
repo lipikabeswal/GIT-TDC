@@ -26,6 +26,7 @@
         <attribute name="WIDGET_MULTI_LINE_ANSWER" value="multi_line_answer" type="string"/>
         <attribute name="WIDGET_REFERENCE_CARD" value="formula_card_resource" type="string"/>
         <attribute name="WIDGET_RECORDER" value="recorder_widget" type="string"/>
+        <attribute name="WIDGET_HTML" value="html_widget" type="string"/>
     </node>
 
 
@@ -65,6 +66,7 @@
        <attribute name="cachedmultilineinput" value="$once{[]}"/>
         <attribute name="cachedreferencecard" value="$once{[]}"/>
         <attribute name="cachedrecorder" value="$once{[]}"/>
+        <attribute name="cachedhtmlwidget" value="$once{[]}"/>
         
         <!-- ================================
              methods/events
@@ -230,6 +232,10 @@
                     arraytouse = cachedrecorder;      
                     break;
                 }
+                case gCompTypes.WIDGET_HTML: {
+                	arraytouse = cachedhtmlwidget;
+                	break;
+                }
                 default: {
                    Debug.warn ('CACHE: unknown component type', type);
                     break;
@@ -327,6 +333,10 @@
 				case gCompTypes.WIDGET_RECORDER: {
                 	 toReturn = new lz.CachableRecorder(parent);
 				    break;
+                }
+                case gCompTypes.WIDGET_HTML: {
+                	toReturn = new lz.CachableHtmlWidget(parent);
+                	break;
                 }
                 default: {
  //                   Debug.write ('CACHE: create unknown component type', type);  
