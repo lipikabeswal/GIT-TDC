@@ -66,6 +66,7 @@
         	if ( isReadable && clickable && txt.length > 0){
         		doRead(txt);
  	        	gController.freezeUI();
+ 	        	gHotKeys.enableKeys();
             }
         ]]></method>
 
