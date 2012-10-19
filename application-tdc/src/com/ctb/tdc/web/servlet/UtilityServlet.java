@@ -95,6 +95,7 @@ public class UtilityServlet extends HttpServlet {
         if (method.equals("exit")) {
         	logger.info("Exit called");
         	ContentFile.deleteDataFiles();
+        	ContentFile.deleteHTMLItemsFolder();
         	exit();
         }    
         

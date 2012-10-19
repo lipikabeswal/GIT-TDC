@@ -1,17 +1,20 @@
 package com.ctb.tdc.web.servlet;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.Blob;
 import java.util.HashMap;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -265,8 +268,8 @@ public class ContentServlet extends HttpServlet {
 				
 				byte[] decryptedContent = ContentFile.decryptFile(filePath, hash,
 						key);
-				/*String subtestXML = new String(decryptedContent);
-				System.out.println(subtestXML);*/
+				String subtestXML = new String(decryptedContent);
+				System.out.println("SUBTEST XML************"+subtestXML);
 				subtestDoc = saxBuilder.build(new ByteArrayInputStream(decryptedContent));
 				if (ServletUtils.isCurSubtestAdaptive && (getSubtestCount > ServletUtils.itemSetMap.size())) {
 					org.jdom.Element element = (org.jdom.Element) subtestDoc.getRootElement();
@@ -544,11 +547,16 @@ public class ContentServlet extends HttpServlet {
 
 				byte[] decryptedContent = ContentFile.decryptFile(filePath, hash,
 						key);
+				
+				
+				
 				if (decryptedContent == null)
 					throw new DecryptionException("Cannot decrypt '" + filePath + "'");
 				org.jdom.Document itemDoc = null;
+				org.jdom.Document tempDoc = null;
 				synchronized(aMemoryCache.saxBuilder) {
 					itemDoc = aMemoryCache.saxBuilder.build(new ByteArrayInputStream(decryptedContent));
+					tempDoc = itemDoc;
 				}
 				org.jdom.Element element = (org.jdom.Element) itemDoc.getRootElement();
 				element = element.getChild("assets");
@@ -559,14 +567,26 @@ public class ContentServlet extends HttpServlet {
 						String imageId = element.getAttributeValue("id");
 						if (!assetMap.containsKey(imageId)) {
 							String mimeType = element.getAttributeValue("type");
-							String ext = mimeType.substring(mimeType
-									.lastIndexOf("/") + 1);
-							String b64data = element.getText();
-							byte[] imageData = Base64.decode(b64data);
-							AssetInfo aAssetInfo = new AssetInfo();
-							aAssetInfo.setData(imageData);
-							aAssetInfo.setExt(ext);
-							assetMap.put(imageId, aAssetInfo);
+							if(!mimeType.contains("zip")){
+								String ext = mimeType.substring(mimeType
+										.lastIndexOf("/") + 1);
+								
+								System.out.println("Ext: content servlet" + ext);
+								String b64data = element.getText();
+								byte[] imageData = Base64.decode(b64data);
+								AssetInfo aAssetInfo = new AssetInfo();
+								aAssetInfo.setData(imageData);
+								aAssetInfo.setExt(ext);
+								assetMap.put(imageId, aAssetInfo);
+							}else{
+								String b64data = element.getText();
+								b64data = b64data.replace(" ", "");
+								AssetInfo aAssetInfo = new AssetInfo();
+								assetMap.put(imageId, aAssetInfo);
+								unzip(imageId, b64data);
+								
+							}
+							
 						}
 					}
 				}
@@ -796,6 +816,9 @@ public class ContentServlet extends HttpServlet {
 	public static final String TDC_HOME = "tdc.home";
 	public static final String RESOURCE_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
 	"webapp" + File.separator + "resources";
+	public static final String TE_ITEM_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
+	"webapp" + File.separator + "items";
+	
 
 	private String getMusicData(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String musicId = request.getParameter("musicId");
@@ -845,5 +868,72 @@ public class ContentServlet extends HttpServlet {
 			
 		}
 		
+	}
+	
+	
+	
+	private  void unzip(String id,String content) throws Exception{
+		final int BUFFER_SIZE = 1024;
+		content = content.replace(" ", "");
+		byte[] decodedBase64 = Base64.decode(content);
+
+		String filePath = this.TE_ITEM_FOLDER_PATH + File.separator  + id + ".zip";
+		FileOutputStream outStream = null;
+		try {
+			outStream = new FileOutputStream(filePath);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		try {
+			outStream.write(decodedBase64);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			outStream.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+        BufferedOutputStream dest = null;
+        FileInputStream fis = new FileInputStream(filePath);
+        ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
+        ZipEntry entry;
+        File destFile;
+        while((entry = zis.getNextEntry()) != null) {               
+
+           // destFile = FilesystemUtils.combineFileNames(destinationDir, entry.getName());
+        	destFile = new File(this.TE_ITEM_FOLDER_PATH,entry.getName());
+
+            if (entry.isDirectory()) {
+                destFile.mkdirs();
+                continue;
+            } else {
+                int count;
+                byte data[] = new byte[BUFFER_SIZE];
+
+                destFile.getParentFile().mkdirs();
+
+                FileOutputStream fos = new FileOutputStream(destFile);
+                dest = new BufferedOutputStream(fos, BUFFER_SIZE);
+                while ((count = zis.read(data, 0, BUFFER_SIZE)) != -1) {
+                    dest.write(data, 0, count);
+                }
+
+                dest.flush();
+                dest.close();
+                fos.close();
+            }
+        }
+        zis.close();
+        fis.close();          
+        File tempFile = new File(this.TE_ITEM_FOLDER_PATH + File.separator +id+ ".zip");
+        if (tempFile.exists()) {
+        	tempFile.delete();
+        }        
+        
 	}
 }

@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class ContentFile
     public static final String CONTENT_FOLDER_PATH = System.getProperty(TDC_HOME)+ CONTENT_FOLDER;
     public static final String DATA_FOLDER = System.getProperty(TDC_HOME)+ "/data/databank/"; 	//"C:\\Program Files\\CTB\\Online Assessment\\data\\databank\\";
     public static final String DATA_FOLDER_DECRYPTED = System.getProperty(TDC_HOME)+ "/data/"; 	//"C:\\Program Files\\CTB\\Online Assessment\\data\\";
-    
+    public static final String HTML_DATA_FOLDER = System.getProperty(TDC_HOME)+"/webapp/items/";
     private ContentFile() 
     {
         super();
@@ -295,4 +296,85 @@ public class ContentFile
     		e.printStackTrace();
     	}
     }
+    
+    public static void deleteHTMLItemsFolder(){
+    	try{
+    		File htmlfiles = new File(HTML_DATA_FOLDER);
+    		File [] files  = htmlfiles.listFiles();
+    		if(files.length > 0){
+    			for (int i = 0; i < files.length; i++) {
+    				deleteDirectory(files[i]);
+    			} 
+    		}
+    	}catch (Exception e){
+    		e.printStackTrace();
+    	}
+    }
+    
+    /*
+     * 
+     * Apache commons io file utils
+     */
+    public static void deleteDirectory(File directory) throws IOException {
+    	if (!directory.exists()) {
+    		return;
+    	}
+
+    	cleanDirectory(directory);
+    	if (!directory.delete()) {
+    		String message =
+    			"Unable to delete directory " + directory + ".";
+    		throw new IOException(message);
+    	}
+    }
+    
+    public static void cleanDirectory(File directory) throws IOException {
+    	if (!directory.exists()) {
+    		String message = directory + " does not exist";
+    		throw new IllegalArgumentException(message);
+    	}
+
+    	if (!directory.isDirectory()) {
+    		String message = directory + " is not a directory";
+    		throw new IllegalArgumentException(message);
+    	}
+
+    	File[] files = directory.listFiles();
+    	if (files == null) {  // null if security restricted
+    		throw new IOException("Failed to list contents of " + directory);
+    	}
+
+    	IOException exception = null;
+    	for (int i = 0; i < files.length; i++) {
+    		File file = files[i];
+    		try {
+    			forceDelete(file);
+    		} catch (IOException ioe) {
+    			exception = ioe;
+    		}
+    	}
+
+    	if (null != exception) {
+    		throw exception;
+    	}
+    }
+    
+    public static void forceDelete(File file) throws IOException {
+    	if (file.isDirectory()) {
+    		deleteDirectory(file);
+    	} else {
+    		boolean filePresent = file.exists();
+    		if (!file.delete()) {
+    			if (!filePresent){
+    				throw new FileNotFoundException("File does not exist: " + file);
+    			}
+    			String message =
+    				"Unable to delete file: " + file;
+    			throw new IOException(message);
+    		}
+    	}
+    }
+
+
+
 }
