@@ -11,12 +11,15 @@
 	<attribute name="gridColumnHeight" type="number"/> -->
 	<attribute name="subtestCount" type="number" value="0"/>
 	<attribute name="statusCount" type="number" value="0"/>
+	<attribute name="totalVisitedCount" type="number" value="0"/>
+	<datapointer name="dpstudentdata"
+			xpath="dsstudentdata:/testing_client_model" />
 
 	<method name="showScores" args="response"><![CDATA[
 		var allScos = new Array();
 		var node = LzDataNode.stringToLzData(response);
-		//Debug.write("feedback response*********", response);
-		//printBigString(response);
+		Debug.write("feedback response*********", response);
+		printBigString(response);
         dsscore.setChildNodes(new Array(node));
    		var unsortedScos = dpscore.xpathQuery('title/sco');
 		if(unsortedScos!=null)
@@ -47,7 +50,10 @@
 			var xp="dsscore:/student_feedback_data/title/sco[" + i + "]";
 			scdp.setXPath(xp);
 			if(scdp.getNodeAttribute('isSample') == 'true'){
-				scdp.deleteNode();
+				var scoId = scdp.getNodeAttribute('id');
+				scdp.deleteNode(); 
+				scdp.setXPath("dsscore:/student_feedback_data/lms/sco[@scid = '"+ scoId +"']");
+				scdp.deleteNode(); 
 				i--;
 				scoIndex--;
 			}
@@ -76,6 +82,8 @@
 
 	<method name="addScoValues"><![CDATA[
 		var totalRaw = 0;
+		var isRetest = 'false';
+		var totalViewedCount = 0;
 		var scoArr = dpscore.xpathQuery('title/sco');
 		for(var i=0; i<scoArr.length; i++){
 			var sco = scoArr[i];  
@@ -84,17 +92,29 @@
 			var titleArr = title.split("::");			
 			var testName = titleArr[1];
 			var form = titleArr[3];
+			if(testName.indexOf('Biology I')>0 || testName.indexOf('U.S. History')>0) {		
+				if(form == 'Retest') {
+					isRetest = 'true';
+				}
+			}
 			var lmsXpath = "lms/sco[@scid='" + scoid + "']";
 			var unscoredXpath = lmsXpath +  "/lsv/ext.core/@number_of_unscored_items";
 			var coreXpath = lmsXpath + "/lsv/cmi.core";
 			var coreNode = dpscore.xpathQuery(coreXpath);
 			var raw = coreNode.getAttr('score.raw');
 			totalRaw = Number(totalRaw) + Number(raw);
+			var maxScore = coreNode.getAttr('score.max');		
+			var unscoredXPath = lmsXpath + "/lsv/ext.core";
+			var unscoredNode = dpscore.xpathQuery(unscoredXPath);
+			var unscoredCount = unscoredNode.getAttr('number_of_unscored_items');
+			var viewedCount = Number(maxScore) - Number(unscoredCount);
+			totalViewedCount = Number(totalViewedCount) + Number(viewedCount);
 			info.testName.setAttribute('text',testName);
 			info.raw.setAttribute('text',totalRaw);
 		}
+			this.setAttribute('totalVisitedCount',totalViewedCount);		
 			var testTitle = dpscore.xpathQuery('title/@name');
-			if(testTitle.indexOf('Geometry')>0 || testTitle.indexOf('Algebra I')>0 || testTitle.indexOf('Algebra II')>0) {
+			if(testTitle.indexOf('Geometry')>0 || testTitle.indexOf('Algebra I')>0 || testTitle.indexOf('Algebra II')>0 || isRetest=='true') {
 				var perfLevel = getPLScore(totalRaw,form,testTitle);
 				info.perfLevel.setAttribute('text',perfLevel);
 			} 
@@ -129,16 +149,6 @@
 				else if(raw >=43 && raw <=55)
 					PerfLevel="Advanced";
 			}
-			/*else if(form == '1') {
-				if(raw >=0 && raw <= 17)
-					PerfLevel="Unsatisfactory";
-				else if(raw >=18 && raw <=27)
-					PerfLevel="Limited knowledge";
-				else if(raw >=28 && raw <=41)
-					PerfLevel="Proficient";
-				else if(raw >=42 && raw <=54)
-					PerfLevel="Advanced";
-			}*/
 			else if(form == '1') {
 				if(raw >=0 && raw <= 18)
 					PerfLevel="Unsatisfactory";
@@ -212,16 +222,46 @@
 					PerfLevel="Advanced";
 			}
 		}
+		else if(testTitle.indexOf('Biology I')>0){//Biology I
+			if(form == 'Retest') {
+				if(raw >=0 && raw <= 24)
+					PerfLevel="Unsatisfactory";
+				else if(raw >=25 && raw <=34)
+					PerfLevel="Limited knowledge";
+				else if(raw >=35 && raw <=48)
+					PerfLevel="Proficient";
+				else if(raw >=49 && raw <=60)
+					PerfLevel="Advanced";
+			}
+		}else if(testTitle.indexOf('U.S. History')>0){//U.S. History
+			if(form == 'Retest') {
+				if(raw >=0 && raw <= 23)
+					PerfLevel="Unsatisfactory";
+				else if(raw >=24 && raw <=34)
+					PerfLevel="Limited knowledge";
+				else if(raw >=35 && raw <=46)
+					PerfLevel="Proficient";
+				else if(raw >=47 && raw <=60)
+					PerfLevel="Advanced";
+			}
+		}		
 		return PerfLevel;
 	]]>
 	</method>
 	
-	<method name="isTestCompleted">
+	<method name="isTestValidAndCompleted"><![CDATA[
 		if(this.getAttribute('subtestCount') == this.getAttribute('statusCount')) {
-			this.info.setVisible(true);
 			this.score.setVisible(true);
 			this.controls.setVisible(true);
 			this.feedbackWait.setVisible(true);
+			if(this.getAttribute('totalVisitedCount') < 5) {
+				this.info.setVisible(true);
+				info.raw.setAttribute('text','No valid attempt');
+				info.perfLevel.setAttribute('text','No valid attempt');
+			}
+			else { 
+				this.info.setVisible(true);
+			}
 		}
 		else {
 			this.info.setVisible(false);
@@ -230,7 +270,7 @@
 			this.feedbackWait.setVisible(false);
 			gController.terminate();
 		}
-	</method>	
+	]]></method>	
 	
 	<text name="score" x="5" y="0" fontsize="24" height="36" fgcolor="white" visible="false"> Your Test Results</text>
 	<!--<grid name="scoringGrid" datapath="dsscore:/student_feedback_data/title" contentpath="sco" height="130" showhlines="true"
@@ -264,14 +304,13 @@
 	    </gridcolumn>
 	</grid> -->
 	<view name="info" bgcolor="white" width="450" x="5" height="120" fontsize="12" y="40" visible="false">
-           	<text name="testLabel" y="20" x="20" fgcolor="0x5D5D5D" fontstyle="bold" fontsize="12">Content Area:</text>
-           	<text name="testName"  y="20" x="120" fgcolor="black" fontstyle="bold" fontsize="12" width="350"/>
-           	<text name="rawScoreLabel" y="45" x="20" fgcolor="0x5D5D5D" fontstyle="bold" fontsize="12">Raw Score:</text>
-           	<text name="raw" y="45" x="100" fgcolor="black" fontstyle="bold" fontsize="12" />
-			<text name="perfLevelLabel" y="70" x="20" fgcolor="0x5D5D5D" fontstyle="bold" fontsize="12">Performance Level:</text>
-			<text name="perfLevel" y="70" x="160" fgcolor="black" fontstyle="bold" fontsize="12" width="300"/>
-        </view>
-
+        <text name="testLabel" y="20" x="20" fgcolor="0x5D5D5D" fontstyle="bold" fontsize="12">Content Area:</text>
+        <text name="testName"  y="20" x="120" fgcolor="black" fontstyle="bold" fontsize="12" width="350"/>
+        <text name="rawScoreLabel" y="45" x="20" fgcolor="0x5D5D5D" fontstyle="bold" fontsize="12">Raw Score:</text>
+        <text name="raw" y="45" x="100" fgcolor="black" fontstyle="bold" fontsize="12" width="350"/>
+		<text name="perfLevelLabel" y="70" x="20" fgcolor="0x5D5D5D" fontstyle="bold" fontsize="12">Performance Level:</text>
+		<text name="perfLevel" y="70" x="160" fgcolor="black" fontstyle="bold" fontsize="12" width="300"/>
+    </view>
 	<view name="controls" y=" 200" width="550" visible="false">
 		<ExitButton x="${ parent.width - width - 15 }"
                         enabled="${ gScreens.allowclick }"> 
@@ -281,6 +320,7 @@
        </ExitButton> 
    	</view>
 	<view name="feedbackWait" y="10" x="470" resource="feedbackWait" visible="false"/>
+	
 
 </class>
 </library>

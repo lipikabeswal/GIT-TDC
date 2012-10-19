@@ -200,18 +200,18 @@
         </view>
 			
     </view>
-	<modaldialog id="timeoutDialog" name="timeoutDialog" title="OAS" 
+	<modaldialog id="timeoutDialog" name="timeoutDialog"  
 			width="400" height="160" visible="false" bgcolor="0x6691B4" x="470" y="20">
 	    <text font="CTB"	
              fontsize="15" 
              fgcolor="white">
-             The 20-minute time limit has been exceeded.
+             OK.
            </text>
-		<text font="CTB"	
+		<!--<text font="CTB"	
              fontsize="15" 
              fgcolor="white">
              Please click ok to close OAS.
-           </text>
+           </text> -->
 	    <view align="center" layout="axis:x; spacing:20">
 	      <OkButton y="3" enabled="${ gScreens.allowclick }">
                <method name="continue" event="onclick">
