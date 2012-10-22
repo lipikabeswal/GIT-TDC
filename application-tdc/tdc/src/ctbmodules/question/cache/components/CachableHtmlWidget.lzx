@@ -166,7 +166,7 @@ Debug.write("Cachaable html widget ondata");
        ]]></method>
        
        <view name="main" width="${parent.parent.width - 10}" height="${parent.parent.height - 10}">
- 	       <html name="ht" id="htmlwiget" width="800" height="600" scrollbars="false"/>
+ 	       <html name="ht" id="htmlwiget" x="5" y="5" width="800" height="600" scrollbars="false" />
        </view>
 
 	</class>
