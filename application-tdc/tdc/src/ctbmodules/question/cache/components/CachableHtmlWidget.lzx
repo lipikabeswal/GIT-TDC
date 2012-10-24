@@ -18,6 +18,7 @@
 		<attribute name="answer" />
 		<attribute name="widget_id" />
 		<attribute name="answerObjSet" value="$once{new Object()}"/>
+		<attribute name="unlocked" type="boolean" value="false"/>
 		<method name="init">
 			super.init();
 		</method>
@@ -29,6 +30,7 @@
 		<handler name="ondata" args="data"><![CDATA[
 Debug.write("Cachaable html widget ondata");
       	var srcUrl = data.getAttr('src');
+		this.setAttribute('unlocked', false);
 		this.setAttribute('answerObjSet', {});
 		if (data.hasAttr("id")) {
 	      	var id = data.getAttr('id');
@@ -69,6 +71,7 @@ Debug.write("Cachaable html widget ondata");
 		}
  		//this.ht.bringToFront();
 		func2();
+		gController.freezeUI();
 		//doneLoading();
 
 		]]>
@@ -78,18 +81,23 @@ Debug.write("Cachaable html widget ondata");
 			if(this.main.ht.ready){
             	var del = new LzDelegate(this, 'handleFunc1');
             	this.main.ht.callJavascript('accomPkg.isItemAnswered', del);
+				
             } 
         </method>
         
         <method name="handleFunc1" args="retVal"><![CDATA[
            // Debug.write('DHTMLComponent handleFunc1: ', retVal);
 
-			if(retVal){
+			if(retVal != null && retVal != undefined){
 				if( retVal == true || retVal ==  'true'){
 					this.setAttribute('answered', true);
 				}else{
 					this.setAttribute('answered', false);
 					}
+				if(!unlocked){
+					gController.unlockUI();
+					this.setAttribute('unlocked', true);
+				}
 			}
             gController.updateBlueBallForHtmlItem(retVal);
        ]]> </method>
@@ -115,7 +123,7 @@ Debug.write("Cachaable html widget ondata");
 
         
         <method name="func2">
-              	doneLoading();
+					doneLoading();
         /*   if(this.main.ht.loading){
             	lz.Timer.resetTimer(contentLoadedDel, 1000);
             }else{
