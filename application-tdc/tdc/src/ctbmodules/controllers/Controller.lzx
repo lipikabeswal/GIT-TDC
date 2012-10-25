@@ -803,7 +803,7 @@
 
             // sum of correct answers
             if(this.getAttribute('isOK') == 'T') { //For Oklahoma Customer
-            	 var viewedItems = dpstudentdata.xpathQuery("runtime/item_model[@score='1']");    
+            	 var viewedItems = dpstudentdata.xpathQuery("runtime/item_model[@score='1']");   
 		         if ( viewedItems && viewedItems instanceof Array ) {
 		         	for(var i=0; i<viewedItems.length; i++) {
 		         		var itemNode = viewedItems[i];
@@ -816,6 +816,13 @@
 		         			rawscore = Number(rawscore) + Number(raw);
 		         		}
 		         	}
+		        }
+		        else if(viewedItems && viewedItems instanceof LzDataElement) {
+		        	var itemId = viewedItems.getAttr('iid');
+	         		if(itemId.indexOf('FT') <= 0) {
+	         			var raw = viewedItems.getAttr('score');
+	         			rawscore = Number(rawscore) + Number(raw);
+	         		}
 		        }
             }
             else { //for non OK customers
