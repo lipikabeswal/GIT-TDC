@@ -104,7 +104,6 @@ public class JettyProcessWrapper extends Thread {
 		this.startCmd[13] = "-jar";
 		this.startCmd[14] = jettyHome + "/start.jar";
 		this.startCmd[15] = jettyConfig;
-		this.startCmd[16] = "";
 	
 		this.stopCmd = new String[11];
 		this.stopCmd[0] = "java";
@@ -234,7 +233,7 @@ public class JettyProcessWrapper extends Thread {
                 this.startCmd[9] = this.startCmd[9].replaceAll(" ", "\\ ");
                 String productType = System.getProperty("product.type");
                 if("OKLAHOMA".equals(productType)) {
-                	this.startCmd[16] = "-d32";
+                	this.startCmd[0] = this.startCmd[0] + "\\ -d32";
                 }
             }
         
