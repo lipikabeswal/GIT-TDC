@@ -23,7 +23,7 @@ public class CalculatorDialog extends JDialog {
 	
 	@Override
 	public void dispose() {
-		this.setCalculatorHidden(false);
+		this.setCalculatorHidden(true);
 		this.setCalculatorRunning(false);
 		super.dispose();
 	}
