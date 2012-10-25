@@ -120,7 +120,7 @@ public class DelegatePlugin extends Plugin {
 				else if(actionName.equals("SpeechAction")){
 					
 					SpeechServlet speechServlet=new SpeechServlet();
-				//	xmlData=speechServlet.readPostDataRequest(xmlData);
+					xmlData=speechServlet.readPostDataRequest(xmlData);
 					response.put("OK", ServletUtils.OK);
 					
 				}
