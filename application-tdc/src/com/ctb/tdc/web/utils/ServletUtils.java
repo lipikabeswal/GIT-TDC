@@ -154,6 +154,8 @@ public class ServletUtils {
 	public static final String LOAD_MUSIC_DATA_METHOD = "getMp3";
 	public static final String GET_FILE_PARTS = "downloadFileParts";
 	public static final String OK_CALCULATOR = "okCalculator";	
+	public static final String SHOW_HIDE_OK_CALCULATOR = "showHideOkCalculator";
+	public static final String CLOSE_OK_CALCULATOR = "closeOkCalculator";
 	
 	
 //	parameters

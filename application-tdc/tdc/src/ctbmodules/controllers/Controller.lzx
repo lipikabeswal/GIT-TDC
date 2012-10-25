@@ -1015,6 +1015,7 @@
 		</method>
 
 		<method name="_handlePauseResponse" args="response">
+			gCommunicator.showHideOkCalculator();
 			goToPauseScreen();
 		</method>
 
@@ -2978,6 +2979,7 @@
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
 			removePauseTimer();
+			gCommunicator.showHideOkCalculator();
 			gPauseTimerScreen.setVisible(false);
 			dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
 		</method>
@@ -3166,6 +3168,7 @@
 			this.setAttribute("isStopTest",true);
 			this.setAttribute("catOver",false);
 			this.isStopScreen = false;
+			gCommunicator.closeOkCalculator();
             finishTest();
         </method>
 		<!--For defect 65881-->

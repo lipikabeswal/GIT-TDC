@@ -1,6 +1,9 @@
 package com.ctb.tdc.web.servlet;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -24,6 +27,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -38,7 +42,7 @@ import org.jdom.output.XMLOutputter;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.Base64;
 import com.ctb.tdc.web.utils.CATEngineProxy;
-import com.ctb.tdc.web.utils.CalculatorJFrame;
+import com.ctb.tdc.web.utils.CalculatorDialog;
 import com.ctb.tdc.web.utils.LoadTestUtils;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
@@ -69,7 +73,7 @@ public class PersistenceServlet extends HttpServlet {
 
 	private static HashMap<String, String> audioResponseHash = new HashMap<String, String>();
 	
-	private static CalculatorJFrame calculatorFrame = null;
+	private static CalculatorDialog calculatorDialog = null;
 	private static final String TDC_HOME = "tdc.home";
 	private static final String RESOURCE_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
 		                             					"webapp" + File.separator + "resources";
@@ -258,6 +262,12 @@ public class PersistenceServlet extends HttpServlet {
 		else if (method != null
 				&& method.equals(ServletUtils.OK_CALCULATOR))
 			result = showOkCalculator(request.getParameter("calcType"));
+		else if (method != null
+				&& method.equals(ServletUtils.SHOW_HIDE_OK_CALCULATOR))
+			result = showHideOkCalculator();
+		else if (method != null
+				&& method.equals(ServletUtils.CLOSE_OK_CALCULATOR))
+			result = closeOkCalculator();
 		else
 			result = ServletUtils.ERROR;
 
@@ -910,7 +920,7 @@ public class PersistenceServlet extends HttpServlet {
 		try {
 			//Schedule a job for the event-dispatching thread:
 	        //creating and showing this application's GUI.
-			if(calculatorFrame == null || !calculatorFrame.isCalculatorRunning()) {
+			if(calculatorDialog == null || !calculatorDialog.isCalculatorRunning()) {
 		        javax.swing.SwingUtilities.invokeLater(new Runnable() {
 		            public void run() {
 		            	if("TI84".equals(calcType)) {
@@ -921,9 +931,35 @@ public class PersistenceServlet extends HttpServlet {
 		            }
 		        });
 			} else {
-				calculatorFrame.dispose();
+				calculatorDialog.dispose();
 			}
 	        return ServletUtils.OK;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ServletUtils.ERROR;
+	}
+	
+	public static String showHideOkCalculator() {
+		try {
+			//Schedule a job for the event-dispatching thread:
+	        //creating and showing this application's GUI.
+			if(calculatorDialog != null && !calculatorDialog.isCalculatorHidden()) {
+				calculatorDialog.setCalculatorHidden(true);
+			} else if(calculatorDialog != null && calculatorDialog.isCalculatorHidden()) {
+				calculatorDialog.setCalculatorHidden(false);
+			}
+	        return ServletUtils.OK;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ServletUtils.ERROR;
+	}
+	
+	public static String closeOkCalculator() {
+		try {
+			calculatorDialog.dispose();
+			return ServletUtils.OK;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -953,28 +989,32 @@ public class PersistenceServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		//Create and set up the window.
-    	calculatorFrame = new CalculatorJFrame();
-        
-    	calculatorFrame.setAlwaysOnTop(true);
-    	calculatorFrame.setResizable(false);
-    	calculatorFrame.setIconImage(new ImageIcon(RESOURCE_FOLDER_PATH + File.separator + "calc.png").getImage());
-        
-        EmulatorComponent emu = new EmulatorComponent(calculatorFrame);
-        
+    	JFrame jFrame = new JFrame();
+    	calculatorDialog = new CalculatorDialog(jFrame, "Graphic Calculator");
+    	calculatorDialog.setAlwaysOnTop(true);
+    	calculatorDialog.setResizable(false);
+    	calculatorDialog.setIconImage(new ImageIcon(RESOURCE_FOLDER_PATH + File.separator + "calc.png").getImage());
+    
+    	EmulatorComponent emu = new EmulatorComponent(jFrame);
         emu.setFaceSize(EmulatorComponent.MEDIUM);
         emu.ResetEmulator();
         
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         JLabel emptyLabel = new JLabel("");
         //emptyLabel.setPreferredSize(new Dimension(175, 100));
-        calculatorFrame.getContentPane().add(emptyLabel, BorderLayout.CENTER);
+        calculatorDialog.getContentPane().add(emptyLabel, BorderLayout.CENTER);
 
         //Display the window.
-        calculatorFrame.getContentPane().add(emu);
-        calculatorFrame.pack();
+        calculatorDialog.getContentPane().add(emu);
+        calculatorDialog.pack();
         
-        calculatorFrame.setVisible(true);
+        // Set the JFrame at middle of the screen
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Point middle = new Point(screenSize.width / 2, screenSize.height / 2);
+        Point newLocation = new Point(middle.x - (calculatorDialog.getWidth() / 2), 
+                                      middle.y - (calculatorDialog.getHeight() / 2));
+        calculatorDialog.setLocation(newLocation);
+        calculatorDialog.setVisible(true);
         
         System.setProperty("java.library.path", javaLibPath);
     	try {
@@ -993,32 +1033,22 @@ public class PersistenceServlet extends HttpServlet {
     }
     
     private static void createAndShowTI30() {
-        //Create and set up the window.
-    	calculatorFrame = new CalculatorJFrame();
     	
-    	calculatorFrame.setAlwaysOnTop(true);
-    	calculatorFrame.setResizable(false);
-    	calculatorFrame.setIconImage(new ImageIcon(RESOURCE_FOLDER_PATH + File.separator + "calc.png").getImage());
-    	calculatorFrame.setSize(300, 600);
-    	//calculatorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	JFrame jframe = new JFrame();
+    	calculatorDialog = new CalculatorDialog(jframe, "Scientific Calculator");
+    	calculatorDialog.setAlwaysOnTop(true);
+    	calculatorDialog.setResizable(false);
+    	calculatorDialog.setIconImage(new ImageIcon(RESOURCE_FOLDER_PATH + File.separator + "calc.png").getImage());
+    	calculatorDialog.setSize(300, 600);
     	
-    	CalcPaneTI30 emu = new CalcPaneTI30(calculatorFrame.getContentPane());
-        calculatorFrame.add(emu, BorderLayout.CENTER);
-         
-        calculatorFrame.setVisible(true);
-    }
-    
-    public static void main(String args[]) {
-    	final String calcType = "TI84";
-    	System.setProperty("java.library.path", "C:\\OAS_Workspace_Curr_Prod\\TICalcDemo\\xx\\TIemulator.dll");
-    	javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	if("TI84".equals(calcType)) {
-            		createAndShowTI84();
-            	} else {
-            		createAndShowTI30();
-            	}
-            }
-        });
+        CalcPaneTI30 emu = new CalcPaneTI30(calculatorDialog.getContentPane());
+        calculatorDialog.add(emu, BorderLayout.CENTER);
+        // Set the JFrame at middle of the screen
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Point middle = new Point(screenSize.width / 2, screenSize.height / 2);
+        Point newLocation = new Point(middle.x - (calculatorDialog.getWidth() / 2), 
+                                      middle.y - (calculatorDialog.getHeight() / 2));
+        calculatorDialog.setLocation(newLocation);
+        calculatorDialog.setVisible(true);
     }
 }

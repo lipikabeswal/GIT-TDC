@@ -55,7 +55,8 @@
 		<attribute name="_SERVER_VALUE" type="string" value="server" />
 		<attribute name="_GENDER_VALUE" type="string" value="female" />
 		<attribute name="OK_CALCULATOR" type="string" value="okCalculator" />
-
+		<attribute name="SHOW_HIDE_OK_CALCULATOR" type="string" value="showHideOkCalculator" />
+		<attribute name="CLOSE_OK_CALCULATOR" type="string" value="closeOkCalculator" />
 		
 		<handler name="oninit">
 			var base = LzBrowser.getInitArg( 'servletUrl' );
@@ -291,12 +292,20 @@ Debug.write("do request " + _method + " timestamp: " + timestamp);
 		</method>
 
 		<method name="showOkCalculator" args="calcType">
- 	   	Debug.write("showOkCalculator ");
-		 persistenceDs.setQueryParam("calcType",calcType);
-    	 _doRequest(persistenceDs, OK_CALCULATOR, "");
+ 	   		Debug.write("showOkCalculator ");
+		 	persistenceDs.setQueryParam("calcType",calcType);
+    	 	_doRequest(persistenceDs, OK_CALCULATOR, "");
+		</method>
+		
+		<method name="showHideOkCalculator">
+ 	   		Debug.write("showHideOkCalculator ");
+		 	_doRequest(persistenceDs, SHOW_HIDE_OK_CALCULATOR, "");
 		</method>
 
-		
+		<method name="closeOkCalculator">
+ 	   		Debug.write("closeOkCalculator ");
+		 	_doRequest(persistenceDs, CLOSE_OK_CALCULATOR, "");
+		</method>
 		
 	</node>
 </library>

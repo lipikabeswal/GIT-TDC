@@ -236,8 +236,15 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 		 	
 		<method name="showOkCalculator" args="calcType">
 			gRequest.showOkCalculator(calcType);
-		</method>  	
+		</method>
+		
+		<method name="showHideOkCalculator">
+			gRequest.showHideOkCalculator();
+		</method>  	  	
 			
+		<method name="closeOkCalculator">
+			gRequest.closeOkCalculator();
+		</method> 
      </node>
 
 </library>

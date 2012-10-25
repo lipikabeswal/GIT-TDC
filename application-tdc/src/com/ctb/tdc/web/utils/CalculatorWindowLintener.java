@@ -5,8 +5,9 @@ import java.awt.event.WindowEvent;
 
 public class CalculatorWindowLintener extends WindowAdapter {
 	
+	@Override
 	public void windowClosing(WindowEvent e){
-		CalculatorJFrame frame = (CalculatorJFrame) e.getSource();
-		frame.dispose();
-	}	
+		CalculatorDialog dialog = (CalculatorDialog) e.getSource();
+		dialog.dispose();
+	}
 }
