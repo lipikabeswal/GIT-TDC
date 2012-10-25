@@ -86,7 +86,7 @@ public class JettyProcessWrapper extends Thread {
 					 + settings.getProxyPort();
 		ConsoleUtils.messageOut("Bootstrap passing proxy info: " + proxy);
 		
-		this.startCmd = new String[16];
+		this.startCmd = new String[17];
 		this.startCmd[0] = javaHome + "java";
 		this.startCmd[1] = "-Dtdc.proxy=" + proxy;
 		this.startCmd[2] = "-Dtdc.home=" + this.tdcHome;
@@ -104,6 +104,7 @@ public class JettyProcessWrapper extends Thread {
 		this.startCmd[13] = "-jar";
 		this.startCmd[14] = jettyHome + "/start.jar";
 		this.startCmd[15] = jettyConfig;
+		this.startCmd[16] = "";
 	
 		this.stopCmd = new String[11];
 		this.stopCmd[0] = "java";
@@ -231,6 +232,10 @@ public class JettyProcessWrapper extends Thread {
                 this.startCmd[6] = this.startCmd[6].replaceAll(" ", "\\ ");
                 this.startCmd[8] = this.startCmd[8].replaceAll(" ", "\\ ");
                 this.startCmd[9] = this.startCmd[9].replaceAll(" ", "\\ ");
+                String productType = System.getProperty("product.type");
+                if("OKLAHOMA".equals(productType)) {
+                	this.startCmd[16] = "-d32";
+                }
             }
         
             ConsoleUtils.messageOut("jettyHome: " + this.jettyHome);
