@@ -558,7 +558,7 @@
 
 		<method name="canAddDigit">
 			var result = true;
-			if(this.isEditing){
+			if(this.isEditing==true || this.isEditing=='true'){
 				var numDigits = this.input.length;
 				if(this.inputHasDecimal()){
 					numDigits--;
