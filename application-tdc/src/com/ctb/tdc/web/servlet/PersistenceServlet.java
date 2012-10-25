@@ -958,8 +958,11 @@ public class PersistenceServlet extends HttpServlet {
 	
 	public static String closeOkCalculator() {
 		try {
-			calculatorDialog.dispose();
+			if(calculatorDialog != null) {
+				calculatorDialog.dispose();
+			}
 			return ServletUtils.OK;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
