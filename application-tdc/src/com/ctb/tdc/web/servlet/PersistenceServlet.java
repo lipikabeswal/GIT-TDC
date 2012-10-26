@@ -264,7 +264,7 @@ public class PersistenceServlet extends HttpServlet {
 			result = showOkCalculator(request.getParameter("calcType"));
 		else if (method != null
 				&& method.equals(ServletUtils.SHOW_HIDE_OK_CALCULATOR))
-			result = showHideOkCalculator();
+			result = showHideOkCalculator(request.getParameter("isHidden"));
 		else if (method != null
 				&& method.equals(ServletUtils.CLOSE_OK_CALCULATOR))
 			result = closeOkCalculator();
@@ -940,14 +940,14 @@ public class PersistenceServlet extends HttpServlet {
 		return ServletUtils.ERROR;
 	}
 	
-	public static String showHideOkCalculator() {
+	public static String showHideOkCalculator(String hidden) {
 		try {
 			//Schedule a job for the event-dispatching thread:
 	        //creating and showing this application's GUI.
-			if(calculatorDialog != null && !calculatorDialog.isCalculatorHidden()) {
-				calculatorDialog.setCalculatorHidden(true);
-			} else if(calculatorDialog != null && calculatorDialog.isCalculatorHidden()) {
-				calculatorDialog.setCalculatorHidden(false);
+			if("Y".equals(hidden)) {
+				calculatorDialog.setVisible(false);
+			} else {
+				calculatorDialog.setVisible(true);
 			}
 	        return ServletUtils.OK;
 		} catch (Exception e) {
@@ -962,7 +962,6 @@ public class PersistenceServlet extends HttpServlet {
 				calculatorDialog.dispose();
 			}
 			return ServletUtils.OK;
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

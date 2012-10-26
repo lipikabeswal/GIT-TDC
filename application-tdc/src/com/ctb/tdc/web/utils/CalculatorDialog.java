@@ -8,7 +8,6 @@ public class CalculatorDialog extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private boolean calculatorRunning;
-	private boolean calculatorHidden;
 	
 	public CalculatorDialog(Frame frame, String title){
 		super(frame);
@@ -18,12 +17,10 @@ public class CalculatorDialog extends JDialog {
          //enables Window Events on this Component
         this.addWindowListener(new CalculatorWindowLintener());
         this.calculatorRunning = true;
-        this.calculatorHidden = false;
     }
 	
 	@Override
 	public void dispose() {
-		this.setCalculatorHidden(true);
 		this.setCalculatorRunning(false);
 		super.dispose();
 	}
@@ -34,18 +31,5 @@ public class CalculatorDialog extends JDialog {
 
 	public void setCalculatorRunning(boolean calculatorRunning) {
 		this.calculatorRunning = calculatorRunning;
-	}
-	
-	public boolean isCalculatorHidden() {
-		return calculatorHidden;
-	}
-	
-	public void setCalculatorHidden(boolean calculatorHidden) {
-		if(calculatorHidden) {
-			this.setVisible(false);
-		} else {
-			this.setVisible(true);
-		}
-		this.calculatorHidden = calculatorHidden;
 	}
 }

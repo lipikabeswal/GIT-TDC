@@ -293,12 +293,13 @@ Debug.write("do request " + _method + " timestamp: " + timestamp);
 
 		<method name="showOkCalculator" args="calcType">
  	   		Debug.write("showOkCalculator ");
-		 	persistenceDs.setQueryParam("calcType",calcType);
+		 	persistenceDs.setQueryParam("calcType", calcType);
     	 	_doRequest(persistenceDs, OK_CALCULATOR, "");
 		</method>
 		
-		<method name="showHideOkCalculator">
+		<method name="showHideOkCalculator" args="isHidden">
  	   		Debug.write("showHideOkCalculator ");
+ 	   		persistenceDs.setQueryParam("isHidden", isHidden);
 		 	_doRequest(persistenceDs, SHOW_HIDE_OK_CALCULATOR, "");
 		</method>
 

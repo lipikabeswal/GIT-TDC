@@ -1022,7 +1022,7 @@
 		</method>
 
 		<method name="_handlePauseResponse" args="response">
-			//gCommunicator.showHideOkCalculator();
+			gCommunicator.showHideOkCalculator("Y");
 			goToPauseScreen();
 		</method>
 
@@ -2986,7 +2986,7 @@
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
 			removePauseTimer();
-			//gCommunicator.showHideOkCalculator();
+			gCommunicator.showHideOkCalculator("N");
 			gPauseTimerScreen.setVisible(false);
 			dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
 		</method>
@@ -2999,6 +2999,7 @@
 
 		<method name="finishTest">
         	gReadableText.stopReading();
+        	gCommunicator.closeOkCalculator();
             freezeUI();
             
          //For Defect 65881        
@@ -3175,8 +3176,7 @@
 			this.setAttribute("isStopTest",true);
 			this.setAttribute("catOver",false);
 			this.isStopScreen = false;
-			//gCommunicator.closeOkCalculator();
-            finishTest();
+			finishTest();
         </method>
 		<!--For defect 65881-->
 		<method name="recorderComponent" args="recObject">
@@ -3808,13 +3808,13 @@ Debug.write("############ loadItem ############");
             }else{
             	this.setAttribute('trackTimer',Math.round(this.trackTimer+1000));
             	if(this.trackTimer >= timerInterval){
+            		gCommunicator.closeOkCalculator();
 					stopQuestion();
 					removeTrackTimer();
 					gScreens.showTimeoutForInactivity();
 					canvas.setPromptDimension();
             		timeoutDialog.open();
-
-            	}else{
+            	} else {
 					resetTrackTimer();
 				}
             }
@@ -3988,7 +3988,8 @@ Debug.write("############ loadItem ############");
 			this.resetImageArray();
 			this.setattribute('isaudio',false);
 			setState(WRITE_TO_AUDIT_FILE_STATE);
-			gCommunicator.writeToAuditFile(lsid, scid, getModelString());
+			gCommunicator.closeOkCalculator();
+            gCommunicator.writeToAuditFile(lsid, scid, getModelString());
         ]]></method>
 
 		<method name="saveEndSubtest"><![CDATA[
