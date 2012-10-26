@@ -2120,7 +2120,7 @@
 			var node = lz.DataElement.stringToLzData(unescape(answers));
 			//Debug.write("getAnswerForInputWidgetId node", node);
             if (node) {
-               node.setOwnerDocument(dstemp);
+               node.setAttribute('ownerDocument',dstemp);
                dstemp.appendChild(node);
                //Debug.write("widgetId : " + widgetId + " node : " , node);
 			   dp.setPointer(node);
@@ -3940,7 +3940,7 @@ Debug.write("############ loadItem ############");
             gReadableText.stopReading(false);
             hideMagnifierGlass();
 			hideMaskingChoiceDD();
-			hideHtmlWidgets();			
+			hideHtmlWidgets();
             if(this.recorder != null) {
 				this.recorder.stopblinker('stop');
 				this.recorder.whitewrapperOverLay.setAttribute('visible', false);
@@ -5202,7 +5202,7 @@ Debug.write("############ loadItem ############");
 			var node = lz.DataElement.stringToLzData(unescape(answers));
 			Debug.write("getStateForInputWidgetId node", node);
             if (node) {
-               node.setOwnerDocument(dstemp);
+               node.setAttribute('ownerDocument',dstemp);
                dstemp.appendChild(node);
                //Debug.write("widgetId : " + widgetId + " node : " , node);
 			   dp.setPointer(node);
