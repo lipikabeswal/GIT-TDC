@@ -786,6 +786,7 @@
 
 		<method name="_handleUploadAuditFileResponse" args="response"><![CDATA[
 			var rawscore = 0;
+			var visited = 0;
             // clock is stopped
             var remainingms = durationms - elapsedms;
             if ( remainingms < 0 ) remainingms = 0;
@@ -803,28 +804,55 @@
 
             // sum of correct answers
             if(this.getAttribute('isOK') == 'T') { //For Oklahoma Customer
-            	 var viewedItems = dpstudentdata.xpathQuery("runtime/item_model[@score='1']");   
-		         if ( viewedItems && viewedItems instanceof Array ) {
-		         	for(var i=0; i<viewedItems.length; i++) {
-		         		var itemNode = viewedItems[i];
-		         		var itemId = itemNode.getAttr('iid');
-		         		if(itemId.indexOf('FT') > 0) {
-		         			continue;
-		         		}
-		         		else {
-		         			var raw = itemNode.getAttr('score');
+				if(dprestart.isValid()){ // for restart scenario
+					var restartData = dprestart.xpathQuery('tsd/ist');
+					if(restartData && restartData instanceof Array) {
+						for(var i=0; i<restartData.length; i++) {
+							var visitedItemNode = restartData[i];
+							var visitedItemId = visitedItemNode.getAttr('iid');
+							if(visitedItemId.indexOf('FT') > 0) {
+			         			continue;
+			         		}
+			         		else {
+								var xPath = "tsd/ist[@iid='" + visitedItemId + "']";
+			         			var raw = dprestart.xpathQuery(xPath + "/ov[@n='SCORE']/v/text()");
+			         			rawscore = Number(rawscore) + Number(raw);
+			         		}
+						}
+					}
+					else if(restartData && restartData instanceof LzDataElement) {
+			        	var visitedItemId = restartData.getAttr('iid');
+						var xPath = "tsd/ist[@iid='" + visitedItemId + "']";
+		         		if(itemId.indexOf('FT') <= 0) {
+		         			var raw = dprestart.xpathQuery(xPath + "/ov[@n='SCORE']/v/text()");
 		         			rawscore = Number(rawscore) + Number(raw);
 		         		}
-		         	}
-		        }
-		        else if(viewedItems && viewedItems instanceof LzDataElement) {
-		        	var itemId = viewedItems.getAttr('iid');
-	         		if(itemId.indexOf('FT') <= 0) {
-	         			var raw = viewedItems.getAttr('score');
-	         			rawscore = Number(rawscore) + Number(raw);
-	         		}
-		        }
-            }
+		        	}
+				 }
+				 else { 
+	            	 var viewedItems = dpstudentdata.xpathQuery("runtime/item_model[@score='1']");   
+			         if ( viewedItems && viewedItems instanceof Array ) {
+			         	for(var i=0; i<viewedItems.length; i++) {
+			         		var itemNode = viewedItems[i];
+			         		var itemId = itemNode.getAttr('iid');
+			         		if(itemId.indexOf('FT') > 0) {
+			         			continue;
+			         		}
+			         		else {
+			         			var raw = itemNode.getAttr('score');
+			         			rawscore = Number(rawscore) + Number(raw);
+			         		}
+			         	}
+			        }
+			        else if(viewedItems && viewedItems instanceof LzDataElement) {
+			        	var itemId = viewedItems.getAttr('iid');
+		         		if(itemId.indexOf('FT') <= 0) {
+		         			var raw = viewedItems.getAttr('score');
+		         			rawscore = Number(rawscore) + Number(raw);
+		         		}
+			        }
+	            }
+			}
             else { //for non OK customers
 	            rawscore = countDataNodes(
 	                dpstudentdata.xpathQuery(
@@ -858,11 +886,18 @@
             }
             
 			//get the number of unscored items
-			var visited = countDataNodes(
-	                dpstudentdata.xpathQuery(
-	                    "runtime/item_model[@is_visited='true']"
-	                )
-	            );
+			if(dprestart.isValid()){
+					visited = countDataNodes(
+								dprestart.xpathQuery('tsd/ist')
+						);
+			}
+			else {
+				visited = countDataNodes(
+		                dpstudentdata.xpathQuery(
+		                    "runtime/item_model[@is_visited='true']"
+		                )
+		            );
+			}
 			var unscored = maxpossible - visited;
 			
             var completionmode = ""; // empty string or 'time-out' - need to fix for timeout
