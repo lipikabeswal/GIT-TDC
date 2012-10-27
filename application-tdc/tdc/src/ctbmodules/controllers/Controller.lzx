@@ -265,6 +265,8 @@
 			value="saveEndSubtest" />
 		<attribute name="TUTORIAL_COMPLETE_STATE" type="string"
 			value="tutorialComplete" />
+		<attribute name="CALCULATOR_CLOSE" type="string"
+			value="calculatorClose" />
 
 		<!-- 
 			Lifecycle events
@@ -777,6 +779,9 @@
 						break;
 					case TUTORIAL_COMPLETE_STATE:
 						_handleTutorialCompleteResponse(response);
+						break;
+					case CALCULATOR_CLOSE:
+						_handleCloseCalculatorResponse(response);
 						break;
 					default:
 						break;
@@ -3842,13 +3847,13 @@ Debug.write("############ loadItem ############");
                 resetTrackTimer();
             }else{
             	this.setAttribute('trackTimer',Math.round(this.trackTimer+1000));
-            	if(this.trackTimer >= timerInterval){
-            		gCommunicator.closeOkCalculator();
+            	if(this.trackTimer >= timerInterval){ 
+					gCommunicator.closeOkCalculator();           		
 					stopQuestion();
 					removeTrackTimer();
 					gScreens.showTimeoutForInactivity();
 					canvas.setPromptDimension();
-            		timeoutDialog.open();
+            		timeoutDialog.open();					
             	} else {
 					resetTrackTimer();
 				}
@@ -4022,10 +4027,14 @@ Debug.write("############ loadItem ############");
 			}
 			this.resetImageArray();
 			this.setattribute('isaudio',false);
-			setState(WRITE_TO_AUDIT_FILE_STATE);
-			gCommunicator.closeOkCalculator();
-            gCommunicator.writeToAuditFile(lsid, scid, getModelString());
+			setState(CALCULATOR_CLOSE);			
+			gCommunicator.closeOkCalculator();			
         ]]></method>
+		
+		<method name="_handleCloseCalculatorResponse">
+			setState(WRITE_TO_AUDIT_FILE_STATE);
+            gCommunicator.writeToAuditFile(lsid, scid, getModelString());
+		</method>
 
 		<method name="saveEndSubtest"><![CDATA[
 			//to set audio data in save call, its required

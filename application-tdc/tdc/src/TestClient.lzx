@@ -137,8 +137,14 @@
 	
 	<method name="setPromptDimension">
 		if(gPauseTimerScreen.visible) {
+			titleView.mainView.timeoutDialog.timeoutMsg.setVisible(false);
+			titleView.mainView.timeoutDialog.pauseTimerMsg.setVisible(true);
+			titleView.mainView.timeoutDialog.pauseTimeoutMsg.setVisible(true);
 			titleView.mainView.timeoutDialog.setY(200);
 		} else {
+			titleView.mainView.timeoutDialog.timeoutMsg.setVisible(true);
+			titleView.mainView.timeoutDialog.pauseTimerMsg.setVisible(false);
+			titleView.mainView.timeoutDialog.pauseTimeoutMsg.setVisible(false);
 			titleView.mainView.timeoutDialog.setY(20);
 		}
 	</method>
@@ -202,16 +208,27 @@
     </view>
 	<modaldialog id="timeoutDialog" name="timeoutDialog"  
 			width="400" height="160" visible="false" bgcolor="0x6691B4" x="470" y="20">
-	    <text font="CTB"	
+		<text name="timeoutMsg"
+			 font="CTB"	
              fontsize="15" 
-             fgcolor="white">
+             fgcolor="white"
+			 visible="false">
              OK.
            </text>
-		<!--<text font="CTB"	
+	    <text name="pauseTimerMsg"
+			 font="CTB"	
              fontsize="15" 
-             fgcolor="white">
-             Please click ok to close OAS.
-           </text> -->
+             fgcolor="white"
+			 visible="false">
+              The 20-minute time limit has been exceeded.
+           </text>
+		<text name="pauseTimeoutMsg"
+			 font="CTB"	
+             fontsize="15" 
+             fgcolor="white"
+			 visible="false">
+             Please click ok to close test session.
+           </text> 
 	    <view align="center" layout="axis:x; spacing:20">
 	      <OkButton y="3" enabled="${ gScreens.allowclick }">
                <method name="continue" event="onclick">
