@@ -495,7 +495,7 @@
 		<method name="handleDecimal">
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
-				if(!this.isEditing){
+				if(this.isEditing==false || this.isEditing=='false'){
 					setDataAttribute('input', '0');
 				}
 				setDataAttribute('isEditing', true);
