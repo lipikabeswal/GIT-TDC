@@ -944,10 +944,12 @@ public class PersistenceServlet extends HttpServlet {
 		try {
 			//Schedule a job for the event-dispatching thread:
 	        //creating and showing this application's GUI.
-			if("Y".equals(hidden)) {
-				calculatorDialog.setVisible(false);
-			} else {
-				calculatorDialog.setVisible(true);
+			if(calculatorDialog != null && calculatorDialog.isCalculatorRunning()) {
+				if("Y".equals(hidden)) {
+					calculatorDialog.setVisible(false);
+				} else {
+					calculatorDialog.setVisible(true);
+				}
 			}
 	        return ServletUtils.OK;
 		} catch (Exception e) {
