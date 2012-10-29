@@ -792,6 +792,7 @@
 		<method name="_handleUploadAuditFileResponse" args="response"><![CDATA[
 			var rawscore = 0;
 			var visited = 0;
+			var viewedCount = 0;
             // clock is stopped
             var remainingms = durationms - elapsedms;
             if ( remainingms < 0 ) remainingms = 0;
@@ -811,10 +812,12 @@
             if(this.getAttribute('isOK') == 'T') { //For Oklahoma Customer
 				if(dprestart.isValid()){ // for restart scenario
 					var restartData = dprestart.xpathQuery('tsd/ist');
+					var itemIds = new Array();
 					if(restartData && restartData instanceof Array) {
 						for(var i=0; i<restartData.length; i++) {
 							var visitedItemNode = restartData[i];
 							var visitedItemId = visitedItemNode.getAttr('iid');
+							itemIds.push(visitedItemId); 
 							if(visitedItemId.indexOf('FT') > 0) {
 			         			continue;
 			         		}
@@ -827,14 +830,54 @@
 					}
 					else if(restartData && restartData instanceof LzDataElement) {
 			        	var visitedItemId = restartData.getAttr('iid');
+						itemIds.push(visitedItemId);
 						var xPath = "tsd/ist[@iid='" + visitedItemId + "']";
 		         		if(itemId.indexOf('FT') <= 0) {
 		         			var raw = dprestart.xpathQuery(xPath + "/ov[@n='SCORE']/v/text()");
 		         			rawscore = Number(rawscore) + Number(raw);
 		         		}
 		        	}
-				 }
-				 else { 
+					var isVisited = "false";
+					var viewedItems = dpstudentdata.xpathQuery("runtime/item_model[@is_visited='true']"); 
+					if (viewedItems && viewedItems instanceof Array ) {
+			         	for(var i=0; i<viewedItems.length; i++) {
+							isVisited = "false";
+			         		var itemNode = viewedItems[i];
+			         		var itemId = itemNode.getAttr('iid');
+							for(var j=0; j<itemIds.length; j++) {
+								var visitedId = itemIds[j];
+								if(visitedId == itemId) {
+									isVisited="true";
+									break;
+								}
+							}	
+							if(isVisited == "false") {
+								viewedCount++;
+								if(itemId.indexOf('FT')<= 0) {
+		         					var raw = itemNode.getAttr('score');
+		         					rawscore = Number(rawscore) + Number(raw);
+		         				}
+							}
+			         	}
+			        }
+			        else if(viewedItems && viewedItems instanceof LzDataElement) {
+			        	var itemId = viewedItems.getAttr('iid');
+						for(var i=0; i<itemIds.length; i++) {
+							var visitedId = itemIds[i];
+							if(visitedId == itemId) {
+								isVisited="true";
+								break;
+							}
+						}
+						if(isVisited == "false") {
+							if(itemId.indexOf('FT') <= 0) {
+	         					var raw = viewedItems.getAttr('score');
+	         					rawscore = Number(rawscore) + Number(raw);
+	         				}
+						}
+					}
+				}
+				else { 
 	            	 var viewedItems = dpstudentdata.xpathQuery("runtime/item_model[@score='1']");   
 			         if ( viewedItems && viewedItems instanceof Array ) {
 			         	for(var i=0; i<viewedItems.length; i++) {
@@ -857,7 +900,7 @@
 		         		}
 			        }
 	            }
-			}
+			} 
             else { //for non OK customers
 	            rawscore = countDataNodes(
 	                dpstudentdata.xpathQuery(
@@ -892,9 +935,10 @@
             
 			//get the number of unscored items
 			if(dprestart.isValid()){
-					visited = countDataNodes(
-								dprestart.xpathQuery('tsd/ist')
-						);
+				var visitedRestartCount = countDataNodes(
+							dprestart.xpathQuery('tsd/ist')
+					);
+				visited = visitedRestartCount + viewedCount;
 			}
 			else {
 				visited = countDataNodes(
