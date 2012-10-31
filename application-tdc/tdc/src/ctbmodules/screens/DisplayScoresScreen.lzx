@@ -116,7 +116,13 @@
 			var testTitle = dpscore.xpathQuery('title/@name');
 			if(testTitle.indexOf('Geometry')>0 || testTitle.indexOf('Algebra I')>0 || testTitle.indexOf('Algebra II')>0 || isRetest=='true') {
 				var perfLevel = getPLScore(totalRaw,form,testTitle);
-				info.perfLevel.setAttribute('text',perfLevel);
+				if(perfLevel == null || perfLevel == "") {//for avoiding undefined perf level for practice tests
+					info.perfLevelLabel.setAttribute('visible',false);
+					info.perfLevel.setAttribute('visible',false);
+				}
+				else {
+					info.perfLevel.setAttribute('text',perfLevel);
+				}
 			} 
 			else {
 				info.perfLevelLabel.setAttribute('visible',false);
@@ -244,7 +250,8 @@
 				else if(raw >=47 && raw <=60)
 					PerfLevel="Advanced";
 			}
-		}		
+		}	
+		Debug.write("PerfLevel....", PerfLevel);	
 		return PerfLevel;
 	]]>
 	</method>

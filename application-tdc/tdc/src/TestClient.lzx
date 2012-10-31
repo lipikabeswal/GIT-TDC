@@ -212,16 +212,18 @@
 			 font="CTB"	
              fontsize="15" 
              fgcolor="white"
-			 visible="false">
-              The 20-minute time limit has been exceeded.
+			 visible="false"
+			 width="100%"
+			 multiline="true">
+			 Your test has been Paused for more than the 20-minute time limit and has now ended. Click OK to close the session.
            </text>
-		<text name="pauseTimeoutMsg"
+		<!--<text name="pauseTimeoutMsg"
 			 font="CTB"	
              fontsize="15" 
              fgcolor="white"
 			 visible="false">
-             Please click ok to close test session.
-           </text> 
+             Click OK to close the session.
+           </text>--> 
 	    <view align="center" valign="middle" layout="axis:x; spacing:20">
 	      <OkButton enabled="${ gScreens.allowclick }">
                <method name="continue" event="onclick">
