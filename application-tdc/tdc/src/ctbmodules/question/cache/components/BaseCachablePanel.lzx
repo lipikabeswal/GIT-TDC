@@ -106,6 +106,9 @@
                 if (style ['font_color']) {
                     this.setAttribute ('fontcolor', Number (style.font_color));
                 }
+                else if (!(this instanceof CachableAnswerAreaPanel || this instanceof CachableAnswerAreaAbsolutePanel)){
+					this.setAttribute('fontcolor', Number(gController.questionFontColor));
+                }
                 if (style ['font_magnification']) {
                     this.setAttribute ('fontsize', style.font_magnification * canvas.basefontsize);
                    // this is not working - it's leaving the fontsize at 11 instead of 12
@@ -116,6 +119,7 @@
             }
             else if(!(this instanceof CachableAnswerAreaPanel || this instanceof CachableAnswerAreaAbsolutePanel)){
 				this.setAttribute('bgcolor', gController.questionBgColor);
+				this.setAttribute('fontcolor', Number(gController.questionFontColor));
             }
             
             this.setAttribute("isaccom", isaccom);
@@ -130,7 +134,7 @@
                 || this instanceof CachableTabsPanel
                 || this instanceof CachablePanel)  
             {
-                gFootNotePopup.setAttribute("scrolltext", this);
+            	gFootNotePopup.setAttribute("scrolltext", this);
             }                
         ]]></method>
 
