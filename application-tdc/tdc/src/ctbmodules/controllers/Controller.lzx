@@ -267,7 +267,9 @@
 			value="tutorialComplete" />
 		<attribute name="CALCULATOR_CLOSE" type="string"
 			value="calculatorClose" />
-
+		<attribute name="OK_CALCULATOR_STATE" type="string"
+			value="okCalculator" />
+		
 		<!-- 
 			Lifecycle events
 		-->
@@ -785,6 +787,9 @@
 						break;
 					case CALCULATOR_CLOSE:
 						_handleCloseCalculatorResponse(response);
+						break;
+					case OK_CALCULATOR_STATE:
+						_handleOkCalculatorResponse(response);
 						break;
 					default:
 						break;
@@ -3092,8 +3097,12 @@
 
 		<method name="finishTest">
         	gReadableText.stopReading();
-        	gCommunicator.closeOkCalculator();
-            freezeUI();
+			setState(OK_CALCULATOR_STATE);
+        	gCommunicator.closeOkCalculator();            
+        </method>
+
+		<method name="_handleOkCalculatorResponse"><![CDATA[
+			freezeUI();
             
          //For Defect 65881        
             if(this.recorder != null)
@@ -3119,7 +3128,7 @@
 			//this.setAttribute('trackTimer',0);
 			//removeTrackTimer();
             save();
-        </method>
+		]]></method>
 	
 		<method name="setSendCatSave">
 		var curItemId;
