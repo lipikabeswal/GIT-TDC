@@ -854,22 +854,35 @@ public class PersistenceServlet extends HttpServlet {
 		Properties props = new Properties();
 		String filePath="";
 		boolean isMac = false;
+		boolean isWin7 = false;
 		boolean isOK = false; //true for Oklahoma product
 		try {
 			loginReponseDocument = saxBuilder.build(new ByteArrayInputStream(loginResponse.getBytes()));			
 			//ResourceBundle rb = ResourceBundle.getBundle("tdc");
 			//String filePath = rb.getString("tdc.lax.filepath"); 
 			if (osName.indexOf("win") >= 0) {
+				if(osName.equalsIgnoreCase("windows 7")) {
+					isWin7 = true;				
+				}
 				filePath ="C://Program Files//CTB//Online Assessment//Online Assessment.lax";
 			}
-			else if(osName.indexOf("mac") >= 0) {
+			else if(osName.indexOf("mac") >= 0) {				
 				filePath = "//Applications//Online Assessment//Online Assessment.app//Contents//info.plist";
 				isMac = true;
 			}
 			else {
 				filePath ="//usr//local//Online Assessment//Online_Assessment.lax";
 			}
-
+			if(isWin7) {
+				File f = new File(filePath);
+				if(!f.exists()) {
+					filePath = "C://Program Files (x86)//CTB//Online Assessment//Online Assessment.lax";
+					File f1 = new File(filePath);
+					if(!f1.exists()) {
+						filePath = "C://Program Files (x64)//CTB//Online Assessment//Online Assessment.lax";						
+					}
+				}
+			}
 			if(isMac) {//if Mac, read the info.list file for Oklahoma product
 				BufferedReader in = new BufferedReader(new FileReader(filePath));
 				String temp = in.readLine();
