@@ -15,6 +15,7 @@ package com.ctb.tdc.web.utils;
 public class AssetInfo 
 {
     public byte[] data;
+    public String dataStr;
     public String mimeType;
     
     public AssetInfo()
@@ -22,7 +23,15 @@ public class AssetInfo
         super();
     }
     
-    public void setExt( String ext )
+    public String getDataStr() {
+		return dataStr;
+	}
+
+	public void setDataStr(String dataStr_) {
+		this.dataStr = dataStr_;
+	}
+
+	public void setExt( String ext )
     {
         mimeType = "image/gif";
         if ( "swf".equals( ext ))

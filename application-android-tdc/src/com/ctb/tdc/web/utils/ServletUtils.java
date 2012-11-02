@@ -236,9 +236,14 @@ public class ServletUtils {
 	public static final String UPLOAD_STATISTICS_METHOD = "uploadStatistics";
 	public static final String UPLOAD_SYSTEM_INFO_METHOD = "uploadSystemInfo";
 	public static final String GET_MUSIC_DATA_METHOD = "getMusicData";
+	public static final String PLAY_MUSIC_DATA_METHOD = "playMusicData";
+	public static final String STOP_MUSIC_DATA_METHOD = "stopMusicData";
+	public static final String SET_VOLUME_MUSIC_DATA_METHOD = "setVolume";
 	public static final String LOAD_MUSIC_DATA_METHOD = "getMp3";
 	public static final String GET_FILE_PARTS = "downloadFileParts";
 
+	
+	
 	// parameters
 	public static final String FOLDER_PARAM = "folder";
 	public static final String USER_PARAM = "user";
@@ -247,7 +252,7 @@ public class ServletUtils {
 	public static final String ACCESS_CODE_PARAM = "accessCode";
 	public static final String ITEM_SET_ID_PARAM = "itemSetId";
 	public static final String ITEM_ID_PARAM = "itemid";
-	public static final String IMAGE_ID_PARAM = "imageId";
+	public static final String IMAGE_ID_PARAM = "imageid";
 	public static final String ENCRYPTION_KEY_PARAM = "encryptionKey";
 	public static final String XML_PARAM = "requestXML";
 	public static final String AUDIT_FILE_PARAM = "auditFile";
@@ -1076,7 +1081,7 @@ public class ServletUtils {
 				// HttpResponse response = client1.execute(post);
 
 				responseCode = response.getStatusLine().getStatusCode();
-
+                System.out.println("responseCode-->>"+responseCode);
 				if (responseCode == HttpStatus.SC_OK) {
 
 					BufferedReader in = new BufferedReader(
