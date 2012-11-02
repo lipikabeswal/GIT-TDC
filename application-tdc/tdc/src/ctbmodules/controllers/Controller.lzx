@@ -308,6 +308,7 @@
 		<attribute name="questionBgColor" type="color" value="0xFFFFFF" />
 		<attribute name="questionFontColor" type="color"
 			value="0x000000" />
+		<attribute name="questionFontSize" type="number" value="0"/>
 		<attribute name="answerBgColor" type="color" value="0xFFFFB0" />
 		<attribute name="answerFontColor" type="color" value="0x000000" />
 		<attribute name="lsid" value="0" />
@@ -4023,6 +4024,8 @@ Debug.write("############ loadItem ############");
                     //theStyle.setAttr("font_magnification", 1.5);
                 	if( theStyle.getAttr("font_magnification") > 1) {
                     	this.setAttribute("hasFontAccommodation", true);
+						var fontsize = theStyle.getAttr('font_magnification');
+						this.setAttribute('questionFontSize',Number(fontsize)*canvas.basefontsize);
                     }
                     if(theStyle.hasAttr('bgcolor')){
                     	var bgclr = theStyle.getAttr('bgcolor');
