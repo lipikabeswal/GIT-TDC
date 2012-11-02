@@ -68,7 +68,7 @@ public class DelegatePlugin extends Plugin {
                  method = json_data.getString("param1");
 			      xmlRequest = json_data.getString("param2");
 				 actionName = json_data.getString("param3");
-				
+				System.out.println("method-->>"+method+"xmlRequest-->"+xmlRequest+"actionName-->>"+actionName);
 				if (actionName.equals("PersistenceAction")) {
 					persistenceAction = new PersistenceAction();
 					if ((method != null)
@@ -97,14 +97,22 @@ public class DelegatePlugin extends Plugin {
 						xmlData=contentAction.downloadItem(xmlRequest);
 					} else if (method.equals(ServletUtils.GET_ITEM_METHOD)) {
 						xmlData=contentAction.getItem(xmlRequest);
-					} else if (method.equals(ServletUtils.GET_IMAGE_METHOD)) {
+					}
+					else if (method.equals(ServletUtils.GET_IMAGE_METHOD)) {
 						xmlData=contentAction.getImage(xmlRequest);//need to check again throughly
 					}
 					else if (method.equals(ServletUtils.GET_LOCALRESOURCE_METHOD)) {
 						xmlData=contentAction.getLocalResource(xmlRequest);
 					}else if (method.equals(ServletUtils.GET_MUSIC_DATA_METHOD)) {
 						xmlData=contentAction.getMusicData(xmlRequest);
-					}else if (method.equals(ServletUtils.GET_FILE_PARTS)){
+					}
+					else if (method.equals(ServletUtils.PLAY_MUSIC_DATA_METHOD)) {
+						contentAction.playMusicData(xmlRequest);
+					}
+					else if (method.equals(ServletUtils.STOP_MUSIC_DATA_METHOD)) {
+						contentAction.stopMusicData();
+					}
+					else if (method.equals(ServletUtils.GET_FILE_PARTS)){
 						xmlData=contentAction.downloadFileParts (xmlRequest);
 					}
 					else {
@@ -118,9 +126,11 @@ public class DelegatePlugin extends Plugin {
 					}
 				}
 				else if(actionName.equals("SpeechAction")){
+					String speedVal=xmlRequest;
+					String reqData=method;
 					
 					SpeechServlet speechServlet=new SpeechServlet();
-					xmlData=speechServlet.readPostDataRequest(xmlData);
+					xmlData=speechServlet.readPostDataRequest(reqData,speedVal);
 					response.put("OK", ServletUtils.OK);
 					
 				}

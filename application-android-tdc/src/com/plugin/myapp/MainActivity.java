@@ -1,45 +1,45 @@
 package com.plugin.myapp;
-import java.io.IOException;
-import java.io.InputStream;
-
+import org.apache.cordova.CordovaChromeClient;
+import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.DroidGap;
 
-import android.content.Context;
-import android.content.res.AssetManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.WindowManager;
+import android.webkit.WebView;
 
 public class MainActivity extends DroidGap  {
 	 private static MainActivity instance;
 
-
+	// private WebView mWebView;
     @Override
     public void onCreate(Bundle savedInstanceState) {            
         super.onCreate(savedInstanceState);   
-        super.init();   
+        super.init();  
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN); 
         super.loadUrl("file:///android_asset/www/tdc_tutorial.html");
-        //super.loadUrl("file:///android_asset/www/web/index.html",10000); 
+      
     }
-   
+    @Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		// TODO Auto-generated method stub
+		super.onConfigurationChanged(newConfig);
 
-   
-   
-
-    public byte[] getData(String fileName){
-   	 byte[] buffer=null;
-   	try{
-      	AssetManager assetManager = getAssets();
-		InputStream input = assetManager.open(fileName);
-		 int size = input.available();
-        buffer = new byte[size];
-        input.read(buffer);
-        input.close();
-        return buffer;
-   	}
-   	catch(IOException ex)
-   	{
-   		
-   	}
-   	 return buffer;
-   }
-   
+		System.out.println("onConfigurationChanged");
+	}
+  @Override
+    public void init() {
+    super.init((CordovaWebView) new WebView(this), new GWTCordovaWebViewClient(this), new CordovaChromeClient(this));
+    }
+    
+   @Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		//super.onBackPressed();
+	} 
+    
+   /* (non-Javadoc)
+	 * @see org.apache.cordova.DroidGap#onConfigurationChanged(android.content.res.Configuration)
+	 */
+	
 }
