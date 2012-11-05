@@ -1,0 +1,1044 @@
+<library>
+    <include href="../BaseManipulative.lzx"/>
+    <include href="../resources.lzx"/>
+	<include href="calculatorButtons.lzx" />
+
+	<class name="calculatorBase" extends="BaseManipulative">
+
+		<datapointer name="tempP"/>
+		<datapointer name="operP"/>
+
+		<attribute name="displayValue" value="0." type="string"/>
+		<attribute name="currentOperand" value="0" type="number"/>
+		
+		<attribute name="operands"/>
+		<attribute name="operators"/>
+		<attribute name="operandSet" value="false" type="boolean"/>
+		
+		<attribute name="input" value="0" type="string"/>
+		<attribute name="isEditing" value="false" type="boolean"/>
+		<attribute name="isNegative" value="false" type="boolean"/>
+		<attribute name="memory" value="0" type="number"/>
+		
+		<attribute name="maxDigits" value="15" type="number"/>
+
+		<!--attribute name="maxDigits" value="13" type="number"/-->
+		<attribute name="ySpacing" value="8" type="number"/>
+		<attribute name="xSpacing" value="5" type="number"/>
+		<attribute name="iscurrentVal" type="boolean" value="false" />
+		<attribute name="percentOperand" type="number" />
+		<attribute name="percentOperator" type="string" />
+		<attribute name="isPercentEquals" type="boolean" value="false" />
+		
+		<!--  default values -->
+		<attribute name="defaultDisplayValue" value="0." type="string"/>
+		<attribute name="defaultCurrentOperand" value="0" type="number"/>
+		<attribute name="defaultOperandSet" value="false" type="boolean"/>
+		<attribute name="defaultInput" value="0" type="string"/>
+		<attribute name="defaultIsEditing" value="false" type="boolean"/>
+		<attribute name="defaultIsNegative" value="false" type="boolean"/>
+		<attribute name="defaultMemory" value="0" type="number"/>
+		<attribute name="defaultMemoryCleared" value="true" type="boolean"/>
+		<attribute name="defaultIsPercentEquals" value="false" type="boolean"/>
+		<attribute name="defaultOperators" value="new Array()"/>
+		<attribute name="defaultOperands" value="new Array()"/>
+
+		<!--  constants  -->
+		<attribute name="OPERATOR_ADD" value="add" type="string"/>
+		<attribute name="OPERATOR_SUBTRACT" value="subtract" type="string"/>
+		<attribute name="OPERATOR_MULTIPLY" value="multiply" type="string"/>
+		<attribute name="OPERATOR_DIVIDE" value="divide" type="string"/>
+		<attribute name="OPERATOR_PI" value="pi" type="string"/>
+		
+        <attribute name="operandP" value="$once{new lz.datapointer()}"/>
+        <attribute name="operatorP" value="$once{new lz.datapointer()}"/>
+        
+        <dragstate name="dragger"
+                   drag_min_x="$once{-(this.width - 100)}" 
+                   drag_min_y="$once{-(this.height - 100)}"
+                   drag_max_x="$once{parent.width - 100}"
+                   drag_max_y="$once{parent.height - 100}"/>
+
+        <handler name="onmouseover">
+           // gController.setCurrentCursor('cangrab_cursor');
+        </handler>
+
+        <handler name="onmouseout">
+           // gController.clearAndRestoreCurrentCursor();
+        </handler>
+
+        <handler name="onmousedown">
+        	this.bringToFront();
+            lz.Cursor.setCursorGlobal ('grabbing_cursor');
+            lz.Cursor.lock ();
+            this.dragger.apply ();
+        </handler>
+
+        <handler name="onmouseup">
+            lz.Cursor.unlock ();
+            //gController.restoreCurrentCursor();
+            this.dragger.remove ();
+
+            //this.datapath.p.setAttr ('x', this.x);
+            //this.datapath.p.setAttr ('y', this.y);
+        </handler>
+
+		<handler name="oninit">
+			this.setAttribute('visible', false);
+		    this.setAttribute ('x', (this.width)/2);
+            this.setAttribute ('y', (this.height)/2);
+		
+		</handler>
+        <handler name="ondata" args="data"><![CDATA[
+            this.setAttribute ('x', (classroot.width - this.width)/2);
+            this.setAttribute ('y', (classroot.height - this.height)/2);
+
+            // load in saved data or set to defaults
+            if (data) {
+            	var myP = new lz.datapointer();
+            	myP.setPointer(data);
+                if (data.hasAttr ('x')) {
+                    this.setAttribute ('x', data.getAttr ('x'));
+                }
+                
+                if (data.hasAttr ('y')) {
+                    this.setAttribute ('y', data.getAttr ('y'));
+                }
+                
+                if (data.hasAttr ('displayValue')) {
+                    this.setAttribute ('displayValue', data.getAttr ('displayValue'));
+                }
+                else{
+                	this.setAttribute('displayValue', this.defaultDisplayValue);
+                }
+                
+                if (data.hasAttr ('currentOperand')) {
+                    this.setAttribute ('currentOperand', data.getAttr ('currentOperand'));
+                }
+                else{
+                	this.setAttribute('currentOperand', this.defaultCurrentOperand);
+                }
+                
+                if (data.hasAttr ('operandSet')) {
+                    this.setAttribute ('operandSet', data.getAttr ('operandSet'));
+                }
+                else{
+                	this.setAttribute('operandSet', this.defaultOperandSet);
+                }
+                
+                if (data.hasAttr ('input')) {
+                    this.setAttribute ('input', data.getAttr ('input'));
+                }
+                else{
+                	this.setAttribute('input', this.defaultInput);
+                }
+                
+                if (data.hasAttr ('isEditing')) {
+                    this.setAttribute ('isEditing', data.getAttr ('isEditing'));
+                }
+                else{
+                	this.setAttribute('defaultIsEditing',this.defaultIsEditing);
+                }
+                
+                if (data.hasAttr ('isNegative')) {
+                    this.setAttribute ('isNegative', data.getAttr ('isNegative'));
+                }
+                else{
+                	this.setAttribute('isNegative', this.defaultIsNegative);
+                }
+                
+                if (data.hasAttr ('memory')) {
+                    this.setAttribute ('memory', new Number(data.getAttr ('memory')));
+                }
+                else{
+                	this.setAttribute('memory', this.defaultMemory);
+                }
+                
+                if (data.hasAttr ('percentOperator')) {
+                    this.setAttribute ('percentOperator', data.getAttr ('percentOperator'));
+                }
+                else{
+                	this.setAttribute('percentOperator', null);
+                }
+
+                if (data.hasAttr ('percentOperand')) {
+                    this.setAttribute ('percentOperand', data.getAttr ('percentOperand'));
+                }
+                else{
+                	this.setAttribute('percentOperand', null);
+                }
+
+                if (data.hasAttr ('isPercentEquals')) {
+                    this.setAttribute ('isPercentEquals', data.getAttr ('isPercentEquals'));
+                }
+                else{
+                	this.setAttribute('isPercentEquals', this.defaultIsPercentEquals);
+                }
+
+                // set operands and operators
+                this.operands = new Array();
+                this.operators = new Array();
+                 
+                if(data.hasChildNodes()){  
+                	operandP.setPointer(data);
+                	operandP.setXPath('operands');
+                	if(operandP.selectChild()){
+                		var operand = operandP.getNodeName();
+                		operands.push(new Number(operand));
+                		while(operandP.selectNext()){
+                			operand = operandP.getNodeName();
+                			operands.push(new Number(operand));
+                		}
+                	}
+                	operatorP.setPointer(data);
+                	operatorP.setXPath('operators');
+                	if(operatorP.selectChild()){
+                		var operator = operatorP.getNodeName();
+                		operators.push(operator);
+                		while(operatorP.selectNext()){
+                			operator = operatorP.getNodeName();
+                			operators.push(operator);
+                		}
+                	}
+	                // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
+	            	/*if(gScratchpad.visible){
+	                	gScratchpad.bringToFront();
+	            	}*/
+                }
+                else{
+                	//this.datapath.addNode( 'operators' );
+                	//this.datapath.addNode( 'operands' );
+                }
+            }   
+            updateDisplay();
+            
+         ]]></handler>
+
+		<method name="pushOperand" args="operand">
+			var operandsP = this.datapath.dupePointer();
+			operandsP.setXPath('operands');
+			operandsP.addNode(operand);
+			this.operands.push(operand);
+		</method>
+		
+		<method name="popOperand">
+			var result;
+			result = this.operands.pop();
+			if(result != null){
+				var operandsP = this.datapath.dupePointer();
+				operandsP.setXPath('operands');
+				operandsP.selectChild();
+				do{}while(operandsP.selectNext());
+				operandsP.deleteNode();
+			}
+			return result;
+		</method>
+		
+		<method name="pushOperator" args="operator">
+			var operatorsP = this.datapath.dupePointer();
+			operatorsP.setXPath('operators');
+			operatorsP.addNode(operator);
+			this.operators.push(operator);
+		</method>
+		
+		<method name="popOperator">
+			var result;
+			result = this.operators.pop();
+			if(result != null){
+				var operatorsP = this.datapath.dupePointer();
+				operatorsP.setXPath('operators');
+				operatorsP.selectChild();
+				do{}while(operatorsP.selectNext());
+				operatorsP.deleteNode();
+			}
+			return result;
+		</method>
+		
+		<method name="clearAll">
+			this.resetState();
+			this.updateDisplay();
+		</method>
+
+		<method name="resetState">
+			setDataAttribute('displayValue', this.defaultDisplayValue);
+			resetOperands();
+			resetOperators();
+			resetCurrentOperand();
+		</method>
+
+		<method name="resetOperands">
+			this.operands = new Array();
+			var operandsP = this.datapath.dupePointer();
+			operandsP.setXPath('operands');
+			operandsP.deleteNode();
+			this.datapath.addNode('operands');
+		</method>
+		
+		<method name="resetOperators">
+			this.operators = new Array();
+			var operatorsP = this.datapath.dupePointer();
+			operatorsP.setXPath('operators');
+			operatorsP.deleteNode();
+			this.datapath.addNode('operators');
+		</method>
+		
+		<method name="setDataAttribute" args="name, value"><![CDATA[
+			this.setAttribute(name, value);
+			if(this.datapath.p){
+				this.datapath.p.setAttr (name, value);
+			}
+		]]></method>
+		
+		<method name="clearEntry">
+			if(!isErrorState()){
+				this.resetCurrentOperand();
+				this.updateDisplay();
+			}
+		</method>
+
+		<method name="resetCurrentOperand">
+			setDataAttribute('input', this.defaultInput);
+			setDataAttribute('currentOperand', this.defaultCurrentOperand);
+			this.resetCurrentOperandState();
+		</method>
+
+		<method name="resetCurrentOperandState">
+			setDataAttribute('isNegative', false);
+			setDataAttribute('isEditing', false);
+		</method>
+
+		<method name="handleBinaryOperator" args="oper">
+			setDataAttribute("isPercentEquals", false);
+			if(!isErrorState()){
+				if(isReplacementOperator()){
+					popOperator();
+				}
+	
+				if(this.operandSet){
+					this.setCurrentOperandFromInput();
+					pushOperand(this.currentOperand);
+				}
+				
+				setDataAttribute('currentOperand', reduce(oper));
+				pushOperator(oper);
+				resetCurrentOperandState();
+				setDataAttribute('operandSet', false);
+				this.updateDisplay();
+			}
+		</method>
+
+		<method name="handleMemoryPlus">
+			setDataAttribute("isPercentEquals", false);
+			this._doMemoryModification(true);
+		</method>
+		
+		<method name="handleMemoryMinus">
+			setDataAttribute("isPercentEquals", false);
+			this._doMemoryModification(false);
+		</method>
+		
+		<method name="_doMemoryModification" args="add">
+			if(!isErrorState()){
+				var displayedNumber = new Number(this.displayValue); 
+				var addend = add ? displayedNumber : 0 - displayedNumber;
+				var newMemory = this.memory + addend;
+				setDataAttribute('memory', newMemory);
+				setTheCurrentOperand(displayedNumber);
+			}
+		</method>
+		
+		<method name="handleMemoryClear">
+			setDataAttribute("isPercentEquals", false);
+			if(!isErrorState()){
+				setDataAttribute('memory', 0);
+			}
+		</method>
+
+		<method name="handleMemoryRecall">
+			setDataAttribute("isPercentEquals", false);
+			setTheCurrentOperand(this.memory);
+		</method>
+		
+		<method name="getInputValue">
+			return new Number(this.getInputNumber());
+		</method>
+		
+		<method name="getInputNumber">
+			if(this.isNegative == true || this.isNegative == 'true'){
+				return "-" + this.input;
+			}
+			else{
+				return this.input;
+			}
+		</method>
+		
+		<method name="isReplacementOperator"><![CDATA[
+			return (!this.operandSet &&
+			        (this.operators.length != 0) &&
+			        (this.operators.length >= this.operands.length));
+		]]></method>
+		
+		<method name="hasHigherPrecedenceThanPrevious" args="oper">
+			var result=false;
+			if(this.operators.length &gt;= 1){
+				var previousOperator = this.operators.pop();
+				result = getPrecedence(oper) &gt; getPrecedence(previousOperator);
+				this.operators.push(previousOperator);
+			}
+			return result;
+		</method>
+		
+		<method name="hasEqualOrLowerPrecedenceAsPrevious" args="oper">
+/*			var result=false;
+			if(this.operators.length &gt;= 1){
+				var previousOperator = this.operators.pop();
+				var operPrecedence = getPrecedence(oper);
+				var previousPrecedence = getPrecedence(previousOperator);
+				result = operPrecedence &lt;= previousPrecedence;
+				this.operators.push(previousOperator);
+			}
+			return result;
+*/
+			return this.operators.length &gt;= 1;
+		</method>
+		
+		<method name="getPrecedence" args="oper">
+			var result=0;
+			if(oper == OPERATOR_ADD || oper == "subtract"){
+				result = 1;
+			}
+			if(oper == "multiply" || oper == "divide" || oper == "mod"){
+				result = 2;
+			}
+			return result;
+		</method>
+		
+		<method name="handleEquals">
+			if(!isErrorState()){
+				var result;
+				if(this.isPercentEquals == true || this.isPercentEquals == 'true'){
+					this.pushOperand(this.currentOperand);
+					this.pushOperand(this.percentOperand);
+					this.pushOperator(this.percentOperator);
+					result = reduce("none");
+				}
+				else{
+					this.setCurrentOperandFromInput();
+					pushOperand(this.currentOperand);
+					result = this.currentOperand;
+					if(this.operandSet){
+						result = reduce("none");
+					}
+				}
+				this.resetState();
+				setDataAttribute('currentOperand', result);
+				setDataAttribute('input', result);
+				setDataAttribute('operandSet', true);
+				updateDisplay();
+			}
+			setDataAttribute("isPercentEquals", false);
+		</method>
+			
+		<method name="reduce" args="oper">
+			var result = this.currentOperand;
+			var operator = oper;
+			while(hasEqualOrLowerPrecedenceAsPrevious(oper)){
+				var right = popOperand();
+				var left = popOperand();
+				if(left == null){
+					left = 0;
+				}
+				var operator = popOperator();
+				result = getBinaryResult(right, left, operator);
+				pushOperand(result);
+			}
+			return result;
+		</method>
+
+		<method name="setCurrentOperandFromInput">
+			if(this.isEditing){
+				setDataAttribute('currentOperand', this.getInputValue());
+			}
+		</method>
+		
+		<method name="handleBackspace">
+		<![CDATA[     
+			setDataAttribute("isPercentEquals", false);
+			if(!isErrorState()){ 
+				if(this.isEditing){
+					if(this.input.length == 1){
+						this.clearEntry();
+					}
+					else{
+						setDataAttribute('input', this.input.substring(0, this.input.length - 1));
+						if(this.input == "0"){
+							setDataAttribute('isNegative', false);
+						}
+					}
+					updateDisplay();
+				}
+			}
+		]]>
+		</method>
+
+		<method name="handleReverseSign">
+			setDataAttribute("isPercentEquals", false);
+			if(!isErrorState()){
+				if(this.isEditing){
+					setDataAttribute('isNegative', !this.isNegative);
+				}
+				else{
+					setDataAttribute('currentOperand', 0 - this.currentOperand);
+					if(this.operators.length != 0){	
+						setDataAttribute('operandSet', true);
+					}
+				}
+				updateDisplay();
+			}
+		</method>
+
+		<method name="handleDecimal">
+			setDataAttribute("isPercentEquals", false);
+			if(!isErrorState()){
+				if(!this.isEditing){
+					setDataAttribute('input', '0');
+				}
+				setDataAttribute('isEditing', true);
+				var hasDecimal = this.inputHasDecimal();
+				if(hasDecimal==false || hasDecimal=='false'){
+					setDataAttribute('input', this.input + ".");
+					if(this.operands.length != 0){
+						setDataAttribute('operandSet', true);
+					}
+				}
+				updateDisplay();
+			}
+		</method>
+
+		<method name="inputHasDecimal">
+			return this.input.indexOf(".") != -1;
+		</method>
+		
+		<method name="updateDisplay">
+		<![CDATA[   
+			if(this.isEditing){  
+				if(this.isNegative == true || this.isNegative == 'true'){
+					setDataAttribute('displayValue', "-" + this.input);
+				}
+				else{
+					setDataAttribute('displayValue', this.input);
+				}
+			}
+			else{
+				setDataAttribute('displayValue', this.displayFormat(this.currentOperand));
+			}
+		]]>
+		</method>
+
+		<method name="handleDigit" args="digit">
+			setDataAttribute("isPercentEquals", false);
+			if(!isErrorState()){
+			    if(this.canAddDigit()){ 
+					if(this.isEditing==true || this.isEditing=='true'){
+						if(this.input == "0"){
+							setDataAttribute('input', "" + digit);
+						}
+						else{
+							setDataAttribute('input', this.input + "" + digit);
+			    		}
+				    }
+				    else{
+						resetCurrentOperandState();
+						setDataAttribute('currentOperand', new Number(digit));
+						setDataAttribute('input', "" + digit);
+				    }
+				    
+				    setDataAttribute('isEditing', true);
+				    setDataAttribute('operandSet', true);
+					
+				    updateDisplay();
+			    }
+			}
+		</method>
+
+		<method name="canAddDigit">
+			var result = true;
+			if(this.isEditing){
+				var numDigits = this.input.length;
+				if(this.inputHasDecimal()){
+					numDigits--;
+				}
+				result = this.maxDigits > numDigits;
+			}
+			return result;
+		</method>
+		
+		<method name="getBinaryResult" args="right, left, oper">
+		<![CDATA[      
+			var result = 0;
+
+			left = new Number(left);
+			right = new Number(right);
+
+			switch( oper ) {
+				case OPERATOR_ADD:
+					result = left + right;
+					break;
+				case "subtract":
+					result = left - right;
+					break;
+				case "divide":
+					result = left / right;	
+					break;
+				case "multiply":
+					result = left * right;	
+					break;
+				case "mod":
+					result = left % right;
+					break;
+			}
+			result = this.round(result, this.getResultDecimalPlaces(right, left, oper));
+			return result;
+		]]>
+		</method>
+		
+		<method name="getResultDecimalPlaces" args="right, left, oper">
+		<![CDATA[      
+			var result = this.maxDigits;
+			var rightDecimalPlaces = this.getDecimalPlaces(right);
+			var leftDecimalPlaces = this.getDecimalPlaces(left);
+			if(oper == "multiply"){
+				result = rightDecimalPlaces + leftDecimalPlaces;
+			}
+			else if(oper != "divide"){
+				result = Math.max(rightDecimalPlaces, leftDecimalPlaces);
+			}
+		return result;
+		]]>
+		</method>
+		
+		<method name="getMaxPlaces" args="num1, num2">
+			return Math.max(this.getDecimalPlaces(num1), this.getDecimalPlaces(num2));
+		</method>
+		
+		<method name="getDecimalPlaces" args="num">
+			var result = 0;
+			var numText = num.toString();
+			var indexOfDecimal = numText.indexOf(".");
+			var indexOfE = numText.indexOf("e");
+			if(indexOfE != -1){  // 0 for positive exponents, maxDigits for negative
+				result = this.getDecimalPlacesForExponent(numText);
+			}
+			else if(!(indexOfDecimal == -1 || (indexOfDecimal == numText.length - 1))){
+				indexOfDecimal = numText.indexOf(".");
+				var decimalPart = numText.substring(indexOfDecimal + 1, numText.length);
+				result = decimalPart.length;
+			}
+			return result;
+		</method>
+		
+		<method name="getDecimalPlacesForExponent" args="numText">
+			if(numText.indexOf("e-") == -1)
+				return 0;
+			else
+				return this.maxDigits;
+		</method>
+		
+		<method name="handleUnaryOperator" args="oper">
+			setDataAttribute("isPercentEquals", false);
+			if(!isErrorState()){
+				if(this.unaryAfterBinary()){
+					var lastOperand = popOperand();
+					setDataAttribute('currentOperand', doUnaryOperation(lastOperand, oper, true));
+					setDataAttribute('operandSet', true);
+					pushOperand(lastOperand);
+				}
+				else{
+					setCurrentOperandFromInput();
+					setDataAttribute('currentOperand', doUnaryOperation(this.currentOperand, oper, false));
+				}
+				resetCurrentOperandState();
+				updateDisplay();
+			}
+		</method>
+
+		<method name="unaryAfterBinary">
+		<![CDATA[      
+			return (this.hasAtLeastOneOperand() && !this.operandSet);
+		]]>
+		</method>
+		
+		<method name="doUnaryOperation" args="value, operator, unaryAfterBinary">
+			var result;
+			switch( operator ) {
+				case "sin":
+					result = getSine(value);
+					break;
+				case "cos":
+					result = getCosine(value);
+					break;
+				case "tan":
+					result = getTangent(value);
+					break;
+				case "ln":
+					result = Math.log(value);
+					break;
+				case "log":
+					result = Math.log(value) / Math.log(10);
+					break;
+				case "square":
+					result = Math.pow(value, 2);
+					break;
+				case "root":
+					result = Math.pow(value, 0.5);
+					break;
+			}
+			return result;
+		</method>
+
+		<method name="handlePercent" ><![CDATA[    
+			// muck everything up to satisfy FCAT :(
+			// yes - this wacky behavior is intentional
+			setDataAttribute("isPercentEquals", false);
+			if(!isErrorState()){
+				var result = 0;
+				var left = popOperand();
+				var op = popOperator();
+				var right = null;
+				if(this.isEditing){
+					setCurrentOperandFromInput();
+					right = currentOperand;
+				}
+				if(left != null && op != null){
+					if(right != null){
+						if(op == OPERATOR_MULTIPLY){
+							result = left * (right/100);
+							setDataAttribute("percentOperand", left);
+						}
+						else if (op == OPERATOR_DIVIDE){
+							result = left / (right/100);
+							setDataAttribute("percentOperand", right);
+						}
+						else if (op == OPERATOR_ADD){
+							result = left + ((right/100) * left);
+							setDataAttribute("percentOperand", left);
+						}
+						else if (op == OPERATOR_SUBTRACT){
+							result = left - ((right/100) * left);
+							setDataAttribute("percentOperand", left);
+						}
+						setDataAttribute("percentOperator", op);
+						setDataAttribute("isPercentEquals", true);
+					}
+					else{
+						if(op == OPERATOR_MULTIPLY){
+							result = left * left/100;
+						}
+						else if (op == OPERATOR_DIVIDE){
+							result = 100 / left;
+						}
+						else if (op == OPERATOR_ADD){
+							result = left;
+						}
+						else if (op == OPERATOR_SUBTRACT){
+							result = left;
+						}
+						setDataAttribute("percentOperand", null);
+						setDataAttribute("percentOperator", null);
+						setDataAttribute("isPercentEquals", false);
+					}
+				}
+				setDataAttribute('currentOperand', result);
+				resetCurrentOperandState();
+				updateDisplay();
+			}
+		]]></method>
+		
+		<method name="doPercent" args="value, unaryAfterBinary">
+			// muck everything up to satisfy FCAT :(
+			var percentage = value/100;
+			var result = percentage;
+			if(this.operators.length != 0){
+				var op = this.operators.pop();
+				if(isAdditionOrSubtraction(op)){
+					var previousOperand = this.operands.pop();
+					if(previousOperand == null){  // user enters 5 + %
+						previousOperand = value;
+					}
+					result = previousOperand * percentage;
+					this.operands.push(previousOperand);
+				}
+				this.operators.push(op);
+			}
+			return result;
+		</method>
+		
+		<method name="isAdditionOrSubtraction" args="op">
+			return (op == OPERATOR_ADD || op == OPERATOR_SUBTRACT);
+		</method>
+		
+		<method name="handlePi">
+			setDataAttribute("isPercentEquals", false);
+			setTheCurrentOperand(Math.PI);
+		</method>
+		
+		<method name="setTheCurrentOperand" args="value">
+			if(!isErrorState()){
+				setDataAttribute('currentOperand', value);
+				resetCurrentOperandState();
+				setDataAttribute('operandSet', true);
+				updateDisplay();
+			}
+		</method>
+		
+		<method name="getSine" args="degrees">
+			if(isSineZero(degrees)){
+				return 0;
+			}
+			else{
+				return Math.sin(getRadiansFromDegrees(degrees));
+			}
+		</method>
+
+		<method name="getTangent" args="degrees">
+			if(isTangentNan(degrees)){
+				return NaN;
+			}
+			else if(isTangentZero(degrees)){
+				return 0;
+			}
+			else{
+				return Math.tan(getRadiansFromDegrees(degrees));
+			}
+		</method>
+
+		<method name="getCosine" args="degrees">
+			if(isCosineZero(degrees)){
+				return 0;
+			}
+			else{
+				return Math.cos(getRadiansFromDegrees(degrees));
+			}
+		</method>
+
+		<method name="isSineZero" args="degrees">
+			return ((degrees % 180) == 0);
+		</method>
+
+		<method name="isCosineZero" args="degrees">
+			return (((degrees % 90) == 0) &amp;&amp; ((degrees % 180) != 0));
+		</method>
+
+		<method name="isTangentZero" args="degrees">
+			return ((degrees % 180) == 0);
+		</method>
+
+		<method name="isTangentNan" args="degrees">
+			return (((degrees % 90) == 0) &amp;&amp; ((degrees % 180) != 0));
+		</method>
+
+
+		<method name="getRadiansFromDegrees" args="degrees">
+			return (degrees * (Math.PI / 180.0));
+		</method>
+
+		<!-- round number to specified decimal places  -->
+		<method name="round" args="num, places">
+		<![CDATA[   
+			var result = num;
+			if(places < this.maxDigits){
+				var multiplier = Math.pow(10, places);
+				result = Math.round(num * multiplier)/multiplier;
+			}
+			return result;
+		]]>
+		</method>
+
+		<method name="closeWindow">
+			clearEntry()
+			parent.close();
+		</method>
+
+		<method name="getBooleanFromString" args="val">
+			var result = false;
+			if(val == "true")
+				result = true;
+			return result;
+		</method>
+		
+		<method name="hasAtLeastOneOperand">
+			return this.operands.length != 0;
+		</method>
+		
+		<method name="exponentialFormat" args="num">
+		<![CDATA[     
+			var result = num.toString();
+			var exponent = this.getExponent(result);
+			if(exponent == 0){
+				var indexOfDecimal = result.indexOf(".");
+				if(indexOfDecimal != -1){ // decimal
+					
+				}
+				else{  // no decimal
+					var isNegativeMantissa = result.substring(0,1) == "-";
+					var mantissaSign = "";
+					if(isNegativeMantissa){
+						mantissaSign = "-";
+						result = result.substring(2, result.length);
+					}
+					var mantissaText = result.substring(0,1) + "." + result.substring(1, result.length);
+					var mantissa = this.round(new Number(mantissaText), this.maxDigits - 1);
+					exponent = this.getExponentFromNumber(num);
+					
+					result = mantissaSign + mantissa.toString() + "e" + exponent.toString();
+				}
+			}
+			// else already in exponential format
+			return result;
+		]]>
+		</method>
+		
+<!-- JSB 3/2/06 
+     This method determines the exponent for numbers that are between 10 e maxDigits and 10 e 15
+ -->
+		<method name="getExponentFromNumber" args="num">
+		<![CDATA[     
+			var exponent = this.maxDigits;
+			var found = false;
+			while(!found){
+				var divisor = Math.pow(10, exponent);
+				var dividend = num/divisor;
+				if(dividend < 10 && dividend >= 1){
+					found = true;
+				}
+				else{
+					exponent = exponent + 1;
+				}
+			}
+			return exponent;
+		]]>
+		</method>
+		<method name="decimalFormat" args="num">
+		<![CDATA[      
+			var result = num.toString();
+			if(this.isExponentialFormat(result)){
+				result = this.convertExponentialFormatToDecimalFormat(result);
+			}
+			else{
+				num = this.round(num, this.maxDigits - 1);
+				result = num.toString();
+			}
+			if(result.indexOf(".") == -1){
+				result = result + ".";
+			}
+			return result;
+		]]>
+		</method>
+		
+		<method name="isExponentialFormat" args="numText">
+			return numText.indexOf("e") != -1;
+		</method>
+		
+<!-- javascript sometimes returns numbers in exponential format before the exponent reaches -maxDigits -->
+		<method name="convertExponentialFormatToDecimalFormat" args="numText">
+			var result;
+			var exponent = this.getExponent(numText);
+			var numLeadingZeros = -exponent;
+			var mantissa = this.getMantissa(numText);
+			var isNegative = false;
+			if(mantissa &lt; 0){
+				isNegative = true;
+				mantissa = -mantissa;
+			}
+			if(exponent &lt; 0){
+				var leadingZeros = this.getZeros(numLeadingZeros);
+				var roundedMantissa = this.roundMantissa(mantissa, numLeadingZeros);
+				result = leadingZeros + roundedMantissa;
+			}
+			else{
+				result = numText;
+			}
+			if(this.isNegative == true || this.isNegative == 'true'){
+				result = "-" + result;
+			}
+			return result;
+		</method>
+		
+		<method name="roundMantissa" args="mantissa, leadingZeros">
+			var places = this.maxDigits -1 - leadingZeros;
+			var roundedMantissa = this.round(mantissa, places);
+			var result = this.removeDecimal(roundedMantissa);
+			return result;
+		</method>
+		
+		<method name="removeDecimal" args="num">
+			var numText = num.toString();
+			var indexOfDecimal = numText.indexOf(".");
+			var result = numText.substring(0, indexOfDecimal) + numText.substring(indexOfDecimal+1, numText.length);
+			return result;
+		</method>
+		
+		<method name="getZeros" args="numZeros">
+			var result = "0.";
+			for(var i=1; i&lt;numZeros; i++){
+				result = result + "0";
+			}
+			return result;
+		</method>
+		
+		<method name="getExponent" args="numText">
+			var result = 0;
+			var indexOfE = numText.indexOf("e");
+			if(indexOfE != -1){
+				result = new Number(numText.substring(indexOfE + 1, numText.length));
+			}
+			return result;
+		</method>
+		
+		<method name="getMantissa" args="numText">
+			var result;
+			var indexOfE = numText.indexOf("e");
+			if(indexOfE != -1){
+				result = new Number(numText.substring(0, indexOfE));
+			}
+			else{
+				result = new Number(numText);
+			}
+			return result;
+		</method>
+		
+		<method name="displayFormat" args="num">
+		<![CDATA[   
+			var result;  
+			if((num==Infinity)||(isNaN(num))||(num==-Infinity)){
+				if(this.xml_name == "standard_calculator"){
+			    	result = 'Error.            ';
+				}
+				else{
+			    	result = 'Error.                     ';
+				}
+		    }
+			else{
+				var maxDecimal = Math.pow(10, this.maxDigits);
+				var minDecimal = Math.pow(10, -this.maxDigits + 1); 
+				if((num < minDecimal && num >-minDecimal && num != 0)|| 
+				    num >= maxDecimal || 
+				    num <= -maxDecimal){
+					result = this.exponentialFormat(num);
+				}
+				else{
+					result = this.decimalFormat(num);
+				}
+			}
+			setDataAttribute('input', result);
+			return result;
+		]]>
+		</method>
+
+		<method name="isErrorState">
+			<![CDATA[   
+				return (this.displayValue != null && (this.displayValue.indexOf("Error") != -1));
+			]]>
+		</method>
+	</class>
+</library>

@@ -11,9 +11,7 @@
 <title>Presentation Canvas</title>
 <script type="text/javascript" src="lps/includes/embed-compressed.js"></script>
 <script type="text/javascript">
-function setTTSText(args){
-console.log("TTS Text", args);
-}
+
 var _LDB_BypassSetFocusOnPageLoad = 0;
 var spText;
 function showFootnote(header)
@@ -100,6 +98,10 @@ function setSPText(arg){
 
 function setManipState(args){
 	lz.embed.setCanvasAttribute('manipstate',args);
+}
+
+function setTTStext(args){
+	lz.embed.setCanvasAttribute('ttstext',args);
 }
 </script>
 <style type="text/css">

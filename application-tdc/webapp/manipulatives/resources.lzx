@@ -1,0 +1,218 @@
+<library>
+
+    <!-- =====================
+         buttons 
+         ===================== -->
+    <!-- text fornumbers -->
+    <resource name="zero_txt"  src="resource/0.png"/>
+    <resource name="one_txt"   src="resource/1.png"/>
+    <resource name="two_txt"   src="resource/2.png"/>
+    <resource name="three_txt" src="resource/3.png"/>
+    <resource name="four_txt"  src="resource/4.png"/>
+    <resource name="five_txt"  src="resource/5.png"/>
+    <resource name="six_txt"   src="resource/6.png"/>
+    <resource name="seven_txt" src="resource/7.png"/>
+    <resource name="eight_txt" src="resource/8.png"/>
+    <resource name="nine_txt"  src="resource/9.png"/>
+
+    <!-- text for other keys -->
+    <resource name="backspace_txt"  src="resource/backspace.png"/>
+    <resource name="C_txt"          src="resource/C.png"/>
+    <resource name="CE_txt"         src="resource/CE.png"/>
+    <resource name="changesign_txt" src="resource/changesign.png"/>
+    <resource name="cos_txt"        src="resource/cos.png"/>
+    <resource name="decimal_txt"    src="resource/decimal.png"/>
+    <resource name="divide_txt"     src="resource/divide.png"/>
+    <resource name="equal_txt"      src="resource/equal.png"/>
+    <resource name="ln_txt"         src="resource/ln.png"/>
+    <resource name="log_txt"        src="resource/log.png"/>
+    <resource name="minus_txt"      src="resource/minus.png"/>
+    <resource name="mod_txt"        src="resource/mod.png"/>
+    <resource name="percent_txt"    src="resource/percent.png"/>
+    <resource name="pi_txt"         src="resource/Pi.png"/>
+    <resource name="plus_txt"       src="resource/plus.png"/>
+    <resource name="root_txt"       src="resource/root.png"/>
+    <resource name="sin_txt"        src="resource/sin.png"/>
+    <resource name="sqr_txt"        src="resource/sqr.png"/>
+    <resource name="multiply_txt"   src="resource/star.png"/>
+    <resource name="tan_txt"        src="resource/tan.png"/>
+    <resource name="memoryrecall_txt" src="resource/memoryrecall.png"/>
+    <resource name="memoryclear_txt"  src="resource/memoryclear.png"/>
+    <resource name="memoryplus_txt"   src="resource/memoryplus.png"/>
+    <resource name="memoryminus_txt"  src="resource/memoryminus.png"/>
+   
+
+
+    <!-- the btn bgs  -->
+    <resource name="calc_btn">
+        <frame src="resource/calc_buttonSTANDRD_off.png"/>
+        <frame src="resource/calc_buttonSTANDRD_on.png"/>
+        <frame src="resource/calc_buttonSTANDRD_click.png"/>
+    </resource>
+    
+    <resource name="calc_sci_func_btn">
+        <frame src="resource/calc_buttonSCIFUNCT_off.png"/>
+        <frame src="resource/calc_buttonSCIFUNCT_on.png"/>
+        <frame src="resource/calc_buttonSCIFUNCT_click.png"/>
+    </resource>
+
+    <resource name="backspace_btn">
+        <frame src="resource/calc_buttonBACKSPC_off.png"/>
+        <frame src="resource/calc_buttonBACKSPC_on.png"/>
+        <frame src="resource/calc_buttonBACKSPC_click.png"/>
+    </resource>
+
+    <resource name="equal_btn">
+        <frame src="resource/calc_buttonEQUAL_off.png"/>
+        <frame src="resource/calc_buttonEQUAL_on.png"/>
+        <frame src="resource/calc_buttonEQUAL_click.png"/>
+    </resource>
+
+	<resource name="calc_close_btn">
+    	<frame src="resource/closebutton_off.png"/>
+     	<frame src="resource/closebutton_on.png"/>
+    	<frame src="resource/closebutton_click.png"/>
+  	</resource>
+
+
+    <!-- =====================
+         bg
+         ===================== -->
+
+    <!-- standard -->
+    <resource name="calc_chrome" src="resource/calc_4f_chrome.png"/>
+    <resource name="calc_face"   src="resource/calc_4f_face.png"/>
+    <resource name="calc_title"  src="resource/calc_4f_title.png"/>
+    <resource name="calc_display" src="resource/calculatorDisplay.png"/>
+
+    <!-- scientific -->
+    <resource name="calc_sci_chrome" src="resource/calc_sci_chrome.png"/>
+    <resource name="calc_sci_face"   src="resource/calc_sci_face.png"/>
+    <resource name="calc_sci_title" src="resource/calc_sci_title.png"/>
+    <resource name="calc_sci_display" src="resource/calc_sci_display.png"/>
+
+    <!--
+        JSB resources from before Ming 428:466 merge
+    -->
+	<resource name="closeButton_rsrc">
+    	<frame src="resource/closebutton_off.png"/>
+     	<frame src="resource/closebutton_on.png"/>
+    	<frame src="resource/closebutton_click.png"/>
+  	</resource>
+	<resource name="standardButton_rsrc">
+    	<frame src="resource/calc_buttonSTANDRD_off.png"/>
+     	<frame src="resource/calc_buttonSTANDRD_on.png"/>
+    	<frame src="resource/calc_buttonSTANDRD_click.png"/>
+  	</resource>
+	<resource name="operatorButton_rsrc">
+    	<frame src="resource/black_button.png"/>
+     	<frame src="resource/ltblue_button_std.png"/>
+    	<frame src="resource/dkblue_button_std.png"/>
+  	</resource>
+	<resource name="doubleButton_rsrc">
+    	<frame src="resource/button_double_off.png"/>
+     	<frame src="resource/button_double_on.png"/>
+    	<frame src="resource/button_double_click.png"/>
+  	</resource>
+	<resource name="tripleButton_rsrc">
+    	<frame src="resource/button_triple_off.png"/>
+     	<frame src="resource/button_triple_on.png"/>
+    	<frame src="resource/button_triple_click.png"/>
+  	</resource>
+	<resource name="backspaceButton_rsrc">
+    	<frame src="resource/calc_buttonBACKSPC_off.png"/>
+     	<frame src="resource/calc_buttonBACKSPC_on.png"/>
+    	<frame src="resource/calc_buttonBACKSPC_click.png"/>
+  	</resource>
+	<resource name="equalButton_rsrc">
+    	<frame src="resource/calc_buttonEQUAL_off.png"/>
+     	<frame src="resource/calc_buttonEQUAL_on.png"/>
+    	<frame src="resource/calc_buttonEQUAL_click.png"/>
+  	</resource>
+ 	<resource name="sciFunctButton_rsrc">
+    	<frame src="resource/calc_buttonSCIFUNCT_off.png"/>
+     	<frame src="resource/calc_buttonSCIFUNCT_on.png"/>
+    	<frame src="resource/calc_buttonSCIFUNCT_click.png"/>
+  	</resource>
+  	
+	<resource name="black_plusminus_rsrc" src="resource/black_plusminus.png"/>
+	<resource name="black_percent_rsrc" src="resource/black_percent.png"/>
+	<resource name="black_sqrt_rsrc" src="resource/newblack_sqrt.png"/>
+	<resource name="black_divide_rsrc" src="resource/black_divide.png"/>
+	<resource name="black_multiply_rsrc" src="resource/black_multiply.png"/>
+	<resource name="black_plus_rsrc" src="resource/black_plus.png"/>
+	<resource name="black_minus_rsrc" src="resource/black_minus.png"/>
+	<resource name="white_plusminus_rsrc" src="resource/white_plusminus.png"/>
+	<resource name="white_percent_rsrc" src="resource/white_percent.png"/>
+	<resource name="white_sqrt_rsrc" src="resource/newwhite_sqrt.png"/>
+	<resource name="white_divide_rsrc" src="resource/white_divide.png"/>
+	<resource name="white_multiply_rsrc" src="resource/white_multiply.png"/>
+	<resource name="white_plus_rsrc" src="resource/white_plus.png"/>
+	<resource name="white_minus_rsrc" src="resource/white_minus.png"/>
+	
+	<!-- PROTRACTOR -->
+	<resource name="protractorHandle_rsrc" 
+	          src="resource/protractorHandle.png"/>
+	<resource name="protractorMarks_rsrc" 
+	          src="resource/protractorMarks.png"/>
+	<resource name="protractorRotator_rsrc" 
+	          src="resource/protractorRotator.png"/>
+	<resource name="protractorBackground_rsrc" 
+	          src="resource/protractorBackground.png"/>
+	<resource name="protractorHandleOver_rsrc" 
+	          src="resource/dragger_over.png"/>
+	<resource name="protractorHandlePress_rsrc" 
+	          src="resource/dragger_press.png"/>
+	          
+	<!-- RULER -->     
+	<resource name="rotator_rsrc" src="resource/rotator.png"/>
+    <resource name="grabber_rsrc" src="resource/grabber.png"/>
+    <resource name="rotateResizer_rsrc" src="resource/rotateResizer.png"/>
+         
+	 <resource name="cangrab_cursor" src="resource/dragger_over.png"/>
+    <resource name="grabbing_cursor" src="resource/dragger_press.png"/>
+    
+     <resource name="ruler_background" src="resource/ruler_background.png"/>
+    <resource name="ruler_lines" src="resource/ruler_lines.png"/>
+    
+    <resource name="masking_ruler_lines" src="resource/masking_ruler_lines.png"/>
+    
+    <resource name="masking_ruler_background" src="resource/masking_ruler_background.png"/>
+    
+    <resource name="eighth_inch_tick_marks" src="resource/eighth_inch_tick_marks.png"/>
+    <resource name="half_inch_tick_marks" src="resource/half_inch_tick_marks.png"/>
+    <resource name="millimeter_tick_marks" src="resource/millimeter_tick_marks.png"/>
+    <!-- <resource name="centimeter_tick_marks" src="resource/centimeter_tick_marks.png"/> -->
+    <resource name="centimeter_tick_marks" src="resource/centimeter_tick_marks.png"/>
+
+    <resource name="inches_label" src="resource/inches_label.png"/>
+    <!-- <resource name="centimeters_label" src="resource/centimeters_label.png"/>-->
+    <resource name="centimeters_label" src="resource/centimeters_label.png"/>
+    <resource name="straight_label" src="resource/straight_label.png"/>
+    <resource name="masking_label" src="resource/masking_label.png"/>
+    
+     <!-- reference card -->
+	<resource name="ref_card_close_btn">
+    	<frame src="resource/refcard/closebutton_off.png"/>
+     	<frame src="resource/refcard/closebutton_on.png"/>
+    	<frame src="resource/refcard/closebutton_click.png"/>
+  	</resource>
+  	<resource name="rc_bottom_left" src="resource/refcard/rc_bottom_left.png"/>
+  	<resource name="rc_bottom_middle" src="resource/refcard/rc_bottom_middle.png"/>
+  	<resource name="rc_bottom_right" src="resource/refcard/rc_bottom_right.png"/>
+ 	<resource name="rc_center_left" src="resource/refcard/rc_center_left.png"/>
+ 	<resource name="rc_center_middle" src="resource/refcard/rc_center_middle.png"/>
+ 	<resource name="rc_center_right" src="resource/refcard/rc_center_right.png"/>
+ 	<resource name="rc_top_left" src="resource/refcard/rc_top_left.png"/>
+ 	<resource name="rc_top_middle" src="resource/refcard/rc_top_middle.png"/>
+ 	<resource name="rc_top_right" src="resource/refcard/rc_top_right.png"/>
+ 	<resource name="rc_lines" src="resource/refcard/rc_lines.png"/>
+  	<resource name="FCAT_refcard_title" src="resource/refcard/FCAT_refcard_title.png"/>
+ 	<resource name="FCAT_refcard_contents" src="resource/refcard/FCAT_refcard_contents.png"/>
+  	<!-- <resource name="TN_refcard_title" src="resource/refcard/TN_refcard_title.swf"/>
+ 	<resource name="TN_refcard_contents" src="resource/refcard/TN_refcard_contents.swf"/> -->
+ 	<resource name="TN_refcard_title" src="resource/refcard/TN_refcard_title.png"/>
+ 	<resource name="TN_refcard_contents" src="resource/refcard/TN_refcard_contents.png"/>
+    
+	          
+</library>
