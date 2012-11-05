@@ -26,6 +26,7 @@
 <SCRIPT type="text/javaScript">
 <!--
 var _LDB_BypassSetFocusOnPageLoad = 0;
+var spText;
 function showFootnote(header)
 {
 	lzSetCanvasAttribute("footnotedata", header);
@@ -99,8 +100,20 @@ function mydetectFlashUsingJavascript(){
         myMSDetect = "true";
 }
 
+function setSPText(arg){
+	lz.embed.setCanvasAttribute('sptext',arg);
+}
+
+function storeScratchPadText(args){	
+	spText = args;
+}
+
 function mydetectFlashUsingVBScript() {
     document.write('<SCRIPT LANGUAGE="VBScript">on error resume next\nIf myMSDetect = "true" Then\nFor i = 2 to 8\nIf Not(IsObject(CreateObject("ShockwaveFlash.ShockwaveFlash." & i))) Then\nElse\nmyflashinstalled = 2\nmyflashversion = i\nEnd If\nNext\nEnd If\nIf myflashinstalled = 0 Then\nmyflashinstalled = 1\nEnd If</SCRIPT>');
+}
+
+function setManipState(args){
+
 }
 //-->
 </SCRIPT>

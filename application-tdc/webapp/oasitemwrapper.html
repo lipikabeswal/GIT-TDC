@@ -1,0 +1,140 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<link rel="SHORTCUT ICON"
+	href="http://www.laszlosystems.com/favicon.ico">
+<meta name="viewport" content="width=device-width; initial-scale=1.0;">
+<title>OpenLaszlo 4.9.0: Test (lps-4.9.0/manip/Test)</title>
+<script type="text/javascript" src="lps/includes/embed-compressed.js"></script>
+<!--[if lt IE 9]><script type="text/javascript" src="lps/includes/excanvas.js"></script><![endif]-->
+<style type="text/css">
+html,body { /* http://www.quirksmode.org/css/100percheight.html */
+	height: 100%;
+	/* prevent browser decorations */
+	margin: 0;
+	padding: 0;
+	border: 0 none;
+}
+
+body {
+	background-color: #ffffff;
+	/*transform: translate(10%, 10%) scale(1.33, 1.33);*/
+	/*-moz-transform: translate(10%, 10%) scale(1.33, 1.33);*/
+	/*-ms-transform: translate(10%, 10%) scale(1.33, 1.33);*/
+	/*-webkit-transform: translate(-25%, -25%) scale(0.5, 0.5);*/
+	/*-o-transform: translate(-25%, -10%) scale(0.5, 0.8);*/
+}
+
+
+
+
+
+#__lz0 { 
+	/*transform: translate(-25%, -25%) scale(0.5, 0.5);*/
+	/*-moz-transform: translate(0%, 0%) scale(0.8, 0.8);*/
+	/*-ms-transform: translate(-25%, -25%) scale(0.5, 0.5);*/
+	/*-webkit-transform: translate(-25%, -25%) scale(0.5, 0.5);*/
+	/*-o-transform: translate(-25%, -10%) scale(0.5, 0.8);*/
+}
+
+img {
+	border: 0 none;
+}
+</style>
+<!--[if IE]>
+        <style type="text/css">
+            /* Fix IE scrollbar braindeath */
+            html { overflow: auto; overflow-x: hidden; }
+        </style>
+        <![endif]-->
+</head>
+<script>
+        var itemSet = false;
+        function isAnswered(){
+        var elem = document.getElementById('__lz0');
+	      	if(elem){
+	      	if(elem.contentWindow)
+	       	return elem.contentWindow.accomPkg.isItemAnswered();
+	      }        	
+        }
+        
+        function getState(){
+        if(document.getElementById('__lz0')){
+        		return document.getElementById('__lz0').contentWindow.accomPkg.getState();
+        	}        
+        }
+        
+        function setState(htmlContent,jsonContent,checkedVals){
+           if(document.getElementById('__lz0')){
+        		document.getElementById('__lz0').contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
+        	}          
+        }
+        
+        function setItemId(itemId){
+        	console.log("itemSet", itemSet);
+  
+	        	if (itemSet == false){
+	        	lz.embed.setCanvasAttribute('srcurl',itemId);
+	        	itemSet = true;
+	        	}
+        }
+        
+        function setTTSText(text){
+        	console.log(text);
+        }
+        
+        function showHideManipulative(arg){
+        	lz.embed.setCanvasAttribute('manipid',arg);
+        }
+        
+        function setScratchPadText(arg){
+        	console.log("setScratchpadtext", arg);
+        	lz.embed.setCanvasAttribute('scratchpadtext',arg);
+        }
+        
+        function getScratchPadText(){
+        	return document.getElementById('textcont').value;
+        }
+        
+        function updateScratchPadText(a){
+        	window.parent.setSPText(a);
+        }    
+        
+        function getSPTextInitial(){
+        	console.log("GETSPTEXTINITIAl: "+ window.parent.spText);
+        	var text = window.parent.spText;
+        	if(text){
+        	lz.embed.setCanvasAttribute('scratchpadtext',text);
+        	}
+        }    
+        
+        function passManipulativeState(args){
+        	console.log("passmanipulative state: ", args);
+        	window.parent.setManipState(args);
+        	
+        }
+        </script>
+
+<body>
+<input type="button" onclick="setItemId('PKG_MCQ');"
+	style="display: none;"></input>
+<input type="button" onclick="showHideManipulative('protractor');"
+	style="display: none;"></input>
+<div id="appcontainer"></div>
+
+<script type="text/javascript" defer>
+                  lz.embed.resizeWindow('100%', '100%');
+                  lz.embed.dhtml({url: 'Test.js', lfcurl: 'lps/includes/lfc/LFCdhtml.js', serverroot: 'lps/resources/', bgcolor: '#ffffff', width: '100%', height: '100%', id: 'lzapp', accessible: 'false', cancelmousewheel: false, cancelkeyboardcontrol: false, skipchromeinstall: false, usemastersprite: false, approot: '', appenddivid: 'appcontainer'});
+                  lz.embed.applications.lzapp.onload = function loaded() {
+                    // called when this application is done loading
+                   
+                  }
+                </script>
+<noscript>Please enable JavaScript in order to use this
+application.</noscript>
+</body>
+</html>
