@@ -54,23 +54,29 @@ img {
 </head>
 <script>
         var itemSet = false;
+        var ansSet = false;
         function isAnswered(){
         var elem = document.getElementById('__lz0');
 	      	if(elem){
-	      	if(elem.contentWindow)
+	      	if(elem.contentWindow.accomPkg)
 	       	return elem.contentWindow.accomPkg.isItemAnswered();
 	      }        	
         }
         
         function getState(){
-        if(document.getElementById('__lz0')){
+        if(document.getElementById('__lz0').contentWindow){
         		return document.getElementById('__lz0').contentWindow.accomPkg.getState();
         	}        
         }
         
         function setState(htmlContent,jsonContent,checkedVals){
-           if(document.getElementById('__lz0')){
-        		document.getElementById('__lz0').contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
+           if(document.getElementById('__lz0').contentWindow){
+           		
+           		if(document.getElementById('__lz0').contentWindow.accomPkg && ansSet == false){
+        		console.log("ansSet", ansSet);
+        			document.getElementById('__lz0').contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
+        			ansSet = true;
+        		}
         	}          
         }
         
