@@ -503,8 +503,9 @@
 		<attribute name="htmlFields" value="$once{new Array()}"/>
 		<attribute name="answeredDel"
 			value="$once{new lz.Delegate(this,'isAnsweredDelegate')}" />
-	<attribute name="answerObj" value="$once{new Object()}" />
-		
+		<attribute name="answerObj" value="$once{new Object()}" />
+		<attribute name="sptext" value="null" />
+		<attribute name="manipStateHtml" value="$once{new Object()}"/>
 		<!--
 			============================================================
 			Datapointers
@@ -1521,7 +1522,9 @@
 				var spContents = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/sp/text()');
 				//END
 			}
-			gScratchpad.setAttribute('text', unescape(spContents));
+			gScratchpad.setAttribute('text', unescape(spContents));			
+			var s = "storeScratchPadText('"+unescape(spContents)+"')";
+			lz.Browser.loadJS(s);
 		</method>
 
 		<method name="outOfTimeOpen">
@@ -3340,6 +3343,9 @@ Debug.write("############ loadItem ############");
     	</method>
 
 		<method name="getSpText">
+			if (this.htmlFields.length > 0){
+				return this.sptext;
+			}
     		return escape(gScratchpad.getText());
     	</method>
 
@@ -5100,6 +5106,7 @@ Debug.write("############ loadItem ############");
             this.htmlFields.length = 0;
             Debug.write("****stopcheckisAnswer****");
             stopCheckIsAnswer();
+               this.manipStateHtml = new Object();           
 		]]></method>
 		
 	

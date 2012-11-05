@@ -159,7 +159,20 @@
 		value="$once{lz.Browser.getInitArg('eliminatorResource')}"
 		type="string" />
 	<attribute name="useDefaultEliminator" type="boolean" value="true" />
+	
+	<attribute name="sptext" value="null"/>
+	<attribute name="manipstate" value="null"/>
+	
+	<handler name="onsptext" args="data">
+		gController.setAttribute('sptext',data);
+		gScratchpad.setText(unescape(data));
+	</handler>
 	  
+	<handler name="onmanipstate" args="data"><![CDATA[
+	var manip = data.split("|");
+	var manipName = manip[0];
+	gController.manipStateHtml[manipName].resetState();		
+	]]></handler>  
 	<method name="setCrFocus"><![CDATA[
 		var fo = canvas.focusobj;
 		if(typeof fo == 'object' && fo!=null){
@@ -247,7 +260,7 @@
 		align="center"
 		valign="middle">
 <handler name="onwidth">
-	Debug.write("width....."+this.width);
+	Debug.write("width....."+this.width , this.height, this.yscale);
 
 </handler>
 		<view name="gView" width="800" height="600">
