@@ -689,13 +689,13 @@
 		<method name="getInitialSubtestIndex"><![CDATA[
     		var result = 0;
     		if(dprestart.isValid()){
-				var restartId =getAttribute('restartscid');
+				//var restartId =getAttribute('restartscid');
 				//START Change for deferred Defect 63502
-    			var scoid = dprestart.xpathQuery('tsd[@scid ="'+restartId+'"]/@scid');
+    			var scoid = dprestart.xpathQuery('tsd[@scid ="'+restartscid+'"]/@scid');
     			//END
-				if(scoid == null && restartId!= null) { // Added for defect 70251 as for hard reset, restart data will not be present
+				/*if(scoid == null && restartId!= null) { // Added for defect 70251 as for hard reset, restart data will not be present
 					scoid=restartId;
-				}
+				}*/
     			dp.setXPath('dslogin:/login_response/manifest');
 	    		var scos = dp.xpathQuery('sco');
 	    		var found = false;
@@ -822,17 +822,20 @@
 				if(dprestart.isValid()){ // for restart scenario
 					var restartData = dprestart.xpathQuery('tsd/ist');
 					var itemIds = new Array();
+					var itemScores = new Array();
 					if(restartData && restartData instanceof Array) {
 						for(var i=0; i<restartData.length; i++) {
 							var visitedItemNode = restartData[i];
 							var visitedItemId = visitedItemNode.getAttr('iid');
 							itemIds.push(visitedItemId); 
 							if(visitedItemId.indexOf('FT') > 0) {
+								itemScores.push(0);
 			         			continue;
 			         		}
 			         		else {
 								var xPath = "tsd/ist[@iid='" + visitedItemId + "']";
 			         			var raw = dprestart.xpathQuery(xPath + "/ov[@n='SCORE']/v/text()");
+								itemScores.push(raw);
 			         			rawscore = Number(rawscore) + Number(raw);
 			         		}
 						}
@@ -843,8 +846,12 @@
 						var xPath = "tsd/ist[@iid='" + visitedItemId + "']";
 		         		if(itemId.indexOf('FT') <= 0) {
 		         			var raw = dprestart.xpathQuery(xPath + "/ov[@n='SCORE']/v/text()");
+							itemScores.push(raw);
 		         			rawscore = Number(rawscore) + Number(raw);
 		         		}
+						else {
+							itemScores.push(0);
+						}
 		        	}
 					var isVisited = "false";
 					var viewedItems = dpstudentdata.xpathQuery("runtime/item_model[@is_visited='true']"); 
@@ -853,9 +860,16 @@
 							isVisited = "false";
 			         		var itemNode = viewedItems[i];
 			         		var itemId = itemNode.getAttr('iid');
+							var itemScore = itemNode.getAttr('score');
 							for(var j=0; j<itemIds.length; j++) {
 								var visitedId = itemIds[j];
+								var visistedIdScore = itemScores[j];
 								if(visitedId == itemId) {
+									if(visistedIdScore != itemScore) {
+										if(itemId.indexOf('FT')<= 0) {
+											rawscore = Number(rawscore) - Number(visistedIdScore) + Number(itemScore);
+										}
+									}
 									isVisited="true";
 									break;
 								}
@@ -871,9 +885,16 @@
 			        }
 			        else if(viewedItems && viewedItems instanceof LzDataElement) {
 			        	var itemId = viewedItems.getAttr('iid');
+						var itemScore = viewedItems.getAttr('score');
 						for(var i=0; i<itemIds.length; i++) {
 							var visitedId = itemIds[i];
+							var visistedIdScore = itemScores[i];
 							if(visitedId == itemId) {
+								if(visistedIdScore != itemScore) {
+									if(itemId.indexOf('FT')<= 0) {
+										rawscore = Number(rawscore) - Number(visistedIdScore) + Number(itemScore);
+									}
+								}
 								isVisited="true";
 								break;
 							}
@@ -1152,8 +1173,8 @@
 
 				//START Change for deferred Defect 63502
 	    		setAttribute('restartscid', dp.xpathQuery('login_response/manifest/sco[1]/@id'));
-				var restartId = getAttribute('restartscid');
-	    		var numIsts = countDataNodes(dp.xpathQuery('login_response/consolidated_restart_data/tsd[@scid = "'+ restartId +'"]/ist'));
+				//var restartId = getAttribute('restartscid');
+	    		var numIsts = countDataNodes(dp.xpathQuery('login_response/consolidated_restart_data/tsd[@scid = "'+ restartscid +'"]/ist'));
 	    		//END
 
 	    		dslogin.setChildNodes(new Array(loginResponse));
@@ -1290,10 +1311,10 @@
  			var numanswered = 0;
 			//START Change for deferred Defect 63502
             
-			var restartId = getAttribute('restartscid');
+			//var restartId = getAttribute('restartscid');
            	if(this.getAttribute("fwdOnly") == true){
 				if(this.adaptive == 'true'){
-	 				var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartId +'"]/ist' );
+	 				var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ist' );
 	        		if ( awd && awd instanceof Array ) {
 	                	if(awd.length > 0)
 	 						numanswered = awd.length;
@@ -1304,7 +1325,7 @@
 					numanswered = this.restartItemCount;
 				}
  			}else{
- 				var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartId +'"]/ist/rv/v' );
+ 				var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ist/rv/v' );
  			
 		         //END
 		         
@@ -1436,7 +1457,7 @@
 		<method name="initTest"><![CDATA[
         	// remove timer in case previous test was timed but this test is untimed
         	//Debug.warn("*****************************Init Test***************************");
-			var restartId = getAttribute('restartscid');
+			//var restartId = getAttribute('restartscid');
             LzTimer.removeTimer( dupdateTimeLeft );
             resetCatAttributes();
             if(this.adaptive == 'true') { 
@@ -1476,7 +1497,7 @@
             if ( dprestart.isValid() ) {
             //Debug.warn("*****************************restart***************************");
 				//START Change for deferred Defect 63502
-				var secs = dprestart.xpathQuery( 'tsd[@scid = "'+ restartId +'"]/ast/@rem_sec' );
+				var secs = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@rem_sec' );
 				//END
                 if ( null == secs ) {
                     // can't find time remaining from restart,
@@ -1635,11 +1656,11 @@
 		</method>
 
 		<method name="setScratchpadForSubtest">
-			var restartId=getAttribute('restartscid');
+			//var restartId=getAttribute('restartscid');
 			var spContents = "";
 			if(dprestart.isValid()){
 				//START Change for deferred Defect 63502
-				var spContents = dprestart.xpathQuery( 'tsd[@scid = "'+ restartId +'"]/sp/text()');
+				var spContents = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/sp/text()');
 				//END
 			}
 			gScratchpad.setText(unescape(spContents));
@@ -1673,20 +1694,20 @@
 		<method name="openTest">
 			this.istRestartLength=0;
          //START Change for deferred Defect 63502
-			var restartId=getAttribute('restartscid');
-        	var i = restartId;			
+			//var restartId=getAttribute('restartscid');
+        	var i = restartscid;			
 			var fnode = getItemFromOffset( 0 );
 			if ( dprestart.isValid() ) {
                 var fnode = dpsubtest.xpathQuery(
                     "ob_assessment/ob_element_list/f[@id='" +
-                        dprestart.xpathQuery( 'tsd[@scid = "'+ restartId +'"]/ast/@cur_eid' ) +
+                        dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@cur_eid' ) +
                     "']");
           //END
                 if ( !fnode ) {
                     fnode = getItemFromOffset( 0 );
                 }
-                var dnruntimeitem = dpstudentdata.xpathQuery ("runtime/item_model [@eid = '"+dprestart.xpathQuery( 'tsd[@scid = "'+ restartId +'"]/ast/@cur_eid' )+"']");
-                dnruntimeitem.setAttr ('eid', dprestart.xpathQuery( 'tsd[@scid = "'+ restartId +'"]/ast/@cur_eid' ) );
+                var dnruntimeitem = dpstudentdata.xpathQuery ("runtime/item_model [@eid = '"+dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@cur_eid' )+"']");
+                dnruntimeitem.setAttr ('eid', dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@cur_eid' ) );
              }
              
             /* if(gController.audible == 'true'){
@@ -1707,14 +1728,14 @@
 
 
 		<method name="getAdptiveRestartNodes"><![CDATA[
-			var restartId=getAttribute('restartscid');
+			//var restartId=getAttribute('restartscid');
 			var istArr = [];
 			var runtimeCount = this.subtestLength + 1;
 			dprestart.xpathQuery( istxpath );
 			var numIsts = countDataNodes(dprestart.xpathQuery('tsd/ist'));
 			var elist = dprestart.xpathQuery('tsd');
 			var items = elist.getElementsByTagName( 'ist' );
-            var landingItem = dprestart.xpathQuery( 'tsd[@scid = "'+ restartId +'"]/ast/@cur_eid' );
+            var landingItem = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@cur_eid' );
             //var landingFnode = dpsubtest.xpathQuery('ob_assessment/ob_element_list/@restart_ast');
             var itemNumber = Number(getStartNumber());
 			this.istLength = items.length;
