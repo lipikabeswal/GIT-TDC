@@ -73,7 +73,7 @@ img {
            if(document.getElementById('__lz0').contentWindow){
            		
            		if(document.getElementById('__lz0').contentWindow.accomPkg && ansSet == false){
-        		console.log("ansSet", ansSet);
+        		console.log("ansSet", ansSet,document.getElementById('__lz0').contentWindow.accomPkg.isContentLoaded());
         			document.getElementById('__lz0').contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
         			ansSet = true;
         		}
