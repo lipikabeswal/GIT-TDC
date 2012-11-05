@@ -80,7 +80,6 @@ public class PersistenceServlet extends HttpServlet {
 	private static final String WEBINF_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
 														"webapp" + File.separator + "WEB-INF";
 
-
 	/**
 	 * Constructor of the object.
 	 */
@@ -752,7 +751,6 @@ public class PersistenceServlet extends HttpServlet {
 						
 					}
 				} else {
-					result = ServletUtils.OK;
 				}
 			} else {
 				// file was already uploaded by another thread
@@ -854,33 +852,44 @@ public class PersistenceServlet extends HttpServlet {
 		Properties props = new Properties();
 		String filePath="";
 		boolean isMac = false;
-		boolean isWin7 = false;
 		boolean isOK = false; //true for Oklahoma product
+		String path = null;
 		try {
 			loginReponseDocument = saxBuilder.build(new ByteArrayInputStream(loginResponse.getBytes()));			
 			//ResourceBundle rb = ResourceBundle.getBundle("tdc");
 			//String filePath = rb.getString("tdc.lax.filepath"); 
+			path = this.getServletContext().getRealPath("tdc.properties");
+			path = path.substring(0, path.indexOf("webapp"));
 			if (osName.indexOf("win") >= 0) {
-				if(osName.equalsIgnoreCase("windows 7")) {
-					isWin7 = true;				
-				}
-				filePath ="C://Program Files//CTB//Online Assessment//Online Assessment.lax";
+				filePath = path + "Online Assessment.lax";	
+				File f1 = new File(filePath);
+				if(!f1.exists()) {
+					filePath = "C://Program Files//CTB//Online Assessment//Online Assessment.lax";
+					if(osName.equalsIgnoreCase("windows 7")) {
+						File f2 = new File(filePath);
+						if(!f2.exists()) {
+							filePath = "C://Program Files (x86)//CTB//Online Assessment//Online Assessment.lax";
+							File f3 = new File(filePath);
+							if(!f3.exists()) {
+								filePath = "C://Program Files (x64)//CTB//Online Assessment//Online Assessment.lax";						
+							}
+						}			
+					}
+				}	
 			}
-			else if(osName.indexOf("mac") >= 0) {				
-				filePath = "//Applications//Online Assessment//Online Assessment.app//Contents//info.plist";
+			else if(osName.indexOf("mac") >= 0) {
+				filePath = path + "Contents//info.plist";
+				File f1 = new File(filePath);
+				if(!f1.exists()) {
+					filePath = "//Applications//Online Assessment//Online Assessment.app//Contents//info.plist";
+				}
 				isMac = true;
 			}
 			else {
-				filePath ="//usr//local//Online Assessment//Online_Assessment.lax";
-			}
-			if(isWin7) {
-				File f = new File(filePath);
-				if(!f.exists()) {
-					filePath = "C://Program Files (x86)//CTB//Online Assessment//Online Assessment.lax";
-					File f1 = new File(filePath);
-					if(!f1.exists()) {
-						filePath = "C://Program Files (x64)//CTB//Online Assessment//Online Assessment.lax";						
-					}
+				filePath = path + "Online_Assessment.lax";
+				File f1 = new File(filePath);
+				if(!f1.exists()) {
+					filePath = "//usr//local//Online Assessment//Online_Assessment.lax";
 				}
 			}
 			if(isMac) {//if Mac, read the info.list file for Oklahoma product
