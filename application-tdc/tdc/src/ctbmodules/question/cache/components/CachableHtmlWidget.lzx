@@ -14,11 +14,13 @@
 		
 		<attribute name="contentLoadedDel" value="$once{new lz.Delegate(this,'func2')}" />
 		<attribute name="setStateDel" value="$once{new lz.Delegate(this,'setAnswer')}" />
+		<attribute name="setItemDel" value="$once{new lz.Delegate(this,'setItemId')}" />
 		<attribute name="answered" type="boolean" value="false" />
 		<attribute name="answer" />
 		<attribute name="widget_id" />
 		<attribute name="answerObjSet" value="$once{new Object()}"/>
 		<attribute name="unlocked" type="boolean" value="false"/>
+		<attribute name="srcUrl" />
 		<method name="init">
 			super.init();
 		</method>
@@ -30,6 +32,7 @@
 		<handler name="ondata" args="data"><![CDATA[
 Debug.write("Cachaable html widget ondata");
       	var srcUrl = data.getAttr('src');
+      	this.setAttribute('srcUrl', srcUrl);
 		this.setAttribute('unlocked', false);
 		this.setAttribute('answerObjSet', {});
 		if (data.hasAttr("id")) {
@@ -43,9 +46,7 @@ Debug.write("Cachaable html widget ondata");
 				var selectedValuesArr = [];
 				if(answer['checkedVals']){
 					var selectedValues = answer['checkedVals'];
-					Debug.write("selectedValues " , selectedValues);
 					for (var i in selectedValues){
-						Debug.write("selectedValues for loop" , i);
 						if(selectedValues.hasOwnProperty(i) && !isNaN(+i)) {
 	      					  selectedValuesArr[+i] = selectedValues[i];
 	   					}
@@ -65,22 +66,26 @@ Debug.write("Cachaable html widget ondata");
 		}
 		else{			
 
-			srcUrl = "http:items/"+ srcUrl +"/previewer.html";
+			srcUrl = "http:oasitemwrapper.html";
 			this.main.ht.setAttribute('src', srcUrl);
 			this.main.ht.setAttribute('visible',true);
 		}
  		//this.ht.bringToFront();
+ 		setItemId();
 		func2();
 		gController.freezeUI();
 		//doneLoading();
+		
 
 		]]>
 		</handler>
 		
 		<method name="func1">
+		//Debug.write("FUNC1", this.main.ht.ready);
 			if(this.main.ht.ready){
             	var del = new LzDelegate(this, 'handleFunc1');
-            	this.main.ht.callJavascript('accomPkg.isItemAnswered', del);
+            	//this.main.ht.callJavascript('accomPkg.isItemAnswered', del);
+            	this.main.ht.callJavascript('isAnswered', del);
 				
             } 
         </method>
@@ -112,8 +117,9 @@ Debug.write("Cachaable html widget ondata");
 					if(this.answerObjSet.checkedVals){
 						checkedVals = this.answerObjSet.checkedVals;
 					}
-		            this.main.ht.callJavascript('accomPkg.setState', null,htmlContent, jsonContent, checkedVals);
-					lz.Timer.resetTimer(setStateDel, 1000);
+		            //this.main.ht.callJavascript('accomPkg.setState', null,htmlContent, jsonContent, checkedVals);
+		            this.main.ht.callJavascript('setState', null,htmlContent, jsonContent, checkedVals);
+					lz.Timer.resetTimer(setStateDel, 500);
 				}else{
 					lz.Timer.removeTimer(setStateDel);
 				}
@@ -124,6 +130,7 @@ Debug.write("Cachaable html widget ondata");
         
         <method name="func2">
 					doneLoading();
+
         /*   if(this.main.ht.loading){
             	lz.Timer.resetTimer(contentLoadedDel, 1000);
             }else{
@@ -144,7 +151,8 @@ Debug.write("Cachaable html widget ondata");
         <method name="getState">
            if(this.main.ht.ready){
             var getStateDel = new LzDelegate(this, 'getStateHandler');
-            this.main.ht.callJavascript('accomPkg.getState', getStateDel);
+            //this.main.ht.callJavascript('accomPkg.getState', getStateDel);
+             this.main.ht.callJavascript('getState', getStateDel);
            } 
         
         </method>
@@ -155,6 +163,38 @@ Debug.write("Cachaable html widget ondata");
 	     </method>
         
 
+		<method name="setItemId">
+				this.main.ht.callJavascript('setItemId', null,this.srcUrl);
+				if (gController.uisemaphore > 0){
+				 	lz.Timer.resetTimer(setItemDel, 50);
+				 }else{
+				 	lz.Timer.removeTimer(setItemDel);
+				 }
+		</method>
+		
+		<method name="showHideManipulative" args="arg,manipButton"><![CDATA[
+			this.main.ht.callJavascript('showHideManipulative', null,arg);
+			
+			switch(manipButton.toolid){
+			case 'standard_calculator' 	 :  gController.manipStateHtml['standard_calculator'] = manipButton;
+			break;
+		
+			case 'scientific_calculator' : gController.manipStateHtml['scientific_calculator'] = manipButton;
+			break;
+			
+			case 'scratchpad' : 		   gController.manipStateHtml['scratchpad'] = manipButton;
+			break;
+
+			case 'FCAT_formula_card' : 	  gController.manipStateHtml['FCAT_formula_card'] = manipButton;
+
+			break;
+
+			case 'TN_formula_card' : 	  gController.manipStateHtml['TN_formula_card'] = manipButton;
+			break;
+			
+			}
+			Debug.write	("MANIP STATE HTML", gController.manipStateHtml);
+		]]></method>
        
 		<method name="doneLoading"><![CDATA[	
             super.doneLoading();
@@ -172,6 +212,23 @@ Debug.write("Cachaable html widget ondata");
 			this.main.ht.setAttribute('visible',false);
 			this.main.ht.setAttribute('src',"");
        ]]></method>
+       
+       <method name="setScratchPadText" args="arg">
+       		this.main.ht.callJavascript('setScratchPadText', null,arg);
+       </method>
+       
+        <method name="getScratchPadText">
+           if(this.main.ht.ready){
+            var getSPDel = new LzDelegate(this, 'getScratchPadHandler');
+            this.main.ht.callJavascript('getScratchPadText', getSPDel);
+            
+           } 
+        
+        </method>
+        
+	    <method name="getScratchPadHandler" args="retVal">
+						
+	     </method>
        
        <view name="main" width="${parent.parent.width - 10}" height="${parent.parent.height - 10}">
  	       <html name="ht" id="htmlwiget" x="5" y="5" width="800" height="600" scrollbars="false" />

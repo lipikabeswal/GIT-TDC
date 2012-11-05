@@ -157,7 +157,7 @@
 					else{
 						this.setAttribute('fontsize',12);
 					}
-					this.inp.setMaxLength(10000);
+					//this.inp.setMaxLength(10000);
 	            </method>
 	            
 	            <method name="updateScrollText" args="a">
@@ -165,11 +165,16 @@
 				</method>
 				
 				<handler name="ontext"><![CDATA[
+					var textContent = this.text;
 					storeSelection();
+					var s = "storeScratchPadText('"+textContent+"')";
+					lz.Browser.loadJS(s);
 				 	if(this.text.length > 10000){
-								var textContent = this.text;
+								textContent = this.text;
 								textContent = textContent.substring(0,Number(classroot.characterLimit));
 								updateScrollText(textContent);
+								var s = "storeScratchPadText('"+textContent+"')";
+								lz.Browser.loadJS(s);
 							}
 				]]></handler>
 					
