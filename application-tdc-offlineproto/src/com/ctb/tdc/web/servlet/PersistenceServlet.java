@@ -79,14 +79,14 @@ public class PersistenceServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {    
 		long startTime = System.currentTimeMillis();
-        System.out.print("called PersistenceServlet ");
+        System.out.println("called PersistenceServlet ");
 		
 		String method = ServletUtils.getMethod(request);
         
         String xml = ServletUtils.getXml(request);
         handleEvent(request, response, method, xml);    
         
-        System.out.print(method + ", elapsed time: " + (System.currentTimeMillis() - startTime + "\n"));
+        System.out.println(method + ", elapsed time: " + (System.currentTimeMillis() - startTime + "\n"));
 	}
 
     /**
@@ -176,11 +176,25 @@ public class PersistenceServlet extends HttpServlet {
         		filePath = new File(".").getAbsolutePath() + "/../data/TN316loginresponse.xml";
         	} else if(requestURI.indexOf("servletTABEAdaptive") >= 0) {
         		filePath = new File(".").getAbsolutePath() + "/../data/TABEAdaptiveloginresponse.xml";
+        	} else if(requestURI.indexOf("servletOKAlg1") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/OKAlg1loginresponse.xml";
+        	} else if(requestURI.indexOf("servletOKAlg2") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/OKAlg2loginresponse.xml";
+        	} else if(requestURI.indexOf("servletOKBio1") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/OKBio1loginresponse.xml";
+        	} else if(requestURI.indexOf("servletOKEng2") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/OKEng2loginresponse.xml";
+        	} else if(requestURI.indexOf("servletOKEng3") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/OKEng3loginresponse.xml";
+        	} else if(requestURI.indexOf("servletOKGeo") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/OKGeologinresponse.xml";
+        	} else if(requestURI.indexOf("servletOKUSH") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/OKUSHloginresponse.xml";
         	}
         	System.out.println("***** Looking for login response XML: " + filePath);
             result = new String(ServletUtils.readFromFile(new File(filePath)));
         	ServletUtils.processContentKeys(result);
-        	//System.out.println("Login successfully.");                
+        	System.out.println("Login successful:" + result);                
         } 
         catch (Exception e) {
         	System.out.println("Exception occured in login() : " + ServletUtils.printStackTrace(e));
@@ -270,6 +284,20 @@ public class PersistenceServlet extends HttpServlet {
     			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281216\"/>");
     		} else if("281216".equals(scid)) {
     			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"281218\"/>");
+    		} else if("280971".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"280972\"/>");
+    		} else if("280975".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"280976\"/>");
+    		} else if("280987".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"280988\"/>");
+    		} else if("280960".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"280961\"/>");
+    		} else if("280964".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"280965\"/>");
+    		} else if("280979".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"280980\"/>");
+    		} else if("280983".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"280984\"/>");
     		} else {
     			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "");
     		}

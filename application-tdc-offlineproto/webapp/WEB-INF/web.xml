@@ -117,6 +117,41 @@
   </servlet-mapping>
   
   <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletOKAlg1/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletOKAlg2/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletOKBio1/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletOKEng2/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletOKEng3/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletOKGeo/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletOKUSH/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
     <servlet-name>ContentServlet</servlet-name>
     <url-pattern>/servlet/ContentServlet.do</url-pattern>
   </servlet-mapping>
@@ -174,6 +209,41 @@
   <servlet-mapping>
     <servlet-name>TABEAdaptiveContentServlet</servlet-name>
     <url-pattern>/servletTABEAdaptive/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletOKAlg1/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletOKAlg2/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletOKBio1/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletOKEng2/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletOKEng3/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletOKGeo/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletOKUSH/ContentServlet.do</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -242,6 +312,41 @@
     <servlet-name>PersistenceServlet</servlet-name>
     <url-pattern>/servletTABEAdaptive/PersistenceServlet.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletOKAlg1/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletOKAlg2/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletOKBio1/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletOKEng2/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletOKEng3/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletOKGeo/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletOKUSH/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
 
   <servlet>
     <description>UtilityServlet</description>
@@ -305,9 +410,44 @@
     <url-pattern>/servletTN316/UtilityServlet.do</url-pattern>
   </servlet-mapping>
   
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>UtilityServlet</servlet-name>
     <url-pattern>/servletTABEAdaptive/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletOKAlg1/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletOKAlg2/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletOKBio1/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletOKEng2/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletOKEng3/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletOKGeo/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletOKUSH/UtilityServlet.do</url-pattern>
   </servlet-mapping>
 
 </web-app>
