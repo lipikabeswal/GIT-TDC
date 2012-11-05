@@ -166,9 +166,14 @@
 
     <method event="onscrolltext">
         //init font color and background color
-        var fgc = this.scrolltext['fontcolor'] ? this.scrolltext.fontcolor : "white";
-        var bc = this.scrolltext['panel'] &amp;&amp; this.scrolltext.panel['bgcolor'] ? this.scrolltext.panel.bgcolor : "black";
-        
+       	if(!(this.scrolltext instanceof CachableAnswerAreaPanel || this.scrolltext instanceof CachableAnswerAreaAbsolutePanel)) {
+        	var fgc = this.scrolltext['fontcolor'] ? this.scrolltext.fontcolor : "white";
+        	var bc = this.scrolltext['panel'] &amp;&amp; this.scrolltext.panel['bgcolor'] ? this.scrolltext.panel.bgcolor : "black";
+        }
+        else {
+        	var fgc = Number(gController.questionFontColor);
+        	var bc = Number(gController.questionBgColor);
+        }
         this.body.wrap.setAttribute("fgcolor", fgc);
 		this.setAttribute("backcolor", bc);
     </method>
