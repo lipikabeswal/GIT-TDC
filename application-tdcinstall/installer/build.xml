@@ -85,16 +85,16 @@
 	<target name="buildVanilla" description="Builds the generic installer" depends="init">
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="vanilla" />
-			<param name="installer.primary.url" value="https://oas.ctb.com" />
-			<param name="installer.secondary.url" value="https://oasdr.ctb.com" />
+			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
+			<param name="installer.secondary.url" value="https://oasdelivery.ctb.com" />
 		</antcall>
 	</target>
 	
 	<target name="buildVanillaThin" description="Builds the generic installer" depends="init">
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="vanilla-thin" />
-			<param name="installer.primary.url" value="https://oas.ctb.com" />
-			<param name="installer.secondary.url" value="https://oasdr.ctb.com" />
+			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
+			<param name="installer.secondary.url" value="https://oasdelivery.ctb.com" />
 		</antcall>
 	</target>
 	
@@ -206,16 +206,16 @@
 	<target name="buildOK" description="Builds the Oklahoma installer" depends="init">
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="ok" />
-			<param name="installer.primary.url" value="https://oas.ctb.com" />
-			<param name="installer.secondary.url" value="https://oasdr.ctb.com" />
+			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
+			<param name="installer.secondary.url" value="https://oasdelivery.ctb.com" />
 		</antcall>
 	</target>
 
 	<target name="buildOKThin" description="Builds the Oklahoma installer" depends="init">
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="ok-thin" />
-			<param name="installer.primary.url" value="https://oas.ctb.com" />
-			<param name="installer.secondary.url" value="https://oasdr.ctb.com" />
+			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
+			<param name="installer.secondary.url" value="https://oasdelivery.ctb.com" />
 		</antcall>
 	</target>
 	
