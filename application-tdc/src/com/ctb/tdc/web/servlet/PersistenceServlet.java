@@ -79,6 +79,7 @@ public class PersistenceServlet extends HttpServlet {
 		                             					"webapp" + File.separator + "resources";
 	private static final String WEBINF_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
 														"webapp" + File.separator + "WEB-INF";
+	private static final String PRODUCT_TYPE = System.getProperty("tdc.productType");
 
 	/**
 	 * Constructor of the object.
@@ -842,95 +843,27 @@ public class PersistenceServlet extends HttpServlet {
 		}
 	}
 	
-	
 	private String  getCustomerInformation(String loginResponse){
 		org.jdom.Document loginReponseDocument = null;
 		System.out.println("getCustomerInformation");
 		SAXBuilder saxBuilder = new SAXBuilder();
 		String result = null;
-		String resultXml = null;
-		Properties props = new Properties();
-		String filePath="";
-		boolean isMac = false;
-		boolean isOK = false; //true for Oklahoma product
-		String path = null;
+		String resultXml = null;		
 		try {
-			loginReponseDocument = saxBuilder.build(new ByteArrayInputStream(loginResponse.getBytes()));			
-			//ResourceBundle rb = ResourceBundle.getBundle("tdc");
-			//String filePath = rb.getString("tdc.lax.filepath"); 
-			path = this.getServletContext().getRealPath("tdc.properties");
-			path = path.substring(0, path.indexOf("webapp"));
-			if (osName.indexOf("win") >= 0) {
-				filePath = path + "Online Assessment.lax";	
-				File f1 = new File(filePath);
-				if(!f1.exists()) {
-					filePath = "C://Program Files//CTB//Online Assessment//Online Assessment.lax";
-					if(osName.equalsIgnoreCase("windows 7")) {
-						File f2 = new File(filePath);
-						if(!f2.exists()) {
-							filePath = "C://Program Files (x86)//CTB//Online Assessment//Online Assessment.lax";
-							File f3 = new File(filePath);
-							if(!f3.exists()) {
-								filePath = "C://Program Files (x64)//CTB//Online Assessment//Online Assessment.lax";						
-							}
-						}			
-					}
-				}	
-			}
-			else if(osName.indexOf("mac") >= 0) {
-				filePath = path + "Contents//info.plist";
-				File f1 = new File(filePath);
-				if(!f1.exists()) {
-					filePath = "//Applications//Online Assessment//Online Assessment.app//Contents//info.plist";
-				}
-				isMac = true;
-			}
-			else {
-				filePath = path + "Online_Assessment.lax";
-				File f1 = new File(filePath);
-				if(!f1.exists()) {
-					filePath = "//usr//local//Online Assessment//Online_Assessment.lax";
-				}
-			}
-			if(isMac) {//if Mac, read the info.list file for Oklahoma product
-				BufferedReader in = new BufferedReader(new FileReader(filePath));
-				String temp = in.readLine();
-				while(temp != null){
-					if(temp.indexOf("OKLAHOMA") > -1){
-						isOK = true;
-						break;
-					}
-					temp = in.readLine();
-				}
-			}
-			else {//Resume normal flow for Windows and Linux
-				props.load(new FileInputStream(filePath));
-			}
-			
+			loginReponseDocument = saxBuilder.build(new ByteArrayInputStream(loginResponse.getBytes()));
 		} catch (JDOMException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		if(!isMac) {//Resume normal flow for Windows and Linux
-			String productType = props.getProperty("product.type");
-			
-			if(productType != null && productType.equals("OKLAHOMA")) {
+			if(PRODUCT_TYPE != null && PRODUCT_TYPE.equals("OKLAHOMA")) {
 				loginReponseDocument.getRootElement().getChild("login_response").setAttribute("isOK", "T");
 			}
 			else {
 				loginReponseDocument.getRootElement().getChild("login_response").setAttribute("isOK", "F");
 			}
-		}
-		else {
-			loginReponseDocument.getRootElement().getChild("login_response").setAttribute("isOK", isOK ? "T" : "F");
-		}
 		
 		 resultXml = new XMLOutputter().outputString(loginReponseDocument);
 		 result = resultXml.substring(resultXml.indexOf("<tmssvc_response"));
