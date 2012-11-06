@@ -163,7 +163,15 @@
 	<attribute name="sptext" value="null"/>
 	<attribute name="manipstate" value="null"/>
 	<attribute name="ttstext" value="null"/>
+	<attribute name="setanswer" value="null" />
 	
+	
+	<handler name="onsetanswer" args="data">
+		if(gController.htmlFields.length > 0){
+			gController.htmlFields[0].ref.setAnswer();
+			Debug.write("*************onset answer");
+		}
+	</handler>
 	<handler name="onttstext" args="data">
 		gReadableText.read(data,false);
 	</handler>

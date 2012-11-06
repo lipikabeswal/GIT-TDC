@@ -116,6 +116,7 @@ Debug.write("Cachaable html widget ondata");
 					var checkedVals = []
 					if(this.answerObjSet.checkedVals){
 						checkedVals = this.answerObjSet.checkedVals;
+						Debug.write('Checked VAls', checkedVals);
 					}
 		            //this.main.ht.callJavascript('accomPkg.setState', null,htmlContent, jsonContent, checkedVals);
 		            this.main.ht.callJavascript('setState', null,htmlContent, jsonContent, checkedVals);
@@ -169,7 +170,7 @@ Debug.write("Cachaable html widget ondata");
 				 	lz.Timer.resetTimer(setItemDel, 50);
 				 }else{
 				 	lz.Timer.removeTimer(setItemDel);
-					setAnswer();
+					//setAnswer();
 				 }
 		</method>
 		
@@ -232,7 +233,7 @@ Debug.write("Cachaable html widget ondata");
 	     </method>
        
        <view name="main" width="${parent.parent.width - 10}" height="${parent.parent.height - 10}">
- 	       <html name="ht" id="htmlwiget" x="5" y="5" width="600" height="400" scrollbars="false" />
+ 	       <html name="ht" id="htmlwiget" x="5" y="5" width="790" height="590" scrollbars="false" />
        </view>
 
 	</class>
