@@ -82,13 +82,32 @@ img {
         
         function setItemId(itemId){
         	console.log("itemSet", itemSet);
-  
+  				iframeState();
 	        	if (itemSet == false){
 	        	lz.embed.setCanvasAttribute('srcurl',itemId);
 	        	itemSet = true;
+	        		
 	        	}
         }
         
+        
+        function iframeState(){
+        	var iframe = document.getElementById('__lz0');
+        	
+        	if(iframe){
+				if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
+					  iframe.onreadystatechange = function(){
+					    if (iframe.readyState == "complete"){
+					      	window.parent.setAnswerNow('complete');
+					    }
+					  };
+					} else {
+					  iframe.onload = function(){
+					    window.parent.setAnswerNow('complete');
+					  };
+					}
+			}
+        }
         function setTTSText(text){
         	//console.log(text);
         	window.parent.setTTStext(args);
@@ -124,6 +143,8 @@ img {
         	window.parent.setManipState(args);
         	
         }
+        
+       
         </script>
 
 <body>
@@ -138,7 +159,7 @@ img {
                   lz.embed.dhtml({url: 'Test.js', lfcurl: 'lps/includes/lfc/LFCdhtml.js', serverroot: 'lps/resources/', bgcolor: '#ffffff', width: '100%', height: '100%', id: 'lzapp', accessible: 'false', cancelmousewheel: false, cancelkeyboardcontrol: false, skipchromeinstall: false, usemastersprite: false, approot: '', appenddivid: 'appcontainer'});
                   lz.embed.applications.lzapp.onload = function loaded() {
                     // called when this application is done loading
-                   
+                    
                   }
                 </script>
 <noscript>Please enable JavaScript in order to use this
