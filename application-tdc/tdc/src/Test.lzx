@@ -1,0 +1,275 @@
+<canvas width="790" height="550">
+<include href="manipulatives/protractor/Protractor.lzx" />
+<include href="manipulatives/calculator/scientificCalculator.lzx"/>
+<include href="manipulatives/calculator/standardCalculator.lzx"/>
+<include href="manipulatives/ruler/BaseRuler.lzx"/>
+<include href="manipulatives/ruler/MaskingRuler.lzx"/>
+<include href="manipulatives/scratchpad/Scratchpad.lzx"/>
+<include href="manipulatives/refcard/RefCard.lzx"/>
+	
+<attribute name="srcurl" value="null"/>
+<attribute name="manipid" value="null"/>
+<attribute name="isLoaded" type="boolean" value="false"/>
+<attribute name="scratchpadtext" value="null"/>
+
+
+<handler name="onsrcurl" args="arg"><![CDATA[
+if (!isLoaded){
+var url;
+//For Previewer
+if (arg.indexOf("http") != -1){
+	url = arg;
+}else{
+	url = "http:items/"+arg+"/previewer.html";
+}
+
+
+
+this.ht.setAttribute('src', url);
+this.ht.sendToBack();
+canvas.setAttribute('isLoaded', true);
+}
+]]></handler>
+
+<handler name="onscratchpadtext" args="arg"><![CDATA[
+	console.log("on scratchpad text" + arg);
+	gScratchpad.setText(arg);	
+]]></handler>
+
+<handler name="onmanipid" args="arg">
+	<![CDATA[
+console.log("onmanipid" , arg);
+switch(arg){
+
+		case 'highlighter': this.ht.callJavascript('accomPkg.enableHighlighter', null,true);
+		break;
+		case 'eraser' :		this.ht.callJavascript('accomPkg.enableEraser', null,true);
+		break;
+		case 'protractor' : if(gProtractor.visible){
+								gProtractor.hide();
+							}else{
+								gProtractor.show();
+							}
+		break;
+		
+		case 'standard_calculator' : if(gStandardCalculator.visible){
+								gStandardCalculator.hide();
+							}else{
+								gStandardCalculator.show();
+							}
+		break;
+		
+		case 'scientific_calculator' :if(gScientificCalculator.visible){
+								gScientificCalculator.hide();
+							}else{
+								gScientificCalculator.show();
+							}
+		break;
+		
+		case 'straight_edge' :if(gStraightEdge.visible){
+								gStraightEdge.hide();
+							}else{
+								gStraightEdge.show();
+							}
+		break;
+		case 'straight_edge' :if(gStraightEdge.visible){
+										gStraightEdge.hide();
+									}else{
+										gStraightEdge.show();
+									}
+				break;
+		case 'oneeighth_inch_ruler' :if(gEighthInchRuler.visible){
+										gEighthInchRuler.hide();
+									}else{
+										gEighthInchRuler.show();
+									}
+				break;
+		case 'half_inch_ruler' :if(gHalfInchRuler.visible){
+										gHalfInchRuler.hide();
+									}else{
+										gHalfInchRuler.show();
+									}
+				break;
+		case 'mm_ruler' :if(gMmRuler.visible){
+										gMmRuler.hide();
+									}else{
+										gMmRuler.show();
+									}
+				break;
+		case 'cm_ruler' :if(gCmRuler.visible){
+										gCmRuler.hide();
+									}else{
+										gCmRuler.show();
+									}
+				break;
+				
+		case 'masking_ruler' : 	if(gMaskingRuler.visible){
+									gMaskingRuler.hide();
+								}else{
+									gMaskingRuler.show();
+								}
+		break;
+		
+		case 'scratchpad' : 	if(gScratchpad.visible){
+									gScratchpad.hide();
+								}else{
+									gScratchpad.show();
+								}
+		break;
+
+		case 'FCAT_formula_card' : if(gFcatFormulaCard.visible){
+										gFcatFormulaCard.hide();
+									}else{
+										gFcatFormulaCard.show();
+									}
+
+		break;
+
+		case 'TN_formula_card' : if(gTnFormulaCard.visible){
+										gTnFormulaCard.hide();
+									} else{
+										gTnFormulaCard.show();
+									}
+
+
+
+		break;
+
+		
+		default :
+			console.log('gscratchpad.vsisible', gScratchpad.visible);
+			gScratchpad.bringToFront();
+						
+		break;
+
+}
+
+]]>
+</handler>
+<!--  <view name="wrapper" x="5" y="150" width="800" height="560" bgcolor="green">
+<html id="ht" name="htTag"  x="5" y="5" width="790" height="550"/>
+</view>
+
+
+<button name="visibleinvi" y="10" text="toggleVisiblity">
+	<handler name="onclick">
+		ht.setAttribute('visible' , false);
+	</handler>
+</button>
+
+<button text="LISTEN_AUTO_NRS.html" y="20">
+	<handler name="onclick">
+	if($dhtml){
+	ht.setAttribute('src', this.text);
+	}else{
+	ht.setAttribute('visible' , true);
+	ht.setAttribute('src', 'http:audio/' + this.text);
+	}
+	</handler>
+</button>-->
+
+	<view name="wrapper" width="790" height="550">
+	<Protractor name="protractor" toolid="protractor" id="gProtractor" />
+
+	<standardCalculator name="standard_calculator"
+		toolid="standard_calculator" id="gStandardCalculator" />
+
+	<scientificCalculator name="scientific_calculator"
+		toolid="scientific_calculator" id="gScientificCalculator" />
+	<BaseRuler name="straight_edge" toolid="straight_edge"
+		labelrsr="straight_label" id="gStraightEdge" />
+
+
+	<BaseRuler name="oneeighth_inch_ruler" toolid="oneeighth_inch_ruler"
+		tickmarksrsr="eighth_inch_tick_marks" labelrsr="inches_label"
+		id="gEighthInchRuler" />
+
+	<BaseRuler name="half_inch_ruler" toolid="half_inch_ruler"
+		tickmarksrsr="half_inch_tick_marks" labelrsr="inches_label"
+		id="gHalfInchRuler" />
+
+	<BaseRuler name="mm_ruler" toolid="mm_ruler"
+		tickmarksrsr="millimeter_tick_marks" labelrsr="centimeters_label"
+		id="gMmRuler" />
+
+	<BaseRuler name="cm_ruler" toolid="cm_ruler"
+		tickmarksrsr="centimeter_tick_marks" labelrsr="centimeters_label"
+		id="gCmRuler" />
+
+	<MaskingRuler name="masking_ruler" toolid="masking_ruler"
+		labelrsr="masking_label" id="gMaskingRuler" />
+
+	<Scratchpad name="scratchpad" toolid="scratchpad" id="gScratchpad" />
+	
+	<RefCard name="FCAT_formula_card" 
+                 toolid="FCAT_formula_card"
+                 refCardRsrc="FCAT_refcard_contents"
+                 titleRsrc="FCAT_refcard_title"
+                 scrolls="true"
+                 id="gFcatFormulaCard"/>
+    <RefCard name="TN_formula_card" 
+                 toolid="TN_formula_card"
+                 refCardRsrc="TN_refcard_contents"
+                 titleRsrc="TN_refcard_title"
+                 scrolls="false"
+                 id="gTnFormulaCard"/>
+             </view>
+
+
+	<html id="ht" name="ht"  width="790" height="590" scrollbars="false">
+ 	<handler name="onload">
+ 	this.sendToBack();
+ 	</handler>
+ 	 <handler name="oninit">
+ 	this.sendToBack();
+ 	</handler>
+ </html>
+ 
+<handler name="oninit">
+	this.setAttribute("bgcolor", null);
+	var s = "getSPTextInitial()";
+	lz.Browser.loadJS(s);
+</handler>
+
+
+<!--<handler name="onclick">
+var coord = this.getMouse ('x') + "|"+ this.getMouse ('y')  +"|click";
+var s = "passCoordinates('"+coord+"')";
+lz.Browser.loadJS(s);	
+</handler>
+
+
+
+<handler name="onmousedown">
+var coord = this.getMouse ('x') + "|"+ this.getMouse ('y')  +"|mousedown";
+var s = "passCoordinates('"+coord+"')";
+lz.Browser.loadJS(s);
+moustracker_del.register(lz.Idle,'onidle');
+
+</handler>
+
+<handler name="onmouseup">
+<![CDATA[
+var coord = this.getMouse ('x') + "|"+ this.getMouse ('y')  +"|mouseup";
+var s = "passCoordinates('"+coord+"')";
+lz.Browser.loadJS(s);
+moustracker_del.unregisterAll();
+
+
+]]>
+</handler>
+
+<method name="trackmouse" args="v">
+
+var coord = this.getMouse ('x') + "|"+ this.getMouse ('y')  +"|mousemove";
+var s = "passCoordinates('"+coord+"')";
+lz.Browser.loadJS(s);
+</method>
+
+
+	<view width="200" height="200" bgcolor="red">
+		<dragstate name="dragger"/>
+		<handler name="onmousedown">dragger.apply();</handler>
+		<handler name="onmouseup">dragger.remove();</handler>
+	</view>-->
+</canvas>
