@@ -94,16 +94,18 @@ public class JettyProcessWrapper extends Thread {
 		this.startCmd[4] = "-Xmx256m";
 		if(baseurl == null) baseurl = "";
 		this.startCmd[5] = "-Dtdc.baseurl=" + baseurl;
-		this.startCmd[6] = "-Djetty.port=" + startPort;
-		this.startCmd[7] = "-DSTOP.PORT=" + stopPort;
-		this.startCmd[8] = "-Djetty.home=" + jettyHome;
-		this.startCmd[9] = "-Dorg.mortbay.log.LogFactory.noDiscovery=false";
-		this.startCmd[10] = "-Djetty.class.path=" + jettyHome + "/etc";
-		this.startCmd[11] = "-cp";
-		this.startCmd[12] = jettyHome + "/lib/org.mortbay.jetty.jar";
-		this.startCmd[13] = "-jar";
-		this.startCmd[14] = jettyHome + "/start.jar";
-		this.startCmd[15] = jettyConfig;
+		this.startCmd[6] = "-Dtdc.productType=" + System.getProperty("product.type");
+		this.startCmd[7] = "-Djetty.port=" + startPort;
+		this.startCmd[8] = "-DSTOP.PORT=" + stopPort;
+		this.startCmd[9] = "-Djetty.home=" + jettyHome;
+		this.startCmd[10] = "-Dorg.mortbay.log.LogFactory.noDiscovery=false";
+		this.startCmd[11] = "-Djetty.class.path=" + jettyHome + "/etc";
+		this.startCmd[12] = "-cp";
+		this.startCmd[13] = jettyHome + "/lib/org.mortbay.jetty.jar";
+		this.startCmd[14] = "-jar";
+		this.startCmd[15] = jettyHome + "/start.jar";
+		this.startCmd[16] = jettyConfig;
+	
 	
 		this.stopCmd = new String[11];
 		this.stopCmd[0] = "java";
