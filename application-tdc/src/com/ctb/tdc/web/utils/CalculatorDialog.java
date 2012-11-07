@@ -50,6 +50,8 @@ public class CalculatorDialog extends JDialog {
             }
         });
         this.calculatorRunning = true;
+        this.setFocusable(false);
+        this.setFocusableWindowState(false);
         removeCloseButton(this);
     }
 	
