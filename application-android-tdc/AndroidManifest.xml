@@ -3,7 +3,9 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="8" />
+     <uses-sdk
+        android:minSdkVersion="5"
+        android:targetSdkVersion="15" />
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -21,15 +23,24 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.INTERNET" />
-<supports-screens android:xlargeScreens="true"/>
+<supports-screens     
+      android:largeScreens="true"    
+      android:normalScreens="true"    
+      android:smallScreens="true"  
+      android:xlargeScreens="true"  
+      android:resizeable="true"    
+      android:anyDensity="true"
+     
+      /> 
+
     <application
         android:icon="@drawable/ic_launcher"
         android:label="Android Test"
-        android:theme="@style/AppTheme" 
-        android:debuggable="true" 
-        >
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen" > 
+      
+    
         <activity
-            android:name=".MainActivity"
+            android:name=".OasAndroidApp"
             android:label="@string/title_activity_main"            
             android:screenOrientation="sensorLandscape"
             android:configChanges="orientation">
