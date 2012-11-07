@@ -61,18 +61,28 @@
 		
 		var completionCount = 0;
 		var scoArray = dpscore.xpathQuery('title/sco');
-		for(var i=0; i<scoArray.length; i++){
-			var sco = scoArray[i]; 
-			var title = sco.getAttr('title');
+		if(scoArray && scoArray instanceof Array) {
+			for(var i=0; i<scoArray.length; i++){
+				var sco = scoArray[i]; 
+				var title = sco.getAttr('title');
+				var titleArray = title.split("::");
+				var completionStatus = titleArray[6];
+				if(completionStatus == 'CO') {
+					completionCount++;
+				}
+			}
+		}		
+		else if(scoArray && scoArray instanceof LzDataElement) { //added for practice tests
+			var title = scoArray.getAttr('title');
 			var titleArray = title.split("::");
 			var completionStatus = titleArray[6];
 			if(completionStatus == 'CO') {
 				completionCount++;
-			}
+			}		
 		}
-		
+
 		this.setAttribute('statusCount',completionCount);		
-		this.setAttribute('subtestCount',scoIndex)
+		this.setAttribute('subtestCount',scoIndex);
 		this.setAttribute('totalRecords',scoIndex);
 		if(this.getAttribute('subtestCount') == this.getAttribute('statusCount')) {
 			addScoValues();
@@ -85,10 +95,38 @@
 		var isRetest = 'false';
 		var totalViewedCount = 0;
 		var scoArr = dpscore.xpathQuery('title/sco');
-		for(var i=0; i<scoArr.length; i++){
-			var sco = scoArr[i];  
-			var scoid = sco.getAttr('id');
-			var title = sco.getAttr('title');
+		if(scoArr && scoArr instanceof Array) {
+			for(var i=0; i<scoArr.length; i++){
+				var sco = scoArr[i];  
+				var scoid = sco.getAttr('id');
+				var title = sco.getAttr('title');
+				var titleArr = title.split("::");			
+				var testName = titleArr[1];
+				var form = titleArr[3];
+				if(testName.indexOf('Biology I')>0 || testName.indexOf('U.S. History')>0) {		
+					if(form == 'Retest') {
+						isRetest = 'true';
+					}
+				}
+				var lmsXpath = "lms/sco[@scid='" + scoid + "']";
+				var unscoredXpath = lmsXpath +  "/lsv/ext.core/@number_of_unscored_items";
+				var coreXpath = lmsXpath + "/lsv/cmi.core";
+				var coreNode = dpscore.xpathQuery(coreXpath);
+				var raw = coreNode.getAttr('score.raw');
+				totalRaw = Number(totalRaw) + Number(raw);
+				var maxScore = coreNode.getAttr('score.max');		
+				var unscoredXPath = lmsXpath + "/lsv/ext.core";
+				var unscoredNode = dpscore.xpathQuery(unscoredXPath);
+				var unscoredCount = unscoredNode.getAttr('number_of_unscored_items');
+				var viewedCount = Number(maxScore) - Number(unscoredCount);
+				totalViewedCount = Number(totalViewedCount) + Number(viewedCount);
+				info.testName.setAttribute('text',testName);
+				info.raw.setAttribute('text',totalRaw);
+			}
+		}
+		else if(scoArr && scoArr instanceof LzDataElement) { //added for practice tests
+			var scoid = scoArr.getAttr('id');
+			var title = scoArr.getAttr('title');
 			var titleArr = title.split("::");			
 			var testName = titleArr[1];
 			var form = titleArr[3];
@@ -112,22 +150,22 @@
 			info.testName.setAttribute('text',testName);
 			info.raw.setAttribute('text',totalRaw);
 		}
-			this.setAttribute('totalVisitedCount',totalViewedCount);		
-			var testTitle = dpscore.xpathQuery('title/@name');
-			if(testTitle.indexOf('Geometry')>0 || testTitle.indexOf('Algebra I')>0 || testTitle.indexOf('Algebra II')>0 || isRetest=='true') {
-				var perfLevel = getPLScore(totalRaw,form,testTitle);
-				if(perfLevel == null || perfLevel == "") {//for avoiding undefined perf level for practice tests
-					info.perfLevelLabel.setAttribute('visible',false);
-					info.perfLevel.setAttribute('visible',false);
-				}
-				else {
-					info.perfLevel.setAttribute('text',perfLevel);
-				}
-			} 
-			else {
+		this.setAttribute('totalVisitedCount',totalViewedCount);		
+		var testTitle = dpscore.xpathQuery('title/@name');
+		if(testTitle.indexOf('Geometry')>0 || testTitle.indexOf('Algebra I')>0 || testTitle.indexOf('Algebra II')>0 || isRetest=='true') {
+			var perfLevel = getPLScore(totalRaw,form,testTitle);
+			if(perfLevel == null || perfLevel == "") {//for avoiding undefined perf level for practice tests
 				info.perfLevelLabel.setAttribute('visible',false);
 				info.perfLevel.setAttribute('visible',false);
 			}
+			else {
+				info.perfLevel.setAttribute('text',perfLevel);
+			}
+		} 
+		else {
+			info.perfLevelLabel.setAttribute('visible',false);
+			info.perfLevel.setAttribute('visible',false);
+		}
 		
 	]]></method>
 
