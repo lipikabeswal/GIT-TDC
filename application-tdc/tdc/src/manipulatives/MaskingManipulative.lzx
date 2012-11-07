@@ -8,14 +8,10 @@
 		   
        
         <attribute name="toolid" type="string"/>
-        <attribute name="toolstate" value="$once{new lz.datapointer ()}"/>
            
         <handler name="oninit">
         
-            this.toolstate.setAttribute ('rerunxpath', true);
-            this.toolstate.setXPath (this.datapath.xpath + '/@' + this.toolid);
-
-            this.datapath.setXPath (this.datapath.xpath +"/"+ this.toolid);
+           this.datapath.setXPath (this.datapath.xpath +"/"+ this.toolid);
         </handler>
 
 

@@ -32,13 +32,13 @@ canvas.setAttribute('isLoaded', true);
 ]]></handler>
 
 <handler name="onscratchpadtext" args="arg"><![CDATA[
-	console.log("on scratchpad text" + arg);
+	//console.log("on scratchpad text" + arg);
 	gScratchpad.setText(arg);	
 ]]></handler>
 
 <handler name="onmanipid" args="arg">
 	<![CDATA[
-console.log("onmanipid" , arg);
+//console.log("onmanipid" , arg);
 switch(arg){
 
 		case 'highlighter': this.ht.callJavascript('accomPkg.enableHighlighter', null,true);
@@ -137,7 +137,7 @@ switch(arg){
 
 		
 		default :
-			console.log('gscratchpad.vsisible', gScratchpad.visible);
+			//console.log('gscratchpad.vsisible', gScratchpad.visible);
 			gScratchpad.bringToFront();
 						
 		break;
@@ -216,7 +216,7 @@ switch(arg){
              </view>
 
 
-	<html id="ht" name="ht"  width="790" height="590" scrollbars="false">
+	<html id="ht" name="ht"  width="790" height="590" scrollbars="false" >
  	<handler name="onload">
  	this.sendToBack();
  	</handler>

@@ -40,7 +40,7 @@
                    drag_max_y="$once{parent.height - 100}"/>
 
         <handler name="ondata" args="data"><![CDATA[
-        	console.log("Reference card ondata");
+        	//console.log("Reference card ondata");
         	var scrollerWidth = refCardContents.scroller.width;
         	if(!this.scrolls){
         		this.setAttribute('innerHeight', refCardContents.contents.resourceheight);
