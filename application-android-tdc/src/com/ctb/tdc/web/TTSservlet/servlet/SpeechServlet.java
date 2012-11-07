@@ -38,7 +38,14 @@ public class SpeechServlet {
 		ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
 		try {
 			long l = System.currentTimeMillis();
-		
+			 File ttsFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),File.separator +"TTS"+File.separator);
+		        if(!ttsFile.exists()) { 
+		        	System.err.println("It seems like parent directory does not exist...");  
+		        	if(!ttsFile.mkdirs())     {         
+		        		System.err.println("And we cannot create it..."); 
+		        		// we have to return, throw or something else  
+		        		} 
+		        	} 
 			MP3 mp3 = null;
 			String s = TTSUtil.checkCache((new StringBuilder())
 					.append(speedValue).append(text).toString());
@@ -59,7 +66,7 @@ public class SpeechServlet {
 			this.MP3Play(s);
 			Environment.getExternalStorageState();
 			//File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator + "Android" + File.separator + s);
-			File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator + s);
+			File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator +"TTS"+File.separator+ s);
 			//File file = new File("/mnt/sdcard"+ File.separator + "Android" + File.separator + s);
 			mp3.setLength(file.length());
 			mp3.setStream(new FileInputStream(file));
@@ -84,7 +91,7 @@ public class SpeechServlet {
 			}
 			Environment.getExternalStorageState();
 			//File file1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Android/"+ s);
-			File file1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+ s);
+			File file1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator +"TTS"+File.separator+ s);
 			///File file1 = new File("/mnt/sdcard"+ File.separator + "Android" + File.separator + s);
 			
 			file1.delete();
@@ -104,7 +111,7 @@ public class SpeechServlet {
 			File baseDir = Environment.getExternalStorageDirectory();
 			//File baseDir=new File("/mnt/sdcard");
 		//	String audioPath = baseDir.getAbsolutePath() +"/Android/" + mp3File;
-			String audioPath = baseDir.getAbsolutePath() +"/" + mp3File;
+			String audioPath = baseDir.getAbsolutePath() + File.separator +"TTS"+File.separator+ mp3File;
 			FileInputStream fis = new FileInputStream(audioPath);
 			fd = fis.getFD();
 			if (fd != null) {

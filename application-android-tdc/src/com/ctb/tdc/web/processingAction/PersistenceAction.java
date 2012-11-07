@@ -45,8 +45,6 @@ import com.ctb.tdc.web.utils.ServletUtils;
  */
 public class PersistenceAction {
 
-	
-
 	/**
 	 * Constructor of the object.
 	 */
@@ -62,10 +60,11 @@ public class PersistenceAction {
 	@SuppressWarnings("unused")
 	public String handleEvent(String method, String xml) throws IOException {
 		String result = ServletUtils.OK;
- 		boolean validSettings = ServletUtils.validateServletSettings();
+		
+		boolean validSettings = ServletUtils.validateServletSettings();
 		Double abilityScore = 0.0;
 		Double sem = 0.0;
-		String xmlRes = null;
+	String xmlRes = null;
 		String objScore = "0,0,0,0,0,0";
 
 		// call method to perform an action only if servlet settings is valid
@@ -155,7 +154,7 @@ public class PersistenceAction {
 
 							} catch (Exception e) {
 								System.out.println("CAT Over!");
-								Log.e("CAT Over!","CAT Over!");
+								Log.e("CAT Over!", "CAT Over!");
 								// ServletUtils.writeResponse(response,
 								// ServletUtils.buildXmlErrorMessage("CAT OVER",
 								// "Ability: " +
@@ -230,7 +229,7 @@ public class PersistenceAction {
 			}
 		} catch (Exception e) {
 			System.out.println("CAT Over!");
-			Log.e("CAT Over!","CAT Over!");
+			Log.e("CAT Over!", "CAT Over!");
 			ServletUtils.writeResponse(ServletUtils.buildXmlErrorMessage(
 					"CAT OVER", "Ability: " + CATEngineProxy.getAbilityScore()
 							+ ", SEM: " + CATEngineProxy.getSEM(), "000"));
@@ -271,7 +270,7 @@ public class PersistenceAction {
 		String result = ServletUtils.ERROR;
 
 		try {
-
+			deleteFiles();
 			result = ServletUtils.httpClientSendRequest(
 					ServletUtils.LOGIN_METHOD, xml);
 
@@ -285,30 +284,19 @@ public class PersistenceAction {
 				// if file exist handle restart
 				String fileName = ServletUtils.buildFileName(xml);
 				if (AuditFile.exists(fileName)) {
-					// handle restart here in phase 2
+
 				}
-				// logger.info("Login successfully.");
+
 				processLoginResponse(result);
 			} else {
-				// logger.error("TMS returns error in login() : " + result);
+
 			}
-
-			/*File speexFile = new File( Environment.getExternalStorageDirectory()  
-					+ "//streams//");
-
-			File[] files = speexFile.listFiles();
-			System.out.println("files length" + files.length);
-			if (files.length > 0) {
-				for (int i = 0; i < files.length; i++) {
-					files[i].delete();
-				}
-			}*/
 
 		}
 
 		catch (Exception e) {
-			Log.e("Exception occured in login() : "
-					, ServletUtils.printStackTrace(e));
+			Log.e("Exception occured in login() : ",
+					ServletUtils.printStackTrace(e));
 			result = ServletUtils.buildXmlErrorMessage("", e.getMessage(), "");
 		}
 		return result;
@@ -331,8 +319,8 @@ public class PersistenceAction {
 			result = ServletUtils.httpClientSendRequest(
 					ServletUtils.FEEDBACK_METHOD, xml);
 		} catch (Exception e) {
-			Log.e("Exception occured in feedback() : "
-					, ServletUtils.printStackTrace(e));
+			Log.e("Exception occured in feedback() : ",
+					ServletUtils.printStackTrace(e));
 			result = ServletUtils.buildXmlErrorMessage("", e.getMessage(), "");
 		}
 		return result;
@@ -424,8 +412,8 @@ public class PersistenceAction {
 			result = save(xml);
 
 		} catch (Exception e) {
-			Log.e("mseq " + mseq + ": Exception occured in save() : "
-					,e.getMessage());
+			Log.e("mseq " + mseq + ": Exception occured in save() : ",
+					e.getMessage());
 			e.printStackTrace();
 			errorMessage = ServletUtils
 					.getErrorMessage("tdc.servlet.error.noAck");
@@ -436,8 +424,9 @@ public class PersistenceAction {
 			if (result == ServletUtils.OK) {
 				if (base64String != null) {
 
-					File speexFile = new File(Environment.getExternalStorageDirectory() + ("/")
-							+ "//streams//" + fileName + ".spx");
+					File speexFile = new File(
+							Environment.getExternalStorageDirectory() + ("/")
+									+ "//streams//" + fileName + ".spx");
 
 					if (speexFile.exists()) {
 						speexFile.delete();
@@ -451,8 +440,8 @@ public class PersistenceAction {
 	private static String save(String xml) throws Exception {
 		String result = null;
 		MemoryCache memoryCache = MemoryCache.getInstance();
-		String lsid = ServletUtils.parseLsid(xml);
-		String mseq = ServletUtils.parseMseq(xml);
+		//String lsid = ServletUtils.parseLsid(xml);
+		///String mseq = ServletUtils.parseMseq(xml);
 		boolean isEndSubtest = ServletUtils.isEndSubtest(xml);
 		// send request to TMS
 		if (memoryCache.getSrvSettings().isTmsPersist()) {
@@ -513,8 +502,8 @@ public class PersistenceAction {
 					ServletUtils.WRITE_TO_AUDIT_FILE_METHOD, xml);
 			result = ServletUtils.OK; // nothing return from TMS
 		} catch (Exception e) {
-			Log.e("Exception occured in writeToAuditFile() : "
-					, ServletUtils.printStackTrace(e));
+			Log.e("Exception occured in writeToAuditFile() : ",
+					ServletUtils.printStackTrace(e));
 			errorMessage = ServletUtils
 					.getErrorMessage("tdc.servlet.error.writeToAuditFileFailed");
 			result = ServletUtils.buildXmlErrorMessage("", errorMessage, "");
@@ -602,12 +591,12 @@ public class PersistenceAction {
 							}
 						} else {
 
-						result = ServletUtils.buildXmlErrorMessage("",
+							result = ServletUtils.buildXmlErrorMessage("",
 									HttpStatus.getStatusText(responseCode), "");
 						}
 					} catch (Exception e) {
-						Log.e("Exception occured in uploadAuditFile() : "
-								, ServletUtils.printStackTrace(e));
+						Log.e("Exception occured in uploadAuditFile() : ",
+								ServletUtils.printStackTrace(e));
 						errorMessage = ServletUtils
 								.getErrorMessage("tdc.servlet.error.uploadFailed");
 						result = ServletUtils.buildXmlErrorMessage("",
@@ -669,13 +658,57 @@ public class PersistenceAction {
 			base64EncodedString = Base64.encode(bytes);
 
 		} catch (Exception e) {
-			Log.e("Base64String Not Generated","Base64String Not Generated");
+			Log.e("Base64String Not Generated", "Base64String Not Generated");
 			e.printStackTrace();
 		}
 		return base64EncodedString;
 
 	}
+	public static void deleteFiles() {
+        
+	    File fileContent = new File(Environment.getExternalStorageDirectory()+"/content/data/");
 
+	    if (fileContent.exists()) {
+	        String deleteCmd = "rm -r " + fileContent;
+	        Runtime runtime = Runtime.getRuntime();
+	        try {
+	            runtime.exec(deleteCmd);
+	        } catch (IOException e) { }
+	    }
+	    File dataObject = new File(Environment.getExternalStorageDirectory()+"/data/objectbank/");
+
+	    if (dataObject.exists()) {
+	        String deleteCmd = "rm -r " + dataObject;
+	        Runtime runtime = Runtime.getRuntime();
+	        try {
+	            runtime.exec(deleteCmd);
+	        } catch (IOException e) {
+	        	
+	        }
+	    }
+	    File ttsFiles = new File(Environment.getExternalStorageDirectory()+"/TTS/");
+
+	    if (ttsFiles.exists()) {
+	        String deleteCmd = "rm -r " + ttsFiles;
+	        Runtime runtime = Runtime.getRuntime();
+	        try {
+	            runtime.exec(deleteCmd);
+	        } catch (IOException e) {
+	        	
+	        }
+	    }
+	    File data = new File(Environment.getExternalStorageDirectory()+"/data/");
+
+	    if (data.exists()) {
+	        String deleteCmd = "rm -r " + data;
+	        Runtime runtime = Runtime.getRuntime();
+	        try {
+	            runtime.exec(deleteCmd);
+	        } catch (IOException e) {
+	        	
+	        }
+	    }
+	}
 	/**
 	 * 
 	 * Method created to populate the content Download URI from login response

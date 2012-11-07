@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,9 +23,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.bouncycastle.crypto.digests.MD5Digest;
-import org.bouncycastle.crypto.engines.RC4Engine;
-import org.bouncycastle.crypto.params.KeyParameter;
 import org.bouncycastle.util.encoders.Base64;
 import org.jdom.Attribute;
 import org.jdom.Content;
@@ -40,9 +35,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import test.TestXmlSample;
-
-import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Environment;
 import android.util.Log;
@@ -62,7 +55,7 @@ import com.ctb.tdc.web.utils.ServletUtils;
 /**
  * @author John_Wang
  */
-public class ContentAction {
+public class ContentAction  {
 
 	private static final Map<Object, Object> itemHashMap = new HashMap<Object, Object>();
 	private static final Map<Object, Object> itemKeyMap = new HashMap<Object, Object>();
@@ -76,7 +69,9 @@ public class ContentAction {
 	private static Map<Object, Object> trackerStatus = new HashMap<Object, Object>();
 	private Boolean ContentDownloaded = false;
 	MediaPlayer mediaPlayer = new MediaPlayer();
-	public static final String TE_ITEM_FOLDER_PATH = Environment
+	
+
+	public  static String TE_ITEM_FOLDER_PATH = Environment
 			.getExternalStorageDirectory()
 			+ File.separator
 			+ "webapp"
@@ -136,31 +131,15 @@ public class ContentAction {
 				String folderName = ContentFile.getContentFolderPath();
 				String filePath = ContentFile.getContentFolderPath()
 						+ subtestId + ContentFile.SUBTEST_FILE_EXTENSION;
-				// added By ranjit
+				
 				// String filePath="ctb/data/objectbank/";
-				File sdRoot = Environment.getExternalStorageDirectory();
+			
 
-				/*
-				 * URL u = new URL(filePath); HttpURLConnection con =
-				 * (HttpURLConnection) u.openConnection();
-				 * con.setRequestMethod("GET"); con.setDoOutput(true);
-				 * con.connect();
-				 */
-				// FileOutputStream fileOutputStream = new FileOutputStream(new
-				// File(Context.MODE_PRIVATE+filePath));
-				// FileOutputStream fileOutputStream = new FileOutputStream(new
-				// File(filePath));
-				// fos.write(string.getBytes());
-
-				// FileOutputStream fileOutputStream = new FileOutputStream(new
-				// File(sdRoot+"/"+ filePath));
-				// fos.write(string.getBytes());
-				// END NEW ADDITION BY RANJIT
 
 				boolean validHash = false;
 				getSubtestCount++;
 
-				SubtestKeyVO theSubtestKeyVO = null;
+			
 				MemoryCache aMemoryCache = MemoryCache.getInstance();
 				HashMap subtestInfoMap = aMemoryCache.getSubtestInfoMap();
 				String itemSetId = (String) ServletUtils.itemSetMap
@@ -219,13 +198,6 @@ public class ContentAction {
 					String dataString = getElementValue(node.item(0));
 					byte contentData[] = dataString.getBytes();
 
-					/*
-					 * BufferedInputStream aFileInputStream = new
-					 * BufferedInputStream(); int size =
-					 * aFileInputStream.available(); byte[] buffer = new byte[
-					 * size ]; aFileInputStream.read( buffer );
-					 * aFileInputStream.close();
-					 */
 
 					Log.e("downloadSubtest", "***** downloadSubtest******* ");
 					Log.e("subtestID: XML ", "subtestID: XML " + subtestId
@@ -379,8 +351,8 @@ public class ContentAction {
 
 	public String downloadItem(String xmlData) throws IOException {
 
-		xmlData = TestXmlSample.getDownloadItem();
-		String xml = ServletUtils.getXml(xmlData);
+		//xmlData = TestXmlSample.getDownloadItem();
+		
 		String itemId = null;
 		String hash;
 		String key;
@@ -390,41 +362,7 @@ public class ContentAction {
 			itemId = ServletUtils.getItemId(xmlData);
 			hash = ServletUtils.getHash(xmlData);
 			key = ServletUtils.getKey(xmlData);
-			// xml = ServletUtils.buildContentRequest(xmlData,
-			// ServletUtils.DOWNLOAD_ITEM_METHOD);
-
-			// } else {
-			// AdssvcRequestDocument document =
-			// AdssvcRequestDocument.Factory.parse(xml);
-			/*
-			 * itemId = document.getAdssvcRequest().getDownloadItem()
-			 * .getItemid(); hash =
-			 * document.getAdssvcRequest().getDownloadItem().getHash(); key =
-			 * document.getAdssvcRequest().getDownloadItem().getKey();
-			 */
-			// }
-
-			// MainActivity mainAc=new MainActivity();
-
-			// byte[] buffer = mainAc.getData("38682602.ecp");
-			// byte[] byteData=ContentFile.decryptFileTest(buffer, hash, key);
-
-			// File f = new File("file:///android_asset/38682602.ecp");
-			/*
-			 * File sdcard = Environment.getExternalStorageDirectory(); File
-			 * file = new File(sdcard,"38682602.ecp");
-			 * 
-			 * 
-			 * BufferedInputStream aFileInputStream = new
-			 * BufferedInputStream(new FileInputStream( file )); int size =
-			 * aFileInputStream.available(); byte[] buffer = new byte[ size ];
-			 * aFileInputStream.read( buffer ); aFileInputStream.close();
-			 */
-
-			// String filePath1="file:///android_asset/38682602.ecp";
-
-			// byte[] decryptedContent = ContentFile.decryptFileTest(buffer,
-			// hash, key);
+			
 
 			if (itemId != null && !"".equals(itemId.trim())) {
 				String filePath = ContentFile.getContentFolderPath() + itemId
@@ -443,7 +381,7 @@ public class ContentAction {
 					int i = 1;
 
 					result = ServletUtils.httpClientSendRequest(
-							ServletUtils.DOWNLOAD_ITEM_METHOD, xml);
+							ServletUtils.DOWNLOAD_ITEM_METHOD, xmlData);
 					errorIndex = result.indexOf("<ERROR>");
 
 					if (errorIndex >= 0) {
@@ -975,7 +913,7 @@ public class ContentAction {
 			String musicId = xmlData;
 			FileDescriptor fd = null;
 
-			String audioPath = RESOURCE_FOLDER_PATH + musicId + ".mp3";
+			String audioPath = RESOURCE_FOLDER_PATH +"music_"+ musicId + ".mp3";
 			FileInputStream fis = new FileInputStream(audioPath);
 			fd = fis.getFD();
 			if (fd != null) {
@@ -1010,9 +948,11 @@ public class ContentAction {
 		}
 	}
 
-	public void setVolume() {
+	public void setVolume(String reqData) {
 		try {
-			float count = 100 * .01f;
+			mediaPlayer.reset();
+			mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+			float count = Integer.parseInt(reqData);
 			mediaPlayer.setVolume(count, count);
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -1035,7 +975,7 @@ public class ContentAction {
 
 			}
 		}
-		File f1 = new File(psFile, musicId + ".mp3");
+		File f1 = new File(psFile, "music_"+ musicId + ".mp3");
 		// File f1 = new File(filePath);
 
 		if (!f1.exists()) {
