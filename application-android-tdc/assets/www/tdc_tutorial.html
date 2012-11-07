@@ -5,12 +5,25 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
    <meta http-equiv="X-UA-Compatible" content="chrome=1">
    <link rel="SHORTCUT ICON" href="http://www.laszlosystems.com/favicon.ico">
-   <meta name="viewport" content="width=device-width; initial-scale=1.0;">
+  <meta name="viewport" content="width=device-width;initial-scale=1.0;">
    <script type="text/javascript" src="lps/includes/embed-compressed.js"></script>
    <!--[if lt IE 9]><script type="text/javascript" src="lps/includes/excanvas.js"></script><![endif]-->
+     <link rel="stylesheet" href="lps/style_mozilla.css" type="text/css" /> 
+	<script type="text/javascript"src="lps/jquery.min.js"></script>
+	<script type="text/javascript" src="lps/jquery.magnifier.js"></script>
+	<script type="text/javascript" src="lps/jquery.touch.js"></script>
+ <script type="text/javascript" charset="utf-8" src="cordova-2.0.0.js"></script>
 <SCRIPT SRC="includes/embed.js" type="text/javascript">
+
 </SCRIPT>
-  
+  <script type="text/javascript">
+  document.addEventListener( "touchstart", function(e){ onStart(e); }, false );		
+  	function onStart ( touchEvent ) {
+  				  if( navigator.userAgent.match(/Android/i) ) {	
+  				  		    touchEvent.preventDefault();	
+  				  		    		  }		
+  				  		    		  	}
+  </script>
 <style title="mystyle" type="text/css" rel="stylesheet">
             html, body
             {
@@ -27,12 +40,14 @@
             img { border: 0 none; }
         </style>
         <script type="text/javascript" charset="utf-8" src="samplePlugin.js"></script>
-   <script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"></script>
+  
 <SCRIPT LANGUAGE="JavaScript">
+function checkStop(a,b,c){
 
+}
 function showFootnote(header)
 {
-	alert(header);
+	
 	lzSetCanvasAttribute("footnotedata", header);
 	//lz.setCanvasAttribute("footnotedata", header);
 }
@@ -61,15 +76,13 @@ function updateLDB(){
 }
 
 function sendRequest(method,xml,action){
-	alert("button clicked"+method+xml+action);
+	
 	var jsonObj = {param1 : method, param2 : xml, param3 :action};
-	 
+	    
        		SamplePlugin.prototype.LOGIN
 	        (
 	            function(result)
 	            {
-	            	alert(result.time);
-	            	console.log("result callback" + result.time);
 	            	
 	                setResponse(result);
 	            },
@@ -90,8 +103,32 @@ function checkQues(arg1,arg2,arg3){
 }
 
 function setResponse(result) {
-alert(result);
-	lz.embed.setCanvasAttribute("response",result);
+  
+	lz.embed.setCanvasAttribute("response",result.OK);
+}
+
+function buttonClicked(obj){
+	document.getElementById('mybutton').click();
+	 /*var intId = setInterval(abc,50);
+	 
+	 function abc(){
+	var ids = [];
+    $("#appcontainer").find("div").each(function(){
+    	if(this.id == "loginScreenId"){
+        	ids.push(this);
+        }
+    });
+
+    var x = ids[ids.length-1];
+	x.parentNode.removeChild(x);
+    clearInterval(intId);  
+}*/
+}
+
+function closeMagnifier(){
+  var olddiv = document.getElementById('mglass');
+  if (olddiv && olddiv.parentNode && olddiv.parentNode.removeChild)
+	olddiv.parentNode.removeChild(olddiv);
 }
 
 
@@ -99,8 +136,10 @@ alert(result);
 </HEAD>
 
 <BODY topmargin=0 leftmargin=0 rightmargin=0 bottommargin=0 scroll=no bgcolor="#6691B4">
-	
-<div id="appcontainer"></div><div id="lzsplash" style="z-index: 10000000; top: 0; left: 0; width: 100%; height: 100%; position: fixed; display: table"><p style="display: table-cell; vertical-align: middle;"></p></div><script type="text/javascript" defer>
+	<button id="mybutton" style="visibility:hidden; width:0px; height:0px;">clickMe </button>
+<div id="lzsplash" style="z-index: 10000000; top: 0; left: 0; width: 100%; height: 100%; position: fixed; display: table"><p style="display: table-cell; vertical-align: middle;"></p></div>
+		<div id="appcontainer">
+			<script type="text/javascript" defer>
                   // lz.embed.resizeWindow('100%', '100%');
                   lz.embed.dhtml({url: 'TestClient.lzx.js?folder=calif&servletUrl=http://127.0.0.1:12345/servlet/fixed', lfcurl: 'lps/includes/lfc/LFCdhtml.js', serverroot: 'lps/resources/', bgcolor: '#6691b4', width: '100%', height: '100%', id: 'lzapp', accessible: 'true', cancelmousewheel: false, cancelkeyboardcontrol: false, skipchromeinstall: false, usemastersprite: false, approot: '', appenddivid: 'appcontainer'});
                   lz.embed.applications.lzapp.onload = function loaded() {
@@ -113,6 +152,7 @@ alert(result);
                 </script><noscript>
                 Please enable JavaScript in order to use this application.
             </noscript>
+        </div>
 	<OBJECT ID="LDBJSBridgeCTL" CLASSID="CLSID:56871AC2-4683-4D8E-B5EB-E7E3AA40DD52" VIEWASTEXT WIDTH=0 HEIGHT = 0></OBJECT>
 </BODY>
 </HTML>
