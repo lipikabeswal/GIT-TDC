@@ -9,8 +9,8 @@
 	href="http://www.laszlosystems.com/favicon.ico">
 <meta name="viewport" content="width=device-width; initial-scale=1.0;">
 <title>OpenLaszlo 4.9.0: Test (lps-4.9.0/manip/Test)</title>
-<script type="text/javascript" src="lps/includes/embed-compressed.js"></script>
-<!--[if lt IE 9]><script type="text/javascript" src="lps/includes/excanvas.js"></script><![endif]-->
+<script type="text/javascript" src="lps-dhtml/lps/includes/embed-compressed.js"></script>
+<!--[if lt IE 9]><script type="text/javascript" src="lps-dhtml/lps/includes/excanvas.js"></script><![endif]-->
 <style type="text/css">
 html,body { /* http://www.quirksmode.org/css/100percheight.html */
 	height: 100%;
@@ -64,24 +64,29 @@ img {
         }
         
         function getState(){
-        if(document.getElementById('__lz0').contentWindow){
+         var elem = document.getElementById('__lz0');
+        if(elem){
+        		if(elem.contentWindow.accomPkg)
         		return document.getElementById('__lz0').contentWindow.accomPkg.getState();
         	}        
         }
         
         function setState(htmlContent,jsonContent,checkedVals){
-           if(document.getElementById('__lz0').contentWindow){
-           		
-           		if(document.getElementById('__lz0').contentWindow.accomPkg && ansSet == false){
-        		console.log("ansSet", ansSet,document.getElementById('__lz0').contentWindow.accomPkg.isContentLoaded());
-        			document.getElementById('__lz0').contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
-        			ansSet = true;
-        		}
+        	var elem = document.getElementById('__lz0');
+        	if(elem){	
+	           if(elem.contentWindow){
+	           		
+	           		if(document.getElementById('__lz0').contentWindow.accomPkg && ansSet == false){
+	        		//console.log("ansSet", ansSet,document.getElementById('__lz0').contentWindow.accomPkg.isContentLoaded());
+	        			document.getElementById('__lz0').contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
+	        			ansSet = true;
+	        		}
+	        	}
         	}          
         }
         
         function setItemId(itemId){
-        	console.log("itemSet", itemSet);
+        	//console.log("itemSet", itemSet);
   				iframeState();
 	        	if (itemSet == false){
 	        	lz.embed.setCanvasAttribute('srcurl',itemId);
@@ -99,18 +104,21 @@ img {
 					  iframe.onreadystatechange = function(){
 					    if (iframe.readyState == "complete"){
 					      	window.parent.setAnswerNow('complete');
+					      	
 					    }
 					  };
 					} else {
 					  iframe.onload = function(){
 					    window.parent.setAnswerNow('complete');
+					    
 					  };
 					}
 			}
         }
         function setTTSText(text){
         	//console.log(text);
-        	window.parent.setTTStext(args);
+        	//if(text)
+        	//window.parent.setTTStext(text);
         }
         
         function showHideManipulative(arg){
@@ -118,7 +126,7 @@ img {
         }
         
         function setScratchPadText(arg){
-        	console.log("setScratchpadtext", arg);
+        	//console.log("setScratchpadtext", arg);
         	lz.embed.setCanvasAttribute('scratchpadtext',arg);
         }
         
@@ -131,7 +139,7 @@ img {
         }    
         
         function getSPTextInitial(){
-        	console.log("GETSPTEXTINITIAl: "+ window.parent.spText);
+        	//console.log("GETSPTEXTINITIAl: "+ window.parent.spText);
         	var text = window.parent.spText;
         	if(text){
         	lz.embed.setCanvasAttribute('scratchpadtext',text);
@@ -139,7 +147,7 @@ img {
         }    
         
         function passManipulativeState(args){
-        	console.log("passmanipulative state: ", args);
+        	//console.log("passmanipulative state: ", args);
         	window.parent.setManipState(args);
         	
         }
@@ -156,7 +164,7 @@ img {
 
 <script type="text/javascript" defer>
                   lz.embed.resizeWindow('100%', '100%');
-                  lz.embed.dhtml({url: 'Test.js', lfcurl: 'lps/includes/lfc/LFCdhtml.js', serverroot: 'lps/resources/', bgcolor: '#ffffff', width: '100%', height: '100%', id: 'lzapp', accessible: 'false', cancelmousewheel: false, cancelkeyboardcontrol: false, skipchromeinstall: false, usemastersprite: false, approot: '', appenddivid: 'appcontainer'});
+                  lz.embed.dhtml({url: 'Test.js', lfcurl: 'lps-dhtml/lps/includes/lfc/LFCdhtml.js', serverroot: 'lps/resources/', bgcolor: '#ffffff', width: '100%', height: '100%', id: 'lzapp', accessible: 'false', cancelmousewheel: false, cancelkeyboardcontrol: false, skipchromeinstall: false, usemastersprite: false, approot: '', appenddivid: 'appcontainer'});
                   lz.embed.applications.lzapp.onload = function loaded() {
                     // called when this application is done loading
                     
