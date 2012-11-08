@@ -33,6 +33,8 @@ import com.ctb.tdc.web.utils.MemoryCache;
 public class JettyProcessWrapper extends Thread {
 
 	private String tdcHome;
+	private static String javaHome;
+	private static String proxy;
 	private String jettyHome;
 	private String jettyConfig;
 	private int jettyPort;
@@ -52,7 +54,10 @@ public class JettyProcessWrapper extends Thread {
 
     private boolean macOS = false;    
 	
-	
+    {
+    	javaHome = System.getProperty("java.home");
+		if(javaHome != null) javaHome = javaHome + "/bin/"; else javaHome = "";
+    }
 	
 	/**
 	 * Creates a new Jetty process wrapper with the given tdcHome value.
@@ -61,9 +66,6 @@ public class JettyProcessWrapper extends Thread {
 	 */
 	public JettyProcessWrapper(String tdcHome, boolean macOS, int startPort, int stopPort, ServerSocket startsocket, ServerSocket stopsocket, String baseurl) throws ProcessWrapperException {
 		super();
-
-		String javaHome = System.getProperty("java.home");
-		if(javaHome != null) javaHome = javaHome + "/bin/"; else javaHome = "";
 		
         this.macOS = macOS;
         
@@ -79,7 +81,7 @@ public class JettyProcessWrapper extends Thread {
 	
 		//String proxy = System.getProperty("tdc.proxy");
 		ServletSettings settings = MemoryCache.getInstance().getSrvSettings();
-		String proxy = settings.getProxyDomain() + "\\" 
+		proxy = settings.getProxyDomain() + "\\" 
 					 + settings.getProxyUserName() + ":" 
 					 + settings.getProxyPassword() + "@"
 					 + settings.getProxyHost() + ":"
@@ -226,17 +228,23 @@ public class JettyProcessWrapper extends Thread {
 		try {
 			// Start Jetty...
             if ( this.macOS ) {
-                this.startCmd[1] = this.startCmd[1].replaceAll(" ", "\\ ");
-                this.startCmd[2] = this.startCmd[2].replaceAll(" ", "\\ ");
-                //this.startCmd[5] = this.startCmd[4].replaceAll(" ", "\\ ");
-                this.startCmd[5] = this.startCmd[5].replaceAll(" ", "\\ ");//mapping corrected, tdc.baseurl was coming null
+                String productType = System.getProperty("product.type");
+                if("OKLAHOMA".equals(productType)) {
+                	this.startCmd[0] = javaHome + "java";
+                	this.startCmd[1] = "-d32";
+            		this.startCmd[2] = "-Dtdc.proxy=" + proxy;
+            		this.startCmd[3] = "-Dtdc.home=" + this.tdcHome;
+            		this.startCmd[4] = "-Xmx256m";
+            		this.startCmd[2] = this.startCmd[1].replaceAll(" ", "\\ ");
+                    this.startCmd[3] = this.startCmd[2].replaceAll(" ", "\\ ");
+                } else {
+                	this.startCmd[1] = this.startCmd[1].replaceAll(" ", "\\ ");
+                    this.startCmd[2] = this.startCmd[2].replaceAll(" ", "\\ ");
+                }
+                this.startCmd[5] = this.startCmd[5].replaceAll(" ", "\\ ");
                 this.startCmd[6] = this.startCmd[6].replaceAll(" ", "\\ ");
                 this.startCmd[8] = this.startCmd[8].replaceAll(" ", "\\ ");
                 this.startCmd[9] = this.startCmd[9].replaceAll(" ", "\\ ");
-                String productType = System.getProperty("product.type");
-                if("OKLAHOMA".equals(productType)) {
-                	this.startCmd[0] = this.startCmd[0] + "\\ -d32";
-                }
             }
         
             ConsoleUtils.messageOut("jettyHome: " + this.jettyHome);
