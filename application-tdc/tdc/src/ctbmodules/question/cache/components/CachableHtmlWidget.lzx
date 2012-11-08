@@ -96,15 +96,18 @@ Debug.write("Cachaable html widget ondata");
 			if(retVal != null && retVal != undefined){
 				if( retVal == true || retVal ==  'true'){
 					this.setAttribute('answered', true);
+					gController.updateBlueBallForHtmlItem(retVal);
 				}else{
 					this.setAttribute('answered', false);
+					gController.updateBlueBallForHtmlItem(retVal);
 					}
 				if(!unlocked){
 					gController.unlockUI();
 					this.setAttribute('unlocked', true);
 				}
+				
 			}
-            gController.updateBlueBallForHtmlItem(retVal);
+            
        ]]> </method>
 
 		<method name="setAnswer" >
