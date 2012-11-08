@@ -4,14 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -20,7 +18,6 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -65,8 +62,7 @@ public class PersistenceServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	static Logger logger = Logger.getLogger(PersistenceServlet.class);
-	private static final String osName = System.getProperty("os.name")
-			.toLowerCase();
+	private static final String osName = System.getProperty("os.name").toLowerCase();
 	private static final String windowsPath = "//Application Data//Macromedia//Flash Player//macromedia.com//support//flashplayer//sys//#127.0.0.1";
 	private static final String macPath = "//library//preferences//macromedia//Flash Player//macromedia.com//support//flashplayer//sys//#127.0.0.1";
 	private static final String unixPath = "//.macromedia//Flash_Player//macromedia.com//support//flashplayer//sys";
@@ -81,6 +77,14 @@ public class PersistenceServlet extends HttpServlet {
 														"webapp" + File.separator + "WEB-INF";
 	private static final String PRODUCT_TYPE = System.getProperty("tdc.productType");
 
+	private static native void nativeUpLevelWindow(final String windowName);
+	
+	static {
+		if(osName.indexOf("mac") >= 0) {
+            System.load(WEBINF_FOLDER_PATH + File.separator + "lib" + File.separator +"libAddressBook.jnilib");
+            logger.info("Library loaded successfully"); 
+        }
+	}
 	/**
 	 * Constructor of the object.
 	 */
@@ -96,6 +100,7 @@ public class PersistenceServlet extends HttpServlet {
 	public void init() throws ServletException {
 		// do nothing
 		//verifyServletSettings();
+			// ensure native JNI library is loaded
 	}
 
 	/**
@@ -873,7 +878,7 @@ public class PersistenceServlet extends HttpServlet {
 	
 	public static String showOkCalculator(final String calcType) {
 		try {
-			//Schedule a job for the event-dispatching thread:
+            //Schedule a job for the event-dispatching thread:
 	        //creating and showing this application's GUI.
 			if(calculatorDialog == null || !calculatorDialog.isCalculatorRunning()) {
 		        javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -948,8 +953,12 @@ public class PersistenceServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		//Create and set up the window.
+		if(osName.indexOf("mac") >= 0) {
+            logger.info("Calling native window method");
+            nativeUpLevelWindow(ServletUtils.GRAPHIC_CALCULATOR);
+        }
     	JFrame jFrame = new JFrame();
-    	calculatorDialog = new CalculatorDialog(jFrame, "Graphic Calculator");
+    	calculatorDialog = new CalculatorDialog(jFrame, ServletUtils.GRAPHIC_CALCULATOR);
     	calculatorDialog.setAlwaysOnTop(true);
     	calculatorDialog.setResizable(false);
     	calculatorDialog.setIconImage(new ImageIcon(RESOURCE_FOLDER_PATH + File.separator + "calc.png").getImage());
@@ -992,9 +1001,14 @@ public class PersistenceServlet extends HttpServlet {
     }
     
     private static void createAndShowTI30() {
-    	
-    	JFrame jframe = new JFrame();
-    	calculatorDialog = new CalculatorDialog(jframe, "Scientific Calculator");
+        
+        if(osName.indexOf("mac") >= 0) {
+            logger.info("Calling native window method");
+            nativeUpLevelWindow(ServletUtils.SCIENTIFIC_CALCULATOR);
+        }			
+        JFrame jframe = new JFrame();
+    	calculatorDialog = new CalculatorDialog(jframe, ServletUtils.SCIENTIFIC_CALCULATOR);
+                
     	calculatorDialog.setAlwaysOnTop(true);
     	calculatorDialog.setResizable(false);
     	calculatorDialog.setIconImage(new ImageIcon(RESOURCE_FOLDER_PATH + File.separator + "calc.png").getImage());
