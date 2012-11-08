@@ -3954,6 +3954,7 @@ Debug.write("############ loadItem ############");
 			gPauseTimerScreen.setVisible(false);
 			timeoutDialog.close();
 			this.setAttribute('testTimeout',true);
+			copyCurrentToRuntime();
 			endSubtest( 'time-out' );
 		</method>
 
