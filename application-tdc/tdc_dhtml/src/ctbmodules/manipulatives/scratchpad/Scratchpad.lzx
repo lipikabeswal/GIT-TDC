@@ -141,14 +141,13 @@
 	     <scrolledittext name="sp" 
 	                             height="${immediateparent.height}" 
 	                             width="${immediateparent.width}" 
-
-	                             focusable="false">
+	                             focusable="true" clickable="true">
 	            	<attribute name="start" type="number" value="0" />
 	            	<attribute name="end" type="number" value="0" />
 	            	<attribute name="scrollPos" type="number" value="0" />
 	            <method name="init">
 	                super.init();
-	              //	this.style.setAttribute("textfieldcolor", gController.answerBgColor);
+	                this.style.setAttribute("textfieldcolor", gController.answerBgColor);
 					this.setAttribute('fontcolor',gController.answerFontColor);
 				 	if(gController.hasFontAccommodation){
 						this.setAttribute('fontsize',18);
@@ -156,7 +155,7 @@
 					else{
 						this.setAttribute('fontsize',12);
 					}
-					this.inp.setMaxLength(10000);
+					this.inp.setAttribute("maxlength",10000);
 	            </method>
 	            
 	            <method name="updateScrollText" args="a">
@@ -164,6 +163,7 @@
 				</method>
 				
 				<handler name="ontext"><![CDATA[
+					storeSelection();
 				 	if(this.text.length > 10000){
 								var textContent = this.text;
 								textContent = textContent.substring(0,Number(classroot.characterLimit));

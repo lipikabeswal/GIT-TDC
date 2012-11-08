@@ -15,9 +15,9 @@
     <include href="CachableTableCell.lzx"/>
 	<include href="CachableSingleLineAnswer.lzx"/>
 	<include href="CachableMultiLineAnswer.lzx"/>
-	<!--<include href="CachableRecorder.lzx"/>-->
+	<include href="CachableRecorder.lzx"/>
 	<include href="CachableGriddedResponsePanel.lzx"/>
     <include href="CachableGriddedResponse.lzx"/>
-
+	<include href="CachableHtmlWidget.lzx"/>
 
  </library>

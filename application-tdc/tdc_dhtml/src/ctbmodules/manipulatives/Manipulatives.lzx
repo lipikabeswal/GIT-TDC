@@ -35,6 +35,8 @@
 		<attribute name="MASKING_RULER_INDEX" type="number" value="12" />
 		<handler name="oninit">
 			this.reset();
+			var elem = this.getDisplayObject();
+			elem.setAttribute('id', "manipulativeid");
 		</handler>
 		
 		<handler name="ondata" args="data"><![CDATA[

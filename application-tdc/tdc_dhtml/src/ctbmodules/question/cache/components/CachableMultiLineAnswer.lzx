@@ -42,6 +42,13 @@
         <!-- ===============
              = METHODS
              =============== -->
+		<method name="enable">
+			//Empty method to handle enable() made from controller for cr responses dont delete it.
+		</method>
+		
+		<method name="disable">
+			//Empty method to handle enable() made from controller for cr responses dont delete it.
+		</method>
 
         <handler name="ondata" args="data"><![CDATA[
 //Debug.write("cachableMulti : " + data);
@@ -69,8 +76,10 @@
                 gController.addCrField({"widget_id" : this.widget_id, 
                                               "answered" : answered, "answer" : answer, "ref" : this}); 
                 this.setAttribute("isInitialText", true);
-                if (answered) 
-                   this.setAnswer(gController.formatXml(answer));
+                if (answered) {
+                   //this.setAnswer(gController.formatXml(answer));
+                   this.setAnswer(answer);
+                   }
                 else
                    this.setAnswer("");
             }
@@ -140,8 +149,14 @@
 		</method>
 		
 		<method name="updateCharacterMeter"><![CDATA[
-//Debug.write(this, "updateCharacterMeter", this.numCharacters, this.characterLimit, this.numCharacters/this.characterLimit, this.outer.controls.meter.limit.width);
-			this.outer.controls.meter.limit.used.setAttribute('width', this.outer.controls.meter.limit.width * (this.numCharacters/this.characterLimit));
+			//Debug.write(this, "updateCharacterMeter", this.numCharacters, this.characterLimit, this.numCharacters/this.characterLimit, this.outer.controls.meter.limit.width);
+			var ratio = this.numCharacters/this.characterLimit;
+			if(ratio<=1){
+				this.outer.controls.meter.limit.used.setAttribute('width', this.outer.controls.meter.limit.width * (this.numCharacters/this.characterLimit));
+			}
+			else if(ratio>1){
+				this.outer.controls.meter.limit.used.setAttribute('width', this.outer.controls.meter.limit.width * (1));
+			}
 		]]></method>
 		
         <!-- ===============

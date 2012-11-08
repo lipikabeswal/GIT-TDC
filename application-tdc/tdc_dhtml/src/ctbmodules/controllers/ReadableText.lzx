@@ -126,7 +126,8 @@
  	        speechDs.setQueryParam(TEXT_PARAM, txt);
  	        //TTS CR
  	        //if(gController.hasTTSspeed) {
- 	        	var smf = gManipulativeBar.speedController.value;  //SMF => Slow, Medium, Fast
+ 	        	//var smf = gManipulativeBar.speedController.value;  //SMF => Slow, Medium, Fast
+ 	        	var smf = "M";
  	        	speedValue = getSpeedNumber(smf);
 				speechDs.setQueryParam(SPEED_PARAM, speedValue);
  	       // }

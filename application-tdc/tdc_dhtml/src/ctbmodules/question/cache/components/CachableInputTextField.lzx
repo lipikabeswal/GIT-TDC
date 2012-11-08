@@ -36,14 +36,14 @@
         </method>
         
 		<method name="setText" args="txt">
-			thetext.setAttribute('text', txt);
+			contents.thetext.setAttribute('text', txt);
 			//no need for this
-			//thetext.setAttribute('width', thetext.getWidth() + 1);
+			//thetext.setAttribute('width', contents.thetext.getWidth() + 1);
 		</method>
 		
 		<method name="setAltText" args="altTxt">
 //Debug.write("CachableInputTextField.setAltText: " + altTxt);
-			thetext.setAttribute('altText', altTxt);
+			contents.thetext.setAttribute('altText', altTxt);
 		</method>
 		
 		<method name="setReadableText" args="txt">
@@ -77,17 +77,25 @@
              =============== -->
         
            <view name="clickregionreader"
-                 width="${classroot.thetext.width}"
-                 height="${classroot.thetext.height}"
-                 clickable="${classroot.isReadable}">
+                 width="${classroot.contents.thetext.width}"
+                 height="${classroot.contents.thetext.height}"
+                 clickable="${classroot.isReadable}"
+				 visible="${classroot.isReadable}">
                <handler name="onclick">
                    classroot.read();
                </handler>
            </view>
-
-           <text name="thetext" multiline="false" resize="true"
+			
+		<view name="contents" clickable="true">
+			<handler name="onclick">
+					this.thetext.onfocus.sendEvent();
+			</handler>
+           <text name="thetext" multiline="false" resize="true" clickable="true"
                fgcolor="${classroot.fontcolor}"
                fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" width="1">
+               <handler name="onclick">
+					this.onfocus.sendEvent();
+				</handler>
                <handler name="onwidth" args="w"><![CDATA[
 					var xin = classroot.parent.parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
 //					Debug.write('xin..', classroot.parent.parent, classroot.parent.parent.comptype);	
@@ -104,5 +112,6 @@
 					}
                ]]></handler>
            </text>
+        </view>
  	</class>
 </library>

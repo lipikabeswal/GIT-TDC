@@ -13,7 +13,7 @@
 
     <class name="CachableSingleLineAnswer" extends="CachableComponent" 
            comptype="$once{gCompTypes.WIDGET_SINGLE_LINE_ANSWER}" aaactive="true" 
-           aasilent="false" clickable="true" > 
+           aasilent="false" clickable="true" showhandcursor="false" > 
 
         <attribute name="hasAltText" value="false"/>
 		<attribute name="altText" type="string" />
@@ -37,26 +37,28 @@
 		
 		<method name="disable">
 			this.answer.disable();
-		</method>	
+		</method>		
+		
+		<handler name="oninit">
+			this.bringToFront();
+		</handler>
 
-		<handler name="onclick">
-			var s = "checkStop('inside onclick of CachableSingleLineAnswer','','"+this.aaactive+"')";
-			lz.Browser.loadJS(s);
+		<handler name="onload">
+			this.bringToFront();
 		</handler>
 
         <handler name="ondata" args="data"><![CDATA[
-
+			this.answer.field.bringToFront();
             if (data.getAttr("id")) {  
                 this.setAttribute('widget_id', data.getAttr("id"));
             	var answer = gController.getAnswerForInputWidgetId(this.widget_id);
 				Debug.write("Single line CR" , answer);
-            	var answered = (typeof answer != "undefined" && answer.length != 0);
+            	var answered = (answer!=null && typeof answer != "undefined" && answer.length != 0);
                 gController.addCrField({"widget_id" : this.widget_id, 
                                               "answered" : answered, "answer" : answer, "ref" : this}); 
 											  
-				var s = "checkStop('"+this.clickable+"','"+answer+"','"+data+"')";
-				lz.Browser.loadJS(s);
 				
+
 				if(answer){				
 					this.setAnswer(answer);
 				}else{
@@ -120,14 +122,10 @@
                       fontsize="${classroot['fontsize'] ? classroot.fontsize : 12}">
            <method name="init">
                super.init();
-                this.style.setAttribute("textfieldcolor", gController.answerBgColor);
-                this.style.setAttribute("textcolor", gController.answerFontColor);
+                /*this.style.setAttribute("textfieldcolor", gController.answerBgColor);
+                this.style.setAttribute("textcolor", gController.answerFontColor);*/
+				//this.field.onfocus.sendEvent();
            </method>
-			<handler name="onclick">
-			var s = "checkStop('inside onclick of ctb_edittext','','"+this.aaactive+"')";
-			lz.Browser.loadJS(s);
-		</handler>
-
         </ctb_edittext>
  		<basebutton resource="read_btn" 
  		            name="readBtn"

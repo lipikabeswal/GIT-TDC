@@ -30,12 +30,35 @@
 			<attribute name="actualX" value="$once{this.xoffset - this.getMouse( 'x' )}" />
 			<attribute name="actualY" value="$once{this.yoffset - this.getMouse( 'y' )}" />
 			
-            <attribute name="__dragstate_ydoffset" 
+           <!--  <attribute name="__dragstate_ydoffset" 
                        value="$once {this.actualX * Math.sin (this.rrotation) +
                                      this.actualY * Math.cos (this.rrotation)}"/>
             <attribute name="__dragstate_xdoffset" 
                        value="$once {this.actualX * Math.cos (this.rrotation) -
-                                     this.actualY * Math.sin (this.rrotation)}"/>
+                                     this.actualY * Math.sin (this.rrotation)}"/>-->
+                                     
+            <attribute name="__dragstate_xdoffset"
+
+			value="(this.drag_axis == 'both' || this.drag_axis == 'x') ? -1*this.__dragstate_getoffset('x') : 0" when="once" />
+			
+			<!--- @keywords private -->
+			
+			<attribute name="__dragstate_ydoffset"
+			
+			value="(this.drag_axis == 'both' || this.drag_axis == 'y') ? -1*this.__dragstate_getoffset('y') : 0" when="once" />
+			
+			<!--- @keywords private -->
+			
+			<method name="__dragstate_getoffset" args="axis" >
+			
+			var theta = (Math.PI/180 * this.rotation);
+			var sin_theta = Math.sin( theta );
+			var cos_theta = Math.cos( theta );
+			return axis=="x" ?
+			(this.getMouse( "x" )*cos_theta - this.getMouse( "y" )*sin_theta) - (this.xoffset*cos_theta - this.yoffset*sin_theta) :
+			(this.getMouse( "x" )*sin_theta + this.getMouse( "y" )*cos_theta) - (this.yoffset*cos_theta + this.xoffset*sin_theta);
+			
+			</method>                         
 
 			<handler name="on__dragstate_xdoffset" args="data">
 				Debug.write("on__dragstate_xdoffset data");

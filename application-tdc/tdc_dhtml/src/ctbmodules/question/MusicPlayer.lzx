@@ -59,9 +59,10 @@
     </method>
 
 	<method name="togglePopup">      
-	    if(this.getAttribute("visible") == false) {
+		
+	    if(this.visible == false) {
 	        show();
-	     }else if(this.getAttribute("visible") == true) {
+	     }else if(this.visible == true) {
 	     	hide();
 	     }
     </method>
@@ -128,7 +129,7 @@
 	    <view x="5" y="5" name="playerContainer">
 			<simplelayout spacing="10" axis="x"/>              
 			<basebutton	name="playButton" resource="music_play_btn" 
-					width="23" height="23" stretches="both">
+					width="23" height="23" stretches="both" visible="false">
 				<handler name="onclick"> 
 //Debug.write("play clicked : "+gMusicPlayer.playStarted);
 					if(gMusicPlayer.playStarted == false) {
@@ -142,7 +143,7 @@
         		</handler>
 			</basebutton>
 			<basebutton	name="stopButton" resource="music_stop_btn"
-					width="23" height="23" stretches="both">
+					width="23" height="23" stretches="both" visible="true">
 				<handler name="onclick">
 //Debug.write("stop clicked : "+gMusicPlayer.playStarted);
 					if(gMusicPlayer.playStarted == true) {

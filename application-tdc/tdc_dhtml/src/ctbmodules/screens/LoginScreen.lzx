@@ -8,7 +8,7 @@
     <class name="LoginScreen">
         
         <attribute name="font" value="CTB"/>
-
+        
         <method name="login">
         	gController.login(
                 li.loginIdField.getText(),

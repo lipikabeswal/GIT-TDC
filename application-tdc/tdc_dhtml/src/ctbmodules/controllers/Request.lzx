@@ -89,13 +89,13 @@
 		</method>
 		
 		<method name="heartbeat" args="params">
-			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, gManipulativeBar.speedController.value);
+			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, -2);
 			_doRequest(heartbeatDs, SAVE_METHOD, xml);			
 		</method>
 
 		<method name="save" args="params">
 			Debug.write("OpenLaszlo Save");
-			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, gManipulativeBar.speedController.value);
+			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, -2);
 			_doRequest(persistenceDs, SAVE_METHOD, xml);
 		</method>
 		

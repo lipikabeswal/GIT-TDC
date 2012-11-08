@@ -60,7 +60,7 @@
             }
 
 			if (data.hasAttr ('height')) {
-                var nh = data.getAttr("height");
+                var nh = data.getAttr("height")*2;
                 this.setAttribute("growtocontents", nh == "");
                 if (nh == "") {
                     nh = null;
@@ -68,6 +68,8 @@
                     nh = Number(nh);
                 }
 				this.wrapper.setAttribute ('height', nh);
+				var elem = this.wrapper.getDisplayObject();
+				elem.setAttribute ('id', "basePanelId");
             }
 
             //x and y of component
@@ -134,6 +136,8 @@
             {
                 gFootNotePopup.setAttribute("scrolltext", this);
             }*/      
+
+		console.log("basecachablepanel",this.wrapper.scrollcontainer.offsetwrapper.height,this.wrapper.height,this.growtocontents);
 
         ]]></method>
 

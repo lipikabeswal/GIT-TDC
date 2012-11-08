@@ -3,6 +3,7 @@
 	<include href="DownloadManager.lzx" />
 	<include href="TutorialManager.lzx" />
 	<include href="Sarsystem.lzx"/>
+	<script src="utils/json.js" />
 	
 	<!--<Sarsystem id="flashSystem" />-->
 	<script><![CDATA[
@@ -10,7 +11,7 @@
         function countDataNodes ( nodes ) {
             if ( null == nodes ) {
                 return 0;
-            } else if ( nodes instanceof lz.DataNode ) {
+            } else if ( nodes instanceof lz.DataElement ) {
                 return 1;
             } else if ( nodes instanceof Array ) {
                 return nodes.length;
@@ -498,6 +499,12 @@
 		<attribute name="testSessionData" value="null" />
 		<attribute name="totalNumberOfTests" value="null" />
 		<attribute name="stuLoginDetails" value="$once{new Object()}"/>
+		<attribute name="currentImageId" value="null" />
+		<attribute name="imageData" value="$once{new Object()}"/>
+		<attribute name="htmlFields" value="$once{new Array()}"/>
+		<attribute name="answeredDel"
+			value="$once{new lz.Delegate(this,'isAnsweredDelegate')}" />
+		<attribute name="answerObj" value="$once{new Object()}" />
 		
 		<!--
 			============================================================
@@ -787,6 +794,21 @@
 				}
 			}
 		</handler>
+		
+		<method name="getImageData" args="response"><![CDATA[
+			var s = "checkStop('inside getImageData controller','"+response.indexOf('||')+"','')";
+			lz.Browser.loadJS(s);
+			if((response!=null || response!='undefined') && (typeof( response ) == 'string')){
+				if(response.indexOf('||') != -1){
+					var id = response.substring(0,response.indexOf('||'));
+					var data = response.substring((response.indexOf('||')+2),response.length);
+					imageData[id] = data;
+					var s = "checkStop('inside imageData controller','"+id+"','"+imageData[id]+"')";
+					lz.Browser.loadJS(s);
+				}
+			}
+			]]>
+		</method>
 
 		<method name="_handleUploadAuditFileResponse" args="response"><![CDATA[
             // clock is stopped
@@ -1078,8 +1100,6 @@
 
 		<method name="setShowHighlighter">
 			var sh = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@highlighter');
-			var s = "checkStop('setShowHighlighter','"+sh+"','"+(sh != false)+"')";
-			lz.Browser.loadJS(s);
 			this.setAttribute('showHighlighter', (sh != false));
 		</method>
 
@@ -1564,10 +1584,10 @@
                 dnruntimeitem.setAttr ('eid', dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@cur_eid' ) );
              }
              
-            /* if(gController.audible == 'true'){
+             if(gController.audible == 'true'){
 				gMusicPlayer.play();
 				gMusicPlayer.setAttribute('playStarted',true);
-			}*/
+			}
             saveLoadItem(fnode, INIT_LEV);
             Debug.write("*****saveLoadItem done*****");
             dshowClient.register( this, 'itemuiready' );
@@ -1700,7 +1720,8 @@
 		-->
 		<method name="initStudentData"><![CDATA[
 			//Debug.write("initStudentData",gController.audible == 'true',gController.audible == true);
-			if(gController.audible == true && !gMusicPlayer.alreadyCalled){
+			console.log("initStudentData" ,typeof(gController.audible) ,gController.audible,gMusicPlayer.alreadyCalled);
+			if(gController.audible && !gMusicPlayer.alreadyCalled){
 				loadMusicData();
 			}
 			this.restartItemCount = 0;    
@@ -2117,7 +2138,7 @@
 			var node = lz.DataElement.stringToLzData(unescape(answers));
 			//Debug.write("getAnswerForInputWidgetId node", node);
             if (node) {
-               node.setOwnerDocument(dstemp);
+               node.setAttribute('ownerDocument',dstemp);
                dstemp.appendChild(node);
                //Debug.write("widgetId : " + widgetId + " node : " , node);
 			   dp.setPointer(node);
@@ -2462,11 +2483,11 @@
 
 		<method name="changeItem" args="fnode"><![CDATA[		
 			if(fnode != null) {			
-				/*if(this.recorder != null) {
+				if(this.recorder != null) {
 					this.recorder.stopblinker('stop');
 					this.recorder.whitewrapperOverLay.setAttribute('visible', false);
 					this.recorder.blackOverLay.setAttribute('visible', false);
-				}*/
+				}
 				//To reset the Audio Fields Array So that file name will be passed in the save call
 				this.resetAudioFields();
 				//this.resetImageField();
@@ -2478,7 +2499,7 @@
 				saveLoadItem( fnode , lev);
 			}
 			//this.setAttribute('isaudio',false);
-			//resetRecorder();
+			resetRecorder();
 		]]></method>
 
 		<method name="resetRecorder"><![CDATA[
@@ -2918,6 +2939,9 @@
 			//	}
 	
 			}
+				if(this.htmlFields != null){
+					hideHtmlWidgets();
+				}
                 setState(PAUSE_STATE);
                 this.setAttribute("sendCatSave",false);
                 save(PAUSE_LEV);
@@ -2961,6 +2985,9 @@
             restoreScratchpadFocusIfNeeded();
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
+			if(this.htmlFields != null){
+					showHtmlWidgets();
+			}
 		</method>
 
 		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
@@ -2994,6 +3021,9 @@
             	//this.setAttribute("sendCatSave",true);
             	setSendCatSave();
             }
+            	if(this.htmlFields != null){
+					hideHtmlWidgets();
+				}
             save(null);
         </method>
 	
@@ -3266,6 +3296,8 @@ Debug.write("############ loadItem ############");
 			dsitem.doRequest();        
             this.resetCrFields();
 			this.resetAudioFields();
+			Debug.write("reset in load item htmlFields");
+			this.resetHtmlFields();
 			//this.resetImageField();
 			gMaskingAnswer.setAttribute("withState",false);
 			hideMagnifierGlass();
@@ -3273,6 +3305,7 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="loadMusicData"><![CDATA[
+			console.log("loadMusicData" ,gController.audible,gMusicPlayer.alreadyCalled);
 			dsMusic.setQueryParam(gRequest.METHOD_PARAM, gRequest.GET_MUSIC_DATA);
 			dsMusic.setQueryParam("musicId", gController.musicId);
 			dsMusic.setAttribute("reqtype","POST"); 
@@ -3281,11 +3314,11 @@ Debug.write("############ loadItem ############");
 
 		<method name="getMusicData" args="d"><![CDATA[
 			//Debug.write("inside getMusicData : ",d);
-        	var result = d.childNodes[0].data;
+        	//var result = d.childNodes[0].data;
 			//Debug.write("getMusicData result" , result , d);
         	//result == 'File_Downloaded' &&  
-        	Debug.write("gController.audible*************** ",gController.audible == 'true',gController.audible == true);
-			if(gController.audible == true){
+        	//Debug.write("gController.audible*************** ",gController.audible);
+			if(gController.audible){
 				gMusicPlayer.alreadyCalled = true;				
 				gMusicPlayer.setSource("http:resources/music_"+gController.musicId+".mp3");
 				gMusicPlayer.setAttribute('playStarted',true);
@@ -3332,6 +3365,7 @@ Debug.write("############ loadItem ############");
 		<method name="getItemParams"><![CDATA[
 			updateCrItemNode();
 			updateAudioItem();
+			updateHTMLItemNode();
 			var result = null;
 			var itemType = [];
 			var itemNo;
@@ -3875,6 +3909,8 @@ Debug.write("############ loadItem ############");
 			this.setAttribute("sendCatSave",true);
 			save(null);
         	setAttribute("doUnlockUI", false);
+        	Debug.write("saveendsubtest");
+        	this.resetHtmlFields();
         ]]></method>
 
 		<method name="_handleWriteToAuditFileResponse" args="response">
@@ -3922,6 +3958,7 @@ Debug.write("############ loadItem ############");
             gReadableText.stopReading(false);
             hideMagnifierGlass();
 			hideMaskingChoiceDD();
+			hideHtmlWidgets();
             if(this.recorder != null) {
 				this.recorder.stopblinker('stop');
 				this.recorder.whitewrapperOverLay.setAttribute('visible', false);
@@ -5069,6 +5106,132 @@ Debug.write("############ loadItem ############");
 		}
 		]]>
 	</method>-->
+
+	<method name="addHtmlField" args="field">
+	        	this.htmlFields.push(field);
+	        	isAnsweredDelegate();
+		</method>
+	<method name="resetHtmlFields"><![CDATA[
+		 for (var i = 0; i < this.htmlFields.length; i++) {
+                delete this.htmlFields[i];
+            }
+            this.htmlFields.length = 0;
+            Debug.write("****stopcheckisAnswer****");
+            stopCheckIsAnswer();
+		]]></method>
+		
+	
+
+		<method name="updateBlueBallForHtmlItem" args="answer"><![CDATA[
+			if(this.inQuestion){
+				var answered = false;
+	            var currentitem = dpstudentdata.xpathQuery("current_item/item_model");
+				var currentEid = currentitem.getAttr('eid');
+	            // Update the XML resulting in the blue ball appearing
+	            var runtimeitem = dpstudentdata.xpathQuery("runtime/item_model[@eid = '"+currentEid+"']");
+				
+				if(answer == true || answer == 'true'){
+					answered = true;
+				}
+				
+	            if (answered) {
+	                currentitem.setAttr("answered", 1);
+	                runtimeitem.setAttr("answered", 1);
+	            }
+	            else {
+	               currentitem.setAttr("answered", 0);
+	               runtimeitem.setAttr("answered", 0);
+	            }
+	           }
+		]]></method>
+		
+		<method name="isAnsweredDelegate"><![CDATA[
+			//	Debug.write("isAnsweredDelegate",this.htmlFields[0]);
+				this.htmlFields[0]['ref'].func1();
+				if(this.htmlFields[0]['ref'].answered){					
+
+					this.htmlFields[0]['answered'] = true;
+					this.htmlFields[0]['ref'].getState();
+					
+				}else{
+					var state;
+					this.htmlFields[0]['answer'] = state;
+					this.htmlFields[0]['answered'] = false;
+				}
+
+				lz.Timer.resetTimer(answeredDel, 500);
+		]]>
+		</method>
+
+        <method name="updateHtmlFields" args="value,answered"><![CDATA[
+        	if(value){
+        		if(this.htmlFields.length > 0){
+          					this.setAttribute('answerObj',value);
+        					this.htmlFields[0]['answered'] == answered;
+        			
+        		}
+        	}
+        ]]></method>
+		
+		<method name="stopCheckIsAnswer">
+			lz.Timer.removeTimer(answeredDel);
+		</method>
+		<method name="hideHtmlWidgets"><![CDATA[
+			if(this.htmlFields.length > 0){
+				for (var i =0; i < this.htmlFields.length; i++){
+					this.htmlFields[i]['ref'].hide();	
+				}
+			}
+		]]></method>
+		<method name="showHtmlWidgets"><![CDATA[
+				if(this.htmlFields.length > 0){
+				for (var i =0; i < this.htmlFields.length; i++){
+					this.htmlFields[i]['ref'].show();	
+				}
+			}
+		
+		]]></method>
+
+		<method name="updateHTMLItemNode"><![CDATA[
+		Debug.write("UPDATE HTML ITEM NODE",this.htmlFields.length);
+
+			if(this.htmlFields.length > 0){
+            	var xmls = "<answers>";
+				var data = JSON.stringify(this.answerObj);
+            	for (var i = 0; i < this.htmlFields.length; i++) {
+					xmls = xmls.concat("<answer id=" + "\"" + this.htmlFields[i]['widget_id'] + "\""+ ">");
+                	if(!htmlFields[i]['answered']){
+                   		xmls = xmls.concat("</answer>");
+                   	}
+                	else{
+                   		xmls = xmls.concat(wrapInCdata(data) + "</answer>");
+                   	}
+            	}
+            	xmls = xmls.concat("</answers>");
+            	gController.setItemCRState(xmls);
+ 			}
+		]]></method>
+		
+		<method name="getStateForInputWidgetId" args="widgetId"><![CDATA[
+			var result="";
+			var eid = loadNode.getAttr('id');
+			var answers = dpstudentdata.xpathQuery( "runtime/item_model [@eid = '"+eid+"']/@answer_text");
+			
+			var node = lz.DataElement.stringToLzData(unescape(answers));
+			Debug.write("getStateForInputWidgetId node", node);
+            if (node) {
+               node.setAttribute('ownerDocument',dstemp);
+               dstemp.appendChild(node);
+               //Debug.write("widgetId : " + widgetId + " node : " , node);
+			   dp.setPointer(node);
+			  result = dp.xpathQuery("dstemp://answers/answer[@id = '"+widgetId+"']/text()");
+			//Debug.write("getAnswerForInputWidgetId result: " , result);
+               dstemp.removeChild(node);
+            }
+			
+			return JSON.parse(result);
+
+		]]></method>
 
 	</node>
 

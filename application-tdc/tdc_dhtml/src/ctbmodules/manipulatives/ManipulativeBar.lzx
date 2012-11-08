@@ -45,6 +45,7 @@
 	                            
 	                            <view name="gap" width="2" height="20" valign="middle"/>
 			<!-- Magnifier Glass Button -->
+			<attribute name="magnifierOpen" type="boolean" value="false"/>
 			<view name="magnifyingGlass"
 				visible="${gController.magnifierVisible}"
 				resource="toolbar_magnifying_glass_btn" valign="middle" height="20"
@@ -70,11 +71,12 @@
 
 				<handler name="onclick">
 						lz.Timer.removeTimer (this.tooltipdel);
-						if(gMagnifyingGlass.visible){
-							hide();
-						} else {
+						if(gMagnifyingGlass.magnifierOpen==true || gMagnifyingGlass.magnifierOpen=='true' || gMagnifyingGlass.magnifierOpen=="true"){
 							setup();
+						} else {
+							hide();
 						}
+						
 					</handler>
 
 				<method name="showTooltip">
@@ -83,7 +85,9 @@
 
 				<method name="setup">
 						gMagnifyingGlass.setUpGlass();
-						show();
+						this.isEnabled = true;
+						gController.setAttribute("magnifierState", true);
+						//show();
 					</method>
 
 				<method name="show">
@@ -97,7 +101,7 @@
 						gMagnifyingGlass.hideGlass();
 						this.isEnabled = false;
 						gController.setAttribute("magnifierState", false);
-						this.setAttribute('frame',1);
+						//this.setAttribute('frame',1);
 					</method>
 			</view>
                             	
@@ -304,7 +308,7 @@
 
 		</view>
 		<!-- The tool to control the TTS speed -->
-			<radiogroup visible="${gController.hasTTSspeed &amp;&amp; parent.screenreader.stopreader.visible}" name="speedController" height="20" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
+			<!-- <radiogroup visible="${gController.hasTTSspeed &amp;&amp; parent.screenreader.stopreader.visible}" name="speedController" height="20" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
 				<datapath xpath="dslogin:/login_response/@tts_speed_value"></datapath>
 				<radiobutton value="'S'" text="Slow " height="15" valign="middle"/>
 				<radiobutton value="'M'" text="Medium " height="15" valign="middle" selected="true" />
@@ -317,7 +321,7 @@
 					gReadableText.read(gReadableText.currentText,false);
 					}
 				]]></handler>
-			</radiogroup>		
+			</radiogroup>		 -->
 
 		
     </class>
