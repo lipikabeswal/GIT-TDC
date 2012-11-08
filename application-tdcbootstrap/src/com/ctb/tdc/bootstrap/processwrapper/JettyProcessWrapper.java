@@ -32,7 +32,7 @@ import com.ctb.tdc.web.utils.MemoryCache;
  */
 public class JettyProcessWrapper extends Thread {
 
-	private String tdcHome;
+	private static String tdcHome;
 	private static String javaHome;
 	private static String proxy;
 	private String jettyHome;
@@ -64,15 +64,15 @@ public class JettyProcessWrapper extends Thread {
 	 * @param tdcHome  The location of the Test Delivery Client's home folder containing the home folder of Jetty as well as configuration files and additional java libraries. 
 	 * @throws ProcessWrapperException If problems within initialization such as determing the default URL or if the port is already in use.
 	 */
-	public JettyProcessWrapper(String tdcHome, boolean macOS, int startPort, int stopPort, ServerSocket startsocket, ServerSocket stopsocket, String baseurl) throws ProcessWrapperException {
+	public JettyProcessWrapper(String newTdcHome, boolean macOS, int startPort, int stopPort, ServerSocket startsocket, ServerSocket stopsocket, String baseurl) throws ProcessWrapperException {
 		super();
 		
         this.macOS = macOS;
         
-		this.tdcHome     = tdcHome;
-		this.jettyHome   = this.tdcHome + "/servletcontainer/jetty-5.1.11RC0";
+		tdcHome     = newTdcHome;
+		this.jettyHome   = tdcHome + "/servletcontainer/jetty-5.1.11RC0";
 		
-		this.jettyConfig = this.tdcHome + "/servletcontainer/tdc.xml";
+		this.jettyConfig = tdcHome + "/servletcontainer/tdc.xml";
 		
 		this.jettyPort = startPort;
 		
@@ -91,7 +91,7 @@ public class JettyProcessWrapper extends Thread {
 		this.startCmd = new String[17];
 		this.startCmd[0] = javaHome + "java";
 		this.startCmd[1] = "-Dtdc.proxy=" + proxy;
-		this.startCmd[2] = "-Dtdc.home=" + this.tdcHome;
+		this.startCmd[2] = "-Dtdc.home=" + tdcHome;
 		this.startCmd[3] = "-Xms128m";
 		this.startCmd[4] = "-Xmx256m";
 		if(baseurl == null) baseurl = "";
@@ -111,7 +111,7 @@ public class JettyProcessWrapper extends Thread {
 	
 		this.stopCmd = new String[11];
 		this.stopCmd[0] = "java";
-		this.stopCmd[1] = "-Dtdc.home=" + this.tdcHome;
+		this.stopCmd[1] = "-Dtdc.home=" + tdcHome;
 		this.stopCmd[2] = "-DSTOP.PORT=" + stopPort;
 		this.stopCmd[3] = "-Djetty.home=" + jettyHome;
 		this.stopCmd[4] = "-Dorg.mortbay.log.LogFactory.noDiscovery=false";
@@ -233,10 +233,11 @@ public class JettyProcessWrapper extends Thread {
                 	this.startCmd[0] = javaHome + "java";
                 	this.startCmd[1] = "-d32";
             		this.startCmd[2] = "-Dtdc.proxy=" + proxy;
-            		this.startCmd[3] = "-Dtdc.home=" + this.tdcHome;
+            		this.startCmd[3] = "-Dtdc.home=" + tdcHome;
+            		System.out.println(this.startCmd[3]);
             		this.startCmd[4] = "-Xmx256m";
-            		this.startCmd[2] = this.startCmd[1].replaceAll(" ", "\\ ");
-                    this.startCmd[3] = this.startCmd[2].replaceAll(" ", "\\ ");
+            		this.startCmd[2] = this.startCmd[2].replaceAll(" ", "\\ ");
+                    this.startCmd[3] = this.startCmd[3].replaceAll(" ", "\\ ");
                 } else {
                 	this.startCmd[1] = this.startCmd[1].replaceAll(" ", "\\ ");
                     this.startCmd[2] = this.startCmd[2].replaceAll(" ", "\\ ");
@@ -339,7 +340,7 @@ public class JettyProcessWrapper extends Thread {
                 this.stopCmd[8] = this.stopCmd[8].replaceAll(" ", "\\ ");
                 this.stopCmd[9] = this.stopCmd[9].replaceAll(" ", "\\ ");
             }            
-			Runtime.getRuntime().exec(this.stopCmd, null, new File(this.tdcHome) );
+			Runtime.getRuntime().exec(this.stopCmd, null, new File(tdcHome) );
 		} catch( IOException e ) {
 			ConsoleUtils.messageErr("An error has occured within " + this.getClass().getName(), e);
 		}
