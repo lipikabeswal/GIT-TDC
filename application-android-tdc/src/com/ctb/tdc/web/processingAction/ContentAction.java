@@ -68,7 +68,8 @@ public class ContentAction  {
 	private static String currentSubtestHash = null;
 	private static Map<Object, Object> trackerStatus = new HashMap<Object, Object>();
 	private Boolean ContentDownloaded = false;
-	MediaPlayer mediaPlayer = new MediaPlayer();
+	public static MediaPlayer mediaPlayer = null;
+	
 	
 
 	public  static String TE_ITEM_FOLDER_PATH = Environment
@@ -333,7 +334,12 @@ public class ContentAction  {
 		}
 		return xmlSubtestDoc;
 	}
-
+	 public static MediaPlayer getInstance() {
+	      if(mediaPlayer == null) {
+	    	  mediaPlayer = new MediaPlayer();
+	      }
+	      return mediaPlayer;
+	   }
 	public final String getElementValue(Node elem) {
 		Node child;
 		if (elem != null) {
@@ -661,14 +667,15 @@ public class ContentAction  {
 
 		BufferedOutputStream dest = null;
 		FileInputStream fis = new FileInputStream(this.TE_ITEM_FOLDER_PATH+id + ".zip");
-		ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
+	ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
 		ZipEntry entry;
 		File destFile;
 		while ((entry = zis.getNextEntry()) != null) {
 
 			// destFile = FilesystemUtils.combineFileNames(destinationDir,
 			// entry.getName());
-			destFile = new File(this.TE_ITEM_FOLDER_PATH+id + ".zip", entry.getName());
+			//destFile = new File(this.TE_ITEM_FOLDER_PATH+id + ".zip", entry.getName());
+			destFile = new File(this.TE_ITEM_FOLDER_PATH, entry.getName());
 
 			if (entry.isDirectory()) {
 				destFile.mkdirs();
@@ -950,6 +957,7 @@ public class ContentAction  {
 
 	public void setVolume(String reqData) {
 		try {
+			mediaPlayer=getInstance();
 			mediaPlayer.reset();
 			mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 			float count = Integer.parseInt(reqData);
@@ -995,7 +1003,7 @@ public class ContentAction  {
 						"");
 			}
 		}
-
+         this.playMusicData(musicId);
 		result = "<result>File_Downloaded</result>";
 
 		return result;
