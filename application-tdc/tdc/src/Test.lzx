@@ -11,7 +11,16 @@
 <attribute name="manipid" value="null"/>
 <attribute name="isLoaded" type="boolean" value="false"/>
 <attribute name="scratchpadtext" value="null"/>
+<attribute name="freezeui" value="null"/>
+<attribute name="unlockui" value="null"/>
 
+<handler name="onfreezeui" args="data">
+ this.blocker.setAttribute('visible',true);
+</handler>
+
+<handler name="onunlockui" args="data">
+this.blocker.setAttribute('visible',false);
+</handler>
 
 <handler name="onsrcurl" args="arg"><![CDATA[
 if (!isLoaded){
@@ -214,16 +223,24 @@ switch(arg){
                  scrolls="false"
                  id="gTnFormulaCard"/>
              </view>
-
-
-	<html id="ht" name="ht"  width="790" height="590" scrollbars="false" >
+<view name="blocker" x="5" y="5" width="790" height="590" bgcolor="white" opacity="0.01">
+<handler name="oninit">
+	this.bringToFront();
+	var elem = this.getDisplayObject();
+	elem.setAttribute('id','htmlUIBlock');
+</handler>
+</view>
+<html id="ht" name="ht" x="5" y="5" width="790" height="590" scrollbars="false" >
  	<handler name="onload">
  	this.sendToBack();
+ 	parent.blocker.bringToFront();
  	</handler>
  	 <handler name="oninit">
  	this.sendToBack();
+ 	parent.blocker.bringToFront();
  	</handler>
  </html>
+
  
 <handler name="oninit">
 	this.setAttribute("bgcolor", null);

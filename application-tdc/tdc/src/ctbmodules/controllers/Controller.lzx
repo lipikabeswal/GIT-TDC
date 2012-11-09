@@ -1539,6 +1539,7 @@
 		<method name="setReadableFlag">
 			var screenReaderAttr 
 				= dpsubtest.xpathQuery("testing_session_data/lms.student.accommodations/@screen_reader");
+
 			if ( (screenReaderAttr == "1") ||
                  (screenReaderAttr == "true") ||
                  (screenReaderAttr == true) ) {
@@ -3178,15 +3179,19 @@
 		<!-- unlock on start, without a previous freeze -->
 		<attribute name="uisemaphore" value="1" />
 
-		<method name="freezeUI">
+		<method name="freezeUI"><![CDATA[
 
             ++uisemaphore;
             if ( dsdisplay.childNodes[0].getAttr( 'enabled' ) == 'true' ) {
                 gHotKeys.disableKeys();
                 dsdisplay.childNodes[0].setAttr( 'enabled', 'false' );
                 lz.Cursor.setCursorGlobal( 'waitcursor' );
+                if (this.htmlFields.length > 0){
+	                var s = "freezeUI()";
+					lz.Browser.loadJS(s);
+				}
             }
-        </method>
+        ]]></method>
 
 		<method name="unlockUI">
 		<![CDATA[
@@ -3201,6 +3206,10 @@
 	                lz.Cursor.unlock();
 	                restoreCurrentCursor();
 	                dsdisplay.childNodes[0].setAttr( 'enabled', 'true' );
+	                if(this.htmlFields.length > 0){
+	                 	var s = "unlockUI()";
+					 	lz.Browser.loadJS(s);
+					 }
 	              if(!gScratchpad.scratchpadHasFocus){
 	                	gHotKeys.enableKeys();
 	               }
