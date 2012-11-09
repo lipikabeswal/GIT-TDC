@@ -55,6 +55,7 @@ img {
 <script>
         var itemSet = false;
         var ansSet = false;
+        var readable = false;
         function isAnswered(){
         var elem = document.getElementById('__lz0');
 	      	if(elem){
@@ -104,12 +105,16 @@ img {
 					  iframe.onreadystatechange = function(){
 					    if (iframe.readyState == "complete"){
 					      	window.parent.setAnswerNow('complete');
+					  		var stat = window.parent.getReadable();
+					    	readable =  stat == "true"? true: false;
 					      	
 					    }
 					  };
 					} else {
 					  iframe.onload = function(){
 					    window.parent.setAnswerNow('complete');
+					    var stat = window.parent.getReadable();
+					    readable =  stat == "true"? true: false;
 					    
 					  };
 					}
@@ -117,8 +122,8 @@ img {
         }
         function setTTSText(text){
         	//console.log(text);
-        	//if(text)
-        	//window.parent.setTTStext(text);
+        	if(text && readable)
+        	window.parent.setTTStext(text);
         }
         
         function showHideManipulative(arg){
@@ -152,11 +157,19 @@ img {
         	
         }
         
+       function freezeUI(){
        
+       	lz.embed.setCanvasAttribute('freezeui', 'freeze');
+       }
+       
+       function unlockUI(){
+       
+       	lz.embed.setCanvasAttribute('unlockui', 'unlock');
+       }
         </script>
 
 <body>
-<input type="button" onclick="setItemId('PKG_MCQ');"
+<input type="button" onclick="setTTSText('Hi');"
 	style="display: none;"></input>
 <input type="button" onclick="showHideManipulative('protractor');"
 	style="display: none;"></input>

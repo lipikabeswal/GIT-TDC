@@ -27,6 +27,7 @@
 <!--
 var _LDB_BypassSetFocusOnPageLoad = 0;
 var spText;
+
 function showFootnote(header)
 {
 	lzSetCanvasAttribute("footnotedata", header);
@@ -122,6 +123,21 @@ function setTTStext(args){
 
 function setAnswerNow(args){
 	lz.embed.setCanvasAttribute('setanswer',args);
+}
+function getReadable(){
+	return lz.embed.lzapp.getCanvasAttribute('readable');
+}
+
+function freezeUI(){
+if(document.getElementById('__lz0')){
+		document.getElementById('__lz0').contentWindow.freezeUI();
+	}
+}
+
+function unlockUI(){
+if(document.getElementById('__lz0')){
+		document.getElementById('__lz0').contentWindow.unlockUI();
+	}
 }
 //-->
 </SCRIPT>
