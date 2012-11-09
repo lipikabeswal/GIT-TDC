@@ -952,11 +952,7 @@ public class PersistenceServlet extends HttpServlet {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		//Create and set up the window.
-		if(osName.indexOf("mac") >= 0) {
-            logger.info("Calling native window method");
-            nativeUpLevelWindow(ServletUtils.GRAPHIC_CALCULATOR);
-        }
+
     	JFrame jFrame = new JFrame();
     	calculatorDialog = new CalculatorDialog(jFrame, ServletUtils.GRAPHIC_CALCULATOR);
     	calculatorDialog.setAlwaysOnTop(true);
@@ -984,6 +980,19 @@ public class PersistenceServlet extends HttpServlet {
         calculatorDialog.setLocation(newLocation);
         calculatorDialog.setVisible(true);
         
+		//Create and set up the window.
+		if(osName.indexOf("mac") >= 0) {
+            logger.info("Calling native window method");
+            try {
+	            while(true) {
+	            	nativeUpLevelWindow(ServletUtils.GRAPHIC_CALCULATOR);
+	            	Thread.sleep(1000);
+	            }
+            } catch (Exception e) {
+            	e.printStackTrace();
+            }
+        }
+        
         System.setProperty("java.library.path", javaLibPath);
     	try {
 			Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
@@ -1002,10 +1011,6 @@ public class PersistenceServlet extends HttpServlet {
     
     private static void createAndShowTI30() {
         
-        if(osName.indexOf("mac") >= 0) {
-            logger.info("Calling native window method");
-            nativeUpLevelWindow(ServletUtils.SCIENTIFIC_CALCULATOR);
-        }			
         JFrame jframe = new JFrame();
     	calculatorDialog = new CalculatorDialog(jframe, ServletUtils.SCIENTIFIC_CALCULATOR);
                 
@@ -1023,5 +1028,18 @@ public class PersistenceServlet extends HttpServlet {
                                       middle.y - (calculatorDialog.getHeight() / 2));
         calculatorDialog.setLocation(newLocation);
         calculatorDialog.setVisible(true);
+        
+        //Create and set up the window.
+		if(osName.indexOf("mac") >= 0) {
+            logger.info("Calling native window method");
+            try {
+	            while(true) {
+	            	nativeUpLevelWindow(ServletUtils.SCIENTIFIC_CALCULATOR);
+	            	Thread.sleep(1000);
+	            }
+            } catch (Exception e) {
+            	e.printStackTrace();
+            }
+        }
     }
 }
