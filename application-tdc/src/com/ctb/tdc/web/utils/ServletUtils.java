@@ -158,6 +158,8 @@ public class ServletUtils {
 	public static final String CLOSE_OK_CALCULATOR = "closeOkCalculator";
 	public static final String SCIENTIFIC_CALCULATOR = "Scientific Calculator";
 	public static final String GRAPHIC_CALCULATOR = "Graphic Calculator";
+	public static final String CALCULATOR_TYPE_84 = "TI84";
+	public static final String CALCULATOR_TYPE_30 = "TI30";
 	
 	
 //	parameters
