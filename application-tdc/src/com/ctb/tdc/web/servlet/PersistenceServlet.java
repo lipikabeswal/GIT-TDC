@@ -69,11 +69,9 @@ public class PersistenceServlet extends HttpServlet {
 
 	private static HashMap<String, String> audioResponseHash = new HashMap<String, String>();
 	
-	private static CalculatorDialog calculatorDialog84 = null;
 	private static CalculatorDialog calculatorDialog30 = null;
-	private static boolean callNative = false;
-	private static boolean calcRunning = false;
-	private static String calcType = "";
+	private static CalculatorDialog calculatorDialog84 = null;
+	private static String calcType = "TI84";
 	
 	private static final String TDC_HOME = "tdc.home";
 	private static final String RESOURCE_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
@@ -89,6 +87,9 @@ public class PersistenceServlet extends HttpServlet {
             System.load(WEBINF_FOLDER_PATH + File.separator + "lib" + File.separator +"libAddressBook.jnilib");
             logger.info("Library loaded successfully"); 
         }
+		
+		showOkCalculator("TI30");
+		showOkCalculator("TI84");
 	}
 	/**
 	 * Constructor of the object.
@@ -105,19 +106,7 @@ public class PersistenceServlet extends HttpServlet {
 	public void init() throws ServletException {
 		// do nothing
 		//verifyServletSettings();
-		
-		// initialize both the calculator
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	createAndShowTI84();
-            }
-        });
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	createAndShowTI30();
-            }
-        });
-		logger.info("Calculator loaded successfully"); 
+			// ensure native JNI library is loaded
 	}
 
 	/**
@@ -182,6 +171,7 @@ public class PersistenceServlet extends HttpServlet {
 	 * @param String xml
 	 * @throws IOException 
 	 */
+	
 	private void handleEvent(HttpServletResponse response, String method,
 			String xml, HttpServletRequest request) throws IOException {
 		String result = ServletUtils.OK;
@@ -195,9 +185,9 @@ public class PersistenceServlet extends HttpServlet {
 			result = ServletUtils.getServletSettingsErrorMessage();
 		else if (method != null && method.equals(ServletUtils.VERIFY_SETTINGS_METHOD)) {
 			result = verifyServletSettings();
-		} else if (method != null && method.equals(ServletUtils.LOGIN_METHOD))
+		} else if (method != null && method.equals(ServletUtils.LOGIN_METHOD)) {
 			result = login(xml);
-		else if (method != null && method.equals(ServletUtils.SAVE_METHOD))
+		} else if (method != null && method.equals(ServletUtils.SAVE_METHOD))
 		{
 			System.out.println(" original save xml:"+xml);			
 			if(ServletUtils.isCurSubtestAdaptive){
@@ -282,9 +272,10 @@ public class PersistenceServlet extends HttpServlet {
 				&& method.equals(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD))
 			result = writeToAuditFile(xml);
 		else if (method != null
-				&& method.equals(ServletUtils.OK_CALCULATOR))
-			result = showOkCalculator(request.getParameter("calcType"));
-		else if (method != null
+				&& method.equals(ServletUtils.OK_CALCULATOR)) {
+			calcType = request.getParameter("calcType");
+			//result = showOkCalculator(calcType);
+		} else if (method != null
 				&& method.equals(ServletUtils.SHOW_HIDE_OK_CALCULATOR))
 			result = showHideOkCalculator(request.getParameter("isHidden"));
 		else if (method != null
@@ -897,29 +888,28 @@ public class PersistenceServlet extends HttpServlet {
 		try {
             //Schedule a job for the event-dispatching thread:
 	        //creating and showing this application's GUI.
-			if(!calcRunning) {
-				calcRunning = true;
-				callNative = true;
-				PersistenceServlet.calcType = calcType;
-				if(ServletUtils.CALCULATOR_TYPE_84.equals(calcType)) {
-					calculatorDialog84.setVisible(true);
-					setCalcLocation(ServletUtils.CALCULATOR_TYPE_84);
-					callNative(ServletUtils.GRAPHIC_CALCULATOR);
-				} else if(ServletUtils.CALCULATOR_TYPE_30.equals(calcType)) {
-					calculatorDialog30.setVisible(true);
-					setCalcLocation(ServletUtils.CALCULATOR_TYPE_30);
-					callNative(ServletUtils.SCIENTIFIC_CALCULATOR);
+			if("TI84".equals(calcType)) {
+				if(calculatorDialog84 == null || !calculatorDialog84.isCalculatorRunning()) {
+			        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			            public void run() {
+			            	createAndShowTI84();	
+			            }
+			        });
+				} else {
+					calculatorDialog84.dispose();
 				}
 			} else {
-				calcRunning = false;
-				callNative = false;
-				if(ServletUtils.CALCULATOR_TYPE_84.equals(calcType)) {
-					calculatorDialog84.setVisible(false);
-				} else if(ServletUtils.CALCULATOR_TYPE_30.equals(calcType)) {
-					calculatorDialog30.setVisible(false);
+				if(calculatorDialog30 == null || !calculatorDialog30.isCalculatorRunning()) {
+			        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			            public void run() {
+			            	createAndShowTI30();	
+			            }
+			        });
+				} else {
+					calculatorDialog30.dispose();
 				}
 			}
-		    return ServletUtils.OK;
+	        return ServletUtils.OK;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -930,26 +920,34 @@ public class PersistenceServlet extends HttpServlet {
 		try {
 			//Schedule a job for the event-dispatching thread:
 	        //creating and showing this application's GUI.
-			if("Y".equals(hidden)) {
-				callNative = false;
-				if(PersistenceServlet.calcType.equals(ServletUtils.CALCULATOR_TYPE_84)) {
-					calculatorDialog84.setVisible(false);
-				} else if(PersistenceServlet.calcType.equals(ServletUtils.CALCULATOR_TYPE_30)) {
-					calculatorDialog30.setVisible(false);
+			if("TI84".equals(calcType)) {
+				if(calculatorDialog84 != null && calculatorDialog84.isCalculatorRunning()) {
+					if("Y".equals(hidden)) {
+						calculatorDialog84.setVisible(false);
+					} else {
+						calculatorDialog84.setVisible(true);
+						String windowName = calculatorDialog84.getTitle();
+						if(osName.indexOf("mac") >= 0) {
+				            logger.info("Calling native window method");
+				            nativeUpLevelWindow(windowName);
+				        }
+					}
 				}
 			} else {
-				callNative = true;
-				if(PersistenceServlet.calcType.equals(ServletUtils.CALCULATOR_TYPE_84)) {
-					calculatorDialog84.setVisible(true);
-					setCalcLocation(ServletUtils.CALCULATOR_TYPE_84);
-					callNative(ServletUtils.GRAPHIC_CALCULATOR);
-				} else if(PersistenceServlet.calcType.equals(ServletUtils.CALCULATOR_TYPE_30)) {
-					calculatorDialog30.setVisible(true);
-					setCalcLocation(ServletUtils.CALCULATOR_TYPE_30);
-					callNative(ServletUtils.SCIENTIFIC_CALCULATOR);
+				if(calculatorDialog30 != null && calculatorDialog30.isCalculatorRunning()) {
+					if("Y".equals(hidden)) {
+						calculatorDialog30.setVisible(false);
+					} else {
+						calculatorDialog30.setVisible(true);
+						String windowName = calculatorDialog30.getTitle();
+						if(osName.indexOf("mac") >= 0) {
+				            logger.info("Calling native window method");
+				            nativeUpLevelWindow(windowName);
+				        }
+					}
 				}
 			}
-			return ServletUtils.OK;
+	        return ServletUtils.OK;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -958,49 +956,17 @@ public class PersistenceServlet extends HttpServlet {
 	
 	public static String closeOkCalculator() {
 		try {
-			calcRunning = false;
-			callNative = false;
-			if(PersistenceServlet.calcType.equals(ServletUtils.CALCULATOR_TYPE_84)) {
-				calculatorDialog84.setVisible(false);
-			} else if(PersistenceServlet.calcType.equals(ServletUtils.CALCULATOR_TYPE_30)) {
-				calculatorDialog30.setVisible(false);
+			if(calculatorDialog84 != null) {
+				calculatorDialog84.dispose();
+			}
+			if(calculatorDialog30 != null) {
+				calculatorDialog30.dispose();
 			}
 			return ServletUtils.OK;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return ServletUtils.ERROR;
-	}
-	
-	private static void setCalcLocation(String calcType) {
-		if(PersistenceServlet.calcType.equals(ServletUtils.CALCULATOR_TYPE_84)) {
-			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			Point middle = new Point(screenSize.width / 2, screenSize.height / 2);
-			Point newLocation = new Point(middle.x - (calculatorDialog84.getWidth() / 2), 
-                                      middle.y - (calculatorDialog84.getHeight() / 2));
-	        calculatorDialog84.setLocation(newLocation);
-		} else if(PersistenceServlet.calcType.equals(ServletUtils.CALCULATOR_TYPE_30)) {
-			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			Point middle = new Point(screenSize.width / 2, screenSize.height / 2);
-			Point newLocation = new Point(middle.x - (calculatorDialog30.getWidth() / 2), 
-                                      middle.y - (calculatorDialog30.getHeight() / 2));
-			calculatorDialog30.setLocation(newLocation);
-		}
-	}
-	
-	private static void callNative(String calcType) {
-		//Create and set up the window.
-		if(osName.indexOf("mac") >= 0) {
-            try {
-	            while(callNative) {
-	            	logger.info("Calling native window method");
-	                nativeUpLevelWindow(calcType);
-	            	Thread.sleep(1000);
-	            }
-            } catch (Exception e) {
-            	e.printStackTrace();
-            }
-        }
 	}
 	
 	/**
@@ -1051,8 +1017,7 @@ public class PersistenceServlet extends HttpServlet {
         Point newLocation = new Point(middle.x - (calculatorDialog84.getWidth() / 2), 
                                       middle.y - (calculatorDialog84.getHeight() / 2));
         calculatorDialog84.setLocation(newLocation);
-        calculatorDialog84.setVisible(true);
-        calculatorDialog84.setVisible(false);
+        //calculatorDialog.setVisible(true);
         
         System.setProperty("java.library.path", javaLibPath);
     	try {
@@ -1073,21 +1038,23 @@ public class PersistenceServlet extends HttpServlet {
     private static void createAndShowTI30() {
         
         JFrame jframe = new JFrame();
-        calculatorDialog30 = new CalculatorDialog(jframe, ServletUtils.SCIENTIFIC_CALCULATOR);
+    	calculatorDialog30 = new CalculatorDialog(jframe, ServletUtils.SCIENTIFIC_CALCULATOR);
                 
-        calculatorDialog30.setAlwaysOnTop(true);
-        calculatorDialog30.setResizable(false);
-        calculatorDialog30.setIconImage(new ImageIcon(RESOURCE_FOLDER_PATH + File.separator + "calc.png").getImage());
-        calculatorDialog30.setSize(300, 600);
+    	calculatorDialog30.setAlwaysOnTop(true);
+    	calculatorDialog30.setResizable(false);
+    	calculatorDialog30.setIconImage(new ImageIcon(RESOURCE_FOLDER_PATH + File.separator + "calc.png").getImage());
+    	calculatorDialog30.setSize(300, 600);
     	
         CalcPaneTI30 emu = new CalcPaneTI30(calculatorDialog30.getContentPane());
         calculatorDialog30.add(emu, BorderLayout.CENTER);
+
         // Set the JFrame at middle of the screen
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Point middle = new Point(screenSize.width / 2, screenSize.height / 2);
         Point newLocation = new Point(middle.x - (calculatorDialog30.getWidth() / 2), 
                                       middle.y - (calculatorDialog30.getHeight() / 2));
         calculatorDialog30.setLocation(newLocation);
+        
         calculatorDialog30.setVisible(true);
         calculatorDialog30.setVisible(false);
     }
