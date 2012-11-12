@@ -45,6 +45,8 @@
     <handler name="ondata" reference="gController.dpitem">
         //find the text in the scroll text panel node.  We'll use this to find
         //the details for a particular header
+        	//Debug.write("gController.dpitem.data");
+        	//printBigString(gController.dpitem.data.serialize());
         if (gController.dpitem.data) {
             var dnscrolltext = gController.dpitem.xpathQuery("item_canvas/scrolling_text_panel");
             if(dnscrolltext == null) {
@@ -52,8 +54,10 @@
             }
             if(dnscrolltext == null){
             	dnscrolltext = gController.dpitem.xpathQuery("item_canvas/stimulus_tabs_panel/stimulus_tab");
+            	if (dnscrolltext == null) dnscrolltext = gController.dpitem.xpathQuery("item_canvas/panel/stimulus_tabs_panel/stimulus_tab");
+            	//Debug.write("dnscrolltext",dnscrolltext);
             	if(dnscrolltext != null){
-            		dnscrolltext = dnscrolltext[0];
+            		dnscrolltext = dnscrolltext;
             	}
             }
             if (dnscrolltext) {
@@ -111,6 +115,7 @@
 
     <handler name="onscrolltext">
         //init font color and background color
+        Debug.write("FOOTNOTE SCROLL TEXT" , scrolltext);
         if(scrolltext!=null){
 	        var fgc = this.scrolltext['fontcolor'] ? this.scrolltext.fontcolor : "0xFFFFFF";
 	        var bc = this.scrolltext['panel'] &amp;&amp; this.scrolltext.panel['bgcolor'] ? this.scrolltext.panel.bgcolor : "0x000000";
