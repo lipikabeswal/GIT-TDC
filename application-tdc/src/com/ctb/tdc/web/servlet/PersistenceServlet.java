@@ -274,7 +274,13 @@ public class PersistenceServlet extends HttpServlet {
 		else if (method != null
 				&& method.equals(ServletUtils.OK_CALCULATOR)) {
 			calcType = request.getParameter("calcType");
-			result = showHideOkCalculator("N");
+			//result = showHideOkCalculator("N");
+			//result = showOkCalculator(calcType);
+			if(!calculatorDialog84.isVisible() && !calculatorDialog30.isVisible()) {
+				showHideOkCalculator("N");
+			} else {
+				showHideOkCalculator("Y");
+			}
 		} else if (method != null
 				&& method.equals(ServletUtils.SHOW_HIDE_OK_CALCULATOR))
 			result = showHideOkCalculator(request.getParameter("isHidden"));
@@ -892,8 +898,8 @@ public class PersistenceServlet extends HttpServlet {
 				if(calculatorDialog84 == null || !calculatorDialog84.isCalculatorRunning()) {
 			        javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			            public void run() {
-			            	createAndShowTI84();	
-			            }
+			            	createAndShowTI84();
+				        }
 			        });
 				} else {
 					calculatorDialog84.dispose();
@@ -903,7 +909,7 @@ public class PersistenceServlet extends HttpServlet {
 			        javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			            public void run() {
 			            	createAndShowTI30();	
-			            }
+				        }
 			        });
 				} else {
 					calculatorDialog30.dispose();
@@ -956,11 +962,8 @@ public class PersistenceServlet extends HttpServlet {
 	
 	public static String closeOkCalculator() {
 		try {
-			if(calculatorDialog84 != null) {
-				calculatorDialog84.dispose();
-			}
-			if(calculatorDialog30 != null) {
-				calculatorDialog30.dispose();
+			if(calculatorDialog84 != null && calculatorDialog30 != null) {
+				showHideOkCalculator("Y");
 			}
 			return ServletUtils.OK;
 		} catch (Exception e) {
