@@ -1,49 +1,68 @@
-<project name="tdc-backup" default="TestClient" basedir=".">
+<project name="tdc-upgrade" basedir="." default="build.TestClient.swf10">
+<property name="out.dir" value = "../webapp" />
+<property name="laszlo.home" value="C:\Program Files\OpenLaszlo Server 4.9.0\Server\lps-4.9.0"/>
+<property name="laszlo.src.dir" value="${basedir}/src"/>
+<property name="laszlo.debug" value="false"/>
+<property name="laszlo.proxied" value = "true"/>
+	<property name="TestClient.swf" value="${basedir}/src/TestClient.swf10.swf"/>
+	<property name="TestClient.lzx.js" value="${basedir}/src/TestClient.lzx.js"/>
 
+<path id = "laszlo.lib">
+   <pathelement location="${laszlo.home}/WEB-INF/lps/server/build" />
+    <pathelement location="${laszlo.home}/WEB-INF/classes" />
+    <fileset dir = "${laszlo.home}/3rd-party/jars/dev" includes="**/*.jar"/>
+    <fileset dir = "${laszlo.home}/WEB-INF/lib" includes="**/*.jar"/>
+    <fileset dir = "C:\Program Files\OpenLaszlo Server 4.9.0\Server\tomcat-5.0.24\common\lib" includes="**/*.jar"/>
+    <fileset dir = "C:\Program Files\OpenLaszlo Server 4.9.0\Server\tomcat-5.0.24\server\lib" includes="**/*.jar"/>
+</path>
+
+<target name = "build.TestClient.swf10">
+    <java classname = "org.openlaszlo.compiler.Main" fork = "true"
+        newenvironment="true"
+        failonerror="true"
+        dir = "${laszlo.src.dir}"
+        classpathref="laszlo.lib"
+       >
+        <jvmarg value = "-DLPS_HOME=${laszlo.home}"/>
+        <jvmarg value = "-Dlzdebug=${laszlo.debug}"/>
+        <jvmarg value = "-Dlzproxied=${laszlo.proxied}"/>
+        <jvmarg value = "-Xms1024M"/>
+        <jvmarg value = "-Xmx1024M"/>
+        <arg line="--runtime=swf10  TestClient.lzx" />
+    </java>
 	
-    <property name="src"   value="${basedir}/src"/>
-	<property name="webappDir" value="../webapp"/>
+    <move todir="${out.dir}">
+        <fileset dir="${laszlo.src.dir}" />
+        <mapper>
+        <mapper type="glob"
+                from="TestClient.lzx.swf10.swf" to="TestClient.lzx.swf" />
+        </mapper>
+    </move>
+	<delete file="${TestClient.swf}"/>
+</target>
 	
-    <property environment="env"/>
-    <property name="lzbin" value="${env.LPS_HOME}/WEB-INF/lps/server/bin"/>
-
-    <!-- use the correct compiler script based on platform -->
-    <condition property="lzc" value="${lzbin}/lzc">
-        <os family="unix"/>
-    </condition>
-
-    <condition property="lzc" value="${lzbin}/lzc.bat">
-        <os family="windows"/>
-    </condition>
-
-    <property name="TestClient.lzx" value="${basedir}/src/TestClient.lzx"/>
-    <property name="TestClient.swf" value="${basedir}/src/TestClient.swf"/>
-    <property name="TestClient.lzx.swf" value="${TestClient.lzx}.swf"/>
-    <property name="ctbmodules" value="${basedir}/src/ctbmodules"/>
-    <property name="lzmodules" value="${basedir}/src/lzmodules"/>
-
-    
-    <target name="TestClient" description="compile TestClient.lzx">
-    	<echo message="${lzc}"/>
-        <exec executable="${lzc}" failonerror="true">
-            <arg value="${TestClient.lzx}"/>
-        	<arg value="--runtime=swf10"/>
-        </exec>
-        <copy file="${TestClient.lzx.swf}" todir="${webappDir}"/>
-        <delete file="${TestClient.swf}"/>
-        <delete file="${TestClient.lzx.swf}"/>
-    </target>
-
-   
-
-	<target name="help" description="describes usage">
-        <echo>
-Usage:
-
-ant TestClient             compile, copy to standalone, 
-
-ant help             print this message
-        </echo>
-    </target>
-
+	<target name = "build.TestClient.dhtml">
+	    <java classname = "org.openlaszlo.compiler.Main" fork = "true"
+	        newenvironment="true"
+	        failonerror="true"
+	        dir = "${laszlo.src.dir}"
+	        classpathref="laszlo.lib"
+	       >
+	        <jvmarg value = "-DLPS_HOME=${laszlo.home}"/>
+	        <jvmarg value = "-Dlzdebug=${laszlo.debug}"/>
+	        <jvmarg value = "-Dlzproxied=${laszlo.proxied}"/>
+	        <jvmarg value = "-Xms1024M"/>
+	        <jvmarg value = "-Xmx1024M"/>
+	        <arg line="--runtime=dhtml  TestClient.lzx" />
+	    </java>
+		
+	    <move todir="${out.dir}">
+	        <fileset dir="${laszlo.src.dir}" />
+	        <mapper>
+	        <mapper type="glob"
+	                from="TestClient.lzx.js" to="TestClient.lzx.js" />
+	        </mapper>
+	    </move>
+		<delete file="${TestClient.lzx.js}"/>
+	</target>
 </project>
