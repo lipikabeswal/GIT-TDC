@@ -42,7 +42,6 @@
         // This is old fitpanel code
         if (dn.getAttr("autoenlargeable") == "fitpanel" || 
                                          dn.getAttr("enlargeable")) {
-           
            // Create panel based on original XML values for both panel and table
            var dnpanel = new lz.DataElement("panel",
                                         { width      : this.width,
@@ -55,7 +54,7 @@
         }
         else {
            // Create panel using params passed in
-           var dnpanel = new lz.DataElement("panel",
+		   var dnpanel = new lz.DataElement("panel",
                                         { width      : w,
                                           height     : h,
                                           stereotype : stereotype,
