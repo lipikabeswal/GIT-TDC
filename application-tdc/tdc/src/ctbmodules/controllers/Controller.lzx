@@ -689,13 +689,13 @@
 		<method name="getInitialSubtestIndex"><![CDATA[
     		var result = 0;
     		if(dprestart.isValid()){
-				//var restartId =getAttribute('restartscid');
+				var restartId =getAttribute('restartscid');
 				//START Change for deferred Defect 63502
-    			var scoid = dprestart.xpathQuery('tsd[@scid ="'+restartscid+'"]/@scid');
+    			var scoid = dprestart.xpathQuery('tsd[@scid ="'+restartId+'"]/@scid');
     			//END
-				/*if(scoid == null && restartId!= null) { // Added for defect 70251 as for hard reset, restart data will not be present
+				if(scoid == null && restartId!= null) { // Added for defect 70251 as for hard reset, restart data will not be present
 					scoid=restartId;
-				}*/
+				}
     			dp.setXPath('dslogin:/login_response/manifest');
 	    		var scos = dp.xpathQuery('sco');
 	    		var found = false;
@@ -985,7 +985,7 @@
             //var unscored = crtotal + grtotal + notSrOnRestart;
 
 			//delete consolidated_restart_data node if there is one or no child tsd nodes 
-			deleteParentIfNoOrOneChild(dprestart);
+			//deleteParentIfNoOrOneChild(dprestart);
 
 			//START Change for deferred Defect 63502
 			//dprestart.selectChild();
@@ -1052,6 +1052,12 @@
 			dp.setPointer(node);
 			var subtestId = dp.xpathQuery('save_testing_session_data/tsd/next_sco/@id');
 
+			//Changes for defect 70251 as for hard reset, restart data for all subtests should not be deleted. 
+			var restartScoId = dprestart.xpathQuery('tsd[@scid ="'+subtestId+'"]/@scid'); 
+			//delete consolidated_restart_data node if there is one or no child tsd nodes 
+			if(!(dprestart.isValid() && restartScoId != null)) {  
+				deleteParentIfNoOrOneChild(dprestart);
+			}
 			//START Change for deferred Defect 63502
 			setAttribute('restartscid', dp.xpathQuery('save_testing_session_data/tsd/next_sco/@id'));
 			//END
@@ -1173,8 +1179,8 @@
 
 				//START Change for deferred Defect 63502
 	    		setAttribute('restartscid', dp.xpathQuery('login_response/manifest/sco[1]/@id'));
-				//var restartId = getAttribute('restartscid');
-	    		var numIsts = countDataNodes(dp.xpathQuery('login_response/consolidated_restart_data/tsd[@scid = "'+ restartscid +'"]/ist'));
+				var restartId = getAttribute('restartscid');
+	    		var numIsts = countDataNodes(dp.xpathQuery('login_response/consolidated_restart_data/tsd[@scid = "'+ restartId +'"]/ist'));
 	    		//END
 
 	    		dslogin.setChildNodes(new Array(loginResponse));
@@ -1184,7 +1190,10 @@
 				setAttribute('currentSubtestIndex', getInitialSubtestIndex());
 				gRequest.setMseqFromRestartNumber(restartNumber);
 				if(numIsts == 0 && dprestart.isValid()){
-            		dprestart.deleteNode();
+					var scoid = dprestart.xpathQuery('tsd[@scid ="'+restartId+'"]/@scid');
+					if(!(scoid == null && restartId!= null)) {
+            			dprestart.deleteNode();
+            		}
 				}
 				sendHeartbeat();   // starts heartbeats
 				if(gTutorialManager.hasTutorial){
@@ -1310,11 +1319,14 @@
 		<method name="totalAnsweredOnRestart"><![CDATA[
  			var numanswered = 0;
 			//START Change for deferred Defect 63502
-            
-			//var restartId = getAttribute('restartscid');
+			var restartId = getAttribute('restartscid');
+			var scoid = dprestart.xpathQuery('tsd[@scid ="'+restartId+'"]/@scid');
+			if(scoid == null && restartId!= null) {
+				restartId = dp.xpathQuery('dslogin:/login_response/consolidated_restart_data/tsd[1]/@scid');
+			}
            	if(this.getAttribute("fwdOnly") == true){
 				if(this.adaptive == 'true'){
-	 				var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ist' );
+	 				var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartId +'"]/ist' );
 	        		if ( awd && awd instanceof Array ) {
 	                	if(awd.length > 0)
 	 						numanswered = awd.length;
@@ -1325,7 +1337,7 @@
 					numanswered = this.restartItemCount;
 				}
  			}else{
- 				var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ist/rv/v' );
+ 				var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartId +'"]/ist/rv/v' );
  			
 		         //END
 		         
@@ -1457,7 +1469,7 @@
 		<method name="initTest"><![CDATA[
         	// remove timer in case previous test was timed but this test is untimed
         	//Debug.warn("*****************************Init Test***************************");
-			//var restartId = getAttribute('restartscid');
+			var restartId = getAttribute('restartscid');
             LzTimer.removeTimer( dupdateTimeLeft );
             resetCatAttributes();
             if(this.adaptive == 'true') { 
@@ -1497,7 +1509,11 @@
             if ( dprestart.isValid() ) {
             //Debug.warn("*****************************restart***************************");
 				//START Change for deferred Defect 63502
-				var secs = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@rem_sec' );
+				var scoid = dprestart.xpathQuery('tsd[@scid ="'+restartId+'"]/@scid');
+				if(scoid == null && restartId!= null) { // Added for defect 70251 as for hard reset, restart data will not be present
+					restartId = dp.xpathQuery('dslogin:/login_response/consolidated_restart_data/tsd[1]/@scid');
+				}
+				var secs = dprestart.xpathQuery( 'tsd[@scid = "'+ restartId +'"]/ast/@rem_sec' );
 				//END
                 if ( null == secs ) {
                     // can't find time remaining from restart,
@@ -1656,11 +1672,11 @@
 		</method>
 
 		<method name="setScratchpadForSubtest">
-			//var restartId=getAttribute('restartscid');
+			var restartId=getAttribute('restartscid');
 			var spContents = "";
 			if(dprestart.isValid()){
 				//START Change for deferred Defect 63502
-				var spContents = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/sp/text()');
+				var spContents = dprestart.xpathQuery( 'tsd[@scid = "'+ restartId +'"]/sp/text()');
 				//END
 			}
 			gScratchpad.setText(unescape(spContents));
@@ -1694,20 +1710,20 @@
 		<method name="openTest">
 			this.istRestartLength=0;
          //START Change for deferred Defect 63502
-			//var restartId=getAttribute('restartscid');
-        	var i = restartscid;			
+			var restartId=getAttribute('restartscid');
+        	var i = restartId;			
 			var fnode = getItemFromOffset( 0 );
 			if ( dprestart.isValid() ) {
                 var fnode = dpsubtest.xpathQuery(
                     "ob_assessment/ob_element_list/f[@id='" +
-                        dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@cur_eid' ) +
+                        dprestart.xpathQuery( 'tsd[@scid = "'+ restartId +'"]/ast/@cur_eid' ) +
                     "']");
           //END
                 if ( !fnode ) {
                     fnode = getItemFromOffset( 0 );
                 }
-                var dnruntimeitem = dpstudentdata.xpathQuery ("runtime/item_model [@eid = '"+dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@cur_eid' )+"']");
-                dnruntimeitem.setAttr ('eid', dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@cur_eid' ) );
+                var dnruntimeitem = dpstudentdata.xpathQuery ("runtime/item_model [@eid = '"+dprestart.xpathQuery( 'tsd[@scid = "'+ restartId +'"]/ast/@cur_eid' )+"']");
+                dnruntimeitem.setAttr ('eid', dprestart.xpathQuery( 'tsd[@scid = "'+ restartId +'"]/ast/@cur_eid' ) );
              }
              
             /* if(gController.audible == 'true'){
@@ -1728,14 +1744,14 @@
 
 
 		<method name="getAdptiveRestartNodes"><![CDATA[
-			//var restartId=getAttribute('restartscid');
+			var restartId=getAttribute('restartscid');
 			var istArr = [];
 			var runtimeCount = this.subtestLength + 1;
 			dprestart.xpathQuery( istxpath );
 			var numIsts = countDataNodes(dprestart.xpathQuery('tsd/ist'));
 			var elist = dprestart.xpathQuery('tsd');
 			var items = elist.getElementsByTagName( 'ist' );
-            var landingItem = dprestart.xpathQuery( 'tsd[@scid = "'+ restartscid +'"]/ast/@cur_eid' );
+            var landingItem = dprestart.xpathQuery( 'tsd[@scid = "'+ restartId +'"]/ast/@cur_eid' );
             //var landingFnode = dpsubtest.xpathQuery('ob_assessment/ob_element_list/@restart_ast');
             var itemNumber = Number(getStartNumber());
 			this.istLength = items.length;
