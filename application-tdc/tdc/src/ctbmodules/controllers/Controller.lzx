@@ -492,6 +492,7 @@
 		<attribute name="sendCatSave" value="true" type="boolean" />
 		<attribute name="catOver" value="false" type="boolean" />
 		<attribute name="isStopTest" value="true" type="boolean" /> 
+		<attribute name="isCatStop" value="false" type="boolean" />
 		<attribute name="isFinishTest" value="false" type="boolean" />
 		<attribute name="restartItemCount" type="number" value="0" />
 		<attribute name="prevItemId" type="number" value="0" />
@@ -506,6 +507,7 @@
 		<attribute name="answerObj" value="$once{new Object()}" />
 		<attribute name="sptext" value="null" />
 		<attribute name="manipStateHtml" value="$once{new Object()}"/>
+		<attribute name="stylesArr" value="$once{new Array()}"/>
 		<!--
 			============================================================
 			Datapointers
@@ -640,6 +642,7 @@
 			setState(SUBTEST_STATE);
 			var params = getCurrentSubtestParams();
 			gCommunicator.getSubtest(params[0], params[1], params[2]);
+			this.setAttribute("isCatStop", false);
 		</method>
 
 		<method name="processItemResponse">
@@ -1021,7 +1024,7 @@
 				this.stuLoginDetails.fn = dp.xpathQuery('login_response/testing_session_data/cmi.core/@student_first_name');
 				this.stuLoginDetails.mn = dp.xpathQuery('login_response/testing_session_data/cmi.core/@student_middle_name');
 				this.stuLoginDetails.ln = dp.xpathQuery('login_response/testing_session_data/cmi.core/@student_last_name');
-			
+				this.stylesArr = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/stereotype_style');
 			
 				var loginResponse = dp.xpathQuery('login_response');
 				//START Change for deferred Defect 63502
@@ -3131,7 +3134,8 @@
             showItemInterface();
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
-            unlockUI();
+			unlockUI();
+			this.setAttribute("isCatStop", false);
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
 			if(this.adaptive == true){
@@ -3150,6 +3154,13 @@
 		-->
 
 		<method name="stopTest">
+			var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
+			var curItemId;
+        	if(itemnode != null){
+					curItemId = itemnode.getAttr( 'eid' );
+			}		
+			var isAnswered  = dpstudentdata.xpathQuery("runtime/item_model[@eid='"+curItemId+"']/@answered") == '1';
+			this.setAttribute("isCatStop", true);
 			this.setAttribute("isStopTest",true);
 			this.setAttribute("catOver",false);
 			this.isStopScreen = false;
@@ -3798,10 +3809,11 @@ Debug.write("############ loadItem ############");
 
 		<!-- accomodations -->
 		<method name="_getAccomStyles"><![CDATA[
-            var stylesarr = dplogin.xpathQuery ('testing_session_data/lms.student.accommodations/stereotype_style');
-            
+            var stylesarr = this.stylesArr;
+            //Debug.write("__GETACCOMSTYLES arr ", stylesarr);
             for (var i in stylesarr) {
             	var theStyle = stylesarr [i];
+            	//Debug.write("__GETACCOMSTYLES arr", theStyle);
                 this.accomstyles [theStyle.getAttr ('stereotype')] = theStyle.attributes;
                 if (theStyle.getAttr("stereotype") == "stem"){
                     // NK : Need to remove this later XXXX
@@ -3938,6 +3950,16 @@ Debug.write("############ loadItem ############");
 			value="$once{ new lz.Delegate( this, 'updateTimeLeft' ) }" />
 
 		<method name="outOfTime"><![CDATA[
+			var curItemId;
+			var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
+        	if(itemnode != null){
+					curItemId = itemnode.getAttr( 'eid' );
+			}		
+			var isAnswered 	   = dpstudentdata.xpathQuery("runtime/item_model[@eid='"+curItemId+"']/@answered") == '1';
+
+			//Debug.write("out of time 1 ans" + isAnswered);
+			
+			this.setAttribute("isCatStop",true);
             if ( 0 == uisemaphore ) {
                 freezeUI();
             }

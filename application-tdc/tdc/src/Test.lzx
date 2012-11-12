@@ -75,12 +75,7 @@ switch(arg){
 							}
 		break;
 		
-		case 'straight_edge' :if(gStraightEdge.visible){
-								gStraightEdge.hide();
-							}else{
-								gStraightEdge.show();
-							}
-		break;
+
 		case 'straight_edge' :if(gStraightEdge.visible){
 										gStraightEdge.hide();
 									}else{
