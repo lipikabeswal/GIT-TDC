@@ -274,7 +274,7 @@ public class PersistenceServlet extends HttpServlet {
 		else if (method != null
 				&& method.equals(ServletUtils.OK_CALCULATOR)) {
 			calcType = request.getParameter("calcType");
-			//result = showOkCalculator(calcType);
+			result = showHideOkCalculator("N");
 		} else if (method != null
 				&& method.equals(ServletUtils.SHOW_HIDE_OK_CALCULATOR))
 			result = showHideOkCalculator(request.getParameter("isHidden"));
