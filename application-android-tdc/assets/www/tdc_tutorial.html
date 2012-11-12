@@ -36,6 +36,7 @@
             }
             body {
                 background-color: #6691b4;
+				-webkit-tap-highlight-color: transparent;
             }
             img { border: 0 none; }
         </style>
@@ -124,7 +125,30 @@ function buttonClicked(obj){
     clearInterval(intId);  
 }*/
 }
+function setFrameSource(filepath,tranX,tranY){
 
+ var jsCode = "function translate(scaleX, scaleY) {console.log('calling');var tranX = (scaleX-1)*50, tranY = (scaleY-1)*50; console.log('calling*** ',tranX,tranY); var tr = \"translate(\"+tranX+\"%, \"+tranY+\"%) scale(\"+scaleX+\", \"+scaleY+\")\"; console.log('calling++++ ',tr,$('body').css); $('body').css({'-webkit-transform': tr, 'transform': tr}); console.log('calling!!!! ',tr,$('body').css);}";
+
+var s = document.getElementsByName("htmlwigetframe");
+s[0].setAttribute("src",filepath);
+var iframe = document.getElementById('TEframeId');
+
+if(iframe){
+  iframe.onload = function(){
+
+  var doc = iframe.contentDocument;
+var scriptEl = doc.createElement('script');
+scriptEl.text = jsCode;
+doc.body.appendChild(scriptEl);
+console.log(doc.firstChild);
+
+document.getElementById('TEframeId').contentWindow.translate(tranX, tranY);
+lz.embed.setCanvasAttribute("TEItemLoaded", true); 
+  };
+  }
+
+
+}  
 function closeMagnifier(){
   var olddiv = document.getElementById('mglass');
   if (olddiv && olddiv.parentNode && olddiv.parentNode.removeChild)
@@ -133,6 +157,7 @@ function closeMagnifier(){
 
 
 </SCRIPT>
+
 </HEAD>
 
 <BODY topmargin=0 leftmargin=0 rightmargin=0 bottommargin=0 scroll=no bgcolor="#6691B4">
