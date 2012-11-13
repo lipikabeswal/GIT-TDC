@@ -118,11 +118,74 @@ public class ServletSettings implements java.io.Serializable {
     	        }
         	}
         }
-        logger.info("Final proxy host: " + this.proxyHost);
-        logger.info("Final proxy port: " + this.proxyPort);
-        logger.info("Final proxy user: " + this.proxyUserName);
-        logger.info("Final proxy pass: " + this.proxyPassword);
-        logger.info("Final proxy domain: " + this.proxyDomain);
+        System.out.println("Final proxy host: " + this.proxyHost);
+        System.out.println("Final proxy port: " + this.proxyPort);
+        System.out.println("Final proxy user: " + this.proxyUserName);
+        System.out.println("Final proxy pass: " + this.proxyPassword);
+        System.out.println("Final proxy domain: " + this.proxyDomain);
+    }
+    
+    public ServletSettings(ResourceBundle rbProxy) {
+        
+        init();
+        
+        String proxy = System.getProperty("tdc.proxy");
+        if(proxy == null || "".equals(proxy.trim())) {
+	        if (rbProxy != null) {
+	            this.proxyHost = resourceBundleGetString(rbProxy, "proxy.host");
+	            this.proxyPort = resourceBundleGetInt(rbProxy, "proxy.port");        
+	            this.proxyUserName = resourceBundleGetString(rbProxy, "proxy.username");
+	            this.proxyPassword = resourceBundleGetString(rbProxy, "proxy.password");
+	            this.proxyDomain = resourceBundleGetString(rbProxy, "proxy.ntlmdomain");
+	        }
+        } else {
+        	try {
+	        	int bsIndex = proxy.indexOf("\\");
+	        	if(bsIndex >= 0) {
+	        		this.proxyDomain = proxy.substring(0, bsIndex);
+	        		proxy = proxy.substring(bsIndex + 1, proxy.length());
+	        		logger.info("Proxy domain: " + this.proxyDomain);
+	        	}
+	        	int colonIndex = proxy.indexOf(":");
+	        	int atIndex = proxy.indexOf("@");
+	        	if(colonIndex >= 0 && colonIndex < atIndex) {
+	        		this.proxyUserName = proxy.substring(0, colonIndex);
+	        		logger.info("Proxy user: " + this.proxyUserName);
+	        		proxy = proxy.substring(colonIndex + 1, proxy.length());
+	        	}
+	        	atIndex = proxy.indexOf("@");
+	        	if(atIndex >= 0) {
+	        		this.proxyPassword = proxy.substring(0, atIndex);
+	        		logger.info("Proxy password: " + this.proxyPassword);
+	        		proxy = proxy.substring(atIndex + 1, proxy.length());
+	        	}
+	        	colonIndex = proxy.indexOf(":");
+	        	if(colonIndex >= 0) {
+	        		this.proxyHost = proxy.substring(0, colonIndex);
+	        		logger.info("Proxy host: " + this.proxyHost);
+	        		proxy = proxy.substring(colonIndex + 1, proxy.length());
+	        		this.proxyPort = Integer.valueOf(proxy);
+		        	logger.info("Proxy port: " + this.proxyPort);
+	        	} else {
+	        		this.proxyHost = proxy;
+	        		logger.info("Proxy host: " + this.proxyHost);
+	        	}
+        	} catch (Exception e) {
+        		logger.info("Error setting proxy using override value!", e);
+        		if (rbProxy != null) {
+    	            this.proxyHost = resourceBundleGetString(rbProxy, "proxy.host");
+    	            this.proxyPort = resourceBundleGetInt(rbProxy, "proxy.port");        
+    	            this.proxyUserName = resourceBundleGetString(rbProxy, "proxy.username");
+    	            this.proxyPassword = resourceBundleGetString(rbProxy, "proxy.password");
+    	            this.proxyDomain = resourceBundleGetString(rbProxy, "proxy.ntlmdomain");
+    	        }
+        	}
+        }
+        System.out.println("Final proxy host: " + this.proxyHost);
+        System.out.println("Final proxy port: " + this.proxyPort);
+        System.out.println("Final proxy user: " + this.proxyUserName);
+        System.out.println("Final proxy pass: " + this.proxyPassword);
+        System.out.println("Final proxy domain: " + this.proxyDomain);
     }
 
     private void init() {

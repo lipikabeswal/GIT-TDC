@@ -74,6 +74,7 @@ public class TTSUtil {
 			client = new DefaultHttpClient(mgr, httpParams);
 			
 			// setup proxy
+			ServletUtils.validateProxySettings();
 			String proxyHost = ServletUtils.getProxyHost();
 	
 			if ((proxyHost != null) && (proxyHost.length() > 0)) {
