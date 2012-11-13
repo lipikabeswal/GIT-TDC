@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=WorkStationTuningUtilityBrowser
+Comment=<>
+GenericName=WorkStationTuningUtilityBrowser
+Exec='/opt'/'WorkStationTuningUtilityBrowser'/bin/'WorkStationTuningUtilityBrowser'
+Type=Application
+Terminal=false
+Icon=
+StartupNotify=true
+X-KDE-StartupNotify=true
+Categories=Utility;
+X-AppInstall-Package=workstationtuningutilitybrowser
+X-AppInstall-Section=main
+

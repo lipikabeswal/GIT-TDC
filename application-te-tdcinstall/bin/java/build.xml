@@ -1,0 +1,43 @@
+<project name="application-tdcinstall InstallAnywhere Extension" default="usage" basedir=".">
+
+	<property name="project.src"           value="${basedir}/src" />
+	<property name="project.bin"           value="${basedir}/bin" />
+	<property name="project.installer.dir" value="${basedir}/../installer" />
+	<property name="project.artifact"      value="${project.installer.dir}/tdcia.jar" />
+	
+	
+	<target name="usage" description="Displays the usage of this ANT build script.">
+		<echo>
+			Usage: ant [target]
+		</echo>
+	</target>
+	
+	<target name="clean" description="Cleans the contents within the build directory.">
+		<delete includeemptydirs="true">
+			<fileset dir="${project.bin}" includes="**/*"/>
+		</delete>
+		<delete file="${project.artifact}" />
+	</target>
+	
+	<target name="build" description="Builds the JAR file." depends="clean">
+		<javac srcdir="${project.src}" destdir="${project.bin}" >
+			<exclude name="test/**"/>
+			<classpath>
+				<pathelement location="C:\Program Files\InstallAnywhere 2008 VP1 Enterprise\IAClasses.zip" />
+			</classpath>
+		</javac>
+
+		<copy todir="${project.bin}">
+			<fileset dir="${project.src}" excludes="**/*.java"/>
+		</copy>
+		
+		<mkdir dir="${project.bin}/META-INF" />
+		<manifest file="${project.bin}/META-INF/MANIFEST.MF">
+			<attribute name="Built-By" value="CTB/McGraw-Hill"/>
+		</manifest>
+		
+		<jar jarfile="${project.artifact}" basedir="${project.bin}" manifest="bin/META-INF/MANIFEST.MF" />
+	</target>
+
+
+</project>

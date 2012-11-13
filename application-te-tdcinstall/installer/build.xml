@@ -1,0 +1,367 @@
+<project name="application-tdcinstall InstallAnywhere Installer" default="usage" basedir="."> 
+ 
+ 	<property name="project.installer.application.dir" value="C:\Program Files\InstallAnywhere 2008 Enterprise" />
+	<property name="project.installer.src"             value="tdc.iap_xml" />
+	<property name="project.installer.xsl.dir"         value="${basedir}/antxsl" />
+	<property name="project.base.dir"              		value="${basedir}" />
+	<property name="project.artifacts.dir"              value="${basedir}/artifacts" />
+	<property name="project.artifacts.etc.dir"              value="${basedir}/artifacts/etc" />
+	<property name="project.artifacts.webapp.resources.dir" value="${basedir}/artifacts/webapp/resources" />
+	<property name="project.artifacts.webapp.classes.dir" value="${basedir}/artifacts/webapp/WEB-INF/classes" />
+
+	<taskdef name="buildinstaller" 
+			 classpath="${project.installer.application.dir}\resource\build\iaant.jar" 
+			 classname="com.zerog.ia.integration.ant.InstallAnywhereAntTask"/> 
+	
+	
+	<!-- **************************** usage ******************************* -->	
+	<target name="usage" description="Displays the usage of this ANT build script.">
+		<echo>
+			Usage: ant [target]
+		</echo>
+	</target>
+	
+	
+	<!-- **************************** clean ******************************* -->	
+	<target name="clean" description="Cleans the generated output files.">
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="${basedir}" defaultexcludes="off">
+				<include name="__tdc_*_Build_Output/**"/>
+				<include name="__tdc_*locales/**"/>
+				<include name="__tdc*.iap_xml" />
+				<include name="tdc_Build_Output/**"/>
+				<include name="tdclocales/**"/>
+			</fileset>
+		</delete>
+	</target>
+	
+	
+	<!-- **************************** prepArtifacts ******************************* -->	
+	<target name="prepArtifacts" description="Clears out the artifats folder in preparation of it coming from application-tdc and application-tdcbootstrap">
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset defaultexcludes="no" dir="${basedir}/artifacts/data" />
+			<fileset defaultexcludes="no" dir="${basedir}/artifacts/etc" />
+			<fileset defaultexcludes="no" dir="${basedir}/artifacts/lockdownbrowser" />
+			<fileset defaultexcludes="no" dir="${basedir}/artifacts/servletcontainer" />
+			<fileset defaultexcludes="no" dir="${basedir}/artifacts/webapp" />
+		</delete>
+		<delete file="${basedir}/artifacts/bootstrap.jar"/>
+	</target>
+	
+	
+	<!-- **************************** build ******************************* -->	
+	<target name="build" description="Builds the various installers" depends="clean">
+		
+		<antcall target="buildVanilla" />
+		<antcall target="buildVanillaThin" /> 
+		
+		<antcall target="buildISTEP" /> 
+		<antcall target="buildISTEPThin" /> 
+		
+		<antcall target="buildTABE" />
+		<!-- <antcall target="buildTABEThin" />  -->
+		
+		<antcall target="buildLasLink" />  
+		<!-- <antcall target="buildLasLinkThin" /> -->
+
+		<antcall target="buildGA" />  	
+		<!-- <antcall target="buildGAThin" /> -->
+
+		<antcall target="buildTN" />  
+		<!-- <antcall target="buildTNThin" /> -->
+		
+		<antcall target="buildTNG" />  
+		<!-- <antcall target="buildTNGThin" /> -->
+
+		<antcall target="buildOK" />  
+		<!-- <antcall target="buildOKThin" /> -->
+		
+		<antcall target="postClean"></antcall>
+		<antcall target="buildTDCUpdate"></antcall>
+	</target>
+	
+	
+	<!-- **************************** Vanilla ******************************* -->	
+	<target name="buildVanilla" description="Builds the generic installer" depends="init">
+		<antcall target="buildNonThinClientInstaller">
+			<param name="installer.type" value="vanilla" />
+			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
+			<param name="installer.secondary.url" value="https://oasdelivery.ctb.com" />
+		</antcall>
+	</target>
+	
+	<target name="buildVanillaThin" description="Builds the generic installer" depends="init">
+		<antcall target="buildThinClientInstaller">
+			<param name="installer.type" value="vanilla-thin" />
+			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
+			<param name="installer.secondary.url" value="https://oasdelivery.ctb.com" />
+		</antcall>
+	</target>
+	
+	<!-- **************************** ISTEP ******************************* -->	
+	<target name="buildISTEP" description="Builds the ISTEP installer" depends="init">
+		<antcall target="buildNonThinClientInstaller">
+			<param name="installer.type" value="istep" />
+			<param name="installer.primary.url" value="https://istep-oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://istep-oasdr.ctb.com" />
+		</antcall>
+	</target>
+	
+	<target name="buildISTEPThin" description="Builds the ISTEP installer" depends="init">
+		<antcall target="buildThinClientInstaller">
+			<param name="installer.type" value="istep-thin" />
+			<param name="installer.primary.url" value="https://istep-oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://istep-oasdr.ctb.com" />
+		</antcall>
+	</target>
+	
+	<!-- **************************** TABE ******************************* -->	
+	<target name="buildTABE" description="Builds the TABE installer" depends="init">
+		<antcall target="buildNonThinClientInstaller">
+			<param name="installer.type" value="tabe" />
+			<param name="installer.primary.url" value="https://tabe-oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://tabe-oasdr.ctb.com" />
+		</antcall>
+	</target>
+
+	<target name="buildTABEThin" description="Builds the TABE installer" depends="init">
+		<antcall target="buildThinClientInstaller">
+			<param name="installer.type" value="tabe-thin" />
+			<param name="installer.primary.url" value="https://tabe-oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://tabe-oasdr.ctb.com" />
+		</antcall>
+	</target>
+
+	<!-- **************************** LasLink ******************************* -->	
+	<target name="buildLasLink" description="Builds the LasLink installer" depends="init">
+		<antcall target="buildNonThinClientInstaller">
+			<param name="installer.type" value="laslink" />
+			<param name="installer.primary.url" value="https://llo-oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://llo-oasdr.ctb.com" />
+		</antcall>
+	</target>
+
+	<target name="buildLasLinkThin" description="Builds the LasLink installer" depends="init">
+		<antcall target="buildThinClientInstaller">
+			<param name="installer.type" value="laslink-thin" />
+			<param name="installer.primary.url" value="https://llo-oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://llo-oasdr.ctb.com" />
+		</antcall>
+	</target>
+
+	<!-- **************************** Geogia ******************************* -->	
+	<target name="buildGA" description="Builds the GA installer" depends="init">
+		<antcall target="buildNonThinClientInstaller">
+			<param name="installer.type" value="ga" />
+			<param name="installer.primary.url" value="https://ga-oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://ga-oasdr.ctb.com" />
+		</antcall>
+	</target>
+
+	<target name="buildGAThin" description="Builds the GA installer" depends="init">
+		<antcall target="buildThinClientInstaller">
+			<param name="installer.type" value="ga-thin" />
+			<param name="installer.primary.url" value="https://ga-oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://ga-oasdr.ctb.com" />
+		</antcall>
+	</target>
+	
+	<!-- **************************** TerraNova ******************************* -->	
+	<target name="buildTN" description="Builds the TN installer" depends="init">
+		<antcall target="buildNonThinClientInstaller">
+			<param name="installer.type" value="tn" />
+			<param name="installer.primary.url" value="https://tn-oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://tn-oasdr.ctb.com" />
+		</antcall>
+	</target>
+
+	<target name="buildTNThin" description="Builds the TN installer" depends="init">
+		<antcall target="buildThinClientInstaller">
+			<param name="installer.type" value="tn-thin" />
+			<param name="installer.primary.url" value="https://tn-oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://tn-oasdr.ctb.com" />
+		</antcall>
+	</target>
+	
+	
+	<!-- **************************** TerraNova Form G ******************************* -->	
+	<target name="buildTNG" description="Builds the TNG installer" depends="init">
+		<antcall target="buildNonThinClientInstaller">
+			<param name="installer.type" value="tng" />
+			<param name="installer.primary.url" value="https://tn-oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://tn-oasdr.ctb.com" />
+		</antcall>
+	</target>
+
+	<target name="buildTNGThin" description="Builds the TNG installer" depends="init">
+		<antcall target="buildThinClientInstaller">
+			<param name="installer.type" value="tng-thin" />
+			<param name="installer.primary.url" value="https://tn-oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://tn-oasdr.ctb.com" />
+		</antcall>
+	</target>
+	
+
+	<!-- **************************** Oklahoma ******************************* -->	
+	<target name="buildOK" description="Builds the Oklahoma installer" depends="init">
+		<antcall target="buildNonThinClientInstaller">
+			<param name="installer.type" value="ok" />
+			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
+			<param name="installer.secondary.url" value="https://oasdelivery.ctb.com" />
+		</antcall>
+	</target>
+
+	<target name="buildOKThin" description="Builds the Oklahoma installer" depends="init">
+		<antcall target="buildThinClientInstaller">
+			<param name="installer.type" value="ok-thin" />
+			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
+			<param name="installer.secondary.url" value="https://oasdelivery.ctb.com" />
+		</antcall>
+	</target>
+	
+	<!-- Internal tasks **************************************************** -->
+		
+		
+	<!-- **************************** init ******************************* -->	
+	<target name="init">
+		<copy file="${project.artifacts.etc.dir}/version.properties" tofile="temp.properties" overwrite="true"/>
+		<replaceregexp file="temp.properties">
+			<regexp pattern="tdc\.version=(.*?)\.(.*?)\.(.*)"/>
+			<substitution expression="&lt;project&gt;&lt;artifacts&gt;&lt;version&gt;&lt;major&gt;\1&lt;/major&gt;&lt;minor&gt;\2&lt;/minor&gt;&lt;revision&gt;\3&lt;/revision&gt;&lt;/version&gt;&lt;/artifacts&gt;&lt;/project&gt;" />
+		</replaceregexp>
+		<!-- 
+		previous expression creates xml properties file containing:
+		  project.artifacts.version.major
+		  project.artifacts.version.minor
+		  project.artifacts.version.revision
+		-->
+		<xmlproperty file="temp.properties"/>
+	</target>
+	
+	
+	<!-- **************************** buildTDCUpdate ******************************* -->	
+	<target name="buildTDCUpdate">
+		<delete file="${basedir}/../tdcupdate.tar"/>
+		<tar basedir="${basedir}/../" destfile="${basedir}/../tdcupdate.tar" >
+			<include name="tdcupdate/**/tdcConfig.enc"/>
+			<include name="tdcupdate/**/upgrade.txt"/>
+		</tar>
+	</target>
+	
+	
+	<!-- **************************** postClean ******************************* -->	
+	<target name="postClean">
+	</target>
+	
+	
+	<!-- ************** buildNonThinClientInstaller *************************** -->	
+	<target name="buildNonThinClientInstaller" if="installer.type">
+		
+		<copy file="${project.artifacts.webapp.classes.dir}/tdc_url.properties" tofile="${project.artifacts.webapp.classes.dir}/tdc.properties" overwrite="true" />
+		
+		<replace file="${project.artifacts.webapp.classes.dir}/tdc.properties">
+		  <replacefilter token="primary-url" value="${installer.primary.url}"/>
+		  <replacefilter token="secondary-url" value="${installer.secondary.url}"/>
+		</replace>
+		
+		<copy file="${project.base.dir}/bootstrap-single.jar" tofile="${project.artifacts.dir}/bootstrap.jar" overwrite="true" />
+		<property name="installer.src"  value="__tdc_${installer.type}.iap_xml" />
+		<xslt style="${project.installer.xsl.dir}/${installer.type}.xsl" in="${project.installer.src}" out="${installer.src}" force="true">
+			  <outputproperty name="method" value="xml"/>
+			  <outputproperty name="encoding" value="UTF-8"/>
+			  <outputproperty name="indent" value="yes"/>
+			  <outputproperty name="cdata-section-elements" value="string"/>
+		</xslt>
+		<fixcrlf srcdir="${basedir}" includes="${installer.src}"  />
+		<replace file="${installer.src}">
+		  <replacefilter token="@@EMPTY.STRING@@"             value=""/>
+		  <replacefilter token="@@PRODUCT.VERSION.MAJOR@@"    value="${project.artifacts.version.major}"/>
+		  <replacefilter token="@@PRODUCT.VERSION.MINOR@@"    value="${project.artifacts.version.minor}"/>
+		  <replacefilter token="@@PRODUCT.VERSION.REVISION@@" value="${project.artifacts.version.revision}"/>
+		</replace>
+		<replaceregexp file="${installer.src}" flags="g">
+			<regexp pattern="\]\]&gt;&lt;!\[CDATA\["/>
+			<substitution expression="" />
+		</replaceregexp>
+		
+		<buildinstaller
+			IAlocation="${project.installer.application.dir}"
+			IAProjectFile="${installer.src}"
+			AutoPopulateLabels="false"
+			BuildLinuxWithVM="false"
+			BuildLinuxWithoutVM="true"
+			BuildHPUXWithVM="false"
+			BuildHPUXWithoutVM="false"
+			BuildAIXWithVM="false"
+			BuildAIXWithoutVM="false"
+			BuildSolarisWithVM="false"
+			BuildSolarisWithoutVM="false"
+			BuildNamedUnixWithVM="false"
+			BuildNamedUnixWithoutVM="false"
+			BuildWindowsWithVM="false"
+			BuildWindowsWithoutVM="true"
+			BuildMacOSX="true" 
+			BuildPureJava="false"
+		/>
+		
+		<delete file="${project.artifacts.webapp.classes.dir}/tdc.properties"/>
+		
+	</target>
+	
+	
+	<!-- ************** buildThinClientInstaller *************************** -->	
+	<target name="buildThinClientInstaller" if="installer.type">
+		
+		<copy file="${project.artifacts.webapp.classes.dir}/tdc_url.properties" tofile="${project.artifacts.webapp.classes.dir}/tdc.properties" overwrite="true" />
+		
+		<replace file="${project.artifacts.webapp.classes.dir}/tdc.properties">
+		  <replacefilter token="primary-url" value="${installer.primary.url}"/>
+		  <replacefilter token="secondary-url" value="${installer.secondary.url}"/>
+		</replace>
+		
+		<copy file="${project.base.dir}/bootstrap-multi.jar" tofile="${project.artifacts.dir}/bootstrap.jar" overwrite="true" />
+			<property name="installer.src"  value="__tdc_${installer.type}.iap_xml" />
+			<xslt style="${project.installer.xsl.dir}/${installer.type}.xsl" in="${project.installer.src}" out="${installer.src}" force="true">
+				  <outputproperty name="method" value="xml"/>
+				  <outputproperty name="encoding" value="UTF-8"/>
+				  <outputproperty name="indent" value="yes"/>
+				  <outputproperty name="cdata-section-elements" value="string"/>
+			</xslt>
+			<fixcrlf srcdir="${basedir}" includes="${installer.src}"  />
+			<replace file="${installer.src}">
+			  <replacefilter token="@@EMPTY.STRING@@"             value=""/>
+			  <replacefilter token="@@PRODUCT.VERSION.MAJOR@@"    value="${project.artifacts.version.major}"/>
+			  <replacefilter token="@@PRODUCT.VERSION.MINOR@@"    value="${project.artifacts.version.minor}"/>
+			  <replacefilter token="@@PRODUCT.VERSION.REVISION@@" value="${project.artifacts.version.revision}"/>
+			</replace>
+			<replaceregexp file="${installer.src}" flags="g">
+				<regexp pattern="\]\]&gt;&lt;!\[CDATA\["/>
+				<substitution expression="" />
+			</replaceregexp>
+			
+			<buildinstaller
+				IAlocation="${project.installer.application.dir}"
+				IAProjectFile="${installer.src}"
+				AutoPopulateLabels="false"
+				BuildLinuxWithVM="false"
+				BuildLinuxWithoutVM="false"
+				BuildHPUXWithVM="false"
+				BuildHPUXWithoutVM="false"
+				BuildAIXWithVM="false"
+				BuildAIXWithoutVM="false"
+				BuildSolarisWithVM="false"
+				BuildSolarisWithoutVM="false"
+				BuildNamedUnixWithVM="false"
+				BuildNamedUnixWithoutVM="false"
+				BuildWindowsWithVM="false"
+				BuildWindowsWithoutVM="true"
+				BuildMacOSX="false" 
+				BuildPureJava="false"
+			/>
+		
+			<delete file="${project.artifacts.webapp.classes.dir}/tdc.properties"/>
+		
+	</target>
+	
+	
+</project>

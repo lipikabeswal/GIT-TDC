@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build BuildLinuxWithVM="false" BuildLinuxWithoutVM="true" BuildHPUXWithVM="false" BuildHPUXWithoutVM="false" BuildAIXWithVM="false" BuildAIXWithoutVM="false" BuildSolarisWithVM="false" BuildSolarisWithoutVM="false" BuildNamedUnixWithVM="false" BuildNamedUnixWithoutVM="false" BuildWindowsWithVM="false" BuildWindowsWithoutVM="true" BuildMacOSX="true" BuildPureJava="false" AutoPopulateLabels="false"/>
