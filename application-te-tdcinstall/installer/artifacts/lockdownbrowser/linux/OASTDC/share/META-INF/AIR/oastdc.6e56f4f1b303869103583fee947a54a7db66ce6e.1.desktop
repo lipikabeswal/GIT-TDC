@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=OASTDC
+Comment=<>
+GenericName=OASTDC
+Exec='/opt'/'OASTDC'/bin/'OASTDC'
+Type=Application
+Terminal=false
+Icon=oastdc.6e56f4f1b303869103583fee947a54a7db66ce6e.1
+StartupNotify=true
+X-KDE-StartupNotify=true
+Categories=Utility;
+X-AppInstall-Package=oastdc.6e56f4f1b303869103583fee947a54a7db66ce6e.1
+X-AppInstall-Section=main
+

@@ -1,0 +1,256 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Online Assessment</title>
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script>
+function setMethodValue(value)
+{
+    var element = document.getElementById("method");
+    if( element ) {
+        element.value = value;
+    }
+}
+function verifyAction()
+{
+    var element = document.getElementById("method");
+    if( element ) {
+        value = element.value;
+        if ((value == "loadSubtest") || (value == "loadItem") || (value == "loadImage")) {
+       		document.forms[0].action = "servlet/LoadContentServlet";
+       	}
+    }
+    return true;
+}
+</script>
+
+  </head>
+  <body>
+  <h1 align="center">TDC Local Servlet Test Page</h1>
+  <br/>
+
+  <form action="servlet/SpeechServlet.do" method="post">
+		<h3>Speech Servlet</h3>
+		<ul>
+			<br/>
+			<textarea rows="10" columns="40" name="text">The quick brown fox jumped over the lazy dog.</textarea>
+			<br/>
+			<input type="submit"/>
+		</ul>
+		<br/>
+  </form>
+
+  <form action="servlet/PersistenceServlet" method="post" onsubmit="verifyAction();">
+  	<input type="hidden" name="method" id="method" value="none" />
+
+		<h3>Download Content Servlet</h3>
+		<ul>
+			<li><a href="servlet/DownloadContentServlet?method=initialDownloadContent&itemSetId=1&encryptionKey=key">initialDownloadContent(itemSetId)</a></li>
+			<li><a href="servlet/DownloadContentServlet?method=downloadContent&itemSetId=1&encryptionKey=key">downloadContent(itemSetId)</a></li>
+		</ul>
+		<br/>
+		<h3>Load Content Servlet</h3>
+		<ul>
+<table border="0" >
+<tr>
+	<td>
+		<li><a href="servlet/LoadContentServlet?method=loadSubtest&itemSetId=1">loadSubtest( itemSetId )</a></li>
+	</td>
+	<td><input type="text" name="itemSetIdParam" value="" /></td>
+	<td><input type="submit" value="submit" onClick="setMethodValue('loadSubtest');" /></td>
+</tr>
+<tr>
+	<td>
+		<li><a href="servlet/LoadContentServlet?method=loadItem&itemId=1">loadItem( itemId )</a></li>
+	</td>
+	<td><input type="text" name="itemIdParam" value="" /></td>
+	<td><input type="submit" value="submit" onClick="setMethodValue('loadItem');" /></td>
+</tr>
+<tr>
+	<td>
+		<li><a href="servlet/LoadContentServlet?method=loadImage&imageId=1">loadImage( imageId )</a></li>
+	</td>
+	<td><input type="text" name="imageIdParam" value="" /></td>
+	<td><input type="submit" value="submit" onClick="setMethodValue('loadImage');" /></td>
+</tr>
+</table>
+		</ul>
+		<br/>
+		<h3>Persistence Servlet</h3>
+<ul>
+<table border="0" >
+<tr>
+	<td spancols="5">
+		<li><a href="servlet/PersistenceServlet?method=verifySettings">verifySettings</a></li>
+	</td>
+</tr>
+<tr>
+	<td>
+		<li><a href="servlet/PersistenceServlet?method=login&requestXML=
+&lt;tmssvc_request method='login'&gt;
+	&lt;login_request user_name='dummy' password='dummy' access_code='dummy' /&gt;
+&lt;/tmssvc_request&gt;
+			">login( username, password, tac )</a>
+		</li>
+	</td>
+	<td><input type="text" name="user_name" value="" /></td>
+	<td><input type="text" name="password" value="" /></td>
+	<td><input type="text" name="access_code" value="" /></td>
+	<td><input type="submit" value="submit" onClick="setMethodValue('login');" /></td>
+</tr>
+<tr>
+	<td>
+		<li><a href="servlet/PersistenceServlet?method=save&requestXML=
+&lt;adssvc_request method='save_testing_session_data'&gt;
+  &lt;save_testing_session_data&gt;
+    &lt;tsd lsid='28330:oxygenate4' scid='24009' mseq='2'&gt;
+      &lt;lev e='lms_start' /&gt;
+      &lt;ist dur='2' awd='1' mrk='0' iid='OKPT_SR.EOI.BIO.001'&gt;
+      &lt;/ist&gt;
+    &lt;/tsd&gt;
+  &lt;/save_testing_session_data&gt;
+&lt;/adssvc_request&gt;
+			">save() : start subtest</a>
+		</li>
+	</td>
+	<td colspan="4">&nbsp;</td>
+</tr>
+<tr>
+	<td>
+		<li><a href="servlet/PersistenceServlet?method=save&requestXML=
+&lt;adssvc_request method='save_testing_session_data'&gt;
+  &lt;save_testing_session_data&gt;
+    &lt;tsd lsid='28330:oxygenate4' scid='24009' mseq='2'&gt;
+      &lt;ist dur='2' awd='1' mrk='0' iid='OKPT_SR.EOI.BIO.001'&gt;
+        &lt;rv t='identifier' n='RESPONSE'&gt;
+          &lt;v&gt;C&lt;/v&gt;
+        &lt;/rv&gt;
+      &lt;/ist&gt;
+    &lt;/tsd&gt;
+  &lt;/save_testing_session_data&gt;
+&lt;/adssvc_request&gt;
+			">save response( lsid, itemId, mseq, response ) </a>
+		</li>
+		<td><input type="text" name="lsid" value="" /></td>
+		<td><input type="text" name="itemId" value="" /></td>
+		<td>
+			<input type="text" name="mseq" value="" style="width:60px"/>&nbsp;
+			<select name="response">
+			<option value="A">A</option>
+			<option value="B">B</option>
+			<option value="C">C</option>
+			<option value="D">D</option>
+			</select>
+		</td>
+		<td><input type="submit" value="submit" onClick="setMethodValue('save');" /></td>
+</tr>
+<tr>
+	<td>
+		<li><a href="servlet/PersistenceServlet?method=save&requestXML=
+&lt;adssvc_request method='save_testing_session_data'&gt;
+  &lt;save_testing_session_data&gt;
+    &lt;tsd lsid='28330:oxygenate4' scid='24009' mseq='4'&gt;
+      &lt;lev e='lms_pause' /&gt;
+      &lt;ist dur='2' awd='1' mrk='0' iid='OKPT_SR.EOI.BIO.001'&gt;
+      &lt;/ist&gt;
+    &lt;/tsd&gt;
+  &lt;/save_testing_session_data&gt;
+&lt;/adssvc_request&gt;
+			">save() : pause</a>
+		</li>
+	</td>
+	<td colspan="4">&nbsp;</td>
+</tr>
+<tr>
+	<td>
+		<li><a href="servlet/PersistenceServlet?method=save&requestXML=
+&lt;adssvc_request method='save_testing_session_data'&gt;
+  &lt;save_testing_session_data&gt;
+    &lt;tsd lsid='28330:oxygenate4' scid='24009' mseq='5'&gt;
+      &lt;ist dur='2' awd='1' mrk='0' iid='OKPT_SR.EOI.BIO.001'&gt;
+      &lt;/ist&gt;
+    &lt;/tsd&gt;
+  &lt;/save_testing_session_data&gt;
+&lt;/adssvc_request&gt;
+			">save() : heartbeat</a>
+		</li>
+	</td>
+	<td colspan="4">&nbsp;</td>
+</tr>
+<tr>
+	<td>
+		<li><a href="servlet/PersistenceServlet?method=save&requestXML=
+&lt;adssvc_request method='save_testing_session_data'&gt;
+  &lt;save_testing_session_data&gt;
+    &lt;tsd lsid='28330:oxygenate4' scid='24009' mseq='6'&gt;
+      &lt;lev e='lms_finish' /&gt;
+      &lt;ist dur='2' awd='1' mrk='0' iid='OKPT_SR.EOI.BIO.001'&gt;
+      &lt;/ist&gt;
+    &lt;/tsd&gt;
+  &lt;/save_testing_session_data&gt;
+&lt;/adssvc_request&gt;
+			">save() : finish subtest</a>
+		</li>
+	</td>
+	<td colspan="4">&nbsp;</td>
+</tr>
+<tr>
+	<td>
+		<li><a href="servlet/PersistenceServlet?method=feedback&requestXML=
+&lt;adssvc_request method='save_testing_session_data'&gt;
+  &lt;save_testing_session_data&gt;
+    &lt;tsd lsid='28330:oxygenate4' scid='24009' mseq='7'&gt;
+      &lt;lev e='lms_feedback' /&gt;
+      &lt;ist dur='2' awd='1' mrk='0' iid='OKPT_SR.EOI.BIO.001'&gt;
+      &lt;/ist&gt;
+    &lt;/tsd&gt;
+  &lt;/save_testing_session_data&gt;
+&lt;/adssvc_request&gt;
+			">feedback()</a>
+		</li>
+	</td>
+	<td colspan="4">&nbsp;</td>
+</tr>
+<tr>
+	<td>
+		<li><a href="servlet/PersistenceServlet?method=uploadAuditFile&requestXML=
+&lt;adssvc_request method='save_testing_session_data'&gt;
+  &lt;upload_audit_file&gt;
+    &lt;tsd lsid='28330:oxygenate4' scid='24009' mseq='7'&gt;
+      &lt;lev e='lms_uploadAuditFile' /&gt;
+      &lt;ist dur='2' awd='1' mrk='0' iid='OKPT_SR.EOI.BIO.001'&gt;
+      &lt;/ist&gt;
+    &lt;/tsd&gt;
+  &lt;/upload_audit_file&gt;
+&lt;/adssvc_request&gt;
+			">upload audit file( filename )</a>
+		</li>
+	</td>
+	<td><input type="text" name="file_name" value="" /></td>
+	<td colspan="2">&nbsp;</td>
+	<td><input type="submit" value="submit" onClick="setMethodValue('uploadAuditFile');" /></td>
+</tr>
+<tr>
+	<td>
+		<li><a href="servlet/PersistenceServlet?method=writeToAuditFile&requestXML=
+&lt;adssvc_request method='write_to_audit_file'&gt;
+  &lt;write_to_audit_file&gt;
+    &lt;tsd lsid='28330:oxygenate4' scid='24009' mseq='8'&gt;
+      &lt;lev e='lms_writeToAuditFile' /&gt;
+      &lt;ist dur='2' awd='1' mrk='0' iid='OKPT_SR.EOI.BIO.001'&gt;
+      &lt;/ist&gt;
+    &lt;/tsd&gt;
+&lt;audit_file_text&gt;text to write to file&lt;/audit_file_text&gt;
+  &lt;/write_to_audit_file&gt;
+&lt;/adssvc_request&gt;
+			">write to audit file()</a>
+		</li>
+	</td>
+	<td colspan="4">&nbsp;</td>
+</tr>
+</ul>
+</table>
+
+	</form>
+  </body>
+</html>
