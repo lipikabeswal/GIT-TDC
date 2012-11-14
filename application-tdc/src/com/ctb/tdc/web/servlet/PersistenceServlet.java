@@ -145,6 +145,9 @@ public class PersistenceServlet extends HttpServlet {
 			String xml, HttpServletRequest request) throws IOException {
 		String result = ServletUtils.OK;
 		boolean validSettings = ServletUtils.validateServletSettings();
+		Double abilityScore =0.0;
+		Double sem = 0.0;
+		String objScore = "0,0,0,0,0,0";
 
 		// call method to perform an action only if servlet settings is valid
 		if (!validSettings)
@@ -168,9 +171,9 @@ public class PersistenceServlet extends HttpServlet {
 				System.out.println(" replaced save xml:"+xml);
     			Boolean isStopCat = ServletUtils.isScoreSubtest(xml);
     			if (isStopCat) {
-    				Double abilityScore = CATEngineProxy.getAbilityScore();
-        			Double sem = CATEngineProxy.getSEM();
-        			String objScore = CATEngineProxy.getObjScore();	
+    				 abilityScore = CATEngineProxy.getAbilityScore();
+        			 sem = CATEngineProxy.getSEM();
+        			 objScore = CATEngineProxy.getObjScore();	
         			
     				xml = LoadTestUtils.setAttributeValue("score.ability",abilityScore.toString(), xml);
     				xml = LoadTestUtils.setAttributeValue("score.sem",sem.toString(), xml);
@@ -178,6 +181,7 @@ public class PersistenceServlet extends HttpServlet {
     				System.out.println("Student Stop: " + CATEngineProxy.isStudentStop());
     				
     				//setting unscored_items=1 to detect student stop. 
+    				//Changed: Need not do this now
     				if (CATEngineProxy.isStudentStop()){
     					xml = LoadTestUtils.setAttributeValue("number_of_unscored_items","1", xml);
     				}
@@ -186,7 +190,11 @@ public class PersistenceServlet extends HttpServlet {
     			Integer itemRawScore = getItemRawScoreFromResponse(response, xml);
     			System.out.println("itemRawScore:"+itemRawScore);
     			String isCatOver = ServletUtils.parseCatOver(xml);
-    			
+    			String itemresponse = ServletUtils.parseResponse(xml);
+    			System.out.println("itemResponse: " + itemresponse);
+    			String marked = ServletUtils.parseCatSave(xml);
+    			//To check student stop and out of time
+    			String isCatStop = ServletUtils.parseCatStop(xml);
 	    		if(isCatOver != null && ("false".equals(isCatOver) || ServletUtils.NONE.equals(isCatOver))) {
 	    			
 	    			System.out.println("CurrentItem :"+ServletUtils.currentItem+":: itemid:"+realId);
@@ -195,7 +203,17 @@ public class PersistenceServlet extends HttpServlet {
 		        		if(ServletUtils.currentItem == realId){
 			        		try {
 			        			System.out.println("inside condition!");
-			        			CATEngineProxy.scoreCurrentItem(itemRawScore.intValue());	
+			        			if (itemresponse != null && itemresponse != "-" && marked != null && "1".equals(marked)){
+			        	    		
+			        					if((itemresponse.startsWith("undefined") || itemresponse.equals(""))&& isCatStop.startsWith("true")){
+			        						CATEngineProxy.scoreCurrentItem(-9 , false);	
+			        					}else if(isCatStop.startsWith("true") && (!itemresponse.startsWith("undefined") || !itemresponse.equals(""))){
+			        						CATEngineProxy.scoreCurrentItem(itemRawScore.intValue(), true);	
+			        					}else {
+			        						CATEngineProxy.scoreCurrentItem(itemRawScore.intValue(), false);	
+			        					}
+			        	    		}
+			        			
 				        	} catch (Exception e) {
 				        		System.out.println("CAT Over!");
 				    			logger.info("CAT Over!");
@@ -544,6 +562,7 @@ public class PersistenceServlet extends HttpServlet {
 			String tmsResponse = "";
 			
 			//logger.info("mseq " + mseq + ": persistence request");
+			System.out.println("Save XML: " + xml);
 			tmsResponse = ServletUtils.httpClientSendRequest(ServletUtils.SAVE_METHOD, xml);
 			if (isEndSubtest) {
 				result = tmsResponse;
