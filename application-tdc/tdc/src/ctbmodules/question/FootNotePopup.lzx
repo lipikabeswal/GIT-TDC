@@ -42,7 +42,7 @@
 
 	<attribute name="readable" type="boolean" value="false" />
 	
-    <handler name="ondata" reference="gController.dpitem">
+    <handler name="ondata" reference="gController.dpitem"><![CDATA[
         //find the text in the scroll text panel node.  We'll use this to find
         //the details for a particular header
         	//Debug.write("gController.dpitem.data");
@@ -55,8 +55,11 @@
             if(dnscrolltext == null){
             	dnscrolltext = gController.dpitem.xpathQuery("item_canvas/stimulus_tabs_panel/stimulus_tab");
             	if (dnscrolltext == null) dnscrolltext = gController.dpitem.xpathQuery("item_canvas/panel/stimulus_tabs_panel/stimulus_tab");
-            	//Debug.write("dnscrolltext",dnscrolltext);
-            	if(dnscrolltext != null){
+            	Debug.write("dnscrolltext",dnscrolltext);
+            	if(dnscrolltext != null && dnscrolltext instanceof Array){
+            		dnscrolltext = dnscrolltext[0];
+            	}
+            	else if(dnscrolltext != null){
             		dnscrolltext = dnscrolltext;
             	}
             }
@@ -76,7 +79,7 @@
             	this.arrow.setAttribute("showhandcursor", false);
             }
         }
-    </handler>
+   ]]> </handler>
     <method name ="UTFDecode" args="b">
     	<![CDATA[
     	//Defect 64691- Added for footnote defect fix.
