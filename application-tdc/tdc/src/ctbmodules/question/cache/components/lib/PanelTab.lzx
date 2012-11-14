@@ -94,20 +94,29 @@
         </method>
         
 		<method name="initColors">
-			var bgcolor="0x"+ gController.questionBgColor.toString(16);
-			setResourceColor(bg, bgcolor); 
+			/*var bgcolor="0x"+ gController.questionBgColor.toString(16);
+			setResourceColor(bg, bgcolor); */
 			
 			/*var fg = gController.questionFontColor;
 		    if(fg == 0){
 		       fg = "0x000000";
 		    }*/
-		    var fg = "0x"+ gController.questionFontColor.toString(16);
+		    /*var fg = "0x"+ gController.questionFontColor.toString(16);
 		    
-	        setResourceColor(borders, fg); 
+	        setResourceColor(borders, fg); */
+
+			var fg = gController.questionFontColor;
+		    if(fg == 0){
+		       fg = "0x000000";
+		    }
+			
+			Debug.write("color in tab",gController.questionBgColor,gController.questionFontColor);
+			bg.setAttribute('tintcolor',gController.questionBgColor);
+			borders.setAttribute('tintcolor',fg);
 		</method>
 		
         <method name="select" args="issel"><![CDATA[
-			var cln;		
+			var cln;	
 			var clones = classroot.tabctrl.tab.clones;
 			for(var i=0;i<clones.length;i++){
 				if(clones[i].clonenumber == this.clonenumber){
@@ -134,14 +143,16 @@
                 }
             }
             if(gController.hasFontAccommodation){
-            	this.setAttribute('y', 2);
-            	borders.setAttribute('height', bg.height);
-            	if(this.theframe == 3){
-            		borders.middle.setAttribute('y', 2);
-            	}
-            	else{
-           			borders.middle.setAttribute('y', 1);
-            	}
+				this.setAttribute('y', 2);
+				if(this.borders!=undefined && this.bg!=undefined){
+	            	this.borders.setAttribute('height', this.bg.height);
+	            	if(this.theframe == 3){
+	            		this.borders.middle.setAttribute('y', 2);
+	            	}
+	            	else{
+	           			this.borders.middle.setAttribute('y', 1);
+	            	}
+				}
             }
             else{
             	this.setAttribute('y', 1.5);
