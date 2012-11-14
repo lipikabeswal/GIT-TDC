@@ -2683,6 +2683,7 @@ $1.style.display=$6
 };$1.style.zIndex=$3._z||$0.style.zIndex;if($2&&$3._clip){
 $1.style.clip=$3._clip
 };if($3._transform){
+var stylename = LzSprite.__styleNames.transform;
 $1.style[stylename]=$3._transform
 }};LzSprite.prototype.getContextMenu=function(){
 return this.__contextmenu
