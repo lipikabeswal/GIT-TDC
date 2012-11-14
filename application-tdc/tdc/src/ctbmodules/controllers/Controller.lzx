@@ -3155,6 +3155,7 @@
 
 		<method name="stopTest">
 			var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
+			Debug.write("STOP TEST ITEM NODE");
 			var curItemId;
         	if(itemnode != null){
 					curItemId = itemnode.getAttr( 'eid' );
@@ -3810,6 +3811,9 @@ Debug.write("############ loadItem ############");
 		<!-- accomodations -->
 		<method name="_getAccomStyles"><![CDATA[
             var stylesarr = this.stylesArr;
+            var fontAccom = false;
+            var bgclr = null;
+            var fgclr = null;
             //Debug.write("__GETACCOMSTYLES arr ", stylesarr);
             for (var i in stylesarr) {
             	var theStyle = stylesarr [i];
@@ -3819,16 +3823,17 @@ Debug.write("############ loadItem ############");
                     // NK : Need to remove this later XXXX
                     //theStyle.setAttr("font_magnification", 1.5);
                 	if( theStyle.getAttr("font_magnification") > 1) {
+                		fontAccom = true;
                     	this.setAttribute("hasFontAccommodation", true);
                     }
                     if(theStyle.hasAttr('bgcolor')){
-                    	var bgclr = theStyle.getAttr('bgcolor');
+                    	bgclr = theStyle.getAttr('bgcolor');
                     	if(bgclr.length > 0){
                     		this.setAttribute('questionBgColor', bgclr);
                     	}
                     }
                     if(theStyle.hasAttr('font_color')){
-                    	var fgclr = theStyle.getAttr('font_color');
+                    	fgclr = theStyle.getAttr('font_color');
                     	if(fgclr.length > 0){
                     		this.setAttribute('questionFontColor', fgclr);
                     	}
@@ -3849,6 +3854,9 @@ Debug.write("############ loadItem ############");
                     }
                 }
             }
+            var fontString = fontAccom + "|" + bgclr + "|" + fgclr; 
+          	canvas.fontString = fontString;
+			
         ]]></method>
 
 		<method name="getAccomStyleForType" args="type">

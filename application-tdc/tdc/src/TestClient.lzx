@@ -165,6 +165,8 @@
 	<attribute name="ttstext" value="null"/>
 	<attribute name="setanswer" value="null" />
 	
+	<attribute name="fontString" value="null"/>
+	
 	
 	<handler name="onsetanswer" args="data">
 		if(gController.htmlFields.length > 0){

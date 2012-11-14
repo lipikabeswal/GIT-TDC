@@ -48,11 +48,21 @@ canvas.setAttribute('isLoaded', true);
 <handler name="onmanipid" args="arg">
 	<![CDATA[
 //console.log("onmanipid" , arg);
+var accom = document.getElementById('__lz0').contentWindow.accomPkg;
 switch(arg){
 
-		case 'highlighter': this.ht.callJavascript('accomPkg.enableHighlighter', null,true);
+		case 'highlighter': if(accom.enableHighlighterArea){
+								accom.enableHighlighter(false);
+							}else{
+								accom.enableHighlighter(true);	
+							}
+							
 		break;
-		case 'eraser' :		this.ht.callJavascript('accomPkg.enableEraser', null,true);
+		case 'eraser' :		if(accom.enableEraserArea){
+								accom.enableEraser(false);
+							}else{
+								accom.enableEraser(true);
+							}
 		break;
 		case 'protractor' : if(gProtractor.visible){
 								gProtractor.hide();

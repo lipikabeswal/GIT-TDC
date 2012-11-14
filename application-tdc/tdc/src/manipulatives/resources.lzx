@@ -213,6 +213,24 @@
  	<resource name="TN_refcard_contents" src="resource/refcard/TN_refcard_contents.swf"/> -->
  	<resource name="TN_refcard_title" src="resource/refcard/TN_refcard_title.png"/>
  	<resource name="TN_refcard_contents" src="resource/refcard/TN_refcard_contents.png"/>
-    
+    	<!-- Network connectivity lost animation-->
+    <resource name="system_btn">      
+		<frame src="resource/delay_screen_buttons/computer.png"/>          
+	</resource>
+
+    <!-- Network connectivity lost animation-->
+    <resource name="globe_btn">      
+		<frame src="resource/delay_screen_buttons/globe.png"/>          
+	</resource>
+	
+    <!-- Network connectivity lost animation-->
+    <resource name="simple_bar_btn">      
+		<frame src="resource/delay_screen_buttons/grayBar.png"/>          
+	</resource>
+	
+	 <!-- Network connectivity lost animation-->
+    <resource name="bar_btn">      
+		<frame src="resource/delay_screen_buttons/greenBar.png"/>          
+	</resource>
 	          
 </library>
