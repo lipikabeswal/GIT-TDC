@@ -9,6 +9,7 @@
 	href="http://www.laszlosystems.com/favicon.ico">
 <meta name="viewport" content="width=device-width; initial-scale=1.0;">
 <title>OpenLaszlo 4.9.0: Test (lps-4.9.0/manip/Test)</title>
+
 <script type="text/javascript" src="lps-dhtml/lps/includes/embed-compressed.js"></script>
 <!--[if lt IE 9]><script type="text/javascript" src="lps-dhtml/lps/includes/excanvas.js"></script><![endif]-->
 <style type="text/css">
@@ -107,6 +108,12 @@ img {
 					      	window.parent.setAnswerNow('complete');
 					  		var stat = window.parent.getReadable();
 					    	readable =  stat == "true"? true: false;
+					 		var fontObj = window.parent.getFontAccomodation();				    	
+					    	if(fontObj.hasFont == 'true'){
+					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px');
+					    	}else{
+					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures('', '12px');
+					    	}			    	
 					      	
 					    }
 					  };
@@ -115,6 +122,13 @@ img {
 					    window.parent.setAnswerNow('complete');
 					    var stat = window.parent.getReadable();
 					    readable =  stat == "true"? true: false;
+				     		var fontObj = window.parent.getFontAccomodation();				    	
+					    	if(fontObj.hasFont == 'true'){
+					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px');
+					    	}else{
+					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures('', '12px');
+					    	}
+					    
 					    
 					  };
 					}
