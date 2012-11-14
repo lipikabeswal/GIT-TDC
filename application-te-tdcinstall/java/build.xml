@@ -1,4 +1,4 @@
-<project name="application-tdcinstall InstallAnywhere Extension" default="usage" basedir=".">
+<project name="application-te-tdcinstall InstallAnywhere Extension" default="usage" basedir=".">
 
 	<property name="project.src"           value="${basedir}/src" />
 	<property name="project.bin"           value="${basedir}/bin" />

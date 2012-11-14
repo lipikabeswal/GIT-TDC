@@ -44,7 +44,7 @@
 
 	<xsl:template match="//property[@name='installerName']">
 		<property name="installerName">
-			<string><![CDATA[InstallOAS_ISTEP]]></string>
+			<string><![CDATA[IDOEOnline]]></string>
 		</property>
 	</xsl:template>
 

@@ -9361,7 +9361,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>false</boolean>
 							</property>
 							<property name="buildOutputLocation">
-								<string><![CDATA[C:\workspace\application-tdcinstall\installer\tdc_Build_Output]]></string>
+								<string><![CDATA[C:\workspace\application-te-tdcinstall\installer\tdc_Build_Output]]></string>
 							</property>
 							<property name="defaultWindowsUIMode">
 								<string><![CDATA[GUI]]></string>

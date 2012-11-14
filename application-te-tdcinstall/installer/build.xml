@@ -1,4 +1,4 @@
-<project name="application-tdcinstall InstallAnywhere Installer" default="usage" basedir="."> 
+<project name="application-te-tdcinstall InstallAnywhere Installer" default="usage" basedir="."> 
  
  	<property name="project.installer.application.dir" value="C:\Program Files\InstallAnywhere 2008 Enterprise" />
 	<property name="project.installer.src"             value="tdc.iap_xml" />
@@ -51,30 +51,33 @@
 	
 	<!-- **************************** build ******************************* -->	
 	<target name="build" description="Builds the various installers" depends="clean">
+
+		<antcall target="buildISTEP" /> 
 		
+		<!--
+		<antcall target="buildISTEPThin" /> 
+
 		<antcall target="buildVanilla" />
 		<antcall target="buildVanillaThin" /> 
-		
-		<antcall target="buildISTEP" /> 
-		<antcall target="buildISTEPThin" /> 
-		
+			
 		<antcall target="buildTABE" />
-		<!-- <antcall target="buildTABEThin" />  -->
+		<antcall target="buildTABEThin" />  
 		
 		<antcall target="buildLasLink" />  
-		<!-- <antcall target="buildLasLinkThin" /> -->
+		<antcall target="buildLasLinkThin" />
 
 		<antcall target="buildGA" />  	
-		<!-- <antcall target="buildGAThin" /> -->
+		<antcall target="buildGAThin" /> 
 
 		<antcall target="buildTN" />  
-		<!-- <antcall target="buildTNThin" /> -->
+		<antcall target="buildTNThin" /> 
 		
 		<antcall target="buildTNG" />  
-		<!-- <antcall target="buildTNGThin" /> -->
+		<antcall target="buildTNGThin" />
 
 		<antcall target="buildOK" />  
-		<!-- <antcall target="buildOKThin" /> -->
+		<antcall target="buildOKThin" /> 
+		-->
 		
 		<antcall target="postClean"></antcall>
 		<antcall target="buildTDCUpdate"></antcall>
