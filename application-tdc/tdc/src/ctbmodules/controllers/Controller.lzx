@@ -1085,7 +1085,7 @@
 			}
 			// return -1 if not found - no next subtest
 			if(!found){
-				if(!dprestart.isValid()) {
+				if(!dprestart.isValid() && (subtests.length == currentSubtestIndex + 1)) {
 					result = -1;
 				}
 				else { // Changes for Defect 70251 to retrieve the next incomplete subtest in case of hard reset 
