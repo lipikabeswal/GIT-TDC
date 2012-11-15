@@ -14,7 +14,8 @@
 
 var _LDB_BypassSetFocusOnPageLoad = 0;
 var spText;
-
+var xscalefactor = 1.33;
+var yscalefactor = 1.33;
 function showFootnote(header)
 {
 	lz.embed.setCanvasAttribute("footnotedata", header);
@@ -122,6 +123,23 @@ function unlockUI(){
 	if(document.getElementById('__lz0')){
 		document.getElementById('__lz0').contentWindow.unlockUI();
 	}
+}
+
+function setScaleFactor(args){
+
+	args = args.split('|');
+	xscalefactor = args[0];
+	yscalefactor = args[1];
+	
+}
+function getFontAccomodation(){
+	var fontAccom = lz.embed.lzapp.getCanvasAttribute('fontString');
+	fontAccom = fontAccom.split("|");
+	var fontObj = new Object();
+	fontObj.hasFont = fontAccom[0];
+	fontObj.bgcolor = fontAccom[1].replace('0x', '#');
+	fontObj.fgcolor = fontAccom[2].replace('0x', '#');
+	return fontObj;
 }
 </script>
 <style type="text/css">
