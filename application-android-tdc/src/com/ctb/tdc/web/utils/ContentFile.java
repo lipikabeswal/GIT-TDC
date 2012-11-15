@@ -39,7 +39,7 @@ import android.util.Base64;
 
 import com.ctb.tdc.web.exception.DecryptionException;
 import com.ctb.tdc.web.exception.HashMismatchException;
-import com.plugin.myapp.MainActivity;
+import com.ctb.tdc.web.plugin.delegateActivity.OasAndroidApp;
 import com.stgglobal.util.CryptoLE.Crypto;
 
 
