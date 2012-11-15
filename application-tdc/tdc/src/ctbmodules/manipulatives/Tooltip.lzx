@@ -73,13 +73,29 @@
 			else if(tooltipX &lt; 0){
 				tooltipX = 0;
 			}
-			if(tooltipY + this.height &gt; 453){
-				tooltipY = 453 - this.height;
+			if(gController.htmlFields.length > 0){
+				tooltipY = parent.getMouse ('y')-(2*gManipulativeBar.height);
+				this.point.setAttribute("rotation","180");
+				this.point.setAttribute("y",this.box.y+this.box.height+3);
+				this.point.setAttribute("x",this.point.x+5);
+				if(tooltipY + this.height &gt; 453){
+					tooltipY = 453 - this.height;
+				}
+				/*else if(tooltipY &lt; 0){
+					tooltipY = 0;
+				}*/
 			}
-			else if(tooltipY &lt; 0){
-				tooltipY = 0;
+			else{
+				this.point.setAttribute("rotation","0");
+				this.point.setAttribute("y",this.box.y-3);
+				this.point.setAttribute("x",this.point.x-3);
+				if(tooltipY + this.height &gt; 453){
+					tooltipY = 453 - this.height;
+				}
+				else if(tooltipY &lt; 0){
+					tooltipY = 0;
+				}
 			}
-
             this.setAttribute ('x', tooltipX);
             this.setAttribute ('y', tooltipY);
             this.setAttribute ('visible', true);
@@ -89,7 +105,6 @@
         <method name="hideTooltip">
             this.setAttribute ('visible', false);
         </method>
-
 
         <view name="box" y="3" bgcolor="0x000000"
               width="${this.contents.width + 2}" height="${this.contents.height + 2}">
