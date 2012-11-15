@@ -166,6 +166,8 @@
 	<attribute name="setanswer" value="null" />
 	
 	<attribute name="fontString" value="null"/>
+	<attribute name="xscalefactor" value="null"/>
+	<attribute name="yscalefactor" value="null"/>
 	
 	
 	<handler name="onsetanswer" args="data">
@@ -193,6 +195,14 @@
 			fo.onfocus.sendEvent();
 		}]]>
 	</method>
+	
+	<method name="setScale"><![CDATA[
+		canvas.setAttribute('xscalefactor',canvas.titleView.mainView.scalingView.xscale);
+	canvas.setAttribute('yscalefactor',canvas.titleView.mainView.scalingView.yscale);
+	var msg = canvas.titleView.mainView.scalingView.xscale +"|" + canvas.titleView.mainView.scalingView.yscale;
+	var s = "setScaleFactor('"+msg+"')";
+	lz.Browser.loadJS(s);
+	]]></method>
 	<handler name="onfootnotedata" args="data">
         gFootNotePopup.show(data);
     </handler>

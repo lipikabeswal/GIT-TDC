@@ -1,4 +1,4 @@
-<canvas width="790" height="550">
+<canvas width="100%" height="100%">
 <include href="manipulatives/protractor/Protractor.lzx" />
 <include href="manipulatives/calculator/scientificCalculator.lzx"/>
 <include href="manipulatives/calculator/standardCalculator.lzx"/>
@@ -13,6 +13,17 @@
 <attribute name="scratchpadtext" value="null"/>
 <attribute name="freezeui" value="null"/>
 <attribute name="unlockui" value="null"/>
+<attribute name="scalefactor" value="null"/>
+<attribute name="xscalefactor" value="null"/>
+
+<attribute name="yscalefactor" value="null"/>
+
+<handler name="onscalefactor" args="data">		
+	data = data.split('|');
+	this.xscalefactor = Number(data[0]);
+	this.yscalefactor = Number(data[1]);
+</handler>
+
 
 <handler name="onfreezeui" args="data">
  this.blocker.setAttribute('visible',true);
@@ -182,60 +193,63 @@ switch(arg){
 	</handler>
 </button>-->
 
-	<view name="wrapper" width="790" height="550">
-	<Protractor name="protractor" toolid="protractor" id="gProtractor" />
+	<view name="wrapper" width="${760 * xscalefactorjs}" height="${450 * yscalefactorjs}" >
+	<Protractor name="protractor" toolid="protractor" id="gProtractor" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 
 	<standardCalculator name="standard_calculator"
-		toolid="standard_calculator" id="gStandardCalculator" />
+		toolid="standard_calculator" id="gStandardCalculator" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 
 	<scientificCalculator name="scientific_calculator"
-		toolid="scientific_calculator" id="gScientificCalculator" />
+		toolid="scientific_calculator" id="gScientificCalculator" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 	<BaseRuler name="straight_edge" toolid="straight_edge"
-		labelrsr="straight_label" id="gStraightEdge" />
+		labelrsr="straight_label" id="gStraightEdge" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 
 
 	<BaseRuler name="oneeighth_inch_ruler" toolid="oneeighth_inch_ruler"
 		tickmarksrsr="eighth_inch_tick_marks" labelrsr="inches_label"
-		id="gEighthInchRuler" />
+		id="gEighthInchRuler" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 
 	<BaseRuler name="half_inch_ruler" toolid="half_inch_ruler"
 		tickmarksrsr="half_inch_tick_marks" labelrsr="inches_label"
-		id="gHalfInchRuler" />
+		id="gHalfInchRuler" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 
 	<BaseRuler name="mm_ruler" toolid="mm_ruler"
 		tickmarksrsr="millimeter_tick_marks" labelrsr="centimeters_label"
-		id="gMmRuler" />
+		id="gMmRuler" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 
 	<BaseRuler name="cm_ruler" toolid="cm_ruler"
 		tickmarksrsr="centimeter_tick_marks" labelrsr="centimeters_label"
-		id="gCmRuler" />
+		id="gCmRuler" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 
 	<MaskingRuler name="masking_ruler" toolid="masking_ruler"
-		labelrsr="masking_label" id="gMaskingRuler" />
+		labelrsr="masking_label" id="gMaskingRuler" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 
-	<Scratchpad name="scratchpad" toolid="scratchpad" id="gScratchpad" />
+	<Scratchpad name="scratchpad" toolid="scratchpad" id="gScratchpad" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 	
 	<RefCard name="FCAT_formula_card" 
                  toolid="FCAT_formula_card"
                  refCardRsrc="FCAT_refcard_contents"
                  titleRsrc="FCAT_refcard_title"
                  scrolls="true"
-                 id="gFcatFormulaCard"/>
+                 id="gFcatFormulaCard" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
     <RefCard name="TN_formula_card" 
                  toolid="TN_formula_card"
                  refCardRsrc="TN_refcard_contents"
                  titleRsrc="TN_refcard_title"
                  scrolls="false"
-                 id="gTnFormulaCard"/>
+                 id="gTnFormulaCard" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
              </view>
-<view name="blocker" x="5" y="5" width="790" height="590" bgcolor="white" opacity="0.01">
+             
+           
+<view name="blocker" x="5" y="5" width="${760 * xscalefactorjs}" height="${450 * yscalefactorjs}" opacity="0.01">
 <handler name="oninit">
 	this.bringToFront();
 	var elem = this.getDisplayObject();
 	elem.setAttribute('id','htmlUIBlock');
 </handler>
 </view>
-<html id="ht" name="ht" x="5" y="5" width="790" height="590" scrollbars="false" >
+
+<html id="ht" name="ht" x="5" y="5" width="${760 * xscalefactorjs}" height="${450 * yscalefactorjs}" scrollbars="false" >
  	<handler name="onload">
  	this.sendToBack();
  	parent.blocker.bringToFront();
@@ -246,7 +260,7 @@ switch(arg){
  	</handler>
  </html>
 
- 
+
 <handler name="oninit">
 	this.setAttribute("bgcolor", null);
 	var s = "getSPTextInitial()";

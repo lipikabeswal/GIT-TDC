@@ -26,27 +26,18 @@
                    drag_max_x="${this.dragxmax}"
                    drag_max_y="${this.dragymax}">
 
-            <attribute name="rrotation" value="$once{this.rotation * (Math.PI/180)}"/>
+			
+      <attribute name="rrotation" value="$once{this.rotation * (Math.PI/180)}"/>
 			<attribute name="actualX" value="$once{this.xoffset - this.getMouse( 'x' )}" />
 			<attribute name="actualY" value="$once{this.yoffset - this.getMouse( 'y' )}" />
 			
-<!--- @keywords private -->
-<attribute name="__dragstate_xdoffset"
-value="(this.drag_axis == 'both' || this.drag_axis == 'x') ? -1*this.__dragstate_getoffset('x') : 0" when="once" />
+            <attribute name="__dragstate_ydoffset" 
+                       value="$once {this.actualX * Math.sin (this.rrotation) +
+                                     this.actualY * Math.cos (this.rrotation)}"/>
+            <attribute name="__dragstate_xdoffset" 
+                       value="$once {this.actualX * Math.cos (this.rrotation) -
+                                     this.actualY * Math.sin (this.rrotation)}"/>
 
-<!--- @keywords private -->
-<attribute name="__dragstate_ydoffset"
-value="(this.drag_axis == 'both' || this.drag_axis == 'y') ? -1*this.__dragstate_getoffset('y') : 0" when="once" />
-
-<!--- @keywords private -->
-<method name="__dragstate_getoffset" args="axis" >
-var theta = (Math.PI/180 * this.rotation);
-var sin_theta = Math.sin( theta );
-var cos_theta = Math.cos( theta );
-return axis=="x" ?
-(this.getMouse( "x" )*cos_theta - this.getMouse( "y" )*sin_theta) - (this.xoffset*cos_theta - this.yoffset*sin_theta) :
-(this.getMouse( "x" )*sin_theta + this.getMouse( "y" )*cos_theta) - (this.yoffset*cos_theta + this.xoffset*sin_theta);
-</method>
             <handler name="onapply">
                 var rotation = classroot.rotation * (Math.PI/180);
 
@@ -79,8 +70,8 @@ return axis=="x" ?
         
         <handler name="oninit">
         	this.setAttribute('visible' , false);
-            this.setAttribute ('x', this.width/2);
-            this.setAttribute ('y', this.height);
+            this.setAttribute ('x', 200);
+            this.setAttribute ('y', 113);
             this.setAttribute ('xpos', this.width/2);
             this.setAttribute ('ypos', this.height);
         </handler>

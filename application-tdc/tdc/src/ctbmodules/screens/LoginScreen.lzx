@@ -15,6 +15,7 @@
                 pw.passwordField.getText(),
                 ac.accesscodeField.getText()
             );
+            canvas.setScale();
         </method>
 
         <simplelayout axis="y"/>
