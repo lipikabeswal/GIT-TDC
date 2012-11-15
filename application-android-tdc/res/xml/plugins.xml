@@ -35,5 +35,5 @@
     <plugin name="Capture" value="org.apache.cordova.Capture"/>
     <plugin name="Battery" value="org.apache.cordova.BatteryListener"/>
     <plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
-    <plugin name="DelegatePlugin" value="com.plugin.myapp.DelegatePlugin" />
+    <plugin name="DelegatePlugin" value="com.ctb.tdc.web.plugin.delegateActivity.DelegatePlugin" />
 </plugins>
