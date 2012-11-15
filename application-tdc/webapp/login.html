@@ -141,6 +141,13 @@ if(document.getElementById('__lz0')){
 	}
 }
 
+function setScaleFactor(args){
+
+	args = args.split('|');
+	xscalefactor = args[0];
+	yscalefactor = args[1];
+	
+}
 function getFontAccomodation(){
 	var fontAccom = lz.embed.lzapp.getCanvasAttribute('fontString');
 	fontAccom = fontAccom.split("|");
