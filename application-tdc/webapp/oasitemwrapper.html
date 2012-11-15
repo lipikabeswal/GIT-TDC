@@ -52,6 +52,19 @@ img {
             html { overflow: auto; overflow-x: hidden; }
         </style>
         <![endif]-->
+        
+<script type="text/javascript">
+	    var xscalefactorjs = window.parent.xscalefactor;
+        var yscalefactorjs = window.parent.yscalefactor;
+        if(!xscalefactorjs){
+        	xscalefactorjs = 1.33;
+        }
+        if(!yscalefactorjs){
+        	yscalefactorjs = 1.33;
+        }
+        //console.log('xscalefactor',xscalefactorjs,yscalefactorjs);
+
+</script>        
 </head>
 <script>
         var itemSet = false;
@@ -114,7 +127,7 @@ img {
 					    	}else{
 					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures('', '12px');
 					    	}			    	
-					      	
+					      	document.getElementById('__lz0').contentWindow.translate(xscalefactorjs,yscalefactorjs);
 					    }
 					  };
 					} else {
@@ -128,7 +141,7 @@ img {
 					    	}else{
 					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures('', '12px');
 					    	}
-					    
+					    	document.getElementById('__lz0').contentWindow.translate(xscalefactorjs,yscalefactorjs);
 					    
 					  };
 					}
