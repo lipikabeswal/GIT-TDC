@@ -121,9 +121,10 @@ img {
 					      	window.parent.setAnswerNow('complete');
 					  		var stat = window.parent.getReadable();
 					    	readable =  stat == "true"? true: false;
-					 		var fontObj = window.parent.getFontAccomodation();				    	
+					 		var fontObj = window.parent.getFontAccomodation();	
+					 		var bgColorObj = window.parent.getBackColorAccomodation();				    	
 					    	if(fontObj.hasFont == 'true'){
-					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px');
+					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
 					    	}else{
 					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures('', '12px');
 					    	}			    	
@@ -135,9 +136,10 @@ img {
 					    window.parent.setAnswerNow('complete');
 					    var stat = window.parent.getReadable();
 					    readable =  stat == "true"? true: false;
-				     		var fontObj = window.parent.getFontAccomodation();				    	
+				     		var fontObj = window.parent.getFontAccomodation();	
+				     		var bgColorObj = window.parent.getBackColorAccomodation();				    	
 					    	if(fontObj.hasFont == 'true'){
-					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px');
+					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
 					    	}else{
 					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures('', '12px');
 					    	}
@@ -193,6 +195,35 @@ img {
        
        	lz.embed.setCanvasAttribute('unlockui', 'unlock');
        }
+       
+       function showPleaseWaitPopup(arg){
+       console.log("showpleasewaitpopup before",canvas.showpleasewaitpopup);
+       	lz.embed.setCanvasAttribute('showpleasewaitpopup', 'true');
+       	console.log("showpleasewaitpopup",canvas.showpleasewaitpopup);
+       	//gPleaseWaitPopup.show();
+       	//console.log("popupcalled");
+       }
+       
+       function hidePleaseWaitPopup(arg){
+       
+       	lz.embed.setCanvasAttribute('hidepleasewaitpopup', 'true');
+       }
+       
+       function showPleaseWaitPopupControls(arg){
+       
+       	lz.embed.setCanvasAttribute('showpleasewaitpopupcontrols', 'true');
+       }
+       
+       function exitPleaseWaitPopup(){
+       		window.parent.exitPleaseWaitPopup();
+       }
+       function getManipulativeData(args){
+       		lz.embed.setCanvasAttribute('manipulativedata', args);
+       }
+       function setHtmlGeneralManip(htmlGeneralManip){
+       		window.parent.setHtmlGeneralManip(htmlGeneralManip);
+       }
+       
         </script>
 
 <body>
