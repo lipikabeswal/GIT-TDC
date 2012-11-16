@@ -46,6 +46,16 @@
 		<method name="initComp" args="data"><![CDATA[
             if (!data) return;
 			
+			//set the initial widths / heights to zero to avoid scrollbar issue
+			this.wrapper.setAttribute('width',0);
+			this.wrapper.setAttribute('height',0);
+			this.wrapper.scrollcontainer.setAttribute('width',0);
+			this.wrapper.scrollcontainer.setAttribute('height',0);
+			this.wrapper.scrollcontainer.offsetwrapper.setAttribute('width',0);
+			this.wrapper.scrollcontainer.offsetwrapper.setAttribute('height',0);
+			this.wrapper.scrollcontainer.offsetwrapper.contents.setAttribute('width',0);
+			this.wrapper.scrollcontainer.offsetwrapper.contents.setAttribute('height',0);
+			
 			//Randomization will only be applied if login response has seed with it
 			if(gController.isLoginResponseHavingSeed && !nullOrSpace(gController.seed) && data != null) {
 				applyRandomDistractors(data);	
