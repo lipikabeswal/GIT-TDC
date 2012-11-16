@@ -164,10 +164,13 @@
 	<attribute name="manipstate" value="null"/>
 	<attribute name="ttstext" value="null"/>
 	<attribute name="setanswer" value="null" />
+	<attribute name="exitPleaseWaitPopup" type="boolean" value="false"/>
 	
 	<attribute name="fontString" value="null"/>
 	<attribute name="xscalefactor" value="null"/>
 	<attribute name="yscalefactor" value="null"/>
+	<attribute name="backColorString" value="null"/>
+	<attribute name="htmlGeneralManip" value="$once{new Object()}" />
 	
 	
 	<handler name="onsetanswer" args="data">
@@ -189,6 +192,17 @@
 	var manipName = manip[0];
 	gController.manipStateHtml[manipName].resetState();		
 	]]></handler>  
+
+	<handler name="onexitPleaseWaitPopup">
+		gController.exitPopups();
+		gController.hideHtmlWidgets();
+		gController.terminate();
+	</handler>	
+
+	<handler name="onhtmlGeneralManip" args="data">
+		gController.addManipulatives(data);
+	</handler>
+
 	<method name="setCrFocus"><![CDATA[
 		var fo = canvas.focusobj;
 		if(typeof fo == 'object' && fo!=null){

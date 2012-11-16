@@ -78,6 +78,11 @@
 		<handler name="onmousedown">
 			this.bringToFront();
 		</handler>
+		<handler name="onvisible">
+			//console.log("onvissble....");
+			this.setAttribute('x',325);
+			this.setAttribute('y',225);
+		</handler>
 
 
 
@@ -103,7 +108,7 @@
             } else {
                 this.setAttribute ('rotation', 0);
 
-                this.setAttribute ('x', (classroot.width - this.width)/2);
+                this.setAttribute ('x', (classroot.width - this.width)/2);	
                 this.setAttribute ('y', (classroot.height - this.height)/2);
 
                 //save defaults in data

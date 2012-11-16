@@ -508,6 +508,7 @@
 		<attribute name="sptext" value="null" />
 		<attribute name="manipStateHtml" value="$once{new Object()}"/>
 		<attribute name="stylesArr" value="$once{new Array()}"/>
+		<attribute name="htmlGeneralManipData" value="$once{new Object()}" />
 		<!--
 			============================================================
 			Datapointers
@@ -2618,6 +2619,10 @@
            	var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/@itempos' )
             );
+			Debug.write("stepNavigateForward",curritem);
+			if(gController.htmlFields.length > 0){
+				this.htmlFields[0]['ref'].main.ht.callJavascript('getManipulativeData', null,curritem);
+			}
 			var totalitem = Number(
 				dpstudentdata.xpathQuery( 'question_number/@total_including_theme')  );
             
@@ -2632,6 +2637,13 @@
             	}
             }
         ]]></method>
+
+		<method name="addManipulatives">
+			var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
+            var curritem = Number (dncurritem.getAttr ('eid'));
+
+			htmlGeneralManipData[curritem] = canvas.htmlGeneralManip;
+		</method>
 
 		<!-- question state -->
 		<method name="toggleMark"><![CDATA[
@@ -3538,7 +3550,11 @@ Debug.write("############ loadItem ############");
             gRationalePopup.hide();
             
 			//for ISTEP CR
-            gPleaseWaitPopup.hide();
+			if(gController.htmlFields.length > 0){
+				this.htmlFields[0]['ref'].main.ht.callJavascript('hidePleaseWaitPopup', null,'true');
+			}else{
+           		gPleaseWaitPopup.hide();
+			}
         </method>
 
 		<method name="movedYouAreHere">
@@ -3594,6 +3610,7 @@ Debug.write("############ loadItem ############");
             var initglobal = (dnmanip == null);
             var initgeneral = (dngeneral == null);
             var ismarked = dpstudentdata.xpathQuery ('current_item/item_model/@marked');
+            Debug.write("initManipulativeData  ",ismarked,dnmanip,dngeneral);
             if (typeof (ismarked) == 'string') {
                 ismarked = (ismarked == '1' || ismarked == 'true');
             }
@@ -3856,7 +3873,9 @@ Debug.write("############ loadItem ############");
             }
             var fontString = fontAccom + "|" + bgclr + "|" + fgclr; 
           	canvas.fontString = fontString;
-			
+
+			var backColorString = gController.questionBgColor + "|" + gController.answerBgColor;
+			canvas.backColorString = backColorString;
         ]]></method>
 
 		<method name="getAccomStyleForType" args="type">
@@ -4443,8 +4462,13 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="showWaitPopup">
-            this.isWaitPopupOpen = true;	
-			gPleaseWaitPopup.show();
+            this.isWaitPopupOpen = true;
+			if(gController.htmlFields.length > 0){
+				this.htmlFields[0]['ref'].main.ht.callJavascript('showPleaseWaitPopup', null,'true');
+				gHotKeys.disableKeys();
+			}else{	
+				gPleaseWaitPopup.show();
+			}
 			gMusicPlayer.hide();
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
@@ -4454,18 +4478,26 @@ Debug.write("############ loadItem ############");
 			this.isWaitPopupOpen = false;
 			lz.Timer.removeTimer(dNetworkLostPopup);
 			if(gCommunicator.firstRequestDone) {
-				
-						gPleaseWaitPopup.hide();
-						showWaitPopup();
-						gPleaseWaitPopup.showControls();
-				
+						if(gController.htmlFields.length > 0){
+							this.htmlFields[0]['ref'].main.ht.callJavascript('hidePleaseWaitPopup', null,'true');
+							showWaitPopup();
+							this.htmlFields[0]['ref'].main.ht.callJavascript('showPleaseWaitPopupControls', null,'true');
+						}else{
+							gPleaseWaitPopup.hide();
+							showWaitPopup();
+							gPleaseWaitPopup.showControls();
+						}
 			}
             
 		]]></method>
 
 		<method name="hideWaitPopup"><![CDATA[
 			this.isWaitPopupOpen = false;	
-			gPleaseWaitPopup.hide();
+			if(gController.htmlFields.length > 0){
+				this.htmlFields[0]['ref'].main.ht.callJavascript('hidePleaseWaitPopup', null);
+			}else{
+				gPleaseWaitPopup.hide();
+			}
 			lz.Timer.removeTimer(dNetworkLostPopup);
 			gReadableText.stopRequestor();
 			gController.unlockUI();

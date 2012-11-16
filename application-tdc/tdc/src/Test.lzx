@@ -6,6 +6,7 @@
 <include href="manipulatives/ruler/MaskingRuler.lzx"/>
 <include href="manipulatives/scratchpad/Scratchpad.lzx"/>
 <include href="manipulatives/refcard/RefCard.lzx"/>
+<include href="manipulatives/PleaseWaitPopup.lzx"/>
 	
 <attribute name="srcurl" value="null"/>
 <attribute name="manipid" value="null"/>
@@ -13,6 +14,11 @@
 <attribute name="scratchpadtext" value="null"/>
 <attribute name="freezeui" value="null"/>
 <attribute name="unlockui" value="null"/>
+<attribute name="showpleasewaitpopup" type="boolean" value="false"/>
+<attribute name="hidepleasewaitpopup" type="boolean" value="false"/>
+<attribute name="showpleasewaitpopupcontrols" type="boolean" value="false"/>
+<attribute name="manipulativedata" type="boolean" value="false"/>
+<attribute name="htmlGeneralManip" value="$once{new Object()}" />
 <attribute name="scalefactor" value="null"/>
 <attribute name="xscalefactor" value="null"/>
 
@@ -24,6 +30,32 @@
 	this.yscalefactor = Number(data[1]);
 </handler>
 
+<handler name="onshowpleasewaitpopup">
+	console.log("onshowPleaseWaitPopup",this.showPleaseWaitPopup);
+	gPleaseWaitPopup.show();
+</handler>
+
+<handler name="onhidepleasewaitpopup">
+	gPleaseWaitPopup.hide();
+</handler>
+
+<handler name="onshowpleasewaitpopupcontrols">
+	gPleaseWaitPopup.showControls();
+</handler>
+
+<handler name="onmanipulativedata" args="data">
+	htmlGeneralManip['cm_ruler'] = gCmRuler;
+	htmlGeneralManip['formula_card'] = gFcatFormulaCard;
+	htmlGeneralManip['half_inch_ruler'] = gHalfInchRuler;
+	htmlGeneralManip['mm_ruler'] = gMmRuler;
+	htmlGeneralManip['oneeighth_inch_ruler'] = gEighthInchRuler;
+	htmlGeneralManip['protractor'] = gProtractor;
+	htmlGeneralManip['scientific_calculator'] = gScientificCalculator;
+	htmlGeneralManip['standard_calculator'] = gStandardCalculator;
+
+	var js = "setHtmlGeneralManip('"+htmlGeneralManip+"')";
+	lz.Browser.loadJS(js);
+</handler>
 
 <handler name="onfreezeui" args="data">
  this.blocker.setAttribute('visible',true);

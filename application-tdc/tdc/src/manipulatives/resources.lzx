@@ -232,5 +232,12 @@
     <resource name="bar_btn">      
 		<frame src="resource/delay_screen_buttons/greenBar.png"/>          
 	</resource>
+	
+	<resource name="exit_button_rsc">
+		<frame src="resource/delay_screen_buttons/exit_off.png"/>
+		<frame src="resource/delay_screen_buttons/exit_on.png"/>
+		<frame src="resource/delay_screen_buttons/exit_click.png"/>
+		<frame src="resource/delay_screen_buttons/exit_test_disabled.png"/>
+	</resource>
 	          
 </library>
