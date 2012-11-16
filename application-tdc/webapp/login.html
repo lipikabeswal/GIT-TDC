@@ -28,9 +28,10 @@
 var _LDB_BypassSetFocusOnPageLoad = 0;
 var spText;
 var fontAccom;
-
+var backColorString;
 var xscalefactor = 1;
 var yscalefactor = 1;
+
 function showFootnote(header)
 {
 	lz.embed.setCanvasAttribute("footnotedata", header);
@@ -158,6 +159,22 @@ function getFontAccomodation(){
 	fontObj.bgcolor = fontAccom[1].replace('0x', '#');
 	fontObj.fgcolor = fontAccom[2].replace('0x', '#');
 	return fontObj;
+}
+
+function getBackColorAccomodation(){
+	var backColorString = lz.embed.lzapp.getCanvasAttribute('backColorString');
+	backColorString = backColorString.split("|");
+	var bgColorObj = new Object();
+	bgColorObj.stemArea = backColorString[0].replace('0x', '#');
+	bgColorObj.responseArea = backColorString[1].replace('0x', '#');
+	return bgColorObj;
+}
+function setHtmlGeneralManip(htmlGeneralManip){
+  	lz.embed.setCanvasAttribute('htmlGeneralManip',htmlGeneralManip);
+}
+
+function exitPleaseWaitPopup(){
+	lz.embed.setCanvasAttribute('exitPleaseWaitPopup','true');
 }
 
 //-->
