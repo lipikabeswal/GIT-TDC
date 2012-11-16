@@ -144,19 +144,21 @@
 				  }
 			 ]]>
 			</handler>
-
-			<handler name="onkeyup" reference="LzKeys" args="k">
+			<handler name="ontext">
+			  	if(this.getTextHeight() > this.height) {
+			  		this.setScroll(this.getMaxScroll());
+			  	}
+			</handler>
+			<handler name="onkeyup" reference="LzKeys" args="k"><![CDATA[
 			  if(k==17){
 			      this.setEnabled(true);
 			      this.setAttribute('isCtrl', false);
 			  }
-
 			  if(k==13) {
 				  updateScrollbarPosition(); //when enter key is pressed, update scrollbar
 			  }
-			</handler>
-
-
+			]]></handler>
+			
 	<!--
 		When there is a pageful text in text field and scrollbar is still disabled.
 		So, to move to new line, if enter key is pressed. Normally, it does not update
