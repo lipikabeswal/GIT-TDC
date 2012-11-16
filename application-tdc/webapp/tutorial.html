@@ -14,8 +14,11 @@
 
 var _LDB_BypassSetFocusOnPageLoad = 0;
 var spText;
+var fontAccom;
+var backColorString;
 var xscalefactor = 1.33;
 var yscalefactor = 1.33;
+
 function showFootnote(header)
 {
 	lz.embed.setCanvasAttribute("footnotedata", header);
@@ -124,7 +127,6 @@ function unlockUI(){
 		document.getElementById('__lz0').contentWindow.unlockUI();
 	}
 }
-
 function setScaleFactor(args){
 
 	args = args.split('|');
@@ -132,6 +134,7 @@ function setScaleFactor(args){
 	yscalefactor = args[1];
 	
 }
+
 function getFontAccomodation(){
 	var fontAccom = lz.embed.lzapp.getCanvasAttribute('fontString');
 	fontAccom = fontAccom.split("|");
@@ -140,6 +143,18 @@ function getFontAccomodation(){
 	fontObj.bgcolor = fontAccom[1].replace('0x', '#');
 	fontObj.fgcolor = fontAccom[2].replace('0x', '#');
 	return fontObj;
+}
+
+function getBackColorAccomodation(){
+	var backColorString = lz.embed.lzapp.getCanvasAttribute('backColorString');
+	backColorString = backColorString.split("|");
+	var bgColorObj = new Object();
+	bgColorObj.stemArea = backColorString[0].replace('0x', '#');
+	bgColorObj.responseArea = backColorString[1].replace('0x', '#');
+	return bgColorObj;
+}
+function setHtmlGeneralManip(htmlGeneralManip){
+  	lz.embed.setCanvasAttribute('htmlGeneralManip',htmlGeneralManip);
 }
 </script>
 <style type="text/css">
@@ -168,7 +183,6 @@ img {
         <![endif]-->
 </head>
 <body>
-
 <div id="appcontainer"></div>
 <div id="lzsplash"
 	style="z-index: 10000000; top: 0; left: 0; width: 100%; height: 100%; position: fixed; display: table">
