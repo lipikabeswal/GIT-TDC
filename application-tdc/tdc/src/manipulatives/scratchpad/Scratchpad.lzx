@@ -101,7 +101,9 @@
         
         <method name="read">
  	    	//gReadableText.read(sp.getSelectedText(), true);
-        	//restoreFocusAndCursor();
+			var s = "setTTSText('"+sp.getSelectedText()+"')";
+			lz.Browser.loadJS(s);
+			restoreFocusAndCursor();
         </method>
         
         <method name="setText" args="txt">
@@ -158,7 +160,7 @@
 				this.setAttribute("width", this.DEFAULT_WIDTH);
 				this.setAttribute("x", this.DEFAULT_X);
 				this.setAttribute("y", this.DEFAULT_Y);
-           		//this.restoreFocusAndCursor();
+           		this.restoreFocusAndCursor();
            }else{
            		//gReadableText.stopReading(true);
 				gScratchpad.sp.inp.onblur.sendEvent();
