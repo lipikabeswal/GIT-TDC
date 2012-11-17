@@ -143,8 +143,15 @@ img {
 					    	}else{
 					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures('', '12px');
 					    	}
+					    	/*var manip = window.parent.getOpenManipData();
+					    	console.log("manip",manip);
+					    	showHideManipulative(manip);*/
+					    	
+					    	lz.embed.setCanvasAttribute('readable',stat);
+					    	
+					    	console.log("readable",readable,typeof(readable));
 					    	document.getElementById('__lz0').contentWindow.translate(xscalefactorjs,yscalefactorjs);
-					    
+					    	
 					  };
 					}
 			}
@@ -157,6 +164,10 @@ img {
         
         function showHideManipulative(arg){
         	lz.embed.setCanvasAttribute('manipid',arg);
+        }
+        
+        function showOpenManipulative(arg){
+        	lz.embed.setCanvasAttribute('manipData',arg);
         }
         
         function setScratchPadText(arg){
