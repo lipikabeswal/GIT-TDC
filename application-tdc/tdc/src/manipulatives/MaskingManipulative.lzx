@@ -12,6 +12,8 @@
         <handler name="oninit">
         
            this.datapath.setXPath (this.datapath.xpath +"/"+ this.toolid);
+              var elem = this.getDisplayObject();
+            elem.setAttribute('id', toolid);
         </handler>
 
 

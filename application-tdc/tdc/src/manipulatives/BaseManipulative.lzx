@@ -9,6 +9,8 @@
            
         <handler name="oninit">
             this.datapath.setXPath (this.toolid);
+            var elem = this.getDisplayObject();
+            elem.setAttribute('id', toolid);
         </handler>
 
         <handler name="onvisible">

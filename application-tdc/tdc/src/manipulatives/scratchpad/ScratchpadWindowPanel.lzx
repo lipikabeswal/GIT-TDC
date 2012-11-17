@@ -280,7 +280,7 @@
                         
                       <handler name="onmouseover">
 						gTooltip.showTooltip("Save and Close");
-						console.log("readable",canvas.readable,typeof(canvas.readable));
+						//console.log("readable",canvas.readable,typeof(canvas.readable));
 					</handler>
 					<handler name="onmouseout">
 						gTooltip.hideTooltip();

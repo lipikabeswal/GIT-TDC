@@ -57,10 +57,10 @@ img {
 	    var xscalefactorjs = window.parent.xscalefactor;
         var yscalefactorjs = window.parent.yscalefactor;
         if(!xscalefactorjs){
-        	xscalefactorjs = 1.33;
+        	xscalefactorjs = 1.2;
         }
         if(!yscalefactorjs){
-        	yscalefactorjs = 1.33;
+        	yscalefactorjs = 1.2;
         }
         //console.log('xscalefactor',xscalefactorjs,yscalefactorjs);
 
@@ -147,10 +147,26 @@ img {
 					    	console.log("manip",manip);
 					    	showHideManipulative(manip);*/
 					    	
+					    	/* protractor.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+					    	 standard_calculator.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+					    	 scientific_calculator.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+					    	 straight_edge.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+					    	 oneeighth_inch_ruler.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+					    	 half_inch_ruler.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+					    	 mm_ruler.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+					    	 cm_ruler.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+					    	 masking_ruler.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+					    	 scratchpad.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+					    	 FCAT_formula_card.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+					    	 TN_formula_card.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";*/
 					    	lz.embed.setCanvasAttribute('readable',stat);
+					    	document.getElementById('__lz0').contentWindow.translate(xscalefactorjs, (450 * yscalefactorjs)/600);
 					    	
-					    	console.log("readable",readable,typeof(readable));
-					    	document.getElementById('__lz0').contentWindow.translate(xscalefactorjs,yscalefactorjs);
+					    	var scratchPadLatest = window.parent.scratchpadManager.getCounter();
+					    	var manipObjectAtCounter = window.parent.scratchpadManager.getObjectAtCounter(scratchPadLatest);
+							if(manipObjectAtCounter.state == true){
+					    		gScratchpad.show(manipObjectAtCounter);
+							}
 					    	
 					  };
 					}
@@ -208,9 +224,7 @@ img {
        }
        
        function showPleaseWaitPopup(arg){
-       console.log("showpleasewaitpopup before",canvas.showpleasewaitpopup);
        	lz.embed.setCanvasAttribute('showpleasewaitpopup', 'true');
-       	console.log("showpleasewaitpopup",canvas.showpleasewaitpopup);
        	//gPleaseWaitPopup.show();
        	//console.log("popupcalled");
        }

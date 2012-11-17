@@ -21,6 +21,7 @@
 		<attribute name="answerObjSet" value="$once{new Object()}"/>
 		<attribute name="unlocked" type="boolean" value="false"/>
 		<attribute name="srcUrl" />
+		<attribute name="scratchPadAlreadyPresent" type="boolean" value="false"/>
 		<method name="init">
 			super.init();
 		</method>
@@ -76,7 +77,10 @@ Debug.write("Cachaable html widget ondata");
 		gController.freezeUI();
 		//doneLoading();
 		
-
+		if(gScratchpad.visible){
+			gScratchpad.hide('ignore');
+			this.setAttribute('scratchPadAlreadyPresent',true);
+		}
 		]]>
 		</handler>
 		
@@ -214,8 +218,17 @@ Debug.write("Cachaable html widget ondata");
 		</method>
 
 		<method name="doReturnToCache"><![CDATA[
+			
 			this.main.ht.setAttribute('visible',false);
 			this.main.ht.setAttribute('src',"");
+			//var state = gController.manipStateHtml['scratchpad'];
+			//Debug.write("DORETURN TO CACHE",state);
+			
+		if(gController.scratchpadOpen){
+			gScratchpad.show('ignore');
+			this.setAttribute('scratchPadAlreadyPresent',false);
+			gScratchpad.resetCall();
+		}
        ]]></method>
        
        <method name="setScratchPadText" args="arg">
@@ -236,7 +249,9 @@ Debug.write("Cachaable html widget ondata");
 	     </method>
        
        <view name="main" width="${parent.parent.width - 10}" height="${parent.parent.height - 10}">
- 	       <html name="ht" id="htmlwiget" x="5" y="5" width="790" height="590" scrollbars="false" />
+ 	       <html name="ht" id="htmlwiget" width="${780 * canvas.xscalefactor}" height="${450 * canvas.yscalefactor}" scrollbars="false" >
+
+ 	       </html>
        </view>
 
 	</class>

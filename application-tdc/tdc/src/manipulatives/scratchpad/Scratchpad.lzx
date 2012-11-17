@@ -27,7 +27,9 @@
         <attribute name="scratchpadHasFocus" type="boolean" value="false"/>
         <attribute name="scratchpadJustLostFocus" value="false" />
         <attribute name="scrollPosition" value="$once{new Array()}"/>
-        
+        <attribute name="hasXY" type="boolean" value="false" />
+        <attribute name="newX" type="number" value="200" />
+		<attribute name="newY" type="number" value="113" />
         <handler name="onmousedown">
         	this.bringToFront();
         	this.sp.inp.setSelectable(false);
@@ -145,27 +147,42 @@
             this.toolstate.setXPath (this.datapath.xpath + '/@' + this.toolid);
             //this.datapath.setXPath (this.toolid);
 			this.setAttribute('visible',false);
+			   var elem = this.getDisplayObject();
+            elem.setAttribute('id', toolid);
         </handler>
-        <method name="show">
+        <method name="show" args="arg">
+        	if(arg){
+        		this.setAttribute('hasXY', true);
+        		this.setAttribute('newX',arg.x);
+				this.setAttribute('newY',arg.y);
+        	}else{
+        		this.setAttribute('hasXY', false);
+        	}
         	this.setAttribute('visible',true);
         </method>
         
-        <method name="hide">
+        <method name="hide" args="arg">
         	this.setAttribute('visible',false);
         </method>
 
-		        <handler name="onvisible">
-			if(this.visible){  // restore defaults
-				this.setAttribute("height", this.DEFAULT_HEIGHT);
-				this.setAttribute("width", this.DEFAULT_WIDTH);
-				this.setAttribute("x", this.DEFAULT_X);
-				this.setAttribute("y", this.DEFAULT_Y);
-           		this.restoreFocusAndCursor();
-           }else{
-           		//gReadableText.stopReading(true);
-				gScratchpad.sp.inp.onblur.sendEvent();
-            }       
-         </handler>
+		  <handler name="onvisible"><![CDATA[
+			if(!hasXY){
+				if(this.visible){  // restore defaults
+					this.setAttribute("height", this.DEFAULT_HEIGHT);
+					this.setAttribute("width", this.DEFAULT_WIDTH);
+					this.setAttribute("x", this.DEFAULT_X);
+					this.setAttribute("y", this.DEFAULT_Y);
+	           		//this.restoreFocusAndCursor();
+	           }else{
+	           		//gReadableText.stopReading(true);
+					gScratchpad.sp.inp.onblur.sendEvent();
+	            }       
+            }else{
+            	this.setAttribute("x", this.newX);
+				this.setAttribute("y", this.newY);
+	        
+            }
+         ]]></handler>
          
          <handler name="onblur" reference="sp.inp">
 			this.setAttribute("scratchpadHasFocus", false);
