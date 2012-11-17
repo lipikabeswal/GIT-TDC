@@ -29,7 +29,8 @@
         <attribute name="toolstate" value="$once{new lz.datapointer ()}"/>
         <attribute name="scratchpadHasFocus" type="boolean" value="false"/>
         <attribute name="scratchpadJustLostFocus" value="false" />
-        
+        <attribute name="scrollPosition" value="$once{new Array()}"/>
+        <attribute name="calledFromHtml" type="boolean" value="false"/>
         <handler name="onmousedown">
         	this.bringToFront();
         	this.sp.inp.setSelectable(false);
@@ -121,18 +122,25 @@
 
         </handler>
 
-        <handler name="onvisible">
+        <handler name="onvisible"><![CDATA[
+        	if(!this.calledFromHtml){
 			if(this.visible){  // restore defaults
 				this.setAttribute("height", this.DEFAULT_HEIGHT);
 				this.setAttribute("width", this.DEFAULT_WIDTH);
 				this.setAttribute("x", this.DEFAULT_X);
 				this.setAttribute("y", this.DEFAULT_Y);
            		this.restoreFocusAndCursor();
+           		
            }else{
            		gReadableText.stopReading(true);
 				gScratchpad.sp.inp.onblur.sendEvent();
-            }       
-         </handler>
+            }  
+            }   
+            
+            if(gController.htmlFields.length > 0){
+            	this.setAttribute('visible',false);
+            }  
+        ]]> </handler>
          
          <handler name="onblur" reference="sp.inp">
 			this.setAttribute("scratchpadHasFocus", false);
@@ -140,6 +148,21 @@
 			gHotKeys.enableKeys();
          </handler>
          
+         <!-- Specific to TE START-->
+         <method name="hide" args="arg">
+         this.setAttribute('visible', false);
+         this.setAttribute('calledFromHtml',true);
+         </method>
+         
+         <method name="show" args="arg">
+         this.setAttribute('visible', true);
+         
+         </method>
+         <method name="resetCall">
+         this.setAttribute('calledFromHtml',false);
+         </method>
+         
+         <!-- TE END -->
 	     <scrolledittext name="sp" 
 	                             height="${immediateparent.height}" 
 	                             width="${immediateparent.width}" 
@@ -161,7 +184,7 @@
 	            </method>
 	            
 	            <method name="updateScrollText" args="a">
-						this.setAttribute('text',a);	
+						this.setAttribute('text',a);						
 				</method>
 				
 				<handler name="ontext"><![CDATA[
