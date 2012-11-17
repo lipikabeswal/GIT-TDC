@@ -239,5 +239,14 @@
 		<frame src="resource/delay_screen_buttons/exit_click.png"/>
 		<frame src="resource/delay_screen_buttons/exit_test_disabled.png"/>
 	</resource>
+	
+    <resource name="highlighter_cursor" src="resource/iknow_cursors/cursor_highliter.png"/>
+    <resource name="eraser_cursor" src="resource/iknow_cursors/cursor_eraser.png"/>
+    
+    <resource name="read_btn">      
+		<frame src="resource/read/btn_read_up.png"/>   
+		<frame src="resource/read/btn_read_over.png"/>        
+		<frame src="resource/read/btn_read_down.png"/> 
+	</resource>
 	          
 </library>
