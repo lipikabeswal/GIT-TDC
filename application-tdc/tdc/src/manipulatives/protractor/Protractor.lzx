@@ -82,6 +82,7 @@
 			//console.log("onvissble....");
 			this.setAttribute('x',325);
 			this.setAttribute('y',225);
+			this.setAttribute('rotation',0);
 		</handler>
 
 
