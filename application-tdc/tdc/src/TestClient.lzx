@@ -1,4 +1,4 @@
-<canvas bgcolor="0x6691B4" proxied="false" debug="false" width="100%" height="100%"
+<canvas bgcolor="0x6691B4" proxied="false" debug="true" width="100%" height="100%"
 	accessible="true">
 	<script when="immediate"><![CDATA[
 	class FlashUtils {
@@ -190,7 +190,10 @@
 	<handler name="onmanipstate" args="data"><![CDATA[
 	var manip = data.split("|");
 	var manipName = manip[0];
-	gController.manipStateHtml[manipName].resetState();		
+	if(gController.manipStateHtml[manipName]){
+	gController.manipStateHtml[manipName].resetState();
+	}		
+	gController.setManipulativeSelState (manipName, manip[1]);
 	]]></handler>  
 
 	<handler name="onexitPleaseWaitPopup">

@@ -191,7 +191,9 @@
 			var os = flashSystem.capabilities.os;
 			os = os.split(" ");
 			return os[0] == 'Mac';	
-		}			
+		}	
+
+			
     ]]></script>
 
 	<!--
@@ -2248,6 +2250,10 @@
                 );
                 var dncurritem =
                     dpstudentdata.xpathQuery ('current_item/item_model/');
+				var scratchStr = scratchpadObject(dpstudentdata,gScratchpad);
+				Debug.write("dnrtitemnew.changecurrentitemdata..", scratchStr);
+				var s = "scratchpadManager.saveStateManip('"+scratchStr+"')";
+				lz.Browser.loadJS(s);
 				if (this.adaptive == false){
 					saveSharedStimulusHighlights();
 				}
@@ -2262,7 +2268,7 @@
             var dnrtitemnew = dpstudentdata.xpathQuery(
                 "runtime/item_model [@eid = '"+newitem+"']"
             );
-		//Debug.write("dnrtitemnew..."+dnrtitemnew);
+			//Debug.write("dnrtitemnew...",dnrtitemnew);
 			var allowrevisit = dnrtitemnew.getAttr("allow_revisit");
 		//Debug.write("allowrevisit..."+allowrevisit);
 			this.setAttribute("allowRevisit", (allowrevisit != "false"));
@@ -5304,6 +5310,24 @@ Debug.write("############ loadItem ############");
 			return JSON.parse(result);
 
 		]]></method>
+
+		<method name="scratchpadObject" args="dn,obj">
+				Debug.write("dpstudentdata", obj.visible,obj.x,obj.y);
+				
+				var iid = dn.xpathQuery("current_item/item_model/@iid");
+				var newObj = new Object();
+				newObj.itemid = iid;
+				newObj.toolid = 'scratchpad';
+				newObj.state = this.scratchpadOpen;
+				newObj.x = obj.x;
+				newObj.y = obj.y;
+			return JSON.stringify(newObj);
+		</method>
+
+		<method name="isNotTEItem">
+			return this.htmlFields.length == 0;
+		</method>
+		
 
 	</node>
 
