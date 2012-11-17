@@ -2638,11 +2638,11 @@
             }
         ]]></method>
 
-		<method name="addManipulatives">
-			var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
+		<method name="addManipulatives" args="data">
+			/*var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
             var curritem = Number (dncurritem.getAttr ('eid'));
 
-			htmlGeneralManipData[curritem] = canvas.htmlGeneralManip;
+			htmlGeneralManipData[curritem] = canvas.htmlGeneralManip;*/
 		</method>
 
 		<!-- question state -->
