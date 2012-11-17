@@ -269,6 +269,7 @@
 			 		        name="readBtn"
 			 		        y="-1"
 			 		        visible="${canvas.readable}">
+					
 					<handler name="onclick">
 			        	gScratchpad.read();
 					</handler>
@@ -277,12 +278,12 @@
                         resource="window_closebtn_rsc"
                         onclick="classroot.close()" >
                         
-                        
                       <handler name="onmouseover">
-						//gTooltip.showTooltip("Save and Close");
+						gTooltip.showTooltip("Save and Close");
+						console.log("readable",canvas.readable,typeof(canvas.readable));
 					</handler>
 					<handler name="onmouseout">
-						//gTooltip.hideTooltip();
+						gTooltip.hideTooltip();
 					</handler>
 		 			<handler name="onmousedown">
 		 				classroot.bringToFront();
