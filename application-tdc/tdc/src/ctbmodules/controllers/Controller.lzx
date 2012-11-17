@@ -508,7 +508,7 @@
 		<attribute name="sptext" value="null" />
 		<attribute name="manipStateHtml" value="$once{new Object()}"/>
 		<attribute name="stylesArr" value="$once{new Array()}"/>
-		<attribute name="htmlGeneralManipData" value="$once{new Object()}" />
+		<attribute name="htmlGeneralManipData" value="$once{new Array()}" />
 		<!--
 			============================================================
 			Datapointers
@@ -2639,10 +2639,10 @@
         ]]></method>
 
 		<method name="addManipulatives" args="data">
-			/*var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
-            var curritem = Number (dncurritem.getAttr ('eid'));
-
-			htmlGeneralManipData[curritem] = canvas.htmlGeneralManip;*/
+			/*var manip = JSON.parse(data);
+			Debug.write("addManipulatives",data,manip);
+			htmlGeneralManipData.push(manip);
+			Debug.write("htmlGeneralManipData",htmlGeneralManipData);*/
 		</method>
 
 		<!-- question state -->
@@ -3610,13 +3610,25 @@ Debug.write("############ loadItem ############");
             var initglobal = (dnmanip == null);
             var initgeneral = (dngeneral == null);
             var ismarked = dpstudentdata.xpathQuery ('current_item/item_model/@marked');
-            Debug.write("initManipulativeData  ",ismarked,dnmanip,dngeneral);
+			var currentEid = dpstudentdata.xpathQuery("current_item/item_model/@eid");
+            Debug.write("initManipulativeData  ",ismarked,dnmanip,dngeneral,currentEid,htmlGeneralManipData);
             if (typeof (ismarked) == 'string') {
                 ismarked = (ismarked == '1' || ismarked == 'true');
             }
             else if(typeof (ismarked) == 'boolean') {
                 ismarked = (ismarked == true);
             }
+			/*if(gController.htmlFields.length > 0){
+				for(var i=0;i<htmlGeneralManipData.length;i++){
+					if(htmlGeneralManipData[i].eid == currentEid){
+						var manipData = htmlGeneralManipData[i];
+						var ruler = manipData['oneeighth_inch_ruler'];
+						Debug.write("ruler",ruler,ruler.toolid,this.htmlFields[0]['ref']);
+						canvas.setAttribute("htmlOpenManip",ruler.toolid);
+						//this.htmlFields[0]['ref'].main.ht.callJavascript('showHideManipulative', null,ruler.toolid);
+					}
+				}
+			}*/
         	// clear previous manipulative data if not marked for review
             if (!ismarked) {
                 var dnman = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives');
