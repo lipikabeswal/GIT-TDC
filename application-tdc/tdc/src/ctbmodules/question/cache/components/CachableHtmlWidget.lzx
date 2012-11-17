@@ -110,26 +110,26 @@ Debug.write("Cachaable html widget ondata");
             
        ]]> </method>
 
-		<method name="setAnswer" >
-			Debug.write("setAnswer ansObj");
-			if(this.main.ht.ready){
-				if(!this.answered){
-					var htmlContent = this.answerObjSet.htmlContent;
-					var jsonContent = this.answerObjSet.jsonContent;
-					var checkedVals = []
-					if(this.answerObjSet.checkedVals){
-						checkedVals = this.answerObjSet.checkedVals;
-						Debug.write('Checked VAls', checkedVals);
-					}
-		            //this.main.ht.callJavascript('accomPkg.setState', null,htmlContent, jsonContent, checkedVals);
-		            this.main.ht.callJavascript('setState', null,htmlContent, jsonContent, checkedVals);
-					lz.Timer.resetTimer(setStateDel, 500);
-				}else{
-					lz.Timer.removeTimer(setStateDel);
-				}
-			}
-			
-		</method>
+		<method name="setAnswer" ><![CDATA[
+		   //Debug.write("setAnswer ansObj");
+		   if(this.main.ht.ready && gController.htmlFields.length > 0){
+		    if(!this.answered){
+		     var htmlContent = this.answerObjSet.htmlContent;
+		     var jsonContent = this.answerObjSet.jsonContent;
+		     var checkedVals = []
+		     if(this.answerObjSet.checkedVals){
+		      checkedVals = this.answerObjSet.checkedVals;
+		      Debug.write('Checked VAls', checkedVals);
+		     }
+		   //this.main.ht.callJavascript('accomPkg.setState', null,htmlContent, jsonContent, checkedVals);
+		   this.main.ht.callJavascript('setState', null,htmlContent, jsonContent, checkedVals);
+		     lz.Timer.resetTimer(setStateDel, 500);
+		    }else{
+		     lz.Timer.removeTimer(setStateDel);
+		    }
+		   }
+	   
+	    ]]></method>
 
         
         <method name="func2">
