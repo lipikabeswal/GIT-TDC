@@ -20,6 +20,9 @@
 				<fileset dir="${basedir}/lib">
 					<include name="*.jar" />
 				</fileset>
+				<fileset dir="${basedir}/../application-tdc/servletcontainer/jetty-5.1.11RC0/lib">
+					<include name="javax.servlet.jar" />
+				</fileset>
 			</classpath>
 		</javac>
 	</target>

@@ -9,9 +9,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
@@ -96,7 +97,7 @@ public class TTSUtil {
 	}
 	
 	private static String stripchars(String in) {
-		return in.replaceAll(Pattern.quote("*"), "").replaceAll(Pattern.quote("."), "").replaceAll(Pattern.quote("/"), "");
+		return in;//.replaceAll(Pattern.quote("*"), "").replaceAll(Pattern.quote("."), "").replaceAll(Pattern.quote("/"), "");
 	}
 	
 	private static String createFilename(String text) throws Exception{
@@ -124,6 +125,12 @@ public class TTSUtil {
 	
 	public static void cacheFile(String text, MP3 mp3) {
 		try {
+			try {
+				(new File("cache/dummy")).mkdirs();
+			} catch (Exception e) {
+				// do nothing
+			}
+			
 			String filename = "cache/" + createFilename(text) + ".mp3";
 			
 			System.out.println("TTS: cache miss, new cache file: " + filename);
@@ -180,6 +187,7 @@ public class TTSUtil {
 	public static void main(String argv[]) {
 		try {
 			String thResponse = textHelpRequest("testing","-2");
+			System.out.println("thResponse: " + thResponse);
 			String mp3URL = thResponse.substring(thResponse.indexOf("mp3=") + 4);
 			String result = textHelpMP3(mp3URL).toString();
 		} catch (Exception e) {
@@ -291,7 +299,7 @@ public class TTSUtil {
         buff.append(src.substring(39, 40));
     	return buff.toString();
     }
-	
+    
     private static class SpeechRequest extends Thread {
 		public String text;
 		public String speedValue;
@@ -308,13 +316,10 @@ public class TTSUtil {
 		
 		public void run() {
 			int responseCode = HttpStatus.SC_OK;
-			System.out.println("this.speedValue1 : " + this.speedValue);
+			
 			TTSSettings ttsSettings = getTTSSettings();
 			String voice = ttsSettings.getVoiceName();
 			
-			if(voice == null || "".equals(voice.trim())) {
-				voice = "ScanSoft Jill_Full_22kHz";
-			}
 			if(this.speedValue  == null || "".equals(this.speedValue.trim())) {
 				this.speedValue = ttsSettings.getSpeedValue();
 				if(this.speedValue == null || "".equals(this.speedValue.trim())) {
@@ -322,24 +327,24 @@ public class TTSUtil {
 				}
 			}
 			
-			
-			System.out.println("this.speedValue2 : " + this.speedValue);
-			//if "speedValue" coming from client has some value, override the tts.properties value with this one
-		/*	if(this.speedValue  != null && !"".equals(this.speedValue.trim())) {
-				speedvalue = this.speedValue;
-			}*/
-
 			String speechURL = ttsSettings.getUrl();
-			if(speechURL == null || "".equals(speechURL.trim())) {
-				speechURL = "https://168.116.31.62/SpeechServer/";
-			}
 			
 			PostMethod post = new PostMethod(speechURL);
 			post.setFollowRedirects(false);
 			NameValuePair[] params = { new NameValuePair("text", text),
-					   new NameValuePair("voiceName", voice),
-					   new NameValuePair("speedValue", this.speedValue)};
+					   new NameValuePair("customerid", "5857"),
+					   new NameValuePair("lang", "en_us"),
+					   new NameValuePair("output", "audiolink"),
+					   new NameValuePair("voice", voice),
+					   new NameValuePair("speed", this.speedValue)};
 			post.setRequestBody(params);
+
+			System.out.println(speechURL);
+			System.out.println(voice);
+			System.out.println(speedValue);
+			System.out.println(text);
+			
+			post.addRequestHeader("x-readspeaker-api-key", "ac678cf868483de0b733cf4d81b6367b");
 
 			// send request to TextHelp
 			try {
@@ -357,47 +362,30 @@ public class TTSUtil {
 					setupClientNonSecure(client, ttsSettings);
 				}
 				
-				int TTSRetry = 5;
-				while(TTSRetry > 0) {
-					try {
-						responseCode = client.executeMethod(post);
-						int responseLen = 0;
-						if(post.getResponseHeader("content-length") != null) {
-							responseLen = Integer.valueOf(post.getResponseHeader("content-length").getValue()).intValue();
-						}
-						
-						System.out.println("Text Status: " + responseCode + " Length: " + responseLen);
-						
-						if (responseCode == HttpStatus.SC_OK && responseLen > 0) {
-							InputStream isPost = post.getResponseBodyAsStream();
-							BufferedReader in = new BufferedReader(new InputStreamReader(isPost));
-							String inputLine = null;
-							result = "";
-							while ((inputLine = in.readLine()) != null) {
-								result += inputLine;
-							}
-							if(result.indexOf("mp3=") >= 0) {
-								in.close();
-								completed = true;
-								TTSRetry = 0;
-								mainThread.interrupt();
-							} else {
-								SpeechRequest.result = null;
-								Thread.sleep(1000);
-								TTSRetry--;
-							}
-						}
-						else {
-							Thread.sleep(1000);
-							TTSRetry--;
-						}
-					}
-					catch (Exception e) {
-						e.printStackTrace();
-						Thread.sleep(1000);
-						TTSRetry--;
-					}
+				responseCode = client.executeMethod(post);
+				int responseLen = 0;
+				if(post.getResponseHeader("content-length") != null) {
+					responseLen = Integer.valueOf(post.getResponseHeader("content-length").getValue()).intValue();
 				}
+				
+				System.out.println("Text Status: " + responseCode);// + " Length: " + responseLen);
+				
+				result = "";
+				BufferedReader in = new BufferedReader(new InputStreamReader(post.getResponseBodyAsStream()),131072);
+				String inputLine = null;
+				
+				while ((inputLine = in.readLine()) != null) {
+					result += inputLine;
+				}
+				System.out.println(result);
+				if(result.indexOf("mp3") >= 0) {
+					result = "mp3=" + result;
+					in.close();
+				} else {
+					result = null;
+				}
+				this.completed = true;
+				this.mainThread.interrupt();
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -410,21 +398,18 @@ public class TTSUtil {
     
 	public static String textHelpRequest(String text, String speedValue) {
 		text = text.replaceAll("<", "less than");
-		System.out.println("### Speed Value: " + speedValue);
-		for(int i=0;i<2;i++) {
-			SpeechRequest request = new SpeechRequest(text, Thread.currentThread(), speedValue);
-			try {
-				request.start();
-				Thread.sleep(15000);
-				if(SpeechRequest.completed && SpeechRequest.result != null) {
-					System.out.println("Text returning after wait: " + SpeechRequest.result);
-					return SpeechRequest.result;
-				}
-			} catch (InterruptedException ie) {
-				if(SpeechRequest.completed && SpeechRequest.result != null) {
-					System.out.println("Text returning after interrupt: " + SpeechRequest.result);
-					return SpeechRequest.result;
-				}
+		SpeechRequest request = new SpeechRequest(text, Thread.currentThread(), speedValue);
+		try {
+			request.start();
+			Thread.sleep(15000);
+			if(SpeechRequest.completed && SpeechRequest.result != null) {
+				System.out.println("Text returning after wait: " + SpeechRequest.result);
+				return SpeechRequest.result;
+			}
+		} catch (InterruptedException ie) {
+			if(SpeechRequest.completed && SpeechRequest.result != null) {
+				System.out.println("Text returning after interrupt: " + SpeechRequest.result);
+				return SpeechRequest.result;
 			}
 		}
 		System.out.println("Text returning null");
