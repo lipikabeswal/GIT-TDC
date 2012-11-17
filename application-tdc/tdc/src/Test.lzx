@@ -7,6 +7,9 @@
 <include href="manipulatives/scratchpad/Scratchpad.lzx"/>
 <include href="manipulatives/refcard/RefCard.lzx"/>
 <include href="manipulatives/PleaseWaitPopup.lzx"/>
+<include href="manipulatives/Tooltip.lzx"/>
+
+<script src="ctbmodules/controllers/utils/json.js" />
 	
 <attribute name="srcurl" value="null"/>
 <attribute name="manipid" value="null"/>
@@ -23,6 +26,8 @@
 <attribute name="xscalefactor" value="null"/>
 
 <attribute name="yscalefactor" value="null"/>
+<attribute name="manipData" value="null"/>
+<attribute name="readable" value="false" type="boolean" />
 
 <handler name="onscalefactor" args="data">		
 	data = data.split('|');
@@ -44,16 +49,33 @@
 </handler>
 
 <handler name="onmanipulativedata" args="data">
-	htmlGeneralManip['cm_ruler'] = gCmRuler;
-	htmlGeneralManip['formula_card'] = gFcatFormulaCard;
+	var maniObj = new Object;
+	/*htmlGeneralManip['FCAT_formula_card'] = gFcatFormulaCard;
+	htmlGeneralManip['TN_formula_card'] = gTnFormulaCard;
 	htmlGeneralManip['half_inch_ruler'] = gHalfInchRuler;
 	htmlGeneralManip['mm_ruler'] = gMmRuler;
-	htmlGeneralManip['oneeighth_inch_ruler'] = gEighthInchRuler;
-	htmlGeneralManip['protractor'] = gProtractor;
+	htmlGeneralManip['cm_ruler'] = gCmRuler;*/
+	
+	maniObj.toolid = 'oneeighth_inch_ruler';
+	maniObj.isselected = gEighthInchRuler.isselected;
+	maniObj.x = gEighthInchRuler.x;
+	maniObj.y = gEighthInchRuler.y;
+	maniObj.rotation = gEighthInchRuler.rotation;
+	maniObj.width = gEighthInchRuler.ruler.width;
+
+	htmlGeneralManip['oneeighth_inch_ruler'] = maniObj;
+	htmlGeneralManip.eid=data;
+	//htmlGeneralManip['oneeighth_inch_ruler'] = [gEighthInchRuler.isselected,gEighthInchRuler.x,gEighthInchRuler.y,gEighthInchRuler.rotation,gEighthInchRuler.ruler.width];
+	/*htmlGeneralManip['protractor'] = gProtractor;
 	htmlGeneralManip['scientific_calculator'] = gScientificCalculator;
 	htmlGeneralManip['standard_calculator'] = gStandardCalculator;
+	htmlGeneralManip['straight_edge'] = gStraightEdge;*/
 
-	var js = "setHtmlGeneralManip('"+htmlGeneralManip+"')";
+	console.log("onmanipulativedata", htmlGeneralManip);
+
+	var manip = JSON.stringify(htmlGeneralManip);
+	console.log("manip",manip);
+	var js = "setHtmlGeneralManip('"+manip+"')";
 	lz.Browser.loadJS(js);
 </handler>
 
@@ -88,9 +110,13 @@ canvas.setAttribute('isLoaded', true);
 	gScratchpad.setText(arg);	
 ]]></handler>
 
+<handler name="onmanipData" args="data">
+	onmanipid.sendEvent(data.toolid);
+</handler>
+
 <handler name="onmanipid" args="arg">
 	<![CDATA[
-//console.log("onmanipid" , arg);
+console.log("onmanipid" , arg);
 var accom = document.getElementById('__lz0').contentWindow.accomPkg;
 switch(arg){
 
@@ -109,21 +135,27 @@ switch(arg){
 		break;
 		case 'protractor' : if(gProtractor.visible){
 								gProtractor.hide();
+								gProtractor.setAttribute("isselected",false);
 							}else{
+								gProtractor.setAttribute("isselected",true);
 								gProtractor.show();
 							}
 		break;
 		
 		case 'standard_calculator' : if(gStandardCalculator.visible){
 								gStandardCalculator.hide();
+								gStandardCalculator.setAttribute("isselected",false);
 							}else{
+								gStandardCalculator.setAttribute("isselected",true);
 								gStandardCalculator.show();
 							}
 		break;
 		
 		case 'scientific_calculator' :if(gScientificCalculator.visible){
 								gScientificCalculator.hide();
+								gScientificCalculator.setAttribute("isselected",false);
 							}else{
+								gScientificCalculator.setAttribute("isselected",true);
 								gScientificCalculator.show();
 							}
 		break;
@@ -131,31 +163,41 @@ switch(arg){
 
 		case 'straight_edge' :if(gStraightEdge.visible){
 										gStraightEdge.hide();
+										gStraightEdge.setAttribute("isselected",false);
 									}else{
+										gStraightEdge.setAttribute("isselected",true);
 										gStraightEdge.show();
 									}
 				break;
 		case 'oneeighth_inch_ruler' :if(gEighthInchRuler.visible){
 										gEighthInchRuler.hide();
+										gEighthInchRuler.setAttribute("isselected",false);
 									}else{
+										gEighthInchRuler.setAttribute("isselected",true);
 										gEighthInchRuler.show();
 									}
 				break;
 		case 'half_inch_ruler' :if(gHalfInchRuler.visible){
 										gHalfInchRuler.hide();
+										gHalfInchRuler.setAttribute("isselected",false);
 									}else{
+										gHalfInchRuler.setAttribute("isselected",true);
 										gHalfInchRuler.show();
 									}
 				break;
 		case 'mm_ruler' :if(gMmRuler.visible){
 										gMmRuler.hide();
+										gMmRuler.setAttribute("isselected",false);
 									}else{
+										gMmRuler.setAttribute("isselected",true);
 										gMmRuler.show();
 									}
 				break;
 		case 'cm_ruler' :if(gCmRuler.visible){
 										gCmRuler.hide();
+										gCmRuler.setAttribute("isselected",false);
 									}else{
+										gCmRuler.setAttribute("isselected",true);
 										gCmRuler.show();
 									}
 				break;
@@ -169,14 +211,18 @@ switch(arg){
 		
 		case 'scratchpad' : 	if(gScratchpad.visible){
 									gScratchpad.hide();
+									gScratchpad.setAttribute("isselected",false);
 								}else{
+									gScratchpad.setAttribute("isselected",true);
 									gScratchpad.show();
 								}
 		break;
 
 		case 'FCAT_formula_card' : if(gFcatFormulaCard.visible){
 										gFcatFormulaCard.hide();
+										gFcatFormulaCard.setAttribute("isselected",false);
 									}else{
+										gFcatFormulaCard.setAttribute("isselected",true);
 										gFcatFormulaCard.show();
 									}
 
@@ -184,7 +230,9 @@ switch(arg){
 
 		case 'TN_formula_card' : if(gTnFormulaCard.visible){
 										gTnFormulaCard.hide();
+										gTnFormulaCard.setAttribute("isselected",false);
 									} else{
+										gTnFormulaCard.setAttribute("isselected",true);
 										gTnFormulaCard.show();
 									}
 
@@ -298,6 +346,8 @@ switch(arg){
 	var s = "getSPTextInitial()";
 	lz.Browser.loadJS(s);
 </handler>
+
+<Tooltip id="gTooltip" options="ignorelayout"/>
 
 
 <!--<handler name="onclick">
