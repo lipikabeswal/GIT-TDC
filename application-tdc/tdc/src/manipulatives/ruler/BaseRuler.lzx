@@ -26,11 +26,17 @@
 		</handler>
 		
 		  <handler name="oninit">
-        	this.setAttribute('visible' , false);
+		   	this.setAttribute('visible' , false);
             this.setAttribute ('x', this.width/2);
             this.setAttribute ('y', this.height);
         </handler>
-		
+		<handler name="onvisible">
+			//console.log("onvissble....");
+			this.setAttribute('x',325);
+			this.setAttribute('y',225);
+			this.setAttribute('rotation',0);
+			this.ruler.setAttribute('width',this.maxLength);
+		</handler>
         <attribute name="rotatedel" 
                    value="$once{new lz.Delegate (this, 'doRotate')}"/>
         <attribute name="sizedel" 
@@ -368,7 +374,7 @@
                   resource="ruler_background" 
                   opacity="0.5" >
                 <handler name="onload">
-            		classroot.setAttribute("maxLength", this.resourcewidth);
+					classroot.setAttribute("maxLength", this.resourcewidth);
             	</handler>
             </view>
             <view name="lines" 
