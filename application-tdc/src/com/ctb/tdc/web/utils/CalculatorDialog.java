@@ -17,8 +17,9 @@ import javax.swing.JMenu;
 
 public class CalculatorDialog extends JDialog {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 18987878887998L;
 	private boolean calculatorRunning;
+	private boolean calculatorPaused;
 	
 	static {
 		  CalculatorDialog.setDefaultLookAndFeelDecorated(true);
@@ -50,6 +51,7 @@ public class CalculatorDialog extends JDialog {
             }
         });
         this.calculatorRunning = true;
+        this.calculatorPaused = false;
         this.setFocusable(false);
         this.setFocusableWindowState(false);
         removeCloseButton(this);
@@ -69,6 +71,14 @@ public class CalculatorDialog extends JDialog {
 		this.calculatorRunning = calculatorRunning;
 	}
 	
+	public boolean isCalculatorPaused() {
+		return calculatorPaused;
+	}
+
+	public void setCalculatorPaused(boolean calculatorPaused) {
+		this.calculatorPaused = calculatorPaused;
+	}
+
 	public static void removeCloseButton(Component comp) {
         if (comp instanceof JMenu) {
           Component[] children = ((JMenu) comp).getMenuComponents();

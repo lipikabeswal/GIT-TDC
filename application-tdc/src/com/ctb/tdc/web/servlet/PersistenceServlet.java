@@ -282,8 +282,26 @@ public class PersistenceServlet extends HttpServlet {
 				showHideOkCalculator("Y");
 			}
 		} else if (method != null
-				&& method.equals(ServletUtils.SHOW_HIDE_OK_CALCULATOR))
-			result = showHideOkCalculator(request.getParameter("isHidden"));
+				&& method.equals(ServletUtils.SHOW_HIDE_OK_CALCULATOR)) {
+			
+			String isHideCalc = request.getParameter("isHidden");
+			if("Y".equals(isHideCalc)) {
+				if(calculatorDialog84.isVisible() || calculatorDialog30.isVisible()) {
+					calculatorDialog84.setCalculatorPaused(true);
+					calculatorDialog30.setCalculatorPaused(true);
+				}
+				showHideOkCalculator("Y");
+			} else {
+				if(calculatorDialog84.isCalculatorPaused() || calculatorDialog30.isCalculatorPaused()) {
+					showHideOkCalculator("N");
+				} else {
+					showHideOkCalculator("Y");
+				}
+				calculatorDialog84.setCalculatorPaused(false);
+				calculatorDialog30.setCalculatorPaused(false);
+			}
+			//result = showHideOkCalculator(request.getParameter("isHidden"));
+		}
 		else if (method != null
 				&& method.equals(ServletUtils.CLOSE_OK_CALCULATOR))
 			result = closeOkCalculator();
