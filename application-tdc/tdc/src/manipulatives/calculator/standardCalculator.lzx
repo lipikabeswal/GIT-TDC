@@ -3,7 +3,14 @@
 
 	<class name="standardCalculator" extends="calculatorBase" 
 	       resource="calc_chrome">
-
+			<handler name ="onvisible">
+	       		//console.log("onvisible.......",this.input);
+	       		this.setAttribute('input','0');
+	       		this.setAttribute('currentOperand','0');
+	       		//this.setAttribute('input',this.input);
+	       		updateDisplay();
+	       		
+	       </handler>
         <method name="updateDisplay">
             super.updateDisplay();
             this.bg.inputBoundingBox.inputbox.display.setAttribute('text', displayValue ); 
