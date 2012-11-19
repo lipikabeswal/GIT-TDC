@@ -2254,6 +2254,7 @@
 				Debug.write("dnrtitemnew.changecurrentitemdata..", scratchStr);
 				var s = "scratchpadManager.saveStateManip('"+scratchStr+"')";
 				lz.Browser.loadJS(s);
+				
 				if (this.adaptive == false){
 					saveSharedStimulusHighlights();
 				}
@@ -2465,7 +2466,7 @@
             var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 			//Debug.write("dncurrentItem********** ",dncurrentItem);
             dncurrentItem.setAttr('is_visited' , true);
-			
+
 			if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm && itemeid != curreid ){
             	this.showRevisitPopup("quesBar");
 			}
@@ -2625,12 +2626,19 @@
            	var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/@itempos' )
             );
-			Debug.write("stepNavigateForward",curritem);
-			if(gController.htmlFields.length > 0){
-				this.htmlFields[0]['ref'].main.ht.callJavascript('getManipulativeData', null,curritem);
-			}
+			
 			var totalitem = Number(
 				dpstudentdata.xpathQuery( 'question_number/@total_including_theme')  );
+			
+			var curreid = dpstudentdata.xpathQuery( 'current_item/item_model/@eid' )
+			Debug.write("stepNavigateForward",gController.htmlFields.length);
+			if(gController.htmlFields.length > 0){
+				Debug.write("stepNavigateForward",this.htmlFields[0]['ref'].main.ht);
+				this.htmlFields[0]['ref'].main.ht.callJavascript('getManipulativeData', null,curreid);
+				/*var js = "getManipulativeData('"+curreid+"')";
+				lz.Browser.loadJS(js);*/
+			}
+			
             
 			if ( !onLastItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
@@ -2645,9 +2653,9 @@
         ]]></method>
 
 		<method name="addManipulatives" args="data">
-			/*var manip = JSON.parse(data);
-			Debug.write("addManipulatives",data,manip);
-			htmlGeneralManipData.push(manip);
+			/*canvas.setAttribute('htmlGeneralManip',JSON.parse(data));
+			Debug.write("addManipulatives",canvas.htmlGeneralManip);
+			htmlGeneralManipData.push(canvas.htmlGeneralManip);
 			Debug.write("htmlGeneralManipData",htmlGeneralManipData);*/
 		</method>
 

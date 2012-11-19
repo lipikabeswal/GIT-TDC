@@ -28,6 +28,7 @@
 <attribute name="yscalefactor" value="null"/>
 <attribute name="manipData" value="null"/>
 <attribute name="readable" value="false" type="boolean" />
+<attribute name="currentCursor" value="null" />
 
 <handler name="onscalefactor" args="data">		
 	data = data.split('|');
@@ -49,35 +50,74 @@
 </handler>
 
 <handler name="onmanipulativedata" args="data">
-	var maniObj = new Object;
+	//var maniObj = new Object;
+	var maniObj;
 	/*htmlGeneralManip['FCAT_formula_card'] = gFcatFormulaCard;
 	htmlGeneralManip['TN_formula_card'] = gTnFormulaCard;
 	htmlGeneralManip['half_inch_ruler'] = gHalfInchRuler;
 	htmlGeneralManip['mm_ruler'] = gMmRuler;
 	htmlGeneralManip['cm_ruler'] = gCmRuler;*/
-	
-	maniObj.toolid = 'oneeighth_inch_ruler';
+
+	/*maniObj.toolid = 'oneeighth_inch_ruler';
 	maniObj.isselected = gEighthInchRuler.isselected;
 	maniObj.x = gEighthInchRuler.x;
 	maniObj.y = gEighthInchRuler.y;
 	maniObj.rotation = gEighthInchRuler.rotation;
-	maniObj.width = gEighthInchRuler.ruler.width;
+	maniObj.width = gEighthInchRuler.ruler.width;*/
 
-	htmlGeneralManip['oneeighth_inch_ruler'] = maniObj;
-	htmlGeneralManip.eid=data;
-	//htmlGeneralManip['oneeighth_inch_ruler'] = [gEighthInchRuler.isselected,gEighthInchRuler.x,gEighthInchRuler.y,gEighthInchRuler.rotation,gEighthInchRuler.ruler.width];
 	/*htmlGeneralManip['protractor'] = gProtractor;
 	htmlGeneralManip['scientific_calculator'] = gScientificCalculator;
 	htmlGeneralManip['standard_calculator'] = gStandardCalculator;
 	htmlGeneralManip['straight_edge'] = gStraightEdge;*/
 
-	//console.log("onmanipulativedata", htmlGeneralManip);
+	
+	maniObj = getManipulativeObject('FCAT_formula_card',gFcatFormulaCard,"false");
+	htmlGeneralManip['FCAT_formula_card'] = maniObj;
 
+	maniObj = getManipulativeObject('TN_formula_card',gTnFormulaCard,"false");
+	htmlGeneralManip['TN_formula_card'] = maniObj;
+
+	maniObj = getManipulativeObject('half_inch_ruler',gHalfInchRuler,"true");
+	htmlGeneralManip['half_inch_ruler'] = maniObj;
+
+	maniObj = getManipulativeObject('mm_ruler',gMmRuler,"true");
+	htmlGeneralManip['mm_ruler'] = maniObj;
+
+	maniObj = getManipulativeObject('cm_ruler',gCmRuler,"true");
+	htmlGeneralManip['cm_ruler'] = maniObj;
+
+	maniObj = getManipulativeObject('protractor',gProtractor,"true");
+	htmlGeneralManip['protractor'] = maniObj;
+
+	maniObj = getManipulativeObject('scientific_calculator',gScientificCalculator,"false");
+	htmlGeneralManip['scientific_calculator'] = maniObj;
+
+	maniObj = getManipulativeObject('standard_calculator',gStandardCalculator,"false");
+	htmlGeneralManip['standard_calculator'] = maniObj;
+
+	maniObj = getManipulativeObject('straight_edge',gStraightEdge,"true");
+	htmlGeneralManip['straight_edge'] = maniObj;
+	
+	htmlGeneralManip.eid=data;
 	var manip = JSON.stringify(htmlGeneralManip);
-	//console.log("manip",manip);
+//	console.log("manip",manip,htmlGeneralManip);
 	var js = "setHtmlGeneralManip('"+manip+"')";
 	lz.Browser.loadJS(js);
 </handler>
+
+<method name="getManipulativeObject" args="manipName,manipId,isruler">
+	var maniObj = new Object;
+	maniObj.toolid = manipName;
+	maniObj.isselected = manipId.isselected;
+	maniObj.x = manipId.x;
+	maniObj.y = manipId.y;
+	maniObj.width = manipId.width;
+	if(isruler)
+		maniObj.rotation = manipId.rotation;
+	else
+		maniObj.rotation = null;
+	return maniObj;
+</method>
 
 <handler name="onfreezeui" args="data">
  this.blocker.setAttribute('visible',true);
@@ -106,7 +146,7 @@ canvas.setAttribute('isLoaded', true);
 ]]></handler>
 
 <handler name="onscratchpadtext" args="arg"><![CDATA[
-	////console.log("on scratchpad text" + arg);
+	//console.log("on scratchpad text" + arg);
 	gScratchpad.setText(arg);	
 ]]></handler>
 
@@ -116,21 +156,25 @@ canvas.setAttribute('isLoaded', true);
 
 <handler name="onmanipid" args="arg">
 	<![CDATA[
-////console.log("onmanipid" , arg);
+//console.log("onmanipid" , arg);
 var accom = document.getElementById('__lz0').contentWindow.accomPkg;
 switch(arg){
 
 		case 'highlighter': if(accom.enableHighlighterArea){
 								accom.enableHighlighter(false);
+								//accom.removeHighlighterCursor();
 							}else{
 								accom.enableHighlighter(true);	
+								//accom.setHighlighterCursor("../../includes/css/cursor_highliter.png");
 							}
 							
 		break;
 		case 'eraser' :		if(accom.enableEraserArea){
 								accom.enableEraser(false);
+								//accom.removeHighlighterCursor();
 							}else{
 								accom.enableEraser(true);
+								//accom.setEraserCursor("../../includes/css/cursor_eraser.png");
 							}
 		break;
 		case 'protractor' : if(gProtractor.visible){
@@ -209,8 +253,7 @@ switch(arg){
 								}
 		break;
 		
-		case 'scratchpad' : 
-								if(gScratchpad.visible){
+		case 'scratchpad' : 	if(gScratchpad.visible){
 									gScratchpad.hide();
 									gScratchpad.setAttribute("isselected",false);
 								}else{
@@ -243,7 +286,7 @@ switch(arg){
 
 		
 		default :
-			////console.log('gscratchpad.vsisible', gScratchpad.visible);
+			//console.log('gscratchpad.vsisible', gScratchpad.visible);
 			gScratchpad.bringToFront();
 						
 		break;
@@ -274,52 +317,52 @@ switch(arg){
 	</handler>
 </button>-->
 
-	<view name="wrapper" width="${760 * xscalefactorjs}" height="${450 * yscalefactorjs}"  >
-	<Protractor name="protractor" toolid="protractor" id="gProtractor" xscale="${xscalefactorjs}" yscale="${yscalefactorjs}"/>
+	<view name="wrapper" width="${760 * xscalefactorjs}" height="${450 * yscalefactorjs}" >
+	<Protractor name="protractor" toolid="protractor" id="gProtractor" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 
 	<standardCalculator name="standard_calculator"
-		toolid="standard_calculator" id="gStandardCalculator" />
+		toolid="standard_calculator" id="gStandardCalculator" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 
 	<scientificCalculator name="scientific_calculator"
-		toolid="scientific_calculator" id="gScientificCalculator" />
+		toolid="scientific_calculator" id="gScientificCalculator" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 	<BaseRuler name="straight_edge" toolid="straight_edge"
-		labelrsr="straight_label" id="gStraightEdge" />
+		labelrsr="straight_label" id="gStraightEdge" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 
 
 	<BaseRuler name="oneeighth_inch_ruler" toolid="oneeighth_inch_ruler"
 		tickmarksrsr="eighth_inch_tick_marks" labelrsr="inches_label"
-		id="gEighthInchRuler" />
+		id="gEighthInchRuler" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 
 	<BaseRuler name="half_inch_ruler" toolid="half_inch_ruler"
 		tickmarksrsr="half_inch_tick_marks" labelrsr="inches_label"
-		id="gHalfInchRuler" />
+		id="gHalfInchRuler" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 
 	<BaseRuler name="mm_ruler" toolid="mm_ruler"
 		tickmarksrsr="millimeter_tick_marks" labelrsr="centimeters_label"
-		id="gMmRuler" />
+		id="gMmRuler" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 
 	<BaseRuler name="cm_ruler" toolid="cm_ruler"
 		tickmarksrsr="centimeter_tick_marks" labelrsr="centimeters_label"
-		id="gCmRuler" />
+		id="gCmRuler" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 
 	<MaskingRuler name="masking_ruler" toolid="masking_ruler"
-		labelrsr="masking_label" id="gMaskingRuler" />
+		labelrsr="masking_label" id="gMaskingRuler" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 
-	<Scratchpad name="scratchpad" toolid="scratchpad" id="gScratchpad" />
+	<Scratchpad name="scratchpad" toolid="scratchpad" id="gScratchpad" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
 	
 	<RefCard name="FCAT_formula_card" 
                  toolid="FCAT_formula_card"
                  refCardRsrc="FCAT_refcard_contents"
                  titleRsrc="FCAT_refcard_title"
                  scrolls="true"
-                 id="gFcatFormulaCard" />
+                 id="gFcatFormulaCard" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
     <RefCard name="TN_formula_card" 
                  toolid="TN_formula_card"
                  refCardRsrc="TN_refcard_contents"
                  titleRsrc="TN_refcard_title"
                  scrolls="false"
-                 id="gTnFormulaCard" />
-     </view>
+                 id="gTnFormulaCard" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
+             </view>
              
            
 <view name="blocker" x="5" y="5" width="${760 * xscalefactorjs}" height="${450 * yscalefactorjs}" opacity="0.01">
@@ -347,6 +390,27 @@ switch(arg){
 	var s = "getSPTextInitial()";
 	lz.Browser.loadJS(s);
 </handler>
+
+<method name="setCurrentCursor" args="cursorName">
+	lz.Cursor.setCursorGlobal(cursorName);
+	this.setAttribute('currentCursor', cursorName);
+</method>
+
+<method name="clearCurrentCursor">
+	this.setAttribute('currentCursor', null);
+</method>
+
+<method name="clearAndRestoreCurrentCursor">
+	clearCurrentCursor();
+	restoreCurrentCursor();
+</method>
+
+<method name="restoreCurrentCursor">
+	lz.Cursor.restoreCursor();
+   	if(canvas.currentCursor != null){
+    	lz.Cursor.setCursorGlobal(canvas.currentCursor);
+    }
+</method>
 
 <Tooltip id="gTooltip" options="ignorelayout"/>
 
