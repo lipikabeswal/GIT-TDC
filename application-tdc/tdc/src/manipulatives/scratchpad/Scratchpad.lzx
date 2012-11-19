@@ -172,7 +172,7 @@
 					this.setAttribute("width", this.DEFAULT_WIDTH);
 					this.setAttribute("x", this.DEFAULT_X);
 					this.setAttribute("y", this.DEFAULT_Y);
-	           		//this.restoreFocusAndCursor();
+	           		this.restoreFocusAndCursor();
 	           }else{
 	           		//gReadableText.stopReading(true);
 					gScratchpad.sp.inp.onblur.sendEvent();
@@ -180,6 +180,7 @@
             }else{
             	this.setAttribute("x", this.newX);
 				this.setAttribute("y", this.newY);
+				this.restoreFocusAndCursor();
 	        
             }
          ]]></handler>

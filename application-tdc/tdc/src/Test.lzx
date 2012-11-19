@@ -36,7 +36,7 @@
 </handler>
 
 <handler name="onshowpleasewaitpopup">
-	console.log("onshowPleaseWaitPopup",this.showPleaseWaitPopup);
+	//console.log("onshowPleaseWaitPopup",this.showPleaseWaitPopup);
 	gPleaseWaitPopup.show();
 </handler>
 
@@ -71,10 +71,10 @@
 	htmlGeneralManip['standard_calculator'] = gStandardCalculator;
 	htmlGeneralManip['straight_edge'] = gStraightEdge;*/
 
-	console.log("onmanipulativedata", htmlGeneralManip);
+	//console.log("onmanipulativedata", htmlGeneralManip);
 
 	var manip = JSON.stringify(htmlGeneralManip);
-	console.log("manip",manip);
+	//console.log("manip",manip);
 	var js = "setHtmlGeneralManip('"+manip+"')";
 	lz.Browser.loadJS(js);
 </handler>
@@ -106,7 +106,7 @@ canvas.setAttribute('isLoaded', true);
 ]]></handler>
 
 <handler name="onscratchpadtext" args="arg"><![CDATA[
-	//console.log("on scratchpad text" + arg);
+	////console.log("on scratchpad text" + arg);
 	gScratchpad.setText(arg);	
 ]]></handler>
 
@@ -116,7 +116,7 @@ canvas.setAttribute('isLoaded', true);
 
 <handler name="onmanipid" args="arg">
 	<![CDATA[
-console.log("onmanipid" , arg);
+////console.log("onmanipid" , arg);
 var accom = document.getElementById('__lz0').contentWindow.accomPkg;
 switch(arg){
 
@@ -209,7 +209,8 @@ switch(arg){
 								}
 		break;
 		
-		case 'scratchpad' : 	if(gScratchpad.visible){
+		case 'scratchpad' : 
+								if(gScratchpad.visible){
 									gScratchpad.hide();
 									gScratchpad.setAttribute("isselected",false);
 								}else{
@@ -242,7 +243,7 @@ switch(arg){
 
 		
 		default :
-			//console.log('gscratchpad.vsisible', gScratchpad.visible);
+			////console.log('gscratchpad.vsisible', gScratchpad.visible);
 			gScratchpad.bringToFront();
 						
 		break;
@@ -273,52 +274,52 @@ switch(arg){
 	</handler>
 </button>-->
 
-	<view name="wrapper" width="${760 * xscalefactorjs}" height="${450 * yscalefactorjs}" >
-	<Protractor name="protractor" toolid="protractor" id="gProtractor" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
+	<view name="wrapper" width="${760 * xscalefactorjs}" height="${450 * yscalefactorjs}"  >
+	<Protractor name="protractor" toolid="protractor" id="gProtractor" xscale="${xscalefactorjs}" yscale="${yscalefactorjs}"/>
 
 	<standardCalculator name="standard_calculator"
-		toolid="standard_calculator" id="gStandardCalculator" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
+		toolid="standard_calculator" id="gStandardCalculator" />
 
 	<scientificCalculator name="scientific_calculator"
-		toolid="scientific_calculator" id="gScientificCalculator" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
+		toolid="scientific_calculator" id="gScientificCalculator" />
 	<BaseRuler name="straight_edge" toolid="straight_edge"
-		labelrsr="straight_label" id="gStraightEdge" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
+		labelrsr="straight_label" id="gStraightEdge" />
 
 
 	<BaseRuler name="oneeighth_inch_ruler" toolid="oneeighth_inch_ruler"
 		tickmarksrsr="eighth_inch_tick_marks" labelrsr="inches_label"
-		id="gEighthInchRuler" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
+		id="gEighthInchRuler" />
 
 	<BaseRuler name="half_inch_ruler" toolid="half_inch_ruler"
 		tickmarksrsr="half_inch_tick_marks" labelrsr="inches_label"
-		id="gHalfInchRuler" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
+		id="gHalfInchRuler" />
 
 	<BaseRuler name="mm_ruler" toolid="mm_ruler"
 		tickmarksrsr="millimeter_tick_marks" labelrsr="centimeters_label"
-		id="gMmRuler" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
+		id="gMmRuler" />
 
 	<BaseRuler name="cm_ruler" toolid="cm_ruler"
 		tickmarksrsr="centimeter_tick_marks" labelrsr="centimeters_label"
-		id="gCmRuler" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
+		id="gCmRuler" />
 
 	<MaskingRuler name="masking_ruler" toolid="masking_ruler"
-		labelrsr="masking_label" id="gMaskingRuler" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
+		labelrsr="masking_label" id="gMaskingRuler" />
 
-	<Scratchpad name="scratchpad" toolid="scratchpad" id="gScratchpad" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
+	<Scratchpad name="scratchpad" toolid="scratchpad" id="gScratchpad" />
 	
 	<RefCard name="FCAT_formula_card" 
                  toolid="FCAT_formula_card"
                  refCardRsrc="FCAT_refcard_contents"
                  titleRsrc="FCAT_refcard_title"
                  scrolls="true"
-                 id="gFcatFormulaCard" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
+                 id="gFcatFormulaCard" />
     <RefCard name="TN_formula_card" 
                  toolid="TN_formula_card"
                  refCardRsrc="TN_refcard_contents"
                  titleRsrc="TN_refcard_title"
                  scrolls="false"
-                 id="gTnFormulaCard" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
-             </view>
+                 id="gTnFormulaCard" />
+     </view>
              
            
 <view name="blocker" x="5" y="5" width="${760 * xscalefactorjs}" height="${450 * yscalefactorjs}" opacity="0.01">

@@ -89,6 +89,7 @@
                 // pixels - see documentation above for the state attribute.
                 setAttribute('state', 3);
             }
+            //Debug.write("SET DRAG POSITION",newpos);
             return newpos;
             ]]>
         </method> 
@@ -108,7 +109,7 @@
         </method>
         
         <handler name="onblur">
-        Debug.write("ONBLUR LOFC SCRATCHPAD");
+        //Debug.write("ONBLUR LOFC SCRATCHPAD");
         </handler>
         <!--- @keywords private -->
         <method name="init">
@@ -212,6 +213,7 @@
               @keywords private -->
         <method name="_mouseup" args="ignore">
             this._stopDrag();
+			//Debug.write("this.stopdrag scratchpadbasewindpw",this.x,this.y)
         </method>
 
         <!--- May be called by subclasses to control dragging of the window
@@ -233,6 +235,7 @@
         <method name="_stopDrag">
             this._windowDrag.setAttribute('applied', false);
             setAttribute('state', 1);
+            //Debug.write("___STOP DRAG SCRATCHPAD",   this._windowDrag.x,  this._windowDrag.y);
         </method>
 
         <!--- May be called by subclasses to control resizing of the window
@@ -351,7 +354,7 @@
                 }
             }
             if (this.onhaswindowfocus) this.onhaswindowfocus.sendEvent(windowfocus);
-            Debug.write("this.onhaswindowfocus", this.onhaswindowfocus);
+            //Debug.write("this.onhaswindowfocus", this.onhaswindowfocus);
 
         ]]>
         </method>

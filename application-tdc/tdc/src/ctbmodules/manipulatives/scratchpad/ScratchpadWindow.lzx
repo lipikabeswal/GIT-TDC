@@ -64,7 +64,7 @@
                 </state>
                 
                 <handler name="oninit">
-                	Debug.write("ScratchPad Window lzx");
+                	//Debug.write("ScratchPad Window lzx");
                 </handler>
                 <!-- this is the "defaultplacement" view -->
             </view>

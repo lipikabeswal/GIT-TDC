@@ -218,18 +218,24 @@ Debug.write("Cachaable html widget ondata");
 		</method>
 
 		<method name="doReturnToCache"><![CDATA[
-			
-			this.main.ht.setAttribute('visible',false);
-			this.main.ht.setAttribute('src',"");
-			//var state = gController.manipStateHtml['scratchpad'];
-			//Debug.write("DORETURN TO CACHE",state);
-			
-		if(gController.scratchpadOpen){
-			gScratchpad.show('ignore');
+			var coordinateDel = new LzDelegate(this, 'handleScratchpad');
+			this.main.ht.callJavascript('getScratchpadCoordinates',coordinateDel);
+       ]]></method>
+       
+       <method name="handleScratchpad" args="data">
+       	var coord = new Object();
+       	Debug.write("handleScratchpad", data);
+  			data = data.split("|");
+  			coord.x = data[0];
+  			coord.y = data[1];
+       	if(gController.scratchpadOpen){
+			gScratchpad.show(coord);
 			this.setAttribute('scratchPadAlreadyPresent',false);
 			gScratchpad.resetCall();
 		}
-       ]]></method>
+		this.main.ht.setAttribute('visible',false);
+		this.main.ht.setAttribute('src',"");
+       </method>
        
        <method name="setScratchPadText" args="arg">
        		this.main.ht.callJavascript('setScratchPadText', null,arg);

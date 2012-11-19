@@ -156,7 +156,8 @@
          
          <method name="show" args="arg">
          this.setAttribute('visible', true);
-         
+         this.setAttribute('x',arg.x);
+         this.setAttribute('y',arg.y);         
          </method>
          <method name="resetCall">
          this.setAttribute('calledFromHtml',false);
