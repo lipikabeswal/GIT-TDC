@@ -31,6 +31,7 @@
         <attribute name="scratchpadJustLostFocus" value="false" />
         <attribute name="scrollPosition" value="$once{new Array()}"/>
         <attribute name="calledFromHtml" type="boolean" value="false"/>
+		<attribute name="characterLimit" type="number" value="10000" />
         <handler name="onmousedown">
         	this.bringToFront();
         	this.sp.inp.setSelectable(false);
@@ -40,6 +41,11 @@
 
 		<handler name="onmouseup" reference="lz.GlobalMouse" args="who">
 			if(who){
+				Debug.write("this.sp.inp.getTextHeight(): ",this.sp.inp.getTextHeight());
+				Debug.write("this.sp.height: ",this.sp.height);
+				if(this.sp.inp.getTextHeight() > this.sp.height) {
+					this.sp.inp.setAttribute("scroll",this.sp.inp.maxscroll);
+				}
 				if(lz.Focus.getFocus() == sp.inp){  // user may have changed selection using mouse
 					this.sp.storeSelection();
 				}
@@ -52,7 +58,7 @@
 	            	gController.restoreCurrentCursor();
 	            	restoreFocusAndCursor();
 				}
-				else if (who == gPauseButton || who == gStopButton || who == gFinishTestButton){
+				else if (who == gPauseButton || who == gStopButton || who == gFinishTestButton ){
 					if(this.scratchpadJustLostFocus){
 						gController.setAttribute("focusOnScratchpad", true);
 					}
@@ -63,7 +69,29 @@
 				this.setAttribute("scratchpadJustLostFocus", false);
 			}
 		</handler>
-		
+		<handler name="onmousedown" reference="lz.GlobalMouse" args="who">
+			if(who){
+				Debug.write("this.sp.inp.getTextHeight(): ",this.sp.inp.getTextHeight());
+				Debug.write("this.sp.height: ",this.sp.height);
+				if(this.sp.inp.getTextHeight() > this.sp.height) {
+					this.sp.inp.setAttribute("scroll",this.sp.inp.maxscroll);
+				}
+			}
+		</handler>
+		<handler name="onkeyup" reference="lz.Keys">
+			Debug.write("this.sp.inp.getTextHeight(): ",this.sp.inp.getTextHeight());
+			Debug.write("this.sp.height: ",this.sp.height);
+			if(this.sp.inp.getTextHeight() > this.sp.height) {
+				this.sp.inp.setAttribute("scroll",this.sp.inp.maxscroll);
+			}
+		</handler>
+		<handler name="onkeydown" reference="lz.Keys">
+			Debug.write("this.sp.inp.getTextHeight(): ",this.sp.inp.getTextHeight());
+			Debug.write("this.sp.height: ",this.sp.height);
+			if(this.sp.inp.getTextHeight() > this.sp.height) {
+				this.sp.inp.setAttribute("scroll",this.sp.inp.maxscroll);
+			}
+		</handler>
 		<method name="isScratchpadSubcomponent" args="who">
 			var ancestor = _getAncestor(who);
 			var parentalUnit = typeof (who.parent) == "undefined" ? null : who.parent;
@@ -170,7 +198,7 @@
 	                             focusable="true">
 	            	<attribute name="start" type="number" value="0" />
 	            	<attribute name="end" type="number" value="0" />
-	            	<attribute name="scrollPos" type="number" value="0" />
+	            	<attribute name="scrollPos" type="number" value="0" />					
 	            <method name="init">
 	                super.init();
 	                this.style.setAttribute("textfieldcolor", gController.answerBgColor);
@@ -189,11 +217,17 @@
 				</method>
 				
 				<handler name="ontext"><![CDATA[
+					Debug.write("this.inp.getTextHeight(): ",this.inp.getTextHeight());
+					Debug.write("this.height: ",this.height);
+					if(this.inp.getTextHeight() > this.height) {
+						this.inp.setAttribute("scroll",this.inp.maxscroll);
+					}
 					var textContent = this.text;
 					storeSelection();
 					var s = "storeScratchPadText('"+textContent+"')";
 					lz.Browser.loadJS(s);
-				 	if(this.text.length > 10000){
+				 	if(this.text.length > 10000){	
+								Debug.write("classroot.characterLimit",classroot.characterLimit);							
 								textContent = this.text;
 								textContent = textContent.substring(0,Number(classroot.characterLimit));
 								updateScrollText(textContent);
@@ -201,7 +235,6 @@
 								lz.Browser.loadJS(s);
 							}
 				]]></handler>
-					
          		  
          		<handler name="onpos" reference="this.inp" args="_pos">
 				  	if(typeof _pos == 'number'){
@@ -216,7 +249,7 @@
 				</handler>
 				
 				<handler name="onblur" reference="inp">
-					//Debug.write("onblur.....");
+					//Debug.write("onblur.....");	
 					if(gItemInterface.visible == true || gTutorial.visible == true){
 						gHotKeys.enableKeys();
 					}
