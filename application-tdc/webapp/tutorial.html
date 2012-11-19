@@ -93,13 +93,14 @@ function mydetectFlashUsingJavascript(){
         myMSDetect = "true";
 }
 
-//Stores the scratchpadtext for the wrapper application
 function storeScratchPadText(args){	
 	//console.log("storescratchpadtext: " + args);
 	spText = args;
 }
 
 function setSPText(arg){
+	if(arg=="")
+     	arg=" ";
 	lz.embed.setCanvasAttribute('sptext',arg);
 }
 
