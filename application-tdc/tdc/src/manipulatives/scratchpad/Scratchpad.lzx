@@ -30,6 +30,7 @@
         <attribute name="hasXY" type="boolean" value="false" />
         <attribute name="newX" type="number" value="200" />
 		<attribute name="newY" type="number" value="113" />
+		<attribute name="characterLimit" type="number" value="10000" />
         <handler name="onmousedown">
         	this.bringToFront();
         	this.sp.inp.setSelectable(false);
@@ -43,13 +44,13 @@
 					this.sp.storeSelection();
 				}
 				else if(isScratchpadSubcomponent(who)){ // user clicked on scrollbar, etc.
-					//gScratchpad.restoreFocusAndCursor();
+					gScratchpad.restoreFocusAndCursor();
 				}
 				else if (who == this){
 					this.sp.inp.setSelectable(true);
 	            	lz.Cursor.unlock ();
 	            	//gController.restoreCurrentCursor();
-	            //	restoreFocusAndCursor();
+	            	restoreFocusAndCursor();
 				}
 
 				this.setAttribute("scratchpadJustLostFocus", false);
@@ -79,10 +80,12 @@
 		
  		<handler name="onmouseover">
             //gController.setCurrentCursor('cangrab_cursor');
+            canvas.setCurrentCursor('cangrab_cursor');
         </handler>
         
         <handler name="onmouseout">
             //gController.clearAndRestoreCurrentCursor();
+            canvas.clearAndRestoreCurrentCursor();
         </handler>
         
         <method name="restoreFocusAndCursor">
@@ -235,7 +238,7 @@
          		  
          		<handler name="onpos" reference="this.inp" args="_pos">
 				  	if(typeof _pos == 'number'){
-        				//this.setAttribute("scrollPos", _pos);
+        				this.setAttribute("scrollPos", _pos);
        			  	}
         	    </handler>
         
@@ -271,7 +274,7 @@
 				
 				<method name="resetTheSelection">
         			this.setSelection(this.start, this.end);
-        			//this.inp.setAttribute('pos', this.scrollPos);
+        			this.inp.setAttribute('pos', this.scrollPos);
 				</method>
 				
 				<method name="getSelectedText">
