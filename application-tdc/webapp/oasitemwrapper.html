@@ -144,7 +144,6 @@ img {
 					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
 					    	}
 					    	var manip = window.parent.getOpenManipData();
-					    	console.log("manip",manip);
 					    	if(manip != 'null')
 					    		showOpenManipulative(manip);
 					    	
@@ -254,14 +253,14 @@ img {
        
        	return gScratchpad.x +"|"+ gScratchpad.y;
        }
-       
+              
        function showOpenManipulative(arg){
         	lz.embed.setCanvasAttribute('manipData',arg);
         }
         </script>
 
 <body>
-<input type="button" onclick="setTTSText('Hi');"
+<input type="button" onclick="prepareJson();"
 	style="display: none;"></input>
 <input type="button" onclick="showHideManipulative('protractor');"
 	style="display: none;"></input>
