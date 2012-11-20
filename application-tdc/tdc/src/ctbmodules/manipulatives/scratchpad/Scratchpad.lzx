@@ -32,6 +32,7 @@
         <attribute name="scrollPosition" value="$once{new Array()}"/>
         <attribute name="calledFromHtml" type="boolean" value="false"/>
 		<attribute name="characterLimit" type="number" value="10000" />
+		<attribute name="isTestInterrupted" type="boolean" value="false"/>
         <handler name="onmousedown">
         	this.bringToFront();
         	this.sp.inp.setSelectable(false);
@@ -41,6 +42,9 @@
 
 		<handler name="onmouseup" reference="lz.GlobalMouse" args="who">
 			if(who){
+				if(this.isTestInterrupted) {
+					restoreFocusAndCursor();
+				}
 				Debug.write("this.sp.inp.getTextHeight(): ",this.sp.inp.getTextHeight());
 				Debug.write("this.sp.height: ",this.sp.height);
 				if(this.sp.inp.getTextHeight() > this.sp.height) {
@@ -59,6 +63,7 @@
 	            	restoreFocusAndCursor();
 				}
 				else if (who == gPauseButton || who == gStopButton || who == gFinishTestButton ){
+					this.setAttribute("isTestInterrupted",true);
 					if(this.scratchpadJustLostFocus){
 						gController.setAttribute("focusOnScratchpad", true);
 					}
