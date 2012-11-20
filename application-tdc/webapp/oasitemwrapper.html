@@ -143,9 +143,10 @@ img {
 					    	}else{
 					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
 					    	}
-					    	/*var manip = window.parent.getOpenManipData();
+					    	var manip = window.parent.getOpenManipData();
 					    	console.log("manip",manip);
-					    	showHideManipulative(manip);*/
+					    	if(manip != 'null')
+					    		showOpenManipulative(manip);
 					    	
 					    	/* protractor.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
 					    	 standard_calculator.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
@@ -253,6 +254,10 @@ img {
        
        	return gScratchpad.x +"|"+ gScratchpad.y;
        }
+       
+       function showOpenManipulative(arg){
+        	lz.embed.setCanvasAttribute('manipData',arg);
+        }
         </script>
 
 <body>
