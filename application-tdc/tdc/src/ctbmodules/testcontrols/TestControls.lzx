@@ -50,6 +50,11 @@
             var isselanswer = datapath.xpathQuery ('current_item/item_model/interaction/selector') != null;
             this.answertxt.answeristxt.setAttribute ('visible', isanswered && !isgr && !iscr);
             this.answertxt.noanswertxt.setAttribute ('visible', !isanswered && isselanswer && !isgr && !iscr );
+            
+            if(gController.htmlFields.length > 0){
+           	this.answertxt.answeristxt.setAttribute ('visible', false);
+            this.answertxt.noanswertxt.setAttribute ('visible', false );
+            }
 
             this.iscurranswered = isanswered;
         ]]></method>
