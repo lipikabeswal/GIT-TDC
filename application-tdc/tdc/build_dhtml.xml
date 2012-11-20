@@ -40,6 +40,30 @@
     </move>
 	<delete file="${TestClient.lzx.js}"/>
 </target>
-	
+
+	<target name = "build.Test.dhtml">
+	    <java classname = "org.openlaszlo.compiler.Main" fork = "true"
+	        newenvironment="true"
+	        failonerror="true"
+	        dir = "${laszlo.src.dir}"
+	        classpathref="laszlo.lib"
+	       >
+	        <jvmarg value = "-DLPS_HOME=${laszlo.home}"/>
+	        <jvmarg value = "-Dlzdebug=${laszlo.debug}"/>
+	        <jvmarg value = "-Dlzproxied=${laszlo.proxied}"/>
+	        <jvmarg value = "-Xms1024M"/>
+	        <jvmarg value = "-Xmx1024M"/>
+	        <arg line="--runtime=dhtml  Test.lzx" />
+	    </java>
+		
+	    <move todir="${out.dir}">
+	        <fileset dir="${laszlo.src.dir}" />
+	        <mapper>
+	        <mapper type="glob"
+	                from="Test.js" to="Test.js" />
+	        </mapper>
+	    </move>
+		<delete file="${Test.js}"/>
+	</target>	
 	
 </project>
