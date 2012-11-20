@@ -27,6 +27,7 @@
 
 <attribute name="yscalefactor" value="null"/>
 <attribute name="manipData" value="null"/>
+<attribute name="htmlGeneralOpenManip" value="$once{new Object()}" />
 <attribute name="readable" value="false" type="boolean" />
 <attribute name="currentCursor" value="null" />
 
@@ -52,24 +53,6 @@
 <handler name="onmanipulativedata" args="data">
 	//var maniObj = new Object;
 	var maniObj;
-	/*htmlGeneralManip['FCAT_formula_card'] = gFcatFormulaCard;
-	htmlGeneralManip['TN_formula_card'] = gTnFormulaCard;
-	htmlGeneralManip['half_inch_ruler'] = gHalfInchRuler;
-	htmlGeneralManip['mm_ruler'] = gMmRuler;
-	htmlGeneralManip['cm_ruler'] = gCmRuler;*/
-
-	/*maniObj.toolid = 'oneeighth_inch_ruler';
-	maniObj.isselected = gEighthInchRuler.isselected;
-	maniObj.x = gEighthInchRuler.x;
-	maniObj.y = gEighthInchRuler.y;
-	maniObj.rotation = gEighthInchRuler.rotation;
-	maniObj.width = gEighthInchRuler.ruler.width;*/
-
-	/*htmlGeneralManip['protractor'] = gProtractor;
-	htmlGeneralManip['scientific_calculator'] = gScientificCalculator;
-	htmlGeneralManip['standard_calculator'] = gStandardCalculator;
-	htmlGeneralManip['straight_edge'] = gStraightEdge;*/
-
 	
 	maniObj = getManipulativeObject('FCAT_formula_card',gFcatFormulaCard,"false");
 	htmlGeneralManip['FCAT_formula_card'] = maniObj;
@@ -100,23 +83,28 @@
 	
 	htmlGeneralManip.eid=data;
 	var manip = JSON.stringify(htmlGeneralManip);
-//	console.log("manip",manip,htmlGeneralManip);
+	//var obj = JSON.parse(manip); 
+	//console.log("manip",manip,htmlGeneralManip);
 	var js = "setHtmlGeneralManip('"+manip+"')";
 	lz.Browser.loadJS(js);
 </handler>
 
-<method name="getManipulativeObject" args="manipName,manipId,isruler">
+<method name="getManipulativeObject" args="manipName,manipId,isruler"><![CDATA[
 	var maniObj = new Object;
 	maniObj.toolid = manipName;
-	maniObj.isselected = manipId.isselected;
-	maniObj.x = manipId.x;
-	maniObj.y = manipId.y;
-	maniObj.width = manipId.width;
-	if(isruler)
-		maniObj.rotation = manipId.rotation;
+	if(manipId.isselected == undefined || manipId.isselected == 'undefined')
+		maniObj.isselected = 'undefined';
 	else
-		maniObj.rotation = null;
+		maniObj.isselected = manipId.isselected;
+	maniObj.x = manipId.x.toString();
+	maniObj.y = manipId.y.toString();
+	maniObj.width = manipId.width.toString();
+	if(isruler && manipId.rotation!=null)
+		maniObj.rotation = manipId.rotation.toString();
+	else
+		maniObj.rotation = 'null';
 	return maniObj;
+	]]>
 </method>
 
 <handler name="onfreezeui" args="data">
@@ -151,8 +139,126 @@ canvas.setAttribute('isLoaded', true);
 ]]></handler>
 
 <handler name="onmanipData" args="data">
-	onmanipid.sendEvent(data.toolid);
+	//console.log("onmanipData",data);
+	this.setAttribute('htmlGeneralOpenManip',JSON.parse(data));
+	//console.log("htmlGeneralOpenManip",htmlGeneralOpenManip);
+	openManipulative(htmlGeneralOpenManip);	
 </handler>
+
+<method name="openManipulative" args="openManipData"><![CDATA[
+var manipObjData;
+//console.log("openManipulative",openManipData);
+
+	
+		manipObjData = openManipData['protractor'];
+		if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
+			gProtractor.setAttribute('x',Number(manipObjData.x));
+			gProtractor.setAttribute('y',Number(manipObjData.y));
+			gProtractor.setAttribute('width',Number(manipObjData.width));
+			gProtractor.setAttribute('rotation',Number(manipObjData.rotation));
+			gProtractor.setAttribute("isselected",true);
+			gProtractor.show();
+		}
+		
+		manipObjData = openManipData['standard_calculator'];
+		if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
+			gStandardCalculator.setAttribute('x',Number(manipObjData.x));
+			gStandardCalculator.setAttribute('y',Number(manipObjData.y));
+			gStandardCalculator.setAttribute('width',Number(manipObjData.width));
+			gStandardCalculator.setAttribute("isselected",true);
+			gStandardCalculator.show();
+		}
+
+		manipObjData = openManipData['scientific_calculator'];
+		if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
+			gScientificCalculator.setAttribute('x',Number(manipObjData.x));
+			gScientificCalculator.setAttribute('y',Number(manipObjData.y));
+			gScientificCalculator.setAttribute('width',Number(manipObjData.width));
+			gScientificCalculator.setAttribute("isselected",true);
+			gScientificCalculator.show();
+		}
+		
+		manipObjData = openManipData['straight_edge'];
+		if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
+			gStraightEdge.setAttribute('x',Number(manipObjData.x));
+			gStraightEdge.setAttribute('y',Number(manipObjData.y));
+			gStraightEdge.setAttribute('width',Number(manipObjData.width));
+			gStraightEdge.setAttribute('rotation',Number(manipObjData.rotation));
+			gStraightEdge.setAttribute("isselected",true);
+			gStraightEdge.show();
+		}
+
+		manipObjData = openManipData['oneeighth_inch_ruler'];
+		if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
+			gEighthInchRuler.setAttribute('x',Number(manipObjData.x));
+			gEighthInchRuler.setAttribute('y',Number(manipObjData.y));
+			gEighthInchRuler.setAttribute('width',Number(manipObjData.width));
+			gEighthInchRuler.setAttribute('rotation',Number(manipObjData.rotation));
+			gEighthInchRuler.setAttribute("isselected",true);
+			gEighthInchRuler.show();
+		}
+		
+		manipObjData = openManipData['half_inch_ruler'];
+		if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
+			gHalfInchRuler.setAttribute('x',Number(manipObjData.x));
+			gHalfInchRuler.setAttribute('y',Number(manipObjData.y));
+			gHalfInchRuler.setAttribute('width',Number(manipObjData.width));
+			gHalfInchRuler.setAttribute('rotation',Number(manipObjData.rotation));
+			gHalfInchRuler.setAttribute("isselected",true);
+			gHalfInchRuler.show();
+		}
+
+		manipObjData = openManipData['mm_ruler'];
+		if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
+			gMmRuler.setAttribute('x',Number(manipObjData.x));
+			gMmRuler.setAttribute('y',Number(manipObjData.y));
+			gMmRuler.setAttribute('width',Number(manipObjData.width));
+			gMmRuler.setAttribute('rotation',Number(manipObjData.rotation));
+			gMmRuler.setAttribute("isselected",true);
+			gMmRuler.show();
+		}
+
+		manipObjData = openManipData['cm_ruler'];
+		if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
+			gCmRuler.setAttribute('x',Number(manipObjData.x));
+			gCmRuler.setAttribute('y',Number(manipObjData.y));
+			gCmRuler.setAttribute('width',Number(manipObjData.width));
+			gCmRuler.setAttribute('rotation',Number(manipObjData.rotation));
+			gCmRuler.setAttribute("isselected",true);
+			gCmRuler.show();
+		}
+
+		manipObjData = openManipData['cm_ruler'];
+		if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
+			gCmRuler.setAttribute('x',Number(manipObjData.x));
+			gCmRuler.setAttribute('y',Number(manipObjData.y));
+			gCmRuler.setAttribute('width',Number(manipObjData.width));
+			gCmRuler.setAttribute('rotation',Number(manipObjData.rotation));
+			gCmRuler.setAttribute("isselected",true);
+			gCmRuler.show();
+		}
+
+		manipObjData = openManipData['FCAT_formula_card'];
+		//console.log("FCAT_formula_card ",manipObjData);
+		if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
+			gFcatFormulaCard.setAttribute('x',Number(manipObjData.x));
+			gFcatFormulaCard.setAttribute('y',Number(manipObjData.y));
+			gFcatFormulaCard.setAttribute('width',Number(manipObjData.width));
+			gFcatFormulaCard.setAttribute("isselected",true);
+			gFcatFormulaCard.show();
+		}
+
+		manipObjData = openManipData['TN_formula_card'];
+		if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
+			gTnFormulaCard.setAttribute('x',Number(manipObjData.x));
+			gTnFormulaCard.setAttribute('y',Number(manipObjData.y));
+			gTnFormulaCard.setAttribute('width',Number(manipObjData.width));
+			gTnFormulaCard.setAttribute("isselected",true);
+			gTnFormulaCard.show();
+		}
+]]>
+
+</method>
 
 <handler name="onmanipid" args="arg">
 	<![CDATA[

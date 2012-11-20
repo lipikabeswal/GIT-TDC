@@ -2653,10 +2653,10 @@
         ]]></method>
 
 		<method name="addManipulatives" args="data">
-			/*canvas.setAttribute('htmlGeneralManip',JSON.parse(data));
+			canvas.setAttribute('htmlGeneralManip',JSON.parse(data));
 			Debug.write("addManipulatives",canvas.htmlGeneralManip);
 			htmlGeneralManipData.push(canvas.htmlGeneralManip);
-			Debug.write("htmlGeneralManipData",htmlGeneralManipData);*/
+			Debug.write("htmlGeneralManipData",htmlGeneralManipData);
 		</method>
 
 		<!-- question state -->
@@ -3632,17 +3632,15 @@ Debug.write("############ loadItem ############");
             else if(typeof (ismarked) == 'boolean') {
                 ismarked = (ismarked == true);
             }
-			/*if(gController.htmlFields.length > 0){
+			if(gController.htmlFields.length > 0 && ismarked){
 				for(var i=0;i<htmlGeneralManipData.length;i++){
 					if(htmlGeneralManipData[i].eid == currentEid){
-						var manipData = htmlGeneralManipData[i];
-						var ruler = manipData['oneeighth_inch_ruler'];
-						Debug.write("ruler",ruler,ruler.toolid,this.htmlFields[0]['ref']);
-						canvas.setAttribute("htmlOpenManip",ruler.toolid);
-						//this.htmlFields[0]['ref'].main.ht.callJavascript('showHideManipulative', null,ruler.toolid);
+						var manipData = new Object();
+						manipData = htmlGeneralManipData[i];
+						openTEManipulatives(manipData);
 					}
 				}
-			}*/
+			}
         	// clear previous manipulative data if not marked for review
             if (!ismarked) {
                 var dnman = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives');
@@ -3745,6 +3743,10 @@ Debug.write("############ loadItem ############");
 				
             }
        ]]></method>
+
+		<method name="openTEManipulatives" args="manipData">
+			canvas.setAttribute("htmlOpenManip",JSON.stringify(manipData));
+		</method>
 
 		<method name="setManipulativeSelState" args="which, value"><![CDATA[
 //Debug.write("setManipulativeSelState....",which, value);

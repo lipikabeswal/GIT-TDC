@@ -171,6 +171,7 @@
 	<attribute name="yscalefactor" value="null"/>
 	<attribute name="backColorString" value="null"/>
 	<attribute name="htmlGeneralManip" value="$once{new Object()}" />
+	<attribute name="htmlManip" value="null" />
 	<attribute name="htmlOpenManip" value="null" />
 	
 	<handler name="onsetanswer" args="data">
@@ -202,7 +203,7 @@
 		gController.terminate();
 	</handler>	
 
-	<handler name="onhtmlGeneralManip" args="data">
+	<handler name="onhtmlManip" args="data">
 		gController.addManipulatives(data);
 	</handler>
 
