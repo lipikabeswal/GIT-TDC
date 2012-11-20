@@ -292,10 +292,6 @@
 						//gController.setManipulativeSelState("scratchpad", "up");
 						gScratchpad.hide();
 						gScratchpad.setManipulativeSelState("scratchpad","up");
-						for (var i = 0; i < gScratchpad.scrollPosition.length; i++){
-								delete gScratchpad.scrollPosition[i];
-						}
-						gScratchpad.scrollPosition.length = 0;
 		 			]]></handler>
 		 			</basebutton>
 		 			
