@@ -126,8 +126,8 @@
                 	
                 	var minx = theHighlight.getAttr('x');
                 	var miny = theHighlight.getAttr('y');
-                	var maxx = minx + theHighlight.getAttr('width');
-                	var maxy = miny + theHighlight.getAttr('height');
+                	var maxx = Number(minx) + Number(theHighlight.getAttr('width'));
+                	var maxy = Number(miny) + Number(theHighlight.getAttr('height'));
                 	var temp;
                 	if(minx > maxx){
                 		temp = maxx;
