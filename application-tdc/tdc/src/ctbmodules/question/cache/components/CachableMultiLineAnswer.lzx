@@ -261,6 +261,9 @@
 					  <handler name="ontext"><![CDATA[
 						 if(!classroot.isInitialText){
 							 if (text) {
+							 	if(this.inp.getTextHeight() > this.height) {
+									this.inp.setAttribute("scroll",this.inp.maxscroll);
+								}
 								var answered = false;
 								for(var i=0; (i< text.length) && !answered; i++){
 									var c = text.substring(i, i+1);
