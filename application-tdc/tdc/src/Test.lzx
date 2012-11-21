@@ -300,9 +300,15 @@ switch(arg){
 		case 'standard_calculator' : if(gStandardCalculator.visible){
 								gStandardCalculator.hide();
 								gStandardCalculator.setAttribute("isselected",false);
+								
+								//gStandardCalculator.updateDisplay();
 							}else{
 								gStandardCalculator.setAttribute("isselected",true);
 								gStandardCalculator.show();
+								gStandardCalculator.setAttribute('input','0');
+								gStandardCalculator.setAttribute('currentOperand','0');
+								gStandardCalculator.updateDisplay();
+								
 							}
 		break;
 		
