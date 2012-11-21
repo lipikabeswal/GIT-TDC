@@ -111,7 +111,7 @@
         <method name="setText" args="t">
             this.text = t;
             if (this._initcomplete) {
-                this.field.setText(t);
+                this.field.setAttribute('text',t);
                 if (this['ontext']) this.ontext.sendEvent();
             } else {
                 this._initialtext = t;
