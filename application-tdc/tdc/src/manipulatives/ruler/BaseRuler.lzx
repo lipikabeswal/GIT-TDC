@@ -32,10 +32,10 @@
         </handler>
 		<handler name="onvisible">
 			//console.log("onvissble....");
-			this.setAttribute('x',325);
+			/*this.setAttribute('x',325);
 			this.setAttribute('y',225);
 			this.setAttribute('rotation',0);
-			this.ruler.setAttribute('width',this.maxLength);
+			this.ruler.setAttribute('width',this.maxLength);*/
 		</handler>
         <attribute name="rotatedel" 
                    value="$once{new lz.Delegate (this, 'doRotate')}"/>

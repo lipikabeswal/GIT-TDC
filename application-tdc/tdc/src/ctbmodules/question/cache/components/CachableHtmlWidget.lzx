@@ -201,8 +201,27 @@ Debug.write("Cachaable html widget ondata");
 			case 'TN_formula_card' : 	  gController.manipStateHtml['TN_formula_card'] = manipButton;
 			break;
 			
+			case 'protractor' 	 :  gController.manipStateHtml['protractor'] = manipButton;
+			break;
+			
+			case 'straight_edge' 	 :  gController.manipStateHtml['straight_edge'] = manipButton;
+			break;
+			
+			case 'oneeighth_inch_ruler' 	 :  gController.manipStateHtml['oneeighth_inch_ruler'] = manipButton;
+			break;
+			
+			case 'half_inch_ruler' 	 :  gController.manipStateHtml['half_inch_ruler'] = manipButton;
+			break;
+			
+			case 'mm_ruler' 	 :  gController.manipStateHtml['mm_ruler'] = manipButton;
+			break;
+			
+			case 'cm_ruler' 	 :  gController.manipStateHtml['cm_ruler'] = manipButton;
+			break;
+			
 			}
-			Debug.write	("MANIP STATE HTML", gController.manipStateHtml);
+			gController.setAttribute('htmlmanipStateHtml',gController.manipStateHtml);
+			Debug.write	("MANIP STATE HTML", gController.manipStateHtml,gController.htmlmanipStateHtml);
 		]]></method>
        
 		<method name="doneLoading"><![CDATA[	

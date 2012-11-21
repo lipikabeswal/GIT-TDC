@@ -88,6 +88,14 @@
             		}
            }
        ]]></method>
+       
+       <method name="showState">
+       		Debug.write("RESET STATE: ", this.isenabled, this.isselected);
+           if (this.isenabled) {
+               	this.setAttribute ('isselected', true);
+                this.setAttribute('frame', this.isselected ? 2 : 1);
+           }
+       </method>
 
         <method name="showTooltip">
             gTooltip.showTooltip (this.tooltip);
