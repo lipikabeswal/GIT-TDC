@@ -40,6 +40,8 @@
 <handler name="onshowpleasewaitpopup">
 	//console.log("onshowPleaseWaitPopup",this.showPleaseWaitPopup);
 	gPleaseWaitPopup.show();
+	gPleaseWaitPopup.setAttribute('xscale',xscalefactorjs);
+	gPleaseWaitPopup.setAttribute('yscale',yscalefactorjs);
 </handler>
 
 <handler name="onhidepleasewaitpopup">
@@ -85,8 +87,10 @@
 	var manip = JSON.stringify(htmlGeneralManip);
 	//var obj = JSON.parse(manip); 
 	//console.log("manip",manip,htmlGeneralManip);
+	if(manip){
 	var js = "setHtmlGeneralManip('"+manip+"')";
 	lz.Browser.loadJS(js);
+	}
 </handler>
 
 <method name="getManipulativeObject" args="manipName,manipId,isruler"><![CDATA[

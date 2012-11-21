@@ -1,6 +1,6 @@
 <view id="gPleaseWaitPopup"
-      valign="middle"
-      align="center" 
+      x="${220 * xscalefactorjs}"
+      y="${130 * yscalefactorjs}"
       visible="false"
       clickable="false"
       showhandcursor="false">
