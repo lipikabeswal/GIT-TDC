@@ -20,11 +20,12 @@
             setAttribute('hasStartNumber', typeof( n ) == 'string' || typeof( n ) == 'number');
         ]]></handler>
 
+		<!-- This is causing hand cursor issue on top/bottom area of item screen 
 		<handler name="onmousedown">
          	if(gController.scratchpadOpen){
 				gScratchpad.sp.inp.onblur.sendEvent();
 			}
-         </handler>
+         </handler>-->
 
         <view name="contents" width="800" height="600"
               datapath="subtest/ob_assessment">
