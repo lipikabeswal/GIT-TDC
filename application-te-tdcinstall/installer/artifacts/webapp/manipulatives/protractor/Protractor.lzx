@@ -1,0 +1,213 @@
+<library>
+
+    <include href="../resources.lzx"/>
+	<include href="../BaseManipulative.lzx"/>
+
+    <class name="Protractor" extends="BaseManipulative" resource="protractorBackground_rsrc"
+                clickable="true" showhandcursor="false"
+                clickregion="resource/protractorBackground.png">
+
+        <attribute name="xpos"/>
+        <attribute name="ypos"/>
+
+        <attribute name="rotatedel" 
+                   value="$once{new lz.Delegate (this, 'doRotate')}"/>
+
+
+        <attribute name="dragxmin" value="null"/>
+        <attribute name="dragymin" value="null"/>
+        <attribute name="dragxmax" value="null"/>
+        <attribute name="dragymax" value="null"/>
+		<attribute name="rotation" value="null"/>
+
+        <dragstate name="dragger"
+                   drag_min_x="${this.dragxmin}"
+                   drag_min_y="${this.dragymin}"
+                   drag_max_x="${this.dragxmax}"
+                   drag_max_y="${this.dragymax}">
+
+            <attribute name="rrotation" value="$once{this.rotation * (Math.PI/180)}"/>
+			<attribute name="actualX" value="$once{this.xoffset - this.getMouse( 'x' )}" />
+			<attribute name="actualY" value="$once{this.yoffset - this.getMouse( 'y' )}" />
+			
+<!--- @keywords private -->
+<attribute name="__dragstate_xdoffset"
+value="(this.drag_axis == 'both' || this.drag_axis == 'x') ? -1*this.__dragstate_getoffset('x') : 0" when="once" />
+
+<!--- @keywords private -->
+<attribute name="__dragstate_ydoffset"
+value="(this.drag_axis == 'both' || this.drag_axis == 'y') ? -1*this.__dragstate_getoffset('y') : 0" when="once" />
+
+<!--- @keywords private -->
+<method name="__dragstate_getoffset" args="axis" >
+var theta = (Math.PI/180 * this.rotation);
+var sin_theta = Math.sin( theta );
+var cos_theta = Math.cos( theta );
+return axis=="x" ?
+(this.getMouse( "x" )*cos_theta - this.getMouse( "y" )*sin_theta) - (this.xoffset*cos_theta - this.yoffset*sin_theta) :
+(this.getMouse( "x" )*sin_theta + this.getMouse( "y" )*cos_theta) - (this.yoffset*cos_theta + this.xoffset*sin_theta);
+</method>
+            <handler name="onapply">
+                var rotation = classroot.rotation * (Math.PI/180);
+
+                var grabber = classroot.grabber;
+
+                var gxstart = (grabber.x) * Math.cos (rotation) -
+                                 (grabber.y + grabber.height/2) * Math.sin (rotation);
+                var gystart = (grabber.x) * Math.sin (rotation) +
+                                 (grabber.y + grabber.height/2) * Math.cos (rotation);
+
+                var gxend   = (grabber.x + grabber.width) * Math.cos (rotation) -
+                                 (grabber.y + grabber.height/2) * Math.sin (rotation);
+                var gyend   = (grabber.x + grabber.width) * Math.sin (rotation) +
+                                 (grabber.y + grabber.height/2) * Math.cos (rotation);
+				Debug.write("gxstart:gystart",gxstart,gxend ,gystart,gyend);
+				//Debug.write("getMouseX: getMouseY",this.getMouse('x'),this.getMouse('y'));
+                //set drag max and min
+                classroot.setAttribute ('dragxmin', - (Math.min (gxstart, gxend)));
+                classroot.setAttribute ('dragymin', - (Math.min (gystart, gyend)));
+
+                classroot.setAttribute ('dragxmax', 
+                                        classroot.parent.width - (Math.max (gxstart, gxend)));
+                classroot.setAttribute ('dragymax', 
+                                        classroot.parent.height - 6  - (Math.max (gystart, gyend)));
+				Debug.write("classroot.parent.width,classroot.parent.height", classroot.parent);
+				Debug.write("classroot.parent.width,classroot.parent.height", classroot.parent.width,classroot.parent.height);
+            </handler>
+
+        </dragstate>
+        
+        <handler name="oninit">
+        	this.setAttribute('visible' , false);
+            this.setAttribute ('x', this.width/2);
+            this.setAttribute ('y', this.height);
+            this.setAttribute ('xpos', this.width/2);
+            this.setAttribute ('ypos', this.height);
+        </handler>
+		<handler name="onmousedown">
+			this.bringToFront();
+		</handler>
+
+
+
+        <handler name="ondata" args="data"><![CDATA[
+            var hasstate = false;
+		
+			if(data && data.attributes){
+				for (var i in data.attributes) {
+					hasstate = true;
+					break;
+				}			
+			}
+
+            if (data && hasstate) {
+                this.setAttribute ('rotation', data.getAttr ('rotation'));
+
+                this.setAttribute ('x', data.getAttr ('x'));
+                this.setAttribute ('y', data.getAttr ('y'));
+	            // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
+	         /*   if(gScratchpad.visible){
+	                gScratchpad.bringToFront();
+	            }*/
+            } else {
+                this.setAttribute ('rotation', 0);
+
+                this.setAttribute ('x', (classroot.width - this.width)/2);
+                this.setAttribute ('y', (classroot.height - this.height)/2);
+
+                //save defaults in data
+                if (data) {
+                    data.setAttr ('rotation', this.rotation);
+                    data.setAttr ('x', this.x);
+                    data.setAttr ('y', this.y);
+                }
+            }
+            
+        ]]></handler>
+
+
+        <method name="startRotate">
+            this.rotatedel.register (lz.Idle, 'onidle');
+            
+            this.setAttribute ('xoffset', this.xpos);
+            this.setAttribute ('yoffset', this.ypos);
+            
+            var rad = this.rotation * (Math.PI/180);
+            
+            var dx = Math.cos (rad) * this.xpos - Math.sin (rad) * this.ypos;
+            var dy = Math.sin (rad) * this.xpos + Math.cos (rad) * this.ypos;
+            
+            this.setAttribute ('x', this.x + dx);
+            this.setAttribute ('y', this.y + dy);                
+        </method>
+
+        <method name="endRotate">
+            this.rotatedel.unregisterAll ();
+            
+            this.setAttribute ('xoffset', 0);
+            this.setAttribute ('yoffset', 0);
+            
+            var rad = this.rotation * (Math.PI/180);
+            
+            var dx = Math.cos (rad) * this.xpos - Math.sin (rad) * this.ypos;
+            var dy = Math.sin (rad) * this.xpos + Math.cos (rad) * this.ypos;
+            
+            this.setAttribute ('x', this.x - dx);
+            this.setAttribute ('y', this.y - dy);                
+
+          //  datapath.p.setAttr ('rotation', this.rotation);
+         //   datapath.p.setAttr ('x', this.x);
+        //   datapath.p.setAttr ('y', this.y);
+        </method>
+
+        <method name="doRotate"><![CDATA[
+            var mx = parent.getMouse ('x') - this.x;
+            var my = parent.getMouse ('y') - this.y;
+            
+            if (this.xoffset > this.width/2) {
+                mx = -mx;
+                my = -my;
+            }
+
+            var mousedist = Math.sqrt (mx*mx + my*my);
+            var endang = Math.asin (my/mousedist) * (180/Math.PI);
+
+            if (mx < 0) endang = 180 - endang;
+
+            this.setAttribute ('rotation',endang);
+        ]]></method>
+
+
+
+        <view resource="protractorMarks_rsrc"/>
+
+        <view name="grabber" resource="protractorHandle_rsrc" y="97" align="center" >
+            <handler name="onmouseover">
+               // gController.setCurrentCursor('cangrab_cursor');
+            </handler>
+            <handler name="onmouseout">
+               // gController.clearAndRestoreCurrentCursor();
+            </handler>
+            <handler name="onmousedown">
+            	classroot.bringToFront();
+                lz.Cursor.setCursorGlobal ('grabbing_cursor');
+                lz.Cursor.lock ();
+                classroot.dragger.apply ();
+            </handler>
+            <handler name="onmouseup">
+                lz.Cursor.unlock ();
+             //   gController.restoreCurrentCursor();
+                classroot.dragger.remove ();
+                
+              //  classroot.datapath.p.setAttr ('x', classroot.x);
+              //  classroot.datapath.p.setAttr ('y', classroot.y);
+            </handler>
+        </view>
+
+
+        <view resource="protractorRotator_rsrc" y="110" x="${classroot.width-65}"
+              onmousedown="classroot.bringToFront(); classroot.startRotate (); " 
+              onmouseup="classroot.endRotate()"/>
+    </class>
+
+</library>
