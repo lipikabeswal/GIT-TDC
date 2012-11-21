@@ -1,0 +1,167 @@
+<library>
+	<include href="calculatorBase.lzx" />
+
+	<class name="standardCalculator" extends="calculatorBase" 
+	       resource="calc_chrome">
+
+        <method name="updateDisplay">
+            super.updateDisplay();
+            this.bg.inputBoundingBox.inputbox.display.setAttribute('text', displayValue ); 
+        </method>
+        <method name="setManipulativeSelState" args="id,status">
+			var messg = id + "|"+ status;
+			var s = "passManipulativeState('"+messg+"')";
+			lz.Browser.loadJS(s);
+		</method>
+
+	    <view x="0" y="0">
+            <text x="85" y="0" fontsize="15" height="22">Calculator</text>
+		    <basebutton resource="calc_close_btn" x="218" y="3" height="${this.resourceheight + 1}">
+				<handler name="onclick">
+                    //gController.setManipulativeSelState (classroot.toolid, 'up');
+                      classroot.setManipulativeSelState(classroot.toolid, 'up');
+                    gStandardCalculator.hide();
+				</handler>
+			</basebutton>
+		</view>
+
+		<view name="bg" resource="calc_face" x="10" y="23"
+		      width="${immediateparent.width - 20}" 
+              height="${immediateparent.height - 30}">
+			<view name="inputBoundingBox" resource="calc_display" 
+			      x="9" y="7">
+				<view name="inputbox" x="3" y="0"
+				      height="${parent.height}" width="${parent.width - 6}">
+					<text name="display" 
+						  resize="true" 
+						  text="0." 
+						  align="right"
+						  valign="bottom"
+						  fontsize="13"
+						  xoffset="30"/>
+					<text name="memoryDisplay" 
+						  text="M"
+						  valign="bottom" 
+						  fontsize="13"
+						  align="right"
+						  xoffset="5"
+						  visible="${classroot.memory != 0}"/>
+				</view>
+			</view>
+				
+	        <view name="mycalc" y="50" x="14"
+                  oninit="classroot.resetState()">
+                <simplelayout axis="y" spacing="${classroot.ySpacing}"/>
+                <view name="keyrow1" width="210">
+                    <simplelayout axis="x" spacing="${classroot.xSpacing}"/>
+                    <calcButton txtresource="C_txt"
+                                onclick="classroot.clearAll()"
+                                calculator="$once{classroot}" />
+                    <calcButton txtresource="memoryrecall_txt" 
+                                onclick="classroot.handleMemoryRecall()"
+                                calculator="$once{classroot}" />
+                    <calcButton txtresource="memoryclear_txt" 
+                                onclick="classroot.handleMemoryClear()"
+                                calculator="$once{classroot}" />
+                    <calcButton txtresource="memoryplus_txt"
+                                onclick="classroot.handleMemoryPlus()"
+                                calculator="$once{classroot}" />	   
+                    <calcButton txtresource="memoryminus_txt"
+                                onclick="classroot.handleMemoryMinus()"
+                                calculator="$once{classroot}" />	   
+                  </view>	
+                
+                <view name="keyrow2" width="210">
+                    <simplelayout axis="x" spacing="${classroot.xSpacing}"/>
+					<operatorCalculatorButton
+                        offFaceRsrc="white_plusminus_rsrc" 
+                        otherFaceRsrc="black_plusminus_rsrc" 
+                        onclick="classroot.handleReverseSign() ; "
+                                calculator="$once{classroot}" />
+                    <calcButton txtresource="seven_txt"
+                                onclick="classroot.handleDigit(7)"
+                                calculator="$once{classroot}" />
+                    <calcButton txtresource="eight_txt" 
+                                onclick="classroot.handleDigit(8)"
+                                calculator="$once{classroot}" />
+                    <calcButton txtresource="nine_txt" 
+                                onclick="classroot.handleDigit(9)"
+                                calculator="$once{classroot}" />
+                    <operatorCalculatorButton
+                        offFaceRsrc="white_divide_rsrc" 
+                        otherFaceRsrc="black_divide_rsrc" 
+                        onclick="classroot.handleBinaryOperator('divide');"
+                                calculator="$once{classroot}" />
+                </view>
+                
+                <view name="keyrow3" width="210">
+                    <simplelayout axis="x" spacing="${classroot.xSpacing}"/>
+					<operatorCalculatorButton 
+                        offFaceRsrc="white_percent_rsrc" 
+                        otherFaceRsrc="black_percent_rsrc" 
+                        onclick="classroot.handlePercent();"
+                                calculator="$once{classroot}" />
+                    <calcButton txtresource="four_txt"
+                                onclick="classroot.handleDigit(4)"
+                                calculator="$once{classroot}" />
+                    <calcButton txtresource="five_txt" 
+                                onclick="classroot.handleDigit(5)"
+                                calculator="$once{classroot}" />
+                    <calcButton txtresource="six_txt" 
+                                onclick="classroot.handleDigit(6)"
+                                calculator="$once{classroot}" />
+					<operatorCalculatorButton 
+                        offFaceRsrc="white_multiply_rsrc"
+                        otherFaceRsrc="black_multiply_rsrc" 
+                        onclick="classroot.handleBinaryOperator('multiply');"
+                                calculator="$once{classroot}" />
+                </view>
+                
+                <view name="keyrow4" width="210">
+                    <simplelayout axis="x" spacing="${classroot.xSpacing}"/>
+					<operatorCalculatorButton
+                        offFaceRsrc="white_sqrt_rsrc" 
+                        otherFaceRsrc="black_sqrt_rsrc" 
+                        onclick="classroot.handleUnaryOperator('root');"
+                                calculator="$once{classroot}" />
+                    <calcButton txtresource="one_txt" 
+                                onclick="classroot.handleDigit(1)"
+                                calculator="$once{classroot}" />
+                    <calcButton txtresource="two_txt" 
+                                onclick="classroot.handleDigit(2)"
+                                calculator="$once{classroot}" />
+                    <calcButton txtresource="three_txt" 
+                                onclick="classroot.handleDigit(3)"
+                                calculator="$once{classroot}" />
+					<operatorCalculatorButton
+                        offFaceRsrc="white_minus_rsrc" 
+                        otherFaceRsrc="black_minus_rsrc" 
+                        onclick="classroot.handleBinaryOperator('subtract');"
+                                calculator="$once{classroot}" />
+                </view>
+                
+                <view name="keyrow5" width="210">
+                    <simplelayout axis="x" spacing="${classroot.xSpacing}"/>
+                    <calcButton txtresource="CE_txt" 
+                                onclick="classroot.clearEntry()"
+                                calculator="$once{classroot}" /> 
+                    <calcButton txtresource="zero_txt" 
+                                onclick="classroot.handleDigit(0)"
+                                calculator="$once{classroot}" />
+                    <calcButton txtresource="decimal_txt" 
+                                onclick="classroot.handleDecimal()"
+                                calculator="$once{classroot}" />
+					<calcButton txtresource="equal_txt"
+					            onclick="classroot.handleEquals();"
+                                calculator="$once{classroot}" />
+					<operatorCalculatorButton offFaceRsrc="white_plus_rsrc" 
+					                          otherFaceRsrc="black_plus_rsrc" 
+					                          onclick="classroot.handleBinaryOperator(classroot.OPERATOR_ADD);"
+                                calculator="$once{classroot}" />
+				</view>
+ 
+            </view>
+        </view>
+    </class>
+
+</library>
