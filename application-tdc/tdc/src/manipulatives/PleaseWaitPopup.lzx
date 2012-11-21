@@ -2,7 +2,7 @@
       x="${220 * xscalefactorjs}"
       y="${130 * yscalefactorjs}"
       visible="false"
-      clickable="false"
+      clickable="true"
       showhandcursor="false">
 
 	<attribute name="popupHeight" type="number" value="185"/>
@@ -45,6 +45,7 @@
         this.contents.networkLost.inBar.barAnimator.doStart();
         lz.ModeManager.makeModal(this);
         resetControls();
+        this.bringToFront();
         //gHotKeys.disableKeys();
         
     </method>
