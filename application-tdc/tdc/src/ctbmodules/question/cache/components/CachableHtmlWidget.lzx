@@ -220,7 +220,11 @@ Debug.write("Cachaable html widget ondata");
 			break;
 			
 			}
-			gController.setAttribute('htmlmanipStateHtml',gController.manipStateHtml);
+			for(var key in gController.manipStateHtml) {
+    			var value = gController.manipStateHtml[key];
+    			gController.htmlmanipStateHtml[key] = value;
+			}
+			//gController.setAttribute('htmlmanipStateHtml',gController.htmlmanipStateHtml);
 			Debug.write	("MANIP STATE HTML", gController.manipStateHtml,gController.htmlmanipStateHtml);
 		]]></method>
        
