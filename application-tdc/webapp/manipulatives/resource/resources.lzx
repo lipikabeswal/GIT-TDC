@@ -3,6 +3,12 @@
     <!-- =====================
          buttons 
          ===================== -->
+         <font name="CTB">
+        <face src="resource/fonts/OASmathv3.ttf" style="plain" />
+        <face src="resource/fonts/OASmathv3 Bold.ttf" style="bold" />
+        <face src="resource/fonts/OASmathv3 Italic.ttf" style="italic" />
+        <face src="resource/fonts/OASmathv3 BoldItalic.ttf" style="bold italic" />
+    </font>
     <!-- text fornumbers -->
     <resource name="zero_txt"  src="0.png"/>
     <resource name="one_txt"   src="1.png"/>
