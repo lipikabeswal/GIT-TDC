@@ -154,6 +154,7 @@
             elem.setAttribute('id', toolid);
         </handler>
         <method name="show" args="arg">
+            this.setAttribute('visible',true);
         	if(arg){
         		this.setAttribute('hasXY', true);
         		this.setAttribute('newX',arg.x);
@@ -161,7 +162,7 @@
         	}else{
         		this.setAttribute('hasXY', false);
         	}
-        	this.setAttribute('visible',true);
+
         </method>
         
         <method name="hide" args="arg">
