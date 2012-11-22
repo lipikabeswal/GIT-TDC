@@ -3566,7 +3566,7 @@ var LzSprite = function ($0, $1) {
         LzSprite.__rootSprite = this;
         var div = document.createElement("div");
         div.className = "lzcanvasdiv";
-        $2["scrollbar_width"] = 0;
+        $2["scrollbar_width"] = LzSprite._getScrollbarWidth();
         if ($2.ie6_improve_memory_performance) {
             try {
                 document.execCommand("BackgroundImageCache", false, true)
@@ -4004,7 +4004,7 @@ LzSprite.quirks = {
     textdeco_on_textdiv: false,
     use_css_sprites: true,
     preload_images: true,
-    scrollbar_width: 0,
+    scrollbar_width: 15,
     inputtext_strips_newlines: false,
     swf8_contextmenu: true,
     inputtext_anonymous_div: false,
@@ -6266,7 +6266,7 @@ LzTextSprite.prototype.setScrolling = function ($0) {
             this.scrolling = $0;
             this.applyCSS("overflow", "scroll", "scrolldiv");
             $2 += this.quirks.scrollbar_width;
-            $3 += this.quirks.scrollbar_width;
+            $3 += this.quirks.scrollbar_width
         } else {
             this.scrolling = false;
             this.applyCSS("overflow", "", "scrolldiv")

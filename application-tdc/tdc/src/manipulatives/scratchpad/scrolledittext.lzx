@@ -17,7 +17,7 @@
             x="${parent.border}" 
             y="${parent.border}" 
             height="${parent.height - parent.border * 2}" 
-            width="${parent.width - parent.border*2}"
+            width="${parent.width - parent.vscrollwidth - parent.border*2}"
             scrollevents="true">
             <!-- Supplied by lztext now
                 attribute name="lineheight"
@@ -27,13 +27,8 @@
             <attribute name="maxheight" 
                        value="${this.height + this.maxtextheight}"/>
             <attribute name="pos" value="0" type="number"/>
-            <handler name="oninit">
-            	 var elem = this.getDisplayObject();
-            	 elem.setAttribute('id','mytextarea');
-            	 elem.style.overflow = 'auto';
-            </handler>
+            
             <setter name="pos" args="p">
-            	//console.log("setter POS" , p);
                 if (this.inited) {
                     var scroll = 1 - Math.floor(p / this.lineheight);
                     if (scroll !== this.scroll) {
@@ -129,9 +124,9 @@
         
         <method name="init">
             super.init();
-           //this.ensurevscrollbar();
-            //setvscrollwidthfromvisibility(this['_vs'] ? this._vs.visible : false);
-            //this.myDel = new lz.Delegate(this, "setvscrollwidthfromvisibility", this['_vs'], "onvisible");
+            this.ensurevscrollbar();
+            setvscrollwidthfromvisibility(this['_vs'] ? this._vs.visible : false);
+            this.myDel = new lz.Delegate(this, "setvscrollwidthfromvisibility", this['_vs'], "onvisible");
         </method>
 
  <!--- Overrides a parent method which calculates y position for text
