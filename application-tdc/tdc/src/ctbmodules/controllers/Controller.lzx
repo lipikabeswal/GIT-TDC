@@ -3638,6 +3638,7 @@ Debug.write("############ loadItem ############");
             var initgeneral = (dngeneral == null);
             var ismarked = dpstudentdata.xpathQuery ('current_item/item_model/@marked');
 			var currentEid = dpstudentdata.xpathQuery("current_item/item_model/@eid");
+			canvas.setAttribute('currentEid',currentEid);
             Debug.write("initManipulativeData  ",ismarked,dnmanip,dngeneral,currentEid,htmlGeneralManipData);
             if (typeof (ismarked) == 'string') {
                 ismarked = (ismarked == '1' || ismarked == 'true');
@@ -3774,7 +3775,7 @@ Debug.write("############ loadItem ############");
 
 		<method name="openTEManipulatives" args="openManipData"><![CDATA[
 
-			Debug.write("openTEManipulatives****** ",gController.htmlmanipStateHtml);
+			Debug.write("openTEManipulatives****** ",openManipData,gController.htmlmanipStateHtml);
 
 			var manipObjData;
 			

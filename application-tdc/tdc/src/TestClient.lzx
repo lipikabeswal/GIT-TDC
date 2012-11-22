@@ -173,6 +173,7 @@
 	<attribute name="htmlGeneralManip" value="$once{new Object()}" />
 	<attribute name="htmlManip" value="null" />
 	<attribute name="htmlOpenManip" value="null" />
+	<attribute name="currentEid"/>
 	
 	<handler name="onsetanswer" args="data">
 		if(gController.htmlFields.length > 0){
@@ -192,7 +193,18 @@
 	var manip = data.split("|");
 	var manipName = manip[0];
 	if(gController.manipStateHtml[manipName]){
-	gController.manipStateHtml[manipName].resetState();
+		gController.manipStateHtml[manipName].resetState();
+		if(gController.htmlmanipStateHtml[manipName] && manip[1]=='up'){
+			delete gController.htmlmanipStateHtml[manipName];
+			for(var i=0;i<gController.htmlGeneralManipData.length;i++){
+				if(gController.htmlGeneralManipData[i].eid == canvas.currentEid){
+					var manipData = new Object();
+					manipData = gController.htmlGeneralManipData[i];
+					var closedManip = manipData[manipName];
+					closedManip['isselected'] = 'false';
+				}
+			}
+		}
 	}		
 	gController.setManipulativeSelState (manipName, manip[1]);
 	]]></handler>  

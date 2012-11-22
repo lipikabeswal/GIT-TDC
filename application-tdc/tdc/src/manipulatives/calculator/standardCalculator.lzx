@@ -20,6 +20,7 @@
 				<handler name="onclick">
                     //gController.setManipulativeSelState (classroot.toolid, 'up');
                       classroot.setManipulativeSelState(classroot.toolid, 'up');
+					  gStandardCalculator.setAttribute("isselected",false);
                     gStandardCalculator.hide();
 				</handler>
 			</basebutton>

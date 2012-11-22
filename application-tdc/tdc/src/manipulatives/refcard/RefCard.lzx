@@ -183,7 +183,11 @@
 			<basebutton resource="ref_card_close_btn" height="${this.resourceheight + 1}">
 				<handler name="onclick">
 			    	classroot.setManipulativeSelState (classroot.toolid, 'up');
-					classroot.ref.setAttribute('visible',false);					
+					classroot.ref.setAttribute('visible',false);	
+					if(classroot.toolid == 'TN_formula_card')	
+						gTnFormulaCard.setAttribute("isselected",false);	
+					else if(classroot.toolid == 'FCAT_formula_card')	
+						gFcatFormulaCard.setAttribute("isselected",false);		
 			    </handler>
 			</basebutton>
 		</view>
