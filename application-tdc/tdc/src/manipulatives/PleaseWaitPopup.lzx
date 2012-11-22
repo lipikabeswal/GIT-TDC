@@ -29,7 +29,7 @@
 			this.setAttribute("bg", new Number(bc));
 		}
 		else{
-			this.setAttribute("bg", new Number("0x1D4896"));
+			this.setAttribute("bg", "#336699");
 		}
 		this.windowbg.drawMe();
 	]]></method>
