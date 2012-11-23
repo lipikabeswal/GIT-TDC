@@ -5,8 +5,8 @@
 
     <class name="Protractor" extends="BaseManipulative"
                 resource="protractorBackground_rsrc"
-                clickable="true" showhandcursor="false"
-                clickregion="resource/protractorBackground.swf">
+                clickable="false" showhandcursor="false"
+                clickregion="protractorBackground_rsrc">
 
         <attribute name="xpos"/>
         <attribute name="ypos"/>
@@ -76,6 +76,8 @@
         <handler name="oninit">
             this.setAttribute ('xpos', this.width/2);
             this.setAttribute ('ypos', this.height);
+			//this.setAttribute('clickregion', test1.sprite.__LZclickregion);
+			Debug.write("clickregion******* ",clickregion); 
         </handler>
 		<handler name="onmousedown">
 			this.bringToFront();
