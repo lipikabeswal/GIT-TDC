@@ -227,8 +227,8 @@
 				
 				<handler name="ontext"><![CDATA[
 					var textContent = this.text;
-					var textContent = this.text.split('\n').join('~|||||||');
-					console.log("textContent *************  ",textContent);
+					//var textContent = this.text.split('\n').join('~|||||||');
+					//console.log("textContent *************  ",textContent);
 					storeSelection();
 					var s = "updateScratchPadText('"+textContent+"')";
 					lz.Browser.loadJS(s);
