@@ -887,7 +887,7 @@ public class PersistenceServlet extends HttpServlet {
 		String result = null;
 		String resultXml = null;		
 		try {
-			loginReponseDocument = saxBuilder.build(new ByteArrayInputStream(loginResponse.getBytes()));
+			loginReponseDocument = saxBuilder.build(new ByteArrayInputStream(loginResponse.getBytes("UTF-8")));
 		} catch (JDOMException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
