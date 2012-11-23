@@ -184,9 +184,11 @@
 	<handler name="onttstext" args="data">
 		gReadableText.read(data,false);
 	</handler>
-	<handler name="onsptext" args="data">
+	<handler name="onsptext" args="data"><![CDATA[
 		gController.setAttribute('sptext',data);
-		gScratchpad.setText(unescape(data));
+		//gScratchpad.setText(unescape(data));
+		gScratchpad.setText(unescape(data).split('~|||||||').join('\n'));
+		]]>
 	</handler>
 	  
 	<handler name="onmanipstate" args="data"><![CDATA[

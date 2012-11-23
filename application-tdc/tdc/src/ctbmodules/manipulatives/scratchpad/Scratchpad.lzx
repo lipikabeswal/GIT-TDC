@@ -224,10 +224,12 @@
 				<handler name="ontext"><![CDATA[
 					Debug.write("this.inp.getTextHeight(): ",this.inp.getTextHeight());
 					Debug.write("this.height: ",this.height);
+					var textContent = "";
 					if(this.inp.getTextHeight() > this.height) {
 						this.inp.setAttribute("scroll",this.inp.maxscroll);
 					}
-					var textContent = this.text;
+					textContent = this.text.split('\n').join('~|||||||');
+					Debug.write("scratchpad text ",this.text);
 					storeSelection();
 					var s = "storeScratchPadText('"+textContent+"')";
 					lz.Browser.loadJS(s);
@@ -236,6 +238,7 @@
 								textContent = this.text;
 								textContent = textContent.substring(0,Number(classroot.characterLimit));
 								updateScrollText(textContent);
+								Debug.write("storeScratchPadText***** ",textContent);
 								var s = "storeScratchPadText('"+textContent+"')";
 								lz.Browser.loadJS(s);
 							}

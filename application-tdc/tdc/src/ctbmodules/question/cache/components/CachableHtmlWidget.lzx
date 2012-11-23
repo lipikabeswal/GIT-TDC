@@ -222,7 +222,9 @@ Debug.write("Cachaable html widget ondata");
 			}
 			for(var key in gController.manipStateHtml) {
     			var value = gController.manipStateHtml[key];
-    			gController.htmlmanipStateHtml[key] = value;
+				if(key != 'scratchpad'){
+    				gController.htmlmanipStateHtml[key] = value;
+				}
 			}
 			//gController.setAttribute('htmlmanipStateHtml',gController.htmlmanipStateHtml);
 			Debug.write	("MANIP STATE HTML", gController.manipStateHtml,gController.htmlmanipStateHtml);
