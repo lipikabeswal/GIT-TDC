@@ -173,7 +173,7 @@ var manipObjData;
 			gStandardCalculator.setAttribute('width',Number(manipObjData.width));
 			gStandardCalculator.setAttribute("isselected",true);
 			gStandardCalculator.show();
-		}
+			}
 
 		
 		manipObjData = openManipData['scientific_calculator'];
@@ -300,7 +300,7 @@ switch(arg){
 		case 'standard_calculator' : if(gStandardCalculator.visible){
 								gStandardCalculator.hide();
 								gStandardCalculator.setAttribute("isselected",false);
-								
+								gStandardCalculator.popOperator();
 								//gStandardCalculator.updateDisplay();
 							}else{
 								gStandardCalculator.setAttribute("isselected",true);

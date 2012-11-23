@@ -22,6 +22,7 @@
                       classroot.setManipulativeSelState(classroot.toolid, 'up');
 					  gStandardCalculator.setAttribute("isselected",false);
                     gStandardCalculator.hide();
+                    gStandardCalculator.popOperator();
 				</handler>
 			</basebutton>
 		</view>
