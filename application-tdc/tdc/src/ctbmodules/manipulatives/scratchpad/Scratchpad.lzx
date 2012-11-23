@@ -35,7 +35,7 @@
 		<attribute name="isTestInterrupted" type="boolean" value="false"/>
         <handler name="onmousedown">
         	this.bringToFront();
-        	this.sp.inp.setSelectable(false);
+        	this.sp.inp.setAttribute('selectable',false);
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
             lz.Cursor.lock ();
         </handler>
@@ -57,7 +57,7 @@
 					gScratchpad.restoreFocusAndCursor();
 				}
 				else if (who == this){
-					this.sp.inp.setSelectable(true);
+					this.sp.inp.setAttribute('selectable',true);
 	            	lz.Cursor.unlock ();
 	            	gController.restoreCurrentCursor();
 	            	restoreFocusAndCursor();
@@ -205,6 +205,7 @@
 	            	<attribute name="end" type="number" value="0" />
 	            	<attribute name="scrollPos" type="number" value="0" />					
 	            <method name="init">
+	            	
 	                super.init();
 	                this.style.setAttribute("textfieldcolor", gController.answerBgColor);
 					this.setAttribute('fontcolor',gController.answerFontColor);
