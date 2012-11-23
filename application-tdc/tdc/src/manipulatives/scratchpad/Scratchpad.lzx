@@ -155,13 +155,15 @@
             elem.setAttribute('id', toolid);
         </handler>
         <method name="show" args="arg">
-            this.setAttribute('visible',true);
+			this.setAttribute('visible',true);
         	if(arg){
-        		this.setAttribute('hasXY', true);
-        		this.setAttribute('newX',arg.x);
-				this.setAttribute('newY',arg.y);
+        		this.setAttribute('hasXY', true);				
+				this.setAttribute("x", arg.x);
+				this.setAttribute("y", arg.y);
+				this.restoreFocusAndCursor();				
         	}else{
         		this.setAttribute('hasXY', false);
+        		
         	}
 
         </method>
@@ -183,9 +185,7 @@
 					gScratchpad.sp.inp.onblur.sendEvent();
 	            }       
             }else{
-            	this.setAttribute("x", this.newX);
-				this.setAttribute("y", this.newY);
-				this.restoreFocusAndCursor();
+            	
 	        
             }
          ]]></handler>
