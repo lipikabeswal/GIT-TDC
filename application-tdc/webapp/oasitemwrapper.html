@@ -13,6 +13,60 @@
 <script type="text/javascript" src="lps-dhtml/lps/includes/embed-compressed.js"></script>
 <!--[if lt IE 9]><script type="text/javascript" src="lps-dhtml/lps/includes/excanvas.js"></script><![endif]-->
 <style type="text/css">
+
+textarea{
+    resize:none;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px; }
+ 
+::-webkit-scrollbar:hover {
+  height: 18px; }
+ 
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+  height: 15px;
+  width: 13px;
+  display: block;
+  background: #D7D7D7;
+  background-repeat: no-repeat; }
+ 
+::-webkit-scrollbar-button:vertical:increment {
+  background-image: url(lps/resources/lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_bot_up.png);
+  background-position: 0px 0px; }
+ 
+::-webkit-scrollbar-button:vertical:decrement {
+  background-image: url(lps/resources/lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_top_up.png);
+  background-position: 0px 0px; }
+ 
+::-webkit-scrollbar-button:vertical:increment:active {
+  background-image: url(lps/resources/lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_bot_dn.png); }
+ 
+::-webkit-scrollbar-button:vertical:decrement:active {
+  background-image: url(lps/resources/lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_top_dn.png); }
+ 
+::-webkit-scrollbar-track-piece {
+  background-image: url(lps/resources/lps/components/lz/resources/scrollbar/y_scrolltrack.png); }
+ 
+::-webkit-scrollbar-thumb:vertical {
+  height: 5px;
+  /*background-image: url(lps/resources/lps/components/lz/resources/scrollbar/autoPng/scrollthumb_y_mid.png);*/
+  
+  border: 1px solid #0d0d0d;
+  border-top: 1px solid #666666;
+  border-left: 1px solid #666666; 
+  background-color: #D7D7D7;
+	/*//border: 1px solid #eee;*/
+  }
+
+
+ 
+ 
+
+</style>
+<style type="text/css">
 html,body { /* http://www.quirksmode.org/css/100percheight.html */
 	height: 100%;
 	/* prevent browser decorations */
@@ -70,6 +124,7 @@ img {
         var itemSet = false;
         var ansSet = false;
         var readable = false;
+        var iid = null;
         function isAnswered(){
         var elem = document.getElementById('__lz0');
 	      	if(elem){
@@ -105,6 +160,7 @@ img {
   				iframeState();
 	        	if (itemSet == false){
 	        	lz.embed.setCanvasAttribute('srcurl',itemId);
+	        	iid = itemId;
 	        	itemSet = true;
 	        		
 	        	}
@@ -250,7 +306,7 @@ img {
        }
        
        function getScratchpadCoordinates(){
-       
+       			
        	return gScratchpad.x +"|"+ gScratchpad.y;
        }
               
@@ -262,8 +318,8 @@ img {
 <body>
 <input type="button" onclick="prepareJson();"
 	style="display: none;"></input>
-<input type="button" onclick="showHideManipulative('protractor');"
-	style="display: none;"></input>
+<input type="button" onclick="showHideManipulative('scratchpad');"
+	style="display: block;"></input>
 <div id="appcontainer"></div>
 
 <script type="text/javascript" defer>

@@ -3566,7 +3566,7 @@ var LzSprite = function ($0, $1) {
         LzSprite.__rootSprite = this;
         var div = document.createElement("div");
         div.className = "lzcanvasdiv";
-        $2["scrollbar_width"] = LzSprite._getScrollbarWidth();
+        $2["scrollbar_width"] = 0;
         if ($2.ie6_improve_memory_performance) {
             try {
                 document.execCommand("BackgroundImageCache", false, true)
@@ -4004,7 +4004,7 @@ LzSprite.quirks = {
     textdeco_on_textdiv: false,
     use_css_sprites: true,
     preload_images: true,
-    scrollbar_width: 15,
+    scrollbar_width: 5,
     inputtext_strips_newlines: false,
     swf8_contextmenu: true,
     inputtext_anonymous_div: false,
@@ -5279,7 +5279,7 @@ LzSprite.prototype.__updateClip = function () {
     if (this.isroot && this.quirks.canvas_div_cannot_be_clipped) return;
     var $1 = "";
     if (this.clip && this.width != null && this.width >= 0 && this.height != null && this.height >= 0) {
-        $1 = "rect(0px " + this._w + " " + this._h + " 0px)"
+    	$1 = "rect(0px " + this._w + " " + this._h + " 0px)"
     } else if (this._clip) {
         $1 = $0.fix_ie_css_syntax ? "rect(auto auto auto auto)" : ""
     };
@@ -6266,7 +6266,7 @@ LzTextSprite.prototype.setScrolling = function ($0) {
             this.scrolling = $0;
             this.applyCSS("overflow", "scroll", "scrolldiv");
             $2 += this.quirks.scrollbar_width;
-            $3 += this.quirks.scrollbar_width
+            $3 += this.quirks.scrollbar_width;
         } else {
             this.scrolling = false;
             this.applyCSS("overflow", "", "scrolldiv")
@@ -6279,8 +6279,8 @@ LzTextSprite.prototype.setScrolling = function ($0) {
         } else if ($5.style.clip) {
             $5.style.clip = this.quirks["fix_ie_css_syntax"] ? "rect(auto auto auto auto)" : ""
         };
-        $5.style.width = $7;
-        $5.style.height = $6
+        $5.style.width = $7 - 4;
+        $5.style.height = $6 - 4;
     };
     return $0 && this.scrolling
 };
@@ -6712,7 +6712,13 @@ LzTextSprite.prototype.setWidth = function ($0) {
     if ($0 == null || $0 < 0 || isNaN($0)) return;
     var $1 = this.$LzSprite$setWidth($0);
     if ($1 == null) return;
-    var $2 = $0 >= this.__wpadding ? $0 - this.__wpadding : 0;
+    var $2;   
+   /* if(this.scrolling || this.classname== "lzswfinputtextmultiline"){
+       $2 = $0;
+     }
+     else{*/
+      $2 = $0 >= this.__wpadding ? $0 - this.__wpadding : 0;
+     //}
     if (this.scrolling) {
         $2 += this.quirks.scrollbar_width
     };
@@ -6741,7 +6747,13 @@ LzTextSprite.prototype.setHeight = function ($0) {
     if ($0 == null || $0 < 0 || isNaN($0)) return;
     var $1 = this.$LzSprite$setHeight($0);
     if ($1 == null) return;
-    var $2 = $0 >= this.__hpadding ? $0 - this.__hpadding : 0;
+    var $2;
+    //Uncomment for Mozilla
+    /*if(this.scrolling || this.classname== "lzswfinputtextmultiline"){
+     $2 = $0;     
+    }else{*/
+    $2 = $0 >= this.__hpadding ? $0 - this.__hpadding : 0;
+    //}
     if (this.scrolling || this.classname == "lzswfinputtextmultiline") {
         $2 += this.quirks.scrollbar_width
     };
@@ -6753,7 +6765,7 @@ LzTextSprite.prototype.setHeight = function ($0) {
         $5.style.height = $4;
         if (this.scrolling) {
             var $6 = $3(this.width || 0);
-            $5.style.clip = "rect(0 " + $6 + " " + $4 + " 0)"
+           	$5.style.clip = "rect(0 " + $6 + " " + $4 + " 0)";           
         }
     };
     return $2
