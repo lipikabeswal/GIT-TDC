@@ -108,7 +108,7 @@
         </method>
         
         <handler name="onblur">
-        Debug.write("ONBLUR LOFC SCRATCHPAD");
+       // Debug.write("ONBLUR LOFC SCRATCHPAD");
         </handler>
         <!--- @keywords private -->
         <method name="init">
@@ -351,7 +351,7 @@
                 }
             }
             if (this.onhaswindowfocus) this.onhaswindowfocus.sendEvent(windowfocus);
-            Debug.write("this.onhaswindowfocus", this.onhaswindowfocus);
+            //Debug.write("this.onhaswindowfocus", this.onhaswindowfocus);
 
         ]]>
         </method>
