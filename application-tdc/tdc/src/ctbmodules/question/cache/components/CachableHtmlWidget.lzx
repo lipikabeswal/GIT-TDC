@@ -253,11 +253,17 @@ Debug.write("Cachaable html widget ondata");
   			data = data.split("|");
   			coord.x = data[0];
   			coord.y = data[1];
+  			coord.data = data[2];
+  		gController.setAttribute('sptext',data[2]);
+		//gScratchpad.setText(unescape(data));
+		gScratchpad.setText(unescape(data[2]).split('~|||||||').join('\n'));
        	if(gController.scratchpadOpen){
 			gScratchpad.show(coord);
 			this.setAttribute('scratchPadAlreadyPresent',false);
 			gScratchpad.resetCall();
 		}
+		var s = "storeScratchPadText('"+data[2]+"')";
+		lz.Browser.loadJS(s);
 		this.main.ht.setAttribute('visible',false);
 		this.main.ht.setAttribute('src',"");
        </method>

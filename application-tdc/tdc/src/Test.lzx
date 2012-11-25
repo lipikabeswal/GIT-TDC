@@ -135,8 +135,6 @@ if (arg.indexOf("http") != -1){
 	url = "http:items/"+arg+"/previewer.html";
 }
 
-
-
 this.ht.setAttribute('src', url);
 this.ht.sendToBack();
 canvas.setAttribute('isLoaded', true);
@@ -144,7 +142,7 @@ canvas.setAttribute('isLoaded', true);
 ]]></handler>
 
 <handler name="onscratchpadtext" args="arg"><![CDATA[
-	gScratchpad.setText(arg);	
+	gScratchpad.applyText(arg);	
 ]]></handler>
 
 <handler name="onmanipData" args="data">
