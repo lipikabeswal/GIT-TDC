@@ -2967,9 +2967,6 @@
 			//	}
 	
 			}
-				if(this.htmlFields != null){
-					hideHtmlWidgets();
-				}
                 setState(PAUSE_STATE);
                 this.setAttribute("sendCatSave",false);
                 save(PAUSE_LEV);
@@ -2985,6 +2982,9 @@
 		<method name="goToPauseScreen">
 			this.clearInvalidCrResponses();
 			this.resetCrs();
+			if(this.htmlFields != null){
+				hideHtmlWidgets();
+			}
             lz.Cursor.unlock();  
         	checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();    
@@ -3049,9 +3049,6 @@
             	//this.setAttribute("sendCatSave",true);
             	setSendCatSave();
             }
-            	if(this.htmlFields != null){
-					hideHtmlWidgets();
-				}
             save(null);
         </method>
 	
@@ -3075,6 +3072,9 @@
 		<method name="goToFinishScreen"><![CDATA[
 			this.clearInvalidCrResponses();
 			this.resetCrs();
+			if(this.htmlFields != null){
+				hideHtmlWidgets();
+			}
 			//START Defect# 59282
 			//this.resetCrFields(); //due to Defects# 64829, 64830, 64837
 			//END
@@ -3571,17 +3571,18 @@ Debug.write("############ loadItem ############");
             }
         </method>
 
-		<method name="exitPopups">
+		<method name="exitPopups"><![CDATA[
            // gEnlargePopup.shrink();
             gFootNotePopup.hide();
             gRationalePopup.hide();
             
 			//for ISTEP CR
-			if(gController.htmlFields.length > 0){
+			if(gController.htmlFields.length > 0 && this.htmlFields[0]['ref'].main.ht.visible){
 				this.htmlFields[0]['ref'].main.ht.callJavascript('hidePleaseWaitPopup', null,'true');
 			}else{
            		gPleaseWaitPopup.hide();
 			}
+			]]>
         </method>
 
 		<method name="movedYouAreHere">
@@ -4593,9 +4594,9 @@ Debug.write("############ loadItem ############");
 					'BA','AB','AB','BA','AB','BA','BA'];			
 		]]></method>
 
-		<method name="showWaitPopup">
+		<method name="showWaitPopup"><![CDATA[
             this.isWaitPopupOpen = true;
-			if(gController.htmlFields.length > 0){
+			if(gController.htmlFields.length > 0 && this.htmlFields[0]['ref'].main.ht.visible){
 				this.htmlFields[0]['ref'].main.ht.callJavascript('showPleaseWaitPopup', null,'true');
 				gHotKeys.disableKeys();
 			}else{	
@@ -4604,13 +4605,14 @@ Debug.write("############ loadItem ############");
 			gMusicPlayer.hide();
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
+			]]>
 		</method>
 
 		<method name="networkLostPopup"><![CDATA[
 			this.isWaitPopupOpen = false;
 			lz.Timer.removeTimer(dNetworkLostPopup);
 			if(gCommunicator.firstRequestDone) {
-						if(gController.htmlFields.length > 0){
+						if(gController.htmlFields.length > 0 && this.htmlFields[0]['ref'].main.ht.visible){
 							this.htmlFields[0]['ref'].main.ht.callJavascript('hidePleaseWaitPopup', null,'true');
 							showWaitPopup();
 							this.htmlFields[0]['ref'].main.ht.callJavascript('showPleaseWaitPopupControls', null,'true');
@@ -4625,7 +4627,7 @@ Debug.write("############ loadItem ############");
 
 		<method name="hideWaitPopup"><![CDATA[
 			this.isWaitPopupOpen = false;	
-			if(gController.htmlFields.length > 0){
+			if(gController.htmlFields.length > 0 && this.htmlFields[0]['ref'].main.ht.visible){
 				this.htmlFields[0]['ref'].main.ht.callJavascript('hidePleaseWaitPopup', null);
 			}else{
 				gPleaseWaitPopup.hide();
