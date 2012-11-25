@@ -11,6 +11,7 @@
 <title>OpenLaszlo 4.9.0: Test (lps-4.9.0/manip/Test)</title>
 
 <script type="text/javascript" src="lps-dhtml/lps/includes/embed-compressed.js"></script>
+<script type="text/javascript" src="includes/utils.js"></script>
 <!--[if lt IE 9]><script type="text/javascript" src="lps-dhtml/lps/includes/excanvas.js"></script><![endif]-->
 <style type="text/css">
 
@@ -125,8 +126,9 @@ img {
         var ansSet = false;
         var readable = false;
         var iid = null;
+        
         function isAnswered(){
-        var elem = document.getElementById('__lz0');
+        var elem = document.getElementById('__lz1');
 	      	if(elem){
 	      	if(elem.contentWindow.accomPkg)
 	       	return elem.contentWindow.accomPkg.isItemAnswered();
@@ -134,21 +136,21 @@ img {
         }
         
         function getState(){
-         var elem = document.getElementById('__lz0');
+         var elem = document.getElementById('__lz1');
         if(elem){
         		if(elem.contentWindow.accomPkg)
-        		return document.getElementById('__lz0').contentWindow.accomPkg.getState();
+        		return document.getElementById('__lz1').contentWindow.accomPkg.getState();
         	}        
         }
         
         function setState(htmlContent,jsonContent,checkedVals){
-        	var elem = document.getElementById('__lz0');
+        	var elem = document.getElementById('__lz1');
         	if(elem){	
 	           if(elem.contentWindow){
 	           		
-	           		if(document.getElementById('__lz0').contentWindow.accomPkg && ansSet == false){
-	        		//console.log("ansSet", ansSet,document.getElementById('__lz0').contentWindow.accomPkg.isContentLoaded());
-	        			document.getElementById('__lz0').contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
+	           		if(document.getElementById('__lz1').contentWindow.accomPkg && ansSet == false){
+	        		//console.log("ansSet", ansSet,document.getElementById('__lz1').contentWindow.accomPkg.isContentLoaded());
+	        			document.getElementById('__lz1').contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
 	        			ansSet = true;
 	        		}
 	        	}
@@ -168,7 +170,7 @@ img {
         
         
         function iframeState(){
-        	var iframe = document.getElementById('__lz0');
+        	var iframe = document.getElementById('__lz1');
         	
         	if(iframe){
 				if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
@@ -180,11 +182,11 @@ img {
 					 		var fontObj = window.parent.getFontAccomodation();	
 					 		var bgColorObj = window.parent.getBackColorAccomodation();				    	
 					    	if(fontObj.hasFont == 'true'){
-					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
+					    		document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
 					    	}else{
-					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
+					    		document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
 					    	}			    	
-					      	document.getElementById('__lz0').contentWindow.translate(xscalefactorjs,yscalefactorjs);
+					      	document.getElementById('__lz1').contentWindow.translate(xscalefactorjs,yscalefactorjs);
 					    }
 					  };
 					} else {
@@ -194,10 +196,11 @@ img {
 					    readable =  stat == "true"? true: false;
 				     		var fontObj = window.parent.getFontAccomodation();	
 				     		var bgColorObj = window.parent.getBackColorAccomodation();				    	
+				     		
 					    	if(fontObj.hasFont == 'true'){
-					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
+					    		document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
 					    	}else{
-					    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
+					    		document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
 					    	}
 					    	var manip = window.parent.getOpenManipData();
 					    	if(manip != 'null')
@@ -216,8 +219,8 @@ img {
 					    	 FCAT_formula_card.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
 					    	 TN_formula_card.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";*/
 					    	lz.embed.setCanvasAttribute('readable',stat);
-					    	document.getElementById('__lz0').contentWindow.translate(xscalefactorjs, (450 * yscalefactorjs)/600);
-					    	
+					    	document.getElementById('__lz1').contentWindow.translate(xscalefactorjs, (450 * yscalefactorjs)/600);
+					    	initScratchpad(fontObj.hasFont);
 					    	var scratchPadLatest = window.parent.scratchpadManager.getCounter();
 					    	var manipObjectAtCounter = window.parent.scratchpadManager.getObjectAtCounter(scratchPadLatest);
 							if(manipObjectAtCounter.state == true){
@@ -243,7 +246,6 @@ img {
         }
         
         function setScratchPadText(arg){
-        	//console.log("setScratchpadtext", arg);
         	lz.embed.setCanvasAttribute('scratchpadtext',arg);
         }
         
@@ -306,19 +308,29 @@ img {
        }
        
        function getScratchpadCoordinates(){
-       			
-       	return gScratchpad.x +"|"+ gScratchpad.y;
+       	if(textAreaElement){
+       		//Storing in parent for TE items sync
+       		window.parent.setSPText(textAreaElement.value);
+       		//For regular Items sync
+       		return gScratchpad.x +"|"+ gScratchpad.y + "|" + textAreaElement.value;	
+       	}
+       	return gScratchpad.x +"|"+ gScratchpad.y ;
        }
               
        function showOpenManipulative(arg){
         	lz.embed.setCanvasAttribute('manipData',arg);
         }
-        </script>
+        
+        function dummy(){
+        initScratchpad();
+        showHideManipulative('scratchpad');
+        }
+       </script>
 
 <body>
 <input type="button" onclick="prepareJson();"
 	style="display: none;"></input>
-<input type="button" onclick="showHideManipulative('scratchpad');"
+<input type="button" onclick="dummy();"
 	style="display: none;"></input>
 <div id="appcontainer"></div>
 

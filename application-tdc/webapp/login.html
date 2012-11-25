@@ -110,7 +110,8 @@ function mydetectFlashUsingJavascript(){
 function setSPText(arg){
 	if(arg=="")
      	arg=" ";
-	lz.embed.setCanvasAttribute('sptext',arg);
+    spText = arg; 	
+    lz.embed.setCanvasAttribute('sptext',arg);
 }
 
 function storeScratchPadText(args){	
