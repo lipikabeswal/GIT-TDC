@@ -31,6 +31,7 @@
         <attribute name="newX" type="number" value="200" />
 		<attribute name="newY" type="number" value="113" />
 		<attribute name="characterLimit" type="number" value="10000" />
+		<attribute name="scratchpadtext" value="null" />
         <handler name="onmousedown">
         	this.bringToFront();
         	this.sp.inp.setSelectable(false);
@@ -89,8 +90,8 @@
         </handler>
         
         <method name="restoreFocusAndCursor">
-        	this.sp.inp.onfocus.sendEvent();
-        	this.sp.resetTheSelection();
+        	//this.sp.inp.onfocus.sendEvent();
+        	//this.sp.resetTheSelection();
         	this.setAttribute("scratchpadHasFocus", true);
 			//gHotKeys.disableKeys();
         </method>
@@ -101,21 +102,23 @@
 		</method>
         
         <method name="getText">
-        	return this.sp.getText();
+			var text = getScratchpadText();
+        	return text;
         </method>
         
         <method name="read">
  	    	//gReadableText.read(sp.getSelectedText(), true);
-			var s = "setTTSText('"+sp.getSelectedText()+"')";
+			var s = "setTTSText('"+getSelectedText()+"')";
 			lz.Browser.loadJS(s);
 			restoreFocusAndCursor();
         </method>
         
-        <method name="setText" args="txt">
+        <method name="applyText" args="txt">
 		  txt = txt.split('~|||||||').join('\n');
-          this.sp.inp.onfocus.sendEvent();
-          this.sp.inp.onblur.sendEvent();
-          this.sp.setAttribute('text',formatXml(txt));
+		  txt = formatXml(txt);
+		  this.setAttribute('scratchpadtext',txt )
+	      setScratchpadText(txt);
+			//console.log("setscratchpadtext");
         </method>
         
         <method name="replace" args="s, t, u"><![CDATA[
@@ -172,7 +175,12 @@
         	this.setAttribute('visible',false);
         </method>
 
+		<method name="setHtml" args="arg">
+			this.htsp.setAttribute('html',arg);
+		</method>
+
 		  <handler name="onvisible"><![CDATA[
+		  	setFocus();
 			if(!hasXY){
 				if(this.visible){  // restore defaults
 					this.setAttribute("height", this.DEFAULT_HEIGHT);
@@ -196,11 +204,17 @@
 			//gHotKeys.enableKeys();
          </handler>
          
+         <html name="htsp" height="100%" 
+	                             width="100%" scrollbars="false" visible="true">
+	    	                         
+		</html>	                             
+         
 	     <scrolledittext name="sp" 
 	                             height="${immediateparent.height}" 
 	                             width="${immediateparent.width}" 
 	                             focusable="true"
-	                             clickable="true">
+	                             clickable="true"
+	                             visible="false">
 	            	<attribute name="start" type="number" value="0" />
 	            	<attribute name="end" type="number" value="0" />
 	            	<attribute name="scrollPos" type="number" value="0" />
@@ -228,7 +242,6 @@
 				<handler name="ontext"><![CDATA[
 					var textContent = this.text;
 					//var textContent = this.text.split('\n').join('~|||||||');
-					//console.log("textContent *************  ",textContent);
 					storeSelection();
 					var s = "updateScratchPadText('"+textContent+"')";
 					lz.Browser.loadJS(s);

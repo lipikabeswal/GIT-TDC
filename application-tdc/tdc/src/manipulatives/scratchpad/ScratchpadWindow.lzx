@@ -34,8 +34,8 @@
                 resource="window_resizebtn_rsc"
                 onmouseover="if (this.frame == 1) setAttribute('frame', 2);"
                 onmouseout="if (this.frame == 2) setAttribute('frame', 1);"
-                onmousedown="classroot._startResize();setAttribute('frame', 3);"
-                onmouseup="classroot._stopResize(); setAttribute('frame', 1); gScratchpad.restoreFocusAndCursor();"
+                onmousedown="classroot._startResize();setAttribute('frame', 3); "
+                onmouseup="classroot._stopResize(); setAttribute('frame', 1); "
                 oninit="classroot.setTint(this, classroot.style.basecolor)"
                 />
         </state>
@@ -64,8 +64,9 @@
                 </state>
                 
                 <handler name="oninit">
-                	Debug.write("ScratchPad Window lzx");
+                	//Debug.write("ScratchPad Window lzx");
                 </handler>
+                                
                 <!-- this is the "defaultplacement" view -->
             </view>
         </view>
