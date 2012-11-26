@@ -28,16 +28,18 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+
 import com.ctb.tdc.web.TTSservlet.servlet.SpeechServlet;
-import com.ctb.tdc.web.processingAction.ContentAction;
+import com.ctb.tdc.web.processingAction.ContentActionDesc;
 import com.ctb.tdc.web.processingAction.PersistenceAction;
+import com.ctb.tdc.web.processingAction.SoundRecording;
 import com.ctb.tdc.web.utils.ServletUtils;
 
 
 public class DelegatePlugin extends Plugin {
 	
-    public static final String TAG                = "ExamplePlugin";
-    public static final String LOGIN_ACTION    	  = "LOGIN";
+    public static final String TAG                = "DelegatePlugin";
+ 
     PersistenceAction persistenceAction=null;
     @Override
     public PluginResult execute(String action, JSONArray data, String callbackId) {
@@ -50,19 +52,10 @@ public class DelegatePlugin extends Plugin {
             try {
             	 response.put("OK", "OK");
             	 String method=null,xmlRequest=null,actionName=null;
-            	/*ContentAction contentAction=new ContentAction();
-            	contentAction.downloadItem("d");*/
-            	PersistenceAction persistenceAction=null;
             	
-               // systemTime.put("time", "Login Success at time "+System.currentTimeMillis());
-              //  method="downloadFileParts";
-               // method="getSubtest";
-                
-                
                 for(int i=0;i<data.length();i++) {
                     json_data = data.getJSONObject(i);
-                    xmlData=json_data.getString("param1");
-                                      
+                     
             	}
                 
                  method = json_data.getString("param1");
@@ -73,51 +66,26 @@ public class DelegatePlugin extends Plugin {
 					persistenceAction = new PersistenceAction();
 					if ((method != null)
 							&& (!method.equals(ServletUtils.NONE_METHOD))) {
-						//String xml = ServletUtils.buildPersistenceParameters(	method, xmlRequest);
+					
 						String xml=xmlRequest;
 						
 						try {
 							xmlData=persistenceAction.handleEvent(method, xml);
 							
-						} catch (Exception e) {
-							// TODO: handle exception
+						} catch (Exception ex) {
+							Log.e("error", ex.getMessage());
 						}
 					} else {
 						xmlData=doGetpersisXml(method);
 					}
+					
+					System.out.println("save responce--->>>>>>>>>>>>>>>>>>>"+xmlData);
 					 response.put("OK", xmlData);
 				}
 				else if (actionName.equals("ContentAction")) {
-					
-					ContentAction contentAction=new ContentAction();
 					try{
-					if (method !=null &&  method.equals(ServletUtils.GET_SUBTEST_METHOD)) {
-						xmlData=contentAction.getSubtest(xmlRequest);
-					} else if (method.equals(ServletUtils.DOWNLOAD_ITEM_METHOD)) {
-						xmlData=contentAction.downloadItem(xmlRequest);
-					} else if (method.equals(ServletUtils.GET_ITEM_METHOD)) {
-						xmlData=contentAction.getItem(xmlRequest);
-					}
-					else if (method.equals(ServletUtils.GET_IMAGE_METHOD)) {
-						xmlData=contentAction.getImage(xmlRequest);//need to check again throughly
-					}
-					else if (method.equals(ServletUtils.GET_LOCALRESOURCE_METHOD)) {
-						xmlData=contentAction.getLocalResource(xmlRequest);
-					}else if (method.equals(ServletUtils.GET_MUSIC_DATA_METHOD)) {
-						xmlData=contentAction.getMusicData(xmlRequest);
-					}
-					else if (method.equals(ServletUtils.PLAY_MUSIC_DATA_METHOD)) {
-						contentAction.playMusicData(xmlRequest);
-					}
-					else if (method.equals(ServletUtils.STOP_MUSIC_DATA_METHOD)) {
-						contentAction.stopMusicData();
-					}
-					else if (method.equals(ServletUtils.GET_FILE_PARTS)){
-						xmlData=contentAction.downloadFileParts (xmlRequest);
-					}
-					else {
-						xmlData=ServletUtils.writeResponse(ServletUtils.ERROR);
-					}
+						xmlData=ContentActionDesc.getContentActionDescInstance().getXmlData(method, xmlRequest);
+						
 					 response.put("OK", xmlData);
 					}
 					
@@ -134,10 +102,25 @@ public class DelegatePlugin extends Plugin {
 					response.put("OK", ServletUtils.OK);
 					
 				}
+				else if (actionName.equals("SoundRecorderAction")) {
+					xmlData=xmlRequest;
+					
+					SoundRecording soundRecording=new SoundRecording();
+					if ("record".equalsIgnoreCase(method)) {
+						//System.out.println("record start");
+						soundRecording.startRecording(xmlData);
+					} else if ("stop".equalsIgnoreCase(method)) {
+						soundRecording.stopRecording();
+					
+					} else if ("reset".equalsIgnoreCase(method)) {
+						soundRecording.reset();
+					
+					 response.put("OK", xmlData);
+				}
+				}
 				
               else {
-            	response.put("OK", ServletUtils.OK);
-               // result = new PluginResult(Status.ERROR);
+            	response.put("OK", ServletUtils.OK);            
                 Log.e(TAG, "Invalid action: " + action);
                
             }

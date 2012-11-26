@@ -149,7 +149,7 @@ public class ServletUtils {
 			// client = new DefaultHttpClient(mgr, httpParams);
 
 			// ServletUtils.readServletSettings();
-			String proxyHost = getProxyHost();
+			/*String proxyHost = getProxyHost();
 			if ((proxyHost != null) && (proxyHost.length() > 0)) {
 				// apply proxy settings
 				int proxyPort = getProxyPort();
@@ -158,7 +158,7 @@ public class ServletUtils {
 				String domain = getProxyDomain();
 				ServletUtils.setProxyCredentials(client, proxyHost, proxyPort,
 						username, password, domain);
-			}
+			}*/
 			// TTSSettings ttssettings = getTTSSettings();
 
 		} catch (Exception e) {
@@ -241,6 +241,12 @@ public class ServletUtils {
 	public static final String SET_VOLUME_MUSIC_DATA_METHOD = "setVolume";
 	public static final String LOAD_MUSIC_DATA_METHOD = "getMp3";
 	public static final String GET_FILE_PARTS = "downloadFileParts";
+	public static final String GET_TE_ITEM = "getTEItems";
+	public  static final String TE_ITEM_FOLDER_PATH = Environment
+			.getExternalStorageDirectory()
+			+ File.separator
+			+ "webapp"
+			+ File.separator + "items" + File.separator;
 
 	
 	
@@ -285,8 +291,7 @@ public class ServletUtils {
 			+ File.separator;
 	public static final String tempPath = Environment
 			.getExternalStorageDirectory()
-			+ File.separator
-			+ "content"
+			
 			+ File.separator + "data" + File.separator;
 	public static final String contentFolder =	"/content"+ File.separator + "data";
 			
@@ -607,7 +612,7 @@ public class ServletUtils {
 		if (!memoryCache.isLoaded()) {
 			try {
 				rbTdc = ResourceBundle.getBundle(SERVLET_NAME);
-				rbProxy = ResourceBundle.getBundle(PROXY_NAME);
+				//rbProxy = ResourceBundle.getBundle(PROXY_NAME);
 				srvSettings = new ServletSettings(rbTdc, rbProxy);
 				memoryCache.setSrvSettings(srvSettings);
 				memoryCache.setLoaded(true);
@@ -1052,6 +1057,7 @@ public class ServletUtils {
 			}
 			String result = OK;
 			int responseCode = HttpStatus.SC_OK;
+			
 
 			// create post method with url based on method
 			String tmsURL = getTmsURLString(method);
@@ -1084,9 +1090,8 @@ public class ServletUtils {
                 System.out.println("responseCode-->>"+responseCode);
 				if (responseCode == HttpStatus.SC_OK) {
 
-					BufferedReader in = new BufferedReader(
-							new InputStreamReader(response.getEntity()
-									.getContent()));
+					BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()),131072);
+									
 					String inputLine = null;
 					result = "";
 					while ((inputLine = in.readLine()) != null) {
