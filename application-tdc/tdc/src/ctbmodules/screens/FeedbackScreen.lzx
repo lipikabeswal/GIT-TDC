@@ -18,7 +18,7 @@
  		<method name="showFeedback" args="feedback"><![CDATA[
  			var allScos = new Array();
    			var node = lz.DataElement.stringToLzData(feedback);
-            dsfeedback.setChildNodes(new Array(node));
+            dsfeedback.setAttribute('childNodes',new Array(node));
 			var name = gController.getStudentName();
             studentName.setAttribute('text', name + ", this is how you did.");
             info.testName.setAttribute('text', dpfeedback.xpathQuery('title/@name'));

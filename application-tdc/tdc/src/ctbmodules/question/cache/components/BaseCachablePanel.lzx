@@ -231,7 +231,7 @@
 					}
 					tempNodeArr[i] = tempNode; 
 				}
-				dnode.setChildNodes(tempNodeArr);
+				dnode.setAttribute('childNodes',tempNodeArr);
 			}		
 		]]></method>
 		

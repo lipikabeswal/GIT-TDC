@@ -18,6 +18,7 @@
         	Debug.write("On Goodbye Screen");
         	gMusicPlayer.stop();
 	    	var getUrl = lz.Browser.getInitArg( 'servletUrl' ) + '/UtilityServlet.do?method=exit';
+	    	Debug.write("getUrl....",getUrl);
 			goodbyeDs.setAttribute('src', getUrl);
 			goodbyeDs.doRequest();
 		</method>

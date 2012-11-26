@@ -96,12 +96,12 @@
                                                          layout   : "vertical",
                                                          enablehl : false});
             
-            dntoppanel.setChildNodes(panelarr);
+            dntoppanel.setAttribute('childNodes',panelarr);
 
             //change all subnodes according to new layout requirements
             this.convertNodes(panelarr, 780, true);
 
-            this.datapath.p.setChildNodes([dntoppanel]);
+            this.datapath.p.setAttribute('childNodes',[dntoppanel]);
         ]]></method>
 
 
@@ -188,10 +188,10 @@
             this.convertNodes(rightchildarr, rightwidth - _SCROLLBAR_WIDTH, false);
 
             //rearrange subnodes
-            dnleftpanel.setChildNodes(leftchildarr);
-            dnrightpanel.setChildNodes(rightchildarr);
+            dnleftpanel.setAttribute('childNodes',leftchildarr);
+            dnrightpanel.setAttribute('childNodes',rightchildarr);
 
-            dntwopanel.setChildNodes([dnleftpanel, dnrightpanel]);
+            dntwopanel.setAttribute('childNodes',[dnleftpanel, dnrightpanel]);
 
             var topchildarr = [dntwopanel];
             if (dndir) {
@@ -199,7 +199,7 @@
             }
 
             //finalize
-            this.datapath.p.setChildNodes(topchildarr);
+            this.datapath.p.setAttribute('childNodes',topchildarr);
         ]]></method>
 
 
