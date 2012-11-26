@@ -173,6 +173,7 @@
 	<attribute name="htmlGeneralManip" value="$once{new Object()}" />
 	<attribute name="htmlManip" value="null" />
 	<attribute name="htmlOpenManip" value="null" />
+	<attribute name="footnotetext" value="null"/>
 	<attribute name="currentEid"/>
 	
 	<handler name="onsetanswer" args="data">
@@ -219,6 +220,10 @@
 
 	<handler name="onhtmlManip" args="data">
 		gController.addManipulatives(data);
+	</handler>
+	
+	<handler name="onfootnotetext" args="arg">
+		gFootNotePopup.show(arg);	
 	</handler>
 
 	<method name="setCrFocus"><![CDATA[

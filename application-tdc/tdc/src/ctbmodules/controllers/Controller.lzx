@@ -512,6 +512,7 @@
 		<attribute name="stylesArr" value="$once{new Array()}"/>
 		<attribute name="htmlGeneralManipData" value="$once{new Array()}" />
 		<attribute name="htmlmanipStateHtml" value="$once{new Object()}" />
+		<attribute name="questionFontSize" type="number" value="0"/>
 		<!--
 			============================================================
 			Datapointers
@@ -3975,6 +3976,8 @@ Debug.write("############ loadItem ############");
                 	if( theStyle.getAttr("font_magnification") > 1) {
                 		fontAccom = true;
                     	this.setAttribute("hasFontAccommodation", true);
+                    	var fontsize = theStyle.getAttr("font_magnification");
+						this.setAttribute('questionFontSize',Number(fontsize)*canvas.basefontsize);
                     }
                     if(theStyle.hasAttr('bgcolor')){
                     	bgclr = theStyle.getAttr('bgcolor');

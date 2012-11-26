@@ -40,7 +40,11 @@
         <attribute name="words" />
         <attribute name= "initTextImgArr" />
         <attribute name="textImgArr" />
-        
+		 <attribute name="textFoottnoteArr" />
+		<attribute name="embedded_inline_footnote" type="boolean" value="false"/>
+         <attribute name="ftext" type="string"/>
+		<attribute name="inputText"/>
+
         <handler name="ondata" args="data" reference="hlstatus">
             this.setAttribute ('isHighlighter', data == 'sel');
         </handler>
@@ -122,6 +126,16 @@
             else{
                 this.setAttribute("embedded_input", false);
                 this.setAttribute("embedded_inline_image", false);
+            }
+            var textData = data.getFirstChild().data;
+            if(textData.indexOf("<footnote") != -1) {
+            	this.setAttribute("embedded_inline_footnote", true);
+               	this.embedded_inlinefootnote_text(data);
+               	doneLoading();
+               	return;
+            }
+            else {
+            	this.setAttribute("embedded_inline_footnote", false);
             }
 			setTextReaderAttributes(data);
 			
@@ -487,6 +501,168 @@
                 this.setAttribute("rmargin", data.getAttr("rmargin"));
             this.ibox.bringToFront();
         ]]></method>
+        
+      	   <method name="embedded_inlinefootnote_text" args="data"><![CDATA[ 
+			var footnoteText="";
+        	setTextReaderAttributes(data);
+        	var allFields = new Array();
+			var dataText = data.getFirstChild().data;
+			Debug.write("embedded_inlinefootnote_text: dataText----------- ",dataText);
+			
+			var doubleBrIndex = dataText.lastIndexOf('<br/><br/>');
+			if(doubleBrIndex != -1 && ((dataText.length - doubleBrIndex) == 10)){
+       			dataText = dataText.substr(0, dataText.length - 5);
+			}
+            
+            var i_on = false, b_on = false, u_on = false;
+			var readableText = this.hasAltText ? this.altText : "";
+            // Parse the "footnote" XML input
+            this.words = splitTextAndFootnote(dataText);
+				for (var i = 0; i < words.length; i++) {
+			
+				// Parse the <footnote> and put attributes into a hash, starting tag may come escaped, so take care of &lt; also.
+				if (i < words.length && (words[i].indexOf("<footnote") != -1 || words[i].indexOf("&lt;footnote") != -1)) {
+			
+					var hash = new Array();
+					Debug.write("gController.hasFontAccommodationgController.hasFontAccommodation" , gController.hasFontAccommodation);
+                    if (gController.hasFontAccommodation){
+
+                    	hash['fontsize'] = 18;
+                    }
+                    else{
+                    	hash['fontsize'] = 12;
+                    }
+					hash['fontcolor'] = this.fontcolor;
+
+					var fnHeaderText = getAttributeValues('header',words[i]);
+					var fnDetailText = getAttributeValues('detail',words[i]);
+					var fnReadableText = getAttributeValues('readable',words[i]);
+					var footnoteStartIndex = words[i].indexOf(';">');
+					var fnlen = (';">').length;
+					if(footnoteStartIndex != -1) {
+						var fnTemp = words[i].substr(Number(footnoteStartIndex)+Number(fnlen),words[i].length);
+						footnoteText = fnTemp.substr(0,fnTemp.indexOf('</a>'));
+					}
+					if (i_on) footnoteText = "<i>" + footnoteText + "</i>";
+		            if (b_on) footnoteText = "<b>" + footnoteText + "</b>";
+		            if (u_on) footnoteText = "<u>" + footnoteText + "</u>";
+
+					hash['header'] = fnHeaderText;
+					hash['detail'] = fnDetailText;
+					hash['readable'] = fnReadableText;
+					hash['fntext'] = footnoteText;
+
+					this.ftext = new lz.text_box(this, hash);
+					for (var key in hash) {
+						this.ftext.setAttribute(key,hash[key]);
+					}
+                  	allFields.push(this.ftext);
+					if (!this.hasAltText) {
+		    			readableText = readableText + footnoteText.substr(0,footnoteText.indexOf('&')) + " "; 
+		    		} 
+				}
+				else{
+					this.inputText = words[i].split(' ');
+					for(var j = 0; j < inputText.length; j++) {
+						if (inputText[j] == null || inputText[j] == "/>" || inputText[j].length == 0 || 
+                              typeof inputText[j] == "undefined") {
+                   		continue;
+                		}
+
+						if (!this.hasAltText) {
+			    			readableText = readableText + inputText[j] + " "; 
+			    		}              
+
+	                // If the input word is surrounded by HTML font type delimiters
+						if (inputText[j].indexOf("<i>") != -1 && inputText[j].indexOf("</i>") != -1) 
+							inputText[j] = "<i>" + inputText[j] + "</i>";
+						else if (inputText[j].indexOf("<i>") != -1) 
+							i_on = true;
+						else if (inputText[j].indexOf("</i>") != -1) {
+							inputText[j] = "<i>" + inputText[j] + "</i>";
+							i_on = false;
+						}
+
+
+		               if (inputText[j].indexOf("<b>") != -1 && inputText[j].indexOf("</b>") != -1) 
+		                  inputText[j] = "<b>" + inputText[j] + "</b>";
+		               else if (inputText[j].indexOf("<b>") != -1)
+		                  b_on = true;
+		               else if (inputText[j].indexOf("</b>") != -1) {
+		                  inputText[j] = "<b>" + inputText[j] + "</b>";
+		                  b_on = false;
+		               }
+
+		               if (inputText[j].indexOf("<u>") != -1 && inputText[j].indexOf("<u>") != -1) 
+		                  inputText[j] = "<u>" + inputText[j] + "</u>";
+		               else if (inputText[j].indexOf("<u>") != -1)
+		                  u_on = true;
+		               else if (inputText[j].indexOf("</u>") != -1) {
+		                  inputText[j] = "<u>" + inputText[j] + "</u>";
+		                  u_on = false;
+		               }
+
+		               if (i_on) inputText[j] = "<i>" + inputText[j] + "</i>";
+		               if (b_on) inputText[j] = "<b>" + inputText[j] + "</b>";
+		               if (u_on) inputText[j] = "<u>" + inputText[j] + "</u>";
+
+		               // Add a <p> to the first word and a </p> to the last
+		               var name = new lz.CachableInputTextField(this, { "resize" : true });
+		               allFields.push(name);
+		               if (i == 0 && j == 0)
+		                  name.setText("<p>" + inputText[j]);
+		               if (i == words.length-1 && j == inputText.length-1)
+		                      name.setText(inputText[j] + "</p>");
+		               name.setText(inputText[j]);
+		               name.setAttribute('fgcolor', this.fontcolor);
+					}
+				}  
+     		}
+            // Used by the TextReader
+            for (var i = 0; i < allFields.length; i++) {
+            	var theField = allFields[i];
+            	if(theField instanceof lz.CachableInputTextField) {
+            		theField.setReadableText(gReadableText.stripHtmlTags(readableText));
+            	}
+            }
+            Debug.write("theField------------- ",allFields);
+            var xin = parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
+			// For inline cr, to avoid overlapping of text objects, set value to 0
+            var xsp = gController.hasFontAccommodation ? 0 : (this.embedded_inline_footnote ? 0 : -1); ;
+            this.setAttribute('wl', new lz.inlinewrappinglayout(this, { axis : "x", xinset : xin, xspacing : xsp } ));
+
+            
+            // To distinguish between numerous input fields, we'll maintain an array of hashes
+            // containing their widget ID and answered state (filled or empty). Additionally each
+            // class also stores its widget ID to allow them to be matched up.
+            if (data.getAttr("id")) {
+                this.widget_id = data.getAttr("id");
+            }
+            
+            if (data.getAttr("width")) 
+                this.setAttribute('width', Number(data.getAttr("width")));
+			if (data.getAttr("char_limit"))
+                this.setAttribute("char_limit", Number(data.getAttr("char_limit"))); 
+			if (data.getAttr("halign")) 
+                this.setAttribute("halign", data.getAttr("halign")); 
+			if (data.getAttr("lmargin"))
+                this.setAttribute("lmargin", data.getAttr("lmargin")); 
+			if (data.getAttr("rmargin"))
+                this.setAttribute("rmargin", data.getAttr("rmargin"));
+            this.ftext.bringToFront(); 
+        ]]></method> 
+
+
+		<method name="getAttributeValues" args="attrName,dataText">
+			var attrText = "";
+			var attrStartIndex = dataText.indexOf(attrName+'="');
+			var len = (attrName+'="').length;
+			if(attrStartIndex!=-1){
+				var temp = dataText.substr(Number(attrStartIndex)+Number(len),dataText.length);
+				attrText = temp.substr(0,temp.indexOf('"'));
+			}
+			return attrText;
+		</method>
  
         <method name="doReturnToCache"><![CDATA[
             var destroy = false;
@@ -886,8 +1062,40 @@ parse the text string and store text and image string in an array at different i
 				}
 			}
 		]]></method>
-		
 
+		<method name="splitTextAndFootnote" args="txt"><![CDATA[
+			//Debug.write("In splitTextAndFootnote************",txt);
+			this.textFoottnoteArr = new Array();
+			var result = "";
+			var remainder = txt;
+			var startIndex = 0;
+			var endIndex = 0;
+			var inputField;
+			var widgetId;
+			while(startIndex != -1){
+				startIndex = remainder.indexOf('<footnote', startIndex);
+				if(startIndex != -1){  // found substitution string
+					if(startIndex > 0) {				
+						result = remainder.substring(0 , startIndex );
+						textFoottnoteArr.push(trim(result));
+					}
+					endIndex = remainder.indexOf('</footnote>', startIndex);
+					result = remainder.substring(startIndex , endIndex + 12);
+					textFoottnoteArr.push(trim(result));
+					remainder = remainder.substring(endIndex + 12, remainder.length);
+//					Debug.write('remainder..', remainder);
+					startIndex=0;
+				}
+				else{ 
+					if (remainder != " ") {
+						result = remainder.substring(0, remainder.length);
+						textFoottnoteArr.push(trim(result));
+					} 
+					
+				}
+			}
+			return textFoottnoteArr;
+		]]></method>
 
         <!-- ===============
              = VIEWS
@@ -903,7 +1111,7 @@ parse the text string and store text and image string in an array at different i
             	this.subviews[0].setAttribute('clickable',true);
 		</method>
         
-        <state applied="${classroot.embedded_input == false &amp;&amp; classroot.embedded_inline_image == false}">
+        <state applied="${classroot.embedded_input == false &amp;&amp; classroot.embedded_inline_image == false &amp;&amp; classroot.embedded_inline_footnote == false}">
            <view name="clickregionreader"
                  width="${classroot.thetext.width}"
                  height="${classroot.thetext.height}"
