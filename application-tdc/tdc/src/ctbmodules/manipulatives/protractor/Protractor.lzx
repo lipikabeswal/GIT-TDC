@@ -31,29 +31,30 @@
 			<attribute name="actualY" value="$once{this.yoffset - this.getMouse( 'y' )}" />
 			
             <attribute name="__dragstate_ydoffset" 
-                       value="$once {this.getMouse('x') * Math.sin (this.rrotation) +
-                                     this.getMouse('y') * Math.cos (this.rrotation)}"/>
+                       value="$once {this.actualX * Math.sin (this.rrotation) +
+                                     this.actualY * Math.cos (this.rrotation)}"/>
             <attribute name="__dragstate_xdoffset" 
-                       value="$once {this.getMouse('x') * Math.cos (this.rrotation) -
-                                     this.getMouse('y') * Math.sin (this.rrotation)}"/>
-
+                       value="$once {this.actualX * Math.cos (this.rrotation) -
+                                     this.actualY * Math.sin (this.rrotation)}"/>
 
 			<handler name="on__dragstate_xdoffset" args="data">
 				Debug.write("on__dragstate_xdoffset data",data);
 				Debug.write("Mouse X Mouse Y", this.getMouse('x'), this.getMouse('y'));
-				Debug.write("xpos,yoffset", classroot.xpos, classroot.ypos,parent.xoffset,parent.yoffset);
-				Debug.write("x,y", classroot.x, classroot.y);								
+				Debug.write("classroot.xpos, classroot.ypos,parent.xoffset,parent.yoffset", classroot.xpos, classroot.ypos,parent.xoffset,parent.yoffset);
+				Debug.write("classroot.x, classroot.y", classroot.x, classroot.y);								
 			</handler>
 			
 			<handler name="on__dragstate_ydoffset" args="data">
 				Debug.write("on__dragstate_ydoffset data",data);
 				Debug.write("Mouse X Mouse Y", this.getMouse('x'), this.getMouse('y'));
-				Debug.write("xpos,yoffset", parent.xpos, parent.ypos,parent.xoffset,parent.yoffset);
-				Debug.write("x,y", classroot.x, classroot.y);								
+				Debug.write("parent.xpos, parent.ypos,parent.xoffset,parent.yoffset", parent.xpos, parent.ypos,parent.xoffset,parent.yoffset);
+				Debug.write("classroot.x, classroot.y", classroot.x, classroot.y);								
 			</handler>
             <handler name="onapply">
+            	Debug.write("********************onapply**********************");
+            
                 var rotation = classroot.rotation * (Math.PI/180);
-				Debug.write("classroot.roation",classroot.rotation);
+				Debug.write("classroot.roation",classroot.rotation,rotation);
                 var grabber = classroot.grabber;
 
                 var gxstart = (grabber.x) * Math.cos (rotation) -
@@ -76,17 +77,17 @@
                                         classroot.parent.width - (Math.max (gxstart, gxend)));
                 classroot.setAttribute ('dragymax', 
                                         classroot.parent.height - 6  - (Math.max (gystart, gyend)));
-				Debug.write("classroot.parent.width,classroot.parent.height", classroot.parent);
+				Debug.write("classroot.parent", classroot.parent);
 				Debug.write("classroot.parent.width,classroot.parent.height", classroot.parent.width,classroot.parent.height);
 				
 				Debug.write("protractor***onapply***actualX** ",this.actualX,this.actualY);
 				Debug.write("on__dragstate_ydoffset data",__dragstate_ydoffset);
 				Debug.write("on__dragstate_xdoffset data",__dragstate_xdoffset);
 				//Debug.write("Mouse X Mouse Y********** ", this.getMouse('x'), this.getMouse('y'));
-				Debug.write("xpos,yoffset", parent.xpos, parent.ypos,parent.xoffset,parent.yoffset);
-				Debug.write("x,y", classroot.x, classroot.y,this.x,this.y);		
+				Debug.write("parent.xpos, parent.ypos,parent.xoffset,parent.yoffset", parent.xpos, parent.ypos,parent.xoffset,parent.yoffset);
+				Debug.write("classroot.x, classroot.y,this.x,this.y", classroot.x, classroot.y,this.x,this.y);		
 
-				Debug.write("grabber.x****after***** ",grabber.x,grabber.y,rotation);			
+				Debug.write("grabber.x,grabber.y,rotation****after***** ",grabber.x,grabber.y,rotation);			
             </handler>
 
         </dragstate>
