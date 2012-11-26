@@ -40,13 +40,20 @@
             lz.Cursor.lock ();
         </handler>
 
-		<handler name="onmouseup" reference="lz.GlobalMouse" args="who">
+		<handler name="onmouseup" reference="lz.GlobalMouse" args="who"><![CDATA[
+			
 			if(who){
-				if(this.isTestInterrupted) {
+				Debug.write("onmouseup....if...",gController.focusOnScratchpad);
+				if(this.visible){
+					if(this.isTestInterrupted){// && gController.focusOnScratchpad) {
+					
+					//Debug.write("onmouseup....if/if....");
 					restoreFocusAndCursor();
+					this.setAttribute("isTestInterrupted",false);
+					}
 				}
-				Debug.write("this.sp.inp.getTextHeight(): ",this.sp.inp.getTextHeight());
-				Debug.write("this.sp.height: ",this.sp.height);
+				//Debug.write("this.sp.inp.getTextHeight(): ",this.sp.inp.getTextHeight());
+				//Debug.write("this.sp.height: ",this.sp.height);
 				if(this.sp.inp.getTextHeight() > this.sp.height) {
 					this.sp.inp.setAttribute("scroll",this.sp.inp.maxscroll);
 				}
@@ -65,6 +72,7 @@
 				else if (who == gPauseButton || who == gStopButton || who == gFinishTestButton ){
 					this.setAttribute("isTestInterrupted",true);
 					if(this.scratchpadJustLostFocus){
+						Debug.write("scracthpad has just lost focus.....");
 						gController.setAttribute("focusOnScratchpad", true);
 					}
 				}
@@ -73,26 +81,26 @@
 				}
 				this.setAttribute("scratchpadJustLostFocus", false);
 			}
-		</handler>
+		]]></handler>
 		<handler name="onmousedown" reference="lz.GlobalMouse" args="who">
 			if(who){
-				Debug.write("this.sp.inp.getTextHeight(): ",this.sp.inp.getTextHeight());
-				Debug.write("this.sp.height: ",this.sp.height);
+				//Debug.write("this.sp.inp.getTextHeight(): ",this.sp.inp.getTextHeight());
+				//Debug.write("this.sp.height: ",this.sp.height);
 				if(this.sp.inp.getTextHeight() > this.sp.height) {
 					this.sp.inp.setAttribute("scroll",this.sp.inp.maxscroll);
 				}
 			}
 		</handler>
 		<handler name="onkeyup" reference="lz.Keys">
-			Debug.write("this.sp.inp.getTextHeight(): ",this.sp.inp.getTextHeight());
-			Debug.write("this.sp.height: ",this.sp.height);
+			//Debug.write("this.sp.inp.getTextHeight(): ",this.sp.inp.getTextHeight());
+			//Debug.write("this.sp.height: ",this.sp.height);
 			if(this.sp.inp.getTextHeight() > this.sp.height) {
 				this.sp.inp.setAttribute("scroll",this.sp.inp.maxscroll);
 			}
 		</handler>
 		<handler name="onkeydown" reference="lz.Keys">
-			Debug.write("this.sp.inp.getTextHeight(): ",this.sp.inp.getTextHeight());
-			Debug.write("this.sp.height: ",this.sp.height);
+			//Debug.write("this.sp.inp.getTextHeight(): ",this.sp.inp.getTextHeight());
+			//Debug.write("this.sp.height: ",this.sp.height);
 			if(this.sp.inp.getTextHeight() > this.sp.height) {
 				this.sp.inp.setAttribute("scroll",this.sp.inp.maxscroll);
 			}
@@ -127,6 +135,7 @@
         </handler>
         
         <method name="restoreFocusAndCursor">
+        	Debug.write("restore Focus and Cursor");
         	this.sp.inp.onfocus.sendEvent();
         	this.sp.resetTheSelection();
         	this.setAttribute("scratchpadHasFocus", true);
@@ -156,8 +165,11 @@
         </handler>
 
         <handler name="onvisible"><![CDATA[
+			Debug.write("onvisible....",this.visible);
         	if(!this.calledFromHtml){
-			if(this.visible){  // restore defaults
+			if(this.visible){ 
+ // restore defaults
+				Debug.write("onvisible..if.......",this.visible);
 				this.setAttribute("height", this.DEFAULT_HEIGHT);
 				this.setAttribute("width", this.DEFAULT_WIDTH);
 				this.setAttribute("x", this.DEFAULT_X);
@@ -165,6 +177,7 @@
            		this.restoreFocusAndCursor();
            		
            }else{
+				Debug.write("onvisible.....else.....",this.visible);
            		gReadableText.stopReading(true);
 				gScratchpad.sp.inp.onblur.sendEvent();
             }  
@@ -176,6 +189,7 @@
         ]]> </handler>
          
          <handler name="onblur" reference="sp.inp">
+			//Debug.write("onblur....");
 			this.setAttribute("scratchpadHasFocus", false);
 			this.setAttribute("scratchpadJustLostFocus", true);
 			gHotKeys.enableKeys();
@@ -258,7 +272,7 @@
 				</handler>
 				
 				<handler name="onblur" reference="inp">
-					//Debug.write("onblur.....");	
+								
 					if(gItemInterface.visible == true || gTutorial.visible == true){
 						gHotKeys.enableKeys();
 					}
