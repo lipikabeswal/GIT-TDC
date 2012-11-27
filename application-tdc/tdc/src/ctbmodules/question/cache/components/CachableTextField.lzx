@@ -518,13 +518,14 @@
 			var readableText = this.hasAltText ? this.altText : "";
             // Parse the "footnote" XML input
             this.words = splitTextAndFootnote(dataText);
+			//Debug.write("splitTextAndFootnote********** ",this.words);
 				for (var i = 0; i < words.length; i++) {
 			
 				// Parse the <footnote> and put attributes into a hash, starting tag may come escaped, so take care of &lt; also.
 				if (i < words.length && (words[i].indexOf("<footnote") != -1 || words[i].indexOf("&lt;footnote") != -1)) {
 			
-					var hash = new Array();
-					Debug.write("gController.hasFontAccommodationgController.hasFontAccommodation" , gController.hasFontAccommodation);
+					var hash = new Object();
+					//Debug.write("gController.hasFontAccommodationgController.hasFontAccommodation" , gController.hasFontAccommodation);
                     if (gController.hasFontAccommodation){
 
                     	hash['fontsize'] = 18;
@@ -543,6 +544,7 @@
 						var fnTemp = words[i].substr(Number(footnoteStartIndex)+Number(fnlen),words[i].length);
 						footnoteText = fnTemp.substr(0,fnTemp.indexOf('</a>'));
 					}
+					//Debug.write("footnoteText************* ",footnoteText);
 					if (i_on) footnoteText = "<i>" + footnoteText + "</i>";
 		            if (b_on) footnoteText = "<b>" + footnoteText + "</b>";
 		            if (u_on) footnoteText = "<u>" + footnoteText + "</u>";
@@ -552,7 +554,13 @@
 					hash['readable'] = fnReadableText;
 					hash['fntext'] = footnoteText;
 
+					//Debug.write("hash************* ",hash);
 					this.ftext = new lz.text_box(this, hash);
+					this.ftext.setAttribute('header',hash['header']);
+					this.ftext.setAttribute('detail',hash['detail']);
+					this.ftext.setAttribute('readable',hash['readable']);
+					this.ftext.setAttribute('fntext',hash['fntext']);
+
 					for (var key in hash) {
 						this.ftext.setAttribute(key,hash[key]);
 					}
@@ -625,7 +633,7 @@
             		theField.setReadableText(gReadableText.stripHtmlTags(readableText));
             	}
             }
-            Debug.write("theField------------- ",allFields);
+            //Debug.write("theField------------- ",allFields);
             var xin = parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
 			// For inline cr, to avoid overlapping of text objects, set value to 0
             var xsp = gController.hasFontAccommodation ? 0 : (this.embedded_inline_footnote ? 0 : -1); ;
