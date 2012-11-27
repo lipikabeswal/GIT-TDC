@@ -1,324 +1,338 @@
-// Decompiled by DJ v3.6.6.79 Copyright 2004 Atanas Neshkov  Date: 7/31/2012 12:35:06 PM
-// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
-// Decompiler options: packimports(3) 
-
 package com.ctb.tdc.web.dto;
 
-import java.io.Serializable;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-public class ServletSettings
-    implements Serializable
-{
+import java.util.logging.Logger;
 
-    public ServletSettings()
-    {
-        init();
-    }
-
-    public ServletSettings(ResourceBundle resourcebundle, ResourceBundle resourcebundle1)
-    {
-        init();
-        if(resourcebundle != null)
-        {
-            tmsHost = resourceBundleGetString(resourcebundle, "tms.server.host");
-            tmsPort = resourceBundleGetInt(resourcebundle, "tms.server.port");
-            try
-            {
-                tmsPersist = resourceBundleGetBoolean(resourcebundle, "tms.server.persist");
-            }
-            catch(MissingResourceException missingresourceexception)
-            {
-                tmsPersist = true;
-            }
-            try
-            {
-                tmsAckRequired = resourceBundleGetBoolean(resourcebundle, "tms.ack.required");
-            }
-            catch(MissingResourceException missingresourceexception1)
-            {
-                tmsAckRequired = true;
-            }
-            tmsAckMaxLostMessage = resourceBundleGetInt(resourcebundle, "tms.ack.maxLostMessage", 1, 10);
-            tmsAckMessageRetry = resourceBundleGetInt(resourcebundle, "tms.ack.messageRetry", 0, 35);
-            tmsAuditUpload = resourceBundleGetBoolean(resourcebundle, "tms.audit.upload");
-        }
-        if(resourcebundle1 != null)
-        {
-            proxyHost = resourceBundleGetString(resourcebundle1, "proxy.host");
-            proxyPort = resourceBundleGetInt(resourcebundle1, "proxy.port");
-            proxyUserName = resourceBundleGetString(resourcebundle1, "proxy.username");
-            proxyPassword = resourceBundleGetString(resourcebundle1, "proxy.password");
-            proxyDomain = resourceBundleGetString(resourcebundle1, "proxy.ntlmdomain");
-        }
-    }
-
-    private void init()
-    {
-        tmsHost = null;
-        tmsPort = 0;
-        tmsPersist = true;
-        tmsAckRequired = true;
-        tmsAckMaxLostMessage = 0;
-        tmsAckMessageRetry = 0;
-        tmsAuditUpload = false;
-        proxyHost = null;
-        proxyPort = 0;
-        proxyUserName = null;
-        proxyPassword = null;
-        proxyDomain = null;
-        validSettings = true;
-        errorMessage = "";
-    }
-
-    public String getProxyDomain()
-    {
-        return proxyDomain;
-    }
-
-    public void setProxyDomain(String s)
-    {
-        proxyDomain = s;
-    }
-
-    public String getProxyHost()
-    {
-        return proxyHost;
-    }
-
-    public void setProxyHost(String s)
-    {
-        proxyHost = s;
-    }
-
-    public String getProxyPassword()
-    {
-        return proxyPassword;
-    }
-
-    public void setProxyPassword(String s)
-    {
-        proxyPassword = s;
-    }
-
-    public int getProxyPort()
-    {
-        return proxyPort;
-    }
-
-    public void setProxyPort(int i)
-    {
-        proxyPort = i;
-    }
-
-    public String getProxyUserName()
-    {
-        return proxyUserName;
-    }
-
-    public void setProxyUserName(String s)
-    {
-        proxyUserName = s;
-    }
-
-    public int getTmsAckMaxLostMessage()
-    {
-        return tmsAckMaxLostMessage;
-    }
-
-    public void setTmsAckMaxLostMessage(int i)
-    {
-        tmsAckMaxLostMessage = i;
-    }
-
-    public int getTmsAckMessageRetry()
-    {
-        return tmsAckMessageRetry;
-    }
-
-    public void setTmsAckMessageRetry(int i)
-    {
-        tmsAckMessageRetry = i;
-    }
-
-    public boolean isTmsAckRequired()
-    {
-        return tmsAckRequired;
-    }
-
-    public void setTmsAckRequired(boolean flag)
-    {
-        tmsAckRequired = flag;
-    }
-
-    public boolean isTmsAuditUpload()
-    {
-        return tmsAuditUpload;
-    }
-
-    public void setTmsAuditUpload(boolean flag)
-    {
-        tmsAuditUpload = flag;
-    }
-
-    public String getTmsHost()
-    {
-        return tmsHost;
-    }
-
-    public void setTmsHost(String s)
-    {
-        tmsHost = s;
-    }
-
-    public boolean isTmsPersist()
-    {
-        return tmsPersist;
-    }
-
-    public void setTmsPersist(boolean flag)
-    {
-        tmsPersist = flag;
-    }
-
-    public int getTmsPort()
-    {
-        return tmsPort;
-    }
-
-    public void setTmsPort(int i)
-    {
-        tmsPort = i;
-    }
-
-    public String getTmsHostPort()
-    {
-        if(tmsPort > 0)
-            return (new StringBuilder()).append(tmsHost).append(":").append(tmsPort).toString();
-        else
-            return tmsHost;
-    }
-
-    public String getProxyHostPort()
-    {
-        if(proxyPort > 0)
-            return (new StringBuilder()).append(proxyHost).append(":").append(proxyPort).toString();
-        else
-            return proxyHost;
-    }
-
-    public boolean isValidSettings()
-    {
-        return validSettings;
-    }
-
-    public void setValidSettings(boolean flag)
-    {
-        validSettings = flag;
-    }
-
-    public String getErrorMessage()
-    {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String s)
-    {
-        errorMessage = s;
-    }
-
-    private String resourceBundleGetString(ResourceBundle resourcebundle, String s)
-    {
-        return resourcebundle.getString(s).trim();
-    }
-
-    private int resourceBundleGetInt(ResourceBundle resourcebundle, String s, int i, int j)
-    {
-        int k = -1;
-        String s1 = resourcebundle.getString(s).trim();
-        try
-        {
-            k = (new Integer(s1)).intValue();
-            if(k < i || k > j)
-            {
-                validSettings = false;
-                String s2 = buildErrorMessage(s, "tdc.servletSetting.error.outOfRange");
-                errorMessage = (new StringBuilder()).append(s2).append(" ").append(String.valueOf(i)).append(" - ").append(String.valueOf(j)).toString();
-            }
-        }
-        catch(Exception exception)
-        {
-            validSettings = false;
-            errorMessage = buildErrorMessage(s, "tdc.servletSetting.error.invalidInteger");
-        }
-        return k;
-    }
-
-    private int resourceBundleGetInt(ResourceBundle resourcebundle, String s)
-    {
-        int i = -1;
-        String s1 = resourcebundle.getString(s).trim();
-        try
-        {
-            if(s1.length() > 0)
-                i = (new Integer(s1)).intValue();
-        }
-        catch(Exception exception)
-        {
-            validSettings = false;
-            errorMessage = buildErrorMessage(s, "tdc.servletSetting.error.invalidInteger");
-        }
-        return i;
-    }
-
-    private boolean resourceBundleGetBoolean(ResourceBundle resourcebundle, String s)
-    {
-        boolean flag = false;
-        String s1 = resourcebundle.getString(s).trim();
-        if(s1.length() > 0)
-        {
-            s1 = s1.toLowerCase();
-            if(s1.equals("true"))
-                flag = true;
-            else
-            if(s1.equals("false"))
-            {
-                flag = false;
-            } else
-            {
-                validSettings = false;
-                errorMessage = buildErrorMessage(s, "tdc.servletSetting.error.invalidBoolean");
-            }
-        } else
-        {
-            validSettings = false;
-            errorMessage = buildErrorMessage(s, "tdc.servletSetting.error.cannotBeBlank");
-        }
-        return flag;
-    }
-
-    private String buildErrorMessage(String s, String s1)
-    {
-        ResourceBundle resourcebundle = ResourceBundle.getBundle("tdcResources");
-        String s2 = resourcebundle.getString("tdc.servletSetting.error.commonText");
-        String s3 = resourcebundle.getString(s1);
-        return (new StringBuilder()).append(s2).append(s).append(s3).toString();
-    }
-
+/**
+ * @author Tai_Truong
+ */
+public class ServletSettings implements java.io.Serializable {
     static final long serialVersionUID = 1L;
+    
+    static Logger logger = Logger.getLogger("ServletSettings.class");
+
     private String tmsHost;
+    private String backupURL;
+    
     private int tmsPort;
     private boolean tmsPersist;
     private boolean tmsAckRequired;
-    private int tmsAckMaxLostMessage;
-    private int tmsAckMessageRetry;
     private boolean tmsAuditUpload;
+
     private String proxyHost;
     private int proxyPort;
     private String proxyUserName;
     private String proxyPassword;
     private String proxyDomain;
-    private boolean validSettings;
+
+	private boolean validSettings;
     private String errorMessage;
+
+    public ServletSettings() {
+        init();
+    }
+    
+    public ServletSettings(ResourceBundle rbTdc, ResourceBundle rbProxy) {
+        
+        init();
+        
+        if (rbTdc != null) {
+            this.tmsHost = resourceBundleGetString(rbTdc, "tms.server.host");
+        /*    if(!this.tmsHost.startsWith("https")) {
+            	this.tmsHost = null;
+            	throw new RuntimeException("ERROR: TMS url is not secure!");
+            }*/
+            //this.backupURL = resourceBundleGetString(rbTdc, "tms.server.backupURL");
+           // this.backupURL = resourceBundleGetString(rbTdc, "tms.dr.server.host");
+           /* if(!this.backupURL.startsWith("https")) {
+            	this.backupURL = null;
+            	throw new RuntimeException("ERROR: TMS url is not secure!");
+            }    */       
+            this.tmsPort = resourceBundleGetInt(rbTdc, "tms.server.port");      
+            try {
+                this.tmsPersist = resourceBundleGetBoolean(rbTdc, "tms.server.persist");
+            }
+            catch (MissingResourceException mre) {
+                this.tmsPersist = true;            
+            }
+            try {
+                this.tmsAckRequired = resourceBundleGetBoolean(rbTdc, "tms.ack.required");
+            }
+            catch (MissingResourceException mre) {
+                this.tmsAckRequired = true;            
+            }
+            this.tmsAuditUpload = resourceBundleGetBoolean(rbTdc, "tms.audit.upload");
+        }
+        
+       /* String proxy = System.getProperty("tdc.proxy");
+        if(proxy == null || "".equals(proxy.trim())) {
+	        if (rbProxy != null) {
+	            this.proxyHost = resourceBundleGetString(rbProxy, "proxy.host");
+	            this.proxyPort = resourceBundleGetInt(rbProxy, "proxy.port");        
+	            this.proxyUserName = resourceBundleGetString(rbProxy, "proxy.username");
+	            this.proxyPassword = resourceBundleGetString(rbProxy, "proxy.password");
+	            this.proxyDomain = resourceBundleGetString(rbProxy, "proxy.ntlmdomain");
+	        }
+        } else {
+        	try {
+	        	int bsIndex = proxy.indexOf("\\");
+	        	if(bsIndex >= 0) {
+	        		this.proxyDomain = proxy.substring(0, bsIndex);
+	        		proxy = proxy.substring(bsIndex + 1, proxy.length());
+	        		logger.info("Proxy domain: " + this.proxyDomain);
+	        	}
+	        	int colonIndex = proxy.indexOf(":");
+	        	int atIndex = proxy.indexOf("@");
+	        	if(colonIndex >= 0 && colonIndex < atIndex) {
+	        		this.proxyUserName = proxy.substring(0, colonIndex);
+	        		logger.info("Proxy user: " + this.proxyUserName);
+	        		proxy = proxy.substring(colonIndex + 1, proxy.length());
+	        	}
+	        	atIndex = proxy.indexOf("@");
+	        	if(atIndex >= 0) {
+	        		this.proxyPassword = proxy.substring(0, atIndex);
+	        		logger.info("Proxy password: " + this.proxyPassword);
+	        		proxy = proxy.substring(atIndex + 1, proxy.length());
+	        	}
+	        	colonIndex = proxy.indexOf(":");
+	        	if(colonIndex >= 0) {
+	        		this.proxyHost = proxy.substring(0, colonIndex);
+	        		logger.info("Proxy host: " + this.proxyHost);
+	        		proxy = proxy.substring(colonIndex + 1, proxy.length());
+	        		this.proxyPort = Integer.valueOf(proxy);
+		        	logger.info("Proxy port: " + this.proxyPort);
+	        	} else {
+	        		this.proxyHost = proxy;
+	        		logger.info("Proxy host: " + this.proxyHost);
+	        	}
+        	} catch (Exception e) {
+        		logger.info("Error setting proxy using override value!"+ e);
+        		if (rbProxy != null) {
+    	            this.proxyHost = resourceBundleGetString(rbProxy, "proxy.host");
+    	            this.proxyPort = resourceBundleGetInt(rbProxy, "proxy.port");        
+    	            this.proxyUserName = resourceBundleGetString(rbProxy, "proxy.username");
+    	            this.proxyPassword = resourceBundleGetString(rbProxy, "proxy.password");
+    	            this.proxyDomain = resourceBundleGetString(rbProxy, "proxy.ntlmdomain");
+    	        }
+        	}
+        }
+        logger.info("Final proxy host: " + this.proxyHost);
+        logger.info("Final proxy port: " + this.proxyPort);
+        logger.info("Final proxy user: " + this.proxyUserName);
+        logger.info("Final proxy pass: " + this.proxyPassword);
+        logger.info("Final proxy domain: " + this.proxyDomain);*/
+    }
+
+    private void init() {
+        this.tmsHost = null;
+        this.backupURL = null;
+        this.tmsPort = 0;
+        this.tmsPersist = true;
+        this.tmsAckRequired = true;
+        this.tmsAuditUpload = false;
+        this.proxyHost = null;
+        this.proxyPort = 0;
+        this.proxyUserName = null;
+        this.proxyPassword = null;    
+        this.validSettings = true;
+        this.errorMessage = "";
+    }
+         
+    
+
+    public String getProxyDomain() {
+		return proxyDomain;
+	}
+
+	public void setProxyDomain(String proxyDomain) {
+		this.proxyDomain = proxyDomain;
+	}
+	
+    public String getProxyHost() {
+        return proxyHost;
+    }
+
+    public void setProxyHost(String proxyHost) {
+        this.proxyHost = proxyHost;
+    }
+
+    public String getProxyPassword() {
+        return proxyPassword;
+    }
+
+    public void setProxyPassword(String proxyPassword) {
+        this.proxyPassword = proxyPassword;
+    }
+
+    public int getProxyPort() {
+        return proxyPort;
+    }
+
+    public void setProxyPort(int proxyPort) {
+        this.proxyPort = proxyPort;
+    }
+
+    public String getProxyUserName() {
+        return proxyUserName;
+    }
+
+    public void setProxyUserName(String proxyUserName) {
+        this.proxyUserName = proxyUserName;
+    }
+
+    public boolean isTmsAckRequired() {
+        return tmsAckRequired;
+    }
+
+    public void setTmsAckRequired(boolean tmsAckRequired) {
+        this.tmsAckRequired = tmsAckRequired;
+    }
+
+    public boolean isTmsAuditUpload() {
+        return tmsAuditUpload;
+    }
+
+    public void setTmsAuditUpload(boolean tmsAuditUpload) {
+        this.tmsAuditUpload = tmsAuditUpload;
+    }
+
+    public String getTmsHost() {
+        return tmsHost;
+    }
+
+    public void setTmsHost(String tmsHost) {
+        this.tmsHost = tmsHost;
+    }
+
+    public boolean isTmsPersist() {
+        return tmsPersist;
+    }
+
+    public void setTmsPersist(boolean tmsPersist) {
+        this.tmsPersist = tmsPersist;
+    }
+
+    public int getTmsPort() {
+        return tmsPort;
+    }
+
+    public void setTmsPort(int tmsPort) {
+        this.tmsPort = tmsPort;
+    }
+    
+   // private static String baseurl = System.getProperty("tdc.baseurl");
+    private static String baseurl = null;
+    
+    public String getTmsHostPort() {
+    	//tmsHost="https://tms-oas-staging.ctb.com";
+    	//tmsHost="https://192.168.14.46";
+    	if(baseurl == null || "".equals(baseurl.trim())) {
+	    	if (tmsPort > 0)
+	           return (tmsHost + ":" + tmsPort);
+	        else
+	            return tmsHost;
+	    	
+    	} else {
+    		return baseurl;
+    	}
+    }
+    
+    public String getBackupURLHostPort() {
+    	if(baseurl == null || "".equals(baseurl.trim())) {
+	        if (tmsPort > 0)
+	            return (backupURL + ":" + tmsPort);
+	        else
+	            return backupURL;
+    	} else {
+    		return baseurl;
+    	}
+    }
+    
+    public String getProxyHostPort() {
+        if (proxyPort > 0)
+            return (proxyHost + ":" + proxyPort);
+        else
+            return proxyHost;
+    }
+
+    public boolean isValidSettings() {
+        return validSettings;
+    }
+
+    public void setValidSettings(boolean validSettings) {
+        this.validSettings = validSettings;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+    
+    private String resourceBundleGetString(ResourceBundle rb, String name) {
+        return rb.getString(name).trim();
+    }
+ 
+    
+
+    private int resourceBundleGetInt(ResourceBundle rb, String name) {
+        int value = -1;
+        String str = rb.getString(name).trim();
+        try {    
+            if (str.length() > 0) {
+                value = Integer.valueOf(str);
+            }
+        } catch (Exception e) { 
+            this.validSettings = false;
+            this.errorMessage = buildErrorMessage(name, "tdc.servletSetting.error.invalidInteger");
+        }        
+        return value;
+    }
+    
+    private boolean resourceBundleGetBoolean(ResourceBundle rb, String name) {
+        boolean value = false;
+        String str = rb.getString(name).trim();
+        if (str.length() > 0) {
+            str = str.toLowerCase();
+            if (str.equals("true")) 
+                value = true;
+            else
+            if (str.equals("false")) 
+                value = false;
+            else {
+                this.validSettings = false;
+                this.errorMessage = buildErrorMessage(name, "tdc.servletSetting.error.invalidBoolean");
+            }
+        }
+        else {
+            this.validSettings = false;
+            this.errorMessage = buildErrorMessage(name, "tdc.servletSetting.error.cannotBeBlank");
+        }
+        return value;
+    }
+    
+    private String buildErrorMessage(String name, String error) {
+        ResourceBundle rb = ResourceBundle.getBundle("tdcResources");
+        String commonText = rb.getString("tdc.servletSetting.error.commonText");
+        String errStr = rb.getString(error);        
+        return (commonText + name + errStr);
+    }
+
+	/**
+	 * @return the altTmsHost
+	 */
+	public String getBackupURL() {
+		return backupURL;
+	}
+
+	/**
+	 * @param altTmsHost the altTmsHost to set
+	 */
+	public void setBackupURL(String backupURL) {
+		this.backupURL = backupURL;
+	}
 }
