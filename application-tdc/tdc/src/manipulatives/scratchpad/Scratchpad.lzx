@@ -90,8 +90,9 @@
         </handler>
         
         <method name="restoreFocusAndCursor">
-        	//this.sp.inp.onfocus.sendEvent();
+        	this.sp.onfocus.sendEvent();
         	//this.sp.resetTheSelection();
+			setFocus();
         	this.setAttribute("scratchpadHasFocus", true);
 			//gHotKeys.disableKeys();
         </method>
@@ -159,6 +160,7 @@
         </handler>
         <method name="show" args="arg">
 			this.setAttribute('visible',true);
+			this.htsp.setAttribute('visible',true);
         	if(arg){
         		this.setAttribute('hasXY', true);				
 				this.setAttribute("x", arg.x);
@@ -173,6 +175,7 @@
         
         <method name="hide" args="arg">
         	this.setAttribute('visible',false);
+			this.htsp.setAttribute('visible',false);
         </method>
 
 		<method name="setHtml" args="arg">
@@ -188,6 +191,7 @@
 					this.setAttribute("x", this.DEFAULT_X);
 					this.setAttribute("y", this.DEFAULT_Y);
 	           		this.restoreFocusAndCursor();
+					resizeSP();
 	           }else{
 	           		//gReadableText.stopReading(true);
 					gScratchpad.sp.inp.onblur.sendEvent();

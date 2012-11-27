@@ -30,6 +30,16 @@
 <attribute name="htmlGeneralOpenManip" value="$once{new Object()}" />
 <attribute name="readable" value="false" type="boolean" />
 <attribute name="currentCursor" value="null" />
+<attribute name="hasfontaccom" value="false" type="boolean"/>
+
+<handler name="onhasfontaccom" args="data">
+if(data == 'true'){
+ this.hasfontaccom == true;
+ }
+else{
+ this.hasfontaccom == false;
+ }
+</handler>
 
 <handler name="onscalefactor" args="data">		
 	data = data.split('|');
@@ -261,9 +271,15 @@ var manipObjData;
 
 </method>
 
+
+<handler name="onvisible" args="arg">
+	if(gScratchpad.visible){
+		setFocus();
+	}
+</handler>
 <handler name="onmanipid" args="arg">
 	<![CDATA[
-var accom = document.getElementById('__lz0').contentWindow.accomPkg;
+var accom = document.getElementById('__lz1').contentWindow.accomPkg;
 switch(arg){
 
 		case 'highlighter': if(accom.enableHighlighterArea){
@@ -402,6 +418,8 @@ switch(arg){
 									gScratchpad.setAttribute('x',(this.width/2-gScratchpad.width/2));
 									gScratchpad.setAttribute('y',(this.height/2-gScratchpad.height/2));
 									gScratchpad.show();
+									resizeSP();
+									//initScratchpad(this.hasfontaccom);
 								}
 		break;
 

@@ -240,6 +240,7 @@ Debug.write("Cachaable html widget ondata");
 		
 		<method name="show">
 			this.main.ht.setAttribute('visible',true);
+			this.main.ht.callJavascript('setFocus',null);
 		</method>
 
 		<method name="doReturnToCache"><![CDATA[
