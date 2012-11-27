@@ -218,6 +218,12 @@ Debug.write("Cachaable html widget ondata");
 			
 			case 'cm_ruler' 	 :  gController.manipStateHtml['cm_ruler'] = manipButton;
 			break;
+
+			case 'highlighter' 	 :  gController.manipStateHtml['highlighter'] = manipButton;
+			break;
+
+			case 'eraser' 	 :  gController.manipStateHtml['eraser'] = manipButton;
+			break;
 			
 			}
 			for(var key in gController.manipStateHtml) {

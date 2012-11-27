@@ -311,7 +311,6 @@ switch(arg){
 								accom.enableHighlighter(false);
 								this.setAttribute('highlighterSel',false);
 							}
-							console.log("in eraser",accom.enableEraserArea);
 							if(accom.enableEraserArea){
 								accom.enableEraser(false);
 								accom.removeHighlighterCursor();
