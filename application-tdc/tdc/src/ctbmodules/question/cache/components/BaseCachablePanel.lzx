@@ -127,6 +127,8 @@
             }
             else if(!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
 				this.setAttribute('bgcolor', gController.questionBgColor);
+				this.setAttribute('fontcolor', Number(gController.questionFontColor));
+				this.setAttribute('fontsize', gController.questionFontSize);
             }
             
             this.setAttribute("isaccom", isaccom);
