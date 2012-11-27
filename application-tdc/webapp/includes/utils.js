@@ -4,14 +4,17 @@ function scratchpadmousehandler(){
 
 
 }
-function scratchpadkeyhandler(){
-
+function resizeSP(){
+var scratchpadFrame = document.getElementById('__lz0');
+scratchpadFrame.style.height = gScratchpad.height;
+scratchpadFrame.style.width = scratchpadFrame.parentElement.parentElement.style.width;
 }
+
 
 function initScratchpad(arg){
 		var scratchpadFrame = document.getElementById('__lz0');
-		 var innerHTML = '<style type="text/css">html,body {background-color: #FFFFB0; margin: 0px; height: 100%;} @font-face{font-family: OASmathv3;src: url("./../manipulatives/resource/fonts/OASmathv3.ttf");}</style>'
-			                   + '<textarea id="myarea" style="height: 100%;"></textarea><input type="button" value="clickme" onclick="alert(document.body.childNodes[1].style.height);">';
+		 var innerHTML = '<style type="text/css">html,body {background-color: #FFFFB0; margin: 0px; height: 100%; width: 100%;} @font-face{font-family: OASmathv3;src: url("./../manipulatives/resource/fonts/OASmathv3.ttf");}</style>'
+			                   + '<textarea id="myarea" style="height: 100%; width: 100%;"></textarea>">';
 		gScratchpad.setHtml(innerHTML);
 		
 		var elem  = scratchpadFrame.contentWindow.document.getElementById('myarea');
@@ -25,7 +28,7 @@ function initScratchpad(arg){
 		elem.style.overflowY = "scroll";
 		elem.style.overflowX = "hidden";
 		elem.style.fontFamily = 'OASmathv3';
-		elem.maxlength = 50;
+		elem.maxlength = 10000;
 		textAreaElement = elem;
 		if(scratchpadText){
 			applyTextToArea();
@@ -42,7 +45,9 @@ function initScratchpad(arg){
 		    window.setTimeout(function() {
 		        moveCaretToEnd(textAreaElement);
 		    }, 1);
-		};				
+		};
+		
+						
 }
 
 function getSelectedText(){
@@ -74,9 +79,20 @@ function setFocus(){
 	if(textAreaElement){
 		//textAreaElement.scrollTop=textAreaElement.scrollHeight; 
 		textAreaElement.focus();
+		window.setTimeout(function() {
+		        setFocusAir();
+		}, 100);
 	}
 }
 
+function setFocusAir(){
+	if(textAreaElement){
+
+		//textAreaElement.scrollTop=textAreaElement.scrollHeight; 
+		textAreaElement.focus();
+	}
+
+}
 function moveCaretToEnd(el) {
     if (typeof el.selectionStart == "number") {
         el.selectionStart = el.selectionEnd = el.value.length;
