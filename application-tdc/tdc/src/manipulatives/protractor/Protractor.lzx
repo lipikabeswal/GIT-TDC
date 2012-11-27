@@ -174,17 +174,15 @@
             this.setAttribute ('rotation',endang);
         ]]></method>
 
-
-
         <view resource="protractorMarks_rsrc"/>
 
         <view name="grabber" resource="protractorHandle_rsrc" y="97" align="center" >
             <handler name="onmouseover">
-               // gController.setCurrentCursor('cangrab_cursor');
+               canvas.setCurrentCursor('cangrab_cursor');
             </handler>
             <handler name="onmouseout">
-               // gController.clearAndRestoreCurrentCursor();
-            </handler>
+               canvas.clearAndRestoreCurrentCursor();
+			</handler>
             <handler name="onmousedown">
             	classroot.bringToFront();
                 lz.Cursor.setCursorGlobal ('grabbing_cursor');
@@ -193,14 +191,13 @@
             </handler>
             <handler name="onmouseup">
                 lz.Cursor.unlock ();
-             //   gController.restoreCurrentCursor();
+             	canvas.restoreCurrentCursor();
                 classroot.dragger.remove ();
                 
               //  classroot.datapath.p.setAttr ('x', classroot.x);
               //  classroot.datapath.p.setAttr ('y', classroot.y);
             </handler>
         </view>
-
 
         <view resource="protractorRotator_rsrc" y="110" x="${classroot.width-65}"
               onmousedown="classroot.bringToFront(); classroot.startRotate (); " 

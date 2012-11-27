@@ -60,11 +60,11 @@
                    drag_max_y="$once{parent.height - 100}"/>
 
         <handler name="onmouseover">
-           // gController.setCurrentCursor('cangrab_cursor');
+           canvas.setCurrentCursor('cangrab_cursor');
         </handler>
 
         <handler name="onmouseout">
-           // gController.clearAndRestoreCurrentCursor();
+           canvas.clearAndRestoreCurrentCursor();
         </handler>
 
         <handler name="onmousedown">
@@ -76,7 +76,7 @@
 
         <handler name="onmouseup">
             lz.Cursor.unlock ();
-            //gController.restoreCurrentCursor();
+            canvas.restoreCurrentCursor();
             this.dragger.remove ();
 
             //this.datapath.p.setAttr ('x', this.x);
