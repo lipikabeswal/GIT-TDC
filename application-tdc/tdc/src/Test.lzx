@@ -40,6 +40,8 @@ else{
  this.hasfontaccom == false;
  }
 </handler>
+<attribute name="highlighterSel" value="false" type="boolean"/>
+<attribute name="eraserSel" value="false" type="boolean"/>
 
 <handler name="onscalefactor" args="data">		
 	data = data.split('|');
@@ -271,6 +273,11 @@ var manipObjData;
 
 </method>
 
+<method name="setManipulativeSelState" args="id,status">
+	var messg = id + "|"+ status;
+	var s = "passManipulativeState('"+messg+"')";
+	lz.Browser.loadJS(s);
+</method>
 
 <handler name="onvisible" args="arg">
 	if(gScratchpad.visible){
@@ -282,20 +289,35 @@ var manipObjData;
 var accom = document.getElementById('__lz1').contentWindow.accomPkg;
 switch(arg){
 
-		case 'highlighter': if(accom.enableHighlighterArea){
+		case 'highlighter': this.setAttribute('highlighterSel',true);
+							if(this.eraserSel){
+								setManipulativeSelState('eraser', 'up');
+								accom.enableEraser(false);
+								this.setAttribute('eraserSel',false);
+							}
+							if(accom.enableHighlighterArea){
 								accom.enableHighlighter(false);
 								accom.removeHighlighterCursor();
 							}else{
-								accom.enableHighlighter(true);	
+								accom.enableHighlighter(true);
+								accom.removeHighlighterCursor();	
 								accom.setHighlighterCursor("../../includes/cursor_images/cursor_highliter.png");
 							}
 							
 		break;
-		case 'eraser' :		if(accom.enableEraserArea){
+		case 'eraser' :		this.setAttribute('eraserSel',true);
+							if(this.highlighterSel){
+								setManipulativeSelState('highlighter', 'up');
+								accom.enableHighlighter(false);
+								this.setAttribute('highlighterSel',false);
+							}
+							console.log("in eraser",accom.enableEraserArea);
+							if(accom.enableEraserArea){
 								accom.enableEraser(false);
 								accom.removeHighlighterCursor();
 							}else{
 								accom.enableEraser(true);
+								accom.removeHighlighterCursor();
 								accom.setEraserCursor("../../includes/cursor_images/cursor_eraser.png");
 							}
 		break;
