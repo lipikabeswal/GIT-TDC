@@ -94,7 +94,13 @@ function sendRequest(method,xml,action){
 	            jsonObj
 	        );
 }
+function setFrameSource(filepath,tranX,tranY){
+    alert(filepath+tranX+tranY);
+    var s = document.getElementById('TEframeId');
+    s.setAttribute("src",filepath);
 
+    lz.embed.setCanvasAttribute("TEItemLoaded", true);
+}
 function checkVals(arg1,arg2,arg3){
 	// alert("inside checkVals "+arg1+arg2+arg3);
 }
@@ -108,47 +114,6 @@ function setResponse(result) {
 	lz.embed.setCanvasAttribute("response",result.OK);
 }
 
-function buttonClicked(obj){
-	document.getElementById('mybutton').click();
-	 /*var intId = setInterval(abc,50);
-	 
-	 function abc(){
-	var ids = [];
-    $("#appcontainer").find("div").each(function(){
-    	if(this.id == "loginScreenId"){
-        	ids.push(this);
-        }
-    });
-
-    var x = ids[ids.length-1];
-	x.parentNode.removeChild(x);
-    clearInterval(intId);  
-}*/
-}
-function setFrameSource(filepath,tranX,tranY){
-
- var jsCode = "function translate(scaleX, scaleY) {console.log('calling');var tranX = (scaleX-1)*50, tranY = (scaleY-1)*50; console.log('calling*** ',tranX,tranY); var tr = \"translate(\"+tranX+\"%, \"+tranY+\"%) scale(\"+scaleX+\", \"+scaleY+\")\"; console.log('calling++++ ',tr,$('body').css); $('body').css({'-webkit-transform': tr, 'transform': tr}); console.log('calling!!!! ',tr,$('body').css);}";
-
-var s = document.getElementsByName("htmlwigetframe");
-s[0].setAttribute("src",filepath);
-var iframe = document.getElementById('TEframeId');
-
-if(iframe){
-  iframe.onload = function(){
-
-  var doc = iframe.contentDocument;
-var scriptEl = doc.createElement('script');
-scriptEl.text = jsCode;
-doc.body.appendChild(scriptEl);
-console.log(doc.firstChild);
-
-document.getElementById('TEframeId').contentWindow.translate(tranX, tranY);
-lz.embed.setCanvasAttribute("TEItemLoaded", true); 
-  };
-  }
-
-
-}  
 function closeMagnifier(){
   var olddiv = document.getElementById('mglass');
   if (olddiv && olddiv.parentNode && olddiv.parentNode.removeChild)
