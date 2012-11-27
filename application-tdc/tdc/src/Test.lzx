@@ -289,32 +289,34 @@ var manipObjData;
 var accom = document.getElementById('__lz1').contentWindow.accomPkg;
 switch(arg){
 
-		case 'highlighter': this.setAttribute('highlighterSel',true);
-							if(this.eraserSel){
+		case 'highlighter': if(this.eraserSel){
 								setManipulativeSelState('eraser', 'up');
 								accom.enableEraser(false);
 								this.setAttribute('eraserSel',false);
 							}
 							if(accom.enableHighlighterArea){
+								this.setAttribute('highlighterSel',false);
 								accom.enableHighlighter(false);
 								accom.removeHighlighterCursor();
 							}else{
+								this.setAttribute('highlighterSel',true);
 								accom.enableHighlighter(true);
 								accom.removeHighlighterCursor();	
 								accom.setHighlighterCursor("../../includes/cursor_images/cursor_highliter.png");
 							}
 							
 		break;
-		case 'eraser' :		this.setAttribute('eraserSel',true);
-							if(this.highlighterSel){
+		case 'eraser' :	if(this.highlighterSel){
 								setManipulativeSelState('highlighter', 'up');
 								accom.enableHighlighter(false);
 								this.setAttribute('highlighterSel',false);
 							}
 							if(accom.enableEraserArea){
+								this.setAttribute('eraserSel',false);
 								accom.enableEraser(false);
 								accom.removeHighlighterCursor();
 							}else{
+								this.setAttribute('eraserSel',true);
 								accom.enableEraser(true);
 								accom.removeHighlighterCursor();
 								accom.setEraserCursor("../../includes/cursor_images/cursor_eraser.png");
