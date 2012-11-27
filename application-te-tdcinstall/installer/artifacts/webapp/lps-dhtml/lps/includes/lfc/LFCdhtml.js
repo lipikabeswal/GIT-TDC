@@ -3282,10 +3282,46 @@ var LzMouseKernel = {
             return
         };
         var $0 = LzSprite.__defaultStyles.hyphenate($0);
-        LzSprite.prototype.__setCSSClassProperty(".lzclickdiv", "cursor", $0);
-        LzSprite.prototype.__setCSSClassProperty(".lzdiv", "cursor", $0);
-        LzSprite.prototype.__setCSSClassProperty(".lzcanvasdiv", "cursor", $0);
-        LzSprite.prototype.__setCSSClassProperty(".lzcanvasclickdiv", "cursor", $0)
+        
+		//override open laszlo dhtml limitation of setting a custom cursor
+        if($0 == "grabbing_cursor"){
+        
+			if(lz.embed.browser.browser == "Mozilla") {//if lockdown browser, show a open built in hand cursor similar to dragger_over
+		        LzSprite.prototype.__setCSSClassProperty(".lzclickdiv", "cursor", "move");
+		        LzSprite.prototype.__setCSSClassProperty(".lzdiv", "cursor", "move");
+		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasdiv", "cursor", "move");
+		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasclickdiv", "cursor", "move");
+	        }
+	        else {//set relative url for setting a custom cursor
+		        LzSprite.prototype.__setCSSClassProperty(".lzclickdiv", "cursor", "url(manipulatives/resource/dragger_press.png),auto");
+		        LzSprite.prototype.__setCSSClassProperty(".lzdiv", "cursor", "url(manipulatives/resource/dragger_press.png),auto");
+		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasdiv", "cursor", "url(manipulatives/resource/dragger_press.png),auto");
+		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasclickdiv", "cursor", "url(manipulatives/resource/dragger_press.png),auto");
+	        }
+
+        }
+        else if($0 == "cangrab_cursor"){
+
+			if(lz.embed.browser.browser == "Mozilla") {//if lockdown browser, show a open built in hand cursor similar to dragger_over
+		        LzSprite.prototype.__setCSSClassProperty(".lzclickdiv", "cursor", "move");
+		        LzSprite.prototype.__setCSSClassProperty(".lzdiv", "cursor", "move");
+		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasdiv", "cursor", "move");
+		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasclickdiv", "cursor", "move");
+	        }
+	        else {//set relative url for setting a custom cursor
+		        LzSprite.prototype.__setCSSClassProperty(".lzclickdiv", "cursor", "url(manipulatives/resource/dragger_over.png),auto");
+		        LzSprite.prototype.__setCSSClassProperty(".lzdiv", "cursor", "url(manipulatives/resource/dragger_over.png),auto");
+		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasdiv", "cursor", "url(manipulatives/resource/dragger_over.png),auto");
+		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasclickdiv", "cursor", "url(manipulatives/resource/dragger_over.png),auto");
+	        }
+
+        }
+		else {//resume the default flow of Open Laszlo
+	        LzSprite.prototype.__setCSSClassProperty(".lzclickdiv", "cursor", $0);
+	        LzSprite.prototype.__setCSSClassProperty(".lzdiv", "cursor", $0);
+	        LzSprite.prototype.__setCSSClassProperty(".lzcanvasdiv", "cursor", $0);
+	        LzSprite.prototype.__setCSSClassProperty(".lzcanvasclickdiv", "cursor", $0)
+	    }
     },
     restoreCursor: function () {
         if (LzSprite.quirks.no_cursor_colresize) {

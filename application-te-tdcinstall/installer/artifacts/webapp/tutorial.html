@@ -94,14 +94,14 @@ function mydetectFlashUsingJavascript(){
 }
 
 function storeScratchPadText(args){	
-	//console.log("storescratchpadtext: " + args);
 	spText = args;
 }
 
 function setSPText(arg){
 	if(arg=="")
      	arg=" ";
-	lz.embed.setCanvasAttribute('sptext',arg);
+    spText = arg; 	
+    lz.embed.setCanvasAttribute('sptext',arg);
 }
 
 function setManipState(args){
@@ -165,7 +165,13 @@ function getOpenManipData(){
 function exitPleaseWaitPopup(){
 	lz.embed.setCanvasAttribute('exitPleaseWaitPopup','true');
 }
+function setFocusOnScratchpad(){
 
+document.getElementById('__lz0').contentWindow.setFocus();
+}
+function setFootnoteText(arg){
+	lz.embed.setCanvasAttribute('footnotetext',arg);
+}
 </script>
 <style type="text/css">
 html,body { /* http://www.quirksmode.org/css/100percheight.html */
@@ -205,7 +211,7 @@ img {
 <script type="text/javascript" defer>
                   lz.embed.resizeWindow('100%', '100%');
                   lz.embed.swf({url: 'TestClient.lzx.swf?&lzr=swf10&folder=calif&servletUrl=http://127.0.0.1:12345/servlet/fixed&eliminatorResource=resources/eliminator.swf', allowfullscreen: 'false', bgcolor: '#6691B4', width: '100%', height: '100%', id: 'lzapp', accessible: 'false', cancelmousewheel: false, appenddivid: 'appcontainer', wmode: 'transparent'});
-				  //lz.embed.swf({url: 'TestClient.lzx.swf?&lzr=swf10&folder=calif&servletUrl=http://169.254.37.27:12345/servlet/fixed&eliminatorResource=resources/eliminator.swf', allowfullscreen: 'false', bgcolor: '#6691B4', width: '100%', height: '100%', id: 'lzapp', accessible: 'false', cancelmousewheel: false, appenddivid: 'appcontainer'});
+				 // lz.embed.swf({url: 'TestClient.lzx.swf?&lzr=swf10&folder=calif&user=accommodated&servletUrl=http://192.168.1.2:12345/servlet/fixed&eliminatorResource=resources/eliminator.swf', allowfullscreen: 'false', bgcolor: '#6691B4', width: '100%', height: '100%', id: 'lzapp', accessible: 'false', cancelmousewheel: false, appenddivid: 'appcontainer', wmode: 'transparent'});
 				  	
                   lz.embed.applications.lzapp.onloadstatus = function loadstatus(p) {
                     // called with a percentage (0-100) indicating load progress

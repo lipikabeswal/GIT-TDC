@@ -110,7 +110,8 @@ function mydetectFlashUsingJavascript(){
 function setSPText(arg){
 	if(arg=="")
      	arg=" ";
-	lz.embed.setCanvasAttribute('sptext',arg);
+    spText = arg; 	
+    lz.embed.setCanvasAttribute('sptext',arg);
 }
 
 function storeScratchPadText(args){	
@@ -184,7 +185,13 @@ function exitPleaseWaitPopup(){
 function getOpenManipData(){
 	return lz.embed.lzapp.getCanvasAttribute('htmlOpenManip');
 }
+function setFootnoteText(arg){
+	lz.embed.setCanvasAttribute('footnotetext',arg);
+}
 
+function setFocusOnScratchpad(){
+document.getElementById('__lz0').contentWindow.setFocus();
+}
 //-->
 </SCRIPT>
 
