@@ -247,6 +247,7 @@
 						 super.init();
 						this.style.setAttribute("textfieldcolor", gController.answerBgColor);
 						//this.setFontColor(gController.answerFontColor);
+						this.inp.setAttribute("fgcolor", gController.answerFontColor);		
 						if(gController.hasFontAccommodation)
 								this.setAttribute('fontsize', 18);
 							else
