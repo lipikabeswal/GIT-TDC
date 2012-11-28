@@ -30,55 +30,37 @@
 			<attribute name="actualX" value="$once{this.xoffset - this.getMouse( 'x' )}" />
 			<attribute name="actualY" value="$once{this.yoffset - this.getMouse( 'y' )}" />
 			
-		 	<attribute name="__dragstate_ydoffset" 
-                       value="$once {this.actualX * Math.sin (this.rrotation) +
+            <attribute name="__dragstate_ydoffset" 
+                       value="${this.actualX * Math.sin (this.rrotation) +
                                      this.actualY * Math.cos (this.rrotation)}"/>
             <attribute name="__dragstate_xdoffset" 
-                       value="$once {this.actualX * Math.cos (this.rrotation) -
+                       value="${this.actualX * Math.cos (this.rrotation) -
                                      this.actualY * Math.sin (this.rrotation)}"/>
 		 
-			<attribute name="x" value="(this.drag_axis == 'both' || this.drag_axis == 'x') ? __dragstate_getnewpos('x', this.immediateparent.getMouse( 'x' ) + (Number(this.rrotation) != 0?this.__dragstate_xdoffset:this.actualX)): this.x" /> 
+<!-- 			<attribute name="x" value="(this.drag_axis == 'both' || this.drag_axis == 'x') ? __dragstate_getnewpos('x', this.immediateparent.getMouse( 'x' ) + (Number(this.rrotation) != 0?this.__dragstate_xdoffset:this.actualX)): this.x" /> 
  
  			<attribute name="y" value="(this.drag_axis == 'both' || this.drag_axis == 'y') ? __dragstate_getnewpos('y', this.immediateparent.getMouse( 'y' ) + (Number(this.rrotation) != 0?this.__dragstate_ydoffset:this.actualY)): this.y" /> 
-
-		   <handler name="on__dragstate_xdoffset" args="data">
-			    Debug.write("on__dragstate_xdoffset data");
-			    Debug.write("Mouse X Mouse Y", this.getMouse('x'), this.getMouse('y'));
-			    Debug.write("xpos,yoffset", parent.xpos, parent.ypos,parent.xoffset,parent.yoffset);
-			    Debug.write("x,y", classroot.x, classroot.y);        
-		   </handler>
-
-		   <handler name="onx" args="data">
-		   		Debug.write("this.onx",data,this.actualX,this.x,this.__dragstate_xdoffset,this.rrotation,(this.drag_axis == 'both' || this.drag_axis == 'x'),this.drag_axis);
-			   /*if(this.rrotation != 0){
-			   
-				   this.setAttribute('x', __dragstate_getnewpos('x', this.immediateparent.getMouse( 'x' ) + this.__dragstate_xdoffset));
-				   Debug.write("this.rotation x",data);
-			   }*/
-				//Debug.write("this.onx****** after ",data,this.actualX,this.x,this.__dragstate_xdoffset,this.rrotation,typeof this.rrotation);
-			   Debug.write("this.onx------------ ", this.x,__dragstate_getnewpos('x', this.immediateparent.getMouse( 'x' ) + this.actualX),__dragstate_getnewpos('x', this.immediateparent.getMouse( 'x' ) + this.__dragstate_xdoffset));
-		   </handler>
-
-		   <handler name="ony" args="data">
-				Debug.write("this.ony",data,this.actualY,this.y,this.__dragstate_ydoffset);
-			   /*if(this.rrotation != 0){
-			   
-				   this.setAttribute('y', __dragstate_getnewpos('y', this.immediateparent.getMouse( 'y' ) + this.__dragstate_ydoffset));
-				   Debug.write("this.rotation y",data);
-			   }*/
-				//Debug.write("this.ony***** after ",data,this.actualY,this.y,this.__dragstate_ydoffset);
-			  // Debug.write("this.ony", this.y, __dragstate_getnewpos('y', this.immediateparent.getMouse( 'y' ) + this.actualY),__dragstate_getnewpos('y', this.immediateparent.getMouse( 'y' ) + this.__dragstate_ydoffset) );
-		   </handler>
-
+ -->
+ 
+			<handler name="on__dragstate_xdoffset" args="data">
+				Debug.write("on__dragstate_xdoffset data",data);
+				Debug.write("Mouse X Mouse Y", this.getMouse('x'), this.getMouse('y'));
+				Debug.write("classroot.xpos, classroot.ypos,parent.xoffset,parent.yoffset", classroot.xpos, classroot.ypos,parent.xoffset,parent.yoffset);
+				Debug.write("classroot.x, classroot.y", classroot.x, classroot.y);								
+			</handler>
+			
+			<handler name="on__dragstate_ydoffset" args="data">
+				Debug.write("on__dragstate_ydoffset data",data);
+				Debug.write("Mouse X Mouse Y", this.getMouse('x'), this.getMouse('y'));
+				Debug.write("parent.xpos, parent.ypos,parent.xoffset,parent.yoffset", parent.xpos, parent.ypos,parent.xoffset,parent.yoffset);
+				Debug.write("classroot.x, classroot.y", classroot.x, classroot.y);								
+			</handler>
             <handler name="onapply">
-            	Debug.write("********************onapply**********************",this.immediateparent.getMouse('x'),this.immediateparent.getMouse('y'),this.__dragstate_xdoffset,this.__dragstate_ydoffset);
-				Debug.write("***onapply** X ***",this.drag_axis,this.x);
-				Debug.write("***onapply*** Y **",this.drag_axis,this.y);
-				
+            	Debug.write("********************onapply**********************");
             
                 var rotation = classroot.rotation * (Math.PI/180);
+				Debug.write("classroot.roation",classroot.rotation,rotation);
                 var grabber = classroot.grabber;
-				Debug.write("classroot.grabber------- ",classroot.grabber);
 
                 var gxstart = (grabber.x) * Math.cos (rotation) -
                                  (grabber.y + grabber.height/2) * Math.sin (rotation);
@@ -110,13 +92,7 @@
 				Debug.write("parent.xpos, parent.ypos,parent.xoffset,parent.yoffset", parent.xpos, parent.ypos,parent.xoffset,parent.yoffset);
 				Debug.write("classroot.x, classroot.y,this.x,this.y", classroot.x, classroot.y,this.x,this.y);		
 
-				Debug.write("grabber.x,grabber.y,rotation****after***** ",grabber.x,grabber.y,rotation);		
-
-
-				Debug.write("***onapply** X ***after  ",this.drag_axis,this.x);
-				Debug.write("***onapply*** Y ** after  ",this.drag_axis,this.y);
-
-            	
+				Debug.write("grabber.x,grabber.y,rotation****after***** ",grabber.x,grabber.y,rotation);			
             </handler>
 
         </dragstate>
@@ -239,6 +215,7 @@
                 lz.Cursor.unlock ();
                 gController.restoreCurrentCursor();
                 classroot.dragger.remove ();
+                
                 classroot.datapath.p.setAttr ('x', classroot.x);
                 classroot.datapath.p.setAttr ('y', classroot.y);
             </handler>

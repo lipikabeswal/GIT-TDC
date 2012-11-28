@@ -32,10 +32,10 @@
 			<attribute name="actualY" value="$once{this.yoffset - this.getMouse( 'y' )}" />
 			
             <attribute name="__dragstate_ydoffset" 
-                       value="$once {this.actualX * Math.sin (this.rrotation) +
+                       value="${this.actualX * Math.sin (this.rrotation) +
                                      this.actualY * Math.cos (this.rrotation)}"/>
             <attribute name="__dragstate_xdoffset" 
-                       value="$once {this.actualX * Math.cos (this.rrotation) -
+                       value="${this.actualX * Math.cos (this.rrotation) -
                                      this.actualY * Math.sin (this.rrotation)}"/>
 
             <handler name="onapply">
