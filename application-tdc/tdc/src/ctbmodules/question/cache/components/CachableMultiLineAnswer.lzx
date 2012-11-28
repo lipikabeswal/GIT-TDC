@@ -256,15 +256,18 @@
 					  
 					  
 				  	<method name="updateScrollText" args="a">
+				  		Debug.write("updatescrolltext...");
 						this.setAttribute('text',a);	
 					</method>
 		
 					  <handler name="ontext"><![CDATA[
+					  	Debug.write("ontext....");
 						 if(!classroot.isInitialText){
 							 if (text) {
-							 	if(this.inp.getTextHeight() > this.height) {
+							 	/*if(this.inp.getTextHeight() > this.height) {
 									this.inp.setAttribute("scroll",this.inp.maxscroll);
-								}
+									Debug.write("ontext...scroll...initialtext....",this.inp.maxscroll);
+								}*/
 								var answered = false;
 								for(var i=0; (i< text.length) && !answered; i++){
 									var c = text.substring(i, i+1);
@@ -292,6 +295,20 @@
 						 
 					   ]]></handler>
 		
+		<handler name="onkeydown" reference="lz.Keys" args="k"><![CDATA[
+		
+		
+		if (lz.Keys.isKeyDown("control") &&
+                    lz.Keys.isKeyDown("v"))
+                    {
+                    Debug.write("getTextHeight:",this.inp.getTextHeight(),this.inp.maxscroll);
+                    Debug.write("Height:",this.height);
+					if(this.inp.getTextHeight() > this.height) {
+									this.inp.setAttribute("scroll",this.inp.maxscroll);
+									}
+                    }
+                    ]]>
+		</handler>
 					<method name="getSelectedText">
 						if(end == 0){
 							return '';
@@ -315,6 +332,7 @@
 					
 									 
 					<method name="updateText" args="a">
+						Debug.write("updatetext....");
 						this.setAttribute('text',a);		
 					</method>
 
