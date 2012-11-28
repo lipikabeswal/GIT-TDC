@@ -543,7 +543,7 @@
 
 		<handler name="oninit">
 			var base = lz.Browser.getInitArg( 'servletUrl' );
-			audioDset.setSrc(base + '/SoundRecorder.do');
+			audioDset.setAttribute('src',base + '/SoundRecorder.do');
 			this.setVolume(0);
 		</handler>
 
@@ -731,7 +731,7 @@
 		]]></method>
 
 		<method name="resetActivityMeterHeight">
-			this.volumeMeter.setHeight(this.meterContainer.height);
+			this.volumeMeter.setAttribute('height',this.meterContainer.height);
 		</method>
 		
 		<method name="toggleRedDisplay">
