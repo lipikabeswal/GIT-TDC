@@ -55,7 +55,9 @@
             if(dnscrolltext == null){
             	dnscrolltext = gController.dpitem.xpathQuery("item_canvas/stimulus_tabs_panel/stimulus_tab");
             	if (dnscrolltext == null) dnscrolltext = gController.dpitem.xpathQuery("item_canvas/panel/stimulus_tabs_panel/stimulus_tab");
-            	Debug.write("dnscrolltext",dnscrolltext);
+            	if (dnscrolltext == null) dnscrolltext = gController.dpitem.xpathQuery("item_canvas/panel");
+
+				Debug.write("dnscrolltext",dnscrolltext);
             	if(dnscrolltext != null && dnscrolltext instanceof Array){
             		dnscrolltext = dnscrolltext[0];
             	}

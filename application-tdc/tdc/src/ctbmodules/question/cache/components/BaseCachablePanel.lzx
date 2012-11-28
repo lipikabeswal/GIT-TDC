@@ -142,7 +142,8 @@
             
             //inform gFootNotePopup footnotes
 			if((this instanceof lz.CachableScrollingTextPanel) 
-                || this instanceof lz.CachableTabsPanel) 
+                || this instanceof lz.CachableTabsPanel
+				|| this instanceof lz.CachablePanel) 
             {
                 gFootNotePopup.setAttribute("scrolltext", this);
             }      
