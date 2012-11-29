@@ -315,6 +315,7 @@ switch(arg){
 								this.setAttribute('eraserSel',false);
 								accom.enableEraser(false);
 								accom.removeHighlighterCursor();
+								accom.setEraserCursor("pointer");
 							}else{
 								this.setAttribute('eraserSel',true);
 								accom.enableEraser(true);
