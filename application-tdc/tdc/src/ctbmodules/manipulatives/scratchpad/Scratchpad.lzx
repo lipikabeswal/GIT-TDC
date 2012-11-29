@@ -1,6 +1,6 @@
 <library>
  	
-	
+	<include href="scrolledittext.lzx" />
 	<include href="ScratchpadWindow.lzx" />
 
     <class name="Scratchpad" 
@@ -41,50 +41,29 @@
         </handler>
 
 		<handler name="onmouseup" reference="lz.GlobalMouse" args="who"><![CDATA[
-			
 			if(who){
-				Debug.write("onmouseup....if...",gController.focusOnScratchpad);
-				if(this.visible){
-					if(this.isTestInterrupted){// && gController.focusOnScratchpad) {
-					
-					//Debug.write("onmouseup....if/if....");
-					restoreFocusAndCursor();
-					this.setAttribute("isTestInterrupted",false);
-					}
-				}
 				if(lz.Focus.getFocus() == sp.inp){  // user may have changed selection using mouse
-					this.sp.storeSelection();
+						this.sp.storeSelection();
+					}
+				if (who == this){
+						this.sp.inp.setAttribute('selectable',true);
+		            	lz.Cursor.unlock ();
+		            	gController.restoreCurrentCursor();
+		            	restoreFocusAndCursor();
+					}
+					
+				if(who instanceof lz.basescrollarrow || who instanceof lz.basescrollbar){
+					Debug.write("who", who);
+					//restoreFocusAndCursor();
 				}
-				else if(isScratchpadSubcomponent(who)){ // user clicked on scrollbar, etc.
-					gScratchpad.restoreFocusAndCursor();
-				}
-				else if (who == this){
-					this.sp.inp.setAttribute('selectable',true);
-	            	lz.Cursor.unlock ();
-	            	gController.restoreCurrentCursor();
-	            	restoreFocusAndCursor();
-				}
-				else if (who == gPauseButton || who == gStopButton || who == gFinishTestButton ){
-					this.setAttribute("isTestInterrupted",true);
-					if(this.scratchpadJustLostFocus){
+				if (who == gPauseButton || who == gStopButton || who == gFinishTestButton ){
+					if(gScratchpad.visible){
 						gController.setAttribute("focusOnScratchpad", true);
 					}
 				}
-				else if (gItemInterface.visible){
-					gController.setAttribute("focusOnScratchpad", false);
 				}
-				
-				this.setAttribute("scratchpadJustLostFocus", false);
-			}
 		]]></handler>
 		
-		<handler name="onmousedown" reference="gItemInterface">
-			if(gController.scratchpadOpen){
-				if(gScratchpad.sp.inp.getTextHeight() > gScratchpad.sp.height) {
-					gScratchpad.sp.inp.setAttribute("scroll",gScratchpad.sp.inp.maxscroll);
-				}
-			}
-		</handler>
 
 		<method name="isScratchpadSubcomponent" args="who">
 			var ancestor = _getAncestor(who);
@@ -115,9 +94,9 @@
             gController.clearAndRestoreCurrentCursor();
         </handler>
         
-        <method name="restoreFocusAndCursor">
+        <method name="restoreFocusAndCursor" >
         	this.sp.inp.onfocus.sendEvent();
-        	this.sp.resetTheSelection();
+       		this.sp.resetTheSelection();
         	this.setAttribute("scratchpadHasFocus", true);
 			gHotKeys.disableKeys();
         </method>
@@ -158,7 +137,7 @@
            		
            }else{
            		gReadableText.stopReading(true);
-				gScratchpad.sp.inp.onblur.sendEvent();
+				//gScratchpad.sp.inp.onblur.sendEvent();
             }  
             }   
             
@@ -190,7 +169,7 @@
          </method>
          
          <!-- TE END -->
-	     <scrolledittext name="sp" 
+	     <scrolledittextnew name="sp" 
 	                             height="${immediateparent.height}" 
 	                             width="${immediateparent.width}" 
 	                             focusable="true">
@@ -235,7 +214,7 @@
          		  
          		<handler name="onpos" reference="this.inp" args="_pos">
 				  	if(typeof _pos == 'number'){
-        				this.setAttribute("scrollPos", _pos);
+        				//this.setAttribute("scrollPos", _pos);
        			  	}
         	    </handler>
         
@@ -271,7 +250,8 @@
 				
 				<method name="resetTheSelection">
         			this.setSelection(this.start, this.end);
-        			this.inp.setAttribute('pos', this.scrollPos);
+        			//this.inp.setAttribute('pos', this.scrollPos);
+        			Debug.write("RESET TEH SELECTION" , this.start, this.end, this.scrollPos,this.inp.pos);
 				</method>
 				
 				<method name="getSelectedText">
@@ -282,6 +262,6 @@
 						return getText().substring(start, end);
 					}
 				</method>
-	       </scrolledittext>
+	       </scrolledittextnew>
      </class>
 </library>
