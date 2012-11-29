@@ -131,6 +131,9 @@
         		var bc = Number(gController.questionBgColor);
        	 	}
 	        this.body.wrap.setAttribute("fgcolor", fgc);
+	        this.body.wrap.header.setAttribute("fgcolor", fgc);
+	        this.body.wrap.detail.setAttribute("fgcolor", fgc);
+	        this.body.wrap.detailmulti.setAttribute("fgcolor", fgc);
 			this.setAttribute("backcolor", bc);
 		}
     </handler>
