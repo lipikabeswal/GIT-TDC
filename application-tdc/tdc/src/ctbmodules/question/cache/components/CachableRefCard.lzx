@@ -28,7 +28,7 @@
 		<handler name="onvisible" args="v"><![CDATA[
 		//To control the visibility according to the toolstate
 			if(this.toolstate.data != 'sel' && v) {
-				this.setVisible(false);
+				this.setAttribute('visible',false);
 			}
 			else
 			{
