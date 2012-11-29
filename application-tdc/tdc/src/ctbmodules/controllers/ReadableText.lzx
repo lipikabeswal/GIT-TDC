@@ -164,15 +164,15 @@
 		<method name="getSpeedNumber" args="smf"><![CDATA[
 			var value;
         	switch (smf){
-				case 'S':
+				case 'Slow':
 					value = -3;
 					break;
 				
-				case 'M':
+				case 'Medium':
 					value = -2;
 					break;
 				
-				case 'F':
+				case 'Fast':
 					value = -1;
 					break;
 
