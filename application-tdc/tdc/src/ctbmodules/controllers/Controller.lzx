@@ -515,7 +515,7 @@
 		<attribute name="htmlGeneralManipData" value="$once{new Array()}" />
 		<attribute name="htmlmanipStateHtml" value="$once{new Object()}" />
 		<attribute name="questionFontSize" type="number" value="0"/>
-        <attribute name="displayText" value="false"/>
+		<attribute name="displayText" value="false"/>
 		<!--
 			============================================================
 			Datapointers
@@ -2280,7 +2280,7 @@
                 var dncurritem =
                     dpstudentdata.xpathQuery ('current_item/item_model/');
 				var scratchStr = scratchpadObject(dpstudentdata,gScratchpad);
-				Debug.write("dnrtitemnew.changecurrentitemdata..", scratchStr);
+				//Debug.write("dnrtitemnew.changecurrentitemdata..", scratchStr);
 				var s = "scratchpadManager.saveStateManip('"+scratchStr+"')";
 				lz.Browser.loadJS(s);
 				
@@ -2396,7 +2396,7 @@
 
 		<method name="saveSharedStimulusHighlights"><![CDATA[
 			var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model/');
-			Debug.write("dncurritem--------- ",dncurritem);
+			//Debug.write("dncurritem--------- ",dncurritem);
 			if(dncurritem!=null){
 			var stimulusid = dncurritem.getAttr('stimulus_id');
 				if(stimulusid != 0){  //  shared stimulus
@@ -2660,9 +2660,9 @@
 				dpstudentdata.xpathQuery( 'question_number/@total_including_theme')  );
 			
 			var curreid = dpstudentdata.xpathQuery( 'current_item/item_model/@eid' )
-			Debug.write("stepNavigateForward",gController.htmlFields.length);
+			//Debug.write("stepNavigateForward",gController.htmlFields.length);
 			if(gController.htmlFields.length > 0){
-				Debug.write("stepNavigateForward",this.htmlFields[0]['ref'].main.ht);
+				//Debug.write("stepNavigateForward",this.htmlFields[0]['ref'].main.ht);
 				this.htmlFields[0]['ref'].main.ht.callJavascript('getManipulativeData', null,curreid);
 				/*var js = "getManipulativeData('"+curreid+"')";
 				lz.Browser.loadJS(js);*/
@@ -2683,7 +2683,7 @@
 
 		<method name="addManipulatives" args="data"><![CDATA[
 			canvas.setAttribute('htmlGeneralManip',JSON.parse(data));
-			Debug.write("addManipulatives",canvas.htmlGeneralManip,canvas.htmlGeneralManip.eid);
+			//Debug.write("addManipulatives",canvas.htmlGeneralManip,canvas.htmlGeneralManip.eid);
 			var isElementPresent = false;
 			for(var i=0;i<htmlGeneralManipData.length;i++){
 				if(canvas.htmlGeneralManip.eid == htmlGeneralManipData[i].eid){
@@ -2693,7 +2693,7 @@
 					isElementPresent=true;
 				}
 			}
-			Debug.write("addManipulatives****** ",isElementPresent,typeof(isElementPresent),htmlGeneralManipData);
+			//Debug.write("addManipulatives****** ",isElementPresent,typeof(isElementPresent),htmlGeneralManipData);
 			if(!isElementPresent){
 				htmlGeneralManipData.push(canvas.htmlGeneralManip);
 			}
@@ -3115,17 +3115,17 @@
 			
 			if(this.adaptive == true){				
 				//if (gScreens.isOnFinishScreen()) {
-				Debug.write("goToFinishScreen :"+ gScreens.isOnFinishScreen() +"::"+ this.isStopTest);
+				//Debug.write("goToFinishScreen :"+ gScreens.isOnFinishScreen() +"::"+ this.isStopTest);
 				if(this.RestartTest=="true"){
 				//Debug.write(" finish test for restart");
 					this.setAttribute("isStopTest",false);
 					this.setAttribute("isFinishTest",true);
 					}	
 				if(gScreens.isOnFinishScreen()){
-					Debug.write("isOnFinishScreen1");
+					//Debug.write("isOnFinishScreen1");
 					gController.saveEndSubtest();
 				}else {
-					Debug.write("isOnFinishScreen2");
+					//Debug.write("isOnFinishScreen2");
 					gScreens.showFinish( totalQuestions() - totalAnswered(),
 	                                 totalMarked() );
 	             }
@@ -3222,7 +3222,7 @@
 
 		<method name="stopTest">
 			var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
-			Debug.write("STOP TEST ITEM NODE");
+			//Debug.write("STOP TEST ITEM NODE");
 			var curItemId;
         	if(itemnode != null){
 					curItemId = itemnode.getAttr( 'eid' );
@@ -3336,7 +3336,7 @@
 				{
 					this.setAttribute("sendCatSave",true);
 					this.prevItemId = curItemId;
-					Debug.write("curItemId:"+curItemId+"::prevItemId:"+this.prevItemId);
+					//Debug.write("curItemId:"+curItemId+"::prevItemId:"+this.prevItemId);
 					save(lev);
 				}else{
 					this.setAttribute("sendCatSave",false);
@@ -3356,7 +3356,7 @@ Debug.write("############ loadItem ############");
 				this.inQuestion = false;
 			}
         	var loadParams = getLoadParams();
-			Debug.write("loadParams",loadParams);
+			//Debug.write("loadParams",loadParams);
         	var xml = gXmlHelper.getGetItemXml(loadParams[0], loadParams[1], loadParams[2]);
 			if (typeof canvas.folder != "undefined") {
 				dsitem.setQueryParam(gRequest.FOLDER_PARAM, canvas.folder);
@@ -3369,7 +3369,7 @@ Debug.write("############ loadItem ############");
 			dsitem.doRequest();        
             this.resetCrFields();
 			this.resetAudioFields();
-			Debug.write("reset in load item htmlFields");
+			//Debug.write("reset in load item htmlFields");
 			this.resetHtmlFields();
 			//this.resetImageField();
 			gMaskingAnswer.setAttribute("withState",false);
@@ -3385,11 +3385,11 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="getMusicData" args="d"><![CDATA[
-			Debug.write("inside getMusicData : ",d);
+			//Debug.write("inside getMusicData : ",d);
         	var result = d.childNodes[0].data;
-			Debug.write("getMusicData result" , result , d);
+			//Debug.write("getMusicData result" , result , d);
         	//result == 'File_Downloaded' &&  
-        	Debug.write("gController.audible*************** ",gController.audible == 'true',gController.audible == true);
+        	//Debug.write("gController.audible*************** ",gController.audible == 'true',gController.audible == true);
 			if(gController.audible == true){
 				gMusicPlayer.alreadyCalled = true;				
 				gMusicPlayer.setSource("http:resources/music_"+gController.musicId+".mp3");
@@ -3456,7 +3456,7 @@ Debug.write("############ loadItem ############");
 					result[3] = toNumString( itemnode.getAttr( 'answered' ) ); //current awd
 					result[4] = currentDur(); //current dur
 					result[5] = getCurrentInteractionType();  // type
-				Debug.write("getCurrentInteractionType after");      
+				//Debug.write("getCurrentInteractionType after");      
 					if(isThemeItem()){
 						result[6] = '';
 						this.blockFileName = false;//this attribute was set true by an audio item
@@ -3470,7 +3470,7 @@ Debug.write("############ loadItem ############");
 					}
 					result[7] = itemnode.getAttr( 'score' ); //current score
 					result[8] = (getSpText() != null && getSpText() != "null") ? getSpText() : "";//sp data is coming as 'null'
-					Debug.write("getSpText after");  
+					//Debug.write("getSpText after");  
 					result[9] = 0;					
  					itemType = dpitem.xpathQuery('item_canvas/*/recorder_widget')
 					if(itemType == null){
@@ -3495,20 +3495,20 @@ Debug.write("############ loadItem ############");
 					
 					var elist = dpsubtest.xpathQuery('ob_assessment/ob_element_list');
             		var items = elist.getElementsByTagName( 'f' );
-            		Debug.write("items after");  	
+            		//Debug.write("items after");  	
 					var fnodeEid;
             		if (this.adaptive == true && dprestart.isValid()) { 
             			fnodeEid = items[itemNo-1].getAttr( 'id' );
             		}*/
             		
-            		Debug.write("done after");  			
+            		//Debug.write("done after");  			
 				}
     		}
 		Debug.write("### result :", result);
     	//this.setAttribute('blockFileName' , true);
 		//setting the item is visited 
 		
-		printBigString(dpstudentdata);
+		//printBigString(dpstudentdata);
                 var dncurritem =
                     dpstudentdata.xpathQuery ('current_item/item_model/');
 				if(dncurritem!=null)	
@@ -3524,7 +3524,7 @@ Debug.write("############ loadItem ############");
     	]]></method>
     	
     	<method name="replaceAdaptiveCurEid"><![CDATA[
-	    	Debug.write("_handleSaveLoadResponse");
+	    	//Debug.write("_handleSaveLoadResponse");
 			var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
 			var itemNo = itemnode.getAttr( 'item_no' ); // current item no
 			var curEid = itemnode.getAttr( 'eid' ); // current eid
@@ -3538,10 +3538,10 @@ Debug.write("############ loadItem ############");
 	            		
 			var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model/');
 			if(this.adaptive == true && dprestart.isValid()){
-				Debug.write("### _handleSaveLoadResponse :"+ this.istLength +"::"+itemNo);
-				Debug.write("### _handleSaveLoadResponse :"+ curEid +"::"+fnodeEid);
+				//Debug.write("### _handleSaveLoadResponse :"+ this.istLength +"::"+itemNo);
+				//Debug.write("### _handleSaveLoadResponse :"+ curEid +"::"+fnodeEid);
 				if(this.istLength == itemNo){
-					Debug.write("### _handleSaveLoadResponse setting :"+curEid+" to "+fnodeEid);
+					//Debug.write("### _handleSaveLoadResponse setting :"+curEid+" to "+fnodeEid);
 					itemnode.setAttr( 'eid', fnodeEid); // current iid
 				}	
 			}    	
@@ -3632,7 +3632,7 @@ Debug.write("############ loadItem ############");
 			else{
 				if(val){
 					freezeUI();
-					Debug.write("UpdaterequestPending");
+					//Debug.write("UpdaterequestPending");
 				}
 				else{
 					unlockIfItemReady();
@@ -3668,7 +3668,7 @@ Debug.write("############ loadItem ############");
             var ismarked = dpstudentdata.xpathQuery ('current_item/item_model/@marked');
 			var currentEid = dpstudentdata.xpathQuery("current_item/item_model/@eid");
 			canvas.setAttribute('currentEid',currentEid);
-            Debug.write("initManipulativeData  ",ismarked,dnmanip,dngeneral,currentEid,htmlGeneralManipData);
+           // Debug.write("initManipulativeData  ",ismarked,dnmanip,dngeneral,currentEid,htmlGeneralManipData);
             if (typeof (ismarked) == 'string') {
                 ismarked = (ismarked == '1' || ismarked == 'true');
             }
@@ -3694,14 +3694,14 @@ Debug.write("############ loadItem ############");
 				
 				if(gController.htmlFields.length > 0){
 					canvas.setAttribute("htmlOpenManip",null);
-					Debug.write("htmlGeneralManipData",htmlGeneralManipData);
+					//Debug.write("htmlGeneralManipData",htmlGeneralManipData);
 					for(var i=0;i<htmlGeneralManipData.length;i++){
 						if(htmlGeneralManipData[i].eid == currentEid){
 							htmlGeneralManipData.splice(i,1);
-							Debug.write("splice",htmlGeneralManipData);
+							//Debug.write("splice",htmlGeneralManipData);
 						}
 					}
-					Debug.write("htmlGeneralManipData********* ",htmlGeneralManipData);
+					//Debug.write("htmlGeneralManipData********* ",htmlGeneralManipData);
 				}
                 
                 if(dnman != null){
@@ -3804,7 +3804,7 @@ Debug.write("############ loadItem ############");
 
 		<method name="openTEManipulatives" args="openManipData"><![CDATA[
 
-			Debug.write("openTEManipulatives****** ",openManipData,gController.htmlmanipStateHtml);
+			//Debug.write("openTEManipulatives****** ",openManipData,gController.htmlmanipStateHtml);
 
 			var manipObjData;
 			
@@ -4345,7 +4345,7 @@ Debug.write("############ loadItem ############");
 		<method name="updateAudioItem"><![CDATA[
 		
 		if(isAudioItem() || this.blockFileName){//this will differentiate the audio item save call with the heartbeat
-			Debug.write("updateAudioItem....");
+			//Debug.write("updateAudioItem....");
 			var xmls = "<answers>";
 			xmls = xmls.concat(generateAudioFileName());
            	xmls = xmls.concat("</answers>");
@@ -4766,7 +4766,7 @@ Debug.write("############ loadItem ############");
 		}
 		for (var i =0 ; i < answerArray.length; i++){
 			if(answerArray[i].subviews[0].subviews[0].type == k)
-			{Debug.write("matchin>>>>>>>>>>>>>>>>");
+			{//Debug.write("matchin>>>>>>>>>>>>>>>>");
 				 return true;
 			}
 		}
@@ -4914,54 +4914,54 @@ Debug.write("############ loadItem ############");
 		
 		<method name="returnIndex" args="arr,index,change"><![CDATA[
 	
-		Debug.write("returnIndex :"+arr.length,index,change);
-		Debug.write("index--------- ",Number(index));
+		//Debug.write("returnIndex :"+arr.length,index,change);
+		//Debug.write("index--------- ",Number(index));
 		index = Number(index);
 		  switch ( index ) {
 	        	case  0:
 	        	Debug.write("returnIndex case 0");
                    	for(var i=0; i < arr.length; i++){
 						if(answerArray[i].subviews[0].subviews[0].type == 'A' && !change){
-							Debug.write("returnIndex i 1:"+i);
+							//Debug.write("returnIndex i 1:"+i);
 							return i;
 						}
 						else if(answerArray[i].subviews[1].subviews[0].type == 'A'){
-							Debug.write("returnIndex i 2:"+i);
+							//Debug.write("returnIndex i 2:"+i);
 							return i;
 						}
 					}
                     break;
 				case 1: 
-				Debug.write("returnIndex case 1");
+				//Debug.write("returnIndex case 1");
                     for(var i=0; i < arr.length; i++){
 						if(answerArray[i].subviews[0].subviews[0].type == 'B' && !change){
-							Debug.write("returnIndex i 1:"+i);
+							//Debug.write("returnIndex i 1:"+i);
 							return i;
 						}
 						else if(answerArray[i].subviews[1].subviews[0].type == 'B'){
-							Debug.write("returnIndex i 2:"+i);
+							//Debug.write("returnIndex i 2:"+i);
 							return i;
 						}
 					}
                     break;
 				case 2: 
-				Debug.write("returnIndex case 2");
+				//Debug.write("returnIndex case 2");
                    	for(var i=0; i < arr.length; i++){
 						if(answerArray[i].subviews[0].subviews[0].type == 'C' && !change){
-							Debug.write("returnIndex i 1:"+i);
+							//Debug.write("returnIndex i 1:"+i);
 							return i;
 						}
 						else if(answerArray[i].subviews[1].subviews[0].type == 'C'){
-							Debug.write("returnIndex i 2:"+i);
+							//Debug.write("returnIndex i 2:"+i);
 							return i;
 						}
 					}
                     break;
 				case 3: 
-				Debug.write("returnIndex case 3");
+				//Debug.write("returnIndex case 3");
                     for(var i=0; i < arr.length; i++){
 						if(answerArray[i].subviews[0].subviews[0].type == 'D' && !change){
-							Debug.write("returnIndex i 1:"+i);
+							//Debug.write("returnIndex i 1:"+i);
 							return i;
 						}
 						else if(answerArray[i].subviews[1].subviews[0].type == 'D'){
@@ -5013,7 +5013,7 @@ Debug.write("############ loadItem ############");
 		]]></method>
 		
 		<method name="returnRandomIndex" args="arr,selId"><![CDATA[
-		Debug.write("returnRandomIndex :"+arr.length);
+		//Debug.write("returnRandomIndex :"+arr.length);
 		var dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@randomIdentifier='"+selId+"']");
 		var actSelid = dnsel.getAttr("identifier");		
 		/*Debug.write("returnRandomIndex random selected id :"+selId);
