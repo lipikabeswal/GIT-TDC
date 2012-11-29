@@ -79,7 +79,7 @@
              =============== -->
         <handler name="ondata" args="data"><![CDATA[
             //width
-            Debug.write("TextField ondata fired**** ",data);
+            //Debug.write("TextField ondata fired**** ",data);
             if (data.hasAttr("width")) {
                 this.setAttribute("width", Number(data.getAttr("width")));
             } else {
@@ -208,13 +208,13 @@
 
 		<method name="setTextReaderAttributes" args="data"><![CDATA[
             var dataText = data.getFirstChild().data;
-            Debug.write("setTextReaderAttributes",dataText);
-			Debug.write("inside setTextReaderAttributes ",panel, parent.panel,parent);
+            //Debug.write("setTextReaderAttributes",dataText);
+			//Debug.write("inside setTextReaderAttributes ",panel, parent.panel,parent);
 			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
 			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
 				dataText = gReadableText.stripHtmlTags(gController.directionsSubstitution(dataText));
 			}  
-			Debug.write("dataText after stripHtmlTags ",dataText);
+			//Debug.write("dataText after stripHtmlTags ",dataText);
             if ( data.hasAttr( 'alt_text' ) ) {
             	var dataAltText = trim(data.getAttr( 'alt_text' ));
             	if(canvas.readable && dataAltText.length > 0){
@@ -227,12 +227,12 @@
                 setAttribute( 'hasAltText', true );
                 this.setAAText(dataAltText);
             } else {
-				Debug.write("inside else ",canvas.readable);
+				//Debug.write("inside else ",canvas.readable);
             	setAttribute('hasReadableText', canvas.readable);
                 setAttribute( 'hasAltText', false );
-                Debug.write("inside else hasReadableText",this.hasReadableText,this.hasAltText);
+                //Debug.write("inside else hasReadableText",this.hasReadableText,this.hasAltText);
                 this.setAAText(dataText);
-                Debug.write("after setAAText");
+                //Debug.write("after setAAText");
             }
 		]]></method>
 		
@@ -240,7 +240,7 @@
         	setTextReaderAttributes(data);
         	var allFields = new Array();
 			var dataText = data.getFirstChild().data;
-			Debug.write("dataText----------- ",dataText);
+			//Debug.write("dataText----------- ",dataText);
 			
 			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
 			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
@@ -261,7 +261,7 @@
 				if (words[i].indexOf("<single_line_answer") != -1) {
 					i++;
                   	var hash = new Array();
-					Debug.write("gController.hasFontAccommodationgController.hasFontAccommodation" , gController.hasFontAccommodation);
+					//Debug.write("gController.hasFontAccommodationgController.hasFontAccommodation" , gController.hasFontAccommodation);
                     if (gController.hasFontAccommodation){
 
                     	hash['fontsize'] = 18;
@@ -403,7 +403,7 @@
             		theField.setReadableText(gReadableText.stripHtmlTags(readableText));
             	}
             }
-            Debug.write("theField------------- ",allFields);
+           // Debug.write("theField------------- ",allFields);
             var xin = parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
 			// For inline cr, to avoid overlapping of text objects, set value to 0
             var xsp = gController.hasFontAccommodation ? 0 : (this.embedded_input ? 0 : -1); ;
@@ -540,7 +540,7 @@
         	setTextReaderAttributes(data);
         	var allFields = new Array();
 			var dataText = data.getFirstChild().data;
-			Debug.write("embedded_inlinefootnote_text: dataText----------- ",dataText);
+			//Debug.write("embedded_inlinefootnote_text: dataText----------- ",dataText);
 			
 			var doubleBrIndex = dataText.lastIndexOf('<br/><br/>');
 			if(doubleBrIndex != -1 && ((dataText.length - doubleBrIndex) == 10)){
