@@ -124,7 +124,12 @@ else{
 	}else{
 		maniObj.width = manipId.width.toString();
 	}
-			
+	
+	if(manipName == 'standard_calculator' || manipName == 'scientific_calculator'){
+		maniObj.displayValue = gStandardCalculator.displayValue;
+		maniObj.input = gStandardCalculator.input;
+		maniObj.currentOperand = gStandardCalculator.currentOperand.toString();
+	}
 	return maniObj;
 	]]>
 </method>
@@ -181,6 +186,10 @@ var manipObjData;
 			gStandardCalculator.setAttribute('x',Number(manipObjData.x));
 			gStandardCalculator.setAttribute('y',Number(manipObjData.y));
 			gStandardCalculator.setAttribute('width',Number(manipObjData.width));
+			gStandardCalculator.setAttribute("displayValue",manipObjData.displayValue);
+			gStandardCalculator.setAttribute("input",manipObjData.input);
+			gStandardCalculator.setAttribute('currentOperand',Number(manipObjData.currentOperand));
+			gStandardCalculator.updateDisplay();
 			gStandardCalculator.setAttribute("isselected",true);
 			gStandardCalculator.show();
 			}
@@ -191,6 +200,10 @@ var manipObjData;
 			gScientificCalculator.setAttribute('x',Number(manipObjData.x));
 			gScientificCalculator.setAttribute('y',Number(manipObjData.y));
 			gScientificCalculator.setAttribute('width',Number(manipObjData.width));
+			gStandardCalculator.setAttribute("displayValue",manipObjData.displayValue);
+			gStandardCalculator.setAttribute("input",manipObjData.input);
+			gStandardCalculator.setAttribute('currentOperand',Number(manipObjData.currentOperand));
+			gStandardCalculator.updateDisplay();
 			gScientificCalculator.setAttribute("isselected",true);
 			gScientificCalculator.show();
 		}
