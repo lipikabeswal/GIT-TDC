@@ -1,6 +1,7 @@
 <library>
 	<include href="CachableComponent.lzx"/>
     <include href="lib/Highlight.lzx"/>
+    <include href="lib/vscrollbar.lzx" />
 
 	<!-- ************************************
          BaseCachablePanel
@@ -84,8 +85,7 @@
 				this.wrapper.scrollcontainer.setAttribute('height',0);
 				this.wrapper.scrollcontainer.offsetwrapper.setAttribute('width',0);
 				this.wrapper.scrollcontainer.offsetwrapper.setAttribute('height',0);
-				this.wrapper.scrollcontainer.offsetwrapper.contents.setAttribute('width',0);
-				this.wrapper.scrollcontainer.offsetwrapper.contents.setAttribute('height',0);
+
 			}
 			//Randomization will only be applied if login response has seed with it
 			if(gController.isLoginResponseHavingSeed && !nullOrSpace(gController.seed) && data != null) {
@@ -103,6 +103,8 @@
 			if (data.hasAttr ('height')) {
                 var nh = data.getAttr("height");
                 this.setAttribute("growtocontents", nh == "");
+Debug.write("classroot.growtocontentzs",nh);
+Debug.write("classroot.growtocontentzs",this.growtocontents);
                 if (nh == "") {
                     nh = null;
                 } else {
@@ -141,7 +143,7 @@
 
             super.doneLoading();
 			
-
+			Debug.write("this.vscrollbar", this.wrapper.scrollable, this.wrapper.vscroll);
             
             //inform gFootNotePopup footnotes
 			if((this instanceof lz.CachableScrollingTextPanel) 
@@ -252,14 +254,15 @@
         <method name="doReturnToCache"><![CDATA[
             var contsubviews = this.wrapper.scrollcontainer.offsetwrapper.contents.subviews;
 			if(!this.isaccom){
+
 				this.wrapper.setAttribute('width',0);
 				this.wrapper.setAttribute('height',0);
 				this.wrapper.scrollcontainer.setAttribute('width',0);
 				this.wrapper.scrollcontainer.setAttribute('height',0);
 				this.wrapper.scrollcontainer.offsetwrapper.setAttribute('width',0);
 				this.wrapper.scrollcontainer.offsetwrapper.setAttribute('height',0);
-				this.wrapper.scrollcontainer.offsetwrapper.contents.setAttribute('width',0);
-				this.wrapper.scrollcontainer.offsetwrapper.contents.setAttribute('height',0);
+
+
 			}
             this.setAttribute('enablehl', true);
             for (var i in contsubviews) {
@@ -302,7 +305,7 @@
                           ? (this.offsetwrapper.height + 
                               (classroot.growtocontents &amp;&amp; classroot.comptype == gCompTypes.WIDGET_ANSWER_AREA_PANEL ? this.offsetwrapper.contents.y : 0)): 
                           parent.height}">
-                <view name="offsetwrapper">
+                <view name="offsetwrapper" width="${this.contents.width}" height="${this.contents.height}">
                     <view name="contents"/>
                 </view>
                 <Highlight name="highlighter" 
@@ -314,7 +317,7 @@
                            scrollport="$once{classroot.parent instanceof lz.BaseCachablePanel ? classroot.parent.wrapper : parent.parent}"                           options="ignorelayout" 
                            visible="${classroot.enablehl}"/>
             </view>
-            <vscrollbar name="vscroll"
+            <vscrollbarnew name="vscroll"
                         height="${parent.hscroll.visible ? 
                                   ( classroot.growtocontents ? parent.scrollcontainer.height - parent.hscroll.height :
                                     parent.scrollcontainer.height) :
