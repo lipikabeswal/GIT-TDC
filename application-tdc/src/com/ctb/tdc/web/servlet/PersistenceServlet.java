@@ -59,6 +59,7 @@ public class PersistenceServlet extends HttpServlet {
 	private static final String windowsPath = "//Application Data//Macromedia//Flash Player//macromedia.com//support//flashplayer//sys//#127.0.0.1";
 	private static final String macPath = "//library//preferences//macromedia//Flash Player//macromedia.com//support//flashplayer//sys//#127.0.0.1";
 	private static final String unixPath = "//.macromedia//Flash_Player//macromedia.com//support//flashplayer//sys";
+	private static final String PRODUCT_TYPE = System.getProperty("tdc.productType");
 
 	private static HashMap<String, String> audioResponseHash = new HashMap<String, String>();
 
@@ -237,6 +238,10 @@ public class PersistenceServlet extends HttpServlet {
 		else if (method != null
 				&& method.equals(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD))
 			result = writeToAuditFile(xml);
+		else if (method != null
+				&& method.equals(ServletUtils.CHECK_ISTEP_METHOD)){
+					result = "<"+PRODUCT_TYPE.trim()+" />";
+				}
 		else
 			result = ServletUtils.ERROR;
 

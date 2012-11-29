@@ -267,6 +267,8 @@
 			value="saveEndSubtest" />
 		<attribute name="TUTORIAL_COMPLETE_STATE" type="string"
 			value="tutorialComplete" />
+		<attribute name="CHECK_ISTEP_METHOD" type="string"
+			value="istepProductCheck" />	
 
 		<!-- 
 			Lifecycle events
@@ -513,6 +515,7 @@
 		<attribute name="htmlGeneralManipData" value="$once{new Array()}" />
 		<attribute name="htmlmanipStateHtml" value="$once{new Object()}" />
 		<attribute name="questionFontSize" type="number" value="0"/>
+        <attribute name="displayText" value="false"/>
 		<!--
 			============================================================
 			Datapointers
@@ -559,6 +562,7 @@
  
 		<attribute name="showPleaseWaitOver" value="false" type="boolean" />
 		<attribute name="RestartTest" value="false" type="boolean" />
+		<attribute name="productTypeVal" type="string" value="ISTEP"/>
 			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -626,12 +630,18 @@
 		</method>
 
 		<handler name="oninit">
-        	gScreens.showLogin();
+			checkIstepProduct();
+        	//gScreens.showLogin();
 			var base = lz.Browser.getInitArg( 'servletUrl' );
 			dsitem.setAttribute('src', base + '/ContentServlet.do'); 
 			dsMusic.setAttribute('src', base + '/ContentServlet.do');   
 			//Debug.write("On Init Controller");
         </handler>
+
+        <method name = "checkIstepProduct">
+			setState(CHECK_ISTEP_METHOD);
+			gCommunicator.checkIstepProduct();
+		</method>
 
 		<method name="login" args="_userid, _password, _accesscode">
 			setAttribute('userid', _userid == null ? null : _userid.toLowerCase());
@@ -796,11 +806,28 @@
 					case TUTORIAL_COMPLETE_STATE:
 						_handleTutorialCompleteResponse(response);
 						break;
+                    case CHECK_ISTEP_METHOD:
+						_handleIstepPasswordField(response);
+						break;
 					default:
 						break;
 				}
 			}
 		</handler>
+
+        	<method name = "_handleIstepPasswordField" args="response"><![CDATA[
+			this.setAttribute("productTypeVal",response);
+			var currentProdType = this.productTypeVal;
+
+			if(currentProdType.indexOf('ISTEP') >= 0) {
+				this.setAttribute("displayText",true);
+
+			} else {
+				this.setAttribute("displayText",false);
+			}
+			gScreens.showLogin();
+		]]>
+		</method>
 
 		<method name="_handleUploadAuditFileResponse" args="response"><![CDATA[
             // clock is stopped

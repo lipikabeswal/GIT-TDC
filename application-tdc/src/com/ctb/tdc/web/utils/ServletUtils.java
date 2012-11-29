@@ -153,6 +153,7 @@ public class ServletUtils {
 	public static final String GET_MUSIC_DATA_METHOD = "getMusicData";
 	public static final String LOAD_MUSIC_DATA_METHOD = "getMp3";
 	public static final String GET_FILE_PARTS = "downloadFileParts";
+	public static final String CHECK_ISTEP_METHOD = "istepProductCheck"; // Added for user story 'ISTEP – 2013 – 002 – View password in TDC'
 	
 	
 	

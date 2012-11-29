@@ -23,6 +23,12 @@
        			gRequest.login(username, password, accessCode);
        		}
        	</method>
+       	
+       	<method name="checkIstepProduct">
+      		if(!error){
+       			gRequest.checkIstepProduct();
+       		}
+       	</method>
   		
       	<method name="downloadSubtest" args="id, hash, key">
      		if(!error){

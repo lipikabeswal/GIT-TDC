@@ -35,8 +35,10 @@
                   x="${ 282 - width }" fgcolor="white" fontsize="12">
                 <b>Password:</b>
             </text>
-            <edittext name="passwordField" x="287" fontsize="12"
+            <edittext name="otherPasswordField" x="287" fontsize="12"
                       password="true" width="265"/>
+            <edittext name="istepPasswordField" x="287" fontsize="12"
+                      password="false" width="265"/>
         </view>
         <view name="ac">
             <text resize="true" fgcolor="white"
@@ -54,7 +56,12 @@
                 <handler name="onclick" method="docontinue"/>
                 <method name="docontinue">
                     gScreens.clicked();
-                	var pwd = classroot.pw.passwordField.getText();
+                	var pwd;
+                	if(gController.displayText == true || gController.displayText == 'true')  {
+						pwd = classroot.pw.istepPasswordField.getText();
+					} else {
+						pwd = classroot.pw.otherPasswordField.getText();
+					}
                 	if(pwd != null){
                 		pwd = pwd.toLowerCase();
                 	}

@@ -54,6 +54,7 @@
 		<attribute name="_TEXT_PARAM" type="string" value="text" />
 		<attribute name="_SERVER_VALUE" type="string" value="server" />
 		<attribute name="_GENDER_VALUE" type="string" value="female" />
+		<attribute name="CHECK_ISTEP_METHOD"   type="string" value="istepProductCheck" />
 		
 		<handler name="oninit">
 			var base = lz.Browser.getInitArg( 'servletUrl' );
@@ -66,6 +67,10 @@
 			var xml = gXmlHelper.getLoginXml(username, password, accesscode, cid);
 			Debug.write("Login XMl: " , xml);
 			_doRequest(persistenceDs, LOGIN_METHOD, xml);
+		</method>
+		
+		<method name="checkIstepProduct" >
+			_doRequest(persistenceDs, CHECK_ISTEP_METHOD, "");
 		</method>
 		
 		<method name="getSubtest" args="id, hash, key">
