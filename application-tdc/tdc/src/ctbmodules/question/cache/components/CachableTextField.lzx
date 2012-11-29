@@ -163,7 +163,7 @@
             }
             this.setAttribute('align', just);
 			
-			
+			dataText = handleHTMLtags(dataText);
             this.thetext.setAttribute("text",
                 '<p align="' + just + '">' + dataText + '</p>');
 
@@ -172,6 +172,39 @@
             //this.doAlign();
             ]]>
         </handler>
+
+		<method name="handleHTMLtags" args="dataText"><![CDATA[
+			if (dataText.indexOf("&LT;") != -1) {
+				dataText = replaceAll(dataText,"&LT;","<");
+			}
+			else if (dataText.indexOf("&lt;") != -1) {
+				dataText = replaceAll(dataText,"&lt;","<");
+			}
+			Debug.write("handleHTMLtags***after********* ",dataText);
+			if (dataText.indexOf("&GT;") != -1) {
+				dataText = replaceAll(dataText,"&GT;",">");
+			}
+			else if (dataText.indexOf("&gt;") != -1) {
+				dataText = replaceAll(dataText,"&gt;",">");
+			}
+
+			return dataText;
+			]]>
+		</method>
+
+		<method name="replaceAll" args="inSource, inToReplace, inReplaceWith"><![CDATA[
+		      var outString = inSource;
+			  while (true) {
+			    var idx = outString.indexOf(inToReplace);
+			    if (idx == -1) {
+			      break;
+			    }
+			    outString = outString.substring(0, idx) + inReplaceWith +
+			      outString.substring(idx + inToReplace.length);
+			  }
+			  return outString;
+			]]>
+		</method>
 
 		<method name="setTextReaderAttributes" args="data"><![CDATA[
             var dataText = data.getFirstChild().data;
@@ -582,30 +615,33 @@
 			    		}              
 
 	                // If the input word is surrounded by HTML font type delimiters
-						if (inputText[j].indexOf("<i>") != -1 && inputText[j].indexOf("</i>") != -1) 
+						if ((inputText[j].indexOf("<i>") != -1 && inputText[j].indexOf("</i>") != -1)
+							|| (inputText[j].indexOf("&lt;i&gt;") != -1 && inputText[j].indexOf("&lt;/i&gt;") != -1)) 
 							inputText[j] = "<i>" + inputText[j] + "</i>";
-						else if (inputText[j].indexOf("<i>") != -1) 
+						else if (inputText[j].indexOf("<i>") != -1 || inputText[j].indexOf("&lt;i&gt;") != -1) 
 							i_on = true;
-						else if (inputText[j].indexOf("</i>") != -1) {
+						else if (inputText[j].indexOf("</i>") != -1 || inputText[j].indexOf("&lt;/i&gt;") != -1) {
 							inputText[j] = "<i>" + inputText[j] + "</i>";
 							i_on = false;
 						}
 
 
-		               if (inputText[j].indexOf("<b>") != -1 && inputText[j].indexOf("</b>") != -1) 
+		               if ((inputText[j].indexOf("<b>") != -1 && inputText[j].indexOf("</b>") != -1)
+							|| (inputText[j].indexOf("&lt;b&gt;") != -1 && inputText[j].indexOf("&lt;/b&gt;") != -1)) 
 		                  inputText[j] = "<b>" + inputText[j] + "</b>";
-		               else if (inputText[j].indexOf("<b>") != -1)
+		               else if (inputText[j].indexOf("<b>") != -1 || inputText[j].indexOf("&lt;b&gt;") != -1)
 		                  b_on = true;
-		               else if (inputText[j].indexOf("</b>") != -1) {
+		               else if (inputText[j].indexOf("</b>") != -1 || inputText[j].indexOf("&lt;/b&gt;") != -1) {
 		                  inputText[j] = "<b>" + inputText[j] + "</b>";
 		                  b_on = false;
 		               }
 
-		               if (inputText[j].indexOf("<u>") != -1 && inputText[j].indexOf("<u>") != -1) 
+		               if ((inputText[j].indexOf("<u>") != -1 && inputText[j].indexOf("<u>") != -1)
+							|| (inputText[j].indexOf("&lt;u&gt;") != -1 && inputText[j].indexOf("&lt;/u&gt;") != -1)) 
 		                  inputText[j] = "<u>" + inputText[j] + "</u>";
-		               else if (inputText[j].indexOf("<u>") != -1)
+		               else if (inputText[j].indexOf("<u>") != -1 || inputText[j].indexOf("&lt;u&gt;") != -1)
 		                  u_on = true;
-		               else if (inputText[j].indexOf("</u>") != -1) {
+		               else if (inputText[j].indexOf("</u>") != -1 || inputText[j].indexOf("&lt;/u&gt;") != -1) {
 		                  inputText[j] = "<u>" + inputText[j] + "</u>";
 		                  u_on = false;
 		               }
@@ -1088,9 +1124,9 @@ parse the text string and store text and image string in an array at different i
 						textFoottnoteArr.push(trim(result));
 					}
 					endIndex = remainder.indexOf('</footnote>', startIndex);
-					result = remainder.substring(startIndex , endIndex + 12);
+					result = remainder.substring(startIndex , endIndex + '</footnote>'.length);
 					textFoottnoteArr.push(trim(result));
-					remainder = remainder.substring(endIndex + 12, remainder.length);
+					remainder = remainder.substring(endIndex + '</footnote>'.length, remainder.length);
 //					Debug.write('remainder..', remainder);
 					startIndex=0;
 				}
