@@ -59,7 +59,7 @@
 					this.setAttribute('bgcolor', gController.questionBgColor);
                 }
                 if (style ['font_color']) {
-                    this.setAttribute ('fontcolor', Number (style.font_color));
+                    this.setAttribute ('fontcolor', style.font_color);
                 }
                 if (style ['font_magnification']) {
                     this.setAttribute ('fontsize', style.font_magnification * canvas.basefontsize);
@@ -71,7 +71,7 @@
             }
             else if(!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
 				this.setAttribute('bgcolor', gController.questionBgColor);
-				this.setAttribute('fontcolor', Number(gController.questionFontColor));
+				this.setAttribute('fontcolor', gController.questionFontColor);
 				this.setAttribute('fontsize', gController.questionFontSize);
             }
             
