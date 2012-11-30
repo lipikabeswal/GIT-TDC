@@ -79,8 +79,8 @@
              =============== -->
         <handler name="ondata" args="data"><![CDATA[
             //width
-            //Debug.write("TextField ondata fired**** ",data);
-            if (data.hasAttr("width")) {
+            
+            if (data.hasAttr("width") && !(immediateparent instanceof lz.CachableAnswerChoice)) {
                 this.setAttribute("width", Number(data.getAttr("width")));
             } else {
                 this.setAttribute("width", immediateparent.width);
@@ -1171,8 +1171,9 @@ parse the text string and store text and image string in an array at different i
                x="${classroot.leftPadding}"
                width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
                fgcolor="${classroot.fontcolor}"
-               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" selectable="false" clickable="false">
+               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" selectable="false" clickable="true">
                <handler name="onclick">
+				
                	this.setSelection(0, 0); 
 				 if(classroot.isReadable){
 				 	classroot.read(gReadableText.stripHtmlTags(this.text));
