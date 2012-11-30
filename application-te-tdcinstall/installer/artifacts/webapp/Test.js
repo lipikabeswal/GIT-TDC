@@ -1,4 +1,4 @@
-LzResourceLibrary.lzfocusbracket_rsrc={ptype:"sr",frames:['lps/components/lz/resources/focus/focus_top_lft.png','lps/components/lz/resources/focus/focus_top_rt.png','lps/components/lz/resources/focus/focus_bot_lft.png','lps/components/lz/resources/focus/focus_bot_rt.png'],width:7,height:7,sprite:'lps/components/lz/resources/focus/focus_top_lft.sprite.png',spriteoffset:0};LzResourceLibrary.lzfocusbracket_shdw={ptype:"sr",frames:['lps/components/lz/resources/focus/focus_top_lft_shdw.png','lps/components/lz/resources/focus/focus_top_rt_shdw.png','lps/components/lz/resources/focus/focus_bot_lft_shdw.png','lps/components/lz/resources/focus/focus_bot_rt_shdw.png'],width:9,height:9,sprite:'lps/components/lz/resources/focus/focus_top_lft_shdw.sprite.png',spriteoffset:7};LzResourceLibrary.lzbutton_face_rsc={ptype:"sr",frames:['lps/components/lz/resources/button/simpleface_up.png','lps/components/lz/resources/button/simpleface_mo.png','lps/components/lz/resources/button/simpleface_dn.png','lps/components/lz/resources/button/autoPng/simpleface_dsbl.png'],width:2,height:18,sprite:'lps/components/lz/resources/button/simpleface_up.sprite.png',spriteoffset:16};LzResourceLibrary.lzbutton_bezel_inner_rsc={ptype:"sr",frames:['lps/components/lz/resources/autoPng/bezel_inner_up.png','lps/components/lz/resources/autoPng/bezel_inner_up.png','lps/components/lz/resources/autoPng/bezel_inner_dn.png','lps/components/lz/resources/autoPng/outline_dsbl.png'],width:500,height:500,sprite:'lps/components/lz/resources/autoPng/bezel_inner_up.sprite.png',spriteoffset:34};LzResourceLibrary.lzbutton_bezel_outer_rsc={ptype:"sr",frames:['lps/components/lz/resources/autoPng/bezel_outer_up.png','lps/components/lz/resources/autoPng/bezel_outer_up.png','lps/components/lz/resources/autoPng/bezel_outer_dn.png','lps/components/lz/resources/autoPng/transparent.png','lps/components/lz/resources/autoPng/default_outline.png'],width:500,height:500,sprite:'lps/components/lz/resources/autoPng/bezel_outer_up.sprite.png',spriteoffset:534};LzResourceLibrary.window_TL_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/top_lft_slct.png','lps/components/lz/resources/window/top_lft_dslct.png','lps/components/lz/resources/window/top_lft_slct.png','lps/components/lz/resources/window/top_lft_dsbl.png','lps/components/lz/resources/window/top_lft_slct.png'],width:17,height:14,sprite:'lps/components/lz/resources/window/top_lft_slct.sprite.png',spriteoffset:1034};LzResourceLibrary.window_TM_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/top_mid_slct.png','lps/components/lz/resources/window/top_mid_dslct.png','lps/components/lz/resources/window/top_mid_slct.png','lps/components/lz/resources/window/top_mid_dsbl.png','lps/components/lz/resources/window/top_mid_slct.png'],width:5,height:14,sprite:'lps/components/lz/resources/window/top_mid_slct.sprite.png',spriteoffset:1048};LzResourceLibrary.window_TR_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/top_rt_slct.png','lps/components/lz/resources/window/top_rt_dslct.png','lps/components/lz/resources/window/top_rt_drag.png','lps/components/lz/resources/window/top_rt_dsbl.png','lps/components/lz/resources/window/top_rt_slct.png'],width:15,height:14,sprite:'lps/components/lz/resources/window/top_rt_slct.sprite.png',spriteoffset:1062};LzResourceLibrary.window_ML_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/mid_lft_slct.png','lps/components/lz/resources/window/mid_lft_dslct.png','lps/components/lz/resources/window/mid_lft_slct.png','lps/components/lz/resources/window/mid_lft_dsbl.png','lps/components/lz/resources/window/mid_lft_slct.png'],width:17,height:5,sprite:'lps/components/lz/resources/window/mid_lft_slct.sprite.png',spriteoffset:1076};LzResourceLibrary.window_MM_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/mid_mid_slct.png','lps/components/lz/resources/window/mid_mid_dslct.png','lps/components/lz/resources/window/mid_mid_slct.png','lps/components/lz/resources/window/mid_mid_dsbl.png','lps/components/lz/resources/window/mid_mid_slct.png'],width:10,height:10,sprite:'lps/components/lz/resources/window/mid_mid_slct.sprite.png',spriteoffset:1081};LzResourceLibrary.window_MR_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/mid_rt_slct.png','lps/components/lz/resources/window/mid_rt_dslct.png','lps/components/lz/resources/window/mid_rt_drag.png','lps/components/lz/resources/window/mid_rt_dsbl.png','lps/components/lz/resources/window/mid_rt_slct.png'],width:15,height:5,sprite:'lps/components/lz/resources/window/mid_rt_slct.sprite.png',spriteoffset:1091};LzResourceLibrary.window_BL_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/bot_lft_slct.png','lps/components/lz/resources/window/bot_lft_dslct.png','lps/components/lz/resources/window/bot_lft_drag.png','lps/components/lz/resources/window/bot_lft_dsbl.png','lps/components/lz/resources/window/bot_lft_slct.png'],width:17,height:18,sprite:'lps/components/lz/resources/window/bot_lft_slct.sprite.png',spriteoffset:1096};LzResourceLibrary.window_BM_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/bot_mid_slct.png','lps/components/lz/resources/window/bot_mid_dslct.png','lps/components/lz/resources/window/bot_mid_drag.png','lps/components/lz/resources/window/bot_mid_dsbl.png','lps/components/lz/resources/window/bot_mid_slct.png'],width:5,height:18,sprite:'lps/components/lz/resources/window/bot_mid_slct.sprite.png',spriteoffset:1114};LzResourceLibrary.window_BR_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/bot_rt_slct.png','lps/components/lz/resources/window/bot_rt_dslct.png','lps/components/lz/resources/window/bot_rt_drag.png','lps/components/lz/resources/window/bot_rt_dsbl.png','lps/components/lz/resources/window/bot_rt_slct.png'],width:15,height:19,sprite:'lps/components/lz/resources/window/bot_rt_slct.sprite.png',spriteoffset:1132};LzResourceLibrary.window_gripper_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/gripper_slct.png','lps/components/lz/resources/window/gripper_dslct.png','lps/components/lz/resources/window/gripper_dsbl.png'],width:569,height:11,sprite:'lps/components/lz/resources/window/gripper_slct.sprite.png',spriteoffset:1151};LzResourceLibrary.window_closebtn_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/autoPng/closebtn_up.png','lps/components/lz/resources/window/autoPng/closebtn_mo.png','lps/components/lz/resources/window/autoPng/closebtn_dn.png','lps/components/lz/resources/window/autoPng/closebtn_dsbl.png'],width:14,height:14,sprite:'lps/components/lz/resources/window/autoPng/closebtn_up.sprite.png',spriteoffset:1162};LzResourceLibrary.window_resizebtn_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/autoPng/resizebtn_up.png','lps/components/lz/resources/window/autoPng/resizebtn_mo.png','lps/components/lz/resources/window/autoPng/resizebtn_dn.png','lps/components/lz/resources/window/autoPng/resizebtn_dsbl.png'],width:11,height:11,sprite:'lps/components/lz/resources/window/autoPng/resizebtn_up.sprite.png',spriteoffset:1176};LzResourceLibrary.lzscrollbar_ythumbtop_rsc={ptype:"sr",frames:['lps/components/lz/resources/scrollbar/scrollthumb_y_top.png'],width:12.0,height:1.0,spriteoffset:1187};LzResourceLibrary.lzscrollbar_ythumbmiddle_rsc={ptype:"sr",frames:['lps/components/lz/resources/scrollbar/autoPng/scrollthumb_y_mid.png'],width:12.0,height:6.0,spriteoffset:1188};LzResourceLibrary.lzscrollbar_ythumbbottom_rsc={ptype:"sr",frames:['lps/components/lz/resources/scrollbar/autoPng/scrollthumb_y_bot.png'],width:12.0,height:2.0,spriteoffset:1194};LzResourceLibrary.lzscrollbar_ythumbgripper_rsc={ptype:"sr",frames:['lps/components/lz/resources/scrollbar/thumb_y_gripper.png'],width:9.0,height:440.0,spriteoffset:1196};LzResourceLibrary.lzscrollbar_ybuttontop_rsc={ptype:"sr",frames:['lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_top_up.png','lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_top_mo.png','lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_top_dn.png','lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_top_dsbl.png'],width:12,height:13,sprite:'lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_top_up.sprite.png',spriteoffset:1636};LzResourceLibrary.lzscrollbar_ybuttonbottom_rsc={ptype:"sr",frames:['lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_bot_up.png','lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_bot_mo.png','lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_bot_dn.png','lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_bot_dsbl.png'],width:12,height:13,sprite:'lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_bot_up.sprite.png',spriteoffset:1649};LzResourceLibrary.lzscrollbar_ytrack_rsc={ptype:"sr",frames:['lps/components/lz/resources/scrollbar/y_scrolltrack.png','lps/components/lz/resources/scrollbar/y_scrolltrack_dn.png','lps/components/lz/resources/scrollbar/y_scrolltrack_dsbl.png'],width:12,height:1,sprite:'lps/components/lz/resources/scrollbar/y_scrolltrack.sprite.png',spriteoffset:1662};LzResourceLibrary.zero_txt={ptype:"ar",frames:['manipulatives/resource/0.png'],width:9.0,height:14.0,spriteoffset:1663};LzResourceLibrary.one_txt={ptype:"ar",frames:['manipulatives/resource/1.png'],width:6.0,height:13.0,spriteoffset:1677};LzResourceLibrary.two_txt={ptype:"ar",frames:['manipulatives/resource/2.png'],width:9.0,height:13.0,spriteoffset:1690};LzResourceLibrary.three_txt={ptype:"ar",frames:['manipulatives/resource/3.png'],width:9.0,height:14.0,spriteoffset:1703};LzResourceLibrary.four_txt={ptype:"ar",frames:['manipulatives/resource/4.png'],width:10.0,height:13.0,spriteoffset:1717};LzResourceLibrary.five_txt={ptype:"ar",frames:['manipulatives/resource/5.png'],width:9.0,height:13.0,spriteoffset:1730};LzResourceLibrary.six_txt={ptype:"ar",frames:['manipulatives/resource/6.png'],width:9.0,height:14.0,spriteoffset:1743};LzResourceLibrary.seven_txt={ptype:"ar",frames:['manipulatives/resource/7.png'],width:9.0,height:13.0,spriteoffset:1757};LzResourceLibrary.eight_txt={ptype:"ar",frames:['manipulatives/resource/8.png'],width:9.0,height:14.0,spriteoffset:1770};LzResourceLibrary.nine_txt={ptype:"ar",frames:['manipulatives/resource/9.png'],width:9.0,height:14.0,spriteoffset:1784};LzResourceLibrary.backspace_txt={ptype:"ar",frames:['manipulatives/resource/backspace.png'],width:62.0,height:11.0,spriteoffset:1798};LzResourceLibrary.C_txt={ptype:"ar",frames:['manipulatives/resource/C.png'],width:10.0,height:12.0,spriteoffset:1809};LzResourceLibrary.CE_txt={ptype:"ar",frames:['manipulatives/resource/CE.png'],width:21.0,height:12.0,spriteoffset:1821};LzResourceLibrary.changesign_txt={ptype:"ar",frames:['manipulatives/resource/changesign.png'],width:21.0,height:14.0,spriteoffset:1833};LzResourceLibrary.cos_txt={ptype:"ar",frames:['manipulatives/resource/cos.png'],width:21.0,height:14.0,spriteoffset:1847};LzResourceLibrary.decimal_txt={ptype:"ar",frames:['manipulatives/resource/decimal.png'],width:3.0,height:3.0,spriteoffset:1861};LzResourceLibrary.divide_txt={ptype:"ar",frames:['manipulatives/resource/divide.png'],width:14.0,height:24.0,spriteoffset:1864};LzResourceLibrary.equal_txt={ptype:"ar",frames:['manipulatives/resource/equal.png'],width:11.0,height:8.0,spriteoffset:1888};LzResourceLibrary.ln_txt={ptype:"ar",frames:['manipulatives/resource/ln.png'],width:11.0,height:14.0,spriteoffset:1896};LzResourceLibrary.log_txt={ptype:"ar",frames:['manipulatives/resource/log.png'],width:18.0,height:14.0,spriteoffset:1910};LzResourceLibrary.minus_txt={ptype:"ar",frames:['manipulatives/resource/minus.png'],width:7.0,height:4.0,spriteoffset:1924};LzResourceLibrary.mod_txt={ptype:"ar",frames:['manipulatives/resource/mod.png'],width:26.0,height:14.0,spriteoffset:1928};LzResourceLibrary.percent_txt={ptype:"ar",frames:['manipulatives/resource/percent.png'],width:16.0,height:16.0,spriteoffset:1942};LzResourceLibrary.pi_txt={ptype:"ar",frames:['manipulatives/resource/Pi.png'],width:13.0,height:15.0,spriteoffset:1958};LzResourceLibrary.plus_txt={ptype:"ar",frames:['manipulatives/resource/plus.png'],width:9.0,height:9.0,spriteoffset:1973};LzResourceLibrary.root_txt={ptype:"ar",frames:['manipulatives/resource/root.png'],width:14.0,height:24.0,spriteoffset:1982};LzResourceLibrary.sin_txt={ptype:"ar",frames:['manipulatives/resource/sin.png'],width:17.0,height:14.0,spriteoffset:2006};LzResourceLibrary.sqr_txt={ptype:"ar",frames:['manipulatives/resource/sqr.png'],width:19.0,height:14.0,spriteoffset:2020};LzResourceLibrary.multiply_txt={ptype:"ar",frames:['manipulatives/resource/star.png'],width:9.0,height:9.0,spriteoffset:2034};LzResourceLibrary.tan_txt={ptype:"ar",frames:['manipulatives/resource/tan.png'],width:19.0,height:14.0,spriteoffset:2043};LzResourceLibrary.memoryrecall_txt={ptype:"ar",frames:['manipulatives/resource/memoryrecall.png'],width:24.0,height:12.0,spriteoffset:2057};LzResourceLibrary.memoryclear_txt={ptype:"ar",frames:['manipulatives/resource/memoryclear.png'],width:23.0,height:12.0,spriteoffset:2069};LzResourceLibrary.memoryplus_txt={ptype:"ar",frames:['manipulatives/resource/memoryplus.png'],width:21.0,height:12.0,spriteoffset:2081};LzResourceLibrary.memoryminus_txt={ptype:"ar",frames:['manipulatives/resource/memoryminus.png'],width:18.0,height:12.0,spriteoffset:2093};LzResourceLibrary.calc_btn={ptype:"ar",frames:['manipulatives/resource/calc_buttonSTANDRD_off.png','manipulatives/resource/calc_buttonSTANDRD_on.png','manipulatives/resource/calc_buttonSTANDRD_click.png'],width:36,height:37,sprite:'manipulatives/resource/calc_buttonSTANDRD_off.sprite.png',spriteoffset:2105};LzResourceLibrary.calc_sci_func_btn={ptype:"ar",frames:['manipulatives/resource/calc_buttonSCIFUNCT_off.png','manipulatives/resource/calc_buttonSCIFUNCT_on.png','manipulatives/resource/calc_buttonSCIFUNCT_click.png'],width:47,height:25,sprite:'manipulatives/resource/calc_buttonSCIFUNCT_off.sprite.png',spriteoffset:2142};LzResourceLibrary.backspace_btn={ptype:"ar",frames:['manipulatives/resource/calc_buttonBACKSPC_off.png','manipulatives/resource/calc_buttonBACKSPC_on.png','manipulatives/resource/calc_buttonBACKSPC_click.png'],width:76,height:37,sprite:'manipulatives/resource/calc_buttonBACKSPC_off.sprite.png',spriteoffset:2167};LzResourceLibrary.equal_btn={ptype:"ar",frames:['manipulatives/resource/calc_buttonEQUAL_off.png','manipulatives/resource/calc_buttonEQUAL_on.png','manipulatives/resource/calc_buttonEQUAL_click.png'],width:116,height:37,sprite:'manipulatives/resource/calc_buttonEQUAL_off.sprite.png',spriteoffset:2204};LzResourceLibrary.calc_close_btn={ptype:"ar",frames:['manipulatives/resource/closebutton_off.png','manipulatives/resource/closebutton_on.png','manipulatives/resource/closebutton_click.png'],width:15,height:14,sprite:'manipulatives/resource/closebutton_off.sprite.png',spriteoffset:2241};LzResourceLibrary.calc_chrome={ptype:"ar",frames:['manipulatives/resource/calc_4f_chrome.png'],width:243.0,height:307.0,spriteoffset:2255};LzResourceLibrary.calc_face={ptype:"ar",frames:['manipulatives/resource/calc_4f_face.png'],width:222.0,height:276.0,spriteoffset:2562};LzResourceLibrary.calc_title={ptype:"ar",frames:['manipulatives/resource/calc_4f_title.png'],width:78.0,height:17.0,spriteoffset:2838};LzResourceLibrary.calc_display={ptype:"ar",frames:['manipulatives/resource/calculatorDisplay.png'],width:168.0,height:32.0,spriteoffset:2855};LzResourceLibrary.calc_sci_chrome={ptype:"ar",frames:['manipulatives/resource/calc_sci_chrome.png'],width:256.0,height:354.0,spriteoffset:2887};LzResourceLibrary.calc_sci_face={ptype:"ar",frames:['manipulatives/resource/calc_sci_face.png'],width:238.0,height:319.0,spriteoffset:3241};LzResourceLibrary.calc_sci_title={ptype:"ar",frames:['manipulatives/resource/calc_sci_title.png'],width:110.0,height:12.0,spriteoffset:3560};LzResourceLibrary.calc_sci_display={ptype:"ar",frames:['manipulatives/resource/calc_sci_display.png'],width:219.0,height:35.0,spriteoffset:3572};LzResourceLibrary.closeButton_rsrc={ptype:"ar",frames:['manipulatives/resource/closebutton_off.png','manipulatives/resource/closebutton_on.png','manipulatives/resource/closebutton_click.png'],width:15,height:14,sprite:'manipulatives/resource/closebutton_off.sprite.png',spriteoffset:3607};LzResourceLibrary.standardButton_rsrc={ptype:"ar",frames:['manipulatives/resource/calc_buttonSTANDRD_off.png','manipulatives/resource/calc_buttonSTANDRD_on.png','manipulatives/resource/calc_buttonSTANDRD_click.png'],width:36,height:37,sprite:'manipulatives/resource/calc_buttonSTANDRD_off.sprite.png',spriteoffset:3621};LzResourceLibrary.operatorButton_rsrc={ptype:"ar",frames:['manipulatives/resource/black_button.png','manipulatives/resource/ltblue_button_std.png','manipulatives/resource/dkblue_button_std.png'],width:35,height:36,sprite:'manipulatives/resource/black_button.sprite.png',spriteoffset:3658};LzResourceLibrary.doubleButton_rsrc={ptype:"ar",frames:['manipulatives/resource/button_double_off.png','manipulatives/resource/button_double_on.png','manipulatives/resource/button_double_click.png'],width:75,height:36,sprite:'manipulatives/resource/button_double_off.sprite.png',spriteoffset:3694};LzResourceLibrary.tripleButton_rsrc={ptype:"ar",frames:['manipulatives/resource/button_triple_off.png','manipulatives/resource/button_triple_on.png','manipulatives/resource/button_triple_click.png'],width:115,height:36,sprite:'manipulatives/resource/button_triple_off.sprite.png',spriteoffset:3730};LzResourceLibrary.backspaceButton_rsrc={ptype:"ar",frames:['manipulatives/resource/calc_buttonBACKSPC_off.png','manipulatives/resource/calc_buttonBACKSPC_on.png','manipulatives/resource/calc_buttonBACKSPC_click.png'],width:76,height:37,sprite:'manipulatives/resource/calc_buttonBACKSPC_off.sprite.png',spriteoffset:3766};LzResourceLibrary.equalButton_rsrc={ptype:"ar",frames:['manipulatives/resource/calc_buttonEQUAL_off.png','manipulatives/resource/calc_buttonEQUAL_on.png','manipulatives/resource/calc_buttonEQUAL_click.png'],width:116,height:37,sprite:'manipulatives/resource/calc_buttonEQUAL_off.sprite.png',spriteoffset:3803};LzResourceLibrary.sciFunctButton_rsrc={ptype:"ar",frames:['manipulatives/resource/calc_buttonSCIFUNCT_off.png','manipulatives/resource/calc_buttonSCIFUNCT_on.png','manipulatives/resource/calc_buttonSCIFUNCT_click.png'],width:47,height:25,sprite:'manipulatives/resource/calc_buttonSCIFUNCT_off.sprite.png',spriteoffset:3840};LzResourceLibrary.black_plusminus_rsrc={ptype:"ar",frames:['manipulatives/resource/black_plusminus.png'],width:21.0,height:14.0,spriteoffset:3865};LzResourceLibrary.black_percent_rsrc={ptype:"ar",frames:['manipulatives/resource/black_percent.png'],width:15.0,height:14.0,spriteoffset:3879};LzResourceLibrary.black_sqrt_rsrc={ptype:"ar",frames:['manipulatives/resource/newblack_sqrt.png'],width:18.0,height:16.0,spriteoffset:3893};LzResourceLibrary.black_divide_rsrc={ptype:"ar",frames:['manipulatives/resource/black_divide.png'],width:13.0,height:11.0,spriteoffset:3909};LzResourceLibrary.black_multiply_rsrc={ptype:"ar",frames:['manipulatives/resource/black_multiply.png'],width:8.0,height:8.0,spriteoffset:3920};LzResourceLibrary.black_plus_rsrc={ptype:"ar",frames:['manipulatives/resource/black_plus.png'],width:9.0,height:9.0,spriteoffset:3928};LzResourceLibrary.black_minus_rsrc={ptype:"ar",frames:['manipulatives/resource/black_minus.png'],width:9.0,height:3.0,spriteoffset:3937};LzResourceLibrary.white_plusminus_rsrc={ptype:"ar",frames:['manipulatives/resource/white_plusminus.png'],width:21.0,height:14.0,spriteoffset:3940};LzResourceLibrary.white_percent_rsrc={ptype:"ar",frames:['manipulatives/resource/white_percent.png'],width:15.0,height:14.0,spriteoffset:3954};LzResourceLibrary.white_sqrt_rsrc={ptype:"ar",frames:['manipulatives/resource/newwhite_sqrt.png'],width:18.0,height:16.0,spriteoffset:3968};LzResourceLibrary.white_divide_rsrc={ptype:"ar",frames:['manipulatives/resource/white_divide.png'],width:13.0,height:11.0,spriteoffset:3984};LzResourceLibrary.white_multiply_rsrc={ptype:"ar",frames:['manipulatives/resource/white_multiply.png'],width:8.0,height:8.0,spriteoffset:3995};LzResourceLibrary.white_plus_rsrc={ptype:"ar",frames:['manipulatives/resource/white_plus.png'],width:9.0,height:9.0,spriteoffset:4003};LzResourceLibrary.white_minus_rsrc={ptype:"ar",frames:['manipulatives/resource/white_minus.png'],width:9.0,height:3.0,spriteoffset:4012};LzResourceLibrary.protractorHandle_rsrc={ptype:"ar",frames:['manipulatives/resource/protractorHandle.png'],width:66.0,height:10.0,spriteoffset:4015};LzResourceLibrary.protractorMarks_rsrc={ptype:"ar",frames:['manipulatives/resource/protractorMarks.png'],width:272.0,height:137.0,spriteoffset:4025};LzResourceLibrary.protractorRotator_rsrc={ptype:"ar",frames:['manipulatives/resource/protractorRotator.png'],width:17.0,height:22.0,spriteoffset:4162};LzResourceLibrary.protractorBackground_rsrc={ptype:"ar",frames:['manipulatives/resource/protractorBackground.png'],width:272.0,height:136.0,spriteoffset:4184};LzResourceLibrary.protractorHandleOver_rsrc={ptype:"ar",frames:['manipulatives/resource/dragger_over.png'],width:23.0,height:24.0,spriteoffset:4320};LzResourceLibrary.protractorHandlePress_rsrc={ptype:"ar",frames:['manipulatives/resource/dragger_press.png'],width:22.0,height:18.0,spriteoffset:4344};LzResourceLibrary.rotator_rsrc={ptype:"ar",frames:['manipulatives/resource/rotator.png'],width:23.0,height:31.0,spriteoffset:4362};LzResourceLibrary.grabber_rsrc={ptype:"ar",frames:['manipulatives/resource/grabber.png'],width:79.0,height:16.0,spriteoffset:4393};LzResourceLibrary.rotateResizer_rsrc={ptype:"ar",frames:['manipulatives/resource/rotateResizer.png'],width:32.0,height:31.0,spriteoffset:4409};LzResourceLibrary.cangrab_cursor={ptype:"ar",frames:['manipulatives/resource/dragger_over.png'],width:23.0,height:24.0,spriteoffset:4440};LzResourceLibrary.grabbing_cursor={ptype:"ar",frames:['manipulatives/resource/dragger_press.png'],width:22.0,height:18.0,spriteoffset:4464};LzResourceLibrary.ruler_background={ptype:"ar",frames:['manipulatives/resource/ruler_background.png'],width:510.0,height:74.0,spriteoffset:4482};LzResourceLibrary.ruler_lines={ptype:"ar",frames:['manipulatives/resource/ruler_lines.png'],width:510.0,height:74.0,spriteoffset:4556};LzResourceLibrary.masking_ruler_lines={ptype:"ar",frames:['manipulatives/resource/masking_ruler_lines.png'],width:510.0,height:74.0,spriteoffset:4630};LzResourceLibrary.masking_ruler_background={ptype:"ar",frames:['manipulatives/resource/masking_ruler_background.png'],width:510.0,height:74.0,spriteoffset:4704};LzResourceLibrary.eighth_inch_tick_marks={ptype:"ar",frames:['manipulatives/resource/eighth_inch_tick_marks.png'],width:510.0,height:74.0,spriteoffset:4778};LzResourceLibrary.half_inch_tick_marks={ptype:"ar",frames:['manipulatives/resource/half_inch_tick_marks.png'],width:540.0,height:74.0,spriteoffset:4852};LzResourceLibrary.millimeter_tick_marks={ptype:"ar",frames:['manipulatives/resource/millimeter_tick_marks.png'],width:510.0,height:74.0,spriteoffset:4926};LzResourceLibrary.centimeter_tick_marks={ptype:"ar",frames:['manipulatives/resource/centimeter_tick_marks.png'],width:510.0,height:74.0,spriteoffset:5000};LzResourceLibrary.inches_label={ptype:"ar",frames:['manipulatives/resource/inches_label.png'],width:69.0,height:20.0,spriteoffset:5074};LzResourceLibrary.centimeters_label={ptype:"ar",frames:['manipulatives/resource/centimeters_label.png'],width:134.0,height:19.0,spriteoffset:5094};LzResourceLibrary.straight_label={ptype:"ar",frames:['manipulatives/resource/straight_label.png'],width:131.0,height:21.0,spriteoffset:5113};LzResourceLibrary.masking_label={ptype:"ar",frames:['manipulatives/resource/masking_label.png'],width:160.0,height:24.0,spriteoffset:5134};LzResourceLibrary.ref_card_close_btn={ptype:"ar",frames:['manipulatives/resource/refcard/closebutton_off.png','manipulatives/resource/refcard/closebutton_on.png','manipulatives/resource/refcard/closebutton_click.png'],width:15,height:14,sprite:'manipulatives/resource/refcard/closebutton_off.sprite.png',spriteoffset:5158};LzResourceLibrary.rc_bottom_left={ptype:"ar",frames:['manipulatives/resource/refcard/rc_bottom_left.png'],width:69.0,height:69.0,spriteoffset:5172};LzResourceLibrary.rc_bottom_middle={ptype:"ar",frames:['manipulatives/resource/refcard/rc_bottom_middle.png'],width:69.0,height:69.0,spriteoffset:5241};LzResourceLibrary.rc_bottom_right={ptype:"ar",frames:['manipulatives/resource/refcard/rc_bottom_right.png'],width:69.0,height:69.0,spriteoffset:5310};LzResourceLibrary.rc_center_left={ptype:"ar",frames:['manipulatives/resource/refcard/rc_center_left.png'],width:69.0,height:69.0,spriteoffset:5379};LzResourceLibrary.rc_center_middle={ptype:"ar",frames:['manipulatives/resource/refcard/rc_center_middle.png'],width:69.0,height:69.0,spriteoffset:5448};LzResourceLibrary.rc_center_right={ptype:"ar",frames:['manipulatives/resource/refcard/rc_center_right.png'],width:69.0,height:69.0,spriteoffset:5517};LzResourceLibrary.rc_top_left={ptype:"ar",frames:['manipulatives/resource/refcard/rc_top_left.png'],width:69.0,height:69.0,spriteoffset:5586};LzResourceLibrary.rc_top_middle={ptype:"ar",frames:['manipulatives/resource/refcard/rc_top_middle.png'],width:69.0,height:69.0,spriteoffset:5655};LzResourceLibrary.rc_top_right={ptype:"ar",frames:['manipulatives/resource/refcard/rc_top_right.png'],width:69.0,height:69.0,spriteoffset:5724};LzResourceLibrary.rc_lines={ptype:"ar",frames:['manipulatives/resource/refcard/rc_lines.png'],width:340.0,height:9.0,spriteoffset:5793};LzResourceLibrary.FCAT_refcard_title={ptype:"ar",frames:['manipulatives/resource/refcard/FCAT_refcard_title.png'],width:307.0,height:11.0,spriteoffset:5802};LzResourceLibrary.FCAT_refcard_contents={ptype:"ar",frames:['manipulatives/resource/refcard/FCAT_refcard_contents.png'],width:584.0,height:1224.0,spriteoffset:5813};LzResourceLibrary.TN_refcard_title={ptype:"ar",frames:['manipulatives/resource/refcard/TN_refcard_title.png'],width:111.0,height:19.0,spriteoffset:7037};LzResourceLibrary.TN_refcard_contents={ptype:"ar",frames:['manipulatives/resource/refcard/TN_refcard_contents.png'],width:742.0,height:348.0,spriteoffset:7056};LzResourceLibrary.system_btn={ptype:"ar",frames:['manipulatives/resource/delay_screen_buttons/computer.png'],width:104,height:128};LzResourceLibrary.globe_btn={ptype:"ar",frames:['manipulatives/resource/delay_screen_buttons/globe.png'],width:128,height:128};LzResourceLibrary.simple_bar_btn={ptype:"ar",frames:['manipulatives/resource/delay_screen_buttons/grayBar.png'],width:113,height:9};LzResourceLibrary.bar_btn={ptype:"ar",frames:['manipulatives/resource/delay_screen_buttons/greenBar.png'],width:31,height:9};LzResourceLibrary.exit_button_rsc={ptype:"ar",frames:['manipulatives/resource/delay_screen_buttons/exit_off.png','manipulatives/resource/delay_screen_buttons/exit_on.png','manipulatives/resource/delay_screen_buttons/exit_click.png','manipulatives/resource/delay_screen_buttons/exit_test_disabled.png'],width:93,height:40,sprite:'manipulatives/resource/delay_screen_buttons/exit_off.sprite.png',spriteoffset:7404};LzResourceLibrary.highlighter_cursor={ptype:"ar",frames:['manipulatives/resource/iknow_cursors/cursor_highliter.png'],width:23.0,height:23.0,spriteoffset:7444};LzResourceLibrary.eraser_cursor={ptype:"ar",frames:['manipulatives/resource/iknow_cursors/cursor_eraser.png'],width:25.0,height:19.0,spriteoffset:7467};LzResourceLibrary.read_btn={ptype:"ar",frames:['manipulatives/resource/read/btn_read_up.png','manipulatives/resource/read/btn_read_over.png','manipulatives/resource/read/btn_read_down.png'],width:23,height:17,sprite:'manipulatives/resource/read/btn_read_up.sprite.png',spriteoffset:7486};LzResourceLibrary.window_TL_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/top_lft_slct.png','manipulatives/scratchpad/resources/window/top_lft_dslct.png','manipulatives/scratchpad/resources/window/top_lft_slct.png','manipulatives/scratchpad/resources/window/top_lft_dsbl.png','manipulatives/scratchpad/resources/window/top_lft_slct.png'],width:17,height:14,sprite:'manipulatives/scratchpad/resources/window/top_lft_slct.sprite.png',spriteoffset:7503};LzResourceLibrary.window_TM_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/top_mid_slct.png','manipulatives/scratchpad/resources/window/top_mid_dslct.png','manipulatives/scratchpad/resources/window/top_mid_slct.png','manipulatives/scratchpad/resources/window/top_mid_dsbl.png','manipulatives/scratchpad/resources/window/top_mid_slct.png'],width:5,height:14,sprite:'manipulatives/scratchpad/resources/window/top_mid_slct.sprite.png',spriteoffset:7517};LzResourceLibrary.window_TR_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/top_rt_slct.png','manipulatives/scratchpad/resources/window/top_rt_dslct.png','manipulatives/scratchpad/resources/window/top_rt_drag.png','manipulatives/scratchpad/resources/window/top_rt_dsbl.png','manipulatives/scratchpad/resources/window/top_rt_slct.png'],width:15,height:14,sprite:'manipulatives/scratchpad/resources/window/top_rt_slct.sprite.png',spriteoffset:7531};LzResourceLibrary.window_ML_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/mid_lft_slct.png','manipulatives/scratchpad/resources/window/mid_lft_dslct.png','manipulatives/scratchpad/resources/window/mid_lft_slct.png','manipulatives/scratchpad/resources/window/mid_lft_dsbl.png','manipulatives/scratchpad/resources/window/mid_lft_slct.png'],width:17,height:5,sprite:'manipulatives/scratchpad/resources/window/mid_lft_slct.sprite.png',spriteoffset:7545};LzResourceLibrary.window_MM_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/mid_mid_slct.png','manipulatives/scratchpad/resources/window/mid_mid_dslct.png','manipulatives/scratchpad/resources/window/mid_mid_slct.png','manipulatives/scratchpad/resources/window/mid_mid_dsbl.png','manipulatives/scratchpad/resources/window/mid_mid_slct.png'],width:10,height:10,sprite:'manipulatives/scratchpad/resources/window/mid_mid_slct.sprite.png',spriteoffset:7550};LzResourceLibrary.window_MR_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/mid_rt_slct.png','manipulatives/scratchpad/resources/window/mid_rt_dslct.png','manipulatives/scratchpad/resources/window/mid_rt_drag.png','manipulatives/scratchpad/resources/window/mid_rt_dsbl.png','manipulatives/scratchpad/resources/window/mid_rt_slct.png'],width:15,height:5,sprite:'manipulatives/scratchpad/resources/window/mid_rt_slct.sprite.png',spriteoffset:7560};LzResourceLibrary.window_BL_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/bot_lft_slct.png','manipulatives/scratchpad/resources/window/bot_lft_dslct.png','manipulatives/scratchpad/resources/window/bot_lft_drag.png','manipulatives/scratchpad/resources/window/bot_lft_dsbl.png','manipulatives/scratchpad/resources/window/bot_lft_slct.png'],width:17,height:18,sprite:'manipulatives/scratchpad/resources/window/bot_lft_slct.sprite.png',spriteoffset:7565};LzResourceLibrary.window_BM_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/bot_mid_slct.png','manipulatives/scratchpad/resources/window/bot_mid_dslct.png','manipulatives/scratchpad/resources/window/bot_mid_drag.png','manipulatives/scratchpad/resources/window/bot_mid_dsbl.png','manipulatives/scratchpad/resources/window/bot_mid_slct.png'],width:5,height:18,sprite:'manipulatives/scratchpad/resources/window/bot_mid_slct.sprite.png',spriteoffset:7583};LzResourceLibrary.window_BR_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/bot_rt_slct.png','manipulatives/scratchpad/resources/window/bot_rt_dslct.png','manipulatives/scratchpad/resources/window/bot_rt_drag.png','manipulatives/scratchpad/resources/window/bot_rt_dsbl.png','manipulatives/scratchpad/resources/window/bot_rt_slct.png'],width:15,height:19,sprite:'manipulatives/scratchpad/resources/window/bot_rt_slct.sprite.png',spriteoffset:7601};LzResourceLibrary.window_gripper_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/gripper_slct.png','manipulatives/scratchpad/resources/window/gripper_dslct.png','manipulatives/scratchpad/resources/window/gripper_dsbl.png'],width:569,height:11,sprite:'manipulatives/scratchpad/resources/window/gripper_slct.sprite.png',spriteoffset:7620};LzResourceLibrary.window_closebtn_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/closebtn_up.png','manipulatives/scratchpad/resources/window/closebtn_mo.png','manipulatives/scratchpad/resources/window/closebtn_dn.png','manipulatives/scratchpad/resources/window/closebtn_dsbl.png'],width:14,height:14,sprite:'manipulatives/scratchpad/resources/window/closebtn_up.sprite.png',spriteoffset:7631};LzResourceLibrary.window_resizebtn_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/resizebtn_up.png','manipulatives/scratchpad/resources/window/resizebtn_mo.png','manipulatives/scratchpad/resources/window/resizebtn_dn.png','manipulatives/scratchpad/resources/window/resizebtn_dsbl.png'],width:11,height:11,sprite:'manipulatives/scratchpad/resources/window/resizebtn_up.sprite.png',spriteoffset:7645};LzFontManager.addFont('CTB','normal','normal','manipulatives/resource/fonts/OASmathv3.ttf','ar');LzFontManager.addFont('CTB','normal','bold','manipulatives/resource/fonts/OASmathv3 Bold.ttf','ar');LzFontManager.addFont('CTB','italic','normal','manipulatives/resource/fonts/OASmathv3 Italic.ttf','ar');LzFontManager.addFont('CTB','italic','bold','manipulatives/resource/fonts/OASmathv3 BoldItalic.ttf','ar');LzResourceLibrary.__allcss={path:'Test.sprite.png'};var gPleaseWaitPopup=null;var wrapper=null;var gProtractor=null;var gStandardCalculator=null;var gScientificCalculator=null;var gStraightEdge=null;var gEighthInchRuler=null;var gHalfInchRuler=null;var gMmRuler=null;var gCmRuler=null;var gMaskingRuler=null;var gScratchpad=null;var gFcatFormulaCard=null;var gTnFormulaCard=null;var blocker=null;var ht=null;var gTooltip=null;Class.make("$lzc$class_mh",["srcurl",void 0,"manipid",void 0,"isLoaded",void 0,"scratchpadtext",void 0,"freezeui",void 0,"unlockui",void 0,"showpleasewaitpopup",void 0,"hidepleasewaitpopup",void 0,"showpleasewaitpopupcontrols",void 0,"manipulativedata",void 0,"$m1",function($0){
+LzResourceLibrary.lzfocusbracket_rsrc={ptype:"sr",frames:['lps/components/lz/resources/focus/focus_top_lft.png','lps/components/lz/resources/focus/focus_top_rt.png','lps/components/lz/resources/focus/focus_bot_lft.png','lps/components/lz/resources/focus/focus_bot_rt.png'],width:7,height:7,sprite:'lps/components/lz/resources/focus/focus_top_lft.sprite.png',spriteoffset:0};LzResourceLibrary.lzfocusbracket_shdw={ptype:"sr",frames:['lps/components/lz/resources/focus/focus_top_lft_shdw.png','lps/components/lz/resources/focus/focus_top_rt_shdw.png','lps/components/lz/resources/focus/focus_bot_lft_shdw.png','lps/components/lz/resources/focus/focus_bot_rt_shdw.png'],width:9,height:9,sprite:'lps/components/lz/resources/focus/focus_top_lft_shdw.sprite.png',spriteoffset:7};LzResourceLibrary.lzbutton_face_rsc={ptype:"sr",frames:['lps/components/lz/resources/button/simpleface_up.png','lps/components/lz/resources/button/simpleface_mo.png','lps/components/lz/resources/button/simpleface_dn.png','lps/components/lz/resources/button/autoPng/simpleface_dsbl.png'],width:2,height:18,sprite:'lps/components/lz/resources/button/simpleface_up.sprite.png',spriteoffset:16};LzResourceLibrary.lzbutton_bezel_inner_rsc={ptype:"sr",frames:['lps/components/lz/resources/autoPng/bezel_inner_up.png','lps/components/lz/resources/autoPng/bezel_inner_up.png','lps/components/lz/resources/autoPng/bezel_inner_dn.png','lps/components/lz/resources/autoPng/outline_dsbl.png'],width:500,height:500,sprite:'lps/components/lz/resources/autoPng/bezel_inner_up.sprite.png',spriteoffset:34};LzResourceLibrary.lzbutton_bezel_outer_rsc={ptype:"sr",frames:['lps/components/lz/resources/autoPng/bezel_outer_up.png','lps/components/lz/resources/autoPng/bezel_outer_up.png','lps/components/lz/resources/autoPng/bezel_outer_dn.png','lps/components/lz/resources/autoPng/transparent.png','lps/components/lz/resources/autoPng/default_outline.png'],width:500,height:500,sprite:'lps/components/lz/resources/autoPng/bezel_outer_up.sprite.png',spriteoffset:534};LzResourceLibrary.window_TL_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/top_lft_slct.png','lps/components/lz/resources/window/top_lft_dslct.png','lps/components/lz/resources/window/top_lft_slct.png','lps/components/lz/resources/window/top_lft_dsbl.png','lps/components/lz/resources/window/top_lft_slct.png'],width:17,height:14,sprite:'lps/components/lz/resources/window/top_lft_slct.sprite.png',spriteoffset:1034};LzResourceLibrary.window_TM_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/top_mid_slct.png','lps/components/lz/resources/window/top_mid_dslct.png','lps/components/lz/resources/window/top_mid_slct.png','lps/components/lz/resources/window/top_mid_dsbl.png','lps/components/lz/resources/window/top_mid_slct.png'],width:5,height:14,sprite:'lps/components/lz/resources/window/top_mid_slct.sprite.png',spriteoffset:1048};LzResourceLibrary.window_TR_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/top_rt_slct.png','lps/components/lz/resources/window/top_rt_dslct.png','lps/components/lz/resources/window/top_rt_drag.png','lps/components/lz/resources/window/top_rt_dsbl.png','lps/components/lz/resources/window/top_rt_slct.png'],width:15,height:14,sprite:'lps/components/lz/resources/window/top_rt_slct.sprite.png',spriteoffset:1062};LzResourceLibrary.window_ML_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/mid_lft_slct.png','lps/components/lz/resources/window/mid_lft_dslct.png','lps/components/lz/resources/window/mid_lft_slct.png','lps/components/lz/resources/window/mid_lft_dsbl.png','lps/components/lz/resources/window/mid_lft_slct.png'],width:17,height:5,sprite:'lps/components/lz/resources/window/mid_lft_slct.sprite.png',spriteoffset:1076};LzResourceLibrary.window_MM_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/mid_mid_slct.png','lps/components/lz/resources/window/mid_mid_dslct.png','lps/components/lz/resources/window/mid_mid_slct.png','lps/components/lz/resources/window/mid_mid_dsbl.png','lps/components/lz/resources/window/mid_mid_slct.png'],width:10,height:10,sprite:'lps/components/lz/resources/window/mid_mid_slct.sprite.png',spriteoffset:1081};LzResourceLibrary.window_MR_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/mid_rt_slct.png','lps/components/lz/resources/window/mid_rt_dslct.png','lps/components/lz/resources/window/mid_rt_drag.png','lps/components/lz/resources/window/mid_rt_dsbl.png','lps/components/lz/resources/window/mid_rt_slct.png'],width:15,height:5,sprite:'lps/components/lz/resources/window/mid_rt_slct.sprite.png',spriteoffset:1091};LzResourceLibrary.window_BL_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/bot_lft_slct.png','lps/components/lz/resources/window/bot_lft_dslct.png','lps/components/lz/resources/window/bot_lft_drag.png','lps/components/lz/resources/window/bot_lft_dsbl.png','lps/components/lz/resources/window/bot_lft_slct.png'],width:17,height:18,sprite:'lps/components/lz/resources/window/bot_lft_slct.sprite.png',spriteoffset:1096};LzResourceLibrary.window_BM_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/bot_mid_slct.png','lps/components/lz/resources/window/bot_mid_dslct.png','lps/components/lz/resources/window/bot_mid_drag.png','lps/components/lz/resources/window/bot_mid_dsbl.png','lps/components/lz/resources/window/bot_mid_slct.png'],width:5,height:18,sprite:'lps/components/lz/resources/window/bot_mid_slct.sprite.png',spriteoffset:1114};LzResourceLibrary.window_BR_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/bot_rt_slct.png','lps/components/lz/resources/window/bot_rt_dslct.png','lps/components/lz/resources/window/bot_rt_drag.png','lps/components/lz/resources/window/bot_rt_dsbl.png','lps/components/lz/resources/window/bot_rt_slct.png'],width:15,height:19,sprite:'lps/components/lz/resources/window/bot_rt_slct.sprite.png',spriteoffset:1132};LzResourceLibrary.window_gripper_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/gripper_slct.png','lps/components/lz/resources/window/gripper_dslct.png','lps/components/lz/resources/window/gripper_dsbl.png'],width:569,height:11,sprite:'lps/components/lz/resources/window/gripper_slct.sprite.png',spriteoffset:1151};LzResourceLibrary.window_closebtn_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/autoPng/closebtn_up.png','lps/components/lz/resources/window/autoPng/closebtn_mo.png','lps/components/lz/resources/window/autoPng/closebtn_dn.png','lps/components/lz/resources/window/autoPng/closebtn_dsbl.png'],width:14,height:14,sprite:'lps/components/lz/resources/window/autoPng/closebtn_up.sprite.png',spriteoffset:1162};LzResourceLibrary.window_resizebtn_rsc={ptype:"sr",frames:['lps/components/lz/resources/window/autoPng/resizebtn_up.png','lps/components/lz/resources/window/autoPng/resizebtn_mo.png','lps/components/lz/resources/window/autoPng/resizebtn_dn.png','lps/components/lz/resources/window/autoPng/resizebtn_dsbl.png'],width:11,height:11,sprite:'lps/components/lz/resources/window/autoPng/resizebtn_up.sprite.png',spriteoffset:1176};LzResourceLibrary.lzscrollbar_ythumbtop_rsc={ptype:"sr",frames:['lps/components/lz/resources/scrollbar/scrollthumb_y_top.png'],width:12.0,height:1.0,spriteoffset:1187};LzResourceLibrary.lzscrollbar_ythumbmiddle_rsc={ptype:"sr",frames:['lps/components/lz/resources/scrollbar/autoPng/scrollthumb_y_mid.png'],width:12.0,height:6.0,spriteoffset:1188};LzResourceLibrary.lzscrollbar_ythumbbottom_rsc={ptype:"sr",frames:['lps/components/lz/resources/scrollbar/autoPng/scrollthumb_y_bot.png'],width:12.0,height:2.0,spriteoffset:1194};LzResourceLibrary.lzscrollbar_ythumbgripper_rsc={ptype:"sr",frames:['lps/components/lz/resources/scrollbar/thumb_y_gripper.png'],width:9.0,height:440.0,spriteoffset:1196};LzResourceLibrary.lzscrollbar_ybuttontop_rsc={ptype:"sr",frames:['lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_top_up.png','lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_top_mo.png','lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_top_dn.png','lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_top_dsbl.png'],width:12,height:13,sprite:'lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_top_up.sprite.png',spriteoffset:1636};LzResourceLibrary.lzscrollbar_ybuttonbottom_rsc={ptype:"sr",frames:['lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_bot_up.png','lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_bot_mo.png','lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_bot_dn.png','lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_bot_dsbl.png'],width:12,height:13,sprite:'lps/components/lz/resources/scrollbar/autoPng/scrollbtn_y_bot_up.sprite.png',spriteoffset:1649};LzResourceLibrary.lzscrollbar_ytrack_rsc={ptype:"sr",frames:['lps/components/lz/resources/scrollbar/y_scrolltrack.png','lps/components/lz/resources/scrollbar/y_scrolltrack_dn.png','lps/components/lz/resources/scrollbar/y_scrolltrack_dsbl.png'],width:12,height:1,sprite:'lps/components/lz/resources/scrollbar/y_scrolltrack.sprite.png',spriteoffset:1662};LzResourceLibrary.zero_txt={ptype:"ar",frames:['manipulatives/resource/0.png'],width:9.0,height:14.0,spriteoffset:1663};LzResourceLibrary.one_txt={ptype:"ar",frames:['manipulatives/resource/1.png'],width:6.0,height:13.0,spriteoffset:1677};LzResourceLibrary.two_txt={ptype:"ar",frames:['manipulatives/resource/2.png'],width:9.0,height:13.0,spriteoffset:1690};LzResourceLibrary.three_txt={ptype:"ar",frames:['manipulatives/resource/3.png'],width:9.0,height:14.0,spriteoffset:1703};LzResourceLibrary.four_txt={ptype:"ar",frames:['manipulatives/resource/4.png'],width:10.0,height:13.0,spriteoffset:1717};LzResourceLibrary.five_txt={ptype:"ar",frames:['manipulatives/resource/5.png'],width:9.0,height:13.0,spriteoffset:1730};LzResourceLibrary.six_txt={ptype:"ar",frames:['manipulatives/resource/6.png'],width:9.0,height:14.0,spriteoffset:1743};LzResourceLibrary.seven_txt={ptype:"ar",frames:['manipulatives/resource/7.png'],width:9.0,height:13.0,spriteoffset:1757};LzResourceLibrary.eight_txt={ptype:"ar",frames:['manipulatives/resource/8.png'],width:9.0,height:14.0,spriteoffset:1770};LzResourceLibrary.nine_txt={ptype:"ar",frames:['manipulatives/resource/9.png'],width:9.0,height:14.0,spriteoffset:1784};LzResourceLibrary.backspace_txt={ptype:"ar",frames:['manipulatives/resource/backspace.png'],width:62.0,height:11.0,spriteoffset:1798};LzResourceLibrary.C_txt={ptype:"ar",frames:['manipulatives/resource/C.png'],width:10.0,height:12.0,spriteoffset:1809};LzResourceLibrary.CE_txt={ptype:"ar",frames:['manipulatives/resource/CE.png'],width:21.0,height:12.0,spriteoffset:1821};LzResourceLibrary.changesign_txt={ptype:"ar",frames:['manipulatives/resource/changesign.png'],width:21.0,height:14.0,spriteoffset:1833};LzResourceLibrary.cos_txt={ptype:"ar",frames:['manipulatives/resource/cos.png'],width:21.0,height:14.0,spriteoffset:1847};LzResourceLibrary.decimal_txt={ptype:"ar",frames:['manipulatives/resource/decimal.png'],width:3.0,height:3.0,spriteoffset:1861};LzResourceLibrary.divide_txt={ptype:"ar",frames:['manipulatives/resource/divide.png'],width:14.0,height:24.0,spriteoffset:1864};LzResourceLibrary.equal_txt={ptype:"ar",frames:['manipulatives/resource/equal.png'],width:11.0,height:8.0,spriteoffset:1888};LzResourceLibrary.ln_txt={ptype:"ar",frames:['manipulatives/resource/ln.png'],width:11.0,height:14.0,spriteoffset:1896};LzResourceLibrary.log_txt={ptype:"ar",frames:['manipulatives/resource/log.png'],width:18.0,height:14.0,spriteoffset:1910};LzResourceLibrary.minus_txt={ptype:"ar",frames:['manipulatives/resource/minus.png'],width:7.0,height:4.0,spriteoffset:1924};LzResourceLibrary.mod_txt={ptype:"ar",frames:['manipulatives/resource/mod.png'],width:26.0,height:14.0,spriteoffset:1928};LzResourceLibrary.percent_txt={ptype:"ar",frames:['manipulatives/resource/percent.png'],width:16.0,height:16.0,spriteoffset:1942};LzResourceLibrary.pi_txt={ptype:"ar",frames:['manipulatives/resource/Pi.png'],width:13.0,height:15.0,spriteoffset:1958};LzResourceLibrary.plus_txt={ptype:"ar",frames:['manipulatives/resource/plus.png'],width:9.0,height:9.0,spriteoffset:1973};LzResourceLibrary.root_txt={ptype:"ar",frames:['manipulatives/resource/root.png'],width:14.0,height:24.0,spriteoffset:1982};LzResourceLibrary.sin_txt={ptype:"ar",frames:['manipulatives/resource/sin.png'],width:17.0,height:14.0,spriteoffset:2006};LzResourceLibrary.sqr_txt={ptype:"ar",frames:['manipulatives/resource/sqr.png'],width:19.0,height:14.0,spriteoffset:2020};LzResourceLibrary.multiply_txt={ptype:"ar",frames:['manipulatives/resource/star.png'],width:9.0,height:9.0,spriteoffset:2034};LzResourceLibrary.tan_txt={ptype:"ar",frames:['manipulatives/resource/tan.png'],width:19.0,height:14.0,spriteoffset:2043};LzResourceLibrary.memoryrecall_txt={ptype:"ar",frames:['manipulatives/resource/memoryrecall.png'],width:24.0,height:12.0,spriteoffset:2057};LzResourceLibrary.memoryclear_txt={ptype:"ar",frames:['manipulatives/resource/memoryclear.png'],width:23.0,height:12.0,spriteoffset:2069};LzResourceLibrary.memoryplus_txt={ptype:"ar",frames:['manipulatives/resource/memoryplus.png'],width:21.0,height:12.0,spriteoffset:2081};LzResourceLibrary.memoryminus_txt={ptype:"ar",frames:['manipulatives/resource/memoryminus.png'],width:18.0,height:12.0,spriteoffset:2093};LzResourceLibrary.calc_btn={ptype:"ar",frames:['manipulatives/resource/calc_buttonSTANDRD_off.png','manipulatives/resource/calc_buttonSTANDRD_on.png','manipulatives/resource/calc_buttonSTANDRD_click.png'],width:36,height:37,sprite:'manipulatives/resource/calc_buttonSTANDRD_off.sprite.png',spriteoffset:2105};LzResourceLibrary.calc_sci_func_btn={ptype:"ar",frames:['manipulatives/resource/calc_buttonSCIFUNCT_off.png','manipulatives/resource/calc_buttonSCIFUNCT_on.png','manipulatives/resource/calc_buttonSCIFUNCT_click.png'],width:47,height:25,sprite:'manipulatives/resource/calc_buttonSCIFUNCT_off.sprite.png',spriteoffset:2142};LzResourceLibrary.backspace_btn={ptype:"ar",frames:['manipulatives/resource/calc_buttonBACKSPC_off.png','manipulatives/resource/calc_buttonBACKSPC_on.png','manipulatives/resource/calc_buttonBACKSPC_click.png'],width:76,height:37,sprite:'manipulatives/resource/calc_buttonBACKSPC_off.sprite.png',spriteoffset:2167};LzResourceLibrary.equal_btn={ptype:"ar",frames:['manipulatives/resource/calc_buttonEQUAL_off.png','manipulatives/resource/calc_buttonEQUAL_on.png','manipulatives/resource/calc_buttonEQUAL_click.png'],width:116,height:37,sprite:'manipulatives/resource/calc_buttonEQUAL_off.sprite.png',spriteoffset:2204};LzResourceLibrary.calc_close_btn={ptype:"ar",frames:['manipulatives/resource/closebutton_off.png','manipulatives/resource/closebutton_on.png','manipulatives/resource/closebutton_click.png'],width:15,height:14,sprite:'manipulatives/resource/closebutton_off.sprite.png',spriteoffset:2241};LzResourceLibrary.calc_chrome={ptype:"ar",frames:['manipulatives/resource/calc_4f_chrome.png'],width:243.0,height:307.0,spriteoffset:2255};LzResourceLibrary.calc_face={ptype:"ar",frames:['manipulatives/resource/calc_4f_face.png'],width:222.0,height:276.0,spriteoffset:2562};LzResourceLibrary.calc_title={ptype:"ar",frames:['manipulatives/resource/calc_4f_title.png'],width:78.0,height:17.0,spriteoffset:2838};LzResourceLibrary.calc_display={ptype:"ar",frames:['manipulatives/resource/calculatorDisplay.png'],width:168.0,height:32.0,spriteoffset:2855};LzResourceLibrary.calc_sci_chrome={ptype:"ar",frames:['manipulatives/resource/calc_sci_chrome.png'],width:256.0,height:354.0,spriteoffset:2887};LzResourceLibrary.calc_sci_face={ptype:"ar",frames:['manipulatives/resource/calc_sci_face.png'],width:238.0,height:319.0,spriteoffset:3241};LzResourceLibrary.calc_sci_title={ptype:"ar",frames:['manipulatives/resource/calc_sci_title.png'],width:110.0,height:12.0,spriteoffset:3560};LzResourceLibrary.calc_sci_display={ptype:"ar",frames:['manipulatives/resource/calc_sci_display.png'],width:219.0,height:35.0,spriteoffset:3572};LzResourceLibrary.closeButton_rsrc={ptype:"ar",frames:['manipulatives/resource/closebutton_off.png','manipulatives/resource/closebutton_on.png','manipulatives/resource/closebutton_click.png'],width:15,height:14,sprite:'manipulatives/resource/closebutton_off.sprite.png',spriteoffset:3607};LzResourceLibrary.standardButton_rsrc={ptype:"ar",frames:['manipulatives/resource/calc_buttonSTANDRD_off.png','manipulatives/resource/calc_buttonSTANDRD_on.png','manipulatives/resource/calc_buttonSTANDRD_click.png'],width:36,height:37,sprite:'manipulatives/resource/calc_buttonSTANDRD_off.sprite.png',spriteoffset:3621};LzResourceLibrary.operatorButton_rsrc={ptype:"ar",frames:['manipulatives/resource/black_button.png','manipulatives/resource/ltblue_button_std.png','manipulatives/resource/dkblue_button_std.png'],width:35,height:36,sprite:'manipulatives/resource/black_button.sprite.png',spriteoffset:3658};LzResourceLibrary.doubleButton_rsrc={ptype:"ar",frames:['manipulatives/resource/button_double_off.png','manipulatives/resource/button_double_on.png','manipulatives/resource/button_double_click.png'],width:75,height:36,sprite:'manipulatives/resource/button_double_off.sprite.png',spriteoffset:3694};LzResourceLibrary.tripleButton_rsrc={ptype:"ar",frames:['manipulatives/resource/button_triple_off.png','manipulatives/resource/button_triple_on.png','manipulatives/resource/button_triple_click.png'],width:115,height:36,sprite:'manipulatives/resource/button_triple_off.sprite.png',spriteoffset:3730};LzResourceLibrary.backspaceButton_rsrc={ptype:"ar",frames:['manipulatives/resource/calc_buttonBACKSPC_off.png','manipulatives/resource/calc_buttonBACKSPC_on.png','manipulatives/resource/calc_buttonBACKSPC_click.png'],width:76,height:37,sprite:'manipulatives/resource/calc_buttonBACKSPC_off.sprite.png',spriteoffset:3766};LzResourceLibrary.equalButton_rsrc={ptype:"ar",frames:['manipulatives/resource/calc_buttonEQUAL_off.png','manipulatives/resource/calc_buttonEQUAL_on.png','manipulatives/resource/calc_buttonEQUAL_click.png'],width:116,height:37,sprite:'manipulatives/resource/calc_buttonEQUAL_off.sprite.png',spriteoffset:3803};LzResourceLibrary.sciFunctButton_rsrc={ptype:"ar",frames:['manipulatives/resource/calc_buttonSCIFUNCT_off.png','manipulatives/resource/calc_buttonSCIFUNCT_on.png','manipulatives/resource/calc_buttonSCIFUNCT_click.png'],width:47,height:25,sprite:'manipulatives/resource/calc_buttonSCIFUNCT_off.sprite.png',spriteoffset:3840};LzResourceLibrary.black_plusminus_rsrc={ptype:"ar",frames:['manipulatives/resource/black_plusminus.png'],width:21.0,height:14.0,spriteoffset:3865};LzResourceLibrary.black_percent_rsrc={ptype:"ar",frames:['manipulatives/resource/black_percent.png'],width:15.0,height:14.0,spriteoffset:3879};LzResourceLibrary.black_sqrt_rsrc={ptype:"ar",frames:['manipulatives/resource/newblack_sqrt.png'],width:18.0,height:16.0,spriteoffset:3893};LzResourceLibrary.black_divide_rsrc={ptype:"ar",frames:['manipulatives/resource/black_divide.png'],width:13.0,height:11.0,spriteoffset:3909};LzResourceLibrary.black_multiply_rsrc={ptype:"ar",frames:['manipulatives/resource/black_multiply.png'],width:8.0,height:8.0,spriteoffset:3920};LzResourceLibrary.black_plus_rsrc={ptype:"ar",frames:['manipulatives/resource/black_plus.png'],width:9.0,height:9.0,spriteoffset:3928};LzResourceLibrary.black_minus_rsrc={ptype:"ar",frames:['manipulatives/resource/black_minus.png'],width:9.0,height:3.0,spriteoffset:3937};LzResourceLibrary.white_plusminus_rsrc={ptype:"ar",frames:['manipulatives/resource/white_plusminus.png'],width:21.0,height:14.0,spriteoffset:3940};LzResourceLibrary.white_percent_rsrc={ptype:"ar",frames:['manipulatives/resource/white_percent.png'],width:15.0,height:14.0,spriteoffset:3954};LzResourceLibrary.white_sqrt_rsrc={ptype:"ar",frames:['manipulatives/resource/newwhite_sqrt.png'],width:18.0,height:16.0,spriteoffset:3968};LzResourceLibrary.white_divide_rsrc={ptype:"ar",frames:['manipulatives/resource/white_divide.png'],width:13.0,height:11.0,spriteoffset:3984};LzResourceLibrary.white_multiply_rsrc={ptype:"ar",frames:['manipulatives/resource/white_multiply.png'],width:8.0,height:8.0,spriteoffset:3995};LzResourceLibrary.white_plus_rsrc={ptype:"ar",frames:['manipulatives/resource/white_plus.png'],width:9.0,height:9.0,spriteoffset:4003};LzResourceLibrary.white_minus_rsrc={ptype:"ar",frames:['manipulatives/resource/white_minus.png'],width:9.0,height:3.0,spriteoffset:4012};LzResourceLibrary.protractorHandle_rsrc={ptype:"ar",frames:['manipulatives/resource/protractorHandle.png'],width:66.0,height:10.0,spriteoffset:4015};LzResourceLibrary.protractorMarks_rsrc={ptype:"ar",frames:['manipulatives/resource/protractorMarks.png'],width:272.0,height:137.0,spriteoffset:4025};LzResourceLibrary.protractorRotator_rsrc={ptype:"ar",frames:['manipulatives/resource/protractorRotator.png'],width:17.0,height:22.0,spriteoffset:4162};LzResourceLibrary.protractorBackground_rsrc={ptype:"ar",frames:['manipulatives/resource/protractorBackground.png'],width:272.0,height:136.0,spriteoffset:4184};LzResourceLibrary.protractorHandleOver_rsrc={ptype:"ar",frames:['manipulatives/resource/dragger_over.png'],width:23.0,height:24.0,spriteoffset:4320};LzResourceLibrary.protractorHandlePress_rsrc={ptype:"ar",frames:['manipulatives/resource/dragger_press.png'],width:22.0,height:18.0,spriteoffset:4344};LzResourceLibrary.rotator_rsrc={ptype:"ar",frames:['manipulatives/resource/rotator.png'],width:23.0,height:31.0,spriteoffset:4362};LzResourceLibrary.grabber_rsrc={ptype:"ar",frames:['manipulatives/resource/grabber.png'],width:79.0,height:16.0,spriteoffset:4393};LzResourceLibrary.rotateResizer_rsrc={ptype:"ar",frames:['manipulatives/resource/rotateResizer.png'],width:32.0,height:31.0,spriteoffset:4409};LzResourceLibrary.cangrab_cursor={ptype:"ar",frames:['manipulatives/resource/dragger_over.png'],width:23.0,height:24.0,spriteoffset:4440};LzResourceLibrary.grabbing_cursor={ptype:"ar",frames:['manipulatives/resource/dragger_press.png'],width:22.0,height:18.0,spriteoffset:4464};LzResourceLibrary.ruler_background={ptype:"ar",frames:['manipulatives/resource/ruler_background.png'],width:510.0,height:74.0,spriteoffset:4482};LzResourceLibrary.ruler_lines={ptype:"ar",frames:['manipulatives/resource/ruler_lines.png'],width:510.0,height:74.0,spriteoffset:4556};LzResourceLibrary.masking_ruler_lines={ptype:"ar",frames:['manipulatives/resource/masking_ruler_lines.png'],width:800.0,height:111.0,spriteoffset:4630};LzResourceLibrary.masking_ruler_background={ptype:"ar",frames:['manipulatives/resource/masking_ruler_background.png'],width:800.0,height:111.0,spriteoffset:4741};LzResourceLibrary.eighth_inch_tick_marks={ptype:"ar",frames:['manipulatives/resource/eighth_inch_tick_marks.png'],width:510.0,height:74.0,spriteoffset:4852};LzResourceLibrary.half_inch_tick_marks={ptype:"ar",frames:['manipulatives/resource/half_inch_tick_marks.png'],width:540.0,height:74.0,spriteoffset:4926};LzResourceLibrary.millimeter_tick_marks={ptype:"ar",frames:['manipulatives/resource/millimeter_tick_marks.png'],width:510.0,height:74.0,spriteoffset:5000};LzResourceLibrary.centimeter_tick_marks={ptype:"ar",frames:['manipulatives/resource/centimeter_tick_marks.png'],width:510.0,height:74.0,spriteoffset:5074};LzResourceLibrary.inches_label={ptype:"ar",frames:['manipulatives/resource/inches_label.png'],width:69.0,height:20.0,spriteoffset:5148};LzResourceLibrary.centimeters_label={ptype:"ar",frames:['manipulatives/resource/centimeters_label.png'],width:134.0,height:19.0,spriteoffset:5168};LzResourceLibrary.straight_label={ptype:"ar",frames:['manipulatives/resource/straight_label.png'],width:131.0,height:21.0,spriteoffset:5187};LzResourceLibrary.masking_label={ptype:"ar",frames:['manipulatives/resource/masking_label.png'],width:160.0,height:24.0,spriteoffset:5208};LzResourceLibrary.ref_card_close_btn={ptype:"ar",frames:['manipulatives/resource/refcard/closebutton_off.png','manipulatives/resource/refcard/closebutton_on.png','manipulatives/resource/refcard/closebutton_click.png'],width:15,height:14,sprite:'manipulatives/resource/refcard/closebutton_off.sprite.png',spriteoffset:5232};LzResourceLibrary.rc_bottom_left={ptype:"ar",frames:['manipulatives/resource/refcard/rc_bottom_left.png'],width:69.0,height:69.0,spriteoffset:5246};LzResourceLibrary.rc_bottom_middle={ptype:"ar",frames:['manipulatives/resource/refcard/rc_bottom_middle.png'],width:69.0,height:69.0,spriteoffset:5315};LzResourceLibrary.rc_bottom_right={ptype:"ar",frames:['manipulatives/resource/refcard/rc_bottom_right.png'],width:69.0,height:69.0,spriteoffset:5384};LzResourceLibrary.rc_center_left={ptype:"ar",frames:['manipulatives/resource/refcard/rc_center_left.png'],width:69.0,height:69.0,spriteoffset:5453};LzResourceLibrary.rc_center_middle={ptype:"ar",frames:['manipulatives/resource/refcard/rc_center_middle.png'],width:69.0,height:69.0,spriteoffset:5522};LzResourceLibrary.rc_center_right={ptype:"ar",frames:['manipulatives/resource/refcard/rc_center_right.png'],width:69.0,height:69.0,spriteoffset:5591};LzResourceLibrary.rc_top_left={ptype:"ar",frames:['manipulatives/resource/refcard/rc_top_left.png'],width:69.0,height:69.0,spriteoffset:5660};LzResourceLibrary.rc_top_middle={ptype:"ar",frames:['manipulatives/resource/refcard/rc_top_middle.png'],width:69.0,height:69.0,spriteoffset:5729};LzResourceLibrary.rc_top_right={ptype:"ar",frames:['manipulatives/resource/refcard/rc_top_right.png'],width:69.0,height:69.0,spriteoffset:5798};LzResourceLibrary.rc_lines={ptype:"ar",frames:['manipulatives/resource/refcard/rc_lines.png'],width:340.0,height:9.0,spriteoffset:5867};LzResourceLibrary.FCAT_refcard_title={ptype:"ar",frames:['manipulatives/resource/refcard/FCAT_refcard_title.png'],width:307.0,height:11.0,spriteoffset:5876};LzResourceLibrary.FCAT_refcard_contents={ptype:"ar",frames:['manipulatives/resource/refcard/FCAT_refcard_contents.png'],width:584.0,height:1224.0,spriteoffset:5887};LzResourceLibrary.TN_refcard_title={ptype:"ar",frames:['manipulatives/resource/refcard/TN_refcard_title.png'],width:111.0,height:19.0,spriteoffset:7111};LzResourceLibrary.TN_refcard_contents={ptype:"ar",frames:['manipulatives/resource/refcard/TN_refcard_contents.png'],width:742.0,height:348.0,spriteoffset:7130};LzResourceLibrary.system_btn={ptype:"ar",frames:['manipulatives/resource/delay_screen_buttons/computer.png'],width:104,height:128};LzResourceLibrary.globe_btn={ptype:"ar",frames:['manipulatives/resource/delay_screen_buttons/globe.png'],width:128,height:128};LzResourceLibrary.simple_bar_btn={ptype:"ar",frames:['manipulatives/resource/delay_screen_buttons/grayBar.png'],width:113,height:9};LzResourceLibrary.bar_btn={ptype:"ar",frames:['manipulatives/resource/delay_screen_buttons/greenBar.png'],width:31,height:9};LzResourceLibrary.exit_button_rsc={ptype:"ar",frames:['manipulatives/resource/delay_screen_buttons/exit_off.png','manipulatives/resource/delay_screen_buttons/exit_on.png','manipulatives/resource/delay_screen_buttons/exit_click.png','manipulatives/resource/delay_screen_buttons/exit_test_disabled.png'],width:93,height:40,sprite:'manipulatives/resource/delay_screen_buttons/exit_off.sprite.png',spriteoffset:7478};LzResourceLibrary.highlighter_cursor={ptype:"ar",frames:['manipulatives/resource/iknow_cursors/cursor_highliter.png'],width:23.0,height:23.0,spriteoffset:7518};LzResourceLibrary.eraser_cursor={ptype:"ar",frames:['manipulatives/resource/iknow_cursors/cursor_eraser.png'],width:25.0,height:19.0,spriteoffset:7541};LzResourceLibrary.read_btn={ptype:"ar",frames:['manipulatives/resource/read/btn_read_up.png','manipulatives/resource/read/btn_read_over.png','manipulatives/resource/read/btn_read_down.png'],width:23,height:17,sprite:'manipulatives/resource/read/btn_read_up.sprite.png',spriteoffset:7560};LzResourceLibrary.window_TL_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/top_lft_slct.png','manipulatives/scratchpad/resources/window/top_lft_dslct.png','manipulatives/scratchpad/resources/window/top_lft_slct.png','manipulatives/scratchpad/resources/window/top_lft_dsbl.png','manipulatives/scratchpad/resources/window/top_lft_slct.png'],width:17,height:14,sprite:'manipulatives/scratchpad/resources/window/top_lft_slct.sprite.png',spriteoffset:7577};LzResourceLibrary.window_TM_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/top_mid_slct.png','manipulatives/scratchpad/resources/window/top_mid_dslct.png','manipulatives/scratchpad/resources/window/top_mid_slct.png','manipulatives/scratchpad/resources/window/top_mid_dsbl.png','manipulatives/scratchpad/resources/window/top_mid_slct.png'],width:5,height:14,sprite:'manipulatives/scratchpad/resources/window/top_mid_slct.sprite.png',spriteoffset:7591};LzResourceLibrary.window_TR_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/top_rt_slct.png','manipulatives/scratchpad/resources/window/top_rt_dslct.png','manipulatives/scratchpad/resources/window/top_rt_drag.png','manipulatives/scratchpad/resources/window/top_rt_dsbl.png','manipulatives/scratchpad/resources/window/top_rt_slct.png'],width:15,height:14,sprite:'manipulatives/scratchpad/resources/window/top_rt_slct.sprite.png',spriteoffset:7605};LzResourceLibrary.window_ML_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/mid_lft_slct.png','manipulatives/scratchpad/resources/window/mid_lft_dslct.png','manipulatives/scratchpad/resources/window/mid_lft_slct.png','manipulatives/scratchpad/resources/window/mid_lft_dsbl.png','manipulatives/scratchpad/resources/window/mid_lft_slct.png'],width:17,height:5,sprite:'manipulatives/scratchpad/resources/window/mid_lft_slct.sprite.png',spriteoffset:7619};LzResourceLibrary.window_MM_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/mid_mid_slct.png','manipulatives/scratchpad/resources/window/mid_mid_dslct.png','manipulatives/scratchpad/resources/window/mid_mid_slct.png','manipulatives/scratchpad/resources/window/mid_mid_dsbl.png','manipulatives/scratchpad/resources/window/mid_mid_slct.png'],width:10,height:10,sprite:'manipulatives/scratchpad/resources/window/mid_mid_slct.sprite.png',spriteoffset:7624};LzResourceLibrary.window_MR_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/mid_rt_slct.png','manipulatives/scratchpad/resources/window/mid_rt_dslct.png','manipulatives/scratchpad/resources/window/mid_rt_drag.png','manipulatives/scratchpad/resources/window/mid_rt_dsbl.png','manipulatives/scratchpad/resources/window/mid_rt_slct.png'],width:15,height:5,sprite:'manipulatives/scratchpad/resources/window/mid_rt_slct.sprite.png',spriteoffset:7634};LzResourceLibrary.window_BL_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/bot_lft_slct.png','manipulatives/scratchpad/resources/window/bot_lft_dslct.png','manipulatives/scratchpad/resources/window/bot_lft_drag.png','manipulatives/scratchpad/resources/window/bot_lft_dsbl.png','manipulatives/scratchpad/resources/window/bot_lft_slct.png'],width:17,height:18,sprite:'manipulatives/scratchpad/resources/window/bot_lft_slct.sprite.png',spriteoffset:7639};LzResourceLibrary.window_BM_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/bot_mid_slct.png','manipulatives/scratchpad/resources/window/bot_mid_dslct.png','manipulatives/scratchpad/resources/window/bot_mid_drag.png','manipulatives/scratchpad/resources/window/bot_mid_dsbl.png','manipulatives/scratchpad/resources/window/bot_mid_slct.png'],width:5,height:18,sprite:'manipulatives/scratchpad/resources/window/bot_mid_slct.sprite.png',spriteoffset:7657};LzResourceLibrary.window_BR_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/bot_rt_slct.png','manipulatives/scratchpad/resources/window/bot_rt_dslct.png','manipulatives/scratchpad/resources/window/bot_rt_drag.png','manipulatives/scratchpad/resources/window/bot_rt_dsbl.png','manipulatives/scratchpad/resources/window/bot_rt_slct.png'],width:15,height:19,sprite:'manipulatives/scratchpad/resources/window/bot_rt_slct.sprite.png',spriteoffset:7675};LzResourceLibrary.window_gripper_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/gripper_slct.png','manipulatives/scratchpad/resources/window/gripper_dslct.png','manipulatives/scratchpad/resources/window/gripper_dsbl.png'],width:569,height:11,sprite:'manipulatives/scratchpad/resources/window/gripper_slct.sprite.png',spriteoffset:7694};LzResourceLibrary.window_closebtn_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/closebtn_up.png','manipulatives/scratchpad/resources/window/closebtn_mo.png','manipulatives/scratchpad/resources/window/closebtn_dn.png','manipulatives/scratchpad/resources/window/closebtn_dsbl.png'],width:14,height:14,sprite:'manipulatives/scratchpad/resources/window/closebtn_up.sprite.png',spriteoffset:7705};LzResourceLibrary.window_resizebtn_rsc={ptype:"ar",frames:['manipulatives/scratchpad/resources/window/resizebtn_up.png','manipulatives/scratchpad/resources/window/resizebtn_mo.png','manipulatives/scratchpad/resources/window/resizebtn_dn.png','manipulatives/scratchpad/resources/window/resizebtn_dsbl.png'],width:11,height:11,sprite:'manipulatives/scratchpad/resources/window/resizebtn_up.sprite.png',spriteoffset:7719};LzFontManager.addFont('CTB','normal','normal','manipulatives/resource/fonts/OASmathv3.ttf','ar');LzFontManager.addFont('CTB','normal','bold','manipulatives/resource/fonts/OASmathv3 Bold.ttf','ar');LzFontManager.addFont('CTB','italic','normal','manipulatives/resource/fonts/OASmathv3 Italic.ttf','ar');LzFontManager.addFont('CTB','italic','bold','manipulatives/resource/fonts/OASmathv3 BoldItalic.ttf','ar');LzResourceLibrary.__allcss={path:'Test.sprite.png'};var gPleaseWaitPopup=null;var wrapper=null;var gProtractor=null;var gStandardCalculator=null;var gScientificCalculator=null;var gStraightEdge=null;var gEighthInchRuler=null;var gHalfInchRuler=null;var gMmRuler=null;var gCmRuler=null;var gMaskingRuler=null;var gScratchpad=null;var gFcatFormulaCard=null;var gTnFormulaCard=null;var blocker=null;var ht=null;var gTooltip=null;Class.make("$lzc$class_mh",["srcurl",void 0,"manipid",void 0,"isLoaded",void 0,"scratchpadtext",void 0,"freezeui",void 0,"unlockui",void 0,"showpleasewaitpopup",void 0,"hidepleasewaitpopup",void 0,"showpleasewaitpopupcontrols",void 0,"manipulativedata",void 0,"$m1",function($0){
 with(this){
 this.setAttribute("htmlGeneralManip",new Object())
 }},"htmlGeneralManip",void 0,"scalefactor",void 0,"xscalefactor",void 0,"yscalefactor",void 0,"manipData",void 0,"$m2",function($0){
@@ -37,7 +37,11 @@ $3.width=$1.ruler.width.toString()
 }else{
 $3.width=$1.width.toString()
 };if($0=="standard_calculator"||$0=="scientific_calculator"){
-$3.displayValue=gStandardCalculator.displayValue;$3.input=gStandardCalculator.input;$3.currentOperand=gStandardCalculator.currentOperand.toString()
+$3.displayValue=gStandardCalculator.displayValue;$3.input=gStandardCalculator.input;if(gStandardCalculator.input.indexOf(".")!=-1&&gStandardCalculator.input.indexOf(".")==gStandardCalculator.input.length-1){
+$3.currentOperand=gStandardCalculator.input.substr(0,gStandardCalculator.input.length-1)
+}else{
+$3.currentOperand=gStandardCalculator.input
+};$3.operators=gStandardCalculator.operators;$3.operands=gStandardCalculator.operands;$3.isEditing=gStandardCalculator.isEditing
 };return $3
 }},"$m9",function($0){
 this.blocker.setAttribute("visible",true)
@@ -62,9 +66,9 @@ with(this){
 var $1;$1=$0["protractor"];if(($1.isselected=="true"||$1.isselected==true)&&$1.isselected!="undefined"){
 gProtractor.setAttribute("x",Number($1.x));gProtractor.setAttribute("y",Number($1.y));gProtractor.setAttribute("width",Number($1.width));gProtractor.setAttribute("rotation",Number($1.rotation));gProtractor.setAttribute("isselected",true);gProtractor.show()
 };$1=$0["standard_calculator"];if(($1.isselected=="true"||$1.isselected==true)&&$1.isselected!="undefined"){
-gStandardCalculator.setAttribute("x",Number($1.x));gStandardCalculator.setAttribute("y",Number($1.y));gStandardCalculator.setAttribute("width",Number($1.width));gStandardCalculator.setAttribute("displayValue",$1.displayValue);gStandardCalculator.setAttribute("input",$1.input);gStandardCalculator.setAttribute("currentOperand",Number($1.currentOperand));gStandardCalculator.updateDisplay();gStandardCalculator.setAttribute("isselected",true);gStandardCalculator.show()
+gStandardCalculator.setAttribute("x",Number($1.x));gStandardCalculator.setAttribute("y",Number($1.y));gStandardCalculator.setAttribute("width",Number($1.width));gStandardCalculator.setAttribute("displayValue",$1.displayValue);gStandardCalculator.setAttribute("input",$1.input);gStandardCalculator.setAttribute("currentOperand",Number($1.currentOperand));gStandardCalculator.setAttribute("operators",$1.operators);gStandardCalculator.setAttribute("operands",$1.operands);gStandardCalculator.setAttribute("isEditing",$1.isEditing);gStandardCalculator.updateDisplay();gStandardCalculator.setAttribute("isselected",true);gStandardCalculator.show()
 };$1=$0["scientific_calculator"];if(($1.isselected=="true"||$1.isselected==true)&&$1.isselected!="undefined"){
-gScientificCalculator.setAttribute("x",Number($1.x));gScientificCalculator.setAttribute("y",Number($1.y));gScientificCalculator.setAttribute("width",Number($1.width));gStandardCalculator.setAttribute("displayValue",$1.displayValue);gStandardCalculator.setAttribute("input",$1.input);gStandardCalculator.setAttribute("currentOperand",Number($1.currentOperand));gStandardCalculator.updateDisplay();gScientificCalculator.setAttribute("isselected",true);gScientificCalculator.show()
+gScientificCalculator.setAttribute("x",Number($1.x));gScientificCalculator.setAttribute("y",Number($1.y));gScientificCalculator.setAttribute("width",Number($1.width));gScientificCalculator.setAttribute("displayValue",$1.displayValue);gScientificCalculator.setAttribute("input",$1.input);gScientificCalculator.setAttribute("currentOperand",Number($1.currentOperand));gScientificCalculator.setAttribute("operators",$1.operators);gScientificCalculator.setAttribute("operands",$1.operands);gScientificCalculator.setAttribute("isEditing",$1.isEditing);gScientificCalculator.updateDisplay();gScientificCalculator.setAttribute("isselected",true);gScientificCalculator.show()
 };$1=$0["straight_edge"];if(($1.isselected=="true"||$1.isselected==true)&&$1.isselected!="undefined"){
 gStraightEdge.setAttribute("x",Number($1.x));gStraightEdge.setAttribute("y",Number($1.y));gStraightEdge.ruler.setAttribute("width",Number($1.width));gStraightEdge.setAttribute("rotation",Number($1.rotation));gStraightEdge.setAttribute("isselected",true);gStraightEdge.show()
 };$1=$0["oneeighth_inch_ruler"];if(($1.isselected=="true"||$1.isselected==true)&&$1.isselected!="undefined"){
@@ -157,7 +161,7 @@ case "masking_ruler":
 if(gMaskingRuler.visible){
 gMaskingRuler.hide()
 }else{
-gMaskingRuler.setAttribute("x",this.width/2-gMaskingRuler.width/2);gMaskingRuler.setAttribute("y",this.height/2-gMaskingRuler.height/2);gMaskingRuler.show()
+gMaskingRuler.ruler.setAttribute("width",gMaskingRuler.maxLength);gMaskingRuler.setAttribute("x",canvas.width/2-gMaskingRuler.width/2);gMaskingRuler.setAttribute("y",canvas.height/2-gMaskingRuler.height/2);gMaskingRuler.show()
 }break;
 case "scratchpad":
 if(gScratchpad.visible){
@@ -207,7 +211,7 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzCanvas,["displayName","<anonymous extends='canvas'>","attributes",new LzInheritedHash(LzCanvas.attributes)]);canvas=new $lzc$class_mh(null,{$delegates:["onhasfontaccom","$m3",null,"onscalefactor","$m4",null,"onshowpleasewaitpopup","$m5",null,"onhidepleasewaitpopup","$m6",null,"onshowpleasewaitpopupcontrols","$m7",null,"onmanipulativedata","$m8",null,"onfreezeui","$m9",null,"onunlockui","$ma",null,"onsrcurl","$mb",null,"onscratchpadtext","$mc",null,"onmanipData","$md",null,"onvisible","$me",null,"onmanipid","$mf",null,"oninit","$mg",null],__LZproxied:"true",appbuilddate:"2012-11-29T16:54:33Z",bgcolor:16777215,currentCursor:null,embedfonts:true,eraserSel:false,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",freezeui:null,hasfontaccom:false,height:"100%",hidepleasewaitpopup:false,highlighterSel:false,htmlGeneralManip:new LzOnceExpr("htmlGeneralManip","expression","$m1",null),htmlGeneralOpenManip:new LzOnceExpr("htmlGeneralOpenManip","expression","$m2",null),isLoaded:false,lpsbuild:"branches/4.9@17752 (17752)",lpsbuilddate:"2010-10-22T16:12:42Z",lpsrelease:"Production",lpsversion:"4.9.0",manipData:null,manipid:null,manipulativedata:false,readable:false,runtime:"dhtml",scalefactor:null,scratchpadtext:null,showpleasewaitpopup:false,showpleasewaitpopupcontrols:false,srcurl:null,unlockui:null,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;{
+}],LzCanvas,["displayName","<anonymous extends='canvas'>","attributes",new LzInheritedHash(LzCanvas.attributes)]);canvas=new $lzc$class_mh(null,{$delegates:["onhasfontaccom","$m3",null,"onscalefactor","$m4",null,"onshowpleasewaitpopup","$m5",null,"onhidepleasewaitpopup","$m6",null,"onshowpleasewaitpopupcontrols","$m7",null,"onmanipulativedata","$m8",null,"onfreezeui","$m9",null,"onunlockui","$ma",null,"onsrcurl","$mb",null,"onscratchpadtext","$mc",null,"onmanipData","$md",null,"onvisible","$me",null,"onmanipid","$mf",null,"oninit","$mg",null],__LZproxied:"true",appbuilddate:"2012-11-30T16:53:08Z",bgcolor:16777215,currentCursor:null,embedfonts:true,eraserSel:false,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",freezeui:null,hasfontaccom:false,height:"100%",hidepleasewaitpopup:false,highlighterSel:false,htmlGeneralManip:new LzOnceExpr("htmlGeneralManip","expression","$m1",null),htmlGeneralOpenManip:new LzOnceExpr("htmlGeneralOpenManip","expression","$m2",null),isLoaded:false,lpsbuild:"branches/4.9@17752 (17752)",lpsbuilddate:"2010-10-22T16:12:42Z",lpsrelease:"Production",lpsversion:"4.9.0",manipData:null,manipid:null,manipulativedata:false,readable:false,runtime:"dhtml",scalefactor:null,scratchpadtext:null,showpleasewaitpopup:false,showpleasewaitpopupcontrols:false,srcurl:null,unlockui:null,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 with(this){
 setActive($0)
@@ -7004,11 +7008,11 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$datapath:{"class":LzDatapath},$delegates:["oninit","$mh1",null,"onvisible","$mh2",null],datapath:LzNode._ignoreAttribute,visible:true},$lzc$class_MaskingManipulative.attributes)
 }}})($lzc$class_MaskingManipulative)
-};Class.make("$lzc$class_mhx",["$mhl",function($0){
+};Class.make("$lzc$class_mhz",["$mhn",function($0){
 with(this){
 var $1=canvas.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mhm",function(){
+}}},"$mho",function(){
 with(this){
 try{
 return [canvas,"width"]
@@ -7017,7 +7021,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mhn",function($0){
+}}},"$mhp",function($0){
 with(this){
 classroot.setAttribute("maxLength",this.resourcewidth)
 }},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
@@ -7032,11 +7036,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mhy",["$mho",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mi0",["$mhq",function($0){
 with(this){
 var $1=canvas.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mhp",function(){
+}}},"$mhr",function(){
 with(this){
 try{
 return [canvas,"width"]
@@ -7057,13 +7061,13 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mhz",["$mhq",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mi1",["$mhs",function($0){
 with(this){
 this.setAttribute("y",classroot.GRABBER_Y)
-}},"$mhr",function($0){},"$mhs",function($0){},"$mht",function($0){
+}},"$mht",function($0){},"$mhu",function($0){},"$mhv",function($0){
 with(this){
 classroot.bringToFront();lz.Cursor.setCursorGlobal("grabbing_cursor");lz.Cursor.lock();classroot.dragger.apply()
-}},"$mhu",function($0){
+}},"$mhw",function($0){
 with(this){
 lz.Cursor.unlock();gController.restoreCurrentCursor();classroot.dragger.remove()
 }},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
@@ -7113,7 +7117,7 @@ return $0*(Math.PI/180)
 }},"radsToDegrees",function($0){
 with(this){
 return $0*(180/Math.PI)
-}},"$mhk",function($0){
+}},"$mhm",function($0){
 with(this){
 Debug.write("ondata masking ruler..."+$0);if(!$0)return;var $1=false;for(var $2 in $0.attributes){
 $1=true;break
@@ -7129,10 +7133,10 @@ var $1=new Array();$1[0]=this.x;$1[1]=this.y;return $1
 }},"getDeltas",function($0,$1,$2){
 with(this){
 var $3=new Array();var $4=degreesToRads($2);var $5=Math.sin($4);var $6=Math.cos($4);$3[0]=$6*$0-$5*$1;$3[1]=$5*$0+$6*$1;return $3
-}},"ruler",void 0,"$mhv",function($0){
+}},"ruler",void 0,"$mhx",function($0){
 with(this){
 this.bringToFront();lz.Cursor.setCursorGlobal("grabbing_cursor");lz.Cursor.lock();this.dragger.apply()
-}},"$mhw",function($0){
+}},"$mhy",function($0){
 with(this){
 lz.Cursor.unlock();this.dragger.remove();Debug.write("masking ruler datapath ",this.datapath.p)
 }},"$lzsc$initialize",function($0,$1,$2,$3){
@@ -7147,7 +7151,7 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_MaskingManipulative,["tagname","MaskingRuler","children",[{attrs:{$classrootdepth:1,$delegates:["onapply","$mhj",null],$mh6:function($0){
+}],$lzc$class_MaskingManipulative,["tagname","MaskingRuler","children",[{attrs:{$classrootdepth:1,$delegates:["onapply","$mhl",null],$mh6:function($0){
 var $1=this.dragxmin;if($1!==this["drag_min_x"]||!this.inited){
 this.setAttribute("drag_min_x",$1)
 }},$mh7:function(){
@@ -7200,20 +7204,38 @@ this.setAttribute("actualX",this.xoffset-this.getMouse("x"))
 this.setAttribute("actualY",this.yoffset-this.getMouse("y"))
 },$mhh:function($0){
 with(this){
-this.setAttribute("__dragstate_ydoffset",this.actualX*Math.sin(this.rrotation)+this.actualY*Math.cos(this.rrotation))
-}},$mhi:function($0){
-with(this){
-this.setAttribute("__dragstate_xdoffset",this.actualX*Math.cos(this.rrotation)-this.actualY*Math.sin(this.rrotation))
+var $1=this.actualX*Math.sin(this.rrotation)+this.actualY*Math.cos(this.rrotation);if($1!==this["__dragstate_ydoffset"]||!this.inited){
+this.setAttribute("__dragstate_ydoffset",$1)
+}}},$mhi:function(){
+try{
+return [this,"actualX",this,"rrotation",this,"actualY"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
 }},$mhj:function($0){
 with(this){
+var $1=this.actualX*Math.cos(this.rrotation)-this.actualY*Math.sin(this.rrotation);if($1!==this["__dragstate_xdoffset"]||!this.inited){
+this.setAttribute("__dragstate_xdoffset",$1)
+}}},$mhk:function(){
+try{
+return [this,"actualX",this,"rrotation",this,"actualY"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
+}},$mhl:function($0){
+with(this){
 classroot.updateDraggerAttributes()
-}},__dragstate_xdoffset:new LzOnceExpr("__dragstate_xdoffset","expression","$mhi",null),__dragstate_ydoffset:new LzOnceExpr("__dragstate_ydoffset","expression","$mhh",null),actualX:new LzOnceExpr("actualX","expression","$mhf",null),actualY:new LzOnceExpr("actualY","expression","$mhg",null),drag_max_x:new LzAlwaysExpr("drag_max_x","number","$mha","$mhb",null),drag_max_y:new LzAlwaysExpr("drag_max_y","number","$mhc","$mhd",null),drag_min_x:new LzAlwaysExpr("drag_min_x","number","$mh6","$mh7",null),drag_min_y:new LzAlwaysExpr("drag_min_y","number","$mh8","$mh9",null),name:"dragger",rrotation:new LzOnceExpr("rrotation","expression","$mhe",null)},"class":$lzc$class_dragstate},{attrs:{$classrootdepth:1,bg:void 0,clip:true,grabber:void 0,lines:void 0,name:"ruler",x:0},children:[{attrs:{$classrootdepth:2,$delegates:["onload","$mhn",null],name:"bg",opacity:1,resource:"masking_ruler_background",width:new LzAlwaysExpr("width","size","$mhl","$mhm",null),xscale:1.54},"class":$lzc$class_mhx},{attrs:{$classrootdepth:2,name:"lines",resource:"masking_ruler_lines",width:new LzAlwaysExpr("width","size","$mho","$mhp",null),xscale:1.54},"class":$lzc$class_mhy},{attrs:{$classrootdepth:2,$delegates:["onmouseover","$mhr",null,"onmouseout","$mhs",null,"onmousedown","$mht",null,"onmouseup","$mhu",null],align:"center",clickable:true,name:"grabber",resource:"grabber_rsrc",visible:false,y:new LzOnceExpr("y","numberExpression","$mhq",null)},"class":$lzc$class_mhz}],"class":LzView}],"attributes",new LzInheritedHash($lzc$class_MaskingManipulative.attributes)]);(function($0){
+}},__dragstate_xdoffset:new LzAlwaysExpr("__dragstate_xdoffset","expression","$mhj","$mhk",null),__dragstate_ydoffset:new LzAlwaysExpr("__dragstate_ydoffset","expression","$mhh","$mhi",null),actualX:new LzOnceExpr("actualX","expression","$mhf",null),actualY:new LzOnceExpr("actualY","expression","$mhg",null),drag_max_x:new LzAlwaysExpr("drag_max_x","number","$mha","$mhb",null),drag_max_y:new LzAlwaysExpr("drag_max_y","number","$mhc","$mhd",null),drag_min_x:new LzAlwaysExpr("drag_min_x","number","$mh6","$mh7",null),drag_min_y:new LzAlwaysExpr("drag_min_y","number","$mh8","$mh9",null),name:"dragger",rrotation:new LzOnceExpr("rrotation","expression","$mhe",null)},"class":$lzc$class_dragstate},{attrs:{$classrootdepth:1,bg:void 0,clip:true,grabber:void 0,lines:void 0,name:"ruler",x:0},children:[{attrs:{$classrootdepth:2,$delegates:["onload","$mhp",null],name:"bg",opacity:1,resource:"masking_ruler_background",width:new LzAlwaysExpr("width","size","$mhn","$mho",null)},"class":$lzc$class_mhz},{attrs:{$classrootdepth:2,name:"lines",resource:"masking_ruler_lines",width:new LzAlwaysExpr("width","size","$mhq","$mhr",null)},"class":$lzc$class_mi0},{attrs:{$classrootdepth:2,$delegates:["onmouseover","$mht",null,"onmouseout","$mhu",null,"onmousedown","$mhv",null,"onmouseup","$mhw",null],align:"center",clickable:true,name:"grabber",resource:"grabber_rsrc",visible:false,y:new LzOnceExpr("y","numberExpression","$mhs",null)},"class":$lzc$class_mi1}],"class":LzView}],"attributes",new LzInheritedHash($lzc$class_MaskingManipulative.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$delegates:["onmousedown","$mh3",null,"onlabelrsr","$mh4",null,"oninit","$mh5",null,"ondata","$mhk",null,"onmousedown","$mhv",null,"onmouseup","$mhw",null],DRAGGER_MAX_X:800,DRAGGER_MAX_Y:460,DRAGGER_MIN_X:0,DRAGGER_MIN_Y:0,GRABBER_PADDING:35,GRABBER_Y:29,LABEL_PADDING:10,LABEL_Y:25,ROTATOR_Y:38,clickable:true,dragxmax:null,dragxmin:null,dragymax:null,dragymin:null,labelrsr:"",maxLength:800,minLength:100,showhandcursor:false},$lzc$class_MaskingRuler.attributes)
+LzNode.mergeAttributes({$delegates:["onmousedown","$mh3",null,"onlabelrsr","$mh4",null,"oninit","$mh5",null,"ondata","$mhm",null,"onmousedown","$mhx",null,"onmouseup","$mhy",null],DRAGGER_MAX_X:800,DRAGGER_MAX_Y:460,DRAGGER_MIN_X:0,DRAGGER_MIN_Y:0,GRABBER_PADDING:35,GRABBER_Y:29,LABEL_PADDING:10,LABEL_Y:25,ROTATOR_Y:38,clickable:true,dragxmax:null,dragxmin:null,dragymax:null,dragymin:null,labelrsr:"",maxLength:800,minLength:100,showhandcursor:false},$lzc$class_MaskingRuler.attributes)
 }}})($lzc$class_MaskingRuler)
 };{
-Class.make("$lzc$class_resizestateminmax",["oldWidth",void 0,"oldHeight",void 0,"$mi0",void 0,"xroffset",void 0,"$mi1",void 0,"$mi2",void 0,"width",void 0,"$mi3",void 0,"yroffset",void 0,"$mi4",void 0,"$mi5",void 0,"height",void 0,"$mi6",void 0,"$mi7",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+Class.make("$lzc$class_resizestateminmax",["oldWidth",void 0,"oldHeight",void 0,"$mi2",void 0,"xroffset",void 0,"$mi3",void 0,"$mi4",void 0,"width",void 0,"$mi5",void 0,"yroffset",void 0,"$mi6",void 0,"$mi7",void 0,"height",void 0,"$mi8",void 0,"$mi9",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
 $0=null;
@@ -7228,13 +7250,13 @@ $3=false;
 }],LzState,["tagname","resizestateminmax","attributes",new LzInheritedHash(LzState.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$delegates:["onwidth","$mi6",null,"onheight","$mi7",null],$mi0:function($0){
+LzNode.mergeAttributes({$delegates:["onwidth","$mi8",null,"onheight","$mi9",null],$mi2:function($0){
 this.setAttribute("xroffset",this.x-this.width+this.getMouse("x"))
-},$mi1:function($0){
+},$mi3:function($0){
 with(this){
 var $1=this.immediateparent.getMouse("x")<100?oldWidth:(this.immediateparent.getMouse("x")-xroffset<minwidth?minwidth:(this.immediateparent.getMouse("x")-xroffset>maxwidth?maxwidth:this.immediateparent.getMouse("x")-xroffset));if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},$mi2:function(){
+}}},$mi4:function(){
 with(this){
 try{
 return [this,"oldWidth",this,"xroffset",this,"minwidth",this,"maxwidth"].concat($lzc$getFunctionDependencies("getMouse",this,this.immediateparent,["x"],null))
@@ -7243,13 +7265,13 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},$mi3:function($0){
+}}},$mi5:function($0){
 this.setAttribute("yroffset",this.y-this.height+this.getMouse("y"))
-},$mi4:function($0){
+},$mi6:function($0){
 with(this){
 var $1=this.immediateparent.getMouse("y")<100?oldHeight:(this.immediateparent.getMouse("y")-yroffset<minheight?minheight:(this.immediateparent.getMouse("y")-yroffset>maxheight?maxheight:this.immediateparent.getMouse("y")-yroffset));if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}}},$mi5:function(){
+}}},$mi7:function(){
 with(this){
 try{
 return [this,"oldHeight",this,"yroffset",this,"minheight",this,"maxheight"].concat($lzc$getFunctionDependencies("getMouse",this,this.immediateparent,["y"],null))
@@ -7258,11 +7280,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},$mi6:function($0){
+}}},$mi8:function($0){
 this.setAttribute("oldWidth",this.width)
-},$mi7:function($0){
+},$mi9:function($0){
 this.setAttribute("oldHeight",this.height)
-},height:new LzAlwaysExpr("height","expression","$mi4","$mi5",null),width:new LzAlwaysExpr("width","expression","$mi1","$mi2",null),xroffset:new LzOnceExpr("xroffset","expression","$mi0",null),yroffset:new LzOnceExpr("yroffset","expression","$mi3",null)},$lzc$class_resizestateminmax.attributes)
+},height:new LzAlwaysExpr("height","expression","$mi6","$mi7",null),width:new LzAlwaysExpr("width","expression","$mi3","$mi4",null),xroffset:new LzOnceExpr("xroffset","expression","$mi2",null),yroffset:new LzOnceExpr("yroffset","expression","$mi5",null)},$lzc$class_resizestateminmax.attributes)
 }}})($lzc$class_resizestateminmax)
 };{
 Class.make("$lzc$class_ScratchpadBaseWindow",["minwidth",void 0,"maxwidth",void 0,"minheight",void 0,"maxheight",void 0,"haswindowfocus",void 0,"$lzc$set_haswindowfocus",function($0){
@@ -7286,7 +7308,7 @@ setAttribute("state",3)
 }},"_windowResize",void 0,"construct",function($0,$1){
 (arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["construct"]||this.nextMethod(arguments.callee,"construct")).call(this,$0,$1);var $2=this.parent.options["windowlist"];if($2==null||typeof $2=="undefined"){
 $2=[];this.parent.setOption("windowlist",$2)
-}},"$mil",function($0){},"init",function(){
+}},"$min",function($0){},"init",function(){
 with(this){
 if(this.datapath!=null){
 this.datapath.setAttribute("datacontrolsvisibility",this.visibility=="collapse")
@@ -7399,29 +7421,29 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_basecomponent,["tagname","ScratchpadBaseWindow","children",[{attrs:{$classrootdepth:1,$mi8:function($0){
+}],$lzc$class_basecomponent,["tagname","ScratchpadBaseWindow","children",[{attrs:{$classrootdepth:1,$mia:function($0){
 this.setAttribute("starty",this.y)
-},$mi9:function($0){
-this.setAttribute("startx",this.x)
-},$mia:function($0){
-this.setAttribute("drag_min_x",-(this.width-100))
 },$mib:function($0){
-this.setAttribute("drag_min_y",-(this.height-100))
+this.setAttribute("startx",this.x)
 },$mic:function($0){
+this.setAttribute("drag_min_x",-(this.width-100))
+},$mid:function($0){
+this.setAttribute("drag_min_y",-(this.height-100))
+},$mie:function($0){
 with(this){
 this.setAttribute("drag_max_x",parent.width-100)
-}},$mid:function($0){
+}},$mif:function($0){
 with(this){
 this.setAttribute("drag_max_y",parent.height-100)
-}},$mie:function($0){
+}},$mig:function($0){
 this.setAttribute("ydoffset",this.getMouse("y"))
-},$mif:function($0){
+},$mih:function($0){
 this.setAttribute("xdoffset",this.getMouse("x"))
-},$mig:function($0){
+},$mii:function($0){
 with(this){
 var $1=setDragPos("y",this.immediateparent.getMouse("y"));if($1!==this["y"]||!this.inited){
 this.setAttribute("y",$1)
-}}},$mih:function(){
+}}},$mij:function(){
 with(this){
 try{
 return [].concat($lzc$getFunctionDependencies("setDragPos",this,this,["y",this.immediateparent.getMouse("y")],null)).concat($lzc$getFunctionDependencies("getMouse",this,this.immediateparent,["y"],null))
@@ -7430,11 +7452,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},$mii:function($0){
+}}},$mik:function($0){
 with(this){
 var $1=setDragPos("x",this.immediateparent.getMouse("x"));if($1!==this["x"]||!this.inited){
 this.setAttribute("x",$1)
-}}},$mij:function(){
+}}},$mil:function(){
 with(this){
 try{
 return [].concat($lzc$getFunctionDependencies("setDragPos",this,this,["x",this.immediateparent.getMouse("x")],null)).concat($lzc$getFunctionDependencies("getMouse",this,this.immediateparent,["x"],null))
@@ -7443,72 +7465,34 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},drag_max_x:new LzOnceExpr("drag_max_x","expression","$mic",null),drag_max_y:new LzOnceExpr("drag_max_y","expression","$mid",null),drag_min_x:new LzOnceExpr("drag_min_x","expression","$mia",null),drag_min_y:new LzOnceExpr("drag_min_y","expression","$mib",null),name:"_windowDrag",startx:new LzOnceExpr("startx","expression","$mi9",null),starty:new LzOnceExpr("starty","expression","$mi8",null),x:new LzAlwaysExpr("x","expression","$mii","$mij",null),xdoffset:new LzOnceExpr("xdoffset","expression","$mif",null),y:new LzAlwaysExpr("y","expression","$mig","$mih",null),ydoffset:new LzOnceExpr("ydoffset","expression","$mie",null)},"class":LzState},{attrs:{$classrootdepth:1,$delegates:["onapply","$mik",null],$mik:function($0){
+}}},drag_max_x:new LzOnceExpr("drag_max_x","expression","$mie",null),drag_max_y:new LzOnceExpr("drag_max_y","expression","$mif",null),drag_min_x:new LzOnceExpr("drag_min_x","expression","$mic",null),drag_min_y:new LzOnceExpr("drag_min_y","expression","$mid",null),name:"_windowDrag",startx:new LzOnceExpr("startx","expression","$mib",null),starty:new LzOnceExpr("starty","expression","$mia",null),x:new LzAlwaysExpr("x","expression","$mik","$mil",null),xdoffset:new LzOnceExpr("xdoffset","expression","$mih",null),y:new LzAlwaysExpr("y","expression","$mii","$mij",null),ydoffset:new LzOnceExpr("ydoffset","expression","$mig",null)},"class":LzState},{attrs:{$classrootdepth:1,$delegates:["onapply","$mim",null],$mim:function($0){
 with(this){
 parent.setAttribute("haswindowfocus",true)
 }},name:"_windowResize"},"class":$lzc$class_resizestateminmax}],"attributes",new LzInheritedHash($lzc$class_basecomponent.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$delegates:["onblur","$mil",null],allowdrag:true,clickable:true,defaultbuttongroup:true,focusable:false,haswindowfocus:false,maxheight:362,maxwidth:640,minheight:50,minwidth:60,mousedel:null,onhaswindowfocus:LzDeclaredEvent,options:{ignorelayout:true},pixellock:true,state:1},$lzc$class_ScratchpadBaseWindow.attributes)
+LzNode.mergeAttributes({$delegates:["onblur","$min",null],allowdrag:true,clickable:true,defaultbuttongroup:true,focusable:false,haswindowfocus:false,maxheight:362,maxwidth:640,minheight:50,minwidth:60,mousedel:null,onhaswindowfocus:LzDeclaredEvent,options:{ignorelayout:true},pixellock:true,state:1},$lzc$class_ScratchpadBaseWindow.attributes)
 }}})($lzc$class_ScratchpadBaseWindow)
-};Class.make("$lzc$class_mki",["$miu",function($0){
+};Class.make("$lzc$class_mkk",["$miw",function($0){
 with(this){
 var $1=immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$miv",function(){
-with(this){
-try{
-return [immediateparent,"width"]
-}
-catch($lzsc$e){
-if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
-lz.$lzsc$thrownError=$lzsc$e
-};throw $lzsc$e
-}}},"$miw",function($0){
-with(this){
-var $1=parent.state;if($1!==this["frame"]||!this.inited){
-this.setAttribute("frame",$1)
 }}},"$mix",function(){
 with(this){
 try{
-return [parent,"state"]
+return [immediateparent,"width"]
 }
 catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
-switch(arguments.length){
-case 0:
-$0=null;
-case 1:
-$1=null;
-case 2:
-$2=null;
-case 3:
-$3=false;
-
-};(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_resizeview_x,["displayName","<anonymous extends='resizeview_x'>","children",LzNode.mergeChildren([],$lzc$class_resizeview_x["children"]),"attributes",new LzInheritedHash($lzc$class_resizeview_x.attributes)]);Class.make("$lzc$class_mkj",["$miy",function($0){
+}}},"$miy",function($0){
 with(this){
-var $1=immediateparent.width;if($1!==this["width"]||!this.inited){
-this.setAttribute("width",$1)
+var $1=parent.state;if($1!==this["frame"]||!this.inited){
+this.setAttribute("frame",$1)
 }}},"$miz",function(){
 with(this){
 try{
-return [immediateparent,"width"]
-}
-catch($lzsc$e){
-if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
-lz.$lzsc$thrownError=$lzsc$e
-};throw $lzsc$e
-}}},"$mj0",function($0){
-with(this){
-var $1=parent.state;if($1!==this["frame"]||!this.inited){
-this.setAttribute("frame",$1)
-}}},"$mj1",function(){
-with(this){
-try{
 return [parent,"state"]
 }
 catch($lzsc$e){
@@ -7527,11 +7511,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_resizeview_x,["displayName","<anonymous extends='resizeview_x'>","children",LzNode.mergeChildren([],$lzc$class_resizeview_x["children"]),"attributes",new LzInheritedHash($lzc$class_resizeview_x.attributes)]);Class.make("$lzc$class_mkk",["$mj2",function($0){
+}],$lzc$class_resizeview_x,["displayName","<anonymous extends='resizeview_x'>","children",LzNode.mergeChildren([],$lzc$class_resizeview_x["children"]),"attributes",new LzInheritedHash($lzc$class_resizeview_x.attributes)]);Class.make("$lzc$class_mkl",["$mj0",function($0){
 with(this){
 var $1=immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mj3",function(){
+}}},"$mj1",function(){
 with(this){
 try{
 return [immediateparent,"width"]
@@ -7540,11 +7524,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mj4",function($0){
+}}},"$mj2",function($0){
 with(this){
 var $1=parent.state;if($1!==this["frame"]||!this.inited){
 this.setAttribute("frame",$1)
-}}},"$mj5",function(){
+}}},"$mj3",function(){
 with(this){
 try{
 return [parent,"state"]
@@ -7565,7 +7549,45 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_resizeview_x,["displayName","<anonymous extends='resizeview_x'>","children",LzNode.mergeChildren([],$lzc$class_resizeview_x["children"]),"attributes",new LzInheritedHash($lzc$class_resizeview_x.attributes)]);Class.make("$lzc$class_mkm",["init",function(){
+}],$lzc$class_resizeview_x,["displayName","<anonymous extends='resizeview_x'>","children",LzNode.mergeChildren([],$lzc$class_resizeview_x["children"]),"attributes",new LzInheritedHash($lzc$class_resizeview_x.attributes)]);Class.make("$lzc$class_mkm",["$mj4",function($0){
+with(this){
+var $1=immediateparent.width;if($1!==this["width"]||!this.inited){
+this.setAttribute("width",$1)
+}}},"$mj5",function(){
+with(this){
+try{
+return [immediateparent,"width"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
+}}},"$mj6",function($0){
+with(this){
+var $1=parent.state;if($1!==this["frame"]||!this.inited){
+this.setAttribute("frame",$1)
+}}},"$mj7",function(){
+with(this){
+try{
+return [parent,"state"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
+}}},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+switch(arguments.length){
+case 0:
+$0=null;
+case 1:
+$1=null;
+case 2:
+$2=null;
+case 3:
+$3=false;
+
+};(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
+}],$lzc$class_resizeview_x,["displayName","<anonymous extends='resizeview_x'>","children",LzNode.mergeChildren([],$lzc$class_resizeview_x["children"]),"attributes",new LzInheritedHash($lzc$class_resizeview_x.attributes)]);Class.make("$lzc$class_mko",["init",function(){
 with(this){
 (arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["init"]||this.nextMethod(arguments.callee,"init")).call(this);this.updateDelegate.register(parent,"onwidth")
 }},"addSubview",function($0){
@@ -7586,11 +7608,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzLayout,["displayName","<anonymous extends='layout'>","attributes",new LzInheritedHash(LzLayout.attributes)]);Class.make("$lzc$class_mkn",["$mjc",function($0){
+}],LzLayout,["displayName","<anonymous extends='layout'>","attributes",new LzInheritedHash(LzLayout.attributes)]);Class.make("$lzc$class_mkp",["$mje",function($0){
 with(this){
 var $1=(parent.width-parent.title.width-parent.controls.width)/2-5;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mjd",function(){
+}}},"$mjf",function(){
 with(this){
 try{
 return [parent,"width",parent.title,"width",parent.controls,"width"]
@@ -7599,11 +7621,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mje",function($0){
+}}},"$mjg",function($0){
 with(this){
 var $1=classroot.state;if($1!==this["frame"]||!this.inited){
 this.setAttribute("frame",$1)
-}}},"$mjf",function(){
+}}},"$mjh",function(){
 with(this){
 try{
 return [classroot,"state"]
@@ -7624,11 +7646,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mko",["$mjg",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mkq",["$mji",function($0){
 with(this){
 var $1=classroot["style"]?classroot.style.textcolor:null;if($1!==this["fgcolor"]||!this.inited){
 this.setAttribute("fgcolor",$1)
-}}},"$mjh",function(){
+}}},"$mjj",function(){
 with(this){
 try{
 return [this,"classroot",classroot.style,"textcolor"]
@@ -7637,11 +7659,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mji",function($0){
+}}},"$mjk",function($0){
 with(this){
 var $1=classroot.state==2?0.7:1;if($1!==this["opacity"]||!this.inited){
 this.setAttribute("opacity",$1)
-}}},"$mjj",function(){
+}}},"$mjl",function(){
 with(this){
 try{
 return [classroot,"state"]
@@ -7650,11 +7672,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mjk",function($0){
+}}},"$mjm",function($0){
 with(this){
 var $1=classroot.title;if($1!==this["text"]||!this.inited){
 this.setAttribute("text",$1)
-}}},"$mjl",function(){
+}}},"$mjn",function(){
 with(this){
 try{
 return [classroot,"title"]
@@ -7663,11 +7685,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mjm",function($0){
+}}},"$mjo",function($0){
 with(this){
 var $1=parent.gripper_left.x+parent.gripper_left.width+5<0?0:parent.gripper_left.x+parent.gripper_left.width+5;if($1!==this["x"]||!this.inited){
 this.setAttribute("x",$1)
-}}},"$mjn",function(){
+}}},"$mjp",function(){
 with(this){
 try{
 return [parent.gripper_left,"x",parent.gripper_left,"width"]
@@ -7688,11 +7710,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzText,["displayName","<anonymous extends='text'>","attributes",new LzInheritedHash(LzText.attributes)]);Class.make("$lzc$class_mkp",["$mjo",function($0){
+}],LzText,["displayName","<anonymous extends='text'>","attributes",new LzInheritedHash(LzText.attributes)]);Class.make("$lzc$class_mkr",["$mjq",function($0){
 with(this){
 var $1=classroot.state;if($1!==this["frame"]||!this.inited){
 this.setAttribute("frame",$1)
-}}},"$mjp",function(){
+}}},"$mjr",function(){
 with(this){
 try{
 return [classroot,"state"]
@@ -7701,11 +7723,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mjq",function($0){
+}}},"$mjs",function($0){
 with(this){
 var $1=parent.gripper_left.width-5;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mjr",function(){
+}}},"$mjt",function(){
 with(this){
 try{
 return [parent.gripper_left,"width"]
@@ -7714,11 +7736,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mjs",function($0){
+}}},"$mju",function($0){
 with(this){
 var $1=parent.title.x+parent.title.width+5;if($1!==this["x"]||!this.inited){
 this.setAttribute("x",$1)
-}}},"$mjt",function(){
+}}},"$mjv",function(){
 with(this){
 try{
 return [parent.title,"x",parent.title,"width"]
@@ -7739,11 +7761,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mkq",["$mjw",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mks",["$mjy",function($0){
 with(this){
 var $1=canvas.readable;if($1!==this["visible"]||!this.inited){
 this.setAttribute("visible",$1)
-}}},"$mjx",function(){
+}}},"$mjz",function(){
 with(this){
 try{
 return [canvas,"readable"]
@@ -7752,7 +7774,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mjy",function($0){
+}}},"$mk0",function($0){
 with(this){
 gScratchpad.read()
 }},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
@@ -7767,19 +7789,19 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_basebutton,["displayName","<anonymous extends='basebutton'>","attributes",new LzInheritedHash($lzc$class_basebutton.attributes)]);Class.make("$lzc$class_mkr",["$mjz",function($0){
+}],$lzc$class_basebutton,["displayName","<anonymous extends='basebutton'>","attributes",new LzInheritedHash($lzc$class_basebutton.attributes)]);Class.make("$lzc$class_mkt",["$mk1",function($0){
 with(this){
 classroot.close()
-}},"$mk0",function($0){
-with(this){
-gTooltip.showTooltip("Save and Close")
-}},"$mk1",function($0){
-with(this){
-gTooltip.hideTooltip()
 }},"$mk2",function($0){
 with(this){
-classroot.bringToFront()
+gTooltip.showTooltip("Save and Close")
 }},"$mk3",function($0){
+with(this){
+gTooltip.hideTooltip()
+}},"$mk4",function($0){
+with(this){
+classroot.bringToFront()
+}},"$mk5",function($0){
 with(this){
 gScratchpad.hide();gScratchpad.setManipulativeSelState("scratchpad","up")
 }},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
@@ -7794,11 +7816,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_basebutton,["displayName","<anonymous extends='basebutton'>","attributes",new LzInheritedHash($lzc$class_basebutton.attributes)]);Class.make("$lzc$class_mkl",["$mj6",function($0){
+}],$lzc$class_basebutton,["displayName","<anonymous extends='basebutton'>","attributes",new LzInheritedHash($lzc$class_basebutton.attributes)]);Class.make("$lzc$class_mkn",["$mj8",function($0){
 with(this){
 var $1=classroot.inset_left;if($1!==this["x"]||!this.inited){
 this.setAttribute("x",$1)
-}}},"$mj7",function(){
+}}},"$mj9",function(){
 with(this){
 try{
 return [classroot,"inset_left"]
@@ -7807,11 +7829,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mj8",function($0){
+}}},"$mja",function($0){
 with(this){
 var $1=classroot.titlearea_inset_top;if($1!==this["y"]||!this.inited){
 this.setAttribute("y",$1)
-}}},"$mj9",function(){
+}}},"$mjb",function(){
 with(this){
 try{
 return [classroot,"titlearea_inset_top"]
@@ -7820,11 +7842,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mja",function($0){
+}}},"$mjc",function($0){
 with(this){
 var $1=classroot.width-classroot.inset_left-classroot.inset_right;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mjb",function(){
+}}},"$mjd",function(){
 with(this){
 try{
 return [classroot,"width",classroot,"inset_left",classroot,"inset_right"]
@@ -7845,11 +7867,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,name:"titlelayout"},"class":$lzc$class_mkm},{attrs:{$classrootdepth:2,clip:true,frame:new LzAlwaysExpr("frame","numberExpression","$mje","$mjf",null),name:"gripper_left",resource:"window_gripper_rsc",width:new LzAlwaysExpr("width","size","$mjc","$mjd",null),y:1},"class":$lzc$class_mkn},{attrs:{$classrootdepth:2,name:"icon"},"class":LzView},{attrs:{$classrootdepth:2,fgcolor:new LzAlwaysExpr("fgcolor","color","$mjg","$mjh",null),name:"title",opacity:new LzAlwaysExpr("opacity","number","$mji","$mjj",null),resize:false,text:new LzAlwaysExpr("text","text","$mjk","$mjl",null),x:new LzAlwaysExpr("x","numberExpression","$mjm","$mjn",null),y:-3},"class":$lzc$class_mko},{attrs:{$classrootdepth:2,clip:true,frame:new LzAlwaysExpr("frame","numberExpression","$mjo","$mjp",null),name:"gripper_right",resource:"window_gripper_rsc",width:new LzAlwaysExpr("width","size","$mjq","$mjr",null),x:new LzAlwaysExpr("x","numberExpression","$mjs","$mjt",null),y:1},"class":$lzc$class_mkp},{attrs:{$classrootdepth:2,align:"right",close_btn:void 0,closeable:void 0,name:"controls",readBtn:void 0},children:[{attrs:{$classrootdepth:3,axis:"x",spacing:5},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:3,$mju:function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,name:"titlelayout"},"class":$lzc$class_mko},{attrs:{$classrootdepth:2,clip:true,frame:new LzAlwaysExpr("frame","numberExpression","$mjg","$mjh",null),name:"gripper_left",resource:"window_gripper_rsc",width:new LzAlwaysExpr("width","size","$mje","$mjf",null),y:1},"class":$lzc$class_mkp},{attrs:{$classrootdepth:2,name:"icon"},"class":LzView},{attrs:{$classrootdepth:2,fgcolor:new LzAlwaysExpr("fgcolor","color","$mji","$mjj",null),name:"title",opacity:new LzAlwaysExpr("opacity","number","$mjk","$mjl",null),resize:false,text:new LzAlwaysExpr("text","text","$mjm","$mjn",null),x:new LzAlwaysExpr("x","numberExpression","$mjo","$mjp",null),y:-3},"class":$lzc$class_mkq},{attrs:{$classrootdepth:2,clip:true,frame:new LzAlwaysExpr("frame","numberExpression","$mjq","$mjr",null),name:"gripper_right",resource:"window_gripper_rsc",width:new LzAlwaysExpr("width","size","$mjs","$mjt",null),x:new LzAlwaysExpr("x","numberExpression","$mju","$mjv",null),y:1},"class":$lzc$class_mkr},{attrs:{$classrootdepth:2,align:"right",close_btn:void 0,closeable:void 0,name:"controls",readBtn:void 0},children:[{attrs:{$classrootdepth:3,axis:"x",spacing:5},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:3,$mjw:function($0){
 with(this){
 var $1=classroot.closeable;if($1!==this["applied"]||!this.inited){
 this.setAttribute("applied",$1)
-}}},$mjv:function(){
+}}},$mjx:function(){
 with(this){
 try{
 return [classroot,"closeable"]
@@ -7858,11 +7880,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},applied:new LzAlwaysExpr("applied","boolean","$mju","$mjv",null),close_btn:void 0,name:"closeable",readBtn:void 0},children:[{attrs:{$classrootdepth:3,$delegates:["onclick","$mjy",null],clickable:true,name:"readBtn",resource:"read_btn",visible:new LzAlwaysExpr("visible","boolean","$mjw","$mjx",null),y:-1},"class":$lzc$class_mkq},{attrs:{$classrootdepth:3,$delegates:["onclick","$mjz",null,"onmouseover","$mk0",null,"onmouseout","$mk1",null,"onmousedown","$mk2",null,"onclick","$mk3",null],clickable:true,name:"close_btn",resource:"window_closebtn_rsc",styleable:true,x:2},"class":$lzc$class_mkr}],"class":LzState}],"class":LzView}],"attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mks",["$mk4",function($0){
+}}},applied:new LzAlwaysExpr("applied","boolean","$mjw","$mjx",null),close_btn:void 0,name:"closeable",readBtn:void 0},children:[{attrs:{$classrootdepth:3,$delegates:["onclick","$mk0",null],clickable:true,name:"readBtn",resource:"read_btn",visible:new LzAlwaysExpr("visible","boolean","$mjy","$mjz",null),y:-1},"class":$lzc$class_mks},{attrs:{$classrootdepth:3,$delegates:["onclick","$mk1",null,"onmouseover","$mk2",null,"onmouseout","$mk3",null,"onmousedown","$mk4",null,"onclick","$mk5",null],clickable:true,name:"close_btn",resource:"window_closebtn_rsc",styleable:true,x:2},"class":$lzc$class_mkt}],"class":LzState}],"class":LzView}],"attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mku",["$mk6",function($0){
 with(this){
 var $1=parent.inset_left;if($1!==this["x"]||!this.inited){
 this.setAttribute("x",$1)
-}}},"$mk5",function(){
+}}},"$mk7",function(){
 with(this){
 try{
 return [parent,"inset_left"]
@@ -7871,11 +7893,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mk6",function($0){
+}}},"$mk8",function($0){
 with(this){
 var $1=parent.inset_top;if($1!==this["y"]||!this.inited){
 this.setAttribute("y",$1)
-}}},"$mk7",function(){
+}}},"$mk9",function(){
 with(this){
 try{
 return [parent,"inset_top"]
@@ -7884,11 +7906,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mk8",function($0){
+}}},"$mka",function($0){
 with(this){
 var $1=classroot.bgcolor;if($1!==this["bgcolor"]||!this.inited){
 this.setAttribute("bgcolor",$1)
-}}},"$mk9",function(){
+}}},"$mkb",function(){
 with(this){
 try{
 return [classroot,"bgcolor"]
@@ -7909,11 +7931,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,$mka:function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,$mkc:function($0){
 with(this){
 var $1=!classroot._usecontentwidth;if($1!==this["applied"]||!this.inited){
 this.setAttribute("applied",$1)
-}}},$mkb:function(){
+}}},$mkd:function(){
 with(this){
 try{
 return [classroot,"_usecontentwidth"]
@@ -7922,11 +7944,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},$mkc:function($0){
+}}},$mke:function($0){
 with(this){
 var $1=classroot.width-classroot.inset_left-classroot.inset_right;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},$mkd:function(){
+}}},$mkf:function(){
 with(this){
 try{
 return [classroot,"width",classroot,"inset_left",classroot,"inset_right"]
@@ -7935,11 +7957,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},applied:new LzAlwaysExpr("applied","boolean","$mka","$mkb",null),width:new LzAlwaysExpr("width","expression","$mkc","$mkd",null)},"class":LzState},{attrs:{$classrootdepth:2,$mke:function($0){
+}}},applied:new LzAlwaysExpr("applied","boolean","$mkc","$mkd",null),width:new LzAlwaysExpr("width","expression","$mke","$mkf",null)},"class":LzState},{attrs:{$classrootdepth:2,$mkg:function($0){
 with(this){
 var $1=!classroot._usecontentheight;if($1!==this["applied"]||!this.inited){
 this.setAttribute("applied",$1)
-}}},$mkf:function(){
+}}},$mkh:function(){
 with(this){
 try{
 return [classroot,"_usecontentheight"]
@@ -7948,11 +7970,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},$mkg:function($0){
+}}},$mki:function($0){
 with(this){
 var $1=classroot.height-classroot.inset_bottom-classroot.inset_top;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}}},$mkh:function(){
+}}},$mkj:function(){
 with(this){
 try{
 return [classroot,"height",classroot,"inset_bottom",classroot,"inset_top"]
@@ -7961,7 +7983,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},applied:new LzAlwaysExpr("applied","boolean","$mke","$mkf",null),height:new LzAlwaysExpr("height","expression","$mkg","$mkh",null)},"class":LzState}],"attributes",new LzInheritedHash(LzView.attributes)]);{
+}}},applied:new LzAlwaysExpr("applied","boolean","$mkg","$mkh",null),height:new LzAlwaysExpr("height","expression","$mki","$mkj",null)},"class":LzState}],"attributes",new LzInheritedHash(LzView.attributes)]);{
 Class.make("$lzc$class_ScratchpadWindowPanel",["title",void 0,"closeable",void 0,"inset_left",void 0,"inset_top",void 0,"inset_right",void 0,"inset_bottom",void 0,"titlearea_inset_top",void 0,"$lzc$set_bgcolor",function($0){
 this.bgcolor=$0;var $1=this["onbgcolor"];if($1&&$1.ready){
 $1.sendEvent($0)
@@ -7997,11 +8019,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_ScratchpadBaseWindow,["tagname","ScratchpadWindowPanel","children",LzNode.mergeChildren([{attrs:{$classrootdepth:1,$mim:function($0){
+}],$lzc$class_ScratchpadBaseWindow,["tagname","ScratchpadWindowPanel","children",LzNode.mergeChildren([{attrs:{$classrootdepth:1,$mio:function($0){
 with(this){
 var $1=parent._usecontentwidth;if($1!==this["applied"]||!this.inited){
 this.setAttribute("applied",$1)
-}}},$min:function(){
+}}},$mip:function(){
 with(this){
 try{
 return [parent,"_usecontentwidth"]
@@ -8010,10 +8032,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},$mio:function($0){
+}}},$miq:function($0){
 var $1=this.content.width+this.inset_left+this.inset_right;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},$mip:function(){
+}},$mir:function(){
 try{
 return [this.content,"width",this,"inset_left",this,"inset_right"]
 }
@@ -8021,11 +8043,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},applied:new LzAlwaysExpr("applied","boolean","$mim","$min",null),width:new LzAlwaysExpr("width","expression","$mio","$mip",null)},"class":LzState},{attrs:{$classrootdepth:1,$miq:function($0){
+}},applied:new LzAlwaysExpr("applied","boolean","$mio","$mip",null),width:new LzAlwaysExpr("width","expression","$miq","$mir",null)},"class":LzState},{attrs:{$classrootdepth:1,$mis:function($0){
 with(this){
 var $1=parent._usecontentheight;if($1!==this["applied"]||!this.inited){
 this.setAttribute("applied",$1)
-}}},$mir:function(){
+}}},$mit:function(){
 with(this){
 try{
 return [parent,"_usecontentheight"]
@@ -8034,10 +8056,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},$mis:function($0){
+}}},$miu:function($0){
 var $1=this.content.height+this.inset_top+this.inset_bottom;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},$mit:function(){
+}},$miv:function(){
 try{
 return [this.content,"height",this,"inset_top",this,"inset_bottom"]
 }
@@ -8045,16 +8067,16 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},applied:new LzAlwaysExpr("applied","boolean","$miq","$mir",null),height:new LzAlwaysExpr("height","expression","$mis","$mit",null)},"class":LzState},{attrs:{$classrootdepth:1,frame:new LzAlwaysExpr("frame","numberExpression","$miw","$mix",null),height:13.9,left:"window_TL_rsc",middle:"window_TM_rsc",name:"top",right:"window_TR_rsc",width:new LzAlwaysExpr("width","size","$miu","$miv",null)},"class":$lzc$class_mki},{attrs:{$classrootdepth:1,frame:new LzAlwaysExpr("frame","numberExpression","$mj0","$mj1",null),left:"window_ML_rsc",middle:"window_MM_rsc",name:"middle",right:"window_MR_rsc",width:new LzAlwaysExpr("width","size","$miy","$miz",null)},"class":$lzc$class_mkj},{attrs:{$classrootdepth:1,frame:new LzAlwaysExpr("frame","numberExpression","$mj4","$mj5",null),left:"window_BL_rsc",middle:"window_BM_rsc",name:"bottom",right:"window_BR_rsc",width:new LzAlwaysExpr("width","size","$mj2","$mj3",null)},"class":$lzc$class_mkk},{attrs:{$classrootdepth:1,axis:"y"},"class":$lzc$class_stableborderlayout},{attrs:{$classrootdepth:1,controls:void 0,gripper_left:void 0,gripper_right:void 0,icon:void 0,name:"title_area",title:void 0,titlelayout:void 0,width:new LzAlwaysExpr("width","size","$mja","$mjb",null),x:new LzAlwaysExpr("x","numberExpression","$mj6","$mj7",null),y:new LzAlwaysExpr("y","numberExpression","$mj8","$mj9",null)},"class":$lzc$class_mkl},{attrs:{$classrootdepth:1,bgcolor:new LzAlwaysExpr("bgcolor","color","$mk8","$mk9",null),clip:true,name:"content",x:new LzAlwaysExpr("x","numberExpression","$mk4","$mk5",null),y:new LzAlwaysExpr("y","numberExpression","$mk6","$mk7",null)},"class":$lzc$class_mks},{attrs:"content","class":$lzc$class_userClassPlacement}],$lzc$class_ScratchpadBaseWindow["children"]),"attributes",new LzInheritedHash($lzc$class_ScratchpadBaseWindow.attributes)]);(function($0){
+}},applied:new LzAlwaysExpr("applied","boolean","$mis","$mit",null),height:new LzAlwaysExpr("height","expression","$miu","$miv",null)},"class":LzState},{attrs:{$classrootdepth:1,frame:new LzAlwaysExpr("frame","numberExpression","$miy","$miz",null),height:13.9,left:"window_TL_rsc",middle:"window_TM_rsc",name:"top",right:"window_TR_rsc",width:new LzAlwaysExpr("width","size","$miw","$mix",null)},"class":$lzc$class_mkk},{attrs:{$classrootdepth:1,frame:new LzAlwaysExpr("frame","numberExpression","$mj2","$mj3",null),left:"window_ML_rsc",middle:"window_MM_rsc",name:"middle",right:"window_MR_rsc",width:new LzAlwaysExpr("width","size","$mj0","$mj1",null)},"class":$lzc$class_mkl},{attrs:{$classrootdepth:1,frame:new LzAlwaysExpr("frame","numberExpression","$mj6","$mj7",null),left:"window_BL_rsc",middle:"window_BM_rsc",name:"bottom",right:"window_BR_rsc",width:new LzAlwaysExpr("width","size","$mj4","$mj5",null)},"class":$lzc$class_mkm},{attrs:{$classrootdepth:1,axis:"y"},"class":$lzc$class_stableborderlayout},{attrs:{$classrootdepth:1,controls:void 0,gripper_left:void 0,gripper_right:void 0,icon:void 0,name:"title_area",title:void 0,titlelayout:void 0,width:new LzAlwaysExpr("width","size","$mjc","$mjd",null),x:new LzAlwaysExpr("x","numberExpression","$mj8","$mj9",null),y:new LzAlwaysExpr("y","numberExpression","$mja","$mjb",null)},"class":$lzc$class_mkn},{attrs:{$classrootdepth:1,bgcolor:new LzAlwaysExpr("bgcolor","color","$mka","$mkb",null),clip:true,name:"content",x:new LzAlwaysExpr("x","numberExpression","$mk6","$mk7",null),y:new LzAlwaysExpr("y","numberExpression","$mk8","$mk9",null)},"class":$lzc$class_mku},{attrs:"content","class":$lzc$class_userClassPlacement}],$lzc$class_ScratchpadBaseWindow["children"]),"attributes",new LzInheritedHash($lzc$class_ScratchpadBaseWindow.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({_usecontentheight:true,_usecontentwidth:true,closeable:false,inset_bottom:20,inset_left:6,inset_right:11,inset_top:22,title:"",titlearea_inset_top:6},$lzc$class_ScratchpadWindowPanel.attributes)
 }}})($lzc$class_ScratchpadWindowPanel)
-};Class.make("$lzc$class_mlg",["$mkw",function($0){
+};Class.make("$lzc$class_mli",["$mky",function($0){
 with(this){
 var $1=parent.text_x;if($1!==this["x"]||!this.inited){
 this.setAttribute("x",$1)
-}}},"$mkx",function(){
+}}},"$mkz",function(){
 with(this){
 try{
 return [parent,"text_x"]
@@ -8063,11 +8085,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mky",function($0){
+}}},"$ml0",function($0){
 with(this){
 var $1=parent.text_y;if($1!==this["y"]||!this.inited){
 this.setAttribute("y",$1)
-}}},"$mkz",function(){
+}}},"$ml1",function(){
 with(this){
 try{
 return [parent,"text_y"]
@@ -8076,11 +8098,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$ml0",function($0){
+}}},"$ml2",function($0){
 with(this){
 var $1=parent.text;if($1!==this["text"]||!this.inited){
 this.setAttribute("text",$1)
-}}},"$ml1",function(){
+}}},"$ml3",function(){
 with(this){
 try{
 return [parent,"text"]
@@ -8110,26 +8132,13 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzText,["displayName","<anonymous extends='text'>","attributes",new LzInheritedHash(LzText.attributes)]);Class.make("$lzc$class_mli",["$ml6",function($0){
+}],LzText,["displayName","<anonymous extends='text'>","attributes",new LzInheritedHash(LzText.attributes)]);Class.make("$lzc$class_mlk",["$ml8",function($0){
 with(this){
 classroot.close(false)
-}},"$ml7",function($0){
+}},"$ml9",function($0){
 with(this){
 var $1=classroot.button2;if($1!==this["text"]||!this.inited){
 this.setAttribute("text",$1)
-}}},"$ml8",function(){
-with(this){
-try{
-return [classroot,"button2"]
-}
-catch($lzsc$e){
-if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
-lz.$lzsc$thrownError=$lzsc$e
-};throw $lzsc$e
-}}},"$ml9",function($0){
-with(this){
-var $1=classroot.button2!="";if($1!==this["visible"]||!this.inited){
-this.setAttribute("visible",$1)
 }}},"$mla",function(){
 with(this){
 try{
@@ -8139,6 +8148,19 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
+}}},"$mlb",function($0){
+with(this){
+var $1=classroot.button2!="";if($1!==this["visible"]||!this.inited){
+this.setAttribute("visible",$1)
+}}},"$mlc",function(){
+with(this){
+try{
+return [classroot,"button2"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
 }}},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
@@ -8151,26 +8173,13 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_button,["displayName","<anonymous extends='button'>","children",LzNode.mergeChildren([],$lzc$class_button["children"]),"attributes",new LzInheritedHash($lzc$class_button.attributes)]);Class.make("$lzc$class_mlj",["$mlb",function($0){
+}],$lzc$class_button,["displayName","<anonymous extends='button'>","children",LzNode.mergeChildren([],$lzc$class_button["children"]),"attributes",new LzInheritedHash($lzc$class_button.attributes)]);Class.make("$lzc$class_mll",["$mld",function($0){
 with(this){
 classroot.close(true)
-}},"$mlc",function($0){
+}},"$mle",function($0){
 with(this){
 var $1=classroot.button1;if($1!==this["text"]||!this.inited){
 this.setAttribute("text",$1)
-}}},"$mld",function(){
-with(this){
-try{
-return [classroot,"button1"]
-}
-catch($lzsc$e){
-if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
-lz.$lzsc$thrownError=$lzsc$e
-};throw $lzsc$e
-}}},"$mle",function($0){
-with(this){
-var $1=classroot.button1!="";if($1!==this["visible"]||!this.inited){
-this.setAttribute("visible",$1)
 }}},"$mlf",function(){
 with(this){
 try{
@@ -8180,6 +8189,19 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
+}}},"$mlg",function($0){
+with(this){
+var $1=classroot.button1!="";if($1!==this["visible"]||!this.inited){
+this.setAttribute("visible",$1)
+}}},"$mlh",function(){
+with(this){
+try{
+return [classroot,"button1"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
 }}},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
@@ -8192,11 +8214,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_button,["displayName","<anonymous extends='button'>","children",LzNode.mergeChildren([],$lzc$class_button["children"]),"attributes",new LzInheritedHash($lzc$class_button.attributes)]);Class.make("$lzc$class_mlh",["$ml2",function($0){
+}],$lzc$class_button,["displayName","<anonymous extends='button'>","children",LzNode.mergeChildren([],$lzc$class_button["children"]),"attributes",new LzInheritedHash($lzc$class_button.attributes)]);Class.make("$lzc$class_mlj",["$ml4",function($0){
 with(this){
 var $1=immediateparent.width>this.width?immediateparent.width-this.width:0;if($1!==this["x"]||!this.inited){
 this.setAttribute("x",$1)
-}}},"$ml3",function(){
+}}},"$ml5",function(){
 with(this){
 try{
 return [immediateparent,"width",this,"width"]
@@ -8205,11 +8227,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$ml4",function($0){
+}}},"$ml6",function($0){
 with(this){
 var $1=immediateparent.alerttext.height+parent.content_inset_top;if($1!==this["y"]||!this.inited){
 this.setAttribute("y",$1)
-}}},"$ml5",function(){
+}}},"$ml7",function(){
 with(this){
 try{
 return [immediateparent.alerttext,"height",parent,"content_inset_top"]
@@ -8230,15 +8252,15 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,axis:"x",spacing:5},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:2,$delegates:["onclick","$ml6",null],clickable:true,text:new LzAlwaysExpr("text","text","$ml7","$ml8",null),visible:new LzAlwaysExpr("visible","boolean","$ml9","$mla",null)},"class":$lzc$class_mli},{attrs:{$classrootdepth:2,$delegates:["onclick","$mlb",null],clickable:true,isdefault:true,name:"b1",text:new LzAlwaysExpr("text","text","$mlc","$mld",null),visible:new LzAlwaysExpr("visible","boolean","$mle","$mlf",null)},"class":$lzc$class_mlj}],"attributes",new LzInheritedHash(LzView.attributes)]);{
-Class.make("$lzc$class_alert",["button1",void 0,"button2",void 0,"result",void 0,"text_x",void 0,"text_y",void 0,"$mkt",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,axis:"x",spacing:5},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:2,$delegates:["onclick","$ml8",null],clickable:true,text:new LzAlwaysExpr("text","text","$ml9","$mla",null),visible:new LzAlwaysExpr("visible","boolean","$mlb","$mlc",null)},"class":$lzc$class_mlk},{attrs:{$classrootdepth:2,$delegates:["onclick","$mld",null],clickable:true,isdefault:true,name:"b1",text:new LzAlwaysExpr("text","text","$mle","$mlf",null),visible:new LzAlwaysExpr("visible","boolean","$mlg","$mlh",null)},"class":$lzc$class_mll}],"attributes",new LzInheritedHash(LzView.attributes)]);{
+Class.make("$lzc$class_alert",["button1",void 0,"button2",void 0,"result",void 0,"text_x",void 0,"text_y",void 0,"$mkv",function($0){
 with(this){
 this.setAttribute("minwidth",button2==""?100:170)
-}},"onresult",void 0,"$mku",function($0){
+}},"onresult",void 0,"$mkw",function($0){
 with(this){
 var $1=Math.round(parent.width/3)-inset_left-inset_right-content_inset_left-content_inset_right;if($1!==this["maxtextwidth"]||!this.inited){
 this.setAttribute("maxtextwidth",$1)
-}}},"$mkv",function(){
+}}},"$mkx",function(){
 with(this){
 try{
 return [parent,"width",this,"inset_left",this,"inset_right",this,"content_inset_left",this,"content_inset_right"]
@@ -8268,16 +8290,16 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_modaldialog,["tagname","alert","children",LzNode.mergeChildren([{attrs:{$classrootdepth:1,multiline:true,name:"alerttext",resize:true,text:new LzAlwaysExpr("text","text","$ml0","$ml1",null),x:new LzAlwaysExpr("x","numberExpression","$mkw","$mkx",null),y:new LzAlwaysExpr("y","numberExpression","$mky","$mkz",null)},"class":$lzc$class_mlg},{attrs:{$classrootdepth:1,b1:void 0,x:new LzAlwaysExpr("x","numberExpression","$ml2","$ml3",null),y:new LzAlwaysExpr("y","numberExpression","$ml4","$ml5",null)},"class":$lzc$class_mlh}],$lzc$class_modaldialog["children"]),"attributes",new LzInheritedHash($lzc$class_modaldialog.attributes)]);(function($0){
+}],$lzc$class_modaldialog,["tagname","alert","children",LzNode.mergeChildren([{attrs:{$classrootdepth:1,multiline:true,name:"alerttext",resize:true,text:new LzAlwaysExpr("text","text","$ml2","$ml3",null),x:new LzAlwaysExpr("x","numberExpression","$mky","$mkz",null),y:new LzAlwaysExpr("y","numberExpression","$ml0","$ml1",null)},"class":$lzc$class_mli},{attrs:{$classrootdepth:1,b1:void 0,x:new LzAlwaysExpr("x","numberExpression","$ml4","$ml5",null),y:new LzAlwaysExpr("y","numberExpression","$ml6","$ml7",null)},"class":$lzc$class_mlj}],$lzc$class_modaldialog["children"]),"attributes",new LzInheritedHash($lzc$class_modaldialog.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({button1:"OK",button2:"",maxtextwidth:new LzAlwaysExpr("maxtextwidth","expression","$mku","$mkv",null),minwidth:new LzOnceExpr("minwidth","expression","$mkt",null),onresult:LzDeclaredEvent,result:null,text_x:0,text_y:0},$lzc$class_alert.attributes)
+LzNode.mergeAttributes({button1:"OK",button2:"",maxtextwidth:new LzAlwaysExpr("maxtextwidth","expression","$mkw","$mkx",null),minwidth:new LzOnceExpr("minwidth","expression","$mkv",null),onresult:LzDeclaredEvent,result:null,text_x:0,text_y:0},$lzc$class_alert.attributes)
 }}})($lzc$class_alert)
-};Class.make("$lzc$class_mmg",["$mlm",function($0){
+};Class.make("$lzc$class_mmi",["$mlo",function($0){
 with(this){
 var $1=classroot.width-this.width-classroot.inset_right;if($1!==this["x"]||!this.inited){
 this.setAttribute("x",$1)
-}}},"$mln",function(){
+}}},"$mlp",function(){
 with(this){
 try{
 return [classroot,"width",this,"width",classroot,"inset_right"]
@@ -8286,11 +8308,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mlo",function($0){
+}}},"$mlq",function($0){
 with(this){
 var $1=classroot.height-this.height-classroot.inset_right;if($1!==this["y"]||!this.inited){
 this.setAttribute("y",$1)
-}}},"$mlp",function(){
+}}},"$mlr",function(){
 with(this){
 try{
 return [classroot,"height",this,"height",classroot,"inset_right"]
@@ -8299,19 +8321,19 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mlq",function($0){
+}}},"$mls",function($0){
 with(this){
 if(this.frame==1)setAttribute("frame",2)
-}},"$mlr",function($0){
-with(this){
-if(this.frame==2)setAttribute("frame",1)
-}},"$mls",function($0){
-with(this){
-classroot._startResize();setAttribute("frame",3)
 }},"$mlt",function($0){
 with(this){
-classroot._stopResize();setAttribute("frame",1)
+if(this.frame==2)setAttribute("frame",1)
 }},"$mlu",function($0){
+with(this){
+classroot._startResize();setAttribute("frame",3)
+}},"$mlv",function($0){
+with(this){
+classroot._stopResize();setAttribute("frame",1)
+}},"$mlw",function($0){
 with(this){
 classroot.setTint(this,classroot.style.basecolor)
 }},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
@@ -8326,11 +8348,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mmh",["$mlv",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mmj",["$mlx",function($0){
 with(this){
 var $1=parent.wframe.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mlw",function(){
+}}},"$mly",function(){
 with(this){
 try{
 return [parent.wframe,"width"]
@@ -8339,7 +8361,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mlx",function($0){
+}}},"$mlz",function($0){
 with(this){
 classroot.menubar=this
 }},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
@@ -8354,11 +8376,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mmi",["$mly",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mmk",["$mm0",function($0){
 with(this){
 var $1=parent.wframe.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mlz",function(){
+}}},"$mm1",function(){
 with(this){
 try{
 return [parent.wframe,"width"]
@@ -8367,7 +8389,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mm0",function($0){
+}}},"$mm2",function($0){
 with(this){
 classroot.toolbar=this
 }},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
@@ -8382,11 +8404,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mmk",["$mm5",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mmm",["$mm7",function($0){
 with(this){
 var $1=classroot.content.bgcolor;if($1!==this["bgcolor"]||!this.inited){
 this.setAttribute("bgcolor",$1)
-}}},"$mm6",function(){
+}}},"$mm8",function(){
 with(this){
 try{
 return [classroot.content,"bgcolor"]
@@ -8395,7 +8417,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mmf",function($0){},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+}}},"$mmh",function($0){},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
 $0=null;
@@ -8407,11 +8429,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:3,$mm7:function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:3,$mm9:function($0){
 with(this){
 var $1=!classroot._usecontentwidth;if($1!==this["applied"]||!this.inited){
 this.setAttribute("applied",$1)
-}}},$mm8:function(){
+}}},$mma:function(){
 with(this){
 try{
 return [classroot,"_usecontentwidth"]
@@ -8420,11 +8442,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},$mm9:function($0){
+}}},$mmb:function($0){
 with(this){
 var $1=parent.immediateparent.width-2;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},$mma:function(){
+}}},$mmc:function(){
 with(this){
 try{
 return [parent.immediateparent,"width"]
@@ -8433,11 +8455,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},applied:new LzAlwaysExpr("applied","boolean","$mm7","$mm8",null),width:new LzAlwaysExpr("width","expression","$mm9","$mma",null)},"class":LzState},{attrs:{$classrootdepth:3,$mmb:function($0){
+}}},applied:new LzAlwaysExpr("applied","boolean","$mm9","$mma",null),width:new LzAlwaysExpr("width","expression","$mmb","$mmc",null)},"class":LzState},{attrs:{$classrootdepth:3,$mmd:function($0){
 with(this){
 var $1=!classroot._usecontentheight;if($1!==this["applied"]||!this.inited){
 this.setAttribute("applied",$1)
-}}},$mmc:function(){
+}}},$mme:function(){
 with(this){
 try{
 return [classroot,"_usecontentheight"]
@@ -8446,11 +8468,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},$mmd:function($0){
+}}},$mmf:function($0){
 with(this){
 var $1=parent.immediateparent.height-parent.immediateparent.menubar.height-parent.immediateparent.toolbar.height-2;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}}},$mme:function(){
+}}},$mmg:function(){
 with(this){
 try{
 return [parent.immediateparent,"height",parent.immediateparent.menubar,"height",parent.immediateparent.toolbar,"height"]
@@ -8459,11 +8481,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},applied:new LzAlwaysExpr("applied","boolean","$mmb","$mmc",null),height:new LzAlwaysExpr("height","expression","$mmd","$mme",null)},"class":LzState}],"attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mmj",["$mm1",function($0){
+}}},applied:new LzAlwaysExpr("applied","boolean","$mmd","$mme",null),height:new LzAlwaysExpr("height","expression","$mmf","$mmg",null)},"class":LzState}],"attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mml",["$mm3",function($0){
 with(this){
 var $1=wcontent.width+2;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mm2",function(){
+}}},"$mm4",function(){
 with(this){
 try{
 return [wcontent,"width"]
@@ -8472,11 +8494,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mm3",function($0){
+}}},"$mm5",function($0){
 with(this){
 var $1=wcontent.height+2;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}}},"$mm4",function(){
+}}},"$mm6",function(){
 with(this){
 try{
 return [wcontent,"height"]
@@ -8497,7 +8519,7 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,$delegates:["oninit","$mmf",null],bgcolor:new LzAlwaysExpr("bgcolor","color","$mm5","$mm6",null),clip:true,name:"wcontent",x:1,y:1},"class":$lzc$class_mmk}],"attributes",new LzInheritedHash(LzView.attributes)]);{
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,$delegates:["oninit","$mmh",null],bgcolor:new LzAlwaysExpr("bgcolor","color","$mm7","$mm8",null),clip:true,name:"wcontent",x:1,y:1},"class":$lzc$class_mmm}],"attributes",new LzInheritedHash(LzView.attributes)]);{
 Class.make("$lzc$class_ScratchpadWindow",["resizable",void 0,"_startResize",function(){
 with(this){
 (arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["_startResize"]||this.nextMethod(arguments.callee,"_startResize")).call(this);setAttribute("_usecontentwidth",false);setAttribute("_usecontentheight",false)
@@ -8516,10 +8538,10 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_ScratchpadWindowPanel,["tagname","ScratchpadWindow","children",LzNode.mergeChildren([{attrs:{$classrootdepth:1,$mlk:function($0){
+}],$lzc$class_ScratchpadWindowPanel,["tagname","ScratchpadWindow","children",LzNode.mergeChildren([{attrs:{$classrootdepth:1,$mlm:function($0){
 var $1=this.classroot.resizable;if($1!==this["applied"]||!this.inited){
 this.setAttribute("applied",$1)
-}},$mll:function(){
+}},$mln:function(){
 try{
 return [this.classroot,"resizable"]
 }
@@ -8527,16 +8549,16 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},_resizeControl:void 0,applied:new LzAlwaysExpr("applied","boolean","$mlk","$mll",null),name:"resizeable"},children:[{attrs:{$classrootdepth:1,$delegates:["onmouseover","$mlq",null,"onmouseout","$mlr",null,"onmousedown","$mls",null,"onmouseup","$mlt",null,"oninit","$mlu",null],clickable:true,name:"_resizeControl",placement:"null",resource:"window_resizebtn_rsc",x:new LzAlwaysExpr("x","numberExpression","$mlm","$mln",null),y:new LzAlwaysExpr("y","numberExpression","$mlo","$mlp",null)},"class":$lzc$class_mmg}],"class":LzState},{attrs:{$classrootdepth:1,$delegates:["oninit","$mlx",null],clip:true,name:"menubar",width:new LzAlwaysExpr("width","size","$mlv","$mlw",null)},"class":$lzc$class_mmh},{attrs:{$classrootdepth:1,$delegates:["oninit","$mm0",null],clip:true,name:"toolbar",width:new LzAlwaysExpr("width","size","$mly","$mlz",null)},"class":$lzc$class_mmi},{attrs:{$classrootdepth:1,bgcolor:LzColorUtils.convertColor("0x6a6a6a"),height:new LzAlwaysExpr("height","size","$mm3","$mm4",null),name:"wframe",options:{releasetolayout:true},wcontent:void 0,width:new LzAlwaysExpr("width","size","$mm1","$mm2",null)},"class":$lzc$class_mmj},{attrs:{$classrootdepth:1,axis:"y"},"class":$lzc$class_resizelayout},{attrs:"wcontent","class":$lzc$class_userClassPlacement}],$lzc$class_ScratchpadWindowPanel["children"]),"attributes",new LzInheritedHash($lzc$class_ScratchpadWindowPanel.attributes)]);(function($0){
+}},_resizeControl:void 0,applied:new LzAlwaysExpr("applied","boolean","$mlm","$mln",null),name:"resizeable"},children:[{attrs:{$classrootdepth:1,$delegates:["onmouseover","$mls",null,"onmouseout","$mlt",null,"onmousedown","$mlu",null,"onmouseup","$mlv",null,"oninit","$mlw",null],clickable:true,name:"_resizeControl",placement:"null",resource:"window_resizebtn_rsc",x:new LzAlwaysExpr("x","numberExpression","$mlo","$mlp",null),y:new LzAlwaysExpr("y","numberExpression","$mlq","$mlr",null)},"class":$lzc$class_mmi}],"class":LzState},{attrs:{$classrootdepth:1,$delegates:["oninit","$mlz",null],clip:true,name:"menubar",width:new LzAlwaysExpr("width","size","$mlx","$mly",null)},"class":$lzc$class_mmj},{attrs:{$classrootdepth:1,$delegates:["oninit","$mm2",null],clip:true,name:"toolbar",width:new LzAlwaysExpr("width","size","$mm0","$mm1",null)},"class":$lzc$class_mmk},{attrs:{$classrootdepth:1,bgcolor:LzColorUtils.convertColor("0x6a6a6a"),height:new LzAlwaysExpr("height","size","$mm5","$mm6",null),name:"wframe",options:{releasetolayout:true},wcontent:void 0,width:new LzAlwaysExpr("width","size","$mm3","$mm4",null)},"class":$lzc$class_mml},{attrs:{$classrootdepth:1,axis:"y"},"class":$lzc$class_resizelayout},{attrs:"wcontent","class":$lzc$class_userClassPlacement}],$lzc$class_ScratchpadWindowPanel["children"]),"attributes",new LzInheritedHash($lzc$class_ScratchpadWindowPanel.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({_resizeControl:null,resizable:false},$lzc$class_ScratchpadWindow.attributes)
 }}})($lzc$class_ScratchpadWindow)
-};Class.make("$lzc$class_mn7",["$mml",function($0){
+};Class.make("$lzc$class_mn9",["$mmn",function($0){
 with(this){
 var $1=parent.width-parent.border*2;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mmm",function(){
+}}},"$mmo",function(){
 with(this){
 try{
 return [parent,"width",parent,"border"]
@@ -8545,11 +8567,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mmn",function($0){
+}}},"$mmp",function($0){
 with(this){
 var $1=parent.height-parent.border*2;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}}},"$mmo",function(){
+}}},"$mmq",function(){
 with(this){
 try{
 return [parent,"height",parent,"border"]
@@ -8558,11 +8580,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mmp",function($0){
+}}},"$mmr",function($0){
 with(this){
 var $1=parent.border;if($1!==this["x"]||!this.inited){
 this.setAttribute("x",$1)
-}}},"$mmq",function(){
+}}},"$mms",function(){
 with(this){
 try{
 return [parent,"border"]
@@ -8571,11 +8593,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mmr",function($0){
+}}},"$mmt",function($0){
 with(this){
 var $1=parent.border;if($1!==this["y"]||!this.inited){
 this.setAttribute("y",$1)
-}}},"$mms",function(){
+}}},"$mmu",function(){
 with(this){
 try{
 return [parent,"border"]
@@ -8596,23 +8618,10 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mn8",["$mmt",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mna",["$mmv",function($0){
 with(this){
 var $1=parent.border;if($1!==this["x"]||!this.inited){
 this.setAttribute("x",$1)
-}}},"$mmu",function(){
-with(this){
-try{
-return [parent,"border"]
-}
-catch($lzsc$e){
-if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
-lz.$lzsc$thrownError=$lzsc$e
-};throw $lzsc$e
-}}},"$mmv",function($0){
-with(this){
-var $1=parent.border;if($1!==this["y"]||!this.inited){
-this.setAttribute("y",$1)
 }}},"$mmw",function(){
 with(this){
 try{
@@ -8624,9 +8633,22 @@ lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
 }}},"$mmx",function($0){
 with(this){
+var $1=parent.border;if($1!==this["y"]||!this.inited){
+this.setAttribute("y",$1)
+}}},"$mmy",function(){
+with(this){
+try{
+return [parent,"border"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
+}}},"$mmz",function($0){
+with(this){
 var $1=parent.height-parent.border*2;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}}},"$mmy",function(){
+}}},"$mn0",function(){
 with(this){
 try{
 return [parent,"height",parent,"border"]
@@ -8635,11 +8657,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mmz",function($0){
+}}},"$mn1",function($0){
 with(this){
 var $1=parent.width-parent.border*2;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mn0",function(){
+}}},"$mn2",function(){
 with(this){
 try{
 return [parent,"width",parent,"border"]
@@ -8648,10 +8670,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mn1",function($0){
+}}},"$mn3",function($0){
 var $1=this.lineheight*this.maxscroll;if($1!==this["maxtextheight"]||!this.inited){
 this.setAttribute("maxtextheight",$1)
-}},"$mn2",function(){
+}},"$mn4",function(){
 try{
 return [this,"lineheight",this,"maxscroll"]
 }
@@ -8659,10 +8681,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"maxtextheight",void 0,"$mn3",function($0){
+}},"maxtextheight",void 0,"$mn5",function($0){
 var $1=this.height+this.maxtextheight;if($1!==this["maxheight"]||!this.inited){
 this.setAttribute("maxheight",$1)
-}},"$mn4",function(){
+}},"$mn6",function(){
 try{
 return [this,"height",this,"maxtextheight"]
 }
@@ -8670,7 +8692,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"maxheight",void 0,"pos",void 0,"$mn5",function($0){
+}},"maxheight",void 0,"pos",void 0,"$mn7",function($0){
 var $1=this.getDisplayObject();$1.setAttribute("id","mytextarea");$1.style.overflow="auto"
 },"$lzc$set_pos",function($0){
 with(this){
@@ -8678,7 +8700,7 @@ if(this.inited){
 var $1=1-Math.floor($0/this.lineheight);if($1!==this.scroll){
 this.setAttribute("scroll",$1)
 };this.pos=$0;if(this.onpos)this.onpos.sendEvent($0)
-}}},"$mn6",function($0){
+}}},"$mn8",function($0){
 this.setAttribute("pos",-this.lineheight*(this.scroll-1))
 },"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -8737,16 +8759,16 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_baseedittext,["tagname","scrolledittext","children",[{attrs:{$classrootdepth:1,bgcolor:LzColorUtils.convertColor("0xffffff"),height:new LzAlwaysExpr("height","size","$mmn","$mmo",null),name:"_face",width:new LzAlwaysExpr("width","size","$mml","$mmm",null),x:new LzAlwaysExpr("x","numberExpression","$mmp","$mmq",null),y:new LzAlwaysExpr("y","numberExpression","$mmr","$mms",null)},"class":$lzc$class_mn7},{attrs:{$classrootdepth:1,$delegates:["oninit","$mn5",null,"onscroll","$mn6",null],height:new LzAlwaysExpr("height","size","$mmx","$mmy",null),maxheight:new LzAlwaysExpr("maxheight","expression","$mn3","$mn4",null),maxtextheight:new LzAlwaysExpr("maxtextheight","expression","$mn1","$mn2",null),name:"inp",pos:0,scrollevents:true,width:new LzAlwaysExpr("width","size","$mmz","$mn0",null),x:new LzAlwaysExpr("x","numberExpression","$mmt","$mmu",null),y:new LzAlwaysExpr("y","numberExpression","$mmv","$mmw",null)},"class":$lzc$class_mn8}],"attributes",new LzInheritedHash($lzc$class_baseedittext.attributes)]);(function($0){
+}],$lzc$class_baseedittext,["tagname","scrolledittext","children",[{attrs:{$classrootdepth:1,bgcolor:LzColorUtils.convertColor("0xffffff"),height:new LzAlwaysExpr("height","size","$mmp","$mmq",null),name:"_face",width:new LzAlwaysExpr("width","size","$mmn","$mmo",null),x:new LzAlwaysExpr("x","numberExpression","$mmr","$mms",null),y:new LzAlwaysExpr("y","numberExpression","$mmt","$mmu",null)},"class":$lzc$class_mn9},{attrs:{$classrootdepth:1,$delegates:["oninit","$mn7",null,"onscroll","$mn8",null],height:new LzAlwaysExpr("height","size","$mmz","$mn0",null),maxheight:new LzAlwaysExpr("maxheight","expression","$mn5","$mn6",null),maxtextheight:new LzAlwaysExpr("maxtextheight","expression","$mn3","$mn4",null),name:"inp",pos:0,scrollevents:true,width:new LzAlwaysExpr("width","size","$mn1","$mn2",null),x:new LzAlwaysExpr("x","numberExpression","$mmv","$mmw",null),y:new LzAlwaysExpr("y","numberExpression","$mmx","$mmy",null)},"class":$lzc$class_mna}],"attributes",new LzInheritedHash($lzc$class_baseedittext.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({_vs:null,border:0,clip:true,height:100,multiline:true,vscrollbarclassname:"vscrollbar",vscrollwidth:0},$lzc$class_scrolledittext.attributes)
 }}})($lzc$class_scrolledittext)
-};Class.make("$lzc$class_mo1",["$mnk",function($0){
+};Class.make("$lzc$class_mo3",["$mnm",function($0){
 with(this){
 var $1=immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}}},"$mnl",function(){
+}}},"$mnn",function(){
 with(this){
 try{
 return [immediateparent,"height"]
@@ -8755,11 +8777,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mnm",function($0){
+}}},"$mno",function($0){
 with(this){
 var $1=immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mnn",function(){
+}}},"$mnp",function(){
 with(this){
 try{
 return [immediateparent,"width"]
@@ -8780,11 +8802,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_html,["displayName","<anonymous extends='html'>","attributes",new LzInheritedHash($lzc$class_html.attributes)]);Class.make("$lzc$class_mo2",["$mno",function($0){
+}],$lzc$class_html,["displayName","<anonymous extends='html'>","attributes",new LzInheritedHash($lzc$class_html.attributes)]);Class.make("$lzc$class_mo4",["$mnq",function($0){
 with(this){
 var $1=immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}}},"$mnp",function(){
+}}},"$mnr",function(){
 with(this){
 try{
 return [immediateparent,"height"]
@@ -8793,11 +8815,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mnq",function($0){
+}}},"$mns",function($0){
 with(this){
 var $1=immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mnr",function(){
+}}},"$mnt",function(){
 with(this){
 try{
 return [immediateparent,"width"]
@@ -8811,28 +8833,28 @@ lz.$lzsc$thrownError=$lzsc$e
 },"updateScrollText",function($0){
 with(this){
 this.setAttribute("text",$0);var $1="updateScratchPadText('"+$0+"')";lz.Browser.loadJS($1)
-}},"$mns",function($0){
+}},"$mnu",function($0){
 with(this){
 var $1=this.text;storeSelection();var $2="updateScratchPadText('"+$1+"')";lz.Browser.loadJS($2);if(this.text.length>10000){
 $1=this.text;$1=$1.substring(0,Number(classroot.characterLimit));updateScrollText($1)
-}}},"$mnt",function(){
+}}},"$mnv",function(){
 return this.inp
-},"$mnu",function($0){
+},"$mnw",function($0){
 if(typeof $0=="number"){
 this.setAttribute("scrollPos",$0)
-}},"$mnv",function(){
-with(this){
-return inp
-}},"$mnw",function($0){
-with(this){
-classroot.setAttribute("scratchpadHasFocus",true);classroot.bringToFront()
 }},"$mnx",function(){
 with(this){
 return inp
-}},"$mny",function($0){},"$mnz",function(){
+}},"$mny",function($0){
+with(this){
+classroot.setAttribute("scratchpadHasFocus",true);classroot.bringToFront()
+}},"$mnz",function(){
 with(this){
 return inp
-}},"$mo0",function($0){
+}},"$mo0",function($0){},"$mo1",function(){
+with(this){
+return inp
+}},"$mo2",function($0){
 with(this){
 storeSelection()
 }},"storeSelection",function(){
@@ -8863,19 +8885,19 @@ $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
 }],$lzc$class_scrolledittext,["displayName","<anonymous extends='scrolledittext'>","children",LzNode.mergeChildren([],$lzc$class_scrolledittext["children"]),"attributes",new LzInheritedHash($lzc$class_scrolledittext.attributes)]);{
-Class.make("$lzc$class_Scratchpad",["DEFAULT_HEIGHT",void 0,"DEFAULT_WIDTH",void 0,"DEFAULT_X",void 0,"DEFAULT_Y",void 0,"toolid",void 0,"$mn9",function($0){
+Class.make("$lzc$class_Scratchpad",["DEFAULT_HEIGHT",void 0,"DEFAULT_WIDTH",void 0,"DEFAULT_X",void 0,"DEFAULT_Y",void 0,"toolid",void 0,"$mnb",function($0){
 with(this){
 this.setAttribute("toolstate",new (lz.datapointer)())
-}},"toolstate",void 0,"scratchpadHasFocus",void 0,"scratchpadJustLostFocus",void 0,"$mna",function($0){
+}},"toolstate",void 0,"scratchpadHasFocus",void 0,"scratchpadJustLostFocus",void 0,"$mnc",function($0){
 with(this){
 this.setAttribute("scrollPosition",new Array())
-}},"scrollPosition",void 0,"hasXY",void 0,"newX",void 0,"newY",void 0,"characterLimit",void 0,"scratchpadtext",void 0,"$mnb",function($0){
+}},"scrollPosition",void 0,"hasXY",void 0,"newX",void 0,"newY",void 0,"characterLimit",void 0,"scratchpadtext",void 0,"$mnd",function($0){
 with(this){
 this.bringToFront();this.sp.inp.setSelectable(false);lz.Cursor.setCursorGlobal("grabbing_cursor");lz.Cursor.lock()
-}},"$mnc",function(){
+}},"$mne",function(){
 with(this){
 return lz.GlobalMouse
-}},"$mnd",function($0){
+}},"$mnf",function($0){
 with(this){
 if($0){
 if(lz.Focus.getFocus()==sp.inp){
@@ -8895,10 +8917,10 @@ if(typeof $0.parent.parent.parent!="undefined"){
 if(typeof $0.parent.parent.parent.parent!="undefined"){
 $1=$0.parent.parent.parent.parent
 }}}};return $1
-},"$mne",function($0){
+},"$mng",function($0){
 with(this){
 canvas.setCurrentCursor("cangrab_cursor")
-}},"$mnf",function($0){
+}},"$mnh",function($0){
 with(this){
 canvas.clearAndRestoreCurrentCursor()
 }},"restoreFocusAndCursor",function(){
@@ -8924,7 +8946,7 @@ with(this){
 var $1=$0;if(typeof $0!="undefined"){
 $1=replace($0,"&","&amp;");$1=replace($1,"<","&lt;");$1=replace($1,">","&gt;");$1=replace($1,'"',"&quot;");$1=replace($1,"'","&apos;")
 };return $1
-}},"$mng",function($0){
+}},"$mni",function($0){
 with(this){
 this.toolstate.setAttribute("rerunxpath",true);this.toolstate.setXPath(this.datapath.xpath+"/@"+this.toolid);this.setAttribute("visible",false);var $1=this.getDisplayObject();$1.setAttribute("id",toolid)
 }},"show",function($0){
@@ -8936,17 +8958,17 @@ this.setAttribute("hasXY",false)
 this.setAttribute("visible",false);this.htsp.setAttribute("visible",false)
 },"setHtml",function($0){
 this.htsp.setAttribute("html",$0)
-},"$mnh",function($0){
+},"$mnj",function($0){
 with(this){
 setFocus();if(!hasXY){
 if(this.visible){
 this.setAttribute("height",this.DEFAULT_HEIGHT);this.setAttribute("width",this.DEFAULT_WIDTH);this.setAttribute("x",this.DEFAULT_X);this.setAttribute("y",this.DEFAULT_Y);this.restoreFocusAndCursor();resizeSP()
 }else{
 gScratchpad.sp.inp.onblur.sendEvent()
-}}}},"$mni",function(){
+}}}},"$mnk",function(){
 with(this){
 return sp.inp
-}},"$mnj",function($0){
+}},"$mnl",function($0){
 this.setAttribute("scratchpadHasFocus",false);this.setAttribute("scratchpadJustLostFocus",true)
 },"htsp",void 0,"sp",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -8960,37 +8982,37 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-},"$datapath",void 0],$lzc$class_ScratchpadWindow,["tagname","Scratchpad","children",LzNode.mergeChildren([{attrs:{$classrootdepth:1,height:new LzAlwaysExpr("height","size","$mnk","$mnl",null),name:"htsp",scrollbars:false,visible:true,width:new LzAlwaysExpr("width","size","$mnm","$mnn",null)},"class":$lzc$class_mo1},{attrs:{$classrootdepth:1,$delegates:["ontext","$mns",null,"onpos","$mnu","$mnt","onfocus","$mnw","$mnv","onblur","$mny","$mnx","onkeyup","$mo0","$mnz"],clickable:true,end:0,focusable:true,height:new LzAlwaysExpr("height","size","$mno","$mnp",null),name:"sp",scrollPos:0,start:0,visible:false,width:new LzAlwaysExpr("width","size","$mnq","$mnr",null)},"class":$lzc$class_mo2}],$lzc$class_ScratchpadWindow["children"]),"attributes",new LzInheritedHash($lzc$class_ScratchpadWindow.attributes)]);(function($0){
+},"$datapath",void 0],$lzc$class_ScratchpadWindow,["tagname","Scratchpad","children",LzNode.mergeChildren([{attrs:{$classrootdepth:1,height:new LzAlwaysExpr("height","size","$mnm","$mnn",null),name:"htsp",scrollbars:false,visible:true,width:new LzAlwaysExpr("width","size","$mno","$mnp",null)},"class":$lzc$class_mo3},{attrs:{$classrootdepth:1,$delegates:["ontext","$mnu",null,"onpos","$mnw","$mnv","onfocus","$mny","$mnx","onblur","$mo0","$mnz","onkeyup","$mo2","$mo1"],clickable:true,end:0,focusable:true,height:new LzAlwaysExpr("height","size","$mnq","$mnr",null),name:"sp",scrollPos:0,start:0,visible:false,width:new LzAlwaysExpr("width","size","$mns","$mnt",null)},"class":$lzc$class_mo4}],$lzc$class_ScratchpadWindow["children"]),"attributes",new LzInheritedHash($lzc$class_ScratchpadWindow.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$datapath:{"class":LzDatapath},$delegates:["onmousedown","$mnb",null,"onmouseup","$mnd","$mnc","onmouseover","$mne",null,"onmouseout","$mnf",null,"oninit","$mng",null,"onvisible","$mnh",null,"onblur","$mnj","$mni"],DEFAULT_HEIGHT:227,DEFAULT_WIDTH:400,DEFAULT_X:200,DEFAULT_Y:113,bgcolor:LzColorUtils.convertColor("0xffffb0"),characterLimit:10000,clickable:true,closeable:true,datapath:LzNode._ignoreAttribute,focustrap:true,fontsize:12,hasXY:false,height:227,minheight:130,minwidth:130,newX:200,newY:113,resizable:true,scratchpadHasFocus:false,scratchpadJustLostFocus:false,scratchpadtext:null,scrollPosition:new LzOnceExpr("scrollPosition","expression","$mna",null),title:"Scratchpad",toolstate:new LzOnceExpr("toolstate","expression","$mn9",null),visible:true,width:400},$lzc$class_Scratchpad.attributes)
+LzNode.mergeAttributes({$datapath:{"class":LzDatapath},$delegates:["onmousedown","$mnd",null,"onmouseup","$mnf","$mne","onmouseover","$mng",null,"onmouseout","$mnh",null,"oninit","$mni",null,"onvisible","$mnj",null,"onblur","$mnl","$mnk"],DEFAULT_HEIGHT:227,DEFAULT_WIDTH:400,DEFAULT_X:200,DEFAULT_Y:113,bgcolor:LzColorUtils.convertColor("0xffffb0"),characterLimit:10000,clickable:true,closeable:true,datapath:LzNode._ignoreAttribute,focustrap:true,fontsize:12,hasXY:false,height:227,minheight:130,minwidth:130,newX:200,newY:113,resizable:true,scratchpadHasFocus:false,scratchpadJustLostFocus:false,scratchpadtext:null,scrollPosition:new LzOnceExpr("scrollPosition","expression","$mnc",null),title:"Scratchpad",toolstate:new LzOnceExpr("toolstate","expression","$mnb",null),visible:true,width:400},$lzc$class_Scratchpad.attributes)
 }}})($lzc$class_Scratchpad)
-};Class.make("$lzc$class_mpf",["$mod",function($0){
-with(this){
-this.setAttribute("height",classroot.RESOURCE_DIMENSION)
-}},"$moe",function($0){
-with(this){
-this.setAttribute("width",classroot.RESOURCE_DIMENSION)
-}},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
-switch(arguments.length){
-case 0:
-$0=null;
-case 1:
-$1=null;
-case 2:
-$2=null;
-case 3:
-$3=false;
-
-};(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpg",["$mof",function($0){
+};Class.make("$lzc$class_mph",["$mof",function($0){
 with(this){
 this.setAttribute("height",classroot.RESOURCE_DIMENSION)
 }},"$mog",function($0){
 with(this){
+this.setAttribute("width",classroot.RESOURCE_DIMENSION)
+}},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+switch(arguments.length){
+case 0:
+$0=null;
+case 1:
+$1=null;
+case 2:
+$2=null;
+case 3:
+$3=false;
+
+};(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpi",["$moh",function($0){
+with(this){
+this.setAttribute("height",classroot.RESOURCE_DIMENSION)
+}},"$moi",function($0){
+with(this){
 var $1=classroot.innerWidth-classroot.MIN_WIDTH;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$moh",function(){
+}}},"$moj",function(){
 with(this){
 try{
 return [classroot,"innerWidth",classroot,"MIN_WIDTH"]
@@ -9011,10 +9033,10 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mph",["$moi",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpj",["$mok",function($0){
 with(this){
 this.setAttribute("height",classroot.RESOURCE_DIMENSION)
-}},"$moj",function($0){
+}},"$mol",function($0){
 with(this){
 this.setAttribute("width",classroot.RESOURCE_DIMENSION)
 }},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
@@ -9029,11 +9051,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpi",["$mok",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpk",["$mom",function($0){
 with(this){
 var $1=classroot.innerHeight-classroot.MIN_HEIGHT;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}}},"$mol",function(){
+}}},"$mon",function(){
 with(this){
 try{
 return [classroot,"innerHeight",classroot,"MIN_HEIGHT"]
@@ -9042,7 +9064,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mom",function($0){
+}}},"$moo",function($0){
 with(this){
 this.setAttribute("width",classroot.RESOURCE_DIMENSION)
 }},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
@@ -9057,26 +9079,26 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpj",["$mon",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpl",["$mop",function($0){
 with(this){
 var $1=classroot.innerHeight-classroot.MIN_HEIGHT;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}}},"$moo",function(){
-with(this){
-try{
-return [classroot,"innerHeight",classroot,"MIN_HEIGHT"]
-}
-catch($lzsc$e){
-if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
-lz.$lzsc$thrownError=$lzsc$e
-};throw $lzsc$e
-}}},"$mop",function($0){
-with(this){
-var $1=classroot.innerWidth-classroot.MIN_WIDTH;if($1!==this["width"]||!this.inited){
-this.setAttribute("width",$1)
 }}},"$moq",function(){
 with(this){
 try{
+return [classroot,"innerHeight",classroot,"MIN_HEIGHT"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
+}}},"$mor",function($0){
+with(this){
+var $1=classroot.innerWidth-classroot.MIN_WIDTH;if($1!==this["width"]||!this.inited){
+this.setAttribute("width",$1)
+}}},"$mos",function(){
+with(this){
+try{
 return [classroot,"innerWidth",classroot,"MIN_WIDTH"]
 }
 catch($lzsc$e){
@@ -9095,11 +9117,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpk",["$mor",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpm",["$mot",function($0){
 with(this){
 var $1=classroot.innerHeight-classroot.MIN_HEIGHT;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}}},"$mos",function(){
+}}},"$mou",function(){
 with(this){
 try{
 return [classroot,"innerHeight",classroot,"MIN_HEIGHT"]
@@ -9108,7 +9130,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mot",function($0){
+}}},"$mov",function($0){
 with(this){
 this.setAttribute("width",classroot.RESOURCE_DIMENSION)
 }},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
@@ -9123,32 +9145,32 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpl",["$mou",function($0){
-with(this){
-this.setAttribute("height",classroot.RESOURCE_DIMENSION)
-}},"$mov",function($0){
-with(this){
-this.setAttribute("width",classroot.RESOURCE_DIMENSION)
-}},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
-switch(arguments.length){
-case 0:
-$0=null;
-case 1:
-$1=null;
-case 2:
-$2=null;
-case 3:
-$3=false;
-
-};(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpm",["$mow",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpn",["$mow",function($0){
 with(this){
 this.setAttribute("height",classroot.RESOURCE_DIMENSION)
 }},"$mox",function($0){
 with(this){
+this.setAttribute("width",classroot.RESOURCE_DIMENSION)
+}},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+switch(arguments.length){
+case 0:
+$0=null;
+case 1:
+$1=null;
+case 2:
+$2=null;
+case 3:
+$3=false;
+
+};(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpo",["$moy",function($0){
+with(this){
+this.setAttribute("height",classroot.RESOURCE_DIMENSION)
+}},"$moz",function($0){
+with(this){
 var $1=classroot.innerWidth-classroot.MIN_WIDTH;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$moy",function(){
+}}},"$mp0",function(){
 with(this){
 try{
 return [classroot,"innerWidth",classroot,"MIN_WIDTH"]
@@ -9169,10 +9191,10 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpn",["$moz",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpp",["$mp1",function($0){
 with(this){
 this.setAttribute("height",classroot.RESOURCE_DIMENSION)
-}},"$mp0",function($0){
+}},"$mp2",function($0){
 with(this){
 this.setAttribute("width",classroot.RESOURCE_DIMENSION)
 }},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
@@ -9187,10 +9209,10 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpo",["$mp1",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpq",["$mp3",function($0){
 var $1=this.resourceheight+1;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$mp2",function(){
+}},"$mp4",function(){
 try{
 return [this,"resourceheight"]
 }
@@ -9198,7 +9220,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$mp3",function($0){
+}},"$mp5",function($0){
 with(this){
 classroot.setManipulativeSelState(classroot.toolid,"up");classroot.ref.setAttribute("visible",false);if(classroot.toolid=="TN_formula_card"){
 gTnFormulaCard.setAttribute("isselected",false)
@@ -9215,11 +9237,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_basebutton,["displayName","<anonymous extends='basebutton'>","attributes",new LzInheritedHash($lzc$class_basebutton.attributes)]);Class.make("$lzc$class_mpq",["$mpa",function($0){
+}],$lzc$class_basebutton,["displayName","<anonymous extends='basebutton'>","attributes",new LzInheritedHash($lzc$class_basebutton.attributes)]);Class.make("$lzc$class_mps",["$mpc",function($0){
 with(this){
 var $1=classroot.innerWidth-parent.scroller.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mpb",function(){
+}}},"$mpd",function(){
 with(this){
 try{
 return [classroot,"innerWidth",parent.scroller,"width"]
@@ -9228,7 +9250,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mpc",function($0){
+}}},"$mpe",function($0){
 with(this){
 classroot.updateScrollTo(this.y)
 }},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
@@ -9243,10 +9265,10 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpr",["$mpd",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mpt",["$mpf",function($0){
 var $1=this.scrollable;if($1!==this["visible"]||!this.inited){
 this.setAttribute("visible",$1)
-}},"$mpe",function(){
+}},"$mpg",function(){
 try{
 return [this,"scrollable"]
 }
@@ -9266,17 +9288,17 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_vscrollbar,["displayName","<anonymous extends='vscrollbar'>","children",LzNode.mergeChildren([],$lzc$class_vscrollbar["children"]),"attributes",new LzInheritedHash($lzc$class_vscrollbar.attributes)]);Class.make("$lzc$class_mpp",["$mp4",function($0){
+}],$lzc$class_vscrollbar,["displayName","<anonymous extends='vscrollbar'>","children",LzNode.mergeChildren([],$lzc$class_vscrollbar["children"]),"attributes",new LzInheritedHash($lzc$class_vscrollbar.attributes)]);Class.make("$lzc$class_mpr",["$mp6",function($0){
 with(this){
 this.setAttribute("x",classroot.REF_CARD_X)
-}},"$mp5",function($0){
+}},"$mp7",function($0){
 with(this){
 this.setAttribute("y",classroot.REF_CARD_Y)
-}},"$mp6",function($0){
+}},"$mp8",function($0){
 with(this){
 var $1=classroot.innerWidth;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mp7",function(){
+}}},"$mp9",function(){
 with(this){
 try{
 return [classroot,"innerWidth"]
@@ -9285,11 +9307,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mp8",function($0){
+}}},"$mpa",function($0){
 with(this){
 var $1=classroot.innerHeight;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}}},"$mp9",function(){
+}}},"$mpb",function(){
 with(this){
 try{
 return [classroot,"innerHeight"]
@@ -9310,13 +9332,13 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,$delegates:["ony","$mpc",null],name:"contents",width:new LzAlwaysExpr("width","size","$mpa","$mpb",null)},"class":$lzc$class_mpq},{attrs:{$classrootdepth:2,name:"scroller",visible:new LzAlwaysExpr("visible","boolean","$mpd","$mpe",null)},"class":$lzc$class_mpr}],"attributes",new LzInheritedHash(LzView.attributes)]);{
-Class.make("$lzc$class_RefCard",["innerHeight",void 0,"innerWidth",void 0,"REF_CARD_X",void 0,"REF_CARD_Y",void 0,"MIN_WIDTH",void 0,"MIN_HEIGHT",void 0,"LINE_PADDING",void 0,"RESOURCE_DIMENSION",void 0,"refCardRsrc",void 0,"titleRsrc",void 0,"scrolls",void 0,"ref",void 0,"$mo3",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,$delegates:["ony","$mpe",null],name:"contents",width:new LzAlwaysExpr("width","size","$mpc","$mpd",null)},"class":$lzc$class_mps},{attrs:{$classrootdepth:2,name:"scroller",visible:new LzAlwaysExpr("visible","boolean","$mpf","$mpg",null)},"class":$lzc$class_mpt}],"attributes",new LzInheritedHash(LzView.attributes)]);{
+Class.make("$lzc$class_RefCard",["innerHeight",void 0,"innerWidth",void 0,"REF_CARD_X",void 0,"REF_CARD_Y",void 0,"MIN_WIDTH",void 0,"MIN_HEIGHT",void 0,"LINE_PADDING",void 0,"RESOURCE_DIMENSION",void 0,"refCardRsrc",void 0,"titleRsrc",void 0,"scrolls",void 0,"ref",void 0,"$mo5",function($0){
 with(this){
 this.ref=this;refCardContents.contents.setAttribute("resource",refCardRsrc);title.real_title.setAttribute("resource",titleRsrc);var $1=refCardContents.scroller.width;if(!this.scrolls){
 this.setAttribute("innerHeight",refCardContents.contents.resourceheight);$1=0
 };this.setAttribute("innerWidth",refCardContents.contents.resourcewidth+$1);var $2=(this.innerWidth-title.real_title.resourcewidth-this.LINE_PADDING)/2;title.leftLines.setAttribute("width",$2);title.rightLines.setAttribute("width",$2);this.setAttribute("visible",false);this.setAttribute("x",20);this.setAttribute("y",20)
-}},"dragger",void 0,"$mo8",function($0){
+}},"dragger",void 0,"$moa",function($0){
 with(this){
 var $1=refCardContents.scroller.width;if(!this.scrolls){
 this.setAttribute("innerHeight",refCardContents.contents.resourceheight);$1=0
@@ -9334,16 +9356,16 @@ refCardContents.contents.setAttribute("y",new Number($0.getAttr("scrollTo")))
 refCardContents.contents.setAttribute("y",0)
 };if($0!=null&&gScratchpad.visible){
 gScratchpad.bringToFront()
-}}},"$mo9",function($0){
+}}},"$mob",function($0){
 with(this){
 canvas.setCurrentCursor("cangrab_cursor")
-}},"$moa",function($0){
+}},"$moc",function($0){
 with(this){
 canvas.clearAndRestoreCurrentCursor()
-}},"$mob",function($0){
+}},"$mod",function($0){
 with(this){
 this.bringToFront();lz.Cursor.setCursorGlobal("grabbing_cursor");lz.Cursor.lock();this.dragger.apply()
-}},"$moc",function($0){
+}},"$moe",function($0){
 with(this){
 lz.Cursor.unlock();canvas.restoreCurrentCursor();this.dragger.remove()
 }},"updateScrollTo",function($0){},"setManipulativeSelState",function($0,$1){
@@ -9361,26 +9383,26 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_BaseManipulative,["tagname","RefCard","children",[{attrs:{$classrootdepth:1,$mo4:function($0){
+}],$lzc$class_BaseManipulative,["tagname","RefCard","children",[{attrs:{$classrootdepth:1,$mo6:function($0){
 this.setAttribute("drag_min_x",-(this.width-100))
-},$mo5:function($0){
+},$mo7:function($0){
 this.setAttribute("drag_min_y",-(this.height-100))
-},$mo6:function($0){
+},$mo8:function($0){
 with(this){
 this.setAttribute("drag_max_x",parent.width-100)
-}},$mo7:function($0){
+}},$mo9:function($0){
 with(this){
 this.setAttribute("drag_max_y",parent.height-100)
-}},drag_max_x:new LzOnceExpr("drag_max_x","number","$mo6",null),drag_max_y:new LzOnceExpr("drag_max_y","number","$mo7",null),drag_min_x:new LzOnceExpr("drag_min_x","number","$mo4",null),drag_min_y:new LzOnceExpr("drag_min_y","number","$mo5",null),name:"dragger"},"class":$lzc$class_dragstate},{attrs:{$classrootdepth:1,bottom:void 0,center:void 0,name:"background",top:void 0},children:[{attrs:{$classrootdepth:2,axis:"y",spacing:0},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:2,name:"top",topLeft:void 0,topMiddle:void 0,topRight:void 0},children:[{attrs:{$classrootdepth:3,axis:"x",spacing:0},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:3,height:new LzOnceExpr("height","size","$mod",null),name:"topLeft",resource:"rc_top_left",stretches:"both",width:new LzOnceExpr("width","size","$moe",null)},"class":$lzc$class_mpf},{attrs:{$classrootdepth:3,height:new LzOnceExpr("height","size","$mof",null),name:"topMiddle",resource:"rc_top_middle",stretches:"both",width:new LzAlwaysExpr("width","size","$mog","$moh",null)},"class":$lzc$class_mpg},{attrs:{$classrootdepth:3,height:new LzOnceExpr("height","size","$moi",null),name:"topRight",resource:"rc_top_right",stretches:"both",width:new LzOnceExpr("width","size","$moj",null)},"class":$lzc$class_mph}],"class":LzView},{attrs:{$classrootdepth:2,centerLeft:void 0,centerMiddle:void 0,centerRight:void 0,name:"center"},children:[{attrs:{$classrootdepth:3,axis:"x",spacing:0},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:3,height:new LzAlwaysExpr("height","size","$mok","$mol",null),name:"centerLeft",resource:"rc_center_left",stretches:"both",width:new LzOnceExpr("width","size","$mom",null)},"class":$lzc$class_mpi},{attrs:{$classrootdepth:3,height:new LzAlwaysExpr("height","size","$mon","$moo",null),name:"centerMiddle",resource:"rc_center_middle",stretches:"both",width:new LzAlwaysExpr("width","size","$mop","$moq",null)},"class":$lzc$class_mpj},{attrs:{$classrootdepth:3,height:new LzAlwaysExpr("height","size","$mor","$mos",null),name:"centerRight",resource:"rc_center_right",stretches:"both",width:new LzOnceExpr("width","size","$mot",null)},"class":$lzc$class_mpk}],"class":LzView},{attrs:{$classrootdepth:2,bottomLeft:void 0,bottomMiddle:void 0,bottomRight:void 0,name:"bottom"},children:[{attrs:{$classrootdepth:3,axis:"x",spacing:0},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:3,height:new LzOnceExpr("height","size","$mou",null),name:"bottomLeft",resource:"rc_bottom_left",stretches:"both",width:new LzOnceExpr("width","size","$mov",null)},"class":$lzc$class_mpl},{attrs:{$classrootdepth:3,height:new LzOnceExpr("height","size","$mow",null),name:"bottomMiddle",resource:"rc_bottom_middle",stretches:"both",width:new LzAlwaysExpr("width","size","$mox","$moy",null)},"class":$lzc$class_mpm},{attrs:{$classrootdepth:3,height:new LzOnceExpr("height","size","$moz",null),name:"bottomRight",resource:"rc_bottom_right",stretches:"both",width:new LzOnceExpr("width","size","$mp0",null)},"class":$lzc$class_mpn}],"class":LzView}],"class":LzView},{attrs:{$classrootdepth:1,leftLines:void 0,name:"title",real_title:void 0,rightLines:void 0,y:8},children:[{attrs:{$classrootdepth:2,axis:"x",inset:10,spacing:5},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:2,name:"leftLines",resource:"rc_lines",stretches:"width"},"class":LzView},{attrs:{$classrootdepth:2,name:"real_title"},"class":LzView},{attrs:{$classrootdepth:2,name:"rightLines",resource:"rc_lines",stretches:"width"},"class":LzView},{attrs:{$classrootdepth:2,$delegates:["onclick","$mp3",null],clickable:true,height:new LzAlwaysExpr("height","size","$mp1","$mp2",null),resource:"ref_card_close_btn"},"class":$lzc$class_mpo}],"class":LzView},{attrs:{$classrootdepth:1,bgcolor:LzColorUtils.convertColor("0xffffff"),clip:true,contents:void 0,height:new LzAlwaysExpr("height","size","$mp8","$mp9",null),name:"refCardContents",scroller:void 0,width:new LzAlwaysExpr("width","size","$mp6","$mp7",null),x:new LzOnceExpr("x","numberExpression","$mp4",null),y:new LzOnceExpr("y","numberExpression","$mp5",null)},"class":$lzc$class_mpp}],"attributes",new LzInheritedHash($lzc$class_BaseManipulative.attributes)]);(function($0){
+}},drag_max_x:new LzOnceExpr("drag_max_x","number","$mo8",null),drag_max_y:new LzOnceExpr("drag_max_y","number","$mo9",null),drag_min_x:new LzOnceExpr("drag_min_x","number","$mo6",null),drag_min_y:new LzOnceExpr("drag_min_y","number","$mo7",null),name:"dragger"},"class":$lzc$class_dragstate},{attrs:{$classrootdepth:1,bottom:void 0,center:void 0,name:"background",top:void 0},children:[{attrs:{$classrootdepth:2,axis:"y",spacing:0},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:2,name:"top",topLeft:void 0,topMiddle:void 0,topRight:void 0},children:[{attrs:{$classrootdepth:3,axis:"x",spacing:0},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:3,height:new LzOnceExpr("height","size","$mof",null),name:"topLeft",resource:"rc_top_left",stretches:"both",width:new LzOnceExpr("width","size","$mog",null)},"class":$lzc$class_mph},{attrs:{$classrootdepth:3,height:new LzOnceExpr("height","size","$moh",null),name:"topMiddle",resource:"rc_top_middle",stretches:"both",width:new LzAlwaysExpr("width","size","$moi","$moj",null)},"class":$lzc$class_mpi},{attrs:{$classrootdepth:3,height:new LzOnceExpr("height","size","$mok",null),name:"topRight",resource:"rc_top_right",stretches:"both",width:new LzOnceExpr("width","size","$mol",null)},"class":$lzc$class_mpj}],"class":LzView},{attrs:{$classrootdepth:2,centerLeft:void 0,centerMiddle:void 0,centerRight:void 0,name:"center"},children:[{attrs:{$classrootdepth:3,axis:"x",spacing:0},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:3,height:new LzAlwaysExpr("height","size","$mom","$mon",null),name:"centerLeft",resource:"rc_center_left",stretches:"both",width:new LzOnceExpr("width","size","$moo",null)},"class":$lzc$class_mpk},{attrs:{$classrootdepth:3,height:new LzAlwaysExpr("height","size","$mop","$moq",null),name:"centerMiddle",resource:"rc_center_middle",stretches:"both",width:new LzAlwaysExpr("width","size","$mor","$mos",null)},"class":$lzc$class_mpl},{attrs:{$classrootdepth:3,height:new LzAlwaysExpr("height","size","$mot","$mou",null),name:"centerRight",resource:"rc_center_right",stretches:"both",width:new LzOnceExpr("width","size","$mov",null)},"class":$lzc$class_mpm}],"class":LzView},{attrs:{$classrootdepth:2,bottomLeft:void 0,bottomMiddle:void 0,bottomRight:void 0,name:"bottom"},children:[{attrs:{$classrootdepth:3,axis:"x",spacing:0},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:3,height:new LzOnceExpr("height","size","$mow",null),name:"bottomLeft",resource:"rc_bottom_left",stretches:"both",width:new LzOnceExpr("width","size","$mox",null)},"class":$lzc$class_mpn},{attrs:{$classrootdepth:3,height:new LzOnceExpr("height","size","$moy",null),name:"bottomMiddle",resource:"rc_bottom_middle",stretches:"both",width:new LzAlwaysExpr("width","size","$moz","$mp0",null)},"class":$lzc$class_mpo},{attrs:{$classrootdepth:3,height:new LzOnceExpr("height","size","$mp1",null),name:"bottomRight",resource:"rc_bottom_right",stretches:"both",width:new LzOnceExpr("width","size","$mp2",null)},"class":$lzc$class_mpp}],"class":LzView}],"class":LzView},{attrs:{$classrootdepth:1,leftLines:void 0,name:"title",real_title:void 0,rightLines:void 0,y:8},children:[{attrs:{$classrootdepth:2,axis:"x",inset:10,spacing:5},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:2,name:"leftLines",resource:"rc_lines",stretches:"width"},"class":LzView},{attrs:{$classrootdepth:2,name:"real_title"},"class":LzView},{attrs:{$classrootdepth:2,name:"rightLines",resource:"rc_lines",stretches:"width"},"class":LzView},{attrs:{$classrootdepth:2,$delegates:["onclick","$mp5",null],clickable:true,height:new LzAlwaysExpr("height","size","$mp3","$mp4",null),resource:"ref_card_close_btn"},"class":$lzc$class_mpq}],"class":LzView},{attrs:{$classrootdepth:1,bgcolor:LzColorUtils.convertColor("0xffffff"),clip:true,contents:void 0,height:new LzAlwaysExpr("height","size","$mpa","$mpb",null),name:"refCardContents",scroller:void 0,width:new LzAlwaysExpr("width","size","$mp8","$mp9",null),x:new LzOnceExpr("x","numberExpression","$mp6",null),y:new LzOnceExpr("y","numberExpression","$mp7",null)},"class":$lzc$class_mpr}],"attributes",new LzInheritedHash($lzc$class_BaseManipulative.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$delegates:["oninit","$mo3",null,"ondata","$mo8",null,"onmouseover","$mo9",null,"onmouseout","$moa",null,"onmousedown","$mob",null,"onmouseup","$moc",null],LINE_PADDING:30,MIN_HEIGHT:101,MIN_WIDTH:121,REF_CARD_X:10,REF_CARD_Y:26,RESOURCE_DIMENSION:69,clickable:true,innerHeight:400,innerWidth:500,scrolls:false},$lzc$class_RefCard.attributes)
+LzNode.mergeAttributes({$delegates:["oninit","$mo5",null,"ondata","$moa",null,"onmouseover","$mob",null,"onmouseout","$moc",null,"onmousedown","$mod",null,"onmouseup","$moe",null],LINE_PADDING:30,MIN_HEIGHT:101,MIN_WIDTH:121,REF_CARD_X:10,REF_CARD_Y:26,RESOURCE_DIMENSION:69,clickable:true,innerHeight:400,innerWidth:500,scrolls:false},$lzc$class_RefCard.attributes)
 }}})($lzc$class_RefCard)
-};Class.make("$lzc$class_mqc",["$mpx",function($0){
+};Class.make("$lzc$class_mqe",["$mpz",function($0){
 with(this){
 var $1=parent.popupWidth;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mpy",function(){
+}}},"$mq0",function(){
 with(this){
 try{
 return [parent,"popupWidth"]
@@ -9389,11 +9411,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mpz",function($0){
+}}},"$mq1",function($0){
 with(this){
 var $1=parent.popupHeight;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}}},"$mq0",function(){
+}}},"$mq2",function(){
 with(this){
 try{
 return [parent,"popupHeight"]
@@ -9426,7 +9448,7 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_drawview,["displayName","<anonymous extends='drawview'>","children",LzNode.mergeChildren([],$lzc$class_drawview["children"]),"attributes",new LzInheritedHash($lzc$class_drawview.attributes)]);Class.make("$lzc$class_mqf",["$mq9",function($0){
+}],$lzc$class_drawview,["displayName","<anonymous extends='drawview'>","children",LzNode.mergeChildren([],$lzc$class_drawview["children"]),"attributes",new LzInheritedHash($lzc$class_drawview.attributes)]);Class.make("$lzc$class_mqh",["$mqb",function($0){
 with(this){
 this.setAttribute("x",50);if(gPleaseWaitPopup.visible==true){
 this.doStart()
@@ -9442,11 +9464,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzAnimator,["displayName","<anonymous extends='animator'>","attributes",new LzInheritedHash(LzAnimator.attributes)]);Class.make("$lzc$class_mqe",["$mq5",function($0){
+}],LzAnimator,["displayName","<anonymous extends='animator'>","attributes",new LzInheritedHash(LzAnimator.attributes)]);Class.make("$lzc$class_mqg",["$mq7",function($0){
 with(this){
 var $1=parent.Bar.x;if($1!==this["x"]||!this.inited){
 this.setAttribute("x",$1)
-}}},"$mq6",function(){
+}}},"$mq8",function(){
 with(this){
 try{
 return [parent.Bar,"x"]
@@ -9455,11 +9477,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mq7",function($0){
+}}},"$mq9",function($0){
 with(this){
 var $1=parent.Bar.y;if($1!==this["y"]||!this.inited){
 this.setAttribute("y",$1)
-}}},"$mq8",function(){
+}}},"$mqa",function(){
 with(this){
 try{
 return [parent.Bar,"y"]
@@ -9480,7 +9502,7 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$delegates:["onstop","$mq9",null],attribute:"x",duration:3000,from:50,motion:"linear",name:"barAnimator",repeat:9,start:false,to:136},"class":$lzc$class_mqf}],"attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mqg",["$mqa",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$delegates:["onstop","$mqb",null],attribute:"x",duration:3000,from:50,motion:"linear",name:"barAnimator",repeat:9,start:false,to:136},"class":$lzc$class_mqh}],"attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mqi",["$mqc",function($0){
 with(this){
 var $1="exitPleaseWaitPopup()";lz.Browser.loadJS($1);gPleaseWaitPopup.resetControls()
 }},"$lzsc$initialize",function($0,$1,$2,$3){
@@ -9495,11 +9517,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_basebutton,["displayName","<anonymous extends='basebutton'>","attributes",new LzInheritedHash($lzc$class_basebutton.attributes)]);Class.make("$lzc$class_mqd",["$mq1",function($0){
+}],$lzc$class_basebutton,["displayName","<anonymous extends='basebutton'>","attributes",new LzInheritedHash($lzc$class_basebutton.attributes)]);Class.make("$lzc$class_mqf",["$mq3",function($0){
 with(this){
 var $1=parent.windowbg.width-12;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mq2",function(){
+}}},"$mq4",function(){
 with(this){
 try{
 return [parent.windowbg,"width"]
@@ -9508,11 +9530,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}}},"$mq3",function($0){
+}}},"$mq5",function($0){
 with(this){
 var $1=parent.windowbg.height-12;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}}},"$mq4",function(){
+}}},"$mq6",function(){
 with(this){
 try{
 return [parent.windowbg,"height"]
@@ -9533,11 +9555,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{name:"pleaseWait",pleaseWaitHeading:void 0,visible:true},children:[{attrs:{fgcolor:LzColorUtils.convertColor("0x1d4896"),font:"CTB",fontsize:15,multiline:true,name:"pleaseWaitHeading",text:"Please Wait ......",width:200,x:40,y:90},"class":LzText}],"class":LzView},{attrs:{Bar:void 0,Globe:void 0,align:"center",computer:void 0,height:55,inBar:void 0,name:"networkLost",stretches:"both",width:250,x:1,y:12},children:[{attrs:{height:55,name:"computer",resource:"system_btn",stretches:"both",width:45,x:6,y:10},"class":LzView},{attrs:{height:5,name:"Bar",resource:"simple_bar_btn",width:14,x:50,y:38},"class":LzView},{attrs:{barAnimator:void 0,height:5,name:"inBar",resource:"bar_btn",width:4,x:new LzAlwaysExpr("x","numberExpression","$mq5","$mq6",null),y:new LzAlwaysExpr("y","numberExpression","$mq7","$mq8",null)},"class":$lzc$class_mqe},{attrs:{height:55,name:"Globe",resource:"globe_btn",stretches:"both",width:45,x:157,y:10},"class":LzView}],"class":LzView},{attrs:{name:"retryingPopupMessage",quitMessage:void 0,visible:false},children:[{attrs:{fgcolor:LzColorUtils.convertColor("0x0"),font:"CTB",fontsize:9,multiline:true,name:"quitMessage",text:"This computer is having trouble with the test.<br/>Please raise your hand for a teacher or proctor to help you.<br/>You may finish the test on a different computer.",width:290,x:20,y:78},"class":LzText}],"class":LzView},{attrs:{$delegates:["onclick","$mqa",null],clickable:true,enabled:false,height:32,name:"exitButton",resource:"exit_button_rsc",stretches:"both",width:62,x:220,y:120},"class":$lzc$class_mqg}],"attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mqb",["$mps",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{name:"pleaseWait",pleaseWaitHeading:void 0,visible:true},children:[{attrs:{fgcolor:LzColorUtils.convertColor("0x1d4896"),font:"CTB",fontsize:15,multiline:true,name:"pleaseWaitHeading",text:"Please Wait ......",width:200,x:40,y:90},"class":LzText}],"class":LzView},{attrs:{Bar:void 0,Globe:void 0,align:"center",computer:void 0,height:55,inBar:void 0,name:"networkLost",stretches:"both",width:250,x:1,y:12},children:[{attrs:{height:55,name:"computer",resource:"system_btn",stretches:"both",width:45,x:6,y:10},"class":LzView},{attrs:{height:5,name:"Bar",resource:"simple_bar_btn",width:14,x:50,y:38},"class":LzView},{attrs:{barAnimator:void 0,height:5,name:"inBar",resource:"bar_btn",width:4,x:new LzAlwaysExpr("x","numberExpression","$mq7","$mq8",null),y:new LzAlwaysExpr("y","numberExpression","$mq9","$mqa",null)},"class":$lzc$class_mqg},{attrs:{height:55,name:"Globe",resource:"globe_btn",stretches:"both",width:45,x:157,y:10},"class":LzView}],"class":LzView},{attrs:{name:"retryingPopupMessage",quitMessage:void 0,visible:false},children:[{attrs:{fgcolor:LzColorUtils.convertColor("0x0"),font:"CTB",fontsize:9,multiline:true,name:"quitMessage",text:"This computer is having trouble with the test.<br/>Please raise your hand for a teacher or proctor to help you.<br/>You may finish the test on a different computer.",width:290,x:20,y:78},"class":LzText}],"class":LzView},{attrs:{$delegates:["onclick","$mqc",null],clickable:true,enabled:false,height:32,name:"exitButton",resource:"exit_button_rsc",stretches:"both",width:62,x:220,y:120},"class":$lzc$class_mqi}],"attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mqd",["$mpu",function($0){
 with(this){
 var $1=220*xscalefactorjs;if($1!==this["x"]||!this.inited){
 this.setAttribute("x",$1)
-}}},"$mpt",function(){
+}}},"$mpv",function(){
 try{
 return [this,"xscalefactorjs"]
 }
@@ -9545,11 +9567,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$mpu",function($0){
+}},"$mpw",function($0){
 with(this){
 var $1=130*yscalefactorjs;if($1!==this["y"]||!this.inited){
 this.setAttribute("y",$1)
-}}},"$mpv",function(){
+}}},"$mpx",function(){
 try{
 return [this,"yscalefactorjs"]
 }
@@ -9557,7 +9579,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"popupHeight",void 0,"popupWidth",void 0,"bg",void 0,"fg",void 0,"navigateFrom",void 0,"exitButtonStatus",void 0,"$mpw",function($0){
+}},"popupHeight",void 0,"popupWidth",void 0,"bg",void 0,"fg",void 0,"navigateFrom",void 0,"exitButtonStatus",void 0,"$mpy",function($0){
 with(this){
 setup("","","")
 }},"setup",function($0,$1,$2){
@@ -9595,7 +9617,7 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{height:new LzAlwaysExpr("height","size","$mpz","$mq0",null),name:"windowbg",width:new LzAlwaysExpr("width","size","$mpx","$mpy",null)},"class":$lzc$class_mqc},{attrs:{bgcolor:LzColorUtils.convertColor("0xc0c0c0"),exitButton:void 0,height:new LzAlwaysExpr("height","size","$mq3","$mq4",null),name:"contents",networkLost:void 0,pleaseWait:void 0,retryingPopupMessage:void 0,width:new LzAlwaysExpr("width","size","$mq1","$mq2",null),x:6,y:6},"class":$lzc$class_mqd}],"attributes",new LzInheritedHash(LzView.attributes)]);canvas.LzInstantiateView({attrs:{$delegates:["oninit","$mpw",null],$lzc$bind_id:function($0,$1){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{height:new LzAlwaysExpr("height","size","$mq1","$mq2",null),name:"windowbg",width:new LzAlwaysExpr("width","size","$mpz","$mq0",null)},"class":$lzc$class_mqe},{attrs:{bgcolor:LzColorUtils.convertColor("0xc0c0c0"),exitButton:void 0,height:new LzAlwaysExpr("height","size","$mq5","$mq6",null),name:"contents",networkLost:void 0,pleaseWait:void 0,retryingPopupMessage:void 0,width:new LzAlwaysExpr("width","size","$mq3","$mq4",null),x:6,y:6},"class":$lzc$class_mqf}],"attributes",new LzInheritedHash(LzView.attributes)]);canvas.LzInstantiateView({attrs:{$delegates:["oninit","$mpy",null],$lzc$bind_id:function($0,$1){
 switch(arguments.length){
 case 1:
 $1=true;
@@ -9604,10 +9626,10 @@ $1=true;
 $0.id="gPleaseWaitPopup";gPleaseWaitPopup=$0
 }else if(gPleaseWaitPopup===$0){
 gPleaseWaitPopup=null;$0.id=null
-}},bg:LzColorUtils.convertColor("0xffffff"),clickable:true,contents:void 0,exitButtonStatus:false,fg:LzColorUtils.convertColor("0xe0e0e0"),id:"gPleaseWaitPopup",navigateFrom:void 0,popupHeight:185,popupWidth:330,showhandcursor:false,visible:false,windowbg:void 0,x:new LzAlwaysExpr("x","numberExpression","$mps","$mpt",null),y:new LzAlwaysExpr("y","numberExpression","$mpu","$mpv",null)},"class":$lzc$class_mqb},14);Class.make("$lzc$class_mqr",["$mqm",function($0){
+}},bg:LzColorUtils.convertColor("0xffffff"),clickable:true,contents:void 0,exitButtonStatus:false,fg:LzColorUtils.convertColor("0xe0e0e0"),id:"gPleaseWaitPopup",navigateFrom:void 0,popupHeight:185,popupWidth:330,showhandcursor:false,visible:false,windowbg:void 0,x:new LzAlwaysExpr("x","numberExpression","$mpu","$mpv",null),y:new LzAlwaysExpr("y","numberExpression","$mpw","$mpx",null)},"class":$lzc$class_mqd},14);Class.make("$lzc$class_mqt",["$mqo",function($0){
 var $1=this.label.width+this.label.fontsize/2;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$mqn",function(){
+}},"$mqp",function(){
 try{
 return [this.label,"width",this.label,"fontsize"]
 }
@@ -9615,10 +9637,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$mqo",function($0){
+}},"$mqq",function($0){
 var $1=this.label.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$mqp",function(){
+}},"$mqr",function(){
 try{
 return [this.label,"height"]
 }
@@ -9638,10 +9660,10 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:3,align:"center",fontstyle:"bold",name:"label",resize:true,valign:"middle"},"class":LzText}],"attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mqq",["$mqi",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:3,align:"center",fontstyle:"bold",name:"label",resize:true,valign:"middle"},"class":LzText}],"attributes",new LzInheritedHash(LzView.attributes)]);Class.make("$lzc$class_mqs",["$mqk",function($0){
 var $1=this.contents.width+2;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$mqj",function(){
+}},"$mql",function(){
 try{
 return [this.contents,"width"]
 }
@@ -9649,10 +9671,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$mqk",function($0){
+}},"$mqm",function($0){
 var $1=this.contents.height+2;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$mql",function(){
+}},"$mqn",function(){
 try{
 return [this.contents,"height"]
 }
@@ -9672,8 +9694,8 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,bgcolor:LzColorUtils.convertColor("0xffffcc"),height:new LzAlwaysExpr("height","size","$mqo","$mqp",null),label:void 0,name:"contents",width:new LzAlwaysExpr("width","size","$mqm","$mqn",null),x:1,y:1},"class":$lzc$class_mqr}],"attributes",new LzInheritedHash(LzView.attributes)]);{
-Class.make("$lzc$class_Tooltip",["$mqh",function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,bgcolor:LzColorUtils.convertColor("0xffffcc"),height:new LzAlwaysExpr("height","size","$mqq","$mqr",null),label:void 0,name:"contents",width:new LzAlwaysExpr("width","size","$mqo","$mqp",null),x:1,y:1},"class":$lzc$class_mqt}],"attributes",new LzInheritedHash(LzView.attributes)]);{
+Class.make("$lzc$class_Tooltip",["$mqj",function($0){
 with(this){
 if($0!=null){
 if($0.hasAttr("bgcolor")){
@@ -9727,10 +9749,10 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["tagname","Tooltip","children",[{attrs:{$classrootdepth:1,bgcolor:LzColorUtils.convertColor("0x0"),contents:void 0,height:new LzAlwaysExpr("height","size","$mqk","$mql",null),name:"box",width:new LzAlwaysExpr("width","size","$mqi","$mqj",null),y:3},"class":$lzc$class_mqq},{attrs:{$classrootdepth:1,name:"point",resource:"tooltip_point_FFFFB0",x:5},"class":LzView}],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}],LzView,["tagname","Tooltip","children",[{attrs:{$classrootdepth:1,bgcolor:LzColorUtils.convertColor("0x0"),contents:void 0,height:new LzAlwaysExpr("height","size","$mqm","$mqn",null),name:"box",width:new LzAlwaysExpr("width","size","$mqk","$mql",null),y:3},"class":$lzc$class_mqs},{attrs:{$classrootdepth:1,name:"point",resource:"tooltip_point_FFFFB0",x:5},"class":LzView}],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$delegates:["ondata","$mqh",null],datapath:"dssubtest:/subtest/testing_session_data/lms.student.accommodations/stereotype_style[@stereotype = 'answerArea']",visible:false},$lzc$class_Tooltip.attributes)
+LzNode.mergeAttributes({$delegates:["ondata","$mqj",null],datapath:"dssubtest:/subtest/testing_session_data/lms.student.accommodations/stereotype_style[@stereotype = 'answerArea']",visible:false},$lzc$class_Tooltip.attributes)
 }}})($lzc$class_Tooltip)
 };canvas.LzInstantiateView({"class":lz.script,attrs:{script:function(){
 JSON=void 0;JSON={};JSON.stringify=function($0){
@@ -9820,11 +9842,11 @@ for(var $1=0;$1<=9;$1++)$0[String($1)]=$0["-"]
 var $0=this.string;var $1=this.index;do{
 if($1==$0.length)return undefined;var $2=$0.charAt($1++)
 }while(JSON.parser.WHITESPACE.indexOf($2)>=0);this.index=$1;return $2
-}}}},1);Class.make("$lzc$class_mqw",["$mqs",function($0){
+}}}},1);Class.make("$lzc$class_mqy",["$mqu",function($0){
 with(this){
 var $1=760*xscalefactorjs;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mqt",function(){
+}}},"$mqv",function(){
 try{
 return [this,"xscalefactorjs"]
 }
@@ -9832,11 +9854,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$mqu",function($0){
+}},"$mqw",function($0){
 with(this){
 var $1=450*yscalefactorjs;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}}},"$mqv",function(){
+}}},"$mqx",function(){
 try{
 return [this,"yscalefactorjs"]
 }
@@ -9973,11 +9995,11 @@ $1=true;
 wrapper=$0
 }else if(wrapper===$0){
 wrapper=null
-}},FCAT_formula_card:void 0,TN_formula_card:void 0,cm_ruler:void 0,half_inch_ruler:void 0,height:new LzAlwaysExpr("height","size","$mqu","$mqv",null),masking_ruler:void 0,mm_ruler:void 0,name:"wrapper",oneeighth_inch_ruler:void 0,protractor:void 0,scientific_calculator:void 0,scratchpad:void 0,standard_calculator:void 0,straight_edge:void 0,width:new LzAlwaysExpr("width","size","$mqs","$mqt",null)},"class":$lzc$class_mqw},369);Class.make("$lzc$class_mr2",["$mqx",function($0){
+}},FCAT_formula_card:void 0,TN_formula_card:void 0,cm_ruler:void 0,half_inch_ruler:void 0,height:new LzAlwaysExpr("height","size","$mqw","$mqx",null),masking_ruler:void 0,mm_ruler:void 0,name:"wrapper",oneeighth_inch_ruler:void 0,protractor:void 0,scientific_calculator:void 0,scratchpad:void 0,standard_calculator:void 0,straight_edge:void 0,width:new LzAlwaysExpr("width","size","$mqu","$mqv",null)},"class":$lzc$class_mqy},369);Class.make("$lzc$class_mr4",["$mqz",function($0){
 with(this){
 var $1=760*xscalefactorjs;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mqy",function(){
+}}},"$mr0",function(){
 try{
 return [this,"xscalefactorjs"]
 }
@@ -9985,11 +10007,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$mqz",function($0){
+}},"$mr1",function($0){
 with(this){
 var $1=450*yscalefactorjs;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}}},"$mr0",function(){
+}}},"$mr2",function(){
 try{
 return [this,"yscalefactorjs"]
 }
@@ -9997,7 +10019,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$mr1",function($0){
+}},"$mr3",function($0){
 this.bringToFront();var $1=this.getDisplayObject();$1.setAttribute("id","htmlUIBlock")
 },"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -10011,7 +10033,7 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);canvas.LzInstantiateView({attrs:{$delegates:["oninit","$mr1",null],$lzc$bind_name:function($0,$1){
+}],LzView,["displayName","<anonymous extends='view'>","attributes",new LzInheritedHash(LzView.attributes)]);canvas.LzInstantiateView({attrs:{$delegates:["oninit","$mr3",null],$lzc$bind_name:function($0,$1){
 switch(arguments.length){
 case 1:
 $1=true;
@@ -10020,11 +10042,11 @@ $1=true;
 blocker=$0
 }else if(blocker===$0){
 blocker=null
-}},height:new LzAlwaysExpr("height","size","$mqz","$mr0",null),name:"blocker",opacity:0.01,width:new LzAlwaysExpr("width","size","$mqx","$mqy",null),x:5,y:5},"class":$lzc$class_mr2},1);Class.make("$lzc$class_mr9",["$mr3",function($0){
+}},height:new LzAlwaysExpr("height","size","$mr1","$mr2",null),name:"blocker",opacity:0.01,width:new LzAlwaysExpr("width","size","$mqz","$mr0",null),x:5,y:5},"class":$lzc$class_mr4},1);Class.make("$lzc$class_mrb",["$mr5",function($0){
 with(this){
 var $1=760*xscalefactorjs;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}}},"$mr4",function(){
+}}},"$mr6",function(){
 try{
 return [this,"xscalefactorjs"]
 }
@@ -10032,11 +10054,11 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$mr5",function($0){
+}},"$mr7",function($0){
 with(this){
 var $1=450*yscalefactorjs;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}}},"$mr6",function(){
+}}},"$mr8",function(){
 try{
 return [this,"yscalefactorjs"]
 }
@@ -10044,10 +10066,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$mr7",function($0){
+}},"$mr9",function($0){
 with(this){
 this.sendToBack();parent.blocker.bringToFront()
-}},"$mr8",function($0){
+}},"$mra",function($0){
 with(this){
 this.sendToBack();parent.blocker.bringToFront()
 }},"$lzsc$initialize",function($0,$1,$2,$3){
@@ -10062,7 +10084,7 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_html,["displayName","<anonymous extends='html'>","attributes",new LzInheritedHash($lzc$class_html.attributes)]);canvas.LzInstantiateView({attrs:{$delegates:["onload","$mr7",null,"oninit","$mr8",null],$lzc$bind_id:function($0,$1){
+}],$lzc$class_html,["displayName","<anonymous extends='html'>","attributes",new LzInheritedHash($lzc$class_html.attributes)]);canvas.LzInstantiateView({attrs:{$delegates:["onload","$mr9",null,"oninit","$mra",null],$lzc$bind_id:function($0,$1){
 switch(arguments.length){
 case 1:
 $1=true;
@@ -10080,7 +10102,7 @@ $1=true;
 ht=$0
 }else if(ht===$0){
 ht=null
-}},height:new LzAlwaysExpr("height","size","$mr5","$mr6",null),id:"ht",name:"ht",scrollbars:false,width:new LzAlwaysExpr("width","size","$mr3","$mr4",null),x:5,y:5},"class":$lzc$class_mr9},1);canvas.LzInstantiateView({attrs:{$lzc$bind_id:function($0,$1){
+}},height:new LzAlwaysExpr("height","size","$mr7","$mr8",null),id:"ht",name:"ht",scrollbars:false,width:new LzAlwaysExpr("width","size","$mr5","$mr6",null),x:5,y:5},"class":$lzc$class_mrb},1);canvas.LzInstantiateView({attrs:{$lzc$bind_id:function($0,$1){
 switch(arguments.length){
 case 1:
 $1=true;
