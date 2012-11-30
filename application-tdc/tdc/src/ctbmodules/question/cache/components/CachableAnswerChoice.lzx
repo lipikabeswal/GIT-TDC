@@ -8,7 +8,7 @@
          *************************************-->
 
 	<class name="CachableAnswerChoice" extends="CachableComponent"
-		comptype="${gCompTypes.WIDGET_ANSWER_CHOICE}">
+		comptype="${gCompTypes.WIDGET_ANSWER_CHOICE}" clip="true" >
 
 		<DynamicSimplelayout name="dynlayout" axis="x"/>
 
@@ -20,13 +20,14 @@
 			if (data.hasAttr ('width')) {
 				this.setAttribute ('width', Number (data.getAttr ('width')));
             }
-
+			
 			this.dynlayout.setAttribute ('spacing',0);
 			if (data.hasAttr ('spacing')) {
 				this.dynlayout.setAttribute ('spacing', Number (data.getAttr ('spacing')));
             }
 
 			if (data.hasAttr ('layout')) {
+					
 				if (data.getAttr ('layout') == 'horizontal') {
 					this.dynlayout.changeAxis ('x');
 				}
