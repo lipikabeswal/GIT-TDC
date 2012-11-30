@@ -64,6 +64,13 @@
 				}
 		]]></handler>
 		
+		<handler name="onmousedown" reference="gItemInterface">
+			if(gController.scratchpadOpen){
+				if(gScratchpad.sp.inp.getTextHeight() > gScratchpad.sp.height) {
+					gScratchpad.sp.inp.setAttribute("scroll",gScratchpad.sp.inp.maxscroll);
+				}
+			}
+		</handler>		
 
 		<method name="isScratchpadSubcomponent" args="who">
 			var ancestor = _getAncestor(who);
@@ -209,6 +216,10 @@
 								//Debug.write("storeScratchPadText***** ",textContent);
 								var s = "storeScratchPadText('"+textContent+"')";
 								lz.Browser.loadJS(s);
+								
+								if(gScratchpad.sp.inp.getTextHeight() > gScratchpad.sp.height) {
+									gScratchpad.sp.inp.setAttribute("scroll",gScratchpad.sp.inp.maxscroll);
+								}
 							}
 				]]></handler>
          		  
