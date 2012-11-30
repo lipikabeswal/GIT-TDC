@@ -38,7 +38,8 @@
                 axis:"y",
                 scrollattr:"pos",
                 scrollmax:0,
-                scrolltarget:this.inp
+                scrolltarget:this.inp,
+                disabledbgcolor: 12240085
             });
             
             var xDel:LzDelegate = new lz.Delegate(this, '_updateX');
