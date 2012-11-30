@@ -267,8 +267,8 @@
 			value="saveEndSubtest" />
 		<attribute name="TUTORIAL_COMPLETE_STATE" type="string"
 			value="tutorialComplete" />
-		<attribute name="CHECK_ISTEP_METHOD" type="string"
-			value="istepProductCheck" />	
+		<attribute name="CHECK_PROD_TYPE_METHOD" type="string"
+			value="isProductCheck" />	
 
 		<!-- 
 			Lifecycle events
@@ -630,7 +630,7 @@
 		</method>
 
 		<handler name="oninit">
-			checkIstepProduct();
+			checkIsProduct();
         	//gScreens.showLogin();
 			var base = lz.Browser.getInitArg( 'servletUrl' );
 			dsitem.setAttribute('src', base + '/ContentServlet.do'); 
@@ -638,9 +638,9 @@
 			//Debug.write("On Init Controller");
         </handler>
 
-        <method name = "checkIstepProduct">
-			setState(CHECK_ISTEP_METHOD);
-			gCommunicator.checkIstepProduct();
+        <method name = "checkIsProduct">
+			setState(CHECK_PROD_TYPE_METHOD);
+			gCommunicator.checkIsProduct();
 		</method>
 
 		<method name="login" args="_userid, _password, _accesscode">
@@ -806,8 +806,8 @@
 					case TUTORIAL_COMPLETE_STATE:
 						_handleTutorialCompleteResponse(response);
 						break;
-                    case CHECK_ISTEP_METHOD:
-						_handleIstepPasswordField(response);
+                    case CHECK_PROD_TYPE_METHOD:
+						_handleIsPasswordField(response);
 						break;
 					default:
 						break;
@@ -815,7 +815,7 @@
 			}
 		</handler>
 
-        	<method name = "_handleIstepPasswordField" args="response"><![CDATA[
+        	<method name = "_handleIsPasswordField" args="response"><![CDATA[
 			this.setAttribute("productTypeVal",response);
 			var currentProdType = this.productTypeVal;
 
@@ -1082,7 +1082,12 @@
 					gTutorialManager.doTutorialFlow();
 				}
 				else{
-					gDownloadManager.downloadContent();
+					//Made changes here as tutorial is not present for Istep product.
+					if(gController.displayText == true || gController.displayText == 'true') {
+						gScreens.showIndianaSecurityScreen();
+					} else {
+						gDownloadManager.downloadContent();
+					}
 				}
 
 				dp.setPointer(node);				
@@ -5478,6 +5483,13 @@ Debug.write("############ loadItem ############");
 			return this.htmlFields.length == 0;
 		</method>
 		
+		<method name="inContinueToDownload">
+          Debug.write("inContinueToDownload",inContinueToDownload);
+            gScreens.setAttribute('height',200);
+            gScreens.setAttribute('y',200);
+            gScreens.copyWriteText.setAttribute('y',200);
+			gDownloadManager.downloadContent();
+		</method>
 
 	</node>
 

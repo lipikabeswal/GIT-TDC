@@ -239,7 +239,7 @@ public class PersistenceServlet extends HttpServlet {
 				&& method.equals(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD))
 			result = writeToAuditFile(xml);
 		else if (method != null
-				&& method.equals(ServletUtils.CHECK_ISTEP_METHOD)){
+				&& method.equals(ServletUtils.CHECK_PROD_TYPE_METHOD)){
 					result = "<"+PRODUCT_TYPE.trim()+" />";
 				}
 		else

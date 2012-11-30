@@ -24,9 +24,9 @@
        		}
        	</method>
        	
-       	<method name="checkIstepProduct">
+       	<method name="checkIsProduct">
       		if(!error){
-       			gRequest.checkIstepProduct();
+       			gRequest.checkIsProduct();
        		}
        	</method>
   		
