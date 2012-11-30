@@ -46,8 +46,29 @@ function initScratchpad(arg){
 		        moveCaretToEnd(textAreaElement);
 		    }, 1);
 		};
-		
-						
+		textAreaElement.onkeydown = function(e) {
+    		switch (e.keyCode) {			
+				case 8: // backspace			
+				case 46: // delete			
+				case 35: // end			
+				case 36: // home			
+				case 37: // left			
+				case 38: // up			
+				case 39: // right			
+				case 40: // down			
+				case 45: // insert			
+				case 116: // F5				
+				return true;		
+			}	
+				
+			if(textAreaElement.value.length > 10000) {
+				textAreaElement.value = textAreaElement.value.substring(0, 10001);
+				//textAreaElement.scrollTop = 1;
+				return false;
+			} else {
+				return true;
+			}
+		};
 }
 
 function getSelectedText(){
@@ -103,7 +124,3 @@ function moveCaretToEnd(el) {
         range.select();
     }
 }
-
-
-
-
