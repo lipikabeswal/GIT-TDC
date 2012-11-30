@@ -53,10 +53,10 @@
 			<attribute name="actualY" value="$once{this.yoffset - this.getMouse( 'y' )}" />
 			
             <attribute name="__dragstate_ydoffset" 
-                       value="$once {this.actualX * Math.sin (this.rrotation) +
+                       value="${this.actualX * Math.sin (this.rrotation) +
                                      this.actualY * Math.cos (this.rrotation)}"/>
             <attribute name="__dragstate_xdoffset" 
-                       value="$once {this.actualX * Math.cos (this.rrotation) -
+                       value="${this.actualX * Math.cos (this.rrotation) -
                                      this.actualY * Math.sin (this.rrotation)}"/>
 
             <handler name="onapply">
@@ -245,12 +245,12 @@ Debug.write("else "+data +" : "+ hasstate);
               clip="true">
             <view name="bg" 
                   resource="masking_ruler_background" 
-                  opacity="1" width="${canvas.width}" xscale="1.54">
+                  opacity="1" width="${canvas.width}">
                 <handler name="onload">
             		classroot.setAttribute("maxLength", this.resourcewidth);
             	</handler>
             </view>
-            <view name="lines" resource="masking_ruler_lines" width="${canvas.width}" xscale="1.54"/>
+            <view name="lines" resource="masking_ruler_lines" width="${canvas.width}"/>
 			<view name="grabber" resource="grabber_rsrc" y="$once{classroot.GRABBER_Y}" align="center" visible="false">
                   <handler name="onmouseover">
                      // gController.setCurrentCursor('cangrab_cursor');
