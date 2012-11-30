@@ -128,7 +128,15 @@ else{
 	if(manipName == 'standard_calculator' || manipName == 'scientific_calculator'){
 		maniObj.displayValue = gStandardCalculator.displayValue;
 		maniObj.input = gStandardCalculator.input;
-		maniObj.currentOperand = gStandardCalculator.currentOperand.toString();
+		if(gStandardCalculator.input.indexOf(".") != -1 && gStandardCalculator.input.indexOf(".") == gStandardCalculator.input.length-1){
+			maniObj.currentOperand = gStandardCalculator.input.substr(0,gStandardCalculator.input.length-1);
+		}
+		else{	
+			maniObj.currentOperand = gStandardCalculator.input;
+		}
+		maniObj.operators = gStandardCalculator.operators;
+		maniObj.operands = gStandardCalculator.operands;
+		maniObj.isEditing = gStandardCalculator.isEditing;
 	}
 	return maniObj;
 	]]>
@@ -189,6 +197,9 @@ var manipObjData;
 			gStandardCalculator.setAttribute("displayValue",manipObjData.displayValue);
 			gStandardCalculator.setAttribute("input",manipObjData.input);
 			gStandardCalculator.setAttribute('currentOperand',Number(manipObjData.currentOperand));
+			gStandardCalculator.setAttribute("operators",manipObjData.operators);
+			gStandardCalculator.setAttribute("operands",manipObjData.operands);
+			gStandardCalculator.setAttribute("isEditing",manipObjData.isEditing);
 			gStandardCalculator.updateDisplay();
 			gStandardCalculator.setAttribute("isselected",true);
 			gStandardCalculator.show();
@@ -200,10 +211,13 @@ var manipObjData;
 			gScientificCalculator.setAttribute('x',Number(manipObjData.x));
 			gScientificCalculator.setAttribute('y',Number(manipObjData.y));
 			gScientificCalculator.setAttribute('width',Number(manipObjData.width));
-			gStandardCalculator.setAttribute("displayValue",manipObjData.displayValue);
-			gStandardCalculator.setAttribute("input",manipObjData.input);
-			gStandardCalculator.setAttribute('currentOperand',Number(manipObjData.currentOperand));
-			gStandardCalculator.updateDisplay();
+			gScientificCalculator.setAttribute("displayValue",manipObjData.displayValue);
+			gScientificCalculator.setAttribute("input",manipObjData.input);
+			gScientificCalculator.setAttribute('currentOperand',Number(manipObjData.currentOperand));
+			gScientificCalculator.setAttribute("operators",manipObjData.operators);
+			gScientificCalculator.setAttribute("operands",manipObjData.operands);
+			gScientificCalculator.setAttribute("isEditing",manipObjData.isEditing);
+			gScientificCalculator.updateDisplay();
 			gScientificCalculator.setAttribute("isselected",true);
 			gScientificCalculator.show();
 		}
@@ -441,8 +455,9 @@ switch(arg){
 		case 'masking_ruler' : 	if(gMaskingRuler.visible){
 									gMaskingRuler.hide();
 								}else{
-									gMaskingRuler.setAttribute('x',(this.width/2-gMaskingRuler.width/2));
-									gMaskingRuler.setAttribute('y',(this.height/2-gMaskingRuler.height/2));
+									gMaskingRuler.ruler.setAttribute('width',gMaskingRuler.maxLength);
+									gMaskingRuler.setAttribute('x',(canvas.width/2-gMaskingRuler.width/2));
+									gMaskingRuler.setAttribute('y',(canvas.height/2-gMaskingRuler.height/2));
 									gMaskingRuler.show();
 								}
 		break;
