@@ -10,7 +10,27 @@
 <include href="manipulatives/Tooltip.lzx"/>
 
 <script src="ctbmodules/controllers/utils/json.js" />
-	
+
+<!-- array of z order positions for manipulatives 
+     the value of the array indicates the depth of the manipulative (eg 1 = on top)
+     the index of the array indicates which manipulative - identified in INDEX constants below -->
+<attribute name="zOrder" />	
+
+<attribute name="NUMBER_OF_MANIPULATIVES" type="number" value="13" />
+<attribute name="SCRATCHPAD_INDEX" type="number" value="0" />
+<attribute name="PROTRACTOR_INDEX" type="number" value="1" />
+<attribute name="STRAIGHT_EDGE_INDEX" type="number" value="2" />
+<attribute name="ONEEIGHTH_INCH_RULER_INDEX" type="number" value="3" />
+<attribute name="HALF_INCH_RULER_INDEX" type="number" value="4" />
+<attribute name="MM_RULER_INDEX" type="number" value="5" />
+<attribute name="CM_RULER_INDEX" type="number" value="6" />
+<attribute name="FCAT_FORMULA_CARD_INDEX" type="number" value="7" />
+<attribute name="TN_FORMULA_CARD_INDEX" type="number" value="8" />
+<attribute name="STANDARD_CALCULATOR_INDEX" type="number" value="9" />
+<attribute name="SCIENTIFIC_CALCULATOR_INDEX" type="number" value="10" />
+<attribute name="FORMULA_CARD_INDEX" type="number" value="11" />
+<attribute name="MASKING_RULER_INDEX" type="number" value="12" />
+
 <attribute name="srcurl" value="null"/>
 <attribute name="manipid" value="null"/>
 <attribute name="isLoaded" type="boolean" value="false"/>
@@ -31,6 +51,17 @@
 <attribute name="readable" value="false" type="boolean" />
 <attribute name="currentCursor" value="null" />
 <attribute name="hasfontaccom" value="false" type="boolean"/>
+
+<handler name="oninit">
+	this.reset();
+</handler>
+
+<method name="reset"><![CDATA[
+	this.zOrder = new Array();
+	for(var i = 0; i < NUMBER_OF_MANIPULATIVES; i++){
+		this.zOrder[i] = -1;
+	}
+]]></method>
 
 <handler name="onhasfontaccom" args="data">
 if(data == 'true'){
@@ -126,18 +157,20 @@ else{
 	}
 	
 	if(manipName == 'standard_calculator' || manipName == 'scientific_calculator'){
-		maniObj.displayValue = gStandardCalculator.displayValue;
-		maniObj.input = gStandardCalculator.input;
-		if(gStandardCalculator.input.indexOf(".") != -1 && gStandardCalculator.input.indexOf(".") == gStandardCalculator.input.length-1){
-			maniObj.currentOperand = gStandardCalculator.input.substr(0,gStandardCalculator.input.length-1);
+		maniObj.displayValue = manipId.displayValue;
+		maniObj.input = manipId.input;
+		if(manipId.input.indexOf(".") != -1 && manipId.input.indexOf(".") == manipId.input.length-1){
+			maniObj.currentOperand = manipId.input.substr(0,manipId.input.length-1);
 		}
 		else{	
-			maniObj.currentOperand = gStandardCalculator.input;
+			maniObj.currentOperand = manipId.input;
 		}
-		maniObj.operators = gStandardCalculator.operators;
-		maniObj.operands = gStandardCalculator.operands;
-		maniObj.isEditing = gStandardCalculator.isEditing;
+		maniObj.operators = manipId.operators;
+		maniObj.operands = manipId.operands;
+		maniObj.isEditing = manipId.isEditing;
+		maniObj.operandSet = manipId.operandSet;
 	}
+	maniObj.z_order = this.zOrder[this.getIndexForTool(manipName)];
 	return maniObj;
 	]]>
 </method>
@@ -175,6 +208,167 @@ canvas.setAttribute('isLoaded', true);
 	openManipulative(htmlGeneralOpenManip);	
 </handler>
 
+<method name="sendToFront" args="tool"><![CDATA[
+	var theZ = this.zOrder;
+	if(theZ != null && typeof theZ != 'undefined'){
+		var toolIndex = this.getIndexForTool(tool);
+		var oldToolZOrder = this.zOrder[toolIndex];
+		for(var i=0; i < this.zOrder.length; i++){
+			var otherManipZOrder = this.zOrder[i];
+			if(i == toolIndex){
+				this.zOrder[i] = 1; // move this tool to the top
+			}
+			else if (otherManipZOrder != -1){
+				if( (oldToolZOrder == -1) || (oldToolZOrder >= otherManipZOrder)){
+					this.zOrder[i] = otherManipZOrder + 1;
+				}
+			}
+		}
+	}
+]]></method>
+
+<method name="removeManipulative" args="tool"><![CDATA[
+	var theZ = this.zOrder;
+	if(theZ != null && typeof theZ != 'undefined'){
+		var toolIndex = this.getIndexForTool(tool);
+		var oldToolZOrder = this.zOrder[toolIndex];
+		if(oldToolZOrder != -1){
+			for(var i=0; i < this.zOrder.length; i++){
+				var otherManipZOrder = this.zOrder[i];
+				if(i == toolIndex){
+					this.zOrder[i] = -1; // remove this tool 
+				}
+				else if ((oldToolZOrder != -1) && (otherManipZOrder != -1) && (otherManipZOrder > oldToolZOrder)){
+					this.zOrder[i] = otherManipZOrder - 1;
+				}
+			}
+		}
+	}
+]]></method>
+
+<method name="getIndexForTool" args="tool">
+	var result = -1;
+	if(tool == 'scratchpad'){
+		result = SCRATCHPAD_INDEX;
+	}
+	else if (tool == 'protractor'){
+		result = PROTRACTOR_INDEX;
+	}
+	else if (tool == 'straight_edge'){
+		result = STRAIGHT_EDGE_INDEX;
+	}
+	else if (tool == 'oneeighth_inch_ruler'){
+		result = ONEEIGHTH_INCH_RULER_INDEX;
+	}
+	else if (tool == 'half_inch_ruler'){
+		result = HALF_INCH_RULER_INDEX;
+	}
+	else if (tool == 'mm_ruler'){
+		result = MM_RULER_INDEX;
+	}
+	else if (tool == 'cm_ruler'){
+		result = CM_RULER_INDEX;
+	}
+	else if (tool == 'FCAT_formula_card'){
+		result = FCAT_FORMULA_CARD_INDEX;
+	}
+	else if (tool == 'TN_formula_card'){
+		result = TN_FORMULA_CARD_INDEX;
+	}
+	else if (tool == 'standard_calculator'){
+		result = STANDARD_CALCULATOR_INDEX;
+	}
+	else if (tool == 'scientific_calculator'){
+		result = SCIENTIFIC_CALCULATOR_INDEX;
+	}
+	else if (tool == 'formula_card'){
+		result = FORMULA_CARD_INDEX;
+	}
+	else if (tool == 'masking_ruler'){
+		result = MASKING_RULER_INDEX;
+	}
+	return result;
+</method>
+
+<method name="arrangeAccordingToZOrder" args="openManipData"><![CDATA[
+    if (!openManipData) return;
+	var manips = openManipData;
+	if(!manips) return;
+	var maxDepth = 0;
+	for(var key in manips){
+		var obj = manips[key];
+		var newDepth = new Number(obj['z_order']);
+		if(newDepth > maxDepth){
+			maxDepth = newDepth;
+		}
+	}
+	for(var j = maxDepth; j>=0; j--){
+		var manip = getManipForDepth(j, manips);
+		if(manip != null && typeof manip != 'undefined'){
+			manip.bringToFront();
+		}
+	}
+	if(gScratchpad.visible){
+		gScratchpad.bringToFront();
+	}
+]]></method>
+
+<method name="getManipForDepth" args="depth, manips"><![CDATA[
+	var result = null;
+	for(var key in manips){
+		var manip = manips[key];
+		var manipDepth = new Number(manip['z_order']);
+		if(manipDepth == depth){
+			result = getInstanceForTool(key);
+		}
+	}
+	return result;
+]]></method>
+
+<method name="getInstanceForTool" args="tool">
+	var result = null;
+	if(tool == 'scratchpad'){
+		result = gScratchpad;
+	}
+	else if (tool == 'protractor'){
+		result = gProtractor;
+	}
+	else if (tool == 'straight_edge'){
+		result = gStraightEdge;
+	}
+	else if (tool == 'oneeighth_inch_ruler'){
+		result = gEighthInchRuler;
+	}
+	else if (tool == 'half_inch_ruler'){
+		result = gHalfInchRuler;
+	}
+	else if (tool == 'mm_ruler'){
+		result = gMmRuler;
+	}
+	else if (tool == 'cm_ruler'){
+		result = gCmRuler;
+	}
+	else if (tool == 'FCAT_formula_card'){
+		result = gFcatFormulaCard;
+	}
+	else if (tool == 'TN_formula_card'){
+		result = gTnFormulaCard;
+	}
+	else if (tool == 'standard_calculator'){
+		result = gStandardCalculator;
+	}
+	else if (tool == 'scientific_calculator'){
+		result = gScientificCalculator;
+	}
+	/*else if (tool == 'formula_card'){
+		result = gFormulaCard;
+	}*/
+	else if (tool == 'masking_ruler'){
+		result = gMaskingRuler;
+	}
+	return result;
+</method>
+
 <method name="openManipulative" args="openManipData"><![CDATA[
 var manipObjData;
 
@@ -200,6 +394,7 @@ var manipObjData;
 			gStandardCalculator.setAttribute("operators",manipObjData.operators);
 			gStandardCalculator.setAttribute("operands",manipObjData.operands);
 			gStandardCalculator.setAttribute("isEditing",manipObjData.isEditing);
+			gStandardCalculator.setAttribute("operandSet",manipObjData.operandSet);
 			gStandardCalculator.updateDisplay();
 			gStandardCalculator.setAttribute("isselected",true);
 			gStandardCalculator.show();
@@ -217,6 +412,7 @@ var manipObjData;
 			gScientificCalculator.setAttribute("operators",manipObjData.operators);
 			gScientificCalculator.setAttribute("operands",manipObjData.operands);
 			gScientificCalculator.setAttribute("isEditing",manipObjData.isEditing);
+			gScientificCalculator.setAttribute("operandSet",manipObjData.operandSet);
 			gScientificCalculator.updateDisplay();
 			gScientificCalculator.setAttribute("isselected",true);
 			gScientificCalculator.show();
@@ -296,6 +492,7 @@ var manipObjData;
 			gTnFormulaCard.setAttribute("isselected",true);
 			gTnFormulaCard.show();
 		}
+		this.arrangeAccordingToZOrder(openManipData);
 ]]>
 
 </method>

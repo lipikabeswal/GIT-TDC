@@ -18,13 +18,13 @@
             	this.bringToFront ();
             }
             else{
-            //	gManipulatives.removeManipulative(this.toolid);
+            	canvas.removeManipulative(this.toolid);
             }
         </handler>
 
 		<method name="bringToFront">
 			super.bringToFront();
-			//gManipulatives.sendToFront(this.toolid);
+			canvas.sendToFront(this.toolid);
 		</method>
 		
 		<method name="hide">
