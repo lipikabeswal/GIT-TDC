@@ -2523,7 +2523,11 @@
         ]]></method>
 
 		<method name="changeItem" args="fnode"><![CDATA[		
-			if(fnode != null) {			
+			if(fnode != null) {		
+				var curreid = dpstudentdata.xpathQuery( 'current_item/item_model/@eid' );
+				if(gController.htmlFields.length > 0){
+					this.htmlFields[0]['ref'].main.ht.callJavascript('getManipulativeData', null,curreid);
+				}	
 				if(this.recorder != null) {
 					this.recorder.stopblinker('stop');
 					this.recorder.whitewrapperOverLay.setAttribute('visible', false);
@@ -2674,16 +2678,6 @@
 			var totalitem = Number(
 				dpstudentdata.xpathQuery( 'question_number/@total_including_theme')  );
 			
-			var curreid = dpstudentdata.xpathQuery( 'current_item/item_model/@eid' )
-			//Debug.write("stepNavigateForward",gController.htmlFields.length);
-			if(gController.htmlFields.length > 0){
-				//Debug.write("stepNavigateForward",this.htmlFields[0]['ref'].main.ht);
-				this.htmlFields[0]['ref'].main.ht.callJavascript('getManipulativeData', null,curreid);
-				/*var js = "getManipulativeData('"+curreid+"')";
-				lz.Browser.loadJS(js);*/
-			}
-			
-            
 			if ( !onLastItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && 
@@ -3683,6 +3677,8 @@ Debug.write("############ loadItem ############");
             var ismarked = dpstudentdata.xpathQuery ('current_item/item_model/@marked');
 			var currentEid = dpstudentdata.xpathQuery("current_item/item_model/@eid");
 			canvas.setAttribute('currentEid',currentEid);
+
+			Debug.write("initManipulativeData dngeneral********* ",dngeneral);
            // Debug.write("initManipulativeData  ",ismarked,dnmanip,dngeneral,currentEid,htmlGeneralManipData);
             if (typeof (ismarked) == 'string') {
                 ismarked = (ismarked == '1' || ismarked == 'true');
@@ -5354,6 +5350,7 @@ Debug.write("############ loadItem ############");
 		</method>
 	<method name="resetHtmlFields"><![CDATA[
 		var ismarked = dpstudentdata.xpathQuery ('current_item/item_model/@marked');
+		//Debug.write("resetHtmlFields********** ",this.htmlFields[0]['ref']);
 		 for (var i = 0; i < this.htmlFields.length; i++) {
                 delete this.htmlFields[i];
             }
