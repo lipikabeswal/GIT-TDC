@@ -53,7 +53,7 @@
 					}
 					
 				if(who instanceof lz.basescrollarrow || who instanceof lz.basescrollbar){
-					Debug.write("who", who);
+					//Debug.write("who", who);
 					//restoreFocusAndCursor();
 				}
 				if (who == gPauseButton || who == gStopButton || who == gFinishTestButton ){
@@ -131,11 +131,11 @@
         </handler>
 
         <handler name="onvisible"><![CDATA[
-			Debug.write("onvisible....",this.visible);
+			//Debug.write("onvisible....",this.visible);
         	if(!this.calledFromHtml){
 			if(this.visible){ 
  // restore defaults
-				Debug.write("onvisible..if.......",this.visible);
+				//Debug.write("onvisible..if.......",this.visible);
 				this.setAttribute("height", this.DEFAULT_HEIGHT);
 				this.setAttribute("width", this.DEFAULT_WIDTH);
 				this.setAttribute("x", this.DEFAULT_X);
@@ -154,7 +154,7 @@
         ]]> </handler>
          
          <handler name="onblur" reference="sp.inp">
-			Debug.write("onblur of scratchpad********* ");
+			//Debug.write("onblur of scratchpad********* ");
 			this.setAttribute("scratchpadHasFocus", false);
 			this.setAttribute("scratchpadJustLostFocus", true);
 			gHotKeys.enableKeys();
@@ -187,7 +187,8 @@
 	            	
 	                super.init();
 	                this.style.setAttribute("textfieldcolor", gController.answerBgColor);
-					this.setAttribute('fontcolor',gController.answerFontColor);
+					//this.setAttribute('fontcolor',gController.answerFontColor);
+					this.inp.setAttribute("fgcolor", gController.answerFontColor);
 				 	if(gController.hasFontAccommodation){
 						this.setAttribute('fontsize',18);
 					}
@@ -262,7 +263,7 @@
 				<method name="resetTheSelection">
         			this.setSelection(this.start, this.end);
         			//this.inp.setAttribute('pos', this.scrollPos);
-        			Debug.write("RESET TEH SELECTION" , this.start, this.end, this.scrollPos,this.inp.pos);
+        			//Debug.write("RESET TEH SELECTION" , this.start, this.end, this.scrollPos,this.inp.pos);
 				</method>
 				
 				<method name="getSelectedText">
