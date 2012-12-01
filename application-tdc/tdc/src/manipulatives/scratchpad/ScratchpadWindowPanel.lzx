@@ -268,7 +268,7 @@
                 <basebutton resource="read_btn" 
 			 		        name="readBtn"
 			 		        y="-1"
-			 		        visible="${canvas.readable}">
+			 		        visible="${(canvas.readable == 'true' || canvas.readable == true)?true:false}">
 					
 					<handler name="onclick">
 			        	gScratchpad.read();
