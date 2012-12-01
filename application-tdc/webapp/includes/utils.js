@@ -14,7 +14,7 @@ scratchpadFrame.style.width = scratchpadFrame.parentElement.parentElement.style.
 function initScratchpad(arg){
 		var scratchpadFrame = document.getElementById('__lz0');
 		 var innerHTML = '<style type="text/css">html,body {background-color: #FFFFB0; margin: 0px; height: 100%; width: 100%;} @font-face{font-family: OASmathv3;src: url("./../manipulatives/resource/fonts/OASmathv3.ttf");}</style>'
-			                   + '<textarea id="myarea" style="height: 100%; width: 100%;"></textarea>">';
+			                   + '<textarea id="myarea" style="height: 100%; width: 100%;"></textarea>';
 		gScratchpad.setHtml(innerHTML);
 		
 		var elem  = scratchpadFrame.contentWindow.document.getElementById('myarea');
@@ -39,13 +39,17 @@ function initScratchpad(arg){
 			elem.style.fontSize = "12px";
 		}
 		textAreaElement.onfocus = function() {
-    	moveCaretToEnd(textAreaElement);
-
-    // Work around Chrome's little problem
+    		moveCaretToEnd(textAreaElement);
+    		gScratchpad.brintScratchpadToFront();
+    		
+    		// Work around Chrome's little problem
 		    window.setTimeout(function() {
 		        moveCaretToEnd(textAreaElement);
 		    }, 1);
 		};
+		textAreaElement.onmousedown = function() {
+    		gScratchpad.brintScratchpadToFront();
+    	};
 		textAreaElement.onkeydown = function(e) {
     		switch (e.keyCode) {			
 				case 8: // backspace			

@@ -181,6 +181,10 @@
 		<method name="setHtml" args="arg">
 			this.htsp.setAttribute('html',arg);
 		</method>
+		
+		<method name="brintScratchpadToFront">
+			this.bringToFront();
+		</method>
 
 		  <handler name="onvisible"><![CDATA[
 		  	setFocus();
