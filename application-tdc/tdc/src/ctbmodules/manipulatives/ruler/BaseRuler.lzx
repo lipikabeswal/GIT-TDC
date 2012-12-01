@@ -196,17 +196,19 @@
                 hasstate = true;
                 break;
             }
-			Debug.write("rotation--------- ",data.getAttr ('rotation'));
+			
             if (data && hasstate) {
                 this.setAttribute ('rotation', data.getAttr ('rotation'));
                 this.ruler.setAttribute ('width', data.getAttr ('rulerlength'));
 
                 this.setAttribute ('x', data.getAttr ('x'));
                 this.setAttribute ('y', data.getAttr ('y'));
+
                 // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
             	if(gScratchpad.visible){
                 	gScratchpad.bringToFront();
             	}
+				Debug.write("rotation--------- ",data.getAttr ('rotation'),this.rotateResizer.x,this.ruler.width,this.ruler.x);
              } else {
                 this.setAttribute ('rotation', 0);
                 this.ruler.setAttribute ('width', null);
@@ -420,7 +422,7 @@
 
         <view name="rotateResizer"
               resource="rotateResizer_rsrc" 
-              x="${classroot.ruler.x + classroot.ruler.width}"
+              x="${Number(classroot.ruler.x) + Number(classroot.ruler.width)}"
               y="$once{classroot.ROTATOR_Y}"
               yoffset="${this.resourceheight/2}"
               xoffset="${this.resourcewidth/2}">
