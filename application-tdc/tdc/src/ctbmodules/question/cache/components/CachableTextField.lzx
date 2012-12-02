@@ -1171,7 +1171,7 @@ parse the text string and store text and image string in an array at different i
                x="${classroot.leftPadding}"
                width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
                fgcolor="${classroot.fontcolor}"
-               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" selectable="false" clickable="true">
+               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" selectable="false" clickable="false">
                <handler name="onclick">
 				
                	this.setSelection(0, 0); 
