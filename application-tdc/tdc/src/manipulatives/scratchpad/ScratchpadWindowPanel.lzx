@@ -268,9 +268,13 @@
                 <basebutton resource="read_btn" 
 			 		        name="readBtn"
 			 		        y="-1"
-			 		        visible="${(canvas.readable == 'true' || canvas.readable == true)?true:false}">
-					
+			 		        visible="true">
+					<handler name="oninit">
+						var elem = this.getDisplayObject();
+						elem.setAttribute('id', 'read_btn');
+					</handler>
 					<handler name="onclick">
+						console.log("speaker" ,this.visible,canvas.readable );
 			        	gScratchpad.read();
 					</handler>
 				</basebutton>
