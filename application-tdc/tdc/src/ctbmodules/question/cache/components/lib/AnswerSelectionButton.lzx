@@ -12,7 +12,7 @@
 
     <class name="AnswerSelectionButton"
            clickregion="../../../../resources/iknow_answerchoices/answer_blueballselect.swf"
-           height="${this.resourceheight}"
+           height="${this.resourceheight + 1}"
            width="${this.resourcewidth}"
            resource="answer_choice_btn">
 
