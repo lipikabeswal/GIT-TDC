@@ -23,7 +23,7 @@ function initScratchpad(arg){
 		elem.style.height= "100%";  
 		elem.style.border = "none";
 		elem.style.resize = "none";
-		elem.style.backgroundColor = 'transparent';
+		
 		elem.style.clip = "rect(0px 400px 227px 0px)";
 		elem.style.overflowY = "scroll";
 		elem.style.overflowX = "hidden";
@@ -34,9 +34,12 @@ function initScratchpad(arg){
 			applyTextToArea();
 		}
 		if(arg == 'true'){
+			var bgColorObj = window.parent.getBackColorAccomodation();
 			elem.style.fontSize = "18px";
+			elem.style.backgroundColor = bgColorObj.responseArea;
 		}else{
 			elem.style.fontSize = "12px";
+			elem.style.backgroundColor = 'transparent';
 		}
 		textAreaElement.onfocus = function() {
     		moveCaretToEnd(textAreaElement);
