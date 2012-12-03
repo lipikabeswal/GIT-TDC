@@ -83,9 +83,13 @@
             if (data.hasAttr("width") && !(immediateparent instanceof lz.CachableAnswerChoice)) {
                 this.setAttribute("width", Number(data.getAttr("width")));
             } else {
-                this.setAttribute("width", immediateparent.width);
+				if(immediateparent.width != 0) {
+                	this.setAttribute("width", immediateparent.width);
+				}
+				else {
+					this.setAttribute("width", immediateparent.classroot.width); // as the immediate parent's width is zero, we are setting the text's width to the panel's width.
+				}
             }
-
             //text magnification
             this.magnification = this.fontsize/canvas.basefontsize;
             var txtmag = 1;

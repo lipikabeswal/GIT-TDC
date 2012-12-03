@@ -4002,6 +4002,7 @@ Debug.write("############ loadItem ############");
 		<method name="_getAccomStyles"><![CDATA[
             var stylesarr = this.stylesArr;
             var fontAccom = false;
+			var fontMag = false;
             var bgclr = null;
             var fgclr = null;
             //Debug.write("__GETACCOMSTYLES arr ", stylesarr);
@@ -4010,10 +4011,12 @@ Debug.write("############ loadItem ############");
             	//Debug.write("__GETACCOMSTYLES arr", theStyle);
                 this.accomstyles [theStyle.getAttr ('stereotype')] = theStyle.attributes;
                 if (theStyle.getAttr("stereotype") == "stem"){
+					fontAccom = true;
                     // NK : Need to remove this later XXXX
                     //theStyle.setAttr("font_magnification", 1.5);
                 	if( theStyle.getAttr("font_magnification") > 1) {
-                		fontAccom = true;
+                		//fontAccom = true;
+						fontMag = true;
                     	this.setAttribute("hasFontAccommodation", true);
                     	var fontsize = theStyle.getAttr("font_magnification");
 						this.setAttribute('questionFontSize',Number(fontsize)*canvas.basefontsize);
@@ -4032,6 +4035,7 @@ Debug.write("############ loadItem ############");
                     }
                 }
                 if (theStyle.getAttr("stereotype") == "answerArea"){
+					fontAccom = true;
                     if(theStyle.hasAttr('bgcolor')){
                     	var bgclor = theStyle.getAttr('bgcolor');
                     	if(bgclor.length > 0){
@@ -4046,7 +4050,7 @@ Debug.write("############ loadItem ############");
                     }
                 }
             }
-            var fontString = fontAccom + "|" + bgclr + "|" + fgclr; 
+            var fontString = fontAccom + "|" + bgclr + "|" + fgclr + "|" + fontMag;
           	canvas.fontString = fontString;
 
 			var backColorString = gController.questionBgColor + "|" + gController.answerBgColor;
