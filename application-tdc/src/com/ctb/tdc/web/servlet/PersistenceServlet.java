@@ -1,5 +1,11 @@
 package com.ctb.tdc.web.servlet;
 
+import java.awt.AWTException;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -9,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -17,6 +24,7 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -241,6 +249,22 @@ public class PersistenceServlet extends HttpServlet {
 		else if (method != null
 				&& method.equals(ServletUtils.CHECK_PROD_TYPE_METHOD)){
 					result = "<"+PRODUCT_TYPE.trim()+" />";
+				}
+		else if (method != null
+				&& method.equals("captureScreenshot")){
+				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			    Rectangle screenRectangle = new Rectangle(screenSize);
+			    Robot robot = null;
+				try {
+					robot = new Robot();
+				} catch (AWTException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			    BufferedImage image = robot.createScreenCapture(screenRectangle);
+			    String timeStamp = String.valueOf(System.currentTimeMillis());
+			    ImageIO.write(image, "png", new File(getServletContext().getRealPath("/cache/screenshot"+timeStamp+".png")));
+			    result = "<OK>"+timeStamp+"</OK>";
 				}
 		else
 			result = ServletUtils.ERROR;

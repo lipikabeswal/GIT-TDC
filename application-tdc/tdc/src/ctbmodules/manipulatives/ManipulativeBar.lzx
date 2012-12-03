@@ -70,10 +70,20 @@
 
 				<handler name="onclick">
 						lz.Timer.removeTimer (this.tooltipdel);
-						if(gMagnifyingGlass.visible){
-							hide();
+						
+						if(gController.isNotTEItem() == false) { 
+							if(this.isEnabled == true){
+								hide();
+							} else {
+
+								setup();
+							}
 						} else {
-							setup();
+							if(gMagnifyingGlass.visible == true){
+								hide();
+							} else {
+								setup();
+							}
 						}
 					</handler>
 
@@ -82,19 +92,31 @@
 					</method>
 
 				<method name="setup">
-						gMagnifyingGlass.setUpGlass();
+						if(gController.isNotTEItem() == true) { 
+							gMagnifyingGlass.setUpGlass();
+						}
+						else {
+							lz.Browser.loadJS('showMagnify();');
+						}
 						show();
 					</method>
 
 				<method name="show">
-						gMagnifyingGlass.showGlass();
+						if(gController.isNotTEItem() == true) { 
+							gMagnifyingGlass.showGlass();
+						}
 						this.isEnabled = true;
 						gController.setAttribute("magnifierState", true);
 						this.setAttribute('frame',2);
 					</method>
 
 				<method name="hide">
-						gMagnifyingGlass.hideGlass();
+						if(gController.isNotTEItem() == true) { 
+							gMagnifyingGlass.hideGlass();
+						}
+						else {
+							lz.Browser.loadJS('hideMagnify();');
+						}
 						this.isEnabled = false;
 						gController.setAttribute("magnifierState", false);
 						this.setAttribute('frame',1);
