@@ -274,7 +274,6 @@
 						elem.setAttribute('id', 'read_btn');
 					</handler>
 					<handler name="onclick">
-						console.log("speaker" ,this.visible,canvas.readable );
 			        	gScratchpad.read();
 					</handler>
 				</basebutton>
