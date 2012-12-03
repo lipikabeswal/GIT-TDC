@@ -65,11 +65,11 @@
 		]]></handler>
 		
 		<handler name="onmousedown" reference="gItemInterface">
-			if(gController.scratchpadOpen){
+			/*if(gController.scratchpadOpen){
 				if(gScratchpad.sp.inp.getTextHeight() > gScratchpad.sp.height) {
 					gScratchpad.sp.inp.setAttribute("scroll",gScratchpad.sp.inp.maxscroll);
 				}
-			}
+			}*/
 		</handler>		
 
 		<method name="isScratchpadSubcomponent" args="who">
