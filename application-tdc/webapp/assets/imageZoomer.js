@@ -81,14 +81,14 @@ var ddpowerzoomer={
 
 	
 	init:function($){
-		var $magnifier=$('<div style="position:absolute;z-index:1000000;width:'+parseInt(ddpowerzoomer.$zommersettings.magnifiersize[0]+ 94)+ 'px;height:'+parseInt(ddpowerzoomer.$zommersettings.magnifiersize[1] + 94)+'px;display:none;" />')
-			.append('<div  id="magnifierWindow" style="width:'+ddpowerzoomer.$zommersettings.magnifiersize[0]+ 'px;height:'+ddpowerzoomer.$zommersettings.magnifiersize[1]+'px;overflow:hidden; border:14px solid #333333;"><div style="position:relative;left:0;top:0;" /></div><div style="width:80px;height:80px;position:relative;left:'+ parseInt(ddpowerzoomer.$zommersettings.magnifiersize[0]+15)+'px;top:-17px;background-image: url(assets/magnifier.png);background-position: -5px -1px;background-repeat: no-repeat;">&nbsp;</div>')
+		var $magnifier=$('<div style="position:absolute;z-index:1000000;width:'+parseInt(ddpowerzoomer.$zommersettings.magnifiersize[0])+ 'px;height:'+parseInt(ddpowerzoomer.$zommersettings.magnifiersize[1])+'px;display:none;" />')
+			.append('<div  id="magnifierWindow" style="width:'+ddpowerzoomer.$zommersettings.magnifiersize[0]+ 'px;height:'+ddpowerzoomer.$zommersettings.magnifiersize[1]+'px;overflow:hidden; border:14px solid #333333;"><div style="position:relative;left:0;top:0;" /></div>')
 			.appendTo(document.body).draggable({
 			containment: "body",	
 			drag: function(event, ui) {
 				var $magnifier=ddpowerzoomer.$magnifier
 				var s = ddpowerzoomer.$zommersettings
-				$magnifier.outer.css({width:parseInt(s.magnifiersize[0] + 94), height:parseInt(s.magnifiersize[1]+94)}) //set magnifier's size
+				$magnifier.outer.css({width:parseInt(s.magnifiersize[0]), height:parseInt(s.magnifiersize[1])}) //set magnifier's size
 				var imgref = ddpowerzoomer.$imageRef;
 				var offset= $(imgref).offset() //get image offset from document
 				var power=imgref.info.power.current
@@ -148,7 +148,7 @@ jQuery.fn.initMagnify=function(options){
 		var $magnifier=ddpowerzoomer.$magnifier
 		var s = ddpowerzoomer.$zommersettings
 		ddpowerzoomer.$zommersettings.largeimagesrc = options.largeimage ;
-		$magnifier.outer.css({width:parseInt(s.magnifiersize[0] + 94), height:parseInt(s.magnifiersize[1]+94)}) //set magnifier's size
+		$magnifier.outer.css({width:parseInt(s.magnifiersize[0]), height:parseInt(s.magnifiersize[1])}) //set magnifier's size
 		var imgref = ddpowerzoomer.$imageRef
 		var offset= $(imgref).offset() //get image offset from document
 		var power=imgref.info.power.current
@@ -158,6 +158,7 @@ jQuery.fn.initMagnify=function(options){
 		var coords={left:offset.left, top:offset.top, right:offset.left+imgref.info.dimensions[0], bottom:offset.top+imgref.info.dimensions[1]}
 		imgref.info.coords=coords //remember left, right, and bottom right coordinates of image relative to doc
 		$magnifier.outer.show()
+		
 		ddpowerzoomer.activeimage=imgref
 		if (ddpowerzoomer.activeimage){ //if mouse is currently over a magnifying image
 			ddpowerzoomer.movemagnifier(null, true) //move magnifier
