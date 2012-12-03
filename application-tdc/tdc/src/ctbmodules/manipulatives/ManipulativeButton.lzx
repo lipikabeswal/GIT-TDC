@@ -53,6 +53,13 @@
                 	this.setAttribute ('isselected', true);
                 }else{
                 	this.setAttribute ('isselected', false);
+                	var selManip = gController.htmlmanipStateHtml[toolid];
+                	selManip['isselected'] = false;
+                	
+                	for(var i=0;i<gController.htmlGeneralManipData.length;i++){
+                		var manip = gController.htmlGeneralManipData[i][toolid];
+                		manip['isselected'] = false;
+                	}
                 }
                 this.setAttribute('frame', this.isselected ? 2 : 1);
 
@@ -89,12 +96,12 @@
            }
        ]]></method>
        
-       <method name="showState">
-       		Debug.write("RESET STATE: ", this.isenabled, this.isselected);
-           if (this.isenabled) {
-               	this.setAttribute ('isselected', true);
+       <method name="showManipState"><![CDATA[
+       		Debug.write("RESET STATE showManipState: ", this.isenabled, this.isselected);
+           if (this.isenabled && this.isselected) {
                 this.setAttribute('frame', this.isselected ? 2 : 1);
            }
+           ]]>
        </method>
 
         <method name="showTooltip">

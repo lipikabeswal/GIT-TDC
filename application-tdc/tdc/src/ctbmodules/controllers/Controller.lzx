@@ -3691,7 +3691,20 @@ Debug.write("############ loadItem ############");
 						if(htmlGeneralManipData[i].eid == currentEid){
 							var manipData = new Object();
 							manipData = htmlGeneralManipData[i];
-							openTEManipulatives(manipData);
+							var noManipOpen = true;
+							for(var key in manipData){
+								var selManip = manipData[key];
+								if(selManip != currentEid){
+									if(selManip['isselected'] == true || selManip['isselected'] == 'true'){
+										noManipOpen = false;
+										break;
+									}
+								}
+							}
+							if(!noManipOpen){
+								delete manipData['eid'];
+								openTEManipulatives(manipData);
+							}
 						}
 					}
 				}
@@ -3816,78 +3829,23 @@ Debug.write("############ loadItem ############");
 
 		<method name="openTEManipulatives" args="openManipData"><![CDATA[
 
-			//Debug.write("openTEManipulatives****** ",openManipData,gController.htmlmanipStateHtml);
+			Debug.write("openTEManipulatives****** ",openManipData,gController.htmlmanipStateHtml);
 
-			var manipObjData;
-			
-			manipObjData = openManipData['protractor'];
-			if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
-				htmlmanipStateHtml['protractor'].resetState();
-				setManipulativeSelState('protractor','sel');
+
+			for(var key in openManipData){
+				var manipObjData = openManipData[key];
+				if(manipObjData.isselected == 'true' || manipObjData.isselected == true){
+					gController.setManipulativeSelState (manipObjData.toolid,'sel');
+				}
+				else if(manipObjData.isselected == 'undefined' || manipObjData.isselected == 'false' || manipObjData.isselected == false){
+					var manip = htmlmanipStateHtml[manipObjData.toolid];
+					if(manip!=null && manip!='undefined'){
+						manip['isselected'] = false;
+						gController.setManipulativeSelState (manipObjData.toolid,'up');
+					}
+				}
 			}
-			
-			
-			manipObjData = openManipData['standard_calculator'];
-			if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
-				htmlmanipStateHtml['standard_calculator'].resetState();
-				setManipulativeSelState('standard_calculator','sel');
-			}
-	
-			
-			manipObjData = openManipData['scientific_calculator'];
-			if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
-				htmlmanipStateHtml['scientific_calculator'].resetState();
-				setManipulativeSelState('scientific_calculator','sel');
-			}
-			
-			
-			manipObjData = openManipData['straight_edge'];
-			if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
-				htmlmanipStateHtml['straight_edge'].resetState();
-				setManipulativeSelState('straight_edge','sel');
-			}
-	
-			
-			manipObjData = openManipData['oneeighth_inch_ruler'];
-			if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
-				htmlmanipStateHtml['oneeighth_inch_ruler'].resetState();
-				setManipulativeSelState('oneeighth_inch_ruler','sel');
-			}
-			
-			
-			manipObjData = openManipData['half_inch_ruler'];
-			if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
-				htmlmanipStateHtml['half_inch_ruler'].resetState();
-				setManipulativeSelState('half_inch_ruler','sel');
-			}
-	
-			
-			manipObjData = openManipData['mm_ruler'];
-			if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
-				htmlmanipStateHtml['mm_ruler'].resetState();
-				setManipulativeSelState('mm_ruler','sel');
-			}
-	
-			
-			manipObjData = openManipData['cm_ruler'];
-			if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
-				htmlmanipStateHtml['cm_ruler'].resetState();
-				setManipulativeSelState('cm_ruler','sel');
-			}
-	
-			
-			manipObjData = openManipData['FCAT_formula_card'];
-			if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
-				htmlmanipStateHtml['FCAT_formula_card'].resetState();
-				setManipulativeSelState('FCAT_formula_card','sel');
-			}
-	
-			
-			manipObjData = openManipData['TN_formula_card'];
-			if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
-				htmlmanipStateHtml['TN_formula_card'].resetState();
-				setManipulativeSelState('TN_formula_card','sel');
-			}
+
 			canvas.setAttribute("htmlOpenManip",JSON.stringify(openManipData));
 
 			]]>
