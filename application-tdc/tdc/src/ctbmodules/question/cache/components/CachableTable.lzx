@@ -343,7 +343,9 @@
                 // These lines were commented to stop the intermittent navigaton problems
                 this.thetable.setAttribute("width", Math.floor(contents.width * factor));
                 this.thetable.setAttribute("height", newh);
-        
+				this.thetable.contents.setAttribute('xscale', (this.thetable.width /this.thetable.contents.width ) );
+				this.thetable.contents.setAttribute('yscale', (this.thetable.height /this.thetable.contents.height ) );
+				
             } 
             // nklein : July 5, 2007
             // These lines were commented to stop the intermittent navigaton problems

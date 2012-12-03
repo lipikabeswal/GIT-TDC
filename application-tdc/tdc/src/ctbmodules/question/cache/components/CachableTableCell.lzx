@@ -33,17 +33,7 @@
                var style = gController.getAccomStyleForType(parent.parent.stereotype);
                this.setAttribute("fontsize", this.fontsize * style['font_magnification']);
             }
-           else if (parent.autoenlarge == "yes" && gController.hasFontAccommodation) {
-                var fontmag = parent.fontsize/canvas.basefontsize;
-                //make room for the scrollbar if necessary
-               /* if ( parent.height + (newh - contents.width) > this.panel.height && factor != fontmag) {
-                    factor = (parent.width - offset - 15)/contents.width;
-                    newh = Math.floor(contents.height * factor);
-				} */
-                this.setAttribute("width", Math.floor(this.width * fontmag));
-                this.setAttribute("height", Math.floor(this.height * fontmag));
-				this.setAttribute("fontsize", this.fontsize * fontmag);
-            }
+
 			
             //alignment
             var align = data.getAttr("halign");        
@@ -83,7 +73,7 @@
                     subnodes[i].removeAttr("enlargeable");
                     var newcomp = this.cache.getComponent (subnodes [i]);
                     if(newcomp!=null) {
-						newcomp.setAttribute("width",this.width);
+						//newcomp.setAttribute("width",this.width);
                     	this.wrapper.dynlayout.addSubview (newcomp);
 					}
                 }
