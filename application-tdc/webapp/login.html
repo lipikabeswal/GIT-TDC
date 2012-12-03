@@ -197,6 +197,14 @@ document.getElementById('__lz0').contentWindow.setFocus();
 }
 
 function showMagnify() {	
+		if(jQuery("#magnifierWindow").length < 1){
+			jQuery('body').addpowerzoom({
+					defaultpower: 2,
+					powerrange: [2,5],
+					largeimage: null,
+					magnifiersize: [300,100] 
+				});
+		}	
 		jQuery(ddpowerzoomer.$magnifier.outer).hide();
 		jQuery.ajax({
 			url: "servlet/PersistenceServlet.do?method=captureScreenshot",
@@ -225,16 +233,6 @@ function hideMagnify() {
 	jQuery(ddpowerzoomer.$magnifier.outer).hide();
 }
 
-
-jQuery(document).ready(function($){ //initialize power zoomer on DOM load
-		jQuery('body').addpowerzoom({
-				defaultpower: 2,
-				powerrange: [2,5],
-				largeimage: null,
-				magnifiersize: [300,100] 
-			});
-	
-})
 
 //-->
 </SCRIPT>
