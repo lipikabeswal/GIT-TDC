@@ -25,6 +25,9 @@
             html { overflow: auto; overflow-x: hidden; }
         </style>
         <![endif]-->
+<script type="text/javascript" src="assets/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="assets/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" src="assets/imageZoomer.js"></script>
 <SCRIPT type="text/javaScript">
 <!--
 var _LDB_BypassSetFocusOnPageLoad = 0;
@@ -163,6 +166,7 @@ function getFontAccomodation(){
 	fontObj.hasFont = fontAccom[0];
 	fontObj.bgcolor = fontAccom[1].replace('0x', '#');
 	fontObj.fgcolor = fontAccom[2].replace('0x', '#');
+	fontObj.hasFontMag = fontAccom[4];
 	return fontObj;
 }
 
@@ -192,11 +196,50 @@ function setFootnoteText(arg){
 function setFocusOnScratchpad(){
 document.getElementById('__lz0').contentWindow.setFocus();
 }
+
+function showMagnify() {	
+		if(jQuery("#magnifierWindow").length < 1){
+			jQuery('body').addpowerzoom({
+					defaultpower: 2,
+					powerrange: [2,5],
+					largeimage: null,
+					magnifiersize: [300,100] 
+				});
+		}	
+		jQuery(ddpowerzoomer.$magnifier.outer).hide();
+		jQuery.ajax({
+			url: "servlet/PersistenceServlet.do?method=captureScreenshot",
+			dataType: "xml",
+			success: function(data) {
+			//xmlDoc = jQuery.parseXML( data ),
+		    xml = jQuery( data ),
+		    ok = xml.find( "OK" );
+			//alert(ok);
+			var timeStamp = ok.text();//jQuery(jQuery.parseXML(data)).find("ok").text();
+			//alert(timeStamp);
+			var imageName = "cache/screenshot"+timeStamp+".png"
+			
+			jQuery(ddpowerzoomer.$magnifier.outer).css('left',document.body.clientWidth/2 + 'px');
+			jQuery(ddpowerzoomer.$magnifier.outer).css('top',document.body.clientHeight/2 + 'px');
+			jQuery(ddpowerzoomer.$magnifier.outer).show();
+			jQuery(ddpowerzoomer).initMagnify({largeimage:imageName});
+			}
+		});
+			
+		
+	}
+	
+function hideMagnify() {		
+	
+	jQuery(ddpowerzoomer.$magnifier.outer).hide();
+}
+
+
 //-->
 </SCRIPT>
 
 <style type="text/css">
-body { background-color:#6691B4; margin: 0px; overflow: hidden; }
+body { background-color:#6691B4; margin: 0px; overflow:hidden;} 
 </style>
 </HEAD>
 

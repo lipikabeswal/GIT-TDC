@@ -182,7 +182,12 @@ img {
 					 		var fontObj = window.parent.getFontAccomodation();	
 					 		var bgColorObj = window.parent.getBackColorAccomodation();				    	
 					    	if(fontObj.hasFont == 'true'){
-					    		document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
+					    		if(fontObj.hasFontMag == 'true'){
+					    			document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
+					    		}
+					    		else {
+					    			document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
+					    		}
 					    	}else{
 					    		document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
 					    	}			    	
@@ -194,13 +199,27 @@ img {
 					    window.parent.setAnswerNow('complete');
 					    var stat = window.parent.getReadable();
 					    readable =  stat == "true"? true: false;
+					    
+					    if(readable){
+					    	document.getElementById('read_btn').style.display = "block";
+					    }else{
+					    	document.getElementById('read_btn').style.display = "none";
+					    }
 				     		var fontObj = window.parent.getFontAccomodation();	
 				     		var bgColorObj = window.parent.getBackColorAccomodation();				    	
 				     		
 					    	if(fontObj.hasFont == 'true'){
-					    		document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
+					    		if(fontObj.hasFontMag == 'true'){
+					    			document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
+					    		}
+					    		else {
+					    			document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
+					    		}
+					    		//document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
+					    		lz.embed.setCanvasAttribute('hasfontaccom',true);
 					    	}else{
 					    		document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
+					    		lz.embed.setCanvasAttribute('hasfontaccom',false);
 					    	}
 					    	var manip = window.parent.getOpenManipData();
 					    	if(manip != 'null')
