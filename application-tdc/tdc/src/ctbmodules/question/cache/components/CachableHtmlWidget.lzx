@@ -74,6 +74,7 @@ Debug.write("Cachaable html widget ondata");
  		//this.ht.bringToFront();
  		setItemId();
 		func2();
+		gHotKeys.disableKeys();
 		gController.freezeUI();
 		//doneLoading();
 		
@@ -106,6 +107,7 @@ Debug.write("Cachaable html widget ondata");
 					gController.updateBlueBallForHtmlItem(retVal);
 					}
 				if(!unlocked){
+					gHotKeys.enableKeys();
 					gController.unlockUI();
 					this.setAttribute('unlocked', true);
 				}
@@ -227,6 +229,8 @@ Debug.write("Cachaable html widget ondata");
 			
 			case 'formula_card_resource' : gController.manipStateHtml['formula_card_resource'] = manipButton;
 			break;
+
+			case 'masking_ruler'	:  gController.manipStateHtml['masking_ruler'] = manipButton;
 			}
 			for(var key in gController.manipStateHtml) {
     			var value = gController.manipStateHtml[key];
