@@ -103,7 +103,7 @@
         
         <method name="restoreFocusAndCursor" >
         	this.sp.inp.onfocus.sendEvent();
-       		this.sp.resetTheSelection();
+       		//this.sp.resetTheSelection();
         	this.setAttribute("scratchpadHasFocus", true);
 			gHotKeys.disableKeys();
         </method>
@@ -120,7 +120,8 @@
         <method name="setText" args="txt">
           sp.inp.onfocus.sendEvent();
           sp.inp.onblur.sendEvent();
-          sp.setAttribute('text',gController.formatXml(txt));
+          //sp.setAttribute('text',gController.formatXml(txt));
+          sp.setAttribute('text',txt);
         </method>
         
         <handler name="oninit">

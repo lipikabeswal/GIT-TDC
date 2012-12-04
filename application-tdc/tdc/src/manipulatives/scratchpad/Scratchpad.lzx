@@ -114,12 +114,13 @@
 			restoreFocusAndCursor();
         </method>
         
-        <method name="applyText" args="txt">
+        <method name="applyText" args="txt"><![CDATA[
 		  txt = txt.split('~|||||||').join('\n');
-		  txt = formatXml(txt);
+		  //txt = escape(txt);
 		  this.setAttribute('scratchpadtext',txt )
 	      setScratchpadText(txt);
 			//console.log("setscratchpadtext");
+			]]>
         </method>
         
         <method name="replace" args="s, t, u"><![CDATA[
