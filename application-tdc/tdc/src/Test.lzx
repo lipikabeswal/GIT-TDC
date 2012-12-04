@@ -127,7 +127,10 @@ else{
 
 	maniObj = getManipulativeObject('straight_edge',gStraightEdge,"true");
 	htmlGeneralManip['straight_edge'] = maniObj;
-	
+
+	maniObj = getManipulativeObject('masking_ruler',gMaskingRuler,"true");
+	htmlGeneralManip['masking_ruler'] = maniObj;
+
 	htmlGeneralManip.eid=data;
 	var manip = JSON.stringify(htmlGeneralManip);
 	var js = "setHtmlGeneralManip('"+manip+"')";
@@ -492,6 +495,16 @@ var manipObjData;
 			gTnFormulaCard.setAttribute("isselected",true);
 			gTnFormulaCard.show();
 		}
+
+		manipObjData = openManipData['masking_ruler'];
+		if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
+			gMaskingRuler.setAttribute('x',Number(manipObjData.x));
+			gMaskingRuler.setAttribute('y',Number(manipObjData.y));
+			gMaskingRuler.ruler.setAttribute('width',Number(manipObjData.width));
+			gMaskingRuler.setAttribute("isselected",true);
+			gMaskingRuler.show();
+		}
+
 		this.arrangeAccordingToZOrder(openManipData);
 ]]>
 
@@ -651,7 +664,9 @@ switch(arg){
 				
 		case 'masking_ruler' : 	if(gMaskingRuler.visible){
 									gMaskingRuler.hide();
+									gMaskingRuler.setAttribute("isselected",false);
 								}else{
+									gMaskingRuler.setAttribute("isselected",true);
 									gMaskingRuler.ruler.setAttribute('width',gMaskingRuler.maxLength);
 									gMaskingRuler.setAttribute('x',(canvas.width/2-gMaskingRuler.width/2));
 									gMaskingRuler.setAttribute('y',(canvas.height/2-gMaskingRuler.height/2));
