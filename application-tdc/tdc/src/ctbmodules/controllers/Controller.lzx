@@ -3685,13 +3685,14 @@ Debug.write("############ loadItem ############");
                 ismarked = (ismarked == true);
             }
 			//to retain TE items manipulative state for marked for review items.
+			canvas.setAttribute("htmlOpenManip",null);
 			if(ismarked){
 				if(gController.htmlFields.length > 0 && ismarked){
 					for(var i=0;i<htmlGeneralManipData.length;i++){
 						if(htmlGeneralManipData[i].eid == currentEid){
 							var manipData = new Object();
 							manipData = htmlGeneralManipData[i];
-							var noManipOpen = true;
+							/*var noManipOpen = true;
 							for(var key in manipData){
 								var selManip = manipData[key];
 								if(selManip != currentEid){
@@ -3701,10 +3702,11 @@ Debug.write("############ loadItem ############");
 									}
 								}
 							}
+							Debug.write("initManipulativeData ",noManipOpen,typeof noManipOpen,manipData);
 							if(!noManipOpen){
-								delete manipData['eid'];
 								openTEManipulatives(manipData);
-							}
+							}*/
+							openTEManipulatives(manipData);
 						}
 					}
 				}
@@ -3833,15 +3835,17 @@ Debug.write("############ loadItem ############");
 
 
 			for(var key in openManipData){
-				var manipObjData = openManipData[key];
-				if(manipObjData.isselected == 'true' || manipObjData.isselected == true){
-					gController.setManipulativeSelState (manipObjData.toolid,'sel');
-				}
-				else if(manipObjData.isselected == 'undefined' || manipObjData.isselected == 'false' || manipObjData.isselected == false){
-					var manip = htmlmanipStateHtml[manipObjData.toolid];
-					if(manip!=null && manip!='undefined'){
-						manip['isselected'] = false;
-						gController.setManipulativeSelState (manipObjData.toolid,'up');
+				if(key != 'eid'){
+					var manipObjData = openManipData[key];
+					if(manipObjData.isselected == 'true' || manipObjData.isselected == true){
+						gController.setManipulativeSelState (manipObjData.toolid,'sel');
+					}
+					else if(manipObjData.isselected == 'undefined' || manipObjData.isselected == 'false' || manipObjData.isselected == false){
+						var manip = htmlmanipStateHtml[manipObjData.toolid];
+						if(manip!=null && manip!='undefined'){
+							manip['isselected'] = false;
+							gController.setManipulativeSelState (manipObjData.toolid,'up');
+						}
 					}
 				}
 			}
@@ -5404,7 +5408,7 @@ Debug.write("############ loadItem ############");
             	for (var i = 0; i < this.htmlFields.length; i++) {
 					xmls = xmls.concat("<answer id=" + "\"" + this.htmlFields[i]['widget_id'] + "\""+ ">");
                 	if(!htmlFields[i]['answered']){
-                   		xmls = xmls.concat(wrapInCdata(data) +"</answer>");
+                   		xmls = xmls.concat("</answer>");
                    	}
                 	else{
                    		xmls = xmls.concat(wrapInCdata(data) + "</answer>");

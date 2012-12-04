@@ -53,13 +53,15 @@
                 	this.setAttribute ('isselected', true);
                 }else{
                 	this.setAttribute ('isselected', false);
-                	var selManip = gController.htmlmanipStateHtml[toolid];
-                	selManip['isselected'] = false;
-                	
-                	for(var i=0;i<gController.htmlGeneralManipData.length;i++){
-                		var manip = gController.htmlGeneralManipData[i][toolid];
-                		manip['isselected'] = false;
-                	}
+					if(gController.htmlFields.length > 0){
+	                	var selManip = gController.htmlmanipStateHtml[toolid];
+	                	selManip['isselected'] = false;
+	                	
+	                	for(var i=0;i<gController.htmlGeneralManipData.length;i++){
+	                		var manip = gController.htmlGeneralManipData[i][toolid];
+	                		manip['isselected'] = false;
+	                	}
+					}
                 }
                 this.setAttribute('frame', this.isselected ? 2 : 1);
 
