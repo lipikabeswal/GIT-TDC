@@ -4,8 +4,8 @@
 	<dragstate name="dragger" drag_axis="both" drag_min_x="0"
 		drag_max_x="$once{canvas.width - this.width}" drag_min_y="0"
 		drag_max_y="$once{canvas.height - this.height}" />
-	<attribute name="bg" type="color" value="gray" />
-	<attribute name="fg" type="color" value="gray" />
+	<attribute name="bg" type="color" value="#333333" />
+	<attribute name="fg" type="color" value="#333333" />
 
 	<attribute name="trackDel"
 		value="$once{new lz.Delegate( this , 'magnify' ) }" />
@@ -64,10 +64,11 @@
 		 <attribute name="isready" value="false" type="boolean" />
 		 
 		 	<handler name="oncontext">
-		            this.clear();
+		        this.isready = true;
+				this.clear();
 	            
-	            var roundness = 5;
-	            var thickness = 3;
+	            var roundness = 0;
+	            var thickness = 8;
 	            var shadow = 4;
 	
 	            this.changeColor(parent.bg, parent.fg);
@@ -80,8 +81,8 @@
 				if(this.isready){
 	            this.clear();
 	            
-	            var roundness = 5;
-	            var thickness = 3;
+	            var roundness = 0;
+	            var thickness = 8;
 	            var shadow = 4;
 	
 	            this.changeColor(parent.bg, parent.fg);
@@ -89,16 +90,17 @@
 	         </method>
 	
 			<method name="changeColor" args="bgcolor, fgcolor">
-	            var roundness = 5;
+	            var roundness = 0;
 	            var thickness = 0;
 				//Debug.write("changecolor", parent.width,this.height);
 	            drawRoundRect (thickness, thickness, this.width, this.height, 
 	                           roundness,
-	                           bgcolor, fgcolor, 1);
+	                           bgcolor, fgcolor, 1, 8);
 	        </method>
 	
 			<method name="drawRoundRect"
-				args="x0, y0, x1, y1, roundness, fill, stroke, alpha">
+				args="x0, y0, x1, y1, roundness, fill, stroke, alpha, lineWidth">
+
 				if(this.isready){
 		            this.beginPath();
 		            this.rect(x0 , y0 , x1 , y1 , roundness);
@@ -110,6 +112,11 @@
 		                this.setAttribute("fillStyle", fill);
 		                this.fill();
 		            }
+
+					if(lineWidth) {
+						this.lineWidth = lineWidth;
+					}
+
 		            if (stroke) {
 		                this.setAttribute("strokeStyle", stroke);
 		                this.stroke();
@@ -124,7 +131,7 @@
 
 
 
-		<drawview name="handle" x="${parent.width - 15}" y="${parent.height - 1}"
+		<!-- <drawview name="handle" x="${parent.width - 15}" y="${parent.height - 1}"
 		bgcolor="0x333333" rotation="-45" height="${parent.height}" width="20">
 
 			<handler name="onmousedown">
@@ -141,7 +148,7 @@
 				lz.Cursor.unlock();
 		        gController.restoreCurrentCursor();
 	  		</handler>
-		</drawview>
+		</drawview>-->
 
 	<method name="setUpGlass">
 		 this.setAttribute("x",canvas.width/2 - this.width/2);
