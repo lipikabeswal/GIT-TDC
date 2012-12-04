@@ -35,8 +35,14 @@ function initScratchpad(arg){
 		}
 		if(arg == 'true'){
 			var bgColorObj = window.parent.getBackColorAccomodation();
-			elem.style.fontSize = "18px";
+			var fontColorObj = window.parent.getFontAccomodation();
 			elem.style.backgroundColor = bgColorObj.responseArea;
+			elem.style.color = fontColorObj.fgcolor;
+			if(fontColorObj.hasFontMag == 'true'){
+				elem.style.fontSize = "18px";
+			}else {
+				elem.style.fontSize = "12px";
+			}
 		}else{
 			elem.style.fontSize = "12px";
 			elem.style.backgroundColor = 'transparent';
