@@ -200,10 +200,10 @@ document.getElementById('__lz0').contentWindow.setFocus();
 function showMagnify() {	
 		if(jQuery("#magnifierWindow").length < 1){
 			jQuery('body').addpowerzoom({
-					defaultpower: 2,
-					powerrange: [2,5],
+					defaultpower: 1.5,
+					powerrange: [1.5,2],
 					largeimage: null,
-					magnifiersize: [380,100] 
+					magnifiersize: [300,100] 
 				});
 		}	
 		jQuery(ddpowerzoomer.$magnifier.outer).hide();
@@ -219,7 +219,7 @@ function showMagnify() {
 			//alert(timeStamp);
 			var imageName = "cache/screenshot"+timeStamp+".png"
 			
-			jQuery(ddpowerzoomer.$magnifier.outer).css('left',(document.body.clientWidth/2 - 205)+ 'px');
+			jQuery(ddpowerzoomer.$magnifier.outer).css('left',(document.body.clientWidth/2 - 165)+ 'px');
 			jQuery(ddpowerzoomer.$magnifier.outer).css('top',(document.body.clientHeight/2 - 75) + 'px');
 			jQuery(ddpowerzoomer.$magnifier.outer).show();
 			jQuery(ddpowerzoomer).initMagnify({largeimage:imageName});

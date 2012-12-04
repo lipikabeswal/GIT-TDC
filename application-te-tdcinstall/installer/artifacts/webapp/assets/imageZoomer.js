@@ -49,9 +49,9 @@ var ddpowerzoomer={
 		
 		if(x < (document.body.clientWidth)/2) {
 			x = x + 50;
-		}else if(x > (document.body.clientWidth * .70)) {
+		}/*else if(x > (document.body.clientWidth * .70)) {
 			x = x + 30;
-		}
+		}*/
 		
 		
 		
@@ -98,7 +98,7 @@ var ddpowerzoomer={
 		var $magnifier=$('<div style="position:absolute;z-index:1000000;width:'+parseInt(ddpowerzoomer.$zommersettings.magnifiersize[0])+ 'px;height:'+parseInt(ddpowerzoomer.$zommersettings.magnifiersize[1])+'px;display:none;" />')
 			.append('<div  id="magnifierWindow" style="width:'+ddpowerzoomer.$zommersettings.magnifiersize[0]+ 'px;height:'+ddpowerzoomer.$zommersettings.magnifiersize[1]+'px;overflow:hidden; border:8px solid #333333;"><div style="position:relative;left:0;top:0;" /></div>')
 			.appendTo(document.body).draggable({
-			containment: [0, 0,document.body.offsetWidth - 410,$("body").height()-150],	
+			containment: [0, 0,document.body.offsetWidth - 330,$("body").height()-150],	
 			start: function(event,ui) {
 				jQuery("#magnifierWindow").css('visibility','hidden');
 				jQuery.ajax({
