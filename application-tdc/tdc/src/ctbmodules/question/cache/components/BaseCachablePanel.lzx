@@ -289,7 +289,7 @@
                           ? (this.offsetwrapper.height + 
                               (classroot.growtocontents &amp;&amp; classroot.comptype == gCompTypes.WIDGET_ANSWER_AREA_PANEL ? this.offsetwrapper.contents.y : 0)): 
                           parent.height}">
-                <view name="offsetwrapper" width="${this.contents.width}" height="${this.contents.height}">
+                <view name="offsetwrapper" >
                     <view name="contents"/>
                 </view>
                 <Highlight name="highlighter" 

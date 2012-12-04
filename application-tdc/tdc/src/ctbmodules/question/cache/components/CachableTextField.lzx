@@ -79,7 +79,7 @@
              =============== -->
         <handler name="ondata" args="data"><![CDATA[
             //width
-            if (data.hasAttr("width") && !(immediateparent instanceof lz.CachableAnswerChoice)) {
+            if (data.hasAttr("width")) {
                 this.setAttribute("width", Number(data.getAttr("width")));
             } else {
 				if(immediateparent.width != 0) {
