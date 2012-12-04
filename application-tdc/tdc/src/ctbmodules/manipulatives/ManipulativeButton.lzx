@@ -55,11 +55,15 @@
                 	this.setAttribute ('isselected', false);
 					if(gController.htmlFields.length > 0){
 	                	var selManip = gController.htmlmanipStateHtml[toolid];
-	                	selManip['isselected'] = false;
+						if(selManip!=null && selManip!='undefined'){
+		                	selManip['isselected'] = false;
+						}
 	                	
 	                	for(var i=0;i<gController.htmlGeneralManipData.length;i++){
 	                		var manip = gController.htmlGeneralManipData[i][toolid];
-	                		manip['isselected'] = false;
+							if(manip!=null && manip!='undefined'){
+	                			manip['isselected'] = false;
+							}
 	                	}
 					}
                 }
