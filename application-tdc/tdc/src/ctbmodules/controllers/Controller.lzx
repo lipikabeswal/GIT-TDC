@@ -3168,6 +3168,21 @@
 			 			gController.setManipulativeSelState (manip, 'up');
 					}
 				}
+				if(this.htmlFields != null){
+					Debug.write("gController.manipStateHtml******* ",gController.manipStateHtml);
+					for(var key in gController.manipStateHtml){
+						if(key!='highlighter' && key!='eraser' && key!='scratchpad'){
+							var manipObjData = gController.manipStateHtml[key];
+							if(manipObjData.isselected == 'true' || manipObjData.isselected == true){
+								Debug.write("gController.manipStateHtml------------- ",manipObjData);
+								gController.manipStateHtml[manipObjData.toolid].resetState();
+								gController.setManipulativeSelState (manipObjData.toolid,'up');
+								var comp = gController.htmlFields[0];
+	                			comp.ref.showHideManipulative(manipObjData.toolid, manipObjData);
+							}
+						}
+					}
+				}
 				var dnGlobal = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');
 				var manipsGlobal = new Array("masking_ruler");
 				for (var i = 0; i < manipsGlobal.length; i++){
