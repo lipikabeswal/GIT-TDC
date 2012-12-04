@@ -39,7 +39,20 @@ var ddpowerzoomer={
 		
 		var x = jQuery("#magnifierWindow").offset().left - coords.left;
 		
-		var y = jQuery("#magnifierWindow").offset().top - coords.top;
+		var y = jQuery("#magnifierWindow").offset().top - coords.top ;
+		
+		if(y > (document.body.clientHeight)/2) {
+			y = y + 100;
+		}else if(y < (document.body.clientHeight)/2 && y > (document.body.clientHeight * .25)) {
+			y = y + 15;
+		}
+		
+		if(x < (document.body.clientWidth)/2) {
+			x = x + 50;
+		}else if(x > (document.body.clientWidth * .70)) {
+			x = x + 30;
+		}
+		
 		
 		
 		/*if (moveBol==true){
@@ -81,10 +94,29 @@ var ddpowerzoomer={
 
 	
 	init:function($){
+		
 		var $magnifier=$('<div style="position:absolute;z-index:1000000;width:'+parseInt(ddpowerzoomer.$zommersettings.magnifiersize[0])+ 'px;height:'+parseInt(ddpowerzoomer.$zommersettings.magnifiersize[1])+'px;display:none;" />')
-			.append('<div  id="magnifierWindow" style="width:'+ddpowerzoomer.$zommersettings.magnifiersize[0]+ 'px;height:'+ddpowerzoomer.$zommersettings.magnifiersize[1]+'px;overflow:hidden; border:14px solid #333333;"><div style="position:relative;left:0;top:0;" /></div>')
+			.append('<div  id="magnifierWindow" style="width:'+ddpowerzoomer.$zommersettings.magnifiersize[0]+ 'px;height:'+ddpowerzoomer.$zommersettings.magnifiersize[1]+'px;overflow:hidden; border:8px solid #333333;"><div style="position:relative;left:0;top:0;" /></div>')
 			.appendTo(document.body).draggable({
-			containment: "body",	
+			containment: [0, 0,document.body.offsetWidth - 410,$("body").height()-150],	
+			start: function(event,ui) {
+				jQuery("#magnifierWindow").css('visibility','hidden');
+				jQuery.ajax({
+					url: "servlet/PersistenceServlet.do?method=captureScreenshot",
+					dataType: "xml",
+					success: function(data) {
+					//xmlDoc = jQuery.parseXML( data ),
+				    xml = jQuery( data ),
+				    ok = xml.find( "OK" );
+					//alert(ok);
+					var timeStamp = ok.text();//jQuery(jQuery.parseXML(data)).find("ok").text();
+					//alert(timeStamp);
+					var imageName = "cache/screenshot"+timeStamp+".png";
+					jQuery(ddpowerzoomer).initMagnify({largeimage:imageName});
+					jQuery("#magnifierWindow").css('visibility','visible');
+					}
+				});
+			},
 			drag: function(event, ui) {
 				var $magnifier=ddpowerzoomer.$magnifier
 				var s = ddpowerzoomer.$zommersettings
