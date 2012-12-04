@@ -203,7 +203,7 @@ function showMagnify() {
 					defaultpower: 2,
 					powerrange: [2,5],
 					largeimage: null,
-					magnifiersize: [300,100] 
+					magnifiersize: [380,100] 
 				});
 		}	
 		jQuery(ddpowerzoomer.$magnifier.outer).hide();
@@ -219,8 +219,8 @@ function showMagnify() {
 			//alert(timeStamp);
 			var imageName = "cache/screenshot"+timeStamp+".png"
 			
-			jQuery(ddpowerzoomer.$magnifier.outer).css('left',document.body.clientWidth/2 + 'px');
-			jQuery(ddpowerzoomer.$magnifier.outer).css('top',document.body.clientHeight/2 + 'px');
+			jQuery(ddpowerzoomer.$magnifier.outer).css('left',(document.body.clientWidth/2 - 205)+ 'px');
+			jQuery(ddpowerzoomer.$magnifier.outer).css('top',(document.body.clientHeight/2 - 75) + 'px');
 			jQuery(ddpowerzoomer.$magnifier.outer).show();
 			jQuery(ddpowerzoomer).initMagnify({largeimage:imageName});
 			}
