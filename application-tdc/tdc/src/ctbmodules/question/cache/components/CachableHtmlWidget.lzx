@@ -118,6 +118,8 @@ Debug.write("Cachaable html widget ondata");
 
 		<method name="setAnswer" ><![CDATA[
 		   //Debug.write("setAnswer ansObj");
+		   var ansObj = gController.teItemState[this.srcUrl];
+		   //Debug.write("answerObject setanswer ",ansObj)
 		   if(this.main.ht.ready && gController.htmlFields.length > 0){
 		    if(!this.answered){
 		     var htmlContent = this.answerObjSet.htmlContent;
@@ -125,9 +127,12 @@ Debug.write("Cachaable html widget ondata");
 		     var checkedVals = []
 		     if(this.answerObjSet.checkedVals){
 		      checkedVals = this.answerObjSet.checkedVals;
-
 		     }
-		   //this.main.ht.callJavascript('accomPkg.setState', null,htmlContent, jsonContent, checkedVals);
+		     		      
+		     if(ansObj){
+		   		htmlContent = ansObj.htmlContent;
+		   		jsonContent = ansObj.jsonContent;
+		   	}
 		   this.main.ht.callJavascript('setState', null,htmlContent, jsonContent, checkedVals);
 		   //  lz.Timer.resetTimer(setStateDel, 500);
 		    }else{
@@ -256,6 +261,10 @@ Debug.write("Cachaable html widget ondata");
 		</method>
 
 		<method name="doReturnToCache"><![CDATA[
+			if(!this.answered){
+				var obj = gController.answerObj;
+				gController.teItemState[this.srcUrl] = obj;			
+			}
 			var coordinateDel = new LzDelegate(this, 'handleScratchpad');
 			this.main.ht.callJavascript('getScratchpadCoordinates',coordinateDel);
        ]]></method>

@@ -516,6 +516,8 @@
 		<attribute name="htmlmanipStateHtml" value="$once{new Object()}" />
 		<attribute name="questionFontSize" type="number" value="0"/>
 		<attribute name="displayText" value="false"/>
+		
+		<attribute name="teItemState" value="$once{new Object()}"/>
 		<!--
 			============================================================
 			Datapointers
