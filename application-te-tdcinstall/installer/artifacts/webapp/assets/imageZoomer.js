@@ -7,7 +7,7 @@
 //June 18th, 10: Adds ability to specify a different, higher resolution version of the original image as the image shown inside the magnifying glass.
 
 jQuery.noConflict()
-
+var isDragging = 0;
 var ddpowerzoomer={
 	dsetting: {defaultpower:2, powerrange:[2,7], magnifiersize:[75, 75]},
 	mousewheelevt: (/Firefox/i.test(navigator.userAgent))? "DOMMouseScroll" : "mousewheel", //FF doesn't recognize mousewheel as of FF3.x
@@ -100,8 +100,11 @@ var ddpowerzoomer={
 			.appendTo(document.body).draggable({
 			containment: [0, 0,document.body.offsetWidth - 330,$("body").height()-150],	
 			start: function(event,ui) {
+			    //alert(window.isDragging);
+			    if(isDragging == 0){
+			    isDragging = 1;
 				jQuery("#magnifierWindow").css('visibility','hidden');
-				jQuery.ajax({
+				setTimeout(function(){jQuery.ajax({
 					url: "servlet/PersistenceServlet.do?method=captureScreenshot",
 					dataType: "xml",
 					success: function(data) {
@@ -114,8 +117,10 @@ var ddpowerzoomer={
 					var imageName = "cache/screenshot"+timeStamp+".png";
 					jQuery(ddpowerzoomer).initMagnify({largeimage:imageName});
 					jQuery("#magnifierWindow").css('visibility','visible');
+					isDragging = 0;
 					}
-				});
+				})},100);
+				}
 			},
 			drag: function(event, ui) {
 				var $magnifier=ddpowerzoomer.$magnifier
