@@ -236,6 +236,7 @@ Debug.write("Cachaable html widget ondata");
 			break;
 
 			case 'masking_ruler'	:  gController.manipStateHtml['masking_ruler'] = manipButton;
+			break;
 			}
 			for(var key in gController.manipStateHtml) {
     			var value = gController.manipStateHtml[key];
@@ -264,6 +265,9 @@ Debug.write("Cachaable html widget ondata");
 			if(!this.answered){
 				var obj = gController.answerObj;
 				gController.teItemState[this.srcUrl] = obj;			
+			}else {
+				if(gController.teItemState[this.srcUrl] !=null || typeof gController.teItemState[this.srcUrl] !='undefined')
+					delete gController.teItemState[this.srcUrl];			
 			}
 			var coordinateDel = new LzDelegate(this, 'handleScratchpad');
 			this.main.ht.callJavascript('getScratchpadCoordinates',coordinateDel);
@@ -307,7 +311,7 @@ Debug.write("Cachaable html widget ondata");
 						
 	     </method>
        
-       <view name="main" width="${parent.parent.width - 10}" height="${parent.parent.height - 10}">
+       <view name="main" width="${parent.parent.width - 20}" height="${parent.parent.height - 10}">
  	       <html name="ht" id="htmlwiget" width="${780 * canvas.xscalefactor}" height="${450 * canvas.yscalefactor}" scrollbars="false" >
 
  	       </html>
