@@ -4707,13 +4707,23 @@ Debug.write("############ loadItem ############");
 
 		<method name="checkHideMagnifierGlass">
 			if(this.magnifierState)  {
-				gMagnifyingGlass.hideGlass();
+				if(gController.isNotTEItem() == true) {//regular item 
+					gMagnifyingGlass.hideGlass();
+				}
+				else {//TE item
+					lz.Browser.loadJS('hideMagnify();');
+				}
 		   }   
 		</method>
 
 		<method name="checkShowMagnifierGlass">
 		   if(this.magnifierState)  {
-				gMagnifyingGlass.showGlass();
+				if(gController.isNotTEItem() == true) {//regular item 
+					gMagnifyingGlass.showGlass();
+				}
+				else {//TE item
+					lz.Browser.loadJS('displayMagnifier()');
+				}
 		   }   
 		</method>
 			<method name="hideMaskingChoiceDD">
