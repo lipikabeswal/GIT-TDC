@@ -5,7 +5,7 @@
     <class name="MaskingRuler" 
 			extends="MaskingManipulative"
            clickable="true" 
-           showhandcursor="false">
+           showhandcursor="true">
 
       
         <attribute name="labelrsr"     value="" type="string"/>
