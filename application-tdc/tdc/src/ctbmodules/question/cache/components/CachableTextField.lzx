@@ -4,6 +4,7 @@
     <include href="CachableInputTextField.lzx"/>
     <include href="utils/layouts/wrappinglayout.lzx"/>
     <include href="../../../rich-text/inlinewrappinglayout.lzx"/>
+    <include href="lib/mytext.lzx"/>
 
     <!-- ===============
          ==
@@ -1170,13 +1171,12 @@ parse the text string and store text and image string in an array at different i
                </handler>
            </view>
 
-           <text name="thetext" multiline="true" 
+           <mytext name="thetext" multiline="true" 
                x="${classroot.leftPadding}"
                width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
                fgcolor="${classroot.fontcolor}"
-               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" selectable="false" clickable="false">
-               <handler name="onclick">
-				
+               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" antialias="normal" selectable="false" clickable="false">
+               <handler name="onclick">				
                	this.setSelection(0, 0); 
 				 if(classroot.isReadable){
 				 	classroot.read(gReadableText.stripHtmlTags(this.text));
@@ -1188,7 +1188,16 @@ parse the text string and store text and image string in an array at different i
                <handler name="onmouseup">
                	this.setSelection(0, 0); 
                </handler>
-            </text>
+            </mytext>
+            <button text="antialias" visible="false">
+            	<handler name="onclick">
+            		if(parent.thetext.antialias == 'normal'){
+            		parent.thetext.setAttribute('antialias','advanced');
+            		}else{
+            		parent.thetext.setAttribute('antialias','normal');
+            		}
+            	</handler>            	
+            </button>
         </state>
     </class>
 

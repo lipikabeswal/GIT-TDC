@@ -1,0 +1,22 @@
+   <class name="mytext" extends="text">
+        <passthrough when="$as3">
+            import flash.text.AntiAliasType;
+        </passthrough>
+        <attribute name="antialias" type="string" value="advanced" />
+        <handler name="oninit">
+            this.onantialias.sendEvent();
+        </handler>
+        <handler name="onantialias">
+            var t = this.getDisplayObject().textfield;
+            if ( this.antialias == 'normal' ) {
+            	Debug.write("ANTIALIAS NORMAL");
+                t.antiAliasType = flash.text.AntiAliasType.NORMAL;
+            } else {
+                t.antiAliasType = flash.text.AntiAliasType.ADVANCED;
+            }
+        </handler>
+        <method name="toogleAntialias">
+            if ( this.antialias == 'normal' ) this.setAttribute( 'antialias', 'advanced' );
+            else this.setAttribute( 'antialias', 'normal' );
+        </method>
+    </class>
