@@ -3169,13 +3169,25 @@
 					}
 				}
 				if(this.htmlFields != null){
-					Debug.write("gController.manipStateHtml******* ",gController.manipStateHtml);
+					Debug.write("gController.manipStateHtml******* ",gController.manipStateHtml,gController.htmlmanipStateHtml);
 					for(var key in gController.manipStateHtml){
 						if(key!='highlighter' && key!='eraser' && key!='scratchpad'){
 							var manipObjData = gController.manipStateHtml[key];
 							if(manipObjData.isselected == 'true' || manipObjData.isselected == true){
 								Debug.write("gController.manipStateHtml------------- ",manipObjData);
 								gController.manipStateHtml[manipObjData.toolid].resetState();
+								gController.setManipulativeSelState (manipObjData.toolid,'up');
+								var comp = gController.htmlFields[0];
+	                			comp.ref.showHideManipulative(manipObjData.toolid, manipObjData);
+							}
+						}
+					}
+					for(var key in gController.htmlmanipStateHtml){
+						if(key!='highlighter' && key!='eraser' && key!='scratchpad'){
+							var manipObjData = gController.htmlmanipStateHtml[key];
+							if(manipObjData.isselected == 'true' || manipObjData.isselected == true){
+								Debug.write("gController.htmlmanipStateHtml------------- ",manipObjData);
+								gController.htmlmanipStateHtml[manipObjData.toolid].resetState();
 								gController.setManipulativeSelState (manipObjData.toolid,'up');
 								var comp = gController.htmlFields[0];
 	                			comp.ref.showHideManipulative(manipObjData.toolid, manipObjData);
@@ -3850,18 +3862,27 @@ Debug.write("############ loadItem ############");
 
 			Debug.write("openTEManipulatives****** ",openManipData,gController.htmlmanipStateHtml);
 
-
 			for(var key in openManipData){
 				if(key != 'eid'){
 					var manipObjData = openManipData[key];
 					if(manipObjData.isselected == 'true' || manipObjData.isselected == true){
-						gController.setManipulativeSelState (manipObjData.toolid,'sel');
+						//Debug.write("openTEManipulatives------isselected----- ",gController.htmlmanipStateHtml[manipObjData.toolid]);
+						if(gController.htmlmanipStateHtml[manipObjData.toolid].isenabled){
+							gController.htmlmanipStateHtml[manipObjData.toolid].isselected = true;
+							gController.htmlmanipStateHtml[manipObjData.toolid].showManipState();
+						}
+						//gController.setManipulativeSelState (manipObjData.toolid,'sel');
 					}
 					else if(manipObjData.isselected == 'undefined' || manipObjData.isselected == 'false' || manipObjData.isselected == false){
+						//Debug.write("openTEManipulatives---not---isselected----- ",gController.htmlmanipStateHtml[manipObjData.toolid]);
 						var manip = htmlmanipStateHtml[manipObjData.toolid];
 						if(manip!=null && manip!='undefined'){
 							manip['isselected'] = false;
-							gController.setManipulativeSelState (manipObjData.toolid,'up');
+							if(gController.htmlmanipStateHtml[manipObjData.toolid].isenabled){
+								gController.htmlmanipStateHtml[manipObjData.toolid].isselected = false;
+								gController.htmlmanipStateHtml[manipObjData.toolid].showManipState();
+							}
+							//gController.setManipulativeSelState (manipObjData.toolid,'up');
 						}
 					}
 				}
