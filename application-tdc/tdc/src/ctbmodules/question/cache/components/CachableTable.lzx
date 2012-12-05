@@ -235,7 +235,7 @@
                 align = data.getAttr("halign");
             }
             this.setAttribute('align',align);
-
+            if (this.x < 0) this.setAttribute('x',0);
 //Debug.write("this width : " + this.width + " x : " + this.x, this);
 //Debug.write("parent width : " + parent.width + " x : " + parent.x, parent);
 			
