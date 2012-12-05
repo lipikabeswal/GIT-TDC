@@ -81,9 +81,11 @@
                   <handler name="onmousewheeldelta" reference="lz.Keys" args="direction"><![CDATA[
 		               var thisX = this.getMouse("x");
 		               var thisY = this.getMouse("y");
-		               if (this.containsPt(thisX, thisY)) {
-		                   scroll.step(-direction);
-		               }
+					   if(!gScratchpad.scratchpadHasFocus) {
+			               if (this.containsPt(thisX, thisY)) {
+			                   scroll.step(-direction);
+			               }
+					  }
 		           ]]>
 		           </handler>
                   
