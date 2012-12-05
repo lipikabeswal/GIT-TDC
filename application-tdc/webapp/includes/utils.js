@@ -73,14 +73,21 @@ function initScratchpad(arg){
 				case 116: // F5				
 				return true;		
 			}	
-				
-			if(textAreaElement.value.length > 10000) {
-				textAreaElement.value = textAreaElement.value.substring(0, 10001);
-				//textAreaElement.scrollTop = 1;
+			var ctrlDown = e.ctrlKey || e.metaKey;
+			if(!ctrlDown && textAreaElement.value.length >= 10000) {
+				textAreaElement.value = textAreaElement.value.substring(0, 10000);
 				return false;
-			} else {
-				return true;
+			} 
+			if (ctrlDown && e.keyCode == 86 && textAreaElement.value.length >= 10000) {
+				textAreaElement.value = textAreaElement.value.substring(0, 10000);
+				return false;
 			}
+		};
+		textAreaElement.onkeyup = function(e) {
+    		if(textAreaElement.value.length >= 10000) {
+				textAreaElement.value = textAreaElement.value.substring(0, 10000);
+				return false;
+			} 
 		};
 }
 
