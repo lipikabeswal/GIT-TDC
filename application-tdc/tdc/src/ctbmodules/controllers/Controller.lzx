@@ -3824,9 +3824,9 @@ Debug.write("############ loadItem ############");
                         	if(i == 'highlighter' && !this.showHighlighter){
                         		dnglobal.setAttr('highlighter', 'disable');
                         	}
-                        	else if(i == 'eraser' && !this.showHighlighter){
+                        	/*else if(i == 'eraser' && !this.showHighlighter){
                         		dnglobal.setAttr('eraser', 'disable');
-                        	}
+                        	}*/
                         	else if(i == 'masking_ruler' && !this.showMaskingRuler){
                         		dnglobal.setAttr('masking_ruler', 'disable');
                         	}
