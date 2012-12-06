@@ -328,9 +328,9 @@
 		<!-- The tool to control the TTS speed -->
 			<radiogroup visible="${gController.hasTTSspeed &amp;&amp; parent.screenreader.stopreader.visible}" name="speedController" height="20" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
 				<datapath xpath="dslogin:/login_response/@tts_speed_value"></datapath>
-				<radiobutton value="'Slow'" text="Slow " height="15" valign="middle"/>
-				<radiobutton value="'Medium'" text="Medium " height="15" valign="middle" selected="true" />
-				<radiobutton value="'Fast'" text="Fast " height="15" valign="middle"/>
+				<radiobutton value="'S'" text="Slow " height="15" valign="middle"/>
+				<radiobutton value="'M'" text="Medium " height="15" valign="middle" selected="true" />
+				<radiobutton value="'F'" text="Fast " height="15" valign="middle"/>
 
 				<handler name="onselect"><![CDATA[
 					if(gReadableText.isplaying && gReadableText.isReadable && 
