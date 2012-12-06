@@ -266,7 +266,7 @@ Debug.write("Cachaable html widget ondata");
 				var obj = gController.answerObj;
 				gController.teItemState[this.srcUrl] = obj;			
 			}else {
-				if(gController.teItemState[this.srcUrl] !=null || typeof gController.teItemState[this.srcUrl] !='undefined')
+				if(gController.teItemState[this.srcUrl] !=null && typeof gController.teItemState[this.srcUrl] !='undefined')
 					delete gController.teItemState[this.srcUrl];			
 			}
 			var coordinateDel = new LzDelegate(this, 'handleScratchpad');
