@@ -47,7 +47,7 @@
 
         <handler name="onclick"><![CDATA[
             if (this.isenabled) {
-            
+            var currentEid = gController.dpstudentdata.xpathQuery("current_item/item_model/@eid");
              if(gController.htmlFields.length > 0){
              	if(this.isselected == false){
                 	this.setAttribute ('isselected', true);
@@ -60,9 +60,11 @@
 						}
 	                	
 	                	for(var i=0;i<gController.htmlGeneralManipData.length;i++){
-	                		var manip = gController.htmlGeneralManipData[i][toolid];
-							if(manip!=null && manip!='undefined'){
-	                			manip['isselected'] = false;
+							if(gController.htmlGeneralManipData[i].eid == currentEid){
+	                			var manip = gController.htmlGeneralManipData[i][toolid];
+								if(manip!=null && manip!='undefined'){
+		                			manip['isselected'] = false;
+								}
 							}
 	                	}
 					}
