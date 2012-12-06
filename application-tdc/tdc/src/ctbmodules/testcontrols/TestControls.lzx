@@ -38,16 +38,22 @@
 				   setter="setMarkForReview (revisitAllowed)" />
 
         <method name="setIsCurrAnswered" args="isanswered"><![CDATA[
-        	Debug.write("setIsCurrAnswered============== ",isanswered);
+        	//Debug.write("setIsCurrAnswered============== ",isanswered,itemtype,this.itemtype,classroot.itemtype);
             if (typeof (isanswered) == 'string') {
                isanswered = (isanswered == '1');
             }
-            
+            if(itemtype ==  null){
+				
+				var item = datapath.xpathQuery('current_item/item_model/interaction/@type');
+				//Debug.write("item type**********......",item);
+				this.setAttribute('itemtype',item);
+			}
             var isgr = itemtype == 'grid'; 
 			var iscr = itemtype == 'text_entry';
 
             //only show text for selection responses
             var isselanswer = datapath.xpathQuery ('current_item/item_model/interaction/selector') != null;
+           // Debug.write("setIsCurrAnswered***",itemtype,isgr,iscr);
             this.answertxt.answeristxt.setAttribute ('visible', isanswered && !isgr && !iscr);
             this.answertxt.noanswertxt.setAttribute ('visible', !isanswered && isselanswer && !isgr && !iscr );
             
