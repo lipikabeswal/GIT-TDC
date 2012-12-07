@@ -3408,10 +3408,10 @@ Debug.write("############ loadItem ############");
             this.resetCrFields();
 			this.resetAudioFields();
 			//Debug.write("reset in load item htmlFields");
+			hideMagnifierGlass();//hiding glass first because there is a dependency of count of html fields
 			this.resetHtmlFields();
 			//this.resetImageField();
 			gMaskingAnswer.setAttribute("withState",false);
-			hideMagnifierGlass();
 			hideMaskingChoiceDD();
 		]]></method>
 
