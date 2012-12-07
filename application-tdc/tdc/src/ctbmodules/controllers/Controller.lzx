@@ -3770,11 +3770,24 @@ Debug.write("############ loadItem ############");
 
                 var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
                 dncurritem.appendChild (dnmanip);
+            }else{
+            	var dnmanipulatives = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives');
+	            var dnglob = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');
+				 if(dnmanipulatives != null){
+					dnmanipulatives.removeChild (dnglob);
+					initglobal = true;
+					Debug.write("dnglob********** ",dnmanipulatives);
+	           	 }
             }
 
             if (initgeneral) {
                 dngeneral = new lz.DataElement ('general', {}, []);
                 dnmanip.appendChild (dngeneral);
+            }
+            
+			if (initglobal && !dnglobal) {
+                var dnglobal = new lz.DataElement ('global', {}, []);
+                dnmanip.appendChild (dnglobal);
             }
 
             if (initglobal || initgeneral) {
@@ -3838,7 +3851,11 @@ Debug.write("############ loadItem ############");
                       if (i == 'scratchpad' && dnglobal && dnglobal.getAttr(i) != 'disable'){  // force override scratchpad to obey global value
                        	dnglobal.setAttr(i, this.scratchpadOpen ? 'sel' : 'up');						
                       }
-                    } else if (initgeneral) {
+                    } else if(this._isRadioGlobalManipulator(i)){
+						 if (initglobal){
+                    		dnglobal.setAttr (i, toolstate);
+                    	}                    	
+                    }else if (initgeneral) {
                         dngeneral.setAttr (i, toolstate);						
                     }
 
