@@ -144,3 +144,6 @@ function moveCaretToEnd(el) {
         range.select();
     }
 }
+function scratchpadBlur(){
+	textAreaElement.blur();
+}

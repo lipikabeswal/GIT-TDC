@@ -13,6 +13,10 @@
 
 		<handler name="onmousedown" >
 			this.bringToFront();
+			if(gScratchpad.visible){
+				var s = "scratchpadBlur()";
+				lz.Browser.loadJS(s);
+			}
 		</handler>
 		<handler name="ontickmarksrsr">
 			if(this.tickmarksrsr != null){

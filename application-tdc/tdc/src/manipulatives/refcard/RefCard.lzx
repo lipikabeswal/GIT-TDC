@@ -92,6 +92,10 @@
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
             lz.Cursor.lock ();
             this.dragger.apply ();
+            if(gScratchpad.visible){
+				var s = "scratchpadBlur()";
+				lz.Browser.loadJS(s);
+			}
         </handler>
 
         <handler name="onmouseup">
