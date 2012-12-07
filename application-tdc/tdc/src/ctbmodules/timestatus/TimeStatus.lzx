@@ -32,7 +32,7 @@
                         disabledResourceNumber="0"
                         />
 
-            <text visible="${ classroot.timerctrl.isuntimed == 'true' }"
+            <text visible="${ classroot.timerctrl.isuntimed == 'true' || classroot.timerctrl.isuntimed == true}"
                   options="ignorelayout" fgcolor="white" fontsize="15"
                   x="${ parent.stopbutton.x + ((parent.stopbutton.width - width)/2) }"
                   y="-24">
