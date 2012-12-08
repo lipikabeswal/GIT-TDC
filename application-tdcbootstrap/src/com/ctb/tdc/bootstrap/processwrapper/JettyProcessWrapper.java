@@ -341,8 +341,25 @@ public class JettyProcessWrapper extends Thread {
                 this.stopCmd[9] = this.stopCmd[9].replaceAll(" ", "\\ ");
             }            
 			Runtime.getRuntime().exec(this.stopCmd, null, new File(tdcHome) );
+			String teItemsPath = this.tdcHome + File.separator + "webapp" + File.separator + "items";
+			deleteTEItems(teItemsPath);
 		} catch( IOException e ) {
 			ConsoleUtils.messageErr("An error has occured within " + this.getClass().getName(), e);
+		}
+	}
+	/**
+	 * Delete TE items from webapp/items folder
+	 * after the test is over
+	 */
+	public void deleteTEItems(String path) {
+		File files[] = new File(path).listFiles();
+		for (File file : files) {
+			if(file.isDirectory()) {
+				deleteTEItems(file.getAbsolutePath());
+				file.delete();
+			} else if(file.isFile() && file.getName().indexOf("txt") == -1) {
+				file.delete();
+			}
 		}
 	}
 }
