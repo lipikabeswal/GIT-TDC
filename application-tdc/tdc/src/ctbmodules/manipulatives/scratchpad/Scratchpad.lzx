@@ -103,7 +103,7 @@
         
         <method name="restoreFocusAndCursor" >
         	this.sp.inp.onfocus.sendEvent();
-       		//this.sp.resetTheSelection();
+       		this.sp.resetTheSelection();
         	this.setAttribute("scratchpadHasFocus", true);
 			gHotKeys.disableKeys();
         </method>
@@ -190,6 +190,7 @@
 	                this.style.setAttribute("textfieldcolor", gController.answerBgColor);
 					//this.setAttribute('fontcolor',gController.answerFontColor);
 					this.inp.setAttribute("fgcolor", gController.answerFontColor);
+					
 				 	if(gController.hasFontAccommodation){
 						this.setAttribute('fontsize',18);
 					}
