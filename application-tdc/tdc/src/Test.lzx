@@ -667,7 +667,7 @@ switch(arg){
 									gMaskingRuler.setAttribute("isselected",false);
 								}else{
 									gMaskingRuler.setAttribute("isselected",true);
-									gMaskingRuler.ruler.setAttribute('width',gMaskingRuler.maxLength);
+									/*gMaskingRuler.ruler.setAttribute('width',gMaskingRuler.maxLength);*/
 									gMaskingRuler.setAttribute('x',(canvas.width/2-gMaskingRuler.width/2));
 									gMaskingRuler.setAttribute('y',(canvas.height/2-gMaskingRuler.height/2));
 									gMaskingRuler.show();

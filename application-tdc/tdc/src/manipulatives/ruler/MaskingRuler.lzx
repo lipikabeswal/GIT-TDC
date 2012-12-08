@@ -246,7 +246,7 @@ Debug.write("else "+data +" : "+ hasstate);
 		
         <view name="ruler" 
               x="0" 
-              clip="true">
+              clip="true" width="${canvas.width}">
             <view name="bg" 
                   resource="masking_ruler_background" 
                   opacity="1" width="${canvas.width}">
