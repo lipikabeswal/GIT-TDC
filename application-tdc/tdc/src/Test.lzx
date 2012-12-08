@@ -524,6 +524,8 @@ var manipObjData;
 <handler name="onmanipid" args="arg">
 	<![CDATA[
 var accom = document.getElementById('__lz1').contentWindow.accomPkg;
+var newwidth;
+var newheigth;
 switch(arg){
 
 		case 'highlighter': if(this.eraserSel){
@@ -565,8 +567,10 @@ switch(arg){
 								gProtractor.setAttribute("isselected",false);
 							}else{
 								gProtractor.setAttribute("isselected",true);
-								gProtractor.setAttribute('x',325);
-								gProtractor.setAttribute('y',225);
+								newwidth = gProtractor.width*xscalefactorjs;
+								newheigth = gProtractor.height*yscalefactorjs;
+								gProtractor.setAttribute('x',(this.width/2-newwidth/2));
+								gProtractor.setAttribute('y',(this.height/2-newheigth/2));
 								gProtractor.setAttribute('rotation',0);
 								gProtractor.show();
 							}
@@ -579,8 +583,10 @@ switch(arg){
 								//gStandardCalculator.updateDisplay();
 							}else{
 								gStandardCalculator.setAttribute("isselected",true);
-								gStandardCalculator.setAttribute('x',(this.width/2-gStandardCalculator.width/2));
-								gStandardCalculator.setAttribute('y',(this.height/2-gStandardCalculator.height/2));
+								newwidth = gStandardCalculator.width*xscalefactorjs;
+								newheigth = gStandardCalculator.height*yscalefactorjs;
+								gStandardCalculator.setAttribute('x',(this.width/2-newwidth/2));
+								gStandardCalculator.setAttribute('y',(this.height/2-newheigth/2));
 								gStandardCalculator.show();
 								gStandardCalculator.setAttribute('input','0');
 								gStandardCalculator.setAttribute('currentOperand','0');
@@ -594,8 +600,10 @@ switch(arg){
 								gScientificCalculator.setAttribute("isselected",false);
 							}else{
 								gScientificCalculator.setAttribute("isselected",true);
-								gScientificCalculator.setAttribute('x',(this.width/2-gScientificCalculator.width/2));
-								gScientificCalculator.setAttribute('y',(this.height/2-gScientificCalculator.height/2));
+								newwidth = gScientificCalculator.width*xscalefactorjs;
+								newheigth = gScientificCalculator.height*yscalefactorjs;
+								gScientificCalculator.setAttribute('x',(this.width/2-newwidth/2));
+								gScientificCalculator.setAttribute('y',(this.height/2-newheigth/2));
 								gScientificCalculator.show();
 							}
 		break;
@@ -606,10 +614,12 @@ switch(arg){
 										gStraightEdge.setAttribute("isselected",false);
 									}else{
 										gStraightEdge.setAttribute("isselected",true);
-										gStraightEdge.setAttribute('x',(this.width/2-gStraightEdge.width/2));
-										gStraightEdge.setAttribute('y',(this.height/2-gStraightEdge.height/2));
-										gStraightEdge.setAttribute('rotation',0);
 										gStraightEdge.ruler.setAttribute('width',gStraightEdge.maxLength);
+										newwidth = gStraightEdge.width*xscalefactorjs;
+										newheigth = gStraightEdge.height*yscalefactorjs;
+										gStraightEdge.setAttribute('x',(this.width/2-newwidth/2));
+										gStraightEdge.setAttribute('y',(this.height/2-newheigth/2));
+										gStraightEdge.setAttribute('rotation',0);
 										gStraightEdge.show();
 									}
 				break;
@@ -618,10 +628,12 @@ switch(arg){
 										gEighthInchRuler.setAttribute("isselected",false);
 									}else{
 										gEighthInchRuler.setAttribute("isselected",true);
-										gEighthInchRuler.setAttribute('x',(this.width/2-gEighthInchRuler.width/2));
-										gEighthInchRuler.setAttribute('y',(this.height/2-gEighthInchRuler.height/2));
-										gEighthInchRuler.setAttribute('rotation',0);
 										gEighthInchRuler.ruler.setAttribute('width',gEighthInchRuler.maxLength);
+										newwidth = gEighthInchRuler.width*xscalefactorjs;
+										newheigth = gEighthInchRuler.height*yscalefactorjs;
+										gEighthInchRuler.setAttribute('x',(this.width/2-newwidth/2));
+										gEighthInchRuler.setAttribute('y',(this.height/2-newheigth/2));
+										gEighthInchRuler.setAttribute('rotation',0);
 										gEighthInchRuler.show();
 									}
 				break;
@@ -630,10 +642,12 @@ switch(arg){
 										gHalfInchRuler.setAttribute("isselected",false);
 									}else{
 										gHalfInchRuler.setAttribute("isselected",true);
-										gHalfInchRuler.setAttribute('x',(this.width/2-gHalfInchRuler.width/2));
-										gHalfInchRuler.setAttribute('y',(this.height/2-gHalfInchRuler.height/2));
-										gHalfInchRuler.setAttribute('rotation',0);
 										gHalfInchRuler.ruler.setAttribute('width',gHalfInchRuler.maxLength);
+										newwidth = gHalfInchRuler.width*xscalefactorjs;
+										newheigth = gHalfInchRuler.height*yscalefactorjs;
+										gHalfInchRuler.setAttribute('x',(this.width/2-newwidth/2));
+										gHalfInchRuler.setAttribute('y',(this.height/2-newheigth/2));
+										gHalfInchRuler.setAttribute('rotation',0);
 										gHalfInchRuler.show();
 									}
 				break;
@@ -642,10 +656,12 @@ switch(arg){
 										gMmRuler.setAttribute("isselected",false);
 									}else{
 										gMmRuler.setAttribute("isselected",true);
-										gMmRuler.setAttribute('x',(this.width/2-gMmRuler.width/2));
-										gMmRuler.setAttribute('y',(this.height/2-gMmRuler.height/2));
-										gMmRuler.setAttribute('rotation',0);
 										gMmRuler.ruler.setAttribute('width',gMmRuler.maxLength);
+										newwidth = gMmRuler.width*xscalefactorjs;
+										newheigth = gMmRuler.height*yscalefactorjs;
+										gMmRuler.setAttribute('x',(this.width/2-newwidth/2));
+										gMmRuler.setAttribute('y',(this.height/2-newheigth/2));
+										gMmRuler.setAttribute('rotation',0);
 										gMmRuler.show();
 									}
 				break;
@@ -654,10 +670,12 @@ switch(arg){
 										gCmRuler.setAttribute("isselected",false);
 									}else{
 										gCmRuler.setAttribute("isselected",true);
-										gCmRuler.setAttribute('x',(this.width/2-gMmRuler.width/2));
-										gCmRuler.setAttribute('y',(this.height/2-gMmRuler.height/2));
-										gCmRuler.setAttribute('rotation',0);
 										gCmRuler.ruler.setAttribute('width',gCmRuler.maxLength);
+										newwidth = gCmRuler.width*xscalefactorjs;
+										newheigth = gCmRuler.height*yscalefactorjs;
+										gCmRuler.setAttribute('x',(this.width/2-newwidth/2));
+										gCmRuler.setAttribute('y',(this.height/2-newheigth/2));
+										gCmRuler.setAttribute('rotation',0);
 										gCmRuler.show();
 									}
 				break;
@@ -692,8 +710,10 @@ switch(arg){
 										gFcatFormulaCard.setAttribute("isselected",false);
 									}else{
 										gFcatFormulaCard.setAttribute("isselected",true);
-										gFcatFormulaCard.setAttribute('x',(this.width/2-gFcatFormulaCard.width/2));
-										gFcatFormulaCard.setAttribute('y',(this.height/2-gFcatFormulaCard.height/2));
+										newwidth = gFcatFormulaCard.width*xscalefactorjs;
+										newheigth = gFcatFormulaCard.height*yscalefactorjs;
+										gFcatFormulaCard.setAttribute('x',(this.width/2-newwidth/2));
+										gFcatFormulaCard.setAttribute('y',(this.height/2-newheigth/2));
 										gFcatFormulaCard.show();
 									}
 
@@ -704,11 +724,12 @@ switch(arg){
 										gTnFormulaCard.setAttribute("isselected",false);
 									} else{
 										gTnFormulaCard.setAttribute("isselected",true);
-										gTnFormulaCard.setAttribute('x',(this.width/2-gTnFormulaCard.width/2));
-										gTnFormulaCard.setAttribute('y',(this.height/2-gTnFormulaCard.height/2));
+										newwidth = gTnFormulaCard.width*xscalefactorjs;
+										newheigth = gTnFormulaCard.height*yscalefactorjs;
+										gTnFormulaCard.setAttribute('x',(this.width/2-newwidth/2));
+										gTnFormulaCard.setAttribute('y',(this.height/2-newheigth/2));
 										gTnFormulaCard.show();
 									}
-
 
 
 		break;
