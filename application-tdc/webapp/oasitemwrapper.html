@@ -126,6 +126,7 @@ img {
         var ansSet = false;
         var readable = false;
         var iid = null;
+        var iframeLoaded = false;
         
         function isAnswered(){
         var elem = document.getElementById('__lz1');
@@ -197,9 +198,10 @@ img {
 					} else {
 					  iframe.onload = function(){
 					    window.parent.setAnswerNow('complete');
+					    iframeLoaded = true;
 					    var stat = window.parent.getReadable();
 					    readable =  stat == "true"? true: false;
-					    
+					    unlockUI();
 					    if(readable){
 					    	document.getElementById('read_btn').style.display = "block";
 					    }else{
@@ -257,7 +259,16 @@ img {
         }
         
         function showHideManipulative(arg){
-        	lz.embed.setCanvasAttribute('manipid',arg);
+        var interval;
+        	if(iframeLoaded){
+        		lz.embed.setCanvasAttribute('manipid',arg);
+        		clearTimeout(interval);
+        	}else{
+        		arg = arg;
+        		interval = setTimeout(function(){
+        		showHideManipulative(arg);        			
+        		}, 1000);		
+        	}
         }
         
         function showOpenManipulative(arg){
