@@ -14,7 +14,7 @@ scratchpadFrame.style.width = scratchpadFrame.parentElement.parentElement.style.
 function initScratchpad(arg){
 		var scratchpadFrame = document.getElementById('__lz0');
 		 var innerHTML = '<style type="text/css">html,body {background-color: #FFFFB0; margin: 0px; height: 100%; width: 100%;} @font-face{font-family: OASmathv3;src: url("./../manipulatives/resource/fonts/OASmathv3.ttf");}</style>'
-			                   + '<textarea id="myarea" style="height: 100%; width: 100%;"></textarea>';
+			                   + '<textarea id="myarea" spellcheck=false style="height: 100%; width: 100%;"></textarea>';
 		gScratchpad.setHtml(innerHTML);
 		
 		var elem  = scratchpadFrame.contentWindow.document.getElementById('myarea');
