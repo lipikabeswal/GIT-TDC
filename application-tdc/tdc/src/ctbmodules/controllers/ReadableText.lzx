@@ -44,7 +44,9 @@
         
 		<handler name="oninit">
 			var postUrl = lz.Browser.getInitArg( 'servletUrl' ) + '/SpeechServlet.do';
-			var getUrl = postUrl + '?file=speech.mp3';
+			//var getUrl = postUrl + '?file=speech.mp3';
+			//setAttribute('GET_URL', getUrl);
+			var getUrl = lz.Browser.getInitArg( 'servletUrl' ) + '/speech.mp3';
 			setAttribute('GET_URL', getUrl);
 			speechDs.setAttribute('src', postUrl);
 		</handler>
@@ -136,13 +138,20 @@
         
         <method name="getMp3" ><![CDATA[
         	//ISTEP CR: to avoid browser caching of the mp3
-        	//Debug.write("getMp3" + GET_URL + ":"+timestamp());
-        	audioPlayer.setSource(GET_URL+"&"+timestamp()+".mp3");
+        	//audioPlayer.setSource(GET_URL+"&"+timestamp()+".mp3");
+		audioPlayer.setSource(getSpeechURL());
+        	Debug.write("getMp3" + GET_URL);
         ]]></method>
 
-		<method name="timestamp">
-			return "timestamp="+Math.random();	
-		</method>        
+	<method name="getSpeechURL">
+		var getUrl = lz.Browser.getInitArg( 'servletUrl' ) + '/speech.mp3?'+timestamp();
+		setAttribute('GET_URL', getUrl);
+		return getUrl;
+	</method>
+	
+	<method name="timestamp">
+		return Math.random();	
+	</method>        
         
         <method name="getReadableTextForCharacter" args="c">
         	var result = c;
@@ -216,7 +225,17 @@
 		</method>
 		        
         <view name="audioPlayer" visible="false">
-        	<handler name="onload">
+		<handler name="onresource" args="rsrc">
+			Debug.write("onresource......", rsrc);
+		</handler>	
+		<handler name="ontimeout" args="rsrc">
+			Debug.write("ontimeout......", rsrc);
+		</handler>	
+		<handler name="onerror" args="rsrc">
+			Debug.write("onerror......", rsrc);
+		</handler>	
+
+		<handler name="onload">
         		gReadableText.isplaying = true; // TTS CR:when mp3 is loaded and ready to play
 				//Changes for Defect # 65040
  				this.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
@@ -232,10 +251,10 @@
 				}
 
         		if(!gCommunicator.error){  // if we get an onload and there is no error
-	        	//	Debug.write("inside if of readable");
+	        		Debug.write("inside if of readable");
 					lz.Timer.removeTimer( parent.dTimeout );
 	        		if(parent.primed){
-					//Debug.write("inside if of primed");
+					Debug.write("inside if of primed");
 		       			gController.unlockUI();
 	        		}
 	        		else{
@@ -246,19 +265,19 @@
 
 			<!-- TTS CR: when play method is called, set isplaying true -->
 			<handler name="onplay" args="f">
-				//Debug.write("audioPlayer onplay..", f);
+				Debug.write("audioPlayer onplay..", f);
 				gReadableText.isplaying = true;
 			</handler>        	
         	
         	<!-- TTS CR: when stop method is called, set isplaying false -->
         	<handler name="onstop">
-        		//Debug.write("onstop for audioplayer : ", gReadableText.isplaying);
+        		Debug.write("onstop for audioplayer : ", gReadableText.isplaying);
         		gReadableText.isplaying = false;
         	</handler>
 				
         	<!-- TTS CR: when whole mp3 is played and reaches at last frame, set isplaying false -->
         	<handler name="onlastframe">
-        	//	Debug.write("onlastframe for audioplayer : ", gReadableText.isplaying);
+        		Debug.write("onlastframe for audioplayer : ", gReadableText.isplaying);
         		gReadableText.isplaying = false;
         	</handler>
          </view>
