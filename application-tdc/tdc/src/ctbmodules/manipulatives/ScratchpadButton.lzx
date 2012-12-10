@@ -1,6 +1,6 @@
 <library>
 
-    <class name="ScratchpadButton">
+    <class name="ScratchpadButton" showhandcursor="false">
         <datapath/>
 
         <attribute name="toolid" type="string"/>
@@ -45,6 +45,7 @@
         ]]></handler>
 
         <handler name="onmouseover"><![CDATA[
+        	this.setAttribute("showhandcursor",true);
             if (!this.isselected && this.isenabled) this.setAttribute('frame', 2); 
             lz.Timer.addTimer (tooltipdel, 500);
         ]]></handler>
