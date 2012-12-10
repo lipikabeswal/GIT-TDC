@@ -64,13 +64,17 @@
 				}
 		]]></handler>
 		
-		<handler name="onmousedown" reference="gItemInterface">
+		<handler name="onmousedown" reference="gItemInterface"><![CDATA[
 			/*if(gController.scratchpadOpen){
 				if(gScratchpad.sp.inp.getTextHeight() > gScratchpad.sp.height) {
 					gScratchpad.sp.inp.setAttribute("scroll",gScratchpad.sp.inp.maxscroll);
 				}
 			}*/
-		</handler>		
+			this.setAttribute("scratchpadHasFocus", false);
+			if(gController.scratchpadOpen && gScratchpad.visible){
+				gHotKeys.enableKeys();
+			}
+		]]></handler>		
 
 		<method name="isScratchpadSubcomponent" args="who">
 			var ancestor = _getAncestor(who);
