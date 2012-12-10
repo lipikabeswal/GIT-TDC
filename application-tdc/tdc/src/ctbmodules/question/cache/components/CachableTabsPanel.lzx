@@ -67,7 +67,21 @@
 	                        }
 	                    }
 	                    this.select(issel);
-	                    var tabpane = classroot.tabs.contents.tabcontents.subviews [this.clonenumber];
+						var tabpane = classroot.tabs.contents.tabcontents.subviews [this.clonenumber];
+						
+						//since, the clone number of tabcontents subviews may be different but data nodes are same at both ends, 
+						//so pick a tabepane by matching its widget id with the widget id of the data node of tab header. 
+						var sviews = classroot.tabs.contents.tabcontents.subviews;
+						var thisid = this.datapath.xpathQuery('@id');
+						var sviewid;
+						for (var i = 0; i < sviews.length; i++) {
+
+							sviewid = sviews[i].datapath.xpathQuery('@id');
+							if(sviewid == thisid) {
+								tabpane = sviews[i];//got the correct pane
+								break;
+							}
+						}
 						tabpane.setAttribute('visible', issel);
 						if(issel){
 							gFootNotePopup.setTabTextPanel(tabpane.getTabText());
