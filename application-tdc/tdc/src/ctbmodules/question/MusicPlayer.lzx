@@ -2,7 +2,7 @@
       y="${gMusicButton.parent.y + gMusicButton.height - 3}"
       x="${gMusicButton.parent.parent.x - gMusicButton.width - gMusicButton.width/2}" 
       visible="false"
-      clickable="false"
+      clickable="true"
       showhandcursor="false">
 
 	<attribute name="popupHeight" type="number" value="40"/>
