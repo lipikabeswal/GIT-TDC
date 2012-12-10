@@ -80,7 +80,7 @@
 			
 			if(arraytouse!=null){
 	            if (arraytouse.length) {
-	                newcomp = arraytouse.pop ();
+	                newcomp = arraytouse.shift();
 //	Debug.write ('CACHE: used cached ', type, newcomp);
 	
 	            } else {
