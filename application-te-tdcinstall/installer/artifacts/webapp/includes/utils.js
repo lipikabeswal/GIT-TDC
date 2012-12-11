@@ -147,3 +147,9 @@ function moveCaretToEnd(el) {
 function scratchpadBlur(){
 	textAreaElement.blur();
 }
+
+function getReadable() {
+	var stat = window.parent.getReadable();
+	readable =  stat == "true"? true: false;
+	return readable;
+}
