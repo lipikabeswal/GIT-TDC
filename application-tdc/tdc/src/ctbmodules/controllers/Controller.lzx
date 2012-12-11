@@ -565,6 +565,8 @@
 		<attribute name="showPleaseWaitOver" value="false" type="boolean" />
 		<attribute name="RestartTest" value="false" type="boolean" />
 		<attribute name="productTypeVal" type="string" value="ISTEP"/>
+		<attribute name="onStopTest" value="false" type="boolean" />
+		
 			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -3046,6 +3048,7 @@
 		<method name="pausedContinue" args="pw">
             if ( pw == dpsubtest.xpathQuery( 'testing_session_data/cmi.core/@password' ) ) {
                 lz.Cursor.setCursorGlobal( 'waitcursor' );
+                lz.Cursor.lock();
 				setState(PAUSED_RESUME_STATE);
 				resetHeartbeat();
 				gCommunicator.lifecycle(RESUME_LEV);
@@ -3248,6 +3251,7 @@
 		<method name="resumeTest">
 			
             lz.Cursor.setCursorGlobal( 'waitcursor' );
+            lz.Cursor.lock();
             showItemInterface();
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
@@ -3271,6 +3275,7 @@
 		-->
 
 		<method name="stopTest">
+			this.setAttribute("onStopTest",true);
 			var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
 			//Debug.write("STOP TEST ITEM NODE");
 			var curItemId;
@@ -3315,6 +3320,7 @@
                 gHotKeys.disableKeys();
                 dsdisplay.childNodes[0].setAttr( 'enabled', 'false' );
                 lz.Cursor.setCursorGlobal( 'waitcursor' );
+                lz.Cursor.lock();
                 if (this.htmlFields.length > 0){
 	                var s = "freezeUI()";
 					lz.Browser.loadJS(s);
