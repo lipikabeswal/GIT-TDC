@@ -705,8 +705,10 @@ switch(arg){
 									gScratchpad.setAttribute("isselected",false);
 								}else{
 									gScratchpad.setAttribute("isselected",true);
-									gScratchpad.setAttribute('x',(this.width/2-gScratchpad.width/2));
-									gScratchpad.setAttribute('y',(this.height/2-gScratchpad.height/2));
+									newwidth = gScratchpad.width*xscalefactorjs;
+									newheigth = gScratchpad.height*yscalefactorjs;
+									gScratchpad.setAttribute('x',(this.width/2-newwidth/2));
+									gScratchpad.setAttribute('y',(this.height/2-newheigth/2));
 									gScratchpad.show();
 									resizeSP();
 									//initScratchpad(this.hasfontaccom);

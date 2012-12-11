@@ -193,8 +193,8 @@
 				if(this.visible){  // restore defaults
 					this.setAttribute("height", this.DEFAULT_HEIGHT);
 					this.setAttribute("width", this.DEFAULT_WIDTH);
-					this.setAttribute("x", this.DEFAULT_X);
-					this.setAttribute("y", this.DEFAULT_Y);
+					/*this.setAttribute("x", this.DEFAULT_X);
+					this.setAttribute("y", this.DEFAULT_Y); */
 	           		this.restoreFocusAndCursor();
 					resizeSP();
 	           }else{
