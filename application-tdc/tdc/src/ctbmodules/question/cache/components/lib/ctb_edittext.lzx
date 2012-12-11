@@ -214,7 +214,7 @@
 					this.textclip = this.getDisplayObject()
 				} else {				
 					var mc = this.sprite;
-					Debug.write("AS# ",mc.textfield);
+					//Debug.write("AS# ",mc.textfield);
 					this.textclip = mc.textfield;
 				}
             ]]> 
