@@ -718,6 +718,7 @@
 			for (var i in contsubviews) {
                 if (contsubviews [i].visible && 
                      contsubviews[i] instanceof lz.CachableInputTextField) {
+                     contsubviews[i].destroy();
                        destroy = true;
                 }
             }

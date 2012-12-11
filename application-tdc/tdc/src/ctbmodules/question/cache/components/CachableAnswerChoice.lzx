@@ -49,7 +49,7 @@
 		</handler>
 
         <method name="doReturnToCache">
-            super.doReturnToCache ();
+           // super.doReturnToCache ();
             this.dynlayout.clearSubviews ();
         </method>
 

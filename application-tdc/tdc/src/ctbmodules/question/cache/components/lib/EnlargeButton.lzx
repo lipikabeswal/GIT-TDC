@@ -18,6 +18,7 @@
             if (this.iszoomin) {
             	gFootNotePopup.setAttribute("scrolltext", this);
 				Debug.write("gEnlargePopup button: ", classroot.datapath);
+				gQuestion.setSkip();
                 gEnlargePopup.enlarge(classroot.datapath.p, 
                                       classroot.width, 
                                       classroot.height,
@@ -31,6 +32,7 @@
                 gController.setManipulativeSelState ("option_eliminator", "up");
 
             } else {
+
                 gEnlargePopup.shrink();
             }
         </handler>

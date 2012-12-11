@@ -249,10 +249,12 @@
 			this.wrapper.setAttribute('height', 0);
 			
             this.setAttribute('enablehl', true);
+
             for (var i in contsubviews) {
 				 if (contsubviews [i] instanceof lz.CachableComponent &&
                         contsubviews [i].visible) {
-                    this.cache.returnComponent (contsubviews [i]);
+                  	// this.cache.returnComponent (contsubviews [i]);
+                  	contsubviews[i].destroy();
                 }
             }
         ]]></method>
