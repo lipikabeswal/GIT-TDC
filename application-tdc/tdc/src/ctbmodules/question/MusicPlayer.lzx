@@ -76,6 +76,7 @@
     	if(this.playStarted == true){
     		gMusicPlayer.setAttribute("frame",1);
     		gMusicPlayer.play();
+    		gMusicPlayer.setVolume(volumebar.value);
     	}
     </handler>
 	
@@ -160,7 +161,7 @@
 			<view height="44" valign="middle">
 			<simplelayout axis="y"/>
 			<text name="volumeText" fontsize="7" resize="true" height="15" align="center" fontstyle="bold">Volume</text>			
-			<slider value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" 
+			<slider name="volumebar" id="volumebar" value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" 
 						thumbwidth="16" thumbheight="12" width="80">
 				<handler name="onvalue"><![CDATA[
 		 			if (gMusicPlayer != null) { 
