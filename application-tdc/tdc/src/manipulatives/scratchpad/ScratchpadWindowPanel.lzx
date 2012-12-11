@@ -267,9 +267,15 @@
                 <state name="closeable" applied="${classroot.closeable}">
                 <basebutton resource="read_btn" 
 			 		        name="readBtn"
-			 		        y="-1"
-			 		        visible="true">
+			 		        y="-1">
 					<handler name="oninit">
+						var readable = getReadable();
+						if(readable) {
+							this.setAttribute("visible",true);
+						}
+						else {
+							this.setAttribute("visible",false);
+						}
 						var elem = this.getDisplayObject();
 						elem.setAttribute('id', 'read_btn');
 					</handler>
