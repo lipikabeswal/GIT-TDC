@@ -538,6 +538,10 @@ switch(arg){
 								accom.enableHighlighter(false);
 								accom.removeHighlighterCursor();
 							}else{
+								if(gMaskingRuler.visible){
+									gMaskingRuler.hide();
+									gMaskingRuler.setAttribute("isselected",false);
+								}
 								this.setAttribute('highlighterSel',true);
 								accom.enableHighlighter(true);
 								accom.removeHighlighterCursor();	
@@ -556,6 +560,10 @@ switch(arg){
 								accom.removeHighlighterCursor();
 								accom.setEraserCursor("pointer");
 							}else{
+								if(gMaskingRuler.visible){
+									gMaskingRuler.hide();
+									gMaskingRuler.setAttribute("isselected",false);
+								}
 								this.setAttribute('eraserSel',true);
 								accom.enableEraser(true);
 								accom.removeHighlighterCursor();
