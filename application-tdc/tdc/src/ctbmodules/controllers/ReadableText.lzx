@@ -251,10 +251,10 @@
 				}
 
         		if(!gCommunicator.error){  // if we get an onload and there is no error
-	        		Debug.write("inside if of readable");
+	        	//	Debug.write("inside if of readable");
 					lz.Timer.removeTimer( parent.dTimeout );
 	        		if(parent.primed){
-					Debug.write("inside if of primed");
+					//Debug.write("inside if of primed");
 		       			gController.unlockUI();
 	        		}
 	        		else{
@@ -265,19 +265,19 @@
 
 			<!-- TTS CR: when play method is called, set isplaying true -->
 			<handler name="onplay" args="f">
-				Debug.write("audioPlayer onplay..", f);
+				//Debug.write("audioPlayer onplay..", f);
 				gReadableText.isplaying = true;
 			</handler>        	
         	
         	<!-- TTS CR: when stop method is called, set isplaying false -->
         	<handler name="onstop">
-        		Debug.write("onstop for audioplayer : ", gReadableText.isplaying);
+        		//Debug.write("onstop for audioplayer : ", gReadableText.isplaying);
         		gReadableText.isplaying = false;
         	</handler>
 				
         	<!-- TTS CR: when whole mp3 is played and reaches at last frame, set isplaying false -->
         	<handler name="onlastframe">
-        		Debug.write("onlastframe for audioplayer : ", gReadableText.isplaying);
+        	//	Debug.write("onlastframe for audioplayer : ", gReadableText.isplaying);
         		gReadableText.isplaying = false;
         	</handler>
          </view>
