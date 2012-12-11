@@ -266,6 +266,11 @@
 			canvas.titleView.mainView.scalingView.setAttribute('xscale',canvas.titleView.width/800);
 		}
   	</handler>
+  	
+  	 <handler name="onmousemove">
+    	 if(gController.onStopTest)
+    	 	lz.Cursor.lock();
+     </handler>
 
 
 	<method name="init">
