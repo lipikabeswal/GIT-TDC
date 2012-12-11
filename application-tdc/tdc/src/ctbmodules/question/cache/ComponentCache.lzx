@@ -77,10 +77,11 @@
 	    	var newcomp = null;
             var type = datanode.nodeName;
             var arraytouse = this._findArray (type);
-			
+			//Removing caching because all the lfc class are giving different results
 			if(arraytouse!=null){
 	            if (arraytouse.length) {
-	                newcomp = arraytouse.shift();
+	             //   newcomp = arraytouse.shift();
+					  newcomp = this._createNewComponent (type);	
 //	Debug.write ('CACHE: used cached ', type, newcomp);
 	
 	            } else {
@@ -90,7 +91,7 @@
 	        }
             
     		if(newcomp!=null){
-	            newcomp.doRemoveFromCache ();
+	           newcomp.doRemoveFromCache ();
 	
 	            gController.waitOnComponent( newcomp, datanode.ownerDocument );
 				// allow single line answers to size to fit contents
@@ -121,8 +122,12 @@
 				toReturn.imageview.getMCRef().unloadMovie();
 			
 			}*/
-
-            var arraytouse = this._findArray (toReturn.comptype);
+			//Removing caching
+			toReturn.setAttribute('visible',false);
+			toReturn.destroy();
+			
+			/* 
+			            var arraytouse = this._findArray (toReturn.comptype);
 			
             arraytouse.push (toReturn);
 
@@ -140,6 +145,7 @@
 	            toReturn.setAttribute('height',0);
 	            toReturn.data = null;
 			}
+			*/
         </method>
 
 

@@ -1,6 +1,6 @@
 <library>
     <include href="CachableComponent.lzx"/>
-	<include href="incubator/scrolledittext.lzx" /> 
+	<include href="lib/scrolledittext.lzx" /> 
 
 
     <!-- ===============
@@ -143,6 +143,7 @@
         <method name="setAnswer" args="text">
           var currentFocus = lz.Focus.getFocus();
           this.outer.rich.answer.onfocus.sendEvent();
+		  this.outer.rich.answer.inp.onfocus.sendEvent();
           this.outer.rich.answer.onblur.sendEvent();
           this.outer.rich.answer.setAttribute('text', text);
           if(currentFocus != null){
@@ -254,7 +255,7 @@
 				<view name="rich" bgcolor="${Number(gController.answerBgColor)}">
 				   <scrolledittext name="answer" 
 									 height="${classroot.showFormatBar ? classroot.height - classroot.outer.controls.height : classroot.height }" 
-									 width="${classroot.editTextWidth + 12}" >
+									 width="${classroot.editTextWidth}" x="${classroot.lmargin}">
 										<attribute name="start" type="number" value="0" />
 						<attribute name="end" type="number" value="0" />
 					  <method name="init">
@@ -275,7 +276,7 @@
 					</method>
 		
 					  <handler name="ontext"><![CDATA[
-					  	Debug.write("ontext....");
+
 					  	//Debug.write("Cursor Position :",this.inp.getSelectionPosition());
                     	//Debug.write("Number of Chars :",text.length);
                    
@@ -284,7 +285,6 @@
 							 	if(this.inp.getSelectionPosition()== text.length)
 									if(this.inp.getTextHeight() > this.height) {
 									this.inp.setAttribute("scroll",this.inp.maxscroll);
-									Debug.write("ontext...scroll...initialtext....",this.inp.maxscroll);
 								}
 								var answered = false;
 								for(var i=0; (i< text.length) && !answered; i++){
@@ -333,7 +333,7 @@
 							return '';
 						}
 						else{
-						Debug.write("getTExt.subtsring (start,end)", getText().substring(start, end) );
+						
 							return getText().substring(start, end);
 						}
 					</method>
@@ -351,7 +351,6 @@
 					
 									 
 					<method name="updateText" args="a">
-						Debug.write("updatetext....");
 						this.setAttribute('text',a);		
 					</method>
 

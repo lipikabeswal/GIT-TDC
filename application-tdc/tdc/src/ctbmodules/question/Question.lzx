@@ -13,6 +13,7 @@
         <attribute name="_ACCOMMODATED_TAB_HEIGHT" type="number" value="42" />
         <attribute name="directionsHeight" type="number" value="0" />
         <attribute name="leftPanelWidth" type="number" value="0" />
+        <attribute name="skipCacheDestroy" type="boolean" value="false" />
         
         <ComponentCache name="cache"/>
 
@@ -26,7 +27,28 @@
 			canvas.setCrFocus();
 		</method>
 		
+		<method name="setSkip">
+			this.setAttribute('skipCacheDestroy', true);
+gController.setAttribute('skipCacheDestroy', true);
+		</method>
+
+		<method name="clearSkip">
+			this.setAttribute('skipCacheDestroy', false);
+			gController.setAttribute('skipCacheDestroy', false);
+		</method>
         <handler name="ondata" args="data"><![CDATA[
+        			//the objects dont get enough time to destroy when using do return to cache so had to destroy during load of items
+			//sizer should not be destroyed so we are starting from array 1
+			var contsubviews = gQuestion.subviews;
+	
+			if(!gController.skipCacheDestroy){
+				
+				for (var i = 1; i < contsubviews.length; i++){
+					if(contsubviews[i]){
+						contsubviews[i].destroy();
+					}
+				}
+			}
         	//Clearing Masking Tool states
         	 gController.clearAll();
         	 //gManipulativeBar.globals.maskingAnswer.setup();

@@ -518,6 +518,7 @@
 		<attribute name="displayText" value="false"/>
 		
 		<attribute name="teItemState" value="$once{new Object()}"/>
+		<attribute name="skipCacheDestroy" type="boolean" value="false"/>
 		<!--
 			============================================================
 			Datapointers
@@ -3404,6 +3405,7 @@
 
 		<method name="loadItem"><![CDATA[
 Debug.write("############ loadItem ############");
+            gQuestion.clearSkip();
 			canvas.setAttribute('focusobj', null);
             this.itemloaded    = false;
             this.runtimeready  = false;
