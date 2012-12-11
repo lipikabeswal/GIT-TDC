@@ -169,10 +169,8 @@ img {
 	        	}
         }
         
-        
         function iframeState(){
         	var iframe = document.getElementById('__lz1');
-        	
         	if(iframe){
 				if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
 					  iframe.onreadystatechange = function(){
@@ -196,9 +194,14 @@ img {
 					    }
 					  };
 					} else {
-					  iframe.onload = function(){
+					  iframe.onload = function() {
 					    window.parent.setAnswerNow('complete');
-					    iframeLoaded = true;
+					    //check whether iFrame loaded successfully or not
+					    if(document.getElementById('__lz1') != null
+				    		&& document.getElementById('__lz1').contentWindow != null
+				    		&& typeof document.getElementById('__lz1').contentWindow.accomPkg != 'undefined') {
+					    	iframeLoaded = true;
+					    }
 					    var stat = window.parent.getReadable();
 					    readable =  stat == "true"? true: false;
 					    unlockUI();
@@ -207,51 +210,102 @@ img {
 					    }else{
 					    	document.getElementById('read_btn').style.display = "none";
 					    }
-				     		var fontObj = window.parent.getFontAccomodation();	
-				     		var bgColorObj = window.parent.getBackColorAccomodation();				    	
-				     		
-					    	if(fontObj.hasFont == 'true'){
-					    		if(fontObj.hasFontMag == 'true'){
-					    			document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
-					    		}
-					    		else {
-					    			document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
-					    		}
-					    		//document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
-					    		lz.embed.setCanvasAttribute('hasfontaccom',true);
-					    	}else{
-					    		document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
-					    		lz.embed.setCanvasAttribute('hasfontaccom',false);
-					    	}
-					    	var manip = window.parent.getOpenManipData();
-					    	if(manip != 'null')
-					    		showOpenManipulative(manip);
-					    	
-					    	/* protractor.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
-					    	 standard_calculator.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
-					    	 scientific_calculator.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
-					    	 straight_edge.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
-					    	 oneeighth_inch_ruler.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
-					    	 half_inch_ruler.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
-					    	 mm_ruler.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
-					    	 cm_ruler.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
-					    	 masking_ruler.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
-					    	 scratchpad.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
-					    	 FCAT_formula_card.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
-					    	 TN_formula_card.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";*/
-					    	lz.embed.setCanvasAttribute('readable',stat);
-					    	document.getElementById('__lz1').contentWindow.translate(xscalefactorjs, (450 * yscalefactorjs)/600);
-					    	initScratchpad(fontObj.hasFont);
-					    	var scratchPadLatest = window.parent.scratchpadManager.getCounter();
-					    	var manipObjectAtCounter = window.parent.scratchpadManager.getObjectAtCounter(scratchPadLatest);
-							if(manipObjectAtCounter.state == true){
-					    		gScratchpad.show(manipObjectAtCounter);
-							}
-					    	
-					  };
-					}
+			     		var fontObj = window.parent.getFontAccomodation();	
+			     		var bgColorObj = window.parent.getBackColorAccomodation();				    	
+			     		
+				    	if(fontObj.hasFont == 'true'){
+				    		if(fontObj.hasFontMag == 'true'){
+				    			document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
+				    		}
+				    		else {
+				    			document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
+				    		}
+				    		//document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
+				    		lz.embed.setCanvasAttribute('hasfontaccom',true);
+				    	}else{
+				    		document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
+				    		lz.embed.setCanvasAttribute('hasfontaccom',false);
+				    	}
+				    	var manip = window.parent.getOpenManipData();
+				    	if(manip != 'null')
+				    		showOpenManipulative(manip);
+				    	
+				    	/* protractor.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+				    	 standard_calculator.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+				    	 scientific_calculator.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+				    	 straight_edge.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+				    	 oneeighth_inch_ruler.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+				    	 half_inch_ruler.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+				    	 mm_ruler.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+				    	 cm_ruler.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+				    	 masking_ruler.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+				    	 scratchpad.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+				    	 FCAT_formula_card.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
+				    	 TN_formula_card.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";*/
+				    	lz.embed.setCanvasAttribute('readable',stat);
+				    	document.getElementById('__lz1').contentWindow.translate(xscalefactorjs, (450 * yscalefactorjs)/600);
+				    	initScratchpad(fontObj.hasFont);
+				    	var scratchPadLatest = window.parent.scratchpadManager.getCounter();
+				    	var manipObjectAtCounter = window.parent.scratchpadManager.getObjectAtCounter(scratchPadLatest);
+						if(manipObjectAtCounter.state == true){
+				    		gScratchpad.show(manipObjectAtCounter);
+						}
+				  };
+				  initFrame();
 			}
+          }
         }
+       
+        function initFrame() {
+        
+       		if(document.getElementById('__lz1') != null
+	    		&& document.getElementById('__lz1').contentWindow != null
+	    		&& typeof document.getElementById('__lz1').contentWindow.accomPkg != 'undefined') {
+	    	
+		    	var stat = window.parent.getReadable();
+			    readable =  stat == "true"? true: false;
+			    //check whether iFrame loaded successfully or not
+			    iframeLoaded = true;
+			    window.parent.setAnswerNow('complete');
+			    if(readable){
+			    	if(document.getElementById('read_btn') != null) {
+			    		document.getElementById('read_btn').style.display = "block";
+			    	}
+			    } else {
+			    	if(document.getElementById('read_btn') != null) {
+			    		document.getElementById('read_btn').style.display = "none";
+			    	}
+			    }
+	     		var fontObj = window.parent.getFontAccomodation();	
+	     		var bgColorObj = window.parent.getBackColorAccomodation();				    	
+	     				
+		    	if(fontObj.hasFont == 'true'){
+		    		if(fontObj.hasFontMag == 'true'){
+		    			document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
+		    		} else {
+	    				document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
+	    				lz.embed.setCanvasAttribute('hasfontaccom',true);
+		    		}
+		    		//document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
+		    	} else {
+	    			document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
+	    			lz.embed.setCanvasAttribute('hasfontaccom',false);
+		    	}
+		    	var manip = window.parent.getOpenManipData();
+		    	if(manip != 'null')
+		    		showOpenManipulative(manip);
+		    		
+	    	  	lz.embed.setCanvasAttribute('readable',stat);
+		    	document.getElementById('__lz1').contentWindow.translate(xscalefactorjs, (450 * yscalefactorjs)/600);
+		    	initScratchpad(fontObj.hasFont);
+		    	var scratchPadLatest = window.parent.scratchpadManager.getCounter();
+		    	var manipObjectAtCounter = window.parent.scratchpadManager.getObjectAtCounter(scratchPadLatest);
+				if(manipObjectAtCounter.state == true){
+		    		gScratchpad.show(manipObjectAtCounter);
+				}
+			}
+		}
+        
         function setTTSText(text){
         	//console.log(text);
         	if(text && readable)
