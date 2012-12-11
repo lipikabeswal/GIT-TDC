@@ -1074,6 +1074,11 @@
 			var found = false;
 			// this method will only be called if there is more than one subtest - eg subtests is an array
 			var subtests = dplogin.xpathQuery('manifest/sco');
+			//changes for defect# 70867
+		      if(subtests instanceof LzDataElement){
+        	     subtests = [subtests];
+        		}
+ //Debug.write("Subtests--->>>",subtests);
 			while(result < subtests.length && !found){
 				var subtest = subtests[result];
 				if(subtest.getAttr('id') == subtestId){
