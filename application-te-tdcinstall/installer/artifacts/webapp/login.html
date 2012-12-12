@@ -141,14 +141,16 @@ function getReadable(){
 }
 
 function freezeUI(){
-if(document.getElementById('__lz0')){
-		document.getElementById('__lz0').contentWindow.freezeUI();
+var elementArr = document.getElementsByTagName('iframe');
+if(elementArr[0].id){
+		document.getElementById(elementArr[0].id).contentWindow.freezeUI();
 	}
 }
 
 function unlockUI(){
-if(document.getElementById('__lz0')){
-		document.getElementById('__lz0').contentWindow.unlockUI();
+var elementArr = document.getElementsByTagName('iframe');
+if(elementArr[0].id){
+		document.getElementById(elementArr[0].id).contentWindow.unlockUI();
 	}
 }
 
@@ -194,9 +196,17 @@ function setFootnoteText(arg){
 }
 
 function setFocusOnScratchpad(){
-document.getElementById('__lz0').contentWindow.setFocus();
+var elementArr = document.getElementsByTagName('iframe');
+document.getElementById(elementArr[0].id).contentWindow.setFocus();
 }
 
+
+function callManipOutOfFrameCheck(testClientMouseUp) {
+	var elementArr = document.getElementsByTagName('iframe');
+	if(elementArr[0].id) {
+		document.getElementById(elementArr[0].id).contentWindow.manipOutOfFrameCheck(testClientMouseUp);
+	}
+}
 function showMagnify() {	
 		if(jQuery("#magnifierWindow").length < 1){
 			jQuery('body').addpowerzoom({
@@ -240,6 +250,9 @@ function displayMagnifier() {
 	jQuery(ddpowerzoomer.$magnifier.outer).show();
 }
 
+function setMouseUpVal() {
+	lz.embed.setCanvasAttribute('mouseUpFired','false');
+}
 
 //-->
 
