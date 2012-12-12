@@ -50,15 +50,25 @@
             //accomodations
             var style = gController.getAccomStyleForType (this.stereotype);
             var isaccom = false;
+            var panelBgcolor = gController.questionBgColor;
+            if(Number(panelBgcolor) == 0)
+				panelBgcolor = "0x000000";
+            var panelFontcolor = gController.questionFontColor
+            if(Number(panelFontcolor) == 0)
+				panelFontcolor = "0x000000";
             if (style) {
                 if (style ['bgcolor']) {
+                	if(Number(style.bgcolor) == 0)
+						style.bgcolor = "0x000000";
                     this.setAttribute ('bgcolor', style.bgcolor);
                     isaccom = true;
                 }
                 else if (!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
-					this.setAttribute('bgcolor', gController.questionBgColor);
+					this.setAttribute('bgcolor', panelBgcolor);
                 }
                 if (style ['font_color']) {
+                	if(Number(style.font_color) == 0)
+						style.font_color = "0x000000";
                     this.setAttribute ('fontcolor', style.font_color);
                 }
                 if (style ['font_magnification']) {
@@ -70,8 +80,8 @@
                 }
             }
             else if(!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
-				this.setAttribute('bgcolor', gController.questionBgColor);
-				this.setAttribute('fontcolor', gController.questionFontColor);
+				this.setAttribute('bgcolor', panelBgcolor);
+				this.setAttribute('fontcolor', panelFontcolor);
 				this.setAttribute('fontsize', gController.questionFontSize);
             }
             

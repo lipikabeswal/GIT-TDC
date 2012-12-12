@@ -127,8 +127,8 @@
 		        var bc = this.scrolltext['panel'] &amp;&amp; this.scrolltext.panel['bgcolor'] ? this.scrolltext.panel.bgcolor : "0x000000";
 			}
 			else {
-        		var fgc = Number(gController.questionFontColor);
-        		var bc = Number(gController.questionBgColor);
+        		var fgc = gController.questionFontColor;
+        		var bc = gController.questionBgColor;
        	 	}
 	        this.body.wrap.setAttribute("fgcolor", fgc);
 	        this.body.wrap.header.setAttribute("fgcolor", fgc);
