@@ -58,5 +58,10 @@
             super._initSubnodes();                
         ]]></method>
         
+        <method name="doReturnToCache">
+        
+        	super.doReturnToCache();
+        </method>
+        
     </class>
 </library>

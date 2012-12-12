@@ -1,6 +1,7 @@
 <library>
 
     <include href="cache/ComponentCache.lzx"/>
+<include href="cache/components/CachableAnswerAreaPanel.lzx"/>
 
     <class name="Question">
 
@@ -40,15 +41,20 @@ gController.setAttribute('skipCacheDestroy', true);
         			//the objects dont get enough time to destroy when using do return to cache so had to destroy during load of items
 			//sizer should not be destroyed so we are starting from array 1
 			var contsubviews = gQuestion.subviews;
-	
+			var contViewsLen = gQuestion.subviews.length;
 			if(!gController.skipCacheDestroy){
-				
-				for (var i = 1; i < contsubviews.length; i++){
+				for (var i = 1; i <= contViewsLen; i++){
+				 if(contsubviews[i] && contsubviews[i] instanceof lz.CachableAnswerAreaPanel){
+						contsubviews[i].destroy();
+					}
+				}
+				for (var i = 1; i <= contViewsLen; i++){
 					if(contsubviews[i]){
 						contsubviews[i].destroy();
 					}
 				}
 			}
+
         	//Clearing Masking Tool states
         	 gController.clearAll();
         	 //gManipulativeBar.globals.maskingAnswer.setup();
@@ -70,7 +76,7 @@ gController.setAttribute('skipCacheDestroy', true);
         
                 var subnodes = data.childNodes;
                 for (var i = 0; i < subnodes.length; i++) {
-                Debug.write("subnodes[i]",subnodes[i]);
+                //Debug.write("subnodes[i]*****",subnodes[i]);
                     if ( subnodes[i] instanceof lz.DataElement ) {
                         this.cache.getComponent (subnodes [i]);
                     }

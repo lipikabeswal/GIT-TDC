@@ -13,7 +13,7 @@
         <attribute name="stereotype" value="$path{'@stereotype'}"/>
         
         <method name="doReturnToCache"><![CDATA[
-           // super.doReturnToCache ();
+            super.doReturnToCache ();
             this.abslayout.clearSubviews ();
         ]]></method>
 
