@@ -3793,11 +3793,24 @@ Debug.write("############ loadItem ############");
             }else{
             	var dnmanipulatives = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives');
 	            var dnglob = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');
-				 if(dnmanipulatives != null){
+				if(dnglob.getAttr('highlighter')=='sel'){
+                    var toolSt = getToolstate('highlighter');
+					dnglob.setAttr('highlighter',toolSt);
+				}
+				if(dnglob.getAttr('eraser')=='sel'){
+                    var toolSt = getToolstate('eraser');
+					dnglob.setAttr('eraser',toolSt);
+				}
+				if(dnglob.getAttr('option_eliminator')=='sel'){
+                    var toolSt = getToolstate('option_eliminator');
+					dnglob.setAttr('option_eliminator',toolSt);
+				}
+	            
+				 /*if(dnmanipulatives != null){
 					dnmanipulatives.removeChild (dnglob);
 					initglobal = true;
 					Debug.write("dnglob********** ",dnmanipulatives);
-	           	 }
+	           	 }*/
             }
 
             if (initgeneral) {
@@ -3805,10 +3818,10 @@ Debug.write("############ loadItem ############");
                 dnmanip.appendChild (dngeneral);
             }
             
-			if (initglobal && !dnglobal) {
+			/*if (initglobal && !dnglobal) {
                 var dnglobal = new lz.DataElement ('global', {}, []);
                 dnmanip.appendChild (dnglobal);
-            }
+            }*/
 
             if (initglobal || initgeneral) {
                 var dntoolbar = dpstudentdata.xpathQuery ('current_item/item_model/toolbar');
@@ -3894,6 +3907,43 @@ Debug.write("############ loadItem ############");
 				
             }
        ]]></method>
+
+		<method name="getToolstate" args="toolid">
+			var dntoolbar = dpstudentdata.xpathQuery ('current_item/item_model/toolbar');
+			Debug.write("getToolstate----- ",dntoolbar,dntoolbar.attributes[toolid],toolid);
+            var toolstate = 'disable';
+			switch (dntoolbar.attributes[toolid]) {
+				case 'not provisioned':
+					toolstate = 'disable';
+					break;
+				case 'required':
+					checkTNorFCATrefCard(toolid); // check if any of the fixed formula cards are required                       	
+					toolstate = 'up';
+					
+					break;
+				case 'accommodated':
+					if(toolid == 'standard_calculator' || toolid == 'scientific_calculator'){
+						if ('true' == dpsubtest.xpathQuery('testing_session_data/lms.student.accommodations/@calculator')){
+							toolstate = 'up';
+						}
+						else{
+							toolstate = 'disable';
+						}
+					}
+					else {
+						checkTNorFCATrefCard(toolid); // check if any of the fixed formula cards are accommodated	
+						toolstate = 'up';
+					}
+					break;
+				case 'invisible':
+					toolstate = 'invisible';
+					break;
+				default:
+			//      toolstate = 'up';
+					break;
+			}
+			return toolstate;
+		</method>
 
 		<method name="openTEManipulatives" args="openManipData"><![CDATA[
 
