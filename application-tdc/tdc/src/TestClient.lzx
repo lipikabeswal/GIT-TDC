@@ -175,6 +175,7 @@
 	<attribute name="htmlOpenManip" value="null" />
 	<attribute name="footnotetext" value="null"/>
 	<attribute name="currentEid"/>
+	<attribute name="mouseUpFired" value = "false" type = "string"/>
 	
 	<handler name="onsetanswer" args="data">
 		if(gController.htmlFields.length > 0){
@@ -212,6 +213,12 @@
 	gController.setManipulativeSelState (manipName, manip[1]);
 	]]></handler>  
 
+	<handler name="onmouseup">
+		canvas.setAttribute('mouseUpFired','true');
+		var s = "callManipOutOfFrameCheck('true')";
+		 lz.Browser.loadJS(s);
+    </handler>
+	
 	<handler name="onexitPleaseWaitPopup">
 		gController.exitPopups();
 		gController.hideHtmlWidgets();
@@ -267,9 +274,20 @@
 		}
   	</handler>
   	
-  	 <handler name="onmousemove">
-    	 if(gController.onStopTest)
+  	<handler name="onmouseup">
+    	 if(gController.onStopTest) {
     	 	lz.Cursor.lock();
+    	 }
+    	 var s = "callManipOutOfFrameCheck('"+this.mouseUpFired+"')";
+		 lz.Browser.loadJS(s);
+     </handler>
+  	
+  	 <handler name="onmousemove">
+    	 if(gController.onStopTest) {
+    	 	lz.Cursor.lock();
+    	 }
+    	 var s = "callManipOutOfFrameCheck('"+this.mouseUpFired+"')";
+		 lz.Browser.loadJS(s);
      </handler>
 
 

@@ -52,6 +52,8 @@
 <attribute name="currentCursor" value="null" />
 <attribute name="hasfontaccom" value="false" type="boolean"/>
 
+<attribute name="manipOutOfFrameCheck" value="false" type="string"/>
+
 <handler name="oninit">
 	this.reset();
 </handler>
@@ -62,6 +64,141 @@
 		this.zOrder[i] = -1;
 	}
 ]]></method>
+
+<handler name="onmanipOutOfFrameCheck"><![CDATA[
+	if(gCmRuler.visible) {
+		if(this.manipOutOfFrameCheck == "true") {
+			if(gCmRuler.isMouseClicked == "true" && gCmRuler.isMouseReleased == "false") {
+				gCmRuler.ruler.grabber.onmouseup.sendEvent();
+			}
+		} else {
+			if(gCmRuler.isMouseClicked == "true" && gCmRuler.isMouseReleased == "false") {
+				gCmRuler.ruler.grabber.onmousedown.sendEvent();
+			}
+		}
+	}
+	if(gMmRuler.visible) {
+		if(this.manipOutOfFrameCheck == "true") {
+			if(gMmRuler.isMouseClicked == "true" && gMmRuler.isMouseReleased == "false") {
+				gMmRuler.ruler.grabber.onmouseup.sendEvent();
+			}
+		} else {
+			if(gMmRuler.isMouseClicked == "true" && gMmRuler.isMouseReleased == "false") {
+				gMmRuler.ruler.grabber.onmousedown.sendEvent();
+			}
+		}
+	}
+	if(gHalfInchRuler.visible) {
+		if(this.manipOutOfFrameCheck == "true") {
+			if(gHalfInchRuler.isMouseClicked == "true" && gHalfInchRuler.isMouseReleased == "false") {
+				gHalfInchRuler.ruler.grabber.onmouseup.sendEvent();
+			}
+		} else {
+			if(gHalfInchRuler.isMouseClicked == "true" && gHalfInchRuler.isMouseReleased == "false") {
+				gHalfInchRuler.ruler.grabber.onmousedown.sendEvent();
+			}
+		}
+	}
+	if(gEighthInchRuler.visible) {
+		if(this.manipOutOfFrameCheck == "true") {
+			if(gEighthInchRuler.isMouseClicked == "true" && gEighthInchRuler.isMouseReleased == "false") {
+				gEighthInchRuler.ruler.grabber.onmouseup.sendEvent();
+			}
+		} else {
+			if(gEighthInchRuler.isMouseClicked == "true" && gEighthInchRuler.isMouseReleased == "false") {
+				gEighthInchRuler.ruler.grabber.onmousedown.sendEvent();
+			}
+		}
+	}
+	if(gStraightEdge.visible) {
+		if(this.manipOutOfFrameCheck == "true") {
+			if(gStraightEdge.isMouseClicked == "true" && gStraightEdge.isMouseReleased == "false") {
+				gStraightEdge.ruler.grabber.onmouseup.sendEvent();
+			}
+		} else {
+			if(gStraightEdge.isMouseClicked == "true" && gStraightEdge.isMouseReleased == "false") {
+				gStraightEdge.ruler.grabber.onmousedown.sendEvent();
+			}
+		}
+	}
+	if(gProtractor.visible) {
+		if(this.manipOutOfFrameCheck == "true") {
+			if(gProtractor.isMouseClicked == "true" && gProtractor.isMouseReleased == "false") {
+				gProtractor.grabber.onmouseup.sendEvent();
+			}
+		} else {
+			if(gProtractor.isMouseClicked == "true" && gProtractor.isMouseReleased == "false") {
+				gProtractor.grabber.onmousedown.sendEvent();
+			}
+		}
+	}
+	if(gStandardCalculator.visible) {
+		if(this.manipOutOfFrameCheck == "true") {
+			if(gStandardCalculator.isMouseClicked == "true" && gStandardCalculator.isMouseReleased == "false") {
+				gStandardCalculator.onmouseup.sendEvent();
+			}
+		} else {
+			if(gStandardCalculator.isMouseClicked == "true" && gStandardCalculator.isMouseReleased == "false") {
+				gStandardCalculator.onmousedown.sendEvent();
+			}
+		}
+	}
+	if(gScientificCalculator.visible) {
+		if(this.manipOutOfFrameCheck == "true") {
+			if(gScientificCalculator.isMouseClicked == "true" && gScientificCalculator.isMouseReleased == "false") {
+				gScientificCalculator.onmouseup.sendEvent();
+			}
+		} else {
+			if(gScientificCalculator.isMouseClicked == "true" && gScientificCalculator.isMouseReleased == "false") {
+				gScientificCalculator.onmousedown.sendEvent();
+			}
+		}
+	}
+	if(gMaskingRuler.visible) {
+		if(this.manipOutOfFrameCheck == "true") {
+			if(gMaskingRuler.isMouseClicked == "true" && gMaskingRuler.isMouseReleased == "false") {
+				gMaskingRuler.onmouseup.sendEvent();
+			}
+		} else {
+			if(gMaskingRuler.isMouseClicked == "true" && gMaskingRuler.isMouseReleased == "false") {
+				gMaskingRuler.onmousedown.sendEvent();
+			}
+		}
+	}
+	if(gScratchpad.visible) {
+		if(this.manipOutOfFrameCheck == "true") {
+			if(gScratchpad.isMouseClicked == "true" && gScratchpad.isMouseReleased == "false") {
+				gScratchpad.onmouseup.sendEvent();
+			}
+		} else {
+			if(gScratchpad.isMouseClicked == "true" && gScratchpad.isMouseReleased == "false") {
+				gScratchpad.onmousedown.sendEvent();
+			}
+		}
+	}
+	if(gFcatFormulaCard.visible) {
+		if(this.manipOutOfFrameCheck == "true") {
+			if(gFcatFormulaCard.isMouseClicked == "true" && gFcatFormulaCard.isMouseReleased == "false") {
+				gFcatFormulaCard.onmouseup.sendEvent();
+			}
+		} else {
+			if(gFcatFormulaCard.isMouseClicked == "true" && gFcatFormulaCard.isMouseReleased == "false") {
+				gFcatFormulaCard.onmousedown.sendEvent();
+			}
+		}
+	}
+	if(gTnFormulaCard.visible) {
+		if(this.manipOutOfFrameCheck == "true") {
+			if(gTnFormulaCard.isMouseClicked == "true" && gTnFormulaCard.isMouseReleased == "false") {
+				gTnFormulaCard.onmouseup.sendEvent();
+			}
+		} else {
+			if(gTnFormulaCard.isMouseClicked == "true" && gTnFormulaCard.isMouseReleased == "false") {
+				gTnFormulaCard.onmousedown.sendEvent();
+			}
+		}
+	}
+]]></handler>
 
 <handler name="onhasfontaccom" args="data">
 if(data == 'true'){

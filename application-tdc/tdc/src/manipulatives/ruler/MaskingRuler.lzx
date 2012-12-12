@@ -46,6 +46,9 @@
 		<attribute name="DRAGGER_MAX_X" value="800" />
 		<attribute name="DRAGGER_MIN_Y" value="0" />
 		<attribute name="DRAGGER_MAX_Y" value="460" />
+
+		<attribute name="isMouseClicked" value="false" type="string"/>
+		<attribute name="isMouseReleased" value="true" type="string"/>
 		
         <dragstate name="dragger"
                    drag_min_x="${this.dragxmin}"
@@ -284,12 +287,18 @@ Debug.write("else "+data +" : "+ hasstate);
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
             lz.Cursor.lock ();
             this.dragger.apply ();
+			this.setAttribute('isMouseClicked','true');
+			this.setAttribute('isMouseReleased','false');
+			var setMouseUp = "setCanvasMouseUp()";
+			lz.Browser.loadJS(setMouseUp);
         </handler>
         <handler name="onmouseup">
             lz.Cursor.unlock ();
             //gController.restoreCurrentCursor();
             this.dragger.remove ();
 Debug.write("masking ruler datapath ",this.datapath.p);
+			this.setAttribute('isMouseReleased','true');
+			this.setAttribute('isMouseClicked','false');
             //this.datapath.p.setAttr ('x', this.x);
             //this.datapath.p.setAttr ('y', this.y);
         </handler>

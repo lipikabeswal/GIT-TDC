@@ -10,6 +10,8 @@
 
         <attribute name="tickmarksrsr" value="" type="string"/>
         <attribute name="labelrsr"     value="" type="string"/>
+		<attribute name="isMouseClicked" value="false" type="string"/>
+		<attribute name="isMouseReleased" value="true" type="string"/>
 
 		<handler name="onmousedown" >
 			this.bringToFront();
@@ -408,6 +410,10 @@
                       lz.Cursor.setCursorGlobal ('grabbing_cursor');
                       lz.Cursor.lock ();
                       classroot.dragger.apply ();
+					  classroot.setAttribute('isMouseClicked','true');
+					  classroot.setAttribute('isMouseReleased','false');
+					  var setMouseUp = "setCanvasMouseUp()";
+					  lz.Browser.loadJS(setMouseUp);
                   </handler>
                   <handler name="onmouseup">
                       lz.Cursor.unlock ();
@@ -416,6 +422,8 @@
 
                      // classroot.datapath.p.setAttr ('x', classroot.x);
                       //classroot.datapath.p.setAttr ('y', classroot.y);
+						classroot.setAttribute('isMouseReleased','true');
+						classroot.setAttribute('isMouseClicked','false');
                   </handler>
             </view>
         </view>

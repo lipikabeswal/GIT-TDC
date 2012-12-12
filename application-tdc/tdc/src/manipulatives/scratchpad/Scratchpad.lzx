@@ -32,11 +32,17 @@
 		<attribute name="newY" type="number" value="113" />
 		<attribute name="characterLimit" type="number" value="10000" />
 		<attribute name="scratchpadtext" value="null" />
+		<attribute name="isMouseClicked" value="false" type="string"/>
+		<attribute name="isMouseReleased" value="true" type="string"/>
         <handler name="onmousedown">
         	this.bringToFront();
         	this.sp.inp.setSelectable(false);
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
             lz.Cursor.lock ();
+            this.setAttribute('isMouseClicked','true');
+			this.setAttribute('isMouseReleased','false');
+			var setMouseUp = "setCanvasMouseUp()";
+			lz.Browser.loadJS(setMouseUp);
         </handler>
 
 		<handler name="onmouseup" reference="lz.GlobalMouse" args="who">
@@ -52,6 +58,8 @@
 	            	lz.Cursor.unlock ();
 	            	canvas.restoreCurrentCursor();
 	            	restoreFocusAndCursor();
+	            	this.setAttribute('isMouseReleased','true');
+					this.setAttribute('isMouseClicked','false');
 				}
 
 				this.setAttribute("scratchpadJustLostFocus", false);

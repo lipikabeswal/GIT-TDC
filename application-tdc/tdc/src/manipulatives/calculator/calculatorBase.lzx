@@ -53,6 +53,9 @@
         <attribute name="operandP" value="$once{new lz.datapointer()}"/>
         <attribute name="operatorP" value="$once{new lz.datapointer()}"/>
         
+        <attribute name="isMouseClicked" value="false" type="string"/>
+		<attribute name="isMouseReleased" value="true" type="string"/>
+        
         <dragstate name="dragger"
                    drag_min_x="$once{-(this.width - 100)}" 
                    drag_min_y="$once{-(this.height - 100)}"
@@ -76,13 +79,18 @@
 				var s = "scratchpadBlur()";
 				lz.Browser.loadJS(s);
 			}
+			this.setAttribute('isMouseClicked','true');
+			this.setAttribute('isMouseReleased','false');
+			var setMouseUp = "setCanvasMouseUp()";
+			lz.Browser.loadJS(setMouseUp);
         </handler>
 
         <handler name="onmouseup">
             lz.Cursor.unlock ();
             canvas.restoreCurrentCursor();
             this.dragger.remove ();
-
+			this.setAttribute('isMouseReleased','true');
+			this.setAttribute('isMouseClicked','false');
             //this.datapath.p.setAttr ('x', this.x);
             //this.datapath.p.setAttr ('y', this.y);
         </handler>

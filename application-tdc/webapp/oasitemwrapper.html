@@ -391,6 +391,10 @@ img {
        		window.parent.setHtmlGeneralManip(htmlGeneralManip);
        }
        
+       function setCanvasMouseUp(){
+       		window.parent.setMouseUpVal('true');
+       }
+       
        function getScratchpadCoordinates(){
        	if(textAreaElement){
        		//Storing in parent for TE items sync
@@ -408,6 +412,10 @@ img {
         function dummy(){
         initScratchpad();
         showHideManipulative('scratchpad');
+        }
+        
+        function manipOutOfFrameCheck(testClientMouseUp) {
+        	lz.embed.setCanvasAttribute('manipOutOfFrameCheck',testClientMouseUp);
         }
        </script>
 

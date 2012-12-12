@@ -14,6 +14,8 @@
 		<attribute name="refCardRsrc" type="string"/>
 		<attribute name="titleRsrc" type="string"/>
 		<attribute name="scrolls" type="boolean" value="false" />
+		<attribute name="isMouseClicked" value="false" type="string"/>
+		<attribute name="isMouseReleased" value="true" type="string"/>
 		<attribute name="ref" />
 		<handler name="oninit">
 			this.ref = this;
@@ -96,13 +98,18 @@
 				var s = "scratchpadBlur()";
 				lz.Browser.loadJS(s);
 			}
+			this.setAttribute('isMouseClicked','true');
+			this.setAttribute('isMouseReleased','false');
+			var setMouseUp = "setCanvasMouseUp()";
+			lz.Browser.loadJS(setMouseUp);
         </handler>
 
         <handler name="onmouseup">
             lz.Cursor.unlock ();
            canvas.restoreCurrentCursor();
             this.dragger.remove ();
-
+			this.setAttribute('isMouseReleased','true');
+			this.setAttribute('isMouseClicked','false');
            // this.datapath.p.setAttr ('x', this.x);
             //this.datapath.p.setAttr ('y', this.y);
         </handler>
