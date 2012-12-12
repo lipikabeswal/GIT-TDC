@@ -135,6 +135,7 @@
 //Debug.write("play clicked : "+gMusicPlayer.playStarted);
 					if(gMusicPlayer.playStarted == false) {
 						gMusicPlayer.play(); 
+						gMusicPlayer.setVolume(volumebar.value);
 						gMusicPlayer.setAttribute("playStarted",true);
 						//Start - changes for Defect 66424
 						parent.playButton.setAttribute('visible',false);
