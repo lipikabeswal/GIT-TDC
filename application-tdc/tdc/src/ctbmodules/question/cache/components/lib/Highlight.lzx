@@ -81,7 +81,7 @@
         <handler name="onmouseup" reference="clickarea"><![CDATA[
             if (this.hlstatus.data == 'sel' && this.visible) {
                 this.livesel.setAttribute ('visible', false);
-                this.livesel.resizer.remove ();
+                
 
                 var dnstate = this.hlstate.data;
 
@@ -94,8 +94,12 @@
                              stereotype: this.stereotype};
 
                 var dnarea = 
-                dnstate.appendChild (new LzDataElement ('highlightarea', 
+                dnstate.appendChild (new lz.DataElement ('highlightarea', 
                                                         attrs,[]));
+				
+				this.livesel.setAttribute ('width', 0);
+                this.livesel.setAttribute ('height', 0);
+				this.livesel.resizer.remove ();
 
             }
         ]]></handler>
