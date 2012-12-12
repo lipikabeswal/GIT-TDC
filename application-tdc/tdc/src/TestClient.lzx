@@ -211,13 +211,7 @@
 		}
 	}		
 	gController.setManipulativeSelState (manipName, manip[1]);
-	]]></handler>  
-
-	<handler name="onmouseup">
-		canvas.setAttribute('mouseUpFired','true');
-		var s = "callManipOutOfFrameCheck('true')";
-		 lz.Browser.loadJS(s);
-    </handler>
+	]]></handler>
 	
 	<handler name="onexitPleaseWaitPopup">
 		gController.exitPopups();
@@ -278,7 +272,8 @@
     	 if(gController.onStopTest) {
     	 	lz.Cursor.lock();
     	 }
-    	 var s = "callManipOutOfFrameCheck('"+this.mouseUpFired+"')";
+    	 canvas.setAttribute('mouseUpFired','true');
+		 var s = "callManipOutOfFrameCheck('true')";
 		 lz.Browser.loadJS(s);
      </handler>
   	
