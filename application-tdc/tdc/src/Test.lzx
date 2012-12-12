@@ -830,6 +830,9 @@ switch(arg){
 	var elem = this.getDisplayObject();
 	elem.setAttribute('id','htmlUIBlock');
 </handler>
+<handler name="onmousemove">
+	lz.Cursor.lock();
+</handler>
 </view>
 
 <html id="ht" name="ht" x="5" y="5" width="${760 * xscalefactorjs}" height="${450 * yscalefactorjs}" scrollbars="false" >
