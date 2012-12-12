@@ -972,7 +972,7 @@ switch(arg){
 </handler>
 </view>
 
-<html id="ht" name="ht" x="5" y="5" width="${760 * xscalefactorjs}" height="${450 * yscalefactorjs}" scrollbars="false" >
+<html id="ht" name="ht" x="0" y="0" width="${780 * xscalefactorjs}" height="${450 * yscalefactorjs}" scrollbars="false" >
  	<handler name="onload">
  	this.sendToBack();
  	parent.blocker.bringToFront();
