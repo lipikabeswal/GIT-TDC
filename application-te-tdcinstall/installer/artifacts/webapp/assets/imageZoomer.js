@@ -119,10 +119,15 @@ var ddpowerzoomer={
 					jQuery("#magnifierWindow").css('visibility','visible');
 					isDragging = 0;
 					}
-				})},100);
+				})},35);
 				}
 			},
 			drag: function(event, ui) {
+			    if($.browser.safari){
+			    	$('#magnifierWindow').css("cursor", "url('./assets/dragger_press.png'), pointer");
+			    }else{
+			    	$('#magnifierWindow').css( 'cursor', 'move' );
+			    }
 				var $magnifier=ddpowerzoomer.$magnifier
 				var s = ddpowerzoomer.$zommersettings
 				$magnifier.outer.css({width:parseInt(s.magnifiersize[0]), height:parseInt(s.magnifiersize[1])}) //set magnifier's size
@@ -138,8 +143,12 @@ var ddpowerzoomer={
 				ddpowerzoomer.activeimage=imgref
 				if (ddpowerzoomer.activeimage){ //if mouse is currently over a magnifying image
 					ddpowerzoomer.movemagnifier(event, true) //move magnifier
-				}	
+				}
+			},
+			stop: function(event, ui) {
+				$('#magnifierWindow').css( 'cursor', 'pointer' );
 			}
+			
 		}) //create magnifier container and add to doc
 		ddpowerzoomer.$magnifier={outer:$magnifier, inner:$($magnifier.find('div:eq(0)')).find('div:eq(0)'), image:null} //reference and remember various parts of magnifier
 		$magnifier=ddpowerzoomer.$magnifier
