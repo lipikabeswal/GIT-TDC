@@ -301,6 +301,8 @@
 						//gController.setManipulativeSelState("scratchpad", "up");
 						gScratchpad.hide();
 						gScratchpad.setManipulativeSelState("scratchpad","up");
+						gScratchpad.setAttribute("height", gScratchpad.DEFAULT_HEIGHT);
+						gScratchpad.setAttribute("width", gScratchpad.DEFAULT_WIDTH);
 		 			]]></handler>
 		 			</basebutton>
 		 			

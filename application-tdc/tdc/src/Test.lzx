@@ -840,6 +840,8 @@ switch(arg){
 		case 'scratchpad' : 	if(gScratchpad.visible){
 									gScratchpad.hide();
 									gScratchpad.setAttribute("isselected",false);
+									gScratchpad.setAttribute("height", gScratchpad.DEFAULT_HEIGHT);
+									gScratchpad.setAttribute("width", gScratchpad.DEFAULT_WIDTH);
 								}else{
 									gScratchpad.setAttribute("isselected",true);
 									newwidth = gScratchpad.width*xscalefactorjs;
