@@ -166,13 +166,20 @@
 		}
 	}
 	if(gScratchpad.visible) {
+		
 		if(this.manipOutOfFrameCheck == "true") {
 			if(gScratchpad.isMouseClicked == "true" && gScratchpad.isMouseReleased == "false") {
 				gScratchpad.onmouseup.sendEvent();
 			}
+			if(gScratchpad.isScrathResizerClicked == "true" && gScratchpad.isScrathResizerReleased == "false") {
+				gScratchpad.scratchWindowThis.onmouseup.sendEvent();
+			}
 		} else {
 			if(gScratchpad.isMouseClicked == "true" && gScratchpad.isMouseReleased == "false") {
 				gScratchpad.onmousedown.sendEvent();
+			}
+			if(gScratchpad.isScrathResizerClicked == "true" && gScratchpad.isScrathResizerReleased == "false") {
+				gScratchpad.scratchWindowThis.onmousedown.sendEvent();
 			}
 		}
 	}
