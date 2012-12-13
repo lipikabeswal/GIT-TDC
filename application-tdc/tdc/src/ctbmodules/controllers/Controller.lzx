@@ -1257,7 +1257,7 @@
 
 		<method name="totalAnswered"><![CDATA[
             var awd = dpstudentdata.xpathQuery(
-                "runtime/item_model[@answered = '1']"
+                "runtime/item_model[@answered = 'true']"
             );
             
             //For removing NI Item count 
@@ -1284,12 +1284,12 @@
         ]]></method>
 
 		<method name="totalMarked"><![CDATA[    
-			/*var mrk = dpstudentdata.xpathQuery(
+			var mrk = dpstudentdata.xpathQuery(
                 "runtime/item_model[@marked='1']"
-            );*/
-            var mrk = dpstudentdata.xpathQuery(
-                "runtime/item_model[@marked='true']"
             );
+           /* var mrk = dpstudentdata.xpathQuery(
+                "runtime/item_model[@marked='true']"
+            );*/
             if ( mrk && mrk instanceof Array ) {
                 var nummarked = mrk.length;
             } else if ( mrk && mrk instanceof lz.DataElement ) {
@@ -4189,9 +4189,11 @@ Debug.write("############ loadItem ############");
 					//this.imageLIArray[i].imageview.getMCRef().unloadMovie();
 					if ($dhtml) {
 						this.imageLIArray[i].imageview.getDisplayObject().imgLoader.unload();
-					} else {				
-						var mc = this.imageLIArray[i].imageview.sprite;
-						mc.imgLoader.unload();
+					} else {
+						if(this.imageLIArray[i].imageview != null) {				
+							var mc = this.imageLIArray[i].imageview.sprite;
+							mc.imgLoader.unload();
+						}
 					}
 				}
 			}
