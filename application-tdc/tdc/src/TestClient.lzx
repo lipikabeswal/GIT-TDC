@@ -268,22 +268,22 @@
 		}
   	</handler>
   	
-  	<handler name="onmouseup">
+  	<!--  <handler name="onmouseup">
     	 if(gController.onStopTest) {
     	 	lz.Cursor.lock();
     	 }
     	 canvas.setAttribute('mouseUpFired','true');
 		 var s = "callManipOutOfFrameCheck('true')";
 		 lz.Browser.loadJS(s);
-     </handler>
+     </handler>-->
   	
-  	 <handler name="onmousemove">
+  	 <!--  <handler name="onmousemove">
     	 if(gController.onStopTest) {
     	 	lz.Cursor.lock();
     	 }
     	 var s = "callManipOutOfFrameCheck('"+this.mouseUpFired+"')";
 		 lz.Browser.loadJS(s);
-     </handler>
+     </handler>-->
 
 
 	<method name="init">
