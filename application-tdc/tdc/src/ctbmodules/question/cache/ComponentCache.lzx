@@ -123,9 +123,9 @@
 			
 			}*/
 			//Removing caching
-			toReturn.doReturnToCache();
+			//toReturn.doReturnToCache();
 			toReturn.setAttribute('visible',false);
-			//toReturn.destroy();
+			toReturn.destroy();
 			
 			/* 
 			            var arraytouse = this._findArray (toReturn.comptype);
