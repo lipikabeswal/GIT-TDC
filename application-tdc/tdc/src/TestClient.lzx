@@ -176,6 +176,8 @@
 	<attribute name="footnotetext" value="null"/>
 	<attribute name="currentEid"/>
 	<attribute name="mouseUpFired" value = "false" type = "string"/>
+	<attribute name="fromWrapper" value = "false" type = "string"/>
+	<attribute name="fromLogin" value = "false" type = "string"/>
 	
 	<handler name="onsetanswer" args="data">
 		if(gController.htmlFields.length > 0){
@@ -183,6 +185,19 @@
 			Debug.write("*************onset answer");
 		}
 	</handler>
+	
+	<handler name="onfromWrapper" args="data">
+		canvas.setAttribute('mouseUpFired','true');
+		 var s = "callManipOutOfFrameCheck('true')";
+		 lz.Browser.loadJS(s);
+	</handler>
+	
+	<handler name="onfromLogin" args="data">
+		canvas.setAttribute('mouseUpFired','true');
+		 var s = "callManipOutOfFrameCheck('true')";
+		 lz.Browser.loadJS(s);
+	</handler>
+	
 	<handler name="onttstext" args="data">
 		gReadableText.read(data,false);
 	</handler>
@@ -268,22 +283,22 @@
 		}
   	</handler>
   	
-  <!-- 	<handler name="onmouseup">
-    	 if(gController.onStopTest) {
+  	<handler name="onmouseup">
+    	 /*if(gController.onStopTest) {
     	 	lz.Cursor.lock();
-    	 }
+    	 }*/
     	 canvas.setAttribute('mouseUpFired','true');
 		 var s = "callManipOutOfFrameCheck('true')";
 		 lz.Browser.loadJS(s);
-     </handler> -->
+     </handler>
   	
   	 <handler name="onmousemove">
     	 if(gController.onStopTest) {
     	 	lz.Cursor.lock();
     	 }
-    	/* var s = "callManipOutOfFrameCheck('"+this.mouseUpFired+"')";
-		 lz.Browser.loadJS(s); */
-     </handler> 
+    	 var s = "callManipOutOfFrameCheck('"+this.mouseUpFired+"')";
+		 lz.Browser.loadJS(s);
+     </handler>
 
 
 	<method name="init">

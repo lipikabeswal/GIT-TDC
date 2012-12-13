@@ -37,6 +37,10 @@ var backColorString;
 var xscalefactor = 1;
 var yscalefactor = 1;
 
+window.onmouseup = function  () {
+	lz.embed.setCanvasAttribute("fromLogin", 'true');
+}
+
 function showFootnote(header)
 {
 	lz.embed.setCanvasAttribute("footnotedata", header);
@@ -202,9 +206,13 @@ document.getElementById(elementArr[0].id).contentWindow.setFocus();
 
 function callManipOutOfFrameCheck(testClientMouseUp) {
 	var elementArr = document.getElementsByTagName('iframe');
-	if(elementArr[0].id) {
+	if(elementArr[0] != null && elementArr[0] != undefined && elementArr[0].id) {
 		document.getElementById(elementArr[0].id).contentWindow.manipOutOfFrameCheck(testClientMouseUp);
 	}
+}
+
+function fromWrapper() {
+	lz.embed.setCanvasAttribute('fromWrapper','true');
 }
 
 function showMagnify() {	
