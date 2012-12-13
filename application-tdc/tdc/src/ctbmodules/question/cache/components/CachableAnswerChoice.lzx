@@ -8,7 +8,7 @@
          *************************************-->
 
 	<class name="CachableAnswerChoice" extends="CachableComponent"
-		comptype="${gCompTypes.WIDGET_ANSWER_CHOICE}" clip="true" >
+		comptype="${gCompTypes.WIDGET_ANSWER_CHOICE}" clip="true">
 
 		<DynamicSimplelayout name="dynlayout" axis="x"/>
 
@@ -49,7 +49,7 @@
 		</handler>
 
         <method name="doReturnToCache">
-           // super.doReturnToCache ();
+           super.doReturnToCache ();
             this.dynlayout.clearSubviews ();
         </method>
 

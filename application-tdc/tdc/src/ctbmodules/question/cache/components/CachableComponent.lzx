@@ -55,7 +55,7 @@
             for (var i in this.subviews) {
 				if (this.subviews [i] instanceof lz.CachableComponent &&
                         this.subviews [i].visible) {
-                  //  this.cache.returnComponent (this.subviews [i]);
+                  this.cache.returnComponent (this.subviews [i]);
                   this.subviews[i].destroy();
                 }
             }
