@@ -3315,7 +3315,6 @@
 		<attribute name="uisemaphore" value="1" />
 
 		<method name="freezeUI"><![CDATA[
-			this.setAttribute("onStopTest",true);
             ++uisemaphore;
             if ( dsdisplay.childNodes[0].getAttr( 'enabled' ) == 'true' ) {
                 gHotKeys.disableKeys();
