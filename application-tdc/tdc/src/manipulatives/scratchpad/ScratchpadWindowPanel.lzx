@@ -269,7 +269,7 @@
 			 		        name="readBtn"
 			 		        y="-1">
 					<handler name="oninit">
-						var readable = getReadable();
+						var readable = window.parent.getReadable();
 						if(readable) {
 							this.setAttribute("visible",true);
 						}
