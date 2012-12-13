@@ -320,12 +320,16 @@ public class TTSUtil {
 			TTSSettings ttsSettings = getTTSSettings();
 			String voice = ttsSettings.getVoiceName();
 			
-			if(this.speedValue  == null || "".equals(this.speedValue.trim())) {
-				this.speedValue = ttsSettings.getSpeedValue();
-				if(this.speedValue == null || "".equals(this.speedValue.trim())) {
-					this.speedValue = "-2";
+			if(speedValue  == null || "".equals(speedValue.trim())) {
+				speedValue = ttsSettings.getSpeedValue();
+				if(speedValue == null || "".equals(speedValue.trim())) {
+					speedValue = "-2";
 				}
 			}
+			if("-1".equals(speedValue)) speedValue = "175";
+			else if ("-2".equals(speedValue)) speedValue = "100";
+			else if ("-3".equals(speedValue)) speedValue = "75";
+			else speedValue = "100";
 			
 			String speechURL = ttsSettings.getUrl();
 			
