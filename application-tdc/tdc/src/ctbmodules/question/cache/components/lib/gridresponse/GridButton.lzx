@@ -174,7 +174,7 @@
                   height="${classroot.fontsize + 5}" width="${this.height}"
                   align="center" valign="middle" 
                   clickable="${ true == uienabled }"
-                  clickregion="../../../../../resources/components/griddedresponse/circle_selected.swf">
+                  clickregion="circle_btn_clickregion">
                 <attribute name="uienabled" value="$path{ 'dsdisplay:/display/@enabled' }"/>
             </view>
 
