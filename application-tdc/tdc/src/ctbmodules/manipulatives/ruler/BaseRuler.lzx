@@ -70,8 +70,6 @@
 
 		<method name="updateDraggerAttributes">
 			var dv = getDraggerValues(this.rotation, ruler.width);
-			Debug.write("updateDraggerAttributes***** ",dv);
-
            	this.setAttribute ('dragxmin', dv[0]);
 			this.setAttribute ('dragymin', dv[1]);
 			this.setAttribute ('dragxmax', dv[2]);
@@ -92,10 +90,8 @@
 		<method name="getRelativeGrabberBounds" args="degrees, lngth">
 			var result = new Array();
 			var rads = degreesToRads(degrees);
-			Debug.write("rads******* ",rads);
 			var grabber = ruler.grabber;
-			Debug.write("grabber---------- ",grabber);
-            var sin = Math.sin(rads);
+			var sin = Math.sin(rads);
             var cos = Math.cos(rads);
             var gx = this.ruler.x + lngth/2 - grabber.width/2;
             var gxplus = gx + grabber.width;
@@ -189,7 +185,7 @@
 		</method>
 		
         <handler name="ondata" args="data"><![CDATA[
-			Debug.write("ondata***** ",dragger);
+			
             if (!data) return;
             var hasstate = false;
             for (var i in data.attributes) {
@@ -208,7 +204,7 @@
             	if(gScratchpad.visible){
                 	gScratchpad.bringToFront();
             	}
-				Debug.write("rotation--------- ",data.getAttr ('rotation'),this.rotateResizer.x,this.ruler.width,this.ruler.x);
+				
              } else {
                 this.setAttribute ('rotation', 0);
                 this.ruler.setAttribute ('width', null);
@@ -224,7 +220,7 @@
                     data.setAttr ('y', this.y);
                 }
             }
-            Debug.write("rotation base ruler--------- ",this.rotation);
+            
         ]]></handler>
 
         <method name="startRotate" args="xpos, ypos">
@@ -240,8 +236,8 @@
             var dx = cos * xpos - sin * ypos;
             var dy = sin * xpos + cos * ypos;
             
-            this.setAttribute ('x', this.x + dx);
-            this.setAttribute ('y', this.y + dy);                
+            this.setAttribute ('x', Number(this.x) + Number(dx));
+            this.setAttribute ('y', Number(this.y) + Number(dy));    
         </method>
 
         <method name="endRotate" args="xpos, ypos">
