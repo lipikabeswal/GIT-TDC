@@ -342,7 +342,9 @@ public class JettyProcessWrapper extends Thread {
             }            
 			Runtime.getRuntime().exec(this.stopCmd, null, new File(tdcHome) );
 			String teItemsPath = this.tdcHome + File.separator + "webapp" + File.separator + "items";
-			deleteTEItems(teItemsPath);
+			String imagePath = this.tdcHome + File.separator + "webapp" + File.separator + "cache";
+			deleteFiles(teItemsPath);
+			deleteFiles(imagePath);
 		} catch( IOException e ) {
 			ConsoleUtils.messageErr("An error has occured within " + this.getClass().getName(), e);
 		}
@@ -350,12 +352,14 @@ public class JettyProcessWrapper extends Thread {
 	/**
 	 * Delete TE items from webapp/items folder
 	 * after the test is over
+	 * Delete Magnifier images from webapp/cache folder
+	 * after the test is over
 	 */
-	public void deleteTEItems(String path) {
+	public void deleteFiles(String path) {
 		File files[] = new File(path).listFiles();
 		for (File file : files) {
 			if(file.isDirectory()) {
-				deleteTEItems(file.getAbsolutePath());
+				deleteFiles(file.getAbsolutePath());
 				file.delete();
 			} else if(file.isFile() && file.getName().indexOf("txt") == -1) {
 				file.delete();
@@ -363,4 +367,3 @@ public class JettyProcessWrapper extends Thread {
 		}
 	}
 }
-
