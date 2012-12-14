@@ -38,7 +38,7 @@
                 if (contsubviews [i] instanceof lz.CachableComponent &&
                         contsubviews [i].visible) {
                     contsubviews[i].destroy();
-                   this.cache.returnComponent (contsubviews [i]);
+                   // this.cache.returnComponent (contsubviews [i]);
                     
                 }
             }
