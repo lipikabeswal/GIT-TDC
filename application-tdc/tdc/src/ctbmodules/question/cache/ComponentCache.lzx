@@ -86,7 +86,7 @@
 	
 	            } else {
 	                newcomp = this._createNewComponent (type);
-//	Debug.write ('CACHE: create new ', type, newcomp, datanode);
+	Debug.write ('CACHE: create new ', type, newcomp, datanode);
 	            }
 	        }
             
