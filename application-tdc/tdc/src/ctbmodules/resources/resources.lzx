@@ -355,6 +355,8 @@
         <frame src="components/griddedresponse/circle_over.swf"/>
         <frame src="components/griddedresponse/circle_selected.swf"/>
     </resource>
+    
+    <resource name="circle_btn_clickregion" src="components/griddedresponse/circle_selected.swf" />
 
     <!-- erase btn -->
     <resource name="erase_btn">
