@@ -4,6 +4,7 @@
     <include href="base/baseslider.lzx"/>
     <include href="lz/slider.lzx"/>
    <include href="ScratchpadButton.lzx"/>
+	<include href="lz/radio.lzx"/>
 
     <class name="ManipulativeBar" bgcolor="0xC4C4C4"
            datapath="dsstudentdata:/testing_client_model/current_item/item_model">
