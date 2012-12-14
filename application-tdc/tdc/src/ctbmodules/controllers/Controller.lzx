@@ -1257,7 +1257,7 @@
 
 		<method name="totalAnswered"><![CDATA[
             var awd = dpstudentdata.xpathQuery(
-                "runtime/item_model[@answered = 'true']"
+                "runtime/item_model[@answered = '1']"
             );
             
             //For removing NI Item count 
@@ -1284,12 +1284,12 @@
         ]]></method>
 
 		<method name="totalMarked"><![CDATA[    
-			var mrk = dpstudentdata.xpathQuery(
+			/*var mrk = dpstudentdata.xpathQuery(
                 "runtime/item_model[@marked='1']"
-            );
-           /* var mrk = dpstudentdata.xpathQuery(
-                "runtime/item_model[@marked='true']"
             );*/
+            var mrk = dpstudentdata.xpathQuery(
+                "runtime/item_model[@marked='true']"
+            );
             if ( mrk && mrk instanceof Array ) {
                 var nummarked = mrk.length;
             } else if ( mrk && mrk instanceof lz.DataElement ) {
@@ -3250,7 +3250,7 @@
 		]]></method>
 
 		<method name="resumeTest">
-			
+			this.setAttribute("onStopTest",false);
             lz.Cursor.setCursorGlobal( 'waitcursor' );
             lz.Cursor.lock();
             showItemInterface();
