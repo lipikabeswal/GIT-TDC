@@ -14,11 +14,13 @@
 		<attribute name="hasResponseArea" type="boolean" value="true" />
 		<attribute name="hasMagnifyingGlass"  value="$path{'manipulatives/global/@magnifying_glass'}" />
 		<simplelayout axis="x" spacing="15"></simplelayout>
+		<attribute name="speedSelected"/>
 
 		<handler name="ondata" args="data">
 			if(theme) {
 				this.setAttribute("hasResponseArea", gController.applyManipulative());
 			}
+			this.setAttribute('speedSelected',this.speedController.value);
 			//this.globals.magnifyingGlass.setAttribute('frame', 1);
 		</handler>
 
@@ -334,10 +336,12 @@
 				<radiobutton value="'F'" text="Fast " height="15" valign="middle"/>
 
 				<handler name="onselect"><![CDATA[
-					if(gReadableText.isplaying && gReadableText.isReadable && 
-						gReadableText.clickable && gReadableText.currentText.length > 0) {
-
-					gReadableText.read(gReadableText.currentText,false);
+					if(classroot.speedSelected != this.value){
+						if(gReadableText.isplaying && gReadableText.isReadable && 
+							gReadableText.clickable && gReadableText.currentText.length > 0) {
+	
+							gReadableText.read(gReadableText.currentText,false);
+						}
 					}
 				]]></handler>
 			</radiogroup>		
