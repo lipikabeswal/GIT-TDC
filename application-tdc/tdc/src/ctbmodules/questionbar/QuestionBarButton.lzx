@@ -1,8 +1,7 @@
 <library>
 
-
     <class name="QuestionBarButton"  
-           clickregion="../resources/iknow_navbar/click_region.swf" 
+           clickregion="question_bar_clickregion" 
            width="26">
 
         <attribute name="itemeid" value="$path{ '@eid' }"/>

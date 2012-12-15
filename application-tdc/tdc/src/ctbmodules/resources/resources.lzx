@@ -163,6 +163,7 @@
     <!-- =====================
          Question Bar
          =====================-->
+	<resource name="question_bar_clickregion" src="iknow_navbar/click_region.swf"/>
     <resource name="question_bar_bg" src="iknow_navbar/LeftBottomPanel.swf"/>
     <resource name="question_bar_btn" src="iknow_navbar/qButtonStates.swf"/>
     <resource name="question_bar_ball" src="iknow_navbar/navbar_blueball.swf"/>
