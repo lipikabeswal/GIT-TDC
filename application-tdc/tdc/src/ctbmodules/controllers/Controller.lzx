@@ -1256,12 +1256,32 @@
         ]]></method>
 
 		<method name="totalAnswered"><![CDATA[
-            var awd = dpstudentdata.xpathQuery(
+			var numanswered = 0;
+			var ni_count = 0;
+			var items = dpstudentdata.xpathQuery("runtime/item_model");
+			if(items) {
+				if(items instanceof lz.DataElement){
+	       	     items = [items];
+	       		}
+				for(var i = 0; i<items.length; i++) {
+					var itemnode = items[i];
+					var itmeid = itemnode.getAttr('eid');
+					var ts =  itemnode.getAttr('theme');
+					var answered = itemnode.getAttr('answered');
+					if(answered == true || answered == 'true' || answered == '1') {
+						if(ts == true || ts == 'true' || ts == '1') 
+							ni_count++;
+						numanswered++;
+					}
+				}
+			}
+
+          /*  var awd = dpstudentdata.xpathQuery(
                 "runtime/item_model[@answered = '1']"
             );
             
             //For removing NI Item count 
-            var ni_count = 0;
+            
             if ( awd && awd instanceof Array ) {
                 for(var i=0; i< awd.length ; i++){
 					var ts =  dpsubtest.xpathQuery("ob_assessment/ob_element_list/f[@id='" + awd[i].getAttr('eid') + "']/@type");
@@ -1278,15 +1298,24 @@
                 var numanswered = 1;
             } else {
                 var numanswered = 0;
-            }
+            }*/
             numanswered = numanswered - ni_count;
         	return numanswered;
         ]]></method>
 
 		<method name="totalMarked"><![CDATA[    
+			var nummarked = 0;
+			var items = dpstudentdata.xpathQuery("runtime/item_model");
+			for(var i = 0; i<items.length; i++) {
+				var itemnode = items[i];
+				var marked = itemnode.getAttr('marked');
+				if(marked == true || marked == 'true' || marked == '1') {
+					nummarked++;
+				}
+			}
 			/*var mrk = dpstudentdata.xpathQuery(
                 "runtime/item_model[@marked='1']"
-            );*/
+            );
             var mrk = dpstudentdata.xpathQuery(
                 "runtime/item_model[@marked='true']"
             );
@@ -1296,7 +1325,7 @@
                 var nummarked = 1;
             } else {
                 var nummarked = 0;
-            }
+            } */
             return nummarked;
         ]]></method>
 
