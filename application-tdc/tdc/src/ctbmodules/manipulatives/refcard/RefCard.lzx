@@ -73,11 +73,13 @@
         	this.bringToFront();
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
             lz.Cursor.lock ();
+            gHotKeys.disableKeys();
             this.dragger.apply ();
         </handler>
 
         <handler name="onmouseup">
             lz.Cursor.unlock ();
+            gHotKeys.enableKeys();
             gController.restoreCurrentCursor();
             this.dragger.remove ();
 

@@ -50,12 +50,14 @@
 			magnifyingGlass.magnify();
 			lz.Cursor.setCursorGlobal ('grabbing_cursor');
 		    lz.Cursor.lock();		
+		    gHotKeys.disableKeys();
 		</handler>
 		
 		<handler name="onmouseup">
 	        magnifyingGlass.dragger.remove();
 			lz.Timer.removeTimer(magnifyingGlass.trackDel);
 			lz.Cursor.unlock();
+			gHotKeys.enableKeys();
 	        gController.restoreCurrentCursor();
   		</handler>
 

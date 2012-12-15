@@ -256,10 +256,12 @@ Debug.write("else "+data +" : "+ hasstate);
                   	  classroot.bringToFront();
                       lz.Cursor.setCursorGlobal ('grabbing_cursor');
                       lz.Cursor.lock ();
+                      gHotKeys.disableKeys();
                       classroot.dragger.apply ();
                   </handler>
                   <handler name="onmouseup">
                       lz.Cursor.unlock ();
+                      gHotKeys.enableKeys();
                       gController.restoreCurrentCursor();
                       classroot.dragger.remove ();
 
@@ -273,10 +275,12 @@ Debug.write("else "+data +" : "+ hasstate);
         	this.bringToFront();
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
             lz.Cursor.lock ();
+            gHotKeys.disableKeys();
             this.dragger.apply ();
         </handler>
         <handler name="onmouseup">
             lz.Cursor.unlock ();
+            gHotKeys.enableKeys();
             gController.restoreCurrentCursor();
             this.dragger.remove ();
 Debug.write("masking ruler datapath ",this.datapath.p);

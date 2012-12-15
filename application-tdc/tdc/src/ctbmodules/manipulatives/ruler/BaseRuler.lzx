@@ -388,10 +388,12 @@
                   	  classroot.bringToFront();
                       lz.Cursor.setCursorGlobal ('grabbing_cursor');
                       lz.Cursor.lock ();
+                      gHotKeys.disableKeys();
                       classroot.dragger.apply ();
                   </handler>
                   <handler name="onmouseup">
                       lz.Cursor.unlock ();
+                      gHotKeys.enableKeys();
                       gController.restoreCurrentCursor();
                       classroot.dragger.remove ();
 
