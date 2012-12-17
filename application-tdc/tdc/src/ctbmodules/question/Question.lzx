@@ -42,9 +42,15 @@ gController.setAttribute('skipCacheDestroy', true);
 			//sizer should not be destroyed so we are starting from array 1
 			var contsubviews = gQuestion.subviews;
 			var contViewsLen = gQuestion.subviews.length;
+			
 			if(!gController.skipCacheDestroy){
 				for (var i = 1; i <= contViewsLen; i++){
 				 if(contsubviews[i] && contsubviews[i] instanceof lz.CachableAnswerAreaPanel){
+						contsubviews[i].destroy();
+					}
+				}
+				for (var i = 1; i <= contViewsLen; i++){
+				 if(contsubviews[i] && contsubviews[i] instanceof lz.CachableAnswerAreaAbsolutePanel){
 						contsubviews[i].destroy();
 					}
 				}

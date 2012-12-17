@@ -86,7 +86,7 @@
 	
 	            } else {
 	                newcomp = this._createNewComponent (type);
-	Debug.write ('CACHE: create new ', type, newcomp, datanode);
+//	Debug.write ('CACHE: create new ', type, newcomp, datanode);
 	            }
 	        }
             
@@ -123,7 +123,7 @@
 			
 			}*/
 			//Removing caching
-			//toReturn.doReturnToCache();
+			toReturn.doReturnToCache(); // This line now deletes all the subviews present in the component
 			toReturn.setAttribute('visible',false);
 			toReturn.destroy();
 			
@@ -350,7 +350,7 @@
                     break;
                 }
             }
-Debug.write(" ComponentCache, Create new ", toReturn);
+//Debug.write(" ComponentCache, Create new ", toReturn);
 		    return toReturn;
         </method> 
 
