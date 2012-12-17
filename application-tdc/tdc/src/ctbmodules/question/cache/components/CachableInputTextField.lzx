@@ -88,6 +88,12 @@
            <text name="thetext" multiline="false" resize="true"
                fgcolor="${classroot.fontcolor}"
                fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" width="1">
+               
+				<!-- setting Anti aliasing to Normal for input text field also-->
+				<handler name="oninit">
+		 			var t = this.getDisplayObject().textfield;
+	                t.antiAliasType = 'normal';
+               </handler>
                <handler name="onwidth" args="w"><![CDATA[
 					var xin = classroot.parent.parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
 //					Debug.write('xin..', classroot.parent.parent, classroot.parent.parent.comptype);
