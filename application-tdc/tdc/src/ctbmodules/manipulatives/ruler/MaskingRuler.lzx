@@ -255,12 +255,12 @@ Debug.write("else "+data +" : "+ hasstate);
                   <handler name="onmousedown">
                   	  classroot.bringToFront();
                       lz.Cursor.setCursorGlobal ('grabbing_cursor');
-                      lz.Cursor.lock ();
+                      lz.Cursor.lock();
                       gHotKeys.disableKeys();
                       classroot.dragger.apply ();
                   </handler>
                   <handler name="onmouseup">
-                      lz.Cursor.unlock ();
+                      lz.Cursor.unlock();
                       gHotKeys.enableKeys();
                       gController.restoreCurrentCursor();
                       classroot.dragger.remove ();
@@ -269,8 +269,8 @@ Debug.write("else "+data +" : "+ hasstate);
                       classroot.datapath.p.setAttr ('y', classroot.y);
                   </handler>
             </view>
-        </view>       
-
+        </view> 
+              
         <handler name="onmousedown">
         	this.bringToFront();
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
@@ -281,7 +281,9 @@ Debug.write("else "+data +" : "+ hasstate);
         <handler name="onmouseup">
             lz.Cursor.unlock ();
             gHotKeys.enableKeys();
-            gController.restoreCurrentCursor();
+            var del = new lz.Delegate(gController, 'restoreCurrentCursor');
+       		lz.Timer.addTimer(del, 0.5);
+            //gController.restoreCurrentCursor();
             this.dragger.remove ();
 Debug.write("masking ruler datapath ",this.datapath.p);
             this.datapath.p.setAttr ('x', this.x);

@@ -48,7 +48,9 @@
 				if (who == this){
 						this.sp.inp.setAttribute('selectable',true);
 		            	lz.Cursor.unlock ();
-		            	gController.restoreCurrentCursor();
+		            	var del = new lz.Delegate(gController, 'restoreCurrentCursor');
+       				    lz.Timer.addTimer(del, 0.5);
+		            	//gController.restoreCurrentCursor();
 		            	restoreFocusAndCursor();
 					}
 					

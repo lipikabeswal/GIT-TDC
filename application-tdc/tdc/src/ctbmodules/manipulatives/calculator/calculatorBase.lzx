@@ -78,7 +78,9 @@
         <handler name="onmouseup">
             lz.Cursor.unlock ();
             gHotKeys.enableKeys();
-            gController.restoreCurrentCursor();
+            var del = new lz.Delegate(gController, 'restoreCurrentCursor');
+       		lz.Timer.addTimer(del, 0.5);
+            //gController.restoreCurrentCursor();
             this.dragger.remove ();
 
             this.datapath.p.setAttr ('x', this.x);

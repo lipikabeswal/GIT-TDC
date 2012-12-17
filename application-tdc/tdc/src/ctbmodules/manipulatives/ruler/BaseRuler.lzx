@@ -394,7 +394,9 @@
                   <handler name="onmouseup">
                       lz.Cursor.unlock ();
                       gHotKeys.enableKeys();
-                      gController.restoreCurrentCursor();
+					  var del = new lz.Delegate(gController, 'restoreCurrentCursor');
+       				  lz.Timer.addTimer(del, 0.5);
+                      //gController.restoreCurrentCursor();
                       classroot.dragger.remove ();
 
                       classroot.datapath.p.setAttr ('x', classroot.x);
