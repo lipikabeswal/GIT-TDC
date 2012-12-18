@@ -53,11 +53,6 @@
         <attribute name="operandP" value="$once{new lz.datapointer()}"/>
         <attribute name="operatorP" value="$once{new lz.datapointer()}"/>
         
-        <handler name="onvisible">
-			if(!this.visible)
-				lz.Timer.removeTimer(gController.dRestoreCursor);
-		</handler>
-        
         <dragstate name="dragger"
                    drag_min_x="$once{-(this.width - 100)}" 
                    drag_min_y="$once{-(this.height - 100)}"

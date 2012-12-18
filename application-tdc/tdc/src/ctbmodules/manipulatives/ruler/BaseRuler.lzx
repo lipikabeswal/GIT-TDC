@@ -10,11 +10,6 @@
         <attribute name="tickmarksrsr" value="" type="string"/>
         <attribute name="labelrsr"     value="" type="string"/>
 
-		<handler name="onvisible">
-			if(!this.visible)
-				lz.Timer.removeTimer(gController.dRestoreCursor);
-		</handler>
-
 		<handler name="onmousedown" >
 			this.bringToFront();
 		</handler>

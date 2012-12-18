@@ -34,9 +34,6 @@
 			{
 				this.bringToFront();
 			}	
-			
-			if(!this.visible)
-				lz.Timer.removeTimer(gController.dRestoreCursor);
 		]]></handler>
 
        <attribute name="retrycount" value="0"/>

@@ -152,7 +152,6 @@
            }else{
            		gReadableText.stopReading(true);
 				gScratchpad.sp.inp.onblur.sendEvent();
-				lz.Timer.removeTimer(gController.dRestoreCursor);
             }  
             }   
             

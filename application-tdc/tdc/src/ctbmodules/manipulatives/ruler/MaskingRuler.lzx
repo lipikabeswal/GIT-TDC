@@ -291,11 +291,6 @@ Debug.write("masking ruler datapath ",this.datapath.p);
             this.datapath.p.setAttr ('y', this.y);
         </handler>
         
-        <handler name="onvisible">
-			if(!this.visible)
-				lz.Timer.removeTimer(gController.dRestoreCursor);
-		</handler>
-        
     </class>
 
 </library>

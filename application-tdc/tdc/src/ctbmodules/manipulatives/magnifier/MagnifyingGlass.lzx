@@ -43,8 +43,6 @@
 				this.ratioH = this.height/(canvas.height + this.height);
 				mouseMove();
 			}
-			if(!this.visible)
-				lz.Timer.removeTimer(gController.dRestoreCursor);
 		</handler>
 
 		<handler name="onmousedown">

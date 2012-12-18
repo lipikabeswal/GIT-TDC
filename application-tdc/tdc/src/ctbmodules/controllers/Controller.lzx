@@ -522,7 +522,7 @@
 		
 		<!-- called to restore the custom cursor-->
 		<attribute name="dRestoreCursor"
-			value="$once{ new lz.Delegate( this, 'restoreCurrentCursor' ) }" />
+			value="$once{ new lz.Delegate( this, 'restoreGrabCursor' ) }" />
 		<!--
 			============================================================
 			Datapointers
@@ -3384,6 +3384,12 @@
 	            }
 	        }
 		]]>
+        </method>
+        
+        <!-- added to handle double cursor issue on manipulative grabber mouseup -->
+        <method name="restoreGrabCursor">
+        	this.restoreCurrentCursor();
+        	lz.Timer.removeTimer(gController.dRestoreCursor);
         </method>
 
 		<method name="restoreCurrentCursor">
