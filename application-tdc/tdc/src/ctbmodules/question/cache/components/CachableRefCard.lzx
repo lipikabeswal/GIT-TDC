@@ -34,6 +34,9 @@
 			{
 				this.bringToFront();
 			}	
+			
+			if(!this.visible)
+				lz.Timer.removeTimer(gController.dRestoreCursor);
 		]]></handler>
 
        <attribute name="retrycount" value="0"/>
@@ -177,7 +180,10 @@
 
         <handler name="onmouseup">
             lz.Cursor.unlock ();
-            gController.restoreCurrentCursor();
+            
+            // the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
+     		lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
+            //gController.restoreCurrentCursor();
             this.dragger.remove ();
 
             this.datapath.p.setAttr ('x', this.x);

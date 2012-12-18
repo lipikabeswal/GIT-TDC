@@ -12,7 +12,7 @@
 	<attribute name="lastxpos" value="0" type="number" />
 	<attribute name="lastypos" value="0" type="number" />
 	<attribute name="isEnabled" value="false" />
-
+	
 		<handler name="onwidth">
 			//Debug.write("onwidth....");
 			magnifyingGlass.width = canvas.width/4;
@@ -43,6 +43,8 @@
 				this.ratioH = this.height/(canvas.height + this.height);
 				mouseMove();
 			}
+			if(!this.visible)
+				lz.Timer.removeTimer(gController.dRestoreCursor);
 		</handler>
 
 		<handler name="onmousedown">
@@ -58,8 +60,9 @@
 			lz.Timer.removeTimer(magnifyingGlass.trackDel);
 			lz.Cursor.unlock();
 			gHotKeys.enableKeys();
-	        var del = new lz.Delegate(gController, 'restoreCurrentCursor');
-      		lz.Timer.addTimer(del, 0.5);
+	        
+			// the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
+       		lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
 	        //gController.restoreCurrentCursor();
   		</handler>
 

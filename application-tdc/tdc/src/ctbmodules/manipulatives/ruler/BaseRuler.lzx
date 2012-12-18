@@ -10,6 +10,11 @@
         <attribute name="tickmarksrsr" value="" type="string"/>
         <attribute name="labelrsr"     value="" type="string"/>
 
+		<handler name="onvisible">
+			if(!this.visible)
+				lz.Timer.removeTimer(gController.dRestoreCursor);
+		</handler>
+
 		<handler name="onmousedown" >
 			this.bringToFront();
 		</handler>
@@ -394,8 +399,9 @@
                   <handler name="onmouseup">
                       lz.Cursor.unlock ();
                       gHotKeys.enableKeys();
-					  var del = new lz.Delegate(gController, 'restoreCurrentCursor');
-       				  lz.Timer.addTimer(del, 0.5);
+
+					  // the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
+       				  lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
                       //gController.restoreCurrentCursor();
                       classroot.dragger.remove ();
 

@@ -48,8 +48,8 @@
 				if (who == this){
 						this.sp.inp.setAttribute('selectable',true);
 		            	lz.Cursor.unlock ();
-		            	var del = new lz.Delegate(gController, 'restoreCurrentCursor');
-       				    lz.Timer.addTimer(del, 0.5);
+		            	// the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
+       				    lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
 		            	//gController.restoreCurrentCursor();
 		            	restoreFocusAndCursor();
 					}
@@ -152,6 +152,7 @@
            }else{
            		gReadableText.stopReading(true);
 				gScratchpad.sp.inp.onblur.sendEvent();
+				lz.Timer.removeTimer(gController.dRestoreCursor);
             }  
             }   
             

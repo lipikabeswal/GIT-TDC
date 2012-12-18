@@ -19,6 +19,11 @@
 			title.real_title.setAttribute('resource',titleRsrc);
 		</handler>
 		
+		<handler name="onvisible">
+			if(!this.visible)
+				lz.Timer.removeTimer(gController.dRestoreCursor);
+		</handler>
+		
         <dragstate name="dragger"
                    drag_min_x="$once{-(this.width - 100)}" 
                    drag_min_y="$once{-(this.height - 100)}"
@@ -80,8 +85,9 @@
         <handler name="onmouseup">
             lz.Cursor.unlock ();
             gHotKeys.enableKeys();
-            var del = new lz.Delegate(gController, 'restoreCurrentCursor');
-       		lz.Timer.addTimer(del, 0.5);
+            
+			// the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
+       		lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
             //gController.restoreCurrentCursor();
             this.dragger.remove ();
 

@@ -519,6 +519,10 @@
 		
 		<attribute name="teItemState" value="$once{new Object()}"/>
 		<attribute name="skipCacheDestroy" type="boolean" value="false"/>
+		
+		<!-- called to restore the custom cursor-->
+		<attribute name="dRestoreCursor"
+			value="$once{ new lz.Delegate( this, 'restoreCurrentCursor' ) }" />
 		<!--
 			============================================================
 			Datapointers
