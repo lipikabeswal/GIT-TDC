@@ -296,8 +296,10 @@
     	 if(gController.onStopTest) {
     	 	lz.Cursor.lock();
     	 }
-    	 var s = "callManipOutOfFrameCheck('"+this.mouseUpFired+"')";
-		 lz.Browser.loadJS(s);
+		 if(gController.htmlFields.length > 0){
+	    	 var s = "callManipOutOfFrameCheck('"+this.mouseUpFired+"')";
+			 lz.Browser.loadJS(s);
+		 }
      </handler>
 
 
