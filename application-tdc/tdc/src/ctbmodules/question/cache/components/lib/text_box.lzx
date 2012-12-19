@@ -28,6 +28,10 @@
 		
 		<method name="init">
             super.init();
+ 			//antialiasing will be NORMAL for all text components
+ 			//to keep the layout consistent across the application
+ 			var t = this.getDisplayObject().textfield;
+            t.antiAliasType = 'normal';            
         </method>
         
         <handler name="oninit">
