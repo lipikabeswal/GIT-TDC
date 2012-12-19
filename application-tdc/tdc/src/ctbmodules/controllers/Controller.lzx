@@ -3372,7 +3372,12 @@
 				}
 	            if ( 0 == uisemaphore ) {
 	                lz.Cursor.unlock();
-	                restoreCurrentCursor();
+					// to clear the highlighter cursor when navigating to next item.
+	                if(canvas.currentCursor == 'highlighter_cursor'){
+	                	clearAndRestoreCurrentCursor();
+	                }else{	                	
+	                	restoreCurrentCursor();
+	                }
 	                dsdisplay.childNodes[0].setAttr( 'enabled', 'true' );
 	                if(this.htmlFields.length > 0){
 	                 	var s = "unlockUI()";
