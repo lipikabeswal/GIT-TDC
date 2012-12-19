@@ -274,8 +274,11 @@ public class Main {
 			zis.close();
             ConsoleUtils.messageOut("Done with zip entries.");
 		} catch( IOException ioe ) {
-			ioe.printStackTrace();
-			throw new BootstrapException( ResourceBundleUtils.getString("bootstrap.main.error.clientConfigIOException") );
+			ioe.printStackTrace(); // TDC should continue even without update if error comes
+			//throw new BootstrapException( ResourceBundleUtils.getString("bootstrap.main.error.clientConfigIOException") );
+		} catch (Exception e) {
+			e.printStackTrace();
+			//throw new BootstrapException( ResourceBundleUtils.getString("bootstrap.main.error.clientConfigIOException") );
 		}
 	}
 	
@@ -307,7 +310,8 @@ public class Main {
 	private static String getUpgradeDirectoryUrl(){
 		String productType = System.getProperty("product.type");
 		String base = "";
-		baseurl = System.getProperty("tdc.baseurl");
+		base = ResourceBundleUtils.getString("bootstrap.main.base.tdcupdate.url");
+		/*baseurl = System.getProperty("tdc.baseurl");
 		if(baseurl != null && !"".equals(baseurl.trim())) {
 			base = baseurl + "/tdcupdate";
 		} else {
@@ -323,7 +327,7 @@ public class Main {
 				base = ResourceBundleUtils.getString("bootstrap.main.llo.url");
 			else 
 				base = ResourceBundleUtils.getString("bootstrap.main.base.url");
-		}		
+		}*/		
 		String version = ResourceBundleUtils.getVersionString("tdc.version");
 		version = "v" + version.substring(0, version.lastIndexOf("."));
 		String result = base + "/" + version + "/";
