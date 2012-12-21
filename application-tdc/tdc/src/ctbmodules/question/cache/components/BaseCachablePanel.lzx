@@ -319,7 +319,7 @@
                                     parent.scrollcontainer.height) :
                                   (classroot.growtocontents ? parent.scrollcontainer.height : parent.height)}"
                         pagesize="${this.height}"  scrolltarget="parent.scrollcontainer"
-						x="${parent.hscroll.visible ? parent.hscroll.width-this.width : classroot.wrapper.width-this.width}"
+						x="${parent.hscroll.visible ? parent.hscroll.width : classroot.wrapper.width-this.width}"
                         visible="${this.scrollable &amp;&amp; !classroot.growtocontents}"/>
             <hscrollbar name="hscroll" visible="${this.scrollable}"
                         width="${parent.vscroll.visible ? 
