@@ -50,7 +50,6 @@
             // "FITPANEL" : shrink or enlarge table text font to fit a panel (no scrolling)
             //
             this.setAttribute("autoenlarge", data.getAttr("autoenlargeable"));
-
             // Set title and title width
             if (data.hasAttr("titlewidth")) {
                 this.thetable.contents.title.setAttribute("titlewidth", Number(data.getAttr("titlewidth")));
@@ -60,7 +59,7 @@
 
             // Fixed: Increase title fontsize for accommodated users
             if (this.autoenlarge == "fixed" && this.thetable.contents.title.fontsize < 16 &&
-                 gController.hasFontAccommodation) {
+                 gController.hasFontAccommodation && parent['stereotype']) {
                 this.thetable.contents.title.setAttribute("fontsize", 
                                     this.thetable.contents.title.fontsize * style['font_magnification']);
 //Debug.write("fixed : "  + this.thetable.contents.title.fontsize);
@@ -69,6 +68,7 @@
             if(data.hasAttr('title')){
             	titleTxt = data.getAttr('title');
             }
+
             if(titleTxt.length > 0){
             	this.thetable.contents.title.setAttribute('visible', true);
 	            this.thetable.contents.title.setAttribute("text", 
