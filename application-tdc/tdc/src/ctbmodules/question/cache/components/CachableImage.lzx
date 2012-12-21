@@ -329,8 +329,11 @@
 		</method>
 		<method name="show">
             	this.setAttribute('opacity',100);
-            	if(this.readable)
-            	this.imageview.setAttribute('clickable',true);
+            	if(this.readable){
+            		if(this['imageview']){
+         				this.imageview.setAttribute('clickable',true);
+         			}
+            	}
 		</method>
 
         <view name="imageview" stretches="both" clickable="${classroot.readable}">
