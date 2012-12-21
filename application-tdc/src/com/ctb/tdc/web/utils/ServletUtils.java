@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -875,7 +876,48 @@ public class ServletUtils {
 			finally {
 				//post.releaseConnection();
 			}
+			//System.out.println("result -> " + result);
 			return result;
+		}
+	}
+	
+	/**
+	 * httpConnectionSendRequest
+	 * @param String xml
+	 * @param String method
+	 *
+	 * Connect to TMS and send request using HttpClient
+	 *
+	 */
+	public static byte[] httpClientSendServerRequest(String requestURL) {
+		synchronized(client) {
+			int responseCode = HttpStatus.SC_OK;
+			HttpGet get = new HttpGet(requestURL);
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			try {
+				HttpResponse response = client.execute(get, localcontext);
+				responseCode = response.getStatusLine().getStatusCode();
+				if (responseCode == HttpStatus.SC_OK) {
+					InputStream in = response.getEntity().getContent();
+					byte[] buffer = new byte[1024];
+					int len;
+					while ((len = in.read(buffer)) != -1) {
+						bos.write(buffer, 0, len);
+					}
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				try {
+					bos.flush();
+					bos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return bos.toByteArray();
 		}
 	}
 	
