@@ -231,14 +231,8 @@
         <method name="doneLoading"><![CDATA[
             //alignment in panel
             var align = "left";
-            if (data.hasAttr("halign")) {
-                align = data.getAttr("halign");
-            }
-            this.setAttribute('align',align);
             if (this.x < 0) this.setAttribute('x',0);
-//Debug.write("this width : " + this.width + " x : " + this.x, this);
-//Debug.write("parent width : " + parent.width + " x : " + parent.x, parent);
-			
+
            if (this.autoenlarge == "zoom") {
 
                // This contains the updated height and width values
@@ -246,22 +240,19 @@
                var orig_height = data.getAttr("height");
                var orig_width = data.getAttr("width");
                var offset = 50;
-//Debug.write(data); 
 
                // Multiplying factor
                // Use offset for margins
-               var mult_factor  = (gEnlargePopup.width - offset)/orig_width;
-//Debug.write("mult_factor : " + mult_factor + " w : " + orig_width + " h : " + orig_height);
                var width = gEnlargePopup.width - offset;
+               var mult_factor  = width / orig_width;
 
                // These variables manipulate the image within the popup window
                var table = this.thetable.contents.borderview.table;
                var wrapper = parent.wrapper;
                var title_ht = 60;
- 
+
                var title = this.thetable.contents.title;
                if (title) {
-//Debug.write("font size : " + title.fontsize);               
                    var titleTxt = "";
                    if(data.hasAttr('title')){
                    		titleTxt = data.getAttr('title');
@@ -273,32 +264,29 @@
 	                        '<p align="center">' + decodeBrackets(titleTxt) + '</p>');
 	
 	                   // Based on (width/height) ratio use an appropriate fontsize
-	//Debug.write("updated font size : " + (title.fontsize * mult_factor));
 	                   title.setAttribute("fontsize", 
 	                               title.fontsize * mult_factor);
-	//Debug.write("updated title ht : " + title.height);
 					}
 					else{
 						title.setAttribute('visible', false);
 					}
                }
 
-//Debug.write(table);
-//Debug.write(title);
-//Debug.write(this);
-//Debug.write(parent.wrapper);
-
                // Set the image dimensions 
                // We're using the original table measurements, so we only need
                // to use an aspect ratio to correct for the margins 
                //table.setAttribute("stretches", "both");
+				
+			   //this will give the correct factor
+			   mult_factor  = width / table.width;
+			   
+		       //scale up the table with the correct factor
+			   table.setAttribute("xscale" , mult_factor);
+			   table.setAttribute("yscale",  mult_factor);
                
+               //set the fixed width and scale up the height
                table.setAttribute("width", width);
-               table.setAttribute('height',Math.ceil((orig_height - title_ht) * mult_factor));
-			   table.setAttribute("xscale" , ((width + 37.5)/orig_width));
-			   table.setAttribute("yscale", ((width - 10)/orig_width));
-               //Debug.write("CACHABLE TABLE" , width,offset,orig_width, table.width);
-			   //Debug.write("CACHABLE TABLE" , height,Math.ceil((orig_height - title_ht) * mult_factor),orig_height,table.height);
+               table.setAttribute('height',table.height * mult_factor);
               
                // nklein : hack that shouldn't be necessary
                // Need to examine why this occurs
@@ -307,14 +295,19 @@
                // Set the canvas height of the popup 
                // Sets the height for the scrollbar
                // Account for margins and the height of the title
-//Debug.write("table h : " + table.height + " title h : " + title.height);
+
                parent.wrapper.setAttribute('height',table.height + (offset - 40) + title.height);
 
                // Remove the scrollbar when the table fits within the popup
-               if (parent.wrapper.height + (offset - 40) < gEnlargePopup.height) 
+
+//lz.Browser.loadJS('console.log("'+this.height+' : '+gEnlargePopup.height+' : '+this.getAttributeRelative('y', gEnlargePopup)+'")');
+
+				//show scrollbar if cachable table height is greater than the enlargepopup height
+				if (this.height * 1 + this.getAttributeRelative('y', gEnlargePopup) * 1< gEnlargePopup.height) 
                   gEnlargePopup.contents.scaler.scroller.setAttribute("visible", false);
                else
                   gEnlargePopup.contents.scaler.scroller.setAttribute("visible", true);
+               
 
                super.doneLoading();
                return;
@@ -353,6 +346,11 @@
                 this.thetable.setAttribute("width", this.thetable.contents.width);
                 this.thetable.setAttribute("height", this.thetable.contents.height);
             }
+
+            if (data.hasAttr("halign")) {
+                align = data.getAttr("halign");
+            }
+            this.setAttribute('align',align);
             
             super.doneLoading();
         ]]></method>
