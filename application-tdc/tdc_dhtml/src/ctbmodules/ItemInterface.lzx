@@ -113,10 +113,10 @@
       	</view>
 
 		<view name="contents" width="800" height="580">
-			<basebutton x="${classroot.main.contents.x-this.width}" 
+			<basebutton name="navBack" x="${classroot.main.contents.x-this.width}" 
 					valign="middle" resource="navBack"
 					onclick="gController.stepNavigateBack()">left</basebutton>
-			<basebutton x="${classroot.main.contents.x+classroot.main.contents.width}" 
+			<basebutton name="navNext" x="${classroot.main.contents.x+classroot.main.contents.width}" 
 					valign="middle" resource="navNext"
 					onclick="gController.stepNavigateForward()">right</basebutton>
 			 <handler name="onclick">
