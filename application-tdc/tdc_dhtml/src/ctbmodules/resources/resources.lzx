@@ -599,4 +599,8 @@
 	</resource>
 	
 	<!-- ****************** End Recorder Resources ************************************************* -->
+	
+	<!-- item full screen navigation buttons -->
+	<resource name="navBack" src="iknow_buttons/nav_buttons/arrow_left.png"/>
+	<resource name="navNext" src="iknow_buttons/nav_buttons/arrow_right.png"/>
 </library>
