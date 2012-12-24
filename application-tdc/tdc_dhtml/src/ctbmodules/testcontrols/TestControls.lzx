@@ -99,9 +99,11 @@
 			
 			if(currentItemNumber != 1 && !gController.fwdOnly){				
                 this.btns.navbtns.btnback.setAttribute ('visible', true);
+                gItemInterface.main.contents.navBack.setAttribute("visible",true);
 			}
 			else{
                 this.btns.navbtns.btnback.setAttribute ('visible', false);
+                gItemInterface.main.contents.navBack.setAttribute("visible",false);
 			}
 //Debug.write("currentItemNumber : "+currentItemNumber+" : "+gController.getNextNavigableOffset(currentItemNumber));			
             //if(gController.adaptive == 'true' && currentItemNumber == gController.subtestLength){
@@ -110,9 +112,11 @@
 			//else{
 		    	if (currentItemNumber < parseInt(this.totalitemno) && gController.getNextNavigableOffset(currentItemNumber) < parseInt(this.totalitemno)) {
 		    		this.btns.navbtns.btnforward.setAttribute ('visible', true);
+		    		gItemInterface.main.contents.navNext.setAttribute("visible",true);
 		    	}
 		    else{
 		    	this.btns.navbtns.btnforward.setAttribute ('visible', false);
+		    	gItemInterface.main.contents.navNext.setAttribute("visible",false);
 		    	}
 		   // }  
             

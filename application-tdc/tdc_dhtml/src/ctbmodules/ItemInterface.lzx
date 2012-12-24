@@ -113,12 +113,12 @@
       	</view>
 
 		<view name="contents" width="800" height="580">
-			<!--<button x="${classroot.main.contents.x-this.width}" 
-					valign="middle"
-					onclick="gController.stepNavigateBack()">left</button>
-			<button x="${classroot.main.contents.x+classroot.main.contents.width}" 
-					valign="middle"
-					onclick="gController.stepNavigateForward()">right</button>-->
+			<basebutton x="${classroot.main.contents.x-this.width}" 
+					valign="middle" resource="navBack"
+					onclick="gController.stepNavigateBack()">left</basebutton>
+			<basebutton x="${classroot.main.contents.x+classroot.main.contents.width}" 
+					valign="middle" resource="navNext"
+					onclick="gController.stepNavigateForward()">right</basebutton>
 			 <handler name="onclick">
 				/*parent.navbar.setAttribute('visible',false);
 				this.bringToFront();
