@@ -87,7 +87,7 @@
 						gMagnifyingGlass.setUpGlass();
 						this.isEnabled = true;
 						gController.setAttribute("magnifierState", true);
-						//show();
+						show();
 					</method>
 
 				<method name="show">
@@ -101,7 +101,7 @@
 						gMagnifyingGlass.hideGlass();
 						this.isEnabled = false;
 						gController.setAttribute("magnifierState", false);
-						//this.setAttribute('frame',1);
+						this.setAttribute('frame',1);
 					</method>
 			</view>
                             	

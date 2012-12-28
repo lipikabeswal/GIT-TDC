@@ -112,14 +112,14 @@
               clip="true">
             <view name="scrollcontainer" height="100%"
                   width="${this.thebtns.width + this.thebtns.x}">
-                <view name="youarehere" options="ignorelayout">                    
+                <!-- <view name="youarehere" options="ignorelayout">                    
                     <view resource="you_are_here_txt" align="left"/>
                     <view resource="you_are_here_mark" align="center"/>
-                </view>
+                </view>  -->
                 <!-- the buttons below youarehere -->
                 <view name="thebtns" x="${classroot.moreleft.x}">
-                    <simplelayout axis="x" spacing="14"/>
-                    <QuestionBarButton y="13" >
+                    <simplelayout axis="x" spacing="16"/>
+                    <QuestionBarButton y="0" >
 						<datapath xpath="runtime/item_model" pooling="true"/>
 					</QuestionBarButton>
                 </view>

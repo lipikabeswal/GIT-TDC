@@ -15,16 +15,63 @@
            value="$path{ 'subtest/ob_assessment/@starting_question_number' }"/>
 
         <attribute name="hasStartNumber" value="false"/>
+		<attribute name="headerYDel" value="$once{new lz.Delegate(this,'increaseHeaderY')}"/>
+		<attribute name="decreaseHeaderYDel" value="$once{new lz.Delegate(this,'decreaseHeaderY')}"/>
+		<attribute name="increaseNavBarYDel" value="$once{new lz.Delegate(this,'increaseNavBarY')}"/>
+		<attribute name="decreaseNavBarYDel" value="$once{new lz.Delegate(this,'decreaseNavBarY')}"/>
 
         <handler args="n" name="onstartNumber"><![CDATA[
             setAttribute('hasStartNumber', typeof( n ) == 'string' || typeof( n ) == 'number');
         ]]></handler>
 
+	<method name="increaseHeaderY"><![CDATA[
+		console.log("this.main.header "+this.main.header.y);
+		if(this.main.header.y==0){
+			lz.Timer.removeTimer(headerYDel);
+		}else if(this.main.header.y < 0){
+			this.main.header.setAttribute('y',this.main.header.y+5);
+			lz.Timer.resetTimer(headerYDel,40);
+		}
+		]]>
+	</method>
+
+	<method name="decreaseHeaderY"><![CDATA[
+		if(this.main.header.y==-80){
+			lz.Timer.removeTimer(decreaseHeaderYDel);
+		}else if(this.main.header.y > -80){
+			this.main.header.setAttribute('y',this.main.header.y-5);
+			lz.Timer.resetTimer(decreaseHeaderYDel,40);
+		}
+		]]>
+	</method>
+
+	<method name="increaseNavBarY"><![CDATA[
+		if(this.main.navbar.y==540){
+			lz.Timer.removeTimer(increaseNavBarYDel);
+		}else if(this.main.navbar.y > 540){
+			this.main.navbar.setAttribute('y',this.main.navbar.y-5);
+			lz.Timer.resetTimer(increaseNavBarYDel,40);
+		}
+		]]>
+	</method>
+
+	<method name="decreaseNavBarY"><![CDATA[
+		if(this.main.navbar.y==600){
+			lz.Timer.removeTimer(decreaseNavBarYDel);
+		}else if(this.main.navbar.y <600){
+			this.main.navbar.setAttribute('y',this.main.navbar.y+5);
+			lz.Timer.resetTimer(decreaseNavBarYDel,40);
+		}
+		]]>
+	</method>
+
 
 	<view name="main" datapath="subtest/ob_assessment">
 	
-		<view name="header" width="800" height="0" y="0" bgcolor="0x6691B4" visible="false">
-			
+		<view id="header" name="header" width="800" height="80" y="-80" bgcolor="0x6691B4" visible="true">
+			<handler name="oninit">
+				classroot.main.header.bringToFront();
+			</handler>
             <resizelayout axis="y"/>
             <view width="${parent.parent.contents.width + 2}" height="50"
                   bgcolor="0x6691B4" x="-1" clickable="true" showhandcursor="false">
@@ -76,49 +123,61 @@
 				<basebutton x="${classroot.main.header.width-this.width-5}" name="close_btn" styleable="true"
                         resource="window_closebtn_rsc">
 	                <handler name="onclick">
-						classroot.main.header.setAttribute('visible',false);
-						classroot.main.showHd.setAttribute('visible',true);
+						//classroot.main.header.setAttribute('visible',false);
+						classroot.decreaseHeaderY();
+						classroot.main.contents.showHd.setAttribute('visible',true);
 					</handler>     
 	            </basebutton>
             </view>
             <view width="100%" height="25" options="releasetolayout">
                 <resizelayout axis="y"/>
                 <view width="100%">
-                    <ManipulativeBar id="gManipulativeBar" width="100%" height="25"/>
+                    <ManipulativeBar id="gManipulativeBar" width="100%" height="32"/>
                     <text id="gItemInterfaceStudentName" resize="true" align="right" fontstyle="bold" fontsize="13" />                               
                 </view>
             </view>
         </view>
+		<!--<view bgcolor="0x6691B4" width="100%" y="${classroot.main.header.y+this.y}">
+			<view name="hideHeader" resource="grey_arrow_down" align="center" width="30" height="30" stretches="both">
+	          	<handler name="onclick"><![CDATA[
+					if(classroot.main.header.y > -75){
+						classroot.decreaseHeaderY();
+						this.setAttribute('rotation',0);
+						//classroot.main.contents.showHd.setAttribute('visible',true);
+					} else if(classroot.main.header.y < 0){
+						classroot.main.header.bringToFront();
+						//classroot.main.contents.showHd.setAttribute('visible',false);
+						classroot.increaseHeaderY();
+						this.setAttribute('rotation',180);
+					}]]>
+				</handler>
+	      	</view>
+		</view>-->
         
-        <view name="showHd" bgcolor="0x000000" width="100%" height="20" y="0" visible="true">
-			<handler name="oninit">
-				classroot.main.showHd.bringToFront();
-			</handler>
-          	<handler name="onclick">
-				if(classroot.main.header.visible == false || classroot.main.header.visible == 'false'){
-					classroot.main.header.setAttribute('visible',true);
+		<view name="contents" width="800" height="600">
+			<view name="showHd" resource="grey_arrow_down" align="center" width="30" height="30" y="0" stretches="both" visible="true">
+				<handler name="oninit">
+					classroot.main.contents.showHd.bringToFront();
+				</handler>
+	          	<handler name="onclick">
+					/*if(classroot.main.header.visible == false || classroot.main.header.visible == 'false'){
+						classroot.main.header.setAttribute('visible',true);
+						classroot.main.header.bringToFront();
+						classroot.main.contents.showHd.setAttribute('visible',false);
+					}*/
 					classroot.main.header.bringToFront();
-					classroot.main.showHd.setAttribute('visible',false);
-				}
-				/*if(classroot.main.header.height == 0 || classroot.main.header.height == '0'){
-					classroot.main.header.setAttribute('height',"75");
-					classroot.main.header.bringToFront();
-					classroot.main.showHd.setAttribute('visible',false);
-				} else if(classroot.main.header.height > 0 || classroot.main.header.height > '0'){
-					classroot.main.header.setAttribute('height',"0");
-					classroot.main.showHd.setAttribute('visible',true);
-				}*/
-			</handler>
-
-      	</view>
-
-		<view name="contents" width="800" height="580">
-			<basebutton name="navBack" x="${classroot.main.contents.x-this.width}" 
+					classroot.main.contents.showHd.setAttribute('visible',false);
+					classroot.increaseHeaderY();
+				</handler>
+	
+	      	</view>
+			<basebutton name="navBack" x="${gQuestion.x}" opacity="0.3"
 					valign="middle" resource="navBack"
-					onclick="gController.stepNavigateBack()">left</basebutton>
-			<basebutton name="navNext" x="${classroot.main.contents.x+classroot.main.contents.width}" 
+					onclick="gController.stepNavigateBack()"></basebutton>
+			<basebutton name="navNext" opacity="0.3"
+					x="${gQuestion.x+gQuestion.width-this.width}" 
 					valign="middle" resource="navNext"
-					onclick="gController.stepNavigateForward()">right</basebutton>
+					onclick="gController.stepNavigateForward()"></basebutton>
 			 <handler name="onclick">
 				/*parent.navbar.setAttribute('visible',false);
 				this.bringToFront();
@@ -137,31 +196,32 @@
                 <Tooltip id="gTooltip" options="ignorelayout"/>
                 <!--<view bgcolor="0xFFFFCC" width="100%" height="6" valign="bottom"/>-->
             </view>
+			<view name="showNavBar" resource="grey_arrow_down"  rotation="180" align="center" width="30" height="30" stretches="both" y="600" visible="true">
+	          	<handler name="onclick">
+					/*if(classroot.main.navbar.visible == false || classroot.main.navbar.visible == 'false'){
+						classroot.main.navbar.setAttribute('visible',true);
+						classroot.main.navbar.bringToFront();
+						classroot.main.contents.showNavBar.setAttribute('visible',false);
+					}*/
+					classroot.main.navbar.bringToFront();
+					classroot.main.contents.showNavBar.setAttribute('visible',false);
+					classroot.increaseNavBarY();
+				</handler>
+	      	</view>
         </view>
         
-        <view name="showNavBar" bgcolor="0x000000" width="100%" height="20" y="580" visible="true">
-          	<handler name="onclick">
-				/*var s = "checkStop('inside showNavBar',' ','')";
-				lz.Browser.loadJS(s);*/
-				if(classroot.main.navbar.visible == false || classroot.main.navbar.visible == 'false'){
-					classroot.main.navbar.setAttribute('visible',true);
-					classroot.main.navbar.bringToFront();
-					classroot.main.showNavBar.setAttribute('visible',false);
-				}
-			</handler>
-      	</view>
-        
-        <view name="navbar" width="800" height="60" y="520" bgcolor="0xFFFFCC" visible="false">
+        <view name="navbar" width="800" height="60" y="600" bgcolor="0xFFFFCC">
             <resizelayout axis="x"/>
-            <QuestionBar width="584" height="100%"
+            <QuestionBar width="584"  height="100%"
                          datapath="dsstudentdata:/testing_client_model"/><!--width="593" -->
 
             <TestControls height="${parent.height + 7}" options="releasetolayout" y="-6"/>
 			<basebutton x="${classroot.main.navbar.width-this.width-5}" name="close_btn" styleable="true"
                        resource="window_closebtn_rsc">
                 <handler name="onclick">
-					classroot.main.navbar.setAttribute('visible',false);
-					classroot.main.showNavBar.setAttribute('visible',true);
+					//classroot.main.navbar.setAttribute('visible',false);
+					classroot.decreaseNavBarY();
+					classroot.main.contents.showNavBar.setAttribute('visible',true);
 				</handler>     
             </basebutton>
         </view>

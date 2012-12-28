@@ -603,4 +603,6 @@
 	<!-- item full screen navigation buttons -->
 	<resource name="navBack" src="iknow_buttons/nav_buttons/arrow_left.png"/>
 	<resource name="navNext" src="iknow_buttons/nav_buttons/arrow_right.png"/>
+	
+	<resource name="grey_arrow_down" src="grey_arrow_down.png"/>
 </library>

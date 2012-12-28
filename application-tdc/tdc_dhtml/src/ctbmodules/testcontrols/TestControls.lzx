@@ -98,11 +98,12 @@
 			var currentItemNumber = parseInt(this.curritempos);
 			
 			if(currentItemNumber != 1 && !gController.fwdOnly){				
-                this.btns.navbtns.btnback.setAttribute ('visible', true);
+               // this.btns.navbtns.btnback.setAttribute ('visible', true);
                 gItemInterface.main.contents.navBack.setAttribute("visible",true);
+				gItemInterface.main.contents.navBack.bringToFront();
 			}
 			else{
-                this.btns.navbtns.btnback.setAttribute ('visible', false);
+               // this.btns.navbtns.btnback.setAttribute ('visible', false);
                 gItemInterface.main.contents.navBack.setAttribute("visible",false);
 			}
 //Debug.write("currentItemNumber : "+currentItemNumber+" : "+gController.getNextNavigableOffset(currentItemNumber));			
@@ -111,11 +112,14 @@
 			//}
 			//else{
 		    	if (currentItemNumber < parseInt(this.totalitemno) && gController.getNextNavigableOffset(currentItemNumber) < parseInt(this.totalitemno)) {
-		    		this.btns.navbtns.btnforward.setAttribute ('visible', true);
+		    		//this.btns.navbtns.btnforward.setAttribute ('visible', true);
+		    		this.btns.navbtns.btnfinish.setAttribute ('visible', false);
 		    		gItemInterface.main.contents.navNext.setAttribute("visible",true);
+					gItemInterface.main.contents.navNext.bringToFront();
 		    	}
 		    else{
-		    	this.btns.navbtns.btnforward.setAttribute ('visible', false);
+		    	//this.btns.navbtns.btnforward.setAttribute ('visible', false);
+				this.btns.navbtns.btnfinish.setAttribute ('visible', true);
 		    	gItemInterface.main.contents.navNext.setAttribute("visible",false);
 		    	}
 		   // }  
@@ -145,12 +149,12 @@
 
 		<view name="answertxt" visible="${!classroot.theme}">
 	        <view name="answeristxt" visible="false" x="30"
-	              fgcolor="0x6590B3" fontstyle="bold" y="-4">
+	              fgcolor="0x6590B3" fontstyle="bold" y="2">
 	            <simplelayout axis="x" />
 	            <text resize="true">YOUR ANSWER IS:</text>
 	            <text name="selitem" resize="true"></text>
 	        </view>
-	        <text name="noanswertxt" visible="false" x="25" y="-4"
+	        <text name="noanswertxt" visible="false" x="25" y="2"
 	              fgcolor="0x6590B3" fontstyle="bold" fontsize="11">
 	            - NO ANSWER SELECTED -
 	        </text>
@@ -158,7 +162,7 @@
         <view name="btns" y="14" x="7">
             <simplelayout axis="y" spacing="3"/>
             <view name="navbtns">
-                <basebutton name="btnback" resource="go_back_btn" x="0"
+                <!--<basebutton name="btnback" resource="go_back_btn" x="0"
                             enabled="${ classroot.uienabled == true }"
                             onclick="gController.stepNavigateBack ()"
                             disabledResourceNumber="1"  visible="${!gController.fwdOnly}"
@@ -167,10 +171,10 @@
                             enabled="${ classroot.uienabled == true }"
                             onclick="gController.stepNavigateForward ()"
                             disabledResourceNumber="1"
-                            />
+                            />-->
                 <basebutton name="btnfinish" resource="finish_test_btn" id="gFinishTestButton"
                             enabled="${ classroot.uienabled == true }"
-                            visible="${!parent.btnforward.visible}" x="100"
+                            x="100"
                             disabledResourceNumber="1">
                             <handler name="onclick">
                             gController.setAttribute("isStopTest",false);
