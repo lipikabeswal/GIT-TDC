@@ -552,6 +552,7 @@
  
 		<attribute name="showPleaseWaitOver" value="false" type="boolean" />
 		<attribute name="RestartTest" value="false" type="boolean" />
+		<attribute name="skipCacheDestroy" type="boolean" value="false"/>
 			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -3275,6 +3276,7 @@
 
 		<method name="loadItem"><![CDATA[
 Debug.write("############ loadItem ############");
+			gQuestion.clearSkip();
 			canvas.setAttribute('focusobj', null);
             this.itemloaded    = false;
             this.runtimeready  = false;

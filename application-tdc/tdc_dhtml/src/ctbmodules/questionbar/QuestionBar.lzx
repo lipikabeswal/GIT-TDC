@@ -17,7 +17,7 @@
 		<attribute name="RIGHT_BUTTONS_OFFSET" value="17" type="number"/>
         <attribute name="STEP_SIZE" value="3"/>
         <attribute name="ANIM_LENGTH" value="300"/>
-        <attribute name="SCROLL_Y" value="32" type="number"/>
+        <attribute name="SCROLL_Y" value="20" type="number"/>
 
 <!--  not always hiding right buttons on last item ???  added attribute to hide right buttons when select last item -->
 		<attribute name="justSelectedLastItem" value="false"/>
@@ -107,7 +107,7 @@
         ]]></method>
 
         <!-- list of scrolling buttons for item -->
-        <view name="qbtns" height="100%"  x="${classroot.moreleft.x}" y="2" 
+        <view name="qbtns" height="100%"  x="${classroot.moreleft.x}" y="0" 
               width="${classroot.width - classroot.morefastleft.width - classroot.morefastright.width - classroot.RIGHT_BUTTONS_OFFSET}"
               clip="true">
             <view name="scrollcontainer" height="100%"
@@ -119,7 +119,7 @@
                 <!-- the buttons below youarehere -->
                 <view name="thebtns" x="${classroot.moreleft.x}">
                     <simplelayout axis="x" spacing="16"/>
-                    <QuestionBarButton y="0" >
+                    <QuestionBarButton y="-27">
 						<datapath xpath="runtime/item_model" pooling="true"/>
 					</QuestionBarButton>
                 </view>

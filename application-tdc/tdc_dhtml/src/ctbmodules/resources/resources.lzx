@@ -178,6 +178,8 @@
     	<frame src="iknow_navbar/qButtonStates10.png" />
     	<frame src="iknow_navbar/qButtonStates11.png" />
     	<frame src="iknow_navbar/qButtonStates12.png" />
+    	<frame src="iknow_navbar/qButtonStates13.png" />
+    	<frame src="iknow_navbar/qButtonStates14.png" />
     </resource>
     <resource name="question_bar_btn_click_region">
     	<frame src="iknow_navbar/click_region1.png" />   

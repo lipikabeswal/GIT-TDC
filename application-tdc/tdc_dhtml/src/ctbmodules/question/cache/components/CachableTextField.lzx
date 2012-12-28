@@ -151,6 +151,7 @@
 
             this.thetext.setAttribute("text",
                 '<p align="' + just + '">' + dataText + '</p>');
+			console.log("this.thetext.getTextHeight  "+this.thetext.getTextHeight())
 
             doneLoading();
 
@@ -1164,8 +1165,15 @@ parse the text string and store text and image string in an array at different i
            <text name="thetext" multiline="true" 
                x="${classroot.leftPadding}"
                width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
-               fgcolor="${classroot.fontcolor}"
-               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" />
+               fgcolor="${classroot.fontcolor}" height="${this.getTextHeight()/2}"
+               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" >
+				
+				<handler name="ontext">
+					var elm = this.getDisplayObject();
+					elm.setAttribute('style','line-height: 0px; font-family: CTB;');
+					//elm.setAttribute('font-family','CTB');
+				</handler>
+			</text>
         </state>
     </class>
 

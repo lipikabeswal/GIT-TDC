@@ -78,9 +78,11 @@
             var type = datanode.nodeName;
             var arraytouse = this._findArray (type);
 			
+			//Removing caching because all the lfc class are giving different results
 			if(arraytouse!=null){
 	            if (arraytouse.length) {
-	                newcomp = arraytouse.pop ();
+	               // newcomp = arraytouse.shift ();
+	               newcomp = this._createNewComponent (type);
 //	Debug.write ('CACHE: used cached ', type, newcomp);
 	
 	            } else {
@@ -121,8 +123,12 @@
 				toReturn.imageview.getMCRef().unloadMovie();
 			
 			}*/
+			//Removing caching
+			toReturn.doReturnToCache(); // This line now deletes all the subviews present in the component
+			toReturn.setAttribute('visible',false);
+			toReturn.destroy();
 
-            var arraytouse = this._findArray (toReturn.comptype);
+           /* var arraytouse = this._findArray (toReturn.comptype);
 			
             arraytouse.push (toReturn);
 
@@ -139,7 +145,7 @@
 	            toReturn.setAttribute('width',0);
 	            toReturn.setAttribute('height',0);
 	            toReturn.data = null;
-			}
+			}*/
         </method>
 
 
