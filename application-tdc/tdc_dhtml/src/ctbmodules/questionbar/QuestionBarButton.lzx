@@ -68,6 +68,7 @@
         ]]></handler>
 
         <handler name="onisactive"><![CDATA[
+		this.btn_shadow.sendToBack();
         //Debug.write("onisactive.....");
         this.themeResource = 'theme';
             if (this.isactive) {
@@ -80,7 +81,7 @@
 				this.btnText.setAttribute('x',Math.ceil(this.btn.width/2)-Math.ceil(this.btnText.width/2));
 				//this.btnText.setAttribute('y',Math.ceil(this.btn.height/2));
 				//this.themeBtn.setAttribute('y',Math.ceil(this.btn.height/2));
-				this.question_connector.setAttribute('y',Math.ceil(this.btn.height/2));
+				//this.question_connector.setAttribute('y',Math.ceil(this.btn.height/2));
 				//this.ball.setAttribute('x',Math.ceil(this.btn.width/2)-Math.ceil(this.ball.width/2));
 	
 				this.btn.bringToFront();
@@ -95,7 +96,7 @@
 				this.btnText.setAttribute('x',Math.ceil(this.btn.width/2)-Math.ceil(this.btnText.width/2));
 				//this.btnText.setAttribute('y',Math.ceil(this.btn.height/2));
 				//this.themeBtn.setAttribute('y',Math.ceil(this.btn.height/2));
-				this.question_connector.setAttribute('y',Math.ceil(this.btn.height/2));
+				//this.question_connector.setAttribute('y',Math.ceil(this.btn.height/2));
 				//this.ball.setAttribute('x',Math.ceil(this.btn.width/2)-Math.ceil(this.ball.width/2));
 			 if(this.allow_revisit != null){
 			  if(this.allow_revisit != true){
@@ -181,20 +182,23 @@
         ]]></method>
 
 
-        <view name="btn" resource="question_bar_btn" 
-              width="37" stretches="width"/>
+        <view name="btn" resource="question_bar_btn"
+              width="37" height="40" stretches="both"/>
+        <view name="btn_shadow" bgcolor="0x000000"
+        	  width="${parent.btn.width+3}" height="${parent.btn.height+3}"
+        	  opacity="0.5"/>
 
         <!--<view name="ball" resource="question_bar_ball"
               align="center" y="3" visible="false"/>-->
 
         <view resource="question_bar_btn_connector" name="question_connector"
-              x="${classroot.width}" y="24"
+              x="${classroot.width}" y="24" valign="middle"
               visible="${classroot.showconnector}"/>
 
         <text name="btnText" text="${classroot.itemnum}" resize="true" 
-              font="Arial" fontsize="15" fontstyle="bold" y="48"
+              font="Arial" fontsize="15" fontstyle="bold" valign="middle"
               align="center" visible="${!classroot.isTheme}"/>
-        <view name="themeBtn" resource="${classroot.themeResource}" y="48" align="center" visible="${classroot.isTheme}" />
+        <view name="themeBtn" resource="${classroot.themeResource}" valign="middle" align="center" visible="${classroot.isTheme}" />
  
     </class>
 

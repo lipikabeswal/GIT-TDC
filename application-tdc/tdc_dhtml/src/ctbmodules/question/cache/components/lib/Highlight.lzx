@@ -94,7 +94,7 @@
                              stereotype: this.stereotype};
 
                 var dnarea = 
-                dnstate.appendChild (new LzDataElement ('highlightarea', 
+                dnstate.appendChild (new lz.DataElement ('highlightarea', 
                                                         attrs,[]));
 
             }
@@ -126,8 +126,8 @@
                 	
                 	var minx = theHighlight.getAttr('x');
                 	var miny = theHighlight.getAttr('y');
-                	var maxx = minx + theHighlight.getAttr('width');
-                	var maxy = miny + theHighlight.getAttr('height');
+                	var maxx = Number(minx) + Number(theHighlight.getAttr('width'));
+                	var maxy = Number(miny) + Number(theHighlight.getAttr('height'));
                 	var temp;
                 	if(minx > maxx){
                 		temp = maxx;
@@ -178,14 +178,14 @@
 
                 <!-- constraints for width and height taking into account the min and maxes -->
                 <attribute name="width"
-                           value="${(this.immediateparent.getMouse ( 'x' ) - this.xroffset) > this.maxwidth ? 
+                           value="${(this.immediateparent.getMouse ( 'x' ) - this.__resize_xroffset) > this.maxwidth ? 
                                   this.maxwidth : 
-                                  Math.max((this.immediateparent.getMouse( 'x' )- this.xroffset), this.minwidth)}" />
+                                  Math.max((this.immediateparent.getMouse( 'x' )- this.__resize_xroffset), this.minwidth)}" />
 
                 <attribute name="height"
-                           value="${(this.immediateparent.getMouse ( 'y' ) - this.yroffset) > this.maxheight ? 
+                           value="${(this.immediateparent.getMouse ( 'y' ) - this.__resize_yroffset) > this.maxheight ? 
                                   this.maxheight : 
-                                  Math.max((this.immediateparent.getMouse( 'y' )- this.yroffset), this.minheight)}" />
+                                  Math.max((this.immediateparent.getMouse( 'y' )- this.__resize_yroffset), this.minheight)}" />
                 
                 <!-- handle highlight when scrolling -->
                 <handler name="onwidth">
