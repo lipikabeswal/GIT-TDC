@@ -73,6 +73,7 @@
 	<attribute name="footnotedata" />
 	<attribute name="isMultiAudio"/>
 	<attribute name="currentCursor" value="null" />
+	<attribute name="footnotetext" value="null"/>
 	<!-- <attribute name="eliminatorRsrc"
 		value="$once{lz.Browser.getInitArg('eliminatorResource')}"
 		type="string" />-->
@@ -110,6 +111,10 @@
 			canvas.titleView.mainView.scalingView.setAttribute('xscale',canvas.titleView.width/800);
 		}
   	</handler>
+  	
+  	<handler name="onfootnotetext" args="arg">
+		gFootNotePopup.show(arg);	
+	</handler>
 
 
 	<method name="init">
@@ -181,11 +186,17 @@
 			            x.setAttribute('id', 'loginScreenId');
 			            console.log(this.getDisplayObject());
 			        }
-			    </handler>   
-                <text y="200" font="Arial" fontsize="12" 
+			    </handler>
+				<text name="copyWriteText" y="200" font="Arial" fontsize="12" 
 			        fgcolor="${canvas.copyriteColor}" height="16" 
 				    text="${canvas.Copyrite}"/>
             </Screens>
+			<SecurityScreen id="gSecurityScreen" x="100" y="100" width="600"
+				height="300" visible="false">
+				<text name="copyWriteText" y="300" font="Arial" fontsize="12" 
+			        fgcolor="${canvas.copyriteColor}" height="16" 
+				    text="${canvas.Copyrite}"/>
+            </SecurityScreen>
             <Tutorial id="gTutorial" width="800" height="600"
                         visible="false"/>
 
