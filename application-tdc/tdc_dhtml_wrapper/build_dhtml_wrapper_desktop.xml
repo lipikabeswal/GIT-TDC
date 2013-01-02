@@ -1,4 +1,4 @@
-<project name="tdc-dhtml-wrapper-desktop" basedir="." default="build.TestClient.dhtml.desktop">
+<project name="tdc-dhtml-wrapper-laslinksitemviewer" basedir="." default="build.TestClient.dhtml.desktop">
 <property name="out.dir" value = "../webapp" />
 <property name="laszlo.home" value="C:\OpenLaszlo Server 5.0.x\Server\lps-5.0.x"/>
 <property name="laszlo.src.dir" value="${basedir}/src"/>
@@ -35,7 +35,7 @@
 		        <fileset dir="${laszlo.src.dir}" />
 		        <mapper>
 		        <mapper type="glob"
-		                from="TestClient.js" to="TestClient.js" />
+		                from="TestClient.js" to="LasLinksItemViewer.js" />
 		        </mapper>
 		    </move>
 			<delete file="${TestClient.js}"/>
