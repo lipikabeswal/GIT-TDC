@@ -1,0 +1,329 @@
+<library>
+
+    <include href="ManipulativeButton.lzx"/>
+    <include href="base/baseslider.lzx"/>
+    <include href="lz/slider.lzx"/>
+   <include href="ScratchpadButton.lzx"/>
+
+    <class name="ManipulativeBar" bgcolor="0xC4C4C4"
+           datapath="dsstudentdata:/testing_client_model/current_item/item_model">
+
+		<attribute name="TYPE_SPACING" type="number" value="15" />
+		<attribute name="theme" type="boolean" value="$path{'@theme'}" />
+		<attribute name="hasResponseArea" type="boolean" value="true" />
+		<attribute name="hasMagnifyingGlass"  value="$path{'manipulatives/global/@magnifying_glass'}" />
+		<simplelayout axis="x" spacing="15"></simplelayout>
+
+		<handler name="ondata" args="data">
+			if(theme) {
+				this.setAttribute("hasResponseArea", gController.applyManipulative());
+			}
+			//this.globals.magnifyingGlass.setAttribute('frame', 1);
+		</handler>
+
+		<view datapath="manipulatives/global" name="globals" valign="middle" visible="${!classroot.theme || (classroot.theme &amp;&amp; classroot.hasResponseArea)}">
+			<handler name="ondata" args="data">
+			//Debug.write("On data global",data);
+			</handler>
+			<simplelayout axis="x"/>
+			<ManipulativeButton resource="toolbar_choice_eliminator_btn"
+	                            toolid="option_eliminator"
+	                            tooltip="Option Eliminator"/>
+			<ManipulativeButton resource="toolbar_highlighter_btn"
+	                            toolid="highlighter"
+	                            tooltip="Highlighter"/>
+			<ManipulativeButton resource="toolbar_eraser_btn"
+	                            toolid="eraser"
+	                            tooltip="Eraser"/>
+	        <ScratchpadButton   resource="toolbar_scratchpad_btn"
+	                            toolid="scratchpad"
+	                            tooltip="Scratchpad"/>
+
+			<ManipulativeButton resource="toolbar_masking_ruler_btn"
+	                            toolid="masking_ruler"
+	                            tooltip="Blocking Ruler"/>	
+	                            
+	                            <view name="gap" width="2" height="20" valign="middle"/>
+			<!-- Magnifier Glass Button -->
+			<attribute name="magnifierOpen" type="boolean" value="false"/>
+			<view name="magnifyingGlass"
+				visible="${gController.magnifierVisible}"
+				resource="toolbar_magnifying_glass_btn" valign="middle" height="20"
+				width="34">
+				<attribute name="tooltipdel"
+					value="$once{new LzDelegate (this, 'showTooltip')}"
+				/>
+				<attribute name="isEnabled" value="false" />
+				<attribute name="isSelected" value="false" />
+
+				<handler name="onmouseover">
+						this.setAttribute('frame',2);
+						lz.Timer.addTimer (tooltipdel, 500);
+					</handler>
+
+				<handler name="onmouseout">
+						gTooltip.hideTooltip (); 
+						if(!this.isEnabled) {
+							this.setAttribute('frame',1);
+						}   
+						lz.Timer.removeTimer (this.tooltipdel);
+					</handler>
+
+				<handler name="onclick">
+						lz.Timer.removeTimer (this.tooltipdel);
+						if(gMagnifyingGlass.magnifierOpen==true || gMagnifyingGlass.magnifierOpen=='true' || gMagnifyingGlass.magnifierOpen=="true"){
+							setup();
+						} else {
+							hide();
+						}
+						
+					</handler>
+
+				<method name="showTooltip">
+						gTooltip.showTooltip ('Magnifying Glass');
+					</method>
+
+				<method name="setup">
+						gMagnifyingGlass.setUpGlass();
+						this.isEnabled = true;
+						gController.setAttribute("magnifierState", true);
+						//show();
+					</method>
+
+				<method name="show">
+						gMagnifyingGlass.showGlass();
+						this.isEnabled = true;
+						gController.setAttribute("magnifierState", true);
+						this.setAttribute('frame',2);
+					</method>
+
+				<method name="hide">
+						gMagnifyingGlass.hideGlass();
+						this.isEnabled = false;
+						gController.setAttribute("magnifierState", false);
+						//this.setAttribute('frame',1);
+					</method>
+			</view>
+                            	
+	         <view name="gap1" width="2" height="20" valign="middle"/>                   
+	                            
+	         <view name="maskingAnswer"
+				visible="${gController.showMaskingAnswerPopUp}"
+				resource="toolbar_msaking_choice_btn" valign="middle" height="20"
+				width="34">
+				<attribute name="tooltipdel"
+					value="$once{new lz.Delegate (this, 'showTooltip')}"/>
+				<attribute name="isEnabled" value="false" />
+				<attribute name="isSelected" value="false" />
+				<handler name="onmouseover">
+						this.setAttribute('frame',2);
+						if(!gMaskingAnswer.visible)
+							lz.Timer.addTimer (tooltipdel, 500);
+					</handler>
+
+				<handler name="onmouseout">
+						gTooltip.hideTooltip (); 
+						if(!this.isEnabled) {
+							this.setAttribute('frame',1);
+						}   
+						lz.Timer.removeTimer (this.tooltipdel);
+					</handler>
+
+				<handler name="onclick">
+					Debug.write("onclick masking answer x" , this.x, gManipulatives.y, gManipulativeBar.x);
+						lz.Timer.removeTimer (this.tooltipdel);
+						if(gMaskingAnswer.visible){
+							hide();
+						} else {
+							show();
+						}
+					</handler>
+
+				<method name="showTooltip">
+						gTooltip.showTooltip ('Masking Tool');
+					</method>
+
+				<method name="show">
+						gMaskingAnswer.showPopUp();
+						this.isEnabled = true;
+						gController.setAttribute("maskingAnswerDDState", true);
+						this.setAttribute('frame',2);
+					</method>
+
+				<method name="hide">
+						gMaskingAnswer.hidePopUp();
+						this.isEnabled = false;
+						gController.setAttribute("maskingAnswerDDState", false);
+						this.setAttribute('frame',1);
+					</method>
+			</view>                   
+	    </view>                       
+		<view datapath="manipulatives/general" name="generals" valign="middle"
+		      visible="${!classroot.theme  || (classroot.theme &amp;&amp; classroot.hasResponseArea)}">
+			<simplelayout axis="x"/>
+			<ManipulativeButton resource="toolbar_oneeighth_inch_ruler_btn"
+	                            toolid="oneeighth_inch_ruler"
+	                            tooltip="1/8&quot; ruler"/>
+			<ManipulativeButton resource="toolbar_half_inch_ruler_btn"
+	                            toolid="half_inch_ruler"
+	                            tooltip="1/2&quot; ruler"/>
+			<ManipulativeButton resource="toolbar_mm_ruler_btn"
+	                            toolid="mm_ruler"
+	                            tooltip="mm ruler"/>
+			<ManipulativeButton resource="toolbar_cm_ruler_btn"
+	                            toolid="cm_ruler"
+	                            tooltip="cm ruler"/>
+			<ManipulativeButton resource="toolbar_protractor_btn"
+	                            toolid="protractor"
+	                            tooltip="Protractor"/>
+			<ManipulativeButton resource="toolbar_formula_card_btn"
+	                            toolid="FCAT_formula_card"
+	                            tooltip="Reference Card"/>
+			<ManipulativeButton resource="toolbar_formula_card_btn"
+	                            toolid="TN_formula_card"
+	                            tooltip="Reference Card"/>
+			<ManipulativeButton resource="toolbar_formula_card_btn"
+	                            toolid="formula_card_resource"
+	                            tooltip="Reference Card"/>
+			<ManipulativeButton resource="toolbar_calculator_btn"
+	                            toolid="standard_calculator"
+	                            tooltip="Calculator"/>
+			<ManipulativeButton resource="toolbar_straight_edge_btn"
+	                            toolid="straight_edge"
+	                            tooltip="Straight Edge"/>
+		</view>
+		
+		<view name="screenreader" valign="middle" height="100%">
+		<simplelayout axis="x" spacing="2"></simplelayout>
+			<basebutton name="stopreader" stretches="both" height="20" width="68"
+		                resource="toolbar_stopreader_btn"
+		                visible="${canvas.readable}" valign="middle">
+		
+				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
+		
+				<handler name="onmouseover">
+					lz.Timer.addTimer (tooltipdel, 500);
+				</handler>
+		                
+				<handler name="onmouseout">
+					gTooltip.hideTooltip ();    
+					lz.Timer.removeTimer (this.tooltipdel);
+				</handler>
+		
+				<handler name="onclick">
+					lz.Timer.removeTimer (this.tooltipdel);
+					gReadableText.stopReading(false);
+				</handler>
+		
+				<method name="showTooltip">
+					gTooltip.showTooltip ('Stop Reading');
+				</method>
+		
+			</basebutton>
+			
+			<!--Changes done for defect #65040 and #65041-->
+			<view name="volumeController" height="20" valign="middle" 
+					visible="${parent.stopreader.visible}" bgcolor="0xdfdfdf">
+			<simplelayout axis="y"/>
+				
+				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
+		
+				<handler name="onmouseover">
+					lz.Timer.addTimer (tooltipdel, 500);
+				</handler>
+		                
+				<handler name="onmouseout">
+					gTooltip.hideTooltip ();    
+					lz.Timer.removeTimer (this.tooltipdel);
+				</handler>
+		
+				<handler name="onclick">
+					lz.Timer.removeTimer (this.tooltipdel);
+					<!-- gReadableText.stopReading(); -->
+				</handler>
+		
+				<method name="showTooltip">
+					gTooltip.showTooltip ('Volume Control');
+				</method>
+	
+				<text name="volumeText" fontsize="9" resize="true" height="15" align="center" fontstyle="bold">Volume</text>
+		
+				<!-- The tool to control the TTS volume -->
+				<!--START Changes done for defect #65040 and #65041-->
+				<slider name="volumeControl" value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" 
+						thumbwidth="16" thumbheight="12" width="80">
+						
+						<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
+	
+				<!-- When canvas's accessible attribute is true, the text "undefined" comes over the slider thumb, 
+					 workaround is done in this version(3.3.3). Probably, this was a bug which is fixed in newer versions. 
+					 This is cross checked with latest laszlo release(4.8)	--> 
+					<handler name="oninit"><![CDATA[
+						//hide the text object displaying "undefined" text
+						this.subviews[0].subviews[2].subviews[3].setAttribute('visible',false);
+	
+						registerThumb(this.track.thumb);
+					]]></handler>
+					
+					<!-- since, the thumb is inside the slider class we have to register delegates from outside-->
+					<method name="registerThumb" args="b"> 
+	
+				        if( typeof this.delOver == "undefined" )  {
+				            this.delOver = new lz.Delegate( this, "mouseover" );
+							this.delOut = new lz.Delegate( this, "mouseout" );
+							this.delClick = new lz.Delegate( this, "click" );
+							this.tooltipdel = new lz.Delegate( this, "showTooltip" );
+				        }      
+				
+				        this.delOver.register( b, "onmouseover" );
+						this.delOut.register( b, "onmouseout" );
+						this.delClick.register( b, "onclick" );
+				    </method> 
+	
+					<method name="mouseover">
+						lz.Timer.addTimer (tooltipdel, 500);
+					</method>
+			                
+					<method name="mouseout">
+						gTooltip.hideTooltip ();    
+						lz.Timer.removeTimer (this.tooltipdel);
+					</method>
+			
+					<method name="click">
+						lz.Timer.removeTimer (this.tooltipdel);
+						<!-- gReadableText.stopReading(); -->
+					</method>
+				<!--END Changes done for defect #65040 and #65041-->
+					
+					<method name="showTooltip">
+						gTooltip.showTooltip ('Volume Control');
+					</method>
+		
+					<handler name="onvalue"><![CDATA[
+						gReadableText.audioPlayer.setVolume(this.value);
+					]]></handler>
+				</slider>
+				
+			</view>
+
+		</view>
+		<!-- The tool to control the TTS speed -->
+			<!-- <radiogroup visible="${gController.hasTTSspeed &amp;&amp; parent.screenreader.stopreader.visible}" name="speedController" height="20" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
+				<datapath xpath="dslogin:/login_response/@tts_speed_value"></datapath>
+				<radiobutton value="'S'" text="Slow " height="15" valign="middle"/>
+				<radiobutton value="'M'" text="Medium " height="15" valign="middle" selected="true" />
+				<radiobutton value="'F'" text="Fast " height="15" valign="middle"/>
+
+				<handler name="onselect"><![CDATA[
+					if(gReadableText.isplaying && gReadableText.isReadable && 
+						gReadableText.clickable && gReadableText.currentText.length > 0) {
+
+					gReadableText.read(gReadableText.currentText,false);
+					}
+				]]></handler>
+			</radiogroup>		 -->
+
+		
+    </class>
+
+</library>

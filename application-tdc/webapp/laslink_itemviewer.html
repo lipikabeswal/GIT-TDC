@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> Presentation Canvas </TITLE>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta http-equiv="X-UA-Compatible" content="chrome=1">
+   <link rel="SHORTCUT ICON" href="http://www.laszlosystems.com/favicon.ico">
+   <meta name="viewport" content="width=device-width; initial-scale=1.0;">
+   <script type="text/javascript" src="lps/includes/embed-compressed.js"></script>
+   <!--[if lt IE 9]><script type="text/javascript" src="lps/includes/excanvas.js"></script><![endif]-->
+  <link rel="stylesheet" href="lps/style_mozilla.css" type="text/css" /> 
+	<script type="text/javascript"src="lps/jquery.min.js"></script>
+	<script type="text/javascript"src="lps/jquery-1.5.2.js"></script>
+	<script type="text/javascript" src="lps/jquery.magnifier.js"></script>
+	
+<style title="mystyle" type="text/css" rel="stylesheet">
+            html, body
+            {
+                /* http://www.quirksmode.org/css/100percheight.html */
+                height: 100%;
+                /* prevent browser decorations */
+                margin: 0;
+                padding: 0;
+                border: 0 none;
+            }
+            body {
+                background-color: #6691b4;
+            }
+            img { border: 0 none; }
+        </style>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+var _LDB_BypassSetFocusOnPageLoad = 0;
+var spText;
+var fontAccom;
+var backColorString;
+var itemSet = false;
+var ansSet = false;
+var readable = false;
+var iid = null;
+
+function showFootnote(header)
+{
+	lz.embed.setCanvasAttribute("footnotedata", header);
+}
+
+function isMac(){
+	return (window.navigator.platform.indexOf("Mac") != -1);
+}
+
+function closeBrowser()
+{
+	if(isMac()){
+		window.close();
+	}
+	else{
+		LDBJSBridgeCTL.closeLockdownBrowser();
+	}
+}
+
+function swfCallback(isPlaying, id) {
+	var attr = 'isMultiAudio=true,isPlaying='+isPlaying+',audioId='+id;
+	lzSetCanvasAttribute('isMultiAudio',attr);
+}
+
+function updateLDB(){
+	_LDB_BypassSetFocusOnPageLoad = 1;
+}
+
+function sendRequest(method,xml,action){
+	 // alert("sendRequest"+method+" "+xml+" "+action);
+}
+
+function checkVals(arg1,arg2,arg3){
+	// alert("inside checkVals "+arg1+arg2+arg3);
+}
+
+function checkQues(arg1,arg2,arg3){
+	// alert("inside checkQues "+arg1+arg2+arg3);
+}
+
+function checkStop(arg1,arg2,arg3){
+	 // alert("inside checkStop arg1="+arg1+" arg2="+arg2+" arg3="+arg3);
+}
+
+function setResponse(result) {
+	lz.embed.setCanvasAttribute("response",result);
+}
+
+function buttonClicked(obj){
+	document.getElementById('mybutton').click();
+}
+
+function closeMagnifier(){
+  var olddiv = document.getElementById('mglass');
+  if (olddiv && olddiv.parentNode && olddiv.parentNode.removeChild)
+	olddiv.parentNode.removeChild(olddiv);
+}
+
+function setFrameSource(filepath,tranX,tranY){
+    alert(filepath+tranX+tranY);
+    
+    var s = document.getElementById('__lz0');
+    s.setAttribute("src",filepath);
+    lz.embed.setCanvasAttribute("TEItemLoaded", true);
+}
+
+ 
+function iframeState(){
+   	var iframe = document.getElementById('__lz0');
+   	
+   	if(iframe){
+		if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
+		  iframe.onreadystatechange = function(){
+		    if (iframe.readyState == "complete"){
+		      	setAnswerNow('complete');
+		 		var fontObj = getFontAccomodation();	
+		 		var bgColorObj = getBackColorAccomodation();				    	
+		    	if(fontObj.hasFont == 'true'){
+		    		if(fontObj.hasFontMag == 'true'){
+		    			document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
+		    		}
+		    		else {
+		    			document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
+		    		}
+		    	}else{
+		    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
+		    	}			    	
+		      	document.getElementById('__lz0').contentWindow.translate(xscalefactorjs,yscalefactorjs);
+		    }
+		  };
+		} else {
+		  iframe.onload = function(){
+		    setAnswerNow('complete');
+		    
+     		var fontObj = getFontAccomodation();	
+     		var bgColorObj = getBackColorAccomodation();				    	
+     		
+	    	if(fontObj.hasFont == 'true'){
+	    		if(fontObj.hasFontMag == 'true'){
+	    			document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
+	    		}
+	    		else {
+	    			document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
+	    		}
+	    	}else{
+	    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
+	    	}
+		  };
+		}
+	}
+}
+
+function checkHtml(arg1,arg2){
+	// alert(arg1+arg2);
+}
+
+function destroyDiv(divElem) {
+     var div = document.getElementById(divElem);
+     if(div != null)
+     	div.parentNode.removeChild(div);
+}
+ 
+function setAnswerNow(args){
+	lz.embed.setCanvasAttribute('setanswer',args);
+}
+function freezeUI(){
+if(document.getElementById('__lz0')){
+		document.getElementById('__lz0').contentWindow.freezeUI();
+	}
+}
+
+function unlockUI(){
+if(document.getElementById('__lz0')){
+		document.getElementById('__lz0').contentWindow.unlockUI();
+	}
+}
+function getFontAccomodation(){
+	var fontAccom = lz.embed.lzapp.getCanvasAttribute('fontString');
+	fontAccom = fontAccom.split("|");
+	var fontObj = new Object();
+	fontObj.hasFont = fontAccom[0];
+	fontObj.bgcolor = fontAccom[1].replace('0x', '#');
+	fontObj.fgcolor = fontAccom[2].replace('0x', '#');
+	fontObj.hasFontMag = fontAccom[3];
+	return fontObj;
+}
+
+function getBackColorAccomodation(){
+	var backColorString = lz.embed.lzapp.getCanvasAttribute('backColorString');
+	backColorString = backColorString.split("|");
+	var bgColorObj = new Object();
+	bgColorObj.stemArea = backColorString[0].replace('0x', '#');
+	bgColorObj.responseArea = backColorString[1].replace('0x', '#');
+	return bgColorObj;
+}
+function setFootnoteText(arg){
+	lz.embed.setCanvasAttribute('footnotetext',arg);
+}
+
+function isAnswered(){
+  var elem = document.getElementById('__lz0');
+ 	if(elem){
+ 	if(elem.contentWindow.accomPkg)
+  	return elem.contentWindow.accomPkg.isItemAnswered();
+ }        	
+  }
+  
+  function getState(){
+   var elem = document.getElementById('__lz0');
+  if(elem){
+  		if(elem.contentWindow.accomPkg)
+  		return document.getElementById('__lz0').contentWindow.accomPkg.getState();
+  	}        
+  }
+  
+  function setState(htmlContent,jsonContent,checkedVals){
+  	var elem = document.getElementById('__lz0');
+  	if(elem){	
+      if(elem.contentWindow){
+      		
+      		if(document.getElementById('__lz0').contentWindow.accomPkg && ansSet == false){
+   			document.getElementById('__lz0').contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
+   			ansSet = true;
+   		}
+   	}
+  	}          
+  }
+  
+  function setItemId(itemId){
+	iframeState();
+   	if (itemSet == false){
+   	lz.embed.setCanvasAttribute('srcurl',itemId);
+   	iid = itemId;
+   	itemSet = true;
+   		
+   	}
+  }
+//-->
+</SCRIPT>
+</HEAD>
+
+<BODY topmargin=0 leftmargin=0 rightmargin=0 bottommargin=0 scroll=no bgcolor="#6691B4">
+<button id="mybutton" style="visibility:hidden; width:0px; height:0px;">clickMe </button>
+
+
+<div id="appcontainer">
+			<script type="text/javascript" defer>
+                  lz.embed.dhtml({url: 'TestClient.js?folder=calif&servletUrl=http://127.0.0.1:12345/servlet/fixed', lfcurl: 'lps/includes/lfc/LFCdhtml.js', serverroot: 'lps/resources/', bgcolor: '#6691b4', width: '100%', height: '100%', id: 'lzapp', accessible: 'true', cancelmousewheel: false, cancelkeyboardcontrol: false, skipchromeinstall: false, usemastersprite: false, approot: '', appenddivid: 'appcontainer'});
+                //  lz.embed.dhtml({url: 'TestClient.js?servletUrl=/servlet', lfcurl: 'lps/includes/lfc/LFCdhtml.js', serverroot: 'lps/resources/', bgcolor: '#6691b4', width: '100%', height: '100%', id: 'lzapp', accessible: 'true', cancelmousewheel: false, cancelkeyboardcontrol: false, skipchromeinstall: false, usemastersprite: false, approot: '', appenddivid: 'appcontainer'});
+                  lz.embed.applications.lzapp.onload = function loaded() {
+                    // called when this application is done loading
+                    
+                  }
+                </script>
+            <noscript>
+                Please enable JavaScript in order to use this application.
+            </noscript>
+</div>
+	<OBJECT ID="LDBJSBridgeCTL" CLASSID="CLSID:56871AC2-4683-4D8E-B5EB-E7E3AA40DD52" VIEWASTEXT WIDTH=0 HEIGHT = 0></OBJECT>
+</BODY>
+</HTML>

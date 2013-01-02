@@ -1,0 +1,82 @@
+<view name="maskingAnswer" id="gMaskingAnswer"
+	width="70" 
+	height="80" visible="false">
+	
+	<attribute name="stereotype" value="$path{'@stereotype'}"/>
+	<attribute name="bg" type="color" value="white" />
+	<attribute name="fg" type="color" value="white" />
+	<attribute name="lastxpos" value="0" type="number" />
+	<attribute name="lastypos" value="0" type="number" />
+	<attribute name="isEnabled" value="false" />
+	<attribute name="dp" value="$once{new lz.datapointer()}" />
+	<attribute name="choicelen" value ="0" type="number"/>
+	<attribute name="withState" value ="false" type="boolean"/>
+	
+	<handler name="ondata" args="data"><![CDATA[
+	Debug.write("masking answer iondata");	
+	]]></handler>
+
+		<handler name="onvisible">
+			Debug.write("onvisible....", this.visible);
+	
+		</handler>
+
+		<handler name="onmousedown">
+				Debug.write("onvisible....", this.visible);
+		</handler>
+		
+		<handler name="onmouseup">
+	        Debug.write("onvisible....", this.visible);
+  		</handler>
+
+		<view name="windowbg" width="65">				
+			<view name="maskingAnswerArea" x="0" y="2"
+					bgcolor="#C0D9EB" width="65" resource="magnifierBlank">
+				<simplelayout name="mylayout" axis="y" spacing="2"/>				
+	 			 <method name="clearOut">
+      			  	for (var i in this.subviews) {
+           				this.subviews[i].destroy();
+       			 	}
+   				 </method>
+			</view>
+		</view>
+
+
+	<method name="setUpPopUp">
+		var selwidget = [];
+		var answidget = [];
+		this.setAttribute("x",gManipulativeBar.globals.maskingAnswer.x);
+		this.setAttribute("y",gManipulativeBar.globals.maskingAnswer.y + gManipulativeBar.globals.maskingAnswer.height + 50);		
+		this.choicelen = gController.returnNumberOfOptions();
+		createChoices();
+
+	</method>
+
+	<method name="createChoices"><![CDATA[
+		gMaskingAnswer.windowbg.maskingAnswerArea.clearOut();
+		var ansChoiceName = "choice";
+		var currState= lz.myclass.curState;
+		Debug.write("currState******** ",currState);
+		if(gController.returnNumberOfOptions() > 0){
+			for(var i = 0; i < gController.returnNumberOfOptions(); i++){				
+				gMaskingAnswer.windowbg.maskingAnswerArea.subviews.push(new lz.myclass(gMaskingAnswer.windowbg.maskingAnswerArea, {name:ansChoiceName+i, clickable:true, resource:'masking_answer_choice_btn', curState:currState == 'Hide' ? 'Show':'Hide'}));
+			}
+			gMaskingAnswer.windowbg.maskingAnswerArea.subviews.push(new lz.myclass(gMaskingAnswer.windowbg.maskingAnswerArea, {name:ansChoiceName, clickable:true, resource:'masking_answer_choice_btn', curState:'Show All'}));
+		}
+		Debug.write("gMaskingAnswer******** ",gMaskingAnswer.windowbg.maskingAnswerArea.subviews);
+	]]></method>
+
+	<method name="hidePopUp">
+		this.setAttribute("visible", false);
+	</method>
+
+	<method name="showPopUp">
+		this.setAttribute("visible", true);
+		
+		if(this.withState == false ){
+			this.setUpPopUp();
+		}
+	</method>
+</view>
+
+

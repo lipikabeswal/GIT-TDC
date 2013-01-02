@@ -1,0 +1,601 @@
+<library>
+
+    <include href="GridButton.lzx"/>
+
+
+    <!-- =====================
+         Gridded Response Column
+         
+         Contains a set of buttons that are options for the response.  For now
+         it's the number 0-9, ., and /
+         ===================== -->
+
+    <class name="GridResponseCol" focusable="true"
+           height="${this.thecol.height + this.erasebtn.height}" 
+           width="${this.thecol.width}">
+
+        <datapath/>
+
+        <attribute name="bcount" value="0"/>
+		<attribute name="thePanel" />
+		
+		<!-- identify mouse on col selection -->
+        <attribute name="isMouse" value="false" type="boolean"/>
+        
+        <!-- =======
+             attributes
+             ======= -->
+        <!-- pointer to our parallel node in dsstudentdata -->
+        <attribute name="dpresponse" value="$once{ new LzDatapointer() }"/>
+        <attribute name="responseval" value="null"/>
+
+        <!-- the gridded response we belong to -->
+        <attribute name="gridresponse" value="$once{classroot}"/>
+
+        <!-- coloring -->
+        <attribute name="isdark" value="${this.gridresponse.isdark}"/>
+
+        <attribute name="backcolor" 
+                   value="${this.isdark ? lz.colors.black : lz.colors.white}"/>
+        <attribute name="altcolor" 
+                   value="${this.isdark ? 0x4C4C4C : 0xCCCCCC}"/>
+        <attribute name="selcolor" 
+                   value="${this.isdark ? 0x006E3A : 0xFFF200}"/>
+        <attribute name="outlinecolor" 
+                   value="${this.isdark ? lz.colors.white : lz.colors.black}"/>
+        <attribute name="textcolor"
+                   value="${this.isdark ? lz.colors.white : lz.colors.black}"/>
+        <!-- color when selected with mouse -->
+        <attribute name="mselcolor" 
+                   value="${this.isdark ? 0x006E3A : 0xFFF200}"/>
+
+        <!-- whether or not to ignore the mouse -->
+        <attribute name="ignoremouse" value="false"/>
+
+
+        <!-- hash of values that we accept into our text field -->
+        <attribute name="acceptedkeyshash" value="$once{{}}"/>
+
+
+        <!-- handle a keyup -->
+        <attribute name="keyupdel" value="$once {new LzDelegate (this, 'doKeyUp')}"/>
+        <attribute name="keydowndel" value="$once {new LzDelegate (this, 'doKeyDown')}"/>
+
+        <!-- used to hide an invalid entry -->
+        <attribute name="invalidkeydel" value="$once {new LzDelegate (this, 'doInvalidKey')}"/>
+
+		
+        <attribute name="uienabled"
+                   value="$path{ 'dsdisplay:/display/@enabled' }"/>
+                   
+        <attribute name="actionPerformed" type="boolean" value="false"/>
+
+
+		<method name="getTextY">
+			return this.erasebtn.height + 1;
+		</method>
+		
+		<method name="getReadableTextForColumn"><![CDATA[
+			return gReadableText.getReadableTextForCharacter(this.responseval);
+		]]></method>
+		
+        <handler args="d" name="ondata" reference="dpresponse"><![CDATA[
+      	// after upgrade to lps 3.3.3, setting text to '' is showing undefined
+      	// changed to set text to ' '
+      	
+      		Debug.write("Grid Response COl: ", d);
+            if ( 'string' == typeof( d ) ) {
+                setAttribute( 'responseval', d );
+                if ( '' == d ) {
+                    this.selman.clearSelection ();
+                    thecol.contents.textentry.thetext.setAttribute('text', ' ' );
+                } else {
+                    // look up display value
+                    var e = datapath.xpathQuery("entry[@value='" + d + "']");
+                    if ( e && e.hasAttr( 'display' ) ) {
+                    	var theDisplay = e.getAttr( 'display' );
+                    	if(theDisplay == '' || theDisplay == null){
+                    		theDisplay = ' ';
+                    	}
+                        thecol.contents.textentry.thetext.setAttribute('text', theDisplay );
+                    } else {
+                    	if(d == ''){
+                    		d = ' ';
+                    	}
+                        thecol.contents.textentry.thetext.setAttribute('text', d );
+                    }
+                }
+            } else {
+                thecol.contents.textentry.thetext.setAttribute('text', ' ' );
+            }
+        ]]></handler>
+
+
+
+        <!-- =======
+             event handlers
+             ======= -->
+        <!-- set our color according to what clone we are -->
+        <handler args="d" name="ondata">
+                	this.setAttribute('thePanel', this.searchParents('gridResponsePanelIdentifier')); 
+            this.thecol.bg.setAttribute ('bgcolor', this['clonenumber'] % 2 
+                                       ?  this.backcolor : this.altcolor);
+            var id = d.getAttr ('identifier');
+			Debug.write("Ondata Identifier gridcol" , id);
+
+            dpresponse.setXPath(
+                "dsstudentdata:/testing_client_model/current_item/item_model/interaction/response [@identifier='" + 
+                    id + 
+                "']/@user_action"
+            );
+			Debug.write("dpresponse" , dpresponse);
+        </handler>
+
+        <!-- select on a mouse over -->
+        <handler name="onmouseover"><![CDATA[
+            //weird bug...when the mouse is over the erase btn onmouseover always
+            // gets fired when the mouse is in its bounds, not just when its
+            //moved into it. another weird bug, when we scroll the GR we don't
+            //want to select the col the mouse is now over (since its probably not
+            //the col we were intending to select). So we'll ignore the first mouseover
+            
+            //mouse is used to highlight col
+            this.isMouse = true;
+   
+            if (!gridresponse.selman.isSelected (this)
+                && !this.erasebtn.containsPt (this.erasebtn.getMouse ('x'),
+                                             this.erasebtn.getMouse ('y'))
+                && !this.ignoremouse) {
+                if(!gEnlargePopup.visible){
+                	selectThisColumn();
+                }
+            }
+
+            this.setAttribute ('ignoremouse', false);
+        ]]></handler>
+        
+        <method name="selectThisColumn">
+			gridresponse.selman.select (this);
+        </method>
+        
+        <!-- select when we're the focused column -->
+        <handler name="onfocus">
+            gHotKeys.exitPopups();
+			if(gController.focusOnGr){
+	            if (!gridresponse.selman.isSelected (this)) {
+	                gridresponse.selman.select (this);
+	            }
+	        }
+	        else{
+				gridresponse.selman.clearSelection();
+				gController.setAttribute('focusOnGr', true);
+	        }
+        </handler>
+
+        <!-- =======
+             methods
+             ======= -->
+        <!-- clear out our value -->
+        <method name="clear"><![CDATA[
+            gController.setGrState( data.getOffset(), '' );
+			  /*var btns = this.thecol.contents.thebtns.subviews;
+			  Debug.write(this.thecol.contents.thebtns.subviews);
+			  Debug.write(this.thecol.contents.thebtns.gridbtn);
+			  
+                for (var i in btns) {
+                		//Debug.write("Button clearstate gr" ,btns[i] );
+                    	//btns[i].clearState();
+                    	btns[i].setAttribute('CLEARSTATE', "1");
+                }*/
+
+
+        ]]></method>
+
+
+        <!-- show/hide erase button and change bgcolor when our selected 
+             state changes -->
+        <method name="setSelected" args="isselected">
+
+            if (isselected) {
+            	scrollToShow();
+                lz.Focus.setFocus (this);
+            
+                //if mousing or keying change highlight color
+                if (this.isMouse) this.thecol.bg.setAttribute('bgcolor',this.mselcolor);
+                else this.thecol.bg.setAttribute('bgcolor',this.selcolor);
+            
+                //reset isMouse for when mouse remains on col but key is pressed
+                this.isMouse = false;
+            
+                this.keydowndel.register (lz.Keys, 'onkeydown');
+                this.keyupdel.register (lz.Keys, 'onkeyup');
+                this.erasebtn.setAttribute ('visible', true);
+
+                //set what should be highlighted
+                if (this.selman.selected [0]) {
+                    this.hlselman.select (this.selman.selected [0]);
+                } else {
+                    this.hlselman.select (this.thecol.contents.textentry);
+                }
+                this.bringToFront ();
+            }
+            else if (this ['thecol']) {
+                this.thecol.bg.setAttribute('bgcolor', this['clonenumber'] % 2 
+                                     ? this.backcolor : this.altcolor);
+
+                this.keydowndel.unregisterAll ();
+                this.erasebtn.setAttribute ('visible', false);
+            
+                this.thecol.contents.textentry.highlight (false);
+                this.hlselman.clearSelection ();
+            }
+        </method>
+
+		<method name="scrollToShow">
+			thePanel.scrollToShow(this);
+		</method>
+
+        <!-- handle a key up -->
+        <method name="doKeyUp" args="keycode"><![CDATA[
+        	gridresponse.setAttribute('acceptKeyDown', true);
+        ]]></method>
+
+        <method name="doKeyDown" args="keycode"><![CDATA[
+            //reset no mouse for highlighting col
+            this.isMouse = false;
+       		if(gridresponse.acceptKeyDown ||
+                    lz.Keys.isKeyDown("control") ||
+                    lz.Keys.isKeyDown("shift") ||
+                    lz.Keys.isKeyDown("alt")) {
+	            if ( true == uienabled ) {
+	
+	            switch (keycode) {
+	                case 37:
+	                    //move back
+	                    gridresponse.selman.selectPrev ();
+	                    break;
+	                case 39:
+	                    //move forward
+	                    gridresponse.selman.selectNext ();
+	                    break;
+	                
+	                case 13:
+	                    //return  
+	                    //bake in our hl selection  
+	                    var currhl = this.hlselman.selected [0];
+	                    if (currhl == this.erasebtn) {
+	                        this.clear ();
+	                    } else if (currhl instanceof lz.GridButton) {
+	                        gController.setGrState( data.getOffset(),
+	                                                    currhl.value );
+	                    }
+	                    break;
+	
+	                case 8:
+	                case 46:
+	                    //delete
+	                    gController.setGrState( data.getOffset(), '' );
+	                    break;
+	
+	                case 38:
+	                    //arrow up
+	                    this.hlPrev ();
+	                    break;
+	                case 40:
+	                    //arrow down
+	                    this.hlNext ();
+	                    break;
+	
+	                case 9:
+                        gHotKeys.exitPopups();
+	                case 16:
+	                case 17:
+	                    //tab, shift, ctrl
+	                    break;
+	                    
+	                default:
+	                    var thekey = this.isValidKey (keycode);
+	                    if (thekey != '' &&
+                                !lz.Keys.isKeyDown("control") &&
+                                !lz.Keys.isKeyDown("alt") &&
+                                !lz.Keys.isKeyDown("shift")) {
+	                        //for a valid key just set our value to the key
+                            gController.setGrState( data.getOffset(), thekey );
+                       	    gridresponse.selman.selectNext ();
+	                    } else {
+                            if (gHotKeys.isComboHotKeyDown()) break;
+	                        if ( 0 == keycode || keycode > 229 ) {
+	                            // bad keycode, drop it on the floor
+	                        } else {
+	                            this.bringToFront ();
+	                            this.thecol.contents.textentry.invalidtextbg.fadeanim.doStart ();
+	                            this.thecol.errorhl.fadeanim.doStart ();
+	                        }
+	                    }
+	                    break;
+	            }
+	            
+	            }
+			}
+			gridresponse.setAttribute('acceptKeyDown', false);
+        ]]></method>
+
+        <!-- for an invalid key clear out our value -->
+        <method name="doInvalidKey">
+            this.clear ();
+            this.invalidkeydel.unregisterAll ();
+        </method>
+
+        <!-- check to see if the keycode is in our accepted keycode hash -->
+        <method name="isValidKey" args="keycode">
+            if ( typeof( acceptedkeyshash[ keycode ] ) == 'string' ) {
+                return acceptedkeyshash[ keycode ];
+            } else {
+                return '';
+            }
+        </method>
+
+
+        <method name="hlNext"><![CDATA[
+            var currhl = this.selman.selected [0];    
+ 
+            var newhl = null;
+            var btns = this.thecol.contents.thebtns.subviews;
+            var found = currhl == null;  // if no current selection - select the first bubble
+
+            for (var i = 0; i < btns.length; i++) {
+            	if(currhl == btns [i]) {
+                	found = true;
+                }
+                else if (found) {
+					if (btns [i].value != btns [i].SEPARATOR_TAG
+						&& btns [i].value != '') {
+						newhl = btns [i];
+						found = false;
+					}
+                }
+            }
+
+            if (newhl) {
+                this.selman.select (newhl);
+                gController.setGrState( data.getOffset(),
+                                                newhl.value );
+                this.hlselman.clearSelection ();
+            }
+        ]]></method>
+
+        <method name="hlPrev"><![CDATA[
+			var btns = this.thecol.contents.thebtns.subviews;
+            var currhl = this.selman.selected [0];    
+            var newhl = null;
+
+			var found = false;
+			
+			if(currhl != null ){
+				for (var i = btns.length - 1; i >= 0; i--) {
+					if (currhl == btns [i]) {
+						found = true;
+					} 
+					else if (found) {
+						if (btns [i].value != btns [i].SEPARATOR_TAG
+							&& btns [i].value != '') {
+							newhl = btns [i];
+							found = false;
+		            	}
+		        	}
+		        }
+		    }
+            if (newhl) {
+                this.selman.select (newhl);
+                gController.setGrState( data.getOffset(),
+                                                newhl.value );
+                this.hlselman.clearSelection ();
+            }
+        ]]></method>
+
+        <!-- used to keep track of which button is currently the selected.  
+             When selection changed our value also changes -->
+        <selectionmanager name="selman">
+            <!-- disable multiselect -->
+            <method name="isMultiSelect" args="o">
+                return false;
+            </method>
+            <method name="isRangeSelect" args="o">
+                return false;
+            </method>
+        </selectionmanager>
+
+
+        <!-- used to keep track of which button we should highlight-->
+        <selectionmanager name="hlselman">
+            <handler name="oninit">
+                this.setAttribute ('sel', 'setHighlighted');
+            </handler>
+
+            <method name="select" args="tosel"><![CDATA[
+                super.select (tosel);
+                return;
+
+                var btns = classroot.thecol.contents.thebtns.subviews;
+                for (var i in btns) {
+                    btns [i].setAttribute ('ignoremouse', false);
+                }
+
+                //see if we should scroll the component
+                var target = classroot.gridresponse.vscroll.scrolltarget; 
+                var they = tosel.getAttributeRelative ('y', target);
+                var ismoving = false;
+                var newy = 0;
+
+                if ( (they + tosel.height)  > classroot.gridresponse.vscroll.parent.height) { 
+                    ismoving = true;
+                    newy = target.y + 
+                           (classroot.gridresponse.vscroll.parent.height - (they + tosel.height)) - 
+                           (classroot.gridresponse.hscroll.visible ? classroot.gridresponse.hscroll.height : 0);
+                } else if (they < 0) {
+                    ismoving = true;
+                    newy = target.y - they;
+                }
+
+                //scroll the component
+                if (ismoving) {
+                    //all cols should ignore the initial mouse over to prevent
+                    //a new column from being selected once we scroll
+                    for (var i in btns) {
+                        btns [i].setAttribute ('ignoremouse', true);
+                    }
+                    target.setAttribute ('y', newy);
+                }
+
+            ]]></method>
+
+            <!-- disable multiselect -->
+            <method name="isMultiSelect" args="o">
+                return false;
+            </method>
+            <method name="isRangeSelect" args="o">
+                return false;
+            </method>
+
+        </selectionmanager>
+
+        <!-- =======
+             views
+             ======= -->
+
+        <!-- erase button -->
+        <view name="erasebtn"
+              visible="false" align="center">
+            <view name="btn" resource="erase_btn"/>
+
+            <handler name="onmouseover">
+                classroot.hlselman.select (this);
+            </handler>
+
+            <handler name="onmouseout">
+                classroot.hlselman.clearSelection ();
+            </handler>
+
+            <handler name="onmousedown">
+                this.btn.setAttribute('frame',3);
+            </handler>
+
+            <handler name="onmouseup">
+                this.btn.setAttribute('frame',2);
+            </handler>
+
+            <handler name="onclick"><![CDATA[
+                classroot.clear ();
+            ]]></handler>
+
+            <method name="setHighlighted" args="ishl">
+                this.highlight (ishl);
+            </method>
+
+            <method name="highlight" args="ishl">
+                if (ishl) {
+                    this.btn.setAttribute('frame',2);
+                } else {
+                    this.btn.setAttribute('frame',1);
+                }
+            </method>
+
+            <!--text name="thetext" resize="true" fgcolor="white"
+                  valign="middle" align="center" 
+                  text="erase" options="ignorelayout"/-->
+        </view>
+
+        <!-- the main contents of the column -->
+        <view name="thecol" y="${classroot.erasebtn.height + 1}"
+              width="${this.contents.width}"
+              height="${this.contents.height + 6}">
+
+            <view bgcolor="${classroot.outlinecolor}"
+                  y="-1" x="-1" 
+                  width="${parent.width + 2}"
+                  height="${parent.height + 2}">
+
+            </view>
+
+            <!-- error indicator -->
+            <view name="errorhl" bgcolor="red" opacity="0"
+                  width="${parent.width + 4}"
+                  height="${parent.height + 6}"
+                  y="-2" x="-2">
+                <animator name="fadeanim" start="false"
+                          attribute="opacity" duration="200"
+                          from="1" to="0"/>
+            </view>
+
+            <!-- bg -->
+            <view name="bg" width="${parent.contents.width}" 
+                  height="${parent.contents.height + 6}"/>
+
+            <view name="contents" y="3">
+                <simplelayout axis="y" spacing="1"/>
+                <!-- text area -->
+                <view name="textentry" align="center"
+                      bgcolor="${classroot.textcolor}" 
+                      height="${this.width * 5/4}"
+                      width="${parent.width * 3/4}">
+
+                    <attribute name="ishighlighted" value="false"/>
+
+                    <handler name="onmouseover">
+                        classroot.hlselman.select (this);
+                        classroot.onmouseover.sendEvent ();
+                    </handler>
+
+                    <method name="highlight" args="ishl">
+                        if (ishl) {
+                            this.textbg.setAttribute ('width', this.width - 4);
+                            this.textbg.setAttribute ('height', this.height - 4);
+                        } else {
+                            this.textbg.setAttribute ('width', this.width - 2);
+                            this.textbg.setAttribute ('height', this.height - 2);
+                        }
+                    </method>
+
+                    <method name="setHighlighted" args="ishl">
+                        this.highlight (ishl);
+                    </method>
+
+                    <view name="textbg" bgcolor="white"
+                          height="${parent.height-2}" width="${parent.width - 2}"
+                          valign="middle" align="center"/>
+                    <view name="invalidtextbg" bgcolor="red" opacity="0"
+                          height="${parent.textbg.height}" width="${parent.textbg.width}"
+                          valign="middle" align="center">
+                        <animator name="fadeanim" start="false"
+                                  attribute="opacity" duration="200"
+                                  from="1" to="0"/>
+                    </view>
+                    <text name="thetext" valign="middle"
+                          align="center" fgcolor="${classroot.textcolor}">
+                        <handler name="ontext">
+                            //to account for text being cut off
+                            this.setAttribute ('width', this.getTextWidth () + 1);
+                        </handler>
+                    </text>
+                </view>
+
+
+                <!-- the response buttons -->
+                <view name="thebtns">
+                    <simplelayout axis="y"/>
+                    <GridButton name="gridbtn" datapath="entry"
+                                fontsize="${classroot.fontsize}" >
+                                <method name="removeSel">
+                                
+                                </method>
+                    </GridButton>
+
+                </view>
+                
+            </view>
+        </view>  
+
+      
+    </class>
+
+</library>
