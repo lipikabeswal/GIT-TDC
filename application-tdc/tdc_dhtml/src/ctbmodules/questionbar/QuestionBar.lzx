@@ -119,7 +119,7 @@
                 <!-- the buttons below youarehere -->
                 <view name="thebtns" x="${classroot.moreleft.x}">
                     <simplelayout axis="x" spacing="16"/>
-                    <QuestionBarButton y="7">
+                    <QuestionBarButton y="10">
 						<datapath xpath="runtime/item_model" pooling="true"/>
 					</QuestionBarButton>
                 </view>

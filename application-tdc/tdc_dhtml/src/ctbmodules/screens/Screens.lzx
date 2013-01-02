@@ -73,8 +73,13 @@
             if ( contents.ws.isinited ) contents.ws.setAttribute('visible', false );
             if ( contents.gs.isinited ) contents.gs.setAttribute('visible', false );
             if ( contents.oos.isinited ) contents.oos.setAttribute('visible', false );
+            if ( gSecurityScreen.secContents.iss.isinited ) {
+				console.log("inside gSecurityScreen.secContents.iss.isinited");
+            	gSecurityScreen.secContents.iss.setAttribute('visible', false );
+            	
+            }
  
-
+			console.log("removeAllStates  "+allowclick);
             //prancingMan.remove();
             //standingMan.remove();
         </method>
@@ -156,20 +161,38 @@
         </method>
         
         <method name="resetTextFieldColor">
-            contents.ps.pw.passwordField.style.setAttribute('textfieldcolor', gController.answerBgColor);
+             if(gController.displayText == true || gController.displayText == 'true') {
+				contents.ps.pw.istepPasswordField.style.setAttribute('textfieldcolor', gController.answerBgColor);
+			} else {
+            	contents.ps.pw.otherPasswordField.style.setAttribute('textfieldcolor', gController.answerBgColor);
+			}
         </method>
         
         <method name="showPause" args="sn">
             removeAllStates();
             if ( !contents.ps.isinited ) contents.ps.completeInstantiation();
             //standingMan.apply();
-            contents.ps.pw.passwordField.setAttribute('text', '' );
+            if(gController.displayText == true || gController.displayText == 'true') {
+				contents.ps.pw.otherPasswordField.setAttribute('visible', false );
+				contents.ps.pw.istepPasswordField.setAttribute('visible', true );
+				contents.ps.pw.istepPasswordField.setAttribute('text', '');
+				contents.ps.pw.istepPasswordField.style.setAttribute('textfieldcolor', 0xFFFFFF);
+			} else {
+				contents.ps.pw.otherPasswordField.setAttribute('visible', true );
+				contents.ps.pw.istepPasswordField.setAttribute('visible', false );
+            	contents.ps.pw.otherPasswordField.setAttribute('text', '');
+				contents.ps.pw.otherPasswordField.style.setAttribute('textfieldcolor', 0xFFFFFF);
+			}
             contents.ps.prompt.setAttribute('text', 'Log in to resume your paused test.' );
             contents.ps.studentName.setAttribute('text', 'Hello ' + sn);
-            contents.ps.pw.passwordField.style.setAttribute('textfieldcolor', 0xFFFFFF);
+
             contents.ps.setAttribute('visible', true );
             show();
-        	lz.Focus.setFocus(contents.ps.pw.passwordField);
+        	if(gController.displayText == true || gController.displayText == 'true') {
+				lz.Focus.setFocus(contents.ps.pw.istepPasswordField);
+			} else {
+        		lz.Focus.setFocus(contents.ps.pw.otherPasswordField);
+			}
         </method>
         <method name="showLogin">
 
@@ -178,8 +201,19 @@
 //            if ( !contents.ls.isinited ) contents.ls.completeInstantiation();
 
 			contents.ls.li.loginIdField.setAttribute('text', "");
+			console.log("gController.displayText",gController.displayText);
+			if(gController.displayText == true || gController.displayText == 'true') {
+				contents.ls.pw.otherPasswordField.setAttribute('visible', false );
+				contents.ls.pw.istepPasswordField.setAttribute('visible', true );
+				contents.ls.pw.istepPasswordField.setAttribute('text', "");
+			}
+			else {
+				contents.ls.pw.otherPasswordField.setAttribute('visible', true );
+				contents.ls.pw.istepPasswordField.setAttribute('visible', false );
+				contents.ls.pw.otherPasswordField.setAttribute('text', "");
+			}
 
-			contents.ls.pw.passwordField.setAttribute('text', "");
+
 
 			contents.ls.ac.accesscodeField.setAttribute('text', "");
 
@@ -299,7 +333,10 @@
          <method name="show">
          	gItemInterface.setAttribute('visible', false);
          	gTutorial.setAttribute('visible', false);
-            this.setAttribute('visible',true );
+         	gSecurityScreen.setAttribute('visible', false);
+            this.setAttribute('visible',true );			
+			lz.ModeManager.release( gSecurityScreen );
+            gScreens.bringToFront();
             var hasmode = lz.ModeManager.hasMode( this );
             Debug.write( 'show ', hasmode );
             if ( !hasmode ) {

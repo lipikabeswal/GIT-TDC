@@ -136,9 +136,9 @@
             {
                 gFootNotePopup.setAttribute("scrolltext", this);
             }*/      
-
+		console.log("basecachablepanel contents",this.wrapper.scrollcontainer.offsetwrapper.contents.height);
 		console.log("basecachablepanel",this.wrapper.scrollcontainer.offsetwrapper.height,this.wrapper.height,this.growtocontents);
-
+		
         ]]></method>
 
 		<!-- 
@@ -285,8 +285,8 @@
                   width="${this.offsetwrapper.width &gt; parent.width
                          ? this.offsetwrapper.width : parent.width}"
                   height="${this.offsetwrapper.height &gt; parent.height || classroot.growtocontents
-                          ? (this.offsetwrapper.height + 
-                              (classroot.growtocontents &amp;&amp; classroot.comptype == gCompTypes.WIDGET_ANSWER_AREA_PANEL ? this.offsetwrapper.contents.y : 0)): 
+                          ? (Number(this.offsetwrapper.height) + 
+                              (classroot.growtocontents &amp;&amp; classroot.comptype == gCompTypes.WIDGET_ANSWER_AREA_PANEL ? Number(this.offsetwrapper.contents.y) : Number(0))): 
                           parent.height}">
                 <view name="offsetwrapper">
                     <view name="contents"/>

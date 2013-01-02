@@ -180,6 +180,7 @@
     	<frame src="iknow_navbar/qButtonStates12.png" />
     	<frame src="iknow_navbar/qButtonStates13.png" />
     	<frame src="iknow_navbar/qButtonStates14.png" />
+    	<frame src="iknow_navbar/qButtonStates15.png" />
     </resource>
     <resource name="question_bar_btn_click_region">
     	<frame src="iknow_navbar/click_region1.png" />   
@@ -606,6 +607,6 @@
 	<resource name="navBack" src="iknow_buttons/nav_buttons/arrow_left.png"/>
 	<resource name="navNext" src="iknow_buttons/nav_buttons/arrow_right.png"/>
 	
-	<resource name="grey_arrow_down" src="grey_arrow_down.png"/>
-	<resource name="grey_arrow_up" src="grey_arrow_up.png"/>
+	<resource name="header_btn" src="header_btn.png"/>
+	<resource name="footer_btn" src="footer_btn.png"/>
 </library>

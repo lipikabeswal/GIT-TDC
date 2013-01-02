@@ -146,7 +146,7 @@
 					this.setAttribute('widget_id', data.getAttr('src'));
 			}
 
-			this.imageview.setAttribute('height', data.getAttr('height'));
+			this.imageview.setAttribute('height', Number(data.getAttr('height')));
 			this.imageview.setAttribute('width', data.getAttr('width'));
 			
 			if (data.hasAttr ('id')) {

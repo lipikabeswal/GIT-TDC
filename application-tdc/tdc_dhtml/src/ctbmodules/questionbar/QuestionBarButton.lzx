@@ -78,7 +78,9 @@
                 here.setAttribute ('x', this.getAttributeRelative ('x', here) - 29);*/ //the text was off in its container - 29);
                 gController.movedYouAreHere();
 				this.btn.setAttribute('width', Math.ceil(37*1.2));
+				this.btn.setAttribute('height', Math.ceil(40*1.2));
 				this.btnText.setAttribute('x',Math.ceil(this.btn.width/2)-Math.ceil(this.btnText.width/2));
+				this.setAttribute('y',3);
 				//this.btnText.setAttribute('y',Math.ceil(this.btn.height/2));
 				//this.themeBtn.setAttribute('y',Math.ceil(this.btn.height/2));
 				//this.question_connector.setAttribute('y',Math.ceil(this.btn.height/2));
@@ -93,6 +95,8 @@
             }
 			else{
 				this.btn.setAttribute('width',37);
+				this.btn.setAttribute('height',40);
+				this.setAttribute('y',7);
 				this.btnText.setAttribute('x',Math.ceil(this.btn.width/2)-Math.ceil(this.btnText.width/2));
 				//this.btnText.setAttribute('y',Math.ceil(this.btn.height/2));
 				//this.themeBtn.setAttribute('y',Math.ceil(this.btn.height/2));
@@ -157,25 +161,22 @@
                 //this.ball.setAttribute ('visible', this.isanswered ? true : false);
 
                 if (ismarked && !isanswered)     newframe = 5;
-				else if(!ismarked && isanswered) newframe = 13;
+				else if(!ismarked && isanswered && !isactive) newframe = 13;
+				else if(!ismarked && isanswered && isactive) newframe = 15;
 				else if(ismarked && isanswered) newframe = 14;
-                else if (isactive){          
+                else if (isactive && !isanswered && !ismarked){          
 					newframe = 2;
-					/*this.btn.setAttribute('width', Math.ceil(37*1.2));
-					this.btnText.setAttribute('x',Math.ceil(this.btn.width/2)-Math.ceil(this.btnText.width/2));*/
 				}
 				else if(this.allow_revisit != null){
-				if (isvisited &&
-						 this.allow_revisit != true)
-											newframe = 11;
-				else if (isanswered &&
-						 this.allow_revisit != true)
-											newframe = 11;
+					if (isvisited &&
+							 this.allow_revisit != true)
+												newframe = 11;
+					else if (isanswered &&
+							 this.allow_revisit != true)
+												newframe = 11;
 				}
                 else{
                 	newframe = 1;
-					/*this.btn.setAttribute('width',37);
-					this.btnText.setAttribute('x',Math.ceil(this.btn.width/2)-Math.ceil(this.btnText.width/2));*/
 				}
             }
             this.btn.setAttribute('frame', newframe);

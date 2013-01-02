@@ -71,6 +71,9 @@
 //Debug.write("CachableSingleLineAnswer", "got width", data.getAttr('width'));
                 this.setAttribute('editTextWidth', Number(data.getAttr("width")));
             }
+            if (data.getAttr("height")){
+                this.setAttribute('height', Number(data.getAttr("height")));
+            }
             if(data.getAttr('acc_width') && gController.hasFontAccommodation){
 //Debug.write("CachableSingleLineAnswer", "got acc_width", data.getAttr('acc_width'));
                 this.setAttribute('editTextWidth', Number(data.getAttr("acc_width")));
@@ -117,7 +120,7 @@
        
         <ctb_edittext name="answer" 
                       maxlength="${classroot.char_limit}" 
-                      width="${classroot.editTextWidth}" 
+                      width="${classroot.editTextWidth}" height="${classroot.height}"
                       widget_id="${classroot.widget_id}"
                       fontsize="${classroot['fontsize'] ? classroot.fontsize : 12}">
            <method name="init">

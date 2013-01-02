@@ -1,0 +1,14 @@
+<library>
+
+    <class name="SecurityFrame">
+
+        <stableborderlayout axis="y"/>
+        
+        <view name="middle">
+            <view resource="resources/screens_background_security.png"
+                   tintcolor="0x527DA4"/>
+        </view>
+
+    </class>
+
+</library>

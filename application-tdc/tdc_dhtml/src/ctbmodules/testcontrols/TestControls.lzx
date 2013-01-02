@@ -48,8 +48,8 @@
 
             //only show text for selection responses
             var isselanswer = datapath.xpathQuery ('current_item/item_model/interaction/selector') != null;
-            this.answertxt.answeristxt.setAttribute ('visible', isanswered && !isgr && !iscr);
-            this.answertxt.noanswertxt.setAttribute ('visible', !isanswered && isselanswer && !isgr && !iscr );
+            //this.answertxt.answeristxt.setAttribute ('visible', isanswered && !isgr && !iscr);
+            //this.answertxt.noanswertxt.setAttribute ('visible', !isanswered && isselanswer && !isgr && !iscr );
 
             this.iscurranswered = isanswered;
         ]]></method>
@@ -86,7 +86,7 @@
 	
 				}
 	//Debug.write("Test Control......", "Actual : ",this.curranswer.getAttr('identifier'), "|| Random : ",currsel, "|| Correct : ", gController.dpstudentdata.xpathQuery("current_item/item_model/@correct"));
-	                this.answertxt.answeristxt.selitem.setAttribute ('text', currsel);
+	                //this.answertxt.answeristxt.selitem.setAttribute ('text', currsel);
 				}
             }  
         ]]></handler>
@@ -147,7 +147,7 @@
 			}
 		]]></method>
 
-		<view name="answertxt" visible="${!classroot.theme}">
+		<!-- <view name="answertxt" visible="${!classroot.theme}">
 	        <view name="answeristxt" visible="false" x="30"
 	              fgcolor="0x6590B3" fontstyle="bold" y="2">
 	            <simplelayout axis="x" />
@@ -158,10 +158,10 @@
 	              fgcolor="0x6590B3" fontstyle="bold" fontsize="11">
 	            - NO ANSWER SELECTED -
 	        </text>
-		</view>
-        <view name="btns" y="14" x="7">
-            <simplelayout axis="y" spacing="3"/>
-            <view name="navbtns">
+		</view> -->
+        <view name="btns" y="8" x="0">
+            <simplelayout axis="y" spacing="-3"/>
+            <view name="navbtns" x="${parent.markbtn.width+5}">
                 <!--<basebutton name="btnback" resource="go_back_btn" x="0"
                             enabled="${ classroot.uienabled == true }"
                             onclick="gController.stepNavigateBack ()"
@@ -172,9 +172,14 @@
                             onclick="gController.stepNavigateForward ()"
                             disabledResourceNumber="1"
                             />-->
+                <basebutton name="btnback" align="left"
+                            height="${parent.btnfinish.height}"
+                            width="${parent.btnfinish.width}"
+                            visible="${!parent.btnfinish.visible}"
+                            />
                 <basebutton name="btnfinish" resource="finish_test_btn" id="gFinishTestButton"
                             enabled="${ classroot.uienabled == true }"
-                            x="100"
+                            align="left"
                             disabledResourceNumber="1">
                             <handler name="onclick">
                             gController.setAttribute("isStopTest",false);
@@ -182,7 +187,7 @@
                             </handler>
                  </basebutton>
             </view>
-            <multistatebutton name="markbtn" align="center"
+            <multistatebutton name="markbtn" align="left" y="-5"
                               clickable="${ classroot.uienabled == true }"
                               resource="mark_unmark_btn" statelength="3"
                               maxstate="1" 
