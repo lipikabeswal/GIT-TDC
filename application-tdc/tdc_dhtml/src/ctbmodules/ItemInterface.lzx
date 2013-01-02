@@ -28,22 +28,23 @@
 
 	<method name="increaseHeaderY"><![CDATA[
 		
-		if(this.main.header.y==0 && this.main.windowbgHeader.y==-5){
+		if(this.main.header.y==0 && this.main.windowbgHeader.y==-10){
 			this.setAttribute('modHeaderArrowHeight',true);
+			this.main.contents.showHd.setAttribute('clickable',true);
 			lz.Timer.removeTimer(headerYDel);
-		}else if(this.main.header.y < 0 || this.main.windowbgHeader.y < -5){
+		}else if(this.main.header.y < 0 || this.main.windowbgHeader.y < -10){
 			if(this.main.header.y < 0){
 				console.log("this.main.header "+this.main.header.y);
 				this.main.header.setAttribute('y',this.main.header.y+5);
-				if(this.modHeaderArrowHeight){
+				/*if(this.modHeaderArrowHeight){
 					this.main.contents.showHd.setAttribute('y',this.main.contents.showHd.y+this.main.contents.showHd.height+5);
 					this.setAttribute('modHeaderArrowHeight',false);
 				}
-				else{
+				else{*/
 					this.main.contents.showHd.setAttribute('y',this.main.contents.showHd.y+5);
-				}
+				//}
 			}
-			if(this.main.windowbgHeader.y < -5){
+			if(this.main.windowbgHeader.y < -10){
 				this.main.windowbgHeader.setAttribute('y',this.main.windowbgHeader.y+5);
 			}
 			lz.Timer.resetTimer(headerYDel,40);
@@ -52,21 +53,22 @@
 	</method>
 
 	<method name="decreaseHeaderY"><![CDATA[
-		if(this.main.header.y==-80 && this.main.windowbgHeader.y==-90){
+		if(this.main.header.y==-80 && this.main.windowbgHeader.y==-100){
 			this.setAttribute('modHeaderArrowHeight',true);
+			this.main.contents.showHd.setAttribute('clickable',true);
 			lz.Timer.removeTimer(decreaseHeaderYDel);
-		}else if(this.main.header.y > -80 || this.main.windowbgHeader.y > -90){
+		}else if(this.main.header.y > -80 || this.main.windowbgHeader.y > -100){
 			if(this.main.header.y > -80){
 				this.main.header.setAttribute('y',this.main.header.y-5);
-				if(this.modHeaderArrowHeight){
+				/*if(this.modHeaderArrowHeight){
 					this.main.contents.showHd.setAttribute('y',this.main.contents.showHd.y-this.main.contents.showHd.height-5);
 					this.setAttribute('modHeaderArrowHeight',false);
 				}
-				else{
+				else{*/
 					this.main.contents.showHd.setAttribute('y',this.main.contents.showHd.y-5);
-				}
+				//}
 			}
-			if(this.main.windowbgHeader.y > -90){
+			if(this.main.windowbgHeader.y > -100){
 				this.main.windowbgHeader.setAttribute('y',this.main.windowbgHeader.y-5);
 			}
 			lz.Timer.resetTimer(decreaseHeaderYDel,40);
@@ -75,22 +77,24 @@
 	</method>
 
 	<method name="increaseNavBarY"><![CDATA[
-		if(this.main.navbar.y==540 && this.main.windowbgNavBar.y==535){
+		if(this.main.navbar.y==540 && this.main.windowbgNavBar.y==530){
 			this.setAttribute('modNavBarArrowHeight',true);
+			this.main.contents.showNavBar.setAttribute('clickable',true);
 			lz.Timer.removeTimer(increaseNavBarYDel);
-		}else if(this.main.navbar.y > 540 || this.main.windowbgNavBar.y > 535){
+		}else if(this.main.navbar.y > 540 || this.main.windowbgNavBar.y > 530){
 			if(this.main.navbar.y > 540){
 				this.main.navbar.setAttribute('y',this.main.navbar.y-5);
-				if(this.modNavBarArrowHeight){
+				/*if(this.modNavBarArrowHeight){
 					this.main.contents.showNavBar.setAttribute('y',this.main.contents.showNavBar.y+this.main.contents.showNavBar.height-5);
 					this.setAttribute('modNavBarArrowHeight',false);
 				}
-				else{
-					this.main.contents.showNavBar.setAttribute('y',this.main.contents.showNavBar.y-5);
-				}
+				else{*/
+					//this.main.contents.showNavBar.setAttribute('y',this.main.contents.showNavBar.y-5);
+				//}
 			}
-			if(this.main.windowbgNavBar.y > 535){
+			if(this.main.windowbgNavBar.y > 530){
 				this.main.windowbgNavBar.setAttribute('y',this.main.windowbgNavBar.y-5);
+				this.main.contents.showNavBar.setAttribute('y',this.main.contents.showNavBar.y-5);
 			}
 			lz.Timer.resetTimer(increaseNavBarYDel,40);
 		}
@@ -100,20 +104,22 @@
 	<method name="decreaseNavBarY"><![CDATA[
 		if(this.main.navbar.y==600  && this.main.windowbgNavBar.y==600){
 			this.setAttribute('modNavBarArrowHeight',true);
+			this.main.contents.showNavBar.setAttribute('clickable',true);
 			lz.Timer.removeTimer(decreaseNavBarYDel);
 		}else if(this.main.navbar.y <600 || this.main.windowbgNavBar.y < 600){
 			if(this.main.navbar.y <600){
 				this.main.navbar.setAttribute('y',this.main.navbar.y+5);
-				if(this.modNavBarArrowHeight){
+				/*if(this.modNavBarArrowHeight){
 					this.main.contents.showNavBar.setAttribute('y',this.main.contents.showNavBar.y-this.main.contents.showNavBar.height+5);
 					this.setAttribute('modNavBarArrowHeight',false);
 				}
-				else{
-					this.main.contents.showNavBar.setAttribute('y',this.main.contents.showNavBar.y+5);
-				}
+				else{*/
+					//this.main.contents.showNavBar.setAttribute('y',this.main.contents.showNavBar.y+5);
+				//}
 			}
 			if(this.main.windowbgNavBar.y < 600){
 				this.main.windowbgNavBar.setAttribute('y',this.main.windowbgNavBar.y+5);
+				this.main.contents.showNavBar.setAttribute('y',this.main.contents.showNavBar.y+5);
 			}
 			lz.Timer.resetTimer(decreaseNavBarYDel,40);
 		}
@@ -193,7 +199,7 @@
             </view>
         </view>
         
-		<drawview name="windowbgHeader" x="13" width="775" height="90" y="-90">
+		<drawview name="windowbgHeader" x="7" width="787" height="100" y="-100">
 	
 			 <attribute name="isready" value="false" type="boolean" />
 			  <handler name="oncontext">
@@ -207,26 +213,36 @@
 		        <handler name="oninit">
 		            this.clear();
 		            
-		            var roundness = 10;
-		            var thickness = 3;
-		            var shadow = 9;
+		            var roundness = 15;
+		            var thickness = 5;
+		            var shadow = 14;
 		
-		            drawRoundRect (shadow, shadow, this.width + shadow, this.height + shadow, 
+		            /*drawRoundRect (shadow, shadow, this.width + shadow, this.height + shadow, 
 		                           roundness,
-		                           0xC4C4C4, null, .5);
+		                           0x000000, null, .5);
 		            drawRoundRect (0, 0, this.width, this.height, 
 		                           roundness,
-		                           0xC4C4C4, 0xC4C4C4, 1);
+		                           0xC4C4C4, 0xC4C4C4, 1);*/
 		            this.changeColor(0xC4C4C4);
 		        </handler>
 		
 		        <method name="changeColor" args="color">
-		            var roundness = 10;
-		            var thickness = 3;
+		            var roundness = 15;
+		            var thickness = 5;
+					var shadow = 3;
+
+					/*drawRoundRect (shadow, shadow, this.width + shadow, this.height + shadow, 
+		                           roundness,
+		                           0x000000, null, .5);*/
+
+					drawRoundRect (thickness, thickness, Number(this.width - thickness)+Number(shadow), Number(this.height - thickness)+Number(shadow), 
+		                           roundness,
+		                           0x000000, 0x000000, 0.5);
 		
 		            drawRoundRect (thickness, thickness, this.width - thickness, this.height - thickness, 
 		                           roundness,
 		                           color, 0xC4C4C4, 1);
+					
 		        </method>
 		
 		        <method name="drawRoundRect" args="x0, y0, x1, y1, roundness, fill, stroke, alpha">
@@ -262,24 +278,18 @@
 		    </drawview>
         
 		<view name="contents" width="800" height="680" y="-50">
-			<view name="showHd" resource="grey_arrow_down" align="center" width="30" height="30" y="50" stretches="both" visible="true">
+			<view name="showHd" resource="header_btn" align="center" height="30" y="50" stretches="height" visible="true">
 				<handler name="oninit">
 					classroot.main.contents.showHd.bringToFront();
 				</handler>
 	          	<handler name="onclick"><![CDATA[
+					this.setAttribute('clickable',false);
 					if(classroot.main.header.y > -80){
 						classroot.decreaseHeaderY();
-						this.setAttribute('rotation',0);
-						//this.setAttribute('x',"380"); 
-						//this.setAttribute('align','center');
-						//this.setAttribute('resource',grey_arrow_down);
 					} else if(classroot.main.header.y < 0){
-						//this.setAttribute('resource',grey_arrow_up);
 						classroot.main.windowbgHeader.bringToFront();
 						classroot.main.header.bringToFront();
 						classroot.increaseHeaderY();
-						this.setAttribute('rotation',180);
-						//this.setAttribute('x',"400"); 
 					}
 					/*classroot.main.windowbgHeader.bringToFront();
 					classroot.main.header.bringToFront();
@@ -305,16 +315,14 @@
                 <Tooltip id="gTooltip" options="ignorelayout"/>
                 <!--<view bgcolor="0xFFFFCC" width="100%" height="6" valign="bottom"/>-->
             </view>
-			<view name="showNavBar" resource="grey_arrow_up" align="center" width="30" height="30" stretches="both" y="615" visible="true">
+			<view name="showNavBar" resource="footer_btn" align="center" height="30" stretches="height" y="625" visible="true">
 	          	<handler name="onclick"><![CDATA[
+					this.setAttribute('clickable',false);
 					if(classroot.main.navbar.y < 600){
 						classroot.decreaseNavBarY();
-						this.setAttribute('rotation',0);
 					} else if(classroot.main.navbar.y > 540){
 						classroot.main.navbar.bringToFront();
 						classroot.increaseNavBarY();
-						this.setAttribute('rotation',180);
-						//this.setAttribute('x',"400"); 
 					}
 					/*classroot.main.navbar.bringToFront();
 					classroot.main.contents.showNavBar.setAttribute('visible',false);
@@ -326,7 +334,7 @@
         
         <view name="navbar" x="15" width="770" height="60" y="600" bgcolor="0xFFFFCC">
             <resizelayout axis="x"/>
-            <QuestionBar width="650"  height="100%"
+            <QuestionBar x="-1" width="630"  height="100%"
                          datapath="dsstudentdata:/testing_client_model"/><!--width="593" -->
 
             <TestControls height="${parent.height + 7}" options="releasetolayout" y="-6"/>
@@ -340,7 +348,7 @@
             </basebutton>-->
         </view>
 
-		<drawview name="windowbgNavBar" x="13" width="775" height="60" y="600">
+		<drawview name="windowbgNavBar" x="7" width="787" height="80" y="600">
 	
 			 <attribute name="isready" value="false" type="boolean" />
 			  <handler name="oncontext">
@@ -358,22 +366,27 @@
 		            var thickness = 3;
 		            var shadow = 9;
 		
-		            drawRoundRect (shadow, shadow, this.width + shadow, this.height + shadow, 
+		            /*drawRoundRect (shadow, shadow, this.width + shadow, this.height + shadow, 
 		                           roundness,
 		                           0xC4C4C4, null, .5);
 		            drawRoundRect (0, 0, this.width, this.height, 
 		                           roundness,
-		                           0xC4C4C4, 0xC4C4C4, 1);
-		            this.changeColor(0xC4C4C4);
+		                           0xC4C4C4, 0xC4C4C4, 1);*/
+		            this.changeColor(0x6691B4);
 		        </handler>
 		
 		        <method name="changeColor" args="color">
-		            var roundness = 10;
-		            var thickness = 3;
+		            var roundness = 15;
+		            var thickness = 5;
+					var shadow = 3;
+
+					drawRoundRect (thickness+Number(shadow), thickness-Number(shadow), Number(this.width - thickness)+Number(shadow), Number(this.height - thickness), 
+		                           roundness,
+		                           0x000000, 0x000000, 0.5);
 		
 		            drawRoundRect (thickness, thickness, this.width - thickness, this.height - thickness, 
 		                           roundness,
-		                           color, 0xC4C4C4, 1);
+		                           color, 0x6691B4, 1);
 		        </method>
 		
 		        <method name="drawRoundRect" args="x0, y0, x1, y1, roundness, fill, stroke, alpha">
