@@ -215,10 +215,10 @@
 	<!--<view name="mainView"  width="100%" height="100%" bgcolor="0x6691B4">-->
 	<!--//800/600 base width and height since unstretched widths and heights are zero-->
 	<view name="scalingView" 
-		height="100%" 
-		width="100%"	
+	height="${canvas.parent.height}" 
+		width="${canvas.parent.width}"
                      		     
-		     xscale="${canvas.width/canvas.parent.width}" yscale="${canvas.height/canvas.parent.height}"     
+		     xscale="${canvas.parent.width/800}" yscale="${canvas.parent.height/600}"     
 
 		align="center"
 		valign="middle">
@@ -234,13 +234,13 @@
 	Debug.write("width....."+this.width);
 
 </handler>
-		<view name="gView" width="100%" height="100%" y="0" >
+		<view name="gView" width="800" height="600" y="0" >
 		<handler name="oninit">
 
 		var elem = this.getDisplayObject();
 		elem.setAttribute('id', 'gView');
 		</handler>
-			<ItemInterface id="gItemInterface" name="gItemInterface"  width="100%" height="100%"
+			<ItemInterface id="gItemInterface" name="gItemInterface"  width="800" height="600"
 				visible="true" />
 				<Screens id="gScreens" x="100" y="200" width="10"
 				height="10" visible="false">
