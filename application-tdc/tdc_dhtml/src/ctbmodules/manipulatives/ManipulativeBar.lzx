@@ -18,7 +18,7 @@
 			if(theme) {
 				this.setAttribute("hasResponseArea", gController.applyManipulative());
 			}
-			//this.globals.magnifyingGlass.setAttribute('frame', 1);
+			this.globals.magnifyingGlass.setAttribute('frame', 1);
 		</handler>
 
 		<view datapath="manipulatives/global" name="globals" valign="middle" visible="${!classroot.theme || (classroot.theme &amp;&amp; classroot.hasResponseArea)}">
@@ -91,17 +91,17 @@
 					</method>
 
 				<method name="show">
-						gMagnifyingGlass.showGlass();
-						this.isEnabled = true;
-						gController.setAttribute("magnifierState", true);
 						this.setAttribute('frame',2);
+						this.isEnabled = true;
+						gMagnifyingGlass.showGlass();
+						gController.setAttribute("magnifierState", true);
 					</method>
 
 				<method name="hide">
-						gMagnifyingGlass.hideGlass();
-						this.isEnabled = false;
-						gController.setAttribute("magnifierState", false);
 						this.setAttribute('frame',1);
+						this.isEnabled = false;
+						gMagnifyingGlass.hideGlass();
+						gController.setAttribute("magnifierState", false);
 					</method>
 			</view>
                             	

@@ -29,6 +29,13 @@
             }
 		</handler>
 		
+		<handler name="onheight">
+        // hash of properties from CachableTextField is setting height as a string - need to convert to number
+            if(typeof this.height == 'string'){
+            	this.setAttribute('height', Number(this.height));
+            }
+		</handler>
+		
 		<method name="setAnswer" args="txt">
 			this.answer.setAnswer(txt);
 		</method>
@@ -58,7 +65,7 @@
  		<ctb_edittext name="answer" 
  		              maxlength="${classroot.char_limit}"
                       width="${classroot.editTextWidth}" 
-                      height="${classroot['fontsize'] ? (classroot.fontsize == 12 ? 22 : 34) : 22}"
+                      height="${classroot['height'] ? classroot.height : (classroot['fontsize'] ? (classroot.fontsize == 12 ? 22 : 34) : 22)}"
                       widget_id="${classroot.widget_id}"
                       fontsize="${classroot['fontsize'] ? classroot.fontsize : 12}">
             <handler name="oninit">

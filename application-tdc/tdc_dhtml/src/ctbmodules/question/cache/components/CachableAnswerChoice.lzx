@@ -15,7 +15,7 @@
         <!-- ================================
              methods
              ================================= -->		
-		<handler name="ondata" args="data">
+		<handler name="ondata" args="data"><![CDATA[
 
 			if (data.hasAttr ('width')) {
 				this.setAttribute ('width', Number (data.getAttr ('width')));
@@ -43,8 +43,15 @@
                 setAttribute( 'y', parseInt( data.getAttr( 'y' ) ) );
             }
 
-            this._initSubnodes (); 
+            this._initSubnodes ();
+            for (var i = 0; i < this.subviews.length; i++) {
+            	if(this.subviews[i] instanceof lz.CachableTextField){
+            		this.subviews[i].setAttribute('valign',"middle");
+            	}
+            }
+            
             doneLoading();
+            ]]>
 		</handler>
 
         <method name="doReturnToCache">

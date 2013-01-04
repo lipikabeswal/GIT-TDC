@@ -12,7 +12,7 @@
 	<attribute name="lastxpos" value="0" type="number" />
 	<attribute name="lastypos" value="0" type="number" />
 	<attribute name="isEnabled" value="false" />
-	<attribute name="magnifierOpen" type="boolean" value="false"/>
+	<attribute name="magnifierOpen" type="boolean" value="true"/>
 
 
 	<method name="setUpGlass">

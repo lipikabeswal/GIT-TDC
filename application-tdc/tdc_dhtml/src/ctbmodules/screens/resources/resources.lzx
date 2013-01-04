@@ -141,6 +141,7 @@
    	<resource name="bot_rt_slct" src="bot_rt_slct.png" />
    	
    	<resource name="screens_background" src="screens_background.png"/>
+   	<resource name="screens_background_security" src="screens_background_security.png"/>
 
 	<!-- Animations -->
    	<resource name="loginBallArrow" src="temp images/play-norm.png" />
