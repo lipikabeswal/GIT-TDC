@@ -567,7 +567,25 @@ public class ContentServlet extends HttpServlet {
 						String imageId = element.getAttributeValue("id");
 						if (!assetMap.containsKey(imageId)) {
 							String mimeType = element.getAttributeValue("type");
-							if(!mimeType.contains("zip")){
+							if(mimeType.contains("zip")){
+
+								
+								String b64data = element.getText();
+								b64data = b64data.replace(" ", "");
+								AssetInfo aAssetInfo = new AssetInfo();
+								assetMap.put(imageId, aAssetInfo);
+								unzip(imageId, b64data);
+							}else if(mimeType.contains("mp4")){
+					
+								String b64data = element.getText();
+								b64data = b64data.replace(" ", "");
+								byte[] mp4Data = Base64.decode(b64data);
+								AssetInfo aAssetInfo = new AssetInfo();
+								aAssetInfo.setData(mp4Data);
+								aAssetInfo.setExt("mp4");								
+								assetMap.put(imageId, aAssetInfo);
+							}else{
+								
 								String ext = mimeType.substring(mimeType
 										.lastIndexOf("/") + 1);
 								
@@ -578,13 +596,6 @@ public class ContentServlet extends HttpServlet {
 								aAssetInfo.setData(imageData);
 								aAssetInfo.setExt(ext);
 								assetMap.put(imageId, aAssetInfo);
-							}else{
-								String b64data = element.getText();
-								b64data = b64data.replace(" ", "");
-								AssetInfo aAssetInfo = new AssetInfo();
-								assetMap.put(imageId, aAssetInfo);
-								unzip(imageId, b64data);
-								
 							}
 							
 						}

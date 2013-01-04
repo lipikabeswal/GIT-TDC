@@ -126,7 +126,7 @@ function storeScratchPadText(args){
 }
 
 function mydetectFlashUsingVBScript() {
-    document.write('<SCRIPT LANGUAGE="VBScript">on error resume next\nIf myMSDetect = "true" Then\nFor i = 2 to 8\nIf Not(IsObject(CreateObject("ShockwaveFlash.ShockwaveFlash." & i))) Then\nElse\nmyflashinstalled = 2\nmyflashversion = i\nEnd If\nNext\nEnd If\nIf myflashinstalled = 0 Then\nmyflashinstalled = 1\nEnd If</SCRIPT>');
+    document.write('<SCRIPT LANGUAGE="VBScript">on error resume next\nIf myMSDetect = "true" Then\nFor i = 2 to 8\nIf Not(IsObject(CreateObject("ShockwaveFlash.ShockwaveFlash." & i))) Then\nElse\nmyflashinstalled = 2\nmyflashversion = i\nEnd If\nNext\nEnd If\nIf myflashinstalled = 0 Then\nmyflashinstalled = 1\nEnd If<\/SCRIPT>');
 }
 
 function setManipState(args){
@@ -211,9 +211,16 @@ function callManipOutOfFrameCheck(testClientMouseUp) {
 	}
 }
 
+
+function callTestMouseUp1() {
+   	lz.embed.setCanvasAttribute('testMouseUp','true');
+}
+
+
 function fromWrapper() {
 	lz.embed.setCanvasAttribute('fromWrapper','true');
 }
+
 
 function showMagnify() {	
 		if(jQuery("#magnifierWindow").length < 1){
@@ -260,6 +267,22 @@ function displayMagnifier() {
 
 function setMouseUpVal() {
 	lz.embed.setCanvasAttribute('mouseUpFired','false');
+}
+
+var curLasItemId;
+var curLasItemHash;
+var curLasItemKey;
+function sendItemDetLasRenderer(item) {
+	item = item.split(",");
+	curLasItemId = item[0];
+	
+	curLasItemHash = item[1];
+	curLasItemKey = item[2];
+}
+
+function getItemDetLasRenderer(){
+
+	return curLasItemId +"||"+ curLasItemHash+"||"+curLasItemKey;
 }
 
 //-->
