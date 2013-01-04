@@ -160,8 +160,7 @@
                       } else {
                         // we'll need to make room for the other scrollbar
                         if (s != this) {
-							Debug.write("othersb>>>>>>",s);
-                            this.setAttribute('othersb',s);
+							this.setAttribute('othersb',s);
                         }
                       }
                    }
@@ -275,14 +274,12 @@
         <!--- @keywords private -->
         <method name="targetSizeUpdate" args="ignore">
             <![CDATA[
-             Debug.write("targetSizeUpdate scrolltarget" ,this.scrolltarget);
             if (this.scrolltarget) {
                 var sm = this.scrolltarget[this.sizeAxis];
                 if (this.othersb && this.othersb.visible) {
                     sm += this[this.otherSizeAxis];
                 }
                 this.setAttribute("scrollmax", sm);
-                Debug.write("targetSizeUpdate scrollmax" , this.scrollmax,this.scrolltarget[this.sizeAxis],this.scrolltarget);
                 this.scrollbarSizeUpdate(null);
             }
             ]]>
@@ -348,13 +345,13 @@
         <method name="updateThumbSize">
             <![CDATA[
             // disable/enable the scrollbar if necessary
-            Debug.write("UPDATE THUMBSIZE" , this.scrollmax,this.scrolltarget.immediateparent[this.sizeAxis]);
+          //  Debug.write("UPDATE THUMBSIZE" , this.scrollmax,this.scrolltarget.immediateparent[this.sizeAxis]);
             if (this.scrollmax <= this.scrolltarget.immediateparent[this.sizeAxis]) {
                     if (this.scrollable) {
                         this.setAttribute('scrollable',false);
                         if (this.othersb){ // hint othersb about our disappearance...
                         this.othersb.targetSizeUpdate(null);
-						Debug.write("othersb if");
+						
 						}
                     }
                     return;
@@ -363,7 +360,7 @@
                  this.setAttribute('scrollable', true);
                      if (this.othersb){ // hint othersb about our appearance...
                      this.othersb.targetSizeUpdate(null);
-						Debug.write("othersb else");
+
 					}
                 }
            }
