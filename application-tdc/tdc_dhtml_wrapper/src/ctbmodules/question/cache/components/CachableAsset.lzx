@@ -19,16 +19,31 @@
 				//console.log(data);
 			}
 			if($dhtml){
-				var srcUrl = "http:resources/calif/FormA_4-5_Li_Item11.html";
-				this.asset.aw.setAttribute('src', srcUrl);
-				this.asset.aw.setAttribute('visible',true);
+				this.asset.setAttribute('height',Number(data.getAttr('height')));
+				this.asset.setAttribute('width',Number(data.getAttr('width')));
+				if(data != null && data.getAttr('isMP4') == "true") {
+					this.asset.aw.setAttribute('visible',false);
+					this.asset.video.setAttribute('visible',true);
+					this.asset.video.setAttribute('height',Number(data.getAttr('height')));
+					this.asset.video.setAttribute('width',Number(data.getAttr('width')));
+				} else {
+					var srcUrl = "http:resources/calif/FormA_4-5_Li_Item11.html";
+					this.asset.aw.setAttribute('src', srcUrl);
+					this.asset.aw.setAttribute('visible',true);
+					this.asset.video.setAttribute('visible',false);
+					this.asset.aw.setAttribute('height',Number(data.getAttr('height')));
+					this.asset.aw.setAttribute('width',Number(data.getAttr('width')));
+				}
 			}
 		]]></handler>
 	
-		<view name="asset" width="${parent.parent.width - 10}" height="${parent.parent.height - 10}">
-			<html name="aw" id="assetwiget" x="5" y="5" width="400" height="100" scrollbars="false" mouseevents="true" focusable="true">
+		<view name="asset" width="${parent.parent.width - 10}" height="${parent.parent.height - 10}" >
+			<html name="aw" id="assetwiget" x="5" y="5" width="400" height="100" scrollbars="false" mouseevents="true" focusable="true" >
  	    		  	
 			</html>
+			<view name="video" bgcolor="blue" width="100" height="100" visible="false">
+			
+			</view>
        	</view>
 	</class>
 </library>

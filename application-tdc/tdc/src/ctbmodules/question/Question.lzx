@@ -2,6 +2,7 @@
 
     <include href="cache/ComponentCache.lzx"/>
 <include href="cache/components/CachableAnswerAreaPanel.lzx"/>
+	<include href="cache/components"/>
 
     <class name="Question">
 

@@ -83,15 +83,25 @@
 			if(arraytouse!=null){
 	            if (arraytouse.length) {
 	             //   newcomp = arraytouse.shift();
-	             	if(!gController.laslinkPopulated){
-						  newcomp = this._createNewComponent (type);
-					  }	
+					if(gController.productTypeVal.indexOf("LASLINKS") >= 0) {
+						if(!gController.laslinkPopulated) {
+							gController.setAttribute('laslinkPopulated',true);
+							newcomp = this._createNewComponent (gCompTypes.WIDGET_ASSET);
+						}
+					} else {
+						newcomp = this._createNewComponent (type);
+					}
 //	Debug.write ('CACHE: used cached ', type, newcomp);
 	
 	            } else {
-         			if(!gController.laslinkPopulated){
-						  newcomp = this._createNewComponent (type);
-					  }	
+         			if(gController.productTypeVal.indexOf("LASLINKS") >= 0) {
+						if(!gController.laslinkPopulated) {
+							gController.setAttribute('laslinkPopulated',true);
+							newcomp = this._createNewComponent (gCompTypes.WIDGET_ASSET);
+						}
+					} else {
+						newcomp = this._createNewComponent (type);
+					}	
 //	Debug.write ('CACHE: create new ', type, newcomp, datanode);
 	            }
 	        }

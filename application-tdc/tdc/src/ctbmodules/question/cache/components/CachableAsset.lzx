@@ -20,12 +20,12 @@
 		</handler>
 	
 		<handler name="ondata" args="data"><![CDATA[
-			if(!gController.laslinkPopulated) {
+			//if(!gController.laslinkPopulated) {
 				gController.setAttribute('laslinkPopulated',true);
 			    var srcUrl = "http:laslink_itemviewer.html";
 				this.asset.aw.setAttribute('src', srcUrl);
 				this.asset.aw.setAttribute('visible',true);
-			}
+			//}
 		doneLoading();
 		]]></handler>
 		
@@ -33,8 +33,8 @@
 			  super.doneLoading();
 		</handler>
 	
-		<view name="asset" width="${parent.parent.width}" height="${parent.parent.height}" bgcolor="green">
-			 <html name="aw" id="assetwiget" x="0" y="0" width="${790 * canvas.xscalefactor}" height="${450 * canvas.yscalefactor}" scrollbars="false" mouseevents="true" focusable="true">
+		<view name="asset" width="${parent.parent.width}" height="${parent.parent.height}" >
+			 <html name="aw" id="assetwiget" y="79" width="${790 * canvas.xscalefactor}" height="${450 * canvas.yscalefactor}" scrollbars="false" mouseevents="true" focusable="true">
  	    		  	
 			</html>
        	</view>

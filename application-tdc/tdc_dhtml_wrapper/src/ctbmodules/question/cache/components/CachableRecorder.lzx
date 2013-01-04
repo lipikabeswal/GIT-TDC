@@ -543,7 +543,7 @@
 
 		<handler name="oninit">
 			var base = lz.Browser.getInitArg( 'servletUrl' );
-			audioDset.setSrc(base + '/SoundRecorder.do');
+			audioDset.setAttribute('src',base + '/SoundRecorder.do');
 			this.setVolume(0);
 		</handler>
 

@@ -520,6 +520,9 @@
 		<attribute name="teItemState" value="$once{new Object()}"/>
 		<attribute name="skipCacheDestroy" type="boolean" value="false"/>
 		
+		<attribute name="laslinkItemAssets" value="$once{new Array()}"/>		
+		<attribute name="laslinkPopulated" type = "boolean" value="false"/>
+		
 		<!-- called to restore the custom cursor-->
 		<attribute name="dRestoreCursor"
 			value="$once{ new lz.Delegate( this, 'restoreGrabCursor' ) }" />
@@ -3458,6 +3461,8 @@ Debug.write("############ loadItem ############");
 			}
         	var loadParams = getLoadParams();
 			//Debug.write("loadParams",loadParams);
+			var s = "sendItemDetLasRenderer('"+loadParams+"')";
+			lz.Browser.loadJS(s);
         	var xml = gXmlHelper.getGetItemXml(loadParams[0], loadParams[1], loadParams[2]);
 			if (typeof canvas.folder != "undefined") {
 				dsitem.setQueryParam(gRequest.FOLDER_PARAM, canvas.folder);
@@ -5657,6 +5662,11 @@ Debug.write("############ loadItem ############");
 			gDownloadManager.downloadContent();
 		</method>
 
+		<!-- LAS LINKS CODE SEGMENT -->
+		
+		<method name="addLasField" args="field">
+			this.laslinkItemAssets.push(field);
+		</method>
 	</node>
 
 </library>

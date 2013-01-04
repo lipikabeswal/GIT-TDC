@@ -626,7 +626,7 @@
 		}
         //gScreens.showLogin();
 			var base = lz.Browser.getInitArg( 'servletUrl' );
-			var base = "http://192.168.14.200:12345/servlet/fixed";
+			//var base = "http://192.168.14.200:12345/servlet/fixed";
 			dsitem.setAttribute('src', base + '/ContentServlet.do'); 
 			//dsMusic.setAttribute('src', base + '/ContentServlet.do');   
 			//Debug.write("On Init Controller");
@@ -1015,7 +1015,8 @@
 
 		<method name="_handleSaveLoadResponse" args="response">
 		//Debug.write("_handleSaveLoadResponse");
-			loadItem();
+			console.log("handle save load response");
+			//loadItem();
 		</method>
 
 		<method name="_handleLoginResponse" args="response"><![CDATA[
@@ -3302,7 +3303,10 @@ if($dhtml){
 			}
         	//var loadParams = getLoadParams();
 			////console.log("loadParams",loadParams);
-        	var xml = gXmlHelper.getGetItemXml("1", "ABCDEF", "1");
+			var s = getItemDetLasRenderer();//Native Invoke
+			s = s.split("||");
+			//console.log("*******************",s[0], s[1],s[2]);
+			var xml = gXmlHelper.getGetItemXml(s[0], s[1], s[2]);
 			if (typeof canvas.folder != "undefined") {
 				dsitem.setQueryParam(gRequest.FOLDER_PARAM, canvas.folder);
 			}
