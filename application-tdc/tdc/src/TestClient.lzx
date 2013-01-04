@@ -1,6 +1,7 @@
 <canvas bgcolor="0x6691B4" proxied="false" debug="false" width="100%" height="100%"
 	accessible="true">
 	<script when="immediate"><![CDATA[
+	Debug.messageLevel = "ERROR";
 	class FlashUtils {
 	#passthrough (toplevel: true) {
 		import flash.media.Microphone;

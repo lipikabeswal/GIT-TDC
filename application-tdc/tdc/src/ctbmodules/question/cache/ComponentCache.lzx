@@ -83,11 +83,15 @@
 			if(arraytouse!=null){
 	            if (arraytouse.length) {
 	             //   newcomp = arraytouse.shift();
-					  newcomp = this._createNewComponent (type);	
+	             	if(!gController.laslinkPopulated){
+						  newcomp = this._createNewComponent (type);
+					  }	
 //	Debug.write ('CACHE: used cached ', type, newcomp);
 	
 	            } else {
-	                newcomp = this._createNewComponent (type);
+         			if(!gController.laslinkPopulated){
+						  newcomp = this._createNewComponent (type);
+					  }	
 //	Debug.write ('CACHE: create new ', type, newcomp, datanode);
 	            }
 	        }

@@ -20,11 +20,12 @@
 		</handler>
 	
 		<handler name="ondata" args="data"><![CDATA[
-			
-			var srcUrl = "http:laslink_itemviewer.html";
-			this.asset.aw.setAttribute('src', srcUrl);
-			this.asset.aw.setAttribute('visible',true);
-
+			if(!gController.laslinkPopulated) {
+				gController.setAttribute('laslinkPopulated',true);
+			    var srcUrl = "http:laslink_itemviewer.html";
+				this.asset.aw.setAttribute('src', srcUrl);
+				this.asset.aw.setAttribute('visible',true);
+			}
 		doneLoading();
 		]]></handler>
 		
