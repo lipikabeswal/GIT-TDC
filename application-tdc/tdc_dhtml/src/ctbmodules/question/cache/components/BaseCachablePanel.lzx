@@ -119,6 +119,8 @@
             }
             else if(!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
 				this.setAttribute('bgcolor', gController.questionBgColor);
+				this.setAttribute('fontcolor', gController.questionFontColor);
+				this.setAttribute('fontsize', gController.questionFontSize);
             }
             
             this.setAttribute("isaccom", isaccom);
@@ -131,14 +133,15 @@
 
             
             //inform gFootNotePopup footnotes
-			/*if((this instanceof lz.CachableScrollingTextPanel) 
-                || this instanceof lz.CachableTabsPanel) 
+			if((this instanceof lz.CachableScrollingTextPanel) 
+                || this instanceof lz.CachableTabsPanel
+				|| this instanceof lz.CachablePanel)  
             {
                 gFootNotePopup.setAttribute("scrolltext", this);
-            }*/      
-		console.log("basecachablepanel contents",this.wrapper.scrollcontainer.offsetwrapper.contents.height);
+            }      
+
 		console.log("basecachablepanel",this.wrapper.scrollcontainer.offsetwrapper.height,this.wrapper.height,this.growtocontents);
-		
+
         ]]></method>
 
 		<!-- 
