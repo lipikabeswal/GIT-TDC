@@ -34,7 +34,6 @@
 			lz.Timer.removeTimer(headerYDel);
 		}else if(this.main.header.y < 0 || this.main.windowbgHeader.y < -10){
 			if(this.main.header.y < 0){
-				console.log("this.main.header "+this.main.header.y);
 				this.main.header.setAttribute('y',this.main.header.y+5);
 				/*if(this.modHeaderArrowHeight){
 					this.main.contents.showHd.setAttribute('y',this.main.contents.showHd.y+this.main.contents.showHd.height+5);
@@ -125,7 +124,6 @@
 		}
 		]]>
 	</method>
-
 
 	<view name="main" datapath="subtest/ob_assessment">
 	
@@ -332,7 +330,7 @@
 	      	</view>
         </view>
         
-        <view name="navbar" x="15" width="770" height="60" y="600" bgcolor="0xFFFFCC">
+        <view name="navbar" x="15" width="770" height="60" y="600" bgcolor="0x6691B4">
             <resizelayout axis="x"/>
             <QuestionBar x="-1" width="630"  height="100%"
                          datapath="dsstudentdata:/testing_client_model"/><!--width="593" -->
