@@ -159,8 +159,8 @@
 	            - NO ANSWER SELECTED -
 	        </text>
 		</view> -->
-        <view name="btns" y="8" x="0">
-            <simplelayout axis="y" spacing="-3"/>
+        <view name="btns" y="6" x="0">
+            <simplelayout axis="y" spacing="-1"/>
             <view name="navbtns" x="${parent.markbtn.width+5}">
                 <!--<basebutton name="btnback" resource="go_back_btn" x="0"
                             enabled="${ classroot.uienabled == true }"
@@ -187,10 +187,10 @@
                             </handler>
                  </basebutton>
             </view>
-            <multistatebutton name="markbtn" align="left" y="-5"
+            <multistatebutton name="markbtn" align="right" y="-5"
                               clickable="${ classroot.uienabled == true }"
                               resource="mark_unmark_btn" statelength="3"
-                              maxstate="1" 
+                              maxstate="1"
               				  onclick="gController.markQuestion (!classroot.iscurrmarked)">
             </multistatebutton>
         </view>
