@@ -117,23 +117,19 @@
 		</method>
 		
         <method name="doRead" args="txt"><![CDATA[
-			var speedValue;
-        	this.currentText = txt;//TTS CR
+			this.currentText = txt;//TTS CR
         	//Changes for Defect # 65040
-        	//this.audioPlayer.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
-			//lz.Timer.resetTimer(this.dTimeout, TIMEOUT_INTERVAL);
+        	this.audioPlayer.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
+			lz.Timer.resetTimer(this.dTimeout, TIMEOUT_INTERVAL);
  	    	//stopReading();
  	        speechDs.setQueryParam(TEXT_PARAM, txt);
  	        //TTS CR
- 	        //if(gController.hasTTSspeed) {
- 	        	//var smf = gManipulativeBar.speedController.value;  //SMF => Slow, Medium, Fast
- 	        	var smf = "M";
- 	        	speedValue = getSpeedNumber(smf);
-				speechDs.setQueryParam(SPEED_PARAM, speedValue);
- 	       // }
+ 	        if(gController.hasTTSspeed) {
+ 	        	var smf = gManipulativeBar.speedController.value;  //SMF => Slow, Medium, Fast
+ 	        	var speedValue = getSpeedNumber(smf);
+ 	        	speechDs.setQueryParam(SPEED_PARAM, speedValue);
+ 	        }
  	        Debug.write("speechDs");
- 	        var s = "sendRequest('"+txt+"','"+speedValue+"','')";
-			lz.Browser.loadJS(s);   
 			speechDs.doRequest();
        ]]></method>
         
