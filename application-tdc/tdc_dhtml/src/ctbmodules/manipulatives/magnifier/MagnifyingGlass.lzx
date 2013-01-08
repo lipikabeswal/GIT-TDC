@@ -33,14 +33,12 @@
 	</method>
 
 	<method name="showGlass">
-		 var jsCall = "buttonClicked()";
-		 lz.Browser.loadJS(jsCall);
+		 /*var jsCall = "buttonClicked()";
+		 lz.Browser.loadJS(jsCall);*/
+		 buttonClicked();
 		 gMagnifyingGlass.setAttribute("magnifierOpen",false);	
-		 
-		//lz.FlashUtils.show(canvas.titleView,this.windowbg.magnifiedContent);
-		//lz.FlashUtils.doMouseMove(this.x,this.y,this.ratioW,this.ratioH);	
 	</method>
-
+	
 	<method name="magnify">
 		//mouseMove();
 		//lz.Timer.resetTimer(trackDel, 10); 
