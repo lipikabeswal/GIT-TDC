@@ -240,6 +240,14 @@ function isAnswered(){
 function getItemDetLasRenderer() {
 	return window.parent.getItemDetLasRenderer();
 }
+
+function toggleSelStateFrame(sel) {
+	lz.embed.setCanvasAttribute('selectionVal',sel);
+}
+
+function toggleSelectionInMain(sel) {
+	window.parent.toggleSelectionMain(sel);
+}
 //-->
 </SCRIPT>
 </HEAD>

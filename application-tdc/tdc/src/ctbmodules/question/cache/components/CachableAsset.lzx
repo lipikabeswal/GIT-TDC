@@ -26,12 +26,22 @@
 				this.asset.aw.setAttribute('src', srcUrl);
 				this.asset.aw.setAttribute('visible',true);
 			//}
+			gController.lasHtmlField.push(this);
+			gController.setAttribute('frameid', this.asset.aw.iframeid);
+			
 		doneLoading();
 		]]></handler>
 		
 		<handler name="doneLoading">
+			Debug.write("DONE LOADING-> ", this.asset.aw.iframeid);
 			  super.doneLoading();
 		</handler>
+		
+		<method name="doReturnToCache"><![CDATA[
+			for (var i = 0; i < this.subviews.length;i++){
+				this.subviews[i].destroy();
+			}
+		]]></method>
 	
 		<view name="asset" width="${parent.parent.width}" height="${parent.parent.height}" >
 			 <html name="aw" id="assetwiget" y="79" width="${790 * canvas.xscalefactor}" height="${450 * canvas.yscalefactor}" scrollbars="false" mouseevents="true" focusable="true">

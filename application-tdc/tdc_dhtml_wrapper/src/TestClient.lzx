@@ -85,6 +85,16 @@
 	<attribute name="setanswer" value="null" />
 	<attribute name="footnotetext" value="null"/>
 	<attribute name="currentEid"/>
+	<attribute name="selectionVal"/>
+	
+	<handler name="onselectionVal" args="data">
+		if($dhtml) {
+			//console.log("********seldata********",data);
+		}
+		gController.setAttribute('calledFromMainApp',true);
+		gController.toggleItemSelState(data);
+	</handler>
+	
 	<handler name="onsetanswer" args="data">
 		if(gController.htmlFields.length > 0){
 			gController.htmlFields[0].ref.setAnswer();

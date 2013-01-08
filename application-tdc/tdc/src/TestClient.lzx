@@ -179,6 +179,13 @@
 	<attribute name="mouseUpFired" value = "false" type = "string"/>
 	<attribute name="fromWrapper" value = "false" type = "string"/>
 	<attribute name="fromLogin" value = "false" type = "string"/>
+	<attribute name="selectionFromLasAsset"/>
+	
+	<handler name="onselectionFromLasAsset" args="data">
+		gController.setAttribute('calledFromLasHtml',true);
+		gController.toggleItemSelState(data);
+		Debug.write("*************reverse******");
+	</handler>
 	
 	<handler name="onsetanswer" args="data">
 		if(gController.htmlFields.length > 0){

@@ -522,6 +522,8 @@
 		
 		<attribute name="laslinkItemAssets" value="$once{new Array()}"/>		
 		<attribute name="laslinkPopulated" type = "boolean" value="false"/>
+		<attribute name="calledFromLasHtml" type = "boolean" value="false"/>
+		<attribute name="lasHtmlField" value="$once{new Array()}" />
 		
 		<!-- called to restore the custom cursor-->
 		<attribute name="dRestoreCursor"
@@ -574,8 +576,13 @@
 		<attribute name="RestartTest" value="false" type="boolean" />
 		<attribute name="productTypeVal" type="string" value="ISTEP"/>
 		<attribute name="onStopTest" value="false" type="boolean" />
+		<attribute name="frameid"/>
 		
-			
+		<handler name="onframeid" args="data">
+			//Debug.write("222222222222222222222222-> ", data);
+			var s = "frameID('"+data+"')";
+			lz.Browser.loadJS(s);
+		</handler>
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
 			if(gScratchpad.scratchpadHasFocus) { 
@@ -2825,6 +2832,8 @@
                     setItemSelState( selid, 's');
                 }
             }
+			this.setAttribute('calledFromLasHtml',false);
+            }
         ]]></method>
 
 		<method name="readKeySelection" args="selid, value"><![CDATA[
@@ -2859,6 +2868,7 @@
                     for (var i in dninteraction.childNodes) {
                         if (dninteraction.childNodes [i] != dnsel &&
                             dninteraction.childNodes [i].getAttr ('user_action') != 'e') {
+                            Debug.write("setItemSelState called for setting answered inside iof" );
                             dninteraction.childNodes [i].setAttr ('user_action', 'n');
                         }
                     }
@@ -2871,7 +2881,7 @@
     
                 switch ( value ) {
                     case 's':
-			//			Debug.write("setItemSelState called for setting answered" +  dncurritem.getAttr('answered'));
+						Debug.write("setItemSelState called for setting answered" +  dncurritem.getAttr('answered'));
                         var score =
                             dncurritem.getAttr( 'correct' ) == selid ? '1' : '0';
                         dncurritem.setAttr( 'answer_text', selid );
@@ -3481,6 +3491,8 @@ Debug.write("############ loadItem ############");
 			//this.resetImageField();
 			gMaskingAnswer.setAttribute("withState",false);
 			hideMaskingChoiceDD();
+			gController.setAttribute('laslinkPopulated',false);
+			this.resetLasHtml();
 		]]></method>
 
 		<method name="loadMusicData"><![CDATA[
@@ -4263,6 +4275,8 @@ Debug.write("############ loadItem ############");
         	setAttribute("doUnlockUI", false);
         	Debug.write("saveendsubtest");
         	this.resetHtmlFields();
+        	this.resetLasHtml();
+        	gController.setAttribute('laslinkPopulated',false);
         ]]></method>
 
 		<method name="_handleWriteToAuditFileResponse" args="response">
@@ -5667,6 +5681,13 @@ Debug.write("############ loadItem ############");
 		<method name="addLasField" args="field">
 			this.laslinkItemAssets.push(field);
 		</method>
+		
+		<method name="resetLasHtml"><![CDATA[
+			 for (var i = 0; i < this.lasHtmlField.length; i++) {
+                delete this.lasHtmlField[i];
+            }
+			this.lasHtmlField.length = 0;
+		]]></method>
 	</node>
 
 </library>
