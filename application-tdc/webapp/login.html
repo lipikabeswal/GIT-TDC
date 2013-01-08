@@ -28,6 +28,8 @@
 <script type="text/javascript" src="assets/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="assets/jquery-ui-1.9.2.custom.min.js"></script>
 <script type="text/javascript" src="assets/imageZoomer.js"></script>
+<script type="text/javascript" src="includes/laslinks_manager.js"></script>
+
 <SCRIPT type="text/javaScript">
 <!--
 var _LDB_BypassSetFocusOnPageLoad = 0;
@@ -269,20 +271,9 @@ function setMouseUpVal() {
 	lz.embed.setCanvasAttribute('mouseUpFired','false');
 }
 
-var curLasItemId;
-var curLasItemHash;
-var curLasItemKey;
-function sendItemDetLasRenderer(item) {
-	item = item.split(",");
-	curLasItemId = item[0];
-	
-	curLasItemHash = item[1];
-	curLasItemKey = item[2];
-}
-
-function getItemDetLasRenderer(){
-
-	return curLasItemId +"||"+ curLasItemHash+"||"+curLasItemKey;
+var currentFrameId;
+function frameID(frameid){
+	currentFrameId = frameid;
 }
 
 //-->

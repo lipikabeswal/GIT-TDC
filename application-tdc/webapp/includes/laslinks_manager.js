@@ -7,14 +7,13 @@ function sendItemDetLasRenderer(item) {
 	curLasItemId = item[0];	
 	curLasItemHash = item[1];
 	curLasItemKey = item[2];
-	alert(curLasItemId);
 }
 
 function getItemDetLasRenderer(){
 	return curLasItemId +"||"+ curLasItemHash+"||"+curLasItemKey;
 }
 
-function toggleSelState(sel){
+function toggleSelState(msg){
 	var sel = msg.split("||");
 	var elemId = sel[1];
 	sel = sel[0];
