@@ -2813,7 +2813,7 @@ Debug.write("HERE4");
             	var s = toggleSelectionInMain(selid);
 				this.setAttribute('calledFromMainApp',false);
 				console.log("*******************************",this.curLasItemId);
-				var js = saveState(this.curLasItemId,selid,value);//Native Invoke
+				//var js = saveState(this.curLasItemId,selid,value);//Native Invoke
 			}
 			this.setAttribute('calledFromMainApp',false);
             unlockUI();
