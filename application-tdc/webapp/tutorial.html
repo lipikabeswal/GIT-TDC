@@ -11,6 +11,7 @@
 <title>Presentation Canvas</title>
 <script type="text/javascript" src="lps/includes/embed-compressed.js"></script>
   <script type="text/javascript" src="includes/manipulative_manager.js"></script>
+  <script type="text/javascript" src="includes/laslinks_manager.js"></script>
 <script type="text/javascript">
 
 var _LDB_BypassSetFocusOnPageLoad = 0;
@@ -172,6 +173,16 @@ document.getElementById('__lz0').contentWindow.setFocus();
 function setFootnoteText(arg){
 	lz.embed.setCanvasAttribute('footnotetext',arg);
 }
+
+
+function toggleSelectionMain(sel) {
+	lz.embed.setCanvasAttribute('selectionFromLasAsset',sel);
+}
+
+var currentFrameId;
+function frameID(frameid){
+	currentFrameId = frameid;
+}
 </script>
 <style type="text/css">
 html,body { /* http://www.quirksmode.org/css/100percheight.html */
@@ -210,8 +221,8 @@ img {
 </div>
 <script type="text/javascript" defer>
                   lz.embed.resizeWindow('100%', '100%');
-                  lz.embed.swf({url: 'TestClient.lzx.swf?&lzr=swf10&folder=calif&servletUrl=http://127.0.0.1:12345/servlet/fixed&eliminatorResource=resources/eliminator.swf', allowfullscreen: 'false', bgcolor: '#6691B4', width: '100%', height: '100%', id: 'lzapp', accessible: 'false', cancelmousewheel: false, appenddivid: 'appcontainer', wmode: 'transparent'});
-				 // lz.embed.swf({url: 'TestClient.lzx.swf?&lzr=swf10&folder=calif&user=accommodated&servletUrl=http://192.168.1.2:12345/servlet/fixed&eliminatorResource=resources/eliminator.swf', allowfullscreen: 'false', bgcolor: '#6691B4', width: '100%', height: '100%', id: 'lzapp', accessible: 'false', cancelmousewheel: false, appenddivid: 'appcontainer', wmode: 'transparent'});
+                  lz.embed.swf({url: 'TestClient.lzx.swf?&lzr=swf10&folder=calif&servletUrl=http://192.168.14.200:12345/servlet/fixed&eliminatorResource=resources/eliminator.swf', allowfullscreen: 'false', bgcolor: '#6691B4', width: '100%', height: '100%', id: 'lzapp', accessible: 'false', cancelmousewheel: false, appenddivid: 'appcontainer', wmode: 'transparent'});
+				 // lz.embed.swf({url: 'TestClient.lzx.swf?&lzr=swf10&folder=calif&user=restart1&servletUrl=http://127.0.0.1:12345/servlet/fixed&eliminatorResource=resources/eliminator.swf', allowfullscreen: 'false', bgcolor: '#6691B4', width: '100%', height: '100%', id: 'lzapp', accessible: 'false', cancelmousewheel: false, appenddivid: 'appcontainer', wmode: 'transparent'});
 				  	
                   lz.embed.applications.lzapp.onloadstatus = function loadstatus(p) {
                     // called with a percentage (0-100) indicating load progress

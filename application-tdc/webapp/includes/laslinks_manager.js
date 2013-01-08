@@ -37,3 +37,8 @@ function saveState(id,resp,state){
 function checkItemPresence(id) {
 	return lasLinkState[id];
 }
+
+
+function toggleSelectionMain(sel) {
+	lz.embed.setCanvasAttribute('selectionFromLasAsset',sel);
+}
