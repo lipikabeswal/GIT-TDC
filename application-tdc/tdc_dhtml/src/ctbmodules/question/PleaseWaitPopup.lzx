@@ -42,6 +42,7 @@
 	
     <method name="show">
         this.setAttribute("visible", true);
+        gPleaseWaitPopup.bringToFront();
         this.contents.networkLost.inBar.barAnimator.doStart();
         lz.ModeManager.makeModal(this);
         resetControls();
