@@ -4,6 +4,7 @@
     <include href="base/baseslider.lzx"/>
     <include href="lz/slider.lzx"/>
    <include href="ScratchpadButton.lzx"/>
+	<include href="radioButton/radio.lzx"/>
 
     <class name="ManipulativeBar" bgcolor="0xC4C4C4"
            datapath="dsstudentdata:/testing_client_model/current_item/item_model">
@@ -12,6 +13,7 @@
 		<attribute name="theme" type="boolean" value="$path{'@theme'}" />
 		<attribute name="hasResponseArea" type="boolean" value="true" />
 		<attribute name="hasMagnifyingGlass"  value="$path{'manipulatives/global/@magnifying_glass'}" />
+		<attribute name="speedSelected"/>
 		<simplelayout axis="x" spacing="15"></simplelayout>
 
 		<handler name="ondata" args="data">
@@ -19,6 +21,7 @@
 				this.setAttribute("hasResponseArea", gController.applyManipulative());
 			}
 			this.globals.magnifyingGlass.setAttribute('frame', 1);
+			this.setAttribute('speedSelected',this.speedController.value);
 		</handler>
 
 		<view datapath="manipulatives/global" name="globals" valign="middle" visible="${!classroot.theme || (classroot.theme &amp;&amp; classroot.hasResponseArea)}">
@@ -309,20 +312,22 @@
 
 		</view>
 		<!-- The tool to control the TTS speed -->
-			<!-- <radiogroup visible="${gController.hasTTSspeed &amp;&amp; parent.screenreader.stopreader.visible}" name="speedController" height="20" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
+			 <radiogroup_new visible="${gController.hasTTSspeed &amp;&amp; parent.screenreader.stopreader.visible}" name="speedController" height="20" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
 				<datapath xpath="dslogin:/login_response/@tts_speed_value"></datapath>
 				<radiobutton value="'S'" text="Slow " height="15" valign="middle"/>
 				<radiobutton value="'M'" text="Medium " height="15" valign="middle" selected="true" />
 				<radiobutton value="'F'" text="Fast " height="15" valign="middle"/>
 
 				<handler name="onselect"><![CDATA[
-					if(gReadableText.isplaying && gReadableText.isReadable && 
-						gReadableText.clickable && gReadableText.currentText.length > 0) {
-
-					gReadableText.read(gReadableText.currentText,false);
+					if(classroot.speedSelected != this.value){
+						if(gReadableText.isplaying && gReadableText.isReadable && 
+							gReadableText.clickable && gReadableText.currentText.length > 0) {
+	
+						gReadableText.read(gReadableText.currentText,false);
+						}
 					}
 				]]></handler>
-			</radiogroup>		 -->
+			</radiogroup_new>		
 
 		
     </class>
