@@ -2831,6 +2831,12 @@
                     readKeySelection( actualSelId, 's');
                     setItemSelState( selid, 's');
                 }
+                
+              if(gController.laslinkPopulated && !this.calledFromLasHtml){
+				this.setAttribute('calledFromLasHtml',false);
+            	var msg = selid +"||" + this.lasHtmlField[0].asset.aw.iframeid ;
+            	var s = "toggleSelState('"+msg+"')";
+				lz.Browser.loadJS(s);
             }
 			this.setAttribute('calledFromLasHtml',false);
             }
