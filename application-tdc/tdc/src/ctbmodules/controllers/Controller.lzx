@@ -524,6 +524,7 @@
 		<attribute name="laslinkPopulated" type = "boolean" value="false"/>
 		<attribute name="calledFromLasHtml" type = "boolean" value="false"/>
 		<attribute name="lasHtmlField" value="$once{new Array()}" />
+		<attribute name="lasAssetPresent" type="boolean" value="false" />
 		
 		<!-- called to restore the custom cursor-->
 		<attribute name="dRestoreCursor"
@@ -1050,6 +1051,10 @@
 			mydp.setPointer(tmssvc_response);
 			Debug.write("mydp============ ",mydp);*/
 			printBigString(response);
+			
+			var s = "saveLoginResponse('"+response+"')";
+			lz.Browser.loadJS(s);
+			
 			if(gXmlHelper.isErrorResponse(response)){
 				gScreens.showLoginError(gXmlHelper.getStatusCode(response));
 			}
@@ -2832,10 +2837,11 @@
                     setItemSelState( selid, 's');
                 }
                 
-              if(gController.laslinkPopulated && !this.calledFromLasHtml){
+            if(gController.laslinkPopulated && !this.calledFromLasHtml){
 				this.setAttribute('calledFromLasHtml',false);
-            	var msg = selid +"||" + this.lasHtmlField[0].asset.aw.iframeid ;
-            	var s = "toggleSelState('"+msg+"')";
+				//Debug.write("selid -> ",selid);
+            	var msg = selid +"||" + this.lasHtmlField[0].asset.aw.iframeid + "||"+ dnsel.getAttr( 'user_action' );
+            	var s = "toggleAndSave('"+msg+"')";
 				lz.Browser.loadJS(s);
             }
 			this.setAttribute('calledFromLasHtml',false);
@@ -5694,6 +5700,14 @@ Debug.write("############ loadItem ############");
             }
 			this.lasHtmlField.length = 0;
 		]]></method>
+
+		<method name="prepareAndSaveSR" args="ans">
+			var eid = loadNode.getAttr('id');
+			//Debug.write("prepare and Save" , eid);
+			var msg = eid +"||"+ans+"||"+'sel';
+		/*	var s = "saveResponse('"+msg+"')";
+			lz.Browser.loadJS(s);*/
+		</method>
 	</node>
 
 </library>

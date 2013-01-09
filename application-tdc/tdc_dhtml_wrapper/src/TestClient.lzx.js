@@ -46,7 +46,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mf"]}},$lzc$class__mf.attributes)
 }}})($lzc$class__mf)
-};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onselectionVal","$m6",null,"onsetanswer","$m7",null,"onfootnotetext","$m8",null,"onfootnotedata","$m9",null,"onimageloaded","$ma",null,"onisMultiAudio","$mb",null,"onresponse","$mc",null,"onTEItemLoaded","$md",null,"oninit","$me",null],Copyrite:"CTB/McGraw-Hill",TEItemLoaded:false,__LZproxied:"true",accessible:true,appbuilddate:"2013-01-08T13:00:05Z",backColorString:null,basefontsize:12,bgcolor:6721972,copyriteColor:5406116,currentCursor:null,currentEid:void 0,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontString:null,fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",imageloaded:null,isMultiAudio:void 0,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,response:void 0,runtime:"dhtml",selectionVal:void 0,setanswer:null,useDefaultEliminator:true,width:"100%",y:0});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onselectionVal","$m6",null,"onsetanswer","$m7",null,"onfootnotetext","$m8",null,"onfootnotedata","$m9",null,"onimageloaded","$ma",null,"onisMultiAudio","$mb",null,"onresponse","$mc",null,"onTEItemLoaded","$md",null,"oninit","$me",null],Copyrite:"CTB/McGraw-Hill",TEItemLoaded:false,__LZproxied:"true",accessible:true,appbuilddate:"2013-01-09T13:55:26Z",backColorString:null,basefontsize:12,bgcolor:6721972,copyriteColor:5406116,currentCursor:null,currentEid:void 0,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontString:null,fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",imageloaded:null,isMultiAudio:void 0,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,response:void 0,runtime:"dhtml",selectionVal:void 0,setanswer:null,useDefaultEliminator:true,width:"100%",y:0});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -6080,7 +6080,7 @@ if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
 }},"$mem",function($0){
-if(gController.isLoginResponseHavingSeed&&$0!=null&&this.immediateparent.data!=null&&this.immediateparent.data.hasAttr("randomIdentifier")){
+console.log("answer selection button dnode");if(gController.isLoginResponseHavingSeed&&$0!=null&&this.immediateparent.data!=null&&this.immediateparent.data.hasAttr("randomIdentifier")){
 $0.setAttr("randomIdentifier",this.immediateparent.data.getAttr("randomIdentifier"))
 }},"$men",function($0){
 this.eliminatorstatus.setAttribute("rerunxpath",true);this.eliminatorstatus.setXPath("dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@option_eliminator");this.eraserstatus.setAttribute("rerunxpath",true);this.eraserstatus.setXPath("dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@eraser")
@@ -6094,11 +6094,11 @@ this.setAttribute("frame",this.statenum*this.statelength+1)
 var $1=this.type;if(gController.isLoginResponseHavingSeed&&!gController.itemHasRationalNode&&!nullOrSpace(gController.seed)){
 $1=this.randomtype
 };if(this.eliminatorstatus.data=="sel"){
-console.log("this.eliminatorstatus.data ",this.selstate,this.type);gReadableText.read(this.getReadableTextForEliminator($1,this.selstate!="e"),false);gController.setItemSelState(this.type,this.selstate=="e"?"n":"e")
+gReadableText.read(this.getReadableTextForEliminator($1,this.selstate!="e"),false);gController.setItemSelState(this.type,this.selstate=="e"?"n":"e")
 }else if(this.eraserstatus.data=="sel"&&this.selstate=="e"){
-gController.setItemSelState(this.type,"n");gController.clearCurrentCursor();console.log("this.eraserstatus.data ",this.selstate,this.type)
+gController.setItemSelState(this.type,"n");gController.clearCurrentCursor()
 }else{
-gReadableText.read(this.getReadableTextForSelection($1,this.selstate!="s"),false);gController.setItemSelState(this.type,this.selstate!="s"?"s":"n");console.log("this.eraserstatus else.data ",this.selstate,this.type)
+gReadableText.read(this.getReadableTextForSelection($1,this.selstate!="s"),false);gController.setItemSelState(this.type,this.selstate!="s"?"s":"n")
 };this.setCursorState()
 },"getReadableTextForSelection",function($0,$1){
 if($1){
@@ -8740,7 +8740,7 @@ this.applyRandomDistractors($0)
 };this.setPassageIdFromData($0);var $1=this.wrapper.scrollcontainer.offsetwrapper.contents;if($0.hasAttr("width")){
 this.wrapper.setAttribute("width",Number($0.getAttr("width")))
 };if($0.hasAttr("height")){
-var $2=$0.getAttr("height")*2;this.setAttribute("growtocontents",$2=="");if($2==""){
+var $2=$0.getAttr("height");this.setAttribute("growtocontents",$2=="");if($2==""){
 $2=null
 }else{
 $2=Number($2)
@@ -14365,7 +14365,7 @@ Debug.write("Cachable asset widget handlerinit")
 this.asset.setAttribute("height",Number($0.getAttr("height")));this.asset.setAttribute("width",Number($0.getAttr("width")));if($0!=null&&$0.getAttr("isMP4")=="true"){
 this.asset.aw.setAttribute("visible",false);this.asset.video.setAttribute("visible",true);this.asset.video.setAttribute("height",Number($0.getAttr("height")));this.asset.video.setAttribute("width",Number($0.getAttr("width")))
 }else{
-var $1="http:resources/calif/FormA_4-5_Li_Item11.html";this.asset.aw.setAttribute("src",$1);this.asset.aw.setAttribute("visible",true);this.asset.video.setAttribute("visible",false);this.asset.aw.setAttribute("height",Number($0.getAttr("height")));this.asset.aw.setAttribute("width",Number($0.getAttr("width")))
+var $1=$0.getAttr("image_ref");var $2="http:items/"+$1+"/FormA_4-5_Li_Item11.html";this.asset.aw.setAttribute("src",$2);this.asset.aw.setAttribute("visible",true);this.asset.video.setAttribute("visible",false);this.asset.aw.setAttribute("height",Number($0.getAttr("height")));this.asset.aw.setAttribute("width",Number($0.getAttr("width")))
 }},"asset",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
@@ -24812,7 +24812,7 @@ $2.setAttr("type",this.DEFAULT_TYPE)
 }}},"clearScratchpad",function(){
 this.setAttribute("scratchpadOpen",false);gScratchpad.setAttribute("text","")
 },"$m21u",function($0){
-var $1="http://192.168.14.200:12345/servlet/fixed";dsitem.setAttribute("src",$1+"/ContentServlet.do");gController.openTest();this.dshowClient.register(this,"itemuiready");gController.loadItem()
+var $1=lz.Browser.getInitArg("servletUrl");dsitem.setAttribute("src",$1+"/ContentServlet.do");gController.openTest();this.dshowClient.register(this,"itemuiready");gController.loadItem()
 },"login",function($0,$1,$2){
 this.setAttribute("userid",$0==null?null:$0.toLowerCase());this.setAttribute("password",$1==null?null:$1.toLowerCase());this.setAttribute("accesscode",$2==null?null:$2.toLowerCase());this.setState(this.LOGIN_STATE);gCommunicator.login(this.userid,this.password,this.accesscode)
 },"getSubtest",function(){
@@ -25459,7 +25459,7 @@ gReadableText.read($0+". Selected",false)
 }else{
 gReadableText.read(gReadableText.getSelectionRemoved(),false)
 }}},"setItemSelState",function($0,$1){
-this.freezeUI();var $2=this.dpstudentdata.xpathQuery("current_item/item_model/interaction/selector[@identifier='"+$0+"']");if($2){
+console.log("selid setitems el state ",$0,$1);this.freezeUI();var $2=this.dpstudentdata.xpathQuery("current_item/item_model/interaction/selector[@identifier='"+$0+"']");console.log("selid setitems dnsel ",$2);if($2){
 var $3=$2.getAttr("user_action")=="e";$2.setAttr("user_action",$1);var $4=$2.parentNode;var $5=$4.getAttr("max_choices");if($5==1&&$1=="s"){
 for(var $6 in $4.childNodes){
 if($4.childNodes[$6]!=$2&&$4.childNodes[$6].getAttr("user_action")!="e"){
@@ -25483,7 +25483,7 @@ $7.setAttr("answer_text","");$7.setAttr("score","0");$7.setAttr("answered",0)
 }gRationalePopup.hide();break;
 
 }};if(!this.calledFromMainApp){
-var $c=toggleSelectionInMain($0);this.setAttribute("calledFromMainApp",false);console.log("*******************************",this.curLasItemId)
+var $c=toggleSelectionInMain($0);this.setAttribute("calledFromMainApp",false);console.log("*******************************",this.curLasItemId);saveState(this.curLasItemId,$0,$1)
 };this.setAttribute("calledFromMainApp",false);this.unlockUI()
 },"getRationaleText",function($0){
 var $1=this.dpitem.xpathQuery('item_canvas/*/answer_choice_widget/selector_widget[@identifier="'+$0+'"]/../rationale/text()');if($1==null){
@@ -25717,7 +25717,7 @@ this.freezeUI();Debug.write("UpdaterequestPending")
 }else{
 this.unlockIfItemReady()
 }}},"checkItemStatus",function(){
-if(this.itemloaded&&this.runtimeready&&this.youarehereset){
+console.log("itemloaded && runtimeready && youarehereset",this.itemloaded,this.runtimeready,this.youarehereset);window.parent.applySRResponse();if(this.itemloaded&&this.runtimeready&&this.youarehereset){
 this.unlockUI();this.startQuestion();if(!this["itemuiready"])new (lz.Event)(this,"itemuiready");this.itemuiready.sendEvent();canvas.setCrFocus()
 }},"unlockIfItemReady",function(){
 if(this.itemloaded&&this.runtimeready&&this.youarehereset&&!this.requestPending){

@@ -2,6 +2,7 @@
 
     <include href="cache/ComponentCache.lzx"/>
 <include href="cache/components/CachableAnswerAreaPanel.lzx"/>
+<include href="cache/components/CachableAsset.lzx"/>
 	<include href="cache/components"/>
 
     <class name="Question">
@@ -43,7 +44,8 @@ gController.setAttribute('skipCacheDestroy', true);
 			//sizer should not be destroyed so we are starting from array 1
 			var contsubviews = gQuestion.subviews;
 			var contViewsLen = gQuestion.subviews.length;
-			
+			//skipCacheDestroy is used for tables thats have zoom feature. 
+			//When zoom button is clicked all the components are created again 
 			if(!gController.skipCacheDestroy){
 				for (var i = 1; i <= contViewsLen; i++){
 				 if(contsubviews[i] && contsubviews[i] instanceof lz.CachableAnswerAreaPanel){

@@ -180,6 +180,17 @@
 	<attribute name="fromWrapper" value = "false" type = "string"/>
 	<attribute name="fromLogin" value = "false" type = "string"/>
 	<attribute name="selectionFromLasAsset"/>
+	<attribute name="triggeridsave"/>
+	
+	<handler name="ontriggeridsave" args="data">
+		if(data == 'id'){
+			if(gController.lasHtmlField.length > 0){
+				var msg  = gController.lasHtmlField[0].asset.aw.iframeid;
+				var s = "saveIframeId('"+msg+"')";
+				lz.Browser.loadJS(s);
+			}
+		}
+	</handler>
 	
 	<handler name="onselectionFromLasAsset" args="data">
 		gController.setAttribute('calledFromLasHtml',true);

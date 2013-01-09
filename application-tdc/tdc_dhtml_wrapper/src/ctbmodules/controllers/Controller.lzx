@@ -2813,7 +2813,7 @@ Debug.write("HERE4");
             	var s = toggleSelectionInMain(selid);
 				this.setAttribute('calledFromMainApp',false);
 				console.log("*******************************",this.curLasItemId);
-				//var js = saveState(this.curLasItemId,selid,value);//Native Invoke
+				saveState(this.curLasItemId,selid,value);//Native Invoke
 			}
 			this.setAttribute('calledFromMainApp',false);
             unlockUI();
@@ -3612,6 +3612,7 @@ if($dhtml){
 		<method name="checkItemStatus"><![CDATA[
 		if($dhtml){
 			//console.log("itemloaded && runtimeready && youarehereset", itemloaded,runtimeready,youarehereset);
+			   window.parent.applySRResponse();
 			}
             if ( itemloaded && runtimeready && youarehereset ) {
                 unlockUI();

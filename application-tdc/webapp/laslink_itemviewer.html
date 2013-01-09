@@ -113,39 +113,14 @@ function iframeState(){
 		if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
 		  iframe.onreadystatechange = function(){
 		    if (iframe.readyState == "complete"){
-		      	setAnswerNow('complete');
-		 		var fontObj = getFontAccomodation();	
-		 		var bgColorObj = getBackColorAccomodation();				    	
-		    	if(fontObj.hasFont == 'true'){
-		    		if(fontObj.hasFontMag == 'true'){
-		    			document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
-		    		}
-		    		else {
-		    			document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
-		    		}
-		    	}else{
-		    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
-		    	}			    	
-		      	document.getElementById('__lz0').contentWindow.translate(xscalefactorjs,yscalefactorjs);
 		    }
+
 		  };
 		} else {
 		  iframe.onload = function(){
-		    setAnswerNow('complete');
-		    
-     		var fontObj = getFontAccomodation();	
-     		var bgColorObj = getBackColorAccomodation();				    	
-     		
-	    	if(fontObj.hasFont == 'true'){
-	    		if(fontObj.hasFontMag == 'true'){
-	    			document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
-	    		}
-	    		else {
-	    			document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
-	    		}
-	    	}else{
-	    		document.getElementById('__lz0').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
-	    	}
+		     
+	    	//calling parent to save the iframe id
+	    	window.parent.triggerIframeIdSave();
 		  };
 		}
 	}
@@ -248,11 +223,15 @@ function toggleSelStateFrame(sel) {
 function toggleSelectionInMain(sel) {
 	window.parent.toggleSelectionMain(sel);
 }
+
+function saveState(itemid,resp,useraction){
+	window.parent.saveResponseFromWrapper(itemid,resp,useraction);
+}
 //-->
 </SCRIPT>
 </HEAD>
 
-<BODY topmargin=0 leftmargin=0 rightmargin=0 bottommargin=0 scroll=no bgcolor="#6691B4">
+<BODY topmargin=0 leftmargin=0 rightmargin=0 bottommargin=0 scroll=no bgcolor="#6691B4" onload="iframeState()">
 <button id="mybutton" style="visibility:hidden; width:0px; height:0px;">clickMe </button>
 
 
@@ -262,7 +241,8 @@ function toggleSelectionInMain(sel) {
                 //  lz.embed.dhtml({url: 'TestClient.js?servletUrl=/servlet', lfcurl: 'lps/includes/lfc/LFCdhtml.js', serverroot: 'lps/resources/', bgcolor: '#6691b4', width: '100%', height: '100%', id: 'lzapp', accessible: 'true', cancelmousewheel: false, cancelkeyboardcontrol: false, skipchromeinstall: false, usemastersprite: false, approot: '', appenddivid: 'appcontainer'});
                   lz.embed.applications.lzapp.onload = function loaded() {
                     // called when this application is done loading
-                    
+                    window.parent.triggerIframeIdSave();
+                     
                   }
                 </script>
             <noscript>
