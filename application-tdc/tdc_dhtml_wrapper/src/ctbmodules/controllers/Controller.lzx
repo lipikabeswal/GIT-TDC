@@ -4312,7 +4312,9 @@ if($dhtml){
             this.crFields.length = 0;
 		]]></method>
 
-		<method name="updateCrField" args="id, answer, answered"><![CDATA[
+		<method name="updateCrField" args="id, answer, answered,type"><![CDATA[
+			//console.log('updateCRField' , id,answer,answered);
+			window.parent.saveCRState(id+"||"+answer+"||"+answered+"||"+ type);
 			for (var i = 0; i < this.crFields.length; i++) {
 				var crField = this.crFields[i];
 				if (id == crField['widget_id']) { 
@@ -4320,7 +4322,7 @@ if($dhtml){
                    crField['answer'] = answer;
 				}
 			}
-			updateBlueBallForCrItem();
+			//updateBlueBallForCrItem();
 		]]></method>
 
 		<method name="updateBlueBallForCrItem"><![CDATA[

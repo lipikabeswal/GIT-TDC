@@ -181,7 +181,38 @@
 	<attribute name="fromLogin" value = "false" type = "string"/>
 	<attribute name="selectionFromLasAsset"/>
 	<attribute name="triggeridsave"/>
+	<attribute name="triggercrsave"/>
+	<attribute name="triggercrpush"/>
 	
+	<handler name="ontriggercrpush" args="data">
+		//Debug.write("*************ontriggercrpush******");
+		gController.addCrField(data);
+	</handler>
+	<handler name="ontriggercrsave" args="data"><![CDATA[
+		var msg = data.split("||");
+		//Debug.write("*************ontriggercrsave******",msg[0],msg[1],msg[2],msg[3]);
+		if(msg[3]){		
+		if(!isCRWidgetPresent(msg[0])){
+			gController.addCrField({"widget_id" : msg[0], 
+                                              "answered" : false, "answer" : ''});
+			}
+		}
+		if(msg[2]){
+			gController.updateCrField(msg[0],msg[1],msg[2]);
+		}else{
+			gController.updateCrField(msg[0],'',msg[1]);
+		}
+
+	]]></handler>
+
+	<method name="isCRWidgetPresent" args="widgetid"><![CDATA[
+		for(var i = 0; i<gController.crFields.length; i++){
+			if(gController.crFields[i]['widget_id'] == widgetid){
+				return true;
+			}
+		}
+		return false;
+	]]></method>
 	<handler name="ontriggeridsave" args="data">
 		if(data == 'id'){
 			if(gController.lasHtmlField.length > 0){

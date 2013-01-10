@@ -64,20 +64,20 @@
 			
 //Debug.write(this, "set characterLimit", cl);
             this.setAttribute("characterLimit", cl);
+             gController.addCrField({"widget_id" : this.widget_id, "ref" : this}); 
 
             // To distinguish between numerous input fields, we'll maintain an array of hashes
             // containing their widget ID and answered state (filled or empty). Additionally each
             // class also stores its widget ID to allow them to be matched up.
             if (data.getAttr("id")) {
                 this.setAttribute('widget_id', data.getAttr("id"));
-            	var answer = gController.getAnswerForInputWidgetId(this.widget_id);
-//Debug.write("CachableMultiLineAnswer.ondata", answer, answer.length);
+           	var answer = window.parent.getCRResponse(this.widget_id);
+           	//console.log("Answer Javascript: ", answer);
             	var answered = (typeof answer != "undefined" && answer.length != 0);
-                gController.addCrField({"widget_id" : this.widget_id, 
-                                              "answered" : answered, "answer" : answer, "ref" : this}); 
+
                 this.setAttribute("isInitialText", true);
                 if (answered) {
-                   //this.setAnswer(gController.formatXml(answer));
+                   this.setAnswer(gController.formatXml(answer));
                    this.setAnswer(answer);
                    }
                 else
@@ -85,7 +85,8 @@
             }
             
             if (data.getAttr("width")) {
-                this.setAttribute('editTextWidth', Number(data.getAttr("width")));				
+                this.setAttribute('editTextWidth', Number(data.getAttr("width")));		
+                		
             }
             if(data.getAttr('acc_width') && gController.hasFontAccommodation){
 //Debug.write("CachableMultiLineAnswer", "got acc_width", data.getAttr('acc_width'));
@@ -268,10 +269,11 @@
 										answered = true;
 									}
 								}
-								gController.updateCrField(classroot.widget_id, text, answered);
+								text = this.text.split('\n').join('~|||||||');
+								gController.updateCrField(classroot.widget_id, text, answered,'MCR');
 							 }
 							 else {  // Field is now empty
-								gController.updateCrField(classroot.widget_id, '', false);
+								gController.updateCrField(classroot.widget_id, '', false,'MCR');
 							 }
 						 }
 	//Debug.write(classroot, "ontext", text.length);

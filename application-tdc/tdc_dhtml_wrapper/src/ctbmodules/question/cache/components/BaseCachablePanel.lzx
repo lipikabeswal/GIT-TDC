@@ -60,7 +60,7 @@
             }
 
 			if (data.hasAttr ('height')) {
-                var nh = data.getAttr("height")*2;
+                var nh = data.getAttr("height");
                 this.setAttribute("growtocontents", nh == "");
                 if (nh == "") {
                     nh = null;
