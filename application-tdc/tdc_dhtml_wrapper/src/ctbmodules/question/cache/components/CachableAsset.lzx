@@ -28,7 +28,7 @@
 					this.asset.video.setAttribute('width',Number(data.getAttr('width')));
 				} else {
 					var folderName = data.getAttr('image_ref');
-					var srcUrl = "http:items/" + folderName + "/FormA_4-5_Li_Item11.html";
+					var srcUrl = "http:items/" + folderName + "/asset.html";
 					this.asset.aw.setAttribute('src', srcUrl);
 					this.asset.aw.setAttribute('visible',true);
 					this.asset.video.setAttribute('visible',false);
