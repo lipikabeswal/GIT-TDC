@@ -400,10 +400,10 @@
             </view>
             <view name="grabber" resource="grabber_rsrc" y="$once{classroot.GRABBER_Y}" align="center" >
                   <handler name="onmouseover">
-                      //gController.setCurrentCursor('cangrab_cursor');
+                      canvas.setCurrentCursor('cangrab_cursor');
                   </handler>
                   <handler name="onmouseout">
-                      //gController.clearAndRestoreCurrentCursor();
+                      canvas.clearAndRestoreCurrentCursor();
                   </handler>
                   <handler name="onmousedown">
                   	  classroot.bringToFront();
@@ -417,7 +417,8 @@
                   </handler>
                   <handler name="onmouseup">
                       lz.Cursor.unlock ();
-                     // gController.restoreCurrentCursor();
+                      canvas.restoreCurrentCursor();
+                   // gController.restoreCurrentCursor();
                       classroot.dragger.remove ();
 
                      // classroot.datapath.p.setAttr ('x', classroot.x);
