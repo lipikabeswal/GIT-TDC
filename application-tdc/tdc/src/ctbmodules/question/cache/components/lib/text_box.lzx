@@ -64,10 +64,13 @@
 		<text name="footnotetext" multiline="true"    
 			  width="${classroot.width}"
               fgcolor="${classroot.fontcolor}"
-              fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" selectable="true" clickable="true">
-             
+              selectable="true" clickable="true">
+             <handler name="oninit">
+             	this.fontsize = this.immediateparent.parent.fontsize;
+             </handler>
              <handler name="onclick">
-             	var footnoteText = classroot.header + "|" + classroot.detail + "|" +classroot.readable + "|" +classroot.displayStyle;
+				var fontsize = this.fontsize;
+             	var footnoteText = classroot.header + "|" + classroot.detail + "|" +classroot.readable + "|" +classroot.displayStyle + "|" + fontsize;
 		 		var s = "setFootnoteText('"+footnoteText+"')";
 				lz.Browser.loadJS(s);
              </handler>

@@ -566,13 +566,13 @@
 			
 					var hash = new Object();
 					//Debug.write("gController.hasFontAccommodationgController.hasFontAccommodation" , gController.hasFontAccommodation);
-                    if (gController.hasFontAccommodation){
+                    /*if (gController.hasFontAccommodation){
 
                     	hash['fontsize'] = 18;
                     }
                     else{
                     	hash['fontsize'] = 12;
-                    }
+                    }*/
 					hash['fontcolor'] = this.fontcolor;
 
 					var fnHeaderText = getAttributeValues('header',words[i]);
@@ -1180,6 +1180,9 @@ parse the text string and store text and image string in an array at different i
                width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
                fgcolor="${classroot.fontcolor}"
                fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" antialias="normal" selectable="false" clickable="false">
+               <handler name="oninit">
+               	this.fontsize = this.immediateparent.fontsize;
+             </handler> 
                <handler name="onclick">				
                	this.setSelection(0, 0); 
 				 if(classroot.isReadable){
