@@ -71,6 +71,9 @@
 						style.font_color = "0x000000";
                     this.setAttribute ('fontcolor', style.font_color);
                 }
+				else if (!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
+					this.setAttribute('fontcolor', panelFontcolor);
+                }
                 if (style ['font_magnification']) {
                     this.setAttribute ('fontsize', style.font_magnification * canvas.basefontsize);
                    // this is not working - it's leaving the fontsize at 11 instead of 12
