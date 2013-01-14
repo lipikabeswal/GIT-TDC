@@ -2732,7 +2732,7 @@ Debug.write("HERE4");
 			freezeUI();
 
             var dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@identifier='"+selid+"']");
-			var prevDnselUserAction = '';dnsel.getAttr('user_action');
+			var prevDnselUserAction = '';
             if ( dnsel ) {
 				prevDnselUserAction = dnsel.getAttr('user_action');
             	var wasEliminated = dnsel.getAttr('user_action') == 'e';
