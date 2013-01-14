@@ -210,3 +210,7 @@ function saveDetailsManip(toolType,detailType,value) {
 		manipState[curLasItemId][toolType][detailType] = value;
 	}
 }
+
+function iframeLoaded(id, iframe){
+
+}
