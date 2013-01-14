@@ -33,9 +33,11 @@ function toggleAndSave(msg){
 	var userAction = sel[2];
 	//console.log("toggleSelState", sel);
 	var elementFrm = document.getElementById(elemId);
-	saveResponse(selVal,userAction);
+	if(userAction != 'e') {
+		saveResponse(selVal,userAction);
+	}
 	//alert(elementFrm.length);
-	if(elementFrm != null ) {
+	if(elementFrm != null && userAction != 'e') {
 		elementFrm.contentWindow.toggleSelStateFrame(selVal);
 	}
 

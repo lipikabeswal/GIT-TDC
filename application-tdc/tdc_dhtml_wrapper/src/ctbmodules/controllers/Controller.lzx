@@ -2732,7 +2732,9 @@ Debug.write("HERE4");
 			freezeUI();
 
             var dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@identifier='"+selid+"']");
+			var prevDnselUserAction = '';dnsel.getAttr('user_action');
             if ( dnsel ) {
+				prevDnselUserAction = dnsel.getAttr('user_action');
             	var wasEliminated = dnsel.getAttr('user_action') == 'e';
                 dnsel.setAttr ('user_action', value);
     
@@ -2785,14 +2787,14 @@ Debug.write("HERE4");
                         if ( selid == dncurritem.getAttr( 'correct' ) ) {
                             // eliminated correct answer, score must be 0
                             dncurritem.setAttr( 'score', '0' );
-                            dnruntimeitem.setAttr( 'score', '0' );
+                            //dnruntimeitem.setAttr( 'score', '0' );
                         }
                         if ( selid == dncurritem.getAttr( 'answer_text' ) ) {
                             // eliminated previously selected answer
                             dncurritem.setAttr( 'answer_text', '' );
-                            dnruntimeitem.setAttr( 'answer_text', '' );
+                            //dnruntimeitem.setAttr( 'answer_text', '' );
                             dncurritem.setAttr ('answered', 0 );
-                            dnruntimeitem.setAttr ('answered', 0 );
+                            //dnruntimeitem.setAttr ('answered', 0 );
                         }
                         gRationalePopup.hide();
                         break;
@@ -2810,10 +2812,11 @@ Debug.write("HERE4");
                 }
             }
             if(!this.calledFromMainApp) {
-            	var s = toggleSelectionInMain(selid);
-				this.setAttribute('calledFromMainApp',false);
-				//console.log("*******************************",this.curLasItemId);
-				saveState(this.curLasItemId,selid,value);//Native Invoke
+				if(!( (value == 'e' && prevDnselUserAction == 'n') || (value == 'n' && prevDnselUserAction == 'e'))) {
+	            	var s = toggleSelectionInMain(selid);
+					this.setAttribute('calledFromMainApp',false);
+					saveState(this.curLasItemId,selid,value);//Native Invoke
+				}
 			}
 			this.setAttribute('calledFromMainApp',false);
             unlockUI();
