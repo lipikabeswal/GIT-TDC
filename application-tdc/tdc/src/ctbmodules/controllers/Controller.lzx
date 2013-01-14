@@ -2802,13 +2802,10 @@
 
             dncurritem.setAttr ('marked', ismarked);
             dnruntimeitem.setAttr ('marked', ismarked);
-            
-            var msg = curritem +"||" + ismarked;
-            //Debug.write("CONTROLLER -> markQuestion - ",msg);
-			gController.lasHtmlField[0].asset.aw.callJavascript('saveMarkState', null,msg);
-            //var s = "markAndUnmark('"+msg+"')";
-			//lz.Browser.loadJS(s);
-			//Debug.write("AFTER -> markQuestion - ",s);
+            if(gController.productTypeVal.indexOf("LASLINKS") >= 0) {
+	            var msg = curritem +"||" + ismarked;
+				gController.lasHtmlField[0].asset.aw.callJavascript('saveMarkState', null,msg);
+			}
         </method>
 
 		<method name="isMarked"><![CDATA[
@@ -2843,15 +2840,17 @@
                     readKeySelection( actualSelId, 's');
                     setItemSelState( selid, 's');
                 }
-                
-            if(gController.laslinkPopulated && !this.calledFromLasHtml){
-				this.setAttribute('calledFromLasHtml',false);
-				//Debug.write("selid -> ",selid);
-            	var msg = selid +"||" + this.lasHtmlField[0].asset.aw.iframeid + "||"+ dnsel.getAttr( 'user_action' );
-            	var s = "toggleAndSave('"+msg+"')";
-				lz.Browser.loadJS(s);
-            }
-			this.setAttribute('calledFromLasHtml',false);
+	            if(gController.productTypeVal.indexOf("LASLINKS") >= 0) {    
+		            if(gController.laslinkPopulated && !this.calledFromLasHtml){
+						this.setAttribute('calledFromLasHtml',false);
+						//Debug.write("selid -> ",selid);
+		            	var msg = selid +"||" + this.lasHtmlField[0].asset.aw.iframeid + "||"+ dnsel.getAttr( 'user_action' );
+		            	var s = "toggleAndSave('"+msg+"')";
+		            	Debug.write("ToggleAndSave :",s);
+						lz.Browser.loadJS(s);
+		            }
+					this.setAttribute('calledFromLasHtml',false);
+				}
             }
         ]]></method>
 
@@ -2874,6 +2873,7 @@
 			freezeUI();
 
             var dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@identifier='"+selid+"']");
+			//Debug.write("Selected ID :",selid);
             if ( dnsel ) {
             	var wasEliminated = dnsel.getAttr('user_action') == 'e';
                 dnsel.setAttr ('user_action', value);
@@ -3490,8 +3490,10 @@ Debug.write("############ loadItem ############");
 			}
         	var loadParams = getLoadParams();
 			//Debug.write("loadParams",loadParams);
-			var s = "sendItemDetLasRenderer('"+loadParams+"')";
-			lz.Browser.loadJS(s);
+			if(gController.productTypeVal.indexOf("LASLINKS") >= 0) {
+				var s = "sendItemDetLasRenderer('"+loadParams+"')";
+				lz.Browser.loadJS(s);
+			}
         	var xml = gXmlHelper.getGetItemXml(loadParams[0], loadParams[1], loadParams[2]);
 			if (typeof canvas.folder != "undefined") {
 				dsitem.setQueryParam(gRequest.FOLDER_PARAM, canvas.folder);
