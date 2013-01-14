@@ -20,7 +20,7 @@
 				 <Question width="100%" height="100%" id="gQuestion"
                           datapath="dsitem:/element_package/item_canvas"
                           bgcolor="${gController.questionBgColor}"/>
-                <view width="100%" height="100%" visible="false">
+                <view width="100%" height="100%" visible="true">
                     <resizelayout axis="y"/>
                     <view width="${classroot.contents.width + 2}" height="50"
                           bgcolor="0x6691B4" x="-1" clickable="true" showhandcursor="false" visible="false">
@@ -41,18 +41,25 @@
                                 
                             </view>
                         </view>
-
+                         <view width="675">
                             <TimeStatus align="right" height="100%"/>
+                        </view>
     
                          <view id="gLogo" x="695" valign="middle" />
                     </view>
-
-    
-                            <ManipulativeBar id="gManipulativeBar" width="100%" height="25" visible="false"/>
+   					 <view width="100%" options="releasetolayout">
+   					 <handler name="oninit">
+   					 	var elem = this.getDisplayObject();
+   					 	elem.setAttribute('id','manipulativeBar');
+   					 </handler>
+   					 	<resizelayout axis="y"/>
+                        <view width="100%" visible="false">
+                            <ManipulativeBar id="gManipulativeBar" width="100%" height="25" />
                             <text id="gItemInterfaceStudentName" resize="true" align="right" fontstyle="bold" fontsize="13" />                               
-          
-                        <Manipulatives id="gManipulatives" width="100%" options="releasetolayout" visible="false"/>
+                        </view>
+                        <Manipulatives id="gManipulatives" width="100%" options="releasetolayout"/>
                         <Tooltip id="gTooltip" options="ignorelayout"/>
+                    </view>
        
                 </view>
             </view>
