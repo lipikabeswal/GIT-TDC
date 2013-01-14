@@ -2802,6 +2802,13 @@
 
             dncurritem.setAttr ('marked', ismarked);
             dnruntimeitem.setAttr ('marked', ismarked);
+            
+            var msg = curritem +"||" + ismarked;
+            //Debug.write("CONTROLLER -> markQuestion - ",msg);
+			gController.lasHtmlField[0].asset.aw.callJavascript('saveMarkState', null,msg);
+            //var s = "markAndUnmark('"+msg+"')";
+			//lz.Browser.loadJS(s);
+			//Debug.write("AFTER -> markQuestion - ",s);
         </method>
 
 		<method name="isMarked"><![CDATA[

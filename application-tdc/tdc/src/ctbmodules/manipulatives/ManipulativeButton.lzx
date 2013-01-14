@@ -48,6 +48,12 @@
 
         <handler name="onclick"><![CDATA[
             if (this.isenabled) {
+			var x = this.isselected ? 'up' : 'sel';
+            	var msg = this.toolid + "||" + x;
+              /*  var s = "toggleLasManip('" + msg+ "')";
+                lz.Browser.loadJS(s);*/
+			gController.lasHtmlField[0].asset.aw.callJavascript('toggleManip', null,this.toolid, x);
+
             var currentEid = gController.dpstudentdata.xpathQuery("current_item/item_model/@eid");
              if(gController.htmlFields.length > 0){
              	if(this.isselected == false){
@@ -77,7 +83,7 @@
             		}
                 
                 var comp = gController.htmlFields[0];
-                Debug.write("Manipulative button" , comp);
+               
                 comp.ref.showHideManipulative(this.toolid, this);
               }else{
                 gController.setManipulativeSelState (this.toolid, 

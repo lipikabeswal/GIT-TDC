@@ -46,8 +46,8 @@
 		]]></handler>
 		
         <handler name="oninit">
-            this.eliminatorstatus.setAttribute ('rerunxpath', true);
-            this.eliminatorstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@option_eliminator')
+            //this.eliminatorstatus.setAttribute ('rerunxpath', true);
+            //this.eliminatorstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@option_eliminator')
 
             this.eraserstatus.setAttribute ('rerunxpath', true);
             this.eraserstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@eraser');
@@ -78,7 +78,9 @@
 	        	readableText = this.randomtype; 
 			}
 			        	
-            if (this.eliminatorstatus.data == 'sel') {
+            //if (this.eliminatorstatus.data == 'sel') {
+            var elemStat = getManipStatus('option_eliminator');//native call
+            if (elemStat == 'sel') {
             	gReadableText.read(getReadableTextForEliminator(readableText, this.selstate !='e'),false);
                 gController.setItemSelState (this.type, 
                                                  this.selstate == 'e' ? 'n' : 'e');
@@ -114,7 +116,9 @@
 		</method>
 		
 		<method name="setCursorState"><![CDATA[
-            if (this.eliminatorstatus.data == 'sel') {
+			var elemStat = getManipStatus('option_eliminator');//native call
+            //if (this.eliminatorstatus.data == 'sel') {
+            if (elemStat == 'sel') {
                 gController.setCurrentCursor('eliminator_cursor');
             } else if (this.eraserstatus.data == 'sel' 
                 && this.selstate == 'e') {

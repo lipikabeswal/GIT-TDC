@@ -2812,7 +2812,7 @@ Debug.write("HERE4");
             if(!this.calledFromMainApp) {
             	var s = toggleSelectionInMain(selid);
 				this.setAttribute('calledFromMainApp',false);
-				console.log("*******************************",this.curLasItemId);
+				//console.log("*******************************",this.curLasItemId);
 				saveState(this.curLasItemId,selid,value);//Native Invoke
 			}
 			this.setAttribute('calledFromMainApp',false);
@@ -3256,6 +3256,7 @@ Debug.write("HERE4");
 		</method>
 
 		<method name="setCurrentCursor" args="cursorName">
+			//console.log("CONTROLLER -> setCurrentCursor -> cursorName -> ",cursorName);
 			lz.Cursor.setCursorGlobal(cursorName);
 			canvas.setAttribute('currentCursor', cursorName);
 		</method>
@@ -3633,6 +3634,7 @@ if($dhtml){
 		<!-- manipulators -->
 		<method name="initManipulativeData"><![CDATA[
 			closeOpenMaskingManipulatives();
+			//console.log('initManipulativeData');
             var dnmanip = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives');
             var dngeneral = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/general');
             var initglobal = (dnmanip == null);
@@ -3728,7 +3730,7 @@ if($dhtml){
                        	dnglobal.setAttr(i, this.scratchpadOpen ? 'sel' : 'up');						
                       }
                     } else if (initgeneral) {
-                        dngeneral.setAttr (i, toolstate);						
+                       // dngeneral.setAttr (i, toolstate);						
                     }
 
                 }
@@ -3742,7 +3744,7 @@ if($dhtml){
 				this.hasDynamicRefCard = false;	
 				this.hasTNorFCATrefCard = false;	
 				this.formulaCardResource = null;
-
+				saveData(dnglobal,dngeneral);
 				
             }
        ]]></method>

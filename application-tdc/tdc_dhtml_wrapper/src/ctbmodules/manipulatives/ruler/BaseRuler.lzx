@@ -420,8 +420,8 @@
                       gController.restoreCurrentCursor();
                       classroot.dragger.remove ();
 
-                      classroot.datapath.p.setAttr ('x', classroot.x);
-                      classroot.datapath.p.setAttr ('y', classroot.y);
+                      //classroot.datapath.p.setAttr ('x', classroot.x);
+                      //classroot.datapath.p.setAttr ('y', classroot.y);
                   </handler>
             </view>
         </view>

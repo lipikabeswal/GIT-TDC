@@ -3,6 +3,8 @@ var curLasItemHash;
 var curLasItemKey;
 var lasLinkState = {};
 var iframeid;
+var itemMarkedState = {};
+var manipState = {};
 function sendItemDetLasRenderer(item) {
 	item = item.split(",");
 	curLasItemId = item[0];	
@@ -95,13 +97,13 @@ lasLinkState[id] = {resp: resp, state: state};
 
 function applySRResponse(){
 //console.log("applySRREsponse", iframeid,curLasItemId,lasLinkState[curLasItemId]);
+applyManipDetails();
 var elementFrm = document.getElementsByTagName('iframe')[0];
 	if(lasLinkState[curLasItemId]){
 		if(elementFrm != null ) {
-					elementFrm.contentWindow.gController.setAttribute('calledFromMainApp',true);
-				    elementFrm.contentWindow.gController.setItemSelState(lasLinkState[curLasItemId].resp,lasLinkState[curLasItemId].state);	
-			
-			}
+			elementFrm.contentWindow.gController.setAttribute('calledFromMainApp',true);
+			elementFrm.contentWindow.gController.setItemSelState(lasLinkState[curLasItemId].resp,lasLinkState[curLasItemId].state);	
+		}
 	}
 
 }
@@ -123,3 +125,88 @@ function saveCRState(mesg){
 	lz.embed.setCanvasAttribute('triggercrsave',mesg);
 }
 
+
+function toggleLasManip(arg){
+//console.log("mainapplication toggleLas", arg);
+	var msg = arg.split("||");
+	var elementFrm = document.getElementsByTagName('iframe')[0];
+	elementFrm.contentWindow.toggleManip(msg[0],msg[1]);
+}
+
+function markAndUnmark(arg){
+	var msg = arg.split("||");
+	msg[1] = (msg[1] == 'true') ? true : false;
+	itemMarkedState[msg[0]] = msg[1];
+	if(manipState[msg[0]]) {
+		manipState[msg[0]]['marked'] = msg[1];
+	} else {
+		manipState[msg[0]] = {};
+		manipState[msg[0]]['marked'] = msg[1];
+	}
+}
+
+/*function designSaveManip(){
+	if(manipState[curLasItemId]) {
+		if(manipState[curLasItemId].marked) {
+			manipState[curLasItemId] = {marked : manipState[curLasItemId].marked,protractor: '',mm_ruler: ''};
+		} else {
+			manipState[curLasItemId] = {marked : '',protractor: '',mm_ruler: ''};
+		}
+	} else {
+		manipState[curLasItemId] = {marked : '',protractor: '',mm_ruler: ''};
+	}
+}*/
+
+function applyManipDetails() {
+	var elementFrm = document.getElementsByTagName('iframe')[0];
+	if(elementFrm) {
+		if(manipState[curLasItemId]) {
+			if(manipState[curLasItemId].marked) {
+				if(manipState[curLasItemId]['mm_ruler']) {
+					if(manipState[curLasItemId]['mm_ruler'].state) {
+						elementFrm.contentWindow.toggleManip('mm_ruler',manipState[curLasItemId]['mm_ruler'].state);
+					}
+				} else if(manipState[curLasItemId]['protractor']) {
+					if(manipState[curLasItemId]['protractor'].state) {
+						elementFrm.contentWindow.toggleManip('protractor',manipState[curLasItemId]['protractor'].state);
+					}
+				} else if(manipState[curLasItemId]['oneeighth_inch_ruler']) {
+					if(manipState[curLasItemId]['oneeighth_inch_ruler'].state) {
+						elementFrm.contentWindow.toggleManip('oneeighth_inch_ruler',manipState[curLasItemId]['oneeighth_inch_ruler'].state);
+					}
+				} else if(manipState[curLasItemId]['half_inch_ruler']) {
+					if(manipState[curLasItemId]['half_inch_ruler'].state) {
+						elementFrm.contentWindow.toggleManip('half_inch_ruler',manipState[curLasItemId]['half_inch_ruler'].state);
+					}
+				} else if(manipState[curLasItemId]['cm_ruler']) {
+					if(manipState[curLasItemId]['cm_ruler'].state) {
+						elementFrm.contentWindow.toggleManip('cm_ruler',manipState[curLasItemId]['cm_ruler'].state);
+					}
+				} else if(manipState[curLasItemId]['straight_edge']) {
+					if(manipState[curLasItemId]['straight_edge'].state) {
+						elementFrm.contentWindow.toggleManip('straight_edge',manipState[curLasItemId]['straight_edge'].state);
+					}
+				} else if(manipState[curLasItemId]['standard_calculator']) {
+					if(manipState[curLasItemId]['standard_calculator'].state) {
+						elementFrm.contentWindow.toggleManip('standard_calculator',manipState[curLasItemId]['standard_calculator'].state);
+					}
+				}
+			}
+		}
+	}
+}
+
+function saveDetailsManip(toolType,detailType,value) {
+	if(manipState[curLasItemId]) {
+		if(manipState[curLasItemId][toolType]) {
+			manipState[curLasItemId][toolType][detailType] = value;
+		} else {
+			manipState[curLasItemId][toolType] = {};
+			manipState[curLasItemId][toolType][detailType] = value;
+		}
+	} else {
+		manipState[curLasItemId] = {};
+		manipState[curLasItemId][toolType] = {};
+		manipState[curLasItemId][toolType][detailType] = value;
+	}
+}

@@ -82,6 +82,7 @@
                 var gyend   = (grabber.x + grabber.width) * Math.sin (rotation) +
                                  (grabber.y + grabber.height/2) * Math.cos (rotation);
 				Debug.write("gxstart:gystart",gxstart,gxend ,gystart,gyend);
+				//console.log("gxstart:gystart - ",gxstart,gxend ,gystart,gyend);
 				//Debug.write("getMouseX: getMouseY",this.getMouse('x'),this.getMouse('y'));
                 //set drag max and min
                 classroot.setAttribute ('dragxmin', - (Math.min (gxstart, gxend)));
@@ -100,12 +101,17 @@
         <handler name="oninit">
             this.setAttribute ('xpos', this.width/2);
             this.setAttribute ('ypos', this.height);
+            //console.log("PROCTRATOR -> oninit - ", this.xpos, this.ypos);
         </handler>
 		<handler name="onmousedown">
 			this.bringToFront();
+			//console.log("PROCTRATOR -> onmousedown - ", this.xpos, this.ypos);
 		</handler>
 
         <handler name="ondata" args="data"><![CDATA[
+        //console.log("PROTRACTOR: ON DATA",data);
+        
+	 
             var hasstate = false;
 		
 			if(data && data.attributes){
@@ -115,11 +121,23 @@
 				}			
 			}
 
-            if (data && hasstate) {
-                this.setAttribute ('rotation', data.getAttr ('rotation'));
-
-                this.setAttribute ('x', data.getAttr ('x'));
-                this.setAttribute ('y', data.getAttr ('y'));
+            if (data && (manipState[gController.curLasItemId].marked == 'true')) {
+				if(manipState[gController.curLasItemId].protractor.rotation){
+               		 this.setAttribute ('rotation', manipState[gController.curLasItemId].protractor.rotation);
+				}
+				else{
+					this.setAttribute ('rotation', 0);
+				}
+				if(manipState[gController.curLasItemId].protractor.x){
+             	   this.setAttribute ('x', manipState[gController.curLasItemId].protractor.x);
+				}else{
+ 				   this.setAttribute ('x', (classroot.width - this.width)/2);
+				}
+				if(manipState[gController.curLasItemId].protractor.y){
+                	this.setAttribute ('y', manipState[gController.curLasItemId].protractor.y);
+				}else{
+					this.setAttribute ('y', (classroot.height - this.height)/2);
+				}
 	            // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
 	            if(gScratchpad.visible){
 	                gScratchpad.bringToFront();
@@ -169,10 +187,12 @@
             
             this.setAttribute ('x', this.x - dx);
             this.setAttribute ('y', this.y - dy);                
-
-            datapath.p.setAttr ('rotation', this.rotation);
-            datapath.p.setAttr ('x', this.x);
-            datapath.p.setAttr ('y', this.y);
+			window.parent.saveDetailsManip('protractor', 'rotation', this.rotation);
+			window.parent.saveDetailsManip('protractor', 'x', this.x);
+			window.parent.saveDetailsManip('protractor', 'y', this.y);
+          //  datapath.p.setAttr ('rotation', this.rotation);
+          //  datapath.p.setAttr ('x', this.x);
+          //  datapath.p.setAttr ('y', this.y);
         </method>
 
         <method name="doRotate"><![CDATA[
@@ -213,9 +233,11 @@
                 lz.Cursor.unlock ();
                 gController.restoreCurrentCursor();
                 classroot.dragger.remove ();
-                
-                classroot.datapath.p.setAttr ('x', classroot.x);
-                classroot.datapath.p.setAttr ('y', classroot.y);
+                //console.log("PROCTRATOR -> grabber -> onmouseup - ", classroot.x, classroot.y);
+                window.parent.saveDetailsManip('protractor', 'x', classroot.x);
+				window.parent.saveDetailsManip('protractor', 'y', classroot.y);
+              //  classroot.datapath.p.setAttr ('x', classroot.x);
+             //   classroot.datapath.p.setAttr ('y', classroot.y);
             </handler>
         </view>
 

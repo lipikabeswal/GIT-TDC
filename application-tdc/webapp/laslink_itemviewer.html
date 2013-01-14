@@ -38,7 +38,7 @@ var itemSet = false;
 var ansSet = false;
 var readable = false;
 var iid = null;
-
+var generalManip;
 function showFootnote(header)
 {
 	lz.embed.setCanvasAttribute("footnotedata", header);
@@ -227,6 +227,42 @@ function toggleSelectionInMain(sel) {
 function saveState(itemid,resp,useraction){
 	window.parent.saveResponseFromWrapper(itemid,resp,useraction);
 }
+
+function saveData(dnglobal,dngeneral){
+//console.log('dngeneral',dngeneral);
+globalManip = dnglobal;
+generalManip = dngeneral;
+
+}
+
+function toggleManip(id,state){
+//console.log(id,state);
+	if(id.indexOf('high') >= 0 || id.indexOf('option') >= 0 || id.indexOf('eraser') >= 0 ){
+		globalManip.setAttr(id,state);
+	}else{
+		generalManip.setAttr(id,state);
+	}
+	window.parent.saveDetailsManip(id,'state',state);
+}
+
+
+function manipObject(){
+		
+}
+
+function saveMarkState(args) {
+	window.parent.markAndUnmark(args);
+}
+
+
+function getManipStatus(id) {
+	if(globalManip.getAttr(id)) {
+		return globalManip.getAttr(id);
+	} else {
+		return generalManip.getAttr(id);
+	}
+}
+
 //-->
 </SCRIPT>
 </HEAD>
