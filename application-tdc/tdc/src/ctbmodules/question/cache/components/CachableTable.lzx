@@ -150,12 +150,13 @@
             }
 
 			// don't show stray lines if no vlines and hlines
-			if(hspace == 0 && vspace == 0){
+			// This is commented to display the border lines which otherwise gets hidden in some scenarios.
+			/*if(hspace == 0 && vspace == 0){
 				thetable.contents.borderview.table.setAttribute("bgcolor", this.bgcolor);
 			}
-			else{
+			else{*/
 				thetable.contents.borderview.table.setAttribute("bgcolor", null);
-			}
+			//}
             
             this._initSubnodes();
             doneLoading();
@@ -303,7 +304,7 @@
 //lz.Browser.loadJS('console.log("'+this.height+' : '+gEnlargePopup.height+' : '+this.getAttributeRelative('y', gEnlargePopup)+'")');
 
 				//show scrollbar if cachable table height is greater than the enlargepopup height
-				if (this.height * 1 + this.getAttributeRelative('y', gEnlargePopup) * 1< gEnlargePopup.height) 
+				if (parent.wrapper.height < gEnlargePopup.height)
                   gEnlargePopup.contents.scaler.scroller.setAttribute("visible", false);
                else
                   gEnlargePopup.contents.scaler.scroller.setAttribute("visible", true);
