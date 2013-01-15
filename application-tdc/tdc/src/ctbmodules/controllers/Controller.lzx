@@ -3550,6 +3550,7 @@ Debug.write("############ loadItem ############");
 			result[1] = loadNode.getAttr('h');
 			var subtest = getCurrentSubtest();
 			result[2] = subtest.getAttr('item_encryption_key');
+			result[3] = this.lsid;
 			return result;
 		</method>
 
