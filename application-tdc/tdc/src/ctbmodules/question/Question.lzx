@@ -113,10 +113,12 @@ gController.setAttribute('skipCacheDestroy', true);
                 }
             }
         
-            if (issinglecol) {
-                this.convertToSingleCol();
-            } else {
-                this.convertToDoubleCol();
+        	if(! (gController.productTypeVal.indexOf("LASLINKS") >= 0)) {
+	            if (issinglecol) {
+	                this.convertToSingleCol();
+	            } else {
+	                this.convertToDoubleCol();
+	            }
             }
         ]]></method>
 
