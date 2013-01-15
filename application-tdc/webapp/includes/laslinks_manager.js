@@ -5,11 +5,13 @@ var lasLinkState = {};
 var iframeid;
 var itemMarkedState = {};
 var manipState = {};
+var lsid;
 function sendItemDetLasRenderer(item) {
 	item = item.split(",");
 	curLasItemId = item[0];	
 	curLasItemHash = item[1];
 	curLasItemKey = item[2];
+	lsid  = item[3];
 }
 
 function getItemDetLasRenderer(){

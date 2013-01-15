@@ -3615,7 +3615,7 @@ if($dhtml){
 
 		<method name="checkItemStatus"><![CDATA[
 		if($dhtml){
-			//console.log("itemloaded && runtimeready && youarehereset", itemloaded,runtimeready,youarehereset);
+			//	console.log("itemloaded && runtimeready && youarehereset", itemloaded,runtimeready,youarehereset);
 			   window.parent.applySRResponse();
 			}
             if ( itemloaded && runtimeready && youarehereset ) {
@@ -4204,6 +4204,7 @@ if($dhtml){
 		</method>
 		
 		<method name="generateAudioFileName">
+				this.setAttribute('lsid',window.parent.lsid);
 				var roster_id = this.lsid.split(":");
 				var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
 				var item_id = itemnode.getAttr("iid");
