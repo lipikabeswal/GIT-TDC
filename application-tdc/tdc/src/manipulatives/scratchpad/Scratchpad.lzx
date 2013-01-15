@@ -225,7 +225,7 @@
 	                             width="100%" scrollbars="false" visible="true">
 	    	                         
 		</html>	                             
-         
+         <!-- The following is removed it's visible is false so dont use this -->
 	     <scrolledittext name="sp" 
 	                             height="${immediateparent.height}" 
 	                             width="${immediateparent.width}" 
