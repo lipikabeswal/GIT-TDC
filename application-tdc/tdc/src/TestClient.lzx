@@ -261,8 +261,8 @@
 	<handler name="onmanipstate" args="data"><![CDATA[
 	var manip = data.split("|");
 	var manipName = manip[0];
-	if(gController.manipStateHtml[manipName]){
-		gController.manipStateHtml[manipName].resetState();
+	if(gController.htmlmanipStateHtml[manipName]){
+		gController.htmlmanipStateHtml[manipName].resetState();
 		if(gController.htmlmanipStateHtml[manipName] && manip[1]=='up'){
 			delete gController.htmlmanipStateHtml[manipName];
 			for(var i=0;i<gController.htmlGeneralManipData.length;i++){
