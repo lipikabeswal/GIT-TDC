@@ -544,6 +544,7 @@
         
       	   <method name="embedded_inlinefootnote_text" args="data"><![CDATA[ 
 			var footnoteText="";
+			var textWidth = 0;
         	setTextReaderAttributes(data);
         	var allFields = new Array();
 			var dataText = data.getFirstChild().data;
@@ -604,6 +605,8 @@
 					for (var key in hash) {
 						this.ftext.setAttribute(key,hash[key]);
 					}
+					textWidth = textWidth + this.ftext.footnotetext.width;
+
                   	allFields.push(this.ftext);
 					if (!this.hasAltText) {
 		    			readableText = readableText + footnoteText.substr(0,footnoteText.indexOf('&')) + " "; 
@@ -657,6 +660,7 @@
 		               if (b_on) inputText[j] = "<b>" + inputText[j] + "</b>";
 		               if (u_on) inputText[j] = "<u>" + inputText[j] + "</u>";
 
+					   var xin1 = parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
 		               // Add a <p> to the first word and a </p> to the last
 		               var name = new lz.CachableInputTextField(this, { "resize" : true });
 		               allFields.push(name);
@@ -664,7 +668,28 @@
 		                  name.setText("<p>" + inputText[j]);
 		               if (i == words.length-1 && j == inputText.length-1)
 		                      name.setText(inputText[j] + "</p>");
-		               name.setText(inputText[j]);
+					   if(inputText[j].indexOf("<br/>") != -1) {
+							var tempText = inputText[j].split('<br/>');
+							if(tempText != null) {
+								name.setText(tempText[0]);
+								textWidth = textWidth + name.thetext.width;
+								var brText = new lz.CachableInputTextField(this, { "resize" : true });
+								var brWidth = this.width - xin1 - textWidth;
+								brText.thetext.setAttribute("width",brWidth);
+								brText.setText("");
+								textWidth = 0;
+								var remainingText = new lz.CachableInputTextField(this, { "resize" : true });
+								remainingText.setText(tempText[1]);
+								textWidth = textWidth + remainingText.thetext.width;
+							}
+					   }
+					   else {
+			               name.setText(inputText[j]);
+			               textWidth = textWidth + name.thetext.width;
+						   if(textWidth > this.width - xin1) {
+								textWidth=name.thetext.width;
+						   }
+					   }
 		               name.setAttribute('fgcolor', this.fontcolor);
 					}
 				}  
