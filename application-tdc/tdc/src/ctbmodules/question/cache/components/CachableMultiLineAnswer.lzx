@@ -355,6 +355,10 @@
 					</method>
 
 				  </scrolledittext>
+				  <handler name="onmouseover">
+				  	classroot.setAttribute("showhandcursor",false);
+				  	gController.clearAndRestoreCurrentCursor();
+				  </handler>
 				 </view>
 			</view>
 
