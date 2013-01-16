@@ -375,6 +375,7 @@
 		<attribute name="isaudio" type="boolean" value="false"/>
 		<attribute name="isAudioPlaying"/>
 		<attribute name="lastPlayOrderId"/>
+		<attribute name="lasHtmlFieldWrapper" value="$once{new Array()}" />
 		<!-- 
 			Is the panel being loaded for the sizer?
 		-->
@@ -509,6 +510,9 @@
 		<attribute name = "lasAssetYVal" type="number" value="0" />
 		<attribute name="calledFromMainApp" type = "boolean" value="false"/>
 		<attribute name="curLasItemId"/>
+		<attribute name="lasAssetArray" value="$once{new Array()}" />
+		<attribute name="iframeLoaded" value="$once{new Array()}" />
+		<attribute name="isLoaded" value="$once{new Array()}" />
 		
 		<!--
 			============================================================

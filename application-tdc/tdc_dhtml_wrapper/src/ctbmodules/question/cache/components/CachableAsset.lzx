@@ -35,8 +35,13 @@
 					this.asset.aw.setAttribute('height',Number(data.getAttr('height')));
 					this.asset.aw.setAttribute('width',Number(data.getAttr('width')));
 				}
+				gController.lasAssetArray.push(this);
 			}
 		]]></handler>
+		
+		<method name="doneLoading">
+			super.doneLoading();
+		</method>
 	
 		<view name="asset" width="${parent.parent.width - 10}" height="${parent.parent.height - 10}" >
 			<html name="aw" id="assetwiget" x="5" y="5" width="400" height="100" scrollbars="false" mouseevents="true" focusable="true" >
