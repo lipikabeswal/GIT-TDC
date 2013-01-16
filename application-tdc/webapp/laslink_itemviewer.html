@@ -12,6 +12,8 @@
 	<script type="text/javascript"src="lps/jquery.min.js"></script>
 	<script type="text/javascript"src="lps/jquery-1.5.2.js"></script>
 	<script type="text/javascript" src="lps/jquery.magnifier.js"></script>
+	<script type="text/javascript" src="includes/laslinks_utils.js"></script>
+	
 	
 <style title="mystyle" type="text/css" rel="stylesheet">
             html, body
@@ -40,6 +42,7 @@ var readable = false;
 var iid = null;
 var generalManip;
 var globalManip;
+var currentLasAssetItemId;
 function showFootnote(header)
 {
 	lz.embed.setCanvasAttribute("footnotedata", header);
@@ -99,7 +102,7 @@ function closeMagnifier(){
 }
 
 function setFrameSource(filepath,tranX,tranY){
-    alert(filepath+tranX+tranY);
+    //alert(filepath+tranX+tranY);
     
     var s = document.getElementById('__lz0');
     s.setAttribute("src",filepath);
@@ -214,7 +217,9 @@ function isAnswered(){
   }
   
 function getItemDetLasRenderer() {
-	return window.parent.getItemDetLasRenderer();
+	var itemPopulationReq = window.parent.getItemDetLasRenderer();
+	currentLasAssetItemId = itemPopulationReq.split('||')[0];
+	return itemPopulationReq;
 }
 
 function toggleSelStateFrame(sel) {
@@ -236,6 +241,23 @@ generalManip = dngeneral;
 
 }
 
+function saveData(dnglobal,dngeneral){
+//console.log('dngeneral',dngeneral);
+globalManip = dnglobal;
+generalManip = dngeneral;
+
+}
+
+function toggleManip(id,state){
+//console.log(id,state);
+	if(id.indexOf('high') >= 0 || id.indexOf('option') >= 0 || id.indexOf('eraser') >= 0 ){
+		globalManip.setAttr(id,state);
+	}else{
+		generalManip.setAttr(id,state);
+	}
+	window.parent.saveDetailsManip(id,'state',state);
+}
+
 function toggleManip(id,state){
 //console.log(id,state);
 	if(id.indexOf('high') >= 0 || id.indexOf('option') >= 0 || id.indexOf('eraser') >= 0 ){
@@ -251,6 +273,30 @@ function manipObject(){
 		
 }
 
+
+ 
+function eventMonitor(id,event) {
+ 	var currIframeId = frameFolderObject[id]; 	
+ 	if(event == 'play' || event == 'jsplay') {
+ 		if(iframeObject[currentLasAssetItemId]) {
+ 			if(iframeObject[currentLasAssetItemId][currIframeId]['folder'] == id) {
+ 				iframeObject[currentLasAssetItemId][currIframeId]['clickedOnce'] = true;	// To know whether it is clicked once or not.
+ 			}
+ 		}
+ 	} else if(event == 'finished' || event == 'endTrack') {
+ 		console.log("event -- ",event);
+ 		if(iframeObject[currentLasAssetItemId]) {
+ 			if(iframeObject[currentLasAssetItemId][currIframeId]['folder'] == id) {
+ 				if(iframeObject[currentLasAssetItemId][currIframeId]['clickedOnce']) {
+ 					iframeObject[currentLasAssetItemId][currIframeId]['playedOnce'] = true; // To know whether the asset is atleast played once or not.
+ 				}
+ 			}
+ 		}
+ 		enableNextButton(id);
+ 	} 	
+ 	
+}
+
 function saveMarkState(args) {
 	window.parent.markAndUnmark(args);
 }
@@ -262,6 +308,42 @@ function getManipStatus(id) {
 	} else {
 		return generalManip.getAttr(id);
 	}
+}
+
+
+function saveMarkState(args) {
+	window.parent.markAndUnmark(args);
+}
+
+
+function getManipStatus(id) {
+	if(globalManip.getAttr(id)) {
+		return globalManip.getAttr(id);
+	} else {
+		return generalManip.getAttr(id);
+	}
+}
+
+
+function saveMarkState(args) {
+	window.parent.markAndUnmark(args);
+}
+
+
+function getManipStatus(id) {
+	if(globalManip.getAttr(id)) {
+		return globalManip.getAttr(id);
+	} else {
+		return generalManip.getAttr(id);
+	}
+}
+
+function saveMarkState(args) {
+	window.parent.markAndUnmark(args);
+}
+function multipleassetstatus(id,event)
+{
+  lz.embed.setCanvasAttribute('getAssetStatus',id+","+event);
 }
 
 //-->
