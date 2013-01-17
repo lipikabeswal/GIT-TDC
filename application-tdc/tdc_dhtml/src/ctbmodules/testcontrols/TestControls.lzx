@@ -197,7 +197,7 @@
                	</handler>
             </multistatebutton>
             <view name="markbtn_btn_shadow" tintcolor="0x000000" resource="qButtonShadow" x="${parent.markbtn.x+5}"
-	        	  opacity="0.5"
+	        	  opacity="0.5" visible="${parent.markbtn.visible}"
 	        	  width="${parent.markbtn.width}" height="${parent.markbtn.height+3}" stretches="both"/>
         </view>
     </class>

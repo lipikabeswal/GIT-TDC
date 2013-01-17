@@ -31,7 +31,7 @@
                  	</handler>
                  </basebutton>
 	            <view name="pause_btn_shadow" tintcolor="0x000000" resource="qButtonShadow" x="5"
-	        	  opacity="0.3"
+	        	  opacity="0.3" visible="${ classroot.pausable == true }"
 	        	  width="${gPauseButton.width}" height="${gPauseButton.height+3}" stretches="both"/>
             </view>
            <view>
