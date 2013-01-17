@@ -1,0 +1,183 @@
+<library>
+
+    <include href="../BaseManipulative.lzx"/>
+
+    <class name="RefCard" extends="BaseManipulative">
+		<attribute name="innerHeight" value="400" type="number"/>
+		<attribute name="innerWidth" value="500" type="number"/>
+		<attribute name="REF_CARD_X" value="10" type="number"/>
+		<attribute name="REF_CARD_Y" value="26" type="number"/>
+		<attribute name="MIN_WIDTH" value="121" type="number"/>
+		<attribute name="MIN_HEIGHT" value="101" type="number"/>
+		<attribute name="LINE_PADDING" value="30" type="number"/>
+		<attribute name="RESOURCE_DIMENSION" value="69" type="number"/> <!-- the height and width of the stretching resource -->
+		<attribute name="refCardRsrc" type="string"/>
+		<attribute name="titleRsrc" type="string"/>
+		<attribute name="scrolls" type="boolean" value="false" />
+		<handler name="oninit">
+			refCardContents.contents.setAttribute('resource',refCardRsrc);
+			title.real_title.setAttribute('resource',titleRsrc);
+		</handler>
+		
+        <dragstate name="dragger"
+                   drag_min_x="$once{-(this.width - 100)}" 
+                   drag_min_y="$once{-(this.height - 100)}"
+                   drag_max_x="$once{parent.width - 100}"
+                   drag_max_y="$once{parent.height - 100}"/>
+
+        <handler name="ondata" args="data"><![CDATA[
+        	var scrollerWidth = refCardContents.scroller.width;
+        	if(!this.scrolls){
+        		this.setAttribute('innerHeight', refCardContents.contents.resourceheight);
+        		scrollerWidth = 0; 
+        	}
+			this.setAttribute('innerWidth', refCardContents.contents.resourcewidth + scrollerWidth);
+			var halfWidth = (this.innerWidth - title.real_title.resourcewidth - this.LINE_PADDING)/2 ;
+			title.leftLines.setAttribute('width', halfWidth);
+			title.rightLines.setAttribute('width', halfWidth);
+ 			
+			if(data != null && data.hasAttr('x')){
+                this.setAttribute ('x', data.getAttr ('x'));
+            }
+            else{
+             	this.setAttribute ('x', (classroot.width - this.width)/2);
+            }
+            if(data != null && data.hasAttr('y')){
+            	this.setAttribute ('y', data.getAttr ('y'));
+            }
+            else{
+           		this.setAttribute ('y', (classroot.height - this.height)/2);
+            }
+            if(data != null && data.hasAttr('scrollTo')){
+            	refCardContents.contents.setAttribute ('y', new Number(data.getAttr('scrollTo')));
+            }
+            else{
+            	refCardContents.contents.setAttribute ('y', 0);
+            } 
+            // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
+            if(data != null && gScratchpad.visible){
+                gScratchpad.bringToFront();
+            }
+            
+          ]]></handler>
+
+        <handler name="onmouseover">
+            gController.setCurrentCursor('cangrab_cursor');
+        </handler>
+
+        <handler name="onmouseout">
+            gController.clearAndRestoreCurrentCursor();
+        </handler>
+
+        <handler name="onmousedown">
+        	this.bringToFront();
+            lz.Cursor.setCursorGlobal ('grabbing_cursor');
+            lz.Cursor.lock ();
+            this.dragger.apply ();
+        </handler>
+
+        <handler name="onmouseup">
+            lz.Cursor.unlock ();
+            gController.restoreCurrentCursor();
+            this.dragger.remove ();
+
+            this.datapath.p.setAttr ('x', this.x);
+            this.datapath.p.setAttr ('y', this.y);
+        </handler>
+
+		<method name="updateScrollTo" args="value">
+            if (this.data != null)
+			    this.datapath.p.setAttr ('scrollTo', value);
+		</method>
+		
+		<view name="background" >
+			<simplelayout axis="y" spacing="0" />
+			<view name="top">
+			    <simplelayout axis="x" spacing="0" />
+			    <view  name="topLeft" 
+			           resource="rc_top_left"
+			           height="$once{classroot.RESOURCE_DIMENSION}"
+			           width="$once{classroot.RESOURCE_DIMENSION}"
+			           stretches="both"/>
+			    <view name="topMiddle"
+			          resource="rc_top_middle"
+			          height="$once{classroot.RESOURCE_DIMENSION}"
+			          width="${classroot.innerWidth-classroot.MIN_WIDTH}" 
+			          stretches="both" />
+			    <view name="topRight"
+			          resource="rc_top_right" 
+			          height="$once{classroot.RESOURCE_DIMENSION}"
+			          width="$once{classroot.RESOURCE_DIMENSION}"
+			          stretches="both"/>
+			</view>
+			<view name="center">
+			    <simplelayout axis="x" spacing="0" />
+			    <view name="centerLeft"
+			          resource="rc_center_left" 
+			          height="${classroot.innerHeight-classroot.MIN_HEIGHT}"
+			          width="$once{classroot.RESOURCE_DIMENSION}"
+			          stretches="both"/>
+			    <view name="centerMiddle"
+			          resource="rc_center_middle"
+			          height="${classroot.innerHeight-classroot.MIN_HEIGHT}" 
+			          width="${classroot.innerWidth-classroot.MIN_WIDTH}" 
+			          stretches="both"/>
+			    <view name="centerRight"
+			          resource="rc_center_right" 
+			          height="${classroot.innerHeight-classroot.MIN_HEIGHT}"
+			          width="$once{classroot.RESOURCE_DIMENSION}"
+			          stretches="both"/>
+			</view>
+			<view name="bottom">
+			    <simplelayout axis="x" spacing="0" />
+			    <view name="bottomLeft"
+			          resource="rc_bottom_left"
+			          height="$once{classroot.RESOURCE_DIMENSION}"
+			          width="$once{classroot.RESOURCE_DIMENSION}"
+			          stretches="both"/>
+			    <view name="bottomMiddle"
+			          resource="rc_bottom_middle" 
+			          height="$once{classroot.RESOURCE_DIMENSION}"
+			          width="${classroot.innerWidth-classroot.MIN_WIDTH}" 
+			          stretches="both"/>
+			    <view name="bottomRight"
+			          resource="rc_bottom_right"
+			          height="$once{classroot.RESOURCE_DIMENSION}"
+			          width="$once{classroot.RESOURCE_DIMENSION}"
+			          stretches="both"/>
+			</view>
+		</view>
+		<view name="title" y="8">
+			<simplelayout axis="x" spacing="5" inset="10"/>
+			<view name="leftLines"
+				  resource="rc_lines"
+				  stretches="width" />
+			<view name="real_title">
+			</view>
+			<view name="rightLines"
+				  resource="rc_lines"
+				  stretches="width" />
+			<basebutton resource="ref_card_close_btn" height="${this.resourceheight + 1}">
+				<handler name="onclick">
+			    	gController.setManipulativeSelState (classroot.toolid, 'up');
+			    </handler>
+			</basebutton>
+		</view>
+	    <view name="refCardContents" 
+		      x="$once{classroot.REF_CARD_X}" 
+		      y="$once{classroot.REF_CARD_Y}" 
+		      width="${classroot.innerWidth}" 
+		      height="${classroot.innerHeight}" 
+		      clip="true" 
+		      bgcolor="0xFFFFFF" >
+			<view name="contents"
+			      width="${classroot.innerWidth - parent.scroller.width}">
+				<handler name="ony">
+		            classroot.updateScrollTo(this.y);
+				</handler>
+			</view>
+		    <vscrollbar name="scroller" visible="${this.scrollable}"/>
+		</view>
+    </class>
+
+</library>

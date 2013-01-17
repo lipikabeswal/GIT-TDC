@@ -1,0 +1,398 @@
+<library>
+
+    <include href="LoginScreen.lzx"/>
+
+    <include href="LoginErrorScreen.lzx"/>
+
+    <include href="DownloadScreen.lzx"/>
+
+    <include href="WelcomeScreen.lzx"/>
+    <include href="PauseScreen.lzx"/>
+    <include href="FinishScreen.lzx"/>
+    <include href="FeedbackScreen.lzx"/>
+
+    <include href="ErrorScreen.lzx"/>
+    <include href="OutOfTimeScreen.lzx"/>
+    <include href="GoodbyeScreen.lzx"/>
+
+   <include href="OptOutScreen.lzx"/>
+ 
+    <include href="Frame.lzx"/>
+
+    <class name="Screens" extends="Frame">
+
+       <attribute name="onFeedbackScreen" value="false"/>
+		
+        <attribute name="allowclick" value="false"/>
+
+
+        <method name="isOnFeedbackScreen">
+            return onFeedbackScreen;
+        </method>
+        
+        <method name="isOnPauseScreen"><![CDATA[
+        	return (contents.ps.isinited && contents.ps.visible);
+        ]]></method>
+        
+        <method name="clicked">
+            setAttribute( 'allowclick', false );
+        </method>
+
+        <method name="resetClicked">
+            setAttribute( 'allowclick', true );
+        </method>
+
+
+		<method name="isOnFinishScreen"><![CDATA[
+			return (contents.fs.isinited && contents.fs.visible);
+		]]></method>
+		
+			<method name="removeFinishState"><![CDATA[
+			 contents.fs.setAttribute('visible', false);
+		]]></method>
+
+		<method name="isOnTimeOutScreen"><![CDATA[
+			return (contents.os.isinited && contents.os.visible);
+		]]></method>
+		
+        <method name="removeAllStates">
+            setAttribute( 'allowclick', true );
+
+            if ( contents.ls.isinited ) contents.ls.setAttribute('visible', false );
+
+            if ( contents.les.isinited ) contents.les.setAttribute('visible', false );
+
+            if ( contents.ds.isinited ) contents.ds.setAttribute('visible', false );
+
+            if ( contents.es.isinited ) contents.es.setAttribute('visible', false );
+            if ( contents.fs.isinited ) contents.fs.setAttribute('visible', false );
+            if ( contents.fbs.isinited ) contents.fbs.setAttribute('visible', false );
+
+            if ( contents.ps.isinited ) contents.ps.setAttribute('visible', false );
+            if ( contents.os.isinited ) contents.os.setAttribute('visible', false );
+            if ( contents.ws.isinited ) contents.ws.setAttribute('visible', false );
+            if ( contents.gs.isinited ) contents.gs.setAttribute('visible', false );
+            if ( contents.oos.isinited ) contents.oos.setAttribute('visible', false );
+            if ( gSecurityScreen.secContents.iss.isinited ) {
+				console.log("inside gSecurityScreen.secContents.iss.isinited");
+            	gSecurityScreen.secContents.iss.setAttribute('visible', false );
+            	
+            }
+ 
+			console.log("removeAllStates  "+allowclick);
+            //prancingMan.remove();
+            //standingMan.remove();
+        </method>
+
+        <method name="showDownload" args="totalSubtests">
+
+            removeAllStates();
+
+            if ( !contents.ds.isinited ) contents.ds.completeInstantiation();
+
+            contents.ds.setTotalSubtests(totalSubtests);
+            contents.ds.setAttribute('visible', true );
+
+            show();
+
+        </method>
+
+        
+
+        <method name="incrementSubtestDownload" args="totalItems,totalFileParts">
+
+        	contents.ds.incrementSubtest(totalItems, totalFileParts);
+
+        </method>
+
+        <method name="incrementFilePartDownload">
+        	contents.ds.incrementFilePart();
+        </method>
+
+        <method name="incrementItemDownload">
+
+        	contents.ds.incrementItem();
+
+        </method>
+
+        
+
+         <method name="showError" args="xml">
+
+         Debug.write("gScreens.showError");
+			//gMusicPlayer.stop();
+         printBigString(xml);
+
+            removeAllStates();
+
+            if ( !contents.es.isinited ) contents.es.completeInstantiation();
+
+            contents.es.showError(xml);
+
+            contents.es.setAttribute('visible', true );
+
+            show();
+
+        </method>
+
+        <method name="showRestart" args="m,q,u, sn">
+            removeAllStates();
+            if ( !contents.ws.isinited ) contents.ws.completeInstantiation();
+            //prancingMan.apply();
+            contents.ws.setupRestart( m, q, u, sn );
+            contents.ws.setAttribute('visible', true );
+            show();
+        </method>
+        <method name="showFinish" args="a, m">
+            removeAllStates();
+            if ( !contents.fs.isinited ) contents.fs.completeInstantiation();
+            //standingMan.apply();
+            contents.fs.setStats( a, m );
+            contents.fs.setAttribute('visible', true );
+            show();
+        </method>
+        <method name="showOutOfTime" args="a, m">
+            removeAllStates();
+            if ( !contents.os.isinited ) contents.os.completeInstantiation();
+            //standingMan.apply();
+            contents.os.setStats( a, m );
+            contents.os.setAttribute('visible', true );
+            show();
+        </method>
+        
+        <method name="resetTextFieldColor">
+             if(gController.displayText == true || gController.displayText == 'true') {
+				contents.ps.pw.istepPasswordField.style.setAttribute('textfieldcolor', gController.answerBgColor);
+			} else {
+            	contents.ps.pw.otherPasswordField.style.setAttribute('textfieldcolor', gController.answerBgColor);
+			}
+        </method>
+        
+        <method name="showPause" args="sn">
+            removeAllStates();
+            if ( !contents.ps.isinited ) contents.ps.completeInstantiation();
+            //standingMan.apply();
+            if(gController.displayText == true || gController.displayText == 'true') {
+				contents.ps.pw.otherPasswordField.setAttribute('visible', false );
+				contents.ps.pw.istepPasswordField.setAttribute('visible', true );
+				contents.ps.pw.istepPasswordField.setAttribute('text', '');
+				contents.ps.pw.istepPasswordField.style.setAttribute('textfieldcolor', 0xFFFFFF);
+			} else {
+				contents.ps.pw.otherPasswordField.setAttribute('visible', true );
+				contents.ps.pw.istepPasswordField.setAttribute('visible', false );
+            	contents.ps.pw.otherPasswordField.setAttribute('text', '');
+				contents.ps.pw.otherPasswordField.style.setAttribute('textfieldcolor', 0xFFFFFF);
+			}
+            contents.ps.prompt.setAttribute('text', 'Log in to resume your paused test.' );
+            contents.ps.studentName.setAttribute('text', 'Hello ' + sn);
+
+            contents.ps.setAttribute('visible', true );
+            show();
+        	if(gController.displayText == true || gController.displayText == 'true') {
+				lz.Focus.setFocus(contents.ps.pw.istepPasswordField);
+			} else {
+        		lz.Focus.setFocus(contents.ps.pw.otherPasswordField);
+			}
+        </method>
+        <method name="showLogin">
+
+            removeAllStates();
+
+//            if ( !contents.ls.isinited ) contents.ls.completeInstantiation();
+
+			contents.ls.li.loginIdField.setAttribute('text', "");
+			console.log("gController.displayText",gController.displayText);
+			if(gController.displayText == true || gController.displayText == 'true') {
+				contents.ls.pw.otherPasswordField.setAttribute('visible', false );
+				contents.ls.pw.istepPasswordField.setAttribute('visible', true );
+				contents.ls.pw.istepPasswordField.setAttribute('text', "");
+			}
+			else {
+				contents.ls.pw.otherPasswordField.setAttribute('visible', true );
+				contents.ls.pw.istepPasswordField.setAttribute('visible', false );
+				contents.ls.pw.otherPasswordField.setAttribute('text', "");
+			}
+
+
+
+			contents.ls.ac.accesscodeField.setAttribute('text', "");
+
+            //standingMan.apply();
+
+            contents.ls.setAttribute('visible', true );
+
+            show();
+
+        </method>
+        <method name="showLoginError" args="e">
+
+            removeAllStates();
+
+            if ( !contents.les.isinited ) contents.les.completeInstantiation();
+
+            //standingMan.apply();
+
+            contents.les.setupError(e);
+
+            contents.les.setAttribute('visible', true );
+
+            show();
+
+        </method>
+
+        <method name="showWelcome" args="m,q,u, sn">
+            removeAllStates();
+            if ( !contents.ws.isinited ) contents.ws.completeInstantiation();
+			//standingMan.remove();
+            //prancingMan.apply();
+            contents.ws.setupNewSubtest( m, q, u, sn );
+            contents.ws.setAttribute('visible', true );
+            show();
+        </method>
+        <method name="showContinue" args="m,q,u, sn">
+            removeAllStates();
+            if ( !contents.ws.isinited ) contents.ws.completeInstantiation();
+           // prancingMan.apply();
+            contents.ws.setupContinue( m, q, u , sn);
+            contents.ws.setAttribute('visible', true );
+            show();
+        </method>
+
+        <method name="showFeedback" args="feedback">
+
+            removeAllStates();
+
+            if ( !contents.fbs.isinited ) contents.fbs.completeInstantiation();
+
+            contents.fbs.showFeedback( feedback );
+
+            contents.fbs.setAttribute('visible', true );
+			setAttribute("onFeedbackScreen", true);
+            show();
+
+        </method>
+
+
+        <method name="nextFeedback">
+
+        	contents.fbs.next();
+
+        </method>
+
+
+
+		<method name="previousFeedback">
+
+			contents.fbs.previous();
+
+		</method>
+
+		
+
+        <method name="showFeedback1" args="scoName, raw, max, unscored, index">
+
+            removeAllStates();
+
+			setAttribute("onFeedbackScreen", true);
+            if ( !contents.fbs.isinited ) contents.fbs.completeInstantiation();
+
+            contents.fbs.showFeedback( scoName, raw, max, unscored, index );
+
+            contents.fbs.setAttribute('visible', true );
+
+            show();
+
+        </method>
+
+
+
+        <method name="showGoodbye">
+
+            removeAllStates();
+
+            if ( !contents.gs.isinited ) contents.gs.completeInstantiation();
+
+            contents.gs.setAttribute('visible', true );
+
+            show();
+
+        </method>
+
+       <method name="showOptOut" args="sn">
+
+            removeAllStates();
+
+            if ( !contents.oos.isinited ) contents.oos.completeInstantiation();
+			contents.oos.setStudentName(sn);
+            contents.oos.setAttribute('visible', true );
+
+            show();
+
+        </method>
+
+         <method name="show">
+         	gItemInterface.setAttribute('visible', false);
+         	gTutorial.setAttribute('visible', false);
+         	gSecurityScreen.setAttribute('visible', false);
+            this.setAttribute('visible',true );			
+			lz.ModeManager.release( gSecurityScreen );
+            gScreens.bringToFront();
+            var hasmode = lz.ModeManager.hasMode( this );
+            Debug.write( 'show ', hasmode );
+            if ( !hasmode ) {
+                lz.ModeManager.makeModal( this );
+            }
+        </method>
+
+        <method name="hide">
+            this.setAttribute('visible',false );
+            lz.ModeManager.release( this );
+        </method>
+
+       	  <view name="contents" options="ignorelayout"
+              x="${ classroot.middle.x+15 }"
+              y="${ classroot.middle.y+15}"
+              width="${ classroot.middle.width -20}"
+              height="${ classroot.middle.height }">
+
+            <LoginScreen   name="ls" width="100%" height="100%"
+                           initstage="immediate"/>
+
+            <LoginErrorScreen   name="les" width="100%" height="100%"
+                                initstage="defer"/>
+
+            <DownloadScreen   name="ds" width="100%" height="100%"
+                              initstage="defer"/>
+
+            <WelcomeScreen name="ws" width="100%" height="100%"
+                           initstage="defer"/>
+            <PauseScreen   name="ps" width="100%" height="100%"
+                           initstage="defer"/>
+            <FeedbackScreen  name="fbs" width="100%" height="100%"
+                          initstage="defer"/>
+
+            <FinishScreen  name="fs" width="100%" height="100%"
+                           initstage="defer"/>
+            <ErrorScreen   name="es" width="100%" height="100%"
+                           initstage="defer"/>
+            <OutOfTimeScreen name="os" width="100%" height="100%"
+                             initstage="defer"/>
+            <GoodbyeScreen name="gs" width="100%" height="100%"
+                             initstage="defer"/>
+            <OptOutScreen name="oos" width="100%" height="100%"
+                             initstage="defer"/>
+        </view>
+	
+        <!-- <state name="prancingMan" apply="false">
+            <view resource="animations/prancingMan.swf"
+                  x="-120" y="${ parent.contents.height }"/>
+        </state>
+
+        <state name="standingMan" apply="false">
+            <view resource="animations/standingMan.swf"
+                  x="500" y="${ parent.contents.height +50 }"/>
+        </state>-->
+
+    </class>
+
+</library>

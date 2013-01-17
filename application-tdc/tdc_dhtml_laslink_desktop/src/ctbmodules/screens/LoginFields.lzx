@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<library>
+
+    <class name="LoginFields">
+        <simplelayout axis="y"/>
+        <view name="idrow">
+            <simplelayout axis="x"/>
+            <view width="100">
+                <text align="right">Login ID:</text>
+            </view>
+            <edittext name="loginId"/>
+        </view>
+        <view name="passwordrow">
+            <simplelayout axis="x"/>
+            <view width="100">
+                <text align="right">Password</text>
+            </view>
+            <edittext name="password" password="true"/>
+        </view>
+        <view name="accessrow">
+            <simplelayout axis="x"/>
+            <view width="100">
+                <text align="right">AccessCode</text>
+            </view>
+            <edittext name="accessCode"/>
+        </view>
+    </class>
+
+</library>

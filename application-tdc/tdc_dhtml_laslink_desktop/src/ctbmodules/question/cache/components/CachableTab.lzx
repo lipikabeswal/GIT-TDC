@@ -1,0 +1,32 @@
+<library>
+
+    <include href="CachableComponent.lzx"/>
+
+    <class name="CachableTab" extends="CachableComponent"
+           comptype="${gCompTypes.WIDGET_STIMULUS_TAB}"
+           width="100%" height="100%" options="ignorelayout">
+
+        <handler name="ondata">
+            this._initSubnodes ();
+            doneLoading();
+        </handler>
+
+		<method name="getTabText">
+			return this.datapath.p.serialize();
+		</method>
+		
+        <handler name="onheight"><![CDATA[
+            for (var i in this.subviews) {
+        
+            if (subviews [i] instanceof lz.CachableScrollingText &&
+                    subviews [i].visible &&
+                    subviews [i].height > this.height) {
+                subviews [i].setAttribute ('height', this.height);
+            }
+        }
+        ]]></handler>
+
+    </class>
+
+
+</library>

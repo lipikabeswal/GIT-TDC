@@ -1,0 +1,31 @@
+<library>
+
+    <include href="BaseCachablePanel.lzx"/>
+    <include href="CachableScrollingText.lzx"/>
+
+    <class name="CachableScrollingTextPanel" extends="BaseCachablePanel"
+           comptype="$once{gCompTypes.WIDGET_SCROLLING_TEXT_PANEL}"
+         defaultplacement="scrolltext">
+        <method name="doReturnToCache">
+            this.scrolltext.doReturnToCache ();
+        </method>
+
+        <method name="_initSubnodes">
+            this.scrolltext.datapath.setPointer (this.datapath.p);
+			this.setAttribute('defaultplacement' , scrolltext.defaultplacement);
+        </method>
+
+        <CachableScrollingText name="scrolltext" 
+                               width="${classroot.width}"
+                               height="${classroot.height}"
+                               passageId="${classroot.passageId}"
+                               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" 
+                               fontcolor="${classroot.fontcolor}">
+            <method name="doneLoading">
+                // empty, because not retrieved from cache
+            </method>
+        </CachableScrollingText>
+
+    </class>
+
+</library>

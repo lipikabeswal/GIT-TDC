@@ -1,0 +1,329 @@
+<library>
+
+    <node id="gHotKeys">
+
+        <method name="enableKeys">
+            lz.Keys.callOnKeyCombo( dtoggleA, [ 'a' ] );
+            lz.Keys.callOnKeyCombo( dtoggleB, [ 'b' ] );
+            lz.Keys.callOnKeyCombo( dtoggleC, [ 'c' ] );
+            lz.Keys.callOnKeyCombo( dtoggleD, [ 'd' ] );
+            lz.Keys.callOnKeyCombo( dtoggleE, [ 'e' ] );
+            lz.Keys.callOnKeyCombo( dtoggleF, [ 'f' ] );
+            lz.Keys.callOnKeyCombo( dtoggleG, [ 'g' ] );
+            lz.Keys.callOnKeyCombo( dtoggleH, [ 'h' ] );
+            lz.Keys.callOnKeyCombo( dtoggleI, [ 'i' ] );
+            lz.Keys.callOnKeyCombo( dtoggleJ, [ 'j' ] );
+            lz.Keys.callOnKeyCombo( dtoggleA, [ 'shift', 'a' ] );
+            lz.Keys.callOnKeyCombo( dtoggleB, [ 'shift', 'b' ] );
+            lz.Keys.callOnKeyCombo( dtoggleC, [ 'shift', 'c' ] );
+            lz.Keys.callOnKeyCombo( dtoggleD, [ 'shift', 'd' ] );
+            lz.Keys.callOnKeyCombo( dtoggleE, [ 'shift', 'e' ] );
+            lz.Keys.callOnKeyCombo( dtoggleF, [ 'shift', 'f' ] );
+            lz.Keys.callOnKeyCombo( dtoggleG, [ 'shift', 'g' ] );
+            lz.Keys.callOnKeyCombo( dtoggleH, [ 'shift', 'h' ] );
+            lz.Keys.callOnKeyCombo( dtoggleI, [ 'shift', 'i' ] );
+            lz.Keys.callOnKeyCombo( dtoggleJ, [ 'shift', 'j' ] );
+            lz.Keys.callOnKeyCombo( dtoggleA, [ 'shift', 'capslock', 'a' ] );
+            lz.Keys.callOnKeyCombo( dtoggleB, [ 'shift', 'capslock', 'b' ] );
+            lz.Keys.callOnKeyCombo( dtoggleC, [ 'shift', 'capslock', 'c' ] );
+            lz.Keys.callOnKeyCombo( dtoggleD, [ 'shift', 'capslock', 'd' ] );
+            lz.Keys.callOnKeyCombo( dtoggleE, [ 'shift', 'capslock', 'e' ] );
+            lz.Keys.callOnKeyCombo( dtoggleF, [ 'shift', 'capslock', 'f' ] );
+            lz.Keys.callOnKeyCombo( dtoggleG, [ 'shift', 'capslock', 'g' ] );
+            lz.Keys.callOnKeyCombo( dtoggleH, [ 'shift', 'capslock', 'h' ] );
+            lz.Keys.callOnKeyCombo( dtoggleI, [ 'shift', 'capslock', 'i' ] );
+            lz.Keys.callOnKeyCombo( dtoggleJ, [ 'shift', 'capslock', 'j' ] );
+            lz.Keys.callOnKeyCombo( dtoggleA, [ 'capslock', 'a' ] );
+            lz.Keys.callOnKeyCombo( dtoggleB, [ 'capslock', 'b' ] );
+            lz.Keys.callOnKeyCombo( dtoggleC, [ 'capslock', 'c' ] );
+            lz.Keys.callOnKeyCombo( dtoggleD, [ 'capslock', 'd' ] );
+            lz.Keys.callOnKeyCombo( dtoggleE, [ 'capslock', 'e' ] );
+            lz.Keys.callOnKeyCombo( dtoggleF, [ 'capslock', 'f' ] );
+            lz.Keys.callOnKeyCombo( dtoggleG, [ 'capslock', 'g' ] );
+            lz.Keys.callOnKeyCombo( dtoggleH, [ 'capslock', 'h' ] );
+            lz.Keys.callOnKeyCombo( dtoggleI, [ 'capslock', 'i' ] );
+            lz.Keys.callOnKeyCombo( dtoggleJ, [ 'capslock', 'j' ] );
+            lz.Keys.callOnKeyCombo( dgoBack, [ 'control', 'j' ] );
+            lz.Keys.callOnKeyCombo( dgoOn, [ 'control', 'k' ] );
+            lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l' ] );
+            lz.Keys.callOnKeyCombo( dtoggleTimer, [ 'control', 'o' ] );
+            lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
+            lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
+            lz.Keys.callOnKeyCombo( dfinish, [ 'control', 'f' ] );
+           
+		    if ( gController.getClientMachine() == 'MAC' || isMac()) {
+                dmacKeyHandler.register( lz.Keys, 'onkeydown' );
+            }
+        </method>
+
+        <method name="disableKeys">
+            lz.Keys.removeKeyComboCall( dtoggleA, [ 'a' ] );
+            lz.Keys.removeKeyComboCall( dtoggleB, [ 'b' ] );
+            lz.Keys.removeKeyComboCall( dtoggleC, [ 'c' ] );
+            lz.Keys.removeKeyComboCall( dtoggleD, [ 'd' ] );
+            lz.Keys.removeKeyComboCall( dtoggleE, [ 'e' ] );
+            lz.Keys.removeKeyComboCall( dtoggleF, [ 'f' ] );
+            lz.Keys.removeKeyComboCall( dtoggleG, [ 'g' ] );
+            lz.Keys.removeKeyComboCall( dtoggleH, [ 'h' ] );
+            lz.Keys.removeKeyComboCall( dtoggleI, [ 'i' ] );
+            lz.Keys.removeKeyComboCall( dtoggleJ, [ 'j' ] );
+            lz.Keys.removeKeyComboCall( dtoggleA, [ 'shift', 'a' ] );
+            lz.Keys.removeKeyComboCall( dtoggleB, [ 'shift', 'b' ] );
+            lz.Keys.removeKeyComboCall( dtoggleC, [ 'shift', 'c' ] );
+            lz.Keys.removeKeyComboCall( dtoggleD, [ 'shift', 'd' ] );
+            lz.Keys.removeKeyComboCall( dtoggleE, [ 'shift', 'e' ] );
+            lz.Keys.removeKeyComboCall( dtoggleF, [ 'shift', 'f' ] );
+            lz.Keys.removeKeyComboCall( dtoggleG, [ 'shift', 'g' ] );
+            lz.Keys.removeKeyComboCall( dtoggleH, [ 'shift', 'h' ] );
+            lz.Keys.removeKeyComboCall( dtoggleI, [ 'shift', 'i' ] );
+            lz.Keys.removeKeyComboCall( dtoggleJ, [ 'shift', 'j' ] );
+            lz.Keys.removeKeyComboCall( dtoggleA, [ 'capslock', 'a' ] );
+            lz.Keys.removeKeyComboCall( dtoggleB, [ 'capslock', 'b' ] );
+            lz.Keys.removeKeyComboCall( dtoggleC, [ 'capslock', 'c' ] );
+            lz.Keys.removeKeyComboCall( dtoggleD, [ 'capslock', 'd' ] );
+            lz.Keys.removeKeyComboCall( dtoggleE, [ 'capslock', 'e' ] );
+            lz.Keys.removeKeyComboCall( dtoggleF, [ 'capslock', 'f' ] );
+            lz.Keys.removeKeyComboCall( dtoggleG, [ 'capslock', 'g' ] );
+            lz.Keys.removeKeyComboCall( dtoggleH, [ 'capslock', 'h' ] );
+            lz.Keys.removeKeyComboCall( dtoggleI, [ 'capslock', 'i' ] );
+            lz.Keys.removeKeyComboCall( dtoggleJ, [ 'capslock', 'j' ] );
+            lz.Keys.removeKeyComboCall( dtoggleA, [ 'shift', 'capslock', 'a' ] );
+            lz.Keys.removeKeyComboCall( dtoggleB, [ 'shift', 'capslock', 'b' ] );
+            lz.Keys.removeKeyComboCall( dtoggleC, [ 'shift', 'capslock', 'c' ] );
+            lz.Keys.removeKeyComboCall( dtoggleD, [ 'shift', 'capslock', 'd' ] );
+            lz.Keys.removeKeyComboCall( dtoggleE, [ 'shift', 'capslock', 'e' ] );
+            lz.Keys.removeKeyComboCall( dtoggleF, [ 'shift', 'capslock', 'f' ] );
+            lz.Keys.removeKeyComboCall( dtoggleG, [ 'shift', 'capslock', 'g' ] );
+            lz.Keys.removeKeyComboCall( dtoggleH, [ 'shift', 'capslock', 'h' ] );
+            lz.Keys.removeKeyComboCall( dtoggleI, [ 'shift', 'capslock', 'i' ] );
+            lz.Keys.removeKeyComboCall( dtoggleJ, [ 'shift', 'capslock', 'j' ] );
+            lz.Keys.removeKeyComboCall( dgoBack, [ 'control', 'j' ] );
+            lz.Keys.removeKeyComboCall( dgoOn, [ 'control', 'k' ] );
+            lz.Keys.removeKeyComboCall( dtoggleMark, [ 'control', 'l' ] );
+            lz.Keys.removeKeyComboCall( dtoggleTimer, [ 'control', 'o' ] );
+            lz.Keys.removeKeyComboCall( dpause, [ 'control', 'u' ] );
+            lz.Keys.removeKeyComboCall( dstop, [ 'control', 's' ] );
+            lz.Keys.removeKeyComboCall( dfinish, [ 'control', 'f' ] );
+
+		    if ( gController.getClientMachine() == 'MAC' || isMac()) {
+            	dmacKeyHandler.unregisterFrom( lz.Keys.onkeydown );
+            }
+        </method>
+
+        <method name="isComboHotKeyDown"><![CDATA[
+            var isdown = false;
+            if ((lz.Keys.isKeyDown("shift") || 
+                 lz.Keys.isKeyDown("capslock")) && 
+                    (lz.Keys.isKeyDown("a") ||
+                     lz.Keys.isKeyDown("b") ||
+                     lz.Keys.isKeyDown("c") ||
+                     lz.Keys.isKeyDown("d") ||
+                     lz.Keys.isKeyDown("e") ||
+                     lz.Keys.isKeyDown("f") ||
+                     lz.Keys.isKeyDown("g") ||
+                     lz.Keys.isKeyDown("h") ||
+                     lz.Keys.isKeyDown("i") ||
+                     lz.Keys.isKeyDown("j"))) {
+                isdown = true;
+            }
+
+            if (lz.Keys.isKeyDown("control") &&
+                    (lz.Keys.isKeyDown("j") ||
+                     lz.Keys.isKeyDown("k") ||
+                     lz.Keys.isKeyDown("l") ||
+                     lz.Keys.isKeyDown("o") ||
+                     lz.Keys.isKeyDown("u") ||
+                     lz.Keys.isKeyDown("s") ||
+                     lz.Keys.isKeyDown("f"))) {
+                isdown = true;
+            }
+                
+            return isdown;
+        ]]></method>
+
+        <attribute name="dmacKeyHandler"
+                   value="$once{ new lz.Delegate( this, 'macKeyHandler' ) }"/>
+
+        <method name="exitPopups">
+            gController.exitPopups();
+        </method>
+
+        <method name="macKeyHandler" args="k">
+		    switch ( k ) {
+	        	case  6:
+                    this.exitPopups(); 
+        			gController.finishTestShortcut();      // CTRL F ?
+                    break;
+				case 10: 
+					if(!gController.fwdOnly){
+	                    this.exitPopups();
+	                    gController.stepNavigateBack();  
+					}
+                    break;
+				case 11: 
+                    this.exitPopups();
+                    gController.stepNavigateForward(); 
+                    break;
+				case 12: 
+                    this.exitPopups();
+                    gController.toggleMark(); 
+                    break;
+				case 15:
+                    this.exitPopups(); 
+                    gController.toggleTimer();
+                    break;
+				case 19: 
+                    this.exitPopups();
+                    gController.finishTest(); 
+                    break;
+				case 21: 
+                    this.exitPopups();
+                    gController.pauseTest(); 
+                    break;
+	 		}
+        </method>
+
+        <attribute name="dtoggleA"
+                   value="$once{ new lz.Delegate( this, 'toggleA' ) }"/>
+        <attribute name="dtoggleB"
+                   value="$once{ new lz.Delegate( this, 'toggleB' ) }"/>
+        <attribute name="dtoggleC"
+                   value="$once{ new lz.Delegate( this, 'toggleC' ) }"/>
+        <attribute name="dtoggleD"
+                   value="$once{ new lz.Delegate( this, 'toggleD' ) }"/>
+        <attribute name="dtoggleE"
+                   value="$once{ new lz.Delegate( this, 'toggleE' ) }"/>
+        <attribute name="dtoggleF"
+                   value="$once{ new lz.Delegate( this, 'toggleF' ) }"/>
+        <attribute name="dtoggleG"
+                   value="$once{ new lz.Delegate( this, 'toggleG' ) }"/>
+        <attribute name="dtoggleH"
+                   value="$once{ new lz.Delegate( this, 'toggleH' ) }"/>
+        <attribute name="dtoggleI"
+                   value="$once{ new lz.Delegate( this, 'toggleI' ) }"/>
+        <attribute name="dtoggleJ"
+                   value="$once{ new lz.Delegate( this, 'toggleJ' ) }"/>
+        <attribute name="dgoBack"
+                   value="$once{ new lz.Delegate( this, 'goBack' ) }"/>
+        <attribute name="dgoOn"
+                   value="$once{ new lz.Delegate( this, 'goOn' ) }"/>
+        <attribute name="dtoggleMark"
+                   value="$once{ new lz.Delegate( this, 'toggleMark' ) }"/>
+        <attribute name="dtoggleTimer"
+                   value="$once{ new lz.Delegate( this, 'toggleTimer' ) }"/>
+        <attribute name="dpause"
+                   value="$once{ new lz.Delegate( this, 'pause' ) }"/>
+        <attribute name="dstop"
+                   value="$once{ new lz.Delegate( this, 'stop' ) }"/>
+        <attribute name="dfinish"
+                   value="$once{ new lz.Delegate( this, 'finish' ) }"/>
+  
+        <method name="toggleA">    
+        	if(!gController.isCrItem()){
+	            this.exitPopups();
+	        	gController.toggleItemSelState( 'A' ); 
+	        }
+        </method>
+        <method name="toggleB">    
+        	if(!gController.isCrItem()){
+	            this.exitPopups(); 
+	        	gController.toggleItemSelState( 'B' ); 
+	        }
+        </method>
+        <method name="toggleC">    
+        	if(!gController.isCrItem()){
+	            this.exitPopups(); 
+	        	gController.toggleItemSelState( 'C' ); 
+	        }
+         </method>
+        <method name="toggleD">    
+        	if(!gController.isCrItem()){
+	            this.exitPopups(); 
+	        	gController.toggleItemSelState( 'D' ); 
+	        }
+       </method>
+        <method name="toggleE">    
+        	if(!gController.isCrItem()){
+	            this.exitPopups(); 
+	        	gController.toggleItemSelState( 'E' ); 
+	        }
+        </method>
+        <method name="toggleF">    
+        	if(!gController.isCrItem()){
+	            this.exitPopups();
+	        	gController.toggleItemSelState( 'F' ); 
+	        }
+        </method>
+        <method name="toggleG">    
+        	if(!gController.isCrItem()){
+	            this.exitPopups(); 
+	        	gController.toggleItemSelState( 'G' ); 
+	        }
+        </method>
+        <method name="toggleH">    
+        	if(!gController.isCrItem()){
+	            this.exitPopups(); 
+	        	gController.toggleItemSelState( 'H' ); 
+	        }
+        </method>
+		<method name="toggleI">    
+			if(!gController.isCrItem()){
+		    	this.exitPopups(); 
+				gController.toggleItemSelState( 'I' ); 
+			}
+		</method>
+        <method name="toggleJ">    
+        	if(!gController.isCrItem()){
+	            this.exitPopups(); 
+	        	gController.toggleItemSelState( 'J' ); 
+	        }
+        </method>        
+        <method name="goBack">
+		<![CDATA[
+			if(!gController.fwdOnly){
+        		if(!gController.onFirstItem()){
+        			lz.Focus.clearFocus();
+        		}
+        	
+            	this.exitPopups();
+        		gController.stepNavigateBack();
+			}      
+       	]]>
+		</method>
+        <method name="goOn"> 
+        	if(!gController.onLastItem()){
+        		lz.Focus.clearFocus();
+        	}
+            this.exitPopups(); 
+        	gController.stepNavigateForward();     
+        </method>
+        <method name="toggleMark"> 
+            this.exitPopups(); 
+         	gController.toggleMark();              
+        </method>
+        <method name="toggleTimer">
+            this.exitPopups(); 
+        	gController.toggleTimer();             
+        </method>
+        <method name="pause"> 
+        	if(gController.pausable == 'true'){
+        		lz.Focus.clearFocus();
+        	}
+            this.exitPopups(); 
+        	if(gItemInterface.visible == true || gTutorial.visible == true)
+        		gController.pauseTest();
+        </method>
+        <method name="stop">       
+        	lz.Focus.clearFocus();
+            this.exitPopups();
+        	if(gItemInterface.visible == true || gTutorial.visible == true)
+        		gController.finishTest();              
+        </method>
+        <method name="finish">     
+        	lz.Focus.clearFocus();
+            this.exitPopups(); 
+        	gController.finishTestShortcut();      
+        </method>
+    </node>
+
+</library>

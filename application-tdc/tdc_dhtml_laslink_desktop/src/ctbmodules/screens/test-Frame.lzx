@@ -1,0 +1,9 @@
+<canvas debug="true">
+
+    <include href="Frame.lzx"/>
+    <Frame width="600" height="200" 
+           x="${ (canvas.width - width)/2 }"
+           y="${ (canvas.height - height)/2 }"
+           />
+
+</canvas>
