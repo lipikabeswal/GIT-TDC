@@ -197,7 +197,33 @@
 
 
 
-        <view resource="protractorMarks_rsrc"/>
+        <view resource="protractorMarks_rsrc">
+			<handler name="onmouseover">
+                gController.setCurrentCursor('cangrab_cursor');
+            </handler>
+            <handler name="onmouseout">
+                gController.clearAndRestoreCurrentCursor();
+            </handler>
+            <handler name="onmousedown">
+            	classroot.bringToFront();
+                lz.Cursor.setCursorGlobal ('grabbing_cursor');
+                lz.Cursor.lock ();
+                gHotKeys.disableKeys();
+                classroot.dragger.apply ();
+            </handler>
+            <handler name="onmouseup">
+                lz.Cursor.unlock ();
+                gHotKeys.enableKeys();
+                
+				// the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
+       			lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
+                //gController.restoreCurrentCursor();
+                classroot.dragger.remove ();
+                
+                classroot.datapath.p.setAttr ('x', classroot.x);
+                classroot.datapath.p.setAttr ('y', classroot.y);
+            </handler>
+		</view>
 
         <view name="grabber" resource="protractorHandle_rsrc" y="97" align="center" >
             <handler name="onmouseover">
