@@ -26,25 +26,14 @@
             setAttribute('hasStartNumber', typeof( n ) == 'string' || typeof( n ) == 'number');
         ]]></handler>
 
-	<method name="increaseHeaderY"><![CDATA[
-		
-		if(this.main.header.y==0 && this.main.windowbgHeader.y==-10){
-			this.setAttribute('modHeaderArrowHeight',true);
+	<!--<method name="increaseHeaderY"><![CDATA[
+		if(this.main.header.y==0){
 			this.main.contents.showHd.setAttribute('clickable',true);
 			lz.Timer.removeTimer(headerYDel);
-		}else if(this.main.header.y < 0 || this.main.windowbgHeader.y < -10){
+		}else if(this.main.header.y < 0){
 			if(this.main.header.y < 0){
 				this.main.header.setAttribute('y',this.main.header.y+5);
-				/*if(this.modHeaderArrowHeight){
-					this.main.contents.showHd.setAttribute('y',this.main.contents.showHd.y+this.main.contents.showHd.height+5);
-					this.setAttribute('modHeaderArrowHeight',false);
-				}
-				else{*/
-					this.main.contents.showHd.setAttribute('y',this.main.contents.showHd.y+5);
-				//}
-			}
-			if(this.main.windowbgHeader.y < -10){
-				this.main.windowbgHeader.setAttribute('y',this.main.windowbgHeader.y+5);
+				this.main.contents.showHd.setAttribute('y',this.main.contents.showHd.y+5);
 			}
 			lz.Timer.resetTimer(headerYDel,40);
 		}
@@ -52,23 +41,19 @@
 	</method>
 
 	<method name="decreaseHeaderY"><![CDATA[
-		if(this.main.header.y==-80 && this.main.windowbgHeader.y==-100){
-			this.setAttribute('modHeaderArrowHeight',true);
+		if(gMusicPlayer.visible){
+			gMusicPlayer.hide();
+		}
+		if(gMaskingAnswer.visible){
+			gManipulativeBar.globals.maskingAnswer.hide();
+		}
+		if(this.main.header.y==-60){
 			this.main.contents.showHd.setAttribute('clickable',true);
 			lz.Timer.removeTimer(decreaseHeaderYDel);
-		}else if(this.main.header.y > -80 || this.main.windowbgHeader.y > -100){
-			if(this.main.header.y > -80){
+		}else if(this.main.header.y > -60){
+			if(this.main.header.y > -60){
 				this.main.header.setAttribute('y',this.main.header.y-5);
-				/*if(this.modHeaderArrowHeight){
-					this.main.contents.showHd.setAttribute('y',this.main.contents.showHd.y-this.main.contents.showHd.height-5);
-					this.setAttribute('modHeaderArrowHeight',false);
-				}
-				else{*/
-					this.main.contents.showHd.setAttribute('y',this.main.contents.showHd.y-5);
-				//}
-			}
-			if(this.main.windowbgHeader.y > -100){
-				this.main.windowbgHeader.setAttribute('y',this.main.windowbgHeader.y-5);
+				this.main.contents.showHd.setAttribute('y',this.main.contents.showHd.y-5);
 			}
 			lz.Timer.resetTimer(decreaseHeaderYDel,40);
 		}
@@ -76,23 +61,12 @@
 	</method>
 
 	<method name="increaseNavBarY"><![CDATA[
-		if(this.main.navbar.y==540 && this.main.windowbgNavBar.y==530){
-			this.setAttribute('modNavBarArrowHeight',true);
+		if(this.main.navbar.y==540){
 			this.main.contents.showNavBar.setAttribute('clickable',true);
 			lz.Timer.removeTimer(increaseNavBarYDel);
-		}else if(this.main.navbar.y > 540 || this.main.windowbgNavBar.y > 530){
+		}else if(this.main.navbar.y > 540){
 			if(this.main.navbar.y > 540){
 				this.main.navbar.setAttribute('y',this.main.navbar.y-5);
-				/*if(this.modNavBarArrowHeight){
-					this.main.contents.showNavBar.setAttribute('y',this.main.contents.showNavBar.y+this.main.contents.showNavBar.height-5);
-					this.setAttribute('modNavBarArrowHeight',false);
-				}
-				else{*/
-					//this.main.contents.showNavBar.setAttribute('y',this.main.contents.showNavBar.y-5);
-				//}
-			}
-			if(this.main.windowbgNavBar.y > 530){
-				this.main.windowbgNavBar.setAttribute('y',this.main.windowbgNavBar.y-5);
 				this.main.contents.showNavBar.setAttribute('y',this.main.contents.showNavBar.y-5);
 			}
 			lz.Timer.resetTimer(increaseNavBarYDel,40);
@@ -101,47 +75,104 @@
 	</method>
 
 	<method name="decreaseNavBarY"><![CDATA[
-		if(this.main.navbar.y==600  && this.main.windowbgNavBar.y==600){
-			this.setAttribute('modNavBarArrowHeight',true);
+		if(this.main.navbar.y==600){
 			this.main.contents.showNavBar.setAttribute('clickable',true);
 			lz.Timer.removeTimer(decreaseNavBarYDel);
-		}else if(this.main.navbar.y <600 || this.main.windowbgNavBar.y < 600){
+		}else if(this.main.navbar.y <600){
 			if(this.main.navbar.y <600){
 				this.main.navbar.setAttribute('y',this.main.navbar.y+5);
-				/*if(this.modNavBarArrowHeight){
-					this.main.contents.showNavBar.setAttribute('y',this.main.contents.showNavBar.y-this.main.contents.showNavBar.height+5);
-					this.setAttribute('modNavBarArrowHeight',false);
-				}
-				else{*/
-					//this.main.contents.showNavBar.setAttribute('y',this.main.contents.showNavBar.y+5);
-				//}
-			}
-			if(this.main.windowbgNavBar.y < 600){
-				this.main.windowbgNavBar.setAttribute('y',this.main.windowbgNavBar.y+5);
 				this.main.contents.showNavBar.setAttribute('y',this.main.contents.showNavBar.y+5);
 			}
 			lz.Timer.resetTimer(decreaseNavBarYDel,40);
 		}
 		]]>
-	</method>
+	</method>-->
 
 	<view name="main" datapath="subtest/ob_assessment">
 	
-		<view id="header" name="header" x="15" width="770" height="80" y="-80" bgcolor="0x6691B4" visible="true">
+		<view id="gHeader" name="header" x="15" width="770" height="87" y="-56" visible="true">
 			<handler name="oninit">
 				classroot.main.header.bringToFront();
 			</handler>
-            <resizelayout axis="y"/>
-            <view width="750" height="50"
+            
+           <!-- <view width="750" height="50"
                   bgcolor="0x6691B4" x="-1" clickable="true" showhandcursor="false">
 				<handler name="onmouseover">
 					gController.clearCurrentCursor();
 					this.setAttribute('showhandcursor', false);
 				</handler>
-                <view x="5" fgcolor="white" fontsize="15">
-                    <simplelayout axis="y" spacing="-3"/>
-                    <text datapath="dssubtest:/subtest/sco/@title"
-                          resize="true"/>
+                
+               <view width="675">
+                    <TimeStatus align="right" height="100%"/>
+                </view>
+                 
+            </view>-->
+			
+            <view height="61" width="100%" bgcolor="0x6691B4">
+                <ManipulativeBar x="7" id="gManipulativeBar" height="40" y="11"/>
+                <TimeStatus x="${gLogo.x-gLogo.width-10}" y="-11"/>
+                <view id="gLogo" x="690" y="11"/>
+            </view>
+			<view name="showHd" resource="header_btn" x="-3.5" width="${classroot.main.header.width+6.5}" height="30" y="56" stretches="both" visible="true">
+                <view fgcolor="white" width="100%" valign="middle">
+					<text datapath="dssubtest:/subtest/sco/@title" resize="true" x="5" fontsize="15" fontstyle="bold"/>
+					<text id="gItemInterfaceStudentName" resize="true" x="${this.x-5}" align="right" fontstyle="bold" fontsize="15" />
+				</view>
+				<handler name="oninit">
+					this.bringToFront();
+				</handler>
+	          	<handler name="onclick"><![CDATA[
+	          		if(classroot.main.header.y == -56){
+		          		classroot.main.header.animate('y',0, 500);
+		          	}else if(classroot.main.header.y ==  0){
+		          		if(gMusicPlayer.visible){
+							gMusicPlayer.hide();
+						}
+						if(gMaskingAnswer.visible){
+							gManipulativeBar.globals.maskingAnswer.hide();
+						}
+		          		classroot.main.header.animate('y',-56, 500);
+		          	}
+				]]>
+				</handler>
+	
+	      	</view>
+        </view>
+        
+        
+		<view name="contents" width="800" height="680" y="-50">
+			<basebutton name="navBack" x="${gQuestion.x}" opacity="0.3"
+					valign="middle" resource="navBack"
+					onclick="gController.stepNavigateBack()"></basebutton>
+			<basebutton name="navNext" opacity="0.3"
+					x="${gQuestion.x+gQuestion.width-this.width}" 
+					valign="middle" resource="navNext"
+					onclick="gController.stepNavigateForward()"></basebutton>
+			<view name="itemScreen" width="100%" height="100%" options="releasetolayout">
+				 <Question width="100%" height="100%" id="gQuestion" name="ques"
+                          datapath="dsitem:/element_package/item_canvas"
+                          bgcolor="${gController.questionBgColor}">
+				</Question>
+				<Manipulatives id="gManipulatives" width="100%" height="100%" options="releasetolayout"/>
+                <Tooltip id="gTooltip" options="ignorelayout"/>
+                <!--<view bgcolor="0xFFFFCC" width="100%" height="6" valign="bottom"/>-->
+            </view>
+        </view>
+        
+        <view name="navbar" x="15" width="770" height="91" y="570">
+			<view name="showNavBar" resource="footer_btn" x="-3.5" width="${classroot.main.navbar.width+6.5}" height="30" stretches="both" y="0" visible="true">
+				<handler name="oninit">
+					this.bringToFront();
+				</handler>
+				<handler name="onclick"><![CDATA[
+	          		if(classroot.main.navbar.y == 570){
+		          		classroot.main.navbar.animate('y',509, 500);
+		          	}else if(classroot.main.navbar.y ==  509){
+		          		classroot.main.navbar.animate('y',570, 500);
+		          	}
+				]]>
+				</handler>
+				<view x="5" fgcolor="white" fontsize="15" valign="middle">
                     <view fontstyle="bold"
                           datapath="dsstudentdata:/testing_client_model"
                           id="gItemNumber">
@@ -175,249 +206,50 @@
                         
                     </view>
                 </view>
-                <view width="675">
-                    <TimeStatus align="right" height="100%"/>
-                </view>
-                 <view id="gLogo" x="695" valign="middle" />
-				<!--<basebutton x="${classroot.main.header.width-this.width-5}" name="close_btn" styleable="true"
-                        resource="window_closebtn_rsc">
-	                <handler name="onclick">
-						//classroot.main.header.setAttribute('visible',false);
-						classroot.decreaseHeaderY();
-						classroot.main.contents.showHd.setAttribute('visible',true);
-					</handler>     
-	            </basebutton>-->
-            </view>
-            <view width="100%" height="32" options="releasetolayout">
-                <resizelayout axis="y"/>
-                <view width="100%">
-                    <ManipulativeBar id="gManipulativeBar" width="100%" height="32"/>
-                    <text id="gItemInterfaceStudentName" resize="true" align="right" fontstyle="bold" fontsize="13" />                               
-                </view>
-            </view>
-        </view>
-        
-		<drawview name="windowbgHeader" x="7" width="787" height="100" y="-100">
-	
-			 <attribute name="isready" value="false" type="boolean" />
-			  <handler name="oncontext">
-			    this.setAttribute("isready", true);
-			    var roundness = 10;
-	            var thickness = 3;
-	            var shadow = 9;
-	
-			  </handler>
-					  
-		        <handler name="oninit">
-		            this.clear();
-		            
-		            var roundness = 15;
-		            var thickness = 5;
-		            var shadow = 14;
-		
-		            /*drawRoundRect (shadow, shadow, this.width + shadow, this.height + shadow, 
-		                           roundness,
-		                           0x000000, null, .5);
-		            drawRoundRect (0, 0, this.width, this.height, 
-		                           roundness,
-		                           0xC4C4C4, 0xC4C4C4, 1);*/
-		            this.changeColor(0xC4C4C4);
-		        </handler>
-		
-		        <method name="changeColor" args="color">
-		            var roundness = 15;
-		            var thickness = 5;
-					var shadow = 3;
 
-					/*drawRoundRect (shadow, shadow, this.width + shadow, this.height + shadow, 
-		                           roundness,
-		                           0x000000, null, .5);*/
-
-					drawRoundRect (thickness, thickness, Number(this.width - thickness)+Number(shadow), Number(this.height - thickness)+Number(shadow), 
-		                           roundness,
-		                           0x000000, 0x000000, 0.5);
-		
-		            drawRoundRect (thickness, thickness, this.width - thickness, this.height - thickness, 
-		                           roundness,
-		                           color, 0xC4C4C4, 1);
-					
-		        </method>
-		
-		        <method name="drawRoundRect" args="x0, y0, x1, y1, roundness, fill, stroke, alpha">
-		        	if(this.isready){
-		            this.beginPath();
-		            this.moveTo(roundness + x0 , y0);
-		            this.lineTo(x1 - roundness, y0);
-		            this.quadraticCurveTo(x1, y0, x1, roundness + y0);
-		            this.lineTo(x1, y1 - roundness);
-		            this.quadraticCurveTo(x1, y1, x1 - roundness, y1 );
-		            this.lineTo(x0 + roundness, y1);
-		            this.quadraticCurveTo(x0, y1, x0, y1 - roundness);
-		            this.lineTo(x0, y0 + roundness);
-		            this.quadraticCurveTo(x0, y0, roundness, y0);
-		            this.closePath();
-		
-		
-		            this.setAttribute("globalAlpha", alpha);
-		
-		            if (fill != null) {
-		                this.setAttribute("fillStyle", fill);
-		                this.fill();
-		            }
-		            if (stroke) {
-		                this.setAttribute("strokeStyle", stroke);
-		                this.stroke();
-		            }
-		
-		            this.setAttribute("globalAlpha", 1);
-		            }
-		        </method>
-		
-		    </drawview>
-        
-		<view name="contents" width="800" height="680" y="-50">
-			<view name="showHd" resource="header_btn" align="center" height="30" y="50" stretches="height" visible="true">
-				<handler name="oninit">
-					classroot.main.contents.showHd.bringToFront();
-				</handler>
-	          	<handler name="onclick"><![CDATA[
-					this.setAttribute('clickable',false);
-					if(classroot.main.header.y > -80){
-						classroot.decreaseHeaderY();
-					} else if(classroot.main.header.y < 0){
-						classroot.main.windowbgHeader.bringToFront();
-						classroot.main.header.bringToFront();
-						classroot.increaseHeaderY();
-					}
-					/*classroot.main.windowbgHeader.bringToFront();
-					classroot.main.header.bringToFront();
-					classroot.main.contents.showHd.setAttribute('visible',false);
-					classroot.increaseHeaderY();*/
-				]]>
-				</handler>
-	
+				<view align="right" x="${this.x-5}" valign="middle"> 
+					<text visible="${ parent.timerctrl.isuntimed == 'true' || parent.timerctrl.isuntimed == true}"
+		                  options="ignorelayout" fgcolor="white" fontstyle="bold" fontsize="15">
+		                Untimed Test
+		            </text>
+					<view name="timerctrl">
+			            <attribute name="showtime"
+			                       value="$path{ 'dsdisplay:/display/@showtime' }"
+			                       setter="setShowTime( showtime )"/>
+			            <attribute name="isuntimed"
+			                       value="$path{ 'dsdisplay:/display/@untimed' }"/>
+			
+			            <handler args="u" name="onisuntimed"><![CDATA[
+			                setShowTime( showtime );
+			            ]]></handler>
+			
+			            <method name="setShowTime" args="show">
+			                if ( 'true' == isuntimed || "true" == isuntimed || true == isuntimed) {
+			                    thetime.setAttribute( 'visible', false );
+			                } else {
+			                    if ( typeof( show ) == 'string' ) {
+			                        show = show == 'true';
+			                    }
+			                    thetime.setAttribute( 'visible', show );
+			                    thetime.bringToFront();
+			                }
+			                this.showtime = show;
+			            </method>
+			            
+			            <text name="thetime" x="68" y="-2" visible="${ parent.isuntimed == 'false' || parent.isuntimed == false}"
+			                  resize="true" fgcolor="white" fontsize="15"
+			                  datapath="dsdisplay:/display/@timeleft"/>
+			        </view>
+				</view>
 	      	</view>
-			<basebutton name="navBack" x="${gQuestion.x}" opacity="0.3"
-					valign="middle" resource="navBack"
-					onclick="gController.stepNavigateBack()"></basebutton>
-			<basebutton name="navNext" opacity="0.3"
-					x="${gQuestion.x+gQuestion.width-this.width}" 
-					valign="middle" resource="navNext"
-					onclick="gController.stepNavigateForward()"></basebutton>
-			<view name="itemScreen" width="100%" height="100%" options="releasetolayout">
-				 <Question width="100%" height="100%" id="gQuestion" name="ques"
-                          datapath="dsitem:/element_package/item_canvas"
-                          bgcolor="${gController.questionBgColor}">
-				</Question>
-				<Manipulatives id="gManipulatives" width="100%" height="100%" options="releasetolayout"/>
-                <Tooltip id="gTooltip" options="ignorelayout"/>
-                <!--<view bgcolor="0xFFFFCC" width="100%" height="6" valign="bottom"/>-->
-            </view>
-			<view name="showNavBar" resource="footer_btn" align="center" height="30" stretches="height" y="625" visible="true">
-	          	<handler name="onclick"><![CDATA[
-					this.setAttribute('clickable',false);
-					if(classroot.main.navbar.y < 600){
-						classroot.decreaseNavBarY();
-					} else if(classroot.main.navbar.y > 540){
-						classroot.main.navbar.bringToFront();
-						classroot.increaseNavBarY();
-					}
-					/*classroot.main.navbar.bringToFront();
-					classroot.main.contents.showNavBar.setAttribute('visible',false);
-					classroot.increaseNavBarY();*/
-				]]>
-				</handler>
-	      	</view>
-        </view>
-        
-        <view name="navbar" x="15" width="770" height="60" y="600" bgcolor="0x6691B4">
-            <resizelayout axis="x"/>
-            <QuestionBar x="-1" width="630"  height="100%"
-                         datapath="dsstudentdata:/testing_client_model"/><!--width="593" -->
-
-            <TestControls height="${parent.height + 7}" options="releasetolayout" y="-6"/>
-			<!--<basebutton x="${classroot.main.navbar.width-this.width-5}" name="close_btn" styleable="true"
-                       resource="window_closebtn_rsc">
-                <handler name="onclick">
-					//classroot.main.navbar.setAttribute('visible',false);
-					classroot.decreaseNavBarY();
-					classroot.main.contents.showNavBar.setAttribute('visible',true);
-				</handler>     
-            </basebutton>-->
-        </view>
-
-		<drawview name="windowbgNavBar" x="7" width="787" height="80" y="600">
+	      	<view bgcolor="0x6691B4" y="29" width="100%">
+	            <resizelayout axis="x"/>
+	            <QuestionBar x="-1" width="631" 
+	                         datapath="dsstudentdata:/testing_client_model"/><!--width="593" -->
 	
-			 <attribute name="isready" value="false" type="boolean" />
-			  <handler name="oncontext">
-			    this.setAttribute("isready", true);
-			    var roundness = 10;
-	            var thickness = 3;
-	            var shadow = 9;
-	
-			  </handler>
-					  
-		        <handler name="oninit">
-		            this.clear();
-		            
-		            var roundness = 10;
-		            var thickness = 3;
-		            var shadow = 9;
-		
-		            /*drawRoundRect (shadow, shadow, this.width + shadow, this.height + shadow, 
-		                           roundness,
-		                           0xC4C4C4, null, .5);
-		            drawRoundRect (0, 0, this.width, this.height, 
-		                           roundness,
-		                           0xC4C4C4, 0xC4C4C4, 1);*/
-		            this.changeColor(0x6691B4);
-		        </handler>
-		
-		        <method name="changeColor" args="color">
-		            var roundness = 15;
-		            var thickness = 5;
-					var shadow = 3;
-
-					drawRoundRect (thickness+Number(shadow), thickness-Number(shadow), Number(this.width - thickness)+Number(shadow), Number(this.height - thickness), 
-		                           roundness,
-		                           0x000000, 0x000000, 0.5);
-		
-		            drawRoundRect (thickness, thickness, this.width - thickness, this.height - thickness, 
-		                           roundness,
-		                           color, 0x6691B4, 1);
-		        </method>
-		
-		        <method name="drawRoundRect" args="x0, y0, x1, y1, roundness, fill, stroke, alpha">
-		        	if(this.isready){
-		            this.beginPath();
-		            this.moveTo(roundness + x0 , y0);
-		            this.lineTo(x1 - roundness, y0);
-		            this.quadraticCurveTo(x1, y0, x1, roundness + y0);
-		            this.lineTo(x1, y1 - roundness);
-		            this.quadraticCurveTo(x1, y1, x1 - roundness, y1 );
-		            this.lineTo(x0 + roundness, y1);
-		            this.quadraticCurveTo(x0, y1, x0, y1 - roundness);
-		            this.lineTo(x0, y0 + roundness);
-		            this.quadraticCurveTo(x0, y0, roundness, y0);
-		            this.closePath();
-		
-		
-		            this.setAttribute("globalAlpha", alpha);
-		
-		            if (fill != null) {
-		                this.setAttribute("fillStyle", fill);
-		                this.fill();
-		            }
-		            if (stroke) {
-		                this.setAttribute("strokeStyle", stroke);
-		                this.stroke();
-		            }
-		
-		            this.setAttribute("globalAlpha", 1);
-		            }
-		        </method>
-		
-		    </drawview>
+	            <TestControls height="${parent.height + 7}" options="releasetolayout" x="${this.x-1}"/>
+	        </view>
+        </view>
        	
 	</view>
 
