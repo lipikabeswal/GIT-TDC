@@ -13,10 +13,22 @@
            super.$lzc$set_x(x);
        </setter>
    </mixin>
+   <mixin name="maniplimitx">
+       <attribute name="minx" type="number" value="${(parent.width - gManipulativeBar.width) > 0 ? 0 : parent.width - gManipulativeBar.width-10}"/>
+       <attribute name="maxx" type="number" value="0"/>
+       <setter name="x" args="x">
+           if (x &lt; this.minx) {
+               x = minx;
+           } else if (x > this.maxx) {
+               x = maxx;
+           }
+           super.$lzc$set_x(x);
+       </setter>
+   </mixin>
    
-   <mixin name="panelLimity">
+   <mixin name="scrollTextLimity">
        <attribute name="maxy" type="number" value="0"/>
-       <attribute name="miny" type="number" value="${(parent.parent.height - parent.scrollcontainer.height) > 0 ? 0 : parent.parent.height - parent.scrollcontainer.height}"/>
+       <attribute name="miny" type="number" value="${(parent.height - parent.scrollarea.height) > 0 ? 0 : parent.height - parent.scrollarea.height}"/>
        <handler name="onmaxy">
        		console.log("onmaxy = "+maxy);
        </handler>
@@ -31,7 +43,26 @@
            }
            super.$lzc$set_y(y);
        </setter>
-   </mixin>                
+   </mixin> 
+   
+   <mixin name="panelLimity">
+       <attribute name="maxy" type="number" value="0"/>
+       <attribute name="miny" type="number" value="${(parent.height - parent.scrollcontainer.height) > 0 ? 0 : parent.height - parent.scrollcontainer.height}"/>
+       <handler name="onmaxy">
+       		console.log("onmaxy = "+maxy);
+       </handler>
+       <handler name="onminy">
+       		console.log("onminy = "+miny);
+       </handler>
+       <setter name="y" args="y">
+           if (y &lt; this.miny) {
+               y = miny;
+           } else if (y > this.maxy) {
+               y = maxy;
+           }
+           super.$lzc$set_y(y);
+       </setter>
+   </mixin>               
 
 	<debug x="0" y="0" width="80%" height="400" />
 
