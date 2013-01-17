@@ -557,6 +557,7 @@
 		<attribute name="showPleaseWaitOver" value="false" type="boolean" />
 		<attribute name="RestartTest" value="false" type="boolean" />
 		<attribute name="skipCacheDestroy" type="boolean" value="false"/>
+		<attribute name="stylesArr" value="${new Array()}"/>
 			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -1056,6 +1057,10 @@
 				//Debug.write("login_response/tutorial----- ",dp.xpathQuery('login_response/tutorial'),dp.xpathQuery('login_response/branding/@tdclogo'));
 				gTutorialManager.setAttribute('tutorialNode', dp.xpathQuery('login_response/tutorial'));
 	    		var logo = dp.xpathQuery('login_response/branding/@tdclogo');
+	    		if(logo.indexOf(".swf")!=0){
+	    			logo = logo.substring(0,logo.indexOf(".swf"));
+					logo = logo+".png";
+	    		}
        			canvas.setAttribute("logoRsrc", logo);
 	    		var cmicore = dp.xpathQuery('login_response/testing_session_data/cmi.core');
 				//Debug.write("cmicore************** ",cmicore);
@@ -1065,7 +1070,7 @@
 				this.stuLoginDetails.fn = dp.xpathQuery('login_response/testing_session_data/cmi.core/@student_first_name');
 				this.stuLoginDetails.mn = dp.xpathQuery('login_response/testing_session_data/cmi.core/@student_middle_name');
 				this.stuLoginDetails.ln = dp.xpathQuery('login_response/testing_session_data/cmi.core/@student_last_name');
-			
+				this.stylesArr = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/stereotype_style');
 			
 				var loginResponse = dp.xpathQuery('login_response');
 				//START Change for deferred Defect 63502
@@ -1250,12 +1255,32 @@
         ]]></method>
 
 		<method name="totalAnswered"><![CDATA[
-            var awd = dpstudentdata.xpathQuery(
+            var numanswered = 0;
+			var ni_count = 0;
+			var items = dpstudentdata.xpathQuery("runtime/item_model");
+			if(items) {
+				if(items instanceof lz.DataElement){
+	       	     items = [items];
+	       		}
+				for(var i = 0; i<items.length; i++) {
+					var itemnode = items[i];
+					var itmeid = itemnode.getAttr('eid');
+					var ts =  itemnode.getAttr('theme');
+					var answered = itemnode.getAttr('answered');
+					if(answered == true || answered == 'true' || answered == '1') {
+						if(ts == true || ts == 'true' || ts == '1') 
+							ni_count++;
+						numanswered++;
+					}
+				}
+			}
+
+          /*  var awd = dpstudentdata.xpathQuery(
                 "runtime/item_model[@answered = '1']"
             );
             
             //For removing NI Item count 
-            var ni_count = 0;
+            
             if ( awd && awd instanceof Array ) {
                 for(var i=0; i< awd.length ; i++){
 					var ts =  dpsubtest.xpathQuery("ob_assessment/ob_element_list/f[@id='" + awd[i].getAttr('eid') + "']/@type");
@@ -1272,15 +1297,29 @@
                 var numanswered = 1;
             } else {
                 var numanswered = 0;
-            }
+            }*/
             numanswered = numanswered - ni_count;
         	return numanswered;
         ]]></method>
 
 		<method name="totalMarked"><![CDATA[    
+			var nummarked = 0;
+			var items = dpstudentdata.xpathQuery("runtime/item_model");
+			if(items) {
+				if(items instanceof lz.DataElement){
+	       	     items = [items];
+	       		}
+				for(var i = 0; i<items.length; i++) {
+					var itemnode = items[i];
+					var marked = itemnode.getAttr('marked');
+					if(marked == true || marked == 'true' || marked == '1') {
+						nummarked++;
+					}
+				}
+			}
 			/*var mrk = dpstudentdata.xpathQuery(
                 "runtime/item_model[@marked='1']"
-            );*/
+            );
             var mrk = dpstudentdata.xpathQuery(
                 "runtime/item_model[@marked='true']"
             );
@@ -1290,7 +1329,7 @@
                 var nummarked = 1;
             } else {
                 var nummarked = 0;
-            }
+            } */
             return nummarked;
         ]]></method>
 
@@ -1456,7 +1495,8 @@
                 }
             }
             this.setAttribute('firstSubtest', false);
-           	gLogo.setSource(canvas.logoRsrc);
+           	//gLogo.setSource(canvas.logoRsrc);
+           	gLogo.setAttribute('resource','logo');
            	if(!gScratchpad.isinited){
 				gScratchpad.completeInstantiation();
 			}
@@ -2386,17 +2426,17 @@
             checkItemStatus();
 			if(this.magnifierVisible) {
 	            if(this.isAudioItem()) {
-					gManipulativeBar.globals.magnifyingGlass.setAttribute('visible', false);
+					gManipulativeBar.globals.magnifyingGlassContainer.magnifyingGlass.setAttribute('visible', false);
 				}
 				else {
-					gManipulativeBar.globals.magnifyingGlass.setAttribute('visible', true);
+					gManipulativeBar.globals.magnifyingGlassContainer.magnifyingGlass.setAttribute('visible', true);
 				}
 			}
 	
 			if(this.showMaskingAnswerPopUp && gController.returnNumberOfOptions() > 0){
-				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', true);
+				gManipulativeBar.globals.maskingAnswerContainer.maskingAnswer.setAttribute('visible', true);
 			}else{
-				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', false);
+				gManipulativeBar.globals.maskingAnswerContainer.maskingAnswer.setAttribute('visible', false);
 			}
 			
         ]]></method>
@@ -3836,7 +3876,8 @@ Debug.write("############ loadItem ############");
 
 		<!-- accomodations -->
 		<method name="_getAccomStyles"><![CDATA[
-            var stylesarr = dplogin.xpathQuery ('testing_session_data/lms.student.accommodations/stereotype_style');
+            //var stylesarr = dplogin.xpathQuery ('testing_session_data/lms.student.accommodations/stereotype_style');
+            var stylesarr = this.stylesArr;
             
             for (var i in stylesarr) {
             	var theStyle = stylesarr [i];
@@ -4513,13 +4554,13 @@ Debug.write("############ loadItem ############");
 		
 		<method name="hideMagnifierGlass">
 			if(this.magnifierState)  {
-				gManipulativeBar.globals.magnifyingGlass.hide();
+				gManipulativeBar.globals.magnifyingGlassContainer.magnifyingGlass.hide();
 		   }   
 		</method>
 
 		<method name="showMagnifierGlass">
 		   if(this.magnifierState == false)  {
-				gManipulativeBar.globals.magnifyingGlass.show();
+				gManipulativeBar.globals.magnifyingGlassContainer.magnifyingGlass.show();
 		   }   
 		</method>
 
@@ -4536,13 +4577,13 @@ Debug.write("############ loadItem ############");
 		</method>
 			<method name="hideMaskingChoiceDD">
 			if(this.maskingAnswerDDState)  {
-				gManipulativeBar.globals.maskingAnswer.hide();
+				gManipulativeBar.globals.maskingAnswerContainer.maskingAnswer.hide();
 		   }   
 		</method>
 
 		<method name="showMaskingChoiceDD">
 		   if(this.maskingAnswerDDState == false)  {
-				gManipulativeBar.globals.maskingAnswer.show();
+				gManipulativeBar.globals.maskingAnswerContainer.maskingAnswer.show();
 		   }   
 		</method>
 

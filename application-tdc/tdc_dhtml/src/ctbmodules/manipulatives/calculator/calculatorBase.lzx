@@ -3,7 +3,8 @@
     <include href="resource/resources.lzx"/>
 	<include href="calculatorButtons.lzx" />
 
-	<class name="calculatorBase" extends="BaseManipulative">
+	<class name="calculatorBase" id="calc_base" extends="BaseManipulative">
+
 
 		<datapointer name="tempP"/>
 		<datapointer name="operP"/>
@@ -54,10 +55,17 @@
         <attribute name="operatorP" value="$once{new lz.datapointer()}"/>
         
         <dragstate name="dragger"
-                   drag_min_x="$once{-(this.width - 100)}" 
-                   drag_min_y="$once{-(this.height - 100)}"
-                   drag_max_x="$once{parent.width - 100}"
-                   drag_max_y="$once{parent.height - 100}"/>
+                   drag_min_x="${-(this.width - 100)}" 
+                   drag_min_y="${-(this.height - 100)}"
+                   drag_max_x="${parent.width - 100}"
+                   drag_max_y="${parent.height - 100}">
+        	<handler name="onapply">
+        		console.log("onapply");
+        	</handler>   
+        	<handler name="onremove">
+        		console.log("onremove");
+        	</handler>        
+        </dragstate>
 
         <handler name="onmouseover">
             gController.setCurrentCursor('cangrab_cursor');
@@ -68,14 +76,26 @@
         </handler>
 
         <handler name="onmousedown">
+        	console.log("onmousedown****x**"+this.x);
+        	console.log("onmousedown****y**"+this.y);
+        	console.log("onmousedown****drag_min_x**"+this.drag_min_x);
+        	console.log("onmousedown****drag_min_y**"+this.drag_min_y);
+        	console.log("onmousedown****drag_max_x**"+this.drag_max_x);
+        	console.log("onmousedown****drag_max_y**"+this.drag_max_y);
         	this.bringToFront();
-            lz.Cursor.setCursorGlobal ('grabbing_cursor');
-            lz.Cursor.lock ();
+           // lz.Cursor.setCursorGlobal ('grabbing_cursor');
+           // lz.Cursor.lock ();
             this.dragger.apply ();
         </handler>
 
         <handler name="onmouseup">
-            lz.Cursor.unlock ();
+        	console.log("onmouseup****x**"+this.x);
+        	console.log("onmouseup****y**"+this.y);
+        	console.log("onmouseup****drag_min_x**"+this.drag_min_x);
+        	console.log("onmouseup****drag_min_y**"+this.drag_min_y);
+        	console.log("onmouseup****drag_max_x**"+this.drag_max_x);
+        	console.log("onmouseup****drag_max_y**"+this.drag_max_y);
+           // lz.Cursor.unlock ();
             gController.restoreCurrentCursor();
             this.dragger.remove ();
 
@@ -85,19 +105,25 @@
 
 
         <handler name="ondata" args="data"><![CDATA[
+        	console.log("*****x********"+(classroot.width - this.width)/2);
+        	console.log("*****y********"+(classroot.height - this.height)/2);
             this.setAttribute ('x', (classroot.width - this.width)/2);
             this.setAttribute ('y', (classroot.height - this.height)/2);
-
+			console.log("*****data********"+data);
             // load in saved data or set to defaults
             if (data) {
             	var myP = new lz.datapointer();
             	myP.setPointer(data);
                 if (data.hasAttr ('x')) {
                     this.setAttribute ('x', data.getAttr ('x'));
+                    console.log("*****x********"+data.getAttr ('x'));
+					console.log("*****this.x********"+this.x);
                 }
                 
                 if (data.hasAttr ('y')) {
                     this.setAttribute ('y', data.getAttr ('y'));
+                    console.log("*****y********"+data.getAttr ('y'));
+					console.log("*****this.y********"+this.y);
                 }
                 
                 if (data.hasAttr ('displayValue')) {

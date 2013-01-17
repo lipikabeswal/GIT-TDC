@@ -61,7 +61,6 @@
 					this.setTextVal();	
 				}else if(curState =='Show All'){
 					gMaskingAnswer.setAttribute("withState",false);
-					Debug.write("gManipulativeBar.globals.maskingAnswer",gManipulativeBar.globals.maskingAnswer);
 					gMaskingAnswer.setUpPopUp();
 				}			
 				

@@ -1,9 +1,12 @@
 <library>
 	<include href="calculatorBase.lzx" />
 
-	<class name="standardCalculator" extends="calculatorBase" 
+	<class id="stdCalc" name="standardCalculator" extends="calculatorBase" 
 	       resource="calc_chrome">
-
+		<handler name="oninit">
+			/*var elm = this.getDisplayOnject();
+			elm.setAttribute('id','standardCalc');*/
+		</handler>
         <method name="updateDisplay">
             super.updateDisplay();
             this.bg.inputBoundingBox.inputbox.display.setAttribute('text', displayValue ); 
@@ -18,7 +21,7 @@
 			</basebutton>
 		</view>
 
-		<view name="bg" resource="calc_face" x="10" y="23"
+		<view id="calc_1" name="bg" resource="calc_face" x="10" y="23"
 		      width="${immediateparent.width - 20}" 
               height="${immediateparent.height - 30}">
 			<view name="inputBoundingBox" resource="calc_display" 
@@ -40,6 +43,12 @@
 						  xoffset="5"
 						  visible="${classroot.memory != 0}"/>
 				</view>
+				<handler name="onmousedown">
+					console.log("on mouswe down*********");
+				</handler>
+				<handler name="onmouseup">
+					console.log("on mouswe up*********");
+				</handler>
 			</view>
 				
 	        <view name="mycalc" y="50" x="14"

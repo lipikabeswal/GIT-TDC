@@ -55,35 +55,12 @@
 			<attribute name="actualX" value="$once{this.xoffset - this.getMouse( 'x' )}" />
 			<attribute name="actualY" value="$once{this.yoffset - this.getMouse( 'y' )}" />
 			
-            <!--  <attribute name="__dragstate_ydoffset" 
-                       value="$once {this.actualX * Math.sin (this.rrotation) +
+            <attribute name="__dragstate_ydoffset" 
+                       value="${this.actualX * Math.sin (this.rrotation) +
                                      this.actualY * Math.cos (this.rrotation)}"/>
             <attribute name="__dragstate_xdoffset" 
-                       value="$once {this.actualX * Math.cos (this.rrotation) -
-                                     this.actualY * Math.sin (this.rrotation)}"/>-->
-                                     
-            <attribute name="__dragstate_xdoffset"
-
-				value="(this.drag_axis == 'both' || this.drag_axis == 'x') ? -1*this.__dragstate_getoffset('x') : 0" when="once" />
-				
-				<!--- @keywords private -->
-				
-				<attribute name="__dragstate_ydoffset"
-				
-				value="(this.drag_axis == 'both' || this.drag_axis == 'y') ? -2*this.__dragstate_getoffset('y') : 0" when="once" />
-				
-				<!--- @keywords private -->
-				
-				<method name="__dragstate_getoffset" args="axis" >
-				
-				var theta = (Math.PI/180 * this.rotation);
-				var sin_theta = Math.sin( theta );
-				var cos_theta = Math.cos( theta );
-				return axis=="x" ?
-				(this.getMouse( "x" )*cos_theta - this.getMouse( "y" )*sin_theta) - (this.xoffset*cos_theta - this.yoffset*sin_theta) :
-				(this.getMouse( "x" )*sin_theta + this.getMouse( "y" )*cos_theta) - (this.yoffset*cos_theta + this.xoffset*sin_theta);
-				
-				</method>                    
+                       value="${this.actualX * Math.cos (this.rrotation) -
+                                     this.actualY * Math.sin (this.rrotation)}"/>
 
             <handler name="onapply">
                 classroot.updateDraggerAttributes();
@@ -93,8 +70,6 @@
 
 		<method name="updateDraggerAttributes">
 			var dv = getDraggerValues(this.rotation, ruler.width);
-			Debug.write("updateDraggerAttributes***** ",dv);
-
            	this.setAttribute ('dragxmin', dv[0]);
 			this.setAttribute ('dragymin', dv[1]);
 			this.setAttribute ('dragxmax', dv[2]);
@@ -115,10 +90,8 @@
 		<method name="getRelativeGrabberBounds" args="degrees, lngth">
 			var result = new Array();
 			var rads = degreesToRads(degrees);
-			Debug.write("rads******* ",rads);
 			var grabber = ruler.grabber;
-			Debug.write("grabber---------- ",grabber);
-            var sin = Math.sin(rads);
+			var sin = Math.sin(rads);
             var cos = Math.cos(rads);
             var gx = this.ruler.x + lngth/2 - grabber.width/2;
             var gxplus = gx + grabber.width;
@@ -212,24 +185,26 @@
 		</method>
 		
         <handler name="ondata" args="data"><![CDATA[
-			Debug.write("ondata***** ",dragger);
+			
             if (!data) return;
             var hasstate = false;
             for (var i in data.attributes) {
                 hasstate = true;
                 break;
             }
-			Debug.write("rotation--------- ",data.getAttr ('rotation'));
+			
             if (data && hasstate) {
                 this.setAttribute ('rotation', data.getAttr ('rotation'));
                 this.ruler.setAttribute ('width', data.getAttr ('rulerlength'));
 
                 this.setAttribute ('x', data.getAttr ('x'));
                 this.setAttribute ('y', data.getAttr ('y'));
+
                 // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
             	if(gScratchpad.visible){
                 	gScratchpad.bringToFront();
             	}
+				
              } else {
                 this.setAttribute ('rotation', 0);
                 this.ruler.setAttribute ('width', null);
@@ -245,7 +220,7 @@
                     data.setAttr ('y', this.y);
                 }
             }
-            Debug.write("rotation base ruler--------- ",this.rotation);
+            
         ]]></handler>
 
         <method name="startRotate" args="xpos, ypos">
@@ -261,8 +236,8 @@
             var dx = cos * xpos - sin * ypos;
             var dy = sin * xpos + cos * ypos;
             
-            this.setAttribute ('x', this.x + dx);
-            this.setAttribute ('y', this.y + dy);                
+            this.setAttribute ('x', Number(this.x) + Number(dx));
+            this.setAttribute ('y', Number(this.y) + Number(dy));    
         </method>
 
         <method name="endRotate" args="xpos, ypos">
@@ -403,27 +378,33 @@
             	]]></handler>
             </view>
             <view name="grabber" resource="grabber_rsrc" y="$once{classroot.GRABBER_Y}" align="center" >
-                  <handler name="onmouseover">
-                      gController.setCurrentCursor('cangrab_cursor');
-                  </handler>
-                  <handler name="onmouseout">
-                      gController.clearAndRestoreCurrentCursor();
-                  </handler>
-                  <handler name="onmousedown">
-                  	  classroot.bringToFront();
-                      lz.Cursor.setCursorGlobal ('grabbing_cursor');
-                      lz.Cursor.lock ();
-                      classroot.dragger.apply ();
-                  </handler>
-                  <handler name="onmouseup">
-                      lz.Cursor.unlock ();
-                      gController.restoreCurrentCursor();
-                      classroot.dragger.remove ();
-
-                      classroot.datapath.p.setAttr ('x', classroot.x);
-                      classroot.datapath.p.setAttr ('y', classroot.y);
-                  </handler>
+                  
             </view>
+            <handler name="onmouseover">
+                 gController.setCurrentCursor('cangrab_cursor');
+             </handler>
+             <handler name="onmouseout">
+                 gController.clearAndRestoreCurrentCursor();
+             </handler>
+             <handler name="onmousedown">
+             	  classroot.bringToFront();
+                 lz.Cursor.setCursorGlobal ('grabbing_cursor');
+                 lz.Cursor.lock ();
+                 gHotKeys.disableKeys();
+                 classroot.dragger.apply ();
+             </handler>
+             <handler name="onmouseup">
+                 lz.Cursor.unlock ();
+                 gHotKeys.enableKeys();
+
+  // the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
+  				  lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
+                 //gController.restoreCurrentCursor();
+                 classroot.dragger.remove ();
+
+                 classroot.datapath.p.setAttr ('x', classroot.x);
+                 classroot.datapath.p.setAttr ('y', classroot.y);
+             </handler>
         </view>
 
         <view name="rotator"
@@ -443,7 +424,7 @@
 
         <view name="rotateResizer"
               resource="rotateResizer_rsrc" 
-              x="${classroot.ruler.x + classroot.ruler.width}"
+              x="${Number(classroot.ruler.x) + Number(classroot.ruler.width)}"
               y="$once{classroot.ROTATOR_Y}"
               yoffset="${this.resourceheight/2}"
               xoffset="${this.resourcewidth/2}">
