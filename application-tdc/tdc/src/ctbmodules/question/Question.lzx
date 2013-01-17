@@ -57,6 +57,13 @@ gController.setAttribute('skipCacheDestroy', true);
 						contsubviews[i].destroy();
 					}
 				}
+				// added to retain text in scratchpad on navigation
+				for (var i = 1; i <= contViewsLen; i++){
+				 if(contsubviews[i] && contsubviews[i] instanceof lz.CachablePanel){
+						this.cache.returnComponent (contsubviews[i]);
+						//contsubviews[i].destroy();
+					}
+				}
 				for (var i = 1; i <= contViewsLen; i++){
 					if(contsubviews[i]){
 						contsubviews[i].destroy();
