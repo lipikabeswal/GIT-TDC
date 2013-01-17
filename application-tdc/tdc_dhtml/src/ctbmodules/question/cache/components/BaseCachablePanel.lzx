@@ -302,14 +302,16 @@
                           ? (Number(this.offsetwrapper.height) + 
                               (classroot.growtocontents &amp;&amp; classroot.comptype == gCompTypes.WIDGET_ANSWER_AREA_PANEL ? Number(this.offsetwrapper.contents.y) : Number(0))): 
                           parent.height}" 
-                          with="swipegesture, touchevents, panelLimity" clickable="true">
-                <handler name="onswipe" args="s">
-					if (s.direction === 'up' || s.direction === 'down') {
-					    this.animate('y', s.velocity, 500, true, {motion: 'easeout'});
-					}else{
-						return;
-					}
-				</handler>
+                          with="swipegesture, touchevents, panelLimity">
+                          
+                     <handler name="onswipe" args="s">
+						if (s.direction === 'up' || s.direction === 'down') {
+						    this.animate('y', s.velocity, 500, true, {motion: 'easeout'});
+						}else{
+							return;
+						}
+					</handler>
+                
                 <view name="offsetwrapper" >
                     <view name="contents"/>
                 </view>

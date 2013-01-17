@@ -78,7 +78,15 @@
             <view name="textarea" options="releasetolayout"
                   height="100%" clip="true">
                 <resizelayout axis="x"/>
-                <view name="scrollarea" options="releasetolayout">
+                <view name="scrollarea" options="releasetolayout" 
+                	with="swipegesture, touchevents, scrollTextLimity">
+	                	<handler name="onswipe" args="s">
+						if (s.direction === 'up' || s.direction === 'down') {
+						    this.animate('y', s.velocity, 500, true, {motion: 'easeout'});
+						}else{
+							return;
+						}
+					</handler>
                     <view name="scrollcontents">
                         <DynamicSimplelayout name="dynlayout" axis="y"/>
                     </view>
