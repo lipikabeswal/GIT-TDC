@@ -44,7 +44,51 @@
 
 		<handler name="ondata"  method="initComp" />
 		<method name="initComp" args="data"><![CDATA[
-            if (!data) return;
+            if (!data) return;			
+
+            //accomodations
+            var style = gController.getAccomStyleForType (this.stereotype);
+            var isaccom = false;
+            var panelBgcolor = gController.questionBgColor;
+            if(Number(panelBgcolor) == 0)
+				panelBgcolor = "0x000000";
+            var panelFontcolor = gController.questionFontColor
+            if(Number(panelFontcolor) == 0)
+				panelFontcolor = "0x000000";
+            if (style) {
+                if (style ['bgcolor']) {
+                	if(Number(style.bgcolor) == 0)
+						style.bgcolor = "0x000000";
+                    this.setAttribute ('bgcolor', style.bgcolor);
+                    isaccom = true;
+                }
+                else if (!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
+					this.setAttribute('bgcolor', panelBgcolor);
+                }
+                if (style ['font_color']) {
+                	if(Number(style.font_color) == 0)
+						style.font_color = "0x000000";
+                    this.setAttribute ('fontcolor', style.font_color);
+                }
+                if (style ['font_magnification']) {
+                    this.setAttribute ('fontsize', style.font_magnification * canvas.basefontsize);
+                   // this is not working - it's leaving the fontsize at 11 instead of 12
+                   // this.setAttribute ('fontsize', style.font_magnification * canvas.fontsize);
+                } else {
+                    this.setAttribute ('fontsize', canvas.basefontsize);
+                }
+            }
+            else if(!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
+				this.setAttribute('bgcolor', panelBgcolor);
+				this.setAttribute('fontcolor', panelFontcolor);
+				this.setAttribute('fontsize', gController.questionFontSize);
+            }
+            
+            this.setAttribute("isaccom", isaccom);
+
+			//set the initial widths / heights to zero to avoid scrollbar issue
+			this.wrapper.setAttribute('width', 0);
+			this.wrapper.setAttribute('height', 0);
 			
 			//Randomization will only be applied if login response has seed with it
 			if(gController.isLoginResponseHavingSeed && !nullOrSpace(gController.seed) && data != null) {
@@ -60,7 +104,7 @@
             }
 
 			if (data.hasAttr ('height')) {
-                var nh = data.getAttr("height")*2;
+                var nh = data.getAttr("height");
                 this.setAttribute("growtocontents", nh == "");
                 if (nh == "") {
                     nh = null;
@@ -95,35 +139,7 @@
 				this.setAttribute('enablehl', data.getAttr('enablehl'));
 			}
 			
-            //accomodations
-            var style = gController.getAccomStyleForType (this.stereotype);
-            var isaccom = false;
-            if (style) {
-                if (style ['bgcolor']) {
-                    this.setAttribute ('bgcolor', style.bgcolor);
-                    isaccom = true;
-                }
-                else if (!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
-					this.setAttribute('bgcolor', gController.questionBgColor);
-                }
-                if (style ['font_color']) {
-                    this.setAttribute ('fontcolor', Number (style.font_color));
-                }
-                if (style ['font_magnification']) {
-                    this.setAttribute ('fontsize', style.font_magnification * canvas.basefontsize);
-                   // this is not working - it's leaving the fontsize at 11 instead of 12
-                   // this.setAttribute ('fontsize', style.font_magnification * canvas.fontsize);
-                } else {
-                    this.setAttribute ('fontsize', canvas.basefontsize);
-                }
-            }
-            else if(!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
-				this.setAttribute('bgcolor', gController.questionBgColor);
-				this.setAttribute('fontcolor', gController.questionFontColor);
-				this.setAttribute('fontsize', gController.questionFontSize);
-            }
-            
-            this.setAttribute("isaccom", isaccom);
+
 
             //make subviews
             this._initSubnodes ();
@@ -135,12 +151,10 @@
             //inform gFootNotePopup footnotes
 			if((this instanceof lz.CachableScrollingTextPanel) 
                 || this instanceof lz.CachableTabsPanel
-				|| this instanceof lz.CachablePanel)  
+				|| this instanceof lz.CachablePanel) 
             {
                 gFootNotePopup.setAttribute("scrolltext", this);
             }      
-
-		console.log("basecachablepanel",this.wrapper.scrollcontainer.offsetwrapper.height,this.wrapper.height,this.growtocontents);
 
         ]]></method>
 
@@ -228,7 +242,7 @@
 					}
 					tempNodeArr[i] = tempNode; 
 				}
-				dnode.setChildNodes(tempNodeArr);
+				dnode.setAttribute('childNodes',tempNodeArr);
 			}		
 		]]></method>
 		
@@ -242,19 +256,16 @@
 
         <method name="doReturnToCache"><![CDATA[
             var contsubviews = this.wrapper.scrollcontainer.offsetwrapper.contents.subviews;
-			this.wrapper.setAttribute('width',0);
-			this.wrapper.setAttribute('height',0);
-			this.wrapper.scrollcontainer.setAttribute('width',0);
-			this.wrapper.scrollcontainer.setAttribute('height',0);
-			this.wrapper.scrollcontainer.offsetwrapper.setAttribute('width',0);
-			this.wrapper.scrollcontainer.offsetwrapper.setAttribute('height',0);
-			this.wrapper.scrollcontainer.offsetwrapper.contents.setAttribute('width',0);
-			this.wrapper.scrollcontainer.offsetwrapper.contents.setAttribute('height',0);
+			this.wrapper.setAttribute('width', 0);
+			this.wrapper.setAttribute('height', 0);
+			
             this.setAttribute('enablehl', true);
+
             for (var i in contsubviews) {
 				 if (contsubviews [i] instanceof lz.CachableComponent &&
                         contsubviews [i].visible) {
-                    this.cache.returnComponent (contsubviews [i]);
+                  	// this.cache.returnComponent (contsubviews [i]);
+                  	contsubviews[i].destroy();
                 }
             }
         ]]></method>
@@ -290,8 +301,16 @@
                   height="${this.offsetwrapper.height &gt; parent.height || classroot.growtocontents
                           ? (Number(this.offsetwrapper.height) + 
                               (classroot.growtocontents &amp;&amp; classroot.comptype == gCompTypes.WIDGET_ANSWER_AREA_PANEL ? Number(this.offsetwrapper.contents.y) : Number(0))): 
-                          parent.height}">
-                <view name="offsetwrapper">
+                          parent.height}" 
+                          with="swipegesture, touchevents, panelLimity" clickable="true">
+                <handler name="onswipe" args="s">
+					if (s.direction === 'up' || s.direction === 'down') {
+					    this.animate('y', s.velocity, 500, true, {motion: 'easeout'});
+					}else{
+						return;
+					}
+				</handler>
+                <view name="offsetwrapper" >
                     <view name="contents"/>
                 </view>
                 <Highlight name="highlighter" 
@@ -308,7 +327,8 @@
                                   ( classroot.growtocontents ? parent.scrollcontainer.height - parent.hscroll.height :
                                     parent.scrollcontainer.height) :
                                   (classroot.growtocontents ? parent.scrollcontainer.height : parent.height)}"
-                        pagesize="${this.height}"
+                        pagesize="${this.height}"  scrolltarget="parent.scrollcontainer"
+						x="${parent.hscroll.visible ? parent.hscroll.width : classroot.wrapper.width-this.width}"
                         visible="${this.scrollable &amp;&amp; !classroot.growtocontents}"/>
             <hscrollbar name="hscroll" visible="${this.scrollable}"
                         width="${parent.vscroll.visible ? 

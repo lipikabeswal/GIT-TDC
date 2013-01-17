@@ -14,33 +14,50 @@
             <simplelayout axis="x" spacing="10"/>
              <basebutton resource="music_btn" id="gMusicButton"
                         enabled="${ classroot.uienabled == true }"
-                        visible="${gController.audible == true}"
+                        visible="false"
                         disabledResourceNumber="0"
                         width="30" height="30" stretches="both"
                         onclick="gMusicPlayer.togglePopup()"
                         />
-			
-            <basebutton resource="pause_time_btn" id="gPauseButton"
-                        enabled="${ classroot.uienabled == true }"
-                        onclick="gController.pauseTest ()"
-                        visible="${ classroot.pausable == true }"
-                        disabledResourceNumber="0"
-                        />
-            <basebutton resource="stop_time_btn" name="stopbutton" id="gStopButton"
+			<view>
+	            <basebutton resource="pause_time_btn" id="gPauseButton"
+	            			stretches="both" height="40" width="37"
+	                        enabled="${ classroot.uienabled == true }"
+	                        onclick="gController.pauseTest ()"
+	                        visible="${ classroot.pausable == true }"
+	                        disabledResourceNumber="0">
+                    <handler name="onvisible">
+               			parent.pause_btn_shadow.sendToBack();
+                 	</handler>
+                 </basebutton>
+	            <view name="pause_btn_shadow" tintcolor="0x000000" resource="qButtonShadow" x="5"
+	        	  opacity="0.3"
+	        	  width="${gPauseButton.width}" height="${gPauseButton.height+3}" stretches="both"/>
+            </view>
+           <view>
+           		<basebutton resource="stop_time_btn" name="stopbutton" id="gStopButton"
+           				stretches="both" height="40" width="37"
                         enabled="${ classroot.uienabled == true }"
                         onclick="gController.stopTest ()"
-                        disabledResourceNumber="0"
-                        />
+                        disabledResourceNumber="0">
+                 	<handler name="oninit">
+                 		parent.stop_btn_shadow.sendToBack();
+                 	</handler>
+                 </basebutton>
+                 <view name="stop_btn_shadow" tintcolor="0x000000" resource="qButtonShadow" x="5"
+	        	  opacity="0.3"
+	        	  width="${gStopButton.width}" height="${gStopButton.height+3}" stretches="both"/>
+            </view>
 
-            <text visible="${ classroot.timerctrl.isuntimed == 'true' }"
+            <!-- <text visible="${ classroot.timerctrl.isuntimed == 'true' || classroot.timerctrl.isuntimed == true}"
                   options="ignorelayout" fgcolor="white" fontsize="15"
                   x="${ parent.stopbutton.x + ((parent.stopbutton.width - width)/2) }"
                   y="-24">
                 Untimed Test
-            </text>
+            </text> -->
         </view>
 
-        <view name="timerctrl">
+        <!-- <view name="timerctrl">
 
             <attribute name="showtime"
                        value="$path{ 'dsdisplay:/display/@showtime' }"
@@ -83,7 +100,7 @@
                     gController.toggleTimer();
                 </method>
             </multistatebutton>
-        </view>
+        </view> -->
     </class>
 
     

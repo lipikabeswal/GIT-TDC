@@ -1,6 +1,38 @@
 <canvas bgcolor="0x6691B4" proxied="false" debug="false" width="100%" height="100%"
 	accessible="true">
 
+	<mixin name="limitx">
+       <attribute name="minx" type="number" value="${(parent.parent.width - parent.scrollcontainer.width) > 0 ? 0 : parent.parent.width - parent.scrollcontainer.width-10}"/>
+       <attribute name="maxx" type="number" value="0"/>
+       <setter name="x" args="x">
+           if (x &lt; this.minx) {
+               x = minx;
+           } else if (x > this.maxx) {
+               x = maxx;
+           }
+           super.$lzc$set_x(x);
+       </setter>
+   </mixin>
+   
+   <mixin name="panelLimity">
+       <attribute name="maxy" type="number" value="0"/>
+       <attribute name="miny" type="number" value="${(parent.parent.height - parent.scrollcontainer.height) > 0 ? 0 : parent.parent.height - parent.scrollcontainer.height}"/>
+       <handler name="onmaxy">
+       		console.log("onmaxy = "+maxy);
+       </handler>
+       <handler name="onminy">
+       		console.log("onminy = "+miny);
+       </handler>
+       <setter name="y" args="y">
+           if (y &lt; this.miny) {
+               y = miny;
+           } else if (y > this.maxy) {
+               y = maxy;
+           }
+           super.$lzc$set_y(y);
+       </setter>
+   </mixin>                
+
 	<debug x="0" y="0" width="80%" height="400" />
 
 	<include href="ctbmodules" />

@@ -113,13 +113,13 @@
 			//else{
 		    	if (currentItemNumber < parseInt(this.totalitemno) && gController.getNextNavigableOffset(currentItemNumber) < parseInt(this.totalitemno)) {
 		    		//this.btns.navbtns.btnforward.setAttribute ('visible', true);
-		    		this.btns.navbtns.btnfinish.setAttribute ('visible', false);
+		    		//this.btns.navbtns.btnfinish.setAttribute ('visible', false);
 		    		gItemInterface.main.contents.navNext.setAttribute("visible",true);
 					gItemInterface.main.contents.navNext.bringToFront();
 		    	}
 		    else{
 		    	//this.btns.navbtns.btnforward.setAttribute ('visible', false);
-				this.btns.navbtns.btnfinish.setAttribute ('visible', true);
+				//this.btns.navbtns.btnfinish.setAttribute ('visible', true);
 		    	gItemInterface.main.contents.navNext.setAttribute("visible",false);
 		    	}
 		   // }  
@@ -159,10 +159,10 @@
 	            - NO ANSWER SELECTED -
 	        </text>
 		</view> -->
-        <view name="btns" y="6" x="0">
-            <simplelayout axis="y" spacing="-1"/>
+        <view name="btns" y="7">
+            <!--<simplelayout axis="y" spacing="3"/>
             <view name="navbtns" x="${parent.markbtn.width+5}">
-                <!--<basebutton name="btnback" resource="go_back_btn" x="0"
+                <basebutton name="btnback" resource="go_back_btn" x="0"
                             enabled="${ classroot.uienabled == true }"
                             onclick="gController.stepNavigateBack ()"
                             disabledResourceNumber="1"  visible="${!gController.fwdOnly}"
@@ -171,12 +171,12 @@
                             enabled="${ classroot.uienabled == true }"
                             onclick="gController.stepNavigateForward ()"
                             disabledResourceNumber="1"
-                            />-->
-                <basebutton name="btnback" align="left"
-                            height="${parent.btnfinish.height}"
-                            width="${parent.btnfinish.width}"
-                            visible="${!parent.btnfinish.visible}"
                             />
+                <basebutton resource="stop_time_btn" align="left" name="stopbutton" id="gStopButton"
+                        visible="${!parent.btnfinish.visible}"
+                        onclick="gController.stopTest ()"
+                        disabledResourceNumber="0"
+                        />       
                 <basebutton name="btnfinish" resource="finish_test_btn" id="gFinishTestButton"
                             enabled="${ classroot.uienabled == true }"
                             align="left"
@@ -186,13 +186,19 @@
                             gController.finishTest ();
                             </handler>
                  </basebutton>
-            </view>
-            <multistatebutton name="markbtn" align="right" y="-5"
+            </view>-->
+            <multistatebutton name="markbtn" x="${(classroot.width/2)-(this.width/2)}"
                               clickable="${ classroot.uienabled == true }"
                               resource="mark_unmark_btn" statelength="3"
-                              maxstate="1"
+                              maxstate="1" width="75" height="40" stretches="both"
               				  onclick="gController.markQuestion (!classroot.iscurrmarked)">
+              	<handler name="oninit">
+               		parent.markbtn_btn_shadow.sendToBack();
+               	</handler>
             </multistatebutton>
+            <view name="markbtn_btn_shadow" tintcolor="0x000000" resource="qButtonShadow" x="${parent.markbtn.x+5}"
+	        	  opacity="0.5"
+	        	  width="${parent.markbtn.width}" height="${parent.markbtn.height+3}" stretches="both"/>
         </view>
     </class>
 

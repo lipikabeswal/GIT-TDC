@@ -72,8 +72,10 @@
                 this.livesel.setAttribute ('width', 0);
                 this.livesel.setAttribute ('height', 0);
                 this.livesel.setAttribute ('visible', true);
+                
+                console.log("onmousedown  "+this.livesel.resizer.x);
 
-                this.livesel.resizer.apply ();
+                this.livesel.resizer.apply();
             }
         ]]></handler>
 
@@ -92,10 +94,12 @@
                              height: this.getMouse ('y') - this.livesel.y,
                              passageId: this.passageId,
                              stereotype: this.stereotype};
-
-                var dnarea = 
-                dnstate.appendChild (new lz.DataElement ('highlightarea', 
-                                                        attrs,[]));
+				console.log(" onmouseup "+ attrs.width+" height "+attrs.height);
+				if(attrs.width > 0 && attrs.height > 0){
+	                var dnarea = 
+	                dnstate.appendChild (new lz.DataElement ('highlightarea', 
+	                                                        attrs,[]));
+                }
 
             }
         ]]></handler>
@@ -116,6 +120,7 @@
 
 		<method name="deleteHighlights" args="mousex, mousey"><![CDATA[
 			var highlightareas = this.hlstate.xpathQuery("highlightarea[@stereotype='"+this.stereotype+"'][@passageId='"+this.passageId+"']");
+            console.log("highlightareas "+highlightareas+" mousex "+mousex+" mousey "+mousey);
             if ( highlightareas instanceof LzDataNode ) {
 				hp.setPointer(highlightareas);
                 hp.deleteNode();
@@ -177,15 +182,21 @@
                
 
                 <!-- constraints for width and height taking into account the min and maxes -->
+                <attribute name="__resize_xroffset"
+                   value="this.x - this.width + this.getMouse( 'x' )" when="once" />
+                   
+                <attribute name="__resize_yroffset"
+                   value="this.y - this.height + this.getMouse( 'y' )" when="once" />
+                   
                 <attribute name="width"
-                           value="${(this.immediateparent.getMouse ( 'x' ) - this.__resize_xroffset) > this.maxwidth ? 
+                           value="${(Number(this.immediateparent.getMouse('x')) - Number(this.__resize_xroffset)) > this.maxwidth ? 
                                   this.maxwidth : 
-                                  Math.max((this.immediateparent.getMouse( 'x' )- this.__resize_xroffset), this.minwidth)}" />
+                                  Math.max((Number(this.immediateparent.getMouse('x'))- Number(this.__resize_xroffset)), this.minwidth)}" />
 
                 <attribute name="height"
-                           value="${(this.immediateparent.getMouse ( 'y' ) - this.__resize_yroffset) > this.maxheight ? 
+                           value="${(this.immediateparent.getMouse ('y') - this.__resize_yroffset) > this.maxheight ? 
                                   this.maxheight : 
-                                  Math.max((this.immediateparent.getMouse( 'y' )- this.__resize_yroffset), this.minheight)}" />
+                                  Math.max((this.immediateparent.getMouse('y')- this.__resize_yroffset), this.minheight)}" />
                 
                 <!-- handle highlight when scrolling -->
                 <handler name="onwidth">
@@ -232,16 +243,25 @@
 
                 <!-- render the square -->
                 <method name="_draw"><![CDATA[
-                    this.clear ();
-                    this.beginPath();
+                	console.log("onwidth  "+this.immediateparent.getMouse('x')+" this.__resize_xroffset  "+this.__resize_xroffset);
+                	console.log("width of highlighter  "+this.width);
+                	console.log("maxwidth of highlighter  "+this.maxwidth+" minwidth "+this.minwidth);
+                	console.log("difference *****  "+(Number(this.immediateparent.getMouse('x')) - Number(this.__resize_xroffset)));
 
-                    this.lineTo (this.width, 0);
-                    this.lineTo (this.width, this.height);
-                    this.lineTo (0, this.height);
-                    this.lineTo (0, 0);
-                    this.closePath();
-
-                    this.stroke ();
+					console.log("max width  "+Math.max((Number(this.immediateparent.getMouse('x'))- Number(this.__resize_xroffset)), this.minwidth));
+                    
+                    if(this.width > 0){
+	                    this.clear ();
+	                    this.beginPath();
+	
+	                    this.lineTo (this.width, 0);
+	                    this.lineTo (this.width, this.height);
+	                    this.lineTo (0, this.height);
+	                    this.lineTo (0, 0);
+	                    this.closePath();
+	
+	                    this.stroke ();
+                    }
                 ]]></method>
 
             </resizestate>
@@ -257,7 +277,6 @@
                 if (data) {
                     this.setAttribute ('x', data.getAttr ('x'));
                     this.setAttribute ('y', data.getAttr ('y'));
-
                     this.setAttribute ('width', data.getAttr ('width'));
                     this.setAttribute ('height', data.getAttr ('height'));
                 } 

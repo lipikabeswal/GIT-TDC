@@ -26,9 +26,11 @@
                   valign="middle" fgcolor="white" fontsize="12">
                 <b>Login ID:</b>
             </text>
-            <edittext name="loginIdField" x="287" enabled="false"
-                      bgcolor="0x777777" fontsize="12" text="${gController.userid}"
+			<view x="287" width="265" height="26" bgcolor="white">
+            	<text name="loginIdField" valign="center"
+                      fgcolor="0x777777" fontsize="12" text="${gController.userid}"
                       width="265" visible="true"/>
+			</view>
         </view>
         <view name="pw">
             <text resize="true" valign="middle"
@@ -45,9 +47,11 @@
                   valign="middle" fontsize="12"  x="${ 282 - width }">
                 <b>Access Code:</b>
             </text>
-            <edittext name="accesscodeField" x="287" enabled="false"
-                      bgcolor="0x777777" fontsize="12" text="${gController.accesscode}"
+			<view x="287" width="265" height="26" bgcolor="white">
+            	<text name="accesscodeField"
+                      fgcolor="0x777777" fontsize="12" text="${gController.accesscode}"
                       width="265" visible="true"/>
+			</view>
         </view>
 
         <view x="${ classroot.width - width - 20 }">

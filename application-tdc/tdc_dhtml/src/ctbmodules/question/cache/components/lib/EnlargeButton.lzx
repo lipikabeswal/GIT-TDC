@@ -15,6 +15,9 @@
         </handler>
 
         <handler name="onclick">
+			if(classroot instanceof lz.CachableImage){
+				onImgZoomIn(classroot.image_id, classroot.imageview.width, classroot.imageview.height);
+        	}
             if (this.iszoomin) {
             	gFootNotePopup.setAttribute("scrolltext", this);
             	gQuestion.setSkip();
@@ -31,8 +34,9 @@
                 gController.setManipulativeSelState ("option_eliminator", "up");
 
             } else {
+				onImgZoomOut();
                 gEnlargePopup.shrink();
-            }
+			}
         </handler>
         <handler name="onmouseover">
             lz.Cursor.restoreCursor();

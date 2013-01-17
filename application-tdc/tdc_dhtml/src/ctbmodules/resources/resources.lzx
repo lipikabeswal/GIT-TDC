@@ -194,6 +194,7 @@
     	<frame src="iknow_navbar/click_region9.png" />   
     	<frame src="iknow_navbar/click_region10.png" />
     </resource>
+    <resource name="qButtonShadow" src="iknow_navbar/qButtonShadow.png"/>
     <resource name="question_bar_ball" src="iknow_navbar/navbar_blueball.png"/>
     <resource name="question_bar_btn_connector" src="iknow_navbar/navbar_itemconnector_gray.png"/>
     
@@ -609,4 +610,10 @@
 	
 	<resource name="header_btn" src="header_btn.png"/>
 	<resource name="footer_btn" src="footer_btn.png"/>
+	
+	<resource name="logo" src="logos/logo.png"/>
+	
+	<resource name="stopTest" src="iknow_buttons/stop_test/stop_test.png"/>
+	<resource name="pauseTest" src="iknow_buttons/pause_test/pause_test.png"/>
+	<resource name="manipulative_shadow" src="iknow_toolbar/manipulative_shadow.png"/>
 </library>

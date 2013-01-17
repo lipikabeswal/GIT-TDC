@@ -2,7 +2,7 @@
 
     <include href="QuestionBarButton.lzx"/>
 
-    <class name="QuestionBar" resource="question_bar_bg" width="650" stretches="width">
+    <class name="QuestionBar" resource="question_bar_bg" width="660" stretches="width">
 
         <attribute name="isscrolling" 
                    value="${this.qbtns.scrollcontainer.width &gt; this.qbtns.width}"/>
@@ -10,9 +10,7 @@
                    value="$path{'current_item/item_model/@eid'}"/>
 
         <!-- the max value the scrollcontainer can be scrolled to the left -->
-        <attribute name="maxscrollleft" value="${this.width - (this.moreright.width + this.morefastright.width + 
-                                                 this.qbtns.scrollcontainer.width + this.qbtns.scrollcontainer.thebtns.x
-                                                 + this.RIGHT_BUTTONS_OFFSET)}"/>
+        <attribute name="maxscrollleft" value="${this.width - (this.qbtns.scrollcontainer.width + this.qbtns.scrollcontainer.thebtns.x)-50}"/>
 
 		<attribute name="RIGHT_BUTTONS_OFFSET" value="17" type="number"/>
         <attribute name="STEP_SIZE" value="3"/>
@@ -82,8 +80,8 @@
         
         <method name="showBtn" args="btn"><![CDATA[
             var bx = btn.getAttributeRelative ('x', this);
-            var rightedge = this.width - this.morefastright.width - this.moreright.width - this.RIGHT_BUTTONS_OFFSET;
-            var leftedge = this.morefastleft.width + this.moreleft.x + 1;
+            var rightedge = this.width-100;
+            var leftedge = 7;
 
             var scrollarea = this.qbtns.scrollcontainer;
 
@@ -91,11 +89,13 @@
             if ((bx + btn.width) > rightedge) {
                 //scroll left
                 var newx = scrollarea.x - ((bx + btn.width) - rightedge);
-                if (newx < maxscrollleft) {
+				//alert("newx "+newx+" maxscrollleft "+maxscrollleft);
+                /*if (newx < maxscrollleft) {
                     newx = maxscrollleft;
-                }
+                }*/
                 scrollarea.animate ('x', newx, this.ANIM_LENGTH);
             } else if (bx < leftedge) {
+				//alert("inside else");
                 //scroll right
                 var newx = scrollarea.x + (leftedge - bx);
                 if (newx > 0) {
@@ -103,21 +103,31 @@
                 }
                 scrollarea.animate ('x', newx, this.ANIM_LENGTH);
             }
+			//alert("newx "+newx);
             this.setAttribute('justSelectedLastItem', gController.onLastItem());
         ]]></method>
 
         <!-- list of scrolling buttons for item -->
-        <view name="qbtns" height="100%"  x="${classroot.moreleft.x}" y="0" 
-              width="${classroot.width - classroot.morefastleft.width - classroot.morefastright.width - classroot.RIGHT_BUTTONS_OFFSET}"
+        <view name="qbtns" height="100%"  x="0" y="0"
+              width="100%"
               clip="true">
-            <view name="scrollcontainer" height="100%"
-                  width="${this.thebtns.width + this.thebtns.x}">
+            <view name="scrollcontainer" id="scrollcontainer" height="100%"
+                  width="${this.thebtns.width + this.thebtns.x}"
+                  with="swipegesture, touchevents, limitx" clickable="true">
+
+				<handler name="onswipe" args="s">
+					if (s.direction === 'up' || s.direction === 'down') {
+					    return;
+					}
+					this.animate('x', s.velocity, 500, true, {motion: 'easeout'});
+				</handler>
+
                 <!-- <view name="youarehere" options="ignorelayout">                    
                     <view resource="you_are_here_txt" align="left"/>
                     <view resource="you_are_here_mark" align="center"/>
                 </view>  -->
                 <!-- the buttons below youarehere -->
-                <view name="thebtns" x="${classroot.moreleft.x}">
+                <view name="thebtns" x="5">
                     <simplelayout axis="x" spacing="16"/>
                     <QuestionBarButton y="10">
 						<datapath xpath="runtime/item_model" pooling="true"/>
@@ -133,8 +143,7 @@
          <basebutton name="moreleft" resource="moreleft_btn" 
                 x="${parent.x + parent.morefastleft.width}"
                 y="$once{classroot.SCROLL_Y}"
-                visible="${classroot.isscrolling &amp;&amp; 
-                           classroot.qbtns.scrollcontainer.x &lt; 0}">
+                visible="false">
             <!-- align="left" valign="bottom"-->
             <attribute name="doscrolldel" value="$once {new lz.Delegate (this, 'doScroll')}"/>
 
@@ -153,8 +162,7 @@
         <!-- add speed button left in nav bottom bar -->
 		<basebutton name="morefastleft" resource="morefastleft_btn" 
                     y="$once{classroot.SCROLL_Y}" x="${parent.x}"
-                    visible="${classroot.isscrolling &amp;&amp; 
-                               classroot.qbtns.scrollcontainer.x &lt; 0}">
+                    visible="false">
             <attribute name="doscrolldel" value="$once {new lz.Delegate(this, 'doScroll')}"/>
 
             <handler name="onmousedown">
@@ -171,9 +179,7 @@
         
         <basebutton name="moreright" resource="moreright_btn" 
                     y="$once{classroot.SCROLL_Y}" x="${parent.morefastright.x - this.width}"
-                    visible="${classroot.isscrolling &amp;&amp;
-                               classroot.qbtns.scrollcontainer.x &gt; classroot.maxscrollleft &amp;&amp;
-                               !classroot.justSelectedLastItem}">
+                    visible="false">
             <!-- align="right" -->
             <attribute name="doscrolldel" 
                        value="$once {new lz.Delegate (this, 'doScroll')}"/>
@@ -193,9 +199,7 @@
         <!-- add speed button right in nav bottomm bar -->
 		<basebutton name="morefastright" resource="morefastright_btn" 
                     y="$once{classroot.SCROLL_Y}" x="${parent.width - Math.round(this.width) - classroot.RIGHT_BUTTONS_OFFSET}"
-                    visible="${classroot.isscrolling &amp;&amp;
-                               classroot.qbtns.scrollcontainer.x &gt; classroot.maxscrollleft &amp;&amp;
-                               !classroot.justSelectedLastItem}">
+                    visible="false">
             <attribute name="doscrolldel" 
                        value="$once {new lz.Delegate (this, 'doScroll')}"/>
 
