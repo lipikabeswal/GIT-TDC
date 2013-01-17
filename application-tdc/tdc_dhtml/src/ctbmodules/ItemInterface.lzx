@@ -107,12 +107,22 @@
                 </view>
                  
             </view>-->
-			
-            <view height="61" width="100%" bgcolor="0x6691B4">
-                <ManipulativeBar x="7" id="gManipulativeBar" height="40" y="11"/>
-                <TimeStatus x="${gLogo.x-gLogo.width-10}" y="-11"/>
-                <view id="gLogo" x="690" y="11"/>
-            </view>
+			<view bgcolor="0x6691B4" height="61">
+	            <view x="7" width="${gHeader.width-(Number(parent.timeStatus.width)+Number(gLogo.width))}" clip="true">
+					<ManipulativeBar id="gManipulativeBar" height="40" y="11"
+	                				with="swipegesture, touchevents, maniplimitx" clickable="true">
+	                	<handler name="onswipe" args="s">
+							console.log("onswipe of manip bar "+s);
+							if (s.direction === 'up' || s.direction === 'down') {
+							    return;
+							}
+							this.animate('x', s.velocity, 500, true, {motion: 'easeout'});
+						</handler>			
+	                </ManipulativeBar>
+	            </view>
+				<TimeStatus  name="timeStatus" x="${gLogo.x-gLogo.width-10}" y="-11" />
+	            <view  id="gLogo" x="690" y="11" />
+			</view>
 			<view name="showHd" resource="header_btn" x="-3.5" width="${classroot.main.header.width+6.5}" height="30" y="56" stretches="both" visible="true">
                 <view fgcolor="white" width="100%" valign="middle">
 					<text datapath="dssubtest:/subtest/sco/@title" resize="true" x="5" fontsize="15" fontstyle="bold"/>
@@ -153,7 +163,7 @@
                           datapath="dsitem:/element_package/item_canvas"
                           bgcolor="${gController.questionBgColor}">
 				</Question>
-				<Manipulatives id="gManipulatives" width="100%" height="100%" options="releasetolayout"/>
+				<Manipulatives y="80" id="gManipulatives" width="100%" height="540" options="releasetolayout"/>
                 <Tooltip id="gTooltip" options="ignorelayout"/>
                 <!--<view bgcolor="0xFFFFCC" width="100%" height="6" valign="bottom"/>-->
             </view>

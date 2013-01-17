@@ -5,6 +5,7 @@
     <include href="lz/slider.lzx"/>
    <include href="ScratchpadButton.lzx"/>
 	<include href="radioButton/radio.lzx"/>
+	<include href="volume_slider/volumeSlider.lzx"/>
 
     <class name="ManipulativeBar" bgcolor="0x6691B4"
            datapath="dsstudentdata:/testing_client_model/current_item/item_model">
@@ -14,6 +15,10 @@
 		<attribute name="hasResponseArea" type="boolean" value="true" />
 		<attribute name="hasMagnifyingGlass"  value="$path{'manipulatives/global/@magnifying_glass'}" />
 		<attribute name="speedSelected"/>
+		<attribute name="magnifyingGlass_isswiped" type="boolean" value="false"/>
+		<attribute name="maskingAnswer_isswiped" type="boolean" value="false"/>
+		<attribute name="stopreader_isswiped" type="boolean" value="false"/>
+		
 		<simplelayout axis="x"></simplelayout>
 
 		<handler name="ondata" args="data">
@@ -48,7 +53,7 @@
 			<!-- Magnifier Glass Button -->
 			<attribute name="magnifierOpen" type="boolean" value="false"/>
 			<view name="magnifyingGlassContainer">
-				<view name="magnifyingGlass"
+				<view name="magnifyingGlass" with="swipegesture, touchevents"
 					visible="${gController.magnifierVisible}"
 					resource="toolbar_magnifying_glass_btn" valign="middle" 
 					stretches="both" height="40" width="37">
@@ -72,14 +77,26 @@
 						</handler>
 	
 					<handler name="onclick">
-							lz.Timer.removeTimer (this.tooltipdel);
-							if(gMagnifyingGlass.magnifierOpen==true || gMagnifyingGlass.magnifierOpen=='true' || gMagnifyingGlass.magnifierOpen=="true"){
-								setup();
-							} else {
-								hide();
-							}
-							
-						</handler>
+						if(classroot.magnifyingGlass_isswiped == true) {
+							classroot.magnifyingGlass_isswiped = false;
+							return;
+					    }
+						lz.Timer.removeTimer (this.tooltipdel);
+						if(gMagnifyingGlass.magnifierOpen==true || gMagnifyingGlass.magnifierOpen=='true' || gMagnifyingGlass.magnifierOpen=="true"){
+							show();
+						} else {
+							hide();
+						}
+						
+					</handler>
+						
+					<handler name="onswipe" args="s">
+						if (s.direction === 'up' || s.direction === 'down') {
+						    return;
+						}
+						classroot.magnifyingGlass_isswiped = true;
+						gManipulativeBar.animate('x', s.velocity, 500, true, {motion: 'easeout'});
+					</handler>
 	
 					<method name="showTooltip">
 							gTooltip.showTooltip ('Magnifying Glass');
@@ -120,7 +137,7 @@
 			</view>        
 	         
 			<view name="maskingAnswerContainer">                   
-		         <view name="maskingAnswer"
+		         <view name="maskingAnswer" with="swipegesture, touchevents"
 					visible="${gController.showMaskingAnswerPopUp}"
 					resource="toolbar_msaking_choice_btn" valign="middle" 
 					stretches="both" height="40" width="37">
@@ -150,6 +167,10 @@
 						</handler>
 	
 					<handler name="onclick">
+						if(classroot.maskingAnswer_isswiped == true) {
+							classroot.maskingAnswer_isswiped = false;
+							return;
+					    }
 						Debug.write("onclick masking answer x" , this.x, gManipulatives.y, gManipulativeBar.x);
 							lz.Timer.removeTimer (this.tooltipdel);
 							if(gMaskingAnswer.visible){
@@ -158,6 +179,14 @@
 								show();
 							}
 						</handler>
+					
+					<handler name="onswipe" args="s">
+						if (s.direction === 'up' || s.direction === 'down') {
+						    return;
+						}
+						classroot.maskingAnswer_isswiped = true;
+						gManipulativeBar.animate('x', s.velocity, 500, true, {motion: 'easeout'});
+					</handler>
 	
 					<method name="showTooltip">
 							gTooltip.showTooltip ('Masking Tool');
@@ -225,9 +254,9 @@
 		</view>
 		
 		<view name="screenreader" valign="middle" height="100%">
-		<!-- <simplelayout axis="x" spacing="2"></simplelayout> -->
+		<!-- <simplelayout axis="x" spacing="16">  -->
 			<basebutton name="stopreader" stretches="both" height="40" width="37"
-		                resource="toolbar_stopreader_btn"
+		                resource="toolbar_stopreader_btn" with="swipegesture, touchevents"
 		                visible="${canvas.readable}" valign="middle">
 		
 				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
@@ -242,8 +271,20 @@
 				</handler>
 		
 				<handler name="onclick">
+					if(classroot.stopreader_isswiped == true) {
+						classroot.stopreader_isswiped = false;
+						return;
+				    }
 					lz.Timer.removeTimer (this.tooltipdel);
 					gReadableText.stopReading(false);
+				</handler>
+				
+				<handler name="onswipe" args="s">
+					if (s.direction === 'up' || s.direction === 'down') {
+					    return;
+					}
+					classroot.stopreader_isswiped = true;
+					gManipulativeBar.animate('x', s.velocity, 500, true, {motion: 'easeout'});
 				</handler>
 		
 				<method name="showTooltip">
@@ -260,6 +301,11 @@
 					}
 				</handler>
 			</view>
+			
+			<view name="gap3" x="${parent.stopreader.x+parent.stopreader.width}" width="16" valign="middle" visible="${parent.stopreader.visible}"/>
+			
+			<volumeSlider name="volumeController" height="51" x="${parent.gap3.x+16}"
+						  valign="middle" visible="${parent.stopreader.visible}"/>
 			
 			<!--Changes done for defect #65040 and #65041-->
 			<view name="volumeController" height="31" valign="middle" visible="false"

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- X_LZ_COPYRIGHT_BEGIN ************************************************
+* Copyright 2006, 2009 Laszlo Systems, Inc.  All Rights Reserved.              *
+* Use is subject to license terms.                                       *
+* X_LZ_COPYRIGHT_END ************************************************** -->
+<!--
+    vertical slider contributed by Sebastian Wagner
+-->
+<library>
+  
+  <class name="vslidertrack" extends="view" bgcolor="0x000000">
+        <view width="${ parent.width-2}" height="${ parent.height-2 }" 
+          x="1" y="1" bgcolor="0xFFFFFF"/>
+        <view width="${ parent.width-2}" bgcolor="0xCCCCCC"
+          x="1" y="${ (this.parent.parent.switchaxis) ? 
+                parent.parent._sliderthumb.y : 1 }" 
+          visible="${ parent.parent.showrange }" 
+          height="${ (this.parent.parent.switchaxis) ? 
+        (parent.parent._vslidertrack.height - parent.parent._sliderthumb.y-1) : 
+        parent.parent._sliderthumb.y }" />
+  </class>
+  
+  <class name="vsliderthumb" extends="mybutton"
+        height="20" width="20">
+        <attribute name="drag_min" value="0" type="number" />
+        <attribute name="showvalue" type="boolean" value="true" />
+        <attribute name="drag_max" value="0" type="number" />
+        <handler name="oninit">
+                //Setting the initVal
+                this.setAttribute('y', getPosFromValue(this.parent.initvalue));
+        </handler>
+        
+        <method name="getValueFromPos">
+                var delta1 = this.parent.maxvalue-this.parent.minvalue;
+                var perc = (this.parent.switchaxis) ? 1-(y / (this.parent.height-this.height)) : (y / (this.parent.height-this.height));
+                //Debug.write(delta1,perc);
+                return (Math.round(perc*delta1))+this.parent.minvalue;
+        </method>
+        
+        <method name="getPosFromValue" args="val">
+                var perc = (val-this.parent.minvalue) / (this.parent.maxvalue-this.parent.minvalue);
+                //Debug.write(perc);
+                var valY = (this.parent.switchaxis) ? ( (1-perc) * (this.parent.height-this.height)) : (perc * (this.parent.height-this.height));
+                //Debug.write("valY: ",Math.round(valY));
+                return Math.round(valY);
+        </method>
+        
+        <setter name="y" args="v"><![CDATA[
+                super.setAttribute('y', v);
+                var thumbVal = getValueFromPos();
+                if (thumbVal != parent.value) {
+                        if(dragger.applied) {
+				this.parent.setValue(thumbVal);
+			}else{
+				this.parent.value = thumbVal;
+			}	
+                }               
+        ]]></setter>
+<!--
+	 <method name="setY" args="y">
+	 ////console.log("setY....", y);
+	    var boundedy = y;
+	    if ( y > parent.height - this.height ) {
+	      var constrainY = parent.height - this.height;
+	      boundedy = constrainY;
+	    }/* else
+	    if (parent.y > y) {
+	      boundedy =  parent.y;
+	    }*/
+//////console.log("boundedy....", boundedy);
+
+	    this.setAttribute("y", boundedy);
+
+	    //update slider value
+	    var perc = ( (y) / (parent.height - height) );
+	    var val = Math.round( ( (perc)*(parent.maxvalue - parent.minvalue) )
+				  + parseInt(parent.minvalue) );
+	    //only adjust value if user is dragging or left or right key is pressed
+	    if (dragger.isapplied) {
+	      parent.setValue(val);
+	    }
+	  </method>
+-->
+    <dragstate name="dragger" drag_axis="y"
+        drag_min_y="${ this.drag_min }"  
+        drag_max_y="${ this.drag_max }">
+            <text name="t1" x="-24" text="${ this.parent.parent.value }" visible="${this.parent.parent.showcurrentvalue}" y="-4" resize="true" />
+    </dragstate>
+
+	<handler name="onmousedown"><![CDATA[	
+		dragger.setAttribute('applied', true);
+	]]></handler>
+	
+	<handler name="onmouseup"><![CDATA[
+		dragger.setAttribute('applied', false);
+		
+		if(this.parent.sticktostepvalue) {
+			
+			var percentage = this.parent.value/ this.parent.maxvalue * 100;
+			var increment = this.parent.maxvalue / 	this.parent.stickystepsize;
+			var currincre = this.parent.value / this.parent.stickystepsize;
+				
+			//////console.log("percentage....."+percentage);
+			
+
+			if(percentage >= 0 && percentage < 25 ) {
+				this.parent.setValue(0);
+			}
+			else if(percentage > 25 && percentage < 75 ){
+				this.parent.setValue(this.parent.maxvalue / 2);
+			}
+			else {
+				this.parent.setValue(this.parent.maxvalue);
+			}
+		}
+	]]></handler>
+  </class>
+
+  <class name="vslider" extends="view" >
+        <!--- Minimum Value -->
+        <attribute name="minvalue" type="number" value="0"/>
+        
+        <!--- Maximum Value -->
+        <attribute name="maxvalue" type="number" value="100"/>
+        
+        <!--- Showrange should the slidertrack be with color while 'sliding' -->
+        <attribute name="showrange" type="boolean" value="true"/>
+        
+        <!--- showvalue should the slider show the numbers of min/max -->
+        <attribute name="showvalue" type="boolean" value="true"/>
+        
+        <!--- switchaxis true means minimum-value is 
+                t op maximum is bottom false turns around -->
+        <attribute name="switchaxis" type="boolean" value="true"/>
+        
+        <!-- Initial Value -->
+        <attribute name="initvalue" value="0" type="number" />          
+
+        <!-- show or hide current Value -->
+        <attribute name="showcurrentvalue" type="boolean" value="true" />          
+
+        <!-- if true, the thumb will start sticking to the defined step size locations,
+	when mouse is released	-->
+        <attribute name="sticktostepvalue" type="boolean" value="false" />          
+
+        <!-- sticky -->
+        <attribute name="stickystepsize" type="number" value="3" />          
+
+    <!--- @keywords private -->
+    <event name="onvalue"/>
+        
+    <!--- @keywords private -->
+    <attribute name="value" value="0" setter="setValue(value)"/>
+    <method name="setValue" args="v">
+        if (!isinited) {
+          this.value = v;
+          return;
+        }
+        if (this.value == v) return;
+        this.value = v;
+        if (onvalue) onvalue.sendEvent(v);
+	_adjustThumb();
+    </method>
+
+	 <!--- Set the value by percentage of range from min to max.
+	@param Number p: a percentage between the min and the max. -->
+	<method name="setPercentage" args="p">
+		var diff = this.minvalue - this.maxvalue;
+		this.setValue( diff*p + this.minValue );
+	</method>
+
+	  <!--- Get the percentage of the range selected by the value.
+		@return Number: the percentage selected. -->
+	  <method name="getPercentage">
+	    return (this.value - this.minvalue) / (this.maxvalue - this.minvalue);
+	  </method>
+
+	  <!--- adjusts the thumb location
+		@keywords private -->
+	  <method name="_adjustThumb">
+	    var perc = getPercentage();
+	    var y = Math.round( (this.height - _sliderthumb.height)*perc );
+	    _sliderthumb.setAttribute('y',this.height - _sliderthumb.height - y);
+	  </method>
+
+
+        <vslidertrack name="_vslidertrack" align="center" 
+        width="10" height="${ parent.height }" />
+        <vsliderthumb name="_sliderthumb" 
+        drag_max="${ parent.height-this.height }" 
+        showvalue="${ parent.showvalue }" />
+        
+        <text text="${ ( (this.parent.switchaxis) ? 
+                this.parent.maxvalue : this.parent.minvalue ) }" 
+        visible="${ parent.showvalue }" 
+        y="-8" align="center"/>
+        
+        <text text="${ ( (this.parent.switchaxis) ? 
+                this.parent.minvalue : this.parent.maxvalue ) }" 
+          visible="${ parent.showvalue }" 
+          y="${ this.parent.height-10 }" 
+          x="${ this.parent._vslidertrack.width+10 }" />
+  </class>
+  
+     <!-- first create the multi-frame resource and give it a name -->
+      <resource name="mybutton_rsrc">
+       <!-- first frame MUST be the mouseup state of the button -->  
+	<frame src="button-up.png"/>
+	<!-- second frame MUST be the mouseover state of the button -->
+	<frame src="button-over.png"/>
+	<!-- third frame MUST be the mousedown state of the button -->
+	<frame src="button-down.png"/>
+      </resource>
+      
+      <!-- Second, assign the resource to a basebutton tag -->
+      <class name="mybutton" extends="basebutton" stretches="both" resource="mybutton_rsrc" />
+
+</library>

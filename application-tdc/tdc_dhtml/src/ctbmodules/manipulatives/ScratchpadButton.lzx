@@ -1,6 +1,6 @@
 <library>
 
-    <class name="ScratchpadButton">
+    <class name="ScratchpadButton" with="swipegesture, touchevents">
         <datapath/>
 
         <attribute name="toolid" type="string"/>
@@ -10,6 +10,7 @@
 		<attribute name="scratchpadOpen" type="boolean" value="${gController.scratchpadOpen}" />
         <attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
         <attribute name="btnResource" type="string"/>
+        <attribute name="isswiped" type="boolean" value="false"/>
 
         <handler name="oninit">
             this.datapath.setXPath ('@' + this.toolid);
@@ -62,12 +63,24 @@
 	        ]]></handler>
 	
 	        <handler name="onclick">
+	        	if(classroot.isswiped == true) {
+					classroot.isswiped = false;
+					return;
+			    }
 	            if (classroot.isenabled) {
 	                gController.setManipulativeSelState (classroot.toolid, 
 	                                                         classroot.isselected ? 'up' : 'sel');
 	            }
 	            lz.Timer.removeTimer (classroot.tooltipdel);
 	        </handler>
+	        
+	        <handler name="onswipe" args="s">
+				if (s.direction === 'up' || s.direction === 'down') {
+				    return;
+				}
+				classroot.isswiped = true;
+				gManipulativeBar.animate('x', s.velocity, 500, true, {motion: 'easeout'});
+			</handler>
 	
 	        <method name="showTooltip">
 	            gTooltip.showTooltip (classroot.tooltip);

@@ -1,6 +1,6 @@
 <library>
 
-    <class name="ManipulativeButton">
+    <class name="ManipulativeButton" with="swipegesture, touchevents">
         <datapath/>
 
         <attribute name="toolid" type="string"/>
@@ -8,6 +8,7 @@
         <attribute name="isselected" value="false"/>
         <attribute name="tooltip" type="string"/>
 		<attribute name="btnResource" type="string"/>
+		<attribute name="isswiped" type="boolean" value="false"/>	
 
         <attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
 
@@ -38,6 +39,23 @@
             }
             
         ]]></handler>
+
+		<handler name="onclick">
+			console.log("onclick of manip "+this.isswiped);
+        	if(this.isswiped == true) {
+				this.isswiped = false;
+				return;
+		    }
+		</handler>
+
+		<handler name="onswipe" args="s">
+	       	console.log("onswipe of manip "+s);
+			if (s.direction === 'up' || s.direction === 'down') {
+			    return;
+			}
+			classroot.isswiped = true;
+			gManipulativeBar.animate('x', s.velocity, 500, true, {motion: 'easeout'});
+		</handler>
         
         <view name="manipBtn" width="37" height="40" stretches="both" resource="${classroot.btnResource}">
 	        <handler name="onmouseover"><![CDATA[
@@ -58,7 +76,7 @@
 	            }
 	            lz.Timer.removeTimer (classroot.tooltipdel);
 	        </handler>
-	
+	        
 	        <method name="showTooltip">
 	            gTooltip.showTooltip (classroot.tooltip);
 	        </method>
