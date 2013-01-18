@@ -91,6 +91,10 @@
 		dragger.setAttribute('applied', true);
 	]]></handler>
 	
+	<handler name="oninit">
+		this.parent.setValue(this.parent.maxvalue / 2);
+	</handler>
+	
 	<handler name="onmouseup"><![CDATA[
 		dragger.setAttribute('applied', false);
 		
@@ -150,7 +154,7 @@
     <event name="onvalue"/>
         
     <!--- @keywords private -->
-    <attribute name="value" value="0" setter="setValue(value)"/>
+    <attribute name="value" value="50" setter="setValue(value)"/>
     <method name="setValue" args="v">
         if (!isinited) {
           this.value = v;
@@ -185,8 +189,8 @@
 
 
         <vslidertrack name="_vslidertrack" align="center" 
-        width="10" height="${ parent.height }" />
-        <vsliderthumb name="_sliderthumb" 
+        width="10" height="${ parent.height }" value="50"/>
+        <vsliderthumb name="_sliderthumb"
         drag_max="${ parent.height-this.height }" 
         showvalue="${ parent.showvalue }" />
         

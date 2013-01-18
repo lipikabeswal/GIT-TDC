@@ -170,8 +170,16 @@
                      iszoomin="false"/>
         <view name="scaler" clip="true" y="25" 
                   height="${parent.height-25}" width="${parent.width}"> 
-           <view name="stretcher" xscale="1" yscale="1"> 
+           <view name="stretcher" xscale="1" yscale="1"
+           		 with="swipegesture, touchevents, enlargePopupLimity" clickable="true"> 
                <Question name="scaled" doaccomlayout="false">
+           		 <handler name="onswipe" args="s">
+					if (s.direction === 'up' || s.direction === 'down') {
+					    this.animate('y', s.velocity, 500, true, {motion: 'easeout'});
+					}else{
+						return;
+					}
+				</handler>
                    <datapath/> 
                    <attribute name="enlarged" value="false"/>
                    <method name="calcSize"><![CDATA[

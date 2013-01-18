@@ -295,20 +295,27 @@
              ================================= -->
 
         <view name="wrapper" clip="true">
-            <view name="scrollcontainer"
+            <view name="scrollcontainer" id="basepanelScrollContainer"
                   width="${this.offsetwrapper.width &gt; parent.width
                          ? this.offsetwrapper.width : parent.width}"
                   height="${this.offsetwrapper.height &gt; parent.height || classroot.growtocontents
                           ? (Number(this.offsetwrapper.height) + 
                               (classroot.growtocontents &amp;&amp; classroot.comptype == gCompTypes.WIDGET_ANSWER_AREA_PANEL ? Number(this.offsetwrapper.contents.y) : Number(0))): 
                           parent.height}" 
-                          with="swipegesture, touchevents, panelLimity">
+                          with="swipegesture, touchevents, panelLimity" clickable="true">
                           
                      <handler name="onswipe" args="s">
-						if (s.direction === 'up' || s.direction === 'down') {
-						    this.animate('y', s.velocity, 500, true, {motion: 'easeout'});
+                     	console.log("onswipe of basecachable "+s);
+                     	if(this.highlighter.hlstatus.data != 'sel'){
+                     		this.setAttribute('clickable',true);
+							if (s.direction === 'up' || s.direction === 'down') {
+							    this.animate('y', s.velocity, 500, true, {motion: 'easeout'});
+							}else{
+								return;
+							}
 						}else{
 							return;
+							this.setAttribute('clickable',false);
 						}
 					</handler>
                 

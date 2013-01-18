@@ -51,7 +51,7 @@
 	            	gController.restoreCurrentCursor();
 	            	restoreFocusAndCursor();
 				}
-				else if (who == gPauseButton || who == gStopButton || who == gFinishTestButton){
+				else if (who == gPauseButton || who == gStopButton){
 					if(this.scratchpadJustLostFocus){
 						gController.setAttribute("focusOnScratchpad", true);
 					}

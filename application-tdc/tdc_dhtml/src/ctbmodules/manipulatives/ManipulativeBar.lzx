@@ -5,10 +5,10 @@
     <include href="lz/slider.lzx"/>
    <include href="ScratchpadButton.lzx"/>
 	<include href="radioButton/radio.lzx"/>
-	<include href="volume_slider/volumeSlider.lzx"/>
+	<include href="volume_slider/vslider.lzx"/>
 
     <class name="ManipulativeBar" bgcolor="0x6691B4"
-           datapath="dsstudentdata:/testing_client_model/current_item/item_model">
+           datapath="dsstudentdata:/testing_client_model/current_item/item_model" >
 
 		<attribute name="TYPE_SPACING" type="number" value="15" />
 		<attribute name="theme" type="boolean" value="$path{'@theme'}" />
@@ -18,6 +18,7 @@
 		<attribute name="magnifyingGlass_isswiped" type="boolean" value="false"/>
 		<attribute name="maskingAnswer_isswiped" type="boolean" value="false"/>
 		<attribute name="stopreader_isswiped" type="boolean" value="false"/>
+		<attribute name="selectedSpeedVal" type="string" value="M"/>
 		
 		<simplelayout axis="x"></simplelayout>
 
@@ -26,9 +27,9 @@
 				this.setAttribute("hasResponseArea", gController.applyManipulative());
 			}
 			this.globals.magnifyingGlassContainer.magnifyingGlass.setAttribute('frame', 1);
-			this.setAttribute('speedSelected',this.speedController.value);
+			this.setAttribute('speedSelected',this.selectedSpeedVal);
 		</handler>
-
+		
 		<view datapath="manipulatives/global" name="globals" valign="middle" visible="${!classroot.theme || (classroot.theme &amp;&amp; classroot.hasResponseArea)}">
 			<handler name="ondata" args="data">
 			//Debug.write("On data global",data);
@@ -303,114 +304,78 @@
 			</view>
 			
 			<view name="gap3" x="${parent.stopreader.x+parent.stopreader.width}" width="16" valign="middle" visible="${parent.stopreader.visible}"/>
-			
-			<volumeSlider name="volumeController" height="51" x="${parent.gap3.x+16}"
-						  valign="middle" visible="${parent.stopreader.visible}"/>
-			
-			<!--Changes done for defect #65040 and #65041-->
-			<view name="volumeController" height="31" valign="middle" visible="false"
-					bgcolor="0xdfdfdf">
-			<simplelayout axis="y"/>
-				
-				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
-		
-				<handler name="onmouseover">
-					lz.Timer.addTimer (tooltipdel, 500);
-				</handler>
-		                
-				<handler name="onmouseout">
-					gTooltip.hideTooltip ();    
-					lz.Timer.removeTimer (this.tooltipdel);
-				</handler>
-		
-				<handler name="onclick">
-					lz.Timer.removeTimer (this.tooltipdel);
-					<!-- gReadableText.stopReading(); -->
-				</handler>
-		
-				<method name="showTooltip">
-					gTooltip.showTooltip ('Volume Control');
-				</method>
-	
-				<text name="volumeText" fontsize="9" resize="true" height="15" align="center" fontstyle="bold">Volume</text>
-		
-				<!-- The tool to control the TTS volume -->
-				<!--START Changes done for defect #65040 and #65041-->
-				<slider name="volumeControl" value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" 
-						thumbwidth="16" thumbheight="12" width="80">
+			<!-- The tool to control the TTS volume -->
+			<view name="volumeController" height="60" x="${parent.gap3.x+parent.gap3.width}"
+				  visible="${parent.stopreader.visible}" y="${this.y-7}">
+						  
+				<simplelayout axis="y" spacing="2"/>
+					<text name="volumeText" fontsize="9" height="10" fontstyle="bold">Volume</text>
+					<vslider id="volumeControl"
+						height="40" 
+						showvalue="false"
+						showcurrentvalue="true"
+						minvalue="0"
+						maxvalue="100"
+						showrange="false" 
+						showfill="true"
+						align="center">
 						
-						<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
-	
-				<!-- When canvas's accessible attribute is true, the text "undefined" comes over the slider thumb, 
-					 workaround is done in this version(3.3.3). Probably, this was a bug which is fixed in newer versions. 
-					 This is cross checked with latest laszlo release(4.8)	--> 
-					<handler name="oninit"><![CDATA[
-						//hide the text object displaying "undefined" text
-						this.subviews[0].subviews[2].subviews[3].setAttribute('visible',false);
-	
-						registerThumb(this.track.thumb);
-					]]></handler>
-					
-					<!-- since, the thumb is inside the slider class we have to register delegates from outside-->
-					<method name="registerThumb" args="b"> 
-	
-				        if( typeof this.delOver == "undefined" )  {
-				            this.delOver = new lz.Delegate( this, "mouseover" );
-							this.delOut = new lz.Delegate( this, "mouseout" );
-							this.delClick = new lz.Delegate( this, "click" );
-							this.tooltipdel = new lz.Delegate( this, "showTooltip" );
-				        }      
-				
-				        this.delOver.register( b, "onmouseover" );
-						this.delOut.register( b, "onmouseout" );
-						this.delClick.register( b, "onclick" );
-				    </method> 
-	
-					<method name="mouseover">
-						lz.Timer.addTimer (tooltipdel, 500);
-					</method>
-			                
-					<method name="mouseout">
-						gTooltip.hideTooltip ();    
-						lz.Timer.removeTimer (this.tooltipdel);
-					</method>
+						<handler name="onvisible">
+							this.setValue(50);
+						</handler>
 			
-					<method name="click">
-						lz.Timer.removeTimer (this.tooltipdel);
-						<!-- gReadableText.stopReading(); -->
-					</method>
-				<!--END Changes done for defect #65040 and #65041-->
-					
-					<method name="showTooltip">
-						gTooltip.showTooltip ('Volume Control');
-					</method>
-		
-					<handler name="onvalue"><![CDATA[
-						gReadableText.audioPlayer.setVolume(this.value);
-					]]></handler>
-				</slider>
-				
+						<handler name="onvalue" args="v">
+							var s = "sendRequest('setVolume','"+v+"','"+gReadableText.speechAction+"')";
+							lz.Browser.loadJS(s);
+						</handler>
+					</vslider>
 			</view>
+			
+			<view name="gap4" x="${parent.volumeController.x+parent.volumeController.width}" width="16" valign="middle" visible="${parent.volumeController.visible}"/>
 
+			<!-- The tool to control the TTS speed -->
+			<view name="speedController" height="60" x="${parent.gap4.x+parent.gap4.width}" y="${parent.volumeController.y}"
+						  valign="middle" visible="${gController.hasTTSspeed &amp;&amp; parent.stopreader.visible}">
+				<simplelayout axis="y" spacing="2"/>
+					<text name="speedControllerText" fontsize="9" height="10" fontstyle="bold">Speed</text>
+					<vslider id="speedControl"
+						height="40" 
+						showvalue="false"
+						showcurrentvalue="true"
+						minvalue="0"
+						maxvalue="100"
+						sticktostepvalue="true"
+						showrange="false" 
+						showfill="true"
+						align="center">
+						
+						<handler name="onvisible">
+							this.setValue(50);
+						</handler>
+			
+						<handler name="onvalue" args="v"><![CDATA[
+							if(v==0 ) {
+								classroot.setAttribute('selectedSpeedVal','S');
+							}
+							else if(v==50 ){
+								classroot.setAttribute('selectedSpeedVal','M');
+							}
+							else if(v==100 ){
+								classroot.setAttribute('selectedSpeedVal','F');
+							}
+							if(classroot.speedSelected != classroot.selectedSpeedVal){
+								if(gReadableText.isplaying && gReadableText.isReadable && 
+									gReadableText.clickable && gReadableText.currentText.length > 0) {
+			
+								gReadableText.read(gReadableText.currentText,false);
+								}
+							}]]>
+						</handler>
+					
+					</vslider>
+			</view>
+			
 		</view>
-		<!-- The tool to control the TTS speed -->
-			 <radiogroup_new visible="false" name="speedController" height="20" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
-				<datapath xpath="dslogin:/login_response/@tts_speed_value"></datapath>
-				<radiobutton value="'S'" text="Slow " height="15" valign="middle"/>
-				<radiobutton value="'M'" text="Medium " height="15" valign="middle" selected="true" />
-				<radiobutton value="'F'" text="Fast " height="15" valign="middle"/>
-
-				<handler name="onselect"><![CDATA[
-					if(classroot.speedSelected != this.value){
-						if(gReadableText.isplaying && gReadableText.isReadable && 
-							gReadableText.clickable && gReadableText.currentText.length > 0) {
-	
-						gReadableText.read(gReadableText.currentText,false);
-						}
-					}
-				]]></handler>
-			</radiogroup_new>		
-
 		
     </class>
 

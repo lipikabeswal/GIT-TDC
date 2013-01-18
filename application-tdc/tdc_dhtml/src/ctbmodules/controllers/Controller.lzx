@@ -1131,29 +1131,20 @@
 				var dpspeed = new lz.datapointer();
 				dpspeed.setXPath("dslogin://login_response");
 				this.hasTTSspeed = dpspeed.data.hasAttr("tts_speed_value");
-				
+				volumeControl.setValue(50);
+				speedControl.setValue(50);
 			}
 			//Debug.write("loginResponse completed:",dslogin);
 		]]></method>
 
 		<method name="setShowHighlighter">
 			var sh = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@highlighter');
-			if(sh == "true") {
-				this.setAttribute('showHighlighter', true);
-			} else {
-				this.setAttribute('showHighlighter', false);
-			}
-			//this.setAttribute('showHighlighter', (sh != false));
+			this.setAttribute('showHighlighter', (sh != false));
 		</method>
 
 		<method name="setShowMaskingRuler">
 			var smr = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@masking_ruler');
-			if(smr == "true") {
-				this.setAttribute('showMaskingRuler', true);
-			} else {
-				this.setAttribute('showMaskingRuler', false);
-			}
-			//this.setAttribute('showMaskingRuler', (smr != false));
+			this.setAttribute('showMaskingRuler', (smr != false));
 		</method>
 
 		<method name="setShowMagnifyingGlass">
@@ -2219,7 +2210,6 @@
 			var eid = loadNode.getAttr('id');
 			var answers = dpstudentdata.xpathQuery( "runtime/item_model [@eid = '"+eid+"']/@answer_text");
 			var node = lz.DataElement.stringToLzData(unescape(answers));
-			var idPresent = widgetId.split("$");
 			//Debug.write("getAnswerForInputWidgetId node", node);
             if (node) {
                node.setAttribute('ownerDocument',dstemp);
@@ -2229,17 +2219,6 @@
 			  result = dp.xpathQuery("dstemp://answers/answer[@id = '"+widgetId+"']/text()");
 			//Debug.write("getAnswerForInputWidgetId result: " , result);
                dstemp.removeChild(node);
-               if(idPresent.length > 1) {
-                    var idVal = idPresent[0];
-					var idPresenceCheck = result.split(idVal+":");
-					if(idPresenceCheck.length > 1) {
-                          var tempResult = "";
-							for(var k = 1; k < idPresenceCheck.length; k++) {
-								tempResult = tempResult + idPresenceCheck[k];
-							}
-							result = tempResult;
-                       }
-                  }
             }
 			
 			return result;
@@ -4413,24 +4392,13 @@ Debug.write("############ loadItem ############");
 		<method name="updateCrItemNode"><![CDATA[
 			if(isCrItem()){
             	var xmls = "<answers>";
-            	var idArrtVal = "";
             	for (var i = 0; i < this.crFields.length; i++) {
-            		var currentFieldId = this.crFields[i]['widget_id'];
-					var currentFieldIdArray = currentFieldId.split("$");
-					if(currentFieldIdArray.length > 1) {
-						idArrtVal = currentFieldIdArray[0];
-					} else {
-						idArrtVal = "";
-					}
                 	xmls = xmls.concat("<answer id=" + "\"" + this.crFields[i]['widget_id'] + "\""+ ">");
                 	if(!crFields[i]['answered']){
                    		xmls = xmls.concat("</answer>");
                    	}
                 	else{
-                		if(idArrtVal == "")
-                   			xmls = xmls.concat(wrapInCdata(this.crFields[i]['answer']) + "</answer>");
-						else
-							xmls = xmls.concat(wrapInCdata(idArrtVal + ":" + this.crFields[i]['answer']) + "</answer>");
+                   		xmls = xmls.concat(wrapInCdata(this.crFields[i]['answer']) + "</answer>");
                    	}
             	}
             	xmls = xmls.concat("</answers>");

@@ -119,13 +119,13 @@
         <method name="doRead" args="txt"><![CDATA[
 			this.currentText = txt;//TTS CR
         	//Changes for Defect # 65040
-        	this.audioPlayer.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
+        	//this.audioPlayer.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
 			lz.Timer.resetTimer(this.dTimeout, TIMEOUT_INTERVAL);
  	    	//stopReading();
  	        speechDs.setQueryParam(TEXT_PARAM, txt);
  	        //TTS CR
  	        if(gController.hasTTSspeed) {
- 	        	var smf = gManipulativeBar.speedController.value;  //SMF => Slow, Medium, Fast
+ 	        	var smf = gManipulativeBar.selectedSpeedVal  //SMF => Slow, Medium, Fast
  	        	var speedValue = getSpeedNumber(smf);
  	        	speechDs.setQueryParam(SPEED_PARAM, speedValue);
  	        }
@@ -218,7 +218,7 @@
         	<handler name="onload">
         		gReadableText.isplaying = true; // TTS CR:when mp3 is loaded and ready to play
 				//Changes for Defect # 65040
- 				this.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
+ 				//this.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
  				
 				if(gController.isWaitPopupOpen) {
 					gReadableText.speechRequestSent = false;

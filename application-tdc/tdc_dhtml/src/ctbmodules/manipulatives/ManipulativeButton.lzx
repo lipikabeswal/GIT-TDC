@@ -69,12 +69,26 @@
 	            lz.Timer.removeTimer (classroot.tooltipdel);
 	        ]]></handler>
 	
-	        <handler name="onclick">
+	        <handler name="onclick"><![CDATA[
 	            if (classroot.isenabled) {
 	                gController.setManipulativeSelState (classroot.toolid, 
 	                                                         classroot.isselected ? 'up' : 'sel');
+	                console.log("classroot.isselected "+classroot.isselected);
+	                console.log("classroot.toolid "+classroot.toolid);                                         
+	                /*if(!classroot.isselected && classroot.toolid=='highlighter'){
+		            	scrollTextArea.setAttribute('clickable',false);
+		            	scrollTextArea.setAttribute('with',"");
+		            	basepanelScrollContainer.setAttribute('clickable',false);
+		            	basepanelScrollContainer.setAttribute('with',"");
+		            }else {
+		            	scrollTextArea.setAttribute('clickable',true);
+		            	scrollTextArea.setAttribute('with',"swipegesture, touchevents, scrollTextLimity");
+		            	basepanelScrollContainer.setAttribute('clickable',true);
+		            	basepanelScrollContainer.setAttribute('with',"swipegesture, touchevents, panelLimity");
+		            }   */                                      
 	            }
 	            lz.Timer.removeTimer (classroot.tooltipdel);
+	            ]]>
 	        </handler>
 	        
 	        <method name="showTooltip">

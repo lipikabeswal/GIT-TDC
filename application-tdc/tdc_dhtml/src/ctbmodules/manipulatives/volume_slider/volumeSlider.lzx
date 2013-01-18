@@ -12,12 +12,14 @@
 					<vslider id="v"
 						height="40" 
 						showvalue="false"
-						showcurrentvalue="false"
+						showcurrentvalue="true"
 						minvalue="0"
-						maxvalue="50">
+						maxvalue="100"
+						showrange="false" 
+						showfill="true">
 			
 						<handler name="onvalue" args="v">
-							//////console.log("onvalue.....", v);
+							
 						</handler>
 					</vslider>
 				</view>
@@ -27,13 +29,14 @@
 					<vslider id="v1"
 						height="40" 
 						showvalue="false"
-						showcurrentvalue="false"
+						showcurrentvalue="true"
 						minvalue="0"
-						maxvalue="50"
-						sticktostepvalue="true">
+						maxvalue="100"
+						sticktostepvalue="true"
+						showrange="false" 
+						showfill="true">
 			
 						<handler name="onvalue" args="v">
-							//////console.log("onvalue.....", v);
 						</handler>
 					
 					</vslider>

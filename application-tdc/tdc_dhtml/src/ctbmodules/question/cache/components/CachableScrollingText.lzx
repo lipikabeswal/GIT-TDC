@@ -78,14 +78,21 @@
             <view name="textarea" options="releasetolayout"
                   height="100%" clip="true">
                 <resizelayout axis="x"/>
-                <view name="scrollarea" options="releasetolayout" 
-                	with="swipegesture, touchevents, scrollTextLimity">
-	                	<handler name="onswipe" args="s">
+                <view name="scrollarea" id="scrollTextArea" options="releasetolayout" 
+                	with="swipegesture, touchevents, scrollTextLimity" clickable="true">
+                	<handler name="onswipe" args="s">
+					console.log("hlstatus.data"+this.highlighter.hlstatus.data);
+					if(this.highlighter.hlstatus.data != 'sel'){
+						this.setAttribute('clickable',true);
 						if (s.direction === 'up' || s.direction === 'down') {
 						    this.animate('y', s.velocity, 500, true, {motion: 'easeout'});
 						}else{
 							return;
 						}
+					}else{
+						this.setAttribute('clickable',false);
+						return;
+					}	
 					</handler>
                     <view name="scrollcontents">
                         <DynamicSimplelayout name="dynlayout" axis="y"/>

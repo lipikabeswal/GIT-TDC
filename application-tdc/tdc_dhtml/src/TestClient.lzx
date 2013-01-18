@@ -63,6 +63,25 @@
            super.$lzc$set_y(y);
        </setter>
    </mixin>               
+   
+   <mixin name="enlargePopupLimity">
+       <attribute name="maxy" type="number" value="0"/>
+       <attribute name="miny" type="number" value="${(parent.height - parent.stretcher.height) > 0 ? 0 : parent.height - parent.stretcher.height}"/>
+       <handler name="onmaxy">
+       		console.log("onmaxy = "+maxy);
+       </handler>
+       <handler name="onminy">
+       		console.log("onminy = "+miny);
+       </handler>
+       <setter name="y" args="y">
+           if (y &lt; this.miny) {
+               y = miny;
+           } else if (y > this.maxy) {
+               y = maxy;
+           }
+           super.$lzc$set_y(y);
+       </setter>
+   </mixin>
 
 	<debug x="0" y="0" width="80%" height="400" />
 

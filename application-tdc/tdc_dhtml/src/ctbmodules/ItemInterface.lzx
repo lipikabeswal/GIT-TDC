@@ -123,7 +123,7 @@
 				<TimeStatus  name="timeStatus" x="${gLogo.x-gLogo.width-10}" y="-11" />
 	            <view  id="gLogo" x="690" y="11" />
 			</view>
-			<view name="showHd" resource="header_btn" x="-3.5" width="${classroot.main.header.width+6.5}" height="30" y="56" stretches="both" visible="true">
+			<view name="showHd" resource="header_btn" x="-3.5" width="${classroot.main.header.width+8.5}" height="30" y="56" stretches="both" visible="true">
                 <view fgcolor="white" width="100%" valign="middle">
 					<text datapath="dssubtest:/subtest/sco/@title" resize="true" x="5" fontsize="15" fontstyle="bold"/>
 					<text id="gItemInterfaceStudentName" resize="true" x="${this.x-5}" align="right" fontstyle="bold" fontsize="15" />
