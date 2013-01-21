@@ -157,8 +157,9 @@
 			<view name="rightLines"
 				  resource="rc_lines"
 				  stretches="width" />
-			<basebutton resource="ref_card_close_btn" height="${this.resourceheight + 1}">
+			<basebutton resource="ref_card_close_btn" height="${this.resourceheight + 1}" y="-4">
 				<handler name="onclick">
+					console.log("onclick****",this.resourceheight);
 			    	gController.setManipulativeSelState (classroot.toolid, 'up');
 			    </handler>
 			</basebutton>
