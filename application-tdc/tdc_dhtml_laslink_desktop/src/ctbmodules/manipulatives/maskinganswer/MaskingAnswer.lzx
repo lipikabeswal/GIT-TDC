@@ -46,8 +46,8 @@
 	<method name="setUpPopUp">
 		var selwidget = [];
 		var answidget = [];
-		this.setAttribute("x",gManipulativeBar.globals.maskingAnswerContainer.maskingAnswer.x);
-		this.setAttribute("y",gManipulativeBar.globals.maskingAnswerContainer.maskingAnswer.y + gManipulativeBar.globals.maskingAnswerContainer.maskingAnswer.height + 50);		
+		this.setAttribute("x",gManipulativeBar.globals.maskingAnswer.x);
+		this.setAttribute("y",gManipulativeBar.globals.maskingAnswer.y + gManipulativeBar.globals.maskingAnswer.height + 50);		
 		this.choicelen = gController.returnNumberOfOptions();
 		createChoices();
 
