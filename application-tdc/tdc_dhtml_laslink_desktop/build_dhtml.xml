@@ -6,6 +6,7 @@
 <property name="laszlo.proxied" value = "true"/>
 	<property name="TestClient.swf" value="${basedir}/src/TestClient.swf10.swf"/>
 	<property name="TestClient.lzx.js" value="${basedir}/src/TestClient.lzx.js"/>
+	<property name="laszlo.ctbmodules.dir" value="${basedir}/src/ctbmodules"/>
 
 <path id = "laszlo.lib">
    <pathelement location="${laszlo.home}/WEB-INF/lps/server/build" />
@@ -39,6 +40,12 @@
 		        </mapper>
 		    </move>
 			<delete file="${TestClient.js}"/>
+			<copy todir="../webapp/ctbmodules">
+	    		<fileset dir="${laszlo.ctbmodules.dir}">
+	    			<include name="**/*.png"/>
+	    			<include name="**/*.ttf"/>
+	    		</fileset>
+	    	</copy>
 		</target>
 	<target name = "build.TestClient.swf10">
 	    <java classname = "org.openlaszlo.compiler.Main" fork = "true"
