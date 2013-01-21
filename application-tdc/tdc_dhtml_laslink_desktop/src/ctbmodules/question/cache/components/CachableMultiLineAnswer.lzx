@@ -254,7 +254,7 @@
 				<view name="rich" bgcolor="${Number(gController.answerBgColor)}">
 				   <scrolledittext name="answer" 
 									 height="${classroot.showFormatBar ? classroot.height - classroot.outer.controls.height : classroot.height }" 
-									 width="${classroot.editTextWidth + 5}" >
+									 width="${classroot.editTextWidth + 5}" x="6">
 										<attribute name="start" type="number" value="0" />
 						<attribute name="start" type="number" value="0" />
 		            	<attribute name="end" type="number" value="0" />
