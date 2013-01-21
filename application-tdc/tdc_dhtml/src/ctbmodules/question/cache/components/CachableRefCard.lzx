@@ -25,69 +25,14 @@
         <attribute name="toolstate" value="$once{new lz.datapointer ()}"/>
 		<attribute name="visible" value="${(this.toolstate.data == 'sel') ? true : false}"/>
 
-		<handler name="onvisible" args="v"><![CDATA[
-		//To control the visibility according to the toolstate
-			if(this.toolstate.data != 'sel' && v) {
-				this.setVisible(false);
-			}
-			else
-			{
-				this.bringToFront();
-			}	
-		]]></handler>
-
-       <attribute name="retrycount" value="0"/>
-       <attribute name="timeoutretrycount" value="0"/>
-
-       <attribute name="retrycountForTitle" value="0"/>
-       <attribute name="timeoutretrycountForTitle" value="0"/>
-
-       <attribute name="servletBase" type="string" />
+		
+      
 
 		<!-- <datapath /> -->
 		<handler name="oninit"><![CDATA[
-		    var params = "";
-            if (typeof canvas.folder != "undefined") 
-               params = params.concat("&folder=" + canvas.folder);
-			else if (typeof canvas.user != "undefined") 
-               params = params.concat("&user=" + canvas.user);
-
-			if (params == "") {
-			   setAttribute('servletBase', lz.Browser.getInitArg( 'servletUrl' ) 
-					          + '/ContentServlet.do?method=getLocalResource&resourcePath=');
-			}
-            else {
-				
-			   setAttribute('servletBase', lz.Browser.getInitArg( 'servletUrl' ) 
-					          + '/ContentServlet.do?method=getLocalResource' + params
-							  + '&resourcePath=');
-			}
-            //Debug.write("XXX servletBase : " + servletBase);
-
+			
 		]]></handler>
 
-		<method name="getImageUrl" args="fileName"><![CDATA[
-			var trimmedFileName = trimFileName(fileName);
-			//var xml = gXmlHelper.getGetImageXml(fileName);
-			//var result = servletBase + xml;
-			var result = servletBase + trimmedFileName;
-			return result;
-		]]></method>
-		
-		<method name="trimFileName" args="fileName"><![CDATA[
-			var result = fileName == null ? "" : fileName;
-			if (fileName != null && fileName.indexOf('file:///') == 0) {
-				result = fileName.substring(8, fileName.length);
-			}
-			if (result.indexOf('~STG~local') == 0) {
-                var index = result.indexOf('/tmp');
-                if (index > 0) {
-                    result = result.substring(index, result.length);                
-                }
-			}
-			return result;
-		]]></method>
-		
 		<handler name="ondata">
 			this.toolstate.setAttribute ('rerunxpath', true);
             this.toolstate.setXPath (parent.datapath.xpath + '/@' + this.toolid);
@@ -101,59 +46,84 @@
                    drag_max_y="$once{parent.height - 100}"/>
 
         <handler name="ondata" args="data"><![CDATA[
-            this.setAttribute ('retrycount', 0);
-            this.setAttribute ('timeoutretrycount', 0);
-
-			this.setAttribute("height", null);
-			this.setAttribute("width", null);
-			this.refCardContents.contents.setAttribute("height", null);
-			this.refCardContents.contents.setAttribute("width", null);
+        	console.log("ondata****",data);
+            			
 			
-			var theSrc = null;
-			var theTitleSrc = null;
 
 			if(data != null && data.hasAttr('src')) {
-				theSrc = getImageUrl(data.getAttr('src'));
-				var title = String(data.getAttr('src'));
-				title = title.substr(0,title.length - 4)+'_title.swf';
-				theTitleSrc = getImageUrl(title);
+				var refsrc = String(data.getAttr('src'));
+				if(refsrc.indexOf('Istep') >= 0){
+					refCardContents.contents.setAttribute ('resource', 'ISTEP_refcard_contents');
+					title.real_title.setAttribute ('resource', 'ISTEP_refcard_title');
+				}
+			}
+
+			
+			
+			var scrollerWidth = refCardContents.scroller.width;
+			console.log("scrollerWidth****",scrollerWidth);
+			if(refCardContents.contents.resourceheight > this.innerHeight) {
+				this.scrolls = true;	
+			}
+			else {
+				this.scrolls = false;
 			}
 			
-			if(data != null && theSrc != null){
-                this.setAttribute ('refCardRsrc', theSrc);
-				this.setAttribute ('titleRsrc', theTitleSrc);
+        	if(!this.scrolls){
+				this.setAttribute('innerHeight', refCardContents.contents.resourceheight);
+        		scrollerWidth = 0; 
+        	}
+        	else {
+				this.setAttribute('innerHeight', this.defaultInnerHeight);
+        	}
+			
+			console.log("innerWidth of cachable refcard****",refCardContents.contents.resourcewidth,scrollerWidth);
+			this.setAttribute('innerWidth', refCardContents.contents.resourcewidth + scrollerWidth);
+			var halfWidth = (this.innerWidth - title.real_title.resourcewidth - this.LINE_PADDING)/2 ;
+			console.log("halfWidth of cachable refcard****",this.innerWidth,title.real_title.resourcewidth,this.LINE_PADDING,halfWidth);
+			title.leftLines.setAttribute('width', halfWidth);
+			title.rightLines.setAttribute('width', halfWidth);
+
+			if(data != null && data.hasAttr('x')){
+                this.setAttribute ('x', data.getAttr ('x'));
+            }
+            else{
+             	this.setAttribute ('x', (parent.width - this.width)/2);
+            }
+            if(data != null && data.hasAttr('y')){
+            	this.setAttribute ('y', data.getAttr ('y'));
+            }
+            else{
+           		this.setAttribute ('y', (parent.height - this.height)/2);
             }
 
 			if(data != null && data.hasAttr('scrolls')){
                 this.setAttribute ('scrolls', data.getAttr ('scrolls'));
             }
 
-			if (data != null && data.hasAttr ('width')) {
+			if(data != null && data.hasAttr('scrollTo')){
+            	refCardContents.contents.setAttribute ('y', Number(data.getAttr('scrollTo')));
+            }
+            else {
+            	refCardContents.contents.setAttribute ('y', 0);
+            } 
+
+			
+			/*if (data != null && data.hasAttr ('width')) {
+				console.log("width***if***",Number (data.getAttr ('width')));
     			this.setAttribute ('width', Number (data.getAttr ('width')));
 			} else {
                 this.setAttribute ('width', null);
             }
 
 			if (data != null && data.hasAttr ('height')) {
+				console.log("height***if***",Number (data.getAttr ('height')));
 				this.setAttribute ('height', Number (data.getAttr ('height')));
 			} else {
                 this.setAttribute ('height', null);
-            }
+            }*/
 
-  			if (this.refCardContents.contents['resource'] != refCardRsrc) {
-  				this.refCardContents.contents.setSource ( refCardRsrc );
-			} else {
-				adjustDimensions(data);
-                doneLoading();
-            }
-
-  			if (this.title.real_title['resource'] != titleRsrc) {
-  				this.title.real_title.setSource ( titleRsrc );
-			} else {
-				adjustDimensions(data);
-                doneLoading();
-            }
-
+  			
             // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
             /*if(data != null && gScratchpad.visible){
                 gScratchpad.bringToFront();
@@ -184,75 +154,13 @@
             this.datapath.p.setAttr ('y', this.y);
         </handler>
 
-		<!-- To be called by the views having resources, when their load events will fire -->
-		<method name="adjustDimensions" args="data"><![CDATA[
-        	var scrollerWidth = refCardContents.scroller.width;
-
-			if(refCardContents.contents.resourceheight > this.innerHeight) {
-				this.scrolls = true;	
-			}
-			else {
-				this.scrolls = false;
-			}
-			
-        	if(!this.scrolls){
-        		this.setAttribute('innerHeight', refCardContents.contents.resourceheight);
-        		scrollerWidth = 0; 
-        	}
-        	else {
-        		this.setAttribute('innerHeight', this.defaultInnerHeight);
-        	}
-
-			this.setAttribute('innerWidth', refCardContents.contents.resourcewidth + scrollerWidth);
-			var halfWidth = (this.innerWidth - title.real_title.resourcewidth - this.LINE_PADDING)/2 ;
-			title.leftLines.setAttribute('width', halfWidth);
-			title.rightLines.setAttribute('width', halfWidth);
-
-			if(data != null && data.hasAttr('x')){
-                this.setAttribute ('x', data.getAttr ('x'));
-            }
-            else{
-             	this.setAttribute ('x', (parent.width - this.width)/2);
-            }
-            if(data != null && data.hasAttr('y')){
-            	this.setAttribute ('y', data.getAttr ('y'));
-            }
-            else{
-           		this.setAttribute ('y', (parent.height - this.height)/2);
-            }
-
-            if(data != null && data.hasAttr('scrollTo')){
-            	refCardContents.contents.setAttribute ('y', Number(data.getAttr('scrollTo')));
-            }
-            else {
-            	refCardContents.contents.setAttribute ('y', 0);
-            } 
-
-		]]></method>
+		
 
 		<method name="updateScrollTo" args="value"><![CDATA[
             if (this.data != null)
 			    this.datapath.p.setAttr ('scrollTo', value);
 		]]></method>
 
-		<!-- 
-			For handling load events of content and title resources 
-			-->		
-		<method name="handleLoadEvent" args="imgObj,count,d"><![CDATA[
-            	if(!gCommunicator.checkShowError(d,null) && (imgObj.resourceheight == 0 || 
-                                                        imgObj.resourcewidth == 0)) {
-            
-                    //this.setAttribute (Number(count), Number(count) + 1);
-                    if (count < 5) {
-                        lz.Idle.callOnIdle(imgObj.reloadDel);
-                    } else {
-                        gCommunicator.checkShowError(gXmlHelper.getContentErrorXml(),null);
-                    }
-                } else {
-					this.adjustDimensions(data);
-					this.doneLoading();
-                }
-		]]></method>	
 		
 		<view name="background" >
 			<simplelayout axis="y" spacing="0" />
@@ -317,35 +225,6 @@
 				  resource="rc_lines"
 				  stretches="width" />
 			<view name="real_title">
-            <attribute name="reloadDel" value="$once{new lz.Delegate(this, '_reload')}" />
-
-	            <handler name="onload" args="d"><![CDATA[
-					classroot.handleLoadEvent(this,'retrycountForTitle',d);
-	            ]]></handler>
-	            
-	            <method name="_reload">
-	                this.unload();
-	                this.setSource (this.resource);
-	            </method>
-	            
-	            <handler name="onerror">
-	                gCommunicator.checkShowError(gXmlHelper.getContentErrorXml(),null);
-	            </handler>
-	
-	            <handler name="ontimeout">
-	            <![CDATA[
-	                if ( classroot.timeoutretrycountForTitle < 1 )
-	                {
-	                    classroot.setAttribute('timeoutretrycountForTitle', classroot.timeoutretrycountForTitle + 1);
-	                    lz.Idle.callOnIdle( reloadDel );
-	                }
-	                else 
-	                {
-	                	gCommunicator.checkShowError(gXmlHelper.getContentTimeoutXml(),null);
-	                }
-				]]>
-	            </handler>
-		
 			</view>
 			<view name="rightLines"
 				  resource="rc_lines"
@@ -363,37 +242,8 @@
 		      height="${classroot.innerHeight}" 
 		      clip="true" 
 		      bgcolor="0xFFFFFF" >
-			<view name="contents"
-			      width="${classroot.innerWidth - parent.scroller.width}">
-            <attribute name="reloadDel" value="$once{new lz.Delegate(this, '_reload')}" />
-
-	            <handler name="onload" args="d"><![CDATA[
-					classroot.handleLoadEvent(this,'retrycount',d);
-	            ]]></handler>
-	            
-	            <method name="_reload">
-	                this.unload();
-	                this.setSource (this.resource);
-	            </method>
-	            
-	            <handler name="onerror">
-	                gCommunicator.checkShowError(gXmlHelper.getContentErrorXml(),null);
-	            </handler>
-	
-	            <handler name="ontimeout">
-	            <![CDATA[
-	                if ( classroot.timeoutretrycount < 1 )
-	                {
-	                    classroot.setAttribute('timeoutretrycount', classroot.timeoutretrycount + 1);
-	                    lz.Idle.callOnIdle( reloadDel );
-	                }
-	                else 
-	                {
-	                	gCommunicator.checkShowError(gXmlHelper.getContentTimeoutXml(),null);
-	                }
-				]]>
-	            </handler>
-
+			<view name="contents">
+           
 				<handler name="ony"><![CDATA[
 					// When user is actually scrolling the view, then only update the value of 'scrollTo' 
 					if(typeof(this.isloaded) != "undefined" && this.isloaded && classroot.isScrolling) {
@@ -402,38 +252,9 @@
 				]]></handler>
 
 			</view>
-		    <vscrollbar name="scroller" visible="${this.scrollable}">
-
-			<!--
-				These are the handlers used to check the mouse state on the scrollbar,
-					update attribute 'isScrolling' accordingly
-					JMC: removed reference="LzGlobalMouse" from onmousedown & onmouseup
-					Jaivardhan: had to add the same attribute so as to get the clicks from any of 
-					the child views of the vscrollbar otherwise for every child view, a seperate 
-					click handler has to be written.	 	
-				-->	
-				<handler name="onmousedown" args="Obj" reference="lz.GlobalMouse"><![CDATA[
-				
-					if(Obj && Obj.childOf(this)) {
-						classroot.setAttribute("isScrolling", true);	
-//Debug.write("onmousedown is called....", Obj, this);
-					}
-				]]></handler>
-
-				<handler name="onmouseup" args="Obj" reference="lz.GlobalMouse"><![CDATA[
-					if(Obj && Obj.childOf(this)) {
-//Debug.write("onmouseup is called....", Obj, this);					
-						classroot.setAttribute("isScrolling", false);	
-					}
-				]]></handler>
-
-				<handler name="onmouseupoutside"><![CDATA[
-//Debug.write("onmouseupoutside is called....", this);
-						classroot.setAttribute("isScrolling", false);	
-				]]></handler>
+		     <vscrollbar name="scroller" visible="${this.scrollable}" />
 			
-			<!-- till here -->
-			</vscrollbar>	
+				
 		</view>
     </class>
 

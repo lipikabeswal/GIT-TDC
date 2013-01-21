@@ -526,6 +526,8 @@
  	<resource name="FCAT_refcard_contents" src="manipulatives/refcard/FCAT_refcard_contents.png"/>
  	<resource name="TN_refcard_title" src="manipulatives/refcard/TN_refcard_title.png"/>
  	<resource name="TN_refcard_contents" src="manipulatives/refcard/TN_refcard_contents.png"/>
+ 	<resource name="ISTEP_refcard_title" src="manipulatives/refcard/ISTEP_refcard_title.png"/>
+ 	<resource name="ISTEP_refcard_contents" src="manipulatives/refcard/ISTEP_refcard_contents.png"/>
 
     <resource name="theme" src="iknow_navbar/themePage.png" />
      <resource name="theme_disable" src="iknow_navbar/themePage_disable.png" />
