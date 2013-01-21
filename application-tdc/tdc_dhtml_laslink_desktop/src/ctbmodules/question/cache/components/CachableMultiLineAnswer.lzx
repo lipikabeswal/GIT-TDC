@@ -256,15 +256,18 @@
 									 height="${classroot.showFormatBar ? classroot.height - classroot.outer.controls.height : classroot.height }" 
 									 width="${classroot.editTextWidth + 5}" >
 										<attribute name="start" type="number" value="0" />
-						<attribute name="end" type="number" value="0" />
+						<attribute name="start" type="number" value="0" />
+		            	<attribute name="end" type="number" value="0" />
+		            	<attribute name="scrollPos" type="number" value="0" />
 					  <method name="init">
-						 super.init();
+						super.init();
 						this.style.setAttribute("textfieldcolor", gController.answerBgColor);
 						//this.setFontColor(gController.answerFontColor);
 						if(gController.hasFontAccommodation)
-								this.setAttribute('fontsize', 18);
-							else
-								this.setAttribute('fontsize', 12);
+							this.setAttribute('fontsize', 18);
+						else
+							this.setAttribute('fontsize', 12);
+						this.inp.setAttribute("maxlength",Number(classroot.characterLimit));
 					  </method>
 					  
 					  
