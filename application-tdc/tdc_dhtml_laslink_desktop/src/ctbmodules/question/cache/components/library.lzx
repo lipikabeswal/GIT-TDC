@@ -19,5 +19,5 @@
 	<include href="CachableGriddedResponsePanel.lzx"/>
     <include href="CachableGriddedResponse.lzx"/>
 	<include href="CachableHtmlWidget.lzx"/>
-
+	<include href="CachableAsset.lzx"/>
  </library>

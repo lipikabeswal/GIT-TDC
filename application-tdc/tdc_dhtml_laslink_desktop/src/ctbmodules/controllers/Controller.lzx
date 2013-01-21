@@ -509,6 +509,7 @@
 		<attribute name="answerObj" value="$once{new Object()}" />
 		<attribute name="productTypeVal" type="string" value="ISTEP"/>
 		<attribute name="displayText" value="false"/>
+		<attribute name="lasAssetArray" value="$once{new Array()}" />
 		
 		<!--
 			============================================================
