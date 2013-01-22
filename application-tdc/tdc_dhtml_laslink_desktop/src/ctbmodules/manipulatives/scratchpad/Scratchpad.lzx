@@ -156,6 +156,8 @@
 						this.setAttribute('fontsize',12);
 					}
 					this.inp.setAttribute("maxlength",10000);
+					var elm = this.inp.getDisplayObject();
+					elm.setAttribute('spellcheck',false);
 	            </method>
 	            
 	            <method name="updateScrollText" args="a">
@@ -164,6 +166,8 @@
 				
 				<handler name="ontext"><![CDATA[
 					storeSelection();
+					var elm = this.inp.getDisplayObject();
+					elm.setAttribute('style','overflow-y: hidden;');
 				 	if(this.text.length > 10000){
 								var textContent = this.text;
 								textContent = textContent.substring(0,Number(classroot.characterLimit));
