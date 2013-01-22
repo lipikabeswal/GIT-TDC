@@ -305,8 +305,8 @@ Debug.write("else "+data +" : "+ hasstate);
             gHotKeys.enableKeys();
             
             // the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
-            lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
-            //gController.restoreCurrentCursor();
+            //lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
+            gController.restoreCurrentCursor();
             this.dragger.remove ();
 Debug.write("masking ruler datapath ",this.datapath.p);
             this.datapath.p.setAttr ('x', this.x);

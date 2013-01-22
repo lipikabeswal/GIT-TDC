@@ -41,25 +41,10 @@
  
  			<attribute name="y" value="(this.drag_axis == 'both' || this.drag_axis == 'y') ? __dragstate_getnewpos('y', this.immediateparent.getMouse( 'y' ) + (Number(this.rrotation) != 0?this.__dragstate_ydoffset:this.actualY)): this.y" /> 
  -->
- 
-			<handler name="on__dragstate_xdoffset" args="data">
-				Debug.write("on__dragstate_xdoffset data",data);
-				Debug.write("Mouse X Mouse Y", this.getMouse('x'), this.getMouse('y'));
-				Debug.write("classroot.xpos, classroot.ypos,parent.xoffset,parent.yoffset", classroot.xpos, classroot.ypos,parent.xoffset,parent.yoffset);
-				Debug.write("classroot.x, classroot.y", classroot.x, classroot.y);								
-			</handler>
-			
-			<handler name="on__dragstate_ydoffset" args="data">
-				Debug.write("on__dragstate_ydoffset data",data);
-				Debug.write("Mouse X Mouse Y", this.getMouse('x'), this.getMouse('y'));
-				Debug.write("parent.xpos, parent.ypos,parent.xoffset,parent.yoffset", parent.xpos, parent.ypos,parent.xoffset,parent.yoffset);
-				Debug.write("classroot.x, classroot.y", classroot.x, classroot.y);								
-			</handler>
+
             <handler name="onapply">
-            	Debug.write("********************onapply**********************");
             
                 var rotation = classroot.rotation * (Math.PI/180);
-				Debug.write("classroot.roation",classroot.rotation,rotation);
                 var grabber = classroot.grabber;
 
                 var gxstart = (grabber.x) * Math.cos (rotation) -
@@ -71,9 +56,6 @@
                                  (grabber.y + grabber.height/2) * Math.sin (rotation);
                 var gyend   = (grabber.x + grabber.width) * Math.sin (rotation) +
                                  (grabber.y + grabber.height/2) * Math.cos (rotation);
-				Debug.write("gxstart:gystart",gxstart,gxend ,gystart,gyend);
-				Debug.write("grabber.x",grabber.x,grabber.y,rotation);
-				Debug.write("x,y******** before******** ", classroot.x, classroot.y,classroot.dragger.x,parent.dragger.y,parent.dragger.parent.x,classroot.dragger.parent.y);	
                 //set drag max and min
                 classroot.setAttribute ('dragxmin', - (Math.min (gxstart, gxend)));
                 classroot.setAttribute ('dragymin', - (Math.min (gystart, gyend)));
@@ -82,17 +64,6 @@
                                         classroot.parent.width - (Math.max (gxstart, gxend)));
                 classroot.setAttribute ('dragymax', 
                                         classroot.parent.height - 6  - (Math.max (gystart, gyend)));
-				Debug.write("classroot.parent", classroot.parent);
-				Debug.write("classroot.parent.width,classroot.parent.height", classroot.parent.width,classroot.parent.height);
-				
-				Debug.write("protractor***onapply***actualX** ",this.actualX,this.actualY);
-				Debug.write("on__dragstate_ydoffset data",__dragstate_ydoffset);
-				Debug.write("on__dragstate_xdoffset data",__dragstate_xdoffset);
-				//Debug.write("Mouse X Mouse Y********** ", this.getMouse('x'), this.getMouse('y'));
-				Debug.write("parent.xpos, parent.ypos,parent.xoffset,parent.yoffset", parent.xpos, parent.ypos,parent.xoffset,parent.yoffset);
-				Debug.write("classroot.x, classroot.y,this.x,this.y", classroot.x, classroot.y,this.x,this.y);		
-
-				Debug.write("grabber.x,grabber.y,rotation****after***** ",grabber.x,grabber.y,rotation);			
             </handler>
 
         </dragstate>
@@ -100,7 +71,6 @@
         <handler name="oninit">
             this.setAttribute ('xpos', this.width/2);
             this.setAttribute ('ypos', this.height);
-			Debug.write("protractor****actualX** ",this.actualX,this.actualY);
 			
         </handler>
         
@@ -218,8 +188,8 @@
                 gHotKeys.enableKeys();
                 
 				// the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
-       			lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
-                //gController.restoreCurrentCursor();
+       			//lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
+                gController.restoreCurrentCursor();
                 classroot.dragger.remove ();
                 
                 classroot.datapath.p.setAttr ('x', classroot.x);
