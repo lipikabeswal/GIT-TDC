@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +25,7 @@ public class SpeechServlet extends HttpServlet {
     
     private static final String OK_RESPONSE = "<status>OK</status>";
     
-    private static String text;
+    private static HashMap textMap = new HashMap(10);
     private static String speedValue;
     
     private static int delayCounter;
@@ -58,6 +59,11 @@ public class SpeechServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			String client = request.getRemoteHost();
+			String text = " ";
+			synchronized(textMap) {
+				text = (String) textMap.get(client);
+			}
 			long startTime = System.currentTimeMillis();
 			MP3 mp3 = null;
 			String cacheUrl = (String) TTSUtil.checkCache(speedValue + text);
@@ -74,7 +80,7 @@ public class SpeechServlet extends HttpServlet {
 			mp3.setLength(mp3File.length());
 			mp3.setStream(new FileInputStream(mp3File));
 			
-			long endTime = System.currentTimeMillis();
+/*			long endTime = System.currentTimeMillis();
 			if((endTime - startTime) > 10000 && (endTime - lastDelay) < 60000) {
 				delayCounter++;
 				lastDelay = endTime;
@@ -82,7 +88,7 @@ public class SpeechServlet extends HttpServlet {
 			if(delayCounter >= MAX_DELAYS) {
 				throw new Exception("Repeated TTS delays experienced");
 			}
-			
+*/			
 	    	response.setStatus(200);
 	    	response.setContentType("audio/x-mp3");
 	    	response.setHeader("Content-Disposition", "filename=speech.mp3");
@@ -128,8 +134,13 @@ public class SpeechServlet extends HttpServlet {
 	 * @throws IOException if an error occurred
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String client = request.getRemoteHost();
+		
 		if(request.getParameter("text") != null) {
-			text = request.getParameter("text");
+			String text = request.getParameter("text");
+			synchronized(textMap) {
+				textMap.put(client, text);
+			}
 		} else {
         	TTSUtil.stop();
         }

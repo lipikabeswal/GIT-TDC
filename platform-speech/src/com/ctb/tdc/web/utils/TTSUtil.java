@@ -300,21 +300,12 @@ public class TTSUtil {
     	return buff.toString();
     }
     
-    private static class SpeechRequest extends Thread {
-		public String text;
-		public String speedValue;
-		public static String result = null;
-		public static boolean completed = false;
-		public boolean waiting;
-		public Thread mainThread;
+    private static String readspeakerSpeechRequest(String text, String speedValue){
+
+		String result = null;
+		boolean completed = false;
+		boolean waiting;
 		
-		public SpeechRequest(String text, Thread mainThread, String aSpeedValue){
-			this.text = text;
-			this.mainThread = mainThread;
-			this.speedValue = aSpeedValue;
-		}
-		
-		public void run() {
 			int responseCode = HttpStatus.SC_OK;
 			
 			TTSSettings ttsSettings = getTTSSettings();
@@ -340,7 +331,7 @@ public class TTSUtil {
 					   new NameValuePair("lang", "en_us"),
 					   new NameValuePair("output", "audiolink"),
 					   new NameValuePair("voice", voice),
-					   new NameValuePair("speed", this.speedValue)};
+					   new NameValuePair("speed", speedValue)};
 			post.setRequestBody(params);
 
 			System.out.println(speechURL);
@@ -388,8 +379,7 @@ public class TTSUtil {
 				} else {
 					result = null;
 				}
-				this.completed = true;
-				this.mainThread.interrupt();
+				completed = true;
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -397,27 +387,12 @@ public class TTSUtil {
 			finally {
 				post.releaseConnection();
 			}
+		    return result;
 		}
-	}
     
 	public static String textHelpRequest(String text, String speedValue) {
 		text = text.replaceAll("<", "less than");
-		SpeechRequest request = new SpeechRequest(text, Thread.currentThread(), speedValue);
-		try {
-			request.start();
-			Thread.sleep(15000);
-			if(SpeechRequest.completed && SpeechRequest.result != null) {
-				System.out.println("Text returning after wait: " + SpeechRequest.result);
-				return SpeechRequest.result;
-			}
-		} catch (InterruptedException ie) {
-			if(SpeechRequest.completed && SpeechRequest.result != null) {
-				System.out.println("Text returning after interrupt: " + SpeechRequest.result);
-				return SpeechRequest.result;
-			}
-		}
-		System.out.println("Text returning null");
-		return null;
+		return readspeakerSpeechRequest(text, speedValue);
 	}
 
 	private static void setupClient(HttpClient client, TTSSettings ttsSettings) throws Exception {
