@@ -13,13 +13,14 @@
 		<attribute name="theme" type="boolean" value="$path{'@theme'}" />
 		<attribute name="hasResponseArea" type="boolean" value="true" />
 		<attribute name="hasMagnifyingGlass"  value="$path{'manipulatives/global/@magnifying_glass'}" />
+		<simplelayout axis="x" spacing="15"></simplelayout>
 		<attribute name="speedSelected"/>
-		<simplelayout axis="x"></simplelayout>
 
 		<handler name="ondata" args="data">
 			if(theme) {
 				this.setAttribute("hasResponseArea", gController.applyManipulative());
 			}
+			this.setAttribute('speedSelected',this.speedController.value);
 			//this.globals.magnifyingGlass.setAttribute('frame', 1);
 		</handler>
 
@@ -222,19 +223,10 @@
 				</method>
 		
 			</basebutton>
-			<view name="stopreader_btn_shadow" tintcolor="0x000000" resource="manipulative_shadow" x="5"
-        	  opacity="0.5" visible="${parent.stopreader.visible}"
-        	  width="37" height="43" stretches="both">
-				<handler name="onvisible">
-					if(this.visible){
-						this.sendToBack();
-					}
-				</handler>
-			</view>
 			
 			<!--Changes done for defect #65040 and #65041-->
-			<view name="volumeController" height="31" valign="middle" visible="false"
-					bgcolor="0xdfdfdf">
+			<view name="volumeController" height="20" valign="middle" 
+					visible="${parent.stopreader.visible}" bgcolor="0xdfdfdf">
 			<simplelayout axis="y"/>
 				
 				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
@@ -319,7 +311,7 @@
 
 		</view>
 		<!-- The tool to control the TTS speed -->
-			 <radiogroup_new visible="false" name="speedController" height="20" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
+			 <radiogroup_new visible="${gController.hasTTSspeed &amp;&amp; parent.screenreader.stopreader.visible}" name="speedController" height="20" layout="axis:x;inset:2" valign="middle" bgcolor="0xdfdfdf">
 				<datapath xpath="dslogin:/login_response/@tts_speed_value"></datapath>
 				<radiobutton value="'S'" text="Slow " height="15" valign="middle"/>
 				<radiobutton value="'M'" text="Medium " height="15" valign="middle" selected="true" />
@@ -330,7 +322,7 @@
 						if(gReadableText.isplaying && gReadableText.isReadable && 
 							gReadableText.clickable && gReadableText.currentText.length > 0) {
 	
-						gReadableText.read(gReadableText.currentText,false);
+							gReadableText.read(gReadableText.currentText,false);
 						}
 					}
 				]]></handler>
