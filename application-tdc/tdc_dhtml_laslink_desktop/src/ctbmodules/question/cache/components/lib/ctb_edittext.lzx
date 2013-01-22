@@ -213,6 +213,8 @@
 				if ($dhtml) {
 					Debug.write("DHTML ",this.getDisplayObject());
 					this.textclip = this.getDisplayObject();
+					this.textclip.setAttribute('style','line-height: 0px;');
+					this.textclip.setAttribute('spellcheck',false);
 				} else {				
 					var mc = this.sprite;
 					Debug.write("AS# ",mc.textfield,mc.textfield.textColor);
