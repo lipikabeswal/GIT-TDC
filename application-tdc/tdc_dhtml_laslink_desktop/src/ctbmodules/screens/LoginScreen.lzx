@@ -41,6 +41,7 @@
                  <handler name="oninit">
                    	var elem = this.field.getDisplayObject();
                    	elem.setAttribute('style','height: 20px;');
+                   	elem.setAttribute('spellcheck',false);
                  </handler>
             </edittext>
         </view>
@@ -54,6 +55,7 @@
                       <handler name="oninit">
                       	var elem = this.field.getDisplayObject();
                       	elem.setAttribute('style','height: 20px;');
+                      	elem.setAttribute('spellcheck',false);
                       </handler>
             </edittext>
             <edittext name="istepPasswordField" x="287" fontsize="12"
@@ -61,6 +63,7 @@
                       <handler name="oninit">
                       	var elem = this.field.getDisplayObject();
                       	elem.setAttribute('style','height: 20px;');
+                      	elem.setAttribute('spellcheck',false);
                       </handler>
             </edittext>
         </view>
@@ -73,6 +76,7 @@
            		<handler name="oninit">
                    	var elem = this.field.getDisplayObject();
                    	elem.setAttribute('style','height: 20px;');
+                   	elem.setAttribute('spellcheck',false);
                 </handler>
             </edittext>
         </view>
