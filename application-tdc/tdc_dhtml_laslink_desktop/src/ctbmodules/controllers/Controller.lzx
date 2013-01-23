@@ -1037,10 +1037,10 @@
 			testnode.appendChild(lz.DataElement.stringToLzData(response));
 			var tmssvc_response = testnode.getElementsByTagName('tmssvc_response')[0];
 			
-			Debug.write("loginResponse:",tmssvc_response);
+			//Debug.write("loginResponse:",tmssvc_response);
 			var mydp = new lz.datapointer();
 			mydp.setPointer(tmssvc_response);
-			Debug.write("mydp============ ",mydp);*/
+			//Debug.write("mydp============ ",mydp);*/
 			printBigString(response);
 			if(gXmlHelper.isErrorResponse(response)){
 				gScreens.showLoginError(gXmlHelper.getStatusCode(response));
@@ -1049,7 +1049,7 @@
 
 	    		var node = lz.DataElement.stringToLzData(response);
 	    		dp.setPointer(node);
-				Debug.write("dp------------- :",dp);
+				//Debug.write("dp------------- :",dp);
 	    		setShowHighlighter();
 	    		setShowMaskingRuler();
 	    		setShowMagnifyingGlass();
@@ -1058,11 +1058,11 @@
 				//Debug.write("login_response/tutorial----- ",dp.xpathQuery('login_response/tutorial'),dp.xpathQuery('login_response/branding/@tdclogo'));
 				gTutorialManager.setAttribute('tutorialNode', dp.xpathQuery('login_response/tutorial'));
 	    		var logo = dp.xpathQuery('login_response/branding/@tdclogo');
-	    		if(logo.indexOf(".swf")!=0){
+	    		/*if(logo.indexOf(".swf")!=0){
 	    			logo = logo.substring(0,logo.indexOf(".swf"));
 					logo = logo+".png";
-	    		}
-       			canvas.setAttribute("logoRsrc", logo);
+	    		}*/
+	    		canvas.setAttribute("logoRsrc", logo);
 	    		var cmicore = dp.xpathQuery('login_response/testing_session_data/cmi.core');
 				//Debug.write("cmicore************** ",cmicore);
 	    		cmicore.setAttr('password', password);
@@ -1077,13 +1077,13 @@
 				//START Change for deferred Defect 63502
 	    		setAttribute('restartscid', dp.xpathQuery('login_response/manifest/sco[1]/@id'));
 	    		var numIsts = countDataNodes(dp.xpathQuery('login_response/consolidated_restart_data/tsd[@scid = "'+ restartscid +'"]/ist'));
-				Debug.write("consolidated_restart_data--------------- ",numIsts);
+	    		//Debug.write("consolidated_restart_data--------------- ",numIsts);
 				//END
 				setAttribute('lsid', dp.xpathQuery('login_response/@lsid'));
 				var dSeed = dp.xpathQuery('login_response/@random_distractor_seed_number');	
 				//Debug.write("loginResponse********** ",loginResponse);
 	    		dslogin.setAttribute('childNodes',new Array(loginResponse));
-				Debug.write("dprestart********** ",dprestart);
+				//Debug.write("dprestart********** ",dprestart);
 				dp.selectChild();
 
 			
