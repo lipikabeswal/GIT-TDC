@@ -19,7 +19,7 @@
 	<attribute name="readingFootNote" type="boolean" value="false" />
 	
     <method name="findScrollingTextPanel" args="inDP">
-       /* if(inDP.getNodeName() == gCompTypes.WIDGET_SCROLLING_TEXT_PANEL) {
+        /*if(inDP.getNodeName() == gCompTypes.WIDGET_SCROLLING_TEXT_PANEL) {
             return inDP.p;
         }*/
 
@@ -45,6 +45,8 @@
     <handler name="ondata" reference="gController.dpitem"><![CDATA[
         //find the text in the scroll text panel node.  We'll use this to find
         //the details for a particular header
+        	//Debug.write("gController.dpitem.data");
+        	//printBigString(gController.dpitem.data.serialize());
         if (gController.dpitem.data) {
             var dnscrolltext = gController.dpitem.xpathQuery("item_canvas/scrolling_text_panel");
             if(dnscrolltext == null) {
@@ -79,7 +81,7 @@
             	this.arrow.setAttribute("showhandcursor", false);
             }
         }
-    ]]></handler>
+   ]]> </handler>
     <method name ="UTFDecode" args="b">
     	<![CDATA[
     	//Defect 64691- Added for footnote defect fix.
@@ -108,7 +110,7 @@
 	
 	<method name="readMe"><![CDATA[
 		if(this.readable){
-			gReadableText.read(gReadableText.stripHtmlTags(this.body.wrap.header.text + ", " + this.body.wrap.detail.text),false);
+			gReadableText.read(gReadableText.stripHtmlTags(this.body.wrap.header.text + ", " + this.body.wrap.detail.text));
 			this.setAttribute("readingFootNote", true);
        	}
 	]]></method>
@@ -120,7 +122,7 @@
         //init font color and background color
         Debug.write("FOOTNOTE SCROLL TEXT" , scrolltext);
         if(scrolltext!=null){
-	        if(!(this.scrolltext instanceof lz.CachableAnswerAreaPanel || this.scrolltext instanceof lz.CachableAnswerAreaAbsolutePanel)) {
+			if(!(this.scrolltext instanceof lz.CachableAnswerAreaPanel || this.scrolltext instanceof lz.CachableAnswerAreaAbsolutePanel)) {
 		        var fgc = this.scrolltext['fontcolor'] ? this.scrolltext.fontcolor : "0xFFFFFF";
 		        var bc = this.scrolltext['panel'] &amp;&amp; this.scrolltext.panel['bgcolor'] ? this.scrolltext.panel.bgcolor : "0x000000";
 			}
@@ -145,7 +147,15 @@
 		var detail = data[1];
 		var readable = data[2];
 		var displayStyle = data[3];
-		reallyShow(header,detail,readable,displayStyle);
+		var fnfontsize = data[4];
+		var fontsize = 0;
+		if(fnfontsize == 12) {
+			fontsize = 12;
+		}
+		else {
+			fontsize = 18;
+		}
+		reallyShow(header,detail,readable,displayStyle,fontsize);
 		//this.itemtxt = UTFDecode(this.itemtxt);
 		 /*if (this.itemtxt != ""){
 			var headerpos = this.itemtxt.indexOf("header=&quot;" + this.formatStr(header));
@@ -159,12 +169,11 @@
        ]]>
     </method>
 
-    <method name="reallyShow" args="header,fndetail,readable,fndisplayStyle">
+    <method name="reallyShow" args="header,fndetail,readable,fndisplayStyle,fontsize">
         <![CDATA[
 		var displayStyle="";
         //reset scrollbar
         this.body.wrap.setAttribute("y", 0);
-
         //find the detail string
         /*var headerpos = this.itemtxt.indexOf("header=&quot;" + this.formatStr(header));
 		var detailstart = this.itemtxt.indexOf("detail=&quot;", headerpos) + 13;
@@ -173,8 +182,6 @@
 		var detail = fndetail;
 		detail = replaceAmp(detail);
 		setReadable(readable);
-
-
 		var headerDisplay = header;
 
 		/*var displayStyleStart = this.itemtxt.indexOf("display_style=&quot;", headerpos);
@@ -196,15 +203,18 @@
 	    if(displayStyle == BOOKTITLE_DISPLAY_STYLE){
 	    	headerDisplay = "<i>" + header + "</i>";
 		}
-	    
+	    var fontSize = fontsize;
+
         //init footnote
         this.body.wrap.header.setAttribute("text", headerDisplay);
+		this.body.wrap.header.setAttribute("fontsize", fontSize);
 
         this.body.wrap.detail.setAttribute("text", detail);
+		this.body.wrap.detail.setAttribute("fontsize", fontSize);
         this.body.wrap.detailmulti.setAttribute("text", detail);
+		this.body.wrap.detailmulti.setAttribute("fontsize", fontSize);
 
-        var fontSize = 
-            (this.scrolltext['fontsize'] ? this.scrolltext.fontsize : 12);
+        
             
         this.setAttribute("x", parent.getMouse("x") - fontSize);
         this.setAttribute("y", parent.getMouse("y") - this.height - fontSize);
@@ -493,11 +503,7 @@
             <attribute name="ismulti" value="false"/>
 
             <simplelayout axis="y"/>
-            <text name="header" resize="true"
-              fontsize="${gFootNotePopup['scrolltext'] &amp;&amp; 
-                          gFootNotePopup.scrolltext &amp;&amp;
-                          (gFootNotePopup.scrolltext['fontsize'] != null)
-                        ? gFootNotePopup.scrolltext.fontsize : 12}">
+            <text name="header" resize="true">
                 <handler name="onfontsize">
                     resetHeight();
                 </handler>
@@ -509,11 +515,7 @@
                 </method>
             </text>
 
-            <text name="detail" visible="${!parent.ismulti}" resize="true"
-                  fontsize="${gFootNotePopup['scrolltext'] &amp;&amp; 
-                              gFootNotePopup.scrolltext &amp;&amp;
-                              (gFootNotePopup.scrolltext['fontsize'] != null)
-                            ? gFootNotePopup.scrolltext.fontsize  : 12}">
+            <text name="detail" visible="${!parent.ismulti}" resize="true">
                 <handler name="ontext">
                     parent.setAttribute("ismulti", 
                         this.getTextWidth() > (gFootNotePopup.MIN_WIDTH - 2 * gFootNotePopup.BORDER_SIZE)); 
@@ -529,10 +531,6 @@
                 </method>
             </text>
             <text name="detailmulti" multiline="true"
-                  fontsize="${gFootNotePopup['scrolltext'] &amp;&amp; 
-                              gFootNotePopup.scrolltext &amp;&amp; 
-                              (gFootNotePopup.scrolltext['fontsize'] != null)
-                            ? gFootNotePopup.scrolltext.fontsize : 12}"
                   width="${gFootNotePopup.MIN_WIDTH - 15  - 2 * gFootNotePopup.BORDER_SIZE}" 
                   visible="${parent.ismulti}"/>
         </view>

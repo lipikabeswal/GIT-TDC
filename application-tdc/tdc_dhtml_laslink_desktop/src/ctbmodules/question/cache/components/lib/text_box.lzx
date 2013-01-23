@@ -63,11 +63,13 @@
 	
 		<text name="footnotetext" multiline="true"    
 			  width="${classroot.width}"
-              fgcolor="${classroot.fontcolor}"
-              fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" selectable="false" clickable="true">
-             
+              fgcolor="${classroot.fontcolor}">
+             <handler name="oninit">
+             	this.fontsize = this.immediateparent.parent.fontsize;
+             </handler>
              <handler name="onclick">
-             	var footnoteText = classroot.header + "|" + classroot.detail + "|" +classroot.readable + "|" +classroot.displayStyle;
+				var fontsize = this.fontsize;
+             	var footnoteText = classroot.header + "|" + classroot.detail + "|" +classroot.readable + "|" +classroot.displayStyle + "|" + fontsize;
 		 		var s = "setFootnoteText('"+footnoteText+"')";
 				lz.Browser.loadJS(s);
              </handler>
@@ -78,7 +80,7 @@
              	this.setSelection(0, 0); 
              </handler> 
              
-            <!--  <handler name="oninit">
+             <!-- <handler name="oninit">
 				//antialiasing will be NORMAL for all text components
 	 			//to keep the layout consistent across the application
 	 			var t = this.getDisplayObject().textfield;
