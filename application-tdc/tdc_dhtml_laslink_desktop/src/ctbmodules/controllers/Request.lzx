@@ -71,7 +71,7 @@
 		</method>
 		
 		<method name="checkIsProduct" >
-			console.log("in checkProduct*******");
+			//console.log("in checkProduct*******");
 			_doRequest(persistenceDs, CHECK_PROD_TYPE_METHOD, "");
 			//doSendRequest(CHECK_PROD_TYPE_METHOD, "", pAction);
 		</method>
@@ -80,7 +80,7 @@
 			this.setAttribute("xml",xml);
 			this.setAttribute("actionName",actionName);
 			var s = "sendRequest('"+method+"','"+xml+"','"+actionName+"')";
-			console.log("js call"+s);
+			//console.log("js call"+s);
 			lz.Browser.loadJS(s);
 		</method>
 		
@@ -110,7 +110,7 @@
 
 		<method name="save" args="params">
 			Debug.write("OpenLaszlo Save");
-			console.log("*************cid*********** "+cid);
+			//console.log("*************cid*********** "+cid);
 			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, gManipulativeBar.speedController.value);
 			_doRequest(persistenceDs, SAVE_METHOD, xml);
 		</method>

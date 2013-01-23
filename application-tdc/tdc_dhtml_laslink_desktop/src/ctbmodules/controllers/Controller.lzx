@@ -559,6 +559,18 @@
 		<attribute name="RestartTest" value="false" type="boolean" />
 		<attribute name="skipCacheDestroy" type="boolean" value="false"/>
 		<attribute name="stylesArr" value="${new Array()}"/>
+		<attribute name="canNotAnswer" type = "boolean" value="false"/>
+		
+		<attribute name="playIfAnswered" type="boolean" value="false" />
+		<attribute name="iframeid" type="string" value="NONE" />
+		
+		<handler name="onplayIfAnswered"><![CDATA[
+			//console.log("iframeid==Controller",iframeid);
+			if(this.iframeid != "NONE") {
+				var s="checkValIfAnswered('"+iframeid+"')";
+				lz.Browser.loadJS(s);
+			}
+		]]></handler>
 			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -1794,7 +1806,7 @@
 		-->
 		<method name="initStudentData"><![CDATA[
 			//Debug.write("initStudentData",gController.audible == 'true',gController.audible == true);
-			console.log("initStudentData" ,typeof(gController.audible) ,gController.audible,gMusicPlayer.alreadyCalled);
+			//console.log("initStudentData" ,typeof(gController.audible) ,gController.audible,gMusicPlayer.alreadyCalled);
 			if(gController.audible && !gMusicPlayer.alreadyCalled){
 				loadMusicData();
 			}
@@ -2770,28 +2782,33 @@
  		 ]]></method>
 
 		<method name="toggleItemSelState" args="selid"><![CDATA[
-            var dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@identifier='"+selid+"']");
-            var actualSelId = selid;
-
-			if(isLoginResponseHavingSeed &&
-					!itemHasRationalNode && 
-						!nullOrSpace(seed)) {
-				dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@randomIdentifier='"+selid+"']");		
-				selid = dnsel.getAttr("identifier");	
-			}
-
-			//Debug.write("has seed2", selid, dnsel);
-
-            if ( dnsel ) {
-                if ( 's' == dnsel.getAttr( 'user_action' ) ) {
-                //Debug.write("toggleItemSelState to N");
-                    readKeySelection( actualSelId, 'n');
-                    setItemSelState( selid, 'n');
-                } else {
-                //Debug.write("toggleItemSelState to s");
-                    readKeySelection( actualSelId, 's');
-                    setItemSelState( selid, 's');
-                }
+			//console.log("gController.canNotAnswer -> ",this.canNotAnswer);
+			//console.log("toggleItemSelState ")
+			if(!this.canNotAnswer) {
+	            var dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@identifier='"+selid+"']");
+	            var actualSelId = selid;
+	
+				if(isLoginResponseHavingSeed &&
+						!itemHasRationalNode && 
+							!nullOrSpace(seed)) {
+					dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@randomIdentifier='"+selid+"']");		
+					selid = dnsel.getAttr("identifier");	
+				}
+	
+				//Debug.write("has seed2", selid, dnsel);
+	
+	            if ( dnsel ) {
+	            	gController.setAttribute("playIfAnswered",true);
+	                if ( 's' == dnsel.getAttr( 'user_action' ) ) {
+	                //Debug.write("toggleItemSelState to N");
+	                    readKeySelection( actualSelId, 'n');
+	                    setItemSelState( selid, 'n');
+	                } else {
+	                //Debug.write("toggleItemSelState to s");
+	                    readKeySelection( actualSelId, 's');
+	                    setItemSelState( selid, 's');
+	                }
+	            }
             }
         ]]></method>
 
@@ -3372,6 +3389,7 @@ Debug.write("############ loadItem ############");
         	var loadParams = getLoadParams();
 			Debug.write("loadParams",loadParams);
         	var xml = gXmlHelper.getGetItemXml(loadParams[0], loadParams[1], loadParams[2]);
+        	var s = setCurLasItemId(loadParams[0]);//Native Invoke
 			if (typeof canvas.folder != "undefined") {
 				dsitem.setQueryParam(gRequest.FOLDER_PARAM, canvas.folder);
 			}
@@ -3392,7 +3410,7 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="loadMusicData"><![CDATA[
-			console.log("loadMusicData" ,gController.audible,gMusicPlayer.alreadyCalled);
+			//console.log("loadMusicData" ,gController.audible,gMusicPlayer.alreadyCalled);
 			dsMusic.setQueryParam(gRequest.METHOD_PARAM, gRequest.GET_MUSIC_DATA);
 			dsMusic.setQueryParam("musicId", gController.musicId);
 			dsMusic.setAttribute("reqtype","POST"); 

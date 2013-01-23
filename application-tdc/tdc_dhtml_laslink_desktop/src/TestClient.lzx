@@ -78,6 +78,15 @@
 		value="$once{lz.Browser.getInitArg('eliminatorResource')}"
 		type="string" />-->
 	<attribute name="useDefaultEliminator" type="boolean" value="true" />
+	
+	<attribute name="bringBackFocus" />
+
+	<handler name="onbringBackFocus" args="data">
+		//console.log("*****************onbringBackFocus***************");
+		//canvas.onfocus.sendEvent();
+		//gHotKeys.enableKeys();
+		//gCompTypes.getAttribute('cachedanswerareapanels').onfocus.sendEvent();
+	</handler>
 	  
 	<method name="setCrFocus"><![CDATA[
 		var fo = canvas.focusobj;
@@ -181,10 +190,10 @@
 				height="200" visible="false">
 				<handler name="oninit">
 			        if($dhtml){
-			            console.log(this.getDisplayObject());
+			            //console.log(this.getDisplayObject());
 			            var x= this.getDisplayObject();
 			            x.setAttribute('id', 'loginScreenId');
-			            console.log(this.getDisplayObject());
+			            //console.log(this.getDisplayObject());
 			        }
 			    </handler>
 				<text name="copyWriteText" y="200" font="Arial" fontsize="12" 

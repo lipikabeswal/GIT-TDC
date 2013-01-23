@@ -74,12 +74,12 @@
             if ( contents.gs.isinited ) contents.gs.setAttribute('visible', false );
             if ( contents.oos.isinited ) contents.oos.setAttribute('visible', false );
             if ( gSecurityScreen.secContents.iss.isinited ) {
-				console.log("inside gSecurityScreen.secContents.iss.isinited");
+				//console.log("inside gSecurityScreen.secContents.iss.isinited");
             	gSecurityScreen.secContents.iss.setAttribute('visible', false );
             	
             }
  
-			console.log("removeAllStates  "+allowclick);
+			//console.log("removeAllStates  "+allowclick);
             //prancingMan.remove();
             //standingMan.remove();
         </method>
@@ -201,7 +201,7 @@
 //            if ( !contents.ls.isinited ) contents.ls.completeInstantiation();
 
 			contents.ls.li.loginIdField.setAttribute('text', "");
-			console.log("gController.displayText",gController.displayText);
+			//console.log("gController.displayText",gController.displayText);
 			if(gController.displayText == true || gController.displayText == 'true') {
 				contents.ls.pw.otherPasswordField.setAttribute('visible', false );
 				contents.ls.pw.istepPasswordField.setAttribute('visible', true );

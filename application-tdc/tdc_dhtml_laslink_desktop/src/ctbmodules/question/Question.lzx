@@ -42,7 +42,7 @@
 			//sizer should not be destroyed so we are starting from array 1
 			var contsubviews = gQuestion.subviews;
 			var contViewsLen = gQuestion.subviews.length;
-			console.log("gController.skipCacheDestroy "+gController.skipCacheDestroy);
+			//console.log("gController.skipCacheDestroy "+gController.skipCacheDestroy);
 			if(!gController.skipCacheDestroy){
 				for (var i = 1; i <= contViewsLen; i++){
 				 if(contsubviews[i] && contsubviews[i] instanceof lz.CachableAnswerAreaPanel){

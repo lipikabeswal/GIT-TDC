@@ -279,8 +279,11 @@
 					</method>
 		
 					  <handler name="ontext"><![CDATA[
+						 //console.log("Inside Ontext");
 						 if(!classroot.isInitialText){
 							 if (text) {
+							    //console.log("ITclassroot", "ontext", text.length);
+							    gController.setAttribute("playIfAnswered",true);
 								var answered = false;
 								for(var i=0; (i< text.length) && !answered; i++){
 									var c = text.substring(i, i+1);
@@ -291,16 +294,15 @@
 								gController.updateCrField(classroot.widget_id, text, answered);
 							 }
 							 else {  // Field is now empty
+							   // gController.setAttribute("playIfAnsweredMulti",false);
 								gController.updateCrField(classroot.widget_id, '', false);
 							 }
 						 }
-	//Debug.write(classroot, "ontext", text.length);
+	//console.log(classroot, "ontext", text.length);
 						 classroot.setAttribute("numCharacters", text.length);
 						 classroot.updateCharacterMeter();
 						 classroot.setAttribute("isInitialText", false);
 						 
-						 var elm = this.inp.getDisplayObject();
-						 elm.setAttribute('style','overflow-y: hidden;');
 						 	if(this.text.length > Number(classroot.characterLimit)){
 								var textContent = this.text;
 								textContent = textContent.substring(0,Number(classroot.characterLimit));

@@ -172,7 +172,8 @@
 
             <handler name="ontext"><![CDATA[
 	 			var answer = this.getText();
-			    if (answer) {	    
+			    if (answer) {
+			        gController.setAttribute("playIfAnswered",true);	    
 			     	var answered = false;
 			        for(var i=0; i< answer.length; i++){
 			         	var c = answer.substring(i, i+1);
@@ -183,6 +184,7 @@
 			        gController.updateCrField(classroot.widget_id, answer, answered);
 			    }
 			    else {  // Field is now empty
+			      //  gController.setAttribute("playIfAnsweredSingle",false);
 			        gController.updateCrField(classroot.widget_id, '', false);
 				}
              ]]></handler>
