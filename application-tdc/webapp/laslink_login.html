@@ -15,7 +15,8 @@
 	<script type="text/javascript"src="lps/jquery.min.js"></script>
 	<script type="text/javascript"src="lps/jquery-1.5.2.js"></script>
 	<script type="text/javascript" src="lps/jquery.magnifier.js"></script>
-	<script type="text/javascript" src="lps/jquery.blockUI.js"></script>
+	<script type="text/javascript" src="includes/laslinks_utils.js"></script>
+	<!--<script type="text/javascript" src="lps/jquery.blockUI.js"></script>-->
 	
 <style title="mystyle" type="text/css" rel="stylesheet">
             html, body
@@ -29,11 +30,15 @@
             }
             body {
                 background-color: #6691b4;
+                -webkit-font-smoothing: antialiased;
+			    /* -moz-font-smoothing: antialiased; - No longer available in FF */
+			    font-smoothing: antialiased;
+			    letter-spacing: 0.5px;
             }
             img { border: 0 none; }
         </style>
 <SCRIPT LANGUAGE="JavaScript">
-<!--
+
 var _LDB_BypassSetFocusOnPageLoad = 0;
 var spText;
 var fontAccom;
@@ -42,6 +47,9 @@ var itemSet = false;
 var ansSet = false;
 var readable = false;
 var iid = null;
+
+var currentLasAssetItemId;
+
 
 function showFootnote(header)
 {
@@ -112,12 +120,12 @@ function setFrameSource(filepath,tranX,tranY){
 }
 
 function blockiPADUI(){
-	console.log("block!!!!!");
+	//console.log("block!!!!!");
 	$.blockUI();
 }
 
 function unblockiPADUI () {
-	console.log("unblock!!!!!");
+	//console.log("unblock!!!!!");
 	$.unblockUI();
 }
 
@@ -445,12 +453,53 @@ function load() {
      var myservlet = 'servlet/PersistenceServlet.do?method=isProductCheck&folder=calif&requestXML=';
      $.get(myservlet, function(data) {
 	     //alert(data);
-	     if(data.childNodes[0].nodeName.indexOf('ISTEP') >= 0){
+	     if(data.childNodes[0].nodeName.indexOf('LASLINKS') >= 0){
 	     	loadJsApplication();
 	     }else {
 	     	loadSwfApplication();
 	     }
 	 });
+}
+
+//function currentItemId(){
+ //currentLasAsset = gController.getItemParams();
+ //console.log("Current Item Ids -->",currentLasAsset);
+ // console.log("Current Item Ids -->",currentLasAsset[1]);
+
+//}
+
+function setCurLasItemId(id) {
+	currentLasAssetItemId = id;
+	gController.setAttribute('canNotAnswer',false); // set canNotAnswer to false on item load for responseAreaLocker attribute.
+}
+
+
+
+
+function eventMonitor(id,event) {
+
+	var currIframeId = frameFolderObject[id];	
+ 	if(event == 'play' || event == 'jsplay') {
+ 		if(iframeObject[currentLasAssetItemId]) {
+ 			if(iframeObject[currentLasAssetItemId][currIframeId]['folder'] == id) {
+ 				iframeObject[currentLasAssetItemId][currIframeId]['clickedOnce'] = true;	// To know whether it is clicked once or not.
+ 				 getCurrentPlayOrder(currIframeId);
+ 			}
+ 		}
+ 	} else if(event == 'finished' || event == 'endTrack') {
+ 		//console.log("event -- ",event);
+ 		if(iframeObject[currentLasAssetItemId]) {
+ 			if(iframeObject[currentLasAssetItemId][currIframeId]['folder'] == id) {
+ 				if(iframeObject[currentLasAssetItemId][currIframeId]['clickedOnce']) {
+ 					iframeObject[currentLasAssetItemId][currIframeId]['playedOnce'] = true; // To know whether the asset is atleast played once or not.
+ 				}
+ 			}
+ 		}
+ 		unlockResponseArea(currIframeId);
+ 		enableNextButton(id);
+ 		
+ 	} 	
+ 	lz.embed.setCanvasAttribute("bringBackFocus", 'true');
 }
 
 //-->
