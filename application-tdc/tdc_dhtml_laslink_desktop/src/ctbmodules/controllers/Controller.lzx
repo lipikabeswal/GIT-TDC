@@ -510,7 +510,7 @@
 		<attribute name="productTypeVal" type="string" value="ISTEP"/>
 		<attribute name="displayText" value="false"/>
 		<attribute name="lasAssetArray" value="$once{new Array()}" />
-		
+		<attribute name="isplaying" type="boolean" value="false"/>
 		<!--
 			============================================================
 			Datapointers
@@ -636,6 +636,24 @@
 			if(this.isRevisitPopupOpen == true || this.isWaitPopupOpen == true){
 				gHotKeys.disableKeys(); 
 			}
+		</handler>
+		<handler name="onisplaying" >
+		//console.log("Inside onisplaying ",gController.isplaying);
+		if(gController.isplaying == true ){
+		//console.log("inside if");
+			if(this.recorder != null) {
+			this.recorder.recordButton.setAttribute("enabled", false);
+			}
+		}	
+		else{
+			//console.log("inside else");
+			if(this.recorder != null) {
+			this.recorder.recordButton.setAttribute("enabled", true);
+			}
+		}
+		
+		//var x=this.audioFields.length;
+		//console.log("audio fields:::-->",x,this.audioFields);
 		</handler>
 		<!-- 
 			Subtest xml may or may not specify the item type.  Our code relies on the item type being populated.

@@ -33,6 +33,7 @@
 <link rel="stylesheet" href="lps/style_mozilla.css" type="text/css" /> 
 <script type="text/javascript"src="lps/jquery.min.js"></script>
 <script type="text/javascript"src="lps/jquery-1.5.2.js"></script>
+<script type="text/javascript" src="includes/laslinks_utils.js"></script>
 
 <SCRIPT type="text/javaScript">
 <!--
@@ -282,7 +283,6 @@ function frameID(frameid){
 
 function setCurLasItemId(id) {
 	currentLasAssetItemId = id;
-	gController.setAttribute('canNotAnswer',false); // set canNotAnswer to false on item load for responseAreaLocker attribute.
 }
 
 
@@ -290,15 +290,22 @@ function setCurLasItemId(id) {
 
 function eventMonitor(id,event) {
 
-	var currIframeId = frameFolderObject[id];	
+	var currIframeId = frameFolderObject[id];
  	if(event == 'play' || event == 'jsplay') {
+ 		
+ 		iframeObject[currentLasAssetItemId][currIframeId]['playEvent'] = true;
+ 		//console.log("Is Playing :",iframeObject[currentLasAssetItemId][currIframeId]['playEvent']);
+ 		playSingleAsset(currIframeId);
  		if(iframeObject[currentLasAssetItemId]) {
  			if(iframeObject[currentLasAssetItemId][currIframeId]['folder'] == id) {
  				iframeObject[currentLasAssetItemId][currIframeId]['clickedOnce'] = true;	// To know whether it is clicked once or not.
  				 getCurrentPlayOrder(currIframeId);
  			}
  		}
- 	} else if(event == 'finished' || event == 'endTrack') {
+ 		setPlayingAttr('true');
+ 		
+ 	} else if(event == 'finished' || event == 'endTrack' || event == 'pause') {
+ 	iframeObject[currentLasAssetItemId][currIframeId]['playEvent'] = false;
  		//console.log("event -- ",event);
  		if(iframeObject[currentLasAssetItemId]) {
  			if(iframeObject[currentLasAssetItemId][currIframeId]['folder'] == id) {
@@ -309,9 +316,13 @@ function eventMonitor(id,event) {
  		}
  		unlockResponseArea(currIframeId);
  		enableNextButton(id);
- 		
- 	} 	
- 	lz.embed.setCanvasAttribute("bringBackFocus", 'true');
+ 		if( event == 'endTrack' || event == 'pause'){
+ 			setPlayingAttr('false');
+ 		}
+ 	} else if (event == 'reset') {
+ 		//setPlayingAttr('false');
+ 	}
+ 	//lz.embed.setCanvasAttribute("bringBackFocus", 'true');
 }
 
 function load() {

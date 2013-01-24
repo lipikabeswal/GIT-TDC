@@ -1,7 +1,7 @@
 var iframeObject = {}; // object containing the item id as key and object conatining folder name and iframe object as value.
 var frameFolderObject = {};
 var currentPlayOrder = 0;
-var playOrderArray = {}; 
+var playOrderArray = {};
 
 function iframeLoaded(id, iframe){
 	////console.log("UTILS -->",id,"  ",iframe);
@@ -21,8 +21,11 @@ function iframeLoaded(id, iframe){
 	for(var i=0; i<gController.lasAssetArray.length;i++){
 		if(gController.lasAssetArray[i].asset){
 			if(gController.lasAssetArray[i].asset.aw.iframeid == iframe.id) {
+				//Not doing anything for auto play now.
 				if(parseInt(gController.lasAssetArray[i].data.getAttr('playorder')) == 1){
-		 			iframe.contentWindow.play();
+					//if(gController.lasAssetArray[i].data.getAttr('autoplay') == "true")
+		 			//iframe.contentWindow.autoPlay();
+		 			//iframe.contentWindow.play();
 				}
 				// Apart from first asset, rest should be disabled
 				if(parseInt(gController.lasAssetArray[i].data.getAttr('playorder')) != 1) {
@@ -125,7 +128,7 @@ function getNextPlayOrder(assetFolderId) {
 	}
 }
 
-function unlockResponseArea(frameId) { // Assuming there will be only one such asset per question
+function unlockResponseArea(frameId) { // Assuming there will be only one such asset per item
 	////console.log("SCRIPT gController.canNotAnswer - ",gController.canNotAnswer);
 	if(gController.canNotAnswer) {
 		for(var i=0; i< gController.lasAssetArray.length; i++) {
@@ -146,7 +149,33 @@ function checkValIfAnswered(frameId) {
 		if(iframeObject[currentLasAssetItemId] && iframeObject[currentLasAssetItemId][frameId]) {
 			iframeObject[currentLasAssetItemId][frameId].iframeObj.contentWindow.enable();
 		}
+	}  
+}
+
+function playSingleAsset(currIframeId){
+
+		var id = iframeObject[currentLasAssetItemId][currIframeId].iframeObj.id;
+		//console.log("ID Playing currently :", id);
+		for(var i=0; i< gController.lasAssetArray.length; i++) {
+				if(gController.lasAssetArray[i].asset){
+			//	console.log("ID Lasasset : ",gController.lasAssetArray[i].asset.aw.iframeid);
+					if(gController.lasAssetArray[i].asset.aw.iframeid != id){
+				//		console.log("play Event : ",iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].playEvent);
+						if(iframeObject[currentLasAssetItemId]) {
+							if(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].playEvent){		
+								iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.resetAudio();
+							}
+						}
+				}	
+		}
 	}
-  
-   
+		
+}
+
+function setPlayingAttr(arg){	
+	if(arg == 'true'){
+		gController.setAttribute('isplaying',true);
+	} else{
+		gController.setAttribute('isplaying',false);
+	}
 }
