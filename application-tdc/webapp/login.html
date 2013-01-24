@@ -280,6 +280,40 @@ function frameID(frameid){
 	currentFrameId = frameid;
 }
 
+function setCurLasItemId(id) {
+	currentLasAssetItemId = id;
+	gController.setAttribute('canNotAnswer',false); // set canNotAnswer to false on item load for responseAreaLocker attribute.
+}
+
+
+
+
+function eventMonitor(id,event) {
+
+	var currIframeId = frameFolderObject[id];	
+ 	if(event == 'play' || event == 'jsplay') {
+ 		if(iframeObject[currentLasAssetItemId]) {
+ 			if(iframeObject[currentLasAssetItemId][currIframeId]['folder'] == id) {
+ 				iframeObject[currentLasAssetItemId][currIframeId]['clickedOnce'] = true;	// To know whether it is clicked once or not.
+ 				 getCurrentPlayOrder(currIframeId);
+ 			}
+ 		}
+ 	} else if(event == 'finished' || event == 'endTrack') {
+ 		//console.log("event -- ",event);
+ 		if(iframeObject[currentLasAssetItemId]) {
+ 			if(iframeObject[currentLasAssetItemId][currIframeId]['folder'] == id) {
+ 				if(iframeObject[currentLasAssetItemId][currIframeId]['clickedOnce']) {
+ 					iframeObject[currentLasAssetItemId][currIframeId]['playedOnce'] = true; // To know whether the asset is atleast played once or not.
+ 				}
+ 			}
+ 		}
+ 		unlockResponseArea(currIframeId);
+ 		enableNextButton(id);
+ 		
+ 	} 	
+ 	lz.embed.setCanvasAttribute("bringBackFocus", 'true');
+}
+
 function load() {
 	
      var myservlet = 'servlet/PersistenceServlet.do?method=isProductCheck&folder=calif&requestXML=';
@@ -361,7 +395,8 @@ body { background-color:#6691B4; margin: 0px; overflow:hidden;}
 		}
 	</SCRIPT>
 	
-	<div id="appcontainer"></div><div id="lzsplash" style="z-index: 10000000; top: 0; left: 0; width: 100%; height: 100%; position: fixed; display: table"><p style="display: table-cell; vertical-align: middle; align: center;"><div id="lzsplashtext" style="display: block; margin: 20% auto; font-size:12px; font-family:Helvetica,sans-serif;" align="center">Loading...</div></p></div><script type="text/javascript" defer>
+	<div id="appcontainer"></div><div id="lzsplash" style="z-index: 10000000; top: 0; left: 0; width: 100%; height: 100%; position: fixed; display: table"><p style="display: table-cell; vertical-align: middle; align: center;"><div id="lzsplashtext" style="display: block; margin: 20% auto; font-size:12px; font-family:Helvetica,sans-serif;" align="center">Loading...</div></p></div>
+	<script type="text/javascript" defer>
                   function loadJsApplication(){
 	                  lz.embed.dhtml({url: 'TestClient.js?servletUrl=/servlet', lfcurl: 'lps/includes/lfc/LFCdhtml.js', serverroot: 'lps/resources/', bgcolor: '#6691b4', width: '100%', height: '100%', id: 'lzapp', accessible: 'true', cancelmousewheel: false, cancelkeyboardcontrol: false, skipchromeinstall: false, usemastersprite: false, approot: '', appenddivid: 'appcontainer'});
 	                  lz.embed.applications.lzapp.onload = function loaded() {
