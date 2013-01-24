@@ -303,6 +303,8 @@
 						 classroot.updateCharacterMeter();
 						 classroot.setAttribute("isInitialText", false);
 						 
+						 var elm = this.inp.getDisplayObject();
+						 elm.setAttribute('style','overflow-y: hidden;');
 						 	if(this.text.length > Number(classroot.characterLimit)){
 								var textContent = this.text;
 								textContent = textContent.substring(0,Number(classroot.characterLimit));
