@@ -84,6 +84,7 @@
 	<handler name="onbringBackFocus" args="data">
 		//console.log("*****************onbringBackFocus***************");
 		//canvas.onfocus.sendEvent();
+		//this.onfocus.sendEvent();
 		//gHotKeys.enableKeys();
 		//gCompTypes.getAttribute('cachedanswerareapanels').onfocus.sendEvent();
 	</handler>

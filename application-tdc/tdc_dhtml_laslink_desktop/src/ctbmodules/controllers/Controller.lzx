@@ -564,6 +564,61 @@
 		<attribute name="playIfAnswered" type="boolean" value="false" />
 		<attribute name="iframeid" type="string" value="NONE" />
 		
+		<handler name="oncanNotAnswer" args="data"><![CDATA[
+			if(answerArray.length > 0) {
+				for (var i = 0; i < answerArray.length; i++) {
+					if(this.canNotAnswer) {
+						answerArray[i].subviews[0].lockAnswerChoice();
+					} else {
+						answerArray[i].subviews[0].unLockAnswerChoice();
+					}
+				}
+			} else if(this.crFields.length > 0){
+				//console.log("this.crFields.length - ",this.crFields.length);
+				if(this.canNotAnswer) {
+					disableResponseArea();
+				} else {
+					enableResponseArea();
+				}
+			}
+		]]></handler>
+
+	<method name="disableResponseArea"><![CDATA[
+		//console.log(this.crFields);
+		//console.log(this.crFields[0]['ref'].comptype);
+		//var id = isAnswerToBeDisabled();
+		//if(id != null){
+			for (var i = 0; i < this.crFields.length; i++){
+				var crField = this.crFields[i];
+				if(crField['ref'] instanceof lz.CachableMultiLineAnswer){
+				//if(crField['ref'].comptype == "multi_line_answer") {
+					crField['ref'].outer.rich.answer.setAttribute('enabled',false);
+				}
+				if(crField['ref'] instanceof lz.CachableSingleLineAnswer){
+					crField['ref'].answer.disable();
+				}
+			}
+		//}
+	]]>
+	</method>
+	
+	<method name="enableResponseArea"><![CDATA[
+		//var id = isAnswerToBeDisabled();
+		//var isPlaying = checkIfPlaying(id);
+		//if(isPlaying){
+			for (var i = 0; i < this.crFields.length; i++){
+				var crField = this.crFields[i];
+				if(crField['ref'] instanceof lz.CachableMultiLineAnswer){
+					crField['ref'].outer.rich.answer.setAttribute('enabled',true);
+				}
+				if(crField['ref'] instanceof lz.CachableSingleLineAnswer){
+					crField['ref'].answer.enable();
+				}
+			}
+		//}
+	]]>
+	</method>
+		
 		<handler name="onplayIfAnswered"><![CDATA[
 			//console.log("iframeid==Controller",iframeid);
 			if(this.iframeid != "NONE") {
@@ -3407,6 +3462,7 @@ Debug.write("############ loadItem ############");
 			gMaskingAnswer.setAttribute("withState",false);
 			hideMagnifierGlass();
 			hideMaskingChoiceDD();
+			this.setAttribute('canNotAnswer',false); // set canNotAnswer to false on item load for responseAreaLocker attribute.
 		]]></method>
 
 		<method name="loadMusicData"><![CDATA[

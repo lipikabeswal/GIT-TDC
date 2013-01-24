@@ -38,6 +38,20 @@
         </method>
 
         <AnswerSelectionButton name="selbutton" clickable="true"/>
+        
+        <view id="disableSRChoice" name="disableSRChoice" height="${classroot.selbutton.height}" width="${classroot.selbutton.width}" clickable="false" visible="false" bgcolor="grey" opacity="0.3"/>
+        
+        <method name="lockAnswerChoice">
+        	this.disableSRChoice.bringToFront();
+        	this.disableSRChoice.setAttribute('visible',true);
+        	this.disableSRChoice.setAttribute('clickable',true);
+        </method>
+        
+        <method name="unLockAnswerChoice">
+        	this.selbutton.bringToFront();
+        	this.disableSRChoice.setAttribute('visible',false);
+        	this.disableSRChoice.setAttribute('clickable',false);
+        </method>
 
 		<handler name="onwidth">
             if ( this.immediateparent['updateSelector'] ) {
