@@ -9,11 +9,11 @@ function iframeLoaded(id, iframe){
 	frameFolderObject[folderName] = iframe.id;
 	if(iframe.src.indexOf('asset.html') > 0) {
 		if(iframeObject[currentLasAssetItemId]) {
-			iframeObject[currentLasAssetItemId][iframe.id] = {'folder' : iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1), 'iframeObj' : iframe, 'clickedOnce' : false, 'playedOnce' : false};
+			iframeObject[currentLasAssetItemId][iframe.id] = {'folder' : iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1), 'iframeObj' : iframe, 'clickedOnce' : false, 'playedOnce' : false, 'playEvent' : false};
 			////console.log("*******  ",iframeObject[currentLasAssetItemId][iframe.id]);
 		} else {
 			iframeObject[currentLasAssetItemId] = {};
-			iframeObject[currentLasAssetItemId][iframe.id] = {'folder' : iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1), 'iframeObj' : iframe, 'clickedOnce' : false, 'playedOnce' : false};
+			iframeObject[currentLasAssetItemId][iframe.id] = {'folder' : iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1), 'iframeObj' : iframe, 'clickedOnce' : false, 'playedOnce' : false, 'playEvent' : false};
 		}
 	}
 	getPlayOrder();  // To get the playOrder of all assets in array.
