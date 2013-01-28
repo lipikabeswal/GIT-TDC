@@ -558,6 +558,8 @@
 		<attribute name="RestartTest" value="false" type="boolean" />
 		<attribute name="skipCacheDestroy" type="boolean" value="false"/>
 		<attribute name="stylesArr" value="${new Array()}"/>
+		<attribute name="panelArr" value="$once{new Array()}"/>
+		<attribute name="scrollTextArr" value="$once{new Array()}"/>
 			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -825,15 +827,11 @@
 		</method>
 		
 		<method name="getImageData" args="response"><![CDATA[
-			var s = "checkStop('inside getImageData controller','"+response.indexOf('||')+"','')";
-			lz.Browser.loadJS(s);
 			if((response!=null || response!='undefined') && (typeof( response ) == 'string')){
 				if(response.indexOf('||') != -1){
 					var id = response.substring(0,response.indexOf('||'));
 					var data = response.substring((response.indexOf('||')+2),response.length);
 					imageData[id] = data;
-					var s = "checkStop('inside imageData controller','"+id+"','"+imageData[id]+"')";
-					lz.Browser.loadJS(s);
 				}
 			}
 			]]>
@@ -926,6 +924,7 @@
 		</method>
 
 		<method name="_handleSubtestFinishResponse" args="response">
+			console.log("_handleSubtestFinishResponse "+response);
 			var node = lz.DataElement.stringToLzData(response);
 			var nextSubtestIndex = getSubtestIndex(node);
 			if(nextSubtestIndex != -1){
@@ -3383,6 +3382,8 @@ Debug.write("############ loadItem ############");
 			this.resetAudioFields();
 			Debug.write("reset in load item htmlFields");
 			this.resetHtmlFields();
+			this.resetPanelFields();
+			this.resetScrollTextArray();
 			//this.resetImageField();
 			gMaskingAnswer.setAttribute("withState",false);
 			hideMagnifierGlass();
@@ -5327,6 +5328,28 @@ Debug.write("############ loadItem ############");
             gScreens.copyWriteText.setAttribute('y',200);
 			gDownloadManager.downloadContent();
 		</method>
+
+		<method name="addPanel" args="field">
+			this.panelArr.push(field);
+		</method>
+
+		<method name="resetPanelFields"><![CDATA[
+		 	for (var i = 0; i < this.panelArr.length; i++) {
+                delete this.panelArr[i];
+            }
+            this.panelArr.length = 0;
+		]]></method>
+
+		<method name="addScrollTextArray" args="field">
+			this.scrollTextArr.push(field);
+		</method>
+
+		<method name="resetScrollTextArray"><![CDATA[
+		 	for (var i = 0; i < this.scrollTextArr.length; i++) {
+                delete this.scrollTextArr[i];
+            }
+            this.scrollTextArr.length = 0;
+		]]></method>
 	</node>
 
 </library>

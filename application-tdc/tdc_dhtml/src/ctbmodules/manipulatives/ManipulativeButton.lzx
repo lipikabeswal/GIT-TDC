@@ -74,18 +74,52 @@
 	                gController.setManipulativeSelState (classroot.toolid, 
 	                                                         classroot.isselected ? 'up' : 'sel');
 	                console.log("classroot.isselected "+classroot.isselected);
-	                console.log("classroot.toolid "+classroot.toolid);                                         
-	                /*if(!classroot.isselected && classroot.toolid=='highlighter'){
-		            	scrollTextArea.setAttribute('clickable',false);
-		            	scrollTextArea.setAttribute('with',"");
-		            	basepanelScrollContainer.setAttribute('clickable',false);
-		            	basepanelScrollContainer.setAttribute('with',"");
+	                console.log("classroot.toolid "+classroot.toolid);  
+	                console.log("basepanelScrollContainer "+gController.panelArr);
+	                console.log("scrollTextArea "+scrollTextArea);                                         
+	                if(classroot.isselected && classroot.toolid=='highlighter'){
+	                	/*if(gController.scrollTextArr.length > 0){
+							for(var i=0;i<gController.scrollTextArr.length;i++){
+								 console.log("scrollTextArr "+gController.scrollTextArr[i]);
+								gController.scrollTextArr[i].contents.textarea.scrollarea.setAttribute('clickable',false);
+							}
+		            	}if(gController.panelArr.length > 0){
+		            		for(var i=0;i<gController.panelArr.length;i++){
+								 console.log("panelArr "+gController.panelArr[i]);
+								gController.panelArr[i].wrapper.scrollcontainer.setAttribute('clickable',false);
+							}
+						}*/if(gController.panelArr.length > 0){
+		            		for(var i=0;i<gController.panelArr.length;i++){
+								 console.log("panelArr "+gController.panelArr[i]);
+								if(gController.panelArr[i] instanceof lz.CachableScrollingTextPanel){
+									gController.panelArr[i].scrolltext.contents.textarea.scrollarea.setAttribute('clickable',false);
+								}else{
+									gController.panelArr[i].wrapper.scrollcontainer.setAttribute('clickable',false);
+								}
+							}
+		            	}
 		            }else {
-		            	scrollTextArea.setAttribute('clickable',true);
-		            	scrollTextArea.setAttribute('with',"swipegesture, touchevents, scrollTextLimity");
-		            	basepanelScrollContainer.setAttribute('clickable',true);
-		            	basepanelScrollContainer.setAttribute('with',"swipegesture, touchevents, panelLimity");
-		            }   */                                      
+		            	/*if(gController.scrollTextArr.length > 0){
+							for(var i=0;i<gController.scrollTextArr.length;i++){
+								 console.log("scrollTextArr "+gController.scrollTextArr[i]);
+								gController.scrollTextArr[i].contents.textarea.scrollarea.setAttribute('clickable',true);
+							}
+		            	}if(gController.panelArr.length > 0){
+		            		for(var i=0;i<gController.panelArr.length;i++){
+								gController.panelArr[i].wrapper.scrollcontainer.setAttribute('clickable',true);
+							}
+		            	}*/
+						if(gController.panelArr.length > 0){
+		            		for(var i=0;i<gController.panelArr.length;i++){
+								 console.log("panelArr "+gController.panelArr[i]);
+								if(gController.panelArr[i] instanceof lz.CachableScrollingTextPanel){
+									gController.panelArr[i].scrolltext.contents.textarea.scrollarea.setAttribute('clickable',true);
+								}else{
+									gController.panelArr[i].wrapper.scrollcontainer.setAttribute('clickable',true);
+								}
+							}
+						}
+		            }                                   
 	            }
 	            lz.Timer.removeTimer (classroot.tooltipdel);
 	            ]]>
