@@ -76,12 +76,6 @@
         </handler>
 
         <handler name="onmousedown">
-        	console.log("onmousedown****x**"+this.x);
-        	console.log("onmousedown****y**"+this.y);
-        	console.log("onmousedown****drag_min_x**"+this.drag_min_x);
-        	console.log("onmousedown****drag_min_y**"+this.drag_min_y);
-        	console.log("onmousedown****drag_max_x**"+this.drag_max_x);
-        	console.log("onmousedown****drag_max_y**"+this.drag_max_y);
         	this.bringToFront();
            // lz.Cursor.setCursorGlobal ('grabbing_cursor');
            // lz.Cursor.lock ();
@@ -89,13 +83,7 @@
         </handler>
 
         <handler name="onmouseup">
-        	console.log("onmouseup****x**"+this.x);
-        	console.log("onmouseup****y**"+this.y);
-        	console.log("onmouseup****drag_min_x**"+this.drag_min_x);
-        	console.log("onmouseup****drag_min_y**"+this.drag_min_y);
-        	console.log("onmouseup****drag_max_x**"+this.drag_max_x);
-        	console.log("onmouseup****drag_max_y**"+this.drag_max_y);
-           // lz.Cursor.unlock ();
+        	// lz.Cursor.unlock ();
             gController.restoreCurrentCursor();
             this.dragger.remove ();
 
@@ -105,25 +93,25 @@
 
 
         <handler name="ondata" args="data"><![CDATA[
-        	console.log("*****x********"+(classroot.width - this.width)/2);
-        	console.log("*****y********"+(classroot.height - this.height)/2);
+        	//console.log("*****x********"+(classroot.width - this.width)/2);
+        	//console.log("*****y********"+(classroot.height - this.height)/2);
             this.setAttribute ('x', (classroot.width - this.width)/2);
             this.setAttribute ('y', (classroot.height - this.height)/2);
-			console.log("*****data********"+data);
+			//console.log("*****data********"+data);
             // load in saved data or set to defaults
             if (data) {
             	var myP = new lz.datapointer();
             	myP.setPointer(data);
                 if (data.hasAttr ('x')) {
                     this.setAttribute ('x', data.getAttr ('x'));
-                    console.log("*****x********"+data.getAttr ('x'));
-					console.log("*****this.x********"+this.x);
+                    //console.log("*****x********"+data.getAttr ('x'));
+					//console.log("*****this.x********"+this.x);
                 }
                 
                 if (data.hasAttr ('y')) {
                     this.setAttribute ('y', data.getAttr ('y'));
-                    console.log("*****y********"+data.getAttr ('y'));
-					console.log("*****this.y********"+this.y);
+                    //console.log("*****y********"+data.getAttr ('y'));
+					//console.log("*****this.y********"+this.y);
                 }
                 
                 if (data.hasAttr ('displayValue')) {
@@ -135,13 +123,15 @@
                 
                 if (data.hasAttr ('currentOperand')) {
                     this.setAttribute ('currentOperand', data.getAttr ('currentOperand'));
+					console.log("Has Current Operand :"+currentOperand);
                 }
                 else{
                 	this.setAttribute('currentOperand', this.defaultCurrentOperand);
                 }
                 
-                if (data.hasAttr ('operandSet')) {
+                if (data.hasAttr ('operandSet')) {		
                     this.setAttribute ('operandSet', data.getAttr ('operandSet'));
+					console.log("Has OperandSet :"+operandSet);	
                 }
                 else{
                 	this.setAttribute('operandSet', this.defaultOperandSet);
@@ -149,6 +139,7 @@
                 
                 if (data.hasAttr ('input')) {
                     this.setAttribute ('input', data.getAttr ('input'));
+					console.log("Has Input :"+input);
                 }
                 else{
                 	this.setAttribute('input', this.defaultInput);
@@ -236,6 +227,7 @@
          ]]></handler>
 
 		<method name="pushOperand" args="operand">
+			console.log("push operand****"+operand);
 			var operandsP = this.datapath.dupePointer();
 			operandsP.setXPath('operands');
 			operandsP.addNode(operand);
@@ -243,6 +235,7 @@
 		</method>
 		
 		<method name="popOperand">
+			console.log("pop operand****");
 			var result;
 			result = this.operands.pop();
 			if(result != null){
@@ -256,6 +249,7 @@
 		</method>
 		
 		<method name="pushOperator" args="operator">
+			console.log("push operator****"+operator);
 			var operatorsP = this.datapath.dupePointer();
 			operatorsP.setXPath('operators');
 			operatorsP.addNode(operator);
@@ -263,6 +257,7 @@
 		</method>
 		
 		<method name="popOperator">
+			console.log("pop operator****");
 			var result;
 			result = this.operators.pop();
 			if(result != null){
@@ -329,13 +324,16 @@
 		</method>
 
 		<method name="handleBinaryOperator" args="oper">
+			console.log("handle binary operator****"+oper);
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 				if(isReplacementOperator()){
+					console.log("is replacemnet operator****");
 					popOperator();
 				}
 	
-				if(this.operandSet){
+				if(this.operandSet==true || this.operandSet=='true' ){
+					console.log("handle if this.operandSet"+this.operandSet);
 					this.setCurrentOperandFromInput();
 					pushOperand(this.currentOperand);
 				}
@@ -386,14 +384,17 @@
 		
 		<method name="getInputNumber">
 			if(this.isNegative == true || this.isNegative == 'true'){
+				console.log("if****"+this.input);
 				return "-" + this.input;
 			}
 			else{
+				console.log("else****"+this.input);
 				return this.input;
 			}
 		</method>
 		
 		<method name="isReplacementOperator"><![CDATA[
+			
 			return (!this.operandSet &&
 			        (this.operators.length != 0) &&
 			        (this.operators.length >= this.operands.length));
@@ -447,9 +448,15 @@
 					this.setCurrentOperandFromInput();
 					pushOperand(this.currentOperand);
 					result = this.currentOperand;
-					if(this.operandSet){
+					/*if(this.operandSet){
+						console.log("Handle Equals OperandSet :"+this.operandSet);
+						result = reduce("none");
+					}*/
+					if(this.operandSet == true || this.operandSet == 'true'){
+						console.log("Handle Equals OperandSet :"+this.operandSet);
 						result = reduce("none");
 					}
+
 				}
 				this.resetState();
 				setDataAttribute('currentOperand', result);
@@ -477,7 +484,9 @@
 		</method>
 
 		<method name="setCurrentOperandFromInput">
+			
 			if(this.isEditing){
+				console.log("set current operand from input****");
 				setDataAttribute('currentOperand', this.getInputValue());
 			}
 		</method>
@@ -542,7 +551,7 @@
 		
 		<method name="updateDisplay">
 		<![CDATA[   
-			if(this.isEditing){  
+			if(this.isEditing == true || this.isEditing == 'true'){  
 				if(this.isNegative == true || this.isNegative == 'true'){
 					setDataAttribute('displayValue', "-" + this.input);
 				}
@@ -557,6 +566,7 @@
 		</method>
 
 		<method name="handleDigit" args="digit">
+			//console.log("handledigit****"+digit);
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 			    if(this.canAddDigit()){ 

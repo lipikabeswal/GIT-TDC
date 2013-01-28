@@ -44,10 +44,10 @@
 						  visible="${classroot.memory != 0}"/>
 				</view>
 				<handler name="onmousedown">
-					console.log("on mouswe down*********");
+					//console.log("on mouswe down*********");
 				</handler>
 				<handler name="onmouseup">
-					console.log("on mouswe up*********");
+					//console.log("on mouswe up*********");
 				</handler>
 			</view>
 				
