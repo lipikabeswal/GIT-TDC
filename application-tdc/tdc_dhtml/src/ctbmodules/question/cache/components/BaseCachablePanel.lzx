@@ -155,7 +155,8 @@
             {
                 gFootNotePopup.setAttribute("scrolltext", this);
             }      
-
+			
+			gController.addPanel(this);
         ]]></method>
 
 		<!-- 
@@ -293,6 +294,7 @@
         <!-- ================================
              Views
              ================================= -->
+		
 
         <view name="wrapper" clip="true">
             <view name="scrollcontainer" id="basepanelScrollContainer"
@@ -301,10 +303,22 @@
                   height="${this.offsetwrapper.height &gt; parent.height || classroot.growtocontents
                           ? (Number(this.offsetwrapper.height) + 
                               (classroot.growtocontents &amp;&amp; classroot.comptype == gCompTypes.WIDGET_ANSWER_AREA_PANEL ? Number(this.offsetwrapper.contents.y) : Number(0))): 
-                          parent.height}" 
-                          with="swipegesture, touchevents, panelLimity" clickable="true">
+                          parent.height}"
+                          onmouseup="dragger.setAttribute('applied', false)">
+					<dragstate name="dragger" drag_axis="y" drag_min_y="${(parent.height - this.height) > 0 ? 0 : parent.height - this.height}" drag_max_y="0"/>
+					<handler name="onmousedown">
+					console.log("hlstatus.data scrollcontainer"+this.highlighter.hlstatus.data);
+					console.log("scrollcontainer "+ this.clickable);
+					console.log("highlighter.visible "+gController.dpstudentdata.xpathQuery("current_item/item_model/manipulatives/global/@highlighter"));
+					if(this.highlighter.hlstatus.data != 'sel')
+						dragger.setAttribute('applied', true);
+					</handler>
+
+					<handler name="ondata" refreference="this.highlighter.hlstatus">
+						console.log("this.highlighter.hlstatus");
+					</handler>
                           
-                     <handler name="onswipe" args="s">
+                     <!-- <handler name="onswipe" args="s">
                      	console.log("onswipe of basecachable "+s);
                      	if(this.highlighter.hlstatus.data != 'sel'){
                      		this.setAttribute('clickable',true);
@@ -317,7 +331,7 @@
 							return;
 							this.setAttribute('clickable',false);
 						}
-					</handler>
+					</handler> -->
                 
                 <view name="offsetwrapper" >
                     <view name="contents"/>

@@ -26,6 +26,7 @@
 
 			this.contents.textarea.scrollarea.scrollcontents.dynlayout.update();
 			doneLoading();
+			gController.addScrollTextArray(this);
         </handler>
         
 
@@ -79,8 +80,17 @@
                   height="100%" clip="true">
                 <resizelayout axis="x"/>
                 <view name="scrollarea" id="scrollTextArea" options="releasetolayout" 
-                	with="swipegesture, touchevents, scrollTextLimity" clickable="true">
-                	<handler name="onswipe" args="s">
+					onmouseup="dragger.setAttribute('applied', false)">
+					<dragstate name="dragger" drag_axis="y" drag_min_y="${(parent.height - this.height) > 0 ? 0 : parent.height - this.height}" drag_max_y="0">
+					</dragstate>
+					<handler name="onmousedown">
+					console.log("hlstatus.data"+this.highlighter.hlstatus.data);
+					console.log("scrollarea "+ this.clickable);
+					if(this.highlighter.hlstatus.data != 'sel')
+						dragger.setAttribute('applied', true);
+					
+					</handler>
+                	<!--<handler name="onswipe" args="s">
 					console.log("hlstatus.data"+this.highlighter.hlstatus.data);
 					if(this.highlighter.hlstatus.data != 'sel'){
 						this.setAttribute('clickable',true);
@@ -93,7 +103,7 @@
 						this.setAttribute('clickable',false);
 						return;
 					}	
-					</handler>
+					</handler>-->
                     <view name="scrollcontents">
                         <DynamicSimplelayout name="dynlayout" axis="y"/>
                     </view>
