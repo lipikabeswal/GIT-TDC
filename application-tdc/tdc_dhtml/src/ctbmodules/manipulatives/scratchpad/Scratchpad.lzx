@@ -146,6 +146,8 @@
 	            	<attribute name="end" type="number" value="0" />
 	            	<attribute name="scrollPos" type="number" value="0" />
 	            <method name="init">
+	            	var elm = this.getDisplayObject();
+					elm.setAttribute('style','overflow: hidden; overflow-x: hidden; overflow-y: hidden;');
 	                super.init();
 	                this.style.setAttribute("textfieldcolor", gController.answerBgColor);
 					this.setAttribute('fontcolor',gController.answerFontColor);
