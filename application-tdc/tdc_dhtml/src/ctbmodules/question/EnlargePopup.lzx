@@ -168,18 +168,16 @@
         <EnlargeButton name="zoombtn" resource="zoom_out_btn"
                      x="${parent.width - this.width - 20}"
                      iszoomin="false"/>
-        <view name="scaler" clip="true" y="25" 
+        <view name="scaler" clip="true" y="25"
                   height="${parent.height-25}" width="${parent.width}"> 
-           <view name="stretcher" xscale="1" yscale="1"
-           		 with="swipegesture, touchevents, enlargePopupLimity" clickable="true"> 
-               <Question name="scaled" doaccomlayout="false">
-           		 <handler name="onswipe" args="s">
-					if (s.direction === 'up' || s.direction === 'down') {
-					    this.animate('y', s.velocity, 500, true, {motion: 'easeout'});
-					}else{
-						return;
-					}
+           <view name="stretcher"
+           		onmouseup="dragger.setAttribute('applied', false)">
+				<dragstate name="dragger" drag_axis="y" drag_min_y="${(parent.height - this.height) > 0 ? 0 : parent.height - this.height}" drag_max_y="0"/>
+				<handler name="onmousedown">
+					console.log("onmousedown of enlarge popup");
+					dragger.setAttribute('applied', true);
 				</handler>
+               <Question name="scaled" doaccomlayout="false">
                    <datapath/> 
                    <attribute name="enlarged" value="false"/>
                    <method name="calcSize"><![CDATA[
