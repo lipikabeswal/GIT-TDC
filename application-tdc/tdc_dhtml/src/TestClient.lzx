@@ -26,7 +26,7 @@
        </setter>
    </mixin>
    
-   <mixin name="scrollTextLimity">
+  <!-- <mixin name="scrollTextLimity">
        <attribute name="maxy" type="number" value="0"/>
        <attribute name="miny" type="number" value="${(parent.height - parent.scrollarea.height) > 0 ? 0 : parent.height - parent.scrollarea.height}"/>
        <handler name="onmaxy">
@@ -62,7 +62,7 @@
            }
            super.$lzc$set_y(y);
        </setter>
-   </mixin>               
+   </mixin>  -->               
    
    <mixin name="enlargePopupLimity">
        <attribute name="maxy" type="number" value="0"/>
