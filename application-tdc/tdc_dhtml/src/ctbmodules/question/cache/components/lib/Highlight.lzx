@@ -65,8 +65,6 @@
 
         <!-- init livesel -->
         <handler name="onmousedown" reference="clickarea"><![CDATA[
-        	console.log("onmousedown in highlighter");
-        	scrollTextArea.setAttribute('clickable',false);
             if (this.hlstatus.data == 'sel' && this.visible) {
             	gController.setCurrentCursor('highlighter_cursor');
                 this.livesel.setAttribute ('x', this.getMouse ('x'));
