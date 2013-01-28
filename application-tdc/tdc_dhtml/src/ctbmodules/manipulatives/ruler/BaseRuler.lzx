@@ -398,8 +398,8 @@
                  gHotKeys.enableKeys();
 
   // the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
-  				  lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
-                 //gController.restoreCurrentCursor();
+  				 // lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
+                 gController.restoreCurrentCursor();
                  classroot.dragger.remove ();
 
                  classroot.datapath.p.setAttr ('x', classroot.x);
