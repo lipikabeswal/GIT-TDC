@@ -109,16 +109,7 @@
             </view>-->
 			<view bgcolor="0x6691B4" height="61">
 	            <view x="7" width="${gHeader.width-(Number(parent.timeStatus.width)+Number(gLogo.width))}" clip="true">
-					<ManipulativeBar id="gManipulativeBar" height="40" y="11"
-	                				with="swipegesture, touchevents, maniplimitx" clickable="true">
-	                	<handler name="onswipe" args="s">
-							console.log("onswipe of manip bar "+s);
-							if (s.direction === 'up' || s.direction === 'down') {
-							    return;
-							}
-							this.animate('x', s.velocity, 500, true, {motion: 'easeout'});
-						</handler>			
-	                </ManipulativeBar>
+					<ManipulativeBar id="gManipulativeBar" height="40" y="11"/>
 	            </view>
 				<TimeStatus  name="timeStatus" x="${gLogo.x-gLogo.width-10}" y="-11" />
 	            <view  id="gLogo" x="690" y="11" />
@@ -133,6 +124,8 @@
 				</handler>
 	          	<handler name="onclick"><![CDATA[
 	          		if(classroot.main.header.y == -56){
+	          			classroot.main.header.bringToFront();
+	          			this.bringToFront();
 		          		classroot.main.header.animate('y',0, 500);
 		          	}else if(classroot.main.header.y ==  0){
 		          		if(gMusicPlayer.visible){
