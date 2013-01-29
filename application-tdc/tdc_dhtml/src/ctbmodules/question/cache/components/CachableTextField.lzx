@@ -161,14 +161,12 @@
             var just = "left";
             if (data.hasAttr("halign")) {
                 just = data.getAttr("halign");
-            }
-            this.setAttribute('align', just);
-
+            }    
+	       this.setAttribute('align', just);
+			
            this.thetext.setAttribute("text",
-                '<label align="' + just + '">' + dataText + '</label>');
-
-			console.log("this.thetext.getTextHeight  "+this.thetext.getTextHeight())
-
+                '<div style="text-align:' + just + ';"><label>' + dataText + '</label></div>');
+			
             doneLoading();
 
             //this.doAlign();
@@ -357,11 +355,18 @@
                var name = new lz.CachableInputTextField(this, { "resize" : true });
                allFields.push(name);
                if (i == 0)
-                  name.setText("<p>" + words[i]);
+                  name.setText("<label>" + words[i]);
                if (i == words.length-1)
-                      name.setText(words[i] + "</p>");
+                      name.setText(words[i] + "</label>");
                name.setText(words[i]);
                name.setAttribute('fgcolor', this.fontcolor);
+			   var elm = name.getDisplayObject();
+			   if (i_on)
+				  elm.setAttribute('font-family','CTB_font_italic');
+               if (b_on)
+				  elm.setAttribute('font-family','CTB_font_bold');
+				else
+				  elm.setAttribute('font-family','CTB_font');			   
             }
 
             // Used by the TextReader
@@ -517,11 +522,18 @@
 		               var name = new lz.CachableInputTextField(this, { "resize" : true });
 		               allFields.push(name);
 		               if (i == 0 && j == 0)
-		                  name.setText("<p>" + inputText[j]);
+		                  name.setText("<label>" + inputText[j]);
 		               if (i == words.length-1 && j == inputText.length-1)
-		                      name.setText(inputText[j] + "</p>");
+		                      name.setText(inputText[j] + "</label>");
 		               name.setText(inputText[j]);
 		               name.setAttribute('fgcolor', this.fontcolor);
+					   var elm = name.getDisplayObject();
+					   if (i_on)
+						  elm.setAttribute('font-family','CTB_font_italic');
+		               if (b_on)
+						  elm.setAttribute('font-family','CTB_font_bold');
+						else
+						  elm.setAttribute('font-family','CTB_font');	
 					}
 				}  
      		}
@@ -997,7 +1009,7 @@
 
 				if(typeof textObj == "undefined") {
 					var textObj = new lz.text(this, {resize : true, visible : false});
-					textObj.setAttribute('font', 'CTB');
+					textObj.setAttribute('font', 'CTB_font');
 					textObj.setAttribute('fontsize', Math.floor(12 * this.magnification));
 				}
 
@@ -1080,8 +1092,15 @@
 	                  u_on = false;
 	               }
 
-					if (i_on) textArr[j] = "<i>" + textArr[j] + "</i>";
-					if (b_on) textArr[j] = "<b>" + textArr[j] + "</b>";
+					if (i_on){
+						textArr[j] = "<i>" + textArr[j] + "</i>";
+						textObj.setAttribute('font', 'CTB_font_italic');
+					}
+					if (b_on){
+						console.log("inside if of text box bold");
+						textArr[j] = "<b>" + textArr[j] + "</b>";
+						textObj.setAttribute('font', 'CTB_font_bold');
+					}
 					if (u_on) textArr[j] = "<u>" + textArr[j] + "</u>";
 
 						if(nullOrSpace(textArr[j])) {
@@ -1390,10 +1409,32 @@ parse the text string and store text and image string in an array at different i
                fgcolor="${classroot.fontcolor}" 
                fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" >
 				
-				<handler name="ontext">
-					/*var elm = this.getDisplayObject();
-					elm.setAttribute('style','line-height: 0px; font-family: CTB;');*/
-					//elm.setAttribute('font-family','CTB');
+				<handler name="ontext"><![CDATA[
+					console.log("print text  "+this.text);
+					var elm = this.getDisplayObject();
+					//lineSpacing();
+					//elm.setAttribute('style','line-height: 18px; font-family: CTB_font;');
+					//elm.setAttribute('font-family','CTB_font');
+					elm.setAttribute('style','font-family: CTB_font;');
+					if(this.text.indexOf("<br") != -1) {
+						elm.setAttribute('style','font-family: CTB_font; width: 94%;');
+					}
+					
+					if (this.text.indexOf("<b>") != -1 && this.text.indexOf("</b>") != -1){
+						if(this.text.indexOf("<br") != -1) {
+							elm.setAttribute('style','font-family: CTB_font_bold; width: 94%');
+						} else {
+							elm.setAttribute('style','font-family: CTB_font_bold;');
+						}
+					}
+					else if (this.text.indexOf("<i>") != -1 && this.text.indexOf("</i>") != -1){ 						if(this.text.indexOf("<br") != -1) {
+							elm.setAttribute('style','font-family: CTB_font_italic; width: 94%');
+						} else {
+							elm.setAttribute('style','font-family: CTB_font_italic;');
+						}
+					}
+					
+					]]>
 				</handler>
 			</text>
         </state>
