@@ -2154,7 +2154,7 @@
        </method>
 
 		<method name="massageItemLml"><![CDATA[
-	//printBigString(dpitem.serialize());
+	console.log(dpitem.serialize());
             var itemmodel = dpitem.xpathQuery( 'item_model' );
             var toolbar = itemmodel.getElementsByTagName( 'toolbar' )[0];
             if ( !toolbar ) {
@@ -3696,13 +3696,33 @@ Debug.write("############ loadItem ############");
 
                 var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
                 dncurritem.appendChild (dnmanip);
+            }else{
+            	var dnmanipulatives = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives');
+	            var dnglob = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');
+				if(dnglob.getAttr('highlighter')=='sel'){
+                    var toolSt = getToolstate('highlighter');
+					dnglob.setAttr('highlighter',toolSt);
+				}
+				if(dnglob.getAttr('eraser')=='sel'){
+                    var toolSt = getToolstate('eraser');
+					dnglob.setAttr('eraser',toolSt);
+				}
+				if(dnglob.getAttr('option_eliminator')=='sel'){
+                    var toolSt = getToolstate('option_eliminator');
+					dnglob.setAttr('option_eliminator',toolSt);
+				}
+				/*if(dnmanipulatives != null){
+					dnmanipulatives.removeChild (dnglob);
+					initglobal = true;
+					Debug.write("dnglob********** ",dnmanipulatives);
+	           	 }*/
             }
+            
 
             if (initgeneral) {
                 dngeneral = new lz.DataElement ('general', {}, []);
                 dnmanip.appendChild (dngeneral);
             }
-
             if (initglobal || initgeneral) {
                 var dntoolbar = dpstudentdata.xpathQuery ('current_item/item_model/toolbar');
                 var toolstate = 'disable';
@@ -3761,6 +3781,10 @@ Debug.write("############ loadItem ############");
                       if (i == 'scratchpad' && dnglobal && dnglobal.getAttr(i) != 'disable'){  // force override scratchpad to obey global value
                        	dnglobal.setAttr(i, this.scratchpadOpen ? 'sel' : 'up');						
                       }
+                    }else if(this._isRadioGlobalManipulator(i)){
+						 if (initglobal){
+                    		dnglobal.setAttr (i, toolstate);
+                    	}
                     } else if (initgeneral) {
                         dngeneral.setAttr (i, toolstate);						
                     }
@@ -3780,6 +3804,43 @@ Debug.write("############ loadItem ############");
 				
             }
        ]]></method>
+       
+       <method name="getToolstate" args="toolid">
+			var dntoolbar = dpstudentdata.xpathQuery ('current_item/item_model/toolbar');
+			Debug.write("getToolstate----- ",dntoolbar,dntoolbar.attributes[toolid],toolid);
+            var toolstate = 'disable';
+			switch (dntoolbar.attributes[toolid]) {
+				case 'not provisioned':
+					toolstate = 'disable';
+					break;
+				case 'required':
+					checkTNorFCATrefCard(toolid); // check if any of the fixed formula cards are required                       	
+					toolstate = 'up';
+					
+					break;
+				case 'accommodated':
+					if(toolid == 'standard_calculator' || toolid == 'scientific_calculator'){
+						if ('true' == dpsubtest.xpathQuery('testing_session_data/lms.student.accommodations/@calculator')){
+							toolstate = 'up';
+						}
+						else{
+							toolstate = 'disable';
+						}
+					}
+					else {
+						checkTNorFCATrefCard(toolid); // check if any of the fixed formula cards are accommodated	
+						toolstate = 'up';
+					}
+					break;
+				case 'invisible':
+					toolstate = 'invisible';
+					break;
+				default:
+			//      toolstate = 'up';
+					break;
+			}
+			return toolstate;
+		</method>
 
 		<method name="setManipulativeSelState" args="which, value"><![CDATA[
 //Debug.write("setManipulativeSelState....",which, value);
