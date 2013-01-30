@@ -98,7 +98,7 @@
          
        <view name="pleaseWait" visible="true">
           <text name="pleaseWaitHeading" 
-        	  font="CTB"	
+        	  font="CTB_font"	
               fontsize="15" 
               fgcolor="0x1D4896"
               width="200"
@@ -126,7 +126,7 @@
          
 		<view name="retryingPopupMessage" visible="false">
           <text name="quitMessage" 
-        	  font="CTB"	
+        	  font="CTB_font"	
               fontsize="9"
               fgcolor="0x000000"
               multiline="true" y="78" x="20" width="290">

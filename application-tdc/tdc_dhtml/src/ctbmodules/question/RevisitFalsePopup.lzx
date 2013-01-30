@@ -96,7 +96,7 @@
           width="${parent.windowbg.width - 10}" height="${parent.windowbg.height - 10}" bgcolor="0xC0C0C0"><!--97B8E2"-->
 		         
         <text name="revisitFalse" 
-        	  font="CTB"	
+        	  font="CTB_font"	
               fontsize="15"
               fgcolor="0x000000"
               width="260"

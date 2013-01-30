@@ -1427,7 +1427,8 @@ parse the text string and store text and image string in an array at different i
 							elm.setAttribute('style','font-family: CTB_font_bold;');
 						}
 					}
-					else if (this.text.indexOf("<i>") != -1 && this.text.indexOf("</i>") != -1){ 						if(this.text.indexOf("<br") != -1) {
+					else if (this.text.indexOf("<i>") != -1 && this.text.indexOf("</i>") != -1){ 						
+						if(this.text.indexOf("<br") != -1) {
 							elm.setAttribute('style','font-family: CTB_font_italic; width: 94%');
 						} else {
 							elm.setAttribute('style','font-family: CTB_font_italic;');

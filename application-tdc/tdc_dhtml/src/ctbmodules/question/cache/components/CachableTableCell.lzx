@@ -35,14 +35,17 @@
             }
 
             //alignment
-            var align = data.getAttr("halign");        
+            var align = data.getAttr("halign");  
+            console.log("halign****"+data.getAttr("halign"));      
             var valign = data.getAttr("valign");
+            console.log("valign****"+data.getAttr("valign"));
 
             for (var i in data.childNodes) {
                 //pass align down (really only for text so that it justifies
                 //how this cell is aligned)
+                console.log("child nodes ****"+data.childNodes[i].attributes);
                 data.childNodes[i].attributes.halign = align;
-
+                console.log("child nodes ****"+align);
                 //we want the cell to override any subchild's valign
                 //since the cell may need to contain multiple widgets
                 data.childNodes[i].removeAttr("valign");
@@ -57,6 +60,7 @@
             //finally set wrapper alignment now that our children
             //have sizes
             if(align != null)
+				console.log("align****"+align);
             	this.wrapper.setAttribute('align',align);
 			if(valign != null)
             	this.wrapper.setAttribute('valign',valign);
@@ -90,7 +94,7 @@
         ]]></method>
 
         
-        <view name="wrapper">
+        <view name="wrapper" id="myWrapper">
             <DynamicSimplelayout name="dynlayout" axis="y"/>
         </view>
     </class>

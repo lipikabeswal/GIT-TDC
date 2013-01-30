@@ -30,14 +30,16 @@
              ============================ -->
 
         <handler name="ondata" args="data"><![CDATA[
+        	console.log("ondata****"+data);
         	// reset heights and widths
 			this.thetable.setAttribute("width", null);
 			this.thetable.setAttribute("height", null);
 			
              //set border size
+             console.log("border****"+data.getAttr("border"));
             this.setAttribute("bordersize", 
                               data.getAttr("border") == "yes" ? 2: 0);
-
+			console.log("border***aftr****"+this.bordersize);
             if (gController.hasFontAccommodation && parent['stereotype']) {
                 var style = gController.getAccomStyleForType(parent.stereotype);
             }
@@ -72,7 +74,7 @@
             if(titleTxt.length > 0){
             	this.thetable.contents.title.setAttribute('visible', true);
 	            this.thetable.contents.title.setAttribute("text", 
-	                    '<p align="center">' + decodeBrackets(titleTxt) + '</p>');
+	                    '<label align="center">' + decodeBrackets(titleTxt) + '</label>');
 	        }
 	        else{
             	this.thetable.contents.title.setAttribute('visible', false);
@@ -80,7 +82,9 @@
 
             // Toggle border lines
             var hspace = data.getAttr("showvlines") == "yes" ? 1 : 0;
+            console.log("showvlines****"+data.getAttr("showvlines"),hspace);
             var vspace = data.getAttr("showhlines") == "yes" ? 1 : 0;
+             console.log("showhlines****"+data.getAttr("showhlines"),vspace);
 
             // Show enlarge button if necessary
             // Values are:
@@ -150,10 +154,13 @@
             }
 
 			// don't show stray lines if no vlines and hlines
+			console.log("hspcae***vspace***b4****",hspace,vspace);
 			if(hspace == 0 && vspace == 0){
+				console.log("hspcae***vspace***",hspace,vspace);
 				thetable.contents.borderview.table.setAttribute("bgcolor", this.bgcolor);
 			}
 			else{
+				console.log("else");
 				thetable.contents.borderview.table.setAttribute("bgcolor", null);
 			}
             
@@ -164,7 +171,6 @@
         
         <method name="show">
         //Dummy method which will be called by masking answer dont remove this
-        
         </method>
 
         <method name="decodeBrackets" args="s"><![CDATA[
@@ -270,7 +276,8 @@
                    		title.setAttribute('visible', true);
                    		title.setAttribute("fontsize", 14);
 	                   	title.setAttribute("text", 
-	                        '<p align="center">' + decodeBrackets(titleTxt) + '</p>');
+	                        '<label align="center">' + decodeBrackets(titleTxt) + '</label>');
+	                    title.setAttribute("align","center");
 	
 	                   // Based on (width/height) ratio use an appropriate fontsize
 	//Debug.write("updated font size : " + (title.fontsize * mult_factor));
@@ -338,6 +345,8 @@
                 // These lines were commented to stop the intermittent navigaton problems
                 this.thetable.setAttribute("width", Math.floor(contents.width * factor));
                 this.thetable.setAttribute("height", newh);
+				this.thetable.contents.setAttribute('xscale', (this.thetable.width /this.thetable.contents.width ) );
+				this.thetable.contents.setAttribute('yscale', (this.thetable.height /this.thetable.contents.height ) );
         
             } 
             // nklein : July 5, 2007
@@ -380,6 +389,10 @@
                       onclick="gReadableText.read(gReadableText.stripHtmlTags(text),false)"
                       fontstyle="bold">
                     <attribute name="titlewidth" value="0"/>
+					<handler name="ontext">
+						var elm = this.getDisplayObject();
+						elm.setAttribute('style','text-align: center; font-family: CTB_font_bold;');
+					</handler>
                 </text>
 
                 <!-- borderview contains the title and table and defines a border -->

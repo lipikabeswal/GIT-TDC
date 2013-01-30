@@ -215,7 +215,7 @@
 				<view resource="heading_microphone" stretches="both"
 					width="${parent.height}" height="${parent.height-2}">
 				</view>
-				<text valign="middle" font="CTB" fontsize="${12 * classroot.factor}"
+				<text valign="middle" font="CTB_font_bold" fontsize="${12 * classroot.factor}"
 					fontstyle="bold" fgcolor="white" width="90%" height ="100%">
 					Sound Recorder
 				</text>
@@ -255,7 +255,7 @@
 
 					<view name="showStatus" y="${9 * classroot.factor}" x="0" width="${20 * classroot.factor}" height="${40 * classroot.factor}">
 						<text name="recordStatus" fontsize="${12 * classroot.factor}"
-							font="CTB" resize="true" fontstyle="bold" height="100%">
+							font="CTB_font_bold" resize="true" fontstyle="bold" height="100%">
 						</text>
 					</view>
 				</view>
@@ -263,14 +263,14 @@
 				<view name="recordtimer" x="${parent.bar.x + parent.bar.width - parent.recordtimer.width}"
 					y="${parent.bar.y - parent.recordtimer.height}" height="${20 * classroot.factor}">
 					<simplelayout axis="x" spacing="0" />
-					<text name="remaining" fontsize="${12 * classroot.factor}" font="CTB" fontstyle="bold"
+					<text name="remaining" fontsize="${12 * classroot.factor}" font="CTB_font_bold" fontstyle="bold"
 						resize="true" valign="bottom" height="100%">
 						TIME REMAINING:
 					</text>
 					<text name="timertext" fontsize="${12 * classroot.factor}" fontstyle="bold"
-						font="CTB" fgcolor="0x008000" resize="true" valign="bottom" height="100%">
+						font="CTB_font_bold" fgcolor="0x008000" resize="true" valign="bottom" height="100%">
 					</text>
-					<text fontsize="${12 * classroot.factor}" font="CTB" resize="true" fontstyle="bold"
+					<text fontsize="${12 * classroot.factor}" font="CTB_font_bold" resize="true" fontstyle="bold"
 						valign="bottom" height="100%">
 						secs
 					</text>
@@ -339,7 +339,7 @@
 			<simplelayout axis="x" inset="10" spacing="10" />
 			<view name="micNotConnected" valign="middle"
 				resource="mic_not_connected" stretches="both" width="${36 * classroot.factor}" height="${34 * classroot.factor}"/>
-			<text name="attachMic" fontsize="${12 * classroot.factor}" font="CTB"
+			<text name="attachMic" fontsize="${12 * classroot.factor}" font="CTB_font_bold"
 				valign="middle" multiline="true" width="${parent.width - parent.attachMic.x}">
 				It appears your microphone is not plugged in, 
 				please adjust your microphone input volume up 
