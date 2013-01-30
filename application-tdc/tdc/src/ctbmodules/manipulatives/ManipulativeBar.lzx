@@ -51,7 +51,8 @@
 			<view name="magnifyingGlass"
 				visible="${gController.magnifierVisible}"
 				resource="toolbar_magnifying_glass_btn" valign="middle" height="20"
-				width="34">
+				width="34"
+				id="gMagnifier">
 				<attribute name="tooltipdel"
 					value="$once{new LzDelegate (this, 'showTooltip')}"
 				/>
@@ -75,6 +76,7 @@
 						lz.Timer.removeTimer (this.tooltipdel);
 						
 						if(gController.isNotTEItem() == false) { 
+							//Debug.write("in onclick of magnifier*******",this.isEnabled);
 							if(this.isEnabled == true){
 								hide();
 							} else {
@@ -95,6 +97,7 @@
 					</method>
 
 				<method name="setup">
+						//Debug.write("setup magnifier*****",gController.isNotTEItem());
 						if(gController.isNotTEItem() == true) { 
 							gMagnifyingGlass.setUpGlass();
 						}
