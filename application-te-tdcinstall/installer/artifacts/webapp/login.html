@@ -252,6 +252,11 @@ function hideMagnify() {
 	jQuery(ddpowerzoomer.$magnifier.outer).hide();
 }
 
+function isSPRequired(){
+	var isSP = lz.embed.lzapp.getCanvasAttribute('scratchpadRequired');
+	return isSP;
+}
+
 /* Method to reinstate the magnifier to previous state */
 function displayMagnifier() {		
 	
