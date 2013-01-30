@@ -183,6 +183,7 @@
 	<attribute name="triggeridsave"/>
 	<attribute name="triggercrsave"/>
 	<attribute name="triggercrpush"/>
+	<attribute name="scratchpadRequired" type="boolean" value="false"/>
 	
 	<handler name="ontriggercrpush" args="data">
 		//Debug.write("*************ontriggercrpush******");

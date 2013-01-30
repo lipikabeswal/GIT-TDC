@@ -153,3 +153,8 @@ function getReadable() {
 	readable =  stat == "true"? true: false;
 	return readable;
 }
+
+function isScratchpadRequired(){
+	var isSP = window.parent.isSPRequired();
+	return isSP;
+}

@@ -352,6 +352,11 @@ function eventMonitor(id,event) {
  	//lz.embed.setCanvasAttribute("bringBackFocus", 'true');
 }
 
+function isSPRequired(){
+	var isSP = lz.embed.lzapp.getCanvasAttribute('scratchpadRequired');
+	return isSP;
+}
+
 function load() {
 	
      var myservlet = 'servlet/PersistenceServlet.do?method=isProductCheck&folder=calif&requestXML=';

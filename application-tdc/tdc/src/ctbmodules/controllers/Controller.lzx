@@ -2161,8 +2161,15 @@
 
 		<method name="massageItemLml"><![CDATA[
 	//printBigString(dpitem.serialize());
+			canvas.scratchpadRequired = false;
             var itemmodel = dpitem.xpathQuery( 'item_model' );
             var toolbar = itemmodel.getElementsByTagName( 'toolbar' )[0];
+            //Debug.write("toolbar**********",toolbar);
+			for (var i in toolbar.attributes) {
+				if(i == 'scratchpad' && toolbar.attributes[i] == 'required')
+              		//gController.setAttribute("scratchpadRequired",true);
+              		canvas.scratchpadRequired = true;
+			}
             if ( !toolbar ) {
                 var toolbarattrs = {};
                 for ( var i in itemmodel.attributes ) {

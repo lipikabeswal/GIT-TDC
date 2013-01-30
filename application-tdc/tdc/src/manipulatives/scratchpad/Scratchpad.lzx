@@ -115,6 +115,11 @@
         	return text;
         </method>
         
+         <method name="isSPRequired">
+			var isSP = isScratchpadRequired();
+        	return isSP;
+        </method>
+        
         <method name="read">
  	    	//gReadableText.read(sp.getSelectedText(), true);
 			var s = "setTTSText('"+getSelectedText()+"')";
