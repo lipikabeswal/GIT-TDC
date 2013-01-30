@@ -4,42 +4,44 @@ var currentPlayOrder = 0;
 var playOrderArray = {};
 
 function iframeLoaded(id, iframe){
-	////console.log("UTILS -->",id,"  ",iframe);
-	var folderName = iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1);
-	frameFolderObject[folderName] = iframe.id;
-	if(iframe.src.indexOf('asset.html') > 0) {
-		if(iframeObject[currentLasAssetItemId]) {
-			iframeObject[currentLasAssetItemId][iframe.id] = {'folder' : iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1), 'iframeObj' : iframe, 'clickedOnce' : false, 'playedOnce' : false, 'playEvent' : false};
-			////console.log("*******  ",iframeObject[currentLasAssetItemId][iframe.id]);
-		} else {
-			iframeObject[currentLasAssetItemId] = {};
-			iframeObject[currentLasAssetItemId][iframe.id] = {'folder' : iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1), 'iframeObj' : iframe, 'clickedOnce' : false, 'playedOnce' : false, 'playEvent' : false};
+	if(currentLasAssetItemId) {
+		////console.log("UTILS -->",id,"  ",iframe);
+		var folderName = iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1);
+		frameFolderObject[folderName] = iframe.id;
+		if(iframe.src.indexOf('asset.html') > 0) {
+			if(iframeObject[currentLasAssetItemId]) {
+				iframeObject[currentLasAssetItemId][iframe.id] = {'folder' : iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1), 'iframeObj' : iframe, 'clickedOnce' : false, 'playedOnce' : false, 'playEvent' : false};
+				////console.log("*******  ",iframeObject[currentLasAssetItemId][iframe.id]);
+			} else {
+				iframeObject[currentLasAssetItemId] = {};
+				iframeObject[currentLasAssetItemId][iframe.id] = {'folder' : iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1), 'iframeObj' : iframe, 'clickedOnce' : false, 'playedOnce' : false, 'playEvent' : false};
+			}
 		}
-	}
-	getPlayOrder();  // To get the playOrder of all assets in array.
-	////console.log("gController.lasAssetArray ->",gController.lasAssetArray);
-	for(var i=0; i<gController.lasAssetArray.length;i++){
-		if(gController.lasAssetArray[i].asset){
-			if(gController.lasAssetArray[i].asset.aw.iframeid == iframe.id) {
-				//Not doing anything for auto play now.
-				if(parseInt(gController.lasAssetArray[i].data.getAttr('playorder')) == 1){
-					//if(gController.lasAssetArray[i].data.getAttr('autoplay') == "true")
-		 			//iframe.contentWindow.autoPlay();
-		 			//iframe.contentWindow.play();
-				}
-				// Apart from first asset, rest should be disabled
-				if(parseInt(gController.lasAssetArray[i].data.getAttr('playorder')) != 1) {
-					iframe.contentWindow.disable();
-				}
-				//Disable the response content, if the attribute responseAreaLocker is present
-				if(gController.lasAssetArray[i].data.getAttr('responseAreaLocker') == "true"){
-					gController.setAttribute('canNotAnswer',true);
-					////console.log("responseAreaLocker ----");
-					////console.log(iframe.id);
-				}
-				if(gController.lasAssetArray[i].data.getAttr('playIfAnswered') == "true"){
-					////console.log("true playIfAnswered ----");
-					gController.setAttribute('iframeid',iframe.id);
+		getPlayOrder();  // To get the playOrder of all assets in array.
+		////console.log("gController.lasAssetArray ->",gController.lasAssetArray);
+		for(var i=0; i<gController.lasAssetArray.length;i++){
+			if(gController.lasAssetArray[i].asset){
+				if(gController.lasAssetArray[i].asset.aw.iframeid == iframe.id) {
+					//Not doing anything for auto play now.
+					if(parseInt(gController.lasAssetArray[i].data.getAttr('playorder')) == 1){
+						//if(gController.lasAssetArray[i].data.getAttr('autoplay') == "true")
+			 			//iframe.contentWindow.autoPlay();
+			 			//iframe.contentWindow.play();
+					}
+					// Apart from first asset, rest should be disabled
+					if(parseInt(gController.lasAssetArray[i].data.getAttr('playorder')) != 1) {
+						iframe.contentWindow.disable();
+					}
+					//Disable the response content, if the attribute responseAreaLocker is present
+					if(gController.lasAssetArray[i].data.getAttr('responseAreaLocker') == "true"){
+						gController.setAttribute('canNotAnswer',true);
+						////console.log("responseAreaLocker ----");
+						////console.log(iframe.id);
+					}
+					if(gController.lasAssetArray[i].data.getAttr('playIfAnswered') == "true"){
+						////console.log("true playIfAnswered ----");
+						gController.setAttribute('iframeid',iframe.id);
+					}
 				}
 			}
 		}
