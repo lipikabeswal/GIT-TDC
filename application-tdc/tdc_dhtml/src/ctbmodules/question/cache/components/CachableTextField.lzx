@@ -131,6 +131,10 @@
             if(textData.indexOf("<footnote") != -1) {
             	this.setAttribute("embedded_inline_footnote", true);
                	this.embedded_inlinefootnote_text(data);
+				this.thetext.setAttribute('visible',false);
+				this.clickregionreader.setAttribute('visible',false);
+				this.thetext.setAttribute('height',0);
+				this.clickregionreader.setAttribute('height',0);
                	doneLoading();
                	return;
             }
@@ -161,12 +165,18 @@
             var just = "left";
             if (data.hasAttr("halign")) {
                 just = data.getAttr("halign");
-            }    
-	       this.setAttribute('align', just);
-			
+            }
+            this.setAttribute('align', just);
+            
+           /*var elm = this.thetext.getDisplayObject();
+			elm.setAttribute('style','text-align:"'+ just +'";');*/
+			 
+
            this.thetext.setAttribute("text",
-                '<div style="text-align:' + just + ';"><label>' + dataText + '</label></div>');
-			
+                '<label align="' + just + '">' + dataText + '</label>');
+
+			console.log("this.thetext.getTextHeight  "+this.thetext.getTextHeight())
+
             doneLoading();
 
             //this.doAlign();
@@ -360,13 +370,6 @@
                       name.setText(words[i] + "</label>");
                name.setText(words[i]);
                name.setAttribute('fgcolor', this.fontcolor);
-			   var elm = name.getDisplayObject();
-			   if (i_on)
-				  elm.setAttribute('font-family','CTB_font_italic');
-               if (b_on)
-				  elm.setAttribute('font-family','CTB_font_bold');
-				else
-				  elm.setAttribute('font-family','CTB_font');			   
             }
 
             // Used by the TextReader
@@ -527,13 +530,6 @@
 		                      name.setText(inputText[j] + "</label>");
 		               name.setText(inputText[j]);
 		               name.setAttribute('fgcolor', this.fontcolor);
-					   var elm = name.getDisplayObject();
-					   if (i_on)
-						  elm.setAttribute('font-family','CTB_font_italic');
-		               if (b_on)
-						  elm.setAttribute('font-family','CTB_font_bold');
-						else
-						  elm.setAttribute('font-family','CTB_font');	
 					}
 				}  
      		}
@@ -1009,7 +1005,7 @@
 
 				if(typeof textObj == "undefined") {
 					var textObj = new lz.text(this, {resize : true, visible : false});
-					textObj.setAttribute('font', 'CTB_font');
+					textObj.setAttribute('font', 'CTB');
 					textObj.setAttribute('fontsize', Math.floor(12 * this.magnification));
 				}
 
@@ -1092,15 +1088,8 @@
 	                  u_on = false;
 	               }
 
-					if (i_on){
-						textArr[j] = "<i>" + textArr[j] + "</i>";
-						textObj.setAttribute('font', 'CTB_font_italic');
-					}
-					if (b_on){
-						console.log("inside if of text box bold");
-						textArr[j] = "<b>" + textArr[j] + "</b>";
-						textObj.setAttribute('font', 'CTB_font_bold');
-					}
+					if (i_on) textArr[j] = "<i>" + textArr[j] + "</i>";
+					if (b_on) textArr[j] = "<b>" + textArr[j] + "</b>";
 					if (u_on) textArr[j] = "<u>" + textArr[j] + "</u>";
 
 						if(nullOrSpace(textArr[j])) {
@@ -1410,31 +1399,13 @@ parse the text string and store text and image string in an array at different i
                fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" >
 				
 				<handler name="ontext"><![CDATA[
-					console.log("print text  "+this.text);
 					var elm = this.getDisplayObject();
-					//lineSpacing();
-					//elm.setAttribute('style','line-height: 18px; font-family: CTB_font;');
-					//elm.setAttribute('font-family','CTB_font');
-					elm.setAttribute('style','font-family: CTB_font;');
+					var textAlign = "text-align: "+classroot.align;
 					if(this.text.indexOf("<br") != -1) {
-						elm.setAttribute('style','font-family: CTB_font; width: 94%;');
+						elm.setAttribute('style','width: 94%; font-family: CTB;'+textAlign+'');
 					}
-					
-					if (this.text.indexOf("<b>") != -1 && this.text.indexOf("</b>") != -1){
-						if(this.text.indexOf("<br") != -1) {
-							elm.setAttribute('style','font-family: CTB_font_bold; width: 94%');
-						} else {
-							elm.setAttribute('style','font-family: CTB_font_bold;');
-						}
-					}
-					else if (this.text.indexOf("<i>") != -1 && this.text.indexOf("</i>") != -1){ 						
-						if(this.text.indexOf("<br") != -1) {
-							elm.setAttribute('style','font-family: CTB_font_italic; width: 94%');
-						} else {
-							elm.setAttribute('style','font-family: CTB_font_italic;');
-						}
-					}
-					
+					//elm.setAttribute('style','line-height: 0px; font-family: CTB;');
+					//elm.setAttribute('font-family','CTB');
 					]]>
 				</handler>
 			</text>

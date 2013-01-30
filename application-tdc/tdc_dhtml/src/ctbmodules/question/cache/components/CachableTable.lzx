@@ -30,16 +30,14 @@
              ============================ -->
 
         <handler name="ondata" args="data"><![CDATA[
-        	console.log("ondata****"+data);
         	// reset heights and widths
 			this.thetable.setAttribute("width", null);
 			this.thetable.setAttribute("height", null);
 			
              //set border size
-             console.log("border****"+data.getAttr("border"));
             this.setAttribute("bordersize", 
                               data.getAttr("border") == "yes" ? 2: 0);
-			console.log("border***aftr****"+this.bordersize);
+
             if (gController.hasFontAccommodation && parent['stereotype']) {
                 var style = gController.getAccomStyleForType(parent.stereotype);
             }
@@ -82,9 +80,7 @@
 
             // Toggle border lines
             var hspace = data.getAttr("showvlines") == "yes" ? 1 : 0;
-            console.log("showvlines****"+data.getAttr("showvlines"),hspace);
             var vspace = data.getAttr("showhlines") == "yes" ? 1 : 0;
-             console.log("showhlines****"+data.getAttr("showhlines"),vspace);
 
             // Show enlarge button if necessary
             // Values are:
@@ -154,13 +150,10 @@
             }
 
 			// don't show stray lines if no vlines and hlines
-			console.log("hspcae***vspace***b4****",hspace,vspace);
 			if(hspace == 0 && vspace == 0){
-				console.log("hspcae***vspace***",hspace,vspace);
 				thetable.contents.borderview.table.setAttribute("bgcolor", this.bgcolor);
 			}
 			else{
-				console.log("else");
 				thetable.contents.borderview.table.setAttribute("bgcolor", null);
 			}
             
@@ -171,6 +164,7 @@
         
         <method name="show">
         //Dummy method which will be called by masking answer dont remove this
+        
         </method>
 
         <method name="decodeBrackets" args="s"><![CDATA[
@@ -382,17 +376,20 @@
                       multiline="true" 
                       width="${this.titlewidth != -1 ? 
                              this.titlewidth : parent.borderview.width}"
-                      fontsize="${canvas.basefontsize+2}" 
+                      
                       fgcolor="${classroot.fontcolor}"
 					  bgcolor="${classroot.bgcolor}"
                       clickable="${canvas.readable}"
                       onclick="gReadableText.read(gReadableText.stripHtmlTags(text),false)"
                       fontstyle="bold">
                     <attribute name="titlewidth" value="0"/>
-					<handler name="ontext">
+					<handler name="ontext"><![CDATA[
+						console.log("fontsize****",canvas.basefontsize);
+						var size = (canvas.basefontsize+2);
+						console.log("size****"+size);
 						var elm = this.getDisplayObject();
-						elm.setAttribute('style','text-align: center; font-family: CTB_font_bold;');
-					</handler>
+						elm.setAttribute('style','text-align: center; font-family: CTB; font-weight: bold; font-size : '+size+';');
+					]]></handler>
                 </text>
 
                 <!-- borderview contains the title and table and defines a border -->

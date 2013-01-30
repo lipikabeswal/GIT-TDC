@@ -9,7 +9,7 @@
     <include href="base/baseslider.lzx"/>
     
     <class name="ItemInterface"
-           fontsize="12" font="CTB_font"
+           fontsize="12" font="CTB"
            datapath="dssubtest:/">
         <attribute name="startNumber"
            value="$path{ 'subtest/ob_assessment/@starting_question_number' }"/>
