@@ -314,7 +314,7 @@
 						dragger.setAttribute('applied', true);
 					</handler>
 
-					<handler name="ondata" refreference="this.highlighter.hlstatus">
+					<handler name="ondata" reference="this.highlighter.hlstatus">
 						console.log("this.highlighter.hlstatus");
 					</handler>
                           
