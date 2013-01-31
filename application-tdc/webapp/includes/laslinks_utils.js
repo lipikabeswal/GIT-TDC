@@ -2,6 +2,7 @@ var iframeObject = {}; // object containing the item id as key and object conati
 var frameFolderObject = {};
 var currentPlayOrder = 0;
 var playOrderArray = {};
+var enabledArray = [];
 
 function iframeLoaded(id, iframe){
 	if(currentLasAssetItemId) {
@@ -180,4 +181,35 @@ function setPlayingAttr(arg){
 	} else{
 		gController.setAttribute('isplaying',false);
 	}
+}
+
+function disableAssets(){
+	var	k=0;
+	for(var i=0; i<gController.lasAssetArray.length;i++){
+				if(gController.lasAssetArray[i].asset){
+				if(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.isPlaying == "false"){
+				iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.disable();
+						enabledArray[k]=gController.lasAssetArray[i].asset.aw.iframeid;
+						k++;
+			console.log("inside if ");
+				}
+					
+			}
+	}
+}
+
+
+function enableAssets(){
+		for(var i=0; i<gController.lasAssetArray.length;i++){
+			for(var j=0; j<enabledArray.length;j++){
+				if(gController.lasAssetArray[i].asset){
+					if(gController.lasAssetArray[i].asset.aw.iframeid == enabledArray[j]){
+					iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.enable();
+					
+					}
+				}
+			}
+		}
+	enabledArray.length=0;
+
 }

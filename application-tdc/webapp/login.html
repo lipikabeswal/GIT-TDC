@@ -319,7 +319,7 @@ function eventMonitor(id,event) {
 
 	var currIframeId = frameFolderObject[id];
  	if(event == 'play' || event == 'jsplay') {
- 		
+ 		setPlayingAttr('true');
  		iframeObject[currentLasAssetItemId][currIframeId]['playEvent'] = true;
  		//console.log("Is Playing :",iframeObject[currentLasAssetItemId][currIframeId]['playEvent']);
  		playSingleAsset(currIframeId);
@@ -329,10 +329,13 @@ function eventMonitor(id,event) {
  				 getCurrentPlayOrder(currIframeId);
  			}
  		}
- 		setPlayingAttr('true');
+ 		
  		
  	} else if(event == 'finished' || event == 'endTrack' || event == 'pause') {
- 	iframeObject[currentLasAssetItemId][currIframeId]['playEvent'] = false;
+ 		if( event == 'endTrack' || event == 'pause'){
+ 			setPlayingAttr('false');
+ 		}
+ 		iframeObject[currentLasAssetItemId][currIframeId]['playEvent'] = false;
  		//console.log("event -- ",event);
  		if(iframeObject[currentLasAssetItemId]) {
  			if(iframeObject[currentLasAssetItemId][currIframeId]['folder'] == id) {
@@ -343,9 +346,7 @@ function eventMonitor(id,event) {
  		}
  		unlockResponseArea(currIframeId);
  		enableNextButton(id);
- 		if( event == 'endTrack' || event == 'pause'){
- 			setPlayingAttr('false');
- 		}
+ 		
  	} else if (event == 'reset') {
  		//setPlayingAttr('false');
  	}

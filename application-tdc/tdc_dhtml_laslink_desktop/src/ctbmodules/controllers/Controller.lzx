@@ -511,6 +511,7 @@
 		<attribute name="displayText" value="false"/>
 		<attribute name="lasAssetArray" value="$once{new Array()}" />
 		<attribute name="isplaying" type="boolean" value="false"/>
+		<attribute name="recordingStopped" type="boolean" value="false"/>
 		<!--
 			============================================================
 			Datapointers
@@ -637,24 +638,47 @@
 				gHotKeys.disableKeys(); 
 			}
 		</handler>
-		<handler name="onisplaying" >
-		//console.log("Inside onisplaying ",gController.isplaying);
+		<handler name="onisplaying" ><![CDATA[
 		if(gController.isplaying == true ){
 		//console.log("inside if");
-			if(this.recorder != null) {
-			this.recorder.recordButton.setAttribute("enabled", false);
+			if(this.recorder != null ) {
+				if(this.recorder.recordStarted == true){
+					this.recorder.stopblinker('stop');
+					}
+				else{
+					this.recorder.recordButton.setAttribute("enabled", false);
+					this.recorder.resetButton.setAttribute("enabled",false);
+					}
 			}
-		}	
+	}	
 		else{
-			//console.log("inside else");
+		  //console.log("inside else");
 			if(this.recorder != null) {
-			this.recorder.recordButton.setAttribute("enabled", true);
+				if(this.recordingStopped == false){
+					this.recorder.recordButton.setAttribute("enabled", true);
+					}
+
+				else if(this.recorder.resetCalled == false ){
+				this.recorder.resetButton.setAttribute("enabled",true);
+				}
 			}
 		}
+		]]></handler>
+
+
+		<method name="enableAllAssets" ><![CDATA[
+			var s="enableAssets()";
+				lz.Browser.loadJS(s);
 		
-		//var x=this.audioFields.length;
-		//console.log("audio fields:::-->",x,this.audioFields);
-		</handler>
+
+		]]></method>
+
+
+		<method name="disableAllAssets" ><![CDATA[
+			
+			var s="disableAssets()";
+				lz.Browser.loadJS(s);
+		]]></method>
 		<!-- 
 			Subtest xml may or may not specify the item type.  Our code relies on the item type being populated.
 			We need to populate the item type to the default type if it is not present in the xml.

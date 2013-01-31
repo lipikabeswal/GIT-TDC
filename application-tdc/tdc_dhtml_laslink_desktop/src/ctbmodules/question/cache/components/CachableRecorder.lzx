@@ -354,7 +354,8 @@
 		</view>
 
 		<method name="startblinker" args="methodname"><![CDATA[
-			this.stopCalled = false;		//to re-use this attribute, reset it 
+			this.stopCalled = false;		//to re-use this attribute, reset it
+			gController.disableAllAssets();
 			this.blinkerVal = 0;
 			if(!this.recordStarted) {
 				/*if(!isLinux()){	
@@ -411,6 +412,8 @@
 			/*if(gController.isaudio){
 					gController.enableAllAudio();
 				}*/
+			gController.enableAllAssets();
+			gController.setAttribute('recordingStopped',true);
 			this.red.setAttribute('visible',false);
 			this.redReplace.setAttribute('visible',false);
 			this.blinkerVal = 0;			//reset this for blinking the red ball
@@ -434,7 +437,7 @@
 		<method name="reset" args="methodname">
 		
 //Debug.write("resetCalled "+this.resetCalled);
-			if(this.resetCalled == false) {
+			if(this.resetCalled == false || gController.isplaying == false) {
 				if(methodname == 'reset') {
 					sendRequest(methodname);
 					this.requestSent = false;
@@ -445,7 +448,13 @@
 				this.micState = false;			//reset this attribute also
 				this.blinkerVal = 0;			//reset this for blinking the red ball
 				this.totalTime = this.defaultTotalTime;
-				this.recordButton.setAttribute("enabled", true);
+				if(gController.isplaying == false){
+					this.recordButton.setAttribute("enabled", true);
+					}
+				else{
+					this.recordButton.setAttribute("enabled", false);
+					}
+				gController.setAttribute('recordingStopped',false);
 				this.green.setAttribute('visible',false);
 				this.red.setAttribute('visible',false);
 				this.timertext.setAttribute('text',this.totalTime);		
@@ -512,7 +521,7 @@
 	         d.doRequest();
  		</method>
 
-		<method name="handleResponseData" args="d">
+		<method name="handleResponseData" args="d"><![CDATA[
 //Debug.write("handleResponseData :"+d);
 			this.blinkerVal = 0;
 			var result = d.childNodes[0].data;
@@ -531,7 +540,7 @@
 					return;
 				}
 				this.recordButton.setAttribute("enabled", false);
-				if(this.resetCalled == false){
+				if( gController.isplaying == false && this.resetCalled == false){
 					this.resetButton.setAttribute("enabled",true);
 				}
 			}
@@ -539,6 +548,7 @@
 				Debug.write("Result Default...."+result);	
 			}
 			//gCommunicator.finishCall(d,audioDset);
+			]]>
 		</method>
 
 		<handler name="oninit">
