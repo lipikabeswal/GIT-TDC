@@ -72,7 +72,7 @@
             if(titleTxt.length > 0){
             	this.thetable.contents.title.setAttribute('visible', true);
 	            this.thetable.contents.title.setAttribute("text", 
-	                    '<p align="center">' + decodeBrackets(titleTxt) + '</p>');
+	                    '<label align="center">' + decodeBrackets(titleTxt) + '</label>');
 	        }
 	        else{
             	this.thetable.contents.title.setAttribute('visible', false);
@@ -270,7 +270,8 @@
                    		title.setAttribute('visible', true);
                    		title.setAttribute("fontsize", 14);
 	                   	title.setAttribute("text", 
-	                        '<p align="center">' + decodeBrackets(titleTxt) + '</p>');
+	                        '<label align="center">' + decodeBrackets(titleTxt) + '</label>');
+	                    title.setAttribute("align","center");
 	
 	                   // Based on (width/height) ratio use an appropriate fontsize
 	//Debug.write("updated font size : " + (title.fontsize * mult_factor));
@@ -338,6 +339,8 @@
                 // These lines were commented to stop the intermittent navigaton problems
                 this.thetable.setAttribute("width", Math.floor(contents.width * factor));
                 this.thetable.setAttribute("height", newh);
+				this.thetable.contents.setAttribute('xscale', (this.thetable.width /this.thetable.contents.width ) );
+				this.thetable.contents.setAttribute('yscale', (this.thetable.height /this.thetable.contents.height ) );
         
             } 
             // nklein : July 5, 2007
@@ -373,13 +376,20 @@
                       multiline="true" 
                       width="${this.titlewidth != -1 ? 
                              this.titlewidth : parent.borderview.width}"
-                      fontsize="${canvas.basefontsize+2}" 
+                      
                       fgcolor="${classroot.fontcolor}"
 					  bgcolor="${classroot.bgcolor}"
                       clickable="${canvas.readable}"
                       onclick="gReadableText.read(gReadableText.stripHtmlTags(text),false)"
                       fontstyle="bold">
                     <attribute name="titlewidth" value="0"/>
+					<handler name="ontext"><![CDATA[
+						//console.log("fontsize****",canvas.basefontsize);
+						var size = (canvas.basefontsize+2);
+						//console.log("size****"+size);
+						var elm = this.getDisplayObject();
+						elm.setAttribute('style','text-align: center; font-family: CTB; font-weight: bold; font-size : '+size+';');
+					]]></handler>
                 </text>
 
                 <!-- borderview contains the title and table and defines a border -->

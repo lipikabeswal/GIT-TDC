@@ -40,10 +40,11 @@
         <attribute name="words" />
         <attribute name= "initTextImgArr" />
         <attribute name="textImgArr" />
-		<attribute name="textFoottnoteArr" />
+        <attribute name="textFoottnoteArr" />
 		<attribute name="embedded_inline_footnote" type="boolean" value="false"/>
         <attribute name="ftext" type="string"/>
 		<attribute name="inputText"/>
+		<attribute name="readText" type="string"/>
         
         <handler name="ondata" args="data" reference="hlstatus">
             this.setAttribute ('isHighlighter', data == 'sel');
@@ -127,10 +128,14 @@
                 this.setAttribute("embedded_input", false);
                 this.setAttribute("embedded_inline_image", false);
             }
-			var textData = data.getFirstChild().data;
+            var textData = data.getFirstChild().data;
             if(textData.indexOf("<footnote") != -1) {
             	this.setAttribute("embedded_inline_footnote", true);
                	this.embedded_inlinefootnote_text(data);
+				this.thetext.setAttribute('visible',false);
+				this.clickregionreader.setAttribute('visible',false);
+				this.thetext.setAttribute('height',0);
+				this.clickregionreader.setAttribute('height',0);
                	doneLoading();
                	return;
             }
@@ -163,9 +168,11 @@
                 just = data.getAttr("halign");
             }
             this.setAttribute('align', just);
+            
+            this.setAttribute("readText",unescape(dataText));
 
            this.thetext.setAttribute("text",
-                '<label align="' + just + '">' + dataText + '</label>');
+                '<label><span style="line-height:17px;">' + dataText + '</span></label>');
 
             doneLoading();
 
@@ -355,9 +362,9 @@
                var name = new lz.CachableInputTextField(this, { "resize" : true });
                allFields.push(name);
                if (i == 0)
-                  name.setText("<p>" + words[i]);
+                  name.setText("<label>" + words[i]);
                if (i == words.length-1)
-                      name.setText(words[i] + "</p>");
+                      name.setText(words[i] + "</label>");
                name.setText(words[i]);
                name.setAttribute('fgcolor', this.fontcolor);
             }
@@ -393,12 +400,11 @@
                 this.setAttribute("lmargin", data.getAttr("lmargin")); 
 			if (data.getAttr("rmargin"))
                 this.setAttribute("rmargin", data.getAttr("rmargin"));
-            this.ibox.bringToFront();
+            this.ibox.answer.field.bringToFront();
         ]]></method>
-
-		<method name="embedded_inlinefootnote_text" args="data"><![CDATA[ 
+        
+        <method name="embedded_inlinefootnote_text" args="data"><![CDATA[ 
 			var footnoteText="";
-			var textWidth = 0;
         	setTextReaderAttributes(data);
         	var allFields = new Array();
 			var dataText = data.getFirstChild().data;
@@ -421,13 +427,13 @@
 			
 					var hash = new Object();
 					//Debug.write("gController.hasFontAccommodationgController.hasFontAccommodation" , gController.hasFontAccommodation);
-                    /*if (gController.hasFontAccommodation){
+                    if (gController.hasFontAccommodation){
 
                     	hash['fontsize'] = 18;
                     }
                     else{
                     	hash['fontsize'] = 12;
-                    }*/
+                    }
 					hash['fontcolor'] = this.fontcolor;
 
 					var fnHeaderText = getAttributeValues('header',words[i]);
@@ -459,8 +465,6 @@
 					for (var key in hash) {
 						this.ftext.setAttribute(key,hash[key]);
 					}
-					textWidth = textWidth + this.ftext.footnotetext.width;
-
                   	allFields.push(this.ftext);
 					if (!this.hasAltText) {
 		    			readableText = readableText + footnoteText.substr(0,footnoteText.indexOf('&')) + " "; 
@@ -514,36 +518,14 @@
 		               if (b_on) inputText[j] = "<b>" + inputText[j] + "</b>";
 		               if (u_on) inputText[j] = "<u>" + inputText[j] + "</u>";
 
-					   var xin1 = parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
 		               // Add a <p> to the first word and a </p> to the last
 		               var name = new lz.CachableInputTextField(this, { "resize" : true });
 		               allFields.push(name);
 		               if (i == 0 && j == 0)
-		                  name.setText("<p>" + inputText[j]);
+		                  name.setText("<label>" + inputText[j]);
 		               if (i == words.length-1 && j == inputText.length-1)
-		                      name.setText(inputText[j] + "</p>");
-					   if(inputText[j].indexOf("<br/>") != -1) {
-							var tempText = inputText[j].split('<br/>');
-							if(tempText != null) {
-								name.setText(tempText[0]);
-								textWidth = textWidth + name.thetext.width;
-								var brText = new lz.CachableInputTextField(this, { "resize" : true });
-								var brWidth = this.width - xin1 - textWidth;
-								brText.thetext.setAttribute("width",brWidth);
-								brText.setText("");
-								textWidth = 0;
-								var remainingText = new lz.CachableInputTextField(this, { "resize" : true });
-								remainingText.setText(tempText[1]);
-								textWidth = textWidth + remainingText.thetext.width;
-							}
-					   }
-					   else {
-			               name.setText(inputText[j]);
-			               textWidth = textWidth + name.thetext.width;
-						   if(textWidth > this.width - xin1) {
-								textWidth=name.thetext.width;
-						   }
-					   }
+		                      name.setText(inputText[j] + "</label>");
+		               name.setText(inputText[j]);
 		               name.setAttribute('fgcolor', this.fontcolor);
 					}
 				}  
@@ -580,7 +562,7 @@
 			if (data.getAttr("rmargin"))
                 this.setAttribute("rmargin", data.getAttr("rmargin"));
             this.ftext.bringToFront(); 
-        ]]></method>
+        ]]></method> 
 
 		<method name="splitTextAndFootnote" args="txt"><![CDATA[
 			//Debug.write("In splitTextAndFootnote************",txt);
@@ -1402,19 +1384,30 @@ parse the text string and store text and image string in an array at different i
                  width="${classroot.thetext.width}"
                  height="${classroot.thetext.height}"
                  clickable="${classroot.isReadable}">
-                 <handler name="oninit">
-	               	this.fontsize = this.immediateparent.fontsize;
-	             </handler> 
                <handler name="onclick">
-                   classroot.read(gReadableText.stripHtmlTags(classroot.thetext.text));
+                   //classroot.read(gReadableText.stripHtmlTags(classroot.thetext.text));
+                   classroot.read(escape(classroot.readText));
                </handler>
            </view>
 
            <text name="thetext" multiline="true" 
                x="${classroot.leftPadding}"
                width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
-               fgcolor="${classroot.fontcolor}"
-               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" />
+               fgcolor="${classroot.fontcolor}" 
+               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" >
+				
+				<handler name="ontext"><![CDATA[
+					console.log("prinint text  "+this.text);
+					var elm = this.getDisplayObject();
+					var textAlign = "text-align: "+classroot.align;
+					if(this.text.indexOf("<br") != -1) {
+						elm.setAttribute('style','width: 94%; font-family: CTB;'+textAlign+'');
+					}
+					//elm.setAttribute('style','line-height: 0px; font-family: CTB;');
+					//elm.setAttribute('font-family','CTB');
+					]]>
+				</handler>
+			</text>
         </state>
     </class>
 
