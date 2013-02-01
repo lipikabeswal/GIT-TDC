@@ -1325,6 +1325,12 @@
 		<method name="totalMarked"><![CDATA[    
 			var nummarked = 0;
 			var items = dpstudentdata.xpathQuery("runtime/item_model");
+			Debug.write("items in totalMarked**********",items);
+			if(items) {
+				if(items instanceof lz.DataElement){
+	       	     items = [items];
+	       		}
+			}
 			for(var i = 0; i<items.length; i++) {
 				var itemnode = items[i];
 				var marked = itemnode.getAttr('marked');
