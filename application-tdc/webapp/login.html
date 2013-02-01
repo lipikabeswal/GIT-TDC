@@ -56,8 +56,6 @@
 <script type="text/javascript" src="assets/imageZoomer.js"></script>
 <script type="text/javascript" src="lps/includes/embed-compressed.js"></script>
 <link rel="stylesheet" href="lps/style_mozilla.css" type="text/css" /> 
-<script type="text/javascript"src="lps/jquery.min.js"></script>
-<script type="text/javascript"src="lps/jquery-1.5.2.js"></script>
 <script type="text/javascript" src="includes/laslinks_utils.js"></script>
 
 <SCRIPT type="text/javaScript">
@@ -360,7 +358,7 @@ function isSPRequired(){
 function load() {
 	
      var myservlet = 'servlet/PersistenceServlet.do?method=isProductCheck&folder=calif&requestXML=';
-     $.get(myservlet, function(data) {
+     jQuery.get(myservlet, function(data) {
 	     //alert(data);
 	     if(data.childNodes[0].nodeName.indexOf('LASLINKS') >= 0){
 	     	loadJsApplication();
@@ -370,10 +368,10 @@ function load() {
 	 });
 }
 
- $(document).ready(function() {
- 	$('textarea').each(function(){
-   		var $this = $(this);
-		$(this).setAttribute('style',"overflow-x: hidden; overflow-y: hidden;");
+ jQuery(document).ready(function() {
+ 	jQuery('textarea').each(function(){
+   		var $this = jQuery(this);
+		jQuery(this).setAttribute('style',"overflow-x: hidden; overflow-y: hidden;");
 	});
  });
 
