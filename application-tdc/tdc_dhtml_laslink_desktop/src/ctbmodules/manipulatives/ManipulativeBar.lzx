@@ -31,20 +31,20 @@
 			<simplelayout axis="x"/>
 			<ManipulativeButton resource="toolbar_choice_eliminator_btn"
 	                            toolid="option_eliminator"
-	                            tooltip="Option Eliminator"/>
+	                            tooltip="Option Eliminator" xpos = "${this.x}"/>
 			<ManipulativeButton resource="toolbar_highlighter_btn"
 	                            toolid="highlighter"
-	                            tooltip="Highlighter"/>
+	                            tooltip="Highlighter" xpos = "${this.x}"/>
 			<ManipulativeButton resource="toolbar_eraser_btn"
 	                            toolid="eraser"
-	                            tooltip="Eraser"/>
+	                            tooltip="Eraser" xpos = "${this.x}"/>
 	        <ScratchpadButton   resource="toolbar_scratchpad_btn"
 	                            toolid="scratchpad"
-	                            tooltip="Scratchpad"/>
+	                            tooltip="Scratchpad" xpos = "${this.x}"/>
 
 			<ManipulativeButton resource="toolbar_masking_ruler_btn"
 	                            toolid="masking_ruler"
-	                            tooltip="Blocking Ruler"/>	
+	                            tooltip="Blocking Ruler" xpos = "${this.x}"/>	
 	                            
 	                            <view name="gap" width="2" height="20" valign="middle"/>
 			<!-- Magnifier Glass Button -->
@@ -83,7 +83,7 @@
 					</handler>
 
 				<method name="showTooltip">
-						gTooltip.showTooltip ('Magnifying Glass');
+						gTooltip.showTooltip_('Magnifying Glass',this.x);
 					</method>
 
 				<method name="setup">
@@ -143,7 +143,7 @@
 					</handler>
 
 				<method name="showTooltip">
-						gTooltip.showTooltip ('Masking Tool');
+						gTooltip.showTooltip_('Masking Tool',this.x);
 					</method>
 
 				<method name="show">
@@ -166,34 +166,36 @@
 			<simplelayout axis="x"/>
 			<ManipulativeButton resource="toolbar_oneeighth_inch_ruler_btn"
 	                            toolid="oneeighth_inch_ruler"
-	                            tooltip="1/8&quot; ruler"/>
+	                            tooltip="1/8&quot; ruler" xpos = "${this.x+ classroot.globals.width+10}"/>
 			<ManipulativeButton resource="toolbar_half_inch_ruler_btn"
 	                            toolid="half_inch_ruler"
-	                            tooltip="1/2&quot; ruler"/>
+	                            tooltip="1/2&quot; ruler" xpos = "${this.x+ classroot.globals.width+10}"/>
 			<ManipulativeButton resource="toolbar_mm_ruler_btn"
 	                            toolid="mm_ruler"
-	                            tooltip="mm ruler"/>
+	                            tooltip="mm ruler" xpos = "${this.x+ classroot.globals.width+10}"/>
 			<ManipulativeButton resource="toolbar_cm_ruler_btn"
 	                            toolid="cm_ruler"
-	                            tooltip="cm ruler"/>
+	                            tooltip="cm ruler" xpos = "${this.x+ classroot.globals.width+10}"/>
 			<ManipulativeButton resource="toolbar_protractor_btn"
 	                            toolid="protractor"
-	                            tooltip="Protractor"/>
+	                            tooltip="Protractor" xpos = "${this.x+ classroot.globals.width+10}"/>
 			<ManipulativeButton resource="toolbar_formula_card_btn"
 	                            toolid="FCAT_formula_card"
-	                            tooltip="Reference Card"/>
+	                            tooltip="Reference Card" xpos = "${this.x+ classroot.globals.width+10}"/>
 			<ManipulativeButton resource="toolbar_formula_card_btn"
 	                            toolid="TN_formula_card"
-	                            tooltip="Reference Card"/>
+	                            tooltip="Reference Card" xpos = "${this.x+ classroot.globals.width+10}"/>
 			<ManipulativeButton resource="toolbar_formula_card_btn"
 	                            toolid="formula_card_resource"
-	                            tooltip="Reference Card"/>
+	                            tooltip="Reference Card" xpos = "${this.x+ classroot.globals.width+10}"/>
 			<ManipulativeButton resource="toolbar_calculator_btn"
 	                            toolid="standard_calculator"
-	                            tooltip="Calculator"/>
+	                            tooltip="Calculator" 
+								xpos = "${this.x+ classroot.globals.width+10}" />
 			<ManipulativeButton resource="toolbar_straight_edge_btn"
 	                            toolid="straight_edge"
-	                            tooltip="Straight Edge"/>
+	                            tooltip="Straight Edge" 
+								xpos = "${this.x+ classroot.globals.width+10}"/>
 		</view>
 		
 		<view name="screenreader" valign="middle" height="100%">
@@ -219,7 +221,7 @@
 				</handler>
 		
 				<method name="showTooltip">
-					gTooltip.showTooltip ('Stop Reading');
+					gTooltip.showTooltip('Stop Reading');
 				</method>
 		
 			</basebutton>
@@ -246,7 +248,7 @@
 				</handler>
 		
 				<method name="showTooltip">
-					gTooltip.showTooltip ('Volume Control');
+					gTooltip.showTooltip('Volume Control');
 				</method>
 	
 				<text name="volumeText" fontsize="9" resize="true" height="15" align="center" fontstyle="bold">Volume</text>
@@ -299,7 +301,7 @@
 				<!--END Changes done for defect #65040 and #65041-->
 					
 					<method name="showTooltip">
-						gTooltip.showTooltip ('Volume Control');
+						gTooltip.showTooltip('Volume Control');
 					</method>
 		
 					<handler name="onvalue"><![CDATA[

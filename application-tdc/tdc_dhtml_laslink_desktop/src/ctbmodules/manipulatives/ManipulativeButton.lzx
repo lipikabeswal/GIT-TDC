@@ -7,7 +7,8 @@
         <attribute name="isenabled" value="false"/>
         <attribute name="isselected" value="false"/>
         <attribute name="tooltip" type="string"/>
-
+		<attribute name="xpos" type="string"/>
+	    
         <attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
 
         <handler name="oninit">
@@ -53,7 +54,7 @@
         </handler>
 
         <method name="showTooltip">
-            gTooltip.showTooltip (this.tooltip);
+            gTooltip.showTooltip_(this.tooltip,this.xpos);
         </method>
 
     </class>
