@@ -70,15 +70,18 @@
 	        ]]></handler>
 	
 	        <handler name="onclick"><![CDATA[
+	        	console.log("onclick***manip btn"+classroot.isenabled);
 	            if (classroot.isenabled) {
+	            	console.log("onclick***manip btn***if");
 	                gController.setManipulativeSelState (classroot.toolid, 
 	                                                         classroot.isselected ? 'up' : 'sel');
 	                console.log("classroot.isselected "+classroot.isselected);
 	                console.log("classroot.toolid "+classroot.toolid);  
 	                console.log("basepanelScrollContainer "+gController.panelArr);
-	                console.log("scrollTextArea "+scrollTextArea);
-					                                         
-	                if(classroot.isselected && classroot.toolid=='highlighter'){
+	                console.log("scrollTextArea "+scrollTextArea);                                         
+	                if(classroot.isselected){
+	                	if(classroot.toolid=='highlighter'){
+	                	console.log("if****"+gController.panelArr.length);
 	                	if(gController.panelArr.length > 0){
 		            		for(var i=0;i<gController.panelArr.length;i++){
 								 console.log("panelArr "+gController.panelArr[i]);
@@ -89,7 +92,24 @@
 								}
 							}
 		            	}
-		            }else {
+		            }
+					}else if(!classroot.isselected){
+	                	if(classroot.toolid=='highlighter'){
+	                	console.log("if****"+gController.panelArr.length);
+	                	if(gController.panelArr.length > 0){
+		            		for(var i=0;i<gController.panelArr.length;i++){
+								 console.log("panelArr "+gController.panelArr[i]);
+								if(gController.panelArr[i] instanceof lz.CachableScrollingTextPanel){
+									gController.panelArr[i].scrolltext.contents.textarea.scrollarea.setAttribute('clickable',false);
+								}else{
+									gController.panelArr[i].wrapper.scrollcontainer.setAttribute('clickable',false);
+								}
+							}
+		            	}
+		            }
+					}else{
+		            	console.log("else****");
+		            	
 						if(gController.panelArr.length > 0){
 		            		for(var i=0;i<gController.panelArr.length;i++){
 								 console.log("panelArr "+gController.panelArr[i]);
