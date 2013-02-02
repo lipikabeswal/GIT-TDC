@@ -49,7 +49,7 @@
 
 	<!-- Toolbar Button magnifying glass-->
 	<resource name="toolbar_magnifying_glass_btn">      
-		<frame src="magnifier/toolbar_magnifyingGlass_disabled.png"/>   
+		<frame src="magnifier/toolbar_magnifyingGlass_off.png"/>   
 		<frame src="magnifier/toolbar_magnifyingGlass_on.png"/>        
 	</resource>
 	
