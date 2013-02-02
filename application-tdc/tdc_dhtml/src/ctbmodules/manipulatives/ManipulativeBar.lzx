@@ -254,9 +254,39 @@
 	                            tooltip="Straight Edge"/>
 		</view>
 		
-		<view name="screenreader" valign="middle" height="100%">
+		<view name="screenreader" valign="middle" height="100%" bgcolor="0x83A6C3">
 		<!-- <simplelayout axis="x" spacing="16">  -->
+			<!-- The tool to control the TTS volume -->
+			<view name="volumeController" height="60"
+				  visible="${parent.stopreader.visible}" y="${this.y-7}">
+						  
+				<simplelayout axis="y" spacing="2"/>
+					<text name="volumeText" fontsize="9" height="10" fontstyle="bold">Volume</text>
+					<vslider id="volumeControl"
+						height="40" 
+						showvalue="false"
+						showcurrentvalue="true"
+						minvalue="0"
+						maxvalue="100"
+						showrange="false" 
+						showfill="true"
+						align="center">
+						
+						<handler name="onvisible">
+							this.setValue(50);
+						</handler>
+			
+						<handler name="onvalue" args="v">
+							var s = "sendRequest('setVolume','"+v+"','"+gReadableText.speechAction+"')";
+							lz.Browser.loadJS(s);
+						</handler>
+					</vslider>
+			</view>
+			
+			<view name="gap3" x="${parent.volumeController.x+parent.volumeController.width}" width="16" valign="middle" visible="${parent.volumeController.visible}"/>
+			
 			<basebutton name="stopreader" stretches="both" height="40" width="37"
+						x="${parent.gap3.x+parent.gap3.width}"
 		                resource="toolbar_stopreader_btn" with="swipegesture, touchevents"
 		                visible="${canvas.readable}" valign="middle">
 		
@@ -293,7 +323,7 @@
 				</method>
 		
 			</basebutton>
-			<view name="stopreader_btn_shadow" tintcolor="0x000000" resource="manipulative_shadow" x="5"
+			<view name="stopreader_btn_shadow" tintcolor="0x000000" resource="manipulative_shadow" x="${parent.stopreader.x+5}"
         	  opacity="0.5" visible="${parent.stopreader.visible}"
         	  width="37" height="43" stretches="both">
 				<handler name="onvisible">
@@ -303,35 +333,7 @@
 				</handler>
 			</view>
 			
-			<view name="gap3" x="${parent.stopreader.x+parent.stopreader.width}" width="16" valign="middle" visible="${parent.stopreader.visible}"/>
-			<!-- The tool to control the TTS volume -->
-			<view name="volumeController" height="60" x="${parent.gap3.x+parent.gap3.width}"
-				  visible="${parent.stopreader.visible}" y="${this.y-7}">
-						  
-				<simplelayout axis="y" spacing="2"/>
-					<text name="volumeText" fontsize="9" height="10" fontstyle="bold">Volume</text>
-					<vslider id="volumeControl"
-						height="40" 
-						showvalue="false"
-						showcurrentvalue="true"
-						minvalue="0"
-						maxvalue="100"
-						showrange="false" 
-						showfill="true"
-						align="center">
-						
-						<handler name="onvisible">
-							this.setValue(50);
-						</handler>
-			
-						<handler name="onvalue" args="v">
-							var s = "sendRequest('setVolume','"+v+"','"+gReadableText.speechAction+"')";
-							lz.Browser.loadJS(s);
-						</handler>
-					</vslider>
-			</view>
-			
-			<view name="gap4" x="${parent.volumeController.x+parent.volumeController.width}" width="16" valign="middle" visible="${parent.volumeController.visible}"/>
+			<view name="gap4" x="${parent.stopreader.x+parent.stopreader.width}" width="16" valign="middle" visible="${parent.stopreader.visible}"/>
 
 			<!-- The tool to control the TTS speed -->
 			<view name="speedController" height="60" x="${parent.gap4.x+parent.gap4.width}" y="${parent.volumeController.y}"
