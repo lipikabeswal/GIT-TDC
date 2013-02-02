@@ -103,8 +103,8 @@
 	            <view x="7" width="${gHeader.width-(Number(parent.timeStatus.width)+Number(gLogo.width))}" clip="true">
 					<ManipulativeBar id="gManipulativeBar" height="40" y="11"/>
 	            </view>
-				<TimeStatus  name="timeStatus" x="${gLogo.x-gLogo.width-10}" y="-11" />
-	            <view  id="gLogo" x="690" y="11" />
+				<TimeStatus  name="timeStatus" x="${gLogo.x-gLogo.width-4}" y="-11" />
+	            <view  id="gLogo" x="673" y="11" />
 			</view>
 			<view name="showHd" resource="header_btn" x="-3.5" width="${classroot.main.header.width+8.5}" height="30" y="56" stretches="both" visible="true">
                 <view fgcolor="white" width="100%" valign="middle">
