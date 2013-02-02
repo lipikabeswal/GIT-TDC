@@ -76,19 +76,10 @@
 	                console.log("classroot.isselected "+classroot.isselected);
 	                console.log("classroot.toolid "+classroot.toolid);  
 	                console.log("basepanelScrollContainer "+gController.panelArr);
-	                console.log("scrollTextArea "+scrollTextArea);                                         
+	                console.log("scrollTextArea "+scrollTextArea);
+					                                         
 	                if(classroot.isselected && classroot.toolid=='highlighter'){
-	                	/*if(gController.scrollTextArr.length > 0){
-							for(var i=0;i<gController.scrollTextArr.length;i++){
-								 console.log("scrollTextArr "+gController.scrollTextArr[i]);
-								gController.scrollTextArr[i].contents.textarea.scrollarea.setAttribute('clickable',false);
-							}
-		            	}if(gController.panelArr.length > 0){
-		            		for(var i=0;i<gController.panelArr.length;i++){
-								 console.log("panelArr "+gController.panelArr[i]);
-								gController.panelArr[i].wrapper.scrollcontainer.setAttribute('clickable',false);
-							}
-						}*/if(gController.panelArr.length > 0){
+	                	if(gController.panelArr.length > 0){
 		            		for(var i=0;i<gController.panelArr.length;i++){
 								 console.log("panelArr "+gController.panelArr[i]);
 								if(gController.panelArr[i] instanceof lz.CachableScrollingTextPanel){
@@ -99,16 +90,6 @@
 							}
 		            	}
 		            }else {
-		            	/*if(gController.scrollTextArr.length > 0){
-							for(var i=0;i<gController.scrollTextArr.length;i++){
-								 console.log("scrollTextArr "+gController.scrollTextArr[i]);
-								gController.scrollTextArr[i].contents.textarea.scrollarea.setAttribute('clickable',true);
-							}
-		            	}if(gController.panelArr.length > 0){
-		            		for(var i=0;i<gController.panelArr.length;i++){
-								gController.panelArr[i].wrapper.scrollcontainer.setAttribute('clickable',true);
-							}
-		            	}*/
 						if(gController.panelArr.length > 0){
 		            		for(var i=0;i<gController.panelArr.length;i++){
 								 console.log("panelArr "+gController.panelArr[i]);
