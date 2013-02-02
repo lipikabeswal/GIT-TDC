@@ -168,12 +168,13 @@
             }
             this.setAttribute('align', just);
             
-           /*var elm = this.thetext.getDisplayObject();
-			elm.setAttribute('style','text-align:"'+ just +'";');*/
-			 
-
-           this.thetext.setAttribute("text",
-                '<label align="' + just + '">' + dataText + '</label>');
+		   if (gController.hasFontAccommodation){
+				this.thetext.setAttribute("text",
+	                '<label><span style="line-height:20px;">' + dataText + '</span></label>');
+		   }else{
+	           this.thetext.setAttribute("text",
+	                '<label><span style="line-height:17px;">' + dataText + '</span></label>');
+			}
 
 			console.log("this.thetext.getTextHeight  "+this.thetext.getTextHeight())
 
