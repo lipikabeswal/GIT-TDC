@@ -74,10 +74,12 @@
 					maxDepth = newDepth;
 				}
 			}
-			for(var j = maxDepth; j>=0; j--){
+			for(var j = maxDepth; j>0; j--){
 				var manip = getManipForDepth(j, manips);
 				if(manip != null && typeof manip != 'undefined'){
 					manip.bringToFront();
+				}else {
+					gMaskingRuler.bringToFront();
 				}
 			}
 			if(gScratchpad.visible){
