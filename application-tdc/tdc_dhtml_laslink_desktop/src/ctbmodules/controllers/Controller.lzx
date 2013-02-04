@@ -3475,6 +3475,7 @@
 
 		<method name="loadItem"><![CDATA[
 Debug.write("############ loadItem ############");
+			
 			gQuestion.clearSkip();
 			canvas.setAttribute('focusobj', null);
             this.itemloaded    = false;
@@ -3497,6 +3498,7 @@ Debug.write("############ loadItem ############");
 			dsitem.setQueryParam(gRequest.XML_PARAM, xml);
 			dsitem.doRequest();        
             this.resetCrFields();
+            this.resetLasAssetArray();
 			this.resetAudioFields();
 			Debug.write("reset in load item htmlFields");
 			this.resetHtmlFields();
@@ -3766,7 +3768,7 @@ Debug.write("############ loadItem ############");
 		<method name="checkItemStatus"><![CDATA[
 			//Debug.write("itemloaded && runtimeready && youarehereset", itemloaded,runtimeready,youarehereset);
             if ( itemloaded && runtimeready && youarehereset ) {
-                unlockUI();
+                unlockUI();     
                 startQuestion();
                 if ( !this['itemuiready'] ) new lz.Event( this, 'itemuiready' );
                 this.itemuiready.sendEvent();
@@ -3777,7 +3779,7 @@ Debug.write("############ loadItem ############");
 		<method name="unlockIfItemReady"><![CDATA[
             if ( itemloaded && runtimeready && youarehereset &&
                  !requestPending) {
-                unlockUI();
+             	unlockUI();
              }
         ]]></method>
 
@@ -4521,6 +4523,12 @@ Debug.write("############ loadItem ############");
                 delete this.crFields[i];
             }
             this.crFields.length = 0;
+		]]></method>
+		<method name="resetLasAssetArray"><![CDATA[
+            for (var i = 0; i < this.lasAssetArray.length; i++) {
+                delete this.lasAssetArray[i];
+            }
+            this.lasAssetArray.length = 0;
 		]]></method>
 
 		<method name="updateCrField" args="id, answer, answered"><![CDATA[
