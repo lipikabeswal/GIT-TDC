@@ -201,7 +201,7 @@ function disableAssets(){
 				iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.disable();
 						enabledArray[k]=gController.lasAssetArray[i].asset.aw.iframeid;
 						k++;
-			console.log("inside if ");
+			//console.log("inside if ");
 				}
 					
 			}
