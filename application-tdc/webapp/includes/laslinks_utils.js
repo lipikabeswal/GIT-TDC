@@ -7,7 +7,7 @@ var assetCount = 0;
 
 function iframeLoaded(id, iframe){
 	if(currentLasAssetItemId) {
-		assetCount++;
+		
 		////console.log("UTILS -->",id,"  ",iframe);
 		var folderName = iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1);
 		frameFolderObject[folderName] = iframe.id;
@@ -48,7 +48,7 @@ function iframeLoaded(id, iframe){
 				}
 			}
 		}
-			
+			assetCount++;
 			if(gController.lasAssetArray.length == assetCount){
 				startAutoplay();
 			}
