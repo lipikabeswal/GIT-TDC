@@ -184,6 +184,7 @@
 	<attribute name="triggercrsave"/>
 	<attribute name="triggercrpush"/>
 	<attribute name="scratchpadRequired" type="boolean" value="false"/>
+	<attribute name="keysPressed" value="null"/>
 	
 	<handler name="ontriggercrpush" args="data">
 		//Debug.write("*************ontriggercrpush******");
@@ -322,6 +323,10 @@
 		gController.setAttribute('isAudioPlaying',isPlaying);
     	gController.enableAudio();
 	    ]]>
+    </handler>
+    
+    <handler name="onkeysPressed" args="arg">
+    	gHotKeys.handleHtmlKeyPress(arg);
     </handler>
     
 	<handler name="oninit">

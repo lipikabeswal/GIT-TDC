@@ -182,6 +182,56 @@
                     break;
 	 		}
         </method>
+        
+        <method name="handleHtmlKeyPress" args="data"><![CDATA[
+        	//Debug.write("in handleHtmlKeyPress***************");
+        	var keys = data.split("|");
+        	var key = keys[0];
+        	var shift = keys[1];
+        	var capslock = keys[2];
+        	var control = keys[3];
+        	if((key!= null && shift==false && capslock==false && control==false) 
+        		|| key!= null && shift==true && capslock==false && control==false
+        		|| key!= null && shift==true && capslock==true && control==false
+        		|| key!= null && shift==false && capslock==true && control==false) {
+        		if(key == 'a')
+        			toggleA();
+        		else if(key == 'b')
+        			toggleB();
+        		else if(key == 'c')
+        			toggleC();
+        		else if(key == 'd')
+        			toggleD();
+        		else if(key == 'e')
+        			toggleE();
+        		else if(key == 'f')
+        			toggleF();
+        		else if(key == 'g')
+        			toggleG();
+        		else if(key == 'h')
+        			toggleH();
+        		else if(key == 'i')
+        			toggleI();
+        		else if(key == 'j')
+        			toggleJ();
+        	}
+        	else if(key!= null && shift==false && capslock==false && control==true) {
+        		if(key == 'j')
+        			goBack();
+        		else if(key == 'k')
+        			goOn();
+        		else if(key == 'l')
+        			toggleMark();
+        		else if(key == '0')
+        			toggleTimer();
+        		else if(key == 'u')
+        			pause();
+        		else if(key == 's')
+        			stop();
+        		else if(key == 'f')
+        			finish();
+        	}
+        ]]></method>
 
         <attribute name="dtoggleA"
                    value="$once{ new lz.Delegate( this, 'toggleA' ) }"/>
