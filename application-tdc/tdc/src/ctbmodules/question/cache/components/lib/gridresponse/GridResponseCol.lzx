@@ -262,13 +262,15 @@
 	                case 13:
 	                    //return  
 	                    //bake in our hl selection  
-	                    var currhl = this.hlselman.selected [0];
-	                    if (currhl == this.erasebtn) {
-	                        this.clear ();
-	                    } else if (currhl instanceof lz.GridButton) {
-	                        gController.setGrState( data.getOffset(),
-	                                                    currhl.value );
-	                    }
+						if(this.hlselman.selected && this.hlselman.selected != null) {
+		                    var currhl = this.hlselman.selected [0];
+		                    if (currhl == this.erasebtn) {
+		                        this.clear ();
+		                    } else if (currhl instanceof lz.GridButton) {
+		                        gController.setGrState( data.getOffset(),
+		                                                    currhl.value );
+		                    }
+						}
 	                    break;
 	
 	                case 8:
