@@ -1,8 +1,8 @@
 <library>
 
     <class name="QuestionBarButton"  
-           clickregion="question_bar_clickregion" 
-           width="26">
+           showhandcursor="false" 
+           width="26" >
 
         <attribute name="itemeid" value="$path{ '@eid' }"/>
         <attribute name="itemnum" value="$path{ '@item_no' }"/>
@@ -84,11 +84,11 @@
 						this.btn.setAttribute('clickable',true);
 						this.btn.setAttribute('showhandcursor',false);
 						//For Defect 65886
-						this.btnText.setAttribute('fgcolor',0xE0E0E0);
+						this.mainV.btnText.setAttribute('fgcolor',0xE0E0E0);
 						this.themeResource = 'theme_disable';
 						//Debug.write("**********btn disable*********");
 					}else{
-						this.btnText.setAttribute('fgcolor',0x000000);
+						this.mainV.btnText.setAttribute('fgcolor',0x000000);
 						this.btn.setAttribute('clickable',false);
 						this.btn.setAttribute('showhandcursor',true);
 						//Debug.write("**********btn clickable false*********");
@@ -96,7 +96,7 @@
 				}else{
 					this.btn.setAttribute('clickable',false);
  					this.btn.setAttribute('showhandcursor',true);
-					this.btnText.setAttribute('fgcolor',0x000000);
+					this.mainV.btnText.setAttribute('fgcolor',0x000000);
 					//Debug.write("**********btn clickable false*********");
 				}
 			}
@@ -105,16 +105,7 @@
             this._changeStatus (false);
         ]]></handler>
 
-        <handler name="onmouseover">
-            this._changeStatus (true);
-        </handler>
-
-        <handler name="onmouseout">
-            this._changeStatus (false);
-        </handler>
-
-
-        <handler name="onclick">
+        <method name="doProcess">
 			gController.setAttribute("nextItem", itemeid ); 
 			gController.setAttribute("navigateConfirm",false);
 			if(!gController.navigateConfirm){
@@ -123,7 +114,7 @@
 			
             gController.navigateTo( itemeid );
             
-        </handler>
+        </method>
 
         <method name="_changeStatus" args="ismouseover"><![CDATA[
             var newframe = 1;
@@ -163,11 +154,23 @@
               x="${classroot.width}" y="24" showhandcursor="false" clickregion="question_bar_clickregion"
               visible="${classroot.showconnector}"/>
 
+	<view height="40" name="mainV" clickregion="question_bar_clickregion" 
+	width="100%">
+		<handler name="onclick">
+			parent.doProcess();
+        </handler>
+		<handler name="onmouseover">
+            parent._changeStatus (true);
+        </handler>
+
+        <handler name="onmouseout">
+            parent._changeStatus (false);
+        </handler>
         <text name="btnText" text="${classroot.itemnum}" resize="true" 
               font="Arial" fontsize="11" fontstyle="bold"
               y="22" align="center" visible="${!classroot.isTheme}"/>
-        <view name="themeBtn" resource="${classroot.themeResource}" y="24" align="center" visible="${classroot.isTheme}" />
- 
-    </class>
+        <view name="themeBtn" resource="${classroot.themeResource}" y="24" align="center" visible="${classroot.isTheme}"/>
+ 	</view>   
+</class>
 
 </library>
