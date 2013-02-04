@@ -3,9 +3,11 @@ var frameFolderObject = {};
 var currentPlayOrder = 0;
 var playOrderArray = {};
 var enabledArray = [];
+var assetCount = 0;
 
 function iframeLoaded(id, iframe){
 	if(currentLasAssetItemId) {
+		assetCount++;
 		////console.log("UTILS -->",id,"  ",iframe);
 		var folderName = iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1);
 		frameFolderObject[folderName] = iframe.id;
@@ -46,8 +48,16 @@ function iframeLoaded(id, iframe){
 				}
 			}
 		}
+			
+			if(gController.lasAssetArray.length == assetCount){
+				startAutoplay();
+			}
+
+		}
+		
 	}
-}
+	
+
 
 /**
 *First check whether all the assets are played once or not.
@@ -213,3 +223,13 @@ function enableAssets(){
 	enabledArray.length=0;
 
 }
+
+function startAutoplay(){
+		for(var i=0; i<gController.lasAssetArray.length;i++){
+			if(gController.lasAssetArray[i].data.getAttr('autoplay') == "true"){
+				iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.autoPlay();
+				autoPlayEvent = "true";
+				break;
+			}
+		}
+  }

@@ -67,6 +67,7 @@ var backColorString;
 var xscalefactor = 1;
 var yscalefactor = 1;
 var currentLasAssetItemId;
+var autoPlayEvent = "false";
 
 window.onmouseup = function  () {
 	lz.embed.setCanvasAttribute("fromLogin", 'true');
@@ -307,6 +308,7 @@ function frameID(frameid){
 
 function setCurLasItemId(id) {
 	currentLasAssetItemId = id;
+	assetCount = 0;
 }
 
 
@@ -332,17 +334,22 @@ function eventMonitor(id,event) {
  		if( event == 'endTrack' || event == 'pause'){
  			setPlayingAttr('false');
  		}
- 		iframeObject[currentLasAssetItemId][currIframeId]['playEvent'] = false;
- 		//console.log("event -- ",event);
- 		if(iframeObject[currentLasAssetItemId]) {
- 			if(iframeObject[currentLasAssetItemId][currIframeId]['folder'] == id) {
- 				if(iframeObject[currentLasAssetItemId][currIframeId]['clickedOnce']) {
- 					iframeObject[currentLasAssetItemId][currIframeId]['playedOnce'] = true; // To know whether the asset is atleast played once or not.
- 				}
- 			}
+ 		if(autoPlayEvent == 'false') { // play is for autoPlay
+	 		iframeObject[currentLasAssetItemId][currIframeId]['playEvent'] = false;
+	 		//console.log("event -- ",event);
+	 		if(iframeObject[currentLasAssetItemId]) {
+	 			if(iframeObject[currentLasAssetItemId][currIframeId]['folder'] == id) {
+	 				if(iframeObject[currentLasAssetItemId][currIframeId]['clickedOnce']) {
+	 					iframeObject[currentLasAssetItemId][currIframeId]['playedOnce'] = true; // To know whether the asset is atleast played once or not.
+	 				}
+	 			}
+	 		}
+	 		unlockResponseArea(currIframeId);
+	 		enableNextButton(id);
  		}
- 		unlockResponseArea(currIframeId);
- 		enableNextButton(id);
+ 		else{
+ 		autoPlayEvent = "false";
+ 		}
  		
  	} else if (event == 'reset') {
  		//setPlayingAttr('false');
