@@ -362,6 +362,10 @@ function isSPRequired(){
 	return isSP;
 }
 
+function enableHotKeys(arg) {
+	lz.embed.setCanvasAttribute('keysPressed',arg);
+}
+
 function load() {
 	
      var myservlet = 'servlet/PersistenceServlet.do?method=isProductCheck&folder=calif&requestXML=';
