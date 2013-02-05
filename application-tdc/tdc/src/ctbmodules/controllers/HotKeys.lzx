@@ -190,7 +190,42 @@
         	var shift = keys[1];
         	var capslock = keys[2];
         	var control = keys[3];
-        	if((key!= null && shift==false && capslock==false && control==false) 
+        	if(key == 'A' || key == 'Shift+A' || key == 'Caps_lock+A' || key == 'Shift+Caps_lock+A')
+       			toggleA();
+       		else if(key == 'B' || key == 'Shift+B' || key == 'Caps_lock+B' || key == 'Shift+Caps_lock+B')
+       			toggleB();
+       		else if(key == 'C' || key == 'Shift+C' || key == 'Caps_lock+C' || key == 'Shift+Caps_lock+C')
+       			toggleC();
+       		else if(key == 'D' || key == 'Shift+D' || key == 'Caps_lock+D' || key == 'Shift+Caps_lock+D')
+       			toggleD();
+       		else if(key == 'E' || key == 'Shift+E' || key == 'Caps_lock+E' || key == 'Shift+Caps_lock+E')
+       			toggleE();
+       		else if(key == 'F' || key == 'Shift+F' || key == 'Caps_lock+F' || key == 'Shift+Caps_lock+F')
+       			toggleF();
+       		else if(key == 'G' || key == 'Shift+G' || key == 'Caps_lock+G' || key == 'Shift+Caps_lock+G')
+       			toggleG();
+       		else if(key == 'H' || key == 'Shift+H' || key == 'Caps_lock+H' || key == 'Shift+Caps_lock+H')
+       			toggleH();
+       		else if(key == 'I' || key == 'Shift+I' || key == 'Caps_lock+I' || key == 'Shift+Caps_lock+I')
+       			toggleI();
+       		else if(key == 'j' || key == 'Shift+J' || key == 'Caps_lock+J' || key == 'Shift+Caps_lock+J')
+      			toggleJ();
+      		else if(key == 'Ctrl+J')
+       			goBack();
+       		else if(key == 'Ctrl+K')
+       			goOn();
+       		else if(key == 'Ctrl+L')
+       			toggleMark();
+       		else if(key == 'Ctrl+O')
+       			toggleTimer();
+       		else if(key == 'Ctrl+U')
+       			pause();
+       		else if(key == 'Ctrl+S')
+       			stop();
+       		else if(key == 'Ctrl+F')
+       			finish();
+        	
+        	/*if((key!= null && shift==false && capslock==false && control==false) 
         		|| key!= null && shift==true && capslock==false && control==false
         		|| key!= null && shift==true && capslock==true && control==false
         		|| key!= null && shift==false && capslock==true && control==false) {
@@ -230,7 +265,7 @@
         			stop();
         		else if(key == 'f')
         			finish();
-        	}
+        	}*/
         ]]></method>
 
         <attribute name="dtoggleA"
