@@ -156,6 +156,7 @@
 	<attribute name="isMultiAudio"/>
 	<attribute name="currentCursor" value="null" />
 	<attribute name="footnotetext" value="null"/>
+	<attribute name="frameLoaded" value="false" type="boolean"/>
 	<!-- <attribute name="eliminatorRsrc"
 		value="$once{lz.Browser.getInitArg('eliminatorResource')}"
 		type="string" />-->
