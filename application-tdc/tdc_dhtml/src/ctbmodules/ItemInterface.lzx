@@ -138,11 +138,21 @@
 		<view name="contents" width="800" height="680" y="-50">
 			<basebutton name="navBack" x="${gQuestion.x}" opacity="0.3"
 					valign="middle" resource="navBack"
-					onclick="gController.stepNavigateBack()"></basebutton>
+					>
+					<handler name="onclick">
+					blockiPADUI();
+					stepNavigateBackBlock(gController);
+				</handler>	
+			</basebutton>
 			<basebutton name="navNext" opacity="0.3"
 					x="${gQuestion.x+gQuestion.width-this.width}" 
 					valign="middle" resource="navNext"
-					onclick="gController.stepNavigateForward()"></basebutton>
+					>
+				<handler name="onclick">
+					blockiPADUI();
+					stepNavigateForwardBlock(gController);
+				</handler>		
+			</basebutton>
 			<view name="itemScreen" width="100%" height="100%" options="releasetolayout">
 				 <Question width="100%" height="100%" id="gQuestion" name="ques"
                           datapath="dsitem:/element_package/item_canvas"
@@ -220,14 +230,14 @@
 			            <method name="setShowTime" args="show">
 			                if ( 'true' == isuntimed || "true" == isuntimed || true == isuntimed) {
 			                    thetime.setAttribute( 'visible', false );
-			                } else {
+			                } /*else {
 			                    if ( typeof( show ) == 'string' ) {
 			                        show = show == 'true';
 			                    }
 			                    thetime.setAttribute( 'visible', show );
 			                    thetime.bringToFront();
 			                }
-			                this.showtime = show;
+			                this.showtime = show;*/
 			            </method>
 			            
 			            <text name="thetime" x="68" y="-2" visible="${ parent.isuntimed == 'false' || parent.isuntimed == false}"
