@@ -560,6 +560,7 @@
 		<attribute name="stylesArr" value="${new Array()}"/>
 		<attribute name="panelArr" value="$once{new Array()}"/>
 		<attribute name="scrollTextArr" value="$once{new Array()}"/>
+		<attribute name="teItemState" value="$once{new Object()}"/>
 			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -3357,7 +3358,7 @@
         ]]></method>
 
 		<method name="loadItem"><![CDATA[
-Debug.write("############ loadItem ############");
+console.log("############ loadItem ############");
 			gQuestion.clearSkip();
 			canvas.setAttribute('focusobj', null);
             this.itemloaded    = false;
@@ -3388,6 +3389,7 @@ Debug.write("############ loadItem ############");
 			gMaskingAnswer.setAttribute("withState",false);
 			hideMagnifierGlass();
 			hideMaskingChoiceDD();
+			unblockiPADUI();
 		]]></method>
 
 		<method name="loadMusicData"><![CDATA[
@@ -5262,7 +5264,9 @@ Debug.write("############ loadItem ############");
 	        	isAnsweredDelegate();
 		</method>
 	<method name="resetHtmlFields"><![CDATA[
+		console.log("resret html fileds***",this.htmlFields.length);
 		 for (var i = 0; i < this.htmlFields.length; i++) {
+		 		console.log("resret html fileds***",this.htmlFields.length);
                 delete this.htmlFields[i];
             }
             this.htmlFields.length = 0;
