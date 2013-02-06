@@ -111,7 +111,18 @@
                 } else {
                     nh = Number(nh);
                 }
-				this.wrapper.setAttribute ('height', nh);
+                
+				if((this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
+                	if((nh != null) && !gController.hasFontAccommodation){
+                		this.wrapper.setAttribute ('height', nh+(4*18));
+                	}else{
+						this.wrapper.setAttribute ('height', nh);
+					}
+                }
+               	else{
+					this.wrapper.setAttribute ('height', nh);
+				}
+				//this.wrapper.setAttribute ('height', nh);
 				var elem = this.wrapper.getDisplayObject();
 				elem.setAttribute ('id', "basePanelId");
             }
