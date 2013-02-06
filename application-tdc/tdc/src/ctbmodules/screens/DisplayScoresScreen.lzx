@@ -170,7 +170,23 @@
 	]]></method>
 
 	<method name="getPLScore" args="raw,form,testTitle"><![CDATA[
-	Debug.write("raw,form,testTitle : ",raw," : ",form," : ",testTitle);
+		Debug.write("raw,form,testTitle : ",raw," : ",form," : ",testTitle);
+		var PerfLevel = "";
+		//Assuming that raw score range for proficiency level will be obtained from test name itself.
+		//For tests with multiple form, will have the same range of raw score - proficiency level combinations.
+		var rawScoreArr = gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/raw_score");
+		for(var i=0; i<rawScoreArr.length; i++){
+			var score = rawScoreArr[i]; 
+			var minScore = score.getAttr('minscore');
+			var maxScore = score.getAttr('maxscore');
+			if(raw >= minScore && raw <= maxScore){
+				PerfLevel = rawScoreArr[i].childNodes[0];
+				break;
+			}
+		}
+		return PerfLevel;
+	// Below code is no longer required as values will be read dynamically.
+	/* 
 		var PerfLevel = "";
 		if(testTitle.indexOf('Geometry')>0){//GEOMETRY
 			if(form == 'EQ') {
@@ -291,6 +307,8 @@
 		}	
 		Debug.write("PerfLevel....", PerfLevel);	
 		return PerfLevel;
+	
+	*/
 	]]>
 	</method>
 	

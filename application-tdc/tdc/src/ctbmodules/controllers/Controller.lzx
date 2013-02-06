@@ -201,6 +201,8 @@
 	<dataset name="dslogin" />
 	<dataset name="dsdisplay" src="xmls/display.xml" />
 
+//For Oklahoma Performance Level
+<dataset name="testDetails" src="http:/resources/TestScore.xml" request="true" type="http"/>
 	<dataset name="dssubtest" />
 
 	<dataset name="dsitem" type="http" queuerequests="true"
@@ -504,6 +506,8 @@
         <attribute name="testTimeout" type="boolean" value="false"/>
 		
 		<attribute name="isCatStop" value="false" type="boolean" />
+		
+			<datapath name="dstest" xpath="testDetails:/test_data"/> //For Oklahoma Performance Level
 		<!--
 			============================================================
 			Datapointers
