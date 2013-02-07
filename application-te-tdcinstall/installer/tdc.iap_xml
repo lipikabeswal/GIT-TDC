@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- This script was automatically generated using Macrovision InstallAnywhere 2008 Enterprise, Build 3418
+<!-- This script was automatically generated using InstallAnywhere 2008 VP1 Enterprise, Build 3571
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Wed Feb 06 12:06:12 PST 2013 -->
-<InstallAnywhere_Deployment_Project increments="10889">
+     DATE:   Thu Jan 05 15:51:39 PST 2012 -->
+<InstallAnywhere_Deployment_Project increments="10558">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
-		<versionID major="9" minor="0" revision="0"/>
-		<editionID>57,46,48,32,69,110,116,101,114,112,114,105,115,101,32,66,117,105,108,100,32,51,52,49,56</editionID>
-		<scriptID>12,42,11,69,49,48,49,57,67,57,57,74,57,57,74,57,57,54,57,57,67,57,77,57,57,84</scriptID>
-		<buildID>3,13,71,87,105,110,100,111,119,115,32,88,80,44,32,53,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,53,46,48,95,49,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
+		<versionID major="9" minor="5" revision="0"/>
+		<editionID>57,46,53,32,69,110,116,101,114,112,114,105,115,101,32,66,117,105,108,100,32,51,53,55,49</editionID>
+		<scriptID>12,42,11,69,49,55,55,57,82,81,81,68,81,81,68,81,81,55,81,70,81,82,70,81,57,70</scriptID>
+		<buildID>3,13,71,87,105,110,100,111,119,115,32,86,105,115,116,97,44,32,54,46,48,44,32,120,56,54,59,32,74,97,118,97,32,49,46,53,46,48,95,49,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,48,-77,20,-112,112,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,6,8,109,97,12,1,0,0</authorizationID>
+		<authorizationID>1,0,0,48,-77,68,-16,-80,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,2,7,104,96,4,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="694">
+	<installationObjects uniqueObjects="693">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="wizardME">
 				<object class="com.zerog.ia.installer.actions.MakeExecutable" objectID="85358c91894c">
@@ -137,9 +137,9 @@ Relative paths are relative to the launcher.]]></string>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c49e829195a4">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="a7c8645d9488">
 									<property name="propertyValue">
-										<string><![CDATA[-Xms32M -Xmx64M]]></string>
+										<string><![CDATA[$CMD_LINE_ARGUMENTS$]]></string>
 									</property>
 									<property name="propertyName">
 										<string><![CDATA[lax.command.line.args]]></string>
@@ -192,7 +192,7 @@ it will search for ones in this list]]></string>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c3f2207c8fa2">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="62ea2e229963">
 									<property name="propertyValue">
 										<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
 									</property>
@@ -220,6 +220,9 @@ and any path to a file to read from that file]]></string>
 							</method>
 						</object>
 					</property>
+					<property name="VMOptions">
+						<string><![CDATA[-Xms32M -Xmx64M]]></string>
+					</property>	
 					<property name="shouldUninstall">
 						<boolean>true</boolean>
 					</property>
@@ -1402,21 +1405,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$PREVIOUSLY_INSTALLED$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
-													</property>
-												</object>
-											</method>
-											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="c42d1a66950e">
-													<property name="propertyValue">
-														<string><![CDATA[-Xms32M -Xmx64M]]></string>
-													</property>
-													<property name="propertyName">
-														<string><![CDATA[$CMD_LINE_ARGUMENTS$]]></string>
-													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1428,8 +1418,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$PRODUCT_TYPE$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1441,8 +1431,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$64BIT_OS$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1454,8 +1444,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$ISTEP$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1467,8 +1457,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1480,8 +1470,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$MET_ALL_REQ$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1493,8 +1483,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$MET_JRE_REQ$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1506,8 +1496,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$MET_CPU_REQ$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1519,8 +1509,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$MET_OS_REQ$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1532,8 +1522,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$MET_MEMORY_REQ$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1545,8 +1535,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$DEVELOPER_DISK_SPACE_ADDITIONAL$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1558,8 +1548,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$INSTALL_LOG_DESTINATION$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1571,8 +1561,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$MET_FLASH_REQ$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1584,8 +1574,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$FCAT$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1597,8 +1587,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$BRANDED_NAME$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1619,8 +1609,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$USER_MAGIC_FOLDER_1$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1632,8 +1622,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$USER_MAGIC_FOLDER_2$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1692,27 +1682,6 @@ and any path to a file to read from that file]]></string>
 													<method name="addElement">
 														<string><![CDATA[Unlisted Platforms]]></string>
 													</method>
-													<method name="addElement">
-														<string><![CDATA[OS/2]]></string>
-													</method>
-													<method name="addElement">
-														<string><![CDATA[Irix]]></string>
-													</method>
-													<method name="addElement">
-														<string><![CDATA[DG-UX]]></string>
-													</method>
-													<method name="addElement">
-														<string><![CDATA[Compaq's Digital UNIX]]></string>
-													</method>
-													<method name="addElement">
-														<string><![CDATA[Rhapsody]]></string>
-													</method>
-													<method name="addElement">
-														<string><![CDATA[z/OS]]></string>
-													</method>
-													<method name="addElement">
-														<string><![CDATA[OS/390]]></string>
-													</method>
 												</object>
 											</property>
 										</object>
@@ -1732,8 +1701,8 @@ and any path to a file to read from that file]]></string>
 													<property name="propertyName">
 														<string><![CDATA[$USER_MAGIC_FOLDER_3$]]></string>
 													</property>
-													<property name="bidiOption">
-														<int>-1</int>
+													<property name="passByValue">
+														<boolean>false</boolean>
 													</property>
 												</object>
 											</method>
@@ -1791,27 +1760,6 @@ and any path to a file to read from that file]]></string>
 													</method>
 													<method name="addElement">
 														<string><![CDATA[Mac OS X]]></string>
-													</method>
-													<method name="addElement">
-														<string><![CDATA[OS/2]]></string>
-													</method>
-													<method name="addElement">
-														<string><![CDATA[Irix]]></string>
-													</method>
-													<method name="addElement">
-														<string><![CDATA[DG-UX]]></string>
-													</method>
-													<method name="addElement">
-														<string><![CDATA[Compaq's Digital UNIX]]></string>
-													</method>
-													<method name="addElement">
-														<string><![CDATA[Rhapsody]]></string>
-													</method>
-													<method name="addElement">
-														<string><![CDATA[z/OS]]></string>
-													</method>
-													<method name="addElement">
-														<string><![CDATA[OS/390]]></string>
 													</method>
 												</object>
 											</property>
@@ -1885,27 +1833,6 @@ and any path to a file to read from that file]]></string>
 											</method>
 											<method name="addElement">
 												<string><![CDATA[Unlisted Platforms]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/2]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Irix]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[DG-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Compaq's Digital UNIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Rhapsody]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[z/OS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/390]]></string>
 											</method>
 										</object>
 									</property>
@@ -2135,8 +2062,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$FCR_OPERAND1$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -2148,8 +2075,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$FCR_OPERATOR$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -2161,8 +2088,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$FCR_OPERAND2$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -2262,27 +2189,6 @@ Please uninstall the previous copy before installing this one.]]></string>
 															<method name="addElement">
 																<string><![CDATA[Unlisted Platforms]]></string>
 															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/2]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Irix]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[DG-UX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Compaq's Digital UNIX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Rhapsody]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[z/OS]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/390]]></string>
-															</method>
 														</object>
 													</property>
 												</object>
@@ -2341,8 +2247,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$EME_SOURCE$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -2354,8 +2260,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$EME_REGEXP$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -2404,8 +2310,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND1$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -2417,8 +2323,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERATOR$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -2430,8 +2336,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND2$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -2598,8 +2504,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND1$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -2611,8 +2517,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERATOR$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -2624,8 +2530,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND2$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -2653,7 +2559,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 																<string><![CDATA[com.ctb.tdc.installer.rule.IntegerComparisonRule]]></string>
 															</property>
 															<property name="resourcePath">
-																<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
+																<string><![CDATA[$IA_PROJECT_DIR$]]></string>
 															</property>
 															<property name="resourceName">
 																<string><![CDATA[tdcia.jar]]></string>
@@ -2719,27 +2625,6 @@ Please uninstall the previous copy before installing this one.]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Unlisted Platforms]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/2]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Irix]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[DG-UX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Compaq's Digital UNIX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Rhapsody]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[z/OS]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/390]]></string>
 															</method>
 														</object>
 													</property>
@@ -2909,8 +2794,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																			<property name="propertyName">
 																				<string><![CDATA[$EME_SOURCE$]]></string>
 																			</property>
-																			<property name="bidiOption">
-																				<int>-1</int>
+																			<property name="passByValue">
+																				<boolean>false</boolean>
 																			</property>
 																		</object>
 																	</method>
@@ -2922,8 +2807,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																			<property name="propertyName">
 																				<string><![CDATA[$EME_REGEXP$]]></string>
 																			</property>
-																			<property name="bidiOption">
-																				<int>-1</int>
+																			<property name="passByValue">
+																				<boolean>false</boolean>
 																			</property>
 																		</object>
 																	</method>
@@ -2995,8 +2880,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																			<property name="propertyName">
 																				<string><![CDATA[$EME_SOURCE$]]></string>
 																			</property>
-																			<property name="bidiOption">
-																				<int>-1</int>
+																			<property name="passByValue">
+																				<boolean>false</boolean>
 																			</property>
 																		</object>
 																	</method>
@@ -3008,8 +2893,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																			<property name="propertyName">
 																				<string><![CDATA[$EME_REGEXP$]]></string>
 																			</property>
-																			<property name="bidiOption">
-																				<int>-1</int>
+																			<property name="passByValue">
+																				<boolean>false</boolean>
 																			</property>
 																		</object>
 																	</method>
@@ -3060,8 +2945,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND1$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -3073,8 +2958,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERATOR$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -3086,8 +2971,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND2$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -3267,8 +3152,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND1$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -3280,8 +3165,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERATOR$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -3293,8 +3178,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND2$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -3496,27 +3381,6 @@ Please uninstall the previous copy before installing this one.]]></string>
 															<method name="addElement">
 																<string><![CDATA[Unlisted Platforms]]></string>
 															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/2]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Irix]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[DG-UX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Compaq's Digital UNIX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Rhapsody]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[z/OS]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/390]]></string>
-															</method>
 														</object>
 													</property>
 												</object>
@@ -3576,8 +3440,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$EME_SOURCE$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -3589,8 +3453,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$EME_REGEXP$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -3639,8 +3503,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND1$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -3652,8 +3516,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERATOR$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -3665,8 +3529,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND2$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -4048,8 +3912,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND1$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -4061,8 +3925,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERATOR$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -4074,8 +3938,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND2$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -4181,27 +4045,6 @@ Please uninstall the previous copy before installing this one.]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Unlisted Platforms]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/2]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Irix]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[DG-UX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Compaq's Digital UNIX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Rhapsody]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[z/OS]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/390]]></string>
 															</method>
 														</object>
 													</property>
@@ -4371,8 +4214,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$EME_SOURCE$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -4384,8 +4227,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$EME_REGEXP$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -4434,8 +4277,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND1$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -4447,8 +4290,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERATOR$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -4460,8 +4303,8 @@ Please uninstall the previous copy before installing this one.]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND2$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -4573,27 +4416,6 @@ Please uninstall the previous copy before installing this one.]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Unlisted Platforms]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/2]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Irix]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[DG-UX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Compaq's Digital UNIX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Rhapsody]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[z/OS]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/390]]></string>
 															</method>
 														</object>
 													</property>
@@ -4970,27 +4792,6 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Unlisted Platforms]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/2]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Irix]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[DG-UX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Compaq's Digital UNIX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Rhapsody]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[z/OS]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/390]]></string>
 															</method>
 														</object>
 													</property>
@@ -5540,8 +5341,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$EME_SOURCE$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -5553,8 +5354,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$EME_REGEXP$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -5603,8 +5404,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND1$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -5616,8 +5417,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERATOR$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -5629,8 +5430,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 																	<property name="propertyName">
 																		<string><![CDATA[$ICR_OPERAND2$]]></string>
 																	</property>
-																	<property name="bidiOption">
-																		<int>-1</int>
+																	<property name="passByValue">
+																		<boolean>false</boolean>
 																	</property>
 																</object>
 															</method>
@@ -5783,8 +5584,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_SOURCE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -5796,8 +5597,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -5861,8 +5662,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_SOURCE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -5874,8 +5675,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -5983,8 +5784,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_SOURCE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -5996,8 +5797,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -6105,8 +5906,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_SOURCE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -6118,8 +5919,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -6227,8 +6028,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_SOURCE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -6240,8 +6041,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -6468,8 +6269,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_SOURCE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -6481,8 +6282,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -6590,8 +6391,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_SOURCE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -6603,8 +6404,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -6712,8 +6513,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_SOURCE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -6725,8 +6526,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -6834,8 +6635,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_SOURCE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -6847,8 +6648,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -6999,8 +6800,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_SOURCE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -7012,8 +6813,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -7121,8 +6922,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_SOURCE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -7134,8 +6935,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -7243,8 +7044,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_SOURCE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -7256,8 +7057,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -7365,8 +7166,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_SOURCE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -7378,8 +7179,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -7530,8 +7331,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_SOURCE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -7543,8 +7344,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -7603,27 +7404,6 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<method name="addElement">
 																<string><![CDATA[Unlisted Platforms]]></string>
 															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/2]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Irix]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[DG-UX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Compaq's Digital UNIX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Rhapsody]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[z/OS]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/390]]></string>
-															</method>
 														</object>
 													</property>
 												</object>
@@ -7643,8 +7423,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_SOURCE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -7656,8 +7436,8 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<property name="propertyName">
 																<string><![CDATA[$ATV_VALUE$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -7715,27 +7495,6 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Unlisted Platforms]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/2]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Irix]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[DG-UX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Compaq's Digital UNIX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Rhapsody]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[z/OS]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/390]]></string>
 															</method>
 														</object>
 													</property>
@@ -8225,7 +7984,7 @@ If you do not know your District ID and School ID, contact your School or Distri
 												<string><![CDATA[com.ctb.tdc.installer.action.CheckDashAction]]></string>
 											</property>
 											<property name="resourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$]]></string>
 											</property>
 											<property name="resourceName">
 												<string><![CDATA[tdcia.jar]]></string>
@@ -8546,27 +8305,6 @@ done
 											<method name="addElement">
 												<string><![CDATA[Unlisted Platforms]]></string>
 											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/2]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Irix]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[DG-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Compaq's Digital UNIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Rhapsody]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[z/OS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/390]]></string>
-											</method>
 										</object>
 									</property>
 								</object>
@@ -8663,27 +8401,6 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 											</method>
 											<method name="addElement">
 												<string><![CDATA[Unlisted Platforms]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/2]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Irix]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[DG-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Compaq's Digital UNIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Rhapsody]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[z/OS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/390]]></string>
 											</method>
 										</object>
 									</property>
@@ -8821,8 +8538,8 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 															<property name="propertyName">
 																<string><![CDATA[$FILE_PATH$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -8834,8 +8551,8 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 															<property name="propertyName">
 																<string><![CDATA[$ICON_PATH$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -8847,8 +8564,8 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 															<property name="propertyName">
 																<string><![CDATA[$ICON_NAME$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -8892,8 +8609,8 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 															<property name="propertyName">
 																<string><![CDATA[$FILE_PATH$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -8905,8 +8622,8 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 															<property name="propertyName">
 																<string><![CDATA[$ICON_PATH$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -8918,8 +8635,8 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 															<property name="propertyName">
 																<string><![CDATA[$ICON_NAME$]]></string>
 															</property>
-															<property name="bidiOption">
-																<int>-1</int>
+															<property name="passByValue">
+																<boolean>false</boolean>
 															</property>
 														</object>
 													</method>
@@ -9330,27 +9047,6 @@ chmod 777 *.*]]></string>
 											<method name="addElement">
 												<string><![CDATA[Unlisted Platforms]]></string>
 											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/2]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Irix]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[DG-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Compaq's Digital UNIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Rhapsody]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[z/OS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/390]]></string>
-											</method>
 										</object>
 									</property>
 								</object>
@@ -9711,10 +9407,6 @@ The log is in $USER_INSTALL_DIR$]]></string>
 						<string><![CDATA[true]]></string>
 					</method>
 					<method name="put">
-						<string><![CDATA[com.zerog.ia.installer.options.services.required]]></string>
-						<string><![CDATA[false]]></string>
-					</method>
-					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.aix.novm]]></string>
 						<string><![CDATA[false]]></string>
 					</method>
@@ -9736,7 +9428,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.installer.options.valid.vm.list]]></string>
-						<string><![CDATA[1.5+]]></string>
+						<string><![CDATA[1.4+]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.build.last.date]]></string>
@@ -9812,19 +9504,19 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[February 6, 2013 12:06:12 PM PST]]></string>
+						<string><![CDATA[January 5, 2012 3:51:39 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
 						<string><![CDATA[false]]></string>
 					</method>
 					<method name="put">
-						<string><![CDATA[com.zerog.ia.installer.options.heap.size.initial]]></string>
-						<string><![CDATA[134217728]]></string>
-					</method>
-					<method name="put">
 						<string><![CDATA[com.zerog.ia.installer.options.platform.unix.ui.default]]></string>
 						<string><![CDATA[GUI]]></string>
+					</method>
+					<method name="put">
+						<string><![CDATA[com.zerog.ia.installer.options.heap.size.initial]]></string>
+						<string><![CDATA[134217728]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.output.merge]]></string>
@@ -9836,7 +9528,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.installer.options.platform.macosx.vm.version]]></string>
-						<string><![CDATA[1.5+]]></string>
+						<string><![CDATA[1.6+]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.webpage.language]]></string>
@@ -10330,27 +10022,6 @@ crontab tmp2.txt
 											<method name="addElement">
 												<string><![CDATA[Linux]]></string>
 											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/2]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Irix]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[DG-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Compaq's Digital UNIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Rhapsody]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[z/OS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/390]]></string>
-											</method>
 										</object>
 									</property>
 								</object>
@@ -10452,27 +10123,6 @@ crontab tmp2.txt
 											</method>
 											<method name="addElement">
 												<string><![CDATA[Unlisted Platforms]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/2]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Irix]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[DG-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Compaq's Digital UNIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Rhapsody]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[z/OS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/390]]></string>
 											</method>
 										</object>
 									</property>
@@ -10901,27 +10551,6 @@ done
 											<method name="addElement">
 												<string><![CDATA[Unlisted Platforms]]></string>
 											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/2]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Irix]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[DG-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Compaq's Digital UNIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Rhapsody]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[z/OS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/390]]></string>
-											</method>
 										</object>
 									</property>
 								</object>
@@ -10952,6 +10581,9 @@ done
 				<boolean>true</boolean>
 			</property>
 			<property name="removeUnreferencedLocaleKeys">
+				<boolean>false</boolean>
+			</property>
+			<property name="notUpdateGlobalRegistry">
 				<boolean>false</boolean>
 			</property>
 			<rules logicalOperation="AND">
@@ -11724,6 +11356,9 @@ and any path to a file to read from that file]]></string>
 															</method>
 														</object>
 													</property>
+													<property name="VMOptions">
+														<string><![CDATA[-Xms32M -Xmx64M]]></string>
+													</property>	
 													<property name="shouldUninstall">
 														<boolean>true</boolean>
 													</property>
@@ -12820,7 +12455,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c3f2219490be">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="62ea30c29a20">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.tsutility.Main]]></string>
 															</property>
@@ -12848,6 +12483,9 @@ and any path to a file to read from that file]]></string>
 													</method>
 												</object>
 											</property>
+											<property name="VMOptions">
+												<string><![CDATA[-Xms32M -Xmx64M]]></string>
+											</property>	
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
 											</property>
@@ -13968,27 +13606,6 @@ and any path to a file to read from that file]]></string>
 															<method name="addElement">
 																<string><![CDATA[Unlisted Platforms]]></string>
 															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/2]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Irix]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[DG-UX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Compaq's Digital UNIX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Rhapsody]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[z/OS]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/390]]></string>
-															</method>
 														</object>
 													</property>
 												</object>
@@ -14948,7 +14565,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c3f221a390eb">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="421f34dd9106">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.tuningutility.Main]]></string>
 															</property>
@@ -14976,6 +14593,9 @@ and any path to a file to read from that file]]></string>
 													</method>
 												</object>
 											</property>
+											<property name="VMOptions">
+												<string><![CDATA[-Xms32M -Xmx64M]]></string>
+											</property>	
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
 											</property>
@@ -15755,27 +15375,6 @@ and any path to a file to read from that file]]></string>
 											<method name="addElement">
 												<string><![CDATA[Unlisted Platforms]]></string>
 											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/2]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Irix]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[DG-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Compaq's Digital UNIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Rhapsody]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[z/OS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/390]]></string>
-											</method>
 										</object>
 									</property>
 								</object>
@@ -15851,27 +15450,6 @@ and any path to a file to read from that file]]></string>
 											</method>
 											<method name="addElement">
 												<string><![CDATA[Unlisted Platforms]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/2]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Irix]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[DG-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Compaq's Digital UNIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Rhapsody]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[z/OS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/390]]></string>
 											</method>
 										</object>
 									</property>
@@ -15961,27 +15539,6 @@ and any path to a file to read from that file]]></string>
 											<method name="addElement">
 												<string><![CDATA[Unlisted Platforms]]></string>
 											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/2]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Irix]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[DG-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Compaq's Digital UNIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Rhapsody]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[z/OS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/390]]></string>
-											</method>
 										</object>
 									</property>
 								</object>
@@ -16053,27 +15610,6 @@ and any path to a file to read from that file]]></string>
 											<method name="addElement">
 												<string><![CDATA[Unlisted Platforms]]></string>
 											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/2]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Irix]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[DG-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Compaq's Digital UNIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Rhapsody]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[z/OS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/390]]></string>
-											</method>
 										</object>
 									</property>
 								</object>
@@ -16144,27 +15680,6 @@ and any path to a file to read from that file]]></string>
 											</method>
 											<method name="addElement">
 												<string><![CDATA[Unlisted Platforms]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/2]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Irix]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[DG-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Compaq's Digital UNIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Rhapsody]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[z/OS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/390]]></string>
 											</method>
 										</object>
 									</property>
