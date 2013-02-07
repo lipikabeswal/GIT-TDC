@@ -80,6 +80,10 @@
 				var manip = getManipForDepth(j, manips);
 				if(manip != null && typeof manip != 'undefined'){
 					manip.bringToFront();
+					console.log("====arrangeAccordingToZOrder manip IF==="+manip);
+				}else{
+					console.log("====arrangeAccordingToZOrder manipelse==="+manip);
+					gMaskingRuler.bringToFront();
 				}
 			}
 			if(gScratchpad.visible){
