@@ -36,8 +36,8 @@
 		</handler>
 		
         <dragstate name="dragger"
-                   drag_min_x="${-(this.width + 300)}" 
-                   drag_min_y="${-(this.height + 100)}"
+                   drag_min_x="${-(parent.width - 100)}" 
+                   drag_min_y="${-(parent.height - 150)}"
                    drag_max_x="${parent.width - 100}"
                    drag_max_y="${parent.height - 100}">
                
