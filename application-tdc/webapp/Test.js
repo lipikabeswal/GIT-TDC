@@ -402,7 +402,7 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzCanvas,["displayName","<anonymous extends='canvas'>","attributes",new LzInheritedHash(LzCanvas.attributes)]);canvas=new $lzc$class_mj(null,{$delegates:["oninit","$m3",null,"onmanipOutOfFrameCheck","$m4",null,"onhasfontaccom","$m5",null,"onscalefactor","$m6",null,"onshowpleasewaitpopup","$m7",null,"onhidepleasewaitpopup","$m8",null,"onshowpleasewaitpopupcontrols","$m9",null,"onmanipulativedata","$ma",null,"onfreezeui","$mb",null,"onunlockui","$mc",null,"onsrcurl","$md",null,"onscratchpadtext","$me",null,"onmanipData","$mf",null,"onvisible","$mg",null,"onmanipid","$mh",null,"oninit","$mi",null],CM_RULER_INDEX:6,FCAT_FORMULA_CARD_INDEX:7,FORMULA_CARD_INDEX:11,HALF_INCH_RULER_INDEX:4,MASKING_RULER_INDEX:12,MM_RULER_INDEX:5,NUMBER_OF_MANIPULATIVES:13,ONEEIGHTH_INCH_RULER_INDEX:3,PROTRACTOR_INDEX:1,SCIENTIFIC_CALCULATOR_INDEX:10,SCRATCHPAD_INDEX:0,STANDARD_CALCULATOR_INDEX:9,STRAIGHT_EDGE_INDEX:2,TN_FORMULA_CARD_INDEX:8,__LZproxied:"true",appbuilddate:"2013-02-04T16:01:10Z",bgcolor:16777215,currentCursor:null,embedfonts:true,eraserSel:false,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",freezeui:null,hasfontaccom:false,height:"100%",hidepleasewaitpopup:false,highlighterSel:false,htmlGeneralManip:new LzOnceExpr("htmlGeneralManip","expression","$m1",null),htmlGeneralOpenManip:new LzOnceExpr("htmlGeneralOpenManip","expression","$m2",null),isLoaded:false,lpsbuild:"branches/4.9@17752 (17752)",lpsbuilddate:"2010-10-22T16:12:42Z",lpsrelease:"Production",lpsversion:"4.9.0",manipData:null,manipOutOfFrameCheck:"false",manipid:null,manipulativedata:false,readable:false,runtime:"dhtml",scalefactor:null,scratchpadtext:null,showpleasewaitpopup:false,showpleasewaitpopupcontrols:false,srcurl:null,unlockui:null,width:"100%",xscalefactor:null,yscalefactor:null,zOrder:void 0});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;{
+}],LzCanvas,["displayName","<anonymous extends='canvas'>","attributes",new LzInheritedHash(LzCanvas.attributes)]);canvas=new $lzc$class_mj(null,{$delegates:["oninit","$m3",null,"onmanipOutOfFrameCheck","$m4",null,"onhasfontaccom","$m5",null,"onscalefactor","$m6",null,"onshowpleasewaitpopup","$m7",null,"onhidepleasewaitpopup","$m8",null,"onshowpleasewaitpopupcontrols","$m9",null,"onmanipulativedata","$ma",null,"onfreezeui","$mb",null,"onunlockui","$mc",null,"onsrcurl","$md",null,"onscratchpadtext","$me",null,"onmanipData","$mf",null,"onvisible","$mg",null,"onmanipid","$mh",null,"oninit","$mi",null],CM_RULER_INDEX:6,FCAT_FORMULA_CARD_INDEX:7,FORMULA_CARD_INDEX:11,HALF_INCH_RULER_INDEX:4,MASKING_RULER_INDEX:12,MM_RULER_INDEX:5,NUMBER_OF_MANIPULATIVES:13,ONEEIGHTH_INCH_RULER_INDEX:3,PROTRACTOR_INDEX:1,SCIENTIFIC_CALCULATOR_INDEX:10,SCRATCHPAD_INDEX:0,STANDARD_CALCULATOR_INDEX:9,STRAIGHT_EDGE_INDEX:2,TN_FORMULA_CARD_INDEX:8,__LZproxied:"true",appbuilddate:"2013-02-07T15:39:47Z",bgcolor:16777215,currentCursor:null,embedfonts:true,eraserSel:false,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",freezeui:null,hasfontaccom:false,height:"100%",hidepleasewaitpopup:false,highlighterSel:false,htmlGeneralManip:new LzOnceExpr("htmlGeneralManip","expression","$m1",null),htmlGeneralOpenManip:new LzOnceExpr("htmlGeneralOpenManip","expression","$m2",null),isLoaded:false,lpsbuild:"branches/4.9@17752 (17752)",lpsbuilddate:"2010-10-22T16:12:42Z",lpsrelease:"Production",lpsversion:"4.9.0",manipData:null,manipOutOfFrameCheck:"false",manipid:null,manipulativedata:false,readable:false,runtime:"dhtml",scalefactor:null,scratchpadtext:null,showpleasewaitpopup:false,showpleasewaitpopupcontrols:false,srcurl:null,unlockui:null,width:"100%",xscalefactor:null,yscalefactor:null,zOrder:void 0});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 with(this){
 setActive($0)
@@ -4418,7 +4418,7 @@ lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
 }},$m8k:function($0){
 with(this){
-var $1=classroot.rotation*(Math.PI/180);var $2=classroot.grabber;var $3=$2.x*Math.cos($1)-($2.y+$2.height/2)*Math.sin($1);var $4=$2.x*Math.sin($1)+($2.y+$2.height/2)*Math.cos($1);var $5=($2.x+$2.width)*Math.cos($1)-($2.y+$2.height/2)*Math.sin($1);var $6=($2.x+$2.width)*Math.sin($1)+($2.y+$2.height/2)*Math.cos($1);Debug.write("gxstart:gystart",$3,$5,$4,$6);classroot.setAttribute("dragxmin",-Math.min($3,$5));classroot.setAttribute("dragymin",-Math.min($4,$6));classroot.setAttribute("dragxmax",classroot.parent.width-Math.max($3,$5));classroot.setAttribute("dragymax",classroot.parent.height-6-Math.max($4,$6));Debug.write("classroot.parent.width,classroot.parent.height",classroot.parent);Debug.write("classroot.parent.width,classroot.parent.height",classroot.parent.width,classroot.parent.height)
+var $1=classroot.rotation*(Math.PI/180);var $2=classroot.grabber;var $3=$2.x*Math.cos($1)-($2.y+$2.height/2)*Math.sin($1);var $4=$2.x*Math.sin($1)+($2.y+$2.height/2)*Math.cos($1);var $5=($2.x+$2.width)*Math.cos($1)-($2.y+$2.height/2)*Math.sin($1);var $6=($2.x+$2.width)*Math.sin($1)+($2.y+$2.height/2)*Math.cos($1);Debug.write("gxstart:gystart",$3,$5,$4,$6);classroot.setAttribute("dragxmin",-Math.min($3,$5));classroot.setAttribute("dragymin",-Math.min($4,$6));classroot.setAttribute("dragxmax",classroot.parent.width-30-Math.max($3,$5));classroot.setAttribute("dragymax",classroot.parent.height-35-Math.max($4,$6));Debug.write("classroot.parent.width,classroot.parent.height",classroot.parent);Debug.write("classroot.parent.width,classroot.parent.height",classroot.parent.width,classroot.parent.height)
 }},__dragstate_xdoffset:new LzAlwaysExpr("__dragstate_xdoffset","expression","$m8i","$m8j",null),__dragstate_ydoffset:new LzAlwaysExpr("__dragstate_ydoffset","expression","$m8g","$m8h",null),actualX:new LzOnceExpr("actualX","expression","$m8e",null),actualY:new LzOnceExpr("actualY","expression","$m8f",null),drag_max_x:new LzAlwaysExpr("drag_max_x","number","$m89","$m8a",null),drag_max_y:new LzAlwaysExpr("drag_max_y","number","$m8b","$m8c",null),drag_min_x:new LzAlwaysExpr("drag_min_x","number","$m85","$m86",null),drag_min_y:new LzAlwaysExpr("drag_min_y","number","$m87","$m88",null),name:"dragger",rrotation:new LzOnceExpr("rrotation","expression","$m8d",null)},"class":$lzc$class_dragstate},{attrs:{$classrootdepth:1,resource:"protractorMarks_rsrc"},"class":LzView},{attrs:{$classrootdepth:1,$delegates:["onmouseover","$m8p",null,"onmouseout","$m8q",null,"onmousedown","$m8r",null,"onmouseup","$m8s",null],align:"center",clickable:true,name:"grabber",resource:"protractorHandle_rsrc",y:97},"class":$lzc$class_m8x},{attrs:{$classrootdepth:1,$delegates:["onmousedown","$m8v",null,"onmouseup","$m8w",null],clickable:true,resource:"protractorRotator_rsrc",x:new LzAlwaysExpr("x","numberExpression","$m8t","$m8u",null),y:110},"class":$lzc$class_m8y}],"attributes",new LzInheritedHash($lzc$class_BaseManipulative.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
@@ -7020,7 +7020,7 @@ with(this){
 var $0=getDraggerValues(this.rotation,ruler.width);Debug.write("updateDraggerAttributes***** ",$0);this.setAttribute("dragxmin",$0[0]);this.setAttribute("dragymin",$0[1]);this.setAttribute("dragxmax",$0[2]);this.setAttribute("dragymax",$0[3])
 }},"getDraggerValues",function($0,$1){
 with(this){
-var $2=new Array();var $3=getRelativeGrabberBounds($0,$1);$2[0]=-$3[0];$2[1]=-$3[1];$2[2]=this.parent.width-$3[2];$2[3]=this.parent.height-6-$3[3];return $2
+var $2=new Array();var $3=getRelativeGrabberBounds($0,$1);$2[0]=-$3[0];$2[1]=-$3[1];$2[2]=this.parent.width-65-$3[2];$2[3]=this.parent.height-15-$3[3];return $2
 }},"getRelativeGrabberBounds",function($0,$1){
 with(this){
 var $2=new Array();var $3=degreesToRads($0);Debug.write("rads******* ",$3);var $4=ruler.grabber;Debug.write("grabber---------- ",$4);var $5=Math.sin($3);var $6=Math.cos($3);var $7=this.ruler.x+$1/2-$4.width/2;var $8=$7+$4.width;var $9=$4.y;var $a=$4.y+$4.height;var $b=$6*$7-$5*$9;var $c=$5*$7+$6*$9;var $d=$6*$7-$5*$a;var $e=$5*$7+$6*$a;var $f=$6*$8-$5*$9;var $g=$5*$8+$6*$9;var $h=$6*$8-$5*$a;var $i=$5*$8+$6*$a;$2[0]=getMin($b,$d,$f,$h);$2[1]=getMin($c,$e,$g,$i);$2[2]=getMax($b,$d,$f,$h);$2[3]=getMax($c,$e,$g,$i);return $2
@@ -9621,28 +9621,32 @@ $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
 }],$lzc$class_BaseManipulative,["tagname","RefCard","children",[{attrs:{$classrootdepth:1,$moa:function($0){
-var $1=-(this.width+300);if($1!==this["drag_min_x"]||!this.inited){
+with(this){
+var $1=-(parent.width-100);if($1!==this["drag_min_x"]||!this.inited){
 this.setAttribute("drag_min_x",$1)
-}},$mob:function(){
+}}},$mob:function(){
+with(this){
 try{
-return [this,"width"]
+return [parent,"width"]
 }
 catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},$moc:function($0){
-var $1=-(this.height+100);if($1!==this["drag_min_y"]||!this.inited){
+}}},$moc:function($0){
+with(this){
+var $1=-(parent.height-150);if($1!==this["drag_min_y"]||!this.inited){
 this.setAttribute("drag_min_y",$1)
-}},$mod:function(){
+}}},$mod:function(){
+with(this){
 try{
-return [this,"height"]
+return [parent,"height"]
 }
 catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},$moe:function($0){
+}}},$moe:function($0){
 with(this){
 var $1=parent.width-100;if($1!==this["drag_max_x"]||!this.inited){
 this.setAttribute("drag_max_x",$1)
