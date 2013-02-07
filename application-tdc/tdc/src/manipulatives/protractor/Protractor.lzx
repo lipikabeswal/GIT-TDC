@@ -61,9 +61,9 @@
                 classroot.setAttribute ('dragymin', - (Math.min (gystart, gyend)));
 
                 classroot.setAttribute ('dragxmax', 
-                                        classroot.parent.width - (Math.max (gxstart, gxend)));
+                                        classroot.parent.width - 30 - (Math.max (gxstart, gxend)));
                 classroot.setAttribute ('dragymax', 
-                                        classroot.parent.height - 6  - (Math.max (gystart, gyend)));
+                                        classroot.parent.height - 35 - (Math.max (gystart, gyend)));
 				Debug.write("classroot.parent.width,classroot.parent.height", classroot.parent);
 				Debug.write("classroot.parent.width,classroot.parent.height", classroot.parent.width,classroot.parent.height);
             </handler>
