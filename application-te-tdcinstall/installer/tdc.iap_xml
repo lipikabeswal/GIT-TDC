@@ -220,9 +220,19 @@ and any path to a file to read from that file]]></string>
 							</method>
 						</object>
 					</property>
-					<property name="VMOptions">
-						<string><![CDATA[-Xms32M -Xmx64M]]></string>
-					</property>	
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c08951">
+									<property name="propertyValue">
+										<string><![CDATA[-Xmx64M]]></string>
+									</property>
+									<property name="propertyName">
+										<string><![CDATA[VMOptions]]></string>
+									</property>
+									<property name="propertyComment">
+										<string><![CDATA[bootstrap JVM options]]></string>
+									</property>
+						</object>
+					</method>
 					<property name="shouldUninstall">
 						<boolean>true</boolean>
 					</property>
