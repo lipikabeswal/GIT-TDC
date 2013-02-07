@@ -4,7 +4,7 @@
 	xmlns:flexmdi="flexlib.mdi.containers.*" 
 	layout="absolute" width="100%" height="100%" backgroundColor="0x000000" 
 	applicationComplete="onReady()" 
-	showFlexChrome="false" alwaysInFront="true"
+	showFlexChrome="false" alwaysInFront="false"
 	showGripper="false"
 	showStatusBar="false"
 	showTitleBar="false"
@@ -15,13 +15,16 @@
 	<mx:HTML name="tdccanvas" id="tdccanvas" width="100%" height="100%" />
 	<mx:Script>
 		<![CDATA[
+			import flash.display.StageDisplayState;
 			import flash.utils.setInterval;
-			import mx.core.Window;
-			import mx.core.UIComponent;
+			import flash.system.Capabilities;
+			
 			import mx.controls.Button;
 			import mx.core.Application;
+			import mx.core.FlexGlobals;
+			import mx.core.UIComponent;
+			import mx.core.Window;
 			import mx.events.MenuEvent;
-			import flash.display.StageDisplayState;
 			
 			private function onReady():void
 			{
@@ -33,16 +36,52 @@
 				//tdccanvas.width = stage.fullScreenWidth;
 				//tdccanvas.height = stage.fullScreenHeight;
 				//stage.nativeWindow.maximize();
-				stage.nativeWindow.alwaysInFront=true;
+				stage.nativeWindow.alwaysInFront=false;
 				stage.nativeWindow.orderToFront();
 				stage.nativeWindow.activate();
+				
+				// setting fullscreen height width to the window to handle ctrl+w event
+				stage.nativeWindow.width = Capabilities.screenResolutionX;
+				stage.nativeWindow.height = Capabilities.screenResolutionY;
+				
 				stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+				
+				// adding key handler to the LDB
+				FlexGlobals.topLevelApplication.addEventListener(KeyboardEvent.KEY_UP, keyHandler);
+				FlexGlobals.topLevelApplication.addEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
+				
 				tologin();
+			}
+			
+			/* 
+			* Handle hotkeys for TDC application
+			*/
+			private function keyHandler(keyEvt:KeyboardEvent):void
+			{
+				if(keyEvt.ctrlKey) {
+					if(keyEvt.keyCode == 70 || keyEvt.keyCode == 102) {
+						keyEvt.preventDefault();	// handling ctrl+f					
+					} else if(keyEvt.keyCode == 74 || keyEvt.keyCode == 106) {
+						keyEvt.preventDefault();	// handling ctrl+j						
+					} else if(keyEvt.keyCode == 75 || keyEvt.keyCode == 107) {
+						keyEvt.preventDefault();	// handling ctrl+k						
+					} else if(keyEvt.keyCode == 76 || keyEvt.keyCode == 108) {
+						keyEvt.preventDefault();	// handling ctrl+l						
+					} else if(keyEvt.keyCode == 79 || keyEvt.keyCode == 111) {
+						keyEvt.preventDefault();	// handling ctrl+o						
+					} else if(keyEvt.keyCode == 83 || keyEvt.keyCode == 115) {
+						keyEvt.preventDefault();	// handling ctrl+s						
+					} else if(keyEvt.keyCode == 85 || keyEvt.keyCode == 117) {
+						keyEvt.preventDefault();	// handling ctrl+u						
+					} else if(keyEvt.keyCode == 87 || keyEvt.keyCode == 119) {
+						keyEvt.preventDefault();	// handling ctrl+w						
+					}
+				}
 			}
 			
 			private function forcerestore(evt:Event):void
 			{
-				stage.nativeWindow.alwaysInFront=true;
+				stage.nativeWindow.alwaysInFront=false;
 				stage.nativeWindow.orderToFront();
 				stage.nativeWindow.activate();
 				stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
@@ -72,8 +111,6 @@
 			private function onInvoke(event:InvokeEvent):void{
 				this.tdccanvas.location = event.arguments.toString();
 			}
-			
-			
 		]]>
 	</mx:Script>
 </mx:WindowedApplication>
