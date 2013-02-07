@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using Macrovision InstallAnywhere 2008 Enterprise, Build 3418
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Tue Feb 05 14:56:33 PST 2013 -->
-<InstallAnywhere_Deployment_Project increments="10878">
+     DATE:   Thu Feb 07 11:19:07 PST 2013 -->
+<InstallAnywhere_Deployment_Project increments="10897">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="9" minor="0" revision="0"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,69,49,48,49,57,67,57,57,74,57,57,74,57,57,54,57,57,67,57,77,57,57,84</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,88,80,44,32,53,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,53,46,48,95,49,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,48,-93,-108,48,32,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,9,2,99,108,12,1,0,0</authorizationID>
+		<authorizationID>1,0,0,48,-77,20,-48,-32,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,14,8,104,102,12,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="693">
+	<installationObjects uniqueObjects="695">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="wizardME">
 				<object class="com.zerog.ia.installer.actions.MakeExecutable" objectID="85358c91894c">
@@ -137,7 +137,7 @@ Relative paths are relative to the launcher.]]></string>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="a7c8645d9488">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c9958f48916e">
 									<property name="propertyValue">
 										<string><![CDATA[$CMD_LINE_ARGUMENTS$]]></string>
 									</property>
@@ -192,7 +192,20 @@ it will search for ones in this list]]></string>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c01342d98fa5">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c9932d29915f">
+									<property name="propertyValue">
+										<string><![CDATA[67108864]]></string>
+									</property>
+									<property name="propertyName">
+										<string><![CDATA[lax.nl.java.option.java.heap.size.max ]]></string>
+									</property>
+									<property name="propertyComment">
+										<string><![CDATA[VM max heap size]]></string>
+									</property>
+								</object>
+							</method>
+							<method name="addElement">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c99958908fa4">
 									<property name="propertyValue">
 										<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
 									</property>
@@ -201,6 +214,19 @@ it will search for ones in this list]]></string>
 									</property>
 									<property name="propertyComment">
 										<string><![CDATA[the class that contains the main method for the application]]></string>
+									</property>
+								</object>
+							</method>
+							<method name="addElement">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c99265e4915f">
+									<property name="propertyValue">
+										<string><![CDATA[33554432]]></string>
+									</property>
+									<property name="propertyName">
+										<string><![CDATA[lax.nl.java.option.java.heap.size.initial]]></string>
+									</property>
+									<property name="propertyComment">
+										<string><![CDATA[VM intial heap size]]></string>
 									</property>
 								</object>
 							</method>
@@ -9698,6 +9724,10 @@ The log is in $USER_INSTALL_DIR$]]></string>
 						<string><![CDATA[true]]></string>
 					</method>
 					<method name="put">
+						<string><![CDATA[com.zerog.ia.installer.options.services.required]]></string>
+						<string><![CDATA[false]]></string>
+					</method>
+					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.aix.novm]]></string>
 						<string><![CDATA[false]]></string>
 					</method>
@@ -9719,7 +9749,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.installer.options.valid.vm.list]]></string>
-						<string><![CDATA[1.6+]]></string>
+						<string><![CDATA[1.5+]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.build.last.date]]></string>
@@ -9795,19 +9825,19 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[February 5, 2013 2:56:33 PM PST]]></string>
+						<string><![CDATA[February 7, 2013 11:19:07 AM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
 						<string><![CDATA[false]]></string>
 					</method>
 					<method name="put">
-						<string><![CDATA[com.zerog.ia.installer.options.platform.unix.ui.default]]></string>
-						<string><![CDATA[GUI]]></string>
-					</method>
-					<method name="put">
 						<string><![CDATA[com.zerog.ia.installer.options.heap.size.initial]]></string>
 						<string><![CDATA[134217728]]></string>
+					</method>
+					<method name="put">
+						<string><![CDATA[com.zerog.ia.installer.options.platform.unix.ui.default]]></string>
+						<string><![CDATA[GUI]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.output.merge]]></string>
@@ -12803,7 +12833,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c01343e290c2">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c99959a990c0">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.tsutility.Main]]></string>
 															</property>
@@ -14931,7 +14961,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c01343f190ef">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c99959c790ed">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.tuningutility.Main]]></string>
 															</property>
