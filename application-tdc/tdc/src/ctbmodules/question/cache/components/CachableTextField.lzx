@@ -679,7 +679,14 @@
 								brText.setText("");
 								textWidth = 0;
 								var remainingText = new lz.CachableInputTextField(this, { "resize" : true });
-								remainingText.setText(tempText[1]);
+								if(tempText[1] == "") {
+									var remaniningWidth = this.width - xin1;
+									remainingText.thetext.setAttribute("width",remaniningWidth);
+									remainingText.setText(tempText[1]);
+								}
+								else {
+									remainingText.setText(tempText[1]);
+								}
 								textWidth = textWidth + remainingText.thetext.width;
 							}
 					   }
