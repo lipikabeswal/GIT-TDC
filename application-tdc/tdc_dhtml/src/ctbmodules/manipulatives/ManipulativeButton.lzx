@@ -17,6 +17,7 @@
         </handler>
 
         <handler name="ondata" args="data"><![CDATA[
+        	console.log("ondata****"+data);
             this.setAttribute ('isselected', data == 'sel');
             if(data == null || data == 'disable'){
 	            this.setAttribute ('isenabled', false);
@@ -25,6 +26,7 @@
 				this.gap.setAttribute ('visible', false);
             }
             else{
+            	console.log("else****");
 	            this.setAttribute ('isenabled', true);
 	            this.manipBtn.setAttribute ('visible', true);
 				this.btn_shadow.setAttribute ('visible', true);
@@ -70,18 +72,23 @@
 	        ]]></handler>
 	
 	        <handler name="onclick"><![CDATA[
-	        	console.log("onclick***manip btn"+classroot.isenabled);
 	            if (classroot.isenabled) {
-	            	console.log("onclick***manip btn***if");
 	                gController.setManipulativeSelState (classroot.toolid, 
 	                                                         classroot.isselected ? 'up' : 'sel');
 	                console.log("classroot.isselected "+classroot.isselected);
 	                console.log("classroot.toolid "+classroot.toolid);  
 	                console.log("basepanelScrollContainer "+gController.panelArr);
-	                console.log("scrollTextArea "+scrollTextArea);                                         
-	                if(classroot.isselected){
-	                	if(classroot.toolid=='highlighter'){
-	                	console.log("if****"+gController.panelArr.length);
+	                console.log("scrollTextArea "+scrollTextArea);
+					var manipData = gController.dpstudentdata.xpathQuery('current_item/item_model/manipulatives/global');
+					var highlighterData = gController.dpstudentdata.xpathQuery('current_item/item_model/manipulatives/global/@highlighter');
+					console.log("manpData****"+manipData);  
+					console.log("highlighterData****"+highlighterData);    
+			
+					var dnGlobal = gController.dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');      
+
+					console.log("dn global****"+dnGlobal);                            
+	                if(classroot.isselected == true || classroot.isselected == 'true'){
+	                  if(highlighterData == 'sel'){
 	                	if(gController.panelArr.length > 0){
 		            		for(var i=0;i<gController.panelArr.length;i++){
 								 console.log("panelArr "+gController.panelArr[i]);
@@ -92,10 +99,9 @@
 								}
 							}
 		            	}
-		            }
-					}else if(!classroot.isselected){
-	                	if(classroot.toolid=='highlighter'){
-	                	console.log("if****"+gController.panelArr.length);
+		             }
+					}else {
+					  if(highlighterData == 'sel'){
 	                	if(gController.panelArr.length > 0){
 		            		for(var i=0;i<gController.panelArr.length;i++){
 								 console.log("panelArr "+gController.panelArr[i]);
@@ -106,10 +112,7 @@
 								}
 							}
 		            	}
-		            }
-					}else{
-		            	console.log("else****");
-		            	
+		              }else{
 						if(gController.panelArr.length > 0){
 		            		for(var i=0;i<gController.panelArr.length;i++){
 								 console.log("panelArr "+gController.panelArr[i]);
@@ -122,6 +125,7 @@
 						}
 		            }                                   
 	            }
+				}
 	            lz.Timer.removeTimer (classroot.tooltipdel);
 	            ]]>
 	        </handler>

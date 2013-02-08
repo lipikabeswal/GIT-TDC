@@ -327,17 +327,20 @@
 			console.log("handle binary operator****"+oper);
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
+				var replace=isReplacementOperator()
+				console.log("Replacement Operator : "+replace);
 				if(isReplacementOperator()){
 					console.log("is replacemnet operator****");
 					popOperator();
 				}
 	
-				if(this.operandSet==true || this.operandSet=='true' ){
+				if(this.operandSet == true || this.operandSet == 'true'){
 					console.log("handle if this.operandSet"+this.operandSet);
 					this.setCurrentOperandFromInput();
 					pushOperand(this.currentOperand);
 				}
-				
+				console.log("operandSet :"+this.operandSet);
+					
 				setDataAttribute('currentOperand', reduce(oper));
 				pushOperator(oper);
 				resetCurrentOperandState();
@@ -394,8 +397,8 @@
 		</method>
 		
 		<method name="isReplacementOperator"><![CDATA[
-			
-			return (!this.operandSet &&
+			console.log("Inside isReplacementOperator : operandSet: "+this.operandSet+" No of Operators :"+this.operators.length+" No of Operands :"+this.operands.length);
+			return ((this.operandSet == false || this.operandSet == 'false' ) &&
 			        (this.operators.length != 0) &&
 			        (this.operators.length >= this.operands.length));
 		]]></method>
@@ -448,16 +451,10 @@
 					this.setCurrentOperandFromInput();
 					pushOperand(this.currentOperand);
 					result = this.currentOperand;
-					/*if(this.operandSet){
-						console.log("Handle Equals OperandSet :"+this.operandSet);
-						result = reduce("none");
-					}*/
 					if(this.operandSet == true || this.operandSet == 'true'){
-						console.log("Handle Equals OperandSet :"+this.operandSet);
 						result = reduce("none");
 					}
-
-				}
+									}
 				this.resetState();
 				setDataAttribute('currentOperand', result);
 				setDataAttribute('input', result);
