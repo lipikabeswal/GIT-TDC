@@ -26,18 +26,12 @@ public class SpeechServlet extends HttpServlet {
     private static final String OK_RESPONSE = "<status>OK</status>";
     
     private static HashMap textMap = new HashMap(10);
-    private static String speedValue;
-    
-    private static int delayCounter;
-    private static long lastDelay;
-    public static final int MAX_DELAYS = 3;
     
 	/**
 	 * Constructor of the object.
 	 */
 	public SpeechServlet() {
 		super();
-		delayCounter = 0;
 	}
 
 	/**
@@ -60,35 +54,8 @@ public class SpeechServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String client = request.getRemoteHost();
-			String text = " ";
-			synchronized(textMap) {
-				text = (String) textMap.get(client);
-			}
-			long startTime = System.currentTimeMillis();
-			MP3 mp3 = null;
-			String cacheUrl = (String) TTSUtil.checkCache(speedValue + text);
-			if(cacheUrl != null){
-				System.out.println("TTS: cache hit, MP3 URL: " + cacheUrl);
-				TTSUtil.decryptFile(cacheUrl.replaceAll(".mp3", ".enc"), cacheUrl);
-			} else {
-				mp3 = TTSUtil.speak(text,speedValue);
-				TTSUtil.cacheFile(speedValue + text, mp3);
-			}
-			cacheUrl = (String) TTSUtil.mp3CacheMap.get(speedValue + text);
-			mp3 = new MP3();
-			File mp3File = new File(cacheUrl);
-			mp3.setLength(mp3File.length());
-			mp3.setStream(new FileInputStream(mp3File));
-			
-/*			long endTime = System.currentTimeMillis();
-			if((endTime - startTime) > 10000 && (endTime - lastDelay) < 60000) {
-				delayCounter++;
-				lastDelay = endTime;
-			}
-			if(delayCounter >= MAX_DELAYS) {
-				throw new Exception("Repeated TTS delays experienced");
-			}
-*/			
+			MP3 mp3 = (MP3) textMap.get(client);
+	
 	    	response.setStatus(200);
 	    	response.setContentType("audio/x-mp3");
 	    	response.setHeader("Content-Disposition", "filename=speech.mp3");
@@ -107,7 +74,7 @@ public class SpeechServlet extends HttpServlet {
 	    	}
 	    	out.close();
 	    	in.close();
-			new File(cacheUrl).delete();
+
 	    	System.out.println("TTS: finished stream, response flushed");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -134,19 +101,39 @@ public class SpeechServlet extends HttpServlet {
 	 * @throws IOException if an error occurred
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String client = request.getRemoteHost();
-		
-		if(request.getParameter("text") != null) {
-			String text = request.getParameter("text");
-			synchronized(textMap) {
-				textMap.put(client, text);
-			}
-		} else {
-        	TTSUtil.stop();
-        }
-
-		if(request.getParameter("speedValue") != null) {
-			speedValue = request.getParameter("speedValue");
+		try {
+			String client = request.getRemoteHost();
+			
+			if(request.getParameter("text") != null) {
+				String text = request.getParameter("text");
+				
+			    String speedValue = "-2";
+			    
+				if(request.getParameter("speedValue") != null) {
+					speedValue = request.getParameter("speedValue");
+				}
+				
+				MP3 mp3 = new MP3();
+				String cacheUrl = (String) TTSUtil.checkCache(speedValue + text);
+				if(cacheUrl != null){
+					System.out.println("TTS: cache hit, MP3 URL: " + cacheUrl);
+					//TTSUtil.decryptFile(cacheUrl.replaceAll(".mp3", ".enc"), cacheUrl);
+				} else {
+					mp3 = TTSUtil.speak(text,speedValue);
+					TTSUtil.cacheFile(speedValue + text, mp3);
+				}
+				cacheUrl = "cache/" + TTSUtil.createFilename(speedValue + text) + ".mp3";
+				
+				File mp3File = new File(cacheUrl);
+				mp3.setLength(mp3File.length());
+				mp3.setStream(new FileInputStream(mp3File));
+				
+				textMap.put(client, mp3);
+			} else {
+	        	TTSUtil.stop();
+	        }
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		response.setStatus(200);

@@ -2,16 +2,13 @@ package com.ctb.tdc.web.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -26,13 +23,12 @@ import org.bouncycastle.crypto.engines.RC4Engine;
 import org.bouncycastle.crypto.params.KeyParameter;
 
 import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
 import com.ctb.tdc.web.dto.TTSSettings;
 
 public class TTSUtil {
 	
-	public static HashMap mp3CacheMap = new HashMap();
+	//public static HashMap mp3CacheMap = new HashMap();
 	
 	public static class MP3 {
 		private long length;
@@ -91,7 +87,7 @@ public class TTSUtil {
 			System.out.println("TTS: sending MP3 request");
 			String mp3URL = thResponse.substring(thResponse.indexOf("mp3=") + 4);
 			System.out.println("TTS: success, MP3 URL: " + mp3URL);
-			MP3 mp3 = textHelpMP3(mp3URL);
+			MP3 mp3 = mp3Request(mp3URL);
 			return mp3;
 		}
 	}
@@ -100,7 +96,7 @@ public class TTSUtil {
 		return in;//.replaceAll(Pattern.quote("*"), "").replaceAll(Pattern.quote("."), "").replaceAll(Pattern.quote("/"), "");
 	}
 	
-	private static String createFilename(String text) throws Exception{
+	public static String createFilename(String text) throws Exception{
 		MessageDigest messageDigest = MessageDigest.getInstance( "MD5" );
         byte baKey[] = text.getBytes();
         messageDigest.update( baKey );
@@ -112,25 +108,16 @@ public class TTSUtil {
 	}
 	
 	public static String checkCache(String text) throws Exception {
-		String value = (String) mp3CacheMap.get(text);
-		if(value == null) {
-			String filename = "cache/" + createFilename(text) + ".enc";
-			if(new File(filename).exists()) {
-				value = filename.replaceAll(".enc", ".mp3");
-				mp3CacheMap.put(text, value);
-			}
+		String filename = "cache/" + createFilename(text) + ".mp3";
+		if(new File(filename).exists()) {
+			return filename;
+		} else {
+			return null;
 		}
-		return value;
 	}
 	
 	public static void cacheFile(String text, MP3 mp3) {
 		try {
-			try {
-				(new File("cache/dummy")).mkdirs();
-			} catch (Exception e) {
-				// do nothing
-			}
-			
 			String filename = "cache/" + createFilename(text) + ".mp3";
 			
 			System.out.println("TTS: cache miss, new cache file: " + filename);
@@ -149,17 +136,17 @@ public class TTSUtil {
 	    		mp3.getRequest().releaseConnection();
 	    	}
 			
-			mp3CacheMap.put(text, filename);
+			//mp3CacheMap.put(text, filename);
 			
 			// encrypt cache
-			encryptFile(filename, filename.replaceAll(".mp3", ".enc"));
+			//encryptFile(filename, filename.replaceAll(".mp3", ".enc"));
 	        System.out.println("TTS: write to MP3 cache successful");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void encryptFile(String infile, String outfile) throws Exception{
+	/*public static void encryptFile(String infile, String outfile) throws Exception{
 		FileInputStream input = new FileInputStream( infile );
         int size = input.available();
         byte[] src = new byte[ size ];
@@ -171,14 +158,14 @@ public class TTSUtil {
         FileOutputStream enc = new FileOutputStream(outfile);
         enc.write( encrypted );
         enc.close();
-	}
+	}*/
 	
-	public static void decryptFile (String infile, String outfile) throws Exception{
+	/*public static void decryptFile (String infile, String outfile) throws Exception{
 		byte[] decrypted = decrypt(new BASE64Decoder().decodeBuffer(new FileInputStream( infile )));
         FileOutputStream output = new FileOutputStream(outfile);
         output.write( decrypted );
         output.close();
-	}
+	}*/
 	
 	public static void stop() {
 
@@ -189,7 +176,7 @@ public class TTSUtil {
 			String thResponse = textHelpRequest("testing","-2");
 			System.out.println("thResponse: " + thResponse);
 			String mp3URL = thResponse.substring(thResponse.indexOf("mp3=") + 4);
-			String result = textHelpMP3(mp3URL).toString();
+			String result = mp3Request(mp3URL).toString();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -211,7 +198,7 @@ public class TTSUtil {
 		return ttsSettings;
 	}
 	
-	private static String encrypt( byte[] in )
+	/*private static String encrypt( byte[] in )
     {
         byte[] result = null;
         try
@@ -233,7 +220,7 @@ public class TTSUtil {
             exception.printStackTrace();
         }
         return new BASE64Encoder().encode(result);
-    }
+    }*/
 	
 	private static byte[] RC4Decrypt( byte[] baInputByteArray, int length ) throws IOException
     {
@@ -253,7 +240,7 @@ public class TTSUtil {
         return result;
     }
     
-    private static byte[] decrypt( String encoded ) {
+   private static byte[] decrypt( String encoded ) {
         byte[] result = null;
         try
         {
@@ -266,7 +253,7 @@ public class TTSUtil {
         return result;
     }
     
-    private static byte[] decrypt( byte[] encrypted ) {
+    /*private static byte[] decrypt( byte[] encrypted ) {
         byte[] result = null;
         try
         {
@@ -276,7 +263,7 @@ public class TTSUtil {
         	e.printStackTrace();
         }
         return result;
-    }
+    }*/
     
     private static String obfuscate(){
     	StringBuffer buff = new StringBuffer();
@@ -455,91 +442,41 @@ public class TTSUtil {
 		}
 	}
 	
-	public static class MP3Request extends Thread {
-		public String url;
-		public static MP3 result = null;
-		public static boolean completed = false;
-		public Thread mainThread;
+	public static MP3 mp3Request(String url) {
+		MP3 result = null;
+
+		int responseCode = HttpStatus.SC_OK;
+			
+		TTSSettings ttsSettings = getTTSSettings();
 		
-		public MP3Request(String url, Thread mainThread){
-			this.url = url;
-			this.mainThread = mainThread;
-		}
+		GetMethod get = new GetMethod(url);
 		
-		public void run() {
+		// send request to TextHelp
+		try {
+			HttpClientParams clientParams = new HttpClientParams();
+			clientParams.setConnectionManagerTimeout(30000); // timeout in 30 seconds
+			HttpClient client = new HttpClient(clientParams);
 			
-			//System.out.println("mp3 request URL: " + this.url);
-	
-			int responseCode = HttpStatus.SC_OK;
+			setupClientNonSecure(client, ttsSettings);
 			
-			TTSSettings ttsSettings = getTTSSettings();
-			
-			GetMethod get = new GetMethod(this.url);
-			
-			// send request to TextHelp
-			try {
-				HttpClientParams clientParams = new HttpClientParams();
-				clientParams.setConnectionManagerTimeout(30000); // timeout in 30 seconds
-				HttpClient client = new HttpClient(clientParams);
-				
-				setupClientNonSecure(client, ttsSettings);
-				
-				int TTSRetry = 5;
-				while(TTSRetry > 0) {
-					try {
-						responseCode = client.executeMethod(get);
-						int responseLen = 0;
-						if(get.getResponseHeader("content-length") != null) {
-							responseLen = Integer.valueOf(get.getResponseHeader("content-length").getValue()).intValue();
-						}
-						System.out.println("Audio Status: " + responseCode + " Length: " + responseLen);
-						
-						if (responseCode == HttpStatus.SC_OK && responseLen > 0) {
-							result = new MP3();
-							result.setStream(get.getResponseBodyAsStream());
-							result.setLength(get.getResponseContentLength());
-							result.setRequest(get);
-							TTSRetry = 0;
-							completed = true;
-							mainThread.interrupt();
-						}
-						else {
-							Thread.sleep(1000);
-							TTSRetry--;
-						}
-					}
-					catch (Exception e) {
-						e.printStackTrace();
-						Thread.sleep(1000);
-						TTSRetry--;
-					}
-				}
+			responseCode = client.executeMethod(get);
+			int responseLen = 0;
+			if(get.getResponseHeader("content-length") != null) {
+				responseLen = Integer.valueOf(get.getResponseHeader("content-length").getValue()).intValue();
 			}
-			catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("error: exception while making TextHelp request: " + e.getMessage());
+			System.out.println("Audio Status: " + responseCode + " Length: " + responseLen);
+			
+			if (responseCode == HttpStatus.SC_OK && responseLen > 0) {
+				result = new MP3();
+				result.setStream(get.getResponseBodyAsStream());
+				result.setLength(get.getResponseContentLength());
+				result.setRequest(get);
 			}
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("error: exception while making TextHelp request: " + e.getMessage());
+		}
+		return result;
 	}
-	
-	public static MP3 textHelpMP3(String url) {
-		for(int i=0;i<2;i++) {
-			MP3Request request = new MP3Request(url, Thread.currentThread());
-			try {
-				request.start();
-				Thread.sleep(15000);
-				if(MP3Request.completed && MP3Request.result != null) {
-					System.out.println("Audio returning after wait: " + MP3Request.result.getLength());
-					return MP3Request.result;
-				}
-			} catch (InterruptedException ie) {
-				if(MP3Request.completed && MP3Request.result != null) {
-					System.out.println("Audio returning after interrupt: " + MP3Request.result.getLength());
-					return MP3Request.result;
-				}
-			}
-		} 
-		System.out.println("Audio returning null");
-		return null;
-	}	
 }
