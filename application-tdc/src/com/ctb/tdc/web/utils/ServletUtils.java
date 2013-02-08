@@ -1296,13 +1296,13 @@ public class ServletUtils {
 					String scoreVal = score.getText();
 					if(scoreVal != null && !scoreVal.equals(""))
 						restartItemsRawScore[i] = Integer.parseInt( scoreVal );
-					logger.info("restartItemsRawScore: item " + i + ": " + restartItemsRawScore[i] );
+				//	logger.info("restartItemsRawScore inside log: item " + i + ": " + restartItemsRawScore[i] );
 				//}
 			}	
 			restartItemCount = restartItemCount;
-			System.out.println("restartItemCount :"+restartItemCount);
-			System.out.println("restartItemsArr :"+restartItemsArr);
-			System.out.println("restartItemsRawScore :"+restartItemsRawScore);
+			//System.out.println("restartItemCount :"+restartItemCount);
+		//	System.out.println("restartItemsArr :"+restartItemsArr);
+		//	System.out.println("restartItemsRawScore inside Log:"+restartItemsRawScore);
 			
 		}		
 	}
