@@ -4672,7 +4672,7 @@ Debug.write("############ loadItem ############");
 
 		<method name="updateCrField" args="id, answer, answered"><![CDATA[
 			//Debug.write("answered value ", answered);
-			answered = (answered == "true") ? true : false;
+			answered = (answered == "true" || answered == true) ? true : false;
 			//Debug.write("answered value after ", answered);
 			              
 			for (var i = 0; i < this.crFields.length; i++) {
