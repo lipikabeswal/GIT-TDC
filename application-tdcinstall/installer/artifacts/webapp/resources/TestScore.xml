@@ -91,41 +91,6 @@
 		<raw_score minscore="43" maxscore="55"> Advanced </raw_score>
 	</test_title>
 	
-	<test_title id="ACE Algebra I Retest">
-		<raw_score minscore="0" maxscore="19"> Unsatisfactory </raw_score>
-		<raw_score minscore="20" maxscore="27"> Limited knowledge </raw_score>
-		<raw_score minscore="28" maxscore="42"> Proficient </raw_score>
-		<raw_score minscore="43" maxscore="55"> Advanced </raw_score>
-	</test_title>
-		
-	<test_title id="ACE Algebra II Retest">
-		<raw_score minscore="0" maxscore="18"> Unsatisfactory </raw_score>
-		<raw_score minscore="19" maxscore="25"> Limited knowledge </raw_score>
-		<raw_score minscore="26" maxscore="40"> Proficient </raw_score>
-		<raw_score minscore="41" maxscore="55"> Advanced </raw_score>
-	</test_title>
-	
-	<test_title id="ACE Geometry Retest">
-		<raw_score minscore="0" maxscore="19"> Unsatisfactory </raw_score>
-		<raw_score minscore="20" maxscore="25"> Limited knowledge </raw_score>
-		<raw_score minscore="26" maxscore="40"> Proficient </raw_score>
-		<raw_score minscore="41" maxscore="55"> Advanced </raw_score>
-	</test_title>
-	
-	<test_title id="ACE Biology I Retest">
-		<raw_score minscore="0" maxscore="24"> Unsatisfactory </raw_score>
-		<raw_score minscore="25" maxscore="34"> Limited knowledge </raw_score>
-		<raw_score minscore="35" maxscore="48"> Proficient </raw_score>
-		<raw_score minscore="49" maxscore="60"> Advanced </raw_score>
-	</test_title>
-	
-	<test_title id="ACE U.S. History Retest">
-		<raw_score minscore="0" maxscore="23"> Unsatisfactory </raw_score>
-		<raw_score minscore="24" maxscore="34"> Limited knowledge </raw_score>
-		<raw_score minscore="35" maxscore="46"> Proficient </raw_score>
-		<raw_score minscore="47" maxscore="60"> Advanced </raw_score>
-	</test_title>
-	
 	<test_title id="ACE English II Test">
 		<raw_score minscore="0" maxscore="23"> Unsatisfactory </raw_score>
 		<raw_score minscore="24" maxscore="34"> Limited knowledge </raw_score>
@@ -135,27 +100,6 @@
 	
 	<test_title id="ACE English III Test">
 		<raw_score minscore="0" maxscore="23"> Unsatisfactory </raw_score>
-		<raw_score minscore="24" maxscore="34"> Limited knowledge </raw_score>
-		<raw_score minscore="35" maxscore="46"> Proficient </raw_score>
-		<raw_score minscore="47" maxscore="60"> Advanced </raw_score>
-	</test_title>
-	
-	<test_title id="ACE Algebra I Test">
-		<raw_score minscore="0" maxscore="23"> Unsatisfactory </raw_score>
-		<raw_score minscore="24" maxscore="34"> Limited knowledge </raw_score>
-		<raw_score minscore="35" maxscore="46"> Proficient </raw_score>
-		<raw_score minscore="47" maxscore="60"> Advanced </raw_score>
-	</test_title>
-	
-	<test_title id="ACE Algebra II Test">
-		<raw_score minscore="0" maxscore="23"> Unsatisfactory </raw_score>
-		<raw_score minscore="24" maxscore="34"> Limited knowledge </raw_score>
-		<raw_score minscore="35" maxscore="46"> Proficient </raw_score>
-		<raw_score minscore="47" maxscore="60"> Advanced </raw_score>
-	</test_title>
-	
-	<test_title id="ACE Geometry Test">
-		<raw_score minscore="0" maxscore="23"> Unsatisfactory</raw_score>
 		<raw_score minscore="24" maxscore="34"> Limited knowledge </raw_score>
 		<raw_score minscore="35" maxscore="46"> Proficient </raw_score>
 		<raw_score minscore="47" maxscore="60"> Advanced </raw_score>
@@ -187,26 +131,6 @@
 		<raw_score minscore="24" maxscore="34">Limited knowledge</raw_score>
 		<raw_score minscore="35" maxscore="46">Proficient</raw_score>
 		<raw_score minscore="47" maxscore="60">Advanced</raw_score>
-	</test_title>
-	
-	<test_title id="ACE Algebra I EQ Test">
-		<raw_score minscore="0" maxscore="23"> Unsatisfactory </raw_score>
-		<raw_score minscore="24" maxscore="34"> Limited knowledge </raw_score>
-		<raw_score minscore="35" maxscore="46"> Proficient </raw_score>
-		<raw_score minscore="47" maxscore="60"> Advanced </raw_score>
-	</test_title>
-	
-	<test_title id="ACE Algebra II EQ Test">
-		<raw_score minscore="0" maxscore="23"> Unsatisfactory </raw_score>
-		<raw_score minscore="24" maxscore="34"> Limited knowledge </raw_score>
-		<raw_score minscore="35" maxscore="46"> Proficient </raw_score>
-		<raw_score minscore="47" maxscore="60"> Advanced </raw_score>
-	</test_title>
-	<test_title id="ACE Geometry EQ Test">
-		<raw_score minscore="0" maxscore="23"> Unsatisfactory </raw_score>
-		<raw_score minscore="24" maxscore="34"> Limited knowledge </raw_score>
-		<raw_score minscore="35" maxscore="46"> Proficient </raw_score>
-		<raw_score minscore="47" maxscore="60"> Advanced </raw_score>
 	</test_title>
 	
 	<test_title id="ACE Biology I EQ Test">
