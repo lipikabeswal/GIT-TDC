@@ -152,8 +152,8 @@
             width="${parent.width - 10}"
 			bgcolor="${Number(gController.answerBgColor)}"
 			fgcolor="${Number(gController.answerFontColor)}"
-			fontsize="${parent.fontsize}"
-            pattern="[A-Za-z0-9!@:;#$%\*()_\-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[]\\|`~ ^]*" >
+			fontsize="${parent.fontsize}">
+<!-- pattern="[A-Za-z0-9!@:;#$%\*()_\-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[]\\|`~ ^]" -->
             
             <attribute name="start" type="number" value="0" />
             <attribute name="end" type="number" value="0" />
