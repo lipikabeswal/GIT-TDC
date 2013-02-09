@@ -56,25 +56,38 @@ public class SpeechServlet extends HttpServlet {
 			String client = request.getRemoteHost();
 			MP3 mp3 = (MP3) textMap.get(client);
 	
-	    	response.setStatus(200);
-	    	response.setContentType("audio/x-mp3");
-	    	response.setHeader("Content-Disposition", "filename=speech.mp3");
-	    	//response.setHeader("Cache-Control","no-cache, no-store");
-	    	//response.setHeader("Expires","Fri, 30 Oct 1998 14:19:41 GMT");
-	    	response.setHeader("Pragma","no-cache");
-	    	int len = Integer.parseInt(Long.toString(mp3.getLength()));
-	    	response.setContentLength(len);
-	    	OutputStream out = response.getOutputStream();
-	    	InputStream in = mp3.getStream();
-	    	byte [] buffer = new byte[1024];
-	    	int read = 0;
-	    	while((read = in.read(buffer)) > 0) {
-	    		//System.out.println("TTS: streaming " + read + " bytes to requestor");
-	    		out.write(buffer, 0, read);
+	    	if(mp3 != null) {
+		    	synchronized(mp3.getFileName()) {
+		    		response.setStatus(200);
+			    	response.setContentType("audio/x-mp3");
+			    	response.setHeader("Content-Disposition", "filename=speech.mp3");
+			    	//response.setHeader("Cache-Control","no-cache, no-store");
+			    	//response.setHeader("Expires","Fri, 30 Oct 1998 14:19:41 GMT");
+			    	response.setHeader("Pragma","no-cache");
+			    	int len = Integer.parseInt(Long.toString(mp3.getLength()));
+			    	response.setContentLength(len);
+			    	OutputStream out = response.getOutputStream();
+			    	FileInputStream in = new FileInputStream(mp3.getFileName());
+			    	
+			    	byte [] buffer = new byte[1024];
+			    	int read = 0;
+			    	while((read = in.read(buffer)) > 0) {
+			    		//System.out.println("TTS: streaming " + read + " bytes to requestor");
+			    		out.write(buffer, 0, read);
+			    	}
+			    	out.close();
+			    	in.close();
+		    	}
+	    	} else {
+	    		response.setStatus(200);
+		    	response.setContentType("audio/x-mp3");
+		    	response.setHeader("Content-Disposition", "filename=speech.mp3");
+		    	response.setHeader("Pragma","no-cache");
+		    	response.setContentLength(0);
+		    	OutputStream out = response.getOutputStream();
+		    	out.write(new byte[0]);
+		    	out.close();
 	    	}
-	    	out.close();
-	    	in.close();
-
 	    	System.out.println("TTS: finished stream, response flushed");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,11 +135,12 @@ public class SpeechServlet extends HttpServlet {
 					mp3 = TTSUtil.speak(text,speedValue);
 					TTSUtil.cacheFile(speedValue + text, mp3);
 				}
-				cacheUrl = "cache/" + TTSUtil.createFilename(speedValue + text) + ".mp3";
+				String filename = TTSUtil.createFilename(speedValue + text) + ".mp3";
+				cacheUrl = "cache/" + filename;
 				
 				File mp3File = new File(cacheUrl);
 				mp3.setLength(mp3File.length());
-				mp3.setStream(new FileInputStream(mp3File));
+				mp3.setFileName(cacheUrl);
 				
 				textMap.put(client, mp3);
 			} else {

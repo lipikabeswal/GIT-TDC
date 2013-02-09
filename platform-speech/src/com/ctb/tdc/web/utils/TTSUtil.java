@@ -34,7 +34,14 @@ public class TTSUtil {
 		private long length;
 		private InputStream stream;
 		private GetMethod request;
+		private String fileName;
 		
+		public String getFileName() {
+			return fileName;
+		}
+		public void setFileName(String fileName) {
+			this.fileName = fileName;
+		}
 		/**
 		 * @return Returns the request.
 		 */
