@@ -124,19 +124,19 @@
 		   <view name="Globe" x="157" y="10" resource="globe_btn" stretches="both" width="45" height="55"></view>  
 		</view>
          
-		<view name="retryingPopupMessage" visible="false">
+		<view name="retryingPopupMessage" visible="false" y="78" x="20" height="55">
           <text name="quitMessage" 
         	  font="CTB"	
               fontsize="9"
               fgcolor="0x000000"
-              multiline="true" y="78" x="20" width="290">
+              multiline="true" width="290" height="100%">
 	                This computer is having trouble with the test. <br/>
 					Please raise your hand for a teacher or proctor to help you. <br/>
 					You may finish the test on a different computer.
 	      </text> 
        </view> 
 
-		<basebutton	name="exitButton" enabled="false" resource="exit_button_rsc" x="220" y="120"  width="62" height="32" stretches="both">
+		<basebutton	name="exitButton" enabled="false" resource="exit_button_rsc" x="220" y="130"  width="62" height="32" stretches="both">
 			<handler name="onclick">
 			   /* gController.exitPopups();
 				gController.terminate();*/
