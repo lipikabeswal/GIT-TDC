@@ -10,7 +10,7 @@ jQuery.noConflict()
 var isDragging = 0;
 var ddpowerzoomer={
 	dsetting: {defaultpower:2, powerrange:[2,7], magnifiersize:[75, 75]},
-	mousewheelevt: (/Firefox/i.test(navigator.userAgent))? "DOMMouseScroll" : "mousewheel", //FF doesn't recognize mousewheel as of FF3.x
+	//mousewheelevt: (/Firefox/i.test(navigator.userAgent))? "DOMMouseScroll" : "mousewheel", //FF doesn't recognize mousewheel as of FF3.x
 	$magnifier: {outer:null, inner:null, image:null},
 	activeimage: null,
 	imageRef:null,
