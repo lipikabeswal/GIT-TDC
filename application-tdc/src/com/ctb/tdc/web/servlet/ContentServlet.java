@@ -180,6 +180,7 @@ public class ContentServlet extends HttpServlet {
 		org.jdom.Document subtestDoc = null;
 		org.jdom.Document trackerDoc = null;
 		SAXBuilder saxBuilder = new SAXBuilder();
+		int numberOfFileParts = 0;
 
 		try {
 			if (xml == null) {
@@ -245,7 +246,7 @@ public class ContentServlet extends HttpServlet {
 					ErrorDocument.Error error = null;
 
 					//logger.info("***** downloadSubtest " + subtestId);
-					result = ServletUtils.httpClientSendRequest(ServletUtils.GET_SUBTEST_METHOD, xml);
+					/*result = ServletUtils.httpClientSendRequest(ServletUtils.GET_SUBTEST_METHOD, xml);
 					document = AdssvcResponseDocument.Factory.parse(result);
 					error = document.getAdssvcResponse().getGetSubtest().getError();
 
@@ -256,7 +257,29 @@ public class ContentServlet extends HttpServlet {
 					byte[] content = document.getAdssvcResponse().getGetSubtest()
 					.getContent();
 					ContentFile.writeToFile(content, filePath);
-					this.ContentDownloaded = false;
+					this.ContentDownloaded = false;*/
+					
+					String downloadFilePart = null;
+					String sequence_number = null;
+					String next = null;
+					
+					trackerXml = ContentRetriever.getTrackerXML(currentSubtestId,currentSubtestHash);
+					trackerDoc = saxBuilder.build(new ByteArrayInputStream(trackerXml.getBytes()));
+					numberOfFileParts = trackerDoc.getRootElement().getChildren("tracker").size();
+
+					for (int i=0; i < numberOfFileParts; i++){
+
+						org.jdom.Element objectElement = (org.jdom.Element)	trackerDoc.getRootElement().getChild("tracker").detach();
+						downloadFilePart = objectElement.getAttributeValue("value");
+						sequence_number = objectElement.getAttributeValue("sequence_number");
+						next = objectElement.getAttributeValue("next");
+						downloadFileParts(downloadFilePart, sequence_number, next);
+
+					}
+					this.ContentDownloaded = true;
+					/*trackerXml = ContentRetriever.getTrackerXML(currentSubtestId,currentSubtestHash);
+					downloadFileParts("70098600$C334F61018C34F6BD7C753A9308965D4.part.1", "1", null, response);
+					this.ContentDownloaded = true;*/
 				}else {
 
 					this.ContentDownloaded = true;
@@ -296,9 +319,11 @@ public class ContentServlet extends HttpServlet {
 				}
 
 				if(!trackerStatus.containsKey(currentSubtestId)){
-					trackerXml = ContentRetriever.getTrackerXML(currentSubtestId,currentSubtestHash);
+					if(trackerXml == null || "null".equalsIgnoreCase(trackerXml)){
+						trackerXml = ContentRetriever.getTrackerXML(currentSubtestId,currentSubtestHash);
+					}
 					trackerDoc = saxBuilder.build(new ByteArrayInputStream(trackerXml.getBytes()));
-					int numberOfFileParts = trackerDoc.getRootElement().getChildren("tracker").size();
+					numberOfFileParts = trackerDoc.getRootElement().getChildren("tracker").size();
 
 					List children = subtestDoc.getRootElement().getChildren();
 					Content trackerFiles = null;
@@ -399,7 +424,7 @@ public class ContentServlet extends HttpServlet {
 				}
 
 				if (!hashValid && !ServletUtils.blockContentDownload) {
-					int errorIndex = 0;
+					/*int errorIndex = 0;
 					String result = "";
 					int i = 1;
 					//logger.info("***** downloadItem " + itemId);
@@ -419,7 +444,8 @@ public class ContentServlet extends HttpServlet {
 
 					byte[] content = document.getAdssvcResponse().getDownloadItem()
 					.getContent();
-					ContentFile.writeToFile(content, filePath);
+					ContentFile.writeToFile(content, filePath);*/
+					throw new BlockedContentException();
 				} 
 				else if(!hashValid && ServletUtils.blockContentDownload) {
 					throw new BlockedContentException();
@@ -448,12 +474,12 @@ public class ContentServlet extends HttpServlet {
 				ServletUtils.writeResponse(response, ServletUtils.OK);
 			} 
 		}
-		catch (TMSException e) {
+		/*catch (TMSException e) {
 			logger.error("TMS Exception occured in downloadItem("+itemId+") : "
 					+ ServletUtils.printStackTrace(e));
 			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
-		}
+		}*/
 		catch (XmlException e) {
 			logger.error("XML Exception occured in downloadItem("+itemId+") : "
 					+ ServletUtils.printStackTrace(e));
@@ -674,6 +700,33 @@ public class ContentServlet extends HttpServlet {
 			e.printStackTrace();
 			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
+		}
+
+	}
+	
+	private void downloadFileParts(String downloadFilePart,String sequence_number, String next) throws IOException{
+
+
+		try{
+			if (! this.ContentDownloaded){
+				//String xml = ServletUtils.getXml(request);
+				//String downloadFilePart = getAttributeValue("name", xml);
+				//String sequence_number = getAttributeValue("sequence_number", xml);
+				//String next = getAttributeValue("next", xml);
+				String status = ContentRetriever.getContent(downloadFilePart);
+				System.out.println("Download File Parts: " + downloadFilePart + " :: "+ sequence_number +" :: " + next );
+				if (next == null || "NULL".equalsIgnoreCase(next)){
+					ContentRetriever.mergeFile(trackerXml,currentSubtestId,currentSubtestHash);
+					ContentRetriever.unCompressFile(currentSubtestId,currentSubtestHash);
+					deleteFile(ServletUtils.tempPath+currentSubtestId+ "$" +currentSubtestHash+".zip");
+					
+				}
+			}
+			//ServletUtils.writeResponse(response, ServletUtils.FILE_PART_OK);
+		}
+		catch (Exception e) {
+			e.printStackTrace();                       
+			//ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
 		}
 
 	}
