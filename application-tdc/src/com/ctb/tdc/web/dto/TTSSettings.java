@@ -7,8 +7,10 @@ public class TTSSettings {
 	private String host;
 	private String voiceName;
 	private String speedValue;
-	private String userName;
-	private String password;
+	private String method;
+	
+	public static final String TEXTHELPMETHOD = "texthelp";
+	public static final String READSPEAKERMETHOD = "readspeaker";
 	
     public TTSSettings() {
         init();
@@ -18,13 +20,48 @@ public class TTSSettings {
     
     }
 	
+	public String getMethod() {
+		return method;
+	}
+
 	public TTSSettings (ResourceBundle rb) {
-		this.url = rb.getString("texthelp.url");
-		this.voiceName = rb.getString("texthelp.voicename");
-		this.speedValue = rb.getString("texthelp.speedvalue");
-		this.userName = rb.getString("texthelp.username");
-		this.password = rb.getString("texthelp.password");
-		this.host = rb.getString("texthelp.host");
+		try {
+			this.method = rb.getString("tts.method");
+			if(TEXTHELPMETHOD.equals(this.method)) {
+				this.url = rb.getString("texthelp.url");
+				this.voiceName = rb.getString("texthelp.voicename");
+				if(this.voiceName == null || "".equals(this.voiceName.trim())) {
+					this.voiceName = "ScanSoft Samantha_Full_22kHz";
+				}
+				this.speedValue = rb.getString("texthelp.speedvalue");
+				this.host = rb.getString("texthelp.host");
+			} else {
+				this.method = READSPEAKERMETHOD;
+				this.url = rb.getString("readspeaker.url");
+				if(this.url == null || "".equals(this.url.trim())) {
+					this.url = "http://app.readspeaker.com/cgi-bin/rsent";
+				}
+				this.voiceName = rb.getString("readspeaker.voicename");
+				if(this.voiceName == null || "".equals(this.voiceName.trim())) {
+					this.voiceName = "Kate";
+				}
+				this.speedValue = rb.getString("readspeaker.speedvalue");
+				if(this.speedValue == null || "".equals(this.speedValue.trim())) {
+					this.speedValue = "-2";
+				}
+				this.host = rb.getString("readspeaker.host");
+				if(this.host == null || "".equals(this.host.trim())) {
+					this.host = "app.readspeaker.com";
+				}
+			} 
+		}catch (Exception e) {
+			e.printStackTrace();
+			this.method = READSPEAKERMETHOD;
+			this.url = "http://app.readspeaker.com/cgi-bin/rsent";
+			this.voiceName = "Kate";
+			this.speedValue = "-2";
+			this.host = "app.readspeaker.com";
+		}
 	}
 
 	/**
@@ -62,34 +99,6 @@ public class TTSSettings {
 	 */
 	public void setVoiceName(String voiceName) {
 		this.voiceName = voiceName;
-	}
-
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	/**
-	 * @return the userName
-	 */
-	public String getUserName() {
-		return userName;
-	}
-
-	/**
-	 * @param userName the userName to set
-	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 
 	/**
