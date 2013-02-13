@@ -130,11 +130,13 @@
 			var titleArr = title.split("::");			
 			var testName = titleArr[1];
 			var form = titleArr[3];
-			if(testName.indexOf('Biology I')>0 || testName.indexOf('U.S. History')>0) {		
+			
+			/*if(testName.indexOf('Biology I')>0 || testName.indexOf('U.S. History')>0) {		
 				if(form == 'Retest') {
 					isRetest = 'true';
 				}
-			}
+			}*/
+			
 			var lmsXpath = "lms/sco[@scid='" + scoid + "']";
 			var unscoredXpath = lmsXpath +  "/lsv/ext.core/@number_of_unscored_items";
 			var coreXpath = lmsXpath + "/lsv/cmi.core";
@@ -152,7 +154,19 @@
 		}
 		this.setAttribute('totalVisitedCount',totalViewedCount);		
 		var testTitle = dpscore.xpathQuery('title/@name');
-		if(testTitle.indexOf('Geometry')>0 || testTitle.indexOf('Algebra I')>0 || testTitle.indexOf('Algebra II')>0 || isRetest=='true') {
+		
+	// For every test title present in xml
+	var perfLevel = getPLScore(totalRaw,form,testTitle);
+		if(perfLevel == null || perfLevel == ""){
+			//Debug.write("perfLevel :",perfLevel);
+			info.perfLevelLabel.setAttribute('visible',false);
+			info.perfLevel.setAttribute('visible',false);
+		}else{
+			info.perfLevel.setAttribute('text',perfLevel);
+		}
+		
+		/* if(testTitle.indexOf('Geometry')>0 || testTitle.indexOf('Algebra I')>0 || testTitle.indexOf('Algebra II')>0 || isRetest=='true') {
+	
 			var perfLevel = getPLScore(totalRaw,form,testTitle);
 			if(perfLevel == null || perfLevel == "") {//for avoiding undefined perf level for practice tests
 				info.perfLevelLabel.setAttribute('visible',false);
@@ -165,15 +179,17 @@
 		else {
 			info.perfLevelLabel.setAttribute('visible',false);
 			info.perfLevel.setAttribute('visible',false);
-		}
+		}*/
 		
 	]]></method>
 
 	<method name="getPLScore" args="raw,form,testTitle"><![CDATA[
 		Debug.write("raw,form,testTitle : ",raw," : ",form," : ",testTitle);
 		var PerfLevel = "";
-		//Assuming that raw score range for proficiency level will be obtained from test name itself.
 		//For tests with multiple form, will have the same range of raw score - proficiency level combinations.
+		var test_title = dstest.xpathQuery('test_title');
+		var test_idVal = gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']");
+		//var test_FormVal = gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/form[@id='"+form+"']");
 		var rawScoreArr = gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/raw_score");
 		for(var i=0; i<rawScoreArr.length; i++){
 			var score = rawScoreArr[i]; 
@@ -185,7 +201,7 @@
 			}
 		}
 		return PerfLevel;
-	// Below code is no longer required as values will be read dynamically.
+	// Below code is no longer required as values will be read dynamically from file testScore.xml
 	/* 
 		var PerfLevel = "";
 		if(testTitle.indexOf('Geometry')>0){//GEOMETRY
