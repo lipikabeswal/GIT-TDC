@@ -424,7 +424,7 @@ public class ContentServlet extends HttpServlet {
 				}
 
 				if (!hashValid && !ServletUtils.blockContentDownload) {
-					/*int errorIndex = 0;
+					int errorIndex = 0;
 					String result = "";
 					int i = 1;
 					//logger.info("***** downloadItem " + itemId);
@@ -444,8 +444,8 @@ public class ContentServlet extends HttpServlet {
 
 					byte[] content = document.getAdssvcResponse().getDownloadItem()
 					.getContent();
-					ContentFile.writeToFile(content, filePath);*/
-					throw new BlockedContentException();
+					ContentFile.writeToFile(content, filePath);
+					//throw new BlockedContentException();
 				} 
 				else if(!hashValid && ServletUtils.blockContentDownload) {
 					throw new BlockedContentException();
@@ -474,12 +474,12 @@ public class ContentServlet extends HttpServlet {
 				ServletUtils.writeResponse(response, ServletUtils.OK);
 			} 
 		}
-		/*catch (TMSException e) {
+		catch (TMSException e) {
 			logger.error("TMS Exception occured in downloadItem("+itemId+") : "
 					+ ServletUtils.printStackTrace(e));
 			String errorMessage = ServletUtils.getErrorMessage("tdc.servlet.error.getContentFailed");                            
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("", errorMessage, ""));
-		}*/
+		}
 		catch (XmlException e) {
 			logger.error("XML Exception occured in downloadItem("+itemId+") : "
 					+ ServletUtils.printStackTrace(e));
@@ -708,7 +708,7 @@ public class ContentServlet extends HttpServlet {
 
 
 		try{
-			if (! this.ContentDownloaded){
+			//if (! this.ContentDownloaded){
 				//String xml = ServletUtils.getXml(request);
 				//String downloadFilePart = getAttributeValue("name", xml);
 				//String sequence_number = getAttributeValue("sequence_number", xml);
@@ -721,7 +721,7 @@ public class ContentServlet extends HttpServlet {
 					deleteFile(ServletUtils.tempPath+currentSubtestId+ "$" +currentSubtestHash+".zip");
 					
 				}
-			}
+			//}
 			//ServletUtils.writeResponse(response, ServletUtils.FILE_PART_OK);
 		}
 		catch (Exception e) {
