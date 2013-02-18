@@ -672,11 +672,13 @@
 							var tempText = inputText[j].split('<br/>');
 							if(tempText != null) {
 								name.setText(tempText[0]);
-								textWidth = textWidth + name.thetext.width;
-								var brText = new lz.CachableInputTextField(this, { "resize" : true });
-								var brWidth = this.width - xin1 - textWidth;
-								brText.thetext.setAttribute("width",brWidth);
-								brText.setText("");
+								name.setAttribute("width", this.width - textWidth - xin1);
+								//textWidth = textWidth + name.thetext.width;
+								//var brText = new lz.CachableInputTextField(this, { "resize" : true });
+								//var brWidth = this.width - xin1 - textWidth;
+								//brText.thetext.setAttribute("width",brWidth);
+								//brText.setAttribute("bgcolor",Math.ceil(Math.random() * 1000000));
+								//brText.setText("");
 								textWidth = 0;
 								var remainingText = new lz.CachableInputTextField(this, { "resize" : true });
 								if(tempText[1] == "") {
