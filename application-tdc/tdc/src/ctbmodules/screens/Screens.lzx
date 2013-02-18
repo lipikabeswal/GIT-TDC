@@ -277,7 +277,7 @@
         <method name="showScores" args="response">
         	removeAllStates();
         	if ( !contents.ss.isinited ) contents.ss.completeInstantiation();
-
+			 gHotKeys.disableKeys();
             contents.ss.showScores( response );
 			contents.ss.isTestValidAndCompleted();
             contents.ss.setVisible( true );
