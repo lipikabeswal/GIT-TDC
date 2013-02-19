@@ -4,7 +4,7 @@
 	xmlns:flexmdi="flexlib.mdi.containers.*" 
 	layout="absolute" width="100%" height="100%" backgroundColor="0x000000" 
 	applicationComplete="onReady()" 
-	showFlexChrome="false" alwaysInFront="false"
+	showFlexChrome="false" alwaysInFront="true"
 	showGripper="false"
 	showStatusBar="false"
 	showTitleBar="false"
@@ -36,7 +36,7 @@
 				//tdccanvas.width = stage.fullScreenWidth;
 				//tdccanvas.height = stage.fullScreenHeight;
 				//stage.nativeWindow.maximize();
-				stage.nativeWindow.alwaysInFront=false;
+				stage.nativeWindow.alwaysInFront=true;
 				stage.nativeWindow.orderToFront();
 				stage.nativeWindow.activate();
 				
@@ -77,11 +77,18 @@
 						keyEvt.preventDefault();	// handling ctrl+w						
 					}
 				}
+				if(keyEvt.ctrlKey && keyEvt.altKey) {
+					if(keyEvt.keyCode == 127) {
+						stage.nativeWindow.alwaysInFront=true;
+						stage.nativeWindow.orderToFront();
+						stage.nativeWindow.activate();
+					}
+				}
 			}
 			
 			private function forcerestore(evt:Event):void
 			{
-				stage.nativeWindow.alwaysInFront=false;
+				stage.nativeWindow.alwaysInFront=true;
 				stage.nativeWindow.orderToFront();
 				stage.nativeWindow.activate();
 				stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
