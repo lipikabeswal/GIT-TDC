@@ -154,7 +154,19 @@ public class PersistenceServlet extends HttpServlet {
         try {
         	String requestURI = request.getRequestURI();
         	String filePath = new File(".").getAbsolutePath() + "/../data/loginresponse.xml";
-        	if(requestURI.indexOf("servlet6-8") >= 0) {
+        	if(requestURI.indexOf("servletAS3") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/loginresponseAS3.xml";
+        	} else if(requestURI.indexOf("servletAS4") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/loginresponseAS4.xml";
+        	} else if(requestURI.indexOf("servletAS5") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/loginresponseAS5.xml";
+        	} else if(requestURI.indexOf("servletAS6") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/loginresponseAS6.xml";
+        	} else if(requestURI.indexOf("servletAS7") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/loginresponseAS7.xml";
+        	} else if(requestURI.indexOf("servletAS8") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/loginresponseAS8.xml";
+        	} else if(requestURI.indexOf("servlet6-8") >= 0) {
         		filePath = new File(".").getAbsolutePath() + "/../data/loginresponse6-8.xml";
         	} else if(requestURI.indexOf("servlet5") >= 0) {
         		filePath = new File(".").getAbsolutePath() + "/../data/loginresponse5.xml";
@@ -298,6 +310,22 @@ public class PersistenceServlet extends HttpServlet {
     			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"280980\"/>");
     		} else if("280983".equals(scid)) {
     			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"280984\"/>");
+    		} else if("282113".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"282114\"/>");
+    		} else if("282117".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"282118\"/>");
+    		} else if("282121".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"282122\"/>");
+    		} else if("282122".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"282123\"/>");
+    		} else if("282126".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"282127\"/>");
+    		} else if("282130".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"282131\"/>");
+    		} else if("282131".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"282132\"/>");
+    		} else if("282135".equals(scid)) {
+    			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "<next_sco id=\"282136\"/>");
     		} else {
     			endSubtestResponse = endSubtestResponse.replaceAll("nextScidVal", "");
     		}

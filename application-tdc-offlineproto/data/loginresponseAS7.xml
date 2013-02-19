@@ -1,0 +1,21 @@
+<tmssvc_response method="login_response">
+	<login_response lsid="5932588:HEROES8864" restart_flag="false" restart_number="1" random_distractor_seed_number="421">
+		<status status_code="200"/>
+		<testing_session_data>
+			<cmi.core student_id="1633631" student_last_name="Student" student_first_name="Demo" student__middle_name="A"/>
+			<lms.student.accommodations calculator="true" magnifier="true" screen_reader="false" untimed="true" rest_break="true" highlighter="true">
+				<stereotype_style stereotype="directions" bgcolor="0xFFFFFF" font_color="0x000000" font_magnification="1.0"/>
+				<stereotype_style stereotype="stimulus" bgcolor="0xFFFFFF" font_color="0x000000" font_magnification="1.0"/>
+				<stereotype_style stereotype="stem" bgcolor="0xFFFFFF" font_color="0x000000" font_magnification="1.0"/>
+				<stereotype_style stereotype="answerArea" bgcolor="0xFFFFB0" font_color="0x000000" font_magnification="1.0"/>
+			</lms.student.accommodations>
+		</testing_session_data>
+		<manifest title="Gr 7 Experience ISTEP Plus Applied Skills Online">
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="282130" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="REQUIRED Session 1: English/Language Arts" asmt_hash="2C80BC7D1F4D8E5BAFC168538ECDE584" asmt_encryption_key="1400" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70134800" cmi.core.total_time="0:0:0"/>
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="282131" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="REQUIRED Session 2: Social Studies" asmt_hash="6A74BC8F32C87A2F23E864DB9EF1EEDC" asmt_encryption_key="1938" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70134900" cmi.core.total_time="0:0:0"/>
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="282132" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="OPTIONAL Session 3: English/Language Arts" asmt_hash="02BF44B882F99594EC8E9A4BB39073D7" asmt_encryption_key="1981" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70135000" cmi.core.total_time="0:0:0"/>
+			<terminator id="SEE_YOU_LATER"/>
+		</manifest>
+		<branding tdclogo="/resources/logo.swf"/>
+	</login_response>
+</tmssvc_response>

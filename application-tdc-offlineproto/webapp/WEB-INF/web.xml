@@ -63,6 +63,36 @@
   
   <servlet-mapping>
     <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletAS3/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletAS4/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletAS5/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletAS6/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletAS7/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletAS8/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
     <url-pattern>/servlet3/SpeechServlet.do</url-pattern>
   </servlet-mapping>
   
@@ -154,6 +184,36 @@
   <servlet-mapping>
     <servlet-name>ContentServlet</servlet-name>
     <url-pattern>/servlet/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletAS3/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletAS4/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletAS5/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletAS6/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletAS7/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletAS8/ContentServlet.do</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>
@@ -260,6 +320,36 @@
   
   <servlet-mapping>
     <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletAS3/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletAS4/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletAS5/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletAS6/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletAS7/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletAS8/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
     <url-pattern>/servlet3/PersistenceServlet.do</url-pattern>
   </servlet-mapping>
   
@@ -358,6 +448,36 @@
 <servlet-mapping>
     <servlet-name>UtilityServlet</servlet-name>
     <url-pattern>/servlet/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletAS3/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletAS4/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletAS5/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletAS6/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletAS7/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletAS8/UtilityServlet.do</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
