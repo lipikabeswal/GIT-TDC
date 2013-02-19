@@ -255,9 +255,12 @@
 				<view name="rich" bgcolor="${Number(gController.answerBgColor)}">
 				   <scrolledittext name="answer" 
 									 height="${classroot.showFormatBar ? classroot.height - classroot.outer.controls.height : classroot.height }" 
-									 width="${classroot.editTextWidth}" x="${classroot.lmargin}">
-										<attribute name="start" type="number" value="0" />
+									 width="${classroot.editTextWidth}" x="${classroot.lmargin}"
+									 pattern="[A-Za-z0-9!@;:#$%\*()_\-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[]\\|`~ ^]*">
+						<attribute name="start" type="number" value="0" />
 						<attribute name="end" type="number" value="0" />
+						<attribute name="isCtrl" type="boolean" value="false"/>
+						<attribute name="isAlt" type="boolean" value="false"/> 
 					  <method name="init">
 						 super.init();
 						this.style.setAttribute("textfieldcolor", gController.answerBgColor);
@@ -268,6 +271,32 @@
 							else
 								this.setAttribute('fontsize', 12);
 					  </method>
+					  
+					  <handler name="onkeydown" reference="lz.Keys" args="k"> <![CDATA[
+				  			if(k==17){
+				      			this.setAttribute('isCtrl', true);
+				  			}else if(isCtrl
+				           		&& (k!=67 && k!=86 && k!=88)){
+				      			this.setAttribute('enabled', false);
+				  			}
+				  			if(k==18) {
+				  				this.setAttribute('isAlt', true);
+				  			}else if(isAlt){
+				      			this.setAttribute('enabled',false);
+				  			}
+						 ]]>
+					 </handler>
+					 
+					 <handler name="onkeyup" reference="lz.Keys" args="k"><![CDATA[
+						  if(k==17){
+						     this.setAttribute('enabled',true);
+						      this.setAttribute('isCtrl', false);
+						  }
+						  if(k==18){
+						      this.setAttribute('enabled',true);
+						      this.setAttribute('isAlt', false);
+						  }
+					]]></handler>
 					  
 					  
 				  	<method name="updateScrollText" args="a">
