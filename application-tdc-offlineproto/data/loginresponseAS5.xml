@@ -10,8 +10,8 @@
 				<stereotype_style stereotype="answerArea" bgcolor="0xFFFFB0" font_color="0x000000" font_magnification="1.0"/>
 			</lms.student.accommodations>
 		</testing_session_data>
-		<manifest title="Gr 5 Experience ISTEP Plus Applied Skills Online">
-			<sco force_logout="false" cmi.core.entry="ab-initio" id="282121" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="REQUIRED Session 1: English/Language Arts" asmt_hash="679665C8AA48D15C20F114AFE770962E" asmt_encryption_key="1478" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70134300" cmi.core.total_time="0:0:0"/>
+		<manifest block_content_download="false" title="Gr 5 Experience ISTEP Plus Applied Skills Online">
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="282121" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="REQUIRED Session 1: English/Language Arts" asmt_hash="69D36AF535E8AE6AA4503862B49DB97D" asmt_encryption_key="1478" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70134300" cmi.core.total_time="0:0:0"/>
 			<sco force_logout="false" cmi.core.entry="ab-initio" id="282122" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="REQUIRED Session 2: Social Studies" asmt_hash="6CE5D1AD52D79CDD831C0E91D575C83F" asmt_encryption_key="1712" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70134400" cmi.core.total_time="0:0:0"/>
 			<sco force_logout="false" cmi.core.entry="ab-initio" id="282123" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="OPTIONAL Session 3: English/Language Arts" asmt_hash="5D6E2EA07DE7840B502C6C9BBFC926E3" asmt_encryption_key="834" item_encryption_key="1u1piyyriN74U55CGnc4k1" adsid="70134500" cmi.core.total_time="0:0:0"/>
 			<terminator id="SEE_YOU_LATER"/>
