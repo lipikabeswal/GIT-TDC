@@ -95,6 +95,9 @@
 		var isRetest = 'false';
 		var totalViewedCount = 0;
 		var scoArr = dpscore.xpathQuery('title/sco');
+		var testTitle = dpscore.xpathQuery('title/@name'); // For FT Item
+		var FTMsg = (gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/raw_score")).childNodes[0]; // For FT Item
+		var isXmlFT =  gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/@isFT"); // For FT item
 		if(scoArr && scoArr instanceof Array) {
 			for(var i=0; i<scoArr.length; i++){
 				var sco = scoArr[i];  
@@ -121,7 +124,13 @@
 				var viewedCount = Number(maxScore) - Number(unscoredCount);
 				totalViewedCount = Number(totalViewedCount) + Number(viewedCount);
 				info.testName.setAttribute('text',testName);
-				info.raw.setAttribute('text',totalRaw);
+				/* For FT Item*/
+				if(isXmlFT && isXmlFT != null){
+					info.raw.setAttribute('text',FTMsg);
+					
+				}else{
+					info.raw.setAttribute('text',totalRaw);
+				}
 			}
 		}
 		else if(scoArr && scoArr instanceof LzDataElement) { //added for practice tests
@@ -150,10 +159,16 @@
 			var viewedCount = Number(maxScore) - Number(unscoredCount);
 			totalViewedCount = Number(totalViewedCount) + Number(viewedCount);
 			info.testName.setAttribute('text',testName);
-			info.raw.setAttribute('text',totalRaw);
+			/* For FT Item*/
+				if(isXmlFT && isXmlFT != null){
+					info.raw.setAttribute('text',FTMsg);
+				}else{
+					info.raw.setAttribute('text',totalRaw);
+				}
+
 		}
 		this.setAttribute('totalVisitedCount',totalViewedCount);		
-		var testTitle = dpscore.xpathQuery('title/@name');
+		
 		
 	// For every test title present in xml
 	var perfLevel = getPLScore(totalRaw,form,testTitle);
@@ -187,18 +202,25 @@
 		Debug.write("raw,form,testTitle : ",raw," : ",form," : ",testTitle);
 		var PerfLevel = "";
 		//For tests with multiple form, will have the same range of raw score - proficiency level combinations.
-		var test_title = dstest.xpathQuery('test_title');
-		var test_idVal = gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']");
+		//var test_title = dstest.xpathQuery('test_title');
+		//var test_idVal = gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']");
 		//var test_FormVal = gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/form[@id='"+form+"']");
 		var rawScoreArr = gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/raw_score");
-		for(var i=0; i<rawScoreArr.length; i++){
-			var score = rawScoreArr[i]; 
-			var minScore = score.getAttr('minscore');
-			var maxScore = score.getAttr('maxscore');
-			if(raw >= minScore && raw <= maxScore){
-				PerfLevel = rawScoreArr[i].childNodes[0];
-				break;
-			}
+			/* For FT Item*/
+		var isXmlFT =  gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/@isFT");
+		if(isXmlFT){
+			PerfLevel = "";
+		}
+		else{
+				for(var i=0; i<rawScoreArr.length; i++){
+					var score = rawScoreArr[i]; 
+					var minScore = score.getAttr('minscore');
+					var maxScore = score.getAttr('maxscore');
+					if(raw >= minScore && raw <= maxScore){
+						PerfLevel = rawScoreArr[i].childNodes[0];
+						break;
+					}
+				}
 		}
 		return PerfLevel;
 	// Below code is no longer required as values will be read dynamically from file testScore.xml

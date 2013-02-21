@@ -448,17 +448,11 @@
 		<raw_score minscore="47" maxscore="60"> Advanced </raw_score>
 	</test_title>
 	
-	<test_title id="OCCT Geography Grade 7 Form 1">
-		<raw_score minscore="0" maxscore="23"> Unsatisfactory </raw_score>
-		<raw_score minscore="24" maxscore="34"> Limited knowledge </raw_score>
-		<raw_score minscore="35" maxscore="46"> Proficient </raw_score>
-		<raw_score minscore="47" maxscore="60"> Advanced </raw_score>
+	<test_title id="OCCT Geography Grade 7 Form 1" isFT="true">
+		<raw_score minscore="0" maxscore="0"> No score computed for this content area </raw_score>
 	</test_title>
 	
-	<test_title id="OCCT Geography Grade 7 Form 2">
-		<raw_score minscore="0" maxscore="23"> Unsatisfactory </raw_score>
-		<raw_score minscore="24" maxscore="34"> Limited knowledge </raw_score>
-		<raw_score minscore="35" maxscore="46"> Proficient </raw_score>
-		<raw_score minscore="47" maxscore="60"> Advanced </raw_score>
+	<test_title id="OCCT Geography Grade 7 Form 2" isFT="true">
+		<raw_score minscore="0" maxscore="0"> No score computed for this content area </raw_score>
 	</test_title>
 </test_data>
