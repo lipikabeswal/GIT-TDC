@@ -261,8 +261,8 @@
 	                
 	                case 13:
 	                    //return  
-	                    //bake in our hl selection  
-						if(this.hlselman.selected && this.hlselman.selected != null) {
+	                    //bake in our hl selection
+						if(this.hlselman.selected && this.hlselman.selected.length != 0) {
 		                    var currhl = this.hlselman.selected [0];
 		                    if (currhl == this.erasebtn) {
 		                        this.clear ();
