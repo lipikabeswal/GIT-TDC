@@ -62,10 +62,10 @@
 			}
 			
 			
-//Debug.write(this, "set characterLimit", cl);
+			Debug.write(this, "set characterLimit", cl);
             this.setAttribute("characterLimit", cl);
 			this.outer.rich.answer.inp.setAttribute("maxlength",cl);
-			//Debug.write("maxlength ", outer.rich.answer.maxlength);
+			Debug.write("maxlength ", outer.rich.answer.maxlength);
 
             // To distinguish between numerous input fields, we'll maintain an array of hashes
             // containing their widget ID and answered state (filled or empty). Additionally each
@@ -175,6 +175,7 @@
 				this.outer.controls.meter.limit.used.setAttribute('width', this.outer.controls.meter.limit.width * (1));
 			}
 		]]></method>
+
 		
         <!-- ===============
              = VIEWS
@@ -262,6 +263,9 @@
 						<attribute name="end" type="number" value="0" />
 						<attribute name="isCtrl" type="boolean" value="false"/>
 						<attribute name="isAlt" type="boolean" value="false"/> 
+						<handler name="onmaxlength">
+							Debug.write("maxlength in scrolledittext*****",this.maxlength);
+						</handler>
 					  <method name="init">
 						 super.init();
 						this.style.setAttribute("textfieldcolor", gController.answerBgColor);
@@ -297,7 +301,7 @@
 						      this.setAttribute('enabled',true);
 						      this.setAttribute('isAlt', false);
 						  }
-					]]></handler>
+					]]></handler> 
 					  
 					  
 				  	<method name="updateScrollText" args="a">
@@ -306,7 +310,9 @@
 					</method>
 		
 					  <handler name="ontext"><![CDATA[
-
+						//Debug.write("maxlength in ontext before *********",this.maxlength);
+						//this.setAttribute("maxlength",Number(classroot.characterLimit));	
+						//Debug.write("maxlength in ontext after *********",this.maxlength);
 					  	//Debug.write("Cursor Position :",this.inp.getSelectionPosition());
                     	//Debug.write("Number of Chars :",text.length);
                    
