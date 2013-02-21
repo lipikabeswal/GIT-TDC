@@ -103,7 +103,7 @@
         x="${parent.border}" y="${parent.border}" 
         width="${parent.width - parent.border * 2 - parent._vscrollwidth}"
         height="${parent.height - parent.border * 2}" 
-    >
+    	pattern="[A-Za-z0-9!@;:#$%\*()-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[]\\\\\_|`~ \\^]*">
         <attribute name="pos" type="number" value="0"/>
         
         <setter name="pos" args="p">

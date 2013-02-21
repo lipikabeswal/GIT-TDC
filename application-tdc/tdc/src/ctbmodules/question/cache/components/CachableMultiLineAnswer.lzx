@@ -257,8 +257,7 @@
 				<view name="rich" bgcolor="${Number(gController.answerBgColor)}">
 				   <scrolledittext name="answer" 
 									 height="${classroot.showFormatBar ? classroot.height - classroot.outer.controls.height : classroot.height }" 
-									 width="${classroot.editTextWidth}" x="${classroot.lmargin}"
-									 pattern="[A-Za-z0-9!@;:#$%\*()_\-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[]\\|`~ ^]*">
+									 width="${classroot.editTextWidth}" x="${classroot.lmargin}">
 						<attribute name="start" type="number" value="0" />
 						<attribute name="end" type="number" value="0" />
 						<attribute name="isCtrl" type="boolean" value="false"/>
