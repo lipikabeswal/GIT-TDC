@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using Macrovision InstallAnywhere 2008 Enterprise, Build 3418
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Wed Feb 20 18:17:56 PST 2013 -->
+     DATE:   Wed Feb 20 18:28:39 PST 2013 -->
 <InstallAnywhere_Deployment_Project increments="11141">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
@@ -10,7 +10,7 @@
 		<scriptID>12,42,11,69,49,48,49,57,67,57,57,74,57,57,74,57,57,54,57,57,67,57,77,57,57,84</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,88,80,44,32,53,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,53,46,48,95,49,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,48,-13,-123,-16,16,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,2,6,106,106,12,1,0,0</authorizationID>
+		<authorizationID>1,0,0,48,-13,-107,-64,16,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,11,7,100,106,12,1,0,0</authorizationID>
 	</essentialScriptInfo>
 	<installationObjects uniqueObjects="713">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
@@ -137,9 +137,9 @@ Relative paths are relative to the launcher.]]></string>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0e0b2b069123">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0e15e447915c">
 									<property name="propertyValue">
-										<string><![CDATA[./etc:./servletcontainer/jetty-5.1.11RC0/ext/commons-logging.jar:./webapp/WEB-INF/lib/bcprov-jdk14-130.jar:./webapp/WEB-INF/lib/commons-codec.jar:./webapp/WEB-INF/lib/commons-httpclient-3.0.1.jar:./etc:./webapp/WEB-INF/lib:./webapp/WEB-INF:./webapp:./webapp/WEB-INF/lib/jdom.jar:./webapp/WEB-INF/lib/jl1.0.jar:./webapp/WEB-INF/lib/commons-logging.jar:./webapp/WEB-INF/lib/httpclient-4.1.jar:./webapp/WEB-INF/lib/httpclient-cache-4.1.jar:./webapp/WEB-INF/lib/httpcore-4.1.jar:./webapp/WEB-INF/lib/httpmime-4.1.jar:./webapp/WEB-INF/lib/log4j.jar:./webapp/WEB-INF/classes -Xms32M -Xmx64M -Dproduct.type=ISTEP -Dtdc.home="/Applications/Online Assessment"]]></string>
+										<string><![CDATA[$CMD_LINE_ARGUMENTS$]]></string>
 									</property>
 									<property name="propertyName">
 										<string><![CDATA[lax.command.line.args]]></string>
@@ -179,19 +179,6 @@ it will search for ones in this list]]></string>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c9932d29915f">
-									<property name="propertyValue">
-										<string><![CDATA[67108864]]></string>
-									</property>
-									<property name="propertyName">
-										<string><![CDATA[lax.nl.java.option.java.heap.size.max ]]></string>
-									</property>
-									<property name="propertyComment">
-										<string><![CDATA[VM max heap size]]></string>
-									</property>
-								</object>
-							</method>
-							<method name="addElement">
 								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c08952">
 									<property name="propertyValue">
 										<string><![CDATA[7.0]]></string>
@@ -205,6 +192,32 @@ it will search for ones in this list]]></string>
 								</object>
 							</method>
 							<method name="addElement">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c9932d29915f">
+									<property name="propertyValue">
+										<string><![CDATA[67108864]]></string>
+									</property>
+									<property name="propertyName">
+										<string><![CDATA[lax.nl.java.option.java.heap.size.max ]]></string>
+									</property>
+									<property name="propertyComment">
+										<string><![CDATA[VM max heap size]]></string>
+									</property>
+								</object>
+							</method>
+							<method name="addElement">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0e14b6198fa5">
+									<property name="propertyValue">
+										<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
+									</property>
+									<property name="propertyName">
+										<string><![CDATA[lax.main.class]]></string>
+									</property>
+									<property name="propertyComment">
+										<string><![CDATA[the class that contains the main method for the application]]></string>
+									</property>
+								</object>
+							</method>
+							<method name="addElement">
 								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c99265e4915f">
 									<property name="propertyValue">
 										<string><![CDATA[33554432]]></string>
@@ -214,19 +227,6 @@ it will search for ones in this list]]></string>
 									</property>
 									<property name="propertyComment">
 										<string><![CDATA[VM intial heap size]]></string>
-									</property>
-								</object>
-							</method>
-							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0e067a558fa6">
-									<property name="propertyValue">
-										<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
-									</property>
-									<property name="propertyName">
-										<string><![CDATA[lax.main.class]]></string>
-									</property>
-									<property name="propertyComment">
-										<string><![CDATA[the class that contains the main method for the application]]></string>
 									</property>
 								</object>
 							</method>
@@ -2100,7 +2100,7 @@ and any path to a file to read from that file]]></string>
 										<string><![CDATA[$PREVIOUSLY_INSTALLED$]]></string>
 									</property>
 									<property name="value">
-										<string><![CDATA[false]]></string>
+										<string><![CDATA[true]]></string>
 									</property>
 									<property name="passByValue">
 										<boolean>false</boolean>
@@ -9903,7 +9903,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[February 20, 2013 6:17:56 PM PST]]></string>
+						<string><![CDATA[February 20, 2013 6:28:39 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -12911,7 +12911,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0e067b5f90c2">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0e14b73290c1">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.tsutility.Main]]></string>
 															</property>
@@ -15039,7 +15039,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0e067b7e90ef">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0e14b74290ee">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.tuningutility.Main]]></string>
 															</property>
@@ -15514,7 +15514,7 @@ Relative paths are relative to the launcher.]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="ee5dab2791f5">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0e15ca1b915c">
 															<property name="propertyValue">
 																<string><![CDATA[$CMD_LINE_ARGUMENTS$]]></string>
 															</property>
@@ -15569,7 +15569,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0e067b7e90ff">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0e14b75090fe">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
 															</property>
