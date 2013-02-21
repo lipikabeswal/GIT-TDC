@@ -64,6 +64,8 @@
 			
 //Debug.write(this, "set characterLimit", cl);
             this.setAttribute("characterLimit", cl);
+			this.outer.rich.answer.inp.setAttribute("maxlength",cl);
+			//Debug.write("maxlength ", outer.rich.answer.maxlength);
 
             // To distinguish between numerous input fields, we'll maintain an array of hashes
             // containing their widget ID and answered state (filled or empty). Additionally each
@@ -333,11 +335,11 @@
 						 classroot.updateCharacterMeter();
 						 classroot.setAttribute("isInitialText", false);
 						 
-						 	if(this.text.length > Number(classroot.characterLimit)){
+						 	/*if(this.text.length > Number(classroot.characterLimit)){
 								var textContent = this.text;
 								textContent = textContent.substring(0,Number(classroot.characterLimit));
 								updateScrollText(textContent);
-							}
+							}*/
 												 
 						 
 					   ]]></handler>
