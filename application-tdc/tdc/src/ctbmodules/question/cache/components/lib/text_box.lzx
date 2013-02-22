@@ -64,7 +64,7 @@
 		<text name="footnotetext" multiline="true"    
 			  width="${classroot.width}"
               fgcolor="${classroot.fontcolor}"
-              selectable="true" clickable="true">
+              selectable="false" clickable="true">
              <handler name="oninit">
              	this.fontsize = this.immediateparent.parent.fontsize;
              </handler>
