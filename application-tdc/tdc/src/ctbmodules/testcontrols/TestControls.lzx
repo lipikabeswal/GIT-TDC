@@ -31,11 +31,23 @@
                    value="$path{ 'dsdisplay:/display/@enabled' }"/>
 
         <attribute name="theme" 
-                   value="$path{'current_item/item_model/@theme'}"/>
+                   value="$path{'current_item/item_model/@theme'}"
+                   setter="setIsTheme(theme)"/>/>
 
 		<attribute name="revisitAllowed" 
                    value="$path{'current_item/item_model/@allow_revisit'}" 
 				   setter="setMarkForReview (revisitAllowed)" />
+		<attribute name="isTheme" />
+				   
+		 <method name="setIsTheme" args="isTheme">
+            if (typeof (isTheme) == 'string') {
+               isTheme = (isTheme == 'true');
+            } 
+            else if(typeof (isTheme) == 'boolean') {
+            	isTheme = (isTheme == true);
+            }  
+		  	this.setAttribute('isTheme',isTheme);
+        </method>
 
         <method name="setIsCurrAnswered" args="isanswered"><![CDATA[
         	//Debug.write("setIsCurrAnswered============== ",isanswered,itemtype,this.itemtype,classroot.itemtype);
@@ -133,9 +145,12 @@
 			if (typeof (isRevisitAllowed) == 'string') {
                isRevisitAllowed = (isRevisitAllowed == 'true');
             }
+            else if(typeof (isRevisitAllowed) == 'boolean') {
+            	 isRevisitAllowed = (isRevisitAllowed == true);
+            }
 			this.revisitAllowed = isRevisitAllowed;	
 
-			if(!theme && !gController.fwdOnly){	
+			if(!this.isTheme && !gController.fwdOnly){	
 				if(this.revisitAllowed != null){
 					if(this.revisitAllowed != true){
 			  			this.btns.markbtn.setAttribute ('visible', false);	
@@ -150,7 +165,7 @@
 			}
 		]]></method>
 
-		<view name="answertxt" visible="${!classroot.theme}">
+		<view name="answertxt" visible="${classroot.isTheme == 'false' || classroot.isTheme == false}">
 	        <view name="answeristxt" visible="false" x="30"
 	              fgcolor="0x6590B3" fontstyle="bold" y="-4">
 	            <simplelayout axis="x" />
