@@ -314,7 +314,7 @@
 					popOperator();
 				}
 	
-				if(this.operandSet){
+				if(this.operandSet == true || this.operandSet == 'true'){
 					this.setCurrentOperandFromInput();
 					pushOperand(this.currentOperand);
 				}
@@ -373,7 +373,7 @@
 		</method>
 		
 		<method name="isReplacementOperator"><![CDATA[
-			return (!this.operandSet &&
+			return ((this.operandSet == false || this.operandSet == 'false' ) &&
 			        (this.operators.length != 0) &&
 			        (this.operators.length >= this.operands.length));
 		]]></method>
@@ -426,7 +426,7 @@
 					this.setCurrentOperandFromInput();
 					pushOperand(this.currentOperand);
 					result = this.currentOperand;
-					if(this.operandSet){
+					if(this.operandSet == true || this.operandSet == 'true'){
 						result = reduce("none");
 					}
 				}
