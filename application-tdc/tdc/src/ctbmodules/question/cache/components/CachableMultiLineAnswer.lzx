@@ -276,6 +276,9 @@
 							else
 								this.setAttribute('fontsize', 12);
 					  </method>
+					  <handler name="onfocus">
+							this.setSelection(0,0);
+					  </handler>
 					  <handler name="onkeydown" reference="lz.Keys" args="k"> <![CDATA[
 							Debug.write("onkeydown of multiline CR********",k);
 				  			if(k==17){
