@@ -40,6 +40,7 @@
 		<attribute name="isTheme" />
 				   
 		 <method name="setIsTheme" args="isTheme">
+		 	Debug.write("in setIsTheme***********",isTheme,typeof(this.isTheme));
             if (typeof (isTheme) == 'string') {
                isTheme = (isTheme == 'true');
             } 
@@ -149,10 +150,10 @@
             	 isRevisitAllowed = (isRevisitAllowed == true);
             }
 			this.revisitAllowed = isRevisitAllowed;	
-
-			if(!this.isTheme && !gController.fwdOnly){	
+			Debug.write("this.isTheme in setMarkForReview*******",this.isTheme,typeof(this.isTheme));
+			if((this.isTheme == 'false' || this.isTheme == false) && !gController.fwdOnly){	
 				if(this.revisitAllowed != null){
-					if(this.revisitAllowed != true){
+					if(this.revisitAllowed != true && this.revisitAllowed != 'true'){
 			  			this.btns.markbtn.setAttribute ('visible', false);	
 			  		}else{
 						this.btns.markbtn.setAttribute ('visible', true);
