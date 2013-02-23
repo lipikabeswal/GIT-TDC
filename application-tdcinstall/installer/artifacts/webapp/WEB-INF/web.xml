@@ -123,9 +123,4 @@
     <servlet-name>TSoundRecorder</servlet-name>
     <url-pattern>/servlet/TuningUtilitySoundRecorder.do</url-pattern>
   </servlet-mapping>
-  
-   <servlet-mapping>
-      <servlet-name>SpeechServlet</servlet-name>
-      <url-pattern>/servlet/speech.mp3</url-pattern>
-   </servlet-mapping>
 </web-app>
