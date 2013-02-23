@@ -55,7 +55,9 @@
             <LoginButton y="3" enabled="${ gScreens.allowclick }">
                 <handler name="onclick" method="docontinue"/>
                 <method name="docontinue">
-                	gMagnifier.hide();
+                	if(gController.htmlFields > 0) {
+                		gMagnifier.hide();
+					}
                     gScreens.clicked();
                 	var pwd;
                 	if(gController.displayText == true || gController.displayText == 'true')  {

@@ -92,7 +92,9 @@
                                   enabled="${ gScreens.allowclick }" visible= "${gController.isStopTest || !gController.isFinishTest}">
                 <handler name="onclick" method="goback"/>
                 <method name="goback">
-                	gMagnifier.hide();
+					if(gController.htmlFields > 0) {
+                		gMagnifier.hide();
+					}
                     gScreens.clicked();
                     gController.resumeTest();
                  if(gController.htmlFields != null){
