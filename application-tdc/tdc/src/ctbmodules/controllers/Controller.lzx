@@ -2793,7 +2793,8 @@
 		//For Defect 65880
 			Debug.write("this.isThemePage() in toggleMark**********",this.isThemePage(),typeof(this.isThemePage()));
 			Debug.write("this.allowRevisit) in toggleMark**********",this.allowRevisit,typeof(this.allowRevisit));
-			if(this.isThemePage()!='true' && this.isThemePage()!=true && this.allowRevisit && !gController.fwdOnly){
+			//if(this.isThemePage()!='true' && this.isThemePage()!=true && this.allowRevisit && !gController.fwdOnly){//enable mark for later review for theme page
+			if(this.allowRevisit && !gController.fwdOnly){
 	        	freezeUI();
 	        	var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
 	        	var isMarked = dncurritem.getAttr( 'marked' );
