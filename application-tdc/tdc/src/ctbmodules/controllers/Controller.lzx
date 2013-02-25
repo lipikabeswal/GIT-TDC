@@ -2395,7 +2395,7 @@
 			//Debug.write("dnrtitemnew...",dnrtitemnew);
 			var allowrevisit = dnrtitemnew.getAttr("allow_revisit");
 		//Debug.write("allowrevisit..."+allowrevisit);
-			this.setAttribute("allowRevisit", (allowrevisit != "false"));
+			this.setAttribute("allowRevisit", (allowrevisit != "false" && allowrevisit != false));
 		//Debug.write("Controller variable allowRevisit..."+allowRevisit);
 
             var dnnewitem;
@@ -2793,12 +2793,11 @@
 		//For Defect 65880
 			Debug.write("this.isThemePage() in toggleMark**********",this.isThemePage(),typeof(this.isThemePage()));
 			Debug.write("this.allowRevisit) in toggleMark**********",this.allowRevisit,typeof(this.allowRevisit));
-			//if(this.isThemePage()!='true' && this.isThemePage()!=true && this.allowRevisit && !gController.fwdOnly){//enable mark for later review for theme page
-			if(this.allowRevisit && !gController.fwdOnly){
+			if(this.isThemePage()!='true' && this.isThemePage()!=true && this.allowRevisit && !gController.fwdOnly){
 	        	freezeUI();
 	        	var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
 	        	var isMarked = dncurritem.getAttr( 'marked' );
-	        	if(isMarked == null || isMarked == '0' || isMarked == 'false'){
+	        	if(isMarked == null || isMarked == '0' || isMarked == 'false' || isMarked == false){
 	        		markQuestion( true );
 	        	}
 	        	else{
@@ -2828,7 +2827,7 @@
 		<method name="isMarked"><![CDATA[
 			var result = false;
 			var markedAttr = dpstudentdata.xpathQuery ('current_item/item_model/@marked');
-			if(markedAttr == '1' || markedAttr == 'true'){
+			if(markedAttr == '1' || markedAttr == 'true' || markedAttr == true){
 				result = true;
 			}
 			return result;

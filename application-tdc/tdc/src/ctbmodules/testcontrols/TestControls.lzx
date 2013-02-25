@@ -31,24 +31,23 @@
                    value="$path{ 'dsdisplay:/display/@enabled' }"/>
 
         <attribute name="theme" 
-                   value="$path{'current_item/item_model/@theme'}"
-                   setter="setIsTheme(theme)"/>/>
+                   value="$path{'current_item/item_model/@theme'}"/>
 
 		<attribute name="revisitAllowed" 
                    value="$path{'current_item/item_model/@allow_revisit'}" 
 				   setter="setMarkForReview (revisitAllowed)" />
-		<attribute name="isTheme" />
+		<!--<attribute name="isThemeItem" />
 				   
 		 <method name="setIsTheme" args="isTheme">
-		 	Debug.write("in setIsTheme***********",isTheme,typeof(this.isTheme));
+		 	Debug.write("in setIsTheme***********",isTheme,typeof(isTheme));
             if (typeof (isTheme) == 'string') {
-               isTheme = (isTheme == 'true');
+               isTheme = (isTheme == 'true' || isTheme == '1');
             } 
             else if(typeof (isTheme) == 'boolean') {
             	isTheme = (isTheme == true);
             }  
-		  	this.setAttribute('isTheme',isTheme);
-        </method>
+		  	this.setAttribute('isThemeItem',isTheme);
+        </method> -->
 
         <method name="setIsCurrAnswered" args="isanswered"><![CDATA[
         	//Debug.write("setIsCurrAnswered============== ",isanswered,itemtype,this.itemtype,classroot.itemtype);
@@ -144,18 +143,19 @@
 		
 		<method name="setMarkForReview" args="isRevisitAllowed"><![CDATA[
 			//set the mark for later review button visibilty always to true
-  			this.btns.markbtn.setAttribute ('visible', true);	
-			return;
+  			//this.btns.markbtn.setAttribute ('visible', true);	
+			//return;
 			
 			if (typeof (isRevisitAllowed) == 'string') {
-               isRevisitAllowed = (isRevisitAllowed == 'true');
+               isRevisitAllowed = (isRevisitAllowed == 'true' || isRevisitAllowed == '1');
             }
             else if(typeof (isRevisitAllowed) == 'boolean') {
             	 isRevisitAllowed = (isRevisitAllowed == true);
             }
 			this.revisitAllowed = isRevisitAllowed;	
-			Debug.write("this.isTheme in setMarkForReview*******",this.isTheme,typeof(this.isTheme));
-			if((this.isTheme == 'false' || this.isTheme == false) && !gController.fwdOnly){	
+			Debug.write("this.theme in setMarkForReview*******",this.theme,typeof(this.theme));
+			if(this.theme!= true && this.theme!= 'true' && this.theme!= '1' && !gController.fwdOnly){	
+				Debug.write("this.revisitAllowed in setMarkForReview*******",this.revisitAllowed,typeof(this.revisitAllowed));
 				if(this.revisitAllowed != null){
 					if(this.revisitAllowed != true && this.revisitAllowed != 'true'){
 			  			this.btns.markbtn.setAttribute ('visible', false);	
@@ -170,7 +170,7 @@
 			}
 		]]></method>
 
-		<view name="answertxt" visible="${classroot.isTheme == 'false' || classroot.isTheme == false}">
+		<view name="answertxt" visible="${classroot.theme == 'false' || classroot.theme == false}">
 	        <view name="answeristxt" visible="false" x="30"
 	              fgcolor="0x6590B3" fontstyle="bold" y="-4">
 	            <simplelayout axis="x" />
