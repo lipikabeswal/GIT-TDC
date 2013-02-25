@@ -143,6 +143,10 @@
          ]]></handler>
 		
 		<method name="setMarkForReview" args="isRevisitAllowed"><![CDATA[
+			//set the mark for later review button visibilty always to true
+  			this.btns.markbtn.setAttribute ('visible', true);	
+			return;
+			
 			if (typeof (isRevisitAllowed) == 'string') {
                isRevisitAllowed = (isRevisitAllowed == 'true');
             }
