@@ -269,7 +269,6 @@
 						minvalue="0"
 						maxvalue="100"
 						showrange="false" 
-						showfill="true"
 						align="center">
 						
 						<handler name="onvisible">
@@ -348,7 +347,6 @@
 						maxvalue="100"
 						sticktostepvalue="true"
 						showrange="false" 
-						showfill="true"
 						align="center">
 						
 						<handler name="onvisible">

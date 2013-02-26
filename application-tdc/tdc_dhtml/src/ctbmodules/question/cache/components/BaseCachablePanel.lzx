@@ -97,6 +97,8 @@
 
 			setPassageIdFromData(data);
             var contents = this.wrapper.scrollcontainer.offsetwrapper.contents;
+            var subviews = this.wrapper.scrollcontainer.offsetwrapper.contents.subviews;
+            console.log("subviews in initcomp*********",subviews);
 
             //width and height
 			if (data.hasAttr ('width')) {
@@ -111,20 +113,7 @@
                 } else {
                     nh = Number(nh);
                 }
-                
-				if((this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
-                	if((nh != null) && !gController.hasFontAccommodation){
-                		this.wrapper.setAttribute ('height', nh+(4*18));
-                	}else{
-						this.wrapper.setAttribute ('height', nh);
-					}
-                }
-               	else{
-					this.wrapper.setAttribute ('height', nh);
-				}
-				//this.wrapper.setAttribute ('height', nh);
-				var elem = this.wrapper.getDisplayObject();
-				elem.setAttribute ('id', "basePanelId");
+				this.wrapper.setAttribute ('height', nh);
             }
 
             //x and y of component
@@ -166,8 +155,7 @@
             {
                 gFootNotePopup.setAttribute("scrolltext", this);
             }      
-			
-			gController.addPanel(this);
+
         ]]></method>
 
 		<!-- 
@@ -276,8 +264,8 @@
             for (var i in contsubviews) {
 				 if (contsubviews [i] instanceof lz.CachableComponent &&
                         contsubviews [i].visible) {
-                  	// this.cache.returnComponent (contsubviews [i]);
-                  	contsubviews[i].destroy();
+                   this.cache.returnComponent (contsubviews [i]);
+                   //contsubviews[i].destroy();
                 }
             }
         ]]></method>
