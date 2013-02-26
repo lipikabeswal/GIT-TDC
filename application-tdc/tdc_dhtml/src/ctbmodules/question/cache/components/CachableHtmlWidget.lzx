@@ -31,19 +31,21 @@
 
 		<handler name="ondata" args="data"><![CDATA[
 console.log("Cachaable html widget ondata");
+		var htmlData = "<html><head/><body/></html>";
+		this.main.ht.setAttribute('html',htmlData);
       	var srcUrl = data.getAttr('src');
+      	console.log("srcUrl****",srcUrl);
       	this.setAttribute('srcUrl', srcUrl);
-		console.log("scurl init****",data.getAttr('src'));
 		this.setAttribute('unlocked', false);
 		this.setAttribute('answerObjSet', {});
 		if (data.hasAttr("id")) {
 	      	var id = data.getAttr('id');
-			console.log("id****",id);
 	      	this.setAttribute('widget_id',id);
 	        this.setAttribute('widget_id', data.getAttr("id"));
 	        var answer = gController.getStateForInputWidgetId(this.widget_id);
-		
+			console.log("answer var****"+answer+','+this.widget_id);
 			if(answer){
+			console.log("answer if****"+answer);
 				this.setAttribute('answered',false); //We are setting answered as false so that we can setTheState properly. This has to be revisited 
 				var selectedValuesArr = [];
 				if(answer['checkedVals']){
@@ -63,12 +65,12 @@ console.log("Cachaable html widget ondata");
 			gController.addHtmlField({"widget_id" : id, "answered" : this.answered, "answer" : this.answer, "ref" : this}); 
 
 		}
-		if (data.hasAttr("width")) {
+		if (data.hasAttr("width") && data.getAttr("width")!="" && data.getAttr("width")!=null) {
 			this.main.ht.setAttribute('width', data.getAttr("width"));
 		}else{
 			this.main.ht.setAttribute('width', 780);
 		}
-		if (data.hasAttr("height")) {
+		if (data.hasAttr("height") && data.getAttr("height")!="" && data.getAttr("height")!=null) {
 			this.main.ht.setAttribute('height', data.getAttr("height"));
 		}else{
 			this.main.ht.setAttribute('height', 450);
@@ -97,13 +99,15 @@ console.log("Cachaable html widget ondata");
 			if(this.main.ht.ready){
             	var del = new LzDelegate(this, 'handleFunc1');
             	//this.main.ht.callJavascript('accomPkg.isItemAnswered', del);
-            	this.main.ht.callJavascript('isAnswered', del);
-				
+            	//this.main.ht.callJavascript('isAnswered', del);
+            	del = isAnswered();		
+            	//console.log("del "+del);	
+				handleFunc1(del);
             } 
         </method>
         
         <method name="handleFunc1" args="retVal"><![CDATA[
-           // Debug.write('DHTMLComponent handleFunc1: ', retVal);
+          // console.log('DHTMLComponent handleFunc1: ', retVal);
 
 			if(retVal != null && retVal != undefined){
 				if( retVal == true || retVal ==  'true'){
@@ -118,13 +122,13 @@ console.log("Cachaable html widget ondata");
 					this.setAttribute('unlocked', true);
 				}
 			}
-            
+           // console.log('DHTMLComponent answered: ', answered);
        ]]> </method>
 
 		<method name="setAnswer" ><![CDATA[
-		   //Debug.write("setAnswer ansObj");
+		   console.log("setAnswer ansObj");
 		   var ansObj = gController.teItemState[this.srcUrl];
-		   //Debug.write("answerObject setanswer ",ansObj)
+		   console.log("answerObject setanswer ",ansObj)
 		   if(this.main.ht.ready && gController.htmlFields.length > 0){
 		    if(!this.answered){
 		     var htmlContent = this.answerObjSet.htmlContent;
@@ -138,7 +142,8 @@ console.log("Cachaable html widget ondata");
 		   		htmlContent = ansObj.htmlContent;
 		   		jsonContent = ansObj.jsonContent;
 		   	}
-		   this.main.ht.callJavascript('setState', null,htmlContent, jsonContent, checkedVals);
+		   //this.main.ht.callJavascript('setState', null,htmlContent, jsonContent, checkedVals);
+			setState(htmlContent, jsonContent, checkedVals);
 		   //  lz.Timer.resetTimer(setStateDel, 500);
 		    }else{
 		    // lz.Timer.removeTimer(setStateDel);
@@ -168,16 +173,22 @@ console.log("Cachaable html widget ondata");
             }
         </method>
         
-        <method name="getState">
+        <method name="getHtmlState">
+			//console.log("this.main.ht.ready "+canvas.frameLoaded);
+			//console.log("getState***********",this.main.ht.ready);
            if(this.main.ht.ready){
             var getStateDel = new LzDelegate(this, 'getStateHandler');
             //this.main.ht.callJavascript('accomPkg.getState', getStateDel);
-             this.main.ht.callJavascript('getState', getStateDel);
+             //this.main.ht.callJavascript('getState', getStateDel);
+             getStateDel = getState();
+             //console.log("getStateDel******",getStateDel);
+             getStateHandler(getStateDel);
            } 
         
         </method>
         
 	    <method name="getStateHandler" args="retVal">
+				//console.log("getStateHandler ",retVal);
 				this.setAttribute('answer', retVal);
 				gController.updateHtmlFields(retVal,this.answered);
 	     </method>
@@ -197,17 +208,28 @@ console.log("Cachaable html widget ondata");
 		</method>
 
 		<method name="doReturnToCache"><![CDATA[
+			console.log("in doReturnToCache*************",gController.teItemState[this.srcUrl]);
+			if(!this.answered){
+				var obj = gController.answerObj;
+				gController.teItemState[this.srcUrl] = obj;			
+			}else {
+				if(gController.teItemState[this.srcUrl] !=null && typeof gController.teItemState[this.srcUrl] !='undefined')
+					delete gController.teItemState[this.srcUrl];			
+			}
+			console.log("in doReturnToCache********after*****",gController.teItemState[this.srcUrl]);
 			this.main.ht.setAttribute('visible',false);
 			this.main.ht.setAttribute('src',"");
+			canvas.setAttribute('frameLoaded',false);
        ]]></method>
 
 		<method name="checkiframeState">
+				console.log("checkiframeState"+iframeLoaded);
 				iframeState();
 				if (!canvas.frameLoaded){
 				 	lz.Timer.resetTimer(checkiframeStateDel, 500);
 				 }else{
 				 	lz.Timer.removeTimer(checkiframeStateDel);
-					canvas.setAttribute('frameLoaded',false);
+					//canvas.setAttribute('frameLoaded',false);
 				 }
 		</method>
        
@@ -216,7 +238,7 @@ console.log("Cachaable html widget ondata");
 				var elm = this.getDisplayObject();
 				elm.setAttribute('id','iframeId');
 			</handler>
- 	       <html name="ht" id="htmlwiget" x="5" y="5" scrollbars="false" mouseevents="true" focusable="true">
+ 	       <html name="ht" id="htmlwiget" x="5" y="5" scrollbars="false" mouseevents="true" focusable="true" width="780" height="450">
 				<handler name="oninit">
 					var elm = this.getDisplayObject();
 					elm.setAttribute('id','iframeIdchild');
@@ -224,7 +246,11 @@ console.log("Cachaable html widget ondata");
 				<handler name="onload">
 					console.log("onsrc of frame");
 					classroot.checkiframeState();
+					//classroot.getState();
 					//iframeState();
+				</handler>
+				<handler name="onready">
+					console.log("onrteady***");
 				</handler>
 			</html>
        </view>
