@@ -1,6 +1,8 @@
 <library>
 
     <include href="cache/ComponentCache.lzx"/>
+<include href="cache/components/CachableAnswerAreaPanel.lzx"/>
+	<include href="cache/components"/>
 
     <class name="Question">
 
@@ -36,13 +38,12 @@
 			this.setAttribute('skipCacheDestroy', false);
 			gController.setAttribute('skipCacheDestroy', false);
 		</method>
-		
         <handler name="ondata" args="data"><![CDATA[
         	//the objects dont get enough time to destroy when using do return to cache so had to destroy during load of items
 			//sizer should not be destroyed so we are starting from array 1
 			var contsubviews = gQuestion.subviews;
 			var contViewsLen = gQuestion.subviews.length;
-			console.log("gController.skipCacheDestroy "+gController.skipCacheDestroy);
+			
 			if(!gController.skipCacheDestroy){
 				for (var i = 1; i <= contViewsLen; i++){
 				 if(contsubviews[i] && contsubviews[i] instanceof lz.CachableAnswerAreaPanel){
@@ -82,7 +83,7 @@
         
                 var subnodes = data.childNodes;
                 for (var i = 0; i < subnodes.length; i++) {
-                Debug.write("subnodes[i]",subnodes[i]);
+                //Debug.write("subnodes[i]*****",subnodes[i]);
                     if ( subnodes[i] instanceof lz.DataElement ) {
                         this.cache.getComponent (subnodes [i]);
                     }
@@ -121,7 +122,8 @@
         <!-- Make into a single column layout-->
         <method name="convertToSingleCol"><![CDATA[
             var panelarr = this.datapath.p.childNodes;
-
+			var convert = true;
+			console.log("convertToSingleCol"+panelarr);
             //create top level panel node
             var dntoppanel = new lz.DataElement("panel", {x        : 0, 
                                                          y        : 79,
@@ -131,12 +133,48 @@
                                                          enablehl : false});
             
             dntoppanel.setAttribute('childNodes',panelarr);
+			console.log("dntoppanel "+dntoppanel);
+			
+			convert = checkingIfTE(panelarr,convert);
 
             //change all subnodes according to new layout requirements
-            this.convertNodes(panelarr, 780, true);
-
+			if(convert == true){
+            	this.convertNodes(panelarr, 780, true);
+				console.log("panelarr after change all subnodes "+panelarr);
+				console.log("dntoppanel after change all subnodes "+dntoppanel);
+			}
             this.datapath.p.setAttribute('childNodes',[dntoppanel]);
         ]]></method>
+
+		<method name="checkingIfTE" args="panelarr,convert"><![CDATA[
+			var dn;
+			for (var i = 0; i < panelarr.length; i++) {
+				
+                dn = panelarr[i];
+				console.log("dn****** "+dn+"panelarr.length "+panelarr.length);
+                if (!(dn instanceof lz.DataElement)) break;
+
+                if (dn.nodeName == gCompTypes.WIDGET_HTML){
+					convert = false;
+					dn.attributes.height = "";
+					break;
+				}else{
+					var cn = dn.childNodes;
+					console.log("cn ********** "+cn);
+                	if(cn != null){
+						console.log("cn.nodeName ********** "+cn[0].nodeName);
+						if (cn[0].nodeName == gCompTypes.WIDGET_HTML){
+							console.log("inside if");
+							convert = false;
+							cn[0].attributes.height = "";
+							break;
+						}
+					}
+				}
+			}
+			return convert;
+		]]>
+		</method>
 
 
         <!-- Make into a double column layout -->
