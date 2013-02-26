@@ -44,9 +44,7 @@
         
 		<handler name="oninit">
 			var postUrl = LzBrowser.getInitArg( 'servletUrl' ) + '/SpeechServlet.do';
-			//var getUrl = postUrl + '?file=speech.mp3';
-			//setAttribute('GET_URL', getUrl);
-			var getUrl = LzBrowser.getInitArg( 'servletUrl' ) + '/speech.mp3';
+			var getUrl = postUrl + '?file=speech.mp3';
 			setAttribute('GET_URL', getUrl);
 			speechDs.setSrc(postUrl);
 		</handler>
@@ -121,17 +119,9 @@
         
         <method name="getMp3" ><![CDATA[
         	//ISTEP CR: to avoid browser caching of the mp3
-        	//audioPlayer.setSource(GET_URL+"&"+timestamp()+".mp3");
-			audioPlayer.setSource(getSpeechURL());
-        	//Debug.write("getMp3" + GET_URL);
+        	//Debug.write("getMp3" + GET_URL + ":"+timestamp());
+        	audioPlayer.setSource(GET_URL+"&"+timestamp()+".mp3");
         ]]></method>
-        
-        <method name="getSpeechURL">
-			var getUrl = LzBrowser.getInitArg( 'servletUrl' ) + '/speech.mp3?'+timestamp();
-			setAttribute('GET_URL', getUrl);
-			//Debug.write("getUrl -> ", getUrl);
-			return getUrl;
-		</method>
 
 		<method name="timestamp">
 			return "timestamp="+Math.random();	
