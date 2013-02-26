@@ -3,7 +3,7 @@
 	<include href="DownloadManager.lzx" />
 	<include href="TutorialManager.lzx" />
 	<include href="Sarsystem.lzx"/>
-	<script src="utils/json.js" />
+	<!--<script src="utils/json.js" />-->
 	
 	<!--<Sarsystem id="flashSystem" />-->
 	<script><![CDATA[
@@ -509,6 +509,7 @@
 		<attribute name="answerObj" value="$once{new Object()}" />
 		<attribute name="productTypeVal" type="string" value="ISTEP"/>
 		<attribute name="displayText" value="false"/>
+		<attribute name="teItemState" value="$once{new Object()}"/>
 		
 		<!--
 			============================================================
@@ -560,7 +561,6 @@
 		<attribute name="stylesArr" value="${new Array()}"/>
 		<attribute name="panelArr" value="$once{new Array()}"/>
 		<attribute name="scrollTextArr" value="$once{new Array()}"/>
-		<attribute name="teItemState" value="$once{new Object()}"/>
 			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -659,6 +659,7 @@
 		</method>
 
 		<method name="processItemResponse">
+			console.log("process item response****"+dsitem.serialize());
             this.setAttribute('currentCrId', this.MAX_CR_ID);
 			gController.massageItemLml();
 			gController.changeCurrItemData ();
@@ -1026,7 +1027,7 @@
 		</method>
 
 		<method name="_handleSaveLoadResponse" args="response">
-		//Debug.write("_handleSaveLoadResponse");
+		console.log("_handleSaveLoadResponse");
 			loadItem();
 		</method>
 
@@ -2219,16 +2220,17 @@
 			var result="";
 			var eid = loadNode.getAttr('id');
 			var answers = dpstudentdata.xpathQuery( "runtime/item_model [@eid = '"+eid+"']/@answer_text");
-			var node = lz.DataElement.stringToLzData(unescape(answers));
-			//Debug.write("getAnswerForInputWidgetId node", node);
+			console.log("dp student data"+dpstudentdata);
+			console.log("answers****"+answers);
+			var node = lz.DataElement.stringToLzData(answers);
+			console.log("getAnswerForInputWidgetId node", node);
             if (node) {
-               node.setAttribute('ownerDocument',dstemp);
-               dstemp.appendChild(node);
-               //Debug.write("widgetId : " + widgetId + " node : " , node);
+               node.setAttribute('ownerDocument',dptemp);
+               dptemp.appendChild(node);
 			   dp.setPointer(node);
-			  result = dp.xpathQuery("dstemp://answers/answer[@id = '"+widgetId+"']/text()");
-			//Debug.write("getAnswerForInputWidgetId result: " , result);
-               dstemp.removeChild(node);
+			   result = dptemp.xpathQuery("answer[@id = '"+widgetId+"']/text()");
+			   console.log("getAnswerForInputWidgetId result: "+result);
+               dptemp.removeChild(node);
             }
 			
 			return result;
@@ -2316,6 +2318,8 @@
 		]]></method>
 
 		<method name="copyCurrentToRuntime"><![CDATA[
+
+			console.log("copyCurrentToRuntime****");
             var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/item_model/@eid' )
             );
@@ -2327,6 +2331,7 @@
                     dpstudentdata.xpathQuery ('current_item/item_model/');
                 dnrtitemold.parentNode.replaceChild (dncurritem, dnrtitemold);
             }
+		console.log("copyCurrentToRuntime****"+dpstudentdata.xpathQuery( 'runtime' ));
          ]]></method>
 
 		<!-- swapping current item -->
@@ -2334,14 +2339,17 @@
             var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/item_model/@eid' )
             );
+			console.log("change current item data****"+curritem);
             //store off our old curr item into the runtime data
             if ( curritem != null ) {
             	gManipulatives.saveZOrders();
                 var dnrtitemold = dpstudentdata.xpathQuery(
                     "runtime/item_model [@eid = '"+curritem+"']"
                 );
+				console.log("dnrtitemold****"+dnrtitemold);
                 var dncurritem =
                     dpstudentdata.xpathQuery ('current_item/item_model/');
+				console.log("dncurritem****"+dncurritem);
 				if (this.adaptive == false){
 					saveSharedStimulusHighlights();
 				}
@@ -2353,14 +2361,15 @@
 
             //find if we have saved state in our run time
             var newitem = dpitem.xpathQuery ('item_model/@eid');
+			console.log("newitem****"+newitem);
             var dnrtitemnew = dpstudentdata.xpathQuery(
                 "runtime/item_model [@eid = '"+newitem+"']"
             );
-		//Debug.write("dnrtitemnew..."+dnrtitemnew);
+			console.log("dnrtitemnew****"+dnrtitemnew);
 			var allowrevisit = dnrtitemnew.getAttr("allow_revisit");
-		//Debug.write("allowrevisit..."+allowrevisit);
+		
 			this.setAttribute("allowRevisit", (allowrevisit != "false"));
-		//Debug.write("Controller variable allowRevisit..."+allowRevisit);
+			
 
             var dnnewitem;
 
@@ -2373,7 +2382,7 @@
                 // copy state from server model
                 var dnitemmodel = dpitem.xpathQuery ('item_model');
                 dnnewitem = dnitemmodel.cloneNode (true);
-			//Debug.write("dnnewItem" + dnnewitem.getAttr( 'answered' ));
+			console.log("dnnewItem" + dnnewitem.getAttr( 'answered' ));
                 // merge in attributes from runtime (we may have restart data
                 // stored)
 
@@ -2566,6 +2575,8 @@
         ]]></method>
 
 		<method name="changeItem" args="fnode"><![CDATA[		
+			console.log("inside changeItem");
+			console.log("inside changeItem fnode "+fnode);
 			if(fnode != null) {			
 				if(this.recorder != null) {
 					this.recorder.stopblinker('stop');
@@ -2699,6 +2710,8 @@
         </method>
 
 		<method name="stepNavigateBack"><![CDATA[
+			console.log("inside stepNavigateBackward****"+dpstudentdata.xpathQuery( 'current_item' ));
+			console.log("inside stepNavigateBackward******"+dpstudentdata.xpathQuery( 'runtime' ));
             if ( !onFirstItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm){
@@ -2710,6 +2723,8 @@
         ]]></method>
 
 		<method name="stepNavigateForward"><![CDATA[
+			console.log("inside stepNavigateForward******"+dpstudentdata.xpathQuery( 'current_item' ));
+			console.log("inside stepNavigateForward******"+dpstudentdata.xpathQuery( 'runtime' ));
            	var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/@itempos' )
             );
@@ -2914,8 +2929,8 @@
                 var curritem = Number(dncurritem.getAttr('eid'));
             var dnruntimeitem = dpstudentdata.xpathQuery ("runtime/item_model [@eid = '"+curritem+"']");
 
-//Debug.write("setItemCRState answer : " + answer);
-
+		console.log("setItemCRState answer : " + answer);
+		console.log("escaped answer " + escape( answer ));
             dncurritem.setAttr( 'answer_text', escape( answer ) );
             dnruntimeitem.setAttr( 'answer_text', escape( answer ) );
             unlockUI();
@@ -3330,7 +3345,7 @@
 		</method>
 
 		<method name="saveLoadItem" args="fnode, lev"><![CDATA[
-			Debug.write("############ saveLoadItem ############",fnode,lev);
+			console.log("############ saveLoadItem ############",fnode,lev);
 			//this.setAttribute("sendCatSave",true);
         	//setSendCatSave();
         	var curItemId;
@@ -3358,7 +3373,7 @@
         ]]></method>
 
 		<method name="loadItem"><![CDATA[
-console.log("############ loadItem ############");
+			console.log("############ loadItem ############");
 			gQuestion.clearSkip();
 			canvas.setAttribute('focusobj', null);
             this.itemloaded    = false;
@@ -5300,29 +5315,32 @@ console.log("############ loadItem ############");
 		]]></method>
 		
 		<method name="isAnsweredDelegate"><![CDATA[
-			//	Debug.write("isAnsweredDelegate",this.htmlFields[0]);
+			//console.log("isAnsweredDelegate",this.htmlFields[0]);
 				this.htmlFields[0]['ref'].func1();
 				if(this.htmlFields[0]['ref'].answered){					
 
 					this.htmlFields[0]['answered'] = true;
-					this.htmlFields[0]['ref'].getState();
+					this.htmlFields[0]['ref'].getHtmlState();
 					
 				}else{
 					var state;
 					this.htmlFields[0]['answer'] = state;
 					this.htmlFields[0]['answered'] = false;
+					this.htmlFields[0]['ref'].getHtmlState();
 				}
 
-				lz.Timer.resetTimer(answeredDel, 500);
+				lz.Timer.resetTimer(answeredDel, 1000);
 		]]>
 		</method>
 
         <method name="updateHtmlFields" args="value,answered"><![CDATA[
+        	//console.log("updateHtmlFields*********",value,answered);
         	if(value){
         		if(this.htmlFields.length > 0){
-          					this.setAttribute('answerObj',value);
-        					this.htmlFields[0]['answered'] == answered;
-        			
+       					this.setAttribute('answerObj',value);
+						//console.log("answerObj ",answerObj);
+      					this.htmlFields[0]['answered'] == answered;
+      			//console.log("updateHtmlFields*********",this.htmlFields[0]['answered']);
         		}
         	}
         ]]></method>
@@ -5347,13 +5365,18 @@ console.log("############ loadItem ############");
 		]]></method>
 
 		<method name="updateHTMLItemNode"><![CDATA[
-		Debug.write("UPDATE HTML ITEM NODE",this.htmlFields.length);
+		console.log("UPDATE HTML ITEM NODE",this.htmlFields.length);
+		console.log("answerObj ",answerObj);
 
 			if(this.htmlFields.length > 0){
             	var xmls = "<answers>";
 				var data = JSON.stringify(this.answerObj);
+				console.log("updateHTMLItemNode data "+data);
             	for (var i = 0; i < this.htmlFields.length; i++) {
 					xmls = xmls.concat("<answer id=" + "\"" + this.htmlFields[i]['widget_id'] + "\""+ ">");
+					console.log("htmlFields[i] ",htmlFields[i]);
+					
+					console.log("htmlFields[i].answerd ",htmlFields[i]['answered']);
                 	if(!htmlFields[i]['answered']){
                    		xmls = xmls.concat("</answer>");
                    	}
@@ -5362,28 +5385,38 @@ console.log("############ loadItem ############");
                    	}
             	}
             	xmls = xmls.concat("</answers>");
+            	console.log("updateHTMLItemNode xmls ",xmls);
             	gController.setItemCRState(xmls);
  			}
 		]]></method>
 		
 		<method name="getStateForInputWidgetId" args="widgetId"><![CDATA[
+			console.log("getStateForInputWidgetId***"+widgetId);
 			var result="";
 			var eid = loadNode.getAttr('id');
 			var answers = dpstudentdata.xpathQuery( "runtime/item_model [@eid = '"+eid+"']/@answer_text");
-			
+			console.log("item model getStateForInputWidgetId****"+dpstudentdata.xpathQuery( "runtime/item_model"));
+			console.log("answers getStateForInputWidgetId****"+answers);
 			var node = lz.DataElement.stringToLzData(unescape(answers));
-			Debug.write("getStateForInputWidgetId node", node);
+			console.log("getStateForInputWidgetId node"+ node);
             if (node) {
+            	console.log("dstemp if node****"+dstemp);
                node.setAttribute('ownerDocument',dstemp);
                dstemp.appendChild(node);
                //Debug.write("widgetId : " + widgetId + " node : " , node);
 			   dp.setPointer(node);
-			  result = dp.xpathQuery("dstemp://answers/answer[@id = '"+widgetId+"']/text()");
-			//Debug.write("getAnswerForInputWidgetId result: " , result);
+			  result = dp.xpathQuery("dstemp:/answers/answer[@id = '"+widgetId+"']/text()");
+			  console.log("getAnswerForInputWidgetId result: "+result);
                dstemp.removeChild(node);
             }
+            console.log("result: "+result);
+			if(result != null && result!="") {
+				return JSON.parse(result);
+			}
+			else {
+				return "";
+			}
 			
-			return JSON.parse(result);
 
 		]]></method>
 		<method name="inContinueToDownload">
