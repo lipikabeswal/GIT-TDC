@@ -128,6 +128,7 @@
 						}
 		          		classroot.main.header.animate('y',-56, 500);
 		          	}
+		          	setMagnifierContent();
 				]]>
 				</handler>
 	
@@ -174,6 +175,7 @@
 		          	}else if(classroot.main.navbar.y ==  509){
 		          		classroot.main.navbar.animate('y',570, 500);
 		          	}
+		          	setMagnifierContent();
 				]]>
 				</handler>
 				<view x="5" fgcolor="white" fontsize="15" valign="middle">
