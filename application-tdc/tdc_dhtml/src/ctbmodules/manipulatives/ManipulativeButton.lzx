@@ -17,7 +17,6 @@
         </handler>
 
         <handler name="ondata" args="data"><![CDATA[
-        	console.log("ondata****"+data);
             this.setAttribute ('isselected', data == 'sel');
             if(data == null || data == 'disable'){
 	            this.setAttribute ('isenabled', false);
@@ -26,7 +25,6 @@
 				this.gap.setAttribute ('visible', false);
             }
             else{
-            	console.log("else****");
 	            this.setAttribute ('isenabled', true);
 	            this.manipBtn.setAttribute ('visible', true);
 				this.btn_shadow.setAttribute ('visible', true);
@@ -39,6 +37,28 @@
             if (!this.isselected) {
                 this.manipBtn.setAttribute('frame', this.isenabled  ? 1 : 3);
             }
+            
+            if(gController.htmlFields.length > 0){
+            	if(document.getElementsByTagName('iframe')[0] != null){
+     				var accom = document.getElementsByTagName('iframe')[0].contentWindow.accomPkg;	
+     				
+     				console.log("accom "+accom);
+     				if(accom != null && accom !='undefined'){
+		     			if(this.toolid == 'highlighter' && this.isselected){
+		            		accom.enableHighlighter(true);
+		            	}else if(this.toolid == 'highlighter' && !this.isselected){
+		            		accom.enableHighlighter(false);
+		            	}
+		            	
+		            	if(this.toolid == 'eraser' && this.isselected){
+		            		accom.enableEraser(true);
+		            	}else if(this.toolid == 'eraser' && !this.isselected){
+		            		accom.enableEraser(false);
+		            	}
+					}
+	            }
+        	}
+            
             
         ]]></handler>
 
