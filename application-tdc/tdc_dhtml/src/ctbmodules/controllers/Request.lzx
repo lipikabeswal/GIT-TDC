@@ -114,6 +114,7 @@
 			Debug.write("OpenLaszlo Save");
 			console.log("*************cid*********** "+cid);
 			var xml = gXmlHelper.getSaveXml(gController.lsid, gController.scid, _getAndIncrementMseq(), cid, params, gManipulativeBar.selectedSpeedVal);
+			xml = replaceSpecialChar(xml);
 			_doRequest(persistenceDs, SAVE_METHOD, xml);
 		</method>
 		
