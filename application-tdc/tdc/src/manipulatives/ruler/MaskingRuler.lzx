@@ -84,9 +84,9 @@
 		<method name="getDraggerValues" args="degrees, lngth">
 			var result = new Array();
 			var gb = getRelativeGrabberBounds(degrees, lngth);
-            result[0] = - gb[0];
-            result[1] = - gb[1];
-            result[2] = this.parent.width - gb[2];
+            result[0] = - gb[0]-100;
+            result[1] = - gb[1]-35;
+            result[2] = this.parent.width - 30 - gb[2];
             result[3] = this.parent.height - 6  - gb[3];
 
 			return result;
