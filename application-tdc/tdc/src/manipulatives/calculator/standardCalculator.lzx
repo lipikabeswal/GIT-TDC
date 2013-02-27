@@ -40,7 +40,7 @@
 						  align="right"
 						  valign="bottom"
 						  fontsize="13"
-						  xoffset="30"/>
+						  xoffset="15"/>
 					<text name="memoryDisplay" 
 						  text="M"
 						  valign="bottom" 
