@@ -237,6 +237,9 @@
 
         <method name="doReturnToCache"><![CDATA[
             var contsubviews = this.wrapper.scrollcontainer.offsetwrapper.contents.subviews;
+			// clearing cache to reset width and height.
+            this.wrapper.setAttribute('width', 0);
+			this.wrapper.setAttribute('height', 0);
             this.setAttribute('enablehl', true);
             for (var i in contsubviews) {
 

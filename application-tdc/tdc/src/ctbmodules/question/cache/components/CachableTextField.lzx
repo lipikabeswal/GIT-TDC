@@ -71,11 +71,20 @@
              = METHODS
              =============== -->
         <method event="ondata" args="data"><![CDATA[
-            //width
+           // Resetting width
+            this.setAttribute("width", 0);
+           //width
             if (data.hasAttr("width")) {
                 this.setAttribute("width", Number(data.getAttr("width")));
             } else {
-                this.setAttribute("width", immediateparent.width);
+            	if(immediateparent.width != 0) {
+					this.setAttribute("width", immediateparent.width);
+                	}
+				else {
+					//as the immediate parent's width is zero, we are setting the text's width to the panel's width
+					//and substract the immediate parent's x to avoid horizontal scrollbar.
+					this.setAttribute("width", immediateparent.classroot.width - immediateparent.x); 
+				}
             }
 
             //text magnification
