@@ -2598,7 +2598,7 @@
 	            	changeItem(dpsubtest.xpathQuery( "ob_assessment/ob_element_list/f[@id='" + itemeid + "']" ));
 	            }
             }
-         hideMagnifierGlass(); 
+         //hideMagnifierGlass(); 
         ]]></method>
 
 		<method name="changeItem" args="fnode"><![CDATA[		
