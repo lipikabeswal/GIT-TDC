@@ -37,6 +37,22 @@
 		</property>
 	</xsl:template>
 
+	<xsl:template match="//property[@name='smallIconName']">
+		<property name="smallIconName">
+			<string><![CDATA[MHE-16-16.gif]]></string>
+		</property>
+	</xsl:template>
+	<xsl:template match="//property[@name='largeIconName']">
+		<property name="largeIconName">
+			<string><![CDATA[MHE-32-32.gif]]></string>
+		</property>
+	</xsl:template>
+	<xsl:template match="//property[@name='macOSXIconName']">
+		<property name="macOSXIconName">
+			<string><![CDATA[MHE-Mac.icns]]></string>
+		</property>
+	</xsl:template>
+
 	<xsl:template match="@*|node()">
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()"/>

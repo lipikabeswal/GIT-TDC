@@ -53,10 +53,10 @@
 	<target name="build" description="Builds the various installers" depends="clean">
 		
 		<antcall target="buildVanilla" />
-		<antcall target="buildVanillaThin" /> 
+		<!-- <antcall target="buildVanillaThin" />  --> 
 		
 		<antcall target="buildISTEP" /> 
-		<antcall target="buildISTEPThin" /> 
+		<!-- <antcall target="buildISTEPThin" />  --> 
 		
 		<antcall target="buildTABE" />
 		<!-- <antcall target="buildTABEThin" />  -->
