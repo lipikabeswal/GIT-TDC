@@ -98,7 +98,7 @@ var ddpowerzoomer={
 		var $magnifier=$('<div style="position:absolute;z-index:1000000;width:'+parseInt(ddpowerzoomer.$zommersettings.magnifiersize[0])+ 'px;height:'+parseInt(ddpowerzoomer.$zommersettings.magnifiersize[1])+'px;display:none;" />')
 			.append('<div  id="magnifierWindow" style="width:'+ddpowerzoomer.$zommersettings.magnifiersize[0]+ 'px;height:'+ddpowerzoomer.$zommersettings.magnifiersize[1]+'px;overflow:hidden; border:8px solid #333333;"><div style="position:relative;left:0;top:0;" /></div>')
 			.appendTo(document.body).draggable({
-			containment: [0, 0,document.body.offsetWidth - 330,$("body").height()-120],	
+			containment: [0, 0,document.body.offsetWidth - 318,$("body").height()-120],	
 			start: function(event,ui) {
 			    //alert(window.isDragging);
 			    if(isDragging == 0){
