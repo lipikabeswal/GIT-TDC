@@ -37,6 +37,7 @@ import org.apache.http.entity.FileEntity;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
+import org.mortbay.http.HttpRequest;
 
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.Base64;
@@ -86,6 +87,7 @@ public class PersistenceServlet extends HttpServlet {
 	public void init() throws ServletException {
 		// do nothing
 		//verifyServletSettings();
+		HttpRequest.__maxFormContentSize = Integer.getInteger("org.mortbay.http.HttpRequest.maxFormContentSize", 10000000).intValue();
 	}
 
 	/**
