@@ -185,6 +185,8 @@
 	<attribute name="triggercrpush"/>
 	<attribute name="scratchpadRequired" type="boolean" value="false"/>
 	<attribute name="keysPressed" value="null"/>
+	<attribute name="enableManipBar" value="true" type="boolean"/>
+	<attribute name="enableManipulatives" value="true" type="boolean"/>
 	
 	<handler name="ontriggercrpush" args="data">
 		//Debug.write("*************ontriggercrpush******");
@@ -327,6 +329,15 @@
     
     <handler name="onkeysPressed" args="arg">
     	gHotKeys.handleHtmlKeyPress(arg);
+    </handler>
+    
+    <handler name="onenableManipBar">
+    	if(this.enableManipBar == true || this.enableManipBar == 'true') {
+    		this.setAttribute('enableManipulatives', true);
+    	}
+    	else {
+    		this.setAttribute('enableManipulatives', false);
+    	}
     </handler>
     
 	<handler name="oninit">

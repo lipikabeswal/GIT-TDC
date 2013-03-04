@@ -31,20 +31,25 @@
 			<simplelayout axis="x"/>
 			<ManipulativeButton resource="toolbar_choice_eliminator_btn"
 	                            toolid="option_eliminator"
-	                            tooltip="Option Eliminator"/>
+	                            tooltip="Option Eliminator"
+	                            clickable="${canvas.enableManipulatives}"/>
 			<ManipulativeButton resource="toolbar_highlighter_btn"
 	                            toolid="highlighter"
-	                            tooltip="Highlighter"/>
+	                            tooltip="Highlighter"
+	                            clickable="${canvas.enableManipulatives}"/>
 			<ManipulativeButton resource="toolbar_eraser_btn"
 	                            toolid="eraser"
-	                            tooltip="Eraser"/>
+	                            tooltip="Eraser"
+	                            clickable="${canvas.enableManipulatives}"/>
 	        <ScratchpadButton   resource="toolbar_scratchpad_btn"
 	                            toolid="scratchpad"
-	                            tooltip="Scratchpad"/>
+	                            tooltip="Scratchpad"
+	                            clickable="${canvas.enableManipulatives}"/>
 
 			<ManipulativeButton resource="toolbar_masking_ruler_btn"
 	                            toolid="masking_ruler"
-	                            tooltip="Blocking Ruler"/>	
+	                            tooltip="Blocking Ruler"
+	                            clickable="${canvas.enableManipulatives}"/>	
 	                            
 	                            <view name="gap" width="2" height="20" valign="middle"/>
 			<!-- Magnifier Glass Button -->
@@ -52,7 +57,8 @@
 				visible="${gController.magnifierVisible}"
 				resource="toolbar_magnifying_glass_btn" valign="middle" height="20"
 				width="34"
-				id="gMagnifier">
+				id="gMagnifier"
+				clickable="${canvas.enableManipulatives}">
 				<attribute name="tooltipdel"
 					value="$once{new LzDelegate (this, 'showTooltip')}"
 				/>
@@ -134,7 +140,8 @@
 	         <view name="maskingAnswer"
 				visible="${gController.showMaskingAnswerPopUp}"
 				resource="toolbar_msaking_choice_btn" valign="middle" height="20"
-				width="34">
+				width="34"
+				clickable="${canvas.enableManipulatives}">
 				<attribute name="tooltipdel"
 					value="$once{new lz.Delegate (this, 'showTooltip')}"/>
 				<attribute name="isEnabled" value="false" />
@@ -187,43 +194,54 @@
 			<simplelayout axis="x"/>
 			<ManipulativeButton resource="toolbar_oneeighth_inch_ruler_btn"
 	                            toolid="oneeighth_inch_ruler"
-	                            tooltip="1/8&quot; ruler"/>
+	                            tooltip="1/8&quot; ruler"
+	                            clickable="${canvas.enableManipulatives}"/>
 			<ManipulativeButton resource="toolbar_half_inch_ruler_btn"
 	                            toolid="half_inch_ruler"
-	                            tooltip="1/2&quot; ruler"/>
+	                            tooltip="1/2&quot; ruler"
+	                            clickable="${canvas.enableManipulatives}"/>
 			<ManipulativeButton resource="toolbar_mm_ruler_btn"
 	                            toolid="mm_ruler"
-	                            tooltip="mm ruler"/>
+	                            tooltip="mm ruler"
+	                            clickable="${canvas.enableManipulatives}"/>
 			<ManipulativeButton resource="toolbar_cm_ruler_btn"
 	                            toolid="cm_ruler"
-	                            tooltip="cm ruler"/>
+	                            tooltip="cm ruler"
+	                            clickable="${canvas.enableManipulatives}"/>
 			<ManipulativeButton resource="toolbar_protractor_btn"
 	                            toolid="protractor"
-	                            tooltip="Protractor"/>
+	                            tooltip="Protractor"
+	                            clickable="${canvas.enableManipulatives}"/>
 			<ManipulativeButton resource="toolbar_formula_card_btn"
 	                            toolid="FCAT_formula_card"
-	                            tooltip="Reference Card"/>
+	                            tooltip="Reference Card"
+	                            clickable="${canvas.enableManipulatives}"/>
 			<ManipulativeButton resource="toolbar_formula_card_btn"
 	                            toolid="TN_formula_card"
-	                            tooltip="Reference Card"/>
+	                            tooltip="Reference Card"
+	                            clickable="${canvas.enableManipulatives}"/>
 			<ManipulativeButton resource="toolbar_formula_card_btn"
 	                            toolid="formula_card_resource"
 	                            tooltip="Reference Card"/>
 			<ManipulativeButton resource="toolbar_calculator_btn"
 	                            toolid="standard_calculator"
-	                            tooltip="Calculator"/>
+	                            tooltip="Calculator"
+	                            clickable="${canvas.enableManipulatives}"/>
 			<ManipulativeButton resource="toolbar_straight_edge_btn"
 	                            toolid="straight_edge"
-	                            tooltip="Straight Edge"/>
+	                            tooltip="Straight Edge"
+	                            clickable="${canvas.enableManipulatives}"/>
 	        <ManipulativeButton resource="toolbar_calculator_btn"
 	                            toolid="ti_scientific_calculator"
-	                            tooltip="TI Scientific Calculator"/>
+	                            tooltip="TI Scientific Calculator"
+	                            clickable="${canvas.enableManipulatives}"/>
 			<ManipulativeButton resource="toolbar_calculator_btn"
 	                            toolid="ti_scientific_graphic_calculator"
-	                            tooltip="TI Scientific Graphic Calculator"/>
+	                            tooltip="TI Scientific Graphic Calculator"
+	                            clickable="${canvas.enableManipulatives}"/>
 		</view>
 		
-		<view name="screenreader" valign="middle" height="100%">
+		<view name="screenreader" valign="middle" height="100%" clickable="${canvas.enableManipulatives}">
 		<simplelayout axis="x" spacing="2"></simplelayout>
 			<basebutton name="stopreader" stretches="both" height="20" width="68"
 		                resource="toolbar_stopreader_btn"

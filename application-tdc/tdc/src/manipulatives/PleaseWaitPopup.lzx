@@ -38,6 +38,8 @@
         this.setAttribute("visible", false);
 		this.contents.networkLost.inBar.barAnimator.stop();
 		lz.ModeManager.release(this);
+		var s = "enableManipBar(true)";
+        lz.Browser.loadJS(s);
     </method>
 	
     <method name="show">
@@ -46,6 +48,8 @@
         lz.ModeManager.makeModal(this);
         resetControls();
         this.bringToFront();
+        var s = "enableManipBar(false)";
+        lz.Browser.loadJS(s);
         //gHotKeys.disableKeys();
         
     </method>
