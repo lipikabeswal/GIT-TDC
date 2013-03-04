@@ -366,6 +366,10 @@ function enableHotKeys(arg) {
 	lz.embed.setCanvasAttribute('keysPressed',arg);
 }
 
+function enableManipBar(arg) {
+	lz.embed.setCanvasAttribute('enableManipBar',arg);
+}
+
 function load() {
 	
      var myservlet = 'servlet/PersistenceServlet.do?method=isProductCheck&folder=calif&requestXML=';
