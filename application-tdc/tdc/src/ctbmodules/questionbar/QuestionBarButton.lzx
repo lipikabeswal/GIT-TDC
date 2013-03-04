@@ -144,7 +144,7 @@
         ]]></method>
 
 
-        <view name="btn" resource="question_bar_btn"
+        <view name="btn" resource="question_bar_btn" clickable="${ classroot.isenabled == true }"
               xscale="1.3"/>
 
         <view name="ball" resource="question_bar_ball"
@@ -154,7 +154,7 @@
               x="${classroot.width}" y="24" showhandcursor="false" clickregion="question_bar_clickregion"
               visible="${classroot.showconnector}"/>
 
-	<view height="40" name="mainV" clickregion="question_bar_clickregion" 
+	<view height="40" name="mainV" clickregion="question_bar_clickregion" clickable="${ classroot.isenabled == true }"
 	width="100%">
 		<handler name="onclick">
 			parent.doProcess();
