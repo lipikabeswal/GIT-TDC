@@ -75,6 +75,7 @@ Debug.write("Cachaable html widget ondata");
  		setItemId();
 		func2();
 		gHotKeys.disableKeys();
+		gTooltip.hideTooltip ();
 		gController.freezeUI();
 		//doneLoading();
 		
