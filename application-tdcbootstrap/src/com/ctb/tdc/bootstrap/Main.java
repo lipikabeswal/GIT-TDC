@@ -208,7 +208,7 @@ public class Main {
 			if (isLinux()){
 				inBuff = ServletUtils.httpClientSendRequest4Update(tdcConfigUrl);        						
 			}else{
-				inBuff = ServletUtils.httpClientSendRequest(tdcConfigUrl).getBytes();
+				inBuff = ServletUtils.httpClientSendServerRequest(tdcConfigUrl);
 			}
 			
 			
@@ -248,7 +248,13 @@ public class Main {
 							ConsoleUtils.messageOut( " - writing " + zipEntryFilePath );
 							File file = new File(zipEntryFilePath);
 							FileOutputStream fos = new FileOutputStream(file, false);
-							int read = 0;
+							int numBytes;
+							byte[] buffer = new byte[1024];
+							while ((numBytes = zis.read(buffer, 0, buffer.length)) != -1){
+				                fos.write(buffer, 0, numBytes);
+				            }
+							/*int read = 0;
+							System.out.println("zipEntry.getSize() -> " + zipEntry.getSize());
 							while( read >= 0 && read < zipEntry.getSize() ) {
 								byte[] bytes = new byte[2048];
 								// fix typo
@@ -256,17 +262,14 @@ public class Main {
 								if( read != -1 ) {
 									fos.write(bytes, 0, read);
 								}
-							}
-							
+							}*/
 							fos.close();
-							
-	                    }
+					    }
                     } catch(ZipException ze) {
-                    	
+                    	ze.printStackTrace();
                     	ConsoleUtils.messageOut("Exception reading file from zip: " + zipEntryFilePath);
                     }
-                    
-				} else {
+               } else {
 					new File(zipEntry.getName()).mkdir();
 				}
 			}
@@ -274,8 +277,11 @@ public class Main {
 			zis.close();
             ConsoleUtils.messageOut("Done with zip entries.");
 		} catch( IOException ioe ) {
-			ioe.printStackTrace();
-			throw new BootstrapException( ResourceBundleUtils.getString("bootstrap.main.error.clientConfigIOException") );
+			ioe.printStackTrace(); // TDC should continue even without update if error comes
+			//throw new BootstrapException( ResourceBundleUtils.getString("bootstrap.main.error.clientConfigIOException") );
+		} catch (Exception e) {
+			e.printStackTrace();
+			//throw new BootstrapException( ResourceBundleUtils.getString("bootstrap.main.error.clientConfigIOException") );
 		}
 	}
 	
@@ -307,7 +313,8 @@ public class Main {
 	private static String getUpgradeDirectoryUrl(){
 		String productType = System.getProperty("product.type");
 		String base = "";
-		baseurl = System.getProperty("tdc.baseurl");
+		base = ResourceBundleUtils.getString("bootstrap.main.base.tdcupdate.url");
+		/*baseurl = System.getProperty("tdc.baseurl");
 		if(baseurl != null && !"".equals(baseurl.trim())) {
 			base = baseurl + "/tdcupdate";
 		} else {
@@ -323,7 +330,7 @@ public class Main {
 				base = ResourceBundleUtils.getString("bootstrap.main.llo.url");
 			else 
 				base = ResourceBundleUtils.getString("bootstrap.main.base.url");
-		}		
+		}*/		
 		String version = ResourceBundleUtils.getVersionString("tdc.version");
 		version = "v" + version.substring(0, version.lastIndexOf("."));
 		String result = base + "/" + version + "/";
