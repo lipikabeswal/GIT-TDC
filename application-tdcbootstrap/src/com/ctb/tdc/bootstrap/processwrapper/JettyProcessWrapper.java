@@ -342,7 +342,10 @@ public class JettyProcessWrapper extends Thread {
             }            
 			Runtime.getRuntime().exec(this.stopCmd, null, new File(tdcHome) );
 			String teItemsPath = this.tdcHome + File.separator + "webapp" + File.separator + "items";
-			deleteTEItems(teItemsPath);
+			File checkExistance = new File(teItemsPath);
+			if(checkExistance.exists()) {
+				deleteTEItems(teItemsPath);
+			}
 		} catch( IOException e ) {
 			ConsoleUtils.messageErr("An error has occured within " + this.getClass().getName(), e);
 		}
