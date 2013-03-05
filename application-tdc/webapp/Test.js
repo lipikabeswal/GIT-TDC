@@ -105,7 +105,7 @@ if($0=="true"){
 this.hasfontaccom==true
 }else{
 this.hasfontaccom==false
-}},"highlighterSel",void 0,"eraserSel",void 0,"$m6",function($0){
+}},"highlighterSel",void 0,"eraserSel",void 0,"eliminatorSel",void 0,"$m6",function($0){
 with(this){
 $0=$0.split("|");this.xscalefactor=Number($0[0]);this.yscalefactor=Number($0[1])
 }},"$m7",function($0){
@@ -207,15 +207,17 @@ with(this){
 if(!$0)return;var $1=$0;if(!$1)return;var $2=0;for(var $3 in $1){
 var $4=$1[$3];var $5=new Number($4["z_order"]);if($5>$2){
 $2=$5
-}};for(var $6=$2;$6>=0;$6--){
+}};for(var $6=$2;$6>0;$6--){
 var $7=getManipForDepth($6,$1);if($7!=null&&typeof $7!="undefined"){
 $7.bringToFront()
+}else{
+gMaskingRuler.bringToFront()
 }};if(gScratchpad.visible){
 gScratchpad.bringToFront()
 }}},"getManipForDepth",function($0,$1){
 with(this){
 var $2=null;for(var $3 in $1){
-var $4=$1[$3];var $5=new Number($4["z_order"]);if($5==$0){
+var $4=$1[$3];var $5=$4["z_order"];if($5==$0){
 $2=getInstanceForTool($3)
 }};return $2
 }},"getInstanceForTool",function($0){
@@ -283,23 +285,35 @@ var $1=document.getElementById("__lz1").contentWindow.accomPkg;var $2;var $3;swi
 case "highlighter":
 if(this.eraserSel){
 setManipulativeSelState("eraser","up");$1.enableEraser(false);this.setAttribute("eraserSel",false)
+}if(this.eliminatorSel){
+setManipulativeSelState("option_eliminator","up");this.setAttribute("eliminatorSel",false)
 }if($1.enableHighlighterArea){
 this.setAttribute("highlighterSel",false);$1.enableHighlighter(false);$1.removeHighlighterCursor()
 }else{
 if(gMaskingRuler.visible){
-gMaskingRuler.hide();gMaskingRuler.setAttribute("isselected",false)
+setManipulativeSelState("masking_ruler","up");gMaskingRuler.hide();gMaskingRuler.setAttribute("isselected",false)
 };this.setAttribute("highlighterSel",true);$1.enableHighlighter(true);$1.removeHighlighterCursor();$1.setHighlighterCursor("../../includes/cursor_images/cursor_highliter.png")
 }break;
 case "eraser":
 if(this.highlighterSel){
 setManipulativeSelState("highlighter","up");$1.enableHighlighter(false);this.setAttribute("highlighterSel",false)
+}if(this.eliminatorSel){
+setManipulativeSelState("option_eliminator","up");this.setAttribute("eliminatorSel",false)
 }if($1.enableEraserArea){
 this.setAttribute("eraserSel",false);$1.enableEraser(false);$1.removeHighlighterCursor();$1.setEraserCursor("pointer")
 }else{
 if(gMaskingRuler.visible){
-gMaskingRuler.hide();gMaskingRuler.setAttribute("isselected",false)
+setManipulativeSelState("masking_ruler","up");gMaskingRuler.hide();gMaskingRuler.setAttribute("isselected",false)
 };this.setAttribute("eraserSel",true);$1.enableEraser(true);$1.removeHighlighterCursor();$1.setEraserCursor("../../includes/cursor_images/cursor_eraser.png")
 }break;
+case "option_eliminator":
+if(this.highlighterSel){
+setManipulativeSelState("highlighter","up");$1.enableHighlighter(false);this.setAttribute("highlighterSel",false)
+}if(this.eraserSel){
+setManipulativeSelState("eraser","up");$1.enableEraser(false);this.setAttribute("eraserSel",false)
+}if(gMaskingRuler.visible){
+setManipulativeSelState("masking_ruler","up");gMaskingRuler.hide();gMaskingRuler.setAttribute("isselected",false)
+}this.setAttribute("eliminatorSel",true);$1.removeHighlighterCursor();break;
 case "protractor":
 if(gProtractor.visible){
 gProtractor.hide();gProtractor.setAttribute("isselected",false)
@@ -402,7 +416,7 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzCanvas,["displayName","<anonymous extends='canvas'>","attributes",new LzInheritedHash(LzCanvas.attributes)]);canvas=new $lzc$class_mj(null,{$delegates:["oninit","$m3",null,"onmanipOutOfFrameCheck","$m4",null,"onhasfontaccom","$m5",null,"onscalefactor","$m6",null,"onshowpleasewaitpopup","$m7",null,"onhidepleasewaitpopup","$m8",null,"onshowpleasewaitpopupcontrols","$m9",null,"onmanipulativedata","$ma",null,"onfreezeui","$mb",null,"onunlockui","$mc",null,"onsrcurl","$md",null,"onscratchpadtext","$me",null,"onmanipData","$mf",null,"onvisible","$mg",null,"onmanipid","$mh",null,"oninit","$mi",null],CM_RULER_INDEX:6,FCAT_FORMULA_CARD_INDEX:7,FORMULA_CARD_INDEX:11,HALF_INCH_RULER_INDEX:4,MASKING_RULER_INDEX:12,MM_RULER_INDEX:5,NUMBER_OF_MANIPULATIVES:13,ONEEIGHTH_INCH_RULER_INDEX:3,PROTRACTOR_INDEX:1,SCIENTIFIC_CALCULATOR_INDEX:10,SCRATCHPAD_INDEX:0,STANDARD_CALCULATOR_INDEX:9,STRAIGHT_EDGE_INDEX:2,TN_FORMULA_CARD_INDEX:8,__LZproxied:"true",appbuilddate:"2013-03-04T14:44:50Z",bgcolor:16777215,currentCursor:null,embedfonts:true,eraserSel:false,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",freezeui:null,hasfontaccom:false,height:"100%",hidepleasewaitpopup:false,highlighterSel:false,htmlGeneralManip:new LzOnceExpr("htmlGeneralManip","expression","$m1",null),htmlGeneralOpenManip:new LzOnceExpr("htmlGeneralOpenManip","expression","$m2",null),isLoaded:false,lpsbuild:"branches/4.9@17752 (17752)",lpsbuilddate:"2010-10-22T16:12:42Z",lpsrelease:"Production",lpsversion:"4.9.0",manipData:null,manipOutOfFrameCheck:"false",manipid:null,manipulativedata:false,readable:false,runtime:"dhtml",scalefactor:null,scratchpadtext:null,showpleasewaitpopup:false,showpleasewaitpopupcontrols:false,srcurl:null,unlockui:null,width:"100%",xscalefactor:null,yscalefactor:null,zOrder:void 0});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;{
+}],LzCanvas,["displayName","<anonymous extends='canvas'>","attributes",new LzInheritedHash(LzCanvas.attributes)]);canvas=new $lzc$class_mj(null,{$delegates:["oninit","$m3",null,"onmanipOutOfFrameCheck","$m4",null,"onhasfontaccom","$m5",null,"onscalefactor","$m6",null,"onshowpleasewaitpopup","$m7",null,"onhidepleasewaitpopup","$m8",null,"onshowpleasewaitpopupcontrols","$m9",null,"onmanipulativedata","$ma",null,"onfreezeui","$mb",null,"onunlockui","$mc",null,"onsrcurl","$md",null,"onscratchpadtext","$me",null,"onmanipData","$mf",null,"onvisible","$mg",null,"onmanipid","$mh",null,"oninit","$mi",null],CM_RULER_INDEX:6,FCAT_FORMULA_CARD_INDEX:7,FORMULA_CARD_INDEX:11,HALF_INCH_RULER_INDEX:4,MASKING_RULER_INDEX:12,MM_RULER_INDEX:5,NUMBER_OF_MANIPULATIVES:13,ONEEIGHTH_INCH_RULER_INDEX:3,PROTRACTOR_INDEX:1,SCIENTIFIC_CALCULATOR_INDEX:10,SCRATCHPAD_INDEX:0,STANDARD_CALCULATOR_INDEX:9,STRAIGHT_EDGE_INDEX:2,TN_FORMULA_CARD_INDEX:8,__LZproxied:"true",appbuilddate:"2013-03-05T14:58:50Z",bgcolor:16777215,currentCursor:null,eliminatorSel:false,embedfonts:true,eraserSel:false,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",freezeui:null,hasfontaccom:false,height:"100%",hidepleasewaitpopup:false,highlighterSel:false,htmlGeneralManip:new LzOnceExpr("htmlGeneralManip","expression","$m1",null),htmlGeneralOpenManip:new LzOnceExpr("htmlGeneralOpenManip","expression","$m2",null),isLoaded:false,lpsbuild:"branches/4.9@17752 (17752)",lpsbuilddate:"2010-10-22T16:12:42Z",lpsrelease:"Production",lpsversion:"4.9.0",manipData:null,manipOutOfFrameCheck:"false",manipid:null,manipulativedata:false,readable:false,runtime:"dhtml",scalefactor:null,scratchpadtext:null,showpleasewaitpopup:false,showpleasewaitpopupcontrols:false,srcurl:null,unlockui:null,width:"100%",xscalefactor:null,yscalefactor:null,zOrder:void 0});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 with(this){
 setActive($0)
@@ -7193,8 +7207,9 @@ this.datapath.setXPath(this.datapath.xpath+"/"+this.toolid);var $1=this.getDispl
 if(this.visible){
 this.bringToFront()
 }},"bringToFront",function(){
-(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["bringToFront"]||this.nextMethod(arguments.callee,"bringToFront")).call(this)
-},"hide",function(){
+with(this){
+(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["bringToFront"]||this.nextMethod(arguments.callee,"bringToFront")).call(this);canvas.sendToFront(this.toolid)
+}},"hide",function(){
 this.setAttribute("visible",false)
 },"show",function(){
 this.setAttribute("visible",true)
