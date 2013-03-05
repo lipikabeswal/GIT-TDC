@@ -28,6 +28,7 @@
 
 		<method name="bringToFront">
 			super.bringToFront();
+			canvas.sendToFront(this.toolid);
 			//gManipulatives.sendToFront(this.toolid);
 		</method>
 		
