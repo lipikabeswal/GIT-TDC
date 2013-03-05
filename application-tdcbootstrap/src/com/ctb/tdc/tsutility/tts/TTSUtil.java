@@ -87,7 +87,8 @@ public class TTSUtil {
 			throw new Exception("error response from TextHelp: " + thResponse);
 		} else {
 			resultText += "- MP3 request successful" + "\n\n";
-			String mp3URL = thResponse.substring(thResponse.indexOf("mp3=") + 4);
+			//String mp3URL = thResponse.substring(thResponse.indexOf("mp3=") + 4);
+			String mp3URL = thResponse; // new url response does not append a parameter of mp3
 			return textHelpMP3(mp3URL, resultText);
 		}
 	}
@@ -251,8 +252,13 @@ public class TTSUtil {
 			post.setFollowRedirects(false);
 			NameValuePair[] params = { new NameValuePair("text", text),
 					   new NameValuePair("voiceName", voice),
+					   new NameValuePair("customerid", "5857"),
+					   new NameValuePair("lang", "en_us"),
+					   new NameValuePair("output", "audiolink"),
 					   new NameValuePair("speedValue", speedvalue)};
 			post.setRequestBody(params);
+			
+			post.addRequestHeader("x-readspeaker-api-key", "ac678cf868483de0b733cf4d81b6367b");
 
 			// send request to TextHelp
 			try {
@@ -281,6 +287,11 @@ public class TTSUtil {
 							responseLen = Integer.valueOf(post.getResponseHeader("content-length").getValue()).intValue();
 						}
 						
+						//Response is coming as null, however response body contains the mp3. Hence checking with .mp3 and making response length to any value > 0.
+						if(post.getResponseBodyAsString().indexOf(".mp3") > 0) {
+							responseLen = 10; //Just a random positive integer
+						}
+						
 						System.out.println("Text Status: " + responseCode + " Length: " + responseLen);
 						
 						if (responseCode == HttpStatus.SC_OK && responseLen > 0) {
@@ -291,7 +302,8 @@ public class TTSUtil {
 							while ((inputLine = in.readLine()) != null) {
 								result += inputLine;
 							}
-							if(result.indexOf("mp3=") >= 0) {
+							//if(result.indexOf("mp3=") >= 0) {
+							if(result.indexOf(".mp3") >= 0) { // Now the url does not contain mp3=, the url directly contain the file as fileName.mp3
 								in.close();
 								completed = true;
 								TTSRetry = 0;
@@ -340,6 +352,8 @@ public class TTSUtil {
 					System.out.println("Text returning after interrupt: " + SpeechRequest.result);
 					return SpeechRequest.result;
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		System.out.println("Text returning null");
