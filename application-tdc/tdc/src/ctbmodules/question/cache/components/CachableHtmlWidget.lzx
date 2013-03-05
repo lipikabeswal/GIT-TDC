@@ -238,6 +238,9 @@ Debug.write("Cachaable html widget ondata");
 
 			case 'masking_ruler'	:  gController.manipStateHtml['masking_ruler'] = manipButton;
 			break;
+			
+			case 'option_eliminator'	:  gController.manipStateHtml['option_eliminator'] = manipButton;
+			break;
 			}
 			for(var key in gController.manipStateHtml) {
     			var value = gController.manipStateHtml[key];

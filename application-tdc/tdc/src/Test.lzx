@@ -217,6 +217,7 @@ else{
 </handler>
 <attribute name="highlighterSel" value="false" type="boolean"/>
 <attribute name="eraserSel" value="false" type="boolean"/>
+<attribute name="eliminatorSel" value="false" type="boolean"/>
 
 <handler name="onscalefactor" args="data">		
 	data = data.split('|');
@@ -449,10 +450,12 @@ canvas.setAttribute('isLoaded', true);
 			maxDepth = newDepth;
 		}
 	}
-	for(var j = maxDepth; j>=0; j--){
+	for(var j = maxDepth; j>0; j--){
 		var manip = getManipForDepth(j, manips);
 		if(manip != null && typeof manip != 'undefined'){
 			manip.bringToFront();
+		}else {
+			gMaskingRuler.bringToFront();
 		}
 	}
 	if(gScratchpad.visible){
@@ -464,7 +467,7 @@ canvas.setAttribute('isLoaded', true);
 	var result = null;
 	for(var key in manips){
 		var manip = manips[key];
-		var manipDepth = new Number(manip['z_order']);
+		var manipDepth = manip['z_order'];
 		if(manipDepth == depth){
 			result = getInstanceForTool(key);
 		}
@@ -677,12 +680,17 @@ switch(arg){
 								accom.enableEraser(false);
 								this.setAttribute('eraserSel',false);
 							}
+							if(this.eliminatorSel){
+								setManipulativeSelState('option_eliminator', 'up');
+								this.setAttribute('eliminatorSel',false);
+							}
 							if(accom.enableHighlighterArea){
 								this.setAttribute('highlighterSel',false);
 								accom.enableHighlighter(false);
 								accom.removeHighlighterCursor();
 							}else{
 								if(gMaskingRuler.visible){
+									setManipulativeSelState('masking_ruler', 'up');
 									gMaskingRuler.hide();
 									gMaskingRuler.setAttribute("isselected",false);
 								}
@@ -698,6 +706,10 @@ switch(arg){
 								accom.enableHighlighter(false);
 								this.setAttribute('highlighterSel',false);
 							}
+							if(this.eliminatorSel){
+								setManipulativeSelState('option_eliminator', 'up');
+								this.setAttribute('eliminatorSel',false);
+							}
 							if(accom.enableEraserArea){
 								this.setAttribute('eraserSel',false);
 								accom.enableEraser(false);
@@ -705,6 +717,7 @@ switch(arg){
 								accom.setEraserCursor("pointer");
 							}else{
 								if(gMaskingRuler.visible){
+									setManipulativeSelState('masking_ruler', 'up');
 									gMaskingRuler.hide();
 									gMaskingRuler.setAttribute("isselected",false);
 								}
@@ -713,6 +726,25 @@ switch(arg){
 								accom.removeHighlighterCursor();
 								accom.setEraserCursor("../../includes/cursor_images/cursor_eraser.png");
 							}
+		break;
+		case 'option_eliminator' :	if(this.highlighterSel){
+										setManipulativeSelState('highlighter', 'up');
+										accom.enableHighlighter(false);
+										this.setAttribute('highlighterSel',false);
+									}
+									if(this.eraserSel){
+										setManipulativeSelState('eraser', 'up');
+										accom.enableEraser(false);
+										this.setAttribute('eraserSel',false);
+									}
+									
+									if(gMaskingRuler.visible){
+										setManipulativeSelState('masking_ruler', 'up');
+										gMaskingRuler.hide();
+										gMaskingRuler.setAttribute("isselected",false);
+									}
+									this.setAttribute('eliminatorSel',true);
+									accom.removeHighlighterCursor();
 		break;
 		case 'protractor' : if(gProtractor.visible){
 								gProtractor.hide();
