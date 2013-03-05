@@ -21,13 +21,14 @@ public class TTSSettings {
 		this.userName = "5ACmaE0j245f";
 		this.password = "5ACmf1U5";
 		this.host = "oastts.ctb.com";*/
-    	//Making changes for new TTS
-    	this.url = "http://ctb.speechstream.net/SpeechServices/index.html";
-		this.voiceName = "ScanSoft Samantha_Full_22kHz";
+		//Making changes for new TTS
+    	this.url = "http://app.readspeaker.com/cgi-bin/rsent";
+		this.voiceName = "Kate";
 		this.speedValue = "-2";
 		this.userName = "5ACmaE0j245f";
 		this.password = "5ACmf1U5";
-		this.host = "ctb.speechstream.net";
+		this.host = "app.readspeaker.com";
+    	
     }
 	
 	public TTSSettings (ResourceBundle rb) {
