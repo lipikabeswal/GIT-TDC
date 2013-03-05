@@ -187,6 +187,7 @@
 	<attribute name="keysPressed" value="null"/>
 	<attribute name="enableManipBar" value="true" type="boolean"/>
 	<attribute name="enableManipulatives" value="true" type="boolean"/>
+	<attribute name="iframeIsLoaded" value="false" type="boolean"/>
 	
 	<handler name="ontriggercrpush" args="data">
 		//Debug.write("*************ontriggercrpush******");

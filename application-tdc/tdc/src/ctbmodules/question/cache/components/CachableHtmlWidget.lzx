@@ -72,11 +72,12 @@ Debug.write("Cachaable html widget ondata");
 			this.main.ht.setAttribute('visible',true);
 		}
  		//this.ht.bringToFront();
- 		setItemId();
-		func2();
-		gHotKeys.disableKeys();
+ 		gHotKeys.disableKeys();
 		gTooltip.hideTooltip ();
 		gController.freezeUI();
+ 		setItemId();
+		func2();
+		
 		//doneLoading();
 		
 		if(gScratchpad.visible){
@@ -181,11 +182,17 @@ Debug.write("Cachaable html widget ondata");
 
 		<method name="setItemId">
 				this.main.ht.callJavascript('setItemId', null,this.srcUrl);
-				if (gController.uisemaphore > 0){
+				/*if (gController.uisemaphore > 0){
 				 	lz.Timer.resetTimer(setItemDel, 50);
 				 }else{
 				 	lz.Timer.removeTimer(setItemDel);
 					//setAnswer();
+				 }*/
+				 if(!canvas.iframeIsLoaded){
+				 	lz.Timer.resetTimer(setItemDel, 50);
+				 }else{
+				 	lz.Timer.removeTimer(setItemDel);
+				 	canvas.setAttribute('iframeIsLoaded',false);
 				 }
 		</method>
 		

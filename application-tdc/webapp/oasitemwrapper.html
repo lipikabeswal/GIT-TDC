@@ -208,6 +208,7 @@ img {
 					    var stat = window.parent.getReadable();
 					    readable =  stat == "true"? true: false;
 					    unlockUI();
+					    window.parent.setIframeIsLoaded();
 					    if(readable){
 					    	document.getElementById('read_btn').style.display = "block";
 					    }else{
