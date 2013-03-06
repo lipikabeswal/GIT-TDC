@@ -15,12 +15,20 @@ public class TTSSettings {
     }
     
     private void init() {
-		this.url = "https://oastts.ctb.com/SpeechServer/";
+		/*this.url = "https://oastts.ctb.com/SpeechServer/";
 		this.voiceName = "ScanSoft Jill_Full_22kHz";
 		this.speedValue = "-2";
 		this.userName = "5ACmaE0j245f";
 		this.password = "5ACmf1U5";
-		this.host = "oastts.ctb.com";    
+		this.host = "oastts.ctb.com";*/
+		//Making changes for new TTS
+    	this.url = "http://app.readspeaker.com/cgi-bin/rsent";
+		this.voiceName = "Kate";
+		this.speedValue = "-2";
+		this.userName = "5ACmaE0j245f";
+		this.password = "5ACmf1U5";
+		this.host = "app.readspeaker.com";
+    	
     }
 	
 	public TTSSettings (ResourceBundle rb) {
