@@ -87,7 +87,6 @@ public class PersistenceServlet extends HttpServlet {
 	public void init() throws ServletException {
 		// do nothing
 		//verifyServletSettings();
-		HttpRequest.__maxFormContentSize = Integer.getInteger("org.mortbay.http.HttpRequest.maxFormContentSize", 10000000).intValue();
 	}
 
 	/**
