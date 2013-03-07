@@ -193,7 +193,10 @@ img {
 					    	}else{
 					    		document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
 					    	}			    	
-					      	document.getElementById('__lz1').contentWindow.translate(xscalefactorjs,yscalefactorjs);
+					      	var xscalefact = (780 * xscalefactorjs)/800;
+					    	var yscalefact = (450 * yscalefactorjs)/462;
+					    	document.getElementById('__lz1').contentWindow.translate(xscalefact, yscalefact);
+					      	//document.getElementById('__lz1').contentWindow.translate(xscalefactorjs,yscalefactorjs);
 					    }
 					  };
 					} else {
@@ -247,7 +250,10 @@ img {
 				    	 FCAT_formula_card.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";
 				    	 TN_formula_card.style.webkitTransform  = "scale("+xscalefactorjs+", "+yscalefactorjs+")";*/
 				    	lz.embed.setCanvasAttribute('readable',stat);
-				    	document.getElementById('__lz1').contentWindow.translate(xscalefactorjs, (450 * yscalefactorjs)/600);
+				    	var xscalefact = (780 * xscalefactorjs)/800;
+				    	var yscalefact = (450 * yscalefactorjs)/462;
+				    	document.getElementById('__lz1').contentWindow.translate(xscalefact, yscalefact);
+				    	//document.getElementById('__lz1').contentWindow.translate(xscalefactorjs, (450 * yscalefactorjs)/600);
 				    	initScratchpad(fontObj.hasFont);
 				    	var scratchPadLatest = window.parent.scratchpadManager.getCounter();
 				    	var manipObjectAtCounter = window.parent.scratchpadManager.getObjectAtCounter(scratchPadLatest);
@@ -300,7 +306,10 @@ img {
 		    		showOpenManipulative(manip);
 		    		
 	    	  	lz.embed.setCanvasAttribute('readable',stat);
-		    	document.getElementById('__lz1').contentWindow.translate(xscalefactorjs, (450 * yscalefactorjs)/600);
+	    	  	var xscalefact = (780 * xscalefactorjs)/800;
+		    	var yscalefact = (450 * yscalefactorjs)/462;
+		    	document.getElementById('__lz1').contentWindow.translate(xscalefact, yscalefact);
+		    	//document.getElementById('__lz1').contentWindow.translate(xscalefactorjs, (450 * yscalefactorjs)/600);
 		    	initScratchpad(fontObj.hasFont);
 		    	var scratchPadLatest = window.parent.scratchpadManager.getCounter();
 		    	var manipObjectAtCounter = window.parent.scratchpadManager.getObjectAtCounter(scratchPadLatest);
