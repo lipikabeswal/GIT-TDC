@@ -128,24 +128,32 @@ var ddpowerzoomer={
 			    }else{
 			    	$('#magnifierWindow').css( 'cursor', 'move' );
 			    }
-				var $magnifier=ddpowerzoomer.$magnifier
-				var s = ddpowerzoomer.$zommersettings
-				$magnifier.outer.css({width:parseInt(s.magnifiersize[0]), height:parseInt(s.magnifiersize[1])}) //set magnifier's size
-				var imgref = ddpowerzoomer.$imageRef;
-				var offset= $(imgref).offset() //get image offset from document
-				var power=imgref.info.power.current
-				$magnifier.inner.html('<img src="'+s.largeimagesrc+'"/>') //get base image's src and create new image inside magnifier based on it
-				$magnifier.image=$magnifier.outer.find('img:first')
-					.css({width:imgref.info.dimensions[0]*power, height:imgref.info.dimensions[1]*power}) //set size of enlarged image
-				var coords={left:offset.left, top:offset.top, right:offset.left+imgref.info.dimensions[0], bottom:offset.top+imgref.info.dimensions[1]}
-				imgref.info.coords=coords //remember left, right, and bottom right coordinates of image relative to doc
-				$magnifier.outer.show()
-				ddpowerzoomer.activeimage=imgref
-				if (ddpowerzoomer.activeimage){ //if mouse is currently over a magnifying image
-					ddpowerzoomer.movemagnifier(event, true) //move magnifier
+			    if(isMagnifierVisible == false || isMagnifierVisible == 'false') {
+					ddpowerzoomer.$magnifier.outer.hide()
+				}
+				else {
+					var $magnifier=ddpowerzoomer.$magnifier
+					var s = ddpowerzoomer.$zommersettings
+					$magnifier.outer.css({width:parseInt(s.magnifiersize[0]), height:parseInt(s.magnifiersize[1])}) //set magnifier's size
+					var imgref = ddpowerzoomer.$imageRef;
+					var offset= $(imgref).offset() //get image offset from document
+					var power=imgref.info.power.current
+					$magnifier.inner.html('<img src="'+s.largeimagesrc+'"/>') //get base image's src and create new image inside magnifier based on it
+					$magnifier.image=$magnifier.outer.find('img:first')
+						.css({width:imgref.info.dimensions[0]*power, height:imgref.info.dimensions[1]*power}) //set size of enlarged image
+					var coords={left:offset.left, top:offset.top, right:offset.left+imgref.info.dimensions[0], bottom:offset.top+imgref.info.dimensions[1]}
+					imgref.info.coords=coords //remember left, right, and bottom right coordinates of image relative to doc
+					$magnifier.outer.show()
+					ddpowerzoomer.activeimage=imgref
+					if (ddpowerzoomer.activeimage){ //if mouse is currently over a magnifying image
+						ddpowerzoomer.movemagnifier(event, true) //move magnifier
+					}
 				}
 			},
 			stop: function(event, ui) {
+				if(isMagnifierVisible == false || isMagnifierVisible == 'false') {
+					ddpowerzoomer.$magnifier.outer.hide()
+				}
 				$('#magnifierWindow').css( 'cursor', 'pointer' );
 			}
 			
