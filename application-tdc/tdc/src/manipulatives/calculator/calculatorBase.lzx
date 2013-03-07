@@ -58,7 +58,7 @@
         
         <dragstate name="dragger"
                    drag_min_x="$once{-(this.width - 70)}" 
-                   drag_min_y="$once{-(this.height - 70)}"
+                   drag_min_y="$once{-(this.height)}"
                    drag_max_x="$once{parent.width - 100}"
                    drag_max_y="$once{parent.height - 100}"/>
 
