@@ -54,6 +54,9 @@
 
 <attribute name="manipOutOfFrameCheck" value="false" type="string"/>
 
+<attribute name="drestoreMaskingRuler"
+			value="$once{ new lz.Delegate( this, 'restoreMaskingRuler' )}" />
+
 <handler name="oninit">
 	this.reset();
 </handler>
@@ -663,6 +666,14 @@ var manipObjData;
 	lz.Browser.loadJS(s);
 </method>
 
+<method name="restoreMaskingRuler">
+	if(gMaskingRuler.visible){
+		setManipulativeSelState('masking_ruler', 'up');
+		gMaskingRuler.hide();
+		gMaskingRuler.setAttribute("isselected",false);
+	}
+</method>
+
 <handler name="onvisible" args="arg">
 	if(gScratchpad.visible){
 		setFocus();
@@ -689,11 +700,8 @@ switch(arg){
 								accom.enableHighlighter(false);
 								accom.removeHighlighterCursor();
 							}else{
-								if(gMaskingRuler.visible){
-									setManipulativeSelState('masking_ruler', 'up');
-									gMaskingRuler.hide();
-									gMaskingRuler.setAttribute("isselected",false);
-								}
+								lz.Timer.resetTimer(drestoreMaskingRuler, 4);
+								
 								this.setAttribute('highlighterSel',true);
 								accom.enableHighlighter(true);
 								accom.removeHighlighterCursor();	
@@ -716,11 +724,8 @@ switch(arg){
 								accom.removeHighlighterCursor();
 								accom.setEraserCursor("pointer");
 							}else{
-								if(gMaskingRuler.visible){
-									setManipulativeSelState('masking_ruler', 'up');
-									gMaskingRuler.hide();
-									gMaskingRuler.setAttribute("isselected",false);
-								}
+								lz.Timer.resetTimer(drestoreMaskingRuler, 4);
+
 								this.setAttribute('eraserSel',true);
 								accom.enableEraser(true);
 								accom.removeHighlighterCursor();
@@ -738,11 +743,8 @@ switch(arg){
 										this.setAttribute('eraserSel',false);
 									}
 									
-									if(gMaskingRuler.visible){
-										setManipulativeSelState('masking_ruler', 'up');
-										gMaskingRuler.hide();
-										gMaskingRuler.setAttribute("isselected",false);
-									}
+									lz.Timer.resetTimer(drestoreMaskingRuler, 4);
+
 									this.setAttribute('eliminatorSel',true);
 									accom.removeHighlighterCursor();
 		break;
