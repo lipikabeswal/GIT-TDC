@@ -700,7 +700,7 @@ switch(arg){
 								accom.enableHighlighter(false);
 								accom.removeHighlighterCursor();
 							}else{
-								lz.Timer.resetTimer(drestoreMaskingRuler, 4);
+								lz.Timer.resetTimer(drestoreMaskingRuler, 50);
 								
 								this.setAttribute('highlighterSel',true);
 								accom.enableHighlighter(true);
@@ -724,7 +724,7 @@ switch(arg){
 								accom.removeHighlighterCursor();
 								accom.setEraserCursor("pointer");
 							}else{
-								lz.Timer.resetTimer(drestoreMaskingRuler, 4);
+								lz.Timer.resetTimer(drestoreMaskingRuler, 50);
 
 								this.setAttribute('eraserSel',true);
 								accom.enableEraser(true);
@@ -743,7 +743,7 @@ switch(arg){
 										this.setAttribute('eraserSel',false);
 									}
 									
-									lz.Timer.resetTimer(drestoreMaskingRuler, 4);
+									lz.Timer.resetTimer(drestoreMaskingRuler, 50);
 
 									this.setAttribute('eliminatorSel',true);
 									accom.removeHighlighterCursor();
