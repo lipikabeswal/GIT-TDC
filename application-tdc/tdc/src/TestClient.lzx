@@ -275,7 +275,9 @@
 					var manipData = new Object();
 					manipData = gController.htmlGeneralManipData[i];
 					var closedManip = manipData[manipName];
-					closedManip['isselected'] = 'false';
+					if(closedManip && closedManip.length!= 0) {
+						closedManip['isselected'] = 'false';
+					}
 				}
 			}
 		}
