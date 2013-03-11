@@ -170,7 +170,7 @@
             }
             this.setAttribute('align', just);
 			
-			dataText = handleHTMLtags(dataText);
+			//dataText = handleHTMLtags(dataText);
             this.thetext.setAttribute("text",
                 '<p align="' + just + '">' + dataText + '</p>');
 
