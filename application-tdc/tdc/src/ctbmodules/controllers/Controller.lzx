@@ -839,8 +839,13 @@
 			         		else {
 								var xPath = "tsd/ist[@iid='" + visitedItemId + "']";
 			         			var raw = dprestart.xpathQuery(xPath + "/ov[@n='SCORE']/v/text()");
-								itemScores.push(raw);
-			         			rawscore = Number(rawscore) + Number(raw);
+								if(raw != null && raw != undefined && raw != "") {
+									itemScores.push(raw);
+				         			rawscore = Number(rawscore) + Number(raw);
+								} else {
+									// It means this might a NI or theme item
+									itemScores.push(0);
+								}
 			         		}
 						}
 					}
@@ -850,8 +855,13 @@
 						var xPath = "tsd/ist[@iid='" + visitedItemId + "']";
 		         		if(itemId.indexOf('FT') <= 0) {
 		         			var raw = dprestart.xpathQuery(xPath + "/ov[@n='SCORE']/v/text()");
-							itemScores.push(raw);
-		         			rawscore = Number(rawscore) + Number(raw);
+							if(raw != null && raw != undefined && raw != "") {
+								itemScores.push(raw);
+			         			rawscore = Number(rawscore) + Number(raw);
+							} else {
+								// It means this might a NI or theme item
+								itemScores.push(0);
+							}
 		         		}
 						else {
 							itemScores.push(0);
@@ -4152,7 +4162,7 @@ Debug.write("############ loadItem ############");
 				}
 			}
 			this.resetImageArray();
-			this.setattribute('isaudio',false);
+			this.setAttribute('isaudio',false);
 			setState(CALCULATOR_CLOSE);			
 			gCommunicator.closeOkCalculator();			
         ]]></method>

@@ -96,7 +96,9 @@
 		var totalViewedCount = 0;
 		var scoArr = dpscore.xpathQuery('title/sco');
 		var testTitle = dpscore.xpathQuery('title/@name'); // For FT Item
-		var FTMsg = (gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/raw_score")).childNodes[0]; // For FT Item
+		if((gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/raw_score")) != null){
+			var FTMsg = (gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/raw_score")).childNodes[0]; // For FT Item
+		}
 		var isXmlFT =  gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/@isFT"); // For FT item
 		if(scoArr && scoArr instanceof Array) {
 			for(var i=0; i<scoArr.length; i++){
@@ -125,9 +127,8 @@
 				totalViewedCount = Number(totalViewedCount) + Number(viewedCount);
 				info.testName.setAttribute('text',testName);
 				/* For FT Item*/
-				if(isXmlFT && isXmlFT != null){
+				if(isXmlFT && isXmlFT != null && FTMsg !=null){
 					info.raw.setAttribute('text',FTMsg);
-					
 				}else{
 					info.raw.setAttribute('text',totalRaw);
 				}
@@ -208,10 +209,11 @@
 		var rawScoreArr = gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/raw_score");
 			/* For FT Item*/
 		var isXmlFT =  gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/@isFT");
-		if(isXmlFT){
+		if(isXmlFT && isXmlFT != null){
 			PerfLevel = "";
 		}
 		else{
+			if(rawScoreArr != null){
 				for(var i=0; i<rawScoreArr.length; i++){
 					var score = rawScoreArr[i]; 
 					var minScore = score.getAttr('minscore');
@@ -221,6 +223,7 @@
 						break;
 					}
 				}
+			}
 		}
 		return PerfLevel;
 	// Below code is no longer required as values will be read dynamically from file testScore.xml
