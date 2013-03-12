@@ -386,7 +386,7 @@
 					<handler name="ontext"><![CDATA[
 						var size = (canvas.basefontsize+2);
 						var elm = this.getDisplayObject();
-						elm.setAttribute('style','text-align: center; top: -5px; font-family: CTB; font-weight: bold; font-size : '+size+';');
+						elm.setAttribute('style','text-align: center; top: -5px; font-family: CTB; font-weight: bold; white-space: pre-wrap; font-size : '+size+';');
 					]]></handler>
                 </text>
 

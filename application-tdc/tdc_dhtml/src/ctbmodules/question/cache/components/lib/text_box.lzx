@@ -60,7 +60,7 @@
 		 	//this.footnotetext.setAttribute("text", this.fntext);
 			if (gController.hasFontAccommodation){
 				this.footnotetext.setAttribute("text",
-	                '<label><span style="line-height:17px;">' + this.fntext + '</span></label>');
+	                '<label><span style="line-height:21px;">' + this.fntext + '</span></label>');
 			}else{
 				this.footnotetext.setAttribute("text",
 	                '<label><span style="line-height:14px;">' + this.fntext + '</span></label>');

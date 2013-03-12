@@ -166,15 +166,23 @@
             if (data.hasAttr("halign")) {
                 just = data.getAttr("halign");
             }
-            this.setAttribute('align', just);
+            console.log("halign"+data.getAttr("halign"));
+            console.log("just"+just);
+           this.setAttribute('align', just);
             
 		   if (gController.hasFontAccommodation){
-				this.thetext.setAttribute("text",
-	                '<label><span style="line-height:20px;">' + dataText + '</span></label>');
+				if(dataText.indexOf("<br") != -1) {
+					this.thetext.setAttribute("text",
+	                	'<label><span style="line-height:17px; white-space: pre-wrap;">' + dataText + '</span></label>');
+				}else{
+					this.thetext.setAttribute("text",
+	                	'<label><span style="line-height:20px; white-space: pre-wrap;">' + dataText + '</span></label>');
+				}
 		   }else{
 	           this.thetext.setAttribute("text",
-	                '<label><span style="line-height:17px;">' + dataText + '</span></label>');
+	                '<label><span style="line-height:14px; white-space: pre-wrap;">' + dataText + '</span></label>');
 			}
+			
 
 			console.log("this.thetext.getTextHeight  "+this.thetext.getTextHeight())
 
@@ -1397,14 +1405,13 @@ parse the text string and store text and image string in an array at different i
                x="${classroot.leftPadding}"
                width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
                fgcolor="${classroot.fontcolor}" 
-               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" >
+               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" align="classroot.align">
 				
 				<handler name="ontext"><![CDATA[
 					var elm = this.getDisplayObject();
 					var textAlign = "text-align: "+classroot.align;
-					if(this.text.indexOf("<br") != -1) {
-						elm.setAttribute('style','width: 94%; font-family: CTB;'+textAlign+'');
-					}
+					
+					
 					//elm.setAttribute('style','line-height: 0px; font-family: CTB;');
 					//elm.setAttribute('font-family','CTB');
 					]]>

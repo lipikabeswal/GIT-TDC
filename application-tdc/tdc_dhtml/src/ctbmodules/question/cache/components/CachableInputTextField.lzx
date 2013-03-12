@@ -39,10 +39,10 @@
 			//thetext.setAttribute('text', txt);
 			if (gController.hasFontAccommodation){
 				this.thetext.setAttribute("text",
-	                '<label><span style="line-height:20px;">' + txt + '</span></label>');
+	                '<label><span style="line-height:21px;">' + txt + '</span></label>');
 		   }else{
 	           this.thetext.setAttribute("text",
-	                '<label><span style="line-height:17px;">' + txt + '</span></label>');
+	                '<label><span style="line-height:14px;">' + txt + '</span></label>');
 			}
 			//no need for this
 			//thetext.setAttribute('width', contents.thetext.getWidth() + 1);
