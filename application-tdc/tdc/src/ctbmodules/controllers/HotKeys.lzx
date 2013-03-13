@@ -266,60 +266,70 @@
         <method name="toggleA">    
         	if(!gController.isCrItem()){
 	            this.exitPopups();
+	            gEnlargePopup.shrink();
 	        	gController.toggleItemSelState( 'A' ); 
 	        }
         </method>
         <method name="toggleB">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
+	            gEnlargePopup.shrink();
 	        	gController.toggleItemSelState( 'B' ); 
 	        }
         </method>
         <method name="toggleC">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
+	            gEnlargePopup.shrink();
 	        	gController.toggleItemSelState( 'C' ); 
 	        }
          </method>
         <method name="toggleD">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
+	            gEnlargePopup.shrink();
 	        	gController.toggleItemSelState( 'D' ); 
 	        }
        </method>
         <method name="toggleE">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
+	            gEnlargePopup.shrink();
 	        	gController.toggleItemSelState( 'E' ); 
 	        }
         </method>
         <method name="toggleF">    
         	if(!gController.isCrItem()){
 	            this.exitPopups();
+	            gEnlargePopup.shrink();
 	        	gController.toggleItemSelState( 'F' ); 
 	        }
         </method>
         <method name="toggleG">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
+	            gEnlargePopup.shrink();
 	        	gController.toggleItemSelState( 'G' ); 
 	        }
         </method>
         <method name="toggleH">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
+	            gEnlargePopup.shrink();
 	        	gController.toggleItemSelState( 'H' ); 
 	        }
         </method>
 		<method name="toggleI">    
 			if(!gController.isCrItem()){
 		    	this.exitPopups(); 
+		    	gEnlargePopup.shrink();
 				gController.toggleItemSelState( 'I' ); 
 			}
 		</method>
         <method name="toggleJ">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
+	            gEnlargePopup.shrink();
 	        	gController.toggleItemSelState( 'J' ); 
 	        }
         </method>        
@@ -331,6 +341,7 @@
         		}
         	
             	this.exitPopups();
+            	gEnlargePopup.shrink();
         		gController.stepNavigateBack();
 			}      
        	]]>
@@ -340,14 +351,17 @@
         		lz.Focus.clearFocus();
         	}
             this.exitPopups(); 
+            gEnlargePopup.shrink();
         	gController.stepNavigateForward();     
         </method>
         <method name="toggleMark"> 
             this.exitPopups(); 
+            gEnlargePopup.shrink();
          	gController.toggleMark();              
         </method>
         <method name="toggleTimer">
             this.exitPopups(); 
+            gEnlargePopup.shrink();
         	gController.toggleTimer();             
         </method>
         <method name="pause"> 
@@ -355,18 +369,21 @@
         		lz.Focus.clearFocus();
         	}
             this.exitPopups(); 
+            gEnlargePopup.shrink();
         	if(gItemInterface.visible == true || gTutorial.visible == true)
         		gController.pauseTest();
         </method>
         <method name="stop">       
         	lz.Focus.clearFocus();
             this.exitPopups();
+            gEnlargePopup.shrink();
         	if(gItemInterface.visible == true || gTutorial.visible == true)
         		gController.finishTest();              
         </method>
         <method name="finish">     
         	lz.Focus.clearFocus();
             this.exitPopups(); 
+            gEnlargePopup.shrink();
         	gController.finishTestShortcut();      
         </method>
     </node>
