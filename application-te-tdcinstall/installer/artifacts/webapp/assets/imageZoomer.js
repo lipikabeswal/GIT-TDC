@@ -41,17 +41,34 @@ var ddpowerzoomer={
 		
 		var y = jQuery("#magnifierWindow").offset().top - coords.top ;
 		
-		if(y > (document.body.clientHeight)/2) {
+		if(y > (document.body.clientHeight)/2 && x < (document.body.clientWidth)/2) {
 			y = y + 48;
-		}else if(y < (document.body.clientHeight)/2 && y > (document.body.clientHeight * .25)) {
+			x = x + 8;
+		} else if(y > (document.body.clientHeight)/2 && x > (document.body.clientWidth)/2) {
+			y = y + 48;
+			x = x + 115;
+		} else if(y < (document.body.clientHeight)/2 && y > (document.body.clientHeight * .05) && x < (document.body.clientWidth)/2) {
 			y = y + 15;
-		}
+			x = x + 8;
+		} else if (y < (document.body.clientHeight)/2 && y > (document.body.clientHeight * .05) && x > (document.body.clientWidth)/2) {
+			y = y + 15;
+			x = x + 115;
+		} else if(y < (document.body.clientHeight * .05) && x > (document.body.clientWidth * 0.25)) {
+			y = y + 7;
+			x = x + 115;
+		} else if(y < (document.body.clientHeight * .05) && x < (document.body.clientWidth * 0.25)) {
+			y = y + 7;
+			x = x + 8;
+		} 
+		 /*else if (y < (document.body.clientHeight * .05)) {
+			x = x + 50;
+		}*/
 		
-		if(x < (document.body.clientWidth)/2) {
+		/*if(x < (document.body.clientWidth)/2) {
 			x = x + 8;
 		}else if(x > (document.body.clientWidth)/2) {
-			x = x + 115;
-		}
+			x = x + 8;
+		}*/
 		
 		
 		
