@@ -453,11 +453,10 @@ public class LockdownBrowserWrapper extends Thread {
 					lockdownB.start();
 					
 					ConsoleUtils.messageOut("Desktop Locked..........");
-					  String productType = System.getProperty("product.type");
-		                if("OKLAHOMA".equals(productType)) {
-		                	lockdownOK.start();
-		                	ConsoleUtils.messageOut("Desktop Locked for oklahoma..........");
-		                }
+					  
+		           	lockdownOK.start();
+		           	ConsoleUtils.messageOut("Desktop Locked for oklahoma..........");
+		                
 				}
 				// Run the LDB...
 				ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
