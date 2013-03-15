@@ -159,7 +159,16 @@
 		<frame src="iknow_buttons/read/btn_read_down.png"/> 
 	</resource>
 
-
+	<resource name="transparent" src="components\tabs\transparent.png"/>
+	<resource name="transparent_new" src="components\tabs\transparent_new.png"/>
+	
+	<resource name="white_tab" src="components\tabs\white_tab.png"/>
+	<resource name="yellow_tab" src="components\tabs\yellow_tab.png"/>
+	<resource name="black_tab" src="components\tabs\black_tab.png"/>
+	<resource name="dblue_tab" src="components\tabs\dblue_tab.png"/>
+	<resource name="lblue_tab" src="components\tabs\lblue_tab.png"/>
+	<resource name="pink_tab" src="components\tabs\pink_tab.png"/>
+	
     <!-- =====================
          Question Bar
          =====================-->
@@ -415,6 +424,8 @@
         <frame src="components/tabs/tab_contents_slct_mid.png"/>
     </resource>
 
+	
+
     <resource name="tab_contents_right">
         <frame src="components/tabs/tab_contents_dslct_rt.png"/>
         <frame src="components/tabs/tab_contents_dslct_rt.png"/>
@@ -477,7 +488,7 @@
     <resource name="tooltip_point_663300" src="iknow_toolbar/tooltip_pointer_up_663300.png"/>
     <resource name="tooltip_point_FFFF99" src="iknow_toolbar/tooltip_pointer_up_FFFF99.png"/>
     <resource name="tooltip_point_00CC00" src="iknow_toolbar/tooltip_pointer_up_00CC00.png"/>
-
+	
     <!-- ruler -->
     <resource name="rotator_rsrc" src="manipulatives/ruler/rotator.png"/>
     <resource name="grabber_rsrc" src="manipulatives/ruler/grabber.png"/>
