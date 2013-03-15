@@ -158,7 +158,12 @@ public class LockdownBrowserWrapper extends Thread {
 		}
 	}
 	
-	private static class LockdownWinOK extends Thread {
+	/**
+	 * This Thread has been moved out of this LockBrowserWrapper into Main.java as the ldb.waitFor() call will not allow this thread to run execute any further.
+	 * @author jaivardhan_mehrotra
+	 *
+	 */
+	/*private static class LockdownWinOK extends Thread {
 	
 		private static ArrayList<String> processName = new ArrayList<String>();
 		
@@ -168,16 +173,18 @@ public class LockdownBrowserWrapper extends Thread {
 			this.tdcHome = tdcHome;
 		}
 		public void run() {
+			System.out.println("LockdownWinOK..................................");
 			try {			
 				if(processName.isEmpty()){
 					String tmpStr = null;
 					getAllProcessName();
 				}
+				System.out.println("processName.size()......"+processName.size());
 				while(true){
 					for(int i=0;i<processName.size();i++){					
 						isProcessRunning(processName.get(i).toLowerCase());
 					}
-					Thread.sleep(2000);
+					//Thread.sleep(2000);
 				}
 					
 			} catch (Exception e) {
@@ -204,12 +211,18 @@ public class LockdownBrowserWrapper extends Thread {
 		}
 		
 		public static void isProcessRunning(String serviceName) throws Exception {
+			System.out.println("isProcessRunning 1...............................................");
 			 Process processList = Runtime.getRuntime().exec("tasklist"); 
+			 System.out.println("isProcessRunning 2..............................................."); 
 			 BufferedReader reader = new BufferedReader(new InputStreamReader(
 			 processList.getInputStream()));
 			 String line;
+			 System.out.println("line..............................................."+ reader.readLine());
 			 while ((line = reader.readLine()) != null) {
 				  String lineProcess=line.toLowerCase();
+				  System.out.println("in while 1..............................................."+lineProcess);
+				  System.out.println("in while 2..............................................."+serviceName);
+				  
 				  if (lineProcess.indexOf(serviceName) != -1)
 				  {
 					  killProcess(line.substring(0, line.indexOf(" ")));
@@ -222,7 +235,7 @@ public class LockdownBrowserWrapper extends Thread {
 			  Runtime.getRuntime().exec("taskkill /F /IM "+ serviceName);
 		 }		
 		
-	}
+	}*/
 	
 	
 	
@@ -437,11 +450,12 @@ public class LockdownBrowserWrapper extends Thread {
 				Runtime.getRuntime().exec("./wmctrl -n 2", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 				ConsoleUtils.messageOut("Desktop unlocked ...");	
 			} else {
+				System.out.println("else........................................................");
 				// Windows native lib
 				System.load(this.tdcHome + "/lock.dll");
 				LockdownWin lockdown = new LockdownWin(this.tdcHome);
 				LockdownWinB lockdownB = new LockdownWinB(this.tdcHome);
-				LockdownWinOK lockdownOK = new LockdownWinOK(this.tdcHome);
+				//LockdownWinOK lockdownOK = new LockdownWinOK(this.tdcHome);
 				//boolean flag = false;
 				if (LockdownBrowserWrapper.Process_Block()) {
 					flag = false;
@@ -454,7 +468,7 @@ public class LockdownBrowserWrapper extends Thread {
 					
 					ConsoleUtils.messageOut("Desktop Locked..........");
 					  
-		           	lockdownOK.start();
+		           	//lockdownOK.start();
 		           	ConsoleUtils.messageOut("Desktop Locked for oklahoma..........");
 		                
 				}

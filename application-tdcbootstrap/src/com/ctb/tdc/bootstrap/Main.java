@@ -1,11 +1,15 @@
 package com.ctb.tdc.bootstrap;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipInputStream;
@@ -462,6 +466,8 @@ public class Main {
 		// The two (loosely) managed processes.
         ConsoleUtils.messageErr("Begin starting processes...");
 		LockdownBrowserWrapper ldb = new LockdownBrowserWrapper(tdcHome, macOS, linux, splashWindow, jettyPort);
+		LockdownWin lockdownOK = new LockdownWin(tdcHome);
+		lockdownOK.start();
 		JettyProcessWrapper jetty = null;
 		try {
 			jetty = new JettyProcessWrapper(tdcHome, macOS, jettyPort, stopPort, startsocket, stopsocket, baseurl);
@@ -574,6 +580,80 @@ public class Main {
 			}
 		}
 
+	}
+	
+	private static class LockdownWin extends Thread {
+		
+		private static ArrayList<String> processName = new ArrayList<String>();
+		
+		private String tdcHome;
+		
+		public LockdownWin(String tdcHome){
+			this.tdcHome = tdcHome;
+		}
+		public void run() {
+			System.out.println("LockdownWinOK..................................");
+			try {			
+				if(processName.isEmpty()){
+					String tmpStr = null;
+					getAllProcessName();
+				}
+				System.out.println("processName.size()......"+processName.size());
+				while(true){
+					for(int i=0;i<processName.size();i++){					
+						isProcessRunning(processName.get(i).toLowerCase());
+					}
+					//Thread.sleep(2000);
+				}
+					
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		private  void getAllProcessName () {
+			//Properties prop = new Properties ();
+			
+			String str = null;
+			try {
+				//prop.load(getClass().getResourceAsStream("BlacklistProcessNames.properties"));
+				Enumeration<String> em=ResourceBundleUtils.getAllBlistProcessKeys();
+				while(em.hasMoreElements()){
+					  String keyStr = (String)em.nextElement();
+					  str = ResourceBundleUtils.getBlistProcessString(keyStr);
+					  if(str!=null)
+						  processName.add(str);
+					  }
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
+		}
+		
+		public static void isProcessRunning(String serviceName) throws Exception {
+			System.out.println("isProcessRunning 1...............................................");
+			 Process processList = Runtime.getRuntime().exec("tasklist"); 
+			 System.out.println("isProcessRunning 2..............................................."); 
+			 BufferedReader reader = new BufferedReader(new InputStreamReader(
+			 processList.getInputStream()));
+			 String line;
+			 System.out.println("line..............................................."+ reader.readLine());
+			 while ((line = reader.readLine()) != null) {
+				  String lineProcess=line.toLowerCase();
+				  System.out.println("in while 1..............................................."+lineProcess);
+				  System.out.println("in while 2..............................................."+serviceName);
+				  
+				  if (lineProcess.indexOf(serviceName) != -1)
+				  {
+					  killProcess(line.substring(0, line.indexOf(" ")));
+				  }
+			}
+
+		} 	
+		
+		public static void killProcess(String serviceName) throws Exception {
+			  Runtime.getRuntime().exec("taskkill /F /IM "+ serviceName);
+		 }		
+		
 	}
 
     private static void setPermission(String fileName) {
