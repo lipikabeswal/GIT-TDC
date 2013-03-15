@@ -24,6 +24,7 @@
                 if (contsubviews [i] instanceof lz.CachableComponent) {
                     this.cache.returnComponent (contsubviews [i]);
                 }
+
             }
         ]]></method>
  
@@ -46,8 +47,8 @@
         </view>
         <view name="tabctrl" 
               height="${gController.hasFontAccommodation?41:32}" showhandcursor="false">
-            <simplelayout axis="x" spacing="-14" inset="-4"/>
-            <PanelTab name="tab" datapath="*" showhandcursor="false">
+            <simplelayout axis="x" spacing="-12" inset="-2"/>
+            <PanelTab name="tab" datapath="*">
                 <method name="setSelectedTab" args="issel, refresh"><![CDATA[
 //          Debug.write("CachableTabsPanel.PanelTab.setSelectedTab", this.clonenumber, issel);
                     if (typeof this.clonenumber != 'undefined') {
@@ -76,11 +77,13 @@
                ]]>
                </method>
                  <handler name="oninit">
-                	this.initColors();
+                 	console.log("oninit*****");
+                	//this.initColors();
                 	this.selectFirstTab();
                 </handler>
                 
                 <method name="selectFirstTab">
+                	console.log("sletec first tab****");
 					if(typeof parent.tab.clones != 'undefined'){
 						parent.tab.clones[0].setSelectedTab(true, true);
 					}
