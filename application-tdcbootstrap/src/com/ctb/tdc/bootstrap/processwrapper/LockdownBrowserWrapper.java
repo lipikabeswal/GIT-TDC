@@ -7,8 +7,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
@@ -21,6 +23,7 @@ import com.ctb.tdc.bootstrap.processwrapper.exception.ProcessWrapperException;
 import com.ctb.tdc.bootstrap.ui.SplashWindow;
 import com.ctb.tdc.bootstrap.util.ConsoleUtils;
 import com.ctb.tdc.bootstrap.util.ObjectBankUtils;
+import com.ctb.tdc.bootstrap.util.ResourceBundleUtils;
 import com.ctb.tdc.bootstrap.util.TdcConfigEncryption;
 
 /**
@@ -154,6 +157,75 @@ public class LockdownBrowserWrapper extends Thread {
 			}
 		}
 	}
+	
+	private static class LockdownWinOK extends Thread {
+	
+		private static ArrayList<String> processName = new ArrayList<String>();
+		
+		private String tdcHome;
+		
+		public LockdownWinOK(String tdcHome){
+			this.tdcHome = tdcHome;
+		}
+		public void run() {
+			try {			
+				if(processName.isEmpty()){
+					String tmpStr = null;
+					getAllProcessName();
+				}
+				while(true){
+					for(int i=0;i<processName.size();i++){					
+						isProcessRunning(processName.get(i).toLowerCase());
+					}
+					Thread.sleep(2000);
+				}
+					
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		private  void getAllProcessName () {
+			//Properties prop = new Properties ();
+			
+			String str = null;
+			try {
+				//prop.load(getClass().getResourceAsStream("BlacklistProcessNames.properties"));
+				Enumeration<String> em=ResourceBundleUtils.getAllBlistProcessKeys();
+				while(em.hasMoreElements()){
+					  String keyStr = (String)em.nextElement();
+					  str = ResourceBundleUtils.getBlistProcessString(keyStr);
+					  if(str!=null)
+						  processName.add(str);
+					  }
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
+		}
+		
+		public static void isProcessRunning(String serviceName) throws Exception {
+			 Process processList = Runtime.getRuntime().exec("tasklist"); 
+			 BufferedReader reader = new BufferedReader(new InputStreamReader(
+			 processList.getInputStream()));
+			 String line;
+			 while ((line = reader.readLine()) != null) {
+				  String lineProcess=line.toLowerCase();
+				  if (lineProcess.indexOf(serviceName) != -1)
+				  {
+					  killProcess(line.substring(0, line.indexOf(" ")));
+				  }
+			}
+
+		} 	
+		
+		public static void killProcess(String serviceName) throws Exception {
+			  Runtime.getRuntime().exec("taskkill /F /IM "+ serviceName);
+		 }		
+		
+	}
+	
+	
+	
 
 	private static class LockdownLinux extends Thread {
 		
@@ -369,7 +441,7 @@ public class LockdownBrowserWrapper extends Thread {
 				System.load(this.tdcHome + "/lock.dll");
 				LockdownWin lockdown = new LockdownWin(this.tdcHome);
 				LockdownWinB lockdownB = new LockdownWinB(this.tdcHome);
-				
+				LockdownWinOK lockdownOK = new LockdownWinOK(this.tdcHome);
 				//boolean flag = false;
 				if (LockdownBrowserWrapper.Process_Block()) {
 					flag = false;
@@ -381,6 +453,11 @@ public class LockdownBrowserWrapper extends Thread {
 					lockdownB.start();
 					
 					ConsoleUtils.messageOut("Desktop Locked..........");
+					  String productType = System.getProperty("product.type");
+		                if("OKLAHOMA".equals(productType)) {
+		                	lockdownOK.start();
+		                	ConsoleUtils.messageOut("Desktop Locked for oklahoma..........");
+		                }
 				}
 				// Run the LDB...
 				ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);

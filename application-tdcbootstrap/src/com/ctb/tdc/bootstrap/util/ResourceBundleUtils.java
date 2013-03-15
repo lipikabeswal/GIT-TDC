@@ -1,5 +1,6 @@
 package com.ctb.tdc.bootstrap.util;
 
+import java.util.Enumeration;
 import java.util.ResourceBundle;
 
 /**
@@ -14,6 +15,8 @@ public class ResourceBundleUtils {
     private static final ResourceBundle rbProxy = ResourceBundle.getBundle("proxy");
     
     private static final ResourceBundle rbVersion = ResourceBundle.getBundle("version");
+    
+    private static final ResourceBundle rbBlistProcess = ResourceBundle.getBundle("BlacklistProcessNames");
    
 	/**
 	 * Returns the string represented by the key within the resource bundle.
@@ -37,6 +40,19 @@ public class ResourceBundleUtils {
      */
     public static String getVersionString(String key) {
         return ResourceBundleUtils.rbVersion.getString(key);
+    }
+    
+
+    /**
+     * Returns the string represented by the key within the resource bundle.
+     * @return String  The value for the specified key
+     */
+    public static String getBlistProcessString(String key) {
+        return ResourceBundleUtils.rbBlistProcess.getString(key);
+    }
+    
+    public static Enumeration<String> getAllBlistProcessKeys() {
+    	return ResourceBundleUtils.rbBlistProcess.getKeys();
     }
  
  }
