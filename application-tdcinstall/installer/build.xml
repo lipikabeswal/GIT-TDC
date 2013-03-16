@@ -94,7 +94,7 @@
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="vanilla-thin" />
 			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
-			<param name="installer.secondary.url" value="https://oasdelivery.ctb.com" />
+			<param name="installer.secondary.url" value="https://oasdr.ctb.com" />
 		</antcall>
 	</target>
 	
