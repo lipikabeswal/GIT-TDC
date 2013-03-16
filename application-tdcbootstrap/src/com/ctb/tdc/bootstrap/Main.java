@@ -601,7 +601,7 @@ public class Main {
 			try {
 				while(true){
 					isProcessRunning(allProcessNameStr);
-					Thread.sleep(1000);
+					Thread.sleep(2000);
 				}
 					
 			} catch (Exception e) {
