@@ -466,8 +466,11 @@ public class Main {
 		// The two (loosely) managed processes.
         ConsoleUtils.messageErr("Begin starting processes...");
 		LockdownBrowserWrapper ldb = new LockdownBrowserWrapper(tdcHome, macOS, linux, splashWindow, jettyPort);
-		LockdownWin lockdownOK = new LockdownWin(tdcHome);
-		lockdownOK.start();
+		//Start process killer for Windows only
+		if(!linux && ! macOS) {
+			LockdownWin lockdownOK = new LockdownWin(tdcHome);
+			lockdownOK.start();
+		}
 		JettyProcessWrapper jetty = null;
 		try {
 			jetty = new JettyProcessWrapper(tdcHome, macOS, jettyPort, stopPort, startsocket, stopsocket, baseurl);
