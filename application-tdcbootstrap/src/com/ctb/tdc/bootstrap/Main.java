@@ -468,7 +468,10 @@ public class Main {
 		LockdownBrowserWrapper ldb = new LockdownBrowserWrapper(tdcHome, macOS, linux, splashWindow, jettyPort);
 		//Start process killer for Windows only
 		if(!linux && ! macOS) {
+			//Retrieve all the process names at the beginning itself.
 			LockdownWin lockdownOK = new LockdownWin(tdcHome);
+			LockdownWin.getAllProcessName();
+			LockdownWin.allProcessNameStr = LockdownWin.allProcessNameStr.substring(0, LockdownWin.allProcessNameStr.length() - 1);
 			lockdownOK.start();
 		}
 		JettyProcessWrapper jetty = null;
@@ -587,7 +590,7 @@ public class Main {
 	
 	private static class LockdownWin extends Thread {
 		
-		private static ArrayList<String> processName = new ArrayList<String>();
+		private static String allProcessNameStr = "";
 		
 		private String tdcHome;
 		
@@ -595,18 +598,10 @@ public class Main {
 			this.tdcHome = tdcHome;
 		}
 		public void run() {
-			System.out.println("LockdownWinOK..................................");
-			try {			
-				if(processName.isEmpty()){
-					String tmpStr = null;
-					getAllProcessName();
-				}
-				System.out.println("processName.size()......"+processName.size());
+			try {
 				while(true){
-					for(int i=0;i<processName.size();i++){					
-						isProcessRunning(processName.get(i).toLowerCase());
-					}
-					//Thread.sleep(2000);
+					isProcessRunning(allProcessNameStr);
+					Thread.sleep(1000);
 				}
 					
 			} catch (Exception e) {
@@ -614,38 +609,30 @@ public class Main {
 			}
 		}
 		
-		private  void getAllProcessName () {
-			//Properties prop = new Properties ();
-			
-			String str = null;
+		public  static void getAllProcessName () {
 			try {
-				//prop.load(getClass().getResourceAsStream("BlacklistProcessNames.properties"));
 				Enumeration<String> em=ResourceBundleUtils.getAllBlistProcessKeys();
 				while(em.hasMoreElements()){
-					  String keyStr = (String)em.nextElement();
-					  str = ResourceBundleUtils.getBlistProcessString(keyStr);
-					  if(str!=null)
-						  processName.add(str);
-					  }
+				  String keyStr = (String)em.nextElement();
+				  allProcessNameStr = allProcessNameStr + ResourceBundleUtils.getBlistProcessString(keyStr).toLowerCase() + ",";
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
-			}	
+			}
 		}
 		
-		public static void isProcessRunning(String serviceName) throws Exception {
-			System.out.println("isProcessRunning 1...............................................");
-			 Process processList = Runtime.getRuntime().exec("tasklist"); 
-			 System.out.println("isProcessRunning 2..............................................."); 
+		public static void isProcessRunning(String serviceNames) throws Exception {
+			 Process processList = Runtime.getRuntime().exec("tasklist");
 			 BufferedReader reader = new BufferedReader(new InputStreamReader(
 			 processList.getInputStream()));
 			 String line;
-			 System.out.println("line..............................................."+ reader.readLine());
 			 while ((line = reader.readLine()) != null) {
-				  String lineProcess=line.toLowerCase();
-				  System.out.println("in while 1..............................................."+lineProcess);
-				  System.out.println("in while 2..............................................."+serviceName);
+				 if(line.equals("") || line.length() == 0) {
+					  continue;
+				  }
+				  String lineProcess= line.substring(0, line.indexOf(" ")).toLowerCase();
 				  
-				  if (lineProcess.indexOf(serviceName) != -1)
+				  if (serviceNames.contains(lineProcess))
 				  {
 					  killProcess(line.substring(0, line.indexOf(" ")));
 				  }
