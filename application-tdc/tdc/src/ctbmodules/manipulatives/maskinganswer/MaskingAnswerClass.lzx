@@ -2,7 +2,7 @@
 	 <class name="myclass" onclick="choice(this)" oninit="setup(this)" width="65" >
 	 <attribute name="curState" type="string"/>
 		<attribute name="curTxt" type="string"/>	 
-		  <text name="mytext" x="5" valign="middle" fontsize="10" fontstyle="bold"/>
+		  <text name="mytext" x="5" valign="middle" fontsize="10" fontstyle="bold" width="100%"/>
 			<method name="setup" args="data">
 				var name = data.name;
 				name = name.substring(6,7);
