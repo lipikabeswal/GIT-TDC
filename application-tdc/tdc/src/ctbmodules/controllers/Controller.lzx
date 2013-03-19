@@ -3964,6 +3964,15 @@ Debug.write("############ loadItem ############");
                         default:
 //                            Debug.warn ('INIT MANIPULATIVE DATA: cant handle ', dntoolbar.attributes [i]);
                     }
+//Debug.write("blocking ruler",dpsubtest.xpathQuery('testing_session_data/lms.student.accommodations/@masking_ruler'));
+						if ('true' == dpsubtest.xpathQuery('testing_session_data/lms.student.accommodations/@masking_ruler')){
+						
+							dnglobal.setAttr ('masking_ruler', 'up');
+						}
+						else{
+							dnglobal.setAttr ('masking_ruler', 'disable');
+						}
+		
 					
 					//check if formula card resource attribute is present, get its value 
 					if(i == 'formula_card_resource' && dntoolbar.attributes [i] != null) {
@@ -3979,10 +3988,10 @@ Debug.write("############ loadItem ############");
                         	}
                         	/*else if(i == 'eraser' && !this.showHighlighter){
                         		dnglobal.setAttr('eraser', 'disable');
-                        	}*/
+                        	}
                         	else if(i == 'masking_ruler' && !this.showMaskingRuler){
                         		dnglobal.setAttr('masking_ruler', 'disable');
-                        	}
+                        	}*/
                         	else {
                         	   	dnglobal.setAttr (i, toolstate);
                         	}
