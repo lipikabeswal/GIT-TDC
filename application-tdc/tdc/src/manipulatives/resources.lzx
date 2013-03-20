@@ -218,6 +218,8 @@
  	<resource name="TN_refcard_contents" src="resource/refcard/TN_refcard_contents.swf"/> -->
  	<resource name="TN_refcard_title" src="resource/refcard/TN_refcard_title.png"/>
  	<resource name="TN_refcard_contents" src="resource/refcard/TN_refcard_contents.png"/>
+	<resource name="Corelink_refcard_title" src="resource/refcard/CoreLink_RefCard-title.png"/>
+ 	<resource name="Corelink_refcard_contents" src="resource/refcard/CoreLink_RefCard.png"/>
     	<!-- Network connectivity lost animation-->
     <resource name="system_btn">      
 		<frame src="resource/delay_screen_buttons/computer.png"/>          

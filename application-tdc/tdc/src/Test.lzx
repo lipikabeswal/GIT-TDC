@@ -991,15 +991,15 @@ switch(arg){
 	
 	<RefCard name="FCAT_formula_card" 
                  toolid="FCAT_formula_card"
-                 refCardRsrc="FCAT_refcard_contents"
-                 titleRsrc="FCAT_refcard_title"
+                 refCardRsrc="Corelink_refcard_contents"
+                 titleRsrc="Corelink_refcard_title"
                  scrolls="true"
                  id="gFcatFormulaCard" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
     <RefCard name="TN_formula_card" 
                  toolid="TN_formula_card"
-                 refCardRsrc="TN_refcard_contents"
-                 titleRsrc="TN_refcard_title"
-                 scrolls="false"
+                 refCardRsrc="Corelink_refcard_contents"
+                 titleRsrc="Corelink_refcard_title"
+                 scrolls="true"
                  id="gTnFormulaCard" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
              </view>
              
