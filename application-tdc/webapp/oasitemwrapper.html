@@ -221,13 +221,7 @@ img {
 			     		var bgColorObj = window.parent.getBackColorAccomodation();				    	
 			     		
 				    	if(fontObj.hasFont == 'true'){
-				    		if(fontObj.hasFontMag == 'true'){
-				    			document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
-				    		}
-				    		else {
-				    			document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
-				    		}
-				    		//document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
+			    			document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
 				    		lz.embed.setCanvasAttribute('hasfontaccom',true);
 				    	}else{
 				    		document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
@@ -290,13 +284,8 @@ img {
 	     		var bgColorObj = window.parent.getBackColorAccomodation();				    	
 	     				
 		    	if(fontObj.hasFont == 'true'){
-		    		if(fontObj.hasFontMag == 'true'){
-		    			document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
-		    		} else {
-	    				document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
-	    				lz.embed.setCanvasAttribute('hasfontaccom',true);
-		    		}
-		    		//document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
+    				document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
+    				lz.embed.setCanvasAttribute('hasfontaccom',true);
 		    	} else {
 	    			document.getElementById('__lz1').contentWindow.accomPkg.setVisualAccessFeatures('', '12px',bgColorObj);
 	    			lz.embed.setCanvasAttribute('hasfontaccom',false);
