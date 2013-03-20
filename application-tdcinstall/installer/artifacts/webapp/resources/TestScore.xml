@@ -3,4 +3,34 @@
 	<test_title id="OCCT Geography Grade 7" isFT="true">
 		<raw_score minscore="0" maxscore="0"> No score computed for this content area </raw_score>
 	</test_title>
+	<test_title id="ACE Algebra I Retest">
+		<raw_score minscore="0" maxscore="17"> Unsatisfactory </raw_score>
+		<raw_score minscore="18" maxscore="25"> Limited knowledge </raw_score>
+		<raw_score minscore="26" maxscore="41"> Proficient </raw_score>
+		<raw_score minscore="42" maxscore="55"> Advanced </raw_score>
+	</test_title>
+	<test_title id="ACE Algebra II Retest">
+		<raw_score minscore="0" maxscore="19"> Unsatisfactory </raw_score>
+		<raw_score minscore="20" maxscore="25"> Limited knowledge </raw_score>
+		<raw_score minscore="26" maxscore="40"> Proficient </raw_score>
+		<raw_score minscore="41" maxscore="55"> Advanced </raw_score>
+	</test_title>
+	<test_title id="ACE Geometry Retest">
+		<raw_score minscore="0" maxscore="18"> Unsatisfactory </raw_score>
+		<raw_score minscore="19" maxscore="27"> Limited knowledge </raw_score>
+		<raw_score minscore="28" maxscore="42"> Proficient </raw_score>
+		<raw_score minscore="43" maxscore="55"> Advanced </raw_score>
+	</test_title>
+	<test_title id="ACE U.S. History Retest">
+		<raw_score minscore="0" maxscore="20"> Unsatisfactory </raw_score>
+		<raw_score minscore="21" maxscore="31"> Limited knowledge </raw_score>
+		<raw_score minscore="32" maxscore="43"> Proficient </raw_score>
+		<raw_score minscore="44" maxscore="60"> Advanced </raw_score>
+	</test_title>
+	<test_title id="ACE Biology I Retest">
+		<raw_score minscore="0" maxscore="21"> Unsatisfactory </raw_score>
+		<raw_score minscore="22" maxscore="29"> Limited knowledge </raw_score>
+		<raw_score minscore="30" maxscore="44"> Proficient </raw_score>
+		<raw_score minscore="45" maxscore="60"> Advanced </raw_score>
+	</test_title>
 </test_data>
