@@ -25,7 +25,7 @@
 		      width="${immediateparent.width - 20}" 
               height="${immediateparent.height - 30}">
 			<view name="inputBoundingBox" resource="calc_display" 
-			      x="9" y="7">
+			      x="9" y="7" width="${parent.width - 20}" stretches="width">
 				<view name="inputbox" x="3" y="0"
 				      height="${parent.height}" width="${parent.width - 6}">
 					<text name="display" 
