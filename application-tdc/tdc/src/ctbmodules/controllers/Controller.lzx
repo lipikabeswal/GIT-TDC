@@ -3962,15 +3962,16 @@ Debug.write("############ loadItem ############");
                             toolstate = 'invisible';
                             break;
                         default:
-//                            Debug.warn ('INIT MANIPULATIVE DATA: cant handle ', dntoolbar.attributes [i]);
+//                            //Debug.warn ('INIT MANIPULATIVE DATA: cant handle ', dntoolbar.attributes [i]);
                     }
-//Debug.write("blocking ruler",dpsubtest.xpathQuery('testing_session_data/lms.student.accommodations/@masking_ruler'));
-						if ('true' == dpsubtest.xpathQuery('testing_session_data/lms.student.accommodations/@masking_ruler')){
-						
-							dnglobal.setAttr ('masking_ruler', 'up');
-						}
-						else{
-							dnglobal.setAttr ('masking_ruler', 'disable');
+		//Debug.write("blocking ruler",dpsubtest.xpathQuery('testing_session_data/lms.student.accommodations/@masking_ruler'));
+						if (initglobal){
+							if ('true' == dpsubtest.xpathQuery('testing_session_data/lms.student.accommodations/@masking_ruler')){
+								dnglobal.setAttr ('masking_ruler', 'up');
+							}
+							else{
+								dnglobal.setAttr ('masking_ruler', 'disable');
+							}
 						}
 		
 					
