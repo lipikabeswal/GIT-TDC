@@ -71,7 +71,9 @@
 			= METHODS
 			=============== -->
 		<method event="ondata" args="data"><![CDATA[
-            if (data.hasAttr("width")) {
+			this.thetext.setAttribute('width', 0);
+		 	this.setAttribute('width', 0);
+			if (data.hasAttr("width")) {
                 this.setAttribute("width", Number(data.getAttr("width")));
             } else {
 				if(immediateparent.width != 0) {
@@ -81,12 +83,13 @@
 				else {
 					//as the immediate parent's width is zero, we are setting the text's width to the panel's width
 					//and substract the immediate parent's x to avoid horizontal scrollbar.
-					this.setAttribute("width", Number(Number(immediateparent.classroot.width) - Number(immediateparent.x))); 
+					var widthValue = (Number(Number(immediateparent.x) - Number(immediateparent.classroot.width)) > 0 ? Number(Number(immediateparent.classroot.width) - Number(immediateparent.x)) : Number(immediateparent.classroot.width));
+					this.setAttribute("width", widthValue);
 				}
             }
 
             //text magnification
-            this.magnification = this.fontsize/canvas.basefontsize;;
+            this.magnification = this.fontsize/canvas.basefontsize;
             var txtmag = 1;
             
             //this might not be used for anything
@@ -728,7 +731,9 @@
         ]]></method>
  
         <method name="doReturnToCache"><![CDATA[
-            var destroy = false;
+        	this.setAttribute('width',0);
+        	this.thetext.setAttribute('width', 0);
+		    var destroy = false;
             var contsubviews = this.subviews;
             for (var i in contsubviews) {
                 if (contsubviews [i].visible && 
