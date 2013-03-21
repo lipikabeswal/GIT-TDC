@@ -355,6 +355,10 @@
             
             super.doneLoading();
         ]]></method>
+        
+        <method name="hide">
+        	//do nothing
+        </method>
 
         <!-- ============================
              =====      VIEWS      ======
