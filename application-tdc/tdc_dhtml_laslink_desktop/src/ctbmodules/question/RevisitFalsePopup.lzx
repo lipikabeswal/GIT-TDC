@@ -6,7 +6,7 @@
       showhandcursor="false">
 
 	<attribute name="popupHeight" type="number" value="157"/>
-	<attribute name="popupWidth" type="number" value="310"/>
+	<attribute name="popupWidth" type="number" value="320"/>
 	<attribute name="bg" type="color" value="0xFFFFFF"/>
 	<attribute name="fg" type="color" value="0xE0E0E0"/>
 	<attribute name="navigateFrom"/>
@@ -99,19 +99,19 @@
         	  font="CTB"	
               fontsize="15"
               fgcolor="0x000000"
-              width="260"
+              width="265"
               multiline="true" y="20" align="center">
-				Do you want to stay on this question? If you move on, you <u>can not</u> go back to this question.
+		  Warning! Once you leave this page, you cannot come back. Do you want to Go On?
 		</text>        
-		<basebutton	name="okButton"	resource="popupOk" x="46" y="110" width="70" height="25" stretches="both">
-		<handler name="onclick">
-			gController.setNavigation(0,parent.parent.navigateFrom);        
-        </handler>
-		</basebutton>
-		<basebutton	name="cancelButton"	resource="popupCancel" x="164" y="110" width="85" height="25" stretches="both">
+		<basebutton	name="okButton"	resource="popupOk" x="30" y="110" width="120" height="25" stretches="both">
 		<handler name="onclick">
 			gController.setNavigation(1,parent.parent.navigateFrom);  
-			gController.unlockUI();
+			gController.unlockUI();        
+        </handler>
+		</basebutton>
+		<basebutton	name="cancelButton"	resource="popupCancel" x="178" y="110" width="102" height="25" stretches="both">
+		<handler name="onclick">
+			gController.setNavigation(0,parent.parent.navigateFrom);
         </handler>
 		</basebutton>
     </view>
