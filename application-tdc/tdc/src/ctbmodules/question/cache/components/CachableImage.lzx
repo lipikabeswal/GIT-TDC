@@ -323,12 +323,14 @@
 		
 		
 		<method name="hide">
-            	this.setAttribute('opacity',0);
+            	//this.setAttribute('opacity',0);
             	//Debug.write("hide...", this.isReadable);
+            	this.imageview.setAttribute('visible',false);
             	 this.imageview.setAttribute('clickable',false);
 		</method>
 		<method name="show">
-            	this.setAttribute('opacity',100);
+            	//this.setAttribute('opacity',100);
+            	this.imageview.setAttribute('visible',true);
             	if(this.readable){
             		if(this['imageview']){
          				this.imageview.setAttribute('clickable',true);
