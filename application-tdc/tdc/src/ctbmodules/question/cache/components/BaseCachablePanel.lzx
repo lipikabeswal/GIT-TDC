@@ -44,9 +44,8 @@
 
 		<method event="ondata" name="initComp" args="data"><![CDATA[
             if (!data) return;
-
-			 this.wrapper.setAttribute('width', 0);
-			this.wrapper.setAttribute('height', 0);
+				//this.wrapper.setAttribute('width', 0);
+				//this.wrapper.setAttribute('height', 0);
 
 			//Randomization will only be applied if login response has seed with it
 			if(gController.isLoginResponseHavingSeed && !nullOrSpace(gController.seed) && data != null) {
@@ -241,8 +240,8 @@
         <method name="doReturnToCache"><![CDATA[
             var contsubviews = this.wrapper.scrollcontainer.offsetwrapper.contents.subviews;
 			// clearing cache to reset width and height.
-            this.wrapper.setAttribute('width', 0);
-			this.wrapper.setAttribute('height', 0);
+			//this.wrapper.setAttribute('width', 0);
+			//this.wrapper.setAttribute('height', 0);
             this.setAttribute('enablehl', true);
             for (var i in contsubviews) {
 
@@ -278,7 +277,7 @@
              ================================= -->
 
         <view name="wrapper" clip="true">
-            <view name="scrollcontainer"
+            <view name="scrollcontainer" 
                   width="${this.offsetwrapper.width &gt; parent.width
                          ? this.offsetwrapper.width : parent.width}"
                   height="${this.offsetwrapper.height &gt; parent.height || classroot.growtocontents
@@ -297,7 +296,7 @@
                            scrollport="$once{classroot.parent instanceof BaseCachablePanel ? classroot.parent.wrapper : parent.parent}"                           options="ignorelayout" 
                            visible="${classroot.enablehl}"/>
             </view>
-            <vscrollbar name="vscroll"
+            <vscrollbar name="vscroll" 
                         height="${parent.hscroll.visible ? 
                                   ( classroot.growtocontents ? parent.scrollcontainer.height - parent.hscroll.height :
                                     parent.scrollcontainer.height) :
