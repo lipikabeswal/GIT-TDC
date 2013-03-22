@@ -169,6 +169,7 @@
             console.log("halign"+data.getAttr("halign"));
             console.log("just"+just);
            this.setAttribute('align', just);
+           this.thetext.setAttribute("textalign",just);
             
 		   if (gController.hasFontAccommodation){
 				if(dataText.indexOf("<br") != -1) {
@@ -176,7 +177,7 @@
 	                	'<label><span style="line-height:17px; white-space: pre-wrap;">' + dataText + '</span></label>');
 				}else{
 					this.thetext.setAttribute("text",
-	                	'<label><span style="line-height:20px; white-space: pre-wrap;">' + dataText + '</span></label>');
+	                	'<label><span style="white-space: pre-wrap;">' + dataText + '</span></label>');
 				}
 		   }else{
 	           this.thetext.setAttribute("text",
@@ -1405,12 +1406,14 @@ parse the text string and store text and image string in an array at different i
                x="${classroot.leftPadding}"
                width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
                fgcolor="${classroot.fontcolor}" 
-               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" align="classroot.align">
+               fontsize="${classroot ['fontsize'] ? (classroot.fontsize == 18?17:classroot.fontsize) : 12}">
 				
 				<handler name="ontext"><![CDATA[
 					var elm = this.getDisplayObject();
 					var textAlign = "text-align: "+classroot.align;
-					
+					/*if(gController.hasFontAccommodation){
+						this.setAttribute('height',this.getTextHeight()+1);
+					}*/
 					
 					//elm.setAttribute('style','line-height: 0px; font-family: CTB;');
 					//elm.setAttribute('font-family','CTB');
