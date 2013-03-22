@@ -30,6 +30,8 @@
 <attribute name="SCIENTIFIC_CALCULATOR_INDEX" type="number" value="10" />
 <attribute name="FORMULA_CARD_INDEX" type="number" value="11" />
 <attribute name="MASKING_RULER_INDEX" type="number" value="12" />
+<attribute name="FORMULA_CARD_RESOURCE_INDEX" type="number" value="13" />
+
 
 <attribute name="srcurl" value="null"/>
 <attribute name="manipid" value="null"/>
@@ -251,6 +253,9 @@ else{
 
 	maniObj = getManipulativeObject('TN_formula_card',gTnFormulaCard,"false");
 	htmlGeneralManip['TN_formula_card'] = maniObj;
+	
+	maniObj = getManipulativeObject('formula_card_resource',gFormulaCardResource,"false");
+	htmlGeneralManip['formula_card_resource'] = maniObj;
 
 	maniObj = getManipulativeObject('half_inch_ruler',gHalfInchRuler,"true");
 	htmlGeneralManip['half_inch_ruler'] = maniObj;
@@ -426,6 +431,9 @@ canvas.setAttribute('isLoaded', true);
 	else if (tool == 'TN_formula_card'){
 		result = TN_FORMULA_CARD_INDEX;
 	}
+	else if (tool == 'formula_card_resource'){
+		result = FORMULA_CARD_RESOURCE_INDEX;
+	}
 	else if (tool == 'standard_calculator'){
 		result = STANDARD_CALCULATOR_INDEX;
 	}
@@ -506,6 +514,9 @@ canvas.setAttribute('isLoaded', true);
 	}
 	else if (tool == 'TN_formula_card'){
 		result = gTnFormulaCard;
+	}
+	else if (tool == 'formula_card_resource'){
+		result = gFormulaCardResource;
 	}
 	else if (tool == 'standard_calculator'){
 		result = gStandardCalculator;
@@ -644,6 +655,15 @@ var manipObjData;
 			gTnFormulaCard.setAttribute('width',Number(manipObjData.width));
 			gTnFormulaCard.setAttribute("isselected",true);
 			gTnFormulaCard.show();
+		}
+
+		manipObjData = openManipData['formula_card_resource'];
+		if((manipObjData.isselected == 'true' || manipObjData.isselected == true) && manipObjData.isselected != 'undefined'){
+			gFormulaCardResource.setAttribute('x',Number(manipObjData.x));
+			gFormulaCardResource.setAttribute('y',Number(manipObjData.y));
+			gFormulaCardResource.setAttribute('width',Number(manipObjData.width));
+			gFormulaCardResource.setAttribute("isselected",true);
+			gFormulaCardResource.show();
 		}
 
 		manipObjData = openManipData['masking_ruler'];
@@ -920,7 +940,19 @@ switch(arg){
 										gTnFormulaCard.setAttribute('y',(this.height/2-newheigth/2));
 										gTnFormulaCard.show();
 									}
+		break;
 
+	case 'formula_card_resource' : if(gFormulaCardResource.visible){
+										gFormulaCardResource.hide();
+										gFormulaCardResource.setAttribute("isselected",false);
+									} else{
+										gFormulaCardResource.setAttribute("isselected",true);
+										newwidth = gFormulaCardResource.width*xscalefactorjs;
+										newheigth = gFormulaCardResource.height*yscalefactorjs;
+										gFormulaCardResource.setAttribute('x',(this.width/2-newwidth/2));
+										gFormulaCardResource.setAttribute('y',(this.height/2-newheigth/2));
+										gFormulaCardResource.show();
+									}
 
 		break;
 
@@ -991,16 +1023,22 @@ switch(arg){
 	
 	<RefCard name="FCAT_formula_card" 
                  toolid="FCAT_formula_card"
-                 refCardRsrc="Corelink_refcard_contents"
-                 titleRsrc="Corelink_refcard_title"
+                 refCardRsrc="FCAT_refcard_contents"
+                 titleRsrc="FCAT_refcard_title"
                  scrolls="true"
                  id="gFcatFormulaCard" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
     <RefCard name="TN_formula_card" 
                  toolid="TN_formula_card"
+                 refCardRsrc="TN_refcard_contents"
+                 titleRsrc="TN_refcard_title"
+                 scrolls="false"
+                 id="gTnFormulaCard" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
+    <RefCard name="formula_card_resource" 
+                 toolid="formula_card_resource"
                  refCardRsrc="Corelink_refcard_contents"
                  titleRsrc="Corelink_refcard_title"
                  scrolls="true"
-                 id="gTnFormulaCard" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
+                 id="gFormulaCardResource" xscale="$immediately{xscalefactorjs}" yscale="$immediately{yscalefactorjs}"/>
              </view>
              
            

@@ -101,63 +101,65 @@
                    drag_max_y="$once{parent.height - 100}"/>
 
         <handler name="ondata" args="data"><![CDATA[
-            this.setAttribute ('retrycount', 0);
-            this.setAttribute ('timeoutretrycount', 0);
-
-			this.setAttribute("height", null);
-			this.setAttribute("width", null);
-			this.refCardContents.contents.setAttribute("height", null);
-			this.refCardContents.contents.setAttribute("width", null);
-			
-			var theSrc = null;
-			var theTitleSrc = null;
-
-			if(data != null && data.hasAttr('src')) {
-				theSrc = getImageUrl(data.getAttr('src'));
-				var title = String(data.getAttr('src'));
-				title = title.substr(0,title.length - 4)+'_title.swf';
-				theTitleSrc = getImageUrl(title);
+			if(!gController.htmlFields.length > 0){
+	            this.setAttribute ('retrycount', 0);
+	            this.setAttribute ('timeoutretrycount', 0);
+	
+				this.setAttribute("height", null);
+				this.setAttribute("width", null);
+				this.refCardContents.contents.setAttribute("height", null);
+				this.refCardContents.contents.setAttribute("width", null);
+				
+				var theSrc = null;
+				var theTitleSrc = null;
+	
+				if(data != null && data.hasAttr('src')) {
+					theSrc = getImageUrl(data.getAttr('src'));
+					var title = String(data.getAttr('src'));
+					title = title.substr(0,title.length - 4)+'_title.swf';
+					theTitleSrc = getImageUrl(title);
+				}
+				
+				if(data != null && theSrc != null){
+	                this.setAttribute ('refCardRsrc', theSrc);
+					this.setAttribute ('titleRsrc', theTitleSrc);
+	            }
+	
+				if(data != null && data.hasAttr('scrolls')){
+	                this.setAttribute ('scrolls', data.getAttr ('scrolls'));
+	            }
+	
+				if (data != null && data.hasAttr ('width')) {
+	    			this.setAttribute ('width', Number (data.getAttr ('width')));
+				} else {
+	                this.setAttribute ('width', null);
+	            }
+	
+				if (data != null && data.hasAttr ('height')) {
+					this.setAttribute ('height', Number (data.getAttr ('height')));
+				} else {
+	                this.setAttribute ('height', null);
+	            }
+	
+	  			if (this.refCardContents.contents['resource'] != refCardRsrc) {
+	  				this.refCardContents.contents.setSource ( refCardRsrc );
+				} else {
+					adjustDimensions(data);
+	                doneLoading();
+	            }
+	
+	  			if (this.title.real_title['resource'] != titleRsrc) {
+	  				this.title.real_title.setSource ( titleRsrc );
+				} else {
+					adjustDimensions(data);
+	                doneLoading();
+	            }
+	
+	            // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
+	            if(data != null && gScratchpad.visible){
+	                gScratchpad.bringToFront();
+	            }
 			}
-			
-			if(data != null && theSrc != null){
-                this.setAttribute ('refCardRsrc', theSrc);
-				this.setAttribute ('titleRsrc', theTitleSrc);
-            }
-
-			if(data != null && data.hasAttr('scrolls')){
-                this.setAttribute ('scrolls', data.getAttr ('scrolls'));
-            }
-
-			if (data != null && data.hasAttr ('width')) {
-    			this.setAttribute ('width', Number (data.getAttr ('width')));
-			} else {
-                this.setAttribute ('width', null);
-            }
-
-			if (data != null && data.hasAttr ('height')) {
-				this.setAttribute ('height', Number (data.getAttr ('height')));
-			} else {
-                this.setAttribute ('height', null);
-            }
-
-  			if (this.refCardContents.contents['resource'] != refCardRsrc) {
-  				this.refCardContents.contents.setSource ( refCardRsrc );
-			} else {
-				adjustDimensions(data);
-                doneLoading();
-            }
-
-  			if (this.title.real_title['resource'] != titleRsrc) {
-  				this.title.real_title.setSource ( titleRsrc );
-			} else {
-				adjustDimensions(data);
-                doneLoading();
-            }
-
-            // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
-            if(data != null && gScratchpad.visible){
-                gScratchpad.bringToFront();
-            }
           ]]></handler>
 
         <handler name="onmouseover">
