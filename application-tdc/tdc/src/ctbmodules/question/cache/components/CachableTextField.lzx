@@ -71,22 +71,43 @@
 			= METHODS
 			=============== -->
 		<method event="ondata" args="data"><![CDATA[
-			this.thetext.setAttribute('width', 0);
-		 	this.setAttribute('width', 0);
+			//this.thetext.setAttribute('width', 0);
+		 	//this.setAttribute('width', 0);
+			
+
 			if (data.hasAttr("width")) {
                 this.setAttribute("width", Number(data.getAttr("width")));
             } else {
-				if(immediateparent.width != 0) {
-					var widthValue = (Number(immediateparent.width) - Number(immediateparent.classroot.width)) > 0 ? Number(immediateparent.classroot.width) : Number(immediateparent.width); 
+            Debug.write("else case", immediateparent.width, immediateparent.x, immediateparent);
+				
+				/*if(Number(immediateparent.width) != 0) {
+                	var widthValue = (Number(immediateparent.width) - Number(immediateparent.classroot.width)) > 0 ? Number(immediateparent.classroot.width) : Number(immediateparent.width); 
                 	this.setAttribute("width", Number(widthValue) - Number(immediateparent.x));
 				}
-				else {
+				else {*/
 					//as the immediate parent's width is zero, we are setting the text's width to the panel's width
 					//and substract the immediate parent's x to avoid horizontal scrollbar.
-					var widthValue = (Number(Number(immediateparent.x) - Number(immediateparent.classroot.width)) > 0 ? Number(Number(immediateparent.classroot.width) - Number(immediateparent.x)) : Number(immediateparent.classroot.width));
-					this.setAttribute("width", widthValue);
+					
+					if((this.parent instanceof CachableTableCell)){
+						Debug.write("inside if of LzCachableTableCell",parent);
+						this.setAttribute("width", Number(Number(immediateparent.classroot.width)));
+					}else{
+						Debug.write("immediateparent.classroot.width ->",immediateparent.classroot, Number(immediateparent.classroot.width));
+						Debug.write("immediateparent.width ->",Number(immediateparent.width));
+						Debug.write("immediateparent.x ->",Number(immediateparent.x),Number(immediateparent.classroot.x));
+						Debug.write("inside else of LzCachableTableCell",parent);
+
+						this.setAttribute("width", Number(immediateparent.classroot.width)- Number(immediateparent.x));
+						
+					} 
+					
+					
+					
 				}
-            }
+				
+			//}
+ 
+			
 
             //text magnification
             this.magnification = this.fontsize/canvas.basefontsize;
@@ -152,7 +173,7 @@
             //justification
             var just = "left";
             if (data.hasAttr("halign")) {
-                just = data.getAttr("halign");
+                just = data.getAttr("halign");	
             }
             this.setAlign(just);
             this.thetext.setAttribute("text",
@@ -731,8 +752,12 @@
         ]]></method>
  
         <method name="doReturnToCache"><![CDATA[
-        	this.setAttribute('width',0);
-        	this.thetext.setAttribute('width', 0);
+        	//this.setAttribute('width',0);
+			
+			//this.setAttribute('align','left');
+			//this.thetext.setAttribute('align','left');
+
+			//this.thetext.setAttribute('width', 0);
 		    var destroy = false;
             var contsubviews = this.subviews;
             for (var i in contsubviews) {
@@ -1155,11 +1180,12 @@ parse the text string and store text and image string in an array at different i
                </method>
            </view>
 
-           <text name="thetext" multiline="true" 
-               x="${classroot.leftPadding}"
+           <text name="thetext" multiline="true"
+               x="${classroot.leftPadding}" 
                width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
                fgcolor="${classroot.fontcolor}"
                fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" />
+				
         </state>
     </class>
 
