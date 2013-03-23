@@ -107,8 +107,12 @@ Debug.showInternalProperties=true;
 				toReturn.imageview.resource = null;
 				toReturn.imageview.getMCRef().unloadMovie();
 			
+			}//Disabled Caching of Tables
+			else if (toReturn.comptype == gCompTypes.WIDGET_TABLE) {
+				toReturn.destroy();
+				return;
 			}
-
+			
             var arraytouse = this._findArray (toReturn.comptype);
 			
             arraytouse.push (toReturn);
