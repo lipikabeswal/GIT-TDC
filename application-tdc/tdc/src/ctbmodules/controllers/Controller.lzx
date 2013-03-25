@@ -2663,7 +2663,7 @@
 				canvas.setAttribute('focusobj', null);
 				saveLoadItem( fnode );
 			}
-			this.setattribute('isaudio',false);
+			this.setAttribute('isaudio',false);
 			resetRecorder();
 		]]></method>
 
@@ -4776,7 +4776,7 @@ Debug.write("out of time 1 ans" + isAnswered);
 		</method>
 
 		<method name="setAnswerPanel" args="ansObject"><![CDATA[
-		Debug.write("ansObject fired", ansObject,answerArray.length);
+		//Debug.write("ansObject fired", ansObject,answerArray.length);
 		if(answerArray.length < returnNumberOfOptions()){
 		
 			answerArray.push(ansObject);
