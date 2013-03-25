@@ -2771,7 +2771,7 @@
 
 		<method name="addManipulatives" args="data"><![CDATA[
 			canvas.setAttribute('htmlGeneralManip',JSON.parse(data));
-			//Debug.write("addManipulatives",canvas.htmlGeneralManip,canvas.htmlGeneralManip.eid);
+			Debug.write("addManipulatives",canvas.htmlGeneralManip,canvas.htmlGeneralManip.eid);
 			var isElementPresent = false;
 			for(var i=0;i<htmlGeneralManipData.length;i++){
 				if(canvas.htmlGeneralManip.eid == htmlGeneralManipData[i].eid){
@@ -2781,7 +2781,7 @@
 					isElementPresent=true;
 				}
 			}
-			//Debug.write("addManipulatives****** ",isElementPresent,typeof(isElementPresent),htmlGeneralManipData);
+			Debug.write("addManipulatives****** ",isElementPresent,typeof(isElementPresent),htmlGeneralManipData);
 			if(!isElementPresent){
 				htmlGeneralManipData.push(canvas.htmlGeneralManip);
 			}
@@ -3869,6 +3869,7 @@ Debug.write("############ loadItem ############");
 			}
         	// clear previous manipulative data if not marked for review
             if (!ismarked) {
+            	Debug.write("inside not marked****************");
                 var dnman = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives');
                 var dngen = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/general');
 				
@@ -3876,12 +3877,13 @@ Debug.write("############ loadItem ############");
 					canvas.setAttribute("htmlOpenManip",null);
 					//Debug.write("htmlGeneralManipData",htmlGeneralManipData);
 					for(var i=0;i<htmlGeneralManipData.length;i++){
+						Debug.write("comparing htmlManipdata with current eid*****************",htmlGeneralManipData[i], currentEid);
 						if(htmlGeneralManipData[i].eid == currentEid){
 							htmlGeneralManipData.splice(i,1);
-							//Debug.write("splice",htmlGeneralManipData);
+							Debug.write("splice",htmlGeneralManipData);
 						}
 					}
-					//Debug.write("htmlGeneralManipData********* ",htmlGeneralManipData);
+					Debug.write("htmlGeneralManipData********* ",htmlGeneralManipData);
 				}
                 
                 if(dnman != null){
