@@ -44,8 +44,11 @@
 
 		<method event="ondata" name="initComp" args="data"><![CDATA[
             if (!data) return;
-				//this.wrapper.setAttribute('width', 0);
-				//this.wrapper.setAttribute('height', 0);
+				this.wrapper.setAttribute('width', null);
+				this.wrapper.setAttribute('height', null);
+				this.setAttribute('width', null);
+				this.setAttribute('height', null);
+				
 
 			//Randomization will only be applied if login response has seed with it
 			if(gController.isLoginResponseHavingSeed && !nullOrSpace(gController.seed) && data != null) {
@@ -240,8 +243,8 @@
         <method name="doReturnToCache"><![CDATA[
             var contsubviews = this.wrapper.scrollcontainer.offsetwrapper.contents.subviews;
 			// clearing cache to reset width and height.
-			//this.wrapper.setAttribute('width', 0);
-			//this.wrapper.setAttribute('height', 0);
+			this.wrapper.setAttribute('width', null);
+			this.wrapper.setAttribute('height', null);
             this.setAttribute('enablehl', true);
             for (var i in contsubviews) {
 

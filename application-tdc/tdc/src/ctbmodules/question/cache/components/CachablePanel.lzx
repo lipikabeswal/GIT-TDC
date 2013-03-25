@@ -39,6 +39,10 @@
             super.doReturnToCache ();
             this.dynlayout.changeAxis('y');
             this.dynlayout.clearSubviews ();
+            Debug.write("this.dynlayout.spacing before: ", this.dynlayout.spacing);
+            this.dynlayout.reset();
+            Debug.write("this.dynlayout.spacing after: ", this.dynlayout.spacing);
+			this.dynlayout.setAttribute ('spacing',0);
         </method>
 
 

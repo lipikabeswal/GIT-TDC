@@ -31,10 +31,15 @@
 
         <method event="ondata" args="data"><![CDATA[
         	// reset heights and widths
+			this.setAttribute("width", null);
+			this.setAttribute("height", null);
+			this.setAttribute("align", "letf");
 			this.thetable.setAttribute("width", null);
 			this.thetable.setAttribute("height", null);
-			
-             //set border size
+			this.thetable.setAttribute("x", 0);
+			this.thetable.setAttribute("y", 0);
+
+            //set border size
             this.setAttribute("bordersize", 
                               data.getAttr("border") == "yes" ? 2: 0);
 

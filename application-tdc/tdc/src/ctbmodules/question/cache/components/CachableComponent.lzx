@@ -71,16 +71,19 @@
 	                switch (this.datapath.p.getAttr ('halign')) {
 	                    case 'left':
 	                        newx = 0;
+	                        Debug.write("switch left....",this);
 	                        break;
 	                    case 'center': 
 	                        newx = (alignto.width - this.width)/2;
+	                        Debug.write("switch center....", alignto.width, this.width, this);
 	                        break;
 	                    case 'right': 
 	                        newx = alignto.width - this.width;
+	                        Debug.write("switch right....", alignto.width, this.width, this);
 	                        break;
 	                    default:
-	//                        Debug.write ('unknown component halign', 
-	//                                      this.datapath.p.getAttr ('halign'));
+	                        Debug.write ('unknown component halign', 
+	                                      this.datapath.p.getAttr ('halign'));
 	                } 
 	            } 
 	            this.setAttribute ('x', newx);
