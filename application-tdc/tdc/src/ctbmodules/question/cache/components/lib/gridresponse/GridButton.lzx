@@ -173,8 +173,7 @@
             <view name="circle" resource="circle_btn" stretches="both"
                   height="${classroot.fontsize + 5}" width="${this.height}"
                   align="center" valign="middle" 
-                  clickable="${ true == uienabled }"
-                  clickregion="circle_btn_clickregion">
+                  clickable="${ true == uienabled }">
                 <attribute name="uienabled" value="$path{ 'dsdisplay:/display/@enabled' }"/>
             </view>
 
