@@ -138,7 +138,11 @@
 			}
 
 			if (data.hasAttr ('enablehl')) {
-				this.setAttribute('enablehl', data.getAttr('enablehl'));
+				if(data.getAttr('enablehl') == true || data.getAttr('enablehl') == 'true'){
+					this.setAttribute('enablehl', true);
+				}else{
+					this.setAttribute('enablehl', false);
+				}
 			}
 			
 
