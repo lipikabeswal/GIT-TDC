@@ -710,7 +710,7 @@
 				this.totalNumberOfTests = subtests;
 			}
 
-			Debug.write("subtest: " , subtests);
+			//Debug.write("subtest: " , subtests);
 		
 			var result = null;
 			
@@ -737,7 +737,7 @@
     			dp.setXPath('dslogin:/login_response/manifest');
 	    		var scos = dp.xpathQuery('sco');
 	    		var found = false;
-				Debug.write("getInitialSubtestIndex scos",scos);
+				//Debug.write("getInitialSubtestIndex scos",scos);
 				if(scos instanceof LzDataElement){				
 					return result;
 				}
@@ -1062,7 +1062,7 @@
 
 	    		var node = lz.DataElement.stringToLzData(response);
 	    		dp.setPointer(node);
-				Debug.write("dp------------- :",dp);
+				//Debug.write("dp------------- :",dp);
 	    		setShowHighlighter();
 	    		setShowMaskingRuler();
 	    		setShowMagnifyingGlass();
@@ -1086,7 +1086,7 @@
 				//START Change for deferred Defect 63502
 	    		setAttribute('restartscid', dp.xpathQuery('login_response/manifest/sco[1]/@id'));
 	    		var numIsts = countDataNodes(dp.xpathQuery('login_response/consolidated_restart_data/tsd[@scid = "'+ restartscid +'"]/ist'));
-				Debug.write("consolidated_restart_data--------------- ",numIsts);
+				//Debug.write("consolidated_restart_data--------------- ",numIsts);
 				//END
 				setAttribute('lsid', dp.xpathQuery('login_response/@lsid'));
 				var dSeed = dp.xpathQuery('login_response/@random_distractor_seed_number');	
@@ -1325,7 +1325,7 @@
 		<method name="totalMarked"><![CDATA[    
 			var nummarked = 0;
 			var items = dpstudentdata.xpathQuery("runtime/item_model");
-			Debug.write("items in totalMarked**********",items);
+			//Debug.write("items in totalMarked**********",items);
 			if(items) {
 				if(items instanceof lz.DataElement){
 	       	     items = [items];
@@ -1450,7 +1450,7 @@
             if(this.adaptive == true){
             	total = this.subtestLength;
             }
-            Debug.write("total:"+total);
+            //Debug.write("total:"+total);
 			dpdisplay.setNodeAttribute( 'shownWarningMinute', 'false' );
             if ( '0' == dpsubtest.xpathQuery( 'sco/@sco_duration_minutes' ) ||
                  'true' == dpsubtest.xpathQuery(
@@ -1922,7 +1922,7 @@
            		Debug.write("##calling getAdptiveRestartNodes:",dprestart.isValid());
             	getAdptiveRestartNodes();
             }
-            Debug.write("##runtimearr:",runtimearr);
+            //Debug.write("##runtimearr:",runtimearr);
         ]]></method>
 
 		<method name="getTotalNumberOfItems" args="includeThemePages">
@@ -2167,7 +2167,7 @@
        </method>
 
 		<method name="massageItemLml"><![CDATA[
-	//printBigString(dpitem.serialize());
+			//printBigString(dpitem.serialize());
 			canvas.scratchpadRequired = false;
             var itemmodel = dpitem.xpathQuery( 'item_model' );
             var toolbar = itemmodel.getElementsByTagName( 'toolbar' )[0];
@@ -2771,17 +2771,17 @@
 
 		<method name="addManipulatives" args="data"><![CDATA[
 			canvas.setAttribute('htmlGeneralManip',JSON.parse(data));
-			Debug.write("addManipulatives",canvas.htmlGeneralManip,canvas.htmlGeneralManip.eid);
+			//Debug.write("addManipulatives",canvas.htmlGeneralManip,canvas.htmlGeneralManip.eid);
 			var isElementPresent = false;
 			for(var i=0;i<htmlGeneralManipData.length;i++){
 				if(canvas.htmlGeneralManip.eid == htmlGeneralManipData[i].eid){
 					htmlGeneralManipData.splice(i,1);
 					htmlGeneralManipData.push(canvas.htmlGeneralManip);
-					Debug.write("htmlGeneralManipData",htmlGeneralManipData);
+					//Debug.write("htmlGeneralManipData",htmlGeneralManipData);
 					isElementPresent=true;
 				}
 			}
-			Debug.write("addManipulatives****** ",isElementPresent,typeof(isElementPresent),htmlGeneralManipData);
+			//Debug.write("addManipulatives****** ",isElementPresent,typeof(isElementPresent),htmlGeneralManipData);
 			if(!isElementPresent){
 				htmlGeneralManipData.push(canvas.htmlGeneralManip);
 			}
@@ -2791,8 +2791,8 @@
 		<!-- question state -->
 		<method name="toggleMark"><![CDATA[
 		//For Defect 65880
-			Debug.write("this.isThemePage() in toggleMark**********",this.isThemePage(),typeof(this.isThemePage()));
-			Debug.write("this.allowRevisit) in toggleMark**********",this.allowRevisit,typeof(this.allowRevisit));
+			//Debug.write("this.isThemePage() in toggleMark**********",this.isThemePage(),typeof(this.isThemePage()));
+			//Debug.write("this.allowRevisit) in toggleMark**********",this.allowRevisit,typeof(this.allowRevisit));
 			if(this.isThemePage()!='true' && this.isThemePage()!=true && this.allowRevisit && !gController.fwdOnly){
 	        	freezeUI();
 	        	var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
@@ -2862,7 +2862,7 @@
 						//Debug.write("selid -> ",selid);
 		            	var msg = selid +"||" + this.lasHtmlField[0].asset.aw.iframeid + "||"+ dnsel.getAttr( 'user_action' );
 		            	var s = "toggleAndSave('"+msg+"')";
-		            	Debug.write("ToggleAndSave :",s);
+		            	//Debug.write("ToggleAndSave :",s);
 						lz.Browser.loadJS(s);
 		            }
 					this.setAttribute('calledFromLasHtml',false);
@@ -2903,7 +2903,7 @@
                     for (var i in dninteraction.childNodes) {
                         if (dninteraction.childNodes [i] != dnsel &&
                             dninteraction.childNodes [i].getAttr ('user_action') != 'e') {
-                            Debug.write("setItemSelState called for setting answered inside iof" );
+                            //Debug.write("setItemSelState called for setting answered inside iof" );
                             dninteraction.childNodes [i].setAttr ('user_action', 'n');
                         }
                     }
@@ -2916,7 +2916,7 @@
     
                 switch ( value ) {
                     case 's':
-						Debug.write("setItemSelState called for setting answered" +  dncurritem.getAttr('answered'));
+						//Debug.write("setItemSelState called for setting answered" +  dncurritem.getAttr('answered'));
                         var score =
                             dncurritem.getAttr( 'correct' ) == selid ? '1' : '0';
                         dncurritem.setAttr( 'answer_text', selid );
@@ -3199,7 +3199,7 @@
 			{
 				this.setAttribute("sendCatSave",true);
 				this.prevItemId = curItemId;
-				Debug.write("curItemId:"+curItemId+"::prevItemId:"+this.prevItemId);
+				//Debug.write("curItemId:"+curItemId+"::prevItemId:"+this.prevItemId);
 			}else{
 				this.setAttribute("sendCatSave",false);
 			}
@@ -3266,12 +3266,12 @@
 					}
 				}
 				if(this.htmlFields != null){
-					Debug.write("gController.manipStateHtml******* ",gController.manipStateHtml,gController.htmlmanipStateHtml);
+					//Debug.write("gController.manipStateHtml******* ",gController.manipStateHtml,gController.htmlmanipStateHtml);
 					for(var key in gController.manipStateHtml){
 						if(key!='highlighter' && key!='eraser' && key!='scratchpad'){
 							var manipObjData = gController.manipStateHtml[key];
 							if(manipObjData.isselected == 'true' || manipObjData.isselected == true){
-								Debug.write("gController.manipStateHtml------------- ",manipObjData);
+								//Debug.write("gController.manipStateHtml------------- ",manipObjData);
 								gController.manipStateHtml[manipObjData.toolid].resetState();
 								gController.setManipulativeSelState (manipObjData.toolid,'up');
 								var comp = gController.htmlFields[0];
@@ -3283,7 +3283,7 @@
 						if(key!='highlighter' && key!='eraser' && key!='scratchpad'){
 							var manipObjData = gController.htmlmanipStateHtml[key];
 							if(manipObjData.isselected == 'true' || manipObjData.isselected == true){
-								Debug.write("gController.htmlmanipStateHtml------------- ",manipObjData);
+								//Debug.write("gController.htmlmanipStateHtml------------- ",manipObjData);
 								gController.htmlmanipStateHtml[manipObjData.toolid].resetState();
 								gController.setManipulativeSelState (manipObjData.toolid,'up');
 								var comp = gController.htmlFields[0];
@@ -3669,7 +3669,7 @@ Debug.write("############ loadItem ############");
             		//Debug.write("done after");  			
 				}
     		}
-		Debug.write("### result :", result);
+		//Debug.write("### result :", result);
     	//this.setAttribute('blockFileName' , true);
 		//setting the item is visited 
 		
@@ -3679,8 +3679,8 @@ Debug.write("############ loadItem ############");
 				if(dncurritem!=null)	
 					dncurritem.setAttr('is_visited','true');
 				/*if(this.adaptive == 'true' && dprestart.isValid()){
-					Debug.write("### getItemParam :"+ this.istLength +"::"+itemNo);
-					Debug.write("### getItemParam :"+ curEid +"::"+fnodeEid);
+					//Debug.write("### getItemParam :"+ this.istLength +"::"+itemNo);
+					//Debug.write("### getItemParam :"+ curEid +"::"+fnodeEid);
 					if(this.istLength == itemNo){
 						dncurritem.setAttr( 'eid', fnodeEid); // current iid
 					}	
@@ -3858,7 +3858,7 @@ Debug.write("############ loadItem ############");
 									}
 								}
 							}
-							Debug.write("initManipulativeData ",noManipOpen,typeof noManipOpen,manipData);
+							//Debug.write("initManipulativeData ",noManipOpen,typeof noManipOpen,manipData);
 							if(!noManipOpen){
 								openTEManipulatives(manipData);
 							}*/
@@ -3869,7 +3869,7 @@ Debug.write("############ loadItem ############");
 			}
         	// clear previous manipulative data if not marked for review
             if (!ismarked) {
-            	Debug.write("inside not marked****************");
+            	//Debug.write("inside not marked****************");
                 var dnman = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives');
                 var dngen = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/general');
 				
@@ -3877,13 +3877,13 @@ Debug.write("############ loadItem ############");
 					canvas.setAttribute("htmlOpenManip",null);
 					//Debug.write("htmlGeneralManipData",htmlGeneralManipData);
 					for(var i=0;i<htmlGeneralManipData.length;i++){
-						Debug.write("comparing htmlManipdata with current eid*****************",htmlGeneralManipData[i], currentEid);
+						//Debug.write("comparing htmlManipdata with current eid*****************",htmlGeneralManipData[i], currentEid);
 						if(htmlGeneralManipData[i].eid == currentEid){
 							htmlGeneralManipData.splice(i,1);
-							Debug.write("splice",htmlGeneralManipData);
+							//Debug.write("splice",htmlGeneralManipData);
 						}
 					}
-					Debug.write("htmlGeneralManipData********* ",htmlGeneralManipData);
+					//Debug.write("htmlGeneralManipData********* ",htmlGeneralManipData);
 				}
                 
                 if(dnman != null){
@@ -4029,7 +4029,7 @@ Debug.write("############ loadItem ############");
 
 		<method name="getToolstate" args="toolid">
 			var dntoolbar = dpstudentdata.xpathQuery ('current_item/item_model/toolbar');
-			Debug.write("getToolstate----- ",dntoolbar,dntoolbar.attributes[toolid],toolid);
+			//Debug.write("getToolstate----- ",dntoolbar,dntoolbar.attributes[toolid],toolid);
             var toolstate = 'disable';
 			switch (dntoolbar.attributes[toolid]) {
 				case 'not provisioned':
@@ -4066,7 +4066,7 @@ Debug.write("############ loadItem ############");
 
 		<method name="openTEManipulatives" args="openManipData"><![CDATA[
 
-			Debug.write("openTEManipulatives****** ",openManipData,gController.htmlmanipStateHtml);
+			//Debug.write("openTEManipulatives****** ",openManipData,gController.htmlmanipStateHtml);
 
 			for(var key in openManipData){
 				if(key != 'eid'){
@@ -4332,7 +4332,7 @@ Debug.write("############ loadItem ############");
 			this.setAttribute("sendCatSave",true);
 			save(null);
         	setAttribute("doUnlockUI", false);
-        	Debug.write("saveendsubtest");
+        	//Debug.write("saveendsubtest");
         	this.resetHtmlFields();
         	this.resetLasHtml();
         	gController.setAttribute('laslinkPopulated',false);
@@ -5312,7 +5312,7 @@ Debug.write("############ loadItem ############");
 					argsNodePtr.selectParent();		
 				}
 				else {
-					Debug.write("dprestart has one or no child....",argsNodeArrLen," : ",argsNodePtr.data);
+					//Debug.write("dprestart has one or no child....",argsNodeArrLen," : ",argsNodePtr.data);
 					argsNodePtr.deleteNode(); 
 				}	
 			}
@@ -5562,7 +5562,7 @@ Debug.write("############ loadItem ############");
 	</method>
 	
 	<method name="enableMoreInfo"><![CDATA[
-		Debug.write("idImageFields********** ",this.idImageFields);
+		//Debug.write("idImageFields********** ",this.idImageFields);
 		var contentArea = dpsubtestdata.getNodeText();
 		for(var i =0;i<this.idImageFields.length;i++){
 			var cachableImage = this.idImageFields[i];
@@ -5592,7 +5592,7 @@ Debug.write("############ loadItem ############");
                 delete this.htmlFields[i];
             }
             this.htmlFields.length = 0;
-            Debug.write("****stopcheckisAnswer****");
+            //Debug.write("****stopcheckisAnswer****");
             stopCheckIsAnswer();
                this.manipStateHtml = new Object();   
 			if(!ismarked){
@@ -5674,7 +5674,7 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="updateHTMLItemNode"><![CDATA[
-		Debug.write("UPDATE HTML ITEM NODE",this.htmlFields.length);
+		//Debug.write("UPDATE HTML ITEM NODE",this.htmlFields.length);
 
 			if(this.htmlFields.length > 0){
             	var xmls = "<answers>";
@@ -5699,7 +5699,7 @@ Debug.write("############ loadItem ############");
 			var answers = dpstudentdata.xpathQuery( "runtime/item_model [@eid = '"+eid+"']/@answer_text");
 			
 			var node = lz.DataElement.stringToLzData(unescape(answers));
-			Debug.write("getStateForInputWidgetId node", node);
+			//Debug.write("getStateForInputWidgetId node", node);
             if (node) {
                node.setAttribute('ownerDocument',dstemp);
                dstemp.appendChild(node);
@@ -5715,7 +5715,7 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="scratchpadObject" args="dn,obj">
-				Debug.write("dpstudentdata", obj.visible,obj.x,obj.y);
+				//Debug.write("dpstudentdata", obj.visible,obj.x,obj.y);
 				
 				var iid = dn.xpathQuery("current_item/item_model/@iid");
 				var newObj = new Object();
@@ -5732,7 +5732,7 @@ Debug.write("############ loadItem ############");
 		</method>
 		
 		<method name="inContinueToDownload">
-          Debug.write("inContinueToDownload",inContinueToDownload);
+          //Debug.write("inContinueToDownload",inContinueToDownload);
             gScreens.setAttribute('height',200);
             gScreens.setAttribute('y',200);
             gScreens.copyWriteText.setAttribute('y',200);

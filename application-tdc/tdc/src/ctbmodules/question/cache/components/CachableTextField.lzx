@@ -83,7 +83,7 @@
             if (data.hasAttr("width")) {
                 this.setAttribute("width", Number(data.getAttr("width")));
             } else {
-            Debug.write("else case", immediateparent.width, immediateparent.x, immediateparent);
+            //Debug.write("else case", immediateparent.width, immediateparent.x, immediateparent);
 				if(immediateparent.width != 0) {
                 	this.setAttribute("width", immediateparent.width);
 				}
@@ -187,7 +187,7 @@
 			else if (dataText.indexOf("&lt;") != -1) {
 				dataText = replaceAll(dataText,"&lt;","<");
 			}
-			Debug.write("handleHTMLtags***after********* ",dataText);
+			//Debug.write("handleHTMLtags***after********* ",dataText);
 			if (dataText.indexOf("&GT;") != -1) {
 				dataText = replaceAll(dataText,"&GT;",">");
 			}

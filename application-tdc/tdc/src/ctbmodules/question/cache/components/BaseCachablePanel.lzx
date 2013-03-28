@@ -117,7 +117,7 @@
                 }
 				this.wrapper.setAttribute ('height', nh);
             }
-			Debug.write("CLASSROOT growtocontents",this.growtocontents);
+			//Debug.write("CLASSROOT growtocontents",this.growtocontents);
             //x and y of component
 			if (data.hasAttr ('x')){
 				this.setAttribute ('x', Number (data.getAttr ('x')));
@@ -152,7 +152,7 @@
 
             super.doneLoading();
 			
-			Debug.write("this.vscrollbar", this.wrapper, this.wrapper.vscroll);
+			//Debug.write("this.vscrollbar", this.wrapper, this.wrapper.vscroll);
             
             //inform gFootNotePopup footnotes
 			if((this instanceof lz.CachableScrollingTextPanel) 

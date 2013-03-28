@@ -9,7 +9,7 @@
         <handler name="onantialias">
             var t = this.getDisplayObject().textfield;
             if ( this.antialias == 'normal' ) {
-            	Debug.write("ANTIALIAS NORMAL");
+            	//Debug.write("ANTIALIAS NORMAL");
                 t.antiAliasType = flash.text.AntiAliasType.NORMAL;
             } else {
                 t.antiAliasType = flash.text.AntiAliasType.ADVANCED;

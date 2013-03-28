@@ -81,7 +81,7 @@ gController.setAttribute('skipCacheDestroy', true);
                     this.convertToAccLayout(data);
                     data = this.datapath.p;
                 }
-				Debug.write("Question ondata ----- ",data);
+				//Debug.write("Question ondata ----- ",data);
                 for (var i in this.subviews) {
     
                     if (this.subviews [i] instanceof lz.CachableComponent &&

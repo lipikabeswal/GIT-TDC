@@ -49,12 +49,12 @@
                        value="$path{ 'dsdisplay:/display/@untimed' }"/>
 
             <handler args="u" name="onisuntimed"><![CDATA[
-				Debug.write("isUntimerd from time status" , isuntimed);
+				//Debug.write("isUntimerd from time status" , isuntimed);
                 setShowTime( showtime );
             ]]></handler>
 
             <method name="setShowTime" args="show">
-            	Debug.write("classroot.uienabled****** ",classroot.uienabled);
+            	//Debug.write("classroot.uienabled****** ",classroot.uienabled);
                 if ( 'true' == isuntimed || "true" == isuntimed || true == isuntimed) {
                     thetime.setAttribute( 'visible', false );
                     showhidetime.setAttribute( 'visible', false );

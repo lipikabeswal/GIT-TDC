@@ -57,7 +57,7 @@
             	if (dnscrolltext == null) dnscrolltext = gController.dpitem.xpathQuery("item_canvas/panel/stimulus_tabs_panel/stimulus_tab");
             	if (dnscrolltext == null) dnscrolltext = gController.dpitem.xpathQuery("item_canvas/panel");
 
-				Debug.write("dnscrolltext",dnscrolltext);
+				//Debug.write("dnscrolltext",dnscrolltext);
             	if(dnscrolltext != null && dnscrolltext instanceof Array){
             		dnscrolltext = dnscrolltext[0];
             	}
@@ -120,7 +120,7 @@
 
     <handler name="onscrolltext">
         //init font color and background color
-        Debug.write("FOOTNOTE SCROLL TEXT" , scrolltext);
+        //Debug.write("FOOTNOTE SCROLL TEXT" , scrolltext);
         if(scrolltext!=null){
 			if(!(this.scrolltext instanceof lz.CachableAnswerAreaPanel || this.scrolltext instanceof lz.CachableAnswerAreaAbsolutePanel)) {
 		        var fgc = this.scrolltext['fontcolor'] ? this.scrolltext.fontcolor : "0xFFFFFF";

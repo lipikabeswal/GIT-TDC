@@ -153,9 +153,9 @@
             	 isRevisitAllowed = (isRevisitAllowed == true);
             }
 			this.revisitAllowed = isRevisitAllowed;	
-			Debug.write("this.theme in setMarkForReview*******",this.theme,typeof(this.theme));
+			//Debug.write("this.theme in setMarkForReview*******",this.theme,typeof(this.theme));
 			if(this.theme!= true && this.theme!= 'true' && this.theme!= '1' && !gController.fwdOnly){	
-				Debug.write("this.revisitAllowed in setMarkForReview*******",this.revisitAllowed,typeof(this.revisitAllowed));
+				//Debug.write("this.revisitAllowed in setMarkForReview*******",this.revisitAllowed,typeof(this.revisitAllowed));
 				if(this.revisitAllowed != null){
 					if(this.revisitAllowed != true && this.revisitAllowed != 'true'){
 			  			this.btns.markbtn.setAttribute ('visible', false);	

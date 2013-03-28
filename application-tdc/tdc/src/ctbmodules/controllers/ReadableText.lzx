@@ -89,7 +89,7 @@
 				} else {				
 					
 					var mc = this.sprite;
-					Debug.write("AS# ",mc.textfield.text);
+					//Debug.write("AS# ",mc.textfield.text);
 					return mc.textfield.text;
 				}
 			}

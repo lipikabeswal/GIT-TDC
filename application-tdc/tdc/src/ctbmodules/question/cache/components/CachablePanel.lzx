@@ -18,7 +18,7 @@
         -->
 
 		<method name="initComp" args="data">
-		Debug.write("initComp of Panel  ",data);
+		//Debug.write("initComp of Panel  ",data);
             super.initComp (data);
     
             //the layout
@@ -38,16 +38,16 @@
 
         <method name="doReturnToCache">
             super.doReturnToCache ();
-            Debug.write("this.dynlayout************ ",this.dynlayout);
+            //Debug.write("this.dynlayout************ ",this.dynlayout);
             this.dynlayout.changeAxis('y');
             this.dynlayout.clearSubviews ();
         </method>
 
 
         <method name="_initSubnodes"><![CDATA[
-        	Debug.write("********_initSubnodes of cachable panel*********");
+        	//Debug.write("********_initSubnodes of cachable panel*********");
             var subnodes = this.datapath.p.childNodes;
-            Debug.write("subnodes--------- ",subnodes);
+            //Debug.write("subnodes--------- ",subnodes);
             if (subnodes == null) return;
             var newcomp = null;
             for (var i = 0; i < subnodes.length; i++) {
