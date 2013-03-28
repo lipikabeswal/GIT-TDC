@@ -1340,7 +1340,7 @@ public class ServletUtils {
 					String scoreVal = score.getText();
 					if(scoreVal != null && !scoreVal.equals(""))
 						restartItemsRawScore[i] = Integer.parseInt( scoreVal );
-					logger.info("restartItemsRawScore: item " + i + ": " + restartItemsRawScore[i] );
+					//logger.info("restartItemsRawScore: item " + i + ": " + restartItemsRawScore[i] );
 				//}
 			}	
 			restartItemCount = restartItemCount;
