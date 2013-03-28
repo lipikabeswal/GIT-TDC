@@ -33,7 +33,7 @@
         	// reset heights and widths
 			this.setAttribute("width", null);
 			this.setAttribute("height", null);
-			this.setAttribute("align", "letf");
+			this.setAttribute("align", "left");
 			this.thetable.setAttribute("width", null);
 			this.thetable.setAttribute("height", null);
 			this.thetable.setAttribute("x", 0);
