@@ -177,7 +177,6 @@
 		</method>
 		
         <handler name="ondata" args="data"><![CDATA[
-Debug.write("ondata masking ruler..."+data);
             if (!data) return;
             var hasstate = false;
             for (var i in data.attributes) {
@@ -186,18 +185,17 @@ Debug.write("ondata masking ruler..."+data);
             }
             
             if (data && hasstate) {
-Debug.write("if "+data +" : "+ hasstate);
                 this.setAttribute ('rotation', data.getAttr ('rotation'));
                 this.ruler.setAttribute ('width', data.getAttr ('rulerlength'));
+				this.setAttribute ('x', Number(data.getAttr ('x')));
+                this.setAttribute ('y', Number(data.getAttr ('y')));
+				
 
-                this.setAttribute ('x', data.getAttr ('x'));
-                this.setAttribute ('y', data.getAttr ('y'));
                 // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
             	if(gScratchpad.visible){
                 	gScratchpad.bringToFront();
             	}
              } else {
-Debug.write("else "+data +" : "+ hasstate);
                 this.setAttribute ('rotation', 0);
 				this.ruler.setAttribute ('width', classroot.width);
                 this.setAttribute ('x', 0);

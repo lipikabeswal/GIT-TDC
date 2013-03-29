@@ -37,13 +37,13 @@
 			title.rightLines.setAttribute('width', halfWidth);
  			
 			if(data != null && data.hasAttr('x')){
-                this.setAttribute ('x', data.getAttr ('x'));
+                this.setAttribute ('x', Number(data.getAttr ('x')));
             }
             else{
              	this.setAttribute ('x', (classroot.width - this.width)/2);
             }
             if(data != null && data.hasAttr('y')){
-            	this.setAttribute ('y', data.getAttr ('y'));
+            	this.setAttribute ('y', Number(data.getAttr ('y')));
             }
             else{
            		this.setAttribute ('y', (classroot.height - this.height)/2);

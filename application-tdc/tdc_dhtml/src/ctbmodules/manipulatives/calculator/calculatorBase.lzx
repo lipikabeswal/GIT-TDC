@@ -103,13 +103,13 @@
             	var myP = new lz.datapointer();
             	myP.setPointer(data);
                 if (data.hasAttr ('x')) {
-                    this.setAttribute ('x', data.getAttr ('x'));
+                    this.setAttribute ('x', Number(data.getAttr ('x')));
                     //console.log("*****x********"+data.getAttr ('x'));
 					//console.log("*****this.x********"+this.x);
                 }
                 
                 if (data.hasAttr ('y')) {
-                    this.setAttribute ('y', data.getAttr ('y'));
+                    this.setAttribute ('y', Number(data.getAttr ('y')));
                     //console.log("*****y********"+data.getAttr ('y'));
 					//console.log("*****this.y********"+this.y);
                 }

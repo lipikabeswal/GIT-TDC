@@ -185,7 +185,7 @@
 		</method>
 		
         <handler name="ondata" args="data"><![CDATA[
-			
+			var elm = this.getDisplayObject();
             if (!data) return;
             var hasstate = false;
             for (var i in data.attributes) {
@@ -194,11 +194,11 @@
             }
 			
             if (data && hasstate) {
-                this.setAttribute ('rotation', data.getAttr ('rotation'));
+                this.setAttribute ('rotation', Number(data.getAttr ('rotation')));
+                console.log("if rotation of rtuler***"+this.rotation);
                 this.ruler.setAttribute ('width', data.getAttr ('rulerlength'));
-
-                this.setAttribute ('x', data.getAttr ('x'));
-                this.setAttribute ('y', data.getAttr ('y'));
+                this.setAttribute ('x', Number(data.getAttr ('x')));
+                this.setAttribute ('y', Number(data.getAttr ('y')));
 
                 // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
             	if(gScratchpad.visible){
@@ -208,7 +208,6 @@
              } else {
                 this.setAttribute ('rotation', 0);
                 this.ruler.setAttribute ('width', null);
-
                 this.setAttribute ('x', (classroot.width - this.width)/2);
                 this.setAttribute ('y', (classroot.height - this.height)/2);
 

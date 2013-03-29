@@ -119,10 +119,10 @@
 			}
 
             if (data && hasstate) {
-                this.setAttribute ('rotation', data.getAttr ('rotation'));
+                this.setAttribute ('rotation', Number(data.getAttr ('rotation')));
 
-                this.setAttribute ('x', data.getAttr ('x'));
-                this.setAttribute ('y', data.getAttr ('y'));
+                this.setAttribute ('x', Number(data.getAttr ('x')));
+                this.setAttribute ('y', Number(data.getAttr ('y')));
 	            // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
 	            if(gScratchpad.visible){
 	                gScratchpad.bringToFront();
