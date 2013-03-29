@@ -67,7 +67,7 @@
 
 				<handler name="onmouseover">
 						this.setAttribute('frame',2);
-						lz.Timer.addTimer (tooltipdel, 500);
+						lz.Timer.resetTimer (tooltipdel, 500);
 					</handler>
 
 				<handler name="onmouseout">
@@ -149,7 +149,7 @@
 				<handler name="onmouseover">
 						this.setAttribute('frame',2);
 						if(!gMaskingAnswer.visible)
-							lz.Timer.addTimer (tooltipdel, 500);
+							lz.Timer.resetTimer (tooltipdel, 500);
 					</handler>
 
 				<handler name="onmouseout">
@@ -250,7 +250,7 @@
 				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
 		
 				<handler name="onmouseover">
-					lz.Timer.addTimer (tooltipdel, 500);
+					lz.Timer.resetTimer (tooltipdel, 500);
 				</handler>
 		                
 				<handler name="onmouseout">
@@ -277,7 +277,7 @@
 				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
 		
 				<handler name="onmouseover">
-					lz.Timer.addTimer (tooltipdel, 500);
+					lz.Timer.resetTimer (tooltipdel, 500);
 				</handler>
 		                
 				<handler name="onmouseout">
@@ -329,7 +329,7 @@
 				    </method> 
 	
 					<method name="mouseover">
-						lz.Timer.addTimer (tooltipdel, 500);
+						lz.Timer.resetTimer (tooltipdel, 500);
 					</method>
 			                
 					<method name="mouseout">

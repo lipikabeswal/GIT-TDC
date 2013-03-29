@@ -47,7 +47,7 @@
         <handler name="onmouseover"><![CDATA[
         	this.setAttribute("showhandcursor",true);
             if (!this.isselected && this.isenabled) this.setAttribute('frame', 2); 
-            lz.Timer.addTimer (tooltipdel, 500);
+            lz.Timer.resetTimer (tooltipdel, 500);
         ]]></handler>
 
         <handler name="onmouseout"><![CDATA[

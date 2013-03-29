@@ -16,7 +16,7 @@
 			this.setAttribute('visible', true);
 		</handler>
 		<handler name="onlastframe">
-			lz.Timer.addTimer(dEndTutorial, LAST_SCREEN_DURATION);
+			lz.Timer.resetTimer(dEndTutorial, LAST_SCREEN_DURATION);
 		</handler>
 		<method name="showError">
 			gCommunicator.checkShowError(gXmlHelper.getContentErrorXml());

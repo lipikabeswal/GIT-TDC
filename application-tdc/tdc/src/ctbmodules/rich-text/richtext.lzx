@@ -22,7 +22,7 @@
        var time = 3000;
        if (typeof this.del == "undefined") {
            this.del = new LzDelegate(this, "write_CR_answers2XML");
-           LzTimer.addTimer(this.del, time);
+           LzTimer.resetTimer(this.del, time);
        }
        else
            LzTimer.resetTimer(this.del, time);

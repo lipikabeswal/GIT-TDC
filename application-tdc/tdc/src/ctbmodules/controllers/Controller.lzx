@@ -1013,7 +1013,7 @@
 		<method name="goToGoodbyeScreen">
 			stopHeartbeat();
 			gScreens.showGoodbye();
-			lz.Timer.addTimer( dcloseBrowser, 5000 );
+			lz.Timer.resetTimer( dcloseBrowser, 5000 );
 		</method>
 
 		<attribute name="dcloseBrowser"
@@ -2161,7 +2161,7 @@
 
           if (typeof this.del == "undefined") {
              this.del = new lz.Delegate(this, "backup_answers");
-             lz.Timer.addTimer(this.del, 5000);
+             lz.Timer.resetTimer(this.del, 5000);
           }
           else lz.Timer.resetTimer(this.del, 5000);
        </method>
