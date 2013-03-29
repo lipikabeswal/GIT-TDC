@@ -127,7 +127,10 @@
 				this.setAttribute('fontcolor', Number(gController.questionFontColor));
 				this.setAttribute('fontsize', gController.questionFontSize);
             }
-            
+            //Assuming that answer area panel should be completely visible at all times and should not be overlapped
+			if(this instanceof CachableAnswerAreaPanel || this instanceof CachableAnswerAreaAbsolutePanel){
+				this.bringToFront();
+			}
             this.setAttribute("isaccom", isaccom);
 
             //make subviews
