@@ -108,7 +108,9 @@ Debug.showInternalProperties=true;
 				toReturn.imageview.getMCRef().unloadMovie();
 			
 			}//Disabled Caching of Tables
-			else if (toReturn.comptype == gCompTypes.WIDGET_TABLE || toReturn.comptype == gCompTypes.WIDGET_PANEL) {
+			else if (toReturn.comptype == gCompTypes.WIDGET_TABLE || 
+					toReturn.comptype == gCompTypes.WIDGET_PANEL || 
+					toReturn.comptype == gCompTypes.WIDGET_TEXT) {
 				toReturn.destroy();
 				return;
 			}

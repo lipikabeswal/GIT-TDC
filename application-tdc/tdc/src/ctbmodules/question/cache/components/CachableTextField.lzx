@@ -73,7 +73,7 @@
 		<method event="ondata" args="data"><![CDATA[
 			//this.thetext.setAttribute('width', 0);
 		 	//this.setAttribute('width', 0);
-			
+			this.setAlign("left");
 
 			if (data.hasAttr("width")) {
                 this.setAttribute("width", Number(data.getAttr("width")));
