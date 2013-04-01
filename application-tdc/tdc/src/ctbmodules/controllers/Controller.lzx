@@ -1107,6 +1107,9 @@
 				if(!dprestart.isValid() && (subtests.length == currentSubtestIndex + 1)) {
 					result = -1;
 				}
+				else if(subtests.length == currentSubtestIndex + 1){ // change for soft reset.
+					result = -1;
+				}
 				else { // Changes for Defect 70251 to retrieve the next incomplete subtest in case of hard reset 
 					result = currentSubtestIndex + 1;
 				}
