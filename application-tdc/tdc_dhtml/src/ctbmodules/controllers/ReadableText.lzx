@@ -127,10 +127,12 @@
  	        if(gController.hasTTSspeed) {
  	        	var smf = gManipulativeBar.selectedSpeedVal  //SMF => Slow, Medium, Fast
  	        	var speedValue = getSpeedNumber(smf);
- 	        	speechDs.setQueryParam(SPEED_PARAM, speedValue);
+ 	        	//speechDs.setQueryParam(SPEED_PARAM, speedValue);
  	        }
- 	        Debug.write("speechDs");
-			speechDs.doRequest();
+ 	        var s = "sendRequest('"+txt+"','"+speedValue+"','speechAction')";
+			lz.Browser.loadJS(s); 
+ 	        console.log("speechDs"+txt);
+			//speechDs.doRequest();
        ]]></method>
         
         <method name="getMp3" ><![CDATA[

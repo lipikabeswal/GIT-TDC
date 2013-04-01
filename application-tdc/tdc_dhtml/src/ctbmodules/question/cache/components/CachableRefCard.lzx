@@ -56,6 +56,11 @@
 					refCardContents.contents.setAttribute ('resource', 'ISTEP_refcard_contents');
 					title.real_title.setAttribute ('resource', 'ISTEP_refcard_title');
 				}
+				else if(refsrc.indexOf('Corelink') >= 0){
+		        	refCardContents.contents.setAttribute('resource',"Corelink_refcard_contents");
+					title.real_title.setAttribute('resource',"Corelink_refcard_title");
+					this.setAttribute("scrolls",true);
+				}
 			}
 
 			

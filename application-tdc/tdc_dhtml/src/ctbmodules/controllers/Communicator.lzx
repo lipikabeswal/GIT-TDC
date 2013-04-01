@@ -150,15 +150,18 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 					if(code == "" || code == "556" || code == "558") {
 						if(firstRequestDone && gController.isWaitPopupOpen == false) {
 		  					setAttribute('error', true);
+							console.log("firstRequestDone error="+error);
 		  					gPleaseWaitPopup.showControls();
 						}
 						else {
+							console.log("inside else");
                          	if(ds != null) { 
 								setAttribute('dRequestDataSet',ds);
 								startRequestTimer();
 							}
 
 							if(!firstRequestDone) {
+								console.log("firstRequestDone inside if, error="+error);
 								gController.showWaitPopupFor60Sec();								
 								if(gController.state != gController.LOGIN_STATE) {
                                    	gController.stopHeartbeat();

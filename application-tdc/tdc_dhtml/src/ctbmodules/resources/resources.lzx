@@ -539,7 +539,9 @@
  	<resource name="TN_refcard_contents" src="manipulatives/refcard/TN_refcard_contents.png"/>
  	<resource name="ISTEP_refcard_title" src="manipulatives/refcard/ISTEP_refcard_title.png"/>
  	<resource name="ISTEP_refcard_contents" src="manipulatives/refcard/ISTEP_refcard_contents.png"/>
-
+	<resource name="Corelink_refcard_title" src="manipulatives/refcard/CoreLink_RefCard-title.png"/>
+ 	<resource name="Corelink_refcard_contents" src="manipulatives/refcard/CoreLink_RefCard.png"/>
+ 	
     <resource name="theme" src="iknow_navbar/themePage.png" />
      <resource name="theme_disable" src="iknow_navbar/themePage_disable.png" />
     

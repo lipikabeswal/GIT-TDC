@@ -561,6 +561,7 @@
 		<attribute name="stylesArr" value="${new Array()}"/>
 		<attribute name="panelArr" value="$once{new Array()}"/>
 		<attribute name="scrollTextArr" value="$once{new Array()}"/>
+		<attribute name="imageFieldArr" value="$once{new Object()}" />
 			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -828,17 +829,6 @@
 		]]>
 		</method>
 		
-		<method name="getImageData" args="response"><![CDATA[
-			if((response!=null || response!='undefined') && (typeof( response ) == 'string')){
-				if(response.indexOf('||') != -1){
-					var id = response.substring(0,response.indexOf('||'));
-					var data = response.substring((response.indexOf('||')+2),response.length);
-					imageData[id] = data;
-				}
-			}
-			]]>
-		</method>
-
 		<method name="_handleUploadAuditFileResponse" args="response"><![CDATA[
             // clock is stopped
             var remainingms = durationms - elapsedms;
@@ -1155,6 +1145,7 @@
 			} else {
 				this.setAttribute('showMaskingRuler', false);
 			}
+			console.log("showMaskingRuler : "+gController.showMaskingRuler);
 			//this.setAttribute('showMaskingRuler', (smr != false));
 		</method>
 
@@ -1434,7 +1425,10 @@
 				this.setAttribute("fwdOnly",false);
             initStudentData();
             setReadableFlag();
+            console.log("initTest canvas.readable"+canvas.readable);
+            console.log("initTest gReadableText.primed"+gReadableText.primed);
             if(canvas.readable && !gReadableText.primed){
+            	console.log("initTest inside read Hi");
             	gReadableText.doRead("Hi");
               }
             var total = totalQuestions();
@@ -3742,6 +3736,9 @@
             }
             if (initglobal || initgeneral) {
                 var dntoolbar = dpstudentdata.xpathQuery ('current_item/item_model/toolbar');
+				if(this.showMaskingRuler && !dntoolbar.getAttr('masking_ruler')){
+					dntoolbar.setAttr('masking_ruler',"required");
+				}
                 var toolstate = 'disable';
 
                 for (var i in dntoolbar.attributes) {
@@ -4049,7 +4046,7 @@
         </method>
 
 		<method name="endSubtest" ><![CDATA[
-			if(imageLIArray.length > 0){
+			/*if(imageLIArray.length > 0){
 	
 				for(var i = 0 ; i < this.imageLIArray.length ; i++){
 					//this.imageLIArray[i].imageview.getMCRef().unloadMovie();
@@ -4060,7 +4057,7 @@
 						mc.imgLoader.unload();
 					}
 				}
-			}
+			}*/
 			this.resetImageArray();
 			//this.setAttribute('isaudio',false);
 			setState(WRITE_TO_AUDIT_FILE_STATE);
@@ -5448,6 +5445,35 @@
             }
             this.scrollTextArr.length = 0;
 		]]></method>
+		
+		
+		
+		<method name="getImageData" args="response"><![CDATA[
+			if((response!=null || response!='undefined') && (typeof( response ) == 'string')){
+				if(response.indexOf('||') != -1){
+					var id = response.substring(0,response.indexOf('||'));
+					var data = response.substring((response.indexOf('||')+2),response.length);
+					imageData[id] = data;
+					/*for(var i=0;i<gController.imageFieldArr.length;i++){
+						if(id == gController.imageFieldArr[i].image_id){
+							gController.imageFieldArr[i].getImageResponse();
+						}
+					}*/
+					if(gController.imageFieldArr != null){
+						console.log("inside getImageData if");
+						var imgData = gController.imageFieldArr[id];
+						if(imgData != null && imgData != "undefined"){
+							imgData.getImageResponse();
+						}
+					}
+				}
+			}
+			//setState(NONE_STATE);
+			//gController.unlockUI();
+			//setEventCompleted();
+			]]>
+		</method>
+		
 	</node>
 
 </library>
