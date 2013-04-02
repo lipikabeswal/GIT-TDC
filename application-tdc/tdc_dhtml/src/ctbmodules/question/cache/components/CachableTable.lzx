@@ -313,6 +313,7 @@
                   gEnlargePopup.contents.scaler.scroller.setAttribute("visible", true);
 
                super.doneLoading();
+                gController.panelArr.pop();
                return;
             }
             else if (this.autoenlarge == "yes" && gController.hasFontAccommodation) {
