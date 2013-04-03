@@ -325,7 +325,7 @@
             <attribute name="reloadDel" value="$once{new lz.Delegate(this, '_reload')}" />
 
 	            <handler name="onload" args="d"><![CDATA[
-					classroot.handleLoadEvent(this,'retrycountForTitle',d);
+					//classroot.handleLoadEvent(this,'retrycountForTitle',d);
 	            ]]></handler>
 	            
 	            <method name="_reload">
@@ -373,7 +373,7 @@
             <attribute name="reloadDel" value="$once{new lz.Delegate(this, '_reload')}" />
 
 	            <handler name="onload" args="d"><![CDATA[
-					classroot.handleLoadEvent(this,'retrycount',d);
+					//classroot.handleLoadEvent(this,'retrycount',d);
 	            ]]></handler>
 	            
 	            <method name="_reload">
