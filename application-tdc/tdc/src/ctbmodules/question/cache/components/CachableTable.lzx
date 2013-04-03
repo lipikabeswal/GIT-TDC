@@ -293,6 +293,15 @@
                // We're using the original table measurements, so we only need
                // to use an aspect ratio to correct for the margins 
                table.setAttribute("stretches", "both");
+				
+			   //this will give the correct factor
+			   mult_factor  = width / table.width;
+			   
+		       //scale up the table with the correct factor
+			   table.setAttribute("xscale" , mult_factor);
+			   table.setAttribute("yscale",  mult_factor);
+               
+               //set the fixed width and scale up the height
                table.setAttribute("width", width);
                table.setHeight(Math.ceil((orig_height - title_ht) * mult_factor));
 
@@ -339,7 +348,9 @@
                 // These lines were commented to stop the intermittent navigaton problems
                 this.thetable.setAttribute("width", Math.floor(contents.width * factor));
                 this.thetable.setAttribute("height", newh);
-        
+				this.thetable.contents.setAttribute('xscale', (this.thetable.width /this.thetable.contents.width ) );
+				this.thetable.contents.setAttribute('yscale', (this.thetable.height /this.thetable.contents.height ) );
+				
             } 
             // nklein : July 5, 2007
             // These lines were commented to stop the intermittent navigaton problems
