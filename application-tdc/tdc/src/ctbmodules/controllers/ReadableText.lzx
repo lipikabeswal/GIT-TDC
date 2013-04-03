@@ -68,7 +68,7 @@
         	if ( isReadable && clickable && txt.length > 0){
         		doRead(txt);
  	        	gController.freezeUI();
- 	        	gHotKeys.enableKeys();
+ 	        	//gHotKeys.enableKeys();//It must not be present here
             }
         ]]></method>
 
@@ -140,7 +140,7 @@
         	//ISTEP CR: to avoid browser caching of the mp3
         	//audioPlayer.setSource(GET_URL+"&"+timestamp()+".mp3");
 		audioPlayer.setSource(getSpeechURL());
-        	Debug.write("getMp3" + GET_URL);
+        	//Debug.write("getMp3" + GET_URL);
         ]]></method>
 
 	<method name="getSpeechURL">
@@ -225,17 +225,7 @@
 		</method>
 		        
         <view name="audioPlayer" visible="false">
-		<handler name="onresource" args="rsrc">
-			Debug.write("onresource......", rsrc);
-		</handler>	
-		<handler name="ontimeout" args="rsrc">
-			Debug.write("ontimeout......", rsrc);
-		</handler>	
-		<handler name="onerror" args="rsrc">
-			Debug.write("onerror......", rsrc);
-		</handler>	
-
-		<handler name="onload">
+        	<handler name="onload">
         		gReadableText.isplaying = true; // TTS CR:when mp3 is loaded and ready to play
 				//Changes for Defect # 65040
  				this.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
