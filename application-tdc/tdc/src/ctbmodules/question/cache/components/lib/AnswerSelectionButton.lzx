@@ -33,6 +33,7 @@
                    value="$path{ 'dsdisplay:/display/@enabled' }"/>
         <attribute name="enabled" value="${ uienabled == true }"/>
         <attribute name="clickable" value="${ uienabled == true }"/>
+		<attribute name="gControllerRef" value="$once{gController}"/>
 
 		<handler name="ondata" args="dnode"><![CDATA[
 			if(gController.isLoginResponseHavingSeed &&	
@@ -62,7 +63,7 @@
         ]]></handler>
 
         <handler name="onmouseout">
-            gController.clearAndRestoreCurrentCursor();
+            this.gControllerRef.clearAndRestoreCurrentCursor();
 
             if (this.selstate == 'n') {
                 this.setAttribute('frame', this.statenum * this.statelength + 1);
