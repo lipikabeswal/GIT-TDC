@@ -578,6 +578,7 @@
 		<attribute name="productTypeVal" type="string" value="ISTEP"/>
 		<attribute name="onStopTest" value="false" type="boolean" />
 		<attribute name="frameid"/>
+		<attribute name="currentItemId"/>
 		
 		<handler name="onframeid" args="data">
 			//Debug.write("222222222222222222222222-> ", data);
@@ -2604,6 +2605,7 @@
 		<method name="changeItem" args="fnode"><![CDATA[		
 			if(fnode != null) {		
 				var curreid = dpstudentdata.xpathQuery( 'current_item/item_model/@eid' );
+				this.setAttribute("currentItemId", curreid);
 				if(gController.htmlFields.length > 0){
 					this.htmlFields[0]['ref'].main.ht.callJavascript('getManipulativeData', null,curreid);
 				}	
@@ -5665,12 +5667,12 @@ Debug.write("############ loadItem ############");
 			}
 		]]></method>
 		<method name="showHtmlWidgets"><![CDATA[
-				if(this.htmlFields.length > 0){
-				for (var i =0; i < this.htmlFields.length; i++){
+			if(this.htmlFields.length > 0){
+				/*for (var i =0; i < this.htmlFields.length; i++){
 					this.htmlFields[i]['ref'].show();	
-				}
+				}*/
+				changeItem( getItemFromOffset( currItemOffset() ) );
 			}
-		
 		]]></method>
 
 		<method name="updateHTMLItemNode"><![CDATA[
