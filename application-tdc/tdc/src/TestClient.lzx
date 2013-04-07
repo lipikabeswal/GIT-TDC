@@ -188,6 +188,8 @@
 	<attribute name="enableManipBar" value="true" type="boolean"/>
 	<attribute name="enableManipulatives" value="true" type="boolean"/>
 	<attribute name="iframeIsLoaded" value="false" type="boolean"/>
+	<attribute name="hideTooltip" value="null" />
+	<attribute name="isTooltip" value="${gTooltip.visible}" type="boolean"/>
 	
 	<handler name="ontriggercrpush" args="data">
 		//Debug.write("*************ontriggercrpush******");
@@ -332,6 +334,10 @@
     
     <handler name="onkeysPressed" args="arg">
     	gHotKeys.handleHtmlKeyPress(arg);
+    </handler>
+    
+    <handler name="onhideTooltip">
+    	gTooltip.hideTooltip ();
     </handler>
     
     <handler name="onenableManipBar">
