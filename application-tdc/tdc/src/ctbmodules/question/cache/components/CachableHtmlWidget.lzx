@@ -265,6 +265,9 @@ Debug.write("Cachaable html widget ondata");
         
 		<method name="hide">
 			this.main.ht.setAttribute('visible',false);
+			lz.Timer.removeTimer(gController.answeredDel);
+			var s = "destroyIframe()";
+			lz.Browser.loadJS(s);
 		</method>
 		
 		<method name="show">
