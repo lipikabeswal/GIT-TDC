@@ -376,6 +376,12 @@ function setIframeIsLoaded(){
 	lz.embed.setCanvasAttribute('iframeIsLoaded',true);
 }
 
+function hideTooltip() {
+    var isTooltip = lz.embed.lzapp.getCanvasAttribute('isTooltip');
+    if(isTooltip == true || isTooltip == 'true')
+		lz.embed.setCanvasAttribute('hideTooltip',"hildTooltip");
+}
+
 function load() {
 	
      var myservlet = 'servlet/PersistenceServlet.do?method=isProductCheck&folder=calif&requestXML=';
@@ -395,6 +401,14 @@ function load() {
 		jQuery(this).setAttribute('style',"overflow-x: hidden; overflow-y: hidden;");
 	});
  });
+ 
+ function destroyIframe(){
+	var objIfrArr = jQ('body').find('iframe');
+	for(var i=0; i<jQ(objIfrArr).size(); i++) {
+		var obj = jQ(objIfrArr).eq(i);
+		jQ(obj).remove();
+	}
+}
 
 
 
@@ -459,6 +473,7 @@ body { background-color:#6691B4; margin: 0px; overflow:hidden;}
 	
 	<div id="appcontainer"></div><div id="lzsplash" style="z-index: 10000000; top: 0; left: 0; width: 100%; height: 100%; position: fixed; display: table"><p style="display: table-cell; vertical-align: middle; align: center;"><div id="lzsplashtext" style="display: block; margin: 20% auto; font-size:12px; font-family:Helvetica,sans-serif;" align="center">Loading...</div></p></div>
 	<script type="text/javascript" defer>
+				  var jQ = jQuery.noConflict();
                   function loadJsApplication(){
 	                  lz.embed.dhtml({url: 'TestClient.js?servletUrl=/servlet', lfcurl: 'lps/includes/lfc/LFCdhtml.js', serverroot: 'lps/resources/', bgcolor: '#6691b4', width: '100%', height: '100%', id: 'lzapp', accessible: 'true', cancelmousewheel: false, cancelkeyboardcontrol: false, skipchromeinstall: false, usemastersprite: false, approot: '', appenddivid: 'appcontainer'});
 	                  lz.embed.applications.lzapp.onload = function loaded() {

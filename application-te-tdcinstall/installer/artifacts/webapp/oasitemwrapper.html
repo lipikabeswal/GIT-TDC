@@ -157,6 +157,7 @@ img {
 	        			document.getElementById('__lz1').contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
 	        			ansSet = true;
 	        		}
+	        		document.getElementById('__lz1').contentWindow.accomPkg.setFocusItem();
 	        	}
         	}          
         }
@@ -421,6 +422,10 @@ img {
         
         function enableManipBar(arg) {
         	window.parent.enableManipBar(arg);
+        }
+        
+         function hideTooltip() {
+            window.parent.hideTooltip();
         }
        </script>
 
