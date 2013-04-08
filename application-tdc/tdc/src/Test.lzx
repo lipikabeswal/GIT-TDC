@@ -327,6 +327,9 @@ else{
 		maniObj.operandSet = manipId.operandSet;
 	}
 	maniObj.z_order = this.zOrder[this.getIndexForTool(manipName)];
+	if(maniObj.z_order == undefined || maniObj.z_order == 'undefined') {
+		maniObj.z_order = 'undefined';
+	}
 	return maniObj;
 	]]>
 </method>
