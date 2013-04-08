@@ -1053,8 +1053,10 @@
 			Debug.write("mydp============ ",mydp);*/
 			printBigString(response);
 			
-			var s = "saveLoginResponse('"+response+"')";
-			lz.Browser.loadJS(s);
+			if(gController.productTypeVal.indexOf("LASLINKS") >= 0) {
+				var s = "saveLoginResponse('"+response+"')";
+				lz.Browser.loadJS(s);
+			}
 			
 			if(gXmlHelper.isErrorResponse(response)){
 				gScreens.showLoginError(gXmlHelper.getStatusCode(response));
