@@ -326,6 +326,8 @@
 
 	            <handler name="onload" args="d"><![CDATA[
 					//classroot.handleLoadEvent(this,'retrycountForTitle',d);
+					classroot.adjustDimensions(classroot.data);
+					classroot.doneLoading();
 	            ]]></handler>
 	            
 	            <method name="_reload">
@@ -374,6 +376,8 @@
 
 	            <handler name="onload" args="d"><![CDATA[
 					//classroot.handleLoadEvent(this,'retrycount',d);
+					classroot.adjustDimensions(classroot.data);
+					classroot.doneLoading();
 	            ]]></handler>
 	            
 	            <method name="_reload">
