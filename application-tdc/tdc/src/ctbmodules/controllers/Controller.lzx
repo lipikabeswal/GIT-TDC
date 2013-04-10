@@ -3129,6 +3129,8 @@
 			checkHideMaskingChoiceDD();    
           
             gScreens.showPause(getStudentName());
+            var s = "enablePasswordFocus()";
+			lz.Browser.loadJS(s);
 		</method>
 
 		<method name="pausedContinue" args="pw">
