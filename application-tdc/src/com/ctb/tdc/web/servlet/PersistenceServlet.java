@@ -1017,7 +1017,7 @@ public class PersistenceServlet extends HttpServlet {
     	calculatorDialog84 = new CalculatorDialog(jFrame, ServletUtils.GRAPHIC_CALCULATOR);
     	calculatorDialog84.setAlwaysOnTop(true);
     	calculatorDialog84.setResizable(false);
-    	calculatorDialog84.setIconImage(new ImageIcon(RESOURCE_FOLDER_PATH + File.separator + "calc.png").getImage());
+    	//calculatorDialog84.setIconImage(new ImageIcon(RESOURCE_FOLDER_PATH + File.separator + "calc.png").getImage());
     
     	EmulatorComponent emu = new EmulatorComponent(jFrame);
         emu.setFaceSize(EmulatorComponent.MEDIUM);
@@ -1063,7 +1063,7 @@ public class PersistenceServlet extends HttpServlet {
                 
     	calculatorDialog30.setAlwaysOnTop(true);
     	calculatorDialog30.setResizable(false);
-    	calculatorDialog30.setIconImage(new ImageIcon(RESOURCE_FOLDER_PATH + File.separator + "calc.png").getImage());
+    	//calculatorDialog30.setIconImage(new ImageIcon(RESOURCE_FOLDER_PATH + File.separator + "calc.png").getImage());
     	calculatorDialog30.setSize(300, 600);
     	
         CalcPaneTI30 emu = new CalcPaneTI30(calculatorDialog30.getContentPane());
