@@ -294,6 +294,7 @@ img {
 	    	  	var xscalefact = (780 * xscalefactorjs)/800;
 		    	var yscalefact = (450 * yscalefactorjs)/462;
 		    	document.getElementById('__lz1').contentWindow.translate(xscalefact, yscalefact);
+		    	document.getElementById('__lz1').contentWindow.isReadable(readable);
 		    	//document.getElementById('__lz1').contentWindow.translate(xscalefactorjs, (450 * yscalefactorjs)/600);
 		    	initScratchpad(fontObj.hasFont);
 		    	var scratchPadLatest = window.parent.scratchpadManager.getCounter();
@@ -414,6 +415,7 @@ img {
         
         function manipOutOfFrameCheck(testClientMouseUp) {
         	lz.embed.setCanvasAttribute('manipOutOfFrameCheck',testClientMouseUp);
+        	document.getElementById('__lz1').contentWindow.accomPkg.releaseItem();
         }
         
         function enableHotKeys(arg) {
