@@ -3418,7 +3418,8 @@
 		<method name="unlockUI">
 		<![CDATA[
 			if(doUnlockUI){
-	            --uisemaphore;
+				 //--uisemaphore;
+	            uisemaphore = 0;//unlock the UI with each unlock call.
 	
 				if ( uisemaphore < 0 )
 				{

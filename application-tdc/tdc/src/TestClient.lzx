@@ -35,20 +35,25 @@
 		return mic.activityLevel;
 	}
 
+	var bitmap:BitmapData = null;
 	
 	public function doMouseMove(x:Number,y:Number,ratioW:Number,ratioH:Number) {
 		if(temp!= null){
+			if(bitmap != null) {
+				bitmap.dispose();//bitmapdata was causing huge memory leak, call dispose method to free up memory from each object
+				bitmap = null;
+			}
 			var x = x;
 			var y = y;
 			var w = temp.width;
 			var h = temp.height;
 			var scale = 1.5;				
-			var bitmap:BitmapData = new flash.display.BitmapData(w, h, false);
+			bitmap = new flash.display.BitmapData(w, h, false);
 			var matrix = new flash.geom.Matrix();
 			matrix.scale(scale, scale);
 			matrix.translate(-x * (scale + ratioW), -y * (scale + ratioH));
 			bitmap.draw(main.sprite, matrix, colorTransform, "normal", rect);
-		
+			
 			var myfilter = new flash.filters.DropShadowFilter();
 			myfilter.quality = 5;
 			myfilter.strength = 2;
@@ -57,7 +62,7 @@
 			temp.sprite.filters = [myfilter];
 			var bm:Bitmap = new Bitmap(bitmap);
 			temp.sprite.addChild (bm);
-			bitmap = null;
+			//bitmap = null;
 			matrix = null;
 			//bitmap.remove();
 		}

@@ -46,22 +46,22 @@
 		</handler>
 
 		<handler name="onmousedown">
+		    gHotKeys.disableKeys();
 			magnifyingGlass.dragger.apply();
 			magnifyingGlass.magnify();
 			lz.Cursor.setCursorGlobal ('grabbing_cursor');
 		    lz.Cursor.lock();		
-		    gHotKeys.disableKeys();
 		</handler>
 		
 		<handler name="onmouseup">
 	        magnifyingGlass.dragger.remove();
 			lz.Timer.removeTimer(magnifyingGlass.trackDel);
 			lz.Cursor.unlock();
-			gHotKeys.enableKeys();
 	        
 			// the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
        		lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
 	        //gController.restoreCurrentCursor();
+			gHotKeys.enableKeys();
   		</handler>
 
 	<drawview name="windowbg" width="${canvas.width/4}"
@@ -168,6 +168,7 @@
 	</method>
 
 	<method name="hideGlass">
+		this.onmouseup.sendEvent();
 		this.setAttribute("visible", false);
 	</method>
 
