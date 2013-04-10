@@ -382,6 +382,13 @@ function hideTooltip() {
 		lz.embed.setCanvasAttribute('hideTooltip',"hildTooltip");
 }
 
+function enablePasswordFocus(){
+    var myFlash = document.getElementById( 'lzapp' );
+     if ( myFlash ) { 
+      myFlash.focus(); 
+     }
+}
+
 function load() {
 	
      var myservlet = 'servlet/PersistenceServlet.do?method=isProductCheck&folder=calif&requestXML=';
