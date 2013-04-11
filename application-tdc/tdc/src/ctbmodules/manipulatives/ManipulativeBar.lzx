@@ -222,7 +222,8 @@
 	                            clickable="${canvas.enableManipulatives}"/>
 			<ManipulativeButton resource="toolbar_formula_card_btn"
 	                            toolid="formula_card_resource"
-	                            tooltip="Reference Card"/>
+	                            tooltip="Reference Card"
+	                            clickable="${canvas.enableManipulatives}"/>
 			<ManipulativeButton resource="toolbar_calculator_btn"
 	                            toolid="standard_calculator"
 	                            tooltip="Calculator"
