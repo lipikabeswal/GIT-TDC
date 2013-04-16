@@ -109,6 +109,9 @@ Debug.write("Cachaable html widget ondata");
 					gController.updateBlueBallForHtmlItem(retVal);
 					}
 				if(!unlocked){
+				    //Debug.write('===DHTMLComponent handleFunc1: IF==');
+				    canvas.setAttribute('loadItem',true);
+				    canvas.freezView.setAttribute('visible',false);
 					gHotKeys.enableKeys();
 					gController.unlockUI();
 					this.setAttribute('unlocked', true);

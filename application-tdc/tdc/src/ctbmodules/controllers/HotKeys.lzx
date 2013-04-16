@@ -335,24 +335,32 @@
         </method>        
         <method name="goBack">
 		<![CDATA[
-			if(!gController.fwdOnly){
-        		if(!gController.onFirstItem()){
-        			lz.Focus.clearFocus();
-        		}
-        	
-            	this.exitPopups();
-            	gEnlargePopup.shrink();
-        		gController.stepNavigateBack();
-			}      
+		    //Debug.write("==goBack=="+canvas.loadItem);
+            if(canvas.loadItem){
+                Debug.write("==goBack IF=="+canvas.loadItem);
+                if(!gController.fwdOnly){
+	        		if(!gController.onFirstItem()){
+	        			lz.Focus.clearFocus();
+	        		}
+	        	
+	            	this.exitPopups();
+	            	gEnlargePopup.shrink();
+	        		gController.stepNavigateBack();
+				} 
+			}	     
        	]]>
 		</method>
         <method name="goOn"> 
-        	if(!gController.onLastItem()){
-        		lz.Focus.clearFocus();
-        	}
-            this.exitPopups(); 
-            gEnlargePopup.shrink();
-        	gController.stepNavigateForward();     
+            //Debug.write("==goOn=="+canvas.loadItem);
+            if(canvas.loadItem){
+                Debug.write("==goOn IF=="+canvas.loadItem);
+                if(!gController.onLastItem()){
+	        		lz.Focus.clearFocus();
+	        	}
+	            this.exitPopups(); 
+	            gEnlargePopup.shrink();
+	        	gController.stepNavigateForward();  
+	        }	   
         </method>
         <method name="toggleMark"> 
             this.exitPopups(); 

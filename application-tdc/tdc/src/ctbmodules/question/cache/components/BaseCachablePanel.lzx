@@ -162,6 +162,10 @@
                 gFootNotePopup.setAttribute("scrolltext", this);
             }      
 
+           //Debug.write("==== BASE CHABLE COMPO ONDATA===");
+           canvas.freezView.setAttribute('visible',false);
+           canvas.setAttribute('loadItem',true);
+           
         ]]></method>
 
 		<!-- 

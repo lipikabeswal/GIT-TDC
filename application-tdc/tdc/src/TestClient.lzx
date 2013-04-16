@@ -195,6 +195,7 @@
 	<attribute name="iframeIsLoaded" value="false" type="boolean"/>
 	<attribute name="hideTooltip" value="null" />
 	<attribute name="isTooltip" value="${gTooltip.visible}" type="boolean"/>
+	<attribute name="loadItem" value="true" type="boolean" />
 	
 	<handler name="ontriggercrpush" args="data">
 		//Debug.write("*************ontriggercrpush******");
@@ -467,4 +468,8 @@
 </view>
  <include href="ctbmodules/manipulatives/magnifier/MagnifyingGlass.lzx"/>   
 
+<!-- -Freezing view -->
+<view width="100%" height="100%" opacity="0.1" name="freezView"
+ clickable="true" visible="false" />
+ 
 </canvas>

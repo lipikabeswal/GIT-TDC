@@ -2599,7 +2599,11 @@
 			else {
 	            if (itemeid != curreid) {
 	            	changeItem(dpsubtest.xpathQuery( "ob_assessment/ob_element_list/f[@id='" + itemeid + "']" ));
-	            }
+	            }else{
+					//Debug.write("==ELSE navigateTo=="+canvas.loadItem);
+	                canvas.freezView.setAttribute('visible',false);
+	                canvas.setAttribute('loadItem',true);	
+                }
             }
          //hideMagnifierGlass(); 
         ]]></method>
@@ -2743,17 +2747,31 @@
         </method>
 
 		<method name="stepNavigateBack"><![CDATA[
+
+            canvas.freezView.setAttribute('visible',true);
+	        canvas.setAttribute('loadItem',false);
+			//Debug.write("== stepNavigateBack=="+canvas.loadItem);
+
             if ( !onFirstItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm){
             		this.showRevisitPopup("goBack");
 				}else{
 				changeItem( getItemFromOffset( currItemOffset() - 1 ) );
-            }
-            }
+            	}
+            }else{
+				//Debug.write("==ELSE stepNavigateBack=="+canvas.loadItem);
+                canvas.freezView.setAttribute('visible',false);
+                canvas.setAttribute('loadItem',true);	
+            }	
         ]]></method>
 
 		<method name="stepNavigateForward"><![CDATA[
+            
+            canvas.freezView.setAttribute('visible',true);
+	        canvas.setAttribute('loadItem',false);
+			//Debug.write("== stepNavigateForward=="+canvas.loadItem);
+
            	var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/@itempos' )
             );
@@ -2770,7 +2788,11 @@
 				}else{
 					changeItem( getItemFromOffset( currItemOffset() + 1 ) );
             	}
-            }
+             }else{
+				//Debug.write("==ELSE stepNavigateForward=="+canvas.loadItem);
+                canvas.freezView.setAttribute('visible',false);
+                canvas.setAttribute('loadItem',true);	
+            }	
         ]]></method>
 
 		<method name="addManipulatives" args="data"><![CDATA[
