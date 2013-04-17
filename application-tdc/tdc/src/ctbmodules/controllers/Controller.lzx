@@ -3110,6 +3110,7 @@
 		
 			
 		<method name="pauseTest">
+			var curreid = dpstudentdata.xpathQuery( 'current_item/item_model/@eid' );
             if ( pausable == true ) {
             	gReadableText.stopReading(false);
                 freezeUI();
@@ -3128,6 +3129,9 @@
 			//	}
 	
 			}
+				if(gController.htmlFields.length > 0){
+					this.htmlFields[0]['ref'].main.ht.callJavascript('getManipulativeData', null,curreid);
+				}
                 setState(PAUSE_STATE);
                 this.setAttribute("sendCatSave",false);
                 save(PAUSE_LEV);
@@ -3386,6 +3390,7 @@
 
 		<method name="stopTest">
 			this.setAttribute("onStopTest",true);
+			var curreid = dpstudentdata.xpathQuery( 'current_item/item_model/@eid' );
 			var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
 			//Debug.write("STOP TEST ITEM NODE");
 			var curItemId;
@@ -3397,6 +3402,9 @@
 			this.setAttribute("isStopTest",true);
 			this.setAttribute("catOver",false);
 			this.isStopScreen = false;
+			if(gController.htmlFields.length > 0){
+					this.htmlFields[0]['ref'].main.ht.callJavascript('getManipulativeData', null,curreid);
+				}
             finishTest();
         </method>
 		<!--For defect 65881-->
