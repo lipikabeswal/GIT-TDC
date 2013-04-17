@@ -210,6 +210,18 @@
 			}
 		}
 	}
+	if(gFormulaCardResource.visible) {
+		if(this.manipOutOfFrameCheck == "true") {
+			if(gFormulaCardResource.isMouseClicked == "true" && gFormulaCardResource.isMouseReleased == "false") {
+				gFormulaCardResource.onmouseup.sendEvent();
+			}
+		} else {
+			if(gFormulaCardResource.isMouseClicked == "true" && gFormulaCardResource.isMouseReleased == "false") {
+				gFormulaCardResource.onmousedown.sendEvent();
+			}
+		}
+	}
+	
 ]]></handler>
 
 <handler name="onhasfontaccom" args="data">
