@@ -525,6 +525,7 @@
 		<attribute name="calledFromLasHtml" type = "boolean" value="false"/>
 		<attribute name="lasHtmlField" value="$once{new Array()}" />
 		<attribute name="lasAssetPresent" type="boolean" value="false" />
+		<attribute name="isAnswerSet" type="boolean" value="false"/>
 		
 		<!-- called to restore the custom cursor-->
 		<attribute name="dRestoreCursor"
@@ -2600,9 +2601,8 @@
 	            if (itemeid != curreid) {
 	            	changeItem(dpsubtest.xpathQuery( "ob_assessment/ob_element_list/f[@id='" + itemeid + "']" ));
 	            }else{
-					//Debug.write("==ELSE navigateTo=="+canvas.loadItem);
-	                canvas.freezView.setAttribute('visible',false);
-	                canvas.setAttribute('loadItem',true);	
+					//Debug.write("==ELSE navigateTo==unFreezUI==");
+	                canvas.unFreezUI();
                 }
             }
          //hideMagnifierGlass(); 
@@ -2747,11 +2747,8 @@
         </method>
 
 		<method name="stepNavigateBack"><![CDATA[
-
-            canvas.freezView.setAttribute('visible',true);
-	        canvas.setAttribute('loadItem',false);
-			//Debug.write("== stepNavigateBack=="+canvas.loadItem);
-
+		    //Debug.write("==stepNavigateBack====");
+			canvas.freezUI();
             if ( !onFirstItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm){
@@ -2760,18 +2757,14 @@
 				changeItem( getItemFromOffset( currItemOffset() - 1 ) );
             	}
             }else{
-				//Debug.write("==ELSE stepNavigateBack=="+canvas.loadItem);
-                canvas.freezView.setAttribute('visible',false);
-                canvas.setAttribute('loadItem',true);	
+				//Debug.write("==ELSE stepNavigateBack==unFreezUI===");
+                canvas.unFreezUI();	
             }	
         ]]></method>
 
 		<method name="stepNavigateForward"><![CDATA[
-            
-            canvas.freezView.setAttribute('visible',true);
-	        canvas.setAttribute('loadItem',false);
-			//Debug.write("== stepNavigateForward=="+canvas.loadItem);
-
+		    //Debug.write("==stepNavigateForward====");
+		    canvas.freezUI();           
            	var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/@itempos' )
             );
@@ -2789,9 +2782,8 @@
 					changeItem( getItemFromOffset( currItemOffset() + 1 ) );
             	}
              }else{
-				//Debug.write("==ELSE stepNavigateForward=="+canvas.loadItem);
-                canvas.freezView.setAttribute('visible',false);
-                canvas.setAttribute('loadItem',true);	
+				//Debug.write("==ELSE stepNavigateForward==unFreezUI===");
+                canvas.unFreezUI();
             }	
         ]]></method>
 
@@ -3862,6 +3854,10 @@ Debug.write("############ loadItem ############");
 
 		<!-- manipulators -->
 		<method name="initManipulativeData"><![CDATA[
+		    //Debug.write("==START initManipulativeData==");
+		     //don't remove this is for freezing the UI untill views are rendered
+			canvas.freezUI();
+					
 			closeOpenMaskingManipulatives();
             var dnmanip = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives');
             var dngeneral = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/general');
@@ -3920,7 +3916,11 @@ Debug.write("############ loadItem ############");
 							//Debug.write("splice",htmlGeneralManipData);
 						}
 					}
-					Debug.write("htmlGeneralManipData********* ",htmlGeneralManipData);
+					Debug.write("htmlGeneralManipData IF********* ",htmlGeneralManipData);
+				}else{
+					//Debug.write("htmlGeneralManipData ELSE********* ",htmlGeneralManipData);
+					//don't remove this is for freezing the UI untill views are rendered
+					canvas.unFreezUI();
 				}
                 
                 if(dnman != null){
@@ -4062,6 +4062,9 @@ Debug.write("############ loadItem ############");
 
 				
             }
+            //Debug.write("==END initManipulativeData==");
+		    // don't remove this is for unfreezing the UI after views are rendered
+			//canvas.unFreezUI();
        ]]></method>
 
 		<method name="getToolstate" args="toolid">
@@ -4651,6 +4654,7 @@ Debug.write("############ loadItem ############");
 	            if (answered) {
 	                currentitem.setAttr("answered", 1);
 	                runtimeitem.setAttr("answered", 1);
+			
 	            }
 	            else {
 	               currentitem.setAttr("answered", 0);
@@ -5654,6 +5658,8 @@ Debug.write("############ loadItem ############");
 	            if (answered) {
 	                currentitem.setAttr("answered", 1);
 	                runtimeitem.setAttr("answered", 1);
+	                //Debug.write('===updateBlueBallForAudioItem unFreezUI==');
+					canvas.unFreezUI();
 	            }
 	            else {
 	               currentitem.setAttr("answered", 0);

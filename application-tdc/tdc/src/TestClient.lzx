@@ -472,4 +472,20 @@
 <view width="100%" height="100%" opacity="0.1" name="freezView"
  clickable="true" visible="false" />
  
+ <method name="freezUI">
+ 	<![CDATA[
+        Debug.write('===canvas freezUI==');
+ 		this.freezView.setAttribute('visible',true);
+	    this.setAttribute('loadItem',false);
+	    
+ 	]]>
+ </method>
+ <method name="unFreezUI">
+ 	<![CDATA[
+        Debug.write('===canvas unFreezUI==');
+ 		this.freezView.setAttribute('visible',false);
+	    this.setAttribute('loadItem',true);
+ 	]]>
+ </method>
+ 
 </canvas>

@@ -43,6 +43,7 @@ Debug.write("Cachaable html widget ondata");
 	        var answer = gController.getStateForInputWidgetId(this.widget_id);
 		
 			if(answer){
+				gController.setAttribute('isAnswerSet',true);
 				this.setAttribute('answered',false); //We are setting answered as false so that we can setTheState properly. This has to be revisited 
 				var selectedValuesArr = [];
 				if(answer['checkedVals']){
@@ -58,6 +59,9 @@ Debug.write("Cachaable html widget ondata");
 
 				this.setAttribute('answerObjSet', answer);
 
+			}
+			else {
+				gController.setAttribute('isAnswerSet',false);
 			}
 			gController.addHtmlField({"widget_id" : id, "answered" : this.answered, "answer" : this.answer, "ref" : this}); 
 
@@ -110,8 +114,8 @@ Debug.write("Cachaable html widget ondata");
 					}
 				if(!unlocked){
 				    //Debug.write('===DHTMLComponent handleFunc1: IF==');
-				    canvas.setAttribute('loadItem',true);
-				    canvas.freezView.setAttribute('visible',false);
+				    //canvas.setAttribute('loadItem',true);
+				    //canvas.freezView.setAttribute('visible',false);
 					gHotKeys.enableKeys();
 					gController.unlockUI();
 					this.setAttribute('unlocked', true);
@@ -143,6 +147,11 @@ Debug.write("Cachaable html widget ondata");
 		    }else{
 		    // lz.Timer.removeTimer(setStateDel);
 		    }
+		    
+			if(!gController.isAnswerSet) {
+				//Debug.write('===setAnswer ansObj unFreezUI==');
+				canvas.unFreezUI();
+			}
 		   }
 	   
 	    ]]></method>

@@ -106,10 +106,8 @@
         ]]></handler>
 
         <method name="doProcess">
-			//Debug.write("==doProcess=="+canvas.loadItem);
-            canvas.freezView.setAttribute('visible',true);
-		    canvas.setAttribute('loadItem',false);
-
+			//Debug.write("==doProcess==");
+			canvas.freezUI();
 			gController.setAttribute("nextItem", itemeid ); 
 			gController.setAttribute("navigateConfirm",false);
 			if(!gController.navigateConfirm){

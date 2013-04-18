@@ -333,10 +333,11 @@
 	        	gController.toggleItemSelState( 'J' ); 
 	        }
         </method>        
-        <method name="goBack">
+       <method name="goBack">
 		<![CDATA[
 		    //Debug.write("==goBack=="+canvas.loadItem);
             if(canvas.loadItem){
+            	canvas.freezUI();
                 Debug.write("==goBack IF=="+canvas.loadItem);
                 if(!gController.fwdOnly){
 	        		if(!gController.onFirstItem()){
@@ -353,6 +354,7 @@
         <method name="goOn"> 
             //Debug.write("==goOn=="+canvas.loadItem);
             if(canvas.loadItem){
+                canvas.freezUI();
                 Debug.write("==goOn IF=="+canvas.loadItem);
                 if(!gController.onLastItem()){
 	        		lz.Focus.clearFocus();
