@@ -217,7 +217,13 @@
 		            classroot.updateScrollTo(this.y);
 				</handler>
 			</view>
-		    <vscrollbar name="scroller" visible="${this.scrollable}"/>
+		    <vscrollbar name="scroller" visible="${this.scrollable}">
+				<handler name="onmouseout">
+		        this.setAttribute('isMouseReleased','false');
+				this.setAttribute('isMouseClicked','true');
+				</handler>
+				
+		    </vscrollbar>
 		</view>
     </class>
 

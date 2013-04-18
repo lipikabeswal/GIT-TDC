@@ -214,6 +214,7 @@
 		if(this.manipOutOfFrameCheck == "true") {
 			if(gFormulaCardResource.isMouseClicked == "true" && gFormulaCardResource.isMouseReleased == "false") {
 				gFormulaCardResource.onmouseup.sendEvent();
+				gFormulaCardResource.refCardContents.scroller.onmouseout.sendEvent();
 			}
 		} else {
 			if(gFormulaCardResource.isMouseClicked == "true" && gFormulaCardResource.isMouseReleased == "false") {
