@@ -143,6 +143,7 @@
         </method>
         <method name="showFinish" args="a, m">
             removeAllStates();
+            canvas.unFreezUI();
             if ( !contents.fs.isinited ) contents.fs.completeInstantiation();
             standingMan.apply();
             contents.fs.setStats( a, m );
@@ -168,6 +169,7 @@
         
         <method name="showPause" args="sn">
             removeAllStates();
+            canvas.unFreezUI();
             if ( !contents.ps.isinited ) contents.ps.completeInstantiation();
             standingMan.apply();
 			if(gController.displayText == true || gController.displayText == 'true') {
@@ -304,7 +306,7 @@
         <method name="showGoodbye">
 
             removeAllStates();
-
+			canvas.unFreezUI();
             if ( !contents.gs.isinited ) contents.gs.completeInstantiation();
 
             contents.gs.setAttribute('visible', true );

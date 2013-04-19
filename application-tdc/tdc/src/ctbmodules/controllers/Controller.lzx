@@ -526,7 +526,8 @@
 		<attribute name="lasHtmlField" value="$once{new Array()}" />
 		<attribute name="lasAssetPresent" type="boolean" value="false" />
 		<attribute name="isAnswerSet" type="boolean" value="false"/>
-		
+		<attribute name="findAnswer" type="boolean" value="true"/>
+
 		<!-- called to restore the custom cursor-->
 		<attribute name="dRestoreCursor"
 			value="$once{ new lz.Delegate( this, 'restoreGrabCursor' ) }" />
@@ -4914,6 +4915,7 @@ Debug.write("############ loadItem ############");
 				gHotKeys.disableKeys();
 			}else{	
 				gPleaseWaitPopup.show();
+				canvas.unFreezUI();
 			}
 			gMusicPlayer.hide();
 			checkHideMagnifierGlass();
@@ -5658,8 +5660,11 @@ Debug.write("############ loadItem ############");
 	            if (answered) {
 	                currentitem.setAttr("answered", 1);
 	                runtimeitem.setAttr("answered", 1);
-	                //Debug.write('===updateBlueBallForAudioItem unFreezUI==');
-					canvas.unFreezUI();
+	                //Debug.write('===updateBlueBallForAudioItem unFreezUI==',this.findAnswer);
+					if(this.findAnswer){
+						canvas.unFreezUI();
+						this.setAttribute('findAnswer',false);
+					}
 	            }
 	            else {
 	               currentitem.setAttr("answered", 0);

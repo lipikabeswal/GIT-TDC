@@ -36,6 +36,7 @@ Debug.write("Cachaable html widget ondata");
       	this.setAttribute('srcUrl', srcUrl);
 		this.setAttribute('unlocked', false);
 		this.setAttribute('answerObjSet', {});
+        gController.setAttribute('findAnswer',true);
 		if (data.hasAttr("id")) {
 	      	var id = data.getAttr('id');
 	      	this.setAttribute('widget_id',id);
