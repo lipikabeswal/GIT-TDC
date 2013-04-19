@@ -220,6 +220,10 @@
 
 	<dataset name="dstemp" />
 
+	<dataset name="dsrestartLogin" />
+		<datapointer name="dprestartLogin"
+			xpath="dsrestartLogin:/loginData" />
+
 	<!--
 		==================================================
 		Test Controller
@@ -269,7 +273,10 @@
 			value="tutorialComplete" />
 		<attribute name="CHECK_PROD_TYPE_METHOD" type="string"
 			value="isProductCheck" />	
-
+		<attribute name="IS_MAX_MEMORY" type="string"
+			value="isMaxMemory" />
+		<attribute name="CHECK_MEMORY_EXCEEDED" type="string"
+			value="checkMemoryExceeded"/>
 		<!-- 
 			Lifecycle events
 		-->
@@ -526,11 +533,13 @@
 		<attribute name="lasHtmlField" value="$once{new Array()}" />
 		<attribute name="lasAssetPresent" type="boolean" value="false" />
 		<attribute name="isAnswerSet" type="boolean" value="false"/>
+		<attribute name="maxMemoryCheck" type="boolean" value="true" />
 		<attribute name="findAnswer" type="boolean" value="true"/>
-
 		<!-- called to restore the custom cursor-->
 		<attribute name="dRestoreCursor"
 			value="$once{ new lz.Delegate( this, 'restoreGrabCursor' ) }" />
+		<attribute name="isRestart" type="boolean" value="false"/>
+		
 		<!--
 			============================================================
 			Datapointers
@@ -579,6 +588,7 @@
 		<attribute name="RestartTest" value="false" type="boolean" />
 		<attribute name="productTypeVal" type="string" value="ISTEP"/>
 		<attribute name="onStopTest" value="false" type="boolean" />
+		<attribute name="isRestart1" value="false" type="boolean" />
 		<attribute name="frameid"/>
 		<attribute name="currentItemId"/>
 		
@@ -653,13 +663,56 @@
 		</method>
 
 		<handler name="oninit">
-			checkIsProduct();
+			//Debug.write("oninit of controller********");
+			checkMemoryExceeded();
+			//checkIsProduct();
         	//gScreens.showLogin();
 			var base = lz.Browser.getInitArg( 'servletUrl' );
 			dsitem.setAttribute('src', base + '/ContentServlet.do'); 
 			dsMusic.setAttribute('src', base + '/ContentServlet.do');   
 			//Debug.write("On Init Controller");
         </handler>
+		
+		<method name="checkMemoryExceeded">
+			//Debug.write("checkMemoryExceeded controller*************");
+			setState(CHECK_MEMORY_EXCEEDED);
+			gCommunicator.checkMemoryExceeded();
+			//_handleCheckMemoryExceeded(response);
+		</method>
+
+		<method name="_handleCheckMemoryExceeded" args="loginCred"><![CDATA[
+			//Debug.write("_handleCheckMemoryExceeded********",loginCred);
+			if(loginCred!=null && loginCred!=""){
+			var restartData = lz.DataElement.stringToLzData(loginCred);
+			dsrestartLogin.setAttribute('childNodes',new Array(restartData));
+			//Debug.write("dsrestartLogin****",dsrestartLogin);
+			var restart = dprestartLogin.xpathQuery('@isRestart');
+			//Debug.write("restart in _handleCheckMemoryExceeded*******",restart);
+			if(restart == true || restart =='true'){
+					this.setAttribute('isRestart',true);
+					var loginId = dprestartLogin.xpathQuery('@user_name');
+					var password = dprestartLogin.xpathQuery('@password');
+					var accessCode = dprestartLogin.xpathQuery('@access_code');
+					//gController.login(userid,password,accesscode);	
+					//gController.login("corelink3-b-0406","pair25","estimate53");		
+					//checkIsProduct();		
+					gController.showRestartLogin(loginId,password,accessCode);
+				}else{
+					//Debug.write("response false for get credentials******");
+					this.setAttribute('isRestart',false);
+					checkIsProduct();
+				}
+		}
+		]]></method>
+		
+		<method name="showRestartLogin" args="loginId, password, accessCode">
+			gScreens.clicked();
+            var s = "enablePasswordFocus()";
+			lz.Browser.loadJS(s);
+			Debug.write("loginId,password,accessCode*****",loginId,password,accessCode);
+			gController.login(loginId,password,accessCode);	
+			canvas.setScale();
+		</method>
 
         <method name = "checkIsProduct">
 			setState(CHECK_PROD_TYPE_METHOD);
@@ -674,6 +727,26 @@
 			gCommunicator.login(userid, password, accesscode);
 			//Debug.write("On Init Controller login");
 		</method>
+
+		<method name="isMaxMemoryExceeded" args="userid, password, accesscode">
+			//Debug.write("isMaxMemoryExceeded controller****");
+			setState(IS_MAX_MEMORY);
+			gCommunicator.isMaxMemoryExceeded(userid, password, accesscode);
+		</method>
+
+		<method name="_handleIsMaxMemoryExceeded" args="response"><![CDATA[
+			//Debug.write("_handleIsMaxMemoryExceeded controller response ",response);
+			if(response.indexOf('true') >= 0){
+				Debug.write("_handleIsMaxMemoryExceeded controller response true****");
+				gController.setAttribute("maxMemoryCheck",false);
+				var s = "loadDummyHtml()";
+				lz.Browser.loadJS(s);
+			} else {
+				Debug.write("_handleIsMaxMemoryExceeded controller response false****");
+				gController.setAttribute("maxMemoryCheck",true);
+				loadItem();
+			}
+		]]></method>
 
 		<method name="getSubtest">
 			setAttribute("doUnlockUI", true);
@@ -831,6 +904,12 @@
 						break;
                     case CHECK_PROD_TYPE_METHOD:
 						_handleIsPasswordField(response);
+						break;
+					case IS_MAX_MEMORY:
+						_handleIsMaxMemoryExceeded(response);
+						break;
+					case CHECK_MEMORY_EXCEEDED:
+						_handleCheckMemoryExceeded(response);
 						break;
 					default:
 						break;
@@ -1040,7 +1119,12 @@
 
 		<method name="_handleSaveLoadResponse" args="response">
 		//Debug.write("_handleSaveLoadResponse");
-			loadItem();
+			//Debug.write("isRestart1***",isRestart1, typeof(isRestart1));
+			if(this.isRestart1 == true) {
+				gController.isMaxMemoryExceeded(userid, password, accesscode);
+			} else {
+				loadItem();
+			}
 		</method>
 
 		<method name="_handleLoginResponse" args="response"><![CDATA[
@@ -1111,10 +1195,15 @@
 					gTutorialManager.doTutorialFlow();
 				}
 				else{
+					if(!gController.isRestart) {
 					//Made changes here as tutorial is not present for Istep product.
-					if(gController.displayText == true || gController.displayText == 'true') {
-						gScreens.showIndianaSecurityScreen();
-					} else {
+						if(gController.displayText == true || gController.displayText == 'true') {
+							gScreens.showIndianaSecurityScreen();
+						} else {
+							gDownloadManager.downloadContent();
+						}
+					}
+					else{
 						gDownloadManager.downloadContent();
 					}
 				}
@@ -1448,9 +1537,11 @@
 				this.setAttribute("fwdOnly",false);
             initStudentData();
             setReadableFlag();
-            if(canvas.readable && !gReadableText.primed){
-            	gReadableText.doRead("Hi");
-              }
+			if(!gController.isRestart) {
+	            if(canvas.readable && !gReadableText.primed){
+	            	gReadableText.doRead("Hi");
+	              }
+			}
             var total = totalQuestions();
             if(this.adaptive == true){
             	total = this.subtestLength;
@@ -1481,12 +1572,14 @@
                         dpsubtest.xpathQuery( 'sco/@sco_duration_minutes' )
                     );
                     resetTestTimer( mins * 60 );
-                    gScreens.showRestart(
-                        mins < 0 ? 0 : mins,
-                        total - totalAnsweredOnRestart(),
-                        untimed,
-                        getStudentName()
-                    );
+					if(!gController.isRestart){
+	                    gScreens.showRestart(
+	                        mins < 0 ? 0 : mins,
+	                        total - totalAnsweredOnRestart(),
+	                        untimed,
+	                        getStudentName()
+	                    );
+					}
                 } else {
                     var secsnum = parseInt( secs );
                     if ( secsnum <= 0 && !untimed ) {
@@ -1497,12 +1590,14 @@
                      } else {
                         var mins = Math.floor( secsnum / 60 );
                         resetTestTimer( secsnum );
-                        gScreens.showRestart(
-                            mins < 0 ? 0 : mins,
-                            total - totalAnsweredOnRestart(),
-                            untimed,
-                            getStudentName()
-                        );
+						if(!gController.isRestart){
+	                        gScreens.showRestart(
+	                            mins < 0 ? 0 : mins,
+	                            total - totalAnsweredOnRestart(),
+	                            untimed,
+	                            getStudentName()
+	                        );
+						}
                     }
                 }
             } else {
@@ -1512,13 +1607,14 @@
                 if(!untimed){
                 	resetTestTimer( mins * 60 );
                 }
-				
-				if(firstSubtest){
-                	gScreens.showWelcome( mins, total, untimed, getStudentName() );
-                }
-                else{
-                	gScreens.showContinue( mins, total, untimed, getStudentName() );
-                }
+				if(!gController.isRestart){
+					if(firstSubtest){
+	                	gScreens.showWelcome( mins, total, untimed, getStudentName() );
+	                }
+	                else{
+	                	gScreens.showContinue( mins, total, untimed, getStudentName() );
+	                }
+				}
             }
             this.setAttribute('firstSubtest', false);
            	gLogo.setSource(canvas.logoRsrc);
@@ -1531,6 +1627,28 @@
 			//Debug.write("seed, total : ", seed, total);
  			populateRandomIndexArray(seed, total);
  		}
+		if(gController.isRestart){
+			if(firstSubtest){
+				gController.openTest();
+			}else{
+				if(gController.istRestartLength== gController.subtestLength){
+	                if(gController.adaptive=='true'){
+	                 	gController.RestartTest= "true";
+						gController.finishTest();
+						gController.istRestartLength=0;
+					}
+					else{
+		               	gController.openTest();
+		               	gController.RestartTest= "false";
+		            }
+				}
+	            else{
+	              	gController.openTest();
+	              	gController.RestartTest= "false";
+	           }
+			}
+			this.setAttribute('isRestart',false);
+		}
  		
         ]]></method>
 
@@ -1668,9 +1786,10 @@
 			Load and display first question.
 		-->
 		<method name="openTest">
+			//Debug.write("isRestart1***",isRestart1);
 			this.setAttribute('uisemaphore', 1);
 			this.istRestartLength=0;
-         //START Change for deferred Defect 63502
+	     //START Change for deferred Defect 63502
         	var i = restartscid;			
 			var fnode = getItemFromOffset( 0 );
 			if ( dprestart.isValid() ) {
@@ -2609,30 +2728,38 @@
          //hideMagnifierGlass(); 
         ]]></method>
 
-		<method name="changeItem" args="fnode"><![CDATA[		
-			if(fnode != null) {		
-				var curreid = dpstudentdata.xpathQuery( 'current_item/item_model/@eid' );
-				this.setAttribute("currentItemId", curreid);
-				if(gController.htmlFields.length > 0){
-					this.htmlFields[0]['ref'].main.ht.callJavascript('getManipulativeData', null,curreid);
-				}	
-				if(this.recorder != null) {
-					this.recorder.stopblinker('stop');
-					this.recorder.whitewrapperOverLay.setAttribute('visible', false);
-					this.recorder.blackOverLay.setAttribute('visible', false);
+		
+		<method name="changeItem" args="fnode"><![CDATA[	
+			this.setAttribute("isRestart1",true);
+			//Debug.write("isRestart1***",this.isRestart1);
+			//Debug.write("changeItem****");
+			//gController.isMaxMemoryExceeded();
+		//	if(gController.maxMemoryCheck == true || gController.maxMemoryCheck == 'true'){
+				//Debug.write("changeItem true****");
+				if(fnode != null) {		
+					var curreid = dpstudentdata.xpathQuery( 'current_item/item_model/@eid' );
+					this.setAttribute("currentItemId", curreid);
+					if(gController.htmlFields.length > 0){
+						this.htmlFields[0]['ref'].main.ht.callJavascript('getManipulativeData', null,curreid);
+					}	
+					if(this.recorder != null) {
+						this.recorder.stopblinker('stop');
+						this.recorder.whitewrapperOverLay.setAttribute('visible', false);
+						this.recorder.blackOverLay.setAttribute('visible', false);
+					}
+					//To reset the Audio Fields Array So that file name will be passed in the save call
+					this.resetAudioFields();
+					//this.resetImageField();
+					gReadableText.stopReading(false);
+					freezeUI();
+					stopQuestion();
+					canvas.setAttribute('focusobj', null);
+					var lev;
+					saveLoadItem( fnode , lev);
 				}
-				//To reset the Audio Fields Array So that file name will be passed in the save call
-				this.resetAudioFields();
-				//this.resetImageField();
-				gReadableText.stopReading(false);
-				freezeUI();
-				stopQuestion();
-				canvas.setAttribute('focusobj', null);
-				var lev;
-				saveLoadItem( fnode , lev);
-			}
-			this.setAttribute('isaudio',false);
-			resetRecorder();
+				this.setAttribute('isaudio',false);
+				resetRecorder();
+			//}
 		]]></method>
 
 		<method name="resetRecorder"><![CDATA[

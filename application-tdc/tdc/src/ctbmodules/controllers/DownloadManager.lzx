@@ -27,11 +27,15 @@
    			     nextSubtestIndex++;
    				_populateItemList();
    				_populateFilePartList();
-  				gScreens.incrementSubtestDownload(totalItems, totalFileParts);
+   				if(!gController.isRestart){
+  					gScreens.incrementSubtestDownload(totalItems, totalFileParts);
+  				}
 				_downloadNextFilePart();
    				//_downloadNextItem();   			
    			} else if (_receivedFilePart()){
-   				gScreens.incrementFilePartDownload();
+   				if(!gController.isRestart){
+   					gScreens.incrementFilePartDownload();
+   				}
    				nextFilePartIndex++;
    				if (_isLastFilePart()){
    				_downloadNextItem();
@@ -39,8 +43,10 @@
    				_downloadNextFilePart();
    				}
    			}
-   			else {   				
-   				gScreens.incrementItemDownload();
+   			else {   		
+   				if(!gController.isRestart){		
+   					gScreens.incrementItemDownload();
+   				}
    				nextItemIndex++;
    				if(_isLastItem()){   					
    					if(_isLastSubtest()){
@@ -67,7 +73,9 @@
 			gController.setState(gController.DOWNLOAD_STATE);
     		setAttribute('subtestList', gController.getSubtestList());
     		setAttribute("totalSubtests", subtestList.length);
-    		gScreens.showDownload(totalSubtests);
+    		if(!gController.isRestart){
+    			gScreens.showDownload(totalSubtests);
+    		}
     		_downloadNextSubtest();
 			Debug.write("Download Content 2");
 			

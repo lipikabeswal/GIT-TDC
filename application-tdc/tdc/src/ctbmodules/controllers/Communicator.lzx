@@ -24,9 +24,23 @@
        		}
        	</method>
        	
+       	<method name="isMaxMemoryExceeded" args="userid, password, accesscode">
+       		Debug.write("isMaxMemoryExceeded communicator****");
+      		if(!error){
+       			gRequest.isMaxMemoryExceeded(userid, password, accesscode);
+       		}
+       	</method>
+       	
        	<method name="checkIsProduct">
       		if(!error){
        			gRequest.checkIsProduct();
+       		}
+       	</method>
+
+		<method name="checkMemoryExceeded">
+      		if(!error){
+				Debug.write("checkMemoryExceeded communicator*************");
+       			gRequest.checkMemoryExceeded();
        		}
        	</method>
   		

@@ -55,7 +55,9 @@
 		<attribute name="_SERVER_VALUE" type="string" value="server" />
 		<attribute name="_GENDER_VALUE" type="string" value="female" />
 		<attribute name="CHECK_PROD_TYPE_METHOD"   type="string" value="isProductCheck" />
-		
+		<attribute name="IS_MAX_MEMORY" type="string" value="isMaxMemory" />
+		<attribute name="MEMORY_EXCEEDED" type="string" value="memoryExceeded" />
+
 		<handler name="oninit">
 			var base = lz.Browser.getInitArg( 'servletUrl' );
 			persistenceDs.setAttribute('src', base + '/PersistenceServlet.do');
@@ -71,6 +73,18 @@
 		
 		<method name="checkIsProduct" >
 			_doRequest(persistenceDs, CHECK_PROD_TYPE_METHOD, "");
+		</method>
+
+		<method name="checkMemoryExceeded" >
+			//Debug.write("checkMemoryExceeded request*************");
+			_doRequest(persistenceDs, MEMORY_EXCEEDED, "");
+		</method>
+		
+		<method name="isMaxMemoryExceeded" args="userid, password, accesscode">
+			//Debug.write("isMaxMemoryExceeded request****");
+			 var xml = gXmlHelper.getLoginXml(userid, password, accesscode,'');
+			 Debug.write("xml in request isMaxMemoryExceeded***",xml);
+			_doRequest(persistenceDs, IS_MAX_MEMORY, xml);
 		</method>
 		
 		<method name="getSubtest" args="id, hash, key">

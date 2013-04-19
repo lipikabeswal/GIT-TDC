@@ -179,7 +179,8 @@ public class ServletUtils {
 	public static final String SUBTEST_ID_PARAM = "subtestId";
 	public static final String HASH_PARAM = "hash";
 	public static final String KEY_PARAM = "key";
-
+	public static final String IS_MAX_MEMORY = "isMaxMemory";
+	public static final String MEMORY_EXCEEDED = "memoryExceeded";
 //	events
 	public static final String RECEIVE_EVENT = "RCV";
 	public static final String ACTKNOWLEDGE_EVENT = "ACK";

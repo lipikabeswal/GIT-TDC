@@ -6,16 +6,22 @@ import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -29,6 +35,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.http.HttpResponse;
@@ -37,7 +46,9 @@ import org.apache.http.entity.FileEntity;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
-import org.mortbay.http.HttpRequest;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
 
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.Base64;
@@ -69,7 +80,9 @@ public class PersistenceServlet extends HttpServlet {
 	private static final String macPath = "//library//preferences//macromedia//Flash Player//macromedia.com//support//flashplayer//sys//#127.0.0.1";
 	private static final String unixPath = "//.macromedia//Flash_Player//macromedia.com//support//flashplayer//sys";
 	private static final String PRODUCT_TYPE = System.getProperty("tdc.productType");
-
+	private static String LOGIN_ID = null;
+	private static String PASSWORD = null;
+	private static String ACCESS_CODE = null;
 	private static HashMap<String, String> audioResponseHash = new HashMap<String, String>();
 
 	/**
@@ -267,6 +280,25 @@ public class PersistenceServlet extends HttpServlet {
 			    ImageIO.write(image, "png", new File(getServletContext().getRealPath("/cache/screenshot"+timeStamp+".png")));
 			    result = "<OK>"+timeStamp+"</OK>";
 				}
+		else if (method != null
+				&& method.equals(ServletUtils.IS_MAX_MEMORY)){
+					try {
+						result = isMaxMemory(xml);
+					} catch (ParserConfigurationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SAXException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+		else if (method != null
+				&& method.equals(ServletUtils.MEMORY_EXCEEDED)){
+					result = getCredentialsForRestart();
+					System.out.println("result getCredentialsForRestart******"+result);
+				}
+		
 		else
 			result = ServletUtils.ERROR;
 
@@ -842,6 +874,110 @@ public class PersistenceServlet extends HttpServlet {
 			memCache.setContentDownloadMap(contentDownloadMap);
 
 		}
+	}
+	
+	public static String isMaxMemory(String xml) throws ParserConfigurationException, SAXException, IOException {
+		//String xml1 = "<tmssvc_request><login_request is_reopen=\"true\" password=\"saucy7\" sds_date_time=\"2007-01-29T10:44:07\" user_name=\"mc-1-0101\" cid=\"\" access_code=\"fiancee889\" sds_id=\"string\"/></tmssvc_request>";
+		//File file = new File("Data\\Test.xml");
+		InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
+		Reader reader = new InputStreamReader(inputStream,"ISO-8859-1");
+		InputSource is = new InputSource(reader);
+		is.setEncoding("ISO-8859-1");
+		SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
+		SaxParserHandler handler = new SaxParserHandler();
+		saxParser.parse(is, handler );
+		// Retieve data from xml
+		String userName = handler.userName;
+		String password = handler.password;
+		String accessCode = handler.accessCode;
+		System.out.println("User Name :: "+ handler.userName + "\nPassword :: " + handler.password + "\nAccess Code :: "+ handler.accessCode);
+		try {
+			Process p = null;
+			if (osName.indexOf("win") >= 0) {
+				String cmd = "tasklist /fo list /fi \"IMAGENAME eq LockdownBrowser.exe\"";
+				p = Runtime.getRuntime().exec(cmd);
+			} else if (osName.indexOf("mac") >= 0) {
+				String cmd [] = new String [] { "/bin/sh", "-c", "ps aux | grep -i LockdownBrowser | grep -v grep" };
+				p = Runtime.getRuntime().exec(cmd);
+			}
+			if(getMemoryLoadPercentage(p) > 30D) {
+				LOGIN_ID = userName;
+				PASSWORD = password;
+				ACCESS_CODE = accessCode;
+	    		return "<true/>";
+	    	}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "<false/>";
+	}
+	
+	private static double getMemoryLoadPercentage(Process p) {
+		if(p == null)
+			return 0;
+		BufferedReader input = null;
+		String line = null;
+		double percentConsumption = 0;
+		try {
+			input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			if(osName.indexOf("win") >= 0) {
+				while ((line = input.readLine()) != null) {
+					if(line != null && line.trim().length() > 0) {
+					    String details [] = line.split(":");
+					    if(details[0].indexOf("Mem") != -1) {
+					    	com.sun.management.OperatingSystemMXBean mxbean = (com.sun.management.OperatingSystemMXBean) 
+					    								java.lang.management.ManagementFactory.getOperatingSystemMXBean();
+					    	long totalMemory = mxbean.getTotalPhysicalMemorySize() / 1024 / 1024;
+					    	long ldbMemory = Integer.valueOf(details[1].replace(",", "").replace("K", "").trim());
+					    	ldbMemory = ldbMemory / 1024;
+					    	percentConsumption = (double) ldbMemory / totalMemory;
+					    	percentConsumption = percentConsumption * 100;
+					    }
+					}
+				}
+			} else {
+				while ((line = input.readLine()) != null) {
+					if(line != null && line.trim().length() > 0) {
+						String details [] = line.split(" ");
+						int count = 0;
+						for(String d : details) {
+							if(d.trim().length() > 0) {
+								if(++count == 4) {
+									percentConsumption = Double.valueOf(d);
+								}
+							}
+						}
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(input != null)
+					input.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return percentConsumption;
+	}
+	
+	public static String getCredentialsForRestart() {
+		String xml = null;
+		if(LOGIN_ID != null) {
+			xml = "<loginData user_name=\"" + LOGIN_ID + "\" password=\"" + PASSWORD + 
+				"\" access_code=\"" + ACCESS_CODE + "\" isRestart=\"true\"></loginData>";
+			
+			LOGIN_ID = null;
+			PASSWORD = null;
+			ACCESS_CODE = null;
+		} else {
+			xml = "<loginData user_name=\"\" password=\"\" access_code=\"\" isRestart=\"false\"></loginData>";
+		}
+		System.out.println("xml*************"+xml);
+		logger.info("xml*************"+xml);
+		return xml;
 	}
 
 }
