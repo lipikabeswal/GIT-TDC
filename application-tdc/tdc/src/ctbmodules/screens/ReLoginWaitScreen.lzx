@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library>
+	<class name="ReLoginWaitScreen">
+		<attribute name="font" value="CTB"/>
+		<simplelayout axis="y" spacing="3"/>
+        <text fgcolor="white" valign="middle" fontsize="24">Please wait...... your item is being loaded...........</text>
+      </class>
+</library>

@@ -19,6 +19,7 @@
  
     <include href="Frame.lzx"/>
     <include href="InSecurityScreen.lzx"/>
+    <include href="ReLoginWaitScreen.lzx"/>
 
     <class name="Screens" extends="Frame">
 
@@ -76,7 +77,7 @@
             if ( contents.oos.isinited ) contents.oos.setAttribute('visible', false );
             
             if ( contents.iss.isinited ) contents.iss.setAttribute('visible', false );
- 
+            if ( contents.rws.isinited ) contents.rws.setAttribute('visible', false );
 
             prancingMan.remove();
             standingMan.remove();
@@ -330,23 +331,25 @@
         <method name="showIndianaSecurityScreen">
             Debug.write("------InsideSHowIndianaSEc-----");
         	removeAllStates();
-        	Debug.write("1");
         	gScreens.setAttribute('height',300);
-        	Debug.write("2");
-            gScreens.setAttribute('y',100);
-            Debug.write("3");
+        	gScreens.setAttribute('y',100);
             gScreens.copyWriteText.setAttribute('y',300);
-            Debug.write("4");
             if ( !contents.iss.isinited ) contents.iss.completeInstantiation();
-            Debug.write("5");
             contents.iss.setAttribute('visible', true );
-            Debug.write("6");
-            
             prancingMan.apply();
-            Debug.write("7");
-
             show();
-            Debug.write("8");
+        </method>
+        
+        <method name="showReLoginWaitScreen">
+            Debug.write("------showReLoginWaitScreen-----");
+        	removeAllStates();
+        	//gScreens.setAttribute('height',300);
+        	//gScreens.setAttribute('y',100);
+            //gScreens.copyWriteText.setAttribute('y',300);
+            if ( !contents.rws.isinited ) contents.rws.completeInstantiation();
+            contents.rws.setAttribute('visible', true );
+            prancingMan.apply();
+            show();
         </method>
 
          <method name="show">
@@ -398,6 +401,8 @@
             <OptOutScreen name="oos" width="100%" height="100%"
                              initstage="defer"/>
             <InSecurityScreen name="iss" width="100%" height="100%"
+                             initstage="defer"/>
+            <ReLoginWaitScreen name="rws" width="100%" height="100%"
                              initstage="defer"/>
         </view>
 	

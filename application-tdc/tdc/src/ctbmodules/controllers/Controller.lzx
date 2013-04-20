@@ -689,6 +689,7 @@
 			var restart = dprestartLogin.xpathQuery('@isRestart');
 			//Debug.write("restart in _handleCheckMemoryExceeded*******",restart);
 			if(restart == true || restart =='true'){
+					gScreens.showReLoginWaitScreen();
 					this.setAttribute('isRestart',true);
 					var loginId = dprestartLogin.xpathQuery('@user_name');
 					var password = dprestartLogin.xpathQuery('@password');
