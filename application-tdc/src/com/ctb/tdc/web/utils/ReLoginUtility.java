@@ -4,10 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
 public final class ReLoginUtility {
 	
 	private static ReLoginUtility reLoginUtility = null;
@@ -23,7 +19,7 @@ public final class ReLoginUtility {
 			BufferedReader input = null;
 			String line = null;
 			try {
-				Process p = Runtime.getRuntime().exec(new String [] {"systeminfo"});
+				Process p = Runtime.getRuntime().exec(new String [] { "systeminfo" });
 				input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 				while ((line = input.readLine()) != null) {
 					if(line != null && line.trim().length() > 0) {
@@ -31,7 +27,7 @@ public final class ReLoginUtility {
 					    if(details[0].indexOf("Total Physical Memory") != -1) {
 						    if(details[1].indexOf("GB") != -1) {
 						    	totalPhysicalMemory = Long.valueOf(details[1].replace(",", "").replace("MB", "").trim()) * 1024;
-						    }else if(details[1].indexOf("MB") != -1) {
+						    } else if(details[1].indexOf("MB") != -1) {
 						    	totalPhysicalMemory = Long.valueOf(details[1].replace(",", "").replace("MB", "").trim());
 						    } else if(details[1].indexOf("KB") != -1) {
 						    	totalPhysicalMemory = Long.valueOf(details[1].replace(",", "").replace("MB", "").trim()) / 1024;
@@ -62,8 +58,7 @@ public final class ReLoginUtility {
 		return reLoginUtility;
 	}
 	
-	public static String isMaxMemory(String strUserName, String strPassword, String strAccessCode) 
-	throws ParserConfigurationException, SAXException, IOException {
+	public static String isMaxMemory(String strUserName, String strPassword, String strAccessCode) {
 		try {
 			Process p = null;
 			if (OS_NAME.indexOf("win") >= 0) {
