@@ -2951,6 +2951,7 @@
 	            	markQuestion(!isMarked);
 	            }
 	            unlockUI();
+				canvas.unFreezUI();
 	        }
         ]]></method>
 
@@ -3214,6 +3215,7 @@
 				showHideTimer( 'true' );
 			}
 			unlockUI();
+			canvas.unFreezUI();
 		</method>
 
 		<method name="showHideTimer" args="show">
@@ -3274,7 +3276,7 @@
             lz.Cursor.unlock();  
         	checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();    
-          
+          	canvas.unFreezUI();
             gScreens.showPause(getStudentName());
             var s = "enablePasswordFocus()";
 			lz.Browser.loadJS(s);
@@ -3373,7 +3375,7 @@
 			checkHideMaskingChoiceDD();
 			gMusicPlayer.hide();
             lz.Cursor.unlock();
-			
+			canvas.unFreezUI(); 
 			if(this.adaptive == true){				
 				//if (gScreens.isOnFinishScreen()) {
 				//Debug.write("goToFinishScreen :"+ gScreens.isOnFinishScreen() +"::"+ this.isStopTest);

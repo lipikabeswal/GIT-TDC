@@ -365,36 +365,51 @@
 	        }	   
         </method>
         <method name="toggleMark"> 
-            this.exitPopups(); 
-            gEnlargePopup.shrink();
-         	gController.toggleMark();              
+        	if(canvas.loadItem){
+        		canvas.freezUI();
+	            this.exitPopups(); 
+	            gEnlargePopup.shrink();
+	         	gController.toggleMark(); 
+	         }             
         </method>
         <method name="toggleTimer">
-            this.exitPopups(); 
-            gEnlargePopup.shrink();
-        	gController.toggleTimer();             
+        	if(canvas.loadItem){
+        		canvas.freezUI();
+	            this.exitPopups(); 
+	            gEnlargePopup.shrink();
+	        	gController.toggleTimer();
+	        }             
         </method>
         <method name="pause"> 
-        	if(gController.pausable == 'true'){
-        		lz.Focus.clearFocus();
-        	}
-            this.exitPopups(); 
-            gEnlargePopup.shrink();
-        	if(gItemInterface.visible == true || gTutorial.visible == true)
-        		gController.pauseTest();
+        	if(canvas.loadItem){
+        		canvas.freezUI();
+	        	if(gController.pausable == 'true'){
+	        		lz.Focus.clearFocus();
+	        	}
+	            this.exitPopups(); 
+	            gEnlargePopup.shrink();
+	        	if(gItemInterface.visible == true || gTutorial.visible == true)
+	        		gController.pauseTest();
+	        }
         </method>
-        <method name="stop">       
-        	lz.Focus.clearFocus();
-            this.exitPopups();
-            gEnlargePopup.shrink();
-        	if(gItemInterface.visible == true || gTutorial.visible == true)
-        		gController.finishTest();              
+        <method name="stop">     
+        	if(canvas.loadItem){
+        		canvas.freezUI();  
+	        	lz.Focus.clearFocus();
+	            this.exitPopups();
+	            gEnlargePopup.shrink();
+	        	if(gItemInterface.visible == true || gTutorial.visible == true)
+	        		gController.finishTest();    
+	        }          
         </method>
-        <method name="finish">     
-        	lz.Focus.clearFocus();
-            this.exitPopups(); 
-            gEnlargePopup.shrink();
-        	gController.finishTestShortcut();      
+        <method name="finish">  
+        	if(canvas.loadItem){
+        		canvas.freezUI();   
+	        	lz.Focus.clearFocus();
+	            this.exitPopups(); 
+	            gEnlargePopup.shrink();
+	        	gController.finishTestShortcut();
+	        }      
         </method>
     </node>
 
