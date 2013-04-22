@@ -381,34 +381,43 @@
 	        }             
         </method>
         <method name="pause"> 
-        	if(canvas.loadItem){
-        		canvas.freezUI();
+            if(canvas.loadItem){
+             	//canvas.freezUI();
 	        	if(gController.pausable == 'true'){
 	        		lz.Focus.clearFocus();
 	        	}
 	            this.exitPopups(); 
 	            gEnlargePopup.shrink();
-	        	if(gItemInterface.visible == true || gTutorial.visible == true)
+	        	if(gItemInterface.visible == true || gTutorial.visible == true){
+	        		canvas.freezUI();
 	        		gController.pauseTest();
+	        	}
+	        	
 	        }
         </method>
-        <method name="stop">     
+        <method name="stop">    <![CDATA[
         	if(canvas.loadItem){
-        		canvas.freezUI();  
+        		//canvas.freezUI();  
 	        	lz.Focus.clearFocus();
 	            this.exitPopups();
 	            gEnlargePopup.shrink();
-	        	if(gItemInterface.visible == true || gTutorial.visible == true)
+	        	if(gItemInterface.visible == true || gTutorial.visible == true){
+	        		canvas.freezUI();
 	        		gController.finishTest();    
-	        }          
+	        	}
+	        }   
+	        ]]>       
         </method>
         <method name="finish">  
         	if(canvas.loadItem){
-        		canvas.freezUI();   
+        		//canvas.freezUI();   
 	        	lz.Focus.clearFocus();
 	            this.exitPopups(); 
 	            gEnlargePopup.shrink();
-	        	gController.finishTestShortcut();
+	            if(gItemInterface.visible == true || gTutorial.visible == true){
+	        		gController.finishTestShortcut();   
+	        	}
+	        	
 	        }      
         </method>
     </node>

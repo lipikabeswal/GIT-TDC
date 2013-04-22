@@ -3276,7 +3276,7 @@
             lz.Cursor.unlock();  
         	checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();    
-          	canvas.unFreezUI();
+          	//canvas.unFreezUI();
             gScreens.showPause(getStudentName());
             var s = "enablePasswordFocus()";
 			lz.Browser.loadJS(s);
@@ -3289,6 +3289,7 @@
 				setState(PAUSED_RESUME_STATE);
 				resetHeartbeat();
 				gCommunicator.lifecycle(RESUME_LEV);
+				canvas.freezUI();
                 return true;
             } else {
                 return false;
@@ -3546,6 +3547,7 @@
         var totalitem = Number(
 					dpstudentdata.xpathQuery( 'question_number/@total_including_theme')  );
 		if ( onLastItem() || (gController.getNextNavigableOffset(curritem) == totalitem)) {
+		    canvas.freezUI();
         	gController.setAttribute("isStopTest",false);
             finishTest();
         }
@@ -5848,7 +5850,10 @@ Debug.write("############ loadItem ############");
 					this.htmlFields[i]['ref'].show();	
 				}*/
 				changeItem( getItemFromOffset( currItemOffset() ) );
-			}
+			}else{
+				//Debug.write("====####showHtmlWidgets NON TE #####===");
+				canvas.unFreezUI();
+            }
 		]]></method>
 
 		<method name="updateHTMLItemNode"><![CDATA[

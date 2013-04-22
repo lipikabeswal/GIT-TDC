@@ -92,6 +92,7 @@
                                   enabled="${ gScreens.allowclick }" visible= "${gController.isStopTest || !gController.isFinishTest}">
                 <handler name="onclick" method="goback"/>
                 <method name="goback">
+                    canvas.freezUI();   
 					if(gController.htmlFields.length > 0) {
                 		gMagnifier.hide();
 					}
