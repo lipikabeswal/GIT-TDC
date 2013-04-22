@@ -4,16 +4,33 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.log4j.Logger;
-import org.xml.sax.SAXException;
 
+/**
+ * Every TDC application will have single instance of class
+ * <code>ReLoginUtility</code> that allows the auto relogin 
+ * activity when memory of TDC client is greater than {@link #ADOBE_AIR_MAX_MEM_THRESHOLD_VALUE}
+ * The current runtime can be obtained from the <code>getReLoginUtility</code> method. 
+ * 
+ * @author Soumen Choudhury
+ * @version 1.0
+ */
 public final class ReLoginUtility {
 	
 	private static Logger logger = Logger.getLogger(ReLoginUtility.class);
+	/**
+	 *	Name of the operating System.
+	 */
 	private static final String OS_NAME = System.getProperty("os.name").toLowerCase();
+	/**
+	 * Maximum threshold percentage of physical memory when TDC client
+	 * start auto relogin.
+	 */
 	private static final int MACHINE_MAX_MEM_THRESHOLD_PERCENTAGE = 30;
+	/**
+	 * Maximum threshold value (in MB) of physical memory when TDC client
+	 * start auto relogin.
+	 */
 	private static final int ADOBE_AIR_MAX_MEM_THRESHOLD_VALUE = 700;
 	
 	private static ReLoginUtility reLoginUtility = null;
@@ -23,6 +40,18 @@ public final class ReLoginUtility {
 	private static long totalPhysicalMemory = 0L;
 	private static int procMemThresholdValue = 0;
 	
+	/**
+	 * Don't let anyone to instantiate this class from outside.
+	 * When the class is instantiated at that time it will see the
+	 * total physical memory of the system and check whether it gerater
+	 * than the TDC client threshold <code>700 MB</code> or not. Memory
+	 * percentage or <code>700 MB</code> whichever is lesser will be set as TDC client 
+	 * threshold value for current session.
+	 * 
+	 * @see #MACHINE_MAX_MEM_THRESHOLD_PERCENTAGE
+	 * @see #ADOBE_AIR_MAX_MEM_THRESHOLD_VALUE
+	 * 
+	 */
 	private ReLoginUtility() { 
 		BufferedReader input = null;
 		String line = null;
@@ -77,6 +106,12 @@ public final class ReLoginUtility {
 		}
 	}
 	
+	/**
+	 * This method format the details retrieved from system command
+	 * and calculate the total physical memory value.
+	 * 
+	 * @param output of the system command
+	 */
 	private static void calculateTotalMemory(String details) {
 		if(details.indexOf("GB") != -1) {
 		    totalPhysicalMemory = Long.valueOf(details.replaceAll(",", "").replaceAll("GB", "").trim()) * 1024;
@@ -89,7 +124,13 @@ public final class ReLoginUtility {
 	    }
 		logger.info("ReLoginUtility : totalPhysicalMemory value :" + totalPhysicalMemory);
 	}
-
+	/**
+	 * This method create the instance of class <code>ReLoginUtility</code>,
+	 * if instance is not already created, otherwise just return the instance.
+	 * 
+	 * @return  the <code>ReLoginUtility</code> object associated with the current
+     *          application.
+	 */
 	public static ReLoginUtility getReLoginUtility() {
 		if(reLoginUtility == null) {
 			synchronized (ReLoginUtility.class) {
@@ -98,9 +139,17 @@ public final class ReLoginUtility {
 		}
 		return reLoginUtility;
 	}
-	
-	public static String isMaxMemory(String strUserName, String strPassword, String strAccessCode) 
-	throws ParserConfigurationException, SAXException, IOException {
+	/**
+	 * This method get the current memory consumption from system command. If memory 
+	 * exceed then set the login id, password and access code for future login.
+	 *  
+	 * @return  <code><true/></code> if memory exceed maximum limit
+	 * or return <code><false/></code>
+	 * 
+	 * @see #procMemThresholdValue
+	 * 
+	 */
+	public static String isMaxMemory(String strUserName, String strPassword, String strAccessCode) {
 		try {
 			Process p = null;
 			if (OS_NAME.indexOf("win") >= 0) {
@@ -110,7 +159,7 @@ public final class ReLoginUtility {
 				String cmd [] = new String [] { "/bin/sh", "-c", "ps aux | grep -i LockdownBrowser | grep -v grep" };
 				p = Runtime.getRuntime().exec(cmd);
 			}
-			if(getMemoryLoadPercentage(p) > procMemThresholdValue) {
+			if(processMemoryLoadPercentageValue(p) > procMemThresholdValue) {
 				logger.info("ReLoginUtility : Memory exceeded auto login will proceed");
 				setLoginId(strUserName);
 				setPassword(strPassword);
@@ -122,8 +171,15 @@ public final class ReLoginUtility {
 		}
 		return "<false/>";
 	}
-	
-	private static double getMemoryLoadPercentage(Process p) {
+	/**
+	 * This method process the memory details retrieved from the system
+	 * command.
+	 *   
+	 * @param system command process to get the memory details
+	 * @return current memory consumption of <code>LockdownBrowser</code> application
+	 * 
+	 */
+	private static double processMemoryLoadPercentageValue(Process p) {
 		if(p == null)
 			return 0;
 		
@@ -172,30 +228,59 @@ public final class ReLoginUtility {
 		return memoryConsumption;
 	}
 
+	/**
+	 * This method return the current login id
+	 * 
+	 * @return login id
+	 */
 	public static String getLoginId() {
 		return loginId;
 	}
-
+	/**
+	 * This method set the current login id
+	 * 
+	 * @param login id
+	 */
 	public static void setLoginId(String loginId) {
 		ReLoginUtility.loginId = loginId;
 	}
-
+	/**
+	 * This method return the current password
+	 * 
+	 * @return password
+	 */
 	public static String getPassword() {
 		return password;
 	}
-
+	/**
+	 * This method set the current password
+	 * 
+	 * @param password
+	 */
 	public static void setPassword(String password) {
 		ReLoginUtility.password = password;
 	}
-
+	/**
+	 * This method return the current access code
+	 * 
+	 * @return access code
+	 */
 	public static String getAccessCode() {
 		return accessCode;
 	}
-
+	/**
+	 * This method set the current access code
+	 * 
+	 * @param access code
+	 */
 	public static void setAccessCode(String accessCode) {
 		ReLoginUtility.accessCode = accessCode;
 	}
-
+	/**
+	 * This method return total physical memory of the system
+	 * 
+	 * @return total physical memory
+	 */
 	public static long getTotalPhysicalMemory() {
 		return totalPhysicalMemory;
 	}
