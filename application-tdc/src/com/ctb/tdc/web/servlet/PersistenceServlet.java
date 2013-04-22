@@ -909,8 +909,7 @@ public class PersistenceServlet extends HttpServlet {
 		} else {
 			xml = "<loginData user_name=\"\" password=\"\" access_code=\"\" isRestart=\"false\"></loginData>";
 		}
-		System.out.println("xml*************"+xml);
-		logger.info("xml*************"+xml);
+		logger.info("PersistenceServlet : auto login xml*************" + xml);
 		return xml;
 	}
 }
