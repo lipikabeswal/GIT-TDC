@@ -1138,7 +1138,7 @@
 			var mydp = new lz.datapointer();
 			mydp.setPointer(tmssvc_response);
 			Debug.write("mydp============ ",mydp);*/
-			printBigString(response);
+			//printBigString(response);
 			
 			if(gController.productTypeVal.indexOf("LASLINKS") >= 0) {
 				var s = "saveLoginResponse('"+response+"')";
@@ -2938,8 +2938,8 @@
 		<!-- question state -->
 		<method name="toggleMark"><![CDATA[
 		//For Defect 65880
-			//Debug.write("this.isThemePage() in toggleMark**********",this.isThemePage(),typeof(this.isThemePage()));
-			//Debug.write("this.allowRevisit) in toggleMark**********",this.allowRevisit,typeof(this.allowRevisit));
+			Debug.write("this.isThemePage() in toggleMark**********",this.isThemePage(),typeof(this.isThemePage()));
+			Debug.write("this.allowRevisit) in toggleMark**********",this.allowRevisit,typeof(this.allowRevisit));
 			if(this.isThemePage()!='true' && this.isThemePage()!=true && this.allowRevisit && !gController.fwdOnly){
 	        	freezeUI();
 	        	var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
@@ -4032,10 +4032,15 @@ Debug.write("############ loadItem ############");
 						}
 					}
 				}
+				else{
+					//Debug.write("ismarked for non te********* ");
+					var s = "setItemFocus()";
+					lz.Browser.loadJS(s);
+					canvas.unFreezUI();
+				}
 			}
         	// clear previous manipulative data if not marked for review
             if (!ismarked) {
-            	Debug.write("inside not marked****************");
                 var dnman = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives');
                 var dngen = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/general');
 				
@@ -4043,7 +4048,7 @@ Debug.write("############ loadItem ############");
 					canvas.setAttribute("htmlOpenManip",null);
 					Debug.write("htmlGeneralManipData",htmlGeneralManipData);
 					for(var i=0;i<htmlGeneralManipData.length;i++){
-						Debug.write("comparing htmlManipdata with current eid*****************",htmlGeneralManipData[i], currentEid);
+						//Debug.write("comparing htmlManipdata with current eid*****************",htmlGeneralManipData[i].eid, currentEid);
 						if(htmlGeneralManipData[i].eid == currentEid){
 							htmlGeneralManipData.splice(i,1);
 							//Debug.write("splice",htmlGeneralManipData);
@@ -4051,8 +4056,10 @@ Debug.write("############ loadItem ############");
 					}
 					Debug.write("htmlGeneralManipData IF********* ",htmlGeneralManipData);
 				}else{
-					//Debug.write("htmlGeneralManipData ELSE********* ",htmlGeneralManipData);
+					//Debug.write("not ismarked for non te********* ");
 					//don't remove this is for freezing the UI untill views are rendered
+					var s = "setItemFocus()";
+					lz.Browser.loadJS(s);
 					canvas.unFreezUI();
 				}
                 
@@ -5796,6 +5803,7 @@ Debug.write("############ loadItem ############");
 					if(this.findAnswer){
 						canvas.unFreezUI();
 						this.setAttribute('findAnswer',false);
+						Debug.write('===updateBlueBallForHtmlItem unFreezUI==');
 					}
 	            }
 	            else {
