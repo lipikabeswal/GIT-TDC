@@ -477,7 +477,7 @@
         Debug.write('===canvas freezUI==');
  		this.freezView.setAttribute('visible',true);
 	    this.setAttribute('loadItem',false);
-	    lz.Timer.resetTimer( this.dForceUnfreezUI, 10000 );
+	    
  	]]>
  </method>
  <method name="unFreezUI">
@@ -485,21 +485,7 @@
         Debug.write('===canvas unFreezUI==');
  		this.freezView.setAttribute('visible',false);
 	    this.setAttribute('loadItem',true);
-        lz.Timer.removeTimer( this.dForceUnfreezUI);
  	]]>
  </method>
- 
- 
- <!--Following methods for forcefully unfreez the Client-->
-
- 
- <attribute name="dForceUnfreezUI"
-			value="$once{ new lz.Delegate( this, 'forceUnfreezUI' ) }" />
-			
- <method name="forceUnfreezUI">
-     Debug.write('===canvas forceUnfreezUI==');
-     canvas.unFreezUI();
- </method>
- 
  
 </canvas>
