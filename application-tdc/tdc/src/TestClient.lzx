@@ -196,7 +196,17 @@
 	<attribute name="hideTooltip" value="null" />
 	<attribute name="isTooltip" value="${gTooltip.visible}" type="boolean"/>
 	<attribute name="loadItem" value="true" type="boolean" />
+	<attribute name="exitPleaseWaitPopupforTE" />
 	
+	<handler name="onexitPleaseWaitPopupforTE">
+		//Debug.write("*************onexitPleaseWaitPopupforTE******",this.exitPleaseWaitPopupforTE);
+		if(this.exitPleaseWaitPopupforTE == 'true' || this.exitPleaseWaitPopupforTE == true){
+        	canvas.freezUIforTEPopup();
+         }else{
+			canvas.unFreezUI();
+         }
+	</handler>
+
 	<handler name="ontriggercrpush" args="data">
 		//Debug.write("*************ontriggercrpush******");
 		gController.addCrField(data);
@@ -477,15 +487,45 @@
         Debug.write('===canvas freezUI==');
  		this.freezView.setAttribute('visible',true);
 	    this.setAttribute('loadItem',false);
-	    
+	    //if(this.exitPleaseWaitPopupforTE == 'true' || this.exitPleaseWaitPopupforTE == true ||
+	      // gPleaseWaitPopup.visible == "true" || gPleaseWaitPopup.visible == true){
+	    	// do nothing
+	    	//Debug.write('===Timer.resetTimer IF do nothing==');
+	    //}else{
+	        //Debug.write('===Timer.resetTimer ELSE==');
+	    	lz.Timer.resetTimer( this.dForceUnfreezUI, 10000 );
+	    //}	
  	]]>
  </method>
  <method name="unFreezUI">
  	<![CDATA[
-        Debug.write('===canvas unFreezUI==');
+        //Debug.write('===canvas unFreezUI==');
  		this.freezView.setAttribute('visible',false);
 	    this.setAttribute('loadItem',true);
+        lz.Timer.removeTimer( this.dForceUnfreezUI);
  	]]>
  </method>
+ 
+<method name="freezUIforTEPopup">
+ 	<![CDATA[
+        //Debug.write('===canvas freezUIforTEPopup==');
+        lz.Timer.removeTimer( this.dForceUnfreezUI);
+        this.freezView.setAttribute('visible',true);
+	    this.setAttribute('loadItem',false);	
+ 	]]>
+ </method>
+
+ 
+ <!--Following methods for forcefully unfreez the Client-->
+
+ 
+ <attribute name="dForceUnfreezUI"
+			value="$once{ new lz.Delegate( this, 'forceUnfreezUI' ) }" />
+			
+ <method name="forceUnfreezUI">
+     //Debug.write('===canvas forceUnfreezUI==');
+     canvas.unFreezUI();
+ </method>
+ 
  
 </canvas>

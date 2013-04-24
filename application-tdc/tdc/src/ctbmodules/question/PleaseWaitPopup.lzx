@@ -38,10 +38,13 @@
         this.setAttribute("visible", false);
 		this.contents.networkLost.inBar.barAnimator.stop();
 		lz.ModeManager.release(this);
+		canvas.unFreezUI();
     </method>
 	
     <method name="show">
         this.setAttribute("visible", true);
+        canvas.freezUI();
+        this.bringToFront();
         this.contents.networkLost.inBar.barAnimator.doStart();
         lz.ModeManager.makeModal(this);
         resetControls();

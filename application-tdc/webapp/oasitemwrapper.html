@@ -163,7 +163,7 @@ img {
         }
         
         function setItemId(itemId){
-        	//console.log("itemSet", itemSet);
+        	
   				iframeState();
 	        	if (itemSet == false){
 	        	lz.embed.setCanvasAttribute('srcurl',itemId);
@@ -367,11 +367,11 @@ img {
        function showPleaseWaitPopup(arg){
        	lz.embed.setCanvasAttribute('showpleasewaitpopup', 'true');
        	//gPleaseWaitPopup.show();
-       	//console.log("popupcalled");
+       	window.parent.showPleaseWaitPopupforTE('true');
        }
        
        function hidePleaseWaitPopup(arg){
-       
+        window.parent.showPleaseWaitPopupforTE('false');
        	lz.embed.setCanvasAttribute('hidepleasewaitpopup', 'true');
        }
        
