@@ -52,11 +52,12 @@
 
 			if(data != null && data.hasAttr('src')) {
 				var refsrc = String(data.getAttr('src'));
-				if(refsrc.indexOf('Istep') >= 0){
+				refsrc = refsrc.toLowerCase();
+				if(refsrc.indexOf('istep') >= 0){
 					refCardContents.contents.setAttribute ('resource', 'ISTEP_refcard_contents');
 					title.real_title.setAttribute ('resource', 'ISTEP_refcard_title');
 				}
-				else if(refsrc.indexOf('Corelink') >= 0){
+				else if(refsrc.indexOf('corelink') >= 0){
 		        	refCardContents.contents.setAttribute('resource',"Corelink_refcard_contents");
 					title.real_title.setAttribute('resource',"Corelink_refcard_title");
 					this.setAttribute("scrolls",true);
@@ -234,7 +235,7 @@
 			<view name="rightLines"
 				  resource="rc_lines"
 				  stretches="width" />
-			<basebutton resource="ref_card_close_btn" height="${this.resourceheight + 1}">
+			<basebutton resource="ref_card_close_btn" height="${this.resourceheight + 1}" y="-4">
 				<handler name="onclick">
 			    	gController.setManipulativeSelState (classroot.toolid, 'up');
 			    </handler>

@@ -1,6 +1,6 @@
 <library>
     <include href="CachableComponent.lzx"/>
-	<include href="incubator/scrolledittext.lzx" /> 
+	<include href="lib/scrolledittext.lzx" /> 
 
 
     <!-- ===============
@@ -42,7 +42,8 @@
         <!-- ===============
              = METHODS
              =============== -->
-		<method name="enable">
+             
+        <method name="enable">
 			//Empty method to handle enable() made from controller for cr responses dont delete it.
 		</method>
 		
@@ -73,7 +74,7 @@
             	var answer = gController.getAnswerForInputWidgetId(this.widget_id);
 //Debug.write("CachableMultiLineAnswer.ondata", answer, answer.length);
             	var answered = (typeof answer != "undefined" && answer.length != 0);
-				if(answered) {
+            	if(answered) {
             		var idPresent = this.widget_id.split("$");
             		if(idPresent.length > 1) {
 						var idVal = idPresent[0];
@@ -90,10 +91,8 @@
                 gController.addCrField({"widget_id" : this.widget_id, 
                                               "answered" : answered, "answer" : answer, "ref" : this}); 
                 this.setAttribute("isInitialText", true);
-                if (answered) {
-                   //this.setAnswer(gController.formatXml(answer));
-                   this.setAnswer(answer);
-                   }
+                if (answered) 
+                   this.setAnswer(gController.formatXml(answer));
                 else
                    this.setAnswer("");
             }
@@ -155,7 +154,7 @@
 			if(txt.length == 0){
 				txt = gReadableText.getReadableTextForCharacter(' ');
 			}
-			gReadableText.read(txt,false);
+			gReadableText.read(escape(txt),false);
 		</method>
 
 		<method name="setSelectionVars">
@@ -163,10 +162,12 @@
 		</method>
 		
 		<method name="updateCharacterMeter"><![CDATA[
-			//Debug.write(this, "updateCharacterMeter", this.numCharacters, this.characterLimit, this.numCharacters/this.characterLimit, this.outer.controls.meter.limit.width);
+//Debug.write(this, "updateCharacterMeter", this.numCharacters, this.characterLimit, this.numCharacters/this.characterLimit, this.outer.controls.meter.limit.width);
 			var ratio = this.numCharacters/this.characterLimit;
 			if(ratio<=1){
-				this.outer.controls.meter.limit.used.setAttribute('width', this.outer.controls.meter.limit.width * (this.numCharacters/this.characterLimit));
+				this.outer.controls.meter.limit.used.setAttribute('width', this.outer.controls.meter.limit.width * 
+
+(this.numCharacters/this.characterLimit));
 			}
 			else if(ratio>1){
 				this.outer.controls.meter.limit.used.setAttribute('width', this.outer.controls.meter.limit.width * (1));
@@ -254,28 +255,29 @@
 				<view name="rich" bgcolor="${Number(gController.answerBgColor)}">
 				   <scrolledittext name="answer" 
 									 height="${classroot.showFormatBar ? classroot.height - classroot.outer.controls.height : classroot.height }" 
-									 width="${classroot.editTextWidth + 5}" >
+									 width="${classroot.editTextWidth + 5}" x="6">
 										<attribute name="start" type="number" value="0" />
-						<attribute name="start" type="number" value="0" />
-		            	<attribute name="end" type="number" value="0" />
-		            	<attribute name="scrollPos" type="number" value="0" />
+						<attribute name="end" type="number" value="0" />
 					  <method name="init">
-						super.init();
+						 super.init();
 						this.style.setAttribute("textfieldcolor", gController.answerBgColor);
 						//this.setFontColor(gController.answerFontColor);
 						if(gController.hasFontAccommodation)
-							this.setAttribute('fontsize', 18);
-						else
-							this.setAttribute('fontsize', 12);
-						this.inp.setAttribute("maxlength",Number(classroot.characterLimit));
+								this.setAttribute('fontsize', 18);
+							else
+								this.setAttribute('fontsize', 12);
 					  </method>
 					  
+					  <handler name="onclick">
+					  	this.onfocus.sendEvent();
+					  </handler>
 					  
 				  	<method name="updateScrollText" args="a">
 						this.setAttribute('text',a);	
 					</method>
 		
 					  <handler name="ontext"><![CDATA[
+					  	console.log("inside ontext "+text);
 						 if(!classroot.isInitialText){
 							 if (text) {
 								var answered = false;

@@ -39,10 +39,10 @@
 			//thetext.setAttribute('text', txt);
 			if (gController.hasFontAccommodation){
 				this.thetext.setAttribute("text",
-	                '<label><span style="line-height:21px;">' + txt + '</span></label>');
+	               '<label><span style="white-space: pre-wrap; line-height: 21px; zoom:97%">' + txt + '</span></label>');
 		   }else{
 	           this.thetext.setAttribute("text",
-	                '<label><span style="line-height:14px;">' + txt + '</span></label>');
+	                '<label><span style="white-space: pre-wrap;">' + txt + '</span></label>');
 			}
 			//no need for this
 			//thetext.setAttribute('width', contents.thetext.getWidth() + 1);
@@ -95,7 +95,7 @@
 
            <text name="thetext" multiline="false" resize="true"
                fgcolor="${classroot.fontcolor}"
-               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" width="1">
+               fontsize="${classroot ['fontsize'] ? (classroot.fontsize == 18?17:classroot.fontsize) : 12}" width="1">
                
                <handler name="onwidth" args="w"><![CDATA[
 					var xin = classroot.parent.parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
@@ -113,6 +113,10 @@
 						this.setAttribute('multiline',false);
 					}
                ]]></handler>
+				<handler name="ontext"><![CDATA[
+					this.setAttribute('height',this.getTextHeight()-3);
+					]]>
+				</handler>
            </text>
  	</class>
 </library>

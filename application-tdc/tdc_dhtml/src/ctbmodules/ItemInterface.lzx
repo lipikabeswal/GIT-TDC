@@ -140,7 +140,17 @@
 			<basebutton name="navBack" x="${gQuestion.x}" opacity="0.3"
 					valign="middle" resource="navBack"
 					>
+					<handler name="oninit">
+						var elm = this.getDisplayObject();
+						elm.setAttribute('id','navB1');
+						classroot.setAttribute('navBtnClicked','navB2');
+					</handler>
 					<handler name="onclick">
+					if(document.getElementById('navB1')){
+						console.log('onclick navB1 '+document.getElementById(classroot.navBtnClicked));
+					}
+					gItemInterface.closeHeaderAndNavigator();
+					//canvas.overlayView.setAttribute('visible',true);
 					blockiPADUI();
 					stepNavigateBackBlock(gController);
 				</handler>	
@@ -149,7 +159,13 @@
 					x="${gQuestion.x+gQuestion.width-this.width}" 
 					valign="middle" resource="navNext"
 					>
+				<handler name="oninit">
+					var elm = this.getDisplayObject();
+					elm.setAttribute('id','navN1');
+				</handler>
 				<handler name="onclick">
+					gItemInterface.closeHeaderAndNavigator();
+					//canvas.overlayView.setAttribute('visible',true);
 					blockiPADUI();
 					stepNavigateForwardBlock(gController);
 				</handler>		
@@ -261,6 +277,32 @@
         </view>
        	
 	</view>
+	
+	<method name="closeHeaderAndNavigator">
+		if(this.main.header.y ==  0){
+         	if(gMusicPlayer.visible){
+				gMusicPlayer.hide();
+			}
+			if(gMaskingAnswer.visible){
+				gManipulativeBar.globals.maskingAnswer.hide();
+			}
+        	this.main.header.animate('y',-56, 500);
+        }
+		if(this.main.navbar.y ==  509){
+       		this.main.navbar.animate('y',570, 500);
+       	}
+		gItemInterface.main.contents.navBack.setAttribute('visible',false);
+		gItemInterface.main.contents.navNext.setAttribute('visible',false);
+		gItemInterface.main.navbar.showNavBar.setAttribute('clickable',false);
+		gItemInterface.main.header.showHd.setAttribute('clickable',false);
+	</method>
+
+	<method name="openHeaderAndNavigator">
+		gItemInterface.main.contents.navBack.setAttribute('visible',true);
+		gItemInterface.main.contents.navNext.setAttribute('visible',true);
+		gItemInterface.main.navbar.showNavBar.setAttribute('clickable',true);
+		gItemInterface.main.header.showHd.setAttribute('clickable',true);
+	</method>
 
         <!-- include the footnote popup -->
         <include href="question/FootNotePopup.lzx"/>

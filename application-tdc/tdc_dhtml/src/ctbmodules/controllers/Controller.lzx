@@ -629,7 +629,8 @@
 		</method>
 
 		<handler name="oninit">
-        	checkIsProduct();
+			gScreens.showSavingResponseScreen();
+        	//checkIsProduct();
         	//gScreens.showLogin();
 			var base = lz.Browser.getInitArg( 'servletUrl' );
 			//var base = "http://192.168.15.33:12345/servlet/fixed";
@@ -639,7 +640,7 @@
         </handler>
         
         <method name = "checkIsProduct">
-			setState(CHECK_PROD_TYPE_METHOD);
+			//setState(CHECK_PROD_TYPE_METHOD);
 			gCommunicator.checkIsProduct();
 		</method>
 
@@ -2214,17 +2215,28 @@
 			var result="";
 			var eid = loadNode.getAttr('id');
 			var answers = dpstudentdata.xpathQuery( "runtime/item_model [@eid = '"+eid+"']/@answer_text");
-			console.log("dp student data"+dpstudentdata);
-			console.log("answers****"+answers);
-			var node = lz.DataElement.stringToLzData(answers);
-			console.log("getAnswerForInputWidgetId node", node);
+			var node = lz.DataElement.stringToLzData(unescape(answers));
+			var idPresent = widgetId.split("$");
+			//Debug.write("getAnswerForInputWidgetId node", node);
             if (node) {
-               node.setAttribute('ownerDocument',dptemp);
-               dptemp.appendChild(node);
+               node.setAttribute('ownerDocument',dstemp);
+               dstemp.appendChild(node);
+               //Debug.write("widgetId : " + widgetId + " node : " , node);
 			   dp.setPointer(node);
-			   result = dptemp.xpathQuery("answer[@id = '"+widgetId+"']/text()");
-			   console.log("getAnswerForInputWidgetId result: "+result);
-               dptemp.removeChild(node);
+			  result = dp.xpathQuery("dstemp://answers/answer[@id = '"+widgetId+"']/text()");
+			//Debug.write("getAnswerForInputWidgetId result: " , result);
+               dstemp.removeChild(node);
+              if(idPresent.length > 1) {
+                    var idVal = idPresent[0];
+					var idPresenceCheck = result.split(idVal+":");
+					if(idPresenceCheck.length > 1) {
+                          var tempResult = "";
+							for(var k = 1; k < idPresenceCheck.length; k++) {
+								tempResult = tempResult + idPresenceCheck[k];
+							}
+							result = tempResult;
+                       }
+                  }
             }
 			
 			return result;
@@ -2452,6 +2464,7 @@
 			}else{
 				gManipulativeBar.globals.maskingAnswerContainer.maskingAnswer.setAttribute('visible', false);
 			}
+			console.log("gEnlargePopup.visible"+gEnlargePopup.visible);
 			
         ]]></method>
 
@@ -2579,6 +2592,7 @@
 				}
 				//To reset the Audio Fields Array So that file name will be passed in the save call
 				this.resetAudioFields();
+				this.resetImageFields();
 				//this.resetImageField();
 				gReadableText.stopReading(false);
 				freezeUI();
@@ -2923,11 +2937,9 @@
                 var curritem = Number(dncurritem.getAttr('eid'));
             var dnruntimeitem = dpstudentdata.xpathQuery ("runtime/item_model [@eid = '"+curritem+"']");
 
-		console.log("setItemCRState answer : " + answer);
-		console.log("escaped answer " + escape( answer ));
-            dncurritem.setAttr( 'answer_text', escape( answer ) );
-            dnruntimeitem.setAttr( 'answer_text', escape( answer ) );
-            unlockUI();
+            dncurritem.setAttr( 'answer_text', escape(answer));
+            dnruntimeitem.setAttr( 'answer_text', escape(answer));
+           // unlockUI();
         ]]></method>
 
 
@@ -3388,6 +3400,7 @@
 			dsitem.setQueryParam(gRequest.METHOD_PARAM, gRequest.GET_ITEM_METHOD);
 			dsitem.setQueryParam(gRequest.XML_PARAM, xml);
 			dsitem.doRequest();        
+			this.resetImageFields();
             this.resetCrFields();
 			this.resetAudioFields();
 			Debug.write("reset in load item htmlFields");
@@ -3399,6 +3412,10 @@
 			hideMagnifierGlass();
 			hideMaskingChoiceDD();
 			unblockiPADUI();
+			gItemInterface.openHeaderAndNavigator();
+			//canvas.overlayView.setAttribute('visible',false);
+			gItemInterface.main.contents.navBack.setAttribute('clickable',true);
+			gItemInterface.main.contents.navNext.setAttribute('clickable',true);
 		]]></method>
 
 		<method name="loadMusicData"><![CDATA[
@@ -4424,6 +4441,8 @@
 		]]></method>
 
 		<method name="updateCrField" args="id, answer, answered"><![CDATA[
+			console.log("inside updateCrField answer "+answer+" answered "+answered);
+			answered = (answered == "true" || answered == true) ? true : false;
 			for (var i = 0; i < this.crFields.length; i++) {
 				var crField = this.crFields[i];
 				if (id == crField['widget_id']) { 
@@ -4478,13 +4497,24 @@
 		<method name="updateCrItemNode"><![CDATA[
 			if(isCrItem()){
             	var xmls = "<answers>";
+            	var idArrtVal = "";
             	for (var i = 0; i < this.crFields.length; i++) {
+            		var currentFieldId = this.crFields[i]['widget_id'];
+					var currentFieldIdArray = currentFieldId.split("$");
+					if(currentFieldIdArray.length > 1) {
+						idArrtVal = currentFieldIdArray[0];
+					} else {
+						idArrtVal = "";
+					}
                 	xmls = xmls.concat("<answer id=" + "\"" + this.crFields[i]['widget_id'] + "\""+ ">");
                 	if(!crFields[i]['answered']){
                    		xmls = xmls.concat("</answer>");
                    	}
                 	else{
-                   		xmls = xmls.concat(wrapInCdata(this.crFields[i]['answer']) + "</answer>");
+                   		if(idArrtVal == "")
+                   			xmls = xmls.concat(wrapInCdata(this.crFields[i]['answer']) + "</answer>");
+						else
+							xmls = xmls.concat(wrapInCdata(idArrtVal + ":" + this.crFields[i]['answer']) + "</answer>");
                    	}
             	}
             	xmls = xmls.concat("</answers>");
@@ -5473,6 +5503,14 @@
 			//setEventCompleted();
 			]]>
 		</method>
+		
+		<method name="resetImageFields"><![CDATA[
+		 for (var i = 0; i < this.imageFieldArr.length; i++) {
+                delete this.imageFieldArr[i];
+            }
+            this.imageFieldArr.length = 0;	
+			gController.imageFieldArr={};
+		]]></method>
 		
 	</node>
 

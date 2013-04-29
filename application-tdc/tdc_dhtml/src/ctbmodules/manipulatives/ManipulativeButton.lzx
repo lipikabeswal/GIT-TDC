@@ -17,6 +17,7 @@
         </handler>
 
         <handler name="ondata" args="data"><![CDATA[
+        	console.log("ondata***"+data);
             this.setAttribute ('isselected', data == 'sel');
             if(data == null || data == 'disable'){
 	            this.setAttribute ('isenabled', false);
@@ -61,23 +62,6 @@
             
             
         ]]></handler>
-
-		<handler name="onclick">
-			console.log("onclick of manip "+this.isswiped);
-        	if(this.isswiped == true) {
-				this.isswiped = false;
-				return;
-		    }
-		</handler>
-
-		<handler name="onswipe" args="s">
-	       	console.log("onswipe of manip "+s);
-			if (s.direction === 'up' || s.direction === 'down') {
-			    return;
-			}
-			classroot.isswiped = true;
-			gManipulativeBar.animate('x', s.velocity, 500, true, {motion: 'easeout'});
-		</handler>
         
         <view name="manipBtn" width="37" height="40" stretches="both" resource="${classroot.btnResource}">
 	        <handler name="onmouseover"><![CDATA[
@@ -92,54 +76,55 @@
 	        ]]></handler>
 	
 	        <handler name="onclick"><![CDATA[
+	        	console.log("onclick****"+classroot.isenabled);
 	            if (classroot.isenabled) {
 	                gController.setManipulativeSelState (classroot.toolid, 
 	                                                         classroot.isselected ? 'up' : 'sel');
-	                console.log("classroot.isselected "+classroot.isselected);
-	                console.log("classroot.toolid "+classroot.toolid);  
-	                console.log("basepanelScrollContainer "+gController.panelArr);
-	                console.log("scrollTextArea "+scrollTextArea);
-					var manipData = gController.dpstudentdata.xpathQuery('current_item/item_model/manipulatives/global');
+					//var manipData = gController.dpstudentdata.xpathQuery('current_item/item_model/manipulatives/global');
 					var highlighterData = gController.dpstudentdata.xpathQuery('current_item/item_model/manipulatives/global/@highlighter');
-					console.log("manpData****"+manipData);  
-					console.log("highlighterData****"+highlighterData);    
 			
-					var dnGlobal = gController.dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');      
-
-					console.log("dn global****"+dnGlobal);                            
-	                if(classroot.isselected == true || classroot.isselected == 'true'){
+					//var dnGlobal = gController.dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');    
+	                if(classroot.isselected){
+	                  console.log("selected****");
 	                  if(highlighterData == 'sel'){
 	                	if(gController.panelArr.length > 0){
+	                		//console.log("else not cachable scrolling text panel**"+gController.panelArr[i]);
 		            		for(var i=0;i<gController.panelArr.length;i++){
-								 console.log("panelArr "+gController.panelArr[i]);
+								console.log("gController.panelArr.length"+gController.panelArr.length+","+gController.panelArr[i]);
 								if(gController.panelArr[i] instanceof lz.CachableScrollingTextPanel){
 									gController.panelArr[i].scrolltext.contents.textarea.scrollarea.setAttribute('clickable',false);
 								}else{
-									gController.panelArr[i].wrapper.scrollcontainer.setAttribute('clickable',false);
+									
+									//if(gController.panelArr[i].wrapper.scrollcontainer){
+										gController.panelArr[i].wrapper.setAttribute('clickable',false);
+									//}
 								}
 							}
 		            	}
 		             }
 					}else {
+						console.log("not selected****");
 					  if(highlighterData == 'sel'){
 	                	if(gController.panelArr.length > 0){
 		            		for(var i=0;i<gController.panelArr.length;i++){
-								 console.log("panelArr "+gController.panelArr[i]);
 								if(gController.panelArr[i] instanceof lz.CachableScrollingTextPanel){
 									gController.panelArr[i].scrolltext.contents.textarea.scrollarea.setAttribute('clickable',false);
 								}else{
-									gController.panelArr[i].wrapper.scrollcontainer.setAttribute('clickable',false);
+									if(gController.panelArr[i].wrapper.scrollcontainer){
+										gController.panelArr[i].wrapper.scrollcontainer.setAttribute('clickable',false);
+									}
 								}
 							}
 		            	}
 		              }else{
 						if(gController.panelArr.length > 0){
 		            		for(var i=0;i<gController.panelArr.length;i++){
-								 console.log("panelArr "+gController.panelArr[i]);
 								if(gController.panelArr[i] instanceof lz.CachableScrollingTextPanel){
 									gController.panelArr[i].scrolltext.contents.textarea.scrollarea.setAttribute('clickable',true);
 								}else{
-									gController.panelArr[i].wrapper.scrollcontainer.setAttribute('clickable',true);
+									if(gController.panelArr[i].wrapper.scrollcontainer){
+										gController.panelArr[i].wrapper.scrollcontainer.setAttribute('clickable',true);
+									}
 								}
 							}
 						}

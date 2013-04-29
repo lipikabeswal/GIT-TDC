@@ -65,10 +65,11 @@
  		<ctb_edittext name="answer" 
  		              maxlength="${classroot.char_limit}"
                       width="${classroot.editTextWidth}" 
-                      height="${classroot['height'] ? classroot.height : (classroot['fontsize'] ? (classroot.fontsize == 12 ? 22 : 34) : 22)}"
+                      height="${classroot['fontsize'] ? (classroot.fontsize == 12 ? 22 : 34) : 22}"
                       widget_id="${classroot.widget_id}"
                       fontsize="${classroot['fontsize'] ? classroot.fontsize : 12}">
             <handler name="oninit">
+				 this.field.setAttribute("height",this.height);
                  this.style.setAttribute("textfieldcolor", gController.answerBgColor);
             </handler>
          </ctb_edittext>

@@ -174,14 +174,14 @@
 		   if (gController.hasFontAccommodation){
 				if(dataText.indexOf("<br") != -1) {
 					this.thetext.setAttribute("text",
-	                	'<label><span style="line-height:17px; white-space: pre-wrap;">' + dataText + '</span></label>');
+	                	'<label><span style="line-height:17px; white-space: pre-wrap; display: inline-block;">' + dataText + '</span></label>');
 				}else{
 					this.thetext.setAttribute("text",
-	                	'<label><span style="white-space: pre-wrap;">' + dataText + '</span></label>');
+	                	'<label><span style="white-space: pre-wrap; zoom:97%;">' + dataText + '</span></label>');
 				}
 		   }else{
 	           this.thetext.setAttribute("text",
-	                '<label><span style="line-height:14px; white-space: pre-wrap;">' + dataText + '</span></label>');
+	                '<label><span style="line-height:16px; white-space: pre-wrap;">' + dataText + '</span></label>');
 			}
 			
 
@@ -1407,18 +1407,16 @@ parse the text string and store text and image string in an array at different i
                width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
                fgcolor="${classroot.fontcolor}" 
                fontsize="${classroot ['fontsize'] ? (classroot.fontsize == 18?17:classroot.fontsize) : 12}">
+               
+               <handler name="ontext"><![CDATA[
+               		/*if(this.text.indexOf('<br')>0){
+               			this.setAttribute('height',this.getTextHeight()+10);
+               		}*/
+				console.log("text field ",this.text); 
+               		
+               	]]>
+               </handler>
 				
-				<handler name="ontext"><![CDATA[
-					var elm = this.getDisplayObject();
-					var textAlign = "text-align: "+classroot.align;
-					/*if(gController.hasFontAccommodation){
-						this.setAttribute('height',this.getTextHeight()+1);
-					}*/
-					
-					//elm.setAttribute('style','line-height: 0px; font-family: CTB;');
-					//elm.setAttribute('font-family','CTB');
-					]]>
-				</handler>
 			</text>
         </state>
     </class>

@@ -16,7 +16,8 @@
 
         <handler name="onclick">
 			if(classroot instanceof lz.CachableImage){
-				onImgZoomIn(classroot.image_id, classroot.imageview.width, classroot.imageview.height);
+				var s = "onImgZoomIn('"+classroot.image_id+"','"+classroot.imageview.width+"','"+classroot.imageview.height+"')";
+				lz.Browser.loadJS(s);
         	}
             if (this.iszoomin) {
             	gFootNotePopup.setAttribute("scrolltext", this);

@@ -142,6 +142,8 @@
             	this.convertNodes(panelarr, 780, true);
 				console.log("panelarr after change all subnodes "+panelarr);
 				console.log("dntoppanel after change all subnodes "+dntoppanel);
+			}else{
+				dntoppanel.setAttribute("height",500);
 			}
             this.datapath.p.setAttribute('childNodes',[dntoppanel]);
         ]]></method>

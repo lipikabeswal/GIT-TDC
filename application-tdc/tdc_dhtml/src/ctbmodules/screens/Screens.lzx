@@ -16,6 +16,7 @@
     <include href="GoodbyeScreen.lzx"/>
 
    <include href="OptOutScreen.lzx"/>
+   <include href="SavingResponseScreen.lzx"/>
  
     <include href="Frame.lzx"/>
 
@@ -329,6 +330,16 @@
             show();
 
         </method>
+        
+        <method name="showSavingResponseScreen">
+        	removeAllStates();
+
+            if ( !contents.ssr.isinited ) contents.ssr.completeInstantiation();
+
+            contents.ssr.setAttribute('visible', true );
+
+            show();
+        </method>
 
          <method name="show">
          	gItemInterface.setAttribute('visible', false);
@@ -380,6 +391,8 @@
             <GoodbyeScreen name="gs" width="100%" height="100%"
                              initstage="defer"/>
             <OptOutScreen name="oos" width="100%" height="100%"
+                             initstage="defer"/>
+			 <SavingResponseScreen name="ssr" width="100%" height="100%"
                              initstage="defer"/>
         </view>
 	

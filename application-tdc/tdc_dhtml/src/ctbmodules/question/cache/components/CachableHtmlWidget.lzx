@@ -65,7 +65,7 @@ console.log("Cachaable html widget ondata");
 			gController.addHtmlField({"widget_id" : id, "answered" : this.answered, "answer" : this.answer, "ref" : this}); 
 
 		}
-		if (data.hasAttr("width") && data.getAttr("width")!="" && data.getAttr("width")!=null) {
+		/*if (data.hasAttr("width") && data.getAttr("width")!="" && data.getAttr("width")!=null) {
 			this.main.ht.setAttribute('width', data.getAttr("width"));
 		}else{
 			this.main.ht.setAttribute('width', 780);
@@ -74,8 +74,12 @@ console.log("Cachaable html widget ondata");
 			this.main.ht.setAttribute('height', data.getAttr("height"));
 		}else{
 			this.main.ht.setAttribute('height', 450);
+		}*/
+		this.parent.wrapper.setAttribute('height',500);
+		if (gController.hasFontAccommodation && gQuestion.doaccomlayout){
+			this.parent.parent.wrapper.setAttribute('height',500);
 		}
-		
+
 		if($dhtml){
 			console.log("srcUrl  "+srcUrl);
 			srcUrl = "http:items/"+ srcUrl +"/previewer.html";
@@ -238,7 +242,7 @@ console.log("Cachaable html widget ondata");
 				var elm = this.getDisplayObject();
 				elm.setAttribute('id','iframeId');
 			</handler>
- 	       <html name="ht" id="htmlwiget" x="5" y="5" scrollbars="false" mouseevents="true" focusable="true" width="780" height="450">
+ 	       <html name="ht" id="htmlwiget" x="5" scrollbars="false" mouseevents="true" focusable="true" width="780" height="490">
 				<handler name="oninit">
 					var elm = this.getDisplayObject();
 					elm.setAttribute('id','iframeIdchild');

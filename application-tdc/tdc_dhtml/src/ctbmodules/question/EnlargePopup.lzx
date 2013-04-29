@@ -1,6 +1,6 @@
 
 <view id="gEnlargePopup" 
-      y="100" 
+      y="40" 
       align="center" 
       visible="false"
       clickable="true"

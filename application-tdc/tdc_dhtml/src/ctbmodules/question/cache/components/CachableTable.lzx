@@ -50,7 +50,6 @@
             // "FITPANEL" : shrink or enlarge table text font to fit a panel (no scrolling)
             //
             this.setAttribute("autoenlarge", data.getAttr("autoenlargeable"));
-
             // Set title and title width
             if (data.hasAttr("titlewidth")) {
                 this.thetable.contents.title.setAttribute("titlewidth", Number(data.getAttr("titlewidth")));
@@ -60,7 +59,7 @@
 
             // Fixed: Increase title fontsize for accommodated users
             if (this.autoenlarge == "fixed" && this.thetable.contents.title.fontsize < 16 &&
-                 gController.hasFontAccommodation) {
+                 gController.hasFontAccommodation && parent['stereotype']) {
                 this.thetable.contents.title.setAttribute("fontsize", 
                                     this.thetable.contents.title.fontsize * style['font_magnification']);
 //Debug.write("fixed : "  + this.thetable.contents.title.fontsize);
@@ -69,10 +68,12 @@
             if(data.hasAttr('title')){
             	titleTxt = data.getAttr('title');
             }
+
             if(titleTxt.length > 0){
             	this.thetable.contents.title.setAttribute('visible', true);
+	            var size = (canvas.basefontsize+2);
 	            this.thetable.contents.title.setAttribute("text", 
-	                    '<label align="center">' + decodeBrackets(titleTxt) + '</label>');
+	                    '<label><span style="line-height:14px; font-family: CTB; font-weight: bold; white-space: pre-wrap; font-size : '+size+'; text-align: center;">' + decodeBrackets(titleTxt) + '</span></label>');
 	        }
 	        else{
             	this.thetable.contents.title.setAttribute('visible', false);
@@ -81,6 +82,9 @@
             // Toggle border lines
             var hspace = data.getAttr("showvlines") == "yes" ? 1 : 0;
             var vspace = data.getAttr("showhlines") == "yes" ? 1 : 0;
+            
+            console.log("hspace"+hspace);
+			console.log("vspace"+vspace);
 
             // Show enlarge button if necessary
             // Values are:
@@ -150,12 +154,13 @@
             }
 
 			// don't show stray lines if no vlines and hlines
-			if(hspace == 0 && vspace == 0){
+			// This is commented to display the border lines which otherwise gets hidden in some scenarios.
+			/*if(hspace == 0 && vspace == 0){
 				thetable.contents.borderview.table.setAttribute("bgcolor", this.bgcolor);
 			}
-			else{
+			else{*/
 				thetable.contents.borderview.table.setAttribute("bgcolor", null);
-			}
+			//}
             
             this._initSubnodes();
             doneLoading();
@@ -231,14 +236,8 @@
         <method name="doneLoading"><![CDATA[
             //alignment in panel
             var align = "left";
-            if (data.hasAttr("halign")) {
-                align = data.getAttr("halign");
-            }
-            this.setAttribute('align',align);
+            if (this.x < 0) this.setAttribute('x',0);
 
-//Debug.write("this width : " + this.width + " x : " + this.x, this);
-//Debug.write("parent width : " + parent.width + " x : " + parent.x, parent);
-			
            if (this.autoenlarge == "zoom") {
 
                // This contains the updated height and width values
@@ -246,64 +245,62 @@
                var orig_height = data.getAttr("height");
                var orig_width = data.getAttr("width");
                var offset = 50;
-//Debug.write(data); 
 
                // Multiplying factor
                // Use offset for margins
-               var mult_factor  = (gEnlargePopup.width - offset)/orig_width;
-//Debug.write("mult_factor : " + mult_factor + " w : " + orig_width + " h : " + orig_height);
                var width = gEnlargePopup.width - offset;
+               var mult_factor  = width / orig_width;
 
                // These variables manipulate the image within the popup window
                var table = this.thetable.contents.borderview.table;
                var wrapper = parent.wrapper;
                var title_ht = 60;
- 
+
                var title = this.thetable.contents.title;
                if (title) {
-//Debug.write("font size : " + title.fontsize);               
                    var titleTxt = "";
                    if(data.hasAttr('title')){
                    		titleTxt = data.getAttr('title');
                    }
                    if(titleTxt.length > 0){
                    		title.setAttribute('visible', true);
-                   		title.setAttribute("fontsize", 14);
+						title.setAttribute("fontsize", 14);
 	                   	title.setAttribute("text", 
-	                        '<label align="center">' + decodeBrackets(titleTxt) + '</label>');
-	                    title.setAttribute("align","center");
-	
-	                   // Based on (width/height) ratio use an appropriate fontsize
-	//Debug.write("updated font size : " + (title.fontsize * mult_factor));
-	                   title.setAttribute("fontsize", 
+	                        '<label><span style="font-family: CTB; font-weight: bold; white-space: pre-wrap; text-align: center; zoom: 97% ;">' + decodeBrackets(titleTxt) + '</span></label>');
+	                   // title.setAttribute("align","center");
+							 title.setAttribute("fontsize", 
 	                               title.fontsize * mult_factor);
-	//Debug.write("updated title ht : " + title.height);
+	                   // Based on (width/height) ratio use an appropriate fontsize
 					}
 					else{
 						title.setAttribute('visible', false);
 					}
                }
 
-//Debug.write(table);
-//Debug.write(title);
-//Debug.write(this);
-//Debug.write(parent.wrapper);
-
                // Set the image dimensions 
                // We're using the original table measurements, so we only need
                // to use an aspect ratio to correct for the margins 
-               table.setAttribute("stretches", "both");
+               //table.setAttribute("stretches", "both");
+				
+			   //this will give the correct factor
+			   mult_factor  = width / table.width;
+			   
+		       //scale up the table with the correct factor
+			   table.setAttribute("xscale" , mult_factor);
+			   table.setAttribute("yscale",  mult_factor);
+               
+               //set the fixed width and scale up the height
                table.setAttribute("width", width);
-               table.setAttribute('height',Math.ceil((orig_height - title_ht) * mult_factor));
-
+               table.setAttribute('height',table.height * mult_factor);
+              
                // nklein : hack that shouldn't be necessary
                // Need to examine why this occurs
-               if (this.x < 0) this.setX(0);
+               if (this.x < 0) this.setAttribute('x',0);
 
                // Set the canvas height of the popup 
                // Sets the height for the scrollbar
                // Account for margins and the height of the title
-//Debug.write("table h : " + table.height + " title h : " + title.height);
+
                parent.wrapper.setAttribute('height',table.height + (offset - 40) + title.height);
 
                // Remove the scrollbar when the table fits within the popup
@@ -311,6 +308,7 @@
                   gEnlargePopup.contents.scaler.scroller.setAttribute("visible", false);
                else
                   gEnlargePopup.contents.scaler.scroller.setAttribute("visible", true);
+               
 
                super.doneLoading();
                 gController.panelArr.pop();
@@ -350,9 +348,18 @@
                 this.thetable.setAttribute("width", this.thetable.contents.width);
                 this.thetable.setAttribute("height", this.thetable.contents.height);
             }
+
+            if (data.hasAttr("halign")) {
+                align = data.getAttr("halign");
+            }
+            this.setAttribute('align',align);
             
             super.doneLoading();
         ]]></method>
+        
+        <method name="hide">
+        	//do nothing
+        </method>
 
         <!-- ============================
              =====      VIEWS      ======
@@ -375,9 +382,8 @@
                 <text name="title" 
                       align="center"
                       multiline="true" 
-                      width="${this.titlewidth != -1 ? 
-                             this.titlewidth : parent.borderview.width}"
-                      
+                      width="${this.titlewidth != -1 ? this.titlewidth : parent.borderview.width}"
+                      fontsize="${canvas.basefontsize+2}" 
                       fgcolor="${classroot.fontcolor}"
 					  bgcolor="${classroot.bgcolor}"
                       clickable="${canvas.readable}"
@@ -385,9 +391,8 @@
                       fontstyle="bold">
                     <attribute name="titlewidth" value="0"/>
 					<handler name="ontext"><![CDATA[
-						var size = (canvas.basefontsize+2);
 						var elm = this.getDisplayObject();
-						elm.setAttribute('style','text-align: center; top: -5px; font-family: CTB; font-weight: bold; white-space: pre-wrap; font-size : '+size+';');
+						elm.setAttribute('style','text-align: center; width: '+this.width+'px;');
 					]]></handler>
                 </text>
 
