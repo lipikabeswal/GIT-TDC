@@ -875,6 +875,8 @@
 			         		var itemNode = viewedItems[i];
 			         		var itemId = itemNode.getAttr('iid');
 							var itemScore = itemNode.getAttr('score');
+							if(itemScore == "" || itemScore == null || itemScore == undefined) 
+								itemScore = 0;
 							for(var j=0; j<itemIds.length; j++) {
 								var visitedId = itemIds[j];
 								var visistedIdScore = itemScores[j];
@@ -900,6 +902,8 @@
 			        else if(viewedItems && viewedItems instanceof LzDataElement) {
 			        	var itemId = viewedItems.getAttr('iid');
 						var itemScore = viewedItems.getAttr('score');
+						if(itemScore == "" || itemScore == null || itemScore == undefined) 
+							itemScore = 0;
 						for(var i=0; i<itemIds.length; i++) {
 							var visitedId = itemIds[i];
 							var visistedIdScore = itemScores[i];
