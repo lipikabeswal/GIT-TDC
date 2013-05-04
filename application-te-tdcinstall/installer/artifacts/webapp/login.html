@@ -70,6 +70,7 @@ var currentLasAssetItemId;
 var autoPlayEvent = "false";
 var isMagnifierVisible = "false";
 
+
 window.onmouseup = function  () {
 	lz.embed.setCanvasAttribute("fromLogin", 'true');
 }
@@ -321,10 +322,11 @@ function setCurLasItemId(id) {
 
 
 function eventMonitor(id,event) {
-
+//	console.log("Inside eventMonitor:::",id,event);
 	var currIframeId = frameFolderObject[id];
  	if(event == 'play' || event == 'jsplay') {
  		setPlayingAttr('true');
+ 		//console.log("iframeObject[currentLasAssetItemId][currIframeId]****",iframeObject[currentLasAssetItemId][currIframeId]);
  		iframeObject[currentLasAssetItemId][currIframeId]['playEvent'] = true;
  		//console.log("Is Playing :",iframeObject[currentLasAssetItemId][currIframeId]['playEvent']);
  		playSingleAsset(currIframeId);
@@ -401,6 +403,14 @@ function setItemFocus(){
      }
 }
 
+function enablePasswordFocusHtml(){
+	
+    var myFlash = document.getElementById( 'lzapp' );
+     if ( myFlash ) { 
+      myFlash.focus(); 
+     }
+}
+  
 function loadDummyHtml() {
 	//console.log("loadDummyHtml");
 	window.location.href = 'dummy.html';
@@ -409,8 +419,11 @@ function loadDummyHtml() {
 function load() {
 	
      var myservlet = 'servlet/PersistenceServlet.do?method=isProductCheck&folder=calif&requestXML=';
+
      jQuery.get(myservlet, function(data) {
 	     //alert(data);
+	     //alert(data.childNodes[0].nodeName);
+	     
 	     if(data.childNodes[0].nodeName.indexOf('LASLINKS') >= 0){
 	     	loadJsApplication();
 	     }else {
@@ -488,6 +501,9 @@ body { background-color:#6691B4; margin: 0px; overflow:hidden;}
 			</tr>
 		</table>
 	</div>
+	<div face="Arial" size="6" height="40px" width="22px" id="tempMessage" style="background-color: rgb(82, 125, 164); padding: 100px 100px 105px; margin: 294px 320px 320px; display: none; color: white; font-size: 21px;">
+	Please Wait While your Item is Loading..............
+	</div>
 
 	<SCRIPT type="text/javaScript">
 		if(!isMac()){
@@ -500,6 +516,25 @@ body { background-color:#6691B4; margin: 0px; overflow:hidden;}
 	<p style="display: table-cell; vertical-align: middle; align: center;">
 	<div id="lzsplashtext" style="display: block; margin: 20% auto; font-size:12px; font-family:Helvetica,sans-serif;" align="center">Loading...</div></p></div>-->
 	<script type="text/javascript" defer>
+	
+	function embedswfApplicationLaslink() {
+		//alert("Inside embedswfApplicationLaslink");
+		var tempElement = document.getElementById("tempMessage");
+	    tempElement.style.display="block";
+	   // alert("embedswfApplication");
+		embedswfApplication();
+		
+	}
+	function removeDiv(){
+		//alert("removeDiv");
+		if(document.getElementById("tempMessage")){
+			var tempElement = document.getElementById("tempMessage");
+		    tempElement.style.display="none";
+		}else{
+			alert("Div not found");
+		}
+	}
+	var isNewForm = true;
 				  var jQ = jQuery.noConflict();
                   function loadJsApplication(){
 	                  lz.embed.dhtml({url: 'TestClient.js?servletUrl=/servlet', lfcurl: 'lps/includes/lfc/LFCdhtml.js', serverroot: 'lps/resources/', bgcolor: '#6691b4', width: '100%', height: '100%', id: 'lzapp', accessible: 'true', cancelmousewheel: false, cancelkeyboardcontrol: false, skipchromeinstall: false, usemastersprite: false, approot: '', appenddivid: 'appcontainer'});
@@ -513,6 +548,34 @@ body { background-color:#6691B4; margin: 0px; overflow:hidden;}
                             }
 	                    }
 	                  }*/
+                  }
+                   function embedswfApplication(){
+               		isNewForm = false;
+               		
+	                  lz.embed.swf({url:'TestClient.lzx.swf?&lzr=swf10&folder=calif&servletUrl=/servlet&eliminatorResource=resources/eliminator.swf', allowfullscreen: 'false', bgcolor: '#6691B4', width: '100%', height: '100%', id: 'lzapp1', accessible: 'false', cancelmousewheel: false, appenddivid: 'appcontainer', wmode: 'opaque'});
+	                  
+	        		}
+                function isLasNewForm(){
+                	//alert(isNewForm);
+                	 
+                	lz.embed.setCanvasAttribute('isNewForm',isNewForm);
+                }
+                 function lasLoginCred(loginId,pwd,accessCode){
+               			
+               		 //alert(loginId+"::"+pwd+"::"+accessCode);
+               		//alert(product);
+               		 if(loginId != null){
+               		 removeDiv();
+               		 lz.embed.setCanvasAttribute('loginId',loginId);
+               		 lz.embed.setCanvasAttribute('pwd',pwd);
+               		 lz.embed.setCanvasAttribute('accessCode',accessCode);
+               		 
+               		 lz.embed.setCanvasAttribute('credSetted',true);
+               		
+               		 
+                	}else{
+                		alert("Getting null");
+                	}
                   }
                   function loadSwfApplication(){
 	                  lz.embed.resizeWindow('100%', '100%');
