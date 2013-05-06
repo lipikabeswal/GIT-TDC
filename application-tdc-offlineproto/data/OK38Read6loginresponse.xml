@@ -1,0 +1,20 @@
+<tmssvc_response method="login_response">
+	<login_response lsid="1812624:allemand37" restart_flag="false" restart_number="0" tts_speed_value="M">
+		<status status_code="200"/>
+		<testing_session_data>
+			<cmi.core student_id="1633631" student_last_name="Student" student_first_name="Demo" student__middle_name="A"/>
+			<lms.student.accommodations calculator="true" magnifier="true" screen_reader="false" untimed="true" rest_break="true" highlighter="true">
+				<stereotype_style stereotype="directions" bgcolor="0xFFFFFF" font_color="0x000000" font_magnification="1.0"/>
+				<stereotype_style stereotype="stimulus" bgcolor="0xFFFFFF" font_color="0x000000" font_magnification="1.0"/>
+				<stereotype_style stereotype="stem" bgcolor="0xFFFFFF" font_color="0x000000" font_magnification="1.0"/>
+				<stereotype_style stereotype="answerArea" bgcolor="0xFFFFB0" font_color="0x000000" font_magnification="1.0"/>
+			</lms.student.accommodations>
+		</testing_session_data>
+		<manifest title="OCCT Reading Grade 6 Practice Test">
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="283931" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="Sample Questions" asmt_hash="70CD4D227555D36C9D27350B27CE4F29" asmt_encryption_key="1870" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8" adsid="9942802" cmi.core.total_time="0:0:0"/>
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="283932" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="Reading Practice Test" asmt_hash="84317B76D236F080C641FA8BBCE2D3B8" asmt_encryption_key="1566" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8" adsid="9942902" cmi.core.total_time="0:0:0"/>
+			<terminator id="SEE_YOU_LATER"/>
+		</manifest>
+		<branding tdclogo="/resources/logo.swf"/>
+	</login_response>
+</tmssvc_response>

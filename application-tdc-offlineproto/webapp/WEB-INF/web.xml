@@ -182,6 +182,36 @@
   </servlet-mapping>
   
   <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletOK38Math6/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletOK38Math7/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletOK38Math8/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletOK38Read6/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletOK38Read7/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletOK38Read8/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
     <servlet-name>ContentServlet</servlet-name>
     <url-pattern>/servlet/ContentServlet.do</url-pattern>
   </servlet-mapping>
@@ -304,6 +334,36 @@
   <servlet-mapping>
     <servlet-name>ContentServlet</servlet-name>
     <url-pattern>/servletOKUSH/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletOK38Math6/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletOK38Math7/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletOK38Math8/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletOK38Read6/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletOK38Read7/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletOK38Read8/ContentServlet.do</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -437,6 +497,36 @@
     <servlet-name>PersistenceServlet</servlet-name>
     <url-pattern>/servletOKUSH/PersistenceServlet.do</url-pattern>
   </servlet-mapping>
+  
+      <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletOK38Math6/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletOK38Math7/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletOK38Math8/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletOK38Read6/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletOK38Read7/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletOK38Read8/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
 
   <servlet>
     <description>UtilityServlet</description>
@@ -568,6 +658,36 @@
   <servlet-mapping>
     <servlet-name>UtilityServlet</servlet-name>
     <url-pattern>/servletOKUSH/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+        <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletOK38Math6/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletOK38Math7/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletOK38Math8/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletOK38Read6/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletOK38Read7/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletOK38Read8/UtilityServlet.do</url-pattern>
   </servlet-mapping>
 
 </web-app>
