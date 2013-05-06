@@ -875,8 +875,10 @@
 			         		var itemNode = viewedItems[i];
 			         		var itemId = itemNode.getAttr('iid');
 							var itemScore = itemNode.getAttr('score');
-							if(itemScore == "" || itemScore == null || itemScore == undefined) 
+
+							if(itemScore == "" || itemScore == null || itemScore == undefined) {
 								itemScore = 0;
+							}	
 							for(var j=0; j<itemIds.length; j++) {
 								var visitedId = itemIds[j];
 								var visistedIdScore = itemScores[j];
@@ -894,7 +896,13 @@
 								viewedCount++;
 								if(itemId.indexOf('FT')<= 0) {
 		         					var raw = itemNode.getAttr('score');
+		         					//for non SR items, the raw score will be null, so should be set to zero to avoid "NaN" issues
+		         					if(raw == "" || raw == null || raw == undefined) {
+		         						raw = 0;
+		         					}
 		         					rawscore = Number(rawscore) + Number(raw);
+
+									//Debug.write("rawscore 22.......", rawscore);
 		         				}
 							}
 			         	}
