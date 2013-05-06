@@ -196,8 +196,42 @@
 	<attribute name="hideTooltip" value="null" />
 	<attribute name="isTooltip" value="${gTooltip.visible}" type="boolean"/>
 	<attribute name="loadItem" value="true" type="boolean" />
-	<attribute name="exitPleaseWaitPopupforTE" />
+	<attribute name="isNewForm"/>	
+	<attribute name="loginId" type="string"/>
+	<attribute name="pwd" type="string"/>
+	<attribute name="accessCode" type="string"/>
+	<attribute name="credSetted"/>
 	
+	
+	<handler name="onloginId">
+		gScreens.showLasReLogin();
+		//Debug.write("onloginId***",canvas.loginId);
+		gController.setAttribute('lasLoginId',canvas.loginId);
+		
+	</handler>
+	<handler name="onpwd">
+		//Debug.write("onpwd***",canvas.pwd);
+		gController.setAttribute('laspwd',canvas.pwd);
+	</handler>
+	<handler name="onaccessCode">
+		//Debug.write("onaccessCode***",canvas.accessCode);
+		gController.setAttribute('lasAccessCode',canvas.accessCode);
+		//Debug.write("gController lasAccessCode::",gController.lasAccessCode);
+	</handler>
+	<handler name="oncredSetted">
+		//Debug.write("credSetted::::",canvas.credSetted);
+		gController.setAttribute('lasCredSetted',canvas.credSetted);
+		
+	</handler>
+	
+	<handler name="onisNewForm">
+		//Debug.write("Inside onisNewForm****",this.isNewForm);
+		gController.setAttribute('isLaslinkNewForm',canvas.isNewForm);
+		//Debug.write("Login ID::",canvas.loginId);
+		//Debug.write("Pwd::",canvas.pwd);
+		//Debug.write("Access Code::",canvas.accessCode);
+		//Debug.write("credSetted::",credSetted);
+	</handler>
 	<handler name="onexitPleaseWaitPopupforTE">
 		//Debug.write("*************onexitPleaseWaitPopupforTE******",this.exitPleaseWaitPopupforTE);
 		if(this.exitPleaseWaitPopupforTE == 'true' || this.exitPleaseWaitPopupforTE == true){
@@ -206,7 +240,6 @@
 			canvas.unFreezUI();
          }
 	</handler>
-
 	<handler name="ontriggercrpush" args="data">
 		//Debug.write("*************ontriggercrpush******");
 		gController.addCrField(data);

@@ -7,6 +7,12 @@ import static com.ctb.tdc.web.utils.ReLoginUtility.getReLoginUtility;
 import static com.ctb.tdc.web.utils.ReLoginUtility.setAccessCode;
 import static com.ctb.tdc.web.utils.ReLoginUtility.setLoginId;
 import static com.ctb.tdc.web.utils.ReLoginUtility.setPassword;
+import static com.ctb.tdc.web.utils.ReLoginUtility.getLasLoginId;
+import static com.ctb.tdc.web.utils.ReLoginUtility.getLasPassword;
+import static com.ctb.tdc.web.utils.ReLoginUtility.getLasAccessCode;
+import static com.ctb.tdc.web.utils.ReLoginUtility.setLasLoginId;
+import static com.ctb.tdc.web.utils.ReLoginUtility.setLasPassword;
+import static com.ctb.tdc.web.utils.ReLoginUtility.setLasAccessCode;
 
 import java.awt.AWTException;
 import java.awt.Dimension;
@@ -294,6 +300,24 @@ public class PersistenceServlet extends HttpServlet {
 				&& method.equals(ServletUtils.MEMORY_EXCEEDED)){
 					result = getCredentialsForRestart();
 					System.out.println("result getCredentialsForRestart******"+result);
+				}
+		else if (method != null
+				&& method.equals(ServletUtils.LASLINKS_NEWFORM)){
+					try {
+						result = laslinksNewForm(xml);
+					} catch (ParserConfigurationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SAXException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.out.println("result getCredentialsForRestart******LASLINKS_NEWFORM****"+result);
+				}
+		else if (method != null
+				&& method.equals(ServletUtils.LASLINKS_RELOGIN)){
+					result = ReLoginUtility.getLasCredentialsForRestart();
+					System.out.println("result getLasCredentialsForRestart******LASLINKS_RELOGIN****"+result);
 				}
 		
 		else
@@ -891,6 +915,36 @@ public class PersistenceServlet extends HttpServlet {
 		System.out.println("User Name :: "+ handler.userName + "\nPassword :: " + handler.password + "\nAccess Code :: "+ handler.accessCode);
 		try {
 			return ReLoginUtility.isMaxMemory(userName, password, accessCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "<false/>";
+	}
+	public static String laslinksNewForm(String xml) 
+	throws ParserConfigurationException, SAXException, IOException {
+		System.out.println("Inside laslinksNewForm*****"+xml);
+		//String xml1 = "<tmssvc_request><login_request is_reopen=\"true\" password=\"saucy7\" sds_date_time=\"2007-01-29T10:44:07\" user_name=\"mc-1-0101\" cid=\"\" access_code=\"fiancee889\" sds_id=\"string\"/></tmssvc_request>";
+		//File file = new File("Data\\Test.xml");
+		InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
+		Reader reader = new InputStreamReader(inputStream,"ISO-8859-1");
+		InputSource is = new InputSource(reader);
+		is.setEncoding("ISO-8859-1");
+		SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
+		SaxParserHandler handler = new SaxParserHandler();
+		saxParser.parse(is, handler );
+		// Retieve data from xml
+		String userName = handler.userName;
+		String password = handler.password;
+		String accessCode = handler.accessCode;
+		System.out.println("User Name :: "+ handler.userName + "\nPassword :: " + handler.password + "\nAccess Code :: "+ handler.accessCode);
+		/*FileWrite fileWrite = new FileWrite("./webapp/resources/credentials.txt",true);
+		fileWrite.writeToFile(handler.userName);
+		fileWrite.writeToFile(handler.password);
+		fileWrite.writeToFile(handler.accessCode);*/
+		
+		
+		try {
+			return ReLoginUtility.laslinksNewForm(userName, password, accessCode);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

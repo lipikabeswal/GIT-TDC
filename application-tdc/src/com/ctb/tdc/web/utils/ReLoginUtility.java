@@ -1,5 +1,12 @@
 package com.ctb.tdc.web.utils;
 
+import static com.ctb.tdc.web.utils.ReLoginUtility.getLasAccessCode;
+import static com.ctb.tdc.web.utils.ReLoginUtility.getLasLoginId;
+import static com.ctb.tdc.web.utils.ReLoginUtility.getLasPassword;
+import static com.ctb.tdc.web.utils.ReLoginUtility.setLasAccessCode;
+import static com.ctb.tdc.web.utils.ReLoginUtility.setLasLoginId;
+import static com.ctb.tdc.web.utils.ReLoginUtility.setLasPassword;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -39,6 +46,9 @@ public final class ReLoginUtility {
 	private static String accessCode = null;
 	private static long totalPhysicalMemory = 0L;
 	private static int procMemThresholdValue = 0;
+	private static String lasLoginId = null;
+	private static String lasPassword = null;
+	private static String lasAccessCode = null;
 	
 	/**
 	 * Don't let anyone to instantiate this class from outside.
@@ -171,6 +181,38 @@ public final class ReLoginUtility {
 		}
 		return "<false/>";
 	}
+	public static String laslinksNewForm(String strUserName, String strPassword, String strAccessCode) {
+		System.out.println("Inside laslinksNewForm Utility :::"+strUserName+"::"+strPassword+"::"+strAccessCode);
+		try {
+				setLasLoginId(strUserName);
+				setLasPassword(strPassword);
+				setLasAccessCode(strAccessCode);
+				System.out.println("get values:::"+getLasLoginId()+"::"+getLasPassword()+"::"+getLasAccessCode());
+	    		return "<true/>";
+	    	
+		} catch (Exception e) {
+			logger.error("ReLoginUtility laslinksNewForm: error occured :" + e);
+		}
+		return "<false/>";
+	}
+	
+	public static String getLasCredentialsForRestart() {
+		System.out.println("Inside getLasCredentialsForRestart***"+getLasLoginId()+"**"+getLasPassword()+"**"+getLasAccessCode());
+		String xml = null;
+		if(getLasLoginId() != null) {
+			xml = "<loginData user_name=\"" + getLasLoginId() + "\" password=\"" + getLasPassword() + 
+				"\" access_code=\"" + getLasAccessCode() + "\" isRestart=\"true\"></loginData>";
+			System.out.println("XML:::::getLasCredentialsForRestart"+xml);
+			setLasLoginId(null);
+			setLasPassword(null);
+			setLasAccessCode(null);
+		} else {
+			System.out.println("else getLasCredentialsForRestart");
+			xml = "<loginData user_name=\"\" password=\"\" access_code=\"\" isRestart=\"false\"></loginData>";
+		}
+		logger.info("PersistenceServlet : auto login xml*************" + xml);
+		return xml;
+	}
 	/**
 	 * This method process the memory details retrieved from the system
 	 * command.
@@ -283,5 +325,29 @@ public final class ReLoginUtility {
 	 */
 	public static long getTotalPhysicalMemory() {
 		return totalPhysicalMemory;
+	}
+
+	public static String getLasLoginId() {
+		return lasLoginId;
+	}
+
+	public static void setLasLoginId(String lasLoginId) {
+		ReLoginUtility.lasLoginId = lasLoginId;
+	}
+
+	public static String getLasPassword() {
+		return lasPassword;
+	}
+
+	public static void setLasPassword(String lasPassword) {
+		ReLoginUtility.lasPassword = lasPassword;
+	}
+
+	public static String getLasAccessCode() {
+		return lasAccessCode;
+	}
+
+	public static void setLasAccessCode(String lasAccessCode) {
+		ReLoginUtility.lasAccessCode = lasAccessCode;
 	}
 }
