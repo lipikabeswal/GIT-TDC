@@ -17,6 +17,7 @@
 		<mkdir dir="${basedir}/classes" />
 		<javac srcdir="${project.src}" destdir="${basedir}/classes" compiler="javac1.4" >
 			<classpath>
+				<pathelement path="${basedir}/../application-tdc/webapp/WEB-INF/classes"/>
 				<fileset dir="${basedir}/lib">
 					<include name="*.jar" />
 				</fileset>

@@ -49,8 +49,6 @@ import com.ctb.tdc.web.dto.TTSSettings;
 
 public class TTSUtil {
 	
-	public static HashMap mp3CacheMap = new HashMap();
-	
 	public static DefaultHttpClient client;
 	
 	static {
@@ -69,8 +67,9 @@ public class TTSUtil {
 			ThreadSafeClientConnManager mgr = new ThreadSafeClientConnManager(schemeRegistry); 
 			mgr.setMaxTotal(1);
 			HttpParams httpParams = new BasicHttpParams();
-			HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
-			HttpConnectionParams.setSoTimeout(httpParams, 10000);
+			HttpConnectionParams.setConnectionTimeout(httpParams, 30000);
+			HttpConnectionParams.setSoTimeout(httpParams, 30000);
+			HttpConnectionParams.setStaleCheckingEnabled(httpParams, true);
 			client = new DefaultHttpClient(mgr, httpParams);
 			
 			// setup proxy
@@ -145,7 +144,16 @@ public class TTSUtil {
 		private long length;
 		private InputStream stream;
 		private HttpGet request;
+		private String fileName;
 		
+		
+		
+		public String getFileName() {
+			return fileName;
+		}
+		public void setFileName(String fileName) {
+			this.fileName = fileName;
+		}
 		/**
 		 * @return Returns the request.
 		 */
@@ -186,7 +194,7 @@ public class TTSUtil {
 		
 	}
 	
-	public static MP3 speak(final String text, final String speedValue) throws Exception {
+	public MP3 speak(final String text, final String speedValue) throws Exception {
 		// remote synth using TextHelp server
 		System.out.println("TTS: sending speech request");
 		String thResponse = textHelpRequest(text,speedValue);
@@ -287,7 +295,7 @@ public class TTSUtil {
 		return in.replaceAll(Pattern.quote("*"), "").replaceAll(Pattern.quote("."), "").replaceAll(Pattern.quote("/"), "");
 	}
 	
-	private static String createFilename(String text) throws Exception{
+	public static String createFilename(String text) throws Exception{
 		MessageDigest messageDigest = MessageDigest.getInstance( "MD5" );
         byte baKey[] = text.getBytes();
         messageDigest.update( baKey );
@@ -299,20 +307,17 @@ public class TTSUtil {
 	}
 	
 	public static String checkCache(String text) throws Exception {
-		String value = (String) mp3CacheMap.get(text);
-		if(value == null) {
-			String filename = "cache/" + createFilename(text) + ".enc";
-			if(new File(filename).exists()) {
-				value = filename.replaceAll(".enc", ".mp3");
-				mp3CacheMap.put(text, value);
-			}
+		String filename = "cache/" + createFilename(text) + ".enc";
+		if(new File(filename).exists()) {
+			return filename;
+		} else {
+			return null;
 		}
-		return value;
 	}
 	
 	public static void cacheFile(String text, MP3 mp3) {
 		try {
-			String filename = createFilename(text) + ".mp3";
+			String filename = "cache/" + createFilename(text) + ".enc";
 			
 			System.out.println("TTS: cache miss, new cache file: " + filename);
 			
@@ -330,10 +335,10 @@ public class TTSUtil {
 	    		mp3.getRequest().releaseConnection();
 	    	}*/
 			
-			mp3CacheMap.put(text, filename);
+			//mp3CacheMap.put(text, filename);
 			
 			// encrypt cache
-			encryptFile(filename, filename.replaceAll(".mp3", ".enc"));
+			//encryptFile(filename, filename.replaceAll(".mp3", ".enc"));
 	        System.out.println("TTS: write to MP3 cache successful");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -367,10 +372,31 @@ public class TTSUtil {
 	
 	public static void main(String argv[]) {
 		try {
+			String filename = "test.txt";
+			InputStream in = new FileInputStream(filename);
+
+	    	byte [] buffer = new byte[1024];
+	    	StringBuffer sb = new StringBuffer();
+	    	
+	    	int read = 0;
+	    	while((read = in.read(buffer)) > 0) {
+	    		sb.append(new String(buffer));
+	    	}
+	    	in.close();
+	    	
+	    	String start = sb.toString();
+	    	
+	    	System.out.println(start);
+	    	
+	    	String end = start.replace("&amp;amp;nbsp;", "&amp;nbsp;");
+	        
+	    	System.out.println("\n\n\n\n\n");
+	        System.out.println(end);
+	        
 			//String thResponse = textHelpRequest("testing","-2");
 			//String mp3URL = thResponse.substring(thResponse.indexOf("mp3=") + 4);
 			//String result = textHelpMP3(mp3URL).toString();
-			speak("testing testing 1 2 3", "-2");
+			//speak("testing testing 1 2 3", "-2");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -477,7 +503,7 @@ public class TTSUtil {
     	return buff.toString();
     }
     
-    private static String execSpeechRequest (String text, String speedValue){
+    private String execSpeechRequest (String text, String speedValue){
 		String result = null;
 	
 		int responseCode = HttpStatus.SC_OK;
@@ -494,7 +520,7 @@ public class TTSUtil {
 		}
 	}
 	
-    private static String execTexthelpSpeechRequest (String text, String speedValue){
+    private String execTexthelpSpeechRequest (String text, String speedValue){
 		String result = null;
 	
 		int responseCode = HttpStatus.SC_OK;
@@ -558,7 +584,7 @@ public class TTSUtil {
 		return result;
 	}
     
-    private static String execReadspeakerSpeechRequest (String text, String speedValue){
+    private String execReadspeakerSpeechRequest (String text, String speedValue){
 		String result = null;
 	
 		int responseCode = HttpStatus.SC_OK;
@@ -636,13 +662,13 @@ public class TTSUtil {
 		return result;
 	}
     
-	public static String textHelpRequest(String text, String speedValue) {
+	public String textHelpRequest(String text, String speedValue) {
 		text = text.replaceAll("<", "less than");
 		String result = execSpeechRequest(text, speedValue);
 		return result;
 	}
 	
-	public static MP3 execMP3Request (String url) {
+	public MP3 execMP3Request (String url) {
 		MP3 result = null;
 		int responseCode = HttpStatus.SC_OK;
 		try {
@@ -672,7 +698,7 @@ public class TTSUtil {
 		return result;
 	}
 	
-	public static MP3 textHelpMP3(String url) {
+	public MP3 textHelpMP3(String url) {
 		MP3 result = execMP3Request(url);
 		return result;
 	}	
