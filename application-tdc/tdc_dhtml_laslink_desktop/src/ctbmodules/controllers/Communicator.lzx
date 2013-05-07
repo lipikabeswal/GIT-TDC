@@ -240,21 +240,7 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 			
 		<method name="sendRequest">
 			gRequest.sendRequest(dRequestDataSet);
-		</method>  	
-		
-		<method name="laslinksNewForm" args="userid, password, accesscode">
-          	if(!error){
-       			gRequest.laslinksNewForm(userid, password, accesscode);
-       		}
-       	</method>
-		
-		<method name="laslinksRelogin">
-       		if(!error){
-       			gRequest.laslinksRelogin();
-       		}
-       	</method>
-	
-			
+		</method>  		
      </node>
 
 </library>

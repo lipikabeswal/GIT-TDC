@@ -204,7 +204,7 @@
 	<dataset name="dsdisplay" src="xmls/display.xml" />
 
 	<dataset name="dssubtest" />
-	<dataset name="laslinksForm" src="http:/includes/LaslinksForm.xml" request="true" type="http"/>
+
 	<dataset name="dsitem" type="http" queuerequests="true"
 		querytype="post" timeout="120000"
 		onerror="gCommunicator.checkShowError(gXmlHelper.getContentErrorXml(),this)"
@@ -218,8 +218,7 @@
 	<dataset name="dsstudentdata" src="xmls/studentData.xml" />
 
 	<dataset name="dstemp" />
-	<dataset name="dsrestartLogin" />
-	<datapointer name="dprestartLogin" xpath="dsrestartLogin:/loginData" />
+
 	<!--
 		==================================================
 		Test Controller
@@ -281,9 +280,7 @@
 		<attribute name="SAVE_LEV" type="string" value="stu_save" />
 		<attribute name="TERMINATED_LEV" type="string"
 			value="terminated" />
-	
-		<attribute name="LASLINKS_RELOGIN" type="string" value="laslinksRelogin"/>
-		<attribute name="LASLINKS_NEWFORM" type="string" value="laslinksNewForm"/>
+
 		<!-- 
 			Item types - theme or normal
 		-->
@@ -515,13 +512,11 @@
 		<attribute name="lasAssetArray" value="$once{new Array()}" />
 		<attribute name="isplaying" type="boolean" value="false"/>
 		<attribute name="recordingStopped" type="boolean" value="false"/>
-		<attribute name="lasRelogin" type="boolean" value="true"/>
 		<!--
 			============================================================
 			Datapointers
 			============================================================
 		-->
-		<datapointer name="dsform" xpath="laslinksForm:/form_data"/>
 		<datapointer name="dplogin" xpath="dslogin:/login_response" >
 			<handler name="ondata">
 				Debug.write("dplogin on data========= ",this);
@@ -569,7 +564,6 @@
 		
 		<attribute name="playIfAnswered" type="boolean" value="false" />
 		<attribute name="iframeid" type="string" value="NONE" />
-		<attribute name="relogin" value="false" type="boolean" />
 		
 		<handler name="oncanNotAnswer" args="data"><![CDATA[
 			if(answerArray.length > 0) {
@@ -741,7 +735,7 @@
 		</method>
 
 		<handler name="oninit">
-			checkIsProduct();       	
+        	checkIsProduct();
         	//gScreens.showLogin();
 			var base = lz.Browser.getInitArg( 'servletUrl' );
 			//var base = "http://192.168.15.33:12345/servlet/fixed";
@@ -919,12 +913,6 @@
 						break;
 					case CHECK_PROD_TYPE_METHOD:
 						_handleIsPasswordField(response);
-						break;
-					case LASLINKS_NEWFORM:
-						_handleLaslinksNewForm(response);
-						break;
-					case LASLINKS_RELOGIN:
-						_handleLaslinksRelogin(response);
 						break;
 					default:
 						break;
@@ -1149,66 +1137,8 @@
 
 		<method name="_handleSaveLoadResponse" args="response">
 		//Debug.write("_handleSaveLoadResponse");
-		loadItem();
+			loadItem();
 		</method>
-		<method name="laslinksNewForm" args="userid, password, accesscode">
-					setState(LASLINKS_NEWFORM);
-		//	console.log("Current state*****"+this.state);
-			gCommunicator.laslinksNewForm(userid, password, accesscode);
-			//_handleCheckMemoryExceeded(response);
-		</method>
-		
-			<method name="_handleLaslinksNewForm" args="response"><![CDATA[
-			if(response.indexOf('true') >= 0){
-				gController.setAttribute('lasRelogin',false);
-			} else {
-				gController.setAttribute('lasRelogin',true);
-			}
-			]]></method>
-	
-	<method name="laslinksRelogin">
-			//console.log("laslinkRelogin controller*************");
-			this.setState(LASLINKS_RELOGIN);
-			gCommunicator.laslinksRelogin();
-			//_handleCheckMemoryExceeded(response);
-	</method>
-	
-	<method name="_handleLaslinksRelogin" args="loginCred"><![CDATA[
-		//	console.log("_handleLaslinksRelogin********",loginCred);
-			if(loginCred!=null && loginCred!=""){
-			var restartData = lz.DataElement.stringToLzData(loginCred);
-			dsrestartLogin.setAttribute('childNodes',new Array(restartData));
-		//	console.log("dsrestartLogin****",dsrestartLogin);
-			//Debug.write("dsrestartLogin****",dsrestartLogin);
-			var restart = dprestartLogin.xpathQuery('@isRestart');
-		//	console.log("restart in _handleLaslinksRelogin*******",restart);
-			if(restart == true || restart =='true'){
-				
-					this.setAttribute('isRestart',true);
-					var loginId = dprestartLogin.xpathQuery('@user_name');
-					var password = dprestartLogin.xpathQuery('@password');
-					var accessCode = dprestartLogin.xpathQuery('@access_code');
-				//	console.log("Credentials::"+loginId,password,accessCode);
-					var s = "lasLoginCred('"+loginId+"','"+password+"','"+accessCode+"')";
-						lz.Browser.loadJS(s);
-					
-			}else{
-				//	console.log("response false for get credentials******");
-					this.setAttribute('isRestart',false);
-					checkIsProduct();
-				}
-		}
-		]]></method>
-		<handler name="onlasRelogin">
-		
-		var s = "embedswfApplication()";
-		lz.Browser.loadJS(s);
-		this.setAttribute('relogin',true);
-		//console.log("inside onlasRelogin");
-			var s = "isLasNewForm()";
-			lz.Browser.loadJS(s);
-			laslinksRelogin();
-		</handler>
 
 		<method name="_handleLoginResponse" args="response"><![CDATA[
 			/*var testnode = new lz.DataElement('');
@@ -1217,7 +1147,6 @@
 			var tmssvc_response = testnode.getElementsByTagName('tmssvc_response')[0];
 			
 			//Debug.write("loginResponse:",tmssvc_response);
-			var isNewForm = true;
 			var mydp = new lz.datapointer();
 			mydp.setPointer(tmssvc_response);
 			//Debug.write("mydp============ ",mydp);*/
@@ -1229,20 +1158,11 @@
 
 	    		var node = lz.DataElement.stringToLzData(response);
 	    		dp.setPointer(node);
-				var testTitle = dp.xpathQuery('login_response/manifest/@title');
-				//console.log("Test Title from login *********"+testTitle);
-				var formName = dsform.xpathQuery("test_name[@name='"+testTitle+"']/@form");
-			//	console.log("Form name ******"+formName);	
-				if(formName == 'FormA' || formName == 'FormB'){
-					isNewForm = false;
-					laslinksNewForm(userid, password, accesscode);
-				}else{
-				setShowHighlighter();
+				//Debug.write("dp------------- :",dp);
+	    		setShowHighlighter();
 	    		setShowMaskingRuler();
 	    		setShowMagnifyingGlass();
 	    		setShowMaskingAnswer();
-	    		
-				
 	    		var restartNumber = dp.xpathQuery('login_response/@restart_number');
 				//Debug.write("login_response/tutorial----- ",dp.xpathQuery('login_response/tutorial'),dp.xpathQuery('login_response/branding/@tdclogo'));
 				gTutorialManager.setAttribute('tutorialNode', dp.xpathQuery('login_response/tutorial'));
@@ -1323,7 +1243,6 @@
 				this.hasTTSspeed = dpspeed.data.hasAttr("tts_speed_value");
 				
 			}
-		}
 			//Debug.write("loginResponse completed:",dslogin);
 		]]></method>
 
@@ -2335,8 +2254,7 @@
        </method>
 
 		<method name="massageItemLml"><![CDATA[
-		//console.log("Item LML::::",dpitem.serialize());
-	//printBigString(dpitem.serialize());
+	//console.log("massageItemLml ",dpitem.serialize());
             var itemmodel = dpitem.xpathQuery( 'item_model' );
             var toolbar = itemmodel.getElementsByTagName( 'toolbar' )[0];
             if ( !toolbar ) {

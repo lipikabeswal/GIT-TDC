@@ -55,8 +55,6 @@
 		<attribute name="_SERVER_VALUE" type="string" value="server" />
 		<attribute name="_GENDER_VALUE" type="string" value="female" />
 		<attribute name="CHECK_PROD_TYPE_METHOD"   type="string" value="isProductCheck" />
-		<attribute name="LASLINKS_NEWFORM" type="string" value="laslinksNewForm" />
-		<attribute name="LASLINKS_RELOGIN" type="string" value="laslinksRelogin" />
 		
 		<handler name="oninit">
 			var base = lz.Browser.getInitArg( 'servletUrl' );
@@ -303,18 +301,6 @@ Debug.write("_heartbeatReturnError : ", ds);
  	   	Debug.write("sendRequest : ", ds.name,ds);
     	 	ds.doRequest();
 		</method>
-		
-		<method name="laslinksRelogin">
-			//Debug.write("laslinksRelogin request****");
-			_doRequest(persistenceDs, LASLINKS_RELOGIN, "");
-		</method>
-		
-		<method name="laslinksNewForm" args="userid, password, accesscode">
-       	//	console.log("laslinksNewForm request****"+userid,password,accesscode);
-			 var xml = gXmlHelper.getLoginXml(userid, password, accesscode,'');
-			 //Debug.write("xml in request laslinksNewForm***",xml);
-			_doRequest(persistenceDs, LASLINKS_NEWFORM, xml);
-       	</method>
 		
 	</node>
 </library>
