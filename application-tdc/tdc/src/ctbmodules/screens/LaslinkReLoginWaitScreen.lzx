@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<library>
-	<class name="LaslinkReloginWaitScreen">
-		<attribute name="font" value="CTB"/>
-		<simplelayout axis="y" spacing="3"/>
-        <text fgcolor="white" valign="middle" fontsize="24">Please wait...... your test is being loaded...........</text>
-      </class>
-</library>

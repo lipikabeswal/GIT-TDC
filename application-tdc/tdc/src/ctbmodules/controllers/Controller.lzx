@@ -221,7 +221,8 @@
 	<dataset name="dstemp" />
 
 	<dataset name="dsrestartLogin" />
-		<datapointer name="dprestartLogin" xpath="dsrestartLogin:/loginData" />
+		<datapointer name="dprestartLogin"
+			xpath="dsrestartLogin:/loginData" />
 
 	<!--
 		==================================================
@@ -384,14 +385,6 @@
 		<attribute name="isaudio" type="boolean" value="false"/>
 		<attribute name="isAudioPlaying"/>
 		<attribute name="lastPlayOrderId"/>
-		<attribute name="isLaslinkNewForm" type="boolean" value="true"/>
-		<attribute name="lasRelogin" type="boolean" value="true"/>
-		
-		
-		<attribute name="lasLoginId" type="string" value="null"/>
-		<attribute name="laspwd" type="string" value="null"/>
-		<attribute name="lasAccessCode" type="string" value="null"/>
-		<attribute name="lasCredSetted" type="boolean" value="false"/>
 		<!-- 
 			Is the panel being loaded for the sizer?
 		-->
@@ -546,7 +539,6 @@
 		<attribute name="dRestoreCursor"
 			value="$once{ new lz.Delegate( this, 'restoreGrabCursor' ) }" />
 		<attribute name="isRestart" type="boolean" value="false"/>
-		<attribute name="isLasRestart" type="boolean" value="false"/>
 		
 		<!--
 			============================================================
@@ -599,24 +591,11 @@
 		<attribute name="isRestart1" value="false" type="boolean" />
 		<attribute name="frameid"/>
 		<attribute name="currentItemId"/>
-		<attribute name="currentProduct"/>
-		<attribute name="loginId"/>
 		
 		<handler name="onframeid" args="data">
 			//Debug.write("222222222222222222222222-> ", data);
 			var s = "frameID('"+data+"')";
 			lz.Browser.loadJS(s);
-		</handler>
-		<handler name="onlasCredSetted">
-			//Debug.write("Inside onlasCredSetted",this.lasLoginId,this.laspwd,this.lasAccessCode,this.lasCredSetted);
-		//canvas.setAttribute('isNewForm',true);
-			if(lasCredSetted){
-			//Debug.write("Removing Div in onlasCredSetted");
-				//Debug.write("Inside If onlasCredSetted");
-				gController.login(this.lasLoginId,this.laspwd,this.lasAccessCode);
-			}else{
-				//Debug.write("Inside else of onlasCredSetted");
-			}
 		</handler>
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -685,14 +664,7 @@
 
 		<handler name="oninit">
 			//Debug.write("oninit of controller********");
-			//Debug.write("isRestart oninit:::",isRestart,typeof(isRestart));
-			if(gController.productTypeVal.indexOf("ISTEP") > 0) {
-			//Debug.write("Product inside if:::",gController.productTypeVal);
-				checkMemoryExceeded();
-			}else{
-			//Debug.write("Product else::::",gController.productTypeVal);
-			}
-			//Debug.write("maxMemoryCheck in oninit:::::",this.maxMemoryCheck);
+			checkMemoryExceeded();
 			//checkIsProduct();
         	//gScreens.showLogin();
 			var base = lz.Browser.getInitArg( 'servletUrl' );
@@ -700,13 +672,6 @@
 			dsMusic.setAttribute('src', base + '/ContentServlet.do');   
 			//Debug.write("On Init Controller");
         </handler>
-		<handler name="onisLaslinkNewForm">
-			//Debug.write("Inside onisLaslinkNewForm");
-			//Debug.write("Login Id onisLaslinkNewForm::",canvas.loginId);
-			//Debug.write("Password onisLaslinkNewForm::",canvas.pwd);
-			//Debug.write("Access Code onisLaslinkNewForm::",canvas.accessCode);
-			//gController.login(canvas.loginId,canvas.pwd,canvas.accessCode);
-		</handler>
 		
 		<method name="checkMemoryExceeded">
 			//Debug.write("checkMemoryExceeded controller*************");
@@ -736,7 +701,7 @@
 				}else{
 					//Debug.write("response false for get credentials******");
 					this.setAttribute('isRestart',false);
-					//checkIsProduct();
+					checkIsProduct();
 				}
 		}
 		]]></method>
@@ -751,7 +716,6 @@
 		</method>
 
         <method name = "checkIsProduct">
-//Debug.write("Inside checkIsProduct");
 			setState(CHECK_PROD_TYPE_METHOD);
 			gCommunicator.checkIsProduct();
 		</method>
@@ -1154,16 +1118,15 @@
 			goToPauseScreen();
 		</method>
 
-		<method name="_handleSaveLoadResponse" args="response"><![CDATA[
-		//Debug.write("Inside _handleSaveLoadResponse*****",response);
-		
+		<method name="_handleSaveLoadResponse" args="response">
+		//Debug.write("_handleSaveLoadResponse");
 			//Debug.write("isRestart1***",isRestart1, typeof(isRestart1));
-			if(this.isRestart1 == true && gController.productTypeVal.indexOf("ISTEP") > 0) {
+			if(this.isRestart1 == true) {
 				gController.isMaxMemoryExceeded(userid, password, accesscode);
 			} else {
 				loadItem();
 			}
-		]]></method>
+		</method>
 
 		<method name="_handleLoginResponse" args="response"><![CDATA[
 			/*var testnode = new lz.DataElement('');
@@ -1175,17 +1138,12 @@
 			var mydp = new lz.datapointer();
 			mydp.setPointer(tmssvc_response);
 			Debug.write("mydp============ ",mydp);*/
-
-
-
-
-			//Debug.write("Inside _handleLoginResponse********");
 			//printBigString(response);
 			
-			/*if(gController.productTypeVal.indexOf("LASLINKS") >= 0) {
+			if(gController.productTypeVal.indexOf("LASLINKS") >= 0) {
 				var s = "saveLoginResponse('"+response+"')";
 				lz.Browser.loadJS(s);
-			}*/
+			}
 			
 			if(gXmlHelper.isErrorResponse(response)){
 				gScreens.showLoginError(gXmlHelper.getStatusCode(response));
