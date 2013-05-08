@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-  <adssvc_request method="upload_audit_file" sdsid="dummy" token="dummy" xmlns="">
-   <upload_audit_file>
-      <tsd lsid="" scid="" mseq="" />
-    </upload_audit_file>
-  </adssvc_request>
-

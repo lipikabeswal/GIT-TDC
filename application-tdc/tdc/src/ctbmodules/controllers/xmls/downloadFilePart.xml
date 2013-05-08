@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<adssvc_request method="downloadFileParts" token="string" xmlns="">
-	<download_file_part name="" sequence_number="" next=""/>
-</adssvc_request>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<library>
-	<include href="resources/resources.lzx"/>
-	<class name="YesShowTheDemoAgainButton" extends="basebutton" resource="yes_show_the_demo_again_button_rsc"/>
-</library>

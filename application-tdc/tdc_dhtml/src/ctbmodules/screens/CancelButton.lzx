@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<library>
-	<resource name="cancelButtonResource">
-		<frame src="resources/cancel_off.png"/>
-		<frame src="resources/cancel_on.png"/>
-		<frame src="resources/cancel_click.png"/>
-	</resource>
-	<class name="CancelButton" extends="basebutton" resource="cancelButtonResource"/>
-</library>

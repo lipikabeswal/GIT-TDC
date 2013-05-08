@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<library>
-	<resource name="okButtonResource">
-		<frame src="resources/okOff.png"/>
-		<frame src="resources/okOn.png"/>
-		<frame src="resources/okClick.png"/>
-	</resource>
-	<class name="OkButton" extends="basebutton" resource="okButtonResource"/>
-</library>

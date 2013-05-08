@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<adssvc_request method="complete_tutorial" sdsid="string" token="string">
-		<complete_tutorial lsid="" mseq="" cid="" />
-</adssvc_request>

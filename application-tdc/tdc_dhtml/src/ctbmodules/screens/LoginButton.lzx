@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<library>
-	<include href="resources/resources.lzx"/>
-	<class name="LoginButton" extends="basebutton" resource="login_button_rsc"/>
-</library>
