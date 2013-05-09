@@ -171,8 +171,9 @@
             
             this.setAttribute("readText",unescape(dataText));
 
+           var fontSize = this.fontsize;
            this.thetext.setAttribute("text",
-                '<label><span style="line-height:17px;">' + dataText + '</span></label>');
+                '<label><span style="line-height:17px; font-size:'+fontSize+'">' + dataText + '</span></label>');
 
             doneLoading();
 
@@ -1397,7 +1398,6 @@ parse the text string and store text and image string in an array at different i
                fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" >
 				
 				<handler name="ontext"><![CDATA[
-					console.log("prinint text  "+this.text);
 					var elm = this.getDisplayObject();
 					var textAlign = "text-align: "+classroot.align;
 					if(this.text.indexOf("<br") != -1) {
