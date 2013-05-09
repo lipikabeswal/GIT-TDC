@@ -6,7 +6,7 @@
    <meta http-equiv="X-UA-Compatible" content="chrome=1"><link rel="SHORTCUT ICON" href="http://www.laszlosystems.com/favicon.ico"><meta name="viewport" content="width=device-width; initial-scale=1.0;"><title>Online Assessment System</title><script type="text/javascript" src="lps/includes/embed-compressed.js"></script>
    <script type="text/javascript" src="includes/manipulative_manager.js"></script>
    <style type="text/css">
-            html, body
+          html, body
             {
                 /* http://www.quirksmode.org/css/100percheight.html */
                 height: 100%;
@@ -14,34 +14,65 @@
                 margin: 0;
                 padding: 0;
                 border: 0 none;
-                -webkit-font-smoothing: antialiased;
-			    /* -moz-font-smoothing: antialiased; - No longer available in FF */
-			    font-smoothing: antialiased;
-			    //text-rendering:optimizeLegibility;
+                /*text-rendering:optimizeLegibility;*/
+                font-family: CTB !important;
             }
             body {
-                background-color: #ffffff;
+                background-color: #6691b4;
+                -webkit-font-smoothing: antialiased;
+				/* -moz-font-smoothing: antialiased; - No longer available in FF */
+				font-smoothing: antialiased;
+				webkit-text-stroke: 1px transparent;
+		        text-shadow: 0 0 1px rgba(0,0,0,0.1);
+		        letter-spacing: -0.06em;
             }
             img { border: 0 none; }
-
-			@font-face {
-			    font-family: "CTB";
-			    src: url("ctbmodules/resources/fonts/OASmathv3.ttf");
+            
+             @font-face {
+				font-family: 'CTB';	
+				src: local('OASmathv3'), url('ctbmodules/resources/fonts/OASmathv3.ttf') format('truetype'); 
+				font-weight: normal;
+			    font-style: normal;
 			}
 			@font-face {
-			    font-family: "CTB";
-			    src: url("ctbmodules/resources/fonts/OASmathv3 Bold.ttf");
-			    font-weight: bold;
+				font-family: 'CTB';
+				src: local('OASmathv3 Bold'), url('ctbmodules/resources/fonts/OASmathv3 Bold.ttf') format('truetype'); 
+				font-weight: bold;
+			    font-style: normal;
 			}
 			@font-face {
-			    font-family: "CTB";
-			    src: url("ctbmodules/resources/fonts/OASmathv3 Italic.ttf");
+				font-family: 'CTB';
+				src: local('OASmathv3 BoldItalic'), url('ctbmodules/resources/fonts/OASmathv3 BoldItalic.ttf') format('truetype'); 
+				font-weight: bold;
 			    font-style: italic;
 			}
 			@font-face {
-			    font-family: "CTB";
-			    src: url("ctbmodules/resources/fonts/OASmathv3 BoldItalic.ttf");
-			    font-weight: bold;
+				font-family: 'CTB';
+				src: local('OASmathv3 Italic'), url('ctbmodules/resources/fonts/OASmathv3 Italic.ttf') format('truetype'); 
+			    font-style: italic;
+			}
+			
+			@font-face {
+				font-family: 'oasmathv3';
+				src: local('OASmathv3'), url('ctbmodules/resources/fonts/OASmathv3.ttf') format('truetype'); 
+				font-weight: normal;
+			    font-style: normal;
+			}
+			@font-face {
+				font-family: 'oasmathv3';
+				src: local('OASmathv3 Bold'), url('ctbmodules/resources/fonts/OASmathv3 Bold.ttf') format('truetype'); 
+				font-weight: bold;
+			    font-style: normal;
+			}
+			@font-face {
+				font-family: 'oasmathv3';
+				src: local('OASmathv3 BoldItalic'), url('ctbmodules/resources/fonts/OASmathv3 BoldItalic.ttf') format('truetype'); 
+				font-weight: bold;
+			    font-style: italic;
+			}
+			@font-face {
+				font-family: 'oasmathv3';
+				src: local('OASmathv3 Italic'), url('ctbmodules/resources/fonts/OASmathv3 Italic.ttf') format('truetype'); 
 			    font-style: italic;
 			}
             
