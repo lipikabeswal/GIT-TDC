@@ -324,7 +324,7 @@ function eventMonitor(id,event) {
 
 	var currIframeId = frameFolderObject[id];
  	if(event == 'play' || event == 'jsplay') {
- 		setPlayingAttr('true');
+ 		setPlayingAttr(event,'true');
  		iframeObject[currentLasAssetItemId][currIframeId]['playEvent'] = true;
  		//console.log("Is Playing :",iframeObject[currentLasAssetItemId][currIframeId]['playEvent']);
  		playSingleAsset(currIframeId);
@@ -338,7 +338,7 @@ function eventMonitor(id,event) {
  		
  	} else if(event == 'finished' || event == 'endTrack' || event == 'pause') {
  		if( event == 'endTrack' || event == 'pause'){
- 			setPlayingAttr('false');
+ 			setPlayingAttr(event,'false');
  		}
  		if(autoPlayEvent == 'false') { // play is for autoPlay
 	 		iframeObject[currentLasAssetItemId][currIframeId]['playEvent'] = false;

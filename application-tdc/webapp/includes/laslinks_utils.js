@@ -185,11 +185,31 @@ function playSingleAsset(currIframeId){
 		
 }
 
-function setPlayingAttr(arg){	
-	if(arg == 'true'){
+function setPlayingAttr(event,value){	
+	if(value == 'true'){
 		gController.setAttribute('isplaying',true);
+		
+	} 
+	else if(event == 'pause'){
+	
+		var	k=0;
+		for(var i=0; i<gController.lasAssetArray.length;i++){
+					if(gController.lasAssetArray[i].asset){
+						if(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.isPlaying == "true"){
+							//console.log(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.isPlaying);
+							k++;
+							
+						}	
+				}
+ 		}
+		
+		if(k>0){
+			gController.setAttribute('isplaying',true);
+	    } else{
+	    	gController.setAttribute('isplaying',false);
+	  	  }
 	} else{
-		gController.setAttribute('isplaying',false);
+	gController.setAttribute('isplaying',false);
 	}
 }
 
