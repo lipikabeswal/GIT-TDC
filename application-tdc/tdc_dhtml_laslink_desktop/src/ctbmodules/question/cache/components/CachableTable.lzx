@@ -392,14 +392,16 @@
 					]]></handler>
                 </text>
 
-                <!-- borderview contains the title and table and defines a border -->
+            <!-- borderview contains the title and table and defines a border -->
                 <view name="borderview" bgcolor="${classroot.fontcolor}" align="center"
-                      width="${this.table.width + 2 * classroot.bordersize}"
-                      height="${this.table.height + 2 * classroot.bordersize}">
+                      width="${classroot.bordersize == 0?(this.table.width-2) : (this.table.width + 2 * classroot.bordersize)}"
+                      height="${classroot.bordersize == 0?(this.table.height-2) : (this.table.height + 2 * classroot.bordersize)}"
+					  y="${classroot.bordersize == 0?(this.y + 1):this.y}">
                     
                     <!-- table with one top line and row driven by dataset -->
                     <view name="table" 
-                          x="${classroot.bordersize}" y="${classroot.bordersize}"/>
+                          x="${classroot.bordersize == 0?(classroot.bordersize -1):classroot.bordersize}" 
+						  y="${classroot.bordersize == 0?(classroot.bordersize -1):classroot.bordersize}"/>
                 </view>
             </view>
         </view>
