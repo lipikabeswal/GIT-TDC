@@ -42,7 +42,6 @@
 			//sizer should not be destroyed so we are starting from array 1
 			var contsubviews = gQuestion.subviews;
 			var contViewsLen = gQuestion.subviews.length;
-			//console.log("gController.skipCacheDestroy "+gController.skipCacheDestroy);
 			if(!gController.skipCacheDestroy){
 				for (var i = 1; i <= contViewsLen; i++){
 				 if(contsubviews[i] && contsubviews[i] instanceof lz.CachableAnswerAreaPanel){
@@ -121,7 +120,7 @@
         <!-- Make into a single column layout-->
         <method name="convertToSingleCol"><![CDATA[
             var panelarr = this.datapath.p.childNodes;
-
+			var convert = true;
             //create top level panel node
             var dntoppanel = new lz.DataElement("panel", {x        : 0, 
                                                          y        : 79,
@@ -132,11 +131,45 @@
             
             dntoppanel.setAttribute('childNodes',panelarr);
 
+            //this.convertNodes(panelarr, 780, true);
+            
+            convert = checkingIfTE(panelarr,convert);
+
             //change all subnodes according to new layout requirements
-            this.convertNodes(panelarr, 780, true);
+			if(convert == true){
+            	this.convertNodes(panelarr, 780, true);
+			}
 
             this.datapath.p.setAttribute('childNodes',[dntoppanel]);
         ]]></method>
+        
+        <method name="checkingIfTE" args="panelarr,convert"><![CDATA[
+			var dn;
+			for (var i = 0; i < panelarr.length; i++) {
+				
+                dn = panelarr[i];
+                if (!(dn instanceof lz.DataElement)) break;
+
+                if (dn.nodeName == gCompTypes.WIDGET_HTML || dn.nodeName == gCompTypes.WIDGET_ASSET){
+					convert = false;
+					//dn.attributes.height = "";
+					break;
+				}else{
+					var cn = dn.childNodes;
+                	if(cn != null){
+						for (var j = 0; j < cn.length; j++) {
+							if (cn[j].nodeName == gCompTypes.WIDGET_HTML || cn[j].nodeName == gCompTypes.WIDGET_ASSET){
+								convert = false;
+								//cn[0].attributes.height = "";
+								break;
+							}
+						}
+					}
+				}
+			}
+			return convert;
+		]]>
+		</method>
 
 
         <!-- Make into a double column layout -->
@@ -247,10 +280,12 @@
 
                 //don't bother changing table, image and cr nodes.  They
                 //need to have a specified width and height
-                if (dn.nodeName == gCompTypes.WIDGET_TABLE ||
+
+				if (dn.nodeName == gCompTypes.WIDGET_TABLE ||
                     dn.nodeName == gCompTypes.WIDGET_IMAGE ||
                     dn.nodeName == gCompTypes.WIDGET_MULTI_LINE_ANSWER ||
-                    dn.nodeName == gCompTypes.WIDGET_SINGLE_LINE_ANSWER ) {
+                    dn.nodeName == gCompTypes.WIDGET_SINGLE_LINE_ANSWER ||
+                    dn.nodeName == gCompTypes.WIDGET_ASSET) {
                     continue;
                 }
                 
