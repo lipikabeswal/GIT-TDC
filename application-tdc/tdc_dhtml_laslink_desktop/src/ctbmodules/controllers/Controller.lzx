@@ -512,6 +512,7 @@
 		<attribute name="lasAssetArray" value="$once{new Array()}" />
 		<attribute name="isplaying" type="boolean" value="false"/>
 		<attribute name="recordingStopped" type="boolean" value="false"/>
+		<attribute name="unlockNavigation" type="boolean" value="false"/>
 		<!--
 			============================================================
 			Datapointers
@@ -664,7 +665,19 @@
 			}
 		}
 		]]></handler>
-
+			
+		<handler name="onunlockNavigation" ><![CDATA[
+		var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
+		if(gController.unlockNavigation == true ){
+			gHotKeys.enableKeys();
+			dncurrentItem.setAttr('canNotNavigate' , false);
+		}
+		else{
+			gHotKeys.disableKeys();
+			dncurrentItem.setAttr('canNotNavigate' , true);
+		}
+		
+		]]></handler>
 
 		<method name="enableAllAssets" ><![CDATA[
 			var s="enableAssets()";
