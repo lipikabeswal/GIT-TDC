@@ -35,7 +35,8 @@
             } 
 
             this.isvisited = isvisited;
-            this._changeStatus (false);
+            this.onisactive.sendEvent();
+			//this._changeStatus (false);
         </method>
 
         <method name="setIsAnswered" args="isanswered">
@@ -44,7 +45,8 @@
                 isanswered = (isanswered == '1');
             } 
             this.isanswered = isanswered;
-            this._changeStatus (false);
+            this.onisactive.sendEvent();
+			//this._changeStatus (false);
         </method>
 
         <method name="setIsMarked" args="ismarked">
