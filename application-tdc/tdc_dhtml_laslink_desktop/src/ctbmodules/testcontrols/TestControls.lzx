@@ -36,6 +36,9 @@
 		<attribute name="revisitAllowed" 
                    value="$path{'current_item/item_model/@allow_revisit'}" 
 				   setter="setMarkForReview (revisitAllowed)" />
+		<attribute name="disableNavigation" 
+                   value="$path{'current_item/item_model/@canNotNavigate'}" 
+				   setter="setDisableNavigation (disableNavigation)" />
 
         <method name="setIsCurrAnswered" args="isanswered"><![CDATA[
         	Debug.write("setIsCurrAnswered============== ",isanswered);
@@ -136,6 +139,25 @@
 				}
 			}else{
 				this.btns.markbtn.setAttribute ('visible', false);		
+			}
+		]]></method>
+		<method name="setDisableNavigation" args="isDisableNavigation"><![CDATA[
+			if (typeof (isDisableNavigation) == 'string') {
+               isDisableNavigation = (isDisableNavigation == 'true');
+            }
+			this.isDisableNavigation = isDisableNavigation;
+			
+			if(this.isDisableNavigation != null){
+				if(this.isDisableNavigation != true){
+					this.btns.navbtns.btnforward.setAttribute ('enabled', true);
+					this.btns.navbtns.btnback.setAttribute ('enabled', true);
+					this.btns.navbtns.btnfinish.setAttribute ('enabled', true);
+				} else {
+					this.btns.navbtns.btnforward.setAttribute ('enabled', false);
+					this.btns.navbtns.btnback.setAttribute ('enabled', false);
+					this.btns.navbtns.btnfinish.setAttribute ('enabled', false);
+				}
+				
 			}
 		]]></method>
 

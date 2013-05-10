@@ -18,6 +18,9 @@
         <attribute name="STEP_SIZE" value="3"/>
         <attribute name="ANIM_LENGTH" value="300"/>
         <attribute name="SCROLL_Y" value="32" type="number"/>
+        <attribute name="disableBar" 
+               value="$path{'current_item/item_model/@canNotNavigate'}" 
+			   setter="setDisableBar (disableBar)" />
 
 <!--  not always hiding right buttons on last item ???  added attribute to hide right buttons when select last item -->
 		<attribute name="justSelectedLastItem" value="false"/>
@@ -105,6 +108,24 @@
             }
             this.setAttribute('justSelectedLastItem', gController.onLastItem());
         ]]></method>
+        
+         <method name="setDisableBar" args="isDisableBar"><![CDATA[
+			if (typeof (isDisableBar) == 'string') {
+               isDisableBar = (isDisableBar == 'true');
+            }
+			this.isDisableBar = isDisableBar;
+			
+			if(this.isDisableBar != null){
+				if(this.isDisableBar != true && gController.fwdOnly != true){
+					
+					this.qbtnsOverlay.setAttribute ('visible', false);
+				} else {
+					
+					this.qbtnsOverlay.setAttribute ('visible', true);
+				}
+				
+			}
+		]]></method>
 
         <!-- list of scrolling buttons for item -->
         <view name="qbtns" height="100%"  x="${classroot.moreleft.x}" y="2" 

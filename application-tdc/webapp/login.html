@@ -386,11 +386,13 @@ function eventMonitor(id,event) {
  		}
  		else{
  		autoPlayEvent = "false";
+ 		iframeObject[currentLasAssetItemId][currIframeId]['playedOnce'] = true;
  		}
  		
  	} else if (event == 'reset') {
  		//setPlayingAttr('false');
  	}
+ 	restrictNavigation();
  	//lz.embed.setCanvasAttribute("bringBackFocus", 'true');
 }
 
