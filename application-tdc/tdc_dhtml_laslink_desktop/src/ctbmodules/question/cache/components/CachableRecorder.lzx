@@ -261,17 +261,19 @@
 				</view>
 
 				<view name="recordtimer" x="${parent.bar.x + parent.bar.width - parent.recordtimer.width}"
-					y="${parent.bar.y - parent.recordtimer.height}" height="${20 * classroot.factor}">
-					<simplelayout axis="x" spacing="0" />
+					y="${parent.bar.y - parent.recordtimer.height}" height="${20 * classroot.factor}" width="100%">
+					<resizelayout axis="x" />
+					<view options="releasetolayout" height="100%">
+					</view>
 					<text name="remaining" fontsize="${12 * classroot.factor}" font="CTB" fontstyle="bold"
-						resize="true" valign="bottom" height="100%">
+						width="45%" valign="bottom" height="100%">
 						TIME REMAINING:
 					</text>
 					<text name="timertext" fontsize="${12 * classroot.factor}" fontstyle="bold"
-						font="CTB" fgcolor="0x008000" resize="true" valign="bottom" height="100%">
+						font="CTB" fgcolor="0x008000" width="10%" valign="bottom" height="100%" >
 					</text>
-					<text fontsize="${12 * classroot.factor}" font="CTB" resize="true" fontstyle="bold"
-						valign="bottom" height="100%">
+					<text fontsize="${12 * classroot.factor}" font="CTB"  fontstyle="bold"
+						valign="bottom" height="100%" width="15%">
 						secs
 					</text>
 				</view>
