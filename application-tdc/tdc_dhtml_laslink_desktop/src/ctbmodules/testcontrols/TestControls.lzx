@@ -146,6 +146,9 @@
                isDisableNavigation = (isDisableNavigation == 'true');
             }
 			this.isDisableNavigation = isDisableNavigation;
+			if(this.isDisableNavigation == null){
+			this.isDisableNavigation = false;
+			}
 			
 			if(this.isDisableNavigation != null){
 				if(this.isDisableNavigation != true){
@@ -177,17 +180,17 @@
             <simplelayout axis="y" spacing="3"/>
             <view name="navbtns">
                 <basebutton name="btnback" resource="go_back_btn" x="0"
-                            enabled="${ classroot.uienabled == true }"
+                            enabled="${ classroot.uienabled == true &amp;&amp; classroot.isDisableNavigation == false }"
                             onclick="gController.stepNavigateBack ()"
                             disabledResourceNumber="1"  visible="${!gController.fwdOnly}"
                             />
                 <basebutton name="btnforward" resource="go_on_btn" x="100"
-                            enabled="${ classroot.uienabled == true }"
+                            enabled="${ classroot.uienabled == true &amp;&amp; classroot.isDisableNavigation == false }"
                             onclick="gController.stepNavigateForward ()"
                             disabledResourceNumber="1"
                             />
                 <basebutton name="btnfinish" resource="finish_test_btn" id="gFinishTestButton"
-                            enabled="${ classroot.uienabled == true }"
+                            enabled="${ classroot.uienabled == true &amp;&amp; classroot.isDisableNavigation == false }"
                             visible="${!parent.btnforward.visible}" x="100"
                             disabledResourceNumber="1">
                             <handler name="onclick">
@@ -195,7 +198,7 @@
                             gController.finishTest ();
                             </handler>
                  </basebutton>
-            </view>
+          	</view>
             <multistatebutton name="markbtn" align="center"
                               clickable="${ classroot.uienabled == true }"
                               resource="mark_unmark_btn" statelength="3"
