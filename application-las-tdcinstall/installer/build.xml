@@ -52,6 +52,8 @@
 	<!-- **************************** build ******************************* -->	
 	<target name="build" description="Builds the various installers" depends="clean">
 
+		<antcall target="clean" />  
+		
 		<antcall target="buildLasLink" />  
 		
 		<antcall target="postClean"></antcall>
