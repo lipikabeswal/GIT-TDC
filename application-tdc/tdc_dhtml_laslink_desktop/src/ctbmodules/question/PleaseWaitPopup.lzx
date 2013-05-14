@@ -38,9 +38,11 @@
         this.setAttribute("visible", false);
 		this.contents.networkLost.inBar.barAnimator.stop();
 		lz.ModeManager.release(this);
+		canvas.unFreezUI();
     </method>
 	
     <method name="show">
+    	canvas.freezUI();
         this.setAttribute("visible", true);
         gPleaseWaitPopup.bringToFront();
         this.contents.networkLost.inBar.barAnimator.doStart();

@@ -32,6 +32,7 @@ Debug.write("Cachaable html widget ondata");
       	var srcUrl = data.getAttr('src');
 		this.setAttribute('unlocked', false);
 		this.setAttribute('answerObjSet', {});
+		gController.setAttribute('findAnswer',true); //using for freezing/unfreezing UI 
 		if (data.hasAttr("id")) {
 	      	var id = data.getAttr('id');
 	      	this.setAttribute('widget_id',id);
@@ -39,6 +40,7 @@ Debug.write("Cachaable html widget ondata");
 	        var answer = gController.getStateForInputWidgetId(this.widget_id);
 		
 			if(answer){
+			    gController.setAttribute('isAnswerSet',true); //using for freezing/unfreezing UI
 				this.setAttribute('answered',false); //We are setting answered as false so that we can setTheState properly. This has to be revisited 
 				var selectedValuesArr = [];
 				if(answer['checkedVals']){
@@ -56,6 +58,8 @@ Debug.write("Cachaable html widget ondata");
 
 				this.setAttribute('answerObjSet', answer);
 				setAnswer();
+			}else {
+				gController.setAttribute('isAnswerSet',false); //using for freezing/unfreezing UI
 			}
 			gController.addHtmlField({"widget_id" : id, "answered" : this.answered, "answer" : this.answer, "ref" : this}); 
 
@@ -77,7 +81,7 @@ Debug.write("Cachaable html widget ondata");
 
 		]]>
 		</handler>
-		
+
 		<method name="func1">
 			if(this.main.ht.ready){
             	var del = new LzDelegate(this, 'handleFunc1');
@@ -117,6 +121,10 @@ Debug.write("Cachaable html widget ondata");
 					lz.Timer.resetTimer(setStateDel, 1000);
 				}else{
 					lz.Timer.removeTimer(setStateDel);
+				}
+				if(!gController.isAnswerSet) {
+					//Debug.write('===setAnswer ansObj unFreezUI==');
+					canvas.unFreezUI();
 				}
 			}
 			
