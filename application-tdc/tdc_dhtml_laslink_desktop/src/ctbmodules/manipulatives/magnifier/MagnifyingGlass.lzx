@@ -12,36 +12,38 @@
 	<attribute name="lastxpos" value="0" type="number" />
 	<attribute name="lastypos" value="0" type="number" />
 	<attribute name="isEnabled" value="false" />
-	<attribute name="magnifierOpen" type="boolean" value="false"/>
+	<attribute name="magnifierOpen" type="boolean" value="true"/>
 
 
 	<method name="setUpGlass">
 		 /*this.setAttribute("x",canvas.width/2 - this.width/2);
 		 this.setAttribute("valign",'middle');
-		 this.setAttribute("visible", true);	*/
+		 this.setAttribute("visible", true);	
 		 
 		 
 		 var jsCall = "buttonClicked()";
-		 lz.Browser.loadJS(jsCall);
+		 lz.Browser.loadJS(jsCall);*/
+		 buttonClicked("F");
 		 gMagnifyingGlass.setAttribute("magnifierOpen",false);	
 	</method>
 
 	<method name="hideGlass">
-		var js = "closeMagnifier()";
-		lz.Browser.loadJS(js);
+		/*var js = "closeMagnifier()";
+		lz.Browser.loadJS(js);*/
+		closeMagnifier();
 		gMagnifyingGlass.setAttribute("magnifierOpen",true);
 	</method>
 
-	<method name="showGlass">
+	<method name="showGlass" args="isPrevPos">
 		 /*var jsCall = "buttonClicked()";
 		 lz.Browser.loadJS(jsCall);*/
-		 buttonClicked();
+		 buttonClicked(isPrevPos);
 		 gMagnifyingGlass.setAttribute("magnifierOpen",false);	
 		 
 		//lz.FlashUtils.show(canvas.titleView,this.windowbg.magnifiedContent);
 		//lz.FlashUtils.doMouseMove(this.x,this.y,this.ratioW,this.ratioH);	
 	</method>
-
+	
 	<method name="magnify">
 		//mouseMove();
 		//lz.Timer.resetTimer(trackDel, 10); 
