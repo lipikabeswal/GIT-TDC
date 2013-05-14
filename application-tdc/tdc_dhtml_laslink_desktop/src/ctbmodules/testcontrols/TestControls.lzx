@@ -182,13 +182,27 @@
                 <basebutton name="btnback" resource="go_back_btn" x="0"
                             enabled="${ classroot.uienabled == true &amp;&amp; classroot.isDisableNavigation == false }"
                             onclick="gController.stepNavigateBack ()"
-                            disabledResourceNumber="1"  visible="${!gController.fwdOnly}"
-                            />
+                            disabledResourceNumber="1"  visible="${!gController.fwdOnly}">
+                			
+                			<handler name="onmouseover">
+                                lz.Cursor.showHandCursor(true);
+					        </handler>
+					        <handler name="onmouseout">
+					            lz.Cursor.showHandCursor(false);
+					        </handler>
+					        
+                </basebutton>            
                 <basebutton name="btnforward" resource="go_on_btn" x="100"
                             enabled="${ classroot.uienabled == true &amp;&amp; classroot.isDisableNavigation == false }"
                             onclick="gController.stepNavigateForward ()"
-                            disabledResourceNumber="1"
-                            />
+                            disabledResourceNumber="1">
+                            <handler name="onmouseover">
+                                lz.Cursor.showHandCursor(true);
+					        </handler>
+					        <handler name="onmouseout">
+					            lz.Cursor.showHandCursor(false);
+					        </handler>
+                </basebutton>            
                 <basebutton name="btnfinish" resource="finish_test_btn" id="gFinishTestButton"
                             enabled="${ classroot.uienabled == true &amp;&amp; classroot.isDisableNavigation == false }"
                             visible="${!parent.btnforward.visible}" x="100"
@@ -197,13 +211,26 @@
                             gController.setAttribute("isStopTest",false);
                             gController.finishTest ();
                             </handler>
+                             <handler name="onmouseover">
+                                lz.Cursor.showHandCursor(true);
+					        </handler>
+					        <handler name="onmouseout">
+					            lz.Cursor.showHandCursor(false);
+					        </handler>
                  </basebutton>
-          	</view>
+            </view>
             <multistatebutton name="markbtn" align="center"
                               clickable="${ classroot.uienabled == true }"
                               resource="mark_unmark_btn" statelength="3"
                               maxstate="1" 
               				  onclick="gController.markQuestion (!classroot.iscurrmarked)">
+              				  
+              				<handler name="onmouseover">
+                                lz.Cursor.showHandCursor(true);
+					        </handler>
+					        <handler name="onmouseout">
+					            lz.Cursor.showHandCursor(false);
+					        </handler>
             </multistatebutton>
         </view>
     </class>

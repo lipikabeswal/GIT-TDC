@@ -139,6 +139,12 @@
                         gScreens.clicked();
                         gController.openTest();
                     </method>
+                    <handler name="onmouseover">
+                        lz.Cursor.showHandCursor(true);
+			        </handler>
+			        <handler name="onmouseout">
+			            lz.Cursor.showHandCursor(false);
+			        </handler>
                 </StartButton>
             </state>
 
@@ -169,6 +175,12 @@
                         	}
                         
                     ]]></method>
+                    <handler name="onmouseover">
+                        lz.Cursor.showHandCursor(true);
+			        </handler>
+			        <handler name="onmouseout">
+			            lz.Cursor.showHandCursor(false);
+			        </handler>
                 </ContinueButton>
             </state>
 
@@ -180,6 +192,12 @@
                     gScreens.clicked();
                     gController.terminate();
                 </method>
+                <handler name="onmouseover">
+                       lz.Cursor.showHandCursor(true);
+		        </handler>
+		        <handler name="onmouseout">
+		            lz.Cursor.showHandCursor(false);
+		        </handler>
             </StopButton>
 
         </view>

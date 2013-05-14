@@ -87,6 +87,12 @@
                     gController.resetCrFields();
                     //END
                 </method>
+                <handler name="onmouseover">
+                    lz.Cursor.showHandCursor(true);
+		        </handler>
+		        <handler name="onmouseout">
+		            lz.Cursor.showHandCursor(false);
+		        </handler>
             </YesFinishedButton>
             <NoGoBackToTestButton name="goback"
                                   enabled="${ gScreens.allowclick }" visible= "${gController.isStopTest || !gController.isFinishTest}">
@@ -95,6 +101,12 @@
                     gScreens.clicked();
                     gController.resumeTest();
                 </method>
+                <handler name="onmouseover">
+                    lz.Cursor.showHandCursor(true);
+		        </handler>
+		        <handler name="onmouseout">
+		            lz.Cursor.showHandCursor(false);
+		        </handler>
             </NoGoBackToTestButton>
         </view>
 	</class>

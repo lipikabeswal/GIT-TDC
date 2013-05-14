@@ -168,7 +168,12 @@
             <method name="doScroll">
                 classroot.scroll (false);
             </method>
-
+			<handler name="onmouseover">
+                lz.Cursor.showHandCursor(true);
+	        </handler>
+	        <handler name="onmouseout">
+	            lz.Cursor.showHandCursor(false);
+	        </handler>
         </basebutton>
 
         <!-- add speed button left in nav bottom bar -->
@@ -187,7 +192,12 @@
             <method name="doScroll">
                 classroot.scrollFast(false);
             </method>
-
+			<handler name="onmouseover">
+                lz.Cursor.showHandCursor(true);
+	        </handler>
+	        <handler name="onmouseout">
+	            lz.Cursor.showHandCursor(false);
+	        </handler>
         </basebutton>
         
         <basebutton name="moreright" resource="moreright_btn" 
@@ -208,7 +218,12 @@
             <method name="doScroll">
                 classroot.scroll (true);
             </method>
-
+			<handler name="onmouseover">
+                lz.Cursor.showHandCursor(true);
+	        </handler>
+	        <handler name="onmouseout">
+	            lz.Cursor.showHandCursor(false);
+	        </handler>
         </basebutton>
 
         <!-- add speed button right in nav bottomm bar -->
@@ -229,7 +244,12 @@
             <method name="doScroll">
                 classroot.scrollFast(true);
             </method>
-
+			<handler name="onmouseover">
+                lz.Cursor.showHandCursor(true);
+	        </handler>
+	        <handler name="onmouseout">
+	            lz.Cursor.showHandCursor(false);
+	        </handler>
         </basebutton>
      </class>
 
