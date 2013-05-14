@@ -513,6 +513,10 @@
 		<attribute name="isplaying" type="boolean" value="false"/>
 		<attribute name="recordingStopped" type="boolean" value="false"/>
 		<attribute name="unlockNavigation" type="boolean" value="false"/>
+
+		<!-- isAnswerSet,findAnswer attributes using for freezing/Unfreezing the UI -->
+		<attribute name="isAnswerSet" type="boolean" value="false"/>
+		<attribute name="findAnswer" type="boolean" value="true"/>
 		<!--
 			============================================================
 			Datapointers
@@ -565,6 +569,9 @@
 		
 		<attribute name="playIfAnswered" type="boolean" value="false" />
 		<attribute name="iframeid" type="string" value="NONE" />
+		<attribute name="relogin" value="false" type="boolean" />
+		<attribute name="dRestoreCursor"
+			value="$once{ new lz.Delegate( this, 'restoreGrabCursor' ) }" />
 		
 		<handler name="oncanNotAnswer" args="data"><![CDATA[
 			if(answerArray.length > 0) {
@@ -1256,7 +1263,8 @@
 				dpspeed.setXPath("dslogin://login_response");
 				this.hasTTSspeed = dpspeed.data.hasAttr("tts_speed_value");
 				
-			}
+			
+		}
 			//Debug.write("loginResponse completed:",dslogin);
 		]]></method>
 
@@ -1536,7 +1544,7 @@
             if(this.adaptive == true) { 
 			 	itemCount = dpsubtest.xpathQuery('ob_assessment/ob_element_list/@itemCount');
 			 	this.setAttribute("subtestLength",itemCount);
-				Debug.write ("ItemCount from subtest xml" , itemCount);
+			//	Debug.write ("ItemCount from subtest xml" , itemCount);
 			}
             var fwdOnly = dpsubtest.xpathQuery( 'sco/@fwd_only' );
 
@@ -1553,7 +1561,7 @@
             if(this.adaptive == true){
             	total = this.subtestLength;
             }
-            Debug.write("total:"+total);
+          //  Debug.write("total:"+total);
 			dpdisplay.setNodeAttribute( 'shownWarningMinute', 'false' );
             if ( '0' == dpsubtest.xpathQuery( 'sco/@sco_duration_minutes' ) ||
                  'true' == dpsubtest.xpathQuery(
@@ -2685,7 +2693,10 @@
 			else {
 	            if (itemeid != curreid) {
 	            	changeItem(dpsubtest.xpathQuery( "ob_assessment/ob_element_list/f[@id='" + itemeid + "']" ));
-	            }
+	            }else{
+					//Debug.write("==ELSE navigateTo==unFreezUI==");
+	                canvas.unFreezUI();
+                }
             }
          hideMagnifierGlass(); 
         ]]></method>
@@ -2824,17 +2835,22 @@
         </method>
 
 		<method name="stepNavigateBack"><![CDATA[
+		    canvas.freezUI();
             if ( !onFirstItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm){
             		this.showRevisitPopup("goBack");
 				}else{
 				changeItem( getItemFromOffset( currItemOffset() - 1 ) );
-            }
+            	}
+            }else{
+				//Debug.write("==ELSE stepNavigateBack==unFreezUI===");
+                canvas.unFreezUI();	
             }
         ]]></method>
 
 		<method name="stepNavigateForward"><![CDATA[
+		    canvas.freezUI();
            	var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/@itempos' )
             );
@@ -2850,7 +2866,10 @@
 				}else{
 					changeItem( getItemFromOffset( currItemOffset() + 1 ) );
             	}
-            }
+            }else{
+				//Debug.write("==ELSE stepNavigateForward==unFreezUI===");
+                canvas.unFreezUI();
+            }	
         ]]></method>
 
 		<!-- question state -->
@@ -2867,6 +2886,7 @@
 	            	markQuestion(!isMarked);
 	            }
 	            unlockUI();
+	            canvas.unFreezUI();
 	        }
         ]]></method>
 
@@ -3118,6 +3138,7 @@
 				showHideTimer( 'true' );
 			}
 			unlockUI();
+			canvas.unFreezUI();
 		</method>
 
 		<method name="showHideTimer" args="show">
@@ -3174,7 +3195,8 @@
             lz.Cursor.unlock();  
         	checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();    
-          
+          	closeOpenManipulatives();
+          	hideManipulatives();
             gScreens.showPause(getStudentName());
 		</method>
 
@@ -3184,6 +3206,7 @@
 				setState(PAUSED_RESUME_STATE);
 				resetHeartbeat();
 				gCommunicator.lifecycle(RESUME_LEV);
+				canvas.freezUI();
                 return true;
             } else {
                 return false;
@@ -3194,6 +3217,7 @@
 			showItemInterface();
 			gScreens.resetTextFieldColor();
             startQuestion();
+			showManipulatives();
             unlockUI();
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
@@ -3202,6 +3226,14 @@
 			if(this.htmlFields != null){
 					showHtmlWidgets();
 			}
+		</method>
+		
+		<method name="hideManipulatives">
+			gManipulatives.setAttribute('visible',false);
+		</method>
+		
+		<method name="showManipulatives">
+			gManipulatives.setAttribute('visible',true);
 		</method>
 
 		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
@@ -3266,10 +3298,12 @@
 			//END
 			//this.resetAudioFields();
             closeOpenManipulatives();
+			hideManipulatives();
      		checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
 			//gMusicPlayer.hide();
             lz.Cursor.unlock();
+            canvas.unFreezUI();
 			
 			if(this.adaptive == true){				
 				//if (gScreens.isOnFinishScreen()) {
@@ -3357,15 +3391,15 @@
 			
             lz.Cursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
+			showManipulatives();
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
             unlockUI();
-            checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
 			if(this.adaptive == true){
 				gScreens.removeFinishState();
 			}
-			
+			checkShowMagnifierGlass();
         </method>
 
 		<method name="continueTest">
@@ -3401,6 +3435,7 @@
 		if ( onLastItem() || (gController.getNextNavigableOffset(curritem) == totalitem)) {
         	gController.setAttribute("isStopTest",false);
             finishTest();
+            canvas.freezUI();
         }
         ]]></method>
 
@@ -3428,7 +3463,21 @@
 				}
 	            if ( 0 == uisemaphore ) {
 	                lz.Cursor.unlock();
-	                restoreCurrentCursor();
+	                // to clear the highlighter cursor when navigating to next item.
+	                if(canvas.currentCursor == 'highlighter_cursor'){
+	                	clearAndRestoreCurrentCursor();
+	                }
+					// to clear the eraser cursor when navigating to next item. 
+					else if(canvas.currentCursor == 'eraser_cursor'){
+	                	clearAndRestoreCurrentCursor();
+	                }
+					// to clear the eraser cursor when navigating to next item. 
+					else if(canvas.currentCursor == 'eliminator_cursor'){
+	                	clearAndRestoreCurrentCursor();
+	                }
+					else{	                	
+	                	restoreCurrentCursor();
+	                }
 	                dsdisplay.childNodes[0].setAttr( 'enabled', 'true' );
 	              if(!gScratchpad.scratchpadHasFocus){
 	                	gHotKeys.enableKeys();
@@ -3436,6 +3485,13 @@
 	            }
 	        }
 		]]>
+        </method>
+
+		 <!-- added to handle double cursor issue on manipulative grabber mouseup -->
+        <method name="restoreGrabCursor">
+			lz.Cursor.unlock ();
+        	this.restoreCurrentCursor();
+        	lz.Timer.removeTimer(gController.dRestoreCursor);
         </method>
 
 		<method name="restoreCurrentCursor">
@@ -4718,6 +4774,7 @@ Debug.write("############ loadItem ############");
 			//gMusicPlayer.hide();
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
+			canvas.unFreezUI();
 		</method>
 
 		<method name="networkLostPopup"><![CDATA[
@@ -4792,7 +4849,7 @@ Debug.write("############ loadItem ############");
 
 		<method name="checkShowMagnifierGlass">
 		   if(this.magnifierState)  {
-				gMagnifyingGlass.showGlass();
+				gMagnifyingGlass.showGlass("T");
 		   }   
 		</method>
 			<method name="hideMaskingChoiceDD">
@@ -5434,6 +5491,11 @@ Debug.write("############ loadItem ############");
 	            if (answered) {
 	                currentitem.setAttr("answered", 1);
 	                runtimeitem.setAttr("answered", 1);
+	                if(this.findAnswer){
+						canvas.unFreezUI();
+						this.setAttribute('findAnswer',false);
+						console.log('===updateBlueBallForHtmlItem unFreezUI==');
+					}
 	            }
 	            else {
 	               currentitem.setAttr("answered", 0);
@@ -5482,10 +5544,13 @@ Debug.write("############ loadItem ############");
 		]]></method>
 		<method name="showHtmlWidgets"><![CDATA[
 				if(this.htmlFields.length > 0){
-				for (var i =0; i < this.htmlFields.length; i++){
-					this.htmlFields[i]['ref'].show();	
-				}
-			}
+					for (var i =0; i < this.htmlFields.length; i++){
+						this.htmlFields[i]['ref'].show();	
+					}
+				}else{
+					console.log("====####showHtmlWidgets NON TE #####===");
+					canvas.unFreezUI();
+            	}
 		
 		]]></method>
 
