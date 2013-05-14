@@ -109,15 +109,18 @@
         ]]></handler>
 
         <handler name="onmouseover">
+            lz.Cursor.showHandCursor(true);
             this._changeStatus (true);
         </handler>
 
         <handler name="onmouseout">
+            lz.Cursor.showHandCursor(false);
             this._changeStatus (false);
         </handler>
 
 
         <handler name="onclick">
+            canvas.freezUI(); 
 			gController.setAttribute("nextItem", itemeid ); 
 			gController.setAttribute("navigateConfirm",false);
 			if(!gController.navigateConfirm){
