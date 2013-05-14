@@ -35,7 +35,7 @@
 		</delete>
 	</target>
 	
-	
+	 
 	<!-- **************************** prepArtifacts ******************************* -->	
 	<target name="prepArtifacts" description="Clears out the artifats folder in preparation of it coming from application-tdc and application-tdcbootstrap">
 		<delete includeemptydirs="true" failonerror="false">
