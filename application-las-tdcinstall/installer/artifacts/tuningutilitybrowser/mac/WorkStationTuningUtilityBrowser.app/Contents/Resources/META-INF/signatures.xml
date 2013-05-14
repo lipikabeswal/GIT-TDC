@@ -1,0 +1,38 @@
+<signatures>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="PackageSignature">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+      <SignatureMethod Algorithm="http://www.w3.org/TR/xmldsig-core#rsa-sha1"/>
+      <Reference URI="#PackageContents">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+        <DigestValue>yMwCPWoDExA+ponTM/hhmLbTePuVDKLk+XoC7RFZatw=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue Id="PackageSignatureValue">TBMrGVPT8zcZqPLrjwp/en4cxy8lA4OG80Uq80Ac7ORPsMpUy8Pj42CgJAgogsSqrqIIghhN1Nuc
+wF5lIwD5rwlDajUcatr8Cmt8RP7rlOF+KMNEWM7cjIrDQmQCb+zWjJ+Zyv1IVpGDlHFmdLEyHfeR
+F3ce95cPi0sYyqor8Xg=</SignatureValue>
+    <KeyInfo>
+      <X509Data>
+        <X509Certificate>MIICCTCCAXGgAwIBAgIaMjUzYmY3ODQ6MTMwMmIxZTQ3N2M6LTgwMDAwDQYJKoZIhvcNAQEFBQAw
+MTELMAkGA1UEBhMCVVMxCTAHBgNVBAoTADEJMAcGA1UECxMAMQwwCgYDVQQDEwNhYmMwHhcNMTEw
+NTI2MDcwNDIyWhcNMTYwNTI2MDcwNDIyWjAxMQswCQYDVQQGEwJVUzEJMAcGA1UEChMAMQkwBwYD
+VQQLEwAxDDAKBgNVBAMTA2FiYzCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA0LoCh/URcgsr
+X7dLS7iZXZR5uOZkxOeEO0m/4C3Sb+lppg7FiR95/RcQhTtmcBSqpauHRovC0hEUGvF+dEx84NJC
+DO50RtYOnRECeVuzM+X8sw1zvYrEPivpie8e0b0Ha6ftTmUUdNvfl3R5TImu6+/7wT+kyqlrkF4b
+M5s4vXUCAwEAAaMXMBUwEwYDVR0lBAwwCgYIKwYBBQUHAwMwDQYJKoZIhvcNAQEFBQADggCBADYJ
+IpjETk8lbT03s3sAbk5vdaJ46pndFHekhwlfRw8KEZydQph+juDJMzNL+BKEILoBdQhSy6hU1/IC
+DOSPWnAJT0G4P9y2lg+RFh/9r/DW9PcqdQkb/9APNcU+gwvTrkXdL+NCp0jrieVhnvoJYAlVcCKs
+yfOyKfgwLojVgmeF</X509Certificate>
+      </X509Data>
+    </KeyInfo>
+    <Object>
+      <Manifest Id="PackageContents">
+        <Reference URI="mimetype"><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod><DigestValue>0/oCb84THKMagtI0Dy0KogEu92TegdesqRr/clXct1c=</DigestValue></Reference><Reference URI="META-INF/AIR/application.xml"><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod><DigestValue>cGuhcpNw+qKWFYjP5Nsua+3ke/FVN6/1e9gDjIdTmUM=</DigestValue></Reference><Reference URI="WorkStationTuningUtilityBrowser.swf"><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod><DigestValue>RXbuRuqhl+5fC/HhP53a//H34TLmELDt8ZeM7hTNPmY=</DigestValue></Reference>
+      </Manifest>
+    </Object>
+    
+  </Signature>
+</signatures>
