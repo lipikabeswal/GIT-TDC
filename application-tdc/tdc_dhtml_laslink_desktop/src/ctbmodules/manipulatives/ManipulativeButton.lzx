@@ -35,11 +35,13 @@
         ]]></handler>
 
         <handler name="onmouseover"><![CDATA[
+            lz.Cursor.showHandCursor(true);
             if (!this.isselected && this.isenabled) this.setAttribute('frame', 2); 
             lz.Timer.addTimer (tooltipdel, 500);
         ]]></handler>
 
         <handler name="onmouseout"><![CDATA[
+            lz.Cursor.showHandCursor(false);
             if (!this.isselected && this.isenabled) this.setAttribute('frame', 1); 
             gTooltip.hideTooltip ();
             lz.Timer.removeTimer (this.tooltipdel);

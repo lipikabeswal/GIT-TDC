@@ -53,18 +53,18 @@
 				visible="${gController.magnifierVisible}"
 				resource="toolbar_magnifying_glass_btn" valign="middle" height="20"
 				width="34">
-				<attribute name="tooltipdel"
-					value="$once{new LzDelegate (this, 'showTooltip')}"
-				/>
+				<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
 				<attribute name="isEnabled" value="false" />
 				<attribute name="isSelected" value="false" />
 
 				<handler name="onmouseover">
+				        lz.Cursor.showHandCursor(true);
 						this.setAttribute('frame',2);
 						lz.Timer.addTimer (tooltipdel, 500);
 					</handler>
 
 				<handler name="onmouseout">
+				        lz.Cursor.showHandCursor(false);
 						gTooltip.hideTooltip (); 
 						if(!this.isEnabled) {
 							this.setAttribute('frame',1);
@@ -104,7 +104,7 @@
 						gMagnifyingGlass.hideGlass();
 						this.isEnabled = false;
 						gController.setAttribute("magnifierState", false);
-						//this.setAttribute('frame',1);
+						this.setAttribute('frame',1);
 					</method>
 			</view>
                             	
@@ -114,17 +114,18 @@
 				visible="${gController.showMaskingAnswerPopUp}"
 				resource="toolbar_msaking_choice_btn" valign="middle" height="20"
 				width="34">
-				<attribute name="tooltipdel"
-					value="$once{new lz.Delegate (this, 'showTooltip')}"/>
+				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
 				<attribute name="isEnabled" value="false" />
 				<attribute name="isSelected" value="false" />
 				<handler name="onmouseover">
+				        lz.Cursor.showHandCursor(true);
 						this.setAttribute('frame',2);
 						if(!gMaskingAnswer.visible)
 							lz.Timer.addTimer (tooltipdel, 500);
 					</handler>
 
 				<handler name="onmouseout">
+				        lz.Cursor.showHandCursor(false);
 						gTooltip.hideTooltip (); 
 						if(!this.isEnabled) {
 							this.setAttribute('frame',1);
@@ -207,10 +208,12 @@
 				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
 		
 				<handler name="onmouseover">
+				    lz.Cursor.showHandCursor(true);
 					lz.Timer.addTimer (tooltipdel, 500);
 				</handler>
 		                
 				<handler name="onmouseout">
+				    lz.Cursor.showHandCursor(false);
 					gTooltip.hideTooltip ();    
 					lz.Timer.removeTimer (this.tooltipdel);
 				</handler>
@@ -234,10 +237,12 @@
 				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
 		
 				<handler name="onmouseover">
+				    lz.Cursor.showHandCursor(true);
 					lz.Timer.addTimer (tooltipdel, 500);
 				</handler>
 		                
 				<handler name="onmouseout">
+				    lz.Cursor.showHandCursor(false);
 					gTooltip.hideTooltip ();    
 					lz.Timer.removeTimer (this.tooltipdel);
 				</handler>
@@ -286,10 +291,12 @@
 				    </method> 
 	
 					<method name="mouseover">
+					    lz.Cursor.showHandCursor(true);
 						lz.Timer.addTimer (tooltipdel, 500);
 					</method>
 			                
 					<method name="mouseout">
+					    lz.Cursor.showHandCursor(false);
 						gTooltip.hideTooltip ();    
 						lz.Timer.removeTimer (this.tooltipdel);
 					</method>
