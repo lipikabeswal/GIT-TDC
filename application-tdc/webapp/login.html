@@ -88,6 +88,9 @@
 <script type="text/javascript" src="lps/includes/embed-compressed.js"></script>
 <link rel="stylesheet" href="lps/style_mozilla.css" type="text/css" /> 
 <script type="text/javascript" src="includes/laslinks_utils.js"></script>
+<script type="text/javascript"src="lps/jquery.min.js"></script>
+	<script type="text/javascript"src="lps/jquery-1.5.2.js"></script>
+	<script type="text/javascript" src="lps/jquery.magnifier.js"></script>
 
 <SCRIPT type="text/javaScript">
 <!--
@@ -100,7 +103,8 @@ var yscalefactor = 1;
 var currentLasAssetItemId;
 var autoPlayEvent = "false";
 var isMagnifierVisible = "false";
-
+var xscalefactorjs;
+var yscalefactorjs;
 window.onmouseup = function  () {
 	lz.embed.setCanvasAttribute("fromLogin", 'true');
 }
@@ -228,6 +232,19 @@ function setScaleFactor(args){
 	xscalefactor = args[0];
 	yscalefactor = args[1];
 	
+}
+
+function setScaleFactor(xscalefactor,yscalefactor){
+	if(!xscalefactor){
+    	xscalefactorjs = 1.2;
+    }else{
+    	xscalefactorjs = xscalefactor;
+    }
+    if(!yscalefactor){
+    	yscalefactorjs = 1.2;
+    }else{
+    	yscalefactorjs = yscalefactor;
+    }
 }
 function getFontAccomodation(){
 	var fontAccom = lz.embed.lzapp.getCanvasAttribute('fontString');
@@ -463,8 +480,19 @@ function load() {
 	}
 }
 
-
-
+function buttonClicked(magnifierPosition){
+  	if(magnifierPosition == "T") {
+  		$.setPreviousPosition();
+  	}
+	document.getElementById('mybutton').click();
+	
+}
+ function closeMagnifier(){
+    var olddiv = document.getElementById('mborder');
+    if (olddiv && olddiv.parentNode && olddiv.parentNode.removeChild)
+		olddiv.parentNode.removeChild(olddiv);
+	$.closeMagnifier();
+}
 //-->
 
 </SCRIPT>
@@ -476,6 +504,7 @@ body { background-color:#6691B4; margin: 0px; overflow:hidden;}
 </HEAD>
 
 <BODY onload="load()">
+<button id="mybutton" style="visibility:hidden; width:0px; height:0px; display:none;">clickMe </button>
 	<div id="needFlash9" style="display:none">
 		<table height="100%" width="100%">
 			<tr>
