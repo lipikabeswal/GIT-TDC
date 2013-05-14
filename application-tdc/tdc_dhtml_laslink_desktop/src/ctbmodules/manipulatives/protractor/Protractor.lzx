@@ -6,7 +6,8 @@
     <class name="Protractor" extends="BaseManipulative"
                 resource="protractorBackground_rsrc"
                 clickable="true" showhandcursor="false"
-                clickregion="resource/protractorBackground.png">
+                clickregion="resource/protractorBackground.png"
+                xscale="${canvas.xscalefactor}" yscale="${canvas.yscalefactor}">
 
         <attribute name="xpos"/>
         <attribute name="ypos"/>
@@ -41,9 +42,21 @@
  
  			<attribute name="y" value="(this.drag_axis == 'both' || this.drag_axis == 'y') ? __dragstate_getnewpos('y', this.immediateparent.getMouse( 'y' ) + (Number(this.rrotation) != 0?this.__dragstate_ydoffset:this.actualY)): this.y" /> 
  -->
-
+ 
+			<handler name="on__dragstate_xdoffset" args="data">
+				Debug.write("on__dragstate_xdoffset data",data);
+				Debug.write("Mouse X Mouse Y", this.getMouse('x'), this.getMouse('y'));
+				Debug.write("classroot.xpos, classroot.ypos,parent.xoffset,parent.yoffset", classroot.xpos, classroot.ypos,parent.xoffset,parent.yoffset);
+				Debug.write("classroot.x, classroot.y", classroot.x, classroot.y);								
+			</handler>
+			
+			<handler name="on__dragstate_ydoffset" args="data">
+				Debug.write("on__dragstate_ydoffset data",data);
+				Debug.write("Mouse X Mouse Y", this.getMouse('x'), this.getMouse('y'));
+				Debug.write("parent.xpos, parent.ypos,parent.xoffset,parent.yoffset", parent.xpos, parent.ypos,parent.xoffset,parent.yoffset);
+				Debug.write("classroot.x, classroot.y", classroot.x, classroot.y);								
+			</handler>
             <handler name="onapply">
-            
                 var rotation = classroot.rotation * (Math.PI/180);
                 var grabber = classroot.grabber;
 
@@ -71,9 +84,7 @@
         <handler name="oninit">
             this.setAttribute ('xpos', this.width/2);
             this.setAttribute ('ypos', this.height);
-			
         </handler>
-        
 		<handler name="onmousedown">
 			this.bringToFront();
 		</handler>
@@ -89,10 +100,10 @@
 			}
 
             if (data && hasstate) {
-                this.setAttribute ('rotation', data.getAttr ('rotation'));
+                this.setAttribute ('rotation', Number(data.getAttr ('rotation')));
 
-                this.setAttribute ('x', data.getAttr ('x'));
-                this.setAttribute ('y', data.getAttr ('y'));
+                this.setAttribute ('x', Number(data.getAttr ('x')));
+                this.setAttribute ('y', Number(data.getAttr ('y')));
 	            // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
 	            if(gScratchpad.visible){
 	                gScratchpad.bringToFront();
@@ -100,8 +111,8 @@
             } else {
                 this.setAttribute ('rotation', 0);
 
-                this.setAttribute ('x', (classroot.width - this.width)/2);
-                this.setAttribute ('y', (classroot.height - this.height)/2);
+                this.setAttribute ('x', (gManipulatives.width - this.width*canvas.xscalefactor)/2);
+                this.setAttribute ('y', (gManipulatives.height - this.height*canvas.yscalefactor)/2);
 
                 //save defaults in data
                 if (data) {
@@ -184,14 +195,11 @@
                 classroot.dragger.apply ();
             </handler>
             <handler name="onmouseup">
-                lz.Cursor.unlock ();
-                gHotKeys.enableKeys();
-                
-				// the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
-       			//lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
-                gController.restoreCurrentCursor();
+                /*lz.Cursor.unlock ();
+                gController.restoreCurrentCursor();*/
+                lz.Timer.resetTimer(gController.dRestoreCursor, 100);
                 classroot.dragger.remove ();
-                
+                gHotKeys.enableKeys();
                 classroot.datapath.p.setAttr ('x', classroot.x);
                 classroot.datapath.p.setAttr ('y', classroot.y);
             </handler>
