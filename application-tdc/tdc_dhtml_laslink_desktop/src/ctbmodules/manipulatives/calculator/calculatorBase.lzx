@@ -3,7 +3,8 @@
     <include href="resource/resources.lzx"/>
 	<include href="calculatorButtons.lzx" />
 
-	<class name="calculatorBase" id="calc_base" extends="BaseManipulative">
+	<class name="calculatorBase" id="calc_base" extends="BaseManipulative" 
+		   xscale="${canvas.xscalefactor}" yscale="${canvas.yscalefactor}">
 
 
 		<datapointer name="tempP"/>
@@ -83,8 +84,9 @@
         </handler>
 
         <handler name="onmouseup">
-            lz.Cursor.unlock ();
-            gController.restoreCurrentCursor();
+            /*lz.Cursor.unlock ();
+            gController.restoreCurrentCursor();*/
+            lz.Timer.resetTimer(gController.dRestoreCursor, 100);
             this.dragger.remove ();
 
             this.datapath.p.setAttr ('x', this.x);
@@ -93,19 +95,20 @@
 
 
         <handler name="ondata" args="data"><![CDATA[
-            this.setAttribute ('x', (classroot.width - this.width)/2);
-            this.setAttribute ('y', (classroot.height - this.height)/2);
+            this.setAttribute ('x', (gManipulatives.width - this.width*canvas.xscalefactor)/2);
+            this.setAttribute ('y', (gManipulatives.height - this.height*canvas.yscalefactor)/2);
 
             // load in saved data or set to defaults
             if (data) {
             	var myP = new lz.datapointer();
             	myP.setPointer(data);
                 if (data.hasAttr ('x')) {
-                    this.setAttribute ('x', data.getAttr ('x'));
+                    this.setAttribute ('x', Number(data.getAttr ('x')));
+                    
                 }
                 
                 if (data.hasAttr ('y')) {
-                    this.setAttribute ('y', data.getAttr ('y'));
+                    this.setAttribute ('y', Number(data.getAttr ('y')));
                 }
                 
                 if (data.hasAttr ('displayValue')) {
@@ -317,7 +320,7 @@
 					popOperator();
 				}
 	
-				if(this.operandSet){
+				if(this.operandSet == true || this.operandSet == 'true' ){
 					this.setCurrentOperandFromInput();
 					pushOperand(this.currentOperand);
 				}
@@ -376,7 +379,7 @@
 		</method>
 		
 		<method name="isReplacementOperator"><![CDATA[
-			return (!this.operandSet &&
+			return ((this.operandSet == false || this.operandSet == 'false' ) &&
 			        (this.operators.length != 0) &&
 			        (this.operators.length >= this.operands.length));
 		]]></method>
@@ -429,7 +432,7 @@
 					this.setCurrentOperandFromInput();
 					pushOperand(this.currentOperand);
 					result = this.currentOperand;
-					if(this.operandSet){
+					if(this.operandSet == true || this.operandSet == 'true'){
 						result = reduce("none");
 					}
 				}
@@ -503,7 +506,7 @@
 		<method name="handleDecimal">
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
-				if(!this.isEditing){
+				if(this.isEditing==false || this.isEditing=='false'){
 					setDataAttribute('input', '0');
 				}
 				setDataAttribute('isEditing', true);
