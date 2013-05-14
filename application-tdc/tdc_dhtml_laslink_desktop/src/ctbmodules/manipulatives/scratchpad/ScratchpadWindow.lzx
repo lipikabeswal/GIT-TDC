@@ -35,10 +35,11 @@
                 onmouseover="if (this.frame == 1) setAttribute('frame', 2);"
                 onmouseout="if (this.frame == 2) setAttribute('frame', 1);"
                 onmousedown="classroot._startResize();setAttribute('frame', 3);"
-                onmouseup="classroot._stopResize(); setAttribute('frame', 1);"
+                onmouseup="classroot._stopResize(); setAttribute('frame', 1); gScratchpad.restoreFocusAndCursor();"
                 oninit="classroot.setTint(this, classroot.style.basecolor)"
                 />
         </state>
+        
         <view name="menubar" width="${parent.wframe.width}" clip="true"
             oninit="classroot.menubar = this">
             <!-- placement for menubar -->
@@ -63,7 +64,7 @@
                 </state>
                 
                 <handler name="oninit">
-                	Debug.write("ScratchPad Window lzx");
+                	//Debug.write("ScratchPad Window lzx");
                 </handler>
                 <!-- this is the "defaultplacement" view -->
             </view>

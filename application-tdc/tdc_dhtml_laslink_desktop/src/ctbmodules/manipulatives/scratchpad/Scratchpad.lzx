@@ -1,6 +1,6 @@
 <library>
  	
-	
+	<include href="scrolledittext.lzx" />
 	<include href="ScratchpadWindow.lzx" />
 
     <class name="Scratchpad" 
@@ -19,7 +19,8 @@
 		   minwidth="130"
 		   minheight="130"
 		   initstage="defer"
-		   focustrap="true">
+		   focustrap="true"
+		   xscale="${canvas.xscalefactor}" yscale="${canvas.yscalefactor}">
 
 		<attribute name="DEFAULT_HEIGHT" type="number" value="227" />
 		<attribute name="DEFAULT_WIDTH" type="number" value="400" />
@@ -29,7 +30,10 @@
         <attribute name="toolstate" value="$once{new lz.datapointer ()}"/>
         <attribute name="scratchpadHasFocus" type="boolean" value="false"/>
         <attribute name="scratchpadJustLostFocus" value="false" />
-        
+        <attribute name="scrollPosition" value="$once{new Array()}"/>
+        <attribute name="calledFromHtml" type="boolean" value="false"/>
+		<attribute name="characterLimit" type="number" value="10000" />
+		<attribute name="isTestInterrupted" type="boolean" value="false"/>
         <handler name="onmousedown">
         	this.bringToFront();
         	this.sp.inp.setAttribute('selectable',false);
@@ -37,31 +41,27 @@
             lz.Cursor.lock ();
         </handler>
 
-		<handler name="onmouseup" reference="lz.GlobalMouse" args="who">
+		<handler name="onmouseup" reference="lz.GlobalMouse" args="who"><![CDATA[
 			if(who){
 				if(lz.Focus.getFocus() == sp.inp){  // user may have changed selection using mouse
 					this.sp.storeSelection();
 				}
-				else if(isScratchpadSubcomponent(who)){ // user clicked on scrollbar, etc.
+				/*else if(isScratchpadSubcomponent(who)){ // user clicked on scrollbar, etc.
 					gScratchpad.restoreFocusAndCursor();
-				}
+				}*/
 				else if (who == this){
 					this.sp.inp.setAttribute('selectable',true);
-	            	lz.Cursor.unlock ();
-	            	gController.restoreCurrentCursor();
+	            	/*lz.Cursor.unlock ();
+	            	gController.restoreCurrentCursor();*/
 	            	restoreFocusAndCursor();
 				}
-				else if (who == gPauseButton || who == gStopButton || who == gFinishTestButton){
-					if(this.scratchpadJustLostFocus){
+				if (who == gPauseButton || who == gStopButton || who == gFinishTestButton ){
+					if(gScratchpad.visible){
 						gController.setAttribute("focusOnScratchpad", true);
 					}
 				}
-				else if (gItemInterface.visible){
-					gController.setAttribute("focusOnScratchpad", false);
 				}
-				this.setAttribute("scratchpadJustLostFocus", false);
-			}
-		</handler>
+		]]></handler>
 		
 		<method name="isScratchpadSubcomponent" args="who">
 			var ancestor = _getAncestor(who);
@@ -92,11 +92,11 @@
             gController.clearAndRestoreCurrentCursor();
         </handler>
         
-        <method name="restoreFocusAndCursor">
+        <method name="restoreFocusAndCursor" >
         	this.sp.inp.onfocus.sendEvent();
-        	this.sp.resetTheSelection();
+       		this.sp.resetTheSelection();
         	this.setAttribute("scratchpadHasFocus", true);
-			gHotKeys.disableKeys();
+			//gHotKeys.disableKeys();
         </method>
         
         <method name="getText">
@@ -111,26 +111,29 @@
         <method name="setText" args="txt">
           sp.inp.onfocus.sendEvent();
           sp.inp.onblur.sendEvent();
-          sp.setAttribute('text',gController.formatXml(txt));
+          //sp.setAttribute('text',gController.formatXml(txt));
+          sp.setAttribute('text',txt);
         </method>
         
         <handler name="oninit">
             this.toolstate.setAttribute ('rerunxpath', true);
             this.toolstate.setXPath (this.datapath.xpath + '/@' + this.toolid);
             this.datapath.setXPath (this.toolid);
-
         </handler>
 
-        <handler name="onvisible">
+        <handler name="onvisible"><![CDATA[
 			if(this.visible){  // restore defaults
 				this.setAttribute("height", this.DEFAULT_HEIGHT);
 				this.setAttribute("width", this.DEFAULT_WIDTH);
-				this.setAttribute("x", this.DEFAULT_X);
-				this.setAttribute("y", this.DEFAULT_Y);
+				/*this.setAttribute("x", this.DEFAULT_X);
+				this.setAttribute("y", this.DEFAULT_Y);*/
+				this.setAttribute ('x', (gManipulatives.width - this.width*canvas.xscalefactor)/2);
+            	this.setAttribute ('y', (gManipulatives.height - this.height*canvas.yscalefactor)/2);
            		this.restoreFocusAndCursor();
            }else{
            		gReadableText.stopReading(true);
-            }       
+           		gScratchpad.sp.inp.onblur.sendEvent();
+            }]]>       
          </handler>
          
          <handler name="onblur" reference="sp.inp">
@@ -138,61 +141,63 @@
 			this.setAttribute("scratchpadJustLostFocus", true);
          </handler>
          
-	     <scrolledittext name="sp" 
+	     <scrolledittextnew name="sp" 
 	                             height="${immediateparent.height}" 
 	                             width="${immediateparent.width}" 
 	                             focusable="true" clickable="true">
 	            	<attribute name="start" type="number" value="0" />
 	            	<attribute name="end" type="number" value="0" />
-	            	<attribute name="scrollPos" type="number" value="0" />
+	            	<attribute name="scrollPos" type="number" value="0" visible="${scrollable}"/>
+			
 	            <method name="init">
+	            	
 	                super.init();
 	                this.style.setAttribute("textfieldcolor", gController.answerBgColor);
-					this.setAttribute('fontcolor',gController.answerFontColor);
+					//this.setAttribute('fontcolor',gController.answerFontColor);
+					this.inp.setAttribute("fgcolor", gController.answerFontColor);
+					
 				 	if(gController.hasFontAccommodation){
 						this.setAttribute('fontsize',18);
 					}
 					else{
 						this.setAttribute('fontsize',12);
 					}
-					this.inp.setAttribute("maxlength",10000);
-					var elm = this.inp.getDisplayObject();
-					elm.setAttribute('spellcheck',false);
+					//this.inp.setMaxLength(10000);
 	            </method>
 	            
 	            <method name="updateScrollText" args="a">
-						this.setAttribute('text',a);	
+						this.setAttribute('text',a);						
 				</method>
 				
 				<handler name="ontext"><![CDATA[
 					storeSelection();
-					var elm = this.inp.getDisplayObject();
-					elm.setAttribute('style','overflow-y: hidden;');
 				 	if(this.text.length > 10000){
 								var textContent = this.text;
 								textContent = textContent.substring(0,Number(classroot.characterLimit));
 								updateScrollText(textContent);
+								if(gScratchpad.sp.inp.getTextHeight() > gScratchpad.sp.height) {
+									gScratchpad.sp.inp.setAttribute("scroll",gScratchpad.sp.inp.maxscroll);
+								}
 							}
 				]]></handler>
-					
          		  
          		<handler name="onpos" reference="this.inp" args="_pos">
 				  	if(typeof _pos == 'number'){
-        				this.setAttribute("scrollPos", _pos);
+        				//this.setAttribute("scrollPos", _pos);
        			  	}
         	    </handler>
         
 				<handler name="onfocus" reference="inp">
 					classroot.setAttribute("scratchpadHasFocus", true);
-					gHotKeys.disableKeys();
+					//gHotKeys.disableKeys();
 					classroot.bringToFront();
 				</handler>
 				
 				<handler name="onblur" reference="inp">
 					//Debug.write("onblur.....");
-					if(gItemInterface.visible == true || gTutorial.visible == true){
+					/*if(gItemInterface.visible == true || gTutorial.visible == true){
 						gHotKeys.enableKeys();
-					}
+					}*/
 				</handler>
 				
 				<handler name="onkeyup" reference="inp">
@@ -214,7 +219,8 @@
 				
 				<method name="resetTheSelection">
         			this.setSelection(this.start, this.end);
-        			this.inp.setAttribute('pos', this.scrollPos);
+        			//this.inp.setAttribute('pos', this.scrollPos);
+        			//Debug.write("RESET TEH SELECTION" , this.start, this.end, this.scrollPos,this.inp.pos);
 				</method>
 				
 				<method name="getSelectedText">
@@ -225,6 +231,6 @@
 						return getText().substring(start, end);
 					}
 				</method>
-	       </scrolledittext>
+	       </scrolledittextnew>
      </class>
 </library>
