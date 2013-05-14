@@ -280,49 +280,74 @@
         </method>        
         <method name="goBack">
 		<![CDATA[
-			if(!gController.fwdOnly){
-        		if(!gController.onFirstItem()){
-        			lz.Focus.clearFocus();
-        		}
-        	
-            	this.exitPopups();
-        		gController.stepNavigateBack();
-			}      
+		    //console.log("==goBack=="+canvas.loadItem);
+		    if(canvas.loadItem){
+            	canvas.freezUI();
+				if(!gController.fwdOnly){
+	        		if(!gController.onFirstItem()){
+	        			lz.Focus.clearFocus();
+	        		}
+	        	
+	            	this.exitPopups();
+	        		gController.stepNavigateBack();
+				} 
+			}	     
        	]]>
 		</method>
         <method name="goOn"> 
-        	if(!gController.onLastItem()){
-        		lz.Focus.clearFocus();
-        	}
-            this.exitPopups(); 
-        	gController.stepNavigateForward();     
+            //console.log("==goOn=="+canvas.loadItem);
+            if(canvas.loadItem){
+                canvas.freezUI();
+                console.log("==goOn IF=="+canvas.loadItem);
+	        	if(!gController.onLastItem()){
+	        		lz.Focus.clearFocus();
+	        	}
+	            this.exitPopups(); 
+	        	gController.stepNavigateForward();  
+	        }	   
         </method>
         <method name="toggleMark"> 
-            this.exitPopups(); 
-         	gController.toggleMark();              
+            if(canvas.loadItem){
+        		canvas.freezUI();
+	            this.exitPopups(); 
+	         	gController.toggleMark();  
+	         }	            
         </method>
         <method name="toggleTimer">
-            this.exitPopups(); 
-        	gController.toggleTimer();             
+            if(canvas.loadItem){
+        		canvas.freezUI();
+	            this.exitPopups(); 
+	        	gController.toggleTimer();  
+	        }	           
         </method>
         <method name="pause"> 
-        	if(gController.pausable == 'true'){
-        		lz.Focus.clearFocus();
-        	}
-            this.exitPopups(); 
-        	if(gItemInterface.visible == true || gTutorial.visible == true)
-        		gController.pauseTest();
+        	if(canvas.loadItem){
+	        	if(gController.pausable == 'true'){
+	        		lz.Focus.clearFocus();
+	        	}
+	            this.exitPopups(); 
+	        	if(gItemInterface.visible == true || gTutorial.visible == true){
+	        	    canvas.freezUI();
+	        		gController.pauseTest();
+	        	}	
+	        }		
         </method>
-        <method name="stop">       
-        	lz.Focus.clearFocus();
-            this.exitPopups();
-        	if(gItemInterface.visible == true || gTutorial.visible == true)
-        		gController.finishTest();              
+        <method name="stop"> 
+            if(canvas.loadItem){      
+	        	lz.Focus.clearFocus();
+	            this.exitPopups();
+	        	if(gItemInterface.visible == true || gTutorial.visible == true){
+	        	    canvas.freezUI();
+	        		gController.finishTest();   
+	        	}	
+	        }		           
         </method>
-        <method name="finish">     
-        	lz.Focus.clearFocus();
-            this.exitPopups(); 
-        	gController.finishTestShortcut();      
+        <method name="finish">  
+        	if(canvas.loadItem){   
+	        	lz.Focus.clearFocus();
+	            this.exitPopups(); 
+	        	gController.finishTestShortcut(); 
+	        }	     
         </method>
     </node>
 
