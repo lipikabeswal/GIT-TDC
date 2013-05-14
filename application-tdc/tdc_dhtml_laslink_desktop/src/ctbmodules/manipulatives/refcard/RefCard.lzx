@@ -2,7 +2,8 @@
 
     <include href="../BaseManipulative.lzx"/>
 
-    <class name="RefCard" extends="BaseManipulative">
+    <class name="RefCard" extends="BaseManipulative"
+    	   xscale="${canvas.xscalefactor}" yscale="${canvas.yscalefactor}">
 		<attribute name="innerHeight" value="400" type="number"/>
 		<attribute name="innerWidth" value="500" type="number"/>
 		<attribute name="REF_CARD_X" value="10" type="number"/>
@@ -36,17 +37,16 @@
 			title.leftLines.setAttribute('width', halfWidth);
 			title.rightLines.setAttribute('width', halfWidth);
  			
-			if(data != null && data.hasAttr('x')){
-                this.setAttribute ('x', data.getAttr ('x'));
+			if(data != null && data.hasAttr('x') ){
+                this.setAttribute ('x', Number(data.getAttr ('x')));
             }
             else{
-             	this.setAttribute ('x', (classroot.width - this.width)/2);
+             	this.setAttribute ('x', (gManipulatives.width - this.width*canvas.xscalefactor)/2);
             }
             if(data != null && data.hasAttr('y')){
-            	this.setAttribute ('y', data.getAttr ('y'));
-            }
+            	this.setAttribute ('y', Number(data.getAttr ('y')));            }
             else{
-           		this.setAttribute ('y', (classroot.height - this.height)/2);
+            	this.setAttribute ('y', (gManipulatives.height - this.height*canvas.yscalefactor)/2);
             }
             if(data != null && data.hasAttr('scrollTo')){
             	refCardContents.contents.setAttribute ('y', new Number(data.getAttr('scrollTo')));
@@ -77,8 +77,9 @@
         </handler>
 
         <handler name="onmouseup">
-            lz.Cursor.unlock ();
-            gController.restoreCurrentCursor();
+            /*lz.Cursor.unlock ();
+            gController.restoreCurrentCursor();*/
+            lz.Timer.resetTimer(gController.dRestoreCursor, 100);
             this.dragger.remove ();
 
             this.datapath.p.setAttr ('x', this.x);

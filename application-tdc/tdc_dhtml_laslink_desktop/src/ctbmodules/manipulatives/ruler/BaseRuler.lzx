@@ -5,7 +5,8 @@
     <class name="BaseRuler" 
            extends="BaseManipulative"
            clickable="true" 
-           showhandcursor="false">
+           showhandcursor="false" 
+		   xscale="${canvas.xscalefactor}" yscale="${canvas.yscalefactor}">
 
         <attribute name="tickmarksrsr" value="" type="string"/>
         <attribute name="labelrsr"     value="" type="string"/>
@@ -61,6 +62,21 @@
             <attribute name="__dragstate_xdoffset" 
                        value="${this.actualX * Math.cos (this.rrotation) -
                                      this.actualY * Math.sin (this.rrotation)}"/>
+			<handler name="onactualX">
+				console.log("this.actualX "+this.actualX);
+			</handler>
+
+			<handler name="onactualY">
+				console.log("this.actualY "+this.actualY);
+			</handler>
+
+			<handler name="on__dragstate_xdoffset">
+				console.log("this.__dragstate_xdoffset "+this.__dragstate_xdoffset);
+			</handler>
+
+			<handler name="on__dragstate_ydoffset">
+				console.log("this.__dragstate_ydoffset "+this.__dragstate_ydoffset);
+			</handler>
 
             <handler name="onapply">
                 classroot.updateDraggerAttributes();
@@ -194,11 +210,11 @@
             }
 			
             if (data && hasstate) {
-                this.setAttribute ('rotation', data.getAttr ('rotation'));
+                this.setAttribute ('rotation', Number(data.getAttr ('rotation')));
                 this.ruler.setAttribute ('width', data.getAttr ('rulerlength'));
-
-                this.setAttribute ('x', data.getAttr ('x'));
-                this.setAttribute ('y', data.getAttr ('y'));
+				
+                this.setAttribute ('x', Number(data.getAttr ('x')));
+                this.setAttribute ('y', Number(data.getAttr ('y')));
 
                 // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
             	if(gScratchpad.visible){
@@ -209,8 +225,8 @@
                 this.setAttribute ('rotation', 0);
                 this.ruler.setAttribute ('width', null);
 
-                this.setAttribute ('x', (classroot.width - this.width)/2);
-                this.setAttribute ('y', (classroot.height - this.height)/2);
+                this.setAttribute ('x', (gManipulatives.width - this.width*canvas.xscalefactor)/2);
+                this.setAttribute ('y', (gManipulatives.height - this.height*canvas.yscalefactor)/2);
 
                 //set default values in data    
                 if (data) {
@@ -378,9 +394,7 @@
             	]]></handler>
             </view>
             <view name="grabber" resource="grabber_rsrc" y="$once{classroot.GRABBER_Y}" align="center" >
-                  
-            </view>
-            <handler name="onmouseover">
+             <handler name="onmouseover">
                  gController.setCurrentCursor('cangrab_cursor');
              </handler>
              <handler name="onmouseout">
@@ -392,19 +406,20 @@
                  lz.Cursor.lock ();
                  gHotKeys.disableKeys();
                  classroot.dragger.apply ();
+				
              </handler>
              <handler name="onmouseup">
-                 lz.Cursor.unlock ();
                  gHotKeys.enableKeys();
-
   // the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
-  				 // lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
-                 gController.restoreCurrentCursor();
+  				 lz.Timer.resetTimer(gController.dRestoreCursor, 100);
+					
+                 //gController.restoreCurrentCursor();
                  classroot.dragger.remove ();
 
                  classroot.datapath.p.setAttr ('x', classroot.x);
                  classroot.datapath.p.setAttr ('y', classroot.y);
              </handler>
+            </view>
         </view>
 
         <view name="rotator"

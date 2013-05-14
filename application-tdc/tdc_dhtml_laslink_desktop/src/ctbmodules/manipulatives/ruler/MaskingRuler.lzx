@@ -5,7 +5,8 @@
     <class name="MaskingRuler" 
 			extends="MaskingManipulative"
            clickable="true" 
-           showhandcursor="false">
+           showhandcursor="false"
+           xscale="${canvas.xscalefactor}" yscale="${canvas.yscalefactor}">
 
       
         <attribute name="labelrsr"     value="" type="string"/>
@@ -46,34 +47,12 @@
 			<attribute name="actualX" value="$once{this.xoffset - this.getMouse( 'x' )}" />
 			<attribute name="actualY" value="$once{this.yoffset - this.getMouse( 'y' )}" />
 			
-            <!-- <attribute name="__dragstate_ydoffset" 
-                       value="$once {this.actualX * Math.sin (this.rrotation) +
+            <attribute name="__dragstate_ydoffset" 
+                       value="$ {this.actualX * Math.sin (this.rrotation) +
                                      this.actualY * Math.cos (this.rrotation)}"/>
             <attribute name="__dragstate_xdoffset" 
-                       value="$once {this.actualX * Math.cos (this.rrotation) -
-                                     this.actualY * Math.sin (this.rrotation)}"/> -->
-            <attribute name="__dragstate_xdoffset"
-
-			value="(this.drag_axis == 'both' || this.drag_axis == 'x') ? -1*this.__dragstate_getoffset('x') : 0" when="once" />
-			
-			<!--- @keywords private -->
-			
-			<attribute name="__dragstate_ydoffset"
-			
-			value="(this.drag_axis == 'both' || this.drag_axis == 'y') ? -1*this.__dragstate_getoffset('y') : 0" when="once" />
-			
-			<!--- @keywords private -->
-			
-			<method name="__dragstate_getoffset" args="axis" >
-			
-			var theta = (Math.PI/180 * this.rotation);
-			var sin_theta = Math.sin( theta );
-			var cos_theta = Math.cos( theta );
-			return axis=="x" ?
-			(this.getMouse( "x" )*cos_theta - this.getMouse( "y" )*sin_theta) - (this.xoffset*cos_theta - this.yoffset*sin_theta) :
-			(this.getMouse( "x" )*sin_theta + this.getMouse( "y" )*cos_theta) - (this.yoffset*cos_theta + this.xoffset*sin_theta);
-			
-			</method>                           
+                       value="$ {this.actualX * Math.cos (this.rrotation) -
+                                     this.actualY * Math.sin (this.rrotation)}"/>
 
             <handler name="onapply">
                 classroot.updateDraggerAttributes();
@@ -212,8 +191,8 @@ Debug.write("if "+data +" : "+ hasstate);
                 this.setAttribute ('rotation', data.getAttr ('rotation'));
                 this.ruler.setAttribute ('width', data.getAttr ('rulerlength'));
 
-                this.setAttribute ('x', data.getAttr ('x'));
-                this.setAttribute ('y', data.getAttr ('y'));
+                this.setAttribute ('x', Number(data.getAttr ('x')));
+                this.setAttribute ('y', Number(data.getAttr ('y')));
                 // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
             	if(gScratchpad.visible){
                 	gScratchpad.bringToFront();
@@ -268,7 +247,8 @@ Debug.write("else "+data +" : "+ hasstate);
             <view name="lines" resource="masking_ruler_lines" stretches="both" width="${this.parent.width}"/>            
                        
 			<view name="grabber" resource="grabber_rsrc" y="$once{classroot.GRABBER_Y}" align="center" visible="false">
-                  <handler name="onmouseover">
+            </view>
+			<handler name="onmouseover">
                       gController.setCurrentCursor('cangrab_cursor');
                   </handler>
                   <handler name="onmouseout">
@@ -282,17 +262,23 @@ Debug.write("else "+data +" : "+ hasstate);
                       classroot.dragger.apply ();
                   </handler>
                 <handler name="onmouseup">
-                      lz.Cursor.unlock();
+                      //lz.Cursor.unlock();
                       gHotKeys.enableKeys();
-                      gController.restoreCurrentCursor();
+                      //gController.restoreCurrentCursor();
+					  lz.Timer.resetTimer(gController.dRestoreCursor, 100);
                       classroot.dragger.remove ();
 
                       classroot.datapath.p.setAttr ('x', classroot.x);
                       classroot.datapath.p.setAttr ('y', classroot.y);
                   </handler>
-            </view>
         </view>       
 
+		<handler name="onmouseover">
+         	gController.setCurrentCursor('cangrab_cursor');
+         </handler>
+         <handler name="onmouseout">
+             gController.clearAndRestoreCurrentCursor();
+         </handler>
         <handler name="onmousedown">
         	this.bringToFront();
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
