@@ -52,8 +52,6 @@
 	<!-- **************************** build ******************************* -->	
 	<target name="build" description="Builds the various installers" depends="clean">
 
-		<antcall target="buildISTEP" /> 
-
 		<antcall target="buildLasLink" />  
 		
 		<!--
