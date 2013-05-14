@@ -29,9 +29,9 @@
 				 <Question width="100%" height="100%" id="gQuestion"
                           datapath="dsitem:/element_package/item_canvas"
                           bgcolor="${gController.questionBgColor}"/>
-                <view width="100%" height="100%">
+                <view width="100%" height="100%" name="header">
                     <resizelayout axis="y"/>
-                    <view width="${classroot.contents.width + 2}" height="50"
+                    <view name="testDetails" width="${classroot.contents.width + 2}" height="50"
                           bgcolor="0x6691B4" x="-1" clickable="true" showhandcursor="false">
 						<handler name="onmouseover">
 							gController.clearCurrentCursor();
@@ -78,20 +78,19 @@
                         </view>
                          <view id="gLogo" x="695" valign="middle" />
                     </view>
-                    <view width="100%" options="releasetolayout">
+                    <view name="manipulativeToolbar" width="100%" options="releasetolayout">
                         <resizelayout axis="y"/>
-                        <view width="100%">
+                        <view width="100%" name="manipulativeBarContainer">
                             <ManipulativeBar id="gManipulativeBar" width="100%" height="25"/>
                             <text id="gItemInterfaceStudentName" resize="true" align="right" fontstyle="bold" fontsize="13" />                               
                         </view>
-                        <Manipulatives id="gManipulatives" width="100%" options="releasetolayout"/>
                         <Tooltip id="gTooltip" options="ignorelayout"/>
                     </view>
                 </view>
                 <view bgcolor="0xFFFFCC" width="100%" height="6" valign="bottom"/>
             </view>
 
-            <view width="100%" height="60" bgcolor="0xFFFFCC">
+            <view name="questionControls" width="100%" height="60" bgcolor="0xFFFFCC">
                 <resizelayout axis="x"/>
                 <QuestionBar width="584" height="100%"
                              datapath="dsstudentdata:/testing_client_model"/><!--width="593" -->
