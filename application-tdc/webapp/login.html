@@ -404,7 +404,7 @@ function eventMonitor(id,event) {
 	 			autoPlayEvent = "false";
 	 		}
  		
- 		
+ 		restrictNavigation('unlock');
  	} else if (event == 'reset') {
  		//setPlayingAttr('false');
  	}
@@ -412,7 +412,7 @@ function eventMonitor(id,event) {
  		setPlayingAttr('false');
  	  	autoPlayEvent = "false";	
  	}
- 	restrictNavigation();
+ 	
  	//lz.embed.setCanvasAttribute("bringBackFocus", 'true');
 }
 

@@ -53,7 +53,7 @@ function iframeLoaded(id, iframe){
 			if(gController.lasAssetArray.length == assetCount){
 				setTimeout("startAutoplay()",500);
 			}
-		restrictNavigation();
+		restrictNavigation('lock');
 		}
 		
 	}
@@ -258,7 +258,8 @@ function startAutoplay(){
 		}
   }
   
-   function restrictNavigation(){
+   function restrictNavigation(arg){
+   if(arg  == 'unlock'){
 	 	if(checkAllPlayedOnce()) {
 			//console.log("All asset played once");
 			gController.setAttribute('unlockNavigation',true);
@@ -266,5 +267,7 @@ function startAutoplay(){
 				//console.log("All asset not played once");
 				gController.setAttribute('unlockNavigation',false);
 	 		}
- 
+ 	}else {
+ 	gController.setAttribute('unlockNavigation',false);
+ 	}
   } 

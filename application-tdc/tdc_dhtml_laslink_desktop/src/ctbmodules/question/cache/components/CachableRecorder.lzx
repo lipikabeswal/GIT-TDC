@@ -266,11 +266,11 @@
 					<view options="releasetolayout" height="100%">
 					</view>
 					<text name="remaining" fontsize="${12 * classroot.factor}" font="CTB" fontstyle="bold"
-						width="45%" valign="bottom" height="100%">
+						width="47%" valign="bottom" height="100%">
 						TIME REMAINING:
 					</text>
 					<text name="timertext" fontsize="${12 * classroot.factor}" fontstyle="bold"
-						font="CTB" fgcolor="0x008000" width="10%" valign="bottom" height="100%" >
+						font="CTB" fgcolor="0x008000" width="8%" valign="bottom" height="100%" >
 					</text>
 					<text fontsize="${12 * classroot.factor}" font="CTB"  fontstyle="bold"
 						valign="bottom" height="100%" width="15%">
