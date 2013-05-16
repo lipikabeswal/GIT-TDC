@@ -3,7 +3,8 @@
       align="center" 
       visible="false"
       clickable="false"
-      showhandcursor="false">
+      showhandcursor="false"
+      xscale="${canvas.xscalefactor}" yscale="${canvas.yscalefactor}">
 
 	<attribute name="popupHeight" type="number" value="157"/>
 	<attribute name="popupWidth" type="number" value="320"/>
@@ -41,6 +42,7 @@
 	
     <method name="show" args="calledFrom">
 	    if(this.visible == false) {
+	    	canvas.unFreezUI();	
 	        this.setAttribute("visible", true);
 			this.setAttribute("navigateFrom",calledFrom);
 	        lz.ModeManager.makeModal(this);
