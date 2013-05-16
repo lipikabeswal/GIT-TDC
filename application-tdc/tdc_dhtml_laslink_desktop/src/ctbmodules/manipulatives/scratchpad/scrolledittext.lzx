@@ -111,9 +111,6 @@
         <handler name="oninit">
 				var el = this.getDisplayObject();
 				el.setAttribute('id','scratchpad');
-				
-				console.log("===SCRATH PAD VISIBLE===",el.id);
-			    //hideScrollbar(el.id);	
 			</handler>
         <setter name="pos" args="p">        	
             if (this.p == p){
