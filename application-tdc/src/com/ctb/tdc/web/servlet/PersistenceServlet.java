@@ -23,7 +23,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -36,6 +35,7 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
+import com.ctb.cat.web.client.CATServiceClient;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.Base64;
 import com.ctb.tdc.web.utils.CATEngineProxy;
@@ -204,18 +204,18 @@ public class PersistenceServlet extends HttpServlet {
 				System.out.println(" replaced save xml:"+xml);
     			Boolean isStopCat = ServletUtils.isScoreSubtest(xml);
     			if (isStopCat) {
-    				 abilityScore = CATEngineProxy.getAbilityScore();
-        			 sem = CATEngineProxy.getSEM();
-        			 objScore = CATEngineProxy.getObjScore();	
+    				 abilityScore = CATServiceClient.getAbilityScore();
+        			 sem = CATServiceClient.getSEM();
+        			 objScore = CATServiceClient.getObjScore();	
         			
     				xml = LoadTestUtils.setAttributeValue("score.ability",abilityScore.toString(), xml);
     				xml = LoadTestUtils.setAttributeValue("score.sem",sem.toString(), xml);
     				xml = LoadTestUtils.setAttributeValue("score.objective",objScore, xml);
-    				System.out.println("Student Stop: " + CATEngineProxy.isStudentStop());
+    				System.out.println("Student Stop: " + CATServiceClient.isStudentStop);
     				
     				//setting unscored_items=1 to detect student stop. 
     				//Changed: Need not do this now
-    				if (CATEngineProxy.isStudentStop()){
+    				if (CATServiceClient.isStudentStop){
     					xml = LoadTestUtils.setAttributeValue("number_of_unscored_items","1", xml);
     				}
 	        		System.out.println("XML after Integrating: " + xml);
@@ -877,6 +877,7 @@ public class PersistenceServlet extends HttpServlet {
 
 			memCache.setContentDownloadMap(contentDownloadMap);
 
+			CATServiceClient.processCATLoginElement(element);
 		}
 	}
 	

@@ -37,6 +37,7 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
 import com.bea.xml.XmlException;
+import com.ctb.cat.web.client.CATServiceClient;
 import com.ctb.tdc.web.dto.SubtestKeyVO;
 import com.ctb.tdc.web.exception.BlockedContentException;
 import com.ctb.tdc.web.exception.DecryptionException;
@@ -225,9 +226,11 @@ public class ContentServlet extends HttpServlet {
 							ContentFile.decryptDataFiles();
 							//ServletUtils.isDataDecrypted = true;
 						//}						
-						CATEngineProxy.initCAT(cArea);
+						//CATEngineProxy.initCAT(cArea);
+						CATServiceClient.start(itemSetId, cArea);
+						// TODO: handle CAT restart case
 						if(ServletUtils.isRestart){
-							int x=CATEngineProxy.restartCAT(ServletUtils.restartItemCount,ServletUtils.restartItemsArr,ServletUtils.restartItemsRawScore);
+						//	int x=CATEngineProxy.restartCAT(ServletUtils.restartItemCount,ServletUtils.restartItemsArr,ServletUtils.restartItemsRawScore);
 						}
 					}
 				}
@@ -300,7 +303,7 @@ public class ContentServlet extends HttpServlet {
 					org.jdom.Element element = (org.jdom.Element) subtestDoc.getRootElement();
 					org.jdom.Attribute attribute = new Attribute("itemCount","0");
 					org.jdom.Element objectElement = element.getChild("ob_element_list");
-					objectElement.setAttribute("itemCount", new Integer(CATEngineProxy.getTestLength()).toString());
+					objectElement.setAttribute("itemCount", new Integer(CATServiceClient.getTestLength()).toString());
 					if(ServletUtils.isRestart){
 						org.jdom.Attribute restartAttr = new Attribute("restart_ast","0");
 						List fNodes = objectElement.getChildren("f");
@@ -467,7 +470,7 @@ public class ContentServlet extends HttpServlet {
 						Integer peId = Integer.parseInt(iid);
 						Integer adsItemId = Integer.parseInt( itemId );
 						//System.out.println("Populating map: " + peId +  " :: " +adsItemId);
-						CATEngineProxy.itemIdMap.put(String.valueOf(peId), Integer.valueOf(adsItemId));		
+						CATServiceClient.itemIdMap.put(String.valueOf(peId), Integer.valueOf(adsItemId));		
 					} catch (Exception e) {
 						e.printStackTrace();
 					} 
@@ -548,13 +551,13 @@ public class ContentServlet extends HttpServlet {
 					//originalItemId = ServletUtils.landingFnode;
 					//itemId = ServletUtils.landingItem;
 					originalItemId = ServletUtils.landingItem;
-					itemId = CATEngineProxy.getNextItem();					
+					itemId = CATServiceClient.getNextItem();					
 					itemSubstitutionMap.put(originalItemId, itemId);
 					ServletUtils.isRestart = false;
 					isRestart = true;
 				}else{
 					originalItemId = itemId;
-					itemId = CATEngineProxy.getNextItem();
+					itemId = CATServiceClient.getNextItem();
 					//System.out.println("get item itemId:"+itemId);
 					itemSubstitutionMap.put(originalItemId, itemId);
 				}
@@ -639,8 +642,8 @@ public class ContentServlet extends HttpServlet {
 				if(ServletUtils.isCurSubtestAdaptive){
 					System.out.println("CAT Over!");
 					logger.info("CAT Over!");
-					ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATEngineProxy.getAbilityScore() + ", SEM: " + CATEngineProxy.getSEM(), "000"));
-					CATEngineProxy.deInitCAT();
+					ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATServiceClient.getAbilityScore() + ", SEM: " + CATServiceClient.getSEM(), "000"));
+					//CATEngineProxy.deInitCAT();
 				}
 			}
 		} 

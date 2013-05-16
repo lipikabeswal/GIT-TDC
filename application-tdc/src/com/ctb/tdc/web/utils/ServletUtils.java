@@ -95,8 +95,9 @@ public class ServletUtils {
 			ThreadSafeClientConnManager mgr = new ThreadSafeClientConnManager(schemeRegistry); 
 			mgr.setMaxTotal(1);
 			HttpParams httpParams = new BasicHttpParams();
-			HttpConnectionParams.setConnectionTimeout(httpParams, 30000);
-			HttpConnectionParams.setSoTimeout(httpParams, 30000);
+			HttpConnectionParams.setConnectionTimeout(httpParams, 0);
+			HttpConnectionParams.setSoTimeout(httpParams, 0);
+			HttpConnectionParams.setStaleCheckingEnabled(httpParams, true);
 			client = new DefaultHttpClient(mgr, httpParams);
 			String proxyHost = getProxyHost();
 			if ((proxyHost != null) && (proxyHost.length() > 0)) {
@@ -107,6 +108,7 @@ public class ServletUtils {
 	            String domain = getProxyDomain();
 	        	ServletUtils.setProxyCredentials(client, proxyHost, proxyPort, username, password, domain);
 			}			
+
 		} catch(Exception e) {
 			logger.error("Exception occured in ServletUtils initializer : " + printStackTrace(e));
 			throw new RuntimeException(e.getMessage());

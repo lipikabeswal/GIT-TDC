@@ -29,5 +29,8 @@
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/examcalc.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/examcalc-dep.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/axis-wsdl4j-1.5.1.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/axis.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/jaxrpc.jar"/>
 	<classpathentry kind="output" path="webapp/WEB-INF/classes"/>
 </classpath>
