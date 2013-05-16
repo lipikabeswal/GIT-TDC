@@ -3,8 +3,7 @@
       align="center" 
       visible="false"
       clickable="false"
-      showhandcursor="false"
-      xscale="${canvas.xscalefactor}" yscale="${canvas.yscalefactor}">
+      showhandcursor="false">
 
 	<attribute name="popupHeight" type="number" value="157"/>
 	<attribute name="popupWidth" type="number" value="320"/>
