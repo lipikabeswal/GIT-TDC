@@ -1133,6 +1133,7 @@
 
 		<method name="goToGoodbyeScreen">
 			stopHeartbeat();
+			hideManipulatives();
 			gScreens.showGoodbye();
 			lz.Timer.addTimer( dcloseBrowser, 5000 );
 		</method>
