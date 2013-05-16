@@ -193,10 +193,9 @@
 		     xscale="${this.height/600}" yscale="${this.height/600}" 
 		align="center"
 		valign="middle">
-<handler name="onwidth">
-	Debug.write("width....."+this.width);
-
-</handler>
+		<handler name="onxscale">
+			canvas.setScale();
+		</handler>
 		<view name="gView" width="800" height="600">
 
 			<ItemInterface id="gItemInterface" name="gItemInterface"  width="800" height="600"
@@ -232,10 +231,15 @@
         </view>
 
     </view>
-	<Manipulatives id="gManipulatives" x="${canvas.titleView.mainView.scalingView.x}"
-				   y="${(gItemInterface.contents.itemScreen.header.manipulativeToolbar.y+gItemInterface.contents.itemScreen.header.manipulativeToolbar.manipulativeBarContainer.height+20)*canvas.yscalefactor}"
-				   width="${gQuestion.width*canvas.xscalefactor}"
-				   height="${(gItemInterface.height+20-this.y)*canvas.yscalefactor}" options="releasetolayout"/>
+   	    <view name="noscale" width="${800*canvas.xscalefactor}" height="${600*canvas.xscalefactor}">
+		    <Manipulatives id="gManipulatives" x="${canvas.titleView.mainView.scalingView.x}"
+						   y="${(gItemInterface.contents.itemScreen.header.manipulativeToolbar.y+gItemInterface.contents.itemScreen.header.manipulativeToolbar.manipulativeBarContainer.height+20)*canvas.yscalefactor}"
+						   width="${gQuestion.width*canvas.xscalefactor}"
+						   height="${(gItemInterface.height+20-this.y)*canvas.yscalefactor}" options="releasetolayout"/>
+			 <!-- include the please wait popup -->
+		    <include href="ctbmodules/question/RevisitFalsePopup.lzx"/>
+			<include href="ctbmodules/question/PleaseWaitPopup.lzx"/>
+		</view>
     </view>
   
 </view>
