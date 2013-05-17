@@ -5,6 +5,7 @@ var playOrderArray = {};
 var enabledArray = [];
 var assetCount = 0;
 var checkAnswered = false;
+var pausedAssetID = null;
 
 function iframeLoaded(id, iframe){
 	if(currentLasAssetItemId) {
@@ -270,4 +271,39 @@ function startAutoplay(){
  	}else {
  	gController.setAttribute('unlockNavigation',false);
  	}
-  } 
+  }
+  
+    function pauseAudio() {
+	for(var i=0; i<gController.lasAssetArray.length;i++){
+				if(gController.lasAssetArray[i].asset){
+				if(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.isPlaying == "true"){
+					iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.pause();
+					pausedAssetID=gController.lasAssetArray[i].asset.aw.iframeid;
+					console.log("inside pause audio ");
+				}
+				else if(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.isPlaying == "disabled"){
+					if((iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].clickedOnce) && !(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].playedOnce)) {
+						iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.pause();
+						pausedAssetID=gController.lasAssetArray[i].asset.aw.iframeid;
+						console.log("inside pause audio disabled ");
+					}
+					
+				}
+			}
+  		}
+  }
+  
+  function playAudio(){
+  	if(pausedAssetID != null){
+		for(var i=0; i<gController.lasAssetArray.length;i++){
+				if(gController.lasAssetArray[i].asset){
+					if(gController.lasAssetArray[i].asset.aw.iframeid == pausedAssetID){
+						iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.play();
+						console.log("inside play audio ");
+					}
+				}
+			}
+		}
+	pausedAssetID = null;
+
+} 
