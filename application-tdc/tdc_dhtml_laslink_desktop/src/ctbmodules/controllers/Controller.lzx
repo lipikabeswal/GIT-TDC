@@ -3191,6 +3191,9 @@
 		</method>
 
 		<method name="goToPauseScreen">
+			if ( pausable == true || pausable == 'true') {
+				lz.Browser.loadJS('pauseAudio();');
+			}
 			this.clearInvalidCrResponses();
 			this.resetCrs();
             lz.Cursor.unlock();  
@@ -3227,6 +3230,8 @@
 			if(this.htmlFields != null){
 					showHtmlWidgets();
 			}
+			var s="playAudio()";
+			lz.Browser.loadJS(s);
 		</method>
 		
 		<method name="hideManipulatives">
@@ -3292,6 +3297,7 @@
 		</method>
 
 		<method name="goToFinishScreen"><![CDATA[
+			lz.Browser.loadJS('pauseAudio();');
 			this.clearInvalidCrResponses();
 			this.resetCrs();
 			//START Defect# 59282
@@ -3389,7 +3395,8 @@
 		]]></method>
 
 		<method name="resumeTest">
-			
+           	var s="playAudio()";
+			lz.Browser.loadJS(s);			
             lz.Cursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
 			showManipulatives();

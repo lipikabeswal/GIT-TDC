@@ -44,7 +44,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mc"]}},$lzc$class__mc.attributes)
 }}})($lzc$class__mc)
-};canvas=new $lzc$class__mc(null,{$delegates:["onfocus","$m5",null,"onbringBackFocus","$m6",null,"onfootnotedata","$m7",null,"onisMultiAudio","$m8",null,"oninit","$m9",null,"onfootnotetext","$ma",null],Copyrite:"CTB/McGraw-Hill",__LZproxied:"true",accessible:true,appbuilddate:"2013-05-16T14:30:07Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,dForceUnfreezUI:new LzOnceExpr("$mb",null),embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mc(null,{$delegates:["onfocus","$m5",null,"onbringBackFocus","$m6",null,"onfootnotedata","$m7",null,"onisMultiAudio","$m8",null,"oninit","$m9",null,"onfootnotetext","$ma",null],Copyrite:"CTB/McGraw-Hill",__LZproxied:"true",accessible:true,appbuilddate:"2013-05-17T15:07:58Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,dForceUnfreezUI:new LzOnceExpr("$mb",null),embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -28890,7 +28890,9 @@ this.hideHtmlWidgets()
 }},"save",function($0){
 var $1=this.getSaveParams($0);this.resetHeartbeat();gCommunicator.save($1)
 },"goToPauseScreen",function(){
-this.clearInvalidCrResponses();this.resetCrs();lz.Cursor.unlock();this.checkHideMagnifierGlass();this.checkHideMaskingChoiceDD();this.closeOpenManipulatives();this.hideManipulatives();gScreens.showPause(this.getStudentName())
+if(this.pausable==true||this.pausable=="true"){
+lz.Browser.loadJS("pauseAudio();")
+};this.clearInvalidCrResponses();this.resetCrs();lz.Cursor.unlock();this.checkHideMagnifierGlass();this.checkHideMaskingChoiceDD();this.closeOpenManipulatives();this.hideManipulatives();gScreens.showPause(this.getStudentName())
 },"pausedContinue",function($0){
 if($0==this.dpsubtest.xpathQuery("testing_session_data/cmi.core/@password")){
 lz.Cursor.setCursorGlobal("waitcursor");this.setState(this.PAUSED_RESUME_STATE);this.resetHeartbeat();gCommunicator.lifecycle(this.RESUME_LEV);canvas.freezUI();return true
@@ -28899,7 +28901,8 @@ return false
 }},"_handlePausedResumeResponse",function($0){
 this.showItemInterface();gScreens.resetTextFieldColor();this.startQuestion();this.showManipulatives();this.unlockUI();gQuestion.setGrFocus();this.restoreScratchpadFocusIfNeeded();this.checkShowMagnifierGlass();this.checkShowMaskingChoiceDD();if(this.htmlFields!=null){
 this.showHtmlWidgets()
-}},"hideManipulatives",function(){
+};var $1="playAudio()";lz.Browser.loadJS($1)
+},"hideManipulatives",function(){
 gManipulatives.setAttribute("visible",false)
 },"showManipulatives",function(){
 gManipulatives.setAttribute("visible",true)
@@ -28924,7 +28927,7 @@ this.setAttribute("sendCatSave",true);this.prevItemId=$0;Debug.write("curItemId:
 }else{
 this.setAttribute("sendCatSave",false)
 }},"goToFinishScreen",function(){
-this.clearInvalidCrResponses();this.resetCrs();this.closeOpenManipulatives();this.hideManipulatives();this.checkHideMagnifierGlass();this.checkHideMaskingChoiceDD();lz.Cursor.unlock();canvas.unFreezUI();if(this.adaptive==true){
+lz.Browser.loadJS("pauseAudio();");this.clearInvalidCrResponses();this.resetCrs();this.closeOpenManipulatives();this.hideManipulatives();this.checkHideMagnifierGlass();this.checkHideMaskingChoiceDD();lz.Cursor.unlock();canvas.unFreezUI();if(this.adaptive==true){
 Debug.write("goToFinishScreen :"+gScreens.isOnFinishScreen()+"::"+this.isStopTest);if(this.RestartTest=="true"){
 this.setAttribute("isStopTest",false);this.setAttribute("isFinishTest",true)
 };if(gScreens.isOnFinishScreen()){
@@ -28950,7 +28953,7 @@ gController.setManipulativeSelState($3,"up")
 }}}}},"applyManipulative",function(){
 var $0=dsitem.getPointer().xpathQuery("element_package");this.setAttribute("itemtxt",$0.serialize());var $1=this.itemtxt.indexOf('stereotype="answerArea"');return $1!=-1
 },"resumeTest",function(){
-lz.Cursor.setCursorGlobal("waitcursor");this.showItemInterface();this.showManipulatives();gQuestion.setGrFocus();this.restoreScratchpadFocusIfNeeded();this.unlockUI();this.checkShowMaskingChoiceDD();if(this.adaptive==true){
+var $0="playAudio()";lz.Browser.loadJS($0);lz.Cursor.setCursorGlobal("waitcursor");this.showItemInterface();this.showManipulatives();gQuestion.setGrFocus();this.restoreScratchpadFocusIfNeeded();this.unlockUI();this.checkShowMaskingChoiceDD();if(this.adaptive==true){
 gScreens.removeFinishState()
 };this.checkShowMagnifierGlass()
 },"continueTest",function(){
