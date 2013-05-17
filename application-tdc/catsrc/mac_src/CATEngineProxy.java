@@ -472,7 +472,6 @@ public class CATEngineProxy {
 				throw new Exception("CAT OVER!");
 			} else {
 				itemnum++;
-				System.out.println(" scoreCurrentItem CATEngineProxy itemIdMap size :"+CATEngineProxy.itemIdMap.size());
 				System.out.print("PEID ID: " + nextitem + ", ");
 				Integer adsitem = (Integer)itemIdMap.get(nextitem);
 				System.out.print("ADS ID: " + adsitem + "\n");

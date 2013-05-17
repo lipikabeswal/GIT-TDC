@@ -235,25 +235,12 @@ public class PersistenceServlet extends HttpServlet {
 		        	if(itemRawScore != null) {
 		        		if(ServletUtils.currentItem == realId){
 			        		try {
-			        			System.out.println("inside condition!");
-			        			if (itemresponse != null && itemresponse != "-" && marked != null && "1".equals(marked)){
-			        	    		
-			        					if((itemresponse.startsWith("undefined") || itemresponse.equals(""))&& isCatStop.startsWith("true")){
-			        						CATEngineProxy.scoreCurrentItem(-9 , false);	
-			        					}else if(isCatStop.startsWith("true") && (!itemresponse.startsWith("undefined") || !itemresponse.equals(""))){
-			        						CATEngineProxy.scoreCurrentItem(itemRawScore.intValue(), true);	
-			        					}else {
-			        						CATEngineProxy.scoreCurrentItem(itemRawScore.intValue(), false);	
-			        					}
-			        	    		}
-			        			
+			        			System.out.println(xml);
+			        			CATServiceClient.nextItem(realId, itemRawScore, itemresponse, new Integer(5));
 				        	} catch (Exception e) {
 				        		System.out.println("CAT Over!");
 				    			logger.info("CAT Over!");
-				                //ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATEngineProxy.getAbilityScore() + ", SEM: " + CATEngineProxy.getSEM(), "000"));
-				    			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", CATEngineProxy.getAbilityScore() + "|" + CATEngineProxy.getSEM() + "|" + CATEngineProxy.getObjScore() , "000"));
-				    			//CATEngineProxy.deInitCAT();
-				    			
+				                ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATServiceClient.getAbilityScore() + ", SEM: " + CATServiceClient.getSEM(), "000"));
 				        	}
 		        		}
 		        	}	
@@ -325,7 +312,7 @@ public class PersistenceServlet extends HttpServlet {
 	    		System.out.println(" sendcatsave : "+marked);
 	    		if(marked != null && "1".equals(marked)) {
 		    		String itemresponse = ServletUtils.parseResponse(xml);
-		    		String correctResponse = (String) ContentServlet.itemCorrectMap.get(CATEngineProxy.getNextItem());
+		    		String correctResponse = (String) ContentServlet.itemCorrectMap.get(CATServiceClient.getNextADSItemId());
 		    		if(correctResponse.equals(itemresponse)) {
 			    		return new Integer(1);
 			    	} else {
@@ -340,8 +327,7 @@ public class PersistenceServlet extends HttpServlet {
     	} catch (Exception e) {
     		System.out.println("CAT Over!");
 			logger.info("CAT Over!");
-			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATEngineProxy.getAbilityScore() + ", SEM: " + CATEngineProxy.getSEM(), "000"));
-            //CATEngineProxy.deInitCAT();
+			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATServiceClient.getAbilityScore() + ", SEM: " + CATServiceClient.getSEM(), "000"));
     	}
     	return null;
     }    
@@ -635,7 +621,7 @@ public class PersistenceServlet extends HttpServlet {
 				result = tmsResponse;
 				ServletUtils.isRestart = false;
 				if(ServletUtils.isCurSubtestAdaptive){
-					CATEngineProxy.deInitCAT();
+					CATServiceClient.stop("Student Stop");
 				}
 			} else {
 				if (ServletUtils.isStatusOK(tmsResponse)) {

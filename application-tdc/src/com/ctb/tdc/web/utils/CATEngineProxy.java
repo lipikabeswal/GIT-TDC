@@ -473,7 +473,6 @@ public class CATEngineProxy {
 				throw new Exception("CAT OVER!");
 			} else {
 				itemnum++;
-				//System.out.println(" scoreCurrentItem CATEngineProxy itemIdMap size :"+CATEngineProxy.itemIdMap.size());
 				//System.out.print("PEID ID: " + nextitem + ", ");
 				Integer adsitem = (Integer)itemIdMap.get(nextitem);
 				//System.out.print("ADS ID: " + adsitem + "\n");
@@ -560,7 +559,6 @@ public class CATEngineProxy {
 				return 0;
 			} else {
 				itemnum++;
-				//System.out.println(" restartCAT scoreCurrentItem CATEngineProxy itemIdMap size :"+CATEngineProxy.itemIdMap.size());
 				//System.out.print("restartCAT PEID ID: " + nextitem + ", ");
 				Integer adsitem = (Integer)itemIdMap.get(nextitem);
 				//System.out.print("restartCAT ADS ID: " + adsitem + "\n");

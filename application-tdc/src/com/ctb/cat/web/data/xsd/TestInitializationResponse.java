@@ -14,20 +14,16 @@ public class TestInitializationResponse  extends com.ctb.cat.web.data.xsd.CATSer
     }
 
     public TestInitializationResponse(
-           java.lang.String configID,
            com.ctb.cat.web.data.xsd.ResearchDebugData researchDebugData,
            java.lang.String sessionID,
            java.lang.String statusCode,
            java.lang.String statusMessage,
-           java.lang.String studentID,
            java.lang.String nextItemID) {
         super(
-            configID,
             researchDebugData,
             sessionID,
             statusCode,
-            statusMessage,
-            studentID);
+            statusMessage);
         this.nextItemID = nextItemID;
     }
 

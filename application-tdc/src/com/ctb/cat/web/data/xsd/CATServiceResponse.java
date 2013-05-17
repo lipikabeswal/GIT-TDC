@@ -8,8 +8,6 @@
 package com.ctb.cat.web.data.xsd;
 
 public class CATServiceResponse  implements java.io.Serializable {
-    private java.lang.String configID;
-
     private com.ctb.cat.web.data.xsd.ResearchDebugData researchDebugData;
 
     private java.lang.String sessionID;
@@ -18,44 +16,18 @@ public class CATServiceResponse  implements java.io.Serializable {
 
     private java.lang.String statusMessage;
 
-    private java.lang.String studentID;
-
     public CATServiceResponse() {
     }
 
     public CATServiceResponse(
-           java.lang.String configID,
            com.ctb.cat.web.data.xsd.ResearchDebugData researchDebugData,
            java.lang.String sessionID,
            java.lang.String statusCode,
-           java.lang.String statusMessage,
-           java.lang.String studentID) {
-           this.configID = configID;
+           java.lang.String statusMessage) {
            this.researchDebugData = researchDebugData;
            this.sessionID = sessionID;
            this.statusCode = statusCode;
            this.statusMessage = statusMessage;
-           this.studentID = studentID;
-    }
-
-
-    /**
-     * Gets the configID value for this CATServiceResponse.
-     * 
-     * @return configID
-     */
-    public java.lang.String getConfigID() {
-        return configID;
-    }
-
-
-    /**
-     * Sets the configID value for this CATServiceResponse.
-     * 
-     * @param configID
-     */
-    public void setConfigID(java.lang.String configID) {
-        this.configID = configID;
     }
 
 
@@ -138,26 +110,6 @@ public class CATServiceResponse  implements java.io.Serializable {
         this.statusMessage = statusMessage;
     }
 
-
-    /**
-     * Gets the studentID value for this CATServiceResponse.
-     * 
-     * @return studentID
-     */
-    public java.lang.String getStudentID() {
-        return studentID;
-    }
-
-
-    /**
-     * Sets the studentID value for this CATServiceResponse.
-     * 
-     * @param studentID
-     */
-    public void setStudentID(java.lang.String studentID) {
-        this.studentID = studentID;
-    }
-
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof CATServiceResponse)) return false;
@@ -170,9 +122,6 @@ public class CATServiceResponse  implements java.io.Serializable {
         __equalsCalc = obj;
         boolean _equals;
         _equals = true && 
-            ((this.configID==null && other.getConfigID()==null) || 
-             (this.configID!=null &&
-              this.configID.equals(other.getConfigID()))) &&
             ((this.researchDebugData==null && other.getResearchDebugData()==null) || 
              (this.researchDebugData!=null &&
               this.researchDebugData.equals(other.getResearchDebugData()))) &&
@@ -184,10 +133,7 @@ public class CATServiceResponse  implements java.io.Serializable {
               this.statusCode.equals(other.getStatusCode()))) &&
             ((this.statusMessage==null && other.getStatusMessage()==null) || 
              (this.statusMessage!=null &&
-              this.statusMessage.equals(other.getStatusMessage()))) &&
-            ((this.studentID==null && other.getStudentID()==null) || 
-             (this.studentID!=null &&
-              this.studentID.equals(other.getStudentID())));
+              this.statusMessage.equals(other.getStatusMessage())));
         __equalsCalc = null;
         return _equals;
     }
@@ -199,9 +145,6 @@ public class CATServiceResponse  implements java.io.Serializable {
         }
         __hashCodeCalc = true;
         int _hashCode = 1;
-        if (getConfigID() != null) {
-            _hashCode += getConfigID().hashCode();
-        }
         if (getResearchDebugData() != null) {
             _hashCode += getResearchDebugData().hashCode();
         }
@@ -214,9 +157,6 @@ public class CATServiceResponse  implements java.io.Serializable {
         if (getStatusMessage() != null) {
             _hashCode += getStatusMessage().hashCode();
         }
-        if (getStudentID() != null) {
-            _hashCode += getStudentID().hashCode();
-        }
         __hashCodeCalc = false;
         return _hashCode;
     }
@@ -228,13 +168,6 @@ public class CATServiceResponse  implements java.io.Serializable {
     static {
         typeDesc.setXmlType(new javax.xml.namespace.QName("http://data.web.cat.ctb.com/xsd", "CATServiceResponse"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("configID");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://data.web.cat.ctb.com/xsd", "configID"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
-        elemField.setMinOccurs(0);
-        elemField.setNillable(true);
-        typeDesc.addFieldDesc(elemField);
-        elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("researchDebugData");
         elemField.setXmlName(new javax.xml.namespace.QName("http://data.web.cat.ctb.com/xsd", "researchDebugData"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://data.web.cat.ctb.com/xsd", "ResearchDebugData"));
@@ -258,13 +191,6 @@ public class CATServiceResponse  implements java.io.Serializable {
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("statusMessage");
         elemField.setXmlName(new javax.xml.namespace.QName("http://data.web.cat.ctb.com/xsd", "statusMessage"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
-        elemField.setMinOccurs(0);
-        elemField.setNillable(true);
-        typeDesc.addFieldDesc(elemField);
-        elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("studentID");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://data.web.cat.ctb.com/xsd", "studentID"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         elemField.setNillable(true);

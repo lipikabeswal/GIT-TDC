@@ -226,11 +226,10 @@ public class ContentServlet extends HttpServlet {
 							ContentFile.decryptDataFiles();
 							//ServletUtils.isDataDecrypted = true;
 						//}						
-						//CATEngineProxy.initCAT(cArea);
 						CATServiceClient.start(itemSetId, cArea);
 						// TODO: handle CAT restart case
 						if(ServletUtils.isRestart){
-						//	int x=CATEngineProxy.restartCAT(ServletUtils.restartItemCount,ServletUtils.restartItemsArr,ServletUtils.restartItemsRawScore);
+						
 						}
 					}
 				}
@@ -470,7 +469,8 @@ public class ContentServlet extends HttpServlet {
 						Integer peId = Integer.parseInt(iid);
 						Integer adsItemId = Integer.parseInt( itemId );
 						//System.out.println("Populating map: " + peId +  " :: " +adsItemId);
-						CATServiceClient.itemIdMap.put(String.valueOf(peId), Integer.valueOf(adsItemId));		
+						CATServiceClient.PEIDToADSIdMap.put(String.valueOf(peId), adsItemId);
+						CATServiceClient.ADSToPEIDIdMap.put(adsItemId, String.valueOf(peId));
 					} catch (Exception e) {
 						e.printStackTrace();
 					} 
@@ -547,7 +547,7 @@ public class ContentServlet extends HttpServlet {
 			String originalItemId = null;
 			boolean isRestart = false;
 			if(ServletUtils.isCurSubtestAdaptive){
-				if(ServletUtils.isRestart && ServletUtils.landingItem != null){
+				/*if(ServletUtils.isRestart && ServletUtils.landingItem != null){
 					//originalItemId = ServletUtils.landingFnode;
 					//itemId = ServletUtils.landingItem;
 					originalItemId = ServletUtils.landingItem;
@@ -555,12 +555,12 @@ public class ContentServlet extends HttpServlet {
 					itemSubstitutionMap.put(originalItemId, itemId);
 					ServletUtils.isRestart = false;
 					isRestart = true;
-				}else{
+				}else{*/
 					originalItemId = itemId;
-					itemId = CATServiceClient.getNextItem();
+					itemId = String.valueOf(CATServiceClient.getNextADSItemId().intValue());
 					//System.out.println("get item itemId:"+itemId);
 					itemSubstitutionMap.put(originalItemId, itemId);
-				}
+				//}
 				ServletUtils.currentItem = itemId;
 				//System.out.println(" originalItemId:"+originalItemId);
 				//System.out.println(" cat returned Item id:"+itemId);
@@ -643,7 +643,6 @@ public class ContentServlet extends HttpServlet {
 					System.out.println("CAT Over!");
 					logger.info("CAT Over!");
 					ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATServiceClient.getAbilityScore() + ", SEM: " + CATServiceClient.getSEM(), "000"));
-					//CATEngineProxy.deInitCAT();
 				}
 			}
 		} 

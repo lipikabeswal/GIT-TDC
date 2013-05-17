@@ -10,23 +10,27 @@ package com.ctb.cat.web.data.xsd;
 public class TestInitializationRequest  extends com.ctb.cat.web.data.xsd.CATServiceRequest  implements java.io.Serializable {
     private java.lang.Double abilityScore;
 
+    private java.lang.String configID;
+
     private java.lang.String[] retakeIneligibleItems;
+
+    private java.lang.String studentID;
 
     public TestInitializationRequest() {
     }
 
     public TestInitializationRequest(
-           java.lang.String configID,
-           java.lang.String sessionID,
-           java.lang.String studentID,
-           java.lang.Double abilityScore,
-           java.lang.String[] retakeIneligibleItems) {
+    		java.lang.String configID,
+            java.lang.String sessionID,
+            java.lang.String studentID,
+            java.lang.Double abilityScore,
+            java.lang.String[] retakeIneligibleItems) {
         super(
-            configID,
-            sessionID,
-            studentID);
+            sessionID);
         this.abilityScore = abilityScore;
+        this.configID = configID;
         this.retakeIneligibleItems = retakeIneligibleItems;
+        this.studentID = studentID;
     }
 
 
@@ -47,6 +51,26 @@ public class TestInitializationRequest  extends com.ctb.cat.web.data.xsd.CATServ
      */
     public void setAbilityScore(java.lang.Double abilityScore) {
         this.abilityScore = abilityScore;
+    }
+
+
+    /**
+     * Gets the configID value for this TestInitializationRequest.
+     * 
+     * @return configID
+     */
+    public java.lang.String getConfigID() {
+        return configID;
+    }
+
+
+    /**
+     * Sets the configID value for this TestInitializationRequest.
+     * 
+     * @param configID
+     */
+    public void setConfigID(java.lang.String configID) {
+        this.configID = configID;
     }
 
 
@@ -77,6 +101,26 @@ public class TestInitializationRequest  extends com.ctb.cat.web.data.xsd.CATServ
         this.retakeIneligibleItems[i] = _value;
     }
 
+
+    /**
+     * Gets the studentID value for this TestInitializationRequest.
+     * 
+     * @return studentID
+     */
+    public java.lang.String getStudentID() {
+        return studentID;
+    }
+
+
+    /**
+     * Sets the studentID value for this TestInitializationRequest.
+     * 
+     * @param studentID
+     */
+    public void setStudentID(java.lang.String studentID) {
+        this.studentID = studentID;
+    }
+
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof TestInitializationRequest)) return false;
@@ -92,9 +136,15 @@ public class TestInitializationRequest  extends com.ctb.cat.web.data.xsd.CATServ
             ((this.abilityScore==null && other.getAbilityScore()==null) || 
              (this.abilityScore!=null &&
               this.abilityScore.equals(other.getAbilityScore()))) &&
+            ((this.configID==null && other.getConfigID()==null) || 
+             (this.configID!=null &&
+              this.configID.equals(other.getConfigID()))) &&
             ((this.retakeIneligibleItems==null && other.getRetakeIneligibleItems()==null) || 
              (this.retakeIneligibleItems!=null &&
-              java.util.Arrays.equals(this.retakeIneligibleItems, other.getRetakeIneligibleItems())));
+              java.util.Arrays.equals(this.retakeIneligibleItems, other.getRetakeIneligibleItems()))) &&
+            ((this.studentID==null && other.getStudentID()==null) || 
+             (this.studentID!=null &&
+              this.studentID.equals(other.getStudentID())));
         __equalsCalc = null;
         return _equals;
     }
@@ -109,6 +159,9 @@ public class TestInitializationRequest  extends com.ctb.cat.web.data.xsd.CATServ
         if (getAbilityScore() != null) {
             _hashCode += getAbilityScore().hashCode();
         }
+        if (getConfigID() != null) {
+            _hashCode += getConfigID().hashCode();
+        }
         if (getRetakeIneligibleItems() != null) {
             for (int i=0;
                  i<java.lang.reflect.Array.getLength(getRetakeIneligibleItems());
@@ -119,6 +172,9 @@ public class TestInitializationRequest  extends com.ctb.cat.web.data.xsd.CATServ
                     _hashCode += obj.hashCode();
                 }
             }
+        }
+        if (getStudentID() != null) {
+            _hashCode += getStudentID().hashCode();
         }
         __hashCodeCalc = false;
         return _hashCode;
@@ -138,12 +194,26 @@ public class TestInitializationRequest  extends com.ctb.cat.web.data.xsd.CATServ
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("configID");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://data.web.cat.ctb.com/xsd", "configID"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("retakeIneligibleItems");
         elemField.setXmlName(new javax.xml.namespace.QName("http://data.web.cat.ctb.com/xsd", "retakeIneligibleItems"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         elemField.setNillable(true);
         elemField.setMaxOccursUnbounded(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("studentID");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://data.web.cat.ctb.com/xsd", "studentID"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
     }
 

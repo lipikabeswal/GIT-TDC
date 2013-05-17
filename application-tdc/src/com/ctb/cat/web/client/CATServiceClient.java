@@ -38,11 +38,19 @@ public class CATServiceClient {
 	
 	private static String nextItemId;
 	
+	private static int itemPosition;
+	
 	private static HashMap<String, CatPriorData> priorMap;
 	
-	public static HashMap itemIdMap = new HashMap();
+	public static HashMap<String, Integer> PEIDToADSIdMap = new HashMap<String, Integer>();
+	public static HashMap<Integer, String> ADSToPEIDIdMap = new HashMap<Integer, String>();
 	
 	public static boolean isStudentStop = false;
+	
+	private static String itemId;
+	private static Integer itemRawScore;
+	private static String itemResponse;
+	private static Integer timeElapsed;
 	
 	private static class CatPriorData {
 		public String subtestId;
@@ -110,9 +118,9 @@ public class CATServiceClient {
 		}
 	}
 	
-	public static String getNextItem() {
-		Integer adsitem = (Integer)itemIdMap.get(nextItemId);
-		return String.valueOf(adsitem.intValue());
+	public static Integer getNextADSItemId() {
+		Integer adsitem = PEIDToADSIdMap.get(nextItemId);
+		return adsitem;
 	}
 	
 	public static void start(String subtestId, String subtestName) throws RemoteException {
@@ -137,10 +145,16 @@ public class CATServiceClient {
 		} else {
 			nextItemId = null;
 		}
+		CATServiceClient.itemPosition = 1;
 	}
 	
-	public static void nextItem(String itemId, String stimulusId, Boolean isFT, Integer itemPosition, Integer rawScore, String itemResponse, Integer timeElapsed) throws RemoteException {
-		ItemResponseRequest request = new ItemResponseRequest(configId, testRosterId + subtestId, studentId, Boolean.FALSE, "", isFT, ineligibleItems, itemId, itemPosition, rawScore, itemResponse, stimulusId, timeElapsed);
+	public static void nextItem(String itemId, Integer itemRawScore, String itemResponse, Integer timeElapsed) throws RemoteException {
+		CATServiceClient.itemId = itemId;
+		CATServiceClient.itemRawScore = itemRawScore;
+		CATServiceClient.itemResponse = itemResponse;
+		CATServiceClient.timeElapsed = timeElapsed;
+		
+		ItemResponseRequest request = new ItemResponseRequest(testRosterId + subtestId, Boolean.FALSE, "", (String) ADSToPEIDIdMap.get(itemId), CATServiceClient.itemPosition, itemRawScore, itemResponse, timeElapsed);
 		System.out.println("CAT Service Request: " + request.toString() + "\n\n");
 		ItemResponseResponse response = service.processItemResponse(request);
 		System.out.println("CAT Service Response: " + response.toString() + "\n\n");
@@ -150,18 +164,20 @@ public class CATServiceClient {
 		} else {
 			nextItemId =  null;
 		}
+		CATServiceClient.itemPosition += 1;
 	}
 	
-	public static void stop(String itemId, String stimulusId, Boolean isFT, Integer itemPosition, Integer rawScore, String itemResponse, Integer timeElapsed, String stopReason) throws RemoteException {
+	public static void stop(String stopReason) throws RemoteException {
 		CATServiceClient.isStudentStop = true;
 		
-		ItemResponseRequest request = new ItemResponseRequest(configId, testRosterId + subtestId, studentId, Boolean.TRUE, stopReason, isFT, ineligibleItems, itemId, itemPosition, rawScore, itemResponse, stimulusId, timeElapsed);
+		ItemResponseRequest request = new ItemResponseRequest(testRosterId + subtestId, Boolean.TRUE, stopReason, (String) ADSToPEIDIdMap.get(itemId), CATServiceClient.itemPosition, itemRawScore, itemResponse, timeElapsed);
 		System.out.println("CAT Service Request: " + request.toString() + "\n\n");
 		ItemResponseResponse response = service.processItemResponse(request);
 		System.out.println("CAT Service Response: " + response.toString() + "\n\n");
 		if("OK".equals(response.getStatusCode())) {
 			processResultData(response.getResearchReportData());
 		}
+		CATServiceClient.itemPosition += 1;
 	}
 	
 	private static void processResultData(ResearchReportData data) {
