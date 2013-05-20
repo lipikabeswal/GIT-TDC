@@ -1037,7 +1037,7 @@ public class ServletUtils {
 				//post.releaseConnection();
 			}
 			if(!method.equals(ServletUtils.DOWNLOAD_ITEM_METHOD) && !method.equals(ServletUtils.DOWNLOAD_CONTENT_METHOD)) {
-				System.out.println(result);
+				//System.out.println(result);
 			}
 			return result;
 		}
@@ -1068,7 +1068,7 @@ public class ServletUtils {
 				post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 				HttpResponse response = client.execute(post, localcontext);
-				System.out.println("requestXml" + xml);
+				//System.out.println("requestXml" + xml);
 				responseCode = response.getStatusLine().getStatusCode();	
 
 	            //write to file
@@ -1077,7 +1077,7 @@ public class ServletUtils {
 					
 					result = response.getEntity().getContent();
 					
-					System.out.println("result size" + result);
+					//System.out.println("result size" + result);
 				
 				}
 			}
@@ -1243,7 +1243,7 @@ public class ServletUtils {
 			org.jdom.Document assessmentDoc = saxBuilder.build( bais );
 			Element inElement = assessmentDoc.getRootElement();
 			blockContentDownload = "True".equalsIgnoreCase(inElement.getAttributeValue("block_content_download")) ? true : false;
-			System.out.println("blockContentDownload:"+blockContentDownload);
+			//System.out.println("blockContentDownload:"+blockContentDownload);
 			List subtests = inElement.getChildren( "sco" );
 			MemoryCache aMemoryCache = MemoryCache.getInstance();
 			HashMap subtestInfoMap = aMemoryCache.getSubtestInfoMap();
@@ -1288,16 +1288,16 @@ public class ServletUtils {
 	
 
 	public static void getConsolidatedRestartData(String loginXml) throws Exception{
-		System.out.println("getConsolidatedRestartData called 1");
+		//System.out.println("getConsolidatedRestartData called 1");
 		final String endPattern = "</tsd>";
 		int start = loginXml.indexOf( "<tsd " );
 		int end = loginXml.indexOf( "</tsd>" );
 		String catItemIdPattern = ".TABECAT";
-		System.out.println("loginXml:"+loginXml);
+		//System.out.println("loginXml:"+loginXml);
 		if ( start >= 0 && end > 5 )
 		{
 			//isRestart = true;
-			System.out.println("getConsolidatedRestartData called 2::"+isRestart);
+			//System.out.println("getConsolidatedRestartData called 2::"+isRestart);
 			String consRestartData = loginXml.substring(start, end + endPattern.length());
 			org.jdom.input.SAXBuilder saxBuilder = new org.jdom.input.SAXBuilder();
 			ByteArrayInputStream bais = new ByteArrayInputStream(consRestartData.getBytes( "UTF-8" ));
@@ -1307,7 +1307,7 @@ public class ServletUtils {
 			Element restartItem = ele.getChild( "ast" );
 			String curItem = restartItem.getAttributeValue("cur_eid");
 			landingItem = curItem;
-			System.out.println("landingItem::"+landingItem);
+			//System.out.println("landingItem::"+landingItem);
 			
 			List restartItems = ele.getChildren( "ist" );
 			restartItemCount = restartItems.size();
@@ -1321,7 +1321,7 @@ public class ServletUtils {
 				String itemIId = item.getAttributeValue( "iid" );
 				boolean isString = false;				
 				String eId = item.getAttributeValue( "eid" );
-				System.out.println("eId::"+eId+"::"+itemIId);
+				//System.out.println("eId::"+eId+"::"+itemIId);
 				//if(eId != landingItem){
 					if(itemIId != null && itemIId.indexOf(catItemIdPattern) != -1){
 						itemIId = itemIId.substring(0, itemIId.length() - catItemIdPattern.length());

@@ -259,7 +259,7 @@ public class ContentFile
 
     		File[] files = encDataFiles.listFiles(filefilter);
     		if (files.length > 0){
-    			System.out.println("Files.length" + files.length);
+    			//System.out.println("Files.length" + files.length);
     			for (int i = 0; i < files.length; i++) {
     				infile = readFromFile(files[i].getAbsolutePath());
 					hash = Crypto.generateHash(infile);

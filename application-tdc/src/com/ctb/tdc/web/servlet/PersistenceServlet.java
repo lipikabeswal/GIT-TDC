@@ -189,7 +189,7 @@ public class PersistenceServlet extends HttpServlet {
 			result = login(xml);
 		} else if (method != null && method.equals(ServletUtils.SAVE_METHOD))
 		{
-			System.out.println(" original save xml:"+xml);			
+			//System.out.println(" original save xml:"+xml);			
 			if(ServletUtils.isCurSubtestAdaptive){
 				String realId = null;
 				String adsItemId = ServletUtils.parseAdsItemId(xml);
@@ -201,7 +201,7 @@ public class PersistenceServlet extends HttpServlet {
 	        			xml = xml.replaceAll(adsItemId, realId);
 	        		}
 	        	}        	
-				System.out.println(" replaced save xml:"+xml);
+				//System.out.println(" replaced save xml:"+xml);
     			Boolean isStopCat = ServletUtils.isScoreSubtest(xml);
     			if (isStopCat) {
     				 abilityScore = CATServiceClient.getAbilityScore();
@@ -211,34 +211,34 @@ public class PersistenceServlet extends HttpServlet {
     				xml = LoadTestUtils.setAttributeValue("score.ability",abilityScore.toString(), xml);
     				xml = LoadTestUtils.setAttributeValue("score.sem",sem.toString(), xml);
     				xml = LoadTestUtils.setAttributeValue("score.objective",objScore, xml);
-    				System.out.println("Student Stop: " + CATServiceClient.isStudentStop);
+    				//System.out.println("Student Stop: " + CATServiceClient.isStudentStop);
     				
     				//setting unscored_items=1 to detect student stop. 
     				//Changed: Need not do this now
     				if (CATServiceClient.isStudentStop){
     					xml = LoadTestUtils.setAttributeValue("number_of_unscored_items","1", xml);
     				}
-	        		System.out.println("XML after Integrating: " + xml);
+	        		//System.out.println("XML after Integrating: " + xml);
 	        	}            
     			Integer itemRawScore = getItemRawScoreFromResponse(response, xml);
-    			System.out.println("itemRawScore:"+itemRawScore);
+    			//System.out.println("itemRawScore:"+itemRawScore);
     			String isCatOver = ServletUtils.parseCatOver(xml);
     			String itemresponse = ServletUtils.parseResponse(xml);
-    			System.out.println("itemResponse: " + itemresponse);
+    			//System.out.println("itemResponse: " + itemresponse);
     			String marked = ServletUtils.parseCatSave(xml);
     			//To check student stop and out of time
     			String isCatStop = ServletUtils.parseCatStop(xml);
 	    		if(isCatOver != null && ("false".equals(isCatOver) || ServletUtils.NONE.equals(isCatOver))) {
 	    			
-	    			System.out.println("CurrentItem :"+ServletUtils.currentItem+":: itemid:"+realId);
+	    			//System.out.println("CurrentItem :"+ServletUtils.currentItem+":: itemid:"+realId);
 	    			
 		        	if(itemRawScore != null) {
 		        		if(ServletUtils.currentItem == realId){
 			        		try {
-			        			System.out.println(xml);
+			        			//System.out.println(xml);
 			        			CATServiceClient.nextItem(realId, itemRawScore, itemresponse, new Integer(5));
 				        	} catch (Exception e) {
-				        		System.out.println("CAT Over!");
+				        		//System.out.println("CAT Over!");
 				    			logger.info("CAT Over!");
 				                ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATServiceClient.getAbilityScore() + ", SEM: " + CATServiceClient.getSEM(), "000"));
 				        	}
@@ -309,10 +309,14 @@ public class PersistenceServlet extends HttpServlet {
 	    	//System.out.println(xml);
 	    	if(xml.indexOf("<rv n=") >= 0) {
 	    		String marked = ServletUtils.parseCatSave(xml);
-	    		System.out.println(" sendcatsave : "+marked);
+	    		//System.out.println(" sendcatsave : "+marked);
 	    		if(marked != null && "1".equals(marked)) {
 		    		String itemresponse = ServletUtils.parseResponse(xml);
-		    		String correctResponse = (String) ContentServlet.itemCorrectMap.get(CATServiceClient.getNextADSItemId());
+		    		//System.out.println("Response given: " + itemresponse);
+		    		String adsItemId = CATServiceClient.getNextADSItemId();
+		    		//System.out.println("ADS item id: " + adsItemId);
+		    		String correctResponse = (String) ContentServlet.itemCorrectMap.get(adsItemId);
+		    		//System.out.println("Correct response: " + correctResponse);
 		    		if(correctResponse.equals(itemresponse)) {
 			    		return new Integer(1);
 			    	} else {
@@ -325,7 +329,8 @@ public class PersistenceServlet extends HttpServlet {
 	    		return null;
 	    	}
     	} catch (Exception e) {
-    		System.out.println("CAT Over!");
+    		e.printStackTrace();
+    		//System.out.println("CAT Over!");
 			logger.info("CAT Over!");
 			ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATServiceClient.getAbilityScore() + ", SEM: " + CATServiceClient.getSEM(), "000"));
     	}
@@ -368,7 +373,9 @@ public class PersistenceServlet extends HttpServlet {
 			//logger.info("***** login request");
 			result = ServletUtils.httpClientSendRequest(
 					ServletUtils.LOGIN_METHOD, xml);
-			//System.out.println("loginresponse xml "+ result);
+			
+			//System.out.println("Original login response xml: "+ result);
+
 			String userHome = System.getProperty("user.home");
 			//Performing the FlashCookie Copy operation to avoid the flash security pop-up
 
@@ -387,7 +394,7 @@ public class PersistenceServlet extends HttpServlet {
 
 			File flashCookieTarget = null;
 			if (osName.indexOf("win") >= 0) {
-				System.out.println("Inside If");
+				//System.out.println("Inside If");
 				boolean successWindows = new File(userHome + windowsPath)
 						.mkdirs();
 				flashCookieTarget = new File(userHome + windowsPath
@@ -429,12 +436,18 @@ public class PersistenceServlet extends HttpServlet {
 			//System.out.println("*******user Home********" + userHome);
 
 			if (ServletUtils.isLoginStatusOK(result)) {
+				// TODO: this is a bit ugly. We have to supress TDC restart behavior for Adaptive, as the engine doesn't handle "replay" yet
+				if(result.indexOf("adaptive=\"true\"") >= 0){
+					result = result.replace("restart_flag=\"true\"", "restart_flag=\"false\"");
+					result = result.replace("cmi.core.entry=\"resume\"", "cmi.core.entry=\"ab-initio\"");
+					result = result.substring(0, result.indexOf("<consolidated_restart_data>")) + "<consolidated_restart_data/><branding tdclogo=\"/resources/logo.swf\"/></login_response></tmssvc_response>";
+					//System.out.println("Modified login response xml: "+ result);
+				} else {
+					ServletUtils.getConsolidatedRestartData(result);
+				}
 				// process encryptionKey to memory cache
 				ServletUtils.processContentKeys(result);
-				
-				//if(ServletUtils.isCurSubtestAdaptive){
-					ServletUtils.getConsolidatedRestartData(result);
-				//}
+
 				//System.out.println("login landing item: "+ServletUtils.landingItem);
 				//moved this call to Content Servlet for calling decryption only for adaptive subtest
 				//ContentFile.decryptDataFiles();  
@@ -453,7 +466,7 @@ public class PersistenceServlet extends HttpServlet {
 			File speexFile = new File(getServletContext().getRealPath("/")
 					+ "//streams//");
 				File[] files = speexFile.listFiles();
-				System.out.println("files length" + files.length);
+				//System.out.println("files length" + files.length);
 				if(files.length>0){
 					for (int i = 0; i < files.length; i++) {
 						files[i].delete();
@@ -647,7 +660,7 @@ public class PersistenceServlet extends HttpServlet {
 	private String writeToAuditFile(String xml) {
 		String result = ServletUtils.ERROR;
 		String errorMessage = null;
-		System.out.println("writeToAuditFile....");
+		//System.out.println("writeToAuditFile....");
 		try {
 			// truncate the file if it is bigger than 200 KB before write model content
 			String fileName = ServletUtils.buildFileName(xml);
@@ -838,11 +851,11 @@ public class PersistenceServlet extends HttpServlet {
 		//System.out.println("Process Login Response"  + loginResponse);
 		MemoryCache memCache = MemoryCache.getInstance();
 		HashMap contentDownloadMap = new HashMap();
-		org.jdom.Document loginReponseDocument = null;
-		System.out.println("processLoginResponse");
+		org.jdom.Document loginResponseDocument = null;
+		//System.out.println("processLoginResponse");
 		SAXBuilder saxBuilder = new SAXBuilder();
 		try {
-			loginReponseDocument = saxBuilder.build(new ByteArrayInputStream(loginResponse.getBytes()));
+			loginResponseDocument = saxBuilder.build(new ByteArrayInputStream(loginResponse.getBytes()));
 		} catch (JDOMException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -850,7 +863,7 @@ public class PersistenceServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		org.jdom.Element element = (org.jdom.Element) loginReponseDocument.getRootElement().getChild("login_response");
+		org.jdom.Element element = (org.jdom.Element) loginResponseDocument.getRootElement().getChild("login_response");
 		element = element.getChild("manifest");
 		if (element != null){
 			List subtestList = element.getChildren("sco");
@@ -863,13 +876,13 @@ public class PersistenceServlet extends HttpServlet {
 
 			memCache.setContentDownloadMap(contentDownloadMap);
 
-			CATServiceClient.processCATLoginElement(element);
+			CATServiceClient.processCATLoginElement(loginResponseDocument);
 		}
 	}
 	
 	private String  getCustomerInformation(String loginResponse){
 		org.jdom.Document loginReponseDocument = null;
-		System.out.println("getCustomerInformation");
+		//System.out.println("getCustomerInformation");
 		SAXBuilder saxBuilder = new SAXBuilder();
 		String result = null;
 		String resultXml = null;		

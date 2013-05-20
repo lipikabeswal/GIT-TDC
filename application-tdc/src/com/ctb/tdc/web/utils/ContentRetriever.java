@@ -53,7 +53,7 @@ public class ContentRetriever  {
 
 	public static String getContent(String filename) throws IOException {
 		String tempPath = ServletUtils.tempPath;
-		System.out.println("Get Content File name" + filename);
+		//System.out.println("Get Content File name" + filename);
 		if (!FileUtil.isFileExists(tempPath + filename)) {
 			HttpUtil.downloadContent(filename);
 		} 

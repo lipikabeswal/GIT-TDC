@@ -244,7 +244,7 @@ public class ContentServlet extends HttpServlet {
 				}
 				
 				if (!validHash && !ServletUtils.blockContentDownload) {
-					System.out.println("not a valid hash and block content download false");
+					//System.out.println("not a valid hash and block content download false");
 					String result = "";
 					AdssvcResponseDocument document = null;
 					ErrorDocument.Error error = null;
@@ -296,7 +296,7 @@ public class ContentServlet extends HttpServlet {
 				byte[] decryptedContent = ContentFile.decryptFile(filePath, hash,
 						key);
 				String subtestXML = new String(decryptedContent);
-				System.out.println("SUBTEST XML************"+subtestXML);
+				//System.out.println("SUBTEST XML************"+subtestXML);
 				subtestDoc = saxBuilder.build(new ByteArrayInputStream(decryptedContent));
 				if (ServletUtils.isCurSubtestAdaptive && (getSubtestCount > ServletUtils.itemSetMap.size())) {
 					org.jdom.Element element = (org.jdom.Element) subtestDoc.getRootElement();
@@ -461,16 +461,16 @@ public class ContentServlet extends HttpServlet {
 						byte[] decryptedContent = ContentFile.decryptFile(filePath, hash, key);
 						String itemXML = new String(decryptedContent);
 						//System.out.println(itemXML);
-						itemCorrectMap.put(itemId, ServletUtils.parseCorrectAnswer(itemXML));
+						
 						itemHashMap.put(itemId, hash);
 						itemKeyMap.put(itemId, key);
 						String iid = ServletUtils.parseItemId(itemXML);
-						iid = iid.substring(0, iid.length() - catItemIdPattern.length());
-						Integer peId = Integer.parseInt(iid);
-						Integer adsItemId = Integer.parseInt( itemId );
+						//iid = iid.substring(0, iid.length() - catItemIdPattern.length());
+						//Integer peId = Integer.parseInt(iid);
+						itemCorrectMap.put(itemId, ServletUtils.parseCorrectAnswer(itemXML));
 						//System.out.println("Populating map: " + peId +  " :: " +adsItemId);
-						CATServiceClient.PEIDToADSIdMap.put(String.valueOf(peId), adsItemId);
-						CATServiceClient.ADSToPEIDIdMap.put(adsItemId, String.valueOf(peId));
+						CATServiceClient.PEIDToADSIdMap.put(iid, itemId);
+						CATServiceClient.ADSToPEIDIdMap.put(itemId, iid);
 					} catch (Exception e) {
 						e.printStackTrace();
 					} 
@@ -557,7 +557,7 @@ public class ContentServlet extends HttpServlet {
 					isRestart = true;
 				}else{*/
 					originalItemId = itemId;
-					itemId = String.valueOf(CATServiceClient.getNextADSItemId().intValue());
+					itemId = CATServiceClient.getNextADSItemId();
 					//System.out.println("get item itemId:"+itemId);
 					itemSubstitutionMap.put(originalItemId, itemId);
 				//}
@@ -575,7 +575,9 @@ public class ContentServlet extends HttpServlet {
 					throw new Exception("No item id in request.");
 				String filePath = ContentFile.getContentFolderPath() + itemId
 				+ ContentFile.ITEM_FILE_EXTENSION;
-
+				
+				logger.info("Decrypting item: " + filePath);
+				
 				byte[] decryptedContent = ContentFile.decryptFile(filePath, hash,
 						key);
 				if (decryptedContent == null)
@@ -617,7 +619,7 @@ public class ContentServlet extends HttpServlet {
 								String ext = mimeType.substring(mimeType
 										.lastIndexOf("/") + 1);
 								
-								System.out.println("Ext: content servlet" + ext);
+								//System.out.println("Ext: content servlet" + ext);
 								String b64data = element.getText();
 								byte[] imageData = Base64.decode(b64data);
 								AssetInfo aAssetInfo = new AssetInfo();
@@ -640,7 +642,7 @@ public class ContentServlet extends HttpServlet {
 				ServletUtils.writeResponse(response, itemxml);
 			} else {
 				if(ServletUtils.isCurSubtestAdaptive){
-					System.out.println("CAT Over!");
+					//System.out.println("CAT Over!");
 					logger.info("CAT Over!");
 					ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATServiceClient.getAbilityScore() + ", SEM: " + CATServiceClient.getSEM(), "000"));
 				}
@@ -687,7 +689,7 @@ public class ContentServlet extends HttpServlet {
 				String sequence_number = getAttributeValue("sequence_number", xml);
 				String next = getAttributeValue("next", xml);
 				String status = ContentRetriever.getContent(downloadFilePart);
-				System.out.println("Download File Parts: " + downloadFilePart + " :: "+ sequence_number +" :: " + next );
+				//System.out.println("Download File Parts: " + downloadFilePart + " :: "+ sequence_number +" :: " + next );
 				if (next.equalsIgnoreCase("NULL")){
 					ContentRetriever.mergeFile(trackerXml,currentSubtestId,currentSubtestHash);
 					ContentRetriever.unCompressFile(currentSubtestId,currentSubtestHash);
@@ -715,7 +717,7 @@ public class ContentServlet extends HttpServlet {
 				//String sequence_number = getAttributeValue("sequence_number", xml);
 				//String next = getAttributeValue("next", xml);
 				String status = ContentRetriever.getContent(downloadFilePart);
-				System.out.println("Download File Parts: " + downloadFilePart + " :: "+ sequence_number +" :: " + next );
+				//System.out.println("Download File Parts: " + downloadFilePart + " :: "+ sequence_number +" :: " + next );
 				if (next == null || "NULL".equalsIgnoreCase(next)){
 					ContentRetriever.mergeFile(trackerXml,currentSubtestId,currentSubtestHash);
 					ContentRetriever.unCompressFile(currentSubtestId,currentSubtestHash);
@@ -926,7 +928,7 @@ public class ContentServlet extends HttpServlet {
 		if(f.exists()) {
 			System.gc();
 			Boolean status = f.delete();
-			System.out.println("Deleting Content servlet file" + filename +" :: " + status );
+			//System.out.println("Deleting Content servlet file" + filename +" :: " + status );
 			
 		}
 		

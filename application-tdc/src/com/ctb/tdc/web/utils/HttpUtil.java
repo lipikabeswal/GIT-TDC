@@ -33,7 +33,7 @@ public class HttpUtil {
 		DefaultHttpClient client = ServletUtils.client;
 		
 		subtestIdMap = memCache.getContentDownloadMap();
-		System.out.println("Subtest Id map" + subtestIdMap.get(subtestId));
+		//System.out.println("Subtest Id map" + subtestIdMap.get(subtestId));
 		currentUrl =(String) subtestIdMap.get(subtestId);
 		HttpGet httpget = new HttpGet(currentUrl +  file+".xml");
 		HttpResponse response = client.execute(httpget);
@@ -49,7 +49,7 @@ public class HttpUtil {
 
 				while ((s = dis.readLine()) != null) {
 					trackerXml.append(s);
-					System.out.println(s);
+					//System.out.println(s);
 				}
 					
 			}finally {
