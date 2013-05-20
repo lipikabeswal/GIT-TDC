@@ -188,10 +188,54 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
 	pool = [NSAutoreleasePool new]; 
     
 	NSString *weburl;
-	//NSString *filepath = @"/Applications/LockDownBrowser.app/Contents/Resources/myfile"; //url of the properties file 
+    
+    // Change for LASLINKS switch mechanism //
+    
+    NSError *err=nil;
+    NSString *form=[NSString stringWithContentsOfFile:@"form.txt" encoding:NSUTF8StringEncoding error:&err];
+    
+    NSArray *temp =[form componentsSeparatedByString:@"\n"];
+    form=[temp objectAtIndex:0];
+    temp =[form componentsSeparatedByString:@":"];
+    
+    
+    NSString *prodType=[temp objectAtIndex:0];
+    form=[temp objectAtIndex:1];
+    if(!err)
+    {
+        if ([prodType isEqualToString:@"LASLINKS"]) {
+            
+           if ([form isEqualToString:@"Form A/Form B/Espanol"]) {
+                weburl = @"http://127.0.0.1:12345/login_swf.html";
+                
+            } else if ([form isEqualToString:@"Form C/Form D/Espanol2"] ) {
+                weburl = @"http://127.0.0.1:12345/login.html";
+            }
+            else{
+                weburl = @"http://127.0.0.1:12345/login.html";
+               }
+        }
+        else{
+            weburl = @"http://127.0.0.1:12345/login.html";
+           
+            
+        }
+        
+        [[NSFileManager defaultManager] removeItemAtPath:@"form.txt" error:nil];
+    }
+    else
+    {
+        weburl = @"http://127.0.0.1:12345/login.html";
+        
+		}
+   
+    // Change for LASLINKS switch mechanism //
+
+    
+	//NSString *filepath = @"/Applications/LockDownBrowser.app/Contents/Resources/myfile"; //url of the properties file
 
 	//weburl = [self getURLfromFile:filepath];
-	weburl = @"http://127.0.0.1:12345/login.html";	
+	
 	
     // Load the default URL
 	NSURL *URL = [NSURL URLWithString:weburl];
