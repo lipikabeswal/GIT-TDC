@@ -25,6 +25,7 @@ import com.ctb.tdc.bootstrap.util.ResourceBundleUtils;
 import com.ctb.tdc.web.utils.ServletUtils;
 import com.ctb.tdc.bootstrap.util.SwfFilenameFilter;
 import com.ctb.tdc.bootstrap.util.TdcConfigEncryption;
+import com.ctb.tdc.bootstrap.processwrapper.Dialog;
 
 /**
  * The class containing the main method used in launching, or bootstrapping, 
@@ -36,7 +37,8 @@ import com.ctb.tdc.bootstrap.util.TdcConfigEncryption;
 public class Main {
 	
 	public static String baseurl = System.getProperty("tdc.baseurl");
-	
+	 static String productType = System.getProperty("product.type");
+	 static String formName = null;
 	/**
 	 * Sleep interval for the polling while loop within the main method.
 	 */
@@ -464,7 +466,12 @@ public class Main {
 		 
 		// The two (loosely) managed processes.
         ConsoleUtils.messageErr("Begin starting processes...");
-		LockdownBrowserWrapper ldb = new LockdownBrowserWrapper(tdcHome, macOS, linux, splashWindow, jettyPort);
+        if(productType.equals("LASLINKS")){
+        Dialog dialog=new Dialog();
+         formName=dialog.showOptionDialog();
+        }
+       	LockdownBrowserWrapper ldb = new LockdownBrowserWrapper(tdcHome, macOS, linux, splashWindow, jettyPort,formName,productType);
+       
 		//Start process killer for Windows only
 		if(!linux && ! macOS) {
 			//Retrieve all the process names at the beginning itself.
