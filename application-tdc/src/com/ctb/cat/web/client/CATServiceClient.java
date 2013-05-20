@@ -256,13 +256,13 @@ public class CATServiceClient {
 		
 	public static int getTestLength() {
 		if(subtestName.indexOf("AM") >= 0) {
-			return 29;
+			return 28;
 		} else if(subtestName.indexOf("LA") >= 0) {
-			return 29;
+			return 25;
 		} else if(subtestName.indexOf("MC") >= 0) {
-			return 24;
+			return 20;
 		} else if(subtestName.indexOf("RD") >= 0) {
-			return 29;
+			return 25;
 		} else {
 			logger.error("!!! No target length found for subtest: " + subtestName);
 			return 0;
