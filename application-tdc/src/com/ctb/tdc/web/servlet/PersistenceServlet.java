@@ -62,6 +62,7 @@ import com.ctb.tdc.web.utils.LoadTestUtils;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ReLoginUtility;
 import com.ctb.tdc.web.utils.ServletUtils;
+import com.ctb.tdc.web.utils.CalculatorDialog;
 
 /** 
  * @author Tai_Truong
@@ -86,7 +87,10 @@ public class PersistenceServlet extends HttpServlet {
 	private static final String unixPath = "//.macromedia//Flash_Player//macromedia.com//support//flashplayer//sys";
 	private static final String PRODUCT_TYPE = System.getProperty("tdc.productType");
 	private static HashMap<String, String> audioResponseHash = new HashMap<String, String>();
-	
+	private static CalculatorDialog calculatorDialog84 = null;
+	private static CalculatorDialog calculatorDialog30 = null;
+	private static String calcType = "TI84";
+	private static native void nativeUpLevelWindow(final String windowName);
 	/**
 	 * Constructor of the object.
 	 */
@@ -193,7 +197,7 @@ public class PersistenceServlet extends HttpServlet {
 	        		if(realId != null) {	        			
 	        			xml = xml.replaceAll(adsItemId, realId);
 	        		}
-	        	}        	
+	        	}
 				System.out.println(" replaced save xml:"+xml);
     			Boolean isStopCat = ServletUtils.isScoreSubtest(xml);
     			if (isStopCat) {
@@ -250,9 +254,9 @@ public class PersistenceServlet extends HttpServlet {
 		        		}
 		        	}	
 	    		}
-	        	result = save(response, xml, request);    
-			}else{
-				result = save(response, xml, request);     
+				result = save(response, xml, request);  
+	        }else{
+				result = save(response, xml, request);   
 			}
         }
 		else if (method != null && method.equals(ServletUtils.FEEDBACK_METHOD))
@@ -267,6 +271,10 @@ public class PersistenceServlet extends HttpServlet {
 				&& method.equals(ServletUtils.CHECK_PROD_TYPE_METHOD)){
 					result = "<"+PRODUCT_TYPE.trim()+" />";
 				}
+		else if (method != null
+				&& method.equals(ServletUtils.CLOSE_OK_CALCULATOR))
+			result = closeOkCalculator();
+			
 		else if (method != null
 				&& method.equals("captureScreenshot")){
 				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -330,6 +338,57 @@ public class PersistenceServlet extends HttpServlet {
 			ServletUtils.writeResponse(response, result, mseq);
 		}
 
+	}
+	public static String closeOkCalculator() {
+		try {
+			logger.info("Inside closeOkCalculator****");
+			if(calculatorDialog84 != null && calculatorDialog30 != null) {
+				showHideOkCalculator("Y");
+			}
+			return ServletUtils.OK;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ServletUtils.ERROR;
+	}
+	
+	public static String showHideOkCalculator(String hidden) {
+		try {
+			logger.info("Inside showHideOkCalculator****");
+			//Schedule a job for the event-dispatching thread:
+	        //creating and showing this application's GUI.
+			if("TI84".equals(calcType)) {
+				if(calculatorDialog84 != null && calculatorDialog84.isCalculatorRunning()) {
+					if("Y".equals(hidden)) {
+						calculatorDialog84.setVisible(false);
+					} else {
+						calculatorDialog84.setVisible(true);
+						String windowName = calculatorDialog84.getTitle();
+						if(osName.indexOf("mac") >= 0) {
+				            logger.info("Calling native window method");
+				            nativeUpLevelWindow(windowName);
+				        }
+					}
+				}
+			} else {
+				if(calculatorDialog30 != null && calculatorDialog30.isCalculatorRunning()) {
+					if("Y".equals(hidden)) {
+						calculatorDialog30.setVisible(false);
+					} else {
+						calculatorDialog30.setVisible(true);
+						String windowName = calculatorDialog30.getTitle();
+						if(osName.indexOf("mac") >= 0) {
+				            logger.info("Calling native window method");
+				            nativeUpLevelWindow(windowName);
+				        }
+					}
+				}
+			}
+	        return ServletUtils.OK;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ServletUtils.ERROR;
 	}
 
 	private Integer getItemRawScoreFromResponse(HttpServletResponse response, String xml) {
