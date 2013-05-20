@@ -2277,7 +2277,7 @@
        </method>
 
 		<method name="massageItemLml"><![CDATA[
-	//console.log("massageItemLml ",dpitem.serialize());
+	console.log("massageItemLml ",dpitem.serialize());
             var itemmodel = dpitem.xpathQuery( 'item_model' );
             var toolbar = itemmodel.getElementsByTagName( 'toolbar' )[0];
             if ( !toolbar ) {
@@ -5502,7 +5502,7 @@ Debug.write("############ loadItem ############");
 	                if(this.findAnswer){
 						canvas.unFreezUI();
 						this.setAttribute('findAnswer',false);
-						console.log('===updateBlueBallForHtmlItem unFreezUI==');
+						//console.log('===updateBlueBallForHtmlItem unFreezUI==');
 					}
 	            }
 	            else {
@@ -5556,7 +5556,7 @@ Debug.write("############ loadItem ############");
 						this.htmlFields[i]['ref'].show();	
 					}
 				}else{
-					console.log("====####showHtmlWidgets NON TE #####===");
+					//console.log("====####showHtmlWidgets NON TE #####===");
 					canvas.unFreezUI();
             	}
 		

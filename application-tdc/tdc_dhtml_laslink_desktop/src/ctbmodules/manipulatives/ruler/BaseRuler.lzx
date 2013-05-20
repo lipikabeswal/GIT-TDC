@@ -63,19 +63,19 @@
                        value="${this.actualX * Math.cos (this.rrotation) -
                                      this.actualY * Math.sin (this.rrotation)}"/>
 			<handler name="onactualX">
-				console.log("this.actualX "+this.actualX);
+				//console.log("this.actualX "+this.actualX);
 			</handler>
 
 			<handler name="onactualY">
-				console.log("this.actualY "+this.actualY);
+				//console.log("this.actualY "+this.actualY);
 			</handler>
 
 			<handler name="on__dragstate_xdoffset">
-				console.log("this.__dragstate_xdoffset "+this.__dragstate_xdoffset);
+				//console.log("this.__dragstate_xdoffset "+this.__dragstate_xdoffset);
 			</handler>
 
 			<handler name="on__dragstate_ydoffset">
-				console.log("this.__dragstate_ydoffset "+this.__dragstate_ydoffset);
+				//console.log("this.__dragstate_ydoffset "+this.__dragstate_ydoffset);
 			</handler>
 
             <handler name="onapply">
