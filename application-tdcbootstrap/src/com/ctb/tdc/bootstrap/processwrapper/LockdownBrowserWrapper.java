@@ -1,12 +1,16 @@
 package com.ctb.tdc.bootstrap.processwrapper;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -64,7 +68,7 @@ public class LockdownBrowserWrapper extends Thread {
 	 * @param tdcHome  The location of the Test Delivery Client's home folder containing the home folder of Jetty as well as configuration files and additional java libraries. 
 	 * @throws ProcessWrapperException If problems within initialization such as determing the default URL or if the port is already in use.
 	 */
-	public LockdownBrowserWrapper(String tdcHome, boolean macOS, boolean linux, SplashWindow splashWindow, int jettyPort) {
+	public LockdownBrowserWrapper(String tdcHome, boolean macOS, boolean linux, SplashWindow splashWindow, int jettyPort, String formName, String productType) {
 		super();
 		
 		this.tdcHome = tdcHome;
@@ -72,7 +76,10 @@ public class LockdownBrowserWrapper extends Thread {
             
 		if ( macOS ) {
 			LockdownBrowserWrapper.ismac = true;
-			
+			if(productType.equals("LASLINKS")){
+//				consoleOut("Laslinks Product****");
+				writeForm("LASLINKS:"+formName);
+			}
 			File ldbHomeDir = new File(this.tdcHome + "/lockdownbrowser/mac");
 			this.ldbHome = ldbHomeDir.getAbsolutePath();
 			this.ldbCommand = new String[1];
@@ -81,27 +88,107 @@ public class LockdownBrowserWrapper extends Thread {
             this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
             
 		} else if ( linux ) {
-			LockdownBrowserWrapper.islinux = true;
-			
-			File ldbHomeDir = new File(this.tdcHome + "/lockdownbrowser/linux");
-			this.ldbHome = ldbHomeDir.getAbsolutePath();
-			this.ldbCommand = new String[2];
-			
-            this.ldbCommand[0] = this.ldbHome + "/OASTDC/bin/OASTDC";          
-            this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
-            this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";
+					/*LockdownBrowserWrapper.islinux = true;
+					
+					File ldbHomeDir = new File(this.tdcHome + "/lockdownbrowser/linux");
+					this.ldbHome = ldbHomeDir.getAbsolutePath();
+					this.ldbCommand = new String[2];
+					
+					this.ldbCommand[0] = this.ldbHome + "/OASTDC/bin/OASTDC";          
+					this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
+					this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";*/
+					LockdownBrowserWrapper.islinux = true;
+					
+					File ldbHomeDir = new File(this.tdcHome + "/lockdownbrowser/linux");
+					this.ldbHome = ldbHomeDir.getAbsolutePath();
+					String loginHtml = null;
+					this.ldbCommand = new String[2];
+					this.ldbCommand[0] = this.ldbHome + "/OASTDC/bin/OASTDC";          
+					this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
+					if(productType.equals("LASLINKS")){
+						//consoleOut("Inside Laslinks:::");
+						
+						if(formName.equals("Form A/Form B/Espanol")){
+							//consoleOut("Inside Laslinks:::");
+							//loginHtml="/login_swf.html";
+							this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login_swf.html";
+							
+						}else if(formName.equals("Form C/Form D/Espanol2")){
+							//loginHtml="/login.html";
+							this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";
+						}
+						//this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + loginHtml;
+					}else{
+						this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";
+					}
 		} else {
 			
-			File ldbHomeDir = new File(tdcHome + "/lockdownbrowser/pc");
+			/*File ldbHomeDir = new File(tdcHome + "/lockdownbrowser/pc");
 			this.ldbHome = ldbHomeDir.getAbsolutePath();
 			
 			this.ldbCommand = new String[2];
 			this.ldbCommand[0] = this.ldbHome + "/LockdownBrowser.exe";
-			this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";
+			this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";*/
+			
+			File ldbHomeDir = new File(tdcHome + "/lockdownbrowser/pc");
+			this.ldbHome = ldbHomeDir.getAbsolutePath();
+			String loginHtml = null;
+			if(productType.equals("LASLINKS")){
+				//consoleOut("Product Laslinks");
+				if(formName.equals("Form A/Form B/Espanol")){
+					//consoleOut("Inside Form A/Form B/Espanol");
+					this.ldbCommand = new String[2];
+					this.ldbCommand[0] = this.ldbHome + "/LockdownBrowser.exe";
+					loginHtml="/login_swf.html";
+					this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + loginHtml;
+					
+				}else if(formName.equals("Form C/Form D/Espanol2")){
+//					consoleOut("Inside Form C/Form D/Espanol2");
+					this.ldbCommand = new String[3];
+					this.ldbCommand[0] ="java";
+					this.ldbCommand[1] = "-jar";
+					this.ldbCommand[2] = "LockdownBrowser.jar";
+					
+				}
+				
+			}else{
+//				consoleOut("Not Laslinks");
+				//this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";
+				this.ldbCommand = new String[3];
+				this.ldbCommand[0] ="java";
+				this.ldbCommand[1] = "-jar";
+				this.ldbCommand[2] = "LockdownBrowser.jar";
+			}
+			
+			
+			
 		}
 		
 	}
 
+	private void writeForm(String output) {
+		try {
+			
+		    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(this.tdcHome+"/lockdownbrowser/mac/form.txt", true)));
+		    out.println(output);
+		    out.close();
+		} catch (IOException e) {
+		    //oh noes!
+		}	
+	}
+	/*private static void consoleOut(String output) {
+		try {
+			
+		    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("console.txt", true)));
+		    out.println(output);
+		    out.close();
+		} catch (IOException e) {
+		    //oh noes!
+		}	
+	}*/
+	
+	
+	
 	/**
 	 * Returns whether the LockdownBrowsesr process is currently available.  The 
 	 * internal flag is set right after system execution of the executable and 
@@ -616,9 +703,9 @@ public class LockdownBrowserWrapper extends Thread {
         		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
         	} else {
         		try {
-	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+        			Runtime.getRuntime().exec("taskkill /f /fi \"WINDOWTITLE eq Lockdown Browser\"");
 	        		Thread.sleep(250);
-	        		Runtime.getRuntime().exec("taskkill /IM \"LockdownBrowser.exe\"");
+	        		Runtime.getRuntime().exec("taskkill /f /fi \"WINDOWTITLE eq Lockdown Browser\"");
         		} catch (Exception e) {
         			e.printStackTrace();
         		}
