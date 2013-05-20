@@ -131,26 +131,21 @@
             
             dntoppanel.setAttribute('childNodes',panelarr);
 
-            //this.convertNodes(panelarr, 780, true);
+			//change all subnodes according to new layout requirements
+            this.convertNodes(panelarr, 780, true);
             
-            convert = checkingIfTE(panelarr,convert);
-
-            //change all subnodes according to new layout requirements
-			if(convert == true){
-            	this.convertNodes(panelarr, 780, true);
-			}
-
             this.datapath.p.setAttribute('childNodes',[dntoppanel]);
         ]]></method>
         
-        <method name="checkingIfTE" args="panelarr,convert"><![CDATA[
+        <!--<method name="checkingIfTE" args="panelarr,convert"><![CDATA[
 			var dn;
 			for (var i = 0; i < panelarr.length; i++) {
 				
                 dn = panelarr[i];
+				console.log("checkingIfTE "+dn);
                 if (!(dn instanceof lz.DataElement)) break;
 
-                if (dn.nodeName == gCompTypes.WIDGET_HTML || dn.nodeName == gCompTypes.WIDGET_ASSET){
+                if (dn.nodeName == gCompTypes.WIDGET_HTML || dn.nodeName == gCompTypes.WIDGET_ASSET || dn.nodeName == gCompTypes.WIDGET_TABLE){
 					convert = false;
 					//dn.attributes.height = "";
 					break;
@@ -158,7 +153,8 @@
 					var cn = dn.childNodes;
                 	if(cn != null){
 						for (var j = 0; j < cn.length; j++) {
-							if (cn[j].nodeName == gCompTypes.WIDGET_HTML || cn[j].nodeName == gCompTypes.WIDGET_ASSET){
+							if (cn[j].nodeName == gCompTypes.WIDGET_HTML || cn[j].nodeName == gCompTypes.WIDGET_ASSET || cn[j].nodeName == gCompTypes.WIDGET_TABLE){
+								console.log("checkingIfTE else "+cn[j]);
 								convert = false;
 								//cn[0].attributes.height = "";
 								break;
@@ -169,7 +165,7 @@
 			}
 			return convert;
 		]]>
-		</method>
+		</method>-->
 
 
         <!-- Make into a double column layout -->
@@ -284,8 +280,8 @@
 				if (dn.nodeName == gCompTypes.WIDGET_TABLE ||
                     dn.nodeName == gCompTypes.WIDGET_IMAGE ||
                     dn.nodeName == gCompTypes.WIDGET_MULTI_LINE_ANSWER ||
-                    dn.nodeName == gCompTypes.WIDGET_SINGLE_LINE_ANSWER ||
-                    dn.nodeName == gCompTypes.WIDGET_ASSET) {
+                    dn.nodeName == gCompTypes.WIDGET_SINGLE_LINE_ANSWER||
+					dn.nodeName == gCompTypes.WIDGET_ASSET) {
                     continue;
                 }
                 

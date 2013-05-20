@@ -21,8 +21,6 @@
 	
 		<handler name="ondata" args="data"><![CDATA[
 			if($dhtml) {
-				//console.log("HH");
-				//console.log(data);
 			}
 			if($dhtml){
 				this.asset.setAttribute('height',Number(data.getAttr('height')));
@@ -50,7 +48,7 @@
 			super.doneLoading();
 		</method>
 	
-		<view name="asset" width="${parent.parent.width - 10}" height="${parent.parent.height - 10}" >
+		<view name="asset">
 			<html name="aw" id="assetwiget" x="5" y="5" width="400" height="100" scrollbars="false" mouseevents="true" focusable="true" >
  	    		  	
 			</html>
