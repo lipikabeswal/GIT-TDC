@@ -188,10 +188,65 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
 	pool = [NSAutoreleasePool new]; 
     
 	NSString *weburl;
-	//NSString *filepath = @"/Applications/LockDownBrowser.app/Contents/Resources/myfile"; //url of the properties file 
+    
+    // Changes for switch mechanism LASLINKS //
+    
+    NSError *err=nil;
+    NSString *form=[NSString stringWithContentsOfFile:@"form.txt" encoding:NSUTF8StringEncoding error:&err];
+    
+    NSArray *temp =[form componentsSeparatedByString:@"\n"];
+    form=[temp objectAtIndex:0];
+    temp =[form componentsSeparatedByString:@":"];
+    
+    
+    NSString *prodType=[temp objectAtIndex:0];
+    form=[temp objectAtIndex:1];
+    [form writeToFile:@"/Applications/Online Assessment/newTest1.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    [form writeToFile:@"LDBConsole.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    NSString *toFile;
+    if(!err)
+    {
+        if ([prodType isEqualToString:@"LASLINKS"]) {
+            
+            [@"Prod is LASLINKS "writeToFile:@"LDBConsole.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            if ([form isEqualToString:@"Form A/Form B/Espanol"]) {
+                weburl = @"http://127.0.0.1:12345/login_swf.html";
+                [@"form isEqualToString:Form A/Form B/Espanol"writeToFile:@"LDBConsole.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            } else if ([form isEqualToString:@"Form C/Form D/Espanol2"] ) {
+                weburl = @"http://127.0.0.1:12345/login.html";
+                
+                [@"form isEqualToString:Form C/Form D/Espanol2"writeToFile:@"LDBConsole.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            }
+            else{
+                weburl = @"http://127.0.0.1:12345/login.html";
+                toFile=[@"form not recognised :" stringByAppendingString:form];
+                [toFile writeToFile:@"LDBConsole.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            }
+        }
+        else{
+            weburl = @"http://127.0.0.1:12345/login.html";
+            //weburl = @"http://www.io9.com";
+            [@"Prod is not LASLINKS "writeToFile:@"LDBConsole.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            
+        }
+        
+        [[NSFileManager defaultManager] removeItemAtPath:@"form.txt" error:nil];
+    }
+    else
+    {
+        weburl = @"http://127.0.0.1:12345/login.html";
+        [@"File not found "writeToFile:@"LDBConsole.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    }
+    // [weburl writeToFile:@"test.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    [prodType writeToFile:@"/Applications/Online Assessment/newTest.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    [form writeToFile:@"/Applications/Online Assessment/newTest2.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    [weburl writeToFile:@"/Applications/Online Assessment/newTest1.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    
+    //  Changes for switch mechanism LASLINKS //
+    
+	//NSString *filepath = @"/Applications/LockDownBrowser.app/Contents/Resources/myfile"; //url of the properties file
 
 	//weburl = [self getURLfromFile:filepath];
-	weburl = @"http://127.0.0.1:12345/login.html";	
 	
     // Load the default URL
 	NSURL *URL = [NSURL URLWithString:weburl];
