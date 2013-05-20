@@ -2465,8 +2465,6 @@
 
 		<!-- swapping current item -->
 		<method name="changeCurrItemData"><![CDATA[
-			var s = "restrictNavigation('lock')";
-			lz.Browser.loadJS(s);
             var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/item_model/@eid' )
             );
@@ -2563,7 +2561,7 @@
             var dncurritem = dpstudentdata.xpathQuery ('current_item');
             dncurritem.appendChild (dnnewitem);
             dncurritem.setAttr( 'itempos', getOffsetFromEid( newitem ) + 1 );
-
+			restrictNavigation('lock');
             this.initManipulativeData ();
 			if (this.adaptive == false){
 			getSharedStimulusHighlights();
