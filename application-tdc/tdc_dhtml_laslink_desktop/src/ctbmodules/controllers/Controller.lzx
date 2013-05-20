@@ -2277,7 +2277,7 @@
        </method>
 
 		<method name="massageItemLml"><![CDATA[
-	console.log("massageItemLml ",dpitem.serialize());
+	//console.log("massageItemLml ",dpitem.serialize());
             var itemmodel = dpitem.xpathQuery( 'item_model' );
             var toolbar = itemmodel.getElementsByTagName( 'toolbar' )[0];
             if ( !toolbar ) {
@@ -2465,6 +2465,8 @@
 
 		<!-- swapping current item -->
 		<method name="changeCurrItemData"><![CDATA[
+			var s = "restrictNavigation('lock')";
+			lz.Browser.loadJS(s);
             var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/item_model/@eid' )
             );

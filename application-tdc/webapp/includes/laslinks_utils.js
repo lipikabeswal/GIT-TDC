@@ -54,7 +54,7 @@ function iframeLoaded(id, iframe){
 			if(gController.lasAssetArray.length == assetCount){
 				setTimeout("startAutoplay()",500);
 			}
-		restrictNavigation('lock');
+		//restrictNavigation('lock');
 		}
 		
 	}

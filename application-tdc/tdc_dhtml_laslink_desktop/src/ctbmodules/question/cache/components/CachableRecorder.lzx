@@ -101,6 +101,9 @@
             if(style && style.bgcolor != null){
             	this.parent.setAttribute ('bgcolor', style.bgcolor);
             }
+            else {
+            	this.parent.setAttribute ('bgcolor', gController.questionBgColor);
+            }
 			Debug.write("style.data..." , data);
 			
 			
