@@ -259,6 +259,9 @@ public class ServletUtils {
 		return itemResponse;
 	}
 
+	public static String parseDur(String xml) {
+		return parseTag("dur=", xml);
+	}
 	
 	public static String parseMarked(String xml) {
 		return parseTag("mrk=", xml);

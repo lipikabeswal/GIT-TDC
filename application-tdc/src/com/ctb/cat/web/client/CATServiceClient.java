@@ -39,7 +39,7 @@ public class CATServiceClient {
 	private static Double rawScore;
 	private static Double scaleScore;
 	private static Double sem;
-	private static String subscoresString;
+	private static String subscoresString = "";
 	
 	private static String nextItemId;
 	
@@ -93,7 +93,7 @@ public class CATServiceClient {
 		org.jdom.Element loginElement = loginResponseDocument.getRootElement().getChild("login_response");
 		CATServiceClient.priorMap = new HashMap<String, CatPriorData>(10);
 		if(loginElement != null) {
-			CATServiceClient.testRosterId = loginElement.getAttributeValue("lsid");
+			CATServiceClient.testRosterId = loginElement.getAttributeValue("lsid") + ":" + loginElement.getAttributeValue("restart_number");
 			CATServiceClient.studentId = loginElement.getChild("testing_session_data").getChild("cmi.core").getAttributeValue("student_id");
 			org.jdom.Element catElement = loginElement.getChild("cat_prior_data");
 			if(catElement != null) {
@@ -147,14 +147,18 @@ public class CATServiceClient {
 		CatPriorData data = priorMap.get(subtestId);
 		if(data != null) {
 			CATServiceClient.ineligibleItems = data.priorItems;
-			CATServiceClient.priorAbility = data.ability;
+			if(data.ability != null) {
+				CATServiceClient.priorAbility = data.ability;
+			} else {
+				CATServiceClient.priorAbility = new Double(getDefaultAbility());
+			}
 		} else {
 			CATServiceClient.ineligibleItems = new String[0];
-			CATServiceClient.priorAbility = new Double(500);
+			CATServiceClient.priorAbility = new Double(getDefaultAbility());
 		}
 
-		TestInitializationRequest request = new TestInitializationRequest(configId, testRosterId + subtestId, studentId, priorAbility, ineligibleItems);
-		logger.debug("CATServiceClient: start: service init request params: " + configId + ", " + testRosterId + subtestId + ", " + studentId + ", " + priorAbility + ", " + ineligibleItems);
+		TestInitializationRequest request = new TestInitializationRequest(configId, testRosterId + ":" + subtestId, studentId, priorAbility, ineligibleItems);
+		logger.debug("CATServiceClient: start: service init request params: " + configId + ", " + testRosterId + ":" + subtestId + ", " + studentId + ", " + priorAbility + ", " + ineligibleItems);
 		TestInitializationResponse response = service.initializeTest(request);
 		logger.debug("CATServiceClient: start: service init response: status code: " + response.getStatusCode());
 		logger.debug("CATServiceClient: start: service init response: status message: " + response.getStatusMessage());
@@ -162,7 +166,7 @@ public class CATServiceClient {
 		logger.debug("CATServiceClient: start: service init response: starting item id: " + response.getNextItemID());
 		if("OK".equals(response.getStatusCode())) {
 			CATServiceClient.nextItemId = response.getNextItemID();
-			logger.debug("CATServiceClient: start: setting starting item: starting item id: " + CATServiceClient.nextItemId);
+			logger.debug("CATServiceClient: start: setting starting item id: " + CATServiceClient.nextItemId);
 		} else {
 			CATServiceClient.nextItemId = null;
 			logger.warn("CATServiceClient: start: no starting item id obtained!!!");
@@ -173,16 +177,14 @@ public class CATServiceClient {
 	
 	public static void nextItem(String itemId, Integer itemRawScore, String itemResponse, Integer timeElapsed) throws RemoteException {
 		logger.debug("CATServiceClient: nextItem: start");
-		// TODO: I think item position is handled incorrectly by the CAT service, should be incremented later
-		CATServiceClient.itemPosition += 1;
 		
 		CATServiceClient.itemId = itemId;
 		CATServiceClient.itemRawScore = itemRawScore;
 		CATServiceClient.itemResponse = itemResponse;
 		CATServiceClient.timeElapsed = timeElapsed;
 		
-		ItemResponseRequest request = new ItemResponseRequest(testRosterId + subtestId, Boolean.FALSE, "", (String) ADSToPEIDIdMap.get(itemId), CATServiceClient.itemPosition, itemRawScore, itemResponse, timeElapsed);
-		logger.debug("CATServiceClient: nextItem: service nextItem request params: " + testRosterId + subtestId + ", FALSE, , " + ADSToPEIDIdMap.get(itemId) + ", " + CATServiceClient.itemPosition + ", " + itemRawScore + ", " + itemResponse + ", " + timeElapsed);
+		ItemResponseRequest request = new ItemResponseRequest(testRosterId + ":" + subtestId, Boolean.FALSE, "", (String) ADSToPEIDIdMap.get(itemId), CATServiceClient.itemPosition, itemRawScore, itemResponse, timeElapsed);
+		logger.debug("CATServiceClient: nextItem: service nextItem request params: " + testRosterId + ":" + subtestId + ", FALSE, , " + ADSToPEIDIdMap.get(itemId) + ", " + CATServiceClient.itemPosition + ", " + itemRawScore + ", " + itemResponse + ", " + timeElapsed);
 		ItemResponseResponse response = service.processItemResponse(request);
 		logger.debug("CATServiceClient: nextItem: service nextItem response: status code: " + response.getStatusCode());
 		logger.debug("CATServiceClient: nextItem: service nextItem response: status message: " + response.getStatusMessage());
@@ -191,22 +193,25 @@ public class CATServiceClient {
 		logger.debug("CATServiceClient: nextItem: service nextItem response: next item position: " + response.getNextItemPosition());
 		if("OK".equals(response.getStatusCode())) {
 			processResultData(response.getResearchReportData());
-			nextItemId = response.getNextItemID();
-			logger.debug("CATServiceClient: nextItem: setting starting item: starting item id: " + CATServiceClient.nextItemId);
+			if(response.getNextItemID() != null) {
+				nextItemId = response.getNextItemID();
+				logger.debug("CATServiceClient: nextItem: setting next item id: " + CATServiceClient.nextItemId);
+			} else {
+				logger.debug("CATServiceClient: nextItem: no next item id obtained");
+			}
 		} else {
 			nextItemId =  null;
 			logger.warn("CATServiceClient: nextItem: no next item id obtained!!!");
 		}	
+		CATServiceClient.itemPosition += 1;
 		logger.debug("CATServiceClient: nextItem: end\n\n");
 	}
 	
 	public static void stop(String stopReason) throws RemoteException {
 		logger.debug("CATServiceClient: stop: start");
-		// TODO: I think item position is handled incorrectly by the CAT service, should be incremented later
-		CATServiceClient.itemPosition += 1;
 		CATServiceClient.isStudentStop = true;
-		ItemResponseRequest request = new ItemResponseRequest(testRosterId + subtestId, Boolean.TRUE, stopReason, (String) ADSToPEIDIdMap.get(itemId), CATServiceClient.itemPosition, itemRawScore, itemResponse, timeElapsed);
-		logger.debug("CATServiceClient: stop: service nextItem request params: " + testRosterId + subtestId + ", TRUE," + stopReason + ", " + ADSToPEIDIdMap.get(itemId) + ", " + CATServiceClient.itemPosition + ", " + itemRawScore + ", " + itemResponse + ", " + timeElapsed);
+		ItemResponseRequest request = new ItemResponseRequest(testRosterId + ":" + subtestId, Boolean.TRUE, stopReason, (String) ADSToPEIDIdMap.get(itemId), CATServiceClient.itemPosition, itemRawScore, itemResponse, timeElapsed);
+		logger.debug("CATServiceClient: stop: service nextItem request params: " + testRosterId + ":" + subtestId + ", TRUE," + stopReason + ", " + ADSToPEIDIdMap.get(itemId) + ", " + CATServiceClient.itemPosition + ", " + itemRawScore + ", " + itemResponse + ", " + timeElapsed);
 		ItemResponseResponse response = service.processItemResponse(request);
 		logger.debug("CATServiceClient: stop: service nextItem response: status code: " + response.getStatusCode());
 		logger.debug("CATServiceClient: stop: service nextItem response: status message: " + response.getStatusMessage());
@@ -265,6 +270,21 @@ public class CATServiceClient {
 			return 25;
 		} else {
 			logger.error("!!! No target length found for subtest: " + subtestName);
+			return 0;
+		}
+	}
+	
+	public static int getDefaultAbility() {
+		if(subtestName.indexOf("AM") >= 0) {
+			return 502;
+		} else if(subtestName.indexOf("LA") >= 0) {
+			return 524;
+		} else if(subtestName.indexOf("MC") >= 0) {
+			return 506;
+		} else if(subtestName.indexOf("RD") >= 0) {
+			return 515;
+		} else {
+			logger.error("!!! No default scale score found for subtest: " + subtestName);
 			return 0;
 		}
 	}

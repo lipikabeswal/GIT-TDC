@@ -235,8 +235,9 @@ public class PersistenceServlet extends HttpServlet {
 		        	if(itemRawScore != null) {
 		        		if(ServletUtils.currentItem == realId){
 			        		try {
-			        			//System.out.println(xml);
-			        			CATServiceClient.nextItem(realId, itemRawScore, itemresponse, new Integer(5));
+			        			//System.out.println("Item response xml: " + xml);
+			        			String dur = ServletUtils.parseDur(xml);
+			        			CATServiceClient.nextItem(realId, itemRawScore, itemresponse, Integer.parseInt(dur));
 				        	} catch (Exception e) {
 				        		//System.out.println("CAT Over!");
 				    			logger.info("CAT Over!");
@@ -440,8 +441,10 @@ public class PersistenceServlet extends HttpServlet {
 				if(result.indexOf("adaptive=\"true\"") >= 0){
 					result = result.replace("restart_flag=\"true\"", "restart_flag=\"false\"");
 					result = result.replace("cmi.core.entry=\"resume\"", "cmi.core.entry=\"ab-initio\"");
-					result = result.substring(0, result.indexOf("<consolidated_restart_data>")) + "<consolidated_restart_data/><branding tdclogo=\"/resources/logo.swf\"/></login_response></tmssvc_response>";
-					//System.out.println("Modified login response xml: "+ result);
+					if(result.indexOf("<consolidated_restart_data>") >= 0) {
+						result = result.substring(0, result.indexOf("<consolidated_restart_data>")) + "<consolidated_restart_data/><branding tdclogo=\"/resources/logo.swf\"/></login_response></tmssvc_response>";
+					}
+					System.out.println("Modified login response xml: "+ result);
 				} else {
 					ServletUtils.getConsolidatedRestartData(result);
 				}
