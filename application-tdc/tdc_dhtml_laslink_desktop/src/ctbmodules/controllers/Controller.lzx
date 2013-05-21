@@ -583,7 +583,6 @@
 					}
 				}
 			} else if(this.crFields.length > 0){  // For CR Items
-				//console.log("this.crFields.length - ",this.crFields.length);
 				if(this.canNotAnswer) {
 					disableResponseArea();
 				} else {
@@ -593,8 +592,6 @@
 		]]></handler>
 
 	<method name="disableResponseArea"><![CDATA[
-		//console.log(this.crFields);
-		//console.log(this.crFields[0]['ref'].comptype);
 		//var id = isAnswerToBeDisabled();
 		//if(id != null){
 			for (var i = 0; i < this.crFields.length; i++){
@@ -629,7 +626,6 @@
 	</method>
 		
 		<handler name="onplayIfAnswered"><![CDATA[
-			//console.log("iframeid==Controller",iframeid);
 			if(this.iframeid != "NONE") {
 				var s="checkValIfAnswered('"+iframeid+"')";
 				lz.Browser.loadJS(s);
@@ -648,7 +644,6 @@
 		</handler>
 		<handler name="onisplaying" ><![CDATA[
 		if(gController.isplaying == true ){
-		//console.log("inside if");
 			if(this.recorder != null ) {
 				if(this.recorder.recordStarted == true){
 					this.recorder.stopblinker('stop');
@@ -660,7 +655,6 @@
 			}
 	}	
 		else{
-		  //console.log("inside else");
 			if(this.recorder != null) {
 				if(this.recordingStopped == false){
 					this.recorder.recordButton.setAttribute("enabled", true);
@@ -1926,7 +1920,6 @@
 		-->
 		<method name="initStudentData"><![CDATA[
 			//Debug.write("initStudentData",gController.audible == 'true',gController.audible == true);
-			//console.log("initStudentData" ,typeof(gController.audible) ,gController.audible,gMusicPlayer.alreadyCalled);
 			if(gController.audible && !gMusicPlayer.alreadyCalled){
 				loadMusicData();
 			}
@@ -2277,7 +2270,6 @@
        </method>
 
 		<method name="massageItemLml"><![CDATA[
-	//console.log("massageItemLml ",dpitem.serialize());
             var itemmodel = dpitem.xpathQuery( 'item_model' );
             var toolbar = itemmodel.getElementsByTagName( 'toolbar' )[0];
             if ( !toolbar ) {
@@ -2914,8 +2906,6 @@
  		 ]]></method>
 
 		<method name="toggleItemSelState" args="selid"><![CDATA[
-			//console.log("gController.canNotAnswer -> ",this.canNotAnswer);
-			//console.log("toggleItemSelState ")
 			if(!this.canNotAnswer) {
 	            var dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@identifier='"+selid+"']");
 	            var actualSelId = selid;
@@ -3588,7 +3578,6 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="loadMusicData"><![CDATA[
-			//console.log("loadMusicData" ,gController.audible,gMusicPlayer.alreadyCalled);
 			dsMusic.setQueryParam(gRequest.METHOD_PARAM, gRequest.GET_MUSIC_DATA);
 			dsMusic.setQueryParam("musicId", gController.musicId);
 			dsMusic.setAttribute("reqtype","POST"); 
@@ -5502,7 +5491,6 @@ Debug.write("############ loadItem ############");
 	                if(this.findAnswer){
 						canvas.unFreezUI();
 						this.setAttribute('findAnswer',false);
-						//console.log('===updateBlueBallForHtmlItem unFreezUI==');
 					}
 	            }
 	            else {
@@ -5556,7 +5544,6 @@ Debug.write("############ loadItem ############");
 						this.htmlFields[i]['ref'].show();	
 					}
 				}else{
-					//console.log("====####showHtmlWidgets NON TE #####===");
 					canvas.unFreezUI();
             	}
 		

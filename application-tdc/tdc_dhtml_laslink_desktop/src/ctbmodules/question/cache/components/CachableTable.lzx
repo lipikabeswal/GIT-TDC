@@ -384,9 +384,7 @@
                       fontstyle="bold">
                     <attribute name="titlewidth" value="0"/>
 					<handler name="ontext"><![CDATA[
-						//console.log("fontsize****",canvas.basefontsize);
 						var size = (canvas.basefontsize+2);
-						//console.log("size****"+size);
 						var elm = this.getDisplayObject();
 						elm.setAttribute('style','text-align: center; font-family: CTB; font-weight: bold; font-size : '+size+';');
 					]]></handler>

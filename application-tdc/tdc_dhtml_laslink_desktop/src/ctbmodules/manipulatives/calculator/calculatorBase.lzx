@@ -61,10 +61,8 @@
                    drag_max_x="${parent.width - 100}"
                    drag_max_y="${parent.height - 100}">
         	<handler name="onapply">
-        		//console.log("onapply");
         	</handler>   
         	<handler name="onremove">
-        		//console.log("onremove");
         	</handler>        
         </dragstate>
 

@@ -73,7 +73,6 @@
                 this.livesel.setAttribute ('height', 0);
                 this.livesel.setAttribute ('visible', true);
                 
-                //console.log("onmousedown  "+this.livesel.resizer.x);
 
                 this.livesel.resizer.apply();
             }
@@ -94,7 +93,6 @@
                              height: this.getMouse ('y') - this.livesel.y,
                              passageId: this.passageId,
                              stereotype: this.stereotype};
-				//console.log(" onmouseup "+ attrs.width+" height "+attrs.height);
 				if(attrs.width > 0 && attrs.height > 0){
 	                var dnarea = 
 	                dnstate.appendChild (new lz.DataElement ('highlightarea', 
@@ -120,7 +118,6 @@
 
 		<method name="deleteHighlights" args="mousex, mousey"><![CDATA[
 			var highlightareas = this.hlstate.xpathQuery("highlightarea[@stereotype='"+this.stereotype+"'][@passageId='"+this.passageId+"']");
-            //console.log("highlightareas "+highlightareas+" mousex "+mousex+" mousey "+mousey);
             if ( highlightareas instanceof LzDataNode ) {
 				hp.setPointer(highlightareas);
                 hp.deleteNode();
@@ -243,13 +240,6 @@
 
                 <!-- render the square -->
                 <method name="_draw"><![CDATA[
-                	//console.log("onwidth  "+this.immediateparent.getMouse('x')+" this.__resize_xroffset  "+this.__resize_xroffset);
-                	//console.log("width of highlighter  "+this.width);
-                	//console.log("maxwidth of highlighter  "+this.maxwidth+" minwidth "+this.minwidth);
-                	//console.log("difference *****  "+(Number(this.immediateparent.getMouse('x')) - Number(this.__resize_xroffset)));
-
-					//console.log("max width  "+Math.max((Number(this.immediateparent.getMouse('x'))- Number(this.__resize_xroffset)), this.minwidth));
-                    
                     if(this.width > 0){
 	                    this.clear ();
 	                    this.beginPath();

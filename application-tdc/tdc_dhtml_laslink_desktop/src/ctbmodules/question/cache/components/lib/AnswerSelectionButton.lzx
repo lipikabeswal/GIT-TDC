@@ -55,7 +55,6 @@
         </handler>
 
         <handler name="onmouseover"><![CDATA[
-        	//console.log("onmouseover - gController.canNotAnswer - ",gController.canNotAnswer);
         	//if(!gController.canNotAnswer) { // Option Eliminator also should not work
 	            setCursorState();
 	            if (this.selstate == 'n') {

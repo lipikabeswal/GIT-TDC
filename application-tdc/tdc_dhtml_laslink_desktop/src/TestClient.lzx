@@ -96,7 +96,6 @@
 	</method>
 
 	<handler name="onbringBackFocus" args="data">
-		////console.log("*****************onbringBackFocus***************");
 		//canvas.onfocus.sendEvent();
 		//this.onfocus.sendEvent();
 		//gHotKeys.enableKeys();
@@ -205,10 +204,8 @@
 				height="200" visible="false">
 				<handler name="oninit">
 			        if($dhtml){
-			            ////console.log(this.getDisplayObject());
 			            var x= this.getDisplayObject();
 			            x.setAttribute('id', 'loginScreenId');
-			            ////console.log(this.getDisplayObject());
 			        }
 			    </handler>
 				<text name="copyWriteText" y="200" font="Arial" fontsize="12" 
@@ -246,7 +243,6 @@
  
  <method name="freezUI">
  	<![CDATA[
-        //console.log('===canvas freezUI==');
  		this.freezView.setAttribute('visible',true);
 	    this.setAttribute('loadItem',false);
 	    lz.Timer.resetTimer( this.dForceUnfreezUI, 10000 );
@@ -254,7 +250,6 @@
  </method>
  <method name="unFreezUI">
  	<![CDATA[
-        //console.log('===canvas unFreezUI==');
  		this.freezView.setAttribute('visible',false);
 	    this.setAttribute('loadItem',true);
         lz.Timer.removeTimer( this.dForceUnfreezUI);
@@ -263,7 +258,6 @@
  
 <method name="freezUIforTEPopup">
  	<![CDATA[
-        ////console.log('===canvas freezUIforTEPopup==');
         lz.Timer.removeTimer( this.dForceUnfreezUI);
         this.freezView.setAttribute('visible',true);
 	    this.setAttribute('loadItem',false);	
@@ -278,7 +272,6 @@
 			value="$once{ new lz.Delegate( this, 'forceUnfreezUI' ) }" />
 			
  <method name="forceUnfreezUI">
-     ////console.log('===canvas forceUnfreezUI==');
      canvas.unFreezUI();
  </method>
 </canvas>

@@ -280,7 +280,6 @@
         </method>        
         <method name="goBack">
 		<![CDATA[
-		    ////console.log("==goBack=="+canvas.loadItem);
 		    if(canvas.loadItem){
             	canvas.freezUI();
 				if(!gController.fwdOnly){
@@ -295,10 +294,8 @@
        	]]>
 		</method>
         <method name="goOn"> 
-            ////console.log("==goOn=="+canvas.loadItem);
             if(canvas.loadItem){
                 canvas.freezUI();
-                ////console.log("==goOn IF=="+canvas.loadItem);
 	        	if(!gController.onLastItem()){
 	        		lz.Focus.clearFocus();
 	        	}

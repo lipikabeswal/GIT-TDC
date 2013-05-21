@@ -279,10 +279,8 @@
 					</method>
 		
 					  <handler name="ontext"><![CDATA[
-						 //console.log("Inside Ontext");
 						 if(!classroot.isInitialText){
 							 if (text) {
-							    //console.log("ITclassroot", "ontext", text.length);
 							    gController.setAttribute("playIfAnswered",true);
 								var answered = false;
 								for(var i=0; (i< text.length) && !answered; i++){
@@ -298,7 +296,6 @@
 								gController.updateCrField(classroot.widget_id, '', false);
 							 }
 						 }
-	//console.log(classroot, "ontext", text.length);
 						 classroot.setAttribute("numCharacters", text.length);
 						 classroot.updateCharacterMeter();
 						 classroot.setAttribute("isInitialText", false);
