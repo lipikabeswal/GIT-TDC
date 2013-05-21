@@ -178,6 +178,8 @@ public class CATServiceClient {
 	public static void nextItem(String itemId, Integer itemRawScore, String itemResponse, Integer timeElapsed) throws RemoteException {
 		logger.debug("CATServiceClient: nextItem: start");
 		
+		CATServiceClient.itemPosition += 1;
+		
 		CATServiceClient.itemId = itemId;
 		CATServiceClient.itemRawScore = itemRawScore;
 		CATServiceClient.itemResponse = itemResponse;
@@ -203,7 +205,7 @@ public class CATServiceClient {
 			nextItemId =  null;
 			logger.warn("CATServiceClient: nextItem: no next item id obtained!!!");
 		}	
-		CATServiceClient.itemPosition += 1;
+
 		logger.debug("CATServiceClient: nextItem: end\n\n");
 	}
 	
