@@ -383,8 +383,8 @@ function eventMonitor(id,event) {
  				 getCurrentPlayOrder(currIframeId);
  			}
  		}
- 		
- 		
+ 		unlockResponseArea(currIframeId);
+ 		 		
  	} else if(event == 'finished' || event == 'endTrack' || event == 'pause') {
  		if( event == 'endTrack' || event == 'pause'){
  			setPlayingAttr(event,'false');
@@ -398,7 +398,6 @@ function eventMonitor(id,event) {
 	 				}
 	 			}
 	 		}
-	 		unlockResponseArea(currIframeId);
 	 		enableNextButton(id);
 	 		if(autoPlayEvent == 'true') {
 	 			autoPlayEvent = "false";
