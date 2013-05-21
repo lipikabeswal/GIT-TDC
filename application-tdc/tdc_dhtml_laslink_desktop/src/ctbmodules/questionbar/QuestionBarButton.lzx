@@ -70,9 +70,10 @@
         ]]></handler>
 
         <handler name="onisactive"><![CDATA[
-        //Debug.write("onisactive.....");
-        this.themeResource = 'theme';
+			//Debug.write("onisactive.....");
+			this.themeResource = 'theme';
             if (this.isactive) {
+            	console.log("isactive***");
                 //make sure we're visible on the navigation bar
                 this.questionbar.showBtn (this);
                 var here = this.questionbar.qbtns.scrollcontainer.youarehere;
@@ -80,27 +81,24 @@
                 gController.movedYouAreHere();
             }
 			else{
+				console.log("not isactive***");
 			 if(this.allow_revisit != null){
-			  if(this.allow_revisit != true){
-
-				if(this.isvisited || this.isanswered){
-						this.btn.setAttribute('clickable',true);
-						//this.btn.setAttribute('showhandcursor',false);
-						//For Defect 65886
-						this.btnText.setAttribute('fgcolor',0xE0E0E0);
-						this.themeResource = 'theme_disable';
-						//Debug.write("**********btn disable*********");
+				if(this.allow_revisit != true){
+					console.log("not allow_revisit***");
+					if(this.isvisited || this.isanswered){
+							console.log("isvisited isanswered***");
+							this.btn.setAttribute('clickable',true);
+							this.btnText.setAttribute('fgcolor','gray');
+							this.themeResource = 'theme_disable';
 					}else{
-						this.btnText.setAttribute('fgcolor',0x000000);
-						this.btn.setAttribute('clickable',false);
-						//this.btn.setAttribute('showhandcursor',true);
-						//Debug.write("**********btn clickable false*********");
+							console.log("not isvisited isanswered***");
+							this.btnText.setAttribute('fgcolor',0x000000);
+							this.btn.setAttribute('clickable',false);
 					}
 				}else{
+					console.log("allow_revisit***");
 					this.btn.setAttribute('clickable',false);
- 					//this.btn.setAttribute('showhandcursor',true);
 					this.btnText.setAttribute('fgcolor',0x000000);
-					//Debug.write("**********btn clickable false*********");
 				}
 			}
 		}

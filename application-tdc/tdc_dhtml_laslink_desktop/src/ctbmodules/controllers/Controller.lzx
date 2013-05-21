@@ -4220,7 +4220,9 @@ Debug.write("############ loadItem ############");
 				for(var i = 0 ; i < this.imageLIArray.length ; i++){
 					//this.imageLIArray[i].imageview.getMCRef().unloadMovie();
 					if ($dhtml) {
-						this.imageLIArray[i].imageview.getDisplayObject().imgLoader.unload();
+						if(this.imageLIArray[i].imageview.getDisplayObject().imgLoader != null){
+							this.imageLIArray[i].imageview.getDisplayObject().imgLoader.unload();
+						}	
 					} else {				
 						var mc = this.imageLIArray[i].imageview.sprite;
 						mc.imgLoader.unload();
