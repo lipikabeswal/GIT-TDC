@@ -34,6 +34,7 @@
 	]]></method>
 	
 	<method name="hide">
+	    gManipulatives.setAttribute('visible',true);
         this.setAttribute("visible", false);	
 		lz.ModeManager.release(this);	
 		gHotKeys.enableKeys();
@@ -42,6 +43,7 @@
     <method name="show" args="calledFrom">
 	    if(this.visible == false) {
 	    	//canvas.unFreezUI();	
+	    	gManipulatives.setAttribute('visible',false);
 	        this.setAttribute("visible", true);
 			this.setAttribute("navigateFrom",calledFrom);
 	        lz.ModeManager.makeModal(this);
