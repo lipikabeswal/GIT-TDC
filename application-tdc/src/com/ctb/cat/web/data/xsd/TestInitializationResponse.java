@@ -10,6 +10,8 @@ package com.ctb.cat.web.data.xsd;
 public class TestInitializationResponse  extends com.ctb.cat.web.data.xsd.CATServiceResponse  implements java.io.Serializable {
     private java.lang.String nextItemID;
 
+    private java.lang.Integer nextItemPosition;
+
     public TestInitializationResponse() {
     }
 
@@ -18,13 +20,15 @@ public class TestInitializationResponse  extends com.ctb.cat.web.data.xsd.CATSer
            java.lang.String sessionID,
            java.lang.String statusCode,
            java.lang.String statusMessage,
-           java.lang.String nextItemID) {
+           java.lang.String nextItemID,
+           java.lang.Integer nextItemPosition) {
         super(
             researchDebugData,
             sessionID,
             statusCode,
             statusMessage);
         this.nextItemID = nextItemID;
+        this.nextItemPosition = nextItemPosition;
     }
 
 
@@ -47,6 +51,26 @@ public class TestInitializationResponse  extends com.ctb.cat.web.data.xsd.CATSer
         this.nextItemID = nextItemID;
     }
 
+
+    /**
+     * Gets the nextItemPosition value for this TestInitializationResponse.
+     * 
+     * @return nextItemPosition
+     */
+    public java.lang.Integer getNextItemPosition() {
+        return nextItemPosition;
+    }
+
+
+    /**
+     * Sets the nextItemPosition value for this TestInitializationResponse.
+     * 
+     * @param nextItemPosition
+     */
+    public void setNextItemPosition(java.lang.Integer nextItemPosition) {
+        this.nextItemPosition = nextItemPosition;
+    }
+
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof TestInitializationResponse)) return false;
@@ -61,7 +85,10 @@ public class TestInitializationResponse  extends com.ctb.cat.web.data.xsd.CATSer
         _equals = super.equals(obj) && 
             ((this.nextItemID==null && other.getNextItemID()==null) || 
              (this.nextItemID!=null &&
-              this.nextItemID.equals(other.getNextItemID())));
+              this.nextItemID.equals(other.getNextItemID()))) &&
+            ((this.nextItemPosition==null && other.getNextItemPosition()==null) || 
+             (this.nextItemPosition!=null &&
+              this.nextItemPosition.equals(other.getNextItemPosition())));
         __equalsCalc = null;
         return _equals;
     }
@@ -75,6 +102,9 @@ public class TestInitializationResponse  extends com.ctb.cat.web.data.xsd.CATSer
         int _hashCode = super.hashCode();
         if (getNextItemID() != null) {
             _hashCode += getNextItemID().hashCode();
+        }
+        if (getNextItemPosition() != null) {
+            _hashCode += getNextItemPosition().hashCode();
         }
         __hashCodeCalc = false;
         return _hashCode;
@@ -92,6 +122,13 @@ public class TestInitializationResponse  extends com.ctb.cat.web.data.xsd.CATSer
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         elemField.setNillable(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("nextItemPosition");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://data.web.cat.ctb.com/xsd", "nextItemPosition"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
     }
 

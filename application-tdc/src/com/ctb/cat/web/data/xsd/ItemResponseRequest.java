@@ -14,7 +14,7 @@ public class ItemResponseRequest  extends com.ctb.cat.web.data.xsd.CATServiceReq
 
     private java.lang.String itemID;
 
-    private java.lang.Integer itemPosition;
+    private java.lang.Integer nextItemPosition;
 
     private java.lang.Integer rawScore;
 
@@ -30,7 +30,7 @@ public class ItemResponseRequest  extends com.ctb.cat.web.data.xsd.CATServiceReq
            java.lang.Boolean exitTest,
            java.lang.String exitTestReason,
            java.lang.String itemID,
-           java.lang.Integer itemPosition,
+           java.lang.Integer nextItemPosition,
            java.lang.Integer rawScore,
            java.lang.String response,
            java.lang.Integer timeElapsed) {
@@ -39,7 +39,7 @@ public class ItemResponseRequest  extends com.ctb.cat.web.data.xsd.CATServiceReq
         this.exitTest = exitTest;
         this.exitTestReason = exitTestReason;
         this.itemID = itemID;
-        this.itemPosition = itemPosition;
+        this.nextItemPosition = nextItemPosition;
         this.rawScore = rawScore;
         this.response = response;
         this.timeElapsed = timeElapsed;
@@ -107,22 +107,22 @@ public class ItemResponseRequest  extends com.ctb.cat.web.data.xsd.CATServiceReq
 
 
     /**
-     * Gets the itemPosition value for this ItemResponseRequest.
+     * Gets the nextItemPosition value for this ItemResponseRequest.
      * 
-     * @return itemPosition
+     * @return nextItemPosition
      */
-    public java.lang.Integer getItemPosition() {
-        return itemPosition;
+    public java.lang.Integer getNextItemPosition() {
+        return nextItemPosition;
     }
 
 
     /**
-     * Sets the itemPosition value for this ItemResponseRequest.
+     * Sets the nextItemPosition value for this ItemResponseRequest.
      * 
-     * @param itemPosition
+     * @param nextItemPosition
      */
-    public void setItemPosition(java.lang.Integer itemPosition) {
-        this.itemPosition = itemPosition;
+    public void setNextItemPosition(java.lang.Integer nextItemPosition) {
+        this.nextItemPosition = nextItemPosition;
     }
 
 
@@ -206,9 +206,9 @@ public class ItemResponseRequest  extends com.ctb.cat.web.data.xsd.CATServiceReq
             ((this.itemID==null && other.getItemID()==null) || 
              (this.itemID!=null &&
               this.itemID.equals(other.getItemID()))) &&
-            ((this.itemPosition==null && other.getItemPosition()==null) || 
-             (this.itemPosition!=null &&
-              this.itemPosition.equals(other.getItemPosition()))) &&
+            ((this.nextItemPosition==null && other.getNextItemPosition()==null) || 
+             (this.nextItemPosition!=null &&
+              this.nextItemPosition.equals(other.getNextItemPosition()))) &&
             ((this.rawScore==null && other.getRawScore()==null) || 
              (this.rawScore!=null &&
               this.rawScore.equals(other.getRawScore()))) &&
@@ -238,8 +238,8 @@ public class ItemResponseRequest  extends com.ctb.cat.web.data.xsd.CATServiceReq
         if (getItemID() != null) {
             _hashCode += getItemID().hashCode();
         }
-        if (getItemPosition() != null) {
-            _hashCode += getItemPosition().hashCode();
+        if (getNextItemPosition() != null) {
+            _hashCode += getNextItemPosition().hashCode();
         }
         if (getRawScore() != null) {
             _hashCode += getRawScore().hashCode();
@@ -282,8 +282,8 @@ public class ItemResponseRequest  extends com.ctb.cat.web.data.xsd.CATServiceReq
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("itemPosition");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://data.web.cat.ctb.com/xsd", "itemPosition"));
+        elemField.setFieldName("nextItemPosition");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://data.web.cat.ctb.com/xsd", "nextItemPosition"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
