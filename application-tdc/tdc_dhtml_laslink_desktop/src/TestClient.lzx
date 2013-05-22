@@ -236,8 +236,11 @@
     </view>
   
 </view>
- <include href="ctbmodules/manipulatives/magnifier/MagnifyingGlass.lzx"/>   
-<!-- -Freezing view -->
+ <include href="ctbmodules/manipulatives/magnifier/MagnifyingGlass.lzx"/>  
+ 
+  
+<!-- -Freezing view 
+
 <view width="100%" height="100%" opacity="0.1" name="freezView"
  clickable="true" visible="false" />
  
@@ -265,7 +268,7 @@
  </method>
 
  
- <!--Following methods for forcefully unfreez the Client-->
+ //Following methods for forcefully unfreez the Client
 
  
  <attribute name="dForceUnfreezUI"
@@ -274,4 +277,7 @@
  <method name="forceUnfreezUI">
      canvas.unFreezUI();
  </method>
+ 
+ End freezing view -->
+ 
 </canvas>

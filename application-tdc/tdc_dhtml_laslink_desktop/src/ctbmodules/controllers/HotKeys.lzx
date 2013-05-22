@@ -281,7 +281,7 @@
         <method name="goBack">
 		<![CDATA[
 		    if(canvas.loadItem){
-            	canvas.freezUI();
+            	//canvas.freezUI();
 				if(!gController.fwdOnly){
 	        		if(!gController.onFirstItem()){
 	        			lz.Focus.clearFocus();
@@ -295,7 +295,7 @@
 		</method>
         <method name="goOn"> 
             if(canvas.loadItem){
-                canvas.freezUI();
+                //canvas.freezUI();
 	        	if(!gController.onLastItem()){
 	        		lz.Focus.clearFocus();
 	        	}
@@ -305,14 +305,14 @@
         </method>
         <method name="toggleMark"> 
             if(canvas.loadItem){
-        		canvas.freezUI();
+        		//canvas.freezUI();
 	            this.exitPopups(); 
 	         	gController.toggleMark();  
 	         }	            
         </method>
         <method name="toggleTimer">
             if(canvas.loadItem){
-        		canvas.freezUI();
+        		//canvas.freezUI();
 	            this.exitPopups(); 
 	        	gController.toggleTimer();  
 	        }	           
@@ -324,7 +324,7 @@
 	        	}
 	            this.exitPopups(); 
 	        	if(gItemInterface.visible == true || gTutorial.visible == true){
-	        	    canvas.freezUI();
+	        	    //canvas.freezUI();
 	        		gController.pauseTest();
 	        	}	
 	        }		
@@ -334,7 +334,7 @@
 	        	lz.Focus.clearFocus();
 	            this.exitPopups();
 	        	if(gItemInterface.visible == true || gTutorial.visible == true){
-	        	    canvas.freezUI();
+	        	    //canvas.freezUI();
 	        		gController.finishTest();   
 	        	}	
 	        }		           

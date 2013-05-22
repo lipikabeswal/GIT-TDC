@@ -112,7 +112,7 @@
 
 
         <handler name="onclick">
-            canvas.freezUI(); 
+            //canvas.freezUI(); 
 			gController.setAttribute("nextItem", itemeid ); 
 			gController.setAttribute("navigateConfirm",false);
 			if(!gController.navigateConfirm){

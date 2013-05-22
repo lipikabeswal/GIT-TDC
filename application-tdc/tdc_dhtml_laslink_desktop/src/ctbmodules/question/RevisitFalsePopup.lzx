@@ -41,7 +41,7 @@
 	
     <method name="show" args="calledFrom">
 	    if(this.visible == false) {
-	    	canvas.unFreezUI();	
+	    	//canvas.unFreezUI();	
 	        this.setAttribute("visible", true);
 			this.setAttribute("navigateFrom",calledFrom);
 	        lz.ModeManager.makeModal(this);

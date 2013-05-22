@@ -124,7 +124,7 @@ Debug.write("Cachaable html widget ondata");
 				}
 				if(!gController.isAnswerSet) {
 					//Debug.write('===setAnswer ansObj unFreezUI==');
-					canvas.unFreezUI();
+					//canvas.unFreezUI();
 				}
 			}
 			

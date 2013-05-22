@@ -2688,7 +2688,7 @@
 	            	changeItem(dpsubtest.xpathQuery( "ob_assessment/ob_element_list/f[@id='" + itemeid + "']" ));
 	            }else{
 					//Debug.write("==ELSE navigateTo==unFreezUI==");
-	                canvas.unFreezUI();
+	                //canvas.unFreezUI();
                 }
             }
          hideMagnifierGlass(); 
@@ -2828,7 +2828,7 @@
         </method>
 
 		<method name="stepNavigateBack"><![CDATA[
-		    canvas.freezUI();
+		    ////canvas.freezUI();
             if ( !onFirstItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm){
@@ -2838,12 +2838,12 @@
             	}
             }else{
 				//Debug.write("==ELSE stepNavigateBack==unFreezUI===");
-                canvas.unFreezUI();	
+                //canvas.unFreezUI();	
             }
         ]]></method>
 
 		<method name="stepNavigateForward"><![CDATA[
-		    canvas.freezUI();
+		    //canvas.freezUI();
            	var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/@itempos' )
             );
@@ -2861,7 +2861,7 @@
             	}
             }else{
 				//Debug.write("==ELSE stepNavigateForward==unFreezUI===");
-                canvas.unFreezUI();
+                //canvas.unFreezUI();
             }	
         ]]></method>
 
@@ -2879,7 +2879,7 @@
 	            	markQuestion(!isMarked);
 	            }
 	            unlockUI();
-	            canvas.unFreezUI();
+	            //canvas.unFreezUI();
 	        }
         ]]></method>
 
@@ -3129,7 +3129,7 @@
 				showHideTimer( 'true' );
 			}
 			unlockUI();
-			canvas.unFreezUI();
+			//canvas.unFreezUI();
 		</method>
 
 		<method name="showHideTimer" args="show">
@@ -3200,7 +3200,7 @@
 				setState(PAUSED_RESUME_STATE);
 				resetHeartbeat();
 				gCommunicator.lifecycle(RESUME_LEV);
-				canvas.freezUI();
+				//canvas.freezUI();
                 return true;
             } else {
                 return false;
@@ -3300,7 +3300,7 @@
 			checkHideMaskingChoiceDD();
 			//gMusicPlayer.hide();
             lz.Cursor.unlock();
-            canvas.unFreezUI();
+            //canvas.unFreezUI();
 			
 			if(this.adaptive == true){				
 				//if (gScreens.isOnFinishScreen()) {
@@ -3433,7 +3433,7 @@
 		if ( onLastItem() || (gController.getNextNavigableOffset(curritem) == totalitem)) {
         	gController.setAttribute("isStopTest",false);
             finishTest();
-            canvas.freezUI();
+            //canvas.freezUI();
         }
         ]]></method>
 
@@ -4778,7 +4778,7 @@ Debug.write("############ loadItem ############");
 			//gMusicPlayer.hide();
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
-			canvas.unFreezUI();
+			//canvas.unFreezUI();
 		</method>
 
 		<method name="networkLostPopup"><![CDATA[
@@ -5496,7 +5496,7 @@ Debug.write("############ loadItem ############");
 	                currentitem.setAttr("answered", 1);
 	                runtimeitem.setAttr("answered", 1);
 	                if(this.findAnswer){
-						canvas.unFreezUI();
+						//canvas.unFreezUI();
 						this.setAttribute('findAnswer',false);
 					}
 	            }
@@ -5551,7 +5551,7 @@ Debug.write("############ loadItem ############");
 						this.htmlFields[i]['ref'].show();	
 					}
 				}else{
-					canvas.unFreezUI();
+					//canvas.unFreezUI();
             	}
 		
 		]]></method>

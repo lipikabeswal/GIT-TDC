@@ -35,15 +35,17 @@
 	]]></method>
 	
 	<method name="hide">
+	    gManipulatives.setAttribute('visible',true);
         this.setAttribute("visible", false);
 		this.contents.networkLost.inBar.barAnimator.stop();
 		lz.ModeManager.release(this);
-		canvas.unFreezUI();
+		//canvas.unFreezUI();
 		lz.Browser.loadJS('playAudio();');
     </method>
 	
     <method name="show">
-    	canvas.freezUI();
+    	//canvas.freezUI();
+    	gManipulatives.setAttribute('visible',false);
         this.setAttribute("visible", true);
         gPleaseWaitPopup.bringToFront();
         this.contents.networkLost.inBar.barAnimator.doStart();
