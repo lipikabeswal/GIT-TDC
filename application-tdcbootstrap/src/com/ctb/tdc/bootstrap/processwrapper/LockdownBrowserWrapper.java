@@ -102,24 +102,31 @@ public class LockdownBrowserWrapper extends Thread {
 					File ldbHomeDir = new File(this.tdcHome + "/lockdownbrowser/linux");
 					this.ldbHome = ldbHomeDir.getAbsolutePath();
 					String loginHtml = null;
-					this.ldbCommand = new String[2];
-					this.ldbCommand[0] = this.ldbHome + "/OASTDC/bin/OASTDC";          
-					this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
+					
 					if(productType.equals("LASLINKS")){
 						//consoleOut("Inside Laslinks:::");
-						
 						if(formName.equals("Form A/Form B/Espanol")){
-							//consoleOut("Inside Laslinks:::");
-							//loginHtml="/login_swf.html";
+							this.ldbCommand = new String[2];
+							this.ldbCommand[0] = this.ldbHome + "/OASTDC/bin/OASTDC";          
+							this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
 							this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login_swf.html";
 							
 						}else if(formName.equals("Form C/Form D/Espanol2")){
-							//loginHtml="/login.html";
-							this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";
+							
+							this.ldbCommand = new String[3];
+							this.ldbCommand[0] ="java";
+							this.ldbCommand[1] = "-jar";
+							this.ldbCommand[2] = "LockdownBrowser.jar";
+							
+							
 						}
 						//this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + loginHtml;
 					}else{
-						this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";
+						//this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";
+						this.ldbCommand = new String[3];
+						this.ldbCommand[0] ="java";
+						this.ldbCommand[1] = "-jar";
+						this.ldbCommand[2] = "LockdownBrowser.jar";
 					}
 		} else {
 			
@@ -697,6 +704,10 @@ public class LockdownBrowserWrapper extends Thread {
         		Runtime.getRuntime().exec("killall OASTDC");
         		Thread.sleep(250);
         		Runtime.getRuntime().exec("killall OASTDC");
+        		
+        		Runtime.getRuntime().exec("pkill -f 'java -jar LockdownBrowser.jar'");
+        		Thread.sleep(250);
+        		Runtime.getRuntime().exec(" pkill -f 'java -jar LockdownBrowser.jar'");
         	} else if(ismac) {
         		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
         		Thread.sleep(250);
