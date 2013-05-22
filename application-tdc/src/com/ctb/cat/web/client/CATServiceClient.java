@@ -77,11 +77,11 @@ public class CATServiceClient {
 	}
 	
 	public static double getAbilityScore() {
-		return scaleScore.doubleValue();
+		return scaleScore==null?0:scaleScore.doubleValue();
 	}
 	
 	public static double getSEM() {
-		return sem.doubleValue();
+		return sem==null?0:sem.doubleValue();
 	}
 	
 	public static String getObjScore() {
@@ -147,7 +147,7 @@ public class CATServiceClient {
 		CatPriorData data = priorMap.get(subtestId);
 		if(data != null) {
 			CATServiceClient.ineligibleItems = data.priorItems;
-			if(data.ability != null) {
+			if(data.ability != null && data.ability.doubleValue() != 0) {
 				CATServiceClient.priorAbility = data.ability;
 			} else {
 				CATServiceClient.priorAbility = new Double(getDefaultAbility());
@@ -175,7 +175,7 @@ public class CATServiceClient {
 		logger.debug("CATServiceClient: start: end\n\n");
 	}
 	
-	public static void nextItem(String itemId, Integer itemRawScore, String itemResponse, Integer timeElapsed) throws RemoteException {
+	public static void nextItem(String itemId, Integer itemRawScore, String itemResponse, Integer timeElapsed, boolean doSend) throws RemoteException {
 		logger.debug("CATServiceClient: nextItem: start");
 		
 		CATServiceClient.itemPosition += 1;
@@ -184,28 +184,28 @@ public class CATServiceClient {
 		CATServiceClient.itemRawScore = itemRawScore;
 		CATServiceClient.itemResponse = itemResponse;
 		CATServiceClient.timeElapsed = timeElapsed;
-		
-		ItemResponseRequest request = new ItemResponseRequest(testRosterId + ":" + subtestId, Boolean.FALSE, "", (String) ADSToPEIDIdMap.get(itemId), CATServiceClient.itemPosition, itemRawScore, itemResponse, timeElapsed);
-		logger.debug("CATServiceClient: nextItem: service nextItem request params: " + testRosterId + ":" + subtestId + ", FALSE, , " + ADSToPEIDIdMap.get(itemId) + ", " + CATServiceClient.itemPosition + ", " + itemRawScore + ", " + itemResponse + ", " + timeElapsed);
-		ItemResponseResponse response = service.processItemResponse(request);
-		logger.debug("CATServiceClient: nextItem: service nextItem response: status code: " + response.getStatusCode());
-		logger.debug("CATServiceClient: nextItem: service nextItem response: status message: " + response.getStatusMessage());
-		logger.debug("CATServiceClient: nextItem: service nextItem response: session id: " + response.getSessionID());
-		logger.debug("CATServiceClient: nextItem: service nextItem response: next item id: " + response.getNextItemID());
-		logger.debug("CATServiceClient: nextItem: service nextItem response: next item position: " + response.getNextItemPosition());
-		if("OK".equals(response.getStatusCode())) {
-			processResultData(response.getResearchReportData());
-			if(response.getNextItemID() != null) {
-				nextItemId = response.getNextItemID();
-				logger.debug("CATServiceClient: nextItem: setting next item id: " + CATServiceClient.nextItemId);
+		if(doSend) {
+			ItemResponseRequest request = new ItemResponseRequest(testRosterId + ":" + subtestId, Boolean.FALSE, "", (String) ADSToPEIDIdMap.get(itemId), CATServiceClient.itemPosition, itemRawScore, itemResponse, timeElapsed);
+			logger.debug("CATServiceClient: nextItem: service nextItem request params: " + testRosterId + ":" + subtestId + ", FALSE, , " + ADSToPEIDIdMap.get(itemId) + ", " + CATServiceClient.itemPosition + ", " + itemRawScore + ", " + itemResponse + ", " + timeElapsed);
+			ItemResponseResponse response = service.processItemResponse(request);
+			logger.debug("CATServiceClient: nextItem: service nextItem response: status code: " + response.getStatusCode());
+			logger.debug("CATServiceClient: nextItem: service nextItem response: status message: " + response.getStatusMessage());
+			logger.debug("CATServiceClient: nextItem: service nextItem response: session id: " + response.getSessionID());
+			logger.debug("CATServiceClient: nextItem: service nextItem response: next item id: " + response.getNextItemID());
+			logger.debug("CATServiceClient: nextItem: service nextItem response: next item position: " + response.getNextItemPosition());
+			if("OK".equals(response.getStatusCode())) {
+				processResultData(response.getResearchReportData());
+				if(response.getNextItemID() != null) {
+					nextItemId = response.getNextItemID();
+					logger.debug("CATServiceClient: nextItem: setting next item id: " + CATServiceClient.nextItemId);
+				} else {
+					logger.debug("CATServiceClient: nextItem: no next item id obtained");
+				}
 			} else {
-				logger.debug("CATServiceClient: nextItem: no next item id obtained");
-			}
-		} else {
-			nextItemId =  null;
-			logger.warn("CATServiceClient: nextItem: no next item id obtained!!!");
-		}	
-
+				nextItemId =  null;
+				logger.warn("CATServiceClient: nextItem: no next item id obtained!!!");
+			}	
+		}
 		logger.debug("CATServiceClient: nextItem: end\n\n");
 	}
 	
@@ -233,13 +233,15 @@ public class CATServiceClient {
 			scaleScore = data.getScaleScore();
 			sem = data.getSem();
 			logger.debug("CATServiceClient: processResultData: raw: " + rawScore + ", scale: " + scaleScore + ", SEM: " + sem);
-			if(data.getSubscoreList() != null) {
-				ReportSubscoreData [] subscores =data.getSubscoreList();
+			ReportSubscoreData [] subscores = data.getSubscoreList();
+			if(subscores != null && subscores.length > 0) {
 				for(int i=0;i<subscores.length;i++) {
 					ReportSubscoreData subscore = subscores[i];
-					String subscoreString = subscore.getSubscoreCategory() + "," + subscore.getRawSubscore() + "," + subscore.getNumOfItems() + "," + subscore.getSubscore() + ",0," + subscore.getSubscorePerfLevel();
-					if(i!=0) subscoreString = "|" + subscoreString;
-					subscoresString = subscoresString + subscoreString;
+					if(subscore != null) {
+						String subscoreString = subscore.getSubscoreCategory() + "," + subscore.getRawSubscore() + "," + subscore.getNumOfItems() + "," + subscore.getSubscore() + ",0," + subscore.getSubscorePerfLevel();
+						if(i!=0) subscoreString = "|" + subscoreString;
+						subscoresString = subscoresString + subscoreString;
+					}
 				}
 				logger.debug("CATServiceClient: processResultData: subscores: " + subscoresString);
 			}
