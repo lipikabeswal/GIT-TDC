@@ -597,5 +597,9 @@
        	<frame  src="components/recorder/move_next_down.png"/>
 	</resource>
 	
+	<!-- logo added for laslinks -->
+	
+	<resource name="logo" src="logos/logoLASLINKS.png"/>
+	
 	<!-- ****************** End Recorder Resources ************************************************* -->
 </library>
