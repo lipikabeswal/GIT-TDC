@@ -3477,7 +3477,7 @@
 	                	restoreCurrentCursor();
 	                }
 	                dsdisplay.childNodes[0].setAttr( 'enabled', 'true' );
-	              if(!gScratchpad.scratchpadHasFocus && gController.unlockNavigation){
+	              if(!gScratchpad.scratchpadHasFocus){
 	                	gHotKeys.enableKeys();
 	               }
 	            }
