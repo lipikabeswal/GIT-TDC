@@ -40,7 +40,9 @@
 		this.contents.networkLost.inBar.barAnimator.stop();
 		lz.ModeManager.release(this);
 		//canvas.unFreezUI();
-		lz.Browser.loadJS('playAudio();');
+		if(gItemInterface.visible){
+			playAudio();
+		}
     </method>
 	
     <method name="show">
@@ -52,7 +54,7 @@
         lz.ModeManager.makeModal(this);
         resetControls();
         gHotKeys.disableKeys();
-        lz.Browser.loadJS('pauseAudio();');
+        pauseAudio();
     </method>
 
     <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">
