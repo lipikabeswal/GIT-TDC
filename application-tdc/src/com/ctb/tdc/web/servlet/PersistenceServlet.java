@@ -295,20 +295,13 @@ public class PersistenceServlet extends HttpServlet {
 				&& method.equals(ServletUtils.CHECK_PROD_TYPE_METHOD)){
 					result = "<"+PRODUCT_TYPE.trim()+" />";
 				}
+// Change to handle OK Calculator
 		else if (method != null
 				&& method.equals(ServletUtils.OK_CALCULATOR)) {
 			calcType = request.getParameter("calcType");
-			//result = showHideOkCalculator("N");
-			//result = showOkCalculator(calcType);
-	// Change to handle OK Calculator
-			if(!calculatorDialog84.isVisible() && !calculatorDialog30.isVisible()) {
-				showHideOkCalculator("N");
-			} else {
-				showHideOkCalculator("Y");
-			}
-			} else if (method != null
+					showHideOkCalculator("Y");
+		} else if (method != null
 					&& method.equals(ServletUtils.SHOW_HIDE_OK_CALCULATOR)) {
-				
 				showHideOkCalculator("Y");
 			}
 		else if (method != null
