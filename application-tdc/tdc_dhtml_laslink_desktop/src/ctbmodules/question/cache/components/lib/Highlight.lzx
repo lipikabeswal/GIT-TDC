@@ -141,12 +141,12 @@
                 		maxy = miny;
                 		miny = temp;
                 	}
-                	if((mousex <= maxx) && 
-                	   (mousex >= minx) && 
-                	   (mousey >= miny) && 
-                	   (mousey <= maxy)){
-						hp.setPointer(theHighlight);
-                 		hp.deleteNode();
+					if(((mousex/canvas.xscalefactor) <= maxx) && 
+                	   ((mousex/canvas.xscalefactor) >= minx) && 
+                	   ((mousey/canvas.yscalefactor) >= miny) && 
+                	   ((mousey/canvas.yscalefactor) <= maxy)){
+                	 	hp.setPointer(theHighlight);
+						hp.deleteNode();
                 	}
                 }
             }
