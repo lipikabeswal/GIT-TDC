@@ -299,9 +299,10 @@
 						 classroot.setAttribute("numCharacters", text.length);
 						 classroot.updateCharacterMeter();
 						 classroot.setAttribute("isInitialText", false);
-						 
+						 var textFontColor = gController.answerFontColor.replace('0x', '#');
+						 var textAreafgcolor = "color: "+ textFontColor + ";";
 						 var elm = this.inp.getDisplayObject();
-						 elm.setAttribute('style','overflow-y: hidden;');
+						 elm.setAttribute('style','overflow-y: hidden;' + textAreafgcolor+ '');
 						 	if(this.text.length > Number(classroot.characterLimit)){
 								var textContent = this.text;
 								textContent = textContent.substring(0,Number(classroot.characterLimit));
