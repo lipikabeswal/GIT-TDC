@@ -307,3 +307,12 @@ function startAutoplay(){
 	pausedAssetID = null;
 
 } 
+function stopAsset(){
+
+	for(var i=0; i<gController.lasAssetArray.length;i++){
+		if(gController.lasAssetArray[i].asset){
+			iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.resetAudio();
+			console.log("stopping Asset***");
+		}
+	}
+}
