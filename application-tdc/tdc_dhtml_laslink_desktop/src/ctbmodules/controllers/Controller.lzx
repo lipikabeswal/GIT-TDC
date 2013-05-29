@@ -1128,6 +1128,7 @@
 		</method>
 
 		<method name="goToGoodbyeScreen">
+			stopAsset();
 			stopHeartbeat();
 			hideManipulatives();
 			gScreens.showGoodbye();
@@ -3194,6 +3195,7 @@
 			checkHideMaskingChoiceDD();    
           	closeOpenManipulatives();
           	hideManipulatives();
+			gMusicPlayer.hide();
             gScreens.showPause(getStudentName());
 		</method>
 
@@ -3301,7 +3303,7 @@
 			hideManipulatives();
      		checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
-			//gMusicPlayer.hide();
+			gMusicPlayer.hide();
             lz.Cursor.unlock();
             //canvas.unFreezUI();
 			
