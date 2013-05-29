@@ -279,6 +279,7 @@
 					</method>
 		
 					  <handler name="ontext"><![CDATA[
+						 var textFontColor;
 						 if(!classroot.isInitialText){
 							 if (text) {
 							    gController.setAttribute("playIfAnswered",true);
@@ -299,7 +300,16 @@
 						 classroot.setAttribute("numCharacters", text.length);
 						 classroot.updateCharacterMeter();
 						 classroot.setAttribute("isInitialText", false);
-						 var textFontColor = gController.answerFontColor.replace('0x', '#');
+						 console.log("gController.answerFontColor*******",gController.answerFontColor);
+						 var answerFontColor = gController.answerFontColor;
+						 if(Number(answerFontColor) == 0)
+							answerFontColor = "0x000000";
+						 if(answerFontColor.indexOf('0x') != -1) {
+						 	textFontColor = answerFontColor.replace('0x', '#');
+						 }
+						 else {
+							textFontColor = answerFontColor;
+						 }
 						 var textAreafgcolor = "color: "+ textFontColor + ";";
 						 var elm = this.inp.getDisplayObject();
 						 elm.setAttribute('style','overflow-y: hidden;' + textAreafgcolor+ '');
