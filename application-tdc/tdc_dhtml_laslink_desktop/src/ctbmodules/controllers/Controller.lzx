@@ -572,6 +572,7 @@
 		<attribute name="relogin" value="false" type="boolean" />
 		<attribute name="dRestoreCursor"
 			value="$once{ new lz.Delegate( this, 'restoreGrabCursor' ) }" />
+		<attribute name="isAudioPaused" value="false" type="boolean" />
 		
 		<handler name="oncanNotAnswer" args="data"><![CDATA[
 			if(answerArray.length > 0) {
@@ -656,8 +657,9 @@
 	}	
 		else{
 			if(this.recorder != null) {
-				if(this.recordingStopped == false){
+				if(this.recordingStopped == false || this.isAudioPaused){
 					this.recorder.recordButton.setAttribute("enabled", true);
+					this.setAttribute('isAudioPaused', false);
 					}
 
 				else if(this.recorder.resetCalled == false ){
@@ -3148,6 +3150,7 @@
 			
 		<method name="pauseTest">
             if ( pausable == true ) {
+            	this.setAttribute('isAudioPaused', true);
             	gReadableText.stopReading(false);
                 freezeUI();
                 stopQuestion();
@@ -3410,6 +3413,7 @@
 		-->
 
 		<method name="stopTest">
+			this.setAttribute('isAudioPaused', true);
 			this.setAttribute("isStopTest",true);
 			this.setAttribute("catOver",false);
 			this.isStopScreen = false;
@@ -3477,7 +3481,7 @@
 	                	restoreCurrentCursor();
 	                }
 	                dsdisplay.childNodes[0].setAttr( 'enabled', 'true' );
-	              if(!gScratchpad.scratchpadHasFocus && gController.unlockNavigation){
+	              if(!gScratchpad.scratchpadHasFocus){
 	                	gHotKeys.enableKeys();
 	               }
 	            }
