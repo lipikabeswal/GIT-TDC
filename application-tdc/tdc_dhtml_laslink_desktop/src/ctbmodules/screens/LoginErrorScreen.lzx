@@ -118,14 +118,14 @@
 		<text name="header" x="${parent.x + 10}" y="1" font="Arial" align="left" fontsize="24" width="520"
 				height="33" fgcolor="white" />
 			
-		<text name="message" x="${parent.x + 10}" y="33" font="Arial" align="left" fontsize="16" 
-				multiline="true" height="60" width="520" fgcolor="white" />
+		<text name="message" x="${parent.x + 10}" font="Arial" align="left" fontsize="16" 
+				multiline="true" height="50" width="520" fgcolor="white" />
 
-		<text name="description" multiline="true" x="${parent.x + 10}" y="80" width="520" 
+		<text name="description" multiline="true" x="${parent.x + 10}" width="520" height="66"
 				font="Arial" align="left" fontsize="16" fgcolor="white" resize="true" />
 
         <view x="${ classroot.width - width - 10 }">
-            <BackToLoginButton y="3" enabled="${ gScreens.allowclick }">
+            <BackToLoginButton enabled="${ gScreens.allowclick }">
                 <handler name="onclick">
                     gScreens.clicked();
                     gScreens.showLogin();
