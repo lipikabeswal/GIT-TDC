@@ -316,3 +316,18 @@ function stopAsset(){
 		}
 	}
 }
+function addReadOnlyCR(){
+console.log("Inside addReadOnlyCR");
+	if(document.getElementsByTagName('textarea').length > 0){
+		document.getElementsByTagName('textarea')[0].setAttribute('readonly',true);
+		console.log("addReadOnlyCR");
+	}
+	
+}
+function removeReadOnlyCR(){
+console.log("Inside removeReadOnlyCR");
+	if(document.getElementsByTagName('textarea').length > 0){
+		document.getElementsByTagName('textarea')[0].removeAttribute('readonly');
+		console.log("removeReadOnlyCR");
+	}
+}

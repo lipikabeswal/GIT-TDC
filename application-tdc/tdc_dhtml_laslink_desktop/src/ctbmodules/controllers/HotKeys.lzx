@@ -105,8 +105,12 @@
             lz.Keys.removeKeyComboCall( dstop, [ 'control', 's' ] );
             lz.Keys.removeKeyComboCall( dfinish, [ 'control', 'f' ] );
 
-		    if ( gController.getClientMachine() == 'MAC' || isMac()) {
+		   /* if ( gController.getClientMachine() == 'MAC' || isMac()) {
             	dmacKeyHandler.unregisterFrom( lz.Keys.onkeydown );
+            }*/
+          if (navigator.appVersion.indexOf("Mac")!=-1) {
+		    	console.log("MAC machine");
+                dmacKeyHandler.register( lz.Keys, 'onkeydown' );
             }
         </method>
 
@@ -188,13 +192,12 @@
 
         <attribute name="dmacKeyHandler"
                    value="$once{ new lz.Delegate( this, 'macKeyHandler' ) }"/>
-
-        <method name="exitPopups">
+		<attribute name="disableCR" type="boolean" value="false"/>
+		<method name="exitPopups">
             gController.exitPopups();
         </method>
-
-        <method name="macKeyHandler" args="k">
-		    switch ( k ) {
+		<method name="macKeyHandler" args="k"><![CDATA[
+           switch ( k ) {
 	        	case  6:
                     this.exitPopups(); 
         			gController.finishTestShortcut();      // CTRL F ?
@@ -225,8 +228,34 @@
                     this.exitPopups();
                     gController.pauseTest(); 
                     break;
+                case 18: 
+					if(((lz.Keys.isKeyDown("Alt")) || (lz.Keys.isKeyDown("alt")) || (lz.Keys.isKeyDown("options")))){
+						this.setAttribute('disableCR',true);
+						addReadOnlyCR();
+						break;
+	 				}else{
+						this.setAttribute('disableCR',false);
+						removeReadOnlyCR();
+					}
+					break;
+                case 17: 
+					if(((lz.Keys.isKeyDown("Alt")) || (lz.Keys.isKeyDown("alt")) || (lz.Keys.isKeyDown("options")))){
+							this.setAttribute('disableCR',true);
+							break;
+	 				}else{
+							this.setAttribute('disableCR',false);
+					}
+					break;
+				default:
+					if(disableCR && ((lz.Keys.isKeyDown("Alt")) || (lz.Keys.isKeyDown("alt")) || (lz.Keys.isKeyDown("options")))){
+						addReadOnlyCR();
+							break;
+					}else{
+						removeReadOnlyCR();
+					}				
+					break;
 	 		}
-        </method>
+	 	]]></method>
 
         <attribute name="dtoggleA"
                    value="$once{ new lz.Delegate( this, 'toggleA' ) }"/>
