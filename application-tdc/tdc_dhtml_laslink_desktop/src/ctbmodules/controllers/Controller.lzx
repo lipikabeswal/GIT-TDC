@@ -1128,7 +1128,7 @@
 		</method>
 
 		<method name="goToGoodbyeScreen">
-			stopAsset();
+			//stopAsset();
 			stopHeartbeat();
 			hideManipulatives();
 			gScreens.showGoodbye();
