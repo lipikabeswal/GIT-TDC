@@ -421,7 +421,7 @@ function isSPRequired(){
 }
 
 function enableHotKeys(arg) {
-	lz.embed.setCanvasAttribute('keysPressed',arg);
+	gHotKeys.handleHtmlKeyPress(arg);
 }
 
 function enableManipBar(arg) {
@@ -502,7 +502,7 @@ body { background-color:#6691B4; margin: 0px; overflow:hidden;}
 </style>
 </HEAD>
 
-<BODY onload="load()">
+<BODY onload="load()" oncontextmenu="return false;">
 <button id="mybutton" style="visibility:hidden; width:0px; height:0px; display:none;">clickMe </button>
 	<div id="needFlash9" style="display:none">
 		<table height="100%" width="100%">
