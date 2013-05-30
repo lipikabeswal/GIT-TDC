@@ -1,6 +1,7 @@
 <library>
     <include href="CachableComponent.lzx"/>
-	<include href="incubator/scrolledittext.lzx" /> 
+	<!-- <include href="incubator/scrolledittext.lzx" /> -->
+	<include href="../../../manipulatives/scratchpad/scrolledittext.lzx" />
 
 
     <!-- ===============
@@ -252,7 +253,7 @@
 	 			</view>
  	 		</view>
 				<view name="rich" bgcolor="${Number(gController.answerBgColor)}">
-				   <scrolledittext name="answer" 
+				   <scrolledittextnew name="answer" 
 									 height="${classroot.showFormatBar ? classroot.height - classroot.outer.controls.height : classroot.height }" 
 									 width="${classroot.editTextWidth + 5}" x="6">
 										<attribute name="start" type="number" value="0" />
@@ -348,7 +349,7 @@
 						this.setAttribute('text',a);		
 					</method>
 
-				  </scrolledittext>
+				  </scrolledittextnew>
 				 </view>
 			</view>
 
