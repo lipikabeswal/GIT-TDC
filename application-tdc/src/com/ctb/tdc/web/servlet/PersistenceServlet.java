@@ -7,17 +7,9 @@ import static com.ctb.tdc.web.utils.ReLoginUtility.getReLoginUtility;
 import static com.ctb.tdc.web.utils.ReLoginUtility.setAccessCode;
 import static com.ctb.tdc.web.utils.ReLoginUtility.setLoginId;
 import static com.ctb.tdc.web.utils.ReLoginUtility.setPassword;
-import static com.ctb.tdc.web.utils.ReLoginUtility.getLasLoginId;
-import static com.ctb.tdc.web.utils.ReLoginUtility.getLasPassword;
-import static com.ctb.tdc.web.utils.ReLoginUtility.getLasAccessCode;
-import static com.ctb.tdc.web.utils.ReLoginUtility.setLasLoginId;
-import static com.ctb.tdc.web.utils.ReLoginUtility.setLasPassword;
-import static com.ctb.tdc.web.utils.ReLoginUtility.setLasAccessCode;
 
 import java.awt.AWTException;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
@@ -33,7 +25,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
-import java.lang.reflect.Field;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -44,9 +35,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -69,8 +57,6 @@ import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ReLoginUtility;
 import com.ctb.tdc.web.utils.ServletUtils;
 import com.ctb.tdc.web.utils.CalculatorDialog;
-import com.ti.eps.emu84.testAgency.EmulatorComponent;
-import com.ti.eps.ngiexamcalc.gui.ti30.CalcPaneTI30;
 
 /** 
  * @author Tai_Truong
