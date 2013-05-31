@@ -72,8 +72,8 @@
             if (data.getAttr("id")) {
                 this.setAttribute('widget_id', data.getAttr("id"));
             	var answer = gController.getAnswerForInputWidgetId(this.widget_id);
-//Debug.write("CachableMultiLineAnswer.ondata", answer, answer.length);
-            	var answered = (typeof answer != "undefined" && answer.length != 0);
+				
+            	var answered = (answer!=null && typeof answer != "undefined" && answer.length != 0);
 				if(answered) {
             		var idPresent = this.widget_id.split("$");
             		if(idPresent.length > 1) {
