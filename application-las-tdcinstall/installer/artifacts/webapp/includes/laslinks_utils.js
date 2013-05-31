@@ -39,9 +39,12 @@ function iframeLoaded(id, iframe){
 					}
 					//Disable the response content, if the attribute responseAreaLocker is present
 					if(gController.lasAssetArray[i].data.getAttr('responseAreaLocker') == "true"){
-						gController.setAttribute('canNotAnswer',true);
-						////console.log("responseAreaLocker ----");
-						////console.log(iframe.id);
+					    if(gMagnifyingGlass.magnifierOpen == false || gMagnifyingGlass.magnifierOpen == 'false'){
+					    	//do nothing
+					    	// this condition is for the defect 73859
+					    }else{
+					        gController.setAttribute('canNotAnswer',true);
+						}	
 					}
 					if(gController.lasAssetArray[i].data.getAttr('playIfAnswered') == "true"){
 						////console.log("true playIfAnswered ----");
