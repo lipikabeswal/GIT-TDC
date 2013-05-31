@@ -76,7 +76,7 @@
                         <view width="675">
                             <TimeStatus align="right" height="100%"/>
                         </view>
-                         <view id="gLogo" x="695" valign="middle" />
+                         <view id="gLogo" x="695" valign="middle" width="99" height="37" stretches="both"/>
                     </view>
                     <view name="manipulativeToolbar" width="100%" options="releasetolayout">
                         <resizelayout axis="y"/>
