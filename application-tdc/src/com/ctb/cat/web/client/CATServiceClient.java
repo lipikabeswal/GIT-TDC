@@ -117,7 +117,7 @@ public class CATServiceClient {
 							Element item = iit.next();
 							String piid = item.getAttributeValue("item_id");
 							String peid = item.getAttributeValue("external_id");
-							priors.add(peid);
+							priors.add(piid);
 						}
 						logger.debug("CATServiceClient: processCATLoginElement: prior item list length for subtest " + subtestId + " is " + priors.size());
 						data.priorItems = (String[]) priors.toArray(new String[0]);
@@ -137,6 +137,8 @@ public class CATServiceClient {
 	
 	public static void start(String subtestId, String subtestName) throws RemoteException {
 		logger.debug("CATServiceClient: start: start");
+		
+		CATServiceClient.subscoresString = "";
 		
 		CATServiceClient.isStudentStop = false;
 		
@@ -158,7 +160,11 @@ public class CATServiceClient {
 		}
 
 		TestInitializationRequest request = new TestInitializationRequest(configId, testRosterId + ":" + subtestId, studentId, priorAbility, ineligibleItems);
-		logger.debug("CATServiceClient: start: service init request params: " + configId + ", " + testRosterId + ":" + subtestId + ", " + studentId + ", " + priorAbility + ", " + ineligibleItems);
+		String ineligibleItemList = "";
+		for(int i=0;i<ineligibleItems.length;i++) {
+			ineligibleItemList = ineligibleItemList + ineligibleItems[i] + ", ";
+		}
+		logger.debug("CATServiceClient: start: service init request params: " + configId + ", " + testRosterId + ":" + subtestId + ", " + studentId + ", " + priorAbility + ", [" + ineligibleItemList + "]");
 		TestInitializationResponse response = service.initializeTest(request);
 		logger.debug("CATServiceClient: start: service init response: status code: " + response.getStatusCode());
 		logger.debug("CATServiceClient: start: service init response: status message: " + response.getStatusMessage());
