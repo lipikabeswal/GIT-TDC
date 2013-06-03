@@ -69,7 +69,10 @@
 		<attribute name="micConnected" type="boolean" value="false"/>
 		<attribute name="mc"/>
 		<attribute name="myMic"/>
-
+<attribute name="dMicCheck"
+			value="$once{ new lz.Delegate( this, 'MicCheck' ) }" />
+<attribute name="drecordDel"
+			value="$once{ new lz.Delegate( this, 'callRecordMethod' ) }" />
 
 
 		<dataset name="audioDset"
@@ -78,18 +81,22 @@
 		</dataset>
 
 		<method name="init">
+			console.log("Inside init");
 			super.init();
 			setReferences();
 		</method>
 
 		<handler name="oninit">
+			//console.log("Inside oninit");
 			this.timertext.setAttribute('text',this.totalTime);
 			this.setAttribute('width', this.width*factor);
 			this.setAttribute('height', this.height*factor);
+		
+
 		</handler>
 
 		<handler name="ondata" args="data"><![CDATA[
-
+			//console.log("Inside ondata");
 			this.resetCalled=false;
 			this.requestSent = false;
 			this.blinkerVal = 0;
@@ -133,9 +140,13 @@
 			gController.setAttribute('blockFileName' , true);
 			doneLoading();
 			gController.recorderComponent(this);
+			if(this.isinited && this.visible){
+				//console.log("Inside ***",this.isinited,this.visible);
+				lz.Timer.addTimer( dMicCheck, 500 );
+			}
 			// For LLO128
 			//var os =  isLinux();
-
+				
 			/*if(this.isinited && this.visible && !isLinux()) {
 				this.myMic = lz.FlashUtils.getObject();
 				Debug.write("this.myMic", this.myMic);
@@ -149,10 +160,13 @@
 					//lz.FlashUtils.registerMic()
 				}
 			}*/
+			
 		]]>
 		</handler>
 
+
 		<method name="doneLoading"><![CDATA[	
+		//console.log("Inside doneLoading");
 			//Debug.write("parent.width = "+parent.width);
 			//Debug.write("this.width = " + this.width);
 			
@@ -196,6 +210,7 @@
 		</method>
 
 		<method name="doReturnToCache"><![CDATA[
+			//console.log("Inside doReturnToCache");
 			//Debug.write("doreturn to cache");
 			this.stopblinker('stop');
 			/*if(!isLinux()){
@@ -304,6 +319,18 @@
 								<handler name="onmouseout">
 									gTooltip.hideTooltip ();    
 								</handler>-->
+								<handler name="onmousedown"><![CDATA[
+									//console.log("onmousedown of record button",this);
+									if(gController.isMicPresent == true || gController.isMicPresent == 'true'){
+										this.setAttribute('clickable',true);
+										classroot.whitewrapperOverLay.setAttribute('visible',false);
+									}
+									else{
+										this.setAttribute('clickable',false);
+										classroot.whitewrapperOverLay.setAttribute('visible',true);
+									}
+								]]>
+								</handler>
 								<tooltip>Record</tooltip>
 							</basebutton>
 							<basebutton resource="button_stop"
@@ -362,6 +389,8 @@
 		</view>
 
 		<method name="startblinker" args="methodname"><![CDATA[
+		//console.log("Inside startblinker");
+		
 			this.stopCalled = false;		//to re-use this attribute, reset it
 			gController.disableAllAssets();
 			this.blinkerVal = 0;
@@ -377,30 +406,38 @@
 					gController.disableAllAudio();
 				}*/
 				setRecordDelegate();
+				//lz.Timer.resetTimer(drecordDel, 300);
 			}		
 		]]></method>
 
 		<method name="callRecordMethod">
-//Debug.write("callRecordMethod.....");	
+			//console.log("callRecordMethod.....");	
 			playProgress('record');
 		</method>		
 
 		<method name="setRecordDelegate">
+			//console.log("Inside setRecordDelegate");
 			if(typeof this.recordDel == "undefined") {	
-				this.recordDel = new LzDelegate(this, "callRecordMethod");
+				this.recordDel = new lz.Delegate(this, "callRecordMethod");
 			}
 			lz.Timer.resetTimer(this.recordDel, 300);
 		</method>		
-
+		<method name="MicCheck">
+			//console.log("Inside MicCheck");
+			gController.isMicConnected();
+			
+			
+		</method>
 		<method name="playProgress" args="methodname"><![CDATA[
+console.log("Inside playProgress");
 		//micState will be set by updateLevel method
 			if(this.micState) {		
-			//Debug.write("inside playProgress");
+			//console.log("inside playProgress");
 				this.recordStarted = true;		//if mic is connected, then only set this attribute to true 	
 				
 				
 				if(this.requestSent == false){
-					//Debug.write("requestSent :"+this.requestSent);
+					console.log("requestSent :"+this.requestSent);
 					this.requestSent = true;
 					sendRequest(methodname);
 				}		
@@ -412,11 +449,13 @@
 		]]></method>
 
 		<method name="blinker">
+//console.log("Inside blinker");
 			this.red.setAttribute('visible',true);
 			this.recordStatus.setAttribute('text',"RECORDING...");
 		</method>
 
 		<method name="stopblinker" args="methodname">
+//console.log("Inside stopblinker");
 			/*if(gController.isaudio){
 					gController.enableAllAudio();
 				}*/
@@ -444,7 +483,7 @@
 
 		<method name="reset" args="methodname">
 		
-//Debug.write("resetCalled "+this.resetCalled);
+//console.log("resetCalled "+this.resetCalled);
 			if(this.resetCalled == false || gController.isplaying == false) {
 				if(methodname == 'reset') {
 					sendRequest(methodname);
@@ -478,11 +517,13 @@
 		</method>
 
 		<method name="startCountDownTimer">
+//console.log("Inside startCountDownTimer");
 			countDownTimer();
 			this.green.setAttribute('visible',false);
 		</method>
 
 		<method name="countDownTimer">
+//console.log("Inside countDownTimer");
 		<![CDATA[	
 			this.totalTime -= 1; 	
 			fillBarWithTime(increment);	
@@ -511,6 +552,7 @@
 		</method>
 
 		<method name="stopCountDownTimer">
+//console.log("Inside stopCountDownTimer");
 			lz.Timer.removeTimer(countDownDel);
 		</method>
 
@@ -597,13 +639,16 @@
 				gCommunicator.finishCall(gXmlHelper.getErrorXml(),ds);
 			}
 		</method>
+		
 
 		<!-- Volumeter Prototype -->
 		<method name="updateLevel"><![CDATA[
+		//console.log("Inside updateLevel");
 			var isMicAttached;
 			var level = 0;
 			var vMeterHeight = 0;
 			var reClaimedMicObj = null;
+			
 			/*var micArray = lz.FlashUtils.getMicNames();
 			Debug.write("Update Level");
 			var micIsSet = false;
@@ -628,7 +673,10 @@
 			}*/
 			
 			if(this.myMic != null) {
+				//console.log("Inside if "+this.mic);
 				level = this.myMic.activityLevel;				
+			}else{
+				//console.log("this.myMic is null");
 			}
 
 			if(activityArray.length < 16) {
