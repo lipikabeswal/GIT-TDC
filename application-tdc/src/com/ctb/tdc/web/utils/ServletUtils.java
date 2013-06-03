@@ -183,7 +183,7 @@ public class ServletUtils {
 	public static final String MEMORY_EXCEEDED = "memoryExceeded";
 	public static final String LASLINKS_NEWFORM = "laslinksNewForm";
 	public static final String LASLINKS_RELOGIN = "laslinksRelogin";
-	
+	public static final String IS_MIC_ATTACHED = "ismicattached";
 //	events
 	public static final String RECEIVE_EVENT = "RCV";
 	public static final String ACTKNOWLEDGE_EVENT = "ACK";
@@ -228,6 +228,8 @@ public class ServletUtils {
 	 */
 	public static void writeResponse(HttpServletResponse response, String xml, String mseq) {
 		try {
+			System.out.println("xml in writeResponse::::"+xml);
+			System.out.println("Inside writeResponse***"+response);
 			//if((mseq == null || lastMseq == null) || !mseq.equals(lastMseq)) {
 				response.setContentType("text/xml");
 				response.setStatus(response.SC_OK);

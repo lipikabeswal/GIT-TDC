@@ -57,6 +57,7 @@ import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ReLoginUtility;
 import com.ctb.tdc.web.utils.ServletUtils;
 import com.ctb.tdc.web.utils.CalculatorDialog;
+import com.ctb.tdc.web.utils.Recorder;
 
 /** 
  * @author Tai_Truong
@@ -184,6 +185,7 @@ public class PersistenceServlet extends HttpServlet {
 	private void handleEvent(HttpServletResponse response, String method,
 			String xml, HttpServletRequest request) throws IOException {
 		String result = ServletUtils.OK;
+		//System.out.println("Method Called ***"+method);
 		boolean validSettings = ServletUtils.validateServletSettings();
 		Double abilityScore =0.0;
 		Double sem = 0.0;
@@ -346,6 +348,11 @@ public class PersistenceServlet extends HttpServlet {
 					result = ReLoginUtility.getLasCredentialsForRestart();
 					System.out.println("result getLasCredentialsForRestart******LASLINKS_RELOGIN****"+result);
 				}
+		else if(method != null && method.equals(ServletUtils.IS_MIC_ATTACHED)){
+			//System.out.println("Inside IS_MIC_ATTACHED");
+			result = Recorder.micDetection();
+			//System.out.println("Result:::"+result);
+		}
 		
 		else
 			result = ServletUtils.ERROR;
