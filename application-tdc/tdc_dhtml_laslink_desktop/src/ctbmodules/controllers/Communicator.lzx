@@ -240,7 +240,11 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 			
 		<method name="sendRequest">
 			gRequest.sendRequest(dRequestDataSet);
-		</method>  		
+		</method>  	
+		<method name="isMicConnected">
+			console.log("Inside isMicConnected Communicator");
+			gRequest.isMicConnected();
+		</method>  	
      </node>
 
 </library>
