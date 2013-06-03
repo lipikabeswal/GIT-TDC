@@ -16,6 +16,7 @@ import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -176,10 +177,7 @@ public class PersistenceServlet extends HttpServlet {
 			String xml, HttpServletRequest request) throws IOException {
 		String result = ServletUtils.OK;
 		boolean validSettings = ServletUtils.validateServletSettings();
-		Double abilityScore =0.0;
-		Double sem = 0.0;
-		String objScore = "0,0,0,0,0,0";
-
+		
 		// call method to perform an action only if servlet settings is valid
 		if (!validSettings)
 			result = ServletUtils.getServletSettingsErrorMessage();
@@ -189,69 +187,11 @@ public class PersistenceServlet extends HttpServlet {
 			result = login(xml);
 		} else if (method != null && method.equals(ServletUtils.SAVE_METHOD))
 		{
-			//System.out.println(" original save xml:"+xml);			
-			if(ServletUtils.isCurSubtestAdaptive){
-				String realId = null;
-				String adsItemId = ServletUtils.parseAdsItemId(xml);
-
-					
-				if(adsItemId != null && !ServletUtils.NONE.equals(adsItemId)) {
-	        		realId = (String) ContentServlet.itemSubstitutionMap.get(adsItemId);
-	        		if(realId != null) {	        			
-	        			xml = xml.replaceAll(adsItemId, realId);
-	        		}
-	        	}        	
-				//System.out.println(" replaced save xml:"+xml);
-    			Boolean isStopCat = ServletUtils.isScoreSubtest(xml);
-    			if (isStopCat) {
-    				 abilityScore = CATServiceClient.getAbilityScore();
-        			 sem = CATServiceClient.getSEM();
-        			 objScore = CATServiceClient.getObjScore();	
-        			
-    				xml = LoadTestUtils.setAttributeValue("score.ability",abilityScore.toString(), xml);
-    				xml = LoadTestUtils.setAttributeValue("score.sem",sem.toString(), xml);
-    				xml = LoadTestUtils.setAttributeValue("score.objective",objScore, xml);
-    				//System.out.println("Student Stop: " + CATServiceClient.isStudentStop);
-    				
-    				//setting unscored_items=1 to detect student stop. 
-    				//Changed: Need not do this now
-    				if (CATServiceClient.isStudentStop){
-    					xml = LoadTestUtils.setAttributeValue("number_of_unscored_items","1", xml);
-    				}
-	        		//System.out.println("XML after Integrating: " + xml);
-	        	}            
-    			Integer itemRawScore = getItemRawScoreFromResponse(response, xml);
-    			//System.out.println("itemRawScore:"+itemRawScore);
-    			String isCatOver = ServletUtils.parseCatOver(xml);
-    			String itemresponse = ServletUtils.parseResponse(xml);
-    			//System.out.println("itemResponse: " + itemresponse);
-    			String marked = ServletUtils.parseCatSave(xml);
-    			//To check student stop and out of time
-    			String isCatStop = ServletUtils.parseCatStop(xml);
-	    		if(isCatOver != null && ("false".equals(isCatOver) || ServletUtils.NONE.equals(isCatOver))) {
-	    			
-	    			//System.out.println("CurrentItem :"+ServletUtils.currentItem+":: itemid:"+realId);
-	    			
-		        	if(itemRawScore != null) {
-		        		if(ServletUtils.currentItem == realId){
-			        		try {
-			        			boolean isEndSubtest = ServletUtils.isEndSubtest(xml);
-			        			boolean isStop = "true".equals(isCatStop);
-			        			boolean doSend = !isEndSubtest && !isStop;
-			        			String dur = ServletUtils.parseDur(xml);
-			        			CATServiceClient.nextItem(realId, itemRawScore, itemresponse, Integer.parseInt(dur), doSend);
-				        	} catch (Exception e) {
-				        		//System.out.println("CAT Over!");
-				    			logger.info("CAT Over!");
-				                ServletUtils.writeResponse(response, ServletUtils.buildXmlErrorMessage("CAT OVER", "Ability: " + CATServiceClient.getAbilityScore() + ", SEM: " + CATServiceClient.getSEM(), "000"));
-				        	}
-		        		}
-		        	}	
-	    		}
-	        	result = save(response, xml, request);    
-			}else{
-				result = save(response, xml, request);     
+			if(ServletUtils.isCurSubtestAdaptive){	
+				xml = handleCATEvent(response, xml);
 			}
+
+			result = save(response, xml, request);     
         }
 		else if (method != null && method.equals(ServletUtils.FEEDBACK_METHOD))
 			result = feedback(xml);
@@ -305,6 +245,49 @@ public class PersistenceServlet extends HttpServlet {
 			ServletUtils.writeResponse(response, result, mseq);
 		}
 
+	}
+	
+	private String handleCATEvent(HttpServletResponse response, String xml) throws RemoteException  {
+		Double abilityScore =0.0;
+		Double sem = 0.0;
+		String objScore = "0,0,0,0,0,0";
+
+		logger.warn(xml);
+		
+		// sub item ids with those actually delivered, since TDC uses static subtest model
+		String realId = null;
+		String adsItemId = ServletUtils.parseAdsItemId(xml);
+		if(adsItemId != null && !ServletUtils.NONE.equals(adsItemId)) {
+    		realId = (String) ContentServlet.itemSubstitutionMap.get(adsItemId);
+    		if(realId != null) {	        			
+    			xml = xml.replaceAll(adsItemId, realId);
+    		}
+    	}    
+		         
+		Integer itemRawScore = getItemRawScoreFromResponse(response, xml);
+		boolean doSave = "1".equals(ServletUtils.parseCatSave(xml));
+		boolean doStop = "true".equals(ServletUtils.parseCatStop(xml));
+		
+		if(doSave) {
+			String dur = ServletUtils.parseDur(xml);
+			String itemresponse = ServletUtils.parseResponse(xml);
+			if(doStop) {
+				//TODO - distinguish between time out and student stop
+				CATServiceClient.stop("Out of Time", realId, itemRawScore, itemresponse, Integer.parseInt(dur));
+			} else {
+				CATServiceClient.nextItem(realId, itemRawScore, itemresponse, Integer.parseInt(dur));
+			}
+		}
+		
+		abilityScore = CATServiceClient.getAbilityScore();
+		sem = CATServiceClient.getSEM();
+		objScore = CATServiceClient.getObjScore();	
+		
+		xml = LoadTestUtils.setAttributeValue("score.ability",abilityScore.toString(), xml);
+		xml = LoadTestUtils.setAttributeValue("score.sem",sem.toString(), xml);
+		xml = LoadTestUtils.setAttributeValue("score.objective",objScore, xml);
+		
+		return xml;
 	}
 
 	private Integer getItemRawScoreFromResponse(HttpServletResponse response, String xml) {
@@ -638,9 +621,6 @@ public class PersistenceServlet extends HttpServlet {
 			if (isEndSubtest) {
 				result = tmsResponse;
 				ServletUtils.isRestart = false;
-				if(ServletUtils.isCurSubtestAdaptive){
-					CATServiceClient.stop("Student Stop");
-				}
 			} else {
 				if (ServletUtils.isStatusOK(tmsResponse)) {
 					result = ServletUtils.OK;
