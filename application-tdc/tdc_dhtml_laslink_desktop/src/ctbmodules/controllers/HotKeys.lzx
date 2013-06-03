@@ -229,7 +229,7 @@
                     gController.pauseTest(); 
                     break;
                 case 18: 
-					if(((lz.Keys.isKeyDown("Alt")) || (lz.Keys.isKeyDown("alt")) || (lz.Keys.isKeyDown("options")))){
+					if(((lz.Keys.isKeyDown("Alt")) || (lz.Keys.isKeyDown("alt")) || (lz.Keys.isKeyDown("option")))){
 						this.setAttribute('disableCR',true);
 						addReadOnlyCR();
 						break;
@@ -239,7 +239,7 @@
 					}
 					break;
                 case 17: 
-					if(((lz.Keys.isKeyDown("Alt")) || (lz.Keys.isKeyDown("alt")) || (lz.Keys.isKeyDown("options")))){
+					if(((lz.Keys.isKeyDown("Alt")) || (lz.Keys.isKeyDown("alt")) || (lz.Keys.isKeyDown("option")))){
 							this.setAttribute('disableCR',true);
 							break;
 	 				}else{
@@ -247,7 +247,7 @@
 					}
 					break;
 				default:
-					if(disableCR && ((lz.Keys.isKeyDown("Alt")) || (lz.Keys.isKeyDown("alt")) || (lz.Keys.isKeyDown("options")))){
+					if(disableCR && ((lz.Keys.isKeyDown("Alt")) || (lz.Keys.isKeyDown("alt")) || (lz.Keys.isKeyDown("option")))){
 						addReadOnlyCR();
 							break;
 					}else{
