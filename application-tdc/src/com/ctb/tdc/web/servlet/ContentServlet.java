@@ -44,7 +44,6 @@ import com.ctb.tdc.web.exception.DecryptionException;
 import com.ctb.tdc.web.exception.HashMismatchException;
 import com.ctb.tdc.web.exception.TMSException;
 import com.ctb.tdc.web.utils.AssetInfo;
-import com.ctb.tdc.web.utils.CATEngineProxy;
 import com.ctb.tdc.web.utils.ContentFile;
 import com.ctb.tdc.web.utils.ContentRetriever;
 import com.ctb.tdc.web.utils.MemoryCache;
@@ -220,12 +219,7 @@ public class ContentServlet extends HttpServlet {
 				String cArea = subtestDetails.getContentArea();
 				if("True".equalsIgnoreCase(isAdaptive)){
 					ServletUtils.isCurSubtestAdaptive = true;
-					if(getSubtestCount > ServletUtils.itemSetMap.size()){
-						//if(!ServletUtils.isDataDecrypted){
-							//ContentFile.deleteDataFiles();
-							ContentFile.decryptDataFiles();
-							//ServletUtils.isDataDecrypted = true;
-						//}						
+					if(getSubtestCount > ServletUtils.itemSetMap.size()){				
 						CATServiceClient.start(itemSetId, cArea);
 						// TODO: handle CAT restart case
 						if(ServletUtils.isRestart){

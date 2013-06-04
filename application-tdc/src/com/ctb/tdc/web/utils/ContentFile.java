@@ -34,7 +34,6 @@ public class ContentFile
     public static final String ITEM_FILE_EXTENSION = ".ecp";
     public static final String CONTENT_FOLDER = "/data/objectbank/";
     public static final String CONTENT_FOLDER_PATH = System.getProperty(TDC_HOME)+ CONTENT_FOLDER;
-    public static final String DATA_FOLDER = System.getProperty(TDC_HOME)+ "/data/databank/"; 	//"C:\\Program Files\\CTB\\Online Assessment\\data\\databank\\";
     public static final String DATA_FOLDER_DECRYPTED = System.getProperty(TDC_HOME)+ "/data/"; 	//"C:\\Program Files\\CTB\\Online Assessment\\data\\";
     
     private ContentFile() 
@@ -241,40 +240,7 @@ public class ContentFile
     	}
     } 
     
-    public static void decryptDataFiles(){
-    	try {
-    		String key =   "n7673nBJ2n27bB4oAfme7Ugl5VV42g8";
-    		byte[] infile = null;
-    		String hash = null;
-    		byte[] outfile = null;
-    		FileOutputStream fos = null;
-    		Security.insertProviderAt(new BouncyCastleProvider(), 2);
-    		File encDataFiles = new File(DATA_FOLDER);
-    		
-    		FilenameFilter filefilter = new FilenameFilter() {
-    			public boolean accept(File dir, String name) {
-    		        return name.endsWith(".ecp");
-    		      }
-    		};    		
-
-    		File[] files = encDataFiles.listFiles(filefilter);
-    		if (files.length > 0){
-    			//System.out.println("Files.length" + files.length);
-    			for (int i = 0; i < files.length; i++) {
-    				infile = readFromFile(files[i].getAbsolutePath());
-					hash = Crypto.generateHash(infile);
-					outfile = decryptFile(files[i].getAbsolutePath(), hash, key);
-					fos = new FileOutputStream(DATA_FOLDER_DECRYPTED+ File.separator + files[i].getName().substring(0,files[i].getName().length()-4));
-					fos.write(outfile);
-					fos.close();
-				}
-    			
-    		}
-    		
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    	}
-    }
+    
     
     public static void deleteDataFiles(){
     	try{

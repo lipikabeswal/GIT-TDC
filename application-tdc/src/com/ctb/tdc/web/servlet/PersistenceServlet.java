@@ -39,7 +39,6 @@ import org.jdom.output.XMLOutputter;
 import com.ctb.cat.web.client.CATServiceClient;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.Base64;
-import com.ctb.tdc.web.utils.CATEngineProxy;
 import com.ctb.tdc.web.utils.CalculatorDialog;
 import com.ctb.tdc.web.utils.LoadTestUtils;
 import com.ctb.tdc.web.utils.MemoryCache;
