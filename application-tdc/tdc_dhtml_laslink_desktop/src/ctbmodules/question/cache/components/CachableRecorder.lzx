@@ -142,7 +142,7 @@
 			gController.recorderComponent(this);
 			if(this.isinited && this.visible){
 				//console.log("Inside ***",this.isinited,this.visible);
-				lz.Timer.addTimer( dMicCheck, 500 );
+				//lz.Timer.addTimer( dMicCheck, 500 );
 			}
 			// For LLO128
 			//var os =  isLinux();
@@ -318,7 +318,7 @@
 								</handler>						                
 								<handler name="onmouseout">
 									gTooltip.hideTooltip ();    
-								</handler>-->
+								</handler>
 								<handler name="onmousedown"><![CDATA[
 									//console.log("onmousedown of record button",this);
 									if(gController.isMicPresent == true || gController.isMicPresent == 'true'){
@@ -330,7 +330,7 @@
 										classroot.whitewrapperOverLay.setAttribute('visible',true);
 									}
 								]]>
-								</handler>
+								</handler>-->
 								<tooltip>Record</tooltip>
 							</basebutton>
 							<basebutton resource="button_stop"
