@@ -62,8 +62,8 @@
 	<target name="buildTABE" description="Builds the TABE installer" depends="init">
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="tabe" />
-			<param name="installer.primary.url" value="https://dagobah.mhe.mhc" />
-			<param name="installer.secondary.url" value="https://dagobah.mhe.mhc" />
+			<param name="installer.primary.url" value="https://tms.ctb.com" />
+			<param name="installer.secondary.url" value="https://tms.ctb.com" />
 		</antcall>
 	</target>
 	
