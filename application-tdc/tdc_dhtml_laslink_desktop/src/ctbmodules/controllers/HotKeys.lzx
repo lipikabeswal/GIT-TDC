@@ -51,7 +51,11 @@
             lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
             lz.Keys.callOnKeyCombo( dfinish, [ 'control', 'f' ] );
            
-		    if ( gController.getClientMachine() == 'MAC' || isMac()) {
+		    /*if ( gController.getClientMachine() == 'MAC' || isMac()) {
+                dmacKeyHandler.register( lz.Keys, 'onkeydown' );
+            }*/
+
+			if (navigator.appVersion.indexOf("Mac")!=-1) {
                 dmacKeyHandler.register( lz.Keys, 'onkeydown' );
             }
         </method>
@@ -109,10 +113,66 @@
             	dmacKeyHandler.unregisterFrom( lz.Keys.onkeydown );
             }*/
           if (navigator.appVersion.indexOf("Mac")!=-1) {
-		    	console.log("MAC machine");
-                dmacKeyHandler.register( lz.Keys, 'onkeydown' );
+                dmacKeyHandler.unregisterFrom( lz.Keys, 'onkeydown' );
             }
         </method>
+
+		<method name="handleHotKeys">
+			console.log("handleHotKeys*******");
+			lz.Keys.removeKeyComboCall( dtoggleA, [ 'a' ] );
+            lz.Keys.removeKeyComboCall( dtoggleB, [ 'b' ] );
+            lz.Keys.removeKeyComboCall( dtoggleC, [ 'c' ] );
+            lz.Keys.removeKeyComboCall( dtoggleD, [ 'd' ] );
+            lz.Keys.removeKeyComboCall( dtoggleE, [ 'e' ] );
+            lz.Keys.removeKeyComboCall( dtoggleF, [ 'f' ] );
+            lz.Keys.removeKeyComboCall( dtoggleG, [ 'g' ] );
+            lz.Keys.removeKeyComboCall( dtoggleH, [ 'h' ] );
+            lz.Keys.removeKeyComboCall( dtoggleI, [ 'i' ] );
+            lz.Keys.removeKeyComboCall( dtoggleJ, [ 'j' ] );
+            lz.Keys.removeKeyComboCall( dtoggleA, [ 'shift', 'a' ] );
+            lz.Keys.removeKeyComboCall( dtoggleB, [ 'shift', 'b' ] );
+            lz.Keys.removeKeyComboCall( dtoggleC, [ 'shift', 'c' ] );
+            lz.Keys.removeKeyComboCall( dtoggleD, [ 'shift', 'd' ] );
+            lz.Keys.removeKeyComboCall( dtoggleE, [ 'shift', 'e' ] );
+            lz.Keys.removeKeyComboCall( dtoggleF, [ 'shift', 'f' ] );
+            lz.Keys.removeKeyComboCall( dtoggleG, [ 'shift', 'g' ] );
+            lz.Keys.removeKeyComboCall( dtoggleH, [ 'shift', 'h' ] );
+            lz.Keys.removeKeyComboCall( dtoggleI, [ 'shift', 'i' ] );
+            lz.Keys.removeKeyComboCall( dtoggleJ, [ 'shift', 'j' ] );
+            lz.Keys.removeKeyComboCall( dtoggleA, [ 'capslock', 'a' ] );
+            lz.Keys.removeKeyComboCall( dtoggleB, [ 'capslock', 'b' ] );
+            lz.Keys.removeKeyComboCall( dtoggleC, [ 'capslock', 'c' ] );
+            lz.Keys.removeKeyComboCall( dtoggleD, [ 'capslock', 'd' ] );
+            lz.Keys.removeKeyComboCall( dtoggleE, [ 'capslock', 'e' ] );
+            lz.Keys.removeKeyComboCall( dtoggleF, [ 'capslock', 'f' ] );
+            lz.Keys.removeKeyComboCall( dtoggleG, [ 'capslock', 'g' ] );
+            lz.Keys.removeKeyComboCall( dtoggleH, [ 'capslock', 'h' ] );
+            lz.Keys.removeKeyComboCall( dtoggleI, [ 'capslock', 'i' ] );
+            lz.Keys.removeKeyComboCall( dtoggleJ, [ 'capslock', 'j' ] );
+            lz.Keys.removeKeyComboCall( dtoggleA, [ 'shift', 'capslock', 'a' ] );
+            lz.Keys.removeKeyComboCall( dtoggleB, [ 'shift', 'capslock', 'b' ] );
+            lz.Keys.removeKeyComboCall( dtoggleC, [ 'shift', 'capslock', 'c' ] );
+            lz.Keys.removeKeyComboCall( dtoggleD, [ 'shift', 'capslock', 'd' ] );
+            lz.Keys.removeKeyComboCall( dtoggleE, [ 'shift', 'capslock', 'e' ] );
+            lz.Keys.removeKeyComboCall( dtoggleF, [ 'shift', 'capslock', 'f' ] );
+            lz.Keys.removeKeyComboCall( dtoggleG, [ 'shift', 'capslock', 'g' ] );
+            lz.Keys.removeKeyComboCall( dtoggleH, [ 'shift', 'capslock', 'h' ] );
+            lz.Keys.removeKeyComboCall( dtoggleI, [ 'shift', 'capslock', 'i' ] );
+            lz.Keys.removeKeyComboCall( dtoggleJ, [ 'shift', 'capslock', 'j' ] );
+            lz.Keys.removeKeyComboCall( dgoBack, [ 'control', 'j' ] );
+            lz.Keys.removeKeyComboCall( dgoOn, [ 'control', 'k' ] );           
+            lz.Keys.removeKeyComboCall( dtoggleTimer, [ 'control', 'o' ] );          
+            lz.Keys.removeKeyComboCall( dfinish, [ 'control', 'f' ] );
+
+		   	lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l' ] );
+            lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
+            lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
+
+          if (navigator.appVersion.indexOf("Mac")!=-1) {
+				dmacKeyHandler.unregisterFrom( lz.Keys, 'onkeydown' );
+                dmacHotKeysHandler.register( lz.Keys, 'onkeydown' );
+            }
+		</method>
 
         <method name="isComboHotKeyDown"><![CDATA[
             var isdown = false;
@@ -146,46 +206,53 @@
         ]]></method>
 
 		<method name="handleHtmlKeyPress" args="data"><![CDATA[
-			if(gController.unlockNavigation){
 	        	var keys = data.split("|");
 	        	var key = keys[0];
 	        	var shift = keys[1];
 	        	var capslock = keys[2];
 	        	var control = keys[3];
-	        	if(key == 'A' || key == 'Shift+A' || key == 'Caps_lock+A' || key == 'Shift+Caps_lock+A')
-	       			toggleA();
-	       		else if(key == 'B' || key == 'Shift+B' || key == 'Caps_lock+B' || key == 'Shift+Caps_lock+B')
-	       			toggleB();
-	       		else if(key == 'C' || key == 'Shift+C' || key == 'Caps_lock+C' || key == 'Shift+Caps_lock+C')
-	       			toggleC();
-	       		else if(key == 'D' || key == 'Shift+D' || key == 'Caps_lock+D' || key == 'Shift+Caps_lock+D')
-	       			toggleD();
-	       		else if(key == 'E' || key == 'Shift+E' || key == 'Caps_lock+E' || key == 'Shift+Caps_lock+E')
-	       			toggleE();
-	       		else if(key == 'F' || key == 'Shift+F' || key == 'Caps_lock+F' || key == 'Shift+Caps_lock+F')
-	       			toggleF();
-	       		else if(key == 'G' || key == 'Shift+G' || key == 'Caps_lock+G' || key == 'Shift+Caps_lock+G')
-	       			toggleG();
-	       		else if(key == 'H' || key == 'Shift+H' || key == 'Caps_lock+H' || key == 'Shift+Caps_lock+H')
-	       			toggleH();
-	       		else if(key == 'I' || key == 'Shift+I' || key == 'Caps_lock+I' || key == 'Shift+Caps_lock+I')
-	       			toggleI();
-	       		else if(key == 'j' || key == 'Shift+J' || key == 'Caps_lock+J' || key == 'Shift+Caps_lock+J')
-	      			toggleJ();
-	      		else if(key == 'Ctrl+J')
-	       			goBack();
-	       		else if(key == 'Ctrl+K')
-	       			goOn();
-	       		else if(key == 'Ctrl+L')
+				if(gController.unlockNavigation){
+		        	if(key == 'A' || key == 'Shift+A' || key == 'Caps_lock+A' || key == 'Shift+Caps_lock+A')
+		       			toggleA();
+		       		else if(key == 'B' || key == 'Shift+B' || key == 'Caps_lock+B' || key == 'Shift+Caps_lock+B')
+		       			toggleB();
+		       		else if(key == 'C' || key == 'Shift+C' || key == 'Caps_lock+C' || key == 'Shift+Caps_lock+C')
+		       			toggleC();
+		       		else if(key == 'D' || key == 'Shift+D' || key == 'Caps_lock+D' || key == 'Shift+Caps_lock+D')
+		       			toggleD();
+		       		else if(key == 'E' || key == 'Shift+E' || key == 'Caps_lock+E' || key == 'Shift+Caps_lock+E')
+		       			toggleE();
+		       		else if(key == 'F' || key == 'Shift+F' || key == 'Caps_lock+F' || key == 'Shift+Caps_lock+F')
+		       			toggleF();
+		       		else if(key == 'G' || key == 'Shift+G' || key == 'Caps_lock+G' || key == 'Shift+Caps_lock+G')
+		       			toggleG();
+		       		else if(key == 'H' || key == 'Shift+H' || key == 'Caps_lock+H' || key == 'Shift+Caps_lock+H')
+		       			toggleH();
+		       		else if(key == 'I' || key == 'Shift+I' || key == 'Caps_lock+I' || key == 'Shift+Caps_lock+I')
+		       			toggleI();
+		       		else if(key == 'j' || key == 'Shift+J' || key == 'Caps_lock+J' || key == 'Shift+Caps_lock+J')
+		      			toggleJ();
+		      		else if(key == 'Ctrl+J')
+		       			goBack();
+		       		else if(key == 'Ctrl+K')
+		       			goOn();
+		       		else if(key == 'Ctrl+L')
+		       			toggleMark();
+		       		else if(key == 'Ctrl+O')
+		       			toggleTimer();
+		       		else if(key == 'Ctrl+U')
+		       			pause();
+		       		else if(key == 'Ctrl+S')
+		       			stop();
+		       		else if(key == 'Ctrl+F')
+		       			finish();
+			} else {
+				if(key == 'Ctrl+L')
 	       			toggleMark();
-	       		else if(key == 'Ctrl+O')
-	       			toggleTimer();
 	       		else if(key == 'Ctrl+U')
 	       			pause();
 	       		else if(key == 'Ctrl+S')
 	       			stop();
-	       		else if(key == 'Ctrl+F')
-	       			finish();
 			}
         ]]></method>
 
@@ -193,6 +260,8 @@
         <attribute name="dmacKeyHandler"
                    value="$once{ new lz.Delegate( this, 'macKeyHandler' ) }"/>
 		<attribute name="disableCR" type="boolean" value="false"/>
+		<attribute name="dmacHotKeysHandler"
+                   value="$once{ new lz.Delegate( this, 'macHotKeysHandler' ) }"/>
 		<method name="exitPopups">
             gController.exitPopups();
         </method>
@@ -253,6 +322,25 @@
 					}else{
 						removeReadOnlyCR();
 					}				
+					break;
+	 		}
+	 	]]></method>
+
+		<method name="macHotKeysHandler" args="k"><![CDATA[
+           switch ( k ) {
+				case 12: 
+                    this.exitPopups();
+                    gController.toggleMark(); 
+                    break;
+				case 19: 
+                    this.exitPopups();
+                    gController.finishTest(); 
+                    break;
+				case 21: 
+                    this.exitPopups();
+                    gController.pauseTest(); 
+                    break;
+				default:
 					break;
 	 		}
 	 	]]></method>
@@ -409,6 +497,7 @@
 	            this.exitPopups();
 	        	if(gItemInterface.visible == true || gTutorial.visible == true){
 	        	    //canvas.freezUI();
+					gController.setAttribute('isAudioPaused', true);
 	        		gController.finishTest();   
 	        	}	
 	        }		           

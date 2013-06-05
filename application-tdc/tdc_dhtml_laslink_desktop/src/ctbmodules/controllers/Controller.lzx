@@ -680,7 +680,7 @@
 			dncurrentItem.setAttr('canNotNavigate' , false);
 		}
 		else{
-			gHotKeys.disableKeys();
+			gHotKeys.handleHotKeys();
 			dncurrentItem.setAttr('canNotNavigate' , true);
 		}
 		
@@ -3457,7 +3457,11 @@
 
             ++uisemaphore;
             if ( dsdisplay.childNodes[0].getAttr( 'enabled' ) == 'true' ) {
-                gHotKeys.disableKeys();
+            	if(this.isAudioPaused == true) {
+                	gHotKeys.disableKeys();
+                }else {
+                	gHotKeys.handleHotKeys();
+                }
                 dsdisplay.childNodes[0].setAttr( 'enabled', 'false' );
                 lz.Cursor.setCursorGlobal( 'waitcursor' );
             }
@@ -3492,6 +3496,8 @@
 	                dsdisplay.childNodes[0].setAttr( 'enabled', 'true' );
 	              if(!gScratchpad.scratchpadHasFocus && gController.unlockNavigation){
 	              		gHotKeys.enableKeys();
+	               } else {
+	               		gHotKeys.handleHotKeys();
 	               }
 	            }
 	        }
