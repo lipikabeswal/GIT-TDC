@@ -51,6 +51,8 @@
 			type="string" />
 		<attribute name="leveldel"
 			value="$once{new lz.Delegate(this, 'updateLevel')}" />
+			<attribute name="dCheckConnection"
+			value="$once{new lz.Delegate(this, 'checkConnection')}" />
 			<!-- For LLO128-->
 		<attribute name="linuxLevelDel"
 			value="$once{new lz.Delegate(this, 'updateLinux')}" />
@@ -69,8 +71,7 @@
 		<attribute name="micConnected" type="boolean" value="false"/>
 		<attribute name="mc"/>
 		<attribute name="myMic"/>
-<attribute name="dMicCheck"
-			value="$once{ new lz.Delegate( this, 'MicCheck' ) }" />
+
 <attribute name="drecordDel"
 			value="$once{ new lz.Delegate( this, 'callRecordMethod' ) }" />
 
@@ -141,8 +142,7 @@
 			doneLoading();
 			gController.recorderComponent(this);
 			if(this.isinited && this.visible){
-				//console.log("Inside ***",this.isinited,this.visible);
-				//lz.Timer.addTimer( dMicCheck, 500 );
+				gController.resetMicCheck();
 			}
 			// For LLO128
 			//var os =  isLinux();
@@ -318,9 +318,9 @@
 								</handler>						                
 								<handler name="onmouseout">
 									gTooltip.hideTooltip ();    
-								</handler>
+								</handler>-->
 								<handler name="onmousedown"><![CDATA[
-									//console.log("onmousedown of record button",this);
+									console.log("onmousedown of record button",this);
 									if(gController.isMicPresent == true || gController.isMicPresent == 'true'){
 										this.setAttribute('clickable',true);
 										classroot.whitewrapperOverLay.setAttribute('visible',false);
@@ -330,7 +330,7 @@
 										classroot.whitewrapperOverLay.setAttribute('visible',true);
 									}
 								]]>
-								</handler>-->
+								</handler>
 								<tooltip>Record</tooltip>
 							</basebutton>
 							<basebutton resource="button_stop"
@@ -373,7 +373,8 @@
 			clickable="true" showhandcursor="false" visible="false">
 			<simplelayout axis="x" inset="10" spacing="10" />
 			<view name="micNotConnected" valign="middle"
-				resource="mic_not_connected" stretches="both" width="${36 * classroot.factor}" height="${34 * classroot.factor}"/>
+				resource="mic_not_connected" stretches="both" width="${36 * classroot.factor}" height="${34 * classroot.factor}">
+			</view>
 			<text name="attachMic" fontsize="${12 * classroot.factor}" font="CTB"
 				valign="middle" multiline="true" width="${parent.width - parent.attachMic.x}">
 				It appears your microphone is not plugged in, 
@@ -390,14 +391,14 @@
 
 		<method name="startblinker" args="methodname"><![CDATA[
 		//console.log("Inside startblinker");
-		
+			gController.resetMicCheck();
 			this.stopCalled = false;		//to re-use this attribute, reset it
 			gController.disableAllAssets();
 			this.blinkerVal = 0;
 			if(!this.recordStarted) {
-				/*if(!isLinux()){	
+				if(!isLinux()){	
 				this.updateLevel();	
-				}else{*/
+				}/*else{
 				//Debug.write("Update level linux");
 				this.updateLinux();
 				//}
@@ -422,22 +423,15 @@
 			}
 			lz.Timer.resetTimer(this.recordDel, 300);
 		</method>		
-		<method name="MicCheck">
-			//console.log("Inside MicCheck");
-			gController.isMicConnected();
-			
-			
-		</method>
+		
 		<method name="playProgress" args="methodname"><![CDATA[
-console.log("Inside playProgress");
+			//console.log("Inside playProgress");
 		//micState will be set by updateLevel method
-			if(this.micState) {		
-			//console.log("inside playProgress");
+			if(gController.isMicPresent) {
 				this.recordStarted = true;		//if mic is connected, then only set this attribute to true 	
-				
-				
-				if(this.requestSent == false){
-					console.log("requestSent :"+this.requestSent);
+				//classroot.whitewrapperOverLay.setAttribute('visible',false);
+			if(this.requestSent == false){
+					//console.log("requestSent :"+this.requestSent);
 					this.requestSent = true;
 					sendRequest(methodname);
 				}		
@@ -449,13 +443,13 @@ console.log("Inside playProgress");
 		]]></method>
 
 		<method name="blinker">
-//console.log("Inside blinker");
+			//console.log("Inside blinker");
 			this.red.setAttribute('visible',true);
 			this.recordStatus.setAttribute('text',"RECORDING...");
 		</method>
 
 		<method name="stopblinker" args="methodname">
-//console.log("Inside stopblinker");
+			//console.log("Inside stopblinker");
 			/*if(gController.isaudio){
 					gController.enableAllAudio();
 				}*/
@@ -483,7 +477,7 @@ console.log("Inside playProgress");
 
 		<method name="reset" args="methodname">
 		
-//console.log("resetCalled "+this.resetCalled);
+			//console.log("resetCalled "+this.resetCalled + methodname);
 			if(this.resetCalled == false || gController.isplaying == false) {
 				if(methodname == 'reset') {
 					sendRequest(methodname);
@@ -672,7 +666,7 @@ console.log("Inside playProgress");
 				}	
 			}*/
 			
-			if(this.myMic != null) {
+			/*if(this.myMic != null) {
 				//console.log("Inside if "+this.mic);
 				level = this.myMic.activityLevel;				
 			}else{
@@ -700,34 +694,45 @@ console.log("Inside playProgress");
 
 			if (level != this.level) {
 				this.setAttribute("level", level);
+			}*/
+			
+			if(gController.isMicPresent){
+				isMicAttached = true;
+				this.whitewrapperOverLay.setAttribute('visible',false);
+			}else{
+				isMicAttached = false;
+				this.whitewrapperOverLay.setAttribute('visible',true);
 			}
 
 			if(isMicAttached == false) {
+				//console.log("inside if");
 				this.blinkerVal = 0;
 				this.whitewrapperOverLay.setAttribute('visible',true);
 				stopblinker('stop');
 				this.resetCalled = false;
 				this.micState = false;//Changes for defect 65977 
 			}
-			else if(isMicAttached == true) {			
+			else if(isMicAttached == true) {
+				//console.log("Insied else if");			
 				this.micState = true;//Changes for defect 65977
 					
 				//this.meterContainer.setAttribute('visible',true);
-				this.whitewrapperOverLay.setAttribute('visible',false);	 				
-				if(this.recordStarted == true){
-					if(this.blinkerVal >= 3){
-						this.toggleRedDisplay();
-						this.blinkerVal = 0;
-					}
-					this.blinkerVal = this.blinkerVal + 1;
+				this.whitewrapperOverLay.setAttribute('visible',false);	 
+				//console.log("this.recordStarted***",this.recordStarted);				
+					if(this.recordStarted == true){
+						if(this.blinkerVal >= 3){
+							this.toggleRedDisplay();
+							this.blinkerVal = 0;
+						}
+						this.blinkerVal = this.blinkerVal + 1;
 					
-					vMeterHeight = this.meterContainer.height - this.level * .5;
+						vMeterHeight = this.meterContainer.height - this.level * .5;
 
-					if(vMeterHeight < 0) {
-						vMeterHeight = 0;
+						if(vMeterHeight < 0) {
+							vMeterHeight = 0;
+						}
+						this.volumeMeter.setAttribute('height', vMeterHeight);
 					}
-					this.volumeMeter.setAttribute('height', vMeterHeight);
-				}
 				else {
 					//Debug.write("Mic Connected and Record Started.....")
 				}

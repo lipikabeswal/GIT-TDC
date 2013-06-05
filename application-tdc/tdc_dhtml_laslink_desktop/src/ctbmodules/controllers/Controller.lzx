@@ -521,6 +521,8 @@
 		<attribute name="findAnswer" type="boolean" value="true"/>
 		<!-- isMicPresent used for checking if mic is connected -->
 		<attribute name="isMicPresent" type="boolean" value="true"/>
+		<attribute name="dMicCheck"
+			value="$once{ new lz.Delegate( this, 'isMicConnected' ) }" />
 		<!--
 			============================================================
 			Datapointers
@@ -795,6 +797,7 @@
 
 		<method name="showError" args="xml">
 			stopHeartbeat();
+			stopMicCheck();
             lz.Cursor.unlock();
             gReadableText.stopReading(false);
         	hideMagnifierGlass();
@@ -1126,6 +1129,7 @@
 
 		<method name="_handleFinishSaveResponse" args="response">
 			setState(SUBTEST_FINISH_STATE);
+			resetMicCheck();
 			resetHeartbeat();
 			gCommunicator.lifecycle(FINISH_LEV);
 		</method>
@@ -1137,6 +1141,7 @@
 		<method name="goToGoodbyeScreen">
 			//stopAsset();
 			stopHeartbeat();
+			stopMicCheck();
 			hideManipulatives();
 			gScreens.showGoodbye();
 			lz.Timer.addTimer( dcloseBrowser, 5000 );
@@ -1228,6 +1233,7 @@
             		dprestart.deleteNode();
 				}
 				sendHeartbeat();   // starts heartbeats
+				resetMicCheck();
 				if(gTutorialManager.hasTutorial){
 					gTutorialManager.doTutorialFlow();
 				}
@@ -3187,6 +3193,8 @@
 
 		<method name="save" args="lev">
         	var saveParams = getSaveParams(lev);
+			//console.log("Inside save");
+			resetMicCheck();
         	resetHeartbeat();
 			gCommunicator.save(saveParams);
 		</method>
@@ -3207,9 +3215,11 @@
 		</method>
 
 		<method name="pausedContinue" args="pw">
+			//console.log("Inside pausedContinue");
             if ( pw == dpsubtest.xpathQuery( 'testing_session_data/cmi.core/@password' ) ) {
                 lz.Cursor.setCursorGlobal( 'waitcursor' );
 				setState(PAUSED_RESUME_STATE);
+				resetMicCheck();
 				resetHeartbeat();
 				gCommunicator.lifecycle(RESUME_LEV);
 				//canvas.freezUI();
@@ -4140,6 +4150,9 @@ Debug.write("############ loadItem ############");
 		<method name="resetHeartbeat">
 			lz.Timer.resetTimer( dsendHeartbeat, 120000 );
 		</method>
+		<method name="resetMicCheck">
+			lz.Timer.resetTimer(dMicCheck, 6000 );
+		</method>
 
 		<method name="getCurrentInteractionType">
             var typeNode = dpstudentdata.xpathQuery( 'current_item/item_model/interaction' );
@@ -4471,6 +4484,9 @@ Debug.write("############ loadItem ############");
 		<method name="stopHeartbeat">
 			lz.Timer.removeTimer( dsendHeartbeat );
 		</method>
+		<method name="stopMicCheck">
+			lz.Timer.removeTimer( dMicCheck );
+		</method>
 
 		<method name="isMarkedForReviewWithManipulativeOpen"><![CDATA[
 			var isMarked = false;
@@ -4795,6 +4811,7 @@ Debug.write("############ loadItem ############");
             this.isWaitPopupOpen = true;	
 			gPleaseWaitPopup.show();
 			//gMusicPlayer.hide();
+			stopMicCheck();
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
 			//canvas.unFreezUI();
@@ -4816,6 +4833,9 @@ Debug.write("############ loadItem ############");
 		<method name="hideWaitPopup"><![CDATA[
 			this.isWaitPopupOpen = false;	
 			gPleaseWaitPopup.hide();
+			if(gItemInterface.visible == true || gItemInterface.visible == 'true'){
+				resetMicCheck();
+			}
 			lz.Timer.removeTimer(dNetworkLostPopup);
 			gReadableText.stopRequestor();
 			gController.unlockUI();
@@ -5623,6 +5643,8 @@ Debug.write("############ loadItem ############");
 			gDownloadManager.downloadContent();
 		</method>
 		<method name="isMicConnected" >
+			//console.log("Inside isMicConnected");
+			resetMicCheck();
 			//console.log("Inside isMicConnected");
 			setState(IS_MIC_ATTACHED);
 			gCommunicator.isMicConnected();
