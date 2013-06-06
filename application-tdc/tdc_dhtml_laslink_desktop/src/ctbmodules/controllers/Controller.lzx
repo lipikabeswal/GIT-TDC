@@ -1233,7 +1233,7 @@
             		dprestart.deleteNode();
 				}
 				sendHeartbeat();   // starts heartbeats
-				resetMicCheck();
+				//resetMicCheck();
 				if(gTutorialManager.hasTutorial){
 					gTutorialManager.doTutorialFlow();
 				}
@@ -3603,6 +3603,7 @@ Debug.write("############ loadItem ############");
 			gMaskingAnswer.setAttribute("withState",false);
 			hideMagnifierGlass();
 			hideMaskingChoiceDD();
+			resetMicCheck(); // First call for Mic Check
 			this.setAttribute('canNotAnswer',false); // set canNotAnswer to false on item load for responseAreaLocker attribute.
 		]]></method>
 
