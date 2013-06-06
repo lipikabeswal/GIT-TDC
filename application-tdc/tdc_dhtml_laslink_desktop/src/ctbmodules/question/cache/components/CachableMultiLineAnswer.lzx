@@ -1,7 +1,7 @@
 <library>
     <include href="CachableComponent.lzx"/>
 	<!-- <include href="incubator/scrolledittext.lzx" /> -->
-	<include href="../../../manipulatives/scratchpad/scrolledittext.lzx" />
+	<include href="../scrolledittext.lzx" />
 
 
     <!-- ===============
@@ -253,9 +253,9 @@
 	 			</view>
  	 		</view>
 				<view name="rich" bgcolor="${Number(gController.answerBgColor)}">
-				   <scrolledittextnew name="answer" 
+				   <scrolledittext_CrItem name="answer" 
 									 height="${classroot.showFormatBar ? classroot.height - classroot.outer.controls.height : classroot.height }" 
-									 width="${classroot.editTextWidth + 5}" x="6">
+									 width="${classroot.editTextWidth+9}" vscrollbarclassname="null">
 										<attribute name="start" type="number" value="0" />
 						<attribute name="start" type="number" value="0" />
 		            	<attribute name="end" type="number" value="0" />
@@ -313,7 +313,7 @@
 						 }
 						 var textAreafgcolor = "color: "+ textFontColor + ";";
 						 var elm = this.inp.getDisplayObject();
-						 elm.setAttribute('style','overflow-y: hidden;' + textAreafgcolor+ '');
+						 elm.setAttribute('style','overflow-y: scroll;' + textAreafgcolor+ '');
 						 	if(this.text.length > Number(classroot.characterLimit)){
 								var textContent = this.text;
 								textContent = textContent.substring(0,Number(classroot.characterLimit));
@@ -349,7 +349,7 @@
 						this.setAttribute('text',a);		
 					</method>
 
-				  </scrolledittextnew>
+				  </scrolledittext_CrItem>
 				 </view>
 			</view>
 
