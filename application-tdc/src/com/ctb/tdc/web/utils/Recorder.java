@@ -10,7 +10,8 @@ import java.util.ArrayList;
  */
 public class Recorder {
     // record duration, in milliseconds
-    static final long RECORD_TIME = 500;  // .5 sec 
+    static final long RECORD_TIME = 500; // .5 sec 
+	//static final long RECORD_TIME = 90000; 
     private static boolean microphone = false;
     // path of the wav file
 
@@ -79,7 +80,9 @@ public class Recorder {
             }
  
         } catch (LineUnavailableException ex) {
-            ex.printStackTrace();
+        	isMic=true;
+        	return isMic;
+            //ex.printStackTrace();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
