@@ -283,12 +283,10 @@
 					<handler name="onclick" >
 						gController.setManipulativeSelState("scratchpad", "up");
 		 			</handler>
-		 			 <handler name="onmouseover">
-						gTooltip.showTooltip('Save and Close');
-					</handler>
-					<handler name="onmouseout">
-						gTooltip.hideTooltip();
-					</handler>
+		 			<handler name="onmouseover">
+		 				lz.Cursor.unlock();
+		 			</handler>
+		 			 <tooltip text="Save and Close"/>
 					
 		 			</basebutton>
 		 			

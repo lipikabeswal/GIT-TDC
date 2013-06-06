@@ -301,6 +301,22 @@ function callTestMouseUp1() {
    	lz.embed.setCanvasAttribute('testMouseUp','true');
 }
 
+function hideScrollbar(arg){
+    var scrid = document.getElementById(arg);
+    scrid.setAttribute('style',"overflow-x: hidden; overflow-y: scroll;");
+}
+
+function setScrollEdittextWidth(elmId,comWidth){
+    var scrid = document.getElementById(elmId);
+    //console.log("== setScrollEdittextWidth ===",scrid);
+    scrid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; width: '+comWidth+'');
+}
+
+function setScrollEdittextHeight(elmId,comHeight){
+    var scrid = document.getElementById(elmId);
+    //console.log("== setScrollEdittextHeight ===",scrid);
+    scrid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; height: '+comHeight+'');
+}
 
 function fromWrapper() {
 	lz.embed.setCanvasAttribute('fromWrapper','true');

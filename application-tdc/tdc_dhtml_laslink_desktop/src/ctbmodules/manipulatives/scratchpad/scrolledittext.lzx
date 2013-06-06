@@ -2,7 +2,7 @@
 <include href="lz/vscrollbar.lzx"/>
 
 <!--- Implements visual baseedittext with scrollbar. -->
-<class name="scrolledittextnew" extends="baseedittext" multiline="true" clip="true" height="100">
+<class name="scrolledittextnew" extends="baseedittext" multiline="true"  height="100" clip="true">
     <!--// ATTRIBUTES //-->
     <attribute name="border" type="number" value="0"/>
 
@@ -107,10 +107,29 @@
         pattern="[A-Za-z0-9!@;:#$%\*()-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[\\]\\\\\_|`~ \\^]*"
         fgcolor="${Number(gController.answerFontColor)}">
         <attribute name="pos" type="number" value="0"/>
-        
+
+       <handler name="onwidth">
+			var comWidth = this.width-1;
+			var elm = this.getDisplayObject();
+			elm.setAttribute('id','scrolledittext');
+			
+			setScrollEdittextWidth(elm.id,comWidth);	
+		</handler>
+		
+ 		<handler name="onheight">
+			var comHeight = this.height-5;
+            var elm = this.getDisplayObject();
+			elm.setAttribute('id','scrolledittext');
+			
+			setScrollEdittextHeight(elm.id,comHeight);	
+		</handler>
+
         <handler name="oninit">
 				var el = this.getDisplayObject();
 				el.setAttribute('id','scratchpad');
+				
+				//console.log("===SCRATH PAD VISIBLE===",el.id);
+			    hideScrollbar(el.id);	
 			</handler>
         <setter name="pos" args="p">        	
             if (this.p == p){
@@ -142,6 +161,7 @@
         </handler>
     </_newinternalinputtext>
 </class>
+
 </library>
 <!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
 * Copyright 2006-2011 Laszlo Systems, Inc. All Rights Reserved.               *

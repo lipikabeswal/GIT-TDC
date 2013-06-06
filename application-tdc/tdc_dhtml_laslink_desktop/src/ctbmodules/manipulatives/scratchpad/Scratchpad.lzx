@@ -93,7 +93,7 @@
         </handler>
         
         <method name="restoreFocusAndCursor" >
-        	this.sp.inp.onfocus.sendEvent();
+        	this.sp.onfocus.sendEvent();
        		this.sp.resetTheSelection();
         	this.setAttribute("scratchpadHasFocus", true);
 			//gHotKeys.disableKeys();
@@ -143,15 +143,14 @@
          
 	     <scrolledittextnew name="sp" 
 	                             height="${immediateparent.height}" 
-	                             width="${immediateparent.width}" 
-	                             focusable="true" clickable="true">
+	                             width="${immediateparent.width}"
+	                             focusable="true" clickable="true" vscrollbarclassname="null">
 	            	<attribute name="start" type="number" value="0" />
 	            	<attribute name="end" type="number" value="0" />
-	            	<attribute name="scrollPos" type="number" value="0" visible="${scrollable}"/>
+	            	<attribute name="scrollPos" type="number" value="0"/>
 			
 	            <method name="init">
-	            	
-	                super.init();
+	            	super.init();
 	                this.style.setAttribute("textfieldcolor", gController.answerBgColor);
 					//this.setAttribute('fontcolor',gController.answerFontColor);
 					this.inp.setAttribute("fgcolor", gController.answerFontColor);
