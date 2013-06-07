@@ -19,6 +19,7 @@ import java.net.URLEncoder;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -354,8 +355,12 @@ public class PersistenceServlet extends HttpServlet {
 		String result = ServletUtils.ERROR;
 
 		try {
+			// allow the TMS to know whether or not this is the CAT client
+			ResourceBundle rbTdc = ResourceBundle.getBundle("tdc");
+			String catURL = rbTdc.getString("cat.service.url");
+			xml = xml.replace("sds_id=\"string\"", "sds_id=\"" + catURL + "\"");
 			// sent login request to TMS
-			//logger.info("***** login request");
+			logger.info("Login request: " + xml);
 			result = ServletUtils.httpClientSendRequest(
 					ServletUtils.LOGIN_METHOD, xml);
 			
