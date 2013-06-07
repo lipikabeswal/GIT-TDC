@@ -182,7 +182,7 @@
                 <basebutton name="btnback" resource="go_back_btn" x="0"
                             enabled="${ classroot.uienabled == true &amp;&amp; classroot.isDisableNavigation == false }"
                             onclick="gController.stepNavigateBack ()"
-                            disabledResourceNumber="1"  visible="${!gController.fwdOnly}">
+                            disabledResourceNumber="1"  visible="${!gController.fwdOnly &amp;&amp; !gController.onFirstItem()}">
                 			
                 			<handler name="onmouseover">
                                 lz.Cursor.showHandCursor(true);
