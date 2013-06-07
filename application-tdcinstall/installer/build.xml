@@ -62,8 +62,8 @@
 	<target name="buildTABE" description="Builds the TABE installer" depends="init">
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="tabe" />
-			<param name="installer.primary.url" value="http://12.3.70.174/" />
-			<param name="installer.secondary.url" value="http://12.3.70.174/" />
+			<param name="installer.primary.url" value="http://12.3.70.174" />
+			<param name="installer.secondary.url" value="http://12.3.70.174" />
 		</antcall>
 	</target>
 	
