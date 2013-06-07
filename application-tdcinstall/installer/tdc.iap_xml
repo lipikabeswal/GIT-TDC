@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using Macrovision InstallAnywhere 2008 Enterprise, Build 3418
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Tue Apr 02 15:56:18 PDT 2013 -->
-<InstallAnywhere_Deployment_Project increments="11514">
+     DATE:   Thu Jun 06 17:55:09 PDT 2013 -->
+<InstallAnywhere_Deployment_Project increments="11406">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="9" minor="0" revision="0"/>
 		<editionID>57,46,48,32,69,110,116,101,114,112,114,105,115,101,32,66,117,105,108,100,32,51,52,49,56</editionID>
-		<scriptID>12,42,11,69,49,48,48,57,67,57,57,74,57,57,74,57,57,54,57,57,67,57,77,57,57,84</scriptID>
+		<scriptID>12,42,11,69,50,56,57,57,67,57,57,74,57,57,74,57,57,54,57,57,67,57,77,57,57,84</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,86,105,115,116,97,44,32,54,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,53,46,48,95,49,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,48,-61,-7,16,80,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,11,7,103,108,13,1,0,0</authorizationID>
+		<authorizationID>1,0,0,48,19,37,64,80,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,8,3,97,108,15,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="747">
+	<installationObjects uniqueObjects="741">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="classpath">
 				<object class="java.util.Vector">
@@ -9863,7 +9863,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[April 2, 2013 3:56:18 PM PDT]]></string>
+						<string><![CDATA[June 6, 2013 5:55:09 PM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -12852,7 +12852,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="e0775dceb267">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="2f9f587c9149">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.tsutility.Main]]></string>
 															</property>
@@ -14882,7 +14882,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="e0775de8b288">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="2f9f588c9175">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.tuningutility.Main]]></string>
 															</property>
@@ -15030,167 +15030,6 @@ and any path to a file to read from that file]]></string>
 												</object>
 											</rules>
 										</object>
-										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="c0b4e7198cbf">
-											<property name="unixPermissions">
-												<string><![CDATA[777]]></string>
-											</property>
-											<property name="sourceName">
-												<string><![CDATA[CATABE.dll]]></string>
-											</property>
-											<property name="overrideUnixPermissions">
-												<boolean>true</boolean>
-											</property>
-											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\]]></string>
-											</property>
-											<property name="shouldUninstall">
-												<boolean>true</boolean>
-											</property>
-											<property name="destinationName">
-												<string><![CDATA[CATABE.dll]]></string>
-											</property>
-											<property name="fileSize">
-												<long>64998</long>
-											</property>
-											<property name="macBinary">
-												<boolean>false</boolean>
-											</property>
-											<property name="targetCheckKind">
-												<int>0</int>
-											</property>
-										</object>
-										<object class="com.zerog.ia.installer.actions.InstallDirCont" objectID="1775be118d9d">
-											<property name="useFilterExtensions">
-												<boolean>false</boolean>
-											</property>
-											<property name="totalSize">
-												<long>151681</long>
-											</property>
-											<property name="unixPermissions">
-												<string><![CDATA[775]]></string>
-											</property>
-											<property name="sourceName">
-												<string><![CDATA[]]></string>
-											</property>
-											<property name="overrideUnixPermissions">
-												<boolean>false</boolean>
-											</property>
-											<property name="directoryChosen">
-												<boolean>true</boolean>
-											</property>
-											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\data\databank]]></string>
-											</property>
-											<property name="shouldUninstall">
-												<boolean>true</boolean>
-											</property>
-											<property name="destinationName">
-												<string><![CDATA[databank\]]></string>
-											</property>
-											<property name="createDirectory">
-												<boolean>true</boolean>
-											</property>
-											<property name="directoryName">
-												<string><![CDATA[databank]]></string>
-											</property>
-											<property name="patternMatcher">
-												<object class="com.zerog.ia.installer.SimplePatternMatcher" objectID="1775be128d9d">
-													<property name="includePatterns">
-														<object class="java.util.Vector"/>
-													</property>
-													<property name="excludePatterns">
-														<object class="java.util.Vector">
-															<method name="addElement">
-																<object class="com.zerog.ia.installer.PatternAtom" objectID="177ae6f9914c">
-																	<property name="searchDescription">
-																		<string><![CDATA[Regular Expression]]></string>
-																	</property>
-																	<property name="includeExcludeState">
-																		<string><![CDATA[Excludes]]></string>
-																	</property>
-																	<property name="matchString">
-																		<string><![CDATA[CVS]]></string>
-																	</property>
-																	<property name="ignoresCase">
-																		<string><![CDATA[No]]></string>
-																	</property>
-																	<property name="typeOption">
-																		<string><![CDATA[Files and Folders]]></string>
-																	</property>
-																</object>
-															</method>
-														</object>
-													</property>
-												</object>
-											</property>
-											<property name="macBinary">
-												<boolean>false</boolean>
-											</property>
-											<property name="targetCheckKind">
-												<int>0</int>
-											</property>
-											<property name="recursivelyUninstall">
-												<boolean>false</boolean>
-											</property>
-										</object>
-										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="60bce29e8d01">
-											<property name="unixPermissions">
-												<string><![CDATA[777]]></string>
-											</property>
-											<property name="sourceName">
-												<string><![CDATA[libCATABE.jnilib]]></string>
-											</property>
-											<property name="overrideUnixPermissions">
-												<boolean>true</boolean>
-											</property>
-											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\]]></string>
-											</property>
-											<property name="shouldUninstall">
-												<boolean>true</boolean>
-											</property>
-											<property name="destinationName">
-												<string><![CDATA[libCATABE.jnilib]]></string>
-											</property>
-											<property name="fileSize">
-												<long>59024</long>
-											</property>
-											<property name="macBinary">
-												<boolean>false</boolean>
-											</property>
-											<property name="targetCheckKind">
-												<int>0</int>
-											</property>
-										</object>
-										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="75ed2cd68c20">
-											<property name="unixPermissions">
-												<string><![CDATA[777]]></string>
-											</property>
-											<property name="sourceName">
-												<string><![CDATA[libCATABE.so]]></string>
-											</property>
-											<property name="overrideUnixPermissions">
-												<boolean>true</boolean>
-											</property>
-											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\]]></string>
-											</property>
-											<property name="shouldUninstall">
-												<boolean>true</boolean>
-											</property>
-											<property name="destinationName">
-												<string><![CDATA[libCATABE.so]]></string>
-											</property>
-											<property name="fileSize">
-												<long>61613</long>
-											</property>
-											<property name="macBinary">
-												<boolean>false</boolean>
-											</property>
-											<property name="targetCheckKind">
-												<int>0</int>
-											</property>
-										</object>
 										<object refID="c66fac038c24"/>
 										<object refID="c66fac048c24"/>
 										<object refID="c66fac058c24"/>
@@ -15201,40 +15040,6 @@ and any path to a file to read from that file]]></string>
 										<object refID="c6f59aa18cab"/>
 										<object refID="3b2bb8118d48"/>
 										<object refID="3b2bb8068d37"/>
-										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="2f12115bb721">
-											<property name="unixPermissions">
-												<string><![CDATA[777]]></string>
-											</property>
-											<property name="sourceName">
-												<string><![CDATA[]]></string>
-											</property>
-											<property name="overrideUnixPermissions">
-												<boolean>true</boolean>
-											</property>
-											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\data]]></string>
-											</property>
-											<property name="shouldUninstall">
-												<boolean>true</boolean>
-											</property>
-											<property name="destinationName">
-												<string><![CDATA[data]]></string>
-											</property>
-											<property name="removeRecursively">
-												<boolean>false</boolean>
-											</property>
-											<property name="totalSize">
-												<long>1</long>
-											</property>
-											<property name="macBinary">
-												<boolean>false</boolean>
-											</property>
-											<visualChildren>
-												<object refID="2f12115bb722"/>
-												<object refID="2f12117ab729"/>
-												<object refID="1775be118d9d"/>
-											</visualChildren>
-										</object>
 										<object class="com.zerog.ia.installer.actions.MakeExecutable" objectID="ee6f34e39133">
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -15425,6 +15230,19 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="2f9f588c9186">
+															<property name="propertyValue">
+																<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
+															</property>
+															<property name="propertyName">
+																<string><![CDATA[lax.main.class]]></string>
+															</property>
+															<property name="propertyComment">
+																<string><![CDATA[the class that contains the main method for the application]]></string>
+															</property>
+														</object>
+													</method>
+													<method name="addElement">
 														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="6fa5a673b115">
 															<property name="propertyValue">
 																<string><![CDATA[33554432]]></string>
@@ -15434,19 +15252,6 @@ it will search for ones in this list]]></string>
 															</property>
 															<property name="propertyComment">
 																<string><![CDATA[VM intial heap size]]></string>
-															</property>
-														</object>
-													</method>
-													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="e0775deeb296">
-															<property name="propertyValue">
-																<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
-															</property>
-															<property name="propertyName">
-																<string><![CDATA[lax.main.class]]></string>
-															</property>
-															<property name="propertyComment">
-																<string><![CDATA[the class that contains the main method for the application]]></string>
 															</property>
 														</object>
 													</method>
@@ -15866,7 +15671,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="e0775df5b2a1">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="2f9f589c9193">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
 															</property>
@@ -16295,6 +16100,39 @@ and any path to a file to read from that file]]></string>
 												</object>
 											</rules>
 										</object>
+										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="2f12115bb721">
+											<property name="unixPermissions">
+												<string><![CDATA[777]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>true</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\data]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[data]]></string>
+											</property>
+											<property name="removeRecursively">
+												<boolean>false</boolean>
+											</property>
+											<property name="totalSize">
+												<long>1</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<visualChildren>
+												<object refID="2f12115bb722"/>
+												<object refID="2f12117ab729"/>
+											</visualChildren>
+										</object>
 									</installChildren>
 								</object>
 								<object class="com.zerog.ia.installer.InstallComponent" objectID="722460bc88fc">
@@ -16677,9 +16515,6 @@ and any path to a file to read from that file]]></string>
 								<object refID="e6e45cf18b1e"/>
 								<object refID="6fb0b93cb12d"/>
 								<object refID="6fb13e46b12d"/>
-								<object refID="c0b4e7198cbf"/>
-								<object refID="60bce29e8d01"/>
-								<object refID="75ed2cd68c20"/>
 								<object refID="ee6f34e39133"/>
 								<object refID="6fa40474b108"/>
 								<object refID="5d122d70b01d"/>
