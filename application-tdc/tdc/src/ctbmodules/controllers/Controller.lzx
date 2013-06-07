@@ -1163,6 +1163,7 @@
 			stopHeartbeat();
 			removeTrackTimer();
 			removePauseTimer();
+			gPauseTimerScreen.setVisible(false);
 			gScreens.showGoodbye();
 			LzTimer.addTimer( dcloseBrowser, 5000 );
 		</method>
@@ -3143,7 +3144,7 @@
 			startPauseTimer();
             gScreens.showPause(getStudentName());
 			gPauseTimerScreen.setVisible(true);
-			
+			gRevisitFalsePopup.hide();
 		</method>
 
 		<method name="pausedContinue" args="pw">
@@ -3245,6 +3246,7 @@
 			checkHideMaskingChoiceDD();
 			gMusicPlayer.hide();
             LzCursor.unlock();
+			gRevisitFalsePopup.hide();
 			
 			if(this.adaptive == 'true'){				
 				//if (gScreens.isOnFinishScreen()) {
@@ -3410,8 +3412,23 @@
 					uisemaphore = 0;
 				}
 	            if ( 0 == uisemaphore ) {
+					
 	                LzCursor.unlock();
-	                restoreCurrentCursor();
+	                // to clear the highlighter cursor when navigating to next item.
+	                if(canvas.currentCursor == 'highlighter_cursor'){
+	                	clearAndRestoreCurrentCursor();
+	                }
+					// to clear the eraser cursor when navigating to next item. 
+					else if(canvas.currentCursor == 'eraser_cursor'){
+	                	clearAndRestoreCurrentCursor();
+	                }
+					// to clear the eraser cursor when navigating to next item. 
+					else if(canvas.currentCursor == 'eliminator_cursor'){
+	                	clearAndRestoreCurrentCursor();
+	                }
+					else{	                	
+	                	restoreCurrentCursor();
+	                }
 	                dsdisplay.childNodes[0].setAttr( 'enabled', 'true' );
 	                if(!gScratchpad.scratchpadHasFocus){
 	                	gHotKeys.enableKeys();
