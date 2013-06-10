@@ -8,58 +8,70 @@ var checkAnswered = false;
 var pausedAssetID = null;
 
 function iframeLoaded(id, iframe){
-	if(currentLasAssetItemId) {
-		
-		////console.log("UTILS -->",id,"  ",iframe);
-		var folderName = iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1);
-		frameFolderObject[folderName] = iframe.id;
-		if(iframe.src.indexOf('asset.html') > 0) {
-			if(iframeObject[currentLasAssetItemId]) {
-				iframeObject[currentLasAssetItemId][iframe.id] = {'folder' : iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1), 'iframeObj' : iframe, 'clickedOnce' : false, 'playedOnce' : false, 'playEvent' : false};
-				////console.log("*******  ",iframeObject[currentLasAssetItemId][iframe.id]);
-			} else {
-				iframeObject[currentLasAssetItemId] = {};
-				iframeObject[currentLasAssetItemId][iframe.id] = {'folder' : iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1), 'iframeObj' : iframe, 'clickedOnce' : false, 'playedOnce' : false, 'playEvent' : false};
+	if(iframe){
+		if(currentLasAssetItemId) {
+			var folderName;
+			if(iframe.src.indexOf('asset.html')!=-1){
+				folderName = iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1);
+			}else{
+				folderName = iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('video.html') -1);
 			}
-		}
-		getPlayOrder();  // To get the playOrder of all assets in array.
-		////console.log("gController.lasAssetArray ->",gController.lasAssetArray);
-		for(var i=0; i<gController.lasAssetArray.length;i++){
-			if(gController.lasAssetArray[i].asset){
-				if(gController.lasAssetArray[i].asset.aw.iframeid == iframe.id) {
-					//Not doing anything for auto play now.
-					if(parseInt(gController.lasAssetArray[i].data.getAttr('playorder')) == 1){
-						//if(gController.lasAssetArray[i].data.getAttr('autoplay') == "true")
-			 			//iframe.contentWindow.autoPlay();
-			 			//iframe.contentWindow.play();
-					}
-					// Apart from first asset, rest should be disabled
-					if(parseInt(gController.lasAssetArray[i].data.getAttr('playorder')) != 1) {
-						iframe.contentWindow.disable();
-					}
-					//Disable the response content, if the attribute responseAreaLocker is present
-					if(gController.lasAssetArray[i].data.getAttr('responseAreaLocker') == "true"){
-					    if(gMagnifyingGlass.magnifierOpen == false || gMagnifyingGlass.magnifierOpen == 'false'){
-					    	//do nothing
-					    	// this condition is for the defect 73859
-					    }else{
-					        gController.setAttribute('canNotAnswer',true);
-						}	
-					}
-					if(gController.lasAssetArray[i].data.getAttr('playIfAnswered') == "true"){
-						////console.log("true playIfAnswered ----");
-						gController.setAttribute('iframeid',iframe.id);
+			frameFolderObject[folderName] = iframe.id;
+			if(iframe.src.indexOf('asset.html') > 0) {
+				if(iframeObject[currentLasAssetItemId]) {
+					iframeObject[currentLasAssetItemId][iframe.id] = {'folder' : iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1), 'iframeObj' : iframe, 'clickedOnce' : false, 'playedOnce' : false, 'playEvent' : false};
+					////console.log("*******  ",iframeObject[currentLasAssetItemId][iframe.id]);
+				} else {
+					iframeObject[currentLasAssetItemId] = {};
+					iframeObject[currentLasAssetItemId][iframe.id] = {'folder' : iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1), 'iframeObj' : iframe, 'clickedOnce' : false, 'playedOnce' : false, 'playEvent' : false};
+				}
+			}else if(iframe.src.indexOf('video.html') > 0){
+				if(iframeObject[currentLasAssetItemId]) {
+					iframeObject[currentLasAssetItemId][iframe.id] = {'folder' : iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('video.html') -1), 'iframeObj' : iframe, 'clickedOnce' : false, 'playedOnce' : false, 'playEvent' : false};
+				} else {
+					iframeObject[currentLasAssetItemId] = {};
+					iframeObject[currentLasAssetItemId][iframe.id] = {'folder' : iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('video.html') -1), 'iframeObj' : iframe, 'clickedOnce' : false, 'playedOnce' : false, 'playEvent' : false};
+				}
+			}
+			getPlayOrder();  // To get the playOrder of all assets in array.
+			////console.log("gController.lasAssetArray ->",gController.lasAssetArray);
+			for(var i=0; i<gController.lasAssetArray.length;i++){
+				if(gController.lasAssetArray[i].asset){
+					var frameid = getFrameId(gController.lasAssetArray[i]);
+					if(frameid == iframe.id) {
+						//Not doing anything for auto play now.
+						if(parseInt(gController.lasAssetArray[i].data.getAttr('playorder')) == 1){
+							//if(gController.lasAssetArray[i].data.getAttr('autoplay') == "true")
+				 			//iframe.contentWindow.autoPlay();
+				 			//iframe.contentWindow.play();
+						}
+						// Apart from first asset, rest should be disabled
+						if(parseInt(gController.lasAssetArray[i].data.getAttr('playorder')) != 1) {
+							iframe.contentWindow.disable();
+						}
+						//Disable the response content, if the attribute responseAreaLocker is present
+						if(gController.lasAssetArray[i].data.getAttr('responseAreaLocker') == "true"){
+						    if(gMagnifyingGlass.magnifierOpen == false || gMagnifyingGlass.magnifierOpen == 'false'){
+						    	//do nothing
+						    	// this condition is for the defect 73859
+						    }else{
+						        gController.setAttribute('canNotAnswer',true);
+							}	
+						}
+						if(gController.lasAssetArray[i].data.getAttr('playIfAnswered') == "true"){
+							////console.log("true playIfAnswered ----");
+							gController.setAttribute('iframeid',iframe.id);
+						}
 					}
 				}
 			}
-		}
-			assetCount++;
-			if(gController.lasAssetArray.length == assetCount){
-				setTimeout("startAutoplay()",500);
+				assetCount++;
+				if(gController.lasAssetArray.length == assetCount){
+					setTimeout("startAutoplay()",500);
+				}
+			//restrictNavigation('lock');
 			}
-		//restrictNavigation('lock');
-		}
-		
+		}		
 	}
 	
 
@@ -86,7 +98,8 @@ function checkAllPlayedOnce() {
 			////console.log(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].clickedOnce);
 			////console.log(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].playedOnce);
 			////console.log("Inside iframeObject :",iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid]);
-			if(!(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].clickedOnce && iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].playedOnce)) {
+			var frameid = getFrameId(gController.lasAssetArray[i]);
+			if(!(iframeObject[currentLasAssetItemId][frameid].clickedOnce && iframeObject[currentLasAssetItemId][frameid].playedOnce)) {
 				return false;
 			}
 		}
@@ -96,7 +109,8 @@ function checkAllPlayedOnce() {
 function getCurrentPlayOrder(currIframeId){
 	for(var j=0; j< gController.lasAssetArray.length; j++) {
 		if(gController.lasAssetArray[j].asset) {
-			if(iframeObject[currentLasAssetItemId][currIframeId].iframeObj.id == gController.lasAssetArray[j].asset.aw.iframeid) {
+			var frameid = getFrameId(gController.lasAssetArray[j]);
+			if(iframeObject[currentLasAssetItemId][currIframeId].iframeObj.id == frameid) {
 				currentPlayOrder = parseInt(gController.lasAssetArray[j].data.getAttr('playorder'));
 				break;
 			}
@@ -109,8 +123,8 @@ function getPlayOrder(){
 	if(playOrderArray[currentLasAssetItemId]){
 		for(var j=0; j< gController.lasAssetArray.length; j++){
 			if(gController.lasAssetArray[j].asset){
-				////console.log("Inside if of getCurrentPlayOrder");
-					playOrderArray[currentLasAssetItemId][parseInt(gController.lasAssetArray[j].data.getAttr('playorder'))] = {'currentAsset' : gController.lasAssetArray[j].asset.aw.iframeid, 'playOnce' : gController.lasAssetArray[j].data.getAttr('playonce'), 'playIfAnswered' : gController.lasAssetArray[j].data.getAttr('playIfAnswered')};
+					var frameid = getFrameId(gController.lasAssetArray[j]);
+					playOrderArray[currentLasAssetItemId][parseInt(gController.lasAssetArray[j].data.getAttr('playorder'))] = {'currentAsset' : frameid, 'playOnce' : gController.lasAssetArray[j].data.getAttr('playonce'), 'playIfAnswered' : gController.lasAssetArray[j].data.getAttr('playIfAnswered')};
 				}
 			}
 	}else{
@@ -118,7 +132,8 @@ function getPlayOrder(){
 		for(var j=0; j< gController.lasAssetArray.length; j++){
 			if(gController.lasAssetArray[j].asset){
 				////console.log("Inside else of getCurrentPlayOrder");
-				playOrderArray[currentLasAssetItemId][parseInt(gController.lasAssetArray[j].data.getAttr('playorder'))] = {'currentAsset' : gController.lasAssetArray[j].asset.aw.iframeid, 'playOnce' : gController.lasAssetArray[j].data.getAttr('playonce'), 'playIfAnswered' : gController.lasAssetArray[j].data.getAttr('playIfAnswered')};
+				var frameid = getFrameId(gController.lasAssetArray[j]);
+				playOrderArray[currentLasAssetItemId][parseInt(gController.lasAssetArray[j].data.getAttr('playorder'))] = {'currentAsset' : frameid, 'playOnce' : gController.lasAssetArray[j].data.getAttr('playonce'), 'playIfAnswered' : gController.lasAssetArray[j].data.getAttr('playIfAnswered')};
 				
 			}
 		}
@@ -151,7 +166,8 @@ function unlockResponseArea(frameId) { // Assuming there will be only one such a
 	if(gController.canNotAnswer) {
 		for(var i=0; i< gController.lasAssetArray.length; i++) {
 			if(gController.lasAssetArray[i].asset) {
-				if(gController.lasAssetArray[i].asset.aw.iframeid == frameId && gController.lasAssetArray[i].data.getAttr('responseAreaLocker') == "true") {
+				var frameid = getFrameId(gController.lasAssetArray[i]);
+				if(frameid == frameId && gController.lasAssetArray[i].data.getAttr('responseAreaLocker') == "true") {
 					gController.setAttribute('canNotAnswer',false);
 					////console.log("canNotAnswer set to false");
 				}
@@ -176,15 +192,13 @@ function checkValIfAnswered(frameId) {
 function playSingleAsset(currIframeId){
 
 		var id = iframeObject[currentLasAssetItemId][currIframeId].iframeObj.id;
-		//console.log("ID Playing currently :", id);
 		for(var i=0; i< gController.lasAssetArray.length; i++) {
 				if(gController.lasAssetArray[i].asset){
-			//	console.log("ID Lasasset : ",gController.lasAssetArray[i].asset.aw.iframeid);
-					if(gController.lasAssetArray[i].asset.aw.iframeid != id){
-				//		console.log("play Event : ",iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].playEvent);
+					var frameid = getFrameId(gController.lasAssetArray[i]);
+					if(frameid != id){
 						if(iframeObject[currentLasAssetItemId]) {
-							if(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].playEvent){		
-								iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.resetAudio();
+							if(iframeObject[currentLasAssetItemId][frameid].playEvent){		
+								iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.resetAudio();
 							}
 						}
 				}	
@@ -203,8 +217,8 @@ function setPlayingAttr(event,value){
 		var	k=0;
 		for(var i=0; i<gController.lasAssetArray.length;i++){
 					if(gController.lasAssetArray[i].asset){
-						if(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.isPlaying == "true"){
-							//console.log(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.isPlaying);
+						var frameid = getFrameId(gController.lasAssetArray[i]);
+						if(iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.isPlaying == "true"){
 							k++;
 							
 						}	
@@ -225,12 +239,12 @@ function disableAssets(){
 	var	k=0;
 	for(var i=0; i<gController.lasAssetArray.length;i++){
 				if(gController.lasAssetArray[i].asset){
-				if(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.isPlaying == "false"){
-				iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.disable();
-						enabledArray[k]=gController.lasAssetArray[i].asset.aw.iframeid;
+					var frameid = getFrameId(gController.lasAssetArray[i]);
+					if(iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.isPlaying == "false"){
+						iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.disable();
+						enabledArray[k]=frameid;
 						k++;
-			//console.log("inside if ");
-				}
+					}
 					
 			}
 	}
@@ -241,8 +255,9 @@ function enableAssets(){
 		for(var i=0; i<gController.lasAssetArray.length;i++){
 			for(var j=0; j<enabledArray.length;j++){
 				if(gController.lasAssetArray[i].asset){
-					if(gController.lasAssetArray[i].asset.aw.iframeid == enabledArray[j]){
-					iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.enable();
+					var frameid = getFrameId(gController.lasAssetArray[i]);
+					if(frameid == enabledArray[j]){
+					iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.enable();
 					
 					}
 				}
@@ -255,7 +270,8 @@ function enableAssets(){
 function startAutoplay(){
 		for(var i=0; i<gController.lasAssetArray.length;i++){
 			if(gController.lasAssetArray[i].data.getAttr('autoplay') == "true"){
-				iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.autoPlay();
+				var frameid = getFrameId(gController.lasAssetArray[i]);
+				iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.autoPlay();
 				autoPlayEvent = "true";
 				break;
 			}
@@ -265,10 +281,8 @@ function startAutoplay(){
    function restrictNavigation(arg){
    if(arg  == 'unlock'){
 	 	if(checkAllPlayedOnce()) {
-			//console.log("All asset played once");
 			gController.setAttribute('unlockNavigation',true);
 		} else {
-				//console.log("All asset not played once");
 				gController.setAttribute('unlockNavigation',false);
 	 		}
  	}else {
@@ -278,31 +292,31 @@ function startAutoplay(){
   
     function pauseAudio() {
 	for(var i=0; i<gController.lasAssetArray.length;i++){
-				if(gController.lasAssetArray[i].asset){
-				if(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.isPlaying == "true"){
-					iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.pause();
-					pausedAssetID=gController.lasAssetArray[i].asset.aw.iframeid;
-					console.log("inside pause audio ");
-				}
-				else if(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.isPlaying == "disabled"){
-					if((iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].clickedOnce) && !(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].playedOnce)) {
-						iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.pause();
-						pausedAssetID=gController.lasAssetArray[i].asset.aw.iframeid;
-						console.log("inside pause audio disabled ");
-					}
-					
-				}
+		if(gController.lasAssetArray[i].asset){
+			var frameid;
+			var frameid = getFrameId(gController.lasAssetArray[i]);
+			if(iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.isPlaying == "true"){
+				iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.pause();
+				pausedAssetID=frameid;
 			}
-  		}
+			else if(iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.isPlaying == "disabled"){
+				if((iframeObject[currentLasAssetItemId][frameid].clickedOnce) && !(iframeObject[currentLasAssetItemId][frameid].playedOnce)) {
+					iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.pause();
+					pausedAssetID=frameid;
+				}
+				
+			}
+		}
+  	}
   }
   
   function playAudio(){
   	if(pausedAssetID != null){
 		for(var i=0; i<gController.lasAssetArray.length;i++){
 				if(gController.lasAssetArray[i].asset){
-					if(gController.lasAssetArray[i].asset.aw.iframeid == pausedAssetID){
-						iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.play();
-						console.log("inside play audio ");
+					var frameid = getFrameId(gController.lasAssetArray[i]);
+					if(frameid == pausedAssetID){
+						iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.play();
 					}
 				}
 			}
@@ -326,3 +340,11 @@ console.log("Inside removeReadOnlyCR");
 		console.log("removeReadOnlyCR");
 	}
 }
+
+  function getFrameId(arg){
+  	if(arg.data.getAttr('isMP4') == "true" || arg.data.getAttr('isMP4') == true){
+		return arg.asset.video.iframeid;
+	}else{
+		return frameid = arg.asset.aw.iframeid;
+	}
+  }

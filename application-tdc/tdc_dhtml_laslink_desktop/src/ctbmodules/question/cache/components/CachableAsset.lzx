@@ -20,12 +20,13 @@
 		</handler>
 	
 		<handler name="ondata" args="data"><![CDATA[
-			if($dhtml) {
-			}
 			if($dhtml){
 				this.asset.setAttribute('height',Number(data.getAttr('height')));
 				this.asset.setAttribute('width',Number(data.getAttr('width')));
 				if(data != null && data.getAttr('isMP4') == "true") {
+					var folderName = data.getAttr('image_ref');
+					var srcUrl = "http:items/" + folderName + "/video.html";
+					this.asset.video.setAttribute('src', srcUrl);
 					this.asset.aw.setAttribute('visible',false);
 					this.asset.video.setAttribute('visible',true);
 					this.asset.video.setAttribute('height',Number(data.getAttr('height')));
@@ -52,9 +53,9 @@
 			<html name="aw" id="assetwiget" x="5" y="5" width="400" height="100" scrollbars="false" mouseevents="true" focusable="true" >
  	    		  	
 			</html>
-			<view name="video" bgcolor="blue" width="100" height="100" visible="false">
+			<html name="video" scrollbars="false" mouseevents="true" focusable="true">
 			
-			</view>
+			</html>
        	</view>
 	</class>
 </library>
