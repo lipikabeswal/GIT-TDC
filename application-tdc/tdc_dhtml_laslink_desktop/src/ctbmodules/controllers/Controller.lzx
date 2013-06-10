@@ -1198,11 +1198,13 @@
 				//Debug.write("login_response/tutorial----- ",dp.xpathQuery('login_response/tutorial'),dp.xpathQuery('login_response/branding/@tdclogo'));
 				gTutorialManager.setAttribute('tutorialNode', dp.xpathQuery('login_response/tutorial'));
 	    		var logo = dp.xpathQuery('login_response/branding/@tdclogo');
-	    		if(logo.indexOf(".swf")!=0){
-	    			logo = logo.substring(0,logo.indexOf(".swf"));
-					logo = logo+".png";
-	    		}
-	    		canvas.setAttribute("logoRsrc", logo);
+	    		if(logo != null) {
+		    		if(logo.indexOf(".swf")!=0){
+		    			logo = logo.substring(0,logo.indexOf(".swf"));
+						logo = logo+".png";
+		    		}
+		    		canvas.setAttribute("logoRsrc", logo);
+		    	}
 	    		var cmicore = dp.xpathQuery('login_response/testing_session_data/cmi.core');
 				//Debug.write("cmicore************** ",cmicore);
 	    		cmicore.setAttr('password', password);
