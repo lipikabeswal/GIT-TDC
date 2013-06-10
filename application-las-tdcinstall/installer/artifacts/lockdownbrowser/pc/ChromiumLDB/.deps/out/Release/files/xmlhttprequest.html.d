@@ -1,0 +1,1 @@
+cmd_out/Release/files/xmlhttprequest.html := ln -f "cefclient/res/xmlhttprequest.html" "out/Release/files/xmlhttprequest.html" 2>/dev/null || (rm -rf "out/Release/files/xmlhttprequest.html" && cp -af "cefclient/res/xmlhttprequest.html" "out/Release/files/xmlhttprequest.html")

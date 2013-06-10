@@ -1,0 +1,1 @@
+cmd_out/Release/files/domaccess.html := ln -f "cefclient/res/domaccess.html" "out/Release/files/domaccess.html" 2>/dev/null || (rm -rf "out/Release/files/domaccess.html" && cp -af "cefclient/res/domaccess.html" "out/Release/files/domaccess.html")
