@@ -658,11 +658,13 @@ int isProcessOpen (TCHAR *szProcessName, char *result)
 		strcat(result, " Microsoft Internet Explorer ");
 		return 1;
 	 }
+/*
 	 if (0 == strcmp(szProcessName, "TabTip.exe"))
 	 {
 		strcat(result, " Tablet Input Panel ");
 		return 1;
 	 }
+*/
 	if (0 == strcmp(szProcessName, "taskmgr.exe"))
 	{
 		strcat(result, " Task Manager ");
