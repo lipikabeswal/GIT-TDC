@@ -155,9 +155,9 @@ var ddpowerzoomer={
 					var imgref = ddpowerzoomer.$imageRef;
 					var offset= $(imgref).offset() //get image offset from document
 					var power=imgref.info.power.current
-					$magnifier.inner.html('<img src="'+s.largeimagesrc+'"/>') //get base image's src and create new image inside magnifier based on it
-					$magnifier.image=$magnifier.outer.find('img:first')
-						.css({width:imgref.info.dimensions[0]*power, height:imgref.info.dimensions[1]*power}) //set size of enlarged image
+					//$magnifier.inner.html('<img src="'+s.largeimagesrc+'"/>') //get base image's src and create new image inside magnifier based on it
+					/*$magnifier.image=$magnifier.outer.find('img:first')
+						.css({width:imgref.info.dimensions[0]*power, height:imgref.info.dimensions[1]*power})*/ //set size of enlarged image
 					var coords={left:offset.left, top:offset.top, right:offset.left+imgref.info.dimensions[0], bottom:offset.top+imgref.info.dimensions[1]}
 					imgref.info.coords=coords //remember left, right, and bottom right coordinates of image relative to doc
 					$magnifier.outer.show()
