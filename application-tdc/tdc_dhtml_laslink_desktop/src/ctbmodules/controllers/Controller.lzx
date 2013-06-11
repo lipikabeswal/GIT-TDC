@@ -321,7 +321,7 @@
 		<attribute name="subtestLength" type="number" value="0" />
 		<attribute name="istLength" type="number" value="0" />
 		<attribute name="istRestartLength" type="number" value="0" />
-
+		<attribute name="recordState" type="boolean" value="true" />
 		<!-- START Change for deferred Defect 63502-->
 		<attribute name="restartscid" value="0" />
 		<!-- END-->
@@ -663,13 +663,17 @@
 	}	
 		else{
 			if(this.recorder != null) {
-				if(this.recordingStopped == false || this.isAudioPaused){
+				if(this.recordingStopped == false){
 					this.recorder.recordButton.setAttribute("enabled", true);
 					this.setAttribute('isAudioPaused', false);
+				}
+				if(this.isAudioPaused){
+					if(this.recordState == false){
+						this.recorder.recordButton.setAttribute("enabled", false);
+					}else{
+						this.recorder.recordButton.setAttribute("enabled", true);
 					}
-
-				else if(this.recorder.resetCalled == false ){
-				this.recorder.resetButton.setAttribute("enabled",true);
+					this.setAttribute('isAudioPaused', false);
 				}
 			}
 		}

@@ -395,6 +395,9 @@
 			this.stopCalled = false;		//to re-use this attribute, reset it
 			gController.disableAllAssets();
 			this.blinkerVal = 0;
+			if(this.resetCalled == true){
+				gController.setAttribute('recordState',false);
+			}
 			if(!this.recordStarted) {
 				if(!isLinux()){	
 				this.updateLevel();	
