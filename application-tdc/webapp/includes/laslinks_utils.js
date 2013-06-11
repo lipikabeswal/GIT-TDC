@@ -6,6 +6,7 @@ var enabledArray = [];
 var assetCount = 0;
 var checkAnswered = false;
 var pausedAssetID = null;
+var iframeFolderId = null;
 
 function iframeLoaded(id, iframe){
 	if(iframe){
@@ -98,9 +99,13 @@ function checkAllPlayedOnce() {
 			////console.log(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].clickedOnce);
 			////console.log(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].playedOnce);
 			////console.log("Inside iframeObject :",iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid]);
-			var frameid = getFrameId(gController.lasAssetArray[i]);
-			if(!(iframeObject[currentLasAssetItemId][frameid].clickedOnce && iframeObject[currentLasAssetItemId][frameid].playedOnce)) {
-				return false;
+			var folderId = iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].folder;
+			if(folderId != iframeFolderId) {
+				iframeFolderId = folderId ; 			
+				var frameid = getFrameId(gController.lasAssetArray[i]);					
+				if(!(iframeObject[currentLasAssetItemId][frameid].clickedOnce && iframeObject[currentLasAssetItemId][frameid].playedOnce)) {
+					return false;
+				}
 			}
 		}
 	}

@@ -303,12 +303,10 @@ function callTestMouseUp1() {
 
 function hideScrollbarForCRitem(arg){
     var crItemid = document.getElementById(arg);
-    //console.log("== crItemid ===",crItemid);
     crItemid.setAttribute('style',"overflow-x: hidden; overflow-y: scroll;");
 }
 function setCRscrollEdittextWidth(elmId,comWidth){
     var crItemid = document.getElementById(elmId);
-    //console.log("== setCRscrollEdittextWidth ===",crItemid);
     crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; width: '+comWidth+'');
 }
 function setCRscrollEdittextHeight(elmId,comHeight){
@@ -342,8 +340,7 @@ function fromWrapper() {
 }
 
 
-function showMagnify() {
-		//console.log("showMagnify***");		
+function showMagnify() {		
 		isMagnifierVisible = "true";
 		if(jQuery("#magnifierWindow").length < 1){
 			jQuery('body').addpowerzoom({
@@ -376,15 +373,13 @@ function showMagnify() {
 		
 	}
 	
-function hideMagnify() {	
-	//console.log("hideMagnify***");	
+function hideMagnify() {		
 	isMagnifierVisible = "false";
 	jQuery(ddpowerzoomer.$magnifier.outer).hide();
 }
 
 /* Method to reinstate the magnifier to previous state */
 function displayMagnifier() {	
-	//console.log("displayMagnifier****");	
 	isMagnifierVisible = "true";
 	jQuery(ddpowerzoomer.$magnifier.outer).show();
 }
@@ -413,7 +408,6 @@ function eventMonitor(id,event) {
  	if(event == 'play' || event == 'jsplay') {
  		setPlayingAttr(event,'true');
  		iframeObject[currentLasAssetItemId][currIframeId]['playEvent'] = true;
- 		//console.log("Is Playing :",iframeObject[currentLasAssetItemId][currIframeId]['playEvent']);
  		playSingleAsset(currIframeId);
  		if(iframeObject[currentLasAssetItemId]) {
  			if(iframeObject[currentLasAssetItemId][currIframeId]['folder'] == id) {
@@ -436,6 +430,7 @@ function eventMonitor(id,event) {
 	 				}
 	 			}
 	 		}
+	 		iframeFolderId = null;
 	 		enableNextButton(id);
 	 		if(autoPlayEvent == 'true') {
 	 			autoPlayEvent = "false";
@@ -485,7 +480,6 @@ function enablePasswordFocus(){
 }
 
 function loadDummyHtml() {
-	//console.log("loadDummyHtml");
 	window.location.href = 'dummy.html';
 }
 
@@ -519,9 +513,7 @@ function load() {
 
 function checkForAssetArea()
 {
-	
-		console.log("checkForAssetArea****");
-		gController.setAttribute("mouseUpEventFired",true);
+	gController.setAttribute("mouseUpEventFired",true);
 	
 }
 
