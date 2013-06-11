@@ -74,12 +74,16 @@
 
 				<handler name="onclick">
 						lz.Timer.removeTimer (this.tooltipdel);
-						if(gMagnifyingGlass.magnifierOpen==true || gMagnifyingGlass.magnifierOpen=='true' || gMagnifyingGlass.magnifierOpen=="true"){
+						/*if(gMagnifyingGlass.magnifierOpen==true || gMagnifyingGlass.magnifierOpen=='true' || gMagnifyingGlass.magnifierOpen=="true"){
 							setup();
 						} else {
 							hide();
+						}*/
+						if(gController.magnifierState == true){
+							hide();
+						} else {
+							show();
 						}
-						
 					</handler>
 
 				<method name="showTooltip">
@@ -87,25 +91,27 @@
 					</method>
 
 				<method name="setup">
-						gMagnifyingGlass.setUpGlass();
-						this.isEnabled = true;
-						gController.setAttribute("magnifierState", true);
+						//gMagnifyingGlass.setUpGlass();
+						//this.isEnabled = true;
+						//gController.setAttribute("magnifierState", true);
 						//show();
 					</method>
 
 				<method name="show">
-						gMagnifyingGlass.showGlass();
+						lz.Browser.loadJS('showMagnify();');
 						this.isEnabled = true;
 						gController.setAttribute("magnifierState", true);
 						this.setAttribute('frame',2);
 					</method>
 
 				<method name="hide">
-						gMagnifyingGlass.hideGlass();
+						lz.Browser.loadJS('hideMagnify();');
 						this.isEnabled = false;
 						gController.setAttribute("magnifierState", false);
 						this.setAttribute('frame',1);
-					</method>
+				</method>
+					
+				
 			</view>
                             	
 	         <view name="gap1" width="2" height="20" valign="middle"/>                   

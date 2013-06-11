@@ -88,9 +88,7 @@
 <script type="text/javascript" src="lps/includes/embed-compressed.js"></script>
 <link rel="stylesheet" href="lps/style_mozilla.css" type="text/css" /> 
 <script type="text/javascript" src="includes/laslinks_utils.js"></script>
-<script type="text/javascript"src="lps/jquery.min.js"></script>
-	<script type="text/javascript"src="lps/jquery-1.5.2.js"></script>
-	<script type="text/javascript" src="lps/jquery.magnifier.js"></script>
+
 
 <SCRIPT type="text/javaScript">
 <!--
@@ -315,7 +313,6 @@ function setCRscrollEdittextWidth(elmId,comWidth){
 }
 function setCRscrollEdittextHeight(elmId,comHeight){
     var crItemid = document.getElementById(elmId);
-    //console.log("== setCRscrollEdittextHeight ===",crItemid);
     crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; height: '+comHeight+'');
 }
 
@@ -325,19 +322,16 @@ function setCRscrollEdittextHeight(elmId,comHeight){
 
 function hideScrollbar(arg){
     var scrid = document.getElementById(arg);
-    //console.log("== hideScrollbar scrid ===",scrid);
     scrid.setAttribute('style',"overflow-x: hidden; overflow-y: scroll;");
 }
 
 function setScrollEdittextWidth(elmId,comWidth){
     var scrid = document.getElementById(elmId);
-    //console.log("== setScrollEdittextWidth ===",scrid);
     scrid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; width: '+comWidth+'');
 }
 
 function setScrollEdittextHeight(elmId,comHeight){
     var scrid = document.getElementById(elmId);
-    //console.log("== setScrollEdittextHeight ===",scrid);
     scrid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; height: '+comHeight+'');
 }
 
@@ -348,7 +342,8 @@ function fromWrapper() {
 }
 
 
-function showMagnify() {	
+function showMagnify() {
+		//console.log("showMagnify***");		
 		isMagnifierVisible = "true";
 		if(jQuery("#magnifierWindow").length < 1){
 			jQuery('body').addpowerzoom({
@@ -381,14 +376,16 @@ function showMagnify() {
 		
 	}
 	
-function hideMagnify() {		
+function hideMagnify() {	
+	//console.log("hideMagnify***");	
 	isMagnifierVisible = "false";
 	jQuery(ddpowerzoomer.$magnifier.outer).hide();
 }
 
 /* Method to reinstate the magnifier to previous state */
-function displayMagnifier() {		
-	
+function displayMagnifier() {	
+	//console.log("displayMagnifier****");	
+	isMagnifierVisible = "true";
 	jQuery(ddpowerzoomer.$magnifier.outer).show();
 }
 
@@ -520,7 +517,15 @@ function load() {
 	}
 }
 
-function buttonClicked(magnifierPosition){
+function checkForAssetArea()
+{
+	
+		console.log("checkForAssetArea****");
+		gController.setAttribute("mouseUpEventFired",true);
+	
+}
+
+/*function buttonClicked(magnifierPosition){
   	if(magnifierPosition == "T") {
   		$.setPreviousPosition();
   	}
@@ -532,7 +537,7 @@ function buttonClicked(magnifierPosition){
     if (olddiv && olddiv.parentNode && olddiv.parentNode.removeChild)
 		olddiv.parentNode.removeChild(olddiv);
 	$.closeMagnifier();
-}
+}*/
 //-->
 
 </SCRIPT>

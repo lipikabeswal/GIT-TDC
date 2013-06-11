@@ -2709,7 +2709,7 @@
 	                //canvas.unFreezUI();
                 }
             }
-         hideMagnifierGlass(); 
+         gController.hideMagnifierGlass(); 
         ]]></method>
 
 		<method name="changeItem" args="fnode"><![CDATA[		
@@ -3573,7 +3573,7 @@
         ]]></method>
 
 		<method name="loadItem"><![CDATA[
-Debug.write("############ loadItem ############");
+//console.log("############ loadItem ############");
 			
 			gQuestion.clearSkip();
 			canvas.setAttribute('focusobj', null);
@@ -3604,6 +3604,7 @@ Debug.write("############ loadItem ############");
 			//this.resetImageField();
 			gMaskingAnswer.setAttribute("withState",false);
 			hideMagnifierGlass();
+			gController.setAttribute("magnifierState",false);
 			hideMaskingChoiceDD();
 			resetMicCheck(); // First call for Mic Check
 			this.setAttribute('canNotAnswer',false); // set canNotAnswer to false on item load for responseAreaLocker attribute.
@@ -4876,9 +4877,9 @@ Debug.write("############ loadItem ############");
 		]]></method>
 		
 		<method name="hideMagnifierGlass">
-			if(this.magnifierState)  {
-				gManipulativeBar.globals.magnifyingGlass.hide();
-		   }   
+			//console.log("hideMagnifierGlass***");
+			lz.Browser.loadJS('hideMagnify();');
+			gManipulativeBar.globals.magnifyingGlass.setAttribute("frame",1);
 		</method>
 
 		<method name="showMagnifierGlass">
@@ -4889,14 +4890,18 @@ Debug.write("############ loadItem ############");
 
 		<method name="checkHideMagnifierGlass">
 			if(this.magnifierState)  {
-				gMagnifyingGlass.hideGlass();
-		   }   
+				//gMagnifyingGlass.hideGlass();
+				gController.hideMagnifierGlass();
+		   } 
 		</method>
 
 		<method name="checkShowMagnifierGlass">
-		   if(this.magnifierState)  {
-				gMagnifyingGlass.showGlass("T");
-		   }   
+				//gMagnifyingGlass.showGlass("T");
+				//console.log("checkHideMagnifierGlass****",this.magnifierState);
+				if(this.magnifierState){
+		     		displayMagnifier();
+		     		gManipulativeBar.globals.magnifyingGlass.setAttribute("frame",2);
+				}
 		</method>
 			<method name="hideMaskingChoiceDD">
 			if(this.maskingAnswerDDState)  {
