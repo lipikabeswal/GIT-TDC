@@ -172,16 +172,23 @@
             this.setAttribute("readText",unescape(dataText));
 
            var fontSize = this.fontsize;
-           if(dataText.indexOf("<br") != -1) {
-				this.thetext.setAttribute("text",
-                	'<label style="display:block; padding-bottom:2px;"><span style="line-height:17px; font-size: '+this.fontsize+'px;">' + dataText + '</span></label>');
-			}else if(gController.hasFontAccommodation){
-				this.thetext.setAttribute("text",
-	                	'<label><span style="white-space: pre-wrap; zoom:97%;">' + dataText + '</span></label>');
-			}else{
-	           this.thetext.setAttribute("text",
-	                '<label><span style="line-height:17px; font-size: .87em;">' + dataText + '</span></label>');
-	        }
+           if (gController.hasFontAccommodation){
+				if(dataText.indexOf("<br") != -1) {
+					this.thetext.setAttribute("text",
+	                	'<label style="display:block; padding-bottom:4px;"><span style="line-height:17px; white-space: pre-wrap; zoom:97%; font-size: 18px;">' + dataText + '</span></label>');
+				}else{
+					this.thetext.setAttribute("text",
+	                	'<label><span style="white-space: pre-wrap; zoom:97%; line-height: 21px;">' + dataText + '</span></label>');
+				}
+		   }else{
+				if(dataText.indexOf("<br") != -1) {
+					this.thetext.setAttribute("text",
+	                	'<label style="display:block; padding-bottom:2px;"><span style="line-height:16px; white-space: pre-wrap; font-size: .87em;">' + dataText + '</span></label>');
+				}else{
+					this.thetext.setAttribute("text",
+	                	 '<label><span style="line-height:17px; font-size: .87em;">' + dataText + '</span></label>');
+				}
+			}
 
             doneLoading();
 
