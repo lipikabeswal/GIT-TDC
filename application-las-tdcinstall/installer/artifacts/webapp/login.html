@@ -30,49 +30,49 @@
             
              @font-face {
 				font-family: 'CTB';	
-				src: local('OASmathv3'), url('ctbmodules/resources/fonts/OASmathv3.ttf') format('truetype'); 
+				src: local('OASmathv3'), url('ctbmodules/resources/fonts/OASmathv3.svg') format('svg'); 
 				font-weight: normal;
 			    font-style: normal;
 			}
 			@font-face {
 				font-family: 'CTB';
-				src: local('OASmathv3 Bold'), url('ctbmodules/resources/fonts/OASmathv3 Bold.ttf') format('truetype'); 
+				src: local('OASmathv3 Bold'), url('ctbmodules/resources/fonts/OASmathv3Bold.svg') format('svg'); 
 				font-weight: bold;
 			    font-style: normal;
 			}
 			@font-face {
 				font-family: 'CTB';
-				src: local('OASmathv3 BoldItalic'), url('ctbmodules/resources/fonts/OASmathv3 BoldItalic.ttf') format('truetype'); 
+				src: local('OASmathv3 BoldItalic'), url('ctbmodules/resources/fonts/OASmathv3BoldItalic.svg') format('svg'); 
 				font-weight: bold;
 			    font-style: italic;
 			}
 			@font-face {
 				font-family: 'CTB';
-				src: local('OASmathv3 Italic'), url('ctbmodules/resources/fonts/OASmathv3 Italic.ttf') format('truetype'); 
+				src: local('OASmathv3 Italic'), url('ctbmodules/resources/fonts/OASmathv3Italic.svg') format('svg'); 
 			    font-style: italic;
 			}
 			
 			@font-face {
 				font-family: 'oasmathv3';
-				src: local('OASmathv3'), url('ctbmodules/resources/fonts/OASmathv3.ttf') format('truetype'); 
+				src: local('OASmathv3'), url('ctbmodules/resources/fonts/OASmathv3.svg') format('svg'); 
 				font-weight: normal;
 			    font-style: normal;
 			}
 			@font-face {
 				font-family: 'oasmathv3';
-				src: local('OASmathv3 Bold'), url('ctbmodules/resources/fonts/OASmathv3 Bold.ttf') format('truetype'); 
+				src: local('OASmathv3 Bold'), url('ctbmodules/resources/fonts/OASmathv3Bold.svg') format('svg'); 
 				font-weight: bold;
 			    font-style: normal;
 			}
 			@font-face {
 				font-family: 'oasmathv3';
-				src: local('OASmathv3 BoldItalic'), url('ctbmodules/resources/fonts/OASmathv3 BoldItalic.ttf') format('truetype'); 
+				src: local('OASmathv3 BoldItalic'), url('ctbmodules/resources/fonts/OASmathv3BoldItalic.svg') format('svg'); 
 				font-weight: bold;
 			    font-style: italic;
 			}
 			@font-face {
 				font-family: 'oasmathv3';
-				src: local('OASmathv3 Italic'), url('ctbmodules/resources/fonts/OASmathv3 Italic.ttf') format('truetype'); 
+				src: local('OASmathv3 Italic'), url('ctbmodules/resources/fonts/OASmathv3Italic.svg') format('svg'); 
 			    font-style: italic;
 			}
             
@@ -88,9 +88,7 @@
 <script type="text/javascript" src="lps/includes/embed-compressed.js"></script>
 <link rel="stylesheet" href="lps/style_mozilla.css" type="text/css" /> 
 <script type="text/javascript" src="includes/laslinks_utils.js"></script>
-<script type="text/javascript"src="lps/jquery.min.js"></script>
-	<script type="text/javascript"src="lps/jquery-1.5.2.js"></script>
-	<script type="text/javascript" src="lps/jquery.magnifier.js"></script>
+
 
 <SCRIPT type="text/javaScript">
 <!--
@@ -305,17 +303,14 @@ function callTestMouseUp1() {
 
 function hideScrollbarForCRitem(arg){
     var crItemid = document.getElementById(arg);
-    //console.log("== crItemid ===",crItemid);
     crItemid.setAttribute('style',"overflow-x: hidden; overflow-y: scroll;");
 }
 function setCRscrollEdittextWidth(elmId,comWidth){
     var crItemid = document.getElementById(elmId);
-    //console.log("== setCRscrollEdittextWidth ===",crItemid);
     crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; width: '+comWidth+'');
 }
 function setCRscrollEdittextHeight(elmId,comHeight){
     var crItemid = document.getElementById(elmId);
-    //console.log("== setCRscrollEdittextHeight ===",crItemid);
     crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; height: '+comHeight+'');
 }
 
@@ -325,19 +320,16 @@ function setCRscrollEdittextHeight(elmId,comHeight){
 
 function hideScrollbar(arg){
     var scrid = document.getElementById(arg);
-    //console.log("== hideScrollbar scrid ===",scrid);
     scrid.setAttribute('style',"overflow-x: hidden; overflow-y: scroll;");
 }
 
 function setScrollEdittextWidth(elmId,comWidth){
     var scrid = document.getElementById(elmId);
-    //console.log("== setScrollEdittextWidth ===",scrid);
     scrid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; width: '+comWidth+'');
 }
 
 function setScrollEdittextHeight(elmId,comHeight){
     var scrid = document.getElementById(elmId);
-    //console.log("== setScrollEdittextHeight ===",scrid);
     scrid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; height: '+comHeight+'');
 }
 
@@ -348,7 +340,7 @@ function fromWrapper() {
 }
 
 
-function showMagnify() {	
+function showMagnify() {		
 		isMagnifierVisible = "true";
 		if(jQuery("#magnifierWindow").length < 1){
 			jQuery('body').addpowerzoom({
@@ -357,24 +349,26 @@ function showMagnify() {
 					largeimage: null,
 					magnifiersize: [300,100] 
 				});
-		}	
-		jQuery(ddpowerzoomer.$magnifier.outer).hide();
+		}			
 		jQuery.ajax({
 			url: "servlet/PersistenceServlet.do?method=captureScreenshot",
+			beforeSend: function() {
+				jQuery(ddpowerzoomer.$magnifier.outer).hide();
+			},
 			dataType: "xml",
 			success: function(data) {
-			//xmlDoc = jQuery.parseXML( data ),
-		    xml = jQuery( data ),
-		    ok = xml.find( "OK" );
-			//alert(ok);
-			var timeStamp = ok.text();//jQuery(jQuery.parseXML(data)).find("ok").text();
-			//alert(timeStamp);
-			var imageName = "cache/screenshot"+timeStamp+".png"
+				//xmlDoc = jQuery.parseXML( data ),
+		    	xml = jQuery( data );
+		    	ok = xml.find( "OK" );
+				//alert(ok);
+				var timeStamp = ok.text();//jQuery(jQuery.parseXML(data)).find("ok").text();
+				//alert(timeStamp);
+				var imageName = "cache/screenshot"+timeStamp+".png"
 			
-			jQuery(ddpowerzoomer.$magnifier.outer).css('left',(document.body.clientWidth/2 - 165)+ 'px');
-			jQuery(ddpowerzoomer.$magnifier.outer).css('top',(document.body.clientHeight/2 - 75) + 'px');
-			jQuery(ddpowerzoomer.$magnifier.outer).show();
-			jQuery(ddpowerzoomer).initMagnify({largeimage:imageName});
+				jQuery(ddpowerzoomer.$magnifier.outer).css('left',(document.body.clientWidth/2 - 165)+ 'px');
+				jQuery(ddpowerzoomer.$magnifier.outer).css('top',(document.body.clientHeight/2 - 75) + 'px');
+				jQuery(ddpowerzoomer.$magnifier.outer).show();
+				jQuery(ddpowerzoomer).initMagnify({largeimage:imageName});
 			}
 		});
 			
@@ -387,8 +381,8 @@ function hideMagnify() {
 }
 
 /* Method to reinstate the magnifier to previous state */
-function displayMagnifier() {		
-	
+function displayMagnifier() {	
+	isMagnifierVisible = "true";
 	jQuery(ddpowerzoomer.$magnifier.outer).show();
 }
 
@@ -416,7 +410,6 @@ function eventMonitor(id,event) {
  	if(event == 'play' || event == 'jsplay') {
  		setPlayingAttr(event,'true');
  		iframeObject[currentLasAssetItemId][currIframeId]['playEvent'] = true;
- 		//console.log("Is Playing :",iframeObject[currentLasAssetItemId][currIframeId]['playEvent']);
  		playSingleAsset(currIframeId);
  		if(iframeObject[currentLasAssetItemId]) {
  			if(iframeObject[currentLasAssetItemId][currIframeId]['folder'] == id) {
@@ -439,6 +432,7 @@ function eventMonitor(id,event) {
 	 				}
 	 			}
 	 		}
+	 		iframeFolderId = null;
 	 		enableNextButton(id);
 	 		if(autoPlayEvent == 'true') {
 	 			autoPlayEvent = "false";
@@ -488,7 +482,6 @@ function enablePasswordFocus(){
 }
 
 function loadDummyHtml() {
-	//console.log("loadDummyHtml");
 	window.location.href = 'dummy.html';
 }
 
@@ -520,7 +513,13 @@ function load() {
 	}
 }
 
-function buttonClicked(magnifierPosition){
+function checkForAssetArea()
+{
+	gController.setAttribute("mouseUpEventFired",true);
+	
+}
+
+/*function buttonClicked(magnifierPosition){
   	if(magnifierPosition == "T") {
   		$.setPreviousPosition();
   	}
@@ -532,7 +531,7 @@ function buttonClicked(magnifierPosition){
     if (olddiv && olddiv.parentNode && olddiv.parentNode.removeChild)
 		olddiv.parentNode.removeChild(olddiv);
 	$.closeMagnifier();
-}
+}*/
 //-->
 
 </SCRIPT>
