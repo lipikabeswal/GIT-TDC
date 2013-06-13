@@ -98,14 +98,14 @@
 					</method>
 
 				<method name="show">
-						lz.Browser.loadJS('showMagnify();');
+						showMagnify();
 						this.isEnabled = true;
 						gController.setAttribute("magnifierState", true);
 						this.setAttribute('frame',2);
 					</method>
 
 				<method name="hide">
-						lz.Browser.loadJS('hideMagnify();');
+						hideMagnify();
 						this.isEnabled = false;
 						gController.setAttribute("magnifierState", false);
 						this.setAttribute('frame',1);
