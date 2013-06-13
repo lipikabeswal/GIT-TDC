@@ -9,6 +9,7 @@
         <attribute name="tooltip" type="string"/>
 		<attribute name="scratchpadOpen" type="boolean" value="${gController.scratchpadOpen}" />
         <attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
+        <attribute name="xpos" type="string"/>
 
         <handler name="oninit">
             this.datapath.setXPath ('@' + this.toolid);
@@ -44,11 +45,13 @@
         ]]></handler>
 
         <handler name="onmouseover"><![CDATA[
+            lz.Cursor.showHandCursor(true);
             if (!this.isselected && this.isenabled) this.setAttribute('frame', 2); 
             lz.Timer.addTimer (tooltipdel, 500);
         ]]></handler>
 
         <handler name="onmouseout"><![CDATA[
+            lz.Cursor.showHandCursor(false);
             if (!this.isselected && this.isenabled) this.setAttribute('frame', 1); 
             gTooltip.hideTooltip ();
             lz.Timer.removeTimer (this.tooltipdel);
@@ -63,7 +66,7 @@
         </handler>
 
         <method name="showTooltip">
-            gTooltip.showTooltip (this.tooltip);
+            gTooltip.showTooltip_ (this.tooltip,this.xpos);
         </method>
 
     </class>
