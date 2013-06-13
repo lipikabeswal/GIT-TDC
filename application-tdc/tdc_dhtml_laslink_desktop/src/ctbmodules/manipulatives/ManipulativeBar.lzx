@@ -79,7 +79,7 @@
 						} else {
 							hide();
 						}*/
-						if(gController.magnifierState == true){
+						if(gController.magnifierState == true || gController.magnifierState == "true" || gController.magnifierState == 'true'){
 							hide();
 						} else {
 							show();
@@ -262,12 +262,7 @@
 					gTooltip.showTooltip('Volume Control');
 				</method>
 	
-				<text name="volumeText" fontsize="9" resize="true" height="15" align="center" fontstyle="bold">Volume
-					<handler name="oninit">
-	               		var elm=this.getDisplayObject();
-	               		elm.setAttribute('style','font-family: CTB; font-weight: bold; font-size: 9px; line-height: 11px; pointer-events: none; width: auto');
-	               	</handler>
-				</text>
+				<text name="volumeText" fontsize="9" resize="true" height="15" align="center" fontstyle="bold">Volume</text>
 		
 				<!-- The tool to control the TTS volume -->
 				<!--START Changes done for defect #65040 and #65041-->

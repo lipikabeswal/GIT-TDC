@@ -116,23 +116,28 @@ var ddpowerzoomer={
 			.append('<div  id="magnifierWindow" style="width:'+ddpowerzoomer.$zommersettings.magnifiersize[0]+ 'px;height:'+ddpowerzoomer.$zommersettings.magnifiersize[1]+'px;overflow:hidden; border:8px solid #333333;"><div style="position:relative;left:0;top:0;" /></div>')
 			.appendTo(document.body).draggable({
 			containment: [0, 0,document.body.offsetWidth - 316,$("body").height()-116],	
+			cursorAt: {
+				top: parseInt(ddpowerzoomer.$zommersettings.magnifiersize[1])/2,
+				left: parseInt(ddpowerzoomer.$zommersettings.magnifiersize[0])/2
+			},
 			start: function(event,ui) {
 			    //alert(window.isDragging);
 			    if(isDragging == 0){
-			    isDragging = 1;
-				jQuery("#magnifierWindow").css('visibility','hidden');
+			    isDragging = 1;				
+			    jQuery("#magnifierWindow").css('visibility','hidden');
 				setTimeout(function(){jQuery.ajax({
-					url: "servlet/PersistenceServlet.do?method=captureScreenshot",
+					url: "servlet/PersistenceServlet.do?method=captureScreenshot",					
 					dataType: "xml",
 					success: function(data) {
 					//xmlDoc = jQuery.parseXML( data ),
-				    xml = jQuery( data ),
+				    xml = jQuery( data );
 				    ok = xml.find( "OK" );
 					//alert(ok);
 					var timeStamp = ok.text();//jQuery(jQuery.parseXML(data)).find("ok").text();
 					//alert(timeStamp);
 					var imageName = "cache/screenshot"+timeStamp+".png";
 					jQuery(ddpowerzoomer).initMagnify({largeimage:imageName});
+					jQuery("#magnifierWindow").find("img").attr("onmousedown","event.preventDefault();");
 					jQuery("#magnifierWindow").css('visibility','visible');
 					isDragging = 0;
 					}

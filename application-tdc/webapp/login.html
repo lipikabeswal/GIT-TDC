@@ -349,24 +349,26 @@ function showMagnify() {
 					largeimage: null,
 					magnifiersize: [300,100] 
 				});
-		}	
-		jQuery(ddpowerzoomer.$magnifier.outer).hide();
+		}			
 		jQuery.ajax({
 			url: "servlet/PersistenceServlet.do?method=captureScreenshot",
+			beforeSend: function() {
+				jQuery(ddpowerzoomer.$magnifier.outer).hide();
+			},
 			dataType: "xml",
 			success: function(data) {
-			//xmlDoc = jQuery.parseXML( data ),
-		    xml = jQuery( data ),
-		    ok = xml.find( "OK" );
-			//alert(ok);
-			var timeStamp = ok.text();//jQuery(jQuery.parseXML(data)).find("ok").text();
-			//alert(timeStamp);
-			var imageName = "cache/screenshot"+timeStamp+".png"
+				//xmlDoc = jQuery.parseXML( data ),
+		    	xml = jQuery( data );
+		    	ok = xml.find( "OK" );
+				//alert(ok);
+				var timeStamp = ok.text();//jQuery(jQuery.parseXML(data)).find("ok").text();
+				//alert(timeStamp);
+				var imageName = "cache/screenshot"+timeStamp+".png"
 			
-			jQuery(ddpowerzoomer.$magnifier.outer).css('left',(document.body.clientWidth/2 - 165)+ 'px');
-			jQuery(ddpowerzoomer.$magnifier.outer).css('top',(document.body.clientHeight/2 - 75) + 'px');
-			jQuery(ddpowerzoomer.$magnifier.outer).show();
-			jQuery(ddpowerzoomer).initMagnify({largeimage:imageName});
+				jQuery(ddpowerzoomer.$magnifier.outer).css('left',(document.body.clientWidth/2 - 165)+ 'px');
+				jQuery(ddpowerzoomer.$magnifier.outer).css('top',(document.body.clientHeight/2 - 75) + 'px');
+				jQuery(ddpowerzoomer.$magnifier.outer).show();
+				jQuery(ddpowerzoomer).initMagnify({largeimage:imageName});
 			}
 		});
 			
