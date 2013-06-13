@@ -114,7 +114,7 @@
 				return gReadableText.getReadableTextForCharacter(this.value);
 			]]></method>
 
-            <handler name="onmousedown" reference="circle">
+            <handler name="onclick" reference="circle">
 				column.selectThisColumn();
             	var txt = this.getReadableTextForButton();
 
