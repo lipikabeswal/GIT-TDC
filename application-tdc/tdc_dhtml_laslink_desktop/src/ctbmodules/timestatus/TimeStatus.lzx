@@ -53,6 +53,11 @@
                   options="ignorelayout" fgcolor="white" fontsize="15"
                   x="${ parent.stopbutton.x + ((parent.stopbutton.width - width)/2) }"
                   y="-24">
+                  
+                  <handler name="oninit">
+	               		var elm=this.getDisplayObject();
+	               		elm.setAttribute('style','font-family: CTB; font-size: 15px; line-height: 17px; pointer-events: none; width: auto; height: 17px;');
+	               	</handler>
                 Untimed Test
             </text>
         </view>

@@ -174,6 +174,11 @@
 	        <text name="noanswertxt" visible="false" x="25" y="-4"
 	              fgcolor="0x6590B3" fontstyle="bold" fontsize="11">
 	            - NO ANSWER SELECTED -
+	            
+	            <handler name="oninit">
+               		var elm=this.getDisplayObject();
+               		elm.setAttribute('style','font-family: CTB; font-weight: bold; pointer-events: none; font-size: 11px; height: 13px; width: auto;');
+               	</handler>
 	        </text>
 		</view>
         <view name="btns" y="14" x="7">

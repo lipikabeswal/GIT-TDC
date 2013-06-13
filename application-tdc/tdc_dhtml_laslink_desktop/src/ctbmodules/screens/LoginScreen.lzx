@@ -72,6 +72,10 @@
             <text resize="true" fgcolor="white"
                   valign="middle" fontsize="12"  x="${ 282 - width }">
                 <b>Access Code:</b>
+				<handler name="oninit">
+               		var elm=this.getDisplayObject();
+               		elm.setAttribute('style','font-family: CTB; font-size: 12px; line-height: 14px; pointer-events: none; width: auto; height: 14px;');
+               	</handler>
             </text>
             <edittext name="accesscodeField" x="287" fontsize="12" width="265" pattern="[a-zA-Z0-9_]*">
            		<handler name="oninit">
