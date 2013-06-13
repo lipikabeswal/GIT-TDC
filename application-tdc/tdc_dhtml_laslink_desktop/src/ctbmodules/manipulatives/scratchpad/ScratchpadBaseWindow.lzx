@@ -7,7 +7,9 @@
 
 <include href="base/basecomponent.lzx" />
 <include href="utils/states/dragstate.lzx"/>
-<include href="utils/states/resizestatemin.lzx"/>
+<!--<include href="utils/states/resizestatemin.lzx"/>-->
+
+<include href="resizestateminmax.lzx"/>
 
 <!--- The basewindow class defines methods, attributes that are used by window
       subclasses.-->
@@ -95,7 +97,8 @@
         </method> 
 
              <!-- resizestatemin uses minwidth and minheight attribute-->
-         <resizestatemin name="_windowResize" resize_min_width="${this.minwidth}" resize_min_height="${this.minheight}" onapply="parent.setAttribute('haswindowfocus', true)"/>
+         <resizestateminmax name="_windowResize"  onapply="parent.setAttribute('haswindowfocus', true)"
+         />
 
         <!--- @keywords private -->
         <method name="construct" args="parent,args">
@@ -223,7 +226,8 @@
         <method name="_startDrag">
        <![CDATA[
         if (this.allowdrag){
-            this._windowDrag.setAttribute('applied', true);}
+            this._windowDrag.setAttribute('applied', true);
+            }
 
        ]]>
         </method>
@@ -235,6 +239,9 @@
         <method name="_stopDrag">
             this._windowDrag.setAttribute('applied', false);
             setAttribute('state', 1);
+            //lz.Cursor.unlock();
+            //gScratchpad.onmousemove.sendEvent();
+            //gController.setCurrentCursor('cangrab_cursor');
             //Debug.write("___STOP DRAG SCRATCHPAD",   this._windowDrag.x,  this._windowDrag.y);
         </method>
 
