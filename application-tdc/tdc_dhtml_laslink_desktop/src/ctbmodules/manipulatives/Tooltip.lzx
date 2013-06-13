@@ -116,7 +116,12 @@
                   width="${this.label.width + this.label.fontsize/2}"
                   height="${this.label.height}">
                 <text name="label" align="center" valign="middle" fgcolor="0x000000"
-                      resize="true" fontstyle="bold"/>
+                      resize="true" fontstyle="bold">
+                      <handler name="ontext">
+		               	  var elm=this.getDisplayObject();
+		               	  elm.setAttribute('style','font-family: CTB; font-weight: bold; font-size: '+this.fontsize+'px; pointer-events: none; width: auto');
+		              </handler>
+                 </text>
             </view>
         </view>
 

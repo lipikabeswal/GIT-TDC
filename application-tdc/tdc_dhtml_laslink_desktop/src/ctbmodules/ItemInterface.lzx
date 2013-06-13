@@ -40,14 +40,24 @@
                         <view x="5" fgcolor="white" fontsize="15">
                             <simplelayout axis="y" spacing="-3"/>
                             <text datapath="dssubtest:/subtest/sco/@title"
-                                  resize="true"/>
+                                  resize="true">
+								<handler name="ontext">
+                            		var elm=this.getDisplayObject();
+                            		elm.setAttribute('style','font-family: CTB; font-size: 15px; line-height: 17px; pointer-events: none; height: 17px; width: auto;');
+                            	</handler>
+							</text>
                             <view fontstyle="bold"
                                   datapath="dsstudentdata:/testing_client_model"
                                   id="gItemNumber">
                                 <attribute name="itemno" value="$path{'current_item/item_model/@item_no'}"/>
                                 <attribute name="theme" value="$path{'current_item/item_model/@theme'}"/>
                                 <simplelayout axis="x" spacing="3"/>
-                                <text text="Question" visible="${!parent.theme}"/>
+                                <text text="Question" visible="${!parent.theme}">
+									<handler name="oninit">
+	                            		var elm=this.getDisplayObject();
+	                            		elm.setAttribute('style','font-family: CTB; font-weight: bold; font-size: 14px; line-height: 17px; pointer-events: none; width: auto; height: 17px;');
+	                            	</handler>
+								</text>
                                 <text text="${parent.itemno}"
                                       visible="${!parent.theme}">
                                		<handler name="ontext">
@@ -82,7 +92,12 @@
                         <resizelayout axis="y"/>
                         <view width="100%" name="manipulativeBarContainer">
                             <ManipulativeBar id="gManipulativeBar" width="100%" height="25"/>
-                            <text id="gItemInterfaceStudentName" resize="true" align="right" fontstyle="bold" fontsize="13" />                               
+                            <text id="gItemInterfaceStudentName" resize="true" align="right" fontstyle="bold" fontsize="13">
+                            	<handler name="ontext">
+                            		var elm=this.getDisplayObject();
+                            		elm.setAttribute('style','font-family: CTB; font-weight: bold; font-size: 13px; line-height: 16px; pointer-events: none; height: 16px; width: auto');
+                            	</handler>
+                            </text>                               
                         </view>
                         <Tooltip id="gTooltip" options="ignorelayout"/>
                     </view>
