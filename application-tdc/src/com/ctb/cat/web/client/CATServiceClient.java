@@ -107,7 +107,7 @@ public class CATServiceClient {
 						String subtestId = subtest.getChild("subtest_id").getAttributeValue("value");
 						String externalId = subtest.getChild("external_id").getAttributeValue("value");
 						String priorAbility = subtest.getChild("prior_ability").getAttributeValue("value");
-						logger.debug("CATServiceClient: processCATLoginElement: prior ability for subtest " + subtestId + " is " + priorAbility);
+						//logger.debug("CATServiceClient: processCATLoginElement: prior ability for subtest " + subtestId + " is " + priorAbility);
 						data.subtestId = subtestId;
 						data.ability = Double.parseDouble(priorAbility);
 						List<Element> items = subtest.getChild("prior_item_history").getChildren();
@@ -119,7 +119,7 @@ public class CATServiceClient {
 							String peid = item.getAttributeValue("external_id");
 							priors.add(piid);
 						}
-						logger.debug("CATServiceClient: processCATLoginElement: prior item list length for subtest " + subtestId + " is " + priors.size());
+						//logger.debug("CATServiceClient: processCATLoginElement: prior item list length for subtest " + subtestId + " is " + priors.size());
 						data.priorItems = (String[]) priors.toArray(new String[0]);
 						priorMap.put(subtestId, data);
 					}
@@ -131,7 +131,7 @@ public class CATServiceClient {
 	
 	public static String getNextADSItemId() {
 		String adsitem = PEIDToADSIdMap.get(nextItemId);
-		logger.debug("CATServiceClient: getNextADSItemId: returning ADSID " + adsitem + " for ID value " + nextItemId + "\n\n");
+		//logger.debug("CATServiceClient: getNextADSItemId: returning ADSID " + adsitem + " for ID value " + nextItemId + "\n\n");
 		return adsitem;
 	}
 	
@@ -164,15 +164,15 @@ public class CATServiceClient {
 		for(int i=0;i<ineligibleItems.length;i++) {
 			ineligibleItemList = ineligibleItemList + ineligibleItems[i] + ", ";
 		}
-		logger.debug("CATServiceClient: start: service init request params: " + configId + ", " + testRosterId + ":" + subtestId + ", " + studentId + ", " + priorAbility + ", [" + ineligibleItemList + "]");
+		//logger.debug("CATServiceClient: start: service init request params: " + configId + ", " + testRosterId + ":" + subtestId + ", " + studentId + ", " + priorAbility + ", [" + ineligibleItemList + "]");
 		TestInitializationResponse response = service.initializeTest(request);
-		logger.debug("CATServiceClient: start: service init response: status code: " + response.getStatusCode());
-		logger.debug("CATServiceClient: start: service init response: status message: " + response.getStatusMessage());
-		logger.debug("CATServiceClient: start: service init response: session id: " + response.getSessionID());
-		logger.debug("CATServiceClient: start: service init response: starting item id: " + response.getNextItemID());
+		//logger.debug("CATServiceClient: start: service init response: status code: " + response.getStatusCode());
+		//logger.debug("CATServiceClient: start: service init response: status message: " + response.getStatusMessage());
+		//logger.debug("CATServiceClient: start: service init response: session id: " + response.getSessionID());
+		//logger.debug("CATServiceClient: start: service init response: starting item id: " + response.getNextItemID());
 		if("OK".equals(response.getStatusCode())) {
 			CATServiceClient.nextItemId = response.getNextItemID();
-			logger.debug("CATServiceClient: start: setting starting item id: " + CATServiceClient.nextItemId);
+			//logger.debug("CATServiceClient: start: setting starting item id: " + CATServiceClient.nextItemId);
 		} else {
 			CATServiceClient.nextItemId = null;
 			logger.warn("CATServiceClient: start: no starting item id obtained!!!");
@@ -192,18 +192,18 @@ public class CATServiceClient {
 		CATServiceClient.timeElapsed = timeElapsed;
 		
 		ItemResponseRequest request = new ItemResponseRequest(testRosterId + ":" + subtestId, Boolean.FALSE, "", (String) ADSToPEIDIdMap.get(itemId), CATServiceClient.itemPosition, itemRawScore, itemResponse, timeElapsed);
-		logger.debug("CATServiceClient: nextItem: service nextItem request params: " + testRosterId + ":" + subtestId + ", FALSE, , " + ADSToPEIDIdMap.get(itemId) + ", " + CATServiceClient.itemPosition + ", " + itemRawScore + ", " + itemResponse + ", " + timeElapsed);
+		//logger.debug("CATServiceClient: nextItem: service nextItem request params: " + testRosterId + ":" + subtestId + ", FALSE, , " + ADSToPEIDIdMap.get(itemId) + ", " + CATServiceClient.itemPosition + ", " + itemRawScore + ", " + itemResponse + ", " + timeElapsed);
 		ItemResponseResponse response = service.processItemResponse(request);
-		logger.debug("CATServiceClient: nextItem: service nextItem response: status code: " + response.getStatusCode());
-		logger.debug("CATServiceClient: nextItem: service nextItem response: status message: " + response.getStatusMessage());
-		logger.debug("CATServiceClient: nextItem: service nextItem response: session id: " + response.getSessionID());
-		logger.debug("CATServiceClient: nextItem: service nextItem response: next item id: " + response.getNextItemID());
-		logger.debug("CATServiceClient: nextItem: service nextItem response: next item position: " + response.getNextItemPosition());
+		//logger.debug("CATServiceClient: nextItem: service nextItem response: status code: " + response.getStatusCode());
+		//logger.debug("CATServiceClient: nextItem: service nextItem response: status message: " + response.getStatusMessage());
+		//logger.debug("CATServiceClient: nextItem: service nextItem response: session id: " + response.getSessionID());
+		//logger.debug("CATServiceClient: nextItem: service nextItem response: next item id: " + response.getNextItemID());
+		//logger.debug("CATServiceClient: nextItem: service nextItem response: next item position: " + response.getNextItemPosition());
 		if("OK".equals(response.getStatusCode())) {
 			processResultData(response.getResearchReportData());
 			if(response.getNextItemID() != null) {
 				nextItemId = response.getNextItemID();
-				logger.debug("CATServiceClient: nextItem: setting next item id: " + CATServiceClient.nextItemId);
+				//logger.debug("CATServiceClient: nextItem: setting next item id: " + CATServiceClient.nextItemId);
 			} else {
 				logger.debug("CATServiceClient: nextItem: no next item id obtained");
 			}
@@ -226,13 +226,13 @@ public class CATServiceClient {
 		CATServiceClient.isStudentStop = true;
 		
 		ItemResponseRequest request = new ItemResponseRequest(testRosterId + ":" + subtestId, Boolean.TRUE, stopReason, (String) ADSToPEIDIdMap.get(itemId), CATServiceClient.itemPosition, itemRawScore, itemResponse, timeElapsed);
-		logger.debug("CATServiceClient: stop: service nextItem request params: " + testRosterId + ":" + subtestId + ", TRUE," + stopReason + ", " + ADSToPEIDIdMap.get(itemId) + ", " + CATServiceClient.itemPosition + ", " + itemRawScore + ", " + itemResponse + ", " + timeElapsed);
+		//logger.debug("CATServiceClient: stop: service nextItem request params: " + testRosterId + ":" + subtestId + ", TRUE," + stopReason + ", " + ADSToPEIDIdMap.get(itemId) + ", " + CATServiceClient.itemPosition + ", " + itemRawScore + ", " + itemResponse + ", " + timeElapsed);
 		ItemResponseResponse response = service.processItemResponse(request);
-		logger.debug("CATServiceClient: stop: service nextItem response: status code: " + response.getStatusCode());
-		logger.debug("CATServiceClient: stop: service nextItem response: status message: " + response.getStatusMessage());
-		logger.debug("CATServiceClient: stop: service nextItem response: session id: " + response.getSessionID());
-		logger.debug("CATServiceClient: stop: service nextItem response: next item id: " + response.getNextItemID());
-		logger.debug("CATServiceClient: stop: service nextItem response: next item position: " + response.getNextItemPosition());
+		//logger.debug("CATServiceClient: stop: service nextItem response: status code: " + response.getStatusCode());
+		//logger.debug("CATServiceClient: stop: service nextItem response: status message: " + response.getStatusMessage());
+		//logger.debug("CATServiceClient: stop: service nextItem response: session id: " + response.getSessionID());
+		//logger.debug("CATServiceClient: stop: service nextItem response: next item id: " + response.getNextItemID());
+		//logger.debug("CATServiceClient: stop: service nextItem response: next item position: " + response.getNextItemPosition());
 		if("OK".equals(response.getStatusCode())) {
 			processResultData(response.getResearchReportData());
 		}
@@ -245,7 +245,7 @@ public class CATServiceClient {
 			rawScore = data.getRawScore();
 			scaleScore = data.getScaleScore();
 			sem = data.getSem();
-			logger.debug("CATServiceClient: processResultData: raw: " + rawScore + ", scale: " + scaleScore + ", SEM: " + sem);
+			//logger.debug("CATServiceClient: processResultData: raw: " + rawScore + ", scale: " + scaleScore + ", SEM: " + sem);
 			ReportSubscoreData [] subscores = data.getSubscoreList();
 			if(subscores != null && subscores.length > 0) {
 				for(int i=0;i<subscores.length;i++) {
@@ -256,7 +256,7 @@ public class CATServiceClient {
 						subscoresString = subscoresString + subscoreString;
 					}
 				}
-				logger.debug("CATServiceClient: processResultData: subscores: " + subscoresString);
+				//logger.debug("CATServiceClient: processResultData: subscores: " + subscoresString);
 			}
 		}
 	}
