@@ -12,7 +12,7 @@ else
 	lib1=$(locate libnss3.so | grep /usr/lib/ | grep -v 'firefox\|thunderbird\|chrome\|chromium'| head -n 1)
 	if [ -n "$lib1" ]; then
 		#link
-		sudo ln -s "$lib1" "$lib1.1d"
+		ln -s "$lib1" lockdownbrowser/linux/ChromiumLDB/libnss3.so.1d
 		echo $lib1 "link created"
 	else
 		echo "libnss3.so.1d is not installed"
@@ -29,7 +29,7 @@ else
 	lib1=$(locate libnssutil3.so | grep /usr/lib/ | grep -v 'firefox\|thunderbird\|chrome\|chromium'| head -n 1)
 	if [ -n "$lib1" ]; then
 		#link
-		sudo ln -s "$lib1" "$lib1.1d"
+		ln -s "$lib1" lockdownbrowser/linux/ChromiumLDB/libnssutil3.so.1d
 		echo $lib1 "link created"
 	else
 		echo "libnssutil3.so.1d is not installed"
@@ -45,7 +45,7 @@ else
 	lib1=$(locate libsmime3.so |  grep /usr/lib | grep -v 'firefox\|thunderbird\|chrome\|chromium'| head -n 1)
 	if [ -n "$lib1" ]; then
 		#link
-		sudo ln -s "$lib1" "$lib1.1d"
+		ln -s "$lib1" lockdownbrowser/linux/ChromiumLDB/libsmime3.so.1d
 		echo $lib1 "link created"
 	else
 		echo "libsmime3.so.1d is not installed"
@@ -61,7 +61,7 @@ else
 	lib1=$(locate libplc4.so | grep /usr/lib/ | grep -v 'firefox\|thunderbird\|chrome\|chromium'| head -n 1)
 	if [ -n "$lib1" ]; then
 		#link
-		sudo ln -s "$lib1" "$lib1.0d"
+		ln -s "$lib1" lockdownbrowser/linux/ChromiumLDB/libplc4.so.0d
 		echo $lib1 "link created"
 	else
 		echo "libnss3.so.1d is not installed"
@@ -77,7 +77,7 @@ else
 	lib1=$(locate libnspr4.so | grep /usr/lib/ | grep -v 'firefox\|thunderbird\|chrome\|chromium'| head -n 1)
 	if [ -n "$lib1" ]; then
 		#link
-		sudo ln -s "$lib1" "$lib1.0d"
+		ln -s "$lib1" lockdownbrowser/linux/ChromiumLDB/libplc4.so.0d
 		echo $lib1 "link created"
 	else
 		echo "libnss3.so.1d is not installed"
