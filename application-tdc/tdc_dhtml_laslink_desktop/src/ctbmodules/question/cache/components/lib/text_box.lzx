@@ -57,8 +57,16 @@
 		</handler>
 		
 		 <handler name="onfntext"><![CDATA[
-		 	this.footnotetext.setAttribute("text", this.fntext);
+		 	//this.footnotetext.setAttribute("text", this.fntext);
+		 	if (gController.hasFontAccommodation){
+				this.footnotetext.setAttribute("text",
+	                '<label><span style="line-height: 21px; zoom:97%; white-space: pre-wrap;">' + this.fntext + '</span></label>');
+			}else{
+				this.footnotetext.setAttribute("text",
+	                '<label><span style="white-space: pre-wrap; font-size: .87em;">' + this.fntext + '</span></label>');
+			}
 			this.setAttribute("height", (this.footnotetext.lineheight)+0.2);
+			this.footnotetext.setAttribute('width', this.footnotetext.getTextWidth() + 1);
 		]]></handler> 
 	
 		<text name="footnotetext" multiline="true"    

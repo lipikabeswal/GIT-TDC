@@ -35,10 +35,18 @@
             super.init();
         </method>
         
-		<method name="setText" args="txt">
-			contents.thetext.setAttribute('text', txt);
+		<method name="setText" args="txt"><![CDATA[
+			//contents.thetext.setAttribute('text', txt);
+			if (gController.hasFontAccommodation){
+				this.contents.thetext.setAttribute("text",
+	               '<label><span style="white-space: pre-wrap;">' + txt + '</span></label>');
+		   }else{
+	           this.contents.thetext.setAttribute("text",
+	                '<label><span style="white-space: pre-wrap; font-size: .87em;">' + txt + '</span></label>');
+			}
 			//no need for this
-			//thetext.setAttribute('width', contents.thetext.getWidth() + 1);
+			contents.thetext.setAttribute('width', contents.thetext.getTextWidth() + 1);
+			]]>
 		</method>
 		
 		<method name="setAltText" args="altTxt">
