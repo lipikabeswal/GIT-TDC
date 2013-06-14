@@ -109,19 +109,63 @@
         <attribute name="pos" type="number" value="0"/>
 
        <handler name="onwidth">
+            var fontSize = 0;
+            if(gController.hasFontAccommodation){
+				fontSize = 18;
+			}
+			else{
+				fontSize = 12;
+			}
+			
+			 var answerFontColor = gController.answerFontColor;
+			 var textFontColor;
+			 if(Number(answerFontColor) == 0)
+				answerFontColor = "0x000000";
+			 if(answerFontColor.indexOf('0x') != -1) {
+			 	textFontColor = answerFontColor.replace('0x', '#');
+			 }
+			 else {
+				textFontColor = answerFontColor;
+			 }
+			 
+			//console.log("===ONWIDTH fontSize===",fontSize);
+			//console.log("===ONWIDTHfontColor===",textFontColor);
+			
 			var comWidth = this.width-1;
 			var elm = this.getDisplayObject();
 			elm.setAttribute('id','scrolledittext');
 			
-			setScrollEdittextWidth(elm.id,comWidth);	
+			setScrollEdittextWidth(elm.id,comWidth,fontSize,textFontColor);	
 		</handler>
 		
  		<handler name="onheight">
+ 		    var fontSize = 0;
+            if(gController.hasFontAccommodation){
+				fontSize = 18;
+			}
+			else{
+				fontSize = 12;
+			}
+			
+			 var answerFontColor = gController.answerFontColor;
+			 var textFontColor;
+			 if(Number(answerFontColor) == 0)
+				answerFontColor = "0x000000";
+			 if(answerFontColor.indexOf('0x') != -1) {
+			 	textFontColor = answerFontColor.replace('0x', '#');
+			 }
+			 else {
+				textFontColor = answerFontColor;
+			 }
+			 
+			//console.log("===ONHEIGHT fontSize===",fontSize);
+			//console.log("===ONHEIGHT fontColor===",textFontColor);
+			
 			var comHeight = this.height-5;
             var elm = this.getDisplayObject();
 			elm.setAttribute('id','scrolledittext');
 			
-			setScrollEdittextHeight(elm.id,comHeight);	
+			setScrollEdittextHeight(elm.id,comHeight,fontSize,textFontColor);	
 		</handler>
 
         <handler name="oninit">
