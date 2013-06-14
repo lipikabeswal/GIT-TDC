@@ -323,14 +323,14 @@ function hideScrollbar(arg){
     scrid.setAttribute('style',"overflow-x: hidden; overflow-y: scroll;");
 }
 
-function setScrollEdittextWidth(elmId,comWidth){
+function setScrollEdittextWidth(elmId,comWidth,fontSize,textFontColor){
     var scrid = document.getElementById(elmId);
-    scrid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; width: '+comWidth+'');
+    scrid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; width: '+comWidth+'');
 }
 
-function setScrollEdittextHeight(elmId,comHeight){
+function setScrollEdittextHeight(elmId,comHeight,fontSize,textFontColor){
     var scrid = document.getElementById(elmId);
-    scrid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; height: '+comHeight+'');
+    scrid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; height: '+comHeight+'');
 }
 
 <!-- End scratchpad scrollbar functions-->
