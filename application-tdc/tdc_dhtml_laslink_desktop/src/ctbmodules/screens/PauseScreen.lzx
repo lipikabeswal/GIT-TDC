@@ -7,8 +7,6 @@
 
     <class name="PauseScreen">
         
-        <attribute name="font" value="Arial"/>
-
         <datapath xpath="dslogin:/login_response/testing_session_data/cmi.core"/>
 
         <attribute name="password" value="$path{ '@password' }"/>

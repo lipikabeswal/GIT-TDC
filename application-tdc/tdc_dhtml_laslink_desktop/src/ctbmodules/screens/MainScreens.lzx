@@ -5,7 +5,7 @@
     <include href="PauseScreen.lzx"/>
     <include href="FinishScreen.lzx"/>
 
-    <class name="MainScreens" fontsize="14" font="Arial">
+    <class name="MainScreens" fontsize="14">
 
         <method name="removeAllStates">
             contents.docontinue.remove();

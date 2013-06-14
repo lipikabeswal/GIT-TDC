@@ -6,8 +6,6 @@
 
 	<class name="FinishScreen">
 
-        <attribute name="font" value="Arial"/>
-
         <method name="setStats" args="unanswered, marked">
         <![CDATA[
             if(!gController.fwdOnly){

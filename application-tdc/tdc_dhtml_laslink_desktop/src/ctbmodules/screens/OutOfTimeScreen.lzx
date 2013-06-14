@@ -5,8 +5,6 @@
 
 	<class name="OutOfTimeScreen">
 
-        <attribute name="font" value="Arial"/>
-
          <method name="setStats" args="unanswered, marked">
         <![CDATA[
             if(!gController.fwdOnly){

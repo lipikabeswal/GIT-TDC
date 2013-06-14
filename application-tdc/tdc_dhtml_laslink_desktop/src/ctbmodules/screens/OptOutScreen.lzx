@@ -6,8 +6,6 @@
 
 	<class name="OptOutScreen">
 
-        <attribute name="font" value="Arial"/>
-
 		<method name="setStudentName" args="sn">
 			this.studentName.setAttribute('text', sn);
 		</method>
