@@ -666,14 +666,23 @@
 				if(this.recordingStopped == false){
 					this.recorder.recordButton.setAttribute("enabled", true);
 					this.setAttribute('isAudioPaused', false);
-				}
-				if(this.isAudioPaused){
+				}/*else if(this.recorder.resetCalled == false ){
+					this.recorder.resetButton.setAttribute("enabled",true);
+				}*/
+			
+			if(this.isAudioPaused){
 					if(this.recordState == false){
 						this.recorder.recordButton.setAttribute("enabled", false);
 					}else{
 						this.recorder.recordButton.setAttribute("enabled", true);
 					}
 					this.setAttribute('isAudioPaused', false);
+				}else{
+					if(this.recordState == false){
+						this.recorder.recordButton.setAttribute("enabled", false);
+					}else{
+						this.recorder.recordButton.setAttribute("enabled", true);
+					}
 				}
 			}
 		}
