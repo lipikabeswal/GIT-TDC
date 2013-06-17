@@ -303,15 +303,32 @@ function callTestMouseUp1() {
 
 function hideScrollbarForCRitem(arg){
     var crItemid = document.getElementById(arg);
-    crItemid.setAttribute('style',"overflow-x: hidden; overflow-y: scroll;");
+    var fontcolor = getCRcolor();
+    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+';');
 }
 function setCRscrollEdittextWidth(elmId,comWidth){
     var crItemid = document.getElementById(elmId);
-    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; width: '+comWidth+'');
+    var fontcolor = getCRcolor();
+    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; width: '+comWidth+'');
 }
 function setCRscrollEdittextHeight(elmId,comHeight){
     var crItemid = document.getElementById(elmId);
-    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; height: '+comHeight+'');
+    var fontcolor = getCRcolor();
+    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; height: '+comHeight+'');
+}
+
+function getCRcolor(){
+	var fontcolor;
+	var answerFontColor = gController.answerFontColor;
+	if(Number(answerFontColor) == 0)
+		answerFontColor = "0x000000";
+	if(answerFontColor.indexOf('0x') != -1) {
+		fontcolor = answerFontColor.replace('0x', '#');
+	}
+	else {
+		fontcolor = answerFontColor;
+	}
+	return fontcolor;
 }
 
 <!-- End CR item scrolledittext scrollbar functions-->

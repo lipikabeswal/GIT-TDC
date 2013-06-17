@@ -105,7 +105,7 @@
         width="${parent.width - parent.border * 2 - parent._vscrollwidth}"
         height="${parent.height - parent.border * 2}" 
         pattern="[A-Za-z0-9!@;:#$%\*()-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[\\]\\\\\_|`~ \\^]*"
-        fgcolor="${Number(gController.answerFontColor)}">
+        fgcolor="${gController.answerFontColor}">
         <attribute name="pos" type="number" value="0"/>
 
          <handler name="onwidth">
@@ -127,9 +127,8 @@
 
         <handler name="oninit">
 				var el = this.getDisplayObject();
-				el.setAttribute('id','crItem');
+				el.setAttribute('id','CRscrolledittext');
 				
-				//console.log("===SCRATH PAD VISIBLE===",el.id);
 			    hideScrollbarForCRitem(el.id);	
 			</handler>
         <setter name="pos" args="p">        	
