@@ -313,14 +313,13 @@
 							<basebutton resource="button_record"
 								name="recordButton" width="${23 * classroot.factor}" height="${23 * classroot.factor}" stretches="both"
 								align="left" onclick="classroot.startblinker('record')" >
-								<!--<handler name="onmouseover">
+								<handler name="onmouseover">
 									gTooltip.showTooltip('Record');
 								</handler>						                
 								<handler name="onmouseout">
 									gTooltip.hideTooltip ();    
-								</handler>-->
+								</handler>
 								<handler name="onmousedown"><![CDATA[
-									console.log("onmousedown of record button",this);
 									if(gController.isMicPresent == true || gController.isMicPresent == 'true'){
 										this.setAttribute('clickable',true);
 										classroot.whitewrapperOverLay.setAttribute('visible',false);
@@ -331,32 +330,31 @@
 									}
 								]]>
 								</handler>
-								<tooltip>Record</tooltip>
+								<!-- <tooltip>Record</tooltip> -->
 							</basebutton>
 							<basebutton resource="button_stop"
 								name="stopButton" width="${parent.recordButton.width}" height="${parent.recordButton.height}" stretches="both"
 								enabled="false" onclick="classroot.stopblinker('stop')" >
-								<!-- 
-								<handler name="onmouseover">
+							 	<handler name="onmouseover">
 									gTooltip.showTooltip('Stop');
 								</handler>						                
 								<handler name="onmouseout">
 									gTooltip.hideTooltip ();    
-								</handler>-->
-								<tooltip>Stop</tooltip>
+								</handler>
+								<!--<tooltip>Stop</tooltip>-->
 							</basebutton>
 						</view>
 						<view name="startOver" x="${parent.parent.parent.bar.width - parent.startOver.width}">
 							<basebutton resource="button_startover" x="0"
 								name="resetButton" width="${60 * classroot.factor}" height="${20 * classroot.factor}" stretches="both"
 								enabled="false" onclick="classroot.reset('reset')" >
-								<!-- <handler name="onmouseover">
+							 	<handler name="onmouseover">
 									gTooltip.showTooltip('Start Over');
 								</handler>						                
 								<handler name="onmouseout">
 									gTooltip.hideTooltip ();    
-								</handler>-->
-								<tooltip>Start Over</tooltip>
+								</handler>
+								<!-- <tooltip>Start Over</tooltip> -->
 							</basebutton>
 						</view>
 						</view>

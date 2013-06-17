@@ -66,9 +66,9 @@
                                  label.getTextHeight () + label.fontsize/3);
 			
 			// need to confine tooltip to the item canvas
-			var tooltipX = parent.getMouse ('x') - this.point.x;
-			var tooltipY = parent.getMouse ('y') + 13;
-
+			
+			var tooltipX = (parent.getMouse ('x')/canvas.xscalefactor) - this.point.x;
+			var tooltipY = (parent.getMouse ('y')/canvas.yscalefactor) + 13;
 			if( tooltipX + this.width > 800){ 
 				this.point.setAttribute('x', tooltipX + this.width - 800);
 				tooltipX = 800 - this.width;
