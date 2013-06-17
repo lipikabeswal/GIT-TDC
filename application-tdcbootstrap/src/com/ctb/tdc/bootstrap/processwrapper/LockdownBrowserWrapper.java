@@ -48,6 +48,7 @@ public class LockdownBrowserWrapper extends Thread {
 	
 	private String[] ldbCommand;
 	private boolean isAvailable = false;
+	private static boolean isProcessExit = false;
 	
 	// JNI lockdown functions
 	public static native void TaskSwitching_Enable_Disable(boolean flag);
@@ -98,7 +99,13 @@ public class LockdownBrowserWrapper extends Thread {
 					this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
 					this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";*/
 					LockdownBrowserWrapper.islinux = true;
-					
+					//File tdcHomeDir= new File(this.tdcHome);
+					try {
+						Runtime.getRuntime().exec("./libcheck.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+					} catch (IOException e) {
+						
+						e.printStackTrace();
+					}
 					File ldbHomeDir = new File(this.tdcHome + "/lockdownbrowser/linux");
 					this.ldbHome = ldbHomeDir.getAbsolutePath();
 					String loginHtml = null;
@@ -113,20 +120,24 @@ public class LockdownBrowserWrapper extends Thread {
 							
 						}else if(formName.equals("Form C/Form D/Espanol2")){
 							
-							this.ldbCommand = new String[3];
+							/*this.ldbCommand = new String[3];
 							this.ldbCommand[0] ="java";
 							this.ldbCommand[1] = "-jar";
-							this.ldbCommand[2] = "LockdownBrowser.jar";
-							
-							
+							this.ldbCommand[2] = "LockdownBrowser.jar";*/
+							this.ldbCommand = new String[2];
+							this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
+							this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
 						}
 						//this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + loginHtml;
 					}else{
 						//this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";
-						this.ldbCommand = new String[3];
+						/*this.ldbCommand = new String[3];
 						this.ldbCommand[0] ="java";
 						this.ldbCommand[1] = "-jar";
-						this.ldbCommand[2] = "LockdownBrowser.jar";
+						this.ldbCommand[2] = "LockdownBrowser.jar";*/
+						this.ldbCommand = new String[2];
+						this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
+						this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
 					}
 		} else {
 			
@@ -150,21 +161,27 @@ public class LockdownBrowserWrapper extends Thread {
 					this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + loginHtml;
 					
 				}else if(formName.equals("Form C/Form D/Espanol2")){
-//					consoleOut("Inside Form C/Form D/Espanol2");
-					this.ldbCommand = new String[3];
+					ConsoleUtils.messageOut("Inside Form C/Form D/Espanol2");
+					/*this.ldbCommand = new String[3];
 					this.ldbCommand[0] ="java";
 					this.ldbCommand[1] = "-jar";
-					this.ldbCommand[2] = "LockdownBrowser.jar";
+					this.ldbCommand[2] = "LockdownBrowser.jar";*/
+					this.ldbCommand = new String[2];
+					this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
+					this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";;
 					
 				}
 				
 			}else{
-//				consoleOut("Not Laslinks");
+				//consoleOut("Not Laslinks");
 				//this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";
-				this.ldbCommand = new String[3];
+				/*this.ldbCommand = new String[3];
 				this.ldbCommand[0] ="java";
 				this.ldbCommand[1] = "-jar";
-				this.ldbCommand[2] = "LockdownBrowser.jar";
+				this.ldbCommand[2] = "LockdownBrowser.jar";*/
+				this.ldbCommand = new String[2];
+				this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
+				this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
 			}
 			
 			
@@ -263,7 +280,8 @@ public class LockdownBrowserWrapper extends Thread {
 				Runtime.getRuntime().exec(wmctrl, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 				Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 			} catch (Exception e) {
-				// do nothing
+
+				ConsoleUtils.messageOut("Force fullscreen : returned false -"+e.getMessage());
 				return false;
 			}
 			return true;
@@ -426,8 +444,7 @@ public class LockdownBrowserWrapper extends Thread {
 				}
 				// Run the LDB...
 				ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
-				ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
-	
+				
 				if (flag) {
 					Map<String,String> env = System.getenv();
 					Iterator it = env.keySet().iterator();
@@ -445,15 +462,36 @@ public class LockdownBrowserWrapper extends Thread {
 					
 					long startTime = System.currentTimeMillis();
 					LockdownLinux lockdown = new LockdownLinux(this.tdcHome);
-					ConsoleUtils.messageOut("AIR app started at " + startTime);
-					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, envp, new File(this.ldbHome));
-					Thread.sleep(10000);
+					ConsoleUtils.messageOut("LDB started at " + startTime);
+					ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]+this.ldbCommand[1]);
+					
+					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, envp, new File(this.ldbHome+"/ChromiumLDB/"));
+					//Process ldb= new ProcessBuilder(ldbCommand[0], ldbCommand[1]).start();
+					
+					ConsoleUtils.messageOut("Executed "+ldbCommand[0]);
 					lockdown.start();
+					ldb=null;
 					ready = true;
 					this.isAvailable = true;
-					ldb.waitFor();
+					/*Thread.sleep(300000);
+					ldb.waitFor();*/
+					/*while(true) {
+						//logger.info("in loop "+isProcessExit);
+
+						Thread.sleep(3000);
+						if(isProcessExit) {
+							this.isAvailable = false;
+							ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());	
+							break;
+						}
+					}*/
+					while(!isProcessExit)
+					{
+					Thread.sleep(3000);	
+					}
+					ConsoleUtils.messageOut("LDB ended at " + System.currentTimeMillis());	
 					this.isAvailable = false;
-					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());	
+					
 				}
 				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(true);
 				Runtime.getRuntime().exec("./wmctrl -n 2", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
@@ -484,30 +522,45 @@ public class LockdownBrowserWrapper extends Thread {
 	
 				if (flag) {
 					String taskmgr = "taskbarhide.exe";
-					Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-					ConsoleUtils.messageOut("AIR app started at " + System.currentTimeMillis());
-					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome));
-					//Process ldb = Runtime.getRuntime().exec("C:\\Program Files\\Internet Explorer\\iexplore.exe -k");
-					this.isAvailable = true;
-					ldb.waitFor();
-					this.isAvailable = false;
+					try {
+						Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+						ConsoleUtils.messageOut("AIR app started at " + System.currentTimeMillis());
+						Process ldb = new ProcessBuilder(ldbCommand[0], ldbCommand[1]).start();
+						//Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome));
+						this.isAvailable = true;
+						ldb = null;
+						//int extval=ldb.waitFor();
+						//Thread.sleep(300000);
+						//ConsoleUtils.messageOut("Exited with " + extval);
+					} catch (Throwable te) {
+						ConsoleUtils.messageOut("Exited with " + te.getMessage());
+						te.printStackTrace();
+					}
 					ConsoleUtils.messageOut("AIR app ended at " + System.currentTimeMillis());
 				}
 				
 				
-				LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(true);
-				LockdownBrowserWrapper.TaskSwitching_Enable_Disable(true);
-				String taskmgr = "taskbarshow.exe";
 				
-				Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-				Thread.sleep(500);	
-				Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-				
-				cleanupLock();	// call here to fix issue in 64 bit Windows 7 
-				
-				ConsoleUtils.messageOut("Desktop unlocked ...");	
-				Thread.sleep(1500);
-				
+				while(true) {
+					ConsoleUtils.messageOut("isProcessExit*******"+isProcessExit);
+					Thread.sleep(3000);
+					if(isProcessExit) {
+						ConsoleUtils.messageOut("Unlocking");
+						LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(true);
+						LockdownBrowserWrapper.TaskSwitching_Enable_Disable(true);
+						this.isAvailable = false;
+						String taskmgr = "taskbarshow.exe";
+						ConsoleUtils.messageOut("Exirting...");
+						Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+						Thread.sleep(500);	
+						Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+						
+						cleanupLock();	// call here to fix issue in 64 bit Windows 7 
+						ConsoleUtils.messageOut("Desktop unlocked ...");	
+						Thread.sleep(1500);
+						break;
+					}
+				}
 			}	
 			
 			this.splashWindow.show();
@@ -700,34 +753,44 @@ public class LockdownBrowserWrapper extends Thread {
 	
 	public static synchronized void exit() {
 		try {
+			isProcessExit = true;
+			Thread.sleep(3000);
+			ConsoleUtils.messageOut("exit called****************");
 			if(islinux) {
         		Runtime.getRuntime().exec("killall OASTDC");
         		Thread.sleep(250);
         		Runtime.getRuntime().exec("killall OASTDC");
         		
-        		Runtime.getRuntime().exec("pkill -f 'java -jar LockdownBrowser.jar'");
+        		Runtime.getRuntime().exec("killall cefclient");
         		Thread.sleep(250);
-        		Runtime.getRuntime().exec(" pkill -f 'java -jar LockdownBrowser.jar'");
+        		Runtime.getRuntime().exec("killall cefclient");
+        		
         	} else if(ismac) {
         		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
         		Thread.sleep(250);
         		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
         	} else {
-        		try {
+        		try {/*
         			Runtime.getRuntime().exec("taskkill /f /fi \"WINDOWTITLE eq Lockdown Browser\"");
 	        		Thread.sleep(250);
-	        		Runtime.getRuntime().exec("taskkill /f /fi \"WINDOWTITLE eq Lockdown Browser\"");
+	        		Runtime.getRuntime().exec("taskkill /f /fi \"WINDOWTITLE eq Lockdown Browser\"");*/
+
+        			Runtime.getRuntime().exec("taskkill -im cefclient.exe");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("taskkill -im cefclient.exe");
         		} catch (Exception e) {
         			e.printStackTrace();
         		}
         		try {
-        			Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
+        			Runtime.getRuntime().exec("tskill \"cefclient.exe\"");
 	        		Thread.sleep(250);
-	        		Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
+	        		Runtime.getRuntime().exec("tskill \"cefclient.exe\"");
         		} catch (Exception e) {
         			e.printStackTrace();
         		}	
         	}
+			
+			ConsoleUtils.messageOut("isProcessExit in exit ****************"+isProcessExit);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
