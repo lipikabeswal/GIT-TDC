@@ -536,6 +536,13 @@ function checkForAssetArea()
 	
 }
 
+function checkTextDragging(){
+	//jQuery("textarea").attr('disabled','disabled');
+	jQuery("textarea").on("dragstart", function(e) {
+				e.preventDefault();
+			});
+}
+
 /*function buttonClicked(magnifierPosition){
   	if(magnifierPosition == "T") {
   		$.setPreviousPosition();

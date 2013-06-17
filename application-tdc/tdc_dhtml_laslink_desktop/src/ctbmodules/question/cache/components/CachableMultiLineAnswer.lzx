@@ -343,7 +343,9 @@
 						this.setAttribute('end', pos + size);
 					</method>
 					
-					
+					<handler name="onfocus">
+						checkTextDragging();
+					</handler>
 									 
 					<method name="updateText" args="a">
 						this.setAttribute('text',a);		
