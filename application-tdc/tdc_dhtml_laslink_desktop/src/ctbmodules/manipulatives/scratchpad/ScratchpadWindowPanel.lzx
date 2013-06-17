@@ -276,7 +276,14 @@
                     <basebutton x="2" name="close_btn" styleable="true"
                         resource="window_closebtn_rsc"
                         onclick="classroot.close()" >
-                        
+                    <handler name="oninit" >
+						if(gController.hasFontAccommodation){
+							toolTip.setAttribute('text',parent.largeFont.text);
+						}else{
+							toolTip.setAttribute('text',parent.smallFont.text);
+						}
+						toolTip.update();
+		 			</handler>    
 		 			<handler name="onmousedown">
 		 				classroot.bringToFront();
 		 			</handler>
@@ -285,11 +292,17 @@
 		 			</handler>
 		 			<handler name="onmouseover">
 		 				lz.Cursor.unlock();
+						//setTooltipText();	
 		 			</handler>
-		 			 <tooltip text="Save and Close"/>
-					
+                    
+					<tooltip name="toolTip"/>		
 		 			</basebutton>
-		 			
+		 			<text name="largeFont" visible="false">
+			 			 	<font size="3">Save and Close</font>
+					 </text>
+                     <text name="smallFont" visible="false">
+						 	Save and Close
+					 </text>
                 </state>
             </view>
 
@@ -318,8 +331,6 @@
                 this.content.setAttribute("bgcolor", s.bgcolor);
             }
         </method>
-
-
     </class>
 
 
