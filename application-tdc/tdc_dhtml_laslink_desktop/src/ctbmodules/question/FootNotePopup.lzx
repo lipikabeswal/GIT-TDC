@@ -209,15 +209,14 @@
         this.body.wrap.header.setAttribute("text", headerDisplay);
 		this.body.wrap.header.setAttribute("fontsize", fontSize);
 
-        this.body.wrap.detail.setAttribute("text", detail);
+        this.body.wrap.detail.setAttribute("text", '<label><span style="line-height:17px; font-size: .87em;">' + detail + '</span></label>');
 		this.body.wrap.detail.setAttribute("fontsize", fontSize);
         this.body.wrap.detailmulti.setAttribute("text", detail);
 		this.body.wrap.detailmulti.setAttribute("fontsize", fontSize);
 
-        
             
-        this.setAttribute("x", parent.getMouse("x") - fontSize);
-        this.setAttribute("y", parent.getMouse("y") - this.height - fontSize);
+        this.setAttribute("x", getMouseFixed(parent,'x') - fontSize);
+        this.setAttribute("y", getMouseFixed(parent,'y') - this.height - fontSize);
 
         var arrowy = this.height - 1;
         var arrowdir = "up";
@@ -226,7 +225,7 @@
                 - this.scrolltext.getAttributeRelative("y", canvas);         
             
         if (rely < 0) {
-            this.setAttribute("y", parent.getMouse("y") + fontSize);
+            this.setAttribute("y", getMouseFixed(parent,'y') + fontSize);
             arrowy = -this.arrow.height + 1;
             arrowdir = "down";
         }
@@ -251,6 +250,21 @@
         this.clickdel.register(lz.GlobalMouse, "onmousedown");
         ]]>
     </method>
+    
+    <!-- Workaround for a bug in the DHTML runtime which reports an
+             incorrect mouse position for scaled views. -->
+        <method name="getMouseFixed" args="target, axis"><![CDATA[
+            if ( axis == "x" && ( $as3 || canvas.xscalefactor == 1)) {
+                return target.getMouse('x');
+            } else if (axis == "x" && canvas.xscalefactor != 1){
+                return Math.round(target.getMouse('x') / canvas.xscalefactor);
+            }
+            if (axis == "y" && ($as3 || canvas.yscalefactor == 1)) {
+                return target.getMouse('y');
+            } else if (axis == "y" && canvas.yscalefactor != 1) {
+                return Math.round(target.getMouse('y') / canvas.yscalefactor);
+            }
+        ]]></method>
 
 	<method name="setReadable" args="readable"><![CDATA[
 		var isreadable = false;
