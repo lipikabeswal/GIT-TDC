@@ -2585,6 +2585,10 @@
             dncurritem.appendChild (dnnewitem);
             dncurritem.setAttr( 'itempos', getOffsetFromEid( newitem ) + 1 );
 			restrictNavigation('lock');
+			if(this.recorder != null ) {
+				this.recorder.recordButton.setAttribute("enabled", false);
+				this.recorder.resetButton.setAttribute("enabled",false);
+			}
             this.initManipulativeData ();
 			if (this.adaptive == false){
 			getSharedStimulusHighlights();
@@ -2695,7 +2699,7 @@
 			}
 			else {
 				this.setAttribute("navigateConfirm",false);
-				//this.questionBar._changeStatus(false);
+				this.questionBar._changeStatus(false);
 				//Debug.warn("question bar change status called");
 			}
 
