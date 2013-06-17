@@ -173,6 +173,7 @@
 				el.setAttribute('id','scratchpad');
 				
 				//console.log("===SCRATH PAD VISIBLE===",el.id);
+				el.setAttribute('maxlength', 10000);
 			    hideScrollbar(el.id);	
 			</handler>
         <setter name="pos" args="p">        	
