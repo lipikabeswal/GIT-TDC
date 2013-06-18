@@ -570,7 +570,7 @@
 	</resource>
 	
 	<resource name="heading_microphone">
-       	<frame src="components/recorder/microphone_red.gif"/>
+       	<frame src="components/recorder/microphone_red.png"/>
 	</resource>
 	
 	<resource name="record_bullet_red">
