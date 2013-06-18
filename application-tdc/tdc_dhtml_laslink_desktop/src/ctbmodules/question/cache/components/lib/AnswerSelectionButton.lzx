@@ -11,7 +11,6 @@
          ========================================= -->
 
     <class name="AnswerSelectionButton"
-           clickregion="../../../../resources/iknow_answerchoices/answer_blueballselect.png"
            height="${this.resourceheight}"
            width="${this.resourcewidth}"
            resource="answer_choice_btn">
@@ -52,6 +51,10 @@
             this.eraserstatus.setAttribute ('rerunxpath', true);
             this.eraserstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@eraser');
             // this.eliminator.setSource(canvas.eliminatorRsrc);
+            
+            if(canvas.capabilities.clickregion){
+				this.setAttribute('clickregion','../../../../resources/iknow_answerchoices/answer_blueballselect.png');
+			}
         </handler>
 
         <handler name="onmouseover"><![CDATA[

@@ -173,9 +173,13 @@
             <view name="circle" resource="circle_btn" stretches="both"
                   height="${classroot.fontsize + 5}" width="${this.height}"
                   align="center" valign="middle" 
-                  clickable="${ true == uienabled }"
-                  clickregion="../../../../../resources/components/griddedresponse/circle_selected.swf">
+                  clickable="${ true == uienabled }">
                 <attribute name="uienabled" value="$path{ 'dsdisplay:/display/@enabled' }"/>
+                <handler name="oninit">
+                	if(canvas.capabilities.clickregion){
+						this.setAttribute('clickregion','../../../../../resources/components/griddedresponse/circle_selected.swf');
+					}
+                </handler>
             </view>
 
             <!-- button text -->

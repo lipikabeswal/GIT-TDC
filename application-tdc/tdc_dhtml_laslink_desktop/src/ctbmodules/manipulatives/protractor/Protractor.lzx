@@ -6,7 +6,6 @@
     <class name="Protractor" extends="BaseManipulative"
                 resource="protractorBackground_rsrc"
                 clickable="true" showhandcursor="false"
-                clickregion="resource/protractorBackground.png"
                 xscale="${canvas.xscalefactor}" yscale="${canvas.yscalefactor}">
 
         <attribute name="xpos"/>
@@ -84,6 +83,9 @@
         <handler name="oninit">
             this.setAttribute ('xpos', this.width/2);
             this.setAttribute ('ypos', this.height);
+			if(canvas.capabilities.clickregion){
+				this.setAttribute('clickregion','resource/protractorBackground.png');
+			}
         </handler>
 		<handler name="onmousedown">
 			this.bringToFront();

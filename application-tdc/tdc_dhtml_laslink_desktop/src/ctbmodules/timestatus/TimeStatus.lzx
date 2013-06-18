@@ -100,10 +100,9 @@
                               statelength="3" maxstate="1"
                               enabled="${ classroot.uienabled == true}"
                               disabledResourceNumber="0">
-                <handler name="onclick" method="toggle" />
-                <method name="toggle">
+                <handler name="onclick">
                     gController.toggleTimer();
-                </method>
+                </handler>
                 <handler name="onmouseover">
                          lz.Cursor.showHandCursor(true);
 		        </handler>

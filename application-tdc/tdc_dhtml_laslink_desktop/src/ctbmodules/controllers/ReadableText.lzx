@@ -30,7 +30,7 @@
 		<!-- true, when wait popup is shown and second tts call is made  -->	
 	    <attribute name="speechRequestSent" type="boolean" value="false" />
 
-		<attribute name="dRequestor" value="$once{new lz.Delegate(this, 'requestor')}" />  
+		<attribute name="dRequestor" value="$once{new lz.Delegate(this, 'requestor')}" type="expression" />  
 
         <method name="init">
             super.init();
@@ -198,7 +198,7 @@
         	}
         ]]></method>
 
-		<method name="requestor">
+		<method name="requestor" args="ignore=null">
 			//Debug.write("requestor...");
 			//getMp3();
 			doRead(this.currentText);
