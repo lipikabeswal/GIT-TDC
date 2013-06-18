@@ -3,12 +3,12 @@
     	<attribute name="oldWidth" type="number" />
     	<attribute name="oldHeight" type="number" />
     	
-    	<attribute name="minwidth" value="60"/>
+    	<attribute name="minwidth" value="140"/>
         <attribute name="maxwidth" value="640"/>
 
         <!--- Minimum height for the window.
               @keywords final -->
-        <attribute name="minheight" value="50"/>
+        <attribute name="minheight" value="140"/>
         <attribute name="maxheight" value="362"/>
         
         <attribute name="xroffset"
