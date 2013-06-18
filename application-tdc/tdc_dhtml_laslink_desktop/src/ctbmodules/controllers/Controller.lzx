@@ -523,6 +523,7 @@
 		<attribute name="isMicPresent" type="boolean" value="true"/>
 		<attribute name="dMicCheck"
 			value="$once{ new lz.Delegate( this, 'isMicConnected' ) }" />
+		<attribute name="isPauseTest" value="true" type="boolean" /> 
 		<!--
 			============================================================
 			Datapointers
@@ -2828,15 +2829,17 @@
 				var isVisited 	   = dpstudentdata.xpathQuery("runtime/item_model[@eid='"+fnode.getAttr('id')+"']/@is_visited") == 'true';
 
 //Debug.write("isAnswered : revisitAllowed : isVisited : "+isAnswered +":"+ revisitAllowed +":"+ isVisited);
-				if(revisitAllowed != null){
-					if(!revisitAllowed){
-				  		if(isVisited || isAnswered){	
-//Debug.write("getItemFromOffset..." + currItemOffset() +" : "+ offset);				
-							if(currItemOffset() > offset) {
-								return getItemFromOffset(offset - 1);
-							}
-							else {
-								return getItemFromOffset(offset + 1);
+				if(!isPauseTest) {
+					if(revisitAllowed != null){
+						if(!revisitAllowed){
+					  		if(isVisited || isAnswered){	
+	//Debug.write("getItemFromOffset..." + currItemOffset() +" : "+ offset);				
+								if(currItemOffset() > offset) {
+									return getItemFromOffset(offset - 1);
+								}
+								else {
+									return getItemFromOffset(offset + 1);
+								}
 							}
 						}
 					}
@@ -3183,6 +3186,7 @@
 		
 			
 		<method name="pauseTest">
+			this.setAttribute('isPauseTest',true);
             if ( pausable == true ) {
             	this.setAttribute('isAudioPaused', true);
             	gReadableText.stopReading(false);
@@ -3263,6 +3267,7 @@
 			if(this.htmlFields != null){
 					showHtmlWidgets();
 			}
+			this.setAttribute('isPauseTest',false);
 			//var s="playAudio()";
 			//lz.Browser.loadJS(s);
 		</method>
