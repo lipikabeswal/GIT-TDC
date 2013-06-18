@@ -5,7 +5,9 @@ var playOrderArray = {};
 var enabledArray = [];
 var assetCount = 0;
 var checkAnswered = false;
+var answerClicked = null;
 var pausedAssetID = null;
+var pausedDisabledAssetID = null;
 var iframeFolderId = null;
 
 function iframeLoaded(id, iframe){
@@ -158,6 +160,9 @@ function getNextPlayOrder(assetFolderId) {
 				if(playOrderArray[currentLasAssetItemId][k]['playOnce'] == "false") {
 					iframeObject[currentLasAssetItemId][playOrderArray[currentLasAssetItemId][k]['currentAsset']].iframeObj.contentWindow.enable();
 				}
+				   if(playOrderArray[currentLasAssetItemId][k]['playOnce'] == "true") {
+                    iframeObject[currentLasAssetItemId][playOrderArray[currentLasAssetItemId][k]['currentAsset']].iframeObj.contentWindow.disable();
+				}
 			}
 			if(playOrderArray[currentLasAssetItemId][k]['playIfAnswered'] == "false") {
 				iframeObject[currentLasAssetItemId][playOrderArray[currentLasAssetItemId][currentPlayOrder + 1]['currentAsset']].iframeObj.contentWindow.enable();
@@ -184,7 +189,11 @@ function unlockResponseArea(frameId) { // Assuming there will be only one such a
 function checkValIfAnswered(frameId) {
    ////console.log("playIfAnswered----->",gController.playIfAnswered);
    ////console.log("frameId-->",frameId);
-   if(gController.playIfAnswered) {
+   if(!iframeObject[currentLasAssetItemId][playOrderArray[currentLasAssetItemId][currentPlayOrder]['currentAsset']].playedOnce) {
+   		answerClicked = frameId;
+   		
+  	 }
+   else if(gController.playIfAnswered) {
 		if(iframeObject[currentLasAssetItemId] && iframeObject[currentLasAssetItemId][frameId]) {
 		 if (checkAnswered == false){
 			iframeObject[currentLasAssetItemId][frameId].iframeObj.contentWindow.enable();
@@ -276,8 +285,8 @@ function startAutoplay(){
 		for(var i=0; i<gController.lasAssetArray.length;i++){
 			if(gController.lasAssetArray[i].data.getAttr('autoplay') == "true"){
 				var frameid = getFrameId(gController.lasAssetArray[i]);
-				iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.autoPlay();
 				autoPlayEvent = "true";
+				iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.autoPlay();
 				break;
 			}
 		}
@@ -307,12 +316,13 @@ function startAutoplay(){
 			else if(iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.isPlaying == "disabled"){
 				if((iframeObject[currentLasAssetItemId][frameid].clickedOnce) && !(iframeObject[currentLasAssetItemId][frameid].playedOnce)) {
 					iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.pause();
-					pausedAssetID=frameid;
+						pausedDisabledAssetID=frameid;
+					}
+					
 				}
 				
 			}
-		}
-  	}
+  		}
   }
   
   function playAudio(){
@@ -322,12 +332,23 @@ function startAutoplay(){
 					var frameid = getFrameId(gController.lasAssetArray[i]);
 					if(frameid == pausedAssetID){
 						iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.play();
-					}
+						}
 				}
 			}
 		}
+	if(pausedDisabledAssetID != null){
+		for(var i=0; i<gController.lasAssetArray.length;i++){
+				if(gController.lasAssetArray[i].asset){
+				  var frameid = getFrameId(gController.lasAssetArray[i]);
+					if(frameid == pausedDisabledAssetID){
+						iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.playAfterStop();
+						}
+				}
+			}
+		}
+        
 	pausedAssetID = null;
-
+    pausedDisabledAssetID = null;
 } 
 
 function addReadOnlyCR(){
@@ -343,6 +364,18 @@ console.log("Inside removeReadOnlyCR");
 	if(document.getElementsByTagName('textarea').length > 0){
 		document.getElementsByTagName('textarea')[0].removeAttribute('readonly');
 		console.log("removeReadOnlyCR");
+	}
+}
+
+function resetAllAssets(){
+	if(gController.isThemePage() == 'true'){
+		if(checkAllPlayedOnce()) {
+			for(var i=0; i<gController.lasAssetArray.length;i++){
+					if(gController.lasAssetArray[i].asset){
+						iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.enable();
+					}
+			}
+		}
 	}
 }
 
