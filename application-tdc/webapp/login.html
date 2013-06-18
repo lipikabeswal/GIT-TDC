@@ -416,6 +416,7 @@ function setCurLasItemId(id) {
 	currentLasAssetItemId = id;
 	assetCount = 0;
 	checkAnswered = false;
+	answerClicked = null;
 }
 
 
@@ -426,6 +427,8 @@ function eventMonitor(id,event) {
 	var currIframeId = frameFolderObject[id];
  	if(event == 'play' || event == 'jsplay') {
  		setPlayingAttr(event,'true');
+ 		if(!checkAllPlayedOnce())
+ 		disableAssets();
  		iframeObject[currentLasAssetItemId][currIframeId]['playEvent'] = true;
  		playSingleAsset(currIframeId);
  		if(iframeObject[currentLasAssetItemId]) {
@@ -434,12 +437,16 @@ function eventMonitor(id,event) {
  				 getCurrentPlayOrder(currIframeId);
  			}
  		}
- 		unlockResponseArea(currIframeId);
+ 		if(autoPlayEvent == 'false') {
+ 			unlockResponseArea(currIframeId);
+ 			}
  		 		
  	} else if(event == 'finished' || event == 'endTrack' || event == 'pause') {
  		if( event == 'endTrack' || event == 'pause'){
  			setPlayingAttr(event,'false');
  		}
+ 			if(!checkAllPlayedOnce())
+ 			enableAssets();
 	 		iframeObject[currentLasAssetItemId][currIframeId]['playEvent'] = false;
 	 		//console.log("event -- ",event);
 	 		if(iframeObject[currentLasAssetItemId]) {
@@ -454,8 +461,13 @@ function eventMonitor(id,event) {
 	 		if(autoPlayEvent == 'true') {
 	 			autoPlayEvent = "false";
 	 		}
+	 		if(answerClicked != null){
+	 			checkValIfAnswered(answerClicked);
+	 			answerClicked = null;
+	 		}
  		
  		restrictNavigation('unlock');
+ 		setTimeout("resetAllAssets()",500);
  	} else if (event == 'reset') {
  		//setPlayingAttr('false');
  	}
