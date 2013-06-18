@@ -101,7 +101,7 @@
 
     <!--- @keywords private -->
     <_newinternalinputtext name="inp" scrollevents="true" multiline="true"
-        x="${parent.border}" y="${parent.border}" 
+        x="${parent.border}" y="${parent.border}" clip="true"
         width="${parent.width - parent.border * 2 - parent._vscrollwidth}"
         height="${parent.height - parent.border * 2}" 
         pattern="[A-Za-z0-9!@;:#$%\*()-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[\\]\\\\\_|`~ \\^]*"
