@@ -25,7 +25,8 @@
 				this.asset.setAttribute('width',Number(data.getAttr('width')));
 				if(data != null && data.getAttr('isMP4') == "true") {
 					var folderName = data.getAttr('image_ref');
-					var srcUrl = "http:items/" + folderName + "/video.html";
+					//var srcUrl = "http:items/" + folderName + "/video.html";
+					var srcUrl = canvas.LASAssetPath+folderName+"/video.html";
 					this.asset.video.setAttribute('src', srcUrl);
 					this.asset.aw.setAttribute('visible',false);
 					this.asset.video.setAttribute('visible',true);
@@ -33,7 +34,8 @@
 					this.asset.video.setAttribute('width',Number(data.getAttr('width')));
 				} else {
 					var folderName = data.getAttr('image_ref');
-					var srcUrl = "http:items/" + folderName + "/asset.html";
+					//var srcUrl = "http:items/" + folderName + "/asset.html";
+					var srcUrl = canvas.LASAssetPath+folderName+"/asset.html";
 					this.asset.aw.setAttribute('src', srcUrl);
 					this.asset.aw.setAttribute('visible',true);
 					this.asset.video.setAttribute('visible',false);

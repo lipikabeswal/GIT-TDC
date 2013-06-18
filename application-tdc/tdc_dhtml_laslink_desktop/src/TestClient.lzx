@@ -83,7 +83,8 @@
 		type="string" />-->
 	<attribute name="useDefaultEliminator" type="boolean" value="true" />
 	
-	<attribute name="bringBackFocus" />
+	<attribute name="bringBackFocus" />	
+	<attribute name="LASAssetPath"/>
 	
 	<method name="setScale"><![CDATA[
 		canvas.setAttribute('xscalefactor',canvas.titleView.mainView.scalingView.xscale);
