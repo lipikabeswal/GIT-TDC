@@ -41,7 +41,6 @@
 		<attribute name="micNotConnected" />
 		<attribute name="recordIconsView" />
 		<attribute name="attachMic" />
-		<attribute name="whitewrapperOverLay" />
 		<attribute name="recordStatus" />
 		<attribute name="widgetbuttons" />
 		<attribute name="red" />
@@ -619,7 +618,7 @@
 			this.recordIconsView= main.content.recorddisplay.recordicons;
 			this.widgetbuttons 	= main.content.widgetbuttons;
 			this.recordStatus 	= main.content.recorddisplay.showStatus.recordStatus;
-			this.whitewrapperOverLay = whitewrapperOverLay;
+			
 		</method>
 
 		<method name="requestError" args="ds">

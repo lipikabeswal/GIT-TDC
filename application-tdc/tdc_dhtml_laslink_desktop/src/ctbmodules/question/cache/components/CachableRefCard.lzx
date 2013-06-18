@@ -258,6 +258,7 @@
 			<view name="contents"
 			      width="${classroot.innerWidth - parent.scroller.width}">
            		<handler name="onload">
+           		;
            		</handler>
 				<handler name="ony"><![CDATA[
 					// When user is actually scrolling the view, then only update the value of 'scrollTo' 
