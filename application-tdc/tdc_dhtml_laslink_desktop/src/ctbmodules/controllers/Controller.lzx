@@ -3249,6 +3249,7 @@
         </method>
 
 		<method name="_handlePausedResumeResponse" args="xml">
+			changeItem( getItemFromOffset( currItemOffset() ) );
 			showItemInterface();
 			gScreens.resetTextFieldColor();
             startQuestion();
@@ -3261,8 +3262,8 @@
 			if(this.htmlFields != null){
 					showHtmlWidgets();
 			}
-			var s="playAudio()";
-			lz.Browser.loadJS(s);
+			//var s="playAudio()";
+			//lz.Browser.loadJS(s);
 		</method>
 		
 		<method name="hideManipulatives">
