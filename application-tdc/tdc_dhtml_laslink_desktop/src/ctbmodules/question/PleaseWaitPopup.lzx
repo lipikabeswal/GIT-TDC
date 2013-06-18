@@ -34,16 +34,16 @@
 		this.windowbg.drawMe();
 	]]></method>
 	
-	<method name="hide">
+	<method name="hide"><![CDATA[
 	    gManipulatives.setAttribute('visible',true);
         this.setAttribute("visible", false);
 		this.contents.networkLost.inBar.barAnimator.stop();
 		lz.ModeManager.release(this);
 		//canvas.unFreezUI();
-		if(gItemInterface.visible){
+		if(gItemInterface.visible && !gController.isAudioPaused){
 			playAudio();
 		}
-    </method>
+    ]]></method>
 	
     <method name="show">
     	//canvas.freezUI();
