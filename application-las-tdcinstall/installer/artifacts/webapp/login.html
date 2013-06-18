@@ -103,6 +103,12 @@ var autoPlayEvent = "false";
 var isMagnifierVisible = "false";
 var xscalefactorjs;
 var yscalefactorjs;
+var LASAssetPath = "http:items/"; 
+
+function getLasAssetPath(){
+	lz.embed.setCanvasAttribute("LASAssetPath", LASAssetPath);
+}
+
 window.onmouseup = function  () {
 	lz.embed.setCanvasAttribute("fromLogin", 'true');
 }
