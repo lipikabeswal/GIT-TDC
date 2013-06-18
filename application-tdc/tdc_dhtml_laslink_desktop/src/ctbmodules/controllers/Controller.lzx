@@ -3627,6 +3627,7 @@
 			hideMaskingChoiceDD();
 			resetMicCheck(); // First call for Mic Check
 			this.setAttribute('canNotAnswer',false); // set canNotAnswer to false on item load for responseAreaLocker attribute.
+			gTooltip.hideTooltip ();
 		]]></method>
 
 		<method name="loadMusicData"><![CDATA[
