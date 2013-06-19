@@ -578,6 +578,7 @@
 			else if (result == 'RECORDING_STOP') {
 			//Debug.write("RECORDING_STOP..");
 				if(this.totalTime == 0) {
+					gController.setAttribute("recordingCompleted",true);
 					this.recordButton.setAttribute("enabled", false);
 					this.resetButton.setAttribute("enabled", false);
 					this.stopButton.setAttribute("enabled", false);

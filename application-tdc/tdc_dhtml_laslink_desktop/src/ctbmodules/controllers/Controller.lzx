@@ -322,6 +322,7 @@
 		<attribute name="istLength" type="number" value="0" />
 		<attribute name="istRestartLength" type="number" value="0" />
 		<attribute name="recordState" type="boolean" value="true" />
+		<attribute name="recordingCompleted" type="boolean" value="false"/>
 		<!-- START Change for deferred Defect 63502-->
 		<attribute name="restartscid" value="0" />
 		<!-- END-->
@@ -682,7 +683,11 @@
 					if(this.recordState == false){
 						this.recorder.recordButton.setAttribute("enabled", false);
 					}else{
-						this.recorder.recordButton.setAttribute("enabled", true);
+						if(this.recordingCompleted == true){
+							this.recorder.recordButton.setAttribute("enabled", false);
+						}else{
+							this.recorder.recordButton.setAttribute("enabled", true);
+						}
 					}
 				}
 			}
