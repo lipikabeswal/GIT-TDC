@@ -3305,6 +3305,7 @@
 
 		<method name="finishTest">
         	gReadableText.stopReading(false);
+        	this.isStopScreen = true;
             freezeUI();
             
          //For Defect 65881        
@@ -3450,6 +3451,7 @@
 		]]></method>
 
 		<method name="resumeTest">
+			this.isStopScreen = false;
            	var s="playAudio()";
 			lz.Browser.loadJS(s);			
             lz.Cursor.setCursorGlobal( 'waitcursor' );
@@ -3478,8 +3480,7 @@
 			this.setAttribute('isAudioPaused', true);
 			this.setAttribute("isStopTest",true);
 			this.setAttribute("catOver",false);
-			this.isStopScreen = false;
-            finishTest();
+			finishTest();
         </method>
 		<!--For defect 65881-->
 		<method name="recorderComponent" args="recObject">

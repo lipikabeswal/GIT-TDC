@@ -206,7 +206,7 @@
         ]]></method>
 
 		<method name="handleHtmlKeyPress" args="data"><![CDATA[
-		        if(gPleaseWaitPopup.visible || gScreens.visible){
+		        if(gPleaseWaitPopup.visible || gScreens.visible || gController.isStopScreen || gController.isPauseTest){
 		        	// do nothing
 		        	// this condition is for the defect 74092,74190
 		        }else{
