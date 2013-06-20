@@ -75,7 +75,7 @@ else
 	lib1=$(find /usr/lib -name libnspr4.so | grep -v 'firefox\|thunderbird\|chrome\|chromium'| head -n 1)
 	if [ -n "$lib1" ]; then
 		#link
-		ln -s "$lib1" ChromiumLDB/libnspr4.so
+		ln -s "$lib1" ChromiumLDB/libnspr4.so.0d
 		echo $lib1 "link created"
 	else
 		echo "libnss3.so.1d is not installed"
