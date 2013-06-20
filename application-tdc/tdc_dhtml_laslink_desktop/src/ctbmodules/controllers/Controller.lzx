@@ -4197,7 +4197,7 @@
 			lz.Timer.resetTimer( dsendHeartbeat, 120000 );
 		</method>
 		<method name="resetMicCheck">
-			lz.Timer.resetTimer(dMicCheck, 6000 );
+			lz.Timer.resetTimer(dMicCheck, 4000 );
 		</method>
 
 		<method name="getCurrentInteractionType">
