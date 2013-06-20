@@ -318,7 +318,7 @@
 								<handler name="onmouseout">
 									gTooltip.hideTooltip ();    
 								</handler>
-								<handler name="onmousedown"><![CDATA[
+								<!--<handler name="onmousedown"><![CDATA[
 									if(gController.isMicPresent == true || gController.isMicPresent == 'true'){
 										this.setAttribute('clickable',true);
 										classroot.whitewrapperOverLay.setAttribute('visible',false);
@@ -329,7 +329,7 @@
 									}
 								]]>
 								</handler>
-								<!-- <tooltip>Record</tooltip> -->
+								 <tooltip>Record</tooltip> -->
 							</basebutton>
 							<basebutton resource="button_stop"
 								name="stopButton" width="${parent.recordButton.width}" height="${parent.recordButton.height}" stretches="both"
