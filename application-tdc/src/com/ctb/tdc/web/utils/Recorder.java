@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Recorder {
     // record duration, in milliseconds
-    static final long RECORD_TIME = 500; // .5 sec 
+   // static final long RECORD_TIME = 500; // .5 sec 
 	//static final long RECORD_TIME = 90000; 
     private static boolean microphone = false;
     // path of the wav file
@@ -44,47 +44,54 @@ public class Recorder {
     public boolean start() {
     	boolean isMic = false;
         try {
+        	com.sun.media.sound.JDK13Services.setCachingPeriod(1);
             AudioFormat format = getAudioFormat();
             DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
-            
             // checks if system supports the data line
-            if (!AudioSystem.isLineSupported(info)) {
+            if (!AudioSystem.isLineSupported(Port.Info.MICROPHONE)) {
                // System.out.println("Line not supported");
                 isMic=false;
             }
             else{
-            line = (TargetDataLine) AudioSystem.getLine(info);
-           //System.out.println("buffersize"+line.getBufferSize());
-            line.open(format);
-            line.flush();
-            line.start();   // start capturing
-          //  System.out.println("Start capturing...");
-            AudioInputStream ais = new AudioInputStream(line);
-            ais.read(data);
-            //System.out.println("Start recording...")
-            
-            ArrayList<Byte> frame = new ArrayList<Byte>();
-		      for (int i = 0; i < data.length; i++) {
-		    	 if (data[i]>0){
-			  		 frame.add(data[i]);
-			  		// System.out.println("Frame Value:::"+data[i]);
-			  	  }
-		    	 
-		  	  
-		      }
-		      if(frame.size()>0){
-		    	  isMic=true;
-		      }
-		      
-		      //System.out.println("in start "+isMic);
+            	line = (TargetDataLine) AudioSystem.getLine(info);
+            	if(line!=null){
+            		line.open(format);
+            		line.flush();
+            		line.start();   // start capturing
+			            AudioInputStream ais = new AudioInputStream(line);
+			            ais.read(data);
+			            ArrayList frame = new ArrayList();
+					      for (int i = 0; i < data.length; i++) {
+					    	 if (data[i]>0){
+						  		 frame.add(data[i]);
+						  		// System.out.println("Frame Value:::"+data[i]);
+						  	  }
+					      }
+					      if(frame.size()>0){
+					    	  isMic=true;
+					      }
+				}
             }
  
         } catch (LineUnavailableException ex) {
-        	isMic=true;
-        	return isMic;
+        	System.out.println("Inside Exception");
+        	if(AudioSystem.isLineSupported(Port.Info.MICROPHONE)){
+        		System.out.println("Inside if");
+        		isMic=true;
+        	}else{
+        		System.out.println("Inside else");
+        		isMic=false;
+        	}
+        	
             //ex.printStackTrace();
+        }catch (IllegalArgumentException iae) {
+	        	if(AudioSystem.isLineSupported(Port.Info.MICROPHONE)){
+	        		isMic=true;
+	        	}else{
+	        		isMic=false;
+	        	}
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+        		ioe.printStackTrace();
         }
 		return isMic;
     }
@@ -95,9 +102,9 @@ public class Recorder {
     public void finish() {
     	try{
     		if(line!=null){
-	        line.stop();
-	        line.flush();
-	        line.close();
+    			line.stop();
+    			line.flush();
+    			line.close();
     		}
     	}
     	catch(Exception e){
@@ -118,7 +125,7 @@ public class Recorder {
  
         // creates a new thread that waits for a specified
         // of time before stopping
-        Thread stopper = new Thread(new Runnable() {
+       /* Thread stopper = new Thread(new Runnable() {
             public void run() {
                 try {
                 	
@@ -130,18 +137,17 @@ public class Recorder {
             }
         });
  
-        stopper.start();
+        stopper.start();*/
         
  
         // start recording
         microphone=recorder.start(); 
-        //System.out.println("In main>>>>"+microphone);
         if(microphone){
-        	//System.out.println("A microphone is attached to your system");
+        	recorder.finish();
         	return "<true />";
         	}
         else{
-        	//System.out.println("Microphone is not attached");
+        	recorder.finish();
         	return "<false />";
         }
        
