@@ -206,9 +206,9 @@
         ]]></method>
 
 		<method name="handleHtmlKeyPress" args="data"><![CDATA[
-		        if(gPleaseWaitPopup.visible){
+		        if(gPleaseWaitPopup.visible || gScreens.visible){
 		        	// do nothing
-		        	// this condition is for the defect 74092
+		        	// this condition is for the defect 74092,74190
 		        }else{
 		            var keys = data.split("|");
 		        	var key = keys[0];
