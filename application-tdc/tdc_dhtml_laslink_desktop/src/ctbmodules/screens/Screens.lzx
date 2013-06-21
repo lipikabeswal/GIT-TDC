@@ -145,6 +145,8 @@
         <method name="showFinish" args="a, m">
             removeAllStates();
             //canvas.unFreezUI();
+            gScratchpad.onmouseup.sendEvent();
+            
             if ( !contents.fs.isinited ) contents.fs.completeInstantiation();
             //standingMan.apply();
             contents.fs.setStats( a, m );
@@ -172,6 +174,8 @@
         <method name="showPause" args="sn">
             removeAllStates();
             //canvas.unFreezUI();
+            gScratchpad.onmouseup.sendEvent();
+            
             if ( !contents.ps.isinited ) contents.ps.completeInstantiation();
             //standingMan.apply();
             if(gController.displayText == true || gController.displayText == 'true') {
