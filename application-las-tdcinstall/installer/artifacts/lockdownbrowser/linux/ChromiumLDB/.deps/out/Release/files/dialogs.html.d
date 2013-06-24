@@ -1,1 +1,0 @@
-cmd_out/Release/files/dialogs.html := ln -f "cefclient/res/dialogs.html" "out/Release/files/dialogs.html" 2>/dev/null || (rm -rf "out/Release/files/dialogs.html" && cp -af "cefclient/res/dialogs.html" "out/Release/files/dialogs.html")

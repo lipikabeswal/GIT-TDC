@@ -4,8 +4,6 @@ var currentPlayOrder = 0;
 var playOrderArray = {};
 var enabledArray = [];
 var assetCount = 0;
-var checkAnswered = false;
-var pausedAssetID = null;
 
 function iframeLoaded(id, iframe){
 	if(currentLasAssetItemId) {
@@ -39,12 +37,9 @@ function iframeLoaded(id, iframe){
 					}
 					//Disable the response content, if the attribute responseAreaLocker is present
 					if(gController.lasAssetArray[i].data.getAttr('responseAreaLocker') == "true"){
-					    if(gMagnifyingGlass.magnifierOpen == false || gMagnifyingGlass.magnifierOpen == 'false'){
-					    	//do nothing
-					    	// this condition is for the defect 73859
-					    }else{
-					        gController.setAttribute('canNotAnswer',true);
-						}	
+						gController.setAttribute('canNotAnswer',true);
+						////console.log("responseAreaLocker ----");
+						////console.log(iframe.id);
 					}
 					if(gController.lasAssetArray[i].data.getAttr('playIfAnswered') == "true"){
 						////console.log("true playIfAnswered ----");
@@ -57,7 +52,7 @@ function iframeLoaded(id, iframe){
 			if(gController.lasAssetArray.length == assetCount){
 				setTimeout("startAutoplay()",500);
 			}
-		//restrictNavigation('lock');
+
 		}
 		
 	}
@@ -165,10 +160,7 @@ function checkValIfAnswered(frameId) {
    ////console.log("frameId-->",frameId);
    if(gController.playIfAnswered) {
 		if(iframeObject[currentLasAssetItemId] && iframeObject[currentLasAssetItemId][frameId]) {
-		 if (checkAnswered == false){
 			iframeObject[currentLasAssetItemId][frameId].iframeObj.contentWindow.enable();
-			checkAnswered = true;
-			}
 		}
 	}  
 }
@@ -193,31 +185,11 @@ function playSingleAsset(currIframeId){
 		
 }
 
-function setPlayingAttr(event,value){	
-	if(value == 'true'){
+function setPlayingAttr(arg){	
+	if(arg == 'true'){
 		gController.setAttribute('isplaying',true);
-		
-	} 
-	else if(event == 'pause'){
-	
-		var	k=0;
-		for(var i=0; i<gController.lasAssetArray.length;i++){
-					if(gController.lasAssetArray[i].asset){
-						if(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.isPlaying == "true"){
-							//console.log(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.isPlaying);
-							k++;
-							
-						}	
-				}
- 		}
-		
-		if(k>0){
-			gController.setAttribute('isplaying',true);
-	    } else{
-	    	gController.setAttribute('isplaying',false);
-	  	  }
 	} else{
-	gController.setAttribute('isplaying',false);
+		gController.setAttribute('isplaying',false);
 	}
 }
 
@@ -261,68 +233,3 @@ function startAutoplay(){
 			}
 		}
   }
-  
-   function restrictNavigation(arg){
-   if(arg  == 'unlock'){
-	 	if(checkAllPlayedOnce()) {
-			//console.log("All asset played once");
-			gController.setAttribute('unlockNavigation',true);
-		} else {
-				//console.log("All asset not played once");
-				gController.setAttribute('unlockNavigation',false);
-	 		}
- 	}else {
- 	gController.setAttribute('unlockNavigation',false);
- 	}
-  }
-  
-    function pauseAudio() {
-	for(var i=0; i<gController.lasAssetArray.length;i++){
-				if(gController.lasAssetArray[i].asset){
-				if(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.isPlaying == "true"){
-					iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.pause();
-					pausedAssetID=gController.lasAssetArray[i].asset.aw.iframeid;
-					console.log("inside pause audio ");
-				}
-				else if(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.isPlaying == "disabled"){
-					if((iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].clickedOnce) && !(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].playedOnce)) {
-						iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.pause();
-						pausedAssetID=gController.lasAssetArray[i].asset.aw.iframeid;
-						console.log("inside pause audio disabled ");
-					}
-					
-				}
-			}
-  		}
-  }
-  
-  function playAudio(){
-  	if(pausedAssetID != null){
-		for(var i=0; i<gController.lasAssetArray.length;i++){
-				if(gController.lasAssetArray[i].asset){
-					if(gController.lasAssetArray[i].asset.aw.iframeid == pausedAssetID){
-						iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.play();
-						console.log("inside play audio ");
-					}
-				}
-			}
-		}
-	pausedAssetID = null;
-
-} 
-
-function addReadOnlyCR(){
-console.log("Inside addReadOnlyCR");
-	if(document.getElementsByTagName('textarea').length > 0){
-		document.getElementsByTagName('textarea')[0].setAttribute('readonly',true);
-		console.log("addReadOnlyCR");
-	}
-	
-}
-function removeReadOnlyCR(){
-console.log("Inside removeReadOnlyCR");
-	if(document.getElementsByTagName('textarea').length > 0){
-		document.getElementsByTagName('textarea')[0].removeAttribute('readonly');
-		console.log("removeReadOnlyCR");
-	}
-}

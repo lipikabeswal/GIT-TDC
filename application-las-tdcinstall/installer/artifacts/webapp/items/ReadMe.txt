@@ -1,1 +1,0 @@
-Default Place for storing TE items.
