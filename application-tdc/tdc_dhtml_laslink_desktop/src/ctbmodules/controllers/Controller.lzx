@@ -1744,6 +1744,12 @@
 			return alphabetString.substr(0,numOptions);
 		</method>
 
+       <handler name="onscratchpadOpen">
+		 //console.log("SCRATCHPADOPEN");
+		 gHotKeys.handleoptionKeys();
+		</handler>
+
+
 		<method name="getPermutatedArray"
 			args="input,newModBase,reverse">
 		<![CDATA[
@@ -2718,7 +2724,7 @@
 			}
 			else {
 				this.setAttribute("navigateConfirm",false);
-				this.questionBar._changeStatus(false);
+				//this.questionBar._changeStatus(false);
 				//Debug.warn("question bar change status called");
 			}
 
