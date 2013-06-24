@@ -8,7 +8,7 @@
         <attribute name="isselected" value="false"/>
         <attribute name="tooltip" type="string"/>
 		<attribute name="scratchpadOpen" type="boolean" value="${gController.scratchpadOpen}" />
-        <attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
+        <attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}" type="expression"/>
         <attribute name="xpos" type="string"/>
 
         <handler name="oninit">
@@ -65,7 +65,7 @@
             lz.Timer.removeTimer (this.tooltipdel);
         </handler>
 
-        <method name="showTooltip">
+        <method name="showTooltip" args="ignore=null">
             gTooltip.showTooltip_(this.tooltip,this.xpos);
         </method>
 

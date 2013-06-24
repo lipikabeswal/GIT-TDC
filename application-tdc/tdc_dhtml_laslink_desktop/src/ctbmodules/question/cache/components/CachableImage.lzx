@@ -378,7 +378,7 @@
 				}
 		  	</handler>
 
-            <attribute name="reloadDel" value="$once{new lz.Delegate(this, '_reload')}" />
+            <attribute name="reloadDel" value="$once{new lz.Delegate(this, '_reload')}" type="expression"/>
             <!--  This is to fix a weird bug that Laszlo couldnt explain - sometimes the request would return a 
                   resource of height 0 and width 0.  It wouldnt error - it would return successfully
                   without the image ..  This is to retry the request if that happens. -->
@@ -401,7 +401,7 @@
                 }
             ]]></handler>
             
-            <method name="_reload">
+            <method name="_reload" args="ignore=null">
 //Debug.write("_reload,...",this.resource,this.getDisplayObject());
                 //this.unload();
                 if ($dhtml) {

@@ -12,8 +12,8 @@
 		comptype="${gCompTypes.WIDGET_HTML}" aaactive="true"
 		aasilent="false">
 		
-		<attribute name="contentLoadedDel" value="$once{new lz.Delegate(this,'func2')}" />
-		<attribute name="setStateDel" value="$once{new lz.Delegate(this,'setAnswer')}" />
+		<attribute name="contentLoadedDel" value="$once{new lz.Delegate(this,'func2')}" type="expression"/>
+		<attribute name="setStateDel" value="$once{new lz.Delegate(this,'setAnswer')}" type="expression"/>
 		<attribute name="answered" type="boolean" value="false" />
 		<attribute name="answer" />
 		<attribute name="widget_id" />
@@ -107,7 +107,7 @@ Debug.write("Cachaable html widget ondata");
             gController.updateBlueBallForHtmlItem(retVal);
        ]]> </method>
 
-		<method name="setAnswer" >
+		<method name="setAnswer" args="ignore=null">
 			Debug.write("setAnswer ansObj");
 			if(this.main.ht.ready){
 				if(!this.answered){
@@ -131,7 +131,7 @@ Debug.write("Cachaable html widget ondata");
 		</method>
 
         
-        <method name="func2">
+        <method name="func2" args="ignore=null">
 					doneLoading();
         /*   if(this.main.ht.loading){
             	lz.Timer.resetTimer(contentLoadedDel, 1000);

@@ -351,101 +351,101 @@
 	 	]]></method>
 
         <attribute name="dtoggleA"
-                   value="$once{ new lz.Delegate( this, 'toggleA' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'toggleA' ) }" type="expression"/>
         <attribute name="dtoggleB"
-                   value="$once{ new lz.Delegate( this, 'toggleB' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'toggleB' ) }" type="expression"/>
         <attribute name="dtoggleC"
-                   value="$once{ new lz.Delegate( this, 'toggleC' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'toggleC' ) }" type="expression"/>
         <attribute name="dtoggleD"
-                   value="$once{ new lz.Delegate( this, 'toggleD' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'toggleD' ) }" type="expression"/>
         <attribute name="dtoggleE"
-                   value="$once{ new lz.Delegate( this, 'toggleE' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'toggleE' ) }" type="expression"/>
         <attribute name="dtoggleF"
-                   value="$once{ new lz.Delegate( this, 'toggleF' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'toggleF' ) }" type="expression"/>
         <attribute name="dtoggleG"
-                   value="$once{ new lz.Delegate( this, 'toggleG' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'toggleG' ) }" type="expression"/>
         <attribute name="dtoggleH"
-                   value="$once{ new lz.Delegate( this, 'toggleH' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'toggleH' ) }" type="expression"/>
         <attribute name="dtoggleI"
-                   value="$once{ new lz.Delegate( this, 'toggleI' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'toggleI' ) }" type="expression"/>
         <attribute name="dtoggleJ"
-                   value="$once{ new lz.Delegate( this, 'toggleJ' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'toggleJ' ) }" type="expression"/>
         <attribute name="dgoBack"
-                   value="$once{ new lz.Delegate( this, 'goBack' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'goBack' ) }" type="expression"/>
         <attribute name="dgoOn"
-                   value="$once{ new lz.Delegate( this, 'goOn' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'goOn' ) }" type="expression"/>
         <attribute name="dtoggleMark"
-                   value="$once{ new lz.Delegate( this, 'toggleMark' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'toggleMark' ) }" type="expression"/>
         <attribute name="dtoggleTimer"
-                   value="$once{ new lz.Delegate( this, 'toggleTimer' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'toggleTimer' ) }" type="expression"/>
         <attribute name="dpause"
-                   value="$once{ new lz.Delegate( this, 'pause' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'pause' ) }" type="expression"/>
         <attribute name="dstop"
-                   value="$once{ new lz.Delegate( this, 'stop' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'stop' ) }" type="expression"/>
         <attribute name="dfinish"
-                   value="$once{ new lz.Delegate( this, 'finish' ) }"/>
+                   value="$once{ new lz.Delegate( this, 'finish' ) }" type="expression"/>
   
-        <method name="toggleA">    
+        <method name="toggleA" args="ignore=null">    
         	if(!gController.isCrItem()){
 	            this.exitPopups();
 	        	gController.toggleItemSelState( 'A' ); 
 	        }
         </method>
-        <method name="toggleB">    
+        <method name="toggleB" args="ignore=null">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
 	        	gController.toggleItemSelState( 'B' ); 
 	        }
         </method>
-        <method name="toggleC">    
+        <method name="toggleC" args="ignore=null">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
 	        	gController.toggleItemSelState( 'C' ); 
 	        }
          </method>
-        <method name="toggleD">    
+        <method name="toggleD" args="ignore=null">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
 	        	gController.toggleItemSelState( 'D' ); 
 	        }
        </method>
-        <method name="toggleE">    
+        <method name="toggleE" args="ignore=null">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
 	        	gController.toggleItemSelState( 'E' ); 
 	        }
         </method>
-        <method name="toggleF">    
+        <method name="toggleF" args="ignore=null">    
         	if(!gController.isCrItem()){
 	            this.exitPopups();
 	        	gController.toggleItemSelState( 'F' ); 
 	        }
         </method>
-        <method name="toggleG">    
+        <method name="toggleG" args="ignore=null">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
 	        	gController.toggleItemSelState( 'G' ); 
 	        }
         </method>
-        <method name="toggleH">    
+        <method name="toggleH" args="ignore=null">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
 	        	gController.toggleItemSelState( 'H' ); 
 	        }
         </method>
-		<method name="toggleI">    
+		<method name="toggleI" args="ignore=null">    
 			if(!gController.isCrItem()){
 		    	this.exitPopups(); 
 				gController.toggleItemSelState( 'I' ); 
 			}
 		</method>
-        <method name="toggleJ">    
+        <method name="toggleJ" args="ignore=null">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
 	        	gController.toggleItemSelState( 'J' ); 
 	        }
         </method>        
-        <method name="goBack">
+        <method name="goBack" args="ignore=null">
 		<![CDATA[
 		    if(canvas.loadItem){
             	//canvas.freezUI();
@@ -460,7 +460,7 @@
 			}	     
        	]]>
 		</method>
-        <method name="goOn"> 
+        <method name="goOn" args="ignore=null"> 
             if(canvas.loadItem){
                 //canvas.freezUI();
 	        	if(!gController.onLastItem()){
@@ -470,21 +470,21 @@
 	        	gController.stepNavigateForward();  
 	        }	   
         </method>
-        <method name="toggleMark"> 
+        <method name="toggleMark" args="ignore=null"> 
             if(canvas.loadItem){
         		//canvas.freezUI();
 	            this.exitPopups(); 
 	         	gController.toggleMark();  
 	         }	            
         </method>
-        <method name="toggleTimer">
+        <method name="toggleTimer" args="ignore=null">
             if(canvas.loadItem){
         		//canvas.freezUI();
 	            this.exitPopups(); 
 	        	gController.toggleTimer();  
 	        }	           
         </method>
-        <method name="pause"> 
+        <method name="pause" args="ignore=null"> 
         	if(canvas.loadItem){
 	        	if(gController.pausable == 'true'){
 	        		lz.Focus.clearFocus();
@@ -496,7 +496,7 @@
 	        	}	
 	        }		
         </method>
-        <method name="stop"> 
+        <method name="stop" args="ignore=null"> 
             if(canvas.loadItem){    
                 lz.Focus.clearFocus();
 	            this.exitPopups();
@@ -507,7 +507,7 @@
 	        	}	
 	        }		           
         </method>
-        <method name="finish">  
+        <method name="finish" args="ignore=null">  
         	if(canvas.loadItem){   
 	        	lz.Focus.clearFocus();
 	            this.exitPopups(); 

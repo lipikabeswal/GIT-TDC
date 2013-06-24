@@ -27,9 +27,9 @@
         <attribute name="panel" value="${parent.panel}"/>
 
         <attribute name="valigndel"
-                   value="$once{new lz.Delegate (this, 'doAlign')}"/>
+                   value="$once{new lz.Delegate (this, 'doAlign')}" type="expression"/>
         <attribute name="haligndel"
-                   value="$once{new lz.Delegate (this, 'doAlign')}"/>
+                   value="$once{new lz.Delegate (this, 'doAlign')}" type="expression"/>
         
         <!-- which view to align relative to -->
         <attribute name="alignto" value="$once{this}"/>
@@ -60,7 +60,7 @@
             }
         ]]></method>
 
-        <method name="doAlign"><![CDATA[
+        <method name="doAlign" args="ignore=null"><![CDATA[
 			if(!(this instanceof lz.CachableImage && this.parent instanceof lz.CachableTextField)) {     
 	            var alignto = parent.alignto;
 	
@@ -122,8 +122,8 @@
         ]]></method>
 
         <attribute name="ddoneLoading"
-                   value="$once{ new lz.Delegate( this, 'doneLoading' ) }"/>
-        <method name="doneLoading"><![CDATA[
+                   value="$once{ new lz.Delegate( this, 'doneLoading' ) }" type="expression"/>
+        <method name="doneLoading" args="ignore=null"><![CDATA[
         	if(this!=null && this.datapath.p!=null)
             	gController.componentDone( this, this.datapath.p.ownerDocument );
         ]]></method>

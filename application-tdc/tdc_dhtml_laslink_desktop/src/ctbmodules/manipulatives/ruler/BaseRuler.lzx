@@ -26,9 +26,9 @@
 		</handler>
 		
         <attribute name="rotatedel" 
-                   value="$once{new lz.Delegate (this, 'doRotate')}"/>
+                   value="$once{new lz.Delegate (this, 'doRotate')}" type="expression"/>
         <attribute name="sizedel" 
-                   value="$once{new lz.Delegate (this, 'doSize')}"/>
+                   value="$once{new lz.Delegate (this, 'doSize')}" type="expression"/>
 
         <attribute name="dragxmin" value="null"/>
         <attribute name="dragymin" value="null"/>
@@ -264,7 +264,7 @@
             datapath.p.setAttr ('y', this.y);
         </method>
 
-        <method name="doRotate"><![CDATA[
+        <method name="doRotate" args="ignore=null"><![CDATA[
             var mx = parent.getMouse ('x') - this.x;
             var my = parent.getMouse ('y') - this.y;
             
@@ -308,7 +308,7 @@
 
         ]]></method>
         
-        <method name="doSize"><![CDATA[
+        <method name="doSize" args="ignore=null"><![CDATA[
             var mx = parent.getMouse ('x') - this.x;
             var my = parent.getMouse ('y') - this.y;
             

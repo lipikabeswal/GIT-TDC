@@ -53,7 +53,7 @@
 				visible="${gController.magnifierVisible}"
 				resource="toolbar_magnifying_glass_btn" valign="middle" height="20"
 				width="34">
-				<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
+				<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}" type="expression"/>
 				<attribute name="isEnabled" value="false" />
 				<attribute name="isSelected" value="false" />
 
@@ -86,7 +86,7 @@
 						}
 					</handler>
 
-				<method name="showTooltip">
+				<method name="showTooltip" args="ignore=null">
 						gTooltip.showTooltip_('Magnifying Glass',this.x);
 					</method>
 
@@ -120,7 +120,7 @@
 				visible="${gController.showMaskingAnswerPopUp}"
 				resource="toolbar_msaking_choice_btn" valign="middle" height="20"
 				width="34">
-				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
+				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}" type="expression"/>
 				<attribute name="isEnabled" value="false" />
 				<attribute name="isSelected" value="false" />
 				<handler name="onmouseover">
@@ -149,7 +149,7 @@
 						}
 					</handler>
 
-				<method name="showTooltip">
+				<method name="showTooltip" args="ignore=null">
 						gTooltip.showTooltip_('Masking Tool',this.x);
 					</method>
 
@@ -211,7 +211,7 @@
 		                resource="toolbar_stopreader_btn"
 		                visible="${canvas.readable}" valign="middle">
 		
-				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
+				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}" type="expression"/>
 		
 				<handler name="onmouseover">
 				    lz.Cursor.showHandCursor(true);
@@ -229,7 +229,7 @@
 					gReadableText.stopReading(false);
 				</handler>
 		
-				<method name="showTooltip">
+				<method name="showTooltip" args="ignore=null">
 					gTooltip.showTooltip('Stop Reading');
 				</method>
 		
@@ -240,7 +240,7 @@
 					visible="${parent.stopreader.visible}" bgcolor="0xdfdfdf">
 			<simplelayout axis="y"/>
 				
-				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
+				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}" type="expression"/>
 		
 				<handler name="onmouseover">
 				    lz.Cursor.showHandCursor(true);
@@ -258,7 +258,7 @@
 					<!-- gReadableText.stopReading(); -->
 				</handler>
 		
-				<method name="showTooltip">
+				<method name="showTooltip" args="ignore=null">
 					gTooltip.showTooltip('Volume Control');
 				</method>
 	
@@ -274,7 +274,7 @@
 				<slider name="volumeControl" value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" 
 						thumbwidth="16" thumbheight="12" width="80">
 						
-						<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
+						<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}" type="expression"/>
 	
 				<!-- When canvas's accessible attribute is true, the text "undefined" comes over the slider thumb, 
 					 workaround is done in this version(3.3.3). Probably, this was a bug which is fixed in newer versions. 
@@ -301,29 +301,31 @@
 						this.delClick.register( b, "onclick" );
 				    </method> 
 	
-					<method name="mouseover">
+					<method name="mouseover" args="ignore=null">
 					    lz.Cursor.showHandCursor(true);
 						lz.Timer.addTimer (tooltipdel, 500);
 					</method>
 			                
-					<method name="mouseout">
+					<method name="mouseout" args="ignore=null">
 					    lz.Cursor.showHandCursor(false);
 						gTooltip.hideTooltip ();    
 						lz.Timer.removeTimer (this.tooltipdel);
 					</method>
 			
-					<method name="click">
+					<method name="click" args="ignore=null">
 						lz.Timer.removeTimer (this.tooltipdel);
 						<!-- gReadableText.stopReading(); -->
 					</method>
 				<!--END Changes done for defect #65040 and #65041-->
 					
-					<method name="showTooltip">
+					<method name="showTooltip" args="ignore=null">
 						gTooltip.showTooltip('Volume Control');
 					</method>
 		
 					<handler name="onvalue"><![CDATA[
-						gReadableText.audioPlayer.setVolume(this.value);
+						if(canvas.capabilities.audio){
+							gReadableText.audioPlayer.setVolume(this.value);
+						}
 					]]></handler>
 				</slider>
 				

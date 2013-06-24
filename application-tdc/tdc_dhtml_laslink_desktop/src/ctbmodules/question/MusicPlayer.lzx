@@ -22,7 +22,9 @@
 	</handler>
 
 	<handler name="onload">
-		this.setVolume(50);
+		if(canvas.capabilities.audio){
+			this.setVolume(50);
+		}
 	</handler>
 	
 	<method name="setup" args="fm, fc, bc"><![CDATA[
@@ -163,7 +165,7 @@
 			<slider value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" 
 						thumbwidth="16" thumbheight="12" width="80">
 				<handler name="onvalue"><![CDATA[
-		 			if (gMusicPlayer != null) { 
+		 			if (gMusicPlayer != null && canvas.capabilities.audio) { 
 						gMusicPlayer.setVolume(this.value); 
 					}
 				]]></handler>

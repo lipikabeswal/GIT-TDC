@@ -116,7 +116,7 @@
 	]]></method>
 	
     <attribute name="clickdel" 
-               value="$once{new lz.Delegate(this, 'checkClick')}"/>
+               value="$once{new lz.Delegate(this, 'checkClick')}" type="expression"/>
 
     <handler name="onscrolltext">
         //init font color and background color
@@ -289,7 +289,7 @@
         this.clickdel.unregisterAll();
     </method>
     
-    <method name="checkClick"><![CDATA[
+    <method name="checkClick" args="ignore=null"><![CDATA[
         if (!isClickInPopup()) {
             this.hide();
         }

@@ -14,9 +14,9 @@
 		aasilent="false">		
 
 		<attribute name="blinkerDel"
-			value="$once{new lz.Delegate(this,'blinker')}" />
+			value="$once{new lz.Delegate(this,'blinker')}" type="expression"/>
 		<attribute name="countDownDel"
-			value="$once{new lz.Delegate(this,'countDownTimer')}" />
+			value="$once{new lz.Delegate(this,'countDownTimer')}" type="expression"/>
 		<attribute name="defaultTotalTime" value="90" />
 		<attribute name="totalTime" value="90" />
 		<attribute name="recordStarted" type="boolean" value="false" />
@@ -49,12 +49,12 @@
 		<attribute name="widget_id" value="widget10000000000"
 			type="string" />
 		<attribute name="leveldel"
-			value="$once{new lz.Delegate(this, 'updateLevel')}" />
+			value="$once{new lz.Delegate(this, 'updateLevel')}" type="expression"/>
 			<attribute name="dCheckConnection"
-			value="$once{new lz.Delegate(this, 'checkConnection')}" />
+			value="$once{new lz.Delegate(this, 'checkConnection')}" type="expression"/>
 			<!-- For LLO128-->
 		<attribute name="linuxLevelDel"
-			value="$once{new lz.Delegate(this, 'updateLinux')}" />
+			value="$once{new lz.Delegate(this, 'updateLinux')}" type="expression"/>
 		<attribute name="level" type="number" value="0" />
 		<attribute name="activityArray" value="$once{new Array()}" />
 <attribute name="fakeActivityArray" value="$once{new Array()}" />
@@ -442,7 +442,7 @@
 			}
 		]]></method>
 
-		<method name="blinker">
+		<method name="blinker" args="ignore=null">
 			//console.log("Inside blinker");
 			this.red.setAttribute('visible',true);
 			this.recordStatus.setAttribute('text',"RECORDING...");
@@ -516,7 +516,7 @@
 			this.green.setAttribute('visible',false);
 		</method>
 
-		<method name="countDownTimer">
+		<method name="countDownTimer" args="ignore=null">
 //console.log("Inside countDownTimer");
 		<![CDATA[	
 			this.totalTime -= 1; 	
@@ -599,7 +599,9 @@
 		<handler name="oninit">
 			var base = lz.Browser.getInitArg( 'servletUrl' );
 			audioDset.setAttribute('src', base + '/SoundRecorder.do');
-			this.setVolume(0);
+			if(canvas.capabilities.audio){
+				this.setVolume(0);
+			}
 		</handler>
 
 		<method name="setReferences">
@@ -637,7 +639,7 @@
 		
 
 		<!-- Volumeter Prototype -->
-		<method name="updateLevel"><![CDATA[
+		<method name="updateLevel" args="ignore=null"><![CDATA[
 		//console.log("Inside updateLevel");
 			var isMicAttached;
 			var level = 0;
@@ -753,7 +755,7 @@
 	    ]]>
 		</method>
 		
-		<method name="updateLinux"><![CDATA[
+		<method name="updateLinux" args="ignore=null"><![CDATA[
 			this.micState = true;
 			if(this.recordStarted == true){
 				if(this.blinkerVal >= 3){

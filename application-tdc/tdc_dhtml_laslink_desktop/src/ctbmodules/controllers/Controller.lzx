@@ -460,7 +460,7 @@
 
 		<!-- called to hide the wait popup, if open-->
 		<attribute name="dNetworkLostPopup"
-			value="$once{ new lz.Delegate( this, 'networkLostPopup' ) }" />
+			value="$once{ new lz.Delegate( this, 'networkLostPopup' ) }" type="expression"/>
 
        	<!-- True, if login response contains tts speed value-->
 		<attribute name="isWaitPopupOpen" type="boolean" value="false" />
@@ -500,7 +500,7 @@
 		<attribute name="isFinishTest" value="false" type="boolean" />
 		<attribute name="restartItemCount" type="number" value="0" />
 		<attribute name="prevItemId" type="number" value="0" />
-		<attribute name="dshowClient" value="$once{ new lz.Delegate( this, 'showClient' ) }" />
+		<attribute name="dshowClient" value="$once{ new lz.Delegate( this, 'showClient' ) }" type="expression"/>
 		<attribute name="testSessionData" value="null" />
 		<attribute name="totalNumberOfTests" value="null" />
 		<attribute name="stuLoginDetails" value="$once{new Object()}"/>
@@ -508,7 +508,7 @@
 		<attribute name="imageData" value="$once{new Object()}"/>
 		<attribute name="htmlFields" value="$once{new Array()}"/>
 		<attribute name="answeredDel"
-			value="$once{new lz.Delegate(this,'isAnsweredDelegate')}" />
+			value="$once{new lz.Delegate(this,'isAnsweredDelegate')}" type="expression"/>
 		<attribute name="answerObj" value="$once{new Object()}" />
 		<attribute name="productTypeVal" type="string" value="ISTEP"/>
 		<attribute name="displayText" value="false"/>
@@ -523,7 +523,7 @@
 		<!-- isMicPresent used for checking if mic is connected -->
 		<attribute name="isMicPresent" type="boolean" value="true"/>
 		<attribute name="dMicCheck"
-			value="$once{ new lz.Delegate( this, 'isMicConnected' ) }" />
+			value="$once{ new lz.Delegate( this, 'isMicConnected' ) }" type="expression"/>
 		<attribute name="isPauseTest" value="false" type="boolean" /> 
 		<!--
 			============================================================
@@ -579,7 +579,7 @@
 		<attribute name="iframeid" type="string" value="NONE" />
 		<attribute name="relogin" value="false" type="boolean" />
 		<attribute name="dRestoreCursor"
-			value="$once{ new lz.Delegate( this, 'restoreGrabCursor' ) }" />
+			value="$once{ new lz.Delegate( this, 'restoreGrabCursor' ) }" type="expression"/>
 		<attribute name="isAudioPaused" value="false" type="boolean" />
 		<attribute name="showHighlighter" value="false" type="boolean" />
 		
@@ -1168,9 +1168,9 @@
 		</method>
 
 		<attribute name="dcloseBrowser"
-			value="$once{ new lz.Delegate( this, 'closeBrowser' ) }" />
+			value="$once{ new lz.Delegate( this, 'closeBrowser' ) }" type="expression"/>
 
-		<method name="closeBrowser">
+		<method name="closeBrowser" args="ignore=null">
 			gCommunicator.closeBrowser();
 		</method>
 
@@ -1845,7 +1845,7 @@
         </method>
 
 
-		<method name="showClient">
+		<method name="showClient" args="ignore=null">
 			//Debug.write("inside showClient called through delegate");
             dshowClient.unregisterAll();
             showItemInterface();
@@ -3559,7 +3559,7 @@
         </method>
 
 		 <!-- added to handle double cursor issue on manipulative grabber mouseup -->
-        <method name="restoreGrabCursor">
+        <method name="restoreGrabCursor" args="ignore=null">
 			lz.Cursor.unlock ();
         	this.restoreCurrentCursor();
         	lz.Timer.removeTimer(gController.dRestoreCursor);
@@ -4185,9 +4185,9 @@
         </method>
 
 		<attribute name="dsendHeartbeat"
-			value="$once{ new lz.Delegate( this, 'sendHeartbeat' )}" />
+			value="$once{ new lz.Delegate( this, 'sendHeartbeat' )}" type="expression"/>
 
-		<method name="sendHeartbeat">
+		<method name="sendHeartbeat" args="ignore=null">
 			resetHeartbeat();
 			this.setAttribute("sendCatSave",false);
 			var params = getSaveParams(null); 
@@ -4357,7 +4357,7 @@
         </method>
 
 		<attribute name="dupdateTimeLeft"
-			value="$once{ new lz.Delegate( this, 'updateTimeLeft' ) }" />
+			value="$once{ new lz.Delegate( this, 'updateTimeLeft' ) }" type="expression"/>
 
 		<method name="outOfTime"><![CDATA[
             if ( 0 == uisemaphore ) {
@@ -4387,7 +4387,7 @@
                                     totalMarked() );
 		</method>
 
-		<method name="updateTimeLeft"><![CDATA[
+		<method name="updateTimeLeft" args="ignore=null"><![CDATA[
 			//Debug.write("inside updateTimeLeft");
 			//var date = new Date();
 			var timestamp;
@@ -4864,7 +4864,7 @@
 			//canvas.unFreezUI();
 		</method>
 
-		<method name="networkLostPopup"><![CDATA[
+		<method name="networkLostPopup" args="ignore=null"><![CDATA[
 			this.isWaitPopupOpen = false;
 			lz.Timer.removeTimer(dNetworkLostPopup);
 			if(gCommunicator.firstRequestDone) {
@@ -5597,7 +5597,7 @@
 	           }
 		]]></method>
 		
-		<method name="isAnsweredDelegate"><![CDATA[
+		<method name="isAnsweredDelegate" args="ignore=null"><![CDATA[
 			//	Debug.write("isAnsweredDelegate",this.htmlFields[0]);
 				this.htmlFields[0]['ref'].func1();
 				if(this.htmlFields[0]['ref'].answered){					
@@ -5693,7 +5693,7 @@
             gScreens.copyWriteText.setAttribute('y',200);
 			gDownloadManager.downloadContent();
 		</method>
-		<method name="isMicConnected" >
+		<method name="isMicConnected" args="ignore=null">
 			//console.log("Inside isMicConnected");
 			resetMicCheck();
 			//console.log("Inside isMicConnected");

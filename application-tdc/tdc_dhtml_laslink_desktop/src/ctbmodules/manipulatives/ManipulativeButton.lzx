@@ -9,7 +9,7 @@
         <attribute name="tooltip" type="string"/>
 		<attribute name="xpos" type="string"/>
 	    
-        <attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
+        <attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}" type="expression"/>
 
         <handler name="oninit">
             this.datapath.setXPath ('@' + this.toolid);
@@ -55,7 +55,7 @@
             lz.Timer.removeTimer (this.tooltipdel);
         </handler>
 
-        <method name="showTooltip">
+        <method name="showTooltip" args="ignore=null">
             gTooltip.showTooltip_(this.tooltip,this.xpos);
         </method>
 
