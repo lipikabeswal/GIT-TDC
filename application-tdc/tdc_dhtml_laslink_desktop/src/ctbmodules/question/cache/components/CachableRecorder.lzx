@@ -501,6 +501,7 @@
 					this.requestSent = false;
 					this.resetCalled = true;
 					gController.updateAudioField(this.widget_id, false);
+					gController.setAttribute("resetButtonEnable",false);
 				}
 				this.stopCalled = true;			//set true 
 				this.micState = false;			//reset this attribute also
@@ -603,6 +604,7 @@
 				}
 				this.recordButton.setAttribute("enabled", false);
 				if( gController.isplaying == false && this.resetCalled == false){
+					gController.setAttribute("resetButtonEnable",true);
 					this.resetButton.setAttribute("enabled",true);
 				}
 			}
