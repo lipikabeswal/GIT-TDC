@@ -582,6 +582,8 @@
 			value="$once{ new lz.Delegate( this, 'restoreGrabCursor' ) }" type="expression"/>
 		<attribute name="isAudioPaused" value="false" type="boolean" />
 		<attribute name="showHighlighter" value="false" type="boolean" />
+		<attribute name="resetButtonEnable" value="false" type="boolean" />
+		<attribute name="isPaused" value="false" type="boolean" />
 		
 		<handler name="oncanNotAnswer" args="data"><![CDATA[
 			if(answerArray.length > 0) {
@@ -662,12 +664,16 @@
 					this.recorder.recordButton.setAttribute("enabled", false);
 					this.recorder.resetButton.setAttribute("enabled",false);
 					}
-			}
-	}	
-		else{
+				}
+		}else{
 			if(this.recorder != null) {
 				if(this.recordingStopped == false){
-					this.recorder.recordButton.setAttribute("enabled", true);
+					if(this.resetButtonEnable == true){
+						this.recorder.resetButton.setAttribute("enabled",true);
+					}else{
+						this.recorder.recordButton.setAttribute("enabled", true);
+					}
+					
 					this.setAttribute('isAudioPaused', false);
 				}/*else if(this.recorder.resetCalled == false ){
 					this.recorder.resetButton.setAttribute("enabled",true);
@@ -677,7 +683,12 @@
 					if(this.recordState == false){
 						this.recorder.recordButton.setAttribute("enabled", false);
 					}else{
-						this.recorder.recordButton.setAttribute("enabled", true);
+						if(this.resetButtonEnable == true){
+							this.recorder.resetButton.setAttribute("enabled",true);
+						}else{
+							this.recorder.recordButton.setAttribute("enabled", true);
+							}
+						}
 					}
 					this.setAttribute('isAudioPaused', false);
 				}else{
@@ -687,12 +698,16 @@
 						if(this.recordingCompleted == true){
 							this.recorder.recordButton.setAttribute("enabled", false);
 						}else{
-							this.recorder.recordButton.setAttribute("enabled", true);
+							if(this.resetButtonEnable == true){
+								this.recorder.resetButton.setAttribute("enabled",true);
+							}else{
+								this.recorder.recordButton.setAttribute("enabled", true);
+							}
 						}
 					}
 				}
 			}
-		}
+		
 		]]></handler>
 		
 		<handler name="onunlockNavigation" ><![CDATA[
@@ -3210,6 +3225,7 @@
 			
 		<method name="pauseTest">
 			this.setAttribute('isPauseTest',true);
+			//gController.setAttribute("isPaused",false);
             if ( pausable == true ) {
             	this.setAttribute('isAudioPaused', true);
             	gReadableText.stopReading(false);
@@ -3291,6 +3307,9 @@
 					showHtmlWidgets();
 			}
 			this.setAttribute('isPauseTest',false);
+			gController.setAttribute("resetButtonEnable",false);
+			//gController.setAttribute("isPaused",true);
+			
 			//var s="playAudio()";
 			//lz.Browser.loadJS(s);
 		</method>
@@ -4204,7 +4223,7 @@
 			lz.Timer.resetTimer( dsendHeartbeat, 120000 );
 		</method>
 		<method name="resetMicCheck">
-			lz.Timer.resetTimer(dMicCheck, 4000 );
+			lz.Timer.resetTimer(dMicCheck, 6000 );
 		</method>
 
 		<method name="getCurrentInteractionType">
