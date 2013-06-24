@@ -259,7 +259,7 @@ public class LockdownBrowserWrapper extends Thread {
 				//LockdownBrowserWrapper.Kill_Task_Mgr();
 				while(true){
 					Runtime.getRuntime().exec("taskkill /F /IM taskmgr.exe /T");
-					Thread.sleep(10000);
+					Thread.sleep(1000);
 				}
 					
 			} catch (Exception e) {
@@ -470,23 +470,24 @@ public class LockdownBrowserWrapper extends Thread {
 					
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, envp, new File(this.ldbHome+"/ChromiumLDB/"));
 					//Process pBuilder= new ProcessBuilder(ldbCommand[0], ldbCommand[1]).start();
-					
+					ldb=null;
+					Thread.sleep(10000);
 					ConsoleUtils.messageOut("Executed "+ldbCommand[0]);
 					lockdown.start();
-					ldb=null;
+					
 					ready = true;
 					this.isAvailable = true;
-					/*Thread.sleep(300000);
-					ldb.waitFor();*/
+					/*ldb.waitFor();*/
 					while(true) {
-						//logger.info("in loop "+isProcessExit);
-
 						Thread.sleep(3000);
+					//	ConsoleUtils.messageOut("Inside LDB Loop - isProcessExit:"+isProcessExit);
 						if(isProcessExit) {
 							this.isAvailable = false;
 							ConsoleUtils.messageOut("LDB app ended at " + System.currentTimeMillis());	
 							LockdownBrowserWrapper.Hot_Keys_Enable_Disable(true);
+							//ConsoleUtils.messageOut("Enabled hot keys at " + System.currentTimeMillis());	
 							Runtime.getRuntime().exec("./wmctrl -n 2", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+							//ConsoleUtils.messageOut("Desktop unlocked ...");
 							break;
 						}
 					}
@@ -500,7 +501,7 @@ public class LockdownBrowserWrapper extends Thread {
 				}
 //				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(true);
 //				Runtime.getRuntime().exec("./wmctrl -n 2", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-				ConsoleUtils.messageOut("Desktop unlocked ...");	
+					
 			} else {
 				// Windows native lib
 				System.load(this.tdcHome + "/lock.dll");
@@ -569,7 +570,8 @@ public class LockdownBrowserWrapper extends Thread {
 			
 			this.splashWindow.show();
 
-			cleanupLock();	
+			cleanupLock();
+			//ConsoleUtils.messageOut("cleanupLock called");
 			
 		} catch (Exception e) {
 			ConsoleUtils.messageErr("An error has occured within " + this.getClass().getName(), e);
@@ -794,7 +796,7 @@ public class LockdownBrowserWrapper extends Thread {
         		}	
         	}
 			Thread.sleep(3000);
-			ConsoleUtils.messageOut("isProcessExit in exit ****************"+isProcessExit);
+			//ConsoleUtils.messageOut("In exit isProcessExit"+isProcessExit);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
