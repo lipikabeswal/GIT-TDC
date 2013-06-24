@@ -183,10 +183,10 @@
 		   }else{
 				if(dataText.indexOf("<br") != -1) {
 					this.thetext.setAttribute("text",
-	                	'<label style="display:block; padding-bottom:2px;"><span style="line-height:16px; white-space: pre-wrap; font-size: .87em;">' + dataText + '</span></label>');
+	                	'<label style="display:block; padding-bottom:2px;"><span style="line-height:16px; white-space: pre-wrap;">' + dataText + '</span></label>');
 				}else{
 					this.thetext.setAttribute("text",
-	                	 '<label><span style="line-height:17px; font-size: .87em;">' + dataText + '</span></label>');
+	                	 '<label><span style="line-height:17px;">' + dataText + '</span></label>');
 				}
 			}
 

@@ -209,7 +209,7 @@
         this.body.wrap.header.setAttribute("text", headerDisplay);
 		this.body.wrap.header.setAttribute("fontsize", fontSize);
 
-        this.body.wrap.detail.setAttribute("text", '<label><span style="line-height:17px; font-size: .87em;">' + detail + '</span></label>');
+        this.body.wrap.detail.setAttribute("text", '<label><span style="line-height:17px;">' + detail + '</span></label>');
 		this.body.wrap.detail.setAttribute("fontsize", fontSize);
         this.body.wrap.detailmulti.setAttribute("text", detail);
 		this.body.wrap.detailmulti.setAttribute("fontsize", fontSize);
