@@ -65,7 +65,7 @@ public class CATServiceClient {
 	
 	static {
 		try {
-			logger.setLevel(Level.DEBUG);
+			logger.setLevel(Level.INFO);
 			serviceLocator = new CATServiceLocator();
 			ResourceBundle rb = ResourceBundle.getBundle("tdc");
 			String serviceString = rb.getString("cat.service.url");
@@ -217,26 +217,32 @@ public class CATServiceClient {
 	public static void stop(String stopReason, String itemId, Integer itemRawScore, String itemResponse, Integer timeElapsed) throws RemoteException {
 		logger.debug("CATServiceClient: stop: start");
 		
-		CATServiceClient.itemPosition += 1;
-		
-		CATServiceClient.itemId = itemId;
-		CATServiceClient.itemRawScore = itemRawScore;
-		CATServiceClient.itemResponse = itemResponse;
-		CATServiceClient.timeElapsed = timeElapsed;
-		CATServiceClient.isStudentStop = true;
-		
-		ItemResponseRequest request = new ItemResponseRequest(testRosterId + ":" + subtestId, Boolean.TRUE, stopReason, (String) ADSToPEIDIdMap.get(itemId), CATServiceClient.itemPosition, itemRawScore, itemResponse, timeElapsed);
-		logger.debug("CATServiceClient: stop: service nextItem request params: " + testRosterId + ":" + subtestId + ", TRUE," + stopReason + ", " + ADSToPEIDIdMap.get(itemId) + ", " + CATServiceClient.itemPosition + ", " + itemRawScore + ", " + itemResponse + ", " + timeElapsed);
-		ItemResponseResponse response = service.processItemResponse(request);
-		logger.debug("CATServiceClient: stop: service nextItem response: status code: " + response.getStatusCode());
-		logger.debug("CATServiceClient: stop: service nextItem response: status message: " + response.getStatusMessage());
-		logger.debug("CATServiceClient: stop: service nextItem response: session id: " + response.getSessionID());
-		logger.debug("CATServiceClient: stop: service nextItem response: next item id: " + response.getNextItemID());
-		logger.debug("CATServiceClient: stop: service nextItem response: next item position: " + response.getNextItemPosition());
-		if("OK".equals(response.getStatusCode())) {
-			processResultData(response.getResearchReportData());
+		if(itemPosition == getTestLength()) {
+			logger.debug("CATServiceClient: stop: stop called on last item, changing to standard nextItem call");
+			nextItem(itemId, itemRawScore, itemResponse, timeElapsed);
+		} else {
+			CATServiceClient.itemPosition += 1;
+			
+			CATServiceClient.itemId = itemId;
+			CATServiceClient.itemRawScore = itemRawScore;
+			CATServiceClient.itemResponse = itemResponse;
+			CATServiceClient.timeElapsed = timeElapsed;
+			CATServiceClient.isStudentStop = true;
+			
+			ItemResponseRequest request = new ItemResponseRequest(testRosterId + ":" + subtestId, Boolean.TRUE, stopReason, (String) ADSToPEIDIdMap.get(itemId), CATServiceClient.itemPosition, itemRawScore, itemResponse, timeElapsed);
+			logger.debug("CATServiceClient: stop: service nextItem request params: " + testRosterId + ":" + subtestId + ", TRUE," + stopReason + ", " + ADSToPEIDIdMap.get(itemId) + ", " + CATServiceClient.itemPosition + ", " + itemRawScore + ", " + itemResponse + ", " + timeElapsed);
+			ItemResponseResponse response = service.processItemResponse(request);
+			logger.debug("CATServiceClient: stop: service nextItem response: status code: " + response.getStatusCode());
+			logger.debug("CATServiceClient: stop: service nextItem response: status message: " + response.getStatusMessage());
+			logger.debug("CATServiceClient: stop: service nextItem response: session id: " + response.getSessionID());
+			logger.debug("CATServiceClient: stop: service nextItem response: next item id: " + response.getNextItemID());
+			logger.debug("CATServiceClient: stop: service nextItem response: next item position: " + response.getNextItemPosition());
+			if("OK".equals(response.getStatusCode())) {
+				processResultData(response.getResearchReportData());
+			}
 		}
-		logger.debug("CATServiceClient: nextItem: end\n\n");
+		
+		logger.debug("CATServiceClient: stop: end\n\n");
 	}
 	
 	private static void processResultData(ResearchReportData data) {

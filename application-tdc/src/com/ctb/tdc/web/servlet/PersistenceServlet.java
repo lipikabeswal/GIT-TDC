@@ -273,7 +273,7 @@ public class PersistenceServlet extends HttpServlet {
 			String itemresponse = ServletUtils.parseResponse(xml);
 			if(doStop) {
 				//TODO - distinguish between time out and student stop
-				CATServiceClient.stop("Out of Time", realId, itemRawScore, itemresponse, Integer.parseInt(dur));
+				CATServiceClient.stop("Student Stop", realId, itemRawScore, itemresponse, Integer.parseInt(dur));
 			} else {
 				CATServiceClient.nextItem(realId, itemRawScore, itemresponse, Integer.parseInt(dur));
 			}
