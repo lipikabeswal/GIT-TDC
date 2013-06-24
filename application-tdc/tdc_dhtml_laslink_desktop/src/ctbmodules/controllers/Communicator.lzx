@@ -7,7 +7,7 @@
     	<attribute name="error" type="boolean" value="false" />
     	<attribute name="firstRequestDone" type="boolean" value="false" />
 
-      	<attribute name="dRequestTimer" value="$once{new lz.Delegate(this,'sendRequest')}" />
+      	<attribute name="dRequestTimer" value="$once{new lz.Delegate(this,'sendRequest')}" type="expression"/>
       	<dataset name="dRequestDataSet"/>
       	
       	<method name="updateLDB">
@@ -238,7 +238,7 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 			lz.Timer.resetTimer(dRequestTimer,30000);
 		</method>		
 			
-		<method name="sendRequest">
+		<method name="sendRequest" args="ignore=null">
 			gRequest.sendRequest(dRequestDataSet);
 		</method>  	
 		<method name="isMicConnected">
