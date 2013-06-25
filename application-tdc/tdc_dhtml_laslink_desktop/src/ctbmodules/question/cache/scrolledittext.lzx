@@ -109,27 +109,42 @@
         <attribute name="pos" type="number" value="0"/>
 
          <handler name="onwidth">
+             var fontSize = 0;
+            if(gController.hasFontAccommodation){
+				fontSize = 18;
+			}
+			else{
+				fontSize = 12;
+			}
+			
 			var comWidth = this.width-1;
 			var elm = this.getDisplayObject();
 			elm.setAttribute('id','CRscrolledittext');
 			
-			setCRscrollEdittextWidth(elm.id,comWidth);	
+			setCRscrollEdittextWidth(elm.id,comWidth,fontSize);	
 		</handler>
 		
  		 <handler name="onheight">
+ 		     var fontSize = 0;
+            if(gController.hasFontAccommodation){
+				fontSize = 18;
+			}
+			else{
+				fontSize = 12;
+			}
+			
 			var comHeight = this.height-5;
             var elm = this.getDisplayObject();
 			elm.setAttribute('id','CRscrolledittext');
 			
-			setCRscrollEdittextHeight(elm.id,comHeight);	
+			setCRscrollEdittextHeight(elm.id,comHeight,fontSize);	
 		</handler>
 		
 
         <handler name="oninit">
 				var el = this.getDisplayObject();
 				el.setAttribute('id','CRscrolledittext');
-				
-			    hideScrollbarForCRitem(el.id);	
+				hideScrollbarForCRitem(el.id);	
 			</handler>
         <setter name="pos" args="p">        	
             if (this.p == p){

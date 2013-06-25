@@ -312,15 +312,15 @@ function hideScrollbarForCRitem(arg){
     var fontcolor = getCRcolor();
     crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+';');
 }
-function setCRscrollEdittextWidth(elmId,comWidth){
+function setCRscrollEdittextWidth(elmId,comWidth,fontSize){
     var crItemid = document.getElementById(elmId);
     var fontcolor = getCRcolor();
-    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; width: '+comWidth+'');
+    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; width: '+comWidth+'; font-size: '+fontSize+';');
 }
-function setCRscrollEdittextHeight(elmId,comHeight){
+function setCRscrollEdittextHeight(elmId,comHeight,fontSize){
     var crItemid = document.getElementById(elmId);
     var fontcolor = getCRcolor();
-    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; height: '+comHeight+'');
+    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; height: '+comHeight+'; font-size: '+fontSize+';');
 }
 
 function getCRcolor(){
