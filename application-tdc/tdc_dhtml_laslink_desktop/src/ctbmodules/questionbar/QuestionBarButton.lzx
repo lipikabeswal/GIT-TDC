@@ -134,7 +134,12 @@
 
                 if (ismarked)               	newframe = 6;
                 else if (isactive)         		newframe = 2;
-                else                        	newframe = 9;
+                else if (isvisited &&
+						 this.allow_revisit != true)             newframe = 11;
+				else if (isanswered &&
+						 this.allow_revisit != true)
+											newframe = 11;
+                else                      	newframe = 9;
             } else {
                 this.ball.setAttribute ('visible', this.isanswered ? true : false);
 
@@ -157,7 +162,7 @@
 
 
         <view name="btn" resource="question_bar_btn" 
-              xscale="1.3" height="25"/>
+              xscale="1.3" width="26" height="25"/>
 
         <view name="ball" resource="question_bar_ball"
               align="center" y="3" visible="false"/>
