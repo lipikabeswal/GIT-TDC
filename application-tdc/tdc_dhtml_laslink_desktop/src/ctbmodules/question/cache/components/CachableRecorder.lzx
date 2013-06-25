@@ -290,7 +290,6 @@
 						
 						<handler name="ontext">
 							var elm = getDisplayObject();
-							console.log(elm);
 							elm.setAttribute('style','font-family: CTB; font-weight: bold; font-size: 12px; line-height: 14px; pointer-events: none; height: 16px; width: auto;');
 						</handler>
 						
@@ -723,12 +722,14 @@
 				this.whitewrapperOverLay.setAttribute('visible',false);
 			}else{
 				isMicAttached = false;
+				gTooltip.hideTooltip(); 
 				this.whitewrapperOverLay.setAttribute('visible',true);
 			}
 
 			if(isMicAttached == false) {
 				//console.log("inside if");
 				this.blinkerVal = 0;
+				gTooltip.hideTooltip(); 
 				this.whitewrapperOverLay.setAttribute('visible',true);
 				stopblinker('stop');
 				this.resetCalled = false;

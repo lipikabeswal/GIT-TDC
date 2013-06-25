@@ -664,8 +664,8 @@
 					this.recorder.recordButton.setAttribute("enabled", false);
 					this.recorder.resetButton.setAttribute("enabled",false);
 					}
-				}
-		}else{
+			}
+	}else{
 			if(this.recorder != null) {
 				if(this.recordingStopped == false){
 					if(this.resetButtonEnable == true){
@@ -673,8 +673,13 @@
 					}else{
 						this.recorder.recordButton.setAttribute("enabled", true);
 					}
-					
 					this.setAttribute('isAudioPaused', false);
+				}else{
+					if(this.recordingCompleted == true){
+						this.recorder.recordButton.setAttribute("enabled", false);
+					}else{
+						this.recorder.recordButton.setAttribute("enabled", true);
+					}					
 				}/*else if(this.recorder.resetCalled == false ){
 					this.recorder.resetButton.setAttribute("enabled",true);
 				}*/
@@ -707,6 +712,7 @@
 							}else{
 								this.recorder.recordButton.setAttribute("enabled", true);
 							}
+						
 						}
 					}
 				}
@@ -3312,6 +3318,7 @@
 			}
 			this.setAttribute('isPauseTest',false);
 			gController.setAttribute("resetButtonEnable",false);
+			gController.setAttribute("recordingCompleted",false);
 			//gController.setAttribute("isPaused",true);
 			
 			//var s="playAudio()";
