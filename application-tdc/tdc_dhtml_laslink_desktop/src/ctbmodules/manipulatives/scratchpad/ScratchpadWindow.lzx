@@ -25,10 +25,12 @@
             super._startResize();
             setAttribute('_usecontentwidth', false);
             setAttribute('_usecontentheight', false);
+            gScratchpad.setAttribute('startResize',true);
+            
         </method>
 
         <state name="resizeable" applied="${this.classroot.resizable}">
-            <view name="_resizeControl" placement="null"
+            <view name="_resizeControl" placement="null" id="gResizeControl"
                 x="${classroot.width - this.width - classroot.inset_right}"
                 y="${classroot.height - this.height - classroot.inset_right}"
                 resource="window_resizebtn_rsc"
