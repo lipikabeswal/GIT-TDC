@@ -311,8 +311,8 @@
 							textFontColor = answerFontColor;
 						 }
 						 var textAreafgcolor = "color: "+ textFontColor + ";";
-						 var elm = this.inp.getDisplayObject();
-						 elm.setAttribute('style','overflow-y: scroll;' + textAreafgcolor+ '');
+						 //var elm = this.inp.getDisplayObject();
+						 //elm.setAttribute('style','overflow-y: scroll;' + textAreafgcolor+ '');
 						 	if(this.text.length > Number(classroot.characterLimit)){
 								var textContent = this.text;
 								textContent = textContent.substring(0,Number(classroot.characterLimit));
