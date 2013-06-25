@@ -6,10 +6,17 @@
          <![CDATA[
            if(gController.scratchpadOpen)
             {
+              // this condition is for the defect 74261, 74262
+
               lz.Keys.removeKeyComboCall( dtoggleA, [ 'a' ] );
               lz.Keys.removeKeyComboCall( dtoggleB, [ 'b' ] );
               lz.Keys.removeKeyComboCall( dtoggleC, [ 'c' ] );
               lz.Keys.removeKeyComboCall( dtoggleD, [ 'd' ] );
+              lz.Keys.removeKeyComboCall( dtoggleE, [ 'e' ] );
+              lz.Keys.removeKeyComboCall( dtoggleF, [ 'f' ] );
+              lz.Keys.removeKeyComboCall( dtoggleG, [ 'g' ] );
+              lz.Keys.removeKeyComboCall( dtoggleH, [ 'h' ] );
+              lz.Keys.removeKeyComboCall( dtoggleI, [ 'i' ] );
             }
           else
            {
@@ -17,13 +24,13 @@
             lz.Keys.callOnKeyCombo( dtoggleB, [ 'b' ] );
             lz.Keys.callOnKeyCombo( dtoggleC, [ 'c' ] );
             lz.Keys.callOnKeyCombo( dtoggleD, [ 'd' ] );
-           }
-		   
-		   lz.Keys.callOnKeyCombo( dtoggleE, [ 'e' ] );
+            lz.Keys.callOnKeyCombo( dtoggleE, [ 'e' ] );
             lz.Keys.callOnKeyCombo( dtoggleF, [ 'f' ] );
             lz.Keys.callOnKeyCombo( dtoggleG, [ 'g' ] );
             lz.Keys.callOnKeyCombo( dtoggleH, [ 'h' ] );
             lz.Keys.callOnKeyCombo( dtoggleI, [ 'i' ] );
+           }
+		   		    
             lz.Keys.callOnKeyCombo( dtoggleJ, [ 'j' ] );
             lz.Keys.callOnKeyCombo( dtoggleA, [ 'shift', 'a' ] );
             lz.Keys.callOnKeyCombo( dtoggleB, [ 'shift', 'b' ] );
@@ -194,11 +201,11 @@
               lz.Keys.removeKeyComboCall( dtoggleB, [ 'b' ] );
               lz.Keys.removeKeyComboCall( dtoggleC, [ 'c' ] );
               lz.Keys.removeKeyComboCall( dtoggleD, [ 'd' ] );
-              lz.Keys.callOnKeyCombo( dtoggleE, [ 'e' ] );
-            lz.Keys.callOnKeyCombo( dtoggleF, [ 'f' ] );
-            lz.Keys.callOnKeyCombo( dtoggleG, [ 'g' ] );
-            lz.Keys.callOnKeyCombo( dtoggleH, [ 'h' ] );
-            lz.Keys.callOnKeyCombo( dtoggleI, [ 'i' ] );
+              lz.Keys.removeKeyComboCall( dtoggleE, [ 'e' ] );
+              lz.Keys.removeKeyComboCall( dtoggleF, [ 'f' ] );
+              lz.Keys.removeKeyComboCall( dtoggleG, [ 'g' ] );
+              lz.Keys.removeKeyComboCall( dtoggleH, [ 'h' ] );
+              lz.Keys.removeKeyComboCall( dtoggleI, [ 'i' ] );
             lz.Keys.callOnKeyCombo( dtoggleJ, [ 'j' ] );
             lz.Keys.callOnKeyCombo( dtoggleA, [ 'shift', 'a' ] );
             lz.Keys.callOnKeyCombo( dtoggleB, [ 'shift', 'b' ] );
