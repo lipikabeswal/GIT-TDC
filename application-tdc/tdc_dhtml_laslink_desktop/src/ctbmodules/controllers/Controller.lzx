@@ -732,7 +732,7 @@
 			dncurrentItem.setAttr('canNotNavigate' , false);
 		}
 		else{
-			gHotKeys.handleHotKeys();
+			//gHotKeys.handleHotKeys();
 			dncurrentItem.setAttr('canNotNavigate' , true);
 		}
 		
@@ -2665,7 +2665,7 @@
 			}else{
 				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', false);
 			}
-			
+			gHotKeys.handleHotKeysNav();
         ]]></method>
 
 		<method name="saveSharedStimulusHighlights"><![CDATA[
@@ -3042,7 +3042,7 @@
 
 		<method name="setItemSelState" args="selid, value"><![CDATA[
 
-			freezeUI();
+			//freezeUI();
 
             var dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@identifier='"+selid+"']");
             if ( dnsel ) {
@@ -3122,7 +3122,7 @@
                         break;
                 }
             }
-            unlockUI();
+            //unlockUI();
         ]]></method>
 
 		<method name="getRationaleText" args="selid">
@@ -3140,7 +3140,7 @@
 		</method>
 
 		<method name="setItemCRState" args="answer"><![CDATA[
-            freezeUI();
+            //freezeUI();
 
             var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
             if (dncurritem == null) return;
@@ -3151,7 +3151,7 @@
 
             dncurritem.setAttr( 'answer_text', escape( answer ) );
             dnruntimeitem.setAttr( 'answer_text', escape( answer ) );
-            unlockUI();
+            //unlockUI();
         ]]></method>
 
 
@@ -3374,6 +3374,7 @@
 					hideHtmlWidgets();
 				}
             save(null);
+		gHotKeys.disableKeys();
         </method>
 	
 		<method name="setSendCatSave">
@@ -3506,6 +3507,7 @@
 				gScreens.removeFinishState();
 			}
 			checkShowMagnifierGlass();
+			gHotKeys.handleHotKeysNav();
         </method>
 
 		<method name="continueTest">
