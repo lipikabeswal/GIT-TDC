@@ -584,6 +584,11 @@
 		<attribute name="showHighlighter" value="false" type="boolean" />
 		<attribute name="resetButtonEnable" value="false" type="boolean" />
 		<attribute name="isPaused" value="false" type="boolean" />
+		<attribute name="isMousedownOnScratchpad" value="false" type="boolean" />
+		
+		<handler name="onisMousedownOnScratchpad"><![CDATA[
+			gScratchpad.onmouseup.sendEvent();
+		]]></handler>
 		
 		<handler name="oncanNotAnswer" args="data"><![CDATA[
 			if(answerArray.length > 0) {
