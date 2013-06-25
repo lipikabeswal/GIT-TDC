@@ -116,6 +116,9 @@
         <!--- @access private -->
         <attribute name="defaultplacement" value="content" type="string"/>
 
+<handler name="onmouseover">
+	console.log("===MOUSEOVER===");
+</handler>
         <state applied="${parent._usecontentwidth}">
             <attribute name="width" value="${this.content.width + this.inset_left + this.inset_right}" />
         </state>
