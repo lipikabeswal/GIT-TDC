@@ -34,6 +34,8 @@
         <attribute name="calledFromHtml" type="boolean" value="false"/>
 		<attribute name="characterLimit" type="number" value="10000" />
 		<attribute name="isTestInterrupted" type="boolean" value="false"/>
+		<attribute name="startResize" type="boolean" value="false"/>
+
         <handler name="onmousedown">
         	this.bringToFront();
         	this.sp.inp.setAttribute('selectable',false);
@@ -42,6 +44,7 @@
         </handler>
 
 		<handler name="onmouseup" reference="lz.GlobalMouse" args="who"><![CDATA[
+		    console.log("====Scratchpad sc mouse up==",who);
 			if(who){
 				if(lz.Focus.getFocus() == sp.inp){  // user may have changed selection using mouse
 					this.sp.storeSelection();
@@ -61,6 +64,10 @@
 					}
 				}
 				}
+              if(startResize){
+				gResizeControl.onmouseup.sendEvent();
+                this.setAttribute('startResize',false);
+			  } 	
 		]]></handler>
 		
 		<method name="isScratchpadSubcomponent" args="who">
@@ -136,6 +143,21 @@
             }]]>       
          </handler>
          
+		<!--<handler name="onwidth">
+           setWidthHeight();
+		</handler>
+		
+ 		<handler name="onheight">
+ 		    setWidthHeight();
+		</handler>
+        <method name="setWidthHeight">
+		    var newWidth =  this.width - 12 ;
+            var newHeight = this.height - 10 ;
+
+            var elm = this.getDisplayObject();
+			elm.setAttribute('id','scratchpad');
+            setScratchpadWidthHeight(elm.id, newWidth,newHeight);
+        </method>-->
          <handler name="onblur" reference="sp.inp">
 			this.setAttribute("scratchpadHasFocus", false);
 			this.setAttribute("scratchpadJustLostFocus", true);
