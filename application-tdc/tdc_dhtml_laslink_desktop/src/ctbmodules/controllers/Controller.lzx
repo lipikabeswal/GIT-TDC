@@ -675,10 +675,11 @@
 				if(this.recordingStopped == false){
 					if(this.resetButtonEnable == true){
 						this.recorder.resetButton.setAttribute("enabled",true);
+						this.recorder.recordButton.setAttribute("enabled", false);
 					}else{
 						this.recorder.recordButton.setAttribute("enabled", true);
 					}
-					this.setAttribute('isAudioPaused', false);
+					//this.setAttribute('isAudioPaused', false);
 				}else{
 					if(this.recordingCompleted == true){
 						this.recorder.recordButton.setAttribute("enabled", false);
@@ -689,10 +690,11 @@
 			
 				if(this.isAudioPaused){
 					if(this.recordState == false){
-						this.recorder.recordButton.setAttribute("enabled", false);
+						this.recorder.recordButton.setAttribute("enabled", true);
 					}else{
 						if(this.resetButtonEnable == true){
 							this.recorder.resetButton.setAttribute("enabled",true);
+							this.recorder.recordButton.setAttribute("enabled", false);
 						}else{
 							if(this.recordingCompleted == true){
 								this.recorder.recordButton.setAttribute("enabled", false);
@@ -702,17 +704,21 @@
 						}
 					}
 					this.setAttribute('isAudioPaused', false);
-				}
-			
-				else{
+				}else{
 					if(this.recordState == false){
-						this.recorder.recordButton.setAttribute("enabled", false);
+						if(this.recordingCompleted == false){
+							this.recorder.recordButton.setAttribute("enabled", true);
+						}else{
+							this.recorder.recordButton.setAttribute("enabled",false);
+						}
+						
 					}else{
 						if(this.recordingCompleted == true){
 							this.recorder.recordButton.setAttribute("enabled", false);
 						}else{
 							if(this.resetButtonEnable == true){
 								this.recorder.resetButton.setAttribute("enabled",true);
+								this.recorder.recordButton.setAttribute("enabled", false);
 							}else{
 								this.recorder.recordButton.setAttribute("enabled", true);
 							}
