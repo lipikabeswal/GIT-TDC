@@ -654,7 +654,7 @@
 				gHotKeys.disableKeys(); 
 			}
 		</handler>
-		<handler name="onisplaying" ><![CDATA[
+	<handler name="onisplaying" ><![CDATA[
 		if(gController.isplaying == true ){
 			if(this.recorder != null ) {
 				if(this.recorder.recordStarted == true){
@@ -686,7 +686,11 @@
 						if(this.resetButtonEnable == true){
 							this.recorder.resetButton.setAttribute("enabled",true);
 						}else{
-							this.recorder.recordButton.setAttribute("enabled", true);
+							if(this.recordingCompleted == true){
+								this.recorder.recordButton.setAttribute("enabled", false);
+							}else{
+								this.recorder.recordButton.setAttribute("enabled", true);
+							}
 							}
 						}
 					}
