@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adssvc_request method="downloadItem" sdsid="string" token="string" xmlns="">
+	<download_item itemid="" hash="" key=""/>
+</adssvc_request>

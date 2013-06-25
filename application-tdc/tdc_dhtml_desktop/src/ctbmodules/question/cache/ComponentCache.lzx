@@ -1,0 +1,367 @@
+<library>
+
+    <include href="components"/>
+
+    <!-- ================================
+         constants
+         ================================= -->
+    <node id="gCompTypes">
+        <attribute name="WIDGET_PANEL" value="panel" type="string"/>
+        <attribute name="WIDGET_IMAGE" value="image_widget" type="string"/> 
+        <attribute name="WIDGET_TEXT" value="text_widget" type="string"/>
+        <attribute name="WIDGET_INPUT_TEXT" value="input_text_widget" type="string"/>
+        <attribute name="WIDGET_ANSWER_AREA_PANEL" value="answer_area_panel" type="string"/> 
+        <attribute name="WIDGET_ANSWER_AREA_ABSOLUTE_PANEL" value="answer_choices_absolute_positioned_panel" type="string"/>
+        <attribute name="WIDGET_ANSWER_CHOICE" value="answer_choice_widget" type="string"/>
+        <attribute name="WIDGET_SELECTOR" value="selector_widget" type="string"/>
+        <attribute name="WIDGET_SCROLLING_TEXT_PANEL" value="scrolling_text_panel" type="string"/>
+        <attribute name="WIDGET_SCROLLING_TEXT" value="scrolling_text_widget" type="string"/>
+        <attribute name="WIDGET_STIMULUS_TABS_PANEL" value="stimulus_tabs_panel" type="string"/>
+        <attribute name="WIDGET_STIMULUS_TAB" value="stimulus_tab" type="string"/>
+        <attribute name="WIDGET_GRIDDED_RESPONSE_PANEL" value="gridded_response_panel" type="string"/> 
+        <attribute name="WIDGET_GRIDDED_RESPONSE" value="gridresponse" type="string"/>
+        <attribute name="WIDGET_TABLE" value="table" type="string"/>
+        <attribute name="WIDGET_TABLE_CELL" value="cell" type="string"/>
+        <attribute name="WIDGET_SINGLE_LINE_ANSWER" value="single_line_answer" type="string"/>
+        <attribute name="WIDGET_MULTI_LINE_ANSWER" value="multi_line_answer" type="string"/>
+        <attribute name="WIDGET_REFERENCE_CARD" value="formula_card_resource" type="string"/>
+        <attribute name="WIDGET_RECORDER" value="recorder_widget" type="string"/>
+        <attribute name="WIDGET_HTML" value="html_widget" type="string"/>
+        <attribute name="WIDGET_ASSET" value="asset_widget" type="string"/>
+    </node>
+
+
+	<!-- ************************************
+	g_ComponentCache
+         
+	Cache that handles creating and storing the components
+	needed to display the example views.  Classes can request
+	a component by type and the cache will either return a
+	stored one or make a new component from scratch.  It will 
+	also store components that are currently not in use
+	*************************************-->
+    <class name="ComponentCache" extends="node">
+
+
+        <!-- ================================
+             attributes
+             ================================= -->
+        <!-- the arrays to store our components -->
+        <attribute name="cachedpanels" value="$once{[]}"/>
+        <attribute name="cachedanswerareapanels" value="$once{[]}"/>
+        <attribute name="cachedanswerareaabsolutepanels" value="$once{[]}"/>
+        <attribute name="cachedanswerchoices" value="$once{[]}"/>
+        <attribute name="cachedtexts" value="$once{[]}"/>
+        <attribute name="cachedinputtexts" value="$once{[]}"/>
+        <attribute name="cachedimages" value="$once{[]}"/>
+		<attribute name="cachedselectors" value="$once{[]}"/>
+        <attribute name="cachedscrolltextpanels" value="$once{[]}"/>
+        <attribute name="cachedscrolltexts" value="$once{[]}"/>
+        <attribute name="cachedstimulustabspanels" value="$once{[]}"/>
+        <attribute name="cachedstimulustab" value="$once{[]}"/>
+		<attribute name="cachedgriddedresponsepanels" value="$once{[]}"/>
+        <attribute name="cachedgriddedresponses" value="$once{[]}"/>
+        <attribute name="cachedtables" value="$once{[]}"/>
+        <attribute name="cachedtablecells" value="$once{[]}"/>
+        <attribute name="cachedsinglelineinput" value="$once{[]}"/>
+       <attribute name="cachedmultilineinput" value="$once{[]}"/>
+        <attribute name="cachedreferencecard" value="$once{[]}"/>
+        <attribute name="cachedrecorder" value="$once{[]}"/>
+        <attribute name="cachedhtmlwidget" value="$once{[]}"/>
+        <attribute name="cachedassets" value="$once{[]}"/>
+        
+        <!-- ================================
+             methods/events
+             ================================= -->
+
+        <method name="getComponent" args="datanode">
+        <![CDATA[
+	    	var newcomp = null;
+            var type = datanode.nodeName;
+            var arraytouse = this._findArray (type);
+			
+			//Removing caching because all the lfc class are giving different results
+			if(arraytouse!=null){
+	            if (arraytouse.length) {
+	               // newcomp = arraytouse.shift ();
+	               newcomp = this._createNewComponent (type);
+//	Debug.write ('CACHE: used cached ', type, newcomp);
+	
+	            } else {
+	                newcomp = this._createNewComponent (type);
+//	Debug.write ('CACHE: create new ', type, newcomp, datanode);
+	            }
+	        }
+            
+    		if(newcomp!=null){
+	            newcomp.doRemoveFromCache ();
+	
+	            gController.waitOnComponent( newcomp, datanode.ownerDocument );
+				// allow single line answers to size to fit contents
+	            if(type == gCompTypes.WIDGET_SINGLE_LINE_ANSWER){
+	            	datanode.removeAttr('height');
+	            }
+	            newcomp.datapath.setPointer (datanode);
+	        }
+            return newcomp;
+        ]]>
+        </method>
+
+        <method name="returnComponent" args="toReturn">
+//Debug.write ('CACHE: return ', toReturn.comptype, toReturn.parent);
+//Debug.showInternalProperties=true;
+			/*if (toReturn.comptype == gCompTypes.WIDGET_IMAGE) {
+				toReturn.imageview.resource = null;
+				if ($dhtml) {
+					toReturn.imageview.getDisplayObject().imgLoader.unload();
+				} else {				
+					var mc = toReturn.imageview.sprite;
+					mc.imgLoader.unload();
+				}
+			}*/
+			/*if (toReturn.comptype == gCompTypes.WIDGET_IMAGE) {
+				Debug.write(toReturn.imageview.getMCRef());
+				toReturn.imageview.resource = null;
+				toReturn.imageview.getMCRef().unloadMovie();
+			
+			}*/
+			//Removing caching
+			toReturn.doReturnToCache(); // This line now deletes all the subviews present in the component
+			toReturn.setAttribute('visible',false);
+			toReturn.destroy();
+
+           /* var arraytouse = this._findArray (toReturn.comptype);
+			
+            arraytouse.push (toReturn);
+
+            toReturn.doReturnToCache ();
+            toReturn.setAttribute ('visible', false);
+			toReturn.data = null;
+			
+            if(toReturn.comptype != gCompTypes.WIDGET_REFERENCE_CARD){
+	            //reset position to 0, 0
+	            toReturn.setAttribute ('x', 0);
+	            toReturn.setAttribute ('y', 0);
+			}
+			else {
+	            toReturn.setAttribute('width',0);
+	            toReturn.setAttribute('height',0);
+	            toReturn.data = null;
+			}*/
+        </method>
+
+
+        <method name="_findArray" args="type">
+            var arraytouse = null;
+
+		    //figure our which array we query for component
+		    switch (type) {
+			    case gCompTypes.WIDGET_PANEL: {
+				    arraytouse = cachedpanels;
+				    break;
+			    }
+			    case gCompTypes.WIDGET_ANSWER_AREA_PANEL: {
+				    arraytouse = cachedanswerareapanels;
+				    break;
+			    }
+                case gCompTypes.WIDGET_ANSWER_AREA_ABSOLUTE_PANEL: {
+                    arraytouse = cachedanswerareaabsolutepanels;
+                    break;
+                }
+			    case gCompTypes.WIDGET_ANSWER_CHOICE: {
+				    arraytouse = cachedanswerchoices;
+				    break;
+			    }
+			    case gCompTypes.WIDGET_TEXT: {
+				    arraytouse = cachedtexts;
+				    break;
+			    }
+			    case gCompTypes.WIDGET_INPUT_TEXT: {
+				    arraytouse = cachedinputtexts;
+				    break;
+			    }
+			    case gCompTypes.WIDGET_IMAGE: {
+				    arraytouse = cachedimages;
+				    break;
+			    }
+			    case gCompTypes.WIDGET_SELECTOR: {
+				    arraytouse = cachedselectors;
+				    break;
+			    }
+			    case gCompTypes.WIDGET_SELECTOR: {
+				    arraytouse = cachedselectors;
+				    break;
+			    }
+			    case gCompTypes.WIDGET_SCROLLING_TEXT_PANEL: {
+                    arraytouse = cachedscrolltextpanels;
+                    break;
+                }
+			    case gCompTypes.WIDGET_SCROLLING_TEXT: {
+                    arraytouse = cachedscrolltexts;
+                    break;
+                }
+                case gCompTypes.WIDGET_STIMULUS_TABS_PANEL: {
+                    arraytouse = cachedstimulustabspanels;
+                    break;
+                }
+                case gCompTypes.WIDGET_STIMULUS_TAB: {
+                    arraytouse = cachedstimulustab;
+                    break;
+                }
+			    case gCompTypes.WIDGET_GRIDDED_RESPONSE_PANEL: { 
+				    arraytouse = cachedgriddedresponsepanels;
+				    break;
+			    }
+			    case gCompTypes.WIDGET_GRIDDED_RESPONSE: {
+				    arraytouse = cachedgriddedresponses;
+				    break;
+			    }
+                case gCompTypes.WIDGET_TABLE: {
+                    arraytouse = cachedtables;
+                    break;
+                }
+                case gCompTypes.WIDGET_TABLE_CELL: {
+                    arraytouse = cachedtablecells;      
+                    break;
+                }
+                case gCompTypes.WIDGET_SINGLE_LINE_ANSWER: {
+                    arraytouse = cachedsinglelineinput;      
+                    break;
+                }
+                case gCompTypes.WIDGET_MULTI_LINE_ANSWER: {
+                    arraytouse = cachedmultilineinput;      
+                    break;
+                }
+                case gCompTypes.WIDGET_REFERENCE_CARD: {
+                    arraytouse = cachedreferencecard;      
+                    break;
+                }
+				case gCompTypes.WIDGET_RECORDER: {
+                    arraytouse = cachedrecorder;      
+                    break;
+                }
+                case gCompTypes.WIDGET_HTML: {
+                	arraytouse = cachedhtmlwidget;
+                	break;
+                }
+                case gCompTypes.WIDGET_ASSET: {
+                	arraytouse = cachedassets;
+                	break;
+                }
+                default: {
+                   Debug.warn ('CACHE: unknown component type', type);
+                    break;
+                }     
+		    }
+
+            return arraytouse;
+        </method>
+        <!--
+            helper function to create a new component.  Given a type
+            it will create the correct component
+        -->
+        <method name="_createNewComponent" args="type">
+		    var toReturn = null;
+			
+            switch (type) {
+		        case gCompTypes.WIDGET_PANEL: {
+			        toReturn = new lz.CachablePanel (parent);
+				    break;
+		        }
+			    case gCompTypes.WIDGET_ANSWER_AREA_PANEL: {
+    			    toReturn = new lz.CachableAnswerAreaPanel (parent);
+				    break;
+			    }
+                case gCompTypes.WIDGET_ANSWER_AREA_ABSOLUTE_PANEL: {
+                    toReturn = new lz.CachableAnswerAreaAbsolutePanel (parent);
+                    break;
+                }
+                case gCompTypes.WIDGET_ANSWER_CHOICE: {
+                    toReturn = new lz.CachableAnswerChoice (parent);
+                    break;
+                }
+    		    case gCompTypes.WIDGET_TEXT: {
+				    toReturn = new lz.CachableTextField (parent);
+				    break;
+			    }
+    		    case gCompTypes.WIDGET_INPUT_TEXT: {
+				    toReturn = new lz.CachableInputTextField (parent);
+				    break;
+			    }
+			    case gCompTypes.WIDGET_IMAGE: {
+    			    toReturn = new lz.CachableImage (parent);
+				    break;
+			    }
+			    case gCompTypes.WIDGET_SELECTOR: {
+				    toReturn = new lz.CachableSelector (parent);
+				    break;
+			    }
+			    case gCompTypes.WIDGET_SCROLLING_TEXT_PANEL: {
+			    	toReturn = new lz.CachableScrollingTextPanel (parent);
+					break;
+			    }
+			    case gCompTypes.WIDGET_SCROLLING_TEXT: {
+				    toReturn = new lz.CachableScrollingText (parent);
+				    break;
+			    }
+			    case gCompTypes.WIDGET_STIMULUS_TABS_PANEL: {
+				    toReturn = new lz.CachableTabsPanel (parent);
+				    break;
+			    }
+			    case gCompTypes.WIDGET_STIMULUS_TAB: {
+				    toReturn = new lz.CachableTab (parent);
+				    break;
+			    }
+			    case gCompTypes.WIDGET_GRIDDED_RESPONSE_PANEL: {
+    			    toReturn = new lz.CachableGriddedResponsePanel (parent);
+				    break;
+			    }
+                case gCompTypes.WIDGET_GRIDDED_RESPONSE: {
+                   toReturn = new lz.CachableGriddedResponse (parent);
+                    break;
+                }
+			    case gCompTypes.WIDGET_TABLE: {
+				    toReturn = new lz.CachableTable (parent);
+				    break;
+                }
+                case gCompTypes.WIDGET_TABLE_CELL: {
+				    toReturn = new lz.CachableTableCell (parent);
+				    break;
+                }
+                case gCompTypes.WIDGET_REFERENCE_CARD: {
+                	var hash = new Array();
+                	hash['id'] = 'gFormulaCard';
+					toReturn = new lz.CachableRefCard(parent, hash);
+			    	break;
+                }                
+                 case gCompTypes.WIDGET_SINGLE_LINE_ANSWER: {
+					toReturn = new lz.CachableSingleLineAnswer(parent);
+			    	break;
+                }
+               case gCompTypes.WIDGET_MULTI_LINE_ANSWER: {
+					toReturn = new lz.CachableMultiLineAnswer(parent);
+			    	break;
+                }  
+				case gCompTypes.WIDGET_RECORDER: {
+                	 toReturn = new lz.CachableRecorder(parent);
+				    break;
+                }
+                case gCompTypes.WIDGET_HTML: {
+                	toReturn = new lz.CachableHtmlWidget(parent);
+                	break;
+                }
+                case gCompTypes.WIDGET_ASSET: {
+                	toReturn = new lz.CachableAsset(parent);
+                	break;
+                }
+                default: {
+ //                   Debug.write ('CACHE: create unknown component type', type);  
+                    break;
+                }
+            }
+Debug.write(" ComponentCache, Create new ", toReturn);
+		    return toReturn;
+        </method> 
+
+    </class>
+</library>

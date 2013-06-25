@@ -1,0 +1,16 @@
+<element_package iid="FCAT_TEST.011" security_classification_id="alg112">
+ <item_canvas id="IC">
+  <panel stereotype="stimulus" id="sd1" left_padding="12" height="424" layout="vertical" spacing="12" width="794" x="0" y="79">
+    <html_widget src="IN00177499" id="widget1000" width="794" height="424" image="no" enlargeable="no"/>    
+  </panel> 
+ </item_canvas>
+ <item_model iid="FCAT_TEST.011" eid="8" marked="0" answered="0" number="0" type="question" correct="D">
+  <toolbar ti_scientific_graphic_calculator="required" ti_scientific_calculator="required" masking_ruler="required" oneeighth_inch_ruler="required" mm_ruler="not provisioned" formula_card="required" highlighter="required" eraser="required" cm_ruler="not provisioned" scientific_calculator="required" standard_calculator="required" option_eliminator="required" half_inch_ruler="not provisioned" scratchpad="required" protractor="required"/>
+  <interaction type="choice" max_choices="1">
+   <selector identifier="A" obj_id_ref="A" user_action="n" />
+   <selector identifier="B" obj_id_ref="B" user_action="n" />
+   <selector identifier="C" obj_id_ref="C" user_action="n" />
+   <selector identifier="D" obj_id_ref="D" user_action="n" />
+  </interaction>
+ </item_model>
+</element_package>

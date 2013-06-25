@@ -1,0 +1,62 @@
+<library>
+
+	<include href="CachableComponent.lzx" />
+	
+	<!-- ************************************
+		Cachable Asset 
+		
+		A Cachable Html Widget to render html audio assets in question specially for laslink form c and d items.  
+		*************************************-->
+	
+	<class name="CachableAsset" extends="CachableComponent" 
+    	       comptype="${gCompTypes.WIDGET_ASSET}" aaactive="true">
+	
+		<method name="init">
+			super.init();
+		</method>
+
+		<handler name="oninit">
+			Debug.write("Cachable asset widget handlerinit");
+		</handler>
+	
+		<handler name="ondata" args="data"><![CDATA[
+			if($dhtml) {
+				//console.log("HH");
+				//console.log(data);
+			}
+			if($dhtml){
+				this.asset.setAttribute('height',Number(data.getAttr('height')));
+				this.asset.setAttribute('width',Number(data.getAttr('width')));
+				if(data != null && data.getAttr('isMP4') == "true") {
+					this.asset.aw.setAttribute('visible',false);
+					this.asset.video.setAttribute('visible',true);
+					this.asset.video.setAttribute('height',Number(data.getAttr('height')));
+					this.asset.video.setAttribute('width',Number(data.getAttr('width')));
+				} else {
+					var folderName = data.getAttr('image_ref');
+					var srcUrl = "http:items/" + folderName + "/asset.html";
+					this.asset.aw.setAttribute('src', srcUrl);
+					this.asset.aw.setAttribute('visible',true);
+					this.asset.video.setAttribute('visible',false);
+					this.asset.aw.setAttribute('height',Number(data.getAttr('height')));
+					this.asset.aw.setAttribute('width',Number(data.getAttr('width')));
+				}
+				gController.lasAssetArray.push(this);
+				doneLoading();
+			}
+		]]></handler>
+		
+		<method name="doneLoading">
+			super.doneLoading();
+		</method>
+	
+		<view name="asset" width="${parent.parent.width - 10}" height="${parent.parent.height - 10}" >
+			<html name="aw" id="assetwiget" x="5" y="5" width="400" height="100" scrollbars="false" mouseevents="true" focusable="true" >
+ 	    		  	
+			</html>
+			<view name="video" bgcolor="blue" width="100" height="100" visible="false">
+			
+			</view>
+       	</view>
+	</class>
+</library>

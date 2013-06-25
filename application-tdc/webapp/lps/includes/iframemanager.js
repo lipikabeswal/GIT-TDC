@@ -607,9 +607,7 @@ lz.embed.iframemanager = {
     }
     ,__gotload: function(id) { 
         var iframe = lz.embed.iframemanager.getFrame(id);
-        //console.log('__gotload IframeManager', id, iframe);
-        //Alerting TDC for load complete
-       iframeLoaded(id,iframe); //Custom code for event notification.
+        //console.log('__gotload', id, iframe);
         if (! iframe || ! iframe.__owner) return;
 
         if (this.__loading[id] == true) {

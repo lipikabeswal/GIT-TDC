@@ -1,0 +1,99 @@
+<library>
+
+	<class name="text_box" clickable="true" showhandcursor="false">
+		<attribute name="header" type="string"/>
+		<attribute name="detail" type="string" />
+		<attribute name="hlstatus" value="$once{new lz.datapointer()}"/>
+		<attribute name="isHighlighter" type="boolean" value="false"/>
+        <attribute name="eraserstatus" value="$once{new lz.datapointer()}"/>        
+		<attribute name="isEraser" type="boolean" value="false"/>
+		<attribute name="magnification"  type="number" value="1"/>
+		<attribute name="leftPadding" type="number" value="0"/>
+        <attribute name="rightPadding" type="number" value="0"/>
+        <attribute name="readable" type="boolean" value="false"/>
+        <attribute name="displayStyle" type="string"/>
+        <attribute name="width" type="size" value="0"/>
+		
+		<method name="enable">
+        	this.footnotetext.enable();
+        </method>
+        
+       <handler name="ondata" args="data" reference="hlstatus">
+            this.setAttribute ('isHighlighter', data == 'sel');
+        </handler>
+
+        <handler name="ondata" args="data" reference="eraserstatus">
+            this.setAttribute ('isEraser', data == 'sel');
+		</handler>
+		
+		<method name="init">
+            super.init();
+        </method>
+        
+        <handler name="oninit">
+        	//Debug.write("in oninit of text_box************",this);
+            this.hlstatus.setAttribute ('rerunxpath', true);
+            this.eraserstatus.setAttribute ('rerunxpath', true);
+ 
+            this.hlstatus.setXPath('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@highlighter');
+            this.eraserstatus.setXPath('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@eraser');
+        </handler>
+        
+        <handler name="onheader" ><![CDATA[
+            this.setAttribute("header",this.header);
+            this.setAttribute("width",this.footnotetext.getTextWidth()+0.1);
+		]]></handler>
+		
+		<handler name="ondetail">
+           this.setAttribute("detail",this.detail);
+		</handler>
+		
+		<handler name="onreadable">
+           	this.setAttribute("readable",this.readable);
+        </handler>
+        
+        <handler name="ondisplayStyle">       
+            this.setAttribute("displayStyle",this.displayStyle);
+		</handler>
+		
+		 <handler name="onfntext"><![CDATA[
+		 	//this.footnotetext.setAttribute("text", this.fntext);
+		 	if (gController.hasFontAccommodation){
+				this.footnotetext.setAttribute("text",
+	                '<label><span style="line-height: 21px; zoom:97%; white-space: pre-wrap;">' + this.fntext + '</span></label>');
+			}else{
+				this.footnotetext.setAttribute("text",
+	                '<label><span style="white-space: pre-wrap;">' + this.fntext + '</span></label>');
+			}
+			this.setAttribute("height", (this.footnotetext.lineheight)+0.2);
+			this.footnotetext.setAttribute('width', this.footnotetext.getTextWidth() + 1);
+		]]></handler> 
+	
+		<text name="footnotetext" multiline="true"    
+			  width="${classroot.width}"
+              fgcolor="${classroot.fontcolor}">
+             <handler name="oninit">
+             	this.fontsize = this.immediateparent.parent.fontsize;
+             </handler>
+             <handler name="onclick">
+				var fontsize = this.fontsize;
+             	var footnoteText = classroot.header + "|" + classroot.detail + "|" +classroot.readable + "|" +classroot.displayStyle + "|" + fontsize;
+		 		var s = "setFootnoteText('"+footnoteText+"')";
+				lz.Browser.loadJS(s);
+             </handler>
+             <handler name="onmousedown">
+             	this.setSelection(0, 0); 
+             </handler>
+             <handler name="onmouseup">
+             	this.setSelection(0, 0); 
+             </handler> 
+             
+             <!-- <handler name="oninit">
+				//antialiasing will be NORMAL for all text components
+	 			//to keep the layout consistent across the application
+	 			var t = this.getDisplayObject().textfield;
+	            t.antiAliasType = 'normal';                         
+             </handler> -->
+       	</text>
+	</class>
+</library>

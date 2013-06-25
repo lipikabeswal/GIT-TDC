@@ -1,0 +1,88 @@
+ <library>
+	 <class name="myclass" onclick="choice(this)" oninit="setup(this)" width="65" >
+	 <attribute name="curState" type="string"/>
+		<attribute name="curTxt" type="string"/>	 
+		  <text name="mytext" x="5" valign="middle" fontsize="10" fontstyle="bold"/>
+			<method name="setup" args="data">
+				var name = data.name;
+				name = name.substring(6,7);
+				Debug.write("myclass....name",name);
+				
+				if(name == 0)  {
+					this.curTxt = "[A]";
+				}
+				if(name == 1)  {
+					this.curTxt = "[B]";
+				}
+				if(name == 2)  {
+					this.curTxt = "[C]";
+					}
+				if(name == 3)  {
+					this.curTxt = "[D]";
+				}
+				if(name == 4)  {
+					this.curTxt = "[E]";
+				}
+				if(name == 5)  {
+					this.curTxt = "[F]";
+				}
+				if(name == 6)  {
+					this.curTxt = "[G]";
+				}
+				if(name == 7)  {
+					this.curTxt = "[H]";
+				}
+				if(name == 8)  {
+					this.curTxt = "[I]";
+				}
+				if(name == 9)  {
+					this.curTxt = "[J]";
+				}
+				if(name == "undefined" || name == "" || name == null) {
+					this.curTxt = "Show All";
+				}
+				
+				this.setTextVal();
+			</method>
+		  	
+		  	<method name="choice" args="data">
+				//this.mytext.setText(data.name);
+				//Debug.write("sano",data.name);
+				gController.maskChoice(data.name,curState);
+				if(this.curState == 'Hide'){
+					this.setAttribute("curState",'Show');
+					this.mytext.setAttribute("x",1);
+					gMaskingAnswer.setAttribute("withState",true);					
+					this.setTextVal();	
+				}else if(curState == 'Show'){
+					this.setAttribute("curState",'Hide');
+					this.mytext.setAttribute("x",5);
+					gMaskingAnswer.setAttribute("withState",true);					
+					this.setTextVal();	
+				}else if(curState =='Show All'){
+					gMaskingAnswer.setAttribute("withState",false);
+					Debug.write("gManipulativeBar.globals.maskingAnswer",gManipulativeBar.globals.maskingAnswer);
+					gMaskingAnswer.setUpPopUp();
+				}			
+				
+			</method>
+
+			<handler name="onmouseover">
+				this.setAttribute('frame',2);
+			</handler>
+			                
+			<handler name="onmouseout">
+				this.setAttribute('frame',1);
+			</handler>
+		<method name="setTextVal">
+			if(curTxt == 'Show All'){
+				this.mytext.setAttribute('text'," "+curTxt);
+				
+			}
+			else{
+				this.mytext.setAttribute('text'," "+curState+" "+curTxt);
+			}	
+					
+		</method>
+	 </class>
+ </library>

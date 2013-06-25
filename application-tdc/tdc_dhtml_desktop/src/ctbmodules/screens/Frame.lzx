@@ -1,0 +1,12 @@
+<library>
+
+    <class name="Frame">
+
+        <stableborderlayout axis="y"/>
+        
+        <view name="middle">
+            <view resource="resources/screens_background.png" />
+        </view>
+    </class>
+
+</library>

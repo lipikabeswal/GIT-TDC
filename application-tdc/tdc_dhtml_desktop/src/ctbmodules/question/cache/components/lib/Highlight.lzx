@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<library>
+
+    <include href="ResizeDrawview.lzx" />
+
+    <!-- =========================================
+         =
+         = Highlight
+         =
+         = Area to render and create/delete highlighted areas
+         =
+         ========================================= -->
+    <class name="Highlight">
+
+
+        <!-- ===========================
+             attributes
+             =========================== -->
+        <attribute name="clickarea" value="$once {classroot}"/>
+
+        <!-- which stereotype -->
+        <attribute name="stereotype"/>
+
+        <!-- passageId only valid if we're a scrolling passage -->
+        <attribute name="passageId" type="string" value="-1"/>
+
+        <!-- for scrolling highlights -->
+        <attribute name="vscroll" value="null"/>
+        <attribute name="hscroll" value="null"/>
+
+        <attribute name="scrollport"/>
+
+        <!-- dps -->
+        <attribute name="hlstatus" value="$once{new lz.datapointer()}"/>
+        <attribute name="eraserstatus" value="$once{new lz.datapointer()}"/>
+        <attribute name="hlstate" value="$once{new lz.datapointer ()}"/>
+        <attribute name="hp" value="$once{new lz.datapointer ()}"/>
+
+        <!-- ===========================
+             event handlers
+             =========================== -->
+        <!-- init datapointers -->
+        <handler name="oninit">
+            this.hlstatus.setAttribute ('rerunxpath', true);
+            this.eraserstatus.setAttribute ('rerunxpath', true);
+            this.hlstate.setAttribute ('rerunxpath', true);
+
+            this.hlstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@highlighter');
+            this.eraserstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@eraser');
+            this.hlstate.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/highlighter');
+
+        </handler>
+
+        <!-- show highlight cursor -->
+        <handler name="onmouseover" reference="clickarea"><![CDATA[
+            if (this.hlstatus.data == 'sel' && this.visible) {
+                gController.setCurrentCursor('highlighter_cursor');
+            }
+        ]]></handler>
+
+        <!-- restore cursor -->
+        <handler name="onmouseout" reference="clickarea">
+            if (this.visible) {
+                gController.clearAndRestoreCurrentCursor();
+            }
+        </handler>
+
+        <!-- init livesel -->
+        <handler name="onmousedown" reference="clickarea"><![CDATA[
+            if (this.hlstatus.data == 'sel' && this.visible) {
+                gController.setCurrentCursor('highlighter_cursor');
+                livesel.setAttribute ('x', livesel.getMouseFixed (this, 'x'));
+                livesel.setAttribute ('y', livesel.getMouseFixed (this, 'y'));
+                livesel.setAttribute ('width', 0);
+                livesel.setAttribute ('height', 0);
+                livesel.setAttribute ('visible', true);
+                livesel.setAttribute ('active', true);
+
+                setAttribute('active', true);
+            }
+        ]]></handler>
+
+        <!-- add new highlightarea node -->
+        <handler name="onmouseup" reference="clickarea"><![CDATA[
+            if (this.hlstatus.data == 'sel' && this.visible) {
+                setAttribute('active', true);
+                this.livesel.setAttribute ('visible', false);
+                this.livesel.setAttribute('active', false);
+
+
+                var dnstate = this.hlstate.data;
+
+                //add a highlightarea node
+                var attrs = {x: this.livesel.x,
+                             y: this.livesel.y,
+                             width: this.livesel.width,
+                             height: this.livesel.height,
+                             passageId: this.passageId,
+                             stereotype: this.stereotype};
+                if(attrs.width != 0 && attrs.height != 0){
+                    var dnarea =
+                    dnstate.appendChild (new lz.DataElement ('highlightarea',
+                                                            attrs,[]));
+                }
+
+            }
+        ]]></handler>
+
+
+        <handler name="ondata" args="data" reference="hlstatus">
+            //we're only clickable if we're in highlight mode
+            this.clickarea.setAttribute ('clickable', data == 'sel');
+        </handler>
+
+
+
+        <!-- change highlights datapath to find highlight nodes of the new
+             stereotype -->
+        <handler name="ondata" reference="hlstate">
+            this.highlights.datapath.setXPath ("dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/highlighter/highlightarea[@stereotype='"+this.stereotype+"'][@passageId='"+this.passageId+"']");
+        </handler>
+
+        <method name="deleteHighlights" args="mousex, mousey"><![CDATA[
+            var highlightareas = this.hlstate.xpathQuery("highlightarea[@stereotype='"+this.stereotype+"'][@passageId='"+this.passageId+"']");
+            if ( highlightareas instanceof LzDataNode ) {
+                hp.setPointer(highlightareas);
+                hp.deleteNode();
+            }
+            else if ( highlightareas instanceof Array ) {
+                for(var i = 0; i < highlightareas.length; i++){
+                    var theHighlight = highlightareas[i];
+
+                    var minx = theHighlight.getAttr('x');
+                    var miny = theHighlight.getAttr('y');
+                    var maxx = Number(minx) + Number(theHighlight.getAttr('width'));
+                    var maxy = Number(miny) + Number(theHighlight.getAttr('height'));
+                    var temp;
+                    if(minx > maxx){
+                        temp = maxx;
+                        maxx = minx;
+                        minx = temp;
+                    }
+                    if(miny > maxy){
+                        temp = maxy;
+                        maxy = miny;
+                        miny = temp;
+                    }
+                    if(((mousex/canvas.xscalefactor) <= maxx) &&
+                       ((mousex/canvas.xscalefactor) >= minx) &&
+                       ((mousey/canvas.yscalefactor) >= miny) &&
+                       ((mousey/canvas.yscalefactor) <= maxy)){
+                         hp.setPointer(theHighlight);
+                        hp.deleteNode();
+                    }
+                }
+            }
+        ]]></method>
+
+
+        <!-- ===========================
+             views
+             =========================== -->
+        <!-- view to shown when a user is first creating a hightlight -->
+        <ResizeDrawview name="livesel" visible="false">
+        </ResizeDrawview>
+
+        <!-- the stored highlighted areas -->
+        <view name="highlights" bgcolor="yellow" opacity=".3"
+              clickable="false">
+            <datapath pooling="true"/>
+
+            <handler name="ondata" args="data">
+                //init attributes
+                if (data) {
+                    this.setAttribute ('x', data.getAttr ('x'));
+                    this.setAttribute ('y', data.getAttr ('y'));
+                    this.setAttribute ('width', data.getAttr ('width'));
+                    this.setAttribute ('height', data.getAttr ('height'));
+                }
+            </handler>
+
+            <handler name="ondata" args="data" reference="classroot.eraserstatus">
+                //we're only clickable if the erase tool is selected
+                this.setAttribute ('clickable', data == 'sel');
+            </handler>
+
+            <handler name="onmousedown">
+                //do delete
+                var mousex = classroot.getMouse ('x');
+                var mousey = classroot.getMouse ('y');
+                classroot.deleteHighlights(mousex, mousey);
+                gController.clearAndRestoreCurrentCursor();
+            </handler>
+
+            <handler name="onmouseover">
+                gController.setCurrentCursor('eraser_cursor');
+            </handler>
+
+            <handler name="onmouseout">
+                gController.clearAndRestoreCurrentCursor();
+            </handler>
+
+        </view>
+
+    </class>
+
+</library>

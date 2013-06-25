@@ -1,0 +1,59 @@
+<view name="magnifyingGlass" id="gMagnifyingGlass"
+	x="$once{canvas.width/2 - this.width/2}" valign="middle" width="${canvas.width/4}"
+	height="${canvas.height/8}" visible="false">
+	<dragstate name="dragger" drag_axis="both" drag_min_x="0"
+		drag_max_x="$once{canvas.width - this.width}" drag_min_y="0"
+		drag_max_y="$once{canvas.height - this.height}" />
+	<attribute name="bg" type="color" value="gray" />
+	<attribute name="fg" type="color" value="gray" />
+
+	<attribute name="trackDel"
+		value="$once{new lz.Delegate( this , 'magnify' ) }" />
+	<attribute name="lastxpos" value="0" type="number" />
+	<attribute name="lastypos" value="0" type="number" />
+	<attribute name="isEnabled" value="false" />
+	<attribute name="magnifierOpen" type="boolean" value="true"/>
+
+
+	<method name="setUpGlass">
+		 /*this.setAttribute("x",canvas.width/2 - this.width/2);
+		 this.setAttribute("valign",'middle');
+		 this.setAttribute("visible", true);	
+		 
+		 
+		 var jsCall = "buttonClicked()";
+		 lz.Browser.loadJS(jsCall);*/
+		 buttonClicked("F");
+		 gMagnifyingGlass.setAttribute("magnifierOpen",false);	
+	</method>
+
+	<method name="hideGlass">
+		/*var js = "closeMagnifier()";
+		lz.Browser.loadJS(js);*/
+		closeMagnifier();
+		gMagnifyingGlass.setAttribute("magnifierOpen",true);
+	</method>
+
+	<method name="showGlass" args="isPrevPos">
+		 /*var jsCall = "buttonClicked()";
+		 lz.Browser.loadJS(jsCall);*/
+		 buttonClicked(isPrevPos);
+		 gMagnifyingGlass.setAttribute("magnifierOpen",false);	
+		 
+		//lz.FlashUtils.show(canvas.titleView,this.windowbg.magnifiedContent);
+		//lz.FlashUtils.doMouseMove(this.x,this.y,this.ratioW,this.ratioH);	
+	</method>
+	
+	<method name="magnify">
+		//mouseMove();
+		//lz.Timer.resetTimer(trackDel, 10); 
+	</method>
+	
+	<method name="mouseMove">
+            <![CDATA[
+				//lz.FlashUtils.doMouseMove(this.x,this.y,this.ratioW,this.ratioH);		
+            ]]>
+	</method>
+
+</view>
+

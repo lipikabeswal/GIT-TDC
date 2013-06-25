@@ -1,0 +1,216 @@
+<library>
+	<include href="CachableComponent.lzx" />
+
+
+	<!-- ************************************
+		Cachable Html Widget
+		
+		A Cachable Html Widget to render html items.  
+		*************************************-->
+
+	<class name="CachableHtmlWidget" extends="CachableComponent"
+		comptype="${gCompTypes.WIDGET_HTML}" aaactive="true"
+		aasilent="false">
+		
+		<attribute name="contentLoadedDel" value="$once{new lz.Delegate(this,'func2')}" />
+		<attribute name="setStateDel" value="$once{new lz.Delegate(this,'setAnswer')}" />
+		<attribute name="answered" type="boolean" value="false" />
+		<attribute name="answer" />
+		<attribute name="widget_id" />
+		<attribute name="answerObjSet" value="$once{new Object()}"/>
+		<attribute name="unlocked" type="boolean" value="false"/>
+		<attribute name="checkiframeStateDel" value="$once{new lz.Delegate(this,'checkiframeState')}" />
+
+		<method name="init">
+			super.init();
+		</method>
+
+		<handler name="oninit">
+		Debug.write("Cachaable html widget handlerinit");
+		</handler>
+
+		<handler name="ondata" args="data"><![CDATA[
+Debug.write("Cachaable html widget ondata");
+      	var srcUrl = data.getAttr('src');
+		this.setAttribute('unlocked', false);
+		this.setAttribute('answerObjSet', {});
+		gController.setAttribute('findAnswer',true); //using for freezing/unfreezing UI 
+		if (data.hasAttr("id")) {
+	      	var id = data.getAttr('id');
+	      	this.setAttribute('widget_id',id);
+	        this.setAttribute('widget_id', data.getAttr("id"));
+	        var answer = gController.getStateForInputWidgetId(this.widget_id);
+		
+			if(answer){
+			    gController.setAttribute('isAnswerSet',true); //using for freezing/unfreezing UI
+				this.setAttribute('answered',false); //We are setting answered as false so that we can setTheState properly. This has to be revisited 
+				var selectedValuesArr = [];
+				if(answer['checkedVals']){
+					var selectedValues = answer['checkedVals'];
+					Debug.write("selectedValues " , selectedValues);
+					for (var i in selectedValues){
+						Debug.write("selectedValues for loop" , i);
+						if(selectedValues.hasOwnProperty(i) && !isNaN(+i)) {
+	      					  selectedValuesArr[+i] = selectedValues[i];
+	   					}
+						
+					}
+					answer['checkedVals'] = selectedValuesArr;
+				}
+
+				this.setAttribute('answerObjSet', answer);
+				setAnswer();
+			}else {
+				gController.setAttribute('isAnswerSet',false); //using for freezing/unfreezing UI
+			}
+			gController.addHtmlField({"widget_id" : id, "answered" : this.answered, "answer" : this.answer, "ref" : this}); 
+
+		}
+		if($dhtml){
+			srcUrl = "http:items/"+ srcUrl +"/previewer.html";
+			this.main.ht.setAttribute('src', srcUrl);
+			this.main.ht.setAttribute('visible',true);
+		}
+		else{			
+			srcUrl = "http:items/"+ srcUrl +"/previewer.html";
+			this.main.ht.setAttribute('src', srcUrl);
+			this.main.ht.setAttribute('visible',true);
+		}
+ 		this.bringToFront();
+		func2();
+		gController.freezeUI();
+		//doneLoading();
+
+		]]>
+		</handler>
+
+		<method name="func1">
+			if(this.main.ht.ready){
+            	var del = new LzDelegate(this, 'handleFunc1');
+            	del = isAnswered();		
+				handleFunc1(del);
+            } 
+        </method>
+        
+        <method name="handleFunc1" args="retVal"><![CDATA[
+			if(retVal != null && retVal != undefined){
+				if( retVal == true || retVal ==  'true'){
+					this.setAttribute('answered', true);
+					gController.updateBlueBallForHtmlItem(retVal);
+				}else{
+					this.setAttribute('answered', false);
+					gController.updateBlueBallForHtmlItem(retVal);
+					}
+				if(!unlocked){
+					gController.unlockUI();
+					this.setAttribute('unlocked', true);
+				}
+			}
+       ]]> </method>
+
+		<method name="setAnswer" >
+			Debug.write("setAnswer ansObj");
+			if(this.main.ht.ready){
+				if(!this.answered){
+					var htmlContent = this.answerObjSet.htmlContent;
+					var jsonContent = this.answerObjSet.jsonContent;
+					var checkedVals = []
+					if(this.answerObjSet.checkedVals){
+						checkedVals = this.answerObjSet.checkedVals;
+					}
+					setState(htmlContent, jsonContent, checkedVals);
+					//lz.Timer.resetTimer(setStateDel, 1000);
+				}//else{
+					//lz.Timer.removeTimer(setStateDel);
+				//}
+				
+			}
+			
+		</method>
+
+        
+        <method name="func2">
+					doneLoading();
+        /*   if(this.main.ht.loading){
+            	lz.Timer.resetTimer(contentLoadedDel, 1000);
+            }else{
+            	doneLoading();
+            	lz.Timer.removeTimer(contentLoadedDel);
+           	
+            }*/
+        </method>
+        
+        <method name="handleFunc2" args="retVal1">
+    	
+            if(retVal1 == true || retVal1 == 'true'){
+            	doneLoading();
+            	lz.Timer.removeTimer(contentLoadedDel);
+            }
+        </method>
+        
+       <method name="getHtmlState">
+			//console.log("this.main.ht.ready "+canvas.frameLoaded);
+			//console.log("getState***********",this.main.ht.ready);
+           if(this.main.ht.ready){
+            var getStateDel = new LzDelegate(this, 'getStateHandler');
+            //this.main.ht.callJavascript('accomPkg.getState', getStateDel);
+             //this.main.ht.callJavascript('getState', getStateDel);
+             getStateDel = getState();
+             //console.log("getStateDel******",getStateDel);
+             getStateHandler(getStateDel);
+           } 
+        
+        </method>
+        
+	    <method name="getStateHandler" args="retVal">
+				this.setAttribute('answer', retVal);
+				gController.updateHtmlFields(retVal,this.answered);
+	     </method>
+        
+
+       
+		<method name="doneLoading"><![CDATA[	
+            super.doneLoading();
+        ]]></method>        
+        
+		<method name="hide">
+			//this.main.ht.setAttribute('visible',false);
+		</method>
+		
+		<method name="show">
+			//this.main.ht.setAttribute('visible',true);
+		</method>
+
+		<method name="doReturnToCache"><![CDATA[
+			this.main.ht.setAttribute('visible',false);
+			this.main.ht.setAttribute('src',"");
+       ]]></method>
+
+		<method name="checkiframeState">
+				iframeState();
+				if (!canvas.frameLoaded){
+				 	lz.Timer.resetTimer(checkiframeStateDel, 500);
+				 }else{
+				 	lz.Timer.removeTimer(checkiframeStateDel);
+				 }
+		</method>
+       
+       <view name="main" width="${parent.parent.width - 20}" height="${parent.parent.height - 10}">
+ 	      <!-- <html name="ht" id="htmlwiget" x="5" y="5" width="800" height="600" scrollbars="false" mouseevents="true" focusable="true"/>-->
+ 	      
+ 	    <html name="ht" id="htmlwiget" x="5" scrollbars="false" mouseevents="true" focusable="true" width="780" height="490">
+			<handler name="onload">
+				classroot.checkiframeState();
+			</handler>
+		 </html>
+ 	     
+ 	    <!-- <html name="ht" id="htmlwiget" width="${780 * canvas.xscalefactor}" height="${450 * canvas.yscalefactor}" scrollbars="false">
+			<handler name="onload">
+				classroot.checkiframeState();
+			</handler>
+		 </html>-->
+			
+       </view>
+
+	</class>
+</library>

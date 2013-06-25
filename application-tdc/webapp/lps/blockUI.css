@@ -1,0 +1,21 @@
+#blockDiv{
+    -moz-opacity: 0.48;
+    opacity: 0.48;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=48);
+    filter:alpha(opacity=48);
+}
+.loading-text {
+    left:50%;
+    top:40%;
+    position:absolute;
+    font-weight:bold;
+}
+
+.loading-background {
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1999;
+}

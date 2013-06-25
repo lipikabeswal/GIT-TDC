@@ -1,0 +1,96 @@
+<library>
+      <node id="gLoginError">
+
+		<method name="getErrorArray" args="errorCode">
+			var txErrorHdr="";
+			var txErrorMsg1="";
+			var txErrorMsg2="";
+
+			switch(errorCode){
+				case "400":
+				case "450":
+				case "451":
+				case "452":
+				case "461":
+				case "471":
+				case "472":
+				case "473":
+				case "474":
+				case "475":
+				case "476":
+				case "500":
+				case "501":
+					txErrorHdr = 	"Login Error";
+					txErrorMsg1 = 	"Sorry: Your request could not be processed by our server due to the following error:";
+					txErrorMsg2 =   errorCode + " - " + getErrorText(errorCode);
+					break;
+
+				default:
+					txErrorHdr =    "There is a problem between the server and this computer."
+					txErrorMsg1 = 	"Ask the person in charge of this test to close this window.  Log in again in three minutes, and you will return to your last saved answer."
+					txErrorMsg2 = 	"Error code: " + errorCode;
+					break;
+			}
+			return new Array(txErrorHdr, txErrorMsg1, txErrorMsg2);
+		</method>
+		
+		<method name="getErrorText" args="errorCode" >
+			var result = "Invalid error code";
+			switch(errorCode){
+				case "400":
+					result = 	"Bad request."
+					break;
+	
+				case "450":
+					result = 	"Authentication required."
+					break;
+		
+				case "451":
+					result = 	"Missing information."
+					break;
+		
+				case "452":
+					result = 	"Invalid data."
+					break;
+		
+				case "461":
+					result = 	"This application is out of date. Please visit http://iknow.ctb.com/ to obtain the latest version."
+					break;
+				
+				case "471":
+					result = 	"One or more of the following errors has occurred: Your username is not found, the access code is not found, you are not assigned to the test session, or your password does not match."
+					break;
+			
+				case "472":
+					result = 	"You already have a test session in progress. You cannot have more than one session open"
+					break;
+		
+				case "473":
+					result = 	"You cannot log into this test session because your test session status is neither Scheduled nor Interrupted. See your proctor for help."
+					break;
+			
+				case "474":
+					result = 	"Test administration cannot be taken at this time "
+					break;
+			
+				case "475":
+					result = 	"You cannot log into this test session because you have already completed it."
+					break;
+			
+				case "476":
+					result = 	"You cannot log into this test session because your answers have already been entered. See your proctor for help"
+					break;
+		
+				case "500":
+					result = 	"An internal server error has occurred. Contact your proctor."
+					break;
+		
+				case "501":
+					result = 	"A server error has occurred. Contact your proctor."
+					break;
+			}
+			return result;
+		</method>
+		
+	</node>
+</library>
