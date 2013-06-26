@@ -34,7 +34,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mb"]}},$lzc$class__mb.attributes)
 }}})($lzc$class__mb)
-};canvas=new $lzc$class__mb(null,{$delegates:["onfocus","$m5",null,"onbringBackFocus","$m6",null,"onfootnotedata","$m7",null,"onisMultiAudio","$m8",null,"oninit","$m9",null,"onfootnotetext","$ma",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-06-25T14:30:04Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mb(null,{$delegates:["onfocus","$m5",null,"onbringBackFocus","$m6",null,"onfootnotedata","$m7",null,"onisMultiAudio","$m8",null,"oninit","$m9",null,"onfootnotetext","$ma",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-06-26T13:50:23Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -28532,43 +28532,32 @@ this.recorder.stopblinker("stop")
 this.recorder.recordButton.setAttribute("enabled",false);this.recorder.resetButton.setAttribute("enabled",false)
 }}}else{
 if(this.recorder!=null){
-if(this.recordingStopped==false){
-if(this.resetButtonEnable==true){
-this.recorder.resetButton.setAttribute("enabled",true);this.recorder.recordButton.setAttribute("enabled",false)
-}else{
+if(this.recordingStopped==false&&this.isAudioPaused==false){
 this.recorder.recordButton.setAttribute("enabled",true)
-}}else{
+}else{
+if(this.resetButtonEnable==true){
+this.recorder.resetButton.setAttribute("enabled",true)
+}else{
 if(this.recordingCompleted==true){
 this.recorder.recordButton.setAttribute("enabled",false)
 }else{
-this.recorder.recordButton.setAttribute("enabled",true)
-}};if(this.isAudioPaused){
 if(this.recordState==false){
-this.recorder.recordButton.setAttribute("enabled",true)
+this.recorder.recordButton.setAttribute("enabled",false)
 }else{
+this.recorder.recordButton.setAttribute("enabled",true)
+}}}};if(this.isAudioPaused){
 if(this.resetButtonEnable==true){
-this.recorder.resetButton.setAttribute("enabled",true);this.recorder.recordButton.setAttribute("enabled",false)
+this.recorder.resetButton.setAttribute("enabled",true)
 }else{
 if(this.recordingCompleted==true){
+this.recorder.recordButton.setAttribute("enabled",false)
+}else{
+if(this.recordState==false){
 this.recorder.recordButton.setAttribute("enabled",false)
 }else{
 this.recorder.recordButton.setAttribute("enabled",true)
 }}};this.setAttribute("isAudioPaused",false)
-}else{
-if(this.recordState==false){
-if(this.recordingCompleted==false){
-this.recorder.recordButton.setAttribute("enabled",true)
-}else{
-this.recorder.recordButton.setAttribute("enabled",false)
-}}else{
-if(this.recordingCompleted==true){
-this.recorder.recordButton.setAttribute("enabled",false)
-}else{
-if(this.resetButtonEnable==true){
-this.recorder.resetButton.setAttribute("enabled",true);this.recorder.recordButton.setAttribute("enabled",false)
-}else{
-this.recorder.recordButton.setAttribute("enabled",true)
-}}}}}}},"$m2ao",function($0){
+}}}},"$m2ao",function($0){
 var $1=this.dpstudentdata.xpathQuery("current_item/item_model/");if(gController.unlockNavigation==true){
 gHotKeys.enableKeys();$1.setAttr("canNotNavigate",false)
 }else{
@@ -29372,7 +29361,7 @@ return false
 }},"_handlePausedResumeResponse",function($0){
 this.changeItem(this.getItemFromOffset(this.currItemOffset()));this.showItemInterface();gScreens.resetTextFieldColor();this.startQuestion();this.showManipulatives();this.unlockUI();gQuestion.setGrFocus();this.restoreScratchpadFocusIfNeeded();this.checkShowMagnifierGlass();this.checkShowMaskingChoiceDD();if(this.htmlFields!=null){
 this.showHtmlWidgets()
-};this.setAttribute("isPauseTest",false);gController.setAttribute("resetButtonEnable",false);gController.setAttribute("recordingCompleted",false)
+};this.setAttribute("isPauseTest",false);gController.setAttribute("resetButtonEnable",false);gController.setAttribute("recordingCompleted",false);gController.setAttribute("recordState",true)
 },"hideManipulatives",function(){
 gManipulatives.setAttribute("visible",false)
 },"showManipulatives",function(){
