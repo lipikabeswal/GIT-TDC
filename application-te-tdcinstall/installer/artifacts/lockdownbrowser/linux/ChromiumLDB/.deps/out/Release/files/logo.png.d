@@ -1,0 +1,1 @@
+cmd_out/Release/files/logo.png := ln -f "cefclient/res/logo.png" "out/Release/files/logo.png" 2>/dev/null || (rm -rf "out/Release/files/logo.png" && cp -af "cefclient/res/logo.png" "out/Release/files/logo.png")
