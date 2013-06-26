@@ -6,7 +6,7 @@
    <meta http-equiv="X-UA-Compatible" content="chrome=1"><link rel="SHORTCUT ICON" href="http://www.laszlosystems.com/favicon.ico"><meta name="viewport" content="width=device-width; initial-scale=1.0;"><title>Online Assessment System</title><script type="text/javascript" src="lps/includes/embed-compressed.js"></script>
    <script type="text/javascript" src="includes/manipulative_manager.js"></script>
    <style type="text/css">
-            html, body
+          html, body
             {
                 /* http://www.quirksmode.org/css/100percheight.html */
                 height: 100%;
@@ -14,34 +14,65 @@
                 margin: 0;
                 padding: 0;
                 border: 0 none;
-                -webkit-font-smoothing: antialiased;
-			    /* -moz-font-smoothing: antialiased; - No longer available in FF */
-			    font-smoothing: antialiased;
-			    //text-rendering:optimizeLegibility;
+                /*text-rendering:optimizeLegibility;*/
+                font-family: CTB !important;
             }
             body {
-                background-color: #ffffff;
+                background-color: #6691b4;
+                -webkit-font-smoothing: antialiased;
+				/* -moz-font-smoothing: antialiased; - No longer available in FF */
+				font-smoothing: antialiased;
+				/*webkit-text-stroke: 1px transparent;*/
+		        /*text-shadow: 0 0 1px rgba(0,0,0,0.1);*/
+		        /*letter-spacing: -0.06em;*/
             }
             img { border: 0 none; }
-
-			@font-face {
-			    font-family: "CTB";
-			    src: url("ctbmodules/resources/fonts/OASmathv3.ttf");
+            
+             @font-face {
+				font-family: 'CTB';	
+				src: local('OASmathv3'), url('ctbmodules/resources/fonts/OASmathv3.svg') format('svg'); 
+				font-weight: normal;
+			    font-style: normal;
 			}
 			@font-face {
-			    font-family: "CTB";
-			    src: url("ctbmodules/resources/fonts/OASmathv3 Bold.ttf");
-			    font-weight: bold;
+				font-family: 'CTB';
+				src: local('OASmathv3 Bold'), url('ctbmodules/resources/fonts/OASmathv3Bold.svg') format('svg'); 
+				font-weight: bold;
+			    font-style: normal;
 			}
 			@font-face {
-			    font-family: "CTB";
-			    src: url("ctbmodules/resources/fonts/OASmathv3 Italic.ttf");
+				font-family: 'CTB';
+				src: local('OASmathv3 BoldItalic'), url('ctbmodules/resources/fonts/OASmathv3BoldItalic.svg') format('svg'); 
+				font-weight: bold;
 			    font-style: italic;
 			}
 			@font-face {
-			    font-family: "CTB";
-			    src: url("ctbmodules/resources/fonts/OASmathv3 BoldItalic.ttf");
-			    font-weight: bold;
+				font-family: 'CTB';
+				src: local('OASmathv3 Italic'), url('ctbmodules/resources/fonts/OASmathv3Italic.svg') format('svg'); 
+			    font-style: italic;
+			}
+			
+			@font-face {
+				font-family: 'oasmathv3';
+				src: local('OASmathv3'), url('ctbmodules/resources/fonts/OASmathv3.svg') format('svg'); 
+				font-weight: normal;
+			    font-style: normal;
+			}
+			@font-face {
+				font-family: 'oasmathv3';
+				src: local('OASmathv3 Bold'), url('ctbmodules/resources/fonts/OASmathv3Bold.svg') format('svg'); 
+				font-weight: bold;
+			    font-style: normal;
+			}
+			@font-face {
+				font-family: 'oasmathv3';
+				src: local('OASmathv3 BoldItalic'), url('ctbmodules/resources/fonts/OASmathv3BoldItalic.svg') format('svg'); 
+				font-weight: bold;
+			    font-style: italic;
+			}
+			@font-face {
+				font-family: 'oasmathv3';
+				src: local('OASmathv3 Italic'), url('ctbmodules/resources/fonts/OASmathv3Italic.svg') format('svg'); 
 			    font-style: italic;
 			}
             
@@ -58,6 +89,7 @@
 <link rel="stylesheet" href="lps/style_mozilla.css" type="text/css" /> 
 <script type="text/javascript" src="includes/laslinks_utils.js"></script>
 
+
 <SCRIPT type="text/javaScript">
 <!--
 var _LDB_BypassSetFocusOnPageLoad = 0;
@@ -69,7 +101,13 @@ var yscalefactor = 1;
 var currentLasAssetItemId;
 var autoPlayEvent = "false";
 var isMagnifierVisible = "false";
+var xscalefactorjs;
+var yscalefactorjs;
+var LASAssetPath = "http:items/"; 
 
+function getLasAssetPath(){
+	lz.embed.setCanvasAttribute("LASAssetPath", LASAssetPath);
+}
 
 window.onmouseup = function  () {
 	lz.embed.setCanvasAttribute("fromLogin", 'true');
@@ -199,6 +237,19 @@ function setScaleFactor(args){
 	yscalefactor = args[1];
 	
 }
+
+function setScaleFactor(xscalefactor,yscalefactor){
+	if(!xscalefactor){
+    	xscalefactorjs = 1.2;
+    }else{
+    	xscalefactorjs = xscalefactor;
+    }
+    if(!yscalefactor){
+    	yscalefactorjs = 1.2;
+    }else{
+    	yscalefactorjs = yscalefactor;
+    }
+}
 function getFontAccomodation(){
 	var fontAccom = lz.embed.lzapp.getCanvasAttribute('fontString');
 	fontAccom = fontAccom.split("|");
@@ -254,13 +305,65 @@ function callTestMouseUp1() {
    	lz.embed.setCanvasAttribute('testMouseUp','true');
 }
 
+<!-- following functions are using for CR item scrolledittext scrollbar -->
+
+function hideScrollbarForCRitem(arg){
+    var crItemid = document.getElementById(arg);
+    var fontcolor = getCRcolor();
+    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+';');
+}
+function setCRscrollEdittextWidth(elmId,comWidth,fontSize){
+    var crItemid = document.getElementById(elmId);
+    var fontcolor = getCRcolor();
+    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; width: '+comWidth+'; font-size: '+fontSize+';');
+}
+function setCRscrollEdittextHeight(elmId,comHeight,fontSize){
+    var crItemid = document.getElementById(elmId);
+    var fontcolor = getCRcolor();
+    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; height: '+comHeight+'; font-size: '+fontSize+';');
+}
+
+function getCRcolor(){
+	var fontcolor;
+	var answerFontColor = gController.answerFontColor;
+	if(Number(answerFontColor) == 0)
+		answerFontColor = "0x000000";
+	if(answerFontColor.indexOf('0x') != -1) {
+		fontcolor = answerFontColor.replace('0x', '#');
+	}
+	else {
+		fontcolor = answerFontColor;
+	}
+	return fontcolor;
+}
+
+<!-- End CR item scrolledittext scrollbar functions-->
+
+<!-- following functions are using for scratchpad scrollbar-->
+
+function hideScrollbar(arg){
+    var scrid = document.getElementById(arg);
+    scrid.setAttribute('style',"overflow-x: hidden; overflow-y: scroll;");
+}
+
+function setScrollEdittextWidth(elmId,comWidth,fontSize,textFontColor){
+    var scrid = document.getElementById(elmId);
+    scrid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; width: '+comWidth+'');
+}
+
+function setScrollEdittextHeight(elmId,comHeight,fontSize,textFontColor){
+    var scrid = document.getElementById(elmId);
+    scrid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; height: '+comHeight+'');
+}
+
+<!-- End scratchpad scrollbar functions-->
 
 function fromWrapper() {
 	lz.embed.setCanvasAttribute('fromWrapper','true');
 }
 
 
-function showMagnify() {	
+function showMagnify() {		
 		isMagnifierVisible = "true";
 		if(jQuery("#magnifierWindow").length < 1){
 			jQuery('body').addpowerzoom({
@@ -269,24 +372,26 @@ function showMagnify() {
 					largeimage: null,
 					magnifiersize: [300,100] 
 				});
-		}	
-		jQuery(ddpowerzoomer.$magnifier.outer).hide();
+		}			
 		jQuery.ajax({
 			url: "servlet/PersistenceServlet.do?method=captureScreenshot",
+			beforeSend: function() {
+				jQuery(ddpowerzoomer.$magnifier.outer).hide();
+			},
 			dataType: "xml",
 			success: function(data) {
-			//xmlDoc = jQuery.parseXML( data ),
-		    xml = jQuery( data ),
-		    ok = xml.find( "OK" );
-			//alert(ok);
-			var timeStamp = ok.text();//jQuery(jQuery.parseXML(data)).find("ok").text();
-			//alert(timeStamp);
-			var imageName = "cache/screenshot"+timeStamp+".png"
+				//xmlDoc = jQuery.parseXML( data ),
+		    	xml = jQuery( data );
+		    	ok = xml.find( "OK" );
+				//alert(ok);
+				var timeStamp = ok.text();//jQuery(jQuery.parseXML(data)).find("ok").text();
+				//alert(timeStamp);
+				var imageName = "cache/screenshot"+timeStamp+".png"
 			
-			jQuery(ddpowerzoomer.$magnifier.outer).css('left',(document.body.clientWidth/2 - 165)+ 'px');
-			jQuery(ddpowerzoomer.$magnifier.outer).css('top',(document.body.clientHeight/2 - 75) + 'px');
-			jQuery(ddpowerzoomer.$magnifier.outer).show();
-			jQuery(ddpowerzoomer).initMagnify({largeimage:imageName});
+				jQuery(ddpowerzoomer.$magnifier.outer).css('left',(document.body.clientWidth/2 - 165)+ 'px');
+				jQuery(ddpowerzoomer.$magnifier.outer).css('top',(document.body.clientHeight/2 - 75) + 'px');
+				jQuery(ddpowerzoomer.$magnifier.outer).show();
+				jQuery(ddpowerzoomer).initMagnify({largeimage:imageName});
 			}
 		});
 			
@@ -299,8 +404,8 @@ function hideMagnify() {
 }
 
 /* Method to reinstate the magnifier to previous state */
-function displayMagnifier() {		
-	
+function displayMagnifier() {	
+	isMagnifierVisible = "true";
 	jQuery(ddpowerzoomer.$magnifier.outer).show();
 }
 
@@ -316,19 +421,21 @@ function frameID(frameid){
 function setCurLasItemId(id) {
 	currentLasAssetItemId = id;
 	assetCount = 0;
+	checkAnswered = false;
+	answerClicked = null;
 }
 
 
 
 
 function eventMonitor(id,event) {
-//	console.log("Inside eventMonitor:::",id,event);
+
 	var currIframeId = frameFolderObject[id];
  	if(event == 'play' || event == 'jsplay') {
- 		setPlayingAttr('true');
- 		//console.log("iframeObject[currentLasAssetItemId][currIframeId]****",iframeObject[currentLasAssetItemId][currIframeId]);
+ 		setPlayingAttr(event,'true');
+ 		if(!checkAllPlayedOnce())
+ 		disableAssets();
  		iframeObject[currentLasAssetItemId][currIframeId]['playEvent'] = true;
- 		//console.log("Is Playing :",iframeObject[currentLasAssetItemId][currIframeId]['playEvent']);
  		playSingleAsset(currIframeId);
  		if(iframeObject[currentLasAssetItemId]) {
  			if(iframeObject[currentLasAssetItemId][currIframeId]['folder'] == id) {
@@ -336,13 +443,16 @@ function eventMonitor(id,event) {
  				 getCurrentPlayOrder(currIframeId);
  			}
  		}
- 		
- 		
+ 		if(autoPlayEvent == 'false') {
+ 			unlockResponseArea(currIframeId);
+ 			}
+ 		 		
  	} else if(event == 'finished' || event == 'endTrack' || event == 'pause') {
  		if( event == 'endTrack' || event == 'pause'){
- 			setPlayingAttr('false');
+ 			setPlayingAttr(event,'false');
  		}
- 		if(autoPlayEvent == 'false') { // play is for autoPlay
+ 			if(!checkAllPlayedOnce())
+ 			enableAssets();
 	 		iframeObject[currentLasAssetItemId][currIframeId]['playEvent'] = false;
 	 		//console.log("event -- ",event);
 	 		if(iframeObject[currentLasAssetItemId]) {
@@ -352,16 +462,26 @@ function eventMonitor(id,event) {
 	 				}
 	 			}
 	 		}
-	 		unlockResponseArea(currIframeId);
+	 		iframeFolderId = null;
 	 		enableNextButton(id);
- 		}
- 		else{
- 		autoPlayEvent = "false";
- 		}
+	 		if(autoPlayEvent == 'true') {
+	 			autoPlayEvent = "false";
+	 		}
+	 		if(answerClicked != null){
+	 			checkValIfAnswered(answerClicked);
+	 			answerClicked = null;
+	 		}
  		
+ 		restrictNavigation('unlock');
+ 		resetAllAssets();
  	} else if (event == 'reset') {
  		//setPlayingAttr('false');
  	}
+ 	else if (event == 'autoplayEndTrack') {
+ 		setPlayingAttr('false');
+ 	  	autoPlayEvent = "false";	
+ 	}
+ 	
  	//lz.embed.setCanvasAttribute("bringBackFocus", 'true');
 }
 
@@ -371,7 +491,7 @@ function isSPRequired(){
 }
 
 function enableHotKeys(arg) {
-	lz.embed.setCanvasAttribute('keysPressed',arg);
+	gHotKeys.handleHtmlKeyPress(arg);
 }
 
 function enableManipBar(arg) {
@@ -396,34 +516,15 @@ function enablePasswordFocus(){
      }
 }
 
-function setItemFocus(){
-	var myFlash = document.getElementById( 'lzapp' );
-     if ( myFlash ) { 
-      myFlash.focus(); 
-     }
-}
-
-function enablePasswordFocusHtml(){
-	
-    var myFlash = document.getElementById( 'lzapp' );
-     if ( myFlash ) { 
-      myFlash.focus(); 
-     }
-}
-  
 function loadDummyHtml() {
-	//console.log("loadDummyHtml");
 	window.location.href = 'dummy.html';
 }
 
 function load() {
 	
      var myservlet = 'servlet/PersistenceServlet.do?method=isProductCheck&folder=calif&requestXML=';
-
      jQuery.get(myservlet, function(data) {
 	     //alert(data);
-	     //alert(data.childNodes[0].nodeName);
-	     
 	     if(data.childNodes[0].nodeName.indexOf('LASLINKS') >= 0){
 	     	loadJsApplication();
 	     }else {
@@ -447,8 +548,32 @@ function load() {
 	}
 }
 
+function checkForAssetArea()
+{
+	gController.setAttribute("mouseUpEventFired",true);
+	
+}
 
+function checkTextDragging(){
+	//jQuery("textarea").attr('disabled','disabled');
+	jQuery("textarea").on("dragstart", function(e) {
+				e.preventDefault();
+			});
+}
 
+/*function buttonClicked(magnifierPosition){
+  	if(magnifierPosition == "T") {
+  		$.setPreviousPosition();
+  	}
+	document.getElementById('mybutton').click();
+	
+}
+ function closeMagnifier(){
+    var olddiv = document.getElementById('mborder');
+    if (olddiv && olddiv.parentNode && olddiv.parentNode.removeChild)
+		olddiv.parentNode.removeChild(olddiv);
+	$.closeMagnifier();
+}*/
 //-->
 
 </SCRIPT>
@@ -459,7 +584,8 @@ body { background-color:#6691B4; margin: 0px; overflow:hidden;}
 </style>
 </HEAD>
 
-<BODY onload="load()">
+<BODY onload="load()" oncontextmenu="return false;">
+<button id="mybutton" style="visibility:hidden; width:0px; height:0px; display:none;">clickMe </button>
 	<div id="needFlash9" style="display:none">
 		<table height="100%" width="100%">
 			<tr>
@@ -501,9 +627,6 @@ body { background-color:#6691B4; margin: 0px; overflow:hidden;}
 			</tr>
 		</table>
 	</div>
-	<div face="Arial" size="6" height="40px" width="22px" id="tempMessage" style="background-color: rgb(82, 125, 164); padding: 100px 100px 105px; margin: 294px 320px 320px; display: none; color: white; font-size: 21px;">
-	Please Wait While your Item is Loading..............
-	</div>
 
 	<SCRIPT type="text/javaScript">
 		if(!isMac()){
@@ -516,25 +639,6 @@ body { background-color:#6691B4; margin: 0px; overflow:hidden;}
 	<p style="display: table-cell; vertical-align: middle; align: center;">
 	<div id="lzsplashtext" style="display: block; margin: 20% auto; font-size:12px; font-family:Helvetica,sans-serif;" align="center">Loading...</div></p></div>-->
 	<script type="text/javascript" defer>
-	
-	function embedswfApplicationLaslink() {
-		//alert("Inside embedswfApplicationLaslink");
-		var tempElement = document.getElementById("tempMessage");
-	    tempElement.style.display="block";
-	   // alert("embedswfApplication");
-		embedswfApplication();
-		
-	}
-	function removeDiv(){
-		//alert("removeDiv");
-		if(document.getElementById("tempMessage")){
-			var tempElement = document.getElementById("tempMessage");
-		    tempElement.style.display="none";
-		}else{
-			alert("Div not found");
-		}
-	}
-	var isNewForm = true;
 				  var jQ = jQuery.noConflict();
                   function loadJsApplication(){
 	                  lz.embed.dhtml({url: 'TestClient.js?servletUrl=/servlet', lfcurl: 'lps/includes/lfc/LFCdhtml.js', serverroot: 'lps/resources/', bgcolor: '#6691b4', width: '100%', height: '100%', id: 'lzapp', accessible: 'true', cancelmousewheel: false, cancelkeyboardcontrol: false, skipchromeinstall: false, usemastersprite: false, approot: '', appenddivid: 'appcontainer'});
@@ -548,34 +652,6 @@ body { background-color:#6691B4; margin: 0px; overflow:hidden;}
                             }
 	                    }
 	                  }*/
-                  }
-                   function embedswfApplication(){
-               		isNewForm = false;
-               		
-	                  lz.embed.swf({url:'TestClient.lzx.swf?&lzr=swf10&folder=calif&servletUrl=/servlet&eliminatorResource=resources/eliminator.swf', allowfullscreen: 'false', bgcolor: '#6691B4', width: '100%', height: '100%', id: 'lzapp1', accessible: 'false', cancelmousewheel: false, appenddivid: 'appcontainer', wmode: 'opaque'});
-	                  
-	        		}
-                function isLasNewForm(){
-                	//alert(isNewForm);
-                	 
-                	lz.embed.setCanvasAttribute('isNewForm',isNewForm);
-                }
-                 function lasLoginCred(loginId,pwd,accessCode){
-               			
-               		 //alert(loginId+"::"+pwd+"::"+accessCode);
-               		//alert(product);
-               		 if(loginId != null){
-               		 removeDiv();
-               		 lz.embed.setCanvasAttribute('loginId',loginId);
-               		 lz.embed.setCanvasAttribute('pwd',pwd);
-               		 lz.embed.setCanvasAttribute('accessCode',accessCode);
-               		 
-               		 lz.embed.setCanvasAttribute('credSetted',true);
-               		
-               		 
-                	}else{
-                		alert("Getting null");
-                	}
                   }
                   function loadSwfApplication(){
 	                  lz.embed.resizeWindow('100%', '100%');
