@@ -1163,6 +1163,7 @@
 			stopHeartbeat();
 			removeTrackTimer();
 			removePauseTimer();
+			gRevisitFalsePopup.hide();
 			gPauseTimerScreen.setVisible(false);
 			gScreens.showGoodbye();
 			LzTimer.addTimer( dcloseBrowser, 5000 );
@@ -3515,6 +3516,7 @@ Debug.write("############ loadItem ############");
 			gMaskingAnswer.setAttribute("withState",false);
 			hideMagnifierGlass();
 			hideMaskingChoiceDD();
+			gTooltip.hideTooltip();
 		]]></method>
 
 		<method name="loadMusicData"><![CDATA[
