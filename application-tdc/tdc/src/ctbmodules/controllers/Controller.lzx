@@ -3145,6 +3145,7 @@
             gScreens.showPause(getStudentName());
 			gPauseTimerScreen.setVisible(true);
 			gRevisitFalsePopup.hide();
+			gHotKeys.disableKeys();
 		</method>
 
 		<method name="pausedContinue" args="pw">
@@ -3247,6 +3248,7 @@
 			gMusicPlayer.hide();
             LzCursor.unlock();
 			gRevisitFalsePopup.hide();
+			gHotKeys.disableKeys();
 			
 			if(this.adaptive == 'true'){				
 				//if (gScreens.isOnFinishScreen()) {
