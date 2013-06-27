@@ -606,6 +606,45 @@ function setMouseUpVal() {
 	lz.embed.setCanvasAttribute('mouseUpFired','false');
 }
 
+<!-- following functions are using for CR item scrolledittext scrollbar -->
+
+function hideScrollbarForCRitem(arg){
+    var crItemid = document.getElementById(arg);
+    var fontcolor = getCRcolor();
+    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+';');
+}
+function setCRscrollEdittextWidth(elmId,comWidth){
+    var crItemid = document.getElementById(elmId);
+    var fontcolor = getCRcolor();
+    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; width: '+comWidth+'');
+}
+function setCRscrollEdittextHeight(elmId,comHeight){
+    var crItemid = document.getElementById(elmId);
+    var fontcolor = getCRcolor();
+    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; height: '+comHeight+'');
+}
+
+function getCRcolor(){
+	var fontcolor;
+	var answerFontColor = gController.answerFontColor;
+	if(Number(answerFontColor) == 0)
+		answerFontColor = "0x000000";
+	if(answerFontColor.indexOf('0x') != -1) {
+		fontcolor = answerFontColor.replace('0x', '#');
+	}
+	else {
+		fontcolor = answerFontColor;
+	}
+	return fontcolor;
+}
+
+function checkTextDragging(){
+	//jQuery("textarea").attr('disabled','disabled');
+	jQuery("textarea").on("dragstart", function(e) {
+				e.preventDefault();
+			});
+}
+<!-- End CR item scrolledittext scrollbar functions-->
  
 // higlighter for nonTE items
  
