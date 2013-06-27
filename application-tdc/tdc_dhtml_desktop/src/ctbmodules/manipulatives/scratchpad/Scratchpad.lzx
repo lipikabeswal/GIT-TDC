@@ -161,7 +161,7 @@
 					else{
 						this.setAttribute('fontsize',12);
 					}
-					//this.inp.setMaxLength(10000);
+					this.inp.setAttribute('maxlength',10000);
 	            </method>
 	            
 	            <method name="updateScrollText" args="a">
