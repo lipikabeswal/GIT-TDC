@@ -45,7 +45,8 @@
 			this.setAttribute("navigateFrom",calledFrom);
 	        LzModeManager.makeModal(this);
 	        gHotKeys.disableKeys();
-	     }
+	        gController.clearAndRestoreCurrentCursor();
+	       }
     </method>
 
 	
@@ -105,7 +106,8 @@
 		</text>        
 		<basebutton	name="okButton"	resource="popupOk" x="46" y="110" width="70" height="25" stretches="both">
 		<method event="onclick">
-			gController.setNavigation(0,parent.parent.getAttribute("navigateFrom"));        
+			gController.setNavigation(0,parent.parent.getAttribute("navigateFrom"));     
+			gController.setCurrentCursor(canvas.currentCursor);
         </method>
 		</basebutton>
 		<basebutton	name="cancelButton"	resource="popupCancel" x="164" y="110" width="85" height="25" stretches="both">

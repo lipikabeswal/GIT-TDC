@@ -3188,8 +3188,7 @@
 		<method name="finishTest">
         	gReadableText.stopReading();
 			setState(OK_CALCULATOR_STATE);
-        	gCommunicator.closeOkCalculator();  
-        	          
+        	gCommunicator.closeOkCalculator();            
         </method>
 
 		<method name="_handleOkCalculatorResponse"><![CDATA[
@@ -4712,8 +4711,9 @@ Debug.write("out of time 1 ans" + isAnswered);
 		]]></method>
 
 		<method name="showWaitPopup">
-            this.isWaitPopupOpen = true;	
-			gPleaseWaitPopup.show();
+		    this.isWaitPopupOpen = true;
+           	clearAndRestoreCurrentCursor();	
+	   		gPleaseWaitPopup.show();
 			gMusicPlayer.hide();
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
@@ -4734,6 +4734,7 @@ Debug.write("out of time 1 ans" + isAnswered);
 
 		<method name="hideWaitPopup"><![CDATA[
 			this.isWaitPopupOpen = false;	
+			gController.setCurrentCursor(canvas.currentCursor);
 			gPleaseWaitPopup.hide();
 			recalltrackMouseMove();
 			LzTimer.removeTimer(dNetworkLostPopup);
