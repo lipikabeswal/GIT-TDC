@@ -506,8 +506,8 @@
         <attribute name="testTimeout" type="boolean" value="false"/>
 		
 		<attribute name="isCatStop" value="false" type="boolean" />
-		
-			<datapath name="dstest" xpath="testDetails:/test_data"/> //For Oklahoma Performance Level
+		<attribute name="isManipMouseDown" value="false" type="boolean" />
+		<datapath name="dstest" xpath="testDetails:/test_data"/> //For Oklahoma Performance Level
 		<!--
 			============================================================
 			Datapointers
@@ -2682,6 +2682,7 @@
 			}
 			this.setAttribute('isaudio',false);
 			resetRecorder();
+			gTooltip.hideTooltip();
 		]]></method>
 
 		<method name="resetRecorder"><![CDATA[
@@ -3187,7 +3188,8 @@
 		<method name="finishTest">
         	gReadableText.stopReading();
 			setState(OK_CALCULATOR_STATE);
-        	gCommunicator.closeOkCalculator();            
+        	gCommunicator.closeOkCalculator();  
+        	          
         </method>
 
 		<method name="_handleOkCalculatorResponse"><![CDATA[
@@ -3250,7 +3252,7 @@
             LzCursor.unlock();
 			gRevisitFalsePopup.hide();
 			gHotKeys.disableKeys();
-			
+			gTooltip.hideTooltip();
 			if(this.adaptive == 'true'){				
 				//if (gScreens.isOnFinishScreen()) {
 				Debug.write("goToFinishScreen :"+ gScreens.isOnFinishScreen() +"::"+ this.isStopTest);
@@ -3271,6 +3273,12 @@
 				this.setAttribute("isStopTest",true);
 				gScreens.showFinish( totalQuestions() - totalAnswered(),
 	                                 totalMarked() );
+			}
+
+			if(this.isManipMouseDown){
+				gMaskingRuler.onmouseup.sendEvent();
+				gMagnifyingGlass.onmouseup.sendEvent();
+				this.setAttribute("isManipMouseDown",false);
 			}
                        
 		]]></method>
@@ -3345,7 +3353,7 @@
 			if(this.adaptive == 'true'){
 				gScreens.removeFinishState();
 			}
-			
+			gTooltip.hideTooltip();
         </method>
 
 		<method name="continueTest">

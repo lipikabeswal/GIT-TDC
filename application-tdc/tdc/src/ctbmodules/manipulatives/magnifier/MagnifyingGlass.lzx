@@ -50,7 +50,8 @@
 			magnifyingGlass.dragger.apply();
 			magnifyingGlass.magnify();
 			LzCursor.setCursorGlobal ('grabbing_cursor');
-		    LzCursor.lock();		
+		    LzCursor.lock();
+		    gController.setAttribute("isManipMouseDown",true);		
 		</method>
 		
 		<method event="onmouseup">

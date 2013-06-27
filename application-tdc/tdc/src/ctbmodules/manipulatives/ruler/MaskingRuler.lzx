@@ -271,6 +271,7 @@ Debug.write("else "+data +" : "+ hasstate);
             LzCursor.setCursorGlobal ('grabbing_cursor');
             LzCursor.lock ();
             this.dragger.apply ();
+            gController.setAttribute("isManipMouseDown",true);
         </method>
         <method event="onmouseup">
             LzCursor.unlock ();
