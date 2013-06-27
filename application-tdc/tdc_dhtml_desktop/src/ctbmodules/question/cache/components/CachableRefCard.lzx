@@ -2,7 +2,8 @@
 
 	<include href="CachableComponent.lzx"/>
 
-    <class name="CachableRefCard" comptype="$once {gCompTypes.WIDGET_REFERENCE_CARD}" extends="CachableComponent">
+    <class name="CachableRefCard" comptype="$once {gCompTypes.WIDGET_REFERENCE_CARD}" extends="CachableComponent"
+    		xscale="${canvas.xscalefactor}" yscale="${canvas.yscalefactor}">
 		<attribute name="innerHeight" value="400" type="number"/>
 		<attribute name="defaultInnerHeight" value="400" type="number"/>
 		<attribute name="innerWidth" value="500" type="number"/>
@@ -103,13 +104,13 @@
                 this.setAttribute ('x', Number(data.getAttr ('x')));
             }
             else{
-             	this.setAttribute ('x', (parent.width - this.width)/2);
+             	this.setAttribute ('x', (gManipulatives.width - this.width*canvas.xscalefactor)/2);
             }
             if(data != null && data.hasAttr('y')){
             	this.setAttribute ('y', Number(data.getAttr ('y')));
             }
             else{
-           		this.setAttribute ('y', (parent.height - this.height)/2);
+                this.setAttribute ('y', (gManipulatives.height - this.height*canvas.yscalefactor)/2);
 			}
 			
 			if(data != null && data.hasAttr('scrolls')){
