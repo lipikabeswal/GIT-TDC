@@ -58,6 +58,11 @@
 			<html name="video" scrollbars="false" mouseevents="true" focusable="true">
 			
 			</html>
-       	</view>
+       
+       	<view name="assetOverley" height="120%" visible="false"
+              width="120%"
+              clip="true" clickable="false" showhandcursor="false"  opacity=".01" bgcolor="gray">
+        </view>
+      </view>
 	</class>
 </library>
