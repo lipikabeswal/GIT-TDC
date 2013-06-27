@@ -3286,10 +3286,10 @@ var LzMouseKernel = {
 		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasclickdiv", "cursor", "move");
 	        }
 	        else {//set relative url for setting a custom cursor
-		        LzSprite.prototype.__setCSSClassProperty(".lzclickdiv", "cursor", "url(manipulatives/resource/dragger_press.png),auto");
-		        LzSprite.prototype.__setCSSClassProperty(".lzdiv", "cursor", "url(manipulatives/resource/dragger_press.png),auto");
-		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasdiv", "cursor", "url(manipulatives/resource/dragger_press.png),auto");
-		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasclickdiv", "cursor", "url(manipulatives/resource/dragger_press.png),auto");
+		        LzSprite.prototype.__setCSSClassProperty(".lzclickdiv", "cursor", "url(ctbmodules/resources/iknow_cursors/dragger_press.png),auto");
+		        LzSprite.prototype.__setCSSClassProperty(".lzdiv", "cursor", "url(ctbmodules/resources/iknow_cursors/dragger_press.png),auto");
+		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasdiv", "cursor", "url(ctbmodules/resources/iknow_cursors/dragger_press.png),auto");
+		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasclickdiv", "cursor", "url(ctbmodules/resources/iknow_cursors/dragger_press.png),auto");
 	        }
 
         }
@@ -3302,10 +3302,10 @@ var LzMouseKernel = {
 		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasclickdiv", "cursor", "move");
 	        }
 	        else {//set relative url for setting a custom cursor
-		        LzSprite.prototype.__setCSSClassProperty(".lzclickdiv", "cursor", "url(manipulatives/resource/dragger_over.png),auto");
-		        LzSprite.prototype.__setCSSClassProperty(".lzdiv", "cursor", "url(manipulatives/resource/dragger_over.png),auto");
-		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasdiv", "cursor", "url(manipulatives/resource/dragger_over.png),auto");
-		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasclickdiv", "cursor", "url(manipulatives/resource/dragger_over.png),auto");
+		        LzSprite.prototype.__setCSSClassProperty(".lzclickdiv", "cursor", "url(ctbmodules/resources/iknow_cursors/dragger_over.png),auto");
+		        LzSprite.prototype.__setCSSClassProperty(".lzdiv", "cursor", "url(ctbmodules/resources/iknow_cursors/dragger_over.png),auto");
+		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasdiv", "cursor", "url(ctbmodules/resources/iknow_cursors/dragger_over.png),auto");
+		        LzSprite.prototype.__setCSSClassProperty(".lzcanvasclickdiv", "cursor", "url(ctbmodules/resources/iknow_cursors/dragger_over.png),auto");
 	        }
 
         }
