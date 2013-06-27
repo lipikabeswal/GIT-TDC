@@ -3325,7 +3325,7 @@ var LzMouseKernel = {
 	        }
 
         }
-         else if($0 == "highlighter_cursor"){
+        else if($0 == "highlighter_cursor"){
 
 			if(lz.embed.browser.browser == "Mozilla") {//if lockdown browser, show a open built in hand cursor similar to dragger_over
 		        LzSprite.prototype.__setCSSClassProperty(".lzclickdiv", "cursor", "move");
