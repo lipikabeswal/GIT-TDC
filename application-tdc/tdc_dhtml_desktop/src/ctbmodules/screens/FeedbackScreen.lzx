@@ -145,7 +145,7 @@
 			}
         ]]></method>
 
-        <attribute name="font" value="Arial"/>
+        <attribute name="font" value="CTB"/>
 
         <text name="studentName" x="5" y="0" fontsize="24" height="36" fgcolor="white" resize="true"/>
   

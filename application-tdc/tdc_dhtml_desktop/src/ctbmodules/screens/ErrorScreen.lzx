@@ -96,7 +96,7 @@ Debug.write("xml null - show default error");
             }
         ]]></method>
 
-        <attribute name="font" value="Arial"/>
+        <attribute name="font" value="CTB"/>
 
         <simplelayout axis="y" spacing="5"/>
 

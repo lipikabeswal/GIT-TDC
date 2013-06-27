@@ -30,6 +30,10 @@
 
         <text fontsize="24" resize="true" fgcolor="white">
             Hello, please log in to begin
+            <handler name="oninit">
+            	var elem = this.getDisplayObject();
+                elem.setAttribute('style','font-family: CTB; font-size: 24px; line-height: 29px; pointer-events: none; width: auto; height: 29px;');
+            </handler>
         </text>
 
         <view width="100%" name="li">
