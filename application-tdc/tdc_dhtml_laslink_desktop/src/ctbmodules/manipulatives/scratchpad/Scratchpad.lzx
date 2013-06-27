@@ -7,10 +7,8 @@
            extends="ScratchpadWindow"
            datapath="dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global"           
            visible="${gController.scratchpadOpen}"
-           height="$once{this.DEFAULT_HEIGHT}"   
-		   width="$once{this.DEFAULT_WIDTH}" 
-		   x="$once{this.DEFAULT_X}"
-		   y="$once{this.DEFAULT_Y}"
+           height="227"   
+		   width="400" 
 		   title="Scratchpad"
 		   resizable="true" 
 		   closeable="true"
@@ -20,7 +18,7 @@
 		   minheight="130"
 		   initstage="defer"
 		   focustrap="true"
-		   xscale="${canvas.xscalefactor}" yscale="${canvas.yscalefactor}">
+		   xscale="${canvas.xscalefactor}" yscale="${canvas.yscalefactor}" >
 
 		<attribute name="DEFAULT_HEIGHT" type="number" value="227" />
 		<attribute name="DEFAULT_WIDTH" type="number" value="400" />

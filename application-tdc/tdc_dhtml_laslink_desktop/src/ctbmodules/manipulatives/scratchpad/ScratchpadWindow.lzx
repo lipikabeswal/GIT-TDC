@@ -31,8 +31,8 @@
 
         <state name="resizeable" applied="${this.classroot.resizable}">
             <view name="_resizeControl" placement="null" id="gResizeControl"
-                x="${classroot.width - this.width - classroot.inset_right}"
-                y="${classroot.height - this.height - classroot.inset_right}"
+                x="${classroot.width - this.width - classroot.inset_right + 10}"
+                y="${classroot.height - this.height - classroot.inset_right + 5}"
                 resource="window_resizebtn_rsc"
                 onmousedown="classroot._startResize();setAttribute('frame', 3);"
                 onmouseup="classroot._stopResize(); setAttribute('frame', 1); gScratchpad.restoreFocusAndCursor();"
