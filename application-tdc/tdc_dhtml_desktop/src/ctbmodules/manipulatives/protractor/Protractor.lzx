@@ -193,6 +193,7 @@
             	classroot.bringToFront();
                 lz.Cursor.setCursorGlobal ('grabbing_cursor');
                 lz.Cursor.lock ();
+                gHotKeys.disableKeys();
                 classroot.dragger.apply ();
             </handler>
             <handler name="onmouseup">
@@ -200,7 +201,7 @@
                 gController.restoreCurrentCursor();*/
                 lz.Timer.resetTimer(gController.dRestoreCursor, 100);
                 classroot.dragger.remove ();
-                
+                gHotKeys.enableKeys();
                 classroot.datapath.p.setAttr ('x', classroot.x);
                 classroot.datapath.p.setAttr ('y', classroot.y);
             </handler>
