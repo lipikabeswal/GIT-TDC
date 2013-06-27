@@ -318,13 +318,13 @@
             removeAllStates();
 			//canvas.unFreezUI();
             if ( !contents.gs.isinited ) contents.gs.completeInstantiation();
-
+			contents.gs.isTimeout();
             contents.gs.setAttribute('visible', true );
 
             show();
 
         </method>
-
+		
        <method name="showOptOut" args="sn">
 
             removeAllStates();

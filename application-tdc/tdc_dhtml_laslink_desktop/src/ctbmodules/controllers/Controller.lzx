@@ -585,6 +585,12 @@
 		<attribute name="resetButtonEnable" value="false" type="boolean" />
 		<attribute name="isPaused" value="false" type="boolean" />
 		<attribute name="isMousedownOnScratchpad" value="false" type="boolean" />
+		<attribute name="testTimeout" type="boolean" value="false"/>
+		<attribute name="elapsedmsforpause" type="number" value="0" />
+		<attribute name="durationmsforpause" type="number" value="0" />
+		<attribute name="qtimestampforpause" type="number" value="0" />
+		<attribute name="timingforpause" type="boolean" value="false" />
+		<attribute name="timerInterval" type="number" value="1200000" />
 		
 		<handler name="onisMousedownOnScratchpad"><![CDATA[
 			gScratchpad.onmouseup.sendEvent();
@@ -1102,15 +1108,20 @@
 		<method name="_handleSubtestFinishResponse" args="response">
 			var node = lz.DataElement.stringToLzData(response);
 			var nextSubtestIndex = getSubtestIndex(node);
-			if(nextSubtestIndex != -1){
-				setAttribute('currentSubtestIndex', nextSubtestIndex);
-				getSubtest();
-			}
-			else if(isFeedback()){
-				getFeedback();
+			if(this.testTimeout) {
+				terminate();
 			}
 			else {
-				terminate();
+				if(nextSubtestIndex != -1){
+					setAttribute('currentSubtestIndex', nextSubtestIndex);
+					getSubtest();
+				}
+				else if(isFeedback()){
+					getFeedback();
+				}
+				else {
+					terminate();
+				}
 			}
 		</method>
 		<method name="getSubtestIndex" args="node"><![CDATA[
@@ -1179,7 +1190,9 @@
 			//stopAsset();
 			stopHeartbeat();
 			stopMicCheck();
+			removePauseTimer();
 			hideManipulatives();
+			gPauseTimerScreen.setAttribute('visible',false);
 			gScreens.showGoodbye();
 			lz.Timer.addTimer( dcloseBrowser, 5000 );
 		</method>
@@ -1224,7 +1237,7 @@
 				gScreens.showLoginError(gXmlHelper.getStatusCode(response));
 			}
 			else{
-
+				dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
 	    		var node = lz.DataElement.stringToLzData(response);
 	    		dp.setPointer(node);
 				//Debug.write("dp------------- :",dp);
@@ -3278,7 +3291,10 @@
           	closeOpenManipulatives();
           	hideManipulatives();
 			gMusicPlayer.hide();
+			resetPauseTimer(timerInterval);
+			startPauseTimer();
             gScreens.showPause(getStudentName());
+            gPauseTimerScreen.setAttribute('visible',true);
 		</method>
 
 		<method name="pausedContinue" args="pw">
@@ -3314,10 +3330,9 @@
 			gController.setAttribute("resetButtonEnable",false);
 			gController.setAttribute("recordingCompleted",false);
 			gController.setAttribute("recordState",true);
-			//gController.setAttribute("isPaused",true);
-			
-			//var s="playAudio()";
-			//lz.Browser.loadJS(s);
+			removePauseTimer();
+			gPauseTimerScreen.setAttribute('visible',false);
+			dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
 		</method>
 		
 		<method name="hideManipulatives">
@@ -4052,7 +4067,14 @@
                         default:
 //                            Debug.warn ('INIT MANIPULATIVE DATA: cant handle ', dntoolbar.attributes [i]);
                     }
-					
+					if (initglobal){
+						if ('true' == dpsubtest.xpathQuery('testing_session_data/lms.student.accommodations/@masking_ruler')){
+							dnglobal.setAttr ('masking_ruler', 'up');
+						}
+						else{
+							dnglobal.setAttr ('masking_ruler', 'disable');
+						}
+					}
 					//check if formula card resource attribute is present, get its value 
 					if(i == 'formula_card_resource' && dntoolbar.attributes [i] != null) {
 						this.setAttribute("formulaCardResource", dntoolbar.attributes [i]); // store the card swf name to an attribute 
@@ -4065,9 +4087,9 @@
                         	if(i == 'highlighter' && !this.showHighlighter){
                         		dnglobal.setAttr('highlighter', 'disable');
                         	}
-                        	else if(i == 'masking_ruler' && !this.showMaskingRuler){
+                        	/*else if(i == 'masking_ruler' && !this.showMaskingRuler){
                         		dnglobal.setAttr('masking_ruler', 'disable');
-                        	}
+                        	}*/
                         	else {
                         	   	dnglobal.setAttr (i, toolstate);
                         	}
@@ -5757,6 +5779,69 @@
 			}
 			//console.log("isMicPresent*****"+isMicPresent);
 		]]></method>
+		
+		<method name="testTimedout">
+			 console.log("gController testTimedout********");
+			gPauseTimerScreen.setAttribute('visible',false);
+			timeoutDialog.close();
+			this.setAttribute('testTimeout',true);
+			copyCurrentToRuntime();
+			endSubtest();
+		</method>
+		
+		<method name="startPauseTimer">
+            updateTimeLeftForPause();
+            lz.Timer.resetTimer( dupdateTimeLeftForPause, 1000 );
+            this.qtimestampforpause = getTimer();
+            this.timingforpause = true;
+            exitPopups();
+        </method>
+        
+        <method name="updateTimeLeftForPause"><![CDATA[
+            var timestamp = getTimer();
+            if ( timingforpause ) {
+                var remainingmsforpause =
+                    durationmsforpause - (timestamp - qtimestampforpause);
+                if ( remainingmsforpause <= 0 ) {
+                    dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
+					canvas.setPromptDimension();
+					timeoutDialog.open();
+                } else {
+                    var timeleftforpause = secondsToString(
+                        Math.floor( remainingmsforpause / 1000 )
+                    );
+                    dpdisplay.setNodeAttribute( 'timeleftforpause', timeleftforpause );
+
+                    lz.Timer.resetTimer( dupdateTimeLeftForPause, 1000 );
+                }
+            } else {
+                var remainingmsforpause = durationmsforpause - elapsedmsforpause;
+                if ( remainingmsforpause <= 0 ) {
+                    dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
+					canvas.setPromptDimension();
+					timeoutDialog.open();
+                } else {
+                    var timeleftforpause = secondsToString(
+                        Math.floor( remainingmsforpause / 1000 )
+                    );
+                    dpdisplay.setNodeAttribute( 'timeleftforpause', timeleftforpause );
+                }
+            }
+        ]]></method> 
+
+		<attribute name="dupdateTimeLeftForPause"
+			value="$once{ new LzDelegate( this, 'updateTimeLeftForPause' ) }" />
+
+		<method name="resetPauseTimer" args="durseconds">
+            this.durationmsforpause = durseconds;
+            this.elapsedmsforpause  = 0;
+            this.qtimestampforpause = 0;
+            this.timingforpause     = false;
+        </method>
+
+		<method name="removePauseTimer">
+			lz.Timer.removeTimer(dupdateTimeLeftForPause);
+		</method>
 	</node>
 
 </library>

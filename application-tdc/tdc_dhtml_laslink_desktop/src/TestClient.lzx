@@ -158,6 +158,18 @@
 	<method name="doNothing">
     </method>
     
+    <method name="setPromptDimension">
+		if(gPauseTimerScreen.visible) {
+			titleView.mainView.timeoutDialog.pauseTimerMsg.setAttribute('visible',true);
+			titleView.mainView.timeoutDialog.setAttribute('y',200);
+		} else {
+			titleView.mainView.timeoutDialog.pauseTimerMsg.setAttribute('visible',false);
+			titleView.mainView.timeoutDialog.setAttribute('y',20);
+			titleView.mainView.timeoutDialog.setAttribute('height',130);
+			titleView.mainView.timeoutDialog.setAttribute('width',360);
+		}
+	</method>
+    
 	<!--  this view tests whether or not the eliminator resource is available -->
 	<!-- <view name="eliminatorTester" visible="false" height="0"
 		width="0">
@@ -221,6 +233,8 @@
             </SecurityScreen>
             <Tutorial id="gTutorial" width="800" height="600"
                         visible="false"/>
+            <PauseTimerScreen id="gPauseTimerScreen" name="gPauseTimerScreen" 
+				width="800" height="200" visible="false"/>
 
 	        <!-- include the please wait popup -->
 	        <include href="ctbmodules/question/RevisitFalsePopup.lzx"/>
@@ -230,6 +244,30 @@
         </view>
 
     </view>
+    
+    <modaldialog id="timeoutDialog" name="timeoutDialog" title=" " 
+			width="400" height="160" visible="false" bgcolor="0x6691B4" x="470" y="20">
+	    <text name="pauseTimerMsg"
+			 font="CTB"	
+             fontsize="15" 
+             fgcolor="white"
+			 visible="false"
+			 width="100%"
+			 multiline="true">
+			 Your test has been Paused for more than the 20-minute time limit and has now ended. Click OK to close the session.
+           </text>
+	    <view align="center" valign="middle" layout="axis:x; spacing:20">
+	      <OkButton enabled="${ gScreens.allowclick }">
+               <handler name="onclick">
+               	   console.log("in continue of OK method********");
+                   gScreens.clicked();
+                   gController.testTimedout();
+               </handler>
+           </OkButton>
+	    </view>
+	    <simplelayout spacing="5"/>
+  </modaldialog>
+    
 	<Manipulatives id="gManipulatives" x="${canvas.titleView.mainView.scalingView.x}"
 				   y="${(gItemInterface.contents.itemScreen.header.manipulativeToolbar.y+gItemInterface.contents.itemScreen.header.manipulativeToolbar.manipulativeBarContainer.height+20)*canvas.yscalefactor}"
 				   width="${gQuestion.width*canvas.xscalefactor}"
