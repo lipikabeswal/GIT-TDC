@@ -208,13 +208,13 @@
 			            x.setAttribute('id', 'loginScreenId');
 			        }
 			    </handler>
-				<text name="copyWriteText" y="200" font="Arial" fontsize="12" 
+				<text name="copyWriteText" y="200" font="CTB" fontsize="12" 
 			        fgcolor="${canvas.copyriteColor}" height="16" 
 				    text="${canvas.Copyrite}"/>
             </Screens>
 			<SecurityScreen id="gSecurityScreen" x="100" y="100" width="600"
 				height="300" visible="false">
-				<text name="copyWriteText" y="300" font="Arial" fontsize="12" 
+				<text name="copyWriteText" y="300" font="CTB" fontsize="12" 
 			        fgcolor="${canvas.copyriteColor}" height="16" 
 				    text="${canvas.Copyrite}"/>
             </SecurityScreen>
