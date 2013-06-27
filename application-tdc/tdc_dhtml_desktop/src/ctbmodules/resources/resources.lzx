@@ -603,7 +603,7 @@
 	
 	<!-- logo added for laslinks -->
 	
-	<resource name="logo" src="logos/logoLASLINKS.png"/>
+	<resource name="logo" src="logos/logo.png"/>
 	
 	<!-- ****************** End Recorder Resources ************************************************* -->
 </library>
