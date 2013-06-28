@@ -146,7 +146,9 @@
 			</handler>
 			<handler name="ontext">
 			  	if(this.getTextHeight() > this.height) {
-			  		this.setScroll(this.getMaxScroll());
+					if(this.isCtrl){
+			  			this.setScroll(this.getMaxScroll());
+					}
 			  	}
 			</handler>
 			<handler name="onkeyup" reference="LzKeys" args="k"><![CDATA[
