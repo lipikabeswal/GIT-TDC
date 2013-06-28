@@ -3284,7 +3284,7 @@
 				gMagnifyingGlass.onmouseup.sendEvent();
 				this.setAttribute("isManipMouseDown",false);
 			}
-                       
+           clearAndRestoreCurrentCursor();            
 		]]></method>
 
 		<method name="closeOpenManipulatives"><![CDATA[
@@ -3358,6 +3358,7 @@
 				gScreens.removeFinishState();
 			}
 			gTooltip.hideTooltip();
+			restoreCurrentCursor();
         </method>
 
 		<method name="continueTest">
