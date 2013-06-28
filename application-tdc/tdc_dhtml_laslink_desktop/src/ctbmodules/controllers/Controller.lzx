@@ -2769,7 +2769,7 @@
 			}
 			else {
 				this.setAttribute("navigateConfirm",false);
-				//this.questionBar._changeStatus(false);
+				this.questionBar._changeStatus(false);
 				//Debug.warn("question bar change status called");
 			}
 
