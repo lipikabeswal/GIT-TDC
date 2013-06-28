@@ -1,0 +1,18 @@
+<library>
+	
+	<class name="TimeOutScreen" font="CTB">
+		
+		<attribute name="uienabled"
+                   value="$path{ 'dsdisplay:/display/@enabled' }"/>
+			<view x="10" valign="middle"> 
+            <simplelayout axis="y"/>
+			<text font="CTB" fontsize="20" width="580" fgcolor="white"
+				name="pauseText" multiline="true">Your test session has ended as you have been inactive for 20 minutes.
+				Click OK to close the session.
+			</text>	
+	        <text name="thetime" fgcolor="white" width="800"
+			  fontsize="45" x="210" y="300"
+	          datapath="dsdisplay:/display/@timeleftforpause"/>
+			</view>
+    </class>
+</library>

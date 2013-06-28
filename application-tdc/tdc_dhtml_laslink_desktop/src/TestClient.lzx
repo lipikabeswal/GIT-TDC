@@ -86,6 +86,20 @@
 	<attribute name="bringBackFocus" />	
 	<attribute name="LASAssetPath"/>
 	
+	<handler name="onkeydown" reference="lz.Keys" args="k"><![CDATA[
+		if(gController.getAttribute('isHandlerInactive') == false) {
+			gController.setAttribute('trackTimer',0);
+			gController.resetTrackTimer();
+		}
+	]]></handler>
+	
+	 <handler name="onmousedown" reference="lz.GlobalMouse"><![CDATA[
+	 	if(gController.getAttribute('isHandlerInactive') == false) {
+			gController.setAttribute('trackTimer',0);
+			gController.resetTrackTimer();
+		}
+	]]></handler> 
+	
 	<method name="setScale"><![CDATA[
 		canvas.setAttribute('xscalefactor',canvas.titleView.mainView.scalingView.xscale);
 		canvas.setAttribute('yscalefactor',canvas.titleView.mainView.scalingView.yscale);

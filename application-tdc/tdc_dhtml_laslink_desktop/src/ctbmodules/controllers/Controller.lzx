@@ -592,6 +592,7 @@
 		<attribute name="qtimestampforpause" type="number" value="0" />
 		<attribute name="timingforpause" type="boolean" value="false" />
 		<attribute name="timerInterval" type="number" value="1200000" />
+		<attribute name="isHandlerInactive" type="boolean" value="false" />
 		
 		<handler name="onisMousedownOnScratchpad"><![CDATA[
 			gScratchpad.onmouseup.sendEvent();
@@ -808,6 +809,7 @@
 		</method>
 
 		<handler name="oninit">
+			this.setAttribute('isHandlerInactive', true);
         	checkIsProduct();
         	//gScreens.showLogin();
 			var base = lz.Browser.getInitArg( 'servletUrl' );
@@ -1197,6 +1199,7 @@
 			//stopAsset();
 			stopHeartbeat();
 			stopMicCheck();
+			removeTrackTimer();
 			removePauseTimer();
 			hideManipulatives();
 			gPauseTimerScreen.setAttribute('visible',false);
@@ -1295,6 +1298,7 @@
 				sendHeartbeat();   // starts heartbeats
 				//resetMicCheck();
 				if(gTutorialManager.hasTutorial){
+					recalltrackMouseMove();
 					gTutorialManager.doTutorialFlow();
 				}
 				else{
@@ -1302,6 +1306,7 @@
 					if(gController.displayText == true || gController.displayText == 'true') {
 						gSecurityScreen.showIndianaSecurityScreen();
 					} else {
+						recalltrackMouseMove();
 						gDownloadManager.downloadContent();
 					}
 				}
@@ -1702,6 +1707,7 @@
                 }
 				
 				if(firstSubtest){
+					recalltrackMouseMove();
                 	gScreens.showWelcome( mins, total, untimed, getStudentName() );
                 }
                 else{
@@ -3255,6 +3261,7 @@
             	gReadableText.stopReading(false);
                 freezeUI();
                 stopQuestion();
+				removeTrackTimer();
 				//gMusicPlayer.hide();
 		   //For defect 65881         
             if(this.recorder != null)
@@ -3298,6 +3305,7 @@
           	closeOpenManipulatives();
           	hideManipulatives();
 			gMusicPlayer.hide();
+			removeTrackTimer();
 			resetPauseTimer(timerInterval);
 			startPauseTimer();
             gScreens.showPause(getStudentName());
@@ -3311,6 +3319,7 @@
 				setState(PAUSED_RESUME_STATE);
 				resetMicCheck();
 				resetHeartbeat();
+				recalltrackMouseMove();
 				gCommunicator.lifecycle(RESUME_LEV);
 				//canvas.freezUI();
                 return true;
@@ -3324,6 +3333,7 @@
 			showItemInterface();
 			gScreens.resetTextFieldColor();
             startQuestion();
+			recalltrackMouseMove();
 			showManipulatives();
             unlockUI();
             gQuestion.setGrFocus();
@@ -3511,6 +3521,7 @@
             lz.Cursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
 			showManipulatives();
+			recalltrackMouseMove();
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
             unlockUI();
@@ -3704,7 +3715,7 @@
 			gController.setAttribute("magnifierState",false);
 			hideMaskingChoiceDD();
 			resetMicCheck(); // First call for Mic Check
-			this.setAttribute('canNotAnswer',false); // set canNotAnswer to false on item load for responseAreaLocker attribute.
+			//this.setAttribute('canNotAnswer',false); // set canNotAnswer to false on item load for responseAreaLocker attribute.
 			gTooltip.hideTooltip ();
 		]]></method>
 
@@ -4945,6 +4956,7 @@
 		<method name="hideWaitPopup"><![CDATA[
 			this.isWaitPopupOpen = false;	
 			gPleaseWaitPopup.hide();
+			recalltrackMouseMove();
 			if(gItemInterface.visible == true || gItemInterface.visible == 'true'){
 				resetMicCheck();
 			}
@@ -5848,6 +5860,51 @@
 
 		<method name="removePauseTimer">
 			lz.Timer.removeTimer(dupdateTimeLeftForPause);
+		</method>
+
+		<attribute name="trackDel" 
+                   value="$once{new LzDelegate( this , 'trackMouseMove' ) }" />
+
+		<method name="trackMouseMove" >
+            <![CDATA[
+            var xpos = Math.round( canvas.getMouse("x") );
+            var ypos = Math.round( canvas.getMouse("y") );
+            if ( (this.lastxpos != xpos) 
+              || (this.lastypos != ypos) ) {
+                this.lastxpos = xpos;
+                this.lastypos = ypos;
+				this.setAttribute('trackTimer',0);
+                resetTrackTimer();
+            }else{
+            	this.setAttribute('trackTimer',Math.round(this.trackTimer+1000));
+            	if(this.trackTimer >= timerInterval){        		
+					stopQuestion();
+					removeTrackTimer();
+					gScreens.showTimeoutForInactivity();
+					canvas.setPromptDimension();
+            		timeoutDialog.open();					
+            	} else {
+					resetTrackTimer();
+				}
+            }
+            ]]>
+        </method>
+        
+        <method name="resetTrackTimer">
+			//Debug.write("trackTimer",this.trackTimer);
+			lz.Timer.resetTimer(trackDel,1000);
+		</method>
+
+		<method name="removeTrackTimer">
+			this.setAttribute('isHandlerInactive', true);
+			this.setAttribute('trackTimer',0);
+			lz.Timer.removeTimer(trackDel);
+		</method>
+
+		<method name="recalltrackMouseMove">
+			this.setAttribute('isHandlerInactive', false);
+			this.setAttribute('trackTimer',0);
+			trackMouseMove();
 		</method>
 	</node>
 
