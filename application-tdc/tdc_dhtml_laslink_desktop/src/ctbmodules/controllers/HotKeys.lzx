@@ -187,6 +187,10 @@
 		   	lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l' ] );
             lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
             lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
+            if (navigator.appVersion.indexOf("Mac")!=-1) {
+				//dmacOptionKeysHandler.unregisterFrom( lz.Keys, 'onkeydown' );
+                dmacOptionKeysHandler.register( lz.Keys, 'onkeydown' );
+            }
 
 
 		</method>
@@ -339,7 +343,7 @@
         ]]></method>
 
 		<method name="handleHtmlKeyPress" args="data"><![CDATA[
-		        if(gPleaseWaitPopup.visible || gScreens.visible || gController.isStopScreen || gController.isPauseTest || gController.scratchpadOpen){
+		        if(gPleaseWaitPopup.visible || gScreens.visible || gController.isStopScreen || gController.isPauseTest || gController.scratchpadOpen || gController.isRevisitPopupOpen){
 		        	// do nothing
 		        	// this condition is for the defect 74092,74190
 		        }else{
@@ -383,9 +387,8 @@
 			       			stop();
 			       		else if(key == 'Ctrl+F')
 			       			finish();
-				} else {
-					if(!gController.canNotAnswer){
-					if(key == 'A' || key == 'Shift+A' || key == 'Caps_lock+A' || key == 'Shift+Caps_lock+A')
+				} else if(!gController.canNotAnswer){
+						if(key == 'A' || key == 'Shift+A' || key == 'Caps_lock+A' || key == 'Shift+Caps_lock+A')
 			       			toggleA();
 			       		else if(key == 'B' || key == 'Shift+B' || key == 'Caps_lock+B' || key == 'Shift+Caps_lock+B')
 			       			toggleB();
@@ -405,15 +408,21 @@
 			       			toggleI();
 			       		else if(key == 'j' || key == 'Shift+J' || key == 'Caps_lock+J' || key == 'Shift+Caps_lock+J')
 			      			toggleJ();
-					}
-					if(key == 'Ctrl+L')
-		       			toggleMark();
-		       		else if(key == 'Ctrl+U')
-		       			pause();
-		       		else if(key == 'Ctrl+S')
-		       			stop();
+						else if(key == 'Ctrl+L')
+							toggleMark();
+						else if(key == 'Ctrl+U')
+							pause();
+						else if(key == 'Ctrl+S')
+							stop();
+					} else {
+						if(key == 'Ctrl+L')
+							toggleMark();
+						else if(key == 'Ctrl+U')
+							pause();
+						else if(key == 'Ctrl+S')
+							stop();
+						}
 				}
-			}	
         ]]></method>
 
 
@@ -509,27 +518,31 @@
 
 				<method name="macOptionKeysHandler" args="k"><![CDATA[
 		console.log("macOptionKeysHandler the key pressed is :: ",k);
-	if(!gController.canNotAnswer && !gController.scratchpadOpen){
+		if(gController.isWaitPopupOpen || gScreens.visible){
+			//console.log("macOptionKeysHandler inside pleasewait block");
+			//do nothing if the please wait is shown.
+		}else if(!gController.canNotAnswer && !gController.scratchpadOpen && !gController.unlockNavigation){
+		//console.log("macOptionKeysHandler inside normal block");
            switch ( k ) {
 				case 65: 
                     this.exitPopups();
                     //toggleA();
-                    console.log("toggle a called");
+                    //console.log("toggle a called");
                     break;
 				case 66: 
                     this.exitPopups();
                     //toggleB();
-                    console.log("toggle b called");
+                    //console.log("toggle b called");
                     break;
 				case 67: 
                     this.exitPopups();
                     //toggleC();
-                    console.log("toggle c called");
+                    //console.log("toggle c called");
                     break;
 				case 68: 
                     this.exitPopups();
                     //toggleD();
-                    console.log("toggle d called");
+                    //console.log("toggle d called");
                     break;
 				case 69: 
                     this.exitPopups();
@@ -570,7 +583,84 @@
 				default:
 					break;
 	 		}
+		} else if(!gController.canNotAnswer && !gController.scratchpadOpen && gController.unlockNavigation){
+			  switch ( k ) {
+				case 65: 
+                    this.exitPopups();
+                    //toggleA();
+                    //console.log("toggle a called");
+                    break;
+				case 66: 
+                    this.exitPopups();
+                    //toggleB();
+                    //console.log("toggle b called");
+                    break;
+				case 67: 
+                    this.exitPopups();
+                    //toggleC();
+                    //console.log("toggle c called");
+                    break;
+				case 68: 
+                    this.exitPopups();
+                    //toggleD();
+                    //console.log("toggle d called");
+                    break;
+				case 69: 
+                    this.exitPopups();
+                    //toggleE();
+                    break;
+				case 70: 
+                    this.exitPopups();
+                    //toggleF();
+                    break;
+				case 71: 
+                    this.exitPopups();
+                    //toggleG();
+                    break;
+				case 72: 
+                    this.exitPopups();
+                    //toggleH();
+                    break;
+				case 73: 
+                    this.exitPopups();
+                    //toggleI();
+                    break;
+				case 74: 
+                    this.exitPopups();
+                    //toggleJ();
+                    break;
+				case 12: 
+                    this.exitPopups();
+                    gController.toggleMark(); 
+                    break;
+				case 19: 
+                    this.exitPopups();
+                    gController.finishTest(); 
+                    break;
+				case 21: 
+                    this.exitPopups();
+                    gController.pauseTest(); 
+                    break;
+                case  6:
+                    this.exitPopups(); 
+        			gController.finishTestShortcut();      
+                    break;
+				case 10: 
+					if(!gController.fwdOnly){
+	                    this.exitPopups();
+	                    gController.stepNavigateBack();  
+					}
+                    break;
+				case 11: 
+                    this.exitPopups();
+                    gController.stepNavigateForward(); 
+                    break;
+				default:
+					break;
+	 		}	 
+		
 		} else {
+		console.log("macOptionKeysHandler inside else block");
 			 switch ( k ) {
 				case 12: 
                     this.exitPopups();

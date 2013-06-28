@@ -258,12 +258,12 @@ Debug.write("else "+data +" : "+ hasstate);
                   	  classroot.bringToFront();
                       lz.Cursor.setCursorGlobal ('grabbing_cursor');
                       lz.Cursor.lock();
-                      gHotKeys.disableKeys();
+                      //gHotKeys.disableKeys();
                       classroot.dragger.apply ();
                   </handler>
                 <handler name="onmouseup">
                       //lz.Cursor.unlock();
-                      gHotKeys.enableKeys();
+                      //gHotKeys.enableKeys();
                       //gController.restoreCurrentCursor();
 					  lz.Timer.resetTimer(gController.dRestoreCursor, 100);
                       classroot.dragger.remove ();

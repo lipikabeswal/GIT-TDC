@@ -11,6 +11,7 @@
 	<attribute name="fg" type="color" value="0xE0E0E0"/>
 	<attribute name="navigateFrom"/>
 	<attribute name="exitButtonStatus" type="boolean" value="false" />
+	<attribute name="pleaseWaitVisible" type="boolean" value="false"/>
 	
 	<!-- the default setup should always be ready as this popup can be shown at login time also -->
 	<handler name="oninit">
@@ -40,15 +41,17 @@
 		this.contents.networkLost.inBar.barAnimator.stop();
 		lz.ModeManager.release(this);
 		//canvas.unFreezUI();
-		if(gItemInterface.visible && !gController.isAudioPaused){
+		if(gItemInterface.visible && !gController.isAudioPaused && this.pleaseWaitVisible){
 			playAudio();
 		}
+		this.setAttribute("pleaseWaitVisible", false);
     ]]></method>
 	
     <method name="show">
     	//canvas.freezUI();
     	gManipulatives.setAttribute('visible',false);
         this.setAttribute("visible", true);
+        this.setAttribute("pleaseWaitVisible", true);
         gPleaseWaitPopup.bringToFront();
         this.contents.networkLost.inBar.barAnimator.doStart();
         lz.ModeManager.makeModal(this);

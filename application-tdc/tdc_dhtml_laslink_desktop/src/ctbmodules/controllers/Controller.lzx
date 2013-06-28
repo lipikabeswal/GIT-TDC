@@ -515,7 +515,7 @@
 		<attribute name="lasAssetArray" value="$once{new Array()}" />
 		<attribute name="isplaying" type="boolean" value="false"/>
 		<attribute name="recordingStopped" type="boolean" value="false"/>
-		<attribute name="unlockNavigation" type="boolean" value="false"/>
+		<attribute name="unlockNavigation" type="boolean" value="true"/>
 
 		<!-- isAnswerSet,findAnswer attributes using for freezing/Unfreezing the UI -->
 		<attribute name="isAnswerSet" type="boolean" value="false"/>
@@ -4937,6 +4937,7 @@
 			stopMicCheck();
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
+			gHotKeys.disableKeys();
 			//canvas.unFreezUI();
 		]]></method>
 
