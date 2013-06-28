@@ -3148,6 +3148,11 @@
 			gPauseTimerScreen.setVisible(true);
 			gRevisitFalsePopup.hide();
 			gHotKeys.disableKeys();
+			if(this.isManipMouseDown){
+				gMaskingRuler.onmouseup.sendEvent();
+				gMagnifyingGlass.onmouseup.sendEvent();
+				this.setAttribute("isManipMouseDown",false);
+			}
 		</method>
 
 		<method name="pausedContinue" args="pw">
