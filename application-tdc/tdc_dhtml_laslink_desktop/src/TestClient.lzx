@@ -87,14 +87,14 @@
 	<attribute name="LASAssetPath"/>
 	
 	<handler name="onkeydown" reference="lz.Keys" args="k"><![CDATA[
-		if(gController.isHandlerInactive == false) {
+		if(gController.getAttribute('isHandlerInactive') == false) {
 			gController.setAttribute('trackTimer',0);
 			gController.resetTrackTimer();
 		}
 	]]></handler>
 	
 	 <handler name="onmousedown" reference="lz.GlobalMouse"><![CDATA[
-	 	if(gController.isHandlerInactive == false) {
+	 	if(gController.getAttribute('isHandlerInactive') == false) {
 			gController.setAttribute('trackTimer',0);
 			gController.resetTrackTimer();
 		}
@@ -273,8 +273,7 @@
 	    <view align="center" valign="middle" layout="axis:x; spacing:20">
 	      <OkButton enabled="${ gScreens.allowclick }">
                <handler name="onclick">
-               	   console.log("in continue of OK method********");
-                   gScreens.clicked();
+               	   gScreens.clicked();
                    gController.testTimedout();
                </handler>
            </OkButton>
