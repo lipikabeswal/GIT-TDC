@@ -33,6 +33,7 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
 
 				case 58://option key
 					optIsDown = (optIsDown == 1) ? 0 : 1;
+                    return NULL;
 				break;
 
 				case 59://control key
@@ -81,8 +82,11 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
 					}
 				break;
 
-				default:
-				break;
+				default://if option key is down, ignore any normal key to avoid option+key combination, we will have to handle above cases also.
+                    if(optIsDown) {
+                        return NULL;
+                    }
+                    break;
 			}
 
 		break;
@@ -182,6 +186,7 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
     [super windowControllerDidLoadNib:aController];
 
 	[webView setFrameLoadDelegate:self];
+    [webView setUIDelegate:self];
 	//[webView setDrawsBackground:NO];//to avoid default white background
 	
 	NSAutoreleasePool *pool;
@@ -246,6 +251,13 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
 	[self disableEject];
 
 	[pool drain];		
+}
+
+- (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element
+    defaultMenuItems:(NSArray *)defaultMenuItems
+{
+    // disable right-click context menu
+    return nil;
 }
 
 /*will do it later 
