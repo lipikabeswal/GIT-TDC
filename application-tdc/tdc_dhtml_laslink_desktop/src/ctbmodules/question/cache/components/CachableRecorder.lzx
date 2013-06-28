@@ -272,6 +272,10 @@
 					<view name="showStatus" y="${9 * classroot.factor}" x="0" width="${20 * classroot.factor}" height="${40 * classroot.factor}">
 						<text name="recordStatus" fontsize="${12 * classroot.factor}"
 							font="CTB" resize="true" fontstyle="bold" height="100%">
+						<handler name="ontext"><![CDATA[
+							var elm1 = getDisplayObject();
+							elm1.setAttribute('style','font-family: CTB; font-weight: bold; font-size: '+this.fontsize+'; pointer-events: none;  width: auto;');
+						]]></handler>
 						</text>
 					</view>
 				</view>
