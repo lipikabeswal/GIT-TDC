@@ -288,10 +288,11 @@
 					<text name="timertext" fontsize="${12 * classroot.factor}" fontstyle="bold"
 						font="CTB" fgcolor="0x008000"  valign="bottom" height="100%" >
 						
-						<handler name="ontext">
+						<handler name="ontext"><![CDATA[
 							var elm = getDisplayObject();
-							elm.setAttribute('style','font-family: CTB; font-weight: bold; font-size: 12px; line-height: 14px; pointer-events: none; height: 16px; width: auto;');
-						</handler>
+							elm.setAttribute('style','font-family: CTB; font-weight: bold; font-size: '+this.fontsize+'; pointer-events: none; height: 16px; width: auto;');
+						]]></handler>
+                        
 						
 			<!--			<handler name="ontext"><![CDATA[
 							console.log("===ONTEXT===",this.text.length);
