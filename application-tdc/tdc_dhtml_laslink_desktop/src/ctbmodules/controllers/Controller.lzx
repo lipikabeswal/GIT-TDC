@@ -3310,6 +3310,7 @@
 			startPauseTimer();
             gScreens.showPause(getStudentName());
             gPauseTimerScreen.setAttribute('visible',true);
+            gTooltip.hideTooltip();
 		</method>
 
 		<method name="pausedContinue" args="pw">
@@ -3531,6 +3532,7 @@
 			}
 			checkShowMagnifierGlass();
 			gHotKeys.handleHotKeysNav();
+			gTooltip.hideTooltip();
         </method>
 
 		<method name="continueTest">
