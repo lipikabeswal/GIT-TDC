@@ -31,7 +31,13 @@
 						  align="right"
 						  valign="bottom"
 						  fontsize="13"
-						  xoffset="5"/>
+						  xoffset="5"
+						  maxlength="16">
+						<handler name="ontext">
+							var elm = this.getDisplayObject();
+							elm.setAttribute('style','font-family: CTB; font-size: 13px; line-height: 16px; pointer-events: none; height: 16px; width: auto');
+						</handler>
+					</text>
 					<text name="memoryDisplay" 
 						  text="M"
 						  valign="bottom" 
