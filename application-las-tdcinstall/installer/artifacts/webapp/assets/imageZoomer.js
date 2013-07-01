@@ -112,7 +112,11 @@ var ddpowerzoomer={
 	
 	init:function($){
 		
-		var $magnifier=$('<div style="position:absolute;z-index:1000000;width:'+parseInt(ddpowerzoomer.$zommersettings.magnifiersize[0])+ 'px;height:'+parseInt(ddpowerzoomer.$zommersettings.magnifiersize[1])+'px;display:none;" />')
+		var $ele = $('<div style="position:absolute;z-index:1000000;width:'+parseInt(ddpowerzoomer.$zommersettings.magnifiersize[0])+ 'px;height:'+parseInt(ddpowerzoomer.$zommersettings.magnifiersize[1])+'px;display:none;" />'); 
+                $ele.on("mouseleave",function() { 
+                        $(document).trigger("mouseup"); 
+                }); 
+             var $magnifier= $ele
 			.append('<div  id="magnifierWindow" style="width:'+ddpowerzoomer.$zommersettings.magnifiersize[0]+ 'px;height:'+ddpowerzoomer.$zommersettings.magnifiersize[1]+'px;overflow:hidden; border:8px solid #333333;"><div style="position:relative;left:0;top:0;" /></div>')
 			.appendTo(document.body).draggable({
 			containment: [0, 0,document.body.offsetWidth - 316,$("body").height()-116],	
@@ -122,6 +126,12 @@ var ddpowerzoomer={
 			},
 			start: function(event,ui) {
 			    //alert(window.isDragging);
+			    if(gScratchpad.visible){
+			    	gController.setAttribute('isMousedownOnScratchpad',true);
+			    }
+			    if(gMaskingRuler.visible){
+			    	gController.setAttribute('isMousedownOnRuler',true);
+			    }
 			    if(isDragging == 0){
 			    isDragging = 1;				
 			    jQuery("#magnifierWindow").css('visibility','hidden');
