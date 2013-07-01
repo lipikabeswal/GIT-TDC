@@ -182,21 +182,21 @@
          		  
          		<handler name="onpos" reference="this.inp" args="_pos">
 				  	if(typeof _pos == 'number'){
-        				//this.setAttribute("scrollPos", _pos);
+        				this.setAttribute("scrollPos", _pos);
        			  	}
         	    </handler>
         
 				<handler name="onfocus" reference="inp">
 					classroot.setAttribute("scratchpadHasFocus", true);
-					//gHotKeys.disableKeys();
+					gHotKeys.disableKeys();
 					classroot.bringToFront();
 				</handler>
 				
 				<handler name="onblur" reference="inp">
 					//Debug.write("onblur.....");
-					/*if(gItemInterface.visible == true || gTutorial.visible == true){
+					if(gItemInterface.visible == true || gTutorial.visible == true){
 						gHotKeys.enableKeys();
-					}*/
+					}
 				</handler>
 				
 				<handler name="onkeyup" reference="inp">
