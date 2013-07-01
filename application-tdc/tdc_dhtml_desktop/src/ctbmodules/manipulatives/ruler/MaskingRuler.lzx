@@ -250,11 +250,10 @@ Debug.write("else "+data +" : "+ hasstate);
             </view>
 			<handler name="onmouseover">
                       gController.setCurrentCursor('cangrab_cursor');
-                      classroot.dragger.remove ();
                   </handler>
                   <handler name="onmouseout">
+                  	  classroot.dragger.remove ();
                       gController.clearAndRestoreCurrentCursor();
-                      classroot.dragger.remove ();
                   </handler>
                   <handler name="onmousedown">
                   	  classroot.bringToFront();

@@ -187,6 +187,7 @@
                 gController.setCurrentCursor('cangrab_cursor');
             </handler>
             <handler name="onmouseout">
+            	classroot.dragger.remove ();
                 gController.clearAndRestoreCurrentCursor();
             </handler>
             <handler name="onmousedown">

@@ -66,6 +66,7 @@
         </handler>
 
         <handler name="onmouseout">
+        	this.dragger.remove ();
             gController.clearAndRestoreCurrentCursor();
         </handler>
 

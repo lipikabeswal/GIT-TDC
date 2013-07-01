@@ -14,12 +14,6 @@
 		<handler name="onmousedown" >
 			this.bringToFront();
 		</handler>
-	
-		<handler name="oninit">
-			var elm = this.getDisplayObject();
-			elm.setAttribute('id',"baseRuler");
-		</handler>		
-
 		<handler name="ontickmarksrsr">
 			if(this.tickmarksrsr != null){
 				this.ruler.tickmarks.setAttribute('resource',this.tickmarksrsr);
@@ -389,13 +383,13 @@
                  gController.setCurrentCursor('cangrab_cursor');
              </handler>
              <handler name="onmouseout">
+             	 classroot.dragger.remove ();
                  gController.clearAndRestoreCurrentCursor();
              </handler>
              <handler name="onmousedown">
-             console.log("onmousedown of ruler");
+             	  classroot.bringToFront();
                  lz.Cursor.setCursorGlobal ('grabbing_cursor');
                  lz.Cursor.lock ();
-                 classroot.bringToFront();
                  gHotKeys.disableKeys();
                  classroot.dragger.apply ();
 				
