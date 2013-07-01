@@ -40,6 +40,7 @@
         this.setAttribute("visible", false);
 		this.contents.networkLost.inBar.barAnimator.stop();
 		lz.ModeManager.release(this);
+		gController.recalltrackMouseMove();
 		//canvas.unFreezUI();
 		if(gItemInterface.visible && !gController.isAudioPaused && this.pleaseWaitVisible){
 			playAudio();
@@ -58,6 +59,7 @@
         resetControls();
         gHotKeys.disableKeys();
         pauseAudio();
+        gController.removeTrackTimer();
     </method>
 
     <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">
