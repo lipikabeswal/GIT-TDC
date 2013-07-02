@@ -158,7 +158,7 @@ var ddpowerzoomer={
 			    if($.browser.safari){
 			    	$('#magnifierWindow').css("cursor", "url('./assets/dragger_press.png'), pointer");
 			    }else{
-			    	$('#magnifierWindow').css( 'cursor', 'move' );
+			    	$('#magnifierWindow').css( 'cursor', "url('./assets/dragger_press.png'), pointer" );
 			    }
 			    if(isMagnifierVisible == false || isMagnifierVisible == 'false') {
 					ddpowerzoomer.$magnifier.outer.hide()
