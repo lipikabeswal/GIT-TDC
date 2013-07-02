@@ -593,6 +593,7 @@
 		<attribute name="timingforpause" type="boolean" value="false" />
 		<attribute name="timerInterval" type="number" value="1200000" />
 		<attribute name="isHandlerInactive" type="boolean" value="false" />
+		<attribute name="isMousedownOnManip" value="false" type="boolean" />
 		
 		<handler name="onisMousedownOnScratchpad"><![CDATA[
 			gScratchpad.onmouseup.sendEvent();
@@ -3311,6 +3312,10 @@
             gScreens.showPause(getStudentName());
             gPauseTimerScreen.setAttribute('visible',true);
             gTooltip.hideTooltip();
+            if(this.isMousedownOnManip){
+				gMaskingRuler.dragger.remove();
+				this.setAttribute("isMousedownOnManip",false);
+			}
 		</method>
 
 		<method name="pausedContinue" args="pw">
@@ -3533,6 +3538,10 @@
 			checkShowMagnifierGlass();
 			gHotKeys.handleHotKeysNav();
 			gTooltip.hideTooltip();
+			if(this.isMousedownOnManip){
+				gMaskingRuler.dragger.remove();
+				this.setAttribute("isMousedownOnManip",false);
+			}
         </method>
 
 		<method name="continueTest">

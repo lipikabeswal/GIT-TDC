@@ -246,8 +246,7 @@ Debug.write("else "+data +" : "+ hasstate);
 
             <view name="lines" resource="masking_ruler_lines" stretches="both" width="${this.parent.width}"/>            
                        
-			<view name="grabber" resource="grabber_rsrc" y="$once{classroot.GRABBER_Y}" align="center" visible="false">
-            </view>
+			<view name="grabber" resource="grabber_rsrc" y="$once{classroot.GRABBER_Y}" align="center" visible="false" />
 			<handler name="onmouseover">
                       gController.setCurrentCursor('cangrab_cursor');
                   </handler>
@@ -255,6 +254,7 @@ Debug.write("else "+data +" : "+ hasstate);
                       gController.clearAndRestoreCurrentCursor();
                   </handler>
                   <handler name="onmousedown">
+                  	  gController.setAttribute("isMousedownOnManip",true);
                   	  classroot.bringToFront();
                       lz.Cursor.setCursorGlobal ('grabbing_cursor');
                       lz.Cursor.lock();
@@ -294,7 +294,6 @@ Debug.write("else "+data +" : "+ hasstate);
             //lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
             gController.restoreCurrentCursor();
             this.dragger.remove ();
-Debug.write("masking ruler datapath ",this.datapath.p);
             this.datapath.p.setAttr ('x', this.x);
             this.datapath.p.setAttr ('y', this.y);
         </handler>
