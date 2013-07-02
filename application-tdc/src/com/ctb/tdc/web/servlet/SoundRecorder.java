@@ -16,7 +16,10 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Port;
 import javax.sound.sampled.TargetDataLine;
+import javax.sound.sampled.AudioFormat.Encoding;
 
 import org.apache.log4j.Logger;
 import org.xiph.speex.spi.SpeexEncoding;
@@ -91,16 +94,46 @@ public class SoundRecorder extends HttpServlet {
 			}
 			DataLine.Info dataLineInfo = new DataLine.Info(
 					TargetDataLine.class, audioFormat);
+			
 			targetDataLine = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
-
-			PrintWriter out = response.getWriter();
-			out.write("<result>RECORDING_START</result>");
-			out.flush();
-			myThread = new CaptureThread();
-			myThread.start();
+			if(targetDataLine != null){
+				//System.out.println("Data line not null** captureAudio");
+				PrintWriter out = response.getWriter();
+				out.write("<result>RECORDING_START</result>");
+				out.flush();
+				myThread = new CaptureThread();
+				myThread.start();
+			}else{
+				targetDataLine = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
+				PrintWriter out = response.getWriter();
+				out.write("<result>RECORDING_START</result>");
+				out.flush();
+				myThread = new CaptureThread();
+				myThread.start();
+			}
+			
 			//System.out.println("*********Capture Start**");
 
-		} catch (Exception e) {
+		}catch (LineUnavailableException ex) {
+        	//System.out.println("Inside Exception");
+        	if(AudioSystem.isLineSupported(Port.Info.MICROPHONE)){
+        		//System.out.println("Inside if sound captureAudio");
+        	}else{
+        		//System.out.println("Inside else sound captureAudio");
+        		ex.printStackTrace();
+        	}
+        	 
+        }catch (IllegalArgumentException iae) {
+        	//System.out.println("Inside IllegalArgumentException ****captureAudio"+targetDataLine);
+        	if(targetDataLine != null){
+        		//System.out.println("Inside if sound captureAudio");
+        		
+        	}else{
+        		//System.out.println("Inside else sound captureAudio");
+        		iae.printStackTrace();
+        	}
+            //iae.printStackTrace();
+        }  catch (Exception e) {
 			//e.printStackTrace();
 			result = ServletUtils.buildXmlErrorMessage("", e.getMessage(), "");
 		}
@@ -135,11 +168,12 @@ public class SoundRecorder extends HttpServlet {
 			PrintWriter out = null;
 
 			try {
-				System.out.println("RECORDING_STOP......");
+				//System.out.println("RECORDING_STOP......");
 				out = response.getWriter();
 				out.write("<result>RECORDING_STOP</result>");
 				out.flush();
-			} catch (IOException e) {
+			} 
+	       catch (IOException e) {
 				// TODO Auto-generated catch block
 				result = ServletUtils.buildXmlErrorMessage("", e.getMessage(),
 						"");
@@ -205,7 +239,26 @@ public class SoundRecorder extends HttpServlet {
 			out.write("<result>AUDIO_DELETED</result>");
 			out.flush();
 
-		} catch (Exception e) {
+		} catch (IllegalArgumentException iae) {
+        	//System.out.println("Inside IllegalArgumentException resetAudio****"+targetDataLine);
+        	if(targetDataLine != null){
+        		//System.out.println("Inside if sound resetAudio");
+        		try {
+					PrintWriter out = response.getWriter();
+					out.write("<result>RECORDING_START</result>");
+					out.flush();
+					myThread = new CaptureThread();
+					myThread.start();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}else{
+        		//System.out.println("Inside else sound resetAudio");
+        		iae.printStackTrace();
+        	}
+            //iae.printStackTrace();
+        }  catch (Exception e) {
 			result = ServletUtils.buildXmlErrorMessage("", e.getMessage(), "");
 		}
 		return result;
@@ -222,7 +275,7 @@ public class SoundRecorder extends HttpServlet {
 		int sampleSizeInBits = 16;
 		int channels = 1;
 		boolean signed = true;
-		boolean bigEndian = false;
+		boolean bigEndian = true;
 		return new AudioFormat(sampleRate, sampleSizeInBits, channels, signed,
 				bigEndian);
 	}
@@ -254,7 +307,7 @@ public class SoundRecorder extends HttpServlet {
 			AudioFileFormat.Type fileType = null;
 			File audioFile = null;
 			float sampleRate;
-			AudioInputStream ais = null;
+			AudioInputStream audioInputStream = null;
 
 			if (osName.indexOf("win") >= 0) {
 				sampleRate = 44100.0F;
@@ -263,27 +316,40 @@ public class SoundRecorder extends HttpServlet {
 				sampleRate = 44100.0F;
 			}
 			fileType = SpeexFileFormatType.SPEEX;
-			audioFile = new File(getServletContext().getRealPath("/")
-					+ "//streams//" + fileName + ".spx");
+			//audioFile = new File(getServletContext().getRealPath("/")
+			//		+ "//streams//" + fileName + ".spx");
+			audioFile = new File("C:/temp/"+fileName+ ".spx");
 			AudioFormat speexFormat = new AudioFormat(SpeexEncoding.SPEEX_Q5,
 					sampleRate, -1, // sample size in bits
 					1, -1, // frame size
 					-1, // frame rate
 					false);
 			try {
-				ais = new AudioInputStream(targetDataLine);
-				ais = AudioSystem.getAudioInputStream(speexFormat, ais);
-				targetDataLine.open(audioFormat);
-				targetDataLine.start();
+				 AudioFormat format = getWindowsAudioFormat();
+				 DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
+				 targetDataLine = (TargetDataLine) AudioSystem.getLine(info);
+				// System.out.println("CaptureThread **** "+targetDataLine);
+				audioInputStream = new AudioInputStream(targetDataLine);
+				// System.out.println("Format ***"+speexFormat);
+				/* Encoding e[] = AudioSystem.getTargetEncodings(speexFormat); 
+				 System.out.println("Encoding supported***");
+				 for(int i=0; i<e.length;i++){
+					 System.out.println(e[i]);
+				 }
+				
+				*/
+				 audioInputStream = AudioSystem.getAudioInputStream(speexFormat, audioInputStream);
+				 targetDataLine.open(audioFormat);
+				 targetDataLine.start();
 
-				AudioSystem.write(ais, fileType, audioFile);
+				 AudioSystem.write(audioInputStream, fileType, audioFile);
 
-			} catch (Exception e) {
+			}catch (Exception e) {
 				e.printStackTrace();
 			} finally {
-				if (ais != null) {
+				if (audioInputStream != null) {
 					try {
-						ais.close();
+						audioInputStream.close();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
