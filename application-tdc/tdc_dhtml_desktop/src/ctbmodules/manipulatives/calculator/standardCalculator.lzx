@@ -31,7 +31,7 @@
 						  align="right"
 						  valign="bottom"
 						  fontsize="13"
-						  xoffset="5"
+						  xoffset="15"
 						  maxlength="16">
 						<handler name="ontext">
 							var elm = this.getDisplayObject();
