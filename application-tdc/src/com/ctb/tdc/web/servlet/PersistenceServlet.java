@@ -351,12 +351,8 @@ public class PersistenceServlet extends HttpServlet {
 		else if(method != null && method.equals(ServletUtils.IS_MIC_ATTACHED)){
 			System.out.println("Inside IS_MIC_ATTACHED");
 			logger.info("Inside IS_MIC_ATTACHED");
-		// Only detecting Mic for Windows OS
-			if (osName.indexOf("win") >= 0) {
+		
 			result = Recorder.micDetection();
-			}else{
-				result = "<true />";
-			}
 			//System.out.println("Result:::"+result);
 		}
 		
