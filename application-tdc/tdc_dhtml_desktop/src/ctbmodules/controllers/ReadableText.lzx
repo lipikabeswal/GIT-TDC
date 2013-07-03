@@ -65,7 +65,8 @@
         	this.currentText = txt;//TTS CR
         	if ( isReadable && clickable && txt.length > 0){
         		doRead(txt);
- 	        	gController.freezeUI();
+ 	        	//commenting the line as screen reader is not working.
+ 	        	//gController.freezeUI();
             }
         ]]></method>
 
