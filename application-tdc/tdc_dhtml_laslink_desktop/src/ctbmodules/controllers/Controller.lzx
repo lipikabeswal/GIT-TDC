@@ -584,8 +584,8 @@
 		<attribute name="showHighlighter" value="false" type="boolean" />
 		<attribute name="resetButtonEnable" value="false" type="boolean" />
 		<attribute name="isPaused" value="false" type="boolean" />
-		<attribute name="isMousedownOnScratchpad" value="false" type="boolean" />
-		<attribute name="isMousedownOnRuler" value="false" type="boolean" />
+		
+		
 		<attribute name="testTimeout" type="boolean" value="false"/>
 		<attribute name="elapsedmsforpause" type="number" value="0" />
 		<attribute name="durationmsforpause" type="number" value="0" />
@@ -595,15 +595,8 @@
 		<attribute name="isHandlerInactive" type="boolean" value="false" />
 		<attribute name="isMousedownOnManip" value="false" type="boolean" />
 		
-		<handler name="onisMousedownOnScratchpad"><![CDATA[
-			gScratchpad.onmouseup.sendEvent();
-			this.setAttribute("isMousedownOnScratchpad",false);
-		]]></handler>
 		
-		<handler name="onisMousedownOnRuler"><![CDATA[
-			gMaskingRuler.onmouseup.sendEvent();
-			this.setAttribute("isMousedownOnRuler",false);
-		]]></handler>
+		
 		
 		<handler name="oncanNotAnswer" args="data"><![CDATA[
 			if(answerArray.length > 0) {

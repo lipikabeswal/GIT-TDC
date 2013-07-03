@@ -95,6 +95,7 @@
         
         <handler name="onmouseout">
             gController.clearAndRestoreCurrentCursor();
+            this.onmouseup.sendEvent();
         </handler>
         
         <method name="restoreFocusAndCursor" >
