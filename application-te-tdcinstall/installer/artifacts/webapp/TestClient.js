@@ -34,7 +34,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mb"]}},$lzc$class__mb.attributes)
 }}})($lzc$class__mb)
-};canvas=new $lzc$class__mb(null,{$delegates:["onfocus","$m5",null,"onbringBackFocus","$m6",null,"onfootnotedata","$m7",null,"onisMultiAudio","$m8",null,"oninit","$m9",null,"onfootnotetext","$ma",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-07-01T10:58:22Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19722 (19722)",lpsbuilddate:"2012-08-08T23:48:10Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mb(null,{$delegates:["onfocus","$m5",null,"onbringBackFocus","$m6",null,"onfootnotedata","$m7",null,"onisMultiAudio","$m8",null,"oninit","$m9",null,"onfootnotetext","$ma",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-07-03T07:32:10Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19722 (19722)",lpsbuilddate:"2012-08-08T23:48:10Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -10543,7 +10543,7 @@ gReadableText.setAttribute("readingScratchpad",true)
 }else{
 gReadableText.setAttribute("readingScratchpad",false)
 };$0=trim($0);this.currentText=$0;if(this.isReadable&&this.clickable&&$0.length>0){
-this.doRead($0);gController.freezeUI()
+this.doRead($0)
 }},"stripHtmlTags",function($0){
 if($0!=null&&typeof $0!="undefined"&&$0.length>0){
 this.setAttribute("text",$0);Debug.write("DHTML ",this.getDisplayObject().textContent);return this.getDisplayObject().textContent
@@ -19815,7 +19815,7 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:4,$delegates:["ontext","$m1kx",null],align:"right",fontsize:13,maxlength:16,name:"display",resize:true,text:"0.",valign:"bottom",xoffset:5},"class":$lzc$class__m1mv},{attrs:{$classrootdepth:4,align:"right",fontsize:13,name:"memoryDisplay",text:"M",valign:"bottom",visible:new LzAlwaysExpr("$m1ky","$m1kz",null),xoffset:5},"class":$lzc$class__m1mw}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:4,$delegates:["ontext","$m1kx",null],align:"right",fontsize:13,maxlength:16,name:"display",resize:true,text:"0.",valign:"bottom",xoffset:15},"class":$lzc$class__m1mv},{attrs:{$classrootdepth:4,align:"right",fontsize:13,name:"memoryDisplay",text:"M",valign:"bottom",visible:new LzAlwaysExpr("$m1ky","$m1kz",null),xoffset:5},"class":$lzc$class__m1mw}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m1mu"]}},$lzc$class__m1mu.attributes)
@@ -23720,7 +23720,7 @@ $1=$0.parent.parent.parent.parent
 },"$m1xv",function($0){
 gController.setCurrentCursor("cangrab_cursor")
 },"$m1xw",function($0){
-gController.clearAndRestoreCurrentCursor()
+gScratchpad._stopDrag();gController.clearAndRestoreCurrentCursor()
 },"restoreFocusAndCursor",function(){
 this.sp.onfocus.sendEvent();this.sp.resetTheSelection();this.setAttribute("scratchpadHasFocus",true)
 },"getText",function(){
@@ -27584,7 +27584,7 @@ $1=true;
 $0.id="gCommunicator";gCommunicator=$0
 }else if(gCommunicator===$0){
 gCommunicator=null;$0.id=null
-}},dRequestDataSet:void 0,dRequestTimer:new LzOnceExpr("$m28e",null),error:false,firstRequestDone:false,id:"gCommunicator"},"class":$lzc$class__m28f},2);lz.ClassAttributeTypes["$lzc$class__m28y"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["node"],{});{
+}},dRequestDataSet:void 0,dRequestTimer:new LzOnceExpr("$m28e",null),error:false,firstRequestDone:false,id:"gCommunicator"},"class":$lzc$class__m28f},2);lz.ClassAttributeTypes["$lzc$class__m28y"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["node"],{disableCR:"boolean"});{
 Class.make("$lzc$class__m28y",["enableKeys",function(){
 console.log("enableKeys");lz.Keys.callOnKeyCombo(this.dtoggleA,["a"]);lz.Keys.callOnKeyCombo(this.dtoggleB,["b"]);lz.Keys.callOnKeyCombo(this.dtoggleC,["c"]);lz.Keys.callOnKeyCombo(this.dtoggleD,["d"]);lz.Keys.callOnKeyCombo(this.dtoggleE,["e"]);lz.Keys.callOnKeyCombo(this.dtoggleF,["f"]);lz.Keys.callOnKeyCombo(this.dtoggleG,["g"]);lz.Keys.callOnKeyCombo(this.dtoggleH,["h"]);lz.Keys.callOnKeyCombo(this.dtoggleI,["i"]);lz.Keys.callOnKeyCombo(this.dtoggleJ,["j"]);lz.Keys.callOnKeyCombo(this.dtoggleA,["shift","a"]);lz.Keys.callOnKeyCombo(this.dtoggleB,["shift","b"]);lz.Keys.callOnKeyCombo(this.dtoggleC,["shift","c"]);lz.Keys.callOnKeyCombo(this.dtoggleD,["shift","d"]);lz.Keys.callOnKeyCombo(this.dtoggleE,["shift","e"]);lz.Keys.callOnKeyCombo(this.dtoggleF,["shift","f"]);lz.Keys.callOnKeyCombo(this.dtoggleG,["shift","g"]);lz.Keys.callOnKeyCombo(this.dtoggleH,["shift","h"]);lz.Keys.callOnKeyCombo(this.dtoggleI,["shift","i"]);lz.Keys.callOnKeyCombo(this.dtoggleJ,["shift","j"]);lz.Keys.callOnKeyCombo(this.dtoggleA,["shift","capslock","a"]);lz.Keys.callOnKeyCombo(this.dtoggleB,["shift","capslock","b"]);lz.Keys.callOnKeyCombo(this.dtoggleC,["shift","capslock","c"]);lz.Keys.callOnKeyCombo(this.dtoggleD,["shift","capslock","d"]);lz.Keys.callOnKeyCombo(this.dtoggleE,["shift","capslock","e"]);lz.Keys.callOnKeyCombo(this.dtoggleF,["shift","capslock","f"]);lz.Keys.callOnKeyCombo(this.dtoggleG,["shift","capslock","g"]);lz.Keys.callOnKeyCombo(this.dtoggleH,["shift","capslock","h"]);lz.Keys.callOnKeyCombo(this.dtoggleI,["shift","capslock","i"]);lz.Keys.callOnKeyCombo(this.dtoggleJ,["shift","capslock","j"]);lz.Keys.callOnKeyCombo(this.dtoggleA,["capslock","a"]);lz.Keys.callOnKeyCombo(this.dtoggleB,["capslock","b"]);lz.Keys.callOnKeyCombo(this.dtoggleC,["capslock","c"]);lz.Keys.callOnKeyCombo(this.dtoggleD,["capslock","d"]);lz.Keys.callOnKeyCombo(this.dtoggleE,["capslock","e"]);lz.Keys.callOnKeyCombo(this.dtoggleF,["capslock","f"]);lz.Keys.callOnKeyCombo(this.dtoggleG,["capslock","g"]);lz.Keys.callOnKeyCombo(this.dtoggleH,["capslock","h"]);lz.Keys.callOnKeyCombo(this.dtoggleI,["capslock","i"]);lz.Keys.callOnKeyCombo(this.dtoggleJ,["capslock","j"]);lz.Keys.callOnKeyCombo(this.dgoBack,["control","j"]);lz.Keys.callOnKeyCombo(this.dgoOn,["control","k"]);lz.Keys.callOnKeyCombo(this.dtoggleMark,["control","l"]);lz.Keys.callOnKeyCombo(this.dtoggleTimer,["control","o"]);lz.Keys.callOnKeyCombo(this.dpause,["control","u"]);lz.Keys.callOnKeyCombo(this.dstop,["control","s"]);lz.Keys.callOnKeyCombo(this.dfinish,["control","f"]);if(navigator.appVersion.indexOf("Mac")!=-1){
 this.dmacKeyHandler.register(lz.Keys,"onkeydown")
@@ -27599,7 +27599,7 @@ $0=true
 };return $0
 },"$m28g",function($0){
 this.setAttribute("dmacKeyHandler",new (lz.Delegate)(this,"macKeyHandler"))
-},"dmacKeyHandler",void 0,"exitPopups",function(){
+},"dmacKeyHandler",void 0,"disableCR",void 0,"exitPopups",function(){
 gController.exitPopups()
 },"macKeyHandler",function($0){
 switch($0){
@@ -27632,7 +27632,7 @@ this.setAttribute("disableCR",true);break
 this.setAttribute("disableCR",false)
 }break;
 default:
-if(disableCR&&(lz.Keys.isKeyDown("Alt")||lz.Keys.isKeyDown("alt")||lz.Keys.isKeyDown("option"))){
+if(this.disableCR&&(lz.Keys.isKeyDown("Alt")||lz.Keys.isKeyDown("alt")||lz.Keys.isKeyDown("option"))){
 addReadOnlyCR();break
 }else{
 removeReadOnlyCR()
@@ -27860,7 +27860,7 @@ $1=true;
 $0.id="gHotKeys";gHotKeys=$0
 }else if(gHotKeys===$0){
 gHotKeys=null;$0.id=null
-}},dfinish:new LzOnceExpr("$m28x",null),dgoBack:new LzOnceExpr("$m28r",null),dgoOn:new LzOnceExpr("$m28s",null),dmacKeyHandler:new LzOnceExpr("$m28g",null),dpause:new LzOnceExpr("$m28v",null),dstop:new LzOnceExpr("$m28w",null),dtoggleA:new LzOnceExpr("$m28h",null),dtoggleB:new LzOnceExpr("$m28i",null),dtoggleC:new LzOnceExpr("$m28j",null),dtoggleD:new LzOnceExpr("$m28k",null),dtoggleE:new LzOnceExpr("$m28l",null),dtoggleF:new LzOnceExpr("$m28m",null),dtoggleG:new LzOnceExpr("$m28n",null),dtoggleH:new LzOnceExpr("$m28o",null),dtoggleI:new LzOnceExpr("$m28p",null),dtoggleJ:new LzOnceExpr("$m28q",null),dtoggleMark:new LzOnceExpr("$m28t",null),dtoggleTimer:new LzOnceExpr("$m28u",null),id:"gHotKeys"},"class":$lzc$class__m28y},1);lz.ClassAttributeTypes["$lzc$class__m291"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["node"],{ERROR_NAME:"string",FILE_PART:"string",SUBTEST_NAME:"string",nextFilePartIndex:"number",nextItemIndex:"number",nextSubtestIndex:"number",totalFileParts:"number",totalItems:"number",totalSubtests:"number"});{
+}},dfinish:new LzOnceExpr("$m28x",null),dgoBack:new LzOnceExpr("$m28r",null),dgoOn:new LzOnceExpr("$m28s",null),disableCR:false,dmacKeyHandler:new LzOnceExpr("$m28g",null),dpause:new LzOnceExpr("$m28v",null),dstop:new LzOnceExpr("$m28w",null),dtoggleA:new LzOnceExpr("$m28h",null),dtoggleB:new LzOnceExpr("$m28i",null),dtoggleC:new LzOnceExpr("$m28j",null),dtoggleD:new LzOnceExpr("$m28k",null),dtoggleE:new LzOnceExpr("$m28l",null),dtoggleF:new LzOnceExpr("$m28m",null),dtoggleG:new LzOnceExpr("$m28n",null),dtoggleH:new LzOnceExpr("$m28o",null),dtoggleI:new LzOnceExpr("$m28p",null),dtoggleJ:new LzOnceExpr("$m28q",null),dtoggleMark:new LzOnceExpr("$m28t",null),dtoggleTimer:new LzOnceExpr("$m28u",null),id:"gHotKeys"},"class":$lzc$class__m28y},1);lz.ClassAttributeTypes["$lzc$class__m291"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["node"],{ERROR_NAME:"string",FILE_PART:"string",SUBTEST_NAME:"string",nextFilePartIndex:"number",nextItemIndex:"number",nextSubtestIndex:"number",totalFileParts:"number",totalItems:"number",totalSubtests:"number"});{
 Class.make("$lzc$class__m291",["subtestList",void 0,"itemList",void 0,"itemKey",void 0,"filePartList",void 0,"filePartName",void 0,"totalSubtests",void 0,"totalItems",void 0,"nextSubtestIndex",void 0,"nextItemIndex",void 0,"nextFilePartIndex",void 0,"totalFileParts",void 0,"downloadResult",void 0,"ERROR_NAME",void 0,"SUBTEST_NAME",void 0,"FILE_PART",void 0,"$m28z",function($0){
 this.setAttribute("dp",new (lz.datapointer)())
 },"dp",void 0,"error",void 0,"$m290",function($0){
