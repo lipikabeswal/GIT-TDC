@@ -644,7 +644,21 @@ function checkTextDragging(){
 				e.preventDefault();
 			});
 }
-<!-- End CR item scrolledittext scrollbar functions-->
+<!-- End CR item scrolledittext scrollbar functions -->
+ 
+function addReadOnlyCR(){
+	console.log("inside addReadOnlyCR");
+	if(document.getElementsByTagName('textarea').length > 0){
+		document.getElementsByTagName('textarea')[0].setAttribute('readonly',true);
+	}
+	
+}
+function removeReadOnlyCR(){
+	if(document.getElementsByTagName('textarea').length > 0){
+		document.getElementsByTagName('textarea')[0].removeAttribute('readonly');
+	}
+} 
+ 
  
 // higlighter for nonTE items
  
