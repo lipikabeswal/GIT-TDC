@@ -127,26 +127,50 @@
 			}
 		]]></method>
 
-        <!-- list of scrolling buttons for item -->
-        <view name="qbtns" height="100%"  x="${classroot.moreleft.x}" y="2" 
-              width="${classroot.width - classroot.morefastleft.width - classroot.morefastright.width - classroot.RIGHT_BUTTONS_OFFSET}"
-              clip="true">
-            <view name="scrollcontainer" height="100%"
-                  width="${this.thebtns.width + this.thebtns.x}">
-                <view name="youarehere" options="ignorelayout">                    
-                    <view resource="you_are_here_txt" align="left"/>
-                    <view resource="you_are_here_mark" align="center"/>
-                </view>
-                <!-- the buttons below youarehere -->
-                <view name="thebtns" x="${classroot.moreleft.x}">
-                    <simplelayout axis="x" spacing="14"/>
-                    <QuestionBarButton y="13" >
-						<datapath xpath="runtime/item_model" pooling="true"/>
+		<!-- list of scrolling buttons for item -->
+		<view name="qbtns" height="100%"  x="${classroot.moreleft.x}" y="2" 
+			width="${classroot.width - classroot.morefastleft.width - classroot.morefastright.width - classroot.RIGHT_BUTTONS_OFFSET}"
+			clip="true">
+			<view name="scrollcontainer" height="100%"
+				width="${this.thebtns.width + this.thebtns.x}">
+				<view name="youarehere" options="ignorelayout">                    
+					<view resource="you_are_here_txt" align="left"/>
+					<view resource="you_are_here_mark" align="center"/>
+				</view>
+				<!-- the buttons below youarehere -->
+				<view name="thebtns" x="${classroot.moreleft.x}">
+					<simplelayout axis="x" spacing="14"/>                
+					<QuestionBarButton name="questionBarButtons" y="13">
+						<handler name="oninit">
+							console.warn("QuestionBarButton#oninit: itemeid=%s", itemeid);
+						</handler>
+						<datapath xpath="runtime/item_model" pooling="false">
+							<handler name="onnodes" args="n">
+								console.warn("QuestionBarButton#onnodes: %d items found", n.length);		
+							</handler>
+							<handler name="ondata">
+								console.warn("QuestionBarButton#ondata");
+							</handler>
+							<handler name="onclones">
+								console.warn('onclones');
+								var lastclone = this.clones[this.clones.length - 1];
+								if (typeof this.del == "undefined") {
+									this.del = new lz.Delegate(this,
+											"replicationComplete")
+								} else {
+									this.del.unregisterAll();
+								}
+								this.del.register(lastclone, "oninit");
+							</handler>
+							<method name="replicationComplete" args="ignore=null">
+								console.warn('Replication finished for ', this);
+							</method>
+						</datapath>
 					</QuestionBarButton>
-                </view>
-
-            </view>
-        </view>
+				</view>
+	
+			</view>
+		</view>
 		<view name="qbtnsOverlay" height="100%" visible="${gController.fwdOnly }"
               width="100%"
               clip="true" clickable="true" showhandcursor="false" onmouseover="this.setAttribute('showhandcursor',false)" opacity=".4" bgcolor="gray">
@@ -241,7 +265,7 @@
             <handler name="onmouseup">
                 this.doscrolldel.unregisterAll ();
             </handler>
-            <method name="doScroll">
+            <method name="doScroll" args="ignore=null">
                 classroot.scrollFast(true);
             </method>
 			<handler name="onmouseover">
