@@ -89,6 +89,7 @@
         </handler>
         
         <handler name="onmouseout">
+        	gScratchpad._stopDrag();
             gController.clearAndRestoreCurrentCursor();
         </handler>
         
