@@ -525,6 +525,8 @@
 		<attribute name="dMicCheck"
 			value="$once{ new lz.Delegate( this, 'isMicConnected' ) }" type="expression"/>
 		<attribute name="isPauseTest" value="false" type="boolean" /> 
+		<attribute name="manipSelected" value="false" type="boolean" /> 
+
 		<!--
 			============================================================
 			Datapointers
@@ -3524,7 +3526,43 @@
 		 
 		]]></method>
 
+		<method name="manipulativeSelected">
+			if(this.manipSelected){
+				console.log("ManipSelected**"+this.manipSelected);
+				if(gManipulativeBar.globals.magnifyingGlass != null){
+					gManipulativeBar.globals.magnifyingGlass.setAttribute("frame",1);
+				}
+				if(gManipulativeBar.globals.maskingAnswer != null){
+					gManipulativeBar.globals.maskingAnswer.setAttribute("frame",1);
+				}
+				if(gManipulativeBar.globals.screenreader != null){
+					gManipulativeBar.globals.screenreader.setAttribute("frame",1);
+				}
+				if(gManipulativeBar.globals.volumeController != null){
+					gManipulativeBar.globals.volumeController.setAttribute("frame",1);
+				}
+				if(gManipulativeBar.globals.option_eliminator != null){
+					gManipulativeBar.globals.option_eliminator.setAttribute("frame",1);
+				}
+				if(gManipulativeBar.globals.highlighter != null){
+					gManipulativeBar.globals.highlighter.setAttribute("frame",1);
+				}
+				if(gManipulativeBar.globals.eraser != null){
+					gManipulativeBar.globals.eraser.setAttribute("frame",1);
+				}
+				if(gManipulativeBar.globals.scratchpad != null){
+					gManipulativeBar.globals.scratchpad.setAttribute("frame",1);
+				}
+				if(gManipulativeBar.globals.masking_ruler != null){
+					gManipulativeBar.globals.masking_ruler.setAttribute("frame",1);
+				}
+				
+				this.setAttribute('manipSelected',false);
+				
+			}
+		</method>
 		<method name="resumeTest">
+			manipulativeSelected();
 			this.isStopScreen = false;
            	var s="playAudio()";
 			lz.Browser.loadJS(s);			
@@ -3546,7 +3584,7 @@
 				gMaskingRuler.dragger.remove();
 				this.setAttribute("isMousedownOnManip",false);
 			}
-        </method>
+		</method>
 
 		<method name="continueTest">
             openTest();

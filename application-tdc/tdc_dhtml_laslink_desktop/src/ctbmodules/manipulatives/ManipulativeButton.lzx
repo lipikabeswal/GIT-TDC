@@ -38,6 +38,7 @@
             lz.Cursor.showHandCursor(true);
             if (!this.isselected && this.isenabled) this.setAttribute('frame', 2); 
             lz.Timer.addTimer (tooltipdel, 500);
+            gController.setAttribute("manipSelected",true);
         ]]></handler>
 
         <handler name="onmouseout"><![CDATA[

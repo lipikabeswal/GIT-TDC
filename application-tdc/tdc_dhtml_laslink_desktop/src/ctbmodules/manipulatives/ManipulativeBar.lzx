@@ -31,20 +31,20 @@
 			<simplelayout axis="x"/>
 			<ManipulativeButton resource="toolbar_choice_eliminator_btn"
 	                            toolid="option_eliminator"
-	                            tooltip="Option Eliminator" xpos = "${this.x}"/>
+	                            tooltip="Option Eliminator" xpos = "${this.x}" name="option_eliminator"/>
 			<ManipulativeButton resource="toolbar_highlighter_btn"
 	                            toolid="highlighter"
-	                            tooltip="Highlighter" xpos = "${this.x}"/>
+	                            tooltip="Highlighter" xpos = "${this.x}" name="highlighter"/>
 			<ManipulativeButton resource="toolbar_eraser_btn"
 	                            toolid="eraser"
-	                            tooltip="Eraser" xpos = "${this.x}"/>
+	                            tooltip="Eraser" xpos = "${this.x}" name="eraser"/>
 	        <ScratchpadButton   resource="toolbar_scratchpad_btn"
 	                            toolid="scratchpad"
-	                            tooltip="Scratchpad" xpos = "${this.x}"/>
+	                            tooltip="Scratchpad" xpos = "${this.x}" name="scratchpad"/>
 
 			<ManipulativeButton resource="toolbar_masking_ruler_btn"
 	                            toolid="masking_ruler"
-	                            tooltip="Blocking Ruler" xpos = "${this.x}"/>	
+	                            tooltip="Blocking Ruler" xpos = "${this.x}" name="masking_ruler"/>	
 	                            
 	                            <view name="gap" width="2" height="20" valign="middle"/>
 			<!-- Magnifier Glass Button -->
@@ -60,6 +60,7 @@
 				<handler name="onmouseover">
 				        lz.Cursor.showHandCursor(true);
 						this.setAttribute('frame',2);
+						gController.setAttribute("manipSelected",true);
 						lz.Timer.addTimer (tooltipdel, 500);
 					</handler>
 
@@ -126,6 +127,7 @@
 				<handler name="onmouseover">
 				        lz.Cursor.showHandCursor(true);
 						this.setAttribute('frame',2);
+						gController.setAttribute("manipSelected",true);
 						if(!gMaskingAnswer.visible)
 							lz.Timer.addTimer (tooltipdel, 500);
 					</handler>
@@ -216,6 +218,7 @@
 				<handler name="onmouseover">
 				    lz.Cursor.showHandCursor(true);
 					lz.Timer.addTimer (tooltipdel, 500);
+					gController.setAttribute("manipSelected",true);
 				</handler>
 		                
 				<handler name="onmouseout">
@@ -245,6 +248,7 @@
 				<handler name="onmouseover">
 				    lz.Cursor.showHandCursor(true);
 					lz.Timer.addTimer (tooltipdel, 500);
+					gController.setAttribute("manipSelected",true);
 				</handler>
 		                
 				<handler name="onmouseout">
@@ -304,6 +308,7 @@
 					<method name="mouseover" args="ignore=null">
 					    lz.Cursor.showHandCursor(true);
 						lz.Timer.addTimer (tooltipdel, 500);
+						gController.setAttribute("manipSelected",true);
 					</method>
 			                
 					<method name="mouseout" args="ignore=null">
