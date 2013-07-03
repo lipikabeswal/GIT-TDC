@@ -116,13 +116,14 @@ public class LockdownBrowserWrapper extends Thread {
 					if(productType.equals("LASLINKS")){
 						//consoleOut("Inside Laslinks:::");
 						if(formName.equals("Form A/Form B/Espanol")){
+							//ConsoleUtils.messageOut("Launching Form A&B");
 							this.ldbCommand = new String[2];
 							this.ldbCommand[0] = this.ldbHome + "/OASTDC/bin/OASTDC";          
 							this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
 							this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login_swf.html";
 							
 						}else if(formName.equals("Form C/Form D/Espanol2")){
-							
+							//ConsoleUtils.messageOut("Launching Form C&D");
 							/*this.ldbCommand = new String[3];
 							this.ldbCommand[0] ="java";
 							this.ldbCommand[1] = "-jar";
@@ -133,6 +134,7 @@ public class LockdownBrowserWrapper extends Thread {
 						}
 						//this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + loginHtml;
 					}else{
+						//ConsoleUtils.messageOut("Launching DEFAULT");
 						//this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login.html";
 						/*this.ldbCommand = new String[3];
 						this.ldbCommand[0] ="java";
@@ -281,7 +283,7 @@ public class LockdownBrowserWrapper extends Thread {
 			try {
 				String wmctrl = "./wmctrl -r \"Online Assessment System\" -b \"toggle, fullscreen\"";
 				Runtime.getRuntime().exec(wmctrl, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-				Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+				//Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 			} catch (Exception e) {
 
 				ConsoleUtils.messageOut("Force fullscreen : returned false -"+e.getMessage());
@@ -296,7 +298,7 @@ public class LockdownBrowserWrapper extends Thread {
 				ConsoleUtils.messageOut("Blocking hotkeys at " + System.currentTimeMillis());
 				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(false);
 				ConsoleUtils.messageOut("Starting lock loop at " + System.currentTimeMillis());
-				while(true) {
+				while(!isProcessExit) {
 					if(ready) {
 						if(!forcedFullScreen) {
 							ConsoleUtils.messageOut("trying to force fullscreen at " + System.currentTimeMillis());
