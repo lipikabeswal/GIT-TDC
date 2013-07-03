@@ -2585,7 +2585,13 @@
 		//Debug.write("dnrtitemnew..."+dnrtitemnew);
 			var allowrevisit = dnrtitemnew.getAttr("allow_revisit");
 		//Debug.write("allowrevisit..."+allowrevisit);
-			this.setAttribute("allowRevisit", (allowrevisit != "false"));
+			if(allowrevisit == true || allowrevisit == 'true') {
+				this.setAttribute("allowRevisit", true)
+			}
+			else {
+				this.setAttribute("allowRevisit", false);
+			}
+			//this.setAttribute("allowRevisit", (allowrevisit != "false"));
 		//Debug.write("Controller variable allowRevisit..."+allowRevisit);
 
             var dnnewitem;
@@ -2786,9 +2792,10 @@
             );
             var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 			//Debug.write("dncurrentItem********** ",dncurrentItem);
-            dncurrentItem.setAttr('is_visited' , true);
-			
-			if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm && itemeid != curreid ){
+            dncurrentItem.setAttr('is_visited' , true);			
+			if(this.allowRevisit != null && !this.allowRevisit 
+			&& (dncurrentItem.getAttr('answered') == 0 || dncurrentItem.getAttr('answered') == false || dncurrentItem.getAttr('answered') == 'false') 
+			&& !this.navigateConfirm && itemeid != curreid ){
             	this.showRevisitPopup("quesBar");
 			}
 			else {
@@ -2941,7 +2948,9 @@
 		    ////canvas.freezUI();
             if ( !onFirstItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
-				if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm){
+				if(this.allowRevisit != null && !this.allowRevisit 
+				&& (dncurrentItem.getAttr('answered') == 0 || dncurrentItem.getAttr('answered') == false || dncurrentItem.getAttr('answered') == 'false') 
+				&& !this.navigateConfirm){				
             		this.showRevisitPopup("goBack");
 				}else{
 				changeItem( getItemFromOffset( currItemOffset() - 1 ) );
@@ -2963,8 +2972,8 @@
 			if ( !onLastItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && 
-					dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm 
-					&& !(gController.getNextNavigableOffset(curritem) == totalitem )){
+					(dncurrentItem.getAttr('answered') == 0 || dncurrentItem.getAttr('answered') == false || dncurrentItem.getAttr('answered') == 'false') 
+					&& !this.navigateConfirm && !(gController.getNextNavigableOffset(curritem) == totalitem )){
             		this.showRevisitPopup("goOn");
 				}else{
 					changeItem( getItemFromOffset( currItemOffset() + 1 ) );
