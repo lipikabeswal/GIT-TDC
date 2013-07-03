@@ -152,7 +152,7 @@
 
         <attribute name="dmacKeyHandler"
                    value="$once{ new lz.Delegate( this, 'macKeyHandler' ) }"/>
-
+		<attribute name="disableCR" type="boolean" value="false"/>
         <method name="exitPopups">
             gController.exitPopups();
         </method>
