@@ -126,12 +126,6 @@ var ddpowerzoomer={
 			},
 			start: function(event,ui) {
 			    //alert(window.isDragging);
-			    if(gScratchpad.visible){
-			    	gController.setAttribute('isMousedownOnScratchpad',true);
-			    }
-			    if(gMaskingRuler.visible){
-			    	gController.setAttribute('isMousedownOnRuler',true);
-			    }
 			    if(isDragging == 0){
 			    isDragging = 1;				
 			    jQuery("#magnifierWindow").css('visibility','hidden');
