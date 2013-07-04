@@ -856,9 +856,7 @@
 			
 			if(gItemInterface.visible == true || gTutorial.visible == true){
 	        	//canvas.freezUI();
-				
-				//gScratchpad.title_area.controls.close_btn.hideText();/*defect 74466*/
-	        	gController.setAttribute('isAudioPaused', true);
+				gController.setAttribute('isAudioPaused', true);
 	        	gController.finishTest();   
 	        	}	
 	        }		           
