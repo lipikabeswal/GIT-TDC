@@ -244,4 +244,7 @@ jQuery.fn.initMagnify=function(options){
 			ddpowerzoomer.movemagnifier(null, true) //move magnifier
 		}
 
+		$("#magnifierWindow").on("mousedown",function() {
+			$('#scratchpad').blur();	
+        });
 }

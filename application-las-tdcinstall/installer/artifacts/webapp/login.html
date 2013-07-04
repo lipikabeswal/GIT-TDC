@@ -315,12 +315,12 @@ function hideScrollbarForCRitem(arg){
 function setCRscrollEdittextWidth(elmId,comWidth,fontSize){
     var crItemid = document.getElementById(elmId);
     var fontcolor = getCRcolor();
-    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; width: '+comWidth+'; font-size: '+fontSize+';');
+    crItemid.setAttribute('style','overflow-x: hidden; white-space: pre-line; overflow-y: scroll; color: '+fontcolor+'; width: '+comWidth+'; font-size: '+fontSize+';');
 }
 function setCRscrollEdittextHeight(elmId,comHeight,fontSize){
     var crItemid = document.getElementById(elmId);
     var fontcolor = getCRcolor();
-    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; height: '+comHeight+'; font-size: '+fontSize+';');
+    crItemid.setAttribute('style','overflow-x: hidden; white-space: pre-line; overflow-y: scroll; color: '+fontcolor+'; height: '+comHeight+'; font-size: '+fontSize+';');
 }
 
 function getCRcolor(){
@@ -348,12 +348,12 @@ function hideScrollbar(arg){
 
 function setScrollEdittextWidth(elmId,comWidth,fontSize,textFontColor){
     var scrid = document.getElementById(elmId);
-    scrid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; width: '+comWidth+'');
+    scrid.setAttribute('style','overflow-x: hidden; white-space: pre-wrap; overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; width: '+comWidth+'');
 }
 
 function setScrollEdittextHeight(elmId,comHeight,fontSize,textFontColor){
     var scrid = document.getElementById(elmId);
-    scrid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; height: '+comHeight+'');
+    scrid.setAttribute('style','overflow-x: hidden;  white-space: pre-wrap; overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; height: '+comHeight+'');
 }
 
 <!-- End scratchpad scrollbar functions-->
