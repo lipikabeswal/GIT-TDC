@@ -461,7 +461,7 @@
 				case 11: 
                     this.exitPopups();
                     gController.stepNavigateForward();
-                    gTooltip.hideTooltip (); /*for 74513 & 74444*/ 
+                    gTooltip.hideTooltip (); 
                     break;
 				case 12: 
                     this.exitPopups();
@@ -475,7 +475,7 @@
 					console.log("inside hotkeys for mac @ 464");
                     this.exitPopups();
                     gController.finishTest();
-                    gTooltip.hideTooltip (); /*74444 & 74513 */
+                    gTooltip.hideTooltip (); 
                    
                     break;
 				case 21: 
@@ -520,7 +520,7 @@
 				case 19: 
                     this.exitPopups();
                     gController.finishTest(); 
-                     gTooltip.hideTooltip (); /*74444 & 74513 */
+                     gTooltip.hideTooltip (); 
                     break;
 				case 21: 
                     this.exitPopups();
@@ -590,7 +590,7 @@
 				case 19: 
                     this.exitPopups();
                     gController.finishTest(); 
-                     gTooltip.hideTooltip (); /*74444 & 74513 */
+                    gTooltip.hideTooltip (); 
                     break;
 				case 21: 
                     this.exitPopups();
@@ -652,7 +652,7 @@
 				case 19: 
                     this.exitPopups();
                     gController.finishTest(); 
-                     gTooltip.hideTooltip (); /*74444 & 74513 */
+                     gTooltip.hideTooltip (); 
                     break;
 				case 21: 
                     this.exitPopups();
@@ -671,7 +671,7 @@
 				case 11: 
                     this.exitPopups();
                     gController.stepNavigateForward(); 
-                     gTooltip.hideTooltip (); /*74444 & 74513 */
+                     gTooltip.hideTooltip (); 
                     break;
 				default:
 					break;
@@ -687,7 +687,7 @@
 				case 19: 
                     this.exitPopups();
                     gController.finishTest(); 
-                     gTooltip.hideTooltip (); /*74444 & 74513 */
+                    gTooltip.hideTooltip (); 
                     break;
 				case 21: 
                     this.exitPopups();
@@ -816,7 +816,7 @@
 	        		lz.Focus.clearFocus();
 	        	}
 	            this.exitPopups();
-	            gTooltip.hideTooltip (); /*for 74513 & 74444 */
+	            gTooltip.hideTooltip (); 
 	           // console.log("after 814");
 	            gController.stepNavigateForward();  
 	            
