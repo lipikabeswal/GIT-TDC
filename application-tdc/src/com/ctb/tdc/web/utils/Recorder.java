@@ -3,14 +3,18 @@ package com.ctb.tdc.web.utils;
 import javax.sound.sampled.*;
 import java.io.*;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
+import com.ctb.tdc.web.servlet.PersistenceServlet;
  
 /**
  * 
  * 
  */
 public class Recorder {
+	static Logger logger = Logger.getLogger(PersistenceServlet.class);
+	String osName = System.getProperty("os.name").toLowerCase();
     // record duration, in milliseconds
-   // static final long RECORD_TIME = 500; // .5 sec 
+    //static final long RECORD_TIME = 500; // .5 sec 
 	//static final long RECORD_TIME = 90000; 
     private static boolean microphone = false;
     // path of the wav file
@@ -43,28 +47,30 @@ public class Recorder {
      */
     public boolean start() {
     	boolean isMic = false;
+    	AudioFormat format = getAudioFormat();
+    	DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
+    	
         try {
         	com.sun.media.sound.JDK13Services.setCachingPeriod(1);
-            AudioFormat format = getAudioFormat();
-            DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
-            // checks if system supports the data line
-            if (!AudioSystem.isLineSupported(Port.Info.MICROPHONE)) {
-               // System.out.println("Line not supported");
+            if (!AudioSystem.isLineSupported(info)) {
+            	//logger.info("Line not supported");
                 isMic=false;
             }
             else{
-            	line = (TargetDataLine) AudioSystem.getLine(info);
+            	
+            		line = (TargetDataLine) AudioSystem.getLine(info);
+            	
             	if(line!=null){
+            		//logger.info("Line not null");
             		line.open(format);
             		line.flush();
             		line.start();   // start capturing
-			            AudioInputStream ais = new AudioInputStream(line);
-			            ais.read(data);
-			            ArrayList frame = new ArrayList();
+            		AudioInputStream ais = new AudioInputStream(line);
+			        ais.read(data);
+			        ArrayList frame = new ArrayList();
 					      for (int i = 0; i < data.length; i++) {
 					    	 if (data[i]>0){
-						  		 frame.add(data[i]);
-						  		// System.out.println("Frame Value:::"+data[i]);
+					    		 frame.add(new Byte(data[i]));
 						  	  }
 					      }
 					      if(frame.size()>0){
@@ -72,26 +78,52 @@ public class Recorder {
 					      }
 				}
             }
- 
+           // logger.info("isMic in start***"+isMic);
         } catch (LineUnavailableException ex) {
-        	System.out.println("Inside Exception");
-        	if(AudioSystem.isLineSupported(Port.Info.MICROPHONE)){
-        		System.out.println("Inside if");
-        		isMic=true;
+        	//logger.info("Inside Exception");
+        	if (osName.indexOf("win") >= 0) {
+        		if(AudioSystem.isLineSupported(Port.Info.MICROPHONE)){
+        		//	logger.info("Inside win if");
+            		isMic=true;
+        		}else{
+        		//	logger.info("Inside win else");
+            		isMic=false;
+        		}
         	}else{
-        		System.out.println("Inside else");
-        		isMic=false;
+        		if(AudioSystem.isLineSupported(info)){
+            	//	logger.info("Inside if Mac/Linux");
+            		isMic=true;
+            	}else{
+            	//	logger.info("Inside else Mac/Linux");
+            		isMic=false;
+            	}
+        		
         	}
-        	
             //ex.printStackTrace();
         }catch (IllegalArgumentException iae) {
-	        	if(AudioSystem.isLineSupported(Port.Info.MICROPHONE)){
-	        		isMic=true;
-	        	}else{
-	        		isMic=false;
-	        	}
-        } catch (IOException ioe) {
-        		ioe.printStackTrace();
+        	//logger.info("Inside IllegalArgumentException");
+        	if (osName.indexOf("win") >= 0) {
+        		if(AudioSystem.isLineSupported(Port.Info.MICROPHONE)){
+        		//	logger.info("Inside win if");
+            		isMic=true;
+        		}else{
+        		//	logger.info("Inside win else");
+            		isMic=false;
+        		}
+        	}else{
+        		if(AudioSystem.isLineSupported(info)){
+            	//	logger.info("Inside if Mac/Linux");
+            		isMic=true;
+            	}else{
+            		//logger.info("Inside else Mac/Linux");
+            		isMic=false;
+            	}
+        		
+        	}
+            //iae.printStackTrace();
+        }catch (IOException io) {
+        	//logger.info("Exception*****"+io);
+        	io.printStackTrace();
         }
 		return isMic;
     }
@@ -142,13 +174,18 @@ public class Recorder {
  
         // start recording
         microphone=recorder.start(); 
+        //System.out.println("In main>>>>"+microphone);
         if(microphone){
+        	//logger.info("A microphone is attached to your system");
         	recorder.finish();
         	return "<true />";
+        	
         	}
         else{
+        	//logger.info("Microphone is not attached");
         	recorder.finish();
         	return "<false />";
+        	
         }
        
     }
