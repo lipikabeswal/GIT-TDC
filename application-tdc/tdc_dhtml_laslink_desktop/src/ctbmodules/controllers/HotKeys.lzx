@@ -312,6 +312,8 @@
 		 ]]></method>
 
         <method name="isComboHotKeyDown"><![CDATA[
+            console.log("inside ishotkeydown @315");
+            
             var isdown = false;
             if ((lz.Keys.isKeyDown("shift") || 
                  lz.Keys.isKeyDown("capslock")) && 
@@ -343,6 +345,8 @@
         ]]></method>
 
 		<method name="handleHtmlKeyPress" args="data"><![CDATA[
+		        console.log("inside handleHtmlKeyPress @ 346");
+		        
 		        if(gPleaseWaitPopup.visible || gScreens.visible || gController.isStopScreen || gController.isPauseTest || gController.scratchpadOpen || gController.isRevisitPopupOpen){
 		        	// do nothing
 		        	// this condition is for the defect 74092,74190
@@ -384,7 +388,9 @@
 			       		else if(key == 'Ctrl+U')
 			       			pause();
 			       		else if(key == 'Ctrl+S')
+                         
 			       			stop();
+                         
 			       		else if(key == 'Ctrl+F')
 			       			finish();
 				} else if(!gController.canNotAnswer){
@@ -413,14 +419,18 @@
 						else if(key == 'Ctrl+U')
 							pause();
 						else if(key == 'Ctrl+S')
-							stop();
+                         
+							 stop();
+                          
 					} else {
 						if(key == 'Ctrl+L')
 							toggleMark();
 						else if(key == 'Ctrl+U')
 							pause();
 						else if(key == 'Ctrl+S')
+                         
 							stop();
+                         
 						}
 				}
         ]]></method>
@@ -450,7 +460,8 @@
                     break;
 				case 11: 
                     this.exitPopups();
-                    gController.stepNavigateForward(); 
+                    gController.stepNavigateForward();
+                    gTooltip.hideTooltip (); /*for 74513 & 74444*/ 
                     break;
 				case 12: 
                     this.exitPopups();
@@ -461,8 +472,11 @@
                     gController.toggleTimer();
                     break;
 				case 19: 
+					console.log("inside hotkeys for mac @ 464");
                     this.exitPopups();
-                    gController.finishTest(); 
+                    gController.finishTest();
+                    gTooltip.hideTooltip (); /*74444 & 74513 */
+                   
                     break;
 				case 21: 
                     this.exitPopups();
@@ -506,6 +520,7 @@
 				case 19: 
                     this.exitPopups();
                     gController.finishTest(); 
+                     gTooltip.hideTooltip (); /*74444 & 74513 */
                     break;
 				case 21: 
                     this.exitPopups();
@@ -575,6 +590,7 @@
 				case 19: 
                     this.exitPopups();
                     gController.finishTest(); 
+                     gTooltip.hideTooltip (); /*74444 & 74513 */
                     break;
 				case 21: 
                     this.exitPopups();
@@ -636,6 +652,7 @@
 				case 19: 
                     this.exitPopups();
                     gController.finishTest(); 
+                     gTooltip.hideTooltip (); /*74444 & 74513 */
                     break;
 				case 21: 
                     this.exitPopups();
@@ -654,6 +671,7 @@
 				case 11: 
                     this.exitPopups();
                     gController.stepNavigateForward(); 
+                     gTooltip.hideTooltip (); /*74444 & 74513 */
                     break;
 				default:
 					break;
@@ -669,6 +687,7 @@
 				case 19: 
                     this.exitPopups();
                     gController.finishTest(); 
+                     gTooltip.hideTooltip (); /*74444 & 74513 */
                     break;
 				case 21: 
                     this.exitPopups();
@@ -796,8 +815,11 @@
 	        	if(!gController.onLastItem()){
 	        		lz.Focus.clearFocus();
 	        	}
-	            this.exitPopups(); 
-	        	gController.stepNavigateForward();  
+	            this.exitPopups();
+	            gTooltip.hideTooltip (); /*for 74513 & 74444 */
+	           // console.log("after 814");
+	            gController.stepNavigateForward();  
+	            
 	        }	   
         </method>
         <method name="toggleMark" args="ignore=null"> 
@@ -827,13 +849,17 @@
 	        }		
         </method>
         <method name="stop" args="ignore=null"> 
+           	 //console.log("inside handler stop @ 847");
             if(canvas.loadItem){    
-                lz.Focus.clearFocus();
-	            this.exitPopups();
-	        	if(gItemInterface.visible == true || gTutorial.visible == true){
-	        	    //canvas.freezUI();
-					gController.setAttribute('isAudioPaused', true);
-	        		gController.finishTest();   
+            lz.Focus.clearFocus();
+	        this.exitPopups();
+			
+			if(gItemInterface.visible == true || gTutorial.visible == true){
+	        	//canvas.freezUI();
+				
+				//gScratchpad.title_area.controls.close_btn.hideText();/*defect 74466*/
+	        	gController.setAttribute('isAudioPaused', true);
+	        	gController.finishTest();   
 	        	}	
 	        }		           
         </method>
