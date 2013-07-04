@@ -2958,6 +2958,7 @@
 
 		<method name="stepNavigateForward"><![CDATA[
 		    //canvas.freezUI();
+             gTooltip.hideTooltip ();
            	var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/@itempos' )
             );
@@ -3379,6 +3380,7 @@
  		]]></method>
 
 		<method name="finishTest">
+            gTooltip.hideTooltip (); 
         	gReadableText.stopReading(false);
         	this.isStopScreen = true;
             freezeUI();
