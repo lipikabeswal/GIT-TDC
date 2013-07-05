@@ -49,7 +49,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mf"]}},$lzc$class__mf.attributes)
 }}})($lzc$class__mf)
-};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onkeydown","$m7","$m6","onmousedown","$m9","$m8","onbringBackFocus","$ma",null,"onfootnotedata","$mb",null,"onisMultiAudio","$mc",null,"oninit","$md",null,"onfootnotetext","$me",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-07-04T13:20:35Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onkeydown","$m7","$m6","onmousedown","$m9","$m8","onbringBackFocus","$ma",null,"onfootnotedata","$mb",null,"onisMultiAudio","$mc",null,"oninit","$md",null,"onfootnotetext","$me",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-07-05T11:35:34Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -18405,7 +18405,7 @@ LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAt
 }}})($lzc$class__m1ii)
 };lz.ClassAttributeTypes["$lzc$class__m1if"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class__m1if",["bg",void 0,"lines",void 0,"grabber",void 0,"$m1i7",function($0){
-gController.setCurrentCursor("cangrab_cursor")
+lz.Cursor.showHandCursor(true)
 },"$m1i8",function($0){
 gController.clearAndRestoreCurrentCursor();this.classroot.dragger.remove()
 },"$m1i9",function($0){
@@ -18489,7 +18489,7 @@ var $1=new Array();$1[0]=this.x;$1[1]=this.y;return $1
 },"getDeltas",function($0,$1,$2){
 var $3=new Array();var $4=this.degreesToRads($2);var $5=Math.sin($4);var $6=Math.cos($4);$3[0]=$6*$0-$5*$1;$3[1]=$5*$0+$6*$1;return $3
 },"ruler",void 0,"$m1ib",function($0){
-gController.setCurrentCursor("cangrab_cursor")
+lz.Cursor.showHandCursor(true)
 },"$m1ic",function($0){
 gController.clearAndRestoreCurrentCursor();this.dragger.remove()
 },"$m1id",function($0){
@@ -24687,7 +24687,7 @@ lz.Cursor.showHandCursor(true);this.setAttribute("frame",2);gController.setAttri
 },"$m20k",function($0){
 lz.Cursor.showHandCursor(false);gTooltip.hideTooltip();if(!this.isEnabled){
 this.setAttribute("frame",1)
-};lz.Timer.removeTimer(this.tooltipdel)
+};gController.setAttribute("manipSelected",false);lz.Timer.removeTimer(this.tooltipdel)
 },"$m20l",function($0){
 lz.Timer.removeTimer(this.tooltipdel);if(gController.magnifierState==true||gController.magnifierState=="true"||gController.magnifierState=="true"){
 this.hide()
@@ -24739,7 +24739,7 @@ lz.Cursor.showHandCursor(true);this.setAttribute("frame",2);gController.setAttri
 },"$m20q",function($0){
 lz.Cursor.showHandCursor(false);gTooltip.hideTooltip();if(!this.isEnabled){
 this.setAttribute("frame",1)
-};lz.Timer.removeTimer(this.tooltipdel)
+};gController.setAttribute("manipSelected",false);lz.Timer.removeTimer(this.tooltipdel)
 },"$m20r",function($0){
 Debug.write("onclick masking answer x",this.x,gManipulatives.y,gManipulativeBar.x);lz.Timer.removeTimer(this.tooltipdel);if(gMaskingAnswer.visible){
 this.hide()
@@ -25137,7 +25137,7 @@ this.setAttribute("tooltipdel",new (lz.Delegate)(this,"showTooltip"))
 },"tooltipdel",void 0,"$m21j",function($0){
 lz.Cursor.showHandCursor(true);lz.Timer.addTimer(this.tooltipdel,500);gController.setAttribute("manipSelected",true)
 },"$m21k",function($0){
-lz.Cursor.showHandCursor(false);gTooltip.hideTooltip();lz.Timer.removeTimer(this.tooltipdel)
+lz.Cursor.showHandCursor(false);gTooltip.hideTooltip();gController.setAttribute("manipSelected",false);lz.Timer.removeTimer(this.tooltipdel)
 },"$m21l",function($0){
 lz.Timer.removeTimer(this.tooltipdel);gReadableText.stopReading(false)
 },"showTooltip",function($0){
@@ -25203,7 +25203,7 @@ switch(arguments.length){
 case 0:
 $0=null;
 
-};lz.Cursor.showHandCursor(false);gTooltip.hideTooltip();lz.Timer.removeTimer(this.tooltipdel)
+};lz.Cursor.showHandCursor(false);gTooltip.hideTooltip();gController.setAttribute("manipSelected",false);lz.Timer.removeTimer(this.tooltipdel)
 },"click",function($0){
 switch(arguments.length){
 case 0:
@@ -25253,7 +25253,7 @@ this.setAttribute("tooltipdel",new (lz.Delegate)(this,"showTooltip"))
 },"tooltipdel",void 0,"$m21p",function($0){
 lz.Cursor.showHandCursor(true);lz.Timer.addTimer(this.tooltipdel,500);gController.setAttribute("manipSelected",true)
 },"$m21q",function($0){
-lz.Cursor.showHandCursor(false);gTooltip.hideTooltip();lz.Timer.removeTimer(this.tooltipdel)
+lz.Cursor.showHandCursor(false);gTooltip.hideTooltip();gController.setAttribute("manipSelected",false);lz.Timer.removeTimer(this.tooltipdel)
 },"$m21r",function($0){
 lz.Timer.removeTimer(this.tooltipdel)
 },"showTooltip",function($0){
@@ -29582,7 +29582,9 @@ this.recorder.stopblinker("stop");this.recorder.whitewrapperOverLay.setAttribute
 this.hideHtmlWidgets()
 };this.setState(this.PAUSE_STATE);this.setAttribute("sendCatSave",false);this.save(this.PAUSE_LEV)
 }},"save",function($0){
-var $1=this.getSaveParams($0);this.resetMicCheck();this.resetHeartbeat();gCommunicator.save($1)
+var $1=this.getSaveParams($0);if(!this.isStopScreen){
+this.resetMicCheck()
+};this.resetHeartbeat();gCommunicator.save($1)
 },"goToPauseScreen",function(){
 if(this.pausable==true||this.pausable=="true"){
 lz.Browser.loadJS("pauseAudio();")
@@ -29594,7 +29596,9 @@ lz.Cursor.setCursorGlobal("waitcursor");this.setState(this.PAUSED_RESUME_STATE);
 }else{
 return false
 }},"_handlePausedResumeResponse",function($0){
-this.changeItem(this.getItemFromOffset(this.currItemOffset()));this.showItemInterface();gScreens.resetTextFieldColor();this.startQuestion();this.recalltrackMouseMove();this.showManipulatives();this.unlockUI();gQuestion.setGrFocus();this.restoreScratchpadFocusIfNeeded();this.checkShowMagnifierGlass();this.checkShowMaskingChoiceDD();if(this.htmlFields!=null){
+this.changeItem(this.getItemFromOffset(this.currItemOffset()));this.showItemInterface();gScreens.resetTextFieldColor();this.startQuestion();this.recalltrackMouseMove();if(gScratchpad.visible){
+this.setManipulativeSelState("scratchpad","up")
+};this.manipulativeSelected();this.unlockUI();gQuestion.setGrFocus();this.restoreScratchpadFocusIfNeeded();this.checkShowMagnifierGlass();this.checkShowMaskingChoiceDD();if(this.htmlFields!=null){
 this.showHtmlWidgets()
 };this.setAttribute("isPauseTest",false);gController.setAttribute("resetButtonEnable",false);gController.setAttribute("recordingCompleted",false);gController.setAttribute("recordState",true);this.removePauseTimer();gPauseTimerScreen.setAttribute("visible",false);this.dpdisplay.setNodeAttribute("timeleftforpause","00:00")
 },"hideManipulatives",function(){
@@ -29605,7 +29609,7 @@ gManipulatives.setAttribute("visible",true)
 if(this.focusOnScratchpad&&gScratchpad.visible){
 gScratchpad.restoreFocusAndCursor()
 }},"finishTest",function(){
-gTooltip.hideTooltip();gReadableText.stopReading(false);this.isStopScreen=true;this.freezeUI();if(this.recorder!=null){
+gTooltip.hideTooltip();this.stopMicCheck();this.setAttribute("isAudioPaused",true);gReadableText.stopReading(false);this.isStopScreen=true;this.freezeUI();if(this.recorder!=null){
 this.recorder.stopblinker("stop");this.recorder.whitewrapperOverLay.setAttribute("visible",false);this.recorder.blackOverLay.setAttribute("visible",false);this.blockFileName=false
 };this.setState(this.FINISH_STATE);if(this.isStopTest){
 this.setAttribute("sendCatSave",false)
@@ -29664,19 +29668,20 @@ gManipulativeBar.globals.highlighter.setAttribute("frame",1)
 };if(gManipulativeBar.globals.eraser!=null){
 gManipulativeBar.globals.eraser.setAttribute("frame",1)
 };if(gManipulativeBar.globals.scratchpad!=null){
+if(!gScratchpad.visible){
 gManipulativeBar.globals.scratchpad.setAttribute("frame",1)
-};if(gManipulativeBar.globals.masking_ruler!=null){
+}};if(gManipulativeBar.globals.masking_ruler!=null){
 gManipulativeBar.globals.masking_ruler.setAttribute("frame",1)
 };this.setAttribute("manipSelected",false)
 }},"resumeTest",function(){
-this.manipulativeSelected();this.isStopScreen=false;var $0="playAudio()";lz.Browser.loadJS($0);lz.Cursor.setCursorGlobal("waitcursor");this.showItemInterface();this.showManipulatives();this.recalltrackMouseMove();gQuestion.setGrFocus();this.restoreScratchpadFocusIfNeeded();this.unlockUI();this.checkShowMaskingChoiceDD();if(this.adaptive==true){
+this.manipulativeSelected();this.isStopScreen=false;var $0="playAudio()";lz.Browser.loadJS($0);lz.Cursor.setCursorGlobal("waitcursor");this.showItemInterface();this.resetMicCheck();this.showManipulatives();this.recalltrackMouseMove();gQuestion.setGrFocus();this.restoreScratchpadFocusIfNeeded();this.unlockUI();this.checkShowMaskingChoiceDD();if(this.adaptive==true){
 gScreens.removeFinishState()
 };this.checkShowMagnifierGlass();gHotKeys.handleHotKeysNav();gTooltip.hideTooltip();if(this.isMousedownOnManip){
 gMaskingRuler.dragger.remove();this.setAttribute("isMousedownOnManip",false)
 }},"continueTest",function(){
 this.openTest()
 },"stopTest",function(){
-this.setAttribute("isAudioPaused",true);this.setAttribute("isStopTest",true);this.setAttribute("catOver",false);this.finishTest()
+this.setAttribute("isStopTest",true);this.setAttribute("catOver",false);this.finishTest()
 },"recorderComponent",function($0){
 this.recorder=$0
 },"imageComponent",function($0){
