@@ -70,6 +70,7 @@
 						if(!this.isEnabled) {
 							this.setAttribute('frame',1);
 						}   
+						gController.setAttribute("manipSelected",false);
 						lz.Timer.removeTimer (this.tooltipdel);
 					</handler>
 
@@ -137,7 +138,8 @@
 						gTooltip.hideTooltip (); 
 						if(!this.isEnabled) {
 							this.setAttribute('frame',1);
-						}   
+						} 
+						gController.setAttribute("manipSelected",false);  
 						lz.Timer.removeTimer (this.tooltipdel);
 					</handler>
 
@@ -223,7 +225,8 @@
 		                
 				<handler name="onmouseout">
 				    lz.Cursor.showHandCursor(false);
-					gTooltip.hideTooltip ();    
+					gTooltip.hideTooltip (); 
+					gController.setAttribute("manipSelected",false);   
 					lz.Timer.removeTimer (this.tooltipdel);
 				</handler>
 		
@@ -253,7 +256,8 @@
 		                
 				<handler name="onmouseout">
 				    lz.Cursor.showHandCursor(false);
-					gTooltip.hideTooltip ();    
+					gTooltip.hideTooltip ();  
+					gController.setAttribute("manipSelected",false);  
 					lz.Timer.removeTimer (this.tooltipdel);
 				</handler>
 		
@@ -313,7 +317,8 @@
 			                
 					<method name="mouseout" args="ignore=null">
 					    lz.Cursor.showHandCursor(false);
-						gTooltip.hideTooltip ();    
+						gTooltip.hideTooltip (); 
+						gController.setAttribute("manipSelected",false);   
 						lz.Timer.removeTimer (this.tooltipdel);
 					</method>
 			

@@ -3347,7 +3347,11 @@
 			gScreens.resetTextFieldColor();
             startQuestion();
 			recalltrackMouseMove();
-			showManipulatives();
+			//showManipulatives();
+			if(gScratchpad.visible) {
+				this.setManipulativeSelState("scratchpad", "up");
+			}
+			manipulativeSelected();
             unlockUI();
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
@@ -3553,7 +3557,9 @@
 					gManipulativeBar.globals.eraser.setAttribute("frame",1);
 				}
 				if(gManipulativeBar.globals.scratchpad != null){
-					gManipulativeBar.globals.scratchpad.setAttribute("frame",1);
+					if(!gScratchpad.visible) {
+						gManipulativeBar.globals.scratchpad.setAttribute("frame",1);
+					}
 				}
 				if(gManipulativeBar.globals.masking_ruler != null){
 					gManipulativeBar.globals.masking_ruler.setAttribute("frame",1);
