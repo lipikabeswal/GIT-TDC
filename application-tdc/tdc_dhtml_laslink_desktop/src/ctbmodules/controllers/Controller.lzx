@@ -3296,7 +3296,9 @@
 		<method name="save" args="lev">
         	var saveParams = getSaveParams(lev);
 			//console.log("Inside save");
-			resetMicCheck();
+			if(!this.isStopScreen){
+				resetMicCheck();
+        	}
         	resetHeartbeat();
 			gCommunicator.save(saveParams);
 		</method>
@@ -3385,6 +3387,8 @@
 
 		<method name="finishTest">
             gTooltip.hideTooltip (); 
+			stopMicCheck();
+			this.setAttribute('isAudioPaused', true);
         	gReadableText.stopReading(false);
         	this.isStopScreen = true;
             freezeUI();
@@ -3576,6 +3580,7 @@
 			lz.Browser.loadJS(s);			
             lz.Cursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
+            resetMicCheck();
 			showManipulatives();
 			recalltrackMouseMove();
             gQuestion.setGrFocus();
@@ -3604,7 +3609,6 @@
 		-->
 
 		<method name="stopTest">
-			this.setAttribute('isAudioPaused', true);
 			this.setAttribute("isStopTest",true);
 			this.setAttribute("catOver",false);
 			finishTest();
