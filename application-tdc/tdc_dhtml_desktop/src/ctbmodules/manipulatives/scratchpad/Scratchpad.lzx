@@ -191,6 +191,7 @@
 					classroot.setAttribute("scratchpadHasFocus", true);
 					gHotKeys.disableKeys();
 					classroot.bringToFront();
+					checkTextDragging();
 				</handler>
 				
 				<handler name="onblur" reference="inp">
