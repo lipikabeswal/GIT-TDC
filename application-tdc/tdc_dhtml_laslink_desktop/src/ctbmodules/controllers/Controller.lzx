@@ -4994,6 +4994,16 @@
 		<method name="showWaitPopup"><![CDATA[
             this.isWaitPopupOpen = true;	
 			gPleaseWaitPopup.show();
+			if(gManipulativeBar.globals.scratchpad != null){
+				if(gScratchpad.visible) {
+					gManipulativeBar.globals.scratchpad.setAttribute("frame",1);
+				}
+			}
+			if(gManipulativeBar.globals.masking_ruler != null){
+				if(gMaskingRuler.visible) {
+					gManipulativeBar.globals.masking_ruler.setAttribute("frame",1);
+				}
+			}
 			for(var i=0; i< gController.lasAssetArray.length; i++) {
 				gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',true);
 			}
@@ -5033,7 +5043,16 @@
 			gController.unlockUI();
 			checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
-			
+			if(gManipulativeBar.globals.scratchpad != null){
+				if(gScratchpad.visible) {
+					gManipulativeBar.globals.scratchpad.setAttribute("frame",2);
+				}
+			}
+			if(gManipulativeBar.globals.masking_ruler != null){
+				if(gMaskingRuler.visible) {
+					gManipulativeBar.globals.masking_ruler.setAttribute("frame",2);
+				}
+			}
 			/*if(gCommunicator.firstRequestDone) {
 				if(gReadableText.speechRequestSent) {
 					showError(gXmlHelper.getSpeechErrorXml());
