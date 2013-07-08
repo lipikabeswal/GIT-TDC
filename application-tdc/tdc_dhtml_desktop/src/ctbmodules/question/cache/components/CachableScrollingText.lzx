@@ -88,7 +88,8 @@
                                stereotype="${classroot.panel.stereotype}"
                                vscroll="$once{parent.parent.scroll}"
                                passageId="${classroot.passageId}" 
-                               scrollport="$once{parent.parent}"/>
+                               scrollport="$once{parent.parent}"
+                               clickarea="${parent.scrollcontents}"/>
                 </view>
                 <vscrollbar name="scroll"
                             visible="${this.scrollable}"
