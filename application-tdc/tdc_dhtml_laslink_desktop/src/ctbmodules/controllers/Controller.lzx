@@ -2984,7 +2984,7 @@
 		<method name="toggleMark"><![CDATA[
 		//For Defect 65880
 			if(this.isThemePage()!='true' && this.allowRevisit && !gController.fwdOnly){
-	        	freezeUI();
+	        	//freezeUI();
 	        	var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
 	        	var isMarked = dncurritem.getAttr( 'marked' );
 	        	if(isMarked == null || isMarked == '0' || isMarked == 'false'){
@@ -2993,7 +2993,7 @@
 	        	else{
 	            	markQuestion(!isMarked);
 	            }
-	            unlockUI();
+	            //unlockUI();
 	            //canvas.unFreezUI();
 	        }
         ]]></method>
@@ -3235,7 +3235,7 @@
 		<!-- timing -->
 
 		<method name="toggleTimer">
-			freezeUI();
+			//freezeUI();
 			var currentSetting = dpdisplay.getNodeAttribute( 'showtime' );
 			if(currentSetting == 'true'){
 				showHideTimer( 'false' );
@@ -3243,7 +3243,7 @@
 			else{
 				showHideTimer( 'true' );
 			}
-			unlockUI();
+			//unlockUI();
 			//canvas.unFreezUI();
 		</method>
 
