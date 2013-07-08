@@ -294,7 +294,7 @@
 						
 						<handler name="ontext"><![CDATA[
 							var elm = getDisplayObject();
-							elm.setAttribute('style','font-family: CTB; font-weight: bold; font-size: '+this.fontsize+'; pointer-events: none; height: 16px; width: auto;');
+							elm.setAttribute('style','font-family: CTB; white-space: nowrap; font-weight: bold; font-size: '+this.fontsize+'; pointer-events: none; height: 16px; width: auto;');
 						]]></handler>
                         
 						
