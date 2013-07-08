@@ -3305,7 +3305,7 @@
 
 		<method name="goToPauseScreen">
 			if ( pausable == true || pausable == 'true') {
-				lz.Browser.loadJS('pauseAudio();');
+			pauseAudio();
 			}
 			this.clearInvalidCrResponses();
 			this.resetCrs();
@@ -3439,7 +3439,7 @@
 		</method>
 
 		<method name="goToFinishScreen"><![CDATA[
-			lz.Browser.loadJS('pauseAudio();');
+			pauseAudio();
 			this.clearInvalidCrResponses();
 			this.resetCrs();
 			//START Defect# 59282
@@ -3576,8 +3576,7 @@
 		<method name="resumeTest">
 			manipulativeSelected();
 			this.isStopScreen = false;
-           	var s="playAudio()";
-			lz.Browser.loadJS(s);			
+           	playAudio();			
             lz.Cursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
             resetMicCheck();
