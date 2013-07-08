@@ -459,6 +459,8 @@ function enableHighlighter(isEnabled){
 	if(iframe){
 		if(iframe.contentWindow.accomPkg!= null && iframe.contentWindow.accomPkg!=undefined){
 			iframe.contentWindow.accomPkg.enableHighlighter(isEnabled);
+			iframe.contentWindow.accomPkg.removeHighlighterCursor();	
+			iframe.contentWindow.accomPkg.setHighlighterCursor("../../includes/cursor_images/cursor_highliter.png");
 		}
 	}
 }
@@ -468,6 +470,8 @@ function enableEraser(isEnabled){
 	if(iframe){
 		if(iframe.contentWindow.accomPkg!= null && iframe.contentWindow.accomPkg!=undefined){
 			iframe.contentWindow.accomPkg.enableEraser(isEnabled);
+			iframe.contentWindow.accomPkg.removeHighlighterCursor();
+			iframe.contentWindow.accomPkg.setEraserCursor("../../includes/cursor_images/cursor_eraser.png");
 		}
 	}
 }
@@ -639,7 +643,6 @@ function getCRcolor(){
 }
 
 function checkTextDragging(){
-	//jQuery("textarea").attr('disabled','disabled');
 	jQuery("textarea").on("dragstart", function(e) {
 				e.preventDefault();
 			});
