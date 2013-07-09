@@ -596,7 +596,7 @@
 		<attribute name="timerInterval" type="number" value="1200000" />
 		<attribute name="isHandlerInactive" type="boolean" value="false" />
 		<attribute name="isMousedownOnManip" value="false" type="boolean" />
-		
+		<attribute name="isTestPaused" value="false" type="boolean"/>
 		
 		
 		
@@ -727,6 +727,7 @@
 		if(gController.unlockNavigation == true ){
 			gHotKeys.enableKeys();
 			dncurrentItem.setAttr('canNotNavigate' , false);
+			this.setAttribute('isTestPaused',false);
 		}
 		else{
 			//gHotKeys.handleHotKeys();
@@ -3263,6 +3264,7 @@
 			
 		<method name="pauseTest">
 			this.setAttribute('isPauseTest',true);
+			this.setAttribute('isTestPaused',true); //added to enable the state of question bar button on returning from pause screen.
 			//gController.setAttribute("isPaused",false);
             if ( pausable == true ) {
             	this.setAttribute('isAudioPaused', true);

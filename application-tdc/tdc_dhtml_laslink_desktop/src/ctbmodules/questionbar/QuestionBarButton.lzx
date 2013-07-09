@@ -87,13 +87,18 @@
 			else{
 			 if(this.allow_revisit != null){
 				if(this.allow_revisit != true){
-					if(this.isvisited || this.isanswered){
+					if(!gController.isTestPaused) {
+						if(this.isvisited || this.isanswered){
 							this.btn.setAttribute('clickable',true);
 							this.btnText.setAttribute('fgcolor','gray');
 							this.themeResource = 'theme_disable';
-					}else{
+						}else{
 							this.btnText.setAttribute('fgcolor',0x000000);
 							this.btn.setAttribute('clickable',false);
+						}
+					} else {
+						this.btnText.setAttribute('fgcolor',0x000000);
+						this.btn.setAttribute('clickable',false);
 					}
 				}else{
 					this.btn.setAttribute('clickable',false);
