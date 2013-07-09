@@ -48,6 +48,10 @@
 			this.setAttribute("navigateFrom",calledFrom);
 	        lz.ModeManager.makeModal(this);
 	        gHotKeys.disableKeys();
+	        if(canvas.currentCursor == 'highlighter_cursor')
+	        { 
+	          gController.clearAndRestoreCurrentCursor();
+	        }
 	     }
     </method>
 
@@ -118,7 +122,8 @@
 		</basebutton>
 		<basebutton	name="cancelButton"	resource="popupCancel" x="178" y="110" width="102" height="25" stretches="both">
 		<handler name="onclick">
-			gController.setNavigation(0,parent.parent.navigateFrom);
+		    gController.setNavigation(0,parent.parent.navigateFrom);
+			gController.restoreCurrentCursor();
         </handler>
         <handler name="onmouseover">
         	lz.Cursor.unlock();
