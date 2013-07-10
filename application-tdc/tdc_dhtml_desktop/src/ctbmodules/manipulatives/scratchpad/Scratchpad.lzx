@@ -19,8 +19,7 @@
 		   minwidth="130"
 		   minheight="130"
 		   initstage="defer"
-		   focustrap="true"
-		   xscale="${canvas.xscalefactor}" yscale="${canvas.yscalefactor}">
+		   focustrap="true">
 
 		<attribute name="DEFAULT_HEIGHT" type="number" value="227" />
 		<attribute name="DEFAULT_WIDTH" type="number" value="400" />
@@ -128,8 +127,8 @@
 				this.setAttribute("width", this.DEFAULT_WIDTH);
 				/*this.setAttribute("x", this.DEFAULT_X);
 				this.setAttribute("y", this.DEFAULT_Y);*/
-				this.setAttribute ('x', (gManipulatives.width - this.width*canvas.xscalefactor)/2);
-            	this.setAttribute ('y', (gManipulatives.height - this.height*canvas.yscalefactor)/2);
+				this.setAttribute ('x', (gManipulatives.width - this.width)/2);
+            	this.setAttribute ('y', (gManipulatives.height - this.height)/2);
            		this.restoreFocusAndCursor();
            }else{
            		gReadableText.stopReading(true);

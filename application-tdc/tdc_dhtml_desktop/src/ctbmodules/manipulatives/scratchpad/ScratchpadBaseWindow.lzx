@@ -8,11 +8,17 @@
 <include href="base/basecomponent.lzx" />
 <include href="utils/states/dragstate.lzx"/>
 <include href="utils/states/resizestatemin.lzx"/>
+<include href="../dragrotateresize/DragMixin.lzx" />
 
 <!--- The basewindow class defines methods, attributes that are used by window
       subclasses.-->
 <class name="ScratchpadBaseWindow" extends="basecomponent"  options="ignorelayout"
-       pixellock="true" focusable="false" clickable="true">
+       pixellock="true" focusable="false" clickable="true"  with="DragMixin"
+           dragaxis="both"
+           dragminx="${-(this.width - 100)}"
+           dragmaxx="${parent.width - 100}"
+           dragminy="${-(this.height - 100)}"
+           dragmaxy="${parent.height - 100}">
         <!--- Minimum width for the window.
               @keywords final -->
         <attribute name="minwidth" value="60"/>
@@ -45,22 +51,6 @@
         <attribute name="allowdrag"
            value="true"
            type="boolean" />
-
-        <state name="_windowDrag">
-            <attribute name="starty" value="$once{this.y}"/>
-            <attribute name="startx" value="$once{this.x}"/>
-            <attribute name="drag_min_x" value="$once{-(this.width - 100)}" />
-            <attribute name="drag_min_y" value="$once{-(this.height - 100)}"/>
-            <attribute name="drag_max_x" value="$once{parent.width - 100}"/>
-            <attribute name="drag_max_y" value="$once{parent.height - 100}"/>
-            <attribute name="ydoffset" value="this.getMouse( 'y' )" when="once" />
-            <attribute name="xdoffset" value="this.getMouse( 'x' )" when="once" />
-            <!-- Don't call setDragPos() once the drag state has been changed -->
-            <attribute name="y"
-                       value="${setDragPos('y', this.immediateparent.getMouse( 'y' ))}"/>
-            <attribute name="x"
-                       value="${setDragPos('x', this.immediateparent.getMouse( 'x' ))}"/>
-        </state>
 
         <!--- @access private -->
         <method name="setDragPos" args="xory, mousepos">   <![CDATA[
@@ -205,14 +195,14 @@
               @keywords private -->
         <method name="_mousedown" args="ignore">
             this.setAttribute('haswindowfocus', true);
-            this._startDrag();
+            this.setAttribute('dragenabled', true);
         </method>
 
         <!--- Called onmouseup, stops the drag behavior.  Subclasses may
               override to create different behavior.
               @keywords private -->
         <method name="_mouseup" args="ignore">
-            this._stopDrag();
+            this.setAttribute('dragenabled', false);
 			//Debug.write("this.stopdrag scratchpadbasewindpw",this.x,this.y)
         </method>
 

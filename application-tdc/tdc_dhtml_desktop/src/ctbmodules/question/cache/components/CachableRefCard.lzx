@@ -1,9 +1,15 @@
 <library>
 
 	<include href="CachableComponent.lzx"/>
+	<include href="../../../manipulatives/dragrotateresize/DragMixin.lzx" />
 
     <class name="CachableRefCard" comptype="$once {gCompTypes.WIDGET_REFERENCE_CARD}" extends="CachableComponent"
-    		xscale="${canvas.xscalefactor}" yscale="${canvas.yscalefactor}">
+    	   with="DragMixin"
+           dragaxis="both"
+           dragminx="${-(this.width - 100)}"
+           dragmaxx="${parent.width - 100}"
+           dragminy="${-(this.height - 100)}"
+           dragmaxy="${parent.height - 100}">
 		<attribute name="innerHeight" value="400" type="number"/>
 		<attribute name="defaultInnerHeight" value="400" type="number"/>
 		<attribute name="innerWidth" value="500" type="number"/>
@@ -50,11 +56,6 @@
             this.datapath.setXPath (this.toolid);
 		</handler>
 		
-        <dragstate name="dragger"
-                   drag_min_x="$once{-(this.width - 100)}" 
-                   drag_min_y="$once{-(this.height - 100)}"
-                   drag_max_x="$once{parent.width - 100}"
-                   drag_max_y="$once{parent.height - 100}"/>
 
         <handler name="ondata" args="data"><![CDATA[
         	this.setAttribute("height", null);
@@ -104,13 +105,13 @@
                 this.setAttribute ('x', Number(data.getAttr ('x')));
             }
             else{
-             	this.setAttribute ('x', (gManipulatives.width - this.width*canvas.xscalefactor)/2);
+             	this.setAttribute ('x', (gManipulatives.width - this.width)/2);
             }
             if(data != null && data.hasAttr('y')){
             	this.setAttribute ('y', Number(data.getAttr ('y')));
             }
             else{
-                this.setAttribute ('y', (gManipulatives.height - this.height*canvas.yscalefactor)/2);
+                this.setAttribute ('y', (gManipulatives.height - this.height)/2);
 			}
 			
 			if(data != null && data.hasAttr('scrolls')){
@@ -149,7 +150,6 @@
         </handler>
 
         <handler name="onmouseout">
-        	this.dragger.remove ();
             gController.clearAndRestoreCurrentCursor();
         </handler>
 
@@ -157,13 +157,13 @@
         	this.bringToFront();
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
             lz.Cursor.lock ();
-            this.dragger.apply ();
+            this.setAttribute('dragenabled', true);
         </handler>
 
         <handler name="onmouseup">
             lz.Cursor.unlock ();
             gController.restoreCurrentCursor();
-            this.dragger.remove ();
+            this.setAttribute('dragenabled', false);
 
             this.datapath.p.setAttr ('x', this.x);
             this.datapath.p.setAttr ('y', this.y);

@@ -1,0 +1,109 @@
+<library>
+
+    <!--- Controls which can be added to views to enable the drag/rotate/resize
+          functionality of the ControlView. -->
+    <class name="ControlHandle" clickable="true">
+
+        <!-- ATTRIBUTES -->
+        <!--- Name of the controlview (must be child of canvas).
+              @type string
+              @access public
+        -->
+        <attribute name="controlviewname" type="string" value="" />
+
+        <!--- Which actions can be controlled by this point:
+                 'x'     x-axis changes (width)
+                 'y'     y-axis changes (height)
+                 'd'     moving the component
+                 'r'     rotate the component
+                 'o'     origin point, needs special treatment
+              @type string
+              @access public
+        -->
+        <attribute name="controls" type="string" value="?" />
+
+        <!--- Track if the left mouse button is down and resizing/rotating
+              activated.
+              @type string
+              @access private
+         -->
+        <attribute name="mousestatus" type="string" value="up" />
+
+        <!--- Target view which is manipulated by this handle.
+              @type object
+              @access private
+         -->
+        <attribute name="target" type="expression" value="null" />
+
+        <!--- Reference to the controlview instance for this application.
+              @type object
+              @access private
+         -->
+        <attribute name="controlview" type="expression" value="null" />
+
+        <!--- Delegate for tracking canvas.onmousemove events.
+              @type object
+              @access private
+         -->
+        <attribute name="_mouseMoveDel" type="expression" value="null" />
+
+
+        <!-- EVENT HANDLER -->
+        <!--- Initialization, create delegate tracking mouse movements.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="oninit">
+            this._mouseMoveDel = new LzDelegate(this,'_trackMouseMove');
+        </handler>
+
+        <!--- Mouse down event handler.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="onmousedown">
+            if (controlview == null) {
+                controlview = canvas[controlviewname];
+            }
+            controlview.setActiveItem(target, this);
+            setAttribute("mousestatus", "down");
+            controlview.onactionstart.sendEvent();
+            _mouseMoveDel.register(canvas, 'onmousemove');
+        </handler>
+
+        <!--- Mouse up event handler.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="onmouseup">
+            _mouseMoveDel.unregisterAll();
+            controlview.stopDragMove();
+            setAttribute("mousestatus", "up");
+        </handler>
+
+        <!--- Mouse out event handler.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="onmouseout">
+            if (controlview) {
+                this.controlview.onmouseout.sendEvent(this.controlview);
+            }
+        </handler>
+
+
+        <!-- METHODS -->
+        <!--- Starts tracking the mousemoves as long as the left mouse button
+              is pressed. Called by _mouseMoveDel.
+              @param Object ignore: Is required by compiler, but ignored.
+              @access private
+        -->
+        <method name="_trackMouseMove" args="ignore">
+            if (this.mousestatus === "down") {
+                this.controlview.doDragMove(this.controls);
+            }
+        </method>
+
+    </class>
+
+</library>

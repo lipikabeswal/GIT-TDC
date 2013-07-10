@@ -229,15 +229,14 @@
         </view>
 
     </view>
-	<Manipulatives id="gManipulatives" x="${canvas.titleView.mainView.scalingView.x}"
-				   y="${(gItemInterface.contents.itemScreen.header.manipulativeToolbar.y+gItemInterface.contents.itemScreen.header.manipulativeToolbar.manipulativeBarContainer.height+20)*canvas.yscalefactor}"
-				   width="${gQuestion.width*canvas.xscalefactor}"
-				   height="${(gItemInterface.height+20-this.y)*canvas.yscalefactor}" options="releasetolayout"/>
     </view>
   
 </view>
  <include href="ctbmodules/manipulatives/magnifier/MagnifyingGlass.lzx"/>  
- 
+  <!-- invisible instance of ControlView class used during 
+      drag/rotate/resize actions exectud on the protractor
+      and ruler. -->
+ <ControlView name="gDragRotateResizer" />  
   
 <!-- -Freezing view 
 

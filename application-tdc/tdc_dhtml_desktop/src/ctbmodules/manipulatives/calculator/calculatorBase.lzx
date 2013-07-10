@@ -2,9 +2,14 @@
     <include href="../BaseManipulative.lzx"/>
     <include href="resource/resources.lzx"/>
 	<include href="calculatorButtons.lzx" />
+	<include href="../dragrotateresize/DragMixin.lzx" />
 
-	<class name="calculatorBase" id="calc_base" extends="BaseManipulative" 
-		   xscale="${canvas.xscalefactor}" yscale="${canvas.yscalefactor}">
+	<class name="calculatorBase" id="calc_base" extends="BaseManipulative" with="DragMixin"
+           dragaxis="both"
+           dragminx="${-(this.width - 100)}"
+           dragmaxx="${parent.width - 100}"
+           dragminy="${-(this.height - 100)}"
+           dragmaxy="${parent.height - 100}">		   
 
 
 		<datapointer name="tempP"/>
@@ -54,26 +59,12 @@
 		
         <attribute name="operandP" value="$once{new lz.datapointer()}"/>
         <attribute name="operatorP" value="$once{new lz.datapointer()}"/>
-        
-        <dragstate name="dragger"
-                   drag_min_x="${-(this.width - 100)}" 
-                   drag_min_y="${-(this.height - 100)}"
-                   drag_max_x="${parent.width - 100}"
-                   drag_max_y="${parent.height - 100}">
-        	<handler name="onapply">
-        	;
-        	</handler>   
-        	<handler name="onremove">
-        	;
-        	</handler>        
-        </dragstate>
 
         <handler name="onmouseover">
             gController.setCurrentCursor('cangrab_cursor');
         </handler>
 
         <handler name="onmouseout">
-        	this.dragger.remove ();
             gController.clearAndRestoreCurrentCursor();
         </handler>
 
@@ -81,14 +72,14 @@
         	this.bringToFront();
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
             lz.Cursor.lock ();
-            this.dragger.apply ();
+			this.setAttribute('dragenabled', true)
         </handler>
 
         <handler name="onmouseup">
             /*lz.Cursor.unlock ();
             gController.restoreCurrentCursor();*/
             lz.Timer.resetTimer(gController.dRestoreCursor, 100);
-            this.dragger.remove ();
+			this.setAttribute('dragenabled', false)
 
             this.datapath.p.setAttr ('x', this.x);
             this.datapath.p.setAttr ('y', this.y);
@@ -96,8 +87,8 @@
 
 
         <handler name="ondata" args="data"><![CDATA[
-            this.setAttribute ('x', (gManipulatives.width - this.width*canvas.xscalefactor)/2);
-            this.setAttribute ('y', (gManipulatives.height - this.height*canvas.yscalefactor)/2);
+            this.setAttribute ('x', (gManipulatives.width - this.width)/2);
+            this.setAttribute ('y', (gManipulatives.height - this.height)/2);
 
             // load in saved data or set to defaults
             if (data) {

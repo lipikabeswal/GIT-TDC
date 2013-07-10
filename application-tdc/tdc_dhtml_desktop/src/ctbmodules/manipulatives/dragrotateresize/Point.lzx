@@ -1,0 +1,117 @@
+<library>
+
+    <!--- Class that represents a point in an x-y coordinate system.
+          Provides a number of useful methods for point manipulation.
+    -->
+    <class name="Point" extends="node">
+
+        <!-- ATTRIBUTES -->
+        <!--- Number representing x value of point
+              @type Number
+              @access public
+        -->
+        <attribute name="x" type="number" value="0" />
+
+        <!--- Number representing y value of point
+              @type Number
+              @access public
+        -->
+        <attribute name="y" type="number" value="0" />
+
+        <!-- METHODS -->
+        <!--- @access private -->
+        <method name="construct" args="parent, args">
+           super.construct(parent, args);
+           this.x = args['x'];
+           this.y = args['y'];
+        </method>
+
+        <!--- Calculate the angle to another point, in degrees.
+              @param Point pt2: A point to compare against
+              @return {Number} angle in degrees
+              @access public
+        -->
+        <method name="calcAngle" args="pt2">
+            // Debug.info('Point#calcAngle: pt2.x=%d, pt2.y=%d', pt2.x, pt2.y);
+            var xDif = pt2.x - this.x;
+            var yDif = pt2.y - this.y;
+            var rad = Math.atan2(yDif, xDif);
+            return toDeg(rad);
+        </method>
+
+
+        <!-- Calculate calcDistance to another point
+             @param Point pt2: A point to compare against
+             @return {Number} Distance in pixels.
+             @access public
+        -->
+        <method name="calcDistance" args="pt2">
+            // Debug.info('Point#calcDistance');
+            return Math.sqrt((pt2.x - this.x) * (pt2.x - this.x) +
+                             (pt2.y - this.y) * (pt2.y - this.y));
+        </method>
+
+
+        <!--- Calculate rotation of a point a certain number of degrees around
+              an originating point.  Return the X coordinate of the rotation.
+              @param Point pt2: the point to rotate around.
+              @param Number ang: angle to rotate in degrees
+              @return Rotated x-coordinate.
+              @access public
+        -->
+        <method name="rotatePointX" args="pt2, ang">
+            // Debug.info('Point#rotatePointX');
+            var x = pt2.x + (Math.cos(toRad(ang)) * (this.x - pt2.x)
+               - Math.sin(toRad(ang)) * (this.y - pt2.y));
+            return x;
+        </method>
+
+
+        <!--- Calculate rotation of a point a certain number of degrees around
+              an originating point.  Returns the Y coordinate of the rotation.
+              @param Point pt2: the point to rotate around.
+              @param Number ang: angle to rotate in degrees
+              @return Rotated y-coordinate.
+              @access public
+        -->
+        <method name="rotatePointY" args="pt2, ang">
+            // Debug.info('Point#rotatePointY');
+            var y = pt2.y + (Math.sin(toRad(ang)) * (this.x - pt2.x)
+              + Math.cos(toRad(ang)) * (this.y - pt2.y));
+
+            return y;
+        </method>
+
+
+        <!--- Rotate this point around an originating point a certain number
+              of degrees  (modifies coordinate of point)
+              @param Point pt2: the point to rotate around.
+              @param Number ang: angle to rotate in degrees
+              @access public
+        -->
+        <method name="rotate" args="pt2, ang">
+            // Debug.info('Point#rotate');
+            /* note: need to keep on separate lines and not change this.x until the
+             *   y1 value is calculated, or that will mess things up, since origin is
+             *   a factor in the calculation
+             */
+            var x1 = rotatePointX(pt2, ang);
+            var y1 = rotatePointY(pt2, ang);
+            this.x = x1;
+            this.y = y1;
+        </method>
+
+        <!-- Convert degrees to radians -->
+        <method name="toRad" args="deg">
+            return deg * Math.PI / 180;
+        </method>
+
+        <!-- Convert radians to degrees -->
+        <method name="toDeg" args="rad">
+            return (rad / Math.PI) * 180;
+        </method>
+
+    </class>
+
+
+</library>

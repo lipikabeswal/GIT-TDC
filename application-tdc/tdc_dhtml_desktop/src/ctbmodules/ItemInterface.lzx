@@ -105,6 +105,7 @@
                             	</handler>
                             </text>                               
                         </view>
+                        <Manipulatives id="gManipulatives" width="100%" options="releasetolayout"/>
                         <Tooltip id="gTooltip" options="ignorelayout"/>
                     </view>
                 </view>
