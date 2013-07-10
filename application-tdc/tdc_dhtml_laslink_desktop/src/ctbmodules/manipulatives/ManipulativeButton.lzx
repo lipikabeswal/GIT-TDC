@@ -52,7 +52,7 @@
         //console.log("Inside onclick button****");
        		gController.setAttribute("manipbuttonClicked",true);
             if (this.isenabled) {
-                gController.setManipulativeSelState (this.toolid, 
+                gController.setManipulativeSelState (this.toolid, this.isselected ? 'up' : 'sel'); 
             }
             lz.Timer.removeTimer (this.tooltipdel);
         </handler>
