@@ -288,7 +288,12 @@
 		 				classroot.bringToFront();
 		 			</handler>
 					<handler name="onclick" >
+					if(gController.dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global/@scratchpad') != 'disable'){
 						gController.setManipulativeSelState("scratchpad", "up");
+					}
+					else{
+						gController.setAttribute('scratchpadOpen',false);
+					}	
 		 			</handler>
 		 			<handler name="onmouseover">
 		 				lz.Cursor.unlock();
