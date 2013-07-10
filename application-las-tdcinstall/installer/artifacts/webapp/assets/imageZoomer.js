@@ -181,7 +181,9 @@ var ddpowerzoomer={
 					ddpowerzoomer.$magnifier.outer.hide()
 				}
 				$('#magnifierWindow').css( 'cursor', 'pointer' );
-			}
+			},
+			distance:10
+			
 			
 		}) //create magnifier container and add to doc
 		ddpowerzoomer.$magnifier={outer:$magnifier, inner:$($magnifier.find('div:eq(0)')).find('div:eq(0)'), image:null} //reference and remember various parts of magnifier
@@ -246,5 +248,7 @@ jQuery.fn.initMagnify=function(options){
 
 		$("#magnifierWindow").on("mousedown",function() {
 			$('#scratchpad').blur();	
+			gMaskingRuler.dragger.remove();
+			gScratchpad.onmouseup.sendEvent();
         });
 }
