@@ -526,6 +526,10 @@
 			value="$once{ new lz.Delegate( this, 'isMicConnected' ) }" type="expression"/>
 		<attribute name="isPauseTest" value="false" type="boolean" /> 
 		<attribute name="manipSelected" value="false" type="boolean" /> 
+		<attribute name="manipClicked" value="false" type="boolean" /> 
+		<attribute name="manipbuttonClicked" value="false" type="boolean" /> 
+		<attribute name="currentManipSelected" value="NONE" type="string" /> 
+	
 
 		<!--
 			============================================================
@@ -1343,7 +1347,7 @@
 
 		<method name="setShowHighlighter">
 			var sh = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@highlighter');
-			console.log("setShowHighlighter******"+sh, typeof(sh));
+			//console.log("setShowHighlighter******"+sh, typeof(sh));
 			if(sh == true || sh == 'true') {
 				this.setAttribute('showHighlighter',true);
 			}
@@ -2366,6 +2370,7 @@
        </method>
 
 		<method name="massageItemLml"><![CDATA[
+			//console.log("Item LML*****"+dpitem.serialize());
             var itemmodel = dpitem.xpathQuery( 'item_model' );
             var toolbar = itemmodel.getElementsByTagName( 'toolbar' )[0];
             if ( !toolbar ) {
@@ -3391,6 +3396,7 @@
             gTooltip.hideTooltip (); 
 			stopMicCheck();
 			this.setAttribute('isAudioPaused', true);
+			this.setAttribute('manipClicked', true);
         	gReadableText.stopReading(false);
         	this.isStopScreen = true;
             freezeUI();
@@ -3538,7 +3544,7 @@
 		 
 		]]></method>
 
-		<method name="manipulativeSelected">
+		<method name="manipulativeSelected"><![CDATA[
 			if(this.manipSelected){
 				console.log("ManipSelected**"+this.manipSelected);
 				if(gManipulativeBar.globals.magnifyingGlass != null){
@@ -3574,7 +3580,39 @@
 				this.setAttribute('manipSelected',false);
 				
 			}
-		</method>
+		
+	
+
+		console.log("this.manipbuttonClicked***"+canvas.currentCursor);
+		if(this.manipbuttonClicked){
+				if(gManipulativeBar.globals.option_eliminator != null){
+						console.log("1");
+					if(this.manipClicked && this.currentManipSelected == 'option_eliminator'){
+						console.log("2");
+						gManipulativeBar.globals.option_eliminator.setAttribute("frame",2);
+					}
+				}
+				if(gManipulativeBar.globals.highlighter != null){
+						console.log("3");
+					if(this.manipClicked && this.currentManipSelected == 'highlighter'){
+						console.log("4");
+						gManipulativeBar.globals.highlighter.setAttribute("frame",2);
+					}
+					
+				}
+				if(gManipulativeBar.globals.eraser != null){
+					console.log("5");
+					if(this.manipClicked && this.currentManipSelected == 'eraser'){
+						console.log("6");
+						gManipulativeBar.globals.eraser.setAttribute("frame",2);
+					}
+				}
+				this.setAttribute('manipClicked',false);
+				this.setAttribute('manipbuttonClicked',false);
+				this.setAttribute('currentManipSelected','');
+			}
+
+		]]></method>
 		<method name="resumeTest">
 			manipulativeSelected();
 			this.isStopScreen = false;
@@ -4288,6 +4326,9 @@
             if(which == 'scratchpad'){  // keep track of scratchpad state globally
 				this.setAttribute('scratchpadOpen', value=='sel');
             }
+			if(value == 'sel'){
+				this.setAttribute('currentManipSelected',which);
+			}
             dn.setAttr (which, value);
         ]]></method>
 
@@ -5886,7 +5927,7 @@
 		]]></method>
 		
 		<method name="testTimedout">
-			 console.log("gController testTimedout********");
+			 //console.log("gController testTimedout********");
 			gPauseTimerScreen.setAttribute('visible',false);
 			timeoutDialog.close();
 			this.setAttribute('testTimeout',true);
