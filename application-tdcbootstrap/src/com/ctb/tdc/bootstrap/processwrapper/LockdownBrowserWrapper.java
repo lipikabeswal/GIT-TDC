@@ -47,6 +47,8 @@ public class LockdownBrowserWrapper extends Thread {
 	private static boolean ismac = false;
 	
 	private String[] ldbCommand;
+	private ArrayList<String> command;
+	private ProcessBuilder processBuilder;
 	private boolean isAvailable = false;
 	private static boolean isProcessExit = false;
 	
@@ -74,6 +76,7 @@ public class LockdownBrowserWrapper extends Thread {
 		
 		this.tdcHome = tdcHome;
 		this.splashWindow = splashWindow;
+		command=new ArrayList<String>();
             
 		if ( macOS ) {
 			LockdownBrowserWrapper.ismac = true;
@@ -84,8 +87,7 @@ public class LockdownBrowserWrapper extends Thread {
 			File ldbHomeDir = new File(this.tdcHome + "/lockdownbrowser/mac");
 			this.ldbHome = ldbHomeDir.getAbsolutePath();
 			this.ldbCommand = new String[1];
-			
-            this.ldbCommand[0] = this.ldbHome + "/LockDownBrowser.app/Contents/MacOS/LockDownBrowser";            
+			this.ldbCommand[0] = this.ldbHome + "/LockDownBrowser.app/Contents/MacOS/LockDownBrowser";
             this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
             
 		} else if ( linux ) {
@@ -121,6 +123,8 @@ public class LockdownBrowserWrapper extends Thread {
 							this.ldbCommand[0] = this.ldbHome + "/OASTDC/bin/OASTDC";          
 							this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
 							this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login_swf.html";
+							command.add((this.ldbHome + "/OASTDC/bin/OASTDC").replaceAll(" ", "\\ "));
+							command.add("http://127.0.0.1:" + jettyPort + "/login_swf.html");
 							
 						}else if(formName.equals("Form C/Form D/Espanol2")){
 							//ConsoleUtils.messageOut("Launching Form C&D");
@@ -131,6 +135,8 @@ public class LockdownBrowserWrapper extends Thread {
 							this.ldbCommand = new String[2];
 							this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
 							this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
+							command.add(this.ldbHome +"/ChromiumLDB/cefclient");
+							command.add("--url=http://127.0.0.1:" + jettyPort + "/login.html");
 						}
 						//this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + loginHtml;
 					}else{
@@ -143,6 +149,8 @@ public class LockdownBrowserWrapper extends Thread {
 						this.ldbCommand = new String[2];
 						this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
 						this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
+						command.add(this.ldbHome +"/ChromiumLDB/cefclient");
+						command.add("--url=http://127.0.0.1:" + jettyPort + "/login.html");
 					}
 		} else {
 			
@@ -283,7 +291,7 @@ public class LockdownBrowserWrapper extends Thread {
 			try {
 				String wmctrl = "./wmctrl -r \"Online Assessment System\" -b \"toggle, fullscreen\"";
 				Runtime.getRuntime().exec(wmctrl, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-				//Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+				//Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ "))); //causes ubuntu and suse to hang after exiting
 			} catch (Exception e) {
 
 				ConsoleUtils.messageOut("Force fullscreen : returned false -"+e.getMessage());
@@ -358,6 +366,7 @@ public class LockdownBrowserWrapper extends Thread {
 					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome) );
 					this.isAvailable = true;
 					ldb.waitFor();
+					isProcessExit=true;
 					this.isAvailable = false;
 	        		Runtime.getRuntime().exec("sh clear_clipboard.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 	    			Runtime.getRuntime().exec("sh enable_screen_capture.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
@@ -445,7 +454,7 @@ public class LockdownBrowserWrapper extends Thread {
 					ConsoleUtils.messageOut("Process block failed.");
 				} else {
 					flag = true;
-					ConsoleUtils.messageOut("Desktop Locked..........");
+//					ConsoleUtils.messageOut("Desktop Locked at "+System.currentTimeMillis());
 				}
 				// Run the LDB...
 				ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
@@ -468,19 +477,36 @@ public class LockdownBrowserWrapper extends Thread {
 					long startTime = System.currentTimeMillis();
 					LockdownLinux lockdown = new LockdownLinux(this.tdcHome);
 					ConsoleUtils.messageOut("LDB started at " + startTime);
-					ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]+this.ldbCommand[1]);
 					
-					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, envp, new File(this.ldbHome+"/ChromiumLDB/"));
+					//Process ldb = Runtime.getRuntime().exec(this.ldbCommand, envp, new File(this.ldbHome+"/ChromiumLDB/"));
 					//Process pBuilder= new ProcessBuilder(ldbCommand[0], ldbCommand[1]).start();
-					ldb=null;
-					Thread.sleep(10000);
-					ConsoleUtils.messageOut("Executed "+ldbCommand[0]);
-					lockdown.start();
+					processBuilder= new ProcessBuilder(command);
+					processBuilder.directory(new File(this.ldbHome+"/ChromiumLDB/"));
+					processBuilder.redirectErrorStream(true);
+					processBuilder.redirectOutput(new File(this.ldbHome+"/ChromiumLDB/ldbDebug.log"));
+					//ldb=null;
+					//Thread.sleep(10000);
 					
+					lockdown.start();
+		//			ConsoleUtils.messageOut("Lockdown Started at " + System.currentTimeMillis());
+					Process ldb=processBuilder.start();
+		//			ConsoleUtils.messageOut("LDB app started at " + System.currentTimeMillis());	
 					ready = true;
 					this.isAvailable = true;
-					/*ldb.waitFor();*/
-					while(true) {
+					ldb.waitFor();
+					isProcessExit=true;
+					this.isAvailable = false;
+					ConsoleUtils.messageOut("LDB app ended at " + System.currentTimeMillis());	
+					//ConsoleUtils.messageOut("Enabled hot keys at " + System.currentTimeMillis());	
+					Runtime.getRuntime().exec("./wmctrl -n 2", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+					
+					LockdownBrowserWrapper.Hot_Keys_Enable_Disable(true);
+					ConsoleUtils.messageOut("Hotkeys enabled at " + System.currentTimeMillis());	
+					
+					
+					//ConsoleUtils.messageOut("Desktop unlocked ...");
+					
+					/*while(true) {
 						Thread.sleep(3000);
 					//	ConsoleUtils.messageOut("Inside LDB Loop - isProcessExit:"+isProcessExit);
 						if(isProcessExit) {
@@ -492,7 +518,8 @@ public class LockdownBrowserWrapper extends Thread {
 							//ConsoleUtils.messageOut("Desktop unlocked ...");
 							break;
 						}
-					}
+					}*/
+					
 					/*while(!isProcessExit)
 					{
 					Thread.sleep(3000);	
@@ -578,6 +605,8 @@ public class LockdownBrowserWrapper extends Thread {
 		} catch (Exception e) {
 			ConsoleUtils.messageErr("An error has occured within " + this.getClass().getName(), e);
 		} finally {
+		//	ConsoleUtils.messageOut("Finally...");
+			cleanupLock();
 			exit();
 		}
 	}
@@ -684,7 +713,7 @@ public class LockdownBrowserWrapper extends Thread {
 				}
 			}
 			zis.close();
-            ConsoleUtils.messageOut("Done with zip entries.");
+//            ConsoleUtils.messageOut("Done with zip entries at "+System.currentTimeMillis());
         } catch ( Exception e ) {
             System.err.println("Exception : "  + e.getMessage());
             e.printStackTrace();
