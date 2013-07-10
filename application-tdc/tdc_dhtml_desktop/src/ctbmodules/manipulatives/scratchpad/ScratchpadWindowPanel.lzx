@@ -281,7 +281,11 @@
 		 				classroot.bringToFront();
 		 			</handler>
 					<handler name="onclick" >
-						gController.setManipulativeSelState("scratchpad", "up");
+						if(gController.dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global/@scratchpad') != 'disable'){
+							gController.setManipulativeSelState("scratchpad", "up");
+						}else{
+							gController.setAttribute("scratchpadOpen", false);
+						}
 		 			</handler>
 		 			 <tooltip text="Save and Close"/>
 					
