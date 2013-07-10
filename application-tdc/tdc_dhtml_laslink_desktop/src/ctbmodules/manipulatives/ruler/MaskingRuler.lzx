@@ -268,7 +268,6 @@ Debug.write("else "+data +" : "+ hasstate);
                       //gHotKeys.enableKeys();
                       //gController.restoreCurrentCursor();
 					  lz.Timer.resetTimer(gController.dRestoreCursor, 100);
-                      classroot.dragger.remove ();
 
                       classroot.datapath.p.setAttr ('x', classroot.x);
                       classroot.datapath.p.setAttr ('y', classroot.y);
@@ -297,7 +296,7 @@ Debug.write("else "+data +" : "+ hasstate);
             // the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
             //lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
             gController.restoreCurrentCursor();
-            this.dragger.remove ();
+
             this.datapath.p.setAttr ('x', this.x);
             this.datapath.p.setAttr ('y', this.y);
         </handler>
