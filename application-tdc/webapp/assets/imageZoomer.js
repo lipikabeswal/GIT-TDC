@@ -239,5 +239,11 @@ jQuery.fn.initMagnify=function(options){
 		if (ddpowerzoomer.activeimage){ //if mouse is currently over a magnifying image
 			ddpowerzoomer.movemagnifier(null, true) //move magnifier
 		}
+		
+		$("#magnifierWindow").on("mousedown",function() {
+			$('#scratchpad').blur();	
+			gMaskingRuler.dragger.remove();
+			gScratchpad.onmouseup.sendEvent();
+        });
 
 }
