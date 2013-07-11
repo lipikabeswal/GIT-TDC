@@ -1075,55 +1075,60 @@
 			}
 		</method>
 		<method name="getSubtestIndex" args="node"><![CDATA[
+			var result = -1;
 			dp.setPointer(node);
 			var subtestId = dp.xpathQuery('save_testing_session_data/tsd/next_sco/@id');
-			var sco = getCurrentSubtest();
-			var currentScoId = sco.getAttr('id');
-			//Changes for defect 70251 as for hard reset, restart data for all subtests should not be deleted. 
-			var restartScoId = dprestart.xpathQuery('tsd[@scid ="'+subtestId+'"]/@scid'); 
-			if(restartScoId == null) {
-				restartScoId = dplogin.xpathQuery('consolidated_restart_data/tsd[1]/@scid');
-				if(restartScoId != null) {
-					if(restartScoId == currentScoId) {
-						restartScoId = null;
+			if('TERMINATOR' == subtestId) {
+				return -1;
+			} else {
+				result = 0;
+				var sco = getCurrentSubtest();
+				var currentScoId = sco.getAttr('id');
+				//Changes for defect 70251 as for hard reset, restart data for all subtests should not be deleted. 
+				var restartScoId = dprestart.xpathQuery('tsd[@scid ="'+subtestId+'"]/@scid'); 
+				if(restartScoId == null) {
+					restartScoId = dplogin.xpathQuery('consolidated_restart_data/tsd[1]/@scid');
+					if(restartScoId != null) {
+						if(restartScoId == currentScoId) {
+							restartScoId = null;
+						}
 					}
 				}
-			}
-			//delete consolidated_restart_data node if there is one or no child tsd nodes 
-			if(!(dprestart.isValid() && restartScoId != null)) { 
-				deleteParentIfNoOrOneChild(dprestart);
-			}
-			//START Change for deferred Defect 63502
-			setAttribute('restartscid', dp.xpathQuery('save_testing_session_data/tsd/next_sco/@id'));
-			//END
-			var result = 0;
-			var found = false;
-			// this method will only be called if there is more than one subtest - eg subtests is an array
-			var subtests = dplogin.xpathQuery('manifest/sco');
-			//changes for defect# 70867
-		      if(subtests instanceof LzDataElement){
-        	     subtests = [subtests];
-        		}
- //Debug.write("Subtests--->>>",subtests);
-			while(result < subtests.length && !found){
-				var subtest = subtests[result];
-				if(subtest.getAttr('id') == subtestId){
-					found = true;
+				//delete consolidated_restart_data node if there is one or no child tsd nodes 
+				if(!(dprestart.isValid() && restartScoId != null)) { 
+					deleteParentIfNoOrOneChild(dprestart);
 				}
-				else{
-					result = result + 1;
+				//START Change for deferred Defect 63502
+				setAttribute('restartscid', dp.xpathQuery('save_testing_session_data/tsd/next_sco/@id'));
+				//END
+				var found = false;
+				// this method will only be called if there is more than one subtest - eg subtests is an array
+				var subtests = dplogin.xpathQuery('manifest/sco');
+				//changes for defect# 70867
+			      if(subtests instanceof LzDataElement){
+	        	     subtests = [subtests];
+	        		}
+	 //Debug.write("Subtests--->>>",subtests);
+				while(result < subtests.length && !found){
+					var subtest = subtests[result];
+					if(subtest.getAttr('id') == subtestId){
+						found = true;
+					}
+					else{
+						result = result + 1;
+					}
 				}
-			}
-			// return -1 if not found - no next subtest
-			if(!found){
-				if(!dprestart.isValid() && (subtests.length == currentSubtestIndex + 1)) {
-					result = -1;
-				}
-				else if(subtests.length == currentSubtestIndex + 1){ // change for soft reset.
-					result = -1;
-				}
-				else { // Changes for Defect 70251 to retrieve the next incomplete subtest in case of hard reset 
-					result = currentSubtestIndex + 1;
+				// return -1 if not found - no next subtest
+				if(!found){
+					if(!dprestart.isValid() && (subtests.length == currentSubtestIndex + 1)) {
+						result = -1;
+					}
+					else if(subtests.length == currentSubtestIndex + 1){ // change for soft reset.
+						result = -1;
+					}
+					else { // Changes for Defect 70251 to retrieve the next incomplete subtest in case of hard reset 
+						result = currentSubtestIndex + 1;
+					}
 				}
 			}
 			return result;
