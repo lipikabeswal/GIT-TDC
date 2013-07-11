@@ -113,6 +113,12 @@ window.onmouseup = function  () {
 	lz.embed.setCanvasAttribute("fromLogin", 'true');
 }
 
+window.onkeydown = function (e) {
+       if(e.which == 33 || e.which == 34){
+                return false;
+        }
+}
+
 function showFootnote(header)
 {
 	lz.embed.setCanvasAttribute("footnotedata", header);
