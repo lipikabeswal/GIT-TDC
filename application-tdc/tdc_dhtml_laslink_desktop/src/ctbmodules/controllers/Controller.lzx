@@ -4326,7 +4326,7 @@
             if(which == 'scratchpad'){  // keep track of scratchpad state globally
 				this.setAttribute('scratchpadOpen', value=='sel');
             }
-			if(value == 'sel'){
+			if(value == 'sel' && (which == 'highlighter' || which == 'eraser' || which == 'option_eliminator')){
 				this.setAttribute('currentManipSelected',which);
 			}
             dn.setAttr (which, value);
