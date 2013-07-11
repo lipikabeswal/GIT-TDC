@@ -4699,6 +4699,7 @@ Debug.write("############ loadItem ############");
 			//console.log("hideMagnifierGlass***");
 			lz.Browser.loadJS('hideMagnify();');
 			gManipulativeBar.globals.magnifyingGlass.setAttribute("frame",1);
+			gManipulativeBar.globals.magnifyingGlass.setAttribute("isEnabled",false);
 		</method>
 
 		<method name="showMagnifierGlass">
