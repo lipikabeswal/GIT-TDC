@@ -10,7 +10,9 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -172,6 +174,8 @@ public class LockdownBrowserWrapper extends Thread {
 					this.ldbCommand[0] = this.ldbHome + "/LockdownBrowser.exe";
 					loginHtml="/login_swf.html";
 					this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + loginHtml;
+					command.add(this.ldbHome +"/LockdownBrowser.exe");
+					command.add("--url=http://127.0.0.1:" + jettyPort + loginHtml);
 					
 				}else if(formName.equals("Form C/Form D/Espanol2")){
 					ConsoleUtils.messageOut("Inside Form C/Form D/Espanol2");
@@ -181,7 +185,9 @@ public class LockdownBrowserWrapper extends Thread {
 					this.ldbCommand[2] = "LockdownBrowser.jar";*/
 					this.ldbCommand = new String[2];
 					this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
-					this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";;
+					this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
+					command.add(this.ldbHome +"/ChromiumLDB/cefclient");
+					command.add("--url=http://127.0.0.1:" + jettyPort + "/login.html");
 					
 				}
 				
@@ -195,6 +201,8 @@ public class LockdownBrowserWrapper extends Thread {
 				this.ldbCommand = new String[2];
 				this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
 				this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
+				command.add(this.ldbHome +"/ChromiumLDB/cefclient");
+				command.add("--url=http://127.0.0.1:" + jettyPort + "/login.html");
 			}
 			
 			
@@ -483,15 +491,29 @@ public class LockdownBrowserWrapper extends Thread {
 					processBuilder= new ProcessBuilder(command);
 					processBuilder.directory(new File(this.ldbHome+"/ChromiumLDB/"));
 					processBuilder.redirectErrorStream(true);
-					processBuilder.redirectOutput(new File(this.ldbHome+"/ChromiumLDB/ldbDebug.log"));
+					//processBuilder.redirectOutput(new File(this.ldbHome+"/ChromiumLDB/ldbDebug.log"));
 					//ldb=null;
 					//Thread.sleep(10000);
 					
 					lockdown.start();
 		//			ConsoleUtils.messageOut("Lockdown Started at " + System.currentTimeMillis());
 					Process ldb=processBuilder.start();
-		//			ConsoleUtils.messageOut("LDB app started at " + System.currentTimeMillis());	
-					ready = true;
+		//			ConsoleUtils.messageOut("LDB app started at " + System.currentTimeMillis());
+					final BufferedReader consoleBufferReader = new BufferedReader(new InputStreamReader(ldb.getInputStream()));
+					 new Thread(new Runnable() {
+					        public void run() {
+					            while(true)
+					            {
+					        	try {
+									consoleBufferReader.read();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+					            }
+					        }
+					    }).start();
+					 ready = true;
 					this.isAvailable = true;
 					ldb.waitFor();
 					isProcessExit=true;
@@ -560,10 +582,40 @@ public class LockdownBrowserWrapper extends Thread {
 					try {
 						Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 						ConsoleUtils.messageOut("AIR app started at " + System.currentTimeMillis());
-						Process ldb = new ProcessBuilder(ldbCommand[0], ldbCommand[1]).start();
+						//Process ldb = new ProcessBuilder(ldbCommand[0], ldbCommand[1]).start();
 						//Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome));
+						processBuilder= new ProcessBuilder(command);
+						processBuilder.directory(new File(this.ldbHome+"/ChromiumLDB/"));
+						processBuilder.redirectErrorStream(true);
+						//processBuilder.redirectOutput(new File(this.ldbHome+"/ChromiumLDB/ldbDebug.log"));
 						this.isAvailable = true;
-						ldb = null;
+						Process ldb=processBuilder.start();
+						final BufferedReader consoleBufferReader = new BufferedReader(new InputStreamReader(ldb.getInputStream()));
+						 new Thread(new Runnable() {
+						        public void run() {
+						            while(true)
+						            {
+						        	try {
+										consoleBufferReader.read();
+									} catch (IOException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+						            }
+						        }
+						    }).start();
+						ldb.waitFor();
+						this.isAvailable=false;
+						isProcessExit=true;
+						taskmgr = "taskbarshow.exe";
+						ConsoleUtils.messageOut("Exiting...");
+						Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+						Thread.sleep(500);	
+						Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+						
+						cleanupLock();	// call here to fix issue in 64 bit Windows 7 
+						ConsoleUtils.messageOut("Desktop unlocked ...");	
+						//ldb = null;
 						//int extval=ldb.waitFor();
 						//Thread.sleep(300000);
 						//ConsoleUtils.messageOut("Exited with " + extval);
@@ -576,7 +628,7 @@ public class LockdownBrowserWrapper extends Thread {
 				
 				
 				
-				while(true) {
+				/*while(true) {
 					Thread.sleep(3000);
 					if(isProcessExit) {
 						ConsoleUtils.messageOut("Unlocking");
@@ -594,7 +646,7 @@ public class LockdownBrowserWrapper extends Thread {
 						//Thread.sleep(1500);
 						break;
 					}
-				}
+				}*/
 			}	
 			
 			this.splashWindow.show();
