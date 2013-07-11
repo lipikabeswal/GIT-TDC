@@ -253,7 +253,6 @@ Debug.write("else "+data +" : "+ hasstate);
                   </handler>
                   <handler name="onmouseout">
                       gController.clearAndRestoreCurrentCursor();
-                      classroot.dragger.remove ();
                   </handler>
                   <handler name="onmousedown">
                   	  gController.setAttribute("isMousedownOnManip",true);
@@ -268,7 +267,7 @@ Debug.write("else "+data +" : "+ hasstate);
                       //gHotKeys.enableKeys();
                       //gController.restoreCurrentCursor();
 					  lz.Timer.resetTimer(gController.dRestoreCursor, 100);
-
+						classroot.dragger.remove ();
                       classroot.datapath.p.setAttr ('x', classroot.x);
                       classroot.datapath.p.setAttr ('y', classroot.y);
                   </handler>
@@ -280,7 +279,6 @@ Debug.write("else "+data +" : "+ hasstate);
          </handler>
          <handler name="onmouseout">
              gController.clearAndRestoreCurrentCursor();
-             this.dragger.remove ();
          </handler>
         <handler name="onmousedown">
         	this.bringToFront();
@@ -292,7 +290,7 @@ Debug.write("else "+data +" : "+ hasstate);
         <handler name="onmouseup">
             lz.Cursor.unlock ();
             gHotKeys.enableKeys();
-            
+            this.dragger.remove ();
             // the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
             //lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
             gController.restoreCurrentCursor();
