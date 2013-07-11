@@ -192,6 +192,7 @@
 				<handler name="ontext"><![CDATA[
 					storeSelection();
 				 	if(this.text.length > 10000){
+				 				return false;
 								var textContent = this.text;
 								textContent = textContent.substring(0,Number(classroot.characterLimit));
 								updateScrollText(textContent);
