@@ -34,7 +34,7 @@
                 gController.setManipulativeSelState ("option_eliminator", "up");
 
             } else {
-				onImgZoomOut();
+				//onImgZoomOut();
                 gEnlargePopup.shrink();
 			}
         </handler>
