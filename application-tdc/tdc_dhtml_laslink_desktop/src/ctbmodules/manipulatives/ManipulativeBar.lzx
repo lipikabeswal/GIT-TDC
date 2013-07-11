@@ -67,7 +67,7 @@
 				<handler name="onmouseout">
 				        lz.Cursor.showHandCursor(false);
 						gTooltip.hideTooltip (); 
-						if(!this.isEnabled) {
+						if(this.isEnabled == false || this.isEnabled == "false") {
 							this.setAttribute('frame',1);
 						}   
 						gController.setAttribute("manipSelected",false);
@@ -101,14 +101,14 @@
 
 				<method name="show">
 						showMagnify();
-						this.isEnabled = true;
+						this.setAttribute('isEnabled', true);
 						gController.setAttribute("magnifierState", true);
 						this.setAttribute('frame',2);
 					</method>
 
 				<method name="hide">
 						hideMagnify();
-						this.isEnabled = false;
+						this.setAttribute('isEnabled', false);
 						gController.setAttribute("magnifierState", false);
 						this.setAttribute('frame',1);
 				</method>
