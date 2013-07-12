@@ -2755,7 +2755,7 @@
 			this.questionBar =  questionBar;
 		</method>
 
-		<method name="setNavigation" args="val,navigateFrom">
+		<method name="setNavigation" args="val,navigateFrom"><![CDATA[
 			if(val == 1) {
 
 				this.setAttribute("navigateConfirm",true);
@@ -2777,14 +2777,14 @@
 			}
 			else {
 				this.setAttribute("navigateConfirm",false);
-				if(this.questionBar) {
+				if(this.questionBar && (this.questionBar.ball != null)) {
 					this.questionBar._changeStatus(false);
 				}
 				//Debug.warn("question bar change status called");
 			}
 
 			this.hideRevisitPopup();
-		</method>
+		 ]]></method>
 	
 		<!-- nav -->
 		<method name="navigateTo" args="itemeid"><![CDATA[
