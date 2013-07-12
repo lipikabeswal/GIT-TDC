@@ -35,6 +35,7 @@
         <attribute name="eraserstatus" value="$once{new lz.datapointer()}"/>
         <attribute name="hlstate" value="$once{new lz.datapointer ()}"/>
         <attribute name="hp" value="$once{new lz.datapointer ()}"/>
+		<attribute name="hlDragStart" type="boolean" value="false"/>
 
         <!-- ===========================
              event handlers
@@ -77,11 +78,16 @@
                 livesel.setAttribute ('active', true);
 
                 setAttribute('active', true);
+				setAttribute('hlDragStart',true);
+				for(var i=0; i< gController.lasAssetArray.length; i++) {
+					gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',true);
+				}
             }
         ]]></handler>
 
         <!-- add new highlightarea node -->
-        <handler name="onmouseup" reference="clickarea"><![CDATA[
+        <handler name="onmouseup" reference="lz.GlobalMouse"><![CDATA[
+		if(this.hlDragStart) {
             if (this.hlstatus.data == 'sel' && this.visible) {
                 setAttribute('active', true);
                 this.livesel.setAttribute ('visible', false);
@@ -104,6 +110,11 @@
                 }
 
             }
+			setAttribute('hlDragStart',false);	
+				for(var i=0; i< gController.lasAssetArray.length; i++) {
+					gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',false);
+				}
+		}
         ]]></handler>
 
 
