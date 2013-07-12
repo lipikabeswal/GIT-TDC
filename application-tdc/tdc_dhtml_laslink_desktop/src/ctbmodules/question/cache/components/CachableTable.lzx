@@ -250,9 +250,8 @@
 
                // Multiplying factor
                // Use offset for margins
-               var mult_factor  = (gEnlargePopup.width - offset)/orig_width;
-//Debug.write("mult_factor : " + mult_factor + " w : " + orig_width + " h : " + orig_height);
                var width = gEnlargePopup.width - offset;
+               var mult_factor  = width / orig_width;
 
                // These variables manipulate the image within the popup window
                var table = this.thetable.contents.borderview.table;
@@ -383,7 +382,7 @@
                       multiline="true" 
                       width="${this.titlewidth != -1 ? 
                              this.titlewidth : parent.borderview.width}"
-                      
+                      fontsize="${canvas.basefontsize+2}" 
                       fgcolor="${classroot.fontcolor}"
 					  bgcolor="${classroot.bgcolor}"
                       clickable="${canvas.readable}"
