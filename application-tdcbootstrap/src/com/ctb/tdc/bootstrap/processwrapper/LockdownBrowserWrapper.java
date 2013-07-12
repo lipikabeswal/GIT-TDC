@@ -299,7 +299,7 @@ public class LockdownBrowserWrapper extends Thread {
 			try {
 				String wmctrl = "./wmctrl -r \"Online Assessment System\" -b \"toggle, fullscreen\"";
 				Runtime.getRuntime().exec(wmctrl, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-				//Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ "))); //causes ubuntu and suse to hang after exiting
+				Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ "))); //causes ubuntu and suse to hang after exiting
 			} catch (Exception e) {
 
 				ConsoleUtils.messageOut("Force fullscreen : returned false -"+e.getMessage());
