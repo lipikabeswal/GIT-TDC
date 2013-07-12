@@ -34,7 +34,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mh"]}},$lzc$class__mh.attributes)
 }}})($lzc$class__mh)
-};canvas=new $lzc$class__mh(null,{$delegates:["onfocus","$mb",null,"onbringBackFocus","$mc",null,"onfootnotedata","$md",null,"onisMultiAudio","$me",null,"oninit","$mf",null,"onfootnotetext","$mg",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-07-10T14:02:23Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19722 (19722)",lpsbuilddate:"2012-08-08T23:48:10Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mh(null,{$delegates:["onfocus","$mb",null,"onbringBackFocus","$mc",null,"onfootnotedata","$md",null,"onisMultiAudio","$me",null,"oninit","$mf",null,"onfootnotetext","$mg",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-07-12T10:30:39Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19722 (19722)",lpsbuilddate:"2012-08-08T23:48:10Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -22225,7 +22225,7 @@ if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
 }},"pos",void 0,"$m1rx",function($0){
-var $1=this.getDisplayObject();$1.setAttribute("id","scratchpad");hideScrollbar($1.id)
+var $1=this.getDisplayObject();$1.setAttribute("id","scratchpad");$1.setAttribute("spellcheck",false);hideScrollbar($1.id)
 },"$lzc$set_pos",function($0){
 if(this.p==$0){
 Debug.write("Pos internal return",$0,this.p,$1);return
@@ -22441,9 +22441,9 @@ this.setAttribute("haswindowfocus",true);this.setAttribute("dragenabled",true)
 this.setAttribute("dragenabled",false)
 },"_startDrag",function(){
 if(this.allowdrag){
-this._windowDrag.setAttribute("applied",true)
+this.setAttribute("dragenabled",true)
 }},"_stopDrag",function(){
-this._windowDrag.setAttribute("applied",false);this.setAttribute("state",1)
+this.setAttribute("dragenabled",false);this.setAttribute("state",1)
 },"_startResize",function(){
 this._windowResize.setAttribute("applied",true);this.setAttribute("state",5)
 },"_stopResize",function(){
@@ -22867,11 +22867,8 @@ this.classroot.close()
 },"$m1tx",function($0){
 this.classroot.bringToFront()
 },"$m1ty",function($0){
-if(gController.dpstudentdata.xpathQuery("current_item/item_model/manipulatives/global/@scratchpad")!="disable"){
 gController.setManipulativeSelState("scratchpad","up")
-}else{
-gController.setAttribute("scratchpadOpen",false)
-}},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
 $0=null;
@@ -23750,7 +23747,7 @@ $1=$0.parent.parent.parent.parent
 },"$m1wt",function($0){
 gController.setCurrentCursor("cangrab_cursor")
 },"$m1wu",function($0){
-gScratchpad._stopDrag();gController.clearAndRestoreCurrentCursor()
+gController.clearAndRestoreCurrentCursor()
 },"restoreFocusAndCursor",function(){
 this.sp.onfocus.sendEvent();this.sp.resetTheSelection();this.setAttribute("scratchpadHasFocus",true)
 },"getText",function(){
@@ -24496,7 +24493,7 @@ this.setAttribute("tooltipdel",new LzDelegate(this,"showTooltip"))
 },"tooltipdel",void 0,"isEnabled",void 0,"isSelected",void 0,"$m1yq",function($0){
 lz.Cursor.showHandCursor(true);this.setAttribute("frame",2);lz.Timer.addTimer(this.tooltipdel,500)
 },"$m1yr",function($0){
-lz.Cursor.showHandCursor(false);gTooltip.hideTooltip();if(!this.isEnabled){
+lz.Cursor.showHandCursor(false);gTooltip.hideTooltip();if(this.isEnabled==false||this.isEnabled=="false"){
 this.setAttribute("frame",1)
 };lz.Timer.removeTimer(this.tooltipdel)
 },"$m1ys",function($0){
@@ -24511,9 +24508,9 @@ $0=null;
 
 };gTooltip.showTooltip_("Magnifying Glass",this.x)
 },"setup",function(){},"show",function(){
-showMagnify();this.isEnabled=true;gController.setAttribute("magnifierState",true);this.setAttribute("frame",2)
+showMagnify();this.setAttribute("isEnabled",true);gController.setAttribute("magnifierState",true);this.setAttribute("frame",2)
 },"hide",function(){
-hideMagnify();this.isEnabled=false;gController.setAttribute("magnifierState",false);this.setAttribute("frame",1)
+hideMagnify();this.setAttribute("isEnabled",false);gController.setAttribute("magnifierState",false);this.setAttribute("frame",1)
 },"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
@@ -29172,8 +29169,12 @@ this.changeItem(this.dpsubtest.xpathQuery("ob_assessment/ob_element_list/f[@id='
 if($0!=null){
 if(this.recorder!=null){
 this.recorder.stopblinker("stop");this.recorder.whitewrapperOverLay.setAttribute("visible",false);this.recorder.blackOverLay.setAttribute("visible",false)
-};this.resetAudioFields();gReadableText.stopReading(false);this.freezeUI();this.stopQuestion();canvas.setAttribute("focusobj",null);var $1;this.saveLoadItem($0,$1)
-};this.resetRecorder()
+};this.resetAudioFields();gReadableText.stopReading(false);this.freezeUI();this.stopQuestion();canvas.setAttribute("focusobj",null);var $1;this.saveLoadItem($0,$1);if(navigator.appVersion.indexOf("Mac")!=-1){
+if(!gController.scratchpadOpen){
+gScratchpad.setAttribute("visible",true);gScratchpad.setAttribute("visible",false);gItemInterface.onclick.sendEvent()
+}else{
+gScratchpad.sp.inp.onfocus.sendEvent();gScratchpad.sp.inp.onblur.sendEvent()
+}}};this.resetRecorder()
 },"resetRecorder",function(){
 this.recorder=null
 },"onFirstItem",function(){
@@ -29890,7 +29891,7 @@ this.isRevisitPopupOpen=true;gRevisitFalsePopup.show($0);this.checkHideMagnifier
 },"hideRevisitPopup",function(){
 this.isRevisitPopupOpen=false;gRevisitFalsePopup.hide();this.checkShowMagnifierGlass();this.checkShowMaskingChoiceDD()
 },"hideMagnifierGlass",function(){
-lz.Browser.loadJS("hideMagnify();");gManipulativeBar.globals.magnifyingGlass.setAttribute("frame",1)
+hideMagnify();gManipulativeBar.globals.magnifyingGlass.setAttribute("frame",1);gManipulativeBar.globals.magnifyingGlass.setAttribute("isEnabled",false)
 },"showMagnifierGlass",function(){
 if(this.magnifierState==false){
 gManipulativeBar.globals.magnifyingGlass.show()
