@@ -2606,6 +2606,20 @@
 				canvas.setAttribute('focusobj', null);
 				var lev;
 				saveLoadItem( fnode , lev);
+				
+				/*patch fix for hot keys in mac. When navigating from TE item to nonTE item 
+					the focus gets lost and hot keys does not wok.*/
+					
+				if (navigator.appVersion.indexOf("Mac")!=-1) {
+					if(!gController.scratchpadOpen){
+	                	gScratchpad.setAttribute('visible',true);
+	                	gScratchpad.setAttribute('visible',false);
+						gItemInterface.onclick.sendEvent(); 
+	                }else{
+	                	gScratchpad.sp.inp.onfocus.sendEvent();
+	                	gScratchpad.sp.inp.onblur.sendEvent();
+	                }  
+	            }
 			}
 			//this.setAttribute('isaudio',false);
 			resetRecorder();
@@ -4697,7 +4711,7 @@ Debug.write("############ loadItem ############");
 		
 		<method name="hideMagnifierGlass">
 			//console.log("hideMagnifierGlass***");
-			lz.Browser.loadJS('hideMagnify();');
+			hideMagnify();
 			gManipulativeBar.globals.magnifyingGlass.setAttribute("frame",1);
 			gManipulativeBar.globals.magnifyingGlass.setAttribute("isEnabled",false);
 		</method>
