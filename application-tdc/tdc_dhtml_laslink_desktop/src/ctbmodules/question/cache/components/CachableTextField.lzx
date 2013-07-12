@@ -168,6 +168,7 @@
                 just = data.getAttr("halign");
             }
             this.setAttribute('align', just);
+            this.thetext.setAttribute("textalign",just);
             
             this.setAttribute("readText",unescape(dataText));
 
@@ -175,18 +176,18 @@
            if (gController.hasFontAccommodation){
 				if(dataText.indexOf("<br") != -1) {
 					this.thetext.setAttribute("text",
-	                	'<label style="display:block; padding-bottom:4px;"><span style="line-height:17px; white-space: pre-wrap; zoom:97%;">' + dataText + '</span></label>');
+	                	'<label style="display:block; padding-bottom:4px;"><span style="line-height:17px; white-space: pre-wrap; word-spacing: -0.5px; zoom:97%;">' + dataText + '</span></label>');
 				}else{
 					this.thetext.setAttribute("text",
-	                	'<label><span style="white-space: pre-wrap; zoom:97%;">' + dataText + '</span></label>');
+	                	'<label><span style="white-space: pre-wrap; word-spacing: -0.5px; zoom:97%;">' + dataText + '</span></label>');
 				}
 		   }else{
 				if(dataText.indexOf("<br") != -1) {
 					this.thetext.setAttribute("text",
-	                	'<label style="display:block; padding-bottom:2px;"><span style="line-height:16px; white-space: pre-wrap;">' + dataText + '</span></label>');
+	                	'<label style="display:block; padding-bottom:2px;"><span style="line-height:16px; white-space: pre-wrap; word-spacing: -0.5px;">' + dataText + '</span></label>');
 				}else{
 					this.thetext.setAttribute("text",
-	                	 '<label><span style="line-height:17px;">' + dataText + '</span></label>');
+	                	'<label><span style="line-height:16px; white-space: pre-wrap; word-spacing: -0.5px;">' + dataText + '</span></label>');
 				}
 			}
 
@@ -1410,7 +1411,7 @@ parse the text string and store text and image string in an array at different i
                x="${classroot.leftPadding}"
                width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
                fgcolor="${classroot.fontcolor}" 
-               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" >
+               fontsize="${classroot ['fontsize'] ? (classroot.fontsize == 18?18:classroot.fontsize) : 12}" >
 				
 				<handler name="ontext"><![CDATA[
 					var elm = this.getDisplayObject();

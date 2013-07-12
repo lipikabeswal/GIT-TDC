@@ -71,8 +71,9 @@
             }
             if(titleTxt.length > 0){
             	this.thetable.contents.title.setAttribute('visible', true);
+	            var size = (canvas.basefontsize+2);
 	            this.thetable.contents.title.setAttribute("text", 
-	                    '<label align="center">' + decodeBrackets(titleTxt) + '</label>');
+	                    '<label><span style="line-height:14px; font-family: CTB; font-weight: bold; white-space: pre-wrap; font-size : '+size+'; text-align: center;">' + decodeBrackets(titleTxt) + '</span></label>');
 	        }
 	        else{
             	this.thetable.contents.title.setAttribute('visible', false);
@@ -269,7 +270,7 @@
                    		title.setAttribute('visible', true);
                    		title.setAttribute("fontsize", 14);
 	                   	title.setAttribute("text", 
-	                        '<label align="center">' + decodeBrackets(titleTxt) + '</label>');
+	                        '<label><span style="font-family: CTB; font-weight: bold; white-space: pre-wrap; text-align: center; zoom: 97% ;">' + decodeBrackets(titleTxt) + '</span></label>');
 	                    title.setAttribute("align","center");
 	
 	                   // Based on (width/height) ratio use an appropriate fontsize
@@ -286,7 +287,7 @@
 //Debug.write(table);
 //Debug.write(title);
 //Debug.write(this);
-//Debug.write(parent.wrapper);
+//Debug.write(parent.wrapper); 
 
                // Set the image dimensions 
                // We're using the original table measurements, so we only need
