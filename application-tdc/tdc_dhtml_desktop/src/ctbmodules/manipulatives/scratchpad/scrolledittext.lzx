@@ -111,7 +111,7 @@
         <handler name="oninit">
 				var el = this.getDisplayObject();
 				el.setAttribute('id','scratchpad');
-				
+				el.setAttribute('spellcheck',false);
 				//console.log("===SCRATH PAD VISIBLE===",el.id);
 			    hideScrollbar(el.id);	
 			</handler>
