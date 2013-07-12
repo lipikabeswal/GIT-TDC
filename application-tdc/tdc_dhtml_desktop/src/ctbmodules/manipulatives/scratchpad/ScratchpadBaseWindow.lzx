@@ -213,7 +213,8 @@
         <method name="_startDrag">
        <![CDATA[
         if (this.allowdrag){
-            this._windowDrag.setAttribute('applied', true);}
+            this.setAttribute('dragenabled', true)
+        }
 
        ]]>
         </method>
@@ -223,7 +224,7 @@
               anywhere on the window.
               @keywords private -->
         <method name="_stopDrag">
-            this._windowDrag.setAttribute('applied', false);
+            this.setAttribute('dragenabled', false);
             setAttribute('state', 1);
             //Debug.write("___STOP DRAG SCRATCHPAD",   this._windowDrag.x,  this._windowDrag.y);
         </method>
