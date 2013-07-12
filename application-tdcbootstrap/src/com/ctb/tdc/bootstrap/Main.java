@@ -1,5 +1,6 @@
 package com.ctb.tdc.bootstrap;
 
+import java.awt.datatransfer.Clipboard;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -12,6 +13,12 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipInputStream;
+
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+
+import sun.misc.Cleaner;
 
 import com.ctb.tdc.bootstrap.disablers.MacScreenSaverDisabler;
 import com.ctb.tdc.bootstrap.exception.BootstrapException;
@@ -348,6 +355,14 @@ public class Main {
 	private static String getUpgradeTxtUrl(){
 		return getUpgradeDirectoryUrl() + UPGRADE_TXT_FILENAME;
 	}
+	
+	private static void clearClipBoard()
+	{
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Clipboard clipboard = toolkit.getSystemClipboard();
+		StringSelection strSel = new StringSelection("");
+		clipboard.setContents(strSel, null);
+	}
 	/**
 	 * Main method to run the bootstrap application.  Responsible for launching
 	 * components in desired sequence with dependencies in mind.
@@ -359,7 +374,7 @@ public class Main {
 		int exitCode = -1;
 		boolean macOS = isMacOS();
 		boolean linux = isLinux();
-		
+		clearClipBoard();
 		// Use a socket to check if the application is already running or not.
 		ConsoleUtils.messageOut("Starting...");
 		ServerSocket startsocket = null; // keep variable in scope of the main method to maintain hold on it. 
@@ -586,7 +601,7 @@ public class Main {
 				if( jetty != null && jetty.isAlive() ) {
 					jetty.shutdown();
 				}
-
+				clearClipBoard();
 				// make sure bootstrap is dead
 				System.exit(exitCode);
 			}
