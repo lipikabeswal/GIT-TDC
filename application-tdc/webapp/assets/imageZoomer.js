@@ -241,9 +241,7 @@ jQuery.fn.initMagnify=function(options){
 		}
 		
 		$("#magnifierWindow").on("mousedown",function() {
-			$('#scratchpad').blur();	
-			gMaskingRuler.dragger.remove();
-			gScratchpad.onmouseup.sendEvent();
+			$('#scratchpad').blur();
         });
 
 }
