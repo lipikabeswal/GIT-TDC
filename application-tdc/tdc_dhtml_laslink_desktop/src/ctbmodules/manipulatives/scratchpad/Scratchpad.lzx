@@ -125,6 +125,8 @@
             this.toolstate.setAttribute ('rerunxpath', true);
             this.toolstate.setXPath (this.datapath.xpath + '/@' + this.toolid);
             this.datapath.setXPath (this.toolid);
+            var elm = this.getDisplayObject();
+            elm.setAttribute("id","scratch");
         </handler>
 
         <handler name="onvisible"><![CDATA[
@@ -142,21 +144,7 @@
             }]]>       
          </handler>
          
-		<!--<handler name="onwidth">
-           setWidthHeight();
-		</handler>
 		
- 		<handler name="onheight">
- 		    setWidthHeight();
-		</handler>
-        <method name="setWidthHeight">
-		    var newWidth =  this.width - 12 ;
-            var newHeight = this.height - 10 ;
-
-            var elm = this.getDisplayObject();
-			elm.setAttribute('id','scratchpad');
-            setScratchpadWidthHeight(elm.id, newWidth,newHeight);
-        </method>-->
          <handler name="onblur" reference="sp.inp">
 			this.setAttribute("scratchpadHasFocus", false);
 			this.setAttribute("scratchpadJustLostFocus", true);

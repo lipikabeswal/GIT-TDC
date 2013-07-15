@@ -271,6 +271,10 @@ Debug.write("else "+data +" : "+ hasstate);
                       classroot.datapath.p.setAttr ('x', classroot.x);
                       classroot.datapath.p.setAttr ('y', classroot.y);
                   </handler>
+                  <handler name="oninit">
+                  	var elm = this.getDisplayObject();
+                  	elm.setAttribute("id","maskRuler");
+                  </handler>
         </view>       
 
 		<handler name="onmouseover">
