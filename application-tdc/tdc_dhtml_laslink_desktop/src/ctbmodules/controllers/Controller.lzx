@@ -2816,6 +2816,9 @@
 					this.recorder.stopblinker('stop');
 					this.recorder.whitewrapperOverLay.setAttribute('visible', false);
 					this.recorder.blackOverLay.setAttribute('visible', false);
+					gController.setAttribute("resetButtonEnable",false);
+					gController.setAttribute("recordingCompleted",false);
+					gController.setAttribute("recordState",true);
 				}
 				//To reset the Audio Fields Array So that file name will be passed in the save call
 				this.resetAudioFields();
