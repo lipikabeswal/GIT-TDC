@@ -22,23 +22,23 @@
 		 
 		 
 		 var jsCall = "buttonClicked()";
-		 lz.Browser.loadJS(jsCall);*/
+		 lz.Browser.loadJS(jsCall);
 		 buttonClicked("F");
-		 gMagnifyingGlass.setAttribute("magnifierOpen",false);	
+		 gMagnifyingGlass.setAttribute("magnifierOpen",false);	*/
 	</method>
 
 	<method name="hideGlass">
 		/*var js = "closeMagnifier()";
-		lz.Browser.loadJS(js);*/
+		lz.Browser.loadJS(js);
 		closeMagnifier();
-		gMagnifyingGlass.setAttribute("magnifierOpen",true);
+		gMagnifyingGlass.setAttribute("magnifierOpen",true);*/
 	</method>
 
 	<method name="showGlass" args="isPrevPos">
 		 /*var jsCall = "buttonClicked()";
-		 lz.Browser.loadJS(jsCall);*/
+		 lz.Browser.loadJS(jsCall);
 		 buttonClicked(isPrevPos);
-		 gMagnifyingGlass.setAttribute("magnifierOpen",false);	
+		 gMagnifyingGlass.setAttribute("magnifierOpen",false);	*/
 		 
 		//lz.FlashUtils.show(canvas.titleView,this.windowbg.magnifiedContent);
 		//lz.FlashUtils.doMouseMove(this.x,this.y,this.ratioW,this.ratioH);	
