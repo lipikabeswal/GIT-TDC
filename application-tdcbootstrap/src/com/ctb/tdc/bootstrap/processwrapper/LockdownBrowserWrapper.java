@@ -124,10 +124,10 @@ public class LockdownBrowserWrapper extends Thread {
 						//consoleOut("Inside Laslinks:::");
 						if(formName.equals("Form A/Form B/Espanol")){
 							//ConsoleUtils.messageOut("Launching Form A&B");
-							//this.ldbCommand = new String[2];
-							//this.ldbCommand[0] = this.ldbHome + "/OASTDC/bin/OASTDC";          
-							//this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
-							//this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login_swf.html";
+							this.ldbCommand = new String[2];
+							this.ldbCommand[0] = this.ldbHome + "/OASTDC/bin/OASTDC";          
+							this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
+							this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login_swf.html";
 							command.add((this.ldbHome + "/OASTDC/bin/OASTDC").replaceAll(" ", "\\ "));
 							command.add("http://127.0.0.1:" + jettyPort + "/login_swf.html");
 							
@@ -137,9 +137,9 @@ public class LockdownBrowserWrapper extends Thread {
 							this.ldbCommand[0] ="java";
 							this.ldbCommand[1] = "-jar";
 							this.ldbCommand[2] = "LockdownBrowser.jar";*/
-							//this.ldbCommand = new String[2];
-							//this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
-							//this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
+							this.ldbCommand = new String[2];
+							this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
+							this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
 							command.add(this.ldbHome +"/ChromiumLDB/cefclient");
 							command.add("--url=http://127.0.0.1:" + jettyPort + "/login.html");
 						}
@@ -151,9 +151,9 @@ public class LockdownBrowserWrapper extends Thread {
 						this.ldbCommand[0] ="java";
 						this.ldbCommand[1] = "-jar";
 						this.ldbCommand[2] = "LockdownBrowser.jar";*/
-						//this.ldbCommand = new String[2];
-						//this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
-						//this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
+						this.ldbCommand = new String[2];
+						this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
+						this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
 						command.add(this.ldbHome +"/ChromiumLDB/cefclient");
 						command.add("--url=http://127.0.0.1:" + jettyPort + "/login.html");
 					}
@@ -335,6 +335,7 @@ public class LockdownBrowserWrapper extends Thread {
 							//Runtime.getRuntime().exec("./wmctrl -R \"Online Assessment System\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 							Runtime.getRuntime().exec("./wmctrl -n 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 							Runtime.getRuntime().exec("./wmctrl -R \"Online Assessment System\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));	
+							Runtime.getRuntime().exec("./wmctrl -a \"Presentation Canvas\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));	
 							Runtime.getRuntime().exec("gconftool-2 -s -t int /apps/compiz/general/screen0/options/number_of_desktops 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 							ConsoleUtils.messageOut("completed lock loop at " + System.currentTimeMillis());
 						} catch (Exception e) {
@@ -497,7 +498,7 @@ public class LockdownBrowserWrapper extends Thread {
 //					processBuilder.redirectErrorStream(true);
 					//processBuilder.redirectOutput(new File(this.ldbHome+"/ChromiumLDB/ldbDebug.log"));
 					//ldb=null;
-					Thread.sleep(10000);
+					Thread.sleep(5000);
 					
 					
 		//			ConsoleUtils.messageOut("Lockdown Started at " + System.currentTimeMillis());
