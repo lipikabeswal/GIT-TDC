@@ -42,7 +42,8 @@ public class LockdownBrowserWrapper extends Thread {
 	
 	private String tdcHome;
 	private String ldbHome;
-	
+	private String productType;
+	private String form;
 	private SplashWindow splashWindow;
 	
 	private static boolean islinux = false;
@@ -78,6 +79,8 @@ public class LockdownBrowserWrapper extends Thread {
 		
 		this.tdcHome = tdcHome;
 		this.splashWindow = splashWindow;
+		this.productType=productType;
+		this.form=formName;
 		command=new ArrayList<String>();
             
 		if ( macOS ) {
@@ -121,10 +124,10 @@ public class LockdownBrowserWrapper extends Thread {
 						//consoleOut("Inside Laslinks:::");
 						if(formName.equals("Form A/Form B/Espanol")){
 							//ConsoleUtils.messageOut("Launching Form A&B");
-							this.ldbCommand = new String[2];
-							this.ldbCommand[0] = this.ldbHome + "/OASTDC/bin/OASTDC";          
-							this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
-							this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login_swf.html";
+							//this.ldbCommand = new String[2];
+							//this.ldbCommand[0] = this.ldbHome + "/OASTDC/bin/OASTDC";          
+							//this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
+							//this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + "/login_swf.html";
 							command.add((this.ldbHome + "/OASTDC/bin/OASTDC").replaceAll(" ", "\\ "));
 							command.add("http://127.0.0.1:" + jettyPort + "/login_swf.html");
 							
@@ -134,9 +137,9 @@ public class LockdownBrowserWrapper extends Thread {
 							this.ldbCommand[0] ="java";
 							this.ldbCommand[1] = "-jar";
 							this.ldbCommand[2] = "LockdownBrowser.jar";*/
-							this.ldbCommand = new String[2];
-							this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
-							this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
+							//this.ldbCommand = new String[2];
+							//this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
+							//this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
 							command.add(this.ldbHome +"/ChromiumLDB/cefclient");
 							command.add("--url=http://127.0.0.1:" + jettyPort + "/login.html");
 						}
@@ -148,9 +151,9 @@ public class LockdownBrowserWrapper extends Thread {
 						this.ldbCommand[0] ="java";
 						this.ldbCommand[1] = "-jar";
 						this.ldbCommand[2] = "LockdownBrowser.jar";*/
-						this.ldbCommand = new String[2];
-						this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
-						this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
+						//this.ldbCommand = new String[2];
+						//this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
+						//this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
 						command.add(this.ldbHome +"/ChromiumLDB/cefclient");
 						command.add("--url=http://127.0.0.1:" + jettyPort + "/login.html");
 					}
@@ -174,8 +177,8 @@ public class LockdownBrowserWrapper extends Thread {
 					this.ldbCommand[0] = this.ldbHome + "/LockdownBrowser.exe";
 					loginHtml="/login_swf.html";
 					this.ldbCommand[1] = "http://127.0.0.1:" + jettyPort + loginHtml;
-					command.add(this.ldbHome +"/LockdownBrowser.exe");
-					command.add("--url=http://127.0.0.1:" + jettyPort + loginHtml);
+					//command.add(this.ldbHome +"/LockdownBrowser.exe");
+					//command.add("--url=http://127.0.0.1:" + jettyPort + loginHtml);
 					
 				}else if(formName.equals("Form C/Form D/Espanol2")){
 					ConsoleUtils.messageOut("Inside Form C/Form D/Espanol2");
@@ -183,9 +186,9 @@ public class LockdownBrowserWrapper extends Thread {
 					this.ldbCommand[0] ="java";
 					this.ldbCommand[1] = "-jar";
 					this.ldbCommand[2] = "LockdownBrowser.jar";*/
-					this.ldbCommand = new String[2];
-					this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
-					this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
+					//this.ldbCommand = new String[2];
+					//this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
+					//this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
 					command.add(this.ldbHome +"/ChromiumLDB/cefclient");
 					command.add("--url=http://127.0.0.1:" + jettyPort + "/login.html");
 					
@@ -198,9 +201,9 @@ public class LockdownBrowserWrapper extends Thread {
 				this.ldbCommand[0] ="java";
 				this.ldbCommand[1] = "-jar";
 				this.ldbCommand[2] = "LockdownBrowser.jar";*/
-				this.ldbCommand = new String[2];
-				this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
-				this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
+				//this.ldbCommand = new String[2];
+				//this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
+				//this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
 				command.add(this.ldbHome +"/ChromiumLDB/cefclient");
 				command.add("--url=http://127.0.0.1:" + jettyPort + "/login.html");
 			}
@@ -297,9 +300,10 @@ public class LockdownBrowserWrapper extends Thread {
 		
 		public boolean forceFullScreen() {
 			try {
+				Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ "))); //causes ubuntu and suse to hang after exiting
 				String wmctrl = "./wmctrl -r \"Online Assessment System\" -b \"toggle, fullscreen\"";
 				Runtime.getRuntime().exec(wmctrl, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-				Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ "))); //causes ubuntu and suse to hang after exiting
+				
 			} catch (Exception e) {
 
 				ConsoleUtils.messageOut("Force fullscreen : returned false -"+e.getMessage());
@@ -486,18 +490,19 @@ public class LockdownBrowserWrapper extends Thread {
 					LockdownLinux lockdown = new LockdownLinux(this.tdcHome);
 					ConsoleUtils.messageOut("LDB started at " + startTime);
 					
-					//Process ldb = Runtime.getRuntime().exec(this.ldbCommand, envp, new File(this.ldbHome+"/ChromiumLDB/"));
+					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, envp, new File(this.ldbHome+"/ChromiumLDB/"));
 					//Process pBuilder= new ProcessBuilder(ldbCommand[0], ldbCommand[1]).start();
-					processBuilder= new ProcessBuilder(command);
-					processBuilder.directory(new File(this.ldbHome+"/ChromiumLDB/"));
-					processBuilder.redirectErrorStream(true);
+//					processBuilder= new ProcessBuilder(command);
+//					processBuilder.directory(new File(this.ldbHome+"/ChromiumLDB/"));
+//					processBuilder.redirectErrorStream(true);
 					//processBuilder.redirectOutput(new File(this.ldbHome+"/ChromiumLDB/ldbDebug.log"));
 					//ldb=null;
-					//Thread.sleep(10000);
+					Thread.sleep(10000);
 					
-					lockdown.start();
+					
 		//			ConsoleUtils.messageOut("Lockdown Started at " + System.currentTimeMillis());
-					Process ldb=processBuilder.start();
+					//Process ldb=processBuilder.start();
+					lockdown.start();
 		//			ConsoleUtils.messageOut("LDB app started at " + System.currentTimeMillis());
 					final BufferedReader consoleBufferReader = new BufferedReader(new InputStreamReader(ldb.getInputStream()));
 					 new Thread(new Runnable() {
@@ -573,7 +578,7 @@ public class LockdownBrowserWrapper extends Thread {
 				}
 				// Run the LDB...
 				ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
-				ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
+				//ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
 				
 				
 	
@@ -583,20 +588,43 @@ public class LockdownBrowserWrapper extends Thread {
 						Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 						ConsoleUtils.messageOut("AIR app started at " + System.currentTimeMillis());
 						//Process ldb = new ProcessBuilder(ldbCommand[0], ldbCommand[1]).start();
-						//Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome));
-						processBuilder= new ProcessBuilder(command);
-						processBuilder.directory(new File(this.ldbHome+"/ChromiumLDB/"));
-						processBuilder.redirectErrorStream(true);
-						//processBuilder.redirectOutput(new File(this.ldbHome+"/ChromiumLDB/ldbDebug.log"));
+						
+						Process ldb;
 						this.isAvailable = true;
-						Process ldb=processBuilder.start();
+						
+						//Different launching mechanisms for different LDBs cause One is not working for both
+						if(productType.equals("LASLINKS")){
+							if(form.equals("Form A/Form B/Espanol")){
+								ConsoleUtils.messageOut("Laslinks for A/B will be launched");
+								ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome));
+							}
+							else{
+
+								ConsoleUtils.messageOut("Laslinks for C/D will be launched");
+								processBuilder= new ProcessBuilder(command);
+								processBuilder.directory(new File(this.ldbHome+"/ChromiumLDB/"));
+								processBuilder.redirectErrorStream(true);
+								ldb=processBuilder.start();
+							}
+							
+						}
+						else{
+
+							ConsoleUtils.messageOut("Somethinge else will be launched");
+							processBuilder= new ProcessBuilder(command);
+							processBuilder.directory(new File(this.ldbHome+"/ChromiumLDB/"));
+							processBuilder.redirectErrorStream(true);
+							ldb=processBuilder.start();
+						}
 						final BufferedReader consoleBufferReader = new BufferedReader(new InputStreamReader(ldb.getInputStream()));
-						 new Thread(new Runnable() {
+						//final BufferedReader errorBufferReader = new BufferedReader(new InputStreamReader(ldb.getErrorStream()));
+						new Thread(new Runnable() {
 						        public void run() {
 						            while(true)
 						            {
 						        	try {
-										consoleBufferReader.read();
+						        		ConsoleUtils.messageOut("Inside Output Consume Loop *******: "+consoleBufferReader.readLine());
+										
 									} catch (IOException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
@@ -612,6 +640,9 @@ public class LockdownBrowserWrapper extends Thread {
 						Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 						Thread.sleep(500);	
 						Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+						ConsoleUtils.messageOut("Unlocking");
+						LockdownBrowserWrapper.CtrlAltDel_Enable_Disable(true);
+						LockdownBrowserWrapper.TaskSwitching_Enable_Disable(true);
 						
 						cleanupLock();	// call here to fix issue in 64 bit Windows 7 
 						ConsoleUtils.messageOut("Desktop unlocked ...");	
