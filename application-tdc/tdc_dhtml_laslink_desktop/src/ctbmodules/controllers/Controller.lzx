@@ -3880,7 +3880,9 @@
     	</method>
 
 		<method name="getSpText">
-    		return escape(gScratchpad.getText());
+    		//return escape(gScratchpad.getText());
+			var a = "";
+			return a;
     	</method>
 
 		<method name="getItemParams"><![CDATA[
@@ -6036,6 +6038,13 @@
 			this.setAttribute('isHandlerInactive', false);
 			this.setAttribute('trackTimer',0);
 			trackMouseMove();
+		</method>
+		
+		<method name="macFocusInCanvas">
+			if (navigator.appVersion.indexOf("Mac")!=-1) {
+				gScratchpad.setAttribute('visible',true);
+				gScratchpad.setAttribute('visible',false);
+			}
 		</method>
 	</node>
 
