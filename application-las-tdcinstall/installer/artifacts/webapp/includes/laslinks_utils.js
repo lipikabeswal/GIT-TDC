@@ -305,7 +305,8 @@ function startAutoplay(){
   }
   
     function pauseAudio() {
-	for(var i=0; i<gController.lasAssetArray.length;i++){
+    	gController.macFocusInCanvas();	
+		for(var i=0; i<gController.lasAssetArray.length;i++){
 		if(gController.lasAssetArray[i].asset){
 			var frameid;
 			var frameid = getFrameId(gController.lasAssetArray[i]);
@@ -326,6 +327,7 @@ function startAutoplay(){
   }
   
   function playAudio(){
+  	gController.macFocusInCanvas();
   	if(pausedAssetID != null){
 		for(var i=0; i<gController.lasAssetArray.length;i++){
 				if(gController.lasAssetArray[i].asset){
