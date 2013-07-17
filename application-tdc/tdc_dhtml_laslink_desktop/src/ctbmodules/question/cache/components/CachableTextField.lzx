@@ -1411,7 +1411,7 @@ parse the text string and store text and image string in an array at different i
                x="${classroot.leftPadding}"
                width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
                fgcolor="${classroot.fontcolor}" 
-               fontsize="${classroot ['fontsize'] ? (classroot.fontsize == 18?18:classroot.fontsize) : 12}" >
+               fontsize="${classroot ['fontsize'] ? (classroot.fontsize == 18?17:classroot.fontsize) : 12}" >
 				
 				<handler name="ontext"><![CDATA[
 					var elm = this.getDisplayObject();

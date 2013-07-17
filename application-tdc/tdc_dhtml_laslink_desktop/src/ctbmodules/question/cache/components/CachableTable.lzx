@@ -380,9 +380,7 @@
                   -->
                 <text name="title" 
                       align="center"
-                      multiline="true" 
-                      width="${this.titlewidth != -1 ? 
-                             this.titlewidth : parent.borderview.width}"
+                      multiline="true"                       
                       fontsize="${canvas.basefontsize+2}" 
                       fgcolor="${classroot.fontcolor}"
 					  bgcolor="${classroot.bgcolor}"
@@ -395,6 +393,13 @@
 						var elm = this.getDisplayObject();
 						elm.setAttribute('style','text-align: center; font-family: CTB; font-weight: bold; font-size : '+size+';');
 					]]></handler>
+					<handler name="oninit">
+						if (this.titlewidth != -1) {
+                             this.setAttribute('width',this.titlewidth); 
+						} else {
+							this.setAttribute('width',parent.borderview.width);
+						}
+					</handler>
                 </text>
 
             <!-- borderview contains the title and table and defines a border -->
