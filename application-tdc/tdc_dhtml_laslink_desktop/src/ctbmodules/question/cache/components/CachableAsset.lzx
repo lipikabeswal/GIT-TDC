@@ -52,7 +52,7 @@
 		</method>
 	
 		<view name="asset">
-			<html name="aw" id="assetwiget" x="5" y="5" width="400" height="100" scrollbars="false" mouseevents="true" focusable="true" >
+			<html name="aw" scrollbars="false" mouseevents="true" focusable="true" >
  	    		  	
 			</html>
 			<html name="video" scrollbars="false" mouseevents="true" focusable="true">
