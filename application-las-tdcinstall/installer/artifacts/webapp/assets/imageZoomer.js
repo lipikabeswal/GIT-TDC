@@ -251,4 +251,9 @@ jQuery.fn.initMagnify=function(options){
 			$('#maskRuler').trigger("mouseup");
 			$('#scratch').trigger("mouseup");
         });
+        $("#magnifierWindow").on("mouseup",function() {
+			$('#scratchpad').blur();
+			$('#maskRuler').trigger("mouseup");
+			$('#scratch').trigger("mouseup");
+        });
 }
