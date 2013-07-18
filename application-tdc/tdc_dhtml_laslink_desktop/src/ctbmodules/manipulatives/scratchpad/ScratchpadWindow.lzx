@@ -35,13 +35,32 @@
                 y="${classroot.height - this.height - classroot.inset_right + 5}"
                 resource="window_resizebtn_rsc"
                 onmousedown="classroot._startResize();setAttribute('frame', 3);"
-                onmouseup="classroot._stopResize(); setAttribute('frame', 1); gScratchpad.restoreFocusAndCursor();"
                 oninit="classroot.setTint(this, classroot.style.basecolor)">
                 
                 <handler name="onmouseover">
 	 				if (this.frame == 1) setAttribute('frame', 2);
 	 				lz.Cursor.unlock();
 	 			</handler>
+	 			
+	 			<handler name="onmouseup"><![CDATA[
+	 			
+	 			  //console.log("inside mouseup");
+	 			  classroot._stopResize();
+	 			  setAttribute('frame', 1);
+	 			  gScratchpad.restoreFocusAndCursor();
+	 			 
+	 			 // for the defect 74178. Scratch pad dissappearing from Canvas
+	 			  if(gScratchpad.x < -180)
+	 			  {
+	 			    gScratchpad.setAttribute('x','-150');
+	 			  }
+	 			  if(gScratchpad.y < -50)
+	 			  {
+	 			    gScratchpad.setAttribute('y','-40');
+	 			  }
+                  ]]>
+	 			</handler>
+	 			
             </view>    
         </state>
         
