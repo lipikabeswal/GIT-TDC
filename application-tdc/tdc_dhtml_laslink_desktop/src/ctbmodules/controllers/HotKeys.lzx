@@ -3,23 +3,7 @@
     <node id="gHotKeys">
 
         <method name="enableKeys">
-         <![CDATA[
-           if(gController.scratchpadOpen)
-            {
-              // this condition is for the defect 74261, 74262
-
-              lz.Keys.removeKeyComboCall( dtoggleA, [ 'a' ] );
-              lz.Keys.removeKeyComboCall( dtoggleB, [ 'b' ] );
-              lz.Keys.removeKeyComboCall( dtoggleC, [ 'c' ] );
-              lz.Keys.removeKeyComboCall( dtoggleD, [ 'd' ] );
-              lz.Keys.removeKeyComboCall( dtoggleE, [ 'e' ] );
-              lz.Keys.removeKeyComboCall( dtoggleF, [ 'f' ] );
-              lz.Keys.removeKeyComboCall( dtoggleG, [ 'g' ] );
-              lz.Keys.removeKeyComboCall( dtoggleH, [ 'h' ] );
-              lz.Keys.removeKeyComboCall( dtoggleI, [ 'i' ] );
-            }
-          else
-           {
+            console.log("===enablekeys====");
             lz.Keys.callOnKeyCombo( dtoggleA, [ 'a' ] );
             lz.Keys.callOnKeyCombo( dtoggleB, [ 'b' ] );
             lz.Keys.callOnKeyCombo( dtoggleC, [ 'c' ] );
@@ -29,8 +13,6 @@
             lz.Keys.callOnKeyCombo( dtoggleG, [ 'g' ] );
             lz.Keys.callOnKeyCombo( dtoggleH, [ 'h' ] );
             lz.Keys.callOnKeyCombo( dtoggleI, [ 'i' ] );
-           }
-		   		    
             lz.Keys.callOnKeyCombo( dtoggleJ, [ 'j' ] );
             lz.Keys.callOnKeyCombo( dtoggleA, [ 'shift', 'a' ] );
             lz.Keys.callOnKeyCombo( dtoggleB, [ 'shift', 'b' ] );
@@ -69,18 +51,15 @@
             lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
             lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
             lz.Keys.callOnKeyCombo( dfinish, [ 'control', 'f' ] );
-           
-		    /*if ( gController.getClientMachine() == 'MAC' || isMac()) {
-                dmacKeyHandler.register( lz.Keys, 'onkeydown' );
-            }*/
-
-			if (navigator.appVersion.indexOf("Mac")!=-1) {
+                      
+		    if ( gController.getClientMachine() == 'MAC' || isMac()) {
+		    console.log("Inside if");
                 dmacOptionKeysHandler.register( lz.Keys, 'onkeydown' );
             }
-             ]]>
         </method>
 
-        <method name="disableKeys">
+        <method name="disableKeys"><![CDATA[
+            console.log("===disablekeys====");
             lz.Keys.removeKeyComboCall( dtoggleA, [ 'a' ] );
             lz.Keys.removeKeyComboCall( dtoggleB, [ 'b' ] );
             lz.Keys.removeKeyComboCall( dtoggleC, [ 'c' ] );
@@ -126,191 +105,22 @@
             lz.Keys.removeKeyComboCall( dtoggleMark, [ 'control', 'l' ] );
             lz.Keys.removeKeyComboCall( dtoggleTimer, [ 'control', 'o' ] );
             lz.Keys.removeKeyComboCall( dpause, [ 'control', 'u' ] );
-            lz.Keys.removeKeyComboCall( dstop, [ 'control', 's' ] );
+            lz.Keys.removeKeyComboCall( dstop, [ 'control', 's' ] );	        
             lz.Keys.removeKeyComboCall( dfinish, [ 'control', 'f' ] );
-
-		   /* if ( gController.getClientMachine() == 'MAC' || isMac()) {
-            	dmacKeyHandler.unregisterFrom( lz.Keys.onkeydown );
-            }*/
-          if (navigator.appVersion.indexOf("Mac")!=-1) {
-                dmacOptionKeysHandler.unregisterFrom( lz.Keys, 'onkeydown' );
-            }
-        </method>
-
-		<method name="handleHotKeys">
-			console.log("handleHotKeys*******");
-			/*lz.Keys.removeKeyComboCall( dtoggleA, [ 'a' ] );
-            lz.Keys.removeKeyComboCall( dtoggleB, [ 'b' ] );
-            lz.Keys.removeKeyComboCall( dtoggleC, [ 'c' ] );
-            lz.Keys.removeKeyComboCall( dtoggleD, [ 'd' ] );
-            lz.Keys.removeKeyComboCall( dtoggleE, [ 'e' ] );
-            lz.Keys.removeKeyComboCall( dtoggleF, [ 'f' ] );
-            lz.Keys.removeKeyComboCall( dtoggleG, [ 'g' ] );
-            lz.Keys.removeKeyComboCall( dtoggleH, [ 'h' ] );
-            lz.Keys.removeKeyComboCall( dtoggleI, [ 'i' ] );
-            lz.Keys.removeKeyComboCall( dtoggleJ, [ 'j' ] );
-            lz.Keys.removeKeyComboCall( dtoggleA, [ 'shift', 'a' ] );
-            lz.Keys.removeKeyComboCall( dtoggleB, [ 'shift', 'b' ] );
-            lz.Keys.removeKeyComboCall( dtoggleC, [ 'shift', 'c' ] );
-            lz.Keys.removeKeyComboCall( dtoggleD, [ 'shift', 'd' ] );
-            lz.Keys.removeKeyComboCall( dtoggleE, [ 'shift', 'e' ] );
-            lz.Keys.removeKeyComboCall( dtoggleF, [ 'shift', 'f' ] );
-            lz.Keys.removeKeyComboCall( dtoggleG, [ 'shift', 'g' ] );
-            lz.Keys.removeKeyComboCall( dtoggleH, [ 'shift', 'h' ] );
-            lz.Keys.removeKeyComboCall( dtoggleI, [ 'shift', 'i' ] );
-            lz.Keys.removeKeyComboCall( dtoggleJ, [ 'shift', 'j' ] );
-            lz.Keys.removeKeyComboCall( dtoggleA, [ 'capslock', 'a' ] );
-            lz.Keys.removeKeyComboCall( dtoggleB, [ 'capslock', 'b' ] );
-            lz.Keys.removeKeyComboCall( dtoggleC, [ 'capslock', 'c' ] );
-            lz.Keys.removeKeyComboCall( dtoggleD, [ 'capslock', 'd' ] );
-            lz.Keys.removeKeyComboCall( dtoggleE, [ 'capslock', 'e' ] );
-            lz.Keys.removeKeyComboCall( dtoggleF, [ 'capslock', 'f' ] );
-            lz.Keys.removeKeyComboCall( dtoggleG, [ 'capslock', 'g' ] );
-            lz.Keys.removeKeyComboCall( dtoggleH, [ 'capslock', 'h' ] );
-            lz.Keys.removeKeyComboCall( dtoggleI, [ 'capslock', 'i' ] );
-            lz.Keys.removeKeyComboCall( dtoggleJ, [ 'capslock', 'j' ] );
-            lz.Keys.removeKeyComboCall( dtoggleA, [ 'shift', 'capslock', 'a' ] );
-            lz.Keys.removeKeyComboCall( dtoggleB, [ 'shift', 'capslock', 'b' ] );
-            lz.Keys.removeKeyComboCall( dtoggleC, [ 'shift', 'capslock', 'c' ] );
-            lz.Keys.removeKeyComboCall( dtoggleD, [ 'shift', 'capslock', 'd' ] );
-            lz.Keys.removeKeyComboCall( dtoggleE, [ 'shift', 'capslock', 'e' ] );
-            lz.Keys.removeKeyComboCall( dtoggleF, [ 'shift', 'capslock', 'f' ] );
-            lz.Keys.removeKeyComboCall( dtoggleG, [ 'shift', 'capslock', 'g' ] );
-            lz.Keys.removeKeyComboCall( dtoggleH, [ 'shift', 'capslock', 'h' ] );
-            lz.Keys.removeKeyComboCall( dtoggleI, [ 'shift', 'capslock', 'i' ] );
-            lz.Keys.removeKeyComboCall( dtoggleJ, [ 'shift', 'capslock', 'j' ] ); */
-            lz.Keys.removeKeyComboCall( dgoBack, [ 'control', 'j' ] );
-            lz.Keys.removeKeyComboCall( dgoOn, [ 'control', 'k' ] );           
-            lz.Keys.removeKeyComboCall( dtoggleTimer, [ 'control', 'o' ] );          
-            lz.Keys.removeKeyComboCall( dfinish, [ 'control', 'f' ] );
-
-		   	lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l' ] );
-            lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
-            lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
-            if (navigator.appVersion.indexOf("Mac")!=-1) {
-				//dmacOptionKeysHandler.unregisterFrom( lz.Keys, 'onkeydown' );
-                dmacOptionKeysHandler.register( lz.Keys, 'onkeydown' );
+            
+            if(gItemInterface.visible != true && gItemInterface.visible != 'true') {
+	           	lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l' ] );
+	            lz.Keys.callOnKeyCombo( dtoggleTimer, [ 'control', 'o' ] );
+	            lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
+	            lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
             }
 
+		    if ( gController.getClientMachine() == 'MAC' || isMac()) {
+            	dmacOptionKeysHandler.unregisterFrom( lz.Keys.onkeydown );
+            }
+        ]]></method>
 
-		</method>
 		
-		<!--  method is using for scratchpad,when the scratchpad is reopened -->
-        <method name="handleoptionKeys">
-			console.log("handleoptionkeys*******");
-			  lz.Keys.removeKeyComboCall( dtoggleA, [ 'a' ] );
-              lz.Keys.removeKeyComboCall( dtoggleB, [ 'b' ] );
-              lz.Keys.removeKeyComboCall( dtoggleC, [ 'c' ] );
-              lz.Keys.removeKeyComboCall( dtoggleD, [ 'd' ] );
-              lz.Keys.removeKeyComboCall( dtoggleE, [ 'e' ] );
-              lz.Keys.removeKeyComboCall( dtoggleF, [ 'f' ] );
-              lz.Keys.removeKeyComboCall( dtoggleG, [ 'g' ] );
-              lz.Keys.removeKeyComboCall( dtoggleH, [ 'h' ] );
-              lz.Keys.removeKeyComboCall( dtoggleI, [ 'i' ] );
-            lz.Keys.callOnKeyCombo( dtoggleJ, [ 'j' ] );
-            lz.Keys.callOnKeyCombo( dtoggleA, [ 'shift', 'a' ] );
-            lz.Keys.callOnKeyCombo( dtoggleB, [ 'shift', 'b' ] );
-            lz.Keys.callOnKeyCombo( dtoggleC, [ 'shift', 'c' ] );
-            lz.Keys.callOnKeyCombo( dtoggleD, [ 'shift', 'd' ] );
-            lz.Keys.callOnKeyCombo( dtoggleE, [ 'shift', 'e' ] );
-            lz.Keys.callOnKeyCombo( dtoggleF, [ 'shift', 'f' ] );
-            lz.Keys.callOnKeyCombo( dtoggleG, [ 'shift', 'g' ] );
-            lz.Keys.callOnKeyCombo( dtoggleH, [ 'shift', 'h' ] );
-            lz.Keys.callOnKeyCombo( dtoggleI, [ 'shift', 'i' ] );
-            lz.Keys.callOnKeyCombo( dtoggleJ, [ 'shift', 'j' ] );
-            lz.Keys.callOnKeyCombo( dtoggleA, [ 'shift', 'capslock', 'a' ] );
-            lz.Keys.callOnKeyCombo( dtoggleB, [ 'shift', 'capslock', 'b' ] );
-            lz.Keys.callOnKeyCombo( dtoggleC, [ 'shift', 'capslock', 'c' ] );
-            lz.Keys.callOnKeyCombo( dtoggleD, [ 'shift', 'capslock', 'd' ] );
-            lz.Keys.callOnKeyCombo( dtoggleE, [ 'shift', 'capslock', 'e' ] );
-            lz.Keys.callOnKeyCombo( dtoggleF, [ 'shift', 'capslock', 'f' ] );
-            lz.Keys.callOnKeyCombo( dtoggleG, [ 'shift', 'capslock', 'g' ] );
-            lz.Keys.callOnKeyCombo( dtoggleH, [ 'shift', 'capslock', 'h' ] );
-            lz.Keys.callOnKeyCombo( dtoggleI, [ 'shift', 'capslock', 'i' ] );
-            lz.Keys.callOnKeyCombo( dtoggleJ, [ 'shift', 'capslock', 'j' ] );
-            lz.Keys.callOnKeyCombo( dtoggleA, [ 'capslock', 'a' ] );
-            lz.Keys.callOnKeyCombo( dtoggleB, [ 'capslock', 'b' ] );
-            lz.Keys.callOnKeyCombo( dtoggleC, [ 'capslock', 'c' ] );
-            lz.Keys.callOnKeyCombo( dtoggleD, [ 'capslock', 'd' ] );
-            lz.Keys.callOnKeyCombo( dtoggleE, [ 'capslock', 'e' ] );
-            lz.Keys.callOnKeyCombo( dtoggleF, [ 'capslock', 'f' ] );
-            lz.Keys.callOnKeyCombo( dtoggleG, [ 'capslock', 'g' ] );
-            lz.Keys.callOnKeyCombo( dtoggleH, [ 'capslock', 'h' ] );
-            lz.Keys.callOnKeyCombo( dtoggleI, [ 'capslock', 'i' ] );
-            lz.Keys.callOnKeyCombo( dtoggleJ, [ 'capslock', 'j' ] );
-            lz.Keys.callOnKeyCombo( dgoBack, [ 'control', 'j' ] );
-            lz.Keys.callOnKeyCombo( dgoOn, [ 'control', 'k' ] );
-            lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l' ] );
-            lz.Keys.callOnKeyCombo( dtoggleTimer, [ 'control', 'o' ] );
-            lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
-            lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
-            lz.Keys.callOnKeyCombo( dfinish, [ 'control', 'f' ] );
-
-			if (navigator.appVersion.indexOf("Mac")!=-1) {
-                dmacOptionKeysHandler.register( lz.Keys, 'onkeydown' );
-            }
-
-           
-		</method>
-		
-		<method name="handleHotKeysNav"><![CDATA[
-			 if (navigator.appVersion.indexOf("Mac")!=-1) {
-				dmacOptionKeysHandler.register( lz.Keys, 'onkeydown' );
-            }
-			if(!gController.canNotAnswer && !gController.scratchpadOpen){
-				lz.Keys.callOnKeyCombo( dtoggleA, [ 'a' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleB, [ 'b' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleC, [ 'c' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleD, [ 'd' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleE, [ 'e' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleF, [ 'f' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleG, [ 'g' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleH, [ 'h' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleI, [ 'i' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleJ, [ 'j' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleA, [ 'shift', 'a' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleB, [ 'shift', 'b' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleC, [ 'shift', 'c' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleD, [ 'shift', 'd' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleE, [ 'shift', 'e' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleF, [ 'shift', 'f' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleG, [ 'shift', 'g' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleH, [ 'shift', 'h' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleI, [ 'shift', 'i' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleJ, [ 'shift', 'j' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleA, [ 'shift', 'capslock', 'a' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleB, [ 'shift', 'capslock', 'b' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleC, [ 'shift', 'capslock', 'c' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleD, [ 'shift', 'capslock', 'd' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleE, [ 'shift', 'capslock', 'e' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleF, [ 'shift', 'capslock', 'f' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleG, [ 'shift', 'capslock', 'g' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleH, [ 'shift', 'capslock', 'h' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleI, [ 'shift', 'capslock', 'i' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleJ, [ 'shift', 'capslock', 'j' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleA, [ 'capslock', 'a' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleB, [ 'capslock', 'b' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleC, [ 'capslock', 'c' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleD, [ 'capslock', 'd' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleE, [ 'capslock', 'e' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleF, [ 'capslock', 'f' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleG, [ 'capslock', 'g' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleH, [ 'capslock', 'h' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleI, [ 'capslock', 'i' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleJ, [ 'capslock', 'j' ] );
-			}
-            lz.Keys.removeKeyComboCall( dgoBack, [ 'control', 'j' ] );
-            lz.Keys.removeKeyComboCall( dgoOn, [ 'control', 'k' ] );           
-            lz.Keys.removeKeyComboCall( dtoggleTimer, [ 'control', 'o' ] );          
-            lz.Keys.removeKeyComboCall( dfinish, [ 'control', 'f' ] );
-
-		   	lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l' ] );
-            lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
-            lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
-
-         
-		 ]]></method>
-
         <method name="isComboHotKeyDown"><![CDATA[
             console.log("inside ishotkeydown @315");
             
@@ -347,7 +157,13 @@
 		<method name="handleHtmlKeyPress" args="data"><![CDATA[
 		        console.log("inside handleHtmlKeyPress @ 346");
 		        
-		        if(gPleaseWaitPopup.visible || gScreens.visible || gController.isStopScreen || gController.isPauseTest || gController.scratchpadOpen || gController.isRevisitPopupOpen){
+		        if(gScratchpad.scratchpadHasFocus){
+					this.setAttribute("onceOnly",false); 
+				 }else{		
+				 	this.setAttribute("onceOnly",true); 
+				 }	
+				 
+		        if(gPleaseWaitPopup.visible || gScreens.visible || gController.isStopScreen || gController.isPauseTest || gController.isRevisitPopupOpen){
 		        	// do nothing
 		        	// this condition is for the defect 74092,74190
 		        }else{
@@ -356,7 +172,7 @@
 		        	var shift = keys[1];
 		        	var capslock = keys[2];
 		        	var control = keys[3];
-					if(gController.unlockNavigation){
+		        	if(gController.unlockNavigation){
 			        	if(key == 'A' || key == 'Shift+A' || key == 'Caps_lock+A' || key == 'Shift+Caps_lock+A')
 			       			toggleA();
 			       		else if(key == 'B' || key == 'Shift+B' || key == 'Caps_lock+B' || key == 'Shift+Caps_lock+B')
@@ -436,267 +252,191 @@
         ]]></method>
 
 
-        <attribute name="dmacKeyHandler"
-                   value="$once{ new lz.Delegate( this, 'macKeyHandler' ) }"/>
-		<attribute name="disableCR" type="boolean" value="false"/>
-		<attribute name="dmacHotKeysHandler"
-                   value="$once{ new lz.Delegate( this, 'macHotKeysHandler' ) }"/>
+        <!-- <attribute name="dmacKeyHandler"
+                   value="$once{ new lz.Delegate( this, 'macKeyHandler' ) }"/> 
+		<attribute name="KK" type="boolean" value="false"/>-->		
 		<attribute name="dmacOptionKeysHandler"
                    value="$once{ new lz.Delegate( this, 'macOptionKeysHandler' ) }"/>
+                   
 		<method name="exitPopups">
             gController.exitPopups();
         </method>
-		<method name="macKeyHandler" args="k"><![CDATA[
-           switch ( k ) {
-	        	case  6:
-                    this.exitPopups(); 
-        			gController.finishTestShortcut();      // CTRL F ?
-                    break;
-				case 10: 
-					if(!gController.fwdOnly){
-	                    this.exitPopups();
-	                    gController.stepNavigateBack();  
-					}
-                    break;
-				case 11: 
-                    this.exitPopups();
-                    gController.stepNavigateForward();
-                    gTooltip.hideTooltip (); 
-                    break;
-				case 12: 
-                    this.exitPopups();
-                    gController.toggleMark(); 
-                    break;
-				case 15:
-                    this.exitPopups(); 
-                    gController.toggleTimer();
-                    break;
-				case 19: 
-					console.log("inside hotkeys for mac @ 464");
-                    this.exitPopups();
-                    gController.finishTest();
-                    gTooltip.hideTooltip (); 
-                   
-                    break;
-				case 21: 
-                    this.exitPopups();
-                    gController.pauseTest(); 
-                    break;
-                case 18: 
-					if(((lz.Keys.isKeyDown("Alt")) || (lz.Keys.isKeyDown("alt")) || (lz.Keys.isKeyDown("option")))){
-						this.setAttribute('disableCR',true);
-						addReadOnlyCR();
-						break;
-	 				}else{
-						this.setAttribute('disableCR',false);
-						removeReadOnlyCR();
-					}
-					break;
-                case 17: 
-					if(((lz.Keys.isKeyDown("Alt")) || (lz.Keys.isKeyDown("alt")) || (lz.Keys.isKeyDown("option")))){
-							this.setAttribute('disableCR',true);
-							break;
-	 				}else{
-							this.setAttribute('disableCR',false);
-					}
-					break;
-				default:
-					if(disableCR && ((lz.Keys.isKeyDown("Alt")) || (lz.Keys.isKeyDown("alt")) || (lz.Keys.isKeyDown("option")))){
-						addReadOnlyCR();
-							break;
-					}else{
-						removeReadOnlyCR();
-					}				
-					break;
-	 		}
-	 	]]></method>
+        
+		
 
-		<method name="macHotKeysHandler" args="k"><![CDATA[
-           switch ( k ) {
-				case 12: 
-                    this.exitPopups();
-                    gController.toggleMark(); 
-                    break;
-				case 19: 
-                    this.exitPopups();
-                    gController.finishTest(); 
-                     gTooltip.hideTooltip (); 
-                    break;
-				case 21: 
-                    this.exitPopups();
-                    gController.pauseTest(); 
-                    break;
-				default:
-					break;
-	 		}
-	 	]]></method>
 
-				<method name="macOptionKeysHandler" args="k"><![CDATA[
-		console.log("macOptionKeysHandler the key pressed is :: ",k);
-		if(gController.isWaitPopupOpen || gScreens.visible){
+		<method name="macOptionKeysHandler" args="k"><![CDATA[
+			console.log("macOptionKeysHandler the key pressed is :: ",k);
+			if(gController.isWaitPopupOpen || gScreens.visible){
 			//console.log("macOptionKeysHandler inside pleasewait block");
 			//do nothing if the please wait is shown.
-		}else if(!gController.canNotAnswer && !gController.scratchpadOpen && !gController.unlockNavigation){
-		//console.log("macOptionKeysHandler inside normal block");
-           switch ( k ) {
-				case 65: 
-                    this.exitPopups();
-                    //toggleA();
-                    //console.log("toggle a called");
-                    break;
-				case 66: 
-                    this.exitPopups();
-                    //toggleB();
-                    //console.log("toggle b called");
-                    break;
-				case 67: 
-                    this.exitPopups();
-                    //toggleC();
-                    //console.log("toggle c called");
-                    break;
-				case 68: 
-                    this.exitPopups();
-                    //toggleD();
-                    //console.log("toggle d called");
-                    break;
-				case 69: 
-                    this.exitPopups();
-                    //toggleE();
-                    break;
-				case 70: 
-                    this.exitPopups();
-                    //toggleF();
-                    break;
-				case 71: 
-                    this.exitPopups();
-                    //toggleG();
-                    break;
-				case 72: 
-                    this.exitPopups();
-                    //toggleH();
-                    break;
-				case 73: 
-                    this.exitPopups();
-                    //toggleI();
-                    break;
-				case 74: 
-                    this.exitPopups();
-                    //toggleJ();
-                    break;
-				case 12: 
-                    this.exitPopups();
-                    gController.toggleMark(); 
-                    break;
-				case 19: 
-                    this.exitPopups();
-                    gController.finishTest(); 
-                    gTooltip.hideTooltip (); 
-                    break;
-				case 21: 
-                    this.exitPopups();
-                    gController.pauseTest(); 
-                    break;
-				default:
-					break;
-	 		}
-		} else if(!gController.canNotAnswer && !gController.scratchpadOpen && gController.unlockNavigation){
-			  switch ( k ) {
-				case 65: 
-                    this.exitPopups();
-                    //toggleA();
-                    //console.log("toggle a called");
-                    break;
-				case 66: 
-                    this.exitPopups();
-                    //toggleB();
-                    //console.log("toggle b called");
-                    break;
-				case 67: 
-                    this.exitPopups();
-                    //toggleC();
-                    //console.log("toggle c called");
-                    break;
-				case 68: 
-                    this.exitPopups();
-                    //toggleD();
-                    //console.log("toggle d called");
-                    break;
-				case 69: 
-                    this.exitPopups();
-                    //toggleE();
-                    break;
-				case 70: 
-                    this.exitPopups();
-                    //toggleF();
-                    break;
-				case 71: 
-                    this.exitPopups();
-                    //toggleG();
-                    break;
-				case 72: 
-                    this.exitPopups();
-                    //toggleH();
-                    break;
-				case 73: 
-                    this.exitPopups();
-                    //toggleI();
-                    break;
-				case 74: 
-                    this.exitPopups();
-                    //toggleJ();
-                    break;
-				case 12: 
-                    this.exitPopups();
-                    gController.toggleMark(); 
-                    break;
-				case 19: 
-                    this.exitPopups();
-                    gController.finishTest(); 
-                     gTooltip.hideTooltip (); 
-                    break;
-				case 21: 
-                    this.exitPopups();
-                    gController.pauseTest(); 
-                    break;
-                case  6:
-                    this.exitPopups(); 
-        			gController.finishTestShortcut();      
-                    break;
-				case 10: 
-					if(!gController.fwdOnly){
+			}else if(!gController.canNotAnswer && !gController.scratchpadOpen && !gController.unlockNavigation){
+	           switch ( k ) {
+					case 65: 
 	                    this.exitPopups();
-	                    gController.stepNavigateBack();  
+	                    //toggleA();
+	                    //console.log("toggle a called");
+	                    break;
+					case 66: 
+	                    this.exitPopups();
+	                    //toggleB();
+	                    //console.log("toggle b called");
+	                    break;
+					case 67: 
+	                    this.exitPopups();
+	                    //toggleC();
+	                    //console.log("toggle c called");
+	                    break;
+					case 68: 
+	                    this.exitPopups();
+	                    //toggleD();
+	                    //console.log("toggle d called");
+	                    break;
+					case 69: 
+	                    this.exitPopups();
+	                    //toggleE();
+	                    break;
+					case 70: 
+	                    this.exitPopups();
+	                    //toggleF();
+	                    break;
+					case 71: 
+	                    this.exitPopups();
+	                    //toggleG();
+	                    break;
+					case 72: 
+	                    this.exitPopups();
+	                    //toggleH();
+	                    break;
+					case 73: 
+	                    this.exitPopups();
+	                    //toggleI();
+	                    break;
+					case 74: 
+	                    this.exitPopups();
+	                    //toggleJ();
+	                    break;
+	                case 75: 
+	                    this.exitPopups();
+	                    //toggleK();
+	                    break;    
+					case 12: 
+	                    this.exitPopups();
+	                    gController.toggleMark(); 
+	                    break;
+					case 19: 
+	                    this.exitPopups();
+	                    gController.finishTest(); 
+	                    gTooltip.hideTooltip (); 
+	                    break;
+					case 21: 
+	                    this.exitPopups();
+	                    gController.pauseTest(); 
+	                    break;
+					default:
+						break;
+		 		}
+			} else if(!gController.canNotAnswer && !gController.scratchpadOpen && gController.unlockNavigation){
+				  switch ( k ) {
+					case 65: 
+	                    this.exitPopups();
+	                    //toggleA();
+	                    //console.log("toggle a called");
+	                    break;
+					case 66: 
+	                    this.exitPopups();
+	                    //toggleB();
+	                    //console.log("toggle b called");
+	                    break;
+					case 67: 
+	                    this.exitPopups();
+	                    //toggleC();
+	                    //console.log("toggle c called");
+	                    break;
+					case 68: 
+	                    this.exitPopups();
+	                    //toggleD();
+	                    //console.log("toggle d called");
+	                    break;
+					case 69: 
+	                    this.exitPopups();
+	                    //toggleE();
+	                    break;
+					case 70: 
+	                    this.exitPopups();
+	                    //toggleF();
+	                    break;
+					case 71: 
+	                    this.exitPopups();
+	                    //toggleG();
+	                    break;
+					case 72: 
+	                    this.exitPopups();
+	                    //toggleH();
+	                    break;
+					case 73: 
+	                    this.exitPopups();
+	                    //toggleI();
+	                    break;
+					case 74: 
+	                    this.exitPopups();
+	                    //toggleJ();
+	                    break;
+	                case 75: 
+	                    this.exitPopups();
+	                    //toggleK();
+	                    break;    
+					case 12: 
+	                    this.exitPopups();
+	                    gController.toggleMark(); 
+	                    break;
+					case 19: 
+	                    this.exitPopups();
+	                    gController.finishTest(); 
+	                     gTooltip.hideTooltip (); 
+	                    break;
+					case 21: 
+	                    this.exitPopups();
+	                    gController.pauseTest(); 
+	                    break;
+	                case  6:
+	                    this.exitPopups(); 
+	        			gController.finishTestShortcut();      
+	                    break;
+					case 10: 
+						if(!gController.fwdOnly){
+		                    this.exitPopups();
+		                    gController.stepNavigateBack();  
+						}
+	                    break;
+					case 11: 
+	                    this.exitPopups();
+	                    gController.stepNavigateForward(); 
+	                     gTooltip.hideTooltip (); 
+	                    break;
+					default:
+						break;
+		 		}	 
+			
+			} else {
+				 switch ( k ) {
+					case 12: 
+	                    this.exitPopups();
+	                    gController.toggleMark(); 
+	                    break;
+					case 19: 
+	                    this.exitPopups();
+	                    gController.finishTest(); 
+	                    gTooltip.hideTooltip (); 
+	                    break;
+					case 21: 
+	                    this.exitPopups();
+	                    gController.pauseTest(); 
+	                    break;
+					default:
+						break;
 					}
-                    break;
-				case 11: 
-                    this.exitPopups();
-                    gController.stepNavigateForward(); 
-                     gTooltip.hideTooltip (); 
-                    break;
-				default:
-					break;
-	 		}	 
-		
-		} else {
-		console.log("macOptionKeysHandler inside else block");
-			 switch ( k ) {
-				case 12: 
-                    this.exitPopups();
-                    gController.toggleMark(); 
-                    break;
-				case 19: 
-                    this.exitPopups();
-                    gController.finishTest(); 
-                    gTooltip.hideTooltip (); 
-                    break;
-				case 21: 
-                    this.exitPopups();
-                    gController.pauseTest(); 
-                    break;
-				default:
-					break;
-				}
-		}
+			}
 	 	]]></method>
 
         <attribute name="dtoggleA"
@@ -734,98 +474,186 @@
         <attribute name="dfinish"
                    value="$once{ new lz.Delegate( this, 'finish' ) }" type="expression"/>
   
-        <method name="toggleA" args="ignore=null">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups();
-	        	gController.toggleItemSelState( 'A' ); 
-	        }
+
+		<handler name="onkeydown" reference="lz.Keys" args="k">
+         if(gScratchpad.scratchpadHasFocus){
+            console.log("=====ONKEYDOWN SC FOCUS IF===");
+			this.setAttribute("onceOnly",false); 
+		 }else{		
+            console.log("=====ONKEYDOWN ELSE===");
+		 	this.setAttribute("onceOnly",true); 
+		 }	  	
+	   </handler>
+
+		<attribute name="onceOnly" type="boolean" value="true"/>
+
+        <method name="toggleA" args="ignore=null">  
+            console.log("===toggle A====");
+			if(this.onceOnly){
+        	if(!gController.canNotAnswer) {
+	        	if(!gController.isCrItem()){
+		            this.exitPopups();
+		             gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'A' ); 
+		        }
+		    }
+			this.setAttribute("onceOnly",false);
+         }
         </method>
-        <method name="toggleB" args="ignore=null">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	        	gController.toggleItemSelState( 'B' ); 
-	        }
+
+        <method name="toggleB" args="ignore=null">  
+          console.log("===toggle B====");
+          if(this.onceOnly){
+        	if(!gController.canNotAnswer) {
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		             gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'B' ); 
+		        }
+		    }
+			this.setAttribute("onceOnly",false);
+         }
         </method>
-        <method name="toggleC" args="ignore=null">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	        	gController.toggleItemSelState( 'C' ); 
-	        }
+        <method name="toggleC" args="ignore=null">  
+            if(this.onceOnly){
+        	if(!gController.canNotAnswer) {
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		             gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'C' ); 
+		        }
+		    }
+			this.setAttribute("onceOnly",false);
+         }
          </method>
-        <method name="toggleD" args="ignore=null">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	        	gController.toggleItemSelState( 'D' ); 
-	        }
+        <method name="toggleD" args="ignore=null">  
+ 			if(this.onceOnly){  
+        	if(!gController.canNotAnswer) {
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		             gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'D' ); 
+		        }
+		    }
+			this.setAttribute("onceOnly",false);
+         }
        </method>
         <method name="toggleE" args="ignore=null">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	        	gController.toggleItemSelState( 'E' ); 
-	        }
+			if(this.onceOnly){
+        	if(!gController.canNotAnswer) {
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		             gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'E' ); 
+		        }
+		    }
+			this.setAttribute("onceOnly",false);
+         }	
         </method>
         <method name="toggleF" args="ignore=null">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups();
-	        	gController.toggleItemSelState( 'F' ); 
-	        }
+			if(this.onceOnly){
+        	if(!gController.canNotAnswer) {
+	        	if(!gController.isCrItem()){
+		            this.exitPopups();
+		             gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'F' ); 
+		        }
+		    }
+			this.setAttribute("onceOnly",false);
+         }
         </method>
-        <method name="toggleG" args="ignore=null">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	        	gController.toggleItemSelState( 'G' ); 
-	        }
+        <method name="toggleG" args="ignore=null">  
+			if(this.onceOnly){  
+        	if(!gController.canNotAnswer) {
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		             gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'G' ); 
+		        }
+		    }
+			this.setAttribute("onceOnly",false);
+         }
         </method>
-        <method name="toggleH" args="ignore=null">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	        	gController.toggleItemSelState( 'H' ); 
-	        }
+        <method name="toggleH" args="ignore=null"> 
+			if(this.onceOnly){
+        	if(!gController.canNotAnswer) {   
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		             gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'H' ); 
+		        }
+		    }
+			this.setAttribute("onceOnly",false);
+         }
         </method>
-		<method name="toggleI" args="ignore=null">    
-			if(!gController.isCrItem()){
-		    	this.exitPopups(); 
-				gController.toggleItemSelState( 'I' ); 
+		<method name="toggleI" args="ignore=null">  
+			if(this.onceOnly){  
+			if(!gController.canNotAnswer) {
+				if(!gController.isCrItem()){
+			    	this.exitPopups(); 
+			    	 gEnlargePopup.shrink();
+					gController.toggleItemSelState( 'I' ); 
+				}
 			}
+			this.setAttribute("onceOnly",false);
+         }
 		</method>
-        <method name="toggleJ" args="ignore=null">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	        	gController.toggleItemSelState( 'J' ); 
-	        }
+        <method name="toggleJ" args="ignore=null">  
+			if(this.onceOnly){ 
+        	if(!gController.canNotAnswer) { 
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		             gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'J' ); 
+		        }
+		    }
+			this.setAttribute("onceOnly",false);
+         }
         </method>        
         <method name="goBack" args="ignore=null">
 		<![CDATA[
-		    if(canvas.loadItem){
-            	//canvas.freezUI();
-				if(!gController.fwdOnly){
-	        		if(!gController.onFirstItem()){
-	        			lz.Focus.clearFocus();
-	        		}
-	        	
-	            	this.exitPopups();
-	        		gController.stepNavigateBack();
-				} 
-			}	     
+		 console.log("Inside goBack");
+			if(gController.unlockNavigation) {
+			console.log("Inside unlockNavigation");
+			    if(canvas.loadItem){
+			    	console.log("Inside loadItem");
+	            	//canvas.freezUI();
+					if(!gController.fwdOnly){
+		        		if(!gController.onFirstItem()){
+		        			lz.Focus.clearFocus();
+		        		}
+		        	
+		            	this.exitPopups();
+		            	 gEnlargePopup.shrink();
+		        		gController.stepNavigateBack();
+					} 
+				}	   
+			}  
        	]]>
 		</method>
         <method name="goOn" args="ignore=null"> 
-            if(canvas.loadItem){
-                //canvas.freezUI();
-	        	if(!gController.onLastItem()){
-	        		lz.Focus.clearFocus();
-	        	}
-	            this.exitPopups();
-	            gTooltip.hideTooltip (); 
-	           // console.log("after 814");
-	            gController.stepNavigateForward();  
-	            
-	        }	   
+        console.log("Inside goOn");
+        	if(gController.unlockNavigation) {
+        	 console.log("Inside unlockNavigation");
+	            if(canvas.loadItem){
+	            	 console.log("Inside loadItem");
+	                //canvas.freezUI();
+		        	if(!gController.onLastItem()){
+		        		lz.Focus.clearFocus();
+		        	}
+		            this.exitPopups();
+		             gEnlargePopup.shrink();
+		            gTooltip.hideTooltip (); 
+		            gController.stepNavigateForward();  
+		            
+		        }	  
+		    } 
         </method>
         <method name="toggleMark" args="ignore=null"> 
             if(canvas.loadItem){
         		//canvas.freezUI();
 	            this.exitPopups(); 
+	            gEnlargePopup.shrink();
 	         	gController.toggleMark();  
 	         }	            
         </method>
@@ -833,6 +661,7 @@
             if(canvas.loadItem){
         		//canvas.freezUI();
 	            this.exitPopups(); 
+	             gEnlargePopup.shrink();
 	        	gController.toggleTimer();  
 	        }	           
         </method>
@@ -842,6 +671,7 @@
 	        		lz.Focus.clearFocus();
 	        	}
 	            this.exitPopups(); 
+	             gEnlargePopup.shrink();
 	        	if(gItemInterface.visible == true || gTutorial.visible == true){
 	        	    //canvas.freezUI();
 	        		gController.pauseTest();
@@ -849,11 +679,10 @@
 	        }		
         </method>
         <method name="stop" args="ignore=null"> 
-           	 //console.log("inside handler stop @ 847");
             if(canvas.loadItem){    
             lz.Focus.clearFocus();
 	        this.exitPopups();
-			
+			 gEnlargePopup.shrink();
 			if(gItemInterface.visible == true || gTutorial.visible == true){
 	        	//canvas.freezUI();
 				gController.setAttribute('isAudioPaused', true);
@@ -862,11 +691,14 @@
 	        }		           
         </method>
         <method name="finish" args="ignore=null">  
-        	if(canvas.loadItem){   
-	        	lz.Focus.clearFocus();
-	            this.exitPopups(); 
-	        	gController.finishTestShortcut(); 
-	        }	     
+        	if(gController.unlockNavigation) { 
+	        	if(canvas.loadItem){   
+		        	lz.Focus.clearFocus();
+		            this.exitPopups(); 
+		            gEnlargePopup.shrink();
+		        	gController.finishTestShortcut(); 
+		        }	    
+		    } 
         </method>
     </node>
 

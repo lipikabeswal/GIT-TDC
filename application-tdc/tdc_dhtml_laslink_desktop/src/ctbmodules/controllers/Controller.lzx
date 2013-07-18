@@ -1788,10 +1788,10 @@
 			return alphabetString.substr(0,numOptions);
 		</method>
 
-       <handler name="onscratchpadOpen">
+       <!--<handler name="onscratchpadOpen">
 		 //console.log("SCRATCHPADOPEN");
 		 gHotKeys.handleoptionKeys();
-		</handler>
+		</handler> -->
 
 
 		<method name="getPermutatedArray"
@@ -2688,7 +2688,7 @@
 			}else{
 				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', false);
 			}
-			gHotKeys.handleHotKeysNav();
+			//gHotKeys.handleHotKeysNav();
         ]]></method>
 
 		<method name="saveSharedStimulusHighlights"><![CDATA[
@@ -2993,7 +2993,7 @@
 		<method name="toggleMark"><![CDATA[
 		//For Defect 65880
 			if(this.isThemePage()!='true' && this.allowRevisit && !gController.fwdOnly){
-	        	//freezeUI();
+	        	freezeUI();
 	        	var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
 	        	var isMarked = dncurritem.getAttr( 'marked' );
 	        	if(isMarked == null || isMarked == '0' || isMarked == 'false'){
@@ -3002,7 +3002,7 @@
 	        	else{
 	            	markQuestion(!isMarked);
 	            }
-	            //unlockUI();
+	            unlockUI();
 	            //canvas.unFreezUI();
 	        }
         ]]></method>
@@ -3073,8 +3073,8 @@
 		</method>
 
 		<method name="setItemSelState" args="selid, value"><![CDATA[
-
-			//freezeUI();
+			
+			freezeUI();
 
             var dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@identifier='"+selid+"']");
             if ( dnsel ) {
@@ -3154,7 +3154,7 @@
                         break;
                 }
             }
-            //unlockUI();
+            unlockUI();
         ]]></method>
 
 		<method name="getRationaleText" args="selid">
@@ -3172,7 +3172,7 @@
 		</method>
 
 		<method name="setItemCRState" args="answer"><![CDATA[
-            //freezeUI();
+            freezeUI();
 
             var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
             if (dncurritem == null) return;
@@ -3183,7 +3183,7 @@
 
             dncurritem.setAttr( 'answer_text', escape( answer ) );
             dnruntimeitem.setAttr( 'answer_text', escape( answer ) );
-            //unlockUI();
+             unlockUI();
         ]]></method>
 
 
@@ -3244,7 +3244,7 @@
 		<!-- timing -->
 
 		<method name="toggleTimer">
-			//freezeUI();
+			freezeUI();
 			var currentSetting = dpdisplay.getNodeAttribute( 'showtime' );
 			if(currentSetting == 'true'){
 				showHideTimer( 'false' );
@@ -3252,7 +3252,7 @@
 			else{
 				showHideTimer( 'true' );
 			}
-			//unlockUI();
+			unlockUI();
 			//canvas.unFreezUI();
 		</method>
 
@@ -3409,12 +3409,8 @@
 			{
 			//var recordState = this.recorder.recordState;
 			 this.recorder.stopblinker('stop');
-			 if(this.recorder.whitewrapperOverLay != null){
-				 this.recorder.whitewrapperOverLay.setAttribute('visible', false);
-			 }
-			  if(this.recorder.blackOverLay != null){
-			 	this.recorder.blackOverLay.setAttribute('visible', false);
-			 }
+			 this.recorder.whitewrapperOverLay.setAttribute('visible', false);
+			 this.recorder.blackOverLay.setAttribute('visible', false);
 			 this.blockFileName = false;
 			//if(recordState !='-1'){
 			//	this.updateAudioField(this.recorder.widget_id, true);
@@ -3637,7 +3633,7 @@
 				gScreens.removeFinishState();
 			}
 			checkShowMagnifierGlass();
-			gHotKeys.handleHotKeysNav();
+			//gHotKeys.handleHotKeysNav();
 			gTooltip.hideTooltip();
 			if(this.isMousedownOnManip){
 				gMaskingRuler.dragger.remove();
@@ -3688,11 +3684,11 @@
 
             ++uisemaphore;
             if ( dsdisplay.childNodes[0].getAttr( 'enabled' ) == 'true' ) {
-            	if(this.isAudioPaused == true) {
+            	//if(this.isAudioPaused == true) {
                 	gHotKeys.disableKeys();
-                }else {
-                	gHotKeys.handleHotKeys();
-                }
+                //}else {
+                //	gHotKeys.handleHotKeys();
+               // }
                 dsdisplay.childNodes[0].setAttr( 'enabled', 'false' );
                 lz.Cursor.setCursorGlobal( 'waitcursor' );
             }
@@ -3725,11 +3721,12 @@
 	                	restoreCurrentCursor();
 	                }
 	                dsdisplay.childNodes[0].setAttr( 'enabled', 'true' );
-	              if(!gScratchpad.scratchpadHasFocus && gController.unlockNavigation){
+	              if(!gScratchpad.scratchpadHasFocus){
 	              		gHotKeys.enableKeys();
-	               } else {
+	               } 
+	               /*else {
 	               		gHotKeys.handleHotKeys();
-	               }
+	               }*/
 	            }
 	        }
 		]]>
@@ -4510,7 +4507,6 @@
 
 		<method name="saveEndSubtest"><![CDATA[
 			//to set audio data in save call, its required
-			resetRecorder();
 			this.resetAudioFields();
 			stopQuestion();
         	copyCurrentToRuntime();
