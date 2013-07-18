@@ -53,7 +53,6 @@
             lz.Keys.callOnKeyCombo( dfinish, [ 'control', 'f' ] );
                       
 		    if ( gController.getClientMachine() == 'MAC' || isMac()) {
-		    console.log("Inside if");
                 dmacOptionKeysHandler.register( lz.Keys, 'onkeydown' );
             }
         </method>
@@ -172,7 +171,7 @@
 		        	var shift = keys[1];
 		        	var capslock = keys[2];
 		        	var control = keys[3];
-		        	if(gController.unlockNavigation){
+					if(gController.unlockNavigation){
 			        	if(key == 'A' || key == 'Shift+A' || key == 'Caps_lock+A' || key == 'Shift+Caps_lock+A')
 			       			toggleA();
 			       		else if(key == 'B' || key == 'Shift+B' || key == 'Caps_lock+B' || key == 'Shift+Caps_lock+B')
@@ -612,11 +611,8 @@
         </method>        
         <method name="goBack" args="ignore=null">
 		<![CDATA[
-		 console.log("Inside goBack");
 			if(gController.unlockNavigation) {
-			console.log("Inside unlockNavigation");
 			    if(canvas.loadItem){
-			    	console.log("Inside loadItem");
 	            	//canvas.freezUI();
 					if(!gController.fwdOnly){
 		        		if(!gController.onFirstItem()){
@@ -632,11 +628,8 @@
        	]]>
 		</method>
         <method name="goOn" args="ignore=null"> 
-        console.log("Inside goOn");
         	if(gController.unlockNavigation) {
-        	 console.log("Inside unlockNavigation");
 	            if(canvas.loadItem){
-	            	 console.log("Inside loadItem");
 	                //canvas.freezUI();
 		        	if(!gController.onLastItem()){
 		        		lz.Focus.clearFocus();
