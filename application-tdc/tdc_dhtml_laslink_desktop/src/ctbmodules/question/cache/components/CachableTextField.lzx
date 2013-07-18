@@ -80,11 +80,12 @@
              =============== -->
         <handler name="ondata" args="data"><![CDATA[
             //width
-            Debug.write("TextField ondata fired**** ",data);
+            //console.log("TextField ondata fired**** ",data);
             if (data.hasAttr("width")) {
                 this.setAttribute("width", Number(data.getAttr("width")));
             } else {
-                this.setAttribute("width", immediateparent.width);
+               // this.setAttribute("width", immediateparent.width);
+                this.setAttribute("width", Number(Number(immediateparent.classroot.width)));
             }
 
             //text magnification
