@@ -25,7 +25,7 @@
             }
             else{	
 				var leftQues="";
-                if(gController.adaptive == 'false'){                   
+                if(gController.adaptive == 'false' || gController.adaptive == false){              
             		leftQues = gController.totalQuestions() - gController.totalVisited();
             		stats.notanswered.setAttribute(
                 	'text','You have '+leftQues+' '+((leftQues == 1) ? 'question' :'questions')+' left.');
