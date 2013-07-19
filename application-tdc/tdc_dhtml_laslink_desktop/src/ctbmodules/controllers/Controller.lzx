@@ -3802,6 +3802,7 @@
 //console.log("############ loadItem ############");
 			
 			gQuestion.clearSkip();
+			this.macFocusInCanvas();
 			canvas.setAttribute('focusobj', null);
             this.itemloaded    = false;
             this.runtimeready  = false;
@@ -6053,10 +6054,10 @@
 		</method>
 		
 		<method name="macFocusInCanvas">
-			if (navigator.appVersion.indexOf("Mac")!=-1) {
+			//if (navigator.appVersion.indexOf("Mac")!=-1) {
 				gScratchpad.setAttribute('visible',true);
 				gScratchpad.setAttribute('visible',false);
-			}
+		//	}
 		</method>
 	</node>
 
