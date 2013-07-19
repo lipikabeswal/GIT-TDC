@@ -2668,6 +2668,8 @@
             dncurritem.setAttr( 'itempos', getOffsetFromEid( newitem ) + 1 );
             if(gController.lasAssetArray.length>0){
 				gController.setAttribute('unlockNavigation',false);
+			}else{
+				gController.setAttribute('unlockNavigation',true);
 			}
 			if(this.recorder != null ) {
 				this.recorder.recordButton.setAttribute("enabled", false);
