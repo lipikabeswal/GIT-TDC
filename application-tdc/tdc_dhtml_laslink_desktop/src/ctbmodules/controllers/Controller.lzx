@@ -3409,8 +3409,12 @@
 			{
 			//var recordState = this.recorder.recordState;
 			 this.recorder.stopblinker('stop');
-			 this.recorder.whitewrapperOverLay.setAttribute('visible', false);
-			 this.recorder.blackOverLay.setAttribute('visible', false);
+			 if(this.recorder.whitewrapperOverLay != null){
+				 this.recorder.whitewrapperOverLay.setAttribute('visible', false);
+			 }
+			  if(this.recorder.blackOverLay != null){
+			 	this.recorder.blackOverLay.setAttribute('visible', false);
+			 }
 			 this.blockFileName = false;
 			//if(recordState !='-1'){
 			//	this.updateAudioField(this.recorder.widget_id, true);
@@ -4507,6 +4511,7 @@
 
 		<method name="saveEndSubtest"><![CDATA[
 			//to set audio data in save call, its required
+			resetRecorder();
 			this.resetAudioFields();
 			stopQuestion();
         	copyCurrentToRuntime();
