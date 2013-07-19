@@ -388,3 +388,7 @@ function resetAllAssets(){
 		return frameid = arg.asset.aw.iframeid;
 	}
   }
+  
+  function checkEmptyString(str) {
+  	return (!str || /^\s*$/.test(str) || /^\n*$/.test(str) || /^\r*$/.test(str));
+  }
