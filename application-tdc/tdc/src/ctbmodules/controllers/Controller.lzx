@@ -3169,6 +3169,7 @@
         </method>
 
 		<method name="_handlePausedResumeResponse" args="xml">
+			gPauseTimerScreen.setVisible(false);
 			showItemInterface();
 			gScreens.resetTextFieldColor();
             startQuestion();
