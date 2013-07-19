@@ -286,7 +286,8 @@
 								var answered = false;
 								for(var i=0; (i< text.length) && !answered; i++){
 									var c = text.substring(i, i+1);
-									if(c != ' ' && c!= '\n' && c!= '\r'){
+									var isBlankString = checkEmptyString(c);
+									if(!isBlankString){
 										answered = true;
 									}
 								}
