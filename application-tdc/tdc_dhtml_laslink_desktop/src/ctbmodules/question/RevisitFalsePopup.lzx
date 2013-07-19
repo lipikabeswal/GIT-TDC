@@ -34,10 +34,11 @@
 	]]></method>
 	
 	<method name="hide">
+	    gController.setAttribute('unlockNavigation',false);
 	    gManipulatives.setAttribute('visible',true);
         this.setAttribute("visible", false);	
 		lz.ModeManager.release(this);	
-		gHotKeys.enableKeys();
+		gHotKeys.enableKeys();		
     </method>
 	
     <method name="show" args="calledFrom">
