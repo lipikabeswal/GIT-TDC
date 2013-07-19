@@ -2054,7 +2054,13 @@
 			
 			for ( var i = 0; i < itemCount; i++ ) {
 				var eid = items[i].getAttr( 'id' );
-				var allowRevisit = items[i].getAttr( 'allow_revisit' );
+				var allowRevisit;
+				if(items[i].getAttr('allow_revisit')){
+					allowRevisit = items[i].getAttr( 'allow_revisit' );
+				}else{
+					allowRevisit = true;
+				}
+
 				var allowRevisitOnRestart = items[i].getAttr( 'allow_revisit_on_restart' );				
                 var stimulusid = getStimulusIdByEid(eid);
 
