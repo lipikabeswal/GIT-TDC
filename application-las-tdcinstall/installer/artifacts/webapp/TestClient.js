@@ -49,7 +49,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mf"]}},$lzc$class__mf.attributes)
 }}})($lzc$class__mf)
-};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onkeydown","$m7","$m6","onmousedown","$m9","$m8","onbringBackFocus","$ma",null,"onfootnotedata","$mb",null,"onisMultiAudio","$mc",null,"oninit","$md",null,"onfootnotetext","$me",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-07-18T15:51:49Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onkeydown","$m7","$m6","onmousedown","$m9","$m8","onbringBackFocus","$ma",null,"onfootnotedata","$mb",null,"onisMultiAudio","$mc",null,"oninit","$md",null,"onfootnotetext","$me",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-07-19T14:37:47Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -13833,17 +13833,17 @@ this.setAttribute("text",$0)
 var $1;if(!this.classroot.isInitialText){
 if(this.text){
 gController.setAttribute("playIfAnswered",true);var $2=false;for(var $3=0;$3<this.text.length&&!$2;$3++){
-var $4=this.text.substring($3,$3+1);if($4!=" "&&$4!="\n"&&$4!="\r"){
+var $4=this.text.substring($3,$3+1);var $5=checkEmptyString($4);if(!$5){
 $2=true
 }};gController.updateCrField(this.classroot.widget_id,this.text,$2)
 }else{
 gController.updateCrField(this.classroot.widget_id,"",false)
-}};this.classroot.setAttribute("numCharacters",this.text.length);this.classroot.updateCharacterMeter();this.classroot.setAttribute("isInitialText",false);console.log("gController.answerFontColor*******",gController.answerFontColor);var $5=gController.answerFontColor;if(Number($5)==0)$5="0x000000";if($5.indexOf("0x")!=-1){
-$1=$5.replace("0x","#")
+}};this.classroot.setAttribute("numCharacters",this.text.length);this.classroot.updateCharacterMeter();this.classroot.setAttribute("isInitialText",false);console.log("gController.answerFontColor*******",gController.answerFontColor);var $6=gController.answerFontColor;if(Number($6)==0)$6="0x000000";if($6.indexOf("0x")!=-1){
+$1=$6.replace("0x","#")
 }else{
-$1=$5
-};var $6="color: "+$1+";";if(this.text.length>Number(this.classroot.characterLimit)){
-return false;var $7=this.text;$7=$7.substring(0,Number(this.classroot.characterLimit));this.updateScrollText($7)
+$1=$6
+};var $7="color: "+$1+";";if(this.text.length>Number(this.classroot.characterLimit)){
+return false;var $8=this.text;$8=$8.substring(0,Number(this.classroot.characterLimit));this.updateScrollText($8)
 }},"getSelectedText",function(){
 if(this.end==0){
 return ""
@@ -29182,7 +29182,11 @@ $0.setAttr("total_including_theme",this.getTotalNumberOfItems(true))
 };$0=this.dpstudentdata.xpathQuery("runtime");$0.setAttr("starting_question_number",this.getStartNumber());this.createSharedStimulusNodes();var $3=[];var $4=Number(this.getStartNumber());var $5=$2.length;if(this.adaptive==true){
 $5=this.subtestLength;Debug.write("ItemCount from subtest xml",$5)
 };for(var $6=0;$6<$5;$6++){
-var $7=$2[$6].getAttr("id");var $8=$2[$6].getAttr("allow_revisit");var $9=$2[$6].getAttr("allow_revisit_on_restart");var $a=this.getStimulusIdByEid($7);if($a>0){
+var $7=$2[$6].getAttr("id");var $8;if($2[$6].getAttr("allow_revisit")){
+$8=$2[$6].getAttr("allow_revisit")
+}else{
+$8=true
+};var $9=$2[$6].getAttr("allow_revisit_on_restart");var $a=this.getStimulusIdByEid($7);if($a>0){
 $9=this.getStimulusItemsIdByEid($a,$7)
 };var $b="tsd/ist[@eid='"+$7+"']";var $c=this.dprestart.xpathQuery($b);var $d=this.dprestart.xpathQuery($b+"/rv/v");var $e=$2[$6].getAttr("type")==this.THEME_TYPE;var $f="false";if(this.adaptive==false&&this.dprestart.isValid()&&$c){
 var $g={eid:$7,stimulus_id:$a,answered:this.isAnswered($d),is_visited:$f,marked:$c.getAttr("mrk")=="1",dur:$c.getAttr("dur"),not_sr:this.getNotSr($c),item_no:$4,theme:$e,allow_revisit:$8,allow_revisit_on_restart:$9};var $h=this.dprestart.xpathQuery($b+"/ov[@n='SCORE']/v/text()");if(typeof $h=="string"){
@@ -29361,6 +29365,8 @@ break;
 
 }};$6.removeAttr("not_sr");var $2=this.dpstudentdata.xpathQuery("current_item");$2.appendChild($6);$2.setAttr("itempos",this.getOffsetFromEid($3)+1);if(gController.lasAssetArray.length>0){
 gController.setAttribute("unlockNavigation",false)
+}else{
+gController.setAttribute("unlockNavigation",true)
 };if(this.recorder!=null){
 this.recorder.recordButton.setAttribute("enabled",false);this.recorder.resetButton.setAttribute("enabled",false)
 };this.initManipulativeData();if(this.adaptive==false){
@@ -29601,7 +29607,11 @@ if(this.focusOnScratchpad&&gScratchpad.visible){
 gScratchpad.restoreFocusAndCursor()
 }},"finishTest",function(){
 gTooltip.hideTooltip();this.stopMicCheck();this.setAttribute("isAudioPaused",true);this.setAttribute("manipClicked",true);gReadableText.stopReading(false);this.isStopScreen=true;this.freezeUI();if(this.recorder!=null){
-this.recorder.stopblinker("stop");this.recorder.whitewrapperOverLay.setAttribute("visible",false);this.recorder.blackOverLay.setAttribute("visible",false);this.blockFileName=false
+this.recorder.stopblinker("stop");if(this.recorder.whitewrapperOverLay!=null){
+this.recorder.whitewrapperOverLay.setAttribute("visible",false)
+};if(this.recorder.blackOverLay!=null){
+this.recorder.blackOverLay.setAttribute("visible",false)
+};this.blockFileName=false
 };this.setState(this.FINISH_STATE);if(this.isStopTest){
 this.setAttribute("sendCatSave",false)
 }else{
@@ -29735,7 +29745,7 @@ this.setAttribute("sendCatSave",false)
 }}else{
 this.save($1)
 }},"loadItem",function(){
-gQuestion.clearSkip();canvas.setAttribute("focusobj",null);this.itemloaded=false;this.runtimeready=false;this.youarehereset=false;if(this.isCrItem()){
+gQuestion.clearSkip();this.macFocusInCanvas();canvas.setAttribute("focusobj",null);this.itemloaded=false;this.runtimeready=false;this.youarehereset=false;if(this.isCrItem()){
 this.inQuestion=false
 };var $0=this.getLoadParams();Debug.write("loadParams",$0);var $1=gXmlHelper.getGetItemXml($0[0],$0[1],$0[2]);var $2=setCurLasItemId($0[0]);if(typeof canvas.folder!="undefined"){
 dsitem.setQueryParam(gRequest.FOLDER_PARAM,canvas.folder)
@@ -29998,7 +30008,7 @@ if(this.imageLIArray[$0].imageview.getDisplayObject().imgLoader&&this.imageLIArr
 this.imageLIArray[$0].imageview.getDisplayObject().imgLoader.unload()
 }}}};this.resetImageArray();this.setState(this.WRITE_TO_AUDIT_FILE_STATE);gCommunicator.writeToAuditFile(this.lsid,this.scid,this.getModelString())
 },"saveEndSubtest",function(){
-this.resetAudioFields();this.stopQuestion();this.copyCurrentToRuntime();this.setState(this.SAVE_END_SUBTEST_STATE);this.setAttribute("sendCatSave",true);this.save(null);this.setAttribute("doUnlockUI",false);Debug.write("saveendsubtest");this.resetHtmlFields()
+this.resetRecorder();this.resetAudioFields();this.stopQuestion();this.copyCurrentToRuntime();this.setState(this.SAVE_END_SUBTEST_STATE);this.setAttribute("sendCatSave",true);this.save(null);this.setAttribute("doUnlockUI",false);Debug.write("saveendsubtest");this.resetHtmlFields()
 },"_handleWriteToAuditFileResponse",function($0){
 this.setState(this.UPLOAD_AUDIT_FILE_STATE);gCommunicator.uploadAuditFile(this.lsid,this.scid)
 },"startQuestion",function(){
@@ -32484,7 +32494,7 @@ LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAt
 }}})($lzc$class__m2hi)
 };lz.ClassAttributeTypes["$lzc$class__m2hj"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
 Class.make("$lzc$class__m2hj",["updateText",function($0,$1,$2,$3){
-var $4=parseInt($0)==1;var $5=parseInt($1)==1;var $6;var $7;if($3&&gController.fwdOnly==true){
+console.log("Inside updateText****",$0,$1,$2,$3);var $4=parseInt($0)==1;var $5=parseInt($1)==1;var $6;var $7;if($3&&gController.fwdOnly==true){
 $6="You have ";$7=$3?" left.":"."
 }else{
 $6=$5?"There is ":"There are ";$7=$3?" to be answered.":"."
@@ -32689,9 +32699,9 @@ LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAt
 }}})($lzc$class__m2hk)
 };lz.ClassAttributeTypes["WelcomeScreen"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_WelcomeScreen",["setupContinue",function($0,$1,$2,$3){
-Debug.write("setupContinue:"+$1);this.info.notes.updateText($0,$1,$2,false);this.updateStudentName($3);this.controls.getstarted.setAttribute("text","Continue taking this test?");this.controls.dostart.remove();this.controls.docontinue.apply()
+console.log("setupContinue:"+$1);this.info.notes.updateText($0,$1,$2,false);this.updateStudentName($3);this.controls.getstarted.setAttribute("text","Continue taking this test?");this.controls.dostart.remove();this.controls.docontinue.apply()
 },"setupRestart",function($0,$1,$2,$3){
-Debug.write("setupRestart:"+$1);this.info.notes.updateText($0,$1,$2,true);this.updateStudentName($3);this.controls.getstarted.setAttribute("text","Continue taking this test?");this.controls.dostart.remove();this.controls.docontinue.apply()
+console.log("setupRestart:"+$1);this.info.notes.updateText($0,$1,$2,true);this.updateStudentName($3);this.controls.getstarted.setAttribute("text","Continue taking this test?");this.controls.dostart.remove();this.controls.docontinue.apply()
 },"setupNewSubtest",function($0,$1,$2,$3){
 this.info.notes.updateText($0,$1,$2,false);this.updateStudentName($3);this.controls.getstarted.setAttribute("text","Let's get started!");this.controls.docontinue.remove();this.controls.dostart.apply()
 },"updateStudentName",function($0){
@@ -33237,7 +33247,7 @@ Class.make("$lzc$class_FinishScreen",["setStats",function($0,$1){
 if(!gController.fwdOnly){
 Debug.write("###############fwdOnly false");this.stats.notanswered.setAttribute("text",$0+($0==1?" question ":" questions ")+"not answered.&nbsp;&nbsp;");this.stats.marked.setAttribute("text",$1+($1==1?" question ":" questions ")+"marked for review.&nbsp;&nbsp;")
 }else{
-var $2="";if(gController.adaptive=="false"){
+var $2="";if(gController.adaptive=="false"||gController.adaptive==false){
 $2=gController.totalQuestions()-gController.totalVisited();this.stats.notanswered.setAttribute("text","You have "+$2+" "+($2==1?"question":"questions")+" left.")
 }else{
 if(gController.RestartTest=="true"){
@@ -35215,7 +35225,7 @@ this.setAttribute("bg",new Number($2))
 this.setAttribute("bg",new Number("0x1D4896"))
 };this.windowbg.drawMe()
 },"hide",function(){
-gManipulatives.setAttribute("visible",true);this.setAttribute("visible",false);lz.ModeManager.release(this);gHotKeys.enableKeys()
+gController.setAttribute("unlockNavigation",false);gManipulatives.setAttribute("visible",true);this.setAttribute("visible",false);lz.ModeManager.release(this);gHotKeys.enableKeys()
 },"show",function($0){
 if(this.visible==false){
 gManipulatives.setAttribute("visible",false);this.setAttribute("visible",true);this.setAttribute("navigateFrom",$0);lz.ModeManager.makeModal(this);gHotKeys.disableKeys();if(canvas.currentCursor=="highlighter_cursor"){
