@@ -34,7 +34,7 @@
 	]]></method>
 	
 	<method name="hide">
-	    gController.setAttribute('unlockNavigation',false);
+	    
 	    gManipulatives.setAttribute('visible',true);
         this.setAttribute("visible", false);	
 		lz.ModeManager.release(this);	
@@ -44,6 +44,11 @@
     <method name="show" args="calledFrom">
 	    if(this.visible == false) {
 	    	//canvas.unFreezUI();	
+	    	gMaskingRuler.dragger.remove();
+	    	if(gScratchpad.visible)
+	    	{
+	    	  gScratchpad.onmouseup.sendEvent();
+	    	}
 	    	gManipulatives.setAttribute('visible',false);
 	        this.setAttribute("visible", true);
 			this.setAttribute("navigateFrom",calledFrom);
@@ -113,6 +118,7 @@
 		</text>        
 		<basebutton	name="okButton"	resource="popupOk" x="30" y="110" width="120" height="25" stretches="both">
 		<handler name="onclick">
+		    gController.setAttribute('unlockNavigation',false);
 			gController.setNavigation(1,parent.parent.navigateFrom);  
 			gController.unlockUI();        
         </handler>
