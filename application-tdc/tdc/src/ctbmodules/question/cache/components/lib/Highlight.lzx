@@ -167,8 +167,8 @@
                 <attribute name="minheight" value="${-this.y + 1}"/>
                 <attribute name="minwidth" value="${-this.x + 1}"/>
                 
-                <attribute name="maxheight" value="${classroot.height - this.y - 1}"/>
-                <attribute name="maxwidth" value="${classroot.width - this.x - 1}"/>
+                <attribute name="maxheight" value="${classroot.parent.parent.height - this.y - 1}"/>
+                <attribute name="maxwidth" value="${classroot.parent.parent.width - this.x - 1}"/>
                
 
                 <!-- constraints for width and height taking into account the min and maxes -->
