@@ -300,9 +300,10 @@ public class LockdownBrowserWrapper extends Thread {
 		
 		public boolean forceFullScreen() {
 			try {
-				Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ "))); //causes ubuntu and suse to hang after exiting
+				//Runtime.getRuntime().exec("metacity --replace", null, new File(this.tdcHome.replaceAll(" ", "\\ "))); //causes ubuntu and suse to hang after exiting
 				String wmctrl = "./wmctrl -r \"Online Assessment System\" -b \"toggle, fullscreen\"";
 				Runtime.getRuntime().exec(wmctrl, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+				
 				
 			} catch (Exception e) {
 
@@ -317,6 +318,7 @@ public class LockdownBrowserWrapper extends Thread {
 				boolean forcedFullScreen = false;
 				ConsoleUtils.messageOut("Blocking hotkeys at " + System.currentTimeMillis());
 				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(false);
+				Runtime.getRuntime().exec("./lockdown.sh &", null, new File(tdcHome.replaceAll(" ", "\\ "))); //Prevent right click from keyboard
 				ConsoleUtils.messageOut("Starting lock loop at " + System.currentTimeMillis());
 				while(!isProcessExit) {
 					if(ready) {
@@ -491,30 +493,29 @@ public class LockdownBrowserWrapper extends Thread {
 					LockdownLinux lockdown = new LockdownLinux(this.tdcHome);
 					ConsoleUtils.messageOut("LDB started at " + startTime);
 					
-					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, envp, new File(this.ldbHome+"/ChromiumLDB/"));
+					//Process ldb = Runtime.getRuntime().exec(this.ldbCommand, envp, new File(this.ldbHome+"/ChromiumLDB/"));
 					//Process pBuilder= new ProcessBuilder(ldbCommand[0], ldbCommand[1]).start();
-//					processBuilder= new ProcessBuilder(command);
-//					processBuilder.directory(new File(this.ldbHome+"/ChromiumLDB/"));
-//					processBuilder.redirectErrorStream(true);
+					processBuilder= new ProcessBuilder(command);
+					processBuilder.directory(new File(this.ldbHome+"/ChromiumLDB/"));		
+					processBuilder.redirectErrorStream(true);
 					//processBuilder.redirectOutput(new File(this.ldbHome+"/ChromiumLDB/ldbDebug.log"));
 					//ldb=null;
-					Thread.sleep(5000);
+					//Thread.sleep(5000);
 					
 					
 		//			ConsoleUtils.messageOut("Lockdown Started at " + System.currentTimeMillis());
-					//Process ldb=processBuilder.start();
+					Process ldb=processBuilder.start();
 					lockdown.start();
 		//			ConsoleUtils.messageOut("LDB app started at " + System.currentTimeMillis());
 					final BufferedReader consoleBufferReader = new BufferedReader(new InputStreamReader(ldb.getInputStream()));
-					 new Thread(new Runnable() {
+					new Thread(new Runnable() {
 					        public void run() {
 					            while(true)
 					            {
 					        	try {
-									consoleBufferReader.read();
+									consoleBufferReader.readLine();
 								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
+									ConsoleUtils.messageErr("Error while reading ldb output", e);
 								}
 					            }
 					        }
