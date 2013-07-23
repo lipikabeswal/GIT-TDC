@@ -49,7 +49,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mf"]}},$lzc$class__mf.attributes)
 }}})($lzc$class__mf)
-};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onkeydown","$m7","$m6","onmousedown","$m9","$m8","onbringBackFocus","$ma",null,"onfootnotedata","$mb",null,"onisMultiAudio","$mc",null,"oninit","$md",null,"onfootnotetext","$me",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-07-20T14:15:27Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onkeydown","$m7","$m6","onmousedown","$m9","$m8","onbringBackFocus","$ma",null,"onfootnotedata","$mb",null,"onisMultiAudio","$mc",null,"oninit","$md",null,"onfootnotetext","$me",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-07-23T14:26:23Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -16278,11 +16278,9 @@ if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
 }},"$m196",function($0){
-gController.stepNavigateBack()
-},"$m197",function($0){
 var $1=!gController.fwdOnly&&!gController.onFirstItem();if($1!==this["visible"]||!this.inited){
 this.setAttribute("visible",$1)
-}},"$m198",function(){
+}},"$m197",function(){
 try{
 return [gController,"fwdOnly"].concat($lzc$getFunctionDependencies("onFirstItem",this,gController,[],null))
 }
@@ -16290,11 +16288,14 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m199",function($0){
+}},"$m198",function($0){
 lz.Cursor.showHandCursor(true)
-},"$m19a",function($0){
+},"$m199",function($0){
 lz.Cursor.showHandCursor(false)
-},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+},"$m19a",function($0){
+if(gController.allowNavigate&&gController.allowItmeNavigate){
+gController.setAttribute("allowNavigate",false);gController.stepNavigateBack()
+}},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
 $0=null;
@@ -16324,12 +16325,13 @@ if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
 }},"$m19d",function($0){
-gController.stepNavigateForward()
-},"$m19e",function($0){
 lz.Cursor.showHandCursor(true)
-},"$m19f",function($0){
+},"$m19e",function($0){
 lz.Cursor.showHandCursor(false)
-},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+},"$m19f",function($0){
+if(gController.allowNavigate&&gController.allowItmeNavigate){
+gController.setAttribute("allowNavigate",false);gController.stepNavigateForward()
+}},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
 $0=null;
@@ -16516,7 +16518,7 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["tagname","TestControls","children",[{attrs:{$classrootdepth:1,answeristxt:void 0,name:"answertxt",noanswertxt:void 0,visible:new LzAlwaysExpr("$m191","$m192",null)},"class":$lzc$class__m19s},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["btns"]},$classrootdepth:1,markbtn:void 0,name:"btns",navbtns:void 0,x:7,y:14},children:[{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["simplelayout"]},$classrootdepth:2,axis:"y",spacing:3},"class":$lzc$class_simplelayout},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["navbtns"]},$classrootdepth:2,btnback:void 0,btnfinish:void 0,btnforward:void 0,name:"navbtns"},children:[{attrs:{$classrootdepth:3,$delegates:["onclick","$m196",null,"onmouseover","$m199",null,"onmouseout","$m19a",null],clickable:true,disabledResourceNumber:1,enabled:new LzAlwaysExpr("$m194","$m195",null),name:"btnback",resource:"go_back_btn",visible:new LzAlwaysExpr("$m197","$m198",null),x:0},"class":$lzc$class__m19u},{attrs:{$classrootdepth:3,$delegates:["onclick","$m19d",null,"onmouseover","$m19e",null,"onmouseout","$m19f",null],clickable:true,disabledResourceNumber:1,enabled:new LzAlwaysExpr("$m19b","$m19c",null),name:"btnforward",resource:"go_on_btn",x:100},"class":$lzc$class__m19v},{attrs:{$classrootdepth:3,$delegates:["onclick","$m19k",null,"onmouseover","$m19l",null,"onmouseout","$m19m",null],$lzc$bind_id:function($0,$1){
+}],LzView,["tagname","TestControls","children",[{attrs:{$classrootdepth:1,answeristxt:void 0,name:"answertxt",noanswertxt:void 0,visible:new LzAlwaysExpr("$m191","$m192",null)},"class":$lzc$class__m19s},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["btns"]},$classrootdepth:1,markbtn:void 0,name:"btns",navbtns:void 0,x:7,y:14},children:[{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["simplelayout"]},$classrootdepth:2,axis:"y",spacing:3},"class":$lzc$class_simplelayout},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["navbtns"]},$classrootdepth:2,btnback:void 0,btnfinish:void 0,btnforward:void 0,name:"navbtns"},children:[{attrs:{$classrootdepth:3,$delegates:["onmouseover","$m198",null,"onmouseout","$m199",null,"onclick","$m19a",null],clickable:true,disabledResourceNumber:1,enabled:new LzAlwaysExpr("$m194","$m195",null),name:"btnback",resource:"go_back_btn",visible:new LzAlwaysExpr("$m196","$m197",null),x:0},"class":$lzc$class__m19u},{attrs:{$classrootdepth:3,$delegates:["onmouseover","$m19d",null,"onmouseout","$m19e",null,"onclick","$m19f",null],clickable:true,disabledResourceNumber:1,enabled:new LzAlwaysExpr("$m19b","$m19c",null),name:"btnforward",resource:"go_on_btn",x:100},"class":$lzc$class__m19v},{attrs:{$classrootdepth:3,$delegates:["onclick","$m19k",null,"onmouseover","$m19l",null,"onmouseout","$m19m",null],$lzc$bind_id:function($0,$1){
 switch(arguments.length){
 case 1:
 $1=true;
@@ -18468,7 +18470,7 @@ this.ruler.label.setAttribute("resource",this.labelrsr)
 }},"dragxmin",void 0,"dragymin",void 0,"dragxmax",void 0,"dragymax",void 0,"minLength",void 0,"maxLength",void 0,"LABEL_PADDING",void 0,"GRABBER_PADDING",void 0,"LABEL_Y",void 0,"ROTATOR_Y",void 0,"GRABBER_Y",void 0,"DRAGGER_MIN_X",void 0,"DRAGGER_MAX_X",void 0,"DRAGGER_MIN_Y",void 0,"DRAGGER_MAX_Y",void 0,"dragger",void 0,"updateDraggerAttributes",function(){
 var $0=this.getDraggerValues(this.rotation,this.ruler.width);this.setAttribute("dragxmin",$0[0]);this.setAttribute("dragymin",$0[1]);this.setAttribute("dragxmax",$0[2]);this.setAttribute("dragymax",$0[3])
 },"getDraggerValues",function($0,$1){
-var $2=new Array();var $3=this.getRelativeGrabberBounds($0,$1);$2[0]=-$3[0];$2[1]=-$3[1];$2[2]=this.parent.width-$3[2];$2[3]=this.parent.height-6-$3[3];return $2
+var $2=new Array();var $3=this.getRelativeGrabberBounds($0,$1);$2[0]=-$3[0]-400;$2[1]=-$3[1];$2[2]=this.parent.width-$3[2]-300;$2[3]=this.parent.height-6-$3[3];return $2
 },"getRelativeGrabberBounds",function($0,$1){
 var $2=new Array();var $3=this.degreesToRads($0);var $4=this.ruler.grabber;var $5=Math.sin($3);var $6=Math.cos($3);var $7=this.ruler.x+$1/2-$4.width/2;var $8=$7+$4.width;var $9=$4.y;var $a=$4.y+$4.height;var $b=$6*$7-$5*$9;var $c=$5*$7+$6*$9;var $d=$6*$7-$5*$a;var $e=$5*$7+$6*$a;var $f=$6*$8-$5*$9;var $g=$5*$8+$6*$9;var $h=$6*$8-$5*$a;var $i=$5*$8+$6*$a;$2[0]=this.getMin($b,$d,$f,$h);$2[1]=this.getMin($c,$e,$g,$i);$2[2]=this.getMax($b,$d,$f,$h);$2[3]=this.getMax($c,$e,$g,$i);return $2
 },"getRotateGrabberBounds",function($0,$1){
@@ -27822,7 +27824,7 @@ Class.make("$lzc$class__m29r",["enableKeys",function(){
 console.log("===enablekeys====");lz.Keys.callOnKeyCombo(this.dtoggleA,["a"]);lz.Keys.callOnKeyCombo(this.dtoggleB,["b"]);lz.Keys.callOnKeyCombo(this.dtoggleC,["c"]);lz.Keys.callOnKeyCombo(this.dtoggleD,["d"]);lz.Keys.callOnKeyCombo(this.dtoggleE,["e"]);lz.Keys.callOnKeyCombo(this.dtoggleF,["f"]);lz.Keys.callOnKeyCombo(this.dtoggleG,["g"]);lz.Keys.callOnKeyCombo(this.dtoggleH,["h"]);lz.Keys.callOnKeyCombo(this.dtoggleI,["i"]);lz.Keys.callOnKeyCombo(this.dtoggleJ,["j"]);lz.Keys.callOnKeyCombo(this.dtoggleA,["shift","a"]);lz.Keys.callOnKeyCombo(this.dtoggleB,["shift","b"]);lz.Keys.callOnKeyCombo(this.dtoggleC,["shift","c"]);lz.Keys.callOnKeyCombo(this.dtoggleD,["shift","d"]);lz.Keys.callOnKeyCombo(this.dtoggleE,["shift","e"]);lz.Keys.callOnKeyCombo(this.dtoggleF,["shift","f"]);lz.Keys.callOnKeyCombo(this.dtoggleG,["shift","g"]);lz.Keys.callOnKeyCombo(this.dtoggleH,["shift","h"]);lz.Keys.callOnKeyCombo(this.dtoggleI,["shift","i"]);lz.Keys.callOnKeyCombo(this.dtoggleJ,["shift","j"]);lz.Keys.callOnKeyCombo(this.dtoggleA,["shift","capslock","a"]);lz.Keys.callOnKeyCombo(this.dtoggleB,["shift","capslock","b"]);lz.Keys.callOnKeyCombo(this.dtoggleC,["shift","capslock","c"]);lz.Keys.callOnKeyCombo(this.dtoggleD,["shift","capslock","d"]);lz.Keys.callOnKeyCombo(this.dtoggleE,["shift","capslock","e"]);lz.Keys.callOnKeyCombo(this.dtoggleF,["shift","capslock","f"]);lz.Keys.callOnKeyCombo(this.dtoggleG,["shift","capslock","g"]);lz.Keys.callOnKeyCombo(this.dtoggleH,["shift","capslock","h"]);lz.Keys.callOnKeyCombo(this.dtoggleI,["shift","capslock","i"]);lz.Keys.callOnKeyCombo(this.dtoggleJ,["shift","capslock","j"]);lz.Keys.callOnKeyCombo(this.dtoggleA,["capslock","a"]);lz.Keys.callOnKeyCombo(this.dtoggleB,["capslock","b"]);lz.Keys.callOnKeyCombo(this.dtoggleC,["capslock","c"]);lz.Keys.callOnKeyCombo(this.dtoggleD,["capslock","d"]);lz.Keys.callOnKeyCombo(this.dtoggleE,["capslock","e"]);lz.Keys.callOnKeyCombo(this.dtoggleF,["capslock","f"]);lz.Keys.callOnKeyCombo(this.dtoggleG,["capslock","g"]);lz.Keys.callOnKeyCombo(this.dtoggleH,["capslock","h"]);lz.Keys.callOnKeyCombo(this.dtoggleI,["capslock","i"]);lz.Keys.callOnKeyCombo(this.dtoggleJ,["capslock","j"]);lz.Keys.callOnKeyCombo(this.dgoBack,["control","j"]);lz.Keys.callOnKeyCombo(this.dgoOn,["control","k"]);lz.Keys.callOnKeyCombo(this.dtoggleMark,["control","l"]);lz.Keys.callOnKeyCombo(this.dtoggleTimer,["control","o"]);lz.Keys.callOnKeyCombo(this.dpause,["control","u"]);lz.Keys.callOnKeyCombo(this.dstop,["control","s"]);lz.Keys.callOnKeyCombo(this.dfinish,["control","f"]);if(gController.getClientMachine()=="MAC"||isMac()){
 this.dmacOptionKeysHandler.register(lz.Keys,"onkeydown")
 }},"disableKeys",function(){
-console.log("===disablekeys====");lz.Keys.removeKeyComboCall(this.dtoggleA,["a"]);lz.Keys.removeKeyComboCall(this.dtoggleB,["b"]);lz.Keys.removeKeyComboCall(this.dtoggleC,["c"]);lz.Keys.removeKeyComboCall(this.dtoggleD,["d"]);lz.Keys.removeKeyComboCall(this.dtoggleE,["e"]);lz.Keys.removeKeyComboCall(this.dtoggleF,["f"]);lz.Keys.removeKeyComboCall(this.dtoggleG,["g"]);lz.Keys.removeKeyComboCall(this.dtoggleH,["h"]);lz.Keys.removeKeyComboCall(this.dtoggleI,["i"]);lz.Keys.removeKeyComboCall(this.dtoggleJ,["j"]);lz.Keys.removeKeyComboCall(this.dtoggleA,["shift","a"]);lz.Keys.removeKeyComboCall(this.dtoggleB,["shift","b"]);lz.Keys.removeKeyComboCall(this.dtoggleC,["shift","c"]);lz.Keys.removeKeyComboCall(this.dtoggleD,["shift","d"]);lz.Keys.removeKeyComboCall(this.dtoggleE,["shift","e"]);lz.Keys.removeKeyComboCall(this.dtoggleF,["shift","f"]);lz.Keys.removeKeyComboCall(this.dtoggleG,["shift","g"]);lz.Keys.removeKeyComboCall(this.dtoggleH,["shift","h"]);lz.Keys.removeKeyComboCall(this.dtoggleI,["shift","i"]);lz.Keys.removeKeyComboCall(this.dtoggleJ,["shift","j"]);lz.Keys.removeKeyComboCall(this.dtoggleA,["capslock","a"]);lz.Keys.removeKeyComboCall(this.dtoggleB,["capslock","b"]);lz.Keys.removeKeyComboCall(this.dtoggleC,["capslock","c"]);lz.Keys.removeKeyComboCall(this.dtoggleD,["capslock","d"]);lz.Keys.removeKeyComboCall(this.dtoggleE,["capslock","e"]);lz.Keys.removeKeyComboCall(this.dtoggleF,["capslock","f"]);lz.Keys.removeKeyComboCall(this.dtoggleG,["capslock","g"]);lz.Keys.removeKeyComboCall(this.dtoggleH,["capslock","h"]);lz.Keys.removeKeyComboCall(this.dtoggleI,["capslock","i"]);lz.Keys.removeKeyComboCall(this.dtoggleJ,["capslock","j"]);lz.Keys.removeKeyComboCall(this.dtoggleA,["shift","capslock","a"]);lz.Keys.removeKeyComboCall(this.dtoggleB,["shift","capslock","b"]);lz.Keys.removeKeyComboCall(this.dtoggleC,["shift","capslock","c"]);lz.Keys.removeKeyComboCall(this.dtoggleD,["shift","capslock","d"]);lz.Keys.removeKeyComboCall(this.dtoggleE,["shift","capslock","e"]);lz.Keys.removeKeyComboCall(this.dtoggleF,["shift","capslock","f"]);lz.Keys.removeKeyComboCall(this.dtoggleG,["shift","capslock","g"]);lz.Keys.removeKeyComboCall(this.dtoggleH,["shift","capslock","h"]);lz.Keys.removeKeyComboCall(this.dtoggleI,["shift","capslock","i"]);lz.Keys.removeKeyComboCall(this.dtoggleJ,["shift","capslock","j"]);lz.Keys.removeKeyComboCall(this.dgoBack,["control","j"]);lz.Keys.removeKeyComboCall(this.dgoOn,["control","k"]);lz.Keys.removeKeyComboCall(this.dtoggleMark,["control","l"]);lz.Keys.removeKeyComboCall(this.dtoggleTimer,["control","o"]);lz.Keys.removeKeyComboCall(this.dpause,["control","u"]);lz.Keys.removeKeyComboCall(this.dstop,["control","s"]);lz.Keys.removeKeyComboCall(this.dfinish,["control","f"]);if(gItemInterface.visible!=true&&gItemInterface.visible!="true"){
+console.log("===disablekeys====");lz.Keys.removeKeyComboCall(this.dtoggleA,["a"]);lz.Keys.removeKeyComboCall(this.dtoggleB,["b"]);lz.Keys.removeKeyComboCall(this.dtoggleC,["c"]);lz.Keys.removeKeyComboCall(this.dtoggleD,["d"]);lz.Keys.removeKeyComboCall(this.dtoggleE,["e"]);lz.Keys.removeKeyComboCall(this.dtoggleF,["f"]);lz.Keys.removeKeyComboCall(this.dtoggleG,["g"]);lz.Keys.removeKeyComboCall(this.dtoggleH,["h"]);lz.Keys.removeKeyComboCall(this.dtoggleI,["i"]);lz.Keys.removeKeyComboCall(this.dtoggleJ,["j"]);lz.Keys.removeKeyComboCall(this.dtoggleA,["shift","a"]);lz.Keys.removeKeyComboCall(this.dtoggleB,["shift","b"]);lz.Keys.removeKeyComboCall(this.dtoggleC,["shift","c"]);lz.Keys.removeKeyComboCall(this.dtoggleD,["shift","d"]);lz.Keys.removeKeyComboCall(this.dtoggleE,["shift","e"]);lz.Keys.removeKeyComboCall(this.dtoggleF,["shift","f"]);lz.Keys.removeKeyComboCall(this.dtoggleG,["shift","g"]);lz.Keys.removeKeyComboCall(this.dtoggleH,["shift","h"]);lz.Keys.removeKeyComboCall(this.dtoggleI,["shift","i"]);lz.Keys.removeKeyComboCall(this.dtoggleJ,["shift","j"]);lz.Keys.removeKeyComboCall(this.dtoggleA,["capslock","a"]);lz.Keys.removeKeyComboCall(this.dtoggleB,["capslock","b"]);lz.Keys.removeKeyComboCall(this.dtoggleC,["capslock","c"]);lz.Keys.removeKeyComboCall(this.dtoggleD,["capslock","d"]);lz.Keys.removeKeyComboCall(this.dtoggleE,["capslock","e"]);lz.Keys.removeKeyComboCall(this.dtoggleF,["capslock","f"]);lz.Keys.removeKeyComboCall(this.dtoggleG,["capslock","g"]);lz.Keys.removeKeyComboCall(this.dtoggleH,["capslock","h"]);lz.Keys.removeKeyComboCall(this.dtoggleI,["capslock","i"]);lz.Keys.removeKeyComboCall(this.dtoggleJ,["capslock","j"]);lz.Keys.removeKeyComboCall(this.dtoggleA,["shift","capslock","a"]);lz.Keys.removeKeyComboCall(this.dtoggleB,["shift","capslock","b"]);lz.Keys.removeKeyComboCall(this.dtoggleC,["shift","capslock","c"]);lz.Keys.removeKeyComboCall(this.dtoggleD,["shift","capslock","d"]);lz.Keys.removeKeyComboCall(this.dtoggleE,["shift","capslock","e"]);lz.Keys.removeKeyComboCall(this.dtoggleF,["shift","capslock","f"]);lz.Keys.removeKeyComboCall(this.dtoggleG,["shift","capslock","g"]);lz.Keys.removeKeyComboCall(this.dtoggleH,["shift","capslock","h"]);lz.Keys.removeKeyComboCall(this.dtoggleI,["shift","capslock","i"]);lz.Keys.removeKeyComboCall(this.dtoggleJ,["shift","capslock","j"]);lz.Keys.removeKeyComboCall(this.dgoBack,["control","j"]);lz.Keys.removeKeyComboCall(this.dgoOn,["control","k"]);lz.Keys.removeKeyComboCall(this.dtoggleMark,["control","l"]);lz.Keys.removeKeyComboCall(this.dtoggleTimer,["control","o"]);lz.Keys.removeKeyComboCall(this.dpause,["control","u"]);lz.Keys.removeKeyComboCall(this.dstop,["control","s"]);lz.Keys.removeKeyComboCall(this.dfinish,["control","f"]);if(gItemInterface.visible==true||gItemInterface.visible=="true"){
 lz.Keys.callOnKeyCombo(this.dtoggleMark,["control","l"]);lz.Keys.callOnKeyCombo(this.dtoggleTimer,["control","o"]);lz.Keys.callOnKeyCombo(this.dpause,["control","u"]);lz.Keys.callOnKeyCombo(this.dstop,["control","s"])
 };if(gController.getClientMachine()=="MAC"||isMac()){
 this.dmacOptionKeysHandler.unregisterFrom(lz.Keys.onkeydown)
@@ -28036,15 +28038,15 @@ this.setAttribute("dfinish",new (lz.Delegate)(this,"finish"))
 return lz.Keys
 },"$m29q",function($0){
 if(gScratchpad.scratchpadHasFocus){
-console.log("=====ONKEYDOWN SC FOCUS IF===");this.setAttribute("onceOnly",false)
+this.setAttribute("onceOnly",false)
 }else{
-console.log("=====ONKEYDOWN ELSE===");this.setAttribute("onceOnly",true)
+this.setAttribute("onceOnly",true)
 }},"onceOnly",void 0,"toggleA",function($0){
 switch(arguments.length){
 case 0:
 $0=null;
 
-};console.log("===toggle A====");if(this.onceOnly){
+};if(this.onceOnly){
 if(!gController.canNotAnswer){
 if(!gController.isCrItem()){
 this.exitPopups();gEnlargePopup.shrink();gController.toggleItemSelState("A")
@@ -28054,7 +28056,7 @@ switch(arguments.length){
 case 0:
 $0=null;
 
-};console.log("===toggle B====");if(this.onceOnly){
+};if(this.onceOnly){
 if(!gController.canNotAnswer){
 if(!gController.isCrItem()){
 this.exitPopups();gEnlargePopup.shrink();gController.toggleItemSelState("B")
@@ -28144,8 +28146,8 @@ switch(arguments.length){
 case 0:
 $0=null;
 
-};if(gController.unlockNavigation){
-if(canvas.loadItem){
+};if(gController.allowNavigate&&gController.allowItmeNavigate){
+if(gController.unlockNavigation){
 if(!gController.fwdOnly){
 if(!gController.onFirstItem()){
 lz.Focus.clearFocus()
@@ -28155,8 +28157,8 @@ switch(arguments.length){
 case 0:
 $0=null;
 
-};if(gController.unlockNavigation){
-if(canvas.loadItem){
+};if(gController.allowNavigate&&gController.allowItmeNavigate){
+if(gController.unlockNavigation){
 if(!gController.onLastItem()){
 lz.Focus.clearFocus()
 };this.exitPopups();gEnlargePopup.shrink();gTooltip.hideTooltip();gController.stepNavigateForward()
@@ -28604,7 +28606,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2bo"]}},$lzc$class__m2bo.attributes)
 }}})($lzc$class__m2bo)
-};lz.ClassAttributeTypes["$lzc$class__m2bm"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["node"],{CHECK_PROD_TYPE_METHOD:"string",DEFAULT_TYPE:"string",DOWNLOAD_STATE:"string",FEEDBACK_STATE:"string",FINISH_LEV:"string",FINISH_SAVE_STATE:"string",FINISH_STATE:"string",INIT_LEV:"string",IS_MIC_ATTACHED:"string",LOGIN_STATE:"string",MAX_CR_ID:"number",NONE_STATE:"string",OUT_OF_TIME_OPEN_STATE:"string",PAUSED_RESUME_STATE:"string",PAUSE_LEV:"string",PAUSE_STATE:"string",RESUME_LEV:"string",RestartTest:"boolean",SAVE_END_SUBTEST_STATE:"string",SAVE_LEV:"string",SAVE_LOAD_STATE:"string",STOP_LEV:"string",SUBTEST_FINISH_STATE:"string",SUBTEST_STATE:"string",TERMINATED_LEV:"string",THEME_TYPE:"string",TIMEOUT_STATE:"string",TIMER_INTERVAL:"number",TUTORIAL_COMPLETE_STATE:"string",UPLOAD_AUDIT_FILE_STATE:"string",WRITE_TO_AUDIT_FILE_STATE:"string",accesscode:"string",allowRevisit:"boolean",alphabetString:"string",answerBgColor:"color",answerFontColor:"color",applyFlashFix:"boolean",blockFileName:"boolean",canNotAnswer:"boolean",catOver:"boolean",communicatorResponse:"string",currentCrId:"number",currentManipSelected:"string",currentSubtestIndex:"number",doUnlockUI:"boolean",durationms:"number",durationmsforpause:"number",elapsedms:"number",elapsedmsforpause:"number",findAnswer:"boolean",firstSubtest:"boolean",focusOnGr:"boolean",focusOnScratchpad:"boolean",formulaCardResource:"string",fwdOnly:"boolean",gAnsweredCount:"number",gCurrentItemPos:"number",gPrevStimulusId:"number",gStimulusId:"number",hasDynamicRefCard:"boolean",hasFontAccommodation:"boolean",hasTNorFCATrefCard:"boolean",hasTTSspeed:"boolean",heartbeatResult:"string",iframeid:"string",inQuestion:"boolean",isAnswerSet:"boolean",isAudioPaused:"boolean",isFinishTest:"boolean",isHandlerInactive:"boolean",isLoginResponseHavingSeed:"boolean",isMicPresent:"boolean",isMousedownOnManip:"boolean",isPauseTest:"boolean",isPaused:"boolean",isPreviewer:"boolean",isRevisitPopupOpen:"boolean",isSizer:"boolean",isStopScreen:"boolean",isStopTest:"boolean",isTestPaused:"boolean",isWaitPopupAfter60SecOpen:"boolean",isWaitPopupOpen:"boolean",isaudio:"boolean",isplaying:"boolean",istLength:"number",istRestartLength:"number",itemHasRationalNode:"boolean",manipClicked:"boolean",manipSelected:"boolean",manipbuttonClicked:"boolean",maxModBase:"number",modBase:"number",navigateConfirm:"boolean",newModBase:"number",nextItem:"number",password:"string",playIfAnswered:"boolean",prevItemId:"number",productTypeVal:"string",qtimestamp:"number",qtimestampforpause:"number",questionBgColor:"color",questionFontColor:"color",recordState:"boolean",recordingCompleted:"boolean",recordingStopped:"boolean",relogin:"boolean",requestPending:"boolean",resetButtonEnable:"boolean",restartItemCount:"number",scratchpadOpen:"boolean",seed:"number",seedDigitSum:"number",sendCatSave:"boolean",showHighlighter:"boolean",showPleaseWaitOver:"boolean",skipCacheDestroy:"boolean",state:"string",subtestLength:"number",testTimeout:"boolean",timerInterval:"number",timing:"boolean",timingforpause:"boolean",unlockNavigation:"boolean",userid:"string"});{
+};lz.ClassAttributeTypes["$lzc$class__m2bm"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["node"],{CHECK_PROD_TYPE_METHOD:"string",DEFAULT_TYPE:"string",DOWNLOAD_STATE:"string",FEEDBACK_STATE:"string",FINISH_LEV:"string",FINISH_SAVE_STATE:"string",FINISH_STATE:"string",INIT_LEV:"string",IS_MIC_ATTACHED:"string",LOGIN_STATE:"string",MAX_CR_ID:"number",NONE_STATE:"string",OUT_OF_TIME_OPEN_STATE:"string",PAUSED_RESUME_STATE:"string",PAUSE_LEV:"string",PAUSE_STATE:"string",RESUME_LEV:"string",RestartTest:"boolean",SAVE_END_SUBTEST_STATE:"string",SAVE_LEV:"string",SAVE_LOAD_STATE:"string",STOP_LEV:"string",SUBTEST_FINISH_STATE:"string",SUBTEST_STATE:"string",TERMINATED_LEV:"string",THEME_TYPE:"string",TIMEOUT_STATE:"string",TIMER_INTERVAL:"number",TUTORIAL_COMPLETE_STATE:"string",UPLOAD_AUDIT_FILE_STATE:"string",WRITE_TO_AUDIT_FILE_STATE:"string",accesscode:"string",allowItmeNavigate:"boolean",allowNavigate:"boolean",allowRevisit:"boolean",alphabetString:"string",answerBgColor:"color",answerFontColor:"color",applyFlashFix:"boolean",blockFileName:"boolean",canNotAnswer:"boolean",catOver:"boolean",communicatorResponse:"string",currentCrId:"number",currentManipSelected:"string",currentSubtestIndex:"number",doUnlockUI:"boolean",durationms:"number",durationmsforpause:"number",elapsedms:"number",elapsedmsforpause:"number",findAnswer:"boolean",firstSubtest:"boolean",focusOnGr:"boolean",focusOnScratchpad:"boolean",formulaCardResource:"string",fwdOnly:"boolean",gAnsweredCount:"number",gCurrentItemPos:"number",gPrevStimulusId:"number",gStimulusId:"number",hasDynamicRefCard:"boolean",hasFontAccommodation:"boolean",hasTNorFCATrefCard:"boolean",hasTTSspeed:"boolean",heartbeatResult:"string",iframeid:"string",inQuestion:"boolean",isAnswerSet:"boolean",isAudioPaused:"boolean",isFinishTest:"boolean",isHandlerInactive:"boolean",isLoginResponseHavingSeed:"boolean",isMicPresent:"boolean",isMousedownOnManip:"boolean",isPauseTest:"boolean",isPaused:"boolean",isPreviewer:"boolean",isRevisitPopupOpen:"boolean",isSizer:"boolean",isStopScreen:"boolean",isStopTest:"boolean",isTestPaused:"boolean",isWaitPopupAfter60SecOpen:"boolean",isWaitPopupOpen:"boolean",isaudio:"boolean",isplaying:"boolean",istLength:"number",istRestartLength:"number",itemHasRationalNode:"boolean",manipClicked:"boolean",manipSelected:"boolean",manipbuttonClicked:"boolean",maxModBase:"number",modBase:"number",navigateConfirm:"boolean",newModBase:"number",nextItem:"number",password:"string",playIfAnswered:"boolean",prevItemId:"number",productTypeVal:"string",qtimestamp:"number",qtimestampforpause:"number",questionBgColor:"color",questionFontColor:"color",recordState:"boolean",recordingCompleted:"boolean",recordingStopped:"boolean",relogin:"boolean",requestPending:"boolean",resetButtonEnable:"boolean",restartItemCount:"number",scratchpadOpen:"boolean",seed:"number",seedDigitSum:"number",sendCatSave:"boolean",showHighlighter:"boolean",showPleaseWaitOver:"boolean",skipCacheDestroy:"boolean",state:"string",subtestLength:"number",testTimeout:"boolean",timerInterval:"number",timing:"boolean",timingforpause:"boolean",unlockNavigation:"boolean",userid:"string"});{
 Class.make("$lzc$class__m2bm",["$m2a4",function($0){
 this.setAttribute("dp",new (lz.datapointer)())
 },"dp",void 0,"$m2a5",function($0){
@@ -28708,7 +28710,7 @@ lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
 }},"stylesArr",void 0,"canNotAnswer",void 0,"playIfAnswered",void 0,"iframeid",void 0,"relogin",void 0,"$m2b3",function($0){
 this.setAttribute("dRestoreCursor",new (lz.Delegate)(this,"restoreGrabCursor"))
-},"dRestoreCursor",void 0,"isAudioPaused",void 0,"showHighlighter",void 0,"resetButtonEnable",void 0,"isPaused",void 0,"testTimeout",void 0,"elapsedmsforpause",void 0,"durationmsforpause",void 0,"qtimestampforpause",void 0,"timingforpause",void 0,"timerInterval",void 0,"isHandlerInactive",void 0,"isMousedownOnManip",void 0,"isTestPaused",void 0,"$m2b4",function($0){
+},"dRestoreCursor",void 0,"isAudioPaused",void 0,"showHighlighter",void 0,"resetButtonEnable",void 0,"isPaused",void 0,"testTimeout",void 0,"elapsedmsforpause",void 0,"durationmsforpause",void 0,"qtimestampforpause",void 0,"timingforpause",void 0,"timerInterval",void 0,"isHandlerInactive",void 0,"isMousedownOnManip",void 0,"isTestPaused",void 0,"allowNavigate",void 0,"allowItmeNavigate",void 0,"$m2b4",function($0){
 if(this.answerArray.length>0){
 for(var $1=0;$1<this.answerArray.length;$1++){
 if(this.canNotAnswer){
@@ -29676,19 +29678,21 @@ gManipulativeBar.globals.masking_ruler.setAttribute("frame",1)
 };this.setAttribute("manipSelected",false)
 };console.log("this.manipbuttonClicked***"+canvas.currentCursor);if(this.manipbuttonClicked){
 if(gManipulativeBar.globals.option_eliminator!=null){
-console.log("1");if(this.manipClicked&&this.currentManipSelected=="option_eliminator"){
-console.log("2");gManipulativeBar.globals.option_eliminator.setAttribute("frame",2)
+if(this.manipClicked&&this.currentManipSelected=="option_eliminator"){
+gManipulativeBar.globals.option_eliminator.setAttribute("frame",2)
 }};if(gManipulativeBar.globals.highlighter!=null){
-console.log("3");if(this.manipClicked&&this.currentManipSelected=="highlighter"){
-console.log("4");gManipulativeBar.globals.highlighter.setAttribute("frame",2)
+if(this.manipClicked&&this.currentManipSelected=="highlighter"){
+gManipulativeBar.globals.highlighter.setAttribute("frame",2)
 }};if(gManipulativeBar.globals.eraser!=null){
-console.log("5");if(this.manipClicked&&this.currentManipSelected=="eraser"){
-console.log("6");gManipulativeBar.globals.eraser.setAttribute("frame",2)
+if(this.manipClicked&&this.currentManipSelected=="eraser"){
+gManipulativeBar.globals.eraser.setAttribute("frame",2)
 }};this.setAttribute("manipClicked",false);this.setAttribute("manipbuttonClicked",false);this.setAttribute("currentManipSelected","")
 }},"resumeTest",function(){
 this.manipulativeSelected();this.isStopScreen=false;playAudio();lz.Cursor.setCursorGlobal("waitcursor");this.showItemInterface();this.resetMicCheck();this.showManipulatives();this.recalltrackMouseMove();gQuestion.setGrFocus();this.restoreScratchpadFocusIfNeeded();this.unlockUI();this.checkShowMaskingChoiceDD();if(this.adaptive==true){
 gScreens.removeFinishState()
-};this.checkShowMagnifierGlass();gTooltip.hideTooltip();if(this.isMousedownOnManip){
+};this.checkShowMagnifierGlass();if(this.scratchpadOpen){
+gHotKeys.enableKeys()
+};gTooltip.hideTooltip();if(this.isMousedownOnManip){
 gMaskingRuler.dragger.remove();this.setAttribute("isMousedownOnManip",false)
 }},"continueTest",function(){
 this.openTest()
@@ -29719,7 +29723,8 @@ this.clearAndRestoreCurrentCursor()
 this.restoreCurrentCursor()
 };dsdisplay.childNodes[0].setAttr("enabled","true");if(!gScratchpad.scratchpadHasFocus){
 gHotKeys.enableKeys()
-}}}},"restoreGrabCursor",function($0){
+}}};this.setAttribute("allowItmeNavigate",true)
+},"restoreGrabCursor",function($0){
 switch(arguments.length){
 case 0:
 $0=null;
@@ -29735,7 +29740,7 @@ canvas.setAttribute("currentCursor",null)
 },"clearAndRestoreCurrentCursor",function(){
 this.clearCurrentCursor();this.restoreCurrentCursor()
 },"saveLoadItem",function($0,$1){
-Debug.write("############ saveLoadItem ############",$0,$1);var $2;var $3=this.dpstudentdata.xpathQuery("current_item/item_model");if($3!=null){
+var $2;var $3=this.dpstudentdata.xpathQuery("current_item/item_model");if($3!=null){
 $2=$3.getAttr("eid")
 };this.setState(this.SAVE_LOAD_STATE);this.setAttribute("loadNode",$0);if(this.adaptive==true){
 if(Number($2)!=Number(this.prevItemId)){
@@ -29892,7 +29897,8 @@ $1.setAttr($e,$d)
 }};if(this.hasTNorFCATrefCard){
 $1.setAttr("formula_card_resource","disable")
 };this.hasDynamicRefCard=false;this.hasTNorFCATrefCard=false;this.formulaCardResource=null
-}},"getToolstate",function($0){
+};this.setAttribute("allowNavigate",true);this.setAttribute("allowItmeNavigate",false)
+},"getToolstate",function($0){
 var $1=this.dpstudentdata.xpathQuery("current_item/item_model/toolbar");Debug.write("getToolstate----- ",$1,$1.attributes[$0],$0);var $2="disable";switch($1.attributes[$0]){
 case "not provisioned":
 $2="disable";break;
@@ -30494,8 +30500,11 @@ this.setAttribute("isHandlerInactive",true);this.setAttribute("trackTimer",0);lz
 },"recalltrackMouseMove",function(){
 this.setAttribute("isHandlerInactive",false);this.setAttribute("trackTimer",0);this.trackMouseMove()
 },"macFocusInCanvas",function(){
+if(this.scratchpadOpen){
+gScratchpad.setAttribute("visible",false);gScratchpad.setAttribute("visible",true)
+}else{
 gScratchpad.setAttribute("visible",true);gScratchpad.setAttribute("visible",false)
-},"$lzsc$initialize",function($0,$1,$2,$3){
+}},"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
 $0=null;
@@ -30521,7 +30530,7 @@ $1=true;
 $0.id="gController";gController=$0
 }else if(gController===$0){
 gController=null;$0.id=null
-}},CHECK_PROD_TYPE_METHOD:"isProductCheck",DEFAULT_TYPE:"UN",DOWNLOAD_STATE:"download",FEEDBACK_STATE:"feedback",FINISH_LEV:"lms_finish",FINISH_SAVE_STATE:"finishSave",FINISH_STATE:"finish",INIT_LEV:"lms_initialize",IS_MIC_ATTACHED:"ismicattached",LOGIN_STATE:"login",MAX_CR_ID:10000000000,NONE_STATE:"none",OUT_OF_TIME_OPEN_STATE:"outOfTimeOpen",PAUSED_RESUME_STATE:"pausedResume",PAUSE_LEV:"stu_pause",PAUSE_STATE:"pause",RESUME_LEV:"stu_resume",RestartTest:false,SAVE_END_SUBTEST_STATE:"saveEndSubtest",SAVE_LEV:"stu_save",SAVE_LOAD_STATE:"saveload",STOP_LEV:"stu_stop",SUBTEST_FINISH_STATE:"subtestFinish",SUBTEST_STATE:"subtest",TERMINATED_LEV:"terminated",THEME_TYPE:"NI",TIMEOUT_STATE:"timeout",TIMER_INTERVAL:500,TUTORIAL_COMPLETE_STATE:"tutorialComplete",UPLOAD_AUDIT_FILE_STATE:"uploadAuditFile",WARNING_MINUTE:3,WRITE_TO_AUDIT_FILE_STATE:"writeToAuditFile",abScore:0,accesscode:"null",accomstyles:void 0,adaptive:new LzOnceExpr("$m2b0",null),allowRevisit:true,alphabetString:"ABCDEFGHIJKLMNOPQRSTUVWXYZ",answerArray:new LzOnceExpr("$m2ap",null),answerBgColor:16777136,answerFontColor:0,answerObj:new LzOnceExpr("$m2av",null),answerdp:new LzOnceExpr("$m2a5",null),answeredDel:new LzOnceExpr("$m2au",null),applyFlashFix:false,assignedRandomDistractorIndex:new LzOnceExpr("$m2al",null),audible:new LzOnceExpr("$m2bd",null),audioArray:new LzOnceExpr("$m2ac",null),audioFields:new LzOnceExpr("$m2a9",null),audioId:void 0,blockFileName:false,canNotAnswer:false,catOver:false,communicatorResponse:"null",crFields:new LzOnceExpr("$m2a8",null),currentCrId:10000000000,currentImageId:null,currentManipSelected:"NONE",currentSubtestIndex:0,dMicCheck:new LzOnceExpr("$m2ax",null),dNetworkLostPopup:new LzOnceExpr("$m2am",null),dRestoreCursor:new LzOnceExpr("$m2b3",null),dcloseBrowser:new LzOnceExpr("$m2bb",null),displayText:false,distractorArrayFor3:new LzAlwaysExpr("$m2ad","$m2ae",null),distractorArrayFor4:new LzAlwaysExpr("$m2af","$m2ag",null),distractorArrayFor5:new LzAlwaysExpr("$m2ah","$m2ai",null),doUnlockUI:true,dp:new LzOnceExpr("$m2a4",null),dpdisplay:void 0,dpitem:void 0,dplogin:void 0,dprestart:void 0,dpstimulus:void 0,dpstudentdata:void 0,dpsubtest:void 0,dpsubtestdata:void 0,dptemp:void 0,dsendHeartbeat:new LzOnceExpr("$m2bh",null),dshowClient:new LzOnceExpr("$m2aq",null),dupdateTimeLeft:new LzOnceExpr("$m2bi",null),dupdateTimeLeftForPause:new LzOnceExpr("$m2bk",null),durationms:0,durationmsforpause:0,elapsedms:0,elapsedmsforpause:0,findAnswer:true,firstSubtest:true,focusOnGr:false,focusOnScratchpad:false,formulaCardResource:"false",fwdOnly:false,gAnsweredCount:0,gCurrentItemPos:0,gPrevStimulusId:0,gStimulusId:0,hasDynamicRefCard:false,hasFontAccommodation:false,hasTNorFCATrefCard:false,hasTTSspeed:false,heartbeatResult:"null",htmlFields:new LzOnceExpr("$m2at",null),id:"gController",idImageFieldTemp:new LzOnceExpr("$m2ab",null),idImageFields:new LzOnceExpr("$m2aa",null),iframeid:"NONE",imageData:new LzOnceExpr("$m2as",null),imageLIArray:new LzOnceExpr("$m2ao",null),inQuestion:false,isAnswerSet:false,isAudioPaused:false,isAudioPlaying:void 0,isFinishTest:false,isHandlerInactive:false,isLoginResponseHavingSeed:false,isMicPresent:true,isMousedownOnManip:false,isPauseTest:false,isPaused:false,isPreviewer:new LzOnceExpr("$m2a7",null),isRevisitPopupOpen:false,isSizer:false,isStopScreen:false,isStopTest:true,isTestPaused:false,isWaitPopupAfter60SecOpen:false,isWaitPopupOpen:false,isaudio:false,isplaying:false,istLength:0,istRestartLength:0,isuntimed:new LzOnceExpr("$m2bj",null),itemHasRationalNode:false,itemloaded:false,lasAssetArray:new LzOnceExpr("$m2aw",null),lastPlayOrderId:void 0,loadNode:void 0,lsid:0,magnifierState:false,magnifierVisible:false,manipClicked:false,manipSelected:false,manipbuttonClicked:false,maskingAnswerDDState:false,maxModBase:51,modBase:24,musicId:new LzOnceExpr("$m2be",null),navigateConfirm:false,newModBase:24,nextItem:0,objScore:null,password:"null",pausable:new LzOnceExpr("$m2bc",null),pending:new LzOnceExpr("$m2bf",null),playIfAnswered:false,prevItemId:0,productTypeVal:"ISTEP",qtimestamp:0,qtimestampforpause:0,questionBgColor:16777215,questionFontColor:0,randomIndexArray:new LzAlwaysExpr("$m2aj","$m2ak",null),recordState:true,recorder:null,recorderField:new LzOnceExpr("$m2an",null),recordingCompleted:false,recordingStopped:false,relogin:false,requestPending:false,resetButtonEnable:false,restartItemCount:0,restartscid:0,runtimeready:false,scid:0,scratchpadOpen:false,seed:void 0,seedDigitSum:void 0,sem:0,sendCatSave:true,showHighlighter:false,showMaskingAnswerPopUp:false,showPleaseWaitOver:false,skipCacheDestroy:false,state:new LzOnceExpr("$m2a6",null),stuLoginDetails:new LzOnceExpr("$m2ar",null),stylesArr:new LzAlwaysExpr("$m2b1","$m2b2",null),subtestLength:0,testSessionData:null,testTimeout:false,timerInterval:1200000,timing:false,timingforpause:false,totalNumberOfTests:null,trackDel:new LzOnceExpr("$m2bl",null),trackingcomponents:false,uisemaphore:1,unlockNavigation:true,userid:"null",youarehereset:false},"class":$lzc$class__m2bm},10);lz.ClassAttributeTypes["LoginButton"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
+}},CHECK_PROD_TYPE_METHOD:"isProductCheck",DEFAULT_TYPE:"UN",DOWNLOAD_STATE:"download",FEEDBACK_STATE:"feedback",FINISH_LEV:"lms_finish",FINISH_SAVE_STATE:"finishSave",FINISH_STATE:"finish",INIT_LEV:"lms_initialize",IS_MIC_ATTACHED:"ismicattached",LOGIN_STATE:"login",MAX_CR_ID:10000000000,NONE_STATE:"none",OUT_OF_TIME_OPEN_STATE:"outOfTimeOpen",PAUSED_RESUME_STATE:"pausedResume",PAUSE_LEV:"stu_pause",PAUSE_STATE:"pause",RESUME_LEV:"stu_resume",RestartTest:false,SAVE_END_SUBTEST_STATE:"saveEndSubtest",SAVE_LEV:"stu_save",SAVE_LOAD_STATE:"saveload",STOP_LEV:"stu_stop",SUBTEST_FINISH_STATE:"subtestFinish",SUBTEST_STATE:"subtest",TERMINATED_LEV:"terminated",THEME_TYPE:"NI",TIMEOUT_STATE:"timeout",TIMER_INTERVAL:500,TUTORIAL_COMPLETE_STATE:"tutorialComplete",UPLOAD_AUDIT_FILE_STATE:"uploadAuditFile",WARNING_MINUTE:3,WRITE_TO_AUDIT_FILE_STATE:"writeToAuditFile",abScore:0,accesscode:"null",accomstyles:void 0,adaptive:new LzOnceExpr("$m2b0",null),allowItmeNavigate:true,allowNavigate:true,allowRevisit:true,alphabetString:"ABCDEFGHIJKLMNOPQRSTUVWXYZ",answerArray:new LzOnceExpr("$m2ap",null),answerBgColor:16777136,answerFontColor:0,answerObj:new LzOnceExpr("$m2av",null),answerdp:new LzOnceExpr("$m2a5",null),answeredDel:new LzOnceExpr("$m2au",null),applyFlashFix:false,assignedRandomDistractorIndex:new LzOnceExpr("$m2al",null),audible:new LzOnceExpr("$m2bd",null),audioArray:new LzOnceExpr("$m2ac",null),audioFields:new LzOnceExpr("$m2a9",null),audioId:void 0,blockFileName:false,canNotAnswer:false,catOver:false,communicatorResponse:"null",crFields:new LzOnceExpr("$m2a8",null),currentCrId:10000000000,currentImageId:null,currentManipSelected:"NONE",currentSubtestIndex:0,dMicCheck:new LzOnceExpr("$m2ax",null),dNetworkLostPopup:new LzOnceExpr("$m2am",null),dRestoreCursor:new LzOnceExpr("$m2b3",null),dcloseBrowser:new LzOnceExpr("$m2bb",null),displayText:false,distractorArrayFor3:new LzAlwaysExpr("$m2ad","$m2ae",null),distractorArrayFor4:new LzAlwaysExpr("$m2af","$m2ag",null),distractorArrayFor5:new LzAlwaysExpr("$m2ah","$m2ai",null),doUnlockUI:true,dp:new LzOnceExpr("$m2a4",null),dpdisplay:void 0,dpitem:void 0,dplogin:void 0,dprestart:void 0,dpstimulus:void 0,dpstudentdata:void 0,dpsubtest:void 0,dpsubtestdata:void 0,dptemp:void 0,dsendHeartbeat:new LzOnceExpr("$m2bh",null),dshowClient:new LzOnceExpr("$m2aq",null),dupdateTimeLeft:new LzOnceExpr("$m2bi",null),dupdateTimeLeftForPause:new LzOnceExpr("$m2bk",null),durationms:0,durationmsforpause:0,elapsedms:0,elapsedmsforpause:0,findAnswer:true,firstSubtest:true,focusOnGr:false,focusOnScratchpad:false,formulaCardResource:"false",fwdOnly:false,gAnsweredCount:0,gCurrentItemPos:0,gPrevStimulusId:0,gStimulusId:0,hasDynamicRefCard:false,hasFontAccommodation:false,hasTNorFCATrefCard:false,hasTTSspeed:false,heartbeatResult:"null",htmlFields:new LzOnceExpr("$m2at",null),id:"gController",idImageFieldTemp:new LzOnceExpr("$m2ab",null),idImageFields:new LzOnceExpr("$m2aa",null),iframeid:"NONE",imageData:new LzOnceExpr("$m2as",null),imageLIArray:new LzOnceExpr("$m2ao",null),inQuestion:false,isAnswerSet:false,isAudioPaused:false,isAudioPlaying:void 0,isFinishTest:false,isHandlerInactive:false,isLoginResponseHavingSeed:false,isMicPresent:true,isMousedownOnManip:false,isPauseTest:false,isPaused:false,isPreviewer:new LzOnceExpr("$m2a7",null),isRevisitPopupOpen:false,isSizer:false,isStopScreen:false,isStopTest:true,isTestPaused:false,isWaitPopupAfter60SecOpen:false,isWaitPopupOpen:false,isaudio:false,isplaying:false,istLength:0,istRestartLength:0,isuntimed:new LzOnceExpr("$m2bj",null),itemHasRationalNode:false,itemloaded:false,lasAssetArray:new LzOnceExpr("$m2aw",null),lastPlayOrderId:void 0,loadNode:void 0,lsid:0,magnifierState:false,magnifierVisible:false,manipClicked:false,manipSelected:false,manipbuttonClicked:false,maskingAnswerDDState:false,maxModBase:51,modBase:24,musicId:new LzOnceExpr("$m2be",null),navigateConfirm:false,newModBase:24,nextItem:0,objScore:null,password:"null",pausable:new LzOnceExpr("$m2bc",null),pending:new LzOnceExpr("$m2bf",null),playIfAnswered:false,prevItemId:0,productTypeVal:"ISTEP",qtimestamp:0,qtimestampforpause:0,questionBgColor:16777215,questionFontColor:0,randomIndexArray:new LzAlwaysExpr("$m2aj","$m2ak",null),recordState:true,recorder:null,recorderField:new LzOnceExpr("$m2an",null),recordingCompleted:false,recordingStopped:false,relogin:false,requestPending:false,resetButtonEnable:false,restartItemCount:0,restartscid:0,runtimeready:false,scid:0,scratchpadOpen:false,seed:void 0,seedDigitSum:void 0,sem:0,sendCatSave:true,showHighlighter:false,showMaskingAnswerPopUp:false,showPleaseWaitOver:false,skipCacheDestroy:false,state:new LzOnceExpr("$m2a6",null),stuLoginDetails:new LzOnceExpr("$m2ar",null),stylesArr:new LzAlwaysExpr("$m2b1","$m2b2",null),subtestLength:0,testSessionData:null,testTimeout:false,timerInterval:1200000,timing:false,timingforpause:false,totalNumberOfTests:null,trackDel:new LzOnceExpr("$m2bl",null),trackingcomponents:false,uisemaphore:1,unlockNavigation:true,userid:"null",youarehereset:false},"class":$lzc$class__m2bm},10);lz.ClassAttributeTypes["LoginButton"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
 Class.make("$lzc$class_LoginButton",["$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
@@ -33191,7 +33200,7 @@ if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
 }},"goback",function(){
-gScreens.clicked();gController.resumeTest()
+gScreens.clicked();gController.resumeTest();gController.setAttribute("allowNavigate",true);gController.setAttribute("allowItmeNavigate",true)
 },"$m2iv",function($0){
 lz.Cursor.showHandCursor(true)
 },"$m2iw",function($0){
