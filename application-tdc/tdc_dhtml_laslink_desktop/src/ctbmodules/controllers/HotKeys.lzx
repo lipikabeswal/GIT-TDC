@@ -476,18 +476,16 @@
 
 		<handler name="onkeydown" reference="lz.Keys" args="k">
          if(gScratchpad.scratchpadHasFocus){
-            console.log("=====ONKEYDOWN SC FOCUS IF===");
-			this.setAttribute("onceOnly",false); 
+            this.setAttribute("onceOnly",false); 
 		 }else{		
-            console.log("=====ONKEYDOWN ELSE===");
-		 	this.setAttribute("onceOnly",true); 
+            this.setAttribute("onceOnly",true); 
 		 }	  	
 	   </handler>
 
 		<attribute name="onceOnly" type="boolean" value="true"/>
 
         <method name="toggleA" args="ignore=null">  
-            console.log("===toggle A====");
+            //console.log("===toggle A====");
 			if(this.onceOnly){
         	if(!gController.canNotAnswer) {
 	        	if(!gController.isCrItem()){
@@ -501,7 +499,7 @@
         </method>
 
         <method name="toggleB" args="ignore=null">  
-          console.log("===toggle B====");
+          //console.log("===toggle B====");
           if(this.onceOnly){
         	if(!gController.canNotAnswer) {
 	        	if(!gController.isCrItem()){
@@ -611,36 +609,42 @@
         </method>        
         <method name="goBack" args="ignore=null">
 		<![CDATA[
-			if(gController.unlockNavigation) {
-			    if(canvas.loadItem){
-	            	//canvas.freezUI();
-					if(!gController.fwdOnly){
-		        		if(!gController.onFirstItem()){
-		        			lz.Focus.clearFocus();
-		        		}
-		        	
-		            	this.exitPopups();
-		            	 gEnlargePopup.shrink();
-		        		gController.stepNavigateBack();
-					} 
-				}	   
-			}  
+			if(gController.allowNavigate && gController.allowItmeNavigate){ 
+				if(gController.unlockNavigation) {
+				    //if(canvas.loadItem){
+		            	//canvas.freezUI();
+						if(!gController.fwdOnly){
+			        		if(!gController.onFirstItem()){
+			        			lz.Focus.clearFocus();
+			        		}
+			        	
+			            	this.exitPopups();
+			            	 gEnlargePopup.shrink();
+			        		gController.stepNavigateBack();
+						} 
+					//}	   
+				} 
+			} 
        	]]>
 		</method>
         <method name="goOn" args="ignore=null"> 
-        	if(gController.unlockNavigation) {
-	            if(canvas.loadItem){
-	                //canvas.freezUI();
-		        	if(!gController.onLastItem()){
-		        		lz.Focus.clearFocus();
-		        	}
-		            this.exitPopups();
-		             gEnlargePopup.shrink();
-		            gTooltip.hideTooltip (); 
-		            gController.stepNavigateForward();  
-		            
-		        }	  
-		    } 
+            <![CDATA[
+	        if(gController.allowNavigate && gController.allowItmeNavigate){ 
+	        	if(gController.unlockNavigation) {
+		            //if(canvas.loadItem){
+		                //canvas.freezUI();
+			        	if(!gController.onLastItem()){
+			        		lz.Focus.clearFocus();
+			        	}
+			            this.exitPopups();
+			             gEnlargePopup.shrink();
+			            gTooltip.hideTooltip (); 
+			            gController.stepNavigateForward();  
+			            
+			        //}	  
+			    } 
+			  }	 
+			  ]]> 
         </method>
         <method name="toggleMark" args="ignore=null"> 
             if(canvas.loadItem){
