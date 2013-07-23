@@ -98,6 +98,8 @@
                 <method name="goback">
                     gScreens.clicked();
                     gController.resumeTest();
+                    gController.setAttribute('allowNavigate',true);
+					gController.setAttribute('allowItmeNavigate',true);
                 </method>
                 <handler name="onmouseover">
                     lz.Cursor.showHandCursor(true);

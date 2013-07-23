@@ -602,7 +602,8 @@
 		<attribute name="isMousedownOnManip" value="false" type="boolean" />
 		<attribute name="isTestPaused" value="false" type="boolean"/>
 		
-		
+		<attribute name="allowNavigate" value="true" type="boolean" />
+		<attribute name="allowItmeNavigate" value="true" type="boolean" />
 		
 		<handler name="oncanNotAnswer" args="data"><![CDATA[
 			if(answerArray.length > 0) {
@@ -1233,7 +1234,7 @@
 		</method>
 
 		<method name="_handleLoginResponse" args="response"><![CDATA[
-			getLasAssetPath();
+            getLasAssetPath();
 			/*var testnode = new lz.DataElement('');
 			testnode.setAttribute('ownerDocument',lz.DataElement.stringToLzData(response));
 			testnode.appendChild(lz.DataElement.stringToLzData(response));
@@ -3534,7 +3535,7 @@
 		]]></method>
 
 		<method name="closeOpenMaskingManipulatives"><![CDATA[
-			if(!isMarked()){       
+            if(!isMarked()){       
 				
 				var dnGlobal = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');
 				var manipsGlobal = new Array("masking_ruler");
@@ -3601,24 +3602,18 @@
 		console.log("this.manipbuttonClicked***"+canvas.currentCursor);
 		if(this.manipbuttonClicked){
 				if(gManipulativeBar.globals.option_eliminator != null){
-						console.log("1");
 					if(this.manipClicked && this.currentManipSelected == 'option_eliminator'){
-						console.log("2");
 						gManipulativeBar.globals.option_eliminator.setAttribute("frame",2);
 					}
 				}
 				if(gManipulativeBar.globals.highlighter != null){
-						console.log("3");
 					if(this.manipClicked && this.currentManipSelected == 'highlighter'){
-						console.log("4");
 						gManipulativeBar.globals.highlighter.setAttribute("frame",2);
 					}
 					
 				}
 				if(gManipulativeBar.globals.eraser != null){
-					console.log("5");
 					if(this.manipClicked && this.currentManipSelected == 'eraser'){
-						console.log("6");
 						gManipulativeBar.globals.eraser.setAttribute("frame",2);
 					}
 				}
@@ -3645,7 +3640,8 @@
 				gScreens.removeFinishState();
 			}
 			checkShowMagnifierGlass();
-			//gHotKeys.handleHotKeysNav();
+            if(this.scratchpadOpen){
+				gHotKeys.enableKeys();}
 			gTooltip.hideTooltip();
 			if(this.isMousedownOnManip){
 				gMaskingRuler.dragger.remove();
@@ -3704,6 +3700,8 @@
                 dsdisplay.childNodes[0].setAttr( 'enabled', 'false' );
                 lz.Cursor.setCursorGlobal( 'waitcursor' );
             }
+            
+            //console.log("=====FREEZ UI===");
         </method>
 
 		<method name="unlockUI">
@@ -3741,6 +3739,8 @@
 	               }*/
 	            }
 	        }
+	         //console.log("=====UN FREEZ UI===");
+			 this.setAttribute('allowItmeNavigate',true);
 		]]>
         </method>
 
@@ -3773,7 +3773,7 @@
 		</method>
 
 		<method name="saveLoadItem" args="fnode, lev"><![CDATA[
-			Debug.write("############ saveLoadItem ############",fnode,lev);
+			//console.log("############ saveLoadItem ############",fnode,lev);
 			//this.setAttribute("sendCatSave",true);
         	//setSendCatSave();
         	var curItemId;
@@ -4235,9 +4235,8 @@
                         	   	dnglobal.setAttr (i, toolstate);
                         	}
                         }
-					
-                      if (i == 'scratchpad' && dnglobal && dnglobal.getAttr(i) != 'disable'){  // force override scratchpad to obey global value
-                       	dnglobal.setAttr(i, this.scratchpadOpen ? 'sel' : 'up');						
+					  if (i == 'scratchpad' && dnglobal && dnglobal.getAttr(i) != 'disable'){  // force override scratchpad to obey global value
+                       		dnglobal.setAttr(i, this.scratchpadOpen ? 'sel' : 'up');						
                       }
                     } else if (initgeneral) {
                         dngeneral.setAttr (i, toolstate);
@@ -4258,6 +4257,9 @@
 
 				
             }
+            
+            this.setAttribute('allowNavigate',true);
+			this.setAttribute('allowItmeNavigate',false);
        ]]></method>
        
        <method name="getToolstate" args="toolid">
@@ -6055,11 +6057,15 @@
 			trackMouseMove();
 		</method>
 		
+<!-- following method is using to set the focus to the Canvas -->
 		<method name="macFocusInCanvas">
-			//if (navigator.appVersion.indexOf("Mac")!=-1) {
+			if (this.scratchpadOpen) {
+                gScratchpad.setAttribute('visible',false);
+				gScratchpad.setAttribute('visible',true);
+			}else{
 				gScratchpad.setAttribute('visible',true);
 				gScratchpad.setAttribute('visible',false);
-		//	}
+			}
 		</method>
 	</node>
 

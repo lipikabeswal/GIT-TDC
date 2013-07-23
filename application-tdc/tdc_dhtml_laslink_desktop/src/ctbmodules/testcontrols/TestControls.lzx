@@ -186,7 +186,6 @@
             <view name="navbtns">
                 <basebutton name="btnback" resource="go_back_btn" x="0"
                             enabled="${ classroot.uienabled == true &amp;&amp; classroot.isDisableNavigation == false }"
-                            onclick="gController.stepNavigateBack ()"
                             disabledResourceNumber="1"  visible="${!gController.fwdOnly &amp;&amp; !gController.onFirstItem()}">
                 			
                 			<handler name="onmouseover">
@@ -195,17 +194,31 @@
 					        <handler name="onmouseout">
 					            lz.Cursor.showHandCursor(false);
 					        </handler>
-					        
+					         <handler name="onclick">
+					            <![CDATA[
+					            if(gController.allowNavigate && gController.allowItmeNavigate){
+					                gController.setAttribute('allowNavigate',false);
+					            	gController.stepNavigateBack ();
+					            }
+					             ]]>
+					        </handler>
                 </basebutton>            
                 <basebutton name="btnforward" resource="go_on_btn" x="100"
                             enabled="${ classroot.uienabled == true &amp;&amp; classroot.isDisableNavigation == false }"
-                            onclick="gController.stepNavigateForward ()"
                             disabledResourceNumber="1">
                             <handler name="onmouseover">
                                 lz.Cursor.showHandCursor(true);
 					        </handler>
 					        <handler name="onmouseout">
 					            lz.Cursor.showHandCursor(false);
+					        </handler>
+					        <handler name="onclick">
+					        <![CDATA[
+					            if(gController.allowNavigate && gController.allowItmeNavigate){ 
+					                gController.setAttribute('allowNavigate',false);
+					            	gController.stepNavigateForward ();
+					            }	
+					            ]]>
 					        </handler>
                 </basebutton>            
                 <basebutton name="btnfinish" resource="finish_test_btn" id="gFinishTestButton"
