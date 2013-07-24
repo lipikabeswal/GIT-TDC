@@ -675,7 +675,10 @@
 	        	}	
 	        }		
         </method>
-        <method name="stop" args="ignore=null"> 
+        <method name="stop" args="ignore=null"> <![CDATA[
+			if(this.questionBar && (this.questionBar.ball != null)) {
+				this.questionBar._changeStatus(false);
+			}
             if(canvas.loadItem){    
             lz.Focus.clearFocus();
 	        this.exitPopups();
@@ -686,7 +689,7 @@
 	        	gController.finishTest();   
 	        	}	
 	        }		           
-        </method>
+        ]]></method>
         <method name="finish" args="ignore=null">  
         	if(gController.unlockNavigation) { 
 	        	if(canvas.loadItem){   
