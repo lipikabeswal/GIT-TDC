@@ -675,7 +675,7 @@
 	        	}	
 	        }		
         </method>
-        <method name="stop" args="ignore=null"> <![CDATA[
+        <method name="stop" args="ignore=null"><![CDATA[
 			if(this.questionBar && (this.questionBar.ball != null)) {
 				this.questionBar._changeStatus(false);
 			}
@@ -690,7 +690,7 @@
 	        	}	
 	        }		           
         ]]></method>
-        <method name="finish" args="ignore=null">  
+        <method name="finish" args="ignore=null"><![CDATA[  
         	if(this.questionBar && (this.questionBar.ball != null)) {
 				this.questionBar._changeStatus(false);
 			}
@@ -702,7 +702,7 @@
 		        	gController.finishTestShortcut(); 
 		        }	    
 		    } 
-        </method>
+         ]]></method>
     </node>
 
 </library>
