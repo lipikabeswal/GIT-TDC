@@ -3310,6 +3310,8 @@
                 this.setAttribute("sendCatSave",false);
                 save(PAUSE_LEV);
             }
+            
+            this.doArrowMouseup();
         </method>
 
 		<method name="save" args="lev">
@@ -3442,9 +3444,16 @@
 					hideHtmlWidgets();
 				}
             save(null);
-		gHotKeys.disableKeys();
+			gHotKeys.disableKeys();
+			this.doArrowMouseup();
         </method>
-	
+		
+		<!-- the following method is for the defect 74751-->
+		<attribute name="questionBarbuttonRef"/>
+		<method name="doArrowMouseup">
+			this.questionBarbuttonRef.onmouseup.sendEvent();
+		</method>
+		
 		<method name="setSendCatSave">
 		var curItemId;
         var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
