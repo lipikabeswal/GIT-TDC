@@ -129,6 +129,8 @@
 		</basebutton>
 		<basebutton	name="cancelButton"	resource="popupCancel" x="178" y="110" width="102" height="25" stretches="both">
 		<handler name="onclick">
+			gController.setAttribute('allowNavigate',true);
+			gController.setAttribute('allowItmeNavigate',true);
 		    gController.setNavigation(0,parent.parent.navigateFrom);
 			gController.restoreCurrentCursor();
         </handler>
