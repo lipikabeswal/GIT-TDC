@@ -691,6 +691,9 @@
 	        }		           
         ]]></method>
         <method name="finish" args="ignore=null">  
+        	if(this.questionBar && (this.questionBar.ball != null)) {
+				this.questionBar._changeStatus(false);
+			}
         	if(gController.unlockNavigation) { 
 	        	if(canvas.loadItem){   
 		        	lz.Focus.clearFocus();
