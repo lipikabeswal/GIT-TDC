@@ -35,6 +35,8 @@
 	]]></method>
 	
 	<method name="hide">
+	    gMaskingRuler.onmouseup.sendEvent();
+		 gMagnifyingGlass.onmouseup.sendEvent();
         this.setAttribute("visible", false);
 		this.contents.networkLost.inBar.barAnimator.stop();
 		LzModeManager.release(this);
@@ -42,6 +44,8 @@
     </method>
 	
     <method name="show">
+         gMaskingRuler.onmouseup.sendEvent();
+	  	 gMagnifyingGlass.onmouseup.sendEvent();
         this.setAttribute("visible", true);
         this.contents.networkLost.inBar.barAnimator.doStart();
         LzModeManager.makeModal(this);
