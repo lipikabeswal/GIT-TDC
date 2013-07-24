@@ -581,7 +581,13 @@ function checkTextDragging(){
 	$.closeMagnifier();
 }*/
 //-->
-
+function Disable_Control_L() {
+	var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
+	if (event.ctrlKey && (keystroke == 'l')) {
+		gHotKeys.toggleMark();
+		event.preventDefault(); // disable Ctrl+L
+	}
+}
 </SCRIPT>
 
 <style type="text/css">
@@ -590,7 +596,7 @@ body { background-color:#6691B4; margin: 0px; overflow:hidden;}
 </style>
 </HEAD>
 
-<BODY onload="load()" oncontextmenu="return false;">
+<BODY onload="load()" onkeydown="Disable_Control_L()" oncontextmenu="return false;">
 <button id="mybutton" style="visibility:hidden; width:0px; height:0px; display:none;">clickMe </button>
 	<div id="needFlash9" style="display:none">
 		<table height="100%" width="100%">
