@@ -3280,6 +3280,8 @@
 		
 			
 		<method name="pauseTest">
+		    this.doArrowMouseup();
+		    
 			this.setAttribute('isPauseTest',true);
 			this.setAttribute('isTestPaused',true); //added to enable the state of question bar button on returning from pause screen.
 			//gController.setAttribute("isPaused",false);
@@ -3310,8 +3312,7 @@
                 this.setAttribute("sendCatSave",false);
                 save(PAUSE_LEV);
             }
-            
-            this.doArrowMouseup();
+ 
         </method>
 
 		<method name="save" args="lev">
@@ -3407,6 +3408,7 @@
  		]]></method>
 
 		<method name="finishTest">
+		    this.doArrowMouseup();
             gTooltip.hideTooltip (); 
 			stopMicCheck();
 			this.setAttribute('isAudioPaused', true);
@@ -3445,13 +3447,14 @@
 				}
             save(null);
 			gHotKeys.disableKeys();
-			this.doArrowMouseup();
         </method>
 		
 		<!-- the following method is for the defect 74751-->
-		<attribute name="questionBarbuttonRef"/>
 		<method name="doArrowMouseup">
-			this.questionBarbuttonRef.onmouseup.sendEvent();
+			gMorefastright.onmouseup.sendEvent();
+			gMoreright.onmouseup.sendEvent();
+			gMorefastleft.onmouseup.sendEvent();
+			gMoreleft.onmouseup.sendEvent();
 		</method>
 		
 		<method name="setSendCatSave">
