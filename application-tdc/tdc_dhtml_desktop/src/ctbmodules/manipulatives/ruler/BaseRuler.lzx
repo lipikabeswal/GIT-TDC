@@ -12,6 +12,8 @@
         <attribute name="tickmarksrsr" value="" type="string"/>
         <attribute name="labelrsr"     value="" type="string"/>
 
+        <attribute name="newwidth" type="size" value="0" />
+
         <handler name="onmousedown" >
             this.bringToFront();
         </handler>
@@ -35,9 +37,14 @@
         <attribute name="LABEL_Y" value="48" />
         <attribute name="ROTATOR_Y" value="38" />
         <attribute name="GRABBER_Y" value="29" />
+        <attribute name="WIDTH_DELTA" value="0" />
 
         <event name="onresize" />
 
+        <handler name="oninit">
+            // The size difference between the ruler.width and this.width
+            this.WIDTH_DELTA = rotator.x + rotateResizer.width / 2;
+        </handler>
 
         <handler name="ondata" args="data"><![CDATA[
             if (!data)
@@ -50,7 +57,7 @@
 
             if (data && hasstate) {
                 this.setAttribute('rotation', Number(data.getAttr('rotation')));
-                this.ruler.setAttribute('width', data.getAttr('rulerlength'));
+                this.setAttribute('width', Number(data.getAttr('rulerlength')) + WIDTH_DELTA);
 
                 this.setAttribute('x', Number(data.getAttr('x')));
                 this.setAttribute('y', Number(data.getAttr('y')));
@@ -79,7 +86,7 @@
         </handler>
 
         <handler name="onresize">
-            this.ruler.setAttribute ('width', width);
+            this.setAttribute ('width', Math.round(newwidth));
         </handler>
 
         <method name="endRotate">
@@ -91,7 +98,7 @@
 
         <method name="isValidRotation" args="controlView, rot">
             updateMarkerPosition (this.ruler.grabber, x, y, rot, rotator.x);
-            return this.checkLocation (controlView);
+            return this.checkLocation (controlView, false);
         </method>
 
         <method name="isValidLocation" args="controlView">
@@ -108,27 +115,32 @@
         </method>
 
         <view name="ruler"
-            x="${classroot.rotator.x}"
+            x="${classroot.rotator.x-1}"
+            width="${classroot.width - classroot.rotator.x - classroot.rotateResizer.width/2}"
             clip="true">
             <view name="bg"
                 resource="ruler_background"
                 opacity="0.5" >
-                <handler name="onload">
-                    classroot.setAttribute("maxLength", this.resourcewidth);
+                <handler name="oninit">
+                    classroot.setAttribute ("maxLength", resourcewidth +
+                                            classroot.rotator.x + classroot.rotateResizer.width);
+                    classroot.setAttribute ("width", classroot.maxLength);
                 </handler>
             </view>
             <view name="lines"
-                resource="ruler_lines"/>
+                x="1" resource="ruler_lines"/>
             <view name="tickMarks"
+                x="1"
                 oninit="if(classroot.tickmarksrsr != null) this.setAttribute('resource',classroot.tickmarksrsr)"/>
             <view name="label"
                 align="center"
                 y="$once{classroot.LABEL_Y}"
                 oninit="if(classroot.labelrsr != null) this.setAttribute('resource',classroot.labelrsr)">
-                <handler name="onload"><![CDATA[
+                <handler name="oninit"><![CDATA[
                     var minWidth = this.resourcewidth < parent.grabber.resourcewidth ?
                                         parent.grabber.resourcewidth + classroot.GRABBER_PADDING:
                                         this.resourcewidth + classroot.LABEL_PADDING;
+                    minWidth += classroot.rotator.x + classroot.rotateResizer.width/2;
                     classroot.setAttribute("minLength", minWidth);
                 ]]>
                 </handler>
@@ -174,24 +186,33 @@
             target="$once{classroot}"
             controls="r">
             <handler name="onmousedown">
-                classroot.setAttribute('rotationcenter', {x:classroot.width-16, y:classroot.ROTATOR_Y})
+                classroot.setAttribute('rotationcenter', {x:classroot.rotateResizer.x, y:classroot.ROTATOR_Y})
                 classroot.bringToFront();
             </handler>
             <handler name="onmouseup">
                 classroot.endRotate();
             </handler>
+
+            <handler name="onshortclick">
+                classroot.setAttribute('rotationcenter', {x:classroot.rotateResizer.x, y:classroot.ROTATOR_Y})
+                if (containsMousePos ({x:7, y:0, w:9, h:9}, classroot)) {
+                    this.controlview.rotateBy (1)
+                } else if (containsMousePos ({x:7, y:22, w:9, h:9}, classroot)) {
+                    this.controlview.rotateBy (-1)
+                }
+            </handler>
         </ControlHandle>
 
         <ControlHandle name="rotateResizer"
             resource="rotateResizer_rsrc"
-            x="${Number(classroot.ruler.x) + Number(classroot.ruler.width)}"
+            x="${parent.ruler.x + parent.ruler.width-this.width/2}"
             y="$once{classroot.ROTATOR_Y}"
             yoffset="${this.resourceheight/2}"
-            xoffset="${this.resourcewidth/2}"
             controlviewname="gDragRotateResizer"
             target="$once{classroot}"
             controls="rs">
             <handler name="onmousedown">
+                classroot.setAttribute('rotationcenter', {x:classroot.rotator.x, y:classroot.ROTATOR_Y});
                 classroot.bringToFront();
                 classroot.setAttribute('rotationcenter', {x:11, y:classroot.height/2})
             </handler>
@@ -199,6 +220,20 @@
                 classroot.endRotate();
                 classroot.datapath.p.setAttr('rulerlength', classroot.ruler.width);
             </handler>
+
+            <handler name="onshortclick">
+                classroot.setAttribute('rotationcenter', {x:classroot.rotator.x, y:classroot.ROTATOR_Y});
+                if (containsMousePos ({x:10, y:0, w:12, h:10}, parent)) {
+                    this.controlview.rotateBy (-1);
+                } else if (containsMousePos ({x:10, y:21, w:12, h:10}, classroot)) {
+                    this.controlview.rotateBy (+1);
+                } else if (containsMousePos ({x:0, y:10, w:12, h:10}, classroot)) {
+                    this.controlview.setSizeTo (classroot.width - 1);
+                } else if (containsMousePos ({x:22, y:10, w:12, h:10}, classroot)) {
+                    this.controlview.setSizeTo (classroot.width + 1);
+                }
+            </handler>
+
         </ControlHandle>
 
     </class>

@@ -1,5 +1,7 @@
 <library>
 
+    <include href="DragRotateResize-Mixin.lzx" />
+
     <!--- Invisible view used to manipulate (rotate,resize,drag) a view's
               position in the application. Used in classes like the
               Protractor or Ruler. One instance per application has to be
@@ -62,7 +64,11 @@
         -->
         <handler name="onwidth">
             if (this.target != null) {
-                this.target.setAttribute ("width", width / _link.xscale);
+                if (typeof this.target.newwidth == 'undefined') {
+                    this.target.setAttribute ("width", width / _link.xscale);
+                } else {
+                    this.target.setAttribute ("newwidth", Math.max(width / _link.xscale));
+                }
             }
         </handler>
 
@@ -195,15 +201,13 @@
                 link = v.getLinkage (canvas);
                 link.update ('x');
                 link.update ('y');
-                newPt = new lz.Point (canvas,
-                    {x : (v.x - v.xoffset) * link.xscale, y : (v.y - v.yoffset) * link.yscale});
+                newPt = {x : (v.x - v.xoffset) * link.xscale, y : (v.y - v.yoffset) * link.yscale};
                 absPos.x = absPos.x + newPt.x;
                 absPos.y = absPos.y + newPt.y;
                 absPos.rotation = absPos.rotation + v.rotation;
             }
             return absPos;
         ]]></method>
-
 
     </class>
 

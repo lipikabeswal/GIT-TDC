@@ -61,11 +61,13 @@
             setMarkerProps (props);
         </method>
 
-        <!--- Applies a new width/size to the marker. Used to test validity of position
-              when resizing the BaseRuler.
+        <!--- Used to test validity of position when resizing the BaseRuler.
+              When autoposition is set to true, the item will be set to a valid
+              position, adding a bouncing effect.
               @param lz.ControlView controlView: The ControlView instance.
               @param Boolean autoposition: If true, the position will be set to a valid location.
               @access public
+              return {boolean} true, if the location i
         -->
         <method name="checkLocation" args="controlView, autoposition=false"><![CDATA[
             var bounds = this.collisionmarker.getBounds();
@@ -104,10 +106,10 @@
         </method>
 
         <!--- Helper method for rotating a point around an origin.
-              @param Number pointX: The width value to test for.
-              @param Number pointY: The width value to test for.
-              @param Number originX: The width value to test for.
-              @param Number originY: The width value to test for.
+              @param Number pointX: x position.
+              @param Number pointY: y position.
+              @param Number originX: origin x pos.
+              @param Number originY: origin y pos.
               @param Number angle: The rotation angle in degrees.
               @access private
               return {Object}: The new point position.
