@@ -314,11 +314,6 @@ function isAnswered(){
  	});
  });
  
-function hideScrollbar(arg){
-    var scrid = document.getElementById(arg);
-    scrid.setAttribute('style',"overflow-x: hidden; overflow-y: scroll;");
-}
- 
 function getFontAccomodation(){
 	var fontObj = new Object();
 	var questionBgColor = gController.questionBgColor;
@@ -656,6 +651,25 @@ function checkTextDragging(){
 			});
 }
 <!-- End CR item scrolledittext scrollbar functions -->
+
+<!-- following functions are using for scratchpad scrollbar -->
+
+function hideScrollbar(arg){
+    var scrid = document.getElementById(arg);
+    scrid.setAttribute('style',"overflow-x: hidden; white-space: pre-line; overflow-y: scroll;");
+}
+
+function setScrollEdittextWidth(elmId,comWidth,fontSize,textFontColor){
+    var scrid = document.getElementById(elmId);
+    scrid.setAttribute('style','overflow-x: hidden;  overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; width: '+comWidth+'');
+}
+
+function setScrollEdittextHeight(elmId,comHeight,fontSize,textFontColor){
+    var scrid = document.getElementById(elmId);
+    scrid.setAttribute('style','overflow-x: hidden;  overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; height: '+comHeight+'');
+}
+
+<!-- End scratchpad scrollbar functions-->
  
 function addReadOnlyCR(){
 	console.log("inside addReadOnlyCR");
@@ -668,6 +682,10 @@ function removeReadOnlyCR(){
 	if(document.getElementsByTagName('textarea').length > 0){
 		document.getElementsByTagName('textarea')[0].removeAttribute('readonly');
 	}
+}
+
+function checkEmptyString(str) {
+	return (!str || /^\s*$/.test(str) || /^\n*$/.test(str) || /^\r*$/.test(str));
 } 
  
  
