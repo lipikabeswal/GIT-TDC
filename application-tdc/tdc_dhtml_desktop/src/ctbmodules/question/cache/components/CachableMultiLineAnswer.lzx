@@ -286,7 +286,8 @@
 								var answered = false;
 								for(var i=0; (i< text.length) && !answered; i++){
 									var c = text.substring(i, i+1);
-									if(c != ' ' && c!= '\n' && c!= '\r'){
+									var isBlankString = checkEmptyString(c);
+									if(!isBlankString){
 										answered = true;
 									}
 								}
@@ -311,9 +312,10 @@
 							textFontColor = answerFontColor;
 						 }
 						 var textAreafgcolor = "color: "+ textFontColor + ";";
-						 var elm = this.inp.getDisplayObject();
-						 elm.setAttribute('style','overflow-y: scroll;' + textAreafgcolor+ '');
+						 //var elm = this.inp.getDisplayObject();
+						 //elm.setAttribute('style','overflow-y: scroll;' + textAreafgcolor+ '');
 						 	if(this.text.length > Number(classroot.characterLimit)){
+						 		return false;
 								var textContent = this.text;
 								textContent = textContent.substring(0,Number(classroot.characterLimit));
 								updateScrollText(textContent);
