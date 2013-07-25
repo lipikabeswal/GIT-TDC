@@ -1557,11 +1557,16 @@
 		<method name="totalVisited">
 			//Debug.write("item_no...",dpstudentdata.xpathQuery( 'current_item/item_model/@item_no'));
 			var totalVisited = dpstudentdata.xpathQuery( 'current_item/item_model/@item_no');
+			var themepageValue = this.isThemePage();
 			
-			if(this.isThemePage()) {
+			/*if(this.isThemePage()) {
+				totalVisited -= 1;
+			}*/
+            
+			if(themepageValue == 'true' || themepageValue == true ) {
 				totalVisited -= 1;
 			}
-			
+            
 			if(totalVisited == null) {
 				totalVisited = totalAnsweredOnRestart();//if test was timed out and restarted.
 			}
