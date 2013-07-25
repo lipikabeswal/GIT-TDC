@@ -2,7 +2,7 @@
 <include href="lz/vscrollbar.lzx"/>
 
 <!--- Implements visual baseedittext with scrollbar. -->
-<class name="scrolledittextnew" extends="baseedittext" multiline="true" clip="true" height="100">
+<class name="scrolledittextnew" extends="baseedittext" multiline="true"  height="100" clip="true">
     <!--// ATTRIBUTES //-->
     <attribute name="border" type="number" value="0"/>
 
@@ -101,18 +101,79 @@
 
     <!--- @keywords private -->
     <_newinternalinputtext name="inp" scrollevents="true" multiline="true"
-        x="${parent.border}" y="${parent.border}"
-        width="${parent.width - parent.border * 2 - parent._vscrollwidth + 3.5}"
+        x="${parent.border}" y="${parent.border}" 
+        width="${parent.width - parent.border * 2 - parent._vscrollwidth}"
         height="${parent.height - parent.border * 2}" 
         pattern="[A-Za-z0-9!@;:#$%\*()-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[\\]\\\\\_|`~ \\^]*"
         fgcolor="${Number(gController.answerFontColor)}">
         <attribute name="pos" type="number" value="0"/>
-        	
+
+       <handler name="onwidth">
+            var fontSize = 0;
+            if(gController.hasFontAccommodation){
+				fontSize = 18;
+			}
+			else{
+				fontSize = 12;
+			}
+			
+			 var answerFontColor = gController.answerFontColor;
+			 var textFontColor;
+			 if(Number(answerFontColor) == 0)
+				answerFontColor = "0x000000";
+			 if(answerFontColor.indexOf('0x') != -1) {
+			 	textFontColor = answerFontColor.replace('0x', '#');
+			 }
+			 else {
+				textFontColor = answerFontColor;
+			 }
+			 
+			//console.log("===ONWIDTH fontSize===",fontSize);
+			//console.log("===ONWIDTHfontColor===",textFontColor);
+			
+			var comWidth = this.width-1;
+			var elm = this.getDisplayObject();
+			elm.setAttribute('id','scrolledittext');
+			
+			setScrollEdittextWidth(elm.id,comWidth,fontSize,textFontColor);	
+		</handler>
+		
+ 		<handler name="onheight">
+ 		    var fontSize = 0;
+            if(gController.hasFontAccommodation){
+				fontSize = 18;
+			}
+			else{
+				fontSize = 12;
+			}
+			
+			 var answerFontColor = gController.answerFontColor;
+			 var textFontColor;
+			 if(Number(answerFontColor) == 0)
+				answerFontColor = "0x000000";
+			 if(answerFontColor.indexOf('0x') != -1) {
+			 	textFontColor = answerFontColor.replace('0x', '#');
+			 }
+			 else {
+				textFontColor = answerFontColor;
+			 }
+			 
+			//console.log("===ONHEIGHT fontSize===",fontSize);
+			//console.log("===ONHEIGHT fontColor===",textFontColor);
+			
+			var comHeight = this.height-5;
+            var elm = this.getDisplayObject();
+			elm.setAttribute('id','scrolledittext');
+			
+			setScrollEdittextHeight(elm.id,comHeight,fontSize,textFontColor);	
+		</handler>
+
         <handler name="oninit">
 				var el = this.getDisplayObject();
 				el.setAttribute('id','scratchpad');
-				el.setAttribute('spellcheck',false);
+				
 				//console.log("===SCRATH PAD VISIBLE===",el.id);
+				el.setAttribute('maxlength', 10000);
 			    hideScrollbar(el.id);	
 			</handler>
         <setter name="pos" args="p">        	
@@ -145,6 +206,7 @@
         </handler>
     </_newinternalinputtext>
 </class>
+
 </library>
 <!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
 * Copyright 2006-2011 Laszlo Systems, Inc. All Rights Reserved.               *

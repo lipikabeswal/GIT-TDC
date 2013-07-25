@@ -7,10 +7,8 @@
            extends="ScratchpadWindow"
            datapath="dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global"           
            visible="${gController.scratchpadOpen}"
-           height="$once{this.DEFAULT_HEIGHT}"   
-		   width="$once{this.DEFAULT_WIDTH}" 
-		   x="$once{this.DEFAULT_X}"
-		   y="$once{this.DEFAULT_Y}"
+           height="227"   
+		   width="400" 
 		   title="Scratchpad"
 		   resizable="true" 
 		   closeable="true"
@@ -33,6 +31,8 @@
         <attribute name="calledFromHtml" type="boolean" value="false"/>
 		<attribute name="characterLimit" type="number" value="10000" />
 		<attribute name="isTestInterrupted" type="boolean" value="false"/>
+		<attribute name="startResize" type="boolean" value="false"/>
+
         <handler name="onmousedown">
         	this.bringToFront();
         	this.sp.inp.setAttribute('selectable',false);
@@ -60,6 +60,10 @@
 					}
 				}
 				}
+              if(startResize){
+				gResizeControl.onmouseup.sendEvent();
+                this.setAttribute('startResize',false);
+			  } 	
 		]]></handler>
 		
 		<method name="isScratchpadSubcomponent" args="who">
@@ -118,6 +122,8 @@
             this.toolstate.setAttribute ('rerunxpath', true);
             this.toolstate.setXPath (this.datapath.xpath + '/@' + this.toolid);
             this.datapath.setXPath (this.toolid);
+            var elm = this.getDisplayObject();
+            elm.setAttribute("id","scratch");
         </handler>
 
         <handler name="onvisible"><![CDATA[
@@ -135,6 +141,7 @@
             }]]>       
          </handler>
          
+		
          <handler name="onblur" reference="sp.inp">
 			this.setAttribute("scratchpadHasFocus", false);
 			this.setAttribute("scratchpadJustLostFocus", true);
@@ -143,7 +150,7 @@
 	     <scrolledittextnew name="sp" 
 	                             height="${immediateparent.height}" 
 	                             width="${immediateparent.width}"
-	                             focusable="true" clickable="true">
+	                             focusable="true" clickable="true" vscrollbarclassname="null">
 	            	<attribute name="start" type="number" value="0" />
 	            	<attribute name="end" type="number" value="0" />
 	            	<attribute name="scrollPos" type="number" value="0"/>
@@ -160,7 +167,7 @@
 					else{
 						this.setAttribute('fontsize',12);
 					}
-					this.inp.setAttribute('maxlength',10000);
+					//this.inp.setMaxLength(10000);
 	            </method>
 	            
 	            <method name="updateScrollText" args="a">
@@ -170,6 +177,7 @@
 				<handler name="ontext"><![CDATA[
 					storeSelection();
 				 	if(this.text.length > 10000){
+				 				return false;
 								var textContent = this.text;
 								textContent = textContent.substring(0,Number(classroot.characterLimit));
 								updateScrollText(textContent);
@@ -181,22 +189,22 @@
          		  
          		<handler name="onpos" reference="this.inp" args="_pos">
 				  	if(typeof _pos == 'number'){
-        				this.setAttribute("scrollPos", _pos);
+        				//this.setAttribute("scrollPos", _pos);
        			  	}
         	    </handler>
         
 				<handler name="onfocus" reference="inp">
 					classroot.setAttribute("scratchpadHasFocus", true);
-					gHotKeys.disableKeys();
+					//gHotKeys.disableKeys();
 					classroot.bringToFront();
 					checkTextDragging();
 				</handler>
 				
 				<handler name="onblur" reference="inp">
 					//Debug.write("onblur.....");
-					if(gItemInterface.visible == true || gTutorial.visible == true){
+					/*if(gItemInterface.visible == true || gTutorial.visible == true){
 						gHotKeys.enableKeys();
-					}
+					}*/
 				</handler>
 				
 				<handler name="onkeyup" reference="inp">

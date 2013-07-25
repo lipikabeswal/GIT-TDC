@@ -7,8 +7,9 @@
 
 <include href="base/basecomponent.lzx" />
 <include href="utils/states/dragstate.lzx"/>
-<include href="utils/states/resizestatemin.lzx"/>
+<!--<include href="utils/states/resizestatemin.lzx"/>-->
 <include href="../dragrotateresize/DragMixin.lzx" />
+<include href="resizestateminmax.lzx"/>
 
 <!--- The basewindow class defines methods, attributes that are used by window
       subclasses.-->
@@ -85,7 +86,8 @@
         </method> 
 
              <!-- resizestatemin uses minwidth and minheight attribute-->
-         <resizestatemin name="_windowResize" resize_min_width="${this.minwidth}" resize_min_height="${this.minheight}" onapply="parent.setAttribute('haswindowfocus', true)"/>
+         <resizestateminmax name="_windowResize"  onapply="parent.setAttribute('haswindowfocus', true)"
+         />
 
         <!--- @keywords private -->
         <method name="construct" args="parent,args">
@@ -226,10 +228,12 @@
         <method name="_stopDrag">
             this.setAttribute('dragenabled', false);
             setAttribute('state', 1);
-            //Debug.write("___STOP DRAG SCRATCHPAD",   this._windowDrag.x,  this._windowDrag.y);
+            lz.Cursor.unlock();
+            gScratchpad.onmouseout.sendEvent();
+            gScratchpad.onmouseover.sendEvent();
         </method>
-
-        <!--- May be called by subclasses to control resizing of the window
+		
+		<!--- May be called by subclasses to control resizing of the window
               based on mouse movement, typically called onmousedown from a
               resizer control.
               @keywords private -->
