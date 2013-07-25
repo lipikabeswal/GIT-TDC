@@ -676,7 +676,7 @@
 	        }		
         </method>
         <method name="stop" args="ignore=null"><![CDATA[
-			if(this.questionBar && (this.questionBar.ball != null)) {
+			if(this.questionBar) {
 				this.questionBar._changeStatus(false);
 			}
             if(canvas.loadItem){    
@@ -691,7 +691,7 @@
 	        }		           
         ]]></method>
         <method name="finish" args="ignore=null"><![CDATA[  
-        	if(this.questionBar && (this.questionBar.ball != null)) {
+        	if(this.questionBar) {
 				this.questionBar._changeStatus(false);
 			}
         	if(gController.unlockNavigation) { 

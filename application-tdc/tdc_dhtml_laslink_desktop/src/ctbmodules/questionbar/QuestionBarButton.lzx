@@ -118,6 +118,7 @@
                 lz.Cursor.showHandCursor(true);
 	            this._changeStatus (true);
             }
+            gController.fixFocus(this);
         </handler>
 
         <handler name="onmouseout">
