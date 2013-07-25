@@ -66,7 +66,12 @@
                                 	</handler>
                                </text>
                                 <text text="of"
-                                      visible="${!classroot.hasStartNumber &amp;&amp; !parent.theme}"/>
+                                      visible="${!classroot.hasStartNumber &amp;&amp; !parent.theme}">
+									<handler name="oninit">
+	                            		var elm=this.getDisplayObject();
+	                            		elm.setAttribute('style','font-family: CTB; font-weight: bold; font-size: 15px; line-height: 18px; pointer-events: none; width: auto; height: 18px;');
+	                            	</handler>
+								</text>
                                 <text datapath="question_number/@total"
                                       visible="${(gController.adaptive == false) &amp;&amp; !classroot.hasStartNumber &amp;&amp; !parent.theme}">
                                		<handler name="ontext">
