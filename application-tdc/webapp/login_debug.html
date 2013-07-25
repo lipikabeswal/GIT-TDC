@@ -314,6 +314,11 @@ function isAnswered(){
  	});
  });
  
+function hideScrollbar(arg){
+    var scrid = document.getElementById(arg);
+    scrid.setAttribute('style',"overflow-x: hidden; overflow-y: scroll;");
+}
+ 
 function getFontAccomodation(){
 	var fontObj = new Object();
 	var questionBgColor = gController.questionBgColor;
@@ -421,7 +426,7 @@ function setScaleFactor(xscalefactor,yscalefactor){
 	    	var yscalefact = (450 * yscalefactorjs)/462;*/
 	    	var xscalefact = 780/800;
 	    	var yscalefact = 450/462;
-	    	iframe.contentWindow.translate(xscalefact, yscalefact);
+	    	//iframe.contentWindow.translate(xscalefact, yscalefact);
 	    	lz.embed.setCanvasAttribute('frameLoaded',true);
 	    	
 	}
@@ -454,12 +459,6 @@ function enableHighlighter(isEnabled){
 	if(iframe){
 		if(iframe.contentWindow.accomPkg!= null && iframe.contentWindow.accomPkg!=undefined){
 			iframe.contentWindow.accomPkg.enableHighlighter(isEnabled);
-			if(isEnabled){
-				iframe.contentWindow.accomPkg.removeHighlighterCursor();	
-				iframe.contentWindow.accomPkg.setHighlighterCursor("../../includes/cursor_images/cursor_highliter.png");
-			}else{
-				iframe.contentWindow.accomPkg.removeHighlighterCursor();
-			}
 		}
 	}
 }
@@ -469,12 +468,6 @@ function enableEraser(isEnabled){
 	if(iframe){
 		if(iframe.contentWindow.accomPkg!= null && iframe.contentWindow.accomPkg!=undefined){
 			iframe.contentWindow.accomPkg.enableEraser(isEnabled);
-			if(isEnabled){
-				iframe.contentWindow.accomPkg.removeHighlighterCursor();
-				iframe.contentWindow.accomPkg.setEraserCursor("../../includes/cursor_images/cursor_eraser.png");
-			}else{
-				iframe.contentWindow.accomPkg.removeHighlighterCursor();
-			}
 		}
 	}
 }
@@ -646,30 +639,12 @@ function getCRcolor(){
 }
 
 function checkTextDragging(){
+	//jQuery("textarea").attr('disabled','disabled');
 	jQuery("textarea").on("dragstart", function(e) {
 				e.preventDefault();
 			});
 }
 <!-- End CR item scrolledittext scrollbar functions -->
-
-<!-- following functions are using for scratchpad scrollbar -->
-
-function hideScrollbar(arg){
-    var scrid = document.getElementById(arg);
-    scrid.setAttribute('style',"overflow-x: hidden; white-space: pre-line; overflow-y: scroll;");
-}
-
-function setScrollEdittextWidth(elmId,comWidth,fontSize,textFontColor){
-    var scrid = document.getElementById(elmId);
-    scrid.setAttribute('style','overflow-x: hidden;  overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; width: '+comWidth+'');
-}
-
-function setScrollEdittextHeight(elmId,comHeight,fontSize,textFontColor){
-    var scrid = document.getElementById(elmId);
-    scrid.setAttribute('style','overflow-x: hidden;  overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; height: '+comHeight+'');
-}
-
-<!-- End scratchpad scrollbar functions-->
  
 function addReadOnlyCR(){
 	console.log("inside addReadOnlyCR");
@@ -682,11 +657,21 @@ function removeReadOnlyCR(){
 	if(document.getElementsByTagName('textarea').length > 0){
 		document.getElementsByTagName('textarea')[0].removeAttribute('readonly');
 	}
+} 
+
+function deleteIframe(){
+	var iframe = $("iframe")[0];
+	console.log("changeItem******* "+iframe);
+   	if(iframe){
+   		console.log("changeItem*****inside if** "+iframe);
+   		iframe.remove();
+   		console.log("changeItem*****inside if after remove** "+iframe);
+   	}
 }
 
-function checkEmptyString(str) {
-	return (!str || /^\s*$/.test(str) || /^\n*$/.test(str) || /^\r*$/.test(str));
-} 
+function setItemFocus(){
+	lz.embed.lzapp.canvas.onfocus.sendEvent();
+}
  
  
 // higlighter for nonTE items
@@ -768,7 +753,7 @@ function checkEmptyString(str) {
 <div id="appcontainer">
 			<script type="text/javascript" defer>
                   //lz.embed.dhtml({url: 'TestClient.lzx.js?folder=calif&servletUrl=http://127.0.0.1:12345/servlet/fixed', lfcurl: 'lps/includes/lfc/LFCdhtml.js', serverroot: 'lps/resources/', bgcolor: '#6691b4', width: '100%', height: '100%', id: 'lzapp', accessible: 'true', cancelmousewheel: false, cancelkeyboardcontrol: false, skipchromeinstall: false, usemastersprite: false, approot: '', appenddivid: 'appcontainer'});
-                  lz.embed.dhtml({url: 'TestClient.js?servletUrl=/servlet', lfcurl: 'lps/includes/lfc/LFCdhtml.js', serverroot: 'lps/resources/', bgcolor: '#6691b4', width: '100%', height: '100%', id: 'lzapp', accessible: 'true', cancelmousewheel: false, cancelkeyboardcontrol: false, skipchromeinstall: false, usemastersprite: false, approot: '', appenddivid: 'appcontainer'});
+                  lz.embed.dhtml({url: 'TestClient-debug.js?servletUrl=/servlet', lfcurl: 'lps/includes/lfc/LFCdhtml-debug.js', serverroot: 'lps/resources/', bgcolor: '#6691b4', width: '100%', height: '100%', id: 'lzapp', accessible: 'true', cancelmousewheel: false, cancelkeyboardcontrol: false, skipchromeinstall: false, usemastersprite: false, approot: '', appenddivid: 'appcontainer'});
                   lz.embed.applications.lzapp.onload = function loaded() {
                     // called when this application is done loading
                     
