@@ -125,7 +125,7 @@ function showFootnote(header)
 }
 
 function isMac(){
-	return (window.navigator.platform.indexOf("Mac") != -1);
+	return (window.navigator.userAgent.indexOf("Mac") != -1);
 }
 
 function closeBrowser()
@@ -527,8 +527,7 @@ function loadDummyHtml() {
 }
 
 function load() {
-	
-     var myservlet = 'servlet/PersistenceServlet.do?method=isProductCheck&folder=calif&requestXML=';
+	 var myservlet = 'servlet/PersistenceServlet.do?method=isProductCheck&folder=calif&requestXML=';
      jQuery.get(myservlet, function(data) {
 	     //alert(data);
 	     if(data.childNodes[0].nodeName.indexOf('LASLINKS') >= 0){
@@ -581,11 +580,31 @@ function checkTextDragging(){
 	$.closeMagnifier();
 }*/
 //-->
-function Disable_Control_L() {
+function disableShortcuts() {
 	var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
-	if (event.ctrlKey && (keystroke == 'l')) {
-		gHotKeys.toggleMark();
-		event.preventDefault(); // disable Ctrl+L
+	if (event.ctrlKey) {
+		switch(keystroke){
+			case 'l':
+				gHotKeys.toggleMark();
+				event.preventDefault(); // disable Ctrl+L
+				break;
+			case 'd':
+				event.preventDefault(); // disable Ctrl+D
+				break;
+			case 'h':
+				event.preventDefault(); // disable Ctrl+H
+				break;
+			case 'b':
+				event.preventDefault(); // disable Ctrl+B
+				break;
+			case 'v':
+				if(window.navigator.platform.indexOf('Mac')>=0){
+					event.preventDefault(); // disable Ctrl+V
+				}
+				break;
+			default:
+				break;
+				}
 	}
 }
 </SCRIPT>
@@ -596,7 +615,7 @@ body { background-color:#6691B4; margin: 0px; overflow:hidden;}
 </style>
 </HEAD>
 
-<BODY onload="load()" onkeydown="Disable_Control_L()" oncontextmenu="return false;">
+<BODY onload="load()" onkeydown="disableShortcuts()" oncontextmenu="javascript:return false;">
 <button id="mybutton" style="visibility:hidden; width:0px; height:0px; display:none;">clickMe </button>
 	<div id="needFlash9" style="display:none">
 		<table height="100%" width="100%">
