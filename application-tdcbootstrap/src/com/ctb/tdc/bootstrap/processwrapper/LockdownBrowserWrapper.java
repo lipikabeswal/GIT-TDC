@@ -112,6 +112,8 @@ public class LockdownBrowserWrapper extends Thread {
 					this.ldbHome = ldbHomeDir.getAbsolutePath();
 					
 					try {
+						Runtime.getRuntime().exec("chmod +x libcheck.sh", null, new File(this.ldbHome.replaceAll(" ", "\\ ")));
+						Runtime.getRuntime().exec("chmod +x ChromiumLDB/cefclient", null, new File(this.ldbHome.replaceAll(" ", "\\ ")));
 						Runtime.getRuntime().exec("./libcheck.sh", null, new File(this.ldbHome.replaceAll(" ", "\\ ")));
 					} catch (IOException e) {
 						
@@ -191,6 +193,7 @@ public class LockdownBrowserWrapper extends Thread {
 					//this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
 					command.add(this.ldbHome +"/ChromiumLDB/cefclient");
 					command.add("--url=http://127.0.0.1:" + jettyPort + "/login.html");
+					command.add("--cache-path="); //cache directory specified as null to prevent caching
 					
 				}
 				
@@ -907,6 +910,20 @@ public class LockdownBrowserWrapper extends Thread {
         			Runtime.getRuntime().exec("tskill \"LockdownBrowser.exe\"");
 	        		Thread.sleep(250);
 	        		Runtime.getRuntime().exec("tskill \"LockdownBrowser.exe\"");
+        		} catch (Exception e) {
+        			e.printStackTrace();
+        		}	
+        		try {
+        			Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("tskill \"LockdownBrowser\"");
+        		} catch (Exception e) {
+        			e.printStackTrace();
+        		}	
+        		try {
+        			Runtime.getRuntime().exec("tskill \"cefclient\"");
+	        		Thread.sleep(250);
+	        		Runtime.getRuntime().exec("tskill \"cefclient\"");
         		} catch (Exception e) {
         			e.printStackTrace();
         		}	
