@@ -318,7 +318,7 @@ public class LockdownBrowserWrapper extends Thread {
 				boolean forcedFullScreen = false;
 				ConsoleUtils.messageOut("Blocking hotkeys at " + System.currentTimeMillis());
 				LockdownBrowserWrapper.Hot_Keys_Enable_Disable(false);
-				Runtime.getRuntime().exec("./lockdown.sh &", null, new File(tdcHome.replaceAll(" ", "\\ "))); //Prevent right click from keyboard
+				Runtime.getRuntime().exec("sh lockdown.sh &", null, new File(tdcHome.replaceAll(" ", "\\ "))); //Prevent right click from keyboard
 				ConsoleUtils.messageOut("Starting lock loop at " + System.currentTimeMillis());
 				while(!isProcessExit) {
 					if(ready) {
