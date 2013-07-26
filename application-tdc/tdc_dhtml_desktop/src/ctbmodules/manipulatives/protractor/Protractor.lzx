@@ -36,8 +36,8 @@
             } else {
                 this.setAttribute ('rotation', 0);
 
-                this.setAttribute ('x', (gManipulatives.width - this.width*canvas.xscalefactor)/2);
-                this.setAttribute ('y', (gManipulatives.height - this.height*canvas.yscalefactor)/2);
+                this.setAttribute ('x', (gManipulatives.width - this.width)/2);
+                this.setAttribute ('y', (gManipulatives.height - this.height)/2);
 
                 //save defaults in data
                 if (data) {
