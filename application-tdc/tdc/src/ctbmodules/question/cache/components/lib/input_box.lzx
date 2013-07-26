@@ -3,8 +3,8 @@
     <class name="input_box" clickable="true" showhandcursor="false">
     	<attribute name="editTextWidth" type="number" value="100" />
     	<attribute name="widget_id" type="string" value="widget10000000000" />
-		<attribute name="char_limit" type="string" value="null"/>
-        <attribute name="maxlength" type="number" value="null"/>
+		<attribute name="char_limit" type="string" value="50"/>
+        <attribute name="maxlength" type="number" value="50"/>
         <method name="enable">
         	this.answer.enable();
         </method>
