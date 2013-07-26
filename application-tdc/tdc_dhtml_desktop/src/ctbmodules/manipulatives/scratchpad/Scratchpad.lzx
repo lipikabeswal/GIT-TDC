@@ -195,16 +195,16 @@
         
 				<handler name="onfocus" reference="inp">
 					classroot.setAttribute("scratchpadHasFocus", true);
-					//gHotKeys.disableKeys();
+					gHotKeys.disableKeys();
 					classroot.bringToFront();
 					checkTextDragging();
 				</handler>
 				
 				<handler name="onblur" reference="inp">
 					//Debug.write("onblur.....");
-					/*if(gItemInterface.visible == true || gTutorial.visible == true){
+					if(gItemInterface.visible == true || gTutorial.visible == true){
 						gHotKeys.enableKeys();
-					}*/
+					}
 				</handler>
 				
 				<handler name="onkeyup" reference="inp">
