@@ -221,60 +221,70 @@
         <method name="toggleA">    
         	if(!gController.isCrItem()){
 	            this.exitPopups();
+	            if(!gController.revisitCancelClicked)
 	        	gController.toggleItemSelState( 'A' ); 
 	        }
         </method>
         <method name="toggleB">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
+	             if(!gController.revisitCancelClicked)
 	        	gController.toggleItemSelState( 'B' ); 
 	        }
         </method>
         <method name="toggleC">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
+	             if(!gController.revisitCancelClicked)
 	        	gController.toggleItemSelState( 'C' ); 
 	        }
          </method>
         <method name="toggleD">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
+	             if(!gController.revisitCancelClicked)
 	        	gController.toggleItemSelState( 'D' ); 
 	        }
        </method>
         <method name="toggleE">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
+	             if(!gController.revisitCancelClicked)
 	        	gController.toggleItemSelState( 'E' ); 
 	        }
         </method>
         <method name="toggleF">    
         	if(!gController.isCrItem()){
 	            this.exitPopups();
+	             if(!gController.revisitCancelClicked)
 	        	gController.toggleItemSelState( 'F' ); 
 	        }
         </method>
         <method name="toggleG">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
+	             if(!gController.revisitCancelClicked)
 	        	gController.toggleItemSelState( 'G' ); 
 	        }
         </method>
         <method name="toggleH">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
+	             if(!gController.revisitCancelClicked)
 	        	gController.toggleItemSelState( 'H' ); 
 	        }
         </method>
 		<method name="toggleI">    
 			if(!gController.isCrItem()){
 		    	this.exitPopups(); 
+		    	 if(!gController.revisitCancelClicked)
 				gController.toggleItemSelState( 'I' ); 
 			}
 		</method>
         <method name="toggleJ">    
         	if(!gController.isCrItem()){
 	            this.exitPopups(); 
+	             if(!gController.revisitCancelClicked)
 	        	gController.toggleItemSelState( 'J' ); 
 	        }
         </method>        
@@ -286,6 +296,7 @@
         		}
         	
             	this.exitPopups();
+            	 if(!gController.revisitCancelClicked)
         		gController.stepNavigateBack();
 			}      
        	]]>
@@ -295,6 +306,7 @@
         		LzFocus.clearFocus();
         	}
             this.exitPopups(); 
+             if(!gController.revisitCancelClicked)
         	gController.stepNavigateForward();     
         </method>
         <method name="toggleMark"> 

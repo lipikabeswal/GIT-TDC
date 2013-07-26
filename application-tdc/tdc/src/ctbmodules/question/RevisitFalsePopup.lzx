@@ -114,6 +114,7 @@
 		<method event="onclick">
 			gController.setNavigation(1,parent.parent.getAttribute("navigateFrom"));  
 			gController.unlockUI();
+			gController.setAttribute("revisitCancelClicked", true);
         </method>
 		</basebutton>
     </view>

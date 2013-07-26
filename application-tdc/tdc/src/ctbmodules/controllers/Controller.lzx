@@ -492,6 +492,7 @@
 		<attribute name="magnifierVisible" value="false" />
 		<attribute name="showMaskingAnswerPopUp" value="false"/>
 		<attribute name="maskingAnswerDDState" value="false"/>
+		<attribute name="revisitCancelClicked" type="boolean" value="false" />
 		
 		<attribute name="answerArray" value="$once{new Array()}" />
 		<attribute name="sendCatSave" value="true" type="boolean" />
@@ -2553,6 +2554,7 @@
 			}else{
 				gManipulativeBar.globals.maskingAnswer.setVisible(false);
 			}
+			this.setAttribute('revisitCancelClicked',false)
         ]]></method>
 
 		<method name="saveSharedStimulusHighlights"><![CDATA[
