@@ -2616,8 +2616,9 @@
 	                	gScratchpad.setAttribute('visible',false);
 						gItemInterface.onclick.sendEvent(); 
 	                }else{
-	                	gScratchpad.sp.inp.onfocus.sendEvent();
+						gScratchpad.restoreFocusAndCursor();
 	                	gScratchpad.sp.inp.onblur.sendEvent();
+			            gItemInterface.onclick.sendEvent();
 	                }  
 	            }
 			}
