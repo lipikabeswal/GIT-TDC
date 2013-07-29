@@ -107,7 +107,7 @@
             lz.Keys.removeKeyComboCall( dstop, [ 'control', 's' ] );	        
             lz.Keys.removeKeyComboCall( dfinish, [ 'control', 'f' ] );
             
-            if(gItemInterface.visible == true || gItemInterface.visible == 'true') {
+            if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false) {
 	           	lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l' ] );
 	            lz.Keys.callOnKeyCombo( dtoggleTimer, [ 'control', 'o' ] );
 	            lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
