@@ -33,16 +33,20 @@
 					this.asset.video.setAttribute('height',Number(data.getAttr('height')));
 					this.asset.video.setAttribute('width',Number(data.getAttr('width')));
 				} else {
-					var folderName = data.getAttr('image_ref');
-					//var srcUrl = "http:items/" + folderName + "/asset.html";
-					var srcUrl = canvas.LASAssetPath+folderName+"/asset.html";
-					this.asset.aw.setAttribute('src', srcUrl);
-					this.asset.aw.setAttribute('visible',true);
-					this.asset.video.setAttribute('visible',false);
-					this.asset.aw.setAttribute('height',Number(data.getAttr('height')));
-					this.asset.aw.setAttribute('width',Number(data.getAttr('width')));
+					if(!gController.isSizer){
+						var folderName = data.getAttr('image_ref');
+						//var srcUrl = "http:items/" + folderName + "/asset.html";
+						var srcUrl = canvas.LASAssetPath+folderName+"/asset.html";
+						this.asset.aw.setAttribute('src', srcUrl);
+						this.asset.aw.setAttribute('visible',true);
+						this.asset.video.setAttribute('visible',false);
+						this.asset.aw.setAttribute('height',Number(data.getAttr('height')));
+						this.asset.aw.setAttribute('width',Number(data.getAttr('width')));
+					}
 				}
-				gController.lasAssetArray.push(this);
+				if(!gController.isSizer){
+					gController.lasAssetArray.push(this);
+				}
 				doneLoading();
 			}
 		]]></handler>
