@@ -598,7 +598,7 @@
 			var reClaimedMicObj = null;
 			var micArray = Microphone.names;
 			var micIsSet = false;
-			
+			var os = System.capabilities.os;
 			if(this.isVista()) {
 				if(Microphone.names.length > 0 && this.micConnected == false) {
 					this.myMic = Microphone.get();
@@ -624,17 +624,25 @@
 
 			if(activityArray.length < 16) {
 				if(activityArray.length == 15) {
-//Debug.write("1");
-					isMicAttached = activityCalibrate(activityArray); 				
+				//Debug.write("1");
+				if(os == 'Windows 7' && Microphone.names.length > 0){
+					isMicAttached = true;
+				}else{
+					isMicAttached = activityCalibrate(activityArray); 	
+				}
+							
 				}else{
 					if(level <= 0) {
 						//Debug.write("2 level pushing...."+level);
 						activityArray.push(level);
 					}
 					else {
-//Debug.write("3");
-						isMicAttached = true;
-					
+						//Debug.write("3");
+						if(Microphone.names.length > 0){
+							isMicAttached = true;
+						}else{
+							isMicAttached = false;
+						}
 					}
 				}
 
