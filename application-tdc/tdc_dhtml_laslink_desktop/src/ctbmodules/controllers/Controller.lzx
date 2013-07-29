@@ -5223,6 +5223,7 @@
 		<method name="checkShowMaskingChoiceDD">
 		   if(this.maskingAnswerDDState)  {
 				gMaskingAnswer.showPopUp();
+				gManipulativeBar.globals.maskingAnswer.setAttribute("frame",2);
 		   }   
 		</method>
 
