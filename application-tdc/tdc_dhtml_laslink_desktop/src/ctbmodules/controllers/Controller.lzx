@@ -659,8 +659,7 @@
 		
 		<handler name="onplayIfAnswered"><![CDATA[
 			if(this.iframeid != "NONE") {
-				var s="checkValIfAnswered('"+iframeid+"')";
-				lz.Browser.loadJS(s);
+				checkValIfAnswered(iframeid);
 			}
 		]]></handler>
 			
@@ -3323,9 +3322,9 @@
 		<method name="save" args="lev">
         	var saveParams = getSaveParams(lev);
 			//console.log("Inside save");
-			if(!this.isStopScreen){
+			/*if(!this.isStopScreen){
 				resetMicCheck();
-        	}
+        	}*/
         	resetHeartbeat();
 			gCommunicator.save(saveParams);
 		</method>
@@ -3790,6 +3789,7 @@
 		</method>
 
 		<method name="saveLoadItem" args="fnode, lev"><![CDATA[
+			stopMicCheck();
 			//console.log("############ saveLoadItem ############",fnode,lev);
 			//this.setAttribute("sendCatSave",true);
         	//setSendCatSave();
