@@ -607,13 +607,13 @@
 		
 		<handler name="oncanNotAnswer" args="data"><![CDATA[
 			if(answerArray.length > 0) {
-				for (var i = 0; i < answerArray.length; i++) {
+				/*for (var i = 0; i < answerArray.length; i++) {
 					if(this.canNotAnswer) {
 						answerArray[i].subviews[0].lockAnswerChoice();
 					} else {
 						answerArray[i].subviews[0].unLockAnswerChoice();
 					}
-				}
+				}*/
 			} else if(this.crFields.length > 0){  // For CR Items
 				if(this.canNotAnswer) {
 					disableResponseArea();

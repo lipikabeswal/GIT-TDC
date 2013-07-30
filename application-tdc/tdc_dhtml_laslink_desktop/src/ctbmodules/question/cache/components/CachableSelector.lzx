@@ -39,20 +39,21 @@
 
         <AnswerSelectionButton name="selbutton" clickable="true"/>
         
-        <view id="disableSRChoice" name="disableSRChoice" height="${classroot.selbutton.height}" width="${classroot.selbutton.width}" clickable="false" visible="false" bgcolor="grey" opacity="0.3"/>
+        <view id="disableSRChoice" name="disableSRChoice" height="${classroot.selbutton.height}" width="${classroot.selbutton.width}" clickable="false" visible="${gController.canNotAnswer}" bgcolor="grey" opacity="0.3">
         
-        <method name="lockAnswerChoice">
-        	this.disableSRChoice.bringToFront();
-        	this.disableSRChoice.setAttribute('visible',true);
-        	this.disableSRChoice.setAttribute('clickable',true);
-        </method>
-        
-        <method name="unLockAnswerChoice">
-        	this.selbutton.bringToFront();
-        	this.disableSRChoice.setAttribute('visible',false);
-        	this.disableSRChoice.setAttribute('clickable',false);
-        </method>
-
+        <handler name="onvisible">
+        	if(this.visible == true){
+        		this.bringToFront();
+        		this.setAttribute('visible',true);
+        		this.setAttribute('clickable',true);
+        	} else{
+	        	this.parent.selbutton.bringToFront();
+	        	this.setAttribute('visible',false);
+	        	this.setAttribute('clickable',false);
+        	}
+        </handler>
+       
+		</view>
 		<handler name="onwidth">
             if ( this.immediateparent['updateSelector'] ) {
                 this.immediateparent.updateSelector();
