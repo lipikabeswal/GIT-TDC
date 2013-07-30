@@ -85,6 +85,7 @@
 	
 	<attribute name="bringBackFocus" />	
 	<attribute name="LASAssetPath"/>
+	<attribute name="TEAssetPath"/>
 	
 	<method name="setScale"><![CDATA[
 		canvas.setAttribute('xscalefactor',canvas.titleView.mainView.scalingView.xscale);

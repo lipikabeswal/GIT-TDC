@@ -1052,6 +1052,7 @@
 		</method>
 
 <method name="_handleLoginResponse" args="response"><![CDATA[
+            getTEAssetPath();
 			/*var testnode = new lz.DataElement('');
 			testnode.setAttribute('ownerDocument',lz.DataElement.stringToLzData(response));
 			testnode.appendChild(lz.DataElement.stringToLzData(response));

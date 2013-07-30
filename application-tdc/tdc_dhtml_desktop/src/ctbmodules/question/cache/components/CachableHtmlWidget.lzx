@@ -67,7 +67,7 @@ Debug.write("Cachaable html widget ondata");
 
 		}
 		if($dhtml){
-			srcUrl = "http:items/"+ srcUrl +"/previewer.html";
+			srcUrl = canvas.TEAssetPath+srcUrl+"/previewer.html";
 			this.main.ht.setAttribute('src', srcUrl);
 			this.main.ht.setAttribute('visible',true);
 		}
