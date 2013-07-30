@@ -489,6 +489,10 @@
 		<attribute name="navigateConfirm" type="boolean" value="false" />
 		<attribute name="magnifierState" value="false" />
 		
+		<attribute name="optionEliminatorState" value="false" />
+		<attribute name="highlighterState" value="false" />
+		<attribute name="eraserState" value="false" />
+		
 		<attribute name="magnifierVisible" value="false" />
 		<attribute name="showMaskingAnswerPopUp" value="false"/>
 		<attribute name="maskingAnswerDDState" value="false"/>
@@ -3592,13 +3596,13 @@
 				if(gManipulativeBar.globals.volumeController != null){
 					gManipulativeBar.globals.volumeController.setAttribute("frame",1);
 				}
-				if(gManipulativeBar.globals.option_eliminator != null){
+				if(gManipulativeBar.globals.option_eliminator != null && this.optionEliminatorState=='false'){
 					gManipulativeBar.globals.option_eliminator.setAttribute("frame",1);
 				}
-				if(gManipulativeBar.globals.highlighter != null){
+				if(gManipulativeBar.globals.highlighter != null && this.highlighterState=='false'){
 					gManipulativeBar.globals.highlighter.setAttribute("frame",1);
 				}
-				if(gManipulativeBar.globals.eraser != null){
+				if(gManipulativeBar.globals.eraser != null && this.eraserState=='false'){
 					gManipulativeBar.globals.eraser.setAttribute("frame",1);
 				}
 				if(gManipulativeBar.globals.scratchpad != null){
@@ -3621,17 +3625,20 @@
 				if(gManipulativeBar.globals.option_eliminator != null){
 					if(this.manipClicked && this.currentManipSelected == 'option_eliminator'){
 						gManipulativeBar.globals.option_eliminator.setAttribute("frame",2);
+						this.setAttribute('optionEliminatorState','true');
 					}
 				}
 				if(gManipulativeBar.globals.highlighter != null){
 					if(this.manipClicked && this.currentManipSelected == 'highlighter'){
 						gManipulativeBar.globals.highlighter.setAttribute("frame",2);
+						this.setAttribute('highlighterState','true');
 					}
 					
 				}
 				if(gManipulativeBar.globals.eraser != null){
 					if(this.manipClicked && this.currentManipSelected == 'eraser'){
 						gManipulativeBar.globals.eraser.setAttribute("frame",2);
+						this.setAttribute('eraserState','true');
 					}
 				}
 				this.setAttribute('manipClicked',false);
