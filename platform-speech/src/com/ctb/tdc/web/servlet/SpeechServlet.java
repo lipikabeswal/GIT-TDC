@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ctb.tdc.web.utils.MP3PlayerUtils;
 import com.ctb.tdc.web.utils.TTSUtil;
 import com.ctb.tdc.web.utils.TTSUtil.MP3;
  
@@ -26,6 +28,7 @@ public class SpeechServlet extends HttpServlet {
     private static final String OK_RESPONSE = "<status>OK</status>";
     
     private static HashMap textMap = new HashMap(10);
+    //private static HashMap playerMap = new HashMap(10);
     
 	/**
 	 * Constructor of the object.
@@ -53,13 +56,51 @@ public class SpeechServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			System.out.println("Inside do get");
 			String client = request.getSession().getId();
 			System.out.println("*****  Retrieving mp3 for session " + client);
 			MP3 mp3 = (MP3) textMap.get(client);
-	
+			String method = request.getParameter("method");
+			MP3PlayerUtils playerUtils = null;
+			String xml = "<EVENT></EVENT>";
 	    	if(mp3 != null) {
+	    		System.out.println("Inside if block");
 		    	synchronized(mp3.getFileName()) {
-		    		response.setStatus(200);
+		    		if("start".equalsIgnoreCase(method)){
+		    			System.out.println("Inside start call");
+		    			FileInputStream in = new FileInputStream(mp3.getFileName());
+		    			/*playerUtils = (MP3PlayerUtils)playerMap.get(client);
+		    			if(playerUtils != null && playerUtils.getPlayer() != null){
+			    			playerUtils.stop();
+			    			playerMap.remove(client);
+		    			}*/
+		    			playerUtils = new MP3PlayerUtils();
+		    			playerUtils.stop();
+		    			playerUtils.play(in);
+		    			/*playerMap.put(client, playerUtils);*/
+		    			xml = "<EVENT>START</EVENT>";
+		    			System.out.println("End start call");
+		    		}else if("stop".equalsIgnoreCase(method)){
+		    			System.out.println("Inside stop call");
+		    			/*playerUtils = (MP3PlayerUtils)playerMap.get(client);
+		    			if(playerUtils != null && playerUtils.getPlayer() != null){
+			    			playerUtils.stop();
+			    			playerMap.remove(client);
+		    			}*/
+		    			playerUtils = new MP3PlayerUtils();
+		    			playerUtils.stop();
+		    			xml = "<EVENT>STOP</EVENT>";
+		    			System.out.println("Inside stop call");
+		    		}
+		    		response.setContentType("text/xml");
+					response.setStatus(response.SC_OK);
+					PrintWriter out = response.getWriter();
+					out.println(xml);
+					out.flush();
+					out.close();
+					response.flushBuffer();
+					System.out.println("End of if block");
+		    		/*response.setStatus(200);
 			    	response.setContentType("audio/x-mp3");
 			    	response.setHeader("Content-Disposition", "filename=speech.mp3");
 			    	//response.setHeader("Cache-Control","no-cache, no-store");
@@ -77,17 +118,26 @@ public class SpeechServlet extends HttpServlet {
 			    		out.write(buffer, 0, read);
 			    	}
 			    	out.close();
-			    	in.close();
+			    	in.close();*/
 		    	}
 	    	} else {
-	    		response.setStatus(200);
+	    		System.out.println("Inside else block");
+	    		/*response.setStatus(200);
 		    	response.setContentType("audio/x-mp3");
 		    	response.setHeader("Content-Disposition", "filename=speech.mp3");
 		    	response.setHeader("Pragma","no-cache");
 		    	response.setContentLength(0);
 		    	OutputStream out = response.getOutputStream();
 		    	out.write(new byte[0]);
-		    	out.close();
+		    	out.close();*/
+	    		response.setContentType("text/xml");
+				response.setStatus(response.SC_OK);
+				PrintWriter out = response.getWriter();
+				out.println(xml);
+				out.flush();
+				out.close();
+				response.flushBuffer();
+				System.out.println("End of else block");
 	    	}
 	    	System.out.println("TTS: finished stream, response flushed");
 		} catch (Exception e) {
