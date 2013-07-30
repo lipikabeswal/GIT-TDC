@@ -162,6 +162,7 @@
             <handler name="onfocus" args="s">
             // do not select text on focus
 				//this.setSelection(0,0);
+				checkTextDragging();
              </handler>
             
 
