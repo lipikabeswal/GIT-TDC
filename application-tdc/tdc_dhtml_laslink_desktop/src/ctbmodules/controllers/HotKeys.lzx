@@ -647,12 +647,16 @@
 			  ]]> 
         </method>
         <method name="toggleMark" args="ignore=null"> 
+        <![CDATA[
+        if(gRevisitFalsePopup.visible == false){
             if(canvas.loadItem){
         		//canvas.freezUI();
 	            this.exitPopups(); 
 	            gEnlargePopup.shrink();
 	         	gController.toggleMark();  
-	         }	            
+	         }
+	    }    
+	    ]]> 	            
         </method>
         <method name="toggleTimer" args="ignore=null">
             if(canvas.loadItem){
