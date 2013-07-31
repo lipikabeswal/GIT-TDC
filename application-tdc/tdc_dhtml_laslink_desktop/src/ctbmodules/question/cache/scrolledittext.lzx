@@ -78,18 +78,21 @@
 
 		<method name="setScrollPos">
 			var fontSize = 0;
+			var lineheight = 14;
             if(gController.hasFontAccommodation){
 				fontSize = 18;
+				lineheight = 22;
 			}
 			else{
 				fontSize = 12;
+				lineheight = 14;
 			}
 			
 			var comWidth = this.width-1;
 			var comHeight = this.height-5;
 			var fontcolor = getCRcolor();
 			var elm = this.getDisplayObject();
-			elm.setAttribute('style',"overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; font-size: '+fontSize+'; line-height: 14px; height: '+comHeight+'; clip: rect(0px '+comWidth+'px '+comHeight+'px 0px); width: '+comWidth+'; pointer-events: auto;")		
+			elm.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; font-size: '+fontSize+'; line-height: '+lineheight+'px; height: '+comHeight+'; clip: rect(0px '+comWidth+'px '+comHeight+'px 0px); width: '+comWidth+'; pointer-events: auto;');		
 		</method>
 		
 
