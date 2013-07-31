@@ -4172,27 +4172,30 @@
 
                 var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
                 dncurritem.appendChild (dnmanip);
-            }else{
+            }/*else{
             	var dnmanipulatives = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives');
 	            var dnglob = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');
 				if(dnglob.getAttr('highlighter')=='sel'){
                     var toolSt = getToolstate('highlighter');
+                    console.log("Inside highlighter****",toolSt);
 					dnglob.setAttr('highlighter',toolSt);
 				}
 				if(dnglob.getAttr('eraser')=='sel'){
                     var toolSt = getToolstate('eraser');
+                     console.log("Inside eraser****",toolSt);
 					dnglob.setAttr('eraser',toolSt);
 				}
 				if(dnglob.getAttr('option_eliminator')=='sel'){
                     var toolSt = getToolstate('option_eliminator');
+                     console.log("Inside option_eliminator****",toolSt);
 					dnglob.setAttr('option_eliminator',toolSt);
 				}
-				/*if(dnmanipulatives != null){
+				if(dnmanipulatives != null){
 					dnmanipulatives.removeChild (dnglob);
 					initglobal = true;
 					Debug.write("dnglob********** ",dnmanipulatives);
-	           	 }*/
-            }
+	           	 }
+            }*/
 
             if (initgeneral) {
                 dngeneral = new lz.DataElement ('general', {}, []);
