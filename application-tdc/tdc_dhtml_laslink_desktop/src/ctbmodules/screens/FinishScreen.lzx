@@ -84,6 +84,9 @@
                     //START Defect# 59282
                     gController.resetCrFields();
                     //END
+                    
+                    //for the defect 74886
+                    gController.setAttribute('scratchpadOpen',false);
                 </method>
                 <handler name="onmouseover">
                     lz.Cursor.showHandCursor(true);
