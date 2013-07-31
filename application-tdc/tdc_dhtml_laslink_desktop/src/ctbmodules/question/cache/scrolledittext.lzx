@@ -2,7 +2,7 @@
 <include href="lz/vscrollbar.lzx"/>
 
 <!--- Implements visual baseedittext with scrollbar. -->
-<class name="scrolledittext_CrItem" extends="baseedittext" multiline="true"  height="100" clip="true">
+<class name="scrolledittext_CrItem" extends="baseedittext" multiline="true"  clip="true">
     <!--// ATTRIBUTES //-->
     <attribute name="border" type="number" value="0"/>
 
@@ -23,39 +23,6 @@
     <!--- @keywords overrides -->
     <method name="init">
         super.init();
-        
-        // Instantiate vertical scrollbar using configured classname.
-        var scrollClass:Class = lz[this.vscrollbarclassname];
-        
-        if ($debug) {
-            if (scrollClass === undefined) {
-                Debug.warn("scrollbarclassname undefined", this);
-            }
-        }
-        
-        if (scrollClass) {
-            this._vs = new scrollClass(this, {
-            	axis:"y",
-                scrollattr:"pos",
-                scrollmax:0,
-                scrolltarget:this.inp,
-                disabledbgcolor: 12240085
-            });
-            
-            var xDel:LzDelegate = new lz.Delegate(this, '_updateX');
-            xDel.register(this._vs, 'onwidth');
-            xDel.register(this, 'onwidth');
-            xDel.register(this, 'onborder');
-            
-            new lz.Delegate(this, '_updateScrollMax', this.inp, 'onscrollheight');
-            new lz.Delegate(this, '_updateStepSize', this.inp, 'onlineheight');
-            new lz.Delegate(this, '_setVScrollWidthFromVisibility', this._vs, "onvisible");
-            
-            // call once manually
-            this._updateX();
-            this._updateStepSize();
-            this._setVScrollWidthFromVisibility(this._vs.visible);
-        }
     </method>
 
     <!--- @keywords private -->
@@ -107,9 +74,10 @@
         pattern="[A-Za-z0-9!@;:#$%\*()-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[\\]\\\\\_|`~ \\^]*"
         fgcolor="${gController.answerFontColor}">
         <attribute name="pos" type="number" value="0"/>
+		<attribute name="onscrollcalled" type="boolean" value="false"/>
 
-         <handler name="onwidth">
-             var fontSize = 0;
+		<method name="setScrollPos">
+			var fontSize = 0;
             if(gController.hasFontAccommodation){
 				fontSize = 18;
 			}
@@ -118,34 +86,18 @@
 			}
 			
 			var comWidth = this.width-1;
-			var elm = this.getDisplayObject();
-			elm.setAttribute('id','CRscrolledittext');
-			
-			setCRscrollEdittextWidth(elm.id,comWidth,fontSize);	
-		</handler>
-		
- 		 <handler name="onheight">
- 		     var fontSize = 0;
-            if(gController.hasFontAccommodation){
-				fontSize = 18;
-			}
-			else{
-				fontSize = 12;
-			}
-			
 			var comHeight = this.height-5;
-            var elm = this.getDisplayObject();
-			elm.setAttribute('id','CRscrolledittext');
-			
-			setCRscrollEdittextHeight(elm.id,comHeight,fontSize);	
-		</handler>
+			var fontcolor = getCRcolor();
+			var elm = this.getDisplayObject();
+			elm.setAttribute('style',"overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; font-size: '+fontSize+'; line-height: 14px; height: '+comHeight+'; clip: rect(0px '+comWidth+'px '+comHeight+'px 0px); width: '+comWidth+'; pointer-events: auto;")		
+		</method>
 		
 
         <handler name="oninit">
-				var el = this.getDisplayObject();
-				el.setAttribute('id','CRscrolledittext');
-				hideScrollbarForCRitem(el.id);	
-			</handler>
+			var el = this.getDisplayObject();
+			el.setAttribute('id','CRscrolledittext');
+			hideScrollbarForCRitem(el.id);	
+		</handler>
         <setter name="pos" args="p">        	
             if (this.p == p){
 				Debug.write("Pos internal return", p, this.p, scroll);
@@ -173,6 +125,10 @@
 
         <handler name="onscroll" args="IGNORE_THIS_ARG">
             this.setAttribute('pos', -this.lineheight * (this.scroll - 1));
+			if(!this.onscrollcalled){
+				setScrollPos();
+				this.setAttribute('onscrollcalled',true);
+			}
         </handler>
     </_newinternalinputtext>
 </class>
