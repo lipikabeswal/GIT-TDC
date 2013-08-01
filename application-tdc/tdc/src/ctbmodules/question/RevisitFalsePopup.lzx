@@ -37,12 +37,14 @@
         this.setAttribute("visible", false);	
 		LzModeManager.release(this);	
 		gHotKeys.enableKeys();
+		gManipulatives.setAttribute('visible',true);
     </method>
 	
     <method name="show" args="calledFrom">
 	    if(this.visible == false) {
 	        this.setAttribute("visible", true);
 			this.setAttribute("navigateFrom",calledFrom);
+			gManipulatives.setAttribute('visible',false);
 	        LzModeManager.makeModal(this);
 	        gHotKeys.disableKeys();
 	        gController.clearAndRestoreCurrentCursor();
