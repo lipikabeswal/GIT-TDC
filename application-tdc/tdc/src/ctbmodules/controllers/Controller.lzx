@@ -3155,6 +3155,18 @@
 				gMagnifyingGlass.onmouseup.sendEvent();
 				this.setAttribute("isManipMouseDown",false);
 			}
+			if(canvas.currentCursor == 'highlighter_cursor'){
+	                clearAndRestoreCurrentCursor();
+	        }
+	        else if(canvas.currentCursor == 'eraser_cursor'){
+	               	clearAndRestoreCurrentCursor();
+	        }
+	  		else if(canvas.currentCursor == 'eliminator_cursor'){
+	               	clearAndRestoreCurrentCursor();
+	        }
+			else{	                	
+	              	restoreCurrentCursor();
+	        }
 		</method>
 
 		<method name="pausedContinue" args="pw">
