@@ -566,6 +566,15 @@ function checkTextDragging(){
 			});
 }
 
+
+
+function preventTextDragging(){
+	jQuery('.lzswfinputtext').on("dragstart", function(e) {
+				e.preventDefault();
+			});
+}
+
+
 /*function buttonClicked(magnifierPosition){
   	if(magnifierPosition == "T") {
   		$.setPreviousPosition();
