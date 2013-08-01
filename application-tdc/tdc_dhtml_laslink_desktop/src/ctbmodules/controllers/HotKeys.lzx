@@ -51,8 +51,9 @@
             lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
             lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
             lz.Keys.callOnKeyCombo( dfinish, [ 'control', 'f' ] );
-                      
-		    if ( gController.getClientMachine() == 'MAC' || isMac()) {
+            
+            var os = getOS();
+           	if (os.indexOf("Mac") >= 0) {    
                 dmacOptionKeysHandler.register( lz.Keys, 'onkeydown' );
             }
         </method>
@@ -113,9 +114,9 @@
 	            lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
 	            lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
             }
-
-		    if ( gController.getClientMachine() == 'MAC' || isMac()) {
-            	dmacOptionKeysHandler.unregisterFrom( lz.Keys.onkeydown );
+	    	var os = getOS();
+	   		if (os.indexOf("Mac") >= 0) {
+           		dmacOptionKeysHandler.unregisterFrom( lz.Keys.onkeydown );
             }
         ]]></method>
 
@@ -403,15 +404,19 @@
 	        			gController.finishTestShortcut();      
 	                    break;
 					case 10: 
-						if(!gController.fwdOnly){
-		                    this.exitPopups();
-		                    gController.stepNavigateBack();  
+						if(gController.allowNavigate && gController.allowItmeNavigate){
+							if(!gController.fwdOnly){
+			                    this.exitPopups();
+			                    gController.stepNavigateBack();  
+							}
 						}
 	                    break;
 					case 11: 
-	                    this.exitPopups();
-	                    gController.stepNavigateForward(); 
-	                     gTooltip.hideTooltip (); 
+						if(gController.allowNavigate && gController.allowItmeNavigate){
+		                    this.exitPopups();
+		                    gController.stepNavigateForward(); 
+		                    gTooltip.hideTooltip (); 
+		                }
 	                    break;
 					default:
 						break;
