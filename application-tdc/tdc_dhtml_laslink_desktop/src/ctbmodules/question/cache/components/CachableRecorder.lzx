@@ -83,6 +83,7 @@
 		<method name="init">
 			console.log("Inside init");
 			super.init();
+			gController.setAttribute('resetButtonEnable',false);
 			setReferences();
 		</method>
 
