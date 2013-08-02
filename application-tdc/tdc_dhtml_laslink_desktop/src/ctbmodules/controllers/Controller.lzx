@@ -1265,10 +1265,11 @@
 				gTutorialManager.setAttribute('tutorialNode', dp.xpathQuery('login_response/tutorial'));
 	    		var logo = dp.xpathQuery('login_response/branding/@tdclogo');
 	    		if(logo != null) {
-		    		if(logo.indexOf(".swf")!=0){
+		    		//if(logo.indexOf(".swf")!=0){
 		    			logo = logo.substring(0,logo.indexOf(".swf"));
-						logo = logo+".png";
-		    		}
+						//logo = logo+".png";
+						logo = logo+".svg";
+		    		//}
 		    		canvas.setAttribute("logoRsrc", logo);
 		    	}
 	    		var cmicore = dp.xpathQuery('login_response/testing_session_data/cmi.core');
@@ -1725,8 +1726,8 @@
                 }
             }
             this.setAttribute('firstSubtest', false);
-           	//gLogo.setSource(canvas.logoRsrc);
-           	gLogo.setAttribute('resource','logo');
+           	gLogo.setSource(canvas.logoRsrc);
+           	//gLogo.setAttribute('resource','logo');
            	if(!gScratchpad.isinited){
 				gScratchpad.completeInstantiation();
 			}
