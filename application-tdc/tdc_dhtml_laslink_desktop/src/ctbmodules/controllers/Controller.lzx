@@ -2679,6 +2679,7 @@
             if(gController.lasAssetArray.length>0){
 				gController.setAttribute('unlockNavigation',false);
 			}else{
+				gController.setAttribute('canNotAnswer',false);
 				gController.setAttribute('unlockNavigation',true);
 			}
 			if(this.recorder != null ) {
@@ -3376,6 +3377,7 @@
         </method>
 
 		<method name="_handlePausedResumeResponse" args="xml">
+			gController.setAttribute('canNotAnswer',true);
 			changeItem( getItemFromOffset(currItemOffset()));
 			showItemInterface();
 			gScreens.resetTextFieldColor();

@@ -39,17 +39,17 @@
 
         <AnswerSelectionButton name="selbutton" clickable="true"/>
         
-        <view id="disableSRChoice" name="disableSRChoice" height="${classroot.selbutton.height}" width="${classroot.selbutton.width}" clickable="false" visible="${gController.canNotAnswer}" bgcolor="grey" opacity="0.3">
+        <view id="disableSRChoice" name="disableSRChoice" height="${classroot.selbutton.height}" width="${classroot.selbutton.width}" clickable="true" visible="${gController.canNotAnswer}" bgcolor="grey" opacity="0.3">
         
         <handler name="onvisible">
         	if(this.visible == true){
         		this.bringToFront();
         		this.setAttribute('visible',true);
-        		this.setAttribute('clickable',true);
+        		//this.setAttribute('clickable',true);
         	} else{
 	        	this.parent.selbutton.bringToFront();
 	        	this.setAttribute('visible',false);
-	        	this.setAttribute('clickable',false);
+	        	//this.setAttribute('clickable',false);
         	}
         </handler>
        
