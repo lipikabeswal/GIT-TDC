@@ -9,6 +9,7 @@ var answerClicked = null;
 var pausedAssetID = null;
 var pausedDisabledAssetID = null;
 var iframeFolderId = null;
+var canNotAnswerFlag = false;
 
 function iframeLoaded(id, iframe){
 	if(iframe){
@@ -59,6 +60,7 @@ function iframeLoaded(id, iframe){
 						    	// this condition is for the defect 73859
 						    }else{
 						        gController.setAttribute('canNotAnswer',true);
+						        canNotAnswerFlag = true;
 							}	
 						}
 						if(gController.lasAssetArray[i].data.getAttr('playIfAnswered') == "true"){
@@ -71,6 +73,12 @@ function iframeLoaded(id, iframe){
 				assetCount++;
 				if(gController.lasAssetArray.length == assetCount){
 					setTimeout("startAutoplay()",500);
+					if(canNotAnswerFlag == false){
+					 	gController.setAttribute('canNotAnswer',false);
+					}else{
+						gController.setAttribute('canNotAnswer',false);
+						gController.setAttribute('canNotAnswer',true);
+					}
 				}
 			//restrictNavigation('lock');
 			}
@@ -164,7 +172,7 @@ function getNextPlayOrder(assetFolderId) {
                     iframeObject[currentLasAssetItemId][playOrderArray[currentLasAssetItemId][k]['currentAsset']].iframeObj.contentWindow.disable();
 				}
 			}
-			if(playOrderArray[currentLasAssetItemId][k]['playIfAnswered'] == "false") {
+			if(playOrderArray[currentLasAssetItemId][k] != undefined && playOrderArray[currentLasAssetItemId][k]['playIfAnswered'] == "false") {
 				iframeObject[currentLasAssetItemId][playOrderArray[currentLasAssetItemId][currentPlayOrder + 1]['currentAsset']].iframeObj.contentWindow.enable();
 			}
 		}
@@ -189,7 +197,10 @@ function unlockResponseArea(frameId) { // Assuming there will be only one such a
 function checkValIfAnswered(frameId) {
    ////console.log("playIfAnswered----->",gController.playIfAnswered);
    ////console.log("frameId-->",frameId);
-   if(!iframeObject[currentLasAssetItemId][playOrderArray[currentLasAssetItemId][currentPlayOrder]['currentAsset']].playedOnce) {
+   if(currentPlayOrder == 0){
+   answerClicked = frameId;
+   }
+   else if(!iframeObject[currentLasAssetItemId][gController.lasAssetArray[currentPlayOrder-1].asset.aw.iframeid].playedOnce) {
    		answerClicked = frameId;
    		
   	 }
