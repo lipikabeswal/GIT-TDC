@@ -161,7 +161,7 @@
 			<attribute name="isCtrl" type="boolean" value="false"/> 
             <handler name="onfocus" args="s">
             // do not select text on focus
-				//this.setSelection(0,0);
+				this.setSelection(0,0);
 				preventTextDragging();
              </handler>
             
