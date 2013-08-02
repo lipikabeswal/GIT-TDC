@@ -88,8 +88,8 @@
                 //add a highlightarea node
                 var attrs = {x: this.livesel.x,
                              y: this.livesel.y,
-                             width: this.getMouse ('x') - this.livesel.x,
-                             height: this.getMouse ('y') - this.livesel.y,
+                             width: this.livesel.width,
+                             height: this.livesel.height,
                              passageId: this.passageId,
                              stereotype: this.stereotype};
 
