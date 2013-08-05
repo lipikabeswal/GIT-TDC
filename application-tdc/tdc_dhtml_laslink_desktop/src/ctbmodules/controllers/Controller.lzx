@@ -533,6 +533,9 @@
 		<attribute name="manipClicked" value="false" type="boolean" /> 
 		<attribute name="manipbuttonClicked" value="false" type="boolean" /> 
 		<attribute name="currentManipSelected" value="NONE" type="string" /> 
+		
+		// FOR THE DEFECT 74974
+		<attribute name="singleCRhasFocus" type="boolean" value="true"/>
 	
 
 		<!--
@@ -3833,6 +3836,11 @@
 			
 			gQuestion.clearSkip();
 			this.macFocusInCanvas();
+			
+			 // FOR THE DEFECT 74974
+			this.setAttribute('singleCRhasFocus',true);
+			
+			
 			canvas.setAttribute('focusobj', null);
             this.itemloaded    = false;
             this.runtimeready  = false;
