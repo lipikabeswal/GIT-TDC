@@ -81,6 +81,11 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
 						return NULL;
 					}
 				break;
+                    
+                case 12://Q
+                    if (ctrlIsDown) {
+                        return NULL;
+                    }
 
 				default://if option key is down, ignore any normal key to avoid option+key combination, we will have to handle above cases also.
                     if(optIsDown) {
