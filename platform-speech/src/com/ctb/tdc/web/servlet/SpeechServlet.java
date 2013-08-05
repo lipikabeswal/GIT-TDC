@@ -57,13 +57,27 @@ public class SpeechServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			System.out.println("Inside do get");
+			boolean isPlaying = false;
 			String client = request.getSession().getId();
 			System.out.println("*****  Retrieving mp3 for session " + client);
 			MP3 mp3 = (MP3) textMap.get(client);
 			String method = request.getParameter("method");
 			MP3PlayerUtils playerUtils = null;
 			String xml = "<EVENT></EVENT>";
-	    	if(mp3 != null) {
+			if("playcheck".equalsIgnoreCase(method)){
+				System.out.println("Inside playcheck call");
+				playerUtils = new MP3PlayerUtils();
+				isPlaying = playerUtils.isPlaying();
+    			xml = "<EVENT>"+isPlaying+"</EVENT>";
+    			response.setContentType("text/xml");
+				response.setStatus(response.SC_OK);
+				PrintWriter out = response.getWriter();
+				out.println(xml);
+				out.flush();
+				out.close();
+				response.flushBuffer();
+				System.out.println("End of playcheck block");
+			}else if(mp3 != null) {
 	    		System.out.println("Inside if block");
 		    	synchronized(mp3.getFileName()) {
 		    		if("start".equalsIgnoreCase(method)){

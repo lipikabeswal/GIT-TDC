@@ -60,7 +60,11 @@ public class MP3PlayerUtils {
     
     public boolean isPlaying()
     {
-    	return !player.isComplete();
+    	if(player == null){
+    		return false;
+    	}else{
+    		return !player.isComplete();
+    	}
     }
     
  // play the MP3 file to the sound card
