@@ -99,6 +99,9 @@
                                   enabled="${ gScreens.allowclick }" visible= "${gController.isStopTest || !gController.isFinishTest}">
                 <handler name="onclick" method="goback"/>
                 <method name="goback">
+                     // FOR THE DEFECT 74974
+                    gController.setAttribute('singleCRhasFocus',true);
+
                     gScreens.clicked();
                     gController.resumeTest();
                     gController.setAttribute('allowNavigate',true);
