@@ -491,6 +491,7 @@
 
         <method name="toggleA" args="ignore=null">  
             //console.log("===toggle A====");
+            if(gItemInterface.visible){
 			if(this.onceOnly){
         	if(!gController.canNotAnswer) {
 	        	if(!gController.isCrItem()){
@@ -501,10 +502,12 @@
 		    }
 			this.setAttribute("onceOnly",false);
          }
+         }
         </method>
 
         <method name="toggleB" args="ignore=null">  
           //console.log("===toggle B====");
+          if(gItemInterface.visible){
           if(this.onceOnly){
         	if(!gController.canNotAnswer) {
 	        	if(!gController.isCrItem()){
@@ -515,8 +518,10 @@
 		    }
 			this.setAttribute("onceOnly",false);
          }
+         }
         </method>
         <method name="toggleC" args="ignore=null">  
+        	if(gItemInterface.visible){
             if(this.onceOnly){
         	if(!gController.canNotAnswer) {
 	        	if(!gController.isCrItem()){
@@ -527,8 +532,10 @@
 		    }
 			this.setAttribute("onceOnly",false);
          }
+         }
          </method>
         <method name="toggleD" args="ignore=null">  
+        	if(gItemInterface.visible){
  			if(this.onceOnly){  
         	if(!gController.canNotAnswer) {
 	        	if(!gController.isCrItem()){
@@ -539,8 +546,10 @@
 		    }
 			this.setAttribute("onceOnly",false);
          }
+         }
        </method>
-        <method name="toggleE" args="ignore=null">    
+        <method name="toggleE" args="ignore=null"> 
+        	if(gItemInterface.visible){   
 			if(this.onceOnly){
         	if(!gController.canNotAnswer) {
 	        	if(!gController.isCrItem()){
@@ -551,8 +560,10 @@
 		    }
 			this.setAttribute("onceOnly",false);
          }	
+         }
         </method>
         <method name="toggleF" args="ignore=null">    
+        	if(gItemInterface.visible){
 			if(this.onceOnly){
         	if(!gController.canNotAnswer) {
 	        	if(!gController.isCrItem()){
@@ -563,8 +574,10 @@
 		    }
 			this.setAttribute("onceOnly",false);
          }
+         }
         </method>
         <method name="toggleG" args="ignore=null">  
+			if(gItemInterface.visible){ 
 			if(this.onceOnly){  
         	if(!gController.canNotAnswer) {
 	        	if(!gController.isCrItem()){
@@ -575,8 +588,10 @@
 		    }
 			this.setAttribute("onceOnly",false);
          }
+		}	
         </method>
         <method name="toggleH" args="ignore=null"> 
+			if(gItemInterface.visible){ 
 			if(this.onceOnly){
         	if(!gController.canNotAnswer) {   
 	        	if(!gController.isCrItem()){
@@ -587,8 +602,10 @@
 		    }
 			this.setAttribute("onceOnly",false);
          }
+		}	
         </method>
 		<method name="toggleI" args="ignore=null">  
+			if(gItemInterface.visible){ 
 			if(this.onceOnly){  
 			if(!gController.canNotAnswer) {
 				if(!gController.isCrItem()){
@@ -599,8 +616,10 @@
 			}
 			this.setAttribute("onceOnly",false);
          }
+		}
 		</method>
         <method name="toggleJ" args="ignore=null">  
+			if(gItemInterface.visible){ 
 			if(this.onceOnly){ 
         	if(!gController.canNotAnswer) { 
 	        	if(!gController.isCrItem()){
@@ -611,6 +630,7 @@
 		    }
 			this.setAttribute("onceOnly",false);
          }
+		}
         </method>        
         <method name="goBack" args="ignore=null">
 		<![CDATA[
