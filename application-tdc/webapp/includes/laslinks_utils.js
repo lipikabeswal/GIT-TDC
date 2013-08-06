@@ -15,6 +15,21 @@ function iframeLoaded(id, iframe){
 	if(iframe){
 		if(currentLasAssetItemId) {
 			var folderName;
+			var iframeSource;
+			var imageSource;
+			var iframeCount = [];
+			var imageCount = [];
+			iframeCount  = jQuery('iframe[src ^= "http:items/"]');
+			for(var i=0; i<iframeCount.length; i++){
+				iframeSource = iframeCount[i];
+				imageCount = jQuery(iframeSource).contents().find('img');
+				for(var j=0; j<imageCount.length; j++){
+					imageSource = imageCount[j];
+					jQuery(imageSource).on("dragstart" , function(e){
+						e.preventDefault();
+					});
+				}
+			}
 			if(iframe.src.indexOf('asset.html')!=-1){
 				folderName = iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1);
 			}else{
