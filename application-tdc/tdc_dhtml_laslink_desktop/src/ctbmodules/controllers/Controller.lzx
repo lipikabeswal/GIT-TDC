@@ -3294,6 +3294,7 @@
 		
 			
 		<method name="pauseTest">
+			stopMicCheck();
 		    this.doArrowMouseup();
 		    
 			this.setAttribute('isPauseTest',true);
@@ -3368,7 +3369,7 @@
             if ( pw == dpsubtest.xpathQuery( 'testing_session_data/cmi.core/@password' ) ) {
                 lz.Cursor.setCursorGlobal( 'waitcursor' );
 				setState(PAUSED_RESUME_STATE);
-				resetMicCheck();
+				//resetMicCheck();
 				resetHeartbeat();
 				recalltrackMouseMove();
 				gCommunicator.lifecycle(RESUME_LEV);
@@ -3385,6 +3386,7 @@
 			showItemInterface();
 			gScreens.resetTextFieldColor();
             startQuestion();
+            resetMicCheck();
 			recalltrackMouseMove();
 			//showManipulatives();
 			if(gScratchpad.visible) {
