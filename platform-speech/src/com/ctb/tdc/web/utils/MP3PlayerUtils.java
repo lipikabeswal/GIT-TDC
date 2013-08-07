@@ -92,6 +92,10 @@ public class MP3PlayerUtils {
 	public Player getPlayer() {
 		return player;
 	}
+	
+	 public void setVolume(String volume) {
+		player.setVolume(volume);
+	}
     
 
 }

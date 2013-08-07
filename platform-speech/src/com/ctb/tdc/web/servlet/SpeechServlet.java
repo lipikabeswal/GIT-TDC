@@ -64,7 +64,21 @@ public class SpeechServlet extends HttpServlet {
 			String method = request.getParameter("method");
 			MP3PlayerUtils playerUtils = null;
 			String xml = "<EVENT></EVENT>";
-			if("playcheck".equalsIgnoreCase(method)){
+			if("setVolume".equalsIgnoreCase(method)){
+				System.out.println("Inside set volume call");
+				String volumeVar = request.getParameter("volume_val");
+				playerUtils = new MP3PlayerUtils();
+				playerUtils.setVolume(volumeVar);
+    			xml = "<EVENT>"+volumeVar+"</EVENT>";
+    			response.setContentType("text/xml");
+				response.setStatus(response.SC_OK);
+				PrintWriter out = response.getWriter();
+				out.println(xml);
+				out.flush();
+				out.close();
+				response.flushBuffer();
+				System.out.println("End of set volume block");
+			}else if("playcheck".equalsIgnoreCase(method)){
 				System.out.println("Inside playcheck call");
 				playerUtils = new MP3PlayerUtils();
 				isPlaying = playerUtils.isPlaying();
