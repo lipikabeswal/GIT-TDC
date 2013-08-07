@@ -124,7 +124,11 @@ function checkAllPlayedOnce() {
 			////console.log(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].clickedOnce);
 			////console.log(iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].playedOnce);
 			////console.log("Inside iframeObject :",iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid]);
-			var folderId = iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].folder;
+			if(gController.lasAssetArray[i].data.getAttr('isMP4') == "true" || gController.lasAssetArray[i].data.getAttr('isMP4') == true) {
+				var folderId = iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.video.iframeid].folder;
+			} else {
+				var folderId = iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].folder;
+			}
 			if(folderId != iframeFolderId) {
 				iframeFolderId = folderId ; 			
 				var frameid = getFrameId(gController.lasAssetArray[i]);					
@@ -400,7 +404,11 @@ function resetAllAssets(){
 		if(checkAllPlayedOnce()) {
 			for(var i=0; i<gController.lasAssetArray.length;i++){
 					if(gController.lasAssetArray[i].asset){
-						iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.enable();
+						if(gController.lasAssetArray[i].data.getAttr('isMP4') == "true" || gController.lasAssetArray[i].data.getAttr('isMP4') == true) {
+							iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.video.iframeid].iframeObj.contentWindow.enable();
+						} else {
+							iframeObject[currentLasAssetItemId][gController.lasAssetArray[i].asset.aw.iframeid].iframeObj.contentWindow.enable();
+						}
 					}
 			}
 		}
