@@ -94,7 +94,7 @@ public class LockdownBrowserWrapper extends Thread {
 			this.ldbCommand = new String[1];
 			this.ldbCommand[0] = this.ldbHome + "/LockDownBrowser.app/Contents/MacOS/LockDownBrowser";
             this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
-            
+            command.add(ldbCommand[0]);
 		} else if ( linux ) {
 					/*LockdownBrowserWrapper.islinux = true;
 					
@@ -378,10 +378,30 @@ public class LockdownBrowserWrapper extends Thread {
 				if (flag) {
 					// Run the LDB...
 					//Runtime.getRuntime().exec("sh clear_clipboard.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+					Runtime.getRuntime().exec("rm -rf ~/Library/Caches/*", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 					ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
 					ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
 					
-					Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome) );
+					//Process ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome) );
+					processBuilder= new ProcessBuilder(command);
+					processBuilder.directory(new File(this.ldbHome));		
+					processBuilder.redirectErrorStream(true);
+					
+					Process ldb=processBuilder.start();
+					ConsoleUtils.messageOut("LDB app started at " + System.currentTimeMillis());
+					final BufferedReader consoleBufferReader = new BufferedReader(new InputStreamReader(ldb.getInputStream()));
+					new Thread(new Runnable() {
+					        public void run() {
+					            while(true)
+					            {
+					        	try {
+									consoleBufferReader.readLine();
+								} catch (IOException e) {
+									ConsoleUtils.messageErr("Error while reading ldb output", e);
+								}
+					            }
+					        }
+					    }).start();
 					this.isAvailable = true;
 					ldb.waitFor();
 					isProcessExit=true;
