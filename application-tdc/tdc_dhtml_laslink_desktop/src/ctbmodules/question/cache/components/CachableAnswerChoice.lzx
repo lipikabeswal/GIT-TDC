@@ -80,8 +80,8 @@
 			this.dynlayout.update();
 			
 			// Developed for Masking Answer Choice
-			//This is to pass the Reference of answer area with selector and its choice.	 
-			if(this.dynlayout.subviews.length > 1){	
+			//This is to pass the Reference of answer area with selector and its choice. 
+			if(this.dynlayout.subviews.length >= 1){	
 						
 				gController.setAnswerPanel(this);
 			}
