@@ -49,7 +49,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mf"]}},$lzc$class__mf.attributes)
 }}})($lzc$class__mf)
-};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onkeydown","$m7","$m6","onmousedown","$m9","$m8","onbringBackFocus","$ma",null,"onfootnotedata","$mb",null,"onisMultiAudio","$mc",null,"oninit","$md",null,"onfootnotetext","$me",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-08-06T13:50:58Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onkeydown","$m7","$m6","onmousedown","$m9","$m8","onbringBackFocus","$ma",null,"onfootnotedata","$mb",null,"onisMultiAudio","$mc",null,"oninit","$md",null,"onfootnotetext","$me",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-08-07T13:17:25Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -10374,7 +10374,7 @@ $1=this.cache.getComponent($0[$2]);if($1!=null)this.dynlayout.addSubview($1)
 }}}},"updateSelector",function(){
 for(var $0=0;$0<this.dynlayout.subviews.length;$0++){
 this.dynlayout.subviews[$0].doAlign()
-};this.dynlayout.update();if(this.dynlayout.subviews.length>1){
+};this.dynlayout.update();if(this.dynlayout.subviews.length>=1){
 gController.setAnswerPanel(this)
 }},"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -13504,7 +13504,7 @@ var $0=0;var $1=14;if(gController.hasFontAccommodation){
 $0=18;$1=22
 }else{
 $0=12;$1=14
-};var $2=this.width-1;var $3=this.height-5;var $4=getCRcolor();var $5=this.getDisplayObject();$5.setAttribute("style","overflow-x: hidden; white-space: pre-line; overflow-y: scroll; color: "+$4+"; font-size: "+$0+"; line-height: "+$1+"px; height: "+$3+"; clip: rect(0px "+$2+"px "+$3+"px 0px); width: "+$2+"; pointer-events: auto;")
+};var $2=this.width-1;var $3=this.height;var $4=getCRcolor();var $5=this.getDisplayObject();$5.setAttribute("style","overflow-x: hidden; white-space: pre-line; overflow-y: scroll; color: "+$4+"; font-size: "+$0+"; line-height: "+$1+"px; height: "+$3+"; clip: rect(0px "+$2+"px "+$3+"px 0px); width: "+$2+"; pointer-events: auto;")
 },"$m101",function($0){
 var $1=this.getDisplayObject();$1.setAttribute("id","CRscrolledittext");hideScrollbarForCRitem($1.id)
 },"$lzc$set_pos",function($0){
@@ -34656,7 +34656,7 @@ this.contents.ps.pw.otherPasswordField.setAttribute("visible",true);this.content
 lz.Focus.setFocus(this.contents.ps.pw.istepPasswordField)
 }else{
 lz.Focus.setFocus(this.contents.ps.pw.otherPasswordField)
-};gController.clearAndRestoreCurrentCursor();gController.hideManipulatives()
+};gController.clearAndRestoreCurrentCursor();gController.hideManipulatives();gHotKeys.disableKeys()
 },"showLogin",function(){
 this.removeAllStates();this.contents.ls.li.loginIdField.setAttribute("text","");if(gController.displayText==true||gController.displayText=="true"){
 this.contents.ls.pw.otherPasswordField.setAttribute("visible",false);this.contents.ls.pw.istepPasswordField.setAttribute("visible",true);this.contents.ls.pw.istepPasswordField.setAttribute("text","")
