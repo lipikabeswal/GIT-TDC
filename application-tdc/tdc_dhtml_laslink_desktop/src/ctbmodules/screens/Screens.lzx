@@ -203,6 +203,7 @@
 			}
 			gController.clearAndRestoreCurrentCursor();
 			gController.hideManipulatives();
+			gHotKeys.disableKeys();
         </method>
         <method name="showLogin">
 
