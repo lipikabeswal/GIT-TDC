@@ -76,6 +76,7 @@
 
         <handler name="onisactive"><![CDATA[
 			//Debug.write("onisactive.....");
+			var visitedCount = gController.visitedCount;
 			this.themeResource = 'theme';
             if (this.isactive) {
                 //make sure we're visible on the navigation bar
@@ -88,7 +89,7 @@
 			 if(this.allow_revisit != null){
 				if(this.allow_revisit != true){
 					if(!gController.isTestPaused) {
-						if(this.isvisited || this.isanswered){
+						if(this.isvisited || this.isanswered || this.itemnum <= visitedCount){
 							this.btn.setAttribute('clickable',true);
 							this.btnText.setAttribute('fgcolor','gray');
 							this.themeResource = 'theme_disable';
@@ -148,6 +149,7 @@
         </handler>
 
         <method name="_changeStatus" args="ismouseover"><![CDATA[
+			var visitedCount = gController.visitedCount;
             var newframe = 1;
 
               if (ismouseover) {
@@ -171,6 +173,9 @@
 											newframe = 11;
 				else if (isanswered &&
 						 this.allow_revisit != true)
+											newframe = 11;
+				else if(this.itemnum <= visitedCount && 
+						this.allow_revisit != true)
 											newframe = 11;
 				}
                 else                        newframe = 1;

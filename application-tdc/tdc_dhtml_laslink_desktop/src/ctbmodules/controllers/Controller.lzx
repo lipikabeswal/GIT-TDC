@@ -611,6 +611,8 @@
 		
 		<attribute name="allowNavigate" value="true" type="boolean" />
 		<attribute name="allowItmeNavigate" value="true" type="boolean" />
+		<attribute name="visitedCount" type="number" value="0" />
+		<attribute name="isPauseScreen" type="boolean" value="false"/>
 		
 		<handler name="oncanNotAnswer" args="data"><![CDATA[
 			if(answerArray.length > 0) {
@@ -1740,7 +1742,7 @@
 			//Debug.write("seed, total : ", seed, total);
  			populateRandomIndexArray(seed, total);
  		}
- 		
+ 		this.setAttribute('visitedCount',this.totalVisited());
         ]]></method>
 
 		<!-- populates random index array with the mods of the fibonacci series -->
@@ -2932,12 +2934,12 @@
 				var isAnswered 	   = dpstudentdata.xpathQuery("runtime/item_model[@eid='"+fnode.getAttr('id')+"']/@answered") == '1';
 				var revisitAllowed = dpstudentdata.xpathQuery("runtime/item_model[@eid='"+fnode.getAttr('id')+"']/@allow_revisit") != 'false';
 				var isVisited 	   = dpstudentdata.xpathQuery("runtime/item_model[@eid='"+fnode.getAttr('id')+"']/@is_visited") == 'true';
-
+				var itemNumber = dpstudentdata.xpathQuery("runtime/item_model[@eid='"+fnode.getAttr('id')+"']/@item_no");
 //Debug.write("isAnswered : revisitAllowed : isVisited : "+isAnswered +":"+ revisitAllowed +":"+ isVisited);
 				if(!isPauseTest) {
 					if(revisitAllowed != null){
 						if(!revisitAllowed){
-					  		if(isVisited || isAnswered){	
+					  		if(isVisited || isAnswered || itemNumber <= this.visitedCount){	
 	//Debug.write("getItemFromOffset..." + currItemOffset() +" : "+ offset);				
 								if(currItemOffset() > offset) {
 									return getItemFromOffset(offset - 1);
@@ -3299,6 +3301,7 @@
 		    
 			this.setAttribute('isPauseTest',true);
 			this.setAttribute('isTestPaused',true); //added to enable the state of question bar button on returning from pause screen.
+			this.setAttribute('isPauseScreen',true);
 			//gController.setAttribute("isPaused",false);
             if ( pausable == true ) {
             	this.setAttribute('isAudioPaused', true);
@@ -3532,7 +3535,7 @@
 		]]></method>
 
 		<method name="closeOpenManipulatives"><![CDATA[
-			if(!isMarked()){       
+			if(!isMarked() || isPauseScreen){       
 				var dn = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/general');
 				var manips = new Array("oneeighth_inch_ruler",
 			 				           "half_inch_ruler", 
@@ -3561,6 +3564,7 @@
 					}
 				}
 			}
+			this.setAttribute('isPauseScreen',false);
 		]]></method>
 
 		<method name="closeOpenMaskingManipulatives"><![CDATA[

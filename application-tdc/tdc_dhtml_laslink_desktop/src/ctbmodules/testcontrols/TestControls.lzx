@@ -100,11 +100,21 @@
 
 			var currentItemNumber = parseInt(this.curritempos);
 			
-			if(currentItemNumber != 1 && !gController.fwdOnly){				
-                this.btns.navbtns.btnback.setAttribute ('visible', true);
+			if(gController.productTypeVal.indexOf('LASLINKS') >= 0) {
+				if(currentItemNumber != 1){				
+                	this.btns.navbtns.btnback.setAttribute ('visible', true);
+				}
+				else{
+                	this.btns.navbtns.btnback.setAttribute ('visible', false);
+				}
 			}
-			else{
-                this.btns.navbtns.btnback.setAttribute ('visible', false);
+			else {
+				if(currentItemNumber != 1 && !gController.fwdOnly){				
+	                this.btns.navbtns.btnback.setAttribute ('visible', true);
+				}
+				else{
+	                this.btns.navbtns.btnback.setAttribute ('visible', false);
+				}
 			}
 //Debug.write("currentItemNumber : "+currentItemNumber+" : "+gController.getNextNavigableOffset(currentItemNumber));			
             //if(gController.adaptive == 'true' && currentItemNumber == gController.subtestLength){
@@ -186,7 +196,7 @@
             <view name="navbtns">
                 <basebutton name="btnback" resource="go_back_btn" x="0"
                             enabled="${ classroot.uienabled == true &amp;&amp; classroot.isDisableNavigation == false }"
-                            disabledResourceNumber="1"  visible="${!gController.fwdOnly &amp;&amp; !gController.onFirstItem()}">
+                            disabledResourceNumber="1"  visible="${!gController.onFirstItem()}">
                 			
                 			<handler name="onmouseover">
                                 lz.Cursor.showHandCursor(true);
