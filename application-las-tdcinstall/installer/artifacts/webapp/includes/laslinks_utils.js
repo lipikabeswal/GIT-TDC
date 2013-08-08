@@ -22,13 +22,13 @@ function iframeLoaded(id, iframe){
 			iframeCount  = jQuery('iframe[src ^= "http:items/"]');
 			for(var i=0; i<iframeCount.length; i++){
 				iframeSource = iframeCount[i];
-				imageCount = jQuery(iframeSource).contents().find('img');
-				for(var j=0; j<imageCount.length; j++){
-					imageSource = imageCount[j];
-					jQuery(imageSource).on("dragstart" , function(e){
+				imageCount = jQuery(iframeSource).contents().find('#wrapper');
+				/*for(var j=0; j<imageCount.length; j++){
+					imageSource = imageCount[j];*/
+					jQuery(imageCount).on("dragstart" , function(e){
 						e.preventDefault();
 					});
-				}
+				//}
 			}
 			if(iframe.src.indexOf('asset.html')!=-1){
 				folderName = iframe.src.substring(iframe.src.indexOf('items')+6,iframe.src.indexOf('asset.html') -1);
