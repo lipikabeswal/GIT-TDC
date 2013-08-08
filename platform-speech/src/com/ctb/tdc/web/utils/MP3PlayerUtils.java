@@ -94,7 +94,9 @@ public class MP3PlayerUtils {
 	}
 	
 	 public void setVolume(String volume) {
-		player.setVolume(volume);
+		if(player != null){
+    		player.setVolume(volume);
+    	}
 	}
     
 
