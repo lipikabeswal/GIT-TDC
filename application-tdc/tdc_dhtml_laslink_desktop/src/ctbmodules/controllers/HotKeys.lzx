@@ -634,7 +634,9 @@
         </method>        
         <method name="goBack" args="ignore=null">
 		<![CDATA[
-			if(gController.allowNavigate && gController.allowItmeNavigate){ 
+           if(gItemInterface.visible)
+            {
+          	  if(gController.allowNavigate && gController.allowItmeNavigate){ 
 				if(gController.unlockNavigation) {
 				    //if(canvas.loadItem){
 		            	//canvas.freezUI();
@@ -649,12 +651,15 @@
 						} 
 					//}	   
 				} 
-			} 
+			}
+           } 
        	]]>
 		</method>
         <method name="goOn" args="ignore=null"> 
             <![CDATA[
-	        if(gController.allowNavigate && gController.allowItmeNavigate){ 
+            if(gItemInterface.visible)
+             {
+       	        if(gController.allowNavigate && gController.allowItmeNavigate){ 
 	        	if(gController.unlockNavigation) {
 		            //if(canvas.loadItem){
 		                //canvas.freezUI();
@@ -668,31 +673,39 @@
 			            
 			        //}	  
 			    } 
-			  }	 
+			  }	
+             } 
 			  ]]> 
         </method>
         <method name="toggleMark" args="ignore=null"> 
         <![CDATA[
-        if(gRevisitFalsePopup.visible == false){
+       if(gItemInterface.visible)
+        { if(gRevisitFalsePopup.visible == false){
             if(canvas.loadItem){
         		//canvas.freezUI();
 	            this.exitPopups(); 
 	            gEnlargePopup.shrink();
 	         	gController.toggleMark();  
 	         }
-	    }    
+	    }
+       }    
 	    ]]> 	            
         </method>
         <method name="toggleTimer" args="ignore=null">
+          if(gItemInterface.visible)
+           {
             if(canvas.loadItem){
         		//canvas.freezUI();
 	            this.exitPopups(); 
 	             gEnlargePopup.shrink();
 	        	gController.toggleTimer();  
-	        }	           
+	        }
+           }	           
         </method>
         <method name="pause" args="ignore=null"> 
-        	if(canvas.loadItem){
+          if(gItemInterface.visible)
+           { 	
+              if(canvas.loadItem){
 	        	if(gController.pausable == 'true'){
 	        		lz.Focus.clearFocus();
 	        	}
@@ -702,10 +715,13 @@
 	        	    //canvas.freezUI();
 	        		gController.pauseTest();
 	        	}	
-	        }		
+	        }
+           }		
         </method>
         <method name="stop" args="ignore=null"><![CDATA[
-			if(this.questionBar) {
+	    if(gItemInterface.visible)
+         {		
+          if(this.questionBar) {
 				this.questionBar._changeStatus(false);
 			}
             if(canvas.loadItem){    
@@ -717,10 +733,13 @@
 				gController.setAttribute('isAudioPaused', true);
 	        	gController.finishTest();   
 	        	}	
-	        }		           
+	        }
+         }		           
         ]]></method>
         <method name="finish" args="ignore=null"><![CDATA[  
-        	if(this.questionBar) {
+         if(gItemInterface.visible)
+          {	
+            if(this.questionBar) {
 				this.questionBar._changeStatus(false);
 			}
         	if(gController.unlockNavigation) { 
@@ -730,7 +749,8 @@
 		            gEnlargePopup.shrink();
 		        	gController.finishTestShortcut(); 
 		        }	    
-		    } 
+		    }
+          } 
          ]]></method>
     </node>
 
