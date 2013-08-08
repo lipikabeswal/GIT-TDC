@@ -58,6 +58,11 @@
 	        { 
 	          gController.clearAndRestoreCurrentCursor();
 	        }
+	        if(canvas.currentCursor == 'eraser_cursor')
+	        {
+	          // gController.clearAndRestoreCurrentCursor();
+	           lz.Cursor.showHandCursor(false); 
+	        }
 	     }
     </method>
 
