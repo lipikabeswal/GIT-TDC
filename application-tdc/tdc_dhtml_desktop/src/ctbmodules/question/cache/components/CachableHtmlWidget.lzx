@@ -1,6 +1,6 @@
 <library>
 	<include href="CachableComponent.lzx" />
-
+	<include href="lib/htmlnew.lzx" />
 
 	<!-- ************************************
 		Cachable Html Widget
@@ -197,12 +197,42 @@ Debug.write("Cachaable html widget ondata");
        
        <view name="main" width="${parent.parent.width - 20}" height="${parent.parent.height - 10}">
  	      <!-- <html name="ht" id="htmlwiget" x="5" y="5" width="800" height="600" scrollbars="false" mouseevents="true" focusable="true"/>-->
- 	      
- 	    <html name="ht" id="htmlwiget" x="5" scrollbars="false" mouseevents="true" focusable="true" width="780" height="490">
-			<handler name="onload">
-				classroot.checkiframeState();
-			</handler>
-		 </html>
+ 	    
+ 	    <!--  Delegate for html onload event; used to call classroot.checkiframeState -->
+ 	    <attribute name="loaddel" value="null" type="expression" />
+ 	    
+ 	    <handler name="oninit">
+			/* Workaround for drag and drop bug on Mac
+			   where due to the application scaling
+               content within the TEItems cannot be 
+	           dragged in areas outsite the unscaled
+               frame dimensions. The htmlnew class is a 
+               modified version of
+			   lps/components/extensions/html.lzx
+             */
+			var htmlFrameClass = "html";
+			if (navigator.appVersion.indexOf("Mac")!=-1) {
+				htmlFrameClass = "htmlnew";
+			}
+			var opts = {
+				x: 5,
+				width: 780,
+				height: 490,
+				clip: true,
+				scrollbars: false,
+				mouseevents: true,
+				focusable: true
+			};
+			this.ht = new lz[htmlFrameClass](this, opts);
+			this.loaddel = new LzDelegate(this, 'frameLoaded');
+			this.loaddel.register(this.ht, "onload");    
+ 	    </handler>
+
+	    <method name="frameLoaded" args="ignore=null">
+	        this.loaddel.unregisterAll();
+			classroot.checkiframeState();
+        </method>  
+
  	     
  	    <!-- <html name="ht" id="htmlwiget" width="${780 * canvas.xscalefactor}" height="${450 * canvas.yscalefactor}" scrollbars="false">
 			<handler name="onload">
