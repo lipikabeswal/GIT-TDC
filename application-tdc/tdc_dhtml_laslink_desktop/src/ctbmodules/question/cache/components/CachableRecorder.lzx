@@ -64,6 +64,7 @@
 		<attribute name="micState" type="boolean" value="false"/>
 		<attribute name="stopCalled" type="boolean" value="false"/>
 		<attribute name="blinkerVal" type="number" value="0"/>
+		<attribute name="recordingCounter" type="number" value="1"/>
 		<attribute name="resetCalled" type="boolean" value="false"/>
 		<!-- For LLO128-->
 		<attribute name="requestSent" type="boolean" value="false"/>
@@ -498,16 +499,22 @@
 			}
 		</method>
 
-		<method name="reset" args="methodname">
-		
+		<method name="reset" args="methodname"><![CDATA[
 			//console.log("resetCalled "+this.resetCalled + methodname);
 			if(this.resetCalled == false || gController.isplaying == false) {
-				if(methodname == 'reset') {
+				if(methodname == 'reset'){
+					if(this.recordingCounter <= 2){
+						this.recordingCounter =  this.recordingCounter + 1;
+				}
 					sendRequest(methodname);
 					this.requestSent = false;
-					this.resetCalled = true;
-					gController.updateAudioField(this.widget_id, false);
-					gController.setAttribute("resetButtonEnable",false);
+					if(this.recordingCounter == 3){
+						this.resetCalled = true;
+						gController.updateAudioField(this.widget_id, false);
+						
+					}
+				gController.setAttribute("resetButtonEnable",false);
+					
 				}
 				this.stopCalled = true;			//set true 
 				this.micState = false;			//reset this attribute also
@@ -532,7 +539,7 @@
 				this.whitewrapperOverLay.setAttribute('visible',false);
 			}
 			
-		</method>
+		]]></method>
 
 		<method name="startCountDownTimer">
 //console.log("Inside startCountDownTimer");
@@ -601,12 +608,16 @@
 			}
 			else if (result == 'RECORDING_STOP') {
 			//Debug.write("RECORDING_STOP..");
-				if(this.totalTime == 0) {
+				if(this.totalTime == 0 && this.recordingCounter == 3) {
 					gController.setAttribute("recordingCompleted",true);
 					this.recordButton.setAttribute("enabled", false);
 					this.resetButton.setAttribute("enabled", false);
 					this.stopButton.setAttribute("enabled", false);
 					return;
+				}else{
+				 if(this.totalTime == 0){
+				 	this.recordButton.setAttribute("enabled", true);
+				 }
 				}
 				this.recordButton.setAttribute("enabled", false);
 				if( gController.isplaying == false && this.resetCalled == false){
