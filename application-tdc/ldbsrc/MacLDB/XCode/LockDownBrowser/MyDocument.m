@@ -83,7 +83,7 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
 				break;
                     
                 case 12://Q
-                    if (ctrlIsDown) {
+                    if (ctrlIsDown || optIsDown || cmdIsDown) {
                         return NULL;
                     }
 
