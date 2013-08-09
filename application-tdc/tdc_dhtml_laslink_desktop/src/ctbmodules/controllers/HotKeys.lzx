@@ -3,7 +3,14 @@
     <node id="gHotKeys">
 
         <method name="enableKeys">
-            console.log("===enablekeys====");
+          //  Debug.write("===enablekeys====");
+            var os = getOS();
+           
+           	if (os.indexOf("MacIntel") >= 0) {    
+                dmacOptionKeysHandler.register( lz.Keys, 'onkeydown' );
+               //  Debug.write("==== Enable os IF MAC===",os);
+            }else{
+           // Debug.write("==== Enable os ELSE win===",os);
             lz.Keys.callOnKeyCombo( dtoggleA, [ 'a' ] );
             lz.Keys.callOnKeyCombo( dtoggleB, [ 'b' ] );
             lz.Keys.callOnKeyCombo( dtoggleC, [ 'c' ] );
@@ -52,14 +59,19 @@
             lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
             lz.Keys.callOnKeyCombo( dfinish, [ 'control', 'f' ] );
             
-            var os = getOS();
-           	if (os.indexOf("Mac") >= 0) {    
-                dmacOptionKeysHandler.register( lz.Keys, 'onkeydown' );
             }
         </method>
 
         <method name="disableKeys"><![CDATA[
-            console.log("===disablekeys====");
+           // console.log("===disablekeys====");
+
+			var os = getOS();
+	    	//Debug.write("====os===",os);
+	   		if (os.indexOf("MacIntel") >= 0) {
+				//console.log("Inside disableKeys***** Default");
+           		dmacOptionKeysHandler.unregisterFrom( lz.Keys.onkeydown );
+				dmacOptionKeysHandlerDefault.register( lz.Keys, 'onkeydown' );
+            }else{
             lz.Keys.removeKeyComboCall( dtoggleA, [ 'a' ] );
             lz.Keys.removeKeyComboCall( dtoggleB, [ 'b' ] );
             lz.Keys.removeKeyComboCall( dtoggleC, [ 'c' ] );
@@ -109,20 +121,19 @@
             lz.Keys.removeKeyComboCall( dfinish, [ 'control', 'f' ] );
             
             if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false) {
+            	//console.log("Inside disableKeys***** Default");
 	           	lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l' ] );
 	            lz.Keys.callOnKeyCombo( dtoggleTimer, [ 'control', 'o' ] );
 	            lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
 	            lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
             }
-	    	var os = getOS();
-	   		if (os.indexOf("Mac") >= 0) {
-           		dmacOptionKeysHandler.unregisterFrom( lz.Keys.onkeydown );
-            }
+	    }
+			
         ]]></method>
 
 		
         <method name="isComboHotKeyDown"><![CDATA[
-            console.log("inside ishotkeydown @315");
+          //  Debug.write("inside ishotkeydown @315");
             
             var isdown = false;
             if ((lz.Keys.isKeyDown("shift") || 
@@ -173,6 +184,7 @@
 		        	var capslock = keys[2];
 		        	var control = keys[3];
 					if(gController.unlockNavigation){
+				//	console.log("gController.unlockNavigation****",gController.unlockNavigation);
 			        	if(key == 'A' || key == 'Shift+A' || key == 'Caps_lock+A' || key == 'Shift+Caps_lock+A')
 			       			toggleA();
 			       		else if(key == 'B' || key == 'Shift+B' || key == 'Caps_lock+B' || key == 'Shift+Caps_lock+B')
@@ -210,6 +222,7 @@
 			       		else if(key == 'Ctrl+F')
 			       			finish();
 				} else if(!gController.canNotAnswer){
+				//	console.log("gController.canNotAnswer****",gController.canNotAnswer);
 						if(key == 'A' || key == 'Shift+A' || key == 'Caps_lock+A' || key == 'Shift+Caps_lock+A')
 			       			toggleA();
 			       		else if(key == 'B' || key == 'Shift+B' || key == 'Caps_lock+B' || key == 'Shift+Caps_lock+B')
@@ -239,6 +252,7 @@
 							 stop();
                           
 					} else {
+					//	console.log("Inside else");
 						if(key == 'Ctrl+L')
 							toggleMark();
 						else if(key == 'Ctrl+U')
@@ -257,69 +271,115 @@
 		<attribute name="KK" type="boolean" value="false"/>-->		
 		<attribute name="dmacOptionKeysHandler"
                    value="$once{ new lz.Delegate( this, 'macOptionKeysHandler' ) }"/>
+		<attribute name="dmacOptionKeysHandlerDefault"
+                   value="$once{ new lz.Delegate( this, 'macOptionKeysHandlerDefault' ) }"/>
+		<attribute name="ctrlPressed" value="false" type="boolean"/>
+		<attribute name="caseCalled" value="true" type="boolean"/>
                    
 		<method name="exitPopups">
             gController.exitPopups();
         </method>
         
 		
+		<method name="macOptionKeysHandlerDefault" args="k"><![CDATA[
+		//	console.log("Inside macOptionKeysHandlerDefault****",k);
+			if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false) {
+				switch(k){
 
+				case 76: 
+						//Debug.write("===case 76 L Default==",this.ctrlPressed);	
+ 						if(this.ctrlPressed && this.caseCalled){
+		                    this.exitPopups();
+		                    gController.toggleMark(); 
+						}
+	                    break;   
+					case 83: 
+							
+ 						if(this.ctrlPressed && this.caseCalled){
+							//console.log("===case 83 S Default==",this.ctrlPressed);
+		                    this.exitPopups();
+		                    gController.finishTest(); 
+		                    gTooltip.hideTooltip (); 
+						}
+
+	                    break;
+					case 85: 
+						
+ 						if(this.ctrlPressed && this.caseCalled){
+						//	console.log("===case 85 U  Default==",this.ctrlPressed);	
+		                    this.exitPopups();
+		                    gController.pauseTest(); 
+		                    gTooltip.hideTooltip (); 
+						}
+						break;
+					
+					default:
+						break;
+				}
+
+			}
+		
+		]]>
+		</method>
 
 		<method name="macOptionKeysHandler" args="k"><![CDATA[
 			console.log("macOptionKeysHandler the key pressed is :: ",k);
 			if(gController.isWaitPopupOpen || gScreens.visible){
-			//console.log("macOptionKeysHandler inside pleasewait block");
+			//Debug.write("macOptionKeysHandler inside pleasewait block");
 			//do nothing if the please wait is shown.
+			
 			}else if(!gController.canNotAnswer && !gController.scratchpadOpen && !gController.unlockNavigation){
+				//console.log("Inside 1st else if");
 	           switch ( k ) {
+					
 					case 65: 
 	                    this.exitPopups();
-	                    //toggleA();
-	                    //console.log("toggle a called");
+	                    toggleA();
+	                   // Debug.write("toggle a called");
 	                    break;
 					case 66: 
 	                    this.exitPopups();
-	                    //toggleB();
-	                    //console.log("toggle b called");
+	                    toggleB();
+	                  //  Debug.write("toggle b called");
 	                    break;
 					case 67: 
 	                    this.exitPopups();
-	                    //toggleC();
-	                    //console.log("toggle c called");
+	                    toggleC();
+	                 //   Debug.write("toggle c called");
 	                    break;
 					case 68: 
 	                    this.exitPopups();
-	                    //toggleD();
-	                    //console.log("toggle d called");
+	                    toggleD();
+	                  //  Debug.write("toggle d called");
 	                    break;
 					case 69: 
 	                    this.exitPopups();
-	                    //toggleE();
+	                    toggleE();
 	                    break;
 					case 70: 
 	                    this.exitPopups();
-	                    //toggleF();
+	                    toggleF();
 	                    break;
 					case 71: 
 	                    this.exitPopups();
-	                    //toggleG();
+	                    toggleG();
 	                    break;
 					case 72: 
 	                    this.exitPopups();
-	                    //toggleH();
+	                    toggleH();
 	                    break;
 					case 73: 
 	                    this.exitPopups();
-	                    //toggleI();
+	                    toggleI();
 	                    break;
 					case 74: 
 	                    this.exitPopups();
-	                    //toggleJ();
-	                    break;
+	                   	toggleJ();
+						break;
 	                case 75: 
-	                    this.exitPopups();
-	                    //toggleK();
-	                    break;    
+	                     this.exitPopups();
+						toggleK();
+						break;    
 					case 12: 
 	                    this.exitPopups();
 	                    gController.toggleMark(); 
@@ -333,69 +393,162 @@
 	                    this.exitPopups();
 	                    gController.pauseTest(); 
 	                    break;
+					case 70: 
+	                   	this.exitPopups();
+	                    toggleF();
+						break;
+					case 76: 
+						//console.log("===case 76 L 1==",this.ctrlPressed);	
+ 						if(this.ctrlPressed){
+							this.setAttribute('caseCalled',false);
+		                    this.exitPopups();
+		                    gController.toggleMark(); 
+						}
+	                    break;  
+					case 83: 
+						if(this.ctrlPressed){
+							//console.log("===case 83 S==",this.ctrlPressed);	
+							this.setAttribute('caseCalled',false);
+		                    this.exitPopups();
+		                    gController.finishTest(); 
+		                    gTooltip.hideTooltip (); 
+						}
+
+	                    break;
+					case 85: 
+						if(this.ctrlPressed){
+						//	console.log("===case 85 U==",this.ctrlPressed);	
+							this.setAttribute('caseCalled',false);
+		                    this.exitPopups();
+		                    gController.pauseTest(); 
+		                    gTooltip.hideTooltip (); 
+						}
+
+	                    break;
 					default:
 						break;
 		 		}
 			} else if(!gController.canNotAnswer && !gController.scratchpadOpen && gController.unlockNavigation){
+
 				  switch ( k ) {
+						
 					case 65: 
 	                    this.exitPopups();
-	                    //toggleA();
-	                    //console.log("toggle a called");
+	                    toggleA();
+	                   // Debug.write("toggle a called else");
 	                    break;
 					case 66: 
 	                    this.exitPopups();
-	                    //toggleB();
-	                    //console.log("toggle b called");
+	                    toggleB();
+	                 //   Debug.write("toggle b called else");
 	                    break;
 					case 67: 
 	                    this.exitPopups();
-	                    //toggleC();
-	                    //console.log("toggle c called");
+	                    toggleC();
+	                 //   Debug.write("toggle c called else");
 	                    break;
 					case 68: 
 	                    this.exitPopups();
-	                    //toggleD();
-	                    //console.log("toggle d called");
+	                    toggleD();
+	                 //   Debug.write("toggle d called else");
 	                    break;
 					case 69: 
 	                    this.exitPopups();
-	                    //toggleE();
+	                    toggleE();
 	                    break;
 					case 70: 
 	                    this.exitPopups();
-	                    //toggleF();
+	                 //   Debug.write("===case 70 F==",this.ctrlPressed);	
+ 						if(this.ctrlPressed){
+							gController.finishTest();
+							gTooltip.hideTooltip (); 
+						}else{
+	                    	toggleF();
+						}
 	                    break;
 					case 71: 
 	                    this.exitPopups();
-	                    //toggleG();
+	                    toggleG();
 	                    break;
 					case 72: 
 	                    this.exitPopups();
-	                    //toggleH();
+	                    toggleH();
 	                    break;
 					case 73: 
 	                    this.exitPopups();
-	                    //toggleI();
+	                    toggleI();
 	                    break;
 					case 74: 
 	                    this.exitPopups();
-	                    //toggleJ();
+	                 //   Debug.write("===case 74 J 2==",this.ctrlPressed);	
+ 						if(this.ctrlPressed){
+							if(gController.allowNavigate && gController.allowItmeNavigate){
+							if(!gController.fwdOnly){
+			                    this.exitPopups();
+			                    gController.stepNavigateBack();  
+							}
+						}
+						}else{
+	                    	toggleJ();
+						}
+
 	                    break;
 	                case 75: 
 	                    this.exitPopups();
-	                    //toggleK();
-	                    break;    
+						//Debug.write("===case 75 K 2==",this.ctrlPressed);	
+ 						if(this.ctrlPressed){
+							if(gController.allowNavigate && gController.allowItmeNavigate){
+		                    this.exitPopups();
+		                    gController.stepNavigateForward(); 
+		                    gTooltip.hideTooltip (); 
+		                }
+						}else{
+	                    	toggleK();
+						}
+	                    
+	                    break; 
+					case 76: 
+					//	Debug.write("===case 76 L first 2==",this.ctrlPressed);	
+ 						if(this.ctrlPressed){
+							this.setAttribute('caseCalled',false);
+		                    this.exitPopups();
+		                    gController.toggleMark(); 
+						}
+	                    break;   
+					case 83: 
+						
+ 						if(this.ctrlPressed){
+						//	console.log("===case 83 S==",this.ctrlPressed);	
+							this.setAttribute('caseCalled',false);
+		                    this.exitPopups();
+		                    gController.finishTest(); 
+		                    gTooltip.hideTooltip (); 
+						}
+
+	                    break;
+					case 85: 
+						
+ 						if(this.ctrlPressed){
+						//	console.log("===case 85 U==",this.ctrlPressed);	
+							this.setAttribute('caseCalled',false);
+		                    this.exitPopups();
+		                    gController.pauseTest(); 
+		                    gTooltip.hideTooltip (); 
+						}
+
+	                    break;
 					case 12: 
 	                    this.exitPopups();
 	                    gController.toggleMark(); 
 	                    break;
 					case 19: 
+				//	Debug.write("Case 19 finishTest else");
 	                    this.exitPopups();
 	                    gController.finishTest(); 
 	                     gTooltip.hideTooltip (); 
 	                    break;
 					case 21: 
+				//	Debug.write("Case 21 pauseTest else");
 	                    this.exitPopups();
 	                    gController.pauseTest(); 
 	                    break;
@@ -404,6 +557,7 @@
 	        			gController.finishTestShortcut();      
 	                    break;
 					case 10: 
+				//		Debug.write("Case 10 stepNavigateBack else");
 						if(gController.allowNavigate && gController.allowItmeNavigate){
 							if(!gController.fwdOnly){
 			                    this.exitPopups();
@@ -412,6 +566,7 @@
 						}
 	                    break;
 					case 11: 
+				//	Debug.write("Case 11 stepNavigateForward else");
 						if(gController.allowNavigate && gController.allowItmeNavigate){
 		                    this.exitPopups();
 		                    gController.stepNavigateForward(); 
@@ -423,23 +578,57 @@
 		 		}	 
 			
 			} else {
+//console.log("Inside else ");
 				 switch ( k ) {
-					case 12: 
+					/*case 12: 
 	                    this.exitPopups();
 	                    gController.toggleMark(); 
 	                    break;
 					case 19: 
+					//	Debug.write("Case 19 finishTest else else");
 	                    this.exitPopups();
 	                    gController.finishTest(); 
 	                    gTooltip.hideTooltip (); 
 	                    break;
 					case 21: 
 	                    this.exitPopups();
+					//	console.log("Case 21 pauseTest else else");
 	                    gController.pauseTest(); 
+	                    break;*/
+					case 76: 
+					//	Debug.write("===case 76 L 3==",this.ctrlPressed);	
+ 						if(this.ctrlPressed){
+							this.setAttribute('caseCalled',false);
+		                    this.exitPopups();
+		                    gController.toggleMark(); 
+						}
+	                    break;   
+					case 83: 
+							
+ 						if(this.ctrlPressed){
+						//	console.log("===case 83 S==",this.ctrlPressed);
+							this.setAttribute('caseCalled',false);
+		                    this.exitPopups();
+		                    gController.finishTest(); 
+		                    gTooltip.hideTooltip (); 
+						}
+
 	                    break;
+					case 85: 
+						
+ 						if(this.ctrlPressed){
+						//	console.log("===case 85 U 2nd==",this.ctrlPressed);	
+							this.setAttribute('caseCalled',false);
+		                    this.exitPopups();
+		                    gController.pauseTest(); 
+		                    gTooltip.hideTooltip (); 
+						}
+						break;
+					
 					default:
 						break;
 					}
+				this.setAttribute('caseCalled',true);
 			}
 	 	]]></method>
 
@@ -479,18 +668,33 @@
                    value="$once{ new lz.Delegate( this, 'finish' ) }" type="expression"/>
   
 
-		<handler name="onkeydown" reference="lz.Keys" args="k">
+		<handler name="onkeydown" reference="lz.Keys" args="k"><![CDATA[
+			//Debug.write("Inside onkeydown");
          if(gScratchpad.scratchpadHasFocus){
             this.setAttribute("onceOnly",false); 
 		 }else{		
             this.setAttribute("onceOnly",true); 
-		 }	  	
-	   </handler>
+		 }	
+         var os = getOS();
+	 	 if (os.indexOf("MacIntel") >= 0 && k == 17) {    
+ 			//console.log("====ONKEY DOWN===mac==",k);
+				this.setAttribute('ctrlPressed',true);  	
+		}
+	   ]]></handler>
+	   <handler name="onkeyup" reference="lz.Keys" args="k"><![CDATA[
+        // Debug.write("Inside onkeyUp");
+         var os = getOS();
+	 	 if (os.indexOf("MacIntel") >= 0 && k == 17) {    
+ 		//	console.log("====ONKEY UP===mac==",k);
+			
+				this.setAttribute('ctrlPressed',false);  	
+		}
+	   ]]></handler>
 
 		<attribute name="onceOnly" type="boolean" value="true"/>
 
         <method name="toggleA" args="ignore=null">  
-            //console.log("===toggle A====");
+         //  Debug.write("===toggle A====");
             if(gItemInterface.visible){
 			if(this.onceOnly){
         	if(!gController.canNotAnswer) {
@@ -506,7 +710,7 @@
         </method>
 
         <method name="toggleB" args="ignore=null">  
-          //console.log("===toggle B====");
+         // Debug.write("===toggle B====");
           if(gItemInterface.visible){
           if(this.onceOnly){
         	if(!gController.canNotAnswer) {
@@ -520,7 +724,8 @@
          }
          }
         </method>
-        <method name="toggleC" args="ignore=null">  
+        <method name="toggleC" args="ignore=null"> 
+      //   Debug.write("===toggle C===="); 
         	if(gItemInterface.visible){
             if(this.onceOnly){
         	if(!gController.canNotAnswer) {
@@ -535,6 +740,7 @@
          }
          </method>
         <method name="toggleD" args="ignore=null">  
+      //  Debug.write("===toggle D===="); 
         	if(gItemInterface.visible){
  			if(this.onceOnly){  
         	if(!gController.canNotAnswer) {
@@ -631,12 +837,14 @@
 			this.setAttribute("onceOnly",false);
          }
 		}
-        </method>        
+        </method>  
+		<method name="toggleK" args="ignore=null">  
+			// Required for toggleK. Do not delete this method.
+        </method>       
         <method name="goBack" args="ignore=null">
 		<![CDATA[
-           if(gItemInterface.visible)
-            {
-          	  if(gController.allowNavigate && gController.allowItmeNavigate){ 
+		//Debug.write("Inside goBack****",gController.allowNavigate,gController.allowItmeNavigate,gController.unlockNavigation);
+			if(gController.allowNavigate && gController.allowItmeNavigate){ 
 				if(gController.unlockNavigation) {
 				    //if(canvas.loadItem){
 		            	//canvas.freezUI();
@@ -651,15 +859,13 @@
 						} 
 					//}	   
 				} 
-			}
-           } 
+			} 
        	]]>
 		</method>
         <method name="goOn" args="ignore=null"> 
             <![CDATA[
-            if(gItemInterface.visible)
-             {
-       	        if(gController.allowNavigate && gController.allowItmeNavigate){ 
+          //  Debug.write("Inside goOn****",gController.allowNavigate,gController.allowItmeNavigate,gController.unlockNavigation);
+	        if(gController.allowNavigate && gController.allowItmeNavigate){ 
 	        	if(gController.unlockNavigation) {
 		            //if(canvas.loadItem){
 		                //canvas.freezUI();
@@ -673,39 +879,32 @@
 			            
 			        //}	  
 			    } 
-			  }	
-             } 
+			  }	 
 			  ]]> 
         </method>
         <method name="toggleMark" args="ignore=null"> 
         <![CDATA[
-       if(gItemInterface.visible)
-        { if(gRevisitFalsePopup.visible == false){
+	//	console.log("===toggleMark==="); 
+        if(gRevisitFalsePopup.visible == false){
             if(canvas.loadItem){
         		//canvas.freezUI();
 	            this.exitPopups(); 
 	            gEnlargePopup.shrink();
 	         	gController.toggleMark();  
 	         }
-	    }
-       }    
+	    }    
 	    ]]> 	            
         </method>
         <method name="toggleTimer" args="ignore=null">
-          if(gItemInterface.visible)
-           {
             if(canvas.loadItem){
         		//canvas.freezUI();
 	            this.exitPopups(); 
 	             gEnlargePopup.shrink();
 	        	gController.toggleTimer();  
-	        }
-           }	           
+	        }	           
         </method>
         <method name="pause" args="ignore=null"> 
-          if(gItemInterface.visible)
-           { 	
-              if(canvas.loadItem){
+        	if(canvas.loadItem){
 	        	if(gController.pausable == 'true'){
 	        		lz.Focus.clearFocus();
 	        	}
@@ -715,13 +914,10 @@
 	        	    //canvas.freezUI();
 	        		gController.pauseTest();
 	        	}	
-	        }
-           }		
+	        }		
         </method>
         <method name="stop" args="ignore=null"><![CDATA[
-	    if(gItemInterface.visible)
-         {		
-          if(this.questionBar) {
+			if(this.questionBar) {
 				this.questionBar._changeStatus(false);
 			}
             if(canvas.loadItem){    
@@ -733,13 +929,10 @@
 				gController.setAttribute('isAudioPaused', true);
 	        	gController.finishTest();   
 	        	}	
-	        }
-         }		           
+	        }		           
         ]]></method>
         <method name="finish" args="ignore=null"><![CDATA[  
-         if(gItemInterface.visible)
-          {	
-            if(this.questionBar) {
+        	if(this.questionBar) {
 				this.questionBar._changeStatus(false);
 			}
         	if(gController.unlockNavigation) { 
@@ -749,8 +942,7 @@
 		            gEnlargePopup.shrink();
 		        	gController.finishTestShortcut(); 
 		        }	    
-		    }
-          } 
+		    } 
          ]]></method>
     </node>
 
