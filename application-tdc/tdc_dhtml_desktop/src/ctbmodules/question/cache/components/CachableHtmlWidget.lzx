@@ -230,6 +230,7 @@ Debug.write("Cachaable html widget ondata");
 
 	    <method name="frameLoaded" args="ignore=null">
 	        this.loaddel.unregisterAll();
+	        this.loaddel = null;
 			classroot.checkiframeState();
         </method>  
 
