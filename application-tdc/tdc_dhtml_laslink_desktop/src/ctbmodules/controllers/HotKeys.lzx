@@ -640,7 +640,7 @@
 				if(gController.unlockNavigation) {
 				    //if(canvas.loadItem){
 		            	//canvas.freezUI();
-						if(!gController.fwdOnly){
+						//if(!gController.fwdOnly){ // Commented as go_back button is now present for fwdOnly test.
 			        		if(!gController.onFirstItem()){
 			        			lz.Focus.clearFocus();
 			        		}
@@ -648,7 +648,7 @@
 			            	this.exitPopups();
 			            	 gEnlargePopup.shrink();
 			        		gController.stepNavigateBack();
-						} 
+						//} 
 					//}	   
 				} 
 			}
