@@ -596,15 +596,9 @@ function disableShortcuts() {
 	if (event.ctrlKey) {
 		switch(keystroke){
 			case 'l':
-			var os = getOS();
-			 if (os.indexOf("MacIntel") >= 0) {
-			 	event.preventDefault(); // disable Ctrl+L
-				break;
-			 }else{  
 				gHotKeys.toggleMark();
 				event.preventDefault(); // disable Ctrl+L
 				break;
-			}
 			case 'd':
 				event.preventDefault(); // disable Ctrl+D
 				break;
