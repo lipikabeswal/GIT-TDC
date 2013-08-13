@@ -510,9 +510,8 @@
 					this.requestSent = false;
 					if(this.recordingCounter == 3){
 						this.resetCalled = true;
-						gController.updateAudioField(this.widget_id, false);
-						
 					}
+				gController.updateAudioField(this.widget_id, false);
 				gController.setAttribute("resetButtonEnable",false);
 					
 				}
