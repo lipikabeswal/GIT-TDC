@@ -473,7 +473,6 @@
 
 		<method name="stopblinker" args="methodname">
 			//console.log("Inside stopblinker");
-			gController.setAttribute("playIfAnswered",true);
 			/*if(gController.isaudio){
 					gController.enableAllAudio();
 				}*/
@@ -490,6 +489,7 @@
 			this.micState = false;		
 			resetActivityMeterHeight();		//for showing zero actvity bar
 			if(this.recordStarted || methodname == 'reset') {
+				gController.setAttribute("playIfAnswered",true);
 				sendRequest(methodname);
 				this.green.setAttribute('visible',true);
 				this.recordStatus.setAttribute('text',"AUDIO CAPTURED");
