@@ -100,11 +100,7 @@ public class MP3PlayerUtils {
 		return player;
 	}
 
-	public void setVolume(String volume) {
-		setGain(volume);
-	}
-
-	private static void setGain(String vol) {
+	public void setVolume(String vol) {
 		Info source[] = { Port.Info.SPEAKER, Port.Info.LINE_OUT,
 				Port.Info.HEADPHONE };
 		// source = Port.Info.LINE_OUT;
@@ -127,13 +123,12 @@ public class MP3PlayerUtils {
 					volumeControl.setValue(v);
 					System.out.println("   new volume: "
 							+ volumeControl.getValue());
-					i++;
-
 				} catch (LineUnavailableException ex) {
 					System.err.println("source not supported");
 					ex.printStackTrace();
 				}
-			} 
+			}
+			i++;
 		}
 	}
 
