@@ -351,6 +351,25 @@
             contents.ts.setAttribute('visible', true );
 
             show();
+			
+            gManipulatives.setAttribute('visible',false);
+            hideMagnify();
+			gController.checkHideMaskingChoiceDD();
+			 if(canvas.currentCursor == 'highlighter_cursor'){
+					//console.log("highlighter cursor");
+	                gController.clearAndRestoreCurrentCursor();
+	         }
+			// to clear the eraser cursor when navigating to next item. 
+			else if(canvas.currentCursor == 'eraser_cursor'){
+	               	gController.clearAndRestoreCurrentCursor();
+	        }
+			// to clear the eraser cursor when navigating to next item. 
+			else if(canvas.currentCursor == 'eliminator_cursor'){
+	               	gController.clearAndRestoreCurrentCursor();
+	        }
+			else{	                	
+	               	gController.restoreCurrentCursor();
+	        }
         </method>
 
          <method name="show">
