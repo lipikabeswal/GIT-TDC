@@ -101,12 +101,9 @@
         -->
         <method name="setActiveItem" args="item, c">
             if (item != null) {
-                // If we already have control of the item, we don't need to take it back again
-                if (target != item) {
-                    this._control = c;
-                    this.target = item;
-                    this.takeControl ();
-                }
+	            this._control = c;
+	            this.target = item;
+	            this.takeControl ();
             } else {
                 this.yieldControl ();
             }
@@ -130,8 +127,6 @@
         <method name="takeControl">
             target.bringToFront ();
             bringToFront ();
-
-            var startTargetY =  target.getAttributeRelative('y', canvas);
 
             // Retrieve the linkage information for the target to apply
             // the correct scaling

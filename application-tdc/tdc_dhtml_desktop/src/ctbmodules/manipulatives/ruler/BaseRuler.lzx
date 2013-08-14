@@ -57,7 +57,7 @@
 
             if (data && hasstate) {
                 this.setAttribute('rotation', Number(data.getAttr('rotation')));
-                this.setAttribute('width', Number(data.getAttr('rulerlength')) + WIDTH_DELTA);
+                this.setAttribute('newwidth', Number(data.getAttr('rulerlength')) + WIDTH_DELTA);
 
                 this.setAttribute('x', Number(data.getAttr('x')));
                 this.setAttribute('y', Number(data.getAttr('y')));
@@ -66,9 +66,9 @@
                 if(gScratchpad.visible){
                     gScratchpad.bringToFront();
                 }
-
-            } else {
-                this.setAttribute('rotation', 0);
+                
+            } else {          
+				this.setAttribute('rotation', 0);
                 this.ruler.setAttribute('width', null);
 
                 this.setAttribute('x', (gManipulatives.width - this.width) / 2);
@@ -76,12 +76,10 @@
 
                 //set default values in data
                 if (data) {
-                    data.setAttr('rotation', this.rotation);
-                    data.setAttr('width', this.width);
-                    data.setAttr('x', this.x);
-                    data.setAttr('y', this.y);
-                }
+					storeCurrentPosition();
+                }				
             }
+
         ]]>
         </handler>
 
@@ -89,8 +87,8 @@
             this.setAttribute ('width', Math.round(newwidth));
         </handler>
 
-        <method name="endRotate">
-            //save new pos and rotation
+        <method name="storeCurrentPosition">
+            datapath.p.setAttr ('rulerlength', this.width);
             datapath.p.setAttr ('rotation', this.rotation);
             datapath.p.setAttr ('x', this.x);
             datapath.p.setAttr ('y', this.y);
@@ -145,6 +143,8 @@
                 ]]>
                 </handler>
             </view>
+            
+            
             <ControlHandle name="grabber"
                 resource="grabber_rsrc"
                 y="$once{classroot.GRABBER_Y}" align="center"
@@ -170,8 +170,7 @@
                     lz.Timer.resetTimer(gController.dRestoreCursor, 100);
 
                     //gController.restoreCurrentCursor();
-                    classroot.datapath.p.setAttr ('x', classroot.x);
-                    classroot.datapath.p.setAttr ('y', classroot.y);
+                	classroot.storeCurrentPosition();
                 </handler>
             </ControlHandle>
         </view>
@@ -190,7 +189,7 @@
                 classroot.bringToFront();
             </handler>
             <handler name="onmouseup">
-                classroot.endRotate();
+         		classroot.storeCurrentPosition();
             </handler>
 
             <handler name="onshortclick">
@@ -217,8 +216,7 @@
                 classroot.setAttribute('rotationcenter', {x:11, y:classroot.height/2})
             </handler>
             <handler name="onmouseup">
-                classroot.endRotate();
-                classroot.datapath.p.setAttr('rulerlength', classroot.ruler.width);
+         		classroot.storeCurrentPosition();
             </handler>
 
             <handler name="onshortclick">

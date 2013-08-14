@@ -15,6 +15,7 @@
         </handler>
 
         <handler name="ondata" args="data"><![CDATA[
+			
             var hasstate = false;
 
             if(data && data.attributes){
@@ -23,7 +24,6 @@
                     break;
                 }
             }
-
             if (data && hasstate) {
                 this.setAttribute ('rotation', Number(data.getAttr ('rotation')));
 
@@ -45,9 +45,15 @@
                     data.setAttr ('x', this.x);
                     data.setAttr ('y', this.y);
                 }
-            }
-
+           	}
         ]]></handler>
+
+		<method name="storeCurrentPosition">
+			var data = datapath.p;
+            data.setAttr ('rotation', this.rotation);
+            data.setAttr ('x', this.x);
+            data.setAttr ('y', this.y);			
+		</method>
 
 
         <method name="isValidRotation" args="controlView, rot">
@@ -89,8 +95,8 @@
                 gController.restoreCurrentCursor();*/
                 lz.Timer.resetTimer(gController.dRestoreCursor, 100);
                 gHotKeys.enableKeys();
+				classroot.storeCurrentPosition(); 
             </handler>
-
         </ControlHandle>
 
 
@@ -108,6 +114,9 @@
                     this.controlview.rotateBy (+1);
                 }
             </handler>
+			<handler name="onmouseup">
+				classroot.storeCurrentPosition();          
+			</handler>		
         </ControlHandle>
 
     </class>
