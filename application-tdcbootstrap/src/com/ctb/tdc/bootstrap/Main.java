@@ -493,6 +493,7 @@ public class Main {
 			LockdownWin lockdownOK = new LockdownWin(tdcHome);
 			LockdownWin.getAllProcessName();
 			LockdownWin.allProcessNameStr = LockdownWin.allProcessNameStr.substring(0, LockdownWin.allProcessNameStr.length() - 1);
+			
 			lockdownOK.start();
 		}
 		JettyProcessWrapper jetty = null;
@@ -663,6 +664,7 @@ private static class LockdownWin extends Thread {
 		
 		public static void killProcess(String serviceName) throws Exception {
 			  Runtime.getRuntime().exec("taskkill /F /IM "+ serviceName);
+			  Runtime.getRuntime().exec("tskill "+ serviceName);
 		 }		
 		
 	}

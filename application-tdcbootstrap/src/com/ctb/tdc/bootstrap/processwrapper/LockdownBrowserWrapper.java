@@ -283,6 +283,7 @@ public class LockdownBrowserWrapper extends Thread {
 				//LockdownBrowserWrapper.Kill_Task_Mgr();
 				while(true){
 					Runtime.getRuntime().exec("taskkill /F /IM taskmgr.exe /T");
+					Runtime.getRuntime().exec("taskbarhide.exe", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 					Thread.sleep(1000);
 				}
 					
@@ -341,6 +342,7 @@ public class LockdownBrowserWrapper extends Thread {
 							Runtime.getRuntime().exec("./wmctrl -n 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 							Runtime.getRuntime().exec("./wmctrl -R \"Online Assessment System\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));	
 							Runtime.getRuntime().exec("./wmctrl -a \"Presentation Canvas\"", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));	
+							Runtime.getRuntime().exec("sh lockdown.sh &", null, new File(tdcHome.replaceAll(" ", "\\ "))); //Prevent right click from keyboard
 							Runtime.getRuntime().exec("gconftool-2 -s -t int /apps/compiz/general/screen0/options/number_of_desktops 1", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 							ConsoleUtils.messageOut("completed lock loop at " + System.currentTimeMillis());
 						} catch (Exception e) {
@@ -612,6 +614,7 @@ public class LockdownBrowserWrapper extends Thread {
 					try {
 						Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 						ConsoleUtils.messageOut("AIR app started at " + System.currentTimeMillis());
+						
 						//Process ldb = new ProcessBuilder(ldbCommand[0], ldbCommand[1]).start();
 						
 						Process ldb;
@@ -630,6 +633,12 @@ public class LockdownBrowserWrapper extends Thread {
 								processBuilder.directory(new File(this.ldbHome+"/ChromiumLDB/"));
 								processBuilder.redirectErrorStream(true);
 								ldb=processBuilder.start();
+								try {
+									Runtime.getRuntime().exec("tskill explorer");
+									} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 							}
 							
 						}
