@@ -7,6 +7,8 @@
         
         <attribute name="curritempos" 
                    value="$path{'current_item/@itempos'}"/>
+		<attribute name="curritemno" 
+                   value="$path{'current_item/item_model/@item_no'}"/>
 
         <attribute name="totalitemno" 
                    value="$path{'question_number/@total_including_theme'}"/>
@@ -121,10 +123,22 @@
 				//this.btns.navbtns.btnforward.setAttribute ('visible', false);
 			//}
 			//else{
-		    	if (currentItemNumber < parseInt(this.totalitemno) && gController.getNextNavigableOffset(currentItemNumber) < parseInt(this.totalitemno)) {
+			var allnonThemeItemsVisited = gController.lastItemVisited || (gController.visitedCount==gController.getTotalNumberOfItems(false));
+			
+		    if (currentItemNumber < parseInt(this.totalitemno) && gController.getNextNavigableOffset(currentItemNumber) < parseInt(this.totalitemno)) {
 		    		this.btns.navbtns.btnforward.setAttribute ('visible', true);
+					if(gController.productTypeVal.indexOf('LASLINKS') >= 0 
+						&& curritemno==gController.lastThemeItemNo 
+						&& theme 
+						&& gController.fwdOnly
+						&& allnonThemeItemsVisited){
+						this.btns.navbtns.btnforward.setAttribute ('visible', false);
+					}
 		    	}
 		    else{
+				if(theme && gController.fwdOnly && gController.productTypeVal.indexOf('LASLINKS') >= 0){
+					gController.setAttribute('lastItemVisited',true);
+				}
 		    	this.btns.navbtns.btnforward.setAttribute ('visible', false);
 		    	}
 		   // }  

@@ -613,6 +613,8 @@
 		<attribute name="allowItmeNavigate" value="true" type="boolean" />
 		<attribute name="visitedCount" type="number" value="0" />
 		<attribute name="isPauseScreen" type="boolean" value="false"/>
+		<attribute name="lastThemeItemNo" type="number" value="0"/>
+		<attribute name="lastItemVisited" type="boolean" value="false"/>
 		
 		<handler name="oncanNotAnswer" args="data"><![CDATA[
 			if(answerArray.length > 0) {
@@ -2090,6 +2092,10 @@
                 var vnode = dprestart.xpathQuery(istxpath + "/rv/v");
                 var isTheme = items[i].getAttr('type') == THEME_TYPE;
                 var isVisited = "false";
+
+				if(isTheme){
+					gController.setAttribute('lastThemeItemNo',itemNumber);
+				}
                 
                 if ( this.adaptive == false && dprestart.isValid() && restartnode ) {                	
                     var attrs =
