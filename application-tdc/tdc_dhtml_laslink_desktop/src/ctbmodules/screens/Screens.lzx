@@ -346,13 +346,14 @@
         
         <method name="showTimeoutForInactivity">
         	removeAllStates();
-
+          
             if ( !contents.ts.isinited ) contents.ts.completeInstantiation();
             contents.ts.setAttribute('visible', true );
 
             show();
 			
             gManipulatives.setAttribute('visible',false);
+            gScratchpad.setAttribute('visible',false);
             hideMagnify();
 			gController.checkHideMaskingChoiceDD();
 			 if(canvas.currentCursor == 'highlighter_cursor'){
