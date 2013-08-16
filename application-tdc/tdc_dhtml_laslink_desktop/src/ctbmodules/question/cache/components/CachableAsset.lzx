@@ -1,6 +1,8 @@
 <library>
 
 	<include href="CachableComponent.lzx" />
+	<include href="lib/htmlnew.lzx" />
+	<include href="lib/html.lzx" />
 	
 	<!-- ************************************
 		Cachable Asset 
@@ -55,13 +57,41 @@
 			super.doneLoading();
 		</method>
 	
-		<view name="asset">
-			<html name="aw" scrollbars="false" mouseevents="true" focusable="true" >
+		<view name="asset" clip="true">
+		
+		<handler name="oninit">
+			/* Workaround for scaling issue in MAC for iframes. The htmlnew class is a 
+               modified version of
+			   lps/components/extensions/html.lzx
+             */
+			var htmlFrameClass = "html";
+			if (navigator.appVersion.indexOf("Mac")!=-1) {
+				htmlFrameClass = "htmlnew";
+			}
+			console.log("htmlFrameClass "+htmlFrameClass);
+			var opts_vid = {
+				scrollbars: false,
+				mouseevents: true,
+				focusable: true,
+				name: 'video'
+			};
+			var opts_audio = {
+				scrollbars: false,
+				mouseevents: true,
+				focusable: true,
+				name: 'aw'
+			};
+			this.ht = new lz[htmlFrameClass](this, opts_vid);
+
+			this.ht = new lz[htmlFrameClass](this, opts_audio);
+		</handler>
+
+			<!-- <html name="aw" scrollbars="false" mouseevents="true" focusable="true" >
  	    		  	
 			</html>
 			<html name="video" scrollbars="false" mouseevents="true" focusable="true">
 			
-			</html>
+			</html> -->
        
        	<view name="assetOverley" height="120%" visible="false"
               width="120%"

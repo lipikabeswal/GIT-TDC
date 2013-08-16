@@ -5122,6 +5122,7 @@
 			}
 			for(var i=0; i< gController.lasAssetArray.length; i++) {
 				gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',true);
+				gController.lasAssetArray[i].asset.assetOverley.bringToFront();
 			}
 			//gMusicPlayer.hide();
 			stopMicCheck();
