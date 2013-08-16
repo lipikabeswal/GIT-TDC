@@ -613,6 +613,9 @@
 		<attribute name="allowItmeNavigate" value="true" type="boolean" />
 		<attribute name="visitedCount" type="number" value="0" />
 		<attribute name="isPauseScreen" type="boolean" value="false"/>
+		<attribute name="isNavigateBack" type="boolean" value="false"/>
+		<attribute name="isNavigateFwd" type="boolean" value="false"/>
+		<attribute name="latestVisitedCount" type="number" value="0" />
 		<attribute name="lastThemeItemNo" type="number" value="0"/>
 		<attribute name="lastItemVisited" type="boolean" value="false"/>
 		
@@ -1745,6 +1748,7 @@
  			populateRandomIndexArray(seed, total);
  		}
  		this.setAttribute('visitedCount',this.totalVisited());
+ 		this.setAttribute('latestVisitedCount', this.visitedCount);
         ]]></method>
 
 		<!-- populates random index array with the mods of the fibonacci series -->
@@ -2718,6 +2722,14 @@
 			}else{
 				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', false);
 			}
+			if(isNavigateFwd){
+				
+				var currItemTheme = dpstudentdata.xpathQuery("current_item/item_model/@theme");
+				if(this.isThemePage() == 'false'){
+					this.setAttribute('latestVisitedCount',latestVisitedCount + 1);
+				}
+			}
+			gController.setAttribute('isNavigateFwd',false);
 			//gHotKeys.handleHotKeysNav();
         ]]></method>
 
@@ -2980,7 +2992,8 @@
         </method>
 
 		<method name="stepNavigateBack"><![CDATA[
-		    ////canvas.freezUI();
+			////canvas.freezUI();
+			gController.setAttribute('isNavigateBack',true);
             if ( !onFirstItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit 
@@ -2998,7 +3011,8 @@
 
 		<method name="stepNavigateForward"><![CDATA[
 		    //canvas.freezUI();
-             gTooltip.hideTooltip ();
+		   	 gController.setAttribute('isNavigateFwd',true);
+		     gTooltip.hideTooltip ();
            	var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/@itempos' )
             );

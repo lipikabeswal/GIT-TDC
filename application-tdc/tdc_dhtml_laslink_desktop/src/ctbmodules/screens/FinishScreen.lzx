@@ -8,8 +8,10 @@
 
         <method name="setStats" args="unanswered, marked">
         <![CDATA[
+       		 var latestVisitedCount = gController.latestVisitedCount;
+       	    if(gController.totalVisited() > latestVisitedCount)
+        		latestVisitedCount = gController.totalVisited();
             if(!gController.fwdOnly){
-            Debug.write("###############fwdOnly false");
             	stats.notanswered.setAttribute(
                 'text',
                 unanswered +
@@ -24,9 +26,22 @@
             	);
             }
             else{	
-				var leftQues="";
-                if(gController.adaptive == 'false' || gController.adaptive == false){              
-            		leftQues = gController.totalQuestions() - gController.totalVisited();
+           		var leftQues="";
+           		var totalVisitedCount = gController.totalVisited();
+                if(gController.adaptive == 'false' || gController.adaptive == false){
+                if(gController.RestartTest == "true")
+                	leftQues = gController.totalQuestions() - gController.visitedCount;
+                else{
+                     if(gController.isNavigateBack){
+                     	leftQues = gController.totalQuestions() - latestVisitedCount;
+                     	   
+                     }else if(latestVisitedCount > gController.totalVisited()){
+                     	
+                     	leftQues = gController.totalQuestions() - latestVisitedCount;
+                     }else{
+                			leftQues = gController.totalQuestions() - gController.totalVisited();
+                		}
+                	}
             		stats.notanswered.setAttribute(
                 	'text','You have '+leftQues+' '+((leftQues == 1) ? 'question' :'questions')+' left.');
                 }
@@ -42,6 +57,7 @@
                 	'text','You have '+leftQues+' '+((leftQues == 1) ? 'question' :'questions')+' left.');
 					}
             }
+            gController.setAttribute('isNavigateBack',false);
 		]]>            
         </method>
 
