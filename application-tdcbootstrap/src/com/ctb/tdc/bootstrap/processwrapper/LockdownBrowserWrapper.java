@@ -273,7 +273,7 @@ public class LockdownBrowserWrapper extends Thread {
 	private static class LockdownWinB extends Thread {
 		
 		private String tdcHome;
-		
+		private boolean keepRunning;
 		public LockdownWinB(String tdcHome){
 			this.tdcHome = tdcHome;
 		}
@@ -281,7 +281,8 @@ public class LockdownBrowserWrapper extends Thread {
 		public void run() {
 			try {
 				//LockdownBrowserWrapper.Kill_Task_Mgr();
-				while(true){
+				keepRunning=true;
+				while(keepRunning){
 					Runtime.getRuntime().exec("taskkill /F /IM taskmgr.exe /T");
 					Runtime.getRuntime().exec("taskbarhide.exe", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 					Thread.sleep(1000);
@@ -291,6 +292,10 @@ public class LockdownBrowserWrapper extends Thread {
 				flag = false;
 				e.printStackTrace();
 			}
+		}
+		
+		public void stopLock() {
+			keepRunning=false;
 		}
 	}
 
@@ -671,6 +676,8 @@ public class LockdownBrowserWrapper extends Thread {
 						isProcessExit=true;
 						taskmgr = "taskbarshow.exe";
 						ConsoleUtils.messageOut("Exiting...");
+						lockdownB.stopLock();
+						lockdownB.join();
 						Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
 						Thread.sleep(500);	
 						Runtime.getRuntime().exec(taskmgr, null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
