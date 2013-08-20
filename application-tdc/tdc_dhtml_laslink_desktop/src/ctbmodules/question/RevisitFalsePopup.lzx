@@ -125,7 +125,8 @@
 		<handler name="onclick">
 		    gController.setAttribute('unlockNavigation',false);
 			gController.setNavigation(1,parent.parent.navigateFrom);  
-			gController.unlockUI();        
+			gController.unlockUI();    
+			gController.setAttribute("revisitCancelClicked", true);    
         </handler>
         <handler name="onmouseover">
         	lz.Cursor.unlock();

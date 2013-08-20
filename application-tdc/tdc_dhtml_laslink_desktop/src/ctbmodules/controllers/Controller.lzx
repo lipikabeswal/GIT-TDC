@@ -536,7 +536,7 @@
 		
 		// FOR THE DEFECT 74974
 		<attribute name="singleCRhasFocus" type="boolean" value="true"/>
-	
+		<attribute name="revisitCancelClicked" type="boolean" value="false" />
 
 		<!--
 			============================================================
@@ -2781,6 +2781,7 @@
 			}
 			gController.setAttribute('isNavigateFwd',false);
 			//gHotKeys.handleHotKeysNav();
+			this.setAttribute('revisitCancelClicked',false);
         ]]></method>
 
 		<method name="saveSharedStimulusHighlights"><![CDATA[

@@ -497,7 +497,9 @@
 	        	if(!gController.isCrItem()){
 		            this.exitPopups();
 		             gEnlargePopup.shrink();
-		        	gController.toggleItemSelState( 'A' ); 
+		            if(!gController.revisitCancelClicked){
+		        		gController.toggleItemSelState( 'A' );
+		        	}	 
 		        }
 		    }
 			this.setAttribute("onceOnly",false);
@@ -513,7 +515,9 @@
 	        	if(!gController.isCrItem()){
 		            this.exitPopups(); 
 		             gEnlargePopup.shrink();
-		        	gController.toggleItemSelState( 'B' ); 
+		             if(!gController.revisitCancelClicked){
+		        		gController.toggleItemSelState( 'B' ); 
+		        	}	
 		        }
 		    }
 			this.setAttribute("onceOnly",false);
@@ -527,7 +531,9 @@
 	        	if(!gController.isCrItem()){
 		            this.exitPopups(); 
 		             gEnlargePopup.shrink();
-		        	gController.toggleItemSelState( 'C' ); 
+		             if(!gController.revisitCancelClicked){
+		        		gController.toggleItemSelState( 'C' );
+		        	 }	 
 		        }
 		    }
 			this.setAttribute("onceOnly",false);
@@ -541,7 +547,9 @@
 	        	if(!gController.isCrItem()){
 		            this.exitPopups(); 
 		             gEnlargePopup.shrink();
-		        	gController.toggleItemSelState( 'D' ); 
+		             if(!gController.revisitCancelClicked){
+		        		gController.toggleItemSelState( 'D' );
+		        	 }	 
 		        }
 		    }
 			this.setAttribute("onceOnly",false);
@@ -555,7 +563,9 @@
 	        	if(!gController.isCrItem()){
 		            this.exitPopups(); 
 		             gEnlargePopup.shrink();
-		        	gController.toggleItemSelState( 'E' ); 
+		             if(!gController.revisitCancelClicked){
+		        		gController.toggleItemSelState( 'E' );
+		        	 }	 
 		        }
 		    }
 			this.setAttribute("onceOnly",false);
@@ -569,7 +579,9 @@
 	        	if(!gController.isCrItem()){
 		            this.exitPopups();
 		             gEnlargePopup.shrink();
-		        	gController.toggleItemSelState( 'F' ); 
+		             if(!gController.revisitCancelClicked){
+		        		gController.toggleItemSelState( 'F' );
+		        	 }	 
 		        }
 		    }
 			this.setAttribute("onceOnly",false);
@@ -583,7 +595,9 @@
 	        	if(!gController.isCrItem()){
 		            this.exitPopups(); 
 		             gEnlargePopup.shrink();
-		        	gController.toggleItemSelState( 'G' ); 
+		             if(!gController.revisitCancelClicked){
+		        		gController.toggleItemSelState( 'G' );
+		        	 } 
 		        }
 		    }
 			this.setAttribute("onceOnly",false);
@@ -597,7 +611,9 @@
 	        	if(!gController.isCrItem()){
 		            this.exitPopups(); 
 		             gEnlargePopup.shrink();
-		        	gController.toggleItemSelState( 'H' ); 
+		             if(!gController.revisitCancelClicked){
+		        		gController.toggleItemSelState( 'H' );
+		        	 }	 
 		        }
 		    }
 			this.setAttribute("onceOnly",false);
@@ -611,7 +627,9 @@
 				if(!gController.isCrItem()){
 			    	this.exitPopups(); 
 			    	 gEnlargePopup.shrink();
-					gController.toggleItemSelState( 'I' ); 
+			    	 if(!gController.revisitCancelClicked){
+						gController.toggleItemSelState( 'I' );
+					 }	
 				}
 			}
 			this.setAttribute("onceOnly",false);
@@ -625,7 +643,9 @@
 	        	if(!gController.isCrItem()){
 		            this.exitPopups(); 
 		             gEnlargePopup.shrink();
-		        	gController.toggleItemSelState( 'J' ); 
+		             if(!gController.revisitCancelClicked){
+		        		gController.toggleItemSelState( 'J' );
+		        	 }	 
 		        }
 		    }
 			this.setAttribute("onceOnly",false);
