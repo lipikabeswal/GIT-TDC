@@ -49,7 +49,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mf"]}},$lzc$class__mf.attributes)
 }}})($lzc$class__mf)
-};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onkeydown","$m7","$m6","onmousedown","$m9","$m8","onbringBackFocus","$ma",null,"onfootnotedata","$mb",null,"onisMultiAudio","$mc",null,"oninit","$md",null,"onfootnotetext","$me",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-08-19T09:40:26Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onkeydown","$m7","$m6","onmousedown","$m9","$m8","onbringBackFocus","$ma",null,"onfootnotedata","$mb",null,"onisMultiAudio","$mc",null,"oninit","$md",null,"onfootnotetext","$me",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-08-20T14:14:40Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -16390,7 +16390,7 @@ $c=[$8,$5]
 };this.datapath.p.setAttribute("childNodes",$c)
 },"convertNodes",function($0,$1,$2){
 var $3;for(var $4=0;$4<$0.length;$4++){
-$3=$0[$4];if(!($3 instanceof lz.DataElement))break;if($3.nodeName==gCompTypes.WIDGET_TABLE||$3.nodeName==gCompTypes.WIDGET_IMAGE||$3.nodeName==gCompTypes.WIDGET_MULTI_LINE_ANSWER||$3.nodeName==gCompTypes.WIDGET_SINGLE_LINE_ANSWER||$3.nodeName==gCompTypes.WIDGET_ASSET){
+$3=$0[$4];if(!($3 instanceof lz.DataElement))break;if($3.nodeName==gCompTypes.WIDGET_TABLE||$3.nodeName==gCompTypes.WIDGET_IMAGE||$3.nodeName==gCompTypes.WIDGET_MULTI_LINE_ANSWER||$3.nodeName==gCompTypes.WIDGET_SINGLE_LINE_ANSWER||$3.nodeName==gCompTypes.WIDGET_ASSET||$3.nodeName==gCompTypes.WIDGET_RECORDER){
 continue
 };if($3.nodeName==gCompTypes.WIDGET_SCROLLING_TEXT_PANEL){
 this.adjustScrollingTextHeights($3);continue
@@ -24163,7 +24163,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m1zh"]}},$lzc$class__m1zh.attributes)
 }}})($lzc$class__m1zh)
-};lz.ClassAttributeTypes["Scratchpad"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["ScratchpadWindow"],{DEFAULT_HEIGHT:"number",DEFAULT_WIDTH:"number",DEFAULT_X:"number",DEFAULT_Y:"number",calledFromHtml:"boolean",characterLimit:"number",isTestInterrupted:"boolean",scratchpadHasFocus:"boolean",startResize:"boolean",toolid:"string"});{
+};lz.ClassAttributeTypes["Scratchpad"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["ScratchpadWindow"],{DEFAULT_HEIGHT:"number",DEFAULT_WIDTH:"number",DEFAULT_X:"number",DEFAULT_Y:"number",calledFromHtml:"boolean",characterLimit:"number",isTestInterrupted:"boolean",mouseReleased:"boolean",scratchpadHasFocus:"boolean",startResize:"boolean",toolid:"string"});{
 Class.make("$lzc$class_Scratchpad",["$m1yl",function($0){
 var $1=gController.scratchpadOpen;if($1!==this["visible"]||!this.inited){
 this.setAttribute("visible",$1)
@@ -24212,12 +24212,12 @@ lz.$lzsc$thrownError=$lzsc$e
 this.setAttribute("toolstate",new (lz.datapointer)())
 },"toolstate",void 0,"scratchpadHasFocus",void 0,"scratchpadJustLostFocus",void 0,"$m1yu",function($0){
 this.setAttribute("scrollPosition",new Array())
-},"scrollPosition",void 0,"calledFromHtml",void 0,"characterLimit",void 0,"isTestInterrupted",void 0,"startResize",void 0,"$m1yv",function($0){
-this.bringToFront();this.sp.inp.setAttribute("selectable",false);lz.Cursor.setCursorGlobal("grabbing_cursor");lz.Cursor.lock()
+},"scrollPosition",void 0,"calledFromHtml",void 0,"characterLimit",void 0,"isTestInterrupted",void 0,"startResize",void 0,"mouseReleased",void 0,"$m1yv",function($0){
+this.bringToFront();this.sp.inp.setAttribute("selectable",false);lz.Cursor.setCursorGlobal("grabbing_cursor");lz.Cursor.lock();this.setAttribute("mouseReleased",true)
 },"$m1yw",function(){
 return lz.GlobalMouse
 },"$m1yx",function($0){
-console.log("====Scratchpad sc mouse up==",$0);if($0){
+console.log("====Scratchpad sc mouse up==",$0);this.setAttribute("mouseReleased",false);if($0){
 if(lz.Focus.getFocus()==this.sp.inp){
 this.sp.storeSelection()
 }else if($0==this){
@@ -24237,8 +24237,11 @@ if(typeof $0.parent.parent.parent.parent!="undefined"){
 $1=$0.parent.parent.parent.parent
 }}}};return $1
 },"$m1yy",function($0){
+if(!this.mouseReleased){
 gController.setCurrentCursor("cangrab_cursor")
-},"$m1yz",function($0){
+}else{
+gController.setCurrentCursor("grabbing_cursor")
+}},"$m1yz",function($0){
 gController.clearAndRestoreCurrentCursor()
 },"restoreFocusAndCursor",function(){
 this.sp.onfocus.sendEvent();this.sp.resetTheSelection();this.setAttribute("scratchpadHasFocus",true)
@@ -24274,7 +24277,7 @@ $3=false;
 }],$lzc$class_ScratchpadWindow,["tagname","Scratchpad","children",LzNode.mergeChildren([{attrs:{$classrootdepth:1,$delegates:["ontext","$m1z8",null,"onpos","$m1za","$m1z9","onfocus","$m1zc","$m1zb","onblur","$m1ze","$m1zd","onkeyup","$m1zg","$m1zf"],clickable:true,end:0,focusable:true,height:new LzAlwaysExpr("$m1z4","$m1z5",null),name:"sp",scrollPos:0,start:0,vscrollbarclassname:"null",width:new LzAlwaysExpr("$m1z6","$m1z7",null)},"class":$lzc$class__m1zh}],$lzc$class_ScratchpadWindow["children"]),"__LZCSSTagSelectors",["Scratchpad","ScratchpadWindow","ScratchpadWindowPanel","ScratchpadBaseWindow","basecomponent","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_ScratchpadWindow.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["Scratchpad"]},$delegates:["onmousedown","$m1yv",null,"onmouseup","$m1yx","$m1yw","onmouseover","$m1yy",null,"onmouseout","$m1yz",null,"oninit","$m1z0",null,"onvisible","$m1z1",null,"onblur","$m1z3","$m1z2"],DEFAULT_HEIGHT:227,DEFAULT_WIDTH:400,DEFAULT_X:200,DEFAULT_Y:113,bgcolor:new LzAlwaysExpr("$m1yn","$m1yo",null),calledFromHtml:false,characterLimit:10000,clickable:true,closeable:true,datapath:"dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global",focustrap:true,fontsize:12,height:227,initstage:"defer",isTestInterrupted:false,minheight:130,minwidth:130,resizable:true,scratchpadHasFocus:false,scratchpadJustLostFocus:false,scrollPosition:new LzOnceExpr("$m1yu",null),startResize:false,title:"Scratchpad",toolstate:new LzOnceExpr("$m1yt",null),visible:new LzAlwaysExpr("$m1yl","$m1ym",null),width:400,xscale:new LzAlwaysExpr("$m1yp","$m1yq",null),yscale:new LzAlwaysExpr("$m1yr","$m1ys",null)},$lzc$class_Scratchpad.attributes)
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["Scratchpad"]},$delegates:["onmousedown","$m1yv",null,"onmouseup","$m1yx","$m1yw","onmouseover","$m1yy",null,"onmouseout","$m1yz",null,"oninit","$m1z0",null,"onvisible","$m1z1",null,"onblur","$m1z3","$m1z2"],DEFAULT_HEIGHT:227,DEFAULT_WIDTH:400,DEFAULT_X:200,DEFAULT_Y:113,bgcolor:new LzAlwaysExpr("$m1yn","$m1yo",null),calledFromHtml:false,characterLimit:10000,clickable:true,closeable:true,datapath:"dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global",focustrap:true,fontsize:12,height:227,initstage:"defer",isTestInterrupted:false,minheight:130,minwidth:130,mouseReleased:false,resizable:true,scratchpadHasFocus:false,scratchpadJustLostFocus:false,scrollPosition:new LzOnceExpr("$m1yu",null),startResize:false,title:"Scratchpad",toolstate:new LzOnceExpr("$m1yt",null),visible:new LzAlwaysExpr("$m1yl","$m1ym",null),width:400,xscale:new LzAlwaysExpr("$m1yp","$m1yq",null),yscale:new LzAlwaysExpr("$m1yr","$m1ys",null)},$lzc$class_Scratchpad.attributes)
 }}})($lzc$class_Scratchpad)
 };lz.ClassAttributeTypes["Manipulatives"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{CM_RULER_INDEX:"number",FCAT_FORMULA_CARD_INDEX:"number",FORMULA_CARD_INDEX:"number",HALF_INCH_RULER_INDEX:"number",MASKING_RULER_INDEX:"number",MM_RULER_INDEX:"number",NUMBER_OF_MANIPULATIVES:"number",ONEEIGHTH_INCH_RULER_INDEX:"number",PROTRACTOR_INDEX:"number",SCIENTIFIC_CALCULATOR_INDEX:"number",SCRATCHPAD_INDEX:"number",STANDARD_CALCULATOR_INDEX:"number",STRAIGHT_EDGE_INDEX:"number",TN_FORMULA_CARD_INDEX:"number"});{
 Class.make("$lzc$class_Manipulatives",["zOrder",void 0,"NUMBER_OF_MANIPULATIVES",void 0,"SCRATCHPAD_INDEX",void 0,"PROTRACTOR_INDEX",void 0,"STRAIGHT_EDGE_INDEX",void 0,"ONEEIGHTH_INCH_RULER_INDEX",void 0,"HALF_INCH_RULER_INDEX",void 0,"MM_RULER_INDEX",void 0,"CM_RULER_INDEX",void 0,"FCAT_FORMULA_CARD_INDEX",void 0,"TN_FORMULA_CARD_INDEX",void 0,"STANDARD_CALCULATOR_INDEX",void 0,"SCIENTIFIC_CALCULATOR_INDEX",void 0,"FORMULA_CARD_INDEX",void 0,"MASKING_RULER_INDEX",void 0,"$m1zi",function($0){
@@ -28336,8 +28339,9 @@ $0=null;
 if(this.onceOnly){
 if(!gController.canNotAnswer){
 if(!gController.isCrItem()){
-this.exitPopups();gEnlargePopup.shrink();gController.toggleItemSelState("A")
-}};this.setAttribute("onceOnly",false)
+this.exitPopups();gEnlargePopup.shrink();if(!gController.revisitCancelClicked){
+gController.toggleItemSelState("A")
+}}};this.setAttribute("onceOnly",false)
 }}},"toggleB",function($0){
 switch(arguments.length){
 case 0:
@@ -28347,8 +28351,9 @@ $0=null;
 if(this.onceOnly){
 if(!gController.canNotAnswer){
 if(!gController.isCrItem()){
-this.exitPopups();gEnlargePopup.shrink();gController.toggleItemSelState("B")
-}};this.setAttribute("onceOnly",false)
+this.exitPopups();gEnlargePopup.shrink();if(!gController.revisitCancelClicked){
+gController.toggleItemSelState("B")
+}}};this.setAttribute("onceOnly",false)
 }}},"toggleC",function($0){
 switch(arguments.length){
 case 0:
@@ -28358,8 +28363,9 @@ $0=null;
 if(this.onceOnly){
 if(!gController.canNotAnswer){
 if(!gController.isCrItem()){
-this.exitPopups();gEnlargePopup.shrink();gController.toggleItemSelState("C")
-}};this.setAttribute("onceOnly",false)
+this.exitPopups();gEnlargePopup.shrink();if(!gController.revisitCancelClicked){
+gController.toggleItemSelState("C")
+}}};this.setAttribute("onceOnly",false)
 }}},"toggleD",function($0){
 switch(arguments.length){
 case 0:
@@ -28369,8 +28375,9 @@ $0=null;
 if(this.onceOnly){
 if(!gController.canNotAnswer){
 if(!gController.isCrItem()){
-this.exitPopups();gEnlargePopup.shrink();gController.toggleItemSelState("D")
-}};this.setAttribute("onceOnly",false)
+this.exitPopups();gEnlargePopup.shrink();if(!gController.revisitCancelClicked){
+gController.toggleItemSelState("D")
+}}};this.setAttribute("onceOnly",false)
 }}},"toggleE",function($0){
 switch(arguments.length){
 case 0:
@@ -28380,8 +28387,9 @@ $0=null;
 if(this.onceOnly){
 if(!gController.canNotAnswer){
 if(!gController.isCrItem()){
-this.exitPopups();gEnlargePopup.shrink();gController.toggleItemSelState("E")
-}};this.setAttribute("onceOnly",false)
+this.exitPopups();gEnlargePopup.shrink();if(!gController.revisitCancelClicked){
+gController.toggleItemSelState("E")
+}}};this.setAttribute("onceOnly",false)
 }}},"toggleF",function($0){
 switch(arguments.length){
 case 0:
@@ -28391,8 +28399,9 @@ $0=null;
 if(this.onceOnly){
 if(!gController.canNotAnswer){
 if(!gController.isCrItem()){
-this.exitPopups();gEnlargePopup.shrink();gController.toggleItemSelState("F")
-}};this.setAttribute("onceOnly",false)
+this.exitPopups();gEnlargePopup.shrink();if(!gController.revisitCancelClicked){
+gController.toggleItemSelState("F")
+}}};this.setAttribute("onceOnly",false)
 }}},"toggleG",function($0){
 switch(arguments.length){
 case 0:
@@ -28402,8 +28411,9 @@ $0=null;
 if(this.onceOnly){
 if(!gController.canNotAnswer){
 if(!gController.isCrItem()){
-this.exitPopups();gEnlargePopup.shrink();gController.toggleItemSelState("G")
-}};this.setAttribute("onceOnly",false)
+this.exitPopups();gEnlargePopup.shrink();if(!gController.revisitCancelClicked){
+gController.toggleItemSelState("G")
+}}};this.setAttribute("onceOnly",false)
 }}},"toggleH",function($0){
 switch(arguments.length){
 case 0:
@@ -28413,8 +28423,9 @@ $0=null;
 if(this.onceOnly){
 if(!gController.canNotAnswer){
 if(!gController.isCrItem()){
-this.exitPopups();gEnlargePopup.shrink();gController.toggleItemSelState("H")
-}};this.setAttribute("onceOnly",false)
+this.exitPopups();gEnlargePopup.shrink();if(!gController.revisitCancelClicked){
+gController.toggleItemSelState("H")
+}}};this.setAttribute("onceOnly",false)
 }}},"toggleI",function($0){
 switch(arguments.length){
 case 0:
@@ -28424,8 +28435,9 @@ $0=null;
 if(this.onceOnly){
 if(!gController.canNotAnswer){
 if(!gController.isCrItem()){
-this.exitPopups();gEnlargePopup.shrink();gController.toggleItemSelState("I")
-}};this.setAttribute("onceOnly",false)
+this.exitPopups();gEnlargePopup.shrink();if(!gController.revisitCancelClicked){
+gController.toggleItemSelState("I")
+}}};this.setAttribute("onceOnly",false)
 }}},"toggleJ",function($0){
 switch(arguments.length){
 case 0:
@@ -28435,8 +28447,9 @@ $0=null;
 if(this.onceOnly){
 if(!gController.canNotAnswer){
 if(!gController.isCrItem()){
-this.exitPopups();gEnlargePopup.shrink();gController.toggleItemSelState("J")
-}};this.setAttribute("onceOnly",false)
+this.exitPopups();gEnlargePopup.shrink();if(!gController.revisitCancelClicked){
+gController.toggleItemSelState("J")
+}}};this.setAttribute("onceOnly",false)
 }}},"goBack",function($0){
 switch(arguments.length){
 case 0:
@@ -28913,7 +28926,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2c0"]}},$lzc$class__m2c0.attributes)
 }}})($lzc$class__m2c0)
-};lz.ClassAttributeTypes["$lzc$class__m2by"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["node"],{CHECK_PROD_TYPE_METHOD:"string",DEFAULT_TYPE:"string",DOWNLOAD_STATE:"string",FEEDBACK_STATE:"string",FINISH_LEV:"string",FINISH_SAVE_STATE:"string",FINISH_STATE:"string",INIT_LEV:"string",IS_MIC_ATTACHED:"string",LOGIN_STATE:"string",MAX_CR_ID:"number",NONE_STATE:"string",OUT_OF_TIME_OPEN_STATE:"string",PAUSED_RESUME_STATE:"string",PAUSE_LEV:"string",PAUSE_STATE:"string",RESUME_LEV:"string",RestartTest:"boolean",SAVE_END_SUBTEST_STATE:"string",SAVE_LEV:"string",SAVE_LOAD_STATE:"string",STOP_LEV:"string",SUBTEST_FINISH_STATE:"string",SUBTEST_STATE:"string",TERMINATED_LEV:"string",THEME_TYPE:"string",TIMEOUT_STATE:"string",TIMER_INTERVAL:"number",TUTORIAL_COMPLETE_STATE:"string",UPLOAD_AUDIT_FILE_STATE:"string",WRITE_TO_AUDIT_FILE_STATE:"string",accesscode:"string",allowItmeNavigate:"boolean",allowNavigate:"boolean",allowRevisit:"boolean",alphabetString:"string",answerBgColor:"color",answerFontColor:"color",applyFlashFix:"boolean",blockFileName:"boolean",canNotAnswer:"boolean",catOver:"boolean",communicatorResponse:"string",currentCrId:"number",currentManipSelected:"string",currentSubtestIndex:"number",doUnlockUI:"boolean",durationms:"number",durationmsforpause:"number",elapsedms:"number",elapsedmsforpause:"number",findAnswer:"boolean",firstSubtest:"boolean",focusOnGr:"boolean",focusOnScratchpad:"boolean",formulaCardResource:"string",fwdOnly:"boolean",gAnsweredCount:"number",gCurrentItemPos:"number",gPrevStimulusId:"number",gStimulusId:"number",hasDynamicRefCard:"boolean",hasFontAccommodation:"boolean",hasTNorFCATrefCard:"boolean",hasTTSspeed:"boolean",heartbeatResult:"string",iframeid:"string",inQuestion:"boolean",isAnswerSet:"boolean",isAudioPaused:"boolean",isFinishTest:"boolean",isHandlerInactive:"boolean",isLoginResponseHavingSeed:"boolean",isMicPresent:"boolean",isMousedownOnManip:"boolean",isNavigateBack:"boolean",isNavigateFwd:"boolean",isPauseScreen:"boolean",isPauseTest:"boolean",isPaused:"boolean",isPreviewer:"boolean",isRevisitPopupOpen:"boolean",isSizer:"boolean",isStopScreen:"boolean",isStopTest:"boolean",isTestPaused:"boolean",isWaitPopupAfter60SecOpen:"boolean",isWaitPopupOpen:"boolean",isaudio:"boolean",isplaying:"boolean",istLength:"number",istRestartLength:"number",itemHasRationalNode:"boolean",lastItemVisited:"boolean",lastThemeItemNo:"number",latestVisitedCount:"number",manipClicked:"boolean",manipSelected:"boolean",manipbuttonClicked:"boolean",maxModBase:"number",modBase:"number",navigateConfirm:"boolean",newModBase:"number",nextItem:"number",password:"string",playIfAnswered:"boolean",prevItemId:"number",productTypeVal:"string",qtimestamp:"number",qtimestampforpause:"number",questionBgColor:"color",questionFontColor:"color",recordState:"boolean",recordingCompleted:"boolean",recordingStopped:"boolean",relogin:"boolean",requestPending:"boolean",resetButtonEnable:"boolean",restartItemCount:"number",scratchpadOpen:"boolean",seed:"number",seedDigitSum:"number",sendCatSave:"boolean",showHighlighter:"boolean",showPleaseWaitOver:"boolean",singleCRhasFocus:"boolean",skipCacheDestroy:"boolean",state:"string",subtestLength:"number",testTimeout:"boolean",timerInterval:"number",timing:"boolean",timingforpause:"boolean",unlockNavigation:"boolean",userid:"string",visitedCount:"number"});{
+};lz.ClassAttributeTypes["$lzc$class__m2by"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["node"],{CHECK_PROD_TYPE_METHOD:"string",DEFAULT_TYPE:"string",DOWNLOAD_STATE:"string",FEEDBACK_STATE:"string",FINISH_LEV:"string",FINISH_SAVE_STATE:"string",FINISH_STATE:"string",INIT_LEV:"string",IS_MIC_ATTACHED:"string",LOGIN_STATE:"string",MAX_CR_ID:"number",NONE_STATE:"string",OUT_OF_TIME_OPEN_STATE:"string",PAUSED_RESUME_STATE:"string",PAUSE_LEV:"string",PAUSE_STATE:"string",RESUME_LEV:"string",RestartTest:"boolean",SAVE_END_SUBTEST_STATE:"string",SAVE_LEV:"string",SAVE_LOAD_STATE:"string",STOP_LEV:"string",SUBTEST_FINISH_STATE:"string",SUBTEST_STATE:"string",TERMINATED_LEV:"string",THEME_TYPE:"string",TIMEOUT_STATE:"string",TIMER_INTERVAL:"number",TUTORIAL_COMPLETE_STATE:"string",UPLOAD_AUDIT_FILE_STATE:"string",WRITE_TO_AUDIT_FILE_STATE:"string",accesscode:"string",allowItmeNavigate:"boolean",allowNavigate:"boolean",allowRevisit:"boolean",alphabetString:"string",answerBgColor:"color",answerFontColor:"color",applyFlashFix:"boolean",blockFileName:"boolean",canNotAnswer:"boolean",catOver:"boolean",communicatorResponse:"string",currentCrId:"number",currentManipSelected:"string",currentSubtestIndex:"number",doUnlockUI:"boolean",durationms:"number",durationmsforpause:"number",elapsedms:"number",elapsedmsforpause:"number",findAnswer:"boolean",firstSubtest:"boolean",focusOnGr:"boolean",focusOnScratchpad:"boolean",formulaCardResource:"string",fwdOnly:"boolean",gAnsweredCount:"number",gCurrentItemPos:"number",gPrevStimulusId:"number",gStimulusId:"number",hasDynamicRefCard:"boolean",hasFontAccommodation:"boolean",hasTNorFCATrefCard:"boolean",hasTTSspeed:"boolean",heartbeatResult:"string",iframeid:"string",inQuestion:"boolean",isAnswerSet:"boolean",isAudioPaused:"boolean",isFinishTest:"boolean",isHandlerInactive:"boolean",isLoginResponseHavingSeed:"boolean",isMicPresent:"boolean",isMousedownOnManip:"boolean",isNavigateBack:"boolean",isNavigateFwd:"boolean",isPauseScreen:"boolean",isPauseTest:"boolean",isPaused:"boolean",isPreviewer:"boolean",isRevisitPopupOpen:"boolean",isSizer:"boolean",isStopScreen:"boolean",isStopTest:"boolean",isTestPaused:"boolean",isWaitPopupAfter60SecOpen:"boolean",isWaitPopupOpen:"boolean",isaudio:"boolean",isplaying:"boolean",istLength:"number",istRestartLength:"number",itemHasRationalNode:"boolean",lastItemVisited:"boolean",lastThemeItemNo:"number",latestVisitedCount:"number",manipClicked:"boolean",manipSelected:"boolean",manipbuttonClicked:"boolean",maxModBase:"number",modBase:"number",navigateConfirm:"boolean",newModBase:"number",nextItem:"number",password:"string",playIfAnswered:"boolean",prevItemId:"number",productTypeVal:"string",qtimestamp:"number",qtimestampforpause:"number",questionBgColor:"color",questionFontColor:"color",recordState:"boolean",recordingCompleted:"boolean",recordingStopped:"boolean",relogin:"boolean",requestPending:"boolean",resetButtonEnable:"boolean",restartItemCount:"number",revisitCancelClicked:"boolean",scratchpadOpen:"boolean",seed:"number",seedDigitSum:"number",sendCatSave:"boolean",showHighlighter:"boolean",showPleaseWaitOver:"boolean",singleCRhasFocus:"boolean",skipCacheDestroy:"boolean",state:"string",subtestLength:"number",testTimeout:"boolean",timerInterval:"number",timing:"boolean",timingforpause:"boolean",unlockNavigation:"boolean",userid:"string",visitedCount:"number"});{
 Class.make("$lzc$class__m2by",["$m2ag",function($0){
 this.setAttribute("dp",new (lz.datapointer)())
 },"dp",void 0,"$m2ah",function($0){
@@ -29002,7 +29015,7 @@ this.setAttribute("answerObj",new Object())
 this.setAttribute("lasAssetArray",new Array())
 },"lasAssetArray",void 0,"isplaying",void 0,"recordingStopped",void 0,"unlockNavigation",void 0,"isAnswerSet",void 0,"findAnswer",void 0,"isMicPresent",void 0,"$m2b9",function($0){
 this.setAttribute("dMicCheck",new (lz.Delegate)(this,"isMicConnected"))
-},"dMicCheck",void 0,"isPauseTest",void 0,"manipSelected",void 0,"manipClicked",void 0,"manipbuttonClicked",void 0,"currentManipSelected",void 0,"singleCRhasFocus",void 0,"dplogin",void 0,"dpsubtest",void 0,"dpstimulus",void 0,"dprestart",void 0,"dpitem",void 0,"dpstudentdata",void 0,"dpdisplay",void 0,"dptemp",void 0,"dpsubtestdata",void 0,"fwdOnly",void 0,"$m2bc",function($0){
+},"dMicCheck",void 0,"isPauseTest",void 0,"manipSelected",void 0,"manipClicked",void 0,"manipbuttonClicked",void 0,"currentManipSelected",void 0,"singleCRhasFocus",void 0,"revisitCancelClicked",void 0,"dplogin",void 0,"dpsubtest",void 0,"dpstimulus",void 0,"dprestart",void 0,"dpitem",void 0,"dpstudentdata",void 0,"dpdisplay",void 0,"dptemp",void 0,"dpsubtestdata",void 0,"fwdOnly",void 0,"$m2bc",function($0){
 this.dataBindAttribute("adaptive","dssubtest:/subtest/sco/@adaptive","expression")
 },"adaptive",void 0,"showPleaseWaitOver",void 0,"RestartTest",void 0,"skipCacheDestroy",void 0,"$m2bd",function($0){
 var $1=new Array();if($1!==this["stylesArr"]||!this.inited){
@@ -29122,11 +29135,13 @@ $1=this.totalNumberOfTests[this.currentSubtestIndex]
 }};return $1
 },"getInitialSubtestIndex",function(){
 var $0=0;if(this.dprestart.isValid()){
-var $1=this.dprestart.xpathQuery('tsd[@scid = "'+this.restartscid+'"]/@scid');this.dp.setXPath("dslogin:/login_response/manifest");var $2=this.dp.xpathQuery("sco");var $3=false;Debug.write("getInitialSubtestIndex scos",$2);if($2 instanceof LzDataElement){
+var $1=this.restartscid;var $2=this.dprestart.xpathQuery('tsd[@scid = "'+$1+'"]/@scid');if($2==null&&$1!=null){
+$2=$1
+};this.dp.setXPath("dslogin:/login_response/manifest");var $3=this.dp.xpathQuery("sco");var $4=false;Debug.write("getInitialSubtestIndex scos",$3);if($3 instanceof LzDataElement){
 return $0
-};while($2&&$0<$2.length&&!$3){
-var $4=$2[$0];if($4.getAttr("id")==$1){
-$3=true
+};while($3&&$0<$3.length&&!$4){
+var $5=$3[$0];if($5.getAttr("id")==$2){
+$4=true
 }else{
 $0++
 }}};return $0
@@ -29195,7 +29210,7 @@ var $2=$0.substring(0,$0.indexOf("||"));var $3=$0.substring($0.indexOf("||")+2,$
 }}},"_handleUploadAuditFileResponse",function($0){
 var $1=this.durationms-this.elapsedms;if($1<0)$1=0;var $2=$1/1000;var $3=$2/60;var $4=$3/60;var $5=Math.floor($2)%60;var $6=Math.floor($3)%60;var $7=Math.floor($4);if($5<10)$5="0"+$5;if($6<10)$6="0"+$5;if($7<10)$7="0"+$5;var $8=countDataNodes(this.dpstudentdata.xpathQuery("runtime/item_model[@score='1']"));var $9=countDataNodes(this.dpstudentdata.xpathQuery("runtime/item_model/interaction[@type='text_entry']"));var $a=countDataNodes(this.dpstudentdata.xpathQuery("runtime/item_model/interaction[@type='grid']"));var $b=countDataNodes(this.dpstudentdata.xpathQuery("runtime/item_model[@not_sr='t']"));var $c=this.totalQuestions();if(this.adaptive==true){
 $c=gController.subtestLength
-};var $d="";var $e=$7+":"+$6+":"+$5;var $f=$9+$a+$b;this.deleteParentIfNoOrOneChild(this.dprestart);if(this.adaptive==false){
+};var $d="";var $e=$7+":"+$6+":"+$5;var $f=$9+$a+$b;if(this.adaptive==false){
 gController.setAttribute("abScore",0);gController.setAttribute("sem",0);gController.setAttribute("objScore",null)
 };this.setState(this.FINISH_SAVE_STATE);gCommunicator.endSubtest($8,$c,$d,$e,$f)
 },"_handleFeedbackResponse",function($0){
@@ -29215,18 +29230,29 @@ this.getFeedback()
 }else{
 this.terminate()
 }}},"getSubtestIndex",function($0){
-this.dp.setPointer($0);var $1=this.dp.xpathQuery("save_testing_session_data/tsd/next_sco/@id");this.setAttribute("restartscid",this.dp.xpathQuery("save_testing_session_data/tsd/next_sco/@id"));var $2=0;var $3=false;var $4=this.dplogin.xpathQuery("manifest/sco");if(this.totalNumberOfTests==null){
-this.totalNumberOfTests=$4
+this.dp.setPointer($0);var $1=this.dp.xpathQuery("save_testing_session_data/tsd/next_sco/@id");var $2=this.getCurrentSubtest();var $3=$2.getAttr("id");var $4=this.dprestart.xpathQuery('tsd[@scid ="'+$1+'"]/@scid');if($4==null){
+$4=this.dplogin.xpathQuery("consolidated_restart_data/tsd[1]/@scid");if($4!=null){
+if($4==$3){
+$4=null
+}}};if(!(this.dprestart.isValid()&&$4!=null)){
+this.deleteParentIfNoOrOneChild(this.dprestart)
+};this.setAttribute("restartscid",this.dp.xpathQuery("save_testing_session_data/tsd/next_sco/@id"));var $5=0;var $6=false;var $7=this.dplogin.xpathQuery("manifest/sco");if(this.totalNumberOfTests==null){
+this.totalNumberOfTests=$7
 };if(this.totalNumberOfTests instanceof LzDataElement){
 return -1
-};while($2<this.totalNumberOfTests.length&&!$3){
-var $5=this.totalNumberOfTests[$2];if($5.getAttr("id")==$1){
-$3=true
+};while($5<this.totalNumberOfTests.length&&!$6){
+var $8=this.totalNumberOfTests[$5];if($8.getAttr("id")==$1){
+$6=true
 }else{
-$2=$2+1
-}};if(!$3){
-$2=-1
-};return $2
+$5=$5+1
+}};if(!$6){
+if(!this.dprestart.isValid()&&this.totalNumberOfTests.length==this.currentSubtestIndex+1){
+$5=-1
+}else if(this.totalNumberOfTests.length==this.currentSubtestIndex+1){
+$5=-1
+}else{
+$5=this.currentSubtestIndex+1
+}};return $5
 },"terminate",function(){
 gCommunicator.terminate();this.goToGoodbyeScreen()
 },"getFeedback",function(){
@@ -29261,17 +29287,18 @@ gScreens.showLoginError(gXmlHelper.getStatusCode($0))
 }else{
 this.dpdisplay.setNodeAttribute("timeleftforpause","00:00");var $1=lz.DataElement.stringToLzData($0);this.dp.setPointer($1);this.setShowHighlighter();this.setShowMaskingRuler();this.setShowMagnifyingGlass();this.setShowMaskingAnswer();var $2=this.dp.xpathQuery("login_response/@restart_number");gTutorialManager.setAttribute("tutorialNode",this.dp.xpathQuery("login_response/tutorial"));var $3=this.dp.xpathQuery("login_response/branding/@tdclogo");if($3!=null){
 $3=$3.substring(0,$3.indexOf(".swf"));$3=$3+".svg";canvas.setAttribute("logoRsrc",$3)
-};var $4=this.dp.xpathQuery("login_response/testing_session_data/cmi.core");$4.setAttr("password",this.password);$4.setAttr("userid",this.userid);$4.setAttr("accesscode",this.accesscode);this.stuLoginDetails.fn=this.dp.xpathQuery("login_response/testing_session_data/cmi.core/@student_first_name");this.stuLoginDetails.mn=this.dp.xpathQuery("login_response/testing_session_data/cmi.core/@student_middle_name");this.stuLoginDetails.ln=this.dp.xpathQuery("login_response/testing_session_data/cmi.core/@student_last_name");this.stylesArr=this.dp.xpathQuery("login_response/testing_session_data/lms.student.accommodations/stereotype_style");var $5=this.dp.xpathQuery("login_response");this.setAttribute("restartscid",this.dp.xpathQuery("login_response/manifest/sco[1]/@id"));var $6=countDataNodes(this.dp.xpathQuery('login_response/consolidated_restart_data/tsd[@scid = "'+this.restartscid+'"]/ist'));this.setAttribute("lsid",this.dp.xpathQuery("login_response/@lsid"));var $7=this.dp.xpathQuery("login_response/@random_distractor_seed_number");dslogin.setAttribute("childNodes",new Array($5));this.dp.selectChild();this.setAttribute("currentSubtestIndex",this.getInitialSubtestIndex());gRequest.setMseqFromRestartNumber($2);if($6==0&&this.dprestart.isValid()){
+};var $4=this.dp.xpathQuery("login_response/testing_session_data/cmi.core");$4.setAttr("password",this.password);$4.setAttr("userid",this.userid);$4.setAttr("accesscode",this.accesscode);this.stuLoginDetails.fn=this.dp.xpathQuery("login_response/testing_session_data/cmi.core/@student_first_name");this.stuLoginDetails.mn=this.dp.xpathQuery("login_response/testing_session_data/cmi.core/@student_middle_name");this.stuLoginDetails.ln=this.dp.xpathQuery("login_response/testing_session_data/cmi.core/@student_last_name");this.stylesArr=this.dp.xpathQuery("login_response/testing_session_data/lms.student.accommodations/stereotype_style");var $5=this.dp.xpathQuery("login_response");this.setAttribute("restartscid",this.dp.xpathQuery("login_response/manifest/sco[1]/@id"));var $6=this.restartscid;var $7=countDataNodes(this.dp.xpathQuery('login_response/consolidated_restart_data/tsd[@scid = "'+$6+'"]/ist'));this.setAttribute("lsid",this.dp.xpathQuery("login_response/@lsid"));var $8=this.dp.xpathQuery("login_response/@random_distractor_seed_number");dslogin.setAttribute("childNodes",new Array($5));this.dp.selectChild();this.setAttribute("currentSubtestIndex",this.getInitialSubtestIndex());gRequest.setMseqFromRestartNumber($2);if($7==0&&this.dprestart.isValid()){
+var $9=this.dprestart.xpathQuery('tsd[@scid ="'+$6+'"]/@scid');if(!($9==null&&$6!=null)){
 this.dprestart.deleteNode()
-};this.sendHeartbeat();if(gTutorialManager.hasTutorial){
+}};this.sendHeartbeat();if(gTutorialManager.hasTutorial){
 this.recalltrackMouseMove();gTutorialManager.doTutorialFlow()
 }else{
 if(gController.displayText==true||gController.displayText=="true"){
 gSecurityScreen.showIndianaSecurityScreen()
 }else{
 this.recalltrackMouseMove();gDownloadManager.downloadContent()
-}};this.dp.setPointer($1);if(!nullOrSpace($7)){
-this.isLoginResponseHavingSeed=true;this.setAttribute("seed",$7);this.setAttribute("seedDigitSum",sumNumDigits($7));this.setAttribute("newModBase",Number(this.modBase)+Number(this.seedDigitSum));if(this.seed%this.newModBase==0){
+}};this.dp.setPointer($1);if(!nullOrSpace($8)){
+this.isLoginResponseHavingSeed=true;this.setAttribute("seed",$8);this.setAttribute("seedDigitSum",sumNumDigits($8));this.setAttribute("newModBase",Number(this.modBase)+Number(this.seedDigitSum));if(this.seed%this.newModBase==0){
 if(this.newModBase<this.maxModBase){
 this.newModBase+=1
 }else{
@@ -29279,7 +29306,7 @@ this.newModBase-=1
 }};this.distractorArrayFor3=this.getPermutatedArray("ABC",this.newModBase,false);this.distractorArrayFor4=this.getPermutatedArray("ABCD",this.newModBase,false);this.distractorArrayFor5=this.getPermutatedArray("ABCDE",this.newModBase,false)
 }else{
 this.isLoginResponseHavingSeed=false
-};var $8=new (lz.datapointer)();$8.setXPath("dslogin://login_response");this.hasTTSspeed=$8.data.hasAttr("tts_speed_value")
+};var $a=new (lz.datapointer)();$a.setXPath("dslogin://login_response");this.hasTTSspeed=$a.data.hasAttr("tts_speed_value")
 }},"setShowHighlighter",function(){
 var $0=this.dp.xpathQuery("login_response/testing_session_data/lms.student.accommodations/@highlighter");if($0==true||$0=="true"){
 this.setAttribute("showHighlighter",true)
@@ -29320,21 +29347,23 @@ return false
 },"totalQuestions",function(){
 return this.getTotalNumberOfItems(false)
 },"totalAnsweredOnRestart",function(){
-var $0=0;if(this.fwdOnly==true){
+var $0=0;var $1=this.restartscid;var $2=this.dprestart.xpathQuery('tsd[@scid ="'+$1+'"]/@scid');if($2==null&&$1!=null){
+$1=this.dp.xpathQuery("dslogin:/login_response/consolidated_restart_data/tsd[1]/@scid")
+};if(this.fwdOnly==true){
 if(this.adaptive==true){
-var $1=this.dprestart.xpathQuery('tsd[@scid = "'+this.restartscid+'"]/ist');if($1&&$1 instanceof Array){
-if($1.length>0)$0=$1.length
-}else if($1&&$1 instanceof lz.DataElement){
+var $3=this.dprestart.xpathQuery('tsd[@scid = "'+$1+'"]/ist');if($3&&$3 instanceof Array){
+if($3.length>0)$0=$3.length
+}else if($3&&$3 instanceof lz.DataElement){
 $0=1
 }}else{
 $0=this.restartItemCount
 }}else{
-var $1=this.dprestart.xpathQuery('tsd[@scid = "'+this.restartscid+'"]/ist/rv/v');if($1&&$1 instanceof Array){
-for(var $2=0;$2<$1.length;$2++){
-if(this.isAnswered($1[$2])){
+var $3=this.dprestart.xpathQuery('tsd[@scid = "'+$1+'"]/ist/rv/v');if($3&&$3 instanceof Array){
+for(var $4=0;$4<$3.length;$4++){
+if(this.isAnswered($3[$4])){
 $0++
-}}}else if($1&&$1 instanceof lz.DataElement){
-if(this.isAnswered($1)){
+}}}else if($3&&$3 instanceof lz.DataElement){
+if(this.isAnswered($3)){
 $0=1
 }}};return $0
 },"totalAnswered",function(){
@@ -29364,37 +29393,39 @@ this.durationms=$0*1000;this.elapsedms=0;this.qtimestamp=0;this.timing=false
 },"resetCatAttributes",function(){
 this.setAttribute("catOver",false);this.setAttribute("isStopTest",true);this.setAttribute("isFinishTest",false)
 },"initTest",function(){
-Debug.warn("*****************************Init Test***************************");lz.Timer.removeTimer(this.dupdateTimeLeft);this.resetCatAttributes();var $0;if(this.adaptive==true){
-$0=this.dpsubtest.xpathQuery("ob_assessment/ob_element_list/@itemCount");this.setAttribute("subtestLength",$0)
-};var $1=this.dpsubtest.xpathQuery("sco/@fwd_only");if($1=="true"){
+Debug.warn("*****************************Init Test***************************");var $0=this.restartscid;lz.Timer.removeTimer(this.dupdateTimeLeft);this.resetCatAttributes();var $1;if(this.adaptive==true){
+$1=this.dpsubtest.xpathQuery("ob_assessment/ob_element_list/@itemCount");this.setAttribute("subtestLength",$1)
+};var $2=this.dpsubtest.xpathQuery("sco/@fwd_only");if($2=="true"){
 this.setAttribute("fwdOnly",true)
 }else this.setAttribute("fwdOnly",false);this.initStudentData();this.setReadableFlag();if(canvas.readable&&!gReadableText.primed){
 gReadableText.doRead("Hi")
-};var $2=this.totalQuestions();if(this.adaptive==true){
-$2=this.subtestLength
+};var $3=this.totalQuestions();if(this.adaptive==true){
+$3=this.subtestLength
 };this.dpdisplay.setNodeAttribute("shownWarningMinute","false");if("0"==this.dpsubtest.xpathQuery("sco/@sco_duration_minutes")||"true"==this.dpsubtest.xpathQuery("testing_session_data/lms.student.accommodations/@untimed")){
-var $3=true;this.dpdisplay.setNodeAttribute("untimed","true")
+var $4=true;this.dpdisplay.setNodeAttribute("untimed","true")
 }else{
-var $3=false;this.dpdisplay.setNodeAttribute("untimed","false")
+var $4=false;this.dpdisplay.setNodeAttribute("untimed","false")
 };if(this.dprestart.isValid()){
-var $4=this.dprestart.xpathQuery('tsd[@scid = "'+this.restartscid+'"]/ast/@rem_sec');if(null==$4){
-var $5=parseInt(this.dpsubtest.xpathQuery("sco/@sco_duration_minutes"));this.resetTestTimer($5*60);gScreens.showRestart($5<0?0:$5,$2-this.totalAnsweredOnRestart(),$3,this.getStudentName())
+var $5=this.dprestart.xpathQuery('tsd[@scid ="'+$0+'"]/@scid');if($5==null&&$0!=null){
+$0=this.dp.xpathQuery("dslogin:/login_response/consolidated_restart_data/tsd[1]/@scid")
+};var $6=this.dprestart.xpathQuery('tsd[@scid = "'+$0+'"]/ast/@rem_sec');if(null==$6){
+var $7=parseInt(this.dpsubtest.xpathQuery("sco/@sco_duration_minutes"));this.resetTestTimer($7*60);gScreens.showRestart($7<0?0:$7,$3-this.totalAnsweredOnRestart(),$4,this.getStudentName())
 }else{
-var $6=parseInt($4);if($6<=0&&!$3){
+var $8=parseInt($6);if($8<=0&&!$4){
 gReadableText.stopReading(false);this.setAttribute("firstSubtest",false);this.outOfTimeOpen();gMusicPlayer.hide()
 }else{
-var $5=Math.floor($6/60);this.resetTestTimer($6);gScreens.showRestart($5<0?0:$5,$2-this.totalAnsweredOnRestart(),$3,this.getStudentName())
+var $7=Math.floor($8/60);this.resetTestTimer($8);gScreens.showRestart($7<0?0:$7,$3-this.totalAnsweredOnRestart(),$4,this.getStudentName())
 }}}else{
-var $5=parseInt(this.dpsubtest.xpathQuery("sco/@sco_duration_minutes"));if(!$3){
-this.resetTestTimer($5*60)
+var $7=parseInt(this.dpsubtest.xpathQuery("sco/@sco_duration_minutes"));if(!$4){
+this.resetTestTimer($7*60)
 };if(this.firstSubtest){
-this.recalltrackMouseMove();gScreens.showWelcome($5,$2,$3,this.getStudentName())
+this.recalltrackMouseMove();gScreens.showWelcome($7,$3,$4,this.getStudentName())
 }else{
-gScreens.showContinue($5,$2,$3,this.getStudentName())
+gScreens.showContinue($7,$3,$4,this.getStudentName())
 }};this.setAttribute("firstSubtest",false);gLogo.setSource(canvas.logoRsrc);if(!gScratchpad.isinited){
 gScratchpad.completeInstantiation()
 };this.setScratchpadForSubtest();if(this.isLoginResponseHavingSeed&&!nullOrSpace(this.seed)){
-this.populateRandomIndexArray(this.seed,$2)
+this.populateRandomIndexArray(this.seed,$3)
 };this.setAttribute("visitedCount",this.totalVisited());this.setAttribute("latestVisitedCount",this.visitedCount)
 },"populateRandomIndexArray",function($0,$1){
 if(this.randomIndexArray.length<$1){
@@ -29435,9 +29466,9 @@ $7=$1-$3.length;for(var $8=0;$8<$7;$8++){
 $3.push($3[$8])
 }};return $3
 },"setScratchpadForSubtest",function(){
-var $0="";if(this.dprestart.isValid()){
-var $0=this.dprestart.xpathQuery('tsd[@scid = "'+this.restartscid+'"]/sp/text()')
-};gScratchpad.setAttribute("text",unescape($0))
+var $0=this.restartscid;var $1="";if(this.dprestart.isValid()){
+var $1=this.dprestart.xpathQuery('tsd[@scid = "'+$0+'"]/sp/text()')
+};gScratchpad.setAttribute("text",unescape($1))
 },"outOfTimeOpen",function(){
 this.setState(this.OUT_OF_TIME_OPEN_STATE);this.save(this.INIT_LEV)
 },"_handleOutOfTimeOpenResponse",function($0){
@@ -29448,13 +29479,13 @@ canvas.setAttribute("readable",true)
 }else{
 canvas.setAttribute("readable",false)
 }},"openTest",function(){
-this.istRestartLength=0;var $0=this.restartscid;var $1=this.getItemFromOffset(0);if(this.dprestart.isValid()){
-var $1=this.dpsubtest.xpathQuery("ob_assessment/ob_element_list/f[@id='"+this.dprestart.xpathQuery('tsd[@scid = "'+this.restartscid+'"]/ast/@cur_eid')+"']");if(!$1){
-$1=this.getItemFromOffset(0)
-};var $2=this.dpstudentdata.xpathQuery("runtime/item_model [@eid = '"+this.dprestart.xpathQuery('tsd[@scid = "'+this.restartscid+'"]/ast/@cur_eid')+"']");$2.setAttr("eid",this.dprestart.xpathQuery('tsd[@scid = "'+this.restartscid+'"]/ast/@cur_eid'))
+this.istRestartLength=0;var $0=this.restartscid;var $1=$0;var $2=this.getItemFromOffset(0);var $3=this.dprestart.xpathQuery('tsd[@scid ="'+$0+'"]/@scid');if(this.dprestart.isValid()&&$3!=null){
+var $2=this.dpsubtest.xpathQuery("ob_assessment/ob_element_list/f[@id='"+this.dprestart.xpathQuery('tsd[@scid = "'+$0+'"]/ast/@cur_eid')+"']");if(!$2){
+$2=this.getItemFromOffset(0)
+};var $4=this.dpstudentdata.xpathQuery("runtime/item_model [@eid = '"+this.dprestart.xpathQuery('tsd[@scid = "'+$0+'"]/ast/@cur_eid')+"']");$4.setAttr("eid",this.dprestart.xpathQuery('tsd[@scid = "'+$0+'"]/ast/@cur_eid'))
 };if(gController.audible=="true"){
 gMusicPlayer.play();gMusicPlayer.setAttribute("playStarted",true)
-};this.saveLoadItem($1,this.INIT_LEV);Debug.write("*****saveLoadItem done*****");this.dshowClient.register(this,"itemuiready")
+};this.saveLoadItem($2,this.INIT_LEV);Debug.write("*****saveLoadItem done*****");this.dshowClient.register(this,"itemuiready")
 },"showClient",function($0){
 switch(arguments.length){
 case 0:
@@ -29462,20 +29493,20 @@ $0=null;
 
 };this.dshowClient.unregisterAll();this.showItemInterface()
 },"getAdptiveRestartNodes",function(){
-var $0=[];var $1=this.subtestLength+1;this.dprestart.xpathQuery($e);var $2=countDataNodes(this.dprestart.xpathQuery("tsd/ist"));var $3=this.dprestart.xpathQuery("tsd");var $4=$3.getElementsByTagName("ist");var $5=this.dprestart.xpathQuery('tsd[@scid = "'+this.restartscid+'"]/ast/@cur_eid');var $6=Number(this.getStartNumber());this.istLength=$4.length;this.istRestartLength=this.istLength;for(var $7=0;$7<$4.length-1;$7++){
-for(var $8=0;$8<$4.length-$7;$8++){
-var $9=parseInt($4[$8].getAttr("mseq"));var $a=parseInt($4[$8+1].getAttr("mseq"));if($a<$9){
-var $b=$4[$8+1];$4[$8+1]=$4[$8];$4[$8]=$b
-}}};for(var $8=0;$8<$4.length;$8++){
-var $c=$4[$8].getAttr("eid");var $d=$4[$8].getAttr("stimulus_id");var $e="tsd/ist[@eid='"+$c+"']";var $f=this.dprestart.xpathQuery($e);var $g=this.dprestart.xpathQuery($e+"/rv/v");var $h=$4[$8].getAttr("type")==this.THEME_TYPE;var $i="false";var $j=this.dpsubtest.xpathQuery("ob_assessment/ob_element_list");var $k=$j.getElementsByTagName("f");var $l=$k[$6-1].getAttr("id");var $m=$4[$8].getAttr("allow_revisit_on_restart");Debug.write("eid:"+$c);var $n={eid:$l,stimulus_id:$d,answered:this.isAnswered($g),is_visited:$i,marked:$f.getAttr("mrk")=="1",dur:$f.getAttr("dur"),not_sr:this.getNotSr($f),item_no:$6,theme:$h,allow_revisit:this.allowRevisit,allow_revisit_on_restart:$m};var $o=this.dprestart.xpathQuery($e+"/ov[@n='SCORE']/v/text()");if(typeof $o=="string"){
-$n.score=$o
-};var $p=this.dprestart.xpathQuery($e+"/rv[@n='RESPONSE']/v/text()");if(typeof $p=="string"){
-$n.answer_text=$p
-};if($c==$5){
-$n.item_no=$4.length
-};var $q=this.dpstudentdata.xpathQuery("runtime/item_model");var $r=new (lz.DataElement)("item_model",$n,null);var $s=this.dpstudentdata.xpathQuery("runtime/item_model [@item_no = '"+$6+"']");if(!$h){
-$6=$6+1
-};$s.parentNode.replaceChild($r,$s)
+var $0=this.restartscid;var $1=[];var $2=this.subtestLength+1;this.dprestart.xpathQuery($f);var $3=countDataNodes(this.dprestart.xpathQuery("tsd/ist"));var $4=this.dprestart.xpathQuery("tsd");var $5=$4.getElementsByTagName("ist");var $6=this.dprestart.xpathQuery('tsd[@scid = "'+$0+'"]/ast/@cur_eid');var $7=Number(this.getStartNumber());this.istLength=$5.length;this.istRestartLength=this.istLength;for(var $8=0;$8<$5.length-1;$8++){
+for(var $9=0;$9<$5.length-$8;$9++){
+var $a=parseInt($5[$9].getAttr("mseq"));var $b=parseInt($5[$9+1].getAttr("mseq"));if($b<$a){
+var $c=$5[$9+1];$5[$9+1]=$5[$9];$5[$9]=$c
+}}};for(var $9=0;$9<$5.length;$9++){
+var $d=$5[$9].getAttr("eid");var $e=$5[$9].getAttr("stimulus_id");var $f="tsd/ist[@eid='"+$d+"']";var $g=this.dprestart.xpathQuery($f);var $h=this.dprestart.xpathQuery($f+"/rv/v");var $i=$5[$9].getAttr("type")==this.THEME_TYPE;var $j="false";var $k=this.dpsubtest.xpathQuery("ob_assessment/ob_element_list");var $l=$k.getElementsByTagName("f");var $m=$l[$7-1].getAttr("id");var $n=$5[$9].getAttr("allow_revisit_on_restart");Debug.write("eid:"+$d);var $o={eid:$m,stimulus_id:$e,answered:this.isAnswered($h),is_visited:$j,marked:$g.getAttr("mrk")=="1",dur:$g.getAttr("dur"),not_sr:this.getNotSr($g),item_no:$7,theme:$i,allow_revisit:this.allowRevisit,allow_revisit_on_restart:$n};var $p=this.dprestart.xpathQuery($f+"/ov[@n='SCORE']/v/text()");if(typeof $p=="string"){
+$o.score=$p
+};var $q=this.dprestart.xpathQuery($f+"/rv[@n='RESPONSE']/v/text()");if(typeof $q=="string"){
+$o.answer_text=$q
+};if($d==$6){
+$o.item_no=$5.length
+};var $r=this.dpstudentdata.xpathQuery("runtime/item_model");var $s=new (lz.DataElement)("item_model",$o,null);var $t=this.dpstudentdata.xpathQuery("runtime/item_model [@item_no = '"+$7+"']");if(!$i){
+$7=$7+1
+};$t.parentNode.replaceChild($s,$t)
 }},"initStudentData",function(){
 if(gController.audible&&!gMusicPlayer.alreadyCalled){
 this.loadMusicData()
@@ -29689,7 +29720,7 @@ gManipulativeBar.globals.maskingAnswer.setAttribute("visible",false)
 };if(this.isNavigateFwd){
 var $h=this.dpstudentdata.xpathQuery("current_item/item_model/@theme");if(this.isThemePage()=="false"){
 this.setAttribute("latestVisitedCount",this.latestVisitedCount+1)
-}};gController.setAttribute("isNavigateFwd",false)
+}};gController.setAttribute("isNavigateFwd",false);this.setAttribute("revisitCancelClicked",false)
 },"saveSharedStimulusHighlights",function(){
 var $0=this.dpstudentdata.xpathQuery("current_item/item_model/");Debug.write("dncurritem--------- ",$0);if($0!=null){
 var $1=$0.getAttr("stimulus_id");if($1!=0){
@@ -30832,7 +30863,7 @@ $1=true;
 $0.id="gController";gController=$0
 }else if(gController===$0){
 gController=null;$0.id=null
-}},CHECK_PROD_TYPE_METHOD:"isProductCheck",DEFAULT_TYPE:"UN",DOWNLOAD_STATE:"download",FEEDBACK_STATE:"feedback",FINISH_LEV:"lms_finish",FINISH_SAVE_STATE:"finishSave",FINISH_STATE:"finish",INIT_LEV:"lms_initialize",IS_MIC_ATTACHED:"ismicattached",LOGIN_STATE:"login",MAX_CR_ID:10000000000,NONE_STATE:"none",OUT_OF_TIME_OPEN_STATE:"outOfTimeOpen",PAUSED_RESUME_STATE:"pausedResume",PAUSE_LEV:"stu_pause",PAUSE_STATE:"pause",RESUME_LEV:"stu_resume",RestartTest:false,SAVE_END_SUBTEST_STATE:"saveEndSubtest",SAVE_LEV:"stu_save",SAVE_LOAD_STATE:"saveload",STOP_LEV:"stu_stop",SUBTEST_FINISH_STATE:"subtestFinish",SUBTEST_STATE:"subtest",TERMINATED_LEV:"terminated",THEME_TYPE:"NI",TIMEOUT_STATE:"timeout",TIMER_INTERVAL:500,TUTORIAL_COMPLETE_STATE:"tutorialComplete",UPLOAD_AUDIT_FILE_STATE:"uploadAuditFile",WARNING_MINUTE:3,WRITE_TO_AUDIT_FILE_STATE:"writeToAuditFile",abScore:0,accesscode:"null",accomstyles:void 0,adaptive:new LzOnceExpr("$m2bc",null),allowItmeNavigate:true,allowNavigate:true,allowRevisit:true,alphabetString:"ABCDEFGHIJKLMNOPQRSTUVWXYZ",answerArray:new LzOnceExpr("$m2b1",null),answerBgColor:16777136,answerFontColor:0,answerObj:new LzOnceExpr("$m2b7",null),answerdp:new LzOnceExpr("$m2ah",null),answeredDel:new LzOnceExpr("$m2b6",null),applyFlashFix:false,assignedRandomDistractorIndex:new LzOnceExpr("$m2ax",null),audible:new LzOnceExpr("$m2bp",null),audioArray:new LzOnceExpr("$m2ao",null),audioFields:new LzOnceExpr("$m2al",null),audioId:void 0,blockFileName:false,canNotAnswer:false,catOver:false,communicatorResponse:"null",crFields:new LzOnceExpr("$m2ak",null),currentCrId:10000000000,currentImageId:null,currentManipSelected:"NONE",currentSubtestIndex:0,dMicCheck:new LzOnceExpr("$m2b9",null),dNetworkLostPopup:new LzOnceExpr("$m2ay",null),dRestoreCursor:new LzOnceExpr("$m2bf",null),dcloseBrowser:new LzOnceExpr("$m2bn",null),displayText:false,distractorArrayFor3:new LzAlwaysExpr("$m2ap","$m2aq",null),distractorArrayFor4:new LzAlwaysExpr("$m2ar","$m2as",null),distractorArrayFor5:new LzAlwaysExpr("$m2at","$m2au",null),doUnlockUI:true,dp:new LzOnceExpr("$m2ag",null),dpdisplay:void 0,dpitem:void 0,dplogin:void 0,dprestart:void 0,dpstimulus:void 0,dpstudentdata:void 0,dpsubtest:void 0,dpsubtestdata:void 0,dptemp:void 0,dsendHeartbeat:new LzOnceExpr("$m2bt",null),dshowClient:new LzOnceExpr("$m2b2",null),dupdateTimeLeft:new LzOnceExpr("$m2bu",null),dupdateTimeLeftForPause:new LzOnceExpr("$m2bw",null),durationms:0,durationmsforpause:0,elapsedms:0,elapsedmsforpause:0,eraserState:false,findAnswer:true,firstSubtest:true,focusOnGr:false,focusOnScratchpad:false,formulaCardResource:"false",fwdOnly:false,gAnsweredCount:0,gCurrentItemPos:0,gPrevStimulusId:0,gStimulusId:0,hasDynamicRefCard:false,hasFontAccommodation:false,hasTNorFCATrefCard:false,hasTTSspeed:false,heartbeatResult:"null",highlighterState:false,htmlFields:new LzOnceExpr("$m2b5",null),id:"gController",idImageFieldTemp:new LzOnceExpr("$m2an",null),idImageFields:new LzOnceExpr("$m2am",null),iframeid:"NONE",imageData:new LzOnceExpr("$m2b4",null),imageLIArray:new LzOnceExpr("$m2b0",null),inQuestion:false,isAnswerSet:false,isAudioPaused:false,isAudioPlaying:void 0,isFinishTest:false,isHandlerInactive:false,isLoginResponseHavingSeed:false,isMicPresent:true,isMousedownOnManip:false,isNavigateBack:false,isNavigateFwd:false,isPauseScreen:false,isPauseTest:false,isPaused:false,isPreviewer:new LzOnceExpr("$m2aj",null),isRevisitPopupOpen:false,isSizer:false,isStopScreen:false,isStopTest:true,isTestPaused:false,isWaitPopupAfter60SecOpen:false,isWaitPopupOpen:false,isaudio:false,isplaying:false,istLength:0,istRestartLength:0,isuntimed:new LzOnceExpr("$m2bv",null),itemHasRationalNode:false,itemloaded:false,lasAssetArray:new LzOnceExpr("$m2b8",null),lastItemVisited:false,lastPlayOrderId:void 0,lastThemeItemNo:0,latestVisitedCount:0,loadNode:void 0,lsid:0,magnifierState:false,magnifierVisible:false,manipClicked:false,manipSelected:false,manipbuttonClicked:false,maskingAnswerDDState:false,maxModBase:51,modBase:24,musicId:new LzOnceExpr("$m2bq",null),navigateConfirm:false,newModBase:24,nextItem:0,objScore:null,optionEliminatorState:false,password:"null",pausable:new LzOnceExpr("$m2bo",null),pending:new LzOnceExpr("$m2br",null),playIfAnswered:false,prevItemId:0,productTypeVal:"ISTEP",qtimestamp:0,qtimestampforpause:0,questionBgColor:16777215,questionFontColor:0,randomIndexArray:new LzAlwaysExpr("$m2av","$m2aw",null),recordState:true,recorder:null,recorderField:new LzOnceExpr("$m2az",null),recordingCompleted:false,recordingStopped:false,relogin:false,requestPending:false,resetButtonEnable:false,restartItemCount:0,restartscid:0,runtimeready:false,scid:0,scratchpadOpen:false,seed:void 0,seedDigitSum:void 0,sem:0,sendCatSave:true,showHighlighter:false,showMaskingAnswerPopUp:false,showPleaseWaitOver:false,singleCRhasFocus:true,skipCacheDestroy:false,state:new LzOnceExpr("$m2ai",null),stuLoginDetails:new LzOnceExpr("$m2b3",null),stylesArr:new LzAlwaysExpr("$m2bd","$m2be",null),subtestLength:0,testSessionData:null,testTimeout:false,timerInterval:1200000,timing:false,timingforpause:false,totalNumberOfTests:null,trackDel:new LzOnceExpr("$m2bx",null),trackingcomponents:false,uisemaphore:1,unlockNavigation:true,userid:"null",visitedCount:0,youarehereset:false},"class":$lzc$class__m2by},10);lz.ClassAttributeTypes["LoginButton"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
+}},CHECK_PROD_TYPE_METHOD:"isProductCheck",DEFAULT_TYPE:"UN",DOWNLOAD_STATE:"download",FEEDBACK_STATE:"feedback",FINISH_LEV:"lms_finish",FINISH_SAVE_STATE:"finishSave",FINISH_STATE:"finish",INIT_LEV:"lms_initialize",IS_MIC_ATTACHED:"ismicattached",LOGIN_STATE:"login",MAX_CR_ID:10000000000,NONE_STATE:"none",OUT_OF_TIME_OPEN_STATE:"outOfTimeOpen",PAUSED_RESUME_STATE:"pausedResume",PAUSE_LEV:"stu_pause",PAUSE_STATE:"pause",RESUME_LEV:"stu_resume",RestartTest:false,SAVE_END_SUBTEST_STATE:"saveEndSubtest",SAVE_LEV:"stu_save",SAVE_LOAD_STATE:"saveload",STOP_LEV:"stu_stop",SUBTEST_FINISH_STATE:"subtestFinish",SUBTEST_STATE:"subtest",TERMINATED_LEV:"terminated",THEME_TYPE:"NI",TIMEOUT_STATE:"timeout",TIMER_INTERVAL:500,TUTORIAL_COMPLETE_STATE:"tutorialComplete",UPLOAD_AUDIT_FILE_STATE:"uploadAuditFile",WARNING_MINUTE:3,WRITE_TO_AUDIT_FILE_STATE:"writeToAuditFile",abScore:0,accesscode:"null",accomstyles:void 0,adaptive:new LzOnceExpr("$m2bc",null),allowItmeNavigate:true,allowNavigate:true,allowRevisit:true,alphabetString:"ABCDEFGHIJKLMNOPQRSTUVWXYZ",answerArray:new LzOnceExpr("$m2b1",null),answerBgColor:16777136,answerFontColor:0,answerObj:new LzOnceExpr("$m2b7",null),answerdp:new LzOnceExpr("$m2ah",null),answeredDel:new LzOnceExpr("$m2b6",null),applyFlashFix:false,assignedRandomDistractorIndex:new LzOnceExpr("$m2ax",null),audible:new LzOnceExpr("$m2bp",null),audioArray:new LzOnceExpr("$m2ao",null),audioFields:new LzOnceExpr("$m2al",null),audioId:void 0,blockFileName:false,canNotAnswer:false,catOver:false,communicatorResponse:"null",crFields:new LzOnceExpr("$m2ak",null),currentCrId:10000000000,currentImageId:null,currentManipSelected:"NONE",currentSubtestIndex:0,dMicCheck:new LzOnceExpr("$m2b9",null),dNetworkLostPopup:new LzOnceExpr("$m2ay",null),dRestoreCursor:new LzOnceExpr("$m2bf",null),dcloseBrowser:new LzOnceExpr("$m2bn",null),displayText:false,distractorArrayFor3:new LzAlwaysExpr("$m2ap","$m2aq",null),distractorArrayFor4:new LzAlwaysExpr("$m2ar","$m2as",null),distractorArrayFor5:new LzAlwaysExpr("$m2at","$m2au",null),doUnlockUI:true,dp:new LzOnceExpr("$m2ag",null),dpdisplay:void 0,dpitem:void 0,dplogin:void 0,dprestart:void 0,dpstimulus:void 0,dpstudentdata:void 0,dpsubtest:void 0,dpsubtestdata:void 0,dptemp:void 0,dsendHeartbeat:new LzOnceExpr("$m2bt",null),dshowClient:new LzOnceExpr("$m2b2",null),dupdateTimeLeft:new LzOnceExpr("$m2bu",null),dupdateTimeLeftForPause:new LzOnceExpr("$m2bw",null),durationms:0,durationmsforpause:0,elapsedms:0,elapsedmsforpause:0,eraserState:false,findAnswer:true,firstSubtest:true,focusOnGr:false,focusOnScratchpad:false,formulaCardResource:"false",fwdOnly:false,gAnsweredCount:0,gCurrentItemPos:0,gPrevStimulusId:0,gStimulusId:0,hasDynamicRefCard:false,hasFontAccommodation:false,hasTNorFCATrefCard:false,hasTTSspeed:false,heartbeatResult:"null",highlighterState:false,htmlFields:new LzOnceExpr("$m2b5",null),id:"gController",idImageFieldTemp:new LzOnceExpr("$m2an",null),idImageFields:new LzOnceExpr("$m2am",null),iframeid:"NONE",imageData:new LzOnceExpr("$m2b4",null),imageLIArray:new LzOnceExpr("$m2b0",null),inQuestion:false,isAnswerSet:false,isAudioPaused:false,isAudioPlaying:void 0,isFinishTest:false,isHandlerInactive:false,isLoginResponseHavingSeed:false,isMicPresent:true,isMousedownOnManip:false,isNavigateBack:false,isNavigateFwd:false,isPauseScreen:false,isPauseTest:false,isPaused:false,isPreviewer:new LzOnceExpr("$m2aj",null),isRevisitPopupOpen:false,isSizer:false,isStopScreen:false,isStopTest:true,isTestPaused:false,isWaitPopupAfter60SecOpen:false,isWaitPopupOpen:false,isaudio:false,isplaying:false,istLength:0,istRestartLength:0,isuntimed:new LzOnceExpr("$m2bv",null),itemHasRationalNode:false,itemloaded:false,lasAssetArray:new LzOnceExpr("$m2b8",null),lastItemVisited:false,lastPlayOrderId:void 0,lastThemeItemNo:0,latestVisitedCount:0,loadNode:void 0,lsid:0,magnifierState:false,magnifierVisible:false,manipClicked:false,manipSelected:false,manipbuttonClicked:false,maskingAnswerDDState:false,maxModBase:51,modBase:24,musicId:new LzOnceExpr("$m2bq",null),navigateConfirm:false,newModBase:24,nextItem:0,objScore:null,optionEliminatorState:false,password:"null",pausable:new LzOnceExpr("$m2bo",null),pending:new LzOnceExpr("$m2br",null),playIfAnswered:false,prevItemId:0,productTypeVal:"ISTEP",qtimestamp:0,qtimestampforpause:0,questionBgColor:16777215,questionFontColor:0,randomIndexArray:new LzAlwaysExpr("$m2av","$m2aw",null),recordState:true,recorder:null,recorderField:new LzOnceExpr("$m2az",null),recordingCompleted:false,recordingStopped:false,relogin:false,requestPending:false,resetButtonEnable:false,restartItemCount:0,restartscid:0,revisitCancelClicked:false,runtimeready:false,scid:0,scratchpadOpen:false,seed:void 0,seedDigitSum:void 0,sem:0,sendCatSave:true,showHighlighter:false,showMaskingAnswerPopUp:false,showPleaseWaitOver:false,singleCRhasFocus:true,skipCacheDestroy:false,state:new LzOnceExpr("$m2ai",null),stuLoginDetails:new LzOnceExpr("$m2b3",null),stylesArr:new LzAlwaysExpr("$m2bd","$m2be",null),subtestLength:0,testSessionData:null,testTimeout:false,timerInterval:1200000,timing:false,timingforpause:false,totalNumberOfTests:null,trackDel:new LzOnceExpr("$m2bx",null),trackingcomponents:false,uisemaphore:1,unlockNavigation:true,userid:"null",visitedCount:0,youarehereset:false},"class":$lzc$class__m2by},10);lz.ClassAttributeTypes["LoginButton"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
 Class.make("$lzc$class_LoginButton",["$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
@@ -35457,7 +35488,7 @@ LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc
 }}})($lzc$class__m2q6)
 };lz.ClassAttributeTypes["$lzc$class__m2q8"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
 Class.make("$lzc$class__m2q8",["$m2od",function($0){
-gController.setAttribute("unlockNavigation",false);gController.setNavigation(1,this.parent.parent.navigateFrom);gController.unlockUI()
+gController.setAttribute("unlockNavigation",false);gController.setNavigation(1,this.parent.parent.navigateFrom);gController.unlockUI();gController.setAttribute("revisitCancelClicked",true)
 },"$m2oe",function($0){
 lz.Cursor.unlock();gController.clearAndRestoreCurrentCursor()
 },"$lzsc$initialize",function($0,$1,$2,$3){
