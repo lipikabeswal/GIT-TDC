@@ -24,7 +24,7 @@ public String showOptionDialog(){
 	
 	if (rc==-1) { 
 		System.out.println("No Form was selected");
-		return "No Form was selected";
+		return null;
 	    
 	   } 
 	else {  

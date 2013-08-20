@@ -597,17 +597,17 @@ public class LockdownBrowserWrapper extends Thread {
 				LockdownWinB lockdownB = new LockdownWinB(this.tdcHome);
 				
 				//boolean flag = false;
-				if (LockdownBrowserWrapper.Process_Block()) {
+				/*if (LockdownBrowserWrapper.Process_Block()) {
 					flag = false;
 					ConsoleUtils.messageOut("Process block failed.");
-				} else {
+				} else {*/
 					flag = true;
 					
 					lockdown.start();
 					lockdownB.start();
 					
 					ConsoleUtils.messageOut("Desktop Locked..........");
-				}
+				//}
 				// Run the LDB...
 				ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
 				//ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);

@@ -484,6 +484,9 @@ public class Main {
         if(productType.equals("LASLINKS")){
         Dialog dialog=new Dialog();
          formName=dialog.showOptionDialog();
+         if(formName==null)
+        	 System.exit(1);
+        	 
         }
        	LockdownBrowserWrapper ldb = new LockdownBrowserWrapper(tdcHome, macOS, linux, splashWindow, jettyPort,formName,productType);
        
@@ -603,6 +606,16 @@ public class Main {
 					jetty.shutdown();
 				}
 				clearClipBoard();
+				
+				//Show the taskbar after exiting
+				if(!isMacOS()&& !isLinux())
+					try {
+						Runtime.getRuntime().exec("taskbarshow.exe", null, new File(tdcHome.replaceAll(" ", "\\ ")));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
 				// make sure bootstrap is dead
 				System.exit(exitCode);
 			}
@@ -663,8 +676,8 @@ private static class LockdownWin extends Thread {
 		} 	
 		
 		public static void killProcess(String serviceName) throws Exception {
-			  Runtime.getRuntime().exec("taskkill /F /IM "+ serviceName);
-			  Runtime.getRuntime().exec("tskill "+ serviceName);
+			Runtime.getRuntime().exec("taskkill /F /IM "+ serviceName).waitFor();
+			Runtime.getRuntime().exec("tskill "+ serviceName.split("\\.")[0]);  
 		 }		
 		
 	}
