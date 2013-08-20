@@ -281,7 +281,8 @@
                     dn.nodeName == gCompTypes.WIDGET_IMAGE ||
                     dn.nodeName == gCompTypes.WIDGET_MULTI_LINE_ANSWER ||
                     dn.nodeName == gCompTypes.WIDGET_SINGLE_LINE_ANSWER||
-					dn.nodeName == gCompTypes.WIDGET_ASSET) {
+					dn.nodeName == gCompTypes.WIDGET_ASSET ||
+					dn.nodeName == gCompTypes.WIDGET_RECORDER) {
                     continue;
                 }
                 
