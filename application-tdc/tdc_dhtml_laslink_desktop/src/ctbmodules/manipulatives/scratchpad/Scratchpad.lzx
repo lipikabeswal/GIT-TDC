@@ -33,16 +33,18 @@
 		<attribute name="characterLimit" type="number" value="10000" />
 		<attribute name="isTestInterrupted" type="boolean" value="false"/>
 		<attribute name="startResize" type="boolean" value="false"/>
-
+		<attribute name="mouseReleased" type="boolean" value="false"/>
         <handler name="onmousedown">
         	this.bringToFront();
         	this.sp.inp.setAttribute('selectable',false);
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
             lz.Cursor.lock ();
+			this.setAttribute("mouseReleased",true);
         </handler>
 
 		<handler name="onmouseup" reference="lz.GlobalMouse" args="who"><![CDATA[
 		    console.log("====Scratchpad sc mouse up==",who);
+			this.setAttribute("mouseReleased",false);
 			if(who){
 				if(lz.Focus.getFocus() == sp.inp){  // user may have changed selection using mouse
 					this.sp.storeSelection();
@@ -90,7 +92,12 @@
 		</method>
 		
  		<handler name="onmouseover">
-            gController.setCurrentCursor('cangrab_cursor');
+			if(!this.mouseReleased){
+            	gController.setCurrentCursor('cangrab_cursor');
+			}else{
+				gController.setCurrentCursor('grabbing_cursor');
+				
+			}
         </handler>
         
         <handler name="onmouseout">
