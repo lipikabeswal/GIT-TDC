@@ -4,15 +4,19 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.Reader;
 import java.lang.reflect.Field;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -90,7 +94,7 @@ public class PersistenceServlet extends HttpServlet {
 	static{
 		try {
 			version = getVersion();
-		} catch (MalformedURLException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -197,7 +201,7 @@ public class PersistenceServlet extends HttpServlet {
 		Double abilityScore =0.0;
 		Double sem = 0.0;
 		String objScore = "0,0,0,0,0,0";
-
+//logger.info("METHOD*****"+method);
 		// call method to perform an action only if servlet settings is valid
 		if (!validSettings)
 			result = ServletUtils.getServletSettingsErrorMessage();
@@ -292,6 +296,7 @@ public class PersistenceServlet extends HttpServlet {
 		else if (method != null
 				&& method.equals(ServletUtils.CHECK_PROD_TYPE_METHOD)){
 					result = "<"+PRODUCT_TYPE.trim()+" version=\""+VERSION.substring(0, VERSION.lastIndexOf(".")).trim()+"\"/>";
+					//logger.info("RESULT******"+result);
 				}
 		else if (method != null
 				&& method.equals(ServletUtils.OK_CALCULATOR)) {
@@ -1101,13 +1106,30 @@ public class PersistenceServlet extends HttpServlet {
         calculatorDialog30.setVisible(true);
         calculatorDialog30.setVisible(false);
     }
-	public static String getVersion() throws MalformedURLException {
-		File file = new File("etc");
-		java.net.URL url = file.toURI().toURL();
-		ClassLoader loader = new URLClassLoader(new java.net.URL[]{url});
-		ResourceBundle rb = ResourceBundle.getBundle("version", Locale.getDefault(), loader);
+	public static String getVersion() throws IOException {
+		/*File file = new File("etc");
+		java.net.URL url = file.toURI().toURL();*/
+	//	logger.info("Inside getVersion***********");
+		String path=System.getProperty(TDC_HOME) + File.separator + 
+		"etc" + File.separator + "version.properties";
+		String version=null;
+		File file=new File(path);
+		BufferedReader br;
+		try {
+			br = new BufferedReader(new FileReader(file));
+			version=br.readLine().split("=")[1];
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	//	logger.info("VERSION******"+version);
+		return version;
+		/*ClassLoader loader = new URLClassLoader(new java.net.URL[]{url});
+		Locale locale = new Locale("en_us");
+		ResourceBundle rb = ResourceBundle.getBundle("version", locale, loader);
+		//ResourceBundle rb = ResourceBundle.getBundle
 		//System.out.println(rb.getString("tdc.version"));
-		return rb.getString("tdc.version");
+		return rb.getString("tdc.version");*/
 	}
 
    
