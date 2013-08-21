@@ -1401,8 +1401,8 @@ parse the text string and store text and image string in an array at different i
                  height="${classroot.thetext.height}"
                  clickable="${classroot.isReadable}">
                <handler name="onclick">
-                   //classroot.read(gReadableText.stripHtmlTags(classroot.thetext.text));
-                   classroot.read(escape(classroot.readText));
+                   classroot.read(gReadableText.stripHtmlTags(classroot.readText));
+                   //classroot.read(escape(classroot.readText));
                </handler>
            </view>
 
