@@ -3701,25 +3701,32 @@
 				
 			}
 		
-	
+	   var dn = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');
+		var manips = new Array("highlighter",
+			 				    "option_eliminator", 
+			 				    "eraser");
+		for (var i = 0; i < manips.length; i++){
+			var manip = manips[i];
+			var state = dn.getAttr(manip);
+		}
 
 		console.log("this.manipbuttonClicked***"+canvas.currentCursor);
 		if(this.manipbuttonClicked){
 				if(gManipulativeBar.globals.option_eliminator != null){
-					if(this.manipClicked && this.currentManipSelected == 'option_eliminator'){
+					if(this.manipClicked && this.currentManipSelected == 'option_eliminator' && state == 'sel'){
 						gManipulativeBar.globals.option_eliminator.setAttribute("frame",2);
 						this.setAttribute('optionEliminatorState','true');
 					}
 				}
 				if(gManipulativeBar.globals.highlighter != null){
-					if(this.manipClicked && this.currentManipSelected == 'highlighter'){
+					if(this.manipClicked && this.currentManipSelected == 'highlighter' && state == 'sel'){
 						gManipulativeBar.globals.highlighter.setAttribute("frame",2);
 						this.setAttribute('highlighterState','true');
 					}
 					
 				}
 				if(gManipulativeBar.globals.eraser != null){
-					if(this.manipClicked && this.currentManipSelected == 'eraser'){
+					if(this.manipClicked && this.currentManipSelected == 'eraser' && state == 'sel'){
 						gManipulativeBar.globals.eraser.setAttribute("frame",2);
 						this.setAttribute('eraserState','true');
 					}
