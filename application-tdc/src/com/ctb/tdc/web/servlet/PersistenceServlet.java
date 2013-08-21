@@ -19,10 +19,12 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.print.DocFlavor.URL;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -44,7 +46,13 @@ import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ServletUtils;
 import com.ti.eps.emu84.testAgency.EmulatorComponent;
 import com.ti.eps.ngiexamcalc.gui.ti30.CalcPaneTI30;
-
+import java.util.ResourceBundle;
+import java.io.File;
+import java.net.MalformedURLException;
+import com.ctb.tdc.web.utils.RBTest;
+import java.net.URLClassLoader;
+import java.util.Locale;
+import java.util.ResourceBundle;
 /** 
  * @author Tai_Truong
  * 
@@ -78,9 +86,20 @@ public class PersistenceServlet extends HttpServlet {
 	private static final String WEBINF_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
 														"webapp" + File.separator + "WEB-INF";
 	private static final String PRODUCT_TYPE = System.getProperty("tdc.productType");
-	private static final String VERSION = "9.9.9";
-
+	
+	static String version = null;
+	static{
+		try {
+			version = getVersion();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+	}
+	private static final String VERSION = version;
 	private static native void nativeUpLevelWindow(final String windowName);
+
 	
 	static {
 		if(osName.indexOf("mac") >= 0) {
@@ -1083,4 +1102,14 @@ public class PersistenceServlet extends HttpServlet {
         calculatorDialog30.setVisible(true);
         calculatorDialog30.setVisible(false);
     }
+	public static String getVersion() throws MalformedURLException {
+		File file = new File("etc");
+		java.net.URL url = file.toURI().toURL();
+		ClassLoader loader = new URLClassLoader(new java.net.URL[]{url});
+		ResourceBundle rb = ResourceBundle.getBundle("version", Locale.getDefault(), loader);
+		//System.out.println(rb.getString("tdc.version"));
+		return rb.getString("tdc.version");
+	}
+
+   
 }
