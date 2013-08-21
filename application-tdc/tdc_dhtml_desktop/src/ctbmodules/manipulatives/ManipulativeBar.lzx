@@ -2,7 +2,7 @@
 
     <include href="ManipulativeButton.lzx"/>
     <include href="base/baseslider.lzx"/>
-    <include href="lz/slider.lzx"/>
+    <include href="volume_slider.lzx"/>
    <include href="ScratchpadButton.lzx"/>
 	<include href="radioButton/radio.lzx"/>
 
@@ -271,7 +271,7 @@
 		
 				<!-- The tool to control the TTS volume -->
 				<!--START Changes done for defect #65040 and #65041-->
-				<slider name="volumeControl" value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" 
+				<volume_slider name="volumeControl" value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" 
 						thumbwidth="16" thumbheight="12" width="80">
 						
 						<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}" type="expression"/>
@@ -321,13 +321,7 @@
 					<method name="showTooltip" args="ignore=null">
 						gTooltip.showTooltip('Volume Control');
 					</method>
-		
-					<handler name="onvalue"><![CDATA[
-						if(canvas.capabilities.audio){
-							gReadableText.audioPlayer.setVolume(this.value);
-						}
-					]]></handler>
-				</slider>
+				</volume_slider>
 				
 			</view>
 
