@@ -5,6 +5,19 @@
 	         querytype="post"
 	         timeout="30000" 
 	         ondata="gReadableText.getMp3()" />
+
+	<dataset name="audioPlayerDs" 
+			 type="http"
+	         queuerequests="true" 
+	         querytype="get"
+	         timeout="30000" 
+	         ondata="gReadableText.checkMp3Status(this)" />
+	<dataset name="volumeDs" 
+			 type="http"
+	         queuerequests="true" 
+	         querytype="get"
+	         timeout="30000" 
+	         ondata="gReadableText.volumeSet(this)" />
  
     <text visible="false" width="0" height="0"
           id="gReadableText" oninit="sendToBack()" options="ignorelayout">
@@ -31,6 +44,7 @@
 	    <attribute name="speechRequestSent" type="boolean" value="false" />
 
 		<attribute name="dRequestor" value="$once{new lz.Delegate(this, 'requestor')}" type="expression" />  
+		<attribute name="dcheckIfPlaying" value="$once{new lz.Delegate(this,'checkIfPlaying')}" type="expression"/>
 
         <method name="init">
             super.init();
@@ -47,6 +61,8 @@
 			var getUrl = postUrl + '?file=speech.mp3';
 			setAttribute('GET_URL', getUrl);
 			speechDs.setAttribute('src', postUrl);
+			audioPlayerDs.setAttribute('src', postUrl);
+			volumeDs.setAttribute('src', postUrl);
 		</handler>
 		
 		<method name="getSelectionRemoved">
@@ -65,8 +81,7 @@
         	this.currentText = txt;//TTS CR
         	if ( isReadable && clickable && txt.length > 0){
         		doRead(txt);
- 	        	//commenting the line as screen reader is not working.
- 	        	//gController.freezeUI();
+ 	        	gController.freezeUI();
             }
         ]]></method>
 
@@ -120,26 +135,24 @@
         <method name="doRead" args="txt"><![CDATA[
 			this.currentText = txt;//TTS CR
         	//Changes for Defect # 65040
-        	if(canvas.capabilities.audio){
-        		this.audioPlayer.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
-			}
 			lz.Timer.resetTimer(this.dTimeout, TIMEOUT_INTERVAL);
- 	    	//stopReading();
+ 	    	stopReading();
  	        speechDs.setQueryParam(TEXT_PARAM, txt);
+ 	        speechDs.setQueryParam("method", "getMp3");
  	        //TTS CR
  	        if(gController.hasTTSspeed) {
  	        	var smf = gManipulativeBar.speedController.value;  //SMF => Slow, Medium, Fast
  	        	var speedValue = getSpeedNumber(smf);
  	        	speechDs.setQueryParam(SPEED_PARAM, speedValue);
  	        }
- 	        Debug.write("speechDs");
+ 	        //console.log("speechDs"+speechDs);
 			speechDs.doRequest();
        ]]></method>
         
         <method name="getMp3" ><![CDATA[
         	//ISTEP CR: to avoid browser caching of the mp3
-        	//Debug.write("getMp3" + GET_URL + ":"+timestamp());
-        	//audioPlayer.setSource(GET_URL+"&"+timestamp()+".mp3");
+        	//console.log("getMp3");
+			play();
         ]]></method>
 
 		<method name="timestamp">
@@ -185,6 +198,85 @@
 			return value;
         ]]></method>
 
+		<method name="play">
+			console.log("inside play");
+			audioPlayerDs.setQueryParam("method", "start");
+			audioPlayerDs.doRequest();
+		</method>
+
+		<method name="stop">
+			audioPlayerDs.setQueryParam("method", "stop");
+			audioPlayerDs.doRequest();
+		</method>
+		
+		<method name="checkIfPlaying">
+			audioPlayerDs.setQueryParam("method", "playcheck");
+			audioPlayerDs.doRequest();
+		</method>
+		
+		<method name="setPlayerVolume" args="volume_val">
+			console.log("setPlayerVolume "+volume_val);
+			volumeDs.setQueryParam("method", "setVolume");
+			volumeDs.setQueryParam("volume_val", volume_val);
+			volumeDs.doRequest();
+		</method>
+		
+		<method name="volumeSet" args="ds">
+			console.log("volumeSet");
+			gManipulativeBar.screenreader.volumeController.volumeControl.track.thumb.setAttribute('clickable',true);
+		</method>
+
+		<method name="checkMp3Status" args="ds">
+			//console.log("checkMp3Status "+ds.serialize());
+			var datasetText = gRequest.getDatasetText(ds);
+			//console.log("datasetText "+datasetText);
+			if(ds.childNodes[0].childNodes[0]!=null){
+				var status = ds.childNodes[0].childNodes[0].data;
+				if (status == "START") {
+					console.log("inside if block of checkMp3Status");
+		       		//gReadableText.isplaying = true; // TTS CR:when mp3 is loaded and ready to play
+	
+					//Changes for Defect # 65040
+					if(canvas.capabilities.audio){
+	 					this.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
+	 				}
+					if(gController.isWaitPopupOpen) {
+						gReadableText.speechRequestSent = false;
+						gCommunicator.firstRequestDone = false;
+						gController.hideWaitPopup();
+						gController.sendHeartbeat();
+						//to start the test timer 
+						gController.startQuestion();
+						gController.unlockUI();
+					}
+	
+	        		if(!gCommunicator.error){  // if we get an onload and there is no error
+						lz.Timer.removeTimer( dTimeout );
+		        		if(primed){
+			       			gController.unlockUI();
+		        		}
+		        		else{
+		        			this.setAttribute('primed', true);
+		        		}
+		        		lz.Timer.resetTimer(gReadableText.dcheckIfPlaying,500);
+		        	}
+	
+				}else if (status == "STOP") {
+					//console.log("inside else block of checkMp3Status");
+					lz.Timer.removeTimer(gReadableText.dcheckIfPlaying);
+					gReadableText.isplaying = false;
+				}else if (status == "true") {
+					console.log("inside isplaying true block of checkMp3Status");
+					lz.Timer.resetTimer(gReadableText.dcheckIfPlaying,500);
+					gReadableText.isplaying = true;
+				}else if (status == "false") {
+					console.log("inside isplaying false block of checkMp3Status");
+					lz.Timer.removeTimer(gReadableText.dcheckIfPlaying);
+					gReadableText.isplaying = false;
+				}
+			}		
+		</method>
+
         <attribute name="highlightFlag"
                    value="$path{'dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@highlighter'}"/>
         <attribute name="eraserFlag"
@@ -197,7 +289,7 @@
                            }"/>
         <method name="stopReading" args="fromSp"><![CDATA[
         	if(fromSp != true || (fromSp == true && gReadableText.readingScratchpad)){
-        		audioPlayer.stop();
+        		stop();
         	}
         ]]></method>
 
@@ -216,55 +308,6 @@
 		<method name="stopRequestor">
 			lz.Timer.removeTimer(dRequestor);
 		</method>
-		        
-        <view name="audioPlayer" visible="false">
-        	<handler name="onload">
-        		gReadableText.isplaying = true; // TTS CR:when mp3 is loaded and ready to play
-				//Changes for Defect # 65040
-				if(canvas.capabilities.audio){
- 					this.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
- 				}
-				if(gController.isWaitPopupOpen) {
-					gReadableText.speechRequestSent = false;
-					gCommunicator.firstRequestDone = false;
-					gController.hideWaitPopup();
-					gController.sendHeartbeat();
-					//to start the test timer 
-					gController.startQuestion();
-					gController.unlockUI();
-				}
-
-        		if(!gCommunicator.error){  // if we get an onload and there is no error
-	        	//	Debug.write("inside if of readable");
-					lz.Timer.removeTimer( parent.dTimeout );
-	        		if(parent.primed){
-					//Debug.write("inside if of primed");
-		       			gController.unlockUI();
-	        		}
-	        		else{
-	        			parent.setAttribute('primed', true);
-	        		}
-	        	}
-        	</handler>
-
-			<!-- TTS CR: when play method is called, set isplaying true -->
-			<handler name="onplay" args="f">
-				//Debug.write("audioPlayer onplay..", f);
-				gReadableText.isplaying = true;
-			</handler>        	
-        	
-        	<!-- TTS CR: when stop method is called, set isplaying false -->
-        	<handler name="onstop">
-        		//Debug.write("onstop for audioplayer : ", gReadableText.isplaying);
-        		gReadableText.isplaying = false;
-        	</handler>
-				
-        	<!-- TTS CR: when whole mp3 is played and reaches at last frame, set isplaying false -->
-        	<handler name="onlastframe">
-        	//	Debug.write("onlastframe for audioplayer : ", gReadableText.isplaying);
-        		gReadableText.isplaying = false;
-        	</handler>
-         </view>
     </text>
 
 </library>
