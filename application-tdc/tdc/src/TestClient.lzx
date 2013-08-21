@@ -192,7 +192,9 @@
                 <text y="200" font="Arial" fontsize="12" 
 			        fgcolor="${canvas.copyriteColor}" height="16" 
 				    text="${canvas.Copyrite}"/>
-            </Screens>
+                <text id="versionproductinfo" x="${immediateparent.width - this.width}" y="200" font="Arial" fontsize="12" 
+			        fgcolor="${canvas.copyriteColor}" height="16" resize="true"/>            
+			</Screens>
             <Tutorial id="gTutorial" width="800" height="600"
                         visible="false"/>
 			<PauseTimerScreen id="gPauseTimerScreen" name="gPauseTimerScreen" 

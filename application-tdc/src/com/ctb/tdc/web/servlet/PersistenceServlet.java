@@ -23,7 +23,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -79,6 +78,7 @@ public class PersistenceServlet extends HttpServlet {
 	private static final String WEBINF_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
 														"webapp" + File.separator + "WEB-INF";
 	private static final String PRODUCT_TYPE = System.getProperty("tdc.productType");
+	private static final String VERSION = "9.9.9";
 
 	private static native void nativeUpLevelWindow(final String windowName);
 	
@@ -271,6 +271,10 @@ public class PersistenceServlet extends HttpServlet {
 		else if (method != null
 				&& method.equals(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD))
 			result = writeToAuditFile(xml);
+		else if (method != null
+				&& method.equals(ServletUtils.CHECK_PROD_TYPE_METHOD)){
+					result = "<"+PRODUCT_TYPE.trim()+" version=\""+VERSION.substring(0, VERSION.lastIndexOf(".")).trim()+"\"/>";
+				}
 		else if (method != null
 				&& method.equals(ServletUtils.OK_CALCULATOR)) {
 			calcType = request.getParameter("calcType");

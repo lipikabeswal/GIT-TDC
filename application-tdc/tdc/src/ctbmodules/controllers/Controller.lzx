@@ -267,6 +267,8 @@
 			value="saveEndSubtest" />
 		<attribute name="TUTORIAL_COMPLETE_STATE" type="string"
 			value="tutorialComplete" />
+		<attribute name="CHECK_PROD_TYPE_METHOD" type="string"
+			value="isProductCheck" />			
 		<attribute name="CALCULATOR_CLOSE" type="string"
 			value="calculatorClose" />
 		<attribute name="OK_CALCULATOR_STATE" type="string"
@@ -628,13 +630,19 @@
 
 		<method event="oninit">
 			this.setAttribute('isHandlerInactive', true);
-        	gScreens.showLogin();
+			checkIsProduct();
+        	//gScreens.showLogin();
 			var base = LzBrowser.getInitArg( 'servletUrl' );
 			dsitem.setSrc(base + '/ContentServlet.do'); 
 			dsMusic.setSrc(base + '/ContentServlet.do');
 			       	
         </method>
-
+        
+        <method name = "checkIsProduct">
+			setState(CHECK_PROD_TYPE_METHOD);
+			gCommunicator.checkIsProduct();
+		</method>
+		
 		<method name="login" args="_userid, _password, _accesscode">
 			setAttribute('userid', _userid == null ? null : _userid.toLowerCase());
 			setAttribute('password', _password == null ? null : _password.toLowerCase());
@@ -791,6 +799,9 @@
 					case TUTORIAL_COMPLETE_STATE:
 						_handleTutorialCompleteResponse(response);
 						break;
+					case CHECK_PROD_TYPE_METHOD:
+						_handleProductType(response);
+						break;						
 					case CALCULATOR_CLOSE:
 						_handleCloseCalculatorResponse(response);
 						break;
@@ -803,6 +814,19 @@
 			}
 		</method>
 
+		<method name = "_handleProductType" args="response"><![CDATA[
+			this.setAttribute("productTypeVal",response);
+			var productName = "";
+			var versionNo = "";	
+			productName = LzDataNode.stringToLzData(gController.productTypeVal).nodeName;
+			if(productName == "VANILLA" || productName == "vanilla") {productName = "";}
+			versionNo = LzDataNode.stringToLzData(gController.productTypeVal).getAttr("version");
+			versionproductinfo.setAttribute("text",productName+" "+versionNo);
+			Debug.write(response);
+			gScreens.showLogin();
+		]]>
+		</method>
+		
 		<method name="_handleUploadAuditFileResponse" args="response"><![CDATA[
 			var rawscore = 0;
 			var visited = 0;

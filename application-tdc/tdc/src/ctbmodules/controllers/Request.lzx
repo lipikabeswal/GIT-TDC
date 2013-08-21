@@ -54,6 +54,7 @@
 		<attribute name="_TEXT_PARAM" type="string" value="text" />
 		<attribute name="_SERVER_VALUE" type="string" value="server" />
 		<attribute name="_GENDER_VALUE" type="string" value="female" />
+		<attribute name="CHECK_PROD_TYPE_METHOD" type="string" value="isProductCheck" />
 		<attribute name="OK_CALCULATOR" type="string" value="okCalculator" />
 		<attribute name="SHOW_HIDE_OK_CALCULATOR" type="string" value="showHideOkCalculator" />
 		<attribute name="CLOSE_OK_CALCULATOR" type="string" value="closeOkCalculator" />
@@ -69,7 +70,11 @@
 			var xml = gXmlHelper.getLoginXml(username, password, accesscode, cid);
 			_doRequest(persistenceDs, LOGIN_METHOD, xml);
 		</method>
-		
+
+		<method name="checkIsProduct" >
+			_doRequest(persistenceDs, CHECK_PROD_TYPE_METHOD, "");
+		</method>
+				
 		<method name="getSubtest" args="id, hash, key">
 			var xml = gXmlHelper.getGetSubtestXml(id, hash, key);
 			_doRequest(contentDs, GET_SUBTEST_METHOD, xml);
