@@ -1,12 +1,17 @@
 package com.ctb.tdc.bootstrap;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -49,6 +54,13 @@ public class Main {
 	public static int jettyPort = 0;
 	public static int stopPort = 0;
 	
+	public static String productTypeOrg = System.getProperty("product.type");
+	
+	private static final String OBJECTBANK_FOLDER_PATH = System.getProperty("tdc.home") + File.separator + 
+	"data" + File.separator + "objectbank";
+	private static final String RESOURCE_FOLDER_PATH = System.getProperty("tdc.home") + File.separator + 
+		"webapp" + File.separator + "resources";
+	
 	public static final String TDC_CONFIG_FILENAME = "tdcConfig.enc";
 	public static final String UPGRADE_TXT_FILENAME = "upgrade.txt";
 	
@@ -74,7 +86,7 @@ public class Main {
 	private static String getTdcHome() throws BootstrapException {
 
 		String tdcHomeProperty = System.getProperty("tdc.home").replaceAll("\"", "");
-
+		
 		if( tdcHomeProperty == null ) {
 			throw new BootstrapException(ResourceBundleUtils.getString("bootstrap.main.error.tdcHomeNotSpecified"));
 		}
@@ -497,6 +509,16 @@ public class Main {
 			// Start Jetty, wait for it to be up, and then launch LDB...
 			splashWindow.setStatus(ResourceBundleUtils.getString("bootstrap.main.splashWindow.status.starting"), -1);
 			jetty.start();
+			//consoleOut("Starting Jetty");
+			//consoleOut("productTypeOrg****"+productTypeOrg);
+			//consoleOut("OBJECTBANK_FOLDER_PATH****"+OBJECTBANK_FOLDER_PATH);
+			
+			//consoleOut("RESOURCE_FOLDER_PATH****"+RESOURCE_FOLDER_PATH);
+			
+			if(productTypeOrg.equalsIgnoreCase("OKLAHOMA") ){
+			//	consoleOut("Inside if");
+				copyTestScore();
+			}
 			boolean ldbLaunched = false;
 			while( jetty.isAlive() ) {
 
@@ -552,6 +574,7 @@ public class Main {
 						startsocket.close();
 					} catch( IOException e ) {
 						ConsoleUtils.messageErr("An exception has occurred.", e);
+						
 					}
 				}
 				if( !stopsocket.isClosed() ) {
@@ -572,7 +595,9 @@ public class Main {
 				// Close out the application.
 				ConsoleUtils.messageOut("Done.");
 			} finally {
-				
+				if(productTypeOrg.equalsIgnoreCase("OKLAHOMA")){
+					deleteTestScore();
+				}
 				// make sure LDB is dead
 				LockdownBrowserWrapper.exit();
 				
@@ -708,5 +733,69 @@ public class Main {
 		
 		return strBuff.toString();
 	}
-    
+	public static void copyTestScore(){
+	//	consoleOut("Inside copyTestScore");
+		InputStream inStream = null;
+		OutputStream outStream = null;
+		try{
+		//consoleOut("OBJECTBANK_FOLDER_PATH****"+OBJECTBANK_FOLDER_PATH);
+		File afile =new File(OBJECTBANK_FOLDER_PATH+"/TestScore.xml");
+		
+		//consoleOut("afile****"+afile.length());
+	//consoleOut("RESOURCE_FOLDER_PATH****"+RESOURCE_FOLDER_PATH);
+	    File bfile =new File(RESOURCE_FOLDER_PATH+"/TestScore.xml");
+		bfile.createNewFile();
+	//consoleOut("bfile****"+bfile.length());
+	    inStream = new FileInputStream(afile);
+	    outStream = new FileOutputStream(bfile);
+	    byte[] buffer = new byte[1024];
+	    
+	    int length;
+	    //copy the file content in bytes 
+	    while ((length = inStream.read(buffer)) > 0){
+
+	    	outStream.write(buffer, 0, length);
+
+	    }
+
+	    inStream.close();
+	    outStream.close();
+
+	  
+		}catch(IOException e){
+    		e.printStackTrace();
+    	//	consoleOut("Exception");
+    	   
+    	}
+
+	
+}
+	public static void deleteTestScore(){
+		try{
+			 
+			File file = new File(RESOURCE_FOLDER_PATH+"/TestScore.xml");
+			boolean success = file.delete();
+				//consoleOut("Success****"+success);
+			if(success){
+				//	consoleOut(file.getName() + " is deleted!");
+			}else{
+				//	consoleOut("Delete operation is failed.");
+			}
+
+		}catch(Exception e){
+
+			e.printStackTrace();
+
+		}
+	}
+	/*private static void consoleOut(String output) {
+		try {
+			
+		    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("console.txt", true)));
+		    out.println(output);
+		    out.close();
+		} catch (IOException e) {
+		   
+		}	
+	}*/
 }
