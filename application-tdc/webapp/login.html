@@ -596,9 +596,23 @@ function disableShortcuts() {
 	if (event.ctrlKey) {
 		switch(keystroke){
 			case 'l':
-				gHotKeys.toggleMark();
-				event.preventDefault(); // disable Ctrl+L
+			    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+					gHotKeys.toggleMark();
+					event.preventDefault(); // disable Ctrl+L
+				}	
 				break;
+			case 's':
+			    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+					gHotKeys.stop();
+					event.preventDefault(); // disable Ctrl+S
+				}	
+				break;
+			case 'u':
+			    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+					gHotKeys.pause();
+					event.preventDefault(); // disable Ctrl+U
+				}	
+				break;		
 			case 'd':
 				event.preventDefault(); // disable Ctrl+D
 				break;
