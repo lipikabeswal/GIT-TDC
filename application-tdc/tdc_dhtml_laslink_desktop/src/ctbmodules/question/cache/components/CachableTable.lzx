@@ -320,6 +320,18 @@
                   gEnlargePopup.contents.scaler.scroller.setAttribute("visible", true);
 
                super.doneLoading();
+				
+				//changes for defect 74645 start
+				var elm = table.getDisplayObject();
+				var elmCSS = elm.style;
+				var final_width = orig_width - 31;
+				var final_height = orig_height - (31*Math.round(mult_factor));
+				
+				//console.log("get css****",elm.style.backgroundColor,elmCSS.webkitTransform);
+				elm.setAttribute("style","z-index:"+ elmCSS.zIndex + "; left:" + elmCSS.left + "; top: "+ elmCSS.top + "; background-color: " + elm.style.backgroundColor + "; width: " + final_width + "; height: "+final_height+"; -webkit-transform: " + elmCSS.webkitTransform +";");
+				//end
+				return;
+
                return;
             }
             else if (this.autoenlarge == "yes" && gController.hasFontAccommodation) {
@@ -380,7 +392,9 @@
                   -->
                 <text name="title" 
                       align="center"
-                      multiline="true"                       
+                      multiline="true"       
+					  width="${this.titlewidth != -1 ? 
+                             this.titlewidth : parent.borderview.width}"                
                       fontsize="${canvas.basefontsize+2}" 
                       fgcolor="${classroot.fontcolor}"
 					  bgcolor="${classroot.bgcolor}"
@@ -391,15 +405,8 @@
 					<handler name="ontext"><![CDATA[
 						var size = (canvas.basefontsize+2);
 						var elm = this.getDisplayObject();
-						elm.setAttribute('style','text-align: center; font-family: CTB; font-weight: bold; font-size : '+size+';');
+						elm.setAttribute('style','text-align: center; font-family: CTB; font-weight: bold; font-size : '+size+'; width: '+this.width+'px;');
 					]]></handler>
-					<handler name="oninit">
-						if (this.titlewidth != -1) {
-                             this.setAttribute('width',this.titlewidth); 
-						} else {
-							this.setAttribute('width',parent.borderview.width);
-						}
-					</handler>
                 </text>
 
             <!-- borderview contains the title and table and defines a border -->
