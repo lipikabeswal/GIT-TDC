@@ -58,11 +58,6 @@
             lz.Keys.callOnKeyCombo( dstop, [ 'control', 's', 'capslock' ] );
             lz.Keys.callOnKeyCombo( dfinish, [ 'control', 'f' ] );
             lz.Keys.callOnKeyCombo( dfinish, [ 'control', 'f', 'capslock' ] );
-            
-            var os = getOS();
-           	if (os.indexOf("Mac") >= 0) {    
-                dmacOptionKeysHandler.register( lz.Keys, 'onkeydown' );
-            }
         </method>
 
         <method name="disableKeys"><![CDATA[
@@ -131,10 +126,6 @@
 	            lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u', 'capslock' ] );
 	            lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
 	            lz.Keys.callOnKeyCombo( dstop, [ 'control', 's', 'capslock' ] );
-            }
-	    	var os = getOS();
-	   		if (os.indexOf("Mac") >= 0) {
-           		dmacOptionKeysHandler.unregisterFrom( lz.Keys.onkeydown );
             }
         ]]></method>
 
@@ -280,187 +271,6 @@
             gController.exitPopups();
         </method>
         
-		
-
-
-		<method name="macOptionKeysHandler" args="k"><![CDATA[
-			console.log("macOptionKeysHandler the key pressed is :: ",k);
-			if(gController.isWaitPopupOpen || gScreens.visible){
-			//console.log("macOptionKeysHandler inside pleasewait block");
-			//do nothing if the please wait is shown.
-			}else if(!gController.canNotAnswer && !gController.scratchpadOpen && !gController.unlockNavigation){
-	           switch ( k ) {
-					case 65: 
-	                    this.exitPopups();
-	                    //toggleA();
-	                    //console.log("toggle a called");
-	                    break;
-					case 66: 
-	                    this.exitPopups();
-	                    //toggleB();
-	                    //console.log("toggle b called");
-	                    break;
-					case 67: 
-	                    this.exitPopups();
-	                    //toggleC();
-	                    //console.log("toggle c called");
-	                    break;
-					case 68: 
-	                    this.exitPopups();
-	                    //toggleD();
-	                    //console.log("toggle d called");
-	                    break;
-					case 69: 
-	                    this.exitPopups();
-	                    //toggleE();
-	                    break;
-					case 70: 
-	                    this.exitPopups();
-	                    //toggleF();
-	                    break;
-					case 71: 
-	                    this.exitPopups();
-	                    //toggleG();
-	                    break;
-					case 72: 
-	                    this.exitPopups();
-	                    //toggleH();
-	                    break;
-					case 73: 
-	                    this.exitPopups();
-	                    //toggleI();
-	                    break;
-					case 74: 
-	                    this.exitPopups();
-	                    //toggleJ();
-	                    break;
-	                case 75: 
-	                    this.exitPopups();
-	                    //toggleK();
-	                    break;    
-					case 12: 
-	                    this.exitPopups();
-	                    gController.toggleMark(); 
-	                    break;
-					case 19: 
-	                    this.exitPopups();
-	                    gController.finishTest(); 
-	                    gTooltip.hideTooltip (); 
-	                    break;
-					case 21: 
-	                    this.exitPopups();
-	                    gController.pauseTest(); 
-	                    break;
-					default:
-						break;
-		 		}
-			} else if(!gController.canNotAnswer && !gController.scratchpadOpen && gController.unlockNavigation){
-				  switch ( k ) {
-					case 65: 
-	                    this.exitPopups();
-	                    //toggleA();
-	                    //console.log("toggle a called");
-	                    break;
-					case 66: 
-	                    this.exitPopups();
-	                    //toggleB();
-	                    //console.log("toggle b called");
-	                    break;
-					case 67: 
-	                    this.exitPopups();
-	                    //toggleC();
-	                    //console.log("toggle c called");
-	                    break;
-					case 68: 
-	                    this.exitPopups();
-	                    //toggleD();
-	                    //console.log("toggle d called");
-	                    break;
-					case 69: 
-	                    this.exitPopups();
-	                    //toggleE();
-	                    break;
-					case 70: 
-	                    this.exitPopups();
-	                    //toggleF();
-	                    break;
-					case 71: 
-	                    this.exitPopups();
-	                    //toggleG();
-	                    break;
-					case 72: 
-	                    this.exitPopups();
-	                    //toggleH();
-	                    break;
-					case 73: 
-	                    this.exitPopups();
-	                    //toggleI();
-	                    break;
-					case 74: 
-	                    this.exitPopups();
-	                    //toggleJ();
-	                    break;
-	                case 75: 
-	                    this.exitPopups();
-	                    //toggleK();
-	                    break;    
-					case 12: 
-	                    this.exitPopups();
-	                    gController.toggleMark(); 
-	                    break;
-					case 19: 
-	                    this.exitPopups();
-	                    gController.finishTest(); 
-	                     gTooltip.hideTooltip (); 
-	                    break;
-					case 21: 
-	                    this.exitPopups();
-	                    gController.pauseTest(); 
-	                    break;
-	                case  6:
-	                    this.exitPopups(); 
-	        			gController.finishTestShortcut();      
-	                    break;
-					case 10: 
-						if(gController.allowNavigate && gController.allowItmeNavigate){
-							if(!gController.fwdOnly){
-			                    this.exitPopups();
-			                    gController.stepNavigateBack();  
-							}
-						}
-	                    break;
-					case 11: 
-						if(gController.allowNavigate && gController.allowItmeNavigate){
-		                    this.exitPopups();
-		                    gController.stepNavigateForward(); 
-		                    gTooltip.hideTooltip (); 
-		                }
-	                    break;
-					default:
-						break;
-		 		}	 
-			
-			} else {
-				 switch ( k ) {
-					case 12: 
-	                    this.exitPopups();
-	                    gController.toggleMark(); 
-	                    break;
-					case 19: 
-	                    this.exitPopups();
-	                    gController.finishTest(); 
-	                    gTooltip.hideTooltip (); 
-	                    break;
-					case 21: 
-	                    this.exitPopups();
-	                    gController.pauseTest(); 
-	                    break;
-					default:
-						break;
-					}
-			}
-	 	]]></method>
-
         <attribute name="dtoggleA"
                    value="$once{ new lz.Delegate( this, 'toggleA' ) }" type="expression"/>
         <attribute name="dtoggleB"
@@ -508,7 +318,6 @@
 		<attribute name="onceOnly" type="boolean" value="true"/>
 
         <method name="toggleA" args="ignore=null">  
-            //console.log("===toggle A====");
             if(gItemInterface.visible){
 			if(this.onceOnly){
         	if(!gController.canNotAnswer) {
@@ -526,7 +335,6 @@
         </method>
 
         <method name="toggleB" args="ignore=null">  
-          //console.log("===toggle B====");
           if(gItemInterface.visible){
           if(this.onceOnly){
         	if(!gController.canNotAnswer) {
