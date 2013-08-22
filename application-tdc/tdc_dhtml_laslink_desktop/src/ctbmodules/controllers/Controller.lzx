@@ -225,6 +225,14 @@
 		==================================================
 	-->
 	<node id="gController">
+	
+		<!-- counters for debugging the Mac client keyboard lock issue 
+		     TODO: Remove once QA has confirmed that the bug is fixed 
+		  -->
+		<attribute name="callstofreeze" type="number" value="0" />
+		<attribute name="callstounlock" type="number" value="0" />
+		<attribute name="unlockexecuted" type="number" value="0" />		
+		
 		<!--  
 			Convenience datapointers
 		-->
@@ -1010,7 +1018,6 @@
 						_handleIsPasswordField(response);
 						break;
 					case IS_MIC_ATTACHED:
-					//console.log("case IS_MIC_ATTACHED");
 						_handleIsMicAttached(response);
 					default:
 						break;
@@ -1394,7 +1401,6 @@
 
 		<method name="setShowHighlighter">
 			var sh = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@highlighter');
-			//console.log("setShowHighlighter******"+sh, typeof(sh));
 			if(sh == true || sh == 'true') {
 				this.setAttribute('showHighlighter',true);
 			}
@@ -1850,11 +1856,6 @@
 		<method name="getOptionString" args="numOptions">
 			return alphabetString.substr(0,numOptions);
 		</method>
-
-       <!--<handler name="onscratchpadOpen">
-		 //console.log("SCRATCHPADOPEN");
-		 gHotKeys.handleoptionKeys();
-		</handler> -->
 
 
 		<method name="getPermutatedArray"
@@ -2451,7 +2452,6 @@
        </method>
 
 		<method name="massageItemLml"><![CDATA[
-			//console.log("Item LML*****"+dpitem.serialize());
             var itemmodel = dpitem.xpathQuery( 'item_model' );
             var toolbar = itemmodel.getElementsByTagName( 'toolbar' )[0];
             if ( !toolbar ) {
@@ -3406,7 +3406,6 @@
 
 		<method name="save" args="lev">
         	var saveParams = getSaveParams(lev);
-			//console.log("Inside save");
 			/*if(!this.isStopScreen){
 				resetMicCheck();
         	}*/
@@ -3439,7 +3438,6 @@
 		</method>
 
 		<method name="pausedContinue" args="pw">
-			//console.log("Inside pausedContinue");
             if ( pw == dpsubtest.xpathQuery( 'testing_session_data/cmi.core/@password' ) ) {
                 lz.Cursor.setCursorGlobal( 'waitcursor' );
 				setState(PAUSED_RESUME_STATE);
@@ -3666,7 +3664,6 @@
 
 		<method name="manipulativeSelected"><![CDATA[
 			if(this.manipSelected){
-				console.log("ManipSelected**"+this.manipSelected);
 				if(gManipulativeBar.globals.magnifyingGlass != null){
 					gManipulativeBar.globals.magnifyingGlass.setAttribute("frame",1);
 				}
@@ -3710,7 +3707,6 @@
 			var state = dn.getAttr(manip);
 		}
 
-		console.log("this.manipbuttonClicked***"+canvas.currentCursor);
 		if(this.manipbuttonClicked){
 				if(gManipulativeBar.globals.option_eliminator != null){
 					if(this.manipClicked && this.currentManipSelected == 'option_eliminator' && state == 'sel'){
@@ -3801,10 +3797,18 @@
 
 		<!-- unlock on start, without a previous freeze -->
 		<attribute name="uisemaphore" value="1" />
+		
+		<handler name="onuisemaphore">
+			console.error("onuisemaphore: uisemaphore=" + uisemaphore);
+		</handler>
 
 		<method name="freezeUI">
+			callstofreeze++;
 			//uisemaphore = 1;
-            ++uisemaphore;
+			lz.Keys.blockKeyCombos(true);				
+            setAttribute('uisemaphore', uisemaphore + 1);
+			console.error("freezeUI: callstofreeze=%d, callstounlock=%d, unlockexecuted=%d, uisemaphore set to %s", 
+				callstofreeze, callstounlock, unlockexecuted, uisemaphore);		            
             if ( dsdisplay.childNodes[0].getAttr( 'enabled' ) == 'true' ) {
             	//if(this.isAudioPaused == true) {
                 	gHotKeys.disableKeys();
@@ -3815,16 +3819,19 @@
                 lz.Cursor.setCursorGlobal( 'waitcursor' );
             }
             
-            //console.log("=====FREEZ UI===");
         </method>
 
 		<method name="unlockUI">
 		<![CDATA[
+			callstounlock++;
+			console.error("unlockUI: callstofreeze=%d, callstounlock=%d, unlockexecuted=%d, uisemaphore=%d", 
+				callstofreeze, callstounlock, unlockexecuted, uisemaphore);			
 			if(doUnlockUI){
-	            --uisemaphore;
-	
+				unlockexecuted++;
+            	setAttribute('uisemaphore', uisemaphore - 1);	
 				if ( uisemaphore < 0 )
 				{
+					console.error("uisemaphore was < 0, setting t 0");
 					uisemaphore = 0;
 				}
 	            if ( 0 == uisemaphore ) {
@@ -3848,12 +3855,9 @@
 	              if(!gScratchpad.scratchpadHasFocus){
 	              		gHotKeys.enableKeys();
 	               } 
-	               /*else {
-	               		gHotKeys.handleHotKeys();
-	               }*/
+	               lz.Keys.blockKeyCombos(false);
 	            }
 	        }
-	         //console.log("=====UN FREEZ UI===");
 			 this.setAttribute('allowItmeNavigate',true);
 		]]>
         </method>
@@ -3888,7 +3892,6 @@
 
 		<method name="saveLoadItem" args="fnode, lev"><![CDATA[
 			stopMicCheck();
-			//console.log("############ saveLoadItem ############",fnode,lev);
 			//this.setAttribute("sendCatSave",true);
         	//setSendCatSave();
         	var curItemId;
@@ -3916,7 +3919,6 @@
         ]]></method>
 
 		<method name="loadItem"><![CDATA[
-//console.log("############ loadItem ############");
 			
 			gQuestion.clearSkip();
 			this.macFocusInCanvas();
@@ -4272,17 +4274,14 @@
 	            var dnglob = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');
 				if(dnglob.getAttr('highlighter')=='sel'){
                     var toolSt = getToolstate('highlighter');
-                    console.log("Inside highlighter****",toolSt);
 					dnglob.setAttr('highlighter',toolSt);
 				}
 				if(dnglob.getAttr('eraser')=='sel'){
                     var toolSt = getToolstate('eraser');
-                     console.log("Inside eraser****",toolSt);
 					dnglob.setAttr('eraser',toolSt);
 				}
 				if(dnglob.getAttr('option_eliminator')=='sel'){
                     var toolSt = getToolstate('option_eliminator');
-                     console.log("Inside option_eliminator****",toolSt);
 					dnglob.setAttr('option_eliminator',toolSt);
 				}
 				if(dnmanipulatives != null){
@@ -5282,7 +5281,6 @@
 		]]></method>
 		
 		<method name="hideMagnifierGlass">
-			//console.log("hideMagnifierGlass***");
 			lz.Browser.loadJS('hideMagnify();');
 			gManipulativeBar.globals.magnifyingGlass.setAttribute("frame",1);
 			gManipulativeBar.globals.magnifyingGlass.setAttribute("isEnabled",false);
@@ -5303,7 +5301,6 @@
 
 		<method name="checkShowMagnifierGlass">
 				//gMagnifyingGlass.showGlass("T");
-				//console.log("checkHideMagnifierGlass****",this.magnifierState);
 				if(this.magnifierState){
 		     		displayMagnifier();
 		     		gManipulativeBar.globals.magnifyingGlass.setAttribute("frame",2);
@@ -6058,24 +6055,19 @@
 			gDownloadManager.downloadContent();
 		</method>
 		<method name="isMicConnected" args="ignore=null">
-			//console.log("Inside isMicConnected");
 			resetMicCheck();
-			//console.log("Inside isMicConnected");
 			setState(IS_MIC_ATTACHED);
 			gCommunicator.isMicConnected();
 		</method>
 		<method name="_handleIsMicAttached" args="response"><![CDATA[
-			//console.log("Response ***",response);
 			if(response.indexOf('true') >= 0){
 				this.setAttribute('isMicPresent',true);
 			}else{
 				this.setAttribute('isMicPresent',false);
 			}
-			//console.log("isMicPresent*****"+isMicPresent);
 		]]></method>
 		
 		<method name="testTimedout">
-			 //console.log("gController testTimedout********");
 			gPauseTimerScreen.setAttribute('visible',false);
 			timeoutDialog.close();
 			this.setAttribute('testTimeout',true);
