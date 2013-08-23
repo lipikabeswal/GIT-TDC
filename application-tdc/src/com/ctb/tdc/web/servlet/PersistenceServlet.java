@@ -1133,13 +1133,14 @@ public class PersistenceServlet extends HttpServlet {
 		//System.out.println(rb.getString("tdc.version"));
 		return rb.getString("tdc.version");*/
 	}
-public static String getTestScoreData(){
+public static String getTestScoreData() throws IOException{
 		
 		StringBuffer fileData = new StringBuffer();
         BufferedReader reader = null;
         String path=System.getProperty(TDC_HOME) + File.separator + 
 		"data" + File.separator + "objectbank" + File.separator + "TestScore.xml";
 		try {
+			
 			reader = new BufferedReader(
 			        new FileReader(path));
 		} catch (FileNotFoundException e) {
@@ -1148,7 +1149,12 @@ public static String getTestScoreData(){
 		}
         char[] buf = new char[1024];
         int numRead=0;
-        try {
+        String lineData = null;
+        while((lineData = reader.readLine()) != null) {        	
+        	fileData.append(lineData);
+        }
+        
+        /*try {
 			while((numRead=reader.read(buf)) != -1){
 			    String readData = String.valueOf(buf, 0, numRead);
 			    fileData.append(readData);
@@ -1156,7 +1162,7 @@ public static String getTestScoreData(){
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
         try {
 			reader.close();
 		} catch (IOException e) {
