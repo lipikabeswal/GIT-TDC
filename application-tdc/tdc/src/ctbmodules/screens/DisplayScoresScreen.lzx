@@ -96,10 +96,11 @@
 		var totalViewedCount = 0;
 		var scoArr = dpscore.xpathQuery('title/sco');
 		var testTitle = dpscore.xpathQuery('title/@name'); // For FT Item
-		if((gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/raw_score")) != null){
-			var FTMsg = (gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/raw_score")).childNodes[0]; // For FT Item
+		dprestart.xpathQuery('tsd[@scid ="'+restartId+'"]/@scid');
+		if((gController.dptest.xpathQuery('test_title[@id="'+testTitle+'"]/raw_score')) != null){
+			var FTMsg = (gController.dptest.xpathQuery('test_title[@id="'+testTitle+'"]/raw_score')).childNodes[0]; // For FT Item
 		}
-		var isXmlFT =  gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/@isFT"); // For FT item
+		var isXmlFT =  gController.dptest.xpathQuery('test_title[@id="'+testTitle+'"]/@isFT'); // For FT item
 		if(scoArr && scoArr instanceof Array) {
 			for(var i=0; i<scoArr.length; i++){
 				var sco = scoArr[i];  
@@ -203,12 +204,12 @@
 		Debug.write("raw,form,testTitle : ",raw," : ",form," : ",testTitle);
 		var PerfLevel = "";
 		//For tests with multiple form, will have the same range of raw score - proficiency level combinations.
-		//var test_title = dstest.xpathQuery('test_title');
-		//var test_idVal = gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']");
-		//var test_FormVal = gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/form[@id='"+form+"']");
-		var rawScoreArr = gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/raw_score");
+		//var test_title = dptest.xpathQuery('test_title');
+		//var test_idVal = gController.dptest.xpathQuery("test_title[@id='"+testTitle+"']");
+		//var test_FormVal = gController.dptest.xpathQuery("test_title[@id='"+testTitle+"']/form[@id='"+form+"']");
+		var rawScoreArr = gController.dptest.xpathQuery('test_title[@id="'+testTitle+'"]/raw_score');
 			/* For FT Item*/
-		var isXmlFT =  gController.dstest.xpathQuery("test_title[@id='"+testTitle+"']/@isFT");
+		var isXmlFT =  gController.dptest.xpathQuery('test_title[@id="'+testTitle+'"]/@isFT');
 		if(isXmlFT && isXmlFT != null){
 			PerfLevel = "";
 		}

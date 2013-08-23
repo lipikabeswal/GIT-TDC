@@ -200,9 +200,10 @@
 	-->
 	<dataset name="dslogin" />
 	<dataset name="dsdisplay" src="xmls/display.xml" />
+	<dataset name="dstest" /> //For Oklahoma Performance Level
 
-//For Oklahoma Performance Level
-<dataset name="testDetails" src="http:/resources/TestScore.xml" request="true" type="http"/>
+
+
 	<dataset name="dssubtest" />
 
 	<dataset name="dsitem" type="http" queuerequests="true"
@@ -229,6 +230,7 @@
 			Convenience datapointers
 		-->
 		<attribute name="dp" value="$once{new LzDatapointer()}" />
+		<attribute name="testDetails" value="$once{new LzDatapointer()}" />
 		<attribute name="answerdp" value="$once{new LzDatapointer()}" />
 		<attribute name="heartbeatResult" type="string" value="null" />
 		<!-- 
@@ -273,6 +275,8 @@
 			value="calculatorClose" />
 		<attribute name="OK_CALCULATOR_STATE" type="string"
 			value="okCalculator" />
+		<attribute name="GET_TESTSCORE_DATA" type="string"
+			value="getTestScoreData" />
 		
 		<!-- 
 			Lifecycle events
@@ -324,6 +328,7 @@
 		<attribute name="subtestLength" type="number" value="0" />
 		<attribute name="istLength" type="number" value="0" />
 		<attribute name="istRestartLength" type="number" value="0" />
+		<attribute name="gotTestScore" type="boolean" value="false" />
 
 		<!-- START Change for deferred Defect 63502-->
 		<attribute name="restartscid" value="0" />
@@ -510,13 +515,13 @@
 		
 		<attribute name="isCatStop" value="false" type="boolean" />
 		<attribute name="isManipMouseDown" value="false" type="boolean" />
-		<datapath name="dstest" xpath="testDetails:/test_data"/> //For Oklahoma Performance Level
 		<!--
 			============================================================
 			Datapointers
 			============================================================
 		-->
 		<datapointer name="dplogin" xpath="dslogin:/login_response" />
+		<datapointer name="dptest" xpath="dstest:/test_data" />
 
 		<datapointer name="dpsubtest" xpath="dssubtest:/subtest">
 			<method event="ondata">
@@ -808,6 +813,9 @@
 					case OK_CALCULATOR_STATE:
 						_handleOkCalculatorResponse(response);
 						break;
+					case GET_TESTSCORE_DATA:
+						_handleGetTestScoreData(response);
+						break;
 					default:
 						break;
 				}
@@ -1089,7 +1097,7 @@
 					getSubtest();
 				}
 				else if(this.getAttribute('isOK') == 'T'){
-					getScoreSheet();
+					getTestScoreData();
 				}
 				else if(isFeedback()){
 					getFeedback();
@@ -5431,6 +5439,17 @@ Debug.write("out of time 1 ans" + isAnswered);
 			}
 		}
 		]]>
+	</method>
+	<method name="getTestScoreData">
+		setState(GET_TESTSCORE_DATA);
+		gCommunicator.getTestScoreData();
+	</method>
+	<method name="_handleGetTestScoreData" args="response">
+		var node = LzDataNode.stringToLzData(response);
+		testDetails.setPointer(node);
+	   	var testScoreData = gController.testDetails.xpathQuery('test_data');
+		dstest.setChildNodes(new Array(testScoreData));
+		getScoreSheet();
 	</method>
 
 	</node>

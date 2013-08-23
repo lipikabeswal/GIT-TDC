@@ -160,7 +160,7 @@ public class ServletUtils {
 	public static final String CLOSE_OK_CALCULATOR = "closeOkCalculator";
 	public static final String SCIENTIFIC_CALCULATOR = "Scientific Calculator";
 	public static final String GRAPHIC_CALCULATOR = "Graphic Calculator";
-	
+	public static final String GET_TESTSCORE_DATA = "getTestScoreData";
 	
 //	parameters
 	public static final String FOLDER_PARAM = "folder";

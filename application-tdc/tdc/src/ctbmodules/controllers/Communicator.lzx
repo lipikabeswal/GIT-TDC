@@ -251,6 +251,9 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 		<method name="closeOkCalculator">
 			gRequest.closeOkCalculator();
 		</method> 
+		<method name="getTestScoreData">
+			gRequest.getTestScoreData();
+		</method>
      </node>
 
 </library>

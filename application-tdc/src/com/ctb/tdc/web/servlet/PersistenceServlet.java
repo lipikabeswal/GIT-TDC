@@ -284,6 +284,8 @@ public class PersistenceServlet extends HttpServlet {
 			}else{
 				result = save(response, xml, request);     
 			}
+        }else if (method != null && method.equals(ServletUtils.GET_TESTSCORE_DATA)){
+        	result = getTestScoreData();
         }
 		else if (method != null && method.equals(ServletUtils.FEEDBACK_METHOD))
 			result = feedback(xml);
@@ -1130,6 +1132,39 @@ public class PersistenceServlet extends HttpServlet {
 		//ResourceBundle rb = ResourceBundle.getBundle
 		//System.out.println(rb.getString("tdc.version"));
 		return rb.getString("tdc.version");*/
+	}
+public static String getTestScoreData(){
+		
+		StringBuffer fileData = new StringBuffer();
+        BufferedReader reader = null;
+        String path=System.getProperty(TDC_HOME) + File.separator + 
+		"data" + File.separator + "objectbank" + File.separator + "TestScore.xml";
+		try {
+			reader = new BufferedReader(
+			        new FileReader(path));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        char[] buf = new char[1024];
+        int numRead=0;
+        try {
+			while((numRead=reader.read(buf)) != -1){
+			    String readData = String.valueOf(buf, 0, numRead);
+			    fileData.append(readData);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			reader.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return fileData.toString();
+		//return "";
 	}
 
    
