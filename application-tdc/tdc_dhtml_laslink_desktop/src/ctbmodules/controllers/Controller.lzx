@@ -3959,7 +3959,7 @@
 			gController.setAttribute("magnifierState",false);
 			hideMaskingChoiceDD();
 			resetMicCheck(); // First call for Mic Check
-			//this.setAttribute('canNotAnswer',false); // set canNotAnswer to false on item load for responseAreaLocker attribute.
+			this.setAttribute('canNotAnswer',true); // set canNotAnswer to true on item load for Defect#75207
 			gTooltip.hideTooltip ();
 		]]></method>
 
