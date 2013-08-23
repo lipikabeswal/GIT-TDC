@@ -3089,7 +3089,8 @@
 		<method name="toggleMark"><![CDATA[
 		//For Defect 65880
 			if(this.isThemePage()!='true' && this.allowRevisit && !gController.fwdOnly){
-	        	freezeUI();
+	        	// commented to set the focus on app when move to one CR item to another CR item
+	        	//freezeUI(); 
 	        	var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
 	        	var isMarked = dncurritem.getAttr( 'marked' );
 	        	if(isMarked == null || isMarked == '0' || isMarked == 'false'){
@@ -3098,7 +3099,7 @@
 	        	else{
 	            	markQuestion(!isMarked);
 	            }
-	            unlockUI();
+	            //unlockUI();
 	            //canvas.unFreezUI();
 	        }
         ]]></method>
