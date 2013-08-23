@@ -58,6 +58,7 @@
 		<attribute name="OK_CALCULATOR" type="string" value="okCalculator" />
 		<attribute name="SHOW_HIDE_OK_CALCULATOR" type="string" value="showHideOkCalculator" />
 		<attribute name="CLOSE_OK_CALCULATOR" type="string" value="closeOkCalculator" />
+		<attribute name="GET_TESTSCORE_DATA" type="string" value="getTestScoreData" />
 		
 		<handler name="oninit">
 			var base = LzBrowser.getInitArg( 'servletUrl' );
@@ -312,6 +313,8 @@ Debug.write("do request " + _method + " timestamp: " + timestamp);
  	   		Debug.write("closeOkCalculator ");
 		 	_doRequest(persistenceDs, CLOSE_OK_CALCULATOR, "");
 		</method>
-		
+		<method name="getTestScoreData">
+			_doRequest(persistenceDs,GET_TESTSCORE_DATA, "");
+		</method>
 	</node>
 </library>
