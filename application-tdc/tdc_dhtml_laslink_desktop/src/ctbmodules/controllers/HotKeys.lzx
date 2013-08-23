@@ -510,7 +510,7 @@
 		            	//canvas.freezUI();
 						//if(!gController.fwdOnly){ // Commented as go_back button is now present for fwdOnly test.
 			        		if(!gController.onFirstItem()){
-			        			lz.Focus.clearFocus();
+			        			//lz.Focus.clearFocus();
 			        		}
 			        	
 			            	this.exitPopups();
@@ -532,7 +532,7 @@
 		            //if(canvas.loadItem){
 		                //canvas.freezUI();
 			        	if(!gController.onLastItem()){
-			        		lz.Focus.clearFocus();
+			        		//lz.Focus.clearFocus();
 			        	}
 			            this.exitPopups();
 			             gEnlargePopup.shrink();
@@ -575,7 +575,7 @@
            { 	
               if(canvas.loadItem){
 	        	if(gController.pausable == 'true'){
-	        		lz.Focus.clearFocus();
+	        		//lz.Focus.clearFocus();
 	        	}
 	            this.exitPopups(); 
 	             gEnlargePopup.shrink();
@@ -593,7 +593,7 @@
 				this.questionBar._changeStatus(false);
 			}
             if(canvas.loadItem){    
-            lz.Focus.clearFocus();
+            //lz.Focus.clearFocus();
 	        this.exitPopups();
 			 gEnlargePopup.shrink();
 			if(gItemInterface.visible == true || gTutorial.visible == true){
@@ -612,7 +612,7 @@
 			}
         	if(gController.unlockNavigation) { 
 	        	if(canvas.loadItem){   
-		        	lz.Focus.clearFocus();
+		        	//lz.Focus.clearFocus();
 		            this.exitPopups(); 
 		            gEnlargePopup.shrink();
 		        	gController.finishTestShortcut(); 
