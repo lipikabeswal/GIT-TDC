@@ -53,9 +53,6 @@ public class Main {
 	 */
 	public static int jettyPort = 0;
 	public static int stopPort = 0;
-	
-	public static String productTypeOrg = System.getProperty("product.type");
-	
 	private static final String OBJECTBANK_FOLDER_PATH = System.getProperty("tdc.home") + File.separator + 
 	"data" + File.separator + "objectbank";
 	private static final String RESOURCE_FOLDER_PATH = System.getProperty("tdc.home") + File.separator + 
@@ -515,10 +512,7 @@ public class Main {
 			
 			//consoleOut("RESOURCE_FOLDER_PATH****"+RESOURCE_FOLDER_PATH);
 			
-			if(productTypeOrg.equalsIgnoreCase("OKLAHOMA") ){
-			//	consoleOut("Inside if");
-				copyTestScore();
-			}
+			
 			boolean ldbLaunched = false;
 			while( jetty.isAlive() ) {
 
@@ -595,9 +589,7 @@ public class Main {
 				// Close out the application.
 				ConsoleUtils.messageOut("Done.");
 			} finally {
-				if(productTypeOrg.equalsIgnoreCase("OKLAHOMA")){
-					deleteTestScore();
-				}
+				
 				// make sure LDB is dead
 				LockdownBrowserWrapper.exit();
 				
@@ -733,69 +725,5 @@ public class Main {
 		
 		return strBuff.toString();
 	}
-	public static void copyTestScore(){
-	//	consoleOut("Inside copyTestScore");
-		InputStream inStream = null;
-		OutputStream outStream = null;
-		try{
-		//consoleOut("OBJECTBANK_FOLDER_PATH****"+OBJECTBANK_FOLDER_PATH);
-		File afile =new File(OBJECTBANK_FOLDER_PATH+"/TestScore.xml");
-		
-		//consoleOut("afile****"+afile.length());
-	//consoleOut("RESOURCE_FOLDER_PATH****"+RESOURCE_FOLDER_PATH);
-	    File bfile =new File(RESOURCE_FOLDER_PATH+"/TestScore.xml");
-		bfile.createNewFile();
-	//consoleOut("bfile****"+bfile.length());
-	    inStream = new FileInputStream(afile);
-	    outStream = new FileOutputStream(bfile);
-	    byte[] buffer = new byte[1024];
-	    
-	    int length;
-	    //copy the file content in bytes 
-	    while ((length = inStream.read(buffer)) > 0){
-
-	    	outStream.write(buffer, 0, length);
-
-	    }
-
-	    inStream.close();
-	    outStream.close();
-
-	  
-		}catch(IOException e){
-    		e.printStackTrace();
-    	//	consoleOut("Exception");
-    	   
-    	}
-
 	
-}
-	public static void deleteTestScore(){
-		try{
-			 
-			File file = new File(RESOURCE_FOLDER_PATH+"/TestScore.xml");
-			boolean success = file.delete();
-				//consoleOut("Success****"+success);
-			if(success){
-				//	consoleOut(file.getName() + " is deleted!");
-			}else{
-				//	consoleOut("Delete operation is failed.");
-			}
-
-		}catch(Exception e){
-
-			e.printStackTrace();
-
-		}
-	}
-	/*private static void consoleOut(String output) {
-		try {
-			
-		    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("console.txt", true)));
-		    out.println(output);
-		    out.close();
-		} catch (IOException e) {
-		   
-		}	
-	}*/
 }
