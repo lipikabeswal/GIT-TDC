@@ -91,7 +91,7 @@ function iframeLoaded(id, iframe){
 					if(canNotAnswerFlag == false){
 					 	gController.setAttribute('canNotAnswer',false);
 					}else{
-						gController.setAttribute('canNotAnswer',false);
+						//gController.setAttribute('canNotAnswer',false);
 						gController.setAttribute('canNotAnswer',true);
 					}
 				}
