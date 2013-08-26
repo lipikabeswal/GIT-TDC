@@ -490,15 +490,17 @@ public class Main {
         }
        	LockdownBrowserWrapper ldb = new LockdownBrowserWrapper(tdcHome, macOS, linux, splashWindow, jettyPort,formName,productType);
        
+       	//Moved to LockdownBrowserWrapper
 		//Start process killer for Windows only
-		if(!linux && ! macOS) {
+		/*if(!linux && ! macOS) {
 			//Retrieve all the process names at the beginning itself.
-			LockdownWin lockdownOK = new LockdownWin(tdcHome);
-			LockdownWin.getAllProcessName();
-			LockdownWin.allProcessNameStr = LockdownWin.allProcessNameStr.substring(0, LockdownWin.allProcessNameStr.length() - 1);
-			
+			LockdownWinMain lockdownOK = new LockdownWinMain(tdcHome);
+			LockdownWinMain.getAllProcessName();
+			LockdownWinMain.allProcessNameStr = LockdownWinMain.allProcessNameStr.substring(0, LockdownWinMain.allProcessNameStr.length() - 1);
+			lockdownOK.setPriority(Thread.MAX_PRIORITY);
 			lockdownOK.start();
-		}
+			
+		}*/
 		JettyProcessWrapper jetty = null;
 		try {
 			jetty = new JettyProcessWrapper(tdcHome, macOS, jettyPort, stopPort, startsocket, stopsocket, baseurl);
@@ -622,21 +624,24 @@ public class Main {
 		}
 
 	}
-	
-private static class LockdownWin extends Thread {
+
+//Moved to LockdownBrowserWrapper
+/*private static class LockdownWinMain extends Thread {
 		
 		private static String allProcessNameStr = "";
 		
 		private String tdcHome;
 		
-		public LockdownWin(String tdcHome){
+		public LockdownWinMain(String tdcHome){
 			this.tdcHome = tdcHome;
 		}
 		public void run() {
 			try {
 				while(true){
+					ConsoleUtils.messageOut("Started Running LockdownWinMain @"+System.currentTimeMillis());
 					isProcessRunning(allProcessNameStr);
-					Thread.sleep(2000);
+					ConsoleUtils.messageOut("Finished Running LockdownWinMain @"+System.currentTimeMillis());
+					Thread.sleep(500);
 				}
 					
 			} catch (Exception e) {
@@ -657,7 +662,8 @@ private static class LockdownWin extends Thread {
 		}
 		
 		public static void isProcessRunning(String serviceNames) throws Exception {
-			 Process processList = Runtime.getRuntime().exec("tasklist");
+			ConsoleUtils.messageOut("Started isProcessRunning @"+System.currentTimeMillis()); 
+			Process processList = Runtime.getRuntime().exec("tasklist");
 			 BufferedReader reader = new BufferedReader(new InputStreamReader(
 			 processList.getInputStream()));
 			 String line;
@@ -666,22 +672,34 @@ private static class LockdownWin extends Thread {
 					  continue;
 				  }
 				  String lineProcess= line.substring(0, line.indexOf(" ")).toLowerCase();
+				  try{	
+					  if (serviceNames.contains(lineProcess))
+					  	{
+						  killProcess(line.substring(0, line.indexOf(" ")));
+					  	}
+				   } catch (Exception e) {
+						e.printStackTrace();
+					}
 				  
-				  if (serviceNames.contains(lineProcess))
-				  {
-					  killProcess(line.substring(0, line.indexOf(" ")));
-				  }
 			}
-
+			 ConsoleUtils.messageOut("Finished isProcessRunning @"+System.currentTimeMillis()); 
+				
 		} 	
 		
 		public static void killProcess(String serviceName) throws Exception {
-			Runtime.getRuntime().exec("taskkill /F /IM "+ serviceName).waitFor();
-			Runtime.getRuntime().exec("tskill "+ serviceName.split("\\.")[0]);  
+			try{
+				ConsoleUtils.messageOut("taskkill "+serviceName);
+				Runtime.getRuntime().exec("taskkill /F /IM "+ serviceName);  
+				ConsoleUtils.messageOut("kill "+ serviceName.split("\\.")[0]);
+				Runtime.getRuntime().exec("tskill "+ serviceName.split("\\.")[0]);
+			 } catch (Exception e) {
+					e.printStackTrace();
+				}
+			
 		 }		
 		
 	}
-
+*/
     private static void setPermission(String fileName) {
         String[] chmodCmd = new String[3];
         chmodCmd[0] = "chmod";

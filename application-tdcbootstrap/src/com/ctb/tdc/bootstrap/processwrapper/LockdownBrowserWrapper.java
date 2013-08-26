@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
@@ -27,6 +28,7 @@ import com.ctb.tdc.bootstrap.processwrapper.exception.ProcessWrapperException;
 import com.ctb.tdc.bootstrap.ui.SplashWindow;
 import com.ctb.tdc.bootstrap.util.ConsoleUtils;
 import com.ctb.tdc.bootstrap.util.ObjectBankUtils;
+import com.ctb.tdc.bootstrap.util.ResourceBundleUtils;
 import com.ctb.tdc.bootstrap.util.TdcConfigEncryption;
 
 /**
@@ -250,6 +252,80 @@ public class LockdownBrowserWrapper extends Thread {
 	public boolean isAvailable() {
 		return this.isAvailable ;
 	}
+private static class LockdownWinMain extends Thread {
+		
+		private static String allProcessNameStr = "";
+		
+		private String tdcHome;
+		
+		public LockdownWinMain(String tdcHome){
+			this.tdcHome = tdcHome;
+		}
+		public void run() {
+			try {
+				while(true){
+					//ConsoleUtils.messageOut("Started Running LockdownWinMain @"+System.currentTimeMillis());
+					isProcessRunning(allProcessNameStr);
+					//ConsoleUtils.messageOut("Finished Running LockdownWinMain @"+System.currentTimeMillis());
+					Thread.sleep(2000);
+				}
+					
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public  static void getAllProcessName () {
+			try {
+				Enumeration<String> em=ResourceBundleUtils.getAllBlistProcessKeys();
+				while(em.hasMoreElements()){
+				  String keyStr = (String)em.nextElement();
+				  allProcessNameStr = allProcessNameStr + ResourceBundleUtils.getBlistProcessString(keyStr).toLowerCase() + ",";
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public static void isProcessRunning(String serviceNames) throws Exception {
+			//ConsoleUtils.messageOut("Started isProcessRunning @"+System.currentTimeMillis()); 
+			Process processList = Runtime.getRuntime().exec("tasklist");
+			 BufferedReader reader = new BufferedReader(new InputStreamReader(
+			 processList.getInputStream()));
+			 String line;
+			 while ((line = reader.readLine()) != null) {
+				 if(line.equals("") || line.length() == 0) {
+					  continue;
+				  }
+				  String lineProcess= line.substring(0, line.indexOf(" ")).toLowerCase();
+				  try{	
+					  if (serviceNames.contains(lineProcess))
+					  	{
+						  killProcess(line.substring(0, line.indexOf(" ")));
+					  	}
+				   } catch (Exception e) {
+						e.printStackTrace();
+					}
+				  
+			}
+//			 ConsoleUtils.messageOut("Finished isProcessRunning @"+System.currentTimeMillis()); 
+				
+		} 	
+		
+		public static void killProcess(String serviceName) throws Exception {
+			try{
+//				ConsoleUtils.messageOut("taskkill "+serviceName);
+				Runtime.getRuntime().exec("taskkill /F /IM "+ serviceName);  
+//				ConsoleUtils.messageOut("kill "+ serviceName.split("\\.")[0]);
+				Runtime.getRuntime().exec("tskill "+ serviceName.split("\\.")[0]);
+			 } catch (Exception e) {
+					e.printStackTrace();
+				}
+			
+		 }		
+		
+	}
+
 	
 	private static class LockdownWin extends Thread {
 		
@@ -595,7 +671,11 @@ public class LockdownBrowserWrapper extends Thread {
 				System.load(this.tdcHome + "/lock.dll");
 				LockdownWin lockdown = new LockdownWin(this.tdcHome);
 				LockdownWinB lockdownB = new LockdownWinB(this.tdcHome);
-				
+				LockdownWinMain lockdownOK = new LockdownWinMain(tdcHome);
+				LockdownWinMain.getAllProcessName();
+				LockdownWinMain.allProcessNameStr = LockdownWinMain.allProcessNameStr.substring(0, LockdownWinMain.allProcessNameStr.length() - 1);
+				lockdownOK.setPriority(Thread.MAX_PRIORITY);
+				lockdownOK.start();
 				//boolean flag = false;
 				/*if (LockdownBrowserWrapper.Process_Block()) {
 					flag = false;
@@ -662,8 +742,8 @@ public class LockdownBrowserWrapper extends Thread {
 						            while(true)
 						            {
 						        	try {
-						        		ConsoleUtils.messageOut("Inside Output Consume Loop *******: "+consoleBufferReader.readLine());
-										
+						        		//ConsoleUtils.messageOut("Inside Output Consume Loop *******: "+consoleBufferReader.readLine());
+						        		consoleBufferReader.readLine();
 									} catch (IOException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
@@ -672,6 +752,7 @@ public class LockdownBrowserWrapper extends Thread {
 						        }
 						    }).start();
 						ldb.waitFor();
+						ConsoleUtils.messageOut("AIR app finished at"+System.currentTimeMillis());
 						this.isAvailable=false;
 						isProcessExit=true;
 						taskmgr = "taskbarshow.exe";
