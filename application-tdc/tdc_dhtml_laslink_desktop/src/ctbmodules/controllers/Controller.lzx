@@ -3852,7 +3852,6 @@
 					else{	                	
 	                	restoreCurrentCursor();
 	                }
-	                dsdisplay.childNodes[0].setAttr( 'enabled', 'true' );
 	              if(!gScratchpad.scratchpadHasFocus){
 	              		gHotKeys.enableKeys();
 	               } 
@@ -3860,6 +3859,7 @@
 	            }
 	        }
 			 this.setAttribute('allowItmeNavigate',true);
+			 dsdisplay.childNodes[0].setAttr( 'enabled', 'true' );
 		]]>
         </method>
 
