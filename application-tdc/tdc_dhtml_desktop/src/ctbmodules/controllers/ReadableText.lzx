@@ -1,4 +1,5 @@
 <library>
+	<include href="av/html5/html5mediaview.lzx" />
 	<dataset name="speechDs" 
 			 type="http"
 	         queuerequests="true" 
@@ -135,10 +136,12 @@
         <method name="doRead" args="txt"><![CDATA[
 			this.currentText = txt;//TTS CR
         	//Changes for Defect # 65040
+        	if(canvas.capabilities.audio){
+        		this.audioPlayer.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
+			}
 			lz.Timer.resetTimer(this.dTimeout, TIMEOUT_INTERVAL);
  	    	stopReading();
  	        speechDs.setQueryParam(TEXT_PARAM, txt);
- 	        speechDs.setQueryParam("method", "getMp3");
  	        //TTS CR
  	        if(gController.hasTTSspeed) {
  	        	var smf = gManipulativeBar.speedController.value;  //SMF => Slow, Medium, Fast
@@ -151,8 +154,11 @@
         
         <method name="getMp3" ><![CDATA[
         	//ISTEP CR: to avoid browser caching of the mp3
-        	//console.log("getMp3");
-			play();
+        	if(canvas.isPreviewer){
+				audioPlayer.__media.setAttribute("src",GET_URL+"&"+timestamp()+".mp3");
+			}else{
+				play();
+			}
         ]]></method>
 
 		<method name="timestamp">
@@ -289,7 +295,12 @@
                            }"/>
         <method name="stopReading" args="fromSp"><![CDATA[
         	if(fromSp != true || (fromSp == true && gReadableText.readingScratchpad)){
-        		stop();
+        		if(canvas.isPreviewer){
+        			audioPlayer.pause();
+					gReadableText.setAttribute('isPlaying',false);
+				}else{
+					stop();
+				}
         	}
         ]]></method>
 
@@ -308,6 +319,60 @@
 		<method name="stopRequestor">
 			lz.Timer.removeTimer(dRequestor);
 		</method>
+		
+		<switch><when property="$as3">
+		
+		<view name="audioPlayer" />
+			
+	</when></switch>
+	
+	<switch><when property="$dhtml">
+			<!-- html5audioplayer class is inside html5mediaview.lzx-->
+			<html5audioview name="audioPlayer" autoplay="true">
+
+				<handler name="onsrc">
+					console.log("audioPlayer#onsrc event: src=" + src);
+				</handler>	
+				<handler name="onplay">
+					console.log("inside onplay");
+					if(gController.isWaitPopupOpen) {
+						gReadableText.speechRequestSent = false;
+						gCommunicator.firstRequestDone = false;
+						gController.hideWaitPopup();
+						gController.sendHeartbeat();
+						//to start the test timer 
+						gController.startQuestion();
+						gController.unlockUI();
+					}
+	
+	        		if(!gCommunicator.error){  // if we get an onload and there is no error
+						lz.Timer.removeTimer( gReadableText.dTimeout );
+		        		if(gReadableText.primed){
+			       			gController.unlockUI();
+		        		}
+		        		else{
+		        			gReadableText.setAttribute('primed', true);
+		        		}
+		        	}
+					gReadableText.setAttribute('isPlaying',true);
+				</handler>			
+				<handler name="onloadeddata">
+					console.log("audioPlayer#onloadeddata event");	
+				</handler>
+				<handler name="oncanplaythrough">
+					console.log("browser assumes media can play through now");
+				</handler>
+				<handler name="onended">
+					console.log("onended "+this.__media.ended);
+					if(this.__media.ended){
+						gReadableText.setAttribute('isPlaying',false);
+					}else{
+						gReadableText.setAttribute('isPlaying',true);
+					}
+				</handler>	
+			</html5audioview> 
+	</when></switch>
+		        
     </text>
 
 </library>
