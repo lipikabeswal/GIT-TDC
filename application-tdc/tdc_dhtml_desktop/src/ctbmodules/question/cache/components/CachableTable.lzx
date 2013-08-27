@@ -71,8 +71,9 @@
             }
             if(titleTxt.length > 0){
             	this.thetable.contents.title.setAttribute('visible', true);
+	            var size = (canvas.basefontsize+2);
 	            this.thetable.contents.title.setAttribute("text", 
-	                    '<label align="center">' + decodeBrackets(titleTxt) + '</label>');
+	                    '<label><span style="line-height:14px; font-family: CTB; font-weight: bold; white-space: pre-wrap; font-size : '+size+'; text-align: center;">' + decodeBrackets(titleTxt) + '</span></label>');
 	        }
 	        else{
             	this.thetable.contents.title.setAttribute('visible', false);
@@ -250,9 +251,8 @@
 
                // Multiplying factor
                // Use offset for margins
-               var mult_factor  = (gEnlargePopup.width - offset)/orig_width;
-//Debug.write("mult_factor : " + mult_factor + " w : " + orig_width + " h : " + orig_height);
                var width = gEnlargePopup.width - offset;
+               var mult_factor  = width / orig_width;
 
                // These variables manipulate the image within the popup window
                var table = this.thetable.contents.borderview.table;
@@ -270,7 +270,7 @@
                    		title.setAttribute('visible', true);
                    		title.setAttribute("fontsize", 14);
 	                   	title.setAttribute("text", 
-	                        '<label align="center">' + decodeBrackets(titleTxt) + '</label>');
+	                        '<label><span style="font-family: CTB; font-weight: bold; white-space: pre-wrap; text-align: center; zoom: 97% ;">' + decodeBrackets(titleTxt) + '</span></label>');
 	                    title.setAttribute("align","center");
 	
 	                   // Based on (width/height) ratio use an appropriate fontsize
@@ -287,14 +287,21 @@
 //Debug.write(table);
 //Debug.write(title);
 //Debug.write(this);
-//Debug.write(parent.wrapper);
+//Debug.write(parent.wrapper); 
 
                // Set the image dimensions 
                // We're using the original table measurements, so we only need
                // to use an aspect ratio to correct for the margins 
                table.setAttribute("stretches", "both");
+               
+               mult_factor  = width / table.width;
+			   
+		       //scale up the table with the correct factor
+			   table.setAttribute("xscale" , mult_factor);
+			   table.setAttribute("yscale",  mult_factor);
+               
                table.setAttribute("width", width);
-               table.setAttribute('height',Math.ceil((orig_height - title_ht) * mult_factor));
+               table.setAttribute('height',table.height * mult_factor);
 
                // nklein : hack that shouldn't be necessary
                // Need to examine why this occurs
@@ -307,12 +314,24 @@
                parent.wrapper.setAttribute('height',table.height + (offset - 40) + title.height);
 
                // Remove the scrollbar when the table fits within the popup
-               if (parent.wrapper.height + (offset - 40) < gEnlargePopup.height) 
+               if (parent.wrapper.height < gEnlargePopup.height)
                   gEnlargePopup.contents.scaler.scroller.setAttribute("visible", false);
                else
                   gEnlargePopup.contents.scaler.scroller.setAttribute("visible", true);
 
                super.doneLoading();
+				
+				//changes for defect 74645 start
+				var elm = table.getDisplayObject();
+				var elmCSS = elm.style;
+				var final_width = orig_width - 31;
+				var final_height = orig_height - (31*Math.round(mult_factor));
+				
+				//console.log("get css****",elm.style.backgroundColor,elmCSS.webkitTransform);
+				elm.setAttribute("style","z-index:"+ elmCSS.zIndex + "; left:" + elmCSS.left + "; top: "+ elmCSS.top + "; background-color: " + elm.style.backgroundColor + "; width: " + final_width + "; height: "+final_height+"; -webkit-transform: " + elmCSS.webkitTransform +";");
+				//end
+				return;
+
                return;
             }
             else if (this.autoenlarge == "yes" && gController.hasFontAccommodation) {
@@ -373,10 +392,10 @@
                   -->
                 <text name="title" 
                       align="center"
-                      multiline="true" 
-                      width="${this.titlewidth != -1 ? 
-                             this.titlewidth : parent.borderview.width}"
-                      
+                      multiline="true"       
+					  width="${this.titlewidth != -1 ? 
+                             this.titlewidth : parent.borderview.width}"                
+                      fontsize="${canvas.basefontsize+2}" 
                       fgcolor="${classroot.fontcolor}"
 					  bgcolor="${classroot.bgcolor}"
                       clickable="${canvas.readable}"
@@ -386,7 +405,7 @@
 					<handler name="ontext"><![CDATA[
 						var size = (canvas.basefontsize+2);
 						var elm = this.getDisplayObject();
-						elm.setAttribute('style','text-align: center; font-family: CTB; font-weight: bold; font-size : '+size+';');
+						elm.setAttribute('style','text-align: center; font-family: CTB; font-weight: bold; font-size : '+size+'; width: '+this.width+'px;');
 					]]></handler>
                 </text>
 
