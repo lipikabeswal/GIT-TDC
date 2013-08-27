@@ -87,8 +87,8 @@
             this.setAttribute("isaccom", isaccom);
 
 			//set the initial widths / heights to zero to avoid scrollbar issue
-			this.wrapper.setAttribute('width', 0);
-			this.wrapper.setAttribute('height', 0);
+			//this.wrapper.setAttribute('width', 0);
+			//this.wrapper.setAttribute('height', 0);
 			
 			//Randomization will only be applied if login response has seed with it
 			if(gController.isLoginResponseHavingSeed && !nullOrSpace(gController.seed) && data != null) {

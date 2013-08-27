@@ -1,113 +1,26 @@
 <library>
-	<script>
-	/*
-	  resourceColor: the color of the resource
-	  color: the color you would like you to set
-	*/	
 	
-	function setResourceColor(obj, newColor){
-		// this is the resource color of the swfs used to create the tabs
-		var rR = 255;
-		var rG = 255;
-		var rB = 255;
-		var color = Number(newColor);
-		
-		var r =	parseInt('0x'+newColor.substr(2,2));
-	    var g =	parseInt('0x'+newColor.substr(4,2));
-	    var b =	parseInt('0x'+newColor.substr(6,2));
-	    
-		obj.setAttribute('colortransform',{ab: 0, aa: 100, 
-	                            bb: b-rB, ba: 100, 
-	                            gb: g-rG,  ga: 100, 
-	                            rb: r-rR,  ra: 100});   
-	}	
-	</script>
     <class name="PanelTab" 
            width="${this.bg.width}" 
            height="${this.bg.height}">
-
-        <attribute name="theframe" type="number" value="1"/>
-        
+         <attribute name="tabHeight" type="number" value="${this.bg.height}" />
         <view name="bg" 
               width="${classroot.thetitle.width + 22}"
-              height="${classroot.thetitle.height + 10}">
-            <stableborderlayout axis="x"/>
-            <view name="left" 
-                  resource="tab_contents_left" 
-                  stretches="height" 
-                  height="${parent.height}"
-                  y="0">
-                <attribute name="frame" value="${classroot.theframe}"/>
-            </view>
-            <view name="middle" 
-                  resource="tab_contents_mid" 
-                  stretches="both" 
-                  height="${parent.height -1}"
-                  y="1">
-                <attribute name="frame" value="${classroot.theframe}"/>
-            </view>
-            <view name="right" 
-                  resource="tab_contents_right" 
-                  stretches="height" 
-                  height="${parent.height}"
-                  y="0">
-                <attribute name="frame" value="${classroot.theframe}"/>
-            </view>
-         </view>
+              height="${classroot.thetitle.height + 10}" />
 
-        <view name="borders" 
-              width="${parent.bg.width}"
-              height="${classroot.theframe!=3?parent.bg.height-3:parent.bg.height}" 
-              y="${classroot.theframe!=3?10:0}">
-           <simplelayout axis="x"/>
-           <view name="left" 
-                 resource="tab_border_left" 
-                 stretches="height" 
-                 height="${parent.height - 2}" 
-                 x="${classroot.theframe!=3?5:0}" 
-                 y="${classroot.theframe!=3?1:0}">
-                <attribute name="frame" value="${classroot.theframe}"/>
-           </view>
-           <view name="middle" 
-                 resource="tab_border_mid" 
-                 y="${classroot.theframe!=3?1:0}"
-                 stretches="width" 
-                 height="${parent.height - 2}" 
-                 width="${parent.width - parent.left.width - parent.right.width - 1}">
-                <attribute name="frame" value="${classroot.theframe}"/>
-           </view>
-           <view name="right" 
-                 resource="tab_border_right" 
-                 stretches="height" 
-                 height="${parent.height}">
-                <attribute name="frame" value="${classroot.theframe}"/>
-           </view>
-        </view>
         <handler name="oninit">
-            thetitle.setAttribute('fgcolor', Number(gController.questionFontColor)); 
-			thetitle.setAttribute ('y', (this.height - this.thetitle.height)/2 + this.height/5);
+           thetitle.setAttribute('fgcolor', Number(gController.questionFontColor)); 
+			//thetitle.setAttribute ('y', (this.height - this.thetitle.height)/2 + this.height/5);
         </handler>
  
         <method name="selectIt">
-        	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text),false);
+        	//gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text),false);
             this.setSelectedTab(true, true);
         </method>
-        
-		<method name="initColors">
-			var bgcolor="0x"+ gController.questionBgColor.toString(16);
-			setResourceColor(bg, bgcolor); 
-			
-			/*var fg = gController.questionFontColor;
-		    if(fg == 0){
-		       fg = "0x000000";
-		    }*/
-		    var fg = "0x"+ gController.questionFontColor.toString(16);
-		    
-	        setResourceColor(borders, fg); 
-		</method>
+       
 		
         <method name="select" args="issel"><![CDATA[
-			var cln;		
+			var cln;	
 			var clones = classroot.tabctrl.tab.clones;
 			for(var i=0;i<clones.length;i++){
 				if(clones[i].clonenumber == this.clonenumber){
@@ -119,38 +32,72 @@
 				if(cln.thetitle){
             		cln.thetitle.setAttribute('clickable', false);
 				}
-                this.setAttribute ('theframe', 3);
                 this.bringToFront();
                 if (cln ['thetitle']) {
+					this.setAttribute("height",this.tabHeight);
                     cln.thetitle.setAttribute ('y', (this.height - cln.thetitle.height)/2 + this.height/10);
+                    
                 }
+              // this.setAttribute("height",this.tabHeight);	
+				this.setAttribute("y",4);
+			    tabImage();
+			
+			   
             } else {
 				if(cln.thetitle){
             		cln.thetitle.setAttribute('clickable', true);
 				}
-                this.setAttribute ('theframe', 1);
                 if (cln ['thetitle']) {
+					 this.setAttribute("height",this.tabHeight-6);
                     cln.thetitle.setAttribute ('y', (this.height - cln.thetitle.height)/2 + this.height/5);
+                    
                 }
+               // this.setAttribute("height",this.tabHeight-6);
+				this.setAttribute("y",9.5);
+				tabImage();
+				
             }
-            if(gController.hasFontAccommodation){
-            	this.setAttribute('y', 2);
-            	borders.setAttribute('height', bg.height);
-            	if(this.theframe == 3){
-            		borders.middle.setAttribute('y', 2);
-            	}
-            	else{
-           			borders.middle.setAttribute('y', 1);
-            	}
-            }
-            else{
-            	this.setAttribute('y', 1.5);
-            }]]>
+           	]]>
+        </method>
+        
+        <method name="tabImage">
+        	var bgcolor=(gController.questionBgColor || "0x"+gController.questionBgColor.toString(16) || gController.questionBgColor.toString(16));
+        	if(bgcolor == 0xFFFFFF){
+				this.setAttribute("resource","white_tab");
+			}
+			else if(bgcolor == 0x000000){
+				this.setAttribute("resource","black_tab");
+			}
+			else if(bgcolor == 0x000080){
+				this.setAttribute("resource","dblue_tab");
+			}
+			else if(bgcolor == 0xCCECFF){
+				this.setAttribute("resource","lblue_tab");
+			}
+			else if(bgcolor == 0xFFCCCC){
+				this.setAttribute("resource","pink_tab");
+			}
+			else if(bgcolor == 0xFFFFB0){
+				this.setAttribute("resource","yellow_tab");
+			}
+			
+			this.setAttribute("stretches","both");
         </method>
 
-        <text name="thetitle" datapath="@title" resize="true" align="center">
+        <text name="thetitle" datapath="@title" align="center">
+        	<handler name="ontext">
+        		var elm = this.getDisplayObject();
+        		var fontSize = 0;
+        		if(gController.hasFontAccommodation){
+        			fontSize = 18;
+        		}
+        		else{
+        			fontSize = 12;
+        		}
+        		elm.setAttribute('style','font-size: ' + fontSize + 'px; white-space: nowrap; font-family: CTB;');
+        	</handler>
 	        <handler name="onclick">
-				gReadableText.read(gReadableText.stripHtmlTags(this.text),false);
+				//gReadableText.read(gReadableText.stripHtmlTags(this.text),false);
 				parent.selectIt();
 	        </handler>
         

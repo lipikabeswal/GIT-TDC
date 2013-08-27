@@ -160,6 +160,17 @@
 	</resource>
 
 
+	 <!-- ======
+         Tabs
+         ========-->
+
+	<resource name="white_tab" src="components\tabs\white_tab.png"/>
+	<resource name="yellow_tab" src="components\tabs\yellow_tab.png"/>
+	<resource name="black_tab" src="components\tabs\black_tab.png"/>
+	<resource name="dblue_tab" src="components\tabs\dblue_tab.png"/>
+	<resource name="lblue_tab" src="components\tabs\lblue_tab.png"/>
+	<resource name="pink_tab" src="components\tabs\pink_tab.png"/>
+
     <!-- =====================
          Question Bar
          =====================-->

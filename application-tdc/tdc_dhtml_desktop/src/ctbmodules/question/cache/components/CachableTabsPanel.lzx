@@ -45,11 +45,10 @@
             </view>
         </view>
         <view name="tabctrl" 
-              height="${gController.hasFontAccommodation?41:32}" showhandcursor="false">
-            <simplelayout axis="x" spacing="-14" inset="-4"/>
+              height="${gController.hasFontAccommodation?41:32}" showhandcursor="false" >
+            <simplelayout axis="x" spacing="-5" />
             <PanelTab name="tab" datapath="*" showhandcursor="false">
-                <method name="setSelectedTab" args="issel, refresh"><![CDATA[
-//          Debug.write("CachableTabsPanel.PanelTab.setSelectedTab", this.clonenumber, issel);
+            <method name="setSelectedTab" args="issel, refresh"><![CDATA[
                     if (typeof this.clonenumber != 'undefined') {
 	                    if (issel && refresh) {
 	                    	var numTabs = parent.tab.clones.length;
@@ -76,7 +75,7 @@
                ]]>
                </method>
                  <handler name="oninit">
-                	this.initColors();
+                	//this.initColors();
                 	this.selectFirstTab();
                 </handler>
                 
