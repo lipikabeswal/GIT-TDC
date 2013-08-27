@@ -506,6 +506,7 @@
 		<attribute name="maskingAnswerDDState" value="false"/>
 		
 		<attribute name="answerArray" value="$once{new Array()}" />
+		<attribute name="tempAnsArray" value="$once{new Array()}" />
 		<attribute name="sendCatSave" value="true" type="boolean" />
 		<attribute name="catOver" value="false" type="boolean" />
 		<attribute name="isStopTest" value="true" type="boolean" /> 
@@ -2769,6 +2770,13 @@
 	
 			if(this.showMaskingAnswerPopUp && gController.returnNumberOfOptions() > 0){
 				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', true);
+				if(answerArray.length != returnNumberOfOptions()){
+					 
+					 for(i=0;i<tempAnsArray.length;i++){
+					  answerArray.push(tempAnsArray[i]);
+					 }
+					 tempAnsArray = [];
+				}
 			}else{
 				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', false);
 			}
@@ -5337,6 +5345,9 @@
 		if(answerArray.length < returnNumberOfOptions()){
 		
 			answerArray.push(ansObject);
+		}
+		else{
+			tempAnsArray.push(ansObject);
 		}
 		
 		//ansObject.hide();
