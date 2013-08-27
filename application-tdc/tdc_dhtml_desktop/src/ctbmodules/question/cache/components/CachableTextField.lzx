@@ -168,6 +168,7 @@
                 just = data.getAttr("halign");
             }
             this.setAttribute('align', just);
+            this.thetext.setAttribute("textalign",just);
             
             this.setAttribute("readText",unescape(dataText));
 
