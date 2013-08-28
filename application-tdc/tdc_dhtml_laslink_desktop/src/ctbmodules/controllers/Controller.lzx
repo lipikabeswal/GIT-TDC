@@ -3766,6 +3766,10 @@
 				gMaskingRuler.dragger.remove();
 				this.setAttribute("isMousedownOnManip",false);
 			}
+			if(gMaskingRuler.visible)
+			{	gManipulativeBar.globals.masking_ruler.setAttribute("frame",2);
+			}
+						
 		</method>
 
 		<method name="continueTest">
