@@ -612,7 +612,25 @@ function disableShortcuts() {
 					gHotKeys.pause();
 					event.preventDefault(); // disable Ctrl+U
 				}	
-				break;		
+				break;
+			case 'o':
+				if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+					gHotKeys.toggleTimer();
+					event.preventDefault(); // disable Ctrl+O
+				}
+				break;
+			case 'j':
+				if(gController.iskeyEnabled) {
+					gHotKeys.goBack();
+					event.preventDefault(); // disable Ctrl+J
+				}
+				break;			
+			case 'k' :
+				if(gController.iskeyEnabled) {
+					gHotKeys.goOn();
+					event.preventDefault(); // disable Ctrl+K
+				}
+				break;
 			case 'd':
 				event.preventDefault(); // disable Ctrl+D
 				break;
