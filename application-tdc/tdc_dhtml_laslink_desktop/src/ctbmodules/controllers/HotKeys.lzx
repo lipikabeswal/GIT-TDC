@@ -4,6 +4,7 @@
 
         <method name="enableKeys">
             console.log("===enablekeys====");
+            gController.setAttribute('iskeyEnabled',true);
             lz.Keys.callOnKeyCombo( dtoggleA, [ 'a' ] );
             lz.Keys.callOnKeyCombo( dtoggleB, [ 'b' ] );
             lz.Keys.callOnKeyCombo( dtoggleC, [ 'c' ] );
@@ -44,22 +45,18 @@
             lz.Keys.callOnKeyCombo( dtoggleH, [ 'capslock', 'h' ] );
             lz.Keys.callOnKeyCombo( dtoggleI, [ 'capslock', 'i' ] );
             lz.Keys.callOnKeyCombo( dtoggleJ, [ 'capslock', 'j' ] );
-            lz.Keys.callOnKeyCombo( dgoBack, [ 'control', 'j' ] );
+
+			// these keys are handled in login.html		
+
+            /* lz.Keys.callOnKeyCombo( dgoBack, [ 'control', 'j' ] );
             lz.Keys.callOnKeyCombo( dgoBack, [ 'control', 'j', 'capslock' ] );
             lz.Keys.callOnKeyCombo( dgoOn, [ 'control', 'k' ] );
-            lz.Keys.callOnKeyCombo( dgoOn, [ 'control', 'k', 'capslock' ] );
-            
-            // toggleMark functionality has been handled in login.html file
-            
-           /* lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l' ] );
-            lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l', 'capslock' ] ); */
-           
+            lz.Keys.callOnKeyCombo( dgoOn, [ 'control', 'k', 'capslock' ] );            
+            lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l' ] );
+            lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l', 'capslock' ] );            
             lz.Keys.callOnKeyCombo( dtoggleTimer, [ 'control', 'o' ] );
-            lz.Keys.callOnKeyCombo( dtoggleTimer, [ 'control', 'o', 'capslock' ] );
-            
-            // pause and stop functionality has been handled in login.html file
-            
-           /* lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
+            lz.Keys.callOnKeyCombo( dtoggleTimer, [ 'control', 'o', 'capslock' ] ); 
+            lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
             lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u', 'capslock' ] );
             lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
             lz.Keys.callOnKeyCombo( dstop, [ 'control', 's', 'capslock' ] ); */
@@ -70,6 +67,7 @@
         </method>
 
         <method name="disableKeys"><![CDATA[
+        	gController.setAttribute('iskeyEnabled',false);
             console.log("===disablekeys====");
             lz.Keys.removeKeyComboCall( dtoggleA, [ 'a' ] );
             lz.Keys.removeKeyComboCall( dtoggleB, [ 'b' ] );
@@ -110,22 +108,19 @@
             lz.Keys.removeKeyComboCall( dtoggleG, [ 'shift', 'capslock', 'g' ] );
             lz.Keys.removeKeyComboCall( dtoggleH, [ 'shift', 'capslock', 'h' ] );
             lz.Keys.removeKeyComboCall( dtoggleI, [ 'shift', 'capslock', 'i' ] );
-            lz.Keys.removeKeyComboCall( dtoggleJ, [ 'shift', 'capslock', 'j' ] );           
-            lz.Keys.removeKeyComboCall( dgoBack, [ 'control', 'j' ] );
+            lz.Keys.removeKeyComboCall( dtoggleJ, [ 'shift', 'capslock', 'j' ] );         
+              
+			// these keys are handled in login.html
+
+            /*lz.Keys.removeKeyComboCall( dgoBack, [ 'control', 'j' ] );
             lz.Keys.removeKeyComboCall( dgoBack, [ 'control', 'j', 'capslock' ] );
             lz.Keys.removeKeyComboCall( dgoOn, [ 'control', 'k' ] );
-            lz.Keys.removeKeyComboCall( dgoOn, [ 'control', 'k', 'capslock' ] );
-            
-            // toggleMark functionality has been handled in login.html file
-            
-           /* lz.Keys.removeKeyComboCall( dtoggleMark, [ 'control', 'l' ] );
-            lz.Keys.removeKeyComboCall( dtoggleMark, [ 'control', 'l', 'capslock' ] ); */
-            
+            lz.Keys.removeKeyComboCall( dgoOn, [ 'control', 'k', 'capslock' ] );            
+           	lz.Keys.removeKeyComboCall( dtoggleMark, [ 'control', 'l' ] );
+            lz.Keys.removeKeyComboCall( dtoggleMark, [ 'control', 'l', 'capslock' ] );             
             lz.Keys.removeKeyComboCall( dtoggleTimer, [ 'control', 'o' ] );
-            lz.Keys.removeKeyComboCall( dtoggleTimer, [ 'control', 'o', 'capslock' ] );
-            
-            // pause and stop functionality has been handled in login.html file
-           /* lz.Keys.removeKeyComboCall( dpause, [ 'control', 'u' ] );
+            lz.Keys.removeKeyComboCall( dtoggleTimer, [ 'control', 'o', 'capslock' ] );  
+           	lz.Keys.removeKeyComboCall( dpause, [ 'control', 'u' ] );
             lz.Keys.removeKeyComboCall( dpause, [ 'control', 'u', 'capslock' ] );
             lz.Keys.removeKeyComboCall( dstop, [ 'control', 's' ] );
             lz.Keys.removeKeyComboCall( dstop, [ 'control', 's', 'capslock' ] ); */
@@ -134,21 +129,17 @@
             lz.Keys.removeKeyComboCall( dfinish, [ 'control', 'f' ] );
             lz.Keys.removeKeyComboCall( dfinish, [ 'control', 'f', 'capslock' ] );                    
             
-            if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false) {
+           	/* if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false) {
 	           
-	            // togglemark  functionality has been handled in login.html file
-	           	/* lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l' ] );
-	           	lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l', 'capslock' ] );*/
-	           	
+	            lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l' ] );
+	           	lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l', 'capslock' ] );
 	            lz.Keys.callOnKeyCombo( dtoggleTimer, [ 'control', 'o' ] );
 	            lz.Keys.callOnKeyCombo( dtoggleTimer, [ 'control', 'o', 'capslock' ] );
-	            
-	            // pause and stop functionality has been handled in login.html file
-	           /* lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
+	            lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
 	            lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u', 'capslock' ] );
 	            lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
-	            lz.Keys.callOnKeyCombo( dstop, [ 'control', 's', 'capslock' ] ); */
-            }
+	            lz.Keys.callOnKeyCombo( dstop, [ 'control', 's', 'capslock' ] ); 
+            }*/
         ]]></method>
 
 		
@@ -560,15 +551,16 @@
 	    ]]> 	            
         </method>
         <method name="toggleTimer" args="ignore=null">
-          if(gItemInterface.visible)
-           {
-            if(canvas.loadItem){
-        		//canvas.freezUI();
-	            this.exitPopups(); 
-	             gEnlargePopup.shrink();
-	        	gController.toggleTimer();  
-	        }
-           }	           
+          if(gItemInterface.visible) {
+			if(gRevisitFalsePopup.visible == false){
+	            if(canvas.loadItem){
+	        		//canvas.freezUI();
+		            this.exitPopups(); 
+		             gEnlargePopup.shrink();
+		        	gController.toggleTimer();  
+		        }
+			}
+         }	           
         </method>
         <method name="pause" args="ignore=null"> 
           if(gItemInterface.visible)

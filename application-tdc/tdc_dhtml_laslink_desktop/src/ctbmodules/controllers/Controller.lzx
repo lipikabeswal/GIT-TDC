@@ -546,6 +546,7 @@
 		// FOR THE DEFECT 74974
 		<attribute name="singleCRhasFocus" type="boolean" value="true"/>
 		<attribute name="revisitCancelClicked" type="boolean" value="false" />
+		<attribute name="iskeyEnabled" type="boolean" value="true"/>
 
 		<!--
 			============================================================
