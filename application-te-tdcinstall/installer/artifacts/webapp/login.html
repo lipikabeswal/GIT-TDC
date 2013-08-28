@@ -117,6 +117,10 @@ function getTEAssetPath(){
 	lz.embed.setCanvasAttribute("TEAssetPath", TEAssetPath);
 }
 
+function isAppPreviewer(){
+	lz.embed.setCanvasAttribute("isPreviewer", false);
+}
+
 function showFootnote(header)
 {
 	lz.embed.setCanvasAttribute("footnotedata", header);
@@ -421,7 +425,7 @@ function setScaleFactor(xscalefactor,yscalefactor){
     		else {
     			iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
     		}*/
-	    	
+	    	iframe.contentWindow.isReadable(canvas.readable);
 	    	iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
 	    	/*var xscalefact = (780 * xscalefactorjs)/800;
 	    	var yscalefact = (450 * yscalefactorjs)/462;*/
@@ -693,7 +697,6 @@ function removeReadOnlyCR(){
 function checkEmptyString(str) {
 	return (!str || /^\s*$/.test(str) || /^\n*$/.test(str) || /^\r*$/.test(str));
 } 
- 
  
 // higlighter for nonTE items
  
