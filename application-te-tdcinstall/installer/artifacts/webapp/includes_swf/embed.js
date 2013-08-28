@@ -291,8 +291,8 @@ function lzSetCanvasAttribute(n, v, h) {
             oLayer.open();
             oLayer.write(o);
             oLayer.close();
-        } else if (document.getElementById[i]) {
-            document.getElementById[i].innerHTML = o;
+        } else if (document.all) {
+            document.all[i].innerHTML = o;
         } else if (parseInt(navigator.appVersion) >=5 && navigator.appName=="Netscape") {
             document.getElementById(i).innerHTML = o;
         }
