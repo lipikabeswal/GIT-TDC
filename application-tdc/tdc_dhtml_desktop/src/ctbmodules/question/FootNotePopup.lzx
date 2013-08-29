@@ -230,21 +230,22 @@
             arrowdir = "down";
         }
 
+		this.arrow.setAttribute("direction", arrowdir);
+        this.arrow.setAttribute("x", this.getMouse("x") - this.arrow.width/2);
+        this.arrow.setAttribute("y", arrowy);
+
         //move to the left if necessary
         var relx = this.getAttributeRelative("x", this.scrolltext);
         if (relx + this.width + this.DROP_SHADOW_SIZE> this.scrolltext.width) {
             this.setAttribute("x", this.x - (this.width + DROP_SHADOW_SIZE) 
                 + 25*(fontSize/12));
-
+			this.arrow.setAttribute("x", (this.getMouse("x") - this.arrow.width/2)-((this.width + DROP_SHADOW_SIZE)+ 25*(fontSize/12))/2);
+			
             if(this.getAttributeRelative("x", canvas) < 0) {
                 this.setAttribute("x", 0);
             }
 
         }
-
-        this.arrow.setAttribute("direction", arrowdir);
-        this.arrow.setAttribute("x", this.getMouse("x") - this.arrow.width/2);
-        this.arrow.setAttribute("y", arrowy);
 
         this.setAttribute("visible", true);
         this.clickdel.register(lz.GlobalMouse, "onmousedown");
