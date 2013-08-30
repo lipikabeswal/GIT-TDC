@@ -628,6 +628,16 @@
 		<attribute name="latestVisitedCount" type="number" value="0" />
 		<attribute name="lastThemeItemNo" type="number" value="0"/>
 		<attribute name="lastItemVisited" type="boolean" value="false"/>
+
+		<handler name="onmouseup" reference="lz.GlobalMouse">
+			var isFrameFocused = document.activeElement.tagName === 'IFRAME';
+			console.warn("Controller#onmouseup: isFrameFocused=", isFrameFocused);	
+			if (isFrameFocused) {
+				console.warn("Setting focus to top window");
+				// Set the focus back to the top window.document
+				top.focus();
+			} 
+		</handler>
 		
 		<handler name="oncanNotAnswer" args="data"><![CDATA[
 			if(answerArray.length > 0) {
