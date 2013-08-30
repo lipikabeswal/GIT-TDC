@@ -3754,6 +3754,7 @@
 
 		]]></method>
 		<method name="resumeTest">
+			setAttribute('uisemaphore', 0);	
 			manipulativeSelected();
 			this.isStopScreen = false;
            	playAudio();			
