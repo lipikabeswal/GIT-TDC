@@ -3434,9 +3434,7 @@
 		</method>
 
 		<method name="goToPauseScreen">
-			if ( pausable == true || pausable == 'true') {
-			pauseAudio();
-			}
+			
 			this.clearInvalidCrResponses();
 			this.resetCrs();
             lz.Cursor.unlock();  
@@ -3449,6 +3447,9 @@
 			resetPauseTimer(timerInterval);
 			startPauseTimer();
             gScreens.showPause(getStudentName());
+			if ( pausable == true || pausable == 'true') {
+				pauseAudio();
+			}
             gPauseTimerScreen.setAttribute('visible',true);
             gTooltip.hideTooltip();
             if(this.isMousedownOnManip){

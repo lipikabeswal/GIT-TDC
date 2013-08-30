@@ -42,7 +42,7 @@
 		lz.ModeManager.release(this);
 		gController.recalltrackMouseMove();
 		//canvas.unFreezUI();
-		if(gItemInterface.visible && !gController.isAudioPaused && this.pleaseWaitVisible){
+		if((gItemInterface.visible == true || gItemInterface.visible == 'true')&& this.pleaseWaitVisible){
 			playAudio();
 		}
 		this.setAttribute("pleaseWaitVisible", false);
