@@ -12,7 +12,7 @@
         <attribute name="rightPadding" type="number" value="0"/>
         <attribute name="readable" type="boolean" value="false"/>
         <attribute name="displayStyle" type="string"/>
-        <attribute name="width" type="size" value="0"/>
+        <attribute name="width" type="number" value="0"/>
 		
 		<method name="enable">
         	this.footnotetext.enable();
@@ -58,7 +58,7 @@
 		
 		 <handler name="onfntext"><![CDATA[
 		 	//this.footnotetext.setAttribute("text", this.fntext);
-		 	if (gController.hasFontAccommodation){
+			if (gController.hasFontAccommodation){
 				this.footnotetext.setAttribute("text",
 	                '<label><span style="line-height: 21px; zoom:97%; white-space: pre-wrap;">' + this.fntext + '</span></label>');
 			}else{
@@ -71,13 +71,11 @@
 	
 		<text name="footnotetext" multiline="true"    
 			  width="${classroot.width}"
-              fgcolor="${classroot.fontcolor}">
-             <handler name="oninit">
-             	this.fontsize = this.immediateparent.parent.fontsize;
-             </handler>
+              fgcolor="${classroot.fontcolor}"
+              fontsize="${classroot ['fontsize'] ? (classroot.fontsize == 18?17:classroot.fontsize) : 12}" selectable="false" clickable="true">
+             
              <handler name="onclick">
-				var fontsize = this.fontsize;
-             	var footnoteText = classroot.header + "|" + classroot.detail + "|" +classroot.readable + "|" +classroot.displayStyle + "|" + fontsize;
+             	var footnoteText = classroot.header + "|" + classroot.detail + "|" +classroot.readable + "|" +classroot.displayStyle;
 		 		var s = "setFootnoteText('"+footnoteText+"')";
 				lz.Browser.loadJS(s);
              </handler>
@@ -87,8 +85,8 @@
              <handler name="onmouseup">
              	this.setSelection(0, 0); 
              </handler> 
-             
-             <!-- <handler name="oninit">
+
+            <!--  <handler name="oninit">
 				//antialiasing will be NORMAL for all text components
 	 			//to keep the layout consistent across the application
 	 			var t = this.getDisplayObject().textfield;
