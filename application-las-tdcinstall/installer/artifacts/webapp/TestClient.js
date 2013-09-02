@@ -49,7 +49,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mf"]}},$lzc$class__mf.attributes)
 }}})($lzc$class__mf)
-};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onkeydown","$m7","$m6","onmousedown","$m9","$m8","onbringBackFocus","$ma",null,"onfootnotedata","$mb",null,"onisMultiAudio","$mc",null,"oninit","$md",null,"onfootnotetext","$me",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-08-30T12:34:58Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onkeydown","$m7","$m6","onmousedown","$m9","$m8","onbringBackFocus","$ma",null,"onfootnotedata","$mb",null,"onisMultiAudio","$mc",null,"oninit","$md",null,"onfootnotetext","$me",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-09-02T11:57:18Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -24219,11 +24219,12 @@ this.setAttribute("toolstate",new (lz.datapointer)())
 },"toolstate",void 0,"scratchpadHasFocus",void 0,"scratchpadJustLostFocus",void 0,"$m1yv",function($0){
 this.setAttribute("scrollPosition",new Array())
 },"scrollPosition",void 0,"calledFromHtml",void 0,"characterLimit",void 0,"isTestInterrupted",void 0,"startResize",void 0,"mouseReleased",void 0,"$m1yw",function($0){
-this.bringToFront();this.sp.inp.setAttribute("selectable",false);lz.Cursor.setCursorGlobal("grabbing_cursor");lz.Cursor.lock();this.setAttribute("mouseReleased",true)
-},"$m1yx",function(){
+this.bringToFront();this.sp.inp.setAttribute("selectable",false);lz.Cursor.setCursorGlobal("grabbing_cursor");lz.Cursor.lock();this.setAttribute("mouseReleased",true);for(var $1=0;$1<gController.lasAssetArray.length;$1++){
+gController.lasAssetArray[$1].asset.assetOverley.setAttribute("visible",true);gController.lasAssetArray[$1].asset.assetOverley.bringToFront()
+}},"$m1yx",function(){
 return lz.GlobalMouse
 },"$m1yy",function($0){
-console.log("====Scratchpad sc mouse up==",$0);this.setAttribute("mouseReleased",false);if($0){
+this.setAttribute("mouseReleased",false);if($0){
 if(lz.Focus.getFocus()==this.sp.inp){
 this.sp.storeSelection()
 }else if($0==this){
@@ -24233,6 +24234,8 @@ if(gScratchpad.visible){
 gController.setAttribute("focusOnScratchpad",true)
 }}};if(this.startResize){
 gResizeControl.onmouseup.sendEvent();this.setAttribute("startResize",false)
+};for(var $1=0;$1<gController.lasAssetArray.length;$1++){
+gController.lasAssetArray[$1].asset.assetOverley.setAttribute("visible",false)
 }},"isScratchpadSubcomponent",function($0){
 var $1=this._getAncestor($0);var $2=typeof $0.parent=="undefined"?null:$0.parent;return $2==gScratchpad||$1==gScratchpad
 },"_getAncestor",function($0){
@@ -29849,7 +29852,7 @@ lz.Cursor.setCursorGlobal("waitcursor");this.setState(this.PAUSED_RESUME_STATE);
 }else{
 return false
 }},"_handlePausedResumeResponse",function($0){
-gController.setAttribute("canNotAnswer",true);this.changeItem(this.getItemFromOffset(this.currItemOffset()));this.showItemInterface();gScreens.resetTextFieldColor();this.startQuestion();this.resetMicCheck();this.recalltrackMouseMove();if(gScratchpad.visible){
+gController.setAttribute("canNotAnswer",true);pauseScreenShown();this.changeItem(this.getItemFromOffset(this.currItemOffset()));this.showItemInterface();gScreens.resetTextFieldColor();this.startQuestion();this.resetMicCheck();this.recalltrackMouseMove();if(gScratchpad.visible){
 this.setManipulativeSelState("scratchpad","up")
 };this.manipulativeSelected();this.unlockUI();gQuestion.setGrFocus();this.restoreScratchpadFocusIfNeeded();this.checkShowMagnifierGlass();this.checkShowMaskingChoiceDD();if(this.htmlFields!=null){
 this.showHtmlWidgets()
@@ -29947,7 +29950,7 @@ if(this.manipClicked&&this.currentManipSelected=="eraser"&&$4=="sel"){
 gManipulativeBar.globals.eraser.setAttribute("frame",2);this.setAttribute("eraserState","true")
 }};this.setAttribute("manipClicked",false);this.setAttribute("manipbuttonClicked",false);this.setAttribute("currentManipSelected","")
 }},"resumeTest",function(){
-this.setAttribute("uisemaphore",0);this.manipulativeSelected();this.isStopScreen=false;playAudio();lz.Cursor.setCursorGlobal("waitcursor");this.showItemInterface();this.resetMicCheck();this.showManipulatives();this.recalltrackMouseMove();gQuestion.setGrFocus();this.restoreScratchpadFocusIfNeeded();this.unlockUI();this.checkShowMaskingChoiceDD();if(this.adaptive==true){
+this.setAttribute("uisemaphore",0);this.manipulativeSelected();this.isStopScreen=false;playAudio();autoplayIfStopped();lz.Cursor.setCursorGlobal("waitcursor");this.showItemInterface();this.resetMicCheck();this.showManipulatives();this.recalltrackMouseMove();gQuestion.setGrFocus();this.restoreScratchpadFocusIfNeeded();this.unlockUI();this.checkShowMaskingChoiceDD();if(this.adaptive==true){
 gScreens.removeFinishState()
 };this.checkShowMagnifierGlass();if(this.scratchpadOpen){
 gHotKeys.enableKeys()

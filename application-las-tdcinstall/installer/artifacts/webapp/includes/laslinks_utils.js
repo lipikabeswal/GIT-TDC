@@ -10,6 +10,7 @@ var pausedAssetID = null;
 var pausedDisabledAssetID = null;
 var iframeFolderId = null;
 var canNotAnswerFlag = false;
+var autoplayStopped = false;
 
 function iframeLoaded(id, iframe){
 	if(iframe){
@@ -312,15 +313,33 @@ function enableAssets(){
 }
 
 function startAutoplay(){
-		for(var i=0; i<gController.lasAssetArray.length;i++){
-			if(gController.lasAssetArray[i].data.getAttr('autoplay') == "true"){
-				var frameid = getFrameId(gController.lasAssetArray[i]);
-				autoPlayEvent = "true";
-				iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.autoPlay();
-				break;
+	if(gController.isStopScreen || gController.isPauseScreen){
+		autoplayStopped = 'true';
+	}else{
+			for(var i=0; i<gController.lasAssetArray.length;i++){
+				if(gController.lasAssetArray[i].data.getAttr('autoplay') == "true"){
+					var frameid = getFrameId(gController.lasAssetArray[i]);
+					autoPlayEvent = "true";
+					iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.autoPlay();
+					break;
+				}
 			}
 		}
   }
+  
+  function pauseScreenShown(){
+	currentPlayOrder = 0;
+	pausedAssetID = null;
+	pausedDisabledAssetID = null;
+	  
+  }
+ 
+function autoplayIfStopped(){
+ 	if(autoplayStopped == 'true'){
+ 		startAutoplay();
+ 		autoplayStopped = 'false';
+ 	}
+ }
   
    function restrictNavigation(arg){
    if(arg  == 'unlock'){
@@ -335,7 +354,10 @@ function startAutoplay(){
   }
   
     function pauseAudio() {
-    	gController.macFocusInCanvas();	
+     if(currentPlayOrder == 0){
+    	//Do nothing 
+   	}else{
+     	gController.macFocusInCanvas();	
 		for(var i=0; i<gController.lasAssetArray.length;i++){
 		if(gController.lasAssetArray[i].asset){
 			var frameid;
@@ -354,6 +376,7 @@ function startAutoplay(){
 				
 			}
   		}
+  	 }
   }
   
   function playAudio(){
