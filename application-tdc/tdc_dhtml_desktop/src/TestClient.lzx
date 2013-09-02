@@ -87,6 +87,7 @@
 	<attribute name="LASAssetPath"/>
 	<attribute name="TEAssetPath"/>
 	<attribute name="isPreviewer" type="boolean" value="false"/>
+	<attribute name="frameLoaded" value="false" type="boolean" />
 	
 	<method name="setScale"><![CDATA[
 		canvas.setAttribute('xscalefactor',canvas.titleView.mainView.scalingView.xscale);

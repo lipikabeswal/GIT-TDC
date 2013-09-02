@@ -192,6 +192,7 @@ Debug.write("Cachaable html widget ondata");
 				 	lz.Timer.resetTimer(checkiframeStateDel, 500);
 				 }else{
 				 	lz.Timer.removeTimer(checkiframeStateDel);
+				 	canvas.setAttribute('frameLoaded',false);
 				 }
 		</method>
        
