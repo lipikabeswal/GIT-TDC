@@ -41,7 +41,6 @@
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
             lz.Cursor.lock ();
 			this.setAttribute("mouseReleased",true);
-			console.log("inmousedown");
 			for(var i=0; i< gController.lasAssetArray.length; i++) {
 					gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',true);
 					gController.lasAssetArray[i].asset.assetOverley.bringToFront();
@@ -50,7 +49,7 @@
         </handler>
 
 		<handler name="onmouseup" reference="lz.GlobalMouse" args="who"><![CDATA[
-		    console.log("====Scratchpad sc mouse up==",who);
+		    //console.log("====Scratchpad sc mouse up==",who);
 		    
 			this.setAttribute("mouseReleased",false);
 			if(who){
