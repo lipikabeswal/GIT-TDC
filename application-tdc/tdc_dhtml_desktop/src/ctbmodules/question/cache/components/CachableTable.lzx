@@ -327,7 +327,6 @@
 				var final_width = orig_width - 31;
 				var final_height = orig_height - (31*Math.round(mult_factor));
 				
-				//console.log("get css****",elm.style.backgroundColor,elmCSS.webkitTransform);
 				elm.setAttribute("style","z-index:"+ elmCSS.zIndex + "; left:" + elmCSS.left + "; top: "+ elmCSS.top + "; background-color: " + elm.style.backgroundColor + "; width: " + final_width + "; height: "+final_height+"; -webkit-transform: " + elmCSS.webkitTransform +";");
 				//end
 				return;

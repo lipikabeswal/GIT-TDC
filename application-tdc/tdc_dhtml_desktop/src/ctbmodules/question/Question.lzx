@@ -148,7 +148,6 @@
 			for (var i = 0; i < panelarr.length; i++) {
 				
                 dn = panelarr[i];
-                console.log("checkingIfTE"+dn);
                 if (!(dn instanceof lz.DataElement)) break;
 
                 if (dn.nodeName == gCompTypes.WIDGET_HTML || dn.nodeName == gCompTypes.WIDGET_ASSET){

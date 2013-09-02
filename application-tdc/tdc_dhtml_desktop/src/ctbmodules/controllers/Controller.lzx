@@ -4713,7 +4713,6 @@ Debug.write("############ loadItem ############");
 		]]></method>
 		
 		<method name="hideMagnifierGlass">
-			//console.log("hideMagnifierGlass***");
 			hideMagnify();
 			gManipulativeBar.globals.magnifyingGlass.setAttribute("frame",1);
 			gManipulativeBar.globals.magnifyingGlass.setAttribute("isEnabled",false);
@@ -4734,7 +4733,6 @@ Debug.write("############ loadItem ############");
 
 		<method name="checkShowMagnifierGlass">
 				//gMagnifyingGlass.showGlass("T");
-				//console.log("checkHideMagnifierGlass****",this.magnifierState);
 				if(this.magnifierState){
 		     		displayMagnifier();
 		     		gManipulativeBar.globals.magnifyingGlass.setAttribute("frame",2);
@@ -5434,10 +5432,7 @@ Debug.write("############ loadItem ############");
 					for (var i =0; i < this.htmlFields.length; i++){
 						this.htmlFields[i]['ref'].show();	
 					}
-				}else{
-					console.log("====####showHtmlWidgets NON TE #####===");
-            	}
-		
+				}		
 		]]></method>
 
 		<method name="updateHTMLItemNode"><![CDATA[

@@ -44,7 +44,6 @@
 	 			
 	 			<handler name="onmouseup"><![CDATA[
 	 			
-	 			  //console.log("inside mouseup");
 	 			  classroot._stopResize();
 	 			  setAttribute('frame', 1);
 	 			  gScratchpad.restoreFocusAndCursor();

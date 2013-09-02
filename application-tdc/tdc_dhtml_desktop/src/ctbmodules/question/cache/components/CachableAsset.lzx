@@ -20,10 +20,6 @@
 		</handler>
 	
 		<handler name="ondata" args="data"><![CDATA[
-			if($dhtml) {
-				//console.log("HH");
-				//console.log(data);
-			}
 			if($dhtml){
 				this.asset.setAttribute('height',Number(data.getAttr('height')));
 				this.asset.setAttribute('width',Number(data.getAttr('width')));

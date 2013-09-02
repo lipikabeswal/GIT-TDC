@@ -120,18 +120,8 @@
 				<view name="thebtns" x="${classroot.moreleft.x}">
 					<simplelayout axis="x" spacing="14"/>                
 					<QuestionBarButton name="questionBarButtons" y="13">
-						<handler name="oninit">
-							console.warn("QuestionBarButton#oninit: itemeid=%s", itemeid);
-						</handler>
 						<datapath xpath="runtime/item_model" pooling="false">
-							<handler name="onnodes" args="n">
-								console.warn("QuestionBarButton#onnodes: %d items found", n.length);		
-							</handler>
-							<handler name="ondata">
-								console.warn("QuestionBarButton#ondata");
-							</handler>
 							<handler name="onclones">
-								console.warn('onclones');
 								var lastclone = this.clones[this.clones.length - 1];
 								if (typeof this.del == "undefined") {
 									this.del = new lz.Delegate(this,
@@ -141,9 +131,6 @@
 								}
 								this.del.register(lastclone, "oninit");
 							</handler>
-							<method name="replicationComplete" args="ignore=null">
-								console.warn('Replication finished for ', this);
-							</method>
 						</datapath>
 					</QuestionBarButton>
 				</view>

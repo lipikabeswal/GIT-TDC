@@ -128,8 +128,6 @@
 				textFontColor = answerFontColor;
 			 }
 			 
-			//console.log("===ONWIDTH fontSize===",fontSize);
-			//console.log("===ONWIDTHfontColor===",textFontColor);
 			
 			var comWidth = this.width-1;
 			var elm = this.getDisplayObject();
@@ -158,8 +156,6 @@
 				textFontColor = answerFontColor;
 			 }
 			 
-			//console.log("===ONHEIGHT fontSize===",fontSize);
-			//console.log("===ONHEIGHT fontColor===",textFontColor);
 			
 			var comHeight = this.height-5;
             var elm = this.getDisplayObject();
@@ -172,7 +168,6 @@
 				var el = this.getDisplayObject();
 				el.setAttribute('id','scratchpad');
 				
-				//console.log("===SCRATH PAD VISIBLE===",el.id);
 				el.setAttribute('maxlength', 10000);
 			    hideScrollbar(el.id);	
 			</handler>

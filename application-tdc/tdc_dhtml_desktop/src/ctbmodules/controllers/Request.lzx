@@ -303,7 +303,6 @@ Debug.write("_heartbeatReturnError : ", ds);
 		</method>
 		
 		<method name="laslinksNewForm" args="userid, password, accesscode">
-       		console.log("laslinksNewForm request****"+userid,password,accesscode);
 			 var xml = gXmlHelper.getLoginXml(userid, password, accesscode,'');
 			 Debug.write("xml in request laslinksNewForm***",xml);
 			_doRequest(persistenceDs, LASLINKS_NEWFORM, xml);

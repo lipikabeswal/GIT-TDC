@@ -301,7 +301,6 @@
 						 classroot.setAttribute("numCharacters", text.length);
 						 classroot.updateCharacterMeter();
 						 classroot.setAttribute("isInitialText", false);
-						 console.log("gController.answerFontColor*******",gController.answerFontColor);
 						 var answerFontColor = gController.answerFontColor;
 						 if(Number(answerFontColor) == 0)
 							answerFontColor = "0x000000";
