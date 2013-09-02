@@ -3475,6 +3475,7 @@
 
 		<method name="_handlePausedResumeResponse" args="xml">
 			gController.setAttribute('canNotAnswer',true);
+			pauseScreenShown();
 			changeItem( getItemFromOffset(currItemOffset()));
 			showItemInterface();
 			gScreens.resetTextFieldColor();
@@ -3758,7 +3759,8 @@
 			setAttribute('uisemaphore', 0);	
 			manipulativeSelected();
 			this.isStopScreen = false;
-           	playAudio();			
+           	playAudio();
+           	autoplayIfStopped();//Added to start autoplay after returning from stop screen.			
             lz.Cursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
             resetMicCheck();
