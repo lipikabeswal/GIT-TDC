@@ -148,7 +148,6 @@
  	        	var speedValue = getSpeedNumber(smf);
  	        	speechDs.setQueryParam(SPEED_PARAM, speedValue);
  	        }
- 	        //console.log("speechDs"+speechDs);
 			speechDs.doRequest();
        ]]></method>
         
@@ -205,7 +204,6 @@
         ]]></method>
 
 		<method name="play">
-			console.log("inside play");
 			audioPlayerDs.setQueryParam("method", "start");
 			audioPlayerDs.doRequest();
 		</method>
@@ -221,25 +219,20 @@
 		</method>
 		
 		<method name="setPlayerVolume" args="volume_val">
-			console.log("setPlayerVolume "+volume_val);
 			volumeDs.setQueryParam("method", "setVolume");
 			volumeDs.setQueryParam("volume_val", volume_val);
 			volumeDs.doRequest();
 		</method>
 		
 		<method name="volumeSet" args="ds">
-			console.log("volumeSet");
 			gManipulativeBar.screenreader.volumeController.volumeControl.track.thumb.setAttribute('clickable',true);
 		</method>
 
 		<method name="checkMp3Status" args="ds">
-			//console.log("checkMp3Status "+ds.serialize());
 			var datasetText = gRequest.getDatasetText(ds);
-			//console.log("datasetText "+datasetText);
 			if(ds.childNodes[0].childNodes[0]!=null){
 				var status = ds.childNodes[0].childNodes[0].data;
 				if (status == "START") {
-					console.log("inside if block of checkMp3Status");
 		       		//gReadableText.isplaying = true; // TTS CR:when mp3 is loaded and ready to play
 	
 					//Changes for Defect # 65040
@@ -268,15 +261,12 @@
 		        	}
 	
 				}else if (status == "STOP") {
-					//console.log("inside else block of checkMp3Status");
 					lz.Timer.removeTimer(gReadableText.dcheckIfPlaying);
 					gReadableText.isplaying = false;
 				}else if (status == "true") {
-					console.log("inside isplaying true block of checkMp3Status");
 					lz.Timer.resetTimer(gReadableText.dcheckIfPlaying,500);
 					gReadableText.isplaying = true;
 				}else if (status == "false") {
-					console.log("inside isplaying false block of checkMp3Status");
 					lz.Timer.removeTimer(gReadableText.dcheckIfPlaying);
 					gReadableText.isplaying = false;
 				}
@@ -334,7 +324,6 @@
 					console.log("audioPlayer#onsrc event: src=" + src);
 				</handler>	
 				<handler name="onplay">
-					console.log("inside onplay");
 					if(gController.isWaitPopupOpen) {
 						gReadableText.speechRequestSent = false;
 						gCommunicator.firstRequestDone = false;
@@ -363,7 +352,6 @@
 					console.log("browser assumes media can play through now");
 				</handler>
 				<handler name="onended">
-					console.log("onended "+this.__media.ended);
 					if(this.__media.ended){
 						gReadableText.setAttribute('isPlaying',false);
 					}else{
