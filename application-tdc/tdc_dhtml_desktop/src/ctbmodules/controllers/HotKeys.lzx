@@ -3,7 +3,6 @@
     <node id="gHotKeys">
 
         <method name="enableKeys">
-			console.log("enableKeys");
             lz.Keys.callOnKeyCombo( dtoggleA, [ 'a' ] );
             lz.Keys.callOnKeyCombo( dtoggleB, [ 'b' ] );
             lz.Keys.callOnKeyCombo( dtoggleC, [ 'c' ] );
@@ -51,18 +50,9 @@
             lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
             lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
             lz.Keys.callOnKeyCombo( dfinish, [ 'control', 'f' ] );
-           
-		    /*if ( gController.getClientMachine() == 'MAC' || isMac()) {
-                dmacKeyHandler.register( lz.Keys, 'onkeydown' );
-            }*/
-
-			if (navigator.appVersion.indexOf("Mac")!=-1) {
-                dmacKeyHandler.register( lz.Keys, 'onkeydown' );
-            }
         </method>
 
         <method name="disableKeys">
-			console.log("disableKeys");
             lz.Keys.removeKeyComboCall( dtoggleA, [ 'a' ] );
             lz.Keys.removeKeyComboCall( dtoggleB, [ 'b' ] );
             lz.Keys.removeKeyComboCall( dtoggleC, [ 'c' ] );
@@ -110,13 +100,6 @@
             lz.Keys.removeKeyComboCall( dpause, [ 'control', 'u' ] );
             lz.Keys.removeKeyComboCall( dstop, [ 'control', 's' ] );
             lz.Keys.removeKeyComboCall( dfinish, [ 'control', 'f' ] );
-
-		   /* if ( gController.getClientMachine() == 'MAC' || isMac()) {
-            	dmacKeyHandler.unregisterFrom( lz.Keys.onkeydown );
-            }*/
-          if (navigator.appVersion.indexOf("Mac")!=-1) {
-                dmacKeyHandler.unregisterFrom( lz.Keys, 'onkeydown' );
-            }
         </method>
 
         <method name="isComboHotKeyDown"><![CDATA[
@@ -150,77 +133,12 @@
             return isdown;
         ]]></method>
 
-        <attribute name="dmacKeyHandler"
-                   value="$once{ new lz.Delegate( this, 'macKeyHandler' ) }"/>
-		<attribute name="disableCR" type="boolean" value="false"/>
         <method name="exitPopups">
             gController.exitPopups();
         </method>
 
-        <method name="macKeyHandler" args="k"><![CDATA[
-		    switch ( k ) {
-	        	case  6:
-                    this.exitPopups(); 
-        			gController.finishTestShortcut();      // CTRL F ?
-                    break;
-				case 10: 
-					if(!gController.fwdOnly){
-	                    this.exitPopups();
-	                    gController.stepNavigateBack();  
-					}
-                    break;
-				case 11: 
-                    this.exitPopups();
-                    gController.stepNavigateForward(); 
-                    break;
-				case 12: 
-                    this.exitPopups();
-                    gController.toggleMark(); 
-                    break;
-				case 15:
-                    this.exitPopups(); 
-                    gController.toggleTimer();
-                    break;
-				case 19: 
-                    this.exitPopups();
-                    gController.finishTest(); 
-                    break;
-				case 21: 
-                    this.exitPopups();
-                    gController.pauseTest(); 
-                    break;
-                case 18: 
-					if(((lz.Keys.isKeyDown("Alt")) || (lz.Keys.isKeyDown("alt")) || (lz.Keys.isKeyDown("option")))){
-						this.setAttribute('disableCR',true);
-						addReadOnlyCR();
-						break;
-	 				}else{
-						this.setAttribute('disableCR',false);
-						removeReadOnlyCR();
-					}
-					break;
-                case 17: 
-					if(((lz.Keys.isKeyDown("Alt")) || (lz.Keys.isKeyDown("alt")) || (lz.Keys.isKeyDown("option")))){
-							this.setAttribute('disableCR',true);
-							break;
-	 				}else{
-							this.setAttribute('disableCR',false);
-					}
-					break;
-				default:
-					if(disableCR && ((lz.Keys.isKeyDown("Alt")) || (lz.Keys.isKeyDown("alt")) || (lz.Keys.isKeyDown("option")))){
-						addReadOnlyCR();
-							break;
-					}else{
-						removeReadOnlyCR();
-					}				
-					break;
-	 		}
-	 		]]>
-        </method>
         <!-- added to handle hot keys in TE items -->
         <method name="handleHtmlKeyPress" args="data"><![CDATA[
-        		console.log("handleHtmlKeyPress "+data);
 	        	var keys = data.split("|");
 	        	var key = keys[0];
 	        	var shift = keys[1];
@@ -374,7 +292,6 @@
 		</method>
         <method name="goOn" args="ignore=null"> 
             if(canvas.loadItem){
-                console.log("==goOn IF=="+canvas.loadItem);
 	        	if(!gController.onLastItem()){
 	        		lz.Focus.clearFocus();
 	        	}
