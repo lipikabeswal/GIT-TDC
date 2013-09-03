@@ -7538,7 +7538,7 @@ var $1=$0.pop();this.destroyClone($1)
 }}},"__LZHandleSingleNode",function($0){
 this.__LZHandleMultiNodes([$0])
 },"__LZHandleMultiNodes",function($0){
-console.log("LzReplicationmanger#__LZHandleMultiNodes");console.log($0);var $1=this.parent&&this.parent.layouts?this.parent.layouts:[];for(var $2=0;$2<$1.length;++$2){
+var $1=this.parent&&this.parent.layouts?this.parent.layouts:[];for(var $2=0;$2<$1.length;++$2){
 $1[$2].lock()
 };this.hasdata=true;var $3=this.nodes;this.nodes=$0;if(this.onnodes.ready)this.onnodes.sendEvent(this.nodes);if(this.__LZspecialDotDot)this.__LZsetupDotDot($0[0]);if(this.orderpath!=null&&this.nodes){
 this.nodes=this.mergesort(this.nodes,0,this.nodes.length-1)
@@ -7550,7 +7550,7 @@ $5.datapath.setClonePointer(this.nodes[$6])
 $1[$2].unlock()
 };return null
 },"__LZadjustVisibleClones",function($0,$1){
-if(this.name=="questionBarButtons")console.warn("LzReplicationManager#__LZadjustVisibleClones(): newnodes="+$1);if(this.name=="questionBarButtons")console.warn($0);var $2=this.__LZdiffArrays($0,this.nodes);if(!this.pooling){
+var $2=this.__LZdiffArrays($0,this.nodes);if(!this.pooling){
 while(this.clones.length>$2){
 var $3=this.clones.pop();this.destroyClone($3)
 }};lz.Instantiator.enableDataReplicationQueuing(this);while(this.nodes&&this.nodes.length>this.clones.length){
@@ -7603,7 +7603,7 @@ switch(arguments.length){
 case 0:
 $0=null;
 
-};var $1=typeof this.id=="string"?"@id="+this.id:"@name="+this.name;if(this.name=="questionBarButtons")console.warn("LzReplicationManager"+$1+"#getNewClone(): xpath="+this.xpath);if(!this.cloneParent){
+};var $1=typeof this.id=="string"?"@id="+this.id:"@name="+this.name;if(!this.cloneParent){
 return null
 };if(this.clonePool.length){
 var $2=this.reattachClone(this.clonePool.pop())
@@ -8533,7 +8533,9 @@ LzMouseKernel.restoreCursor()
 with($0)with($0.prototype){
 {
 LzCursorService.LzCursor=new LzCursorService()
-}}})(LzCursorService);lz.CursorService=LzCursorService;lz.Cursor=LzCursorService.LzCursor;Class.make("LzKeysService",["$lzsc$initialize",function(){
+}}})(LzCursorService);lz.CursorService=LzCursorService;lz.Cursor=LzCursorService.LzCursor;
+
+Class.make("LzKeysService",["$lzsc$initialize",function(){
 (arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this);LzKeyboardKernel.setCallback(this,"__keyEvent");if(lz.embed["mousewheel"]){
 lz.embed.mousewheel.setCallback(this,"__mousewheelEvent")
 }},"downKeysHash",{},"downKeysArray",[],"keycombos",{},"onkeydown",LzDeclaredEvent,"onkeyup",LzDeclaredEvent,"onmousewheeldelta",LzDeclaredEvent,"onkeyevent",LzDeclaredEvent,"codemap",{shift:16,control:17,alt:18},"ctrlKey",false,"__keyEvent",function($0,$1,$2,$3,$4){
@@ -8618,7 +8620,107 @@ LzKeyboardKernel.setGlobalFocusTrap($0)
 with($0)with($0.prototype){
 {
 LzKeysService.LzKeys=new LzKeysService()
-}}})(LzKeysService);lz.KeysService=LzKeysService;lz.Keys=LzKeysService.LzKeys;Class.make("LzAudioService",["capabilities",LzSprite.prototype.capabilities,"$lzsc$initialize",function(){
+}}})(LzKeysService);lz.KeysService=LzKeysService;lz.Keys=LzKeysService.LzKeys;
+Class.make("LzKeysService",["$lzsc$initialize",function(){
+(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this);LzKeyboardKernel.setCallback(this,"__keyEvent");if(lz.embed["mousewheel"]){
+lz.embed.mousewheel.setCallback(this,"__mousewheelEvent")
+}},"downKeysHash",{},"downKeysArray",[],"keycombos",{},"onkeydown",LzDeclaredEvent,"onkeyup",LzDeclaredEvent,"onmousewheeldelta",LzDeclaredEvent,"onkeyevent",LzDeclaredEvent,"codemap",{shift:16,control:17,alt:18},"ctrlKey",false,"totalCtrlCombos",0,"keycombosBlocked",false,"__keyEvent",function($0,$1,$2,$3,$4){
+switch(arguments.length){
+case 3:
+$3=false;
+case 4:
+$4=null;
+
+};this.ctrlKey=$3;if($4!==null){
+var $5=this.downKeysHash;if($4){
+$5[16]=true
+}else{
+delete $5[16]
+}};var $6=this.codemap;for(var $7 in $0){
+var $8=$0[$7];if($6[$7]!=null)$1=$6[$7];if($8){
+this.gotKeyDown($1)
+}else{
+this.gotKeyUp($1)
+}}},"__allKeysUp",function(){
+this.downKeysHash={};this.downKeysArray=[];LzKeyboardKernel.__allKeysUp()
+},"__browserTabEvent",function($0){
+LzKeyboardKernel.__browserTabEvent($0)
+},"gotKeyDown",function($0,$1){
+switch(arguments.length){
+case 1:
+$1=null;
+
+};var $2=this.downKeysHash;var $3=this.downKeysArray;if(LzKeyboardKernel.__shiftState&&!$2[16]){
+$2[16]=true;$3.push(16);$3.sort()
+};var $4=!$2[$0];if($4){
+$2[$0]=true;$3.push($0);$3.sort()
+};if($4||$1!="extra"){
+if($2[229]!=true){
+if(this.onkeydown.ready)this.onkeydown.sendEvent($0);if(this.onkeyevent.ready){
+this.onkeyevent.sendEvent({type:"onkeydown",key:$0})
+}}};if(!this.keycombosBlocked&&$4){
+var $5=this.keycombos;for(var $6=0;$6<$3.length&&$5!=null;$6++){
+$5=$5[$3[$6]]
+};
+// console.log("LzKeys.gotKeyDown()  lz.Keys.downKeysArray=",this.downKeysArray);
+if($3.length>=2&&$3[0]==17){
+var $7=0;if($3.length==2){
+$7=$3[1]
+}else if($3[1]==20){
+$7=$3[2]
+};if($7==74||$7==75||$7==76){
+this.totalCtrlCombos++;console.error("LzKeys.gotKeyDown()  Control-%s combo pressed",String.fromCharCode($7));console.error("LzKeys.gotKeyDown()  Total Control-? combos received by app: %d",this.totalCtrlCombos)
+}};if($5!=null&&("delegates" in $5)){
+var $8=$5.delegates;for(var $6=0;$6<$8.length;$6++){
+$8[$6].execute($3)
+}}}else if(this.keycombosBlocked){
+console.error("LzKeys.keycombosBlocked=true:  The following combo has been blocked: ",$3)
+}},"gotKeyUp",function($0){
+var $1=this.downKeysHash;var $2=$1[$0];delete $1[$0];var $3=this.downKeysArray;$3.length=0;for(var $4 in $1){
+$3.push($4)
+};if($2){
+if(this.onkeyup.ready)this.onkeyup.sendEvent($0);if(this.onkeyevent.ready){
+this.onkeyevent.sendEvent({type:"onkeyup",key:$0})
+}}},"isKeyDown",function($0){
+if(typeof $0=="string"){
+return this.downKeysHash[this.keyCodes[$0.toLowerCase()]]==true
+}else{
+var $1=true;var $2=this.downKeysHash;var $3=this.keyCodes;for(var $4=0;$4<$0.length;$4++){
+$1=$1&&$2[$3[$0[$4].toLowerCase()]]==true
+};return $1
+}},"callOnKeyCombo",function($0,$1){
+var $2=this.keyCodes;var $3=[];for(var $4=0;$4<$1.length;$4++){
+$3.push($2[$1[$4].toLowerCase()])
+};$3.sort();var $5=this.keycombos;for(var $4=0;$4<$3.length;$4++){
+var $6=$5[$3[$4]];if($6==null){
+$5[$3[$4]]=$6={delegates:[]}};$5=$6
+};$5.delegates.push($0)
+},"removeKeyComboCall",function($0,$1){
+var $2=this.keyCodes;var $3=[];for(var $4=0;$4<$1.length;$4++){
+$3.push($2[$1[$4].toLowerCase()])
+};$3.sort();var $5=this.keycombos;for(var $4=0;$4<$3.length;$4++){
+$5=$5[$3[$4]];if($5==null){
+return false
+}};for(var $4=$5.delegates.length-1;$4>=0;$4--){
+if($5.delegates[$4]==$0){
+$5.delegates.splice($4,1)
+}}},"blockKeyCombos",function($0){
+this.keycombosBlocked=$0
+},"enableEnter",function($0){},"mousewheeldelta",0,"__mousewheelEvent",function($0){
+if(lz.GlobalMouse.__mouseactive){
+this.mousewheeldelta=$0;if(this.onmousewheeldelta.ready)this.onmousewheeldelta.sendEvent($0);if(this.onkeyevent.ready){
+this.onkeyevent.sendEvent({type:"onmousewheeldelta",key:$0})
+}}},"gotLastFocus",function($0){
+LzKeyboardKernel.gotLastFocus()
+},"setGlobalFocusTrap",function($0){
+if(canvas.capabilities.globalfocustrap){
+LzKeyboardKernel.setGlobalFocusTrap($0)
+}},"keyCodes",{"0":48,")":48,";":186,":":186,"1":49,"!":49,"=":187,"+":187,"2":50,"@":50,"<":188,",":188,"3":51,"#":51,"-":189,"_":189,"4":52,"$":52,">":190,".":190,"5":53,"%":53,"/":191,"?":191,"6":54,"^":54,"`":192,"~":192,"7":55,"&":55,"[":219,"{":219,"8":56,"*":56,"\\":220,"|":220,"9":57,"(":57,"]":221,"}":221,'"':222,"'":222,a:65,b:66,c:67,d:68,e:69,f:70,g:71,h:72,i:73,j:74,k:75,l:76,m:77,n:78,o:79,p:80,q:81,r:82,s:83,t:84,u:85,v:86,w:87,x:88,y:89,z:90,numbpad0:96,numbpad1:97,numbpad2:98,numbpad3:99,numbpad4:100,numbpad5:101,numbpad6:102,numbpad7:103,numbpad8:104,numbpad9:105,multiply:106,"add":107,subtract:109,decimal:110,divide:111,f1:112,f2:113,f3:114,f4:115,f5:116,f6:117,f7:118,f8:119,f9:120,f10:121,f11:122,f12:123,backspace:8,tab:9,clear:12,enter:13,shift:16,control:17,alt:18,"pause":19,"break":19,capslock:20,esc:27,spacebar:32,pageup:33,pagedown:34,end:35,home:36,leftarrow:37,uparrow:38,rightarrow:39,downarrow:40,insert:45,"delete":46,help:47,numlock:144,screenlock:145,"IME":229}],LzEventable,["LzKeys",void 0]);(function($0){
+with($0)with($0.prototype){
+{
+LzKeysService.LzKeys=new LzKeysService()
+}}})(LzKeysService);lz.KeysService=LzKeysService;lz.Keys=LzKeysService.LzKeys;
+Class.make("LzAudioService",["capabilities",LzSprite.prototype.capabilities,"$lzsc$initialize",function(){
 (arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this)
 },"playSound",function($0){
 if(this.capabilities.audio){

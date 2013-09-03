@@ -3335,7 +3335,10 @@
 
 		<method name="freezeUI">
 
-            ++uisemaphore;
+            //++uisemaphore;
+            lz.Keys.blockKeyCombos(true);	
+            //console.log("freezeUI****",uisemaphore);			
+			setAttribute('uisemaphore', uisemaphore + 1);
             if ( dsdisplay.childNodes[0].getAttr( 'enabled' ) == 'true' ) {
                 gHotKeys.disableKeys();
                 dsdisplay.childNodes[0].setAttr( 'enabled', 'false' );
@@ -3346,8 +3349,9 @@
 		<method name="unlockUI">
 		<![CDATA[
 			if(doUnlockUI){
-	            --uisemaphore;
-	
+	            //--uisemaphore;
+				setAttribute('uisemaphore', uisemaphore - 1);	
+				//console.log("unlockUI****",uisemaphore);
 				if ( uisemaphore < 0 )
 				{
 					uisemaphore = 0;
@@ -3359,6 +3363,7 @@
 	              if(!gScratchpad.scratchpadHasFocus){
 	                	gHotKeys.enableKeys();
 	               }
+	              lz.Keys.blockKeyCombos(false);
 	            }
 	        }
 		]]>
