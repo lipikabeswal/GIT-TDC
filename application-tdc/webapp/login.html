@@ -96,7 +96,6 @@
         <script type="text/javascript">
 	    var xscalefactorjs;
         var yscalefactorjs;
-        //console.log('xscalefactor',xscalefactorjs,yscalefactorjs);
 
 </script> -->
 <SCRIPT LANGUAGE="JavaScript">
@@ -149,27 +148,6 @@ function updateLDB(){
 	_LDB_BypassSetFocusOnPageLoad = 1;
 }
 
-function sendRequest(method,xml,action){
-	  console.log("sendRequest"+method+" "+xml+" "+action);
-}
-
-function checkVals(arg1,arg2,arg3){
-	// alert("inside checkVals "+arg1+arg2+arg3);
-}
-
-function checkQues(arg1,arg2,arg3){
-	// alert("inside checkQues "+arg1+arg2+arg3);
-}
-
-function checkStop(arg1,arg2,arg3){
-	 // alert("inside checkStop arg1="+arg1+" arg2="+arg2+" arg3="+arg3);
-}
-
-function setResponse(result) {
-	//console.log("setResponse"+result);
-	//lz.embed.setCanvasAttribute("response",result);
-	//gCommunicator.finishCall(data);
-}
 
 
 function setFrameSource(filepath){
@@ -183,12 +161,10 @@ function setFrameSource(filepath){
 }
 
 function blockiPADUI(){
-	console.log("block!!!!!");
 	blockUI();
 }
 
 function unblockiPADUI () {
-	console.log("unblock!!!!!");
 	unblockUI();
 }
 
@@ -240,9 +216,9 @@ function setFootnoteText(arg){
 function isAnswered(){
  var elem = $("iframe")[0];
 	if(elem){
-	if(elem.contentWindow.accomPkg)
- 	return elem.contentWindow.accomPkg.isItemAnswered();
-}        	
+		if(elem.contentWindow.accomPkg)
+	 	return elem.contentWindow.accomPkg.isItemAnswered();
+	}        	
  }
  
  function getState(){
@@ -251,7 +227,6 @@ function isAnswered(){
  if(elem){
  
  		if(elem.contentWindow.accomPkg){
-	 		//console.log("state****"+JSON.stringify(elem.contentWindow.accomPkg.getState()));
 	 		return elem.contentWindow.accomPkg.getState();
  		}
  	}     
@@ -259,18 +234,16 @@ function isAnswered(){
  
  function setState(htmlContent,jsonContent,checkedVals){
  	var elem = $("iframe")[0];
- 	console.log("inside setState");
  	if(elem){	
- 		console.log("inside if elem of setState");
      if(elem.contentWindow){
-    	console.log("inside if elem contentWindow of setState");
    		if(elem.contentWindow.accomPkg){
-   			console.log("inside if elem contentWindow accomPkg of setState");
+   			console.log("inside setState");
 			elem.contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
 			//ansSet = true;
   		}
   	}
-   }          
+   }    
+   gController.isAnsweredDelegate();   
  }
   
     
@@ -287,7 +260,6 @@ function isAnswered(){
   }
   
  function setImageSize(divid, imgHeight, imgWidth) {
-	//console.log("setImageSize************",divid,imgWidth,imgHeight)
 	var elm = document.getElementById(divid);
 	if(elm != null) {
 		var imgElm = elm.getElementsByTagName("img");
@@ -412,8 +384,6 @@ function setScaleFactor(xscalefactor,yscalefactor){
 		    if(iframe != null
 	    		&& iframe.contentWindow != null
 	    		&& typeof iframe.contentWindow.accomPkg != 'undefined') {
-	    		console.log("if");
-		    	//iframeLoaded = true;
 		    }
 		    
      		var fontObj = getFontAccomodation();	
@@ -438,8 +408,6 @@ function setScaleFactor(xscalefactor,yscalefactor){
 }
 
  function setTTSText(text){
-	console.log("setTTSText"+text);
-	console.log("canvas.readable"+canvas.readable);
 	if(text && canvas.readable)
 		gReadableText.read(text,false);
 }
@@ -682,7 +650,6 @@ function setScrollEdittextHeight(elmId,comHeight,fontSize,textFontColor){
 <!-- End scratchpad scrollbar functions-->
  
 function addReadOnlyCR(){
-	console.log("inside addReadOnlyCR");
 	if(document.getElementsByTagName('textarea').length > 0){
 		document.getElementsByTagName('textarea')[0].setAttribute('readonly',true);
 	}
