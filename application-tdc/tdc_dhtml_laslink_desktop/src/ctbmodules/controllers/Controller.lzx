@@ -3515,6 +3515,8 @@
 		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
           	if(this.focusOnScratchpad  && gScratchpad.visible){
             	gScratchpad.restoreFocusAndCursor();
+            }else{
+             	gScratchpad.setAttribute('scratchpadHasFocus',false);
             }
  		]]></method>
 
@@ -3527,7 +3529,11 @@
         	gReadableText.stopReading(false);
         	this.isStopScreen = true;
             freezeUI();
-            
+            if(gScratchpad.scratchpadHasFocus){
+            	gController.setAttribute("focusOnScratchpad", true);
+            }else{
+            	gController.setAttribute("focusOnScratchpad", false);
+            }
          //For Defect 65881        
             if(this.recorder != null)
 			{
