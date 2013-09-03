@@ -5354,15 +5354,14 @@ Debug.write("############ loadItem ############");
 
 	<method name="addHtmlField" args="field">
 	        	this.htmlFields.push(field);
-	        	isAnsweredDelegate();
+	        	//isAnsweredDelegate();
 		</method>
 	<method name="resetHtmlFields"><![CDATA[
+		stopCheckIsAnswer();
 		 for (var i = 0; i < this.htmlFields.length; i++) {
                 delete this.htmlFields[i];
             }
             this.htmlFields.length = 0;
-            Debug.write("****stopcheckisAnswer****");
-            stopCheckIsAnswer();
 		]]></method>
 		
 	
@@ -5395,20 +5394,22 @@ Debug.write("############ loadItem ############");
 		
 		<method name="isAnsweredDelegate" args="ignore=null"><![CDATA[
 			//	Debug.write("isAnsweredDelegate",this.htmlFields[0]);
-				this.htmlFields[0]['ref'].func1();
-				if(this.htmlFields[0]['ref'].answered){					
-
-					this.htmlFields[0]['answered'] = true;
-					this.htmlFields[0]['ref'].getHtmlState();
-					
-				}else{
-					var state;
-					this.htmlFields[0]['answer'] = state;
-					this.htmlFields[0]['answered'] = false;
-					this.htmlFields[0]['ref'].getHtmlState();
+				if(this.htmlFields.length > 0){
+					this.htmlFields[0]['ref'].func1();
+					if(this.htmlFields[0]['ref'].answered){					
+	
+						this.htmlFields[0]['answered'] = true;
+						this.htmlFields[0]['ref'].getHtmlState();
+						
+					}else{
+						var state;
+						this.htmlFields[0]['answer'] = state;
+						this.htmlFields[0]['answered'] = false;
+						this.htmlFields[0]['ref'].getHtmlState();
+					}
+	
+					lz.Timer.resetTimer(answeredDel, 500);
 				}
-
-				lz.Timer.resetTimer(answeredDel, 500);
 		]]>
 		</method>
 
