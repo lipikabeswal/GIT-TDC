@@ -59,10 +59,11 @@ Debug.write("Cachaable html widget ondata");
 				}
 
 				this.setAttribute('answerObjSet', answer);
-				setAnswer();
+				//setAnswer();
 			}else {
 				gController.setAttribute('isAnswerSet',false); //using for freezing/unfreezing UI
 			}
+			setAnswer();
 			gController.addHtmlField({"widget_id" : id, "answered" : this.answered, "answer" : this.answer, "ref" : this}); 
 
 		}
@@ -243,6 +244,14 @@ Debug.write("Cachaable html widget ondata");
 		 </html>-->
 			
        </view>
+		<view name="overlay" visible="${gPleaseWaitPopup!=null?gPleaseWaitPopup.visible:false}" 
+			clickable="true"
+			x="${parent.main.x}"
+			y="${parent.main.y}"
+			width="${parent.main.width}"
+			height="${parent.main.height}">
+
+		</view>
 
 	</class>
 </library>
