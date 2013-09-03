@@ -1,0 +1,21 @@
+<tmssvc_response method="login_response">
+	<login_response lsid="6507869:GATEWAY437" restart_flag="false" restart_number="1">
+		<status status_code="200" />
+		<testing_session_data>
+			<cmi.core student_id="12020550" student_last_name="Vvvvv" student_first_name="Vvvv" student__middle_name="" />
+			<lms.student.accommodations calculator="false" magnifier="false" screen_reader="false" untimed="false" rest_break="true" highlighter="true" masking_ruler="false" magnifying_glass="false" auditory_calming="false" music_file_id="0" extended_time="false" masking_tool="false">
+				<stereotype_style stereotype="directions" font_magnification="1.0" />
+				<stereotype_style stereotype="stimulus" font_magnification="1.0" />
+				<stereotype_style stereotype="stem" font_magnification="1.0" />
+				<stereotype_style stereotype="answerArea" font_magnification="1.0" />
+			</lms.student.accommodations>
+		</testing_session_data>
+		<manifest block_content_download="false" title="GA CRCT 2013 Grade 3 Practice Test">
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="283986" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="Reading Sample Question" asmt_hash="6C31D74AE24425F447EEF0ABCB6AA60F" asmt_encryption_key="1293" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8" adsid="9947502" fwd_only="false" adaptive="false" isSample="true" contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0" />
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="283987" sco_duration_minutes="35" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="Reading Section 1" asmt_hash="9F1F8DC362C148708EC08F84EC1E2D0D" asmt_encryption_key="173" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8" adsid="9947602" fwd_only="false" adaptive="false" isSample="false" contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0" />
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="283988" sco_duration_minutes="35" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="Reading Section 2" asmt_hash="28FDF9044F7D569B91217699003A0A08" asmt_encryption_key="96" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8" adsid="9947702" fwd_only="false" adaptive="false" isSample="false" contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0" />
+			<terminator id="SEE_YOU_LATER" />
+		</manifest>
+		<branding tdclogo="/resources/logo.swf" />
+	</login_response>
+</tmssvc_response>

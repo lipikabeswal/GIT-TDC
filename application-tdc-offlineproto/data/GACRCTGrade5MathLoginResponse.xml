@@ -1,0 +1,22 @@
+<tmssvc_response method="login_response">
+	<login_response lsid="6506708:PILLOW2285" restart_flag="false"
+		restart_number="0">
+		<status status_code="200" />
+		<testing_session_data>
+			<cmi.core student_id="12020558" student_last_name="Ccccc" student_first_name="Bbbb" student__middle_name="" />
+			<lms.student.accommodations calculator="false" magnifier="false" screen_reader="false" untimed="false" rest_break="true" highlighter="true" masking_ruler="false" magnifying_glass="false" auditory_calming="false" music_file_id="0" extended_time="false" masking_tool="false">
+				<stereotype_style stereotype="directions" font_magnification="1.0" />
+				<stereotype_style stereotype="stimulus" font_magnification="1.0" />
+				<stereotype_style stereotype="stem" font_magnification="1.0" />
+				<stereotype_style stereotype="answerArea" font_magnification="1.0" />
+			</lms.student.accommodations>
+		</testing_session_data>
+		<manifest block_content_download="false" title="GA CRCT 2013 Grade 5 Practice Test">
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="284009" sco_duration_minutes="0" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="Mathematics Sample Question" asmt_hash="AE511BD839DCFBE0B2626B883B21B4A9" asmt_encryption_key="1235" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8" adsid="9949802" fwd_only="false" adaptive="false" isSample="true" contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0" />
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="284010" sco_duration_minutes="35" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="Mathematics Section 1" asmt_hash="E6610A6938A301E06B04E0C4E4B1EAF3" asmt_encryption_key="789" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8" adsid="9949902" fwd_only="false" adaptive="false" isSample="false" contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0" />
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="284011" sco_duration_minutes="35" sco_unit_question_number_offset="0" sco_unit_type="SUBTEST" title="Mathematics Section 2" asmt_hash="EDB929654BECF720B8D76711DA3AC411" asmt_encryption_key="1691" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8" adsid="9950002" fwd_only="false" adaptive="false" isSample="false" contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0" />
+			<terminator id="SEE_YOU_LATER" />
+		</manifest>
+		<branding tdclogo="/resources/logo.swf" />
+	</login_response>
+</tmssvc_response>

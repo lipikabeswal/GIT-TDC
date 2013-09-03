@@ -210,6 +210,31 @@
     <servlet-name>SpeechServlet</servlet-name>
     <url-pattern>/servletOK38Read8/SpeechServlet.do</url-pattern>
   </servlet-mapping>
+    
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletGACRCTReadGrade3/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletGACRCTReadGrade5/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletGACRCTMathGrade5/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletGACRCTReadGrade8/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletGACRCTMathGrade8/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
   
   <servlet-mapping>
     <servlet-name>ContentServlet</servlet-name>
@@ -364,6 +389,31 @@
    <servlet-mapping>
     <servlet-name>ContentServlet</servlet-name>
     <url-pattern>/servletOK38Read8/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletGACRCTReadGrade3/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletGACRCTReadGrade5/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletGACRCTMathGrade5/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletGACRCTReadGrade8/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletGACRCTMathGrade8/ContentServlet.do</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -527,6 +577,31 @@
     <servlet-name>PersistenceServlet</servlet-name>
     <url-pattern>/servletOK38Read8/PersistenceServlet.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletGACRCTReadGrade3/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletGACRCTReadGrade5/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletGACRCTMathGrade5/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletGACRCTReadGrade8/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+   
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletGACRCTMathGrade8/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
 
   <servlet>
     <description>UtilityServlet</description>
@@ -688,6 +763,33 @@
    <servlet-mapping>
     <servlet-name>UtilityServlet</servlet-name>
     <url-pattern>/servletOK38Read8/UtilityServlet.do</url-pattern>
+  
   </servlet-mapping>
+     <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletGACRCTReadGrade3/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletGACRCTReadGrade5/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletGACRCTMathGrade5/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+    
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletGACRCTReadGrade8/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletGACRCTMathGrade8/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
 
 </web-app>
