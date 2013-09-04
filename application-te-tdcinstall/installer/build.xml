@@ -53,6 +53,7 @@
 	<target name="build" description="Builds the various installers" depends="clean">
 
 		<antcall target="buildISTEP" /> 
+		<antcall target="buildTABE" />
 		
 		<!--
 		<antcall target="buildISTEPThin" /> 
@@ -60,7 +61,6 @@
 		<antcall target="buildVanilla" />
 		<antcall target="buildVanillaThin" /> 
 			
-		<antcall target="buildTABE" />
 		<antcall target="buildTABEThin" />  
 		
 		<antcall target="buildLasLink" />  
