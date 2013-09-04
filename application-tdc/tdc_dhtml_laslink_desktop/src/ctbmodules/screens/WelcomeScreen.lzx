@@ -153,6 +153,7 @@
                    <handler name="onclick" method="docontinue"/>
                     <method name="docontinue"><![CDATA[
                         gScreens.clicked();
+                        gController.isStopScreen = false;
                         Debug.write("gController.istRestartLength"+gController.istRestartLength);
                         Debug.write("gController.adaptive"+gController.adaptive);
                         if(gController.istRestartLength== gController.subtestLength){
