@@ -1,0 +1,1 @@
+Folder to contain local servlet container log information.
