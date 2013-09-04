@@ -1,0 +1,1 @@
+cmd_out/Release/devtools_resources.pak := ln -f "Resources/devtools_resources.pak" "out/Release/devtools_resources.pak" 2>/dev/null || (rm -rf "out/Release/devtools_resources.pak" && cp -af "Resources/devtools_resources.pak" "out/Release/devtools_resources.pak")
