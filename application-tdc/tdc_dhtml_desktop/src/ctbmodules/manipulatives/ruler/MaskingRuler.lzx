@@ -10,8 +10,8 @@
            dragaxis="both"
            dragminx="${-(this.width - 100)}"
            dragmaxx="${parent.width - 100}"
-           dragminy="${-(this.height - 100)}"
-           dragmaxy="${parent.height - 100}">
+           dragminy="${-(this.height/2)}"
+           dragmaxy="${gManipulatives!=null?gManipulatives.height-this.height/2:460}">
 
       
         <attribute name="labelrsr"     value="" type="string"/>
@@ -26,10 +26,6 @@
 			}
 		</handler>
 		
-        <attribute name="dragxmin" value="null"/>
-        <attribute name="dragymin" value="null"/>
-        <attribute name="dragxmax" value="null"/>
-        <attribute name="dragymax" value="null"/>
 		<attribute name="minLength" value="100" type="number" />
 		<attribute name="maxLength" value="800" type="number" />
 		
