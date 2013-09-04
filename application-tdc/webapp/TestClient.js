@@ -34,7 +34,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mj"]}},$lzc$class__mj.attributes)
 }}})($lzc$class__mj)
-};canvas=new $lzc$class__mj(null,{$delegates:["onfocus","$md",null,"onbringBackFocus","$me",null,"onfootnotedata","$mf",null,"onisMultiAudio","$mg",null,"oninit","$mh",null,"onfootnotetext","$mi",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-09-03T12:48:14Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mj(null,{$delegates:["onfocus","$md",null,"onbringBackFocus","$me",null,"onfootnotedata","$mf",null,"onisMultiAudio","$mg",null,"oninit","$mh",null,"onfootnotetext","$mi",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-09-04T12:47:47Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -18527,7 +18527,7 @@ if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
 }},"$m1fo",function($0){
-var $1=-(this.height-100);if($1!==this["dragminy"]||!this.inited){
+var $1=-(this.height/2);if($1!==this["dragminy"]||!this.inited){
 this.setAttribute("dragminy",$1)
 }},"$m1fp",function(){
 try{
@@ -18538,11 +18538,11 @@ if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
 }},"$m1fq",function($0){
-var $1=this.parent.height-100;if($1!==this["dragmaxy"]||!this.inited){
+var $1=gManipulatives!=null?gManipulatives.height-this.height/2:460;if($1!==this["dragmaxy"]||!this.inited){
 this.setAttribute("dragmaxy",$1)
 }},"$m1fr",function(){
 try{
-return [this.parent,"height"]
+return [this,"gManipulatives",gManipulatives,"height",this,"height"]
 }
 catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
@@ -18553,7 +18553,7 @@ this.bringToFront()
 },"$m1ft",function($0){
 if(this.labelrsr!=null){
 this.ruler.label.setAttribute("resource",this.labelrsr)
-}},"dragxmin",void 0,"dragymin",void 0,"dragxmax",void 0,"dragymax",void 0,"minLength",void 0,"maxLength",void 0,"LABEL_PADDING",void 0,"GRABBER_PADDING",void 0,"LABEL_Y",void 0,"ROTATOR_Y",void 0,"GRABBER_Y",void 0,"DRAGGER_MIN_X",void 0,"DRAGGER_MAX_X",void 0,"DRAGGER_MIN_Y",void 0,"DRAGGER_MAX_Y",void 0,"$m1fu",function($0){
+}},"minLength",void 0,"maxLength",void 0,"LABEL_PADDING",void 0,"GRABBER_PADDING",void 0,"LABEL_Y",void 0,"ROTATOR_Y",void 0,"GRABBER_Y",void 0,"DRAGGER_MIN_X",void 0,"DRAGGER_MAX_X",void 0,"DRAGGER_MIN_Y",void 0,"DRAGGER_MAX_Y",void 0,"$m1fu",function($0){
 Debug.write("ondata masking ruler..."+$0);if(!$0)return;var $1=false;for(var $2 in $0.attributes){
 $1=true;break
 };if($0&&$1){
@@ -18585,7 +18585,7 @@ $3=false;
 }],$lzc$class__m4,["tagname","MaskingRuler","children",[{attrs:{$classrootdepth:1,$delegates:["onmouseover","$m1g1",null,"onmouseout","$m1g2",null,"onmousedown","$m1g3",null,"onmouseup","$m1g4",null],bg:void 0,clickable:true,clip:true,grabber:void 0,lines:void 0,name:"ruler",x:0},"class":$lzc$class__m1g9}],"__LZCSSTagSelectors",["MaskingRuler","DragMixin","MaskingManipulative","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class__m4.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["MaskingRuler"]},$delegates:["onmousedown","$m1fs",null,"onlabelrsr","$m1ft",null,"ondata","$m1fu",null,"onmouseover","$m1g5",null,"onmouseout","$m1g6",null,"onmousedown","$m1g7",null,"onmouseup","$m1g8",null],DRAGGER_MAX_X:800,DRAGGER_MAX_Y:460,DRAGGER_MIN_X:0,DRAGGER_MIN_Y:0,GRABBER_PADDING:35,GRABBER_Y:29,LABEL_PADDING:10,LABEL_Y:25,ROTATOR_Y:38,clickable:true,dragaxis:"both",dragmaxx:new LzAlwaysExpr("$m1fm","$m1fn",null),dragmaxy:new LzAlwaysExpr("$m1fq","$m1fr",null),dragminx:new LzAlwaysExpr("$m1fk","$m1fl",null),dragminy:new LzAlwaysExpr("$m1fo","$m1fp",null),dragxmax:null,dragxmin:null,dragymax:null,dragymin:null,labelrsr:"",maxLength:800,minLength:100,showhandcursor:false},$lzc$class_MaskingRuler.attributes)
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["MaskingRuler"]},$delegates:["onmousedown","$m1fs",null,"onlabelrsr","$m1ft",null,"ondata","$m1fu",null,"onmouseover","$m1g5",null,"onmouseout","$m1g6",null,"onmousedown","$m1g7",null,"onmouseup","$m1g8",null],DRAGGER_MAX_X:800,DRAGGER_MAX_Y:460,DRAGGER_MIN_X:0,DRAGGER_MIN_Y:0,GRABBER_PADDING:35,GRABBER_Y:29,LABEL_PADDING:10,LABEL_Y:25,ROTATOR_Y:38,clickable:true,dragaxis:"both",dragmaxx:new LzAlwaysExpr("$m1fm","$m1fn",null),dragmaxy:new LzAlwaysExpr("$m1fq","$m1fr",null),dragminx:new LzAlwaysExpr("$m1fk","$m1fl",null),dragminy:new LzAlwaysExpr("$m1fo","$m1fp",null),labelrsr:"",maxLength:800,minLength:100,showhandcursor:false},$lzc$class_MaskingRuler.attributes)
 }}})($lzc$class_MaskingRuler)
 };lz.ClassAttributeTypes["_m5"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["CachableComponent"],{dragaxis:"string",dragenabled:"boolean",dragmaxx:"number",dragmaxy:"number",dragminx:"number",dragminy:"number",scaledheight:"size",scaledwidth:"size"});{
 Class.make("$lzc$class__m5",["scaledwidth",void 0,"scaledheight",void 0,"dragenabled",void 0,"_mousemovedel",void 0,"_mouseupdel",void 0,"dragaxis",void 0,"dragminx",void 0,"dragmaxx",void 0,"dragminy",void 0,"dragmaxy",void 0,"__dragxoffset",void 0,"__dragyoffset",void 0,"$m1gd",function($0){
@@ -28712,7 +28712,9 @@ $0=true
 },"exitPopups",function(){
 gController.exitPopups()
 },"handleHtmlKeyPress",function($0){
-var $1=$0.split("|");var $2=$1[0];var $3=$1[1];var $4=$1[2];var $5=$1[3];if($2=="A"||$2=="Shift+A"||$2=="Caps_lock+A"||$2=="Shift+Caps_lock+A"){
+var $1=$0.split("|");var $2=$1[0];var $3=$1[1];var $4=$1[2];var $5=$1[3];if(document.activeElement.tagName=="IFRAME"){
+top.focus();console.warn("Controller#handleHtmlKeyPress: setting focus to top window")
+};if($2=="A"||$2=="Shift+A"||$2=="Caps_lock+A"||$2=="Shift+Caps_lock+A"){
 this.toggleA()
 }else if($2=="B"||$2=="Shift+B"||$2=="Caps_lock+B"||$2=="Shift+Caps_lock+B"){
 this.toggleB()
