@@ -2,8 +2,7 @@
     <!-- somehow bgcolor causes a square corner to the left of 
         multistatebutton name="markbtn". bgcolor="0xFFFFCC" removed for name=TestControls-->
     <class name="TestControls"
-           datapath="dsstudentdata:/testing_client_model/">
-           
+           datapath="dsstudentdata:/testing_client_model/">         
         
         <attribute name="curritempos" 
                    value="$path{'current_item/@itempos'}"/>
@@ -169,24 +168,36 @@
 			if (typeof (isDisableNavigation) == 'string') {
                isDisableNavigation = (isDisableNavigation == 'true');
             }
-			this.isDisableNavigation = isDisableNavigation;
-			if(this.isDisableNavigation == null){
-			this.isDisableNavigation = false;
+
+			if(isDisableNavigation == null){
+				isDisableNavigation = false;
 			}
+			this.disableNavigation = isDisableNavigation;
 			
-			if(this.isDisableNavigation != null){
-				if(this.isDisableNavigation != true){
-					this.btns.navbtns.btnforward.setAttribute ('enabled', true);
-					this.btns.navbtns.btnback.setAttribute ('enabled', true);
-					this.btns.navbtns.btnfinish.setAttribute ('enabled', true);
-				} else {
-					this.btns.navbtns.btnforward.setAttribute ('enabled', false);
-					this.btns.navbtns.btnback.setAttribute ('enabled', false);
-					this.btns.navbtns.btnfinish.setAttribute ('enabled', false);
-				}
-				
+			if(this.disableNavigation != true){
+				this.enableAllButtons();				
+			} else {
+				this.disableAllButtons();
+			}	
+
+			// With a custom setter, we have to take care of generating 
+			// the ondisableNavigation event.
+			if (this.ondisableNavigation && this.ondisableNavigation.ready) {
+				this.ondisableNavigation.sendEvent();
 			}
 		]]></method>
+		<method name="enableAllButtons">
+			this._clickcover.setAttribute("visible", false);				
+			this.btns.navbtns.btnforward.setAttribute ('enabled', true);
+			this.btns.navbtns.btnback.setAttribute ('enabled', true);
+			this.btns.navbtns.btnfinish.setAttribute ('enabled', true);		
+		</method>
+		<method name="disableAllButtons">
+			this._clickcover.setAttribute("visible", true);
+			this.btns.navbtns.btnforward.setAttribute ('enabled', false);
+			this.btns.navbtns.btnback.setAttribute ('enabled', false);
+			this.btns.navbtns.btnfinish.setAttribute ('enabled', false);			
+		</method>
 
 		<view name="answertxt" visible="${!classroot.theme}">
 	        <view name="answeristxt" visible="false" x="30"
@@ -209,7 +220,6 @@
             <simplelayout axis="y" spacing="3"/>
             <view name="navbtns">
                 <basebutton name="btnback" resource="go_back_btn" x="0"
-                            enabled="${ classroot.uienabled == true &amp;&amp; classroot.isDisableNavigation == false }"
                             disabledResourceNumber="1"  visible="${!gController.onFirstItem()}">
                 			
                 			<handler name="onmouseover">
@@ -221,6 +231,7 @@
 					         <handler name="onclick">
 					            <![CDATA[
 					            if(gController.allowNavigate && gController.allowItmeNavigate){
+					            	classroot.disableAllButtons();
 					                gController.setAttribute('allowNavigate',false);
 					            	gController.stepNavigateBack ();
 					            }
@@ -228,7 +239,6 @@
 					        </handler>
                 </basebutton>            
                 <basebutton name="btnforward" resource="go_on_btn" x="100"
-                            enabled="${ classroot.uienabled == true &amp;&amp; classroot.isDisableNavigation == false }"
                             disabledResourceNumber="1">
                             <handler name="onmouseover">
                                 lz.Cursor.showHandCursor(true);
@@ -238,7 +248,8 @@
 					        </handler>
 					        <handler name="onclick">
 					        <![CDATA[
-					            if(gController.allowNavigate && gController.allowItmeNavigate){ 
+					            if(gController.allowNavigate && gController.allowItmeNavigate){
+					            	classroot.disableAllButtons();					            						            	
 					                gController.setAttribute('allowNavigate',false);
 					            	gController.stepNavigateForward ();
 					            }	
@@ -246,12 +257,12 @@
 					        </handler>
                 </basebutton>            
                 <basebutton name="btnfinish" resource="finish_test_btn" id="gFinishTestButton"
-                            enabled="${ classroot.uienabled == true &amp;&amp; classroot.isDisableNavigation == false }"
                             visible="${!parent.btnforward.visible}" x="100"
                             disabledResourceNumber="1">
                             <handler name="onclick">
-                            gController.setAttribute("isStopTest",false);
-                            gController.finishTest ();
+				            	classroot.disableAllButtons();
+	                            gController.setAttribute("isStopTest",false);
+	                            gController.finishTest ();
                             </handler>
                              <handler name="onmouseover">
                                 lz.Cursor.showHandCursor(true);
@@ -274,6 +285,14 @@
 					            lz.Cursor.showHandCursor(false);
 					        </handler>
             </multistatebutton>
+        </view>
+        
+        <!-- This view will capture all the mouseclicks until
+             operations like stepNavigateForward or stepNavigateBack
+             have been executed. -->
+        <view name="_clickcover" clickable="true" showhandcursor="false"
+        	  width="100%" height="100%">
+        	
         </view>
     </class>
 

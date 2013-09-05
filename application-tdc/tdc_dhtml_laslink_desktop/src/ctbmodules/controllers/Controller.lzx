@@ -630,10 +630,8 @@
 		<attribute name="lastItemVisited" type="boolean" value="false"/>
 
 		<handler name="onmouseup" reference="lz.GlobalMouse">
-			var isFrameFocused = document.activeElement.tagName === 'IFRAME';
-			console.warn("Controller#onmouseup: isFrameFocused=", isFrameFocused);	
+			var isFrameFocused = document.activeElement.tagName === 'IFRAME';	
 			if (isFrameFocused) {
-				console.warn("Setting focus to top window");
 				// Set the focus back to the top window.document
 				top.focus();
 			} 
@@ -3762,7 +3760,7 @@
 
 		]]></method>
 		<method name="resumeTest">
-			setAttribute('uisemaphore', 0);	
+			//setAttribute('uisemaphore', 0);	
 			manipulativeSelected();
 			this.isStopScreen = false;
            	playAudio();
@@ -3775,6 +3773,9 @@
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
             unlockUI();
+            if (this.unlockNavigation) {
+            	gItemInterface.contents.questionControls.testControls.enableAllButtons();
+            }
 			checkShowMaskingChoiceDD();
 			if(this.adaptive == true){
 				gScreens.removeFinishState();
@@ -3789,8 +3790,7 @@
 			}
 			if(gMaskingRuler.visible)
 			{	gManipulativeBar.globals.masking_ruler.setAttribute("frame",2);
-			}
-						
+			}			
 		</method>
 
 		<method name="continueTest">
@@ -3831,18 +3831,14 @@
 
 		<!-- unlock on start, without a previous freeze -->
 		<attribute name="uisemaphore" value="1" />
-		
-		<handler name="onuisemaphore">
-			console.error("onuisemaphore: uisemaphore=" + uisemaphore);
-		</handler>
 
 		<method name="freezeUI">
 			callstofreeze++;
 			//uisemaphore = 1;
 			lz.Keys.blockKeyCombos(true);				
             setAttribute('uisemaphore', uisemaphore + 1);
-			console.error("freezeUI: callstofreeze=%d, callstounlock=%d, unlockexecuted=%d, uisemaphore set to %s", 
-				callstofreeze, callstounlock, unlockexecuted, uisemaphore);		            
+			// console.error("freezeUI: callstofreeze=%d, callstounlock=%d, unlockexecuted=%d, uisemaphore set to %s", 
+			//	callstofreeze, callstounlock, unlockexecuted, uisemaphore);		            
             if ( dsdisplay.childNodes[0].getAttr( 'enabled' ) == 'true' ) {
             	//if(this.isAudioPaused == true) {
                 	gHotKeys.disableKeys();
@@ -3858,14 +3854,14 @@
 		<method name="unlockUI">
 		<![CDATA[
 			callstounlock++;
-			console.error("unlockUI: callstofreeze=%d, callstounlock=%d, unlockexecuted=%d, uisemaphore=%d", 
-				callstofreeze, callstounlock, unlockexecuted, uisemaphore);			
+			// console.error("unlockUI: callstofreeze=%d, callstounlock=%d, unlockexecuted=%d, uisemaphore=%d", 
+			// 	callstofreeze, callstounlock, unlockexecuted, uisemaphore);			
 			if(doUnlockUI){
 				unlockexecuted++;
             	setAttribute('uisemaphore', uisemaphore - 1);	
 				if ( uisemaphore < 0 )
 				{
-					console.error("uisemaphore was < 0, setting t 0");
+					// console.error("uisemaphore was < 0, setting t 0");
 					uisemaphore = 0;
 				}
 	            if ( 0 == uisemaphore ) {
