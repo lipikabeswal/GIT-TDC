@@ -3951,7 +3951,6 @@
 		<method name="loadItem"><![CDATA[
 			
 			gQuestion.clearSkip();
-			this.macFocusInCanvas();
 			
 			 // FOR THE DEFECT 74974
 			this.setAttribute('singleCRhasFocus',true);
@@ -6206,17 +6205,7 @@
 			this.setAttribute('trackTimer',0);
 			trackMouseMove();
 		</method>
-		
-<!-- following method is using to set the focus to the Canvas -->
-		<method name="macFocusInCanvas">
-			if (this.scratchpadOpen) {
-                gScratchpad.setAttribute('visible',false);
-				gScratchpad.setAttribute('visible',true);
-			}else{
-				gScratchpad.setAttribute('visible',true);
-				gScratchpad.setAttribute('visible',false);
-			}
-		</method>
+
 	</node>
 
 </library>
