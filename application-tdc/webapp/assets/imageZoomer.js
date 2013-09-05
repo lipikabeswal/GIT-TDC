@@ -243,9 +243,17 @@ jQuery.fn.initMagnify=function(options){
 		if (ddpowerzoomer.activeimage){ //if mouse is currently over a magnifying image
 			ddpowerzoomer.movemagnifier(null, true) //move magnifier
 		}
-		
+
 		$("#magnifierWindow").on("mousedown",function() {
 			$('#scratchpad').blur();
+			$('#maskRuler').trigger("mouseup");
+			$('#scratch').trigger("mouseup");
+			$('#protractor').trigger("mouseup");
         });
-
+        $("#magnifierWindow").on("mouseup",function() {
+			$('#scratchpad').blur();
+			$('#maskRuler').trigger("mouseup");
+			$('#scratch').trigger("mouseup");
+			$('#protractor').trigger("mouseup");
+        });
 }

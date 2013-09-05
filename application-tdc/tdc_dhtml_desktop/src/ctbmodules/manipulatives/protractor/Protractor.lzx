@@ -97,6 +97,10 @@
                 gHotKeys.enableKeys();
 				classroot.storeCurrentPosition(); 
             </handler>
+            <handler name="oninit">
+                  	var elm = this.getDisplayObject();
+                  	elm.setAttribute("id","protractor");
+                  </handler>
         </ControlHandle>
 
 
