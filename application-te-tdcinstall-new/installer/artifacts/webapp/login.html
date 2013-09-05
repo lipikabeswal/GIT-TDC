@@ -665,7 +665,16 @@ function checkEmptyString(str) {
 	return (!str || /^\s*$/.test(str) || /^\n*$/.test(str) || /^\r*$/.test(str));
 } 
  
+ // to disabled the tab key when Scratchpad is opened 
+ //Clicking Tab twice selects entire contents of Scratchpad
  
+ function disableTabKey() {
+	if(event.which == 9 && gController.scratchpadOpen) { 
+		//console.log("TAB!!!!!!!!!!!!");
+		event.preventDefault();
+		event.stopPropagation();
+	}
+}
 // higlighter for nonTE items
  
 /*this.enableHighlighter = function(isEnabled) {
@@ -739,7 +748,8 @@ function checkEmptyString(str) {
 </SCRIPT>
 </HEAD>
 
-<BODY topmargin=0 leftmargin=0 rightmargin=0 bottommargin=0 scroll=no bgcolor="#6691B4">
+<BODY topmargin=0 leftmargin=0 rightmargin=0 bottommargin=0 scroll=no bgcolor="#6691B4"
+onkeydown="disableTabKey()">
 <button id="mybutton" style="visibility:hidden; width:0px; height:0px; display:none;">clickMe </button>
 
 <div id="appcontainer">
