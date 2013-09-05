@@ -357,7 +357,6 @@ function autoplayIfStopped(){
      if(currentPlayOrder == 0){
     	//Do nothing 
    	}else{
-     	gController.macFocusInCanvas();	
 		for(var i=0; i<gController.lasAssetArray.length;i++){
 		if(gController.lasAssetArray[i].asset){
 			var frameid;
@@ -380,7 +379,6 @@ function autoplayIfStopped(){
   }
   
   function playAudio(){
-  	gController.macFocusInCanvas();
   	if(pausedAssetID != null){
 		for(var i=0; i<gController.lasAssetArray.length;i++){
 				if(gController.lasAssetArray[i].asset){
