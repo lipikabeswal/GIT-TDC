@@ -41,9 +41,7 @@
 
                 //save defaults in data
                 if (data) {
-                    data.setAttr ('rotation', this.rotation);
-                    data.setAttr ('x', this.x);
-                    data.setAttr ('y', this.y);
+					this.storeCurrentPosition();
                 }
            	}
         ]]></handler>
@@ -79,14 +77,14 @@
             controls="d">
             
 			<attribute name="ismouseDown" value="false" type="boolean"/>
-			
+
             <handler name="onmouseover">
                 if(!this.ismouseDown)
-                	gController.setCurrentCursor('cangrab_cursor');
+                gController.setCurrentCursor('cangrab_cursor');
             </handler>
             <handler name="onmouseout">
             	if(!this.ismouseDown)
-                	gController.clearAndRestoreCurrentCursor();
+                gController.clearAndRestoreCurrentCursor();
             </handler>
             <handler name="onmousedown">
                 classroot.bringToFront();
@@ -104,9 +102,9 @@
 				this.setAttribute('ismouseDown',false);
             </handler>
             <handler name="oninit">
-                  	var elm = this.getDisplayObject();
-                  	elm.setAttribute("id","protractor");
-                  </handler>
+                var elm = this.getDisplayObject();
+                elm.setAttribute("id","protractor");
+            </handler>
         </ControlHandle>
 
 
