@@ -152,7 +152,7 @@ var ddpowerzoomer={
 			    if($.browser.safari){
 			    	$('#magnifierWindow').css("cursor", "url('./assets/dragger_press.png'), pointer");
 			    }else{
-			    	$('#magnifierWindow').css( 'cursor', 'move' );
+			    	$('#magnifierWindow').css( 'cursor', "url('./assets/dragger_press.png'), pointer" );
 			    }
 			    if(isMagnifierVisible == false || isMagnifierVisible == 'false') {
 					ddpowerzoomer.$magnifier.outer.hide()
@@ -181,7 +181,8 @@ var ddpowerzoomer={
 					ddpowerzoomer.$magnifier.outer.hide()
 				}
 				$('#magnifierWindow').css( 'cursor', 'pointer' );
-			}
+			},
+			distance:10
 			
 		}) //create magnifier container and add to doc
 		ddpowerzoomer.$magnifier={outer:$magnifier, inner:$($magnifier.find('div:eq(0)')).find('div:eq(0)'), image:null} //reference and remember various parts of magnifier
