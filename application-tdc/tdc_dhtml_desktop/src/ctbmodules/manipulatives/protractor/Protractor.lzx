@@ -8,7 +8,7 @@
     <class name="Protractor" extends="BaseManipulative"
            with="MovementLimiter"
            resource="protractorBackground_rsrc"
-           clickable="true" showhandcursor="false">
+           clickable="true" showhandcursor="true">
 
         <handler name="onmousedown">
             this.bringToFront();
