@@ -78,6 +78,7 @@
             controlview.onactionstart.sendEvent();
             _mouseMoveDel.register(canvas, 'onmousemove');
             _mouseupdel.register(lz.GlobalMouse, 'onmouseup');
+            overlayOnIframe(true);
         </handler>
 
         <!--- Mouse out event handler.
@@ -113,6 +114,7 @@
             _mouseupdel.unregisterAll();
             controlview.stopDragMove();
             setAttribute("mousestatus", "up");
+            overlayOnIframe(false);
         </method>
 
 
@@ -168,6 +170,14 @@
                 y: Math.sin(angle) * (pointX-originX) + Math.cos(angle) * (pointY-originY) + originY
             };
         ]]>
+        </method>
+        
+        <!-- When a view is dragged on top of the iframe to ensure smooth movement of the view 
+         	an overlay is view is displayed on top of the iframe -->
+        <method name="overlayOnIframe" args="show">
+        	if(gController.htmlFields.length > 0){
+	            	gController.htmlFields[0]['ref'].overlay.setAttribute('visible',show);
+			}
         </method>
 
     </class>

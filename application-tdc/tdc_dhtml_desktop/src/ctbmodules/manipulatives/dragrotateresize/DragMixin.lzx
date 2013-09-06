@@ -78,6 +78,7 @@
         <method name="__globalMouseUp" args="ignore=null"><![CDATA[
             if (dragenabled) {
                 setAttribute("dragenabled", false);
+                overlayOnIframe(false);
             }
         ]]></method>
 
@@ -85,6 +86,7 @@
               @keywords private
               -->
         <method name="__updateDragPosition" args="ignore=null"><![CDATA[
+        	overlayOnIframe(true);
             __setNewPos('x', __getMouse(immediateparent, 'x') + __dragxoffset
                             * xscale);
             __setNewPos('y', __getMouse(immediateparent, 'y') + __dragyoffset
@@ -125,6 +127,14 @@
                 return Math.round(target.getMouse(axis) / scale);
             }
         ]]>
+        </method>
+        
+        <!-- When a view is dragged on top of the iframe to ensure smooth movement of the view 
+         	an overlay is view is displayed on top of the iframe -->
+        <method name="overlayOnIframe" args="show">
+        	if(gController.htmlFields.length > 0){
+	            	gController.htmlFields[0]['ref'].overlay.setAttribute('visible',show);
+			}
         </method>
 
     </mixin>
