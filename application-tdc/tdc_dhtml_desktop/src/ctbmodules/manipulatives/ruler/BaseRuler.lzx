@@ -19,8 +19,7 @@
         </handler>
         <handler name="ontickmarksrsr">
             if (this.tickmarksrsr != null) {
-                this.ruler.tickmarks
-                        .setAttribute('resource', this.tickmarksrsr);
+                this.ruler.tickmarks.setAttribute('resource', this.tickmarksrsr);
             }
         </handler>
         <handler name="onlabelrsr">
@@ -49,15 +48,11 @@
         <handler name="ondata" args="data"><![CDATA[
             if (!data)
                 return;
-            var hasstate = false;
-            for (var i in data.attributes) {
-                hasstate = true;
-                break;
-            }
-
-            if (data && hasstate) {
+            var hasstate = typeof data.attributes.rotation != 'undefined';
+            
+            if (hasstate) {
                 this.setAttribute('rotation', Number(data.getAttr('rotation')));
-                this.setAttribute('newwidth', Number(data.getAttr('rulerlength')) + WIDTH_DELTA);
+                this.setAttribute('width', Number(data.getAttr('width')) + WIDTH_DELTA);
 
                 this.setAttribute('x', Number(data.getAttr('x')));
                 this.setAttribute('y', Number(data.getAttr('y')));
@@ -66,33 +61,24 @@
                 if(gScratchpad.visible){
                     gScratchpad.bringToFront();
                 }
-                
-            } else {          
-				this.setAttribute('rotation', 0);
+
+            } else {
+                this.setAttribute('rotation', 0);
                 this.ruler.setAttribute('width', null);
 
-                this.setAttribute('x', (gManipulatives.width - this.width) / 2);
+				this.setAttribute("width", this.maxLength);
+                this.setAttribute('x', (gManipulatives.width - this.width + WIDTH_DELTA) / 2);
                 this.setAttribute('y', (gManipulatives.height - this.height) / 2);
 
                 //set default values in data
-                if (data) {
-					storeCurrentPosition();
-                }				
+				this._updatePosition();
             }
-
         ]]>
         </handler>
 
         <handler name="onresize">
             this.setAttribute ('width', Math.round(newwidth));
         </handler>
-
-        <method name="storeCurrentPosition">
-            datapath.p.setAttr ('rulerlength', this.width);
-            datapath.p.setAttr ('rotation', this.rotation);
-            datapath.p.setAttr ('x', this.x);
-            datapath.p.setAttr ('y', this.y);
-        </method>
 
         <method name="isValidRotation" args="controlView, rot">
             updateMarkerPosition (this.ruler.grabber, x, y, rot, rotator.x);
@@ -111,6 +97,16 @@
             applyWidthToMarker(this.ruler.grabber, newWidth, rotator.x);
             return this.checkLocation (controlView, false);
         </method>
+        
+        <!--- Stores the new position values in the dataset.
+              @access private
+        -->
+        <method name="_updatePosition"><![CDATA[
+            datapath.p.setAttr ('rotation', this.rotation);
+            datapath.p.setAttr ('x', this.x);
+            datapath.p.setAttr ('y', this.y);
+            datapath.p.setAttr ('width', this.width - WIDTH_DELTA);         
+        ]]></method>
 
         <view name="ruler"
             x="${classroot.rotator.x-1}"
@@ -143,8 +139,6 @@
                 ]]>
                 </handler>
             </view>
-            
-            
             <ControlHandle name="grabber"
                 resource="grabber_rsrc"
                 y="$once{classroot.GRABBER_Y}" align="center"
@@ -167,10 +161,9 @@
                 <handler name="onmouseup">
                     gHotKeys.enableKeys();
                     // the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
-                    lz.Timer.resetTimer(gController.dRestoreCursor, 100);
-
+                    lz.Timer.resetTimer(gController.dRestoreCursor, 100);                    
+                    classroot._updatePosition();
                     //gController.restoreCurrentCursor();
-                	classroot.storeCurrentPosition();
                 </handler>
             </ControlHandle>
         </view>
@@ -189,7 +182,7 @@
                 classroot.bringToFront();
             </handler>
             <handler name="onmouseup">
-         		classroot.storeCurrentPosition();
+                classroot._updatePosition();
             </handler>
 
             <handler name="onshortclick">
@@ -216,7 +209,7 @@
                 classroot.setAttribute('rotationcenter', {x:11, y:classroot.height/2})
             </handler>
             <handler name="onmouseup">
-         		classroot.storeCurrentPosition();
+                classroot._updatePosition();
             </handler>
 
             <handler name="onshortclick">
