@@ -3161,6 +3161,7 @@
             	/*if(this.htmlFields != null){
 					hideHtmlWidgets();
 				}*/
+			this.resetHtmlFields();
             save(null);
         </method>
 	
