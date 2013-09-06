@@ -77,18 +77,23 @@
             controlviewname="gDragRotateResizer"
             target="$once{parent}"
             controls="d">
-
+            
+			<attribute name="ismouseDown" value="false" type="boolean"/>
+			
             <handler name="onmouseover">
-                gController.setCurrentCursor('cangrab_cursor');
+                if(!this.ismouseDown)
+                	gController.setCurrentCursor('cangrab_cursor');
             </handler>
             <handler name="onmouseout">
-                gController.clearAndRestoreCurrentCursor();
+            	if(!this.ismouseDown)
+                	gController.clearAndRestoreCurrentCursor();
             </handler>
             <handler name="onmousedown">
                 classroot.bringToFront();
                 lz.Cursor.setCursorGlobal ('grabbing_cursor');
                 lz.Cursor.lock ();
                 gHotKeys.disableKeys();
+                this.setAttribute('ismouseDown',true);
             </handler>
             <handler name="onmouseup">
                 /*lz.Cursor.unlock ();
@@ -96,6 +101,7 @@
                 lz.Timer.resetTimer(gController.dRestoreCursor, 100);
                 gHotKeys.enableKeys();
 				classroot.storeCurrentPosition(); 
+				this.setAttribute('ismouseDown',false);
             </handler>
             <handler name="oninit">
                   	var elm = this.getDisplayObject();
