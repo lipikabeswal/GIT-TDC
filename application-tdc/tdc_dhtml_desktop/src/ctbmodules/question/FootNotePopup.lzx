@@ -8,7 +8,7 @@
     <attribute name="backcolor" value="0xFFFFFF"/>
     <attribute name="scrollpaneltxt" type="string" value=""/> 
 	
-    <attribute name="BORDER_SIZE" value="6"/>
+    <attribute name="BORDER_SIZE" value="6" type="number"/>
     <attribute name="MIN_HEIGHT" value="200"/>
     <attribute name="MIN_WIDTH" value="300"/>
     <attribute name="DROP_SHADOW_SIZE" value="4"/>
@@ -153,7 +153,7 @@
 			fontsize = 12;
 		}
 		else {
-			fontsize = 18;
+			fontsize = 17;
 		}
 		reallyShow(header,detail,readable,displayStyle,fontsize);
 		//this.itemtxt = UTFDecode(this.itemtxt);
@@ -209,12 +209,19 @@
         this.body.wrap.header.setAttribute("text", headerDisplay);
 		this.body.wrap.header.setAttribute("fontsize", fontSize);
 
-        this.body.wrap.detail.setAttribute("text", '<label><span style="line-height:17px; font-size: .87em;">' + detail + '</span></label>');
+        this.body.wrap.detail.setAttribute("text", '<label><span style="line-height:17px;">' + detail + '</span></label>');
 		this.body.wrap.detail.setAttribute("fontsize", fontSize);
         this.body.wrap.detailmulti.setAttribute("text", detail);
 		this.body.wrap.detailmulti.setAttribute("fontsize", fontSize);
 
-            
+        var detailWidth = this.body.wrap.width;		
+
+		var elem = this.body.wrap.detail.getDisplayObject();
+		elem.setAttribute('style','font-family: CTB; font-size: '+fontSize+ 'px; line-height: 22px; pointer-events: none; height: 27px; width: ' +detailWidth+ '');
+
+		var elm = this.body.wrap.header.getDisplayObject();
+		elm.setAttribute('style','font-family: CTB; font-size: '+fontSize+ 'px; line-height: 20px; pointer-events: none; height: 24px; width: ' +detailWidth+ '');
+    
         this.setAttribute("x", getMouseFixed(parent,'x') - fontSize);
         this.setAttribute("y", getMouseFixed(parent,'y') - this.height - fontSize);
 
@@ -519,15 +526,14 @@
 
             <simplelayout axis="y"/>
             <text name="header" resize="true">
-                <handler name="onfontsize">
+				// commented to fix the faint border issue for footnote popup
+                <!--<handler name="onfontsize">
                     resetHeight();
                 </handler>
-                <handler name="ontext">
-                    resetHeight();
-                </handler>
+                
                 <method name="resetHeight">
                     this.setAttribute('height', this.getTextHeight()*1.2);
-                </method>
+                </method>-->
             </text>
 
             <text name="detail" visible="${!parent.ismulti}" resize="true">
@@ -535,15 +541,15 @@
                     parent.setAttribute("ismulti", 
                         this.getTextWidth() > (gFootNotePopup.MIN_WIDTH - 2 * gFootNotePopup.BORDER_SIZE)); 
                 </handler>
-                <handler name="onfontsize">
+				
+				// commented to fix the faint border issue for footnote popup
+               <!-- <handler name="onfontsize">
                     resetHeight();
                 </handler>
-                <handler name="ontext">
-                    resetHeight();
-                </handler>
+                
                 <method name="resetHeight">
                     this.setAttribute('height', this.getTextHeight()*1.2);
-                </method>
+                </method> -->
             </text>
             <text name="detailmulti" multiline="true"
                   width="${gFootNotePopup.MIN_WIDTH - 15  - 2 * gFootNotePopup.BORDER_SIZE}" 

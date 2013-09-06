@@ -75,7 +75,7 @@
               fontsize="${classroot ['fontsize'] ? (classroot.fontsize == 18?17:classroot.fontsize) : 12}" selectable="false" clickable="true">
              
              <handler name="onclick">
-             	var footnoteText = classroot.header + "|" + classroot.detail + "|" +classroot.readable + "|" +classroot.displayStyle;
+             	var footnoteText = classroot.header + "|" + classroot.detail + "|" +classroot.readable + "|" +classroot.displayStyle + "|" +this.fontsize;
 		 		var s = "setFootnoteText('"+footnoteText+"')";
 				lz.Browser.loadJS(s);
              </handler>
