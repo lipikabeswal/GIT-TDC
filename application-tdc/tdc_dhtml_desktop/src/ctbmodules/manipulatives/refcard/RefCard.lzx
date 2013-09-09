@@ -21,6 +21,8 @@
 		<attribute name="refCardRsrc" type="string"/>
 		<attribute name="titleRsrc" type="string"/>
 		<attribute name="scrolls" type="boolean" value="false" />
+		<attribute name="ismouseDown" value="false" type="boolean"/>
+
 		<handler name="oninit">
 			refCardContents.contents.setAttribute('resource',refCardRsrc);
 			title.real_title.setAttribute('resource',titleRsrc);
@@ -62,25 +64,29 @@
           ]]></handler>
 
         <handler name="onmouseover">
-            gController.setCurrentCursor('cangrab_cursor');
+			if(!this.ismouseDown)
+            	gController.setCurrentCursor('cangrab_cursor');
         </handler>
 
         <handler name="onmouseout">
-            gController.clearAndRestoreCurrentCursor();
+			if(!this.ismouseDown)
+            	gController.clearAndRestoreCurrentCursor();
         </handler>
 
         <handler name="onmousedown">
-        	this.bringToFront();
+			this.bringToFront();
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
             lz.Cursor.lock ();
-			this.setAttribute('dragenabled', true)
+			this.setAttribute('dragenabled', true);
+			this.setAttribute('ismouseDown',true);
         </handler>
 
         <handler name="onmouseup">
-            /*lz.Cursor.unlock ();
+			/*lz.Cursor.unlock ();
             gController.restoreCurrentCursor();*/
             lz.Timer.resetTimer(gController.dRestoreCursor, 100);
-			this.setAttribute('dragenabled', false)
+			this.setAttribute('dragenabled', false);
+			this.setAttribute('ismouseDown',false);
 
             this.datapath.p.setAttr ('x', this.x);
             this.datapath.p.setAttr ('y', this.y);
@@ -170,7 +176,7 @@
 		      width="${classroot.innerWidth}" 
 		      height="${classroot.innerHeight}" 
 		      clip="true" 
-		      bgcolor="0xFFFFFF" >
+		      bgcolor="0xFFFFFF" showhandcursor="false">
 			<view name="contents"
 			      width="${classroot.innerWidth - parent.scroller.width}">
 				<handler name="ony">
