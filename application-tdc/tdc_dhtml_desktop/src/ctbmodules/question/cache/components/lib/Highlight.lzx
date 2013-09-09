@@ -106,6 +106,14 @@
             }
         ]]></handler>
 
+		<handler name="onmouseup" reference="lz.GlobalMouse"><![CDATA[
+		if (this.hlstatus.data == 'sel' && this.visible) {
+			if(this.clickarea.containsPt((this.getMouse('x')/canvas.xscalefactor), (this.getMouse('y')/canvas.xscalefactor))){
+				gController.setCurrentCursor('highlighter_cursor');
+			}
+		}
+	]]></handler>
+
 
         <handler name="ondata" args="data" reference="hlstatus">
             //we're only clickable if we're in highlight mode
