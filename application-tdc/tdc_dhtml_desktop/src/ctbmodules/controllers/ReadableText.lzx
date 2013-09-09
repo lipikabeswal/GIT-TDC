@@ -286,8 +286,10 @@
         <method name="stopReading" args="fromSp"><![CDATA[
         	if(fromSp != true || (fromSp == true && gReadableText.readingScratchpad)){
         		if(canvas.isPreviewer){
-        			audioPlayer.pause();
-					gReadableText.setAttribute('isPlaying',false);
+					if(gReadableText.audioPlayer.__media.hasAttribute('src')){
+        				audioPlayer.pause();
+						gReadableText.setAttribute('isPlaying',false);
+					}
 				}else{
 					stop();
 				}
