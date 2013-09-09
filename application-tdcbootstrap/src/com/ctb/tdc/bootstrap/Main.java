@@ -482,11 +482,18 @@ public class Main {
 		// The two (loosely) managed processes.
         ConsoleUtils.messageErr("Begin starting processes...");
         if(productType.equals("LASLINKS")){
-        Dialog dialog=new Dialog();
-         formName=dialog.showOptionDialog();
+      	 Dialog dialog=new Dialog();
+         formName=dialog.showOptionDialogLASLINKS();
          if(formName==null)
         	 System.exit(1);
         	 
+        }else if(productType.equals("TABE")){
+        	//ConsoleUtils.consoleOut("Inside *****"+productType);
+        	        Dialog dialog=new Dialog();
+        	         formName=dialog.showOptionDialogTABE();
+        	         if(formName==null)
+        	        	 System.exit(1);
+        	        	 
         }
        	LockdownBrowserWrapper ldb = new LockdownBrowserWrapper(tdcHome, macOS, linux, splashWindow, jettyPort,formName,productType);
        
