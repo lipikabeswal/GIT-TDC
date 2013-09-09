@@ -111,7 +111,7 @@ Debug.write("Cachaable html widget ondata");
 
 		<method name="setAnswer" >
 			Debug.write("setAnswer ansObj");
-			if(this.main.ht.ready){
+			//if(this.main.ht.ready){
 				if(!this.answered){
 					var htmlContent = this.answerObjSet.htmlContent;
 					var jsonContent = this.answerObjSet.jsonContent;
@@ -125,7 +125,7 @@ Debug.write("Cachaable html widget ondata");
 					//lz.Timer.removeTimer(setStateDel);
 				//}
 				
-			}
+			//}
 			
 		</method>
 
