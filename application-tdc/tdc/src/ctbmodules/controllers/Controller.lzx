@@ -1164,6 +1164,7 @@
 
 		<method name="terminate">
 			gCommunicator.terminate();
+			gCommunicator.showHideOkCalculator("Y");
 			goToGoodbyeScreen();
 		</method>
 
