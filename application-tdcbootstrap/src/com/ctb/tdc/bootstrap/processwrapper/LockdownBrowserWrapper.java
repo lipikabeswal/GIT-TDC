@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import com.ctb.tdc.bootstrap.util.ConsoleUtils;
 
 import javax.swing.SwingUtilities;
 
@@ -78,7 +79,8 @@ public class LockdownBrowserWrapper extends Thread {
 	 */
 	public LockdownBrowserWrapper(String tdcHome, boolean macOS, boolean linux, SplashWindow splashWindow, int jettyPort, String formName, String productType) {
 		super();
-		
+		//ConsoleUtils.consoleOut("Product 1******"+productType);
+	//	ConsoleUtils.consoleOut("Formname 1*****"+formName);
 		this.tdcHome = tdcHome;
 		this.splashWindow = splashWindow;
 		this.productType=productType;
@@ -87,9 +89,14 @@ public class LockdownBrowserWrapper extends Thread {
             
 		if ( macOS ) {
 			LockdownBrowserWrapper.ismac = true;
-			if(productType.equals("LASLINKS")){
-//				consoleOut("Laslinks Product****");
-				writeForm("LASLINKS:"+formName);
+			if(productType.equals("LASLINKS") || productType.equals("TABE")){
+				if(formName.equals("Form A/Form B/Espanol") || formName.equals("TABE 9/10")){
+					writeForm("http://127.0.0.1:" + jettyPort + "/login_swf.html");
+				}else if(formName.equals("Form C/Form D/Espanol2") || formName.equals("TABE Adaptive")){
+					writeForm("http://127.0.0.1:" + jettyPort + "/login.html");
+				}
+//				//consoleOut("Laslinks Product****");
+				
 			}
 			File ldbHomeDir = new File(this.tdcHome + "/lockdownbrowser/mac");
 			this.ldbHome = ldbHomeDir.getAbsolutePath();
@@ -124,9 +131,9 @@ public class LockdownBrowserWrapper extends Thread {
 					
 					String loginHtml = null;
 					
-					if(productType.equals("LASLINKS")){
+					if(productType.equals("LASLINKS") || productType.equals("TABE")){
 						//consoleOut("Inside Laslinks:::");
-						if(formName.equals("Form A/Form B/Espanol")){
+						if(formName.equals("Form A/Form B/Espanol") || formName.equals("TABE 9/10")){
 							//ConsoleUtils.messageOut("Launching Form A&B");
 							this.ldbCommand = new String[2];
 							this.ldbCommand[0] = this.ldbHome + "/OASTDC/bin/OASTDC";          
@@ -135,7 +142,7 @@ public class LockdownBrowserWrapper extends Thread {
 							command.add((this.ldbHome + "/OASTDC/bin/OASTDC").replaceAll(" ", "\\ "));
 							command.add("http://127.0.0.1:" + jettyPort + "/login_swf.html");
 							
-						}else if(formName.equals("Form C/Form D/Espanol2")){
+						}else if(formName.equals("Form C/Form D/Espanol2") || formName.equals("TABE Adaptive")){
 							//ConsoleUtils.messageOut("Launching Form C&D");
 							/*this.ldbCommand = new String[3];
 							this.ldbCommand[0] ="java";
@@ -162,7 +169,7 @@ public class LockdownBrowserWrapper extends Thread {
 						command.add("--url=http://127.0.0.1:" + jettyPort + "/login.html");
 					}
 		} else {
-			
+			//ConsoleUtils.consoleOut("WINDOWS****");
 			/*File ldbHomeDir = new File(tdcHome + "/lockdownbrowser/pc");
 			this.ldbHome = ldbHomeDir.getAbsolutePath();
 			
@@ -173,9 +180,10 @@ public class LockdownBrowserWrapper extends Thread {
 			File ldbHomeDir = new File(tdcHome + "/lockdownbrowser/pc");
 			this.ldbHome = ldbHomeDir.getAbsolutePath();
 			String loginHtml = null;
-			if(productType.equals("LASLINKS")){
-				//consoleOut("Product Laslinks");
-				if(formName.equals("Form A/Form B/Espanol")){
+			if(productType.equals("LASLINKS") || productType.equals("TABE")){
+			//	ConsoleUtils.consoleOut("Product Laslinks/TABE");
+				if(formName.equals("Form A/Form B/Espanol") || formName.equals("TABE 9/10")){
+					//ConsoleUtils.consoleOut("Product TABE 9/10*****");
 					//consoleOut("Inside Form A/Form B/Espanol");
 					this.ldbCommand = new String[2];
 					this.ldbCommand[0] = this.ldbHome + "/LockdownBrowser.exe";
@@ -184,8 +192,8 @@ public class LockdownBrowserWrapper extends Thread {
 					//command.add(this.ldbHome +"/LockdownBrowser.exe");
 					//command.add("--url=http://127.0.0.1:" + jettyPort + loginHtml);
 					
-				}else if(formName.equals("Form C/Form D/Espanol2")){
-					ConsoleUtils.messageOut("Inside Form C/Form D/Espanol2");
+				}else if(formName.equals("Form C/Form D/Espanol2")  || formName.equals("TABE Adaptive")){
+				//	ConsoleUtils.messageOut("Inside TABE Adaptive");
 					/*this.ldbCommand = new String[3];
 					this.ldbCommand[0] ="java";
 					this.ldbCommand[1] = "-jar";
@@ -308,19 +316,24 @@ private static class LockdownWinMain extends Thread {
 					}
 				  
 			}
-//			 ConsoleUtils.messageOut("Finished isProcessRunning @"+System.currentTimeMillis()); 
+			// ConsoleUtils.messageOut("Finished isProcessRunning @"+System.currentTimeMillis()); 
 				
 		} 	
 		
-		public static void killProcess(String serviceName) throws Exception {
+		public static void killProcess(String serviceName) {
 			try{
-//				ConsoleUtils.messageOut("taskkill "+serviceName);
-				Runtime.getRuntime().exec("taskkill /F /IM "+ serviceName);  
 //				ConsoleUtils.messageOut("kill "+ serviceName.split("\\.")[0]);
 				Runtime.getRuntime().exec("tskill "+ serviceName.split("\\.")[0]);
 			 } catch (Exception e) {
-					e.printStackTrace();
-				}
+				//	ConsoleUtils.messageOut("tskill "+ serviceName.split("\\.")[0] +" failed");
+			}
+			 try {
+			//	ConsoleUtils.messageOut("taskkill "+serviceName);
+				Runtime.getRuntime().exec("taskkill /F /IM "+ serviceName);  
+//				
+			} catch (Exception e) {
+				//	ConsoleUtils.messageOut("taskkill /F /IM "+ serviceName+" failed");
+			}				
 			
 		 }		
 		
@@ -557,10 +570,8 @@ private static class LockdownWinMain extends Thread {
 							Thread.sleep(1000);
 						}
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (InvocationTargetException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -671,6 +682,7 @@ private static class LockdownWinMain extends Thread {
 				System.load(this.tdcHome + "/lock.dll");
 				LockdownWin lockdown = new LockdownWin(this.tdcHome);
 				LockdownWinB lockdownB = new LockdownWinB(this.tdcHome);
+				//Moved From Main.java
 				LockdownWinMain lockdownOK = new LockdownWinMain(tdcHome);
 				LockdownWinMain.getAllProcessName();
 				LockdownWinMain.allProcessNameStr = LockdownWinMain.allProcessNameStr.substring(0, LockdownWinMain.allProcessNameStr.length() - 1);
@@ -706,8 +718,8 @@ private static class LockdownWinMain extends Thread {
 						this.isAvailable = true;
 						
 						//Different launching mechanisms for different LDBs cause One is not working for both
-						if(productType.equals("LASLINKS")){
-							if(form.equals("Form A/Form B/Espanol")){
+						if(productType.equals("LASLINKS") || productType.equals("TABE")){
+							if(form.equals("Form A/Form B/Espanol") || form.equals("TABE 9/10")){
 								ConsoleUtils.messageOut("Laslinks for A/B will be launched");
 								ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome));
 							}
