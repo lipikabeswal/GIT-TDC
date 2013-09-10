@@ -34,7 +34,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mj"]}},$lzc$class__mj.attributes)
 }}})($lzc$class__mj)
-};canvas=new $lzc$class__mj(null,{$delegates:["onfocus","$md",null,"onbringBackFocus","$me",null,"onfootnotedata","$mf",null,"onisMultiAudio","$mg",null,"oninit","$mh",null,"onfootnotetext","$mi",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-09-06T13:29:10Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mj(null,{$delegates:["onfocus","$md",null,"onbringBackFocus","$me",null,"onfootnotedata","$mf",null,"onisMultiAudio","$mg",null,"oninit","$mh",null,"onfootnotetext","$mi",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-09-10T12:45:53Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -10930,8 +10930,9 @@ lz.$lzsc$thrownError=$lzsc$e
 }},"isReadable",void 0,"stopReading",function($0){
 if($0!=true||$0==true&&gReadableText.readingScratchpad){
 if(canvas.isPreviewer){
+if(gReadableText.audioPlayer.__media.hasAttribute("src")){
 this.audioPlayer.pause();gReadableText.setAttribute("isPlaying",false)
-}else{
+}}else{
 this.stop()
 }}},"requestor",function($0){
 switch(arguments.length){
@@ -16055,12 +16056,11 @@ this.setAttribute("answered",false);gController.updateBlueBallForHtmlItem($0)
 };if(!this.unlocked){
 gController.unlockUI();this.setAttribute("unlocked",true)
 }}},"setAnswer",function(){
-Debug.write("setAnswer ansObj");if(this.main.ht.ready){
-if(!this.answered){
+Debug.write("setAnswer ansObj");if(!this.answered){
 var $0=this.answerObjSet.htmlContent;var $1=this.answerObjSet.jsonContent;var $2=[];if(this.answerObjSet.checkedVals){
 $2=this.answerObjSet.checkedVals
 };setState($0,$1,$2)
-}}},"func2",function(){
+}},"func2",function(){
 this.doneLoading()
 },"handleFunc2",function($0){
 if($0==true||$0=="true"){
@@ -28363,7 +28363,7 @@ $1=true;
 contentDs=$0
 }else if(contentDs===$0){
 contentDs=null
-}},name:"contentDs",querytype:"post",queuerequests:true,timeout:120000,type:"http"},"class":$lzc$class__m27z},1);lz.ClassAttributeTypes["$lzc$class__m282"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["node"],{CHECK_PROD_TYPE_METHOD:"string",DOWNLOAD_FILE_PART_METHOD:"string",DOWNLOAD_ITEM_METHOD:"string",FEEDBACK_METHOD:"string",FOLDER_PARAM:"string",GET_ITEM_COUNT:"string",GET_ITEM_METHOD:"string",GET_MUSIC_DATA:"string",GET_SUBTEST_METHOD:"string",LASLINKS_NEWFORM:"string",LASLINKS_RELOGIN:"string",LOGIN_METHOD:"string",METHOD_PARAM:"string",SAVE_METHOD:"string",UPLOAD_AUDIT_FILE_METHOD:"string",USER_PARAM:"string",WRITE_TO_AUDIT_FILE_METHOD:"string",XML_PARAM:"string",_GENDER_PARAM:"string",_GENDER_VALUE:"string",_SERVER_VALUE:"string",_TEXT_PARAM:"string",mseq:"number"});{
+}},name:"contentDs",querytype:"post",queuerequests:true,timeout:900000,type:"http"},"class":$lzc$class__m27z},1);lz.ClassAttributeTypes["$lzc$class__m282"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["node"],{CHECK_PROD_TYPE_METHOD:"string",DOWNLOAD_FILE_PART_METHOD:"string",DOWNLOAD_ITEM_METHOD:"string",FEEDBACK_METHOD:"string",FOLDER_PARAM:"string",GET_ITEM_COUNT:"string",GET_ITEM_METHOD:"string",GET_MUSIC_DATA:"string",GET_SUBTEST_METHOD:"string",LASLINKS_NEWFORM:"string",LASLINKS_RELOGIN:"string",LOGIN_METHOD:"string",METHOD_PARAM:"string",SAVE_METHOD:"string",UPLOAD_AUDIT_FILE_METHOD:"string",USER_PARAM:"string",WRITE_TO_AUDIT_FILE_METHOD:"string",XML_PARAM:"string",_GENDER_PARAM:"string",_GENDER_VALUE:"string",_SERVER_VALUE:"string",_TEXT_PARAM:"string",mseq:"number"});{
 Class.make("$lzc$class__m282",["METHOD_PARAM",void 0,"FOLDER_PARAM",void 0,"USER_PARAM",void 0,"XML_PARAM",void 0,"SAVE_METHOD",void 0,"LOGIN_METHOD",void 0,"FEEDBACK_METHOD",void 0,"WRITE_TO_AUDIT_FILE_METHOD",void 0,"UPLOAD_AUDIT_FILE_METHOD",void 0,"GET_SUBTEST_METHOD",void 0,"GET_ITEM_METHOD",void 0,"DOWNLOAD_ITEM_METHOD",void 0,"DOWNLOAD_FILE_PART_METHOD",void 0,"GET_MUSIC_DATA",void 0,"GET_ITEM_COUNT",void 0,"mseq",void 0,"$m280",function($0){
 this.setAttribute("cid",Math.floor(Math.random()*1000000))
 },"cid",void 0,"uploadAuditFileLsid",void 0,"uploadAuditFileScid",void 0,"pendingSaveEid",void 0,"_GENDER_PARAM",void 0,"_TEXT_PARAM",void 0,"_SERVER_VALUE",void 0,"_GENDER_VALUE",void 0,"CHECK_PROD_TYPE_METHOD",void 0,"LASLINKS_NEWFORM",void 0,"LASLINKS_RELOGIN",void 0,"$m281",function($0){
