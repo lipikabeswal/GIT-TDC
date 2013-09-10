@@ -23,7 +23,7 @@
 	         type="http"
 	         queuerequests="true" 
 	         querytype="post"
-	         timeout="120000" 
+	         timeout="900000" 
 	         onerror="gRequest.requestError(this)" 
 	         ontimeout="gRequest.requestTimeout(this)" 
 	         ondata="gRequest._processResponse(this)" />
