@@ -1139,38 +1139,36 @@ public static String getTestScoreData() throws IOException{
         BufferedReader reader = null;
         String path=System.getProperty(TDC_HOME) + File.separator + 
 		"data" + File.separator + "objectbank" + File.separator + "TestScore.xml";
-		try {
-			
-			reader = new BufferedReader(
-			        new FileReader(path));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        char[] buf = new char[1024];
-        int numRead=0;
-        String lineData = null;
-        while((lineData = reader.readLine()) != null) {        	
-        	fileData.append(lineData);
-        }
-        
-        /*try {
-			while((numRead=reader.read(buf)) != -1){
-			    String readData = String.valueOf(buf, 0, numRead);
-			    fileData.append(readData);
+        File f = new File(path);
+        if(!f.exists()){
+        	fileData.append(ServletUtils.OK);
+        }else{
+			try {
+				
+				reader = new BufferedReader(
+				        new FileReader(path));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-        try {
-			reader.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return fileData.toString();
-		//return "";
+		
+	        char[] buf = new char[1024];
+	        int numRead=0;
+	        String lineData = null;
+	        while((lineData = reader.readLine()) != null) {        	
+	        	fileData.append(lineData);
+	        }
+	      
+	        try {
+				reader.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+        }	
+        System.out.println("DATA*****"+fileData.toString());
+        return fileData.toString();
 	}
 
    
