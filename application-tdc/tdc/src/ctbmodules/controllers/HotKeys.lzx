@@ -152,32 +152,40 @@
 		    switch ( k ) {
 	        	case  6:
                     this.exitPopups(); 
+					if(gItemInterface.visible)
         			gController.finishTestShortcut();      // CTRL F ?
                     break;
 				case 10: 
 					if(!gController.fwdOnly){
 	                    this.exitPopups();
-	                    gController.stepNavigateBack();  
+						if(gItemInterface.visible){
+	                    	gController.stepNavigateBack();
+						}  
 					}
                     break;
 				case 11: 
                     this.exitPopups();
+					if(gItemInterface.visible)
                     gController.stepNavigateForward(); 
                     break;
 				case 12: 
                     this.exitPopups();
+					if(gItemInterface.visible)
                     gController.toggleMark(); 
                     break;
 				case 15:
                     this.exitPopups(); 
+					if(gItemInterface.visible)
                     gController.toggleTimer();
                     break;
 				case 19: 
                     this.exitPopups();
+					if(gItemInterface.visible)
                     gController.finishTest(); 
                     break;
 				case 21: 
                     this.exitPopups();
+					if(gItemInterface.visible)
                     gController.pauseTest(); 
                     break;
 	 		}
