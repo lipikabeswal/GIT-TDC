@@ -71,8 +71,10 @@
 					title.real_title.setAttribute ('resource', 'ISTEP_refcard_title');
 				}
 				else if(refsrc.indexOf('corelink') >= 0){
-		        	refCardContents.contents.setAttribute('resource',"Corelink_refcard_contents");
-					title.real_title.setAttribute('resource',"Corelink_refcard_title");
+		        	/*refCardContents.contents.setAttribute('resource',"Corelink_refcard_contents");
+					title.real_title.setAttribute('resource',"Corelink_refcard_title");*/
+					refCardContents.contents.setAttribute('source',"ctbmodules/resources/manipulatives/refcard/CoreLink_RefCard.svg");
+					title.real_title.setAttribute('source',"ctbmodules/resources/manipulatives/refcard/CoreLink_RefCard-title.svg");					
 					this.setAttribute("scrolls",true);
 				}
 			}
