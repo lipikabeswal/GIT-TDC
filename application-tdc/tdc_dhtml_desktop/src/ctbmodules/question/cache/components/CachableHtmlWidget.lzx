@@ -1,223 +1,72 @@
-<library>
-	<include href="CachableComponent.lzx" />
-	<include href="lib/htmlnew.lzx" />
-
-	<!-- ************************************
-		Cachable Html Widget
-		
-		A Cachable Html Widget to render html items.  
-		*************************************-->
-
-	<class name="CachableHtmlWidget" extends="CachableComponent"
-		comptype="${gCompTypes.WIDGET_HTML}" aaactive="true"
-		aasilent="false">
-		
-		<attribute name="contentLoadedDel" value="$once{new lz.Delegate(this,'func2')}" />
-		<attribute name="setStateDel" value="$once{new lz.Delegate(this,'setAnswer')}" />
-		<attribute name="answered" type="boolean" value="false" />
-		<attribute name="answer" />
-		<attribute name="widget_id" />
-		<attribute name="answerObjSet" value="$once{new Object()}"/>
-		<attribute name="unlocked" type="boolean" value="false"/>
-		<attribute name="checkiframeStateDel" value="$once{new lz.Delegate(this,'checkiframeState')}" />
-
-		<method name="init">
-			super.init();
-		</method>
-
-		<handler name="oninit">
-		Debug.write("Cachaable html widget handlerinit");
-		</handler>
-
-		<handler name="ondata" args="data"><![CDATA[
-Debug.write("Cachaable html widget ondata");
-      	var srcUrl = data.getAttr('src');
-		this.setAttribute('unlocked', false);
-		this.setAttribute('answerObjSet', {});
-		gController.setAttribute('findAnswer',true); //using for freezing/unfreezing UI 
-		if (data.hasAttr("id")) {
-	      	var id = data.getAttr('id');
-	      	this.setAttribute('widget_id',id);
-	        this.setAttribute('widget_id', data.getAttr("id"));
-	        var answer = gController.getStateForInputWidgetId(this.widget_id);
-		
-			if(answer){
-			    gController.setAttribute('isAnswerSet',true); //using for freezing/unfreezing UI
-				this.setAttribute('answered',false); //We are setting answered as false so that we can setTheState properly. This has to be revisited 
-				var selectedValuesArr = [];
-				if(answer['checkedVals']){
-					var selectedValues = answer['checkedVals'];
-					Debug.write("selectedValues " , selectedValues);
-					for (var i in selectedValues){
-						Debug.write("selectedValues for loop" , i);
-						if(selectedValues.hasOwnProperty(i) && !isNaN(+i)) {
-	      					  selectedValuesArr[+i] = selectedValues[i];
-	   					}
-						
-					}
-					answer['checkedVals'] = selectedValuesArr;
-				}
-
-				this.setAttribute('answerObjSet', answer);
-				//setAnswer();
-			}else {
-				gController.setAttribute('isAnswerSet',false); //using for freezing/unfreezing UI
-			}
-			setAnswer();
-			gController.addHtmlField({"widget_id" : id, "answered" : this.answered, "answer" : this.answer, "ref" : this}); 
-
-		}
-		if($dhtml){
-			srcUrl = canvas.TEAssetPath+srcUrl+"/previewer.html";
-			this.main.ht.setAttribute('src', srcUrl);
-			this.main.ht.setAttribute('visible',true);
-		}
-		else{			
-			srcUrl = "http:items/"+ srcUrl +"/previewer.html";
-			this.main.ht.setAttribute('src', srcUrl);
-			this.main.ht.setAttribute('visible',true);
-		}
- 		this.bringToFront();
-		func2();
-		gController.freezeUI();
-		//doneLoading();
-
-		]]>
-		</handler>
-
-		<method name="func1">
-			if(this.main.ht.ready){
-            	var del = new LzDelegate(this, 'handleFunc1');
-            	del = isAnswered();		
-				handleFunc1(del);
-            } 
-        </method>
-        
-        <method name="handleFunc1" args="retVal"><![CDATA[
-			if(retVal != null && retVal != undefined){
-				if( retVal == true || retVal ==  'true'){
-					this.setAttribute('answered', true);
-					gController.updateBlueBallForHtmlItem(retVal);
-				}else{
-					this.setAttribute('answered', false);
-					gController.updateBlueBallForHtmlItem(retVal);
-					}
-				if(!unlocked){
-					gController.unlockUI();
-					this.setAttribute('unlocked', true);
-				}
-			}
-       ]]> </method>
-
-		<method name="setAnswer" >
-			Debug.write("setAnswer ansObj");
-			//if(this.main.ht.ready){
-				if(!this.answered){
-					var htmlContent = this.answerObjSet.htmlContent;
-					var jsonContent = this.answerObjSet.jsonContent;
-					var checkedVals = []
-					if(this.answerObjSet.checkedVals){
-						checkedVals = this.answerObjSet.checkedVals;
-					}
-					setState(htmlContent, jsonContent, checkedVals);
-					//lz.Timer.resetTimer(setStateDel, 1000);
-				}//else{
-					//lz.Timer.removeTimer(setStateDel);
-				//}
-				
-			//}
+	<library>
+		<include href="CachableComponent.lzx" />
+		<include href="lib/htmlnew.lzx" />
+	
+		<!-- ************************************
+			Cachable Html Widget
 			
-		</method>
+			A Cachable Html Widget to render html items.  
+			*************************************
 
-        
-        <method name="func2">
-					doneLoading();
-        /*   if(this.main.ht.loading){
-            	lz.Timer.resetTimer(contentLoadedDel, 1000);
-            }else{
-            	doneLoading();
-            	lz.Timer.removeTimer(contentLoadedDel);
-           	
-            }*/
-        </method>
-        
-        <method name="handleFunc2" args="retVal1">
-    	
-            if(retVal1 == true || retVal1 == 'true'){
-            	doneLoading();
-            	lz.Timer.removeTimer(contentLoadedDel);
-            }
-        </method>
-        
-       <method name="getHtmlState">
-			//console.log("this.main.ht.ready "+canvas.frameLoaded);
-			//console.log("getState***********",this.main.ht.ready);
-           if(this.main.ht.ready){
-            var getStateDel = new LzDelegate(this, 'getStateHandler');
-            //this.main.ht.callJavascript('accomPkg.getState', getStateDel);
-             //this.main.ht.callJavascript('getState', getStateDel);
-             getStateDel = getState();
-             //console.log("getStateDel******",getStateDel);
-             getStateHandler(getStateDel);
-           } 
-        
-        </method>
-        
-	    <method name="getStateHandler" args="retVal">
-				this.setAttribute('answer', retVal);
-				gController.updateHtmlFields(retVal,this.answered);
-	     </method>
-        
+			Workaround for broken mouse event handling between canvas and iFrame:
 
-       
-		<method name="doneLoading"><![CDATA[	
-            super.doneLoading();
-        ]]></method>        
-        
-		<method name="hide">
-			//this.main.ht.setAttribute('visible',false);
-		</method>
-		
-		<method name="show">
-			//this.main.ht.setAttribute('visible',true);
-		</method>
+			Within the CachableHtmlWidget, a function is registered to track mousedown
+			events for the iFrame. When the mousedown event is received, a delegate
+			is registered for lz.GlobalMouse onmousemove events. The stopDragIfActive()
+			method is called. This method uses the jQuery $(".ui-draggable-dragging") call
+			to detect if a drag operation has been started.
+			
+			The stopDragIfActive() checks if a drag operation is going on, and stops the
+			drag by sending a mouseup event into the iFrame. If a mousemove event is 
+			received by the OpenLaszlo application (which happens when the cursor leaves
+			the iFrame area or is over an OpenLaszlo view covering the iFrame), and there
+			is still a drag operation going on, then the drag operation is cancelled
+			by sending a mouseup event into the iFrame.
 
-		<method name="doReturnToCache"><![CDATA[
-			this.main.ht.setAttribute('visible',false);
-			this.main.ht.setAttribute('src',"");
-       ]]></method>
-
-		<method name="checkiframeState">
-				iframeState();
-				if (!canvas.frameLoaded){
-				 	lz.Timer.resetTimer(checkiframeStateDel, 500);
-				 }else{
-				 	lz.Timer.removeTimer(checkiframeStateDel);
-				 	canvas.setAttribute('frameLoaded',false);
-				 }
-		</method>
-       
-       <view name="main" width="${parent.parent.width - 20}" height="${parent.parent.height - 10}">
- 	      <!-- <html name="ht" id="htmlwiget" x="5" y="5" width="800" height="600" scrollbars="false" mouseevents="true" focusable="true"/>-->
- 	    
- 	    <!--  Delegate for html onload event; used to call classroot.checkiframeState -->
- 	    <attribute name="loaddel" value="null" type="expression" />
- 	    
- 	    <handler name="oninit">
+		  -->
+	
+		<class name="CachableHtmlWidget" extends="CachableComponent"
+			comptype="${gCompTypes.WIDGET_HTML}" aaactive="true"
+			aasilent="false">
+			
+			<attribute name="contentLoadedDel" value="$once{new lz.Delegate(this,'func2')}" />
+			<attribute name="setStateDel" value="$once{new lz.Delegate(this,'setAnswer')}" />
+			<attribute name="answered" type="boolean" value="false" />
+			<attribute name="answer" />
+			<attribute name="widget_id" />
+			<attribute name="answerObjSet" value="$once{new Object()}"/>
+			<attribute name="unlocked" type="boolean" value="false"/>
+			<attribute name="checkiframeStateDel" value="$once{new lz.Delegate(this,'checkiframeState')}" />
+	 	    <!--  Delegate for html onload event; used to call classroot.checkiframeState -->
+	 	    <attribute name="loaddel" value="null" type="expression" />	
+			<!-- html tag onready delegate -->
+	 	    <attribute name="iframeReady" value="null" type="expression" />
+			<!-- Delegate used to check if an item is dragged within the iFrame -->
+			<attribute name="dragCheckIfStartedDel" value="$once{new lz.Delegate(this,'checkIfDragActive')}"  />
+			<!-- Mousemove delegate; used to check if the mouse cursor has left the iFrame during a 
+				 drag operation. -->	
+			<attribute name="mousemovedel" value="$once{new lz.Delegate(this,'trackMouseMove')}"  /> 	
+	
+			<method name="init">
+				super.init();
+			</method>
+	
+			<handler name="oninit">
 			/* Workaround for drag and drop bug on Mac
 			   where due to the application scaling
-               content within the TEItems cannot be 
+	           content within the TEItems cannot be 
 	           dragged in areas outsite the unscaled
-               frame dimensions. The htmlnew class is a 
-               modified version of
+	           frame dimensions. The htmlnew class is a 
+	           modified version of
 			   lps/components/extensions/html.lzx
-             */
+	         */
 			var htmlFrameClass = "html";
 			if (navigator.appVersion.indexOf("Mac")!=-1) {
 				htmlFrameClass = "htmlnew";
 			}
 			var opts = {
-				x: 5,
+				x: 0,
+				y: 0,
 				width: 780,
 				height: 490,
 				clip: true,
@@ -225,33 +74,296 @@ Debug.write("Cachaable html widget ondata");
 				mouseevents: true,
 				focusable: true
 			};
+			// console.log("CachableHtmlWidget#oninit: width=%s, height=%s", width, height);
 			this.ht = new lz[htmlFrameClass](this, opts);
 			this.loaddel = new LzDelegate(this, 'frameLoaded');
-			this.loaddel.register(this.ht, "onload");    
- 	    </handler>
-
-	    <method name="frameLoaded" args="ignore=null">
-	        this.loaddel.unregisterAll();
-	        this.loaddel = null;
-			classroot.checkiframeState();
-        </method>  
-
- 	     
- 	    <!-- <html name="ht" id="htmlwiget" width="${780 * canvas.xscalefactor}" height="${450 * canvas.yscalefactor}" scrollbars="false">
-			<handler name="onload">
-				classroot.checkiframeState();
+			this.loaddel.register(this.ht, "onload");  		
 			</handler>
-		 </html>-->
+	
+			<handler name="ondata" args="data"><![CDATA[
+	      	var srcUrl = data.getAttr('src');
+			this.setAttribute('unlocked', false);
+			this.setAttribute('answerObjSet', {});
+			gController.setAttribute('findAnswer',true); //using for freezing/unfreezing UI 
 			
-       </view>
-		<view name="overlay" visible="${gPleaseWaitPopup!=null?gPleaseWaitPopup.visible:false}" 
-			clickable="true"
-			x="${parent.main.x}"
-			y="${parent.main.y}"
-			width="${parent.main.width}"
-			height="${parent.main.height}">
+			/*Start applying bgcolor default white to Question and Panel class TE items, for suppressing color accomodation for TE items.*/
+			if(gController.hasFontAccommodation){
+				this.parent.parent.setAttribute('bgcolor','white');
+			}
+			this.parent.setAttribute('bgcolor','white');
+			gQuestion.setAttribute('bgcolor','white');
+			/*End applying bgcolor default white to Question and Panel class TE items, for suppressing color accomodation for TE items.*/
+				
+			if (data.hasAttr("id")) {
+		      	var id = data.getAttr('id');
+		      	this.setAttribute('widget_id',id);
+		        this.setAttribute('widget_id', data.getAttr("id"));
+		        var answer = gController.getStateForInputWidgetId(this.widget_id);
+			
+				if(answer){
+				    gController.setAttribute('isAnswerSet',true); //using for freezing/unfreezing UI
+					this.setAttribute('answered',false); //We are setting answered as false so that we can setTheState properly. This has to be revisited 
+					var selectedValuesArr = [];
+					if(answer['checkedVals']){
+						var selectedValues = answer['checkedVals'];
+						// console.log("selectedValues " , selectedValues);
+						for (var i in selectedValues){
+							// console.log("selectedValues for loop" , i);
+							if(selectedValues.hasOwnProperty(i) && !isNaN(+i)) {
+		      					  selectedValuesArr[+i] = selectedValues[i];
+		   					}
+							
+						}
+						answer['checkedVals'] = selectedValuesArr;
+					}
+	
+					this.setAttribute('answerObjSet', answer);
+					//setAnswer();
+				}else {
+					gController.setAttribute('isAnswerSet',false); //using for freezing/unfreezing UI
+				}
+				setAnswer();
+				gController.addHtmlField({"widget_id" : id, "answered" : this.answered, 
+						"answer" : this.answer, "ref" : this, frameObj: this.getIframeObject()}); 
+	
+			}
+			if($dhtml){
+				srcUrl = canvas.TEAssetPath+srcUrl+"/previewer.html";
+				this.ht.setAttribute('src', srcUrl);
+				this.ht.setAttribute('visible',true);
+			}
+			else{			
+				srcUrl = "http:items/"+ srcUrl +"/previewer.html";
+				this.ht.setAttribute('src', srcUrl);
+				this.ht.setAttribute('visible',true);
+			}
+	 		this.bringToFront();
+			func2();
+			gController.freezeUI();
+			//doneLoading();
+	
+			]]>
+			</handler>
+	
+			<method name="func1">
+				if(this.ht.ready){
+	            	var del = new LzDelegate(this, 'handleFunc1');
+	            	del = isAnswered();		
+					handleFunc1(del);
+	            } 
+	        </method>
+	        
+	        <method name="handleFunc1" args="retVal"><![CDATA[
+				if(retVal != null && retVal != undefined){
+					if( retVal == true || retVal ==  'true'){
+						this.setAttribute('answered', true);
+						gController.updateBlueBallForHtmlItem(retVal);
+					}else{
+						this.setAttribute('answered', false);
+						gController.updateBlueBallForHtmlItem(retVal);
+						}
+					if(!unlocked){
+						gController.unlockUI();
+						this.setAttribute('unlocked', true);
+					}
+				}
+	       ]]> </method>
+	
+			<method name="setAnswer" >
+				// console.log("setAnswer ansObj");
+				//if(this.ht.ready){
+					if(!this.answered){
+						var htmlContent = this.answerObjSet.htmlContent;
+						var jsonContent = this.answerObjSet.jsonContent;
+						var checkedVals = []
+						if(this.answerObjSet.checkedVals){
+							checkedVals = this.answerObjSet.checkedVals;
+						}
+						setState(htmlContent, jsonContent, checkedVals);
+						//lz.Timer.resetTimer(setStateDel, 1000);
+					}//else{
+						//lz.Timer.removeTimer(setStateDel);
+					//}
+					
+				//}
+				
+			</method>
+	
+	        
+	        <method name="func2">
+						doneLoading();
+	        /*   if(this.ht.loading){
+	            	lz.Timer.resetTimer(contentLoadedDel, 1000);
+	            }else{
+	            	doneLoading();
+	            	lz.Timer.removeTimer(contentLoadedDel);
+	           	
+	            }*/
+	        </method>
+	        
+	        <method name="handleFunc2" args="retVal1">
+	    	
+	            if(retVal1 == true || retVal1 == 'true'){
+	            	doneLoading();
+	            	lz.Timer.removeTimer(contentLoadedDel);
+	            }
+	        </method>
+	        
+	       <method name="getHtmlState"><![CDATA[
+				// console.log("CachableHtmlWidget.getHtmlState: this.ht.ready "+this.ht.ready);
+				//console.log("getState***********",this.ht.ready);
+	            if(this.ht.ready) {
+	            var getStateDel = new LzDelegate(this, 'getStateHandler');
+	            //this.ht.callJavascript('accomPkg.getState', getStateDel);
+	             //this.ht.callJavascript('getState', getStateDel);
+	             getStateDel = getState();
+	             //console.log("getStateDel******",getStateDel);
+	             getStateHandler(getStateDel); 
+				}   
+	        ]]>
+			</method>
+	        
+		    <method name="getStateHandler" args="retVal">
+					this.setAttribute('answer', retVal);
+					gController.updateHtmlFields(retVal,this.answered);
+		     </method>
+	        
+	
+	       
+			<method name="doneLoading"><![CDATA[	
+	            super.doneLoading();
+	        ]]></method>
+	
+				
+			<method name="hide">
+				//this.ht.setAttribute('visible',false);
+			</method>
+			
+			<method name="show">
+				//this.ht.setAttribute('visible',true);
+			</method>
+	
+			<method name="doReturnToCache"><![CDATA[
+				console.log("CachableHtmlWidget.doReturnToCache()");
+				this.ht.setAttribute('visible',false);
+				this.ht.setAttribute('src',"");
+	       ]]></method>
+	
+			<method name="checkiframeState">
+					iframeState();
+					if (!canvas.frameLoaded){
+					 	lz.Timer.resetTimer(checkiframeStateDel, 500);
+					 }else{
+					 	lz.Timer.removeTimer(checkiframeStateDel);
+					 	canvas.setAttribute('frameLoaded',false);
+					 }
+			</method>
+	
+		    <method name="frameLoaded" args="ignore=null">
+				// console.log("CachableHtmlWidget.frameLoaded()");
+		        this.loaddel.unregisterAll();
+		        this.loaddel = null;
+				var that = this;
+				if (gController.htmlFields.length > 0) {
+					var iframeObj = this.getIframeObject();
+					iframeObj.contentDocument.addEventListener("mousedown",
+							function(evt) { that.iframeMouseDown(evt);}, false);		
+				}
+				this.checkiframeState();
+	        </method>
 
-		</view>
+			<!--- Starts the initial check if a drag is active when a mousedown
+                  event happens in iFrame.
+			      @access private
+			      @param Event evt: Mouse event.
+			  -->
+			<method name="iframeMouseDown" args="evt">
+				this.mousemovedel.register(lz.GlobalMouse, "onmousemove");
+				this.checkIfDragActive();
+				// make sure that the drag state is detected if the even
+				// when it takes some time for the state to change
+				lz.Timer.addTimer( this.dragCheckIfStartedDel, 250 );
+				lz.Timer.addTimer( this.dragCheckIfStartedDel, 800 );
+			</method>
 
-	</class>
-</library>
+			<!--- In case of a global mouseup event, check if there is an
+                  unfinished drag operation.
+			      @event
+			      @keywords private
+			  -->	
+			<handler name="onmouseup" reference="lz.GlobalMouse">
+				this.stopDragIfActive();
+			</handler>
+
+			<!--- Checks if the iFrame is in a drag state by using the
+                  "ui-draggable-dragging" class marker.
+			      @access private
+			      @param Object ignore: Default argument for methods called by delegates.
+			      @returns {Boolean} true, if jQuery drag is active.
+			  -->			
+			<method name="checkIfDragActive" args="ignore=null"><![CDATA[
+				var isActive = false;
+				var frame = this.getIframeObject();
+				if (typeof frame.contentWindow.jQuery == 'undefined') return false;
+				var dragItems = frame.contentWindow.$(".ui-draggable-dragging");
+				if (dragItems && dragItems.length == 1) {
+					isActive = true;
+					gController.setAttribute( "iframeDragActive", true );
+				} else {
+					gController.setAttribute( "iframeDragActive", false );
+				}
+				return isActive;
+			]]>
+			</method>
+			
+			<!--- Stops the drag operation inside the iFrame.
+			      @access private
+			      @param String type: Description.
+			      @returns {Boolean} true if a drag operation was cancelled.
+			  -->
+			<method name="stopDragIfActive">
+				var frame = this.getIframeObject();
+				if (!frame) return false;
+				var isActive = this.checkIfDragActive();
+				if ( isActive ) {
+					// console.log("CachableHtmlWidget.stopDragIfActive: cancelling drag, sending mouseup into iFrame");
+					frame.contentWindow.$("body").trigger("mouseup");
+					this.mousemovedel.unregisterAll();
+				}			
+			</method>
+			
+			<!--- Called by mousemov delegate when mouse moves over
+                  OpenLaszlo app or manipulative on top of the iFrame.
+			      @access private
+			  -->
+			<method name="trackMouseMove" args="ignore=null">
+				this.stopDragIfActive();
+			</method>		
+
+
+			<!--- Returns the iFrame object reference of the html tag instance.
+			      @access private
+			 -->
+			<method name="getIframeObject"><![CDATA[
+				if (this.ht && this.ht.ready) {
+					return this.ht.sprite.__LZdiv.children[0].getElementsByTagName("iframe")[0];		
+	       		} else {
+					return null;
+				}
+			]]>
+			</method>
+
+			<!-- Overlay fixes the problem when dragging views on top of the iFrame. Without
+                 the overlay the drag operation will stop when the mouse cursor is not over the
+                 OpenLaszlo component being dragged, since the iFrame does not pass the mouse move
+                 events into the OpenLaszlo app.
+               -->
+			<view name="overlay" visible="${gPleaseWaitPopup!=null?gPleaseWaitPopup.visible:false}" 
+				clickable="true"
+				width="${parent.width}"
+				height="${parent.height}">	
+			</view>
+	
+	
+		</class>
+	</library>

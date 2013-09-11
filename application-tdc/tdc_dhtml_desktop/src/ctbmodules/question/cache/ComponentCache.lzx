@@ -347,7 +347,8 @@
 				    break;
                 }
                 case gCompTypes.WIDGET_HTML: {
-                	toReturn = new lz.CachableHtmlWidget(parent);
+                	toReturn = new lz.CachableHtmlWidget(parent, 
+							{width: parent.width-20, height: parent.height - 10, bgcolor: 'white'});
                 	break;
                 }
                 case gCompTypes.WIDGET_ASSET: {
