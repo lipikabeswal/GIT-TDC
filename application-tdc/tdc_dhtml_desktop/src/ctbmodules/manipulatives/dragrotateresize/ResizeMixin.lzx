@@ -89,7 +89,10 @@
          	an overlay is view is displayed on top of the iframe -->
         <method name="overlayOnIframe" args="show">
         	if(gController.htmlFields.length > 0){
-	            	gController.htmlFields[0]['ref'].overlay.setAttribute('visible',show);
+            	gController.htmlFields[0]['ref'].overlay.setAttribute('visible',show);
+            	if(show){
+            		gController.htmlFields[0]['ref'].overlay.bringToFront();
+            	}
 			}
         </method>
 
