@@ -575,6 +575,18 @@
 		<attribute name="dRestoreCursor"
 			value="$once{ new lz.Delegate( this, 'restoreGrabCursor' ) }" type="expression"/>
 		
+		<!--  Will be set to true when an object is dragged inside a TE item  -->	
+    	<attribute name="iframeDragActive" value="false" type="boolean" />			
+
+    	<!--  Cancels a drag operation inside a TE item -->
+    	<method name="cancelIframeDrag">
+    		if (this.htmlFields.length == 1) {
+    			var frame = this.htmlFields[0].frameObj;
+    			if (typeof jQuery != 'undefine') {
+    				frame.contentWindow.$("body").trigger("mouseup");
+    			}
+    		}
+    	</method>		
 			
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -3511,6 +3523,8 @@ Debug.write("############ loadItem ############");
 			gController.setAttribute("magnifierState",false);
 			hideMaskingChoiceDD();
 			gTooltip.hideTooltip ();
+			//re-applying bgcolor to Question class for non-TE items, which was suppressed for TE items. 
+			gQuestion.setAttribute('bgcolor',gController.questionBgColor);
 		]]></method>
 
 		<method name="loadMusicData"><![CDATA[
@@ -5529,12 +5543,17 @@ Debug.write("############ loadItem ############");
                dstemp.removeChild(node);
             }
 			
+			var parsed = "";
 			if(result != null && result!="") {
-				return JSON.parse(result);
+				try {	
+					parsed = JSON.parse(result);
+				} catch (e) {
+					console.error("getStateForInputWidgetId: JSON parse error");
+					console.error(result);
+					parsed = "";
+				}
 			}
-			else {
-				return "";
-			}
+			return parsed;
 
 		]]></method>
 		<method name="inContinueToDownload">
