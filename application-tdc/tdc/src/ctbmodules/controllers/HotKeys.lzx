@@ -219,32 +219,40 @@
                    value="$once{ new LzDelegate( this, 'finish' ) }"/>
   
         <method name="toggleA">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups();
-	            if(!gController.revisitCancelClicked)
-	        	gController.toggleItemSelState( 'A' ); 
-	        }
+			if(gItemInterface.visible) { 
+	        	if(!gController.isCrItem()){
+		            this.exitPopups();
+		            if(!gController.revisitCancelClicked)
+		        	gController.toggleItemSelState( 'A' ); 
+		        }
+			}
         </method>
         <method name="toggleB">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	             if(!gController.revisitCancelClicked)
-	        	gController.toggleItemSelState( 'B' ); 
-	        }
+			if(gItemInterface.visible) { 
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		             if(!gController.revisitCancelClicked)
+		        	gController.toggleItemSelState( 'B' ); 
+		        }
+			}
         </method>
-        <method name="toggleC">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	             if(!gController.revisitCancelClicked)
-	        	gController.toggleItemSelState( 'C' ); 
-	        }
+        <method name="toggleC">  
+			if(gItemInterface.visible) {   
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		             if(!gController.revisitCancelClicked)
+		        	gController.toggleItemSelState( 'C' ); 
+		        }
+			}
          </method>
         <method name="toggleD">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	             if(!gController.revisitCancelClicked)
-	        	gController.toggleItemSelState( 'D' ); 
-	        }
+			if(gItemInterface.visible) { 
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		             if(!gController.revisitCancelClicked)
+		        	gController.toggleItemSelState( 'D' ); 
+		        }
+			}
        </method>
         <method name="toggleE">    
         	if(!gController.isCrItem()){
@@ -253,88 +261,112 @@
 	        	gController.toggleItemSelState( 'E' ); 
 	        }
         </method>
-        <method name="toggleF">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups();
-	             if(!gController.revisitCancelClicked)
-	        	gController.toggleItemSelState( 'F' ); 
-	        }
+        <method name="toggleF">   
+        	if(gItemInterface.visible) { 
+	        	if(!gController.isCrItem()){
+		            this.exitPopups();
+		             if(!gController.revisitCancelClicked)
+		        	gController.toggleItemSelState( 'F' ); 
+		        }
+		    }
         </method>
-        <method name="toggleG">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	             if(!gController.revisitCancelClicked)
-	        	gController.toggleItemSelState( 'G' ); 
-	        }
+        <method name="toggleG">   
+        	if(gItemInterface.visible) { 
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		             if(!gController.revisitCancelClicked)
+		        	gController.toggleItemSelState( 'G' ); 
+		        }
+		     }
         </method>
         <method name="toggleH">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	             if(!gController.revisitCancelClicked)
-	        	gController.toggleItemSelState( 'H' ); 
-	        }
+        	if(gItemInterface.visible) {
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		             if(!gController.revisitCancelClicked)
+		        	gController.toggleItemSelState( 'H' ); 
+		        }
+		    }
         </method>
-		<method name="toggleI">    
-			if(!gController.isCrItem()){
-		    	this.exitPopups(); 
-		    	 if(!gController.revisitCancelClicked)
-				gController.toggleItemSelState( 'I' ); 
+		<method name="toggleI"> 
+			if(gItemInterface.visible) {   
+				if(!gController.isCrItem()){
+			    	this.exitPopups(); 
+			    	 if(!gController.revisitCancelClicked)
+					gController.toggleItemSelState( 'I' ); 
+				}
 			}
 		</method>
-        <method name="toggleJ">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	             if(!gController.revisitCancelClicked)
-	        	gController.toggleItemSelState( 'J' ); 
-	        }
+        <method name="toggleJ">   
+			if(gItemInterface.visible) {  
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		             if(!gController.revisitCancelClicked)
+		        	gController.toggleItemSelState( 'J' ); 
+		        }
+			}
         </method>        
         <method name="goBack">
 		<![CDATA[
-			if(!gController.fwdOnly){
-        		if(!gController.onFirstItem()){
-        			LzFocus.clearFocus();
-        		}
-        	
-            	this.exitPopups();
-            	 if(!gController.revisitCancelClicked)
-        		gController.stepNavigateBack();
-			}      
+			if(gItemInterface.visible) { 
+				if(!gController.fwdOnly){
+	        		if(!gController.onFirstItem()){
+	        			LzFocus.clearFocus();
+	        		}
+	        	
+	            	this.exitPopups();
+	            	 if(!gController.revisitCancelClicked)
+	        		gController.stepNavigateBack();
+				}  
+			}    
        	]]>
 		</method>
         <method name="goOn"> 
-        	if(!gController.onLastItem()){
-        		LzFocus.clearFocus();
-        	}
-            this.exitPopups(); 
-             if(!gController.revisitCancelClicked)
-        	gController.stepNavigateForward();     
+			if(gItemInterface.visible) { 
+	        	if(!gController.onLastItem()){
+	        		LzFocus.clearFocus();
+	        	}
+	            this.exitPopups(); 
+	             if(!gController.revisitCancelClicked)
+	        	gController.stepNavigateForward();
+			}     
         </method>
         <method name="toggleMark"> 
-            this.exitPopups(); 
-         	gController.toggleMark();              
+            if(gItemInterface.visible) { 
+				this.exitPopups(); 
+	         	gController.toggleMark();
+			}              
         </method>
         <method name="toggleTimer">
-            this.exitPopups(); 
-        	gController.toggleTimer();             
+			if(gItemInterface.visible) { 
+	            this.exitPopups(); 
+	        	gController.toggleTimer();
+			}             
         </method>
         <method name="pause"> 
-        	if(gController.pausable == 'true'){
-        		LzFocus.clearFocus();
-        	}
-            this.exitPopups(); 
-        	if(gItemInterface.getAttribute('visible') == true || gTutorial.getAttribute('visible') == true)
-        		gController.pauseTest();
+			if(gItemInterface.visible) { 
+	        	if(gController.pausable == 'true'){
+	        		LzFocus.clearFocus();
+	        	}
+	            this.exitPopups(); 
+	        	if(gItemInterface.getAttribute('visible') == true || gTutorial.getAttribute('visible') == true)
+	        		gController.pauseTest();
+			}
         </method>
-        <method name="stop">       
-        	LzFocus.clearFocus();
-            this.exitPopups();
-        	if(gItemInterface.getAttribute('visible') == true || gTutorial.getAttribute('visible') == true)
-        		gController.finishTest();              
+        <method name="stop">
+			if(gItemInterface.visible) {        
+	        	LzFocus.clearFocus();
+	            this.exitPopups();
+	        	if(gItemInterface.getAttribute('visible') == true || gTutorial.getAttribute('visible') == true)
+	        		gController.finishTest();
+			}              
         </method>
-        <method name="finish">     
-        	LzFocus.clearFocus();
-            this.exitPopups(); 
-        	gController.finishTestShortcut();      
+        <method name="finish">  
+        	if(gItemInterface.visible) { 
+	        	LzFocus.clearFocus();
+	            this.exitPopups(); 
+	        	gController.finishTestShortcut();
+			}      
         </method>
     </node>
 
