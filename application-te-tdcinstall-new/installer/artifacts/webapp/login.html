@@ -396,7 +396,7 @@ function setScaleFactor(xscalefactor,yscalefactor){
     			iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
     		}*/
 	    	iframe.contentWindow.isReadable(canvas.readable);
-	    	iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
+	    	//iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
 	    	/*var xscalefact = (780 * xscalefactorjs)/800;
 	    	var yscalefact = (450 * yscalefactorjs)/462;*/
 	    	var xscalefact = 780/800;
@@ -670,7 +670,7 @@ function checkEmptyString(str) {
  
  function disableTabKey() {
 	if(event.which == 9 && gController.scratchpadOpen) { 
-		// console.log("TAB!!!!!!!!!!!!");
+		//console.log("TAB!!!!!!!!!!!!");
 		event.preventDefault();
 		event.stopPropagation();
 	}
