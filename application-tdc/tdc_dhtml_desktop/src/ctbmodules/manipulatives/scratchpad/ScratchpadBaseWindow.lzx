@@ -201,6 +201,9 @@
               @keywords private -->
         <method name="_mouseup" args="ignore">
             this.setAttribute('dragenabled', false);
+			lz.Cursor.unlock();
+            gScratchpad.onmouseout.sendEvent();
+            gScratchpad.onmouseover.sendEvent();
 			//Debug.write("this.stopdrag scratchpadbasewindpw",this.x,this.y)
         </method>
 
@@ -222,11 +225,8 @@
               anywhere on the window.
               @keywords private -->
         <method name="_stopDrag">
-            this.setAttribute('dragenabled', false);
+			this.setAttribute('dragenabled', false);
             setAttribute('state', 1);
-            lz.Cursor.unlock();
-            gScratchpad.onmouseout.sendEvent();
-            gScratchpad.onmouseover.sendEvent();
         </method>
 		
 		<!--- May be called by subclasses to control resizing of the window
