@@ -582,6 +582,9 @@
     	<method name="cancelIframeDrag">
     		if (this.htmlFields.length == 1) {
     			var frame = this.htmlFields[0].frameObj;
+    			if (frame==null){
+    				frame=this.htmlFields[0]['ref'].getIframeObject();
+    			}
     			if (typeof jQuery != 'undefine') {
     				frame.contentWindow.$("body").trigger("mouseup");
     			}
