@@ -257,4 +257,10 @@ jQuery.fn.initMagnify=function(options){
 			$('#scratch').trigger("mouseup");
 			$('#protractor').trigger("mouseup");
         });
+        /* added to prevent sticking of TE draggable 
+        	items to mouse cursor when dragged over magnifier
+        */
+        $("#magnifierWindow").on("mouseover",function() {
+			$('iframe')[0].contentWindow.$("body").trigger("mouseup");
+        });
 }
