@@ -367,7 +367,7 @@ public class PersistenceServlet extends HttpServlet {
 	}
 // Change to handle OK Calculator
 	public static String closeOkCalculator() {
-		if(PRODUCT_TYPE.equals("LASLINKS")){
+		if(PRODUCT_TYPE.equals("LASLINKS") || PRODUCT_TYPE.equals("TABE")){
 			return ServletUtils.OK;
 		}
 		return ServletUtils.ERROR;
@@ -375,7 +375,7 @@ public class PersistenceServlet extends HttpServlet {
 	}
 // Change to handle OK Calculator	
 	public static String showHideOkCalculator(String hidden) {
-		if(PRODUCT_TYPE.equals("LASLINKS")){
+		if(PRODUCT_TYPE.equals("LASLINKS") || PRODUCT_TYPE.equals("TABE")){
 			return ServletUtils.OK;
 		}
 		return ServletUtils.ERROR;
