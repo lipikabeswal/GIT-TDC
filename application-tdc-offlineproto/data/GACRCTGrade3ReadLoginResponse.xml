@@ -2,7 +2,7 @@
 	<login_response lsid="6507869:GATEWAY437" restart_flag="false" restart_number="1">
 		<status status_code="200" />
 		<testing_session_data>
-			<cmi.core student_id="12020550" student_last_name="Vvvvv" student_first_name="Vvvv" student__middle_name="" />
+			<cmi.core student_id="12020550" student_last_name="Student" student_first_name="Demo" student__middle_name="A" />
 			<lms.student.accommodations calculator="false" magnifier="false" screen_reader="false" untimed="false" rest_break="true" highlighter="true" masking_ruler="false" magnifying_glass="false" auditory_calming="false" music_file_id="0" extended_time="false" masking_tool="false">
 				<stereotype_style stereotype="directions" font_magnification="1.0" />
 				<stereotype_style stereotype="stimulus" font_magnification="1.0" />

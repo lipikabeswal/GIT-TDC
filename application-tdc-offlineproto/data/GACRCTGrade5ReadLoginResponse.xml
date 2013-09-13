@@ -3,7 +3,7 @@
 		restart_number="0">
 		<status status_code="200" />
 		<testing_session_data>
-			<cmi.core student_id="12020558" student_last_name="Ccccc" student_first_name="Bbbb" student__middle_name="" />
+			<cmi.core student_id="12020558" student_last_name="Student" student_first_name="Demo" student__middle_name="" />
 			<lms.student.accommodations calculator="false" magnifier="false" screen_reader="false" untimed="false" rest_break="true" highlighter="true" masking_ruler="false" magnifying_glass="false" auditory_calming="false" music_file_id="0" extended_time="false" masking_tool="false">
 				<stereotype_style stereotype="directions" font_magnification="1.0" />
 				<stereotype_style stereotype="stimulus" font_magnification="1.0" />
