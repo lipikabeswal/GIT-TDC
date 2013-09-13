@@ -574,6 +574,7 @@
 		<attribute name="relogin" value="false" type="boolean" />
 		<attribute name="dRestoreCursor"
 			value="$once{ new lz.Delegate( this, 'restoreGrabCursor' ) }" type="expression"/>
+		<attribute name="manipSelected"/> 
 		
 		<!--  Will be set to true when an object is dragged inside a TE item  -->	
     	<attribute name="iframeDragActive" value="false" type="boolean" />			
@@ -3155,6 +3156,7 @@
           	closeOpenManipulatives();
           	hideManipulatives();
             gScreens.showPause(getStudentName());
+			gTooltip.hideTooltip();
 		</method>
 
 		<method name="pausedContinue" args="pw">
@@ -3177,6 +3179,7 @@
 			gScreens.resetTextFieldColor();
             startQuestion();
 			showManipulatives();
+			manipulativeSelected();
             unlockUI();
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
@@ -3199,6 +3202,7 @@
  		]]></method>
 
 		<method name="finishTest">
+			gTooltip.hideTooltip ();
         	gReadableText.stopReading(false);
             freezeUI();
             
@@ -3344,6 +3348,7 @@
 		]]></method>
 
 		<method name="resumeTest">
+			manipulativeSelected();
 			/*if(gController.htmlFields != null){
 				gController.showHtmlWidgets();
 			}*/
@@ -3358,6 +3363,7 @@
 				gScreens.removeFinishState();
 			}
 			checkShowMagnifierGlass();
+			gTooltip.hideTooltip();
         </method>
 
 		<method name="continueTest">
@@ -5566,6 +5572,13 @@ Debug.write("############ loadItem ############");
             gScreens.copyWriteText.setAttribute('y',200);
 			gDownloadManager.downloadContent();
 		</method>
+
+		<method name="manipulativeSelected"><![CDATA[
+			console.log("this.manipSelected******",manipSelected,manipSelected.name);
+			if(this.manipSelected.data != 'sel') {
+				this.manipSelected.setAttribute("frame",1);
+			}
+		]]></method> 
 	</node>
 
 </library>
