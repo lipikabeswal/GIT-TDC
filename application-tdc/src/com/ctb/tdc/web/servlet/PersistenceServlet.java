@@ -7,9 +7,11 @@ import static com.ctb.tdc.web.utils.ReLoginUtility.getReLoginUtility;
 import static com.ctb.tdc.web.utils.ReLoginUtility.setAccessCode;
 import static com.ctb.tdc.web.utils.ReLoginUtility.setLoginId;
 import static com.ctb.tdc.web.utils.ReLoginUtility.setPassword;
-
+import com.ti.eps.emu84.testAgency.EmulatorComponent;
 import java.awt.AWTException;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
@@ -25,6 +27,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
+import java.lang.reflect.Field;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -35,6 +38,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -58,6 +63,8 @@ import com.ctb.tdc.web.utils.ReLoginUtility;
 import com.ctb.tdc.web.utils.ServletUtils;
 import com.ctb.tdc.web.utils.CalculatorDialog;
 import com.ctb.tdc.web.utils.Recorder;
+import com.ti.eps.emu84.testAgency.EmulatorComponent;
+import com.ti.eps.ngiexamcalc.gui.ti30.CalcPaneTI30;
 
 /** 
  * @author Tai_Truong
@@ -92,15 +99,15 @@ public class PersistenceServlet extends HttpServlet {
 	"webapp" + File.separator + "WEB-INF";
 	private static native void nativeUpLevelWindow(final String windowName);
 	
-	/*static {
-		if(osName.indexOf("mac") >= 0) {
+	static {
+		/*if(osName.indexOf("mac") >= 0) {
             System.load(WEBINF_FOLDER_PATH + File.separator + "lib" + File.separator +"libAddressBook.jnilib");
             logger.info("Library loaded successfully"); 
-        }
+        }*/
 		
 		showOkCalculator("TI30");
 		showOkCalculator("TI84");
-	}*/
+	}
 	
 	/**
 	 * Constructor of the object.
@@ -367,16 +374,59 @@ public class PersistenceServlet extends HttpServlet {
 	}
 // Change to handle OK Calculator
 	public static String closeOkCalculator() {
-		if(PRODUCT_TYPE.equals("LASLINKS") || PRODUCT_TYPE.equals("TABE")){
+		if(PRODUCT_TYPE.equals("LASLINKS")){
 			return ServletUtils.OK;
 		}
+		try {
+			if(calculatorDialog84 != null && calculatorDialog30 != null) {
+				showHideOkCalculator("Y");
+			}
+			return ServletUtils.OK;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return ServletUtils.ERROR;
-			
 	}
+			
+	
 // Change to handle OK Calculator	
 	public static String showHideOkCalculator(String hidden) {
 		if(PRODUCT_TYPE.equals("LASLINKS") || PRODUCT_TYPE.equals("TABE")){
 			return ServletUtils.OK;
+		}
+		try {
+			//Schedule a job for the event-dispatching thread:
+	        //creating and showing this application's GUI.
+			if("TI84".equals(calcType)) {
+				if(calculatorDialog84 != null && calculatorDialog84.isCalculatorRunning()) {
+					if("Y".equals(hidden)) {
+						calculatorDialog84.setVisible(false);
+					} else {
+						calculatorDialog84.setVisible(true);
+						String windowName = calculatorDialog84.getTitle();
+						if(osName.indexOf("mac") >= 0) {
+				            logger.info("Calling native window method");
+				            nativeUpLevelWindow(windowName);
+				        }
+					}
+				}
+			} else {
+				if(calculatorDialog30 != null && calculatorDialog30.isCalculatorRunning()) {
+					if("Y".equals(hidden)) {
+						calculatorDialog30.setVisible(false);
+					} else {
+						calculatorDialog30.setVisible(true);
+						String windowName = calculatorDialog30.getTitle();
+						if(osName.indexOf("mac") >= 0) {
+				            logger.info("Calling native window method");
+				            nativeUpLevelWindow(windowName);
+				        }
+					}
+				}
+			}
+	        return ServletUtils.OK;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return ServletUtils.ERROR;
 			
@@ -1016,4 +1066,120 @@ public class PersistenceServlet extends HttpServlet {
 		logger.info("PersistenceServlet : auto login xml*************" + xml);
 		return xml;
 	}
+	public static String showOkCalculator(final String calcType) {
+		try {
+            //Schedule a job for the event-dispatching thread:
+	        //creating and showing this application's GUI.
+			if("TI84".equals(calcType)) {
+				if(calculatorDialog84 == null || !calculatorDialog84.isCalculatorRunning()) {
+			        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			            public void run() {
+			            	createAndShowTI84();
+				        }
+			        });
+				} else {
+					calculatorDialog84.dispose();
+				}
+			} else {
+				if(calculatorDialog30 == null || !calculatorDialog30.isCalculatorRunning()) {
+			        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			            public void run() {
+			            	createAndShowTI30();	
+				        }
+			        });
+				} else {
+					calculatorDialog30.dispose();
+				}
+			}
+	        return ServletUtils.OK;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ServletUtils.ERROR;
+	}
+	
+private static void createAndShowTI84() {
+    	
+    	String javaLibPath = System.getProperty("java.library.path");
+		System.setProperty("java.library.path", WEBINF_FOLDER_PATH + File.separator + "lib");
+    	try {
+			Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
+			fieldSysPath.setAccessible(true);
+			fieldSysPath.set(null, null);
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+
+    	JFrame jFrame = new JFrame();
+    	calculatorDialog84 = new CalculatorDialog(jFrame, ServletUtils.GRAPHIC_CALCULATOR);
+    	calculatorDialog84.setAlwaysOnTop(true);
+    	calculatorDialog84.setResizable(false);
+    	//calculatorDialog84.setIconImage(new ImageIcon(RESOURCE_FOLDER_PATH + File.separator + "calc.png").getImage());
+    
+    	EmulatorComponent emu = new EmulatorComponent(jFrame);
+        emu.setFaceSize(EmulatorComponent.MEDIUM);
+        emu.ResetEmulator();
+        
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JLabel emptyLabel = new JLabel("");
+        //emptyLabel.setPreferredSize(new Dimension(175, 100));
+        calculatorDialog84.getContentPane().add(emptyLabel, BorderLayout.CENTER);
+
+        //Display the window.
+        calculatorDialog84.getContentPane().add(emu);
+        calculatorDialog84.pack();
+        
+        // Set the JFrame at middle of the screen
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Point middle = new Point(screenSize.width / 2, screenSize.height / 2);
+        Point newLocation = new Point(middle.x - (calculatorDialog84.getWidth() / 2), 
+                                      middle.y - (calculatorDialog84.getHeight() / 2));
+        calculatorDialog84.setLocation(newLocation);
+        //calculatorDialog.setVisible(true);
+        
+        System.setProperty("java.library.path", javaLibPath);
+    	try {
+			Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
+			fieldSysPath.setAccessible(true);
+			fieldSysPath.set(null, null);
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+    }
+
+private static void createAndShowTI30() {
+    
+    JFrame jframe = new JFrame();
+	calculatorDialog30 = new CalculatorDialog(jframe, ServletUtils.SCIENTIFIC_CALCULATOR);
+            
+	calculatorDialog30.setAlwaysOnTop(true);
+	calculatorDialog30.setResizable(false);
+	//calculatorDialog30.setIconImage(new ImageIcon(RESOURCE_FOLDER_PATH + File.separator + "calc.png").getImage());
+	calculatorDialog30.setSize(300, 600);
+	
+    CalcPaneTI30 emu = new CalcPaneTI30(calculatorDialog30.getContentPane());
+    calculatorDialog30.add(emu, BorderLayout.CENTER);
+
+    // Set the JFrame at middle of the screen
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    Point middle = new Point(screenSize.width / 2, screenSize.height / 2);
+    Point newLocation = new Point(middle.x - (calculatorDialog30.getWidth() / 2), 
+                                  middle.y - (calculatorDialog30.getHeight() / 2));
+    calculatorDialog30.setLocation(newLocation);
+    
+    calculatorDialog30.setVisible(true);
+    calculatorDialog30.setVisible(false);
+}
 }
