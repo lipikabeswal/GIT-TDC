@@ -31,20 +31,20 @@
 			<simplelayout axis="x"/>
 			<ManipulativeButton resource="toolbar_choice_eliminator_btn"
 	                            toolid="option_eliminator"
-	                            tooltip="Option Eliminator" xpos = "${this.x}"/>
+	                            tooltip="Option Eliminator" xpos = "${this.x}" name="option_eliminator"/>
 			<ManipulativeButton resource="toolbar_highlighter_btn"
 	                            toolid="highlighter"
-	                            tooltip="Highlighter" xpos = "${this.x}"/>
+	                            tooltip="Highlighter" xpos = "${this.x}" name="highlighter"/>
 			<ManipulativeButton resource="toolbar_eraser_btn"
 	                            toolid="eraser"
-	                            tooltip="Eraser" xpos = "${this.x}"/>
+	                            tooltip="Eraser" xpos = "${this.x}" name="eraser"/>
 	        <ScratchpadButton   resource="toolbar_scratchpad_btn"
 	                            toolid="scratchpad"
-	                            tooltip="Scratchpad" xpos = "${this.x}"/>
+	                            tooltip="Scratchpad" xpos = "${this.x}" name="scratchpad"/>
 
 			<ManipulativeButton resource="toolbar_masking_ruler_btn"
 	                            toolid="masking_ruler"
-	                            tooltip="Blocking Ruler" xpos = "${this.x}"/>	
+	                            tooltip="Blocking Ruler" xpos = "${this.x}" name="masking_ruler"/>	
 	                            
 	                            <view name="gap" width="2" height="20" valign="middle"/>
 			<!-- Magnifier Glass Button -->
@@ -60,6 +60,7 @@
 				<handler name="onmouseover">
 				        lz.Cursor.showHandCursor(true);
 						this.setAttribute('frame',2);
+						gController.setAttribute("manipSelected",this);
 						lz.Timer.addTimer (tooltipdel, 500);
 					</handler>
 
@@ -126,6 +127,7 @@
 				<handler name="onmouseover">
 				        lz.Cursor.showHandCursor(true);
 						this.setAttribute('frame',2);
+						gController.setAttribute("manipSelected",this);
 						if(!gMaskingAnswer.visible)
 							lz.Timer.addTimer (tooltipdel, 500);
 					</handler>
@@ -173,36 +175,36 @@
 			<simplelayout axis="x"/>
 			<ManipulativeButton resource="toolbar_oneeighth_inch_ruler_btn"
 	                            toolid="oneeighth_inch_ruler"
-	                            tooltip="1/8&quot; ruler" xpos = "${this.x+ classroot.globals.width+10}"/>
+	                            tooltip="1/8&quot; ruler" xpos = "${this.x+ classroot.globals.width+10}" name="oneeighth_inch_ruler"/>
 			<ManipulativeButton resource="toolbar_half_inch_ruler_btn"
 	                            toolid="half_inch_ruler"
-	                            tooltip="1/2&quot; ruler" xpos = "${this.x+ classroot.globals.width+10}"/>
+	                            tooltip="1/2&quot; ruler" xpos = "${this.x+ classroot.globals.width+10}" name="half_inch_ruler"/>
 			<ManipulativeButton resource="toolbar_mm_ruler_btn"
 	                            toolid="mm_ruler"
-	                            tooltip="mm ruler" xpos = "${this.x+ classroot.globals.width+10}"/>
+	                            tooltip="mm ruler" xpos = "${this.x+ classroot.globals.width+10}" name="mm_ruler"/>
 			<ManipulativeButton resource="toolbar_cm_ruler_btn"
 	                            toolid="cm_ruler"
-	                            tooltip="cm ruler" xpos = "${this.x+ classroot.globals.width+10}"/>
+	                            tooltip="cm ruler" xpos = "${this.x+ classroot.globals.width+10}" name="cm_ruler"/>
 			<ManipulativeButton resource="toolbar_protractor_btn"
 	                            toolid="protractor"
-	                            tooltip="Protractor" xpos = "${this.x+ classroot.globals.width+10}"/>
+	                            tooltip="Protractor" xpos = "${this.x+ classroot.globals.width+10}" name="protractor"/>
 			<ManipulativeButton resource="toolbar_formula_card_btn"
 	                            toolid="FCAT_formula_card"
-	                            tooltip="Reference Card" xpos = "${this.x+ classroot.globals.width+10}"/>
+	                            tooltip="Reference Card" xpos = "${this.x+ classroot.globals.width+10}" name="FCAT_formula_card"/>
 			<ManipulativeButton resource="toolbar_formula_card_btn"
 	                            toolid="TN_formula_card"
-	                            tooltip="Reference Card" xpos = "${this.x+ classroot.globals.width+10}"/>
+	                            tooltip="Reference Card" xpos = "${this.x+ classroot.globals.width+10}" name="TN_formula_card"/>
 			<ManipulativeButton resource="toolbar_formula_card_btn"
 	                            toolid="formula_card_resource"
-	                            tooltip="Reference Card" xpos = "${this.x+ classroot.globals.width+10}"/>
+	                            tooltip="Reference Card" xpos = "${this.x+ classroot.globals.width+10}" name="formula_card_resource"/>
 			<ManipulativeButton resource="toolbar_calculator_btn"
 	                            toolid="standard_calculator"
 	                            tooltip="Calculator" 
-								xpos = "${this.x+ classroot.globals.width+10}" />
+								xpos = "${this.x+ classroot.globals.width+10}" name="standard_calculator"/>
 			<ManipulativeButton resource="toolbar_straight_edge_btn"
 	                            toolid="straight_edge"
 	                            tooltip="Straight Edge" 
-								xpos = "${this.x+ classroot.globals.width+10}"/>
+								xpos = "${this.x+ classroot.globals.width+10}" name="straight_edge"/>
 		</view>
 		
 		<view name="screenreader" valign="middle" height="100%">
@@ -216,6 +218,7 @@
 				<handler name="onmouseover">
 				    lz.Cursor.showHandCursor(true);
 					lz.Timer.addTimer (tooltipdel, 500);
+					gController.setAttribute("manipSelected",this);
 				</handler>
 		                
 				<handler name="onmouseout">
@@ -244,12 +247,13 @@
 		
 				<handler name="onmouseover">
 				    lz.Cursor.showHandCursor(true);
+				    gController.setAttribute("manipSelected",this);
 					lz.Timer.addTimer (tooltipdel, 500);
 				</handler>
 		                
 				<handler name="onmouseout">
 				    lz.Cursor.showHandCursor(false);
-					gTooltip.hideTooltip ();    
+					gTooltip.hideTooltip (); 
 					lz.Timer.removeTimer (this.tooltipdel);
 				</handler>
 		
@@ -303,6 +307,7 @@
 	
 					<method name="mouseover" args="ignore=null">
 					    lz.Cursor.showHandCursor(true);
+					   gController.setAttribute("manipSelected",this);
 						lz.Timer.addTimer (tooltipdel, 500);
 					</method>
 			                
