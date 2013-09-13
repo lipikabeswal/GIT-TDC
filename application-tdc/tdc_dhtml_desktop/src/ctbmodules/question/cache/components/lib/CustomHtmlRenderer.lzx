@@ -227,7 +227,7 @@
 
                 this._offsetheight = offsetHeight;
                 this._offsetwidth = offsetWidth;
-                this.setAttribute( "height", offsetHeight + Math.round( fontsize / 2));
+                this.setAttribute( "height", offsetHeight);
                 this.setAttribute( "width", offsetWidth );
                 this._div.style.lineHeight = this.lineheight;
                 // Chrome takes some time to update the <div>, and does not
