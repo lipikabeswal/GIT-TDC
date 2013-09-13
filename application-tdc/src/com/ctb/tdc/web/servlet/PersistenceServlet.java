@@ -57,6 +57,7 @@ import org.xml.sax.SAXException;
 import com.ctb.tdc.web.utils.AuditFile;
 import com.ctb.tdc.web.utils.Base64;
 import com.ctb.tdc.web.utils.CATEngineProxy;
+import com.ctb.tdc.web.utils.CalculatorDialog;
 import com.ctb.tdc.web.utils.LoadTestUtils;
 import com.ctb.tdc.web.utils.MemoryCache;
 import com.ctb.tdc.web.utils.ReLoginUtility;
@@ -89,8 +90,9 @@ public class PersistenceServlet extends HttpServlet {
 	private static final String unixPath = "//.macromedia//Flash_Player//macromedia.com//support//flashplayer//sys";
 	private static final String PRODUCT_TYPE = System.getProperty("tdc.productType");
 	private static HashMap<String, String> audioResponseHash = new HashMap<String, String>();
-	private static CalculatorDialog calculatorDialog84 = null;
+	
 	private static CalculatorDialog calculatorDialog30 = null;
+	private static CalculatorDialog calculatorDialog84 = null;
 	private static String calcType = "TI84";
 	private static final String TDC_HOME = "tdc.home";
 	private static final String RESOURCE_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
@@ -192,7 +194,7 @@ public class PersistenceServlet extends HttpServlet {
 	private void handleEvent(HttpServletResponse response, String method,
 			String xml, HttpServletRequest request) throws IOException {
 		String result = ServletUtils.OK;
-		//System.out.println("Method Called ***"+method);
+		System.out.println("Method Called ***"+method);
 		boolean validSettings = ServletUtils.validateServletSettings();
 		Double abilityScore =0.0;
 		Double sem = 0.0;
@@ -294,11 +296,33 @@ public class PersistenceServlet extends HttpServlet {
 		else if (method != null
 				&& method.equals(ServletUtils.OK_CALCULATOR)) {
 			calcType = request.getParameter("calcType");
-					showHideOkCalculator("Y");
-		} else if (method != null
-					&& method.equals(ServletUtils.SHOW_HIDE_OK_CALCULATOR)) {
+			//result = showHideOkCalculator("N");
+			//result = showOkCalculator(calcType);
+			if(!calculatorDialog84.isVisible() && !calculatorDialog30.isVisible()) {
+				showHideOkCalculator("N");
+			} else {
 				showHideOkCalculator("Y");
 			}
+		} else if (method != null
+				&& method.equals(ServletUtils.SHOW_HIDE_OK_CALCULATOR)) {
+			
+			String isHideCalc = request.getParameter("isHidden");
+			if("Y".equals(isHideCalc)) {
+				if(calculatorDialog84.isVisible() || calculatorDialog30.isVisible()) {
+					calculatorDialog84.setCalculatorPaused(true);
+					calculatorDialog30.setCalculatorPaused(true);
+				}
+				showHideOkCalculator("Y");
+			} else {
+				if(calculatorDialog84.isCalculatorPaused() || calculatorDialog30.isCalculatorPaused()) {
+					showHideOkCalculator("N");
+				} else {
+					showHideOkCalculator("Y");
+				}
+				calculatorDialog84.setCalculatorPaused(false);
+				calculatorDialog30.setCalculatorPaused(false);
+			}
+		}
 		else if (method != null
 				&& method.equals(ServletUtils.CLOSE_OK_CALCULATOR))
 			result = closeOkCalculator();
@@ -381,17 +405,19 @@ public class PersistenceServlet extends HttpServlet {
 			if(calculatorDialog84 != null && calculatorDialog30 != null) {
 				showHideOkCalculator("Y");
 			}
+			System.out.println("ok_calculator called persi close OK");
 			return ServletUtils.OK;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("ok_calculator called persi close ERROR");
 		return ServletUtils.ERROR;
 	}
 			
 	
 // Change to handle OK Calculator	
 	public static String showHideOkCalculator(String hidden) {
-		if(PRODUCT_TYPE.equals("LASLINKS") || PRODUCT_TYPE.equals("TABE")){
+		if(PRODUCT_TYPE.equals("LASLINKS")){
 			return ServletUtils.OK;
 		}
 		try {
@@ -424,10 +450,13 @@ public class PersistenceServlet extends HttpServlet {
 					}
 				}
 			}
+			System.out.println("ok_calculator called persi OK");
 	        return ServletUtils.OK;
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 		}
+		System.out.println("ok_calculator called persi ERROR");
 		return ServletUtils.ERROR;
 			
 	}
@@ -1171,6 +1200,7 @@ private static void createAndShowTI30() {
 	
     CalcPaneTI30 emu = new CalcPaneTI30(calculatorDialog30.getContentPane());
     calculatorDialog30.add(emu, BorderLayout.CENTER);
+    
 
     // Set the JFrame at middle of the screen
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
