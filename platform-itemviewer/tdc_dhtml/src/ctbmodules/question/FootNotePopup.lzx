@@ -5,7 +5,7 @@
       clickable="true">
 
     <attribute name="scrolltext"/>
-    <attribute name="backcolor" type="color" value="white"/>
+    <attribute name="backcolor" value="0xFFFFFF"/>
     <attribute name="scrollpaneltxt" type="string" value=""/> 
 	
     <attribute name="BORDER_SIZE" value="6"/>
@@ -19,9 +19,9 @@
 	<attribute name="readingFootNote" type="boolean" value="false" />
 	
     <method name="findScrollingTextPanel" args="inDP">
-        if(inDP.getNodeName() == gCompTypes.WIDGET_SCROLLING_TEXT_PANEL) {
+        /*if(inDP.getNodeName() == gCompTypes.WIDGET_SCROLLING_TEXT_PANEL) {
             return inDP.p;
-        }
+        }*/
 
         var dp = inDP.dupePointer();
         if(dp.selectChild())
@@ -42,7 +42,7 @@
 
 	<attribute name="readable" type="boolean" value="false" />
 	
-    <handler name="ondata" reference="gController.dpitem">
+    <handler name="ondata" reference="gController.dpitem"><![CDATA[
         //find the text in the scroll text panel node.  We'll use this to find
         //the details for a particular header
         if (gController.dpitem.data) {
@@ -52,8 +52,15 @@
             }
             if(dnscrolltext == null){
             	dnscrolltext = gController.dpitem.xpathQuery("item_canvas/stimulus_tabs_panel/stimulus_tab");
-            	if(dnscrolltext != null){
+            	if (dnscrolltext == null) dnscrolltext = gController.dpitem.xpathQuery("item_canvas/panel/stimulus_tabs_panel/stimulus_tab");
+            	if (dnscrolltext == null) dnscrolltext = gController.dpitem.xpathQuery("item_canvas/panel");
+
+				Debug.write("dnscrolltext",dnscrolltext);
+            	if(dnscrolltext != null && dnscrolltext instanceof Array){
             		dnscrolltext = dnscrolltext[0];
+            	}
+            	else if(dnscrolltext != null){
+            		dnscrolltext = dnscrolltext;
             	}
             }
             if (dnscrolltext) {
@@ -72,7 +79,7 @@
             	this.arrow.setAttribute("showhandcursor", false);
             }
         }
-    </handler>
+   ]]> </handler>
     <method name ="UTFDecode" args="b">
     	<![CDATA[
     	//Defect 64691- Added for footnote defect fix.
@@ -81,8 +88,8 @@
     	//This fix will help footnote to work for all the flash versions.
 		    var c= '';
 		   // Debug.write("UTF Decode")
-			for(i=0; i<b.length; i++){
-				if(b.charCodeAt(i)>127)
+			for(var i=0; i < b.length; i++){
+				if(b.charCodeAt(i) > 127)
 				{ 
 				c += '&amp;#' + b.charCodeAt(i) + ';';
 				 }
@@ -107,23 +114,48 @@
 	]]></method>
 	
     <attribute name="clickdel" 
-               value="$once{new lz.Delegate(this, 'checkClick')}"/>
+               value="$once{new lz.Delegate(this, 'checkClick')}" type="expression"/>
 
     <handler name="onscrolltext">
         //init font color and background color
-        var fgc = this.scrolltext['fontcolor'] ? this.scrolltext.fontcolor : "white";
-        var bc = this.scrolltext['panel'] &amp;&amp; this.scrolltext.panel['bgcolor'] ? this.scrolltext.panel.bgcolor : "black";
-        
-        this.body.wrap.setAttribute("fgcolor", fgc);
-		this.setAttribute("backcolor", bc);
+        Debug.write("FOOTNOTE SCROLL TEXT" , scrolltext);
+        if(scrolltext!=null){
+			if(!(this.scrolltext instanceof lz.CachableAnswerAreaPanel || this.scrolltext instanceof lz.CachableAnswerAreaAbsolutePanel)) {
+		        var fgc = this.scrolltext['fontcolor'] ? this.scrolltext.fontcolor : "0xFFFFFF";
+		        var bc = this.scrolltext['panel'] &amp;&amp; this.scrolltext.panel['bgcolor'] ? this.scrolltext.panel.bgcolor : "0x000000";
+			}
+			else {
+        		var fgc = gController.questionFontColor;
+        		var bc = gController.questionBgColor;
+       	 	}
+	        this.body.wrap.setAttribute("fgcolor", fgc);
+	        this.body.wrap.header.setAttribute("fgcolor", fgc);
+	        this.body.wrap.detail.setAttribute("fgcolor", fgc);
+	        this.body.wrap.detailmulti.setAttribute("fgcolor", fgc);
+			this.setAttribute("backcolor", bc);
+		}
     </handler>
 
-    <method name="show" args="header">
+    <method name="show" args="footnoteData">
         <![CDATA[
 		//Defect 64691- Added for footnote defect fix.
 		//Defect 65619 & 65617 fix
-		this.itemtxt = UTFDecode(this.itemtxt);
-		 if (this.itemtxt != ""){
+		var data = footnoteData.split("|");
+		var header = data[0];
+		var detail = data[1];
+		var readable = data[2];
+		var displayStyle = data[3];
+		var fnfontsize = data[4];
+		var fontsize = 0;
+		if(fnfontsize == 12) {
+			fontsize = 12;
+		}
+		else {
+			fontsize = 18;
+		}
+		reallyShow(header,detail,readable,displayStyle,fontsize);
+		//this.itemtxt = UTFDecode(this.itemtxt);
+		 /*if (this.itemtxt != ""){
 			var headerpos = this.itemtxt.indexOf("header=&quot;" + this.formatStr(header));
 			if(headerpos != -1){
         		reallyShow(header);
@@ -131,50 +163,58 @@
         	else{
         		hide();
         	}
-        }
+        }*/
        ]]>
     </method>
 
-    <method name="reallyShow" args="header">
+    <method name="reallyShow" args="header,fndetail,readable,fndisplayStyle,fontsize">
         <![CDATA[
+		var displayStyle="";
         //reset scrollbar
         this.body.wrap.setAttribute("y", 0);
-
         //find the detail string
-        var headerpos = this.itemtxt.indexOf("header=&quot;" + this.formatStr(header));
+        /*var headerpos = this.itemtxt.indexOf("header=&quot;" + this.formatStr(header));
 		var detailstart = this.itemtxt.indexOf("detail=&quot;", headerpos) + 13;
-		var detailend = this.itemtxt.indexOf("&quot;", detailstart);
-		var detail = this.itemtxt.substring(detailstart, detailend);
+		var detailend = this.itemtxt.indexOf("&quot;", detailstart); */
+
+		var detail = fndetail;
 		detail = replaceAmp(detail);
-		setReadable(headerpos);
-		
-		var displayStyle = NORMAL_DISPLAY_STYLE;
+		setReadable(readable);
 		var headerDisplay = header;
 
-		var displayStyleStart = this.itemtxt.indexOf("display_style=&quot;", headerpos);
+		/*var displayStyleStart = this.itemtxt.indexOf("display_style=&quot;", headerpos);
 		var footnoteEnd = this.itemtxt.indexOf("&lt;/footnote&gt;", headerpos);
 
 		if(displayStyleStart != -1 && displayStyleStart < footnoteEnd){
 			displayStyleStart = displayStyleStart + 20;
 			var displayStyleEnd = this.itemtxt.indexOf("&quot;", displayStyleStart);
 	        displayStyle = this.itemtxt.substring(displayStyleStart, displayStyleEnd);
-	    }
+	    }*/
+		
 	    
+		if(fndisplayStyle && fndisplayStyle != "") {
+			displayStyle = fndisplayStyle;
+		}
+		else {
+			displayStyle = NORMAL_DISPLAY_STYLE;
+		}
 	    if(displayStyle == BOOKTITLE_DISPLAY_STYLE){
 	    	headerDisplay = "<i>" + header + "</i>";
 		}
-	    
+	    var fontSize = fontsize;
+
         //init footnote
         this.body.wrap.header.setAttribute("text", headerDisplay);
+		this.body.wrap.header.setAttribute("fontsize", fontSize);
 
-        this.body.wrap.detail.setAttribute("text", detail);
+        this.body.wrap.detail.setAttribute("text", '<label><span style="line-height:17px;">' + detail + '</span></label>');
+		this.body.wrap.detail.setAttribute("fontsize", fontSize);
         this.body.wrap.detailmulti.setAttribute("text", detail);
+		this.body.wrap.detailmulti.setAttribute("fontsize", fontSize);
 
-        var fontSize = 
-            (this.scrolltext['fontsize'] ? this.scrolltext.fontsize : 12);
             
-        this.setAttribute("x", parent.getMouse("x") - fontSize);
-        this.setAttribute("y", parent.getMouse("y") - this.height - fontSize);
+        this.setAttribute("x", getMouseFixed(parent,'x') - fontSize);
+        this.setAttribute("y", getMouseFixed(parent,'y') - this.height - fontSize);
 
         var arrowy = this.height - 1;
         var arrowdir = "up";
@@ -183,7 +223,7 @@
                 - this.scrolltext.getAttributeRelative("y", canvas);         
             
         if (rely < 0) {
-            this.setAttribute("y", parent.getMouse("y") + fontSize);
+            this.setAttribute("y", getMouseFixed(parent,'y') + fontSize);
             arrowy = -this.arrow.height + 1;
             arrowdir = "down";
         }
@@ -208,14 +248,29 @@
         this.clickdel.register(lz.GlobalMouse, "onmousedown");
         ]]>
     </method>
+    
+    <!-- Workaround for a bug in the DHTML runtime which reports an
+             incorrect mouse position for scaled views. -->
+        <method name="getMouseFixed" args="target, axis"><![CDATA[
+            if ( axis == "x" && ( $as3 || canvas.xscalefactor == 1)) {
+                return target.getMouse('x');
+            } else if (axis == "x" && canvas.xscalefactor != 1){
+                return Math.round(target.getMouse('x') / canvas.xscalefactor);
+            }
+            if (axis == "y" && ($as3 || canvas.yscalefactor == 1)) {
+                return target.getMouse('y');
+            } else if (axis == "y" && canvas.yscalefactor != 1) {
+                return Math.round(target.getMouse('y') / canvas.yscalefactor);
+            }
+        ]]></method>
 
-	<method name="setReadable" args="headerpos"><![CDATA[
+	<method name="setReadable" args="readable"><![CDATA[
 		var isreadable = false;
 		if(canvas.readable){
-			var rest = this.itemtxt.substring(headerpos, this.itemtxt.length);
-			var readablestart = rest.indexOf('readable=&quot;') + 15;
-			var readableend = readablestart + 4;
-			var readableflag = rest.substring(readablestart, readableend);
+			//var rest = this.itemtxt.substring(headerpos, this.itemtxt.length);
+			//var readablestart = rest.indexOf('readable=&quot;') + 15;
+			//var readableend = readablestart + 4;
+			var readableflag = readable;
 			isreadable = readableflag == 'true';
 		}
 		this.setAttribute('readable', isreadable);
@@ -226,13 +281,13 @@
     <method name="hide">
         this.setAttribute("visible", false);
         if(this.readingFootNote == true){
-        		gReadableText.stopReading();
+        		gReadableText.stopReading(false);
          		this.setAttribute("readingFootNote",false);
         	}   
         this.clickdel.unregisterAll();
     </method>
     
-    <method name="checkClick"><![CDATA[
+    <method name="checkClick" args="ignore=null"><![CDATA[
         if (!isClickInPopup()) {
             this.hide();
         }
@@ -314,6 +369,11 @@
     <drawview width="100%" height="100%" 
               x="$once{parent.DROP_SHADOW_SIZE}" 
               y="$once{parent.DROP_SHADOW_SIZE}">
+        <attribute name="isready" value="false" type="boolean" />
+			  <handler name="oncontext">
+			    this.setAttribute("isready", true);
+			    this.redraw();
+			  </handler>
         <handler name="onwidth">
             this.redraw();
         </handler>
@@ -321,32 +381,40 @@
             this.redraw();
         </handler>
         <method name="redraw">
-            this.clear();
-            var roundness = 5;
-            this.beginPath();
-            this.moveTo(roundness, 0);
-            this.lineTo(this.width - roundness, 0);
-            this.quadraticCurveTo(this.width, 0, this.width, roundness);
-            this.lineTo(this.width, this.height - roundness);
-            this.quadraticCurveTo(this.width, this.height, this.width - roundness, this.height);
-            this.lineTo(roundness, this.height);
-            this.quadraticCurveTo(0, this.height, 0, this.height - roundness);
-            this.lineTo(0, roundness);
-            this.quadraticCurveTo(0, 0, roundness, 0);
-            this.closePath();
-
-            var g = this.createRadialGradient(-this.width * .5, -this.height *.5, .7, 1.5 * this.width, 1.5 * this.height, 0)
-            this.globalAlpha = 0;
-            g.addColorStop(0, 0x000000);
-            this.globalAlpha = .8;
-            g.addColorStop(1, 0xffffff);
-
-            this.setAttribute("fillStyle", g);
-            this.fill();
+        	if(this.isready){
+	            this.clear();
+	            var roundness = 5;
+	            this.beginPath();
+	            this.moveTo(roundness, 0);
+	            this.lineTo(this.width - roundness, 0);
+	            this.quadraticCurveTo(this.width, 0, this.width, roundness);
+	            this.lineTo(this.width, this.height - roundness);
+	            this.quadraticCurveTo(this.width, this.height, this.width - roundness, this.height);
+	            this.lineTo(roundness, this.height);
+	            this.quadraticCurveTo(0, this.height, 0, this.height - roundness);
+	            this.lineTo(0, roundness);
+	            this.quadraticCurveTo(0, 0, roundness, 0);
+	            this.closePath();
+	
+	            var g = this.createRadialGradient(-this.width * .5, -this.height *.5, .7, 1.5 * this.width, 1.5 * this.height, 0)
+	            this.globalAlpha = 0;
+	            g.addColorStop(0, 0x000000);
+	            this.globalAlpha = .8;
+	            g.addColorStop(1, 0xffffff);
+	
+	            this.setAttribute("fillStyle", g);
+	            this.fill();
+            }
         </method>
     </drawview>
 
     <drawview name="bubble" width="100%" height="100%">
+           <attribute name="isready" value="false" type="boolean" />
+			  <handler name="oncontext">
+			    this.setAttribute("isready", true);
+			    this.redraw();
+			  </handler>
+    
         <handler name="onwidth">
             this.redraw();
         </handler>
@@ -357,30 +425,38 @@
             this.redraw();
         </handler>
         <method name="redraw">
-            this.clear();
-            var roundness = 5;
-            this.beginPath();
-            this.moveTo(roundness, 0);
-            this.lineTo(this.width - roundness, 0);
-            this.quadraticCurveTo(this.width, 0, this.width, roundness);
-            this.lineTo(this.width, this.height - roundness);
-            this.quadraticCurveTo(this.width, this.height, this.width - roundness, this.height);
-            this.lineTo(roundness, this.height);
-            this.quadraticCurveTo(0, this.height, 0, this.height - roundness);
-            this.lineTo(0, roundness);
-            this.quadraticCurveTo(0, 0, roundness, 0);
-            this.closePath();
-
-            this.setAttribute("fillStyle", parent.backcolor);
-            this.fill();
-            
-            this.setAttribute("strokeStyle", black);
-            this.stroke();
+        	if(this.isready){
+	            this.clear();
+	            var roundness = 5;
+	            this.beginPath();
+	            this.moveTo(roundness, 0);
+	            this.lineTo(this.width - roundness, 0);
+	            this.quadraticCurveTo(this.width, 0, this.width, roundness);
+	            this.lineTo(this.width, this.height - roundness);
+	            this.quadraticCurveTo(this.width, this.height, this.width - roundness, this.height);
+	            this.lineTo(roundness, this.height);
+	            this.quadraticCurveTo(0, this.height, 0, this.height - roundness);
+	            this.lineTo(0, roundness);
+	            this.quadraticCurveTo(0, 0, roundness, 0);
+	            this.closePath();
+	
+	            this.setAttribute("fillStyle", parent.backcolor);
+	            this.fill();
+	            
+	            this.setAttribute("strokeStyle", 0x000000);
+	            this.stroke();
+            }
         </method>
     </drawview>
 
     <drawview name="arrow" width="10" height="10" clickable="true">
+    
         <attribute name="direction" type="string" value="up"/>
+        <attribute name="isready" value="false" type="boolean" />
+			  <handler name="oncontext">
+			    this.setAttribute("isready", true);
+			    this.redraw();
+			  </handler>
         <handler name="oninit">
             this.redraw();
         </handler>
@@ -391,6 +467,7 @@
             this.redraw();
         </handler>
         <method name="redraw">
+        	if(this.isready){
             this.clear();
             this.beginPath();
 
@@ -424,6 +501,7 @@
                 this.lineTo(10, 10);
                 this.stroke();
             }
+            }
         </method>
     </drawview>
 
@@ -437,11 +515,7 @@
             <attribute name="ismulti" value="false"/>
 
             <simplelayout axis="y"/>
-            <text name="header" resize="true"
-              fontsize="${gFootNotePopup['scrolltext'] &amp;&amp; 
-                          gFootNotePopup.scrolltext &amp;&amp;
-                          (gFootNotePopup.scrolltext['fontsize'] != null)
-                        ? gFootNotePopup.scrolltext.fontsize : 12}">
+            <text name="header" resize="true">
                 <handler name="onfontsize">
                     resetHeight();
                 </handler>
@@ -449,15 +523,11 @@
                     resetHeight();
                 </handler>
                 <method name="resetHeight">
-                    this.setHeight(this.getTextHeight()*1.2);
+                    this.setAttribute('height', this.getTextHeight()*1.2);
                 </method>
             </text>
 
-            <text name="detail" visible="${!parent.ismulti}" resize="true"
-                  fontsize="${gFootNotePopup['scrolltext'] &amp;&amp; 
-                              gFootNotePopup.scrolltext &amp;&amp;
-                              (gFootNotePopup.scrolltext['fontsize'] != null)
-                            ? gFootNotePopup.scrolltext.fontsize  : 12}">
+            <text name="detail" visible="${!parent.ismulti}" resize="true">
                 <handler name="ontext">
                     parent.setAttribute("ismulti", 
                         this.getTextWidth() > (gFootNotePopup.MIN_WIDTH - 2 * gFootNotePopup.BORDER_SIZE)); 
@@ -469,14 +539,10 @@
                     resetHeight();
                 </handler>
                 <method name="resetHeight">
-                    this.setHeight(this.getTextHeight()*1.2);
+                    this.setAttribute('height', this.getTextHeight()*1.2);
                 </method>
             </text>
             <text name="detailmulti" multiline="true"
-                  fontsize="${gFootNotePopup['scrolltext'] &amp;&amp; 
-                              gFootNotePopup.scrolltext &amp;&amp; 
-                              (gFootNotePopup.scrolltext['fontsize'] != null)
-                            ? gFootNotePopup.scrolltext.fontsize : 12}"
                   width="${gFootNotePopup.MIN_WIDTH - 15  - 2 * gFootNotePopup.BORDER_SIZE}" 
                   visible="${parent.ismulti}"/>
         </view>

@@ -341,7 +341,7 @@ function autoplayIfStopped(){
  	}
  }
   
-   function restrictNavigation(arg){
+   /*function restrictNavigation(arg){
    if(arg  == 'unlock'){
 	 	if(checkAllPlayedOnce()) {
 			gController.setAttribute('unlockNavigation',true);
@@ -351,7 +351,7 @@ function autoplayIfStopped(){
  	}else {
  	gController.setAttribute('unlockNavigation',false);
  	}
-  }
+  }*/
   
     function pauseAudio() {
      if(currentPlayOrder == 0){

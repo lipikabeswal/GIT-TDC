@@ -15,11 +15,20 @@
 
        <attribute name="hasAltText" value="false"/>
        <attribute name="altText" type="string" />
-        <attribute name="autoenlarge" value="" type="string" />
+
+       <attribute name="autoenlarge" value="" type="string" />
        <attribute name="retrycount" value="0"/>
        <attribute name="timeoutretrycount" value="0"/>
        <attribute name="servletBase" type="string" />
-       <attribute name="verticalAlign" type="string"/>       
+       <attribute name="verticalAlign" type="string"/>   
+
+		<attribute name="hasPlayed" type="boolean" value="false"/>
+		<attribute name="widget_id"/>
+		<attribute name="playorder"/> 
+		<attribute name="isaudio"/>
+		<attribute name="disableAnswerArea" type="boolean" value="false"/>
+		<attribute name="enableWhenAnswered" type="boolean" value="false"/>
+		
         <!-- ================================
              method
              ================================= -->
@@ -85,7 +94,31 @@
 			this.imageview.setAttribute("height", null);
 			this.imageview.setAttribute("width", null);
 			var theSrc = "";
+			
+			//Changes for laslink multi audio play
+			//Debug.write("isaudio************************* ",data.getAttr('isaudio'),data.getAttr('isaudio')==true,data.getAttr('isaudio')=='true');
+			if(data.getAttr('isaudio')=='true'){
+				this.setAttribute('isaudio',data.getAttr('isaudio'));
+				gController.setAttribute('isaudio',true);
+				//gController.freezeUI();
+
+				if(data.hasAttr('disableAnswerArea')){
+					this.setAttribute('disableAnswerArea', data.getAttr('disableAnswerArea'));
+				}
+
+				if(data.getAttr('widget_id')){
+					this.setAttribute('widget_id', data.getAttr('widget_id'));
+				}
 	
+				if(data.getAttr('playorder')){
+					this.setAttribute('playorder', data.getAttr('playorder'));
+				}
+				if(data.hasAttr('enableWhenAnswered')){
+					this.setAttribute('enableWhenAnswered',data.getAttr('enableWhenAnswered'));
+				}
+				this.setAttribute('hasPlayed',false);
+	
+}
 	//Image url may come in either attribute name "src" or "image_ref", so take care of both.
 			if(data.hasAttr('src')) {
 				theSrc = getImageUrl(data.getAttr('src'));
@@ -179,7 +212,7 @@
             var p = from.immediateparent;
             var toreturn = from[attr];
 
-            while (!(p instanceof CachableComponent)) {
+            while (!(p instanceof lz.CachableComponent)) {
                 toreturn += getAttrRelComp(attr, p);
                 p = p.immediateparent;
             }
@@ -221,7 +254,7 @@
 				  * when used as inline image, the factor will  
 				  * always be related to fontsize and not to the 
 				  * position of the image */
-				if((this.parent instanceof CachableTextField) && this.parent['embedded_inline_image'] == true) {
+				if((this.parent instanceof lz.CachableTextField) && this.parent['embedded_inline_image'] == true) {
 					factor = fontmag;
                     newh = factor * this.height;
 				}
@@ -231,8 +264,8 @@
                 this.imageview.setAttribute("width", this.width * factor);
                 this.imageview.setAttribute("height", newh);
                 // Allow this panel to grow to reflect font size
-                this.setWidth(null);
-                this.setHeight(null);
+                this.setAttribute('width', null);
+                this.setAttribute('height', null);
 
             } 
             else if (this['autoenlarge'] == "zoom") {
@@ -265,7 +298,7 @@
                 }
 
                 // Controls the physical dimensions of the panel 
-                parent.wrapper.setHeight(height);
+                parent.wrapper.setAttribute('height', height);
             }
             else {
                 this.imageview.setAttribute("width", this.width);
@@ -278,15 +311,57 @@
                 immediateparent.updateSelector();
             }
 		]]></method>
-
-        <view name="imageview" stretches="both" clickable="false">
+		
+		
+		<view name="imageview" stretches="both" clickable="false">
+        	        	
+        	<handler name="onframe" args="f"><![CDATA[
+        	//var totalNoOfFrames  = this.imageview.totalframes;
         	
-            <attribute name="reloadDel" value="$once{new lz.Delegate(this, '_reload')}" />
+			//Debug.write("onframe" + f);
+		
+			if(f == 10){
+        		//gController.freezeUI();
+			}
+        	]]></handler>
+        	
+        	<handler name="onlastframe">
+			//Debug.write("onlast frame");
+	        	//gController.unlockUI();
+        	</handler>
+
+        	<handler name ="onstop">
+    	    	//Debug.write("onstop");
+        	</handler>
+			
+        	<handler name ="onplay">
+    	    	//Debug.write("onplay");
+        	</handler>
+
+        	<handler name ="onstart">
+    	    	//Debug.write("onstart");
+        	</handler>
+
+        	<handler name="onclick">
+        		classroot.read();
+        	</handler>
+        	
+        	<handler name="onload">
+				if(classroot.isaudio){
+					if(classroot.playorder != 1){
+						Debug.write("playorder not 1",this.getDisplayObject());
+						//this.getMCRef().disableBtn();
+					}
+				}
+		  	</handler>
+
+            <attribute name="reloadDel" value="$once{new lz.Delegate(this, '_reload')}" type="expression"/>
             <!--  This is to fix a weird bug that Laszlo couldnt explain - sometimes the request would return a 
                   resource of height 0 and width 0.  It wouldnt error - it would return successfully
                   without the image ..  This is to retry the request if that happens. -->
             <handler name="onload" args="d"><![CDATA[
-            	if(!gCommunicator.checkShowError(d) && (this.resourceheight == 0 || 
+//Debug.write("imageview onload : ",d);
+            	if(!gCommunicator.checkShowError(null,d) && (this.resourceheight == 0 || 
                                                         this.resourcewidth == 0)) {
             
                     classroot.setAttribute ('retrycount', classroot.retrycount + 1);
@@ -300,8 +375,15 @@
                 }
             ]]></handler>
             
-            <method name="_reload">
-                this.unload();
+            <method name="_reload" args="ignore=null">
+//Debug.write("_reload,...",this.resource,this.getDisplayObject());
+                //this.unload();
+                if ($dhtml) {
+					this.getDisplayObject().imgLoader.unload();
+				} else {				
+					var mc = this.sprite;
+					mc.imgLoader.unload();
+				}
                 this.setSource (this.resource);
             </method>
             
@@ -323,6 +405,15 @@
 			]]>
             </handler>
         </view>
+
+		 <view name="overlay" visible="false"
+				clickable="false"
+				opacity="0"
+				width="${this.parent.imageview.width}"
+				height="${this.parent.imageview.height}"
+				x="${this.parent.imageview.x}"
+				y="${this.parent.imageview.y}"/>
+
         <EnlargeButton name="enlarge"
                     x="${classroot.width-this.width}"
                     y="0"/>

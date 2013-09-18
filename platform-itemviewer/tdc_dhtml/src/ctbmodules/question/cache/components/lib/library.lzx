@@ -6,4 +6,5 @@
     <include href="gridresponse/GridResponse.lzx"/>
     <include href="ctb_edittext.lzx"/>
     <include href="input_box.lzx"/>
+    <include href="text_box.lzx"/>
 </library>

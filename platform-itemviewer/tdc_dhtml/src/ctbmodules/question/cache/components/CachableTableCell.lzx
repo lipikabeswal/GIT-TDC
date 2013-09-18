@@ -56,8 +56,10 @@
 
             //finally set wrapper alignment now that our children
             //have sizes
-            this.wrapper.setAlign(align);
-            this.wrapper.setValign(valign);
+            if(align != null)
+            	this.wrapper.setAttribute('align',align);
+			if(valign != null)
+            	this.wrapper.setAttribute('valign',valign);
 
             this.doneLoading();
         ]]></handler>
@@ -69,7 +71,8 @@
                 if ( subnodes[i] instanceof lz.DataElement ) {
                     subnodes[i].removeAttr("enlargeable");
                     var newcomp = this.cache.getComponent (subnodes [i]);
-                    this.wrapper.dynlayout.addSubview (newcomp);
+                    if(newcomp!=null)
+                    	this.wrapper.dynlayout.addSubview (newcomp);
                 }
             }
         ]]></method>
@@ -78,7 +81,7 @@
             var contsubviews = this.wrapper.subviews;
             for (var i in contsubviews) {
 
-                if (contsubviews [i] instanceof CachableComponent &&
+                if (contsubviews [i] instanceof lz.CachableComponent &&
                         contsubviews [i].visible) {
                     this.cache.returnComponent (contsubviews [i]);
                 }

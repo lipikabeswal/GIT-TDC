@@ -5,15 +5,16 @@
       visible="false"
       clickable="true"
       showhandcursor="false" >
-
+      
+      
     <dataset name="dsenlarge">
         <question/>
     </dataset>
 
-	<attribute name="clickdel" value="$once{new lz.Delegate(this, 'checkClick')}" />
+	<attribute name="clickdel" value="$once{new lz.Delegate(this, 'checkClick')}" type="expression"/>
 	
- 	<method name="checkClick">
-		if(!this.containsPt(this.getMouse('x'), this.getMouse('y'))){
+ 	<method name="checkClick" args="ignore=null">
+		if(!this.containsPt((this.getMouse('x')/canvas.xscalefactor), (this.getMouse('y')/canvas.xscalefactor))){
 			this.shrink();
 		}
 	</method>
@@ -25,6 +26,7 @@
    </method>
 	
    <method name="enlarge" args="dn, w, h, color, stereotype">
+   		//Debug.write("arguments ",dn, w, h, color, stereotype);
         this.clickdel.register (lz.GlobalMouse, 'onmousedown');        
         var dnq = this.dsenlarge.getPointer().p.childNodes[0];
         var v = this.contents.scaler.stretcher.scaled;
@@ -64,7 +66,8 @@
         clone.setAttr("enlargeable", "no");
 
         // The "scale" view now contains the full XML (panel + table)
-        dnq.setChildNodes([dnpanel]);
+        //dnq.setChildNodes([dnpanel]);
+        dnq.setAttribute('childNodes',[dnpanel]);
 
         // Attach out view to the data 
         // This results in an onwidth event being sent that calls calcSize
@@ -73,6 +76,7 @@
         //set some props
         this.windowbg.changeColor(color);
         this.setAttribute("visible", true);
+		v.setAttribute("visible", true);
         
         // why do I need to set this again - it hasn't changed ??!!
         this.setAttribute('showhandcursor', false);
@@ -80,7 +84,16 @@
     </method>
 
     <drawview name="windowbg" width="750" height="415">
+	
+	 <attribute name="isready" value="false" type="boolean" />
+	  <handler name="oncontext">
+	    this.setAttribute("isready", true);
+	    var roundness = 5;
+         	 	var thickness = 3;
+          	var shadow = 4;
 
+	  </handler>
+			  
         <handler name="oninit">
             this.clear();
             
@@ -90,11 +103,11 @@
 
             drawRoundRect (shadow, shadow, this.width + shadow, this.height + shadow, 
                            roundness,
-                           gray70, null, .5);
+                           0xE0E0E0, null, .5);
             drawRoundRect (0, 0, this.width, this.height, 
                            roundness,
                            0xC4C4C4, 0x7195B1, 1);
-            this.changeColor(white);
+            this.changeColor(0xFFFFFF);
         </handler>
 
         <method name="changeColor" args="color">
@@ -107,6 +120,7 @@
         </method>
 
         <method name="drawRoundRect" args="x0, y0, x1, y1, roundness, fill, stroke, alpha">
+        	if(this.isready){
             this.beginPath();
             this.moveTo(roundness + x0 , y0);
             this.lineTo(x1 - roundness, y0);
@@ -132,6 +146,7 @@
             }
 
             this.setAttribute("globalAlpha", 1);
+            }
         </method>
 
     </drawview>
@@ -151,7 +166,7 @@
                      iszoomin="false"/>
         <view name="scaler" clip="true" y="25" 
                   height="${parent.height-25}" width="${parent.width}"> 
-           <view name="stretcher" stretches="both"> 
+           <view name="stretcher" xscale="1" yscale="1"> 
                <Question name="scaled" doaccomlayout="false">
                    <datapath/> 
                    <attribute name="enlarged" value="false"/>

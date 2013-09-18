@@ -5,14 +5,14 @@
 
     <class name="CachableScrollingTextPanel" extends="BaseCachablePanel"
            comptype="$once{gCompTypes.WIDGET_SCROLLING_TEXT_PANEL}"
-           defaultplacement="scrolltext">
-
+         defaultplacement="scrolltext">
         <method name="doReturnToCache">
             this.scrolltext.doReturnToCache ();
         </method>
 
         <method name="_initSubnodes">
             this.scrolltext.datapath.setPointer (this.datapath.p);
+			this.setAttribute('defaultplacement' , scrolltext.defaultplacement);
         </method>
 
         <CachableScrollingText name="scrolltext" 
@@ -21,7 +21,6 @@
                                passageId="${classroot.passageId}"
                                fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" 
                                fontcolor="${classroot.fontcolor}">
-            <datapath/>
             <method name="doneLoading">
                 // empty, because not retrieved from cache
             </method>

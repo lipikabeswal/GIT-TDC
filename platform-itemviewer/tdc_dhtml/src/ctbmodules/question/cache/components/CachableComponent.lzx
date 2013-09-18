@@ -27,9 +27,9 @@
         <attribute name="panel" value="${parent.panel}"/>
 
         <attribute name="valigndel"
-                   value="$once{new lz.Delegate (this, 'doAlign')}"/>
+                   value="$once{new lz.Delegate (this, 'doAlign')}" type="expression"/>
         <attribute name="haligndel"
-                   value="$once{new lz.Delegate (this, 'doAlign')}"/>
+                   value="$once{new lz.Delegate (this, 'doAlign')}" type="expression"/>
         
         <!-- which view to align relative to -->
         <attribute name="alignto" value="$once{this}"/>
@@ -39,7 +39,9 @@
 
         <!-- font color  -->
         <attribute name="fontcolor" value="${parent.fontcolor}"/>
-
+        
+        <attribute name="aadescription"/>
+		<attribute name="aaname"/>
         <!-- ===============
              = METHODS
              =============== -->
@@ -50,16 +52,16 @@
 
         <method name="doReturnToCache"><![CDATA[
             for (var i in this.subviews) {
-
-                if (this.subviews [i] instanceof CachableComponent &&
+				if (this.subviews [i] instanceof lz.CachableComponent &&
                         this.subviews [i].visible) {
-                    this.cache.returnComponent (this.subviews [i]);
+                  //  this.cache.returnComponent (this.subviews [i]);
+                  this.subviews[i].destroy();
                 }
             }
         ]]></method>
 
-        <method name="doAlign" args="textx"><![CDATA[
-			if(!(this instanceof CachableImage && this.parent instanceof CachableTextField)) {     
+        <method name="doAlign" args="ignore=null"><![CDATA[
+			if(!(this instanceof lz.CachableImage && this.parent instanceof lz.CachableTextField)) {     
 	            var alignto = parent.alignto;
 				var newx;
 	            //halign
@@ -127,14 +129,15 @@
         ]]></method>
 
         <attribute name="ddoneLoading"
-                   value="$once{ new lz.Delegate( this, 'doneLoading' ) }"/>
-        <method name="doneLoading"><![CDATA[
-            gController.componentDone( this, datapath.p.ownerDocument );
+                   value="$once{ new lz.Delegate( this, 'doneLoading' ) }" type="expression"/>
+        <method name="doneLoading" args="ignore=null"><![CDATA[
+        	if(this!=null && this.datapath.p!=null)
+            	gController.componentDone( this, this.datapath.p.ownerDocument );
         ]]></method>
 
 		<method name="setAAText" args="txt">
-			this.setAADescription(txt);
-			this.setAAName(txt);
+			this.setAttribute('aadescription', txt);
+			this.setAttribute('aaname', txt);
 		</method>
 
 	</class>

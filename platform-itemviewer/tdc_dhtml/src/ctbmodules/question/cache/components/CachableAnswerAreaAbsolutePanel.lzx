@@ -99,7 +99,7 @@
 
                         // Per Giuseppe on 12/27, if we're growing the answer
                         // images, then we allow the answer panel to grow also
-                        wrapper.setHeight(null);
+                        wrapper.setAttribute('height', null);
             
                     }        
             
@@ -137,7 +137,7 @@
             When the data changes reset all of our properties/info
         -->
 
-		<method event="ondata" args="data">
+		<handler name="ondata" args="data">
             //width and height
 			if (data.hasAttr ('width')) {
 				this.setAttribute ('width', Number (data.getAttr ('width')));
@@ -183,7 +183,7 @@
             this._initSubnodes ();
 
             doneLoading();
-		</method>
+		</handler>
 
 
 
@@ -207,7 +207,8 @@
             for (var i = 0; i < subnodes.length; i++) {
                 if ( subnodes[i] instanceof lz.DataElement ) {
                     newcomp = this.cache.getComponent (subnodes [i]);
-                    this.contents.container.abslayout.addSubview (newcomp);
+					if(newcomp!=null)
+                    	this.contents.container.abslayout.addSubview (newcomp);
                 }
             }
         ]]></method>

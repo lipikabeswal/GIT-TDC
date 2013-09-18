@@ -71,8 +71,9 @@
             }
             if(titleTxt.length > 0){
             	this.thetable.contents.title.setAttribute('visible', true);
+	            var size = (canvas.basefontsize+2);
 	            this.thetable.contents.title.setAttribute("text", 
-	                    '<p align="center">' + decodeBrackets(titleTxt) + '</p>');
+	                    '<label><span style="line-height:14px; font-family: CTB; font-weight: bold; white-space: pre-wrap; font-size : '+size+'; text-align: center;">' + decodeBrackets(titleTxt) + '</span></label>');
 	        }
 	        else{
             	this.thetable.contents.title.setAttribute('visible', false);
@@ -161,6 +162,11 @@
             doneLoading();
             ]]>
         </handler>
+        
+        <method name="show">
+        //Dummy method which will be called by masking answer dont remove this
+        
+        </method>
 
         <method name="decodeBrackets" args="s"><![CDATA[
 	        var ltstr = "";
@@ -204,7 +210,7 @@
             var table = this.thetable.contents.borderview.table;
             for (var i in table.subviews) {
 
-                if (table.subviews [i] instanceof CachableComponent &&
+                if (table.subviews [i] instanceof lz.CachableComponent &&
                         table.subviews [i].visible) {
                     this.cache.returnComponent (table.subviews [i]);
                 }
@@ -216,7 +222,7 @@
             var p = from.immediateparent;
             var toreturn = from[attr];
 
-            while (!(p instanceof CachableComponent)) {
+            while (!(p instanceof lz.CachableComponent)) {
                 toreturn += getAttrRelComp(attr, p);
                 p = p.immediateparent;
             }
@@ -229,7 +235,7 @@
             if (data.hasAttr("halign")) {
                 align = data.getAttr("halign");
             }
-            this.setAlign(align);
+            this.setAttribute('align',align);
 
 //Debug.write("this width : " + this.width + " x : " + this.x, this);
 //Debug.write("parent width : " + parent.width + " x : " + parent.x, parent);
@@ -245,9 +251,8 @@
 
                // Multiplying factor
                // Use offset for margins
-               var mult_factor  = (gEnlargePopup.width - offset)/orig_width;
-//Debug.write("mult_factor : " + mult_factor + " w : " + orig_width + " h : " + orig_height);
                var width = gEnlargePopup.width - offset;
+               var mult_factor  = width / orig_width;
 
                // These variables manipulate the image within the popup window
                var table = this.thetable.contents.borderview.table;
@@ -265,7 +270,8 @@
                    		title.setAttribute('visible', true);
                    		title.setAttribute("fontsize", 14);
 	                   	title.setAttribute("text", 
-	                        '<p align="center">' + decodeBrackets(titleTxt) + '</p>');
+	                        '<label><span style="font-family: CTB; font-weight: bold; white-space: pre-wrap; text-align: center; zoom: 97% ;">' + decodeBrackets(titleTxt) + '</span></label>');
+	                    title.setAttribute("align","center");
 	
 	                   // Based on (width/height) ratio use an appropriate fontsize
 	//Debug.write("updated font size : " + (title.fontsize * mult_factor));
@@ -287,26 +293,45 @@
                // We're using the original table measurements, so we only need
                // to use an aspect ratio to correct for the margins 
                table.setAttribute("stretches", "both");
+               
+               mult_factor  = width / table.width;
+			   
+		       //scale up the table with the correct factor
+			   table.setAttribute("xscale" , mult_factor);
+			   table.setAttribute("yscale",  mult_factor);
+               
                table.setAttribute("width", width);
-               table.setHeight(Math.ceil((orig_height - title_ht) * mult_factor));
+               table.setAttribute('height',table.height * mult_factor);
 
                // nklein : hack that shouldn't be necessary
                // Need to examine why this occurs
-               if (this.x < 0) this.setX(0);
+               if (this.x < 0) this.setAttribute('x',0);
 
                // Set the canvas height of the popup 
                // Sets the height for the scrollbar
                // Account for margins and the height of the title
 //Debug.write("table h : " + table.height + " title h : " + title.height);
-               parent.wrapper.setHeight(table.height + (offset - 40) + title.height);
+               parent.wrapper.setAttribute('height',table.height + (offset - 40) + title.height);
 
                // Remove the scrollbar when the table fits within the popup
-               if (parent.wrapper.height + (offset - 40) < gEnlargePopup.height) 
+               if (parent.wrapper.height < gEnlargePopup.height)
                   gEnlargePopup.contents.scaler.scroller.setAttribute("visible", false);
                else
                   gEnlargePopup.contents.scaler.scroller.setAttribute("visible", true);
 
                super.doneLoading();
+				
+				//changes for defect 74645 start
+				var elm = table.getDisplayObject();
+				var elmCSS = elm.style;
+				var final_width = orig_width - 31;
+				var final_height = orig_height - (31*Math.round(mult_factor));
+				
+				//console.log("get css****",elm.style.backgroundColor,elmCSS.webkitTransform);
+				elm.setAttribute("style","z-index:"+ elmCSS.zIndex + "; left:" + elmCSS.left + "; top: "+ elmCSS.top + "; background-color: " + elm.style.backgroundColor + "; width: " + final_width + "; height: "+final_height+"; -webkit-transform: " + elmCSS.webkitTransform +";");
+				//end
+				return;
+
                return;
             }
             else if (this.autoenlarge == "yes" && gController.hasFontAccommodation) {
@@ -333,6 +358,8 @@
                 // These lines were commented to stop the intermittent navigaton problems
                 this.thetable.setAttribute("width", Math.floor(contents.width * factor));
                 this.thetable.setAttribute("height", newh);
+				this.thetable.contents.setAttribute('xscale', (this.thetable.width /this.thetable.contents.width ) );
+				this.thetable.contents.setAttribute('yscale', (this.thetable.height /this.thetable.contents.height ) );
         
             } 
             // nklein : July 5, 2007
@@ -365,26 +392,33 @@
                   -->
                 <text name="title" 
                       align="center"
-                      multiline="true" 
-                      width="${this.titlewidth != -1 ? 
-                             this.titlewidth : parent.borderview.width}"
+                      multiline="true"       
+					  width="${this.titlewidth != -1 ? 
+                             this.titlewidth : parent.borderview.width}"                
                       fontsize="${canvas.basefontsize+2}" 
                       fgcolor="${classroot.fontcolor}"
 					  bgcolor="${classroot.bgcolor}"
                       clickable="${canvas.readable}"
-                      onclick="gReadableText.read(gReadableText.stripHtmlTags(text))"
+                      onclick="gReadableText.read(gReadableText.stripHtmlTags(text),false)"
                       fontstyle="bold">
                     <attribute name="titlewidth" value="0"/>
+					<handler name="ontext"><![CDATA[
+						var size = (canvas.basefontsize+2);
+						var elm = this.getDisplayObject();
+						elm.setAttribute('style','text-align: center; font-family: CTB; font-weight: bold; font-size : '+size+'; width: '+this.width+'px;');
+					]]></handler>
                 </text>
 
-                <!-- borderview contains the title and table and defines a border -->
+            <!-- borderview contains the title and table and defines a border -->
                 <view name="borderview" bgcolor="${classroot.fontcolor}" align="center"
-                      width="${this.table.width + 2 * classroot.bordersize}"
-                      height="${this.table.height + 2 * classroot.bordersize}">
+                      width="${classroot.bordersize == 0?(this.table.width-2) : (this.table.width + 2 * classroot.bordersize)}"
+                      height="${classroot.bordersize == 0?(this.table.height-2) : (this.table.height + 2 * classroot.bordersize)}"
+					  y="${classroot.bordersize == 0?(this.y + 1):this.y}">
                     
                     <!-- table with one top line and row driven by dataset -->
                     <view name="table" 
-                          x="${classroot.bordersize}" y="${classroot.bordersize}"/>
+                          x="${classroot.bordersize == 0?(classroot.bordersize -1):classroot.bordersize}" 
+						  y="${classroot.bordersize == 0?(classroot.bordersize -1):classroot.bordersize}"/>
                 </view>
             </view>
         </view>

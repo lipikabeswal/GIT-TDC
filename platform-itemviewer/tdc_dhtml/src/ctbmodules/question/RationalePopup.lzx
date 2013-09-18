@@ -6,13 +6,13 @@
       clickable="true"
       showhandcursor="false">
 
- 	<attribute name="clickdel" value="$once{new lz.Delegate(this, 'checkClick')}" />
+ 	<attribute name="clickdel" value="$once{new lz.Delegate(this, 'checkClick')}" type="expression"/>
 	<attribute name="popupWidth" type="number" value="220"/>
 	<attribute name="popupHeight" type="number" value="165"/>
 	<attribute name="fs" type="number" value="12"/>
 	<attribute name="bg" type="color" value="0xFFFFFF"/>
 	<attribute name="fg" type="color" value="0x000000"/> 	
-	<method name="checkClick">
+	<method name="checkClick" args="ignore=null">
 		if(!this.containsPt(this.getMouse('x'), this.getMouse('y'))){
 			this.hide();
 		}
@@ -71,7 +71,7 @@
 
             drawRoundRect (shadow, shadow, this.width + shadow, this.height + shadow, 
                            roundness,
-                           gray70, null, .5);
+                           0xE0E0E0, null, .5);
             drawRoundRect (0, 0, this.width, this.height, 
                            roundness,
                            0xC4C4C4, 0x7195B1, 1);

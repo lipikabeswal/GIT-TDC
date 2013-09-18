@@ -18,7 +18,7 @@
         <handler name="onheight"><![CDATA[
             for (var i in this.subviews) {
         
-            if (subviews [i] instanceof CachableScrollingText &&
+            if (subviews [i] instanceof lz.CachableScrollingText &&
                     subviews [i].visible &&
                     subviews [i].height > this.height) {
                 subviews [i].setAttribute ('height', this.height);

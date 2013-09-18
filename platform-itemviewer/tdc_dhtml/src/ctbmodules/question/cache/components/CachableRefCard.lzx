@@ -22,13 +22,13 @@
 		<attribute name="isScrolling" type="boolean" value="false" />
 
 		<attribute name="toolid" type="string" value="formula_card_resource"/>
-        <attribute name="toolstate" value="$once{new lz.datapointer()}"/>
+        <attribute name="toolstate" value="$once{new lz.datapointer ()}"/>
 		<attribute name="visible" value="${(this.toolstate.data == 'sel') ? true : false}"/>
 
 		<handler name="onvisible" args="v"><![CDATA[
 		//To control the visibility according to the toolstate
 			if(this.toolstate.data != 'sel' && v) {
-				this.setVisible(false);
+				this.setAttribute('visible',false);
 			}
 			else
 			{

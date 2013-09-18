@@ -29,15 +29,24 @@
             super.init();
         </method>
         
-		<method name="setText" args="txt">
-			thetext.setAttribute('text', txt);
+		<method name="setText" args="txt"><![CDATA[
+			//contents.thetext.setAttribute('text', txt);
+			if (gController.hasFontAccommodation){
+				this.contents.thetext.setAttribute("text",
+	               '<label><span style="white-space: pre-wrap;">' + txt + '</span></label>');
+		   }else{
+	           this.contents.thetext.setAttribute("text",
+	                '<label><span style="white-space: pre-wrap;">' + txt + '</span></label>');
+			}
 			//no need for this
-			//thetext.setWidth(thetext.getWidth() + 1);
+			contents.thetext.setAttribute('width', contents.thetext.getTextWidth() + 1);
+			]]>
 		</method>
 		
 		<method name="setAltText" args="altTxt">
 //Debug.write("CachableInputTextField.setAltText: " + altTxt);
-			thetext.setAttribute('altText', altTxt);
+			contents.thetext.setAttribute('altText', altTxt);
+			
 		</method>
 		
 			
@@ -62,30 +71,38 @@
              =============== -->
         
            <view name="clickregionreader"
-                 width="${classroot.thetext.width}"
-                 height="${classroot.thetext.height}"
+                 width="${classroot.contents.thetext.width}"
+                 height="${classroot.contents.thetext.height}"
                  clickable="false">
                
            </view>
-
-           <text name="thetext" multiline="false" resize="true"
+			
+		<view name="contents" clickable="true">
+			<handler name="onclick">
+					this.thetext.onfocus.sendEvent();
+			</handler>
+           <text name="thetext" multiline="false" resize="true" clickable="true"
                fgcolor="${classroot.fontcolor}"
                fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" width="1">
+               <handler name="onclick">
+					this.onfocus.sendEvent();
+				</handler>
                <handler name="onwidth" args="w"><![CDATA[
 					var xin = classroot.parent.parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
 //					Debug.write('xin..', classroot.parent.parent, classroot.parent.parent.comptype);	
 					if(this.width > classroot.parent.width - xin) {
 //					Debug.write('this.width, parent.width - xin..',this.width, parent.width - xin);
-						this.setResize(false);
-						this.setMultiline(true);
-						this.setWidth(classroot.parent.width - xin);
-						this.setHeight(this.getTextHeight() + 6);
+						this.setAttribute('resize', false);
+						this.setAttribute('multiline',true);
+						this.setAttribute('width', classroot.parent.width - xin);
+						this.setAttribute('height', this.getTextHeight() + 6);
 					}
 					else {
-						this.setResize(true);
-						this.setMultiline(false);
+						this.setAttribute('resize', true);
+						this.setAttribute('multiline',false);
 					}
                ]]></handler>
            </text>
+        </view>
  	</class>
 </library>

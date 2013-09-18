@@ -89,9 +89,9 @@
     </handler>
 
 	<handler name="oninit">
-    	Debug.write("HTML Embed Setting:" + Stage.showMenu);
-    	Stage.showMenu = false;
-    	Debug.write("Active Setting:" + Stage.showMenu);
+    	//Debug.write("HTML Embed Setting:" + Stage.showMenu);
+    	//Stage.showMenu = false;
+    	//Debug.write("Active Setting:" + Stage.showMenu);
   	</handler>
 	
 
@@ -106,17 +106,26 @@
        if (itemNum) this.setAttribute("itemNum", itemNum);
        Debug.warn("*****************init**************"+itemNum);
        //canvas.setDefaultContextMenu(null);
-       var cmenu = new lz.ContextMenu();
+       var cmenu = new LzContextMenu();
        cmenu.hideBuiltInItems();
-       cmenu.setDelegate(doNothing);
+       cmenu.setAttribute('delegate',new lz.Delegate(this,'doNothing'));
 	   canvas.setDefaultContextMenu(cmenu);
-	   Stage.showMenu = false;
-	   dshowClient.register( this, 'itemuiready' );
+	   //Stage.showMenu = false;
+	   //dshowClient.register( this, 'itemuiready' );
+		canvas.setScale();
 		gController.loadItem();
     </method>
     
     <method name="doNothing">
     </method>
+
+	<method name="setScale"><![CDATA[
+		canvas.setAttribute('xscalefactor',canvas.titleView.mainView.scalingView.xscale);
+		canvas.setAttribute('yscalefactor',canvas.titleView.mainView.scalingView.yscale);
+		setScaleFactor(canvas.xscalefactor,canvas.yscalefactor);
+		
+	]]>
+	</method>
 
 <!--  this view tests whether or not the eliminator resource is available -->
 	<view name="eliminatorTester" visible="false" height="0" width="0">
@@ -136,14 +145,17 @@
 		</handler>
 		
 	</view>
+	<view name="titleView" width="100%" height="100%" >
+	<view name="mainView"  width="100%" height="100%">
+
     <view name="scalingView"
           stretches="both"
-          height="${ canvas.width/canvas.height &lt; 1.33 
-                     ? this.width * unstretchedheight/unstretchedwidth 
-                     : canvas.height}" 
-          width="${  canvas.width/canvas.height &lt;1.33 
+         height="${canvas.width/canvas.height &lt; 1.33 
+                     ? this.width * 600/800 : canvas.height}" 
+		width="${canvas.width/canvas.height &lt;1.33 
                      ? canvas.width 
-                     : this.height * unstretchedwidth/unstretchedheight}"
+                     : this.height * 800/600}"		     
+		     xscale="${this.height/600}" yscale="${this.height/600}" 
           valign="middle" align="center">
 
 
@@ -154,5 +166,8 @@
         </view>
 
     </view>
+</view>
+</view>
+
 
 </canvas>

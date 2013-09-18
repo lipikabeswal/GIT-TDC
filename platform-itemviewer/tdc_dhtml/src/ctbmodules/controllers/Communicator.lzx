@@ -30,7 +30,7 @@
   		<!-- all servlet errors go through this method -->
   		<method name="checkShowError" args="xml,ds"><![CDATA[
 			if(!error){
-   				var node = lz.DataNode.stringToLzData(xml);
+   				var node = lz.DataElement.stringToLzData(xml);
    				var code = "";
 
   				if (node && node.nodeName == 'ERROR'){

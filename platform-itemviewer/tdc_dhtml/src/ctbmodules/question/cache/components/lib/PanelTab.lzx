@@ -11,12 +11,12 @@
 		var rG = 255;
 		var rB = 255;
 		var color = Number(newColor);
-
-	    var r =	parseInt('0x'+newColor.substr(2,2));
+		
+		var r =	parseInt('0x'+newColor.substr(2,2));
 	    var g =	parseInt('0x'+newColor.substr(4,2));
 	    var b =	parseInt('0x'+newColor.substr(6,2));
 	    
-	    obj.setColorTransform ({ab: 0, aa: 100, 
+		obj.setAttribute('colortransform',{ab: 0, aa: 100, 
 	                            bb: b-rB, ba: 100, 
 	                            gb: g-rG,  ga: 100, 
 	                            rb: r-rR,  ra: 100});   
@@ -26,7 +26,7 @@
            width="${this.bg.width}" 
            height="${this.bg.height}">
 
-        <attribute name="theframe" value="1"/>
+        <attribute name="theframe" type="number" value="1"/>
         
         <view name="bg" 
               width="${classroot.thetitle.width + 22}"
@@ -89,16 +89,20 @@
         </handler>
  
         <method name="selectIt">
-        	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text));
-            setSelected(true, true);
+        	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text),false);
+            this.setSelectedTab(true, true);
         </method>
         
 		<method name="initColors">
-			setResourceColor(bg, gController.questionBgColor); 
-			var fg = gController.questionFontColor;
+			var bgcolor="0x"+ gController.questionBgColor.toString(16);
+			setResourceColor(bg, bgcolor); 
+			
+			/*var fg = gController.questionFontColor;
 		    if(fg == 0){
 		       fg = "0x000000";
-		    }
+		    }*/
+		    var fg = "0x"+ gController.questionFontColor.toString(16);
+		    
 	        setResourceColor(borders, fg); 
 		</method>
 		
@@ -134,8 +138,8 @@
 
         <text name="thetitle" datapath="@title" resize="true" align="center">
 	        <handler name="onclick">
-	        	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text));
-	            parent.selectIt();
+				gReadableText.read(gReadableText.stripHtmlTags(this.text),false);
+				parent.selectIt();
 	        </handler>
         
         </text>

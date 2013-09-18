@@ -11,7 +11,7 @@
 	<class name="BaseCachablePanel" extends="CachableComponent" 
            comptype="$once {gCompTypes.WIDGET_PANEL}"
            defaultplacement="contents" panel="${this}"
-           bgcolor="white" fontcolor="lz.colors.black"
+           bgcolor="white" fontcolor="lz.colors.black" 
            width="${this.wrapper.width}" height="${this.wrapper.height}">
 
         <attribute name="stereotype" value="$path{'@stereotype'}"/>
@@ -28,7 +28,7 @@
 		<method name="setGrFocus">
 			for(var i in wrapper.scrollcontainer.offsetwrapper.contents.subviews){
 				var sv = wrapper.scrollcontainer.offsetwrapper.contents.subviews[i];
-				if(sv instanceof CachableGriddedResponse ||
+				if(sv instanceof lz.CachableGriddedResponse ||
 				   sv instanceof lz.BaseCachablePanel){
 					sv.setGrFocus();
 				}
@@ -92,12 +92,13 @@
 			
             
             var isaccom = false;
+            var style="";
             if (style) {
                 if (style ['bgcolor']) {
                     this.setAttribute ('bgcolor', style.bgcolor);
                     isaccom = true;
                 }
-                else if (!(this instanceof CachableAnswerAreaPanel || this instanceof CachableAnswerAreaAbsolutePanel)){
+                else if (!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
 					this.setAttribute('bgcolor', gController.questionBgColor);
                 }
                 if (style ['font_color']) {
@@ -111,7 +112,7 @@
                     this.setAttribute ('fontsize', canvas.basefontsize);
                 }
             }
-            else if(!(this instanceof CachableAnswerAreaPanel || this instanceof CachableAnswerAreaAbsolutePanel)){
+            else if(!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
 				this.setAttribute('bgcolor', gController.questionBgColor);
             }
             
@@ -123,8 +124,9 @@
             doneLoading();
             
             //inform gFootNotePopup footnotes
-            if((this instanceof CachableScrollingTextPanel) 
-                || this instanceof CachableTabsPanel) 
+			if((this instanceof lz.CachableScrollingTextPanel) 
+                || this instanceof lz.CachableTabsPanel
+				|| this instanceof lz.CachablePanel) 
             {
                 gFootNotePopup.setAttribute("scrolltext", this);
             }                
@@ -214,7 +216,7 @@
 					}
 					tempNodeArr[i] = tempNode; 
 				}
-				dnode.setChildNodes(tempNodeArr);
+				dnode.setAttribute('childNodes',tempNodeArr);
 			}		
 		]]></method>
 		
@@ -230,10 +232,10 @@
             var contsubviews = this.wrapper.scrollcontainer.offsetwrapper.contents.subviews;
             this.setAttribute('enablehl', true);
             for (var i in contsubviews) {
-
-                if (contsubviews [i] instanceof CachableComponent &&
+				 if (contsubviews [i] instanceof lz.CachableComponent &&
                         contsubviews [i].visible) {
-                    this.cache.returnComponent (contsubviews [i]);
+                  	// this.cache.returnComponent (contsubviews [i]);
+                  	contsubviews[i].destroy();
                 }
             }
         ]]></method>
@@ -287,7 +289,8 @@
                                   ( classroot.growtocontents ? parent.scrollcontainer.height - parent.hscroll.height :
                                     parent.scrollcontainer.height) :
                                   (classroot.growtocontents ? parent.scrollcontainer.height : parent.height)}"
-                        pagesize="${this.height}"
+                        pagesize="${this.height}"  scrolltarget="parent.scrollcontainer"
+						x="${parent.hscroll.visible ? parent.hscroll.width : classroot.wrapper.width-this.width}"
                         visible="${this.scrollable &amp;&amp; !classroot.growtocontents}"/>
             <hscrollbar name="hscroll" visible="${this.scrollable}"
                         width="${parent.vscroll.visible ? 
@@ -341,6 +344,11 @@
                   visible="${(classroot.wrapper.vscroll.visible
                            || classroot.wrapper.hscroll.visible)
                            &amp;&amp; !classroot.growtocontents}">
+            <attribute name="isready" value="false" type="boolean" />
+			  <handler name="oncontext">
+			    this.setAttribute("isready", true);
+			    this.draw();
+			  </handler>
 
             <handler name="onwidth">
                 this.draw ();
@@ -350,6 +358,7 @@
             </handler>
 
             <method name="draw">
+            	if(this.isready){
                 this.clear ();
                 this.beginPath ();
                 
@@ -363,6 +372,7 @@
                 this.strokeStyle = Number(gController.questionFontColor);
                 this.strokeWidth = 1;
                 this.stroke ();
+                }
             </method>
 
         </drawview>

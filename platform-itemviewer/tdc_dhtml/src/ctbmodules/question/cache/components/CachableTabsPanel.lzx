@@ -21,7 +21,7 @@
         <method name="doReturnToCache"><![CDATA[
             var contsubviews = this.tabs.contents.tabcontents.subviews;
             for (var i in contsubviews) {
-                if (contsubviews [i] instanceof CachableComponent) {
+                if (contsubviews [i] instanceof lz.CachableComponent) {
                     this.cache.returnComponent (contsubviews [i]);
                 }
             }
@@ -48,30 +48,30 @@
               height="${gController.hasFontAccommodation?41:32}" showhandcursor="false">
             <simplelayout axis="x" spacing="-14" inset="-4"/>
             <PanelTab name="tab" datapath="*" showhandcursor="false">
-                <method name="setSelected" args="issel, refresh"><![CDATA[
-//          Debug.write("CachableTabsPanel.PanelTab.setSelected", this.clonenumber, issel);
+                <method name="setSelectedTab" args="issel, refresh"><![CDATA[
+//          Debug.write("CachableTabsPanel.PanelTab.setSelectedTab", this.clonenumber, issel);
                     if (typeof this.clonenumber != 'undefined') {
 	                    if (issel && refresh) {
 	                    	var numTabs = parent.tab.clones.length;
 	                        // need to select the right previous tab to make the display happy
 	                        if(this.clonenumber == 0 && numTabs == 3){
-	                        	parent.tab.clones[1].setSelected(true, false);
+	                        	parent.tab.clones[1].setSelectedTab(true, false);
 	                        }
 	                        if(this.clonenumber == 2 && numTabs == 3){
-	                        	parent.tab.clones[0].setSelected(true, false);
+	                        	parent.tab.clones[0].setSelectedTab(true, false);
 	                        }
 	                        for(var i=0; i<numTabs; i++){
 	                        	if( i != this.clonenumber){
-	                        		parent.tab.clones[i].setSelected(false, false);
+	                        		parent.tab.clones[i].setSelectedTab(false, false);
 	                        	}
 	                        }
 	                    }
 	                    this.select(issel);
 	                    var tabpane = classroot.tabs.contents.tabcontents.subviews [this.clonenumber];
 						tabpane.setAttribute('visible', issel);
-						if(issel){
+						/*if(issel){
 							gFootNotePopup.setTabTextPanel(tabpane.getTabText());
-						}
+						}*/
 	                }
                ]]>
                </method>
@@ -82,7 +82,7 @@
                 
                 <method name="selectFirstTab">
 					if(typeof parent.tab.clones != 'undefined'){
-						parent.tab.clones[0].setSelected(true, true);
+						parent.tab.clones[0].setSelectedTab(true, true);
 					}
 					this.setAttribute('showhandcursor', false);
 					parent.setAttribute('showhandcursor', false);

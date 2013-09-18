@@ -7,7 +7,7 @@
         <attribute name="iszoomin" value="true"/>
         <attribute name="isenabled"
                    value="$path{ 'dsdisplay:/display/@enabled' }"/>
-        <attribute name="clickable" value="${ isenabled == 'true' }"/>
+        <attribute name="clickable" value="${ isenabled == true }"/>
 
         <handler name="oninit">
             this.highlighterstatus.setAttribute ('rerunxpath', true);

@@ -67,11 +67,16 @@
 		</method>
 	<!-- @Set the char_limit for single_line_answer of type standalone -->
 	<handler name="onmaxlength">
-          field.setMaxLength(this.maxlength);
+          field.setAttribute('maxlength', this.maxlength);
         </handler>
 		<method name="enable">
 			this.field.setAttribute('isCtrl', false);
-			this.field.setEnabled(true);
+			this.field.setAttribute('enabled',true);
+		</method>
+		
+		<method name="disable">
+			this.field.setAttribute('isCtrl', false);
+			this.field.setAttribute('enabled',false);
 		</method>
         
         <!--- @keywords private -->
@@ -88,7 +93,7 @@
                 this.setText( this._initialtext );
             }
 
-            field.setMaxLength(this.maxlength);
+            field.setAttribute('maxlength', this.maxlength);
             this.setAttribute('bgcolor', Number(gController.answerBgColor));
 			this.setAttribute('fontcolor', Number(gController.answerFontColor));
             ]]>
@@ -106,7 +111,7 @@
         <method name="setText" args="t">
             this.text = t;
             if (this._initcomplete) {
-                this.field.setText(t);
+                this.field.setAttribute('text',t);
                 if (this['ontext']) this.ontext.sendEvent();
             } else {
                 this._initialtext = t;
@@ -121,14 +126,14 @@
         <!-- Sets the maxmimum number of characters which can be entered. -->
         <method name="setMaxlength" args="n">
           this.setAttribute('maxlength', n);
-          field.setMaxlength(n);
+          field.setAttribute('maxlength', n);
         </method>
 
 
         <!-- Set the characters which can be entered into a text field. -->
         <method name="setPattern" args="r">
           this.setAttribute('pattern', r);
-          field.setPattern(r);
+          field.setAttribute('pattern', r);
         </method>
 
         <!--- @keywords private -->
@@ -143,8 +148,9 @@
         <inputtext name="field"
             password="$once{parent.password}"
             x="5"
-            y="0"
+            valign="middle"
             width="${parent.width - 10}"
+            height="${parent.height-2}"
 			bgcolor="${Number(gController.answerBgColor)}"
 			fgcolor="${Number(gController.answerFontColor)}"
 			fontsize="${parent.fontsize}"
@@ -160,7 +166,7 @@
             
 
             <handler name="onblur" args="s">
-            	this.setEnabled(true);
+            	this.setAttribute('enabled', true);
             	this.setAttribute('isCtrl', false);
             </handler>
 
@@ -183,7 +189,7 @@
 
             <handler name="onkeyup" args="k"> <![CDATA[
 	 			if(k==17){
-			      this.setEnabled(true);
+			      this.setAttribute('enabled', true);
 			      this.setAttribute('isCtrl', false);
 			  	}	
                   ]]>
@@ -194,11 +200,11 @@
 	      			this.setAttribute('isCtrl', true);
 	  			}else if(isCtrl 
 	           		&& (k!=67 && k!=86 && k!=88)){
-	      			this.setEnabled(false);
+	      			this.setAttribute('enabled', false);
 	  			}
 
 				  if(k==-1){
-				     this.setEnabled(true);
+				     this.setAttribute('enabled', true);
 				  }
                   ]]>
             </handler>
@@ -214,8 +220,9 @@
  			-->
             <handler name="onfocus" reference="this.textclip"> 
             <![CDATA[ 
-                this.textColor = textclip.textColor;
-                this.fgcolor = textclip.textColor;
+            	Debug.write("this.textclip*********** ",this.textclip);
+                this.textColor = this.textclip.textColor;
+                this.fgcolor = this.textclip.textColor;
                 if(this.bgcolor == 0x000000 && this.textColor == 0xFFFFFF) 
                 { 
                     this.setHighlight();
@@ -226,7 +233,7 @@
 
             <method name="setHighlight"> 
             	var color = { ab: 0, aa: 100, bb: 0xff, ba: -100, gb: 0xff, ga: -100, rb:  0xff, ra: -100 }; 
-                this.setColorTransform(color); 
+                this.setAttribute('colortransform',color); 
             </method> 
 
 
@@ -254,7 +261,11 @@
          </inputtext>
         <drawview width="100%" 
                   height="100%">
-
+			 <attribute name="isready" value="false" type="boolean" />
+			  <handler name="oncontext">
+			    this.setAttribute("isready", true);
+			    this.draw();
+			  </handler>
             <handler name="onwidth">
                 this.draw();
             </handler>
@@ -263,6 +274,7 @@
             </handler>
 
             <method name="draw">
+            	if(this.isready){
                 this.clear ();
                 this.beginPath ();
                 
@@ -276,6 +288,7 @@
                 this.strokeStyle = Number(gController.answerFontColor);
                 this.strokeWidth = 1;
                 this.stroke();
+}
             </method>
 
         </drawview>
@@ -284,7 +297,7 @@
               @return String: the string displayed. -->
         <method name="getText">
             if (this._initcomplete) {
-                 return this.field.getText();
+                 return this.field.text;
             } else {
                 return this._initialtext;
             }
@@ -304,13 +317,13 @@
         <!-- Updates the text property of the component to the text that is
              entered in its input field. -->
         <method name="updateText">
-            this.setText( this.field.getText() );
+            this.setText(this.field.text);
         </method>
 
         <!--- Returns string displayed in this component, like getText().
               @return String: the string displayed. -->
         <method name="getValue">
-            return  this.field.getText();
+            return  this.field.text;
         </method>
 
         <!--- @keywords private -->

@@ -49,7 +49,8 @@
             for (var i = 0; i < subnodes.length; i++) {
                 if ( subnodes[i] instanceof lz.DataElement ) {
                     newcomp = this.cache.getComponent (subnodes [i]);
-                    this.dynlayout.addSubview (newcomp);
+                    if(newcomp!=null)
+                    	this.dynlayout.addSubview (newcomp);
                 }
             }
         ]]></method>

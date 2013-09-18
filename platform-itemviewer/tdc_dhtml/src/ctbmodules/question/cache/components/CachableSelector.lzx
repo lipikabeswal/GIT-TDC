@@ -14,8 +14,8 @@
 			//Debug.write("-2");
             var selid = data.getAttr ('identifier');
 			this.selbutton.setAttribute ('type', selid);
-			//this.selbutton.datapath.setXPath ("dsstudentdata:/testing_client_model/current_item/item_model/interaction/selector [@obj_id_ref='"+selid+"']");
-			this.selbutton.datapath.setXPath ("dsitem:/element_package/item_model/interaction/selector [@obj_id_ref='"+selid+"']");
+
+			this.selbutton.datapath.setXPath ("dsstudentdata:/testing_client_model/current_item/item_model/interaction/selector [@obj_id_ref='"+selid+"']");
 			
 			if(gController.isLoginResponseHavingSeed && 
 						data.hasAttr('randomIdentifier')) {         

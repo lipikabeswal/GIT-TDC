@@ -93,13 +93,14 @@
        
         <ctb_edittext name="answer" 
                       maxlength="${classroot.char_limit}" 
-                      width="${classroot.editTextWidth}" 
+                      width="${classroot.editTextWidth}" height="${classroot.height+3}"
                       widget_id="${classroot.widget_id}"
                       fontsize="${classroot['fontsize'] ? classroot.fontsize : 12}">
            <method name="init">
                super.init();
-                this.style.setAttribute("textfieldcolor", gController.answerBgColor);
-                this.style.setAttribute("textcolor", gController.answerFontColor);
+                /*this.style.setAttribute("textfieldcolor", gController.answerBgColor);
+                this.style.setAttribute("textcolor", gController.answerFontColor);*/
+				//this.field.onfocus.sendEvent();
            </method>
         </ctb_edittext>
  		<basebutton resource="read_btn" 

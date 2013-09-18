@@ -271,6 +271,8 @@
 		
 		<attribute name="canNotAnswer" type="boolean" value="false"/>
 		<attribute name="answerArray" value="$once{new Array()}" />
+		<attribute name="iframeid" type="string" value="NONE" />
+		<attribute name="lasAssetArray" value="$once{new Array()}" />
 		<!--
 			============================================================
 			Datapointers
@@ -573,6 +575,7 @@
             this.runtimeready  = false;
             this.youarehereset = false;
         	//var loadParams = getLoadParams();
+        	//var s = setCurLasItemId(loadParams[0]);//Native Invoke
         	if (typeof canvas.itemNum != "undefined") {
 				dsitem.setQueryParam(gRequest.ITEMNUM_PARAM, canvas.itemNum);
 			}
@@ -588,11 +591,9 @@
 			dsitem.setQueryParam(gRequest.METHOD_PARAM, gRequest.GET_ITEM_METHOD);
 			//dsitem.setQueryParam(gRequest.XML_PARAM, xml);
 			dsitem.doRequest();  
-            this.resetCrFields();
-			this.resetAudioFields();
+            //this.resetCrFields();
+			//this.resetAudioFields();
 		]]></method>
-
-	
 
 		<attribute name="pending" value="$once{ {} }" />
 		<!--
@@ -856,26 +857,41 @@ Debug.write("inQuestion");
 					'BA','AB','AB','BA','AB','BA','BA'];			
 		]]></method>
 
-		<method name="showWaitPopup">
+		<method name="showWaitPopup"><![CDATA[
 			this.isWaitPopupOpen = true;	
 			gPleaseWaitPopup.show();
-		</method>
+			for(var i=0; i< gController.lasAssetArray.length; i++) {
+				gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',true);
+				gController.lasAssetArray[i].asset.assetOverley.bringToFront();
+			}
+		]]></method>
 
 		<method name="hideWaitPopup"><![CDATA[
 			this.isWaitPopupOpen = false;	
 			gPleaseWaitPopup.hide();
 			lz.Timer.removeTimer(dHideWaitPopup);
+			for(var i=0; i< gController.lasAssetArray.length; i++) {
+				gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',false);
+			}
 			//gReadableText.stopRequestor();
 			gController.unlockUI();
-		7
 		]]></method>
 
-		<method name="showWaitPopupFor30Sec">
+		<method name="showWaitPopupFor30Sec"><![CDATA[
 			if(!isWaitPopupOpen) {
 				showWaitPopup();
+				for(var i=0; i< gController.lasAssetArray.length; i++) {
+					gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',true);
+				}
 				lz.Timer.resetTimer( dHideWaitPopup, 30000 );
 			}
-		</method>
+		]]></method>
+		
+		<handler name="onplayIfAnswered"><![CDATA[
+			if(this.iframeid != "NONE") {
+				checkValIfAnswered(iframeid);
+			}
+		]]></handler>
 
 	</node>
 
