@@ -2355,9 +2355,11 @@
 		]]></method>
 
 		<method name="getAnswerForInputWidgetId" args="widgetId"><![CDATA[
+			var result="";
 			var eid = loadNode.getAttr('id');
 			var answers = dpstudentdata.xpathQuery( "runtime/item_model [@eid = '"+eid+"']/@answer_text");
-			var node = LzDataNode.stringToLzData(unescape(answers));
+			var node = LzDataNode.stringToLzData(unescape(answers));			
+			var idPresent = widgetId.split("$");
 			//Debug.write("getAnswerForInputWidgetId node", node);
             if (node) {
                node.setOwnerDocument(dstemp);
@@ -2365,9 +2367,21 @@
                //Debug.write("widgetId : " + widgetId + " node : " , node);
 			   dp.setPointer(node);
             
-			   var result = dp.xpathQuery("dstemp://answers/answer[@id = '"+widgetId+"']/text()");
+			   result = dp.xpathQuery("dstemp://answers/answer[@id = '"+widgetId+"']/text()");
 			//Debug.write("getAnswerForInputWidgetId result: " , result);
                dstemp.removeChild(node);
+               // added to support Prewriting and Writing tagging 
+               if(idPresent.length > 1) {
+                    var idVal = idPresent[0];
+					var idPresenceCheck = result.split(idVal+":");
+					if(idPresenceCheck.length > 1) {
+                          var tempResult = "";
+							for(var k = 1; k < idPresenceCheck.length; k++) {
+								tempResult = tempResult + idPresenceCheck[k];
+							}
+							result = tempResult;
+                       }
+                  }
             }
 			
 			return result;
@@ -4664,13 +4678,25 @@ Debug.write("out of time 1 ans" + isAnswered);
 		<method name="updateCrItemNode"><![CDATA[
 			if(isCrItem()){
             	var xmls = "<answers>";
+            	var idArrtVal = "";
             	for (var i = 0; i < this.crFields.length; i++) {
+            		var currentFieldId = this.crFields[i]['widget_id'];
+					var currentFieldIdArray = currentFieldId.split("$");
+					if(currentFieldIdArray.length > 1) {
+						idArrtVal = currentFieldIdArray[0];
+					} else {
+						idArrtVal = "";
+					}
+            	
                 	xmls = xmls.concat("<answer id=" + "\"" + this.crFields[i]['widget_id'] + "\""+ ">");
                 	if(!crFields[i]['answered']){
                    		xmls = xmls.concat("</answer>");
                    	}
                 	else{
-                   		xmls = xmls.concat(wrapInCdata(this.crFields[i]['answer']) + "</answer>");
+                   		if(idArrtVal == "")
+                   			xmls = xmls.concat(wrapInCdata(this.crFields[i]['answer']) + "</answer>");
+						else
+							xmls = xmls.concat(wrapInCdata(idArrtVal + ":" + this.crFields[i]['answer']) + "</answer>");
                    	}
             	}
             	xmls = xmls.concat("</answers>");
