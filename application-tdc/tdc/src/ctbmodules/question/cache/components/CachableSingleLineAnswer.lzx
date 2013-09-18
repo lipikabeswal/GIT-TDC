@@ -45,9 +45,29 @@
                 this.setAttribute('widget_id', data.getAttr("id"));
             	var answer = gController.getAnswerForInputWidgetId(this.widget_id);
             	var answered = (typeof answer != "undefined" && answer.length != 0);
+            	
+            	if(answered) {
+            		var idPresent = this.widget_id.split("$");
+            		if(idPresent.length > 1) {
+						var idVal = idPresent[0];
+						var idPresenceCheck = answer.split(idVal+":");
+						if(idPresenceCheck.length > 1) {
+							var tempAnswer = "";
+							for(var k = 1; k < idPresenceCheck.length; k++) {
+								tempAnswer = tempAnswer + idPresenceCheck[k];
+							}
+							answer = tempAnswer;
+						}
+            		}
+            	}
+            	
                 gController.addCrField({"widget_id" : this.widget_id, 
                                               "answered" : answered, "answer" : answer, "ref" : this}); 
-                this.setAnswer(answer);
+                if(answer){				
+					this.setAnswer(answer);
+				}else{
+					this.setAnswer('');
+				}
 //this.answer.setText("<huh/>");
             }
             
