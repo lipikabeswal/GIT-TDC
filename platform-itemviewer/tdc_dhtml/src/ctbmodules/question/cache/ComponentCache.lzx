@@ -239,6 +239,10 @@
                     arraytouse = cachedrecorder;      
                     break;
                 }
+                case gCompTypes.WIDGET_ASSET: {
+                	arraytouse = cachedassets;
+                	break;
+                }
                 default: {
                    Debug.warn ('CACHE: unknown component type', type);
                     break;

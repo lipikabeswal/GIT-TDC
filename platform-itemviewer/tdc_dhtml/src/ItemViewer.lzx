@@ -74,6 +74,7 @@
 	<attribute name="currentCursor" value="null"/>
 	<attribute name="eliminatorRsrc" value="$once{lz.Browser.getInitArg('eliminatorResource')}" type="string" />
 	<attribute name="useDefaultEliminator" type="boolean" value="true" />
+	<attribute name="LASAssetPath"/>
     
 	<method name="setCrFocus">
 		var fo = canvas.focusobj;
@@ -113,6 +114,7 @@
 	   //Stage.showMenu = false;
 	   //dshowClient.register( this, 'itemuiready' );
 		canvas.setScale();
+		getLasAssetPath();
 		gController.loadItem();
     </method>
     

@@ -3,6 +3,7 @@
     <include href="CachableInputTextField.lzx"/>
     <include href="utils/layouts/wrappinglayout.lzx"/>
     <include href="../../../rich-text/inlinewrappinglayout.lzx"/>
+    <include href="../../../Controllers/ReadableText.lzx"/>
 
     <!-- ===============
          ==

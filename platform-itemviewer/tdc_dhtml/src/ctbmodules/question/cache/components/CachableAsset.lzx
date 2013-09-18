@@ -23,6 +23,7 @@
 	
 		<handler name="ondata" args="data"><![CDATA[
 			if($dhtml){
+				console.log("ondata CachableAsset********");
 				this.asset.setAttribute('height',Number(data.getAttr('height')));
 				this.asset.setAttribute('width',Number(data.getAttr('width')));
 				if(data != null && data.getAttr('isMP4') == "true") {

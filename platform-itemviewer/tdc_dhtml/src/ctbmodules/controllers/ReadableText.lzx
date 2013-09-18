@@ -1,0 +1,268 @@
+<library>
+	<!-- <dataset name="speechDs" 
+			 type="http"
+	         queuerequests="true" 
+	         querytype="post"
+	         timeout="30000" 
+	         ondata="gReadableText.getMp3()" /> -->
+ 
+    <text visible="false" width="0" height="0"
+          id="gReadableText" oninit="sendToBack()" options="ignorelayout">
+
+        <attribute name="isenabled"
+                   value="$path{ 'dsdisplay:/display/@enabled' }"/>
+        <attribute name="clickable" value="${ isenabled == true }"/>
+		<attribute name="READ_SPACE" type="string" value="blank" />
+		<attribute name="READ_PERIOD" type="string" value="point" />
+		<attribute name="READ_SLASH" type="string" value="slash" />
+		<attribute name="READ_SELECTION_REMOVED" type="string" value="selection removed." />
+	    <attribute name="GET_URL" type="string" />
+	    <attribute name="TEXT_PARAM" type="string" value="text" />
+	    <attribute name="primed" type="boolean" value="false" />
+		<attribute name="dTimeout" value="$once{new lz.Delegate(this, 'timedout')}" type="expression"/>
+		<attribute name="TIMEOUT_INTERVAL" type="number" value="30000" />
+		<attribute name="readingScratchpad" type="boolean" value="false" />
+		<!-- TTS CR -->
+		<attribute name="currentText" type="string" value="" />
+		<attribute name="SPEED_PARAM" type="string" value="speedValue" />
+	    <attribute name="isplaying" type="boolean" value="false" />
+
+		<!-- true, when wait popup is shown and second tts call is made  -->	
+	    <attribute name="speechRequestSent" type="boolean" value="false" />
+
+		<attribute name="dRequestor" value="$once{new lz.Delegate(this, 'requestor')}" type="expression" />  
+
+        <method name="init">
+            super.init();
+        </method>
+        
+        <method name="pleaseWait">
+        	if(primed){
+        	}
+        </method>
+        
+		<handler name="oninit">
+			/*var postUrl = lz.Browser.getInitArg( 'servletUrl' ) + '/SpeechServlet.do';
+			var getUrl = postUrl + '?file=speech.mp3';
+			setAttribute('GET_URL', getUrl);
+			speechDs.setAttribute('src', postUrl);*/
+		</handler>
+		
+		<method name="getSelectionRemoved">
+			return READ_SELECTION_REMOVED;
+		</method>
+		
+        <method name="read" args="txt, fromSp"><![CDATA[
+        	if(fromSp == true){
+        		gReadableText.setAttribute("readingScratchpad", true);
+        	}
+        	else{
+        		gReadableText.setAttribute("readingScratchpad", false);
+        	}
+        	txt = trim(txt);
+        	//Debug.write("current Text"+txt);
+        	this.currentText = txt;//TTS CR
+        	if ( isReadable && clickable && txt.length > 0){
+        		doRead(txt);
+ 	        	gController.freezeUI();
+            }
+        ]]></method>
+
+		<method name="stripHtmlTags" args="txt"><![CDATA[
+			/*if(txt != null && typeof txt != 'undefined' && txt.length > 0){
+	       		this.setAttribute('text', txt);
+				var mc = this.sprite;
+				return mc.textfield.text;
+			}
+			else{
+				return "";
+			}*/
+			if(txt != null && typeof txt != 'undefined' && txt.length > 0){
+	       		this.setAttribute('text', txt);
+				if ($dhtml) {
+					Debug.write("DHTML ",this.getDisplayObject().textContent);
+					return this.getDisplayObject().textContent;
+				} else {				
+					
+					var mc = this.sprite;
+					Debug.write("AS# ",mc.textfield.text);
+					return mc.textfield.text;
+				}
+			}
+			else{
+				return "";
+			}
+		]]></method>
+		
+		<method name="timedout" args="ignore=null">
+		/*Debug.write("timedout...");
+	        lz.Timer.removeTimer( dTimeout );
+			//For ISTEP CR	
+			if(gCommunicator.firstRequestDone == false) {
+				
+				gCommunicator.firstRequestDone = true;
+				gReadableText.speechRequestSent = true;
+				gController.showWaitPopupFor60Sec();
+				gController.stopHeartbeat();
+				//to stop the test timer
+				gController.stopQuestion();
+				//gReadableText.getMp3();
+				doRead(this.currentText);
+				//gReadableText.startRequestor();	
+			}
+			else {
+				gCommunicator.finishCall(gXmlHelper.getSpeechErrorXml());
+			}*/
+		</method>
+		
+        <method name="doRead" args="txt"><![CDATA[
+			/*this.currentText = txt;//TTS CR
+        	//Changes for Defect # 65040
+        	if(canvas.capabilities.audio){
+        		this.audioPlayer.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
+			}
+			lz.Timer.resetTimer(this.dTimeout, TIMEOUT_INTERVAL);
+ 	    	//stopReading();
+ 	        speechDs.setQueryParam(TEXT_PARAM, txt);
+ 	        //TTS CR
+ 	        if(gController.hasTTSspeed) {
+ 	        	var smf = gManipulativeBar.speedController.value;  //SMF => Slow, Medium, Fast
+ 	        	var speedValue = getSpeedNumber(smf);
+ 	        	speechDs.setQueryParam(SPEED_PARAM, speedValue);
+ 	        }
+ 	        Debug.write("speechDs");
+			speechDs.doRequest();*/
+       ]]></method>
+        
+        <method name="getMp3" ><![CDATA[
+        	//ISTEP CR: to avoid browser caching of the mp3
+        	//Debug.write("getMp3" + GET_URL + ":"+timestamp());
+        	//audioPlayer.setSource(GET_URL+"&"+timestamp()+".mp3");
+        ]]></method>
+
+		<method name="timestamp">
+			return "timestamp="+Math.random();	
+		</method>        
+        
+        <method name="getReadableTextForCharacter" args="c">
+        	var result = c;
+			if(result == null || 
+			   result == '' || 
+			   result == ' '){
+				result = this.READ_SPACE;
+			}
+			else if(result == '.'){
+				result = this.READ_PERIOD;
+			}
+			else if(result == '/'){
+				result = this.READ_SLASH;
+			}
+			return result;
+        </method>
+
+	    <!-- TTS CR -->
+		<method name="getSpeedNumber" args="smf"><![CDATA[
+			var value;
+        	switch (smf){
+				case 'S':
+					value = -3;
+					break;
+				
+				case 'M':
+					value = -2;
+					break;
+				
+				case 'F':
+					value = -1;
+					break;
+
+				default:
+					value = -2;
+					break;
+			}
+			return value;
+        ]]></method>
+
+        <attribute name="highlightFlag"
+                   value="$path{'dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@highlighter'}"/>
+        <attribute name="eraserFlag"
+                   value="$path{'dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@eraser'}"/>
+        <attribute name="isReadable"
+                   value="${
+                             highlightFlag != 'sel' &amp;&amp;
+                             eraserFlag != 'sel' &amp;&amp;
+                             canvas.readable
+                           }"/>
+        <method name="stopReading" args="fromSp"><![CDATA[
+        	if(fromSp != true || (fromSp == true && gReadableText.readingScratchpad)){
+        		audioPlayer.stop();
+        	}
+        ]]></method>
+
+		<method name="requestor" args="ignore=null">
+			//Debug.write("requestor...");
+			//getMp3();
+			doRead(this.currentText);
+			startRequestor();
+		</method>
+
+		<method name="startRequestor">
+			//Debug.write("startRequestor...");
+			lz.Timer.resetTimer(dRequestor, 10000);
+		</method>
+
+		<method name="stopRequestor">
+			lz.Timer.removeTimer(dRequestor);
+		</method>
+		        
+        <view name="audioPlayer" visible="false">
+        	<handler name="onload">
+        		gReadableText.isplaying = true; // TTS CR:when mp3 is loaded and ready to play
+				//Changes for Defect # 65040
+				if(canvas.capabilities.audio){
+ 					this.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
+ 				}
+				if(gController.isWaitPopupOpen) {
+					gReadableText.speechRequestSent = false;
+					gCommunicator.firstRequestDone = false;
+					gController.hideWaitPopup();
+					gController.sendHeartbeat();
+					//to start the test timer 
+					gController.startQuestion();
+					gController.unlockUI();
+				}
+
+        		if(!gCommunicator.error){  // if we get an onload and there is no error
+	        	//	Debug.write("inside if of readable");
+					lz.Timer.removeTimer( parent.dTimeout );
+	        		if(parent.primed){
+					//Debug.write("inside if of primed");
+		       			gController.unlockUI();
+	        		}
+	        		else{
+	        			parent.setAttribute('primed', true);
+	        		}
+	        	}
+        	</handler>
+
+			<!-- TTS CR: when play method is called, set isplaying true -->
+			<handler name="onplay" args="f">
+				//Debug.write("audioPlayer onplay..", f);
+				gReadableText.isplaying = true;
+			</handler>        	
+        	
+        	<!-- TTS CR: when stop method is called, set isplaying false -->
+        	<handler name="onstop">
+        		//Debug.write("onstop for audioplayer : ", gReadableText.isplaying);
+        		gReadableText.isplaying = false;
+        	</handler>
+				
+        	<!-- TTS CR: when whole mp3 is played and reaches at last frame, set isplaying false -->
+        	<handler name="onlastframe">
+        	//	Debug.write("onlastframe for audioplayer : ", gReadableText.isplaying);
+        		gReadableText.isplaying = false;
+        	</handler>
+         </view>
+    </text>
+
+</library>

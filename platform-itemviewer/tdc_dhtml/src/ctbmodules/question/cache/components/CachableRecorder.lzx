@@ -118,13 +118,13 @@
 			}
 
 			var answered = false;
-			gController.addAudioItem({"widget_id" : this.widget_id, "answered" : answered});
+			//gController.addAudioItem({"widget_id" : this.widget_id, "answered" : answered});
 			gController.setAttribute('blockFileName' , true);
 			doneLoading();
-			gController.recorderComponent(this);
+			/*gController.recorderComponent(this);
 			if(this.isinited && this.visible){
 				gController.resetMicCheck();
-			}
+			}*/
 		]]>
 		</handler>
 

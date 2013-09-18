@@ -1,5 +1,6 @@
 <library>
     <include href="CachableComponent.lzx"/>
+    <include href="../../../Controllers/ReadableText.lzx"/>
     <!-- ===============
          ==
          == CachableInputTextField
