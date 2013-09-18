@@ -5574,9 +5574,11 @@ Debug.write("############ loadItem ############");
 		</method>
 
 		<method name="manipulativeSelected"><![CDATA[
-			console.log("this.manipSelected******",manipSelected,manipSelected.name);
-			if(this.manipSelected.data != 'sel') {
-				this.manipSelected.setAttribute("frame",1);
+			//console.log("this.manipSelected******",manipSelected,manipSelected.name);
+			if(this.manipSelected){
+				if(this.manipSelected.data != 'sel') {
+					this.manipSelected.setAttribute("frame",1);
+				}
 			}
 		]]></method> 
 	</node>
