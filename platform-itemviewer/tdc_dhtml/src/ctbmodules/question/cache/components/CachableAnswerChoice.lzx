@@ -1,0 +1,85 @@
+<library>
+	<include href="CachableComponent.lzx"/>
+
+	<!-- ************************************
+         CachableAnswerChoice
+         
+         A cachable Answer Choice
+         *************************************-->
+
+	<class name="CachableAnswerChoice" extends="CachableComponent"
+		comptype="${gCompTypes.WIDGET_ANSWER_CHOICE}">
+
+		<DynamicSimplelayout name="dynlayout" axis="x"/>
+
+        <!-- ================================
+             methods
+             ================================= -->		
+		<handler name="ondata" args="data"><![CDATA[
+
+			if (data.hasAttr ('width')) {
+				this.setAttribute ('width', Number (data.getAttr ('width')));
+            }
+
+			this.dynlayout.setAttribute ('spacing',0);
+			if (data.hasAttr ('spacing')) {
+				this.dynlayout.setAttribute ('spacing', Number (data.getAttr ('spacing')));
+            }
+
+			if (data.hasAttr ('layout')) {
+				if (data.getAttr ('layout') == 'horizontal') {
+					this.dynlayout.changeAxis ('x');
+				}
+				else{
+					this.dynlayout.changeAxis ('y');
+				}
+			}
+
+            if ( data.hasAttr( 'x' ) ) {
+                setAttribute( 'x', parseInt( data.getAttr( 'x' ) ) );
+            }
+
+            if ( data.hasAttr( 'y' ) ) {
+                setAttribute( 'y', parseInt( data.getAttr( 'y' ) ) );
+            }
+
+            this._initSubnodes ();
+            for (var i = 0; i < this.subviews.length; i++) {
+            	if(this.subviews[i] instanceof lz.CachableTextField){
+            		this.subviews[i].setAttribute('valign',"middle");
+            	}
+            }
+            
+            doneLoading();
+            ]]>
+		</handler>
+
+        <method name="doReturnToCache">
+            super.doReturnToCache ();
+            this.dynlayout.clearSubviews ();
+        </method>
+
+        <method name="_initSubnodes"><![CDATA[
+            var subnodes = this.datapath.p.childNodes;
+            var newcomp = null;
+            for (var i = 0; i < subnodes.length; i++) {
+            	var subnode = subnodes[i];
+                if ( subnode instanceof lz.DataElement ) {
+                	if(subnode.nodeName != 'rationale'){
+                    	newcomp = this.cache.getComponent (subnodes [i]);
+                    	if(newcomp!=null)
+                    		this.dynlayout.addSubview (newcomp);
+                    }
+                }
+            }
+        ]]></method>
+		<method name="updateSelector"><![CDATA[
+		Debug.write('2');
+			for(var i=0; i< this.dynlayout.subviews.length; i++){
+				this.dynlayout.subviews[i].doAlign();
+			}
+			this.dynlayout.update();
+		 ]]></method>
+	</class>
+
+</library>

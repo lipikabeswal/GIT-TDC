@@ -1,0 +1,144 @@
+<library>
+<include href="lz/vscrollbar.lzx"/>
+
+<!--- Implements visual baseedittext with scrollbar. -->
+<class name="scrolledittext_CrItem" extends="baseedittext" multiline="true"  clip="true">
+    <!--// ATTRIBUTES //-->
+    <attribute name="border" type="number" value="0"/>
+
+    <!--- Name of class to instantiate for vertical scroll bar.
+          @keywords public -->
+    <attribute name="vscrollbarclassname" type="string" value="vscrollbar"/>
+
+    <!--- Width to give for scrollbar
+          @keywords private -->
+    <attribute name="_vscrollwidth" type="number" value="0"/>
+
+    <!--- Our vertical scrollbar
+          @keywords private -->
+    <attribute name="_vs" value="null"/>
+
+
+    <!--// METHODS //-->
+    <!--- @keywords overrides -->
+    <method name="init">
+        super.init();
+    </method>
+
+    <!--- @keywords private -->
+    <method name="_updateX" args="ignore=null" returns="void">
+        if (this._vs) this._vs.setAttribute("x", this.width - this._vs.width);
+    </method>
+
+    <!--- @keywords private -->
+    <method name="_updateStepSize" args="ignore=null" returns="void">
+        if (this._vs) this._vs.setAttribute("stepsize", this.inp.lineheight);
+    </method>
+
+    <!--- @keywords private -->
+    <method name="_updateScrollMax" args="ignore=null" returns="void">
+        if (this._vs) this._vs.setAttribute("scrollmax", this.inp.scrollheight);
+    </method>
+
+    <!--- @keywords private -->
+    <method name="_setVScrollWidthFromVisibility" args="visible:Boolean" returns="void">
+        this.setAttribute("_vscrollwidth", visible ? this._vs.width : 0);
+    </method>
+
+    <!--- Overrides a parent method which calculates y position for text
+          in a way that doesn't make sense for this class. We just trap the 
+          call and do nothing. This field is positioned in y by the constraint
+          y=${parent.border}
+          Note: although this method is a no-op, it still has to be declared,
+          so the parent class's method does not get called on instances of 
+          this class. 
+          @keywords overrides
+          @keywords private -->
+    <method name="_placeTextY">
+    </method>
+
+
+    <!--// VIEWS //-->
+    <!--- @keywords private -->
+    <view name="_face" bgcolor="0xffffff" 
+        x="${parent.border}" y="${parent.border}"
+        width="${parent.width - parent.border * 2}" 
+        height="${parent.height - parent.border * 2}" 
+    />
+
+    <!--- @keywords private -->
+    <_newinternalinputtext name="inp" scrollevents="true" multiline="true"
+        x="${parent.border}" y="${parent.border}" clip="true"
+        width="${parent.width - parent.border * 2 - parent._vscrollwidth}"
+        height="${parent.height - parent.border * 2}" 
+        pattern="[A-Za-z0-9!@;:#$%\*()-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[\\]\\\\\_|`~ \\^]*"
+        fgcolor="${gController.answerFontColor}">
+        <attribute name="pos" type="number" value="0"/>
+		<attribute name="onscrollcalled" type="boolean" value="false"/>
+
+		<method name="setScrollPos">
+			var fontSize = 0;
+			var lineheight = 14;
+            if(gController.hasFontAccommodation){
+				fontSize = 18;
+				lineheight = 22;
+			}
+			else{
+				fontSize = 12;
+				lineheight = 14;
+			}
+			
+			var comWidth = this.width-1;
+			var comHeight = this.height;
+			var fontcolor = getCRcolor();
+			var elm = this.getDisplayObject();
+			elm.setAttribute('style','overflow-x: hidden; white-space: pre-line; overflow-y: scroll; color: '+fontcolor+'; font-size: '+fontSize+'; line-height: '+lineheight+'px; height: '+comHeight+'; clip: rect(0px '+comWidth+'px '+comHeight+'px 0px); width: '+comWidth+'; pointer-events: auto;');		
+		</method>
+		
+
+        <handler name="oninit">
+			var el = this.getDisplayObject();
+			el.setAttribute('id','CRscrolledittext');
+			hideScrollbarForCRitem(el.id);	
+		</handler>
+        <setter name="pos" args="p">        	
+            if (this.p == p){
+				Debug.write("Pos internal return", p, this.p, scroll);
+				 return;
+			}
+            
+            if (this.inited) {
+                var scroll:Number = 1 - Math.floor(p / this.lineheight);
+                if (scroll !== this.scroll) {
+                    this.setAttribute('scroll', scroll);
+                    Debug.write("Pos internal", p, this.p, scroll);
+                }
+                this.pos = p;
+                if (this.onpos){
+                 this.onpos.sendEvent(p);
+				Debug.write("Pos internal send event", p, this.p, scroll);
+                }
+            }
+
+        </setter>
+        
+        <handler name="ontext">
+            if ($dhtml) this.sprite.__updatefieldsize();
+        </handler> 
+
+        <handler name="onscroll" args="IGNORE_THIS_ARG">
+            this.setAttribute('pos', -this.lineheight * (this.scroll - 1));
+			if(!this.onscrollcalled){
+				setScrollPos();
+				this.setAttribute('onscrollcalled',true);
+			}
+        </handler>
+    </_newinternalinputtext>
+</class>
+
+</library>
+<!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
+* Copyright 2006-2011 Laszlo Systems, Inc. All Rights Reserved.               *
+* Use is subject to license terms.                                            *
+* X_LZ_COPYRIGHT_END ****************************************************** -->
+<!-- @LZX_VERSION@                                                         -->

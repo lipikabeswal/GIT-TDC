@@ -1,0 +1,498 @@
+<view id="gFootNotePopup" visible="false" 
+      width="${Math.max(body.width,  body.wrap.header.width + closeButton.width)
+        + 2 * this.BORDER_SIZE}" 
+      height="${this.body.height + 2 * this.BORDER_SIZE}"
+      clickable="true">
+
+    <attribute name="scrolltext"/>
+    <attribute name="backcolor" type="color" value="white"/>
+    <attribute name="scrollpaneltxt" type="string" value=""/> 
+	
+    <attribute name="BORDER_SIZE" value="6"/>
+    <attribute name="MIN_HEIGHT" value="200"/>
+    <attribute name="MIN_WIDTH" value="300"/>
+    <attribute name="DROP_SHADOW_SIZE" value="4"/>
+    
+    <!-- Display styles for the header of the footnote -->
+	<attribute name="NORMAL_DISPLAY_STYLE" type="string" value="NORMAL" />
+	<attribute name="BOOKTITLE_DISPLAY_STYLE" type="string" value="BOOKTITLE" />
+	<attribute name="readingFootNote" type="boolean" value="false" />
+	
+    <method name="findScrollingTextPanel" args="inDP">
+        if(inDP.getNodeName() == gCompTypes.WIDGET_SCROLLING_TEXT_PANEL) {
+            return inDP.p;
+        }
+
+        var dp = inDP.dupePointer();
+        if(dp.selectChild())
+        {
+
+            do
+            {
+                var res = findScrollingTextPanel(dp);
+                if(res != null) {
+                    return res;
+                }
+            } while(dp.selectNext());
+
+        }
+
+        return null;
+    </method>
+
+	<attribute name="readable" type="boolean" value="false" />
+	
+    <handler name="ondata" reference="gController.dpitem">
+        //find the text in the scroll text panel node.  We'll use this to find
+        //the details for a particular header
+        if (gController.dpitem.data) {
+            var dnscrolltext = gController.dpitem.xpathQuery("item_canvas/scrolling_text_panel");
+            if(dnscrolltext == null) {
+                dnscrolltext = findScrollingTextPanel(gController.dpitem);
+            }
+            if(dnscrolltext == null){
+            	dnscrolltext = gController.dpitem.xpathQuery("item_canvas/stimulus_tabs_panel/stimulus_tab");
+            	if(dnscrolltext != null){
+            		dnscrolltext = dnscrolltext[0];
+            	}
+            }
+            if (dnscrolltext) {
+                this.setAttribute("itemtxt", dnscrolltext.serialize());
+				
+            } else {
+                this.setAttribute("itemtxt", "");
+            }
+
+            if(canvas.readable){
+            	this.setAttribute("showhandcursor", true);
+            	this.arrow.setAttribute("showhandcursor", true);
+            }
+            else{
+            	this.setAttribute("showhandcursor", false);
+            	this.arrow.setAttribute("showhandcursor", false);
+            }
+        }
+    </handler>
+    <method name ="UTFDecode" args="b">
+    	<![CDATA[
+    	//Defect 64691- Added for footnote defect fix.
+        //Defect 65619 & 65617 fix
+    	// This method helps in decoding the decimal values of special characters from flash. 
+    	//This fix will help footnote to work for all the flash versions.
+		    var c= '';
+		   // Debug.write("UTF Decode")
+			for(i=0; i<b.length; i++){
+				if(b.charCodeAt(i)>127)
+				{ 
+				c += '&amp;#' + b.charCodeAt(i) + ';';
+				 }
+				 else
+				 { 
+				 c += b.charAt(i); 
+				 }
+		  	}
+		  	return c;
+    ]]>
+    </method>
+
+	<method name="setTabTextPanel" args="txt">
+		this.setAttribute("itemtxt", txt);
+	</method>
+	
+	<method name="readMe"><![CDATA[
+		if(this.readable){
+			gReadableText.read(gReadableText.stripHtmlTags(this.body.wrap.header.text + ", " + this.body.wrap.detail.text));
+			this.setAttribute("readingFootNote", true);
+       	}
+	]]></method>
+	
+    <attribute name="clickdel" 
+               value="$once{new lz.Delegate(this, 'checkClick')}"/>
+
+    <handler name="onscrolltext">
+        //init font color and background color
+        var fgc = this.scrolltext['fontcolor'] ? this.scrolltext.fontcolor : "white";
+        var bc = this.scrolltext['panel'] &amp;&amp; this.scrolltext.panel['bgcolor'] ? this.scrolltext.panel.bgcolor : "black";
+        
+        this.body.wrap.setAttribute("fgcolor", fgc);
+		this.setAttribute("backcolor", bc);
+    </handler>
+
+    <method name="show" args="header">
+        <![CDATA[
+		//Defect 64691- Added for footnote defect fix.
+		//Defect 65619 & 65617 fix
+		this.itemtxt = UTFDecode(this.itemtxt);
+		 if (this.itemtxt != ""){
+			var headerpos = this.itemtxt.indexOf("header=&quot;" + this.formatStr(header));
+			if(headerpos != -1){
+        		reallyShow(header);
+        	}
+        	else{
+        		hide();
+        	}
+        }
+       ]]>
+    </method>
+
+    <method name="reallyShow" args="header">
+        <![CDATA[
+        //reset scrollbar
+        this.body.wrap.setAttribute("y", 0);
+
+        //find the detail string
+        var headerpos = this.itemtxt.indexOf("header=&quot;" + this.formatStr(header));
+		var detailstart = this.itemtxt.indexOf("detail=&quot;", headerpos) + 13;
+		var detailend = this.itemtxt.indexOf("&quot;", detailstart);
+		var detail = this.itemtxt.substring(detailstart, detailend);
+		detail = replaceAmp(detail);
+		setReadable(headerpos);
+		
+		var displayStyle = NORMAL_DISPLAY_STYLE;
+		var headerDisplay = header;
+
+		var displayStyleStart = this.itemtxt.indexOf("display_style=&quot;", headerpos);
+		var footnoteEnd = this.itemtxt.indexOf("&lt;/footnote&gt;", headerpos);
+
+		if(displayStyleStart != -1 && displayStyleStart < footnoteEnd){
+			displayStyleStart = displayStyleStart + 20;
+			var displayStyleEnd = this.itemtxt.indexOf("&quot;", displayStyleStart);
+	        displayStyle = this.itemtxt.substring(displayStyleStart, displayStyleEnd);
+	    }
+	    
+	    if(displayStyle == BOOKTITLE_DISPLAY_STYLE){
+	    	headerDisplay = "<i>" + header + "</i>";
+		}
+	    
+        //init footnote
+        this.body.wrap.header.setAttribute("text", headerDisplay);
+
+        this.body.wrap.detail.setAttribute("text", detail);
+        this.body.wrap.detailmulti.setAttribute("text", detail);
+
+        var fontSize = 
+            (this.scrolltext['fontsize'] ? this.scrolltext.fontsize : 12);
+            
+        this.setAttribute("x", parent.getMouse("x") - fontSize);
+        this.setAttribute("y", parent.getMouse("y") - this.height - fontSize);
+
+        var arrowy = this.height - 1;
+        var arrowdir = "up";
+
+        var rely = this.getAttributeRelative("y", canvas) 
+                - this.scrolltext.getAttributeRelative("y", canvas);         
+            
+        if (rely < 0) {
+            this.setAttribute("y", parent.getMouse("y") + fontSize);
+            arrowy = -this.arrow.height + 1;
+            arrowdir = "down";
+        }
+
+        //move to the left if necessary
+        var relx = this.getAttributeRelative("x", this.scrolltext);
+        if (relx + this.width + this.DROP_SHADOW_SIZE> this.scrolltext.width) {
+            this.setAttribute("x", this.x - (this.width + DROP_SHADOW_SIZE) 
+                + 25*(fontSize/12));
+
+            if(this.getAttributeRelative("x", canvas) < 0) {
+                this.setAttribute("x", 0);
+            }
+
+        }
+
+        this.arrow.setAttribute("direction", arrowdir);
+        this.arrow.setAttribute("x", this.getMouse("x") - this.arrow.width/2);
+        this.arrow.setAttribute("y", arrowy);
+
+        this.setAttribute("visible", true);
+        this.clickdel.register(lz.GlobalMouse, "onmousedown");
+        ]]>
+    </method>
+
+	<method name="setReadable" args="headerpos"><![CDATA[
+		var isreadable = false;
+		if(canvas.readable){
+			var rest = this.itemtxt.substring(headerpos, this.itemtxt.length);
+			var readablestart = rest.indexOf('readable=&quot;') + 15;
+			var readableend = readablestart + 4;
+			var readableflag = rest.substring(readablestart, readableend);
+			isreadable = readableflag == 'true';
+		}
+		this.setAttribute('readable', isreadable);
+		this.setAttribute("showhandcursor", isreadable);
+		this.arrow.setAttribute("showhandcursor", isreadable);
+	  ]]></method>
+	
+    <method name="hide">
+        this.setAttribute("visible", false);
+        if(this.readingFootNote == true){
+        		gReadableText.stopReading();
+         		this.setAttribute("readingFootNote",false);
+        	}   
+        this.clickdel.unregisterAll();
+    </method>
+    
+    <method name="checkClick"><![CDATA[
+        if (!isClickInPopup()) {
+            this.hide();
+        }
+        else if(!this.closeButton.containsPt(this.closeButton.getMouse('x'),
+                                             this.closeButton.getMouse('y')) &&
+                !this.body.theScroller.containsPt(this.body.theScroller.getMouse('x'),
+                                                  this.body.theScroller.getMouse('y'))){
+        	readMe();
+        }
+    ]]></method>
+
+	<method name="isClickInPopup"><![CDATA[
+		var clickInRoot = this.containsPt(this.getMouse("x"),
+                                          this.getMouse("y"));
+        var clickInArrow = this.arrow.containsPt(this.arrow.getMouse("x"),
+                                                 this.arrow.getMouse("y"));
+		return (clickInRoot || clickInArrow);
+	]]></method>
+	
+    <method name="formatStr" args="s">
+        //make sure our string is corrently formatted for the searching
+        return this.htmlEncode(s);
+    </method>
+
+    <method name="convertToDec" args="s"><![CDATA[
+        if (this.itemtxt.indexOf("header=quot;&amp#x") > 0) return s;
+        
+        var start = 0;
+        var end = 0;
+        var converteds = "";
+        var hex;
+        while (start > -1) {
+            start = s.indexOf("&#", start);
+            if (start > -1) {
+                converteds += s.substring(end, start);
+                hex = s.substring(start + 3, start + 7);
+                converteds += "&#" + parseInt(hex, 16);
+                end = start + 7;
+                start++;
+            }
+        }
+
+
+        converteds += s.substring(end, s.length);
+        return converteds;
+    ]]></method>
+
+
+    <method name="htmlEncode" args="s"><![CDATA[
+        var ns = "";
+        var char;
+        for (var i = 0; i < s.length; i ++) {
+            char = s.charAt(i);
+            switch(char) {
+                case "&":
+                    char = "&amp;";
+                    break;
+                case "<":
+                    char = "&lt;";
+                    break;
+                case ">":
+                    char = "&gt;";
+                    break;
+                case '"':
+                    char = "&quot;";
+                    break;
+            }
+            ns = ns + char
+        }
+        return ns;
+    ]]></method>
+
+     <method name="replaceAmp" args="s"><![CDATA[
+     	// htmlEncode encoded '&' as '&amp;' - we need to put it back
+     	// for instance - &apos; got turned into &amp;apos;
+        return gController.replace(s, '&amp;', '&');
+    ]]></method>
+
+    <drawview width="100%" height="100%" 
+              x="$once{parent.DROP_SHADOW_SIZE}" 
+              y="$once{parent.DROP_SHADOW_SIZE}">
+        <handler name="onwidth">
+            this.redraw();
+        </handler>
+        <handler name="onheight">
+            this.redraw();
+        </handler>
+        <method name="redraw">
+            this.clear();
+            var roundness = 5;
+            this.beginPath();
+            this.moveTo(roundness, 0);
+            this.lineTo(this.width - roundness, 0);
+            this.quadraticCurveTo(this.width, 0, this.width, roundness);
+            this.lineTo(this.width, this.height - roundness);
+            this.quadraticCurveTo(this.width, this.height, this.width - roundness, this.height);
+            this.lineTo(roundness, this.height);
+            this.quadraticCurveTo(0, this.height, 0, this.height - roundness);
+            this.lineTo(0, roundness);
+            this.quadraticCurveTo(0, 0, roundness, 0);
+            this.closePath();
+
+            var g = this.createRadialGradient(-this.width * .5, -this.height *.5, .7, 1.5 * this.width, 1.5 * this.height, 0)
+            this.globalAlpha = 0;
+            g.addColorStop(0, 0x000000);
+            this.globalAlpha = .8;
+            g.addColorStop(1, 0xffffff);
+
+            this.setAttribute("fillStyle", g);
+            this.fill();
+        </method>
+    </drawview>
+
+    <drawview name="bubble" width="100%" height="100%">
+        <handler name="onwidth">
+            this.redraw();
+        </handler>
+        <handler name="onheight">
+            this.redraw();
+        </handler>
+        <handler name="onbackcolor" reference="parent">
+            this.redraw();
+        </handler>
+        <method name="redraw">
+            this.clear();
+            var roundness = 5;
+            this.beginPath();
+            this.moveTo(roundness, 0);
+            this.lineTo(this.width - roundness, 0);
+            this.quadraticCurveTo(this.width, 0, this.width, roundness);
+            this.lineTo(this.width, this.height - roundness);
+            this.quadraticCurveTo(this.width, this.height, this.width - roundness, this.height);
+            this.lineTo(roundness, this.height);
+            this.quadraticCurveTo(0, this.height, 0, this.height - roundness);
+            this.lineTo(0, roundness);
+            this.quadraticCurveTo(0, 0, roundness, 0);
+            this.closePath();
+
+            this.setAttribute("fillStyle", parent.backcolor);
+            this.fill();
+            
+            this.setAttribute("strokeStyle", black);
+            this.stroke();
+        </method>
+    </drawview>
+
+    <drawview name="arrow" width="10" height="10" clickable="true">
+        <attribute name="direction" type="string" value="up"/>
+        <handler name="oninit">
+            this.redraw();
+        </handler>
+        <handler name="onbackcolor" reference="parent">
+            this.redraw();
+        </handler>
+        <handler name="ondirection">
+            this.redraw();
+        </handler>
+        <method name="redraw">
+            this.clear();
+            this.beginPath();
+
+            if (this.direction == "up") {
+                this.lineTo(10, 0);
+                this.lineTo(5, 10);
+                this.lineTo(0, 0);
+                this.closePath();
+
+                this.setAttribute("fillStyle", parent.backcolor);
+                this.fill();
+
+                this.beginPath();
+                this.moveTo(0,0);
+                this.lineTo(5, 10);
+                this.lineTo(10, 0);
+                this.stroke();
+            } else {
+                this.moveTo(5, 0);
+                this.lineTo(10, 10);
+                this.lineTo(0, 10);
+                this.lineTo(5, 0);
+                this.closePath();
+
+                this.setAttribute("fillStyle", parent.backcolor);
+                this.fill();
+
+                this.beginPath();
+                this.moveTo(0,10);
+                this.lineTo(5, 0);
+                this.lineTo(10, 10);
+                this.stroke();
+            }
+        </method>
+    </drawview>
+
+    <view name="body" clip="true" 
+          height="${this.wrap.height &gt; (parent.MIN_HEIGHT - 2 * parent.BORDER_SIZE) ? 
+                    parent.MIN_HEIGHT - 2 * parent.BORDER_SIZE : this.wrap.height}"
+          x="${parent.BORDER_SIZE}" y="${parent.BORDER_SIZE}">
+        
+        <simplelayout axis="x"/>
+        <view name="wrap">
+            <attribute name="ismulti" value="false"/>
+
+            <simplelayout axis="y"/>
+            <text name="header" resize="true"
+              fontsize="${gFootNotePopup['scrolltext'] &amp;&amp; 
+                          gFootNotePopup.scrolltext &amp;&amp;
+                          (gFootNotePopup.scrolltext['fontsize'] != null)
+                        ? gFootNotePopup.scrolltext.fontsize : 12}">
+                <handler name="onfontsize">
+                    resetHeight();
+                </handler>
+                <handler name="ontext">
+                    resetHeight();
+                </handler>
+                <method name="resetHeight">
+                    this.setHeight(this.getTextHeight()*1.2);
+                </method>
+            </text>
+
+            <text name="detail" visible="${!parent.ismulti}" resize="true"
+                  fontsize="${gFootNotePopup['scrolltext'] &amp;&amp; 
+                              gFootNotePopup.scrolltext &amp;&amp;
+                              (gFootNotePopup.scrolltext['fontsize'] != null)
+                            ? gFootNotePopup.scrolltext.fontsize  : 12}">
+                <handler name="ontext">
+                    parent.setAttribute("ismulti", 
+                        this.getTextWidth() > (gFootNotePopup.MIN_WIDTH - 2 * gFootNotePopup.BORDER_SIZE)); 
+                </handler>
+                <handler name="onfontsize">
+                    resetHeight();
+                </handler>
+                <handler name="ontext">
+                    resetHeight();
+                </handler>
+                <method name="resetHeight">
+                    this.setHeight(this.getTextHeight()*1.2);
+                </method>
+            </text>
+            <text name="detailmulti" multiline="true"
+                  fontsize="${gFootNotePopup['scrolltext'] &amp;&amp; 
+                              gFootNotePopup.scrolltext &amp;&amp; 
+                              (gFootNotePopup.scrolltext['fontsize'] != null)
+                            ? gFootNotePopup.scrolltext.fontsize : 12}"
+                  width="${gFootNotePopup.MIN_WIDTH - 15  - 2 * gFootNotePopup.BORDER_SIZE}" 
+                  visible="${parent.ismulti}"/>
+        </view>
+        <scrollbar y="${parent.parent.closeButton.height 
+                + parent.parent.closeButton.y + 5}"
+            height="${parent.height - this.y - 5}"
+            name="theScroller" visible="${this.scrollable}"/>
+    </view>
+    
+    <basebutton name="closeButton"
+                resource="footnote_close_btn" 
+                y="5" 
+                x="${parent.width - this.width - 5}">
+        <handler name="onclick">
+            parent.hide();
+        </handler>
+    </basebutton>
+</view>    
+

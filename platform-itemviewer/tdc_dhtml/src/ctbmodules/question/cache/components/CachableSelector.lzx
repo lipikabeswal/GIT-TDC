@@ -1,0 +1,77 @@
+<library>
+
+    <include href="CachableComponent.lzx"/>
+
+    <!-- ************************************
+         CachableSelector
+         
+         A cachable answer selector
+         *************************************-->
+	<class name="CachableSelector" extends="CachableComponent" 
+		comptype="${gCompTypes.WIDGET_SELECTOR}">
+        
+        <handler name="ondata" args="data"><![CDATA[
+			//Debug.write("-2");
+            var selid = data.getAttr ('identifier');
+			this.selbutton.setAttribute ('type', selid);
+			//this.selbutton.datapath.setXPath ("dsstudentdata:/testing_client_model/current_item/item_model/interaction/selector [@obj_id_ref='"+selid+"']");
+			this.selbutton.datapath.setXPath ("dsitem:/element_package/item_model/interaction/selector [@obj_id_ref='"+selid+"']");
+			
+			if(gController.isLoginResponseHavingSeed && 
+						data.hasAttr('randomIdentifier')) {         
+
+				this.selbutton.setAttribute ('randomtype', data.getAttr ('randomIdentifier'));
+			}
+    		//Debug.write("0");
+    		//var x=200;
+           this.doAlign ();
+			//Debug.write("-1");
+           doneLoading();
+            
+        ]]></handler>
+
+        <method name="returnComponent" args="toReturn">
+			this.selbutton.setAttribute("randomtype", null);
+			this.selbutton.setAttribute("type", null);
+			this.data = null;
+			this.selbutton.data = null;
+			super.returnComponent(this);
+        </method>
+
+        <AnswerSelectionButton name="selbutton" clickable="true"/>
+        
+        <view id="disableSRChoice" name="disableSRChoice" height="${classroot.selbutton.height}" width="${classroot.selbutton.width}" clickable="false" visible="false" bgcolor="grey" opacity="0.3"/>
+        
+        <method name="lockAnswerChoice">
+        	this.disableSRChoice.bringToFront();
+        	this.disableSRChoice.setAttribute('visible',true);
+        	this.disableSRChoice.setAttribute('clickable',true);
+        </method>
+        
+        <method name="unLockAnswerChoice">
+        	this.selbutton.bringToFront();
+        	this.disableSRChoice.setAttribute('visible',false);
+        	this.disableSRChoice.setAttribute('clickable',false);
+        </method>
+
+		<handler name="onwidth">
+            if ( this.immediateparent['updateSelector'] ) {
+                this.immediateparent.updateSelector();
+            }
+		</handler>
+		
+		<method name="hide">
+            	this.setAttribute('visible',false);
+		</method>
+		<method name="show">
+            	this.setAttribute('visible',true);
+		</method>
+		<method name="setNotClick">
+            	this.selbutton.setAttribute('clickable',false);
+		</method>
+		<method name="setClick">
+            	this.selbutton.setAttribute('clickable',true);
+		</method>
+	</class>
+
+</library>

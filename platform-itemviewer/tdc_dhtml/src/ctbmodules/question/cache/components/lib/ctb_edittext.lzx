@@ -1,0 +1,327 @@
+<library>
+
+    <include href="base/baseformitem.lzx" />
+
+    <!-- @keywords private
+         class for use in windowtext takes its parent's arguments
+         when it constructs -->
+
+    <!--- This component provides the look and feel for user editable text, data
+          binding, and focus events. -->
+    <class name="ctb_edittext" extends="baseformitem"
+           focusable="false">
+        <!--- The text that appears in the component. -->
+        <attribute name="text" type="text" setter="setText(text)"/>
+
+        <!--- Set to true for multiple lines, default: false.
+              @keywords final -->
+        <attribute name="multiline" value="false"/>
+
+        <!--- Set to true for a password field. Text will appear as ****,
+              default: false.
+              @keywords final -->
+        <attribute name="password" value="false" />
+
+        <!--- Set to true if you plan to change the width or height of the
+              component at run-time, default: false.
+              @keywords final -->
+        <attribute name="resizable"/>
+
+        <attribute name="widget_id" type="string"    value="widget10000000000" />
+        <attribute name="w_id"      type="number"    value="$once{gController.MAX_CR_ID}" />
+
+        <!--- The width of the edit text box, default: 106. -->
+        <attribute name="width" value="106"/>
+
+        <!--- the y position of the text. default: centered, unless it is mutltiline -->
+        <attribute name="text_y"
+            value="${multiline ? 2:this.height/2 - this.field.getTextHeight()/2 - 3}" type="number"/>
+
+        <!--- The maximum number of chars that can be entered. -->
+        <attribute name="maxlength" value="null" type="number"/>
+
+        <!--- @keywords private
+        setting the fgcolor of text has the unfortunate effect of setting
+        the hilite color as well, so it is disabled here-->
+        <attribute name="fgcolor" setter="" value="#000000"/>
+
+        <!--- @keywords private -->
+        <attribute name="_fgcolor" value="0"/>
+
+        <!--- @keywords private -->
+        <attribute name="_initialtext" value="" type="string"/>
+        
+        <handler name="onwidget_id">
+			var num = this.widget_id.substring(6, this.widget_id.length);
+        	this.setAttribute('w_id', new Number(num));
+        </handler>
+        
+        <handler name="onw_id"><![CDATA[
+			if(this.w_id < gController.currentCrId){
+				gController.setAttribute('currentCrId', this.w_id);
+				canvas.setAttribute('focusobj', this.field);
+			}
+        ]]></handler>
+		<method name="setAnswer" args="txt">
+			this.setText(txt);
+		</method>
+	<!-- @Set the char_limit for single_line_answer of type standalone -->
+	<handler name="onmaxlength">
+          field.setMaxLength(this.maxlength);
+        </handler>
+		<method name="enable">
+			this.field.setAttribute('isCtrl', false);
+			this.field.setEnabled(true);
+		</method>
+        
+        <!--- @keywords private -->
+        <method name="init">
+            <![CDATA[
+            if (!this.hassetwidth) {
+                if (typeof(this.textwidth) == "undefined") {
+                    this.textwidth = 100;
+                }
+                setAttribute('width', this.textwidth + 6);
+            }
+            super.init();
+            if ( this._initialtext != null ){
+                this.setText( this._initialtext );
+            }
+
+            field.setMaxLength(this.maxlength);
+            this.setAttribute('bgcolor', Number(gController.answerBgColor));
+			this.setAttribute('fontcolor', Number(gController.answerFontColor));
+            ]]>
+        </method>
+
+		<method name="getSelectedText">
+			return field.getSelectedText();
+		</method>
+		
+		<method name="setSelectionVars">
+			field.setSelectionVars();
+		</method>
+
+        <!--- @keywords private -->
+        <method name="setText" args="t">
+            this.text = t;
+            if (this._initcomplete) {
+                this.field.setText(t);
+                if (this['ontext']) this.ontext.sendEvent();
+            } else {
+                this._initialtext = t;
+            }
+        </method>
+
+        <!--- Clears the text field. -->
+        <method name="clearText" >
+            this.setText("");
+        </method>
+
+        <!-- Sets the maxmimum number of characters which can be entered. -->
+        <method name="setMaxlength" args="n">
+          this.setAttribute('maxlength', n);
+          field.setMaxlength(n);
+        </method>
+
+
+        <!-- Set the characters which can be entered into a text field. -->
+        <method name="setPattern" args="r">
+          this.setAttribute('pattern', r);
+          field.setPattern(r);
+        </method>
+
+        <!--- @keywords private -->
+        <method name="getFocusRect"  >
+           var fx = this.getAttributeRelative('x',canvas);
+           var fy = this.getAttributeRelative('y',canvas);
+           var fw = this.getAttributeRelative('width',canvas);
+           var fh = this.getAttributeRelative('height',canvas);
+           return [fx,fy,fw,fh];
+        </method>
+
+        <inputtext name="field"
+            password="$once{parent.password}"
+            x="5"
+            y="0"
+            width="${parent.width - 10}"
+			bgcolor="${Number(gController.answerBgColor)}"
+			fgcolor="${Number(gController.answerFontColor)}"
+			fontsize="${parent.fontsize}"
+            pattern="[A-Za-z0-9!@:;#$%\^*()_\-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[]\\|`~ ]*" >
+            
+            <attribute name="start" type="number" value="0" />
+            <attribute name="end" type="number" value="0" />
+			<attribute name="isCtrl" type="boolean" value="false"/> 
+            <handler name="onfocus" args="s">
+            // do not select text on focus
+				 this.setSelection(0);
+             </handler>
+            
+
+            <handler name="onblur" args="s">
+            	this.setEnabled(true);
+            	this.setAttribute('isCtrl', false);
+            </handler>
+
+            <handler name="ontext"><![CDATA[
+	 			var answer = this.getText();
+			    if (answer) {	    
+			     	var answered = false;
+			        for(var i=0; i< answer.length; i++){
+			         	var c = answer.substring(i, i+1);
+			           	if(c != ' ' && c!= '\n' && c!= '\r'){
+			           		answered = true;
+			           	}
+			        }
+			        gController.updateCrField(classroot.widget_id, answer, answered);
+			    }
+			    else {  // Field is now empty
+			        gController.updateCrField(classroot.widget_id, '', false);
+				}
+             ]]></handler>
+
+            <handler name="onkeyup" args="k"> <![CDATA[
+	 			if(k==17){
+			      this.setEnabled(true);
+			      this.setAttribute('isCtrl', false);
+			  	}	
+                  ]]>
+            </handler>
+
+            <handler name="onkeydown" args="k"> <![CDATA[
+	  			if(k==17){
+	      			this.setAttribute('isCtrl', true);
+	  			}else if(isCtrl 
+	           		&& (k!=67 && k!=86 && k!=88)){
+	      			this.setEnabled(false);
+	  			}
+
+				  if(k==-1){
+				     this.setEnabled(true);
+				  }
+                  ]]>
+            </handler>
+            <handler name="oninit"><![CDATA[ 
+                this.textclip = this.__LZtextclip;
+            ]]> 
+            </handler>
+            
+            
+ 			<!--onfocus handler, reference to this.textclip type lz.Text is required.  This references
+ 				lz.Text within view to register this handler to its onfocus event.  Warning will be fired
+ 				because this.textclip has not been defined, defined in onit handler JMC 10/14/08
+ 			-->
+            <handler name="onfocus" reference="this.textclip"> 
+            <![CDATA[ 
+                this.textColor = textclip.textColor;
+                this.fgcolor = textclip.textColor;
+                if(this.bgcolor == 0x000000 && this.textColor == 0xFFFFFF) 
+                { 
+                    this.setHighlight();
+                    this.textclip.textColor = 0x000000;//text set to black because transform reverses it
+                } 
+            ]]> 
+            </handler> 
+
+            <method name="setHighlight"> 
+            	var color = { ab: 0, aa: 100, bb: 0xff, ba: -100, gb: 0xff, ga: -100, rb:  0xff, ra: -100 }; 
+                this.setColorTransform(color); 
+            </method> 
+
+
+            <method name="getFocusRect" >
+                return parent.getFocusRect();
+            </method>
+			<method name="getSelectedText">
+				if(end == 0){
+					return '';
+				}
+				else{
+					return getText().substring(start, end);
+				}
+			</method>
+			<method name="setSelectionVars">
+				var pos = getSelectionPosition();
+				var size = getSelectionSize();
+				if(pos == -1 || size == -1 || size == 0){
+					pos = 0;
+					size = getText().length;
+				}
+				this.setAttribute('start', pos);
+				this.setAttribute('end', pos + size);
+			</method>
+         </inputtext>
+        <drawview width="100%" 
+                  height="100%">
+
+            <handler name="onwidth">
+                this.draw();
+            </handler>
+            <handler name="onheight">
+                this.draw();
+            </handler>
+
+            <method name="draw">
+                this.clear ();
+                this.beginPath ();
+                
+                //has to be .5 so is draws exactly inside the border of the view
+                this.moveTo (.5,.5);
+                this.lineTo (this.width - .5, .5);
+                this.lineTo (this.width - .5, this.height - .5);
+                this.lineTo (.5, this.height - .5);
+                this.lineTo (.5, .5);
+
+                this.strokeStyle = Number(gController.answerFontColor);
+                this.strokeWidth = 1;
+                this.stroke();
+            </method>
+
+        </drawview>
+
+        <!--- Returns the string displayed in this component, like getValue().
+              @return String: the string displayed. -->
+        <method name="getText">
+            if (this._initcomplete) {
+                 return this.field.getText();
+            } else {
+                return this._initialtext;
+            }
+        </method>
+
+        <!--- @keywords private -->
+        <method name="applyData" args="d">
+            this.field.applyData( d );
+        </method>
+
+        <!--- @keywords private -->
+        <method name="updateData">
+            this.updateText();
+            return this.text;
+        </method>
+
+        <!-- Updates the text property of the component to the text that is
+             entered in its input field. -->
+        <method name="updateText">
+            this.setText( this.field.getText() );
+        </method>
+
+        <!--- Returns string displayed in this component, like getText().
+              @return String: the string displayed. -->
+        <method name="getValue">
+            return  this.field.getText();
+        </method>
+
+        <!--- @keywords private -->
+        <method name="_showEnabled">
+        </method>
+
+    </class>
+
+</library>
+<!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
+* Copyright 2001-2004 Laszlo Systems, Inc.  All Rights Reserved.              *
+* Use is subject to license terms.                                            *
+* X_LZ_COPYRIGHT_END ****************************************************** -->
+<!-- @LZX_VERSION@                                                         -->

@@ -1,0 +1,213 @@
+
+<view id="gEnlargePopup" 
+      y="100" 
+      align="center" 
+      visible="false"
+      clickable="true"
+      showhandcursor="false" >
+
+    <dataset name="dsenlarge">
+        <question/>
+    </dataset>
+
+	<attribute name="clickdel" value="$once{new lz.Delegate(this, 'checkClick')}" />
+	
+ 	<method name="checkClick">
+		if(!this.containsPt(this.getMouse('x'), this.getMouse('y'))){
+			this.shrink();
+		}
+	</method>
+	
+	<method name="shrink">
+        this.clickdel.unregisterAll();   
+        this.setAttribute("visible", false);	
+        this.contents.scaler.stretcher.scaled.datapath.setPointer(null);
+   </method>
+	
+   <method name="enlarge" args="dn, w, h, color, stereotype">
+        this.clickdel.register (lz.GlobalMouse, 'onmousedown');        
+        var dnq = this.dsenlarge.getPointer().p.childNodes[0];
+        var v = this.contents.scaler.stretcher.scaled;
+        var clone = dn.cloneNode(true);
+		var hl = false;
+		
+        this.setAttribute("stereotype", stereotype);
+
+        // We want to use the values from the XML and not calculated values
+        // This is old fitpanel code
+        if (dn.getAttr("autoenlargeable") == "fitpanel" || 
+                                         dn.getAttr("enlargeable")) {
+           
+           // Create panel based on original XML values for both panel and table
+           var dnpanel = new lz.DataElement("panel",
+                                        { width      : this.width,
+                                          height     : this.height,
+                                          orig_h     : h,
+                                          orig_w     : w,
+                                          stereotype : stereotype,
+                                          enablehl   : hl},
+                                        [clone]);
+        }
+        else {
+           // Create panel using params passed in
+           var dnpanel = new lz.DataElement("panel",
+                                        { width      : w,
+                                          height     : h,
+                                          stereotype : stereotype,
+                                          enablehl   : hl},
+                                        [clone]);
+          }
+
+        //unattach our view from data to force it to re-replicate
+        v.datapath.setPointer(null);
+        
+        clone.setAttr("enlargeable", "no");
+
+        // The "scale" view now contains the full XML (panel + table)
+        dnq.setChildNodes([dnpanel]);
+
+        // Attach out view to the data 
+        // This results in an onwidth event being sent that calls calcSize
+        v.datapath.setPointer(dnq);
+
+        //set some props
+        this.windowbg.changeColor(color);
+        this.setAttribute("visible", true);
+        
+        // why do I need to set this again - it hasn't changed ??!!
+        this.setAttribute('showhandcursor', false);
+        contents.mousetrap.setAttribute('showhandcursor', false);
+    </method>
+
+    <drawview name="windowbg" width="750" height="415">
+
+        <handler name="oninit">
+            this.clear();
+            
+            var roundness = 5;
+            var thickness = 3;
+            var shadow = 4;
+
+            drawRoundRect (shadow, shadow, this.width + shadow, this.height + shadow, 
+                           roundness,
+                           gray70, null, .5);
+            drawRoundRect (0, 0, this.width, this.height, 
+                           roundness,
+                           0xC4C4C4, 0x7195B1, 1);
+            this.changeColor(white);
+        </handler>
+
+        <method name="changeColor" args="color">
+            var roundness = 5;
+            var thickness = 3;
+
+            drawRoundRect (thickness, thickness, this.width - thickness, this.height - thickness, 
+                           roundness,
+                           color, 0x7195B1, 1);
+        </method>
+
+        <method name="drawRoundRect" args="x0, y0, x1, y1, roundness, fill, stroke, alpha">
+            this.beginPath();
+            this.moveTo(roundness + x0 , y0);
+            this.lineTo(x1 - roundness, y0);
+            this.quadraticCurveTo(x1, y0, x1, roundness + y0);
+            this.lineTo(x1, y1 - roundness);
+            this.quadraticCurveTo(x1, y1, x1 - roundness, y1 );
+            this.lineTo(x0 + roundness, y1);
+            this.quadraticCurveTo(x0, y1, x0, y1 - roundness);
+            this.lineTo(x0, y0 + roundness);
+            this.quadraticCurveTo(x0, y0, roundness, y0);
+            this.closePath();
+
+
+            this.setAttribute("globalAlpha", alpha);
+
+            if (fill != null) {
+                this.setAttribute("fillStyle", fill);
+                this.fill();
+            }
+            if (stroke) {
+                this.setAttribute("strokeStyle", stroke);
+                this.stroke();
+            }
+
+            this.setAttribute("globalAlpha", 1);
+        </method>
+
+    </drawview>
+
+    <view name="contents" x="10" y="10"
+          width="${parent.width - 20}" height="${parent.height - 20}">
+        
+		<!--  trap all mouse clicks that fall through question -->
+	    <view x="${parent.x}" y="${parent.y}"
+	          width="${parent.width}" height="${parent.height}" 
+	          clickable="true" showhandcursor="false"
+	          name="mousetrap" />
+          
+
+        <EnlargeButton name="zoombtn" resource="zoom_out_btn"
+                     x="${parent.width - this.width - 20}"
+                     iszoomin="false"/>
+        <view name="scaler" clip="true" y="25" 
+                  height="${parent.height-25}" width="${parent.width}"> 
+           <view name="stretcher" stretches="both"> 
+               <Question name="scaled" doaccomlayout="false">
+                   <datapath/> 
+                   <attribute name="enlarged" value="false"/>
+                   <method name="calcSize"><![CDATA[
+                       if (this.width == 0 || this.height == 0) return;
+  
+                       //var style = gController.getAccomStyleForType(gEnlargePopup.stereotype);
+                       //var fontmag = style['font_magnification'];
+                                    
+                       //var ratio = (gEnlargePopup.width-20)/this.width;
+                       //if (ratio > fontmag)
+                       //   ratio = fontmag;
+    
+                       var contents = parent;
+
+//Debug.write("EnlargePopup:calcSize popup w : " + this.width + " h : " + this.height);
+//Debug.write("this", this);
+//Debug.write("parent", parent);
+                       // Don't understand why there isn't a datapath value for
+                       // scaled. Must be a Laszlo bug. Will perform this workaround
+                       var dp = gEnlargePopup.dsenlarge.getPointer();
+
+                       // Get original table dimensions
+                       if (dp.xpathQuery("question/panel/table")) {
+                          dp.setXPath("question/panel/table");
+                       }
+                       else { 
+                          dp.setXPath("question/panel/image_widget");
+                        }
+                       //var table_width = dp.getNodeAttribute("width");
+                       //var table_height = dp.getNodeAttribute("height");
+//Debug.write("table w : " + table_width + " table_height : " + table_height);
+
+                       // Determine the resized table values and update the XML 
+                       // The Cachable Table or Image will use these values to
+                       // display a zoomed image
+                       //var ratio = this.width/table_width;
+                       //table_width = this.width;
+                       //table_height = Math.ceil(table_height * ratio);
+
+                       dp.setNodeAttribute("autoenlargeable", "zoom");
+                       //dp.setNodeAttribute("orig_w", dp.getNodeAttribute("width"));
+                       //dp.setNodeAttribute("orig_h", dp.getNodeAttribute("height"));
+                       //dp.setNodeAttribute("height", table_height);
+                       //dp.setNodeAttribute("width", table_width);
+Debug.write("Updated dp : ", dp);
+                   ]]> </method>
+                   <handler name="onwidth">
+                       this.calcSize();
+                   </handler>
+                   <handler name="onheight">
+                       this.calcSize();
+                   </handler>
+               </Question>
+          </view>
+          <vscrollbar name="scroller"/>  
+        </view>
+    </view>
+</view>

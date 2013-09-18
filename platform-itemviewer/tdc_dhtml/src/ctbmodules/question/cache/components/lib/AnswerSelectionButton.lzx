@@ -1,0 +1,233 @@
+<library>
+
+    <!-- =========================================
+         AnswerChoiceButton
+         
+         This class presents the RadioButtons/ Selector Widgets to the 
+         Presentation layer, that gives users, the ability to select an answer
+         for a question. The state of all the radiobuttons will be binded with
+         the ModelXML and any change in the status of [<selector>/@user_action ]
+         under current_item will reflect in the Instance's display 
+         ========================================= -->
+
+    <class name="AnswerSelectionButton"
+           height="${this.resourceheight}"
+           width="${this.resourcewidth}"
+           resource="answer_choice_btn">
+
+        <datapath/>
+
+        <attribute name="statenum" value="0"/>
+        <attribute name="statelength" value="2"/>
+        <attribute name="totalstates" value="6"/>
+
+        <attribute name="type" type="string"/>
+        <attribute name="randomtype" type="string"/>
+        <attribute name="selstate" value="$path{'@user_action'}"/>
+
+        <attribute name="eliminatorstatus" value="$once{new lz.datapointer()}"/>
+        <attribute name="eraserstatus" value="$once{new lz.datapointer()}"/>
+
+        <attribute name="uienabled"
+                   value="$path{ 'dsdisplay:/display/@enabled' }"/>
+        <attribute name="enabled" value="${ uienabled == true }"/>
+        <attribute name="clickable" value="${ uienabled == true }"/>
+
+		<handler name="ondata" args="dnode"><![CDATA[
+			if(gController.isLoginResponseHavingSeed &&	
+			                           dnode != null &&
+						immediateparent.data != null &&
+						immediateparent.data.hasAttr('randomIdentifier')) {
+
+				dnode.setAttr("randomIdentifier", immediateparent.data.getAttr ('randomIdentifier'));
+
+			}
+		]]></handler>
+		
+        <handler name="oninit">
+            this.eliminatorstatus.setAttribute ('rerunxpath', true);
+            this.eliminatorstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@option_eliminator')
+
+            this.eraserstatus.setAttribute ('rerunxpath', true);
+            this.eraserstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@eraser');
+            // this.eliminator.setSource(canvas.eliminatorRsrc);
+            
+            if(canvas.capabilities.clickregion){
+				this.setAttribute('clickregion','../../../../resources/iknow_answerchoices/answer_blueballselect.png');
+			}
+        </handler>
+
+        <handler name="onmouseover"><![CDATA[
+        	//if(!gController.canNotAnswer) { // Option Eliminator also should not work
+	            setCursorState();
+	            if (this.selstate == 'n') {
+	                this.setAttribute('frame', this.statenum * this.statelength + 2);
+	            }
+            //}
+        ]]></handler>
+
+        <handler name="onmouseout">
+        	//if(!gController.canNotAnswer) {
+	            gController.clearAndRestoreCurrentCursor();
+	
+	            if (this.selstate == 'n') {
+	                this.setAttribute('frame', this.statenum * this.statelength + 1);
+	            }
+           // }
+        </handler>
+
+        <handler name="onclick"><![CDATA[
+        	//if(!gController.canNotAnswer) { // Student should not able to answer if the attribute is true
+	        	var readableText = this.type;
+	
+				if(gController.isLoginResponseHavingSeed &&	
+						!gController.itemHasRationalNode && 
+								!nullOrSpace(gController.seed)) {
+		        	readableText = this.randomtype; 
+				}
+				        	
+	            if (this.eliminatorstatus.data == 'sel') {
+	            	gReadableText.read(getReadableTextForEliminator(readableText, this.selstate !='e'),false);
+	                gController.setItemSelState (this.type, 
+	                                                 this.selstate == 'e' ? 'n' : 'e');
+	            } else if (this.eraserstatus.data == 'sel' && this.selstate == 'e') {
+	            	//gReadableText.read(getReadableTextForEliminator(this.type, this.selstate !='e'),false);//will not read when in eraser mode TDFR05.1.8
+	            	gController.setItemSelState (this.type, 'n');
+	                gController.clearCurrentCursor();
+	            } else {
+	             	gReadableText.read(getReadableTextForSelection(readableText, this.selstate != 's'),false);
+	//Debug.write(this.type, (this.selstate == 'e' ? 'n' : 'e'));
+	                gController.setItemSelState (this.type, 
+	                                                 this.selstate != 's' ? 's' : 'n');
+	            	if(this.selstate!="n" ) {
+                   		gController.setAttribute("playIfAnswered",true);
+               		}
+	            }
+	            setCursorState();
+           // }
+        ]]></handler>
+
+		<method name="getReadableTextForSelection" args="letter, isSelecting">
+			if(isSelecting){
+				return (letter + ". selected.");
+			}
+			else{
+				return gReadableText.getSelectionRemoved();
+			}
+		</method>
+
+		<method name="getReadableTextForEliminator" args="letter, isSelecting">
+			if(isSelecting){
+				return (letter + ". eliminated.");
+			}
+			else{
+				return (letter+ ". option elimination removed.");
+			}
+		</method>
+		
+		<method name="setCursorState"><![CDATA[
+            if (this.eliminatorstatus.data == 'sel') {
+                gController.setCurrentCursor('eliminator_cursor');
+            } else if (this.eraserstatus.data == 'sel' 
+                && this.selstate == 'e') {
+                gController.setCurrentCursor('eraser_cursor');
+            }
+		]]></method>
+
+        <handler name="ontype">
+            switch (this.type) {
+                case 'A': 
+                    this.setAttribute ('statenum', 0);
+                    break;
+                case 'B': 
+                    this.setAttribute ('statenum', 1);
+                    break;
+                case 'C': 
+                    this.setAttribute ('statenum', 2);
+                    break;
+                case 'D': 
+                    this.setAttribute ('statenum', 3);
+                    break;
+                case 'E': 
+                    this.setAttribute ('statenum', 4);
+                    break;
+                case 'F': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                case 'G': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                case 'H': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                case 'I': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                case 'J': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                default:
+//                    Debug.write ("ANSWERSELECTIONBUTTON: unknown type: ", type);
+                    break;
+            }
+        </handler>
+
+        <handler name="onrandomtype">
+            switch (this.randomtype) {
+                case 'A': 
+                    this.setAttribute ('statenum', 0);
+                    break;
+                case 'B': 
+                    this.setAttribute ('statenum', 1);
+                    break;
+                case 'C': 
+                    this.setAttribute ('statenum', 2);
+                    break;
+                case 'D': 
+                    this.setAttribute ('statenum', 3);
+                    break;
+                case 'E': 
+                    this.setAttribute ('statenum', 4);
+                    break;
+                case 'F': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                case 'G': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                case 'H': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                case 'I': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                case 'J': 
+                    this.setAttribute ('statenum', 5);
+                    break;
+                default:
+//                    Debug.write ("ANSWERSELECTIONBUTTON: unknown randomtype: ", randomtype);
+                    break;
+            }
+        </handler>
+
+        <handler name="onselstate">
+            var newresource = 1;
+
+            switch (this.selstate) {
+                case 's': 
+                    newresource = this.statelength * this.totalstates + 1;
+                    break;
+                default: 
+                    newresource = this.statelength * this.statenum + 1;
+                    break;
+            }
+
+            this.setAttribute('frame', newresource);
+        </handler>
+ 		<view name="eliminator" 
+		      visible="${classroot.selstate == 'e'}"
+		      align="center" 
+		      valign="middle" 
+		      clickable="false" />
+ 	</class>
+</library>

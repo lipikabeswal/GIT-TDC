@@ -1,0 +1,141 @@
+<library>
+
+    <include href="lib"/>
+
+	<!-- ************************************
+         CachingComponent
+         
+         Superclass for all cachable components.  It contains
+         a 'comptype' attribute that identifies the type of 
+         component and it defines a method that with place
+         the element given a datanode
+         
+         *************************************-->
+
+	<class name="CachableComponent"
+           bgcolor="${parent.bgcolor}" 
+           fontsize="${parent['fontsize'] ? parent.fontsize : 12}">
+
+        <datapath/>
+
+        <ComponentCache name="cache"/>
+        
+        <!-- ================================
+             ATTRIBUTES
+             ================================= -->
+
+        <attribute name="panel" value="${parent.panel}"/>
+
+        <attribute name="valigndel"
+                   value="$once{new lz.Delegate (this, 'doAlign')}"/>
+        <attribute name="haligndel"
+                   value="$once{new lz.Delegate (this, 'doAlign')}"/>
+        
+        <!-- which view to align relative to -->
+        <attribute name="alignto" value="$once{this}"/>
+
+		<!-- the type of component -->
+		<attribute name="comptype" type="string" value="none"/>
+
+        <!-- font color  -->
+        <attribute name="fontcolor" value="${parent.fontcolor}"/>
+
+        <!-- ===============
+             = METHODS
+             =============== -->
+
+        <method name="doRemoveFromCache">
+            this.setAttribute ('visible', true);
+        </method>
+
+        <method name="doReturnToCache"><![CDATA[
+            for (var i in this.subviews) {
+
+                if (this.subviews [i] instanceof CachableComponent &&
+                        this.subviews [i].visible) {
+                    this.cache.returnComponent (this.subviews [i]);
+                }
+            }
+        ]]></method>
+
+        <method name="doAlign" args="textx"><![CDATA[
+			if(!(this instanceof CachableImage && this.parent instanceof CachableTextField)) {     
+	            var alignto = parent.alignto;
+				var newx;
+	            //halign
+	            if(textx == null)
+	            	newx = this.x;
+	            	else 
+	            	newx = textx;
+	            	
+	           //  var newx = this.x;
+	            
+	            Debug.write('newx'+newx);
+	            //this.haligndel.unregisterAll ();
+	            if (this.data && this.datapath.p.hasAttr ('halign')) {
+	                this.valigndel.register (alignto, 'onwidth');
+	
+	                switch (this.datapath.p.getAttr ('halign')) {
+	                    case 'left':
+	                        newx = 0;
+	                        break;
+	                    case 'center': 
+	                        newx = (alignto.width - this.width)/2;
+	                        break;
+	                    case 'right': 
+	                        newx = alignto.width - this.width;
+	                        break;
+	                    default:
+	//                        Debug.write ('unknown component halign', 
+	//                                      this.datapath.p.getAttr ('halign'));
+	                } 
+	            } 
+	            this.setAttribute ('x', newx);
+	
+	            //valign
+	            var newy = this.y;
+	
+	            this.valigndel.unregisterAll ();
+	            if (this.data && this.datapath.p.hasAttr ('valign')) {
+	                this.valigndel.register (alignto, 'onheight');
+	                switch (this.datapath.p.getAttr ('valign')) {
+	                    case 'top':
+	                        newy = 0;
+	                        break;
+	                    case 'middle': 
+	                        newy = (alignto.height - this.height)/2;
+	                        break;
+	                    case 'bottom': 
+	                        newy = alignto.height - this.height;
+	                        break;
+	                    default:
+	//                        Debug.write ('unknown component valign', 
+	//                                      this.datapath.p.getAttr ('valign'));
+	                } 
+	            }
+	            this.setAttribute ('y', newy);
+			}
+	        ]]></method>
+
+        <method name="_initSubnodes"><![CDATA[
+            var subnodes = this.datapath.p.childNodes;
+            for (var i = 0; i < subnodes.length; i++) {
+                if ( subnodes[i] instanceof lz.DataElement ) {
+                    var newcomp = this.cache.getComponent (subnodes [i]);
+                }
+            }
+        ]]></method>
+
+        <attribute name="ddoneLoading"
+                   value="$once{ new lz.Delegate( this, 'doneLoading' ) }"/>
+        <method name="doneLoading"><![CDATA[
+            gController.componentDone( this, datapath.p.ownerDocument );
+        ]]></method>
+
+		<method name="setAAText" args="txt">
+			this.setAADescription(txt);
+			this.setAAName(txt);
+		</method>
+
+	</class>
+</library>

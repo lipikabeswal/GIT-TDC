@@ -1,0 +1,114 @@
+<library>
+    <include href="Request.lzx"/>
+
+
+    <node id="gCommunicator">
+    	<attribute name="error" type="boolean" value="false" />
+    	<attribute name="firstRequestDone" type="boolean" value="false" />
+
+      	<method name="closeBrowser">
+      		exitRequest.exit();
+       	</method>
+  		
+    	
+     	<method name="save" args="params">
+       		if(!error){
+       			gRequest.save(params);
+       		}
+       	</method>
+  		
+     
+  		<method name="finishCall" args="result,ds" >
+  		//Debug.write("finishCall in communicator...:", result," : ", ds);
+  			if(!error){
+	  			if(!checkShowError(result,ds)){
+	  				gController.setAttribute("communicatorResponse", result);
+	  			}
+	  		}
+  		</method>
+  		
+  		<!-- all servlet errors go through this method -->
+  		<method name="checkShowError" args="xml,ds"><![CDATA[
+			if(!error){
+   				var node = lz.DataNode.stringToLzData(xml);
+   				var code = "";
+
+  				if (node && node.nodeName == 'ERROR'){
+					
+					code = node.getElementsByTagName("CODE")[0].childNodes[0].data;
+
+					if(typeof code == "undefined") {
+						code = "";						
+					}
+
+					//show popup only for network error and tts error	
+					if(code == "" || code == "556" || code == "558") {
+Debug.write("in if code...", code);
+						if(firstRequestDone && gController.isWaitPopupOpen == false) {
+		  					setAttribute('error', true);
+							gController.hideWaitPopup();
+							gController.unlockUI();
+		  					showError(xml);
+						}
+						else {
+
+							if(ds != null) {
+								setAttribute('dRequestDataSet',ds);
+								startRequestTimer();
+							}
+
+							if(!firstRequestDone) {
+								gController.showWaitPopupFor30Sec();
+								if(gController.state != gController.LOGIN_STATE) {
+Debug.write("communicator stopQuestion......");
+									//gController.stopHeartbeat();
+									//to stop the test timer
+									gController.stopQuestion();
+								}
+								//gController.freezeUI();  //not needed anymore
+							}
+							firstRequestDone = true;
+							return true;
+						}
+					}
+					//for other errors, no popup will be shown
+					else {
+Debug.write("in else code...", code);
+	  					setAttribute('error', true);
+						gController.hideWaitPopup();
+						gController.unlockUI();
+	  					showError(xml);
+					}
+  				}
+				else {
+					if(gController.isWaitPopupOpen) {
+						firstRequestDone = false;
+						gController.hideWaitPopup();
+						if(gController.state != gController.LOGIN_STATE) {
+Debug.write("communicator startQuestion......");
+							//gController.sendHeartbeat();
+							//to start the test timer 
+							//START Defect 64592
+							if(gController.state != gController.DOWNLOAD_STATE){
+							gController.startQuestion();
+							}
+							//END
+						}
+						gController.unlockUI();
+					}
+				}
+  			}
+  			return error;
+  		]]></method>
+  		
+  		<method name="showError" args="xml">
+  			gController.showError(xml);
+  		</method>
+  		
+  	
+		<method name="sendRequest">
+			gRequest.sendRequest(dRequestDataSet);
+		</method>  		
+     </node>
+
+</library>

@@ -1,0 +1,145 @@
+<library>
+	<script>
+	/*
+	  resourceColor: the color of the resource
+	  color: the color you would like you to set
+	*/	
+	
+	function setResourceColor(obj, newColor){
+		// this is the resource color of the swfs used to create the tabs
+		var rR = 255;
+		var rG = 255;
+		var rB = 255;
+		var color = Number(newColor);
+
+	    var r =	parseInt('0x'+newColor.substr(2,2));
+	    var g =	parseInt('0x'+newColor.substr(4,2));
+	    var b =	parseInt('0x'+newColor.substr(6,2));
+	    
+	    obj.setColorTransform ({ab: 0, aa: 100, 
+	                            bb: b-rB, ba: 100, 
+	                            gb: g-rG,  ga: 100, 
+	                            rb: r-rR,  ra: 100});   
+	}	
+	</script>
+    <class name="PanelTab" 
+           width="${this.bg.width}" 
+           height="${this.bg.height}">
+
+        <attribute name="theframe" value="1"/>
+        
+        <view name="bg" 
+              width="${classroot.thetitle.width + 22}"
+              height="${classroot.thetitle.height + 10}">
+            <stableborderlayout axis="x"/>
+            <view name="left" 
+                  resource="tab_contents_left" 
+                  stretches="height" 
+                  height="${parent.height}"
+                  y="0">
+                <attribute name="frame" value="${classroot.theframe}"/>
+            </view>
+            <view name="middle" 
+                  resource="tab_contents_mid" 
+                  stretches="both" 
+                  height="${parent.height -1}"
+                  y="1">
+                <attribute name="frame" value="${classroot.theframe}"/>
+            </view>
+            <view name="right" 
+                  resource="tab_contents_right" 
+                  stretches="height" 
+                  height="${parent.height}"
+                  y="0">
+                <attribute name="frame" value="${classroot.theframe}"/>
+            </view>
+         </view>
+
+        <view name="borders" 
+              width="${parent.bg.width}"
+              height="${classroot.theframe!=3?parent.bg.height-3:parent.bg.height}" 
+              y="${classroot.theframe!=3?10:0}">
+           <simplelayout axis="x"/>
+           <view name="left" 
+                 resource="tab_border_left" 
+                 stretches="height" 
+                 height="${parent.height - 2}" 
+                 x="${classroot.theframe!=3?5:0}" 
+                 y="${classroot.theframe!=3?1:0}">
+                <attribute name="frame" value="${classroot.theframe}"/>
+           </view>
+           <view name="middle" 
+                 resource="tab_border_mid" 
+                 y="${classroot.theframe!=3?1:0}"
+                 stretches="width" 
+                 height="${parent.height - 2}" 
+                 width="${parent.width - parent.left.width - parent.right.width - 1}">
+                <attribute name="frame" value="${classroot.theframe}"/>
+           </view>
+           <view name="right" 
+                 resource="tab_border_right" 
+                 stretches="height" 
+                 height="${parent.height}">
+                <attribute name="frame" value="${classroot.theframe}"/>
+           </view>
+        </view>
+        <handler name="oninit">
+            thetitle.setAttribute('fgcolor', Number(gController.questionFontColor)); 
+			thetitle.setAttribute ('y', (this.height - this.thetitle.height)/2 + this.height/5);
+        </handler>
+ 
+        <method name="selectIt">
+        	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text));
+            setSelected(true, true);
+        </method>
+        
+		<method name="initColors">
+			setResourceColor(bg, gController.questionBgColor); 
+			var fg = gController.questionFontColor;
+		    if(fg == 0){
+		       fg = "0x000000";
+		    }
+	        setResourceColor(borders, fg); 
+		</method>
+		
+        <method name="select" args="issel">
+            if (issel) {
+            	this.thetitle.setAttribute('clickable', false);
+                this.setAttribute ('theframe', 3);
+                this.bringToFront ();
+                if (this ['thetitle']) {
+                    this.thetitle.setAttribute ('y', (this.height - this.thetitle.height)/2 + this.height/10);
+                }
+            } else {
+            	this.thetitle.setAttribute('clickable', true);
+                this.setAttribute ('theframe', 1);
+                if (this ['thetitle']) {
+                    this.thetitle.setAttribute ('y', (this.height - this.thetitle.height)/2 + this.height/5);
+                }
+            }
+            if(gController.hasFontAccommodation){
+            	this.setAttribute('y', 2);
+            	borders.setAttribute('height', bg.height);
+            	if(this.theframe == 3){
+            		borders.middle.setAttribute('y', 2);
+            	}
+            	else{
+           			borders.middle.setAttribute('y', 1);
+            	}
+            }
+            else{
+            	this.setAttribute('y', 1.5);
+            }
+        </method>
+
+        <text name="thetitle" datapath="@title" resize="true" align="center">
+	        <handler name="onclick">
+	        	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text));
+	            parent.selectIt();
+	        </handler>
+        
+        </text>
+
+    </class>
+
+</library>

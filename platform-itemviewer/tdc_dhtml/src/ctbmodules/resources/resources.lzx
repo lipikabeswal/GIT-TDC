@@ -1,0 +1,295 @@
+<library>
+	<font name="CTB">
+		<face src="fonts/OASmathv3.ttf" style="plain" />
+		<face src="fonts/OASmathv3 Bold.ttf" style="bold" />
+		<face src="fonts/OASmathv3 Italic.ttf" style="italic" />
+		<face src="fonts/OASmathv3 BoldItalic.ttf" style="bold italic" />
+	</font>
+
+    <!-- =====================
+         Cursors
+         =====================-->    
+    <resource name="eliminator_cursor" src="iknow_cursors/cursor_eliminate.png"/>
+    <resource name="highlighter_cursor" src="iknow_cursors/cursor_highliter.png"/>
+    <resource name="eraser_cursor" src="iknow_cursors/cursor_eraser.png"/>
+
+     <!-- =====================
+         Manipulative Bar
+         =====================-->    
+	<!-- Toolbar Button Choice Eliminator-->
+	
+
+	
+
+	<!-- Read button-->
+	<resource name="read_btn">      
+		<frame src="iknow_buttons/read/btn_read_up.png"/>   
+		<frame src="iknow_buttons/read/btn_read_over.png"/>        
+		<frame src="iknow_buttons/read/btn_read_down.png"/> 
+	</resource>
+
+
+    <!-- =====================
+         Question Bar
+         =====================-->
+
+  
+	<!-- More left Button-->
+	<resource name="moreleft_btn">      
+		<frame src="iknow_buttons/more_buttons/more_left/back_up.png" />   
+		<frame src="iknow_buttons/more_buttons/more_left/back_over.png"/>        
+		<frame src="iknow_buttons/more_buttons/more_left/back_down.png"/>
+	</resource>
+
+      <!-- fast back button for navigation -->
+      <resource name="morefastleft_btn">
+        <frame src="iknow_buttons/more_buttons/more_left/fast-back_up.png" />   
+		<frame src="iknow_buttons/more_buttons/more_left/fast-back_over.png"/>        
+		<frame src="iknow_buttons/more_buttons/more_left/fast-back_down.png"/>
+ 	</resource>
+
+	<!-- More right Button-->
+	<resource name="moreright_btn">     
+ 		<frame src="iknow_buttons/more_buttons/more_right/forward_up.png"/> 
+		<frame src="iknow_buttons/more_buttons/more_right/forward_over.png"/>        
+		<frame src="iknow_buttons/more_buttons/more_right/forward_down.png"/> 
+ 		<frame src="iknow_buttons/more_buttons/more_right/forward_up.png"/> 
+	</resource>
+
+	<!-- fast forward button for navigation -->
+    <resource name="morefastright_btn">
+       <frame src="iknow_buttons/more_buttons/more_right/fast-forward_up.png" />   
+       <frame src="iknow_buttons/more_buttons/more_right/fast-forward_over.png"/>        
+       <frame src="iknow_buttons/more_buttons/more_right/fast-forward_down.png"/>         
+	</resource>
+
+
+
+    <!-- =====================
+         Test Controls
+         =====================-->    
+	<!--  Go on Button-->
+	<resource name="go_on_btn">      
+		<frame src="iknow_buttons/go_on/go_on_off.png"/> 
+		<frame src="iknow_buttons/go_on/go_on_on.png"/> 
+		<frame src="iknow_buttons/go_on/go_on_click.png"/> 
+	</resource>
+
+	<!-- Go back Button-->
+	<resource name="go_back_btn">      
+		<frame src="iknow_buttons/go_back/goback_off.png"/> 
+		<frame src="iknow_buttons/go_back/goback_on.png"/> 
+		<frame src="iknow_buttons/go_back/goback_click.png"/> 
+	</resource>
+
+	<!-- Finish test Button-->
+	<resource name="finish_test_btn">      
+		<frame src="iknow_buttons/finish_test/finishtest_off.png"/> 
+		<frame src="iknow_buttons/finish_test/finishtest_on.png"/> 
+		<frame src="iknow_buttons/finish_test/finishtest_click.png"/> 
+	</resource>
+
+	<!-- Mark Unmark Button-->
+	<resource name="mark_unmark_btn">      
+		<frame src="iknow_buttons/markforreview/markforreview_off.png" />   
+		<frame src="iknow_buttons/markforreview/markforreview_on.png" /> 
+		<frame src="iknow_buttons/markforreview/markforreview_on.png" />     
+		<frame src="iknow_buttons/unmark/unmark_off.png" />   
+		<frame src="iknow_buttons/unmark/unmark_on.png" /> 
+		<frame src="iknow_buttons/unmark/unmark_on.png" />     
+	</resource>
+
+
+    <!-- =====================
+         Time Status
+         =====================-->    
+	<!-- Pause Button-->
+	<resource name="pause_time_btn">      
+		<frame src="iknow_buttons/pause_test/pausetest_off.png" />   
+		<frame src="iknow_buttons/pause_test/pausetest_on.png" />   
+		<frame src="iknow_buttons/pause_test/pausetest_click.png" />   
+	</resource>
+    
+	<!-- Stop Button-->
+	<resource name="stop_time_btn">      
+		<frame src="iknow_buttons/stop_test/stop_off.png" />   
+		<frame src="iknow_buttons/stop_test/stop_on.png" />   
+		<frame src="iknow_buttons/stop_test/stop_click.png" />   
+	</resource>
+    
+	<!-- Show/hide Timer Button-->
+	<resource name="show_hide_timer_btn">      
+		<frame src="iknow_buttons/show_timer/showtimer_off.png" />   
+		<frame src="iknow_buttons/show_timer/showtimer_on.png" />   
+		<frame src="iknow_buttons/show_timer/showtimer_click.png" />   
+		<frame src="iknow_buttons/hide_timer/hidetimer_off.png" />   
+		<frame src="iknow_buttons/hide_timer/hidetimer_on.png" />   
+		<frame src="iknow_buttons/hide_timer/hidetimer_click.png" />   
+	</resource>
+
+    <!-- =====================
+         Question components
+         =====================-->    
+    <!-- answer selection button -->
+    <resource name="answer_choice_btn">
+		<frame src="iknow_answerchoices/answerA_off.png"/>
+		<frame src="iknow_answerchoices/answerA_on.png"/>
+		
+		<frame src="iknow_answerchoices/answerB_off.png"/>
+        <frame src="iknow_answerchoices/answerB_on.png"/>
+        
+		<frame src="iknow_answerchoices/answerC_off.png"/>
+        <frame src="iknow_answerchoices/answerC_on.png"/>
+		
+		<frame src="iknow_answerchoices/answerD_off.png"/>
+        <frame src="iknow_answerchoices/answerD_on.png"/>
+		
+		<frame src="iknow_answerchoices/answerE_off.png"/>
+        <frame src="iknow_answerchoices/answerE_on.png"/>
+
+		<frame src="iknow_answerchoices/answerF_off.png"/>
+        <frame src="iknow_answerchoices/answerF_on.png"/>
+
+        <frame src="iknow_answerchoices/answer_blueballselect.png"/>
+    </resource>
+
+    <!-- =====================
+         Gridded response
+         =====================-->    
+    <!-- circle btn -->
+    <resource name="circle_btn">
+        <frame src="components/griddedresponse/circle_up.png"/>
+        <frame src="components/griddedresponse/circle_over.png"/>
+        <frame src="components/griddedresponse/circle_selected.png"/>
+    </resource>
+
+    <!-- erase btn -->
+    <resource name="erase_btn">
+        <frame src="components/griddedresponse/erase_up.png"/>
+        <frame src="components/griddedresponse/erase_over.png"/>
+        <frame src="components/griddedresponse/erase_down.png"/>
+    </resource>
+    
+    <!-- =====================
+         Tabs
+         =====================-->    
+    <!-- =====================
+         Tabs
+         =====================-->    
+    <resource name="tab_contents_left">
+        <frame src="components/tabs/tab_contents_dslct_lft.png"/>
+        <frame src="components/tabs/tab_contents_dslct_lft.png"/>
+        <frame src="components/tabs/tab_contents_slct_lft.png"/>
+    </resource>
+
+    <resource name="tab_contents_mid">
+        <frame src="components/tabs/tab_contents_dslct_mid.png"/>
+        <frame src="components/tabs/tab_contents_dslct_mid.png"/>
+        <frame src="components/tabs/tab_contents_slct_mid.png"/>
+    </resource>
+
+    <resource name="tab_contents_right">
+        <frame src="components/tabs/tab_contents_dslct_rt.png"/>
+        <frame src="components/tabs/tab_contents_dslct_rt.png"/>
+        <frame src="components/tabs/tab_contents_slct_rt.png"/>
+    </resource>
+
+     <resource name="tab_border_left">
+        <frame src="components/tabs/tab_border_dslct_lft.png"/>
+        <frame src="components/tabs/tab_border_dslct_lft.png"/>
+        <frame src="components/tabs/tab_border_slct_lft.png"/>
+    </resource>
+
+    <resource name="tab_border_mid">
+        <frame src="components/tabs/tab_border_dslct_mid.png"/>
+        <frame src="components/tabs/tab_border_dslct_mid.png"/>
+        <frame src="components/tabs/tab_border_slct_mid.png"/>
+    </resource>
+
+    <resource name="tab_border_right">
+        <frame src="components/tabs/tab_border_dslct_rt.png"/>
+        <frame src="components/tabs/tab_border_dslct_rt.png"/>
+        <frame src="components/tabs/tab_border_slct_rt.png"/>
+    </resource>
+
+    <!-- =====================
+         Footnotes
+         =====================-->    
+    <resource name="footnote_close_btn">
+        <frame src="iknow_buttons/close button/footnote-close_up.png"/>
+        <frame src="iknow_buttons/close button/footnote-close_over.png"/>
+        <frame src="iknow_buttons/close button/footnote-close_over.png"/>
+    </resource>
+
+    <!-- =====================
+         Zooming
+         =====================-->     
+    <resource name="zoom_in_btn">
+        <frame src="iknow_buttons/zoom in/btn_zoomin_up.png"/>
+        <frame src="iknow_buttons/zoom in/btn_zoomin_over.png"/>
+        <frame src="iknow_buttons/zoom in/btn_zoomin_down.png"/>
+    </resource>
+
+    <resource name="zoom_out_btn">
+        <frame src="iknow_buttons/zoom out/btn_zoomout_up.png"/>
+        <frame src="iknow_buttons/zoom out/btn_zoomout_over.png"/>
+        <frame src="iknow_buttons/zoom out/btn_zoomout_down.png"/>
+    </resource>
+
+
+    <!-- =====================
+         Manipulatives
+         =====================-->    
+    <!-- tooltip -->
+    
+    <!-- ****************** Start Recorder Resources ************************************************* -->
+    <resource name="button_record">
+       	<frame src="components/recorder/button_record.jpg"/>
+       	<frame src="components/recorder/button_record_clicked.jpg"/>
+       	<frame src="components/recorder/button_record_disable.jpg"/>
+	</resource>
+	
+	<resource name="button_stop">
+       	<frame src="components/recorder/button_stop.jpg"/>
+       	<frame src="components/recorder/button_stop_clicked.jpg"/>
+       	<frame src="components/recorder/button_stop_disable.jpg"/>
+	</resource>
+
+	<resource name="button_reset">
+       	<frame src="components/recorder/button_reset.gif"/>
+       	<frame src="components/recorder/button_reset_hover.gif"/>
+       	<frame src="components/recorder/button_reset_disable.gif"/>
+	</resource>
+	
+	<resource name="button_submit">
+       	<frame src="components/recorder/button_submit.gif"/>
+       	<frame src="components/recorder/button_submit_clicked.jpeg"/>
+       	<frame src="components/recorder/button_submit_disable.gif" />
+	</resource>
+	
+	<resource name="volume_meter">
+       	<frame src="components/recorder/seo-graph.png"/>
+	</resource>
+	
+	<resource name="volume_meter_flip">
+       	<frame src="components/recorder/seo-graph_flip.png"/>
+	</resource>
+	
+	<resource name="heading_microphone">
+       	<frame src="components/recorder/microphone_red.png"/>
+	</resource>
+	
+	<resource name="record_bullet_red">
+       	<frame src="components/recorder/Bullet-red.png"/>
+	</resource>
+	
+	<resource name="record_bullet_green">
+       	<frame src="components/recorder/Bullet-green.png"/>
+	</resource>
+	
+	<resource name="mic_not_connected">
+       	<frame src="components/recorder/Mute.png"/>
+	</resource>
+	
+	<!-- ****************** End Recorder Resources ************************************************* -->
+</library>

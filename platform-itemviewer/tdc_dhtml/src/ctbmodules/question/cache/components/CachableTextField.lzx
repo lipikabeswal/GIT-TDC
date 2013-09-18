@@ -1,0 +1,1143 @@
+<library>
+    <include href="CachableComponent.lzx"/>
+    <include href="CachableInputTextField.lzx"/>
+    <include href="utils/layouts/wrappinglayout.lzx"/>
+    <include href="../../../rich-text/inlinewrappinglayout.lzx"/>
+
+    <!-- ===============
+         ==
+         == CachableTextField
+         ==
+         ==  A cachable text field.  Contains an text field
+         ==  and will also set the width, height, and text of the
+         ==  text 
+         ==
+         =============== -->
+
+    <class name="CachableTextField" extends="CachableComponent" clip="true" 
+           comptype="$once {gCompTypes.WIDGET_TEXT}" aaactive="true" aasilent="false"> 
+
+        <attribute name="hasAltText" value="false"/>
+		<attribute name="altText" type="string" />
+		<attribute name="hasReadableText" type="boolean" value="true"/>
+        <attribute name="hlstatus" value="$once{new lz.datapointer()}"/>
+		<attribute name="isHighlighter" type="boolean" value="false"/>
+        <attribute name="eraserstatus" value="$once{new lz.datapointer()}"/>        
+		<attribute name="isEraser" type="boolean" value="false"/>
+    
+        <attribute name="leftPadding" type="number" value="0"/>
+        <attribute name="rightPadding" type="number" value="0"/>
+        <attribute name="embedded_input" type="boolean" value="false"/>
+		<attribute name="embedded_inline_image" type="boolean" value="false"/>
+        <attribute name="ibox" type="string"/>
+        <attribute name="wl" type="string"/>
+        <attribute name="widget_id" type="string"/>
+		<attribute name="magnification"  type="number" value="1"/>
+        <attribute name="lineHeight" type="number" value="0"/>
+        
+        <handler name="ondata" args="data" reference="hlstatus">
+            this.setAttribute ('isHighlighter', data == 'sel');
+        </handler>
+
+        <handler name="ondata" args="data" reference="eraserstatus">
+            this.setAttribute ('isEraser', data == 'sel');
+		</handler>
+
+        <method name="init">
+            super.init();
+        </method>
+
+        <handler name="oninit">
+            this.hlstatus.setAttribute ('rerunxpath', true);
+            this.eraserstatus.setAttribute ('rerunxpath', true);
+ 
+            this.hlstatus.setXPath('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@highlighter');
+            this.eraserstatus.setXPath('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@eraser');
+        </handler>
+
+        <method name="read" args="s">
+            if ( this.hasAltText ) {
+                gReadableText.read( this.altText );
+            } else {
+                gReadableText.read( s );
+            }
+        </method>
+
+
+        <!-- ===============
+             = METHODS
+             =============== -->
+        <handler name="ondata" args="data"><![CDATA[
+            //width
+            if (data.hasAttr("width")) {
+                this.setAttribute("width", Number(data.getAttr("width")));
+            } else {
+                this.setAttribute("width", immediateparent.width);
+            }
+
+            //text magnification
+            this.magnification = this.fontsize/canvas.basefontsize;;
+            var txtmag = 1;
+            
+            //this might not be used for anything
+            if (data.hasAttr("text_magnification")) {
+                txtmag = data.getAttr("text_magnification");
+            }
+
+            if (parent['fontsize']) {
+               this.setAttribute("fontsize", parent.fontsize * txtmag);
+            }
+
+        	if (data.getAttr("input") == "yes" || data.getAttr("inline_image") == "yes") {
+            	
+               	if(data.getAttr("input") == "yes"){
+               		this.setAttribute("embedded_input", true);
+               		this.embedded_input_field(data);
+               	}
+               	else{
+               		this.setAttribute("embedded_input", false);
+               	}
+               	
+               	if(data.getAttr("inline_image") == "yes"){
+               		this.setAttribute("embedded_inline_image", true);
+               		this.embedded_inlineimage_field(data);
+               	}
+               	else{ 
+               		this.setAttribute("embedded_inline_image", false);
+               	}
+
+            	
+               	
+               	doneLoading();
+               	return;
+            }
+            else{
+                this.setAttribute("embedded_input", false);
+                this.setAttribute("embedded_inline_image", false);
+            }
+
+			setTextReaderAttributes(data);
+			
+            var dataText = data.getFirstChild().data;
+			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
+			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
+				dataText = gController.directionsSubstitution(dataText);
+			}  
+
+			var doubleBrIndex = dataText.lastIndexOf('<br/><br/>');
+			if(doubleBrIndex != -1 && ((dataText.length - doubleBrIndex) == 10)){
+       			dataText = dataText.substr(0, dataText.length - 5);
+			}
+			
+            //alignment
+            var valign = "top";
+            if (data.hasAttr("valign")) {
+                valign = data.getAttr("valign");
+                Debug.warn("Text Field valign set");
+            }
+            this.setValign(valign);
+			
+            //justification
+            var just = "left";
+            if (data.hasAttr("halign")) {
+                just = data.getAttr("halign");
+                //Debug.write('ttttttttttt');
+           Debug.warn("Text Field halign set");
+            }
+			// For Item Viewer alone
+     		//      this.setAlign(just);
+            this.thetext.setAttribute("text",
+                '<p align="' + just + '">' + dataText + '</p>');
+
+            doneLoading();
+
+            //this.doAlign();
+            ]]>
+        </handler>
+
+		<method name="setTextReaderAttributes" args="data"><![CDATA[
+            var dataText = data.getFirstChild().data;
+			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
+			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
+				dataText = gReadableText.stripHtmlTags(gController.directionsSubstitution(dataText));
+			}  
+            if ( data.hasAttr( 'alt_text' ) ) {
+            	var dataAltText = trim(data.getAttr( 'alt_text' ));
+            	if(canvas.readable && dataAltText.length > 0){
+            		setAttribute('hasReadableText', true);
+            	}
+            	else{
+            		setAttribute('hasReadableText', false);
+            	}
+                setAttribute( 'altText', dataAltText );
+                setAttribute( 'hasAltText', true );
+                this.setAAText(dataAltText);
+            } else {
+            	setAttribute('hasReadableText', canvas.readable);
+                setAttribute( 'hasAltText', false );
+                this.setAAText(dataText);
+            }
+		]]></method>
+		
+		<method name="embedded_input_field" args="data"><![CDATA[
+        	setTextReaderAttributes(data);
+        	var allFields = new Array();
+			var dataText = data.getFirstChild().data;
+			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
+			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
+				dataText = gController.directionsSubstitution(dataText);
+			}  
+			var doubleBrIndex = dataText.lastIndexOf('<br/><br/>');
+			if(doubleBrIndex != -1 && ((dataText.length - doubleBrIndex) == 10)){
+       			dataText = dataText.substr(0, dataText.length - 5);
+			}
+			
+            words = dataText.split(' '); 
+            var i_on = false, b_on = false, u_on = false;
+			var readableText = this.hasAltText ? this.altText : "";
+			
+            // Parse the "input_widget" XML input
+            for (var i = 0; i < words.length; i++) {
+				// Parse the <input field> and put attributes into a hash 
+				if (words[i].indexOf("<single_line_answer") != -1) {
+					i++;
+                  	var hash = new Array();
+
+                    if (gController.hasFontAccommodation){
+                    	hash['fontsize'] = 18;
+                    }
+                    else{
+                    	hash['fontsize'] = 12;
+                    }
+
+                  	// While we haven't reached the end delimiter
+                  	while (words[i].indexOf("/>") == -1) {
+						// ignore height attribute - allow single line answers to size to contents
+                  		var doAdd = true;
+                    	// Split attribute values, remove quotes and put into hash
+                    	var keyvalue = words[i].split("=");
+
+                        // Need to remove surrounding double quotes
+                        keyvalue[1] = keyvalue[1].substr(1, keyvalue[1].length-2);
+                    	if (keyvalue[0] == 'width') {
+							if (canvas.readable) 
+								keyvalue[1] = Number(keyvalue[1]) + 32;
+                    	}
+                    	if (keyvalue[0] == "id") keyvalue[0] = "widget_id";
+                        if (keyvalue[0] == "height"){
+                        	doAdd = false;
+                        }
+                        if (keyvalue[0] == "widget_id"){
+                        	this.widget_id = keyvalue[1];
+							if(!this.hasAltText){
+								readableText = readableText + "%" + this.widget_id + "% ";
+							}
+                        }
+                    	
+                    	if(doAdd){
+                    		hash[keyvalue[0]] = keyvalue[1];
+                    	}
+                    	i++;
+					}
+                    
+                  	if (words[i].length != 2) {  		   // Handle: id="XX"/> 
+                  		var doAdd = true;
+                     	words[i] = words[i].substr(0, words[i].lastIndexOf('"'));
+                     	var keyvalue = words[i].split("=");
+                        // Need to remove surrounding double quotes
+                        keyvalue[1] = keyvalue[1].substr(1, keyvalue[1].length-1);
+						if (keyvalue[0] == 'width') {
+							if (canvas.readable)
+								keyvalue[1] = Number(keyvalue[1]) + 32;
+                    	}
+                    	if (keyvalue[0] == "id") keyvalue[0] = "widget_id";
+                       if (keyvalue[0] == "height"){
+                        	doAdd = false;
+                        }
+                        if (keyvalue[0] == "widget_id") { 
+                            this.widget_id = keyvalue[1];
+                            if(!this.hasAltText){
+                            	readableText = readableText + "%" + this.widget_id + "% ";
+                            }
+                        }
+                        if(doAdd){
+                     		hash[keyvalue[0]] = keyvalue[1];
+                     	}
+                     	i++;
+                  	}
+                    //for (var j in hash) Debug.write("hash name : " + j + " key : " + hash[j]);
+                  	this.ibox = new input_box(this, hash);
+                  	allFields.push(this.ibox);
+
+                    // Check for an existing answer. If none, then initialize answered field 
+                    // to false
+                  	var answer = gController.getAnswerForInputWidgetId(this.widget_id);
+                    if (typeof answer == "undefined" || answer.length == 0)
+                  	   gController.addCrField({"widget_id" : this.widget_id, "answered" : false, "ref" : this.ibox});
+                    else {
+                  	   gController.addCrField({"widget_id" : this.widget_id, "answered" : true,
+                                                                             "answer" : answer, "ref" : this.ibox});
+                  	   this.ibox.answer.setText(answer);
+				    }
+				}
+
+                if (words[i] == null || words[i] == "/>" || words[i].length == 0 || 
+                                                           typeof words[i] == "undefined") {
+                   continue;
+                }
+
+				if (!this.hasAltText) {
+			    	readableText = readableText + words[i] + " "; 
+			    }              
+
+                // If the input word is surrounded by HTML font type delimiters
+				if (words[i].indexOf("<i>") != -1 && words[i].indexOf("</i>") != -1) 
+					words[i] = "<i>" + words[i] + "</i>";
+				else if (words[i].indexOf("<i>") != -1) 
+					i_on = true;
+				else if (words[i].indexOf("</i>") != -1) {
+					words[i] = "<i>" + words[i] + "</i>";
+					i_on = false;
+				}
+
+
+               if (words[i].indexOf("<b>") != -1 && words[i].indexOf("</b>") != -1) 
+                  words[i] = "<b>" + words[i] + "</b>";
+               else if (words[i].indexOf("<b>") != -1)
+                  b_on = true;
+               else if (words[i].indexOf("</b>") != -1) {
+                  words[i] = "<b>" + words[i] + "</b>";
+                  b_on = false;
+               }
+
+               if (words[i].indexOf("<u>") != -1 && words[i].indexOf("<u>") != -1) 
+                  words[i] = "<u>" + words[i] + "</u>";
+               else if (words[i].indexOf("<u>") != -1)
+                  u_on = true;
+               else if (words[i].indexOf("</u>") != -1) {
+                  words[i] = "<u>" + words[i] + "</u>";
+                  u_on = false;
+               }
+
+               if (i_on) words[i] = "<i>" + words[i] + "</i>";
+               if (b_on) words[i] = "<b>" + words[i] + "</b>";
+               if (u_on) words[i] = "<u>" + words[i] + "</u>";
+               
+//               Debug.write("new Text : " +  words[i] + " " + i);
+
+               // Add a <p> to the first word and a </p> to the last
+               var name = new CachableInputTextField(this, { "resize" : true });
+               allFields.push(name);
+               if (i == 0)
+                  name.setText("<p>" + words[i]);
+               if (i == words.length-1)
+                      name.setText(words[i] + "</p>");
+               name.setText(words[i]);
+               name.setAttribute('fgcolor', this.fontcolor);
+            }
+
+            // Used by the TextReader
+            for (var i = 0; i < allFields.length; i++) {
+            	var theField = allFields[i];
+            	if(theField instanceof CachableInputTextField) {
+            		theField.setReadableText(gReadableText.stripHtmlTags(readableText));
+            	}
+            }
+            var xin = parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
+			// For inline cr, to avoid overlapping of text objects, set value to 0
+            var xsp = gController.hasFontAccommodation ? 0 : (this.embedded_input ? 0 : -1); ;
+            this.setAttribute('wl', new inlinewrappinglayout(this, { axis : "x", xinset : xin, xspacing : xsp } ));
+
+            
+            // To distinguish between numerous input fields, we'll maintain an array of hashes
+            // containing their widget ID and answered state (filled or empty). Additionally each
+            // class also stores its widget ID to allow them to be matched up.
+            if (data.getAttr("id")) {
+                this.widget_id = data.getAttr("id");
+            }
+            
+            if (data.getAttr("width")) 
+                this.setWidth(Number(data.getAttr("width")));
+			if (data.getAttr("char_limit"))
+                this.setAttribute("char_limit", Number(data.getAttr("char_limit"))); 
+			if (data.getAttr("halign")) 
+                this.setAttribute("halign", data.getAttr("halign")); 
+			if (data.getAttr("lmargin"))
+                this.setAttribute("lmargin", data.getAttr("lmargin")); 
+			if (data.getAttr("rmargin"))
+                this.setAttribute("rmargin", data.getAttr("rmargin"));
+            this.ibox.bringToFront();
+        ]]></method>
+		
+<!--          <method name="embedded_field" args="data"><![CDATA[
+        	setTextReaderAttributes(data);
+        	var allFields = new Array();
+			var dataText = data.getFirstChild().data;
+			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
+			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
+				dataText = gController.directionsSubstitution(dataText);
+			}  
+			var doubleBrIndex = dataText.lastIndexOf('<br/><br/>');
+			if(doubleBrIndex != -1 && ((dataText.length - doubleBrIndex) == 10)){
+       			dataText = dataText.substr(0, dataText.length - 5);
+			}
+            words = dataText.split(' '); 
+            var i_on = false, b_on = false, u_on = false;
+			var readableText = this.hasAltText ? this.altText : "";
+			var image_string = "";
+			var imgAltText = "";
+            // Parse the "inline image" XML input
+            for (var i = 0; i < words.length; i++) {
+				// Parse the <input field> and put attributes into a hash 					
+				if (words[i].indexOf("<single_line_answer") != -1) {
+					i++;
+	              	var hash = new Array();
+	
+	                if (gController.hasFontAccommodation){
+	                	hash['fontsize'] = 18;
+	                }
+	                else{
+	                	hash['fontsize'] = 12;
+	                }
+	
+	              	// While we haven't reached the end delimiter
+	              	while (words[i].indexOf("/>") == -1) {
+						// ignore height attribute - allow single line answers to size to contents
+	              		var doAdd = true;
+	                	// Split attribute values, remove quotes and put into hash
+	                	var keyvalue = words[i].split("=");
+	
+	                    // Need to remove surrounding double quotes
+	                    keyvalue[1] = keyvalue[1].substr(1, keyvalue[1].length-2);
+	                	if (keyvalue[0] == 'width') {
+							if (canvas.readable) 
+								keyvalue[1] = Number(keyvalue[1]) + 32;
+	                	}
+	                	if (keyvalue[0] == "id") keyvalue[0] = "widget_id";
+	                    if (keyvalue[0] == "height"){
+	                    	doAdd = false;
+	                    }
+	                    if (keyvalue[0] == "widget_id"){
+	                    	this.widget_id = keyvalue[1];
+							if(!this.hasAltText){
+								readableText = readableText + "%" + this.widget_id + "% ";
+							}
+	                    }
+	                	
+	                	if(doAdd){
+	                		hash[keyvalue[0]] = keyvalue[1];
+	                	}
+	                	i++;
+					}
+	                
+	              	if (words[i].length != 2) {  		   // Handle: id="XX"/> 
+	              		var doAdd = true;
+	                 	words[i] = words[i].substr(0, words[i].lastIndexOf('"'));
+	                 	var keyvalue = words[i].split("=");
+	                    // Need to remove surrounding double quotes
+	                    keyvalue[1] = keyvalue[1].substr(1, keyvalue[1].length-1);
+						if (keyvalue[0] == 'width') {
+							if (canvas.readable)
+								keyvalue[1] = Number(keyvalue[1]) + 32;
+	                	}
+	                	if (keyvalue[0] == "id") keyvalue[0] = "widget_id";
+	                   if (keyvalue[0] == "height"){
+	                    	doAdd = false;
+	                    }
+	                    if (keyvalue[0] == "widget_id") { 
+	                        this.widget_id = keyvalue[1];
+	                        if(!this.hasAltText){
+	                        	readableText = readableText + "%" + this.widget_id + "% ";
+	                        }
+	                    }
+	                    if(doAdd){
+	                 		hash[keyvalue[0]] = keyvalue[1];
+	                 	}
+	                 	i++;
+	              	}
+	                //for (var j in hash) Debug.write("hash name : " + j + " key : " + hash[j]);
+	              	this.ibox = new input_box(this, hash);
+	              	allFields.push(this.ibox);
+	
+	                // Check for an existing answer. If none, then initialize answered field 
+	                // to false
+	              	var answer = gController.getAnswerForInputWidgetId(this.widget_id);
+	                if (typeof answer == "undefined" || answer.length == 0)
+	              	   gController.addCrField({"widget_id" : this.widget_id, "answered" : false, "ref" : this.ibox});
+	                else {
+	              	   gController.addCrField({"widget_id" : this.widget_id, "answered" : true,
+	                                                                         "answer" : answer, "ref" : this.ibox});
+	              	   this.ibox.answer.setText(answer);
+				    }
+				}
+				
+				// Parse the <inline image> and put attributes into a hash, starting tag may come escaped, so take care of &lt; also.
+				if (i < words.length && (words[i].indexOf("<image_widget") != -1 || words[i].indexOf("&lt;image_widget") != -1)) {
+					
+					i++;
+					
+					image_string += "<image_widget ";
+
+                  	// While we haven't reached the end delimiter
+                  	while (words[i].indexOf("/>") == -1) {
+						image_string += words[i] + " ";
+                    	i++;
+					}
+					if (words[i].length != 2) {
+						image_string += words[i];// store complete string
+						i++;
+					}
+					else {					
+                    	image_string += "/>";// store complete string
+					}
+					this.ibox = new CachableImage(this); // create cachable image instance
+					var newNode = lz.DataNode.stringToLzData(image_string); //convert the string to datanode
+					newNode.setOwnerDocument(this.datapath.p.ownerDocument);
+//					this.ibox.datapath.setPointer (newNode);
+					this.ibox.data = newNode;
+					this.ibox.ondata.sendEvent(newNode); // fire the ondata event
+
+					imgAltText = newNode.getAttr('alt_text'); // check for alt text within image node
+
+					if(imgAltText != null && imgAltText !="" && !this.hasAltText) {
+						readableText += " "+ imgAltText + ". "; // if alt text is not null, append with the readable text
+						imgAltText = "";
+					}
+
+					image_string = "";
+                  	allFields.push(this.ibox);
+				}
+
+                if (words[i] == null || words[i] == "/>" || words[i].length == 0 || 
+                                                           typeof words[i] == "undefined") {
+                   continue;
+                }
+
+				if (!this.hasAltText) {
+			    	readableText = readableText + words[i] + " "; 
+			    }              
+
+                // If the input word is surrounded by HTML font type delimiters
+				if (words[i].indexOf("<i>") != -1 && words[i].indexOf("</i>") != -1) 
+					words[i] = "<i>" + words[i] + "</i>";
+				else if (words[i].indexOf("<i>") != -1) 
+					i_on = true;
+				else if (words[i].indexOf("</i>") != -1) {
+					words[i] = "<i>" + words[i] + "</i>";
+					i_on = false;
+				}
+
+               if (words[i].indexOf("<b>") != -1 && words[i].indexOf("</b>") != -1) 
+                  words[i] = "<b>" + words[i] + "</b>";
+               else if (words[i].indexOf("<b>") != -1)
+                  b_on = true;
+               else if (words[i].indexOf("</b>") != -1) {
+                  words[i] = "<b>" + words[i] + "</b>";
+                  b_on = false;
+               }
+
+               if (words[i].indexOf("<u>") != -1 && words[i].indexOf("<u>") != -1) 
+                  words[i] = "<u>" + words[i] + "</u>";
+               else if (words[i].indexOf("<u>") != -1)
+                  u_on = true;
+               else if (words[i].indexOf("</u>") != -1) {
+                  words[i] = "<u>" + words[i] + "</u>";
+                  u_on = false;
+               }
+
+               if (i_on) words[i] = "<i>" + words[i] + "</i>";
+               if (b_on) words[i] = "<b>" + words[i] + "</b>";
+               if (u_on) words[i] = "<u>" + words[i] + "</u>";
+               
+//               Debug.write("new Text : " +  words[i] + " " + i);
+
+               // Add a <p> to the first word and a </p> to the last
+               var name = new CachableInputTextField(this, { "resize" : true });
+               allFields.push(name);
+
+               if (i == 0)
+                  name.setText("<p>" + words[i]);
+               if (i == words.length-1)
+                      name.setText(words[i] + "</p>");
+               name.setText(words[i]);
+               name.setAttribute('fgcolor', this.fontcolor);
+            }
+
+//Debug.write("image_string : ",image_string);
+
+            // Used by the TextReader
+            for (var i = 0; i < allFields.length; i++) {
+            	var theField = allFields[i];
+            	if(theField instanceof CachableInputTextField) {
+            		theField.setReadableText(gReadableText.stripHtmlTags(readableText));
+            	}
+            }
+            var xin = parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
+			// For inline images, to avoid overlapping of text objects, set value to 0
+            var xsp = gController.hasFontAccommodation ? 0 : (this.embedded_inline_image ? 0 : -1);
+            this.setAttribute('wl', new inlinewrappinglayout(this, { axis : "x", xinset : xin, xspacing : xsp } ));
+
+            // To distinguish between numerous input fields, we'll maintain an array of hashes
+            // containing their widget ID and answered state (filled or empty). Additionally each
+            // class also stores its widget ID to allow them to be matched up.
+            if (data.getAttr("id")) {
+                this.widget_id = data.getAttr("id");
+            }
+            
+            if (data.getAttr("width")) 
+                this.setWidth(Number(data.getAttr("width")));
+			if (data.getAttr("char_limit"))
+                this.setAttribute("char_limit", Number(data.getAttr("char_limit"))); 
+			if (data.getAttr("halign")) 
+                this.setAttribute("halign", data.getAttr("halign")); 
+			if (data.getAttr("lmargin"))
+                this.setAttribute("lmargin", data.getAttr("lmargin")); 
+			if (data.getAttr("rmargin"))
+                this.setAttribute("rmargin", data.getAttr("rmargin"));
+            this.ibox.bringToFront();
+        ]]></method>
+ 
+        <method name="doReturnToCache"><![CDATA[
+            var destroy = false;
+            var contsubviews = this.subviews;
+            for (var i in contsubviews) {
+                if (contsubviews [i].visible && 
+                     contsubviews[i] instanceof CachableInputTextField) {
+                       destroy = true;
+                }
+            }
+            
+            // Release all (text and wrappinglayout) resources for an inline input field
+            if (destroy) {
+              	var par = contsubviews[0].parent;
+               	for (var i in contsubviews) {
+                    contsubviews[i].destroy();
+                }
+                wl.destroy();
+            }
+        ]]></method>
+ -->		
+         <method name="embedded_inlineimage_field" args="data"><![CDATA[
+        	setTextReaderAttributes(data);
+        	var allFields = new Array();
+			var dataText = data.getFirstChild().data;
+			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
+			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
+				dataText = gController.directionsSubstitution(dataText);
+			}  
+			var doubleBrIndex = dataText.lastIndexOf('<br/><br/>');
+			if(doubleBrIndex != -1 && ((dataText.length - doubleBrIndex) == 10)){
+       			dataText = dataText.substr(0, dataText.length - 5);
+			}
+
+            //this.words = dataText.split(' '); 
+			this.words = populateObjectArrayForWidget(dataText);
+			var readableText = this.hasAltText ? this.altText : "";
+			var imgAltText = "";
+            // Parse the "inline image" XML input
+            for (var i = 0; i < words.length; i++) {
+			
+				// Parse the <inline image> and put attributes into a hash, starting tag may come escaped, so take care of &lt; also.
+				if (i < words.length && (words[i].indexOf("<image_widget") != -1 || words[i].indexOf("&lt;image_widget") != -1)) {
+			
+					this.ibox = new CachableImage(this); // create cachable image instance
+					//var newNode = lz.DataElement.stringToLzData(image_string); //convert the string to datanode
+					var newNode = lz.DataElement.stringToLzData(words[i]); //convert the string to datanode
+					newNode.setOwnerDocument(this.datapath.p.ownerDocument);
+//					this.ibox.datapath.setPointer (newNode);
+					this.ibox.data = newNode;
+					this.ibox.ondata.sendEvent(newNode); // fire the ondata event
+
+					imgAltText = newNode.getAttr('alt_text'); // check for alt text within image node
+
+					if(imgAltText != null && imgAltText !="" && !this.hasAltText) {
+						readableText += " "+ imgAltText + ". "; // if alt text is not null, append with the readable text
+						imgAltText = "";
+					}
+
+
+                  	allFields.push(this.ibox);
+					i++;
+				}
+
+                if (words[i] == null || words[i] == "/>" || words[i].length == 0 || 
+                                                           typeof words[i] == "undefined") {
+                   continue;
+                }
+
+				if (!this.hasAltText) {
+			    	readableText = readableText + words[i] + " "; 
+			    }              
+
+               
+//               Debug.write("new Text : " +  words[i] + " " + i);
+
+               // Add a <p> to the first word and a </p> to the last
+               var name = new CachableInputTextField(this, { "resize" : true });
+//				name.setBGColor(0x00ff00);
+               allFields.push(name);
+
+               if (i == 0)
+                  name.setText("<p>" + words[i]);
+               if (i == words.length-1)
+                      name.setText(words[i] + "</p>");
+               name.setText(words[i]);
+               name.setAttribute('fgcolor', this.fontcolor);
+            }
+
+//Debug.write("image_string : ",image_string);
+
+            // Used by the TextReader
+            for (var i = 0; i < allFields.length; i++) {
+            	var theField = allFields[i];
+            	if(theField instanceof CachableInputTextField) {
+            		theField.setReadableText(gReadableText.stripHtmlTags(readableText));
+            	}
+            }
+
+
+            var xin = parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
+			// For inline images, to avoid overlapping of text objects, set value to 0
+            var xsp = gController.hasFontAccommodation ? 0 : (this.embedded_inline_image ? 0 : -1);
+            this.setAttribute('wl', new inlinewrappinglayout(this, { axis : "x", xinset : xin, xspacing : xsp } ));
+
+            // To distinguish between numerous input fields, we'll maintain an array of hashes
+            // containing their widget ID and answered state (filled or empty). Additionally each
+            // class also stores its widget ID to allow them to be matched up.
+            if (data.getAttr("id")) {
+                this.widget_id = data.getAttr("id");
+            }
+            
+            if (data.getAttr("width")) 
+                this.setWidth(Number(data.getAttr("width")));
+			if (data.getAttr("char_limit"))
+                this.setAttribute("char_limit", Number(data.getAttr("char_limit"))); 
+			if (data.getAttr("halign")) 
+                this.setAttribute("halign", data.getAttr("halign")); 
+			if (data.getAttr("lmargin"))
+                this.setAttribute("lmargin", data.getAttr("lmargin")); 
+			if (data.getAttr("rmargin"))
+                this.setAttribute("rmargin", data.getAttr("rmargin"));
+            this.ibox.bringToFront();
+        ]]></method>
+ 
+        <method name="doReturnToCache"><![CDATA[
+            var destroy = false;
+            var contsubviews = this.subviews;
+            for (var i in contsubviews) {
+                if (contsubviews [i].visible && 
+                     contsubviews[i] instanceof CachableInputTextField) {
+                       destroy = true;
+                }
+            }
+            
+            // Release all (text and wrappinglayout) resources for an inline input field
+            if (destroy) {
+              	var par = contsubviews[0].parent;
+               	for (var i in contsubviews) {
+                    contsubviews[i].destroy();
+                }
+                wl.destroy();
+            }
+        ]]></method>
+
+		<method name="populateObjectArrayForWidget" args="txt">
+			<![CDATA[
+				this.initTextImgArr = new Array();
+				this.textImgArr = new Array();
+				var tempArr = new Array();
+            	var i_on = false, b_on = false, u_on = false;
+				var dText = txt;
+				splitTextAndImage(dText);			
+				var parentWidth = this.width;
+				var xin = parent.comptype == gCompTypes.WIDGET_SCROLLING_TEXT ? 6 : 0;
+				parentWidth = parentWidth - xin;
+				var hasSecondLine = false;
+				var previousWidth = 0;
+
+				if(typeof textObj == "undefined") {
+					var textObj = new lz.Text(this, {resize : true, visible : false});
+					textObj.setFontName('CTB');
+					textObj.setFontSize(Math.floor(12 * this.magnification));
+				}
+
+				for(var i = 0; i < initTextImgArr.length ; i++) {
+					var textArr = initTextImgArr[i].split(" ");
+
+					var totalWidth = 0;
+					var tempStr = ""; 
+					hasSecondLine = false;
+
+							if (textImgArr.length > 0) {
+
+								var lastT = textImgArr [textImgArr.length - 1];
+
+								if (lastT.lastIndexOf("<image_widget") != -1) {
+									var tempElementT = lz.DataElement.stringToLzData(lastT);
+									var tempImgWidthT = tempElementT.getAttr("width") * this.magnification;
+//Debug.write('tempImgWidthT..', tempImgWidthT);									
+									if (tempImgWidthT < parentWidth - previousWidth) {
+										if (textImgArr.length > 1) {
+											textObj.setText(textImgArr [textImgArr.length - 2]);
+											var secondLastWidth = Number(textObj.width);
+											textObj.clearText();
+											if ((tempImgWidthT * 1 + secondLastWidth * 1) < parentWidth) {
+												previousWidth = tempImgWidthT  * 1 + secondLastWidth  * 1;
+	//							Debug.write("if previousWidth, tempImgWidthT, secondLastT", previousWidth, tempImgWidthT, secondLastWidth, j, i);
+											} 
+											else {
+												if ((tempImgWidthT * 1 + secondLastWidth * 1) == parentWidth) {
+													previousWidth = 0;
+	//							Debug.write("else if previousWidth, tempImgWidthT, secondLastT", previousWidth, tempImgWidthT, secondLastWidth);
+												} 
+												else {
+													previousWidth = tempImgWidthT;
+	//							Debug.write("else else previousWidth, tempImgWidthT, secondLastT", previousWidth, tempImgWidthT, secondLastWidth);
+												}
+	 										}
+										
+										} else {
+											previousWidth = tempImgWidthT;
+										}
+									} 
+									else {
+//Debug.write('previousWidth is setting zero', previousWidth, j, i);									
+										//previousWidth = 0;
+									}
+								} 
+								
+							}
+					
+					if(initTextImgArr[i].indexOf('<image_widget') == -1) {
+					//start j for
+						for(var j = 0; j < textArr.length ; j++) {
+		//check here for bold, italic, and underline
+		           // If the input word is surrounded by HTML font type delimiters
+					if (textArr[j].indexOf("<i>") != -1 && textArr[j].indexOf("</i>") != -1) 
+						textArr[j] = "<i>" + textArr[j] + "</i>";
+					else if (textArr[j].indexOf("<i>") != -1) 
+						i_on = true;
+					else if (textArr[j].indexOf("</i>") != -1) {
+						textArr[j] = "<i>" + textArr[j] + "</i>";
+						i_on = false;
+					}
+	
+	               if (textArr[j].indexOf("<b>") != -1 && textArr[j].indexOf("</b>") != -1) 
+	                  textArr[j] = "<b>" + textArr[j] + "</b>";
+	               else if (textArr[j].indexOf("<b>") != -1)
+	                  b_on = true;
+	               else if (textArr[j].indexOf("</b>") != -1) {
+	                  textArr[j] = "<b>" + textArr[j] + "</b>";
+	                  b_on = false;
+	               }
+	
+	               if (textArr[j].indexOf("<u>") != -1 && textArr[j].indexOf("</u>") != -1) 
+	                  textArr[j] = "<u>" + textArr[j] + "</u>";
+	               else if (textArr[j].indexOf("<u>") != -1)
+	                  u_on = true;
+	               else if (textArr[j].indexOf("</u>") != -1) {
+	                  textArr[j] = "<u>" + textArr[j] + "</u>";
+	                  u_on = false;
+	               }
+
+					if (i_on) textArr[j] = "<i>" + textArr[j] + "</i>";
+					if (b_on) textArr[j] = "<b>" + textArr[j] + "</b>";
+					if (u_on) textArr[j] = "<u>" + textArr[j] + "</u>";
+
+						if(nullOrSpace(textArr[j])) {
+							j++;
+						}
+												
+//							textObj.setText(trim(textArr[j]));
+							if(typeof textObj.text == "undefined" || nullOrSpace(textObj.text)) {
+								textObj.setText(trim(textArr[j]));
+							}
+							else {	
+								textObj.addText(" " + trim(textArr[j]));
+								textObj.setText(trim(textObj.text));
+							}
+//Debug.write("XXX",tempStr,"XXX");
+//Debug.write("textObj add text", textObj.text);
+//							Debug.write('textArr[j] : ', textArr[j]);
+
+//Debug.write("textObj height..", textObj.height);							
+							if(this.lineHeight == 0) {
+								this.lineHeight = textObj.height;
+							}
+
+//							totalWidth += Number(textObj.width);
+							totalWidth = Number(textObj.width);
+//Debug.write("totalWidth..", totalWidth);
+							hasSecondLine = false;
+							if (totalWidth <= (parentWidth * 1 - previousWidth * 1)) {
+//						Debug.write("XXXXXXXXXXXXXXXXX", textArr[j], j, i, totalWidth, parentWidth * 1 - previousWidth * 1, previousWidth * 1);
+								tempStr += trim(textArr[j]) + " ";
+//						Debug.write("if 1..", tempStr, j); 		
+							}
+							else {
+								if (!nullOrSpace(tempStr)) {
+//						Debug.write("else if 2..", tempStr, j);			
+									if (previousWidth > 0) {
+//						Debug.write("else if if 3..", tempStr, j, parentWidth, previousWidth, parentWidth - previousWidth);
+										textImgArr.push(trim(tempStr));
+									}
+									else {
+//						Debug.write("else if else 4..", tempStr, j);
+										tempArr.push(trim(tempStr));
+									}
+								}							
+								previousWidth = 0;
+								tempStr = "";
+
+								textObj.clearText();
+								textObj.setText(trim(textArr[j]));
+
+								totalWidth = Number(textObj.width);
+								hasSecondLine = true;
+								tempStr += trim(textArr[j]) + " ";
+//						Debug.write("else 5..", tempStr,totalWidth, j);
+							}
+						} //end j for
+						
+						if (tempArr.length > 0) {
+//Debug.write('tempArr : ', tempArr.length);
+							textImgArr.push(trim(tempArr.join(" ")));
+							tempArr.length  = 0;
+							
+						}
+						if (!nullOrSpace(tempStr)) {
+//			Debug.write('to be pushed at last trim(tempStr) : ', trim(tempStr));
+								textImgArr.push(trim(tempStr));
+								previousWidth = 0;
+								tempStr = "";
+						} 
+					}
+					else {
+						totalWidth = 0;
+						//hasSecondLine = true;
+						var tempElement = lz.DataElement.stringToLzData(initTextImgArr[i]);
+						var tempImgWidth = tempElement.getAttr("width") * this.magnification;
+
+//		Debug.write('in else for image', tempStr);			
+						if(textImgArr.length > 0) {
+							var lastStr = textImgArr[textImgArr.length - 1];
+							textObj.setText(trim(lastStr));
+							//Debug.write("textObj.width", textObj.width, textObj.text);
+							totalWidth += Number(textObj.width) + tempImgWidth  * 1;
+							if(totalWidth <= parentWidth) {
+								//tempStr += textArr[j] + " ";
+								//Debug.write('if',textArr[j]);
+								textImgArr.push(trim(initTextImgArr[i]));
+							}
+							else {
+								var lastVal = textImgArr[textImgArr.length - 1];
+								//Debug.write("lastVal..", lastVal);
+								if(lastVal.indexOf("<image_widget") == -1) {
+									if (textImgArr.length > 1) {
+										textImgArr.pop();
+										var secondLastVal = textImgArr[textImgArr.length - 1];
+										if(secondLastVal.indexOf("<image_widget") == -1) {
+//											if (textImgArr.length > 1) {
+												var thirdLastVal = trim(textImgArr[textImgArr.length - 2]);
+												if (thirdLastVal.indexOf("<image_widget") != -1) {
+													var thirdElementT = lz.DataElement.stringToLzData(thirdLastVal);
+													var imgWidthT = thirdElementT.getAttr("width") * this.magnification;
+													textObj.setText(trim(secondLastVal));
+													var secondObjWidthT = textObj.width;	
+													if(imgWidthT * 1 + secondObjWidthT * 1 > parentWidth) {
+														textImgArr.pop();
+														textImgArr.push(trim(secondLastVal+" "+lastVal));	
+													}
+													else
+													{
+														textImgArr.push(trim(lastVal));
+													}
+												}
+												else {
+														textImgArr.pop();
+														textImgArr.push(trim(secondLastVal+" "+lastVal));	
+												}	
+											
+	//											textImgArr.pop();
+	//											textImgArr.pop();
+	//											textImgArr.push(trim(secondLastVal+" "+lastVal));
+												textImgArr.push(trim(initTextImgArr[i]));
+//											}
+										} 
+										else {
+											textImgArr.push(trim(initTextImgArr[i]));
+										}
+									} 
+									else {
+										textImgArr.push(trim(initTextImgArr[i]));
+									}
+								} 
+								else {
+									textImgArr.push(trim(initTextImgArr[i]));
+								}
+							}
+
+						}
+						else {
+						
+							if (i == 0) {
+								textImgArr.push(trim(initTextImgArr[i]));
+							}
+						} 	
+					}					
+				}
+				var lastObject = textImgArr[textImgArr.length - 1];		
+				if (lastObject.indexOf("<image_widget") == -1) {// check last object
+					textImgArr.pop();
+					var secondObject = textImgArr[textImgArr.length - 1];
+					if (secondObject.indexOf("<image_widget") == -1) {// check second last object
+						thirdObject = textImgArr[textImgArr.length - 2];
+						if (thirdObject.indexOf("<image_widget") != -1) {// check third last object
+							var thirdElement = lz.DataElement.stringToLzData(thirdObject);
+							var imgWidth = thirdElement.getAttr("width") * this.magnification;
+							textObj.setText(trim(secondObject));
+							var secondObjWidth = textObj.width;	
+							if(imgWidth * 1 + secondObjWidth * 1 > parentWidth) {
+								textImgArr.pop();
+								textImgArr.push(trim(secondObject+" "+lastObject));	
+							}
+							else
+							{
+								textImgArr.push(trim(lastObject));
+							}
+						}
+						else {
+								textImgArr.pop();
+								textImgArr.push(trim(secondObject+" "+lastObject));	
+						}	
+
+						//textImgArr.push(trim(secondObject+" "+lastObject));
+//Debug.write('secondObject+" "+lastObject..', secondObject+" "+lastObject, previousWidth);						
+					}	
+					else {
+						textImgArr.push(trim(lastObject));
+					}
+				}	
+//Debug.write("textImgArr : ", textImgArr);
+//Debug.write("initTextImgArr : ", initTextImgArr);			
+				textObj.destroy();			
+				return textImgArr;		
+			]]>
+		</method>
+
+		<!-- 
+			Parse the text string and store text blocks, image_widget, and single_line_answers, 
+			in a string array at different indexes
+			@param txt: The string to be split which has both text and image tags
+			@keywords protected
+		-->
+		<!--
+		<method name="splitTextAndImage" args="txt"><![CDATA[
+			var result = "";
+			var remainder = trim(txt);
+			var startIndex = 0;
+			var endIndex = 0;
+			var inputField;
+			var widgetId;
+			while(startIndex != -1){
+				startIndex = remainder.indexOf('<image_widget', 0);
+				startIndex2 = remainder.indexOf('<single_line_answer', 0);
+				
+				//checks to see if there is a <single_line_answer before an <image_widget to parse first
+				if(startIndex2<startIndex && startIndex2!=-1)
+				 	startIndex = startIndex2;
+				if(startIndex<startIndex2 && startIndex==-1)
+				 	startIndex = startIndex2;
+ 
+				
+				if(startIndex != -1){  // found substitution string
+					if(startIndex > 0) {				
+						result = remainder.substring(0 , startIndex );
+						initTextImgArr.push(trim(result));
+					}					
+					endIndex = remainder.indexOf('/>', startIndex);
+					result = remainder.substring(startIndex , endIndex + 3);
+					initTextImgArr.push(trim(result));
+					remainder = remainder.substring(endIndex + 3, remainder.length);
+//					Debug.write('remainder..', remainder);
+					startIndex=0;
+				}
+				else{ 
+					if (remainder != " ") {
+						result = remainder.substring(0, remainder.length);
+						initTextImgArr.push(trim(result));
+					} 
+					
+				}
+			}
+		]]></method>
+		-->
+		<method name="isInlineObject" args="str"><![CDATA[
+			return (str.indexOf('<image_widget') != -1 || str.indexOf("<single_line_answer") != -1);
+		]]></method>
+		
+		<method name="isInlineImage" args="str"><![CDATA[
+			return (str.indexOf('<image_widget') != -1);
+		]]></method>
+
+		<method name="isInlineCr" args="str"><![CDATA[
+			return (str.indexOf("<single_line_answer") != -1);
+		]]></method>
+		
+<!-- 
+parse the text string and store text and image string in an array at different indexes -->
+
+		<method name="splitTextAndImage" args="txt"><![CDATA[
+			var result = "";
+			var remainder = txt;
+			var startIndex = 0;
+			var endIndex = 0;
+			var inputField;
+			var widgetId;
+			while(startIndex != -1){
+				startIndex = remainder.indexOf('<image_widget', startIndex);
+				if(startIndex != -1){  // found substitution string
+					if(startIndex > 0) {				
+						result = remainder.substring(0 , startIndex );
+						initTextImgArr.push(trim(result));
+					}
+					endIndex = remainder.indexOf('/>', startIndex);
+					result = remainder.substring(startIndex , endIndex + 3);
+					initTextImgArr.push(trim(result));
+					remainder = remainder.substring(endIndex + 3, remainder.length);
+//					Debug.write('remainder..', remainder);
+					startIndex=0;
+				}
+				else{ 
+					if (remainder != " ") {
+						result = remainder.substring(0, remainder.length);
+						initTextImgArr.push(trim(result));
+					} 
+					
+				}
+			}
+		]]></method>
+
+        <!-- ===============
+             = VIEWS
+             =============== -->
+        
+        <state apply="${classroot.embedded_input == false &amp;&amp; classroot.embedded_inline_image == false}">
+           <view name="clickregionreader"
+                 width="${classroot.thetext.width}"
+                 height="${classroot.thetext.height}"
+                 clickable="false">
+               <handler name="onclick">
+                   classroot.read(gReadableText.stripHtmlTags(classroot.thetext.text));
+               </handler>
+           </view>
+
+           <text name="thetext" multiline="true" 
+               x="${classroot.leftPadding}"
+               width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
+               fgcolor="${classroot.fontcolor}"
+               fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" />
+        </state>
+    </class>
+
+</library>

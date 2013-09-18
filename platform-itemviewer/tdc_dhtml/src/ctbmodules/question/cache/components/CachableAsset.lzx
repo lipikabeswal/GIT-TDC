@@ -1,0 +1,102 @@
+<library>
+
+	<include href="CachableComponent.lzx" />
+	<include href="lib/htmlnew.lzx" />
+	<include href="lib/html.lzx" />
+	
+	<!-- ************************************
+		Cachable Asset 
+		
+		A Cachable Html Widget to render html audio assets in question specially for laslink form c and d items.  
+		*************************************-->
+	
+	<class name="CachableAsset" extends="CachableComponent" 
+    	       comptype="${gCompTypes.WIDGET_ASSET}" aaactive="true">
+	
+		<method name="init">
+			super.init();
+		</method>
+
+		<handler name="oninit">
+			Debug.write("Cachable asset widget handlerinit");
+		</handler>
+	
+		<handler name="ondata" args="data"><![CDATA[
+			if($dhtml){
+				this.asset.setAttribute('height',Number(data.getAttr('height')));
+				this.asset.setAttribute('width',Number(data.getAttr('width')));
+				if(data != null && data.getAttr('isMP4') == "true") {
+					var folderName = data.getAttr('image_ref');
+					//var srcUrl = "http:items/" + folderName + "/video.html";
+					var srcUrl = canvas.LASAssetPath+folderName+"/video.html";
+					this.asset.video.setAttribute('src', srcUrl);
+					this.asset.aw.setAttribute('visible',false);
+					this.asset.video.setAttribute('visible',true);
+					this.asset.video.setAttribute('height',Number(data.getAttr('height')));
+					this.asset.video.setAttribute('width',Number(data.getAttr('width')));
+				} else {
+					if(!gController.isSizer){
+						var folderName = data.getAttr('image_ref');
+						//var srcUrl = "http:items/" + folderName + "/asset.html";
+						var srcUrl = canvas.LASAssetPath+folderName+"/asset.html";
+						this.asset.aw.setAttribute('src', srcUrl);
+						this.asset.aw.setAttribute('visible',true);
+						this.asset.video.setAttribute('visible',false);
+						this.asset.aw.setAttribute('height',Number(data.getAttr('height')));
+						this.asset.aw.setAttribute('width',Number(data.getAttr('width')));
+					}
+				}
+				if(!gController.isSizer){
+					gController.lasAssetArray.push(this);
+				}
+				doneLoading();
+			}
+		]]></handler>
+		
+		<method name="doneLoading">
+			super.doneLoading();
+		</method>
+	
+		<view name="asset" clip="true">
+		
+		<handler name="oninit">
+			/* Workaround for scaling issue in MAC for iframes. The htmlnew class is a 
+               modified version of
+			   lps/components/extensions/html.lzx
+             */
+			var htmlFrameClass = "html";
+			if (navigator.appVersion.indexOf("Mac")!=-1) {
+				htmlFrameClass = "htmlnew";
+			}
+			console.log("htmlFrameClass "+htmlFrameClass);
+			var opts_vid = {
+				scrollbars: false,
+				mouseevents: true,
+				focusable: true,
+				name: 'video'
+			};
+			var opts_audio = {
+				scrollbars: false,
+				mouseevents: true,
+				focusable: true,
+				name: 'aw'
+			};
+			this.ht = new lz[htmlFrameClass](this, opts_vid);
+
+			this.ht = new lz[htmlFrameClass](this, opts_audio);
+		</handler>
+
+			<!-- <html name="aw" scrollbars="false" mouseevents="true" focusable="true" >
+ 	    		  	
+			</html>
+			<html name="video" scrollbars="false" mouseevents="true" focusable="true">
+			
+			</html> -->
+       
+       	<view name="assetOverley" height="120%" visible="false"
+              width="120%"
+              clip="true" clickable="false" showhandcursor="false"  opacity=".01" bgcolor="gray">
+        </view>
+      </view>
+	</class>
+</library>
