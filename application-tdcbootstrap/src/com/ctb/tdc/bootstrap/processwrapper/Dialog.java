@@ -14,8 +14,8 @@ private boolean isMac() {
 
 public String showOptionDialogLASLINKS(){
 	int rc;
-	String[] forms = {"Form A/Form B/Espanol","Form C/Form D/Espanol2"}; 
-	String[] formsMac = {"Form C/Form D/Espanol2","Form A/Form B/Espanol"}; 
+	String[] forms = {"Form A / Form B / Español A","Form C / Form D / Español B"}; 
+	String[] formsMac = {"Form C / Form D / Español B","Form A / Form B / Español A"}; 
 	if(isMac()){
 		rc = showOptionDialog(null, "Please Select Form :","Form Selection", 0, JOptionPane.PLAIN_MESSAGE, null, formsMac, formsMac[1]);
 	}else{
