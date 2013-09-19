@@ -35,17 +35,6 @@
 			this.answer.enable();
 		</method>
         <handler name="ondata" args="data"><![CDATA[
-
-            if (data.getAttr("id")) {  
-                this.setAttribute('widget_id', data.getAttr("id"));
-            	var answer = gController.getAnswerForInputWidgetId(this.widget_id);
-            	var answered = (typeof answer != "undefined" && answer.length != 0);
-                gController.addCrField({"widget_id" : this.widget_id, 
-                                              "answered" : answered, "answer" : answer, "ref" : this}); 
-                this.setAnswer(answer);
-//this.answer.setText("<huh/>");
-            }
-            
             if (data.getAttr("width")){
 //Debug.write("CachableSingleLineAnswer", "got width", data.getAttr('width'));
                 this.setAttribute('editTextWidth', Number(data.getAttr("width")));
