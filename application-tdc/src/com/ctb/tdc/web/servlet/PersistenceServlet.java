@@ -16,12 +16,14 @@ import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -99,6 +101,18 @@ public class PersistenceServlet extends HttpServlet {
 		"webapp" + File.separator + "resources";
 	private static final String WEBINF_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
 	"webapp" + File.separator + "WEB-INF";
+	
+	static String version = null;
+	static{
+		try {
+			version = getVersion();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+	}
+	private static final String VERSION = version;
 	private static native void nativeUpLevelWindow(final String windowName);
 	
 	static {
@@ -280,6 +294,9 @@ public class PersistenceServlet extends HttpServlet {
 				result = save(response, xml, request);   
 			}
         }
+        else if (method != null && method.equals(ServletUtils.GET_TESTSCORE_DATA)){
+        	result = getTestScoreData();
+        }
 		else if (method != null && method.equals(ServletUtils.FEEDBACK_METHOD))
 			result = feedback(xml);
 		else if (method != null
@@ -290,7 +307,7 @@ public class PersistenceServlet extends HttpServlet {
 			result = writeToAuditFile(xml);
 		else if (method != null
 				&& method.equals(ServletUtils.CHECK_PROD_TYPE_METHOD)){
-					result = "<"+PRODUCT_TYPE.trim()+" />";
+					result = "<"+PRODUCT_TYPE.trim()+" version=\""+VERSION.substring(0, VERSION.lastIndexOf(".")).trim()+"\"/>";
 				}
 // Change to handle OK Calculator
 		else if (method != null
@@ -1212,4 +1229,67 @@ private static void createAndShowTI30() {
     calculatorDialog30.setVisible(true);
     calculatorDialog30.setVisible(false);
 }
+public static String getVersion() throws IOException {
+		/*File file = new File("etc");
+		java.net.URL url = file.toURI().toURL();*/
+	//	logger.info("Inside getVersion***********");
+		String path=System.getProperty(TDC_HOME) + File.separator + 
+		"etc" + File.separator + "version.properties";
+		String version=null;
+		File file=new File(path);
+		BufferedReader br;
+		try {
+			br = new BufferedReader(new FileReader(file));
+			version=br.readLine().split("=")[1];
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	//	logger.info("VERSION******"+version);
+		return version;
+		/*ClassLoader loader = new URLClassLoader(new java.net.URL[]{url});
+		Locale locale = new Locale("en_us");
+		ResourceBundle rb = ResourceBundle.getBundle("version", locale, loader);
+		//ResourceBundle rb = ResourceBundle.getBundle
+		//System.out.println(rb.getString("tdc.version"));
+		return rb.getString("tdc.version");*/
+	}
+public static String getTestScoreData() throws IOException{
+		
+		StringBuffer fileData = new StringBuffer();
+        BufferedReader reader = null;
+        String path=System.getProperty(TDC_HOME) + File.separator + 
+		"data" + File.separator + "objectbank" + File.separator + "TestScore.xml";
+        File f = new File(path);
+        if(!f.exists()){
+        	fileData.append(ServletUtils.OK);
+        }else{
+			try {
+				
+				reader = new BufferedReader(
+				        new FileReader(path));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+	        char[] buf = new char[1024];
+	        int numRead=0;
+	        String lineData = null;
+	        while((lineData = reader.readLine()) != null) {        	
+	        	fileData.append(lineData);
+	        }
+	      
+	        try {
+				reader.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+        }	
+        System.out.println("DATA*****"+fileData.toString());
+        return fileData.toString();
+	}
+
 }
