@@ -154,7 +154,7 @@
 			bgcolor="${Number(gController.answerBgColor)}"
 			fgcolor="${Number(gController.answerFontColor)}"
 			fontsize="${parent.fontsize}"
-            pattern="[A-Za-z0-9!@:;#$%\^*()_\-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[]\\|`~ ]*" >
+			clickable="false">
             
             <attribute name="start" type="number" value="0" />
             <attribute name="end" type="number" value="0" />
@@ -180,10 +180,10 @@
 			           		answered = true;
 			           	}
 			        }
-			        gController.updateCrField(classroot.widget_id, answer, answered);
+			        //gController.updateCrField(classroot.widget_id, answer, answered);
 			    }
 			    else {  // Field is now empty
-			        gController.updateCrField(classroot.widget_id, '', false);
+			        //gController.updateCrField(classroot.widget_id, '', false);
 				}
              ]]></handler>
 
