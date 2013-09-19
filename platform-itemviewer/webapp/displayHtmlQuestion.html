@@ -90,6 +90,8 @@
 var xscalefactorjs;
 var yscalefactorjs;
 var LASAssetPath = "http:items/"; 
+var currentLasAssetItemId;
+var autoPlayEvent = "false";
 
 function getLasAssetPath(){
 	lz.embed.setCanvasAttribute("LASAssetPath", LASAssetPath);
@@ -137,7 +139,7 @@ function setCurLasItemId(id) {
 	currentLasAssetItemId = id;
 	assetCount = 0;
 	checkAnswered = false;
-	answerClicked = null;
+	//answerClicked = null;
 	canNotAnswerFlag = false;
 	currentPlayOrder = 0;
 }
@@ -181,10 +183,10 @@ function eventMonitor(id,event) {
 	 		if(autoPlayEvent == 'true') {
 	 			autoPlayEvent = "false";
 	 		}
-	 		if(answerClicked != null){
+	 		/*if(answerClicked != null){
 	 			checkValIfAnswered(answerClicked);
 	 			answerClicked = null;
-	 		}
+	 		}*/
  		
  		//restrictNavigation('unlock');
  		resetAllAssets();
