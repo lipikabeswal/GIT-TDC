@@ -35,10 +35,14 @@
                                 
                                 
                                 <simplelayout axis="x" spacing="3"/>
-                                <text id= "QuestTxt" text="Question" visible= "false"/>
-                                <!--<text text="${parent.itemno}"
-                                      visible="${!parent.theme}">-->
-                                      <text datapath="dsitem:/element_package/item_model/@eid"
+                                <text id= "QuestTxt" text="Question" visible= "false">
+									<handler name="oninit">
+	                            		var elm=this.getDisplayObject();
+	                            		elm.setAttribute('style','font-family: CTB; font-weight: bold; font-size: 14px; line-height: 17px; pointer-events: none; width: auto; height: 17px;');
+	                            	</handler>
+
+								</text>
+                                <text datapath="dsitem:/element_package/item_model/@eid"
                                       visible="${!parent.theme}">
                                		<handler name="ontext">
                                 		var textWidth = this.getTextWidth();
