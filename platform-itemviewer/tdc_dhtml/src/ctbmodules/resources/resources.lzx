@@ -1,10 +1,10 @@
 <library>
-	<font name="CTB">
+	<!-- <font name="CTB">
 		<face src="fonts/OASmathv3.ttf" style="plain" />
 		<face src="fonts/OASmathv3 Bold.ttf" style="bold" />
 		<face src="fonts/OASmathv3 Italic.ttf" style="italic" />
 		<face src="fonts/OASmathv3 BoldItalic.ttf" style="bold italic" />
-	</font>
+	</font> -->
 
     <!-- =====================
          Cursors
