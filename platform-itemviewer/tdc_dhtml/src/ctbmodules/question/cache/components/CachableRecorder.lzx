@@ -354,26 +354,6 @@
 			lz.Timer.resetTimer(countDownDel, 1000);
 			//Changes to stop the recording if the student clicks the pause screen when
 			//recording is going on.
-			if(gScreens.isOnPauseScreen() && !gItemInterface.visible){
-				if(this.recordStarted){
-				this.stopblinker('stop');
-				lz.Timer.removeTimer(countDownDel);
-				}
-		}
-			//Changes to stop the recording if the student clicks the stop button or finish button screen when
-			//recording is going on.
-			if(gScreens.isOnFinishScreen() && !gItemInterface.visible){
-				if(this.recordStarted){
-				this.stopblinker('stop');
-				lz.Timer.removeTimer(countDownDel);
-				}
-		}
-			if(gScreens.isOnTimeOutScreen() && !gItemInterface.visible){
-				if(this.recordStarted){
-				this.stopblinker('stop');
-				lz.Timer.removeTimer(countDownDel);
-				}
-		}
 		
 		]]>
 		</method>

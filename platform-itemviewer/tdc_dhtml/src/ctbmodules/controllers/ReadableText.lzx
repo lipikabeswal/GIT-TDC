@@ -229,7 +229,7 @@
 					gController.sendHeartbeat();
 					//to start the test timer 
 					gController.startQuestion();
-					gController.unlockUI();
+					//gController.unlockUI();
 				}
 
         		if(!gCommunicator.error){  // if we get an onload and there is no error
@@ -237,7 +237,7 @@
 					lz.Timer.removeTimer( parent.dTimeout );
 	        		if(parent.primed){
 					//Debug.write("inside if of primed");
-		       			gController.unlockUI();
+		       			//gController.unlockUI();
 	        		}
 	        		else{
 	        			parent.setAttribute('primed', true);

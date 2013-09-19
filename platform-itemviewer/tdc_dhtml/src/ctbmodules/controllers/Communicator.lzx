@@ -47,7 +47,7 @@ Debug.write("in if code...", code);
 						if(firstRequestDone && gController.isWaitPopupOpen == false) {
 		  					setAttribute('error', true);
 							gController.hideWaitPopup();
-							gController.unlockUI();
+							//gController.unlockUI();
 		  					showError(xml);
 						}
 						else {
@@ -76,7 +76,7 @@ Debug.write("communicator stopQuestion......");
 Debug.write("in else code...", code);
 	  					setAttribute('error', true);
 						gController.hideWaitPopup();
-						gController.unlockUI();
+						//gController.unlockUI();
 	  					showError(xml);
 					}
   				}
@@ -94,7 +94,7 @@ Debug.write("communicator startQuestion......");
 							}
 							//END
 						}
-						gController.unlockUI();
+						//gController.unlockUI();
 					}
 				}
   			}

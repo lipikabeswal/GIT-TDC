@@ -325,7 +325,6 @@
 			//stopHeartbeat();
             lz.Cursor.unlock();
            // gReadableText.stopReading();
-            gScreens.showError(xml);
 		</method>
 		<method name="setState" args="_state">
 			setAttribute('state', _state);
@@ -576,7 +575,7 @@
             this.runtimeready  = false;
             this.youarehereset = false;
         	//var loadParams = getLoadParams();
-        	var s = setCurLasItemId(40071802);//Native Invoke
+        	var s = setCurLasItemId("40071802");//Native Invoke
         	if (typeof canvas.itemNum != "undefined") {
 				dsitem.setQueryParam(gRequest.ITEMNUM_PARAM, canvas.itemNum);
 			}
@@ -675,7 +674,7 @@ Debug.write(this.youarehereset);
 		<method name="updateRequestPending" args="val, error">
 			this.setAttribute('requestPending', val);
 			if(error){
-				unlockUI();
+				//unlockUI();
 			}
 			else{
 				if(val){
@@ -691,7 +690,7 @@ Debug.write(this.youarehereset);
 
            if ( itemloaded && runtimeready  ) {
 	
-                unlockUI();
+                //unlockUI();
                 startQuestion();
                 if ( !this['itemuiready'] ) new lz.Event( this, 'itemuiready' );
                 itemuiready.sendEvent();
@@ -702,7 +701,7 @@ Debug.write(this.youarehereset);
 		<method name="unlockIfItemReady"><![CDATA[
             if ( itemloaded && runtimeready && youarehereset &&
                  !requestPending) {
-                unlockUI();
+                //unlockUI();
              }
         ]]></method>
 
@@ -873,7 +872,7 @@ Debug.write("inQuestion");
 				gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',false);
 			}
 			//gReadableText.stopRequestor();
-			gController.unlockUI();
+			//gController.unlockUI();
 		]]></method>
 
 		<method name="showWaitPopupFor30Sec"><![CDATA[
@@ -895,6 +894,10 @@ Debug.write("inQuestion");
 				checkValIfAnswered(iframeid);
 			}
 		]]></handler>
+
+		<method name="isThemePage">
+         	return false;
+        </method>
 
 	</node>
 
