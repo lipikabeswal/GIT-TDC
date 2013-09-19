@@ -63,16 +63,9 @@
         <method name="doAlign" args="ignore=null"><![CDATA[
 			if(!(this instanceof lz.CachableImage && this.parent instanceof lz.CachableTextField)) {     
 	            var alignto = parent.alignto;
-				var newx;
+	
 	            //halign
-	            if(textx == null)
-	            	newx = this.x;
-	            	else 
-	            	newx = textx;
-	            	
-	           //  var newx = this.x;
-	            
-	            Debug.write('newx'+newx);
+	            var newx = this.x;
 	            //this.haligndel.unregisterAll ();
 	            if (this.data && this.datapath.p.hasAttr ('halign')) {
 	                this.valigndel.register (alignto, 'onwidth');

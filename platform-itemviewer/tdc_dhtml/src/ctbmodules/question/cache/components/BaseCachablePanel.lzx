@@ -42,9 +42,53 @@
             When the data changes reset all of our properties/info
         -->
 
-		<handler name="ondata" args="data"><![CDATA[
-            if (!data) return;
-			Debug.write();
+		<handler name="ondata"  method="initComp" />
+		<method name="initComp" args="data"><![CDATA[
+            if (!data) return;			
+
+            //accomodations
+            var style = gController.getAccomStyleForType (this.stereotype);
+            var isaccom = false;
+            var panelBgcolor = gController.questionBgColor;
+            if(Number(panelBgcolor) == 0)
+				panelBgcolor = "0x000000";
+            var panelFontcolor = gController.questionFontColor
+            if(Number(panelFontcolor) == 0)
+				panelFontcolor = "0x000000";
+            if (style) {
+                if (style ['bgcolor']) {
+                	if(Number(style.bgcolor) == 0)
+						style.bgcolor = "0x000000";
+                    this.setAttribute ('bgcolor', style.bgcolor);
+                    isaccom = true;
+                }
+                else if (!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
+					this.setAttribute('bgcolor', panelBgcolor);
+                }
+                if (style ['font_color']) {
+                	if(Number(style.font_color) == 0)
+						style.font_color = "0x000000";
+                    this.setAttribute ('fontcolor', style.font_color);
+                }
+                if (style ['font_magnification']) {
+                    this.setAttribute ('fontsize', style.font_magnification * canvas.basefontsize);
+                   // this is not working - it's leaving the fontsize at 11 instead of 12
+                   // this.setAttribute ('fontsize', style.font_magnification * canvas.fontsize);
+                } else {
+                    this.setAttribute ('fontsize', canvas.basefontsize);
+                }
+            }
+            else if(!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
+				this.setAttribute('bgcolor', panelBgcolor);
+				this.setAttribute('fontcolor', panelFontcolor);
+				this.setAttribute('fontsize', gController.questionFontSize);
+            }
+            
+            this.setAttribute("isaccom", isaccom);
+
+			//set the initial widths / heights to zero to avoid scrollbar issue
+			this.wrapper.setAttribute('width', 0);
+			this.wrapper.setAttribute('height', 0);
 			
 
 			setPassageIdFromData(data);
@@ -52,7 +96,6 @@
 
             //width and height
 			if (data.hasAttr ('width')) {
-				//Debug.write("help");
 				this.wrapper.setAttribute ('width', Number (data.getAttr ('width')));
             }
 
@@ -65,6 +108,8 @@
                     nh = Number(nh);
                 }
 				this.wrapper.setAttribute ('height', nh);
+				var elem = this.wrapper.getDisplayObject();
+				elem.setAttribute ('id', "basePanelId");
             }
 
             //x and y of component
@@ -90,38 +135,14 @@
 				this.setAttribute('enablehl', data.getAttr('enablehl'));
 			}
 			
-            
-            var isaccom = false;
-            var style="";
-            if (style) {
-                if (style ['bgcolor']) {
-                    this.setAttribute ('bgcolor', style.bgcolor);
-                    isaccom = true;
-                }
-                else if (!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
-					this.setAttribute('bgcolor', gController.questionBgColor);
-                }
-                if (style ['font_color']) {
-                    this.setAttribute ('fontcolor', Number (style.font_color));
-                }
-                if (style ['font_magnification']) {
-                    this.setAttribute ('fontsize', style.font_magnification * canvas.basefontsize);
-                   // this is not working - it's leaving the fontsize at 11 instead of 12
-                   // this.setAttribute ('fontsize', style.font_magnification * canvas.fontsize);
-                } else {
-                    this.setAttribute ('fontsize', canvas.basefontsize);
-                }
-            }
-            else if(!(this instanceof lz.CachableAnswerAreaPanel || this instanceof lz.CachableAnswerAreaAbsolutePanel)){
-				this.setAttribute('bgcolor', gController.questionBgColor);
-            }
-            
-            this.setAttribute("isaccom", isaccom);
+
 
             //make subviews
             this._initSubnodes ();
 
-            doneLoading();
+            super.doneLoading();
+			
+
             
             //inform gFootNotePopup footnotes
 			if((this instanceof lz.CachableScrollingTextPanel) 
@@ -129,8 +150,9 @@
 				|| this instanceof lz.CachablePanel) 
             {
                 gFootNotePopup.setAttribute("scrolltext", this);
-            }                
-        ]]></handler>
+            }      
+
+        ]]></method>
 
 		<!-- 
 		  	Method which randomizes all distractors of a SR item.
@@ -230,6 +252,9 @@
 
         <method name="doReturnToCache"><![CDATA[
             var contsubviews = this.wrapper.scrollcontainer.offsetwrapper.contents.subviews;
+			this.wrapper.setAttribute('width', 0);
+			this.wrapper.setAttribute('height', 0);
+			
             this.setAttribute('enablehl', true);
             for (var i in contsubviews) {
 				 if (contsubviews [i] instanceof lz.CachableComponent &&
