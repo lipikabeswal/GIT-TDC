@@ -74,7 +74,6 @@
             }
         ]]></method>
 		<method name="updateSelector"><![CDATA[
-		Debug.write('2');
 			for(var i=0; i< this.dynlayout.subviews.length; i++){
 				this.dynlayout.subviews[i].doAlign();
 			}

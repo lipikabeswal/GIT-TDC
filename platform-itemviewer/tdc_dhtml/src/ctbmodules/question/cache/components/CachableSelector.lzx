@@ -11,21 +11,22 @@
 		comptype="${gCompTypes.WIDGET_SELECTOR}">
         
         <handler name="ondata" args="data"><![CDATA[
-			//Debug.write("-2");
+			
             var selid = data.getAttr ('identifier');
+			console.log("cachableSelector ondata****************",selid);
 			this.selbutton.setAttribute ('type', selid);
 
-			this.selbutton.datapath.setXPath ("dsstudentdata:/testing_client_model/current_item/item_model/interaction/selector [@obj_id_ref='"+selid+"']");
+			//this.selbutton.datapath.setXPath ("dsstudentdata:/testing_client_model/current_item/item_model/interaction/selector [@obj_id_ref='"+selid+"']");
+			this.selbutton.datapath.setXPath ("dsitem:/element_package/item_model/interaction/selector [@obj_id_ref='"+selid+"']");
 			
 			if(gController.isLoginResponseHavingSeed && 
 						data.hasAttr('randomIdentifier')) {         
 
 				this.selbutton.setAttribute ('randomtype', data.getAttr ('randomIdentifier'));
 			}
-    		//Debug.write("0");
-    		//var x=200;
+    
            this.doAlign ();
-			//Debug.write("-1");
+
            doneLoading();
             
         ]]></handler>
@@ -38,22 +39,23 @@
 			super.returnComponent(this);
         </method>
 
-        <AnswerSelectionButton name="selbutton" clickable="true"/>
+        <AnswerSelectionButton name="selbutton"/>
         
-        <view id="disableSRChoice" name="disableSRChoice" height="${classroot.selbutton.height}" width="${classroot.selbutton.width}" clickable="false" visible="false" bgcolor="grey" opacity="0.3"/>
+        <view id="disableSRChoice" name="disableSRChoice" height="${classroot.selbutton.height}" width="${classroot.selbutton.width}" clickable="false" visible="${gController.canNotAnswer}" bgcolor="grey" opacity="0.3">
         
-        <method name="lockAnswerChoice">
-        	this.disableSRChoice.bringToFront();
-        	this.disableSRChoice.setAttribute('visible',true);
-        	this.disableSRChoice.setAttribute('clickable',true);
-        </method>
-        
-        <method name="unLockAnswerChoice">
-        	this.selbutton.bringToFront();
-        	this.disableSRChoice.setAttribute('visible',false);
-        	this.disableSRChoice.setAttribute('clickable',false);
-        </method>
-
+        <handler name="onvisible">
+        	if(this.visible == true){
+        		this.bringToFront();
+        		this.setAttribute('visible',true);
+        		//this.setAttribute('clickable',true);
+        	} else{
+	        	this.parent.selbutton.bringToFront();
+	        	this.setAttribute('visible',false);
+	        	//this.setAttribute('clickable',false);
+        	}
+        </handler>
+       
+		</view>
 		<handler name="onwidth">
             if ( this.immediateparent['updateSelector'] ) {
                 this.immediateparent.updateSelector();

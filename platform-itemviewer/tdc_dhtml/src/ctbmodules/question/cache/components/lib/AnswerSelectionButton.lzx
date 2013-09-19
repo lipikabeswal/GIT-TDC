@@ -88,17 +88,15 @@
 				        	
 	            if (this.eliminatorstatus.data == 'sel') {
 	            	gReadableText.read(getReadableTextForEliminator(readableText, this.selstate !='e'),false);
-	                gController.setItemSelState (this.type, 
-	                                                 this.selstate == 'e' ? 'n' : 'e');
+	                //gController.setItemSelState (this.type, this.selstate == 'e' ? 'n' : 'e');
 	            } else if (this.eraserstatus.data == 'sel' && this.selstate == 'e') {
 	            	//gReadableText.read(getReadableTextForEliminator(this.type, this.selstate !='e'),false);//will not read when in eraser mode TDFR05.1.8
-	            	gController.setItemSelState (this.type, 'n');
+	            	//gController.setItemSelState (this.type, 'n');
 	                gController.clearCurrentCursor();
 	            } else {
 	             	gReadableText.read(getReadableTextForSelection(readableText, this.selstate != 's'),false);
 	//Debug.write(this.type, (this.selstate == 'e' ? 'n' : 'e'));
-	                gController.setItemSelState (this.type, 
-	                                                 this.selstate != 's' ? 's' : 'n');
+	                //gController.setItemSelState (this.type, this.selstate != 's' ? 's' : 'n');
 	            	if(this.selstate!="n" ) {
                    		gController.setAttribute("playIfAnswered",true);
                		}
