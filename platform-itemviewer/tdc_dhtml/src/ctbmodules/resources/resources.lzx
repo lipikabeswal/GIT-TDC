@@ -267,6 +267,12 @@
        	<frame src="components/recorder/button_submit_disable.gif" />
 	</resource>
 	
+	<resource name="button_startover">
+		<frame src="components/recorder/start_over.png"/>
+       	<frame src="components/recorder/start_over_hover.png"/>
+       	<frame src="components/recorder/start_over_disable.png"/>
+	</resource>
+	
 	<resource name="volume_meter">
        	<frame src="components/recorder/seo-graph.png"/>
 	</resource>

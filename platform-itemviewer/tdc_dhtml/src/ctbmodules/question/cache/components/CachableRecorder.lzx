@@ -242,7 +242,7 @@
 							<simplelayout axis="x" spacing="6" />
 							<basebutton resource="button_record"
 								name="recordButton" width="${23 * classroot.factor}" height="${23 * classroot.factor}" stretches="both"
-								align="left" onclick="classroot.startblinker('record')" >
+								align="left" >
 								
 							</basebutton>
 							<basebutton resource="button_stop"
