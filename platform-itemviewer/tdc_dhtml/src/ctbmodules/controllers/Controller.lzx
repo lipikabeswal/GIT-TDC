@@ -409,11 +409,11 @@
  			   txt.indexOf("%start%") != -1 ||
  			   txt.indexOf("%end%") != -1){
 				var eid = dsitem.getPointer().xpathQuery('element_package/item_model/@eid');
-				var current = getItemNumber(eid);
+				var current = eid;
 				var start = current;
 				var end = current;
 				// if it's a shared stimulus item - find out the start and end item numbers
-				var gNodes = dpsubtest.xpathQuery("ob_assessment/ob_element_select_order/g/e[@id='"+eid+"']/../e");
+				/*var gNodes = dpsubtest.xpathQuery("ob_assessment/ob_element_select_order/g/e[@id='"+eid+"']/../e");
 				if(gNodes instanceof Array){
 					var found = false;
 					var index = 0;
@@ -429,7 +429,7 @@
 					}
 					start = current - index;
 					end = start + gNodes.length - 1;
-				}
+				}*/
 				txt = replace(txt, "%current%", current);
 				txt = replace(txt, "%start%", start);
 				txt = replace(txt, "%end%", end);
