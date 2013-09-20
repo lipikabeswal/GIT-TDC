@@ -9,7 +9,7 @@ var answerClicked = null;
 var pausedAssetID = null;
 var pausedDisabledAssetID = null;
 var iframeFolderId = null;
-var canNotAnswerFlag = false;
+//var canNotAnswerFlag = false;
 var autoplayStopped = false;
 
 function iframeLoaded(id, iframe){
@@ -70,31 +70,26 @@ function iframeLoaded(id, iframe){
 							iframe.contentWindow.disable();
 						}
 						//Disable the response content, if the attribute responseAreaLocker is present
-						if(gController.lasAssetArray[i].data.getAttr('responseAreaLocker') == "true"){
-						    if(gMagnifyingGlass.magnifierOpen == false || gMagnifyingGlass.magnifierOpen == 'false'){
-						    	//do nothing
-						    	// this condition is for the defect 73859
-						    }else{
-						        gController.setAttribute('canNotAnswer',true);
+						/*if(gController.lasAssetArray[i].data.getAttr('responseAreaLocker') == "true"){
+						    	gController.setAttribute('canNotAnswer',true);
 						        canNotAnswerFlag = true;
-							}	
-						}
-						if(gController.lasAssetArray[i].data.getAttr('playIfAnswered') == "true"){
+						}*/
+						/*if(gController.lasAssetArray[i].data.getAttr('playIfAnswered') == "true"){
 							////console.log("true playIfAnswered ----");
 							gController.setAttribute('iframeid',iframe.id);
-						}
+						}*/
 					}
 				}
 			}
 				assetCount++;
 				if(gController.lasAssetArray.length == assetCount){
 					setTimeout("startAutoplay()",500);
-					if(canNotAnswerFlag == false){
+					/*if(canNotAnswerFlag == false){
 					 	gController.setAttribute('canNotAnswer',false);
 					}else{
 						//gController.setAttribute('canNotAnswer',false);
 						gController.setAttribute('canNotAnswer',true);
-					}
+					}*/
 				}
 			//restrictNavigation('lock');
 			}
@@ -192,14 +187,14 @@ function getNextPlayOrder(assetFolderId) {
                     iframeObject[currentLasAssetItemId][playOrderArray[currentLasAssetItemId][k]['currentAsset']].iframeObj.contentWindow.disable();
 				}
 			}
-			if(playOrderArray[currentLasAssetItemId][k] != undefined && playOrderArray[currentLasAssetItemId][k]['playIfAnswered'] == "false") {
+			if(playOrderArray[currentLasAssetItemId][k] != undefined) {
 				iframeObject[currentLasAssetItemId][playOrderArray[currentLasAssetItemId][currentPlayOrder + 1]['currentAsset']].iframeObj.contentWindow.enable();
 			}
 		}
 	}
 }
 
-function unlockResponseArea(frameId) { // Assuming there will be only one such asset per item
+/*function unlockResponseArea(frameId) { // Assuming there will be only one such asset per item
 	////console.log("SCRIPT gController.canNotAnswer - ",gController.canNotAnswer);
 	if(gController.canNotAnswer) {
 		for(var i=0; i< gController.lasAssetArray.length; i++) {
@@ -212,9 +207,9 @@ function unlockResponseArea(frameId) { // Assuming there will be only one such a
 			}
 		}
 	}
-}
+}*/
 
-function checkValIfAnswered(frameId) {
+/*function checkValIfAnswered(frameId) {
    ////console.log("playIfAnswered----->",gController.playIfAnswered);
    ////console.log("frameId-->",frameId);
    if(currentPlayOrder == 0){
@@ -232,7 +227,7 @@ function checkValIfAnswered(frameId) {
 			}
 		}
 	}  
-}
+}*/
 
 function playSingleAsset(currIframeId){
 
@@ -421,7 +416,7 @@ console.log("Inside removeReadOnlyCR");
 }
 
 function resetAllAssets(){
-	if(gController.isThemePage() == 'true'){
+	//if(gController.isThemePage() == 'true'){
 		if(checkAllPlayedOnce()) {
 			for(var i=0; i<gController.lasAssetArray.length;i++){
 					if(gController.lasAssetArray[i].asset){
@@ -433,7 +428,7 @@ function resetAllAssets(){
 					}
 			}
 		}
-	}
+	//}
 }
 
   function getFrameId(arg){

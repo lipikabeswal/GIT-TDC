@@ -270,7 +270,7 @@
 		<attribute name="recorderField" value="$once{new Array()}" />
 		<attribute name="blockFileName" type="boolean" value="true" />
 		
-		<attribute name="canNotAnswer" type="boolean" value="false"/>
+		<!--<attribute name="canNotAnswer" type="boolean" value="false"/>-->
 		<attribute name="answerArray" value="$once{new Array()}" />
 		<attribute name="iframeid" type="string" value="NONE" />
 		<attribute name="lasAssetArray" value="$once{new Array()}" />
@@ -299,7 +299,7 @@
 		-->
 
 	
-		<handler name="oncanNotAnswer" args="data"><![CDATA[
+		<!--<handler name="oncanNotAnswer" args="data"><![CDATA[
 			if(answerArray.length > 0) {
 				for (var i = 0; i < answerArray.length; i++) {
 					if(this.canNotAnswer) {
@@ -309,7 +309,7 @@
 					}
 				}
 			} 
-		]]></handler>
+		]]></handler>-->
 		
 		<handler name="oninit">
 			//gController.openTest();
@@ -575,7 +575,8 @@
             this.runtimeready  = false;
             this.youarehereset = false;
         	//var loadParams = getLoadParams();
-        	var s = setCurLasItemId("40071802");//Native Invoke
+			var itemNum = canvas.itemNum;
+        	var s = setCurLasItemId(itemNum);//Native Invoke
         	if (typeof canvas.itemNum != "undefined") {
 				dsitem.setQueryParam(gRequest.ITEMNUM_PARAM, canvas.itemNum);
 			}
@@ -895,9 +896,9 @@ Debug.write("inQuestion");
 			}
 		]]></handler>
 
-		<method name="isThemePage">
+		<!--<method name="isThemePage">
          	return false;
-        </method>
+        </method> -->
 
 	</node>
 
