@@ -69,19 +69,6 @@
             // To distinguish between numerous input fields, we'll maintain an array of hashes
             // containing their widget ID and answered state (filled or empty). Additionally each
             // class also stores its widget ID to allow them to be matched up.
-            if (data.getAttr("id")) {
-                this.setAttribute('widget_id', data.getAttr("id"));
-            	var answer = gController.getAnswerForInputWidgetId(this.widget_id);
-//Debug.write("CachableMultiLineAnswer.ondata", answer, answer.length);
-            	var answered = (typeof answer != "undefined" && answer.length != 0);
-                gController.addCrField({"widget_id" : this.widget_id, 
-                                              "answered" : answered, "answer" : answer, "ref" : this}); 
-                this.setAttribute("isInitialText", true);
-                if (answered) 
-                   this.setAnswer(gController.formatXml(answer));
-                else
-                   this.setAnswer("");
-            }
             
             if (data.getAttr("width")) {
                 this.setAttribute('editTextWidth', Number(data.getAttr("width")));				
@@ -275,11 +262,11 @@
 										answered = true;
 									}
 								}
-								gController.updateCrField(classroot.widget_id, text, answered);
+								//gController.updateCrField(classroot.widget_id, text, answered);
 							 }
 							 else {  // Field is now empty
 							   // gController.setAttribute("playIfAnsweredMulti",false);
-								gController.updateCrField(classroot.widget_id, '', false);
+								//gController.updateCrField(classroot.widget_id, '', false);
 							 }
 						 }
 						 classroot.setAttribute("numCharacters", text.length);

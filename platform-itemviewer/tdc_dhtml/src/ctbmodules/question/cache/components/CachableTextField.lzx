@@ -290,14 +290,6 @@
 
                     // Check for an existing answer. If none, then initialize answered field 
                     // to false
-                  	var answer = gController.getAnswerForInputWidgetId(this.widget_id);
-                    if (typeof answer == "undefined" || answer.length == 0)
-                  	   gController.addCrField({"widget_id" : this.widget_id, "answered" : false, "ref" : this.ibox});
-                    else {
-                  	   gController.addCrField({"widget_id" : this.widget_id, "answered" : true,
-                                                                             "answer" : answer, "ref" : this.ibox});
-                  	   this.ibox.answer.setAttribute('text', answer);
-				    }
 				}
 
                 if (words[i] == null || words[i] == "/>" || words[i].length == 0 || 
