@@ -2601,7 +2601,7 @@
 			}else{
 				gManipulativeBar.globals.maskingAnswer.setVisible(false);
 			}
-			this.setAttribute('revisitCancelClicked',false)
+			this.setAttribute('revisitCancelClicked',false);
         ]]></method>
 
 		<method name="saveSharedStimulusHighlights"><![CDATA[
