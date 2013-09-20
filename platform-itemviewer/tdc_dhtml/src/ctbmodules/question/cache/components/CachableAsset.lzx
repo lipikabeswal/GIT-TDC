@@ -23,7 +23,6 @@
 	
 		<handler name="ondata" args="data"><![CDATA[
 			if($dhtml){
-				console.log("ondata CachableAsset********");
 				this.asset.setAttribute('height',Number(data.getAttr('height')));
 				this.asset.setAttribute('width',Number(data.getAttr('width')));
 				if(data != null && data.getAttr('isMP4') == "true") {
@@ -69,7 +68,6 @@
 			if (navigator.appVersion.indexOf("Mac")!=-1) {
 				htmlFrameClass = "htmlnew";
 			}
-			console.log("htmlFrameClass "+htmlFrameClass);
 			var opts_vid = {
 				scrollbars: false,
 				mouseevents: true,
