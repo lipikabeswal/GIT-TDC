@@ -292,7 +292,6 @@
 
 		<datapointer name="dpdisplay" xpath="dsdisplay:/display" />
 
-		
 
 		<!-- 
 			Subtest xml may or may not specify the item type.  Our code relies on the item type being populated.
@@ -438,7 +437,8 @@
 		]]></method>
 
 		<method name="getItemNumber" args="eid"><![CDATA[ 
-			return Number(dpstudentdata.xpathQuery("runtime/item_model [@eid = '"+eid+"']/@item_no"));
+			//return Number(dpstudentdata.xpathQuery("runtime/item_model [@eid = '"+eid+"']/@item_no"));
+			return canvas.itemNum;
 		]]></method>
 
 		<method name="formatXml" args="txt"><![CDATA[
