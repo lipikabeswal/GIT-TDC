@@ -542,7 +542,7 @@
 		<attribute name="manipClicked" value="false" type="boolean" /> 
 		<attribute name="manipbuttonClicked" value="false" type="boolean" /> 
 		<attribute name="currentManipSelected" value="NONE" type="string" /> 
-		
+		<attribute name="zoomClicked" type="boolean" value="false"/>
 		// FOR THE DEFECT 74974
 		<attribute name="singleCRhasFocus" type="boolean" value="true"/>
 		<attribute name="revisitCancelClicked" type="boolean" value="false" />
@@ -2943,6 +2943,7 @@
 			}
 			//this.setAttribute('isaudio',false);
 			resetRecorder();
+			gController.setAttribute('zoomClicked',false);
 		]]></method>
 
 		<method name="resetRecorder"><![CDATA[
