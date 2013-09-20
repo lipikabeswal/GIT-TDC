@@ -137,6 +137,7 @@
 		<handler name="onclick">
 			gController.setAttribute('allowNavigate',true);
 			gController.setAttribute('allowItmeNavigate',true);
+            gTestControl.enableAllButtons();
 		    gController.setNavigation(0,parent.parent.navigateFrom);
 			gController.restoreCurrentCursor();
         </handler>
