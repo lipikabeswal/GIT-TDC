@@ -115,7 +115,7 @@
                 <QuestionBar width="584" height="100%"
                              datapath="dsstudentdata:/testing_client_model"/><!--width="593" -->
 				
-                <TestControls name="testControls" height="${parent.height + 7}" options="releasetolayout" y="-6" />
+                <TestControls name="testControls" height="${parent.height + 7}" options="releasetolayout" y="-6" id="gTestControl"/>
             </view>
         </view>
 
