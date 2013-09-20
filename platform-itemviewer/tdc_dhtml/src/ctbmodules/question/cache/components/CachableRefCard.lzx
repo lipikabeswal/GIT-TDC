@@ -352,7 +352,7 @@
 				  stretches="width" />
 			<basebutton resource="ref_card_close_btn" height="${this.resourceheight + 1}">
 				<handler name="onclick">
-			    	gController.setManipulativeSelState (classroot.toolid, 'up');
+			    	//gController.setManipulativeSelState (classroot.toolid, 'up');
 			    </handler>
 			</basebutton>
 		</view>
