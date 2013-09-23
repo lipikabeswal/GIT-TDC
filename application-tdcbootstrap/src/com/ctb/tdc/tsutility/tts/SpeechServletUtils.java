@@ -9,6 +9,7 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 
 import com.ctb.tdc.tsutility.tts.ServletSettings;
+import com.ctb.tdc.tsutility.ui.MainWindow;
 
 /**
  * @author Tai_Truong
@@ -112,6 +113,20 @@ public class SpeechServletUtils {
 		proxyPort = proxyRB.getString("proxy.port");
 		proxyUsername = proxyRB.getString("proxy.username");
 		proxyPassword = proxyRB.getString("proxy.password");
+		
+		if(MainWindow.getProxyHost() != null){
+			proxyHost = MainWindow.getProxyHost();
+		}
+		if(MainWindow.getProxyPort()!= null){
+			proxyPort = MainWindow.getProxyPort();
+		}
+		if(MainWindow.getProxyUsername() != null){
+			proxyUsername = MainWindow.getProxyUsername();
+		}
+		if(MainWindow.getProxyPassword() != null){
+			proxyPassword = MainWindow.getProxyPassword();
+		}
+
 		
 System.out.println(proxyHost + "  " + proxyPort + "  " + proxyUsername + "  " + proxyPassword);
 	}

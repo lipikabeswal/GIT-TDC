@@ -165,9 +165,47 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JFrame bandwidthWindow = null;
 	private JFrame speechWindow = null;
 	
+	
+	private static  String proxyHost = null;
+	private static  String proxyPort = null;
+	private static String proxyUsername = null;
+	private static String proxyPassword = null;
+	
 	//--------------------------------------------------------------------------
 
 	
+	public static  String getProxyHost() {
+		return proxyHost;
+	}
+
+	public void setProxyHost(String proxyHost) {
+		MainWindow.proxyHost = proxyHost;
+	}
+
+	public  static String getProxyPort() {
+		return proxyPort;
+	}
+
+	public  void setProxyPort(String proxyPort) {
+		MainWindow.proxyPort = proxyPort;
+	}
+
+	public  static String getProxyUsername() {
+		return proxyUsername;
+	}
+
+	public  void setProxyUsername(String proxyUsername) {
+		MainWindow.proxyUsername = proxyUsername;
+	}
+
+	public  static String getProxyPassword() {
+		return proxyPassword;
+	}
+
+	public  void setProxyPassword(String proxyPassword) {
+		MainWindow.proxyPassword = proxyPassword;
+	}
+
 	public MainWindow() throws HeadlessException {
 		super();
 		

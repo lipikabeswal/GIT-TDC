@@ -160,6 +160,19 @@ public class NetworkAnalyzer extends Thread {
 			String proxyPort = proxyRB.getString("proxy.port");
 			String proxyUsername = proxyRB.getString("proxy.username");
 			String proxyPassword = proxyRB.getString("proxy.password");
+			
+			if(MainWindow.getProxyHost() != null){
+				proxyHost = MainWindow.getProxyHost();
+			}
+			if(MainWindow.getProxyPort()!= null){
+				proxyPort = MainWindow.getProxyPort();
+			}
+			if(MainWindow.getProxyUsername() != null){
+				proxyUsername = MainWindow.getProxyUsername();
+			}
+			if(MainWindow.getProxyPassword() != null){
+				proxyPassword = MainWindow.getProxyPassword();
+			}
 
 			boolean proxyHostDefined = proxyHost != null && proxyHost.length() > 0;
 			boolean proxyPortDefined = proxyPort != null && proxyPort.length() > 0;

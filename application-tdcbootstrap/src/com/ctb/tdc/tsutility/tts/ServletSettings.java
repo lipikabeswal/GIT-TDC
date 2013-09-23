@@ -3,6 +3,8 @@ package com.ctb.tdc.tsutility.tts;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import com.ctb.tdc.tsutility.ui.MainWindow;
+
 /**
  * @author Tai_Truong
  */
@@ -58,6 +60,19 @@ public class ServletSettings implements java.io.Serializable {
             this.proxyPort = resourceBundleGetInt(rbProxy, "proxy.port");        
             this.proxyUserName = resourceBundleGetString(rbProxy, "proxy.username");
             this.proxyPassword = resourceBundleGetString(rbProxy, "proxy.password");
+            
+            if(MainWindow.getProxyHost() != null){
+				proxyHost = MainWindow.getProxyHost();
+			}
+			if(MainWindow.getProxyPort()!= null){
+				proxyPort = Integer.parseInt(MainWindow.getProxyPort()) ;
+			}
+			if(MainWindow.getProxyUsername() != null){
+				proxyUserName = MainWindow.getProxyUsername();
+			}
+			if(MainWindow.getProxyPassword() != null){
+				proxyPassword = MainWindow.getProxyPassword();
+			}
         }
     }
 

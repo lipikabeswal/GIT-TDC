@@ -12,6 +12,7 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 
 import com.ctb.tdc.tsutility.ui.BandwidthMainWindow;
+import com.ctb.tdc.tsutility.ui.MainWindow;
 
 
 public class SimulatorList extends Thread {
@@ -62,6 +63,20 @@ public class SimulatorList extends Thread {
 		String proxyPort = proxyRB.getString("proxy.port");
 		String proxyUsername = proxyRB.getString("proxy.username");
 		String proxyPassword = proxyRB.getString("proxy.password");
+		
+		
+		if(MainWindow.getProxyHost() != null){
+			proxyHost = MainWindow.getProxyHost();
+		}
+		if(MainWindow.getProxyPort()!= null){
+			proxyPort = MainWindow.getProxyPort();
+		}
+		if(MainWindow.getProxyUsername() != null){
+			proxyUsername = MainWindow.getProxyUsername();
+		}
+		if(MainWindow.getProxyPassword() != null){
+			proxyPassword = MainWindow.getProxyPassword();
+		}
 	
 		boolean proxyHostDefined = proxyHost != null && proxyHost.length() > 0;
 		boolean proxyPortDefined = proxyPort != null && proxyPort.length() > 0;
