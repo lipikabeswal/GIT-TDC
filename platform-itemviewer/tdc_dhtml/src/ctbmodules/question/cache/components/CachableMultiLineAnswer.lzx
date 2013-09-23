@@ -315,7 +315,7 @@
 					</method>
 					
 					<handler name="onfocus">
-						checkTextDragging();
+						checkTextDragging(this);
 					</handler>
 									 
 					<method name="updateText" args="a">
