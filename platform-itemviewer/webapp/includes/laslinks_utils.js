@@ -20,6 +20,7 @@ function iframeLoaded(id, iframe){
 			var imageSource;
 			var iframeCount = [];
 			var imageCount = [];
+			setAssetStyle();
 			iframeCount  = jQuery('iframe[src ^= "http:items/"]');
 			for(var i=0; i<iframeCount.length; i++){
 				iframeSource = iframeCount[i];
@@ -96,6 +97,11 @@ function iframeLoaded(id, iframe){
 		}		
 	}
 	
+function setAssetStyle() {
+	 $('iframe').contents().find('#playbtn1').css('-moz-user-select','none');
+     $('iframe').contents().find('#playbtn2').css('-moz-user-select','none');
+	
+}
 
 
 /**
@@ -237,8 +243,10 @@ function playSingleAsset(currIframeId){
 					var frameid = getFrameId(gController.lasAssetArray[i]);
 					if(frameid != id){
 						if(iframeObject[currentLasAssetItemId]) {
-							if(iframeObject[currentLasAssetItemId][frameid].playEvent){		
-								iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.resetAudio();
+							if(iframeObject[currentLasAssetItemId][frameid]) {
+								if(iframeObject[currentLasAssetItemId][frameid].playEvent){		
+									iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.resetAudio();
+								}
 							}
 						}
 				}	
@@ -280,12 +288,15 @@ function disableAssets(){
 	for(var i=0; i<gController.lasAssetArray.length;i++){
 				if(gController.lasAssetArray[i].asset){
 					var frameid = getFrameId(gController.lasAssetArray[i]);
-					if(iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.isPlaying == "false"){
-						iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.disable();
-						enabledArray[k]=frameid;
-						k++;
-					}
-					
+					if(iframeObject[currentLasAssetItemId]) {
+						if(iframeObject[currentLasAssetItemId][frameid]) {
+							if(iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.isPlaying == "false"){
+								iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.disable();
+								enabledArray[k]=frameid;
+								k++;
+							}
+						}
+					}					
 			}
 	}
 }
@@ -297,8 +308,10 @@ function enableAssets(){
 				if(gController.lasAssetArray[i].asset){
 					var frameid = getFrameId(gController.lasAssetArray[i]);
 					if(frameid == enabledArray[j]){
-					iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.enable();
-					
+					if(iframeObject[currentLasAssetItemId]) {
+						iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.enable();
+						
+						}
 					}
 				}
 			}
@@ -315,8 +328,10 @@ function startAutoplay(){
 				if(gController.lasAssetArray[i].data.getAttr('autoplay') == "true"){
 					var frameid = getFrameId(gController.lasAssetArray[i]);
 					autoPlayEvent = "true";
-					iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.autoPlay();
-					break;
+					if(iframeObject[currentLasAssetItemId]) {
+						iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.autoPlay();
+						break;
+					}
 				}
 			}
 		}
@@ -400,18 +415,14 @@ function autoplayIfStopped(){
 } 
 
 function addReadOnlyCR(){
-console.log("Inside addReadOnlyCR");
 	if(document.getElementsByTagName('textarea').length > 0){
 		document.getElementsByTagName('textarea')[0].setAttribute('readonly',true);
-		console.log("addReadOnlyCR");
 	}
 	
 }
 function removeReadOnlyCR(){
-console.log("Inside removeReadOnlyCR");
 	if(document.getElementsByTagName('textarea').length > 0){
 		document.getElementsByTagName('textarea')[0].removeAttribute('readonly');
-		console.log("removeReadOnlyCR");
 	}
 }
 
