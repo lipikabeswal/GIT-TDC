@@ -1,0 +1,23 @@
+@font-face {
+	font-family: 'CTB';
+	src: local('OASmathv3'), url('fonts/OASmathv3.ttf') format('truetype'); 	
+	font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+	font-family: 'CTB';
+	src: local('OASmathv3 Bold'), url('fonts/OASmathv3 Bold.ttf') format('truetype'); 	
+	font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+	font-family: 'CTB';
+	src: local('OASmathv3 BoldItalic'), url('fonts/OASmathv3 BoldItalic.ttf') format('truetype'); 	
+	font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+	font-family: 'CTB';
+	src: local('OASmathv3 Italic'), url('fonts/OASmathv3 Italic.ttf') format('truetype'); 	
+    font-style: italic;
+}

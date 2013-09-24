@@ -29,55 +29,6 @@
 	       /*letter-spacing: -0.06em;*/
         }
         img { border: 0 none; }
-         
-        @font-face {
-			font-family: 'CTB';	
-			src: local('OASmathv3'), url('ctbmodules/resources/fonts/OASmathv3.svg') format('svg'); 
-			font-weight: normal;
-		    font-style: normal;
-		}
-		@font-face {
-			font-family: 'CTB';
-			src: local('OASmathv3 Bold'), url('ctbmodules/resources/fonts/OASmathv3Bold.svg') format('svg'); 
-			font-weight: bold;
-		    font-style: normal;
-		}
-		@font-face {
-			font-family: 'CTB';
-			src: local('OASmathv3 BoldItalic'), url('ctbmodules/resources/fonts/OASmathv3BoldItalic.svg') format('svg'); 
-			font-weight: bold;
-		    font-style: italic;
-		}
-		@font-face {
-			font-family: 'CTB';
-			src: local('OASmathv3 Italic'), url('ctbmodules/resources/fonts/OASmathv3Italic.svg') format('svg'); 
-		    font-style: italic;
-		}
-		
-		@font-face {
-			font-family: 'oasmathv3';
-			src: local('OASmathv3'), url('ctbmodules/resources/fonts/OASmathv3.svg') format('svg'); 
-			font-weight: normal;
-		    font-style: normal;
-		}
-		@font-face {
-			font-family: 'oasmathv3';
-			src: local('OASmathv3 Bold'), url('ctbmodules/resources/fonts/OASmathv3Bold.svg') format('svg'); 
-			font-weight: bold;
-		    font-style: normal;
-		}
-		@font-face {
-			font-family: 'oasmathv3';
-			src: local('OASmathv3 BoldItalic'), url('ctbmodules/resources/fonts/OASmathv3BoldItalic.svg') format('svg'); 
-			font-weight: bold;
-		    font-style: italic;
-		}
-		@font-face {
-			font-family: 'oasmathv3';
-			src: local('OASmathv3 Italic'), url('ctbmodules/resources/fonts/OASmathv3Italic.svg') format('svg'); 
-		    font-style: italic;
-		}
-         
      </style>
 
 <SCRIPT SRC="includes/embed.js" type="text/javascript"></SCRIPT>
@@ -241,6 +192,15 @@ function eventMonitor(id,event) {
 function enableHotKeys(arg) {
 	//do Nothing
 }
+
+$(document).ready(function() {
+	if($.browser.mozilla){
+		$("head").append("<link rel='stylesheet' href='css/moz-font.css' type='text/css' />");
+	}else{
+		$("head").append("<link rel='stylesheet' href='css/tdc-font.css' type='text/css' />");
+	}
+});
+
 //-->
 </SCRIPT>
 </HEAD>
