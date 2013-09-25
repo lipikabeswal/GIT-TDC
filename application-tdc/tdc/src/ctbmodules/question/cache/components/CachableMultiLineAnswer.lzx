@@ -252,7 +252,12 @@
 		                 else {  // Field is now empty
 		                    gController.updateCrField(classroot.widget_id, '', false);
 		                 }
-		             }
+		             } else {
+		             	 // The history can only be initialized after the initial text
+		             	 // value has been set. Check TextFieldHistory.lzx and
+		             	 // scrollrichedittext.lzx for the history implementation.
+					     gController.textHistory.initializeHistoryForText( this ); 
+					 }
 //Debug.write(classroot, "ontext", text.length);
 		             classroot.setAttribute("numCharacters", text.length);
 		             classroot.updateCharacterMeter();
@@ -280,16 +285,42 @@
 	          </richtexteditarea>
 	         </view>
          </view>
-		<basebutton resource="read_btn" 
- 		            name="readBtn"
- 		            visible="${canvas.readable}">
-			<method event="onclick">
-                classroot.read();
-			</method>
-			<method event="onmouseover">
-				classroot.setSelectionVars();
-			</method>
-		</basebutton>
+         <view>
+         	<simplelayout axis="y" spacing="4" />
+			<basebutton resource="read_btn" 
+	 		            name="readBtn"
+	 		            visible="${canvas.readable}">
+				<method event="onclick">
+	                classroot.read();
+				</method>
+				<method event="onmouseover">
+					classroot.setSelectionVars();
+				</method>
+			</basebutton>
+			<basebutton  resource="undo_btn" name="undoBtn"  visible="${ gController.getAttribute('isOK') == 'T' }" >
+				<method event="onmouseover">
+					gTooltip.showTooltip('Undo');
+				</method>						                
+				<method event="onmouseout">
+					gTooltip.hideTooltip ();    
+				</method>
+				<method event="onclick">
+	                gController.textHistory.undo( classroot.outer.rich.answer.id );
+				</method>
+				
+	 		</basebutton>
+	 		<basebutton resource="redo_btn" name="redoBtn"  visible="${ gController.getAttribute('isOK') == 'T' }" >
+				<method event="onmouseover">
+					gTooltip.showTooltip('Redo');
+				</method>						                
+				<method event="onmouseout">
+					gTooltip.hideTooltip ();    
+				</method>
+				<method event="onclick">
+	                gController.textHistory.redo( classroot.outer.rich.answer.id );
+				</method>
+	 		</basebutton>
+		</view>
 		 <drawview options="ignorelayout" width="${classroot.editTextWidth + classroot.lmargin}" 
 		                  height="${classroot.height}">
 		            <method event="onwidth">

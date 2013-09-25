@@ -3,6 +3,7 @@
 
 	<debug x="0" y="0" width="80%" height="400" />
 
+	<script src="utils/json.js" />
 	<include href="ctbmodules" />
 
 	<script src="lzmodules/lfc/focuspatch.js">

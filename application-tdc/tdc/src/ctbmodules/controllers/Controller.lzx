@@ -2,6 +2,7 @@
 	<include href="ReadableText.lzx" />
 	<include href="DownloadManager.lzx" />
 	<include href="TutorialManager.lzx" />
+	<include href="TextFieldHistory.lzx" />
 
 	<script><![CDATA[
 		
@@ -567,6 +568,8 @@
 		<attribute name="timingforpause" type="boolean" value="false" />
 		<attribute name="isHandlerInactive" type="boolean" value="false" />
 		<attribute name="timerInterval" type="number" value="1200000" />
+		
+        <attribute name="textHistory" value="$once{new TextFieldHistory()}" type="expression" />		
 			 
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -827,6 +830,7 @@
 			var productName = "";
 			var versionNo = "";	
 			productName = LzDataNode.stringToLzData(gController.productTypeVal).nodeName;
+			Debug.write("productName*****",productName);
 			if(productName == "VANILLA" || productName == "vanilla") {productName = "";}
 			versionNo = LzDataNode.stringToLzData(gController.productTypeVal).getAttr("version");
 			versionproductinfo.setAttribute("text",productName+" "+versionNo);
@@ -3571,6 +3575,8 @@ Debug.write("############ loadItem ############");
             this.itemloaded    = false;
             this.runtimeready  = false;
             this.youarehereset = false;
+			// Clear the TextFieldHistory
+			this.textHistory.clearHistory();
 			if(isCrItem()){
 				this.inQuestion = false;
 			}

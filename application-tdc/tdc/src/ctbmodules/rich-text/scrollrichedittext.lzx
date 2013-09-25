@@ -122,6 +122,9 @@
             </method>
             <attribute name="delayemptydel" />
 
+	        <!--- Action for the last keypresses; used by the history -->
+	        <attribute name="keyaction" type="string" value="''" />
+
             <method event="oninit">
                this.setText(" ");
             </method>
@@ -139,9 +142,16 @@
 	      			this.setEnabled(false);
 	  			}
 
-				  if(k==-1){
-				     this.setEnabled(true);
-				  }
+				if (k==-1){
+					this.setEnabled(true);
+				}
+
+				this.keyaction = "";
+                if ( k == 13 ) this.keyaction = "enter";
+                if ( k == 8 ) this.keyaction = "backspace";
+                if ( k == 46 ) this.keyaction = "delete";
+                if ( k == 32 ) this.keyaction = "space";
+
 			 ]]>
 			</handler>
 			<handler name="ontext">
@@ -150,6 +160,10 @@
 			  			this.setScroll(this.getMaxScroll());
 					}
 			  	}
+	            if ( this.keyaction !== "" ) {
+	                gController.textHistory.checkForChange();
+	                this.keyaction = "";
+	            }
 			</handler>
 			<handler name="onkeyup" reference="LzKeys" args="k"><![CDATA[
 			  if(k==17){
