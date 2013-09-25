@@ -297,30 +297,55 @@
 					classroot.setSelectionVars();
 				</method>
 			</basebutton>
-			
-			<basebutton  resource="undo_btn" name="undoBtn"  visible="${ (gController.getAttribute('isOK') == 'T') || (gController.getAttribute('isVanilla') == 'true') || (gController.getAttribute('isVanilla') == true) }" >
+			<view resource="undo_btn" name="undoBtn"  visible="${ gController.getAttribute('isOK') == 'T' || (gController.getAttribute('isVanilla') == 'true') || (gController.getAttribute('isVanilla') == true)}" clickable="${gController.textHistory.canundo}">
 				<method event="onmouseover">
+					if(this.clickable){
+						this.setResourceNumber (2);
+					}
 					gTooltip.showTooltip('Undo');
 				</method>						                
 				<method event="onmouseout">
+					if(this.clickable){
+						this.setResourceNumber (1);
+					}
 					gTooltip.hideTooltip ();    
 				</method>
+				<handler name="onclickable">
+					if(!this.clickable){
+						this.setResourceNumber (3);
+					}else{
+						this.setResourceNumber (1);
+					}
+				</handler>
 				<method event="onclick">
 	                gController.textHistory.undo( classroot.outer.rich.answer.id );
 				</method>
 				
-	 		</basebutton>
-	 		<basebutton resource="redo_btn" name="redoBtn"  visible="${ (gController.getAttribute('isOK') == 'T') || (gController.getAttribute('isVanilla') == 'true') || (gController.getAttribute('isVanilla') == true) }" >
+	 		</view>
+	 		<view resource="redo_btn" name="redoBtn"  visible="${ gController.getAttribute('isOK') == 'T' || (gController.getAttribute('isVanilla') == 'true') || (gController.getAttribute('isVanilla') == true)}" clickable="${gController.textHistory.canredo}">
 				<method event="onmouseover">
+					if(this.clickable){
+						this.setResourceNumber (2);
+					}
 					gTooltip.showTooltip('Redo');
 				</method>						                
 				<method event="onmouseout">
+					if(this.clickable){
+						this.setResourceNumber (1);
+					}
 					gTooltip.hideTooltip ();    
 				</method>
+				<handler name="onclickable">
+					if(!this.clickable){
+						this.setResourceNumber (3);
+					}else{
+						this.setResourceNumber (1);
+					}
+				</handler>
 				<method event="onclick">
 	                gController.textHistory.redo( classroot.outer.rich.answer.id );
 				</method>
-	 		</basebutton>
+	 		</view>
 		</view>
 		 <drawview options="ignorelayout" width="${classroot.editTextWidth + classroot.lmargin}" 
 		                  height="${classroot.height}">
