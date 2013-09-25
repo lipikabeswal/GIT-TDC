@@ -39,6 +39,12 @@
           -->
         <attribute name="historystopwatch" value="0" type="number" />
 
+        <!--- Just for debugging the paste functionality.
+              @type number
+              @access public
+          -->
+        <attribute name="pasteStartTime" value="0" type="number" />
+
         <!-- value of the textfield with focus will be stored here to be able to create diff -->
         <attribute name="previousvalue" value="" type="string" />
 
@@ -50,6 +56,12 @@
               @access private
           -->
         <attribute name="delayedCheckForChangeDel" value="$once{new LzDelegate( this, 'checkForChange' )}" type="expression" />
+
+        <!--- Object with history entries for multiple textfields. Textfied id is used as index.
+              @type Object
+              @access private
+          -->
+        <attribute name="delayedSetTextcursor" value="$once{new LzDelegate( this, 'setTextCursorPos' )}" type="expression" />
 
         <!--- Set to true, if there are changes which the user user can undo.
               @type boolean
@@ -65,9 +77,17 @@
 
         <!--- Counter for setting unique IDs for textfields.
               @type boolean
-              @access public
+              @access private
         -->
         <attribute name="idcounter" value="1" type="number" />
+
+        <!--- Textcursor position after redo/undo.
+              @type number
+              @access private
+        -->
+        <attribute name="newCaretIndex" value="0" type="number" />
+
+        <attribute name="pasteInProgress" value="false" type="boolean" />
 
         <handler name="onactiveinput"><![CDATA[
             // Debug.write( "TextFieldHistory#onactiveinput: activeinput=" + activeinput );
@@ -89,8 +109,9 @@
             var down = LzKeys.downKeysArray;
             var isPaste = false;
             if (down.length > 1) {
-                // Debug.write( "onkeydown: down[0]=" + down[0]);
-                if ( down[ 0 ] == 17 && down[ 1 ] == 86 ) {
+                Debug.write( "onkeydown: downKeysArray=" + JSON.stringify( down ));
+                if ( down[ 0 ] == 17 && Number( down[ 1 ] ) == 86 ) {
+                    pasteInProgress = true;
                     if ($debug) Debug.write( "Paste / Control-v detected: calling checkForChange() in 200ms" );
                     LzTimer.resetTimer( delayedCheckForChangeDel, 200 );
                     LzKeys.downKeysArray = [];
@@ -126,11 +147,13 @@
               @access public
         -->
         <method name="checkForChange">
-            // Debug.write( "TextFieldHistory.checkForChange()" );
+            // Debug.write( "TextFieldHistory.checkForChange(): activeinput" + activeinput );
             var jsonStr = null;
             var jsExp = null;
             var caretIndex = 0;
             if (activeinput != null) {
+                // Debug.write("activeinput.getText(): |" + activeinput.getText() + "|" );
+                // Debug.write("this.previousvalue:    |" + this.previousvalue + "|" );
                 if (activeinput.getText() != this.previousvalue) {
                     // Debug.write( "TextFieldHistory.changeDetected!" );
                     caretIndex = this.getCaretIndex( activeinput._field );
@@ -165,7 +188,7 @@
         <method name="_showDuration"><![CDATA[
             var date = new Date();
             var dur = Math.ceil( date.getTime() - this.historystopwatch.getTime() );
-            if ($debug) Debug.error("History transaction processing took " + dur + " ms.");
+            if ($debug) Debug.write("History transaction processing took " + dur + " ms.");
          ]]>
          </method>
 
@@ -214,7 +237,6 @@
             if ( activeinput != null ) {
                 var caretIndex = this.getCaretIndex( activeinput._field );
                 var jsonStr = JSON.stringify( activeinput.getText() );
-                // Debug.error("jsonStr=" + jsonStr);
                 var js = 'TextHistory.undo("' + activeinput.id + '", "' + caretIndex + '", ' + jsonStr + ' );'
                 // Debug.write(js);
                 LzBrowser.loadJS( js );
@@ -230,8 +252,9 @@
             this._showDuration();
             var text = global[ status.textId ];
             if ( text ) {
+                this.newCaretIndex = status.caretIndex;
                 text.setText( status.text );
-                text.setSelection( status.caretIndex, status.caretIndex );
+                LzTimer.resetTimer( delayedSetTextcursor, 200 );
                 this.setAttribute( "canundo", status.canundo );
                 this.setAttribute( "canredo", status.canredo );
             }
@@ -258,9 +281,9 @@
             this._showDuration();
             var text = global[ status.textId ];
             if ( text ) {
-                // Debug.write("Text should be se to |" + status.text + "|");
+                this.newCaretIndex = status.caretIndex;
                 text.setText( status.text );
-                text.setSelection( status.caretIndex, status.caretIndex );
+                LzTimer.resetTimer( delayedSetTextcursor, 200 );
                 this.setAttribute( "canundo", status.canundo );
                 this.setAttribute( "canredo", status.canredo );
             }
@@ -280,9 +303,22 @@
         -->
         <method name="getCaretIndex" args="text"><![CDATA[
              var caretIndex = 0;
-             var mc = text.getMCRef();
+             // Focus has to be on the text field for the
+             LzFocus.setFocus( this.activeinput._field );
              caretIndex = Selection.getCaretIndex();
              return caretIndex;
+        ]]></method>
+
+        <!--- Used to set the text cursor position with a slight delay to allow text to beg
+              updated for the selection is set.
+              @access private
+        -->
+        <method name="setTextCursorPos"><![CDATA[
+            if ( this.activeinput ) {
+                // LzFocus.clearFocus();
+                LzFocus.setFocus( this.activeinput._field );
+                this.activeinput.setSelection( newCaretIndex, newCaretIndex );
+            }
         ]]></method>
 
 

@@ -91,6 +91,21 @@
             <event name="onpos" />
             <attribute name="pos" value="0" setter="this.setPos(pos)"/>
 			<attribute name="isCtrl" type="boolean" value="false"/>
+			
+			<!-- Used for the enter key bug with ontext event not being sent all the times when enter is pressed. -->
+	        <attribute name="enterpressed" value="false" type="boolean" />
+	
+	        <!-- Delegate used for detecting changes to the textfield through enter key presses. -->
+	        <attribute name="enterKeyDel" value="$once{new LzDelegate( this, 'processEnterDelayed' )}" />
+	        
+        	<!--- Helper function for checking if the text has changed when the enter key
+             was pressed. Workaround for the bug with enter keys and ontext events
+             not being sent when enter is pressed on a line with content in it.
+             @access private
+	       -->
+	        <method name="processEnterDelayed">
+	            gController.textHistory.checkForChange();
+	        </method>
 
 			<method name="init">
 		      super.init();
@@ -147,13 +162,23 @@
 				}
 
 				this.keyaction = "";
-                if ( k == 13 ) this.keyaction = "enter";
+                //if ( k == 13 ) this.keyaction = "enter";
+                if ( k == 13 ) {
+	                // Due to a bug where the ontext event is not
+	                // sent when pressing enter at the end of a line
+	                // with some text we need to manually add the action
+	                // to the history using the processEnterDelayed() method.
+	                LzTimer.resetTimer( enterKeyDel, 50 );
+	                //lengthBeforeEnter = this.getText().length;
+	                enterpressed = true;
+	            }
                 if ( k == 8 ) this.keyaction = "backspace";
                 if ( k == 46 ) this.keyaction = "delete";
                 if ( k == 32 ) this.keyaction = "space";
 
 			 ]]>
 			</handler>
+			
 			<handler name="ontext">
 			  	if(this.getTextHeight() > this.height) {
 					if(this.isCtrl){

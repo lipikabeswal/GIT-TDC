@@ -45,9 +45,9 @@ var TextHistory = (function() {
             // Now we need to add the default diff to the queue, which is
             // an unchanged version of the original text.
             var diff = matcher.diff_main( origText, origText );
-            // Since this is the initial revision, the caret position will
-            // always be 0.
-            hist.queue.push( {diff: diff, caretIndex: 0} );
+            // The caretIndex or text cursor position for the initial state
+            // will be the end of the text content.
+            hist.queue.push( {diff: diff, caretIndex: origText.length} );
             hist.pointer++;
         }
     }
