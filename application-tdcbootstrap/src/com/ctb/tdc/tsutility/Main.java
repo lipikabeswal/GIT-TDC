@@ -73,20 +73,29 @@ public class Main {
 					} 
 				}
 			}
-			//ConsoleUtils.messageOut("proxyurl after cmd line > "+proxyurl);
+			ConsoleUtils.messageOut("proxyurl after cmd line > "+proxyurl);
 		
 			if(proxyurl != null && !proxyurl.trim().equals("") ){
 				if(proxyurl.indexOf('@') != -1){
-					tempArray = proxyurl.split("@");
+					//tempArray = proxyurl.split("@");
+					tempArray[0] = proxyurl.substring(0, proxyurl.lastIndexOf("@"));
+					tempArray[1] = proxyurl.substring( proxyurl.lastIndexOf("@")+1,proxyurl.length());
 				}else{
-					tempArray[0] = proxyurl;
+					if(proxyurl.indexOf(':') != -1){
+						proxyHost = proxyurl.split(":");
+					}
 				}
-				if(tempArray[0].indexOf(':') != -1){
-					proxyHost = tempArray[0].split(":");
+				if(tempArray[0] != null){
+					if (tempArray[0].indexOf('\\') != -1){
+						tempArray[0] = tempArray[0].substring(tempArray[0].indexOf('\\')+1, tempArray[0].length());
+					}
+					if(tempArray[0].indexOf(':') != -1){
+						 proxyUsername= tempArray[0].split(":");
+					}
 				}
 				if(tempArray[1] != null){				
 					if(tempArray[1].indexOf(':') != -1){
-						proxyUsername = tempArray[1].split(":");
+						proxyHost = tempArray[1].split(":");
 					}
 				}
 			}
@@ -96,6 +105,12 @@ public class Main {
 				proxyUsername = null;
 	        }
 		
+		if(proxyHost != null){
+			ConsoleUtils.messageOut("proxy host>> >"+proxyHost[0]+" port >>"+proxyHost[1]);
+		}
+		if(proxyUsername != null){
+			ConsoleUtils.messageOut("proxy user>> >"+proxyUsername[0]+"  password>>>"+proxyUsername[1]);
+		}
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
