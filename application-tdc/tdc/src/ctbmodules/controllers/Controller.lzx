@@ -562,6 +562,7 @@
 		<attribute name="RestartTest" value="false" type="boolean" />
 		<attribute name="trackTimer" type="number" value="0"/>
 		<attribute name="isOK" type="string" value="F"/>
+		<attribute name="isVanilla" type="boolean" value="false"/>
 		<attribute name="elapsedmsforpause" type="number" value="0" />
 		<attribute name="durationmsforpause" type="number" value="0" />
 		<attribute name="qtimestampforpause" type="number" value="0" />
@@ -830,8 +831,11 @@
 			var productName = "";
 			var versionNo = "";	
 			productName = LzDataNode.stringToLzData(gController.productTypeVal).nodeName;
-			Debug.write("productName*****",productName);
-			if(productName == "VANILLA" || productName == "vanilla") {productName = "";}
+			
+			if(productName == "VANILLA" || productName == "vanilla") {
+				productName = "";
+				this.setAttribute('isVanilla',true);	
+			}
 			versionNo = LzDataNode.stringToLzData(gController.productTypeVal).getAttr("version");
 			versionproductinfo.setAttribute("text",productName+" "+versionNo);
 			Debug.write(response);

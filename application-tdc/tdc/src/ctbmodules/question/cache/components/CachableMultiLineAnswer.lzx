@@ -297,7 +297,8 @@
 					classroot.setSelectionVars();
 				</method>
 			</basebutton>
-			<basebutton  resource="undo_btn" name="undoBtn"  visible="${ gController.getAttribute('isOK') == 'T' }" >
+			
+			<basebutton  resource="undo_btn" name="undoBtn"  visible="${ (gController.getAttribute('isOK') == 'T') || (gController.getAttribute('isVanilla') == 'true') || (gController.getAttribute('isVanilla') == true) }" >
 				<method event="onmouseover">
 					gTooltip.showTooltip('Undo');
 				</method>						                
@@ -309,7 +310,7 @@
 				</method>
 				
 	 		</basebutton>
-	 		<basebutton resource="redo_btn" name="redoBtn"  visible="${ gController.getAttribute('isOK') == 'T' }" >
+	 		<basebutton resource="redo_btn" name="redoBtn"  visible="${ (gController.getAttribute('isOK') == 'T') || (gController.getAttribute('isVanilla') == 'true') || (gController.getAttribute('isVanilla') == true) }" >
 				<method event="onmouseover">
 					gTooltip.showTooltip('Redo');
 				</method>						                
