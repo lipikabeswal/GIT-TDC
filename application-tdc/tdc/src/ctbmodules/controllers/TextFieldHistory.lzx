@@ -8,6 +8,7 @@
     <handler name="ontexthistoryupdate">
         if (gController) {
             gController.textHistory.checkForChangeCallback( JSON.parse( texthistoryupdate ) );
+            gController.textHistory.setAttribute( "locked", false );
         }
     </handler>
 
@@ -18,6 +19,18 @@
         if (gController) {
             var change = JSON.parse( newtextvalue );
             gController.textHistory[ change.methodName ]( change );
+            gController.textHistory.setAttribute( "locked", false );
+        }
+    </handler>
+
+    <!-- Used to unlock the history. Set by some functions in TextHistory.js, when no value
+         needs to be passed into the history, but the history has to be unlocked. -->
+    <attribute name="unlocktexthistory" type="string" value="" />
+
+    <handler name="onunlocktexthistory">
+        if (gController) {
+            gController.textHistory.setAttribute( "locked", false );
+            // Debug.write( "onunlocktexthistory: gController.textHistory.locked=" + gController.textHistory.locked);
         }
     </handler>
 
@@ -37,7 +50,7 @@
               @type number
               @access public
           -->
-        <attribute name="historystopwatch" value="0" type="number" />
+        <attribute name="transactiontime" value="0" type="number" />
 
         <!--- Just for debugging the paste functionality.
               @type number
@@ -69,11 +82,23 @@
         -->
         <attribute name="canundo" value="false" type="boolean" />
 
-        <!--- Set to true, if the user can redo actions.
+        <!--- Set to true during transactions.
               @type boolean
               @access public
         -->
         <attribute name="canredo" value="false" type="boolean" />
+
+        <!--- Set to true, if there are changes which the user user can undo.
+              @type boolean
+              @access public
+        -->
+        <attribute name="locked" value="false" type="boolean" />
+
+        <!--- Used for measuring how long the history has been locked.
+              @type number
+              @access public
+          -->
+        <attribute name="locktime" value="0" type="number" />
 
         <!--- Counter for setting unique IDs for textfields.
               @type boolean
@@ -92,10 +117,9 @@
         <handler name="onactiveinput"><![CDATA[
             // Debug.write( "TextFieldHistory#onactiveinput: activeinput=" + activeinput );
             if ( activeinput != null ) {
-                this.historystopwatch = new Date();
-                var jsExpr = 'TextHistory.setFocus( "' + activeinput.id + '" );'
-                LzBrowser.loadJS( jsExpr );
-                // Store the previous text value
+                var jsExpr = 'TextHistory.setFocus( "' + activeinput.id + '" );';
+                this.callToJS( jsExpr );
+                // Store the previous text value so we can compare with it
                 this.previousvalue = activeinput.getText();
             }
         ]]>
@@ -109,13 +133,27 @@
             var down = LzKeys.downKeysArray;
             var isPaste = false;
             if (down.length > 1) {
-                Debug.write( "onkeydown: downKeysArray=" + JSON.stringify( down ));
+                // Debug.write( "onkeydown: downKeysArray=" + JSON.stringify( down ));
                 if ( down[ 0 ] == 17 && Number( down[ 1 ] ) == 86 ) {
                     pasteInProgress = true;
                     if ($debug) Debug.write( "Paste / Control-v detected: calling checkForChange() in 200ms" );
                     LzTimer.resetTimer( delayedCheckForChangeDel, 200 );
                     LzKeys.downKeysArray = [];
                 }
+            }
+        ]]>
+        </handler>
+
+        <!--- Handler for lock attribute changes.
+              @keywords private
+        -->
+        <handler name="onlocked"><![CDATA[
+            if ( this.locked ) {
+                this.locktime = new Date();
+            } else {
+                var date = new Date();
+                var lockDur = date.getTime() - this.locktime.getTime();
+                // Debug.error( "TextFieldHistory.onlocked: lockDur=" + lockDur );
             }
         ]]>
         </handler>
@@ -132,7 +170,6 @@
             // property will be set to true.
             if ( typeof theText == "undefined" || theText.id == null || theText.historycleared == true ) {
                 if ( theText.id == null ) {
-                    // Debug.error( "Creating ID for text, new ID=" + "histtext" + idcounter );
                     theText.setAttribute( 'id', "histtext" + idcounter);
                     this.idcounter++;
                 }
@@ -151,19 +188,22 @@
             var jsonStr = null;
             var jsExp = null;
             var caretIndex = 0;
-            if (activeinput != null) {
+            if ( activeinput != null ) {
                 // Debug.write("activeinput.getText(): |" + activeinput.getText() + "|" );
                 // Debug.write("this.previousvalue:    |" + this.previousvalue + "|" );
-                if (activeinput.getText() != this.previousvalue) {
-                    // Debug.write( "TextFieldHistory.changeDetected!" );
-                    caretIndex = this.getCaretIndex( activeinput._field );
-                    this.historystopwatch = new Date();
+                if ( activeinput.getText() != this.previousvalue ) {
+                    this.previousvalue = activeinput.getText();
+                    if ( typeof this.activeinput._field.caretindex != 'undefined' ) {
+                        caretIndex = this.activeinput._field.caretindex;
+                    } else {
+                        caretIndex = this.activeinput.caretindex;
+                    }
                     jsonStr = JSON.stringify( activeinput.getText() )
                     jsExpr = 'TextHistory.createDiff( "' + activeinput.id + '", ' + caretIndex + ', ' + jsonStr + ');'
-                    LzBrowser.loadJS( jsExpr );
+                    this.callToJS( jsExpr );
                 } else {
                     jsExpr = 'TextHistory.setFocus( "' + activeinput.id + '" );';
-                    LzBrowser.loadJS( jsExpr );
+                    this.callToJS( jsExpr );
                 }
             }
         </method>
@@ -176,21 +216,8 @@
         <method name="checkForChangeCallback" args="status">
             this.setAttribute( "canundo", status.canundo );
             this.setAttribute( "canredo", status.canredo );
-            // Debug.inspect( status );
-            // Diff has been saved in HTML, update the value we compare with
-            this.previousvalue = this.activeinput.getText();
             this._showDuration();
         </method>
-
-        <!--- Used to track how long it takes to execute actions like creating a diff, undo or redo.
-             @access private
-          -->
-        <method name="_showDuration"><![CDATA[
-            var date = new Date();
-            var dur = Math.ceil( date.getTime() - this.historystopwatch.getTime() );
-            if ($debug) Debug.write("History transaction processing took " + dur + " ms.");
-         ]]>
-         </method>
 
         <!--- Creates a history for a text field.
               @access private
@@ -205,7 +232,7 @@
                     jsonStr = JSON.stringify( theText.getText() );
                     this.history[ theText.id ] = {};
                     var jsExpr = 'TextHistory.createHistory("'+ theText.id + '",' + jsonStr + ');';
-                    LzBrowser.loadJS( jsExpr );
+                    this.callToJS( jsExpr );
                 }
             }
         ]]>
@@ -225,7 +252,7 @@
             }
             LzFocus.clearFocus();
             this.setAttribute( "activeinput", null );
-            LzBrowser.loadJS( 'TextHistory.clearHistory()' );
+            this.callToJS( 'TextHistory.clearHistory()' );
         ]]>
         </method>
 
@@ -233,13 +260,12 @@
                   @access public
             -->
         <method name="undo"><![CDATA[
-            this.historystopwatch = new Date();
             if ( activeinput != null ) {
-                var caretIndex = this.getCaretIndex( activeinput._field );
+                var caretIndex = this.activeinput._field.caretindex;
                 var jsonStr = JSON.stringify( activeinput.getText() );
                 var js = 'TextHistory.undo("' + activeinput.id + '", "' + caretIndex + '", ' + jsonStr + ' );'
                 // Debug.write(js);
-                LzBrowser.loadJS( js );
+                this.callToJS( js );
             }
         ]]>
         </method>
@@ -265,9 +291,8 @@
               @access public
           -->
         <method name="redo"><![CDATA[
-            this.historystopwatch = new Date();
             if ( activeinput != null ) {
-                LzBrowser.loadJS('TextHistory.redo("' + activeinput.id + '");');
+                this.callToJS( 'TextHistory.redo("' + activeinput.id + '");' );
             }
 
         ]]>
@@ -290,36 +315,39 @@
         ]]>
         </method>
 
-        <!--- Returns the caretIndex value for a AS2 flash.text.Textfield inside a _newinternalinputtext.
-              The caretIndex is the index of the insertion point (caret) position.
-              If no insertion  point is displayed, the value is the position
-              the insertion point would be if you restored focus to the field
-              (typically where the insertion point last was, or 0 if the field has not had focus).
-              Selection span indexes are zero-based (for example, the first
-              position is 0, the second position is 1, and so on).
-              @access private
-              @parameter _newinternalinputtext text: Instance of _newinternalinputtext.
-              @return {number} The insertion point (caret) position, default value 0.
-        -->
-        <method name="getCaretIndex" args="text"><![CDATA[
-             var caretIndex = 0;
-             // Focus has to be on the text field for the
-             LzFocus.setFocus( this.activeinput._field );
-             caretIndex = Selection.getCaretIndex();
-             return caretIndex;
-        ]]></method>
-
         <!--- Used to set the text cursor position with a slight delay to allow text to beg
               updated for the selection is set.
               @access private
         -->
         <method name="setTextCursorPos"><![CDATA[
             if ( this.activeinput ) {
-                // LzFocus.clearFocus();
-                LzFocus.setFocus( this.activeinput._field );
+                // Set the cursor position, will automatically focus the text
                 this.activeinput.setSelection( newCaretIndex, newCaretIndex );
             }
         ]]></method>
+
+         <!--- Helper method for calling JavaScript and tracking the round trip time.
+               @access private
+               @parameter String jsExpr: JavaScript expression to evaluate in HTML page.
+         -->
+        <method name="callToJS" args="jsExpr"><![CDATA[
+            if ( jsExpr ) {
+                this.transactiontime = new Date();
+                this.setAttribute( "locked", true );
+                LzBrowser.loadJS( jsExpr );
+            }
+        ]]></method>
+
+
+        <!--- Used to track how long it takes to execute actions like creating a diff, undo or redo.
+             @access private
+          -->
+        <method name="_showDuration"><![CDATA[
+            var date = new Date();
+            var dur = Math.ceil( date.getTime() - this.transactiontime.getTime() );
+            // if ($debug) Debug.write("History transaction processing took " + dur + " ms.");
+         ]]>
+         </method>
 
 
     </class>

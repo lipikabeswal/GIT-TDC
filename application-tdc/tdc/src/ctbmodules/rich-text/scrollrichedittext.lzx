@@ -96,7 +96,14 @@
 	        <attribute name="enterpressed" value="false" type="boolean" />
 	
 	        <!-- Delegate used for detecting changes to the textfield through enter key presses. -->
-	        <attribute name="enterKeyDel" value="$once{new LzDelegate( this, 'processEnterDelayed' )}" />
+	        <attribute name="enterKeyDel" value="$once{new LzDelegate( this, 'processEnterDelayed' )}" />        
+           
+	        <!--- Index position of caret/cursor in text. Value used by 
+	              TextFieldHistory for cursor positioning -->
+	        <attribute name="caretindex" type="string" value="" />            
+
+	        <!--- Action for the last keypresses; used by the history -->
+	        <attribute name="keyaction" type="string" value="" />	        
 	        
         	<!--- Helper function for checking if the text has changed when the enter key
              was pressed. Workaround for the bug with enter keys and ontext events
@@ -104,6 +111,8 @@
              @access private
 	       -->
 	        <method name="processEnterDelayed">
+	        	Debug.write("processEnterDelayed");
+	            this.caretindex = this.getSelectionPosition();
 	            gController.textHistory.checkForChange();
 	        </method>
 
@@ -137,9 +146,6 @@
             </method>
             <attribute name="delayemptydel" />
 
-	        <!--- Action for the last keypresses; used by the history -->
-	        <attribute name="keyaction" type="string" value="''" />
-
             <method event="oninit">
                this.setText(" ");
             </method>
@@ -161,34 +167,40 @@
 					this.setEnabled(true);
 				}
 
-				this.keyaction = "";
-                //if ( k == 13 ) this.keyaction = "enter";
-                if ( k == 13 ) {
+	            // Keyboard handling for TextFieldHistory support
+	            if ( k == 13 ) {
 	                // Due to a bug where the ontext event is not
 	                // sent when pressing enter at the end of a line
 	                // with some text we need to manually add the action
 	                // to the history using the processEnterDelayed() method.
 	                LzTimer.resetTimer( enterKeyDel, 50 );
-	                //lengthBeforeEnter = this.getText().length;
+	                lengthBeforeEnter = this.getText().length;
 	                enterpressed = true;
 	            }
-                if ( k == 8 ) this.keyaction = "backspace";
-                if ( k == 46 ) this.keyaction = "delete";
-                if ( k == 32 ) this.keyaction = "space";
+	            if ( k == 8 ) keyaction = "backspace";
+	            else if ( k == 46 ) keyaction = "delete";
+	            else if ( k == 32 ) keyaction = "space";
+	            else keyaction = '';	            
+	            if ( keyaction == "backspace" || keyaction == "delete" ) {
+	            	 Debug.error("calling checkForChange() after backspace or delete in keydown");
+	                 gController.textHistory.checkForChange();
+	            }
 
 			 ]]>
 			</handler>
 			
 			<handler name="ontext">
+            	this.caretindex = this.getSelectionPosition();			
 			  	if(this.getTextHeight() > this.height) {
 					if(this.isCtrl){
 			  			this.setScroll(this.getMaxScroll());
 					}
 			  	}
-	            if ( this.keyaction !== "" ) {
+	            if ( this.keyaction != "" ) {
+	            	Debug.error("calling checkForChange() in ontext: keyaction=" + keyaction);	            
 	                gController.textHistory.checkForChange();
-	                this.keyaction = "";
 	            }
+		        this.keyaction = "";  
 			</handler>
 			<handler name="onkeyup" reference="LzKeys" args="k"><![CDATA[
 			  if(k==17){
