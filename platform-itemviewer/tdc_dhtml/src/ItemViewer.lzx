@@ -158,11 +158,18 @@
                      ? canvas.width 
                      : this.height * 800/600}"		     
 		     xscale="${this.height/600}" yscale="${this.height/600}" 
-          valign="middle" align="center">
+          valign="middle" align="center" >
 
 
         <view name="gView" width="800" height="600">
-
+			<handler name="oninit"><![CDATA[
+					if(navigator.appName.indexOf("Internet Explorer")!=-1){
+						this.setAttribute('align','center');
+					}else{
+						// do nothing
+					}
+				]]>
+			</handler>
             <ItemInterface id="gItemInterface" width="800" height="600"
                         visible="true"/>
         </view>
