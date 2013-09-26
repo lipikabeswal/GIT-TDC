@@ -24,9 +24,10 @@ var TextHistory = (function() {
 
             // Pass the current history status into the OpenLaszlo app
             lzSetCanvasAttribute( "texthistoryupdate", JSON.stringify( status ) );
-        } else {
-            console.warn( "TextHistory._setFocus: Text component with ID %s not found!", textId );
+            return;
         }
+        console.warn( "TextHistory._setFocus: Text component with ID %s not found!", textId );
+        lzSetCanvasAttribute( "unlocktexthistory", "true" );
     }
 
     /**
@@ -71,11 +72,7 @@ var TextHistory = (function() {
             return;
         }
         var diff = matcher.diff_main( origText, current );
-        if (diff.length == 0) {
-            // console.log("No difference detected");
-        } else {
-            _addHistoryEntry( textId, caretIndex, diff );
-        }
+        _addHistoryEntry( textId, caretIndex, diff );
     }
 
     /**
@@ -85,6 +82,7 @@ var TextHistory = (function() {
      * @param {object} diff The diff object created by the diff_match_patch.diff_main() function.
      */
     function _addHistoryEntry( textId, caretIndex, diff ) {
+        // console.error( "_addHistoryEntry: textId=%s, caretIndex=%s", textId, caretIndex  );
         var hist = history[ textId ];
         if (textId && diff) {
             if ( hist.pointer < hist.queue.length - 1 ) {
@@ -112,7 +110,10 @@ var TextHistory = (function() {
 
            // Pass the current history status into the OpenLaszlo app
            lzSetCanvasAttribute( "texthistoryupdate", JSON.stringify( status ) );
+           return;
         }
+        // Make sure that history gets unlocked even if now entry has been added.
+        lzSetCanvasAttribute( "unlocktexthistory", "true" );
     }
 
     /**
@@ -125,10 +126,12 @@ var TextHistory = (function() {
         // console.log( "_undo: textId=%s, caretIndex=%s, current=%s", textId, caretIndex, current );
         var hist = history[ textId ];
         if ( ! _canUndo( hist ) ) return;
+
         if ( _hasNewContent( textId, hist, current ) ) {
             _createDiff( textId, caretIndex, current );
         }
         var newText = null;
+
         if ( hist ) {
             var histEntry = null;
             if ( hist.pointer > -1 && hist.pointer <= hist.queue.length ) {
@@ -141,8 +144,12 @@ var TextHistory = (function() {
             if ( newText != null ) {
                 var status = _generateStatus( textId, histEntry.caretIndex, hist, newText, "undoCallback" );
                 lzSetCanvasAttribute( "newtextvalue", status );
+                return;
             }
         }
+
+        // Make sure that history gets unlocked in all situations
+        lzSetCanvasAttribute( "unlocktexthistory", "true" );
     }
 
     function _hasNewContent( textId, hist, current ) {
@@ -154,12 +161,9 @@ var TextHistory = (function() {
                 histEntry = hist.queue[ hist.pointer ];
                 var patches = matcher.patch_make( histEntry.diff );
                 var latestFromHistory = matcher.patch_apply( patches, hist.start )[ 0 ];
-                // console.error( "_hasNewContent: latestFromHistory |%s|", latestFromHistory );
-                // console.error( "_hasNewContent: current |%s|", current );
                 result = current !== latestFromHistory;
             }
         }
-        // console.log( "_hasNewContent: result=" + result );
         return result;
     }
 
@@ -167,10 +171,12 @@ var TextHistory = (function() {
      * Redo an action for a text field.
      * @param {integer} textId The id of the text component.
      */
-    function _redo( textId, current ) {
+    function _redo( textId ) {
+        // console.log( "_redo: textId=%s, current=%s", textId );
         var hist = history[ textId ];
         if ( ! _canRedo( hist ) ) return;
         var newText = null;
+
         if ( hist ) {
             var histEntry = null;
             if ( hist.pointer < hist.queue.length ) {
@@ -183,8 +189,12 @@ var TextHistory = (function() {
             if ( newText != null ) {
                 var status = _generateStatus( textId, histEntry.caretIndex, hist, newText, "redoCallback" );
                 lzSetCanvasAttribute( "newtextvalue", status );
+                return;
             }
         }
+
+        // Make sure that history gets unlocked in all situations
+        lzSetCanvasAttribute( "unlocktexthistory", "true" );
     }
 
     /**
@@ -202,6 +212,7 @@ var TextHistory = (function() {
         status.methodName = methodName;
         status.canundo = _canUndo( hist );
         status.canredo = _canRedo( hist );
+        status.pointer = hist.pointer;
         return JSON.stringify( status );
     }
 
@@ -214,7 +225,6 @@ var TextHistory = (function() {
         if ( hist && hist.pointer > 0 ) {
             can = true;
         }
-        // console.log("_canUndo: " + can);
         return can;
     }
 
@@ -224,7 +234,6 @@ var TextHistory = (function() {
      */
     function _canRedo( hist ) {
         var can = false;
-        // console.log("_canRedo: hist=", hist );
         if ( hist && hist.pointer < hist.queue.length - 1 ) {
             can = true;
         }
