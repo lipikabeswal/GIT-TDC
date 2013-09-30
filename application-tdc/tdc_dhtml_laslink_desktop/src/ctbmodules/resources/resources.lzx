@@ -597,6 +597,12 @@
        	<frame  src="components/recorder/move_next_down.png"/>
 	</resource>
 	
+	<resource name="popupMoveBack">
+		<frame  src="components/recorder/move_back.png"/>
+       	<frame  src="components/recorder/move_back_hover.png"/>
+       	<frame  src="components/recorder/move_back_down.png"/>
+	</resource>
+	
 	<!-- logo added for laslinks -->
 	
 	<resource name="logo" src="logos/logoLASLINKS.png"/>

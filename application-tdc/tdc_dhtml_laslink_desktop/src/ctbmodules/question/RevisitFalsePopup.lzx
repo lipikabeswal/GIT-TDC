@@ -44,6 +44,14 @@
     <method name="show" args="calledFrom">
 	    if(this.visible == false) {
 	    	//canvas.unFreezUI();	
+	    	if(gController.goBackPressed) {
+	    		this.contents.okButton.setAttribute('visible',false);
+	    		this.contents.moveBackButton.setAttribute('visible',true);	
+	    	}
+	    	else {
+	    		this.contents.okButton.setAttribute('visible',true);
+	    		this.contents.moveBackButton.setAttribute('visible',false);	
+	    	}
 	    	gMaskingRuler.dragger.remove();
 	    	if(gScratchpad.visible)
 	    	{
@@ -121,8 +129,21 @@
               multiline="true" y="20" align="center">
 		  Warning! Once you leave this page, you cannot come back. Do you want to Go On?
 		</text>        
-		<basebutton	name="okButton"	resource="popupOk" x="30" y="110" width="120" height="25" stretches="both">
+		<basebutton	name="okButton"	resource="popupOk" x="30" y="110" width="120" height="25" stretches="both" visible="false">
 		<handler name="onclick">
+		    gController.setAttribute('unlockNavigation',false);
+			gController.setNavigation(1,parent.parent.navigateFrom);  
+			gController.unlockUI();    
+			gController.setAttribute("revisitCancelClicked", true);    
+        </handler>
+        <handler name="onmouseover">
+        	lz.Cursor.unlock();
+        	gController.clearAndRestoreCurrentCursor();
+        </handler>
+		</basebutton>
+		<basebutton	name="moveBackButton" resource="popupMoveBack" x="30" y="110" width="120" height="25" stretches="both" visible="false">
+		<handler name="onclick">
+			gController.setAttribute('goBackPressed',false);
 		    gController.setAttribute('unlockNavigation',false);
 			gController.setNavigation(1,parent.parent.navigateFrom);  
 			gController.unlockUI();    
@@ -135,6 +156,7 @@
 		</basebutton>
 		<basebutton	name="cancelButton"	resource="popupCancel" x="178" y="110" width="102" height="25" stretches="both">
 		<handler name="onclick">
+			gController.setAttribute('goBackPressed',false);
 			gController.setAttribute('allowNavigate',true);
 			gController.setAttribute('allowItmeNavigate',true);
             gTestControl.enableAllButtons();

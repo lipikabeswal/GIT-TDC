@@ -547,6 +547,7 @@
 		<attribute name="singleCRhasFocus" type="boolean" value="true"/>
 		<attribute name="revisitCancelClicked" type="boolean" value="false" />
 		<attribute name="iskeyEnabled" type="boolean" value="true"/>
+		<attribute name="goBackPressed" type="boolean" value="false"/>
 
 		<!--
 			============================================================
@@ -3955,7 +3956,7 @@
 			
 			 // FOR THE DEFECT 74974
 			this.setAttribute('singleCRhasFocus',true);
-			
+			gController.setAttribute('goBackPressed',false);
 			
 			canvas.setAttribute('focusobj', null);
             this.itemloaded    = false;

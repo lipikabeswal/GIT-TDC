@@ -498,6 +498,7 @@
         </method>        
         <method name="goBack" args="ignore=null">
 		<![CDATA[
+			gController.setAttribute('goBackPressed',true);
            if(gItemInterface.visible)
             {
           	  if(gController.allowNavigate && gController.allowItmeNavigate){ 

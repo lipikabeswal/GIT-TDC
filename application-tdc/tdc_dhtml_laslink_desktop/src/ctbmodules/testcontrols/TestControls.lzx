@@ -230,6 +230,7 @@
 					        </handler>
 					         <handler name="onclick">
 					            <![CDATA[
+					            gController.setAttribute('goBackPressed',true);
 					            if(gController.allowNavigate && gController.allowItmeNavigate){
 					            	classroot.disableAllButtons();
 					                gController.setAttribute('allowNavigate',false);
