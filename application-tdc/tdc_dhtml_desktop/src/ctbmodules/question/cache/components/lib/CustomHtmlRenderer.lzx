@@ -26,7 +26,13 @@
               @type string
               @access public
         -->
-        <attribute name="lineheight" value="1.5" type="number" />                   
+        <attribute name="lineheight" value="1.5" type="number" />   
+        
+        <!--- Attribute for text-align CSS property.
+              @type string
+              @access public
+        -->
+        <attribute name="textalign" value="left" type="string"/>                
 
         <!--- Visual <div> tag used as a text container
               @type object
@@ -79,6 +85,7 @@
             this.onfgcolor.sendEvent();
             this.onfontsize.sendEvent();
             this.onlineheight.sendEvent();
+            this.ontextalign.sendEvent();
         ]]>
         </handler>
 
@@ -140,7 +147,18 @@
         		this.updateCssProperty( "line-height", this.lineheight );
         	}
         ]]>
-        </handler>                      
+        </handler>   
+        
+        <!--- When textalign is set, apply to _div.
+              @keywords private
+        -->
+        <handler name="ontextalign"><![CDATA[
+        	 //console.log("CustomHtmlRenderer#ontextalign: textalign=" + textalign);
+        	if (textalign) {
+        		this.updateCssProperty( "text-align", this.textalign );
+        	}
+        ]]>
+        </handler>                       
 
         <!--- Sets an HTML snipped as the text content.
               @access public
@@ -164,6 +182,7 @@
                     // console.log("Setting _div style %s='%s'", k, cssprops[k]);
                 }
                 this.updateCssProperty("line-height", this.lineheight);
+                this.updateCssProperty("text-align", this.textalign);
                 this.updateCssProperty("font-size", this.fontsize);
                 this.updateCssProperty("color", this.fgcolor);
                 // Now the dimensions of the view have to be set
@@ -189,6 +208,9 @@
         				break;
         				case 'line-height':
         					this.lineheight = value;        					
+        				break;
+        				case 'text-align':
+        					this.textalign = value;        					
         				break;
         				case 'color':
         					this.fgcolor = value;   					
