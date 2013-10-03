@@ -42,7 +42,7 @@
 	                            	</handler>
 
 								</text>
-                                <text datapath="dsitem:/element_package/item_model/@eid"
+                               <!--  <text datapath="dsitem:/element_package/item_model/@eid"
                                       visible="${!parent.theme}">
                                		<handler name="ontext">
                                 		var textWidth = this.getTextWidth();
@@ -51,7 +51,15 @@
                                 		
                                 	</handler>
                                </text>
-                                
+                               -->
+                                <text visible="${!parent.theme}" text="${canvas.visibleItemNum}">
+                               		<handler name="ontext">
+                                		var textWidth = this.getTextWidth();
+                                		this.setAttribute('width', textWidth + 1);
+										QuestTxt.setAttribute("visible",true);
+                                		//console.log("*****************ontext**************",this.text);
+                                	</handler>
+                               </text>
                             </view>
                         </view>
                        

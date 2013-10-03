@@ -105,7 +105,9 @@
        if (user) this.setAttribute("user", user);
        var itemNum = lz.Browser.getInitArg('itemNum');
        if (itemNum) this.setAttribute("itemNum", itemNum);
-       Debug.warn("*****************init**************"+itemNum);
+       var visibleItemNum = lz.Browser.getInitArg('visibleItemNum');
+       if (visibleItemNum) this.setAttribute("visibleItemNum", visibleItemNum);
+       //console.log("*****************init visibleItemNum**************",visibleItemNum);
        //canvas.setDefaultContextMenu(null);
        var cmenu = new LzContextMenu();
        cmenu.hideBuiltInItems();
