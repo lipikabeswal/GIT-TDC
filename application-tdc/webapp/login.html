@@ -652,6 +652,17 @@ function disableShortcuts() {
 				break;
 				}
 	}
+	if(event.metaKey) {
+		switch(keystroke){
+			case 'v':
+				if(gController.isPauseTest) {
+					event.preventDefault();
+				}
+				break;
+			default:
+				break;
+		}
+	}
 }
 
 function getOS() {
