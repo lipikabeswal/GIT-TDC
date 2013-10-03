@@ -1,0 +1,64 @@
+<library>
+
+        <include href="base/basebutton.lzx" />
+
+    <!-- ===============
+         ==
+         ==  EnableDisableButton
+         ==
+         ==  This button class fixes the problem with butttons not responding
+         ==  to the first click event when the mouse cursor is over the button
+         ==  while the button gets disabled and re-enabled, while the mouse cursor
+         ==  is not moved. In that situation a clickable view or button will receive
+         ==  an onmouseover event instead of the onclick event when the view is clicked.
+         ==  This button implementation uses the global mousedown event handler with
+         ==  the containsPt() method to detect if the button was clicked.
+         ==
+         =============== -->
+
+        <class name="EnableDisableButton" extends="basebutton">
+
+            <!--- Delegate for global mousedown event. Will be enabled/disabled base on button enabled attribute value.
+                  @type object
+                  @keywords read-only
+                  @access private
+            -->
+            <attribute name="globalMousedownDel" type="expression" value="null" />
+
+            <!--- Registers global mousedown delegate.
+                  @keywords private
+            -->
+            <handler name="oninit">
+                this.globalMousedownDel = new LzDelegate( this, 'trackClick' );
+                this.globalMousedownDel.register( LzGlobalMouse, 'onmousedown' );
+                this.onenabled.sendEvent();
+            </handler>
+
+            <!--- Disables and enables the delegate for mousedown depending
+                  on enable attribute value.
+                  @keywords private
+            -->
+            <handler name="onenabled">
+                if ( enabled ) {
+                    this.globalMousedownDel.enable();
+
+                } else {
+                    this.globalMousedownDel.disable();
+                }
+            </handler>
+
+            <!--- Checks if the mousedown happened with the mouse over the button area
+                  defined by buttonrect.
+                  @access privat
+            -->
+            <method name="trackClick"><![CDATA[
+                if ( containsPt( getMouse( 'x' ), getMouse( 'y' ) ) ) {
+                    this.doClick();
+                }
+            ]]>
+            </method>
+
+        </class>
+
+
+</library>

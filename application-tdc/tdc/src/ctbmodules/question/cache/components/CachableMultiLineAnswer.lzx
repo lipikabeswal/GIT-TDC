@@ -1,28 +1,29 @@
 <library>
-    <include href="CachableComponent.lzx"/>
+    <include href="CachableComponent.lzx" />
+    <include href="lib/EnableDisableButton.lzx" />
 
     <!-- ===============
          ==
          == CachableMultiLineAnswer
          ==
-         ==  A cachable multiLine input capable of supporting rich text input with  
+         ==  A cachable multiLine input capable of supporting rich text input with
          ==  a format bar containing different font styles (bold, italic and underline) and these
          ==  cut and paste (cut, copy and paste) operations.
          ==
          =============== -->
 
-    <class name="CachableMultiLineAnswer" 
+    <class name="CachableMultiLineAnswer"
            extends="CachableComponent"
-           comptype="$once{gCompTypes.WIDGET_MULTI_LINE_ANSWER}" 
-           aaactive="true" 
+           comptype="$once{gCompTypes.WIDGET_MULTI_LINE_ANSWER}"
+           aaactive="true"
            aasilent="false"
            clickable="true"
-           showhandcursor="false"> 
+           showhandcursor="false">
 
         <attribute name="hasAltText" value="false"/>
-		<attribute name="altText" type="string" />
-		<attribute name="hasReadableText" type="boolean" value="true"/>
-        
+        <attribute name="altText" type="string" />
+        <attribute name="hasReadableText" type="boolean" value="true"/>
+
         <attribute name="lmargin" type="number" value="12"/>
         <attribute name="rmargin" type="number" value="5"/>
         <attribute name="halign" type="string" value="left"/>
@@ -30,11 +31,11 @@
         <attribute name="w_id" type="number" value="10000000000" />
         <attribute name="editTextWidth" type="number" value="100"/>
         <attribute name="isInitialText" type="boolean" value="false" />
-         
+
          <attribute name="characterLimit" type="number" value="10000" />
          <attribute name="numCharacters" type="number" value="0" />
          <attribute name="showFormatBar" type="boolean" value="false" />
-         
+
         <!-- ===============
              = METHODS
              =============== -->
@@ -42,13 +43,13 @@
         <handler name="ondata" args="data"><![CDATA[
 //Debug.write("cachableMulti : " + data);
             var cl = 10000;
-			if (data.getAttr("char_limit")){
-				this.setAttribute("showFormatBar", true);
-				cl =  Number(data.getAttr("char_limit"));
-			}
-			else{
-				this.setAttribute("showFormatBar", false);
-			}
+            if (data.getAttr("char_limit")){
+                this.setAttribute("showFormatBar", true);
+                cl =  Number(data.getAttr("char_limit"));
+            }
+            else{
+                this.setAttribute("showFormatBar", false);
+            }
             this.outer.rich.answer.inp.setMaxLength(cl);
 //Debug.write(this, "set characterLimit", cl);
             this.setAttribute("characterLimit", cl);
@@ -58,34 +59,34 @@
             // class also stores its widget ID to allow them to be matched up.
             if (data.getAttr("id")) {
                 this.setAttribute('widget_id', data.getAttr("id"));
-            	var answer = gController.getAnswerForInputWidgetId(this.widget_id);
+                var answer = gController.getAnswerForInputWidgetId(this.widget_id);
 //Debug.write("CachableMultiLineAnswer.ondata", answer, answer.length);
-            	var answered = (typeof answer != "undefined" && answer.length != 0);
-            	// added to support Prewriting and Writing tagging 
-            	if(answered) {
-            		var idPresent = this.widget_id.split("$");
-            		if(idPresent.length > 1) {
-						var idVal = idPresent[0];
-						var idPresenceCheck = answer.split(idVal+":");
-						if(idPresenceCheck.length > 1) {
-							var tempAnswer = "";
-							for(var k = 1; k < idPresenceCheck.length; k++) {
-								tempAnswer = tempAnswer + idPresenceCheck[k];
-							}
-							answer = tempAnswer;
-						}
-            		}
-            	}
-                gController.addCrField({"widget_id" : this.widget_id, 
-                                              "answered" : answered, "answer" : answer, "ref" : this}); 
+                var answered = (typeof answer != "undefined" && answer.length != 0);
+                // added to support Prewriting and Writing tagging
+                if(answered) {
+                    var idPresent = this.widget_id.split("$");
+                    if(idPresent.length > 1) {
+                        var idVal = idPresent[0];
+                        var idPresenceCheck = answer.split(idVal+":");
+                        if(idPresenceCheck.length > 1) {
+                            var tempAnswer = "";
+                            for(var k = 1; k < idPresenceCheck.length; k++) {
+                                tempAnswer = tempAnswer + idPresenceCheck[k];
+                            }
+                            answer = tempAnswer;
+                        }
+                    }
+                }
+                gController.addCrField({"widget_id" : this.widget_id,
+                                              "answered" : answered, "answer" : answer, "ref" : this});
                 this.setAttribute("isInitialText", true);
-                if (answered) 
+                if (answered)
                    //this.setAnswer(gController.formatXml(answer));
                    this.setAnswer(answer);
                 else
                    this.setAnswer("");
             }
-            
+
             if (data.getAttr("width")) {
                 this.setAttribute('editTextWidth', Number(data.getAttr("width")));
             }
@@ -94,287 +95,267 @@
                 this.setAttribute('editTextWidth', Number(data.getAttr("acc_width")));
             }
             if (data.getAttr("height")){
-                this.setHeight(Number(data.getAttr("height"))); 
+                this.setHeight(Number(data.getAttr("height")));
             }
             if (data.getAttr('acc_height') && gController.hasFontAccommodation){
-            	this.setAttribute('height', Number(data.getAttr("acc_height")));
+                this.setAttribute('height', Number(data.getAttr("acc_height")));
             }
- 			if (data.getAttr("halign")) 
-                this.setAttribute("halign", data.getAttr("halign")); 
-			if (data.getAttr("lmargin")){
-				var lm = Number(data.getAttr("lmargin"));
-				var newEditTextWidth = this.getAttribute('editTextWidth') - lm;
-				this.setAttribute('editTextWidth', newEditTextWidth);
-                this.setAttribute("lmargin", lm); 
+             if (data.getAttr("halign"))
+                this.setAttribute("halign", data.getAttr("halign"));
+            if (data.getAttr("lmargin")){
+                var lm = Number(data.getAttr("lmargin"));
+                var newEditTextWidth = this.getAttribute('editTextWidth') - lm;
+                this.setAttribute('editTextWidth', newEditTextWidth);
+                this.setAttribute("lmargin", lm);
             }
-			if (data.getAttr("rmargin"))
+            if (data.getAttr("rmargin"))
                 this.setAttribute("rmargin", Number(data.getAttr("rmargin")));
             this.setAttribute("showhandcursor", false);
             if(gController.isaudio){
-				gController.disableResponseArea();
-			}
+                gController.disableResponseArea();
+            }
             doneLoading();
         ]]></handler>
-        
+
         <method event="onwidget_id">
-			var num = this.widget_id.substring(6, this.widget_id.length);
-        	this.setAttribute('w_id', new Number(num));
+            var num = this.widget_id.substring(6, this.widget_id.length);
+            this.setAttribute('w_id', new Number(num));
         </method>
-        
+
        <method event="onw_id"><![CDATA[
-			if(this.w_id < gController.currentCrId){
-				gController.setAttribute('currentCrId', this.w_id);
-				canvas.setAttribute('focusobj', this.outer.rich.answer.inp);
-			}
+            if(this.w_id < gController.currentCrId){
+                gController.setAttribute('currentCrId', this.w_id);
+                canvas.setAttribute('focusobj', this.outer.rich.answer.inp);
+            }
         ]]></method>
-        
+
         <method name="setAnswer" args="text">
           var currentFocus = LzFocus.getFocus();
           this.outer.rich.answer.inp.onfocus.sendEvent();
           this.outer.rich.answer.inp.onblur.sendEvent();
           this.outer.rich.answer.setText(text);
           if(currentFocus != null){
-          	currentFocus.onfocus.sendEvent();
+              currentFocus.onfocus.sendEvent();
           }
         </method>
 
-		<method name="read">
-			var txt = outer.rich.answer.getSelectedText();
-			if(txt.length == 0){
-				txt = gReadableText.getReadableTextForCharacter(' ');
-			}
-			gReadableText.read(txt);
-		</method>
+        <method name="read">
+            var txt = outer.rich.answer.getSelectedText();
+            if(txt.length == 0){
+                txt = gReadableText.getReadableTextForCharacter(' ');
+            }
+            gReadableText.read(txt);
+        </method>
 
-		<method name="setSelectionVars">
-			outer.rich.answer.setSelectionVars();
-		</method>
-		
-		<method name="updateCharacterMeter"><![CDATA[
+        <method name="setSelectionVars">
+            outer.rich.answer.setSelectionVars();
+        </method>
+
+        <method name="updateCharacterMeter"><![CDATA[
 //Debug.write(this, "updateCharacterMeter", this.numCharacters, this.characterLimit, this.numCharacters/this.characterLimit, this.outer.controls.meter.limit.width);
-			this.outer.controls.meter.limit.used.setWidth(this.outer.controls.meter.limit.width * (this.numCharacters/this.characterLimit));
-		]]></method>
-		
+            this.outer.controls.meter.limit.used.setWidth(this.outer.controls.meter.limit.width * (this.numCharacters/this.characterLimit));
+        ]]></method>
+
         <!-- ===============
              = VIEWS
              =============== -->
 
- 		<simplelayout axis="x" spacing="5" />
- 		<view name="outer">
-	 		<simplelayout axis="y" spacing="0"/>
-	 		<view name="controls" width="${parent.rich.width}" height="30" bgcolor="0xC4C4C4" 
-	 		      visible="${classroot.showFormatBar}">
-	 			<view align="center" name="meter" height="20" width="${parent.width - 20}">
-	 				<view name="limit" width="${parent.width - 10}" height="${parent.height}" 
-	 				      bgcolor="0xA7BEDF" x="5" y="5">
-	 					<handler name="onwidth">
-	 						classroot.updateCharacterMeter();
-	 					</handler>
-	 					<view name="used" width="0" height="${parent.height}" bgcolor="0x6691B4" >
-	 						<drawview width="${parent.width}" 
-		                          height="${parent.height}">
-			             		<method event="onwidth">
-			                		this.draw();
-			            		</method>
-			            		<method name="draw"><![CDATA[
-				                	this.clear ();
-			            			var minX = .5;
-			            			var endX = this.width - .5;
-			            			if(endX < minX) endX = minX;
-			                		this.beginPath ();
-			                		this.moveTo (endX, .5);
-			                		this.lineTo (endX, this.height - .5);
-			                		this.strokeStyle = 0x000000;
-			                		this.strokeWidth = 1;
-			                		this.stroke();
-			            		]]></method>
-		 					</drawview>
-	 					</view>
-						<drawview width="${parent.width}" 
-		                          height="${parent.height}">
-		
-		             		<method event="onwidth">
-		                		this.draw();
-		            		</method>
-		            		<method event="onheight">
-		                		this.draw();
-		            		</method>
-		
-		            		<method name="draw"><![CDATA[
-			                	this.clear ();
-		                		this.beginPath ();
-			                
-			                	//has to be .5 so is draws exactly inside the border of the view
-			               		this.moveTo (.5,.5);
-			                	this.lineTo (this.width - .5, .5);
-			                	this.lineTo (this.width - .5, this.height - .5);
-			                	this.lineTo (.5, this.height - .5);
-			                	this.lineTo (.5, .5);
-			                	this.strokeStyle = 0x000000;
-			                	this.strokeWidth = 1;
-			                	this.stroke();
-		                	]]></method>
-		 				</drawview>
-	 				</view>
-	 			</view>
- 	 		</view>
-	        <view name="rich" bgcolor="${Number(gController.answerBgColor)}">
-	           <richtexteditarea name="answer" 
-	                             height="${classroot.showFormatBar ? classroot.height - classroot.outer.controls.height : classroot.height}" 
-	                             width="${classroot.editTextWidth}" 
-	                             defaultfontcolor="0x336699" 
-	                             focusable="false"
-	                             x="${classroot.lmargin}">
-	            	<attribute name="start" type="number" value="0" />
-	            	<attribute name="end" type="number" value="0" />
-	              <method name="init">
-	                 super.init();
-	              	this.style.setAttribute("textfieldcolor", gController.answerBgColor);
-					this.setFontColor(gController.answerFontColor);
-				 	if(gController.hasFontAccommodation)
-							this.setFontSize(18);
-						else
-							this.setFontSize(12);
-	              </method>
-	
-	              <handler name="ontext"><![CDATA[
-	                 if(!classroot.isInitialText){
-		                 if (text) {
-		                 	var answered = false;
-		               		for(var i=0; (i< text.length) && !answered; i++){
-		               			var c = text.substring(i, i+1);
-		               			if(c != ' ' && c!= '\n' && c!= '\r'){
-		               				answered = true;
-		               			}
-		               		}
-		                    gController.updateCrField(classroot.widget_id, text, answered);
-		                 }
-		                 else {  // Field is now empty
-		                    gController.updateCrField(classroot.widget_id, '', false);
-		                 }
-		             } else {
-		             	 // The history can only be initialized after the initial text
-		             	 // value has been set. Check TextFieldHistory.lzx and
-		             	 // scrollrichedittext.lzx for the history implementation.
-					     gController.textHistory.initializeHistoryForText( this ); 
-					 }
+         <simplelayout axis="x" spacing="5" />
+         <view name="outer">
+             <simplelayout axis="y" spacing="0"/>
+             <view name="controls" width="${parent.rich.width}" height="30" bgcolor="0xC4C4C4"
+                   visible="${classroot.showFormatBar}">
+                 <view align="center" name="meter" height="20" width="${parent.width - 20}">
+                     <view name="limit" width="${parent.width - 10}" height="${parent.height}"
+                           bgcolor="0xA7BEDF" x="5" y="5">
+                         <handler name="onwidth">
+                             classroot.updateCharacterMeter();
+                         </handler>
+                         <view name="used" width="0" height="${parent.height}" bgcolor="0x6691B4" >
+                             <drawview width="${parent.width}"
+                                  height="${parent.height}">
+                                 <method event="onwidth">
+                                    this.draw();
+                                </method>
+                                <method name="draw"><![CDATA[
+                                    this.clear ();
+                                    var minX = .5;
+                                    var endX = this.width - .5;
+                                    if(endX < minX) endX = minX;
+                                    this.beginPath ();
+                                    this.moveTo (endX, .5);
+                                    this.lineTo (endX, this.height - .5);
+                                    this.strokeStyle = 0x000000;
+                                    this.strokeWidth = 1;
+                                    this.stroke();
+                                ]]></method>
+                             </drawview>
+                         </view>
+                        <drawview width="${parent.width}"
+                                  height="${parent.height}">
+
+                             <method event="onwidth">
+                                this.draw();
+                            </method>
+                            <method event="onheight">
+                                this.draw();
+                            </method>
+
+                            <method name="draw"><![CDATA[
+                                this.clear ();
+                                this.beginPath ();
+
+                                //has to be .5 so is draws exactly inside the border of the view
+                                   this.moveTo (.5,.5);
+                                this.lineTo (this.width - .5, .5);
+                                this.lineTo (this.width - .5, this.height - .5);
+                                this.lineTo (.5, this.height - .5);
+                                this.lineTo (.5, .5);
+                                this.strokeStyle = 0x000000;
+                                this.strokeWidth = 1;
+                                this.stroke();
+                            ]]></method>
+                         </drawview>
+                     </view>
+                 </view>
+              </view>
+            <view name="rich" bgcolor="${Number(gController.answerBgColor)}">
+               <richtexteditarea name="answer"
+                                 height="${classroot.showFormatBar ? classroot.height - classroot.outer.controls.height : classroot.height}"
+                                 width="${classroot.editTextWidth}"
+                                 defaultfontcolor="0x336699"
+                                 focusable="false"
+                                 x="${classroot.lmargin}">
+                    <attribute name="start" type="number" value="0" />
+                    <attribute name="end" type="number" value="0" />
+                  <method name="init">
+                     super.init();
+                      this.style.setAttribute("textfieldcolor", gController.answerBgColor);
+                    this.setFontColor(gController.answerFontColor);
+                     if(gController.hasFontAccommodation)
+                            this.setFontSize(18);
+                        else
+                            this.setFontSize(12);
+                  </method>
+
+                  <handler name="ontext"><![CDATA[
+                     if(!classroot.isInitialText){
+                         if (text) {
+                             var answered = false;
+                               for(var i=0; (i< text.length) && !answered; i++){
+                                   var c = text.substring(i, i+1);
+                                   if(c != ' ' && c!= '\n' && c!= '\r'){
+                                       answered = true;
+                                   }
+                               }
+                            gController.updateCrField(classroot.widget_id, text, answered);
+                         }
+                         else {  // Field is now empty
+                            gController.updateCrField(classroot.widget_id, '', false);
+                         }
+                     } else {
+                          // The history can only be initialized after the initial text
+                          // value has been set. Check TextFieldHistory.lzx and
+                          // scrollrichedittext.lzx for the history implementation.
+                         gController.textHistory.initializeHistoryForText( this );
+                     }
 //Debug.write(classroot, "ontext", text.length);
-		             classroot.setAttribute("numCharacters", text.length);
-		             classroot.updateCharacterMeter();
-		             classroot.setAttribute("isInitialText", false);
-	               ]]></handler>
-	
-				<method name="getSelectedText">
-					if(end == 0){
-						return '';
-					}
-					else{
-						return getText().substring(start, end);
-					}
-				</method>
-				<method name="setSelectionVars">
-					var pos = getSelectionPosition();
-					var size = getSelectionSize();
-					if(pos == -1 || size == -1 || size == 0){
-						pos = 0;
-						size = getText().length;
-					}
-					this.setAttribute('start', pos);
-					this.setAttribute('end', pos + size);
-				</method>
-	          </richtexteditarea>
-	         </view>
+                     classroot.setAttribute("numCharacters", text.length);
+                     classroot.updateCharacterMeter();
+                     classroot.setAttribute("isInitialText", false);
+                   ]]></handler>
+
+                <method name="getSelectedText">
+                    if(end == 0){
+                        return '';
+                    }
+                    else{
+                        return getText().substring(start, end);
+                    }
+                </method>
+                <method name="setSelectionVars">
+                    var pos = getSelectionPosition();
+                    var size = getSelectionSize();
+                    if(pos == -1 || size == -1 || size == 0){
+                        pos = 0;
+                        size = getText().length;
+                    }
+                    this.setAttribute('start', pos);
+                    this.setAttribute('end', pos + size);
+                </method>
+              </richtexteditarea>
+             </view>
          </view>
          <view>
-         	<simplelayout axis="y" spacing="4" />
-			<basebutton resource="read_btn" 
-	 		            name="readBtn"
-	 		            visible="${canvas.readable}">
-				<method event="onclick">
-	                classroot.read();
-				</method>
-				<method event="onmouseover">
-					classroot.setSelectionVars();
-				</method>
-			</basebutton>
-			<view resource="undo_btn" name="undoBtn"  visible="${ gController.getAttribute('isOK') == 'T' || (gController.getAttribute('isVanilla') == 'true') || (gController.getAttribute('isVanilla') == true)}" clickable="${gController.textHistory.canundo}">
-				<method event="onmouseover">
-					if(this.clickable){
-						this.setResourceNumber (2);
-					}
-					gTooltip.showTooltip('Undo');
-				</method>						                
-				<method event="onmouseout">
-					if(this.clickable){
-						this.setResourceNumber (1);
-					}
-					gTooltip.hideTooltip ();    
-				</method>
-				<handler name="onclickable">
-					if(!this.clickable){
-						this.setResourceNumber (3);
-					}else{
-						this.setResourceNumber (1);
-					}
-				</handler>
-				<method event="onclick">
-	                gController.textHistory.undo( classroot.outer.rich.answer.id );
-				</method>
-				
-	 		</view>
-	 		<view resource="redo_btn" name="redoBtn"  visible="${ gController.getAttribute('isOK') == 'T' || (gController.getAttribute('isVanilla') == 'true') || (gController.getAttribute('isVanilla') == true)}" clickable="${gController.textHistory.canredo}">
-				<method event="onmouseover">
-					if(this.clickable){
-						this.setResourceNumber (2);
-					}
-					gTooltip.showTooltip('Redo');
-				</method>						                
-				<method event="onmouseout">
-					if(this.clickable){
-						this.setResourceNumber (1);
-					}
-					gTooltip.hideTooltip ();    
-				</method>
-				<handler name="onclickable">
-					if(!this.clickable){
-						this.setResourceNumber (3);
-					}else{
-						this.setResourceNumber (1);
-					}
-				</handler>
-				<method event="onclick">
-	                gController.textHistory.redo( classroot.outer.rich.answer.id );
-				</method>
-	 		</view>
-		</view>
-		 <drawview options="ignorelayout" width="${classroot.editTextWidth + classroot.lmargin}" 
-		                  height="${classroot.height}">
-		            <method event="onwidth">
-		                this.draw();
-		            </method>
-		            <method event="onheight">
-		                this.draw();
-		            </method>
-		
-		            <method name="draw">
-		                this.clear ();
-		                this.beginPath ();
-		                
-		                //has to be .5 so is draws exactly inside the border of the view
-		                this.moveTo (.5,.5);
-		                this.lineTo (this.width - .5, .5);
-		                this.lineTo (this.width - .5, this.height - .5);
-		                this.lineTo (.5, this.height - .5);
-		                this.lineTo (.5, .5);
-		                if(classroot.showFormatBar){
-							this.moveTo(.5, classroot.outer.rich.y);
-							this.lineTo(this.width - .5, classroot.outer.rich.y); 
-						}
-		                this.strokeStyle = Number(gController.answerFontColor);
-		                this.strokeWidth = 1;
-		                this.stroke();
-		            </method>
-		
-		 </drawview>
+            <simplelayout axis="y" spacing="4" />
+            <basebutton resource="read_btn"
+                         name="readBtn"
+                         visible="${canvas.readable}">
+                <method event="onclick">
+                    classroot.read();
+                </method>
+                <method event="onmouseover">
+                    classroot.setSelectionVars();
+                </method>
+            </basebutton>
+
+            <EnableDisableButton name="undoBtn" resource="undo_btn"
+                 visible="${ gController.getAttribute('isOK') == 'T' || (gController.getAttribute('isVanilla') == 'true') || (gController.getAttribute('isVanilla') == true)}"
+                 enabled="${gController.textHistory.canundo}">
+                <method event="onmouseover">
+                    gTooltip.showTooltip('Undo');
+                </method>
+                <method event="onmouseout">
+                    gTooltip.hideTooltip ();
+                </method>
+                <method name="doClick">
+                	gController.textHistory.undo();
+                </method>
+            </EnableDisableButton>
+
+            <EnableDisableButton name="redoBtn" resource="redo_btn"
+                visible="${ gController.getAttribute('isOK') == 'T' || (gController.getAttribute('isVanilla') == 'true') || (gController.getAttribute('isVanilla') == true)}"
+                enabled="${gController.textHistory.canredo}">
+                <method event="onmouseover">
+                    gTooltip.showTooltip('Redo');
+                </method>
+                <method event="onmouseout">
+                	gTooltip.hideTooltip ();
+                </method>
+                <method name="doClick">
+                    gController.textHistory.redo()
+                </method>
+            </EnableDisableButton>
+
+        </view>
+         <drawview options="ignorelayout" width="${classroot.editTextWidth + classroot.lmargin}"
+                          height="${classroot.height}">
+                    <method event="onwidth">
+                        this.draw();
+                    </method>
+                    <method event="onheight">
+                        this.draw();
+                    </method>
+
+                    <method name="draw">
+                        this.clear ();
+                        this.beginPath ();
+
+                        //has to be .5 so is draws exactly inside the border of the view
+                        this.moveTo (.5,.5);
+                        this.lineTo (this.width - .5, .5);
+                        this.lineTo (this.width - .5, this.height - .5);
+                        this.lineTo (.5, this.height - .5);
+                        this.lineTo (.5, .5);
+                        if(classroot.showFormatBar){
+                            this.moveTo(.5, classroot.outer.rich.y);
+                            this.lineTo(this.width - .5, classroot.outer.rich.y);
+                        }
+                        this.strokeStyle = Number(gController.answerFontColor);
+                        this.strokeWidth = 1;
+                        this.stroke();
+                    </method>
+
+         </drawview>
     </class>
 </library>
