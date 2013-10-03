@@ -643,6 +643,9 @@ function disableShortcuts() {
 			case 'v':
 				if(window.navigator.platform.indexOf('Mac')>=0){
 					event.preventDefault(); // disable Ctrl+V
+				} 
+				else if(gController.isPauseTest) {
+					event.preventDefault();
 				}
 				break;
 			default:
