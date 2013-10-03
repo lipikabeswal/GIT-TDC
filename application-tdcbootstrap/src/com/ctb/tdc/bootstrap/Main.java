@@ -5,20 +5,18 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.ServerSocket;
-import java.util.Enumeration;
+import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipInputStream;
-
 import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 
-import sun.misc.Cleaner;
 
 import com.ctb.tdc.bootstrap.disablers.MacScreenSaverDisabler;
 import com.ctb.tdc.bootstrap.exception.BootstrapException;
@@ -63,6 +61,7 @@ public class Main {
 	public static final String MINOR_UPGRADE = "MINOR";
 	public static final String MAJOR_UPGRADE = "MAJOR";
 	
+	public static String TDC_HOME;
 	/**
 	 * Constructor.
 	 */
@@ -92,6 +91,7 @@ public class Main {
 			throw new BootstrapException(ResourceBundleUtils.getString("bootstrap.main.error.tdcHomeNotDirectory") + ": " + tdcHomeProperty);
 		}
 
+		TDC_HOME=tdcHome.getAbsolutePath();
 		return tdcHome.getAbsolutePath();
 	}
 	
@@ -203,6 +203,121 @@ public class Main {
         proxyFile.delete();        
     }
     
+    private static ArrayList<String> getIgnoreList()
+    {
+    	String tdcHomePath=TDC_HOME;
+    	//Read ignore list
+		File ignoreFile=new File(tdcHomePath+File.separator+"etc"+File.separator+"checksumIgnore.properties");
+		ArrayList<String> ignoreList = new ArrayList<String>();
+        String line = null;
+        try {
+
+			BufferedReader br =new BufferedReader(new FileReader(ignoreFile));
+			
+			while((line=br.readLine())!=null)
+			{
+				//ConsoleUtils.messageOut("Add to ignore "+tdcHomePath+File.separator+line);
+				ignoreList.add(tdcHomePath+File.separator+line.replace("\\", File.separator));
+				
+			}
+			
+		} catch (FileNotFoundException e) {
+			ConsoleUtils.messageOut(".checksumIgnore not found");
+			return null;
+		}catch (IOException e) {
+			ConsoleUtils.messageOut(".checksumIgnore read error");
+			return null;
+		}catch (Exception e) {
+			ConsoleUtils.messageOut("Exception"+e.getMessage());
+		}
+		
+		//ConsoleUtils.messageOut("Size "+ignoreList.size());
+		return ignoreList;
+    }
+    
+    private static long getTotalSize(String folderPath, ArrayList<String> ignoreList) {
+		
+    	long totalSize = 0;
+		File folder = new File(folderPath);
+		File[] listOfFiles = folder.listFiles();
+		long folderSize;
+
+		//Iterate through all files in folder
+		for (int i = 0; i < listOfFiles.length; i++) {
+			if(!ignoreList.contains(listOfFiles[i].getAbsolutePath())) //Ignore Files in .checksumIgnore file
+			{
+			if (listOfFiles[i].isFile() ) {
+				
+				if( !listOfFiles[i].getName().equalsIgnoreCase(".DS_Store")&& !listOfFiles[i].getName().equalsIgnoreCase("Thumbs.db") &&listOfFiles[i].getName().indexOf("~")<0)
+				{
+				totalSize += listOfFiles[i].length();
+				ConsoleUtils.messageOut(listOfFiles[i].getName()+":"+listOfFiles[i].length());
+				}
+
+			} else if (listOfFiles[i].isDirectory()) {
+				folderSize=getTotalSize(listOfFiles[i].getPath(),ignoreList);
+				totalSize +=folderSize;
+				ConsoleUtils.messageOut(listOfFiles[i].getAbsolutePath()+" :"+folderSize);
+					
+			}
+			}
+			else
+			{
+				ConsoleUtils.messageOut("Ignoring "+listOfFiles[i]);
+			}
+		}
+		
+		return totalSize;
+	}
+
+	private static boolean isChecksumValid(String tdcHomePath) {
+		boolean checksumValid = true;
+		String propertiesSizeString;
+		String os;
+		String type;
+		String propertiesIdentifier="tdc.";
+		
+		if(isMacOS())
+		{
+			os="mac";
+			
+		}
+		else if(isLinux())
+		{
+			os="linux";
+		}
+		else
+		{
+			os="win";
+		}
+		
+		type=ResourceBundleUtils.getInstallerTypeString("tdc.type");
+		
+		propertiesSizeString=ResourceBundleUtils.getChecksumString("tdc."+type+"."+os+".size");
+		
+		
+		ArrayList<String> ignoreList=getIgnoreList();
+		if(ignoreList==null ||ignoreList.size()==0)
+		{
+			ConsoleUtils.messageOut("ignore list file is missing");
+			return false;
+		}
+		if(propertiesSizeString==null || propertiesSizeString.trim().length()==0)
+		{
+			ConsoleUtils.messageOut("checksum.properties file is missing");
+			return false;
+		}
+		long propertiesSize=Long.parseLong(propertiesSizeString);
+		long actualSize=getTotalSize(tdcHomePath, ignoreList);
+		ConsoleUtils.messageOut("Measured Size :"+actualSize);
+		ConsoleUtils.messageOut("Read Size :"+propertiesSizeString);
+		
+		if(propertiesSize!=actualSize)
+		{
+			checksumValid=false;
+		}
+		return checksumValid;
+	}
 	/**
 	 * @param tdcHome The location of the test delivery client's home folder. 
 	 * @throws BootstrapException If the client configuration file could not be retrieved.
@@ -290,10 +405,10 @@ public class Main {
             ConsoleUtils.messageOut("Done with zip entries.");
 		} catch( IOException ioe ) {
 			ioe.printStackTrace(); // TDC should continue even without update if error comes
-			//throw new BootstrapException( ResourceBundleUtils.getString("bootstrap.main.error.clientConfigIOException") );
+			//throw new BootstrapException( ResourceBundleUtils.getString("bootstrap.main.error.upgradeFailed") );
 		} catch (Exception e) {
 			e.printStackTrace();
-			//throw new BootstrapException( ResourceBundleUtils.getString("bootstrap.main.error.clientConfigIOException") );
+			//throw new BootstrapException( ResourceBundleUtils.getString("bootstrap.main.error.upgradeFailed") );
 		}
 	}
 	
@@ -374,6 +489,7 @@ public class Main {
 		int exitCode = -1;
 		boolean macOS = isMacOS();
 		boolean linux = isLinux();
+		
 		clearClipBoard();
 		// Use a socket to check if the application is already running or not.
 		ConsoleUtils.messageOut("Starting...");
@@ -383,17 +499,18 @@ public class Main {
 		try {
 			jettyPort = 12345;
 			startsocket = new ServerSocket(jettyPort, 1);
-			System.out.println("Using jetty port " + jettyPort);
+			ConsoleUtils.messageOut("Using jetty port " + jettyPort);
 		} catch( Exception e ) {
 			jettyPort = 0;
 		}
 		try {
 			stopPort = 12355;
 			stopsocket = new ServerSocket(stopPort, 1);
-			System.out.println("Using stop port " + stopPort);
+			ConsoleUtils.messageOut("Using stop port " + stopPort);
 		} catch( Exception e ) {
 			stopPort = 0;
 		}
+		
 		
 		boolean allowMulti = !"false".equalsIgnoreCase(ResourceBundleUtils.getString("bootstrap.main.allowmulti"));
 		if(allowMulti && (jettyPort == 0 || stopPort == 0)) {
@@ -403,7 +520,7 @@ public class Main {
 					jettyPort = 12345 + ((int) ((Math.random() + 1.0) * 250));
 					startsocket = new ServerSocket(jettyPort, 1);
 					//startsocket.close();
-					System.out.println("Using jetty port " + jettyPort);
+					ConsoleUtils.messageOut("Using jetty port " + jettyPort);
 					i = 25;
 				} catch( Exception e ) {
 					jettyPort = 0;
@@ -415,7 +532,7 @@ public class Main {
 					stopPort = 12345 + ((int) ((Math.random() + 1.0) * 250));
 					stopsocket = new ServerSocket(stopPort, 1);
 					//stopsocket.close();
-					System.out.println("Using stop port " + stopPort);
+					ConsoleUtils.messageOut("Using stop port " + stopPort);
 					i = 25;
 				} catch( Exception e ) {
 					stopPort = 0;
@@ -436,6 +553,10 @@ public class Main {
 			Main.verifyEnvironment();			
 			tdcHome = Main.getTdcHome();
 			ConsoleUtils.messageOut(" Using " + tdcHome + " for tdc.home folder.");
+			
+			
+			
+			
 		} catch( BootstrapException be ) {
 			ConsoleUtils.messageErr("An exception has occurred.", be);
 			SimpleMessageDialog.showErrorDialog(be.getMessage());
@@ -469,6 +590,18 @@ public class Main {
 	    			System.exit(exitCode);
 	            }
             }
+            Boolean checksumValid;
+			ArrayList<String> ignoreFilesList=getIgnoreList();
+			if(productType.equalsIgnoreCase("ISTEP")||productType.equalsIgnoreCase("OKLAHOMA"))
+			{
+			checksumValid=isChecksumValid(TDC_HOME);
+			ConsoleUtils.messageOut("isChecksumValid "+checksumValid);
+			if(!checksumValid)
+			{
+			throw new BootstrapException(ResourceBundleUtils.getString("bootstrap.main.error.upgradeFailed"));
+			}
+			
+			}
 		} catch( BootstrapException be ) {
 			ConsoleUtils.messageErr("An exception has occurred.", be);
 			if (linux) splashWindow.hide();
@@ -621,7 +754,6 @@ public class Main {
 					try {
 						Runtime.getRuntime().exec("taskbarshow.exe", null, new File(tdcHome.replaceAll(" ", "\\ ")));
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				
