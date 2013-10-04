@@ -317,6 +317,7 @@
 			dsitem.setAttribute('src', base + '/ContentServlet.do');        	
         </handler>
 		<method name="processItemResponse">
+		    gItemNumber.setAttribute('visible',true);
             this.setAttribute('currentCrId', this.MAX_CR_ID);
 		  </method>
 

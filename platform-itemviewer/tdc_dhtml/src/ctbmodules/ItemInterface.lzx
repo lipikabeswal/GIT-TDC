@@ -29,10 +29,9 @@
                             <!--<text datapath="dssubtest:/subtest/sco/@title"
                                   resize="true"/>-->
                             <view fontstyle="bold"
-                                  
+                                  visible="false"
                                   id="gItemNumber">
                                 <attribute name="theme" value="false"/>
-                                
                                 
                                 <simplelayout axis="x" spacing="3"/>
                                 <text id= "QuestTxt" text="Question" visible= "false">
@@ -57,7 +56,6 @@
                                 		var textWidth = this.getTextWidth();
                                 		this.setAttribute('width', textWidth + 1);
 										QuestTxt.setAttribute("visible",true);
-                                		//console.log("*****************ontext**************",this.text);
                                 	</handler>
                                </text>
                             </view>
