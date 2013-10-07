@@ -518,6 +518,7 @@
 		<attribute name="isManipMouseDown" value="false" type="boolean" />
 		<attribute name="isMousedownOnManip"/>
 		<attribute name="zoomClicked" type="boolean" value="false"/>
+		<attribute name="stopTestCalled" type="boolean" value="false"/>
 		<!--
 			============================================================
 			Datapointers
@@ -3439,6 +3440,7 @@
 			}
 			gTooltip.hideTooltip();
 			restoreCurrentCursor();
+			gController.setAttribute('stopTestCalled',false);
         </method>
 
 		<method name="continueTest">
@@ -3452,6 +3454,7 @@
 
 		<method name="stopTest">
 			Debug.write("STOP test button");
+			gController.setAttribute('stopTestCalled',true);
 		    var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
         	if(itemnode != null){
 					curItemId = itemnode.getAttr( 'eid' );
@@ -3995,7 +3998,8 @@ Debug.write("############ loadItem ############");
 //Debug.write("setManipulativeSelState....",which, value);
             var dn;
             if(which == 'ti_scientific_calculator') {
-				gCommunicator.showOkCalculator("TI30");
+                if(!this.stopTestCalled) // Change to prevent TI Calculator to appear in Progress Screen.
+					gCommunicator.showOkCalculator("TI30");
             }
             else if (which =='ti_scientific_graphic_calculator') {
 				gCommunicator.showOkCalculator("TI84");
