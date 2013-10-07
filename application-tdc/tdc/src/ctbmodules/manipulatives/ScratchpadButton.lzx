@@ -44,6 +44,7 @@
         ]]></method>
 
         <method event="onmouseover"><![CDATA[
+        	gController.setAttribute("manipSelected",this);
             if (!this.isselected && this.isenabled) this.setResourceNumber (2); 
             LzTimer.addTimer (tooltipdel, 500);
         ]]></method>

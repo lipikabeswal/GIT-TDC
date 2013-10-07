@@ -51,6 +51,8 @@
         LzModeManager.makeModal(this);
         resetControls();
         gHotKeys.disableKeys();
+        gTooltip.hideTooltip();
+        gController.manipulativeSelected();
         gController.removeTrackTimer();
     </method>
 

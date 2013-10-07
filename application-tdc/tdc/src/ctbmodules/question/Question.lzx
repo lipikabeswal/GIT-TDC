@@ -28,7 +28,9 @@
 		
         <method event="ondata" args="data"><![CDATA[
         	//Clearing Masking Tool states
-        	 gController.clearAll();
+        	 if(!gController.zoomClicked){
+        		 gController.clearAll();
+        	 }
         	 //gManipulativeBar.globals.maskingAnswer.setup();
             if (data) {
             	this.setAttribute("directionsHeight", 0);

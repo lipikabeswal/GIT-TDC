@@ -31,6 +31,7 @@
         <attribute name="scratchpadJustLostFocus" value="false" />
         
         <handler name="onmousedown">
+        	gController.setAttribute("isMousedownOnManip",this);
         	this.bringToFront();
         	this.sp.inp.setSelectable(false);
             LzCursor.setCursorGlobal ('grabbing_cursor');

@@ -516,6 +516,8 @@
 		
 		<attribute name="isCatStop" value="false" type="boolean" />
 		<attribute name="isManipMouseDown" value="false" type="boolean" />
+		<attribute name="isMousedownOnManip"/>
+		<attribute name="zoomClicked" type="boolean" value="false"/>
 		<!--
 			============================================================
 			Datapointers
@@ -570,7 +572,8 @@
 		<attribute name="isHandlerInactive" type="boolean" value="false" />
 		<attribute name="timerInterval" type="number" value="1200000" />
 		
-        <attribute name="textHistory" value="$once{new TextFieldHistory()}" type="expression" />		
+        <attribute name="textHistory" value="$once{new TextFieldHistory()}" type="expression" />
+        <attribute name="manipSelected"/> 	
 			 
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -2740,6 +2743,7 @@
 			this.setAttribute('isaudio',false);
 			resetRecorder();
 			gTooltip.hideTooltip();
+			gController.setAttribute('zoomClicked',false);
 		]]></method>
 
 		<method name="resetRecorder"><![CDATA[
@@ -3161,6 +3165,7 @@
 		
 			
 		<method name="pauseTest">
+			this.doArrowMouseup();
             if ( pausable == 'true' ) {
             	gReadableText.stopReading();
                 freezeUI();
@@ -3205,6 +3210,7 @@
 			gPauseTimerScreen.setVisible(true);
 			gRevisitFalsePopup.hide();
 			gHotKeys.disableKeys();
+			gTooltip.hideTooltip();
 			if(this.isManipMouseDown){
 				gMaskingRuler.onmouseup.sendEvent();
 				gMagnifyingGlass.onmouseup.sendEvent();
@@ -3222,6 +3228,7 @@
 			else{	                	
 	              	restoreCurrentCursor();
 	        }
+	        checkManipSelected();
 		</method>
 
 		<method name="pausedContinue" args="pw">
@@ -3243,6 +3250,7 @@
 			gScreens.resetTextFieldColor();
             startQuestion();
 			recalltrackMouseMove();
+			manipulativeSelected();
             unlockUI();
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
@@ -3261,6 +3269,8 @@
  		]]></method>
 
 		<method name="finishTest">
+			checkManipSelected();
+			this.doArrowMouseup();
         	gReadableText.stopReading();
 			setState(OK_CALCULATOR_STATE);
         	gCommunicator.closeOkCalculator();            
@@ -3414,7 +3424,7 @@
 		]]></method>
 
 		<method name="resumeTest">
-			
+			manipulativeSelected();
             LzCursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
 			recalltrackMouseMove();
@@ -5487,6 +5497,28 @@ Debug.write("out of time 1 ans" + isAnswered);
 	   	var testScoreData = gController.testDetails.xpathQuery('test_data');
 		dstest.setChildNodes(new Array(testScoreData));
 		getScoreSheet();
+	</method>
+	
+	<method name="manipulativeSelected"><![CDATA[
+			if(this.manipSelected){
+				if(this.manipSelected.data != 'sel') {
+					this.manipSelected.setAttribute("frame",1);
+				}
+			}
+		]]></method>
+		
+	<method name="checkManipSelected">
+		Debug.write("isMousedownOnManip*****",this.isMousedownOnManip,this.isMousedownOnManip.data);
+		if(this.isMousedownOnManip) {
+			this.isMousedownOnManip.onmouseup.sendEvent();
+		}
+	</method>
+	
+	<method name="doArrowMouseup">
+		gMorefastright.onmouseup.sendEvent();
+		gMoreright.onmouseup.sendEvent();
+		gMorefastleft.onmouseup.sendEvent();
+		gMoreleft.onmouseup.sendEvent();
 	</method>
 
 	</node>

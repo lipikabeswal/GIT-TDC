@@ -55,6 +55,7 @@
 
 				<method event="onmouseover">
 						this.setResourceNumber(2);
+						gController.setAttribute("manipSelected",this);
 						LzTimer.addTimer (tooltipdel, 500);
 					</method>
 
@@ -111,6 +112,7 @@
 				<attribute name="isSelected" value="false" />
 				<method event="onmouseover">
 						this.setResourceNumber(2);
+						gController.setAttribute("manipSelected",this);
 						if(!gMaskingAnswer.visible)
 							LzTimer.addTimer (tooltipdel, 500);
 					</method>
@@ -204,6 +206,7 @@
 				<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
 		
 				<method event="onmouseover">
+					gController.setAttribute("manipSelected",this);
 					LzTimer.addTimer (tooltipdel, 500);
 				</method>
 		                
@@ -231,6 +234,7 @@
 				<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}"/>
 		
 				<method event="onmouseover">
+					gController.setAttribute("manipSelected",this);
 					LzTimer.addTimer (tooltipdel, 500);
 				</method>
 		                
@@ -281,6 +285,7 @@
 				    </method> 
 	
 					<method name="mouseover">
+						gController.setAttribute("manipSelected",this);
 						LzTimer.addTimer (tooltipdel, 500);
 					</method>
 			                
