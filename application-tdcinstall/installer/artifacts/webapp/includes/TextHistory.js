@@ -21,7 +21,7 @@ var TextHistory = (function() {
             status.pointer = hist.pointer;
             status.canundo = _canUndo( hist );
             status.canredo = _canRedo( hist );
-
+            status.queueLength = hist.queue.length;
             // Pass the current history status into the OpenLaszlo app
             lzSetCanvasAttribute( "texthistoryupdate", JSON.stringify( status ) );
             return;
@@ -61,6 +61,7 @@ var TextHistory = (function() {
      * @param {string} current The current version of the text.
      */
     function _createDiff( textId, caretIndex, current ) {
+        var addToHistory = true;
         // console.log("_createDiff: textId=%s, caretIndex=%s, current=%s", textId, caretIndex, current );
         if ( ! history[ textId ] ) {
             console.error( "TextHistory._createDiff: Cannot create diff, no history found for text with id=%s", textId );
@@ -71,8 +72,20 @@ var TextHistory = (function() {
             console.error( "history[ '%s']=", textId, history[ textId ] );
             return;
         }
-        var diff = matcher.diff_main( origText, current );
-        _addHistoryEntry( textId, caretIndex, diff );
+        // Compare with the version the pointer is currently pointing to.
+        // Only create
+        var hist = history[ textId ];
+        var patches = matcher.patch_make( hist.queue[ hist.pointer ].diff );
+        var storedVersion = matcher.patch_apply( patches, hist.start )[ 0 ];
+        addToHistory = storedVersion != current;
+
+        if ( addToHistory ) {
+            _addHistoryEntry( textId, caretIndex, matcher.diff_main( origText, current ) );
+        } else {
+            // Make sure that history gets unlocked even if now entry has been added.
+            lzSetCanvasAttribute( "unlocktexthistory", "true" );
+        }
+
     }
 
     /**
@@ -82,7 +95,7 @@ var TextHistory = (function() {
      * @param {object} diff The diff object created by the diff_match_patch.diff_main() function.
      */
     function _addHistoryEntry( textId, caretIndex, diff ) {
-        // console.error( "_addHistoryEntry: textId=%s, caretIndex=%s", textId, caretIndex  );
+        // console.log( "_addHistoryEntry: textId=%s, caretIndex=%s", textId, caretIndex  );
         var hist = history[ textId ];
         if (textId && diff) {
             if ( hist.pointer < hist.queue.length - 1 ) {
@@ -101,16 +114,16 @@ var TextHistory = (function() {
             hist.queue.push( {diff: diff, caretIndex: caretIndex} );
             if ( hist.pointer < maxItems - 1 ) {
                hist.pointer++;
-           }
-           var status = {};
-           status.textId = textId;
-           status.pointer = hist.pointer;
-           status.canundo = _canUndo( hist );
-           status.canredo = _canRedo( hist );
+            }
+            var status = {};
+            status.textId = textId;
+            status.pointer = hist.pointer;
+            status.canundo = _canUndo( hist );
+            status.canredo = _canRedo( hist );
 
-           // Pass the current history status into the OpenLaszlo app
-           lzSetCanvasAttribute( "texthistoryupdate", JSON.stringify( status ) );
-           return;
+            // Pass the current history status into the OpenLaszlo app
+            lzSetCanvasAttribute( "texthistoryupdate", JSON.stringify( status ) );
+            return;
         }
         // Make sure that history gets unlocked even if now entry has been added.
         lzSetCanvasAttribute( "unlocktexthistory", "true" );
@@ -172,12 +185,13 @@ var TextHistory = (function() {
      * @param {integer} textId The id of the text component.
      */
     function _redo( textId ) {
-        // console.log( "_redo: textId=%s, current=%s", textId );
+        // console.log( "_redo: textId=%s", textId );
         var hist = history[ textId ];
         if ( ! _canRedo( hist ) ) return;
         var newText = null;
 
         if ( hist ) {
+
             var histEntry = null;
             if ( hist.pointer < hist.queue.length ) {
                 histEntry = hist.queue[ hist.pointer + 1 ];
@@ -213,6 +227,8 @@ var TextHistory = (function() {
         status.canundo = _canUndo( hist );
         status.canredo = _canRedo( hist );
         status.pointer = hist.pointer;
+        // queue.length only for debugging, value not used by OL app
+        status.queueLength = hist.queue.length;
         return JSON.stringify( status );
     }
 
@@ -291,10 +307,6 @@ var TextHistory = (function() {
         },
         clearHistory : function () {
             _clearHistory();
-        },
-        dumpHistory : function() {
-            _dumpHistory();
         }
-
     };
 })();
