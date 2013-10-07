@@ -54,6 +54,7 @@
         gTooltip.hideTooltip();
         gController.manipulativeSelected();
         gController.removeTrackTimer();
+        if(gScratchpad.visible) gScratchpad.onmouseup.sendEvent();
     </method>
 
     <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">
