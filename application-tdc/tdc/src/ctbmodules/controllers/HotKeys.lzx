@@ -152,8 +152,10 @@
 		    switch ( k ) {
 	        	case  6:
                     this.exitPopups(); 
-					if(gItemInterface.visible)
-        			gController.finishTestShortcut();      // CTRL F ?
+					if(gItemInterface.visible){
+						gController.setAttribute('stopTestCalled',true); 
+	        			gController.finishTestShortcut();      // CTRL F ?
+        			}
                     break;
 				case 10: 
 					if(!gController.fwdOnly){
@@ -180,8 +182,10 @@
                     break;
 				case 19: 
                     this.exitPopups();
-					if(gItemInterface.visible)
-                    gController.finishTest(); 
+                   	if(gItemInterface.visible){
+	                   	gController.setAttribute('stopTestCalled',true);
+	                    gController.finishTest(); 
+                    }
                     break;
 				case 21: 
                     this.exitPopups();
@@ -365,6 +369,7 @@
 			if(gItemInterface.visible) {        
 	        	LzFocus.clearFocus();
 	            this.exitPopups();
+	            gController.setAttribute('stopTestCalled',true);
 	        	if(gItemInterface.getAttribute('visible') == true || gTutorial.getAttribute('visible') == true)
 	        		gController.finishTest();
 			}              
@@ -373,6 +378,7 @@
         	if(gItemInterface.visible) { 
 	        	LzFocus.clearFocus();
 	            this.exitPopups(); 
+	            gController.setAttribute('stopTestCalled',true);
 	        	gController.finishTestShortcut();
 			}      
         </method>
