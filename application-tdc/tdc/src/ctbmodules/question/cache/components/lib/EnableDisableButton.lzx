@@ -31,20 +31,21 @@
             <handler name="oninit">
                 this.globalMousedownDel = new LzDelegate( this, 'trackClick' );
                 this.globalMousedownDel.register( LzGlobalMouse, 'onmousedown' );
-                this.onenabled.sendEvent();
+                this.onenabled.sendEvent()
             </handler>
 
             <!--- Disables and enables the delegate for mousedown depending
                   on enable attribute value.
                   @keywords private
             -->
-            <handler name="onenabled">
-                if ( enabled ) {
+            <handler name="onenabled"><![CDATA[
+                if ( this.globalMousedownDel && enabled ) {
                     this.globalMousedownDel.enable();
 
-                } else {
+                } else if ( this.globalMousedownDel ) {
                     this.globalMousedownDel.disable();
                 }
+            ]]>
             </handler>
 
             <!--- Checks if the mousedown happened with the mouse over the button area

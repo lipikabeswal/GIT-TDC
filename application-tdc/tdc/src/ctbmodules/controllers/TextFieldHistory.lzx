@@ -34,10 +34,19 @@
         }
     </handler>
 
-    <!-- Class for managing the history data inside the application. The original string with
-             diffs are stored in the TextHistory class in the HTML/JS file. To avoid to many
-             calls between Flash and JS, the history metadata is kept inside the OpenLaszlo app.
-          -->
+
+    <!-- ===============
+         ==
+         == TextFieldHistory
+         ==
+         ==  Class for managing the history data inside the application. The original
+         ==  strings with diffs are stored in the TextHistory class in the HTML/JS file.
+         ==  See the following classes/files as well:
+         ==    * scrollrichedittext.lzx: Tracks delete/backspace and text selection for history.
+         ==    * CachableMultilineAnswer.lzx: Calls initialization methods and contains buttons.
+         ==
+         =============== -->
+
     <class name="TextFieldHistory">
 
         <!--- Object with history entries for multiple textfields. Textfied id is used as index.
@@ -64,6 +73,9 @@
         <!-- Reference to active textfield -->
         <attribute name="activeinput" value="null" type="expression" />
 
+        <!-- Reference to previously active textfield -->
+        <attribute name="previnput" value="null" type="expression" />
+
         <!--- Object with history entries for multiple textfields. Textfied id is used as index.
               @type Object
               @access private
@@ -80,18 +92,6 @@
               @type boolean
               @access public
         -->
-        <attribute name="canundo" value="false" type="boolean" />
-
-        <!--- Set to true during transactions.
-              @type boolean
-              @access public
-        -->
-        <attribute name="canredo" value="false" type="boolean" />
-
-        <!--- Set to true, if there are changes which the user user can undo.
-              @type boolean
-              @access public
-        -->
         <attribute name="locked" value="false" type="boolean" />
 
         <!--- Used for measuring how long the history has been locked.
@@ -100,26 +100,18 @@
           -->
         <attribute name="locktime" value="0" type="number" />
 
-        <!--- Counter for setting unique IDs for textfields.
-              @type boolean
-              @access private
-        -->
-        <attribute name="idcounter" value="1" type="number" />
-
         <!--- Textcursor position after redo/undo.
               @type number
               @access private
         -->
         <attribute name="newCaretIndex" value="0" type="number" />
 
-        <attribute name="pasteInProgress" value="false" type="boolean" />
-
         <handler name="onactiveinput"><![CDATA[
-            // Debug.write( "TextFieldHistory#onactiveinput: activeinput=" + activeinput );
-            if ( activeinput != null ) {
-                var jsExpr = 'TextHistory.setFocus( "' + activeinput.id + '" );';
+            // Debug.write( "TextFieldHistory#onactiveinput: activeinput=" + activeinput.getText() );
+            if ( activeinput != null && this.previnput !== this.activeinput ) {
+                var jsExpr = 'TextHistory.setFocus( "' + activeinput.id + '");';
                 this.callToJS( jsExpr );
-                // Store the previous text value so we can compare with it
+                this.previnput = this.activeinput;
                 this.previousvalue = activeinput.getText();
             }
         ]]>
@@ -135,7 +127,6 @@
             if (down.length > 1) {
                 // Debug.write( "onkeydown: downKeysArray=" + JSON.stringify( down ));
                 if ( down[ 0 ] == 17 && Number( down[ 1 ] ) == 86 ) {
-                    pasteInProgress = true;
                     if ($debug) Debug.write( "Paste / Control-v detected: calling checkForChange() in 200ms" );
                     LzTimer.resetTimer( delayedCheckForChangeDel, 200 );
                     LzKeys.downKeysArray = [];
@@ -170,8 +161,7 @@
             // property will be set to true.
             if ( typeof theText == "undefined" || theText.id == null || theText.historycleared == true ) {
                 if ( theText.id == null ) {
-                    theText.setAttribute( 'id', "histtext" + idcounter);
-                    this.idcounter++;
+                    theText.setAttribute( 'id', theText.classroot.widget_id );
                 }
                 theText.historycleared = false;
                 this.createHistory( theText.id );
@@ -179,45 +169,6 @@
             }
         </method>
 
-
-        <!--- Checks if a the text has changed and creates a new history entry if needed.
-              @access public
-        -->
-        <method name="checkForChange">
-            // Debug.write( "TextFieldHistory.checkForChange(): activeinput" + activeinput );
-            var jsonStr = null;
-            var jsExp = null;
-            var caretIndex = 0;
-            if ( activeinput != null ) {
-                // Debug.write("activeinput.getText(): |" + activeinput.getText() + "|" );
-                // Debug.write("this.previousvalue:    |" + this.previousvalue + "|" );
-                if ( activeinput.getText() != this.previousvalue ) {
-                    this.previousvalue = activeinput.getText();
-                    if ( typeof this.activeinput._field.caretindex != 'undefined' ) {
-                        caretIndex = this.activeinput._field.caretindex;
-                    } else {
-                        caretIndex = this.activeinput.caretindex;
-                    }
-                    jsonStr = JSON.stringify( activeinput.getText() )
-                    jsExpr = 'TextHistory.createDiff( "' + activeinput.id + '", ' + caretIndex + ', ' + jsonStr + ');'
-                    this.callToJS( jsExpr );
-                } else {
-                    jsExpr = 'TextHistory.setFocus( "' + activeinput.id + '" );';
-                    this.callToJS( jsExpr );
-                }
-            }
-        </method>
-
-        <!--- Callback method for the checkForChange method. Sets the status of the undo/redo
-              button, and is used to show the duration of the total action.
-              @access private
-              @parameter Object status: Status object, e.g. {"canredo":false,"canundo":true,"pointer":1,"textId":"t1"}.
-        -->
-        <method name="checkForChangeCallback" args="status">
-            this.setAttribute( "canundo", status.canundo );
-            this.setAttribute( "canredo", status.canredo );
-            this._showDuration();
-        </method>
 
         <!--- Creates a history for a text field.
               @access private
@@ -242,7 +193,6 @@
                   @access public
             -->
         <method name="clearHistory"><![CDATA[
-            // Debug.error("clearHistory");
             for (var p in history) {
                 var text = global[ p ];
                 if ( text ) {
@@ -256,15 +206,67 @@
         ]]>
         </method>
 
-        <!--- Undo a change for the text with textId.
-                  @access public
-            -->
+        <!--- Sets the currently active textfield.
+              @access private
+              @parameter Object text: Instance of _richinternalinputtext.
+        -->
+        <method name="setActiveInput" args="text"><![CDATA[
+             // Debug.write( "setActiveInput: text=" + text );
+             if ( this.activeinput !== text ) {
+                  if ( this.activeinput != null ) {
+                      // With multipl CR texts, there might be unsaved content
+                      // for the currently activeinput.
+                      this.checkForChange();
+                  }
+                 this.setAttribute( "activeinput", text );
+             }
+        ]]>
+        </method>
+
+
+        <!--- Checks if a the text has changed and creates a new history entry if needed.
+              @access public
+        -->
+        <method name="checkForChange">
+            // Debug.write( "TextFieldHistory.checkForChange(): activeinput" + activeinput );
+            var jsonStr = null;
+            var jsExpr = null;
+            var caretIndex = 0;
+            if ( activeinput != null ) {
+                // Debug.write("activeinput.getText(): |" + activeinput.getText() + "|" );
+                // Debug.write("this.previousvalue:    |" + this.previousvalue + "|" );
+                if ( activeinput.getText() != this.previousvalue ) {
+                    this.previousvalue = activeinput.getText();
+                    caretIndex = this.getCaretIndex();
+                    jsonStr = JSON.stringify( activeinput.getText() )
+                    jsExpr = 'TextHistory.createDiff( "' + activeinput.id + '", ' + caretIndex + ', ' + jsonStr + ');'
+                    this.callToJS( jsExpr );
+                } else if ( previnput !== activeinput ) {
+                    jsExpr = 'TextHistory.setFocus( "' + activeinput.id + '", "checkForChange" );';
+                    this.previnput = this.activeinput;
+                    this.callToJS( jsExpr );
+                }
+            }
+        </method>
+
+        <!--- Callback method for the checkForChange method. Sets the status of the undo/redo
+              button, and is used to show the duration of the total action.
+              @access private
+              @parameter Object status: Status object, e.g. {"canredo":false,"canundo":true,"pointer":1,"textId":"t1"}.
+        -->
+        <method name="checkForChangeCallback" args="status">
+            this.setButtonStatus( status );
+            if ( $debug ) this._showDuration();
+        </method>
+
+        <!---  a history transaction.
+              @access public
+          -->
         <method name="undo"><![CDATA[
             if ( activeinput != null ) {
-                var caretIndex = this.activeinput._field.caretindex;
+                var caretIndex = this.getCaretIndex();
                 var jsonStr = JSON.stringify( activeinput.getText() );
                 var js = 'TextHistory.undo("' + activeinput.id + '", "' + caretIndex + '", ' + jsonStr + ' );'
-                // Debug.write(js);
                 this.callToJS( js );
             }
         ]]>
@@ -281,16 +283,16 @@
                 this.newCaretIndex = status.caretIndex;
                 text.setText( status.text );
                 LzTimer.resetTimer( delayedSetTextcursor, 200 );
-                this.setAttribute( "canundo", status.canundo );
-                this.setAttribute( "canredo", status.canredo );
+                this.setButtonStatus( status );
             }
         ]]>
         </method>
 
-        <!--- Redo a change for the text with textId.
+        <!--- Redo a history transaction.
               @access public
           -->
         <method name="redo"><![CDATA[
+            // Debug.write( "TextFieldHistory.redo: activeinput.id=" + activeinput.id );
             if ( activeinput != null ) {
                 this.callToJS( 'TextHistory.redo("' + activeinput.id + '");' );
             }
@@ -309,8 +311,7 @@
                 this.newCaretIndex = status.caretIndex;
                 text.setText( status.text );
                 LzTimer.resetTimer( delayedSetTextcursor, 200 );
-                this.setAttribute( "canundo", status.canundo );
-                this.setAttribute( "canredo", status.canredo );
+                this.setButtonStatus( status );
             }
         ]]>
         </method>
@@ -349,6 +350,32 @@
          ]]>
          </method>
 
+         <!--- Sets the undo/redo properties on the CachableMultilineAnswer class.
+               @access private
+               @parameter Object status: Status object from JS callback methods.
+         -->
+         <method name="setButtonStatus" args="status"><![CDATA[
+            // answer is an instance of CachableMultilineAnswer
+            var text = global[ status.textId ];
+            var answer = text.classroot;
+            answer.setAttribute( "canundo", status.canundo );
+            answer.setAttribute( "canredo", status.canredo );
+         ]]>
+         </method>
+
+         <!--- Returns the caret index value for the textfield
+               @access private
+               @return {number} Caret index position.
+         -->
+         <method name="getCaretIndex"><![CDATA[
+             var caretIndex = 0;
+             if ( typeof this.activeinput._field.caretindex != 'undefined' ) {
+                 caretIndex = this.activeinput._field.caretindex;
+             } else {
+                 caretIndex = this.activeinput.caretindex;
+             }
+             return caretIndex;
+         ]]></method>
 
     </class>
 

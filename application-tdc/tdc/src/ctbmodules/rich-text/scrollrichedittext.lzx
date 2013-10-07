@@ -60,10 +60,10 @@
                                                  { axis: "y",
                                                    scrollattr: "pos",
                                                    scrolltarget: this.inp,
-                                                   init: vsinit, 
+                                                   init: vsinit,
                                                    disabledbgcolor: 12240085});
-				
-				// no need for setting here, attribute moved to constructor	
+
+                // no need for setting here, attribute moved to constructor
                 //this._vs.setAttribute("disabledbgcolor", 12240085);
             }
         </method>
@@ -74,7 +74,7 @@
         </method>
 
         <_richinternalinputtext name="inp" x="${parent.border}"
-            y="1" enabled="${gPleaseWaitPopup.visible == false}"
+            y="1"
             height="${parent.height-parent.border*2}"
             width="${parent.width - parent.vscrollwidth - parent.border*2 }"
             pattern="[A-Za-z0-9!@;:#$%\^*()_\-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[]\\|`~ ]*">
@@ -90,59 +90,59 @@
 
             <event name="onpos" />
             <attribute name="pos" value="0" setter="this.setPos(pos)"/>
-			<attribute name="isCtrl" type="boolean" value="false"/>
-			
-			<!-- Used for the enter key bug with ontext event not being sent all the times when enter is pressed. -->
-	        <attribute name="enterpressed" value="false" type="boolean" />
-	
-	        <!-- Delegate used for detecting changes to the textfield through enter key presses. -->
-	        <attribute name="enterKeyDel" value="$once{new LzDelegate( this, 'processEnterDelayed' )}" />        
-           
-	        <!--- Index position of caret/cursor in text. Value used by 
-	              TextFieldHistory for cursor positioning -->
-	        <attribute name="caretindex" type="string" value="" />            
+            <attribute name="isCtrl" type="boolean" value="false"/>
 
-	        <!--- Action for the last keypresses; used by the history -->
-	        <attribute name="keyaction" type="string" value="" />	        
-	        
-        	<!--- Helper function for checking if the text has changed when the enter key
+            <!-- Used for the enter key bug with ontext event not being sent all the times when enter is pressed. -->
+            <attribute name="enterpressed" value="false" type="boolean" />
+
+            <!-- Delegate used for detecting changes to the textfield through enter key presses. -->
+            <attribute name="enterKeyDel" value="$once{new LzDelegate( this, 'processEnterDelayed' )}" />
+
+            <!--- Index position of caret/cursor in text. Value used by
+                  TextFieldHistory for cursor positioning -->
+            <attribute name="caretindex" type="string" value="" />
+
+            <!--- Action for the last keypresses; used by the history -->
+            <attribute name="keyaction" type="string" value="" />
+
+            <!--- Helper function for checking if the text has changed when the enter key
              was pressed. Workaround for the bug with enter keys and ontext events
              not being sent when enter is pressed on a line with content in it.
              @access private
-	       -->
-	        <method name="processEnterDelayed">
-	        	Debug.write("processEnterDelayed");
-	            this.caretindex = this.getSelectionPosition();
-	            gController.textHistory.checkForChange();
-	        </method>
+           -->
+            <method name="processEnterDelayed">
+				this.keyaction = "";
+                this.caretindex = this.getSelectionPosition();
+                gController.textHistory.checkForChange();
+            </method>
 
-			<method name="init">
-		      super.init();
+            <method name="init">
+              super.init();
                 // Store a link to the enclosing rich text edit area deep in this
                 // swf sprite, so that we can do a clever fix for LPP-4396,
                 // "clicking bold moves insertion point."
                 // See the LzModeManager.rawMouseEvent handler defined in
                 // richtexteditarea.lzx to see how we use this breadcrumb.
                 //this.sprite.__LZtextclip.__LZrte = this.parent;
-				firstenter=true;
+                firstenter=true;
             </method>
 
-			<!--- Set the scroll position and update the scrollbar to match
+            <!--- Set the scroll position and update the scrollbar to match
             @param Number p: position-->
-			<method name="setPos" args="p">
-			    <![CDATA[
-					if (this.isinited) {
-						this.setScroll(Math.round(1 - (p / this.lineheight)));
-						this.pos = p;
-						if (this.onpos) this.onpos.sendEvent(p);
-			   	    }
-				]]>
-	        </method>
+            <method name="setPos" args="p">
+                <![CDATA[
+                    if (this.isinited) {
+                        this.setScroll(Math.round(1 - (p / this.lineheight)));
+                        this.pos = p;
+                        if (this.onpos) this.onpos.sendEvent(p);
+                       }
+                ]]>
+            </method>
 
             <method event="onscroll" args="s">
-		 	    <![CDATA[
-					this.setPos(Math.round(-this.lineheight * (this.scroll - 1)));
-				]]>
+                 <![CDATA[
+                    this.setPos(Math.round(-this.lineheight * (this.scroll - 1)));
+                ]]>
             </method>
             <attribute name="delayemptydel" />
 
@@ -152,98 +152,122 @@
 
             <handler name="onfocus">
             // do not select text on focus
-            	this.setSelection(0);
+                this.setSelection(0);
+                gController.textHistory.setActiveInput( classroot );
             </handler>
 
-			<handler name="onkeydown" reference="LzKeys" args="k"> <![CDATA[
-	  			if(k==17){
-	      			this.setAttribute('isCtrl', true);
-	  			}else if(isCtrl
-	           		&& (k!=67 && k!=86 && k!=88)){
-	      			this.setEnabled(false);
-	  			}
+            <handler name="onkeydown" reference="LzKeys" args="k"> <![CDATA[
+                  if(k==17){
+                      this.setAttribute('isCtrl', true);
+                  }else if(isCtrl
+                       && (k!=67 && k!=86 && k!=88)){
+                      this.setEnabled(false);
+                  }
 
-				if (k==-1){
-					this.setEnabled(true);
-				}
+                if (k==-1){
+                    this.setEnabled(true);
+                }
 
-	            // Keyboard handling for TextFieldHistory support
-	            if ( k == 13 ) {
-	                // Due to a bug where the ontext event is not
-	                // sent when pressing enter at the end of a line
-	                // with some text we need to manually add the action
-	                // to the history using the processEnterDelayed() method.
-	                LzTimer.resetTimer( enterKeyDel, 50 );
-	                lengthBeforeEnter = this.getText().length;
-	                enterpressed = true;
-	            }
-	            if ( k == 8 ) keyaction = "backspace";
-	            else if ( k == 46 ) keyaction = "delete";
-	            else if ( k == 32 ) keyaction = "space";
-	            else keyaction = '';	            
-	            if ( keyaction == "backspace" || keyaction == "delete" ) {
-	            	 Debug.error("calling checkForChange() after backspace or delete in keydown");
-	                 gController.textHistory.checkForChange();
-	            }
-
-			 ]]>
-			</handler>
-			
-			<handler name="ontext">
-            	this.caretindex = this.getSelectionPosition();			
-			  	if(this.getTextHeight() > this.height) {
-					if(this.isCtrl){
-			  			this.setScroll(this.getMaxScroll());
+                // Keyboard handling for TextFieldHistory support
+                if ( gController.textHistory.activeinput == classroot ) {
+	                if ( k == 13 ) {
+	                    // Due to a bug where the ontext event is not
+	                    // sent when pressing enter at the end of a line
+	                    // with some text we need to manually add the action
+	                    // to the history using the processEnterDelayed() method.
+	                    LzTimer.resetTimer( enterKeyDel, 50 );
+	                    lengthBeforeEnter = this.getText().length;
+	                    enterpressed = true;
+						keyaction = "enter";
+	                } else if ( k == 8 ) {
+						keyaction = "backspace";
+                    } else if ( k == 46 ) {
+						keyaction = "delete";
+                    } else if ( k == 32 ) {
+						keyaction = "space";
 					}
-			  	}
-	            if ( this.keyaction != "" ) {
-	            	Debug.error("calling checkForChange() in ontext: keyaction=" + keyaction);	            
-	                gController.textHistory.checkForChange();
-	            }
-		        this.keyaction = "";  
+                    if ( keyaction != "" ) {
+                         gController.textHistory.checkForChange();
+                    }
+                }
+
+             ]]>
+            </handler>
+
+            <handler name="ontext">
+                this.caretindex = this.getSelectionPosition();
+                  if(this.getTextHeight() > this.height) {
+                    if(this.isCtrl){
+                          this.setScroll(this.getMaxScroll());
+                    }
+                  }
+                if ( this.keyaction != "" ) {
+                    gController.textHistory.checkForChange();
+                }
+                this.keyaction = "";
+            </handler>
+
+            <handler name="onkeyup" reference="LzKeys" args="k"><![CDATA[
+              if(k==17){
+                  this.setEnabled(true);
+                  this.setAttribute('isCtrl', false);
+              }
+              if(k==13) {
+                  updateScrollbarPosition(); //when enter key is pressed, update scrollbar
+              }
+ 
+              // Any modified text needs to be added to the history
+              // when we have a selection for the text.
+              if ( gController.textHistory.activeinput == classroot ) {
+                    if ( Selection.getBeginIndex() != Selection.getEndIndex() ) {
+                        gController.textHistory.checkForChange();
+                    }
+              }
+            ]]></handler>
+
+			<handler name="onmouseup" reference="LzGlobalMouse">
+              // Any modified text needs to be added to the history
+              // when we have a selection for the text.		      
+              if ( gController.textHistory.activeinput == classroot ) {
+                    if ( Selection.getBeginIndex() != Selection.getEndIndex() ) {
+                        gController.textHistory.checkForChange();
+                    }
+              }
 			</handler>
-			<handler name="onkeyup" reference="LzKeys" args="k"><![CDATA[
-			  if(k==17){
-			      this.setEnabled(true);
-			      this.setAttribute('isCtrl', false);
-			  }
-			  if(k==13) {
-				  updateScrollbarPosition(); //when enter key is pressed, update scrollbar
-			  }
-			]]></handler>
-			
-	<!--
-		When there is a pageful text in text field and scrollbar is still disabled.
-		So, to move to new line, if enter key is pressed. Normally, it does not update
-		scrollbar position, so this method is called to overcome that defect.
-	-->
-			<method name="updateScrollbarPosition"><![CDATA[
-					this.setPos(Math.round(-this.lineheight * (this.scroll - 1)));
-			]]></method>
 
-			<handler name="oninit"><![CDATA[
-					this.textclip = this.__LZtextclip;
-			]]>
-			</handler>
 
-			<handler name="onfocus">
-			<![CDATA[
-					this.textColor = textclip.textColor;
-					if(this.bgcolor == 0x000000 && this.textColor == 0xffffff)
-					{
-							this.setHighlight();
-							textclip.textColor = 0x000000;
-					}
-			]]>
-			</handler>
+    <!--
+        When there is a pageful text in text field and scrollbar is still disabled.
+        So, to move to new line, if enter key is pressed. Normally, it does not update
+        scrollbar position, so this method is called to overcome that defect.
+    -->
+            <method name="updateScrollbarPosition"><![CDATA[
+                    this.setPos(Math.round(-this.lineheight * (this.scroll - 1)));
+            ]]></method>
 
-			<method name="setHighlight">
-			var color = {
-			ra: -100, rb:  0xff, ga: -100, gb: 0xff,
-			ba: -100, bb: 0xff, aa: 100, ab: 0 };
+            <handler name="oninit"><![CDATA[
+                    this.textclip = this.__LZtextclip;
+            ]]>
+            </handler>
 
-					this.setColorTransform(color);
-			</method>
+            <handler name="onfocus">
+            <![CDATA[
+                    this.textColor = textclip.textColor;
+                    if(this.bgcolor == 0x000000 && this.textColor == 0xffffff)
+                    {
+                            this.setHighlight();
+                            textclip.textColor = 0x000000;
+                    }
+            ]]>
+            </handler>
+
+            <method name="setHighlight">
+            var color = {
+            ra: -100, rb:  0xff, ga: -100, gb: 0xff,
+            ba: -100, bb: 0xff, aa: 100, ab: 0 };
+
+                    this.setColorTransform(color);
+            </method>
 
 
         </_richinternalinputtext>
