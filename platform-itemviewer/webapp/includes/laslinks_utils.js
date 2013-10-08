@@ -14,6 +14,7 @@ var autoplayStopped = false;
 
 function iframeLoaded(id, iframe){
 	if(iframe){
+	 	if((iframe.src.indexOf('asset.html') > 0 ) || (iframe.src.indexOf('video.html') > 0)){
 		if(currentLasAssetItemId) {
 			var folderName;
 			var iframeSource;
@@ -94,12 +95,13 @@ function iframeLoaded(id, iframe){
 				}
 			//restrictNavigation('lock');
 			}
+		 }	
 		}		
 	}
 	
 function setAssetStyle() {
-	 $('iframe').contents().find('#playbtn1').css('-moz-user-select','none');
-     $('iframe').contents().find('#playbtn2').css('-moz-user-select','none');
+	 jQuery('iframe').contents().find('#playbtn1').css('-moz-user-select','none');
+     jQuery('iframe').contents().find('#playbtn2').css('-moz-user-select','none');
 	
 }
 
