@@ -4002,7 +4002,8 @@ Debug.write("############ loadItem ############");
 					gCommunicator.showOkCalculator("TI30");
             }
             else if (which =='ti_scientific_graphic_calculator') {
-				gCommunicator.showOkCalculator("TI84");
+				if(!this.stopTestCalled) // Change to prevent TI Calculator to appear in Progress Screen.
+					gCommunicator.showOkCalculator("TI84");
             }
 			else {
             if (this._isGlobalManipulator (which)) {
