@@ -4,7 +4,6 @@
     <include href="CachableInputTextField.lzx"/>
     <include href="utils/layouts/wrappinglayout.lzx"/>
     <include href="../../../rich-text/inlinewrappinglayout.lzx"/>
-    <include href="lib/CustomHtmlRenderer.lzx" />
 
     <!-- ===============
          ==
@@ -177,7 +176,7 @@
            if (gController.hasFontAccommodation){
 				/*if(dataText.indexOf("<br") != -1) {
 					this.thetext.setAttribute("text",
-	                	'<label style="display:block; padding-bottom:4px;"><span style="white-space: pre-wrap; word-spacing: -0.5px; zoom:97%;">' + dataText + '</span></label>');
+	                	'<label style="display:block; padding-bottom:4px;"><span style="line-height:17px; white-space: pre-wrap; word-spacing: -0.5px; zoom:97%;">' + dataText + '</span></label>');
 				}else{*/
 					this.thetext.setAttribute("text",
 	                	'<label><span style="white-space: pre-wrap; word-spacing: -0.5px; zoom:97%;">' + dataText + '</span></label>');
@@ -188,8 +187,7 @@
 	                	'<label style="display:block; padding-bottom:2px;"><span style="line-height:16px; white-space: pre-wrap; word-spacing: -0.5px;">' + dataText + '</span></label>');
 				}else{*/
 					this.thetext.setAttribute("text",
-	                	'<label><span style="white-space: pre-wrap; word-spacing: -0.5px;">' + dataText + '</span></label>');
-				 	this.thetext.setAttribute("lineheight", "1.5");				
+	                	'<label><span style="line-height:16px; white-space: pre-wrap; word-spacing: -0.5px;">' + dataText + '</span></label>');
 				//}
 			}
 
@@ -1408,16 +1406,24 @@ parse the text string and store text and image string in an array at different i
                    //classroot.read(escape(classroot.readText));
                </handler>
            </view>
-           
 
-           <CustomHtmlRenderer name="thetext"
+           <text name="thetext" multiline="true" 
                x="${classroot.leftPadding}"
                width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
                fgcolor="${classroot.fontcolor}" 
-               fontsize="${classroot ['fontsize'] ? (classroot.fontsize == 18?17:classroot.fontsize) : 12}" >            	
+               fontsize="${classroot ['fontsize'] ? (classroot.fontsize == 18?17:classroot.fontsize) : 12}" >
 				
-			</CustomHtmlRenderer>
-
+				<handler name="ontext"><![CDATA[
+					var elm = this.getDisplayObject();
+					var textAlign = "text-align: "+classroot.align;
+					/*if(this.text.indexOf("<br") != -1) {
+						elm.setAttribute('style','width: 94%; font-family: CTB;'+textAlign+'');
+					}*/
+					//elm.setAttribute('style','line-height: 0px; font-family: CTB;');
+					//elm.setAttribute('font-family','CTB');
+					]]>
+				</handler>
+			</text>
         </state>
     </class>
 
