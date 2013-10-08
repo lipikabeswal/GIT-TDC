@@ -408,8 +408,8 @@
  			if(txt.indexOf("%current%") != -1 || 
  			   txt.indexOf("%start%") != -1 ||
  			   txt.indexOf("%end%") != -1){
-				var eid = dsitem.getPointer().xpathQuery('element_package/item_model/@eid');
-				var current = eid;
+				//var eid = dsitem.getPointer().xpathQuery('element_package/item_model/@eid');
+				var current = canvas.visibleItemNum;
 				var start = current;
 				var end = current;
 				// if it's a shared stimulus item - find out the start and end item numbers
