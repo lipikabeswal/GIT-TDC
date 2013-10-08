@@ -5505,8 +5505,15 @@ Debug.write("out of time 1 ans" + isAnswered);
 	
 	<method name="manipulativeSelected"><![CDATA[
 			if(this.manipSelected){
-				if(this.manipSelected.data != 'sel') {
-					this.manipSelected.setAttribute("frame",1);
+				if(this.manipSelected.data != undefined) {
+					if(this.manipSelected.data != 'sel') {
+						this.manipSelected.setAttribute("frame",1);
+					}
+				}
+				else {
+					if(!this.manipSelected.isEnabled) {
+						this.manipSelected.setAttribute("frame",1);
+					}
 				}
 			}
 		]]></method>
