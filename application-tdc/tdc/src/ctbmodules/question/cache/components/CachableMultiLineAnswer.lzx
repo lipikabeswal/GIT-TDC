@@ -303,7 +303,7 @@
             </basebutton>
 
             <EnableDisableButton name="undoBtn" resource="undo_btn"
-                 visible="${ gController.getAttribute('isOK') == 'T' || (gController.getAttribute('isVanilla') == 'true')}"
+                 visible="${ gController.getAttribute('isOK') == 'T' || (gController.getAttribute('isVanilla') == true)}"
                  enabled="${classroot.canundo}">
                 <method event="onmouseover">
                     gTooltip.showTooltip('Undo');
@@ -318,7 +318,7 @@
             </EnableDisableButton>
 
             <EnableDisableButton name="redoBtn" resource="redo_btn"
-                visible="${ gController.getAttribute('isOK') == 'T' || (gController.getAttribute('isVanilla') == 'true')}"
+                visible="${ gController.getAttribute('isOK') == 'T' || (gController.getAttribute('isVanilla') == true)}"
                 enabled="${classroot.canredo}">
                 <method event="onmouseover">
                     gTooltip.showTooltip('Redo');
