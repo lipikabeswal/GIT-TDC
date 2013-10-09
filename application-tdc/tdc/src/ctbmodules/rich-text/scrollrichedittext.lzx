@@ -185,7 +185,10 @@
 						keyaction = "delete";
                     } else if ( k == 32 ) {
 						keyaction = "space";
-					}
+					} else if ( Selection.getBeginIndex() != Selection.getEndIndex()
+					            && k > 47 ) {
+                        keyaction = "overwrite";
+                    }
                     if ( keyaction != "" ) {
                          gController.textHistory.checkForChange();
                     }
@@ -215,25 +218,7 @@
               if(k==13) {
                   updateScrollbarPosition(); //when enter key is pressed, update scrollbar
               }
- 
-              // Any modified text needs to be added to the history
-              // when we have a selection for the text.
-              if ( gController.textHistory.activeinput == classroot ) {
-                    if ( Selection.getBeginIndex() != Selection.getEndIndex() ) {
-                        gController.textHistory.checkForChange();
-                    }
-              }
             ]]></handler>
-
-			<handler name="onmouseup" reference="LzGlobalMouse">
-              // Any modified text needs to be added to the history
-              // when we have a selection for the text.		      
-              if ( gController.textHistory.activeinput == classroot ) {
-                    if ( Selection.getBeginIndex() != Selection.getEndIndex() ) {
-                        gController.textHistory.checkForChange();
-                    }
-              }
-			</handler>
 
 
     <!--
