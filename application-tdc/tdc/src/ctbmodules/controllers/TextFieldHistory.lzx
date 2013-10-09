@@ -124,11 +124,23 @@
             this.keyaction = "";
             var down = LzKeys.downKeysArray;
             var isPaste = false;
+			var ctrlVPressed = false;
+            //Debug.write( "onkeydown: downKeysArray=" + JSON.stringify( down ));
             if (down.length > 1) {
-                // Debug.write( "onkeydown: downKeysArray=" + JSON.stringify( down ));
-                if ( down[ 0 ] == 17 && Number( down[ 1 ] ) == 86 ) {
-                    if ($debug) Debug.write( "Paste / Control-v detected: calling checkForChange() in 200ms" );
-                    LzTimer.resetTimer( delayedCheckForChangeDel, 200 );
+            	//Debug.write("platform= "+System.capabilities.os);
+				var platform = System.capabilities.os;
+				if(platform.indexOf( "Linux" ) != -1 || platform.indexOf( "Mac" ) != -1){
+					//Debug.write("inside Linux/Mac");
+					ctrlVPressed = (down[ 0 ] == 17 && Number( down[ 1 ] ) == -1) || (down[ 0 ] == -1 && Number( down[ 1 ] ) == 17);
+				}else{
+					ctrlVPressed = (down[ 0 ] == 17 && Number( down[ 1 ] ) == 86) || (down[ 0 ] == 86 && Number( down[ 1 ] ) == 17);
+				}
+				//Debug.write("ctrlVPressed********* "+ctrlVPressed);
+                //Debug.write( "onkeydown: down[ 0 ]=" + down[ 0 ]+ " down[ 1 ]= "+down[ 1 ]);
+                if ( ctrlVPressed ) {
+                    checkForChange();
+					if ($debug) Debug.write( "Paste / Control-v detected: calling checkForChange() in 200ms" );
+                    LzTimer.resetTimer( delayedCheckForChangeDel, 100 );
                     LzKeys.downKeysArray = [];
                 }
             }
@@ -155,7 +167,7 @@
              @parameter scrollrichedittext theText: Instance of scrollrichedittext.
         -->
         <method name="initializeHistoryForText" args="theText">
-            // Debug.write( "TextFieldHistory.initializeHistoryForText() theText.id=" + theText.id );
+            Debug.write( "TextFieldHistory.initializeHistoryForText() theText.getText=" + theText.getText() );
             // If no ID is set, set one on the text component. When the
             // history of a component is cleared, the historycleared
             // property will be set to true.
@@ -166,6 +178,7 @@
                 theText.historycleared = false;
                 this.createHistory( theText.id );
                 this.setAttribute( "activeinput", theText );
+                this.setAttribute( "previousvalue", theText.getText() );
             }
         </method>
 
@@ -228,13 +241,13 @@
               @access public
         -->
         <method name="checkForChange">
-            // Debug.write( "TextFieldHistory.checkForChange(): activeinput" + activeinput );
+            Debug.write( "TextFieldHistory.checkForChange(): activeinput" + activeinput );
             var jsonStr = null;
             var jsExpr = null;
             var caretIndex = 0;
             if ( activeinput != null ) {
-                // Debug.write("activeinput.getText(): |" + activeinput.getText() + "|" );
-                // Debug.write("this.previousvalue:    |" + this.previousvalue + "|" );
+                 Debug.write("activeinput.getText(): |" + activeinput.getText() + "|" );
+                 Debug.write("this.previousvalue:    |" + this.previousvalue + "|" );
                 if ( activeinput.getText() != this.previousvalue ) {
                     this.previousvalue = activeinput.getText();
                     caretIndex = this.getCaretIndex();
