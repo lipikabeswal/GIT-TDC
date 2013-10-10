@@ -312,8 +312,10 @@
                     gTooltip.hideTooltip ();
                 </method>
                 <method name="doClick">
-                    gController.textHistory.setActiveInput( classroot.outer.rich.answer );
-                    gController.textHistory.undo();
+                	if(gPleaseWaitPopup.visible == false){
+                    	gController.textHistory.setActiveInput( classroot.outer.rich.answer );
+                    	gController.textHistory.undo();
+                    }	
                 </method>
             </EnableDisableButton>
 
@@ -327,8 +329,10 @@
                     gTooltip.hideTooltip ();
                 </method>
                 <method name="doClick">
-                    gController.textHistory.setActiveInput( classroot.outer.rich.answer );
-                    gController.textHistory.redo()
+                	if(gPleaseWaitPopup.visible == false){
+	                    gController.textHistory.setActiveInput( classroot.outer.rich.answer );
+	                    gController.textHistory.redo();
+	                }
                 </method>
             </EnableDisableButton>
 

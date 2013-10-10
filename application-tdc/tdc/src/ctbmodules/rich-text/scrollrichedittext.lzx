@@ -74,7 +74,7 @@
         </method>
 
         <_richinternalinputtext name="inp" x="${parent.border}"
-            y="1"
+            y="1" enabled="${gPleaseWaitPopup.visible == false}"
             height="${parent.height-parent.border*2}"
             width="${parent.width - parent.vscrollwidth - parent.border*2 }"
             pattern="[A-Za-z0-9!@;:#$%\^*()_\-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[]\\|`~ ]*">
