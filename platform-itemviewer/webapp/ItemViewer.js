@@ -31,7 +31,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m9"]}},$lzc$class__m9.attributes)
 }}})($lzc$class__m9)
-};canvas=new $lzc$class__m9(null,{$delegates:["onfocus","$m4",null,"onfootnotedata","$m6",null,"onitemxml","$m7",null,"oninit","$m8",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-10-04T07:53:08Z",basefontsize:12,bgcolor:6721972,copyriteColor:5406116,currentCursor:null,eliminatorRsrc:new LzOnceExpr("$m5",null),embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,height:"100%",itemxml:void 0,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%"});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__m9(null,{$delegates:["onfocus","$m4",null,"onfootnotedata","$m6",null,"onitemxml","$m7",null,"oninit","$m8",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-10-15T14:27:46Z",basefontsize:12,bgcolor:6721972,copyriteColor:5406116,currentCursor:null,eliminatorRsrc:new LzOnceExpr("$m5",null),embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,height:"100%",itemxml:void 0,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%"});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -6900,11 +6900,16 @@ switch(arguments.length){
 case 0:
 $0=null;
 
-};this.getDisplayObject().imgLoader.unload();this.setSource(this.resource)
-},"$mim",function($0){
+};if(this.getDisplayObject().imgLoader!=undefined&&this.getDisplayObject().imgLoader!=null){
+this.getDisplayObject().imgLoader.unload()
+};if(this.resource!=null){
+this.setSource(this.resource)
+}else if(this.classroot.theSrc!=null){
+this.setSource(this.classroot.theSrc)
+}},"$mim",function($0){
 gCommunicator.checkShowError(gXmlHelper.getContentErrorXml())
 },"$min",function($0){
-if(this.classroot.timeoutretrycount<1){
+if(this.classroot.timeoutretrycount<5){
 this.classroot.setAttribute("timeoutretrycount",this.classroot.timeoutretrycount+1);lz.Idle.callOnIdle(this.reloadDel)
 }else{
 gCommunicator.checkShowError(gXmlHelper.getContentTimeoutXml())
@@ -7016,7 +7021,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mj0"]}},$lzc$class__mj0.attributes)
 }}})($lzc$class__mj0)
-};lz.ClassAttributeTypes["CachableImage"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["CachableComponent"],{altText:"string",autoenlarge:"string",disableAnswerArea:"boolean",enableWhenAnswered:"boolean",hasPlayed:"boolean",servletBase:"string",verticalAlign:"string"});{
+};lz.ClassAttributeTypes["CachableImage"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["CachableComponent"],{altText:"string",autoenlarge:"string",disableAnswerArea:"boolean",enableWhenAnswered:"boolean",hasPlayed:"boolean",servletBase:"string",theSrc:"string",verticalAlign:"string"});{
 Class.make("$lzc$class_CachableImage",["$mi7",function($0){
 var $1=gCompTypes.WIDGET_IMAGE;if($1!==this["comptype"]||!this.inited){
 this.setAttribute("comptype",$1)
@@ -7028,7 +7033,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"hasAltText",void 0,"altText",void 0,"autoenlarge",void 0,"retrycount",void 0,"timeoutretrycount",void 0,"servletBase",void 0,"verticalAlign",void 0,"hasPlayed",void 0,"widget_id",void 0,"playorder",void 0,"isaudio",void 0,"disableAnswerArea",void 0,"enableWhenAnswered",void 0,"init",function(){
+}},"hasAltText",void 0,"altText",void 0,"autoenlarge",void 0,"retrycount",void 0,"timeoutretrycount",void 0,"servletBase",void 0,"verticalAlign",void 0,"hasPlayed",void 0,"widget_id",void 0,"playorder",void 0,"isaudio",void 0,"disableAnswerArea",void 0,"enableWhenAnswered",void 0,"theSrc",void 0,"init",function(){
 (arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["init"]||this.nextMethod(arguments.callee,"init")).call(this)
 },"$mi9",function($0){
 var $1="";if(typeof canvas.folder!="undefined"){
@@ -7047,7 +7052,7 @@ var $2=$1.indexOf("/tmp");if($2>0){
 $1=$1.substring($2,$1.length)
 }};return $1
 },"$mia",function($0){
-this.setAttribute("retrycount",0);this.setAttribute("timeoutretrycount",0);this.setAttribute("height",null);this.setAttribute("width",null);this.imageview.setAttribute("height",null);this.imageview.setAttribute("width",null);var $1="";if($0.getAttr("isaudio")=="true"){
+this.setAttribute("retrycount",0);this.setAttribute("timeoutretrycount",0);this.setAttribute("height",null);this.setAttribute("width",null);this.imageview.setAttribute("height",null);this.imageview.setAttribute("width",null);this.setAttribute("theSrc","");if($0.getAttr("isaudio")=="true"){
 this.setAttribute("isaudio",$0.getAttr("isaudio"));gController.setAttribute("isaudio",true);if($0.hasAttr("disableAnswerArea")){
 this.setAttribute("disableAnswerArea",$0.getAttr("disableAnswerArea"))
 };if($0.getAttr("widget_id")){
@@ -7058,12 +7063,12 @@ this.setAttribute("playorder",$0.getAttr("playorder"))
 this.setAttribute("enableWhenAnswered",$0.getAttr("enableWhenAnswered"))
 };this.setAttribute("hasPlayed",false)
 };if($0.hasAttr("src")){
-$1=this.getImageUrl($0.getAttr("src"))
+this.theSrc=this.getImageUrl($0.getAttr("src"))
 }else{
 if($0.hasAttr("image_ref")){
-$1=this.getImageUrl($0.getAttr("image_ref"))
+this.theSrc=this.getImageUrl($0.getAttr("image_ref"))
 }};if($0.hasAttr("width")){
-this.setAttribute("width",Number($0.getAttr("width")));Debug.warn("Image Widget Width",this.width)
+this.setAttribute("width",Number($0.getAttr("width")))
 }else{
 this.setAttribute("width",null)
 };if($0.hasAttr("height")){
@@ -7072,20 +7077,20 @@ this.setAttribute("height",Number($0.getAttr("height")))
 this.setAttribute("height",null)
 };if($0.hasAttr("valign")){
 this.setAttribute("verticalAlign",$0.getAttr("valign"));Debug.warn("Image Widget Width",this.valign)
-};var $2=$0.getAttr("enlargeable");var $3=false;if($2=="yes"){
-$3=true
-}else if($2=="accommodated"){
-$3=gController.hasFontAccommodation
-};if($3){
+};var $1=$0.getAttr("enlargeable");var $2=false;if($1=="yes"){
+$2=true
+}else if($1=="accommodated"){
+$2=gController.hasFontAccommodation
+};if($2){
 this.enlarge.setAttribute("visible",true)
 }else{
 this.enlarge.setAttribute("visible",false)
 };this.autoenlarge=$0.getAttr("autoenlargeable");if($0.hasAttr("alt_text")){
-var $4=$0.getAttr("alt_text");this.setAttribute("hasAltText",true);this.setAttribute("altText",$4);this.setAAText($4)
+var $3=$0.getAttr("alt_text");this.setAttribute("hasAltText",true);this.setAttribute("altText",$3);this.setAAText($3)
 }else{
 this.setAttribute("hasAltText",false)
-};if(this.imageview["resource"]!=$1){
-this.imageview.setSource($1)
+};if(this.imageview["resource"]!=this.theSrc){
+this.imageview.setSource(this.theSrc)
 }else{
 this.updateImageLayout();this.doneLoading()
 }},"getDefaultErrorMessage",function(){
@@ -7136,7 +7141,7 @@ $3=false;
 }],$lzc$class_CachableComponent,["tagname","CachableImage","children",LzNode.mergeChildren([{attrs:{$classrootdepth:1,$delegates:["onframe","$mid",null,"onlastframe","$mie",null,"onstop","$mif",null,"onplay","$mig",null,"onstart","$mih",null,"onclick","$mii",null,"onload","$mij",null,"onload","$mil",null,"onerror","$mim",null,"ontimeout","$min",null],clickable:false,name:"imageview",reloadDel:new LzOnceExpr("$mik",null),stretches:"both"},"class":$lzc$class__miy},{attrs:{$classrootdepth:1,clickable:false,height:new LzAlwaysExpr("$miq","$mir",null),name:"overlay",opacity:0,visible:false,width:new LzAlwaysExpr("$mio","$mip",null),x:new LzAlwaysExpr("$mis","$mit",null),y:new LzAlwaysExpr("$miu","$miv",null)},"class":$lzc$class__miz},{attrs:{$classrootdepth:1,name:"enlarge",x:new LzAlwaysExpr("$miw","$mix",null),y:0},"class":$lzc$class__mj0}],$lzc$class_CachableComponent["children"]),"__LZCSSTagSelectors",["CachableImage","CachableComponent","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_CachableComponent.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["CachableImage"]},$delegates:["oninit","$mi9",null,"ondata","$mia",null,"onload","$mic","$mib"],aaactive:true,autoenlarge:"",comptype:new LzAlwaysExpr("$mi7","$mi8",null),disableAnswerArea:false,enableWhenAnswered:false,hasAltText:false,hasPlayed:false,retrycount:0,timeoutretrycount:0},$lzc$class_CachableImage.attributes)
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["CachableImage"]},$delegates:["oninit","$mi9",null,"ondata","$mia",null,"onload","$mic","$mib"],aaactive:true,autoenlarge:"",comptype:new LzAlwaysExpr("$mi7","$mi8",null),disableAnswerArea:false,enableWhenAnswered:false,hasAltText:false,hasPlayed:false,retrycount:0,theSrc:"",timeoutretrycount:0},$lzc$class_CachableImage.attributes)
 }}})($lzc$class_CachableImage)
 };lz.ClassAttributeTypes["$lzc$class__mjw"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["Highlight"],{});{
 Class.make("$lzc$class__mjw",["$mj7",function($0){
@@ -13074,7 +13079,7 @@ $1=true;
 contentDs=$0
 }else if(contentDs===$0){
 contentDs=null
-}},name:"contentDs",querytype:"post",queuerequests:true,timeout:120000,type:"http"},"class":$lzc$class__m118},1);lz.ClassAttributeTypes["$lzc$class__m11b"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["node"],{DOWNLOAD_ITEM_METHOD:"string",FEEDBACK_METHOD:"string",FOLDER_PARAM:"string",GET_ITEM_METHOD:"string",GET_SUBTEST_METHOD:"string",ITEMNUM_PARAM:"string",LOGIN_METHOD:"string",METHOD_PARAM:"string",SAVE_METHOD:"string",UPLOAD_AUDIT_FILE_METHOD:"string",USER_PARAM:"string",WRITE_TO_AUDIT_FILE_METHOD:"string",XML_PARAM:"string",_GENDER_PARAM:"string",_GENDER_VALUE:"string",_SERVER_VALUE:"string",_TEXT_PARAM:"string",mseq:"number"});{
+}},name:"contentDs",querytype:"post",queuerequests:true,timeout:900000,type:"http"},"class":$lzc$class__m118},1);lz.ClassAttributeTypes["$lzc$class__m11b"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["node"],{DOWNLOAD_ITEM_METHOD:"string",FEEDBACK_METHOD:"string",FOLDER_PARAM:"string",GET_ITEM_METHOD:"string",GET_SUBTEST_METHOD:"string",ITEMNUM_PARAM:"string",LOGIN_METHOD:"string",METHOD_PARAM:"string",SAVE_METHOD:"string",UPLOAD_AUDIT_FILE_METHOD:"string",USER_PARAM:"string",WRITE_TO_AUDIT_FILE_METHOD:"string",XML_PARAM:"string",_GENDER_PARAM:"string",_GENDER_VALUE:"string",_SERVER_VALUE:"string",_TEXT_PARAM:"string",mseq:"number"});{
 Class.make("$lzc$class__m11b",["METHOD_PARAM",void 0,"FOLDER_PARAM",void 0,"ITEMNUM_PARAM",void 0,"USER_PARAM",void 0,"XML_PARAM",void 0,"SAVE_METHOD",void 0,"LOGIN_METHOD",void 0,"FEEDBACK_METHOD",void 0,"WRITE_TO_AUDIT_FILE_METHOD",void 0,"UPLOAD_AUDIT_FILE_METHOD",void 0,"GET_SUBTEST_METHOD",void 0,"GET_ITEM_METHOD",void 0,"DOWNLOAD_ITEM_METHOD",void 0,"mseq",void 0,"$m119",function($0){
 this.setAttribute("cid",Math.floor(Math.random()*1000000))
 },"cid",void 0,"uploadAuditFileLsid",void 0,"uploadAuditFileScid",void 0,"pendingSaveEid",void 0,"_GENDER_PARAM",void 0,"_TEXT_PARAM",void 0,"_SERVER_VALUE",void 0,"_GENDER_VALUE",void 0,"$m11a",function($0){
@@ -13315,7 +13320,7 @@ this.setAttribute("dshowClient",new (lz.Delegate)(this,"showClient"))
 this.dshowClient.unregisterAll();this.showItemInterface()
 },"directionsSubstitution",function($0){
 if($0.indexOf("%current%")!=-1||$0.indexOf("%start%")!=-1||$0.indexOf("%end%")!=-1){
-var $1=dsitem.getPointer().xpathQuery("element_package/item_model/@eid");var $2=$1;var $3=$2;var $4=$2;$0=this.replace($0,"%current%",$2);$0=this.replace($0,"%start%",$3);$0=this.replace($0,"%end%",$4)
+var $1=canvas.visibleItemNum;var $2=$1;var $3=$1;$0=this.replace($0,"%current%",$1);$0=this.replace($0,"%start%",$2);$0=this.replace($0,"%end%",$3)
 };return $0
 },"getItemNumber",function($0){
 return canvas.itemNum
