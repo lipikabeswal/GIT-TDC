@@ -163,15 +163,15 @@
 	<!-- Undo/Redo button-->
 	<resource name="undo_btn">      
 		   
-		<frame src="iknow_buttons/undoRedo/blue_undo_new.jpg"/>
-		<frame src="iknow_buttons/undoRedo/blue_undo_new.jpg"/>  
-		<frame src="iknow_buttons/undoRedo/grey_undo_new.jpg"/>
+		<frame src="iknow_buttons/undoRedo/blue_undo_new.swf"/>
+		<frame src="iknow_buttons/undoRedo/blue_undo_new.swf"/>  
+		<frame src="iknow_buttons/undoRedo/grey_undo_new.swf"/>
 	</resource>
 	<resource name="redo_btn">      
 		   
-		<frame src="iknow_buttons/undoRedo/blue_redo_new.jpg"/> 
-		<frame src="iknow_buttons/undoRedo/blue_redo_new.jpg"/>  
-		<frame src="iknow_buttons/undoRedo/grey_redo_new.jpg"/>
+		<frame src="iknow_buttons/undoRedo/blue_redo_new.swf"/> 
+		<frame src="iknow_buttons/undoRedo/blue_redo_new.swf"/>  
+		<frame src="iknow_buttons/undoRedo/grey_redo_new.swf"/>
 	</resource>
 	 <!--<resource name="undo_btn" src="iknow_buttons/undoRedo/undo_new1.png"/>
 	<resource name="redo_btn" src="iknow_buttons/undoRedo/redo_new1.png"/> -->
