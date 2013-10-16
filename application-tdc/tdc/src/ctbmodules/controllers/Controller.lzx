@@ -1804,6 +1804,8 @@
 			Load and display first question.
 		-->
 		<method name="openTest">
+			//Debug.write("openTest****");
+			gController.setAttribute('stopTestCalled',false);
 			this.istRestartLength=0;
          //START Change for deferred Defect 63502
 			var restartId=getAttribute('restartscid');
