@@ -44,11 +44,13 @@
             }
 
             this._initSubnodes ();
-            for (var i = 0; i < this.subviews.length; i++) {
-            	if(this.subviews[i] instanceof lz.CachableTextField){
-            		this.subviews[i].setAttribute('valign',"middle");
-            	}
-            }
+            if(gController.answerPanelLayout == 'vertical' ){
+	            for (var i = 0; i < this.subviews.length; i++) {
+	            	if(this.subviews[i] instanceof lz.CachableTextField){
+	            		this.subviews[i].setAttribute('valign',"middle");
+	            	}
+	            }
+	        }
             
             doneLoading();
             ]]>

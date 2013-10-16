@@ -20,6 +20,10 @@
 
             this.setAttribute("fontMagnification", 
                 this.fontsize/canvas.basefontsize);
+                
+            if(this.data.getAttr("layout") == "horizontal"){
+				gController.setAttribute("answerPanelLayout",this.data.getAttr("layout"));
+			}
         
             if((this.fontMagnification > 1) && 
                (this.data.getAttr("layout") == "horizontal") &&

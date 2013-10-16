@@ -577,7 +577,8 @@
 		<attribute name="manipSelected"/> 
 		
 		<!--  Will be set to true when an object is dragged inside a TE item  -->	
-    	<attribute name="iframeDragActive" value="false" type="boolean" />			
+    	<attribute name="iframeDragActive" value="false" type="boolean" />	    	
+    	<attribute name="answerPanelLayout" type="string" value="vertical"/>		
 
     	<!--  Cancels a drag operation inside a TE item -->
     	<method name="cancelIframeDrag">
