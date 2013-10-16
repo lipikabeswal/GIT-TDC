@@ -76,6 +76,8 @@
 		value="$once{LzBrowser.getInitArg('eliminatorResource')}"
 		type="string" />
 	<attribute name="useDefaultEliminator" type="boolean" value="true" />
+	<attribute name="isPreviewer" type="boolean" value="false"/>
+	
 	<handler name="onkeydown" reference="LzKeys" args="k"><![CDATA[
 		if(gController.getAttribute('isHandlerInactive') == false) {
 			gController.setAttribute('trackTimer',0);
@@ -125,6 +127,10 @@
        if (folder) this.setAttribute("folder", folder);
        var user = LzBrowser.getInitArg('user');
        if (user) this.setAttribute("user", user);
+       var isPrev = LzBrowser.getInitArg('isPrev');
+       if(isPrev == "true" || isPrev == true || isPrev == 'true'){
+       		canvas.setAttribute('isPreviewer',true);
+       }
        <!-- canvas.setDefaultContextMenu(null); -->
        var cmenu = new LzContextMenu();
        cmenu.hideBuiltInItems();
