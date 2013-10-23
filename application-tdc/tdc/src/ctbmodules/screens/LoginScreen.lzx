@@ -62,6 +62,12 @@
                 </method>
             </CancelButton>
         </view>
+        <view name="lasHelpText" x="${ classroot.width - width - 23 }">
+           <simplelayout axis="x" spacing="10"/>
+            <text resize="true" y="7" fgcolor="white" fontsize="12">
+               Input fields are not case sensitive
+           </text>
+        </view>
     </class>
 
 </library>

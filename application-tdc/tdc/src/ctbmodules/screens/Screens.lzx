@@ -187,6 +187,11 @@
 			contents.ls.pw.passwordField.setText("");
 
 			contents.ls.ac.accesscodeField.setText("");
+			if(gController.productTypeVal.indexOf('LASLINKS') >= 0) {
+				contents.ls.lasHelpText.setVisible(true);
+			} else {
+				contents.ls.lasHelpText.setVisible(false);
+			}
 
             standingMan.apply();
 
