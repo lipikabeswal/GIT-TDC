@@ -222,9 +222,11 @@
 				contents.ls.pw.istepPasswordField.setAttribute('visible', false );
 				contents.ls.pw.otherPasswordField.setAttribute('text', "");
 			}
-
-
-
+			if(gController.productTypeVal.indexOf('LASLINKS') >= 0) {
+				contents.ls.lasHelpText.setAttribute('visible', true);
+			} else {
+				contents.ls.lasHelpText.setAttribute('visible', false);
+			}
 			contents.ls.ac.accesscodeField.setAttribute('text', "");
 
             //standingMan.apply();
