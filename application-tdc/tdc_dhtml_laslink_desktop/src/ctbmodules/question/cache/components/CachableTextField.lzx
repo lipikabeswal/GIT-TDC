@@ -129,66 +129,71 @@
                 this.setAttribute("embedded_input", false);
                 this.setAttribute("embedded_inline_image", false);
             }
-            var textData = data.getFirstChild().data;
-            if(textData.indexOf("<footnote") != -1) {
-            	this.setAttribute("embedded_inline_footnote", true);
-               	this.embedded_inlinefootnote_text(data);
-				this.thetext.setAttribute('visible',false);
-				this.clickregionreader.setAttribute('visible',false);
-				this.thetext.setAttribute('height',0);
-				this.clickregionreader.setAttribute('height',0);
-               	doneLoading();
-               	return;
-            }
-            else {
-            	this.setAttribute("embedded_inline_footnote", false);
-            }
-
-			setTextReaderAttributes(data);
-			
-            var dataText = data.getFirstChild().data;
-			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
-			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
-				dataText = gController.directionsSubstitution(dataText);
-			}  
-			
-			var doubleBrIndex = dataText.lastIndexOf('<br/><br/>');
-			if(doubleBrIndex != -1 && ((dataText.length - doubleBrIndex) == 10)){
-       			dataText = dataText.substr(0, dataText.length - 5);
-			}
-			
-            //alignment
-            var valign = "top";
-            if (data.hasAttr("valign")) {
-                valign = data.getAttr("valign");
-            }
-            this.setAttribute('valign', valign);
-            //justification
-            var just = "left";
-            if (data.hasAttr("halign")) {
-                just = data.getAttr("halign");
-            }
-            this.setAttribute('align', just);
-            this.thetext.setAttribute("textalign",just);
-            
-            this.setAttribute("readText",unescape(dataText));
-
-           var fontSize = this.fontsize;
-           if (gController.hasFontAccommodation){
-				if(dataText.indexOf("<br") != -1) {
-					this.thetext.setAttribute("text",
-	                	'<label style="display:block; padding-bottom:4px;"><span style="line-height:17px; white-space: pre-wrap; word-spacing: -0.5px; zoom:97%;">' + dataText + '</span></label>');
-				}else{
-					this.thetext.setAttribute("text",
-	                	'<label><span style="white-space: pre-wrap; word-spacing: -0.5px; zoom:97%;">' + dataText + '</span></label>');
+            var childData = data.getFirstChild();
+            console.log("childData in textFiled*****",childData);
+            if(childData != null && childData != undefined) {
+            	console.log("childData is not undefined*****");
+            	var textData = data.getFirstChild().data;
+	            if(textData.indexOf("<footnote") != -1) {
+	            	this.setAttribute("embedded_inline_footnote", true);
+	               	this.embedded_inlinefootnote_text(data);
+					this.thetext.setAttribute('visible',false);
+					this.clickregionreader.setAttribute('visible',false);
+					this.thetext.setAttribute('height',0);
+					this.clickregionreader.setAttribute('height',0);
+	               	doneLoading();
+	               	return;
+	            }
+	            else {
+	            	this.setAttribute("embedded_inline_footnote", false);
+	            }
+	
+				setTextReaderAttributes(data);
+				
+	            var dataText = data.getFirstChild().data;
+				if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
+				   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
+					dataText = gController.directionsSubstitution(dataText);
+				}  
+				
+				var doubleBrIndex = dataText.lastIndexOf('<br/><br/>');
+				if(doubleBrIndex != -1 && ((dataText.length - doubleBrIndex) == 10)){
+	       			dataText = dataText.substr(0, dataText.length - 5);
 				}
-		   }else{
-				if(dataText.indexOf("<br") != -1) {
-					this.thetext.setAttribute("text",
-	                	'<label style="display:block; padding-bottom:2px;"><span style="line-height:16px; white-space: pre-wrap; word-spacing: -0.5px;">' + dataText + '</span></label>');
-				}else{
-					this.thetext.setAttribute("text",
-	                	'<label><span style="line-height:16px; white-space: pre-wrap; word-spacing: -0.5px;">' + dataText + '</span></label>');
+				
+	            //alignment
+	            var valign = "top";
+	            if (data.hasAttr("valign")) {
+	                valign = data.getAttr("valign");
+	            }
+	            this.setAttribute('valign', valign);
+	            //justification
+	            var just = "left";
+	            if (data.hasAttr("halign")) {
+	                just = data.getAttr("halign");
+	            }
+	            this.setAttribute('align', just);
+	            this.thetext.setAttribute("textalign",just);
+	            
+	            this.setAttribute("readText",unescape(dataText));
+	
+	           var fontSize = this.fontsize;
+	           if (gController.hasFontAccommodation){
+					if(dataText.indexOf("<br") != -1) {
+						this.thetext.setAttribute("text",
+		                	'<label style="display:block; padding-bottom:4px;"><span style="line-height:17px; white-space: pre-wrap; word-spacing: -0.5px; zoom:97%;">' + dataText + '</span></label>');
+					}else{
+						this.thetext.setAttribute("text",
+		                	'<label><span style="white-space: pre-wrap; word-spacing: -0.5px; zoom:97%;">' + dataText + '</span></label>');
+					}
+			   }else{
+					if(dataText.indexOf("<br") != -1) {
+						this.thetext.setAttribute("text",
+		                	'<label style="display:block; padding-bottom:2px;"><span style="line-height:16px; white-space: pre-wrap; word-spacing: -0.5px;">' + dataText + '</span></label>');
+					}else{
+						this.thetext.setAttribute("text",
+		                	'<label><span style="line-height:16px; white-space: pre-wrap; word-spacing: -0.5px;">' + dataText + '</span></label>');
+					}
 				}
 			}
 
