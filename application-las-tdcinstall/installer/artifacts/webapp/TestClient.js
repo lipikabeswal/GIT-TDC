@@ -49,7 +49,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mf"]}},$lzc$class__mf.attributes)
 }}})($lzc$class__mf)
-};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onkeydown","$m7","$m6","onmousedown","$m9","$m8","onbringBackFocus","$ma",null,"onfootnotedata","$mb",null,"onisMultiAudio","$mc",null,"oninit","$md",null,"onfootnotetext","$me",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-10-23T14:32:33Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onkeydown","$m7","$m6","onmousedown","$m9","$m8","onbringBackFocus","$ma",null,"onfootnotedata","$mb",null,"onisMultiAudio","$mc",null,"oninit","$md",null,"onfootnotetext","$me",null],Copyrite:"CTB/McGraw-Hill",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-10-24T10:19:05Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -10941,29 +10941,30 @@ this.setAttribute("embedded_inline_image",false)
 };this.doneLoading();return
 }else{
 this.setAttribute("embedded_input",false);this.setAttribute("embedded_inline_image",false)
-};var $2=$0.getFirstChild().data;if($2.indexOf("<footnote")!=-1){
+};var $2=$0.getFirstChild();console.log("childData in textFiled*****",$2);if($2!=null&&$2!=undefined){
+console.log("childData is not undefined*****");var $3=$0.getFirstChild().data;if($3.indexOf("<footnote")!=-1){
 this.setAttribute("embedded_inline_footnote",true);this.embedded_inlinefootnote_text($0);this.thetext.setAttribute("visible",false);this.clickregionreader.setAttribute("visible",false);this.thetext.setAttribute("height",0);this.clickregionreader.setAttribute("height",0);this.doneLoading();return
 }else{
 this.setAttribute("embedded_inline_footnote",false)
-};this.setTextReaderAttributes($0);var $3=$0.getFirstChild().data;if(this.panel.datapath.xpathQuery("@stereotype")=="directions"||this.panel.datapath.xpathQuery("@stereotype")=="stimulus"){
-$3=gController.directionsSubstitution($3)
-};var $4=$3.lastIndexOf("<br/><br/>");if($4!=-1&&$3.length-$4==10){
-$3=$3.substr(0,$3.length-5)
-};var $5="top";if($0.hasAttr("valign")){
-$5=$0.getAttr("valign")
-};this.setAttribute("valign",$5);var $6="left";if($0.hasAttr("halign")){
-$6=$0.getAttr("halign")
-};this.setAttribute("align",$6);this.thetext.setAttribute("textalign",$6);this.setAttribute("readText",unescape($3));var $7=this.fontsize;if(gController.hasFontAccommodation){
-if($3.indexOf("<br")!=-1){
-this.thetext.setAttribute("text",'<label style="display:block; padding-bottom:4px;"><span style="line-height:17px; white-space: pre-wrap; word-spacing: -0.5px; zoom:97%;">'+$3+"</span></label>")
+};this.setTextReaderAttributes($0);var $4=$0.getFirstChild().data;if(this.panel.datapath.xpathQuery("@stereotype")=="directions"||this.panel.datapath.xpathQuery("@stereotype")=="stimulus"){
+$4=gController.directionsSubstitution($4)
+};var $5=$4.lastIndexOf("<br/><br/>");if($5!=-1&&$4.length-$5==10){
+$4=$4.substr(0,$4.length-5)
+};var $6="top";if($0.hasAttr("valign")){
+$6=$0.getAttr("valign")
+};this.setAttribute("valign",$6);var $7="left";if($0.hasAttr("halign")){
+$7=$0.getAttr("halign")
+};this.setAttribute("align",$7);this.thetext.setAttribute("textalign",$7);this.setAttribute("readText",unescape($4));var $8=this.fontsize;if(gController.hasFontAccommodation){
+if($4.indexOf("<br")!=-1){
+this.thetext.setAttribute("text",'<label style="display:block; padding-bottom:4px;"><span style="line-height:17px; white-space: pre-wrap; word-spacing: -0.5px; zoom:97%;">'+$4+"</span></label>")
 }else{
-this.thetext.setAttribute("text",'<label><span style="white-space: pre-wrap; word-spacing: -0.5px; zoom:97%;">'+$3+"</span></label>")
+this.thetext.setAttribute("text",'<label><span style="white-space: pre-wrap; word-spacing: -0.5px; zoom:97%;">'+$4+"</span></label>")
 }}else{
-if($3.indexOf("<br")!=-1){
-this.thetext.setAttribute("text",'<label style="display:block; padding-bottom:2px;"><span style="line-height:16px; white-space: pre-wrap; word-spacing: -0.5px;">'+$3+"</span></label>")
+if($4.indexOf("<br")!=-1){
+this.thetext.setAttribute("text",'<label style="display:block; padding-bottom:2px;"><span style="line-height:16px; white-space: pre-wrap; word-spacing: -0.5px;">'+$4+"</span></label>")
 }else{
-this.thetext.setAttribute("text",'<label><span style="line-height:16px; white-space: pre-wrap; word-spacing: -0.5px;">'+$3+"</span></label>")
-}};this.doneLoading()
+this.thetext.setAttribute("text",'<label><span style="line-height:16px; white-space: pre-wrap; word-spacing: -0.5px;">'+$4+"</span></label>")
+}}};this.doneLoading()
 },"setTextReaderAttributes",function($0){
 var $1=$0.getFirstChild().data;Debug.write("setTextReaderAttributes",$1);Debug.write("inside setTextReaderAttributes ",this.panel);if(this.panel.datapath.xpathQuery("@stereotype")=="directions"||this.panel.datapath.xpathQuery("@stereotype")=="stimulus"){
 $1=gReadableText.stripHtmlTags(gController.directionsSubstitution($1))
