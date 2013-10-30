@@ -36,7 +36,9 @@
 	]]></method>
 	
 	<method name="hide"><![CDATA[
-	    gManipulatives.setAttribute('visible',true);
+		if(!gRevisitFalsePopup.visible || gRevisitFalsePopup.visible == 'false') {
+	    	gManipulatives.setAttribute('visible',true);
+	    }
         this.setAttribute("visible", false);
 		this.contents.networkLost.inBar.barAnimator.stop();
 		lz.ModeManager.release(this);
