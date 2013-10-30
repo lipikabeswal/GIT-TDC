@@ -75,6 +75,12 @@
 
 		<antcall target="buildOK" />  
 		<!-- <antcall target="buildOKThin" /> -->
+
+		<antcall target="buildWV" />  
+		<!-- <antcall target="buildWVThin" /> -->
+
+		<antcall target="buildTASC" />  
+		<!-- <antcall target="buildTASCThin" /> -->
 		
 		<antcall target="postClean"></antcall>
 		<antcall target="buildTDCUpdate"></antcall>
@@ -214,6 +220,42 @@
 	<target name="buildOKThin" description="Builds the Oklahoma installer" depends="init">
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="ok-thin" />
+			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
+			<param name="installer.secondary.url" value="https://oasdr.ctb.com" />
+		</antcall>
+	</target>
+
+	
+	<!-- **************************** West Virginia ******************************* -->	
+	<target name="buildWV" description="Builds the West Virginia installer" depends="init">
+		<antcall target="buildNonThinClientInstaller">
+			<param name="installer.type" value="wv" />
+			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
+			<param name="installer.secondary.url" value="https://oasdr.ctb.com" />
+		</antcall>
+	</target>
+
+	<target name="buildWVThin" description="Builds the West Virginia installer" depends="init">
+		<antcall target="buildThinClientInstaller">
+			<param name="installer.type" value="wv-thin" />
+			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
+			<param name="installer.secondary.url" value="https://oasdr.ctb.com" />
+		</antcall>
+	</target>
+
+	
+	<!-- **************************** TASC ******************************* -->	
+	<target name="buildTASC" description="Builds the TASC installer" depends="init">
+		<antcall target="buildNonThinClientInstaller">
+			<param name="installer.type" value="tasc" />
+			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
+			<param name="installer.secondary.url" value="https://oasdr.ctb.com" />
+		</antcall>
+	</target>
+
+	<target name="buildTASCThin" description="Builds the TASC installer" depends="init">
+		<antcall target="buildThinClientInstaller">
+			<param name="installer.type" value="tasc-thin" />
 			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
 			<param name="installer.secondary.url" value="https://oasdr.ctb.com" />
 		</antcall>
