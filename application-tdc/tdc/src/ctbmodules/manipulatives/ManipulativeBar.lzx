@@ -67,6 +67,7 @@
 
 				<handler name="onmouseover">
 						this.setAttribute('frame',2);
+						gController.setAttribute("manipSelected",this);
 						lz.Timer.resetTimer (tooltipdel, 500);
 					</handler>
 
@@ -148,6 +149,7 @@
 				<attribute name="isSelected" value="false" />
 				<handler name="onmouseover">
 						this.setAttribute('frame',2);
+						gController.setAttribute("manipSelected",this);
 						if(!gMaskingAnswer.visible)
 							lz.Timer.resetTimer (tooltipdel, 500);
 					</handler>
@@ -251,6 +253,7 @@
 				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
 		
 				<handler name="onmouseover">
+					gController.setAttribute("manipSelected",this);
 					lz.Timer.resetTimer (tooltipdel, 500);
 				</handler>
 		                
@@ -278,6 +281,7 @@
 				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}"/>
 		
 				<handler name="onmouseover">
+					gController.setAttribute("manipSelected",this);
 					lz.Timer.resetTimer (tooltipdel, 500);
 				</handler>
 		                
@@ -330,6 +334,7 @@
 				    </method> 
 	
 					<method name="mouseover">
+						gController.setAttribute("manipSelected",this);
 						lz.Timer.resetTimer (tooltipdel, 500);
 					</method>
 			                

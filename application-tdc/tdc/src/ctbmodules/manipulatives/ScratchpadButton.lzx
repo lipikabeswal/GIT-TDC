@@ -46,6 +46,7 @@
 
         <handler name="onmouseover"><![CDATA[
         	this.setAttribute("showhandcursor",true);
+        	gController.setAttribute("manipSelected",this);
             if (!this.isselected && this.isenabled) this.setAttribute('frame', 2); 
             lz.Timer.resetTimer (tooltipdel, 500);
         ]]></handler>
