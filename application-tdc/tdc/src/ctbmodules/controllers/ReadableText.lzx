@@ -115,7 +115,7 @@
 				gReadableText.startRequestor();	
 			}
 			else {
-				gCommunicator.finishCall(gXmlHelper.getSpeechErrorXml());
+				gCommunicator.finishCall(gXmlHelper.getSpeechErrorXml(),speechDs);
 			}
 		</method>
 		
