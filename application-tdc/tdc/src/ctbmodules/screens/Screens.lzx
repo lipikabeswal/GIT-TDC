@@ -167,14 +167,43 @@
             removeAllStates();
             if ( !contents.ps.isinited ) contents.ps.completeInstantiation();
             standingMan.apply();
-            contents.ps.pw.passwordField.setText( '' );
+            //contents.ps.pw.passwordField.setText( '' );
             contents.ps.prompt.setText( 'Log in to resume your paused test.' );
             contents.ps.studentName.setAttribute('text', 'Hello ' + sn);
-            contents.ps.pw.passwordField.style.setAttribute('textfieldcolor', 0xFFFFFF);
+            //contents.ps.pw.passwordField.style.setAttribute('textfieldcolor', 0xFFFFFF);
             contents.ps.setVisible( true );
+            if(gController.isWV==true || gController.isWV=='true')
+             {
+			   contents.ps.pw.wvpasswordField.setAttribute('visible',true);
+			   contents.ps.pw.passwordField.setAttribute('visible',false);
+			   contents.ps.pw.wvpasswordField.setText("");
+			   contents.ps.pw.wvpasswordField.style.setAttribute('textfieldcolor', 0xFFFFFF);
+			  // LzFocus.setFocus(contents.ps.pw.wvpasswordField);
+			   contents.ps.ac.otheraccesscodeField.setAttribute('visible', true );
+			   contents.ps.ac.accesscodeField.setAttribute('visible', false );
+			 }
+			 else
+			 {
+			    contents.ps.pw.wvpasswordField.setAttribute('visible',false);
+			    contents.ps.pw.passwordField.setAttribute('visible',true);
+			    contents.ps.pw.passwordField.setText("");
+			    contents.ps.pw.passwordField.style.setAttribute('textfieldcolor', 0xFFFFFF);
+			    //LzFocus.setFocus(contents.ps.pw.passwordField);
+			    contents.ps.ac.accesscodeField.setAttribute('visible', true );
+			    contents.ps.ac.otheraccesscodeField.setAttribute('visible', false );
+			    
+			 }
             show();
-        	LzFocus.setFocus(contents.ps.pw.passwordField);
-        	gController.clearAndRestoreCurrentCursor();
+            if(gController.isWV==true || gController.isWV=='true')
+             {
+        	   //Debug.write("IN WV");
+        	   LzFocus.setFocus(contents.ps.pw.wvpasswordField);
+        	 }
+        	 else
+        	 {
+        	  //Debug.write("IN OK");
+        	  LzFocus.setFocus(contents.ps.pw.passwordField);
+        	 }
         </method>
         <method name="showLogin">
 			
@@ -184,7 +213,7 @@
 
 			contents.ls.li.loginIdField.setText("");
 
-			contents.ls.pw.passwordField.setText("");
+			//contents.ls.pw.passwordField.setText("");
 
 			contents.ls.ac.accesscodeField.setText("");
 			if(gController.productTypeVal.indexOf('LASLINKS') >= 0) {
@@ -192,6 +221,24 @@
 			} else {
 				contents.ls.lasHelpText.setVisible(false);
 			}
+            if(gController.isWV==true || gController.isWV=='true')
+             {
+			   contents.ls.pw.wvpasswordField.setAttribute('visible',true);
+			   contents.ls.pw.passwordField.setAttribute('visible',false);
+			   contents.ls.pw.wvpasswordField.setText("");
+			   contents.ls.ac.otheraccesscodeField.setText("");
+			   contents.ls.ac.otheraccesscodeField.setAttribute('visible', true );
+			   contents.ls.ac.accesscodeField.setAttribute('visible', false );
+			 }
+			 else
+			 {
+			    contents.ls.pw.wvpasswordField.setAttribute('visible',false);
+			    contents.ls.pw.passwordField.setAttribute('visible',true);
+			    contents.ls.pw.passwordField.setText("");
+			    contents.ls.ac.accesscodeField.setText("");
+			    contents.ls.ac.accesscodeField.setAttribute('visible', true );
+			    contents.ls.ac.otheraccesscodeField.setAttribute('visible', false );
+			 }
 
             standingMan.apply();
 

@@ -37,6 +37,8 @@
             </text>
             <edittext name="passwordField" x="287" fontsize="12"
                       password="true" width="265"/>
+             <edittext name="wvpasswordField" x="287" fontsize="12"
+                      password="false" width="265" pattern="[a-zA-Z0-9_]*"/>
         </view>
         <view name="ac">
             <text resize="true" fgcolor="white"
@@ -45,7 +47,12 @@
             </text>
             <edittext name="accesscodeField" x="287" enabled="false"
                       bgcolor="0x777777" fontsize="12" datapath="@accesscode"
-                      width="265"/>
+                      width="265" >
+            </edittext>
+            <edittext name="otheraccesscodeField" x="287" fontsize="12" text="${gController.accesscode}"
+                      password="true" width="265" enabled="false" pattern="[a-zA-Z0-9_]*">
+                      
+            </edittext>
         </view>
 
         <view x="${ classroot.width - width - 20 }">
@@ -53,7 +60,14 @@
             <LoginButton y="3" enabled="${ gScreens.allowclick }">
                 <method name="docontinue" event="onclick">
                     gScreens.clicked();
-                	var pwd = classroot.pw.passwordField.getText();
+                	if(gController.isWV==true || gController.isWV=='true')
+                     {
+                	  var pwd = classroot.pw.wvpasswordField.getText();
+                	 }
+                	 else
+                	 {
+                	   var pwd = classroot.pw.passwordField.getText();
+                	 }
                 	if(pwd != null){
                 		pwd = pwd.toLowerCase();
                 	}
