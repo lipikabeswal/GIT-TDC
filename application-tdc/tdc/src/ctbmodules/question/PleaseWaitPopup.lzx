@@ -111,7 +111,9 @@
 		<view name="networkLost" x="1" y="12" stretches="both" width="250" height="55" align="center">
         	<view name="computer" x="6" y="10" resource="system_btn" stretches="both" width="45" height="55"></view>
          	<view name="Bar"  x="50" y="38" width="14" height="5" resource="simple_bar_btn" />
-			<view name="inBar"  x="${parent.Bar.x}" y="${parent.Bar.y}" width="4" height="5" resource="bar_btn">
+			<view name="redcross" x="80" y="15" resource="exit_redcross" stretches="both" width="45" height="55"
+			visible="false" oninit="this.bringToFront()"></view>
+			  <view name="inBar"  x="${parent.Bar.x}" y="${parent.Bar.y}" width="4" height="5" resource="bar_btn">
 
                 <animator name="barAnimator" attribute="x" from="50" to="136" motion="linear" duration="3000" repeat="9" start="false">
                     <handler name="onstop">
@@ -138,7 +140,7 @@
 	      </text> 
        </view> 
 
-		<basebutton	name="exitButton" enabled="false" resource="exit_button_rsc" x="220" y="130" width="62" height="32" stretches="both">
+		<basebutton	name="exitButton" resource="exit_button_rsc" x="90" y="130" width="130" height="32" stretches="both">
 			<handler name="onclick">
 			    gController.exitPopups();
 				gController.terminate();  
@@ -152,14 +154,18 @@
 			//this.exitButtonStatus = true;
             gPleaseWaitPopup.contents.pleaseWait.setAttribute("visible", false);
             gPleaseWaitPopup.contents.retryingPopupMessage.setAttribute("visible", true);
-            gPleaseWaitPopup.contents.exitButton.setAttribute("enabled", true);
+            gPleaseWaitPopup.contents.networkLost.redcross.setAttribute("visible", true);
+            gPleaseWaitPopup.contents.exitButton.setAttribute("visible", true);
+            gPleaseWaitPopup.contents.networkLost.inBar.setAttribute("visible", false);
                         
 		</method>
 		<method name="resetControls">
-			//this.exitButtonStatus = false;
+		    //this.exitButtonStatus = false;
 			gPleaseWaitPopup.contents.pleaseWait.setAttribute("visible", true);
             gPleaseWaitPopup.contents.retryingPopupMessage.setAttribute("visible", false);
-            gPleaseWaitPopup.contents.exitButton.setAttribute("enabled", false);
+            gPleaseWaitPopup.contents.networkLost.redcross.setAttribute("visible", false);
+            gPleaseWaitPopup.contents.exitButton.setAttribute("visible", false);
+            gPleaseWaitPopup.contents.networkLost.inBar.setAttribute("visible", true);
 		</method>
 		
 </view>
