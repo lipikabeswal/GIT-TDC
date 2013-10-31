@@ -103,7 +103,7 @@
     <view name="contents" x="6" y="6"      
           width="${parent.windowbg.width - 12}" height="${parent.windowbg.height - 12}" bgcolor="0xC0C0C0"><!--97B8E2"-->
          
-       <view name="pleaseWait" visible="true">
+       <view name="pleaseWait">
           <text name="pleaseWaitHeading" 
         	  font="CTB"	
               fontsize="15" 
@@ -115,6 +115,8 @@
 		</view> 
 		<view name="networkLost" x="1" y="12" stretches="both" width="250" height="55" align="center">
         	<view name="computer" x="6" y="10" resource="system_btn" stretches="both" width="45" height="55"></view>
+			<view name="redcross" x="80" y="15" resource="exit_redcross" stretches="both" width="45" height="55"
+			visible="false" oninit="this.bringToFront()"></view>
          	<view name="Bar"  x="50" y="38" width="14" height="5" resource="simple_bar_btn" />
 			<view name="inBar"  x="${parent.Bar.x}" y="${parent.Bar.y}" width="4" height="5" resource="bar_btn">
 
@@ -143,28 +145,53 @@
 	      </text> 
        </view> 
 
-		<basebutton	name="exitButton" enabled="false" resource="exit_button_rsc" x="220" y="120"  width="62" height="32" stretches="both">
+		<basebutton	name="exitButton" enabled="false" resource="exit_button_rsc" x="220" y="120"  width="62" height="32" 
+		stretches="both">
 		<method event="onclick">
 		    gController.exitPopups();
 			gController.terminate();  
 			resetControls();
         </method>
 		</basebutton>
-   
+   		<basebutton	name="exitButtonWV" resource="exit_button_new_rsc" x="90" y="130" width="130" height="32"
+		 stretches="both" visible="false">
+		<method event="onclick">
+		    gController.exitPopups();
+			gController.terminate();  
+			resetControls();
+        </method>
+		</basebutton>
 	</view>
 		
 		<method name="showControls">
-			//this.exitButtonStatus = true;
             gPleaseWaitPopup.contents.pleaseWait.setAttribute("visible", false);
-            gPleaseWaitPopup.contents.retryingPopupMessage.setAttribute("visible", true);
-            gPleaseWaitPopup.contents.exitButton.setAttribute("enabled", true);
-                        
+	        gPleaseWaitPopup.contents.retryingPopupMessage.setAttribute("visible", true);
+	            
+            if(gController.isWV || gController.getAttribute('isOK') == 'T'){
+                gPleaseWaitPopup.contents.exitButtonWV.setAttribute("visible", true);
+				//gPleaseWaitPopup.contents.exitButton.setAttribute("visible", false);
+				gPleaseWaitPopup.contents.networkLost.redcross.setAttribute("visible", true);
+				gPleaseWaitPopup.contents.networkLost.inBar.setAttribute("visible", false);
+			}else{
+				//this.exitButtonStatus = true;
+				gPleaseWaitPopup.contents.exitButton.setAttribute("enabled", true);
+            }            
 		</method>
 		<method name="resetControls">
-			//this.exitButtonStatus = false;
-			gPleaseWaitPopup.contents.pleaseWait.setAttribute("visible", true);
-            gPleaseWaitPopup.contents.retryingPopupMessage.setAttribute("visible", false);
-            gPleaseWaitPopup.contents.exitButton.setAttribute("enabled", false);
+            gPleaseWaitPopup.contents.pleaseWait.setAttribute("visible", true);
+	        gPleaseWaitPopup.contents.retryingPopupMessage.setAttribute("visible", false);
+	        gPleaseWaitPopup.contents.networkLost.inBar.setAttribute("visible", true);
+			gPleaseWaitPopup.contents.networkLost.redcross.setAttribute("visible", false);
+			gPleaseWaitPopup.contents.exitButtonWV.setAttribute("visible", false);
+			
+			if(gController.isWV || gController.getAttribute('isOK') == 'T'){
+                gPleaseWaitPopup.contents.exitButton.setAttribute("visible", false);
+               
+			}else{
+				//this.exitButtonStatus = false;
+                gPleaseWaitPopup.contents.exitButton.setAttribute("enabled", false);
+                gPleaseWaitPopup.contents.exitButton.setAttribute("visible", true);
+			}
 		</method>
 		
 </view>
