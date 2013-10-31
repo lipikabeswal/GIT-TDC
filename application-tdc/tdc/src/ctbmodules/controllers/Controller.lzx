@@ -575,7 +575,8 @@
 		
         <attribute name="textHistory" value="$once{new TextFieldHistory()}" type="expression" />
         <attribute name="manipSelected"/> 	
-			 
+	    <attribute name="isWV" type="boolean" value="false"/>
+	    		 
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
 			if(gScratchpad.scratchpadHasFocus) { 
@@ -839,6 +840,8 @@
 			if(productName == "VANILLA" || productName == "vanilla") {
 				productName = "";
 				this.setAttribute('isVanilla',true);	
+			}else if(productName == "WESTEST2"){
+				this.setAttribute('isWV', true);
 			}
 			versionNo = LzDataNode.stringToLzData(gController.productTypeVal).getAttr("version");
 			versionproductinfo.setAttribute("text",productName+" "+versionNo);
