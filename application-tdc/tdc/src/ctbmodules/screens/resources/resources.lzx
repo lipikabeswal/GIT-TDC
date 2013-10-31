@@ -83,12 +83,21 @@
 	</resource>	
 
 	<resource name="exit_button_rsc">
-		<frame src="exit_off.swf"/>
+	    <frame src="exit_off.swf"/>
 		<frame src="exit_on.swf"/>
 		<frame src="exit_click.swf"/>
+		
 		<frame src="exit_test_disabled.png"/>
 	</resource>
-
+	
+	<resource name="exit_button_new_rsc">
+		<frame src="exit_off_new.png"/>
+		<frame src="exit_on_new.png"/>
+		<frame src="exit_click_new.png"/>
+	</resource>
+	
+    <resource name="exit_redcross" src="exit_cross.PNG" />
+    
 	<!--AA021806:	Use this next_button_rsc  resource and 
 							Add a new back_button_rsc resource related to studentfeedback screen.-->
 	<resource name="next_button_rsc">
