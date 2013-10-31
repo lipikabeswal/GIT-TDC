@@ -10,11 +10,19 @@
         <attribute name="font" value="CTB"/>
 
         <method name="login">
-        	gController.login(
+        	if(gController.isWV==true || gController.isWV=='true') {
+			gController.login(
                 li.loginIdField.getText(),
-                pw.passwordField.getText(),
+                pw.wvpasswordField.getText(),
+                ac.otheraccesscodeField.getText()
+            );
+		} else {
+			gController.login(
+                li.loginIdField.getText(),
+               pw.passwordField.getText(),
                 ac.accesscodeField.getText()
             );
+		}
         </method>
 
         <simplelayout axis="y"/>
@@ -38,13 +46,22 @@
             </text>
             <edittext name="passwordField" x="287" fontsize="12"
                       password="true" width="265" pattern="[a-zA-Z0-9_]*"/>
+            <edittext name="wvpasswordField" x="287" fontsize="12"
+                      password="false" width="265" pattern="[a-zA-Z0-9_]*"/>
         </view>
         <view name="ac">
             <text resize="true" fgcolor="white"
                   valign="middle" fontsize="12"  x="${ 282 - width }">
                 <b>Access Code:</b>
             </text>
-            <edittext name="accesscodeField" x="287" fontsize="12" width="265" pattern="[a-zA-Z0-9_]*"/>
+            <edittext name="accesscodeField" x="287" fontsize="12" width="265" pattern="[a-zA-Z0-9_]*">
+             </edittext>
+            <edittext name="otheraccesscodeField" x="287" fontsize="12"
+                      password="true" width="265" pattern="[a-zA-Z0-9_]*">
+                      <handler name="oninit">
+                      
+                      </handler>
+            </edittext>
         </view>
 
         <view x="${ classroot.width - width - 20 }">
