@@ -688,13 +688,14 @@ private static class LockdownWinMain extends Thread {
 				LockdownWinMain.allProcessNameStr = LockdownWinMain.allProcessNameStr.substring(0, LockdownWinMain.allProcessNameStr.length() - 1);
 				lockdownOK.setPriority(Thread.MAX_PRIORITY);
 				lockdownOK.start();
-				//boolean flag = false;
+				// flag = false;
+				//Code for process running popup
 				/*if (LockdownBrowserWrapper.Process_Block()) {
 					flag = false;
 					ConsoleUtils.messageOut("Process block failed.");
 				} else {*/
 					flag = true;
-					
+			
 					lockdown.start();
 					lockdownB.start();
 					
