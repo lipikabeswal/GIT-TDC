@@ -64,7 +64,7 @@
         }
     ]]></script>
 
-	<attribute name="Copyrite" type="string" value="CTB/McGraw-Hill" />
+	<attribute name="Copyrite" type="string" value="CTB/McGraw-Hill Education" />
 	<attribute name="copyriteColor" type="color" value="0x527DA4" />
 	<attribute name="basefontsize" type="number" value="12" />
 	<attribute name="readable" value="false" type="boolean" />

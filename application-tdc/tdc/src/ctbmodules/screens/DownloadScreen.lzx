@@ -3,7 +3,7 @@
 
    <class name="DownloadScreen">
         
-		<attribute name="Copyrite" type="string" value="CTB/McGraw-Hill" />
+		<attribute name="Copyrite" type="string" value="CTB/McGraw-Hill Education" />
 		<attribute name="copyriteColor" type="color" value="0xFFFFFF" />
 		<attribute name="winFGColor" type="color" value="0x527DA4" />
 		<attribute name="textFGColor" type="color" value="0xFFFFFF" />
