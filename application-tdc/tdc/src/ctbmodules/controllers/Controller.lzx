@@ -1165,11 +1165,11 @@
 		<method name="_handleSaveLoadResponse" args="response">
 		//Debug.write("_handleSaveLoadResponse");
 			//Debug.write("isRestart1***",isRestart1, typeof(isRestart1));
-			if(this.isRestart1 == true) {
+			/*if(this.isRestart1 == true) {
 				gController.isMaxMemoryExceeded(userid, password, accesscode);
-			} else {
+			} else {*/
 				loadItem();
-			}
+			//}
 		</method>
 
 		<method name="_handleLoginResponse" args="response"><![CDATA[
