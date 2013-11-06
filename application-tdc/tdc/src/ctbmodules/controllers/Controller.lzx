@@ -278,6 +278,8 @@
 			value="okCalculator" />
 		<attribute name="GET_TESTSCORE_DATA" type="string"
 			value="getTestScoreData" />
+		<attribute name="SAVE_METHOD" type="string"
+			value="savemethod" />
 		
 		<!-- 
 			Lifecycle events
@@ -330,7 +332,7 @@
 		<attribute name="istLength" type="number" value="0" />
 		<attribute name="istRestartLength" type="number" value="0" />
 		<attribute name="gotTestScore" type="boolean" value="false" />
-
+		<attribute name="isRelogin" type="boolean" value="false" />
 		<!-- START Change for deferred Defect 63502-->
 		<attribute name="restartscid" value="0" />
 		<!-- END-->
@@ -825,6 +827,9 @@
 					case GET_TESTSCORE_DATA:
 						_handleGetTestScoreData(response);
 						break;
+					case SAVE_METHOD:
+						_handleSaveMethod(response);
+						break;
 					default:
 						break;
 				}
@@ -1100,7 +1105,7 @@
 			endSubtest('');
 		</method>
 
-		<method name="_handleSubtestFinishResponse" args="response">
+		<method name="_handleSubtestFinishResponse" args="response"><![CDATA[
 			var node = LzDataNode.stringToLzData(response);
 			var nextSubtestIndex = getSubtestIndex(node);
 			//removeTrackTimer();
@@ -1120,10 +1125,15 @@
 					getFeedback();
 				}
 				else {
-					terminate();
+					if(this.isRelogin && 
+						gController.getAttribute('productTypeVal').indexOf('WESTEST2')>=0){     // Relogin scenario is valid only for WV and OK.
+						terminateToRelogin();
+					}else{
+						terminate();
+					}
 				}
 			}
-		</method>
+		]]></method>
 		<method name="getSubtestIndex" args="node"><![CDATA[
 			dp.setPointer(node);
 			var subtestId = dp.xpathQuery('save_testing_session_data/tsd/next_sco/@id');
@@ -1229,7 +1239,8 @@
 
 		<attribute name="dcloseBrowser"
 			value="$once{ new LzDelegate( this, 'closeBrowser' ) }" />
-
+		<attribute name="drelogin"
+			value="$once{ new LzDelegate( this, 'relogin' ) }" />
 		<method name="closeBrowser">
 			gCommunicator.closeBrowser();
 		</method>
@@ -5539,7 +5550,36 @@ Debug.write("out of time 1 ans" + isAnswered);
 		gMorefastleft.onmouseup.sendEvent();
 		gMoreleft.onmouseup.sendEvent();
 	</method>
-
+	<method name="_handleSaveMethod" args="response">
+	Debug.write("Inside _handleSaveMethod******");	
+			if(response.indexOf('OK') > 0)
+				goToGoodbyeScreenToRelogin();
+	</method>
+	<method name="terminateToRelogin">
+	<!-- called when login page has to load again --> 	
+		Debug.write("Inside terminateToRelogin******");	
+		setState(SAVE_METHOD);
+		gCommunicator.terminate();
+		gCommunicator.showHideOkCalculator("Y");
+		//goToGoodbyeScreenToRelogin();
+	</method>
+	<method name="goToGoodbyeScreenToRelogin">
+	<!-- called when login page has to load again --> 
+		Debug.write("Inside goToGoodbyeScreenToRelogin******");	
+		stopHeartbeat();
+		removeTrackTimer();
+		removePauseTimer();
+		gRevisitFalsePopup.hide();
+		gPauseTimerScreen.setVisible(false);
+		gScreens.showGoodbye();
+		LzTimer.addTimer(drelogin, 2500);
+		gController.setAttribute('isRelogin',false);
+	</method>
+	<method name="relogin">
+	<!-- To reload login.html --> 
+		LzBrowser.loadJS('document.location.reload(true)');
+	</method>
+	
 	</node>
 
 </library>

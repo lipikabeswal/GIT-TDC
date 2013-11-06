@@ -173,10 +173,17 @@
             <StopButton name="stopbutton" x="${ parent.width - width }"
                         valign="middle"
                         enabled="${ gScreens.allowclick }">
-                <method name="dostop" event="onclick">
+                <method name="dostop" event="onclick"><![CDATA[
                     gScreens.clicked();
-                    gController.terminate();
-                </method>
+                   	if((gController.getAttribute('isOK') == 'T') || 
+                   			(gController.getAttribute('productTypeVal').indexOf('WESTEST2')>=0)){
+                   			
+                   			//  called when login page has to load again from WelcomeScreen
+								gController.terminateToRelogin();
+					}else{
+						gController.terminate();
+					}
+               ]]></method>
             </StopButton>
 
         </view>

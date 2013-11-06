@@ -78,14 +78,18 @@
         <view x="${ parent.width - width - 10 }" name="buttons">
             <simplelayout axis="x" spacing="10"/>
             <YesFinishedButton enabled="${ gScreens.allowclick }">
-                <method name="finished" event="onclick">
+                <method name="finished" event="onclick"><![CDATA[
+                	if(gController.getAttribute('productTypeVal').indexOf('WESTEST2')>=0 ||
+                			gController.getAttribute('isOK') == 'T'){
+                		gController.setAttribute('isRelogin',true);
+                	}
                     gScreens.clicked();
                     gController.isStopScreen = true;
                     gController.saveEndSubtest( '' );
                     //START Defect# 59282
                     gController.resetCrFields();
                     //END
-                </method>
+                ]]></method>
             </YesFinishedButton>
             <NoGoBackToTestButton name="goback"
                                   enabled="${ gScreens.allowclick }" visible= "${gController.isStopTest || !gController.isFinishTest}">

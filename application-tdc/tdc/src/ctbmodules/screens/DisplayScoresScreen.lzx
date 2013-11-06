@@ -373,7 +373,11 @@
 			this.score.setVisible(false);
 			this.controls.setVisible(false);
 			this.feedbackWait.setVisible(false);
-			gController.terminate();
+			if(gController.isRelogin && gController.getAttribute('isOK') == 'T'){
+				gController.terminateToRelogin();
+			}else{
+				gController.terminate();
+			}
 		}
 	]]></method>	
 	
@@ -419,9 +423,13 @@
 	<view name="controls" y=" 200" width="550" visible="false">
 		<ExitButton x="${ parent.width - width - 15 }"
                         enabled="${ gScreens.allowclick }"> 
-            <handler name="onclick">
-                gController.terminate();
-            </handler>
+            <handler name="onclick"><![CDATA[
+            	if(gController.isRelogin && gController.getAttribute('isOK') == 'T'){
+					gController.terminateToRelogin();
+				}else{
+					gController.terminate();
+				}
+            ]]></handler>
        </ExitButton> 
    	</view>
 	<view name="feedbackWait" y="10" x="470" resource="feedbackWait" visible="false"/>
