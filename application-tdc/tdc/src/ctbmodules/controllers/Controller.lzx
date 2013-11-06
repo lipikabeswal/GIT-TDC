@@ -876,7 +876,7 @@
 
             // sum of correct answers
             if(this.getAttribute('isOK') == 'T' || 
-						gController.getAttribute(productTypeVal).indexOf('TASC')>=0) { //For Oklahoma and TASC Customer
+						gController.getAttribute('productTypeVal').indexOf('TASC')>=0) { //For Oklahoma and TASC Customer
 				if(dprestart.isValid()){ // for restart scenario
 					var restartData = dprestart.xpathQuery('tsd/ist');
 					var itemIds = new Array();
