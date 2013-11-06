@@ -167,7 +167,7 @@
             gPleaseWaitPopup.contents.pleaseWait.setAttribute("visible", false);
 	        gPleaseWaitPopup.contents.retryingPopupMessage.setAttribute("visible", true);
 	            
-            if(gController.isWV || gController.getAttribute('isOK') == 'T'){
+            if(gController.isWV || gController.getAttribute('productTypeVal').indexOf('OKLAHOMA')>=0){
                 gPleaseWaitPopup.contents.exitButtonWV.setAttribute("visible", true);
 				//gPleaseWaitPopup.contents.exitButton.setAttribute("visible", false);
 				gPleaseWaitPopup.contents.networkLost.redcross.setAttribute("visible", true);
@@ -184,7 +184,7 @@
 			gPleaseWaitPopup.contents.networkLost.redcross.setAttribute("visible", false);
 			gPleaseWaitPopup.contents.exitButtonWV.setAttribute("visible", false);
 			
-			if(gController.isWV || gController.getAttribute('isOK') == 'T'){
+			if(gController.isWV || gController.getAttribute('productTypeVal').indexOf('OKLAHOMA')>=0){
                 gPleaseWaitPopup.contents.exitButton.setAttribute("visible", false);
                
 			}else{
