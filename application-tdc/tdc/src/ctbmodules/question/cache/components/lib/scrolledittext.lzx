@@ -105,6 +105,34 @@
         height="${parent.height - parent.border * 2}" 
     	pattern="[A-Za-z0-9!@;:#$%\*()-\=+/&amp;,./?&lt;&gt;&quot;&apos;{}[]\\\\\_|`~ \\^]*">
         <attribute name="pos" type="number" value="0"/>
+		
+        <!-- Used for the enter key bug with ontext event not being sent all the times when enter is pressed. -->
+        <attribute name="enterpressed" value="false" type="boolean" />
+
+        <!-- Delegate used for detecting changes to the textfield through enter key presses. -->
+        <attribute name="enterKeyDel" value="$once{new LzDelegate( this, 'processEnterDelayed' )}" />
+
+        <!--- Index position of caret/cursor in text. Value used by
+              TextFieldHistory for cursor positioning -->
+        <attribute name="caretindex" type="string" value="" />
+
+        <!--- Action for the last keypresses; used by the history -->
+        <attribute name="keyaction" type="string" value="" />
+        
+        <!--- Helper function for checking if the text has changed when the enter key
+         was pressed. Workaround for the bug with enter keys and ontext events
+         not being sent when enter is pressed on a line with content in it.
+         @access private
+       -->
+        <method name="processEnterDelayed">
+			this.keyaction = "";
+            this.caretindex = this.getSelectionPosition();
+            gController.textHistory.checkForChange();
+        </method>
+
+		<handler name="onfocus">
+			gController.textHistory.setActiveInput( classroot );
+	  	</handler>
         
         <setter name="pos" args="p">
             if (this.p == p) return;
@@ -123,6 +151,53 @@
         <handler name="onscroll" args="IGNORE_THIS_ARG">
             this.setAttribute('pos', -this.lineheight * (this.scroll - 1));
         </handler>
+
+		<handler name="onkeydown" reference="lz.Keys" args="k"> <![CDATA[
+			// Keyboard handling for TextFieldHistory support
+				Debug.write("mytext.selectionSize ",this.getSelectionSize());
+               if ( gController.textHistory.activeinput == classroot ) {
+				Debug.write("mytext.selectionSize inside if");
+                if ( k == 13 ) {
+                    // Due to a bug where the ontext event is not
+                    // sent when pressing enter at the end of a line
+                    // with some text we need to manually add the action
+                    // to the history using the processEnterDelayed() method.
+                    lz.Timer.resetTimer( enterKeyDel, 50 );
+                    var lengthBeforeEnter = this.getText().length;
+                    enterpressed = true;
+					keyaction = "enter";
+                } else if ( k == 8 ) {
+					keyaction = "backspace";
+                   } else if ( k == 46 ) {
+					keyaction = "delete";
+                   } else if ( k == 32 ) {
+					keyaction = "space";
+				} 
+                   if ( keyaction != "" ) {
+                        gController.textHistory.checkForChange();
+                   }
+               }
+			
+		 ]]>
+	 </handler>
+
+	<handler name="onkeyup" reference="lz.Keys" args="k"> <![CDATA[
+		Debug.write("onkeyup******** ",this.getSelectionSize());
+		if ( this.getSelectionSize()>0) {
+			Debug.write("selection occurs");
+            gController.textHistory.checkForChange();
+        }
+		]]>
+	</handler>
+
+	<handler name="ontext">
+		this.caretindex = this.getSelectionPosition();
+		if ( this.keyaction != "" ) {
+            gController.textHistory.checkForChange();
+        }
+        this.keyaction = "";
+	</handler>
+	
     </_newinternalinputtext>
 </class>
 </library>

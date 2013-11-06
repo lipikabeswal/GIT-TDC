@@ -3,6 +3,7 @@
 	<include href="DownloadManager.lzx" />
 	<include href="TutorialManager.lzx" />
 	<include href="Sarsystem.lzx"/>
+	<include href="TextFieldHistory.lzx" />
 	<script src="utils/json.js" />
 	
 	<Sarsystem id="flashSystem" />
@@ -595,6 +596,8 @@
 		<attribute name="isRestart1" value="false" type="boolean" />
 		<attribute name="frameid"/>
 		<attribute name="currentItemId"/>
+		<attribute name="isISTEP" value="false" type="boolean"/>
+		<attribute name="textHistory" value="$once{new lz.TextFieldHistory()}" type="expression" />
 		
 		<handler name="onframeid" args="data">
 			//Debug.write("222222222222222222222222-> ", data);
@@ -668,8 +671,8 @@
 
 		<handler name="oninit">
 			//Debug.write("oninit of controller********");
-			checkMemoryExceeded();
-			//checkIsProduct();
+			//checkMemoryExceeded();
+			checkIsProduct();
         	//gScreens.showLogin();
 			var base = lz.Browser.getInitArg( 'servletUrl' );
 			dsitem.setAttribute('src', base + '/ContentServlet.do'); 
@@ -930,7 +933,7 @@
 
 			if(currentProdType.indexOf('ISTEP') >= 0) {
 				this.setAttribute("displayText",true);
-
+				this.setAttribute('isISTEP',true);
 			} else {
 				this.setAttribute("displayText",false);
 			}
@@ -3293,6 +3296,7 @@
 			checkManipSelected();
             var s = "enablePasswordFocus()";
 			lz.Browser.loadJS(s);
+			gTooltip.hideTooltip ();
 		</method>
 
 		<method name="pausedContinue" args="pw">
@@ -3331,6 +3335,7 @@
  		]]></method>
 
 		<method name="finishTest">
+			gTooltip.hideTooltip ();
 			checkManipSelected();
         	gReadableText.stopReading(false);
             freezeUI();
@@ -3516,7 +3521,7 @@
 			if(this.adaptive == true){
 				gScreens.removeFinishState();
 			}
-			
+			gTooltip.hideTooltip();
         </method>
 
 		<method name="continueTest">
@@ -3688,6 +3693,8 @@ Debug.write("############ loadItem ############");
             this.itemloaded    = false;
             this.runtimeready  = false;
             this.youarehereset = false;
+            // Clear the TextFieldHistory
+			this.textHistory.clearHistory();
 			if(isCrItem()){
 				this.inQuestion = false;
 			}
@@ -3715,6 +3722,7 @@ Debug.write("############ loadItem ############");
 			//this.resetImageField();
 			gMaskingAnswer.setAttribute("withState",false);
 			hideMaskingChoiceDD();
+			gTooltip.hideTooltip ();
 			gController.setAttribute('laslinkPopulated',false);
 			this.resetLasHtml();
 		]]></method>
@@ -4050,8 +4058,8 @@ Debug.write("############ loadItem ############");
 				}
 				else{
 					//Debug.write("ismarked for non te********* ");
-					var s = "setItemFocus()";
-					lz.Browser.loadJS(s);
+					/*var s = "setItemFocus()";
+					lz.Browser.loadJS(s);*/
 					canvas.unFreezUI();
 				}
 			}
@@ -4074,8 +4082,8 @@ Debug.write("############ loadItem ############");
 				}else{
 					//Debug.write("not ismarked for non te********* ");
 					//don't remove this is for freezing the UI untill views are rendered
-					var s = "setItemFocus()";
-					lz.Browser.loadJS(s);
+					/*var s = "setItemFocus()";
+					lz.Browser.loadJS(s);*/
 					canvas.unFreezUI();
 				}
                 

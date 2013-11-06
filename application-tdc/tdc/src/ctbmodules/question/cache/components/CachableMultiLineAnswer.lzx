@@ -1,6 +1,7 @@
 <library>
     <include href="CachableComponent.lzx"/>
 	<include href="lib/scrolledittext.lzx" /> 
+	<include href="lib/EnableDisableButton.lzx" />
 
 
     <!-- ===============
@@ -38,7 +39,9 @@
          <attribute name="showFormatBar" type="boolean" value="false" />
 		 
 
-         
+         <attribute name="canundo" type="boolean" value="false" />
+         <attribute name="canredo" type="boolean" value="false" />
+
         <!-- ===============
              = METHODS
              =============== -->
@@ -263,6 +266,7 @@
 						<attribute name="end" type="number" value="0" />
 						<attribute name="isCtrl" type="boolean" value="false"/>
 						<attribute name="isAlt" type="boolean" value="false"/> 
+
 						<handler name="onmaxlength">
 							Debug.write("maxlength in scrolledittext*****",this.maxlength);
 						</handler>
@@ -297,7 +301,7 @@
 							if(k==-1){
 							     this.setEnabled(true);
 							}
-							
+
 						 ]]>
 					 </handler>
 					 
@@ -345,7 +349,12 @@
 							 else {  // Field is now empty
 								gController.updateCrField(classroot.widget_id, '', false);
 							 }
-						 }
+						 }else {
+	                          // The history can only be initialized after the initial text
+	                          // value has been set. Check TextFieldHistory.lzx and
+	                          // scrollrichedittext.lzx for the history implementation.
+	                         gController.textHistory.initializeHistoryForText( this );
+	                     }
 	//Debug.write(classroot, "ontext", text.length);
 						 classroot.setAttribute("numCharacters", text.length);
 						 classroot.updateCharacterMeter();
@@ -356,25 +365,8 @@
 								textContent = textContent.substring(0,Number(classroot.characterLimit));
 								updateScrollText(textContent);
 							}*/
-												 
-						 
 					   ]]></handler>
 		
-		<handler name="onkeydown" reference="lz.Keys" args="k"><![CDATA[
-		
-		/*
-		if (lz.Keys.isKeyDown("control") &&
-                    lz.Keys.isKeyDown("v"))
-                    {
-                    Debug.write("getTextHeight:",this.inp.getTextHeight(),this.inp.maxscroll);
-                    Debug.write("Height:",this.height);
-					if(this.inp.getTextHeight() > this.height) {
-									this.inp.setAttribute("scroll",this.inp.maxscroll);
-									}
-                    }
-         */        
-                   ]]>
-		</handler>
 					<method name="getSelectedText">
 						if(end == 0){
 							return '';
@@ -408,17 +400,56 @@
 				  </handler>
 				 </view>
 			</view>
+		<view>
+			<simplelayout axis="y" spacing="4" />
+			<basebutton resource="read_btn" 
+	 		            name="readBtn"
+	 		            visible="${canvas.readable}">
+				<handler name="onclick">
+	                classroot.read();
+				</handler>
+				<handler name="onmouseover">
+					classroot.setSelectionVars();
+				</handler>
+			</basebutton>
+			
+			<EnableDisableButton name="undoBtn" resource="undo_btn"
+                 visible="true"
+                 enabled="${classroot.canundo}">
+                <handler name="onmouseover">
+                    gTooltip.showTooltip('Undo');
+                </handler>
+                <handler name="onmouseout">
+                    gTooltip.hideTooltip ();
+                </handler>
+                <handler name="onclick">
+                	Debug.write("doClick*********");
+                	if(gPleaseWaitPopup.visible == false){
+                    	gController.textHistory.setActiveInput( classroot.outer.rich.answer );
+                    	gController.textHistory.undo();
+                    }	
+                </handler>
+            </EnableDisableButton>
 
-		<basebutton resource="read_btn" 
- 		            name="readBtn"
- 		            visible="${canvas.readable}">
-			<handler name="onclick">
-                classroot.read();
-			</handler>
-			<handler name="onmouseover">
-				classroot.setSelectionVars();
-			</handler>
-		</basebutton>
+			<view name="justForSpace" height="12" visible="${parent.redoBtn.visible}"/>
+            <EnableDisableButton name="redoBtn" resource="redo_btn"
+                visible="true"
+                enabled="${classroot.canredo}">
+                <handler name="onmouseover">
+                    gTooltip.showTooltip('Redo');
+                </handler>
+                <handler name="onmouseout">
+                    gTooltip.hideTooltip ();
+                </handler>
+                <handler name="onclick">
+                	if(gPleaseWaitPopup.visible == false){
+	                    gController.textHistory.setActiveInput( classroot.outer.rich.answer );
+	                    gController.textHistory.redo();
+	                }
+                </handler>
+            </EnableDisableButton>
+
+        </view>
 		 <drawview options="ignorelayout" width="${classroot.editTextWidth + classroot.lmargin}" 
 		                  height="${classroot.height}">
 					<attribute name="isready" value="false" type="boolean" />

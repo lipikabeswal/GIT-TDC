@@ -89,6 +89,7 @@
 	lz.FlashUtils = new FlashUtils();
 	]]></script>
 
+	<script src="utils/json.js" />
 	<debug x="0" y="0" width="80%" height="400" />
 
 	<include href="ctbmodules" />
