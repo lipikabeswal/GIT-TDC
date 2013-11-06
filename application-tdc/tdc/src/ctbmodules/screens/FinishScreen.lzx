@@ -80,6 +80,7 @@
             <YesFinishedButton enabled="${ gScreens.allowclick }">
                <handler name="onclick" method="finished"/>
                 <method name="finished">
+                	gController.setAttribute('isRelogin',true);
                     gScreens.clicked();
                     gController.isStopScreen = true;
                     gController.saveEndSubtest();

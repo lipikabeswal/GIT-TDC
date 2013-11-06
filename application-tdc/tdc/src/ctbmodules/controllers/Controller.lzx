@@ -288,7 +288,8 @@
 		<attribute name="SAVE_LEV" type="string" value="stu_save" />
 		<attribute name="TERMINATED_LEV" type="string"
 			value="terminated" />
-
+		<attribute name="SAVE_METHOD" type="string"
+			value="savemethod" />
 		<!-- 
 			Item types - theme or normal
 		-->
@@ -327,7 +328,8 @@
 		<attribute name="subtestLength" type="number" value="0" />
 		<attribute name="istLength" type="number" value="0" />
 		<attribute name="istRestartLength" type="number" value="0" />
-
+		<attribute name="isRelogin" type="boolean" value="false" />
+		
 		<!-- START Change for deferred Defect 63502-->
 		<attribute name="restartscid" value="0" />
 		<!-- END-->
@@ -914,6 +916,8 @@
 					case CHECK_MEMORY_EXCEEDED:
 						_handleCheckMemoryExceeded(response);
 						break;
+					case SAVE_METHOD:
+						_handleSaveMethod(response);
 					default:
 						break;
 				}
@@ -1031,7 +1035,11 @@
 				getFeedback();
 			}
 			else {
-				terminate();
+				if(this.isRelogin){
+						terminateToRelogin();
+					}else{
+						terminate();
+					}
 			}
 		</method>
 		<method name="getSubtestIndex" args="node"><![CDATA[
@@ -1103,7 +1111,9 @@
 
 		<attribute name="dcloseBrowser"
 			value="$once{ new lz.Delegate( this, 'closeBrowser' ) }" />
-
+		<attribute name="drelogin"
+			value="$once{ new lz.Delegate( this, 'relogin' ) }" />
+			
 		<method name="closeBrowser">
 			gCommunicator.closeBrowser();
 		</method>
@@ -5981,6 +5991,28 @@ Debug.write("############ loadItem ############");
 		<method name="backToLogin">
 			lz.Browser.loadURL('http://192.168.14.24:12345/login.html', 'self');
 		</method>
+		<method name="_handleSaveMethod" args="response">
+			if(response.indexOf('OK') > 0)
+				goToGoodbyeScreenToRelogin();
+		</method>
+		<method name="terminateToRelogin">
+		<!-- called when login page has to load again --> 	
+			setState(SAVE_METHOD);
+			gCommunicator.terminate();
+			//goToGoodbyeScreenToRelogin();
+		</method>
+		<method name="goToGoodbyeScreenToRelogin">
+		<!-- called when login page has to load again --> 
+			stopHeartbeat();
+			gScreens.showGoodbye();	
+			lz.Timer.addTimer(drelogin, 2500);
+			gController.setAttribute('isRelogin',false);
+		</method>
+		<method name="relogin">
+		<!-- To reload login.html --> 
+			lz.Browser.loadJS('document.location.reload(true)');
+		</method>
+	
 	</node>
 
 </library>

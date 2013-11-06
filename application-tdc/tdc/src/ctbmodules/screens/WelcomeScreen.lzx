@@ -178,7 +178,8 @@
                 <handler name="onclick" method="dostop"/>
                 <method name="dostop">
                     gScreens.clicked();
-                    gController.terminate();
+                    gController.terminateToRelogin();
+                    //gController.terminate();
                 </method>
             </StopButton>
 
