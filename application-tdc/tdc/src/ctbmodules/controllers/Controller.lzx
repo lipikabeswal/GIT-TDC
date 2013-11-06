@@ -3278,6 +3278,7 @@
 			removePauseTimer();
 			gCommunicator.showHideOkCalculator("N");
 			gPauseTimerScreen.setVisible(false);
+			timeoutDialog.close();
 			dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
 		</method>
 
