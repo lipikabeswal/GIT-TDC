@@ -182,10 +182,15 @@
 	 </handler>
 
 	<handler name="onkeyup" reference="lz.Keys" args="k"> <![CDATA[
-		Debug.write("onkeyup******** ",this.getSelectionSize());
 		if ( this.getSelectionSize()>0) {
-			Debug.write("selection occurs");
-            gController.textHistory.checkForChange();
+            keyaction = "overwrite";
+        }
+		]]>
+	</handler>
+
+	<handler name="onmouseup" reference="lz.GlobalMouse"> <![CDATA[
+		if ( this.getSelectionSize()>0) {
+            keyaction = "overwrite";
         }
 		]]>
 	</handler>
