@@ -273,7 +273,7 @@
                     this.previousvalue = activeinput.getText();
                     caretIndex = this.getCaretIndex();
                     //jsonStr = JSON.stringify( activeinput.getText() )
-					str = activeinput.getText();
+					var str = activeinput.getText();
                     //jsExpr = 'TextHistory.createDiff( "' + activeinput.id + '", ' + caretIndex + ', ' + jsonStr + ');'
                     var methodName = "TextHistory.createDiff";
                     this.callToJS([methodName,null,activeinput.id,caretIndex,str] );
