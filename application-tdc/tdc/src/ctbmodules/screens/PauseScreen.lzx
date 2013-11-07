@@ -28,7 +28,7 @@
             </text>
             <edittext name="loginIdField" x="287" enabled="false"
                       bgcolor="0x777777" fontsize="12" datapath="@userid"
-                      width="265"/>
+                      width="265" maxlength="32"/>
         </view>
         <view name="pw">
             <text resize="true" valign="middle"
@@ -36,9 +36,9 @@
                 <b>Password:</b>
             </text>
             <edittext name="passwordField" x="287" fontsize="12"
-                      password="true" width="265"/>
+                      password="true" width="265" maxlength="32"/>
              <edittext name="wvpasswordField" x="287" fontsize="12"
-                      password="false" width="265" pattern="[a-zA-Z0-9_]*"/>
+                      password="false" width="265" pattern="[a-zA-Z0-9_]*"  maxlength="32"/>
         </view>
         <view name="ac">
             <text resize="true" fgcolor="white"
@@ -47,10 +47,10 @@
             </text>
             <edittext name="accesscodeField" x="287" enabled="false"
                       bgcolor="0x777777" fontsize="12" datapath="@accesscode"
-                      width="265" >
+                      width="265" maxlength="32">
             </edittext>
             <edittext name="otheraccesscodeField" x="287" fontsize="12" text="${gController.accesscode}"
-                      password="true" width="265" enabled="false" pattern="[a-zA-Z0-9_]*">
+                      password="true" width="265" enabled="false" pattern="[a-zA-Z0-9_]*" maxlength="32">
                       
             </edittext>
         </view>
