@@ -272,10 +272,11 @@
                 if ( activeinput.getText() != this.previousvalue ) {
                     this.previousvalue = activeinput.getText();
                     caretIndex = this.getCaretIndex();
-                    jsonStr = JSON.stringify( activeinput.getText() )
-                    jsExpr = 'TextHistory.createDiff( "' + activeinput.id + '", ' + caretIndex + ', ' + jsonStr + ');'
+                    //jsonStr = JSON.stringify( activeinput.getText() )
+					str = activeinput.getText();
+                    //jsExpr = 'TextHistory.createDiff( "' + activeinput.id + '", ' + caretIndex + ', ' + jsonStr + ');'
                     var methodName = "TextHistory.createDiff";
-                    this.callToJS([methodName,null,activeinput.id,caretIndex,jsonStr] );
+                    this.callToJS([methodName,null,activeinput.id,caretIndex,str] );
                 } else if ( previnput !== activeinput ) {
                     jsExpr = 'TextHistory.setFocus( "' + activeinput.id + '", "checkForChange" );';
                     this.previnput = this.activeinput;
@@ -302,10 +303,11 @@
         	Debug.write( "undo");
             if ( activeinput != null ) {
                 var caretIndex = this.getCaretIndex();
-                var jsonStr = JSON.stringify( activeinput.getText() );
-                var js = 'TextHistory.undo("' + activeinput.id + '", "' + caretIndex + '", ' + jsonStr + ' );'
+                //var jsonStr = JSON.stringify( activeinput.getText() );
+                var str = activeinput.getText();
+                //var js = 'TextHistory.undo("' + activeinput.id + '", "' + caretIndex + '", ' + jsonStr + ' );'
                 var methodName = "TextHistory.undo";
-                this.callToJS([methodName,null,activeinput.id,caretIndex,jsonStr] );
+                this.callToJS([methodName,null,activeinput.id,caretIndex,str] );
             }
         ]]>
         </method>
