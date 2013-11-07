@@ -85,19 +85,6 @@
           -->
         <attribute name="delayedCheckForChangeDel" value="$once{new lz.Delegate( this, 'checkForChange' )}" type="expression" />
         
-        <!--- createHistory called after a delay
-              @type Object
-              @access private
-          -->
-        <attribute name="delayedCrtHist" value="$once{new lz.Delegate( this, 'createHistDelayed' )}" type="expression" />
-        
-         <!--- createHistory javascript call expression
-              @type Object
-              @access private
-          -->
-        <attribute name="createHistoryExp" value="null" type="string"/>
-        
-
         <!--- Object with history entries for multiple textfields. Textfied id is used as index.
               @type Object
               @access private
@@ -132,7 +119,8 @@
             Debug.write( "TextFieldHistory#onactiveinput: activeinput=" + activeinput );
             if ( activeinput != null && this.previnput !== this.activeinput ) {
                 var jsExpr = 'TextHistory.setFocus( "' + activeinput.id + '");';
-                this.callToJS( jsExpr );
+				var methodName = 'TextHistory.setFocus';
+				this.callToJS([methodName,null,activeinput.id] );
                 this.previnput = this.activeinput;
                 this.previousvalue = activeinput.getText();
             }
@@ -207,15 +195,6 @@
             }
         </method>
         
-         <!--- createHistory is called after a delay as the simultaneous calls ro clearHistory resulted in createHistory call to be lost
-             @access private
-        -->
-        <method name="createHistDelayed">
-        	this.callToJS( this.createHistoryExp );
-        	lz.Timer.removeTimer(delayedCrtHist);
-        </method>
-
-
         <!--- Creates a history for a text field.
               @access private
               @parameter String id: The id of the textfield.
@@ -236,9 +215,8 @@
                     this.history[ theText.id ] = {};
                     var jsExpr = "TextHistory.createHistory('"+ theText.id + "','" + theText.text + "')";
                     this.setAttribute('createHistoryExp',jsExpr);
-                    Debug.write("insisde if of createHistory jsExpr = "+jsExpr);
-                    //this.callToJS( jsExpr );
-                    lz.Timer.resetTimer(delayedCrtHist,100);
+                    var methodName = "TextHistory.createHistory";
+                    this.callToJS([methodName,null,theText.id,theText.text] );
                 }
             }
         ]]>
@@ -257,7 +235,8 @@
             }
             lz.Focus.clearFocus();
             this.setAttribute( "activeinput", null );
-            this.callToJS( 'TextHistory.clearHistory()' );
+			var methodName = 'TextHistory.clearHistory';
+			this.callToJS([methodName,null] );
         ]]>
         </method>
 
@@ -295,11 +274,13 @@
                     caretIndex = this.getCaretIndex();
                     jsonStr = JSON.stringify( activeinput.getText() )
                     jsExpr = 'TextHistory.createDiff( "' + activeinput.id + '", ' + caretIndex + ', ' + jsonStr + ');'
-                    this.callToJS( jsExpr );
+                    var methodName = "TextHistory.createDiff";
+                    this.callToJS([methodName,null,activeinput.id,caretIndex,jsonStr] );
                 } else if ( previnput !== activeinput ) {
                     jsExpr = 'TextHistory.setFocus( "' + activeinput.id + '", "checkForChange" );';
                     this.previnput = this.activeinput;
-                    this.callToJS( jsExpr );
+                    var methodName = "TextHistory.setFocus";
+                    this.callToJS([methodName,null,activeinput.id,checkForChange] );
                 }
             }
         </method>
@@ -323,7 +304,8 @@
                 var caretIndex = this.getCaretIndex();
                 var jsonStr = JSON.stringify( activeinput.getText() );
                 var js = 'TextHistory.undo("' + activeinput.id + '", "' + caretIndex + '", ' + jsonStr + ' );'
-                this.callToJS( js );
+                var methodName = "TextHistory.undo";
+                this.callToJS([methodName,null,activeinput.id,caretIndex,jsonStr] );
             }
         ]]>
         </method>
@@ -350,7 +332,8 @@
         <method name="redo"><![CDATA[
             // Debug.write( "TextFieldHistory.redo: activeinput.id=" + activeinput.id );
             if ( activeinput != null ) {
-                this.callToJS( 'TextHistory.redo("' + activeinput.id + '");' );
+				var methodName = "TextHistory.redo";
+                this.callToJS([methodName,null,activeinput.id] );
             }
 
         ]]>
@@ -387,12 +370,11 @@
                @access private
                @parameter String jsExpr: JavaScript expression to evaluate in HTML page.
          -->
-        <method name="callToJS" args="jsExpr"><![CDATA[
-            if ( jsExpr ) {
+        <method name="callToJS" args="jsArgs"><![CDATA[
+            if ( jsArgs!=null ) {
                 this.transactiontime = new Date();
                 this.setAttribute( "locked", true );
-                Debug.write("callToJS jsExpr= "+jsExpr);
-                lz.Browser.loadJS( jsExpr );
+				lz.Browser.callJS.apply(null, jsArgs);
             }
         ]]></method>
 
