@@ -152,14 +152,18 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
    				var code = "";
 
   				if (node && node.nodeName == 'ERROR'){
-
-					code = node.getElementsByTagName("CODE")[0].childNodes[0].data;
-					var msg = node.getElementsByTagName("MESSAGE")[0].childNodes[0].data;
-					
-					if(typeof code == "undefined") {
-						code = "";						
+  				
+					if(node.getElementsByTagName("CODE")[0].childNodes[0]!= undefined) {
+						code = node.getElementsByTagName("CODE")[0].childNodes[0].data;		
+						var msg = node.getElementsByTagName("MESSAGE")[0].childNodes[0].data;				
+						if(typeof code == "undefined") {
+							code = "";						
+						}
 					}
-
+					else {
+						code = "";
+					}
+					
 					//show popup only for network error and tts error	
 					if(code == "" || code == "556" || code == "558") {
 						if(firstRequestDone && gController.isWaitPopupOpen == false) {
