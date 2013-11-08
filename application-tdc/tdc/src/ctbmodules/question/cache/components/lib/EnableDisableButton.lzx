@@ -45,6 +45,10 @@
                 } else if ( this.globalMousedownDel ) {
                     this.globalMousedownDel.disable();
                 }
+				//hide tooltip when button is disabled
+                if(!enabled){
+                	gTooltip.hideTooltip ();
+                }
             ]]>
             </handler>
 
