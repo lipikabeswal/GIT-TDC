@@ -36,7 +36,10 @@
 	]]></method>
 	
 	<method name="hide"><![CDATA[
-		if(!gRevisitFalsePopup.visible || gRevisitFalsePopup.visible == 'false') {
+		if(gRevisitFalsePopup.visible || gRevisitFalsePopup.visible == 'true') {
+			gController.checkHideMagnifierGlass();
+	    }
+	    else {
 	    	gManipulatives.setAttribute('visible',true);
 	    }
         this.setAttribute("visible", false);
