@@ -163,7 +163,7 @@
             contents.ps.pw.passwordField.style.setAttribute('textfieldcolor', gController.answerBgColor);
         </method>
         
-        <method name="showPause" args="sn">
+        <method name="showPause" args="sn"><![CDATA[
             removeAllStates();
             if ( !contents.ps.isinited ) contents.ps.completeInstantiation();
             standingMan.apply();
@@ -204,7 +204,12 @@
         	  //Debug.write("IN OK");
         	  LzFocus.setFocus(contents.ps.pw.passwordField);
         	 }
-        </method>
+        	
+        	// for the defect 76048 
+        	if(gController.refCardReff != null && gController.refCardReff !=undefined){
+				gController.refCardReff.onmouseout.sendEvent();
+			}
+        ]]></method>
         <method name="showLogin">
 			
             removeAllStates();
