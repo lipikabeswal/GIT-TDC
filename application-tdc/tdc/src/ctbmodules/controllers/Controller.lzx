@@ -330,7 +330,7 @@
 		<attribute name="istLength" type="number" value="0" />
 		<attribute name="istRestartLength" type="number" value="0" />
 		<attribute name="isRelogin" type="boolean" value="false" />
-		
+		<attribute name="zoomClicked" type="boolean" value="false"/>
 		<!-- START Change for deferred Defect 63502-->
 		<attribute name="restartscid" value="0" />
 		<!-- END-->
@@ -2825,6 +2825,7 @@
 				}
 				this.setAttribute('isaudio',false);
 				resetRecorder();
+				gController.setAttribute('zoomClicked',false);
 			//}
 		]]></method>
 

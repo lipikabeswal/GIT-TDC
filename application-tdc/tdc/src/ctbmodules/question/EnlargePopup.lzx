@@ -27,6 +27,7 @@
 	
    <method name="enlarge" args="dn, w, h, color, stereotype">
    		//Debug.write("arguments ",dn, w, h, color, stereotype);
+   		gController.setAttribute('zoomClicked',true);
         this.clickdel.register (lz.GlobalMouse, 'onmousedown');        
 		//Debug.write("this.dsenlarge",this.dsenlarge);
         var dnq = this.dsenlarge.getPointer().p.childNodes[0];
