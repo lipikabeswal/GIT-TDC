@@ -3,6 +3,8 @@
 	<include href="DownloadManager.lzx" />
 	<include href="TutorialManager.lzx" />
 	<include href="Sarsystem.lzx"/>
+	<include href="utils/UnicodeTextConverter.lzx" />
+	
 	<!-- <script src="utils/json.js" /> -->
 	
 	<!--<Sarsystem id="flashSystem" />-->
@@ -578,7 +580,9 @@
 		
 		<!--  Will be set to true when an object is dragged inside a TE item  -->	
     	<attribute name="iframeDragActive" value="false" type="boolean" />	    	
-    	<attribute name="answerPanelLayout" type="string" value="vertical"/>		
+    	<attribute name="answerPanelLayout" type="string" value="vertical"/>
+    	
+ 	    <attribute name="unicodeConverter" value="$once{new lz.UnicodeTextConverter()}" type="expression" />		
 
     	<!--  Cancels a drag operation inside a TE item -->
     	<method name="cancelIframeDrag">
@@ -2310,7 +2314,11 @@
                //Debug.write("widgetId : " + widgetId + " node : " , node);
 			   dp.setPointer(node);
 			  result = dp.xpathQuery("dstemp://answers/answer[@id = '"+widgetId+"']/text()");
-			//Debug.write("getAnswerForInputWidgetId result: " , result);
+			  if(result==null){
+			  	result="";
+			  }
+			console.log("getAnswerForInputWidgetId result: " , result);
+			console.log("idPresent: " , idPresent);
                dstemp.removeChild(node);
                if(idPresent.length > 1) {
                     var idVal = idPresent[0];

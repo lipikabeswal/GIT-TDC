@@ -744,6 +744,45 @@ function checkEmptyString(str) {
 			}
 		});
 	}*/
+
+      var os = (function() {
+         var ua = navigator.userAgent.toLowerCase();
+         return {
+             isWin: /windows/.test(ua),
+             isWin2K: /windows nt 5.0/.test(ua),
+             isWinXP: /windows nt 5.1/.test(ua),
+             isVista: /windows nt 6.0/.test(ua),
+             isWin7: /windows nt 6.1/.test(ua),
+             isMac: /mac os x /.test(ua),
+             isMac107: /mac os x 10_7/.test(ua),
+             isMac108: /mac os x 10_8/.test(ua),
+             isMac109: /mac os x 10_9/.test(ua),
+             isLinux: /linux/.test(ua),
+             isIPad: /ipad/.test(ua)
+         };
+
+     }());
+
+     function loadOSStyleSheet( basename ) {
+         var path = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")) + "/";
+         var filePartOS = "windows";
+         if ( os.isWinXP ) {
+             filePartOS = "winxp";
+         } else if ( os.isWin ){
+             filePartOS = "windows";
+         } else if ( os.isMac ) {
+             filePartOS = "mac";
+         } else if ( os.isIPad ) {
+             filePartOS = "ios";
+         } else if ( os.isLinux ) {
+             filePartOS = "linux";
+         }
+         var fileUrl = path + basename + "_" + filePartOS + ".css";
+         $("head").append("<link rel='stylesheet' href='" + fileUrl + "' type='text/css' />");
+     }
+
+     // Load the custom stylesheet with text settings for this OS
+     loadOSStyleSheet( "css/unicode" );
 //-->
 </SCRIPT>
 </HEAD>
