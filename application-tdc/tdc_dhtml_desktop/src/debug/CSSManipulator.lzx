@@ -1,0 +1,253 @@
+<library>
+
+    <include href="CSSUtil.lzx" />
+
+    <class name="CSSManipulator" extends="view" with="DragMixin"
+        width="340" height="900" bgcolor="grey"
+        onmousedown="setAttribute('dragenabled', true)"
+        onmouseup="setAttribute('dragenabled', false)"
+        dragaxis="both"
+        dragminx="0"
+        dragmaxx="${parent.width - width*xscale}"
+        dragminy="0"
+        dragmaxy="$once{parent.height - height*yscale}">
+
+        <method name="toggleShow">
+            setAttribute( "visible", ! visible );
+        </method>
+
+        <!-- VIEWS -->
+        <view x="5" y="5" width="${parent.width-10}" height="${parent.height-10}" bgcolor="#eeeeee">
+            <view x="20" y="20">
+
+                <simplelayout axis="y" spacing="15" />
+
+                <view>
+                    <checkbox text="Optimize fractions"
+                              onvalue="gController.unicodeConverter.setAttribute( 'optimizeFractions', value )" />
+                </view>
+
+                <text fontstyle="bold">Superscript / subscript settings</text>
+
+                <view>
+                    <text y="10" text="${ 'sup{ bottom: ' + slider1.value / 100 + 'ex }' }" width="300" selectable="true" />
+                    <slider id="slider1" showvalue="false" showfill="true" width="200"
+                            minvalue="0" maxvalue="150" showrange="false">
+                        <attribute name="ready" value="false" type="boolean" />
+                        <handler name="oninit">
+                            this.ready = true;
+                            var cssVal = gCSSUtil.getStyleForRule( "sup", "bottom").style.bottom.replace( "ex", "" );
+                            this.setAttribute( "value", Number( cssVal ) * 100 );
+                        </handler>
+                        <handler name="onvalue">
+                            if ( ready ) {
+                                var newVal = value / 100;
+                                gCSSUtil.changeCSSRuleBySelector("sup", "bottom", newVal + "ex");
+                            }
+                        </handler>
+                    </slider>
+                </view>
+
+                <view>
+                    <text y="10" text="${ 'sub{ top: ' + slider2.value / 100 + 'ex }' }" width="300" selectable="true" />
+                    <slider id="slider2" showvalue="false" showfill="true" width="200"
+                            minvalue="0" maxvalue="100" showrange="false">
+                        <attribute name="ready" value="false" type="boolean" />
+                        <handler name="oninit">
+                            this.ready = true;
+                            var cssVal = gCSSUtil.getStyleForRule( "sub", "top").style.top.replace( "ex", "" );
+                            this.setAttribute( "value", Number( cssVal ) * 100 );
+                        </handler>
+                        <handler name="onvalue">
+                            if ( ready ) {
+                                var newVal = value / 100;
+                                gCSSUtil.changeCSSRuleBySelector("sub", "top", newVal + "ex");
+                            }
+                        </handler>
+                    </slider>
+                </view>
+
+                <view>
+                    <text y="10" text="${ 'sup, sub{ font-size: ' + slider3.value / 100 + 'em }' }" width="300" selectable="true" />
+                    <slider id="slider3" showvalue="false" showfill="true" width="200"
+                            value="75" minvalue="25" maxvalue="100" showrange="false">
+                        <attribute name="ready" value="false" type="boolean" />
+                        <handler name="oninit">
+                            this.ready = true;
+                            var cssVal = gCSSUtil.getStyleForRule( "sup, sub", "font-size").style.fontSize.replace( "em", "" );
+                            this.setAttribute( "value", Number( cssVal ) * 100 );
+                        </handler>
+                        <handler name="onvalue">
+                            if ( ready ) {
+                                var newVal = value / 100;
+                                gCSSUtil.changeCSSRuleBySelector("sup, sub", "font-size", newVal + "em");
+                            }
+                        </handler>
+                    </slider>
+                </view>
+
+
+                <text fontstyle="bold" width="300">Standard Font</text>
+
+                <view>
+                    <text y="10" text="${ 'span.standardfonttext{ letter-spacing: ' + slider4.value/100 + 'em }' }" width="300" selectable="true" />
+                    <slider id="slider4" showvalue="false" showfill="true" width="200"
+                            minvalue="-30" maxvalue="30" showrange="false">
+                        <attribute name="ready" value="false" type="boolean" />
+                        <handler name="oninit">
+                            this.ready = true;
+                            var cssVal = gCSSUtil.getStyleForRule( "span.standardfonttext", "letter-spacing").style.letterSpacing.replace( "em", "" );
+                            this.setAttribute( "value", Number( cssVal ) * 100 );
+                        </handler>
+                        <handler name="onvalue">
+                            if ( ready ) {
+                                gCSSUtil.changeCSSRuleBySelector("span.standardfonttext", "letter-spacing", value/100 + "em")
+                            }
+                        </handler>
+                    </slider>
+                </view>
+
+                <view>
+                    <text y="10" text="${ 'span.standardfonttext{ line-height: ' + slider5.value + 'px }' }" width="300" selectable="true" />
+                    <slider id="slider5" showvalue="false" showfill="true" width="200"
+                            value="16" minvalue="0" maxvalue="30" showrange="false">
+                        <attribute name="ready" value="false" type="boolean" />
+                        <handler name="oninit">
+                            this.ready = true;
+                            var cssVal = gCSSUtil.getStyleForRule( "span.standardfonttext", "line-height").style.lineHeight.replace( "px", "" );
+                            this.setAttribute( "value", Number( cssVal ) );
+                        </handler>
+                        <handler name="onvalue">
+                            if ( ready ) {
+                                gCSSUtil.changeCSSRuleBySelector("span.standardfonttext", "line-height", value + "px")
+                            }
+                        </handler>
+                    </slider>
+                </view>
+
+
+                <text fontstyle="bold" width="300">Large Font</text>
+                <view>
+                    <text y="10" text="${ 'span.largefonttext{ letter-spacing: ' + slider6.value/100 + 'em }' }" width="300" selectable="true" />
+                    <slider id="slider6" showvalue="false" showfill="true" width="200"
+                            value="0" minvalue="-30" maxvalue="30" showrange="false">
+                        <attribute name="ready" value="false" type="boolean" />
+                        <handler name="oninit">
+                            this.ready = true;
+                            var cssVal = gCSSUtil.getStyleForRule( "span.largefonttext", "letter-spacing").style.letterSpacing.replace( "em", "" );
+                            this.setAttribute( "value", Number( cssVal ) * 100 );
+                        </handler>
+                        <handler name="onvalue">
+                            if ( ready ) {
+                                gCSSUtil.changeCSSRuleBySelector("span.largefonttext", "letter-spacing", value/100 + "em")
+                            }
+                        </handler>
+                    </slider>
+                </view>
+
+                <view>
+                    <text y="10" text="${ 'span.largefonttext{ line-height: ' + slider7.value + 'px }' }" width="300" selectable="true" />
+                    <slider id="slider7" showvalue="false" showfill="true" width="200"
+                            value="30" minvalue="0" maxvalue="40" showrange="false">
+                        <attribute name="ready" value="false" type="boolean" />
+                        <handler name="oninit">
+                            this.ready = true;
+                            var cssVal = gCSSUtil.getStyleForRule( "span.largefonttext", "line-height").style.lineHeight.replace( "px", "" );
+                            this.setAttribute( "value", Number( cssVal ) );
+                        </handler>
+                        <handler name="onvalue">
+                            if ( ready ) {
+                                gCSSUtil.changeCSSRuleBySelector("span.largefonttext", "line-height", value + "px")
+                            }
+                        </handler>
+                    </slider>
+                </view>
+
+                <text fontstyle="bold" width="300">Numerator / Denominator</text>
+                <view>
+                    <combobox id="specialsSel" width="200" editable="false">
+                        <handler name="onvalue"><![CDATA[
+                            if ( value && value != 'null' ) {
+                                /* Set the sliders based on the values for this CSS rule. Supported
+                                 * styles:
+                                 *     zoom: 93%;
+                                 *     letter-spacing: 0.0em;
+                                 *     vertical-align: 0;
+                                 *     position: relative;
+                                 *     bottom: 0.4ex;
+                                 */
+
+                                var zoom = gCSSUtil.getStyleForRule( value, "zoom").style.zoom.replace( "%", "");
+                                var bottom = gCSSUtil.getStyleForRule( value, "bottom").style.bottom.replace( "ex", "");
+                                var letterSpacing = gCSSUtil.getStyleForRule( value, "letter-spacing").style.letterSpacing.replace( "em", "");
+                                slider8.setAttribute( "value", Number( zoom ));
+                                slider9.setAttribute( "value", Number( letterSpacing) * 100 );
+                                slider10.setAttribute( "value", Number( bottom) * 100 );
+                            }
+                        ]]>
+                        </handler>
+
+                        <textlistitem text="Numerator Standard" value="'.standardNumerator'" selected="true"/>
+                        <textlistitem text="Numerator Large" value="'.largeNumerator'"/>
+                        <textlistitem text="Denominator Standard" value="'.standardDenominator'"/>
+                        <textlistitem text="Denominator Large" value="'.largeDenominator'"/>
+                    </combobox>
+                </view>
+
+
+                <view>
+                    <text y="10" text="${ specialsSel.value + '{ zoom: ' + slider8.value + '% }' }" width="300" selectable="true" />
+                    <slider id="slider8" showvalue="false" showfill="true" width="200"
+                            minvalue="0" maxvalue="100" showrange="false">
+                        <handler name="onvalue">
+                            if ( specialsSel.value != null )
+                                gCSSUtil.changeCSSRuleBySelector( specialsSel.value , "zoom", value + "%")
+                        </handler>
+                    </slider>
+                </view>
+
+                <view>
+                    <text y="10" text="${ specialsSel.value + '{ letter-spacing: ' + slider9.value/100 + 'em }' }" width="300" selectable="true" />
+                    <slider id="slider9" showvalue="false" showfill="true" width="200"
+                            minvalue="-100" maxvalue="100" showrange="false">
+                        <handler name="onvalue">
+                            if ( specialsSel.value != null )
+                                gCSSUtil.changeCSSRuleBySelector( specialsSel.value, "letter-spacing", value/100 + "em")
+                        </handler>
+                    </slider>
+                </view>
+
+                <view>
+                    <text y="10" text="${ specialsSel.value + '{ bottom: ' + slider10.value/100 + 'ex }' }" width="300" selectable="true" />
+                    <slider id="slider10" showvalue="false" showfill="true" width="200"
+                            minvalue="-100" maxvalue="100" showrange="false">
+                        <handler name="onvalue">
+                            if ( specialsSel.value != null )
+                                gCSSUtil.changeCSSRuleBySelector( specialsSel.value, "bottom", value/100 + "ex")
+                        </handler>
+                    </slider>
+                </view>
+
+            </view>
+
+            <view x="${classroot.width-20}" y="${classroot-20}"
+                  width="10" height="10" bgcolor="black"
+                  onclick="classroot.setAttribute( 'visible', false )" />
+
+        </view>
+
+    </class>
+
+    <CSSUtil id="gCSSUtil" />
+
+    <CSSManipulator id="gCssManipulator" x="600" y="40" visible="false" initstage="late">
+        <handler name="onvisible">
+            gCssManipulator.bringToFront();
+        </handler>
+    </CSSManipulator>
+
+    <view width="10" height="10"
+          valign="top" onclick="gCssManipulator.toggleShow()" bgcolor="red">
+    </view>
+
+</library>
