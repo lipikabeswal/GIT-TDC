@@ -43,20 +43,17 @@
             lz.Keys.callOnKeyCombo( dtoggleH, [ 'capslock', 'h' ] );
             lz.Keys.callOnKeyCombo( dtoggleI, [ 'capslock', 'i' ] );
             lz.Keys.callOnKeyCombo( dtoggleJ, [ 'capslock', 'j' ] );
-			if ( gController.getClientMachine() == 'MAC' || isMac()) {
-                Debug.write("MAC!!!!!!!")
-                dmacKeyHandler.register( lz.Keys, 'onkeydown' );
-            }else{
-	            lz.Keys.callOnKeyCombo( dgoBack, [ 'control', 'j' ] );
-	            lz.Keys.callOnKeyCombo( dgoOn, [ 'control', 'k' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l' ] );
-	            lz.Keys.callOnKeyCombo( dtoggleTimer, [ 'control', 'o' ] );
-	            lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
-	            lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
-	            lz.Keys.callOnKeyCombo( dfinish, [ 'control', 'f' ] );
-			}
+            lz.Keys.callOnKeyCombo( dgoBack, [ 'control', 'j' ] );
+            lz.Keys.callOnKeyCombo( dgoOn, [ 'control', 'k' ] );
+            lz.Keys.callOnKeyCombo( dtoggleMark, [ 'control', 'l' ] );
+            lz.Keys.callOnKeyCombo( dtoggleTimer, [ 'control', 'o' ] );
+            lz.Keys.callOnKeyCombo( dpause, [ 'control', 'u' ] );
+            lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
+            lz.Keys.callOnKeyCombo( dfinish, [ 'control', 'f' ] );
            
-		    
+		    if ( gController.getClientMachine() == 'MAC' || isMac()) {
+                dmacKeyHandler.register( lz.Keys, 'onkeydown' );
+            }
         </method>
 
         <method name="disableKeys">
@@ -100,19 +97,17 @@
             lz.Keys.removeKeyComboCall( dtoggleH, [ 'shift', 'capslock', 'h' ] );
             lz.Keys.removeKeyComboCall( dtoggleI, [ 'shift', 'capslock', 'i' ] );
             lz.Keys.removeKeyComboCall( dtoggleJ, [ 'shift', 'capslock', 'j' ] );
-            if ( gController.getClientMachine() == 'MAC' || isMac()) {
-            	dmacKeyHandler.unregisterFrom( lz.Keys.onkeydown );
-            }else{
-	            lz.Keys.removeKeyComboCall( dgoBack, [ 'control', 'j' ] );
-	            lz.Keys.removeKeyComboCall( dgoOn, [ 'control', 'k' ] );
-	            lz.Keys.removeKeyComboCall( dtoggleMark, [ 'control', 'l' ] );
-	            lz.Keys.removeKeyComboCall( dtoggleTimer, [ 'control', 'o' ] );
-	            lz.Keys.removeKeyComboCall( dpause, [ 'control', 'u' ] );
-	            lz.Keys.removeKeyComboCall( dstop, [ 'control', 's' ] );
-	            lz.Keys.removeKeyComboCall( dfinish, [ 'control', 'f' ] );
-			}	
+            lz.Keys.removeKeyComboCall( dgoBack, [ 'control', 'j' ] );
+            lz.Keys.removeKeyComboCall( dgoOn, [ 'control', 'k' ] );
+            lz.Keys.removeKeyComboCall( dtoggleMark, [ 'control', 'l' ] );
+            lz.Keys.removeKeyComboCall( dtoggleTimer, [ 'control', 'o' ] );
+            lz.Keys.removeKeyComboCall( dpause, [ 'control', 'u' ] );
+            lz.Keys.removeKeyComboCall( dstop, [ 'control', 's' ] );
+            lz.Keys.removeKeyComboCall( dfinish, [ 'control', 'f' ] );
 
-		    
+		    if ( gController.getClientMachine() == 'MAC' || isMac()) {
+            	dmacKeyHandler.unregisterFrom( lz.Keys.onkeydown );
+            }
         </method>
 
         <method name="isComboHotKeyDown"><![CDATA[
@@ -155,33 +150,33 @@
 
         <method name="macKeyHandler" args="k">
 		    switch ( k ) {
-	        	case  70:
+	        	case  6:
                     this.exitPopups(); 
         			gController.finishTestShortcut();      // CTRL F ?
                     break;
-				case 74: 
+				case 10: 
 					if(!gController.fwdOnly){
 	                    this.exitPopups();
 	                    gController.stepNavigateBack();  
 					}
                     break;
-				case 75: 
+				case 11: 
                     this.exitPopups();
                     gController.stepNavigateForward(); 
                     break;
-				case 76:
+				case 12: 
                     this.exitPopups();
                     gController.toggleMark(); 
                     break;
-				case 79:
+				case 15:
                     this.exitPopups(); 
                     gController.toggleTimer();
                     break;
-				case 83: 
+				case 19: 
                     this.exitPopups();
                     gController.finishTest(); 
                     break;
-				case 85: 
+				case 21: 
                     this.exitPopups();
                     gController.pauseTest(); 
                     break;
