@@ -41,6 +41,10 @@
 		this.contents.networkLost.inBar.barAnimator.stop();
 		LzModeManager.release(this);
 		recalltrackMouseMove();
+		if(gController.timeoutforpause){
+		    timeoutDialog.open();
+			gController.setAttribute('timeoutforpause',false);
+		}
     </method>
 	
     <method name="show">
@@ -148,6 +152,7 @@
 		<basebutton	name="exitButton" enabled="false" resource="exit_button_rsc" x="220" y="120"  width="62" height="32" 
 		stretches="both">
 		<method event="onclick">
+            gController.setAttribute('timeoutforpause',false);
 		    gController.exitPopups();
 			gController.terminate();  
 			resetControls();
@@ -156,6 +161,7 @@
    		<basebutton	name="exitButtonWV" resource="exit_button_new_rsc" x="90" y="130" width="130" height="32"
 		 stretches="both" visible="false">
 		<method event="onclick">
+            gController.setAttribute('timeoutforpause',false);
 		    gController.exitPopups();
 			gController.terminate();  
 			resetControls();

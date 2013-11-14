@@ -574,6 +574,8 @@
 		<attribute name="timingforpause" type="boolean" value="false" />
 		<attribute name="isHandlerInactive" type="boolean" value="false" />
 		<attribute name="timerInterval" type="number" value="1200000" />
+		<attribute name="timeoutforpause" type="boolean" value="false" />
+		
 		
         <attribute name="textHistory" value="$once{new TextFieldHistory()}" type="expression" />
         <attribute name="manipSelected"/> 	
@@ -4192,7 +4194,11 @@ Debug.write("############ loadItem ############");
                 if ( remainingmsforpause <= 0 ) {
                     dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
 					canvas.setPromptDimension();
-					timeoutDialog.open();
+					if(gPleaseWaitPopup.visible){
+						this.setAttribute('timeoutforpause',true);
+					}else{
+						timeoutDialog.open();
+					}	
                 } else {
                     var timeleftforpause = secondsToString(
                         Math.floor( remainingmsforpause / 1000 )
