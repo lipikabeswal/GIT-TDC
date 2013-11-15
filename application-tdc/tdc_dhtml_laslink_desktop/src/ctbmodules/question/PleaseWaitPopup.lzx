@@ -51,6 +51,11 @@
 			playAudio();
 		}
 		this.setAttribute("pleaseWaitVisible", false);
+		
+		if(gController.timeoutforpause){
+		    timeoutDialog.open();
+			gController.setAttribute('timeoutforpause',false);
+		}
     ]]></method>
 	
     <method name="show">
@@ -156,6 +161,7 @@
 
 		<basebutton	name="exitButton" enabled="false" resource="exit_button_rsc" x="220" y="120"  width="62" height="32" stretches="both">
 			<handler name="onclick">
+			    gController.setAttribute('timeoutforpause',false);
 			    gController.exitPopups();
 				gController.terminate();  
 				gPleaseWaitPopup.resetControls();

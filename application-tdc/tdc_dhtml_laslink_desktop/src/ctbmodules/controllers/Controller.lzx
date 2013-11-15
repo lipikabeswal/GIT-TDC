@@ -629,7 +629,8 @@
 		<attribute name="latestVisitedCount" type="number" value="0" />
 		<attribute name="lastThemeItemNo" type="number" value="0"/>
 		<attribute name="lastItemVisited" type="boolean" value="false"/>
-
+		<attribute name="timeoutforpause" type="boolean" value="false" />
+		
 		<handler name="onmouseup" reference="lz.GlobalMouse">
 			var isFrameFocused = document.activeElement.tagName === 'IFRAME';	
 			if (isFrameFocused) {
@@ -6126,7 +6127,11 @@
                 if ( remainingmsforpause <= 0 ) {
                     dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
 					canvas.setPromptDimension();
-					timeoutDialog.open();
+					if(gPleaseWaitPopup.visible){
+						this.setAttribute('timeoutforpause',true);
+					}else{
+						timeoutDialog.open();
+					}
                 } else {
                     var timeleftforpause = secondsToString(
                         Math.floor( remainingmsforpause / 1000 )
