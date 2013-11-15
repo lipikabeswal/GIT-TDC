@@ -63,7 +63,6 @@
 
         <method event="onmouseover">
             gController.setCurrentCursor('cangrab_cursor');
-			gController.setAttribute("refCardReff",this);
         </method>
 
         <method event="onmouseout">

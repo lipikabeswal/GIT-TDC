@@ -580,9 +580,6 @@
         <attribute name="textHistory" value="$once{new TextFieldHistory()}" type="expression" />
         <attribute name="manipSelected"/> 	
 	    <attribute name="isWV" type="boolean" value="false"/>
-	    
-	    // for the defect 76048 
-	    <attribute name="refCardReff"/>
 	    		 
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
