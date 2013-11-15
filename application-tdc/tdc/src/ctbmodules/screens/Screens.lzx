@@ -205,10 +205,7 @@
         	  LzFocus.setFocus(contents.ps.pw.passwordField);
         	 }
         	
-        	// for the defect 76048 
-        	if(gController.refCardReff != null && gController.refCardReff !=undefined){
-				gController.refCardReff.onmouseout.sendEvent();
-			}
+        	 gController.clearAndRestoreCurrentCursor();
         ]]></method>
         <method name="showLogin">
 			
