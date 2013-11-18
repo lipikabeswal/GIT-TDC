@@ -1037,6 +1037,7 @@
 			var nextSubtestIndex = getSubtestIndex(node);
 			if(nextSubtestIndex != -1){
 				setAttribute('currentSubtestIndex', nextSubtestIndex);
+				resetTestTimer(TIMER_INTERVAL);
 				getSubtest();
 			}
 			else if(isFeedback()){
