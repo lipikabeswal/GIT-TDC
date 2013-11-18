@@ -1,6 +1,6 @@
 <project name="tdc-upgrade" basedir="." default="build.TestClient.swf10">
 <property name="out.dir" value = "../webapp" />
-<property name="laszlo.home" value="C:\Program Files\OpenLaszlo Server 4.9.0\Server\lps-4.9.0"/>
+<property name="laszlo.home" value="C:\Program Files\OpenLaszlo Server 5.0.x\Server\lps-5.0.x"/>
 <property name="laszlo.src.dir" value="${basedir}/src"/>
 <property name="laszlo.debug" value="false"/>
 <property name="laszlo.proxied" value = "true"/>
@@ -12,8 +12,8 @@
     <pathelement location="${laszlo.home}/WEB-INF/classes" />
     <fileset dir = "${laszlo.home}/3rd-party/jars/dev" includes="**/*.jar"/>
     <fileset dir = "${laszlo.home}/WEB-INF/lib" includes="**/*.jar"/>
-    <fileset dir = "C:\Program Files\OpenLaszlo Server 4.9.0\Server\tomcat-5.0.24\common\lib" includes="**/*.jar"/>
-    <fileset dir = "C:\Program Files\OpenLaszlo Server 4.9.0\Server\tomcat-5.0.24\server\lib" includes="**/*.jar"/>
+    <fileset dir = "C:\Program Files\OpenLaszlo Server 5.0.x\Server\tomcat-5.0.24\common\lib" includes="**/*.jar"/>
+    <fileset dir = "C:\Program Files\OpenLaszlo Server 5.0.x\Server\tomcat-5.0.24\server\lib" includes="**/*.jar"/>
 </path>
 
 <target name = "build.TestClient.swf10">
