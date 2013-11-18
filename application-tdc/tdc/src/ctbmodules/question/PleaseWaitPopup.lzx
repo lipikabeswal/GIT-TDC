@@ -43,11 +43,14 @@
 		recalltrackMouseMove();
 		if(gController.timeoutforpause){
 		    timeoutDialog.open();
-			gController.setAttribute('timeoutforpause',false);
+			//gController.setAttribute('timeoutforpause',false);
 		}
     </method>
 	
     <method name="show">
+    	 if(gController.timeoutforpause){
+    	 	timeoutDialog.close();
+    	 }
          gMaskingRuler.onmouseup.sendEvent();
 	  	 gMagnifyingGlass.onmouseup.sendEvent();
         this.setAttribute("visible", true);

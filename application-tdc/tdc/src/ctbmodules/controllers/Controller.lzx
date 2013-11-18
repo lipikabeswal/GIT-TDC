@@ -1192,6 +1192,7 @@
 		]]></method>
 
 		<method name="terminate">
+			this.setAttribute('timeoutforpause', false);
 			gCommunicator.terminate();
 			gCommunicator.showHideOkCalculator("Y");
 			goToGoodbyeScreen();
@@ -3266,6 +3267,7 @@
         </method>
 
 		<method name="_handlePausedResumeResponse" args="xml">
+			this.setAttribute('timeoutforpause', false);
 			gPauseTimerScreen.setVisible(false);
 			showItemInterface();
 			gScreens.resetTextFieldColor();
@@ -4324,6 +4326,7 @@ Debug.write("############ loadItem ############");
 			}
 			this.resetImageArray();
 			this.setAttribute('isaudio',false);
+			this.setAttribute('timeoutforpause', false);
 			setState(CALCULATOR_CLOSE);			
 			gCommunicator.closeOkCalculator();			
         ]]></method>

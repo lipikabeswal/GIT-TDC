@@ -236,6 +236,7 @@
 	    <view align="center" valign="middle" layout="axis:x; spacing:20">
 	      <OkButton enabled="${ gScreens.allowclick }">
                <method name="continue" event="onclick">
+				   gController.setAttribute('timeoutforpause',false);
                    gScreens.clicked();
                    gController.testTimedout();
                </method>
