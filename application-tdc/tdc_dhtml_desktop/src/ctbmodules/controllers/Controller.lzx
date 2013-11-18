@@ -3,7 +3,7 @@
 	<include href="DownloadManager.lzx" />
 	<include href="TutorialManager.lzx" />
 	<include href="Sarsystem.lzx"/>
-	<include href="utils/UnicodeTextConverter.lzx" />
+	<include href="utils/LargeCharacterDetector.lzx" />
 	
 	<!-- <script src="utils/json.js" /> -->
 	
@@ -582,7 +582,7 @@
     	<attribute name="iframeDragActive" value="false" type="boolean" />	    	
     	<attribute name="answerPanelLayout" type="string" value="vertical"/>
     	
- 	    <attribute name="unicodeConverter" value="$once{new lz.UnicodeTextConverter()}" type="expression" />		
+ 	    <attribute name="largeCharacterDetector" value="$once{new lz.LargeCharacterDetector()}" type="expression" />		
 
     	<!--  Cancels a drag operation inside a TE item -->
     	<method name="cancelIframeDrag">

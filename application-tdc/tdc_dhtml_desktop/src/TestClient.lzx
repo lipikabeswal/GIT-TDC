@@ -281,8 +281,6 @@
  </method>
  
  End freezing view -->
- 
- <!-- to enable text layout debugger -->
-<!-- <include href="debug/CSSManipulator.lzx" /> -->
+
  
 </canvas>

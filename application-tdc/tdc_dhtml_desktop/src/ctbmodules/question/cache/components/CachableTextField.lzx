@@ -37,6 +37,7 @@
         <attribute name="widget_id" type="string"/>
 		<attribute name="magnification"  type="number" value="1"/>
         <attribute name="lineHeight" type="number" value="0"/>
+        <attribute name="divLineHeight" type="number" value="0"/>
         <attribute name="words" />
         <attribute name= "initTextImgArr" />
         <attribute name="textImgArr" />
@@ -173,29 +174,44 @@
             this.setAttribute("readText",unescape(dataText));
 
             var fontSize = this.fontsize;
-            var converted = gController.unicodeConverter.convert( dataText );
-console.log( "ORIGINAL:  |%s|", dataText );             
-             if (gController.hasFontAccommodation){
-				/*if(dataText.indexOf("<br") != -1) {
-					this.thetext.setAttribute("text",
-	                	'<label style="display:block; padding-bottom:4px;"><span style="line-height:17px; white-space: pre-wrap; word-spacing: -0.5px; zoom:97%;">' + dataText + '</span></label>');
-				}else{*/
-					this.thetext.setAttribute("text",
-	                	'<label><span class="largefonttext">' + converted + '</span></label>');
-				//}
-		    }else{
-				/*if(dataText.indexOf("<br") != -1) {
-					this.thetext.setAttribute("text",
-	                	'<label style="display:block; padding-bottom:2px;"><span style="line-height:16px; white-space: pre-wrap; word-spacing: -0.5px;">' + dataText + '</span></label>');
-				}else{*/
-					this.thetext.setAttribute("text",
-	                	'<label><span class="standardfonttext">' + converted + '</span></label>');
-				//}
-			}
-console.log( "CONVERTED: |%s|", converted ); 
-            doneLoading();
+            if ( this.id == null ) {
+            	this.setAttribute( "id", this.__LZUID.replace( "__", "" ).toLowerCase() );
+            	global[ this.id ] = this;
+            }
+console.log("CachableTextField.ondata: id=%s", this.id )            
+            
+            // Check for large characters like the super_root_extender
+            var hasLargeChar = gController.largeCharacterDetector.search( dataText );
+            
+            // TODO: remove this code after testing
+            if ( this.id == null ) {
+            	this.setAttribute( "id", this.__LZUID.replace( "__", "" ).toLowerCase() );
+            	global[ this.id ] = this;
+            }          
+            
+console.log( "TEXT:  |%s|", dataText );             
 
-            //this.doAlign();
+			 var div = this.getDisplayObject();
+             div.style.padding = "0px";
+             if ( ! gController.hasFontAccommodation ){
+	             if ( ! hasLargeChar ) {
+			         divLineHeight = 19;	                		                	
+	             } else {
+			         divLineHeight = 21;	                	
+	             }
+		     }else{
+	             if ( ! hasLargeChar ) {
+			         divLineHeight = 28;	                		                	
+	             } else {
+			         divLineHeight = 31;	                	
+	             }
+			 }
+
+		     this.thetext.setAttribute("text", '<label>' + dataText + '</label>');
+             doneLoading();
+console.log( "hasLargeChar=%s / divLineHeight=", hasLargeChar, divLineHeight );
+
+             //this.doAlign();
             ]]>
         </handler>
 
@@ -1415,6 +1431,26 @@ parse the text string and store text and image string in an array at different i
                fgcolor="${classroot.fontcolor}" 
                fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}"
                resize="true">
+           	
+			   <attribute name="heightdel" type="expression" 
+			   		   value="$once{new lz.Delegate( this, 'updateHeightDelayed' )}" /> 
+			            	
+           		<handler name="ontext">
+           		<![CDATA[
+           			var div = this.getDisplayObject();
+       				div.style.lineHeight = classroot.divLineHeight + "px";
+       				console.error( "%s.thetext: line-height=%s", classroot.id, div.style.lineHeight );
+	        		lz.Timer.resetTimer( this.heightdel, 250 );				
+           		]]>
+           		</handler>
+
+		        <method name="updateHeightDelayed" args="ignore=null">
+		            var div = this.getDisplayObject();
+		        	var h = div.scrollHeight;
+		        	if ( h ) {
+		        		setAttribute( "height", h + 4 );
+		        	}
+		        </method>           		
 			</text>
         </state>
     </class>
