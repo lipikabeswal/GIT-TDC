@@ -132,13 +132,7 @@
             var textData = data.getFirstChild().data;
             if(textData.indexOf("<footnote") != -1) {
             	this.setAttribute("embedded_inline_footnote", true);
-               	this.embedded_inlinefootnote_text(data);
-				this.thetext.setAttribute('visible',false);
-				this.clickregionreader.setAttribute('visible',false);
-				this.thetext.setAttribute('height',0);
-				this.clickregionreader.setAttribute('height',0);
-               	doneLoading();
-               	return;
+               	
             }
             else {
             	this.setAttribute("embedded_inline_footnote", false);
@@ -174,46 +168,113 @@
             this.setAttribute("readText",unescape(dataText));
 
             var fontSize = this.fontsize;
-            if ( this.id == null ) {
-            	this.setAttribute( "id", this.__LZUID.replace( "__", "" ).toLowerCase() );
-            	global[ this.id ] = this;
-            }
-console.log("CachableTextField.ondata: id=%s", this.id )            
             
-            // Check for large characters like the super_root_extender
-            var hasLargeChar = gController.largeCharacterDetector.search( dataText );
+			// Check for large characters like the super_root_extender
+            var hasLargeChar = gController.largeCharacterDetector.search( dataText );     
             
-            // TODO: remove this code after testing
-            if ( this.id == null ) {
-            	this.setAttribute( "id", this.__LZUID.replace( "__", "" ).toLowerCase() );
-            	global[ this.id ] = this;
-            }          
-            
-console.log( "TEXT:  |%s|", dataText );             
-
-			 var div = this.getDisplayObject();
-             div.style.padding = "0px";
-             if ( ! gController.hasFontAccommodation ){
+			 var className = "standardText";
+			 this.getDisplayObject().style.padding = "0px";
+             if ( ! gController.hasFontAccommodation && hasLargeChar ){
+		         className = "standardTextLargeChars";	                	
+		     } else {
 	             if ( ! hasLargeChar ) {
-			         divLineHeight = 19;	                		                	
+			         className = "largeText";	                	
 	             } else {
-			         divLineHeight = 21;	                	
-	             }
-		     }else{
-	             if ( ! hasLargeChar ) {
-			         divLineHeight = 28;	                		                	
-	             } else {
-			         divLineHeight = 31;	                	
+			         className = "largeTextLargeChars";	                	
 	             }
 			 }
-
-		     this.thetext.setAttribute("text", '<label>' + dataText + '</label>');
+			 /***added by piyali--check footnote and update text***/
+				var startfootnoteTag="<footnote",endfootnoteTag="</footnote>";
+				var footNoteStartIndex=dataText.indexOf(startfootnoteTag),footNoteEndIndex=dataText.indexOf(endfootnoteTag);
+				var pos=footNoteStartIndex;
+				if(pos != -1){
+					while ( pos != -1 ) {
+				   	pos = dataText.indexOf(startfootnoteTag,pos + 1 );
+				   	dataText=this.footnoteCheckAndChangeText(dataText);
+					}
+				}
+				
+			/**ends**/
+		     thetext.setAttribute("text", '<label><span class="' + className + '">' + dataText + '</label>');
+		    /***added by piyali--if footnote present bring it to top***/
+		     	if(footNoteStartIndex != -1){
+					this.bringFootnoteTop(footNoteStartIndex,footNoteEndIndex)
+				}
+			/**ends**/
+			
              doneLoading();
-console.log( "hasLargeChar=%s / divLineHeight=", hasLargeChar, divLineHeight );
+              /***added by piyali--if footnote present the bind click event and add style***/
+             if(footNoteStartIndex != -1){
+            	this.footnoteStyleAndBindClick(footNoteStartIndex,footNoteEndIndex);
+             }
+             /**ends**/
 
              //this.doAlign();
             ]]>
         </handler>
+		<method name="footnoteCheckAndChangeText" args="convertedText"><![CDATA[
+			/************added footnote part1 code by piyali***************/
+			var startfootnoteTag="<footnote",endfootnoteTag="</footnote>";
+			var footNoteStartIndex=convertedText.indexOf(startfootnoteTag),footNoteEndIndex=convertedText.indexOf(endfootnoteTag);
+			
+			if(footNoteStartIndex!= -1) {
+				var oldConvertString=convertedText,addedStartTag="<span class='clickFootNote'",addedEndTag="</span>";
+      			convertedText=convertedText.replace(startfootnoteTag,addedStartTag);
+				if(footNoteEndIndex!= -1){
+					var pos=footNoteEndIndex;
+					while ( pos != -1 ) {
+				   	 pos = convertedText.indexOf(endfootnoteTag,pos + 1 );
+				    	convertedText=convertedText.replace(endfootnoteTag,addedEndTag);
+					}
+					
+				}
+      	     }
+      	     return convertedText;
+			/************footnote part1 end************/
+		
+		]]></method>
+		<method name="bringFootnoteTop" args="ftStIndex,ftEnIndex"><![CDATA[
+			/************added footnote part2 code by piyali***************/
+			this.thetext.bringToFront();
+			/************footnote part2 end************/
+		
+		]]></method>
+		<method name="footnoteStyleAndBindClick" args="ftStIndex,ftEnIndex"><![CDATA[
+			var footNoteStartIndex=ftStIndex,footNoteEndIndex=ftEnIndex;
+			/************added footnote part3 code by piyali***************/
+            if(footNoteStartIndex!= -1) {	
+				//footnote common style
+              var footNotfontColor=this.parent.fontcolor;
+              if(footNotfontColor.length>6){
+              	footNotfontColor=footNotfontColor.substring(footNotfontColor.length-6);
+              }
+              if(footNotfontColor=="0"){
+              	footNotfontColor="000000";
+              }
+				
+				var footnoteFontSize=this.fontsize;
+      			style={
+						'z-index':1000,
+						'cursor':'pointer',
+						'pointer-events':'all',
+						'color' :"#"+footNotfontColor ,
+						'text-decoration':'none',
+						'font-size':footnoteFontSize+"px"
+				}
+									
+				jQuery(".clickFootNote a").css(style);
+            	jQuery(".clickFootNote a").on("click",function(event){
+            		event.preventDefault();
+					var headerval=jQuery(this).parent().attr("header");
+                    var detailsVal=jQuery(this).parent().attr("detail");
+					var readableVal=jQuery(this).parent().attr("readable");
+                    var fullstring=headerval+"|"+detailsVal+"|"+readableVal+"|undefined|"+footnoteFontSize;
+					showFootnote(fullstring);
+				})
+			}
+            /************footnote part3 end************/
+		
+		]]></method>
 
 		<method name="setTextReaderAttributes" args="data"><![CDATA[
             var dataText = data.getFirstChild().data;
@@ -1430,28 +1491,7 @@ parse the text string and store text and image string in an array at different i
                width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
                fgcolor="${classroot.fontcolor}" 
                fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}"
-               resize="true">
-           	
-			   <attribute name="heightdel" type="expression" 
-			   		   value="$once{new lz.Delegate( this, 'updateHeightDelayed' )}" /> 
-			            	
-           		<handler name="ontext">
-           		<![CDATA[
-           			var div = this.getDisplayObject();
-       				div.style.lineHeight = classroot.divLineHeight + "px";
-       				console.error( "%s.thetext: line-height=%s", classroot.id, div.style.lineHeight );
-	        		lz.Timer.resetTimer( this.heightdel, 250 );				
-           		]]>
-           		</handler>
-
-		        <method name="updateHeightDelayed" args="ignore=null">
-		            var div = this.getDisplayObject();
-		        	var h = div.scrollHeight;
-		        	if ( h ) {
-		        		setAttribute( "height", h + 4 );
-		        	}
-		        </method>           		
-			</text>
+               resize="true" />
         </state>
     </class>
 
