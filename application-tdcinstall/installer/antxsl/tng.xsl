@@ -31,6 +31,17 @@
 		</object>
 	</xsl:template>
 
+	<xsl:template match="//object[@objectID='72663fa49785']">
+		<object class="com.zerog.ia.installer.util.VariablePropertyData" objectID="72663fa49785">
+			<property name="propertyValue">
+				<string><![CDATA[true]]></string>
+			</property>
+			<property name="propertyName">
+				<string><![CDATA[$TNG$]]></string>
+			</property>
+		</object>
+	</xsl:template>
+
 	<xsl:template match="//property[@name='installerName']">
 		<property name="installerName">
 			<string><![CDATA[InstallOAS_TERRANOVA3]]></string>

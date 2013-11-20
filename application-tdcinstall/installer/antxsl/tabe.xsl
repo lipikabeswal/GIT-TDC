@@ -20,7 +20,6 @@
 		</property>
 	</xsl:template>
 
-
 	<xsl:template match="//object[@objectID='c0c6f1828b45']">
 		<object class="com.zerog.ia.installer.util.VariablePropertyData" objectID="c0c6f1828b45">
 			<property name="propertyValue">
@@ -28,6 +27,17 @@
 			</property>
 			<property name="propertyName">
 				<string><![CDATA[$PRODUCT_TYPE$]]></string>
+			</property>
+		</object>
+	</xsl:template>
+ 
+	<xsl:template match="//object[@objectID='679d1f759781']">
+		<object class="com.zerog.ia.installer.util.VariablePropertyData" objectID="679d1f759781">
+			<property name="propertyValue">
+				<string><![CDATA[true]]></string>
+			</property>
+			<property name="propertyName">
+				<string><![CDATA[$TABE$]]></string>
 			</property>
 		</object>
 	</xsl:template>
