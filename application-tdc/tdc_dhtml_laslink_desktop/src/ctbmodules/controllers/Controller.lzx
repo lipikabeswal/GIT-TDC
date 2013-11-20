@@ -1232,6 +1232,7 @@
 		]]></method>
 
 		<method name="terminate">
+			this.setAttribute('timeoutforpause', false);
 			gCommunicator.terminate();
 			goToGoodbyeScreen();
 		</method>
@@ -3475,6 +3476,7 @@
         </method>
 
 		<method name="_handlePausedResumeResponse" args="xml">
+			this.setAttribute('timeoutforpause', false);
 			gController.setAttribute('canNotAnswer',true);
 			pauseScreenShown();
 			changeItem( getItemFromOffset(currItemOffset()));
@@ -4671,6 +4673,7 @@
 			}
 			this.resetImageArray();
 			//this.setAttribute('isaudio',false);
+			this.setAttribute('timeoutforpause', false);
 			setState(WRITE_TO_AUDIT_FILE_STATE);
 			gCommunicator.writeToAuditFile(lsid, scid, getModelString());
         ]]></method>

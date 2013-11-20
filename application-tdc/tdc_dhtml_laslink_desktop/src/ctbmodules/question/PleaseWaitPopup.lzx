@@ -54,11 +54,14 @@
 		
 		if(gController.timeoutforpause){
 		    timeoutDialog.open();
-			gController.setAttribute('timeoutforpause',false);
+			//gController.setAttribute('timeoutforpause',false);
 		}
     ]]></method>
 	
     <method name="show">
+    	if(gController.timeoutforpause){
+    	 	timeoutDialog.close();
+    	 }
     	//canvas.freezUI();
     	gManipulatives.setAttribute('visible',false);
         this.setAttribute("visible", true);
