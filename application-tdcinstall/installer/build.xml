@@ -345,7 +345,7 @@
 			IAProjectFile="${installer.src}"
 			AutoPopulateLabels="false"
 			BuildLinuxWithVM="false"
-			BuildLinuxWithoutVM="false"
+			BuildLinuxWithoutVM="true"
 			BuildHPUXWithVM="false"
 			BuildHPUXWithoutVM="false"
 			BuildAIXWithVM="false"
@@ -354,9 +354,9 @@
 			BuildSolarisWithoutVM="false"
 			BuildNamedUnixWithVM="false"
 			BuildNamedUnixWithoutVM="false"
-			BuildWindowsWithVM="true"
-			BuildWindowsWithoutVM="false"
-			BuildMacOSX="false" 
+			BuildWindowsWithVM="false"
+			BuildWindowsWithoutVM="true"
+			BuildMacOSX="true" 
 			BuildPureJava="false"
 		/>
 		
