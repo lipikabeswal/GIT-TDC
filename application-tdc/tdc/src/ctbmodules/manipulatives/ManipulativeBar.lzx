@@ -86,6 +86,14 @@
 					</method>
 
 				<method name="show">
+						if(gController.getAttribute('productTypeVal').indexOf('WESTEST2') >= 0) {
+							gMagnifyingGlass.setAttribute("height",(canvas.height/4));
+							gMagnifyingGlass.windowbg.setAttribute("height",(canvas.height/4));
+						}
+						else {
+							gMagnifyingGlass.setAttribute("height",(canvas.height/8));
+							gMagnifyingGlass.windowbg.setAttribute("height",(canvas.height/8));
+						}
 						gMagnifyingGlass.showGlass();
 						this.isEnabled = true;
 						gController.setAttribute("magnifierState", true);

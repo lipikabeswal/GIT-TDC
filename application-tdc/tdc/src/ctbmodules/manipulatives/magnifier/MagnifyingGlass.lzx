@@ -1,6 +1,6 @@
 <view name="magnifyingGlass" id="gMagnifyingGlass"
 	x="$once{canvas.width/2 - this.width/2}" valign="middle" width="${canvas.width/4}"
-	height="${canvas.height/8}" visible="false">
+	visible="false">
 	<dragstate name="dragger" drag_axis="both" drag_min_x="0"
 		drag_max_x="$once{canvas.width - this.width}" drag_min_y="0"
 		drag_max_y="$once{canvas.height - this.height}" />
@@ -16,8 +16,18 @@
 		<method event="onwidth">
 			//Debug.write("onwidth....");
 			magnifyingGlass.width = canvas.width/4;
-			magnifyingGlass.height = canvas.height/8;
-			this.windowbg.drawMe();
+			if(gController.getAttribute('productTypeVal').indexOf('WESTEST2') >= 0) 
+				{
+                 	magnifyingGlass.height = canvas.height/4;
+                 	magnifyingGlass.windowbg.setAttribute("height",(canvas.height/4));
+				 	magnifyingGlass.handle.setAttribute("height",magnifyingGlass.height);
+				 	magnifyingGlass.handle.setAttribute("y",(magnifyingGlass.height - 1));
+                }
+				else{
+					magnifyingGlass.height = canvas.height/8;
+           		}
+
+			magnifyingGlass.windowbg.drawMe();
 			this.ratioW = this.width/(canvas.width + this.width);
 			this.ratioH = this.height/(canvas.height + this.height);
 			mouseMove();
@@ -26,8 +36,18 @@
 		<method event="onheight">
 			//Debug.write("onheight....");
 			magnifyingGlass.width = canvas.width/4;
-			magnifyingGlass.height = canvas.height/8;
-			this.windowbg.drawMe();
+			if(gController.getAttribute('productTypeVal').indexOf('WESTEST2') >= 0) 
+				{
+                 	magnifyingGlass.height = canvas.height/4;
+                 	magnifyingGlass.windowbg.setAttribute("height",(canvas.height/4));
+				 	magnifyingGlass.handle.setAttribute("height",magnifyingGlass.height);
+				 	magnifyingGlass.handle.setAttribute("y",(magnifyingGlass.height - 1));
+                }
+				else{
+					magnifyingGlass.height = canvas.height/8;
+           		}
+
+			magnifyingGlass.windowbg.drawMe();
 			this.ratioW = this.width/(canvas.width + this.width);
 			this.ratioH = this.height/(canvas.height + this.height);
 			mouseMove();
@@ -37,8 +57,18 @@
 			//Debug.write("onvisible....", this.visible);
 			if(this.isinited) {	
 				magnifyingGlass.width = canvas.width/4;
-				magnifyingGlass.height = canvas.height/8;
-				this.windowbg.drawMe();
+				if(gController.getAttribute('productTypeVal').indexOf('WESTEST2') >= 0) 
+				{
+                 	magnifyingGlass.height = canvas.height/4;
+                 	magnifyingGlass.windowbg.setAttribute("height",(canvas.height/4));
+				 	magnifyingGlass.handle.setAttribute("height",magnifyingGlass.height);
+				 	magnifyingGlass.handle.setAttribute("y",(magnifyingGlass.height - 1));
+                }
+				else{
+					magnifyingGlass.height = canvas.height/8;
+           		}
+
+			    magnifyingGlass.windowbg.drawMe();
 				//this.setX(canvas.width / 2 - this.width / 2);
 				this.ratioW = this.width/(canvas.width + this.width);
 				this.ratioH = this.height/(canvas.height + this.height);
