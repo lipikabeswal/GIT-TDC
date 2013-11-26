@@ -4,7 +4,7 @@
     <include href="CachableInputTextField.lzx"/>
     <include href="utils/layouts/wrappinglayout.lzx"/>
     <include href="../../../rich-text/inlinewrappinglayout.lzx"/>
-
+	<include href="UnclipedTextField.lzx"/>
     <!-- ===============
          ==
          == CachableTextField
@@ -15,7 +15,7 @@
          ==
          =============== -->
 
-    <class name="CachableTextField" extends="CachableComponent" clip="true" 
+    <class name="CachableTextField" extends="CachableComponent" clip="false" 
            comptype="$once {gCompTypes.WIDGET_TEXT}" aaactive="true" aasilent="false"> 
 
         <attribute name="hasAltText" value="false"/>
@@ -174,9 +174,10 @@
             
 			 var className = "standardText";
 			 this.getDisplayObject().style.padding = "0px";
+			 console.log( " gController.hasFontAccommodation=" +  gController.hasFontAccommodation );
              if ( ! gController.hasFontAccommodation && hasLargeChar ){
 		         className = "standardTextLargeChars";	                	
-		     } else {
+		     } else if(gController.hasFontAccommodation) {
 	             if ( ! hasLargeChar ) {
 			         className = "largeText";	                	
 	             } else {
@@ -196,6 +197,7 @@
 				
 			/**ends**/
 		     thetext.setAttribute("text", '<label><span class="' + className + '">' + dataText + '</label>');
+			 console.log( "thetext.text=" +  thetext.text );		     
 		    /***added by piyali--if footnote present bring it to top***/
 		     	if(footNoteStartIndex != -1){
 					this.bringFootnoteTop(footNoteStartIndex,footNoteEndIndex)
@@ -1486,7 +1488,7 @@ parse the text string and store text and image string in an array at different i
                </handler>
            </view>
 
-           <text name="thetext" multiline="true" 
+           <UnclippedText id="thetext" name="thetext" multiline="true" 
                x="${classroot.leftPadding}"
                width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
                fgcolor="${classroot.fontcolor}" 

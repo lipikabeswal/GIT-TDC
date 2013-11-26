@@ -3,7 +3,7 @@
 
     <class name="CachableTableCell" extends="CachableComponent"
            comptype="$once{gCompTypes.WIDGET_TABLE_CELL}"
-           defaultplacement="wrapper" fontsize="12">
+           defaultplacement="wrapper" fontsize="12" clip="true">
 
         <handler name="ondata" args="data"><![CDATA[
 
