@@ -5568,9 +5568,9 @@ Debug.write("out of time 1 ans" + isAnswered);
 	<method name="terminateToRelogin">
 	<!-- called when login page has to load again --> 	
 		Debug.write("Inside terminateToRelogin******");	
+		gCommunicator.showHideOkCalculator("Y");
 		setState(SAVE_METHOD);
 		gCommunicator.terminate();
-		gCommunicator.showHideOkCalculator("Y");
 		//goToGoodbyeScreenToRelogin();
 	</method>
 	<method name="goToGoodbyeScreenToRelogin">
