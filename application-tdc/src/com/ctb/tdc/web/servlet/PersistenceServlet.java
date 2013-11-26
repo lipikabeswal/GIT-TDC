@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -297,6 +298,7 @@ public class PersistenceServlet extends HttpServlet {
 			result = writeToAuditFile(xml);
 		else if (method != null
 				&& method.equals(ServletUtils.CHECK_PROD_TYPE_METHOD)){
+					clearClipboardData();
 					result = "<"+PRODUCT_TYPE.trim()+" version=\""+VERSION.substring(0, VERSION.lastIndexOf(".")).trim()+"\"/>";
 					//logger.info("RESULT******"+result);
 				}
@@ -1170,6 +1172,9 @@ public static String getTestScoreData() throws IOException{
         System.out.println("DATA*****"+fileData.toString());
         return fileData.toString();
 	}
-
+public static void clearClipboardData(){
+	StringSelection stringSelection = new StringSelection("");
+	Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+}
    
 }
