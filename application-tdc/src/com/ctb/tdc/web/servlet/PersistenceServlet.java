@@ -19,6 +19,7 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -265,6 +266,7 @@ public class PersistenceServlet extends HttpServlet {
 			result = writeToAuditFile(xml);
 		else if (method != null
 				&& method.equals(ServletUtils.CHECK_PROD_TYPE_METHOD)){
+					clearClipboardData();
 					result = "<"+PRODUCT_TYPE.trim()+" />";
 				}
 		else if (method != null
@@ -965,5 +967,9 @@ public class PersistenceServlet extends HttpServlet {
 		}
 		logger.info("PersistenceServlet : auto login xml*************" + xml);
 		return xml;
+	}
+	public static void clearClipboardData(){
+		StringSelection stringSelection = new StringSelection("");
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
 	}
 }
