@@ -1033,7 +1033,7 @@ public class PersistenceServlet extends HttpServlet {
     	String javaLibPath = System.getProperty("java.library.path");
 		System.setProperty("java.library.path", LIB_FOLDER_PATH);
 		//System.out.println(new File(".").getAbsolutePath());
-		if (osName.indexOf("mac") < 0){
+		if (osName.indexOf("win") >= 0){
 		 System.load(LIB_FOLDER_PATH+ File.separator +"msvcr71.dll");
 		 System.load(LIB_FOLDER_PATH+ File.separator + "msvcp71.dll");
 		}
