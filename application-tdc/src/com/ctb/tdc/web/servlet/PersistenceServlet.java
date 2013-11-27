@@ -90,6 +90,8 @@ public class PersistenceServlet extends HttpServlet {
 	private static final String WEBINF_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
 														"webapp" + File.separator + "WEB-INF";
 	private static final String PRODUCT_TYPE = System.getProperty("tdc.productType");
+	private static final String LIB_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
+	"webapp" + File.separator + "WEB-INF" + File.separator + "lib";
 	
 	static String version = null;
 	static{
@@ -1029,8 +1031,13 @@ public class PersistenceServlet extends HttpServlet {
     private static void createAndShowTI84() {
     	
     	String javaLibPath = System.getProperty("java.library.path");
-		System.setProperty("java.library.path", WEBINF_FOLDER_PATH + File.separator + "lib");
-    	try {
+		System.setProperty("java.library.path", LIB_FOLDER_PATH);
+		//System.out.println(new File(".").getAbsolutePath());
+		if (osName.indexOf("mac") < 0){
+		 System.load(LIB_FOLDER_PATH+ File.separator +"msvcr71.dll");
+		 System.load(LIB_FOLDER_PATH+ File.separator + "msvcp71.dll");
+		}
+		try {
 			Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
 			fieldSysPath.setAccessible(true);
 			fieldSysPath.set(null, null);
