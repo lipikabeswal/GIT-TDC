@@ -596,25 +596,26 @@ function disableShortcuts() {
 	if (event.ctrlKey) {
 		switch(keystroke){
 			case 'l':
-			    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+			    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && gController.iskeyEnabled) {
 					gHotKeys.toggleMark();
 					event.preventDefault(); // disable Ctrl+L
 				}	
 				break;
 			case 's':
-			    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+				event.preventDefault();
+			    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && gController.iskeyEnabled) {
 					gHotKeys.stop();
 					event.preventDefault(); // disable Ctrl+S
 				}	
 				break;
 			case 'u':
-			    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+			    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && gController.iskeyEnabled) {
 					gHotKeys.pause();
 					event.preventDefault(); // disable Ctrl+U
 				}	
 				break;
 			case 'o':
-				if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+				if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && gController.iskeyEnabled) {
 					gHotKeys.toggleTimer();
 					event.preventDefault(); // disable Ctrl+O
 				}
