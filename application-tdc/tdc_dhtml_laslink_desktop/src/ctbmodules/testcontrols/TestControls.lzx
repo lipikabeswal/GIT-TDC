@@ -127,7 +127,7 @@
 		    if (currentItemNumber < parseInt(this.totalitemno) && gController.getNextNavigableOffset(currentItemNumber) < parseInt(this.totalitemno)) {
 		    		this.btns.navbtns.btnforward.setAttribute ('visible', true);
 					if(gController.productTypeVal.indexOf('LASLINKS') >= 0 
-						&& curritemno==gController.lastThemeItemNo 
+						&& curritempos == gController.lastThemeItemNo 
 						&& theme 
 						&& gController.fwdOnly
 						&& allnonThemeItemsVisited){
