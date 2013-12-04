@@ -2162,7 +2162,7 @@
                 var isVisited = "false";
 
 				if(isTheme){
-					gController.setAttribute('lastThemeItemNo',itemNumber);
+					gController.setAttribute('lastThemeItemNo',i+1);
 				}
                 
                 if ( this.adaptive == false && dprestart.isValid() && restartnode ) {                	
@@ -3476,6 +3476,7 @@
         </method>
 
 		<method name="_handlePausedResumeResponse" args="xml">
+			setAttribute('uisemaphore', 0);
 			this.setAttribute('timeoutforpause', false);
 			gController.setAttribute('canNotAnswer',true);
 			pauseScreenShown();
@@ -3766,7 +3767,7 @@
 
 		]]></method>
 		<method name="resumeTest">
-			//setAttribute('uisemaphore', 0);	
+			setAttribute('uisemaphore', 0);	
 			manipulativeSelected();
 			this.isStopScreen = false;
            	playAudio();
