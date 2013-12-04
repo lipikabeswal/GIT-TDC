@@ -59,8 +59,9 @@
 
 				<handler name="onmouseover">
 				        lz.Cursor.showHandCursor(true);
+				        gController.setAttribute("manipSelected",this);
 						this.setAttribute('frame',2);
-						gController.setAttribute("manipSelected",true);
+						//gController.setAttribute("manipSelected",true);
 						lz.Timer.addTimer (tooltipdel, 500);
 					</handler>
 
@@ -139,7 +140,8 @@
 				<handler name="onmouseover">
 				        lz.Cursor.showHandCursor(true);
 						this.setAttribute('frame',2);
-						gController.setAttribute("manipSelected",true);
+						//gController.setAttribute("manipSelected",true);
+						gController.setAttribute("manipSelected",this);
 						if(!gMaskingAnswer.visible)
 							lz.Timer.addTimer (tooltipdel, 500);
 					</handler>
@@ -231,7 +233,8 @@
 				<handler name="onmouseover">
 				    lz.Cursor.showHandCursor(true);
 					lz.Timer.addTimer (tooltipdel, 500);
-					gController.setAttribute("manipSelected",true);
+					//gController.setAttribute("manipSelected",true);
+					gController.setAttribute("manipSelected",this);
 				</handler>
 		                
 				<handler name="onmouseout">
@@ -262,7 +265,8 @@
 				<handler name="onmouseover">
 				    lz.Cursor.showHandCursor(true);
 					lz.Timer.addTimer (tooltipdel, 500);
-					gController.setAttribute("manipSelected",true);
+					//gController.setAttribute("manipSelected",true);
+					gController.setAttribute("manipSelected",this);
 				</handler>
 		                
 				<handler name="onmouseout">
@@ -323,7 +327,8 @@
 					<method name="mouseover" args="ignore=null">
 					    lz.Cursor.showHandCursor(true);
 						lz.Timer.addTimer (tooltipdel, 500);
-						gController.setAttribute("manipSelected",true);
+						//gController.setAttribute("manipSelected",true);
+						gController.setAttribute("manipSelected",this);
 					</method>
 			                
 					<method name="mouseout" args="ignore=null">

@@ -34,6 +34,7 @@
 		<attribute name="isTestInterrupted" type="boolean" value="false"/>
 		<attribute name="startResize" type="boolean" value="false"/>
 		<attribute name="mouseReleased" type="boolean" value="false"/>
+		<attribute name="mouseDownOnScratchpad" type="boolean" value="false"/>
         <handler name="onmousedown">
          <![CDATA[ 
         	this.bringToFront();
@@ -41,6 +42,7 @@
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
             lz.Cursor.lock ();
 			this.setAttribute("mouseReleased",true);
+			this.setAttribute("mouseDownOnScratchpad",true);
 			for(var i=0; i< gController.lasAssetArray.length; i++) {
 					gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',true);
 					gController.lasAssetArray[i].asset.assetOverley.bringToFront();
@@ -75,9 +77,12 @@
 				gResizeControl.onmouseup.sendEvent();
                 this.setAttribute('startResize',false);
 			  } 
-			  for(var i=0; i< gController.lasAssetArray.length; i++) {
-					gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',false);
-				}	
+			  if(mouseDownOnScratchpad){
+				  for(var i=0; i< gController.lasAssetArray.length; i++) {
+						gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',false);
+					}	
+			 }
+			this.setAttribute("mouseDownOnScratchpad",false);
 		]]></handler>
 		
 		<method name="isScratchpadSubcomponent" args="who">

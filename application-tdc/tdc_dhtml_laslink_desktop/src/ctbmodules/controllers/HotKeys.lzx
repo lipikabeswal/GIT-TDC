@@ -498,7 +498,6 @@
         </method>        
         <method name="goBack" args="ignore=null">
 		<![CDATA[
-			gController.setAttribute('goBackPressed',true);
            if(gItemInterface.visible)
             {
           	  if(gController.allowNavigate && gController.allowItmeNavigate){ 
@@ -507,6 +506,7 @@
 		            	//canvas.freezUI();
 						//if(!gController.fwdOnly){ // Commented as go_back button is now present for fwdOnly test.
 			        		if(!gController.onFirstItem()){
+			        			gController.setAttribute('goBackPressed',true);
 			        			//lz.Focus.clearFocus();
 			        		}
 			        	
