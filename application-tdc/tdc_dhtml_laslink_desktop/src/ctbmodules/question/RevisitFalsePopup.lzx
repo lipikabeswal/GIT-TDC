@@ -131,6 +131,7 @@
 		</text>        
 		<basebutton	name="okButton"	resource="popupOk" x="30" y="110" width="120" height="25" stretches="both" visible="false">
 		<handler name="onclick">
+			gController.setAttribute('isNavigateFwd',true);
 		    gController.setAttribute('unlockNavigation',false);
 			gController.setNavigation(1,parent.parent.navigateFrom);  
 			gController.unlockUI();    

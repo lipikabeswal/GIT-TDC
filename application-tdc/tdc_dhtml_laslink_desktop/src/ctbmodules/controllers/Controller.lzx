@@ -3086,7 +3086,6 @@
 
 		<method name="stepNavigateForward"><![CDATA[
 		    //canvas.freezUI();
-		   	 gController.setAttribute('isNavigateFwd',true);
 		     gTooltip.hideTooltip ();
            	var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/@itempos' )
@@ -3101,6 +3100,7 @@
 					&& !this.navigateConfirm && !(gController.getNextNavigableOffset(curritem) == totalitem )){
             		this.showRevisitPopup("goOn");
 				}else{
+					gController.setAttribute('isNavigateFwd',true);
 					changeItem( getItemFromOffset( currItemOffset() + 1 ) );
             	}
             }else{
@@ -3484,6 +3484,7 @@
 			gController.setAttribute('canNotAnswer',true);
 			pauseScreenShown();
 			changeItem( getItemFromOffset(currItemOffset()));
+			this.hideRevisitPopup();
 			showItemInterface();
 			gScreens.resetTextFieldColor();
             startQuestion();
@@ -3791,6 +3792,7 @@
            	playAudio();
            	autoplayIfStopped();//Added to start autoplay after returning from stop screen.			
             lz.Cursor.setCursorGlobal( 'waitcursor' );
+			this.hideRevisitPopup();
             showItemInterface();
             resetMicCheck();
 			showManipulatives();
