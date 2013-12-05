@@ -3790,6 +3790,7 @@
 			manipulativeSelected();
 			this.isStopScreen = false;
            	playAudio();
+			restrictNavigation('unlock');
            	autoplayIfStopped();//Added to start autoplay after returning from stop screen.			
             lz.Cursor.setCursorGlobal( 'waitcursor' );
 			this.hideRevisitPopup();
@@ -5288,8 +5289,10 @@
 			lz.Timer.removeTimer(dNetworkLostPopup);
 			gReadableText.stopRequestor();
 			gController.unlockUI();
-			checkShowMagnifierGlass();
-			checkShowMaskingChoiceDD();
+			if(gItemInterface.visible == true || gItemInterface.visible == 'true') {
+				checkShowMagnifierGlass();
+				checkShowMaskingChoiceDD();
+			}
 			if(gManipulativeBar.globals.scratchpad != null){
 				if(gScratchpad.visible) {
 					gManipulativeBar.globals.scratchpad.setAttribute("frame",2);

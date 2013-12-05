@@ -215,6 +215,7 @@
 						gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',false);
 					}
 				}
+				classroot.setAttribute('eraserMousedown',false);
                ]]> 
                </handler>
             <handler name="onmouseover">
