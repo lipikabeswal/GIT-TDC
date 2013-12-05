@@ -98,7 +98,7 @@
                         <view width="100%" name="manipulativeBarContainer">
                             <ManipulativeBar id="gManipulativeBar" width="100%" height="25"/>
                              <view id="gManipulativeBarOverlay" width="100%" height="25" 
-                             showhandcursor="false" onmouseover="this.setAttribute('showhandcursor',false)" opacity="0">
+                             showhandcursor="false" onmouseover="this.setAttribute('showhandcursor',false)" opacity="0.01">
                             </view>
                             <text id="gItemInterfaceStudentName" resize="true" align="right" fontstyle="bold" fontsize="13">
                             	<handler name="ontext">
