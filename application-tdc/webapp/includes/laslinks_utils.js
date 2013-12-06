@@ -134,11 +134,13 @@ function checkAllPlayedOnce() {
 				iframeFolderId = folderId ; 			
 				var frameid = getFrameId(gController.lasAssetArray[i]);					
 				if(!(iframeObject[currentLasAssetItemId][frameid].clickedOnce && iframeObject[currentLasAssetItemId][frameid].playedOnce)) {
+					iframeFolderId = null;
 					return false;
 				}
 			}
 		}
 	}
+	iframeFolderId = null;
 	return true;
 }
 function getCurrentPlayOrder(currIframeId){
@@ -344,8 +346,10 @@ function autoplayIfStopped(){
    function restrictNavigation(arg){
    if(arg  == 'unlock'){
 	 	if(checkAllPlayedOnce()) {
-			gController.setAttribute('unlockNavigation',true);
-		} else {
+	 		if(!gController.isStopScreen && !gController.isPauseScreen){
+					gController.setAttribute('unlockNavigation',true);
+					} 
+				}	 else {
 				gController.setAttribute('unlockNavigation',false);
 	 		}
  	}else {
