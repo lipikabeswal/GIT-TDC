@@ -3069,6 +3069,7 @@
 		<method name="stepNavigateBack"><![CDATA[
 			////canvas.freezUI();
 			gController.setAttribute('isNavigateBack',true);
+			
             if ( !onFirstItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit 
@@ -3392,14 +3393,15 @@
 		
 			
 		<method name="pauseTest">
+		 if ( pausable == true ) {
 			stopMicCheck();
 		    this.doArrowMouseup();
-		    
+		    disableNavbuttons();
 			this.setAttribute('isPauseTest',true);
 			this.setAttribute('isTestPaused',true); //added to enable the state of question bar button on returning from pause screen.
 			this.setAttribute('isPauseScreen',true);
 			//gController.setAttribute("isPaused",false);
-            if ( pausable == true ) {
+           
             	this.setAttribute('isAudioPaused', true);
             	gReadableText.stopReading(false);
                 freezeUI();
@@ -3533,6 +3535,7 @@
 		    this.doArrowMouseup();
             gTooltip.hideTooltip (); 
 			stopMicCheck();
+			disableNavbuttons();
 			this.setAttribute('isAudioPaused', true);
 			this.setAttribute('manipClicked', true);
         	gReadableText.stopReading(false);
@@ -3861,6 +3864,7 @@
 		<attribute name="uisemaphore" value="1" />
 
 		<method name="freezeUI">
+			
 			callstofreeze++;
 			//uisemaphore = 1;
 			lz.Keys.blockKeyCombos(true);				
@@ -3881,6 +3885,7 @@
 
 		<method name="unlockUI">
 		<![CDATA[
+			
 			callstounlock++;
 			// console.error("unlockUI: callstofreeze=%d, callstounlock=%d, unlockexecuted=%d, uisemaphore=%d", 
 			// 	callstofreeze, callstounlock, unlockexecuted, uisemaphore);			
@@ -3919,7 +3924,24 @@
 			 this.setAttribute('allowItmeNavigate',true);
 		]]>
         </method>
-
+        
+        <method name="enableNavbuttons">
+		<![CDATA[
+		console.log("enableNavbuttons called::");
+			if(gController.unlockNavigation == true){
+				gTestControl.enableAllButtons();
+			}else{
+				gTestControl.disableAllButtons();
+			}
+        	]]>
+        </method>
+  		<method name="disableNavbuttons">
+		<![CDATA[
+			console.log("disableNavbuttons called::");
+			gTestControl.disableAllButtons();
+        	]]>
+        </method>
+		 
 		 <!-- added to handle double cursor issue on manipulative grabber mouseup -->
         <method name="restoreGrabCursor" args="ignore=null">
 			lz.Cursor.unlock ();

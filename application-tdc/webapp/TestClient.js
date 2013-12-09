@@ -49,7 +49,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mf"]}},$lzc$class__mf.attributes)
 }}})($lzc$class__mf)
-};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onkeydown","$m7","$m6","onmousedown","$m9","$m8","onbringBackFocus","$ma",null,"onfootnotedata","$mb",null,"onisMultiAudio","$mc",null,"oninit","$md",null,"onfootnotetext","$me",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-12-05T13:08:49Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mf(null,{$delegates:["onfocus","$m5",null,"onkeydown","$m7","$m6","onmousedown","$m9","$m8","onbringBackFocus","$ma",null,"onfootnotedata","$mb",null,"onisMultiAudio","$mc",null,"oninit","$md",null,"onfootnotetext","$me",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2013-12-09T14:19:40Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -29906,8 +29906,8 @@ this.dataBindAttribute("audible","dssubtest:/subtest/testing_session_data/lms.st
 },"audible",void 0,"$m2bx",function($0){
 this.dataBindAttribute("musicId","dssubtest:/subtest/testing_session_data/lms.student.accommodations/@music_file_id","expression")
 },"musicId",void 0,"pauseTest",function(){
-this.stopMicCheck();this.doArrowMouseup();this.setAttribute("isPauseTest",true);this.setAttribute("isTestPaused",true);this.setAttribute("isPauseScreen",true);if(this.pausable==true){
-this.setAttribute("isAudioPaused",true);gReadableText.stopReading(false);this.freezeUI();this.stopQuestion();this.removeTrackTimer();if(this.recorder!=null){
+if(this.pausable==true){
+this.stopMicCheck();this.doArrowMouseup();this.disableNavbuttons();this.setAttribute("isPauseTest",true);this.setAttribute("isTestPaused",true);this.setAttribute("isPauseScreen",true);this.setAttribute("isAudioPaused",true);gReadableText.stopReading(false);this.freezeUI();this.stopQuestion();this.removeTrackTimer();if(this.recorder!=null){
 this.recorder.stopblinker("stop");this.recorder.whitewrapperOverLay.setAttribute("visible",false);this.recorder.blackOverLay.setAttribute("visible",false);this.blockFileName=false
 };if(this.htmlFields!=null){
 this.hideHtmlWidgets()
@@ -29940,7 +29940,7 @@ gScratchpad.restoreFocusAndCursor()
 }else{
 gScratchpad.setAttribute("scratchpadHasFocus",false)
 }},"finishTest",function(){
-this.doArrowMouseup();gTooltip.hideTooltip();this.stopMicCheck();this.setAttribute("isAudioPaused",true);this.setAttribute("manipClicked",true);gReadableText.stopReading(false);this.isStopScreen=true;this.freezeUI();if(gScratchpad.scratchpadHasFocus){
+this.doArrowMouseup();gTooltip.hideTooltip();this.stopMicCheck();this.disableNavbuttons();this.setAttribute("isAudioPaused",true);this.setAttribute("manipClicked",true);gReadableText.stopReading(false);this.isStopScreen=true;this.freezeUI();if(gScratchpad.scratchpadHasFocus){
 gController.setAttribute("focusOnScratchpad",true)
 }else{
 gController.setAttribute("focusOnScratchpad",false)
@@ -30043,6 +30043,13 @@ this.restoreCurrentCursor()
 gHotKeys.enableKeys()
 };lz.Keys.blockKeyCombos(false)
 }};this.setAttribute("allowItmeNavigate",true)
+},"enableNavbuttons",function(){
+console.log("enableNavbuttons called::");if(gController.unlockNavigation==true){
+gTestControl.enableAllButtons()
+}else{
+gTestControl.disableAllButtons()
+}},"disableNavbuttons",function(){
+console.log("disableNavbuttons called::");gTestControl.disableAllButtons()
 },"restoreGrabCursor",function($0){
 switch(arguments.length){
 case 0:

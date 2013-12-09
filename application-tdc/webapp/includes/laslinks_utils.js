@@ -315,18 +315,29 @@ function enableAssets(){
 }
 
 function startAutoplay(){
+	
 	if(gController.isStopScreen || gController.isPauseScreen){
 		autoplayStopped = 'true';
 	}else{
+		if(iframeObject[currentLasAssetItemId] == undefined){
+			autoplayStopped = 'true';
+			autoplayIfStopped();
+		}else{
 			for(var i=0; i<gController.lasAssetArray.length;i++){
 				if(gController.lasAssetArray[i].data.getAttr('autoplay') == "true"){
 					var frameid = getFrameId(gController.lasAssetArray[i]);
-					autoPlayEvent = "true";
-					iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.autoPlay();
-					break;
+					if(iframeObject[currentLasAssetItemId][frameid] == undefined){
+						autoplayStopped = 'true';
+						autoplayIfStopped();
+					}else{
+						autoPlayEvent = "true";
+						iframeObject[currentLasAssetItemId][frameid].iframeObj.contentWindow.autoPlay();
+						break;
+					}
 				}
 			}
 		}
+	 }
   }
   
   function pauseScreenShown(){
@@ -337,8 +348,9 @@ function startAutoplay(){
   }
  
 function autoplayIfStopped(){
+	console.log("autoplaystopped called::::::");
  	if(autoplayStopped == 'true'){
- 		startAutoplay();
+ 		setTimeout("startAutoplay()",200);
  		autoplayStopped = 'false';
  	}
  }
