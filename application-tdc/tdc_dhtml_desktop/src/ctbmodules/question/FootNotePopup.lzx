@@ -208,20 +208,28 @@
         //init footnote
         this.body.wrap.header.setAttribute("text", headerDisplay);
 		this.body.wrap.header.setAttribute("fontsize", fontSize);
-
-        this.body.wrap.detail.setAttribute("text", '<label><span style="line-height:17px;">' + detail + '</span></label>');
+		
+		/*details part for footnote*/
+		var details_lineheight="17";
+		if(gController.hasFontAccommodation) details_lineheight="21";
+        this.body.wrap.detail.setAttribute("text", '<label><span style="line-height:'+details_lineheight+'px;">' + detail + '</span></label>');
 		this.body.wrap.detail.setAttribute("fontsize", fontSize);
         this.body.wrap.detailmulti.setAttribute("text", detail);
 		this.body.wrap.detailmulti.setAttribute("fontsize", fontSize);
-
+		
         var detailWidth = this.body.wrap.width;		
 
 		var elem = this.body.wrap.detail.getDisplayObject();
 		elem.setAttribute('style','font-family: CTB; font-size: '+fontSize+ 'px; line-height: 22px; pointer-events: none; height: 27px; width: ' +detailWidth+ '');
-
-		var elm = this.body.wrap.header.getDisplayObject();
-		elm.setAttribute('style','font-family: CTB; font-size: '+fontSize+ 'px; line-height: 20px; pointer-events: none; height: 24px; width: ' +detailWidth+ '');
-    
+		/*ends of details part*/
+		
+		/*header part for footnote popup*/
+			var elm = this.body.wrap.header.getDisplayObject();
+			var el_header_lineheight="20";
+			if(gController.hasFontAccommodation) el_header_lineheight="24";
+			elm.setAttribute('style','font-family: CTB; font-size: '+fontSize+ 'px; line-height: '+el_header_lineheight+'px; pointer-events: none; height: 24px; width: ' +detailWidth+ '');
+    	/*end header part*/
+    	
         this.setAttribute("x", getMouseFixed(parent,'x') - fontSize);
         this.setAttribute("y", getMouseFixed(parent,'y') - this.height - fontSize);
 
