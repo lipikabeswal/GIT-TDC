@@ -169,21 +169,16 @@
 
             var fontSize = this.fontsize;
             
-			// Check for large characters like the super_root_extender
-            var hasLargeChar = gController.largeCharacterDetector.search( dataText );     
-            
-			 var className = "standardText";
-			 this.getDisplayObject().style.padding = "0px";
-			 console.log( " gController.hasFontAccommodation=" +  gController.hasFontAccommodation );
-             if ( ! gController.hasFontAccommodation && hasLargeChar ){
-		         className = "standardTextLargeChars";	                	
-		     } else if(gController.hasFontAccommodation) {
-	             if ( ! hasLargeChar ) {
-			         className = "largeText";	                	
-	             } else {
-			         className = "largeTextLargeChars";	                	
-	             }
-			 }
+			var className = "standardText";
+			this.getDisplayObject().style.padding = "0px";
+			// console.log( " gController.hasFontAccommodation=" +  gController.hasFontAccommodation );
+            if(gController.hasFontAccommodation) {
+			    if ( parent is lz.CachableTableCell && textData.indexOf("<br/>") != -1) {
+                    className = "largeTableCellMulti";
+				} else {
+		         	className = "largeText";
+				}                	
+			}
 			 /***added by piyali--check footnote and update text***/
 				var startfootnoteTag="<footnote",endfootnoteTag="</footnote>";
 				var footNoteStartIndex=dataText.indexOf(startfootnoteTag),footNoteEndIndex=dataText.indexOf(endfootnoteTag);
