@@ -11,6 +11,8 @@
         <attribute name="xpos"/>
         <attribute name="ypos"/>
 
+		<attribute name="rotHandleAngle" type="number" value="0" />
+
         <attribute name="rotatedel" 
                    value="$once{new lz.Delegate (this, 'doRotate')}"/>
 
@@ -101,7 +103,12 @@
             this.setAttribute ('xpos', this.width/2);
             this.setAttribute ('ypos', this.height);
 			Debug.write("protractor****actualX** ",this.actualX,this.actualY);
-			
+			// The y-position of the rotation handle is different from the rotation center.
+            // The angle between the rotation center and the center of the handle needs
+            // to be stored and added to the rotation in doRotate().
+        	var deltaX = rotHandle.x - this.x/2;
+        	var deltaY = this.height - rotHandle.y + rotHandle.height/2;
+        	this.setAttribute( "rotHandleAngle", Math.atan2(deltaY, deltaX) * 180 / Math.PI);        	         
         </handler>
         
 		<handler name="onmousedown">
@@ -190,8 +197,11 @@
             var mousedist = Math.sqrt (mx*mx + my*my);
             var endang = Math.asin (my/mousedist) * (180/Math.PI);
 
-            if (mx < 0) endang = 180 - endang;
-
+            if (mx >= 0) {
+            	endang += this.rotHandleAngle; 
+            } else { 
+            	endang = 180 - endang + this.rotHandleAngle;
+            }
             this.setAttribute ('rotation',endang);
         ]]></method>
 
@@ -228,7 +238,7 @@
         </view>
 
 
-        <view resource="protractorRotator_rsrc" y="110" x="${classroot.width-65}"
+        <view name="rotHandle" resource="protractorRotator_rsrc" y="110" x="${classroot.width-65}"
               onmousedown="classroot.bringToFront(); classroot.startRotate (); " 
               onmouseup="classroot.endRotate()"/>
     </class>
