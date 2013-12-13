@@ -6,8 +6,6 @@
    <meta http-equiv="X-UA-Compatible" content="chrome=1">
    <link rel="SHORTCUT ICON" href="http://www.laszlosystems.com/favicon.ico">
    <script type="text/javascript" src="lps/includes/embed-compressed.js"></script>
-   <!--[if lt IE 9]><script type="text/javascript" src="lps/includes/excanvas.js"></script><![endif]-->
-<SCRIPT SRC="includes/embed.js" type="text/javascript">
 </SCRIPT>
   <link rel="stylesheet" href="lps/style_mozilla.css" type="text/css" /> 
 	<script type="text/javascript"src="lps/jquery.min.js"></script>
@@ -87,6 +85,21 @@
 				src: local('OASmathv3 Italic'), url('ctbmodules/resources/fonts/OASmathv3Italic.svg') format('svg'); 
 			    font-style: italic;
 			}
+			
+			/* CachableTextfield selectors */
+			.standardText {
+				padding: 0px;
+				line-height: 19px;
+			}		
+			.largeText {
+				padding: 0px;
+				line-height: 28px;
+			}
+			
+			.largeTableCellMulti {
+			    padding-top: 10px;
+				line-height: 22px;
+			}
             
         </style><!--[if IE]>
         <style type="text/css">
@@ -160,7 +173,7 @@ function setFrameSource(filepath){
     lz.embed.setCanvasAttribute("TEItemLoaded",true);
 }
 
-function blockiPADUI(){
+/*function blockiPADUI(){
 	blockUI();
 }
 
@@ -179,7 +192,7 @@ function stepNavigateForwardBlock(ref){
                   	ref.stepNavigateForward();
                   }, 200);  		
 }
- 
+ */
 
 function checkHtml(arg1,arg2){
 	// alert(arg1+arg2);
@@ -270,7 +283,7 @@ function isAnswered(){
 	}					
  }
  
- var gDivid;
+ /*var gDivid;
  var gImgWidth;
  var gImgHeight;
  
@@ -285,7 +298,7 @@ function isAnswered(){
 	gDivid = '';
 	gImgWidth = 0;	
 	gImgHeight = 0;
- }
+ }*/
   
 
 
@@ -396,7 +409,7 @@ function setScaleFactor(xscalefactor,yscalefactor){
     			iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
     		}*/
 	    	iframe.contentWindow.isReadable(canvas.readable);
-	    	iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
+	    	//iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
 	    	/*var xscalefact = (780 * xscalefactorjs)/800;
 	    	var yscalefact = (450 * yscalefactorjs)/462;*/
 	    	var xscalefact = 780/800;
@@ -457,7 +470,7 @@ function enableEraser(isEnabled){
 	}
 }
 
-function buttonClicked(magnifierPosition){
+/*function buttonClicked(magnifierPosition){
   	if(magnifierPosition == "T") {
   		$.setPreviousPosition();
   	}
@@ -477,7 +490,7 @@ function buttonClicked(magnifierPosition){
                 }, 200);
  }
  
- /*function scaleMainView(){
+ function scaleMainView(){
  	var scaleX = 1.33;
  	var scaleY = 1.33;
  	var tranX = (scaleX-1)*50, tranY = (scaleY-1)*50;
@@ -499,7 +512,7 @@ function enableHotKeys(arg) {
 }
 
 
-function setMagnifierIframeState()
+/*function setMagnifierIframeState()
     {
      var widgetFrame=$("iframe")[0]; //get iframe
      var fontObj = getFontAccomodation();
@@ -539,7 +552,7 @@ function setMagnifierIframeState()
          
      }
      
- }
+ }*/
  
 function showMagnify() {		
 		isMagnifierVisible = "true";
@@ -665,7 +678,16 @@ function checkEmptyString(str) {
 	return (!str || /^\s*$/.test(str) || /^\n*$/.test(str) || /^\r*$/.test(str));
 } 
  
+ // to disabled the tab key when Scratchpad is opened 
+ //Clicking Tab twice selects entire contents of Scratchpad
  
+ function disableTabKey() {
+	if(event.which == 9 && gController.scratchpadOpen) { 
+		//console.log("TAB!!!!!!!!!!!!");
+		event.preventDefault();
+		event.stopPropagation();
+	}
+}
 // higlighter for nonTE items
  
 /*this.enableHighlighter = function(isEnabled) {
@@ -739,7 +761,8 @@ function checkEmptyString(str) {
 </SCRIPT>
 </HEAD>
 
-<BODY topmargin=0 leftmargin=0 rightmargin=0 bottommargin=0 scroll=no bgcolor="#6691B4">
+<BODY topmargin=0 leftmargin=0 rightmargin=0 bottommargin=0 scroll=no bgcolor="#6691B4"
+onkeydown="disableTabKey()">
 <button id="mybutton" style="visibility:hidden; width:0px; height:0px; display:none;">clickMe </button>
 
 <div id="appcontainer">
