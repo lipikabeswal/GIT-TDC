@@ -171,9 +171,9 @@
             
 			var className = "standardText";
 			this.getDisplayObject().style.padding = "0px";
-			// console.log( " gController.hasFontAccommodation=" +  gController.hasFontAccommodation );
+			
             if(gController.hasFontAccommodation) {
-			    if ( parent is lz.CachableTableCell && textData.indexOf("<br/>") != -1) {
+              if (parent is lz.CachableTableCell)  {
                     className = "largeTableCellMulti";
 				} else {
 		         	className = "largeText";

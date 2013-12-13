@@ -149,14 +149,14 @@
 				
                 dn = panelarr[i];
                 if (!(dn instanceof lz.DataElement)) break;
-
+				/*added condition to fix previvewer table issue*/
                 if (dn.nodeName == gCompTypes.WIDGET_HTML || dn.nodeName == gCompTypes.WIDGET_ASSET){
 					convert = false;
 					//dn.attributes.height = "";
 					break;
 				}else{
 					var cn = dn.childNodes;
-                	if(cn != null){
+                	if(cn != null && cn.length > 0 && cn[0].nodeName!=undefined){
 						if (cn[0].nodeName == gCompTypes.WIDGET_HTML || cn[0].nodeName == gCompTypes.WIDGET_ASSET){
 							convert = false;
 							//cn[0].attributes.height = "";

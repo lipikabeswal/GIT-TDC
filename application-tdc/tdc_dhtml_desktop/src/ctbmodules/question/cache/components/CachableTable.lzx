@@ -379,11 +379,11 @@
 			dw.strokeStyle = this.fontcolor;
 			dw.lineWidth = 2;
             var rows = datapath.xpathQuery("row");
-            var numRows = rows[0].childNodes.length;
+            if (!(rows instanceof Array)) rows = [rows];
+            var numRows = rows.length;
             var customBgColor = null;
             var borderObjs = [];
             for (var i = 0; i < numRows; i++) {
-            	var rowNum = 
                 cells = datapath.xpathQuery( "row[" + String(i + 1) + "]/cell" );
                 if ( cells ) {
 	                if (!(cells instanceof Array)) cells = [cells];                
@@ -406,7 +406,6 @@
 	                	}
 	                	// Draw borders once all the backgrounds have been drawn in loop below
 	                	borderObjs.push( {rect: rect, isFirstRow:(i==0), isFirstColumn: (j==0)} );
-	                	this.drawCellBorder( rect, hlines, vlines, (i==0), (j==0));
 	                }           	
                 }
             }
@@ -414,20 +413,24 @@
             	var o = borderObjs[ i ];
             	this.drawCellBorder( o.rect, hlines, vlines, o.isFirstRow, o.isFirstColumn );            
         	}
+        	// Draw the table border, in case we have only vertical or horizontal lines
+        	var t = this.thetable.contents.borderview.table;
+        	dw.strokeStyle = this.fontcolor;
+			dw.lineWidth = 2;        	
+        	dw.beginPath();
+        	dw.moveTo( 1, 1 );
+        	dw.lineTo( t.width, 1);        	
+        	dw.lineTo( t.width, t.height);
+        	dw.lineTo( 1, t.height);
+        	dw.lineTo( 1, 1 );
+        	dw.closePath();
+        	dw.stroke();      	        	
 		]]>
 		</method>
 		
 		<method name="drawCellBorder" args="rect, hlines, vlines, isFirstRow, isFirstColumn">
 			var dw = this.thetable.contents.borderDrawView;
 			if ( hlines == 1 ) {
-				if (isFirstRow) {
-					dw.beginPath();
-					dw.moveTo( rect.x, rect.y + 1 );
-					dw.lineTo( rect.x + rect.w + 1, rect.y + 1 );
-					dw.moveTo( rect.x, rect.y + 1 );
-					dw.closePath();
-					dw.stroke();
-				}
 				dw.beginPath();
 				dw.moveTo( rect.x, rect.y + rect.h );
 				dw.lineTo( rect.x + rect.w + 1, rect.y + rect.h );
@@ -436,14 +439,6 @@
 				dw.stroke();
 			}
 			if ( vlines == 1 ) {
-				if (isFirstColumn) {
-					dw.beginPath();
-					dw.moveTo( rect.x + 1, rect.y );
-					dw.lineTo( rect.x + 1, rect.y + rect.h + 1 );
-					dw.moveTo( rect.x + 1, rect.y );
-					dw.closePath();
-					dw.stroke();				
-				}
 				dw.beginPath();
 				dw.moveTo( rect.x + rect.w, rect.y );
 				dw.lineTo( rect.x + rect.w, rect.y + rect.h + 1 );
