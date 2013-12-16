@@ -143,7 +143,7 @@
         </view>
          <basebutton name="moreleft" resource="moreleft_btn" 
                 x="${parent.x + parent.morefastleft.width}"
-                y="$once{classroot.SCROLL_Y}"
+                y="$once{classroot.SCROLL_Y}" id="gMoreleft"
                 visible="${classroot.isscrolling &amp;&amp; 
                            classroot.qbtns.scrollcontainer.x &lt; 0}">
             <!-- align="left" valign="bottom"-->
@@ -170,7 +170,7 @@
 		<basebutton name="morefastleft" resource="morefastleft_btn" 
                     y="$once{classroot.SCROLL_Y}" x="${parent.x}"
                     visible="${classroot.isscrolling &amp;&amp; 
-                               classroot.qbtns.scrollcontainer.x &lt; 0}">
+                               classroot.qbtns.scrollcontainer.x &lt; 0}" id="gMorefastleft">
             <attribute name="doscrolldel" value="$once {new lz.Delegate(this, 'doScroll')}"/>
 
             <handler name="onmousedown">
@@ -192,6 +192,7 @@
         
         <basebutton name="moreright" resource="moreright_btn" 
                     y="$once{classroot.SCROLL_Y}" x="${parent.morefastright.x - this.width}"
+                    id="gMoreright"
                     visible="${classroot.isscrolling &amp;&amp;
                                classroot.qbtns.scrollcontainer.x &gt; classroot.maxscrollleft &amp;&amp;
                                !classroot.justSelectedLastItem}">
@@ -217,7 +218,7 @@
         </basebutton>
 
         <!-- add speed button right in nav bottomm bar -->
-		<basebutton name="morefastright" resource="morefastright_btn" 
+		<basebutton name="morefastright" resource="morefastright_btn" id="gMorefastright"
                     y="$once{classroot.SCROLL_Y}" x="${parent.width - Math.round(this.width) - classroot.RIGHT_BUTTONS_OFFSET}"
                     visible="${classroot.isscrolling &amp;&amp;
                                classroot.qbtns.scrollcontainer.x &gt; classroot.maxscrollleft &amp;&amp;

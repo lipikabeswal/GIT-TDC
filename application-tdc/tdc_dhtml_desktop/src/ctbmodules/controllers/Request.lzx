@@ -5,7 +5,7 @@
 			 type="http"
 	         queuerequests="true" 
 	         querytype="post"
-	         timeout="30000" 
+	         timeout="120000" 
 	         onerror="gRequest.requestError(this)" 
 	         ontimeout="gRequest.requestTimeout(this)" 
 	         ondata="gRequest._processResponse(this)" />

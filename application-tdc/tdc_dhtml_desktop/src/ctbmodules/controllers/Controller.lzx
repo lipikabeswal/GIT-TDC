@@ -3124,6 +3124,7 @@
 			
 		<method name="pauseTest">
             if ( pausable == true ) {
+            	this.doArrowMouseup();
             	gReadableText.stopReading(false);
                 freezeUI();
                 stopQuestion();
@@ -3211,6 +3212,7 @@
  		]]></method>
 
 		<method name="finishTest">
+			this.doArrowMouseup();
 			gTooltip.hideTooltip ();
         	gReadableText.stopReading(false);
             freezeUI();
@@ -5590,6 +5592,13 @@ Debug.write("############ loadItem ############");
 				}
 			}
 		]]></method> 
+		<method name="doArrowMouseup">
+			console.log("Inside doArrowMouseup***");
+			gMorefastright.onmouseup.sendEvent();
+			gMoreright.onmouseup.sendEvent();
+			gMorefastleft.onmouseup.sendEvent();
+			gMoreleft.onmouseup.sendEvent();
+		</method>
 	</node>
 
 </library>
