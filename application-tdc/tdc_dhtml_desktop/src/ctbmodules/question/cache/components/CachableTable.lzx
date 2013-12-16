@@ -28,7 +28,7 @@
              =====     METHODS     ======
              ============================ -->
 
-        <handler name="ondata" args="data"><![CDATA[
+        <handler name="ondata" args="data"><![CDATA[        
         	// reset heights and widths
 			this.thetable.setAttribute("width", null);
 			this.thetable.setAttribute("height", null);
@@ -383,6 +383,8 @@
             var numRows = rows.length;
             var customBgColor = null;
             var borderObjs = [];
+            var maxX = 0;
+            var maxY = 0;
             for (var i = 0; i < numRows; i++) {
                 cells = datapath.xpathQuery( "row[" + String(i + 1) + "]/cell" );
                 if ( cells ) {
@@ -400,6 +402,13 @@
 	                		w: Number( cell.getAttr('width') ),
 	                		h: Number( cell.getAttr('height') )
 	                	}
+	                	
+	                	if ( rect.x + rect.w > maxX ) {
+	                		maxX = rect.x + rect.w;
+                		}
+	                	if ( rect.y + rect.h > maxY ) {
+	                		maxY = rect.y + rect.h;
+                		}                		
 	                		
 	                	if ( cell.childNodes.length == 0 ) {
 							this.drawCellBackground( rect, dw, customBgColor );
@@ -409,22 +418,28 @@
 	                }           	
                 }
             }
+            
+            // Cell borders
+			dw.strokeStyle = this.fontcolor;
+			// Unfortunately Webkit renders the lines with lineWidth = 1 with opacity,
+			// therefore the cell borders are drawn with a lineWidth value of 2.
+			dw.lineWidth = 2;            
             for (i=0; i<borderObjs.length; i++) {
             	var o = borderObjs[ i ];
             	this.drawCellBorder( o.rect, hlines, vlines, o.isFirstRow, o.isFirstColumn );            
         	}
-        	// Draw the table border, in case we have only vertical or horizontal lines
-        	var t = this.thetable.contents.borderview.table;
+            
+            // Draw border around the table
         	dw.strokeStyle = this.fontcolor;
 			dw.lineWidth = 2;        	
         	dw.beginPath();
         	dw.moveTo( 1, 1 );
-        	dw.lineTo( t.width, 1);        	
-        	dw.lineTo( t.width, t.height);
-        	dw.lineTo( 1, t.height);
+        	dw.lineTo( maxX, 1);        	
+        	dw.lineTo( maxX, maxY);
+        	dw.lineTo( 1, maxY);
         	dw.lineTo( 1, 1 );
         	dw.closePath();
-        	dw.stroke();      	        	
+        	dw.stroke();
 		]]>
 		</method>
 		
