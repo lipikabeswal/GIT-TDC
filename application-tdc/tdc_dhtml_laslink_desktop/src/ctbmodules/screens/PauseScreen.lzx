@@ -94,6 +94,13 @@
 		            lz.Cursor.showHandCursor(false);
 		        </handler>
             </LoginButton>
+            <CancelButton y="3" enabled="${ gScreens.allowclick }">
+               <handler name="onclick">
+                    gController.setAttribute('logoutFromPause',true);
+			    	gController.exitPopups();
+					gController.terminate();  
+                </handler>
+            </CancelButton>
         </view>
     </class>
 

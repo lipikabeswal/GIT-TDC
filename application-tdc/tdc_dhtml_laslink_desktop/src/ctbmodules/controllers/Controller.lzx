@@ -630,6 +630,7 @@
 		<attribute name="lastThemeItemNo" type="number" value="0"/>
 		<attribute name="lastItemVisited" type="boolean" value="false"/>
 		<attribute name="timeoutforpause" type="boolean" value="false" />
+		<attribute name="logoutFromPause" type="boolean" value="false" />
 		
 		<handler name="onmouseup" reference="lz.GlobalMouse">
 			var isFrameFocused = document.activeElement.tagName === 'IFRAME';	
@@ -1233,7 +1234,9 @@
 
 		<method name="terminate">
 			this.setAttribute('timeoutforpause', false);
-			gCommunicator.terminate();
+			if(!logoutFromPause) {
+				gCommunicator.terminate();
+			}
 			goToGoodbyeScreen();
 		</method>
 
@@ -1264,9 +1267,9 @@
 			stopHeartbeat();
 			stopMicCheck();
 			removeTrackTimer();
-			removePauseTimer();
+			//removePauseTimer();
 			hideManipulatives();
-			gPauseTimerScreen.setAttribute('visible',false);
+			//gPauseTimerScreen.setAttribute('visible',false);
 			gScreens.showGoodbye();
 			lz.Timer.addTimer( dcloseBrowser, 5000 );
 		</method>
@@ -3451,13 +3454,13 @@
           	hideManipulatives();
 			gMusicPlayer.hide();
 			removeTrackTimer();
-			resetPauseTimer(timerInterval);
-			startPauseTimer();
+			//resetPauseTimer(timerInterval);
+			//startPauseTimer();
             gScreens.showPause(getStudentName());
 			if ( pausable == true || pausable == 'true') {
 				pauseAudio();
 			}
-            gPauseTimerScreen.setAttribute('visible',true);
+            //gPauseTimerScreen.setAttribute('visible',true);
             gTooltip.hideTooltip();
             if(this.isMousedownOnManip){
 				gMaskingRuler.dragger.remove();
@@ -3509,8 +3512,8 @@
 			gController.setAttribute("resetButtonEnable",false);
 			gController.setAttribute("recordingCompleted",false);
 			gController.setAttribute("recordState",true);
-			removePauseTimer();
-			gPauseTimerScreen.setAttribute('visible',false);
+			//removePauseTimer();
+			//gPauseTimerScreen.setAttribute('visible',false);
 			timeoutDialog.close();
 			dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
 		</method>
@@ -3885,7 +3888,6 @@
 
 		<method name="unlockUI">
 		<![CDATA[
-			
 			callstounlock++;
 			// console.error("unlockUI: callstofreeze=%d, callstounlock=%d, unlockexecuted=%d, uisemaphore=%d", 
 			// 	callstofreeze, callstounlock, unlockexecuted, uisemaphore);			
@@ -3941,7 +3943,7 @@
 			gTestControl.disableAllButtons();
         	]]>
         </method>
-		 
+
 		 <!-- added to handle double cursor issue on manipulative grabber mouseup -->
         <method name="restoreGrabCursor" args="ignore=null">
 			lz.Cursor.unlock ();
@@ -6157,14 +6159,14 @@
 		]]></method>
 		
 		<method name="testTimedout">
-			gPauseTimerScreen.setAttribute('visible',false);
+			//gPauseTimerScreen.setAttribute('visible',false);
 			timeoutDialog.close();
 			this.setAttribute('testTimeout',true);
 			copyCurrentToRuntime();
 			endSubtest();
 		</method>
 		
-		<method name="startPauseTimer">
+		<!-- <method name="startPauseTimer">
             updateTimeLeftForPause();
             lz.Timer.resetTimer( dupdateTimeLeftForPause, 1000 );
             this.qtimestampforpause = getTimer();
@@ -6220,7 +6222,7 @@
 
 		<method name="removePauseTimer">
 			lz.Timer.removeTimer(dupdateTimeLeftForPause);
-		</method>
+		</method> -->
 
 		<attribute name="trackDel" 
                    value="$once{new LzDelegate( this , 'trackMouseMove' ) }" />
