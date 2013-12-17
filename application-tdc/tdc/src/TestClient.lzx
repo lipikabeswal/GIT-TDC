@@ -131,6 +131,9 @@
        if(isPrev == "true" || isPrev == true || isPrev == 'true'){
        		canvas.setAttribute('isPreviewer',true);
        }
+       if(canvas.isPreviewer){
+       	versionproductinfo.setAttribute('visible',false);
+       }
        <!-- canvas.setDefaultContextMenu(null); -->
        var cmenu = new LzContextMenu();
        cmenu.hideBuiltInItems();
