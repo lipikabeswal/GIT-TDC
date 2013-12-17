@@ -27,6 +27,7 @@
            height="${this.bg.height}">
 
         <attribute name="theframe" value="1"/>
+        <attribute name="altText" value="$path{'@alt_text'}"/>
         
         <view name="bg" 
               width="${classroot.thetitle.width + 22}"
@@ -133,9 +134,14 @@
         </method>
 
         <text name="thetitle" datapath="@title" resize="true" align="center">
-	        <method event="onclick">
-	        	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text));
+	        <method event="onclick"><![CDATA[
+	        	var textToBeRead = gReadableText.stripHtmlTags(this.thetitle.text);
+	        	if(classroot.altText != null && gController.isVanilla){
+	        		textToBeRead = gReadableText.stripHtmlTags(classroot.altText)
+	        	}
+				gReadableText.read(textToBeRead);
 	            parent.selectIt();
+	            ]]>
 	        </method>
         
         </text>
