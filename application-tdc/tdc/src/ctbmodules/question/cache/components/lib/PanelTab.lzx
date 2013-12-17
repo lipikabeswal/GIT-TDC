@@ -27,6 +27,7 @@
            height="${this.bg.height}">
 
         <attribute name="theframe" type="number" value="1"/>
+        <attribute name="altText" value="$path{'@alt_text'}"/>
         
         <view name="bg" 
               width="${classroot.thetitle.width + 22}"
@@ -160,9 +161,14 @@
         </method>
 
         <text name="thetitle" datapath="@title" resize="true" align="center">
-	        <handler name="onclick">
-				gReadableText.read(gReadableText.stripHtmlTags(this.text),false);
+	        <handler name="onclick"><![CDATA[
+				var textToBeRead = gReadableText.stripHtmlTags(this.text);
+	        	if(classroot.altText != null && gController.productTypeVal.indexOf('ISTEP') >= 0){
+	        		textToBeRead = gReadableText.stripHtmlTags(classroot.altText)
+	        	}
+	        	gReadableText.read(textToBeRead,false);
 				parent.selectIt();
+				]]>
 	        </handler>
         
         </text>
