@@ -3,6 +3,7 @@
   <include href="ItemInterface.lzx"/>
 
     <include href="resources/resources.lzx"/>
+    <include href="resources/new_resources.lzx"/>
     <include href="controllers/Communicator.lzx"/>
     <include href="controllers/HotKeys.lzx"/>
     <include href="controllers/Controller.lzx"/>

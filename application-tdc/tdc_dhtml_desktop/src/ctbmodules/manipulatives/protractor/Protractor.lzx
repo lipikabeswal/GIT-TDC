@@ -7,7 +7,7 @@
 
     <class name="Protractor" extends="BaseManipulative"
            with="MovementLimiter"
-           resource="protractorBackground_rsrc"
+           source="${gResources.protractor_background_svg}"
            clickable="true" showhandcursor="true">
 
         <handler name="onmousedown">
@@ -67,10 +67,10 @@
         </method>
 
 
-        <view resource="protractorMarks_rsrc"/>
+        <view source="${gResources.protractor_marks_svg}"/>
 
         <ControlHandle name="grabber"
-            resource="protractorHandle_rsrc"
+            source="${gResources.protractor_handle_svg}"
             y="97" align="center"
             controlviewname="gDragRotateResizer"
             target="$once{parent}"
@@ -108,7 +108,26 @@
         </ControlHandle>
 
 
-        <ControlHandle resource="protractorRotator_rsrc"
+       <!--   <ControlHandle source="${gResources.rotator_rsrc_new}"
+            y="110" x="${classroot.width-65}"
+            controlviewname="gDragRotateResizer"
+            target="$once{parent}"
+            controls="r"
+            onmousedown="controlview.setActiveItem(classroot, this)">
+             respond to click on the small arrows in the resource 
+            <handler name="onshortclick">
+                if (containsMousePos ({x:6, y:0, w:7, h:6}, classroot)) {
+                    this.controlview.rotateBy (-1);
+                } else if (containsMousePos ({x:6, y:16, w:7, h:6}, classroot)) {
+                    this.controlview.rotateBy (+1);
+                }
+            </handler>
+			<handler name="onmouseup">
+				classroot.storeCurrentPosition();          
+			</handler>		
+        </ControlHandle>-->
+        
+        <ControlHandle source="${gResources.protractor_rotator_svg}"
             y="110" x="${classroot.width-65}"
             controlviewname="gDragRotateResizer"
             target="$once{parent}"

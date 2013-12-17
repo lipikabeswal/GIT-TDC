@@ -17,14 +17,14 @@
         <handler name="onmousedown" >
             this.bringToFront();
         </handler>
-        <handler name="ontickmarksrsr">
+        <!--<handler name="ontickmarksrsr">
             if (this.tickmarksrsr != null) {
-                this.ruler.tickmarks.setAttribute('resource', this.tickmarksrsr);
+                this.ruler.tickmarks.setSource(this.tickmarksrsr);
             }
-        </handler>
+        </handler>-->
         <handler name="onlabelrsr">
             if (this.labelrsr != null) {
-                this.ruler.label.setAttribute('resource', this.labelrsr);
+                this.ruler.label.setSource(this.labelrsr);
             }
         </handler>
 
@@ -35,8 +35,17 @@
         <attribute name="GRABBER_PADDING" value="35"/>
         <attribute name="LABEL_Y" value="48" />
         <attribute name="ROTATOR_Y" value="38" />
-        <attribute name="GRABBER_Y" value="29" />
+        <attribute name="GRABBER_Y" value="25" />
         <attribute name="WIDTH_DELTA" value="0" />
+
+
+		<attribute  name="baseRuler_svg" 
+					value="['ctbmodules/resources/manipulatives/ruler/rotator.svg', 
+							'ctbmodules/resources/manipulatives/ruler/grabber.svg',
+							'ctbmodules/resources/manipulatives/ruler/rotateResizer.svg',
+							'ctbmodules/resources/manipulatives/ruler/ruler_background.svg',
+							'ctbmodules/resources/manipulatives/ruler/ruler_lines.svg']"/>
+
 
         <event name="onresize" />
 
@@ -110,37 +119,50 @@
 
         <view name="ruler"
             x="${classroot.rotator.x-1}"
-            width="${classroot.width - classroot.rotator.x - classroot.rotateResizer.width/2}"
+            width="${classroot.width - classroot.rotator.x - classroot.rotateResizer.width/2+20}"
             clip="true">
             <view name="bg"
-                resource="ruler_background"
+                source="${classroot.baseRuler_svg[3]}"
                 opacity="0.5" >
-                <handler name="oninit">
+                <!--<handler name="oninit">
                     classroot.setAttribute ("maxLength", resourcewidth +
                                             classroot.rotator.x + classroot.rotateResizer.width);
                     classroot.setAttribute ("width", classroot.maxLength);
-                </handler>
+                </handler>-->
             </view>
             <view name="lines"
-                x="1" resource="ruler_lines"/>
+                x="1" source="${classroot.baseRuler_svg[4]}"/>
             <view name="tickMarks"
                 x="1"
-                oninit="if(classroot.tickmarksrsr != null) this.setAttribute('resource',classroot.tickmarksrsr)"/>
+                oninit="if(classroot.tickmarksrsr != null) this.setSource(classroot.tickmarksrsr)"/>
             <view name="label"
                 align="center"
                 y="$once{classroot.LABEL_Y}"
-                oninit="if(classroot.labelrsr != null) this.setAttribute('resource',classroot.labelrsr)">
-                <handler name="oninit"><![CDATA[
+                oninit="if(classroot.labelrsr != null) this.setSource(classroot.labelrsr)">
+               <!-- <handler name="oninit"><![CDATA[
                     var minWidth = this.resourcewidth < parent.grabber.resourcewidth ?
                                         parent.grabber.resourcewidth + classroot.GRABBER_PADDING:
                                         this.resourcewidth + classroot.LABEL_PADDING;
                     minWidth += classroot.rotator.x + classroot.rotateResizer.width/2;
-                    classroot.setAttribute("minLength", minWidth);
+					
+					// Laszlo consider view width for png images. Uncomment the below line when use png images
+                    //classroot.setAttribute("minLength", minWidth);
+					
+					// Laszlo doen't consider view width for svg images.Comment the below line when use png images
+					classroot.setAttribute("minLength", '130');
+					
                 ]]>
-                </handler>
+                </handler>-->
+				<handler name="onwidth"><![CDATA[
+            		var minWidth = this.resourcewidth < parent.grabber.resourcewidth ?
+                                        parent.grabber.resourcewidth + classroot.GRABBER_PADDING:
+                                        this.resourcewidth + classroot.LABEL_PADDING;
+                    minWidth += classroot.rotator.x + classroot.rotateResizer.width/2;
+					classroot.setAttribute("minLength", minWidth);
+            	]]></handler>
             </view>
             <ControlHandle name="grabber"
-                resource="grabber_rsrc"
+                source="${classroot.baseRuler_svg[1]}"
                 y="$once{classroot.GRABBER_Y}" align="center"
                 controlviewname="gDragRotateResizer"
                 target="$once{classroot}"
@@ -169,7 +191,7 @@
         </view>
 
         <ControlHandle name="rotator"
-            resource="rotator_rsrc"
+            source="${classroot.baseRuler_svg[0]}"
             x="$once{this.resourcewidth/2}"
             y="$once{classroot.ROTATOR_Y}"
             yoffset="${this.resourceheight/2}"
@@ -196,7 +218,7 @@
         </ControlHandle>
 
         <ControlHandle name="rotateResizer"
-            resource="rotateResizer_rsrc"
+            source="${classroot.baseRuler_svg[2]}"
             x="${parent.ruler.x + parent.ruler.width-this.width/2}"
             y="$once{classroot.ROTATOR_Y}"
             yoffset="${this.resourceheight/2}"
@@ -226,7 +248,7 @@
             </handler>
 
         </ControlHandle>
-
+		
     </class>
 
 </library>
