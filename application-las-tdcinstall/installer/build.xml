@@ -116,12 +116,8 @@
 	<target name="buildLasLink" description="Builds the LasLink installer" depends="init">
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="laslink" />
-			<!--
 			<param name="installer.primary.url" value="https://llo-oas.ctb.com" />
 			<param name="installer.secondary.url" value="https://llo-oasdr.ctb.com" />
-			-->
-			<param name="installer.primary.url" value="https://tms-oas-staging.ctb.com" />
-			<param name="installer.secondary.url" value="https://tms-oas-staging.ctb.com" />
 		</antcall>
 	</target>
  
