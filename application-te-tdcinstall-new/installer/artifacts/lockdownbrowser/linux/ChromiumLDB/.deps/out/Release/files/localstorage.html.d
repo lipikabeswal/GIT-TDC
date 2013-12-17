@@ -1,1 +1,0 @@
-cmd_out/Release/files/localstorage.html := ln -f "cefclient/res/localstorage.html" "out/Release/files/localstorage.html" 2>/dev/null || (rm -rf "out/Release/files/localstorage.html" && cp -af "cefclient/res/localstorage.html" "out/Release/files/localstorage.html")
