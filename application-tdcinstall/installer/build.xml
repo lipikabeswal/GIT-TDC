@@ -8,6 +8,7 @@
 	<property name="project.artifacts.etc.dir"              value="${basedir}/artifacts/etc" />
 	<property name="project.artifacts.webapp.resources.dir" value="${basedir}/artifacts/webapp/resources" />
 	<property name="project.artifacts.webapp.classes.dir" value="${basedir}/artifacts/webapp/WEB-INF/classes" />
+	<property name="project.icons.dir"              value="${basedir}/icons" />
 
 	<taskdef name="buildinstaller" 
 			 classpath="${project.installer.application.dir}\resource\build\iaant.jar" 
@@ -75,6 +76,9 @@
 	
 	<!-- **************************** Vanilla ******************************* -->	
 	<target name="buildVanilla" description="Builds the generic installer" depends="init">
+		<copy file="${project.icons.dir}/DEFAULT-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="vanilla" />
 			<param name="installer.version" value="15.0.0" />
@@ -84,6 +88,9 @@
 	</target>
 	
 	<target name="buildVanillaThin" description="Builds the generic installer" depends="init">
+		<copy file="${project.icons.dir}/DEFAULT-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="vanilla-thin" />
 			<param name="installer.version" value="15.0.0" />
@@ -94,6 +101,9 @@
 	
 	<!-- **************************** ISTEP ******************************* -->	
 	<target name="buildISTEP" description="Builds the ISTEP installer" depends="init">
+		<copy file="${project.icons.dir}/ISTEP-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/ISTEP-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/ISTEP-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="istep" />
 			<param name="installer.version" value="9.9.0" />
@@ -103,6 +113,9 @@
 	</target>
 	
 	<target name="buildISTEPThin" description="Builds the ISTEP installer" depends="init">
+		<copy file="${project.icons.dir}/ISTEP-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/ISTEP-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/ISTEP-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="istep-thin" />
 			<param name="installer.version" value="9.9.0" />
@@ -113,6 +126,9 @@
 	
 	<!-- **************************** TABE ******************************* -->	
 	<target name="buildTABE" description="Builds the TABE installer" depends="init">
+		<copy file="${project.icons.dir}/TABE-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/TABE-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/TABE-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="tabe" />
 			<param name="installer.version" value="18.0.0" />
@@ -122,6 +138,9 @@
 	</target>
 
 	<target name="buildTABEThin" description="Builds the TABE installer" depends="init">
+		<copy file="${project.icons.dir}/TABE-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/TABE-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/TABE-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="tabe-thin" />
 			<param name="installer.version" value="18.0.0" />
@@ -132,6 +151,9 @@
 
 	<!-- **************************** LasLink ******************************* -->	
 	<target name="buildLasLink" description="Builds the LasLink installer" depends="init">
+		<copy file="${project.icons.dir}/DEFAULT-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="laslink" />
 			<param name="installer.version" value="12.0.0" />
@@ -141,6 +163,9 @@
 	</target>
 
 	<target name="buildLasLinkThin" description="Builds the LasLink installer" depends="init">
+		<copy file="${project.icons.dir}/DEFAULT-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="laslink-thin" />
 			<param name="installer.version" value="12.0.0" />
@@ -151,6 +176,9 @@
 
 	<!-- **************************** Geogia ******************************* -->	
 	<target name="buildGA" description="Builds the GA installer" depends="init">
+		<copy file="${project.icons.dir}/DEFAULT-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="ga" />
 			<param name="installer.version" value="15.0.0" />
@@ -160,6 +188,9 @@
 	</target>
 
 	<target name="buildGAThin" description="Builds the GA installer" depends="init">
+		<copy file="${project.icons.dir}/DEFAULT-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="ga-thin" />
 			<param name="installer.version" value="15.0.0" />
@@ -170,6 +201,9 @@
 	
 	<!-- **************************** TerraNova ******************************* -->	
 	<target name="buildTN" description="Builds the TN installer" depends="init">
+		<copy file="${project.icons.dir}/DEFAULT-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="tn" />
 			<param name="installer.version" value="18.0.0" />
@@ -179,6 +213,9 @@
 	</target>
 
 	<target name="buildTNThin" description="Builds the TN installer" depends="init">
+		<copy file="${project.icons.dir}/DEFAULT-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="tn-thin" />
 			<param name="installer.version" value="18.0.0" />
@@ -190,6 +227,9 @@
 	
 	<!-- **************************** TerraNova Form G ******************************* -->	
 	<target name="buildTNG" description="Builds the TNG installer" depends="init">
+		<copy file="${project.icons.dir}/DEFAULT-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="tng" />
 			<param name="installer.version" value="16.0.0" />
@@ -199,6 +239,9 @@
 	</target>
 
 	<target name="buildTNGThin" description="Builds the TNG installer" depends="init">
+		<copy file="${project.icons.dir}/DEFAULT-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="tng-thin" />
 			<param name="installer.version" value="16.0.0" />
@@ -210,6 +253,9 @@
 
 	<!-- **************************** Oklahoma ******************************* -->	
 	<target name="buildOK" description="Builds the Oklahoma installer" depends="init">
+		<copy file="${project.icons.dir}/DEFAULT-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="ok" />
 			<param name="installer.version" value="10.0.0" />
@@ -219,6 +265,9 @@
 	</target>
 
 	<target name="buildOKThin" description="Builds the Oklahoma installer" depends="init">
+		<copy file="${project.icons.dir}/DEFAULT-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="ok-thin" />
 			<param name="installer.version" value="10.0.0" />
@@ -230,6 +279,9 @@
 	
 	<!-- **************************** West Virginia ******************************* -->	
 	<target name="buildWV" description="Builds the West Virginia installer" depends="init">
+		<copy file="${project.icons.dir}/DEFAULT-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="wv" />
 			<param name="installer.version" value="13.0.0" />
@@ -239,6 +291,9 @@
 	</target>
 
 	<target name="buildWVThin" description="Builds the West Virginia installer" depends="init">
+		<copy file="${project.icons.dir}/DEFAULT-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="wv-thin" />
 			<param name="installer.version" value="13.0.0" />
@@ -250,6 +305,9 @@
 	
 	<!-- **************************** TASC ******************************* -->	
 	<target name="buildTASC" description="Builds the TASC installer" depends="init">
+		<copy file="${project.icons.dir}/TASC-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/TASC-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/TASC-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="tasc" />
 			<param name="installer.version" value="11.0.0" />
@@ -259,6 +317,9 @@
 	</target>
 
 	<target name="buildTASCThin" description="Builds the TASC installer" depends="init">
+		<copy file="${project.icons.dir}/TASC-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/TASC-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/TASC-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="tasc-thin" />
 			<param name="installer.version" value="11.0.0" />
