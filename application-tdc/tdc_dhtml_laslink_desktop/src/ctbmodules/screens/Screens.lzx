@@ -191,7 +191,10 @@
             	contents.ps.pw.otherPasswordField.setAttribute('text', '');
 				contents.ps.pw.otherPasswordField.style.setAttribute('textfieldcolor', 0xFFFFFF);
 			}
-            contents.ps.prompt.setAttribute('text', 'Log in to resume your paused test.' );
+			gScreens.middle.bgFrame.setAttribute('height',230);
+            gScreens.setAttribute('y',170);
+            gScreens.copyWriteText.setAttribute('y',230);
+            contents.ps.prompt.setAttribute('text', 'Log in to resume your paused test or log out to resume later.' );
             contents.ps.studentName.setAttribute('text', 'Hello ' + sn);
 
             contents.ps.setAttribute('visible', true );

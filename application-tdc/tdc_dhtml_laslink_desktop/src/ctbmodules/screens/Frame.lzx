@@ -5,7 +5,7 @@
         <stableborderlayout axis="y"/>
         
         <view name="middle">
-            <view resource="resources/screens_background.png" />
+            <view name="bgFrame" resource="resources/screens_background.png" stretches="both"/>
         </view>
     </class>
 

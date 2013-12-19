@@ -15,8 +15,8 @@
 
         <text name="studentName" fontsize="24" resize="true" fgcolor="white"/>
         
-        <text name="prompt" fontsize="24" fgcolor="white" resize="true">
-            Log in to resume your paused test.
+        <text name="prompt" fontsize="24" fgcolor="white" resize="true" multiline="true" width="${parent.width}">
+            Log in to resume your paused test or log out to resume later.
         </text>
 
         <view width="100%" name="Id">
