@@ -1,11 +1,11 @@
 <library>
 	<include href="XmlHelper.lzx" />
-	
+	<!-- time out increased to handle the restart scenario for TE Items  -->  
 	<dataset name="persistenceDs" 
 			 type="http"
 	         queuerequests="true" 
 	         querytype="post"
-	         timeout="180000" 
+	         timeout="900000" 
 	         onerror="gRequest.requestError(this)" 
 	         ontimeout="gRequest.requestTimeout(this)" 
 	         ondata="gRequest._processResponse(this)" />
