@@ -258,12 +258,9 @@
 		      width="${classroot.innerWidth}" 
 		      height="${classroot.innerHeight}" 
 		      clip="true" 
-		      bgcolor="0xFFFFFF" >
+		      bgcolor="0xFFFFFF" showhandcursor="false">
 			<view name="contents"
 			      width="${classroot.innerWidth - parent.scroller.width}">
-           		<handler name="onload">
-           		;
-           		</handler>
 				<handler name="ony"><![CDATA[
 					// When user is actually scrolling the view, then only update the value of 'scrollTo' 
 					if(typeof(this.isloaded) != "undefined" && this.isloaded && classroot.isScrolling) {
