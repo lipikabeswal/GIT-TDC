@@ -4,6 +4,7 @@
     <include href="LoginButton.lzx"/>
     <include href="ComeBackLaterButton.lzx"/>
     <include href="LoginFields.lzx"/>
+    <include href="LogoutButton.lzx"/>
 
     <class name="PauseScreen">
         
@@ -94,13 +95,13 @@
 		            lz.Cursor.showHandCursor(false);
 		        </handler>
             </LoginButton>
-            <CancelButton y="3" enabled="${ gScreens.allowclick }">
+            <LogoutButton y="3" enabled="${ gScreens.allowclick }">
                <handler name="onclick">
                     gController.setAttribute('logoutFromPause',true);
 			    	gController.exitPopups();
 					gController.terminate();  
                 </handler>
-            </CancelButton>
+            </LogoutButton>
         </view>
     </class>
 

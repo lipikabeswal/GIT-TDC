@@ -32,7 +32,13 @@
 		<frame src="login_off.png"/>
 		<frame src="login_on.png"/>
 		<frame src="login_click.png"/>
-	</resource>	
+	</resource>
+	
+	<resource name="logout_button_rsc">
+		<frame src="logout_off.png"/>
+		<frame src="logout_on.png"/>
+		<frame src="logout_click.png"/>
+	</resource>		
 
 	<resource name="cancel_button_rsc">
 		<frame src="cancel_off.png"/>
