@@ -213,19 +213,20 @@
 			    </handler>
 				<text name="copyWriteText" y="230" font="CTB" fontsize="12" 
 			        fgcolor="${canvas.copyriteColor}"
-				    text="${canvas.Copyrite}" width="160">
+				    text="${canvas.Copyrite}">
 					<handler name="oninit">
-			        	this.setAttribute('height',16);
+						var elm=this.getDisplayObject();
+			        	elm.setAttribute('style','width: auto; font-family: CTB; font-size: 12px');
 			    	</handler>
 				</text>
             </Screens>
 			<SecurityScreen id="gSecurityScreen" x="100" y="100" width="600"
 				height="300" visible="false">
-				<text name="copyWriteText" y="300" font="CTB" fontsize="12" 
-			        fgcolor="${canvas.copyriteColor}"
-				    text="${canvas.Copyrite}" width="160">
+				<text name="copyWriteText" y="300" fgcolor="${canvas.copyriteColor}"
+				    text="${canvas.Copyrite}">
 					<handler name="oninit">
-			        	this.setAttribute('height',16);
+						var elm=this.getDisplayObject();
+			        	elm.setAttribute('style','width: auto; font-family: CTB; font-size: 12px');
 			    	</handler>
 				</text>
             </SecurityScreen>
