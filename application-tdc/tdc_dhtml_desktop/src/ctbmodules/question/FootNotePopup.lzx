@@ -120,10 +120,9 @@
 
     <handler name="onscrolltext">
         //init font color and background color
-        Debug.write("FOOTNOTE SCROLL TEXT" , scrolltext);
         if(scrolltext!=null){
 			if(!(this.scrolltext instanceof lz.CachableAnswerAreaPanel || this.scrolltext instanceof lz.CachableAnswerAreaAbsolutePanel)) {
-		        var fgc = this.scrolltext['fontcolor'] ? this.scrolltext.fontcolor : "0xFFFFFF";
+		        var fgc = this.scrolltext['fontcolor'] != null ? this.scrolltext.fontcolor : "0xFFFFFF";
 		        var bc = this.scrolltext['panel'] &amp;&amp; this.scrolltext.panel['bgcolor'] ? this.scrolltext.panel.bgcolor : "0x000000";
 			}
 			else {
@@ -135,7 +134,7 @@
 	        this.body.wrap.detail.setAttribute("fgcolor", fgc);
 	        this.body.wrap.detailmulti.setAttribute("fgcolor", fgc);
 			this.setAttribute("backcolor", bc);
-		}
+		} 
     </handler>
 
     <method name="show" args="footnoteData">

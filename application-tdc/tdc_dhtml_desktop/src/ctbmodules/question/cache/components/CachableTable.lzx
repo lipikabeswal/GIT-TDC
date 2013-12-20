@@ -22,13 +22,13 @@
         <attribute name="bordersize" value="2" type="number"/>
 
         <!-- autoenlarge table -->
-        <attribute name="autoenlarge" value="false"/>       
+        <attribute name="autoenlarge" value="false"/>
 
         <!-- ============================
              =====     METHODS     ======
              ============================ -->
 
-        <handler name="ondata" args="data"><![CDATA[        
+        <handler name="ondata" args="data"><![CDATA[
         	// reset heights and widths
 			this.thetable.setAttribute("width", null);
 			this.thetable.setAttribute("height", null);
@@ -67,12 +67,13 @@
             var titleTxt = "";
             if(data.hasAttr('title')){
             	titleTxt = data.getAttr('title');
-            }
+            }  
             if(titleTxt.length > 0){
+				var className = gController.hasFontAccommodation ? "tableTitleLarge": "tableTitleStandard";          	
             	this.thetable.contents.title.setAttribute('visible', true);
 	            var size = (canvas.basefontsize+2);
 	            this.thetable.contents.title.setAttribute("text", 
-	                    '<label><span style="line-height:14px; font-family: CTB; font-weight: bold; white-space: pre-wrap; font-size : '+size+'; text-align: center;">' + decodeBrackets(titleTxt) + '</span></label>');
+	                    '<label><span class="' + className + '" style="font-size : '+size+'">' + decodeBrackets(titleTxt) + '</span></label>');
 	        }
 	        else{
             	this.thetable.contents.title.setAttribute('visible', false);
@@ -374,10 +375,9 @@
 			var cells = null;
             var vlines = data.getAttr("showvlines") == "yes" ? 1 : 0;
             var hlines = data.getAttr("showhlines") == "yes" ? 1 : 0;
+         	if ( vlines == 0 && hlines == 0) return;
          	
-			dw.clear();			
-			dw.strokeStyle = this.fontcolor;
-			dw.lineWidth = 2;
+			dw.clear();	
             var rows = datapath.xpathQuery("row");
             if (!(rows instanceof Array)) rows = [rows];
             var numRows = rows.length;
@@ -423,7 +423,9 @@
 			dw.strokeStyle = this.fontcolor;
 			// Unfortunately Webkit renders the lines with lineWidth = 1 with opacity,
 			// therefore the cell borders are drawn with a lineWidth value of 2.
-			dw.lineWidth = 2;            
+			var scale = canvas.titleView.mainView.scalingView.xscale;
+			dw.strokeStyle = this.fontcolor;
+			dw.lineWidth = 1;		           
             for (i=0; i<borderObjs.length; i++) {
             	var o = borderObjs[ i ];
             	this.drawCellBorder( o.rect, hlines, vlines, o.isFirstRow, o.isFirstColumn );            
@@ -447,17 +449,17 @@
 			var dw = this.thetable.contents.borderDrawView;
 			if ( hlines == 1 ) {
 				dw.beginPath();
-				dw.moveTo( rect.x, rect.y + rect.h );
-				dw.lineTo( rect.x + rect.w + 1, rect.y + rect.h );
-				dw.moveTo( rect.x, rect.y + rect.h );
+				dw.moveTo( rect.x - 1, rect.y + rect.h );
+				dw.lineTo( rect.x + rect.w, rect.y + rect.h );
+				dw.moveTo( rect.x - 1, rect.y + rect.h );
 				dw.closePath();
 				dw.stroke();
 			}
 			if ( vlines == 1 ) {
 				dw.beginPath();
-				dw.moveTo( rect.x + rect.w, rect.y );
-				dw.lineTo( rect.x + rect.w, rect.y + rect.h + 1 );
-				dw.moveTo( rect.x + rect.w, rect.y );
+				dw.moveTo( rect.x + rect.w, rect.y - 1 );
+				dw.lineTo( rect.x + rect.w, rect.y + rect.h );
+				dw.moveTo( rect.x + rect.w, rect.y - 1);
 				dw.closePath();
 				dw.stroke();
 			}
@@ -534,7 +536,7 @@
             		  y="${parent.borderview.y+2}"
                       width="${parent.borderview.width}"
                       height="${parent.borderview.height}"
-					   />
+                      aliaslines="true"  />
             </view>
         </view>
     </class>

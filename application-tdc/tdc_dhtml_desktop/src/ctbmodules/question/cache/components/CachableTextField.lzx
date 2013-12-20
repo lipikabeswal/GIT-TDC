@@ -85,7 +85,11 @@
                 this.setAttribute("width", Number(data.getAttr("width")));
             } else {
                // this.setAttribute("width", immediateparent.width);
-                this.setAttribute("width", Number(Number(immediateparent.classroot.width)));
+                 if ( parent is lz.CachableAnswerChoice) {
+                this.setAttribute("width", Number(parent.width))
+               } else {
+                this.setAttribute("width", Number(immediateparent.classroot.width));
+               }
             }
 
             //text magnification
