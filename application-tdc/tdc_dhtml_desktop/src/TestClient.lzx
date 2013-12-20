@@ -65,7 +65,7 @@
         }
     ]]></script>
 
-	<attribute name="Copyrite" type="string" value="CTB/McGraw-Hill" />
+	<attribute name="Copyrite" type="string" value="CTB/McGraw-Hill Education" />
 	<attribute name="copyriteColor" type="color" value="0x527DA4" />
 	<attribute name="basefontsize" type="number" value="12" />
 	<attribute name="readable" value="false" type="boolean" />
@@ -211,15 +211,23 @@
 			            x.setAttribute('id', 'loginScreenId');
 			        }
 			    </handler>
-				<text name="copyWriteText" y="200" font="CTB" fontsize="12" 
-			        fgcolor="${canvas.copyriteColor}" height="16" 
-				    text="${canvas.Copyrite}"/>
+				<text name="copyWriteText" y="230" font="CTB" fontsize="12" 
+			        fgcolor="${canvas.copyriteColor}"
+				    text="${canvas.Copyrite}" width="160">
+					<handler name="oninit">
+			        	this.setAttribute('height',16);
+			    	</handler>
+				</text>
             </Screens>
 			<SecurityScreen id="gSecurityScreen" x="100" y="100" width="600"
 				height="300" visible="false">
 				<text name="copyWriteText" y="300" font="CTB" fontsize="12" 
-			        fgcolor="${canvas.copyriteColor}" height="16" 
-				    text="${canvas.Copyrite}"/>
+			        fgcolor="${canvas.copyriteColor}"
+				    text="${canvas.Copyrite}" width="160">
+					<handler name="oninit">
+			        	this.setAttribute('height',16);
+			    	</handler>
+				</text>
             </SecurityScreen>
             <Tutorial id="gTutorial" width="800" height="600"
                         visible="false"/>
