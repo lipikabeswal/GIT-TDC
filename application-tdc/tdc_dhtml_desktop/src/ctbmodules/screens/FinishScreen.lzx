@@ -77,14 +77,18 @@
             <simplelayout axis="x" spacing="10"/>
             <YesFinishedButton enabled="${ gScreens.allowclick }">
                <handler name="onclick" method="finished"/>
-                <method name="finished">
+                <method name="finished"><![CDATA[
+                    if((gController.productTypeVal.indexOf('OKLAHOMA')>= 0) || (gController.productTypeVal.indexOf('ISTEP')>= 0))
+                    {
+                    	gController.setAttribute('isRelogin',true);
+                    }
                     gScreens.clicked();
                     gController.isStopScreen = true;
                     gController.saveEndSubtest();
                     //START Defect# 59282
                     gController.resetCrFields();
                     //END
-                </method>
+                ]]></method>
                 <handler name="onmouseover">
                     lz.Cursor.showHandCursor(true);
 		        </handler>

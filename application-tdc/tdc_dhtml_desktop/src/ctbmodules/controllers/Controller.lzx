@@ -582,9 +582,14 @@
     	<attribute name="iframeDragActive" value="false" type="boolean" />	    	
     	<attribute name="answerPanelLayout" type="string" value="vertical"/>
     	
- 	    <attribute name="largeCharacterDetector" value="$once{new lz.LargeCharacterDetector()}" type="expression" />		
-
-    	<!--  Cancels a drag operation inside a TE item -->
+ 	    <attribute name="largeCharacterDetector" value="$once{new lz.LargeCharacterDetector()}" type="expression" />	
+ 	    
+ 	    <!-- Attributes added for Relogin Scenario and Product Check-->
+		
+		<attribute name="isRelogin" type="boolean" value="false" />
+		<attribute name="SAVE_METHOD" type="string" value="savemethod" />
+		<attribute name="drelogin" value="$once{ new LzDelegate( this, 'relaunch' ) }" />
+		<!--  Cancels a drag operation inside a TE item -->
     	<method name="cancelIframeDrag">
     		if (this.htmlFields.length == 1) {
     			var frame = this.htmlFields[0].frameObj;
@@ -849,6 +854,9 @@
 					case CHECK_PROD_TYPE_METHOD:
 						_handleIsPasswordField(response);
 						break;
+					case SAVE_METHOD:
+						_handleSaveMethod(response);
+						break;
 					
 					default:
 						break;
@@ -971,7 +979,7 @@
 			endSubtest();
 		</method>
 
-		<method name="_handleSubtestFinishResponse" args="response">
+		<method name="_handleSubtestFinishResponse" args="response"><![CDATA[
 			var node = lz.DataElement.stringToLzData(response);
 			var nextSubtestIndex = getSubtestIndex(node);
 			if(nextSubtestIndex != -1){
@@ -982,9 +990,20 @@
 				getFeedback();
 			}
 			else {
-				terminate();
-			}
-		</method>
+					if(this.isRelogin == true || this.isRelogin == 'true')
+					{
+						if((this.productTypeVal.indexOf('OKLAHOMA')>= 0) || (this.productTypeVal.indexOf('ISTEP')>= 0))
+						{
+						terminateToRelogin();
+						}
+					}
+					else
+					{
+						terminate();
+					}
+				}
+			
+		]]></method>
 		<method name="getSubtestIndex" args="node"><![CDATA[
 			dp.setPointer(node);
 			var subtestId = dp.xpathQuery('save_testing_session_data/tsd/next_sco/@id');
@@ -5605,6 +5624,36 @@ Debug.write("############ loadItem ############");
 			gMorefastleft.onmouseup.sendEvent();
 			gMoreleft.onmouseup.sendEvent();
 		</method>
+		
+		<method name="_handleSaveMethod" args="response">
+			console.log("Inside _handleSaveMethod******");	
+			goToGoodbyeScreenToRelogin();
+		</method>
+		
+		<method name="terminateToRelogin">
+		<!-- called when login page has to load again --> 	
+			console.log("Inside terminateToRelogin******");	
+			setState(SAVE_METHOD);
+			gCommunicator.terminate();
+		</method>
+	
+		<method name="goToGoodbyeScreenToRelogin">
+		<!-- called when login page has to load again --> 
+			stopHeartbeat();
+			//removeTrackTimer();
+			//removePauseTimer();
+			gRevisitFalsePopup.hide();
+			//gPauseTimerScreen.setVisible(false);
+			gScreens.showGoodbye();
+			lz.Timer.addTimer(drelogin, 2500);
+			gController.setAttribute('isRelogin',false);
+		</method>
+	
+		<method name="relaunch">
+		<!-- To reload login.html --> 
+			document.location.reload(true);
+		</method>
+
 	</node>
 
 </library>

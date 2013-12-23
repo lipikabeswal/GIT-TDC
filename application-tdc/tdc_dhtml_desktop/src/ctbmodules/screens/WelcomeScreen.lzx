@@ -186,10 +186,17 @@
                         valign="middle"
                         enabled="${ gScreens.allowclick }">
                 <handler name="onclick" method="dostop"/>
-                <method name="dostop">
+                
+                <method name="dostop"><![CDATA[
                     gScreens.clicked();
-                    gController.terminate();
-                </method>
+                    //  called when login page has to load again from WelcomeScreen
+                   		if((gController.productTypeVal.indexOf('OKLAHOMA')>= 0) || (gController.productTypeVal.indexOf('ISTEP')>= 0))
+						{
+							gController.terminateToRelogin();
+						}
+						else
+						    gController.terminate();
+                ]]></method>
                 <handler name="onmouseover">
                        lz.Cursor.showHandCursor(true);
 		        </handler>
