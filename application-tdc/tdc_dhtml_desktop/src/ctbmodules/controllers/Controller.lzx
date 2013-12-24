@@ -521,11 +521,6 @@
 		<!-- isAnswerSet,findAnswer attributes using for freezing/Unfreezing the UI -->
 		<attribute name="isAnswerSet" type="boolean" value="false"/>
 		<attribute name="findAnswer" type="boolean" value="true"/>
-		
-		<!--below two attribute are using for fast navigation -->
-		<attribute name="allowNavigate" value="true" type="boolean" />
-		<attribute name="allowItmeNavigate" value="true" type="boolean" />
-		
 		<!--
 			============================================================
 			Datapointers
@@ -587,9 +582,6 @@
     	<attribute name="iframeDragActive" value="false" type="boolean" />	    	
     	<attribute name="answerPanelLayout" type="string" value="vertical"/>
     	
- 	    <attribute name="largeCharacterDetector" value="$once{new lz.LargeCharacterDetector()}" type="expression" />		
-        <attribute name="isCheck" value="false" type="boolean"/>
-    	<!--  Cancels a drag operation inside a TE item -->
  	    <attribute name="largeCharacterDetector" value="$once{new lz.LargeCharacterDetector()}" type="expression" />	
  	    
  	    <!-- Attributes added for Relogin Scenario and Product Check-->
@@ -3185,16 +3177,6 @@
 		</method>
 
 		<method name="goToPauseScreen">
-		if(gMusicPlayer.visible == false)
-			 {
-			   console.log("CON IS",gMusicPlayer.visible);
-			   gController.setAttribute('isCheck',false);
-			 }
-			else
-			{  console.log("CON IS",gMusicPlayer.visible);
-			   gController.setAttribute('isCheck',true);
-			}
-		    gMusicPlayer.hide();
 			this.clearInvalidCrResponses();
 			this.resetCrs();
             lz.Cursor.unlock();  
@@ -3232,10 +3214,6 @@
             restoreScratchpadFocusIfNeeded();
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
-			 if(gController.isCheck == true)
-			{
-			  gMusicPlayer.show();
-			}
 		</method>
 		
 		<method name="hideManipulatives">
@@ -3320,16 +3298,7 @@
 			hideManipulatives();
      		checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
-			if(gMusicPlayer.visible == false)
-			 {
-			   console.log("CON IS",gMusicPlayer.visible);
-			   gController.setAttribute('isCheck',false);
-			 }
-			else
-			{  console.log("CON IS",gMusicPlayer.visible);
-			   gController.setAttribute('isCheck',true);
-			}
-			gMusicPlayer.hide();
+			//gMusicPlayer.hide();
             lz.Cursor.unlock();
 			
 			if(this.adaptive == true){				
@@ -3416,7 +3385,6 @@
 
 		<method name="resumeTest">
 			manipulativeSelected();
-			gTooltip.hideTooltip ();
 			/*if(gController.htmlFields != null){
 				gController.showHtmlWidgets();
 			}*/
@@ -3432,10 +3400,6 @@
 			}
 			checkShowMagnifierGlass();
 			gTooltip.hideTooltip();
-			if(gController.isCheck == true)
-			{
-			  gMusicPlayer.show();
-			 }
         </method>
 
 		<method name="continueTest">
@@ -3510,7 +3474,6 @@
 	              lz.Keys.blockKeyCombos(false);
 	            }
 	        }
-	        this.setAttribute('allowItmeNavigate',true);
 		]]>
         </method>
 
@@ -4018,9 +3981,6 @@ Debug.write("############ loadItem ############");
 
 				
             }
-            
-            this.setAttribute('allowNavigate',true);
-			this.setAttribute('allowItmeNavigate',false);
        ]]></method>
        
        <method name="getToolstate" args="toolid">
@@ -5658,7 +5618,6 @@ Debug.write("############ loadItem ############");
 			}
 		]]></method> 
 		<method name="doArrowMouseup">
-			console.log("Inside doArrowMouseup***");
 			gMorefastright.onmouseup.sendEvent();
 			gMoreright.onmouseup.sendEvent();
 			gMorefastleft.onmouseup.sendEvent();
@@ -5666,13 +5625,11 @@ Debug.write("############ loadItem ############");
 		</method>
 		
 		<method name="_handleSaveMethod" args="response">
-			console.log("Inside _handleSaveMethod******");	
 			goToGoodbyeScreenToRelogin();
 		</method>
 		
 		<method name="terminateToRelogin">
 		<!-- called when login page has to load again --> 	
-			console.log("Inside terminateToRelogin******");	
 			setState(SAVE_METHOD);
 			gCommunicator.terminate();
 		</method>
