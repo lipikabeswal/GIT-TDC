@@ -49,6 +49,11 @@
         lz.ModeManager.makeModal(this);
         resetControls();
         gHotKeys.disableKeys();
+        gMaskingRuler.onmouseup.sendEvent();
+        gStandardCalculator.onmouseup.sendEvent();
+        gTnFormulaCard.onmouseup.sendEvent();
+        gFcatFormulaCard.onmouseup.sendEvent();
+        lz.Cursor.showHandCursor(false); //FIX FOR DEFECT 75099
         
     </method>
 
