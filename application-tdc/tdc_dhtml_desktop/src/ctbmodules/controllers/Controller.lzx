@@ -3177,6 +3177,7 @@
 		</method>
 
 		<method name="goToPauseScreen">
+			gMusicPlayer.hide();
 			this.clearInvalidCrResponses();
 			this.resetCrs();
             lz.Cursor.unlock();  
@@ -3298,7 +3299,7 @@
 			if(this.htmlFields != null){
 				hideHtmlWidgets();
 			}
-			//gMusicPlayer.hide();
+			gMusicPlayer.hide();
             lz.Cursor.unlock();
 			
 			if(this.adaptive == true){				
