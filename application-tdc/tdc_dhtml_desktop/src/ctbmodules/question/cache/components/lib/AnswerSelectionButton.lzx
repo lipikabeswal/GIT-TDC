@@ -12,15 +12,29 @@
 
     <class name="AnswerSelectionButton"
            height="${this.resourceheight}"
-           width="${this.resourcewidth}"
-           resource="answer_choice_btn">
+           width="${this.resourcewidth}">
 
         <datapath/>
-
+		
+	<!--  	<attribute name="answer_choice_btn_svg" 
+		value="['ctbmodules/resources/iknow_answerchoices/answerA_off.svg', 
+				'ctbmodules/resources/iknow_answerchoices/answerA_on.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerB_off.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerB_on.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerC_off.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerC_on.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerD_off.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerD_on.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerE_off.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerE_on.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerF_off.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerF_on.svg',
+				'ctbmodules/resources/iknow_answerchoices/answer_blueballselect.png']"/>-->
+		
         <attribute name="statenum" value="0"/>
         <attribute name="statelength" value="2"/>
         <attribute name="totalstates" value="6"/>
-
+		
         <attribute name="type" type="string"/>
         <attribute name="randomtype" type="string"/>
         <attribute name="selstate" value="$path{'@user_action'}"/>
@@ -55,12 +69,14 @@
             if(canvas.capabilities.clickregion){
 				this.setAttribute('clickregion','../../../../resources/iknow_answerchoices/answer_blueballselect.png');
 			}
+
         </handler>
 
         <handler name="onmouseover"><![CDATA[
             setCursorState();
             if (this.selstate == 'n') {
-                this.setAttribute('frame', this.statenum * this.statelength + 2);
+                //this.setAttribute('frame', this.statenum * this.statelength + 2);
+                this.setSource(gResources.answer_choice_btn_svg[this.statenum * this.statelength + 1]);
             }
         ]]></handler>
 
@@ -68,7 +84,8 @@
             gController.clearAndRestoreCurrentCursor();
 
             if (this.selstate == 'n') {
-                this.setAttribute('frame', this.statenum * this.statelength + 1);
+                //this.setAttribute('frame', this.statenum * this.statelength + 1);
+                this.setSource(gResources.answer_choice_btn_svg[this.statenum * this.statelength]);
             }
         </handler>
 
@@ -207,14 +224,15 @@
             var newresource = 1;
             switch (this.selstate) {
                 case 's': 
-                    newresource = this.statelength * this.totalstates + 1;
+                    newresource = this.statelength * this.totalstates;
                     break;
                 default: 
-                    newresource = this.statelength * this.statenum + 1;
+                    newresource = this.statelength * this.statenum;
                     break;
             }
 
-            this.setAttribute('frame', newresource);
+            //this.setAttribute('frame', newresource);
+			this.setSource(gResources.answer_choice_btn_svg[newresource]);
         </handler>
  		<view name="eliminator" 
 		      visible="${classroot.selstate == 'e'}"
