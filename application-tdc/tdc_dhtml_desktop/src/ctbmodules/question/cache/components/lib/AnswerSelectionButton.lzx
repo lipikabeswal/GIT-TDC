@@ -137,10 +137,10 @@
 		
 		<method name="setCursorState"><![CDATA[
             if (this.eliminatorstatus.data == 'sel') {
-                gController.setCurrentCursor('eliminator_cursor');
+                gController.setCurrentCursor('eliminate_cursor');
             } else if (this.eraserstatus.data == 'sel' 
                 && this.selstate == 'e') {
-                gController.setCurrentCursor('eraser_cursor');
+                gController.setCurrentCursor('erase_cursor');
             }
 		]]></method>
 
