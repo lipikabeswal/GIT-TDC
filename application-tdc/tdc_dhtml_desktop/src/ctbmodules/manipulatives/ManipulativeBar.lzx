@@ -202,7 +202,7 @@
 	                            toolid="standard_calculator"
 	                            tooltip="Calculator" 
 								xpos = "${this.x+ classroot.globals.width+10}" name="standard_calculator"/>
-			<ManipulativeButton btnrsrc="${gResources.straightedge_toolbar}"
+			<ManipulativeButton btnrsrc="${gResources.straightedgesvg_toolbar}"
 	                            toolid="straight_edge"
 	                            tooltip="Straight Edge" 
 								xpos = "${this.x+ classroot.globals.width+10}" name="straight_edge"/>
