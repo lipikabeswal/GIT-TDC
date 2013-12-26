@@ -3263,10 +3263,7 @@
             	//this.setAttribute("sendCatSave",true);
             	setSendCatSave();
             }
-            	/*if(this.htmlFields != null){
-					hideHtmlWidgets();
-				}*/
-			this.resetHtmlFields();
+			//this.resetHtmlFields();
             save(null);
         </method>
 	
@@ -3298,6 +3295,9 @@
 			hideManipulatives();
      		checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
+			if(this.htmlFields != null){
+				hideHtmlWidgets();
+			}
 			//gMusicPlayer.hide();
             lz.Cursor.unlock();
 			
@@ -3385,9 +3385,9 @@
 
 		<method name="resumeTest">
 			manipulativeSelected();
-			/*if(gController.htmlFields != null){
+			if(gController.htmlFields != null){
 				gController.showHtmlWidgets();
-			}*/
+			}
             lz.Cursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
 			showManipulatives();
