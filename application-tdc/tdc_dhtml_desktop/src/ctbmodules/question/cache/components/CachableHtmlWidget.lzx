@@ -313,8 +313,8 @@
 				var isActive = false;
 				var frame = this.getIframeObject();
 				if (typeof frame.contentWindow.jQuery == 'undefined') return false;
-				var dragItems = frame.contentWindow.$(".ui-draggable-dragging");
-				if (dragItems && dragItems.length == 1) {
+				var dragItems = frame.contentWindow.$(".ui-draggable");
+				if (dragItems && dragItems.length >= 1) {
 					isActive = true;
 					gController.setAttribute( "iframeDragActive", true );
 				} else {
