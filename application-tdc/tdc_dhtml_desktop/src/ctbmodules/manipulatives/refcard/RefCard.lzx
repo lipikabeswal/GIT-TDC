@@ -169,7 +169,18 @@
 				  stretches="width" />
 			<basebutton resource="ref_card_close_btn" height="${this.resourceheight + 1}">
 				<handler name="onclick">
+                  <![CDATA[
+                     if(gchkActive.check_active_reference=="true"  && gchkActive.check_last_reference_card_click=="FCAT"){
+				    manipulativeFCATFormulaCard.setAttribute('source',gResources.toolbar_reference_off_svg);
+                    gchkActive.setAttribute('check_active_reference','false');
+					}
+					else if(gchkActive.check_active_reference2=="true"){
+						 manipulativeTNRefCard.setAttribute('source',gResources.toolbar_reference_off_svg);
+                        gchkActive.setAttribute('check_active_reference2','false');
+                        gchkActive.setAttribute('check_last_reference_card_click','FCAT');
+					}
 			    	gController.setManipulativeSelState (classroot.toolid, 'up');
+                  ]]>
 			    </handler>
 			</basebutton>
 		</view>
