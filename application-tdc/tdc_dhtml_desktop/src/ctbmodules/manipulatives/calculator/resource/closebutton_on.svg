@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="13px"
+	 height="13px" viewBox="0.5 0.5 13 13" enable-background="new 0.5 0.5 13 13" xml:space="preserve">
+<g id="fill">
+	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="13.4766" y1="12.4341" x2="0.5256" y2="1.567">
+		<stop  offset="0" style="stop-color:#3D8594"/>
+		<stop  offset="0.1995" style="stop-color:#5098A5"/>
+		<stop  offset="0.6009" style="stop-color:#80C9CF"/>
+		<stop  offset="1" style="stop-color:#B5FFFF"/>
+	</linearGradient>
+	<rect x="1" y="1" fill="url(#SVGID_1_)" width="12" height="12"/>
+</g>
+<g id="border">
+	<polyline fill="none" stroke="#074C8F" stroke-linecap="round" stroke-linejoin="round" points="13,1 13,13 1,13 	"/>
+	<polyline fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="1,13 1,1 
+		13,1 	"/>
+</g>
+<g id="x">
+	<g>
+		<path fill="none" stroke="#4F4F4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M10.05,3.95l-6.1,6.1"/>
+	</g>
+	<g>
+		<path fill="none" stroke="#4F4F4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3.95,3.95l6.1,6.1"/>
+	</g>
+</g>
+</svg>
