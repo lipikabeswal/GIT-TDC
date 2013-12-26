@@ -79,6 +79,9 @@
             lz.Cursor.lock ();
 			this.setAttribute('dragenabled', true);
 			this.setAttribute('ismouseDown',true);
+			
+			// for the defect 73212
+			gPleaseWaitPopup.setAttribute('manipRef', this);
         </handler>
 
         <handler name="onmouseup">

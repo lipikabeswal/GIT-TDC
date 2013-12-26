@@ -160,6 +160,9 @@
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
             lz.Cursor.lock ();
             this.setAttribute('dragenabled', true);
+            
+            // for the defect 73212
+            gPleaseWaitPopup.setAttribute('manipRef', this);
         </handler>
 
         <handler name="onmouseup">

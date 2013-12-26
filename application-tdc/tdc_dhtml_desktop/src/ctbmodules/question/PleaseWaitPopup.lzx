@@ -12,6 +12,8 @@
 	<attribute name="navigateFrom"/>
 	<attribute name="exitButtonStatus" type="boolean" value="false" />
 	
+	<attribute name="manipRef" type="object"/>
+	
 	<!-- the default setup should always be ready as this popup can be shown at login time also -->
 	<handler name="oninit">
 		setup("","",""); 
@@ -43,6 +45,11 @@
     </method>
 	
     <method name="show">
+        //console.log("====SHOW WAIT POPUP===",this.manipRef);
+        if(this.manipRef != undefined)
+        	this.manipRef.onmouseup.sendEvent();
+        
+        
         this.setAttribute("visible", true);
 		gPleaseWaitPopup.bringToFront();
         this.contents.networkLost.inBar.barAnimator.doStart();

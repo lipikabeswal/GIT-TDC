@@ -98,11 +98,14 @@ Debug.write("else "+data +" : "+ hasstate);
                       gController.clearAndRestoreCurrentCursor();
                   </handler>
                   <handler name="onmousedown">
-                  	  classroot.bringToFront();
+                      classroot.bringToFront();
                       lz.Cursor.setCursorGlobal ('grabbing_cursor');
                       lz.Cursor.lock();
                       gHotKeys.disableKeys();
-                      classroot.setAttribute('dragenabled', true)
+                      classroot.setAttribute('dragenabled', true);
+                      
+                      // for the defect 73212
+                      gPleaseWaitPopup.setAttribute('manipRef', classroot.ruler);
                   </handler>
                 <handler name="onmouseup">
                       //lz.Cursor.unlock();
@@ -131,7 +134,7 @@ Debug.write("else "+data +" : "+ hasstate);
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
             lz.Cursor.lock ();
             gHotKeys.disableKeys();
-            classroot.setAttribute('dragenabled', true);
+            classroot.setAttribute('dragenabled', true);          
         </handler>
         <handler name="onmouseup">
             lz.Cursor.unlock ();
