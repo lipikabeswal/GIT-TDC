@@ -229,8 +229,8 @@
 							'ctbmodules/resources/iknow_buttons/markforreview/markforreview_on.svg']"/>
 
     <attribute  name="unmark_svg" 
-					value="['ctbmodules/resources/iknow_buttons/markforreview/unmark_off.svg', 
-							'ctbmodules/resources/iknow_buttons/markforreview/unmark_on.svg']"/>
+					value="['ctbmodules/resources/iknow_buttons/unmark/unmark_off.svg', 
+							'ctbmodules/resources/iknow_buttons/unmark/unmark_on.svg']"/>
 
     <!-- Protractor Button-->
       <attribute  name="protractor_svg" 
@@ -265,9 +265,9 @@
 							'ctbmodules/resources/iknow_buttons/read/btn_read_over.svg',
 							'ctbmodules/resources/iknow_buttons/read/btn_read_down.svg']"/>
    <!-- cursor-->
-      <attribute name="eliminate_cursor" value="ctbmodules/resources/iknow_cursors/cursor_eliminate.svg" type= "string"/>
+      <attribute name="eliminator_cursor" value="ctbmodules/resources/iknow_cursors/cursor_eliminate.svg" type= "string"/>
       <attribute name="highlight_cursor" value="ctbmodules/resources/iknow_cursors/cursor_highliter.svg" type="string"/>
-      <attribute name="erase_cursor" value="ctbmodules/resources/iknow_cursors/cursor_eraser.svg" type="string"/>
+      <attribute name="eraser_cursor" value="ctbmodules/resources/iknow_cursors/cursor_eraser.svg" type="string"/>
 	 </node>
      <!-- added by piyali -->
     <node id="gchkActive">

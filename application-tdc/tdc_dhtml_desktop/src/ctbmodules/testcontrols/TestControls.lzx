@@ -55,6 +55,13 @@
         ]]></method>
         
         <method name="setIsCurrMarked" args="ismarked">
+        	if(ismarked){
+              	classroot.setAttribute('iscurrmarked',false);
+              	this.btns.markbtn.setAttribute('source',gResources.unmark_svg[0])
+           }else{
+              	classroot.setAttribute('iscurrmarked',true);
+              	this.btns.markbtn.setAttribute('source',gResources.markforreview_svg[0])
+           }
             if (typeof (ismarked) == 'string') {
                ismarked = (ismarked == '1');
             } 
@@ -212,14 +219,31 @@
             </view>
             <multistatebutton name="markbtn" align="center"
                               clickable="${ classroot.uienabled == true }"
-                              resource="mark_unmark_btn" statelength="3"
+                              source="${gResources.markforreview_svg[0]}" statelength="3"
                               maxstate="1" 
-              				  onclick="gController.markQuestion (!classroot.iscurrmarked)">
-              				  
+              				 >
+              				<handler name="onclick">
+              				 	if(!classroot.iscurrmarked){
+              				 		this.setAttribute('source',gResources.unmark_svg[0]);
+              				 	}else{
+              				 		this.setAttribute('source',gResources.markforreview_svg[0]);
+              				 	}
+              				 	gController.markQuestion (!classroot.iscurrmarked);
+              				</handler>
               				<handler name="onmouseover">
+              					if(!classroot.iscurrmarked){
+              						this.setAttribute('source',gResources.markforreview_svg[1]);
+              				 	}else{
+              				 		this.setAttribute('source',gResources.unmark_svg[1]);
+              				 	}
                                 lz.Cursor.showHandCursor(true);
 					        </handler>
 					        <handler name="onmouseout">
+					       		if(!classroot.iscurrmarked){
+					        		this.setAttribute('source',gResources.markforreview_svg[0]);
+              				 	}else{
+              				 		this.setAttribute('source',gResources.unmark_svg[0]);
+              				 	}
 					            lz.Cursor.showHandCursor(false);
 					        </handler>
             </multistatebutton>
