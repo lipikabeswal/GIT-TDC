@@ -568,7 +568,7 @@
 			}
          }	           
         </method>
-        <method name="pause" args="ignore=null"><![CDATA[
+        <method name="pause" args="ignore=null"> 
           if(gItemInterface.visible)
            { 	
               if(canvas.loadItem){
@@ -583,7 +583,7 @@
 	        	}	
 	        }
            }		
-       ]]></method>
+        </method>
         <method name="stop" args="ignore=null"><![CDATA[
 	    if(gItemInterface.visible)
          {		
