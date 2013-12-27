@@ -307,7 +307,7 @@
             contents.gs.setAttribute('visible', true );
 
             show();
-
+            lz.Cursor.showHandCursor(false); //FIX FOR DEFECT 75099
         </method>
 
        <method name="showOptOut" args="sn">

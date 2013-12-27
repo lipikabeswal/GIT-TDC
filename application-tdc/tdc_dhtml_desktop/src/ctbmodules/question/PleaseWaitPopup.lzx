@@ -56,7 +56,7 @@
         lz.ModeManager.makeModal(this);
         resetControls();
         gHotKeys.disableKeys();
-        lz.Cursor.showHandCursor(false); //FIX FOR DEFECT 75099
+        
         
     </method>
 
