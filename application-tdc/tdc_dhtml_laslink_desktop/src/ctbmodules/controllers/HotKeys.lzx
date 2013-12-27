@@ -568,8 +568,8 @@
 			}
          }	           
         </method>
-        <method name="pause" args="ignore=null"> 
-          if(gItemInterface.visible)
+        <method name="pause" args="ignore=null"><![CDATA[
+          if(gItemInterface.visible && (!gController.isNavigateFwd))
            { 	
               if(canvas.loadItem){
 	        	if(gController.pausable == 'true'){
@@ -583,7 +583,7 @@
 	        	}	
 	        }
            }		
-        </method>
+       ]]></method>
         <method name="stop" args="ignore=null"><![CDATA[
 	    if(gItemInterface.visible)
          {		
