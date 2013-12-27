@@ -241,11 +241,11 @@
 	
 				
 			<method name="hide">
-				this.ht.setAttribute('visible',false);
+				//this.ht.setAttribute('visible',false);
 			</method>
 			
 			<method name="show">
-				this.ht.setAttribute('visible',true);
+				//this.ht.setAttribute('visible',true);
 			</method>
 	
 			<method name="doReturnToCache"><![CDATA[
