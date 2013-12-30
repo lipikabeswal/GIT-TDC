@@ -5,7 +5,6 @@
     <include href="volume_slider.lzx"/>
    <include href="ScratchpadButton.lzx"/>
 	<include href="radioButton/radio.lzx"/>
-	<include href="ManipulativeGlobalButton.lzx"/>
 
     <class name="ManipulativeBar" bgcolor="0xC4C4C4"
            datapath="dsstudentdata:/testing_client_model/current_item/item_model">
@@ -30,20 +29,20 @@
 			//Debug.write("On data global",data);
 			</handler>
 			<simplelayout axis="x"/>
-			<ManipulativeGlobalButton resource="toolbar_choice_eliminator_btn"
-	                                  toolid="option_eliminator"
-	                                  tooltip="Option Eliminator" xpos = "${this.x}" name="option_eliminator"/>
-			<ManipulativeGlobalButton resource="toolbar_highlighter_btn"
+			<ManipulativeButton resource="toolbar_choice_eliminator_btn"
+	                            toolid="option_eliminator"
+	                            tooltip="Option Eliminator" xpos = "${this.x}" name="option_eliminator"/>
+			<ManipulativeButton resource="toolbar_highlighter_btn"
 	                            toolid="highlighter"
 	                            tooltip="Highlighter" xpos = "${this.x}" name="highlighter"/>
-			<ManipulativeGlobalButton resource="toolbar_eraser_btn"
+			<ManipulativeButton resource="toolbar_eraser_btn"
 	                            toolid="eraser"
 	                            tooltip="Eraser" xpos = "${this.x}" name="eraser"/>
-	        <ScratchpadButton   btnrsrc="${gResources.scratchpad_svg}"
+	        <ScratchpadButton   resource="toolbar_scratchpad_btn"
 	                            toolid="scratchpad"
 	                            tooltip="Scratchpad" xpos = "${this.x}" name="scratchpad"/>
 
-			<ManipulativeGlobalButton resource="toolbar_masking_ruler_btn"
+			<ManipulativeButton resource="toolbar_masking_ruler_btn"
 	                            toolid="masking_ruler"
 	                            tooltip="Blocking Ruler" xpos = "${this.x}" name="masking_ruler"/>	
 	                            
@@ -174,35 +173,35 @@
 		<view datapath="manipulatives/general" name="generals" valign="middle"
 		      visible="${!classroot.theme  || (classroot.theme &amp;&amp; classroot.hasResponseArea)}">
 			<simplelayout axis="x"/>
-			<ManipulativeButton btnrsrc="${gResources.rulereight_toolbar}"
+			<ManipulativeButton resource="toolbar_oneeighth_inch_ruler_btn"
 	                            toolid="oneeighth_inch_ruler"
 	                            tooltip="1/8&quot; ruler" xpos = "${this.x+ classroot.globals.width+10}" name="oneeighth_inch_ruler"/>
-			<ManipulativeButton btnrsrc="${gResources.rulerhalf_toolbar}"
+			<ManipulativeButton resource="toolbar_half_inch_ruler_btn"
 	                            toolid="half_inch_ruler"
 	                            tooltip="1/2&quot; ruler" xpos = "${this.x+ classroot.globals.width+10}" name="half_inch_ruler"/>
-			<ManipulativeButton btnrsrc="${gResources.rulerMM_toolbar}"
+			<ManipulativeButton resource="toolbar_mm_ruler_btn"
 	                            toolid="mm_ruler"
 	                            tooltip="mm ruler" xpos = "${this.x+ classroot.globals.width+10}" name="mm_ruler"/>
-			<ManipulativeButton btnrsrc="${gResources.rulerCM_toolbar}"
+			<ManipulativeButton resource="toolbar_cm_ruler_btn"
 	                            toolid="cm_ruler"
 	                            tooltip="cm ruler" xpos = "${this.x+ classroot.globals.width+10}" name="cm_ruler"/>
-			<ManipulativeButton btnrsrc="${gResources.protractor_toolbar}"
+			<ManipulativeButton resource="toolbar_protractor_btn"
 	                            toolid="protractor"
 	                            tooltip="Protractor" xpos = "${this.x+ classroot.globals.width+10}" name="protractor"/>
-			<ManipulativeButton btnrsrc="${gResources.reference_toolbar}"
+			<ManipulativeButton resource="toolbar_formula_card_btn"
 	                            toolid="FCAT_formula_card"
 	                            tooltip="Reference Card" xpos = "${this.x+ classroot.globals.width+10}" name="FCAT_formula_card"/>
-			<ManipulativeButton btnrsrc="${gResources.reference_toolbar}"
+			<ManipulativeButton resource="toolbar_formula_card_btn"
 	                            toolid="TN_formula_card"
 	                            tooltip="Reference Card" xpos = "${this.x+ classroot.globals.width+10}" name="TN_formula_card"/>
-			<ManipulativeButton btnrsrc="${gResources.reference_toolbar}"
+			<ManipulativeButton resource="toolbar_formula_card_btn"
 	                            toolid="formula_card_resource"
 	                            tooltip="Reference Card" xpos = "${this.x+ classroot.globals.width+10}" name="formula_card_resource"/>
-			<ManipulativeButton id="manipulativeCalculator" btnrsrc="${gResources.calc_toolbar}"
+			<ManipulativeButton resource="toolbar_calculator_btn"
 	                            toolid="standard_calculator"
 	                            tooltip="Calculator" 
 								xpos = "${this.x+ classroot.globals.width+10}" name="standard_calculator"/>
-			<ManipulativeButton btnrsrc="${gResources.straightedgesvg_toolbar}"
+			<ManipulativeButton resource="toolbar_straight_edge_btn"
 	                            toolid="straight_edge"
 	                            tooltip="Straight Edge" 
 								xpos = "${this.x+ classroot.globals.width+10}" name="straight_edge"/>
