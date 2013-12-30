@@ -3264,10 +3264,7 @@
             	//this.setAttribute("sendCatSave",true);
             	setSendCatSave();
             }
-            	/*if(this.htmlFields != null){
-					hideHtmlWidgets();
-				}*/
-			this.resetHtmlFields();
+			//this.resetHtmlFields();
             save(null);
         </method>
 	
@@ -3299,6 +3296,9 @@
 			hideManipulatives();
      		checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
+			if(this.htmlFields != null){
+				hideHtmlWidgets();
+			}
 			gMusicPlayer.hide();
             lz.Cursor.unlock();
 			
@@ -3386,9 +3386,9 @@
 
 		<method name="resumeTest">
 			manipulativeSelected();
-			/*if(gController.htmlFields != null){
+			if(gController.htmlFields != null){
 				gController.showHtmlWidgets();
-			}*/
+			}
             lz.Cursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
 			showManipulatives();
@@ -4239,6 +4239,7 @@ Debug.write("############ loadItem ############");
 		<method name="saveEndSubtest"><![CDATA[
 			//to set audio data in save call, its required
 			this.resetAudioFields();
+			this.resetHtmlFields();
 			stopQuestion();
         	copyCurrentToRuntime();
 			setState(SAVE_END_SUBTEST_STATE);
@@ -4246,7 +4247,6 @@ Debug.write("############ loadItem ############");
 			save(null);
         	setAttribute("doUnlockUI", false);
         	Debug.write("saveendsubtest");
-        	this.resetHtmlFields();
         ]]></method>
 
 		<method name="_handleWriteToAuditFileResponse" args="response">
@@ -5538,6 +5538,7 @@ Debug.write("############ loadItem ############");
 			lz.Timer.removeTimer(answeredDel);
 		</method>
 		<method name="hideHtmlWidgets"><![CDATA[
+			stopCheckIsAnswer();
 			if(this.htmlFields.length > 0){
 				for (var i =0; i < this.htmlFields.length; i++){
 					this.htmlFields[i]['ref'].hide();	
