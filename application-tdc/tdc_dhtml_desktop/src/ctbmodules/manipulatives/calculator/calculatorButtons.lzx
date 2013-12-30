@@ -12,9 +12,7 @@
     		calculator.bringToFront();
     	</handler>
         <handler name="oninit">
-            //console.log("The text resource is",txtresource);
-           // this.textView.setAttribute('resource',txtresource);
-               this.textView.setAttribute('source',txtresource);
+            this.textView.setAttribute('resource',txtresource);
         </handler>
     </class>
 
@@ -23,18 +21,9 @@
          calculator btn
          ===================== -->
     <class name="calcButton" extends="calcBaseButton" 
-          source="${gResources.calculator_button_off}" >	
-      <handler name="onclick">
-         this.setAttribute('source',gResources.calculator_button_click);
-       </handler>
-       <handler name="onmouseover">
-         this.setAttribute('source',gResources.calculator_button_on);
-        </handler>
-        <handler name="onmouseout">
-          
-          this.setAttribute('source',gResources.calculator_button_off);
-         </handler>
-     </class>
+           resource="calc_btn"/>	
+ 
+
     <!-- =====================
          scientific func button
          ===================== -->
@@ -74,8 +63,8 @@
 		<view name="otherFace" align="center" valign="middle" visible="false" />
 		<method name="init">
 			super.init();
-			offFace.setAttribute('source',offFaceRsrc);
-			otherFace.setAttribute('source',otherFaceRsrc);
+			offFace.setAttribute('resource',offFaceRsrc);
+			otherFace.setAttribute('resource',otherFaceRsrc);
 		</method>
 		<handler name="onmousedown">
 			calculator.bringToFront();
@@ -90,17 +79,7 @@
 		</handler>
 	</class>
 	<class name="operatorCalculatorButton" extends="multiFaceCalculatorBaseButton" 
-	       source="${gResources.calculator_button_black}">
-	  <handler name="onmouseover">
-	     this.setAttribute('source',gResources.calculator_lbutton_blue);
-	  </handler>
-	  <handler name="onclick">
-	    this.setAttribute('source',gResources.calculator_dkbutton_blue);
-	  </handler>
-	  <handler name="onmouseout">
-	   this.setAttribute('source',gResources.calculator_button_black);
-	   </handler>
-	 </class>	
+	       resource="operatorButton_rsrc"/>	
 	<class name="standardCalculatorButton" extends="calculatorBaseButton" 
 	       resource="standardButton_rsrc"/>	
 	<class name="doubleCalculatorButton" extends="calculatorBaseButton" 
@@ -143,7 +122,6 @@
 			super.init();
 			offFace.setAttribute('resource',offFaceRsrc);
 			otherFace.setAttribute('resource',otherFaceRsrc);
-			console.log("THE TEXT",this.theText);
 			face.setText(theText);
 		</method>
 		<handler name="onmouseover">

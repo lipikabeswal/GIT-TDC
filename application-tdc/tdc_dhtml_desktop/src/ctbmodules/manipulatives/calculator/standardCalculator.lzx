@@ -2,7 +2,7 @@
 	<include href="calculatorBase.lzx" />
 
 	<class id="stdCalc" name="standardCalculator" extends="calculatorBase" 
-	        resource="calc_chrome">
+	       resource="calc_chrome">
 
         <method name="updateDisplay">
             super.updateDisplay();
@@ -11,25 +11,17 @@
 
 	    <view x="0" y="0">
             <text x="85" y="0" fontsize="15" height="22">Calculator</text>
-		    <basebutton source="${gResources.calculator_closebutton_off}" x="218" y="3" height="${this.resourceheight + 1}">
-			<handler name="onmouseover">
-                this.setAttribute('source',gResources.calculator_closebutton_on);
-            </handler>	
-              <handler name="onclick">
+		    <basebutton resource="calc_close_btn" x="218" y="3" height="${this.resourceheight + 1}">
+				<handler name="onclick">
                     gController.setManipulativeSelState (classroot.toolid, 'up');
-                    manipulativeCalculator.setAttribute('source',gResources.toolbar_calc_off_svg);
-                    gchkActive.setAttribute('check_active_calc','false');
 				</handler>
-              <handler name="onmouseout">
-                this.setAttribute('source',gResources.calculator_closebutton_off);
-            </handler>	 
 			</basebutton>
 		</view>
 
 		<view id="calc_1" name="bg" resource="calc_face" x="10" y="23"
 		      width="${immediateparent.width - 20}" 
               height="${immediateparent.height - 30}">
-			<view name="inputBoundingBox" source="${gResources.calDisplay}" stretches="width"
+			<view name="inputBoundingBox" resource="calc_display" stretches="width"
 			      x="9" y="7" width="${parent.width-17}">
 				<view name="inputbox" x="3" y="0"
 				      height="${parent.height}" width="${parent.width-5}">
@@ -61,19 +53,19 @@
                 <simplelayout axis="y" spacing="${classroot.ySpacing}"/>
                 <view name="keyrow1" width="210">
                     <simplelayout axis="x" spacing="${classroot.xSpacing}"/>
-                    <calcButton txtresource="${gResources.calculator_C_image}"
+                    <calcButton txtresource="C_txt"
                                 onclick="classroot.clearAll()"
                                 calculator="$once{classroot}" />
-                    <calcButton txtresource="${gResources.calculator_MR_image}" 
+                    <calcButton txtresource="memoryrecall_txt" 
                                 onclick="classroot.handleMemoryRecall()"
                                 calculator="$once{classroot}" />
-                    <calcButton txtresource="${gResources.calculator_MC_image}" 
+                    <calcButton txtresource="memoryclear_txt" 
                                 onclick="classroot.handleMemoryClear()"
                                 calculator="$once{classroot}" />
-                    <calcButton txtresource="${gResources.calculator_MP_image}"
+                    <calcButton txtresource="memoryplus_txt"
                                 onclick="classroot.handleMemoryPlus()"
                                 calculator="$once{classroot}" />	   
-                    <calcButton txtresource="${gResources.calculator_MM_image}"
+                    <calcButton txtresource="memoryminus_txt"
                                 onclick="classroot.handleMemoryMinus()"
                                 calculator="$once{classroot}" />	   
                   </view>	
@@ -81,22 +73,22 @@
                 <view name="keyrow2" width="210">
                     <simplelayout axis="x" spacing="${classroot.xSpacing}"/>
 					<operatorCalculatorButton
-                        offFaceRsrc="${gResources.white_plusminus_rsrc}" 
-                        otherFaceRsrc="${gResources.black_plusminus_rsrc}" 
+                        offFaceRsrc="white_plusminus_rsrc" 
+                        otherFaceRsrc="black_plusminus_rsrc" 
                         onclick="classroot.handleReverseSign() ; "
                                 calculator="$once{classroot}" />
-                    <calcButton txtresource="${gResources.calculator_seven_image}"
+                    <calcButton txtresource="seven_txt"
                                 onclick="classroot.handleDigit(7)"
                                 calculator="$once{classroot}" />
-                    <calcButton txtresource="${gResources.calculator_eight_image}" 
+                    <calcButton txtresource="eight_txt" 
                                 onclick="classroot.handleDigit(8)"
                                 calculator="$once{classroot}" />
-                    <calcButton txtresource="${gResources.calculator_nine_image}" 
+                    <calcButton txtresource="nine_txt" 
                                 onclick="classroot.handleDigit(9)"
                                 calculator="$once{classroot}" />
                     <operatorCalculatorButton
-                        offFaceRsrc="${gResources.white_divide_rsrc}" 
-                        otherFaceRsrc="${gResources.black_divide_rsrc}" 
+                        offFaceRsrc="white_divide_rsrc" 
+                        otherFaceRsrc="black_divide_rsrc" 
                         onclick="classroot.handleBinaryOperator('divide');"
                                 calculator="$once{classroot}" />
                 </view>
@@ -104,22 +96,22 @@
                 <view name="keyrow3" width="210">
                     <simplelayout axis="x" spacing="${classroot.xSpacing}"/>
 					<operatorCalculatorButton 
-                        offFaceRsrc="${gResources.white_percent_rsrc}" 
-                        otherFaceRsrc="${gResources.black_percent_rsrc}" 
+                        offFaceRsrc="white_percent_rsrc" 
+                        otherFaceRsrc="black_percent_rsrc" 
                         onclick="classroot.handlePercent();"
                                 calculator="$once{classroot}" />
-                    <calcButton txtresource="${gResources.calculator_four_image}"
+                    <calcButton txtresource="four_txt"
                                 onclick="classroot.handleDigit(4)"
                                 calculator="$once{classroot}" />
-                    <calcButton txtresource="${gResources.calculator_five_image}" 
+                    <calcButton txtresource="five_txt" 
                                 onclick="classroot.handleDigit(5)"
                                 calculator="$once{classroot}" />
-                    <calcButton txtresource="${gResources.calculator_six_image}" 
+                    <calcButton txtresource="six_txt" 
                                 onclick="classroot.handleDigit(6)"
                                 calculator="$once{classroot}" />
 					<operatorCalculatorButton 
-                        offFaceRsrc="${gResources.white_multiply_rsrc}"
-                        otherFaceRsrc="${gResources.black_multiply_rsrc}" 
+                        offFaceRsrc="white_multiply_rsrc"
+                        otherFaceRsrc="black_multiply_rsrc" 
                         onclick="classroot.handleBinaryOperator('multiply');"
                                 calculator="$once{classroot}" />
                 </view>
@@ -127,42 +119,42 @@
                 <view name="keyrow4" width="210">
                     <simplelayout axis="x" spacing="${classroot.xSpacing}"/>
 					<operatorCalculatorButton
-                        offFaceRsrc="${gResources.white_sqrt_rsrc}" 
-                        otherFaceRsrc="${gResources.black_sqrt_rsrc}" 
+                        offFaceRsrc="white_sqrt_rsrc" 
+                        otherFaceRsrc="black_sqrt_rsrc" 
                         onclick="classroot.handleUnaryOperator('root');"
                                 calculator="$once{classroot}" />
-                    <calcButton txtresource="${gResources.calculator_one_image}" 
+                    <calcButton txtresource="one_txt" 
                                 onclick="classroot.handleDigit(1)"
                                 calculator="$once{classroot}" />
-                    <calcButton txtresource="${gResources.calculator_two_image}" 
+                    <calcButton txtresource="two_txt" 
                                 onclick="classroot.handleDigit(2)"
                                 calculator="$once{classroot}" />
-                    <calcButton txtresource="${gResources.calculator_three_image}" 
+                    <calcButton txtresource="three_txt" 
                                 onclick="classroot.handleDigit(3)"
                                 calculator="$once{classroot}" />
 					<operatorCalculatorButton
-                        offFaceRsrc="${gResources.white_minus_rsrc}" 
-                        otherFaceRsrc="${gResources.black_minus_rsrc}" 
+                        offFaceRsrc="white_minus_rsrc" 
+                        otherFaceRsrc="black_minus_rsrc" 
                         onclick="classroot.handleBinaryOperator('subtract');"
                                 calculator="$once{classroot}" />
                 </view>
                 
                 <view name="keyrow5" width="210">
                     <simplelayout axis="x" spacing="${classroot.xSpacing}"/>
-                    <calcButton txtresource="${gResources.calculator_CE_image}" 
+                    <calcButton txtresource="CE_txt" 
                                 onclick="classroot.clearEntry()"
                                 calculator="$once{classroot}" /> 
-                    <calcButton txtresource="${gResources.calculator_zero_iamge}"
+                    <calcButton txtresource="zero_txt" 
                                 onclick="classroot.handleDigit(0)"
                                 calculator="$once{classroot}" />
-                    <calcButton txtresource="${gResources.calculator_decimal_image}" 
+                    <calcButton txtresource="decimal_txt" 
                                 onclick="classroot.handleDecimal()"
                                 calculator="$once{classroot}" />
-					<calcButton txtresource="${gResources.calculator_equal_image}"
+					<calcButton txtresource="equal_txt"
 					            onclick="classroot.handleEquals();"
                                 calculator="$once{classroot}" />
-					<operatorCalculatorButton offFaceRsrc="${gResources.white_plus_rsrc}" 
-					                          otherFaceRsrc="${gResources.black_plus_rsrc}" 
+					<operatorCalculatorButton offFaceRsrc="white_plus_rsrc" 
+					                          otherFaceRsrc="black_plus_rsrc" 
 					                          onclick="classroot.handleBinaryOperator(classroot.OPERATOR_ADD);"
                                 calculator="$once{classroot}" />
 				</view>
