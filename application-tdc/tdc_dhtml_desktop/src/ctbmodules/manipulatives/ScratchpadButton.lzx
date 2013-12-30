@@ -10,7 +10,7 @@
 		<attribute name="scratchpadOpen" type="boolean" value="${gController.scratchpadOpen}" />
         <attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}" type="expression"/>
         <attribute name="xpos" type="string"/>
-        <attribute name="btnrsrc" type="string"/>
+
         <handler name="oninit">
             this.datapath.setXPath ('@' + this.toolid);
         </handler>
@@ -27,7 +27,6 @@
 		</handler>
 		
         <handler name="ondata" args="data"><![CDATA[
-         this.setAttribute('source',this.btnrsrc[0]);
            	if(data == null || data == 'disable'){
 	            this.setAttribute ('isenabled', false);
 	            this.setAttribute ('visible', false);
@@ -36,34 +35,25 @@
 	            this.setAttribute ('isenabled', true);
 	            this.setAttribute ('visible', true);
             }
-             this.setAttribute('source',this.isselected ? this.btnrsrc[1]:this.btnrsrc[0]);
-            //this.setAttribute('frame', this.isselected ? 2 : 1);
+
+            this.setAttribute('frame', this.isselected ? 2 : 1);
 
             if (!this.isselected) {
-                this.setAttribute('source',this.isenabled ? this.btnrsrc[0]:this.btnrsrc[0]);
-                //this.setAttribute('frame', this.isenabled  ? 1 : 3);
+                this.setAttribute('frame', this.isenabled  ? 1 : 3);
             }
             
         ]]></handler>
 
         <handler name="onmouseover"><![CDATA[
             lz.Cursor.showHandCursor(true);
-            if (!this.isselected && this.isenabled) 
-            { 
-             this.setAttribute('frame', 2);
-             this.setAttribute('source',this.btnrsrc[1]);
-            } 
+            if (!this.isselected && this.isenabled) this.setAttribute('frame', 2); 
             gController.setAttribute("manipSelected",this);
             lz.Timer.addTimer (tooltipdel, 500);
         ]]></handler>
 
         <handler name="onmouseout"><![CDATA[
             lz.Cursor.showHandCursor(false);
-            if (!this.isselected && this.isenabled) 
-            { 
-             this.setAttribute('frame', 1);
-              this.setAttribute('source',this.btnrsrc[0]);
-            } 
+            if (!this.isselected && this.isenabled) this.setAttribute('frame', 1); 
             gTooltip.hideTooltip ();
             lz.Timer.removeTimer (this.tooltipdel);
         ]]></handler>
