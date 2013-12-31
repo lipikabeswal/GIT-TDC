@@ -255,7 +255,7 @@
 				<view name="rich" bgcolor="${Number(gController.answerBgColor)}">
 				   <scrolledittext_CrItem name="answer" 
 									 height="${classroot.showFormatBar ? classroot.height - classroot.outer.controls.height : classroot.height }" 
-									 width="${classroot.editTextWidth+9}" vscrollbarclassname="null">
+									 width="${classroot.editTextWidth+11}" vscrollbarclassname="null">
 						<attribute name="start" type="number" value="0" />
 		            	<attribute name="end" type="number" value="0" />
 		            	<attribute name="scrollPos" type="number" value="0" />
