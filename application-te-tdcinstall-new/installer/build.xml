@@ -94,18 +94,22 @@
 		
 	<!-- **************************** init ******************************* -->	
 	<target name="init">
+		<!--
 		<copy file="${project.artifacts.etc.dir}/version.properties" tofile="temp.properties" overwrite="true"/>
 		<replaceregexp file="temp.properties">
 			<regexp pattern="tdc\.version=(.*?)\.(.*?)\.(.*)"/>
 			<substitution expression="&lt;project&gt;&lt;artifacts&gt;&lt;version&gt;&lt;major&gt;\1&lt;/major&gt;&lt;minor&gt;\2&lt;/minor&gt;&lt;revision&gt;\3&lt;/revision&gt;&lt;/version&gt;&lt;/artifacts&gt;&lt;/project&gt;" />
 		</replaceregexp>
+		-->
 		<!-- 
 		previous expression creates xml properties file containing:
 		  project.artifacts.version.major
 		  project.artifacts.version.minor
 		  project.artifacts.version.revision
 		-->
+		<!--
 		<xmlproperty file="temp.properties"/>
+		-->
 	</target>
 	
 	
