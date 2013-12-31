@@ -97,9 +97,16 @@
 			//for setting the background color
 
 			var style = gController.getAccomStyleForType ("stem");
-
-            if(style && style.bgcolor != null){
+           
+            if(style && style.bgcolor != null && style.bgcolor != "")
+            {
+                
             	this.parent.setAttribute ('bgcolor', style.bgcolor);
+            }
+			else 
+			{
+			    
+            	this.parent.setAttribute ('bgcolor', gController.questionBgColor);
             }
 			Debug.write("style.data..." , data);
 			
