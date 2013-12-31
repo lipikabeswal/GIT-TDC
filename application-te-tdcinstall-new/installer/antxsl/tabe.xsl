@@ -32,6 +32,17 @@
 		</object>
 	</xsl:template>
  
+	<xsl:template match="//object[@objectID='c02e67b28c29']">
+		<object class="com.zerog.ia.installer.util.VariablePropertyData" objectID="c02e67b28c29">
+			<property name="propertyValue">
+				<string><![CDATA[true]]></string>
+			</property>
+			<property name="propertyName">
+				<string><![CDATA[$TABE$]]></string>
+			</property>
+		</object>
+	</xsl:template>
+ 
  	<xsl:template match="//property[@name='installerName']">
 		<property name="installerName">
 			<string><![CDATA[InstallOAS_TABE]]></string>
