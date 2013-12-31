@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using Macrovision InstallAnywhere 2008 Enterprise, Build 3418
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Fri Jul 19 16:04:47 PDT 2013 -->
-<InstallAnywhere_Deployment_Project increments="11477">
+     DATE:   Mon Dec 30 18:33:39 PST 2013 -->
+<InstallAnywhere_Deployment_Project increments="11717">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="9" minor="0" revision="0"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,69,50,56,57,57,67,57,57,74,57,57,74,57,57,54,57,57,67,57,77,57,57,84</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,86,105,115,116,97,44,32,54,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,53,46,48,95,49,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,48,-13,39,-96,96,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,11,12,109,105,15,1,0,0</authorizationID>
+		<authorizationID>1,0,0,64,67,118,-48,-16,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,7,6,111,102,3,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="743">
+	<installationObjects uniqueObjects="758">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="wizardME">
 				<object class="com.zerog.ia.installer.actions.MakeExecutable" objectID="85358c91894c">
@@ -218,7 +218,7 @@ it will search for ones in this list]]></string>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0cade8fcaca0">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="59cea6569663">
 									<property name="propertyValue">
 										<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
 									</property>
@@ -1551,9 +1551,22 @@ and any path to a file to read from that file]]></string>
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="74a510d6b094">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="59ea395d9789">
 													<property name="propertyValue">
-														<string><![CDATA[9.8]]></string>
+														<string><![CDATA[false]]></string>
+													</property>
+													<property name="propertyName">
+														<string><![CDATA[$TABE$]]></string>
+													</property>
+													<property name="bidiOption">
+														<int>-1</int>
+													</property>
+												</object>
+											</method>
+											<method name="addElement">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="4a0ee7cc9787">
+													<property name="propertyValue">
+														<string><![CDATA[14.0]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
@@ -1933,6 +1946,137 @@ and any path to a file to read from that file]]></string>
 						</object>
 					</method>
 					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="4a22b3e1978d">
+							<property name="name">
+								<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
+							</property>
+							<property name="value">
+								<string><![CDATA[14.0]]></string>
+							</property>
+							<property name="passByValue">
+								<boolean>false</boolean>
+							</property>
+							<rules logicalOperation="OR">
+								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="4a22b3e2978d">
+									<property name="operation">
+										<string><![CDATA[equals]]></string>
+									</property>
+									<property name="operandOne">
+										<string><![CDATA[$ISTEP$]]></string>
+									</property>
+									<property name="operandTwo">
+										<string><![CDATA[true]]></string>
+									</property>
+								</object>
+							</rules>
+						</object>
+					</method>
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="59edbd8b9789">
+							<property name="name">
+								<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
+							</property>
+							<property name="value">
+								<string><![CDATA[14.0]]></string>
+							</property>
+							<property name="passByValue">
+								<boolean>false</boolean>
+							</property>
+							<rules logicalOperation="OR">
+								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="59edbd8c9789">
+									<property name="operation">
+										<string><![CDATA[equals]]></string>
+									</property>
+									<property name="operandOne">
+										<string><![CDATA[$TABE$]]></string>
+									</property>
+									<property name="operandTwo">
+										<string><![CDATA[true]]></string>
+									</property>
+								</object>
+							</rules>
+						</object>
+					</method>
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.Comment" objectID="59f7e2c69789">
+							<property name="commentStr">
+								<string><![CDATA[-------------------------------- Set Product Names ---------------------------------------]]></string>
+							</property>
+						</object>
+					</method>
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="59f7aae89789">
+							<property name="name">
+								<string><![CDATA[$PRODUCT_NAME$]]></string>
+							</property>
+							<property name="value">
+								<string><![CDATA[ISTEP Online Assessment]]></string>
+							</property>
+							<property name="passByValue">
+								<boolean>false</boolean>
+							</property>
+							<rules logicalOperation="OR">
+								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="59f7aae99789">
+									<property name="operation">
+										<string><![CDATA[equals]]></string>
+									</property>
+									<property name="operandOne">
+										<string><![CDATA[$ISTEP$]]></string>
+									</property>
+									<property name="operandTwo">
+										<string><![CDATA[true]]></string>
+									</property>
+								</object>
+							</rules>
+						</object>
+					</method>
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="59f97eda9789">
+							<property name="name">
+								<string><![CDATA[$PRODUCT_NAME$]]></string>
+							</property>
+							<property name="value">
+								<string><![CDATA[TABE Online Assessment]]></string>
+							</property>
+							<property name="passByValue">
+								<boolean>false</boolean>
+							</property>
+							<rules logicalOperation="OR">
+								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="59f97edb9789">
+									<property name="operation">
+										<string><![CDATA[equals]]></string>
+									</property>
+									<property name="operandOne">
+										<string><![CDATA[$TABE$]]></string>
+									</property>
+									<property name="operandTwo">
+										<string><![CDATA[true]]></string>
+									</property>
+								</object>
+							</rules>
+						</object>
+					</method>
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.Comment" objectID="59fa19939789">
+							<property name="commentStr">
+								<string><![CDATA[-------------------------------- Set Branch Name ---------------------------------------]]></string>
+							</property>
+						</object>
+					</method>
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="59fabb869789">
+							<property name="name">
+								<string><![CDATA[$BRANDED_NAME$]]></string>
+							</property>
+							<property name="value">
+								<string><![CDATA[$PRODUCT_NAME$]]></string>
+							</property>
+							<property name="passByValue">
+								<boolean>false</boolean>
+							</property>
+						</object>
+					</method>
+					<method name="addElement">
 						<object class="com.zerog.ia.installer.actions.ActionGroup" objectID="6a5e1b13912d">
 							<property name="groupName">
 								<string><![CDATA[Detect 64 bit or 32 bit OS]]></string>
@@ -2136,6 +2280,46 @@ and any path to a file to read from that file]]></string>
 											</property>
 											<property name="operandOne">
 												<string><![CDATA[$OLDER_CLIENT_EXISTS$]]></string>
+											</property>
+											<property name="operandTwo">
+												<string><![CDATA[true]]></string>
+											</property>
+										</object>
+									</rules>
+								</object>
+								<object class="com.zerog.ia.installer.actions.Comment" objectID="59fcafaa9789">
+									<property name="commentStr">
+										<string><![CDATA[------------------------ No previous installation for TABE, ISTEP ------------------]]></string>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="59fd370e978a">
+									<property name="name">
+										<string><![CDATA[$PREVIOUSLY_INSTALLED$]]></string>
+									</property>
+									<property name="value">
+										<string><![CDATA[false]]></string>
+									</property>
+									<property name="passByValue">
+										<boolean>false</boolean>
+									</property>
+									<rules logicalOperation="OR">
+										<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="59fd370f978a">
+											<property name="operation">
+												<string><![CDATA[equals]]></string>
+											</property>
+											<property name="operandOne">
+												<string><![CDATA[$ISTEP$]]></string>
+											</property>
+											<property name="operandTwo">
+												<string><![CDATA[true]]></string>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="59fd370e978b">
+											<property name="operation">
+												<string><![CDATA[equals]]></string>
+											</property>
+											<property name="operandOne">
+												<string><![CDATA[$TABE$]]></string>
 											</property>
 											<property name="operandTwo">
 												<string><![CDATA[true]]></string>
@@ -10069,7 +10253,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>false</boolean>
 							</property>
 							<property name="buildOutputLocation">
-								<string><![CDATA[C:\workspace\application-te-tdcinstall\installer\tdc_Build_Output]]></string>
+								<string><![CDATA[C:\workspace\application-te-tdcinstall-new\installer\tdc_Build_Output]]></string>
 							</property>
 							<property name="defaultWindowsUIMode">
 								<string><![CDATA[GUI]]></string>
@@ -10213,7 +10397,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[July 19, 2013 4:04:47 PM PDT]]></string>
+						<string><![CDATA[December 30, 2013 6:33:39 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -13294,7 +13478,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0cadea05adcb">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="59cea76c9732">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.tsutility.Main]]></string>
 															</property>
@@ -14516,133 +14700,6 @@ and any path to a file to read from that file]]></string>
 												<int>0</int>
 											</property>
 										</object>
-										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="be8476fb8c7b">
-											<property name="unixPermissions">
-												<string><![CDATA[777]]></string>
-											</property>
-											<property name="sourceName">
-												<string><![CDATA[tdc.log]]></string>
-											</property>
-											<property name="overrideUnixPermissions">
-												<boolean>true</boolean>
-											</property>
-											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\servletcontainer\jetty-5.1.11RC0\logs\]]></string>
-											</property>
-											<property name="shouldUninstall">
-												<boolean>false</boolean>
-											</property>
-											<property name="destinationName">
-												<string><![CDATA[tdc.log]]></string>
-											</property>
-											<property name="fileSize">
-												<long>1</long>
-											</property>
-											<property name="macBinary">
-												<boolean>false</boolean>
-											</property>
-											<property name="targetCheckKind">
-												<int>0</int>
-											</property>
-										</object>
-										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="be8476fa8c77">
-											<property name="unixPermissions">
-												<string><![CDATA[777]]></string>
-											</property>
-											<property name="sourceName">
-												<string><![CDATA[]]></string>
-											</property>
-											<property name="overrideUnixPermissions">
-												<boolean>true</boolean>
-											</property>
-											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\servletcontainer\jetty-5.1.11RC0\logs]]></string>
-											</property>
-											<property name="shouldUninstall">
-												<boolean>true</boolean>
-											</property>
-											<property name="destinationName">
-												<string><![CDATA[logs]]></string>
-											</property>
-											<property name="removeRecursively">
-												<boolean>false</boolean>
-											</property>
-											<property name="totalSize">
-												<long>1</long>
-											</property>
-											<property name="macBinary">
-												<boolean>false</boolean>
-											</property>
-											<visualChildren>
-												<object refID="be8476fa8c7b"/>
-												<object refID="be8476fb8c7b"/>
-											</visualChildren>
-										</object>
-										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="3b24b8538cc3">
-											<property name="unixPermissions">
-												<string><![CDATA[777]]></string>
-											</property>
-											<property name="sourceName">
-												<string><![CDATA[]]></string>
-											</property>
-											<property name="overrideUnixPermissions">
-												<boolean>true</boolean>
-											</property>
-											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\servletcontainer\jetty-5.1.11RC0]]></string>
-											</property>
-											<property name="shouldUninstall">
-												<boolean>true</boolean>
-											</property>
-											<property name="destinationName">
-												<string><![CDATA[jetty-5.1.11RC0]]></string>
-											</property>
-											<property name="removeRecursively">
-												<boolean>false</boolean>
-											</property>
-											<property name="totalSize">
-												<long>1</long>
-											</property>
-											<property name="macBinary">
-												<boolean>false</boolean>
-											</property>
-											<visualChildren>
-												<object refID="3b24b85d8ccc"/>
-												<object refID="be8476fa8c77"/>
-											</visualChildren>
-										</object>
-										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="3b24b8498cc0">
-											<property name="unixPermissions">
-												<string><![CDATA[777]]></string>
-											</property>
-											<property name="sourceName">
-												<string><![CDATA[]]></string>
-											</property>
-											<property name="overrideUnixPermissions">
-												<boolean>true</boolean>
-											</property>
-											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\servletcontainer]]></string>
-											</property>
-											<property name="shouldUninstall">
-												<boolean>true</boolean>
-											</property>
-											<property name="destinationName">
-												<string><![CDATA[servletcontainer]]></string>
-											</property>
-											<property name="removeRecursively">
-												<boolean>false</boolean>
-											</property>
-											<property name="totalSize">
-												<long>1</long>
-											</property>
-											<property name="macBinary">
-												<boolean>false</boolean>
-											</property>
-											<visualChildren>
-												<object refID="3b24b8538cc3"/>
-											</visualChildren>
-										</object>
 										<object class="com.zerog.ia.installer.actions.Comment" objectID="4207a97c8cac">
 											<property name="commentStr">
 												<string><![CDATA[------------------------------- tuningutilitybrowser/]]></string>
@@ -15412,7 +15469,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0cadea23adf7">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="59cea7839751">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.tuningutility.Main]]></string>
 															</property>
@@ -15942,7 +15999,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0cadea23ae07">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="59cea78b975d">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
 															</property>
@@ -16238,6 +16295,103 @@ and any path to a file to read from that file]]></string>
 													</property>
 												</object>
 											</rules>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="be8476fa8c77">
+											<property name="unixPermissions">
+												<string><![CDATA[777]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>true</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\servletcontainer\jetty-5.1.11RC0\logs]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[logs]]></string>
+											</property>
+											<property name="removeRecursively">
+												<boolean>false</boolean>
+											</property>
+											<property name="totalSize">
+												<long>1</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<visualChildren>
+												<object refID="be8476fa8c7b"/>
+											</visualChildren>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="3b24b8538cc3">
+											<property name="unixPermissions">
+												<string><![CDATA[777]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>true</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\servletcontainer\jetty-5.1.11RC0]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[jetty-5.1.11RC0]]></string>
+											</property>
+											<property name="removeRecursively">
+												<boolean>false</boolean>
+											</property>
+											<property name="totalSize">
+												<long>1</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<visualChildren>
+												<object refID="3b24b85d8ccc"/>
+												<object refID="be8476fa8c77"/>
+											</visualChildren>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="3b24b8498cc0">
+											<property name="unixPermissions">
+												<string><![CDATA[777]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>true</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\servletcontainer]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[servletcontainer]]></string>
+											</property>
+											<property name="removeRecursively">
+												<boolean>false</boolean>
+											</property>
+											<property name="totalSize">
+												<long>1</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<visualChildren>
+												<object refID="3b24b8538cc3"/>
+											</visualChildren>
 										</object>
 									</installChildren>
 								</object>
