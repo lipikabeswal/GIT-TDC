@@ -414,7 +414,7 @@
 			</basebutton>
 			
 			<EnableDisableButton name="undoBtn" resource="undo_btn"
-                 visible="true"
+                 visible="${ gController.isISTEP == true || (gController.isISTEP == 'true')}"
                  enabled="${classroot.canundo}">
                 <handler name="onmouseover">
                     gTooltip.showTooltip('Undo');
@@ -433,7 +433,7 @@
 
 			<view name="justForSpace" height="12" visible="${parent.redoBtn.visible}"/>
             <EnableDisableButton name="redoBtn" resource="redo_btn"
-                visible="true"
+                visible="${ gController.isISTEP == true || (gController.isISTEP == 'true')}"
                 enabled="${classroot.canredo}">
                 <handler name="onmouseover">
                     gTooltip.showTooltip('Redo');
