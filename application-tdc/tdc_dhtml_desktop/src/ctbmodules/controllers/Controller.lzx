@@ -1239,12 +1239,22 @@
 
 		<method name="setShowHighlighter">
 			var sh = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@highlighter');
-			this.setAttribute('showHighlighter', (sh != false));
+			if(sh == true || sh == 'true') {
+				this.setAttribute('showHighlighter',true);
+			}
+			else {
+				this.setAttribute('showHighlighter',false);
+			}
 		</method>
 
 		<method name="setShowMaskingRuler">
 			var smr = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/@masking_ruler');
-			this.setAttribute('showMaskingRuler', (smr != false));
+			if(smr == true || smr == 'true') {
+				this.setAttribute('showMaskingRuler', true);
+			}
+			else {
+				this.setAttribute('showMaskingRuler', false);
+			}
 		</method>
 
 		<method name="setShowMagnifyingGlass">
