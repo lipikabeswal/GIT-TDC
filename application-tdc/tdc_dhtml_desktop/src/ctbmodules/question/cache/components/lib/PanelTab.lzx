@@ -4,9 +4,7 @@
            width="${this.bg.width}" 
            height="${this.bg.height}">
          <attribute name="tabHeight" type="number" value="${this.bg.height}" />
-        <view name="bg" 
-              width="${classroot.thetitle.width + 22}"
-              height="${classroot.thetitle.height + 10}" />
+       
 
         <handler name="oninit">
            thetitle.setAttribute('fgcolor', Number(gController.questionFontColor)); 
@@ -39,9 +37,13 @@
                     
                 }
               // this.setAttribute("height",this.tabHeight);	
-				this.setAttribute("y",4);
-			    tabImage();
-			
+              	this.parent.setAttribute("height",this.height+2);
+				if (cln ['bg']){
+					cln.bg.setAttribute("y",2);
+				    cln.bg.tabImage();
+					cln.bg.getDisplayObject().setAttribute('style','clip: auto; height:'+cln.bg.height+'; width:'+cln.bg.width+'; top:'+cln.bg.y+'');
+					cln.overlay.setAttribute('visible',true);
+				}
 			   
             } else {
 				if(cln.thetitle){
@@ -49,16 +51,26 @@
 				}
                 if (cln ['thetitle']) {
 					 this.setAttribute("height",this.tabHeight-6);
-                    cln.thetitle.setAttribute ('y', (this.height - cln.thetitle.height)/2 + this.height/5);
+                    cln.thetitle.setAttribute ('y', (this.height - cln.thetitle.height)/2 + this.height/2);
                     
                 }
                // this.setAttribute("height",this.tabHeight-6);
-				this.setAttribute("y",9.5);
-				tabImage();
-				
+				if (cln ['bg']){
+					cln.bg.setAttribute("y",8);
+					cln.bg.tabImage();
+					//cln.bg.setAttribute('height',this.height-5);
+					//cln.bg.setAttribute('clip',true);
+					var clipValue = 'rect(0px '+cln.bg.width+'px '+(cln.bg.height-6)+'px 0px)';
+					cln.bg.getDisplayObject().setAttribute('style','clip: '+clipValue+'; height:'+cln.bg.height+'; width:'+cln.bg.width+'; top:'+cln.bg.y+'');
+					cln.overlay.setAttribute('visible',false);
+				}
             }
            	]]>
         </method>
+
+ 	<view name="bg"
+              width="${classroot.thetitle.width + 22}"
+              height="${classroot.thetitle.height + 10}" >
         
         <method name="tabImage">
         	var bgcolor=(gController.questionBgColor || "0x"+gController.questionBgColor.toString(16) || gController.questionBgColor.toString(16));
@@ -83,7 +95,14 @@
 			
 			this.setAttribute("stretches","both");
         </method>
-
+	</view>
+	<view name="overlay" 
+          height="4"
+		  width="${gController.hasFontAccommodation?(parent.bg.width-this.x-4):(parent.bg.width-this.x-2)}"
+		  x="${gController.hasFontAccommodation?(parent.bg.x+3):(parent.bg.x+2)}"
+		  y="${parent.bg.height+1}"
+		  bgcolor="${gController.questionBgColor}"
+		  visible="false"/>
         <text name="thetitle" datapath="@title" align="center">
         	<handler name="ontext">
         		var elm = this.getDisplayObject();
@@ -102,7 +121,7 @@
 	        </handler>
         
         </text>
-
+	
     </class>
 
 </library>
