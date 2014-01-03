@@ -3856,10 +3856,11 @@
             );
         var totalitem = Number(
 					dpstudentdata.xpathQuery( 'question_number/@total_including_theme')  );
-		if ( onLastItem() || (gController.getNextNavigableOffset(curritem) == totalitem)) {
-        	gController.setAttribute("isStopTest",false);
-            finishTest();
-            //canvas.freezUI();
+		if ( onLastItem() || (gController.getNextNavigableOffset(curritem) == totalitem) || 
+					(!gTestControl.btns.navbtns.btnforward.visible)) {
+		        	gController.setAttribute("isStopTest",false);
+		            finishTest();
+		            //canvas.freezUI();
         }
         ]]></method>
 
