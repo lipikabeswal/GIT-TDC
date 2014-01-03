@@ -59,7 +59,7 @@
 
             // Fixed: Increase title fontsize for accommodated users
             if (this.autoenlarge == "fixed" && this.thetable.contents.title.fontsize < 16 &&
-                 gController.hasFontAccommodation) {
+                 gController.hasFontAccommodation && style!=undefined) {
                 this.thetable.contents.title.setAttribute("fontsize", 
                                     this.thetable.contents.title.fontsize * style['font_magnification']);
 //Debug.write("fixed : "  + this.thetable.contents.title.fontsize);
