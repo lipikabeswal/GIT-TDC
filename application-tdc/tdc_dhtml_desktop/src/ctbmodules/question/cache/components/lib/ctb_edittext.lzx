@@ -159,9 +159,18 @@
             <attribute name="start" type="number" value="0" />
             <attribute name="end" type="number" value="0" />
 			<attribute name="isCtrl" type="boolean" value="false"/> 
+			
+
             <handler name="onfocus" args="s">
             // do not select text on focus
-				//this.setSelection(0,0);
+
+                // FOR THE DEFECT 74974
+                if(gController.singleCRhasFocus){
+                    this.setSelection(0,0);
+				}else{
+					gController.setAttribute('singleCRhasFocus',true);
+				}
+				preventTextDragging();
              </handler>
             
 
@@ -171,7 +180,10 @@
             </handler>
 
             <handler name="ontext"><![CDATA[
-	 			var answer = this.getText();
+                // FOR THE DEFECT 74974
+                this.onkeydown.sendEvent();	
+						
+	 			var answer = this.text;
 			    if (answer) {
 			        gController.setAttribute("playIfAnswered",true);	    
 			     	var answered = false;
@@ -193,7 +205,7 @@
 	 			if(k==17){
 			      this.setAttribute('enabled', true);
 			      this.setAttribute('isCtrl', false);
-			  	}	
+			  	}
                   ]]>
             </handler>
 
@@ -208,14 +220,34 @@
 				  if(k==-1){
 				     this.setAttribute('enabled', true);
 				  }
+
+				 // FOR THE DEFECT 74974
+				gController.setAttribute('singleCRhasFocus',false);
                   ]]>
             </handler>
             <handler name="oninit"><![CDATA[ 
                 //this.textclip = this.__lz.textclip;
 				if ($dhtml) {
 					Debug.write("DHTML ",this.getDisplayObject());
+					 var answerFontColor = gController.answerFontColor;
+						 if(Number(answerFontColor) == 0)
+							answerFontColor = "0x000000";
+						 if(answerFontColor.indexOf('0x') != -1) {
+						 	textFontColor = answerFontColor.replace('0x', '#');
+						 }
+						 else {
+							textFontColor = answerFontColor;
+						 }
+						 var textAreafgcolor = "color: "+ textFontColor + ";";
+						 var fontSize = 0;
+                          if(gController.hasFontAccommodation){
+				                  fontSize = 18;
+			               }
+			              else{
+				                 fontSize = 12;
+			               }
 					this.textclip = this.getDisplayObject();
-					this.textclip.setAttribute('style','line-height: 0px;');
+					this.textclip.setAttribute('style','line-height: 0px;'+ textAreafgcolor+ 'font-size: '+fontSize+'');
 					this.textclip.setAttribute('spellcheck',false);
 				} else {				
 					var mc = this.sprite;
@@ -314,7 +346,7 @@
               @return String: the string displayed. -->
         <method name="getText">
             if (this._initcomplete) {
-                 return this.field.getText();
+                 return this.field.text;
             } else {
                 return this._initialtext;
             }
@@ -334,13 +366,13 @@
         <!-- Updates the text property of the component to the text that is
              entered in its input field. -->
         <method name="updateText">
-            this.setText( this.field.getText() );
+            this.setText(this.field.text);
         </method>
 
         <!--- Returns string displayed in this component, like getText().
               @return String: the string displayed. -->
         <method name="getValue">
-            return  this.field.getText();
+            return  this.field.text;
         </method>
 
         <!--- @keywords private -->
