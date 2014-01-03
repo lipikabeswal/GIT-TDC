@@ -316,7 +316,11 @@ function isAnswered(){
 	gImgHeight = 0;
  }*/
   
-
+function preventTextDragging(){
+	jQuery('.lzswfinputtext').on("dragstart", function(e) {
+				e.preventDefault();
+			});
+}
 
   
  $(document).ready(function() {
