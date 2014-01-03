@@ -170,7 +170,7 @@
 				}else{
 					gController.setAttribute('singleCRhasFocus',true);
 				}
-				preventTextDragging();
+				//preventTextDragging();
              </handler>
             
 
