@@ -31,8 +31,7 @@
 						  align="right"
 						  valign="bottom"
 						  fontsize="13"
-						  xoffset="15"
-						  maxlength="16">
+						  xoffset="15">
 						<handler name="ontext">
 							var elm = this.getDisplayObject();
 							elm.setAttribute('style','font-family: CTB; font-size: 13px; line-height: 16px; pointer-events: none; height: 16px; width: auto');
