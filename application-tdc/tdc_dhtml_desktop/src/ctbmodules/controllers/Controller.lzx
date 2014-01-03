@@ -521,6 +521,8 @@
 		<!-- isAnswerSet,findAnswer attributes using for freezing/Unfreezing the UI -->
 		<attribute name="isAnswerSet" type="boolean" value="false"/>
 		<attribute name="findAnswer" type="boolean" value="true"/>
+		<!-- isEnlargeable is to track if a table is enlargable -->
+		<attribute name="isEnlargeable" type="boolean" value="false"/>
 		<!--
 			============================================================
 			Datapointers

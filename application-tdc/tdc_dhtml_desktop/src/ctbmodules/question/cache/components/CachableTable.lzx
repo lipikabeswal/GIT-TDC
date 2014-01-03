@@ -95,7 +95,10 @@
                 this.table_ht = parent.parent.height;
             else 
                 this.table_ht = parent.height;
-
+            
+	        //reset	attribute value
+			gController.setAttribute('isEnlargeable',false); 
+			
 			var enlargeAttr = data.getAttr("enlargeable");
 			var isEnlargeable = false;
    			if (enlargeAttr == "yes"){ 
@@ -104,6 +107,7 @@
    			}
    			else if (enlargeAttr == "accommodated"){
    				isEnlargeable = gController.hasFontAccommodation;
+   				gController.setAttribute('isEnlargeable',isEnlargeable);
    			}
             this.enlarge.setAttribute("visible", isEnlargeable);
 
@@ -375,7 +379,9 @@
 			var cells = null;
             var vlines = data.getAttr("showvlines") == "yes" ? 1 : 0;
             var hlines = data.getAttr("showhlines") == "yes" ? 1 : 0;
-         	if ( vlines == 0 && hlines == 0) return;
+			var borders = data.getAttr("border") == "yes" ? 1 : 0;    
+		
+         	if ( vlines == 0 && hlines == 0 && borders == 0) return;
          	
 			dw.clear();	
             var rows = datapath.xpathQuery("row");
