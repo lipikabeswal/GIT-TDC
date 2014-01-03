@@ -92,7 +92,7 @@
 			var comHeight = this.height;
 			var fontcolor = getCRcolor();
 			var elm = this.getDisplayObject();
-			elm.setAttribute('style','overflow-x: hidden; white-space: pre-line; overflow-y: scroll; color: '+fontcolor+'; font-size: '+fontSize+'; line-height: '+lineheight+'px; height: '+comHeight+'; clip: rect(0px '+comWidth+'px '+comHeight+'px 0px); width: '+comWidth+'; pointer-events: auto;');		
+			elm.setAttribute('style','font-family: CTB; overflow-x: hidden; white-space: pre-line; overflow-y: scroll; color: '+fontcolor+'; font-size: '+fontSize+'; line-height: '+lineheight+'px; height: '+comHeight+'; clip: rect(0px '+comWidth+'px '+comHeight+'px 0px); width: '+comWidth+'; pointer-events: auto;');		
 		</method>
 		
 
