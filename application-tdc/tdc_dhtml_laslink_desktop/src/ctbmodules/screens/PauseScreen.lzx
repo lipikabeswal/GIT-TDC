@@ -40,7 +40,7 @@
                       password="true" width="265" pattern="[a-zA-Z0-9_]*" maxlength="32">
                       <handler name="oninit">
                       	var elem = this.field.getDisplayObject();
-                      	elem.setAttribute('style','height: 20px;');
+                      	elem.setAttribute('style','font-family: CTB; height: 20px;');
                       	elem.setAttribute('spellcheck',false);
                       </handler>
             </edittext>
@@ -48,7 +48,7 @@
                       password="false" width="265" pattern="[a-zA-Z0-9_]*" maxlength="32">
                       <handler name="oninit">
                       	var elem = this.field.getDisplayObject();
-                      	elem.setAttribute('style','height: 20px;');
+                      	elem.setAttribute('style','font-family: CTB; height: 20px;');
                       	elem.setAttribute('spellcheck',false);
                       </handler>
             </edittext>
