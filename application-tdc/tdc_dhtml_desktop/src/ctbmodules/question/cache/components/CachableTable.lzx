@@ -14,6 +14,7 @@
            comptype="${gCompTypes.WIDGET_TABLE}"
            defaultplacement="table">
 
+
         <!-- ============================
              =====    ATTRIBUTES   ======
              ============================ -->
@@ -22,7 +23,7 @@
         <attribute name="bordersize" value="2" type="number"/>
 
         <!-- autoenlarge table -->
-        <attribute name="autoenlarge" value="false"/>
+        <attribute name="autoenlarge" value="false"/>       
 
         <!-- ============================
              =====     METHODS     ======
@@ -67,7 +68,7 @@
             var titleTxt = "";
             if(data.hasAttr('title')){
             	titleTxt = data.getAttr('title');
-            }  
+            }
             if(titleTxt.length > 0){
 				var className = gController.hasFontAccommodation ? "tableTitleLarge": "tableTitleStandard";          	
             	this.thetable.contents.title.setAttribute('visible', true);
@@ -95,7 +96,7 @@
                 this.table_ht = parent.parent.height;
             else 
                 this.table_ht = parent.height;
-            
+
 	        //reset	attribute value
 			gController.setAttribute('isEnlargeable',false); 
 			
@@ -123,7 +124,6 @@
             for (var i = 0; i < rows[0].childNodes.length; i++) {
                 cells = datapath.xpathQuery("row/cell[" + String(i + 1) + "]");
                 if (!(cells instanceof Array)) cells = [cells];                
-
                 for (var j = 0; j < cells.length; j++) {
                     if (Number(cells[j].attributes.width) > maxwidth) {
                         maxwidth = Number(cells[j].attributes.width);
@@ -147,6 +147,14 @@
                        cells[j].attributes.y = ny;
                        ny += Number(rows[j].attributes.height) + vspace;
                     }
+                    // Hide the faint vertical and horizontal lines showing up due to the scaling by increasing
+                    // the width of the all cells which are not in the last column by 1px
+                    if (hspace == 0 && i < rows[0].childNodes.length - 1) {
+                        cells[j].attributes.width = Number(cells[j].getAttr("width") + 1);
+                    }
+                    if (vspace == 0 && j < cells.length - 1) {
+                        cells[j].attributes.height = Number(cells[j].getAttr("height") + 1);
+                    }                    
                 }
 
                 nx += maxwidth + hspace;
@@ -154,11 +162,18 @@
                 maxwidth = 0;
             }
 
+			// don't show stray lines if no vlines and hlines
+			if(hspace == 0 && vspace == 0){
+				thetable.contents.borderview.table.setAttribute("bgcolor", this.bgcolor);
+			}
+			else{
+				thetable.contents.borderview.table.setAttribute("bgcolor", null);
+			}
+            
             this._initSubnodes();
             doneLoading();
             ]]>
         </handler>
-
         
         <method name="show">
         //Dummy method which will be called by masking answer dont remove this
@@ -238,6 +253,7 @@
 //Debug.write("parent width : " + parent.width + " x : " + parent.x, parent);
 			
            if (this.autoenlarge == "zoom") {
+
                // This contains the updated height and width values
                // from the newly created panel
                var orig_height = data.getAttr("height");
@@ -325,12 +341,8 @@
 				
 				elm.setAttribute("style","z-index:"+ elmCSS.zIndex + "; left:" + elmCSS.left + "; top: "+ elmCSS.top + "; background-color: " + elm.style.backgroundColor + "; width: " + final_width + "; height: "+final_height+"; -webkit-transform: " + elmCSS.webkitTransform +";");
 				//end
-				
-				this.thetable.contents.borderDrawView.setAttribute( "xscale", mult_factor );
-				this.thetable.contents.borderDrawView.setAttribute( "yscale", mult_factor );
-				this.drawBorders();
-				return;
 
+               return;
             }
             else if (this.autoenlarge == "yes" && gController.hasFontAccommodation) {
                 var contents = this.thetable.contents;
@@ -368,123 +380,7 @@
             }
             
             super.doneLoading();
-			this.drawBorders();
-            
         ]]></method>
-        
-		<method name="drawBorders"><![CDATA[
-			var dw = this.thetable.contents.borderDrawView;
-			var data = this.datapath.p;
-			var rect = null;
-			var cells = null;
-            var vlines = data.getAttr("showvlines") == "yes" ? 1 : 0;
-            var hlines = data.getAttr("showhlines") == "yes" ? 1 : 0;
-			var borders = data.getAttr("border") == "yes" ? 1 : 0;    
-		
-         	if ( vlines == 0 && hlines == 0 && borders == 0) return;
-         	
-			dw.clear();	
-            var rows = datapath.xpathQuery("row");
-            if (!(rows instanceof Array)) rows = [rows];
-            var numRows = rows.length;
-            var customBgColor = null;
-            var borderObjs = [];
-            var maxX = 0;
-            var maxY = 0;
-            for (var i = 0; i < numRows; i++) {
-                cells = datapath.xpathQuery( "row[" + String(i + 1) + "]/cell" );
-                if ( cells ) {
-	                if (!(cells instanceof Array)) cells = [cells];                
-	
-	                for (var j = 0; j < cells.length; j++) {
-	                	var cell = cells[ j ];
-	                	customBgColor = cell.getAttr( 'bgcolor' );
-	                	if ( typeof customBgColor == 'undefined' ) {
-	                		customBgColor = this.bgcolor;
-	                	}
-	                	rect = { 
-	                		x: Number( cell.getAttr('x') ),
-	                		y: Number( cell.getAttr('y') ),
-	                		w: Number( cell.getAttr('width') ),
-	                		h: Number( cell.getAttr('height') )
-	                	}
-	                	
-	                	if ( rect.x + rect.w > maxX ) {
-	                		maxX = rect.x + rect.w;
-                		}
-	                	if ( rect.y + rect.h > maxY ) {
-	                		maxY = rect.y + rect.h;
-                		}                		
-	                		
-	                	if ( cell.childNodes.length == 0 ) {
-							this.drawCellBackground( rect, dw, customBgColor );
-	                	}
-	                	// Draw borders once all the backgrounds have been drawn in loop below
-	                	borderObjs.push( {rect: rect, isFirstRow:(i==0), isFirstColumn: (j==0)} );
-	                }           	
-                }
-            }
-            
-            // Cell borders
-			dw.strokeStyle = this.fontcolor;
-			// Unfortunately Webkit renders the lines with lineWidth = 1 with opacity,
-			// therefore the cell borders are drawn with a lineWidth value of 2.
-			var scale = canvas.titleView.mainView.scalingView.xscale;
-			dw.strokeStyle = this.fontcolor;
-			dw.lineWidth = 1;		           
-            for (i=0; i<borderObjs.length; i++) {
-            	var o = borderObjs[ i ];
-            	this.drawCellBorder( o.rect, hlines, vlines, o.isFirstRow, o.isFirstColumn );            
-        	}
-            
-            // Draw border around the table
-        	dw.strokeStyle = this.fontcolor;
-			dw.lineWidth = 2;        	
-        	dw.beginPath();
-        	dw.moveTo( 1, 1 );
-        	dw.lineTo( maxX, 1);        	
-        	dw.lineTo( maxX, maxY);
-        	dw.lineTo( 1, maxY);
-        	dw.lineTo( 1, 1 );
-        	dw.closePath();
-        	dw.stroke();
-		]]>
-		</method>
-		
-		<method name="drawCellBorder" args="rect, hlines, vlines, isFirstRow, isFirstColumn">
-			var dw = this.thetable.contents.borderDrawView;
-			if ( hlines == 1 ) {
-				dw.beginPath();
-				dw.moveTo( rect.x - 1, rect.y + rect.h );
-				dw.lineTo( rect.x + rect.w, rect.y + rect.h );
-				dw.moveTo( rect.x - 1, rect.y + rect.h );
-				dw.closePath();
-				dw.stroke();
-			}
-			if ( vlines == 1 ) {
-				dw.beginPath();
-				dw.moveTo( rect.x + rect.w, rect.y - 1 );
-				dw.lineTo( rect.x + rect.w, rect.y + rect.h );
-				dw.moveTo( rect.x + rect.w, rect.y - 1);
-				dw.closePath();
-				dw.stroke();
-			}
-		</method>
-		
-		<method name="drawCellBackground" args="rect, dw, color">
-    		// Draw background using fgcolor;		
-    		dw.fillStyle = color;
-    		dw.beginPath();
-    		dw.moveTo( rect.x-1, rect.y-1 );
-			dw.lineTo( rect.x+1 + rect.w, rect.y-1);
-			dw.lineTo( rect.x+1 + rect.w, rect.y+1 + rect.h );
-			dw.lineTo( rect.x+1 + rect.w, rect.y+1 + rect.h);
-    		dw.lineTo( rect.x-1, rect.y+1 + rect.h );
-    		dw.lineTo( rect.x-1, rect.y-1 );
-			dw.closePath();
-			dw.fill();
-		</method>		
-        
 
         <!-- ============================
              =====      VIEWS      ======
@@ -524,7 +420,7 @@
                 </text>
 
             <!-- borderview contains the title and table and defines a border -->
-                <view name="borderview" align="center"
+                <view name="borderview" bgcolor="${classroot.fontcolor}" align="center"
                       width="${classroot.bordersize == 0?(this.table.width-2) : (this.table.width + 2 * classroot.bordersize)}"
                       height="${classroot.bordersize == 0?(this.table.height-2) : (this.table.height + 2 * classroot.bordersize)}"
 					  y="${classroot.bordersize == 0?(this.y + 1):this.y}">
@@ -534,15 +430,6 @@
                           x="${classroot.bordersize == 0?(classroot.bordersize -1):classroot.bordersize}" 
 						  y="${classroot.bordersize == 0?(classroot.bordersize -1):classroot.bordersize}"/>
                 </view>
-                
-                <!-- Table borders are drawn using an HTML5 canvas. Previously the cell borders were formed
-                     using the background color of the borderview. -->
-                <drawview name="borderDrawView" options="ignorelayout:true"
-            		  x="${parent.borderview.x+2}"
-            		  y="${parent.borderview.y+2}"
-                      width="${parent.borderview.width}"
-                      height="${parent.borderview.height}"
-                      aliaslines="true"  />
             </view>
         </view>
     </class>

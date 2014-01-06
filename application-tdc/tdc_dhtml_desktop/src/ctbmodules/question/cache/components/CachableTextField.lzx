@@ -85,11 +85,12 @@
                 this.setAttribute("width", Number(data.getAttr("width")));
             } else {
                // this.setAttribute("width", immediateparent.width);
-                 if ( parent is lz.CachableAnswerChoice) {
-                this.setAttribute("width", Number(parent.width))
-               } else {
-                this.setAttribute("width", Number(immediateparent.classroot.width));
-               }
+                if ( parent is lz.CachableAnswerChoice) {
+                    this.setAttribute("width", Number(parent.width));
+                    this.thetext.setAttribute("y", -4);
+                } else {
+                    this.setAttribute("width", Number(immediateparent.classroot.width));
+                }
             }
 
             //text magnification
@@ -183,6 +184,12 @@
 		         	className = "largeText";
 				}                	
 			}
+            
+            // Remove bgcolor on text component to avoid
+            // overlap of the component with the cell borders
+            if (parent is lz.CachableTableCell)  {
+                this.setAttribute( "bgcolor", null );
+            }
 			 /***added by piyali--check footnote and update text***/
 				var startfootnoteTag="<footnote",endfootnoteTag="</footnote>";
 				var footNoteStartIndex=dataText.indexOf(startfootnoteTag),footNoteEndIndex=dataText.indexOf(endfootnoteTag);
@@ -1487,7 +1494,7 @@ parse the text string and store text and image string in an array at different i
                </handler>
            </view>
 
-           <UnclippedText id="thetext" name="thetext" multiline="true" 
+           <UnclippedText name="thetext" multiline="true" 
                x="${classroot.leftPadding}"
                width="${parent.width - classroot.leftPadding - classroot.rightPadding}"
                fgcolor="${classroot.fontcolor}" 
