@@ -115,15 +115,16 @@ public class PersistenceServlet extends HttpServlet {
 	private static final String VERSION = version;
 	private static native void nativeUpLevelWindow(final String windowName);
 	
-	static {
-		/*if(osName.indexOf("mac") >= 0) {
+	/*static {
+		if(osName.indexOf("mac") >= 0) {
             System.load(WEBINF_FOLDER_PATH + File.separator + "lib" + File.separator +"libAddressBook.jnilib");
             logger.info("Library loaded successfully"); 
-        }*/
-		
-		showOkCalculator("TI30");
-		showOkCalculator("TI84");
-	}
+        }
+		if(PRODUCT_TYPE.equals("LASLINKS")){	
+			showOkCalculator("TI30");
+			showOkCalculator("TI84");
+		}
+	}*/
 	
 	/**
 	 * Constructor of the object.
@@ -312,18 +313,17 @@ public class PersistenceServlet extends HttpServlet {
 // Change to handle OK Calculator
 		else if (method != null
 				&& method.equals(ServletUtils.OK_CALCULATOR)) {
-			calcType = request.getParameter("calcType");
-			//result = showHideOkCalculator("N");
-			//result = showOkCalculator(calcType);
-			if(!calculatorDialog84.isVisible() && !calculatorDialog30.isVisible()) {
-				showHideOkCalculator("N");
-			} else {
+				calcType = request.getParameter("calcType");
 				showHideOkCalculator("Y");
-			}
+				/*if(!calculatorDialog84.isVisible() && !calculatorDialog30.isVisible()) {
+					showHideOkCalculator("N");
+				} else {
+					showHideOkCalculator("Y");
+				}*/
 		} else if (method != null
 				&& method.equals(ServletUtils.SHOW_HIDE_OK_CALCULATOR)) {
-			
-			String isHideCalc = request.getParameter("isHidden");
+				showHideOkCalculator("Y");
+			/*String isHideCalc = request.getParameter("isHidden");
 			if("Y".equals(isHideCalc)) {
 				if(calculatorDialog84.isVisible() || calculatorDialog30.isVisible()) {
 					calculatorDialog84.setCalculatorPaused(true);
@@ -338,7 +338,7 @@ public class PersistenceServlet extends HttpServlet {
 				}
 				calculatorDialog84.setCalculatorPaused(false);
 				calculatorDialog30.setCalculatorPaused(false);
-			}
+			}*/
 		}
 		else if (method != null
 				&& method.equals(ServletUtils.CLOSE_OK_CALCULATOR))
@@ -415,7 +415,7 @@ public class PersistenceServlet extends HttpServlet {
 	}
 // Change to handle OK Calculator
 	public static String closeOkCalculator() {
-		if(PRODUCT_TYPE.equals("LASLINKS")){
+		if(PRODUCT_TYPE.equals("LASLINKS") || PRODUCT_TYPE.equals("TABE")){
 			return ServletUtils.OK;
 		}
 		try {
@@ -434,7 +434,7 @@ public class PersistenceServlet extends HttpServlet {
 	
 // Change to handle OK Calculator	
 	public static String showHideOkCalculator(String hidden) {
-		if(PRODUCT_TYPE.equals("LASLINKS")){
+		if(PRODUCT_TYPE.equals("LASLINKS") || PRODUCT_TYPE.equals("TABE")){
 			return ServletUtils.OK;
 		}
 		try {
