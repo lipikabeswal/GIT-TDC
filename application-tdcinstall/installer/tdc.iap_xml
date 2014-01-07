@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using Macrovision InstallAnywhere 2008 Enterprise, Build 3418
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Fri Dec 13 19:58:46 PST 2013 -->
-<InstallAnywhere_Deployment_Project increments="12136">
+     DATE:   Mon Jan 06 19:57:10 PST 2014 -->
+<InstallAnywhere_Deployment_Project increments="12263">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="9" minor="0" revision="0"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,69,50,56,57,57,67,57,57,74,57,57,74,57,57,54,57,57,67,57,77,57,57,84</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,86,105,115,116,97,44,32,54,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,53,46,48,95,49,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,64,-29,73,-96,-32,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,8,6,97,111,2,1,0,0</authorizationID>
+		<authorizationID>1,0,0,64,99,-39,-48,112,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,15,1,104,106,3,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="788">
+	<installationObjects uniqueObjects="792">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="classpath">
 				<object class="java.util.Vector">
@@ -1975,32 +1975,6 @@
 									</property>
 									<property name="operandOne">
 										<string><![CDATA[$TABE$]]></string>
-									</property>
-									<property name="operandTwo">
-										<string><![CDATA[true]]></string>
-									</property>
-								</object>
-							</rules>
-						</object>
-					</method>
-					<method name="addElement">
-						<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="e3fb014e9789">
-							<property name="name">
-								<string><![CDATA[$PRODUCT_NAME$]]></string>
-							</property>
-							<property name="value">
-								<string><![CDATA[ISTEP Online Assessment]]></string>
-							</property>
-							<property name="passByValue">
-								<boolean>false</boolean>
-							</property>
-							<rules logicalOperation="OR">
-								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="e3fb014f9789">
-									<property name="operation">
-										<string><![CDATA[equals]]></string>
-									</property>
-									<property name="operandOne">
-										<string><![CDATA[$ISTEP$]]></string>
 									</property>
 									<property name="operandTwo">
 										<string><![CDATA[true]]></string>
@@ -9789,6 +9763,290 @@ echo y| CACLS *.dll /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "PO
 										</object>
 									</rules>
 								</object>
+								<object class="com.zerog.ia.installer.actions.ExecuteScript" objectID="7e52459c9787">
+									<property name="showPleaseWaitPanel">
+										<boolean>true</boolean>
+									</property>
+									<property name="waitForProcess">
+										<boolean>true</boolean>
+									</property>
+									<property name="script">
+										<string><![CDATA[cd $USER_INSTALL_DIR$
+cd ..
+echo y| CACLS "TABE Online Assessment" /T /P EVERYONE:F
+cd $USER_INSTALL_DIR$
+echo y| CACLS *.exe /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+cd $USER_INSTALL_DIR$
+cd lockdownbrowser\pc
+echo y| CACLS *.exe /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+echo y| CACLS *.dll /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+cd $USER_INSTALL_DIR$
+cd "Uninstall_Online Assessment"
+echo y| CACLS *.exe /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+cd resource
+echo y| CACLS *.exe /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+echo y| CACLS *.dll /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+]]></string>
+									</property>
+									<property name="showIndeterminateDialog">
+										<boolean>false</boolean>
+									</property>
+									<property name="dialogLabel">
+										<string><![CDATA[Executing Installation Script...]]></string>
+									</property>
+									<property name="comment">
+										<string><![CDATA[Set User Permissions For PC]]></string>
+									</property>
+									<property name="stdoutVar">
+										<string><![CDATA[$EXECUTE_STDOUT$]]></string>
+									</property>
+									<property name="stderrVar">
+										<string><![CDATA[$EXECUTE_STDERR$]]></string>
+									</property>
+									<property name="exitCodeVar">
+										<string><![CDATA[$EXECUTE_EXITCODE$]]></string>
+									</property>
+									<rules logicalOperation="AND">
+										<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="7e52459d9787">
+											<property name="installOnPlatformList">
+												<object class="java.util.Vector">
+													<method name="addElement">
+														<string><![CDATA[Windows 2000]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows XP]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows Vista]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows NT]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows 2003]]></string>
+													</method>
+												</object>
+											</property>
+											<property name="doNotInstallOnPlatformList">
+												<object class="java.util.Vector">
+													<method name="addElement">
+														<string><![CDATA[Windows 95]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows 98]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows Me]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Mac OS X]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[OS/2]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Solaris]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[SunOS]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[HP-UX]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Linux]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[AIX]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Irix]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[DG-UX]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Compaq's Digital UNIX]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[FreeBSD]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Rhapsody]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[NetWare]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[z/OS]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[OS/390]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Unlisted Platforms]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[OS/400]]></string>
+													</method>
+												</object>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="7e532d0d9787">
+											<property name="operation">
+												<string><![CDATA[equals]]></string>
+											</property>
+											<property name="operandOne">
+												<string><![CDATA[$TABE$]]></string>
+											</property>
+											<property name="operandTwo">
+												<string><![CDATA[true]]></string>
+											</property>
+										</object>
+									</rules>
+								</object>
+								<object class="com.zerog.ia.installer.actions.ExecuteScript" objectID="7e524faa9787">
+									<property name="showPleaseWaitPanel">
+										<boolean>true</boolean>
+									</property>
+									<property name="waitForProcess">
+										<boolean>true</boolean>
+									</property>
+									<property name="script">
+										<string><![CDATA[cd $USER_INSTALL_DIR$
+cd ..
+echo y| CACLS "TASC Online Assessment" /T /P EVERYONE:F
+cd $USER_INSTALL_DIR$
+echo y| CACLS *.exe /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+cd $USER_INSTALL_DIR$
+cd lockdownbrowser\pc
+echo y| CACLS *.exe /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+echo y| CACLS *.dll /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+cd $USER_INSTALL_DIR$
+cd "Uninstall_Online Assessment"
+echo y| CACLS *.exe /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+cd resource
+echo y| CACLS *.exe /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+echo y| CACLS *.dll /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+]]></string>
+									</property>
+									<property name="showIndeterminateDialog">
+										<boolean>false</boolean>
+									</property>
+									<property name="dialogLabel">
+										<string><![CDATA[Executing Installation Script...]]></string>
+									</property>
+									<property name="comment">
+										<string><![CDATA[Set User Permissions For PC]]></string>
+									</property>
+									<property name="stdoutVar">
+										<string><![CDATA[$EXECUTE_STDOUT$]]></string>
+									</property>
+									<property name="stderrVar">
+										<string><![CDATA[$EXECUTE_STDERR$]]></string>
+									</property>
+									<property name="exitCodeVar">
+										<string><![CDATA[$EXECUTE_EXITCODE$]]></string>
+									</property>
+									<rules logicalOperation="AND">
+										<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="7e524fab9787">
+											<property name="installOnPlatformList">
+												<object class="java.util.Vector">
+													<method name="addElement">
+														<string><![CDATA[Windows 2000]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows XP]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows Vista]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows NT]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows 2003]]></string>
+													</method>
+												</object>
+											</property>
+											<property name="doNotInstallOnPlatformList">
+												<object class="java.util.Vector">
+													<method name="addElement">
+														<string><![CDATA[Windows 95]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows 98]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows Me]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Mac OS X]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[OS/2]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Solaris]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[SunOS]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[HP-UX]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Linux]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[AIX]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Irix]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[DG-UX]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Compaq's Digital UNIX]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[FreeBSD]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Rhapsody]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[NetWare]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[z/OS]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[OS/390]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Unlisted Platforms]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[OS/400]]></string>
+													</method>
+												</object>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="7e5409c59787">
+											<property name="operation">
+												<string><![CDATA[equals]]></string>
+											</property>
+											<property name="operandOne">
+												<string><![CDATA[$TASC$]]></string>
+											</property>
+											<property name="operandTwo">
+												<string><![CDATA[true]]></string>
+											</property>
+										</object>
+									</rules>
+								</object>
 							</visualChildren>
 						</object>
 					</method>
@@ -10366,7 +10624,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[December 13, 2013 7:58:46 PM PST]]></string>
+						<string><![CDATA[January 6, 2014 7:57:10 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -13355,7 +13613,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="02a729959737">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="7e512b539732">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.tsutility.Main]]></string>
 															</property>
@@ -15385,7 +15643,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="02a729ab975a">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="7e512b6b9755">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.tuningutility.Main]]></string>
 															</property>
@@ -15928,6 +16186,19 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="7e512b729763">
+															<property name="propertyValue">
+																<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
+															</property>
+															<property name="propertyName">
+																<string><![CDATA[lax.main.class]]></string>
+															</property>
+															<property name="propertyComment">
+																<string><![CDATA[the class that contains the main method for the application]]></string>
+															</property>
+														</object>
+													</method>
+													<method name="addElement">
 														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="6fa5a673b115">
 															<property name="propertyValue">
 																<string><![CDATA[33554432]]></string>
@@ -15937,19 +16208,6 @@ it will search for ones in this list]]></string>
 															</property>
 															<property name="propertyComment">
 																<string><![CDATA[VM intial heap size]]></string>
-															</property>
-														</object>
-													</method>
-													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="02a729b19768">
-															<property name="propertyValue">
-																<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
-															</property>
-															<property name="propertyName">
-																<string><![CDATA[lax.main.class]]></string>
-															</property>
-															<property name="propertyComment">
-																<string><![CDATA[the class that contains the main method for the application]]></string>
 															</property>
 														</object>
 													</method>
@@ -16369,7 +16627,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="02a729b59774">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="7e512b7b976d">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
 															</property>
