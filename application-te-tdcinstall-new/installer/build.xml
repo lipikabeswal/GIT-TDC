@@ -83,7 +83,7 @@
 		<copy file="${project.icons.dir}/TABE-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="tabe" />
-			<param name="installer.version" value="14.0.0" />
+			<param name="installer.version" value="18.0.0" />
 			<param name="installer.primary.url" value="https://tabe-oas.ctb.com" />
 			<param name="installer.secondary.url" value="https://tabe-oasdr.ctb.com" />
 		</antcall>
