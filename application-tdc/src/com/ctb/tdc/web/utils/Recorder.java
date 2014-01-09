@@ -153,9 +153,14 @@ public class Recorder {
      */
    public static String micDetection() {
     	System.out.println("Inside micDetection");
+    	if(ServletUtils.recordingFailed){
+    		ServletUtils.recordingFailed = false;
+    		System.out.println("************Recording has Failed*********");
+    		return "<false />";
+    	}
         final Recorder recorder = new Recorder();
- 
-        // creates a new thread that waits for a specified
+        
+ 		 // creates a new thread that waits for a specified
         // of time before stopping
        /* Thread stopper = new Thread(new Runnable() {
             public void run() {
@@ -170,23 +175,39 @@ public class Recorder {
         });
  
         stopper.start();*/
-        
- 
-        // start recording
-        microphone=recorder.start(); 
+       // start recording
+       // long startTime = System.currentTimeMillis();
+        ServletUtils.micDetectionInProgress = true;
+        	microphone=recorder.start(); 
+       /*try {
+        	System.out.println("Sleep started*****");
+			Thread.sleep(2000);
+        	System.out.println("Sleep stopped*****");
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
         //System.out.println("In main>>>>"+microphone);
         if(microphone){
         	//logger.info("A microphone is attached to your system");
+        	
         	recorder.finish();
-        	return "<true />";
+        	 ServletUtils.micDetectionInProgress = false;
+        	// long stopTime = System.currentTimeMillis();
+        	// long totalTime = stopTime - startTime - 2000;
+        	// System.out.println("totalTime******"+totalTime);
+        	 return "<true />";
         	
         	}
         else{
         	//logger.info("Microphone is not attached");
         	recorder.finish();
+        	ServletUtils.micDetectionInProgress = false;
+        	//long stopTime2 = System.currentTimeMillis();
+        //	long totalTime = stopTime2 - startTime - 2000;
+        //	System.out.println("totalTime******"+totalTime);
         	return "<false />";
-        	
-        }
+       }
        
     }
 }

@@ -214,7 +214,8 @@ public class ServletUtils {
 	public static String landingFnode;
 	public static String currentItem = null;
 	public static boolean blockContentDownload = false;
-
+	public static boolean micDetectionInProgress = false;
+	public static boolean recordingFailed = false;
 //	helper methods
 
 	//private static String lastMseq;

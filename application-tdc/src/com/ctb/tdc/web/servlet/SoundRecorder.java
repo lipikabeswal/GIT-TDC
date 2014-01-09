@@ -57,7 +57,16 @@ public class SoundRecorder extends HttpServlet {
 		//System.out.println("Filename will be..." + fileName + ".spx");
 
 		if ("record".equalsIgnoreCase(method)) {
-			//System.out.println("record start");
+			logger.info("record start");
+			while(ServletUtils.micDetectionInProgress)
+			{
+				try {
+					Thread.sleep(70);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			captureAudio(response);
 		} else if ("stop".equalsIgnoreCase(method)) {
 			stopCapture(request, response);
@@ -279,6 +288,7 @@ public class SoundRecorder extends HttpServlet {
 				AudioSystem.write(ais, fileType, audioFile);
 
 			} catch (Exception e) {
+				ServletUtils.recordingFailed = true;
 				e.printStackTrace();
 			} finally {
 				if (ais != null) {
