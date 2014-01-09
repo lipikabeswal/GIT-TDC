@@ -75,36 +75,6 @@
 				src: local('OASmathv3 Italic'), url('ctbmodules/resources/fonts/OASmathv3Italic.svg') format('svg'); 
 			    font-style: italic;
 			}
-			
-			
-			
-			@font-face {
-				font-family: 'CTBTTF';	
-				src: url('ctbmodules/resources/fonts/OASmathv3.ttf'); 
-				font-weight: normal;
-				font-style: normal;
-			}
-			@font-face {
-				font-family: 'CTBTTF';	
-				src: url('ctbmodules/resources/fonts/OASmathv3Bold.ttf'); 
-				font-weight: bold;
-				font-style: normal;
-			}
-			@font-face {
-				font-family: 'CTBTTF';	
-				src: url('ctbmodules/resources/fonts/OASmathv3BoldItalic.ttf'); 
-				font-weight: bold;
-				font-style: italic;
-			}
-			@font-face {
-				font-family: 'CTBTTF';	
-				src: url('ctbmodules/resources/fonts/OASmathv3Italic.ttf'); 
-				font-style: italic;
-			}
-			
-			textarea{
-            	font-family:CTBTTF!important;
-            }
             
         </style><!--[if IE]>
         <style type="text/css">
@@ -351,12 +321,12 @@ function hideScrollbarForCRitem(arg){
 function setCRscrollEdittextWidth(elmId,comWidth,fontSize){
     var crItemid = document.getElementById(elmId);
     var fontcolor = getCRcolor();
-    crItemid.setAttribute('style','overflow-x: hidden; white-space: pre-line; overflow-y: scroll; color: '+fontcolor+'; width: '+comWidth+'; font-size: '+fontSize+';');
+    crItemid.setAttribute('style','font-family: CTB; overflow-x: hidden; white-space: pre-line; overflow-y: scroll; color: '+fontcolor+'; width: '+comWidth+'; font-size: '+fontSize+';');
 }
 function setCRscrollEdittextHeight(elmId,comHeight,fontSize){
     var crItemid = document.getElementById(elmId);
     var fontcolor = getCRcolor();
-    crItemid.setAttribute('style','overflow-x: hidden; white-space: pre-line; overflow-y: scroll; color: '+fontcolor+'; height: '+comHeight+'; font-size: '+fontSize+';');
+    crItemid.setAttribute('style','font-family: CTB; overflow-x: hidden; white-space: pre-line; overflow-y: scroll; color: '+fontcolor+'; height: '+comHeight+'; font-size: '+fontSize+';');
 }
 
 function getCRcolor(){
@@ -379,17 +349,17 @@ function getCRcolor(){
 
 function hideScrollbar(arg){
     var scrid = document.getElementById(arg);
-    scrid.setAttribute('style',"overflow-x: hidden; white-space: pre-line; overflow-y: scroll;");
+    scrid.setAttribute('style',"font-family: CTB; overflow-x: hidden; white-space: pre-line; overflow-y: scroll;");
 }
 
 function setScrollEdittextWidth(elmId,comWidth,fontSize,textFontColor){
     var scrid = document.getElementById(elmId);
-    scrid.setAttribute('style','overflow-x: hidden;  overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; width: '+comWidth+'');
+    scrid.setAttribute('style','font-family: CTB; overflow-x: hidden;  overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; width: '+comWidth+'');
 }
 
 function setScrollEdittextHeight(elmId,comHeight,fontSize,textFontColor){
     var scrid = document.getElementById(elmId);
-    scrid.setAttribute('style','overflow-x: hidden;  overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; height: '+comHeight+'');
+    scrid.setAttribute('style','font-family: CTB; overflow-x: hidden;  overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; height: '+comHeight+'');
 }
 
 <!-- End scratchpad scrollbar functions-->
