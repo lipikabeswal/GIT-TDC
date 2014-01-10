@@ -74,7 +74,9 @@
 
 <attribute name="drecordDel"
 			value="$once{ new lz.Delegate( this, 'callRecordMethod' ) }" />
-
+<attribute name="startRecord" type="boolean" value="false" />
+<attribute name="startRecordDel"
+			value="$once{new lz.Delegate(this,'setStartRecord')}" type="expression"/>
 
 		<dataset name="audioDset"
 			ondata="classroot.handleResponseData(this.data)" type="http"
@@ -477,6 +479,7 @@
 					gController.enableAllAudio();
 				}*/
 			gController.enableAllAssets();
+			this.setAttribute('startRecord',false);
 			gController.setAttribute('recordingStopped',true);
 			this.red.setAttribute('visible',false);
 			this.redReplace.setAttribute('visible',false);
@@ -525,6 +528,7 @@
 				else{
 					this.recordButton.setAttribute("enabled", false);
 					}
+				this.setAttribute('startRecord',false);
 				gController.setAttribute('recordingStopped',false);
 				this.green.setAttribute('visible',false);
 				this.red.setAttribute('visible',false);
@@ -574,6 +578,15 @@
 		
 		]]>
 		</method>
+			
+		<method name="setStartRecord">
+			
+			lz.Timer.removeTimer(startRecordDel);
+			this.setAttribute('startRecord',true);
+			startCountDownTimer();
+			blinker();
+			this.stopButton.setAttribute("enabled", true);	
+		</method>
 
 		<method name="stopCountDownTimer">
 //console.log("Inside stopCountDownTimer");
@@ -601,9 +614,9 @@
 			var result = d.childNodes[0].data;
 			if(result == 'RECORDING_START'){
 			//Debug.write("RECORDING_START..");
-				startCountDownTimer();
-				blinker();
-				this.stopButton.setAttribute("enabled", true);
+				if(!this.startRecord)
+				lz.Timer.resetTimer(startRecordDel,200);
+				
 			}
 			else if (result == 'RECORDING_STOP') {
 			//Debug.write("RECORDING_STOP..");
@@ -759,7 +772,7 @@
 				//this.meterContainer.setAttribute('visible',true);
 				this.whitewrapperOverLay.setAttribute('visible',false);	 
 				//console.log("this.recordStarted***",this.recordStarted);				
-					if(this.recordStarted == true){
+					if(this.recordStarted == true && this.startRecord){
 						if(this.blinkerVal >= 3){
 							this.toggleRedDisplay();
 							this.blinkerVal = 0;
