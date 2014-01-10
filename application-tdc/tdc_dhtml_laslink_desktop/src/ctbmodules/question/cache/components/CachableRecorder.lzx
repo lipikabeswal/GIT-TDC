@@ -463,7 +463,7 @@
 				this.increment = bar.width / this.defaultTotalTime;
 				this.recordButton.setAttribute("enabled", false);
 				this.green.setAttribute('visible',false);
-				gController.updateAudioField(this.widget_id, true);					
+				//gController.updateAudioField(this.widget_id, true);					
 			}
 		]]></method>
 
@@ -583,6 +583,7 @@
 			
 			lz.Timer.removeTimer(startRecordDel);
 			this.setAttribute('startRecord',true);
+			gController.updateAudioField(this.widget_id, true);
 			startCountDownTimer();
 			blinker();
 			this.stopButton.setAttribute("enabled", true);	
