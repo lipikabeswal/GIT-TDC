@@ -5562,7 +5562,8 @@ Debug.write("############ loadItem ############");
 					for (var i =0; i < this.htmlFields.length; i++){
 						this.htmlFields[i]['ref'].show();	
 					}
-				}		
+				}	
+			lz.Timer.resetTimer(answeredDel, 500);	
 		]]></method>
 
 		<method name="updateHTMLItemNode"><![CDATA[
