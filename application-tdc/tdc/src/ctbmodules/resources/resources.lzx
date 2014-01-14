@@ -581,6 +581,12 @@
        	<frame  src="components/recorder/stay_hover.png"/>
        	<frame  src="components/recorder/stay_down.png"/>
 	</resource>
+	
+	<resource name="uiLoad" src="components/recorder/busy.gif"/>
+	
+	<resource name="start_mic">
+       	<frame src="components/recorder/mic_tr.png"/>
+	</resource>
 
 	
 	<!-- <resource name="ti_scientific_calculator" src="manipulatives/ti_calculators/ti_scientific_calculator.jpg"/>

@@ -580,6 +580,7 @@
         <attribute name="textHistory" value="$once{new TextFieldHistory()}" type="expression" />
         <attribute name="manipSelected"/> 	
 	    <attribute name="isWV" type="boolean" value="false"/>
+	   	<attribute name="recorderState" type="string" value=""/>
 	    		 
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");

@@ -1,0 +1,129 @@
+<view id="gSpeakNowPopup"
+      valign="middle"
+      align="center" 
+      visible="false"
+      clickable="false"
+      showhandcursor="false">
+
+	<attribute name="popupHeight" type="number" value="125"/>
+	<attribute name="popupWidth" type="number" value="250"/>
+	<attribute name="bg" type="color" value="0xFFFFFF"/>
+	<attribute name="fg" type="color" value="0xE0E0E0"/>
+	<attribute name="speakNowPopupVisible" type="boolean" value="false"/>
+	
+	<!-- the default setup should always be ready as this popup can be shown at login time also -->
+	<handler name="oninit">
+		setup("","",""); 
+	</handler>
+	
+	<method name="setup" args="fm, fc, bc"><![CDATA[
+//Debug.write("setup: " + this.fm + " , " + this.fc + " , " + this.bc);
+		if(fc != null && fc.length > 0){
+			this.setAttribute("fg", new Number(this.fc));
+		}
+		else{
+			this.setAttribute("fg", new Number("0xE0E0E0"));
+		}
+		if(bc != null && bc.length > 0){
+			this.setAttribute("bg", new Number(bc));
+		}
+		else{
+			this.setAttribute("bg", new Number("0x1D4896"));
+		}
+		this.windowbg.drawMe();
+	]]></method>
+	
+	<method name="hide"><![CDATA[
+        this.setAttribute("visible", false);
+		this.setAttribute("speakNowPopupVisible", false);
+		gHotKeys.enableKeys();
+    ]]></method>
+	
+    <method name="show">
+        this.setAttribute("visible", true);
+        this.setAttribute("speakNowPopupVisible", true);
+        gSpeakNowPopup.bringToFront();
+        gHotKeys.disableKeys();
+    </method>
+
+    <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">
+
+        <method name="drawMe">
+            this.clear();
+            
+            var roundness = 5;
+            var thickness = 3;
+            var shadow = 4;
+
+            this.changeColor(parent.bg, parent.fg);
+         </method>
+
+        <method name="changeColor" args="bgcolor, fgcolor">
+            var roundness = 5;
+            var thickness = 0;
+
+            drawRoundRect (thickness, thickness, this.width, this.height, 
+                           roundness,
+                           bgcolor, fgcolor, 1);
+        </method>
+
+        <method name="drawRoundRect" args="x0, y0, x1, y1, roundness, fill, stroke, alpha">
+			
+            this.beginPath();
+            this.rect(x0 , y0 , x1 , y1 , roundness);
+
+            this.closePath();
+            this.setAttribute("globalAlpha", alpha);
+
+            if (fill) {
+                this.setAttribute("fillStyle", fill);
+                this.fill();
+            }
+            if (stroke) {
+                this.setAttribute("strokeStyle", stroke);
+                this.stroke();
+            }
+
+            this.setAttribute("globalAlpha", 1);
+        </method>
+
+    </drawview>
+
+    <view name="contents" x="6" y="6"      
+          width="${parent.windowbg.width - 12}" height="${parent.windowbg.height - 12}" bgcolor="0xC0C0C0"><!--97B8E2"-->
+       <simplelayout axis="x" spacing="11" />  
+       <view name="startRecord" visible="true">
+          <text name="startRecordHeading" 
+        	  font="CTB"	
+              fontsize="19" 
+              fgcolor="0x1D4896"
+			  width="120"
+              multiline="false" y="45" x="25" align="">
+				Speak Now          
+		  </text>
+		</view> 
+
+		<view name="Record" x="180" y="30" resource="start_mic" stretches="both" width="45" height="55"></view>
+		
+		<!--<view name="networkLost" y="12" width="250" height="55" align="center">
+        	<view name="computer" x="6" y="10" resource="system_btn" stretches="both" width="45" height="55"></view>
+         	<view name="Bar"  x="50" y="38" width="14" height="5" resource="simple_bar_btn" />
+			<view name="inBar"  x="${parent.Bar.x}" y="${parent.Bar.y}" width="4" height="5" resource="bar_btn">
+
+                <animator name="barAnimator" attribute="x" from="50" to="136" motion="linear" duration="3000" repeat="9" start="false">
+                    <handler name="onstop">
+                    	this.setAttribute('x',50);
+                    	if(gPleaseWaitPopup.visible == true){
+                    		gController.clearAndRestoreCurrentCursor();	                         	
+                      		this.doStart();
+                      }
+                   </handler>
+               </animator>
+                 
+			</view>		     
+		   <view name="Globe" x="157" y="10" resource="globe_btn" stretches="both" width="45" height="55"></view>-->  
+		</view>
+         
+	</view>
+		
+	
