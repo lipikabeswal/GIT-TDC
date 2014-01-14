@@ -209,11 +209,11 @@
                         visible="false"/>
 			<PauseTimerScreen id="gPauseTimerScreen" name="gPauseTimerScreen" 
 				width="800" height="200" visible="false"/>
-			<view bgcolor="black" id="gUIBlocker" width="800" height="600" visible="false" opacity="0.7">
+			<view bgcolor="black" id="gUIBlocker" width="800" height="600" visible="false" opacity="0.5">
 				<view name="loaderView" y="${(parent.height-this.height)/2}" align="center">
 					<simplelayout axis="y" spacing="10"/>
 					<view name="loader" align="center" resource="uiLoad"/>
-	            	<text x="${(parent.width - this.width)/2}" font="Arial" fontsize="20"> Please Wait while the Sound Recorder is activated </text>
+	            	<text x="${(parent.width - this.width)/2}" fontsize="16" fgcolor="white"> Please Wait while the Sound Recorder is activated </text>
 				</view>
             </view>
 			
