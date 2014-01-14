@@ -413,6 +413,7 @@
 
 		<method name="startblinker" args="methodname"><![CDATA[
 		//console.log("Inside startblinker");
+			blockUI(this);
 			gController.resetMicCheck();
 			this.stopCalled = false;		//to re-use this attribute, reset it
 			gController.disableAllAssets();
@@ -610,13 +611,13 @@
  		</method>
 
 		<method name="handleResponseData" args="d"><![CDATA[
-//Debug.write("handleResponseData :"+d);
 			this.blinkerVal = 0;
 			var result = d.childNodes[0].data;
+			gController.setAttribute('recorderState',result);
 			if(result == 'RECORDING_START'){
 			//Debug.write("RECORDING_START..");
-				if(!this.startRecord)
-				lz.Timer.resetTimer(startRecordDel,200);
+				/*if(!this.startRecord)
+				lz.Timer.resetTimer(startRecordDel,200);*/
 				
 			}
 			else if (result == 'RECORDING_STOP') {

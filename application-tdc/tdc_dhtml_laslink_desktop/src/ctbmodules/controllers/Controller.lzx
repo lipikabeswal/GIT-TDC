@@ -548,6 +548,7 @@
 		<attribute name="revisitCancelClicked" type="boolean" value="false" />
 		<attribute name="iskeyEnabled" type="boolean" value="true"/>
 		<attribute name="goBackPressed" type="boolean" value="false"/>
+		<attribute name="recorderState" type="string" value=""/>
 
 		<!--
 			============================================================

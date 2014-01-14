@@ -261,6 +261,7 @@
 	        <!-- include the please wait popup -->
 	        <include href="ctbmodules/question/RevisitFalsePopup.lzx"/>
 			<include href="ctbmodules/question/PleaseWaitPopup.lzx"/>
+			<include href="ctbmodules/question/SpeakNowPopup.lzx"/>
 			<include href="ctbmodules/question/MusicPlayer.lzx"/>
 			<include href="ctbmodules/manipulatives/maskinganswer/MaskingAnswer.lzx"/>
         </view>
