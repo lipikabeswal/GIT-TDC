@@ -3,9 +3,9 @@
         + 2 * this.BORDER_SIZE}" 
       height="${this.body.height + 2 * this.BORDER_SIZE}"
       clickable="true"
-      shadowdistance="$once{DROP_SHADOW_SIZE}"
-      shadowcolor="rgba(77, 77, 77, 0.8)" 
-      shadowangle="45">
+      shadowcolor="rgba(77, 77, 77, 0.7)" 
+      shadowangle="45"
+	  shadowblurradius="4.5">
 
     <attribute name="scrolltext"/>
     <attribute name="backcolor" value="0xFFFFFF"/>
@@ -14,7 +14,7 @@
     <attribute name="BORDER_SIZE" value="6" type="number"/>
     <attribute name="MIN_HEIGHT" value="200"/>
     <attribute name="MIN_WIDTH" value="300"/>
-    <attribute name="DROP_SHADOW_SIZE" value="4"/>
+    <attribute name="shadowdistance" value="8"/>
     
     <!-- Display styles for the header of the footnote -->
 	<attribute name="NORMAL_DISPLAY_STYLE" type="string" value="NORMAL" />
