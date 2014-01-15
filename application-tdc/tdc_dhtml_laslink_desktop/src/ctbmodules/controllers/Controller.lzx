@@ -2657,6 +2657,7 @@
 
 		<!-- swapping current item -->
 		<method name="changeCurrItemData"><![CDATA[
+			gRecordingPopup.hideAllRecorderPopups();
             var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/item_model/@eid' )
             );
@@ -3550,22 +3551,6 @@
             }else{
             	gController.setAttribute("focusOnScratchpad", false);
             }
-         //For Defect 65881        
-            if(this.recorder != null)
-			{
-			//var recordState = this.recorder.recordState;
-			 this.recorder.stopblinker('stop');
-			 if(this.recorder.whitewrapperOverLay != null){
-				 this.recorder.whitewrapperOverLay.setAttribute('visible', false);
-			 }
-			  if(this.recorder.blackOverLay != null){
-			 	this.recorder.blackOverLay.setAttribute('visible', false);
-			 }
-			 this.blockFileName = false;
-			//if(recordState !='-1'){
-			//	this.updateAudioField(this.recorder.widget_id, true);
-			//	}
-			}		
             setState(FINISH_STATE);
             if(this.isStopTest){
             	this.setAttribute("sendCatSave",false);
@@ -3622,6 +3607,19 @@
 			gMusicPlayer.hide();
             lz.Cursor.unlock();
             //canvas.unFreezUI();
+
+			//For Defect 65881        
+            if(this.recorder != null)
+			{
+				this.recorder.stopblinker('stop');
+				if(this.recorder.whitewrapperOverLay != null){
+				 this.recorder.whitewrapperOverLay.setAttribute('visible', false);
+				}
+				 if(this.recorder.blackOverLay != null){
+					this.recorder.blackOverLay.setAttribute('visible', false);
+				}
+				this.blockFileName = false;
+			}		
 			
 			if(this.adaptive == true){				
 				//if (gScreens.isOnFinishScreen()) {
@@ -5280,8 +5278,7 @@
 				gController.lasAssetArray[i].asset.assetOverley.bringToFront();
 			}
 			//gMusicPlayer.hide();
-			gRecordingPopup.hide();
-			gSpeakNowPopup.hide();
+			gRecordingPopup.hideAllRecorderPopups();
 			stopMicCheck();
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();

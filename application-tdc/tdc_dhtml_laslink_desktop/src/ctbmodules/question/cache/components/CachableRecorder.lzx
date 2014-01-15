@@ -757,7 +757,6 @@
 				isMicAttached = false;
 				gTooltip.hideTooltip(); 
 				this.whitewrapperOverLay.setAttribute('visible',true);
-				gRecordingPopup.hideAllRecorderPopups();
 			}
 
 			if(isMicAttached == false) {
@@ -768,6 +767,7 @@
 				stopblinker('stop');
 				this.resetCalled = false;
 				this.micState = false;//Changes for defect 65977 
+				gRecordingPopup.hideAllRecorderPopups();
 			}
 			else if(isMicAttached == true) {
 				//console.log("Insied else if");			

@@ -13,4 +13,5 @@
    <include href="manipulatives/maskinganswer/MaskingAnswerClass.lzx" />
    <include href="screens/PauseTimerScreen.lzx" />
    <include href="question/MultistatePopup.lzx"/>
+   <include href="question/Spinner.lzx"/>
 </library>
