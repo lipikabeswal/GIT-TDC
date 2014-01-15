@@ -54,14 +54,9 @@
 	<target name="build" description="Builds the various installers" depends="clean">
 
 		<antcall target="buildTASC" />  
-		
-		<!--
-		<antcall target="buildVanilla" />
 
 		<antcall target="buildTABE" />
 
-		<antcall target="buildTASC" />  
-				
 		<antcall target="buildTN" />  
 		
 		<antcall target="buildTNG" />  
@@ -71,7 +66,8 @@
 		<antcall target="buildWV" /> 
 
 		<antcall target="buildGA" /> 
-		-->
+
+		<antcall target="buildVanilla" />
 		
 		<antcall target="postClean"></antcall>
 		<antcall target="buildTDCUpdate"></antcall>
