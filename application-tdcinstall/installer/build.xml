@@ -52,7 +52,10 @@
 	
 	<!-- **************************** build ******************************* -->	
 	<target name="build" description="Builds the various installers" depends="clean">
+
+		<antcall target="buildTASC" />  
 		
+		<!--
 		<antcall target="buildVanilla" />
 
 		<antcall target="buildTABE" />
@@ -68,6 +71,7 @@
 		<antcall target="buildWV" /> 
 
 		<antcall target="buildGA" /> 
+		-->
 		
 		<antcall target="postClean"></antcall>
 		<antcall target="buildTDCUpdate"></antcall>
