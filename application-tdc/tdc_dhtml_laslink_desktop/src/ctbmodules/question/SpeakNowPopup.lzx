@@ -36,6 +36,8 @@
 	<method name="hide"><![CDATA[
         this.setAttribute("visible", false);
 		this.setAttribute("speakNowPopupVisible", false);
+		lz.ModeManager.release(this);
+		gController.removeOverlayOnLasAssets();
 		gHotKeys.enableKeys();
     ]]></method>
 	
@@ -43,7 +45,8 @@
         this.setAttribute("visible", true);
         this.setAttribute("speakNowPopupVisible", true);
         gSpeakNowPopup.bringToFront();
-        gHotKeys.disableKeys();
+        lz.ModeManager.makeModal(this);
+        gController.setOverlayOnLasAssets();
     </method>
 
     <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">

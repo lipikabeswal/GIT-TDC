@@ -379,6 +379,7 @@
         </method>
 
          <method name="show">
+         	gRecordingPopup.hideAllRecorderPopups();
          	gItemInterface.setAttribute('visible', false);
          	gTutorial.setAttribute('visible', false);
          	gSecurityScreen.setAttribute('visible', false);

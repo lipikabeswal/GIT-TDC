@@ -1,0 +1,361 @@
+<library>
+
+    <include href="cssgradient-type.lzx" />
+
+    <!--- outline / border mixin, draws an outline of a drawview
+          using the border-with and border-color CSS values defined. 
+          Can be combined with the styledview mixin to create fully 
+          styleable views. -->
+    <mixin name="drawbox" clip="false">
+
+        <passthrough when="$as3">
+            import flash.display.Shape;
+        </passthrough>
+
+        <!--- Gradient definition.
+              @type cssgradient
+              @access public
+        -->
+        <attribute name="background" value="${null}" type="cssgradient" />
+
+        <!--- border color attribute for CSS style.
+              @type Color
+              @access public
+         -->
+        <attribute name="bordercolor" style="border-color" type="color" value="#cccccc"  />
+
+        <!--- border width attribute for CSS style.
+              @type Number
+              @access public
+         -->
+        <attribute name="borderwidth" style="border-width" value="0"  />
+
+        <!--- corner-radius for CSS style.
+              @type Number
+              @access public
+         -->
+        <attribute name="cornerradius" style="corner-radius" value="0"  />
+
+        <!--- Point definition for background gradient.
+              @type object
+              @access public
+        -->
+        <attribute name="firstpoint" value="null" type="expression" />
+
+        <!--- Mask object for the $as3 runtime; the LFC does not clip
+              views with rounded corners correctly. The mask is used
+              to enable clipping of rounded corners with images.
+              @type object
+              @access public
+        -->
+        <attribute name="_mask" value="null" type="expression" />
+
+        <!--- Point definition for background gradient.
+              @type object
+              @access public
+        -->
+        <attribute name="secondpoint" value="null" type="expression" />
+
+        <!--- Roundrect function in LzKernelUtils.lzs
+              http://svn.openlaszlo.org/openlaszlo/trunk/WEB-INF/lps/lfc/kernel/LzKernelUtils.lzs
+              @type function
+              @access private
+         -->
+        <attribute name="_rect" value="LzKernelUtils.rect" />
+
+        <!---
+              @type Boolean
+              @access private
+        -->
+        <attribute name="_locked" value="true" type="boolean"/>
+
+        <!---
+              @type Boolean
+              @access private
+        -->
+        <attribute name="_boxdrawn" value="false" type="boolean"/>
+
+        <!-- CUSTOM SETTER -->
+        <!--- Setter for gradient attribute.
+              @lzxtype setter
+              @access private
+        -->
+        <setter name="background" args="value">
+            this.background = new lz.CSSGradientType( value );
+            this.redraw();
+        </setter>
+
+        <!-- EVENT HANDLER -->
+        <!--- oninit event handler.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="oninit">
+            this.firstpoint = { x: 0, y: 0 };
+            this.secondpoint = { x: 0, y: 0 };
+            if (this.isinited) {
+                this._locked = false;
+                this.redraw();
+            }
+        </handler>
+
+        <!--- Event is sent when the context is initialized, or there is a
+              change in context size.
+              @lzxtype event
+              @access public
+        -->
+        <handler name="oncontext" method="redraw"/>
+
+
+        <!--- Calls redraw() when the component becomes visible.
+              @param Boolean v: visible state.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="onvisible" args="vis">
+            if (vis) {
+                this.redraw();
+            }
+        </handler>
+
+        <!--- onwidth handler; calls redraw to update the view.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="onwidth">
+            if (! this._locked) {
+                this.redraw();
+            }
+        </handler>
+
+        <!--- onheight handler; calls redraw to update the view.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="onheight">
+            if (! this._locked) {
+                this.redraw();
+            }
+        </handler>
+
+        <!--- onbordercolor handler; calls redraw to update the view.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="onbordercolor">
+            if (! this._locked) {
+                this.redraw();
+            }
+        </handler>
+
+        <!--- onborderwidth handler; calls redraw to update the view.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="onborderwidth">
+            if (! this._locked) {
+                this.redraw();
+            }
+        </handler>
+
+        <!-- METHODS -->
+        <!--- Redraw component.
+              @access public
+        -->
+        <method name="redraw" args="p=null">
+            if (this._locked || this.visible == false) return;
+            if (this._boxdrawn) {
+                this._clear();
+                this._boxdrawn = false;
+            }
+            this.draw();
+        </method>
+
+        <!--- Draw a border around the view.
+              @access public
+        -->
+        <method name="draw"><![CDATA[
+            if (! this._boxdrawn && this.context !== null) {
+                this._boxdrawn = true;
+                if ( this.background != null ) {
+                    this.drawBackground();
+                }
+                this.drawborder();
+            }
+        ]]>
+        </method>
+
+        <!--- Draw the background gradient using the background attribute.
+              @access public
+        -->
+        <method name="drawBackground"><![CDATA[
+            if ( this.background.css == '' ) return;
+            var bgGradient = this.background,
+                bw = this.borderwidth,
+                rad = Number( this.cornerradius ),
+                colorAsHexString = '',
+                colorValue = 0,     // color value converted from hex to int
+                colorStep = 0,      // default step value ( 1 / # of stops )
+                colorStop = null,   // colorstop object
+                colorPos = 0;       // position applied to colorstop
+
+            // Calculate the start and end points for this angle
+            this.endPointsFromAngle( bgGradient.angleDegree );
+            // Define gradient area
+            this.beginPath();
+            this._rect( this, 0, 0, this.width, this.height,
+                            rad, rad, rad, rad );
+            this.closePath();
+            var gradient = this.createLinearGradient( firstpoint.x, firstpoint.y,
+                                                      secondpoint.x, secondpoint.y )
+            this.globalAlpha = 1;
+            colorStep = 1 / ( bgGradient.colorstops.length - 1 );
+            for ( var i =0; i<bgGradient.colorstops.length; i++ ) {
+                colorStop = bgGradient.colorstops[i];
+                colorAsHexString = colorStop.color.replace( "#", "0x" );
+                if ( colorStop.percent != null ) {
+                    colorPos = colorStop.percent / 100;
+                } else {
+                    colorPos = i * colorStep;
+                }
+                colorValue = LzColorUtils.stringToColor( colorAsHexString );
+                gradient.addColorStop( colorPos, colorValue );
+            }
+            this.fillStyle = gradient;
+            this.fill();
+        ]]>
+        </method>
+
+        <!--- Draw the border for this box.
+              @access public
+        -->
+        <method name="drawborder"><![CDATA[
+            var rad = this.borderradius,
+                bw = this.borderwidth;
+            var bw = this.borderwidth,
+                rad = Number( this.cornerradius );
+            if (bw !== 0) {
+                this.beginPath();
+                this._rect( this, 0, 0, this.width-1, this.height-1, rad, rad, rad, rad );
+                this.closePath();
+                this.strokeStyle = this.bordercolor;
+                this.lineWidth = bw;
+                this.stroke();
+            }
+        ]]>
+        </method>
+
+        <method name="_clear">
+            this.__dirty = true;
+            this.clear();
+        </method>
+
+
+        <!--- Compute the endpoints so that a gradient of the given angle covers a box
+              of the given size. Based on the Webkit implementation:
+              https://trac.webkit.org/browser/trunk/Source/WebCore/css/CSSGradientValue.cpp
+              @access private
+              @parameter Number angleDeg: The angle for the gradient.
+        -->
+        <method name="endPointsFromAngle" args="angleDeg"><![CDATA[
+            var slope = 0,
+                halfHeight = Math.round( this.height / 2),
+                halfWidth = Math.round( this.width / 2),
+                perpendicularSlope = 0,
+                c = 0,
+                endX = 0,
+                endY = 0;
+
+            angleDeg = angleDeg % 360;
+
+            if ( angleDeg < 0 ) {
+                angleDeg += 360;
+            }
+
+            // Rotate to the right by 90 degrees
+            angleDeg += 90;
+
+            if ( angleDeg == 0 ) {
+                this.firstpoint.x = 0;
+                this.firstpoint.y = this.height;
+                this.secondpoint.x = 0;
+                this.secondpoint.y = 0;
+                return;
+            }
+
+            if ( angleDeg == 90 ) {
+                this.firstpoint.x = 0;
+                this.firstpoint.y = 0;
+                this.secondpoint.x = this.width;
+                this.secondpoint.y = 0;
+                return;
+            }
+
+            if ( angleDeg == 180 ) {
+                this.firstpoint.x = 0;
+                this.firstpoint.y = 0;
+                this.secondpoint.x = 0;
+                this.secondpoint.y = this.height;
+                return;
+            }
+
+            if ( angleDeg == 270 ) {
+                this.firstpoint.x = this.width;
+                this.firstpoint.y = 0;
+                this.secondpoint.x = 0;
+                this.secondpoint.y = 0;
+                return;
+            }
+
+            // angleDeg is a "bearing angle" (0deg = N, 90deg = E),
+            // but tan expects 0deg = E, 90deg = N.
+            slope = Math.tan( this.deg2rad( 90 - angleDeg ) );
+
+            // We find the endpoint by computing the intersection of the line formed by the slope,
+            // and a line perpendicular to it that intersects the corner.
+            perpendicularSlope = -1 / slope;
+
+            // Compute start corner relative to center, in Cartesian space (+y = up).
+            halfHeight = this.height / 2;
+            halfWidth = this.width / 2;
+            var endCorner = { x: 0, y: 0 };
+            if (angleDeg < 90) {
+                endCorner.x = halfWidth;
+                endCorner.y = halfHeight;
+            } else if (angleDeg < 180) {
+                endCorner.x = halfWidth;
+                endCorner.y = -halfHeight;
+            } else if (angleDeg < 270) {
+                endCorner.x = -halfWidth;
+                endCorner.y = -halfHeight;
+            } else {
+                endCorner.x = -halfWidth;
+                endCorner.y = halfHeight;
+            }
+
+            // Compute c (of y = mx + c) using the corner point.
+            c = endCorner.y - perpendicularSlope * endCorner.x;
+            endX = c / (slope - perpendicularSlope);
+            endY = perpendicularSlope * endX + c;
+
+            // We computed the end point, so set the second point,
+            // taking into account the moved origin and the fact that we're in drawing space (+y = down).
+            this.secondpoint.x = halfWidth + endX;
+            this.secondpoint.y = halfHeight - endY;
+            // Reflect around the center for the start point.
+            this.firstpoint.x = halfWidth - endX;
+            this.firstpoint.y = halfHeight + endY;
+        ]]></method>
+
+        <!--- Converts degrees to radians.
+              @access private
+              @parameter Number angle: Angle in degrees.
+              @return {Number} Value in rad.
+        -->
+        <method name="deg2rad" args="angle"><![CDATA[
+            return angle * .017453292519943295; // (angle / 180) * Math.PI;
+        ]]></method>
+
+    </mixin>
+
+</library>

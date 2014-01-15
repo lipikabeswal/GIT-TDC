@@ -1,0 +1,98 @@
+	<MultistatePopup
+        id="gRecordingPopup"
+        align="center" valign="middle"
+        width="300" height="160"
+        cornerradius="5"
+        bordercolor="#314d87"
+        borderwidth="12"
+        opacity="1.0"
+        clip="false"
+		visible="false">
+
+		<attribute name="stage" type="number" value="1" />
+
+        <method name="show">
+			gHotKeys.disableKeys();
+			canvas.titleView.mainView.scalingView.gView.coverview.setAttribute('visible',true);
+			this.setAttribute('visible',true);
+            lz.Timer.addTimer( _timer, 2000 );
+			this.bringToFront();
+			lz.ModeManager.makeModal(this);
+        </method>
+
+		<method name="hide">
+			this.setAttribute('visible',false);
+			lz.ModeManager.release(this);
+		</method>
+
+        <attribute name="_timer" type="expression" value="$once{new lz.Delegate(this, 'showNextStage')}" />
+
+        <method name="showNextStage" args="ignore=null">
+            console.log("showNextStage: stage=%s", stage);
+			if(gController.recorderState == 'RECORDING_START'){
+				if ( stage == 1 ) {
+					hide();
+	                gSpeakNowPopup.show();
+					this.stage++;	
+					lz.Timer.resetTimer( _timer, 2000);
+	            } else {
+					hideAllRecorderPopups();
+	            }
+			}else{
+	            lz.Timer.resetTimer( _timer, 2000);
+			}
+        </method>
+
+		<method name="hideAllRecorderPopups"><![CDATA[
+			lz.Timer.removeTimer( _timer);
+			this.hide();
+			gSpeakNowPopup.hide();
+			canvas.titleView.mainView.scalingView.gView.coverview.setAttribute('visible',false);
+			if(gController.recorder!=null && !gController.recorder.startRecord){
+				gController.recorder.setStartRecord();
+			}
+            this.stage = 1;
+		]]>
+		</method>
+
+        <!-- spinner -->
+        <view name="spinner" y="20"
+              width="60" height="60" align="center">
+            <handler name="oninit">
+                var opts = {
+                  lines: 11, // The number of lines to draw
+                  length: 10, // The length of each line
+                  width: 7, // The line thickness
+                  radius: 15, // The radius of the inner circle
+                  corners: 1, // Corner roundness (0..1)
+                  rotate: 0, // The rotation offset
+                  direction: 1, // 1: clockwise, -1: counterclockwise
+                  color: '#555555', // #rgb or #rrggbb or array of colors
+                  speed: 1, // Rounds per second
+                  trail: 60, // Afterglow percentage
+                  shadow: false, // Whether to render a shadow
+                  hwaccel: false, // Whether to use hardware acceleration
+                  className: 'spinner', // The CSS class to assign to the spinner
+                  zIndex: 2e9, // The z-index (defaults to 2000000000)
+                  top: '0', // Top position relative to parent in px
+                  left: '0' // Left position relative to parent in px
+                };
+                var spinner = new Spinner(opts).spin( this.getDisplayObject() );
+            </handler>
+        </view>
+
+        <view name="message" align="center" y="100">
+            <text font="CTB" fontsize="21" mutltiline="false" resize="true" align="center">Please Wait
+				<handler name="oninit">
+					var elm = this.getDisplayObject();
+					elm.setAttribute('style','font-family: CTB; font-size: 21px; line-height: 25px; pointer-events: none; width: auto; height: 25px;');
+				</handler>
+			</text>
+        </view>
+
+    </MultistatePopup>
+
+	<!--<view name="coverview"
+          width="100%" height="100%"
+          opacity="0.0" bgcolor="#666666" />-->
+

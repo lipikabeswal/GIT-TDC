@@ -261,9 +261,14 @@
 	        <!-- include the please wait popup -->
 	        <include href="ctbmodules/question/RevisitFalsePopup.lzx"/>
 			<include href="ctbmodules/question/PleaseWaitPopup.lzx"/>
-			<include href="ctbmodules/question/SpeakNowPopup.lzx"/>
 			<include href="ctbmodules/question/MusicPlayer.lzx"/>
 			<include href="ctbmodules/manipulatives/maskinganswer/MaskingAnswer.lzx"/>
+			<include href="ctbmodules/question/SpeakNowPopup.lzx"/>
+			<include href="ctbmodules/question/RecorderWaitPopup.lzx"/>
+
+			<view name="coverview" visible="false"
+	          width="100%" height="100%"
+	          opacity="0.6" bgcolor="#666666" />
         </view>
 
     </view>

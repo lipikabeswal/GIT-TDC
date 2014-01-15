@@ -413,7 +413,8 @@
 
 		<method name="startblinker" args="methodname"><![CDATA[
 		//console.log("Inside startblinker");
-			blockUI(this);
+			//blockUI(this);
+			gRecordingPopup.show();
 			gController.resetMicCheck();
 			this.stopCalled = false;		//to re-use this attribute, reset it
 			gController.disableAllAssets();
@@ -756,6 +757,7 @@
 				isMicAttached = false;
 				gTooltip.hideTooltip(); 
 				this.whitewrapperOverLay.setAttribute('visible',true);
+				gRecordingPopup.hideAllRecorderPopups();
 			}
 
 			if(isMicAttached == false) {
