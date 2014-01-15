@@ -131,6 +131,7 @@ public class SoundRecorder extends HttpServlet {
 		try {
 
 			targetDataLine.stop();
+			Thread.sleep(1000);
 			targetDataLine.drain();
 			targetDataLine.close();
 			
@@ -199,6 +200,7 @@ public class SoundRecorder extends HttpServlet {
 			System.out.println("resetAudio....");
 			boolean fileDeleted = true;
 			targetDataLine.stop();
+			Thread.sleep(1000);
 			targetDataLine.drain();
 			targetDataLine.close();
 
