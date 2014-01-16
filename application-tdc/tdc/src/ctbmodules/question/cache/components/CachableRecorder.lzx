@@ -65,7 +65,7 @@
 		<!-- For LLO128-->
 		<attribute name="requestSent" type="boolean" value="false"/>
 		<attribute name="micConnected" type="boolean" value="false"/>
-
+		<attribute name="startRecord" type="boolean" value="false" />
 
 
 <dataset name="audioDset"
@@ -409,7 +409,7 @@
 				this.increment = bar.width / this.defaultTotalTime;
 				this.recordButton.setAttribute("enabled", false);
 				this.green.setVisible(false);
-				gController.updateAudioField(this.widget_id, true);					
+				//gController.updateAudioField(this.widget_id, true);					
 			}
 		]]></method>
 
@@ -423,6 +423,7 @@
 					gController.enableAllAudio();
 				}
 			this.red.setVisible(false);
+			this.setAttribute('startRecord',false);
 			this.redReplace.setVisible(false);
 			this.blinkerVal = 0;			//reset this for blinking the red ball
 			if(!isLinux())
@@ -452,6 +453,7 @@
 					this.resetCalled = true;
 					gController.updateAudioField(this.widget_id, false);
 				}
+				this.setAttribute('startRecord',false);
 				this.stopCalled = true;			//set true 
 				this.micState = false;			//reset this attribute also
 				this.blinkerVal = 0;			//reset this for blinking the red ball
@@ -554,6 +556,8 @@
 		</method>
 		
 		<method name="setStartRecord">
+			this.setAttribute('startRecord',true);
+			gController.updateAudioField(this.widget_id, true);
 			startCountDownTimer();
 			blinker();
 			this.stopButton.setAttribute("enabled", true);
@@ -632,12 +636,12 @@
 
 			if(activityArray.length < 16) {
 				if(activityArray.length == 15) {
-				//Debug.write("1");
+				/*Debug.write("1");
 				if(os == 'Windows 7' && Microphone.names.length > 0){
 					isMicAttached = true;
-				}else{
+				}else{*/
 					isMicAttached = activityCalibrate(activityArray); 	
-				}
+				//}
 							
 				}else{
 					if(level <= 0) {
@@ -677,7 +681,7 @@
 					
 				//this.meterContainer.setAttribute('visible',true);
 				this.whitewrapperOverLay.setVisible(false);	 				
-				if(this.recordStarted == true){
+				if(this.recordStarted == true && (this.getAttribute('startRecord') == true)){
 					if(this.blinkerVal >= 3){
 						this.toggleRedDisplay();
 						this.blinkerVal = 0;

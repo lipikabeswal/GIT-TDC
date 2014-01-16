@@ -28,7 +28,7 @@
 
         <attribute name="_timer" value="$once{new LzDelegate(this, 'showNextStage')}" />
 
-        <method name="showNextStage">
+        <method name="showNextStage"><![CDATA[	
             Debug.write("showNextStage" ,stage, gController.getAttribute('recorderState'));
 			if(gController.getAttribute('recorderState') == 'RECORDING_START'){
 				if ( this.getAttribute('stage') == 1 ) {
@@ -44,7 +44,7 @@
 					gSpeakNowPopup.hide();
 					canvas.titleView.mainView.scalingView.gView.coverview.setAttribute('visible',false);
 					Debug.write("hideAllRecorderPopups ",gController.getAttribute('recorder'));
-					if(gController.getAttribute('recorder')!=null){
+					if(gController.getAttribute('recorder')!=null  && !gController.getAttribute('recorder').getAttribute('startRecord')==true){
 						gController.getAttribute('recorder').setStartRecord();
 					}
 					this.setAttribute('stage',1);
@@ -52,7 +52,7 @@
 			}else{
 	            LzTimer.resetTimer( _timer, 2000);
 			}
-        </method>
+        ]]></method>
 
 		<method name="hideAllRecorderPopups"><![CDATA[
 			LzTimer.removeTimer( _timer);
