@@ -410,6 +410,8 @@
 				this.recordButton.setAttribute("enabled", false);
 				this.green.setVisible(false);
 				//gController.updateAudioField(this.widget_id, true);					
+			}else{
+				LzTimer.resetTimer(this.recordDel, 300);
 			}
 		]]></method>
 
@@ -636,8 +638,8 @@
 
 			if(activityArray.length < 16) {
 				if(activityArray.length == 15) {
-				Debug.write("1");
-				if(os == 'Windows 7' && Microphone.names.length > 0){
+				
+				if((os == 'Windows 7' && Microphone.names.length > 0) || (os == 'Windows 8' && Microphone.names.length > 0)){
 					isMicAttached = true;
 				}else{
 					isMicAttached = activityCalibrate(activityArray); 	
