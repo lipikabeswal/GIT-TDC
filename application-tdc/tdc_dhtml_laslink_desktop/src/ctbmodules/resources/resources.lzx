@@ -608,7 +608,7 @@
 	<resource name="logo" src="logos/logoLASLINKS.png"/>
 	
 	<resource name="start_mic">
-       	<frame src="components/recorder/mic_tr.png"/>
+       	<frame src="components/recorder/microphone_red.png"/>
 	</resource>
 	
 	<!-- ****************** End Recorder Resources ************************************************* -->
