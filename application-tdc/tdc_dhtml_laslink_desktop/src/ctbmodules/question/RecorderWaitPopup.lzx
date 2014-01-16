@@ -2,9 +2,6 @@
         id="gRecordingPopup"
         align="center" valign="middle"
         width="300" height="160"
-        cornerradius="5"
-        bordercolor="#314d87"
-        borderwidth="12"
         opacity="1.0"
         clip="false"
 		visible="false">
