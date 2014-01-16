@@ -1,0 +1,85 @@
+<library>
+
+    <!--- Mixin with CSS attributes for visual styling of components.
+    -->
+    <mixin name="styledview">
+
+        <!--- width
+              @type number
+              @lzxdefault 0
+              @access public
+        -->
+        <attribute name="width" style="width"/>
+
+        <!--- height
+              @type number
+              @lzxdefault 0
+              @access public
+        -->
+        <attribute name="height" style="height"/>
+
+        <!--- foreground or text color
+              @type color
+              @lzxdefault null
+              @access public
+        -->
+        <attribute name="fgcolor" type="color" style="color" inherit="true"/>
+
+        <!--- background color of the view
+              @type color
+              @lzxdefault null
+              @access public
+        -->
+        <attribute name="bgcolor" type="color" style="background-color" value="null"/>
+
+        <!--- rounded corners angle
+              @type string
+              @lzxdefault 0
+              @access public
+        -->
+        <attribute name="cornerradius" type="string" style="cornerradius" value="0"/>
+
+        <!--- color for highlighting
+              @type color
+              @lzxdefault null
+              @access public
+        -->
+        <attribute name="highlightcolor" type="color" style="highlight-color" inherit="true"/>
+
+        <!--- view opacity
+              @type number
+              @lzxdefault 1
+              @access public
+        -->
+        <attribute name="opacity" type="number" style="opacity" value="1"/>
+
+        <!--- shadow color
+              @type color
+              @lzxdefault null
+              @access public
+        -->
+        <attribute name="shadowcolor" type="color" style="shadow-color" value="null"/>
+
+        <!--- distance (offset) of shadow in pixel
+              @type number
+              @lzxdefault 0
+              @access public
+        -->
+        <attribute name="shadowdistance" type="number" style="shadow-distance" value="0"/>
+
+        <!--- blur radius applied to shadow
+              @type number
+              @lzxdefault 0
+              @access public
+        -->
+        <attribute name="shadowblurradius" type="number" style="shadow-blurradius" value="0"/>
+
+        <!--- angle of shadow, applied in combination with shadowdistance
+              @type number
+              @lzxdefault 45
+              @access public
+        -->
+        <attribute name="shadowangle" type="number" style="shadow-angle" value="45"/>
+
+    </mixin>
+</library>

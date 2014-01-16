@@ -582,8 +582,6 @@
        	<frame  src="components/recorder/stay_down.png"/>
 	</resource>
 	
-	<resource name="uiLoad" src="components/recorder/busy.gif"/>
-	
 	<resource name="start_mic">
        	<frame src="components/recorder/mic_tr.png"/>
 	</resource>

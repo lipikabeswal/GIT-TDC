@@ -65,8 +65,6 @@
 		<!-- For LLO128-->
 		<attribute name="requestSent" type="boolean" value="false"/>
 		<attribute name="micConnected" type="boolean" value="false"/>
-		<attribute name="dUnblockUI" value="$once{new LzDelegate(this,'unblockUI')}" />
-		<attribute name="dHidePopup" value="$once{new LzDelegate(this,'hidePopup')}" />
 
 
 
@@ -366,8 +364,7 @@
 		</view>
 
 		<method name="startblinker" args="methodname"><![CDATA[
-			gUIBlocker.setAttribute('visible', true);
-			LzTimer.resetTimer(this.dUnblockUI,2000);
+			gRecordingPopup.show();
 			this.stopCalled = false;		//to re-use this attribute, reset it 
 			this.blinkerVal = 0;
 			if(!this.recordStarted) {
@@ -384,27 +381,6 @@
 				setRecordDelegate();
 			}		
 		]]></method>
-		
-		<method name="unblockUI">
-			Debug.write("In unblockUI*********",gController.recorderState);
-			if(gController.recorderState == 'RECORDING_START'){
-    			gUIBlocker.setAttribute('visible', false);
-    			gSpeakNowPopup.show();
-    			LzTimer.resetTimer(this.dHidePopup,1000);
-    			gController.setAttribute('recorderState','');
-    		}else{
-    			LzTimer.resetTimer(this.dUnblockUI,2000);
-    		}
-		</method>
-		
-		<method name="hidePopup">
-			Debug.write("In hidePopup*********");
-			gSpeakNowPopup.hide();
-			startCountDownTimer();
-			blinker();
-			this.stopButton.setAttribute("enabled", true);
-			gController.unlockUI();
-		</method>
 
 		<method name="callRecordMethod">
 //Debug.write("callRecordMethod.....");	
@@ -576,6 +552,12 @@
 			}
 			//gCommunicator.finishCall(d,audioDset);
 		</method>
+		
+		<method name="setStartRecord">
+			startCountDownTimer();
+			blinker();
+			this.stopButton.setAttribute("enabled", true);
+		</method>
 
 		<method event="oninit">
 			var base = LzBrowser.getInitArg( 'servletUrl' );
@@ -683,6 +665,7 @@
 			}
 
 			if(isMicAttached == false) {
+				gRecordingPopup.hideAllRecorderPopups();
 				this.blinkerVal = 0;
 				this.whitewrapperOverLay.setVisible(true);
 				stopblinker('stop');

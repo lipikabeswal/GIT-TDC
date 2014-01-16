@@ -209,13 +209,6 @@
                         visible="false"/>
 			<PauseTimerScreen id="gPauseTimerScreen" name="gPauseTimerScreen" 
 				width="800" height="200" visible="false"/>
-			<view bgcolor="black" id="gUIBlocker" width="800" height="600" visible="false" opacity="0.5">
-				<view name="loaderView" y="${(parent.height-this.height)/2}" align="center">
-					<simplelayout axis="y" spacing="10"/>
-					<view name="loader" align="center" resource="uiLoad"/>
-	            	<text x="${(parent.width - this.width)/2}" fontsize="16" fgcolor="white"> Please Wait while the Sound Recorder is activated </text>
-				</view>
-            </view>
 			
 	        <!-- include the please wait popup -->
 	        <include href="ctbmodules/question/RevisitFalsePopup.lzx"/>
@@ -223,6 +216,12 @@
 			<include href="ctbmodules/question/MusicPlayer.lzx"/>
 			<include href="ctbmodules/manipulatives/maskinganswer/MaskingAnswer.lzx"/>
 			<include href="ctbmodules/question/SpeakNowPopup.lzx"/>
+			<include href="ctbmodules/question/RecorderWaitPopup.lzx"/>
+
+			<view name="coverview" visible="false"
+			  clickable="true"
+	          width="100%" height="100%"
+	          opacity="0.6" bgcolor="#666666" />
         </view>
 			
     </view>

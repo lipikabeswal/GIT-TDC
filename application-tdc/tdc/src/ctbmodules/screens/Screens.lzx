@@ -385,6 +385,7 @@
         </method>
 
          <method name="show">
+         	gRecordingPopup.hideAllRecorderPopups();
          	gItemInterface.setVisible(false);
          	gTutorial.setVisible(false);
             this.setVisible( true );

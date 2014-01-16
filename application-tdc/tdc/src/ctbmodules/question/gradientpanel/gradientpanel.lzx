@@ -1,0 +1,23 @@
+<library>
+	
+	
+
+    <!--- View/panel with CSS gradient and CSS boxmodel support -->
+    <class name="gradientpanel">
+
+        <!-- CSS attributes -->
+        <!--- Window width.
+              @type
+              @access public
+        -->
+        <attribute name="width" value="200" type="size" style="width" />
+
+        <!--- Window height.
+              @type
+              @access public
+        -->
+        <attribute name="height" value="200" type="size" style="height" />
+
+    </class>
+
+</library>

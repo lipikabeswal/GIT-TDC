@@ -36,14 +36,16 @@
 	<method name="hide"><![CDATA[
         this.setAttribute("visible", false);
 		this.setAttribute("speakNowPopupVisible", false);
+		LzModeManager.release(this);
 		gHotKeys.enableKeys();
+		gManipulatives.setVisible(true);
     ]]></method>
 	
     <method name="show">
         this.setAttribute("visible", true);
         this.setAttribute("speakNowPopupVisible", true);
         gSpeakNowPopup.bringToFront();
-        gHotKeys.disableKeys();
+        LzModeManager.makeModal(this);
     </method>
 
     <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">
@@ -98,8 +100,8 @@
               fontsize="19" 
               fgcolor="0x1D4896"
 			  width="120"
-              multiline="false" y="45" x="25" align="">
-				Speak Now          
+              multiline="false" y="45" x="25">
+				Speak Now...
 		  </text>
 		</view> 
 

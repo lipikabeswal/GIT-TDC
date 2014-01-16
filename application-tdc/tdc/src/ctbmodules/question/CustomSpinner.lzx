@@ -1,0 +1,84 @@
+<library>
+
+    <class name="CustomSpinner" extends="drawview">
+
+        <attribute name="props" value="{}" />
+
+        <attribute name="timerdel" value="$once{new LzDelegate(this, 'rotateAnim')}" />
+
+        <attribute name="isready" value="false" type="boolean" />
+
+        <attribute name="isrunning" value="false" type="boolean" />
+
+        <handler name="oninit"><![CDATA[
+            this.props = {
+                rotations: null,
+                rotIndex: 0,
+                lines: 13,            // The number of lines to draw
+                length: 7,            // The length of each line
+                lineWidth: width/13,         // The line thickness
+                radius: 10,           // The radius of the inner circle
+                color: 0x777777,
+                fps: 15
+            }
+            var rots = [];
+            for (var i=0; i<props.lines; i++) {
+                rots[ i ] = i * (360 / props.lines);
+            }
+            props.rotations = rots;
+        ]]></handler>
+
+        <method name="rotateAnim"><![CDATA[
+            var angle = props.rotations[ props.rotIndex ];
+            var incAngle = 360 / props.lines;
+            var p = null;    // point data calculated
+            this.clear();
+            for (var i = 0; i < props.lines; i++) {
+                drawLineAtAngle(width/2 - props.lineWidth/2, height/3, angle, Math.min(i / props.lines + .2, 1));
+                angle += incAngle;
+            }
+            if (isrunning) {
+                LzTimer.resetTimer(timerdel, 1000 / props.fps);
+            }
+            if (props.rotIndex < props.rotations.length - 1) {
+                props.rotIndex++;
+            } else {
+                props.rotIndex = 0;
+            }
+        ]]></method>
+
+        <method name="drawLineAtAngle" args="x,y,angle,opacity">
+            this.beginPath();
+            this.strokeStyle = props.color
+            this.globalAlpha = opacity;
+            this.lineWidth = props.lineWidth;
+            var p = rotatePoint(width/2, height/3, width/2, height/2, angle);
+            this.moveTo(p.x, p.y);
+            p = rotatePoint(width/2, width/20, width/2, height/2, angle)
+            this.lineTo(p.x, p.y)
+            this.stroke();
+        </method>
+
+        <method name="startAnim"><![CDATA[
+            setAttribute("isrunning", true);
+            rotateAnim();
+            LzTimer.addTimer(timerdel,100);
+        ]]></method>
+
+        <method name="stopAnim">
+            setAttribute("isrunning", false);
+            LzTimer.removeTimer(timerdel);
+        </method>
+
+        <method name="rotatePoint" args="pointX, pointY, originX, originY, angle">
+            angle = angle * Math.PI / 180.0;
+            return {
+                x: Math.cos(angle) * (pointX-originX) - Math.sin(angle) * (pointY-originY) + originX,
+                y: Math.sin(angle) * (pointX-originX) + Math.cos(angle) * (pointY-originY) + originY
+            };
+        </method>
+
+    </class>
+
+
+</library>

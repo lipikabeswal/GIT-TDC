@@ -2746,7 +2746,8 @@
          //hideMagnifierGlass(); 
         ]]></method>
 
-		<method name="changeItem" args="fnode"><![CDATA[		
+		<method name="changeItem" args="fnode"><![CDATA[	
+			gRecordingPopup.hideAllRecorderPopups();	
 			if(fnode != null) {			
 				if(this.recorder != null) {
 					this.recorder.stopblinker('stop');
@@ -4847,6 +4848,7 @@ Debug.write("out of time 1 ans" + isAnswered);
 		    this.isWaitPopupOpen = true;
            	clearAndRestoreCurrentCursor();	
 	   		gPleaseWaitPopup.show();
+	   		gRecordingPopup.hideAllRecorderPopups();
 			gMusicPlayer.hide();
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();

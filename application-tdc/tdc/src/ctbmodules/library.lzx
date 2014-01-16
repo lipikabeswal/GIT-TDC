@@ -11,5 +11,7 @@
     <include href="rich-text"/>
     <include href="manipulatives/maskinganswer/MaskingAnswerClass.lzx" />
     <include href="screens/PauseTimerScreen.lzx" />
+    <include href="question/MultistatePopup.lzx"/>
+    <include href="question/CustomSpinner.lzx"/>
 
 </library>

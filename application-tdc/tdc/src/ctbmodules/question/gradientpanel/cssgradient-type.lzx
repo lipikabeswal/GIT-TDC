@@ -1,0 +1,217 @@
+<library>
+
+    <!-- <script when="immediate"><![CDATA[
+    /**
+    * Type class for CSS gradients using the notation
+    * linear-gradient(225deg, #{COLOR}, #{COLOR} 20%, #{COLOR} 70%, #{COLOR})
+    * linear-gradient(225deg, rgb({0-255}, {0-255}, {0-255}) 20%, , rgb({0-255}, {0-255}, {0-255}) 80%)
+    * See http://www.w3.org/TR/css3-images/#linear-gradients for the CSS specification
+    * We currently only support angles and color stops without and with percent notation, there is
+    * no support for background images using url() syntax, or for rgba with alpha values.
+    * 0deg is a gradient line pointing to the top. Angles increase in a clockwise direction.
+    *
+    * http://blogs.msdn.com/b/ie/archive/2012/06/25/unprefixed-css3-gradients-in-ie10.aspx
+    *
+    * Please use the following LzUnit testsuite when making changes to this file:
+    * http://localhost:8080/trunk/app/lzx/test/lzunit/types/cssgradientparser-test.lzx?lzoptions=runtime(dhtml)%2Cproxied(false)
+    * http://localhost:8080/trunk/app/lzx/test/lzunit/types/cssgradientparser-test.lzx?lzoptions=runtime(swf10)%2Cproxied(false)
+    *
+    * @access private
+    */
+    class $lzc$class_CSSGradientType {
+
+        var angleDegree:Number;
+        var colorstops:Array;
+        var css:String;
+
+        const _lz = lz;
+        const _parseInt = parseInt;
+        const _parseFloat = parseFloat;
+        const _string = String;
+
+        /* Regular expressions used when parsing css */
+        const _multipleSpaceReg = new RegExp( ' +(?= )', 'g' );
+        const _gradientRegHexcolor =
+            new RegExp( 'linear-gradient*\\(([+-]?[0-9.]{1,3}\\.?\\d*)deg,[ ]?' +
+                        '([ ,#a-fA-F0-9.%]+)\\)' );
+        const _gradientRegRGB =
+            new RegExp( '^linear-gradient*\\(([+-]?[0-9.]{1,3}\\.?\\d*)deg,[ ]?' +
+                        '([ rgb0-9\\(\\),%]+)\\)$' );
+        const _leadingWhitespaceReg = new RegExp( '^[ ]*' );
+        const _colorStopHexReg = new RegExp( '^(#[a-fA-F0-9]{6})$' );
+        const _colorStopHexPercentReg = new RegExp( '(#[a-fA-F0-9]{6}) ([0-9.]+)' );
+        const _colorStopRGBReg =
+            new RegExp( '(rgb\\(\\d{1,3},\\d{1,3},\\d{1,3}\\)[ ]?\\d*%?)', 'g' );
+        const _rgbValReg =
+            new RegExp( '(rgb\\(\\d{1,3},\\d{1,3},\\d{1,3}\\))[ ]?(\\d*)%?' );
+
+        function $lzc$class_CSSGradientType(value:String) {
+            this.setBackground( value );
+        }
+
+        /**
+         * Processes the CSS value and resets the state if the gradient is not valid.
+         * @param String cssValue: The CSS string.
+         */
+        function setBackground(cssValue:String) {
+            if ( cssValue == null ) {
+                this.css = '';
+                return;
+            }
+            if ( cssValue.length > 0 ) {
+                // Remove leading whitespace
+                cssValue.replace( _leadingWhitespaceReg, '' );
+                // Replace multiple spaces with single spaces
+                cssValue = cssValue.replace( _multipleSpaceReg, '' );
+            }
+            this.css = cssValue;
+            if ( ! this.parseGradient( this.css ) ) {
+                this.colorstops = [];
+                this.css = '';
+            }
+        }
+
+        /**
+         * Parses the gradient and extracts the angle and color stop values.
+         * Supports hex and rgb color values with stops in %.
+         * @param String cssValue: The CSS string.
+         * @return {Boolean} true for a valid gradient.
+         */
+        function parseGradient( value ):Boolean {
+            if (! value) return false;
+            var isValid = false,
+                startpos = 0,
+                stopItems = null,
+                it = null,
+                match = null,
+                cStop = null,
+                colorRGB = '';
+            this.colorstops = [];
+            // Check if
+            var gradMatchRes = value.match( _gradientRegHexcolor );
+            if ( gradMatchRes != null && gradMatchRes.length == 3 ) {
+                // 2nd array item contains the degrees
+                angleDegree = this._parseInt( gradMatchRes[1] );
+
+                // Process the colorstop items
+                stopItems = gradMatchRes[2].split( ',' );
+                for (var i =0; i < stopItems.length; i++ ) {
+                    it = stopItems[i].replace( _leadingWhitespaceReg, "" );
+                    match = it.match( _colorStopHexPercentReg );
+                    if ( match != null ) {
+                        colorRGB = LzColorUtils.torgb( match[ 1 ] );
+                        cStop = { color: colorRGB,
+                                  percent: this._parseInt( match[ 2 ]),
+                                  alpha: 1.0 };
+                    } else {
+                        match = it.match( _colorStopHexReg );
+                        if ( match == null && $debug ) {
+                            Debug.warn( "'%s' is not a valid CSS gradient value: " +
+                                        "Incorrect color-stop value '%s'!", value, it );
+                            return false;
+                        } else {
+                            colorRGB = LzColorUtils.torgb( it );
+                            cStop = { color: colorRGB,
+                                      percent: null,
+                                      alpha: 1.0 };
+                        }
+                    }
+                    this.colorstops[ i ] = cStop;
+                }
+                isValid = true;
+            }
+
+            // If the hex based color stop match failed, look for RGB(A) based
+            // color stop entries.
+            if ( ! isValid ) {
+                gradMatchRes = value.match( _gradientRegRGB );
+                if ( gradMatchRes != null && gradMatchRes.length == 3 ) {
+                    // 2nd array item contains the degrees
+                    angleDegree = this._parseInt( gradMatchRes[1] );
+
+                    // Process the colorstop items
+                    stopItems = gradMatchRes[2].match( _colorStopRGBReg );
+                    for ( var i=0; i < stopItems.length; i++ ) {
+                        it = stopItems[ i ].replace( _multipleSpaceReg, '' );
+                        colorRGB = stopItems[ i ].match( _rgbValReg );
+                        if ( colorRGB != null ) {
+                            cStop = {
+                                color: colorRGB[1],
+                                percent: colorRGB[2] == '' ? null: _parseInt( colorRGB[2] )
+                            };
+                        } else {
+                            if ( $debug ) {
+                                Debug.warn( "'%s' is not a valid CSS gradient value: " +
+                                            "Incorrect color-stop value '%s'!", value, it );
+                            }
+                            return false;
+                        }
+                        this.colorstops[ i ] = cStop;
+                    }
+                    isValid = true;
+                }
+            }
+
+            if ( ! isValid ) {
+                if ( $debug ) Debug.warn( "'" + value + "' is not a valid CSS gradient value!" );
+                this.css = '';
+            } else {
+                this.css = this.toCSSValue();
+            }
+            return isValid;
+        }
+
+        /**
+         * Returns the CSS value representation of the current gradient using rgb() color values.
+         * @param Boolean convertPrefixedAngle: If true, converts prefixed angles to CSS standard
+         *                based one where 0 degrees stands for top/North. Used in the tests
+         *                to convert unprefixed gradient definitions to the prefixed values
+         *
+         * @return {Boolean} true for a valid gradient.
+         */
+        function toCSSValue( convertPrefixedAngle=false ):String {
+            var cssValue = '',
+                cStop = null;
+            if ( this.css != '' ) {
+                cssValue = 'linear-gradient(';
+                if ( convertPrefixedAngle == true ) {
+                    cssValue += Math.abs( this.angleDegree - 450) % 360;
+                } else {
+                    cssValue += this.angleDegree;
+                }
+                cssValue += 'deg';
+                for ( var i = 0; i<this.colorstops.length; i++ ) {
+                    cStop = this.colorstops[i];
+                    cssValue += ", " + cStop.color;
+                    cStop = this.colorstops[i];
+                    if ( cStop.percent != null) {
+                        cssValue += " " + cStop.percent + "%";
+                    }
+                }
+                cssValue += ')';
+            }
+            return cssValue;
+        }
+    }
+
+    lz.CSSGradientType = $lzc$class_CSSGradientType;
+
+    ]]></script> -->
+    <!--
+      CSS gradient presentation type for gradient definitions.
+      @access private
+    -->
+    <type name="cssgradient">
+        <accept args="value:value, node:LzNode, attribute:String">
+            return new LzCSSGradientType(value);
+        </accept>
+
+        <present args="value:value, node:LzNode, attribute:String"><![CDATA[
+            if ( value != null && typeof value.css != 'undefined') {
+                return value.toCSSValue();
+            }
+            return null;
+        ]]></present>
+    </type>
+
+</library>
