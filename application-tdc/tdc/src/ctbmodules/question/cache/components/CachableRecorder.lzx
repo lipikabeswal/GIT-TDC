@@ -636,12 +636,12 @@
 
 			if(activityArray.length < 16) {
 				if(activityArray.length == 15) {
-				/*Debug.write("1");
+				Debug.write("1");
 				if(os == 'Windows 7' && Microphone.names.length > 0){
 					isMicAttached = true;
-				}else{*/
+				}else{
 					isMicAttached = activityCalibrate(activityArray); 	
-				//}
+				}
 							
 				}else{
 					if(level <= 0) {
