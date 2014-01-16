@@ -39,6 +39,7 @@
 		lz.ModeManager.release(this);
 		gController.removeOverlayOnLasAssets();
 		gHotKeys.enableKeys();
+		gManipulatives.setAttribute('visible',true);
     ]]></method>
 	
     <method name="show">

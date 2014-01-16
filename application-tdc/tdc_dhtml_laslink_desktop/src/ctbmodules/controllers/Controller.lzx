@@ -3399,6 +3399,7 @@
 			
 		<method name="pauseTest">
 		 if ( pausable == true ) {
+			this.recorder.recordButton.setAttribute("clickable", false);
 			stopMicCheck();
 		    this.doArrowMouseup();
 		    disableNavbuttons();
@@ -3537,6 +3538,7 @@
  		]]></method>
 
 		<method name="finishTest">
+			this.recorder.recordButton.setAttribute("clickable", false);
 		    this.doArrowMouseup();
             gTooltip.hideTooltip (); 
 			stopMicCheck();
@@ -3792,6 +3794,7 @@
 		]]></method>
 		<method name="resumeTest">
 			setAttribute('uisemaphore', 0);	
+			this.recorder.recordButton.setAttribute("clickable", true);
 			manipulativeSelected();
 			this.isStopScreen = false;
            	playAudio();

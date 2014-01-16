@@ -15,6 +15,7 @@
 			gHotKeys.disableKeys();
 			canvas.titleView.mainView.scalingView.gView.coverview.setAttribute('visible',true);
 			this.setAttribute('visible',true);
+			gManipulatives.setAttribute('visible',false);
             lz.Timer.addTimer( _timer, 2000 );
 			this.bringToFront();
 			lz.ModeManager.makeModal(this);
