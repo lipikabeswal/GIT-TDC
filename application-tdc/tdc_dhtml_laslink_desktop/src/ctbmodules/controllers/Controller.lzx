@@ -3399,7 +3399,9 @@
 			
 		<method name="pauseTest">
 		 if ( pausable == true ) {
-			this.recorder.recordButton.setAttribute("clickable", false);
+		 	if(this.recorder != null ) {
+				this.recorder.recordButton.setAttribute("clickable", false);
+			}
 			stopMicCheck();
 		    this.doArrowMouseup();
 		    disableNavbuttons();
@@ -3538,7 +3540,9 @@
  		]]></method>
 
 		<method name="finishTest">
-			this.recorder.recordButton.setAttribute("clickable", false);
+			if(this.recorder != null ) {
+				this.recorder.recordButton.setAttribute("clickable", false);
+			}
 		    this.doArrowMouseup();
             gTooltip.hideTooltip (); 
 			stopMicCheck();
@@ -3792,9 +3796,11 @@
 				}
 			}
 		]]></method>
-		<method name="resumeTest">
+		<method name="resumeTest"><![CDATA[
 			setAttribute('uisemaphore', 0);	
-			this.recorder.recordButton.setAttribute("clickable", true);
+			if(this.recorder != null && this.recorder.recordButton.enabled ) {
+				this.recorder.recordButton.setAttribute("clickable", true);
+			}
 			manipulativeSelected();
 			this.isStopScreen = false;
            	playAudio();
@@ -3827,7 +3833,7 @@
 			if(gMaskingRuler.visible)
 			{	gManipulativeBar.globals.masking_ruler.setAttribute("frame",2);
 			}			
-		</method>
+		]]></method>
 
 		<method name="continueTest">
             openTest();
