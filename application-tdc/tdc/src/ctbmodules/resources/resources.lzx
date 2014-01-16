@@ -583,7 +583,7 @@
 	</resource>
 	
 	<resource name="start_mic">
-       	<frame src="components/recorder/mic_tr.png"/>
+       	<frame src="components/recorder/microphone_red.gif"/>
 	</resource>
 
 	

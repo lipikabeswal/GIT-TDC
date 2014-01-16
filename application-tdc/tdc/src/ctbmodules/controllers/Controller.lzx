@@ -3190,6 +3190,7 @@
 		<method name="pauseTest">
 			this.doArrowMouseup();
             if ( pausable == 'true' ) {
+            	this.recorder.recordButton.setAttribute("clickable", false);
             	gReadableText.stopReading();
                 freezeUI();
                 stopQuestion();
@@ -3268,6 +3269,7 @@
         </method>
 
 		<method name="_handlePausedResumeResponse" args="xml">
+			this.recorder.recordButton.setAttribute("clickable", true);
 			this.setAttribute('timeoutforpause', false);
 			gPauseTimerScreen.setVisible(false);
 			showItemInterface();
@@ -3294,6 +3296,7 @@
  		]]></method>
 
 		<method name="finishTest">
+			this.recorder.recordButton.setAttribute("clickable", false);
 			checkManipSelected();
 			this.doArrowMouseup();
         	gReadableText.stopReading();
@@ -3449,6 +3452,7 @@
 		]]></method>
 
 		<method name="resumeTest">
+			this.recorder.recordButton.setAttribute("clickable", true);
 			manipulativeSelected();
             LzCursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();

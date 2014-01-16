@@ -9,16 +9,19 @@
 		<attribute name="stage" type="number" value="1" />
 
         <method name="show">
+        	this.spinner.startAnim();
 			gHotKeys.disableKeys();
 			gManipulatives.setVisible(false);
 			canvas.titleView.mainView.scalingView.gView.coverview.setAttribute('visible',true);
 			this.setAttribute("visible",true);
+			gTooltip.hideTooltip ();
             LzTimer.addTimer( _timer, 2000 );
 			this.bringToFront();
 			LzModeManager.makeModal(this);
         </method>
 
 		<method name="hide">
+			this.spinner.stopAnim();
 			this.setAttribute("visible",false);
 			LzModeManager.release(this);
 		</method>
@@ -62,9 +65,6 @@
 		
 		<CustomSpinner name="spinner" y="20"
               width="60" height="60" align="center">
-			<handler name="oninit">
-				this.startAnim();
-			</handler>
 		</CustomSpinner>
 
         <view name="message" align="center" y="100">
