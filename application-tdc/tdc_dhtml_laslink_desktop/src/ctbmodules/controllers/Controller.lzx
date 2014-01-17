@@ -3539,10 +3539,11 @@
             }
  		]]></method>
 
-		<method name="finishTest">
+		<method name="finishTest"><![CDATA[
 			if(this.recorder != null ) {
 				this.recorder.recordButton.setAttribute("clickable", false);
 			}
+			this.setOverlayOnLasAssets();
 		    this.doArrowMouseup();
             gTooltip.hideTooltip (); 
 			stopMicCheck();
@@ -3586,7 +3587,7 @@
 				}
             save(null);
 			gHotKeys.disableKeys();
-        </method>
+        ]]></method>
 		
 		<!-- the following method is for the defect 74751-->
 		<method name="doArrowMouseup">
@@ -3802,6 +3803,9 @@
 			setAttribute('uisemaphore', 0);	
 			if(this.recorder != null && this.recorder.recordButton.enabled ) {
 				this.recorder.recordButton.setAttribute("clickable", true);
+			}
+			for(var i=0; i< gController.lasAssetArray.length; i++) {
+					gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',false);
 			}
 			manipulativeSelected();
 			this.isStopScreen = false;
