@@ -3552,6 +3552,21 @@
         	gReadableText.stopReading(false);
         	this.isStopScreen = true;
             freezeUI();
+			
+			//For Defect 65881        
+            if(this.recorder != null)
+			{
+				this.recorder.stopblinker('stop');
+				if(this.recorder.whitewrapperOverLay != null){
+				 this.recorder.whitewrapperOverLay.setAttribute('visible', false);
+				}
+				 if(this.recorder.blackOverLay != null){
+					this.recorder.blackOverLay.setAttribute('visible', false);
+				}
+				this.blockFileName = false;
+			}		
+			
+
             if(gScratchpad.scratchpadHasFocus){
             	gController.setAttribute("focusOnScratchpad", true);
             }else{
@@ -3614,19 +3629,6 @@
             lz.Cursor.unlock();
             //canvas.unFreezUI();
 
-			//For Defect 65881        
-            if(this.recorder != null)
-			{
-				this.recorder.stopblinker('stop');
-				if(this.recorder.whitewrapperOverLay != null){
-				 this.recorder.whitewrapperOverLay.setAttribute('visible', false);
-				}
-				 if(this.recorder.blackOverLay != null){
-					this.recorder.blackOverLay.setAttribute('visible', false);
-				}
-				this.blockFileName = false;
-			}		
-			
 			if(this.adaptive == true){				
 				//if (gScreens.isOnFinishScreen()) {
 				Debug.write("goToFinishScreen :"+ gScreens.isOnFinishScreen() +"::"+ this.isStopTest);
