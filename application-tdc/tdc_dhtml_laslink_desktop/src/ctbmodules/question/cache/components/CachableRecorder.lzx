@@ -480,7 +480,8 @@
 			/*if(gController.isaudio){
 					gController.enableAllAudio();
 				}*/
-			gController.enableAllAssets();
+		// Commenting code to enable asset after response is received.
+			//gController.enableAllAssets(); 
 			this.setAttribute('startRecord',false);
 			gController.setAttribute('recordingStopped',true);
 			this.red.setAttribute('visible',false);
@@ -623,6 +624,13 @@
 			}
 			else if (result == 'RECORDING_STOP') {
 			//Debug.write("RECORDING_STOP..");
+			
+				if( gController.isplaying == false && this.resetCalled == false){
+						console.log("Setting start over enabled****");
+						gController.setAttribute("resetButtonEnable",true);
+						this.resetButton.setAttribute("enabled",true);
+				}
+				gController.enableAllAssets(); 
 				if(this.totalTime == 0 && this.recordingCounter == 3) {
 					gController.setAttribute("recordingCompleted",true);
 					this.recordButton.setAttribute("enabled", false);
@@ -635,10 +643,7 @@
 				 }
 				}
 				this.recordButton.setAttribute("enabled", false);
-				if( gController.isplaying == false && this.resetCalled == false){
-					gController.setAttribute("resetButtonEnable",true);
-					this.resetButton.setAttribute("enabled",true);
-				}
+				
 			}
 			else {
 				Debug.write("Result Default...."+result);	
