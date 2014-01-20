@@ -23,6 +23,9 @@
 		<attribute name="titleRsrc" type="string"/>
 		<attribute name="scrolls" type="boolean" value="false" />
 		
+		<attribute name="realTitleLoaded" type="boolean" value="false"/>
+		<attribute name="refCardContentsLoaded" type="boolean" value="false"/>
+		
 		<!-- 
 			when mouse is down on the scrollbar, it will be true
 			-->
@@ -30,7 +33,7 @@
 
 		<attribute name="toolid" type="string" value="formula_card_resource"/>
         <attribute name="toolstate" value="$once{new lz.datapointer ()}"/>
-		<attribute name="visible" value="${(this.toolstate.data == 'sel') ? true : false}"/>
+		<attribute name="visible" value="${(this.toolstate.data == 'sel' &amp;&amp; this.realTitleLoaded &amp;&amp; this.refCardContentsLoaded) ? true : false}"/>
 
 		<handler name="onvisible" args="v"><![CDATA[
 		//To control the visibility according to the toolstate
@@ -79,8 +82,10 @@
 				}
 			}
 
+			calcDimensions();
+			 ]]></handler>
 			
-			
+		<method name="calcDimensions"><![CDATA[
 			var scrollerWidth = refCardContents.scroller.width;
 
 			if(refCardContents.contents.resourceheight > this.innerHeight) {
@@ -145,7 +150,8 @@
             /*if(data != null && gScratchpad.visible){
                 gScratchpad.bringToFront();
             }*/
-          ]]></handler>
+         ]]>
+         </method>
 
         <handler name="onmouseover">
             gController.setCurrentCursor('cangrab_cursor');
@@ -245,6 +251,10 @@
 				  resource="rc_lines"
 				  stretches="width" />
 			<view name="real_title">
+				<handler name="onload">
+					classroot.setAttribute('realTitleLoaded',true);
+					classroot.calcDimensions();
+				</handler>
 			</view>
 			<view name="rightLines"
 				  resource="rc_lines"
@@ -270,6 +280,11 @@
 			            	classroot.updateScrollTo(this.y);
 					}
 				]]></handler>
+				
+				<handler name="onload">
+					classroot.setAttribute('refCardContentsLoaded',true);
+					classroot.calcDimensions();
+				</handler>
 
 			</view>
 		     <vscrollbar name="scroller" visible="${this.scrollable}" />
