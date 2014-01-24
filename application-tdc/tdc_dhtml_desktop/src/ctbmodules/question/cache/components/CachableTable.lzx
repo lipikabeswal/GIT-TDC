@@ -411,6 +411,11 @@
                       clickable="${canvas.readable}"
                       onclick="gReadableText.read(gReadableText.stripHtmlTags(text),false)"
                       fontstyle="bold">
+                     <handler name="onmouseover">
+		                   if(canvas.readable){
+		                   		this.setAttribute('showhandcursor',true);
+		                   	}	
+		               </handler>
                     <attribute name="titlewidth" value="0"/>
 					<handler name="ontext"><![CDATA[
 						var size = (canvas.basefontsize+2);

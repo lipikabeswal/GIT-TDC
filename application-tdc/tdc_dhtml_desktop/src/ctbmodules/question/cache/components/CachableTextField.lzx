@@ -1492,6 +1492,11 @@ parse the text string and store text and image string in an array at different i
                    classroot.read(gReadableText.stripHtmlTags(classroot.readText));
                    //classroot.read(escape(classroot.readText));
                </handler>
+               <handler name="onmouseover">
+                   if(classroot.isReadable){
+                   		this.setAttribute('showhandcursor',true);
+                   	}	
+               </handler>
            </view>
 
            <UnclippedText name="thetext" multiline="true" 
