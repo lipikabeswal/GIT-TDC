@@ -263,137 +263,166 @@
         <attribute name="dfinish"
                    value="$once{ new lz.Delegate( this, 'finish' ) }"/>
   
-        <method name="toggleA">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups();
-	            gEnlargePopup.shrink();
-	        	gController.toggleItemSelState( 'A' ); 
-	        }
+        <method name="toggleA">  
+        	if(gItemInterface.visible) {   
+	        	if(!gController.isCrItem()){
+		            this.exitPopups();
+		            gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'A' ); 
+		        }
+		     }   
         </method>
-        <method name="toggleB">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	            gEnlargePopup.shrink();
-	        	gController.toggleItemSelState( 'B' ); 
-	        }
+        <method name="toggleB">  
+        	if(gItemInterface.visible) {   
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		            gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'B' ); 
+		        }
+		     }   
         </method>
-        <method name="toggleC">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	            gEnlargePopup.shrink();
-	        	gController.toggleItemSelState( 'C' ); 
-	        }
+        <method name="toggleC">   
+        	if(gItemInterface.visible) {  
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		            gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'C' ); 
+		        }
+		    }    
          </method>
         <method name="toggleD">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	            gEnlargePopup.shrink();
-	        	gController.toggleItemSelState( 'D' ); 
-	        }
+        	if(gItemInterface.visible) { 
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		            gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'D' ); 
+		        }
+		     }   
        </method>
-        <method name="toggleE">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	            gEnlargePopup.shrink();
-	        	gController.toggleItemSelState( 'E' ); 
-	        }
+        <method name="toggleE"> 
+        	if(gItemInterface.visible) {    
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		            gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'E' ); 
+		        }
+		     }   
         </method>
-        <method name="toggleF">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups();
-	            gEnlargePopup.shrink();
-	        	gController.toggleItemSelState( 'F' ); 
-	        }
+        <method name="toggleF"> 
+        	if(gItemInterface.visible) {    
+	        	if(!gController.isCrItem()){
+		            this.exitPopups();
+		            gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'F' ); 
+		        }
+		     }   
         </method>
-        <method name="toggleG">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	            gEnlargePopup.shrink();
-	        	gController.toggleItemSelState( 'G' ); 
-	        }
+        <method name="toggleG">   
+        	if(gItemInterface.visible) {  
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		            gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'G' ); 
+		        }
+		     }  
         </method>
         <method name="toggleH">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	            gEnlargePopup.shrink();
-	        	gController.toggleItemSelState( 'H' ); 
-	        }
+        	if(gItemInterface.visible) { 
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		            gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'H' ); 
+		        }
+		     }   
         </method>
 		<method name="toggleI">    
-			if(!gController.isCrItem()){
-		    	this.exitPopups(); 
-		    	gEnlargePopup.shrink();
-				gController.toggleItemSelState( 'I' ); 
-			}
+			if(gItemInterface.visible) { 
+				if(!gController.isCrItem()){
+			    	this.exitPopups(); 
+			    	gEnlargePopup.shrink();
+					gController.toggleItemSelState( 'I' ); 
+				}
+			}	
 		</method>
-        <method name="toggleJ">    
-        	if(!gController.isCrItem()){
-	            this.exitPopups(); 
-	            gEnlargePopup.shrink();
-	        	gController.toggleItemSelState( 'J' ); 
-	        }
+        <method name="toggleJ">   
+        	if(gItemInterface.visible) {  
+	        	if(!gController.isCrItem()){
+		            this.exitPopups(); 
+		            gEnlargePopup.shrink();
+		        	gController.toggleItemSelState( 'J' ); 
+		        }
+		     }   
         </method>        
        <method name="goBack">
 		<![CDATA[
 		    //Debug.write("==goBack=="+canvas.loadItem);
-            if(canvas.loadItem){
-            	canvas.freezUI();
-                Debug.write("==goBack IF=="+canvas.loadItem);
-                if(!gController.fwdOnly){
-	        		if(!gController.onFirstItem()){
-	        			lz.Focus.clearFocus();
-	        		}
-	        	
-	            	this.exitPopups();
-	            	gEnlargePopup.shrink();
-	        		gController.stepNavigateBack();
-				} 
-			}	     
+		    if(gItemInterface.visible) { 
+	            if(canvas.loadItem){
+	            	canvas.freezUI();
+	                Debug.write("==goBack IF=="+canvas.loadItem);
+	                if(!gController.fwdOnly){
+		        		if(!gController.onFirstItem()){
+		        			lz.Focus.clearFocus();
+		        		}
+		        	
+		            	this.exitPopups();
+		            	gEnlargePopup.shrink();
+		        		gController.stepNavigateBack();
+					} 
+				}	  
+			}		   
        	]]>
 		</method>
         <method name="goOn"> 
+        
             //Debug.write("==goOn=="+canvas.loadItem);
-            if(canvas.loadItem){
-                canvas.freezUI();
-                Debug.write("==goOn IF=="+canvas.loadItem);
-                if(!gController.onLastItem()){
-	        		lz.Focus.clearFocus();
-	        	}
-	            this.exitPopups(); 
-	            gEnlargePopup.shrink();
-	        	gController.stepNavigateForward();  
-	        }	   
+            if(gItemInterface.visible) { 
+	            if(canvas.loadItem){
+	                canvas.freezUI();
+	                Debug.write("==goOn IF=="+canvas.loadItem);
+	                if(!gController.onLastItem()){
+		        		lz.Focus.clearFocus();
+		        	}
+		            this.exitPopups(); 
+		            gEnlargePopup.shrink();
+		        	gController.stepNavigateForward();  
+		        }	 
+		     }     
         </method>
         <method name="toggleMark"> 
-        	if(canvas.loadItem){
-        		canvas.freezUI();
-	            this.exitPopups(); 
-	            gEnlargePopup.shrink();
-	         	gController.toggleMark(); 
-	         }             
+        	if(gItemInterface.visible) { 
+	        	if(canvas.loadItem){
+	        		canvas.freezUI();
+		            this.exitPopups(); 
+		            gEnlargePopup.shrink();
+		         	gController.toggleMark(); 
+		         }   
+		     }              
         </method>
         <method name="toggleTimer">
-        	if(canvas.loadItem){
-        		canvas.freezUI();
-	            this.exitPopups(); 
-	            gEnlargePopup.shrink();
-	        	gController.toggleTimer();
-	        }             
+        	if(gItemInterface.visible) { 
+	        	if(canvas.loadItem){
+	        		canvas.freezUI();
+		            this.exitPopups(); 
+		            gEnlargePopup.shrink();
+		        	gController.toggleTimer();
+		        }   
+		     }             
         </method>
         <method name="pause"> 
-            if(canvas.loadItem){
-             	//canvas.freezUI();
-	        	if(gController.pausable == 'true'){
-	        		lz.Focus.clearFocus();
-	        	}
-	            this.exitPopups(); 
-	            gEnlargePopup.shrink();
-	        	if(gItemInterface.visible == true || gTutorial.visible == true){
-	        		canvas.freezUI();
-	        		gController.pauseTest();
-	        	}
-	        	
-	        }
+	            if(canvas.loadItem){
+	             	//canvas.freezUI();
+		        	if(gController.pausable == 'true'){
+		        		lz.Focus.clearFocus();
+		        	}
+		            this.exitPopups(); 
+		            gEnlargePopup.shrink();
+		        	if(gItemInterface.visible == true || gTutorial.visible == true){
+		        		canvas.freezUI();
+		        		gController.pauseTest();
+		        	}
+		        	
+		        }
         </method>
         <method name="stop">    <![CDATA[
         	if(canvas.loadItem){
