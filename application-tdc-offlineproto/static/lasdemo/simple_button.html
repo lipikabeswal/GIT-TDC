@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Play Pause - Back to start at end</title>
+<script src="./audiojs/audio.min.js"></script>
+    <link rel="stylesheet" href="./includes/index.css" media="screen">
+<script type="text/javascript" src="js/jQuery.js"></script>
+<script>
+$(document).ready(function playPause(){
+	var isPlaying = "false";
+	var finished = "false";
+
+	var player = audiojs.create(document.getElementById('player1'));
+
+	$('#isPlayingMsg').text(isPlaying + " This is the value of isPlaying");
+	$('#finishedMsg').text(finished + " This is the value of finished");
+	$('#playbtn1').click(function(){
+	if(isPlaying == 'false'){
+		//document.getElementById('player1').play();
+		player.play();
+		isPlaying = "true"
+		$('#playbtn1 img').attr('src', "images/stop-over.png");
+	}else if(isPlaying == 'true'){
+		//document.getElementById('player1').currentTime = 0; //reset audio to start
+		//document.getElementById('player1').pause();	//stops audio
+		player.pause();
+		isPlaying = "false";
+		$('#playbtn1 img').attr('src', "images/play-over.png");
+		//alert(isPlaying);
+	}else if(isPlaying == 'disabled'){
+		alert("sorry, this button has been disabled");
+	}
+		$('#isPlayingMsg').text(isPlaying + " This is the value of isPlaying");
+		$('#finishedMsg').text(finished + " This is the value of finished");
+	});
+
+	$(function rollPlay() {
+         $(".img-swap").hover(
+          function(){this.src = this.src.replace("-norm","-over");},
+          function(){this.src = this.src.replace("-over","-norm");
+	});
+
+	document.getElementById('player1').addEventListener('ended', function(){
+		this.currentTime = 0;
+		finished = "true"
+		isPlaying = "false"
+		alert(finished);
+		showStatus();
+		}, false);
+	});
+
+	function resetAudio (){
+	//alert("click");
+		//document.getElementById('player1').pause();
+		//document.getElementById('player1').currentTime = 0;
+		player.pause();
+		player.skipTo(0);
+		isPlaying = "false";
+		finished = "false";
+		$('#playbtn1 img').attr('src', "images/play-norm.png");
+		showStatus();
+
+	};
+
+	function disable(){
+	//alert("click");
+		document.getElementById('player1').pause();
+		document.getElementById('player1').currentTime = 0;
+		isPlaying = "disabled";
+		finished = "false";
+		$('#playbtn1 img').attr('src', "images/play-dis.png");
+		showStatus();
+	};
+
+	function showStatus(){
+		$('#isPlayingMsg').text(isPlaying + " This is the value of isPlaying");
+		$('#finishedMsg').text(finished + " This is the value of finished");
+	};
+
+	$('#disableDiv').click(function(){
+		disable();
+	});
+
+	$('#resetDiv').click(function(){
+		resetAudio();
+	});
+
+
+}); //End Document ready
+</script>
+<style>
+#playbtn1{
+	width:96px;
+	height:33px;
+	cursor:pointer;
+}
+
+#playbtn2{
+	width:100px;
+	height:50px;
+	background-color:#F0F;
+	cursor:pointer;
+}
+
+#wrapper{
+	width:500px;
+	height:300px;
+}
+
+#audiowrapper{
+	/*display:none;*/
+}
+
+#resetDiv{
+	height:25px;
+	width:50px;
+	cursor:pointer;
+}
+
+#disableDiv{
+	height:25px;
+	width:50px;
+	cursor:pointer;
+}
+</style>
+</head>
+<body>
+<div id="wrapper">
+<div id="playbtn1"><img class="img-swap" src="images/play-norm.png"></div><br><div id="resetDiv">reset</div><br><div id="disableDiv">disable</div><br>
+<div id="isPlayingMsg"></div>
+<div id="disabledMsg"></div>
+<div id="finishedMsg"></div>
+<!--<div id="playbtn2"></div>-->
+<style>
+      .audiojsZ { width: 0px; height: 0px; background: #f00; overflow: hidden; }
+</style>
+<div class="audiojsZ" id="audiowrapper">
+	<audio id="player1" controls preload><source src="media/track1.mp3" type="audio/mp3" /></audio><br>
+	<!--<audio id="player2" controls preload><source src="media/track1.mp3" type="audio/mp3" />Your browser does not support the audio element.</audio>-->
+</div><!--audiowrapper-->
+</div><!--wrapper-->
+</body>
+</html>
