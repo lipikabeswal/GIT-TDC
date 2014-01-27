@@ -160,8 +160,10 @@
 	        	var control = keys[3];
 				if (document.activeElement.tagName == "IFRAME") {
 					// iFrame has the focus; shift the focus back to top document
-					top.focus();
-					console.warn("Controller#handleHtmlKeyPress: setting focus to top window");
+					if(!gController.magnifierVisible){
+						top.focus();
+					}
+					console.warn("Controller#handleHtmlKeyPress: setting focus to top window***",gController.magnifierState,typeof(gController.magnifierState));
 				}
 	        	if(key == 'A' || key == 'Shift+A' || key == 'Caps_lock+A' || key == 'Shift+Caps_lock+A')
 	       			toggleA();
