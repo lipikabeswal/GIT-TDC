@@ -3313,7 +3313,7 @@
 			}
 			gMusicPlayer.hide();
             lz.Cursor.unlock();
-			
+			checkHideMagnifierGlass();
 			if(this.adaptive == true){				
 				//if (gScreens.isOnFinishScreen()) {
 				Debug.write("goToFinishScreen :"+ gScreens.isOnFinishScreen() +"::"+ this.isStopTest);
