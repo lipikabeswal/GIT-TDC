@@ -370,6 +370,11 @@
 				clickable="true"
 				width="${parent.width}"
 				height="${parent.height}">	
+				<handler name="onvisible">
+					if(this.visible){
+						this.bringToFront();
+					}
+				</handler>
 			</view>
 	
 	
