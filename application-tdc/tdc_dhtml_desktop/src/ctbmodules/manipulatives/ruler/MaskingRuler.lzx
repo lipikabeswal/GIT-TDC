@@ -103,7 +103,9 @@ Debug.write("else "+data +" : "+ hasstate);
                   	  classroot.bringToFront();
                       lz.Cursor.setCursorGlobal ('grabbing_cursor');
                       lz.Cursor.lock();
-                      gHotKeys.disableKeys();
+                      
+                      // to fix the defect 76800 
+                      //gHotKeys.disableKeys();
                       classroot.setAttribute('dragenabled', true);
                       
                       // for the defect 73212
