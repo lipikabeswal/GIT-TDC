@@ -646,9 +646,12 @@
 		                  b_on = false;
 		               }
 
-		               if ((inputText[j].indexOf("<u>") != -1 && inputText[j].indexOf("<u>") != -1)
-							|| (inputText[j].indexOf("&lt;u&gt;") != -1 && inputText[j].indexOf("&lt;/u&gt;") != -1)) 
-		                  inputText[j] = "<u>" + inputText[j] + "</u>";
+		               if ((inputText[j].indexOf("<u>") != -1 && inputText[j].indexOf("</u>") != -1)
+							|| (inputText[j].indexOf("&lt;u&gt;") != -1 && inputText[j].indexOf("&lt;/u&gt;") != -1)){ 
+								if((inputText[j].indexOf("&lt;u&gt;") != -1 && inputText[j].indexOf("&lt;/u&gt;") != -1)){
+		                 		 inputText[j] = "<u>" + inputText[j] + "</u>";
+								}
+						}
 		               else if (inputText[j].indexOf("<u>") != -1 || inputText[j].indexOf("&lt;u&gt;") != -1)
 		                  u_on = true;
 		               else if (inputText[j].indexOf("</u>") != -1 || inputText[j].indexOf("&lt;/u&gt;") != -1) {

@@ -110,6 +110,10 @@
 						this.setAttribute('multiline',false);
 					}
                ]]></handler>
+                <handler name="ontext"><![CDATA[
+					this.setAttribute('height',this.getTextHeight()-3);
+					]]>
+				</handler>
            </text>
  	</class>
 </library>
