@@ -182,6 +182,18 @@
 		      height="${classroot.innerHeight}" 
 		      clip="true" 
 		      bgcolor="0xFFFFFF" showhandcursor="false">
+			
+			<!-- to scroll the content using mouse wheel for the defect 73210-->
+			<handler name="onmousewheeldelta" reference="lz.Keys"
+                     args="direction"><![CDATA[
+                var thisX = this.getMouse("x");
+                var thisY = this.getMouse("y");
+                if (this.containsPt(thisX, thisY)) {
+                    scroller.step(-direction);
+                }
+            ]]>
+            </handler>
+			
 			<view name="contents"
 			      width="${classroot.innerWidth - parent.scroller.width}">
 				<handler name="ony">
