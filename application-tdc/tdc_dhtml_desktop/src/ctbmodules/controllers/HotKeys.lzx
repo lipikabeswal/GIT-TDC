@@ -3,6 +3,7 @@
     <node id="gHotKeys">
 
         <method name="enableKeys">
+        	gController.setAttribute('iskeyEnabled',true);
             lz.Keys.callOnKeyCombo( dtoggleA, [ 'a' ] );
             lz.Keys.callOnKeyCombo( dtoggleB, [ 'b' ] );
             lz.Keys.callOnKeyCombo( dtoggleC, [ 'c' ] );
@@ -60,6 +61,7 @@
         </method>
 
         <method name="disableKeys">
+        	gController.setAttribute('iskeyEnabled',false);
             lz.Keys.removeKeyComboCall( dtoggleA, [ 'a' ] );
             lz.Keys.removeKeyComboCall( dtoggleB, [ 'b' ] );
             lz.Keys.removeKeyComboCall( dtoggleC, [ 'c' ] );
@@ -158,9 +160,9 @@
 	        	var shift = keys[1];
 	        	var capslock = keys[2];
 	        	var control = keys[3];
-	        	console.log("top.isMagnifierVisible****",window.top.isMagnifierVisible.toLowerCase());
-				if (document.activeElement.tagName == "IFRAME") {
+	        	if (document.activeElement.tagName == "IFRAME" || document.activeElement.tagName == "BODY") {
 					// iFrame has the focus; shift the focus back to top document
+					// If body has the focus; shift teh focus back to top document
 					top.focus();
 					console.warn("Controller#handleHtmlKeyPress: setting focus to top window***",gController.magnifierState,typeof(gController.magnifierState));
 				}

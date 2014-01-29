@@ -516,7 +516,7 @@
 		<attribute name="lasAssetArray" value="$once{new Array()}" />
 		
 		<attribute name="recordingStopped" type="boolean" value="false"/>
-		
+		<attribute name="iskeyEnabled" type="boolean" value="true"/>
 
 		<!-- isAnswerSet,findAnswer attributes using for freezing/Unfreezing the UI -->
 		<attribute name="isAnswerSet" type="boolean" value="false"/>
