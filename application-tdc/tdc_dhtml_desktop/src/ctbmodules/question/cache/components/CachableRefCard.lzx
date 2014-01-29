@@ -288,8 +288,9 @@
 			      width="${classroot.innerWidth - parent.scroller.width}">
 				<handler name="ony"><![CDATA[
 					// When user is actually scrolling the view, then only update the value of 'scrollTo' 
-					if(typeof(this.isloaded) != "undefined" && this.isloaded && classroot.isScrolling) {
-			            	classroot.updateScrollTo(this.y);
+					//fix for defect 73205
+					if(classroot.refCardContentsLoaded && classroot.realTitleLoaded){
+		            	classroot.updateScrollTo(this.y);
 					}
 				]]></handler>
 				
