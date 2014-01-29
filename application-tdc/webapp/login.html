@@ -634,12 +634,12 @@ function hideScrollbarForCRitem(arg){
 function setCRscrollEdittextWidth(elmId,comWidth){
     var crItemid = document.getElementById(elmId);
     var fontcolor = getCRcolor();
-    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; width: '+comWidth+'');
+    crItemid.setAttribute('style','font-family: CTB;overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; width: '+comWidth+'');
 }
 function setCRscrollEdittextHeight(elmId,comHeight){
     var crItemid = document.getElementById(elmId);
     var fontcolor = getCRcolor();
-    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; height: '+comHeight+'');
+    crItemid.setAttribute('style','font-family: CTB;overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; height: '+comHeight+'');
 }
 
 function getCRcolor(){
@@ -667,17 +667,17 @@ function checkTextDragging(){
 
 function hideScrollbar(arg){
     var scrid = document.getElementById(arg);
-    scrid.setAttribute('style',"overflow-x: hidden; white-space: pre-wrap; overflow-y: scroll;");
+    scrid.setAttribute('style',"font-family: CTB; overflow-x: hidden; white-space: pre-wrap; overflow-y: scroll;");
 }
 
 function setScrollEdittextWidth(elmId,comWidth,fontSize,textFontColor){
     var scrid = document.getElementById(elmId);
-    scrid.setAttribute('style','overflow-x: hidden; white-space: pre-wrap; overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; width: '+comWidth+'');
+    scrid.setAttribute('style','font-family: CTB; overflow-x: hidden; white-space: pre-wrap; overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; width: '+comWidth+'');
 }
 
 function setScrollEdittextHeight(elmId,comHeight,fontSize,textFontColor){
     var scrid = document.getElementById(elmId);
-    scrid.setAttribute('style','overflow-x: hidden; white-space: pre-wrap; overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; height: '+comHeight+'');
+    scrid.setAttribute('style','font-family: CTB; overflow-x: hidden; white-space: pre-wrap; overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; height: '+comHeight+'');
 }
 
 <!-- End scratchpad scrollbar functions-->
