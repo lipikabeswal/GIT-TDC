@@ -22,6 +22,7 @@
 		<attribute name="titleRsrc" type="string"/>
 		<attribute name="scrolls" type="boolean" value="false" />
 		<attribute name="ismouseDown" value="false" type="boolean"/>
+        <attribute name="isMouseOver" value="false" type="boolean"/>
 
 		<handler name="oninit">
 			refCardContents.contents.setAttribute('resource',refCardRsrc);
@@ -183,24 +184,29 @@
 		      clip="true" 
 		      bgcolor="0xFFFFFF" showhandcursor="false">
 			
-			<!-- to scroll the content using mouse wheel for the defect 73210-->
-			<handler name="onmousewheeldelta" reference="lz.Keys"
-                     args="direction"><![CDATA[
-                var thisX = this.getMouse("x");
-                var thisY = this.getMouse("y");
-                if (this.containsPt(thisX, thisY)) {
-                    scroller.step(-direction);
-                }
-            ]]>
-            </handler>
-			
 			<view name="contents"
 			      width="${classroot.innerWidth - parent.scroller.width}">
 				<handler name="ony">
 		            classroot.updateScrollTo(this.y);
 				</handler>
+				<handler name="onmouseover">
+		            classroot.setAttribute('isMouseOver',true);
+				</handler>
+				<handler name="onmouseout">
+		            classroot.setAttribute('isMouseOver',false);
+				</handler>
 			</view>
-		    <vscrollbar name="scroller" visible="${this.scrollable}"/>
+		    <vscrollbar name="scroller" visible="${this.scrollable}">
+					<!--<handler name="onmouseover">
+                        console.log("====onmouseover SCROLL===",this.thumb);
+						gController.setAttribute( "refCardObject", this.thumb );
+					</handler>-->
+
+                    <!-- fix for defect 73210 -->
+					<handler name="onmousewheeldelta" reference="lz.Keys" args="d">
+                          if (classroot.isMouseOver) this.step(-d * 2); 
+			        </handler>
+			</vscrollbar>
 		</view>
     </class>
 
