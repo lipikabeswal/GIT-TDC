@@ -53,7 +53,7 @@
 
         <!-- show highlight cursor -->
         <handler name="onmouseover" reference="clickarea"><![CDATA[
-            if (this.hlstatus.data == 'sel' && this.visible) {
+            if (this.hlstatus.data == 'sel' && this.visible && !gController.isTE) {
                 gController.setCurrentCursor('highlighter_cursor');
             }
         ]]></handler>
@@ -67,7 +67,7 @@
 
         <!-- init livesel -->
         <handler name="onmousedown" reference="clickarea"><![CDATA[
-            if (this.hlstatus.data == 'sel' && this.visible) {
+            if (this.hlstatus.data == 'sel' && this.visible && !gController.isTE) {
                 gController.setCurrentCursor('highlighter_cursor');
                 livesel.setAttribute ('x', livesel.getMouseFixed (this, 'x'));
                 livesel.setAttribute ('y', livesel.getMouseFixed (this, 'y'));
@@ -82,7 +82,7 @@
 
         <!-- add new highlightarea node -->
         <handler name="onmouseup" reference="clickarea"><![CDATA[
-            if (this.hlstatus.data == 'sel' && this.visible) {
+            if (this.hlstatus.data == 'sel' && this.visible && !gController.isTE) {
                 setAttribute('active', true);
                 this.livesel.setAttribute ('visible', false);
                 this.livesel.setAttribute('active', false);
