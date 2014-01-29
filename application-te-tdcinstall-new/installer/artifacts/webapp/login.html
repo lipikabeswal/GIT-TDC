@@ -139,6 +139,7 @@ var readable = false;
 var iid = null;
 var enableHighlighterArea = false;
 var TEAssetPath = "http:items/"; 
+var isMagnifierMouseovered = false;
 
 
 function getTEAssetPath(){
@@ -615,7 +616,8 @@ function hideMagnify() {
 }
 
 /* Method to reinstate the magnifier to previous state */
-function displayMagnifier() {	
+function displayMagnifier() {
+	
 	isMagnifierVisible = "true";
 	jQuery(ddpowerzoomer.$magnifier.outer).show();
 }
@@ -634,12 +636,12 @@ function hideScrollbarForCRitem(arg){
 function setCRscrollEdittextWidth(elmId,comWidth){
     var crItemid = document.getElementById(elmId);
     var fontcolor = getCRcolor();
-    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; width: '+comWidth+'');
+    crItemid.setAttribute('style','font-family: CTB;overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; width: '+comWidth+'');
 }
 function setCRscrollEdittextHeight(elmId,comHeight){
     var crItemid = document.getElementById(elmId);
     var fontcolor = getCRcolor();
-    crItemid.setAttribute('style','overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; height: '+comHeight+'');
+    crItemid.setAttribute('style','font-family: CTB;overflow-x: hidden; overflow-y: scroll; color: '+fontcolor+'; height: '+comHeight+'');
 }
 
 function getCRcolor(){
@@ -667,17 +669,17 @@ function checkTextDragging(){
 
 function hideScrollbar(arg){
     var scrid = document.getElementById(arg);
-    scrid.setAttribute('style',"overflow-x: hidden; white-space: pre-line; overflow-y: scroll;");
+    scrid.setAttribute('style',"font-family: CTB; overflow-x: hidden; white-space: pre-wrap; overflow-y: scroll;");
 }
 
 function setScrollEdittextWidth(elmId,comWidth,fontSize,textFontColor){
     var scrid = document.getElementById(elmId);
-    scrid.setAttribute('style','overflow-x: hidden;  overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; width: '+comWidth+'');
+    scrid.setAttribute('style','font-family: CTB; overflow-x: hidden; white-space: pre-wrap; overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; width: '+comWidth+'');
 }
 
 function setScrollEdittextHeight(elmId,comHeight,fontSize,textFontColor){
     var scrid = document.getElementById(elmId);
-    scrid.setAttribute('style','overflow-x: hidden;  overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; height: '+comHeight+'');
+    scrid.setAttribute('style','font-family: CTB; overflow-x: hidden; white-space: pre-wrap; overflow-y: scroll; color: '+textFontColor+'; font-size: '+fontSize+'; height: '+comHeight+'');
 }
 
 <!-- End scratchpad scrollbar functions-->
@@ -707,6 +709,65 @@ function checkEmptyString(str) {
 		event.preventDefault();
 		event.stopPropagation();
 	}
+	
+	if(window.top.isMagnifierVisible == "true" && isMagnifierMouseovered == true){
+		hotKeysHandle();
+	}
+	
+}
+function hotKeysHandle() {
+var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
+		if (event.ctrlKey) {
+			switch(keystroke){
+				case 'l':
+				    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && gController.iskeyEnabled) {
+						gHotKeys.toggleMark();
+						event.preventDefault(); // disable Ctrl+L
+					}	
+					break;
+				case 's':
+					event.preventDefault();
+					 if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && gController.iskeyEnabled) {
+					 	hideMagnify();
+				    	gHotKeys.stop();
+						event.preventDefault(); // disable Ctrl+S
+					}	
+					break;
+				case 'u':
+				    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && gController.iskeyEnabled) {
+						gHotKeys.pause();
+						event.preventDefault(); // disable Ctrl+U
+					}	
+					break;
+				case 'o':
+					if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && gController.iskeyEnabled) {
+						gHotKeys.toggleTimer();
+						event.preventDefault(); // disable Ctrl+O
+					}
+					break;
+				case 'j':
+					if(gController.iskeyEnabled) {
+						gHotKeys.goBack();
+						event.preventDefault(); // disable Ctrl+J
+					}
+					break;			
+				case 'k' :
+					if(gController.iskeyEnabled) {
+						gHotKeys.goOn();
+						event.preventDefault(); // disable Ctrl+K
+					}
+					break;
+				case 'f' :
+					if(gController.iskeyEnabled) {
+						hideMagnify();
+						gHotKeys.finish();
+						event.preventDefault(); // disable Ctrl+F
+					}
+					break;
+				default:
+					break;
+			}
+		}
 }
 // higlighter for nonTE items
  
