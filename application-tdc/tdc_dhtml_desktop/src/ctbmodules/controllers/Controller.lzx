@@ -591,6 +591,7 @@
 		<attribute name="isRelogin" type="boolean" value="false" />
 		<attribute name="SAVE_METHOD" type="string" value="savemethod" />
 		<attribute name="drelogin" value="$once{ new LzDelegate( this, 'relaunch' ) }" />
+		<attribute name="isTE" type="boolean" value="false" />
 		<!--  Cancels a drag operation inside a TE item -->
     	<method name="cancelIframeDrag">
     		if (this.htmlFields.length == 1) {
@@ -5477,6 +5478,7 @@ Debug.write("############ loadItem ############");
 
 	<method name="addHtmlField" args="field">
 	        	this.htmlFields.push(field);
+	        	this.setAttribute("isTE",true);
 	        	//isAnsweredDelegate();
 		</method>
 	<method name="resetHtmlFields"><![CDATA[
@@ -5485,6 +5487,7 @@ Debug.write("############ loadItem ############");
                 delete this.htmlFields[i];
             }
             this.htmlFields.length = 0;
+            this.setAttribute("isTE",false);
 		]]></method>
 		
 	
