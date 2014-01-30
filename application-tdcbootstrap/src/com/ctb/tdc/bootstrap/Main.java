@@ -275,7 +275,17 @@ public class Main {
 		String propertiesSizeString;
 		String os;
 		String type;
-		String propertiesIdentifier="tdc.";
+		
+		String ignoreChecksumFlag=ResourceBundleUtils.getChecksumString("tdc.ignoreChecksum");
+		ConsoleUtils.messageOut("ignoreChecksum :"+ignoreChecksumFlag);
+		
+		if(ignoreChecksumFlag!=null)
+		{
+			if(ignoreChecksumFlag.equalsIgnoreCase("y"))
+			{
+				return true;
+			}
+		}
 		
 		if(isMacOS())
 		{
