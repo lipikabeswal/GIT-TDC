@@ -94,13 +94,17 @@ public class UtilityServlet extends HttpServlet {
         else
         if (method.equals("exit")) {
         	logger.info("Exit called");
-        	ContentFile.deleteDataFiles();
-        	ContentFile.deleteHTMLItemsFolder();
-        	exit();
+        	exitMethod();
         }    
         
         logger.info("UtilityServlet: " + method + " took " + (System.currentTimeMillis() - startTime) + "\n");
     }
+	
+	public static synchronized void exitMethod(){
+    	ContentFile.deleteDataFiles();
+    	ContentFile.deleteHTMLItemsFolder();    	    	 
+    	exit();
+	}
 	
 	public static synchronized void exit() {
 		try {

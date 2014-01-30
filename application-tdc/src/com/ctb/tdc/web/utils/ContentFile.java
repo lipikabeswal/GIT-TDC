@@ -14,6 +14,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import org.bouncycastle.crypto.digests.MD5Digest;
 import org.bouncycastle.crypto.engines.RC4Engine;
 import org.bouncycastle.crypto.params.KeyParameter;
@@ -38,6 +39,7 @@ public class ContentFile
     public static final String DATA_FOLDER = System.getProperty(TDC_HOME)+ "/data/databank/"; 	//"C:\\Program Files\\CTB\\Online Assessment\\data\\databank\\";
     public static final String DATA_FOLDER_DECRYPTED = System.getProperty(TDC_HOME)+ "/data/"; 	//"C:\\Program Files\\CTB\\Online Assessment\\data\\";
     public static final String HTML_DATA_FOLDER = System.getProperty(TDC_HOME)+"/webapp/items/";
+    static Logger logger = Logger.getLogger(ContentFile.class);
     private ContentFile() 
     {
         super();
@@ -303,7 +305,8 @@ public class ContentFile
     		File [] files  = htmlfiles.listFiles();
     		if(files.length > 0){
     			for (int i = 0; i < files.length; i++) {
-    				deleteDirectory(files[i]);
+    				//logger.info("html file name>>>"+files[i].getName());
+    					deleteDirectory(files[i]);
     			} 
     		}
     	}catch (Exception e){
@@ -321,41 +324,49 @@ public class ContentFile
     	}
 
     	cleanDirectory(directory);
-    	if (!directory.delete()) {
-    		String message =
-    			"Unable to delete directory " + directory + ".";
-    		throw new IOException(message);
+    	if (directory.isDirectory()) {
+	    		if (!directory.delete()) {
+	    		String message =
+	    			"Unable to delete directory " + directory + ".";
+	    		logger.info("Error Message deleteDirectory>>>>"+message);
+	    		throw new IOException(message);
+	    	}
     	}
     }
     
     public static void cleanDirectory(File directory) throws IOException {
     	if (!directory.exists()) {
     		String message = directory + " does not exist";
+    		logger.info("Error Message cleanDirectory !directory.exists()>>>>"+message);
     		throw new IllegalArgumentException(message);
     	}
 
     	if (!directory.isDirectory()) {
     		String message = directory + " is not a directory";
-    		throw new IllegalArgumentException(message);
+    		logger.info("Error Message cleanDirectory !directory.isDirectory()>>>>"+message);
+    		//throw new IllegalArgumentException(message);
+    		
     	}
-
-    	File[] files = directory.listFiles();
-    	if (files == null) {  // null if security restricted
-    		throw new IOException("Failed to list contents of " + directory);
-    	}
-
-    	IOException exception = null;
-    	for (int i = 0; i < files.length; i++) {
-    		File file = files[i];
-    		try {
-    			forceDelete(file);
-    		} catch (IOException ioe) {
-    			exception = ioe;
-    		}
-    	}
-
-    	if (null != exception) {
-    		throw exception;
+    	else{
+	    	File[] files = directory.listFiles();
+	    	if (files == null) {  // null if security restricted
+	    		throw new IOException("Failed to list contents of " + directory);
+	    	}
+	
+	    	IOException exception = null;
+	    	try {
+	    		for (int i = 0; i < files.length; i++) {
+	    		File file = files[i];
+	    		
+	    			forceDelete(file);	
+	    		}
+	    	} catch (IOException ioe) {
+	     			exception = ioe;
+	     	}
+	
+	    	if (null != exception) {
+	    		throw exception;
+	    	}
     	}
     }
     
@@ -364,12 +375,17 @@ public class ContentFile
     		deleteDirectory(file);
     	} else {
     		boolean filePresent = file.exists();
+    		if (!filePresent){
+    			logger.info("File not found  forceDelete>>>>"+file.getName());
+    			 file = new File(file.getName());	
+    		}
     		if (!file.delete()) {
     			if (!filePresent){
     				throw new FileNotFoundException("File does not exist: " + file);
     			}
     			String message =
     				"Unable to delete file: " + file;
+    			logger.info("Error Message forceDelete>>>>"+message);
     			throw new IOException(message);
     		}
     	}
