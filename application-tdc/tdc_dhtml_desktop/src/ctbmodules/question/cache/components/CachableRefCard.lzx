@@ -282,30 +282,13 @@
 		            	classroot.updateScrollTo(this.y);
 					}
 				]]></handler>
-				<handler name="onmouseover">
-		            classroot.setAttribute('isMouseOver',true);
-				</handler>
-				<handler name="onmouseout">
-		            classroot.setAttribute('isMouseOver',false);
-				</handler>
 				<handler name="onload">
 					classroot.setAttribute('refCardContentsLoaded',true);
 					classroot.calcDimensions();
 				</handler>
 
 			</view>
-		     <vscrollbar name="scroller" visible="${this.scrollable}">
-					<!--<handler name="onmouseover">
-						console.log("====CACHBLE REFCARD MOUISEOVER ==",this.thumb.dragging);
-						gController.setAttribute( "refCardObject", this.thumb );
-					</handler>-->
-
-					<!-- fix for defect 73210 -->
-					 <handler name="onmousewheeldelta" reference="lz.Keys" args="d">
-                          if (classroot.isMouseOver) this.step(-d * 2); 
-			        </handler>
-			</vscrollbar>
-
+		     <vscrollbar name="scroller" visible="${this.scrollable}"/>
 		</view>
     </class>
 
