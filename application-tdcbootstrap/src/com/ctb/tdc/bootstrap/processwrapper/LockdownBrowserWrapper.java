@@ -90,9 +90,9 @@ public class LockdownBrowserWrapper extends Thread {
 		if ( macOS ) {
 			LockdownBrowserWrapper.ismac = true;
 			if(productType.equals("LASLINKS") || productType.equals("TABE")){
-				if(formName.equals("Form A / Form B / Español A") || formName.equals("TABE 9/10")){
+				if(formName.equals("Form A / Form B / Español A") || formName.equals("TABE Online")){
 					writeForm("http://127.0.0.1:" + jettyPort + "/login_swf.html");
-				}else if(formName.equals("Form C / Form D / Español B") || formName.equals("TABE Adaptive")){
+				}else if(formName.equals("Form C / Form D / Español B") || formName.equals("TABE Testlets")){
 					writeForm("http://127.0.0.1:" + jettyPort + "/login.html");
 				}
 //				//consoleOut("Laslinks Product****");
@@ -133,7 +133,7 @@ public class LockdownBrowserWrapper extends Thread {
 					
 					if(productType.equals("LASLINKS") || productType.equals("TABE")){
 						//consoleOut("Inside Laslinks:::");
-						if(formName.equals("Form A / Form B / Español A") || formName.equals("TABE 9/10")){
+						if(formName.equals("Form A / Form B / Español A") || formName.equals("TABE Online")){
 							//ConsoleUtils.messageOut("Launching Form A&B");
 							this.ldbCommand = new String[2];
 							this.ldbCommand[0] = this.ldbHome + "/OASTDC/bin/OASTDC";          
@@ -142,7 +142,7 @@ public class LockdownBrowserWrapper extends Thread {
 							command.add((this.ldbHome + "/OASTDC/bin/OASTDC").replaceAll(" ", "\\ "));
 							command.add("http://127.0.0.1:" + jettyPort + "/login_swf.html");
 							
-						}else if(formName.equals("Form C / Form D / Español B") || formName.equals("TABE Adaptive")){
+						}else if(formName.equals("Form C / Form D / Español B") || formName.equals("TABE Testlets")){
 							//ConsoleUtils.messageOut("Launching Form C&D");
 							/*this.ldbCommand = new String[3];
 							this.ldbCommand[0] ="java";
@@ -182,7 +182,7 @@ public class LockdownBrowserWrapper extends Thread {
 			String loginHtml = null;
 			if(productType.equals("LASLINKS") || productType.equals("TABE")){
 			//	ConsoleUtils.consoleOut("Product Laslinks/TABE");
-				if(formName.equals("Form A / Form B / Español A") || formName.equals("TABE 9/10")){
+				if(formName.equals("Form A / Form B / Español A") || formName.equals("TABE Online")){
 					//ConsoleUtils.consoleOut("Product TABE 9/10*****");
 					//consoleOut("Inside Form A/Form B/Espanol");
 					this.ldbCommand = new String[2];
@@ -192,7 +192,7 @@ public class LockdownBrowserWrapper extends Thread {
 					//command.add(this.ldbHome +"/LockdownBrowser.exe");
 					//command.add("--url=http://127.0.0.1:" + jettyPort + loginHtml);
 					
-				}else if(formName.equals("Form C / Form D / Español B")  || formName.equals("TABE Adaptive")){
+				}else if(formName.equals("Form C / Form D / Español B")  || formName.equals("TABE Testlets")){
 				//	ConsoleUtils.messageOut("Inside TABE Adaptive");
 					/*this.ldbCommand = new String[3];
 					this.ldbCommand[0] ="java";
@@ -720,7 +720,7 @@ private static class LockdownWinMain extends Thread {
 						
 						//Different launching mechanisms for different LDBs cause One is not working for both
 						if(productType.equals("LASLINKS") || productType.equals("TABE")){
-							if(form.equals("Form A / Form B / Español A") || form.equals("TABE 9/10")){
+							if(form.equals("Form A / Form B / Español A") || form.equals("TABE Online")){
 								ConsoleUtils.messageOut("Laslinks for A/B will be launched");
 								ldb = Runtime.getRuntime().exec(this.ldbCommand, null, new File(this.ldbHome));
 							}
