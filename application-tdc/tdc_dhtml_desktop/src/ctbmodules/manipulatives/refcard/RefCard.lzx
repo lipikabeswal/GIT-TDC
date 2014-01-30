@@ -22,7 +22,7 @@
 		<attribute name="titleRsrc" type="string"/>
 		<attribute name="scrolls" type="boolean" value="false" />
 		<attribute name="ismouseDown" value="false" type="boolean"/>
-        <attribute name="isMouseOver" value="false" type="boolean"/>
+
 
 		<handler name="oninit">
 			refCardContents.contents.setAttribute('resource',refCardRsrc);
