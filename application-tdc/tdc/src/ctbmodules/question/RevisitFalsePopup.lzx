@@ -105,6 +105,7 @@
 		</text>        
 		<basebutton	name="okButton"	resource="popupOk" x="46" y="110" width="70" height="25" stretches="both">
 		<handler name="onclick">
+			gController.setAttribute('isAnswerAreaDisabled',false);
 			gController.setNavigation(0,parent.parent.navigateFrom);        
         </handler>
 		</basebutton>

@@ -334,7 +334,7 @@
 		<!-- START Change for deferred Defect 63502-->
 		<attribute name="restartscid" value="0" />
 		<!-- END-->
-
+		<attribute name="isAnswerAreaDisabled" type="boolean" value="false" />
 		<!--  
 			Whether the ui should be unlocked or not
 		-->
@@ -2676,8 +2676,8 @@
 			}else{
 				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', false);
 			}
-			
-        ]]></method>
+			this.setAttribute("isAnswerAreaDisabled",false);
+		 ]]></method>
 
 		<method name="saveSharedStimulusHighlights"><![CDATA[
 			var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model/');
@@ -2742,7 +2742,17 @@
 			//Debug.warn("fixFocus Called");
 			this.questionBar =  questionBar;
 		</method>
-
+		
+		<handler name="onisAnswerAreaDisabled">
+			if(this.isAnswerAreaDisabled){
+				//Debug.write("Setting visible true");
+				restrictResponseOverlay.setAttribute('visible',true);
+			}else{
+				//Debug.write("Setting visible false");
+				restrictResponseOverlay.setAttribute('visible',false);
+			}
+		</handler>
+		
 		<method name="setNavigation" args="val,navigateFrom">
 			if(val == 1) {
 
@@ -2943,7 +2953,8 @@
         </method>
 
 		<method name="stepNavigateBack"><![CDATA[
-		    //Debug.write("==stepNavigateBack====");
+		   //Debug.write("==stepNavigateBack====");
+		    gController.setAttribute('isAnswerAreaDisabled',true);
 			canvas.freezUI();
             if ( !onFirstItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
@@ -2960,6 +2971,7 @@
 
 		<method name="stepNavigateForward"><![CDATA[
 		    //Debug.write("==stepNavigateForward====");
+		    gController.setAttribute('isAnswerAreaDisabled',true);
 		    canvas.freezUI();           
            	var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/@itempos' )
@@ -3302,6 +3314,7 @@
 		<method name="pauseTest">
 			var curreid = dpstudentdata.xpathQuery( 'current_item/item_model/@eid' );
             if ( pausable == true ) {
+				gController.setAttribute("isAnswerAreaDisabled",true);
             	gReadableText.stopReading(false);
                 freezeUI();
                 stopQuestion();
@@ -3349,6 +3362,7 @@
             var s = "enablePasswordFocus()";
 			lz.Browser.loadJS(s);
 			gTooltip.hideTooltip ();
+			gController.setAttribute("isAnswerAreaDisabled",false);
 		</method>
 
 		<method name="pausedContinue" args="pw">
@@ -3387,6 +3401,7 @@
  		]]></method>
 
 		<method name="finishTest">
+			gController.setAttribute("isAnswerAreaDisabled",true);
 			gTooltip.hideTooltip ();
 			checkManipSelected();
         	gReadableText.stopReading(false);
@@ -3470,7 +3485,7 @@
 				gScreens.showFinish( totalQuestions() - totalAnswered(),
 	                                 totalMarked() );
 			}
-                       
+             gController.setAttribute("isAnswerAreaDisabled",false);                   
 		]]></method>
 
 		<method name="closeOpenManipulatives"><![CDATA[

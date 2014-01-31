@@ -49,7 +49,7 @@
         lz.ModeManager.makeModal(this);
         resetControls();
         gHotKeys.disableKeys();
-        
+        gController.setAttribute('isAnswerAreaDisabled',false);
     </method>
 
     <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">
