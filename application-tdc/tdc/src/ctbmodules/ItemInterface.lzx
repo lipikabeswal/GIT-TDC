@@ -45,6 +45,17 @@
 				<Question width="100%" height="100%" id="gQuestion"
                           datapath="dsitem:/element_package/item_canvas"
                           bgcolor="${gController.questionBgColor}"/>
+              	 <!-- Additional overlay, only visible while navigating through items.
+                   		Gets visible based on Controller attribute isAnswerAreaDisabled
+                   -->
+				<view id="restrictResponseOverlay" height="${gQuestion.height}" visible="false" width="${gQuestion.width}" clickable="true" opacity="0">
+					<handler name="onvisible">
+						if(restrictResponseOverlay.getAttribute('visible')){
+							restrictResponseOverlay.bringToFront();
+						}
+					</handler>
+				</view>
+
                 <view width="100%" height="100%">
                     <resizelayout axis="y"/>
                     <view width="${classroot.contents.width + 2}" height="50"

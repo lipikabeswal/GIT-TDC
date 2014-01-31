@@ -333,6 +333,7 @@
 		<attribute name="istRestartLength" type="number" value="0" />
 		<attribute name="gotTestScore" type="boolean" value="false" />
 		<attribute name="isRelogin" type="boolean" value="false" />
+		<attribute name="isAnswerAreaDisabled" type="boolean" value="false" />
 		<!-- START Change for deferred Defect 63502-->
 		<attribute name="restartscid" value="0" />
 		<!-- END-->
@@ -2635,6 +2636,7 @@
 				gManipulativeBar.globals.maskingAnswer.setVisible(false);
 			}
 			this.setAttribute('revisitCancelClicked',false);
+			this.setAttribute("isAnswerAreaDisabled",false);
         ]]></method>
 
 		<method name="saveSharedStimulusHighlights"><![CDATA[
@@ -2697,7 +2699,17 @@
 			//Debug.warn("fixFocus Called");
 			this.questionBar =  questionBar;
 		</method>
-
+		
+		<method event="onisAnswerAreaDisabled">
+			if(this.isAnswerAreaDisabled){
+				Debug.write("Setting visible true");
+				restrictResponseOverlay.setAttribute('visible',true);
+			}else{
+				Debug.write("Setting visible false");
+				restrictResponseOverlay.setAttribute('visible',false);
+			}
+		</method>
+		
 		<method name="setNavigation" args="val,navigateFrom">
 			if(val == 1) {
 
@@ -2882,6 +2894,7 @@
         </method>
 
 		<method name="stepNavigateBack"><![CDATA[
+			gController.setAttribute('isAnswerAreaDisabled',true);
             if ( !onFirstItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm){
@@ -2893,7 +2906,8 @@
         ]]></method>
 
 		<method name="stepNavigateForward"><![CDATA[
-           	var curritem = Number(
+			gController.setAttribute("isAnswerAreaDisabled",true);
+			var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/@itempos' )
             );
 			var totalitem = Number(
@@ -3190,6 +3204,7 @@
 		<method name="pauseTest">
 			this.doArrowMouseup();
             if ( pausable == 'true' ) {
+            	gController.setAttribute("isAnswerAreaDisabled",true);
             	if(this.recorder != null ) {
             	this.recorder.recordButton.setAttribute("clickable", false);
             	}
@@ -3255,6 +3270,7 @@
 	              	restoreCurrentCursor();
 	        }
 	        checkManipSelected();
+	        gController.setAttribute("isAnswerAreaDisabled",false);
 		</method>
 
 		<method name="pausedContinue" args="pw">
@@ -3300,6 +3316,7 @@
  		]]></method>
 
 		<method name="finishTest">
+			gController.setAttribute("isAnswerAreaDisabled",true);
 			if(this.recorder != null ) {
 				this.recorder.recordButton.setAttribute("clickable", false);
 			}
@@ -3398,7 +3415,8 @@
 				gMagnifyingGlass.onmouseup.sendEvent();
 				this.setAttribute("isManipMouseDown",false);
 			}
-           clearAndRestoreCurrentCursor();            
+           clearAndRestoreCurrentCursor();   
+           gController.setAttribute("isAnswerAreaDisabled",false);         
 		]]></method>
 
 		<method name="closeOpenManipulatives"><![CDATA[

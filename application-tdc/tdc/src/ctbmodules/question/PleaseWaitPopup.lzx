@@ -62,6 +62,7 @@
         gController.manipulativeSelected();
         gController.removeTrackTimer();
         if(gScratchpad.visible) gScratchpad.onmouseup.sendEvent();
+        gController.setAttribute('isAnswerAreaDisabled',false);
     </method>
 
     <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">
