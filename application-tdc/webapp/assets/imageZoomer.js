@@ -261,7 +261,9 @@ jQuery.fn.initMagnify=function(options){
         	items to mouse cursor when dragged over magnifier
         */
         $("#magnifierWindow").on("mouseover",function() {
-        	$('iframe')[0].contentWindow.$("body").trigger("mouseup");
+        	if($('iframe')[0].contentWindow.$(".ui-draggable-dragging")){
+        		$('iframe')[0].contentWindow.$(".ui-draggable-dragging").trigger("mouseup");
+        	}	
         	isMagnifierMouseovered = true;
         });
         
