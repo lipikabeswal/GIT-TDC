@@ -73,6 +73,7 @@
         gHotKeys.disableKeys();
         pauseAudio();
         gController.removeTrackTimer();
+        gController.setAttribute('isAnswerAreaDisabled',false);
     </method>
 
     <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">

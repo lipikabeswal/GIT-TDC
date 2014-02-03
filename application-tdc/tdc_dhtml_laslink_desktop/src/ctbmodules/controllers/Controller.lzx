@@ -632,6 +632,7 @@
 		<attribute name="lastItemVisited" type="boolean" value="false"/>
 		<attribute name="timeoutforpause" type="boolean" value="false" />
 		<attribute name="logoutFromPause" type="boolean" value="false" />
+		<attribute name="isAnswerAreaDisabled" type="boolean" value="false" />
 		
 		<handler name="onmouseup" reference="lz.GlobalMouse">
 			var isFrameFocused = document.activeElement.tagName === 'IFRAME';	
@@ -2809,6 +2810,7 @@
 			//gHotKeys.handleHotKeysNav();
 			this.setAttribute('revisitCancelClicked',false);
 			gManipulativeBarOverlay.setAttribute('visible',false);
+			this.setAttribute("isAnswerAreaDisabled",false);
         ]]></method>
 
 		<method name="saveSharedStimulusHighlights"><![CDATA[
@@ -2874,7 +2876,15 @@
 			//Debug.warn("fixFocus Called");
 			this.questionBar =  questionBar;
 		</method>
-
+		
+		<handler name="onisAnswerAreaDisabled">
+			if(this.isAnswerAreaDisabled){
+				restrictResponseOverlay.setAttribute('visible',true);
+			}else{
+				restrictResponseOverlay.setAttribute('visible',false);
+			}
+		</handler>
+		
 		<method name="setNavigation" args="val,navigateFrom"><![CDATA[
 			if(val == 1) {
 
@@ -3073,6 +3083,7 @@
 
 		<method name="stepNavigateBack"><![CDATA[
 			////canvas.freezUI();
+			gController.setAttribute('isAnswerAreaDisabled',true);
 			gController.setAttribute('isNavigateBack',true);
 			
             if ( !onFirstItem() ) {
@@ -3092,6 +3103,7 @@
 
 		<method name="stepNavigateForward"><![CDATA[
 		    //canvas.freezUI();
+		    gController.setAttribute("isAnswerAreaDisabled",true);
 		     gTooltip.hideTooltip ();
            	var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/@itempos' )
@@ -3399,6 +3411,7 @@
 			
 		<method name="pauseTest">
 		 if ( pausable == true ) {
+		 	gController.setAttribute("isAnswerAreaDisabled",true);
 		 	if(this.recorder != null ) {
 				this.recorder.recordButton.setAttribute("clickable", false);
 			}
@@ -3471,6 +3484,7 @@
 				gMaskingRuler.dragger.remove();
 				this.setAttribute("isMousedownOnManip",false);
 			}
+			gController.setAttribute("isAnswerAreaDisabled",false);
 		</method>
 
 		<method name="pausedContinue" args="pw">
@@ -3540,6 +3554,7 @@
  		]]></method>
 
 		<method name="finishTest"><![CDATA[
+			gController.setAttribute("isAnswerAreaDisabled",true);
 			if(this.recorder != null ) {
 				this.recorder.recordButton.setAttribute("clickable", false);
 			}
@@ -3651,7 +3666,7 @@
 				gScreens.showFinish( totalQuestions() - totalAnswered(),
 	                                 totalMarked() );
 			}
-                       
+            gController.setAttribute("isAnswerAreaDisabled",false);
 		]]></method>
 
 		<method name="closeOpenManipulatives"><![CDATA[
