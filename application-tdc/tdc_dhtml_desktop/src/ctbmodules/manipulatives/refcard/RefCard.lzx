@@ -23,6 +23,18 @@
 		<attribute name="scrolls" type="boolean" value="false" />
 		<attribute name="ismouseDown" value="false" type="boolean"/>
 
+		<!-- Fix for issue 76899. Sometimes the lz.GlobalMouseup
+		     event cannot be detected in Safari and Cocoa WebView when the mouse
+		     cursor is over the iFrame.
+		     Then the vscrollbar thumb will then get stuck to the mouse. By
+		     tracking the element under the mouse cursor we can detect
+		     if the mouse has left the RefCard area and is over the iFrame.
+		     Sending a manual onmouseup event to the scrollbar thumb in that
+		     case resolves the issue.
+          -->
+		<attribute name="scrollStateDel" value="$once{new lz.Delegate(this, 'checkItemAtMouseCursor')}" />
+		<attribute name="mouseUpDel" value="$once{new lz.Delegate(this, 'globalMouseupReceived')}" />
+		<attribute name="trackingScrollbar" value="false" type="boolean" />
 
 		<handler name="oninit">
 			refCardContents.contents.setAttribute('resource',refCardRsrc);
@@ -100,7 +112,51 @@
             if (this.data != null)
 			    this.datapath.p.setAttr ('scrollTo', value);
 		</method>
-		
+
+
+		<!-- When the vscrollbar 'scroller' is used, a delegate is setup
+		     to track the lz.GlobalMouse#onmouseup event. For Safari a
+		     timer is set up to track the content under the mouse cursor.
+		  -->
+		<handler name="onmousedown" reference="refCardContents.scroller.scrolltrack.thumb">
+			if (lz.embed.browser.isSafari) {
+				lz.Timer.resetTimer( this.scrollStateDel, 250 );
+			}
+			this.trackingScrollbar = true;
+			this.mouseUpDel.register( lz.GlobalMouse, "onmouseup");
+		</handler>
+
+		<!-- Deactivates the scrollbar for all onmouseup events.
+		     lz.GlobalMouse#onmouseup will be sent as well when the
+		     mouse cursor is over the iFrame.
+		  -->
+		<method name="globalMouseupReceived" args="ignore=null">
+			if (this.trackingScrollbar == true) {
+				this.trackingScrollbar = false;
+				this.mouseUpDel.unregisterAll();
+				refCardContents.scroller.scrolltrack.thumb.onmouseup.sendEvent();
+			}
+		</method>
+
+		<!-- Checks the element at the mouse cursor; if the element is no
+		     an OpenLaslo view, the mouse is over the TE Item iframe. In that
+		     case the scrollbar is released by sending an onmouseup event to
+		     the thumb.
+		  -->
+    	<method name="checkItemAtMouseCursor" args="ignore=null"><![CDATA[
+			//
+	        var element = document.elementFromPoint(canvas.getMouse('x'), canvas.getMouse('y'));
+            if (element != null && element.owner == undefined) {
+				refCardContents.scroller.scrolltrack.thumb.onmouseup.sendEvent();
+				this.trackingScrollbar = false;
+				this.mouseUpDel.unregisterAll();
+            } else if (element != null && this.trackingScrollbar == true) {
+            	lz.Timer.resetTimer( this.scrollStateDel, 250);
+            }
+        ]]>
+    	</method>
+
+
 		<view name="background" >
 			<simplelayout axis="y" spacing="0" />
 			<view name="top">
