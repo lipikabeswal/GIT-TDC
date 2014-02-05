@@ -257,12 +257,22 @@ jQuery.fn.initMagnify=function(options){
 			$('#scratch').trigger("mouseup");
 			$('#protractor').trigger("mouseup");
         });
+        
+        window.dManupulative=false;
+        $('[name="dManupulative"]').on("mousedown",function() {
+		  window.dManupulative = true;
+		});
+        
         /* added to prevent sticking of TE draggable 
         	items to mouse cursor when dragged over magnifier
         */
         $("#magnifierWindow").on("mouseover",function() {
-        	if($('iframe')[0].contentWindow.$(".ui-draggable-dragging")){
+        	/*if($('iframe')[0].contentWindow.$(".ui-draggable-dragging")){
         		$('iframe')[0].contentWindow.$(".ui-draggable-dragging").trigger("mouseup");
+        	}*/
+        	var iframeCon=$("iframe").contents().find(".ui-draggable");
+        	if(iframeCon && !window.dManupulative){
+        		iframeCon.trigger("mouseup");
         	}	
         	isMagnifierMouseovered = true;
         });
