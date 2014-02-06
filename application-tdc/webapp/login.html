@@ -8,9 +8,9 @@
    <script type="text/javascript" src="lps/includes/embed-compressed.js"></script>
 </SCRIPT>
   <link rel="stylesheet" href="lps/style_mozilla.css" type="text/css" /> 
-	<script type="text/javascript"src="lps/jquery.min.js"></script>
-	<script type="text/javascript"src="lps/jquery-1.5.2.js"></script>
-	<script type="text/javascript"src="lps/jquery-1.7.2.min.js"></script>
+<!--<script type="text/javascript"src="lps/jquery.min.js"></script> 
+  <script type="text/javascript"src="lps/jquery-1.5.2.js"></script>
+	 <script type="text/javascript"src="lps/jquery-1.7.2.min.js"></script> --> 
 	<script type="text/javascript" src="assets/jquery-1.8.3.js"></script>
 	<script type="text/javascript" src="assets/jquery-ui-1.9.2.custom.min.js"></script>
 	<script type="text/javascript" src="assets/imageZoomer.js"></script>	
@@ -186,7 +186,7 @@ function setFrameSource(filepath){
     s.setAttribute("src",filepath);
     lz.embed.setCanvasAttribute("TEItemLoaded", true);*/
     
-    $("iframe").attr("src",filepath);
+    jQuery("iframe").attr("src",filepath);
     lz.embed.setCanvasAttribute("TEItemLoaded",true);
 }
 
@@ -244,7 +244,7 @@ function setFootnoteText(arg){
 }
 
 function isAnswered(){
- var elem = $("iframe")[0];
+ var elem = jQuery("iframe")[0];
 	if(elem){
 		if(elem.contentWindow.accomPkg)
 	 	return elem.contentWindow.accomPkg.isItemAnswered();
@@ -253,7 +253,7 @@ function isAnswered(){
  
  function getState(){
  
-  var elem = $("iframe")[0];
+  var elem = jQuery("iframe")[0];
  if(elem){
  
  		if(elem.contentWindow.accomPkg){
@@ -263,7 +263,7 @@ function isAnswered(){
  }
  
  function setState(htmlContent,jsonContent,checkedVals){
- 	var elem = $("iframe")[0];
+ 	var elem = jQuery("iframe")[0];
  	if(elem){	
      if(elem.contentWindow){
    		if(elem.contentWindow.accomPkg){
@@ -324,9 +324,9 @@ function preventTextDragging(){
 }
 
   
- $(document).ready(function() {
- 	$("textarea").each(function() {
- 		$(this).css({'overflow-x': 'hidden', 'overflow-y': 'hidden'});
+ jQuery(document).ready(function() {
+ 	jQuery("textarea").each(function() {
+ 		jQuery(this).css({'overflow-x': 'hidden', 'overflow-y': 'hidden'});
  	});
  });
  
@@ -409,7 +409,7 @@ function setScaleFactor(xscalefactor,yscalefactor){
 
  var iframeLoaded = false;
  function iframeState(){
-     	var iframe = $("iframe")[0];
+     	var iframe = jQuery("iframe")[0];
      	console.log("iframe state");
      	if(iframe){
 			  
@@ -462,7 +462,7 @@ function hideTooltip() {
 }
 
 function enableHighlighter(isEnabled){
-	var iframe = $("iframe")[0];
+	var iframe = jQuery("iframe")[0];
 	if(iframe){
 		if(iframe.contentWindow.accomPkg!= null && iframe.contentWindow.accomPkg!=undefined){
 			iframe.contentWindow.accomPkg.enableHighlighter(isEnabled);
@@ -477,7 +477,7 @@ function enableHighlighter(isEnabled){
 }
 
 function enableEraser(isEnabled){
-	var iframe = $("iframe")[0];
+	var iframe = jQuery("iframe")[0];
 	if(iframe){
 		if(iframe.contentWindow.accomPkg!= null && iframe.contentWindow.accomPkg!=undefined){
 			iframe.contentWindow.accomPkg.enableEraser(isEnabled);
