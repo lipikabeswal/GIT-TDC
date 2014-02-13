@@ -65,9 +65,9 @@
 	
 	<!-- **************************** ISTEP ******************************* -->	
 	<target name="buildISTEP" description="Builds the ISTEP installer" depends="init">
-		<copy file="${project.icons.dir}/ISTEP-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
-		<copy file="${project.icons.dir}/ISTEP-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
-		<copy file="${project.icons.dir}/ISTEP-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
+		<copy file="${project.icons.dir}/CORELINK-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/CORELINK-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/CORELINK-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="istep" />
 			<param name="installer.version" value="14.0.0" />
