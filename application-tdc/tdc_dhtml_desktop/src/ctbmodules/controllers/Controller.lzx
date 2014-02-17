@@ -4900,17 +4900,39 @@ Debug.write("############ loadItem ############");
 		</method>
 
 		<method name="setAnswerPanel" args="ansObject"><![CDATA[
-		//Debug.write("ansObject fired", ansObject,answerArray.length);
-		if(answerArray.length < returnNumberOfOptions()){
-		
-			answerArray.push(ansObject);
-		}else{
-			tempAnsArray.push(ansObject);
-		}
-		
+			var pushToArray = true;
+			if(answerArray.length < returnNumberOfOptions()){
+				var ansObjType;
+				var answerArrayType;
+
+				//added for defect 77227 for ipad start
+				//To avoid duplicate entries of same answer choice instance.
+				if(ansObject.subviews[0].subviews[0].type){
+					ansObjType = ansObject.subviews[0].subviews[0].type;
+				}
+				else if(ansObject.subviews[1].subviews[0].type){
+					ansObjType = ansObject.subviews[1].subviews[0].type;
+				}
+				if(answerArray.length>0){
+					for(var i=0;i<answerArray.length;i++){
+						if(answerArray[i].subviews[0].subviews[0].type){
+							answerArrayType = answerArray[i].subviews[0].subviews[0].type;
+						}else if(answerArray[i].subviews[1].subviews[0].type){
+							answerArrayType = answerArray[i].subviews[1].subviews[0].type;
+						}
+	
+						if(ansObjType == answerArrayType){
+							pushToArray = false;
+						}
+					}
+				}
+				if(pushToArray){
+					answerArray.push(ansObject);
+				}
+				//added for defect 77227 for ipad end
+			}
 		//ansObject.hide();
 		
-
 		]]></method>
 
 		
