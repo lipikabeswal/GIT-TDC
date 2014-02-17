@@ -140,7 +140,7 @@
 	      </text> 
        </view> 
 
-		<basebutton	name="exitButton" resource="exit_button_rsc" x="90" y="130" width="130" height="32" stretches="both">
+		<basebutton	name="exitButton" resource="exit_button_rsc_popup" x="90" y="130" width="130" height="32" stretches="both">
 			<handler name="onclick">
 			    gController.exitPopups();
 				gController.terminate();  
