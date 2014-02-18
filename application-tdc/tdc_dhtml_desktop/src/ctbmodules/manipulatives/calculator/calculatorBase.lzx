@@ -847,7 +847,11 @@
 		<method name="round" args="num, places">
 		<![CDATA[   
 			var result = num;
-			if(places < this.maxDigits){
+			if(num.toString().length==this.maxDigits){
+              result = num;
+			}
+			else if(places < this.maxDigits){
+				console.log("===round IF ");
 				var multiplier = Math.pow(10, places);
 				result = Math.round(num * multiplier)/multiplier;
 			}
@@ -927,7 +931,8 @@
 			}
 			else{
 				num = this.round(num, this.maxDigits - 1);
-				result = num.toString();
+                result = num.toString();
+				console.log("===decimalFormat num result ELSE: ",num,result);
 			}
 			if(result.indexOf(".") == -1){
 				result = result + ".";
@@ -1029,6 +1034,7 @@
 				}
 				else{
 					result = this.decimalFormat(num);
+					console.log("===ELSE result: ",result);
 				}
 			}
 			setDataAttribute('input', result);
