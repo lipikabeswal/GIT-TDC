@@ -22,6 +22,7 @@
 		<attribute name="refCardRsrc" type="string"/>
 		<attribute name="titleRsrc" type="string"/>
 		<attribute name="scrolls" type="boolean" value="false" />
+		<attribute name="ismouseDown" value="false" type="boolean"/>
 		
 		<attribute name="realTitleLoaded" type="boolean" value="false"/>
 		<attribute name="refCardContentsLoaded" type="boolean" value="false"/>
@@ -168,11 +169,13 @@
          </method>
 
         <handler name="onmouseover">
-            gController.setCurrentCursor('cangrab_cursor');
+        	if(!this.ismouseDown)
+            	gController.setCurrentCursor('cangrab_cursor');
         </handler>
 
         <handler name="onmouseout">
-            gController.clearAndRestoreCurrentCursor();
+        	if(!this.ismouseDown)
+            	gController.clearAndRestoreCurrentCursor();
         </handler>
 
         <handler name="onmousedown">
@@ -180,6 +183,7 @@
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
             lz.Cursor.lock ();
             this.setAttribute('dragenabled', true);
+            this.setAttribute('ismouseDown',true);
             
             // for the defect 73212
             gPleaseWaitPopup.setAttribute('manipRef', this);
@@ -189,7 +193,8 @@
             lz.Cursor.unlock ();
             gController.restoreCurrentCursor();
             this.setAttribute('dragenabled', false);
-
+			this.setAttribute('ismouseDown',false);
+			
             this.datapath.p.setAttr ('x', this.x);
             this.datapath.p.setAttr ('y', this.y);
         </handler>
