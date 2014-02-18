@@ -135,7 +135,7 @@
        
         <ctb_edittext name="answer" 
                       maxlength="${classroot.char_limit}" 
-                      width="${classroot.editTextWidth}" height="${classroot.height+3}"
+                      width="${classroot.editTextWidth}" height="${gController.hasFontAccommodation?(classroot.height+6):(classroot.height+2)}"
                       widget_id="${classroot.widget_id}"
                       fontsize="${classroot['fontsize'] ? classroot.fontsize : 12}">
            <method name="init">
