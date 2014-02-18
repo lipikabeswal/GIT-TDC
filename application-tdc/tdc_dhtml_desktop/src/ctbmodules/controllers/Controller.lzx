@@ -4,7 +4,7 @@
 	<include href="TutorialManager.lzx" />
 	<include href="Sarsystem.lzx"/>
 	<include href="utils/LargeCharacterDetector.lzx" />
-	
+	<include href="TextFieldHistory.lzx" />
 	<!-- <script src="utils/json.js" /> -->
 	
 	<!--<Sarsystem id="flashSystem" />-->
@@ -593,6 +593,8 @@
 		<attribute name="SAVE_METHOD" type="string" value="savemethod" />
 		<attribute name="drelogin" value="$once{ new LzDelegate( this, 'relaunch' ) }" />
 		<attribute name="isTE" type="boolean" value="false" />
+		<attribute name="textHistory" value="$once{new lz.TextFieldHistory()}" type="expression" />
+		
 		<!--  Cancels a drag operation inside a TE item -->
     	<method name="cancelIframeDrag">
     		if (this.htmlFields.length == 1) {
@@ -3563,6 +3565,8 @@ Debug.write("############ loadItem ############");
             this.itemloaded    = false;
             this.runtimeready  = false;
             this.youarehereset = false;
+            // Clear the TextFieldHistory
+			this.textHistory.clearHistory();
 			if(isCrItem()){
 				this.inQuestion = false;
 			}

@@ -1,6 +1,6 @@
 <canvas bgcolor="0x6691B4" proxied="false" debug="false" width="100%" height="100%"
 	accessible="true">
-
+	<script src="utils/json.js" />
 	<debug x="0" y="0" width="80%" height="400" />
 
 	<include href="ctbmodules" />

@@ -616,5 +616,19 @@
 	
 	<resource name="logo" src="logos/logo.png"/>
 	
+	<!-- Undo/Redo button-->
+	<resource name="undo_btn">      
+		   
+		<frame src="iknow_buttons/undoRedo/blue_undo_new.jpg"/>
+		<frame src="iknow_buttons/undoRedo/blue_undo_new.jpg"/>  
+		<frame src="iknow_buttons/undoRedo/grey_undo_new.jpg"/>
+	</resource>
+	<resource name="redo_btn">      
+		   
+		<frame src="iknow_buttons/undoRedo/blue_redo_new.jpg"/> 
+		<frame src="iknow_buttons/undoRedo/blue_redo_new.jpg"/>  
+		<frame src="iknow_buttons/undoRedo/grey_redo_new.jpg"/>
+	</resource>
+	
 	<!-- ****************** End Recorder Resources ************************************************* -->
 </library>

@@ -95,12 +95,38 @@
 			elm.setAttribute('style','overflow-x: hidden; white-space: pre-wrap; overflow-y: scroll; color: '+fontcolor+'; font-size: '+fontSize+'; line-height: '+lineheight+'px; height: '+comHeight+'; clip: rect(0px '+comWidth+'px '+comHeight+'px 0px); width: '+comWidth+'; pointer-events: auto;');		
 		</method>
 		
+        <!-- Used for the enter key bug with ontext event not being sent all the times when enter is pressed. -->
+        <attribute name="enterpressed" value="false" type="boolean" />
+
+        <!-- Delegate used for detecting changes to the textfield through enter key presses. -->
+        <attribute name="enterKeyDel" value="$once{new LzDelegate( this, 'processEnterDelayed' )}" />
 
         <handler name="oninit">
 			var el = this.getDisplayObject();
 			el.setAttribute('id','CRscrolledittext');
 			hideScrollbarForCRitem(el.id);	
 		</handler>
+		<!--- Index position of caret/cursor in text. Value used by
+              TextFieldHistory for cursor positioning -->
+        <attribute name="caretindex" type="string" value="" />
+
+        <!--- Action for the last keypresses; used by the history -->
+        <attribute name="keyaction" type="string" value="" />
+        
+        <!--- Helper function for checking if the text has changed when the enter key
+         was pressed. Workaround for the bug with enter keys and ontext events
+         not being sent when enter is pressed on a line with content in it.
+         @access private
+       -->
+        <method name="processEnterDelayed">
+			this.keyaction = "";
+            this.caretindex = this.getSelectionPosition();
+            gController.textHistory.checkForChange();
+        </method>
+
+		<handler name="onfocus">
+			gController.textHistory.setActiveInput( classroot );
+	  	</handler>
         <setter name="pos" args="p">        	
             if (this.p == p){
 				Debug.write("Pos internal return", p, this.p, scroll);
@@ -122,10 +148,6 @@
 
         </setter>
         
-        <handler name="ontext">
-            if ($dhtml) this.sprite.__updatefieldsize();
-        </handler> 
-
         <handler name="onscroll" args="IGNORE_THIS_ARG">
             this.setAttribute('pos', -this.lineheight * (this.scroll - 1));
 			if(!this.onscrollcalled){
@@ -133,6 +155,60 @@
 				this.setAttribute('onscrollcalled',true);
 			}
         </handler>
+
+		<handler name="onkeydown" reference="lz.Keys" args="k"> <![CDATA[
+			// Keyboard handling for TextFieldHistory support
+				Debug.write("mytext.selectionSize ",this.getSelectionSize());
+               if ( gController.textHistory.activeinput == classroot ) {
+				Debug.write("mytext.selectionSize inside if");
+                if ( k == 13 ) {
+                    // Due to a bug where the ontext event is not
+                    // sent when pressing enter at the end of a line
+                    // with some text we need to manually add the action
+                    // to the history using the processEnterDelayed() method.
+                    lz.Timer.resetTimer( enterKeyDel, 50 );
+                    var lengthBeforeEnter = this.getText().length;
+                    enterpressed = true;
+					keyaction = "enter";
+                } else if ( k == 8 ) {
+					keyaction = "backspace";
+                   } else if ( k == 46 ) {
+					keyaction = "delete";
+                   } else if ( k == 32 ) {
+					keyaction = "space";
+				} 
+                   if ( keyaction != "" ) {
+                        gController.textHistory.checkForChange();
+                   }
+               }
+			
+		 ]]>
+	 </handler>
+
+	<handler name="onkeyup" reference="lz.Keys" args="k"> <![CDATA[
+		if ( this.getSelectionSize()>0) {
+            keyaction = "overwrite";
+        }
+		]]>
+	</handler>
+
+	<handler name="onmouseup" reference="lz.GlobalMouse"> <![CDATA[
+		if ( this.getSelectionSize()>0) {
+            keyaction = "overwrite";
+        }
+		]]>
+	</handler>
+
+	<handler name="ontext">
+		if ($dhtml) this.sprite.__updatefieldsize();
+		this.caretindex = this.getSelectionPosition();
+		console.log();
+		if ( this.keyaction != "" ) {
+            gController.textHistory.checkForChange();
+        }
+        this.keyaction = "";
+	</handler>
+	
     </_newinternalinputtext>
 </class>
 
