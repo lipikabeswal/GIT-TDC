@@ -112,8 +112,9 @@
 		</basebutton>
 		<basebutton	name="cancelButton"	resource="popupCancel" x="178" y="110" width="102" height="25" stretches="both">
 		<handler name="onclick">
+			gController.setAttribute('isAnswerAreaDisabled',false);
 			gController.setNavigation(0,parent.parent.navigateFrom);
-        </handler>
+		</handler>
 		</basebutton>
     </view>
 </view>

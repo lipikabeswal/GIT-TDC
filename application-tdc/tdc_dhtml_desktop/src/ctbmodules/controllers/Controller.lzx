@@ -594,7 +594,7 @@
 		<attribute name="drelogin" value="$once{ new LzDelegate( this, 'relaunch' ) }" />
 		<attribute name="isTE" type="boolean" value="false" />
 		<attribute name="textHistory" value="$once{new lz.TextFieldHistory()}" type="expression" />
-		
+		<attribute name="isAnswerAreaDisabled" type="boolean" value="false" />
 		<!--  Cancels a drag operation inside a TE item -->
     	<method name="cancelIframeDrag">
     		if (this.htmlFields.length == 1) {
@@ -2593,7 +2593,7 @@
 			}else{
 				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', false);
 			}
-			
+			this.setAttribute("isAnswerAreaDisabled",false);
         ]]></method>
 
 		<method name="saveSharedStimulusHighlights"><![CDATA[
@@ -2659,7 +2659,13 @@
 			//Debug.warn("fixFocus Called");
 			this.questionBar =  questionBar;
 		</method>
-
+		<handler name="onisAnswerAreaDisabled">
+			if(this.isAnswerAreaDisabled){
+				restrictResponseOverlay.setAttribute('visible',true);
+			}else{
+				restrictResponseOverlay.setAttribute('visible',false);
+			}
+		</handler>
 		<method name="setNavigation" args="val,navigateFrom">
 			if(val == 1) {
 
@@ -2858,6 +2864,7 @@
         </method>
 
 		<method name="stepNavigateBack"><![CDATA[
+			gController.setAttribute('isAnswerAreaDisabled',true);
             if ( !onFirstItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm){
@@ -2869,6 +2876,7 @@
         ]]></method>
 
 		<method name="stepNavigateForward"><![CDATA[
+			gController.setAttribute('isAnswerAreaDisabled',true);
            	var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/@itempos' )
             );
@@ -3166,6 +3174,7 @@
 			
 		<method name="pauseTest">
             if ( pausable == true ) {
+            	gController.setAttribute("isAnswerAreaDisabled",true);
             	this.doArrowMouseup();
             	gReadableText.stopReading(false);
                 freezeUI();
@@ -3210,6 +3219,7 @@
           	hideManipulatives();
             gScreens.showPause(getStudentName());
 			gTooltip.hideTooltip();
+			gController.setAttribute("isAnswerAreaDisabled",false);
 		</method>
 
 		<method name="pausedContinue" args="pw">
@@ -3257,6 +3267,7 @@
  		]]></method>
 
 		<method name="finishTest">
+			gController.setAttribute("isAnswerAreaDisabled",true);
 			this.doArrowMouseup();
 			gTooltip.hideTooltip ();
         	gReadableText.stopReading(false);
@@ -3346,7 +3357,7 @@
 				gScreens.showFinish( totalQuestions() - totalAnswered(),
 	                                 totalMarked() );
 			}
-                       
+             gController.setAttribute("isAnswerAreaDisabled",false);          
 		]]></method>
 
 		<method name="closeOpenManipulatives"><![CDATA[
@@ -3417,6 +3428,7 @@
 			showManipulatives();
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
+			bringFocusToIFrame();
             unlockUI();
 			checkShowMaskingChoiceDD();
 			if(this.adaptive == true){
@@ -5704,6 +5716,12 @@ Debug.write("############ loadItem ############");
 		<!-- To reload login.html --> 
 			document.location.reload(true);
 		</method>
+<method name="bringFocusToIFrame">
+	if(document.activeElement.tagName == "IFRAME" || document.activeElement.tagName == "BODY") {
+			top.focus();
+	}
+</method>
+
 
 	</node>
 

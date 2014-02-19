@@ -56,7 +56,7 @@
         lz.ModeManager.makeModal(this);
         resetControls();
         gHotKeys.disableKeys();
-        
+         gController.setAttribute('isAnswerAreaDisabled',false);
         
     </method>
 
