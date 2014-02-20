@@ -722,17 +722,14 @@ function checkEmptyString(str) {
 	
 	/*added to restrict undo redo using hot keys in DHTML client starts*/
 	var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
-	console.log("ctrlKey "+event.ctrlKey);
-	console.log("keystroke "+keystroke);
-	if (event.ctrlKey) {
+	
+	if (event.ctrlKey || event.metaKey || event.which == 91 || event.which == 17 || event.which == 93) {
 		switch(keystroke){
 			case 'z' :
-				console.log("undo text");
 				event.preventDefault(); // disable Ctrl+Z
 				event.stopPropagation();
 				break;
 			case 'y' :
-				console.log("redo text");
 				event.preventDefault(); // disable Ctrl+Y
 				event.stopPropagation();
 				break;
@@ -872,7 +869,7 @@ var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
 </HEAD>
 
 <BODY topmargin=0 leftmargin=0 rightmargin=0 bottommargin=0 scroll=no bgcolor="#6691B4"
-onkeydown="disableTabKey()" oncontextmenu="javascript:return false;">
+onkeydown="disableTabKey()">
 <button id="mybutton" style="visibility:hidden; width:0px; height:0px; display:none;">clickMe </button>
 
 <div id="appcontainer">
