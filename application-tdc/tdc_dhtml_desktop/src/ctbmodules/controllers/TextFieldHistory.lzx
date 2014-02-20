@@ -29,7 +29,7 @@
     <handler name="onunlocktexthistory">
         if (gController) {
             gController.textHistory.setAttribute( "locked", false );
-        }
+         }
     </handler>
 
 
@@ -46,10 +46,6 @@
          =============== -->
 
     <class name="TextFieldHistory">
-
-		<passthrough when="$as3">
-            import flash.system.Capabilities;
-        </passthrough>
 
         <!--- Object with history entries for multiple textfields. Textfied id is used as index.
               @type Object
@@ -108,6 +104,26 @@
           -->
         <attribute name="CRinstances" value="$once{{}}" type="expression" />
 
+        <!-- Workaround for LFC keyboard handling bug with Mac meta/command key -->
+        <attribute name="isMetaDown" type="boolean" value="false" />
+        <attribute name="keyEvent" type="boolean" value="false" />
+        <attribute name="isMac" type="boolean" value="false" />
+
+        <!-- debugging -->
+        <attribute name="pasteStarted" type="number" value="0" />
+
+        <handler name="oninit">
+        	this.isMac = lz.embed.browser.OS.toLowerCase() == "mac";
+        	if (this.isMac) {
+        		var that = this;
+        		var keyHandler = function(ev) {
+        			that.metaKeyTracker(ev);
+        		}
+	        	document.addEventListener("keydown", keyHandler, false);
+	        	document.addEventListener("keyup", keyHandler, false);
+        	}
+        </handler>
+
         <handler name="onactiveinput"><![CDATA[
             if ( activeinput != null && this.previnput !== this.activeinput ) {
                 TextHistory.setFocus(activeinput.id);
@@ -117,26 +133,38 @@
         ]]>
         </handler>
 
+        <!-- Custom keydown handler for tracking state of commmand/meta key on Mac -->
+        <method name="metaKeyTracker" args="ev">
+        <![CDATA[
+        	var k = ev['keyCode']
+        	var s = String.fromCharCode(k).toLowerCase();
+			if (ev) {
+				this.setAttribute( 'isMetaDown', ev.metaKey);
+				// console.log("metaKeyTracker: type=%s, ev.metaKey=%s, isMetaDown=%s", ev.type, ev.metaKey, this.isMetaDown);
+			}
+			if (isMetaDown && k == 86) {
+				this.pasteStarted = new Date().getTime();
+                checkForChange();
+                lz.Timer.resetTimer( delayedCheckForChangeDel, 200 );
+                lz.Keys.__allKeysUp();
+			}
+        ]]>
+        </method>
+
         <!--- Keydown handler for keycombos like Control-v, etc.
               @keywords private
         -->
         <handler name="onkeydown" reference="lz.Keys" args="k"><![CDATA[
-            this.keyaction = "";
+        	if (isMac) return;
             var down = lz.Keys.downKeysArray;
             var isPaste = false;
-			var ctrlVPressed = false;
-            if (down.length > 1) {
-				var platform = navigator.appVersion;
-				if(platform.indexOf( "Linux" ) != -1 || platform.indexOf( "Mac" ) != -1){
-					ctrlVPressed = (down[ 0 ] == 17 && Number( down[ 1 ] ) == -1) || (down[ 0 ] == -1 && Number( down[ 1 ] ) == 17);
-				}else{
-					ctrlVPressed = (down[ 0 ] == 17 && Number( down[ 1 ] ) == 86) || (down[ 0 ] == 86 && Number( down[ 1 ] ) == 17);
-				}
-                if ( ctrlVPressed ) {
-                    checkForChange();
-                    lz.Timer.resetTimer( delayedCheckForChangeDel, 100 );
-                    lz.Keys.downKeysArray = [];
-                }
+			 if (down.length > 1) {
+				isPaste = (down[0] == 17 && Number( down[1] ) == 86) || (down[0] == 86 && Number( down[1] ) == 17);
+            }
+            if ( isPaste ) {
+                checkForChange();
+                lz.Timer.resetTimer( delayedCheckForChangeDel, 100 );
+                lz.Keys.__allKeysUp();
             }
         ]]>
         </handler>
@@ -285,7 +313,7 @@
             if ( text ) {
                 this.newCaretIndex = status.caretIndex;
                 text.setText( status.text );
-                lz.Timer.resetTimer( delayedSetTextcursor, 200 );
+                lz.Timer.resetTimer( delayedSetTextcursor, 500 );
                 this.setButtonStatus( status );
             }
         ]]>
@@ -295,14 +323,14 @@
               updated for the selection is set.
               @access private
         -->
-        <method name="setTextCursorPos" args="newCarentIndex"><![CDATA[
+        <method name="setTextCursorPos"><![CDATA[
             if ( this.activeinput ) {
 				// When setSelection() is used, the cursor it not displayed
 				// correctly. This is a quick hack to get the cursor positioning
 				// working again.
 				var input = this.activeinput._field.tsprite.__LzInputDiv;
 				input.focus();
-				input.setSelectionRange(newCarentIndex, newCarentIndex);
+				input.setSelectionRange(newCaretIndex, newCaretIndex);
             	return;
                 // Below code was not working in DHTML runtime
                 // Set the cursor position, will automatically focus the text
@@ -328,10 +356,7 @@
                @return {number} Caret index position.
          -->
          <method name="getCaretIndex"><![CDATA[
-             var caretIndex = -1;
-         	 if (this.activeinput) {
-                 caretIndex = this.activeinput._field.caretindex;
-             }
+             var caretIndex = this.activeinput._field.caretindex;
              return caretIndex;
          ]]></method>
 
