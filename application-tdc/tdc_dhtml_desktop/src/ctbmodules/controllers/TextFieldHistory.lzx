@@ -29,7 +29,6 @@
     <handler name="onunlocktexthistory">
         if (gController) {
             gController.textHistory.setAttribute( "locked", false );
-            // Debug.write( "onunlocktexthistory: gController.textHistory.locked=" + gController.textHistory.locked);
         }
     </handler>
 
@@ -58,12 +57,6 @@
           -->
         <attribute name="history" value="$once{{}}" type="expression" />
 
-        <!--- Used for measuring how long history transactions take.
-              @type number
-              @access public
-          -->
-        <attribute name="transactiontime" value="0" type="number" />
-
         <!--- Just for debugging the paste functionality.
               @type number
               @access public
@@ -84,7 +77,7 @@
               @access private
           -->
         <attribute name="delayedCheckForChangeDel" value="$once{new lz.Delegate( this, 'checkForChange' )}" type="expression" />
-        
+
         <!--- Object with history entries for multiple textfields. Textfied id is used as index.
               @type Object
               @access private
@@ -116,11 +109,8 @@
         <attribute name="CRinstances" value="$once{{}}" type="expression" />
 
         <handler name="onactiveinput"><![CDATA[
-            Debug.write( "TextFieldHistory#onactiveinput: activeinput=" + activeinput );
             if ( activeinput != null && this.previnput !== this.activeinput ) {
-                var jsExpr = 'TextHistory.setFocus( "' + activeinput.id + '");';
-				var methodName = 'TextHistory.setFocus';
-				this.callToJS([methodName,null,activeinput.id] );
+                TextHistory.setFocus(activeinput.id);
                 this.previnput = this.activeinput;
                 this.previousvalue = activeinput.getText();
             }
@@ -135,38 +125,18 @@
             var down = lz.Keys.downKeysArray;
             var isPaste = false;
 			var ctrlVPressed = false;
-            Debug.write( "onkeydown: downKeysArray=" + JSON.stringify( down ));
             if (down.length > 1) {
-            	//Debug.write("platform= "+Capabilities.os);
 				var platform = navigator.appVersion;
 				if(platform.indexOf( "Linux" ) != -1 || platform.indexOf( "Mac" ) != -1){
-					Debug.write("inside Linux/Mac");
 					ctrlVPressed = (down[ 0 ] == 17 && Number( down[ 1 ] ) == -1) || (down[ 0 ] == -1 && Number( down[ 1 ] ) == 17);
 				}else{
 					ctrlVPressed = (down[ 0 ] == 17 && Number( down[ 1 ] ) == 86) || (down[ 0 ] == 86 && Number( down[ 1 ] ) == 17);
 				}
-				Debug.write("ctrlVPressed********* "+ctrlVPressed);
-                //Debug.write( "onkeydown: down[ 0 ]=" + down[ 0 ]+ " down[ 1 ]= "+down[ 1 ]);
                 if ( ctrlVPressed ) {
                     checkForChange();
-					if ($debug) Debug.write( "Paste / Control-v detected: calling checkForChange() in 200ms" );
                     lz.Timer.resetTimer( delayedCheckForChangeDel, 100 );
                     lz.Keys.downKeysArray = [];
                 }
-            }
-        ]]>
-        </handler>
-
-        <!--- Handler for lock attribute changes.
-              @keywords private
-        -->
-        <handler name="onlocked"><![CDATA[
-            if ( this.locked ) {
-                this.locktime = new Date();
-            } else {
-                var date = new Date();
-                var lockDur = date.getTime() - this.locktime.getTime();
-                // Debug.error( "TextFieldHistory.onlocked: lockDur=" + lockDur );
             }
         ]]>
         </handler>
@@ -177,16 +147,13 @@
              @parameter scrollrichedittext theText: Instance of scrollrichedittext.
         -->
         <method name="initializeHistoryForText" args="theText">
-            Debug.write( "TextFieldHistory.initializeHistoryForText() theText.getText=" + theText.getText() );
             // If no ID is set, set one on the text component. When the
             // history of a component is cleared, the historycleared
             // property will be set to true.
-            Debug.write("typeof theText = "+typeof theText+" theText.id= "+theText.id+" theText.historycleared= "+theText.historycleared);
             if ( typeof theText == "undefined" || theText.id == null || theText.historycleared == true ) {
                 if ( theText.id == null ) {
                     theText.setAttribute( 'id', theText.classroot.widget_id );
                 }
-                Debug.write("inside if of initializeHistoryForText"+theText);
                 theText.historycleared = false;
 				CRinstances[theText.id] = theText;
 				this.createHistory( theText.id );
@@ -194,29 +161,19 @@
                 this.setAttribute( "previousvalue", theText.getText() );
             }
         </method>
-        
+
         <!--- Creates a history for a text field.
               @access private
               @parameter String id: The id of the textfield.
         -->
         <method name="createHistory" args="textId"><![CDATA[
-            Debug.write("TextFieldHistory.createHistory: textId=" + textId);
-            Debug.write("CRinstances "+CRinstances);
             var theText = CRinstances[textId];
-			Debug.write("theText "+theText);
-			Debug.write("theText.id "+theText.id);
-			Debug.write(" theText.text() "+theText.text);
             var jsonStr = null;
             if ( theText ) {
-            	Debug.write("typeof history[ theText.id ] "+typeof history[ theText.id ]+" history[ theText.id ] "+history[ theText.id ]);
                 if (typeof history[ theText.id ] == 'undefined' || history[ theText.id ] == null) {
-					Debug.write("insisde if of createHistory");
                     jsonStr = JSON.stringify( theText.text );
                     this.history[ theText.id ] = {};
-                    var jsExpr = "TextHistory.createHistory('"+ theText.id + "','" + theText.text + "')";
-                    this.setAttribute('createHistoryExp',jsExpr);
-                    var methodName = "TextHistory.createHistory";
-                    this.callToJS([methodName,null,theText.id,theText.text] );
+                    TextHistory.createHistory(theText.id, theText.text);
                 }
             }
         ]]>
@@ -235,8 +192,7 @@
             }
             lz.Focus.clearFocus();
             this.setAttribute( "activeinput", null );
-			var methodName = 'TextHistory.clearHistory';
-			this.callToJS([methodName,null] );
+			TextHistory.clearHistory();
         ]]>
         </method>
 
@@ -245,7 +201,6 @@
               @parameter Object text: Instance of _richinternalinputtext.
         -->
         <method name="setActiveInput" args="text"><![CDATA[
-             Debug.write( "setActiveInput: text=" + text );
              if ( this.activeinput !== text ) {
                   if ( this.activeinput != null ) {
                       // With multipl CR texts, there might be unsaved content
@@ -262,26 +217,15 @@
               @access public
         -->
         <method name="checkForChange">
-            Debug.write( "TextFieldHistory.checkForChange(): activeinput" + activeinput );
-            var jsonStr = null;
-            var jsExpr = null;
             var caretIndex = 0;
             if ( activeinput != null ) {
-                 Debug.write("activeinput.getText(): |" + activeinput.getText() + "|" );
-                 Debug.write("this.previousvalue:    |" + this.previousvalue + "|" );
                 if ( activeinput.getText() != this.previousvalue ) {
                     this.previousvalue = activeinput.getText();
                     caretIndex = this.getCaretIndex();
-                    //jsonStr = JSON.stringify( activeinput.getText() )
-					var str = activeinput.getText();
-                    //jsExpr = 'TextHistory.createDiff( "' + activeinput.id + '", ' + caretIndex + ', ' + jsonStr + ');'
-                    var methodName = "TextHistory.createDiff";
-                    this.callToJS([methodName,null,activeinput.id,caretIndex,str] );
+                    TextHistory.createDiff( activeinput.id, caretIndex, activeinput.getText());
                 } else if ( previnput !== activeinput ) {
-                    jsExpr = 'TextHistory.setFocus( "' + activeinput.id + '", "checkForChange" );';
+                    TextHistory.setFocus(activeinput.id);
                     this.previnput = this.activeinput;
-                    var methodName = "TextHistory.setFocus";
-                    this.callToJS([methodName,null,activeinput.id,checkForChange] );
                 }
             }
         </method>
@@ -293,22 +237,15 @@
         -->
         <method name="checkForChangeCallback" args="status">
             this.setButtonStatus( status );
-            if ( $debug ) this._showDuration();
         </method>
 
         <!---  a history transaction.
               @access public
           -->
         <method name="undo"><![CDATA[
-        	Debug.write( "undo");
             if ( activeinput != null ) {
                 var caretIndex = this.getCaretIndex();
-                console.log("undo",caretIndex);
-                //var jsonStr = JSON.stringify( activeinput.getText() );
-                var str = activeinput.getText();
-                //var js = 'TextHistory.undo("' + activeinput.id + '", "' + caretIndex + '", ' + jsonStr + ' );'
-                var methodName = "TextHistory.undo";
-                this.callToJS([methodName,null,activeinput.id,caretIndex,str] );
+                TextHistory.undo(activeinput.id, caretIndex, activeinput.getText());
             }
         ]]>
         </method>
@@ -318,12 +255,9 @@
               @parameter String status: Object with history status.
           -->
         <method name="undoCallback" args="status"><![CDATA[
-            this._showDuration();
             var text = CRinstances[ status.textId ];
             if ( text ) {
-            	
                 this.newCaretIndex = status.caretIndex;
-                console.log("undoCallback",this.newCaretIndex);
                 text.setText( status.text );
                 lz.Timer.resetTimer( delayedSetTextcursor, 500 );
                 this.setButtonStatus( status );
@@ -335,10 +269,8 @@
               @access public
           -->
         <method name="redo"><![CDATA[
-            // Debug.write( "TextFieldHistory.redo: activeinput.id=" + activeinput.id );
             if ( activeinput != null ) {
-				var methodName = "TextHistory.redo";
-                this.callToJS([methodName,null,activeinput.id] );
+				TextHistory.redo(activeinput.id);
             }
 
         ]]>
@@ -349,7 +281,6 @@
               @parameter String status: Object with history status.
           -->
         <method name="redoCallback" args="status"><![CDATA[
-            this._showDuration();
             var text = CRinstances[ status.textId ];
             if ( text ) {
                 this.newCaretIndex = status.caretIndex;
@@ -360,40 +291,24 @@
         ]]>
         </method>
 
-        <!--- Used to set the text cursor position with a slight delay to allow text to beg
+        <!--- Used to set the text cursor position with a slight delay to allow text to be
               updated for the selection is set.
               @access private
         -->
-        <method name="setTextCursorPos"><![CDATA[
+        <method name="setTextCursorPos" args="newCarentIndex"><![CDATA[
             if ( this.activeinput ) {
-            	console.log("setTextCursorPos--->>",newCaretIndex);
+				// When setSelection() is used, the cursor it not displayed
+				// correctly. This is a quick hack to get the cursor positioning
+				// working again.
+				var input = this.activeinput._field.tsprite.__LzInputDiv;
+				input.focus();
+				input.setSelectionRange(newCarentIndex, newCarentIndex);
+            	return;
+                // Below code was not working in DHTML runtime
                 // Set the cursor position, will automatically focus the text
-                this.activeinput.setSelection( newCaretIndex, newCaretIndex );
+                // this.activeinput._field.setSelection( newCaretIndex, newCaretIndex );
             }
         ]]></method>
-
-         <!--- Helper method for calling JavaScript and tracking the round trip time.
-               @access private
-               @parameter String jsExpr: JavaScript expression to evaluate in HTML page.
-         -->
-        <method name="callToJS" args="jsArgs"><![CDATA[
-            if ( jsArgs!=null ) {
-                this.transactiontime = new Date();
-                this.setAttribute( "locked", true );
-				lz.Browser.callJS.apply(null, jsArgs);
-            }
-        ]]></method>
-
-
-        <!--- Used to track how long it takes to execute actions like creating a diff, undo or redo.
-             @access private
-          -->
-        <method name="_showDuration"><![CDATA[
-            var date = new Date();
-            var dur = Math.ceil( date.getTime() - this.transactiontime.getTime() );
-            // if ($debug) Debug.write("History transaction processing took " + dur + " ms.");
-         ]]>
-         </method>
 
          <!--- Sets the undo/redo properties on the CachableMultilineAnswer class.
                @access private
@@ -403,7 +318,6 @@
             // answer is an instance of CachableMultilineAnswer
             var text = CRinstances[ status.textId ];
             var answer = text.classroot;
-            Debug.write("setButtonStatus = "+answer);
             answer.setAttribute( "canundo", status.canundo );
             answer.setAttribute( "canredo", status.canredo );
          ]]>
@@ -414,13 +328,9 @@
                @return {number} Caret index position.
          -->
          <method name="getCaretIndex"><![CDATA[
-             var caretIndex = 0;
-             if ( typeof this.activeinput._field.caretindex != 'undefined' ) {
+             var caretIndex = -1;
+         	 if (this.activeinput) {
                  caretIndex = this.activeinput._field.caretindex;
-				console.log("getCaretIndex if>>>>",this.activeinput._field.caretindex);
-             } else {
-                 caretIndex = this.activeinput.caretindex;
-					console.log("getCaretIndex else>>>>",this.activeinput.caretindex);
              }
              return caretIndex;
          ]]></method>

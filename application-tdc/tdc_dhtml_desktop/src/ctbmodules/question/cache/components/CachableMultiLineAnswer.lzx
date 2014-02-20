@@ -41,6 +41,7 @@
 		 
 		<attribute name="canundo" type="boolean" value="false" />
          <attribute name="canredo" type="boolean" value="false" />
+         <attribute name="resizeCRArea" type="boolean" value="false" />
          
         <!-- ===============
              = METHODS
@@ -104,18 +105,32 @@
             if (data.getAttr("width")) {
                 this.setAttribute('editTextWidth', Number(data.getAttr("width")));				
             }
+            console.log("multiline ondata width "+data.getAttr("width")+" editTextWidth "+editTextWidth);
             if(data.getAttr('acc_width') && gController.hasFontAccommodation){
 //Debug.write("CachableMultiLineAnswer", "got acc_width", data.getAttr('acc_width'));
                 this.setAttribute('editTextWidth', Number(data.getAttr("acc_width")));
             }
+            console.log("gController.hasFontAccommodation multiline ondata width "+data.getAttr("width")+" editTextWidth "+editTextWidth+" gController.hasFontAccommodation "+gController.hasFontAccommodation);
             if (data.getAttr("height")){
                 this.setAttribute('height', Number(data.getAttr("height"))); 
             }
             if (data.getAttr('acc_height') && gController.hasFontAccommodation){
             	this.setAttribute('height', Number(data.getAttr("acc_height")));
             }
+            
+            console.log("CR parent"+this.parent.data,this.parent.width);
+            if(gController.isISTEP || canvas.readable){
+	            if((Number(this.editTextWidth)+Number(this.btnContainer.width) >= Number(this.parent.width))){
+	            	this.setAttribute("resizeCRArea",true);
+	            }
+	        }
+			console.log("this.btnContainer.width "+this.btnContainer.width);		
+			console.log("resizeCRArea "+this.resizeCRArea);		
+	
  			if (data.getAttr("halign")) 
                 this.setAttribute("halign", data.getAttr("halign")); 
+			
+			console.log("lmargin "+data.getAttr("lmargin"));
 			if (data.getAttr("lmargin")){
 				var lm = Number(data.getAttr("lmargin"));
 				var newEditTextWidth = this.editTextWidth - lm;
@@ -258,7 +273,8 @@
 				<view name="rich" bgcolor="${Number(gController.answerBgColor)}">
 				   <scrolledittext_CrItem name="answer" 
 									 height="${classroot.showFormatBar ? classroot.height - classroot.outer.controls.height : classroot.height }" 
-									 width="${(gController.hasFontAccommodation || canvas.readable) ?  Number(classroot.editTextWidth+11) : classroot.width}" vscrollbarclassname="null">
+									 width="${classroot.resizeCRArea?(Number(classroot.editTextWidth)-Number(classroot.btnContainer.width)-5):(classroot.editTextWidth-5)}" 
+									 vscrollbarclassname="null" x="${classroot.lmargin}">
 						<attribute name="start" type="number" value="0" />
 		            	<attribute name="end" type="number" value="0" />
 		            	<attribute name="scrollPos" type="number" value="0" />
@@ -280,13 +296,11 @@
 					  	
 					  
 					 <handler name="onkeydown" reference="lz.Keys" args="k"> <![CDATA[
-							//Debug.write("onkeydown of multiline CR********",k);
+							
 				  			if(k==17){
-								//Debug.write("CTrl pressed********");
 				      			this.setAttribute('isCtrl', true);
 				  			}else if(isCtrl
 				           		&& (k!=67 && k!=86 && k!=88 && k!=4294967295)){
-								Debug.write("CTrl +C, V or X pressed********");
 				      			this.inp.setAttribute('enabled', false);
 				  			}
 				  			if(k==18) {
@@ -297,21 +311,21 @@
 							if(k==-1){
 							     this.setEnabled(true);
 							}
-
+							
 						 ]]>
 					 </handler>
 					 
 					 <handler name="onkeyup" reference="lz.Keys" args="k"><![CDATA[
-						  Debug.write("onkeyup of multiline CR********",k);	
+						  
 						  if(k==17){
 						     this.inp.setAttribute('enabled',true);
 						      this.setAttribute('isCtrl', false);
 						  }
 						  if(k==18){
 						      this.inp.setAttribute('enabled',true);
-						      this.inp.setAttribute('isAlt', false);
+						      this.setAttribute('isAlt', false);
 						  }
-						Debug.write("inp.enabled********",this.inp.enabled);
+						
 					]]></handler> 
 				  	<method name="updateScrollText" args="a">
 						this.setAttribute('text',a);	
@@ -388,7 +402,6 @@
 					</method>
 					
 					<handler name="onfocus">
-						this.setSelection(0,0);
 						checkTextDragging();
 					</handler>
 									 
@@ -399,7 +412,7 @@
 				  </scrolledittext_CrItem>
 				 </view>
 			</view>
-		<view>
+		<view name="btnContainer">
 			<simplelayout axis="y" spacing="4" />
 			<basebutton resource="read_btn" 
 	 		            name="readBtn"
@@ -413,7 +426,7 @@
 			</basebutton>
 			
 			<EnableDisableButton name="undoBtn" resource="undo_btn"
-                 visible="${ gController.productTypeVal.indexOf('ISTEP')>= 0}"
+                 visible="${ gController.isISTEP}"
                  enabled="${classroot.canundo}">
                 <handler name="onmouseover">
                     gTooltip.showTooltip('Undo');
@@ -421,9 +434,7 @@
                 <handler name="onmouseout">
                     gTooltip.hideTooltip ();
                 </handler>
-                <handler name="onclick">
-	             //   this.doClick();
-				</handler>
+               
                 <method name="doClick">
                 	console.log("doClick********* undo");
                 	if(gPleaseWaitPopup.visible == false){
@@ -433,9 +444,8 @@
                 </method>
             </EnableDisableButton>
 
-			<view name="justForSpace" height="4" visible="${parent.redoBtn.visible}"/>
             <EnableDisableButton name="redoBtn" resource="redo_btn"
-                visible="${ gController.productTypeVal.indexOf('ISTEP')>= 0}"
+                visible="${ gController.isISTEP}"
                 enabled="${classroot.canredo}">
                 <handler name="onmouseover">
                     gTooltip.showTooltip('Redo');
@@ -443,9 +453,7 @@
                 <handler name="onmouseout">
                     gTooltip.hideTooltip ();
                 </handler>
-                <handler name="onclick">
-	             //   this.doClick();
-				</handler>
+               
                 <method name="doClick">
                	 console.log("doClick********* redo");
                 	if(gPleaseWaitPopup.visible == false){
@@ -457,7 +465,7 @@
 
 		</view>
 		
-		 <drawview options="ignorelayout" width="${classroot.editTextWidth + classroot.lmargin}" 
+		 <drawview options="ignorelayout" width="${classroot.resizeCRArea?(Number(classroot.editTextWidth + classroot.lmargin)-Number(classroot.btnContainer.width)-5):(Number(classroot.editTextWidth + classroot.lmargin)-5)}" 
 		                  height="${classroot.height}">
 					<attribute name="isready" value="false" type="boolean" />
 									  <handler name="oncontext">
@@ -465,6 +473,8 @@
 										this.draw();
 									  </handler>
 		            <handler name="onwidth">
+						console.log("border view editTextWidth = "+classroot.editTextWidth+" lmargin " + classroot.lmargin);
+						console.log("border view "+this.width);
 		                this.draw();
 		            </handler>
 		            <handler name="onheight">
@@ -475,7 +485,8 @@
 						if(this.isready){
 		                this.clear ();
 		                this.beginPath ();
-		                
+						console.log("border view draw "+this.width);		                
+
 		                //has to be .5 so is draws exactly inside the border of the view
 		                this.moveTo (.5,.5);
 		                this.lineTo (this.width - .5, .5);
