@@ -58,7 +58,12 @@
 		
         <simplelayout axis="y" spacing="3"/>
 
-        <text name="studentName" fgcolor="white" fontsize="24" resize="true" x="${ parent.info.x }"/>
+        <text name="studentName" fgcolor="white" fontsize="24" resize="true" x="${ parent.info.x }">
+        	<handler name="ontext">
+        		var el = this.getDisplayObject();
+        		el.setAttribute('style','font-size: 24px; line-height: 29px; pointer-events: none; height: 29px; width: auto;')
+        	</handler>
+        </text>
   
         <view name="info" bgcolor="white" width="550" 
         	x="5" height="94">
