@@ -720,6 +720,27 @@ function checkEmptyString(str) {
 		hotKeysHandle();
 	}
 	
+	/*added to restrict undo redo using hot keys in DHTML client starts*/
+	var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
+	console.log("ctrlKey "+event.ctrlKey);
+	console.log("keystroke "+keystroke);
+	if (event.ctrlKey) {
+		switch(keystroke){
+			case 'z' :
+				console.log("undo text");
+				event.preventDefault(); // disable Ctrl+Z
+				event.stopPropagation();
+				break;
+			case 'y' :
+				console.log("redo text");
+				event.preventDefault(); // disable Ctrl+Y
+				event.stopPropagation();
+				break;
+			default:
+				break;
+		}
+	}
+	/*added to restrict undo redo using hot keys in DHTML client ends*/
 }
 function hotKeysHandle() {
 var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
