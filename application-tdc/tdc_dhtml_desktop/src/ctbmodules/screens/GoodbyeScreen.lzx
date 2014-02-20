@@ -26,6 +26,12 @@
 	</node>
 	
     <class name="GoodbyeScreen">
-		<text fontsize="24" height="36" align="center" valign="middle" fgcolor="white">Good-bye!</text>    
+		<text fontsize="24" height="36" align="center" valign="middle" fgcolor="white" width="118">
+		Good-bye!
+		<handler name="ontext">
+		var el = this.getDisplayObject();
+		el.setAttribute('style','font-size: 24px; height: 36px;');
+		</handler>
+		</text>    
 	</class>
 </library>

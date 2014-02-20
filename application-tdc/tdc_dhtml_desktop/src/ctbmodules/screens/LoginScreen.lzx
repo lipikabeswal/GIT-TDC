@@ -32,7 +32,7 @@
             Hello, please log in to begin
             <handler name="oninit">
             	var elem = this.getDisplayObject();
-                elem.setAttribute('style','font-family: CTB; font-size: 24px; line-height: 29px; pointer-events: none; width: auto; height: 29px;');
+                elem.setAttribute('style','font-size: 24px; line-height: 29px; pointer-events: none; width: auto; height: 29px;');
             </handler>
         </text>
 
@@ -45,7 +45,7 @@
                       fontsize="12" width="265" pattern="[a-zA-Z0-9_\\-]*">
                  <handler name="oninit">
                    	var elem = this.field.getDisplayObject();
-                   	elem.setAttribute('style','font-family: CTB; height: 20px;');
+                   	elem.setAttribute('style','height: 20px;');
                    	elem.setAttribute('spellcheck',false);
                  </handler>
             </edittext>
@@ -59,7 +59,7 @@
                       password="true" width="265" pattern="[a-zA-Z0-9_]*" >
                       <handler name="oninit">
                       	var elem = this.field.getDisplayObject();
-                      	elem.setAttribute('style','font-family: CTB; height: 20px;');
+                      	elem.setAttribute('style','height: 20px;');
                       	elem.setAttribute('spellcheck',false);
                       </handler>
             </edittext>
@@ -67,7 +67,7 @@
                       password="false" width="265" pattern="[a-zA-Z0-9_]*">
                       <handler name="oninit">
                       	var elem = this.field.getDisplayObject();
-                      	elem.setAttribute('style','font-family: CTB; height: 20px;');
+                      	elem.setAttribute('style','height: 20px;');
                       	elem.setAttribute('spellcheck',false);
                       </handler>
             </edittext>
@@ -78,13 +78,13 @@
                 <b>Access Code:</b>
 				<handler name="oninit">
                		var elm=this.getDisplayObject();
-               		elm.setAttribute('style','font-family: CTB; font-size: 12px; line-height: 14px; pointer-events: none; width: auto; height: 14px;');
+               		elm.setAttribute('style','font-size: 12px; line-height: 14px; pointer-events: none; width: auto; height: 14px;');
                	</handler>
             </text>
             <edittext name="accesscodeField" x="287" fontsize="12" width="265" pattern="[a-zA-Z0-9_]*">
            		<handler name="oninit">
                    	var elem = this.field.getDisplayObject();
-                   	elem.setAttribute('style','font-family: CTB; height: 20px;');
+                   	elem.setAttribute('style','height: 20px;');
                    	elem.setAttribute('spellcheck',false);
                 </handler>
             </edittext>

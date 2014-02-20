@@ -176,7 +176,7 @@
         <text name="btnText" text="${classroot.itemnum}" resize="true" 
               font="Arial" fontsize="11" fontstyle="bold"
               y="22" align="center" visible="${!classroot.isTheme}">
-        	<handler name="ontext">
+        	<handler name="oninit">
         		var elm = this.getDisplayObject();
         		elm.setAttribute('style','font-family: Arial; font-weight: bold; pointer-events: none; width: auto; height: 13px');
         	</handler>

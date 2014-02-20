@@ -247,7 +247,7 @@
 				                 fontSize = 12;
 			               }
 					this.textclip = this.getDisplayObject();
-					this.textclip.setAttribute('style','font-family: CTB; line-height: 0px;'+ textAreafgcolor+ 'font-size: '+fontSize+'');
+					this.textclip.setAttribute('style','line-height: 0px;'+ textAreafgcolor+ 'font-size: '+fontSize+'');
 					this.textclip.setAttribute('spellcheck',false);
 				} else {				
 					var mc = this.sprite;

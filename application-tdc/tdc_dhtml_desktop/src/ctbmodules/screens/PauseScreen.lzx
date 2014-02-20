@@ -13,7 +13,13 @@
 
         <simplelayout axis="y"/>
 
-        <text name="studentName" fontsize="24" resize="true" fgcolor="white"/>
+        <text name="studentName" fontsize="24" resize="true" fgcolor="white">
+        	<handler name="ontext">
+					var el=this.getDisplayObject();
+					el.setAttribute('style','width: auto; font-size: 24px;');
+			</handler>
+        </text>
+        
         
         <text name="prompt" fontsize="24" fgcolor="white" resize="true">
             Log in to resume your paused test.
@@ -39,7 +45,7 @@
                       password="true" width="265" pattern="[a-zA-Z0-9_]*">
                       <handler name="oninit">
                       	var elem = this.field.getDisplayObject();
-                      	elem.setAttribute('style','font-family: CTB; height: 20px;');
+                      	elem.setAttribute('style','height: 20px;');
                       	elem.setAttribute('spellcheck',false);
                       </handler>
             </edittext>
@@ -47,7 +53,7 @@
                       password="false" width="265" pattern="[a-zA-Z0-9_]*">
                       <handler name="oninit">
                       	var elem = this.field.getDisplayObject();
-                      	elem.setAttribute('style','font-family: CTB; height: 20px;');
+                      	elem.setAttribute('style','height: 20px;');
                       	elem.setAttribute('spellcheck',false);
                       </handler>
             </edittext>
@@ -55,7 +61,11 @@
         <view name="ac">
             <text resize="true" fgcolor="white"
                   valign="middle" fontsize="12"  x="${ 282 - width }">
-                <b>Access Code:</b>
+               <b>Access Code:</b>
+                <handler name="oninit">
+               		var elm=this.getDisplayObject();
+               		elm.setAttribute('style','font-size: 12px; line-height: 14px; pointer-events: none; width: auto; height: 14px;');
+               	</handler>
             </text>
 			<view x="287" width="265" height="26" bgcolor="white">
             	<text name="accesscodeField"

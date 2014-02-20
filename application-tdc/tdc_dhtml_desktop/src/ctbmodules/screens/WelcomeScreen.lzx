@@ -126,7 +126,12 @@
 
         <view name="controls" x="${ parent.info.x }" width="550">
             <text name="getstarted" valign="middle"
-                  fgcolor="white" fontsize="24" x="10" resize="true"/>
+                  fgcolor="white" fontsize="24" x="10" resize="true">
+				<handler name="ontext">
+					var el=this.getDisplayObject();
+					el.setAttribute('style','font-size: 24px; line-height: 29px; pointer-events: none; height: 29px; width: auto;');
+ 				</handler>
+            </text>      
 
             <state name="dostart" apply="false">
                 <StartButton x="${ parent.stopbutton.x - width - 10 }"
