@@ -14,8 +14,7 @@
 	<script type="text/javascript" src="assets/jquery-1.8.3.js"></script>
 	<script type="text/javascript" src="assets/jquery-ui-1.9.2.custom.min.js"></script>
 	<script type="text/javascript" src="assets/imageZoomer.js"></script>	
-	<script type="text/javascript" src="includes/diff_match_patch.js"></script>
-	<script type="text/javascript" src="includes/TextHistory.js"></script>
+	
 <style title="mystyle" type="text/css" rel="stylesheet">
            html, body
             {
@@ -26,7 +25,7 @@
                 padding: 0;
                 border: 0 none;
                 /*text-rendering:optimizeLegibility;*/
-                font-family: CTB !important;
+                font-family: CTB!important;
             }
             body {
                 background-color: #6691b4;
@@ -116,6 +115,12 @@
 				font-weight: bold;
 				white-space: pre-wrap;
 				word-break: keep-all;	
+			}
+			.lzswftext{
+				font-family: CTB!important;
+			}
+			.lzswfinputtext{
+				font-family: CTB!important;
 			}
             
         </style><!--[if IE]>
@@ -715,6 +720,24 @@ function checkEmptyString(str) {
 		hotKeysHandle();
 	}
 	
+	/*added to restrict undo redo using hot keys in DHTML client starts*/
+	var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
+	
+	if (event.ctrlKey || event.metaKey || event.which == 91 || event.which == 17 || event.which == 93) {
+		switch(keystroke){
+			case 'z' :
+				event.preventDefault(); // disable Ctrl+Z
+				event.stopPropagation();
+				break;
+			case 'y' :
+				event.preventDefault(); // disable Ctrl+Y
+				event.stopPropagation();
+				break;
+			default:
+				break;
+		}
+	}
+	/*added to restrict undo redo using hot keys in DHTML client ends*/
 }
 function hotKeysHandle() {
 var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
@@ -841,10 +864,12 @@ var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
 	}*/
 //-->
 </SCRIPT>
+<script type="text/javascript" src="includes/diff_match_patch.js"></script>
+<script type="text/javascript" src="includes/TextHistory.js"></script>
 </HEAD>
 
 <BODY topmargin=0 leftmargin=0 rightmargin=0 bottommargin=0 scroll=no bgcolor="#6691B4"
-onkeydown="disableTabKey()" oncontextmenu="javascript:return false;">
+onkeydown="disableTabKey()">
 <button id="mybutton" style="visibility:hidden; width:0px; height:0px; display:none;">clickMe </button>
 
 <div id="appcontainer">

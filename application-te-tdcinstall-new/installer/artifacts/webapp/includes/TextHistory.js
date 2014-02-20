@@ -62,7 +62,7 @@ var TextHistory = (function() {
      */
     function _createDiff( textId, caretIndex, current ) {
         var addToHistory = true;
-        // console.log("_createDiff: textId=%s, caretIndex=%s, current=%s", textId, caretIndex, current );
+        console.error("_createDiff: textId=%s, caretIndex=%s, current=%s", textId, caretIndex, current );
         if ( ! history[ textId ] ) {
             console.error( "TextHistory._createDiff: Cannot create diff, no history found for text with id=%s", textId );
         }
@@ -155,6 +155,7 @@ var TextHistory = (function() {
             }
             // Transfer new value into OpenLaszlo app
             if ( newText != null ) {
+            	console.log("jscaretIndex>>>",histEntry.caretIndex);
                 var status = _generateStatus( textId, histEntry.caretIndex, hist, newText, "undoCallback" );
                 lz.embed.setCanvasAttribute( "newtextvalue", status );
                 return;
