@@ -294,39 +294,6 @@
 						
 					  </method>
 					  	
-					  
-					 <handler name="onkeydown" reference="lz.Keys" args="k"> <![CDATA[
-							
-				  			if(k==17){
-				      			this.setAttribute('isCtrl', true);
-				  			}else if(isCtrl
-				           		&& (k!=67 && k!=86 && k!=88 && k!=4294967295)){
-				      			this.inp.setAttribute('enabled', false);
-				  			}
-				  			if(k==18) {
-				  				this.setAttribute('isAlt', true);
-				  			}else if(isAlt){
-				      			this.inp.setAttribute('enabled',false);
-				  			}
-							if(k==-1){
-							     this.setEnabled(true);
-							}
-							
-						 ]]>
-					 </handler>
-					 
-					 <handler name="onkeyup" reference="lz.Keys" args="k"><![CDATA[
-						  
-						  if(k==17){
-						     this.inp.setAttribute('enabled',true);
-						      this.setAttribute('isCtrl', false);
-						  }
-						  if(k==18){
-						      this.inp.setAttribute('enabled',true);
-						      this.setAttribute('isAlt', false);
-						  }
-						
-					]]></handler> 
 				  	<method name="updateScrollText" args="a">
 						this.setAttribute('text',a);	
 					</method>
