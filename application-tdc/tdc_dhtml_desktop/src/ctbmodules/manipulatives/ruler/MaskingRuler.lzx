@@ -94,10 +94,12 @@ Debug.write("else "+data +" : "+ hasstate);
 			<view name="grabber" resource="grabber_rsrc" y="$once{classroot.GRABBER_Y}" align="center" visible="false">
             </view>
 			<handler name="onmouseover">
-                      gController.setCurrentCursor('cangrab_cursor');
+			          if(!classroot.dragenabled)	  
+                      	gController.setCurrentCursor('cangrab_cursor');
                   </handler>
                   <handler name="onmouseout">
-                      gController.clearAndRestoreCurrentCursor();
+                      if(!classroot.dragenabled)
+                      	gController.clearAndRestoreCurrentCursor();
                   </handler>
                   <handler name="onmousedown">
                   	  classroot.bringToFront();
@@ -128,7 +130,7 @@ Debug.write("else "+data +" : "+ hasstate);
         </view>       
 
 		<handler name="onmouseover">
-         	gController.setCurrentCursor('cangrab_cursor');
+		    gController.setCurrentCursor('cangrab_cursor');
          </handler>
          <handler name="onmouseout">
              gController.clearAndRestoreCurrentCursor();
