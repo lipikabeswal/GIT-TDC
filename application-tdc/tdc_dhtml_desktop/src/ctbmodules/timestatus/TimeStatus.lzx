@@ -56,7 +56,7 @@
                   
                   <handler name="oninit">
 	               		var elm=this.getDisplayObject();
-	               		elm.setAttribute('style','font-family: CTB; font-size: 15px; line-height: 17px; pointer-events: none; width: auto; height: 17px;');
+	               		elm.setAttribute('style','font-size: 15px; line-height: 17px; pointer-events: none; width: auto; height: 17px;');
 	               	</handler>
                 Untimed Test
             </text>
@@ -93,7 +93,12 @@
             
             <text name="thetime" x="68" y="-2"
                   resize="true" fgcolor="white" fontsize="15"
-                  datapath="dsdisplay:/display/@timeleft"/>
+                  datapath="dsdisplay:/display/@timeleft">
+            	<handler name="ontext">
+            		var elm=this.getDisplayObject();
+	               	elm.setAttribute('style','font-size: 15px; line-height: 18px; pointer-events: none; width: auto; height: 18px;');
+            	</handler>
+            </text>
 
             <multistatebutton name="showhidetime" y="22" 
                               resource="show_hide_timer_btn"
