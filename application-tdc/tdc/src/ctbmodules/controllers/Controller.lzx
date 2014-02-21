@@ -4171,7 +4171,10 @@ Debug.write("############ loadItem ############");
             }else{
             	this.setAttribute('trackTimer',Math.round(this.trackTimer+1000));
             	if(this.trackTimer >= timerInterval){ 
-					gCommunicator.closeOkCalculator();           		
+					gCommunicator.closeOkCalculator();   
+					hideMagnifierGlass();
+					hideMaskingChoiceDD();
+					LzCursor.unlock();        		
 					stopQuestion();
 					removeTrackTimer();
 					gScreens.showTimeoutForInactivity();
