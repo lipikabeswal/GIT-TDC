@@ -26,7 +26,7 @@
 		
 		<attribute name="realTitleLoaded" type="boolean" value="false"/>
 		<attribute name="refCardContentsLoaded" type="boolean" value="false"/>
-
+		<attribute name="ismouseOver" value="false" type="boolean"/>
 		<!-- 
 			when mouse is down on the scrollbar, it will be true
 			-->
@@ -335,6 +335,14 @@
 		      clip="true" 
 		      bgcolor="0xFFFFFF" showhandcursor="false">
 		      
+		    <handler name="onmouseover">
+	        	classroot.setAttribute('ismouseOver',true);
+	        </handler>
+	        <handler name="onmouseout">
+	        	classroot.setAttribute('ismouseOver',false);
+	        </handler>
+        
+	        
 			<view name="contents"
 			      width="${classroot.innerWidth - parent.scroller.width}">
 				<handler name="ony"><![CDATA[
@@ -350,7 +358,12 @@
 				</handler>
 
 			</view>
-		     <vscrollbar name="scroller" visible="${this.scrollable}"/>
+		     <vscrollbar name="scroller" visible="${this.scrollable}">
+		     <!-- fix for defect 73210 --> 
+				<handler name="onmousewheeldelta" reference="lz.Keys" args="d">
+	                   if (classroot.ismouseOver) this.step(-d * 2); 
+		        </handler>
+			</vscrollbar>
 		</view>
     </class>
 

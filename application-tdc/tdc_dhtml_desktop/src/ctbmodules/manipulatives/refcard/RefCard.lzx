@@ -22,6 +22,7 @@
 		<attribute name="titleRsrc" type="string"/>
 		<attribute name="scrolls" type="boolean" value="false" />
 		<attribute name="ismouseDown" value="false" type="boolean"/>
+		<attribute name="ismouseOver" value="false" type="boolean"/>
 
 		<!-- Fix for issue 76899. Sometimes the lz.GlobalMouseup
 		     event cannot be detected in Safari and Cocoa WebView when the mouse
@@ -240,13 +241,27 @@
 		      clip="true" 
 		      bgcolor="0xFFFFFF" showhandcursor="false">
 			
+			
+	        <handler name="onmouseover">
+				classroot.setAttribute('ismouseOver',true);
+	        </handler>
+	        <handler name="onmouseout">
+	        	classroot.setAttribute('ismouseOver',false);
+	        </handler>
+	        
+
 			<view name="contents"
 			      width="${classroot.innerWidth - parent.scroller.width}">
 				<handler name="ony">
 		            classroot.updateScrollTo(this.y);
 				</handler>
 			</view>
-		    <vscrollbar name="scroller" visible="${this.scrollable}"/>
+		    <vscrollbar name="scroller" visible="${this.scrollable}">
+				<!-- fix for defect 73210 --> 
+				<handler name="onmousewheeldelta" reference="lz.Keys" args="d">
+	                   if (classroot.ismouseOver) this.step(-d * 2); 
+		        </handler>
+			</vscrollbar>
 		</view>
     </class>
 
