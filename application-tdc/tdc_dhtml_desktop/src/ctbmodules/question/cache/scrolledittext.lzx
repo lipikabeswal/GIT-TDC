@@ -166,7 +166,7 @@
                     // sent when pressing enter at the end of a line
                     // with some text we need to manually add the action
                     // to the history using the processEnterDelayed() method.
-                    lz.Timer.resetTimer( enterKeyDel, 50 );
+                    lz.Timer.resetTimer( enterKeyDel, 200 );
                     var lengthBeforeEnter = this.getText().length;
                     enterpressed = true;
 					keyaction = "enter";

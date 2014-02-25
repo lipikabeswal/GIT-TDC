@@ -163,7 +163,7 @@
             }
             if ( isPaste ) {
                 checkForChange();
-                lz.Timer.resetTimer( delayedCheckForChangeDel, 100 );
+                lz.Timer.resetTimer( delayedCheckForChangeDel, 200 );
                 lz.Keys.__allKeysUp();
             }
         ]]>
