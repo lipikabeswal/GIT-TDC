@@ -173,7 +173,13 @@
 			</basebutton>
 			<view height="44" valign="middle">
 			<simplelayout axis="y"/>
-			<text name="volumeText" fontsize="7" resize="true" height="15" align="center" fontstyle="bold">Volume</text>			
+			<text name="volumeText" fontsize="7" resize="true" height="15" align="center" fontstyle="bold">
+				Volume
+				<handler name="oninit">
+					var elem = this.getDisplayObject();
+                	elem.setAttribute('style','font-size: 7px; width: auto; height: 15px;');
+				</handler>
+			</text>			
 			<slider value="50" keystep="1" minvalue="0" maxvalue="100" showvalue="false" showrange="false" showfill="true" 
 						thumbwidth="16" thumbheight="12" width="80">
 				<handler name="onvalue"><![CDATA[
