@@ -23,6 +23,10 @@
         
         <text name="prompt" fontsize="24" fgcolor="white" resize="true">
             Log in to resume your paused test.
+            <handler name="ontext">
+					var el=this.getDisplayObject();
+					el.setAttribute('style','width: auto; font-size: 24px;');
+			</handler>
         </text>
 
         <view width="100%" name="Id">
