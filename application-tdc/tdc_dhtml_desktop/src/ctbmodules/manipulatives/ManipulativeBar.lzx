@@ -307,7 +307,8 @@
 	
 					<method name="mouseover" args="ignore=null">
 					    lz.Cursor.showHandCursor(true);
-					   gController.setAttribute("manipSelected",this);
+					    gController.setAttribute("manipSelected",this);
+					    gController.setAttribute("musicSliderReff",this.track.thumb);
 						lz.Timer.addTimer (tooltipdel, 500);
 					</method>
 			                

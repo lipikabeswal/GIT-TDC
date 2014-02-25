@@ -596,6 +596,7 @@
 		<attribute name="isTE" type="boolean" value="false" />
 		<attribute name="textHistory" value="$once{new lz.TextFieldHistory()}" type="expression" />
 		<attribute name="isAnswerAreaDisabled" type="boolean" value="false" />
+		<attribute name="musicSliderReff"/> 
 		<!--  Cancels a drag operation inside a TE item -->
     	<method name="cancelIframeDrag">
     		if (this.htmlFields.length == 1) {
@@ -3173,7 +3174,7 @@
 			value="$path{ 'dssubtest:/subtest/testing_session_data/lms.student.accommodations/@music_file_id' }" />
 		
 			
-		<method name="pauseTest">
+		<method name="pauseTest"><![CDATA[
             if ( pausable == true ) {
             	gController.setAttribute("isAnswerAreaDisabled",true);
             	this.doArrowMouseup();
@@ -3197,11 +3198,18 @@
 				/*if(this.htmlFields != null){
 					hideHtmlWidgets();
 				}*/
+				
+				//For Defect 77282        
+	            if(this.musicSliderReff != null && this.musicSliderReff != undefined)
+				{
+				  this.musicSliderReff.onmouseup.sendEvent();
+				}
+				
                 setState(PAUSE_STATE);
                 this.setAttribute("sendCatSave",false);
                 save(PAUSE_LEV);
             }
-        </method>
+      ]]>  </method>
 
 		<method name="save" args="lev">
         	var saveParams = getSaveParams(lev);
@@ -3267,7 +3275,7 @@
             }
  		]]></method>
 
-		<method name="finishTest">
+		<method name="finishTest"><![CDATA[
 			gController.setAttribute("isAnswerAreaDisabled",true);
 			this.doArrowMouseup();
 			gTooltip.hideTooltip ();
@@ -3300,8 +3308,15 @@
             	setSendCatSave();
             }
 			//this.resetHtmlFields();
+			
+			//For Defect 77282        
+            if(this.musicSliderReff != null && this.musicSliderReff != undefined)
+			{
+			  this.musicSliderReff.onmouseup.sendEvent();
+			}
+			
             save(null);
-        </method>
+        ]]></method>
 	
 		<method name="setSendCatSave">
 		var curItemId;
