@@ -46,18 +46,17 @@
 	
     <method name="show">
         //console.log("====SHOW WAIT POPUP===",this.manipRef);
-        if(this.manipRef != undefined)
-        	this.manipRef.onmouseup.sendEvent();
-        
-        
+       
         this.setAttribute("visible", true);
 		gPleaseWaitPopup.bringToFront();
         this.contents.networkLost.inBar.barAnimator.doStart();
         lz.ModeManager.makeModal(this);
         resetControls();
         gHotKeys.disableKeys();
-         gController.setAttribute('isAnswerAreaDisabled',false);
+        gController.setAttribute('isAnswerAreaDisabled',false);
         
+		if(this.manipRef != undefined)
+        	this.manipRef.onmouseup.sendEvent();
     </method>
 
     <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">
