@@ -3518,7 +3518,22 @@
 				}
 	            if ( 0 == uisemaphore ) {
 	                lz.Cursor.unlock();
-	                clearAndRestoreCurrentCursor();
+	                // to clear the highlighter cursor when navigating to next item.
+	                if(canvas.currentCursor == 'highlighter_cursor'){
+	                	clearAndRestoreCurrentCursor();
+	                }
+					// to clear the eraser cursor when navigating to next item. 
+					else if(canvas.currentCursor == 'eraser_cursor'){
+	                	clearAndRestoreCurrentCursor();
+	                }
+					// to clear the eraser cursor when navigating to next item. 
+					else if(canvas.currentCursor == 'eliminator_cursor'){
+	                	clearAndRestoreCurrentCursor();
+	                }
+					else{	                	
+	                	restoreCurrentCursor();
+	                }
+	               // clearAndRestoreCurrentCursor();
 	                dsdisplay.childNodes[0].setAttr( 'enabled', 'true' );
 	              if(!gScratchpad.scratchpadHasFocus){
 	                	gHotKeys.enableKeys();
