@@ -163,7 +163,8 @@
 	        	if (document.activeElement.tagName == "IFRAME" || document.activeElement.tagName == "BODY") {
 					// iFrame has the focus; shift the focus back to top document
 					// If body has the focus; shift teh focus back to top document
-					top.focus();
+					//top.focus();
+					document.activeElement.focus();
 					console.warn("Controller#handleHtmlKeyPress: setting focus to top window***",gController.magnifierState,typeof(gController.magnifierState));
 				}
 	        	if(key == 'A' || key == 'Shift+A' || key == 'Caps_lock+A' || key == 'Shift+Caps_lock+A')

@@ -68,7 +68,7 @@
 				x: 0,
 				y: 0,
 				width: 780,
-				height: 490,
+				height: 455,
 				clip: true,
 				scrollbars: false,
 				mouseevents: true,
