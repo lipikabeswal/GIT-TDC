@@ -158,8 +158,8 @@
 
 		<handler name="onkeydown" reference="lz.Keys" args="k"> <![CDATA[
 			// Keyboard handling for TextFieldHistory support
-				Debug.write("mytext.selectionSize ",this.getSelectionSize());
-               if ( gController.textHistory.activeinput == classroot ) {
+			  Debug.write("mytext.selectionSize ",this.getSelectionSize());
+              if ( gController.textHistory.activeinput == classroot ) {
 				Debug.write("mytext.selectionSize inside if");
                 if ( k == 13 ) {
                     // Due to a bug where the ontext event is not
@@ -172,14 +172,18 @@
 					keyaction = "enter";
                 } else if ( k == 8 ) {
 					keyaction = "backspace";
-                   } else if ( k == 46 ) {
+                } else if ( k == 46 ) {
 					keyaction = "delete";
-                   } else if ( k == 32 ) {
+                } else if ( k == 32 ) {
 					keyaction = "space";
 				} 
-                   if ( keyaction != "" ) {
-                        gController.textHistory.checkForChange();
-                   }
+				//Changes for Defect #77338 to prevent Undo button getting enabled when pressing(Caps Lock/TAB/Page Up/Page Down/Shift+arrow)
+				else if ( this.getSelectionSize()>0 && k > 47 ) {	
+                        keyaction = "overwrite";
+                }
+                 if ( keyaction != "" ) {
+                   		gController.textHistory.checkForChange();
+                  }
                }
 			
 		 ]]>
@@ -187,14 +191,14 @@
 
 	<handler name="onkeyup" reference="lz.Keys" args="k"> <![CDATA[
 		if ( this.getSelectionSize()>0) {
-            keyaction = "overwrite";
+           // keyaction = "overwrite";
         }
 		]]>
 	</handler>
 
 	<handler name="onmouseup" reference="lz.GlobalMouse"> <![CDATA[
 		if ( this.getSelectionSize()>0) {
-            keyaction = "overwrite";
+           // keyaction = "overwrite";
         }
 		]]>
 	</handler>
