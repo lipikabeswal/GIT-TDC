@@ -141,14 +141,19 @@
             contents.ws.setAttribute('visible', true );
             show();
         </method>
-        <method name="showFinish" args="a, m">
+        <method name="showFinish" args="a, m"><![CDATA[
             removeAllStates();
             if ( !contents.fs.isinited ) contents.fs.completeInstantiation();
             //standingMan.apply();
             contents.fs.setStats( a, m );
             contents.fs.setAttribute('visible', true );
+			 //For Defect 77282  
+             if(gController.musicSliderReff != null && gController.musicSliderReff != undefined)
+			{
+			  gController.musicSliderReff.onmouseup.sendEvent();
+			}
             show();
-        </method>
+        ]]></method>
         <method name="showOutOfTime" args="a, m">
             removeAllStates();
             if ( !contents.os.isinited ) contents.os.completeInstantiation();
@@ -166,7 +171,7 @@
 			}
         </method>
         
-        <method name="showPause" args="sn">
+        <method name="showPause" args="sn"><![CDATA[
             removeAllStates();
             if ( !contents.ps.isinited ) contents.ps.completeInstantiation();
             //standingMan.apply();
@@ -185,13 +190,18 @@
             contents.ps.studentName.setAttribute('text', 'Hello ' + sn);
 
             contents.ps.setAttribute('visible', true );
+			 //For Defect 77282  
+            if(gController.musicSliderReff != null && gController.musicSliderReff != undefined)
+				{
+				  gController.musicSliderReff.onmouseup.sendEvent();
+				}
             show();
         	if(gController.displayText == true || gController.displayText == 'true') {
 				lz.Focus.setFocus(contents.ps.pw.istepPasswordField);
 			} else {
         		lz.Focus.setFocus(contents.ps.pw.otherPasswordField);
 			}
-        </method>
+        ]]></method>
         <method name="showLogin">
 
             removeAllStates();

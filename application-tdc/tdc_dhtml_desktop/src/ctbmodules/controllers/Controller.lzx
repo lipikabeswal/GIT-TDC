@@ -3199,13 +3199,7 @@
 					hideHtmlWidgets();
 				}*/
 				
-				//For Defect 77282        
-	            if(this.musicSliderReff != null && this.musicSliderReff != undefined)
-				{
-				  this.musicSliderReff.onmouseup.sendEvent();
-				}
-				
-                setState(PAUSE_STATE);
+				setState(PAUSE_STATE);
                 this.setAttribute("sendCatSave",false);
                 save(PAUSE_LEV);
             }
@@ -3309,13 +3303,7 @@
             }
 			//this.resetHtmlFields();
 			
-			//For Defect 77282        
-            if(this.musicSliderReff != null && this.musicSliderReff != undefined)
-			{
-			  this.musicSliderReff.onmouseup.sendEvent();
-			}
-			
-            save(null);
+		    save(null);
         ]]></method>
 	
 		<method name="setSendCatSave">
