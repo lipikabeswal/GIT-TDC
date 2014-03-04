@@ -74,8 +74,14 @@
     <class name="vol_sliderthumb" extends="basesliderthumb">
     	<handler name="onmouseup">
     		console.log("onmouseup of thumb");
+		if(!canvas.isPreviewer){
     		this.setAttribute('clickable',false);
     		gReadableText.setPlayerVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
+		}else{
+			gManipulativeBar.screenreader.volumeController.volumeControl.value=gManipulativeBar.screenreader.volumeController.volumeControl.value/100;			
+			gReadableText.audioPlayer.setAttribute("volume",gManipulativeBar.screenreader.volumeController.volumeControl.value);
+			console.log("ELSE----onmouseup of thumb"+gManipulativeBar.screenreader.volumeController.volumeControl.value);
+			}
     	</handler>
       <doc>
         <tag name="shortdesc"><text>
