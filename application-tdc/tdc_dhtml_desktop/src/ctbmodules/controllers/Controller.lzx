@@ -3947,6 +3947,10 @@ Debug.write("############ loadItem ############");
 				}
 				if(dnglob.getAttr('option_eliminator')=='sel'){
                     var toolSt = getToolstate('option_eliminator');
+					//suppressing option_eliminator for TE items as it is not required for TE items
+                    if(this.isTE){
+                    	toolSt='disable';
+                    }
 					dnglob.setAttr('option_eliminator',toolSt);
 				}
 				/*if(dnmanipulatives != null){
@@ -4011,6 +4015,9 @@ Debug.write("############ loadItem ############");
                         	else if(i == 'masking_ruler' && !this.showMaskingRuler){
                         		dnglobal.setAttr('masking_ruler', 'disable');
                         	}
+                        	else if(i == 'option_eliminator' && isTE){ //suppressing option_eliminator for TE items as it is not required for TE items
+                        		dnglobal.setAttr('option_eliminator', 'disable');
+                        	}
                         	else {
                         	   	dnglobal.setAttr (i, toolstate);
                         	}
@@ -4035,9 +4042,16 @@ Debug.write("############ loadItem ############");
 				this.hasDynamicRefCard = false;	
 				this.hasTNorFCATrefCard = false;	
 				this.formulaCardResource = null;
-
-				
             }
+			//suppressing masking_tool for TE items as it is not required for TE items
+			//start
+			var maskingAnsCh = gController.dpsubtest.xpathQuery('testing_session_data/lms.student.accommodations/@masking_tool');
+			if(isTE && maskingAnsCh=='true'){
+				this.setAttribute( 'showMaskingAnswerPopUp', false );
+			}else if(maskingAnsCh=='true' && !isTE){
+				this.setAttribute( 'showMaskingAnswerPopUp', true );
+			}
+			//end
        ]]></method>
        
        <method name="getToolstate" args="toolid">
@@ -4092,7 +4106,11 @@ Debug.write("############ loadItem ############");
 	                        if (i != which){
 	                        	if(!((i == 'highlighter' && !this.showHighlighter) || i == 'scratchpad' || (i == 'masking_ruler' && !this.showMaskingRuler))){
 	                        		//Debug.write(i, this.showMaskingRuler);
-	                        		dn.setAttr (i, 'up');
+									if(i == 'option_eliminator' && isTE){ //suppressing option_eliminator for TE items as it is not required for TE items
+	                        			dn.setAttr (i, 'disable');
+									}else{
+										dn.setAttr (i, 'up');
+									}
 	                        	}
 	                        }
 	                    }
