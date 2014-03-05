@@ -4843,11 +4843,11 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="showWaitPopup">
-            this.isWaitPopupOpen = true;	
-			gPleaseWaitPopup.show();
+            gPleaseWaitPopup.show();
 			//gMusicPlayer.hide();
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
+			this.isWaitPopupOpen = true;
 		</method>
 
 		<method name="networkLostPopup" args="ignore=null"><![CDATA[
