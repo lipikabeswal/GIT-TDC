@@ -59,7 +59,10 @@
 		
         <attribute name="operandP" value="$once{new lz.datapointer()}"/>
         <attribute name="operatorP" value="$once{new lz.datapointer()}"/>
-
+        
+        <attribute name="currentOperator" value="" type="string"/>
+        <attribute name="isEqualClicked" value="false" type="boolean"/>
+		
         <handler name="onmouseover">
             gController.setCurrentCursor('cangrab_cursor');
         </handler>
@@ -309,6 +312,7 @@
 		</method>
 
 		<method name="handleBinaryOperator" args="oper">
+			this.setAttribute('currentOperator',oper);
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 				if(isReplacementOperator()){
@@ -329,11 +333,13 @@
 		</method>
 
 		<method name="handleMemoryPlus">
+		    this.setAttribute('currentOperator','memoryPlus');
 			setDataAttribute("isPercentEquals", false);
 			this._doMemoryModification(true);
 		</method>
 		
 		<method name="handleMemoryMinus">
+			this.setAttribute('currentOperator','memoryMinus');
 			setDataAttribute("isPercentEquals", false);
 			this._doMemoryModification(false);
 		</method>
@@ -349,6 +355,7 @@
 		</method>
 		
 		<method name="handleMemoryClear">
+		    this.setAttribute('currentOperator','memoryClear');
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 				setDataAttribute('memory', 0);
@@ -356,6 +363,7 @@
 		</method>
 
 		<method name="handleMemoryRecall">
+			this.setAttribute('currentOperator','memoryRecall');
 			setDataAttribute("isPercentEquals", false);
 			setTheCurrentOperand(this.memory);
 		</method>
@@ -416,6 +424,7 @@
 		
 		<method name="handleEquals">
 			if(!isErrorState()){
+			    this.setAttribute('isEqualClicked',true);
 				var result;
 				if(this.isPercentEquals == true || this.isPercentEquals == 'true'){
 					this.pushOperand(this.currentOperand);
@@ -438,6 +447,7 @@
 				updateDisplay();
 			}
 			setDataAttribute("isPercentEquals", false);
+			this.setAttribute('isEqualClicked',false);
 		</method>
 			
 		<method name="reduce" args="oper">
@@ -483,6 +493,7 @@
 		</method>
 
 		<method name="handleReverseSign">
+		    this.setAttribute('currentOperator','reverseSign');
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 				if(this.isEditing){
@@ -646,6 +657,7 @@
 		</method>
 		
 		<method name="handleUnaryOperator" args="oper">
+		    this.setAttribute('currentOperator',oper);
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 				if(this.unaryAfterBinary()){
@@ -700,6 +712,7 @@
 		<method name="handlePercent" ><![CDATA[    
 			// muck everything up to satisfy FCAT :(
 			// yes - this wacky behavior is intentional
+			this.setAttribute('currentOperator','percent');
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 				var result = 0;
@@ -851,6 +864,28 @@
 			if(places < this.maxDigits && this.operands.length>1){
 				var multiplier = Math.pow(10, places);
 				result = Math.round(num * multiplier)/multiplier;
+			}
+			if(this.currentOperator == 'multiply' && this.isEqualClicked && result != ''){
+				var strngResult = String(result);
+				if(strngResult.indexOf('.')> -1){	
+					var splitText = strngResult.split(".");
+					var count = 0;
+					for(var i = 0; i < splitText[1].length; i++){
+					    if(splitText[1][i] == '0'){
+							count++;
+							if(count == 4){
+								break;
+							}
+						}else{
+							count = 0;
+						}
+					}
+					if(count == 4){
+						var newnumber = new Number(result+'').toFixed(parseInt('3'));
+						result =  parseFloat(newnumber);
+						count = 0;
+					}
+				}
 			}
 			return result;
 		]]>
