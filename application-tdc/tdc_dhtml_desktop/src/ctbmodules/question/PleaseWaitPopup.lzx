@@ -55,8 +55,9 @@
         gHotKeys.disableKeys();
         gController.setAttribute('isAnswerAreaDisabled',false);
         
-		if(this.manipRef != undefined)
-        	this.manipRef.onmouseup.sendEvent();
+        /* commenting code to fix defect #77441 and #77444 */ 
+		/*if(this.manipRef != undefined)
+        	this.manipRef.onmouseup.sendEvent();*/  
     </method>
 
     <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">
