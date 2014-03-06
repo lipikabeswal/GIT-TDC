@@ -4843,10 +4843,10 @@ Debug.write("############ loadItem ############");
 		]]></method>
 
 		<method name="showWaitPopup">
-            gPleaseWaitPopup.show();
-			//gMusicPlayer.hide();
+           //gMusicPlayer.hide();
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
+			gPleaseWaitPopup.show();
 			this.isWaitPopupOpen = true;
 		</method>
 
