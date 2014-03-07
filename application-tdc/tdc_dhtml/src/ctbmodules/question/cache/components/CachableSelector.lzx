@@ -22,6 +22,14 @@
 
 				this.selbutton.setAttribute ('randomtype', data.getAttr ('randomIdentifier'));
 			}
+			
+			if(data.hasAttr('valign')){
+				this.setAttribute('valign',data.getAttr('valign'));
+			}
+			
+			if(data.hasAttr('halign')){
+				this.setAttribute('align',data.getAttr('valign'));
+			}
     
            this.doAlign ();
 

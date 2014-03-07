@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <library>
 
+    <include href="ResizeDrawview.lzx" />
+
     <!-- =========================================
          =
          = Highlight
@@ -30,15 +32,16 @@
 
         <!-- dps -->
         <attribute name="hlstatus" value="$once{new lz.datapointer()}"/>
-        <attribute name="eraserstatus" value="$once{new lz.datapointer()}"/>        
+        <attribute name="eraserstatus" value="$once{new lz.datapointer()}"/>
         <attribute name="hlstate" value="$once{new lz.datapointer ()}"/>
-		<attribute name="hp" value="$once{new lz.datapointer ()}"/>
+        <attribute name="hp" value="$once{new lz.datapointer ()}"/>
 
         <!-- ===========================
              event handlers
              =========================== -->
         <!-- init datapointers -->
         <handler name="oninit">
+        	console.error("oninit of highlighter");
             this.hlstatus.setAttribute ('rerunxpath', true);
             this.eraserstatus.setAttribute ('rerunxpath', true);
             this.hlstate.setAttribute ('rerunxpath', true);
@@ -46,14 +49,14 @@
             this.hlstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@highlighter');
             this.eraserstatus.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/@eraser');
             this.hlstate.setXPath ('dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/highlighter');
-            
+
         </handler>
 
         <!-- show highlight cursor -->
         <handler name="onmouseover" reference="clickarea"><![CDATA[
             if (this.hlstatus.data == 'sel' && this.visible) {
                 gController.setCurrentCursor('highlighter_cursor');
-            } 
+            }
         ]]></handler>
 
         <!-- restore cursor -->
@@ -65,44 +68,57 @@
 
         <!-- init livesel -->
         <handler name="onmousedown" reference="clickarea"><![CDATA[
+        	console.error("onmousedown of highlighter"+clickarea);
+        	console.error("onmousedown of highlighter this.hlstatus.data "+this.hlstatus.data+ " this.visible "+ this.visible+" type this.visible "+typeof this.visible);
             if (this.hlstatus.data == 'sel' && this.visible) {
-            	gController.setCurrentCursor('highlighter_cursor');
-                this.livesel.setAttribute ('x', this.getMouse ('x'));
-                this.livesel.setAttribute ('y', this.getMouse ('y'));
-                this.livesel.setAttribute ('width', 0);
-                this.livesel.setAttribute ('height', 0);
-                this.livesel.setAttribute ('visible', true);
-                
-                console.log("onmousedown  "+this.livesel.resizer.x);
+				console.error("onmousedown inside if *********");
+                gController.setCurrentCursor('highlighter_cursor');
+                console.error("onmousedown "+livesel.getMouseFixed (this, 'x'));
+                livesel.setAttribute ('x', livesel.getMouseFixed (this, 'x'));
+                livesel.setAttribute ('y', livesel.getMouseFixed (this, 'y'));
+                livesel.setAttribute ('width', 0);
+                livesel.setAttribute ('height', 0);
+                livesel.setAttribute ('visible', true);
+                livesel.setAttribute ('active', true);
 
-                this.livesel.resizer.apply();
+                setAttribute('active', true);
             }
         ]]></handler>
 
         <!-- add new highlightarea node -->
         <handler name="onmouseup" reference="clickarea"><![CDATA[
             if (this.hlstatus.data == 'sel' && this.visible) {
+            	console.error("onmouseup of highlighter");
+                setAttribute('active', true);
                 this.livesel.setAttribute ('visible', false);
-                this.livesel.resizer.remove ();
+                this.livesel.setAttribute('active', false);
+
 
                 var dnstate = this.hlstate.data;
 
                 //add a highlightarea node
                 var attrs = {x: this.livesel.x,
                              y: this.livesel.y,
-                             width: this.getMouse ('x') - this.livesel.x,
-                             height: this.getMouse ('y') - this.livesel.y,
+                             width: this.livesel.width,
+                             height: this.livesel.height,
                              passageId: this.passageId,
                              stereotype: this.stereotype};
-				console.log(" onmouseup "+ attrs.width+" height "+attrs.height);
-				if(attrs.width > 0 && attrs.height > 0){
-	                var dnarea = 
-	                dnstate.appendChild (new lz.DataElement ('highlightarea', 
-	                                                        attrs,[]));
+                if(attrs.width != 0 && attrs.height != 0){
+                    var dnarea =
+                    dnstate.appendChild (new lz.DataElement ('highlightarea',
+                                                            attrs,[]));
                 }
 
             }
         ]]></handler>
+
+		<!--<handler name="onmouseup" reference="lz.GlobalMouse"><![CDATA[
+		if (this.hlstatus.data == 'sel' && this.visible) {
+			if(this.clickarea.containsPt((this.getMouse('x')/canvas.xscalefactor), (this.getMouse('y')/canvas.xscalefactor))){
+				gController.setCurrentCursor('highlighter_cursor');
+			}
+		}
+	]]></handler> --> 
 
 
         <handler name="ondata" args="data" reference="hlstatus">
@@ -112,166 +128,61 @@
 
 
 
-        <!-- change highlights datapath to find highlight nodes of the new 
+        <!-- change highlights datapath to find highlight nodes of the new
              stereotype -->
         <handler name="ondata" reference="hlstate">
-        	this.highlights.datapath.setXPath ("dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/highlighter/highlightarea[@stereotype='"+this.stereotype+"'][@passageId='"+this.passageId+"']");
+            this.highlights.datapath.setXPath ("dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/global/highlighter/highlightarea[@stereotype='"+this.stereotype+"'][@passageId='"+this.passageId+"']");
         </handler>
 
-		<method name="deleteHighlights" args="mousex, mousey"><![CDATA[
-			var highlightareas = this.hlstate.xpathQuery("highlightarea[@stereotype='"+this.stereotype+"'][@passageId='"+this.passageId+"']");
-            console.log("highlightareas "+highlightareas+" mousex "+mousex+" mousey "+mousey);
+        <method name="deleteHighlights" args="mousex, mousey"><![CDATA[
+            var highlightareas = this.hlstate.xpathQuery("highlightarea[@stereotype='"+this.stereotype+"'][@passageId='"+this.passageId+"']");
             if ( highlightareas instanceof LzDataNode ) {
-				hp.setPointer(highlightareas);
+                hp.setPointer(highlightareas);
                 hp.deleteNode();
-            } 
+            }
             else if ( highlightareas instanceof Array ) {
                 for(var i = 0; i < highlightareas.length; i++){
-                	var theHighlight = highlightareas[i];
-                	
-                	var minx = theHighlight.getAttr('x');
-                	var miny = theHighlight.getAttr('y');
-                	var maxx = Number(minx) + Number(theHighlight.getAttr('width'));
-                	var maxy = Number(miny) + Number(theHighlight.getAttr('height'));
-                	var temp;
-                	if(minx > maxx){
-                		temp = maxx;
-                		maxx = minx;
-                		minx = temp;
-                	}
-                	if(miny > maxy){
-                		temp = maxy;
-                		maxy = miny;
-                		miny = temp;
-                	}
-                	if((mousex <= maxx) && 
-                	   (mousex >= minx) && 
-                	   (mousey >= miny) && 
-                	   (mousey <= maxy)){
-						hp.setPointer(theHighlight);
-                 		hp.deleteNode();
-                	}
+                    var theHighlight = highlightareas[i];
+
+                    var minx = theHighlight.getAttr('x');
+                    var miny = theHighlight.getAttr('y');
+                    var maxx = Number(minx) + Number(theHighlight.getAttr('width'));
+                    var maxy = Number(miny) + Number(theHighlight.getAttr('height'));
+                    var temp;
+                    if(minx > maxx){
+                        temp = maxx;
+                        maxx = minx;
+                        minx = temp;
+                    }
+                    if(miny > maxy){
+                        temp = maxy;
+                        maxy = miny;
+                        miny = temp;
+                    }
+                    if(((mousex/canvas.xscalefactor) <= maxx) &&
+                       ((mousex/canvas.xscalefactor) >= minx) &&
+                       ((mousey/canvas.yscalefactor) >= miny) &&
+                       ((mousey/canvas.yscalefactor) <= maxy)){
+                         hp.setPointer(theHighlight);
+                        hp.deleteNode();
+                    }
                 }
             }
-		]]></method>
+        ]]></method>
 
 
         <!-- ===========================
              views
              =========================== -->
         <!-- view to shown when a user is first creating a hightlight -->
-        <drawview name="livesel" visible="false">
-        	 <attribute name="isready" value="false" type="boolean" />
-			  <handler name="oncontext">
-			    this.setAttribute("isready", true);
-			 
-			  </handler>
-
-            <handler name="oninit">
-                this.setAttribute ('strokeStyle', 0x999999);
-                this.setAttribute ('lineWidth', 2);
-            </handler>
-
-            <resizestate name="resizer">
-
-                <attribute name="minheight" value="${-this.y + 1}"/>
-                <attribute name="minwidth" value="${-this.x + 1}"/>
-                
-                <attribute name="maxheight" value="${classroot.height - this.y - 1}"/>
-                <attribute name="maxwidth" value="${classroot.width - this.x - 1}"/>
-               
-
-                <!-- constraints for width and height taking into account the min and maxes -->
-                <attribute name="__resize_xroffset"
-                   value="this.x - this.width + this.getMouse( 'x' )" when="once" />
-                   
-                <attribute name="__resize_yroffset"
-                   value="this.y - this.height + this.getMouse( 'y' )" when="once" />
-                   
-                <attribute name="width"
-                           value="${(Number(this.immediateparent.getMouse('x')) - Number(this.__resize_xroffset)) > this.maxwidth ? 
-                                  this.maxwidth : 
-                                  Math.max((Number(this.immediateparent.getMouse('x'))- Number(this.__resize_xroffset)), this.minwidth)}" />
-
-                <attribute name="height"
-                           value="${(this.immediateparent.getMouse ('y') - this.__resize_yroffset) > this.maxheight ? 
-                                  this.maxheight : 
-                                  Math.max((this.immediateparent.getMouse('y')- this.__resize_yroffset), this.minheight)}" />
-                
-                <!-- handle highlight when scrolling -->
-                <handler name="onwidth">
-                    this._draw ();
-                    this._scrollHighlight ('x');
-                </handler>
-
-                <handler name="onheight">
-                    this._draw ();
-                    this._scrollHighlight ('y');
-                </handler>
-
-                <method name="_scrollHighlight" args="axis"><![CDATA[
-                    var dim = axis == 'x' ? 'width' : 'height';
-                    var scroll = axis == 'x' ? classroot.hscroll : classroot.vscroll;
-
-                    if (!scroll) return;
-
-                    if (scroll.scrollable && scroll.axis == axis) {
-                        var target = scroll.scrolltarget;
-                        var diff =  classroot.scrollport.getMouse (axis) - classroot.scrollport [dim];
-
-                        //scroll down/right
-                        if (diff > 0){
-
-                            if (target [axis] - diff > (classroot.scrollport [dim] - target [dim])) {
-                                target.setAttribute (axis, target [axis] - diff);
-                            } else {
-                                target.setAttribute (axis, classroot.scrollport [dim] - target [dim]);
-                            }
-                        }
-                        
-                        //scroll up/left
-                        diff = classroot.scrollport.getMouse (axis);
-                        if (diff < 0) {
-                            if (target [axis] - diff < 0) {
-                                target.setAttribute (axis, target [axis] - diff);
-                            } else {
-                                target.setAttribute (axis, 0);
-                            }
-                        }                           
-                    }
-                ]]></method>
-
-                <!-- render the square -->
-                <method name="_draw"><![CDATA[
-                	console.log("onwidth  "+this.immediateparent.getMouse('x')+" this.__resize_xroffset  "+this.__resize_xroffset);
-                	console.log("width of highlighter  "+this.width);
-                	console.log("maxwidth of highlighter  "+this.maxwidth+" minwidth "+this.minwidth);
-                	console.log("difference *****  "+(Number(this.immediateparent.getMouse('x')) - Number(this.__resize_xroffset)));
-
-					console.log("max width  "+Math.max((Number(this.immediateparent.getMouse('x'))- Number(this.__resize_xroffset)), this.minwidth));
-                    
-                    if(this.width > 0){
-	                    this.clear ();
-	                    this.beginPath();
-	
-	                    this.lineTo (this.width, 0);
-	                    this.lineTo (this.width, this.height);
-	                    this.lineTo (0, this.height);
-	                    this.lineTo (0, 0);
-	                    this.closePath();
-	
-	                    this.stroke ();
-                    }
-                ]]></method>
-
-            </resizestate>
-        </drawview>
+        <ResizeDrawview name="livesel" visible="false">
+        </ResizeDrawview>
 
         <!-- the stored highlighted areas -->
         <view name="highlights" bgcolor="yellow" opacity=".3"
               clickable="false">
             <datapath pooling="true"/>
-            
+
             <handler name="ondata" args="data">
                 //init attributes
                 if (data) {
@@ -279,7 +190,7 @@
                     this.setAttribute ('y', data.getAttr ('y'));
                     this.setAttribute ('width', data.getAttr ('width'));
                     this.setAttribute ('height', data.getAttr ('height'));
-                } 
+                }
             </handler>
 
             <handler name="ondata" args="data" reference="classroot.eraserstatus">
@@ -304,7 +215,7 @@
             </handler>
 
         </view>
-        
+
     </class>
 
 </library>

@@ -26,6 +26,7 @@
 				this.dynlayout.setAttribute ('spacing', Number (data.getAttr ('spacing')));
             }
 
+			console.log("layout "+data.getAttr ('layout'));
 			if (data.hasAttr ('layout')) {
 				if (data.getAttr ('layout') == 'horizontal') {
 					this.dynlayout.changeAxis ('x');
@@ -44,12 +45,13 @@
             }
 
             this._initSubnodes ();
-            for (var i = 0; i < this.subviews.length; i++) {
-            	if(this.subviews[i] instanceof lz.CachableTextField){
-            		this.subviews[i].setAttribute('valign',"middle");
-            	}
+            if (data.getAttr ('layout') == 'horizontal'){
+	            for (var i = 0; i < this.subviews.length; i++) {
+	            	if(this.subviews[i] instanceof lz.CachableTextField){
+	            		this.subviews[i].setAttribute('valign',"middle");
+	            	}
+	            }
             }
-            
             doneLoading();
             ]]>
 		</handler>

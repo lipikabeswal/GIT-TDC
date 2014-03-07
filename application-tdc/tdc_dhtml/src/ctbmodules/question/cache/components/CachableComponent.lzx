@@ -55,9 +55,9 @@
 				if (this.subviews [i] instanceof lz.CachableComponent &&
                         this.subviews [i].visible) {
                   //  this.cache.returnComponent (this.subviews [i]);
-                  this.subviews[i].destroy();
+                    	this.subviews[i].destroy();
+                  	}
                 }
-            }
         ]]></method>
 
         <method name="doAlign"><![CDATA[
@@ -122,8 +122,8 @@
         ]]></method>
 
         <attribute name="ddoneLoading"
-                   value="$once{ new lz.Delegate( this, 'doneLoading' ) }"/>
-        <method name="doneLoading"><![CDATA[
+                   value="$once{ new lz.Delegate( this, 'doneLoading' ) }" type="expression"/>
+        <method name="doneLoading" args="ignore=null"><![CDATA[
         	if(this!=null && this.datapath.p!=null)
             	gController.componentDone( this, this.datapath.p.ownerDocument );
         ]]></method>

@@ -51,6 +51,22 @@
 			
 
 			if(data != null && data.hasAttr('src')) {
+				/*var theSrc = String(data.getAttr('src'));
+				theSrc = theSrc.substring(0,theSrc.length - 4);
+				var theTitleSrc = String(data.getAttr('src'));
+				theTitleSrc = theTitleSrc.substring(0,theTitleSrc.length - 4)+'_title';
+				
+				var regex = new RegExp("-", 'g');
+				theSrc = theSrc.replace(regex, '_');
+				theTitleSrc = theTitleSrc.replace(regex, '_');
+				console.log("theSrc "+theSrc+" theTitleSrc "+theTitleSrc);*/
+
+
+				var theSrc = String(data.getAttr('src'));
+				theSrc = theSrc.substring(0,theSrc.length - 4)+'.svg';
+				var theTitleSrc = String(data.getAttr('src'));
+				theTitleSrc = theTitleSrc.substring(0,theSrc.length - 4)+'_title.svg';
+
 				var refsrc = String(data.getAttr('src'));
 				refsrc = refsrc.toLowerCase();
 				if(refsrc.indexOf('istep') >= 0){
@@ -60,6 +76,15 @@
 				else if(refsrc.indexOf('corelink') >= 0){
 		        	refCardContents.contents.setAttribute('resource',"Corelink_refcard_contents");
 					title.real_title.setAttribute('resource',"Corelink_refcard_title");
+					this.setAttribute("scrolls",true);
+				}/*else if(refsrc.indexOf('wvwt') >= 0){
+		        	refCardContents.contents.setAttribute('resource',theSrc);
+					title.real_title.setAttribute('resource',theTitleSrc);
+					this.setAttribute("scrolls",true);
+				}*/
+				else if(refsrc.indexOf('wvwt2') >= 0 || refsrc.indexOf('istep') >= 0){
+					refCardContents.contents.setAttribute('source','resources/'+theSrc);
+					title.real_title.setAttribute('source','resources/'+theTitleSrc)
 					this.setAttribute("scrolls",true);
 				}
 			}
@@ -83,10 +108,32 @@
 				this.setAttribute('innerHeight', this.defaultInnerHeight);
         	}
 			
-			console.log("innerWidth of cachable refcard****",refCardContents.contents.resourcewidth,scrollerWidth);
+			calcDimensions();
+          ]]></handler>
+
+		
+		<method name="calcDimensions"><![CDATA[
+			var scrollerWidth = refCardContents.scroller.width;
+			console.log("calcDimensions scrollerWidth****",scrollerWidth);
+			if(refCardContents.contents.resourceheight > this.innerHeight) {
+				this.scrolls = true;	
+			}
+			else {
+				this.scrolls = false;
+			}
+			
+        	if(!this.scrolls){
+				this.setAttribute('innerHeight', refCardContents.contents.resourceheight);
+        		scrollerWidth = 0; 
+        	}
+        	else {
+				this.setAttribute('innerHeight', this.defaultInnerHeight);
+        	}
+
+			console.log("calcDimensions innerWidth of cachable refcard****",refCardContents.contents.resourcewidth,scrollerWidth);
 			this.setAttribute('innerWidth', refCardContents.contents.resourcewidth + scrollerWidth);
 			var halfWidth = (this.innerWidth - title.real_title.resourcewidth - this.LINE_PADDING)/2 ;
-			console.log("halfWidth of cachable refcard****",this.innerWidth,title.real_title.resourcewidth,this.LINE_PADDING,halfWidth);
+			console.log("calcDimensions halfWidth of cachable refcard****",this.innerWidth,title.real_title.resourcewidth,this.LINE_PADDING,halfWidth);
 			title.leftLines.setAttribute('width', halfWidth);
 			title.rightLines.setAttribute('width', halfWidth);
 
@@ -114,8 +161,7 @@
             	refCardContents.contents.setAttribute ('y', 0);
             } 
 
-			
-			/*if (data != null && data.hasAttr ('width')) {
+			if (data != null && data.hasAttr ('width')) {
 				console.log("width***if***",Number (data.getAttr ('width')));
     			this.setAttribute ('width', Number (data.getAttr ('width')));
 			} else {
@@ -127,14 +173,15 @@
 				this.setAttribute ('height', Number (data.getAttr ('height')));
 			} else {
                 this.setAttribute ('height', null);
-            }*/
+            }
 
   			
             // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
-            /*if(data != null && gScratchpad.visible){
+            if(data != null && gScratchpad.visible){
                 gScratchpad.bringToFront();
-            }*/
-          ]]></handler>
+            }
+		]]>
+		</method>
 
         <handler name="onmouseover">
             gController.setCurrentCursor('cangrab_cursor');
@@ -231,6 +278,10 @@
 				  resource="rc_lines"
 				  stretches="width" />
 			<view name="real_title">
+				<handler name="onload">
+					console.log("onload of ref card real_title");
+					classroot.calcDimensions();
+				</handler>
 			</view>
 			<view name="rightLines"
 				  resource="rc_lines"
@@ -256,6 +307,11 @@
 			            	classroot.updateScrollTo(this.y);
 					}
 				]]></handler>
+
+				<handler name="onload">
+					console.log("onload of ref card contents");
+					classroot.calcDimensions();
+				</handler>
 
 			</view>
 		     <vscrollbar name="scroller" visible="${this.scrollable}" />

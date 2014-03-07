@@ -1,0 +1,194 @@
+<library>
+
+    <!-- ResizeDrawview is a component which is used as a replacement
+         for the "livesel" drawview with the <resizestate> tag
+         within the Highlight.lzx class.
+
+         The ResizeDrawview class was created to enable resizing the
+         Highlight view area to negative width/height positions in the
+         DHTML runtime. (DHTML runtime does not support negative width/height
+         value for views, since browsers cannot render negative dimension
+         values for HTML <div> tags.
+
+         The workaround in this class is to move the drawview to the
+         correct x/y position when reaching a negative width/height
+         value relative to the mousedown position.
+    -->
+    <class name="ResizeDrawview" extends="drawview">
+
+         <attribute name="isready" value="false" type="boolean" />
+
+        <!-- When set to true, the mixin behaves like a resizestate instance when applied -->
+        <attribute name="active" type="boolean" value="false" />
+
+        <!-- Delegate for tracking the global mouse movement -->
+        <attribute name="_mousedel" value="$once{new lz.Delegate(this, 'resize')}" type="expression"/>
+
+        <!-- The _start point for the current resize action -->
+        <attribute name="_start" value="{}" type="expression"/>
+
+        <!-- Mininum values for x/y -->
+        <attribute name="minx" value="1"/>
+        <attribute name="miny" value="1"/>
+
+        <!-- maximum x and y position which can be reached by the highlighter -->
+        <attribute name="maxx" value="${classroot.width - 1}"/>
+        <attribute name="maxy" value="${classroot.height- 1}"/>
+
+
+        <!-- handle highlight when scrolling -->
+        <handler name="onwidth">
+            if (isready) this._draw ();
+            this._scrollHighlight ('x');
+        </handler>
+
+        <handler name="onheight">
+            if (isready) this._draw ();
+            this._scrollHighlight ('y');
+        </handler>
+
+        <handler name="oncontext">
+            this.setAttribute("isready", true);
+            this.setAttribute ('strokeStyle', 0x999999);
+            this.setAttribute ('lineWidth', 2);
+        </handler>
+
+        <method name="_scrollHighlight" args="axis"><![CDATA[
+            var dim = axis == 'x' ? 'width' : 'height';
+            var scroll = axis == 'x' ? classroot.hscroll : classroot.vscroll;
+
+            if (!scroll) return;
+
+            if (scroll.scrollable && scroll.axis == axis) {
+                var target = scroll.scrolltarget;
+                var diff =  classroot.scrollport.getMouse (axis) - classroot.scrollport [dim];
+
+                //scroll down/right
+                if (diff > 0){
+
+                    if (target [axis] - diff > (classroot.scrollport [dim] - target [dim])) {
+                        target.setAttribute (axis, target [axis] - diff);
+                    } else {
+                        target.setAttribute (axis, classroot.scrollport [dim] - target [dim]);
+                    }
+                }
+
+                //scroll up/left
+                diff = classroot.scrollport.getMouse (axis);
+                if (diff < 0) {
+                    if (target [axis] - diff < 0) {
+                        target.setAttribute (axis, target [axis] - diff);
+                    } else {
+                        target.setAttribute (axis, 0);
+                    }
+                }
+            }
+        ]]></method>
+
+        <!-- render the square -->
+        <method name="_draw"><![CDATA[
+            if(this.width > 0){
+                this.clear ();
+                this.beginPath();
+
+                this.lineTo (this.width, 0);
+                this.lineTo (this.width, this.height);
+                this.lineTo (0, this.height);
+                this.lineTo (0, 0);
+                this.closePath ();
+
+                this.stroke ();
+            }
+        ]]></method>
+
+
+        <!-- Activates thes resize mode - the equivalent similar to resizestate.apply() -->
+        <handler name="onactive"><![CDATA[
+            if (active) {
+            	console.error("onactive of highlighter "+active);
+                _mousedel.register (lz.GlobalMouse, 'onmousemove');
+                _start.x = x;
+                _start.y = y;
+                _start.width = width;
+                _start.height = height;
+                
+                console.error("_start********** _start.x="+_start.x+" _start.y "+_start.y+" _start.width "+_start.width+" _start.height "+_start.height);
+            } else {
+                _mousedel.unregisterAll();
+                if ($as3) {
+                    this.context.clear();
+                }
+            }
+        ]]></handler>
+
+
+        <!-- Resizes the view when a global mouse move is detected -->
+        <method name="resize" args="ignore=null"><![CDATA[
+            var mX = getMouseFixed( parent, 'x') - _start.x,
+                newWidth = _start.width + mX,
+                mY = getMouseFixed( parent, 'y') - _start.y,
+                newHeight = _start.height+ mY;
+
+            // Set width and x position
+            if (newWidth >= 0) {
+                // mouse to the right of mousedown x-pos
+                if (_start.x + newWidth < maxx) {
+                    setAttribute ('x', _start.x);
+                    setAttribute ('width', newWidth);
+                } else {
+                    setAttribute ('x', _start.x);
+                    setAttribute ('width', maxx - _start.x);
+                }
+            } else if (newWidth < 0) {
+                // mouse to the left of mousedown x-pos
+                if (_start.x + newWidth > minx) {
+                    setAttribute ('x', _start.x-width);
+                    setAttribute ('width', -mX - _start.width);
+                } else {
+                    setAttribute ('x', minx);
+                    setAttribute ('width', _start.x - minx);
+                }
+            }
+
+            // Set height and y position
+            if (newHeight >= 0) {
+                // mouse below mousedown y-pos
+                if (_start.y + newHeight < maxy) {
+                    setAttribute ('y', _start.y);
+                    setAttribute ('height', newHeight);
+                } else {
+                    setAttribute('y', _start.y);
+                    setAttribute('height', maxy - _start.y);
+                }
+            } else if (newHeight < maxy) {
+                // mouse above mousedown y-pos
+                if (_start.y + newHeight > miny ) {
+                    setAttribute ('y', _start.y-height);
+                    setAttribute ('height', -mY - _start.height)
+                } else {
+                    setAttribute ('y', miny);
+                    setAttribute ('height', _start.y - miny);
+                }
+            }
+			console.error("resize of highlighter this.x= "+this.x+" this.y "+this.y+" this.width "+this.width+" this.height "+this.height);
+
+        ]]></method>
+
+        <!-- Workaround for a bug in the DHTML runtime which reports an
+             incorrect mouse position for scaled views. -->
+        <method name="getMouseFixed" args="target, axis"><![CDATA[
+            if ( axis == "x" && ( $as3 || canvas.xscalefactor == 1)) {
+                return target.getMouse('x');
+            } else if (axis == "x" && canvas.xscalefactor != 1){
+                return Math.round(target.getMouse('x') / canvas.xscalefactor);
+            }
+            if (axis == "y" && ($as3 || canvas.yscalefactor == 1)) {
+                return target.getMouse('y');
+            } else if (axis == "y" && canvas.yscalefactor != 1) {
+                return Math.round(target.getMouse('y') / canvas.yscalefactor);
+            }
+        ]]></method>
+
+    </class>
+
+</library>
