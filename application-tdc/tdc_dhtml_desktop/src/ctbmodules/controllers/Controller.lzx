@@ -4921,13 +4921,13 @@ Debug.write("############ loadItem ############");
 		   } 
 		</method>
 
-		<method name="checkShowMagnifierGlass">
+		<method name="checkShowMagnifierGlass"><![CDATA[
 				//gMagnifyingGlass.showGlass("T");
-				if(this.magnifierState){
+				if(this.magnifierState && (gItemInterface.visible == true)){
 		     		displayMagnifier();
 		     		gManipulativeBar.globals.magnifyingGlass.setAttribute("frame",2);
 				}
-		</method>
+		]]></method>
 			<method name="hideMaskingChoiceDD">
 			if(this.maskingAnswerDDState)  {
 				gManipulativeBar.globals.maskingAnswer.hide();
