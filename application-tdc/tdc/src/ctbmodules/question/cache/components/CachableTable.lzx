@@ -158,7 +158,7 @@
 				thetable.contents.borderview.table.setAttribute("bgcolor", null);
 			//}
              /*Added to fix defect 77517--for extra line apprearing*/
-            if(hspace == 0 && vspace == 0 && brdrSpace==0){
+            if(hspace == 0 && vspace == 0){
             	thetable.contents.borderview.setAttribute("bgcolor", null);
             }
             this._initSubnodes();
