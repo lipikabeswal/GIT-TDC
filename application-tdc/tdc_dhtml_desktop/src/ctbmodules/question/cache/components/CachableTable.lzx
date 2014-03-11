@@ -174,11 +174,6 @@
             doneLoading();
             ]]>
         </handler>
-        
-        <method name="show">
-        //Dummy method which will be called by masking answer dont remove this
-        
-        </method>
 
         <method name="decodeBrackets" args="s"><![CDATA[
 	        var ltstr = "";
@@ -381,6 +376,20 @@
             
             super.doneLoading();
         ]]></method>
+        
+        <method name="hide">
+            	this.setAttribute('opacity',0);
+            	//Debug.write("hide...", this.isReadable);
+            	 this.thetable.setAttribute('clickable',false);
+		</method>
+		<method name="show">
+		      this.setAttribute('opacity',100);
+            	if(this.readable){
+            		if(this['thetable']){
+         				this.thetable.setAttribute('clickable',true);
+         			}
+            	}
+		</method>
 
         <!-- ============================
              =====      VIEWS      ======
