@@ -3886,11 +3886,11 @@
 
 		<method name="checkItemStatus"><![CDATA[
 			//Debug.write("itemloaded && runtimeready && youarehereset", itemloaded,runtimeready,youarehereset);
-         	if ( itemloaded && runtimeready && youarehereset ) {
+          if ( itemloaded && runtimeready && youarehereset ) {
 				if(!this.isTE){ 
 					unlockUI();     
 				}
-                startQuestion();
+         	 startQuestion();
                 if ( !this['itemuiready'] ) new lz.Event( this, 'itemuiready' );
                 this.itemuiready.sendEvent();
                 canvas.setCrFocus();
@@ -4845,7 +4845,7 @@
 		]]></method>
 
 		<method name="showWaitPopup">
-           //gMusicPlayer.hide();
+           	gMusicPlayer.hide();
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
 			gPleaseWaitPopup.show();
