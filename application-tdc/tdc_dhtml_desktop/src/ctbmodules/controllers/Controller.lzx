@@ -3589,7 +3589,7 @@
         ]]></method>
 
 		<method name="loadItem"><![CDATA[
-Debug.write("############ loadItem ############");
+		//console.log("############ loadItem ############");
 			
 			gQuestion.clearSkip();
 			canvas.setAttribute('focusobj', null);
@@ -3886,8 +3886,10 @@ Debug.write("############ loadItem ############");
 
 		<method name="checkItemStatus"><![CDATA[
 			//Debug.write("itemloaded && runtimeready && youarehereset", itemloaded,runtimeready,youarehereset);
-            if ( itemloaded && runtimeready && youarehereset ) {
-                unlockUI();     
+         	if ( itemloaded && runtimeready && youarehereset ) {
+				if(!this.isTE){ 
+					unlockUI();     
+				}
                 startQuestion();
                 if ( !this['itemuiready'] ) new lz.Event( this, 'itemuiready' );
                 this.itemuiready.sendEvent();
@@ -5563,7 +5565,7 @@ Debug.write("############ loadItem ############");
 
 	<method name="addHtmlField" args="field">
 	        	this.htmlFields.push(field);
-	        	this.setAttribute("isTE",true);
+	        	//this.setAttribute("isTE",true);
 	        	//isAnsweredDelegate();
 		</method>
 	<method name="resetHtmlFields"><![CDATA[
@@ -5680,14 +5682,14 @@ Debug.write("############ loadItem ############");
 			var answers = dpstudentdata.xpathQuery( "runtime/item_model [@eid = '"+eid+"']/@answer_text");
 			
 			var node = lz.DataElement.stringToLzData(unescape(answers));
-			Debug.write("getStateForInputWidgetId node", node);
+			//console.log("getStateForInputWidgetId node", node);
             if (node) {
                node.setAttribute('ownerDocument',dstemp);
                dstemp.appendChild(node);
                //Debug.write("widgetId : " + widgetId + " node : " , node);
 			   dp.setPointer(node);
 			  result = dp.xpathQuery("dstemp://answers/answer[@id = '"+widgetId+"']/text()");
-			//Debug.write("getAnswerForInputWidgetId result: " , result);
+			//console.log("getAnswerForInputWidgetId result: " , result);
                dstemp.removeChild(node);
             }
 			

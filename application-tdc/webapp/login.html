@@ -270,15 +270,16 @@ function isAnswered(){
  
  function setState(htmlContent,jsonContent,checkedVals){
  	var elem = jQuery("iframe")[0];
- 	if(elem){	
-     if(elem.contentWindow){
-   		if(elem.contentWindow.accomPkg){
-   			console.log("inside setState");
-			elem.contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
-			//ansSet = true;
-  		}
-  	}
-   }    
+    if(elem){
+        if(elem.contentWindow){
+            if(elem.contentWindow.accomPkg){
+   				console.log("inside setState");
+           		elem.contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
+				//ansSet = true;
+				gController.unlockUI();
+			}
+        }
+    }
    gController.isAnsweredDelegate();   
  }
   

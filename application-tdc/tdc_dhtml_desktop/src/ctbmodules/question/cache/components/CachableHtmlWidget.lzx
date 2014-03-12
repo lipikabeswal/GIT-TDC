@@ -85,7 +85,7 @@
 			this.setAttribute('unlocked', false);
 			this.setAttribute('answerObjSet', {});
 			gController.setAttribute('findAnswer',true); //using for freezing/unfreezing UI 
-			
+			gController.setAttribute('isTE',true)
 			/*Start applying bgcolor default white to Question and Panel class TE items, for suppressing color accomodation for TE items.*/
 			if(gController.hasFontAccommodation){
 				this.parent.parent.setAttribute('bgcolor','white');
