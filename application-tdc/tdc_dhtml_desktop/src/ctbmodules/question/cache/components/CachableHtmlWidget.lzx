@@ -299,9 +299,15 @@
 			      @event
 			      @keywords private
 			  -->	
-			<handler name="onmouseup" reference="lz.GlobalMouse">
+			<handler name="onmouseup" reference="lz.GlobalMouse"><![CDATA[
 				this.stopDragIfActive();
-			</handler>
+				// Fix for defect #77525
+				if(gController.musicSliderReff != null && gController.musicSliderReff != undefined)
+					{
+					  gController.musicSliderReff.onmouseup.sendEvent();
+					  gController.clearAndRestoreCurrentCursor();
+					}
+			]]></handler>
 
 			<!--- Checks if the iFrame is in a drag state by using the
                   "ui-draggable-dragging" class marker.
