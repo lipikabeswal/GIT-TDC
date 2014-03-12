@@ -270,15 +270,16 @@ function isAnswered(){
  
  function setState(htmlContent,jsonContent,checkedVals){
  	var elem = jQuery("iframe")[0];
- 	if(elem){	
-     if(elem.contentWindow){
-   		if(elem.contentWindow.accomPkg){
-   			console.log("inside setState");
-			elem.contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
-			//ansSet = true;
-  		}
-  	}
-   }    
+    if(elem){
+        if(elem.contentWindow){
+            if(elem.contentWindow.accomPkg){
+   				console.log("inside setState");
+           		elem.contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
+				//ansSet = true;
+				gController.unlockUI();
+			}
+        }
+    }
    gController.isAnsweredDelegate();   
  }
   
@@ -736,6 +737,12 @@ function checkEmptyString(str) {
 			default:
 				break;
 		}
+	}
+	if(event.which == 93)
+	{
+	  event.preventDefault();
+	  event.stopPropagation();
+	  return false;
 	}
 	/*added to restrict undo redo using hot keys in DHTML client ends*/
 }
