@@ -130,12 +130,12 @@
 			if($dhtml){
 				srcUrl = canvas.TEAssetPath+srcUrl+"/previewer.html";
 				this.ht.setAttribute('src', srcUrl);
-				if(canvas.isPreviewer){
+				//if(canvas.isPreviewer){
 					this.ht.setAttribute('visible',false);
-				}
+				/*}
 				else{
 					this.ht.setAttribute('visible',true);
-				}
+				}*/
 			}
 			else{			
 				srcUrl = "http:items/"+ srcUrl +"/previewer.html";
@@ -261,9 +261,9 @@
 					 }else{
 					 	lz.Timer.removeTimer(checkiframeStateDel);
 					 	canvas.setAttribute('frameLoaded',false);
-					 	if(canvas.isPreviewer){
+					 	//if(canvas.isPreviewer){
 					 		this.ht.setAttribute('visible',true);
-					 	}
+					 	//}
 					 }
 			</method>
 	
