@@ -1,4 +1,5 @@
 <library>
+   
 	<include href="CachableComponent.lzx"/>
 
 	<!-- ************************************
@@ -51,16 +52,25 @@
 	            	}
 	            }
 	        }
+	        
             
             doneLoading();
             ]]>
 		</handler>
-
+        
         <method name="doReturnToCache">
             super.doReturnToCache ();
             this.dynlayout.clearSubviews ();
         </method>
-
+         <method name="hide">
+            	this.setAttribute('opacity',0);
+            	
+		</method>
+		<method name="show">
+		      this.setAttribute('opacity',100);
+            	
+		</method>
+         
         <method name="_initSubnodes"><![CDATA[
             var subnodes = this.datapath.p.childNodes;
             var newcomp = null;
@@ -79,6 +89,7 @@
 			for(var i=0; i< this.dynlayout.subviews.length; i++){
 				this.dynlayout.subviews[i].doAlign();
 			}
+			 
 			this.dynlayout.update();
 			
 			// Developed for Masking Answer Choice
@@ -92,5 +103,5 @@
 			}*/
 		 ]]></method>
 	</class>
-
+ 
 </library>
