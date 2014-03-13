@@ -322,7 +322,7 @@
 		]]></method>
 		
 		
-		<method name="hide">
+		<!-- <method name="hide">
             	this.setAttribute('opacity',0);
             	//Debug.write("hide...", this.isReadable);
             	 this.imageview.setAttribute('clickable',false);
@@ -334,7 +334,7 @@
          				this.imageview.setAttribute('clickable',true);
          			}
             	}
-		</method>
+		</method>-->
 
         <view name="imageview" stretches="both" clickable="${classroot.readable}">
         	        	

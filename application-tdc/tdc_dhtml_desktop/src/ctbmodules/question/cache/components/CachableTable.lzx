@@ -377,7 +377,7 @@
             super.doneLoading();
         ]]></method>
         
-        <method name="hide">
+      <!--  <method name="hide">
             	this.setAttribute('opacity',0);
             	//Debug.write("hide...", this.isReadable);
             	 this.thetable.setAttribute('clickable',false);
@@ -389,7 +389,7 @@
          				this.thetable.setAttribute('clickable',true);
          			}
             	}
-		</method>
+		</method> -->
 
         <!-- ============================
              =====      VIEWS      ======
