@@ -581,7 +581,7 @@
 		<attribute name="dRestoreCursor"
 			value="$once{ new lz.Delegate( this, 'restoreGrabCursor' ) }" type="expression"/>
 		<attribute name="manipSelected"/> 
-		
+		 <attribute name="zoomClicked" type="boolean" value="false"/>
 		<!--  Will be set to true when an object is dragged inside a TE item  -->	
     	<attribute name="iframeDragActive" value="false" type="boolean" />	    	
     	<attribute name="answerPanelLayout" type="string" value="vertical"/>
@@ -2751,6 +2751,7 @@
 			}
 			//this.setAttribute('isaudio',false);
 			resetRecorder();
+            gController.setAttribute('zoomClicked',false);
 		]]></method>
 
 		<method name="resetRecorder"><![CDATA[
@@ -5060,7 +5061,7 @@
 					answerArray[actualIndex].subviews[2].hide();	*/		
 					if(answerArray[actualIndex].subviews.length > 0){
 						for(var i=0;i<answerArray[actualIndex].subviews.length;i++){
-							answerArray[actualIndex].subviews[i].hide();
+							answerArray[actualIndex].hide();
 						}
 					}	
 				}
@@ -5072,7 +5073,7 @@
 					answerArray[actualIndex].subviews[2].show();	*/		
 					if(answerArray[actualIndex].subviews.length > 0){
 						for(var i=0;i<answerArray[actualIndex].subviews.length;i++){
-							answerArray[actualIndex].subviews[i].show();
+									answerArray[actualIndex].show();
 						}
 					}	
 				}
@@ -5091,7 +5092,7 @@
 				answerArray[i].subviews[2].show();*/
 				if(answerArray[i].subviews.length > 0){
 					for(var j=0;j<answerArray[i].subviews.length;j++){
-						answerArray[i].subviews[j].show();
+						answerArray[i].show();
 					}
 				}
 						
@@ -5138,7 +5139,7 @@
 				answerArray[i].subviews[1].show();
 				answerArray[i].subviews[2].show();*/
 					for(var j = 0; j < answerArray[i].subviews.length; j++){
-						answerArray[i].subviews[j].show();
+						answerArray[i].show();
 					}
 						
 				}
