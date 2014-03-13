@@ -43,7 +43,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mm"]}},$lzc$class__mm.attributes)
 }}})($lzc$class__mm)
-};canvas=new $lzc$class__mm(null,{$delegates:["ontexthistoryupdate","$md",null,"onnewtextvalue","$me",null,"onunlocktexthistory","$mf",null,"onfocus","$mg",null,"onbringBackFocus","$mh",null,"onfootnotedata","$mi",null,"onisMultiAudio","$mj",null,"oninit","$mk",null,"onfootnotetext","$ml",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-03-10T09:29:45Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",newtextvalue:"",proxied:false,readable:false,runtime:"dhtml",texthistoryupdate:"",unlocktexthistory:"",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mm(null,{$delegates:["ontexthistoryupdate","$md",null,"onnewtextvalue","$me",null,"onunlocktexthistory","$mf",null,"onfocus","$mg",null,"onbringBackFocus","$mh",null,"onfootnotedata","$mi",null,"onisMultiAudio","$mj",null,"oninit","$mk",null,"onfootnotetext","$ml",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-03-13T06:24:47Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",newtextvalue:"",proxied:false,readable:false,runtime:"dhtml",texthistoryupdate:"",unlocktexthistory:"",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -13201,7 +13201,7 @@ this.thetable.contents.borderview.table.setAttribute("bgcolor",this.bgcolor)
 }else{
 this.thetable.contents.borderview.table.setAttribute("bgcolor",null)
 };this._initSubnodes();this.doneLoading()
-},"show",function(){},"decodeBrackets",function($0){
+},"decodeBrackets",function($0){
 var $1="";var $2=$0.split("&lt;");for(var $3=0;$3<$2.length;$3++){
 if($3!=0){
 $1=$1+"<"
@@ -13245,7 +13245,13 @@ $h=(this.parent.width-$3-15)/$f.width;$i=Math.floor($f.height*$h)
 }else{
 this.thetable.setAttribute("width",this.thetable.contents.width);this.thetable.setAttribute("height",this.thetable.contents.height)
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["doneLoading"]||this.nextMethod(arguments.callee,"doneLoading")).call(this)
-},"enlarge",void 0,"thetable",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+},"hide",function(){
+this.setAttribute("opacity",0);this.thetable.setAttribute("clickable",false)
+},"show",function(){
+this.setAttribute("opacity",100);if(this.readable){
+if(this["thetable"]){
+this.thetable.setAttribute("clickable",true)
+}}},"enlarge",void 0,"thetable",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
 $0=null;
@@ -16294,7 +16300,7 @@ var $1="html";if(navigator.appVersion.indexOf("Mac")!=-1){
 $1="htmlnew"
 };var $2={x:0,y:0,width:780,height:455,clip:true,scrollbars:false,mouseevents:true,focusable:true};this.ht=new (lz[$1])(this,$2);this.loaddel=new LzDelegate(this,"frameLoaded");this.loaddel.register(this.ht,"onload")
 },"$m185",function($0){
-var $1=$0.getAttr("src");this.setAttribute("unlocked",false);this.setAttribute("answerObjSet",{});gController.setAttribute("findAnswer",true);if(gController.hasFontAccommodation){
+var $1=$0.getAttr("src");this.setAttribute("unlocked",false);this.setAttribute("answerObjSet",{});gController.setAttribute("findAnswer",true);gController.setAttribute("isTE",true);if(gController.hasFontAccommodation){
 this.parent.parent.setAttribute("bgcolor","white")
 };this.parent.setAttribute("bgcolor","white");gQuestion.setAttribute("bgcolor","white");if($0.hasAttr("id")){
 var $2=$0.getAttr("id");this.setAttribute("widget_id",$2);this.setAttribute("widget_id",$0.getAttr("id"));var $3=gController.getStateForInputWidgetId(this.widget_id);if($3){
@@ -16307,11 +16313,7 @@ $4[+$6]=$5[$6]
 }else{
 gController.setAttribute("isAnswerSet",false)
 };this.setAnswer();gController.addHtmlField({"widget_id":$2,"answered":this.answered,"answer":this.answer,"ref":this,frameObj:this.getIframeObject()})
-};$1=canvas.TEAssetPath+$1+"/previewer.html";this.ht.setAttribute("src",$1);if(canvas.isPreviewer){
-this.ht.setAttribute("visible",false)
-}else{
-this.ht.setAttribute("visible",true)
-};this.bringToFront();this.func2();gController.freezeUI()
+};$1=canvas.TEAssetPath+$1+"/previewer.html";this.ht.setAttribute("src",$1);this.ht.setAttribute("visible",false);this.bringToFront();this.func2();gController.freezeUI()
 },"func1",function(){
 if(this.ht.ready){
 var $0=new LzDelegate(this,"handleFunc1");$0=isAnswered();this.handleFunc1($0)
@@ -16350,9 +16352,8 @@ console.log("CachableHtmlWidget.doReturnToCache()");this.ht.setAttribute("visibl
 iframeState();if(!canvas.frameLoaded){
 lz.Timer.resetTimer(this.checkiframeStateDel,500)
 }else{
-lz.Timer.removeTimer(this.checkiframeStateDel);canvas.setAttribute("frameLoaded",false);if(canvas.isPreviewer){
-this.ht.setAttribute("visible",true)
-}}},"frameLoaded",function($0){
+lz.Timer.removeTimer(this.checkiframeStateDel);canvas.setAttribute("frameLoaded",false);this.ht.setAttribute("visible",true)
+}},"frameLoaded",function($0){
 switch(arguments.length){
 case 0:
 $0=null;
@@ -16367,8 +16368,9 @@ this.mousemovedel.register(lz.GlobalMouse,"onmousemove");this.checkIfDragActive(
 },"$m186",function(){
 return lz.GlobalMouse
 },"$m187",function($0){
-this.stopDragIfActive()
-},"checkIfDragActive",function($0){
+this.stopDragIfActive();if(gController.musicSliderReff!=null&&gController.musicSliderReff!=undefined){
+gController.musicSliderReff.onmouseup.sendEvent();gController.clearAndRestoreCurrentCursor()
+}},"checkIfDragActive",function($0){
 switch(arguments.length){
 case 0:
 $0=null;
@@ -31328,7 +31330,7 @@ this.setAttribute("sendCatSave",false)
 }}else{
 this.save($1)
 }},"loadItem",function(){
-Debug.write("############ loadItem ############");gQuestion.clearSkip();canvas.setAttribute("focusobj",null);this.itemloaded=false;this.runtimeready=false;this.youarehereset=false;this.textHistory.clearHistory();if(this.isCrItem()){
+gQuestion.clearSkip();canvas.setAttribute("focusobj",null);this.itemloaded=false;this.runtimeready=false;this.youarehereset=false;this.textHistory.clearHistory();if(this.isCrItem()){
 this.inQuestion=false
 };var $0=this.getLoadParams();Debug.write("loadParams",$0);var $1=gXmlHelper.getGetItemXml($0[0],$0[1],$0[2]);var $2=setCurLasItemId($0[0]);if(typeof canvas.folder!="undefined"){
 dsitem.setQueryParam(gRequest.FOLDER_PARAM,canvas.folder)
@@ -31411,7 +31413,9 @@ this.freezeUI();Debug.write("UpdaterequestPending")
 this.unlockIfItemReady()
 }}},"checkItemStatus",function(){
 if(this.itemloaded&&this.runtimeready&&this.youarehereset){
-this.unlockUI();this.startQuestion();if(!this["itemuiready"])new (lz.Event)(this,"itemuiready");this.itemuiready.sendEvent();canvas.setCrFocus()
+if(!this.isTE){
+this.unlockUI()
+};this.startQuestion();if(!this["itemuiready"])new (lz.Event)(this,"itemuiready");this.itemuiready.sendEvent();canvas.setCrFocus()
 }},"unlockIfItemReady",function(){
 if(this.itemloaded&&this.runtimeready&&this.youarehereset&&!this.requestPending){
 this.unlockUI()
@@ -31779,7 +31783,7 @@ this.setAttribute("hasTNorFCATrefCard",true);return true
 },"getDistractorArrayFor2",function(){
 return ["AB","BA","BA","BA","AB","BA","BA","AB","AB","AB","AB","BA","AB","BA","AB","AB","AB","BA","AB","BA","AB","BA","BA","BA","AB","BA","AB","BA","BA","AB","AB","AB","BA","AB","AB","BA","AB","BA","BA","BA","BA","AB","AB","AB","BA","AB","AB","BA","AB","BA","BA"]
 },"showWaitPopup",function(){
-this.checkHideMagnifierGlass();this.checkHideMaskingChoiceDD();gPleaseWaitPopup.show();this.isWaitPopupOpen=true
+gMusicPlayer.hide();this.checkHideMagnifierGlass();this.checkHideMaskingChoiceDD();gPleaseWaitPopup.show();this.isWaitPopupOpen=true
 },"networkLostPopup",function($0){
 switch(arguments.length){
 case 0:
@@ -31968,7 +31972,7 @@ Debug.write("dprestart has one or no child....",$3," : ",$0.data);$0.deleteNode(
 }}},"addImageFields",function($0){
 this.idImageFields.push($0)
 },"addHtmlField",function($0){
-this.htmlFields.push($0);this.setAttribute("isTE",true)
+this.htmlFields.push($0)
 },"resetHtmlFields",function(){
 this.stopCheckIsAnswer();for(var $0=0;$0<this.htmlFields.length;$0++){
 delete this.htmlFields[$0]
@@ -32017,7 +32021,7 @@ $0=$0.concat("</answer>")
 $0=$0.concat(this.wrapInCdata($1)+"</answer>")
 }};$0=$0.concat("</answers>");gController.setItemCRState($0)
 }},"getStateForInputWidgetId",function($0){
-var $1="";var $2=this.loadNode.getAttr("id");var $3=this.dpstudentdata.xpathQuery("runtime/item_model [@eid = '"+$2+"']/@answer_text");var $4=lz.DataElement.stringToLzData(unescape($3));Debug.write("getStateForInputWidgetId node",$4);if($4){
+var $1="";var $2=this.loadNode.getAttr("id");var $3=this.dpstudentdata.xpathQuery("runtime/item_model [@eid = '"+$2+"']/@answer_text");var $4=lz.DataElement.stringToLzData(unescape($3));if($4){
 $4.setAttribute("ownerDocument",dstemp);dstemp.appendChild($4);this.dp.setPointer($4);$1=this.dp.xpathQuery("dstemp://answers/answer[@id = '"+$0+"']/text()");dstemp.removeChild($4)
 };var $5="";if($1!=null&&$1!=""){
 try{
