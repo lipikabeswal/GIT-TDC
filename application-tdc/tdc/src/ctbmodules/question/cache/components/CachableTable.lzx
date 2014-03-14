@@ -81,7 +81,7 @@
             // Toggle border lines
             var hspace = data.getAttr("showvlines") == "yes" ? 1 : 0;
             var vspace = data.getAttr("showhlines") == "yes" ? 1 : 0;
-			var brdrSpace=data.getAttr("border") == "yes" ? 1 : 0;
+			
             // Show enlarge button if necessary
             // Values are:
             // "YES"          : Display for everyone
@@ -157,10 +157,7 @@
 			else{*/
 				thetable.contents.borderview.table.setAttribute("bgcolor", null);
 			//}
-             /*Added to fix defect 77517--for extra line apprearing*/
-            if(hspace == 0 && vspace == 0){
-            	thetable.contents.borderview.setAttribute("bgcolor", null);
-            }
+            
             this._initSubnodes();
             doneLoading();
             ]]>
