@@ -67,9 +67,13 @@
 				<handler name="onmouseout">
 				        lz.Cursor.showHandCursor(false);
 						gTooltip.hideTooltip (); 
-						if(this.isEnabled == false || this.isEnabled == "false") {
-							this.setAttribute('frame',1);
-						}   
+						if(gController.magnifierState){
+							this.setAttribute('frame',2);
+						}else{	
+							if(this.isEnabled == false || this.isEnabled == "false") {
+								this.setAttribute('frame',1);
+							}   
+						}	
 						lz.Timer.removeTimer (this.tooltipdel);
 					</handler>
 
