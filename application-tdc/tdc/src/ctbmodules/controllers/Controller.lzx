@@ -2954,9 +2954,9 @@
 
 		<method name="stepNavigateBack"><![CDATA[
 		   //Debug.write("==stepNavigateBack====");
-		    gController.setAttribute('isAnswerAreaDisabled',true);
-			canvas.freezUI();
+		    canvas.freezUI();
             if ( !onFirstItem() ) {
+           		 gController.setAttribute('isAnswerAreaDisabled',true);
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm){
             		this.showRevisitPopup("goBack");
@@ -2981,6 +2981,7 @@
 				dpstudentdata.xpathQuery( 'question_number/@total_including_theme')  );
 			
 			if ( !onLastItem() ) {
+				gController.setAttribute('isAnswerAreaDisabled',true);
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && 
 					dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm 
