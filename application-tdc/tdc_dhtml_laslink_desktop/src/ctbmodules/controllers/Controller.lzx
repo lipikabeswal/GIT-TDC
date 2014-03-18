@@ -3083,10 +3083,9 @@
 
 		<method name="stepNavigateBack"><![CDATA[
 			////canvas.freezUI();
-			gController.setAttribute('isAnswerAreaDisabled',true);
 			gController.setAttribute('isNavigateBack',true);
-			
-            if ( !onFirstItem() ) {
+			if ( !onFirstItem() ) {
+				gController.setAttribute('isAnswerAreaDisabled',true);
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit 
 				&& (dncurrentItem.getAttr('answered') == 0 || dncurrentItem.getAttr('answered') == false || dncurrentItem.getAttr('answered') == 'false') 
@@ -3103,7 +3102,6 @@
 
 		<method name="stepNavigateForward"><![CDATA[
 		    //canvas.freezUI();
-		    gController.setAttribute("isAnswerAreaDisabled",true);
 		     gTooltip.hideTooltip ();
            	var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/@itempos' )
@@ -3112,6 +3110,7 @@
 				dpstudentdata.xpathQuery( 'question_number/@total_including_theme')  );
             
 			if ( !onLastItem() ) {
+				gController.setAttribute("isAnswerAreaDisabled",true);
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && 
 					(dncurrentItem.getAttr('answered') == 0 || dncurrentItem.getAttr('answered') == false || dncurrentItem.getAttr('answered') == 'false') 
