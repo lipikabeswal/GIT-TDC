@@ -42,7 +42,7 @@
                 <b>Login ID:</b>
             </text>
             <edittext name="loginIdField" x="287"
-                      fontsize="12" width="265" pattern="[a-zA-Z0-9_\\-]*">
+                      fontsize="12" width="265" pattern="[a-zA-Z0-9_\\-]*" maxlength="32">
                  <handler name="oninit">
                    	var elem = this.field.getDisplayObject();
                    	elem.setAttribute('style','height: 20px;');
@@ -56,7 +56,7 @@
                 <b>Password:</b>
             </text>
              <edittext name="otherPasswordField" x="287" fontsize="12"
-                      password="true" width="265" pattern="[a-zA-Z0-9_]*" >
+                      password="true" width="265" pattern="[a-zA-Z0-9_]*" maxlength="32">
                       <handler name="oninit">
                       	var elem = this.field.getDisplayObject();
                       	elem.setAttribute('style','height: 20px;');
@@ -64,7 +64,7 @@
                       </handler>
             </edittext>
             <edittext name="istepPasswordField" x="287" fontsize="12"
-                      password="false" width="265" pattern="[a-zA-Z0-9_]*">
+                      password="false" width="265" pattern="[a-zA-Z0-9_]*" maxlength="32">
                       <handler name="oninit">
                       	var elem = this.field.getDisplayObject();
                       	elem.setAttribute('style','height: 20px;');
@@ -81,7 +81,7 @@
                		elm.setAttribute('style','font-size: 12px; line-height: 14px; pointer-events: none; width: auto; height: 14px;');
                	</handler>
             </text>
-            <edittext name="accesscodeField" x="287" fontsize="12" width="265" pattern="[a-zA-Z0-9_]*">
+            <edittext name="accesscodeField" x="287" fontsize="12" width="265" pattern="[a-zA-Z0-9_]*" maxlength="32">
            		<handler name="oninit">
                    	var elem = this.field.getDisplayObject();
                    	elem.setAttribute('style','height: 20px;');
