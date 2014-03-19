@@ -3430,6 +3430,13 @@
 			if(gController.htmlFields != null){
 				gController.showHtmlWidgets();
 			}
+			checkShowMaskingChoiceDD();
+			/*Masking Answer State
+            if(gController.maskingAnswerDDState == true)
+            {
+            	gManipulativeBar.globals.maskingAnswer.setAttribute('frame',2);
+            }*/
+            
             lz.Cursor.setCursorGlobal( 'waitcursor' );
             showItemInterface();
 			showManipulatives();
@@ -3437,7 +3444,7 @@
             restoreScratchpadFocusIfNeeded();
 			bringFocusToIFrame();
             unlockUI();
-			checkShowMaskingChoiceDD();
+			
 			if(this.adaptive == true){
 				gScreens.removeFinishState();
 			}
@@ -4954,6 +4961,7 @@
 		<method name="checkShowMaskingChoiceDD">
 		   if(this.maskingAnswerDDState)  {
 				gMaskingAnswer.showPopUp();
+				gManipulativeBar.globals.maskingAnswer.setAttribute('frame',2);
 		   }   
 		</method>
 
