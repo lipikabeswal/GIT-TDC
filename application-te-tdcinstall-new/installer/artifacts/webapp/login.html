@@ -274,15 +274,27 @@ function isAnswered(){
         if(elem.contentWindow){
             if(elem.contentWindow.accomPkg){
    				console.log("inside setState");
+   				htmlContent = replaceAbsPathWithRelPath(htmlContent);
            		elem.contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
-				//ansSet = true;
 				gController.unlockUI();
 			}
         }
     }
    gController.isAnsweredDelegate();   
  }
-  
+ // added as a workaround to change answered math pallete image path from absolute path to relative path, 
+ // as in TDC the server port might change due to unavailability of the default port.
+  function replaceAbsPathWithRelPath(htmlContent){
+  	var ip = "http://127.0.0.1:";
+	if(jQuery(htmlContent).find("[data-role = mathpalette]").length >0 && htmlContent.indexOf(ip) != -1){
+		var html = htmlContent.split(ip);
+		var id = html[1].split("styles/");
+		var final_url = ip+id[0];
+		var re = new RegExp(final_url, 'g');
+		htmlContent = htmlContent.replace(re, '');
+	}
+	return htmlContent;
+  }
     
     function loginBlock(ref){
   		             setTimeout(function(){
