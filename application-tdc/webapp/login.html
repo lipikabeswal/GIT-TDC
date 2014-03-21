@@ -147,7 +147,7 @@ var enableHighlighterArea = false;
 var TEAssetPath = "http:items/"; 
 var isMagnifierMouseovered = false;
 
-			
+
 function getTEAssetPath(){
 	lz.embed.setCanvasAttribute("TEAssetPath", TEAssetPath);
 }
@@ -347,7 +347,6 @@ function preventTextDragging(){
  	jQuery("textarea").each(function() {
  		jQuery(this).css({'overflow-x': 'hidden', 'overflow-y': 'hidden'});
  	});
- 	jQuery("body").on("mousedown",disableTabKey);
  });
  
 function getFontAccomodation(){
@@ -731,7 +730,7 @@ function checkEmptyString(str) {
 		event.preventDefault();
 		event.stopPropagation();
 	}
- 
+	
 	if(window.top.isMagnifierVisible == "true" && isMagnifierMouseovered == true){
 		hotKeysHandle();
 	}
@@ -891,7 +890,7 @@ var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
 </HEAD>
 
 <BODY topmargin=0 leftmargin=0 rightmargin=0 bottommargin=0 scroll=no bgcolor="#6691B4"
-oncontextmenu="javascript:return false;">
+onkeydown="disableTabKey()" oncontextmenu="javascript:return false;">
 <button id="mybutton" style="visibility:hidden; width:0px; height:0px; display:none;">clickMe </button>
 
 <div id="appcontainer">
