@@ -43,7 +43,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mm"]}},$lzc$class__mm.attributes)
 }}})($lzc$class__mm)
-};canvas=new $lzc$class__mm(null,{$delegates:["ontexthistoryupdate","$md",null,"onnewtextvalue","$me",null,"onunlocktexthistory","$mf",null,"onfocus","$mg",null,"onbringBackFocus","$mh",null,"onfootnotedata","$mi",null,"onisMultiAudio","$mj",null,"oninit","$mk",null,"onfootnotetext","$ml",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-03-19T12:11:42Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",newtextvalue:"",proxied:false,readable:false,runtime:"dhtml",texthistoryupdate:"",unlocktexthistory:"",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mm(null,{$delegates:["ontexthistoryupdate","$md",null,"onnewtextvalue","$me",null,"onunlocktexthistory","$mf",null,"onfocus","$mg",null,"onbringBackFocus","$mh",null,"onfootnotedata","$mi",null,"onisMultiAudio","$mj",null,"oninit","$mk",null,"onfootnotetext","$ml",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-03-21T14:27:08Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",newtextvalue:"",proxied:false,readable:false,runtime:"dhtml",texthistoryupdate:"",unlocktexthistory:"",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -16261,7 +16261,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m18f"]}},$lzc$class__m18f.attributes)
 }}})($lzc$class__m18f)
-};lz.ClassAttributeTypes["CachableHtmlWidget"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["CachableComponent"],{answered:"boolean",unlocked:"boolean"});{
+};lz.ClassAttributeTypes["CachableHtmlWidget"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["CachableComponent"],{TEid:"string",answered:"boolean",unlocked:"boolean"});{
 Class.make("$lzc$class_CachableHtmlWidget",["$m17w",function($0){
 var $1=gCompTypes.WIDGET_HTML;if($1!==this["comptype"]||!this.inited){
 this.setAttribute("comptype",$1)
@@ -16285,14 +16285,14 @@ this.setAttribute("checkiframeStateDel",new (lz.Delegate)(this,"checkiframeState
 this.setAttribute("dragCheckIfStartedDel",new (lz.Delegate)(this,"checkIfDragActive"))
 },"dragCheckIfStartedDel",void 0,"$m183",function($0){
 this.setAttribute("mousemovedel",new (lz.Delegate)(this,"trackMouseMove"))
-},"mousemovedel",void 0,"init",function(){
+},"mousemovedel",void 0,"TEid",void 0,"init",function(){
 (arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["init"]||this.nextMethod(arguments.callee,"init")).call(this)
 },"$m184",function($0){
 var $1="html";if(navigator.appVersion.indexOf("Mac")!=-1){
 $1="htmlnew"
 };var $2={x:0,y:0,width:780,height:455,clip:true,scrollbars:false,mouseevents:true,focusable:true};this.ht=new (lz[$1])(this,$2);this.loaddel=new LzDelegate(this,"frameLoaded");this.loaddel.register(this.ht,"onload")
 },"$m185",function($0){
-var $1=$0.getAttr("src");this.setAttribute("unlocked",false);this.setAttribute("answerObjSet",{});gController.setAttribute("findAnswer",true);gController.setAttribute("isTE",true);if(gController.hasFontAccommodation){
+var $1=$0.getAttr("src");this.setAttribute("TEid",$0.getAttr("src"));this.setAttribute("unlocked",false);this.setAttribute("answerObjSet",{});gController.setAttribute("findAnswer",true);gController.setAttribute("isTE",true);if(gController.hasFontAccommodation){
 this.parent.parent.setAttribute("bgcolor","white")
 };this.parent.setAttribute("bgcolor","white");gQuestion.setAttribute("bgcolor","white");if($0.hasAttr("id")){
 var $2=$0.getAttr("id");this.setAttribute("widget_id",$2);this.setAttribute("widget_id",$0.getAttr("id"));var $3=gController.getStateForInputWidgetId(this.widget_id);if($3){
@@ -16341,7 +16341,7 @@ this.ht.setAttribute("visible",true)
 },"doReturnToCache",function(){
 console.log("CachableHtmlWidget.doReturnToCache()");this.ht.setAttribute("visible",false);this.ht.setAttribute("src","")
 },"checkiframeState",function(){
-iframeState();if(!canvas.frameLoaded){
+iframeState(this.TEid);if(!canvas.frameLoaded){
 lz.Timer.resetTimer(this.checkiframeStateDel,500)
 }else{
 lz.Timer.removeTimer(this.checkiframeStateDel);canvas.setAttribute("frameLoaded",false);this.ht.setAttribute("visible",true)
@@ -16401,7 +16401,7 @@ $3=false;
 }],$lzc$class_CachableComponent,["tagname","CachableHtmlWidget","children",LzNode.mergeChildren([{attrs:{$classrootdepth:1,$delegates:["onvisible","$m18e",null],clickable:true,height:new LzAlwaysExpr("$m18c","$m18d",null),name:"overlay",visible:new LzAlwaysExpr("$m188","$m189",null),width:new LzAlwaysExpr("$m18a","$m18b",null)},"class":$lzc$class__m18f}],$lzc$class_CachableComponent["children"]),"__LZCSSTagSelectors",["CachableHtmlWidget","CachableComponent","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_CachableComponent.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["CachableHtmlWidget"]},$delegates:["oninit","$m184",null,"ondata","$m185",null,"onmouseup","$m187","$m186"],aaactive:true,aasilent:false,answerObjSet:new LzOnceExpr("$m180",null),answered:false,checkiframeStateDel:new LzOnceExpr("$m181",null),comptype:new LzAlwaysExpr("$m17w","$m17x",null),contentLoadedDel:new LzOnceExpr("$m17y",null),dragCheckIfStartedDel:new LzOnceExpr("$m182",null),iframeReady:null,loaddel:null,mousemovedel:new LzOnceExpr("$m183",null),setStateDel:new LzOnceExpr("$m17z",null),unlocked:false},$lzc$class_CachableHtmlWidget.attributes)
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["CachableHtmlWidget"]},$delegates:["oninit","$m184",null,"ondata","$m185",null,"onmouseup","$m187","$m186"],TEid:"",aaactive:true,aasilent:false,answerObjSet:new LzOnceExpr("$m180",null),answered:false,checkiframeStateDel:new LzOnceExpr("$m181",null),comptype:new LzAlwaysExpr("$m17w","$m17x",null),contentLoadedDel:new LzOnceExpr("$m17y",null),dragCheckIfStartedDel:new LzOnceExpr("$m182",null),iframeReady:null,loaddel:null,mousemovedel:new LzOnceExpr("$m183",null),setStateDel:new LzOnceExpr("$m17z",null),unlocked:false},$lzc$class_CachableHtmlWidget.attributes)
 }}})($lzc$class_CachableHtmlWidget)
 };lz.ClassAttributeTypes["$lzc$class__m18o"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class__m18o",["$m18k",function($0){
@@ -31207,7 +31207,7 @@ lz.Cursor.setCursorGlobal("waitcursor");this.setState(this.PAUSED_RESUME_STATE);
 }else{
 return false
 }},"_handlePausedResumeResponse",function($0){
-this.showItemInterface();gScreens.resetTextFieldColor();this.startQuestion();this.showManipulatives();this.manipulativeSelected();this.unlockUI();gQuestion.setGrFocus();this.restoreScratchpadFocusIfNeeded();this.checkShowMagnifierGlass();this.checkShowMaskingChoiceDD()
+this.showItemInterface();gScreens.resetTextFieldColor();this.startQuestion();this.showManipulatives();this.manipulativeSelected();this.bringFocusToIFrame();this.unlockUI();gQuestion.setGrFocus();this.restoreScratchpadFocusIfNeeded();this.checkShowMagnifierGlass();this.checkShowMaskingChoiceDD()
 },"hideManipulatives",function(){
 gManipulatives.setAttribute("visible",false)
 },"showManipulatives",function(){
