@@ -45,7 +45,9 @@
 			<attribute name="dragCheckIfStartedDel" value="$once{new lz.Delegate(this,'checkIfDragActive')}"  />
 			<!-- Mousemove delegate; used to check if the mouse cursor has left the iFrame during a 
 				 drag operation. -->	
-			<attribute name="mousemovedel" value="$once{new lz.Delegate(this,'trackMouseMove')}"  /> 	
+			<attribute name="mousemovedel" value="$once{new lz.Delegate(this,'trackMouseMove')}"  />
+			<!-- TE item id --> 	
+			<attribute name="TEid" type="string" value=""/>
 	
 			<method name="init">
 				super.init();
@@ -82,10 +84,11 @@
 	
 			<handler name="ondata" args="data"><![CDATA[
 	      	var srcUrl = data.getAttr('src');
+	      	this.setAttribute("TEid",data.getAttr('src'));
 			this.setAttribute('unlocked', false);
 			this.setAttribute('answerObjSet', {});
 			gController.setAttribute('findAnswer',true); //using for freezing/unfreezing UI 
-			gController.setAttribute('isTE',true)
+			gController.setAttribute('isTE',true);
 			/*Start applying bgcolor default white to Question and Panel class TE items, for suppressing color accomodation for TE items.*/
 			if(gController.hasFontAccommodation){
 				this.parent.parent.setAttribute('bgcolor','white');
@@ -255,7 +258,7 @@
 	       ]]></method>
 	
 			<method name="checkiframeState">
-					iframeState();
+					iframeState(TEid);
 					if (!canvas.frameLoaded){
 					 	lz.Timer.resetTimer(checkiframeStateDel, 500);
 					 }else{
