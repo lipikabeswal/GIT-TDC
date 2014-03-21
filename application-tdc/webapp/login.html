@@ -147,7 +147,7 @@ var enableHighlighterArea = false;
 var TEAssetPath = "http:items/"; 
 var isMagnifierMouseovered = false;
 
-
+			
 function getTEAssetPath(){
 	lz.embed.setCanvasAttribute("TEAssetPath", TEAssetPath);
 }
@@ -347,6 +347,7 @@ function preventTextDragging(){
  	jQuery("textarea").each(function() {
  		jQuery(this).css({'overflow-x': 'hidden', 'overflow-y': 'hidden'});
  	});
+ 	jQuery("body").on("mousedown",disableTabKey);
  });
  
 function getFontAccomodation(){
@@ -427,7 +428,7 @@ function setScaleFactor(xscalefactor,yscalefactor){
 }
 
  var iframeLoaded = false;
- function iframeState(){
+ function iframeState(id){
      	var iframe = jQuery("iframe")[0];
      	console.log("iframe state");
      	if(iframe){
@@ -449,6 +450,8 @@ function setScaleFactor(xscalefactor,yscalefactor){
     			iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
     		}*/
 	    	iframe.contentWindow.isReadable(canvas.readable);
+	    	//added to set TE item id in scoring JSON.
+	    	iframe.contentWindow.getItemId(id);
 	    	//iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
 	    	/*var xscalefact = (780 * xscalefactorjs)/800;
 	    	var yscalefact = (450 * yscalefactorjs)/462;*/
@@ -728,7 +731,7 @@ function checkEmptyString(str) {
 		event.preventDefault();
 		event.stopPropagation();
 	}
-	
+ 
 	if(window.top.isMagnifierVisible == "true" && isMagnifierMouseovered == true){
 		hotKeysHandle();
 	}
@@ -888,7 +891,7 @@ var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
 </HEAD>
 
 <BODY topmargin=0 leftmargin=0 rightmargin=0 bottommargin=0 scroll=no bgcolor="#6691B4"
-onkeydown="disableTabKey()" oncontextmenu="javascript:return false;">
+oncontextmenu="javascript:return false;">
 <button id="mybutton" style="visibility:hidden; width:0px; height:0px; display:none;">clickMe </button>
 
 <div id="appcontainer">
