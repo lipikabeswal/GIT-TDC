@@ -3249,6 +3249,7 @@
             startQuestion();
 			showManipulatives();
 			manipulativeSelected();
+			bringFocusToIFrame();
             unlockUI();
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
