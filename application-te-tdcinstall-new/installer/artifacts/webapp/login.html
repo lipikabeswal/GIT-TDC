@@ -285,13 +285,35 @@ function isAnswered(){
  // added as a workaround to change answered math pallete image path from absolute path to relative path, 
  // as in TDC the server port might change due to unavailability of the default port.
   function replaceAbsPathWithRelPath(htmlContent){
-  	var ip = "http://127.0.0.1:";
-	if(jQuery(htmlContent).find("[data-role = mathpalette]").length >0 && htmlContent.indexOf(ip) != -1){
-		var html = htmlContent.split(ip);
-		var id = html[1].split("styles/");
-		var final_url = ip+id[0];
-		var re = new RegExp(final_url, 'g');
-		htmlContent = htmlContent.replace(re, '');
+  	try{
+	  	var ip = "http://127.0.0.1:";
+		if(htmlContent != null && htmlContent != "" && htmlContent != "undefined" && htmlContent.indexOf(ip) > -1){
+			var html = htmlContent.split(ip);
+			var port = "";
+			var final_url = "";
+			var replace_url = "";
+			var re = "";
+			/*if(html[1].indexOf('cursor_images/')){
+				id = html[1].split("includes/");
+				final_url = ip+id[0];
+				re = new RegExp(final_url, 'g');
+				htmlContent = htmlContent.replace(re, '../../');
+			}
+			else if(html[1].indexOf('styles')){
+				id = html[1].split("styles/");
+				final_url = ip+id[0];
+				re = new RegExp(final_url, 'g');
+				htmlContent = htmlContent.replace(re, '');
+			}*/
+			
+			port = html[1].split("/");
+			final_url = ip+port[0];
+			replace_url = ip+document.location.port;
+			re = new RegExp(final_url, 'g');
+			htmlContent = htmlContent.replace(re, replace_url);
+		}
+	}catch(err){
+		alert(err);
 	}
 	return htmlContent;
   }
@@ -430,45 +452,36 @@ function setScaleFactor(xscalefactor,yscalefactor){
  function iframeState(id){
      	var iframe = jQuery("iframe")[0];
      	console.log("iframe state");
-     	try{
-	     	if(iframe){
-				  
-			    setAnswerNow('complete');
-			    //check whether iFrame loaded successfully or not
-			    if(iframe != null
-		    		&& iframe.contentWindow != null
-		    		&& typeof iframe.contentWindow.accomPkg != 'undefined') {
-			    }
-			    
-	     		var fontObj = getFontAccomodation();	
-	     		var bgColorObj = getBackColorAccomodation();				
-	     		
-	    		/*if(fontObj.hasFontMag){
-	    			iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
-	    		}
-	    		else {
-	    			iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
-	    		}*/
-		    	iframe.contentWindow.isReadable(canvas.readable);
-		    	//iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
-		    	/*var xscalefact = (780 * xscalefactorjs)/800;
-		    	var yscalefact = (450 * yscalefactorjs)/462;*/
-		    	var xscalefact = 780/800;
-		    	var yscalefact = 450/462;
-		    	iframe.contentWindow.translate(xscalefact, yscalefact);
-		    	//added to set TE item id in scoring JSON.
-		    	//if(iframe.contentWindow.getItemId){
-		    		iframe.contentWindow.getItemId(id);
-		    	//}
-		    	
-		}
-	}catch(err){
-		  txt="There was an error on this page.\n\n";
-		  txt+="Error description: " + err.message + "\n\n";
-		  console.log(txt);
-	}finally{
-		lz.embed.setCanvasAttribute('frameLoaded',true);
-	}
+     	if(iframe){
+		    setAnswerNow('complete');
+		    //check whether iFrame loaded successfully or not
+		    if(iframe != null
+	    		&& iframe.contentWindow != null
+	    		&& typeof iframe.contentWindow.accomPkg != 'undefined') {
+		    }
+		    
+	    		var fontObj = getFontAccomodation();	
+	    		var bgColorObj = getBackColorAccomodation();				
+	    		
+	   		/*if(fontObj.hasFontMag){
+	   			iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
+	   		}
+	   		else {
+	   			iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
+	   		}*/
+	    	iframe.contentWindow.isReadable(canvas.readable);
+	    	//iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
+	    	/*var xscalefact = (780 * xscalefactorjs)/800;
+	    	var yscalefact = (450 * yscalefactorjs)/462;*/
+	    	var xscalefact = 780/800;
+	    	var yscalefact = 450/462;
+	    	iframe.contentWindow.translate(xscalefact, yscalefact);
+	    	//added to set TE item id in scoring JSON.
+	    	if(iframe.contentWindow.getItemId){
+	    		iframe.contentWindow.getItemId(id);
+	    	}
+	    	lz.embed.setCanvasAttribute('frameLoaded',true);
+      }
 }
 
  function setTTSText(text){
