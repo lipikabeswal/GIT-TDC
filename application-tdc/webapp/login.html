@@ -430,37 +430,44 @@ function setScaleFactor(xscalefactor,yscalefactor){
  function iframeState(id){
      	var iframe = jQuery("iframe")[0];
      	console.log("iframe state");
-     	if(iframe){
-			  
-		    setAnswerNow('complete');
-		    //check whether iFrame loaded successfully or not
-		    if(iframe != null
-	    		&& iframe.contentWindow != null
-	    		&& typeof iframe.contentWindow.accomPkg != 'undefined') {
-		    }
-		    
-     		var fontObj = getFontAccomodation();	
-     		var bgColorObj = getBackColorAccomodation();				
-     		
-    		/*if(fontObj.hasFontMag){
-    			iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
-    		}
-    		else {
-    			iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
-    		}*/
-	    	iframe.contentWindow.isReadable(canvas.readable);
-	    	//added to set TE item id in scoring JSON.
-	    	if(iframe.contentWindow.getItemId){
-	    		iframe.contentWindow.getItemId(id);
-	    	}
-	    	//iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
-	    	/*var xscalefact = (780 * xscalefactorjs)/800;
-	    	var yscalefact = (450 * yscalefactorjs)/462;*/
-	    	var xscalefact = 780/800;
-	    	var yscalefact = 450/462;
-	    	iframe.contentWindow.translate(xscalefact, yscalefact);
-	    	lz.embed.setCanvasAttribute('frameLoaded',true);
-	    	
+     	try{
+	     	if(iframe){
+				  
+			    setAnswerNow('complete');
+			    //check whether iFrame loaded successfully or not
+			    if(iframe != null
+		    		&& iframe.contentWindow != null
+		    		&& typeof iframe.contentWindow.accomPkg != 'undefined') {
+			    }
+			    
+	     		var fontObj = getFontAccomodation();	
+	     		var bgColorObj = getBackColorAccomodation();				
+	     		
+	    		/*if(fontObj.hasFontMag){
+	    			iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
+	    		}
+	    		else {
+	    			iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
+	    		}*/
+		    	iframe.contentWindow.isReadable(canvas.readable);
+		    	//iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
+		    	/*var xscalefact = (780 * xscalefactorjs)/800;
+		    	var yscalefact = (450 * yscalefactorjs)/462;*/
+		    	var xscalefact = 780/800;
+		    	var yscalefact = 450/462;
+		    	iframe.contentWindow.translate(xscalefact, yscalefact);
+		    	//added to set TE item id in scoring JSON.
+		    	//if(iframe.contentWindow.getItemId){
+		    		iframe.contentWindow.getItemId(id);
+		    	//}
+		    	
+		}
+	}catch(err){
+		  txt="There was an error on this page.\n\n";
+		  txt+="Error description: " + err.message + "\n\n";
+		  console.log(txt);
+	}finally{
+		lz.embed.setCanvasAttribute('frameLoaded',true);
 	}
 }
 
