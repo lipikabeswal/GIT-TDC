@@ -71,8 +71,8 @@
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="istep" />
 			<param name="installer.version" value="14.0.0" />
-			<param name="installer.primary.url" value="https://istep-oas.ctb.com" />
-			<param name="installer.secondary.url" value="https://istep-oasdr.ctb.com" />
+			<param name="installer.primary.url" value="https://incore-oas.ctb.com" />
+			<param name="installer.secondary.url" value="https://incore-oas.ctb.com" />
 		</antcall>
 	</target>
 	
