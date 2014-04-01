@@ -619,7 +619,15 @@ public class PersistenceServlet extends HttpServlet {
 				if (AuditFile.exists(fileName)) {
 					// handle restart here in phase 2
 				}
-				//logger.info("Login successfully.");    
+				
+				//Unzip TE item responses
+				//System.out.println("respomnse before unzip "+result);
+				try{
+					result=ServletUtils.processTEZipResponse(result);
+				}catch(Exception e){
+					e.printStackTrace();	
+				}
+				//System.out.println("respomnse after unzip "+result);
 				processLoginResponse(result);
 			} else {
 				//logger.error("TMS returns error in login() : " + result);   
@@ -751,6 +759,17 @@ public class PersistenceServlet extends HttpServlet {
 				}
 			}
 
+			
+			if(itemId.startsWith("IN"))
+			{
+				String answerTag=ServletUtils.getStringBetweenStrings("<v>", "</v>", xml);
+				System.out.println("****************Answer TAG****************\n"+answerTag);
+				String compressedAnswerTag = ServletUtils.compressString(answerTag);
+				System.out.println("COMPRESSED STRING:" + compressedAnswerTag);
+				xml = ServletUtils.replaceBetweenStrings(xml, "<v>", "</v>", compressedAnswerTag);
+				System.out.println("****************XML After Mod****************\n"+xml);
+			}
+			
 			result = save(xml);
 
 		} catch (Exception e) {

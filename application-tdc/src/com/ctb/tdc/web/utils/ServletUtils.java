@@ -23,6 +23,8 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.zip.Adler32;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,6 +57,8 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.log4j.Logger;
 import org.jdom.Element;
+import org.jdom.filter.ElementFilter;
+import org.jdom.output.XMLOutputter;
 
 import com.ctb.tdc.web.dto.AuditVO;
 import com.ctb.tdc.web.dto.ServletSettings;
@@ -1357,6 +1361,49 @@ public class ServletUtils {
 			
 		}		
 	}
+	
+	public static String processTEZipResponse(String loginXml) throws Exception{
+		String modifiedLoginResponse=null;
+		
+		org.jdom.input.SAXBuilder saxBuilder = new org.jdom.input.SAXBuilder();
+		ByteArrayInputStream bais = new ByteArrayInputStream(loginXml.getBytes( "UTF-8" ));
+		org.jdom.Document loginDocs = saxBuilder.build( bais );			
+		Element root = loginDocs.getRootElement();
+		Element restartDataNode=root.getChild("login_response").getChild("consolidated_restart_data");
+		
+//		List<Element> subtests=restartDataNode.getChildren("tsd");
+
+		//Element subtest=restartDataNode.getChild("tsd");
+		String answer=null;
+		if(restartDataNode != null) { 
+			Iterator<Element> processDescendants = restartDataNode.getDescendants(new ElementFilter("tsd")); 
+	
+			Element subtest;
+			if (processDescendants != null) {
+				while (processDescendants.hasNext()) {
+					subtest = processDescendants.next();
+					List<Element> items =  subtest.getChildren("ist");
+					if (items != null && !items.isEmpty()) {
+						for (Element item : items) {
+							if (item.getAttributeValue("iid").startsWith("IN")) {
+								answer = item.getChild("rv").getChild("v")
+										.getText();
+								answer = decompress(answer);
+								item.getChild("rv").getChild("v").setText(
+										answer);
+							}
+						}
+					}
+				}
+			}
+			XMLOutputter xmOut=new XMLOutputter(); 
+			modifiedLoginResponse=xmOut.outputString(loginDocs);
+		}
+		if(modifiedLoginResponse != null )
+			return modifiedLoginResponse;
+		else 
+			return loginXml;
+	}
 
 	public static byte[] readFromFile(File file)
 	{
@@ -1684,7 +1731,81 @@ return elementList;*/
 		 return contentArea;
 	 }
 	 
+	 public static String replaceBetweenStrings(String originalString, String firstDelim,String lastDelim, String replacementString)
+	 {
+		String modifiedString = originalString;
+		try {
+			int p1 = originalString.indexOf(firstDelim);
+			int p2 = originalString.indexOf(lastDelim);
+			if (p1 >= 0 && p2 > p1) {
+				modifiedString = originalString.substring(0, p1
+						+ firstDelim.length())
+						+ replacementString + originalString.substring(p2);
+				// System.out.println("mod :"+modifiedString);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			modifiedString = originalString;
+		}
+		return modifiedString;
+	 }
+	 
+	 public static String getStringBetweenStrings(String firstDelim,String lastDelim, String originalString)
+	{
+		String result = null;
+		try {
+			int firstDelimIndex = originalString.indexOf(firstDelim);
+			int firstDelimSize = firstDelim.length();
+			result = originalString.substring(firstDelimIndex + firstDelimSize,
+					originalString.indexOf(lastDelim, firstDelimIndex
+							+ firstDelimSize));
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = originalString;
+		}
+		return result;		 
+	}
 	
+	 public static String compressString(String str) throws IOException {
+		String base64EncodedString;
+		if (str == null || str.length() == 0) {
+			return str;
+		}
+		try {
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			GZIPOutputStream gzip = new GZIPOutputStream(out);
+			gzip.write(str.getBytes());
+			gzip.close();
+			base64EncodedString = Base64.encode(out.toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			base64EncodedString = str;
+		}
+		return base64EncodedString;
+	}
+	 
+	 public static String decompress(String str) throws Exception {
+		 	String outStr = "";
+		 	String line;
+		 	if (str == null || str.length() == 0) {
+	            return str;
+	        }
+	        //System.out.println("Input String length : " + str.length());
+		 	try {
+				GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(
+						Base64.decodeToByteArray(str)));
+				BufferedReader bf = new BufferedReader(new InputStreamReader(gis,
+						"UTF-8"));
+				while ((line = bf.readLine()) != null) {
+					outStr += line;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				outStr = "";
+			}
+	        // System.out.println("Output String lenght : " + outStr.length());
+	        return outStr;
+	     }
 	
 	
 }
