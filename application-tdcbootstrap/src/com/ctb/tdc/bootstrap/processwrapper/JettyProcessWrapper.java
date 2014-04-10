@@ -229,7 +229,7 @@ public class JettyProcessWrapper extends Thread {
 			// Start Jetty...
             if ( this.macOS ) {
                 String productType = System.getProperty("product.type");
-                if("OKLAHOMA".equals(productType)) {
+                if(("OKLAHOMA".equals(productType)) || ("TASC".equals(productType))) {
                 	this.startCmd[0] = javaHome + "java";
                 	this.startCmd[1] = "-d32";
             		this.startCmd[2] = "-Dtdc.proxy=" + proxy;
