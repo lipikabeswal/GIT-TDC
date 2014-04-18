@@ -598,6 +598,13 @@ function preventTextDragging(){
 //-->
 function disableShortcuts() {
 	var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
+	
+	if(event.which == 9 && gController.scratchpadOpen) { 
+		//console.log("TAB!!!!!!!!!!!!");
+		event.preventDefault();
+		event.stopPropagation();
+	}
+	
 	if (event.ctrlKey) {
 		switch(keystroke){
 			case 'l':

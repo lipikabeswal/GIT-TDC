@@ -181,8 +181,7 @@ var ddpowerzoomer={
 					ddpowerzoomer.$magnifier.outer.hide()
 				}
 				$('#magnifierWindow').css( 'cursor', 'pointer' );
-			},
-			distance:10
+			}
 			
 			
 		}) //create magnifier container and add to doc
