@@ -32,7 +32,7 @@
                   <!-- Additional overlay, only visible while navigating through items.
                    		Gets visible based on Controller attribute isAnswerAreaDisabled
                    -->
-				<view id="restrictResponseOverlay" height="${gQuestion.height}" visible="false" width="${gQuestion.width}" clickable="true" opacity="0">
+				<view id="restrictResponseOverlay" height="${gQuestion.height}" visible="false" width="${gQuestion.width}" clickable="true" opacity="0.001" >
 					<handler name="onvisible">
 						if(restrictResponseOverlay.visible == true){
 							restrictResponseOverlay.bringToFront();

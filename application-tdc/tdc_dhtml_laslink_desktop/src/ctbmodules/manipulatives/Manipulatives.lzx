@@ -37,6 +37,7 @@
 			this.reset();
 			var elem = this.getDisplayObject();
 			elem.setAttribute('id', "manipulativeid");
+			elem.setAttribute('name',"dManupulative");
 		</handler>
 		
 		<handler name="ondata" args="data"><![CDATA[

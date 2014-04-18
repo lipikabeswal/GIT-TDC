@@ -3513,7 +3513,7 @@
             startQuestion();
             resetMicCheck();
 			recalltrackMouseMove();
-			//showManipulatives();
+			showManipulatives();
 			if(gScratchpad.visible) {
 				this.setManipulativeSelState("scratchpad", "up");
 			}
@@ -3537,11 +3537,13 @@
 		</method>
 		
 		<method name="hideManipulatives">
-			gManipulatives.setAttribute('visible',false);
+			console.log("==hideManipulatives==");
+			jQuery(jQuery('[name="dManupulative"]')[0]).hide();
 		</method>
 		
 		<method name="showManipulatives">
-			gManipulatives.setAttribute('visible',true);
+			console.log("==showManipulatives==");
+			jQuery(jQuery('[name="dManupulative"]')[0]).show();
 		</method>
 
 		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
@@ -5302,6 +5304,7 @@
 					gManipulativeBar.globals.masking_ruler.setAttribute("frame",1);
 				}
 			}
+			gController.setAttribute('isAnswerAreaDisabled',true);
 			for(var i=0; i< gController.lasAssetArray.length; i++) {
 				gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',true);
 				gController.lasAssetArray[i].asset.assetOverley.bringToFront();
@@ -5339,6 +5342,7 @@
 				for(var i=0; i< gController.lasAssetArray.length; i++) {
 					gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',false);
 				}
+				gController.setAttribute('isAnswerAreaDisabled',false);
 			}
 			lz.Timer.removeTimer(dNetworkLostPopup);
 			gReadableText.stopRequestor();
@@ -5370,6 +5374,7 @@
        <method name="showWaitPopupFor60Sec"><![CDATA[
 			if(!isWaitPopupOpen){
 				showWaitPopup();
+				gController.setAttribute('isAnswerAreaDisabled',true);
 				for(var i=0; i< gController.lasAssetArray.length; i++) {
 					gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',true);
 					gController.lasAssetArray[i].asset.assetOverley.bringToFront();
@@ -5379,6 +5384,7 @@
 		]]></method>
 		<method name="showRevisitPopup" args="calledFrom"><![CDATA[
 			this.isRevisitPopupOpen = true;	
+			gController.setAttribute('isAnswerAreaDisabled',true);
 			for(var i=0; i< gController.lasAssetArray.length; i++) {
 				gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',true);
 				gController.lasAssetArray[i].asset.assetOverley.bringToFront();
