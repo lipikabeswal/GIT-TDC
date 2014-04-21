@@ -2794,7 +2794,7 @@
 					 for(i=0;i<tempAnsArray.length;i++){
 					  answerArray.push(tempAnsArray[i]);
 					 }
-					 tempAnsArray = [];
+					
 				}
 			}else{
 				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', false);
@@ -2811,6 +2811,7 @@
 			this.setAttribute('revisitCancelClicked',false);
 			gManipulativeBarOverlay.setAttribute('visible',false);
 			this.setAttribute("isAnswerAreaDisabled",false);
+			tempAnsArray = [];
         ]]></method>
 
 		<method name="saveSharedStimulusHighlights"><![CDATA[
