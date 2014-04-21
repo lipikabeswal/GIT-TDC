@@ -4883,6 +4883,7 @@ Debug.write("out of time 1 ans" + isAnswered);
 	   		gPleaseWaitPopup.show();
 	   		gRecordingPopup.hideAllRecorderPopups();
 			gMusicPlayer.hide();
+			if(this.isRevisitPopupOpen == false)
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
 		</method>
@@ -4908,6 +4909,7 @@ Debug.write("out of time 1 ans" + isAnswered);
 			LzTimer.removeTimer(dNetworkLostPopup);
 			gReadableText.stopRequestor();
 			gController.unlockUI();
+			if(this.isRevisitPopupOpen == false)	
 			checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
 			
