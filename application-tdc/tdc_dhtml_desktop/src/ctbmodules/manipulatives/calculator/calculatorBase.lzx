@@ -61,6 +61,7 @@
         <attribute name="operatorP" value="$once{new lz.datapointer()}"/>
         
         <attribute name="currentOperator" value="" type="string"/>
+		<attribute name="tempOperator" value="" type="string"/>
         <attribute name="isEqualClicked" value="false" type="boolean"/>
 		
         <handler name="onmouseover">
@@ -311,7 +312,17 @@
 			setDataAttribute('isEditing', false);
 		</method>
 
-		<method name="handleBinaryOperator" args="oper">
+		<method name="handleBinaryOperator" args="oper"><![CDATA[
+		     if(oper == 'multiply'){
+				/* this condition is used for the following scenario
+				Step 1: Type in 35.6
+				Step 2: Use "X" operand
+				Step 3: Type in 6
+				Step 4: Use operand "+"
+				Result: 211.20000000000002	*/
+
+		    	this.setAttribute('tempOperator',oper);
+		    }
 			this.setAttribute('currentOperator',oper);
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
@@ -330,7 +341,8 @@
 				setDataAttribute('operandSet', false);
 				this.updateDisplay();
 			}
-		</method>
+
+		]]></method>
 
 		<method name="handleMemoryPlus">
 		    this.setAttribute('currentOperator','memoryPlus');
@@ -866,30 +878,40 @@
 				result = Math.round(num * multiplier)/multiplier;
 			}
 			if(this.currentOperator == 'multiply' && this.isEqualClicked && result != ''){
-				var strngResult = String(result);
-				if(strngResult.indexOf('.')> -1){	
-					var splitText = strngResult.split(".");
-					var count = 0;
-					for(var i = 0; i < splitText[1].length; i++){
-					    if(splitText[1][i] == '0'){
-							count++;
-							if(count == 4){
-								break;
-							}
-						}else{
-							count = 0;
-						}
-					}
-					if(count == 4){
-						var newnumber = new Number(result+'').toFixed(parseInt('3'));
-						result =  parseFloat(newnumber);
-						count = 0;
-					}
-				}
+				result = this.roundValue(result);
+			}else if(this.tempOperator == 'multiply' && this.currentOperator == 'add' && result != ''){
+				result = this.roundValue(result);
+				this.setAttribute('tempOperator','');
 			}
 			return result;
 		]]>
 		</method>
+		
+		<method name="roundValue" args="result">
+		<![CDATA[ 
+		    var roundValue = result;
+			var strngResult = String(result);
+			if(strngResult.indexOf('.')> -1){	
+				var splitText = strngResult.split(".");
+				var count = 0;
+				for(var i = 0; i < splitText[1].length; i++){
+					if(splitText[1].charAt(i) == '0'){
+						count++;
+						if(count == 4){
+							break;
+						}
+					}else{
+						count = 0;
+					}
+				}
+				if(count == 4){
+					var newnumber = new Number(result+'').toFixed(parseInt('3'));
+					roundValue =  parseFloat(newnumber);
+					count = 0;
+				}
+			}
+			return roundValue;
+		]]></method>
 
 		<method name="closeWindow">
 			clearEntry()
