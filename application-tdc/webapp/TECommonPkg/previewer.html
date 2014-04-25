@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../../TECommonPkg/styles/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../TECommonPkg/styles/css/Aristo.css" />
+    <link rel="stylesheet" type="text/css" href="../../TECommonPkg/styles/css/elements.css" />
+    <link rel="stylesheet" type="text/css" href="../../TECommonPkg/styles/css/preview.css" />
+    <script src="../../TECommonPkg/scripts/common/jquery-1.7.2.min.js"></script>
+	
+    <script src="../../TECommonPkg/scripts/common/jquery-ui-1.8.21.custom.min.js"></script>
+	<script src="../../TECommonPkg/scripts/common/jquery.ui.touch-punch.min.js"></script>
+	<script src="../../TECommonPkg/scripts/common/1.0.1/jquerypp.js"></script>
+ 
+    <script src="../../TECommonPkg/scripts/common/accommodationPKG.js"></script>
+    <script src="../../TECommonPkg/scripts/js/messages.js"></script>
+    <script src="../../TECommonPkg/scripts/js/json2.min.js"></script>
+    <script src="../../TECommonPkg/scripts/js/util.js"></script>
+	<script src="../../TECommonPkg/scripts/js/previewer.js"></script>
+	
+	<script>
+			// this function overrides 
+			(function($){
+				//override the drop function in the $.ui.ddmanager
+				$.ui.ddmanager.dropfn = $.ui.ddmanager.drop;
+				$.extend($.ui.ddmanager,{
+				
+					drop: function(draggable, event) {
+						//check draggable scope
+						if(draggable.options.scope && draggable.options.scope == 'topmost'){
+							return $.ui.ddmanager.droptopmost(draggable,event);
+						}else{
+							return $.ui.ddmanager.dropfn(draggable,event);
+						}
+					},
+					droptopmost : function(draggable, event){
+						var dropped = false;
+						var zindex = 0,topmost=null;
+						$.each($.ui.ddmanager.droppables[draggable.options.scope] || [], function() {
+
+							if(!this.options) return;
+							
+							if (!this.options.disabled && this.visible && $.ui.intersect(draggable, this, this.options.tolerance)&& $(this.element).is(":visible")) {
+								var tempZindex =  parseInt($(this.element).css("zIndex"), 10);
+								if(tempZindex >= zindex ) {
+									topmost = this;
+								}
+							}
+
+						});
+						
+						if(topmost){
+							dropped = topmost._drop.call(topmost, event);
+							if (!topmost.options.disabled && topmost.visible && topmost.accept.call(topmost.element[0],(draggable.currentItem || draggable.element))) {
+								topmost.isout = 1; topmost.isover = 0;
+								topmost._deactivate.call(topmost, event);
+							}
+						}
+						return dropped;
+						
+					}
+				});
+			})(jQuery);
+		</script>
+    <script type="text/javascript">
+    function translate(scaleX, scaleY) {     
+	  setScaleFactor(scaleX, scaleY);
+	}
+	
+	function setScaleFactor(scaleX, scaleY) {				
+		$("#scaleX").val(scaleX);	
+		$("#scaleY").val(scaleY);
+		var tranX = (scaleX-1)*50, tranY = (scaleY-1)*50;
+		var h = $("body").height() * scaleY, w = $("body").width() * scaleX;
+		var tr = "translate("+tranX+"%, "+tranY+"%) scale(" + scaleX + ", "+ scaleY + ")";		
+		$("#previewArea").css({					
+			"-webkit-transform": tr,
+			"transform": tr
+	  });
+	  $("body").css({
+		"width": w+"px",
+		"height": h+"px"
+	  });
+	  scaleDropArea();
+	  //$("#previewArea").style.display = 'none';
+      //$("#previewArea").style.display = 'block';
+	}	
+	
+	function isReadable(readable){		
+		$("#tts").val(readable);
+		accommodationPkg = new accommodationPKG();
+		accommodationPkg.setCursor(readable);
+	}
+	
+	function getItemId(id){
+		$("#itemId").val(id);
+	}
+
+	function getScreenNo(no){
+		$("#screenId").val(no);
+	}
+    </script>
+  
+    <style>
+    div.select {
+      width: 2em;
+      margin: 0 auto;
+      position : absolute;
+      z-index :0;
+      border: 1px solid #ccc;
+      background:#fff;
+    }
+    div.select ul {
+      border-top: 1px solid #ccc;
+    }
+    div.select ul:before {
+      content: "\25BE";
+      cursor: pointer;
+      left: 13px;
+      padding-top: 0px;
+      position: absolute;
+      top: 0;
+    }
+    li.option {
+      width: 100%;
+      display: none;
+      padding:1px;
+      z-index : 999;
+    }
+    li.option:hover {
+      background: #5f80ab;
+      cursor:pointer;
+    }
+    div.select ul li {
+      list-style: none;
+    }
+	body {
+		overflow:hidden;
+		position:fixed;
+		top:0px !important;
+		left:0px !important;
+		bottom:0px !important;
+		right:0px !important;
+		/*webkit-text-stroke: 1px transparent;
+        text-shadow: 0 0 1px rgba(0,0,0,0.1);
+        letter-spacing: -0.06em;*/
+	}
+  </style>
+  </head>
+  
+  <!-- <body draggable="true" onmousedown="event.preventDefault();"> -->
+  <body>
+    <input type="hidden" id="htmlUrl" value="item.html"/>
+    <input type="hidden" id="jsonUrl" value="json/item.json"/>
+    <input type="hidden" id="scaleX" value=""/>
+    <input type="hidden" id="scaleY" value=""/>
+	<input type="hidden" id="tts" value=""/>
+	<input type="hidden" id="itemId" value=""/>
+	<input type="hidden" id="screenId" value=""/>
+	<input type="text" id="" value="" autofocus="true" style="height: 0; background: transparent;border: 0;font-size: 0;width:0px;position: absolute;"/>
+	<div id="previewArea" class="preview-area"></div>
+  </body>
+</html>

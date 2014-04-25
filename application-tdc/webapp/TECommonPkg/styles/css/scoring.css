@@ -1,0 +1,123 @@
+.scoring-body {
+	display:block;
+	height:88%;
+	overflow:auto;
+}
+.table {
+	width:100%;
+	table-layout:fixed;
+}
+.table  td, .scoringTable td, .weighted-table td {
+	padding:5px;
+	border:1px solid #B6B6B6;
+	vertical-align:top;
+	word-wrap:break-word;
+}
+.scoringTable, .weighted-table {
+    table-layout: fixed;
+    width: 400px;
+}
+.scoringTable tr:not(:first-child), .weighted-table  tr:not(:first-child) {
+	background:#fff;
+}
+.scoringTable td:first-child  {
+    width: 70%;
+}
+.scoringTable td:last-child {
+    text-align: center;
+    width: 30%;
+}
+.complete-scoring[disabled] {
+	opacity:0.5;
+}
+.scoring-fieldset {
+	width:100% !important;
+	border:1px solid #afafaf;
+	padding:5px 0 0;
+}
+.scoring-fieldset legend {
+	margin: 0 5px;
+}
+.user-info {
+    line-height: 16px;
+    margin: 0 5px 5px;
+    padding: 5px;
+}
+.user-info > *:first-child {
+    float: left;
+}
+.user-info .info {
+    line-height: 14px;
+    margin-left: 5px;
+    vertical-align: top;
+}
+.row > :first-child {
+	margin-right:5px;
+	display:inline-block;
+	width:142px;
+	line-height:20px;
+}
+.row .info {
+    font-size: 90%;
+    margin-left: 5px;
+	width:390px;
+}
+.scoring {
+	height:400px;
+	padding:5px;
+	overflow:auto;
+}
+.prototype {
+	height:auto;
+	line-height:20px;
+	margin:5px 0;
+	border:1px solid #afafaf;
+	padding:2px;
+	font-family:oasmathv3regular;
+/*	background-color: #FFFFFF;*/
+}
+.droppable {
+	background:#FCFC99;
+}
+.draggable {
+	cursor:pointer;
+}
+.dnd-ans-selected {
+	background: url("image/check.png") no-repeat scroll right center #B5EDB1;
+}
+.math-ans-selected {
+	background: #B5EDB1;
+}
+.score-section {
+	background:#F7F7B9;
+}
+.delete-math-row {
+	background:url("image/delete-control.png");
+	width:15px;
+	height:15px;
+	margin-left:20px;
+	cursor: pointer;
+	float:right;
+}
+.mcqDndSeqEle{
+display: inline-block;
+height: 18px;
+}
+
+.delete-mcq-dnd-row{
+	background:url("image/delete-control.png");
+	width:15px;
+	height:15px;
+	/*margin-left:20px;*/
+	cursor: pointer;
+	float:right;
+}
+
+.resetSeq{
+	margin-bottom: 5px;
+    width: 112px;
+}
+
+.prototype .drag{
+	background-color: transparent !important;
+}

@@ -1,0 +1,86 @@
+.divbox {width:400px;height:400px;background:#ffffff;position:absolute;}
+.radio, .checkbox {display:block;background:#ffffff;position:absolute;width:300px;height:16px;cursor:default/* !important*/;}
+.textarea, .droparea {height:150px;width:150px;background:#ffffff;position:absolute;}
+.mathpalette {height:92px;width:187px;position:absolute;background:#ffffff;}
+
+.element { border:1px solid #bFbFbF; }
+.element input[type="checkbox"], .element input[type="radio"] {cursor:default !important;margin:0px;margin-right:5px;vertical-align:top;padding:0px;height:16px !important;float:left;}
+.element input[type="checkbox"]:hover, .element input[type="radio"]:hover {cursor:default !important;}
+.radio .text, .checkbox .text {float:left;} 
+.element .text {word-wrap:break-word;height:150px;overflow:auto;width:150px;font-family:'oasmathv3regular';line-height:16px;font-size:12px;}
+.textarea .text, .droparea .text {padding-top:3px;padding-left:3px;padding-bottom:3px;padding-right:3px;}
+.element .text ul, .element .text ol {
+	padding-left:40px;
+	padding-right:40px;
+	/*margin-top:12px;
+	margin-bottom:12px;*/
+}
+/*.element[behavior="2"] {cursor:move !important;}*/
+/*defect*/
+.element[behavior="2"], .dropped{cursor:url(image/MoveCursor.png), pointer !important;}
+.palette-button {
+	float:left;
+	width:25px !important;
+	height:28px;
+	padding-left:10px;
+	font-weight:bold;
+	line-height:20px;
+	margin:1px;
+	/*cursor:move;*/
+	cursor:url(image/MoveCursor.png), pointer !important;
+	z-index: 999;
+}
+.palette-button:hover {
+	-moz-box-shadow: 0 0 2px 2px #afafaf;
+	-webkit-box-shadow: 0 0 2px 2px#afafaf;
+	box-shadow: 0 0 2px 2px #afafaf;
+}
+.mathpalettebutton{
+	float:left;
+	width:25px;
+	height:28px;
+	padding-left:10px;
+	font-weight:bold;
+	line-height:20px;
+	margin:3px;
+	border:1px solid #afafaf;
+	cursor:pointer;
+}
+.mathpalettebutton:hover {
+	-moz-box-shadow: 0 0 2px 2px #afafaf;
+	-webkit-box-shadow: 0 0 2px 2px#afafaf;
+	box-shadow: 0 0 2px 2px #afafaf;
+}
+sub {
+	vertical-align: sub;
+	font-size:80% !important;
+}
+
+sup {
+	vertical-align: super;	
+	font-size:80% !important;
+}
+.inputsup  {
+	margin-top:5px !important;
+}
+.drag, .correctAns, .dropped .answer {
+	line-height:20px;
+	font-size:12px;
+}
+/*.centerAlignText{
+	vertical-align:middle;
+	text-align:center;
+	display:table-cell;
+}*/
+/*.text > div{
+	vertical-align:middle !important;
+}
+*/
+/*
+.drag{
+	background-color:#ffff66;
+}
+
+.correctAns{
+	background-color:#CCFF33;
+}*/
