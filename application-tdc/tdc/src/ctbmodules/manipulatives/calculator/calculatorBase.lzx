@@ -53,6 +53,10 @@
         <attribute name="operandP" value="$once{new lz.datapointer()}"/>
         <attribute name="operatorP" value="$once{new lz.datapointer()}"/>
         
+ 		<attribute name="currentOperator" value="" type="string"/>
+		<attribute name="tempOperator" value="" type="string"/>
+        <attribute name="isEqualClicked" value="false" type="boolean"/>
+
         <dragstate name="dragger"
                    drag_min_x="$once{-(this.width - 100)}" 
                    drag_min_y="$once{-(this.height - 100)}"
@@ -307,7 +311,18 @@
 			setDataAttribute('isEditing', false);
 		</method>
 
-		<method name="handleBinaryOperator" args="oper">
+		<method name="handleBinaryOperator" args="oper"><![CDATA[
+		     if(oper == 'multiply'){
+				/* this condition is used for the following scenario
+				Step 1: Type in 35.6
+				Step 2: Use "X" operand
+				Step 3: Type in 6
+				Step 4: Use operand "+"
+				Result: 211.20000000000002	*/
+
+		    	this.setAttribute('tempOperator',oper);
+		    }
+			this.setAttribute('currentOperator',oper);
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 				if(isReplacementOperator()){
@@ -325,14 +340,17 @@
 				setDataAttribute('operandSet', false);
 				this.updateDisplay();
 			}
-		</method>
+
+		]]></method>
 
 		<method name="handleMemoryPlus">
+		    this.setAttribute('currentOperator','memoryPlus');
 			setDataAttribute("isPercentEquals", false);
 			this._doMemoryModification(true);
 		</method>
 		
 		<method name="handleMemoryMinus">
+			this.setAttribute('currentOperator','memoryMinus');
 			setDataAttribute("isPercentEquals", false);
 			this._doMemoryModification(false);
 		</method>
@@ -348,6 +366,7 @@
 		</method>
 		
 		<method name="handleMemoryClear">
+		    this.setAttribute('currentOperator','memoryClear');
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 				setDataAttribute('memory', 0);
@@ -355,6 +374,7 @@
 		</method>
 
 		<method name="handleMemoryRecall">
+			this.setAttribute('currentOperator','memoryRecall');
 			setDataAttribute("isPercentEquals", false);
 			setTheCurrentOperand(this.memory);
 		</method>
@@ -415,6 +435,7 @@
 		
 		<method name="handleEquals">
 			if(!isErrorState()){
+			    this.setAttribute('isEqualClicked',true);
 				var result;
 				if(this.isPercentEquals == true || this.isPercentEquals == 'true'){
 					this.pushOperand(this.currentOperand);
@@ -437,6 +458,7 @@
 				updateDisplay();
 			}
 			setDataAttribute("isPercentEquals", false);
+			this.setAttribute('isEqualClicked',false);
 		</method>
 			
 		<method name="reduce" args="oper">
@@ -482,6 +504,7 @@
 		</method>
 
 		<method name="handleReverseSign">
+		    this.setAttribute('currentOperator','reverseSign');
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 				if(this.isEditing){
@@ -645,6 +668,7 @@
 		</method>
 		
 		<method name="handleUnaryOperator" args="oper">
+		    this.setAttribute('currentOperator',oper);
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 				if(this.unaryAfterBinary()){
@@ -699,6 +723,7 @@
 		<method name="handlePercent" ><![CDATA[    
 			// muck everything up to satisfy FCAT :(
 			// yes - this wacky behavior is intentional
+			this.setAttribute('currentOperator','percent');
 			setDataAttribute("isPercentEquals", false);
 			if(!isErrorState()){
 				var result = 0;
@@ -846,13 +871,47 @@
 		<method name="round" args="num, places">
 		<![CDATA[   
 			var result = num;
+			//added 2nd condition to fix abnormal number generation on click of a operators-by piyali
 			if(places < this.maxDigits && this.operands.length>1){
 				var multiplier = Math.pow(10, places);
 				result = Math.round(num * multiplier)/multiplier;
 			}
+			
+			if(this.currentOperator == 'multiply' && this.isEqualClicked && result != ''){
+				result = this.roundValue(result);
+			}else if(this.tempOperator == 'multiply' && this.currentOperator == 'add' && result != ''){
+				result = this.roundValue(result);
+				this.setAttribute('tempOperator','');
+			}
 			return result;
 		]]>
 		</method>
+		
+		<method name="roundValue" args="result">
+		<![CDATA[ 
+		    var roundValue = result;
+			var strngResult = String(result);
+			if(strngResult.indexOf('.')> -1){	
+				var splitText = strngResult.split(".");
+				var count = 0;
+				for(var i = 0; i < splitText[1].length; i++){
+					if(splitText[1].charAt(i) == '0'){
+						count++;
+						if(count == 4){
+							break;
+						}
+					}else{
+						count = 0;
+					}
+				}
+				if(count == 4){
+					var newnumber = new Number(result+'').toFixed(parseInt('3'));
+					roundValue =  parseFloat(newnumber);
+					count = 0;
+				}
+			}
+			return roundValue;
+		]]></method>
 
 		<method name="closeWindow">
 			clearEntry()
