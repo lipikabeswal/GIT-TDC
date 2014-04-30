@@ -33,12 +33,17 @@
 		<attribute name="SCIENTIFIC_CALCULATOR_INDEX" type="number" value="10" />
 		<attribute name="FORMULA_CARD_INDEX" type="number" value="11" />
 		<attribute name="MASKING_RULER_INDEX" type="number" value="12" />
+		<attribute name="tiCalculatorDetails" value="$once{new Object()}"/>
 		<handler name="oninit">
 			this.reset();
 			var elem = this.getDisplayObject();
 			//console.log("oninit   elem   ****"+elem);
 			elem.setAttribute('id', "manipulativeid");
 			elem.setAttribute('name',"dManupulative");
+			
+			/*saving current state of TI calculators*/
+			this.tiCalculatorDetails.TI30 = 'up';
+			this.tiCalculatorDetails.TI84 = 'up';
 		</handler>
 		
 		<handler name="ondata" args="data"><![CDATA[
