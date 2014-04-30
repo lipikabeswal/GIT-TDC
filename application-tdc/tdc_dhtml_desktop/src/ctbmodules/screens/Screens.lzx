@@ -117,7 +117,7 @@
 
          <method name="showError" args="xml">
 
-         Debug.write("gScreens.showError");
+         console.log("gScreens.showError");
 			//gMusicPlayer.stop();
          printBigString(xml);
 
@@ -126,7 +126,15 @@
             if ( !contents.es.isinited ) contents.es.completeInstantiation();
 
             contents.es.showError(xml);
-
+            
+            /*close TI calculators when in error screen*/
+			if(jQuery('#calculatorDiv').is(":visible")){	
+				closeTI30Calc();
+			}	
+			if(jQuery('#calculatorTI84Div').is(":visible")){	
+				closeTI84Calc();
+			}	
+			
             contents.es.setAttribute('visible', true );
 
             show();
@@ -338,6 +346,7 @@
             this.setAttribute('visible',true );			
 			lz.ModeManager.release( gSecurityScreen );
             gScreens.bringToFront();
+            
             var hasmode = lz.ModeManager.hasMode( this );
             Debug.write( 'show ', hasmode );
             if ( !hasmode ) {
