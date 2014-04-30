@@ -149,7 +149,7 @@ var ddpowerzoomer={
 				}
 			},
 			drag: function(event, ui) {
-			    if($.browser.safari){
+			    if(navigator.userAgent.indexOf("Safari")> -1){
 			    	$('#magnifierWindow').css("cursor", "url('./assets/dragger_press.png'), pointer");
 			    }else{
 			    	$('#magnifierWindow').css( 'cursor', "url('./assets/dragger_press.png'), pointer" );
@@ -257,11 +257,23 @@ jQuery.fn.initMagnify=function(options){
 			$('#scratch').trigger("mouseup");
 			$('#protractor').trigger("mouseup");
         });
+        
+        window.dManupulative=false;
+        $('[name="dManupulative"]').on("mousedown",function() {
+		  window.dManupulative = true;
+		});
+        
         /* added to prevent sticking of TE draggable 
         	items to mouse cursor when dragged over magnifier
         */
         $("#magnifierWindow").on("mouseover",function() {
-        	$('iframe')[0].contentWindow.$("body").trigger("mouseup");
+        	/*if($('iframe')[0].contentWindow.$(".ui-draggable-dragging")){
+        		$('iframe')[0].contentWindow.$(".ui-draggable-dragging").trigger("mouseup");
+        	}*/
+        	var iframeCon=$("iframe").contents().find(".ui-draggable");
+        	if(iframeCon && !window.dManupulative){
+        		iframeCon.trigger("mouseup");
+        	}	
         	isMagnifierMouseovered = true;
         });
         
