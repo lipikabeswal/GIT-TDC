@@ -525,6 +525,11 @@
 		<attribute name="findAnswer" type="boolean" value="true"/>
 		<!-- isEnlargeable is to track if a table is enlargable -->
 		<attribute name="isEnlargeable" type="boolean" value="false"/>
+		
+		
+		<attribute name="isTI30CalculatorOpen" type="boolean" value="false" />
+		<attribute name="isTI84CalculatorOpen" type="boolean" value="false" />
+		<attribute name="isOneCalculatorOpen" type="boolean" value="false" />
 		<!--
 			============================================================
 			Datapointers
@@ -1101,6 +1106,13 @@
 		<method name="goToGoodbyeScreen">
 			stopHeartbeat();
 			hideManipulatives();
+			/*closing TI calculators in goodbye screen*/
+			if(jQuery('#calculatorDiv').is(":visible")){	
+				closeTI30Calc();
+			}	
+			if(jQuery('#calculatorTI84Div').is(":visible")){	
+				closeTI84Calc();
+			}	
 			gScreens.showGoodbye();
 			lz.Timer.addTimer( dcloseBrowser, 5000 );
 		</method>
@@ -3200,10 +3212,13 @@
 					hideHtmlWidgets();
 				}*/
 				
+	            	
 				setState(PAUSE_STATE);
                 this.setAttribute("sendCatSave",false);
                 save(PAUSE_LEV);
+                
             }
+            
       ]]>  </method>
 
 		<method name="save" args="lev">
@@ -3218,7 +3233,8 @@
 			this.resetCrs();
             lz.Cursor.unlock();  
         	checkHideMagnifierGlass();
-			checkHideMaskingChoiceDD();    
+			checkHideMaskingChoiceDD();   
+			hideTICalculators(); //hide TI calculators when on pause screen
           	closeOpenManipulatives();
           	hideManipulatives();
             gScreens.showPause(getStudentName());
@@ -3252,6 +3268,7 @@
             restoreScratchpadFocusIfNeeded();
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
+			showTICalculators();//show TI calculators when returns from pause screen if it was open before going to pause screen
 		</method>
 		
 		<method name="hideManipulatives">
@@ -3261,6 +3278,8 @@
 		<method name="showManipulatives">
 			gManipulatives.setAttribute('visible',true);
 		</method>
+
+		
 
 		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
           	if(this.focusOnScratchpad  && gScratchpad.visible){
@@ -3304,6 +3323,7 @@
             }
 			//this.resetHtmlFields();
 			
+			
 		    save(null);
         ]]></method>
 	
@@ -3332,6 +3352,7 @@
 			//END
 			//this.resetAudioFields();
             closeOpenManipulatives();
+            hideTICalculators();//hide TI calculators when on progress screen
 			hideManipulatives();
      		checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
@@ -3364,6 +3385,58 @@
 			}
              gController.setAttribute("isAnswerAreaDisabled",false);          
 		]]></method>
+
+		<!-- TI calculators implementation start-->
+
+		<method name="hideTICalculators"><![CDATA[
+			if(jQuery('#calculatorDiv').is(":visible")){
+					console.log("calculatorDiv***");
+					hideTI30Calc();
+					this.isTI30CalculatorOpen = true;
+			}	
+			if(jQuery('#calculatorTI84Div').is(":visible")){
+					console.log("calculatorTi84Div***");
+					hideTI84Calc();
+					this.isTI84CalculatorOpen = true;
+			}	
+		]]></method>	
+		
+		
+		<method name="showTICalculators"><![CDATA[
+			if(this.isTI84CalculatorOpen && gItemInterface.visible){
+				console.log("isTI84CalculatorOpen and gItemInterface visible");
+				showTI84Calc();
+				this.isTI84CalculatorOpen = false;
+			}
+			if(this.isTI30CalculatorOpen && gItemInterface.visible){
+				showTI30Calc();
+				this.isTI30CalculatorOpen = false;
+			}
+			
+		]]></method>	
+
+
+		<method name="closeOpenTICalculators"><![CDATA[
+			var dn = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/general');
+			var manips = new Array("ti_scientific_calculator",
+										"ti_scientific_graphic_calculator");
+										
+			for (var i = 0; i < manips.length; i++){
+					var manip = manips[i];
+					var state = dn.getAttr(manip);
+					if(state == "sel"){
+			 			gController.setManipulativeSelState (manip, 'up');
+					}
+			}							
+			if(jQuery('#calculatorDiv').is(":visible")){	
+				closeTI30Calc();
+			}	
+			if(jQuery('#calculatorTI84Div').is(":visible")){	
+				closeTI84Calc();
+			}	
+		]]></method>	
+
+		<!-- TI calculators implementation end-->
 
 		<method name="closeOpenManipulatives"><![CDATA[
 			if(!isMarked()){       
@@ -3447,6 +3520,7 @@
 				gScreens.removeFinishState();
 			}
 			checkShowMagnifierGlass();
+			showTICalculators();//show TI Calculators when returns from progress screen if it was open before going to progress screen
 			gTooltip.hideTooltip();
         </method>
 
@@ -3975,8 +4049,8 @@
                 dnmanip.appendChild (dngeneral);
             }
 
+			var dntoolbar = dpstudentdata.xpathQuery ('current_item/item_model/toolbar');
             if (initglobal || initgeneral) {
-                var dntoolbar = dpstudentdata.xpathQuery ('current_item/item_model/toolbar');
                 var toolstate = 'disable';
 
                 for (var i in dntoolbar.attributes) {
@@ -4053,6 +4127,27 @@
 				this.hasTNorFCATrefCard = false;	
 				this.formulaCardResource = null;
             }
+
+
+			/* TI calculators state changes start */
+			if( dntoolbar.getAttr('ti_scientific_calculator') == "required"){
+				if(gManipulatives.tiCalculatorDetails.TI30 == "sel"){
+					toolstate = 'sel';
+				}else {
+					toolstate = 'up';
+				}
+				dngeneral.setAttr ('ti_scientific_calculator', toolstate);
+			}
+			if( dntoolbar.getAttr('ti_scientific_graphic_calculator') == "required"){
+				if(gManipulatives.tiCalculatorDetails.TI84 == "sel"){
+					toolstate = 'sel';
+				}else{
+					toolstate = 'up';
+				}
+				dngeneral.setAttr ('ti_scientific_graphic_calculator', toolstate);
+			}
+			/* TI calculators state changes end */
+
 			//suppressing masking_tool for TE items as it is not required for TE items
 			//start
 			var maskingAnsCh = gController.dpsubtest.xpathQuery('testing_session_data/lms.student.accommodations/@masking_tool');
@@ -4102,11 +4197,42 @@
 		</method>
 
 		<method name="setManipulativeSelState" args="which, value"><![CDATA[
-//Debug.write("setManipulativeSelState....",which, value);
+
             var dn;
 
+			/* Open and close TI calculators when the manipulative button is clicked start*/
+
+			if(which == 'ti_scientific_graphic_calculator') {
+				if(gManipulatives.tiCalculatorDetails.TI30 == "sel" && value=="sel"){
+					value="up";
+				}
+				if(!(jQuery('#calculatorDiv').is(":visible"))){
+					createTI84Calc();
+				}
+				if(value == "sel"){
+					gManipulatives.tiCalculatorDetails.TI84 = 'sel';
+				}else{
+					gManipulatives.tiCalculatorDetails.TI84 = 'up';
+				}
+            }
+            
+            if(which == 'ti_scientific_calculator') {
+				if(gManipulatives.tiCalculatorDetails.TI84 == "sel" && value=="sel"){
+					value="up";
+				}
+				if(!(jQuery('#calculatorTI84Div').is(":visible"))){
+					createTI30Calc();
+				}
+				if(value == "sel"){
+					gManipulatives.tiCalculatorDetails.TI30 = 'sel';
+				}else{
+					gManipulatives.tiCalculatorDetails.TI30 = 'up';
+				}
+            }
+            
+			/* Open and close TI calculators when the manipulative button is clicked end*/
+
             if (this._isGlobalManipulator (which)) {
-//Debug.write("if ...."+this._isGlobalManipulator (which));
             
                 dn = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/global');
                 if(this._isRadioGlobalManipulator(which)){
@@ -4324,6 +4450,13 @@
 			//to set audio data in save call, its required
 			this.resetAudioFields();
 			this.resetHtmlFields();
+			/*close TI calculators when ending a subtest so that its not open in the next subtest*/
+			if(jQuery('#calculatorDiv').is(":visible")){	
+				closeTI30Calc();
+			}	
+			if(jQuery('#calculatorTI84Div').is(":visible")){	
+				closeTI84Calc();
+			}	
 			stopQuestion();
         	copyCurrentToRuntime();
 			setState(SAVE_END_SUBTEST_STATE);
