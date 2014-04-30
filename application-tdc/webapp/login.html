@@ -6,16 +6,27 @@
    <meta http-equiv="X-UA-Compatible" content="chrome=1">
    <link rel="SHORTCUT ICON" href="http://www.laszlosystems.com/favicon.ico">
    <script type="text/javascript" src="lps/includes/embed-compressed.js"></script>
-</SCRIPT>
   <link rel="stylesheet" href="lps/style_mozilla.css" type="text/css" /> 
-<!--<script type="text/javascript"src="lps/jquery.min.js"></script> 
-  <script type="text/javascript"src="lps/jquery-1.5.2.js"></script>
-	 <script type="text/javascript"src="lps/jquery-1.7.2.min.js"></script> --> 
-	<script type="text/javascript" src="assets/jquery-1.8.3.js"></script>
-	<script type="text/javascript" src="assets/jquery-ui-1.9.2.custom.min.js"></script>
+	
+	
+	<script src="lps/jquery-1.10.2.js"></script>
+	<script src="lps/jquery-ui-1.10.4.js"></script>
+	
+	
+  	<link rel="stylesheet" href="TICalc/TI-30/css/jquery-ui-TI30.css" rel="Stylesheet" type="text/css" />
+  	<link href="TICalc/TI-30/css/ti30mv-styles-min.css" media="screen" rel="Stylesheet" type="text/css" />
+    <link rel="stylesheet" href="TICalc/TI-30/css/style.css" rel="Stylesheet" type="text/css" />
+	<script type="text/javascript" src="TICalc/TI-30/js/ti30mv-min.js"></script>
+	
+	<link rel="stylesheet" href="TICalc/TI-84/css/jquery-ui-TI84.css" rel="Stylesheet" type="text/css" />
+	<link href="TICalc/TI-84/css/ti84p-styles-min.css" media="screen" rel="Stylesheet" type="text/css" />
+    <link rel="stylesheet" href="TICalc/TI-84/css/styleTI84.css" rel="Stylesheet" type="text/css" />
+	<script type="text/javascript" src="TICalc/TI-84/js/ti84p-min.js"></script>
+	
+	
 	<script type="text/javascript" src="assets/imageZoomer.js"></script>	
 	
-<style title="mystyle" type="text/css" rel="stylesheet">
+<style title="mystyle" rel="stylesheet" type="text/css" >
            html, body
             {
                 /* http://www.quirksmode.org/css/100percheight.html */
@@ -122,8 +133,10 @@
 			.lzswfinputtext{
 				font-family: CTB!important;
 			}
+			.no-close .ui-dialog-titlebar-close {display: none;}/*hiding close button of dialog*/
             
-        </style><!--[if IE]>
+        </style>
+        <!--[if IE]>
         <style type="text/css">
             /* Fix IE scrollbar braindeath */
             html { overflow: auto; overflow-x: hidden; }
@@ -146,6 +159,12 @@ var iid = null;
 var enableHighlighterArea = false;
 var TEAssetPath = "http:items/"; 
 var isMagnifierMouseovered = false;
+var ti30;
+var ti84;
+var myErrorHandler;
+var myErrorTI84Handler;
+var calcTI30open = false;
+var calcTI84open = false;
 
 
 function getTEAssetPath(){
@@ -369,7 +388,107 @@ function preventTextDragging(){
  	jQuery("textarea").each(function() {
  		jQuery(this).css({'overflow-x': 'hidden', 'overflow-y': 'hidden'});
  	});
+ 	
+ 	/*TI calculators implementation start*/
+ 	myErrorHandler = function(level, message) {
+			if (level === TI_ERROR_LEVEL.SEVERE) {
+				alert(message);
+			}
+			console.log(message);
+		};
+		
+	 myErrorTI84Handler = function(level, message) {
+			if (level === TI_ERROR_LEVEL.SEVERE) {
+				alert(message);
+			}
+			console.log(message);
+		};	
+	
+ 	//appending the TI calculator divs with the jQuery dialog class and making it draggable with jQuery draggable
+  	jQuery( "#calculatorDiv" ).dialog({dialogClass: "no-close",
+	  									 closeOnEscape: false,
+	  									 autoOpen: false,
+	  									 draggable: false,
+	  									 resizable: false,
+	  									 width: 330,
+	  									 height: 650,
+	  									 position: ['center', 'middle'] }).parent().draggable({ containment: "parent" });
+  
+  
+  	jQuery( "#calculatorTI84Div" ).dialog({dialogClass: "no-close",
+  										  closeOnEscape: false,
+  										  autoOpen: false,
+  										   draggable: false,
+  										  resizable: false,
+  										  width: 320,
+  										  height: 690,
+  										  position: ['center', 'middle'] }).parent().draggable({ containment: "parent" });	
+  										  
+  	jQuery("#calculatorDiv").parent().on("mouseleave",function(){
+  		//prevent sticking issue 
+  		jQuery('#calculatorDiv').trigger("mouseup");
+  	});	
+  	
+  	jQuery("#calculatorTI84Div").parent().on("mouseleave",function(){
+  		//prevent sticking issue 
+  		jQuery('#calculatorTI84Div').trigger("mouseup");
+  	});										  
+ 	
+ 	/*TI calculators implementation end*/ 										  
+	
  });
+ 
+/*create/toggle visibility of TI calculators starts*/
+function createTI30Calc(){
+ 		if(calcTI30open == false){
+ 			ti30 = new TI30("configurationFile.json");
+    		ti30.errorHandler = myErrorHandler;
+	 		jQuery( "#calculatorDiv" ).dialog('open');
+			calcTI30open = true;  
+  		}else{
+  			jQuery( "#calculatorDiv" ).parent().toggle(1);
+  		}
+}
+
+function createTI84Calc(){
+ 		if(calcTI84open == false){
+ 			ti84 = new TI84("configurationTI84File.json");
+    		ti84.errorHandler = myErrorTI84Handler;
+ 			jQuery( "#calculatorTI84Div" ).dialog('open');
+ 			calcTI84open = true;
+ 		}else{
+ 			jQuery( "#calculatorTI84Div" ).parent().toggle(1);
+ 		}	
+}
+
+/* create/toggle visibility of TI calculators ends*/
+	
+/*show/hide/destroy TI calculators start*/	
+function closeTI30Calc(){
+		jQuery( "#calculatorDiv" ).dialog('close');
+}
+ 
+function closeTI84Calc(){
+		jQuery( "#calculatorTI84Div" ).dialog('close');
+ } 
+ 
+ function hideTI30Calc(){
+		jQuery( "#calculatorDiv" ).dialog().parent().hide();
+}
+
+ function hideTI84Calc(){
+		jQuery( "#calculatorTI84Div" ).dialog().parent().hide();
+}
+
+ function showTI30Calc(){
+		jQuery( "#calculatorDiv" ).dialog().parent().show();
+}
+
+ function showTI84Calc(){
+		jQuery( "#calculatorTI84Div" ).dialog().parent().show();
+}
+
+/*show/hide/destroy TI calculators ends*/	
  
 function getFontAccomodation(){
 	var fontObj = new Object();
@@ -915,6 +1034,20 @@ var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
 onkeydown="disableTabKey()" oncontextmenu="javascript:return false;">
 <button id="mybutton" style="visibility:hidden; width:0px; height:0px; display:none;">clickMe </button>
 
+
+<!-- generating TI calculators div start-->
+<div id="calculatorDiv" tabindex="0" class = "calculatorDiv" title="TI30 Calculator" style="display: none;width: inherit;">
+	 <div class="displayDiv" id="displayDiv">
+         <canvas id="display" class="display" width="192" height="75"> </canvas>
+     </div>
+ </div> 
+ 
+ <div id="calculatorTI84Div" class="calculatorTI84Div" tabindex="0" title="TI84 Calculator" style="display: none;width: inherit;">
+ 		<div class="displayTI84Div" id="displayTI84Div">
+			<canvas id="displayTI84" class="displayTI84" width="288" height="192"> </canvas>
+		</div>
+	</div>
+<!-- generating TI calculators div end-->
 <div id="appcontainer">
 			<script type="text/javascript" defer>
                   //lz.embed.dhtml({url: 'TestClient.lzx.js?folder=calif&servletUrl=http://127.0.0.1:12345/servlet/fixed', lfcurl: 'lps/includes/lfc/LFCdhtml.js', serverroot: 'lps/resources/', bgcolor: '#6691b4', width: '100%', height: '100%', id: 'lzapp', accessible: 'true', cancelmousewheel: false, cancelkeyboardcontrol: false, skipchromeinstall: false, usemastersprite: false, approot: '', appenddivid: 'appcontainer'});
