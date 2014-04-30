@@ -16,8 +16,26 @@
         </handler>
 
         <handler name="ondata" args="data"><![CDATA[
-            this.setAttribute ('isselected', data == 'sel');
-            if(data == null || data == 'disable'){
+
+			/* prevent opening of another TI calculator when one is already open start */
+
+			var currState = data;
+
+			if(this.toolid == "ti_scientific_calculator" && currState!='disable'){
+				if(gManipulatives.tiCalculatorDetails.TI84 == "sel"){
+					currState = "up";
+				}
+			}else if(this.toolid == "ti_scientific_graphic_calculator" && currState!='disable'){
+				if(gManipulatives.tiCalculatorDetails.TI30 == "sel"){
+					currState = "up";
+				}
+			}
+			
+			/* prevent opening of another TI calculator when one is already open end */
+
+            this.setAttribute ('isselected', currState == 'sel');
+			
+            if(currState == null || currState == 'disable'){
 	            this.setAttribute ('isenabled', false);
 	            this.setAttribute ('visible', false);
             }
