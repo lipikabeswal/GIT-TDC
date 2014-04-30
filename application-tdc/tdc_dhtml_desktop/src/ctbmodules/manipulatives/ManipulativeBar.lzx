@@ -209,6 +209,14 @@
 	                            toolid="straight_edge"
 	                            tooltip="Straight Edge" 
 								xpos = "${this.x+ classroot.globals.width+10}" name="straight_edge"/>
+			<ManipulativeButton resource="toolbar_calculator_btn"
+	                            toolid="ti_scientific_calculator"
+	                            tooltip="TI Scientific Calculator"
+	                            xpos = "${this.x+ classroot.globals.width+10}" name="ti_scientific_calculator"/>
+			<ManipulativeButton resource="toolbar_calculator_btn"
+	                            toolid="ti_scientific_graphic_calculator"
+	                            tooltip="TI Scientific Graphic Calculator"
+	                            xpos = "${this.x+ classroot.globals.width+10}" name="ti_scientific_graphic_calculator"/>						
 		</view>
 		
 		<view name="screenreader" valign="middle" height="100%">
