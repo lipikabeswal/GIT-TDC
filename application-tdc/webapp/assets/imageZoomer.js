@@ -149,7 +149,7 @@ var ddpowerzoomer={
 				}
 			},
 			drag: function(event, ui) {
-			    if($.browser.safari){
+			    if(navigator.userAgent.indexOf("Safari")> -1){
 			    	$('#magnifierWindow').css("cursor", "url('./assets/dragger_press.png'), pointer");
 			    }else{
 			    	$('#magnifierWindow').css( 'cursor', "url('./assets/dragger_press.png'), pointer" );
