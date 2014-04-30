@@ -43,20 +43,20 @@
 			var contsubviews = gQuestion.subviews;
 			var contViewsLen = gQuestion.subviews.length;
 			if(!gController.skipCacheDestroy){
+				
 				for (var i = 1; i <= contViewsLen; i++){
-				 if(contsubviews[i] && contsubviews[i] instanceof lz.CachableAnswerAreaPanel){
-						contsubviews[i].destroy();
-					}
-				}
-				for (var i = 1; i <= contViewsLen; i++){
-				 if(contsubviews[i] && contsubviews[i] instanceof lz.CachableAnswerAreaAbsolutePanel){
-						contsubviews[i].destroy();
-					}
-				}
-				for (var i = 1; i <= contViewsLen; i++){
-					if(contsubviews[i]){
-						contsubviews[i].destroy();
-					}
+					 comp = contsubviews[i];
+					 if(comp && comp instanceof lz.CachableAnswerAreaPanel){
+						comp.destroy();
+					 }else if(comp && comp instanceof lz.CachableAnswerAreaAbsolutePanel){
+						comp.destroy();
+					 }else if(comp && comp instanceof lz.CachableHtmlWidget){
+					 	comp.doReturnToCache();
+					 }else{
+					 	if(comp){
+							comp.destroy();
+						}
+					 }
 				}
 			}
         	
