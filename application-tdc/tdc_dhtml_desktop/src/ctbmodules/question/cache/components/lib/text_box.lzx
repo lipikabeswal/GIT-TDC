@@ -12,7 +12,7 @@
         <attribute name="rightPadding" type="number" value="0"/>
         <attribute name="readable" type="boolean" value="false"/>
         <attribute name="displayStyle" type="string"/>
-        <attribute name="width" type="number" value="0"/>
+        <attribute name="width" type="size" value="0"/>
 		
 		<method name="enable">
         	this.footnotetext.enable();
