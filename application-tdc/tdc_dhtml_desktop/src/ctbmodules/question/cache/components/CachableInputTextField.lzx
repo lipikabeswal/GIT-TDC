@@ -1,6 +1,6 @@
 <library>
     <include href="CachableComponent.lzx"/>
-    <include href="../../../Controllers/ReadableText.lzx"/>
+    <include href="../../../controllers/ReadableText.lzx"/>
 
     <!-- ===============
          ==

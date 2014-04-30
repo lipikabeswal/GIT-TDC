@@ -1,6 +1,6 @@
 <library>
     <include href="Request.lzx"/>
-    <include href="../Screens/GoodbyeScreen.lzx"/>
+    <include href="../screens/GoodbyeScreen.lzx"/>
 	
 	
     <node id="gCommunicator">
