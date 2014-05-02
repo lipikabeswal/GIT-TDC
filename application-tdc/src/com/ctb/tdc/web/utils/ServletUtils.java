@@ -127,7 +127,7 @@ public class ServletUtils {
 	public static final String URL_WEBAPP_UPLOAD_STATISTICS = "/TestDeliveryWeb/CTB/uploadStatistics.do";
 	public static final String URL_WEBAPP_UPLOAD_SYSTEM_INFO = "/TestDeliveryWeb/CTB/uploadSystemInfo.do";
 	public static final String URL_WEBAPP_DOWNLOAD_MP3 = "/TestDeliveryWeb/CTB/getMp3.do";
-	
+	public static final String SET_CACHING_PERIOD_METHOD = "public static void com.sun.media.sound.JDK13Services.setCachingPeriod(int)";
 //	methods
 	public static final String NONE_METHOD = "none";
 	public static final String DOWNLOAD_CONTENT_METHOD = "downloadContent";

@@ -5,7 +5,10 @@ import java.io.*;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
 import com.ctb.tdc.web.servlet.PersistenceServlet;
- 
+import com.sun.media.sound.*;
+
+
+import java.lang.reflect.*;
 /**
  * 
  * 
@@ -17,6 +20,7 @@ public class Recorder {
     //static final long RECORD_TIME = 500; // .5 sec 
 	//static final long RECORD_TIME = 90000; 
     private static boolean microphone = false;
+    
     // path of the wav file
 
  
@@ -46,14 +50,34 @@ public class Recorder {
      * Captures the sound and record into a WAV file
      */
     public boolean start() {
-    	boolean isMic = false;
+    	//logger.info("MicDetection Start!!"+System.currentTimeMillis());
+		boolean isMic = false;
     	AudioFormat format = getAudioFormat();
     	DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
-    	
+    	/**
+    	 * Always compile the below code with Java 1.7_u51 or below version
+    	 * 
+    	 */
         try {
-        	com.sun.media.sound.JDK13Services.setCachingPeriod(1);
+        		try {
+					Class jdkServicesClass = Class.forName("com.sun.media.sound.JDK13Services");
+					 Method jdkServicesmethods[] = jdkServicesClass.getDeclaredMethods();
+					 for (int i = 0; i < jdkServicesmethods.length; i++){
+						     if(ServletUtils.SET_CACHING_PERIOD_METHOD.equals(jdkServicesmethods[i].toString())){
+				            	logger.info("setCachingPeriod method present");
+				            		com.sun.media.sound.JDK13Services.setCachingPeriod(1);
+				            	break;
+				            }
+					 }
+				} catch (ClassNotFoundException e) {
+					logger.info("com.sun.media.sound.JDK13Services not found");
+					e.printStackTrace();
+				}catch (Exception e) {	
+					e.printStackTrace();
+				}
+        	
             if (!AudioSystem.isLineSupported(info)) {
-            	//logger.info("Line not supported");
+            //	logger.info("Line not supported");
                 isMic=false;
             }
             else{
@@ -61,7 +85,7 @@ public class Recorder {
             		line = (TargetDataLine) AudioSystem.getLine(info);
             	
             	if(line!=null){
-            		//logger.info("Line not null");
+            	//	logger.info("Line not null");
             		line.open(format);
             		line.flush();
             		line.start();   // start capturing
@@ -78,20 +102,20 @@ public class Recorder {
 					      }
 				}
             }
-           // logger.info("isMic in start***"+isMic);
-        } catch (LineUnavailableException ex) {
-        	//logger.info("Inside Exception");
+          //  logger.info("Mic Detection complete!!"+System.currentTimeMillis());
+	  } catch (LineUnavailableException ex) {
+        	logger.info("Inside LineUnavailableException Exception");
         	if (osName.indexOf("win") >= 0) {
         		if(AudioSystem.isLineSupported(Port.Info.MICROPHONE)){
-        		//	logger.info("Inside win if");
+        			//logger.info("Inside Exception win if...");
             		isMic=true;
         		}else{
-        		//	logger.info("Inside win else");
+        			//logger.info("Inside Exception win else...");
             		isMic=false;
         		}
         	}else{
         		if(AudioSystem.isLineSupported(info)){
-            	//	logger.info("Inside if Mac/Linux");
+            		//logger.info("Inside if Mac/Linux");
             		isMic=true;
             	}else{
             	//	logger.info("Inside else Mac/Linux");
@@ -101,18 +125,18 @@ public class Recorder {
         	}
             //ex.printStackTrace();
         }catch (IllegalArgumentException iae) {
-        	//logger.info("Inside IllegalArgumentException");
+        	logger.info("Inside IllegalArgumentException");
         	if (osName.indexOf("win") >= 0) {
         		if(AudioSystem.isLineSupported(Port.Info.MICROPHONE)){
-        		//	logger.info("Inside win if");
+        			//logger.info("Inside win if");
             		isMic=true;
         		}else{
-        		//	logger.info("Inside win else");
+        			//logger.info("Inside win else");
             		isMic=false;
         		}
         	}else{
         		if(AudioSystem.isLineSupported(info)){
-            	//	logger.info("Inside if Mac/Linux");
+            		//logger.info("Inside if Mac/Linux");
             		isMic=true;
             	}else{
             		//logger.info("Inside else Mac/Linux");
@@ -155,7 +179,7 @@ public class Recorder {
     	System.out.println("Inside micDetection");
     	if(ServletUtils.recordingFailed){
     		ServletUtils.recordingFailed = false;
-    		System.out.println("************Recording has Failed*********");
+    		logger.info("************Recording has Failed*********");
     		return "<false />";
     	}
         final Recorder recorder = new Recorder();
@@ -189,7 +213,7 @@ public class Recorder {
 		}*/
         //System.out.println("In main>>>>"+microphone);
         if(microphone){
-        	//logger.info("A microphone is attached to your system");
+        	logger.info("A microphone is attached to your system");
         	
         	recorder.finish();
         	 ServletUtils.micDetectionInProgress = false;
@@ -200,7 +224,7 @@ public class Recorder {
         	
         	}
         else{
-        	//logger.info("Microphone is not attached");
+        	logger.info("Microphone is not attached");
         	recorder.finish();
         	ServletUtils.micDetectionInProgress = false;
         	//long stopTime2 = System.currentTimeMillis();
