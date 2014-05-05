@@ -51,13 +51,11 @@ public class Recorder {
      */
     public boolean start() {
     	//logger.info("MicDetection Start!!"+System.currentTimeMillis());
-		boolean isMic = false;
+		
+    	boolean isMic = false;
     	AudioFormat format = getAudioFormat();
     	DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
-    	/**
-    	 * Always compile the below code with Java 1.7_u51 or below version
-    	 * 
-    	 */
+    	
         try {
         		try {
 					Class jdkServicesClass = Class.forName("com.sun.media.sound.JDK13Services");
@@ -77,7 +75,7 @@ public class Recorder {
 				}
         	
             if (!AudioSystem.isLineSupported(info)) {
-            //	logger.info("Line not supported");
+            	//logger.info("Line not supported");
                 isMic=false;
             }
             else{
@@ -93,17 +91,30 @@ public class Recorder {
 			        ais.read(data);
 			        ArrayList frame = new ArrayList();
 					      for (int i = 0; i < data.length; i++) {
-					    	 if (data[i]>0){
-					    		 frame.add(new Byte(data[i]));
-						  	  }
+						    	  /**
+						    	   * Added for Windows Xp and MAC
+						    	   */
+						    	  if ((osName.indexOf("xp") >= 0) || (osName.indexOf("mac") >= 0)) {
+						    		  if (data[i] != 0){
+						    		 frame.add(new Byte(data[i]));
+							  	  }
+						    	}else {
+						    		 /**
+							    	   * For Windows 7 and Windows 8. As, no issue is reported yet, hence not changing implementation.
+							    	   */
+						    		if (data[i] > 0){
+							    		 frame.add(new Byte(data[i]));
+						    		}
+						    	}
 					      }
+					      logger.info("frame size****"+frame.size());
 					      if(frame.size()>0){
 					    	  isMic=true;
 					      }
 				}
             }
           //  logger.info("Mic Detection complete!!"+System.currentTimeMillis());
-	  } catch (LineUnavailableException ex) {
+        }catch (LineUnavailableException ex) {
         	logger.info("Inside LineUnavailableException Exception");
         	if (osName.indexOf("win") >= 0) {
         		if(AudioSystem.isLineSupported(Port.Info.MICROPHONE)){
@@ -115,7 +126,7 @@ public class Recorder {
         		}
         	}else{
         		if(AudioSystem.isLineSupported(info)){
-            		//logger.info("Inside if Mac/Linux");
+            	//	logger.info("Inside if Mac/Linux");
             		isMic=true;
             	}else{
             	//	logger.info("Inside else Mac/Linux");
@@ -136,7 +147,7 @@ public class Recorder {
         		}
         	}else{
         		if(AudioSystem.isLineSupported(info)){
-            		//logger.info("Inside if Mac/Linux");
+            	//	logger.info("Inside if Mac/Linux");
             		isMic=true;
             	}else{
             		//logger.info("Inside else Mac/Linux");
@@ -176,7 +187,7 @@ public class Recorder {
      * @param args
      */
    public static String micDetection() {
-    	System.out.println("Inside micDetection");
+    	//logger.info("Inside micDetection");
     	if(ServletUtils.recordingFailed){
     		ServletUtils.recordingFailed = false;
     		logger.info("************Recording has Failed*********");
