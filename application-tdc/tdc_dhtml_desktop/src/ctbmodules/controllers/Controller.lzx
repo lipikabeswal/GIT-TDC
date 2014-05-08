@@ -511,7 +511,7 @@
 		<attribute name="htmlFields" value="$once{new Array()}"/>
 		<attribute name="answeredDel"
 			value="$once{new lz.Delegate(this,'isAnsweredDelegate')}" type="expression"/>
-		<attribute name="answerObj" value="$once{new Object()}" />
+		<attribute name="answerObj" value="$once{new Array()}" />
 		<attribute name="productTypeVal" type="string" value="ISTEP"/>
 		<attribute name="isISTEP" type="boolean" value="false"/>
 		<attribute name="displayText" value="false"/>
@@ -3279,8 +3279,6 @@
 			gManipulatives.setAttribute('visible',true);
 		</method>
 
-		
-
 		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
           	if(this.focusOnScratchpad  && gScratchpad.visible){
             	gScratchpad.restoreFocusAndCursor();
@@ -3322,7 +3320,6 @@
             	setSendCatSave();
             }
 			//this.resetHtmlFields();
-			
 			
 		    save(null);
         ]]></method>
@@ -5769,13 +5766,31 @@
 		</method>
 
         <method name="updateHtmlFields" args="value,answered"><![CDATA[
+			var updateAnswer = 0;
         	if(value){
         		if(this.htmlFields.length > 0){
-          					this.setAttribute('answerObj',value);
-        					this.htmlFields[0]['answered'] == answered;
-        			
+					if(this.answerObj.length>0){
+						for (var i = 0; i < this.answerObj.length; i++) {
+							var ansObj = answerObj[i];	
+							//update the response if previous response is already stored.						
+	   						if (value.widget_id == ansObj['widget_id']) { 
+			                   ansObj['answer'] = value.answer;
+								updateAnswer = 0;
+							}else{
+								updateAnswer = 1;
+							}
+	        			}
+	        			//storing response for a previously unanswered item.
+						if(updateAnswer == 1){
+							this.answerObj.push(value);
+						}
+					}else{
+						this.answerObj.push(value);
+					}
+					this.htmlFields[0]['answered'] == answered;
         		}
         	}
+
         ]]></method>
 		
 		<method name="stopCheckIsAnswer">
@@ -5800,18 +5815,27 @@
 
 		<method name="updateHTMLItemNode"><![CDATA[
 		Debug.write("UPDATE HTML ITEM NODE",this.htmlFields.length);
+			var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
+            if (dncurritem == null) return;
+                var curritem = Number(dncurritem.getAttr('eid'));
+            var dnruntimeitem = dpstudentdata.xpathQuery ("runtime/item_model [@eid = '"+curritem+"']");
+			var answered = dnruntimeitem.getAttr('answered');
 
 			if(this.htmlFields.length > 0){
             	var xmls = "<answers>";
-				var data = JSON.stringify(this.answerObj);
-            	for (var i = 0; i < this.htmlFields.length; i++) {
-					xmls = xmls.concat("<answer id=" + "\"" + this.htmlFields[i]['widget_id'] + "\""+ ">");
-                	if(!htmlFields[i]['answered']){
-                   		xmls = xmls.concat("</answer>");
-                   	}
-                	else{
-                   		xmls = xmls.concat(wrapInCdata(data) + "</answer>");
-                   	}
+				var data;
+            	for (var i = 0; i < this.answerObj.length; i++) {
+					if(this.htmlFields[0].widget_id == this.answerObj[i]['widget_id']){
+						xmls = xmls.concat("<answer id=" + "\"" + this.answerObj[i]['widget_id'] + "\""+ ">");
+						if(answered == 0){
+	                   		xmls = xmls.concat("</answer>");
+	                   	}
+	                	else{
+							data = JSON.stringify(this.answerObj[i]['answer']);
+	                   		xmls = xmls.concat(wrapInCdata(data) + "</answer>");
+	                   	}
+						break;
+					}
             	}
             	xmls = xmls.concat("</answers>");
             	gController.setItemCRState(xmls);

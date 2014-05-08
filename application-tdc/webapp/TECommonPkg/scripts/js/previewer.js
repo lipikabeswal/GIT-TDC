@@ -1,4 +1,4 @@
-var editorContentJSON, accomPkg, isStandAlone = false,
+ var editorContentJSON, accomPkg, isStandAlone = false,
     droppedSequence, isPageLoaded = true,
     accomPkgScoreOb = 0,
     accomPkgPossibleSc = 0;
@@ -17,6 +17,8 @@ $(document).ready(function () {
     if (isPad()) {
         $("body").draggable();
     }
+
+    scaleDropArea();
 
     /* hides the customized dropdown in mcqs*/
     $(document).live("click", function (event) {
@@ -92,7 +94,6 @@ $(document).ready(function () {
     /* prevents toggling of checkbox selection on spacebar press*/
     $("input").on('keypress', function (event) {
         var $this = $(this);
-        sendNotification();
         if (event.keyCode == 0) {
             if ($this.is(":checked")) {
                 $this.attr('checked', false);
@@ -100,6 +101,7 @@ $(document).ready(function () {
                 $this.attr('checked', true);
             }
         }
+		sendNotification();
     });
 
     $("#previewArea :checkbox").die("change").live("change", function (evt) {
@@ -115,25 +117,6 @@ $(document).ready(function () {
     $(".element .text, .element[behavior='2'] .handle").die("dblclick").live("click", textToSpeechEvent);
 
     prepareAltText();
-
-    /* toggles disabling and enabling of dropdown in mcqs on selection of inputs*/
-    $("#previewArea :checkbox, #previewArea :radio").die("change").live("change", function (evt) {
-        sendNotification();
-        evt.stopPropagation();
-        var $this = $(this).parent().find(".select"),
-            disabled;
-        if ($(this).is(":checked")) {
-            $this.find(".block").remove();
-            $this.css("opacity", 1);
-        } else {
-            $("div.select").find("li.option").hide();
-            $this.find(".selected_text").html("1");
-            $this.find("li").removeClass("selected");
-            $this.find("li").eq(0).addClass("selected");
-            $("div.select").css("z-index", "0");
-            $this.css("opacity", 0.7);
-        }
-    });
 
     /* sets a class for selected customized dropdown value */
     $('#previewArea div.select ul li.option').die("click").live("click", function () {
@@ -162,17 +145,20 @@ function makeFFDraggable(ele) {
         var text = getFreeFlowSelectionHtml();
         if (text != undefined) {
             $("body").append("<div id = '" + drag + "' class = 'ffText'>" + text + "</div>");
+			//$("body").append("<div class = 'draggabletxt'>" + $('.ffText').text() + "</div>");
             var $moveable = $('.ffText');
+			//var $moveable = $('.draggabletxt');
             $(document).mousemove(function (e) {
                 var isOpera = !! window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
                 var isChrome = !! window.chrome && !isOpera;
-                $moveable.css({
+                var scaleX = Number($("#scaleX").val()),scaleY = Number($("#scaleY").val());
+				scalingContent($moveable, scaleX, scaleY);
+				$moveable.css({
                     'top': e.pageY,
                     'left': e.pageX,
-                    "max-height": "250px",
-                    "max-width": "250px",
-                    "overflow": "auto",
-                    "width": "350px"
+                    "width": "400px",
+                    "height":"250px",
+                    "font-size":"12px"
                 });
             });
             evt.preventDefault();
@@ -222,6 +208,11 @@ function checkRadioBtn(obj) {
     $elem.trigger("click");
 }
 
+function checkCheckboxBtn(obj) {
+    var $elem = $(obj).prev(":checkbox");
+    $elem.trigger("mousedown");
+    $elem.trigger("click");
+}
 // 
 
 function replaceImage() {
@@ -281,8 +272,9 @@ function replaceCustomRadioButton() {
                 $(obj).attr('checked', true);
                 $(obj).next(".radio-button").addClass("checkedRadio");
             }
+			 sendNotification();
         }, 1);
-        sendNotification();
+       
     }
     allRadio.die("mousedown keydown").live("mousedown keydown", setCurrent);
     allRadio.die("click").live("click", setCheck);
@@ -298,7 +290,8 @@ function textToSpeechEvent(evt) {
     var title = $this.parent().attr("title-data"),
         textContent = $this.parent().children(".text").text();
     title = (($.trim(title) == "") ? $.trim(textContent) : $.trim(title));
-    var audioRequired = parent.$("body").find(".sound").length;
+    var audioRequired = $(parent).find("body").eq(0).find(".sound").length;
+    //var audioRequired = parent.$("body").find(".sound").length;
     var suppresstts = parseInt($this.parent().attr("suppresstts"), 10);
 
     if ((audioRequired == 1) && (suppresstts == 1)) {
@@ -453,19 +446,7 @@ function displayCorrectAnswer() {
             displayUserInfoDialog("error", errMsg, "Error");
             $("#userInfoDialog").height(60);
         }
-        /*getInteractionStatus = false;
-    if (noScoringDefined.length > 0) {
-      for (index = 0; index < noScoringDefined.length; index++) {
-        ele = noScoringDefined.eq(index);
-        if (ele.find(".droparea").length > 0 || ele.find(".radio").length > 0 || ele.find(".checkbox").length > 0) {
-          getInteractionStatus = true;
-          break;
-        } else {
-          getInteractionStatus = false;
-        }
-
-      }
-    }*/
+        
         if (choice.length > 0) {
             for (index = 0; index < choice.length; index++) {
                 ele = choice.eq(index);
@@ -619,7 +600,6 @@ function showCorrectDnDPassageFreeflowAns(control, correctAns) {
         qs = control.find("#" + correctAns[index].correctQs);
         ans = correctAns[index].correctAns;
         for (var count1 = 0; count1 < correctAns[index].correctAns.length; count1++) {
-            //qs.prepend("<div class='dropped'style='width:100%;z-index:100;background: none repeat scroll 0 0 white;'><span class='item-remove' title='Click to delete'></span><span class='answer' style='width:40px;'>"+ ans[count1] + "</span><div style='width:100%;height:100%;' class='handle'></div></div>");
             viewPassageFreeflowAns(qs, ans[count1]);
         }
     }
@@ -1160,8 +1140,23 @@ function activateControls($previewHtml, pos, json, selectedScreen, isFromOutside
         removeSmallScrollbars();
         removeZindexForMCQS();
     }
+	checkMCQResp();
 }
 
+function checkMCQResp(){
+	if(isPad()){
+		console.log("inside IsPad");
+		$(".radio .text").on("click", function() {
+			checkRadioBtn($(this).prev(".radio-button"));
+			sendNotification();
+		}); 
+		$(".checkbox .text").on("click", function() {
+			checkCheckboxBtn($(this));
+			sendNotification();
+		});
+	}
+}
+		
 function removeZindexForMCQS() {
     var divbox = $("#previewArea").find("div.divbox[interactiontype = 4]");
     for (var index = 0; index < divbox.length; index++) {
@@ -1212,18 +1207,6 @@ function blokFreeFlowTextSelection() {
     var ele, textFreeFlowComponents = $("#previewArea div[interactiontype='7']");
     for (var index = 0; index < textFreeFlowComponents.length; index++) {
         ele = textFreeFlowComponents.eq(index).find(".text");
-        /*for (var index1 = 0; index1 < ele.length; index1++) {
-        txtVal = ele.eq(index1);
-        if (txtVal.find(".correctAns").length == 0) {
-			txtVal.removeClass("user-select");
-			txtVal.addClass("no-user-select");
-			ele.attr("onselectstart", "return false;");
-		}else{
-				txtVal.removeClass("no-user-select");
-				txtVal.addClass("user-select");
-				txtVal.removeAttr("onselectstart");
-			}
-		}*/
         ele.removeClass("user-select");
         ele.addClass("no-user-select");
         ele.attr("onselectstart", "return false;");
@@ -1491,7 +1474,6 @@ function makeDroppable() {
         tolerance: 'pointer',
         scope: "topmost",
         drop: function (event, ui) {
-            sendNotification();
             if (event.handleObj.namespace == "draggable" || event.handleObj.namespace == "") {
                 passageRes = $("#previewArea .editor:visible").find("[interactiontype = 6]");
                 passageFreeFlow = $("#previewArea .editor:visible").find("[interactiontype = 7]");
@@ -1517,6 +1499,7 @@ function makeDroppable() {
                     }
                 }
             }
+			sendNotification();
         }
     });
 }
@@ -2187,7 +2170,6 @@ function makePassageDroppable(drag, drop) {
                 unblokFreeFlowTextSelection();
                 e.preventDefault();
                 target = true;
-                sendNotification();
                 var text = $(".ffText").html(); //getFreeFlowSelectionHtml();
                 /*amit: 6425*/
                 var textStr = text.replace(/(\n|\t|<br>|&nbsp;)/gm, "");
@@ -2202,6 +2184,7 @@ function makePassageDroppable(drag, drop) {
                     e.stopImmediatePropagation();
                     e.preventDefault();
                 }
+				//sendNotification();
             } else {
                 target = false;
                 unblokFreeFlowTextSelection();
@@ -2209,8 +2192,11 @@ function makePassageDroppable(drag, drop) {
                 makeDropAreaSortable(dropareas);
             }
             $(".ffText").remove();
+			//$(".draggabletxt").remove();
             $(document).unbind("mousemove");
+			sendNotification();
         }
+		
         //target = document.elementFromPoint(e.screenX, e.screenY);//$($(e.target).parents(".element")[0]).attr("class");
         //console.log(target);
     });
