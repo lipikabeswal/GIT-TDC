@@ -621,13 +621,14 @@ public class PersistenceServlet extends HttpServlet {
 				}
 				
 				//Unzip TE item responses
-				//System.out.println("respomnse before unzip "+result);
-				try{
+				/*Commenting out the zip TE response changes as the response size has been reduced 
+				by saving only the scoring data and not the entire inner html*/
+				/*try{
 					result=ServletUtils.processTEZipResponse(result);
 				}catch(Exception e){
 					e.printStackTrace();	
-				}
-				//System.out.println("respomnse after unzip "+result);
+				}*/
+				
 				processLoginResponse(result);
 			} else {
 				//logger.error("TMS returns error in login() : " + result);   
@@ -759,8 +760,9 @@ public class PersistenceServlet extends HttpServlet {
 				}
 			}
 
-			
-			if(itemId.startsWith("IN"))
+			/*Commenting out the zip TE response changes as the response size has been reduced 
+				by saving only the scoring data and not the entire inner html*/
+			/*if(itemId.startsWith("IN"))
 			{
 				String answerTag=ServletUtils.getStringBetweenStrings("<v>", "</v>", xml);
 				System.out.println("****************Answer TAG****************\n"+answerTag);
@@ -768,7 +770,7 @@ public class PersistenceServlet extends HttpServlet {
 				System.out.println("COMPRESSED STRING:" + compressedAnswerTag);
 				xml = ServletUtils.replaceBetweenStrings(xml, "<v>", "</v>", compressedAnswerTag);
 				System.out.println("****************XML After Mod****************\n"+xml);
-			}
+			}*/
 			
 			result = save(xml);
 
