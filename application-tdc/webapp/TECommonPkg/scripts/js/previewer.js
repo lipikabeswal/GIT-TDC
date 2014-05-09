@@ -13,12 +13,7 @@ $(document).ready(function () {
 	    $("head").append("<link rel='stylesheet' href='../../TECommonPkg/styles/css/tdc-font.css' type='text/css' />");
 	  }
 
-    /*makes the html draggable if the rendering environment is ipad*/
-    if (isPad()) {
-        $("body").draggable();
-    }
-
-    scaleDropArea();
+   scaleDropArea();
 
     /* hides the customized dropdown in mcqs*/
     $(document).live("click", function (event) {
@@ -134,6 +129,7 @@ $(document).ready(function () {
         makeFFDraggable(ele);
     }
     var mathBtn = $(".palette-button").css("background-image", "");
+	
 });
 
 function makeFFDraggable(ele) {
@@ -509,13 +505,6 @@ function displayCorrectAnswer() {
             }
         }
 
-        /*  if (getInteractionStatus == true) {
-      var scrName = parent.getScreenId(screenId);
-      scrNames.push(scrName);
-      displayUserInfoDialog("error", userInfo.scoringNotDefined + scrNames, "Error");
-      $("#userInfoDialog").height(60);
-    }
-*/
     }
 }
 
@@ -600,6 +589,7 @@ function showCorrectDnDPassageFreeflowAns(control, correctAns) {
         qs = control.find("#" + correctAns[index].correctQs);
         ans = correctAns[index].correctAns;
         for (var count1 = 0; count1 < correctAns[index].correctAns.length; count1++) {
+            //qs.prepend("<div class='dropped'style='width:100%;z-index:100;background: none repeat scroll 0 0 white;'><span class='item-remove' title='Click to delete'></span><span class='answer' style='width:40px;'>"+ ans[count1] + "</span><div style='width:100%;height:100%;' class='handle'></div></div>");
             viewPassageFreeflowAns(qs, ans[count1]);
         }
     }
@@ -1022,6 +1012,7 @@ function removeItem(obj) {
     screen.find("#" + id).show();
     setDropAreaScrollbar($container);
     makeDroppableEnable($container);
+	//addCustomScrollbar($container);
     sendNotification();
 }
 
@@ -1146,11 +1137,11 @@ function activateControls($previewHtml, pos, json, selectedScreen, isFromOutside
 function checkMCQResp(){
 	if(isPad()){
 		console.log("inside IsPad");
-		$(".radio .text").on("click", function() {
+		$(".radio .text").off("click").on("click", function() {
 			checkRadioBtn($(this).prev(".radio-button"));
 			sendNotification();
 		}); 
-		$(".checkbox .text").on("click", function() {
+		$(".checkbox .text").off("click").on("click", function() {
 			checkCheckboxBtn($(this));
 			sendNotification();
 		});
@@ -1493,9 +1484,14 @@ function makeDroppable() {
                     }
                     if (dropChildLen < dropMax) {
                         eleId = ui.draggable.attr("id");
-                        if($this.find("#"+eleId).length == 0) { 
+						if($("#"+eleId).is(".palette-button")){
 							prepareDNDElements(ui.draggable, $this);
-                        }
+						}
+						else{
+							if($this.find("#"+eleId).length == 0) { 
+								prepareDNDElements(ui.draggable, $this);
+							}
+						}
                     }
                 }
             }
@@ -2109,7 +2105,7 @@ function viewPassageFreeflowAns(dropElement, text, event) {
             var childtext;
             for (index = 0; index < noOfChildren.length; index++) {
                 childtext = noOfChildren[index].textContent;
-                arr.push(childtext);
+                arr.push($.trim(childtext));
             }
             var value = arr.indexOf($.trim($(text).text()));
             maxAllowed = parseInt($this.attr("maxallowed"), 10)
@@ -2197,38 +2193,9 @@ function makePassageDroppable(drag, drop) {
 			sendNotification();
         }
 		
-        //target = document.elementFromPoint(e.screenX, e.screenY);//$($(e.target).parents(".element")[0]).attr("class");
-        //console.log(target);
+        
     });
 
-    /*if(target){
-		$("#previewArea [interactiontype= '7'] .droparea").bind("dragover", false).unbind("drop mouseup").bind("drop mouseup", function (e) {
-		   if (e.originalEvent.dataTransfer) {
-				sendNotification();
-				var text = $(".ffText").html();//getFreeFlowSelectionHtml();
-				var textStr = text.replace(/(\n|\t|<br>|&nbsp;)/gm, "");
-				var isEmptyString = ($(textStr).text() == "" ? true :false);
-				var sel = window.getSelection();
-				var drag = $(sel.anchorNode.parentNode).parents(".divbox"),
-					drop = $(this).parents(".divbox");
-				if (text && (drag.attr("id") == drop.attr("id") && isEmptyString == false)) {
-					viewPassageFreeflowAns(this, text, e);
-				} else {
-					e.stopPropagation();
-					e.stopImmediatePropagation();
-					e.preventDefault();
-				}
-				$(".ffText").remove();
-				
-			}
-
-		});
-	}
-    if (drop == undefined) {
-        var dropareas = $("#previewArea .droparea");
-        makeDropAreaSortable(dropareas);
-		$(".ffText").remove();
-    }*/
 }
 
 function getFreeFlowSelectionHtml() {
@@ -2472,21 +2439,8 @@ function mcqGetScore(choice, index, scr) {
             rad = ele.find(":radio:checked");
             items = $(ele).children();
             var subAnsArr = new Array();
-            //var possibleAnsArr = new Array();
             var isImg = checkImage(items);
-            /*for (var itemCount = 0; itemCount < items.length; itemCount++) {
-                if (isImg == false) {
-                    possibleAnsArr.push({
-                        "format": "Text",
-                        "response": identifySpecialChar(items.eq(itemCount).find(".text").html())
-                    });
-                } else {
-                    possibleAnsArr.push({
-                        "format": "Name",
-                        "response": items.eq(itemCount).attr("name")
-                    });
-                }
-            }*/
+            
             if (chk.length > 0) {
                 ans = chk;
                 submittedAns = chk.length;
@@ -2548,19 +2502,7 @@ function mcqGetScore(choice, index, scr) {
                     }
                 }
             }
-         /*   for (var cindex2 = 0; cindex2 < scoreObj.correctAns.length; cindex2++) {
-                if (isImg == false) {
-                    crAnsArr.push({
-                        "format": "Text",
-                        "response": identifySpecialChar(ele.find("#" + scoreObj.correctAns[cindex2].correctAns).find(".text").html())
-                    });
-                } else {
-                    crAnsArr.push({
-                        "format": "Name",
-                        "response": ele.find("#" + scoreObj.correctAns[cindex2].correctAns).attr("name")
-                    });
-                }
-            }*/
+        
             scoreObtained = getScoreObtained(scoreObj, method, submittedAns,
                 ansCount, incorrAnsCount, correctAnswers, incorrectAnswers,
                 weigthedScoreType, submittedAnsCount, totalOptions);
@@ -2686,23 +2628,7 @@ function dndGetScore(dnd, index, scr) {
                     "incorrect": dndIncorrectAnsCount
                 });
 
-               /* for (var cinnerCount = 0; cinnerCount < scoreObj.correctAns[index1].correctAns.length; cinnerCount++) {
-                    if (isImg == false) {
-                        correctOptions.push({
-                            "format": "Text",
-                            "response": identifySpecialChar($("#" + scoreObj.correctAns[index1].correctAns[cinnerCount]).find(".text").html())
-                        });
-                    } else {
-                        correctOptions.push({
-                            "format": "Name",
-                            "response": $("#" + scoreObj.correctAns[index1].correctAns[cinnerCount]).attr("name")
-                        });
-                    }
-                }
-                crAnsArr.push({
-                    "droparea": drop.eq(index1).attr("name"),
-                    "dragarea": correctOptions
-                });*/
+              
                 subAnsArr.push({
                     "droparea": {
                         "name": drop.eq(index1).attr("name"),
@@ -2711,27 +2637,6 @@ function dndGetScore(dnd, index, scr) {
                     "dragarea": submittedOptions
                 });
             }
-           /* for (var itemCount = 0; itemCount < drag.length; itemCount++) {
-                if (isImg == false) {
-                    // possibleOptions.push({
-                    possibleAnsArr.push({
-                        "format": "Text",
-                        "response": identifySpecialChar(drag.eq(itemCount).find(".text").html())
-                    });
-
-                } else {
-                    // possibleOptions.push({
-                    possibleAnsArr.push({
-                        "format": "Name",
-                        "response": drag.eq(itemCount).attr("name")
-                    });
-                }
-            }*/
-            /* possibleAnsArr.push({
-                    "droparea": drop.eq(index1).attr("name"),
-                    "dragarea": possibleOptions
-                });*/
-
             scoreObtained += getDndScoreObtained(scoreObj, method, correctAns,
                 dndAnsCountArr, correctAnswers, incorrectAnswers, drop,
                 weigthedScoreType);
@@ -2986,40 +2891,6 @@ function dndSeqGetScore(dndWithSeq, index, scr) {
                     });
                 }
             }
-            /*for (var cindex1 = 0; cindex1 < dndSeqCorrectAns.length; cindex1++) {
-                if (isImg == false) {
-                    correctOptions.push({
-                        "format": "Text",
-                        "response": identifySpecialChar($("#" + dndSeqCorrectAns[cindex1].ctId).find(".text").html())
-                    });
-                } else {
-                    correctOptions.push({
-                        "format": "Name",
-                        "response": dndSeqCorrectAns[cindex1].ctAns
-                    });
-                }
-            }
-            for (var pindex1 = 0; pindex1 < drag.length; pindex1++) {
-                if (isImg == false) {
-                    possibleAnsArr.push({
-                        "format": "Text",
-                        "response": identifySpecialChar(drag.eq(pindex1).find(".text").html())
-                    });
-                } else {
-                    possibleAnsArr.push({
-                        "format": "Name",
-                        "response": drag.eq(pindex1).attr("name")
-                    });
-                }
-            }*/
-            /* possibleAnsArr.push({
-                "droparea": drop.eq(index1).attr("name"),
-                "dragarea": possibleOptions
-            });*/
-            /*crAnsArr.push({
-                "droparea": drop.eq(index1).attr("name"),
-                "dragarea": correctOptions
-            });*/
             subAnsArr.push({
                 "droparea": {
                     "name": drop.eq(index1).attr("name"),
@@ -3181,17 +3052,7 @@ function mcqDndGetScore(mcqDnd, index, scr) {
             });
             for (index2 = 0; index2 < dndSeqCorrectAns.length; index2++) {
                 var correctSeq = dndSeqCorrectAns[index2].ctId;
-                /*if (isImg == false) {
-                    correctOptions.push({
-                        "format": "Text",
-                        "response": identifySpecialChar($("#" + dndSeqCorrectAns[index2].ctId).find(".text").html())
-                    });
-                } else {
-                    correctOptions.push({
-                        "format": "Name",
-                        "response": dndSeqCorrectAns[index2].ctAns
-                    });
-                }*/
+               
                 if (String(submittedAns) == String(correctSeq)) {
                     scoreObtained = parseInt(scoreObj.dndSeqCorrectAns[index2].weight, 10);
                     accomPkgScoreOb += parseInt(scoreObj.dndSeqCorrectAns[index2].weight, 10);
@@ -3200,27 +3061,7 @@ function mcqDndGetScore(mcqDnd, index, scr) {
                     accomPkgScoreOb += 0;
                 }
             }
-            /*crAnsArr.push({
-                "droparea": drop.attr("name"),
-                "dragarea": correctOptions
-            });*/
-            /*for (var pindex1 = 0; pindex1 < drag.length; pindex1++) {
-                if (isImg == false) {
-                    possibleAnsArr.push({
-                        "format": "Text",
-                        "response": identifySpecialChar(drag.eq(pindex1).find(".text").html())
-                    });
-                } else {
-                    possibleAnsArr.push({
-                        "format": "Name",
-                        "response": drag.eq(pindex1).attr("name")
-                    });
-                }
-            }*/
-            /*possibleAnsArr.push({
-                "droparea": drop.eq(index1).attr("name"),
-                "dragarea": possibleOptions
-            });*/
+           
             scoringMethod = userInfo.scoringMethodology[0];
             possibleScore = parseInt(scoreObj.mcqdndSeqTotalScore, 10);
             accomPkgPossibleSc += parseInt(scoreObj.mcqdndSeqTotalScore, 10);
@@ -3301,15 +3142,7 @@ function dndRestrictedGetScore(dndPassageRestricted, index, scr) {
             }
             drop = ele.find("[behavior='3']");
             ans = drop.find("span.answer");
-            /*var possibleAnsArr = new Array();
-            var possibleAns = dndPassageRestricted.eq(count).find(".drag");
-            for (var k = 0; k < possibleAns.length; k++) {
-                possibleAnsArr.push({
-                    "format": "Text",
-                    "response": identifySpecialChar(possibleAns.eq(k).html())
-
-                });
-            }*/
+            
             var subAnsArr = new Array()//,
                 /*crAnsArr = new Array()*/;
             for (index1 = 0; index1 < drop.length; index1++) {
@@ -3351,21 +3184,7 @@ function dndRestrictedGetScore(dndPassageRestricted, index, scr) {
                     "correct": dndCorrectAnsCount,
                     "incorrect": dndIncorrectAnsCount
                 });
-                /* possibleAnsArr.push({
-                    "droparea": drop.eq(index1).attr("name"),
-                    "dragarea": possibleOptions
-                });*/
-                /*for (var cinnerCount = 0; cinnerCount < scoreObj.correctAns[index1].correctAns.length; cinnerCount++) {
-                    correctOptions.push({
-                        "format": "Text",
-                        "response": identifySpecialChar(scoreObj.correctAns[index1].correctAns[cinnerCount])
-                    });
-                }
-
-                crAnsArr.push({
-                    "droparea": drop.eq(index1).attr("name"),
-                    "dragarea": correctOptions
-                });*/
+                
                 subAnsArr.push({
                     "droparea": {
                         "name": drop.eq(index1).attr("name"),
@@ -3583,10 +3402,7 @@ function dndFreeflowGetScore(dndPassageFreeflow, index, scr) {
                     "correct": dndCorrectAnsCount,
                     "incorrect": dndIncorrectAnsCount
                 });
-                /*crAnsArr.push({
-                    "droparea": drop.eq(index1).attr("name"),
-                    "dragarea": correctOptions
-                });*/
+               
                 subAnsArr.push({
                     "droparea": {
                         "name": drop.eq(index1).attr("name"),
@@ -3690,27 +3506,14 @@ function dndMathGetScore(dndMath, index, scr) {
                     "response": symbol
                 });
                 for (var index3 = 0; index3 < dndMathCorrectAns.length; index3++) {
-                    /*var symbol = "", symbolId = "";
-                    symbolId = dndMathCorrectAns[index3].id;
-                    for (var sIndex = 0; sIndex < symbolId.length; sIndex++) {
-                        if (symbol != "") {
-                            symbol += ",";
-                            symbol += getMathpaletteSymbols(symbolId[sIndex].split("_")[2]);
-                        } else {
-                            symbol += getMathpaletteSymbols(symbolId[sIndex].split("_")[2]);
-                        }
-                    }*/
+                    
                     if (eachAns == dndMathCorrectAns[index3].id) {
                         isCorrectAns = true;
                         score = dndMathCorrectAns[index3].weight;
                         break;
                     }
                 }
-                /*correctOptions.push({
-					"format": "Name",
-					"response": symbol
-				});
-                  */
+                
                 if (isCorrectAns == true) {
                     if (weigthedScoreType == "pts") {
                         scoreObtained = score;
@@ -3724,14 +3527,7 @@ function dndMathGetScore(dndMath, index, scr) {
                     accomPkgScoreOb += 0;
                 }
 
-                /* possibleAnsArr.push({
-                    "droparea": drop.eq(index1).attr("name"),
-                    "dragarea": possibleOptions
-                });*/
-                /* crAnsArr.push({
-                    "droparea": drop.eq(index1).attr("name"),
-                    "dragarea": correctOptions
-                });*/
+                
                 subAnsArr.push({
                     "droparea": {
                         "name": drop.eq(index1).attr("name"),
@@ -3741,24 +3537,7 @@ function dndMathGetScore(dndMath, index, scr) {
                 });
             }
 
-            /*var draggableSymbols = $("#previewArea").find(".palette-buttons");
-            for (var itemCount = 0; itemCount < draggableSymbols.length; itemCount++) {
-                var symbol = "",
-                    symbolId = "";
-                symbolId = $(draggableSymbols[itemCount]).children();
-                for (var sIndex = 0; sIndex < symbolId.length; sIndex++) {
-                    if (symbol != "") {
-                        symbol += ",";
-                        symbol += getMathpaletteSymbols($(symbolId[sIndex]).attr("id").split("_")[2]);
-                    } else {
-                        symbol += getMathpaletteSymbols($(symbolId[sIndex]).attr("id").split("_")[2]);
-                    }
-                }
-            }
-            possibleAnsArr.push({
-                "format": "Name",
-                "response": symbol
-            });*/
+           
             scoringMethod = "Weighted";
 
             possibleScore = scoreObj.dndMathTotalScore;
@@ -3944,134 +3723,13 @@ function setLargeFont(scaleX, scaleY) {
 }
 
 function getScoreJson(interactionType,/* scoringMethod,*/ scoreObtained, answeredText, maxScore, part, /*correctAnswers, scoreObj, possibleAnswers,*/ subquestionIndex) {
-    /*var scoreJson, correctResponse = new Array(),
-        incorrectResponse = new Array();
-    if (scoringMethod == "Weighted" && interactionType == "MCQ") {
-        var corrAnsCount = scoreObj.combination[0].ansCount,
-            incorrAnsCount = scoreObj.combination[0].inansCount,
-            corrAnsWt = 0,
-            incorrAnsWt = 0,
-            corrPos, incorrPos;
-        for (var i = 0; i < corrAnsCount.length; i++) {
-            corrPos = corrAnsCount.indexOf(corrAnsCount[i]);
-            corrAnsWt = scoreObj.combination[0].weight[corrPos];
-            correctResponse.push({
-                "noofCorrectResponse": corrAnsCount[i],
-                "scoreAdded": corrAnsWt
-            });
-        }
-        for (var j = 0; j < incorrAnsCount.length; j++) {
-            incorrPos = incorrAnsCount.indexOf(incorrAnsCount[j]);
-            incorrAnsWt = scoreObj.combination[0].incorrectWeight[incorrPos];
-            incorrectResponse.push({
-                "noofIncorrectResponse": incorrAnsCount[j],
-                "scoreDeducted": incorrAnsWt
-            });
-        }
-    } else if (scoringMethod == "Weighted" && interactionType == "DND with Math Palette") {
-        var corrAns = scoreObj.correctAns,
-            corrAnsCount, corrAnsWt = 0,
-            corrAnsId;
-        for (var i = 0; i < corrAns.length; i++) {
-            corrAnsCount = "",
-            corrAnsId = corrAns[i].id;
-            for (var k = 0; k < corrAnsId.length; k++) {
-                if (corrAnsCount != "") {
-                    corrAnsCount += ",";
-                    corrAnsCount += getMathpaletteSymbols(corrAnsId[k].split("_")[2]);
-                } else {
-                    corrAnsCount += getMathpaletteSymbols(corrAnsId[k].split("_")[2]);
-                }
-            }
-            corrAnsWt = corrAns[i].weight;
-            correctResponse.push({
-                "noofCorrectResponse": corrAnsCount,
-                "scoreAdded": corrAnsWt
-            });
-        }
-
-        incorrectResponse.push({
-            "noofIncorrectResponse": "",
-            "scoreDeducted": 0
-        });
-
-    } else if (scoringMethod == "Weighted" && (interactionType == "Drag drop" || interactionType == "Text Restricted" || interactionType == "Text Freeflow")) {
-        var corrAnsCount = scoreObj.dndAnsCombination[0].ansCount,
-            incorrAnsCount = scoreObj.dndAnsCombination[0].inansCount,
-            corrAnsWt = 0,
-            incorrAnsWt = 0,
-            corrPos, incorrPos;
-        for (var i = 0; i < corrAnsCount.length; i++) {
-            corrPos = corrAnsCount.indexOf(corrAnsCount[i]);
-            corrAnsWt = scoreObj.dndAnsCombination[0].weight[corrPos];
-            correctResponse.push({
-                "noofCorrectResponse": corrAnsCount[i],
-                "scoreAdded": corrAnsWt
-            });
-        }
-        for (var j = 0; j < incorrAnsCount.length; j++) {
-            incorrPos = incorrAnsCount.indexOf(incorrAnsCount[j]);
-            incorrAnsWt = scoreObj.dndAnsCombination[0].incorrectWeight[incorrPos];
-            incorrectResponse.push({
-                "noofIncorrectResponse": incorrAnsCount[j],
-                "scoreDeducted": incorrAnsWt
-            });
-        }
-
-    } else if (scoringMethod == "DND Weighted Sequence" && (interactionType == "Drag-drop with sequencing")) {
-        var corrAnsCount = scoreObj.dndSeqCorrectAns,
-            corrAnsWt = 0,
-            incorrAnsWt = 0,
-            corrPos, incorrPos, corrText, corrEle, isImg = false,
-            corrTextArray = new Array();
-        for (var i = 0; i < corrAnsCount.length; i++) {
-            corrAns = corrAnsCount[i].ctAns;
-            corrId = corrAnsCount[i].ctId;
-            for (var j = 0; j < corrId.length; j++) {
-                corrEle = $("#" + corrId[j]);
-                isImg = checkImage(corrEle);
-                if (isImg) {
-                    break;
-                }
-            }
-            corrAnsWt = corrAnsCount[i].weight;
-            if (isImg) {
-                correctResponse.push({
-                    "noofCorrectResponse": corrAns,
-                    "scoreAdded": corrAnsWt
-                });
-            } else {
-                for (var k = 0; k < corrId.length; k++) {
-                    corrText = identifySpecialChar($("#" + corrId[k]).text());
-                    corrTextArray.push(corrText);
-                }
-                correctResponse.push({
-                    "noofCorrectResponse": corrTextArray,
-                    "scoreAdded": corrAnsWt
-                });
-            }
-
-        }
-        incorrectResponse.push({
-            "noofIncorrectResponse": "",
-            "scoreDeducted": 0
-        });
-
-    }*/
-    scoreJson = {
+     scoreJson = {
         "interactionType": interactionType,
         "subquestionIndex": subquestionIndex,
-        /*"scoringMethod": scoringMethod,*/
         "scoreObtained": String(scoreObtained),
         "answered": answeredText,
         "maxScore": maxScore,
-        "screenName": "Screen " + part//,
-        /*"correctAnswers": correctAnswers,
-        "possibleOptions": possibleAnswers,
-        "weightedScoring": {
-            "correctResponse": correctResponse,
-            "incorrectResponse": incorrectResponse
-        }*/
+        "screenName": "Screen " + part
     }
     return scoreJson;
 }
