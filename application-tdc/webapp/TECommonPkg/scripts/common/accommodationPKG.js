@@ -252,31 +252,6 @@ function accommodationPKG() {
             var removablePas = $("body").children(".dropped");
             var draggingDiv = $(".ui-draggable-dragging");
             var moveable = $('body').find(".ffText");
-            /*if(removableDiv.length > 0 || removablePas.length > 0){
-				var child,childAttr,id = removableDiv.attr("id"),screen;
-				if(removableDiv.length > 0){
-					removableDiv.remove();
-				}else if(removablePas.length > 0){
-					removablePas().remove();
-				}
-				for(var index = 0;index <= dropAreas.length;index++ ){
-					screen = dropAreas.eq(index).parent();
-					child = dropAreas.eq(index).children(":not(.text), [isDropped = true], .dropped");
-					for(var index1 = 0;index1 <= child.length;index1++ ){
-						childAttr = child.eq(index1).css("display");
-						if(childAttr == "none"){
-							dropAreas.eq(index).find(".element:not([isDropped = true], .dropped)").remove();
-							//dropAreas.eq(index).find("#" + id).remove();
-							child.eq(index1).show();
-							child.eq(index1).remove();
-							//removeItem(child.eq(index1).children());
-							setDropAreaScrollbar(dropAreas.eq(index));
-							makeDroppableEnable(dropAreas.eq(index));
-						}
-					}
-					//dropAreas.eq(index).droppable("enable").css("opacity", 1);
-				}
-			}*/
             /*defect fix 75505 ends*/
 
             e = e || window.event
@@ -345,6 +320,7 @@ function accommodationPKG() {
     this.notifyChange = function () {
         // OAS method
         console.log("change notified");
+		accomPkg.getState();
     }
 
     // public method
@@ -361,15 +337,19 @@ function accommodationPKG() {
                 scoring = this.editorContent[screenId][elementId].property.scoring;
 
                 if (scoring.complete) {
-                    var radio = elements.find(":radio");
-                    var checkbox = elements.find(":checkbox");
-                    var dnd = elements.find("[behavior='3']");
+                    var radio = elements.eq(index1).find(":radio");
+                    var checkbox = elements.eq(index1).find(":checkbox");
+                    var dnd = elements.eq(index1).find("[behavior='3']");
                     if (radio.length > 0 || checkbox.length > 0 || dnd.length > 0) {
                         if (radio.length > 0 || checkbox.length > 0) {
-                            isAnswered = ((radio.filter(":checked").length > 0) || (checkbox.filter(":checked").length > 0)) ? true : false;
+                            isAnswered = isAnswered ||((radio.filter(":checked").length > 0) || (checkbox.filter(":checked").length > 0)) ? true : false;
                         }
                         if (dnd.length > 0) {
-                            isAnswered = isAnswered || (dnd.find("[behavior='2']").length > 0 || dnd.find(".dropped").length > 0) ? true : false;
+							isAnswered = isAnswered ||
+								((dnd.find("[behavior='2']").length > 0) ||
+								((dnd.find(".dropped").length > 0) &&
+								((dnd.find(".answer")).length > 0))) ? true : false;
+							
                         }
                     }
                 }
@@ -478,37 +458,14 @@ function accommodationPKG() {
 
     // public method
     this.getState = function () {
-        //if(stateChanged){
-        var htmlCn = $("body").html() /*$("#previewArea").html()*/ ,
-            index = 0,
-            obj = {}, optionVals = $(".select"),
-            parent;
-        htmlCn = this.getEncodedString(htmlCn);
-        var chkdVals = $(":checkbox:checked, :radio:checked");
-        this.checkedVals = new Array();
-        for (index = 0; index < chkdVals.length; index++) {
-            obj = {};
-            parent = chkdVals.eq(index).parent();
-            obj.id = parent.attr("id");
-            obj.screenId = parent.parent().attr("id");
-            this.checkedVals[index] = obj;
-        }
-        this.selectedVals = new Array();
-        for (index = 0; index < optionVals.length; index++) {
-            obj = {};
-            parent = optionVals.eq(index).parent();
-            obj.id = parent.attr("id");
-            obj.val = optionVals.eq(index).find("span.selected_text").text();
-            obj.screenId = parent.parent().attr("id");
-            this.selectedVals[index] = obj;
-        }
-        //	stateChanged = false;
-        return {
+        //return {
+		var response = {
             jsonContent: this.getScore(),
-            htmlContent: htmlCn,
-            checkedVals: this.checkedVals,
-            selectedVals: this.selectedVals
+            htmlContent: "",
+            checkedVals: [], 
+            selectedVals: [] 
         };
+		parent.getResponse(response);
     }
 
     // public method
@@ -526,10 +483,6 @@ function accommodationPKG() {
 				console.log("JSON start=" + Number(new Date()));
 				activateControlsByJson(html, pos, json, selectedScreen, undefined, scoreJson);
 			    console.log("JSON end=" + Number(new Date()));
-            } else {
-				console.log("HTML start=" + Number(new Date()));
-                activateStandAloneControls(html, json, checkedVals, selectedVals, this, directionVal);
-				console.log("HTML end=" + Number(new Date()));
             }
         }
        
@@ -676,67 +629,9 @@ function accommodationPKG() {
             left = 0,
             screens;
         $("#previewArea").css("background-color", "rgb(255, 255, 255)");
-       /* if (isStandAlone) {
-            $previewHtml = resetFontName($previewHtml);
-        }
-        if (isFromOutside == undefined) {
-			$previewHtml = $($previewHtml);
-		} else {
-        $previewHtml = $($previewHtml).find("#editorArea").children();
-        }
-        screens = $previewHtml.length;*/
         $("#displayScoreDialog").dialog("close");
         $("#propertyDialog").dialog("close");
         editorContentJSON = editorContent;
-
-       /* if (screens > 1) {
-            // create pagination if multiple screen present
-            for (index = 0; index < screens; index++) {
-                html += "<button id='pgBtn_" + index + "'>" + (index + 1) + "</button>";
-            }
-            $("#pagination").html(html);
-            $("#pagination :button").button();
-            $("#paginationArea").show();
-        } else {
-            $("#paginationArea").hide();
-        }
-*/
-        // removing unneccessary css classess
-      //  $previewHtml.find(".handle").remove();
-      //  $previewHtml.find(".ui-resizable-handle").remove();
-
-       /* for (count = 0; count < screens; count++) {
-            $scr = $previewHtml.eq(count).children();
-            // re-positioning divbox and sroparea elements only
-            for (index = 0; index < $scr.length; index++) {
-                $ele = $scr.eq(index);
-                top = parseInt($ele.css("top").split("px")[0], 10) - pos.top;
-                left = parseInt($ele.css("left").split("px")[0], 10) - pos.left;
-                $ele.css({
-                    top: top + "px",
-                    left: left + "px"
-                });
-            }
-        }*/
-        //previewerHtml = $previewHtml;
-        // preparing previewer html	
-       // $("#previewArea").html($previewHtml);
-       /* if (selectedScreen == null) {
-            if (isFromOutside == true) {
-                selectedScreen = $("#previewArea .editor").eq(0).attr("id");
-            } else {
-                selectedScreen = $("#previewArea .editor.selected").attr("id");
-            }
-
-        }
-        // pagination displaying conditionally
-        var selectedEditor = getControlIndex(selectedScreen);
-        $("#previewArea > :first").show();
-        if (screens > 1) {
-            $("#previewArea .editor").hide();
-            $("#previewArea #editor_" + (selectedEditor)).show();
-        }*/
-
         makeCustomButtons();
         replaceCustomRadioButton();
 
@@ -762,7 +657,6 @@ function accommodationPKG() {
         var matharea = $("[behavior='3'][matharea='2']");
         var controls = $("#previewArea .element:not([data-role='mathpalette'])");
         for (var index = 0; index < controls.length; index++) {
-            //setControlHeightWidth(controls.eq(index));
             adjustControlHeightWidth(controls.eq(index));
             setPreviewControlHeightWidth(controls.eq(index));
 
@@ -787,6 +681,7 @@ function accommodationPKG() {
         }
 		accomPkg.enableHighlighter(false); //defect 
 		accomPkg.enableEraser(false); //defect 
+		checkMCQResp();
     }
 
     // public method
@@ -799,11 +694,20 @@ function accommodationPKG() {
             if (passageFreeflow.length > 0) {
                 clearSelection();
             }
+			 /*makes the html draggable if the rendering environment is ipad*/
+				if (isPad()) {
+					$("body").draggable();
+					}
             enabledHighlighterBox();
         } else {
+			if (isPad()) {
+				$("body").draggable("destroy");			      
+			}
             $(document).data("active", false);
             unblokFreeFlowTextSelection();
+			
         }
+		
     }
 
     this.setFocusItem = function () {
@@ -823,10 +727,6 @@ function accommodationPKG() {
         var textEle = "";
         var mouseOnUnwantedEle = false,
             dataRole;
-        /*$(":checkbox, .radio-button, .droparea").on("mousedown", function(e) {
-			e.stopPropagation();
-		});*/
-
         $(document).on("mousedown", function (e) {
             dataRole = $(e.target.parentNode).attr("data-role");
             if (dataRole == "droparea" || dataRole == "checkbox" || dataRole == "radio") {
@@ -850,19 +750,19 @@ function accommodationPKG() {
                         textEle = text.parents(".text").eq(0);
                     }
                     selectStart = true;
-                    if (textEle && textEle.length > 0 && textEle[0].scrollHeight > textEle.outerHeight(true) + 5) {
-
-                        isScrollableDivY = true;
+					if (textEle && textEle.length > 0 && textEle[0].scrollHeight > textEle.outerHeight(true) + 5) {
+						isScrollableDivY = true;
                         prevX = "NA";
                         prevY = "NA";
                         initialScrollHeight = 0;
                         initialScrollWidth = 0;
                         $(textEle).children("p").each(function () {
-                            initialScrollHeight += $(this).outerHeight();
+							initialScrollHeight += $(this).outerHeight();
                             initialScrollWidth = $(this).outerWidth() > initialScrollWidth ? $(this).outerWidth() : initialScrollWidth;
+							
                         });
-                        var retObj = scrollableDivMouseDown(e, x1, y1, textEle);
-                        x1 = retObj.x1;
+						var retObj = scrollableDivMouseDown(e, x1, y1, textEle);
+						x1 = retObj.x1;
                         y1 = retObj.y1;
                     } else {
                         $(document.body).append(box);
@@ -880,47 +780,48 @@ function accommodationPKG() {
             $(document).on("mousemove", function (e) {
                 if ($(document).data("active")) {
                     $("#current").css("border", "2px solid");
-                    if (isScrollableDivY) {
-                        var retObj = scrollableDivMouseMove(e, x1, y1, dirUp, prevX, prevY, selectStart, dirDown, initialScrollHeight, initialScrollWidth);
-                        dirUp = retObj.dirUp;
+					if (isScrollableDivY) {
+						var retObj = scrollableDivMouseMove(e, x1, y1, dirUp, prevX, prevY, selectStart, dirDown, initialScrollHeight, initialScrollWidth);
+						dirUp = retObj.dirUp;
                         prevX = retObj.prevX;
                         prevY = retObj.prevY;
                         selectStart = retObj.selectStart;
                         isScrollableDivY = true;
                         dirDown = retObj.dirDown;
-                    } else {
+						console.log("on mousemove dirdown"+dirDown);
+					} else {
 
                         if (selectStart && !(isInsideScrollableDiv(x1, y1, e.pageX, e.pageY))) {
-                            if (x1 > e.pageX && y1 > e.pageY) {
-                                $("#current").css({
+						  if (x1 > e.pageX && y1 > e.pageY) {
+							$("#current").css({
                                     width: Math.abs(e.pageX - x1),
                                     height: Math.abs(e.pageY - y1),
                                     top: e.pageY,
                                     left: e.pageX
                                 }).fadeIn();
-                            } else if (x1 > e.pageX && y1 < e.pageY) {
-                                $("#current").css({
+							} else if (x1 > e.pageX && y1 < e.pageY) {
+							$("#current").css({
                                     width: Math.abs(e.pageX - x1),
                                     height: Math.abs(e.pageY - y1),
                                     top: y1,
                                     left: e.pageX
                                 }).fadeIn();
-                            } else if (x1 < e.pageX && y1 > e.pageY) {
-                                $("#current").css({
+							} else if (x1 < e.pageX && y1 > e.pageY) {
+							$("#current").css({
                                     width: Math.abs(e.pageX - x1),
                                     height: Math.abs(e.pageY - y1),
                                     top: e.pageY,
                                     left: x1
                                 }).fadeIn();
-                            } else {
-                                $("#current").css({
+							} else {
+							$("#current").css({
                                     width: Math.abs(e.pageX - x1),
                                     height: Math.abs(e.pageY - y1)
                                 }).fadeIn();
-                            }
+							}
 
                         } else {
-                            //indicating highlighter has entered in the scrollable div atleast once
+						//indicating highlighter has entered in the scrollable div atleast once
                             selectStart = false;
                         }
 
@@ -930,19 +831,20 @@ function accommodationPKG() {
 
             $(document).on("mouseup", function (e) {
                 if ($(document).data("active")) {
-                    sendNotification();
+                    //sendNotification();
                     selectStart = false;
-                    if (isScrollableDivY) {
-                        scrollableDivMouseUp(e);
-                        isScrollableDivY = false;
+					if (isScrollableDivY) {
+					scrollableDivMouseUp(e);
+						isScrollableDivY = false;
                     } else {
-                        var pos = $("#current").position();
+					var pos = $("#current").position();
                         $("#current").attr({
                             id: ''
                         });
                         $(".highlighter").css("border", "0px");
                         $(".highlighter").css("background", "yellow");
                     }
+					sendNotification();
                 }
             });
         }
@@ -1019,10 +921,11 @@ function accommodationPKG() {
         this.enableEraserArea = isEnabled;
         $(document).data("active", false);
         if (isEnabled) {
-            sendNotification();
+            //sendNotification();
             $(".highlighter").css("pointer-events", "auto");
             $(".highlighter").on("mousedown", function () { //defect #73261
                 $(this).remove();
+				sendNotification();
             });
             var passageFreeflow = $("#previewArea .editor").find("[interactiontype = 7]");
             if (passageFreeflow.length > 0) {
@@ -1030,10 +933,12 @@ function accommodationPKG() {
             }
             this.removeHighlighterCursor();
             blokFreeFlowTextSelection();
+			//sendNotification();
         } else {
             $(".highlighter").off("click");
             $(".highlighter").css("pointer-events", "none");
             unblokFreeFlowTextSelection();
+			//sendNotification();
         }
     }
 
@@ -1041,7 +946,7 @@ function accommodationPKG() {
     this.enableTTS = function (ttsEnabled) {
         this.enableTTSSpeech = ttsEnabled;
         $(".handle, .text").die("click tap").live("click tap", function (evt) {
-            getReadAloudText($(this));
+			getReadAloudText($(this));
         });
         if (ttsEnabled) {
             $("[suppresstts='1']").css("cursor", "pointer");
@@ -1053,14 +958,14 @@ function accommodationPKG() {
 
     // private method
     var getReadAloudText = function (obj) {
-        if ($("#tts").val() == "true" && $(obj).parent().attr("suppresstts") == "1") {
-            var title = $(obj).parent().attr("title-data"),
+		if ($("#tts").val() == "true" && $(obj).parent().attr("suppresstts") == "1") {
+			var title = $(obj).parent().attr("title-data"),
                 textContent = $(obj).parent().children(".text").text();
-            var readAloudText = (($.trim(title) == "") ? $.trim(textContent) : $.trim(title));
-            //var readAloudText =$.trim($(obj).parent().attr("title-data"));
+			var readAloudText = (($.trim(title) == "") ? $.trim(textContent) : $.trim(title));
+			//var readAloudText =$.trim($(obj).parent().attr("title-data"));
             if (readAloudText && readAloudText != "") {
-                window.parent.setTTSText(readAloudText);
-                // call OAS exposed function
+				window.parent.setTTSText(readAloudText);
+				// call OAS exposed function
             }
         }
     }
@@ -1133,7 +1038,7 @@ function scrollableDivMouseDown(e, x1, y1, targetParentObject) {
     prevX = "NA";
     prevY = "NA";
     if ($(targetParentObject).offset() != null) {
-        var actualParentOffsetTop = $(targetParentObject).offset().top * transY;
+	    var actualParentOffsetTop = $(targetParentObject).offset().top * transY;
         var actualParentOffsetLeft = $(targetParentObject).offset().left * transX;
         x1 = (e.clientX * transX) - actualParentOffsetLeft + $(targetParentObject).scrollLeft();
         y1 = (e.clientY * transY) - actualParentOffsetTop + $(targetParentObject).scrollTop();
@@ -1145,14 +1050,14 @@ function scrollableDivMouseDown(e, x1, y1, targetParentObject) {
             "x1": x1,
             "y1": y1
         };
-    }
+	}
 }
 
 function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart, dirDown, initialScrollHeight, initialScrollWidth) {
     var transX = 1 / $("#scaleX").val(),
         transY = 1 / $("#scaleY").val();
     var targetObj = "";
-    if ($(event.target).is("div.text") || $(event.target).is("div.divbox")) {
+	if ($(event.target).is("div.text") || $(event.target).is("div.divbox")) {
         targetObj = $(event.target);
     } else if ($(event.target).parents("div.text").length > 0) {
         targetObj = $(event.target).parents("div.text")[0];
@@ -1177,7 +1082,7 @@ function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart,
             dirUp = currentTop < prevY;
             dirDown = currentTop > prevY;
         }
-        //Checking if the cursor is in same container or not.					
+		//Checking if the cursor is in same container or not.					
         if (!$(targetObj).attr('mainParent') || (initialScrollHeight - 5 <= currentTop) || (initialScrollWidth + 3 < currentLeft)) {
             selectStart = false;
         }
@@ -1279,7 +1184,7 @@ function recreatePreviewarea(scoreJson) {
                 answered = scoringChild[scoringChildCount].answered;
                 screenId = parseInt(scoringChild[scoringChildCount].screenName.split(" ")[1]) - 1;
                 interactionType = scoringChild[scoringChildCount].interactionType;
-                if (answered != undefined) {
+                if (answered != undefined && answered.length > 0) {
                     if (interactionType == "MCQ") {
                         for (answeredCount = 0; answeredCount < answered.length; answeredCount++) {
                             eleId = answered[answeredCount].id;
@@ -1403,7 +1308,10 @@ function highlightItems(json) {
         if (highlighterObj.container == "body") {
             $("body").append(highlighterDiv);
         } else {
-            $("#" + highlighterObj.container).find(".text").append(highlighterDiv);
+            var targetParentObject = $("#" + highlighterObj.container).find(".text");
+            $(targetParentObject).append(highlighterDiv);
+            $(targetParentObject).css("position", "absolute");
+            $(targetParentObject).attr('mainParent', 'true');
         }
     }
 }
