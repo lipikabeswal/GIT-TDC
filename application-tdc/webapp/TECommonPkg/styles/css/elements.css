@@ -4,7 +4,7 @@
 .mathpalette {height:92px;width:187px;position:absolute;background:#ffffff;}
 
 .element { border:1px solid #bFbFbF; }
-.element input[type="checkbox"], .element input[type="radio"] {cursor:default !important;margin:0px;margin-right:5px;vertical-align:top;padding:0px;height:16px !important;float:left;}
+.element input[type="checkbox"], .element input[type="radio"] {cursor:default !important;margin:0px;margin-right:5px;vertical-align:top;padding:0px;height:16px;float:left;}
 .element input[type="checkbox"]:hover, .element input[type="radio"]:hover {cursor:default !important;}
 .radio .text, .checkbox .text {float:left;} 
 .element .text {word-wrap:break-word;height:150px;overflow:auto;width:150px;font-family:'oasmathv3regular';line-height:16px;font-size:12px;}
