@@ -434,6 +434,16 @@ function preventTextDragging(){
   		jQuery('#calculatorTI84Div').trigger("mouseup");
   	});										  
  	
+ 	jQuery("#calculatorDiv").on("mousedown",function(){
+ 		//console.log("mousedown 30 on ti");
+ 		jQuery('[name="dManupulative"]').trigger("mouseup");
+ 	});
+ 	
+ 	jQuery("#calculatorTI84Div").on("mousedown",function(){
+ 		//console.log("mousedown 84 on ti");
+ 		jQuery('[name="dManupulative"]').trigger("mouseup");
+ 	});
+ 	
  	/*TI calculators implementation end*/ 										  
 	
  });
