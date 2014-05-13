@@ -97,6 +97,32 @@
 		lz.Browser.loadJS(s);*/
 	]]>
 	</method>
+	
+	<handler name="onkeydown" reference="lz.Keys" args="k"><![CDATA[
+		if(gController.isHandlerInactive == false) {
+			gController.setAttribute('trackTimer',0);
+			gController.resetTrackTimer();
+		}
+	]]></handler>
+	
+	 <handler name="onmousedown" reference="lz.GlobalMouse"><![CDATA[
+	 	if(gController.isHandlerInactive == false) {
+			gController.setAttribute('trackTimer',0);
+			gController.resetTrackTimer();
+		}
+	]]></handler>
+	
+	<method name="setPromptDimension">
+		if(gPauseTimerScreen.visible) {
+			titleView.mainView.timeoutDialog.pauseTimerMsg.setAttribute('visible',true);
+			titleView.mainView.timeoutDialog.setAttribute('y',200);
+		} else {
+			titleView.mainView.timeoutDialog.pauseTimerMsg.setAttribute('visible',false);
+			titleView.mainView.timeoutDialog.setAttribute('y',20);
+			titleView.mainView.timeoutDialog.setAttribute('height',130);
+			titleView.mainView.timeoutDialog.setAttribute('width',360);
+		}
+	</method>
 
 	<handler name="onbringBackFocus" args="data">
 		//canvas.onfocus.sendEvent();
@@ -231,6 +257,8 @@
             </SecurityScreen>
             <Tutorial id="gTutorial" width="800" height="600"
                         visible="false"/>
+            <PauseTimerScreen id="gPauseTimerScreen" name="gPauseTimerScreen" 
+				width="800" height="200" visible="false"/>            
 
 	        <!-- include the please wait popup -->
 	        <include href="ctbmodules/question/RevisitFalsePopup.lzx"/>
@@ -240,6 +268,28 @@
         </view>
 
     </view>
+    <modaldialog id="timeoutDialog" name="timeoutDialog" title=" " 
+			width="400" height="160" visible="false" bgcolor="0x6691B4" x="470" y="20">
+	    <text name="pauseTimerMsg"
+			 font="CTB"	
+             fontsize="15" 
+             fgcolor="white"
+			 visible="false"
+			 width="100%"
+			 multiline="true">
+			 Your test has been Paused for more than the 20-minute time limit and has now ended. Click OK to close the session.
+           </text>
+	    <view align="center" valign="middle" layout="axis:x; spacing:20">
+	      <OkButton enabled="${ gScreens.allowclick }">
+                <handler name="onclick">
+                	gController.setAttribute('timeoutforpause',false);
+               	   gScreens.clicked();
+                   gController.testTimedout();
+               </handler>
+           </OkButton>
+	    </view>
+	    <simplelayout spacing="5"/>
+  </modaldialog>
     </view>
   
 </view>

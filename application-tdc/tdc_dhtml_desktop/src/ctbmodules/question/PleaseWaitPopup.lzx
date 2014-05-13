@@ -42,12 +42,18 @@
 		this.contents.networkLost.inBar.barAnimator.stop();
 		lz.ModeManager.release(this);
 		gController.showTICalculators();//show TI calculators when please wait popup is closed if calc was open previously
+		gController.recalltrackMouseMove();
+		if(gController.timeoutforpause){
+		    timeoutDialog.open();
+		}
 	]]>
     </method>
 	
     <method name="show">
-        console.log("====SHOW WAIT POPUP===");
-       
+       	if(gController.timeoutforpause){
+    	 	timeoutDialog.close();
+    	 }
+		gController.removeTrackTimer();
         this.setAttribute("visible", true);
 		gPleaseWaitPopup.bringToFront();
         this.contents.networkLost.inBar.barAnimator.doStart();
@@ -149,6 +155,7 @@
 
 		<basebutton	name="exitButton" enabled="false" resource="exit_button_rsc" x="220" y="120"  width="62" height="32" stretches="both">
 			<handler name="onclick">
+				gController.setAttribute('timeoutforpause',false);
 				gController.setState('none');
 			    gController.exitPopups();
 				gController.terminate();  

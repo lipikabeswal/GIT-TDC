@@ -41,7 +41,7 @@
 			//Debug.write("digitSum : ", digitSum);
 
 			return digitSum;
-		}	
+		}
 
 		/**************************
 		 * to be internally called by 'sort' method of Array Object
@@ -57,7 +57,7 @@
 			bnode = lz.DataElement.stringToLzData(bnode);
 			codeA = anode.getElementsByTagName('selector_widget')[0].getAttr("randomIdentifier").charCodeAt();
 			codeB = bnode.getElementsByTagName('selector_widget')[0].getAttr("randomIdentifier").charCodeAt();
-			
+
 			//Debug.write("codeA, codeB : ", codeA, codeB);
 			return codeA - codeB;
 		}
@@ -73,7 +73,6 @@
 			input = input.join("");
 			return input;
 		}
-		
 
 	   /************************** 
 	   	* returns the permutated array of passed string and length 
@@ -83,17 +82,17 @@
 		* return permArr
 		**************************/
 /*		function getPermutatedArray(input,pLength,reverse) {
-			permArr = []; 
+			permArr = [];
 			usedChars = [];
-			
+
 			if(reverse) {
 				input = reverseString(input);
 				//Debug.write("reversed input : ", input);
 			}
-			
+
 			permute(input,pLength);
 			var len = 0;
-			
+
 			if(permArr.length < pLength) {
 				len = pLength - permArr.length;
 				for(var i = 0; i < len; i++) {
@@ -113,9 +112,9 @@
 		**************************/
 /*		function permute(input,pLength) {
 			var i, ch, chars = input.split("");
-	
+
 			for (i = 0; i < chars.length; i++) {
-	
+
 				if(permArr.length >= pLength) {
 					break;
 				}
@@ -129,9 +128,9 @@
 		}
 */
 
-	   /************************** 
+	   /**************************
 	   	* returns the permutation of input
-	   	* string at given index k 
+	   	* string at given index k
 		* @param input
 		* @param k
 		* return permutation
@@ -143,7 +142,7 @@
 	      var order = input.length;
 	      var temp = null;
 	      var perm = null;
-			
+
 	      // Step #1 - Find factoradic of k
 	      var factoradic = [order];
 	      for (var j = 1; j <= order; ++j)
@@ -152,11 +151,11 @@
 			k /= j;
 			k = Math.floor(k);
 	      }
-	
+
 	      // Step #2 - Convert factoradic[] to numeric permuatation in perm[]
 	      temp = [order];
 	      perm = [order];
-	      
+
 	      for (var i = 0; i < order; ++i)
 	      {
 	        temp[i] = ++factoradic[i];
@@ -165,7 +164,7 @@
 	      for (var i = order - 2; i >= 0; --i)
 	      {
 			perm[i] = temp[i];
-			
+
 			for (var j = i + 1; j < order; ++j)
 			{
 			  if (perm[j] >= perm[i]) ++perm[j];
@@ -174,27 +173,27 @@
 
 	      for (var i = 0; i < order; ++i)  // put in 0-based form
 	        --perm[i];
-	
+
 	      // Step #3 - map numeric permutation to string permutation
 	      for (var i = 0; i < order; ++i) {
 	      	element[i] = input[perm[i]];
 	      }
 
 	      return element.join("");
-	    }	
-	    
+	    }
+
 		function fact(n) {
 			if(n == 0 || n == 1) return 1;
 			//Debug.write("n : ", n);
 			return n * fact(n - 1);
-		}	
-	    
+		}
+
 		function isMac(){
 			/*var os = flashSystem.capabilities.os;
 			os = os.split(" ");
 			return os[0] == 'Mac';	*/
 			return false;
-		}			
+		}
     ]]></script>
 
 	<!--
@@ -290,7 +289,7 @@
 		<attribute name="THEME_TYPE" type="string" value="NI" />
 		<attribute name="DEFAULT_TYPE" type="string" value="UN" />
 
-		<!-- 
+		<!--
 			Timing variables
 		-->
 		<attribute name="TIMER_INTERVAL" type="number" value="500" />
@@ -299,7 +298,7 @@
 		<attribute name="qtimestamp" type="number" value="0" />
 		<attribute name="timing" type="boolean" value="false" />
 
-		<!-- 
+		<!--
 			Convenience attributes to access commonly used information in
 			various xml datasets
 		-->
@@ -327,43 +326,43 @@
 		<attribute name="restartscid" value="0" />
 		<!-- END-->
 
-		<!--  
+		<!--
 			Whether the ui should be unlocked or not
 		-->
 		<attribute name="doUnlockUI" type="boolean" value="true" />
 
-		<!-- 
+		<!--
 			The node for the item that is being loaded
 		-->
 		<attribute name="loadNode" />
 
-		<!-- 
+		<!--
 			The index of the subtest that is in progress
 		-->
 		<attribute name="currentSubtestIndex" type="number" value="0" />
 
-		<!-- 
+		<!--
 			An array of accommodation styles
 		-->
 		<attribute name="accomstyles" />
 
-		<!-- 
+		<!--
 			Is this the firstSubtest in the session?
 		-->
 		<attribute name="firstSubtest" type="boolean" value="true" />
 
-		<!-- 
+		<!--
 			Is the swf being used in the previewer?
 		-->
 		<attribute name="isPreviewer" type="boolean"
 			value="$once{lz.Browser.getInitArg( 'gPreviewer' ) == 'true'}" />
 
-		<!--  
+		<!--
 			Should focus be set onto the Gr?
 		-->
 		<attribute name="focusOnGr" type="boolean" value="false" />
 
-		<!-- 
+		<!--
 			CR variables
 		-->
 		<attribute name="crFields" value="$once{new Array()}" />
@@ -378,15 +377,14 @@
 		<attribute name="audioArray" value="$once{new Array()}" />
 		<attribute name="audioId"/>
 		<attribute name="isaudio" type="boolean" value="false"/>
-		
 		<attribute name="isAudioPlaying"/>
 		<attribute name="lastPlayOrderId"/>
-		<!-- 
+		<!--
 			Is the panel being loaded for the sizer?
 		-->
 		<attribute name="isSizer" value="false" type="boolean" />
 
-		<!-- 
+		<!--
 			Is the application between startQuestion and stopQuestion?
 		-->
 		<attribute name="inQuestion" value="false" type="boolean" />
@@ -468,7 +466,7 @@
 
         <!-- True, if login response contains tts speed value-->
 		<attribute name="isWaitPopupAfter60SecOpen" type="boolean" value="false" />
-		
+
 		<!-- True, if login response contains tts speed value-->
 		<attribute name="isRevisitPopupOpen" type="boolean"
 			value="false" />
@@ -489,7 +487,7 @@
 		<attribute name="nextItem" type="number" value="0" />
 		<attribute name="navigateConfirm" type="boolean" value="false" />
 		<attribute name="magnifierState" value="false" />
-		
+
 		<attribute name="magnifierVisible" value="false" />
 		<attribute name="showMaskingAnswerPopUp" value="false"/>
 		<attribute name="maskingAnswerDDState" value="false"/>
@@ -530,6 +528,17 @@
 		<attribute name="isTI30CalculatorOpen" type="boolean" value="false" />
 		<attribute name="isTI84CalculatorOpen" type="boolean" value="false" />
 		<attribute name="isOneCalculatorOpen" type="boolean" value="false" />
+
+
+		<attribute name="elapsedmsforpause" type="number" value="0" />
+		<attribute name="durationmsforpause" type="number" value="0" />
+		<attribute name="qtimestampforpause" type="number" value="0" />
+		<attribute name="timingforpause" type="boolean" value="false" />
+		<attribute name="isHandlerInactive" type="boolean" value="false" />
+		<attribute name="timerInterval" type="number" value="1200000" />
+		<attribute name="timeoutforpause" type="boolean" value="false" />
+		<attribute name="trackTimer" type="number" value="0"/>
+		
 		<!--
 			============================================================
 			Datapointers
@@ -544,7 +553,7 @@
 
 		<datapointer name="dpsubtest" xpath="dssubtest:/subtest">
 			<handler name="ondata">
-           
+
             	gController.updateItemTypes();
                 gController.clearStudentData();
                 gController.accomstyles = {};
@@ -602,6 +611,11 @@
 		<attribute name="textHistory" value="$once{new lz.TextFieldHistory()}" type="expression" />
 		<attribute name="isAnswerAreaDisabled" type="boolean" value="false" />
 		<attribute name="musicSliderReff"/> 
+		
+		
+		<!--<attribute name="audioFormat" type="string" value="null" />
+		<attribute name="systemValue" type="string" value="null" />-->
+		
 		<!--  Cancels a drag operation inside a TE item -->
     	<method name="cancelIframeDrag">
     		if (this.htmlFields.length == 1) {
@@ -625,9 +639,7 @@
 				gHotKeys.disableKeys(); 
 			}
 		</handler>
-
-
-		<!-- 
+		<!--
 			Subtest xml may or may not specify the item type.  Our code relies on the item type being populated.
 			We need to populate the item type to the default type if it is not present in the xml.
 		-->
@@ -637,9 +649,9 @@
          	//For Flash 
 			var version = flashSystem.system.capabilities.version; 
 			var os = 	flashSystem.system.capabilities.os;
-			
+
 			var flashVersion = version.split(" ");
-			
+
 			version = flashVersion[1].split(",");
 			var currentVersion =version[0];
 		    var majorVersionDetected = version[1]; var
@@ -648,18 +660,18 @@
 			//Debug.write("applyfix for flash 10.1.53");
 			this.setAttribute("applyFlashFix", true);
 			}
-						
-			//For versions staring from 10.2	
+
+			//For versions staring from 10.2
 			if(currentVersion > 9 && majorVersionDetected > 1){
 			//Debug.write("applyfix for flash 10.2 and above versions");
 			this.setAttribute("applyFlashFix", true);
 			}
-			//For versions greater than 11 
+			//For versions greater than 11
 			if(currentVersion > 10){
 			//Debug.write("applyFix for flash 11 versions")
 			this.setAttribute("applyFlashFix", true);
 			}
-				
+
          //	Debug.write("Version number "+ version[0]+ "::" + 	minorVersionDetected + "::" + majorVersionDetected + "::" + os);
          ]]></method>-->
 
@@ -674,7 +686,7 @@
 				if(!item.hasAttr('type')){
 					item.setAttr('type', DEFAULT_TYPE);
 				}
-			}			
+			}
 		]]></method>
 
 		<method name="clearScratchpad">
@@ -683,6 +695,17 @@
 		</method>
 
 		<handler name="oninit">
+			/*if($dhtml){
+				this.audioFormat = "mp3";
+				if(navigator.appVersion.indexOf("Mac")!=-1){
+					this.audioFormat = "mp3";
+					console.log("audioFormat****"+this.audioFormat);
+				}else{
+					this.audioFormat = "ogg";
+					console.log("audioFormat****"+this.audioFormat);
+				}
+			}*/
+			this.setAttribute('isHandlerInactive', true);
         	checkIsProduct();
         	//gScreens.showLogin();
 			var base = lz.Browser.getInitArg( 'servletUrl' );
@@ -744,9 +767,9 @@
 			}
 
 			Debug.write("subtest: " , subtests);
-		
+
 			var result = null;
-			
+
 			if(this.totalNumberOfTests instanceof LzDataElement){
 				if(currentSubtestIndex == 0){
 					result = this.totalNumberOfTests;
@@ -779,7 +802,7 @@
 				if(scos instanceof LzDataElement){				
 					return result;
 				}
-				
+
 	    		while(scos && result < scos.length && !found){
 	    			var sco = scos[result];
 	    			if(sco.getAttr('id') == scoid){
@@ -825,13 +848,13 @@
 					case SUBTEST_STATE:
 						_handleSubtestResponse(response);
 						break;
-					case SAVE_LOAD_STATE:	
+					case SAVE_LOAD_STATE:
 						_handleSaveLoadResponse(response);
 						break;
-					case PAUSE_STATE:	
+					case PAUSE_STATE:
 						_handlePauseResponse(response);
 						break;
-					case PAUSED_RESUME_STATE:	
+					case PAUSED_RESUME_STATE:
 						_handlePausedResumeResponse(response);
 						break;
 					case TIMEOUT_STATE:
@@ -870,7 +893,6 @@
 					case SAVE_METHOD:
 						_handleSaveMethod(response);
 						break;
-					
 					default:
 						break;
 				}
@@ -890,7 +912,7 @@
 			gScreens.showLogin();
 		]]>
 		</method>
-		
+
 		<method name="getImageData" args="response"><![CDATA[
 			var s = "checkStop('inside getImageData controller','"+response.indexOf('||')+"','')";
 			lz.Browser.loadJS(s);
@@ -950,7 +972,7 @@
             if(this.adaptive == true){
             	maxpossible = gController.subtestLength;
             }
-            
+
             var completionmode = ""; // empty string or 'time-out' - need to fix for timeout
             // time left in hh:mm:ss format
             var sessiontime = hours + ':' + mins + ':' + secs; 
@@ -973,7 +995,7 @@
 				gController.setAttribute("sem", 0);
 				gController.setAttribute("objScore", null);
 			}
-			
+
 			setState(FINISH_SAVE_STATE);
 			gCommunicator.endSubtest( rawscore, maxpossible, completionmode, sessiontime, unscored );
 		]]></method>
@@ -995,24 +1017,28 @@
 		<method name="_handleSubtestFinishResponse" args="response"><![CDATA[
 			var node = lz.DataElement.stringToLzData(response);
 			var nextSubtestIndex = getSubtestIndex(node);
-			if(nextSubtestIndex != -1){
-				setAttribute('currentSubtestIndex', nextSubtestIndex);
-				getSubtest();
-			}
-			else if(isFeedback()){
-				getFeedback();
-			}
-			else {
-					if(this.isRelogin == true || this.isRelogin == 'true')
-					{
-						if((this.productTypeVal.indexOf('OKLAHOMA')>= 0) || (this.productTypeVal.indexOf('ISTEP')>= 0))
+			if(this.testTimeout == true || this.testTimeout == 'true') {
+				terminate();
+			}else{
+				if(nextSubtestIndex != -1){
+					setAttribute('currentSubtestIndex', nextSubtestIndex);
+					getSubtest();
+				}
+				else if(isFeedback()){
+					getFeedback();
+				}
+				else {
+						if(this.isRelogin == true || this.isRelogin == 'true')
 						{
-						terminateToRelogin();
+							if((this.productTypeVal.indexOf('OKLAHOMA')>= 0) || (this.productTypeVal.indexOf('ISTEP')>= 0))
+							{
+							terminateToRelogin();
+							}
 						}
-					}
-					else
-					{
-						terminate();
+						else
+						{
+							terminate();
+						}
 					}
 				}
 			
@@ -1044,9 +1070,9 @@
 			var result = 0;
 			var found = false;
 			// this method will only be called if there is more than one subtest - eg subtests is an array
-			
+
 			var subtests = dplogin.xpathQuery('manifest/sco');
-			
+
 			if(this.totalNumberOfTests == null){
 				this.totalNumberOfTests = subtests;
 			}
@@ -1079,6 +1105,7 @@
 		]]></method>
 
 		<method name="terminate">
+			this.setAttribute('timeoutforpause', false);
 			gCommunicator.terminate();
 			goToGoodbyeScreen();
 		</method>
@@ -1105,6 +1132,9 @@
 
 		<method name="goToGoodbyeScreen">
 			stopHeartbeat();
+			removeTrackTimer();
+			removePauseTimer();
+			gPauseTimerScreen.setAttribute('visible', false );
 			hideManipulatives();
 			/*closing TI calculators in goodbye screen*/
 			if(jQuery('#calculatorDiv').is(":visible")){	
@@ -1159,7 +1189,7 @@
 				gScreens.showLoginError(gXmlHelper.getStatusCode(response));
 			}
 			else{
-
+				dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
 	    		var node = lz.DataElement.stringToLzData(response);
 	    		dp.setPointer(node);
 				//Debug.write("dp------------- :",dp);
@@ -1182,12 +1212,12 @@
 				//Debug.write("cmicore************** ",cmicore);
 	    		cmicore.setAttr('password', password);
 	    		cmicore.setAttr('userid', userid);
-	    		cmicore.setAttr('accesscode', accesscode);				
+	    		cmicore.setAttr('accesscode', accesscode);
 				this.stuLoginDetails.fn = dp.xpathQuery('login_response/testing_session_data/cmi.core/@student_first_name');
 				this.stuLoginDetails.mn = dp.xpathQuery('login_response/testing_session_data/cmi.core/@student_middle_name');
 				this.stuLoginDetails.ln = dp.xpathQuery('login_response/testing_session_data/cmi.core/@student_last_name');
 				this.stylesArr = dp.xpathQuery('login_response/testing_session_data/lms.student.accommodations/stereotype_style');
-			
+
 				var loginResponse = dp.xpathQuery('login_response');
 				//START Change for deferred Defect 63502
 	    		setAttribute('restartscid', dp.xpathQuery('login_response/manifest/sco[1]/@id'));
@@ -1202,7 +1232,7 @@
 				//Debug.write("dprestart********** ",dprestart);
 				dp.selectChild();
 
-			
+
 				setAttribute('currentSubtestIndex', getInitialSubtestIndex());
 				gRequest.setMseqFromRestartNumber(restartNumber);
 				if(numIsts == 0 && dprestart.isValid()){
@@ -1213,6 +1243,7 @@
 				}
 				sendHeartbeat();   // starts heartbeats
 				if(gTutorialManager.hasTutorial){
+					recalltrackMouseMove();
 					gTutorialManager.doTutorialFlow();
 				}
 				else{
@@ -1220,6 +1251,7 @@
 					if(gController.displayText == true || gController.displayText == 'true') {
 						gSecurityScreen.showIndianaSecurityScreen();
 					} else {
+						recalltrackMouseMove();
 						gDownloadManager.downloadContent();
 					}
 				}
@@ -1227,7 +1259,7 @@
 				dp.setPointer(node);				
 
 				if(!nullOrSpace(dSeed)) {
-					
+
 					this.isLoginResponseHavingSeed = true;
 					this.setAttribute("seed", dSeed);
 					this.setAttribute("seedDigitSum", sumNumDigits(dSeed));
@@ -1251,9 +1283,8 @@
 				var dpspeed = new lz.datapointer();
 				dpspeed.setXPath("dslogin://login_response");
 				this.hasTTSspeed = dpspeed.data.hasAttr("tts_speed_value");
-				
-			
-		}
+
+			}
 			//Debug.write("loginResponse completed:",dslogin);
 		]]></method>
 
@@ -1328,7 +1359,7 @@
     		var subtest = new lz.DataElement('subtest');
     		var obAssessment = lz.DataElement.stringToLzData(response);
     		var sco = getCurrentSubtest();
-			
+
 			if(this.testSessionData == null){
 				this.testSessionData = getTestingSessionData();
 			}
@@ -1372,7 +1403,7 @@
  				var awd = dprestart.xpathQuery( 'tsd[@scid = "'+ restartId +'"]/ist/rv/v' );
  			
 		         //END
-		         
+
 	            if ( awd && awd instanceof Array ) {
 	            	for (var i=0; i<awd.length; i++){
 	            		if(isAnswered(awd[i])){
@@ -1383,10 +1414,10 @@
 	                if(isAnswered(awd)){
 	                	numanswered = 1;
 	                }
-	            } 
+	            }
             }
             return numanswered;
- 			
+
         ]]></method>
 
 		<method name="totalAnswered"><![CDATA[
@@ -1425,7 +1456,7 @@
                 var ts =  dpstudentdata.xpathQuery("runtime/item_model[@answered = '1']/@theme");
                	if(ts) ni_count = 1;
             }
-			
+
 			if ( awd && awd instanceof Array ) {
                 var numanswered = awd.length;
             } else if ( awd && awd instanceof lz.DataElement ) {
@@ -1471,11 +1502,11 @@
 		<method name="totalVisited">
 			//Debug.write("item_no...",dpstudentdata.xpathQuery( 'current_item/item_model/@item_no'));
 			var totalVisited = dpstudentdata.xpathQuery( 'current_item/item_model/@item_no');
-			
+
 			if(this.isThemePage()) {
 				totalVisited -= 1;
 			}
-			
+
 			if(totalVisited == null) {
 				totalVisited = totalAnsweredOnRestart();//if test was timed out and restarted.
 			}
@@ -1487,7 +1518,7 @@
             var vstd = dpstudentdata.xpathQuery(
                 "runtime/item_model[@is_visited='true']"
             );
-			
+
 			 var ni_count = 0;
             if ( vstd && vstd instanceof Array ) {
                 for(var i=0; i< vstd.length ; i++){
@@ -1497,9 +1528,9 @@
             } else if ( vstd && vstd instanceof lz.DataElement ) {
                 var ts =  dpstudentdata.xpathQuery("runtime/item_model[@is_visited = 'true']/@theme");
                	if(ts) ni_count = 1;
-            }			
-			
-            
+            }
+
+
             if ( vstd && vstd instanceof Array ) {
                 var numvisited = vstd.length;
             } else if ( vstd && vstd instanceof lz.DataElement ) {
@@ -1507,11 +1538,11 @@
             } else {
                 var numvisited = 0;
             }
-			
+
 			 var currItemTheme = dpstudentdata.xpathQuery(
                 "current_item/item_model/@theme"
             );
-			if(currItemTheme) 
+			if(currItemTheme)
 				numvisited = numvisited - ni_count;
 			else
 				numvisited = numvisited - ni_count + 1;
@@ -1629,6 +1660,7 @@
                 }
 				
 				if(firstSubtest){
+					recalltrackMouseMove();
                 	gScreens.showWelcome( mins, total, untimed, getStudentName() );
                 }
                 else{
@@ -1654,7 +1686,7 @@
 		<method name="populateRandomIndexArray" args="seed,total"><![CDATA[
 			if(this.randomIndexArray.length < total) {
 				this.randomIndexArray = getModArrayFromFibonacciSeries(getFibonacciSeries(seed,total));
-			} 
+			}
 		]]></method>
 
 		<method name="getElementFromDistractorArray"
@@ -1681,12 +1713,12 @@
 
 		<!-- generates fibonacci series array given the starting number and the series length -->
 		<method name="getFibonacciSeries" args="number, length"><![CDATA[
-			number = Number(number);	
+			number = Number(number);
 			var fibArr = [];
 			for (var i = 0; i < length; i++) {
 				if(i == 0) { fibArr[i] = number; continue;}
 				if(i == 1) { fibArr[i] = number + number; continue;}
-				
+
 				fibArr[i] = 0 + Number((fibArr[i - 1]) ? fibArr[i - 1] : 1) + Number((fibArr[i - 2]) ? fibArr[i - 2] : 0);
 			}
 			//Debug.write("fibArr : ", fibArr);
@@ -1695,7 +1727,7 @@
 
 		<!-- takes mod of each element of the fibonacci and generates mod array -->
 		<method name="getModArrayFromFibonacciSeries" args="fibArr"><![CDATA[
-		//Debug.write("newModBase : ", newModBase); 
+		//Debug.write("newModBase : ", newModBase);
 			var modValues = [];
 			for (var i = 0; i < fibArr.length; i++) {
 				modValues.push(fibArr[i] % newModBase);
@@ -1711,30 +1743,30 @@
 		<method name="getPermutatedArray"
 			args="input,newModBase,reverse">
 		<![CDATA[
-			var permArr = []; 
+			var permArr = [];
 			var gap = 1;
 			var inputLen = input.length;
 			var factNumber = fact(inputLen);
 			var len = 0;
-			
+
 			if(factNumber > newModBase) {
 				gap = Math.floor(factNumber / newModBase);
 			}
 
 		//Debug.write("inputLen,factNumber,gap : ", inputLen,factNumber,gap);
-			
+
 			if(reverse) {
 				input = reverseString(input);
 			}
-			
+
 			for(var i = 0; i < factNumber; i += gap) {
 				permArr.push(StringPerm(input,i));
-			
+
 				if(permArr.length >= newModBase) {
 					break;
 				}
 			}
-			
+
 			if(permArr.length < newModBase) {
 				len = newModBase - permArr.length;
 				for(var i = 0; i < len; i++) {
@@ -1766,7 +1798,7 @@
         ]]></method>
 
 		<method name="setReadableFlag">
-			var screenReaderAttr 
+			var screenReaderAttr
 				= dpsubtest.xpathQuery("testing_session_data/lms.student.accommodations/@screen_reader");
 			if ( (screenReaderAttr == "1") ||
                  (screenReaderAttr == "true") ||
@@ -1847,7 +1879,7 @@
 					 }
 				}
 			}
-			 
+
 			for(var i=0; i < items.length; i++){
 			 	var eid = items[i].getAttr( 'eid' );
 			 	var stimulusid = items[i].getAttr('stimulus_id');
@@ -1856,7 +1888,7 @@
                 var vnode = dprestart.xpathQuery(istxpath + "/rv/v");
                 var isTheme = items[i].getAttr('type') == THEME_TYPE;
                 var isVisited = "false";
-                
+
                 var flist = dpsubtest.xpathQuery('ob_assessment/ob_element_list');
            		var fitems = flist.getElementsByTagName( 'f' );
 				var fnodeEid = fitems[itemNumber-1].getAttr( 'id' );   
@@ -1891,32 +1923,32 @@
                     if ( typeof( response ) == 'string' ) {
                         attrs.answer_text = response;
                     }
-                   
+
                     if(eid == landingItem){
 			 			attrs.item_no = items.length;
 			 			//attrs.eid = landingFnode;
 			 		}
-                
+
                 var dnrtitem = dpstudentdata.xpathQuery("runtime/item_model");
-                
+
                /* for(var j=0; j<dnrtitem.length; j++){
                 	if(dnrtitem[j].getAttr("eid") == eid){
                 		attrs.eid = fitems[runtimeCount].getAttr( 'id' );
                 		runtimeCount++;
                 	}
                 }*/
-                 
+
                 var newitemdn = new lz.DataElement( 'item_model', attrs, null );
-               
+
                 //if(eid != landingItem){
                 	var dnrtitemold = dpstudentdata.xpathQuery(
                     	"runtime/item_model [@item_no = '"+itemNumber+"']"
                 			);
-                	
+
                 	if(!isTheme){
                 		itemNumber = itemNumber + 1;
                		}
-                	
+
                // }else{
                 /*	var itemLen = items.length;
                 	Debug.write("##itemLen::"+itemLen);
@@ -1924,10 +1956,10 @@
                 		var dnrtitemold = dpstudentdata.xpathQuery(
                     		"runtime/item_model [@item_no = '"+itemLen+"']"
                 				);
-                		
+
                 	}
                 }*/
-                
+
                 dnrtitemold.parentNode.replaceChild (newitemdn, dnrtitemold);
                 //istArr.push (newitemdn);               
                     
@@ -1958,20 +1990,20 @@
             }else{
             	dn.setAttr( 'total_including_theme', getTotalNumberOfItems(true));
             }
- 			
+
             dn = dpstudentdata.xpathQuery( 'runtime' );
             dn.setAttr ('starting_question_number', getStartNumber());
-            
+
 			createSharedStimulusNodes();
             var runtimearr = [];
 			var itemNumber = Number(getStartNumber());
-			
+
 			var itemCount = items.length;
 			if(this.adaptive == true) { 
 			 	itemCount = this.subtestLength;
 				Debug.write ("ItemCount from subtest xml" , itemCount);
 			}
-			
+
 			for ( var i = 0; i < itemCount; i++ ) {
 				var eid = items[i].getAttr( 'id' );
 				var allowRevisit = items[i].getAttr( 'allow_revisit' );
@@ -2155,7 +2187,7 @@
 			deleteSharedStimulusNode();
             var root = dpstudentdata.xpathQuery( '' );
             var newStimulusNode = new lz.DataElement("shared_stimulus");
-			
+
             var stimuli = dpsubtest.xpathQuery('ob_assessment/ob_element_select_order/g');
             if(stimuli instanceof Array){  // more than one shared stimulus
 	            for(var j = 1; j <= stimuli.length; j++){
@@ -2184,7 +2216,7 @@
 		<method name="getStimulusIdByEid" args="eid"><![CDATA[
 			var result = 0;  // stimulus_id if not shared stimulus
 			var obElementSelectOrder = dpsubtest.xpathQuery('ob_assessment/ob_element_select_order');
-			var singleStimulus = 
+			var singleStimulus =
 			    dpsubtest.xpathQuery('ob_assessment/ob_element_select_order/e[@id="' + eid + '"]');
 			if(obElementSelectOrder != null && singleStimulus == null){  // shared stimulus
 				result = 1;  // stimulus id for first child
@@ -2199,7 +2231,7 @@
 			dpstimulus.setXPath("dsstudentdata:/testing_client_model/shared_stimulus");
 			return result;
 		]]></method>
-		
+
 		<method name="getStimulusItemsIdByEid" args="stimulusId,eid">
 			<![CDATA[
 			if(gStimulusId != gPrevStimulusId){
@@ -2237,7 +2269,7 @@
 							gCurrentItemPos = i+1;						//Debug.write("#############nodeEid == eid ");
 							currentVnode = vnode;
 						}
-											
+
 					}
 																//Debug.write("#############answeredCount: "+answeredCount);
 																//Debug.write("#############gCurrentItemPos: "+gCurrentItemPos);
@@ -2252,7 +2284,7 @@
 					}
 				}
 
-//Debug.write("#############returnVal: "+returnVal);								
+//Debug.write("#############returnVal: "+returnVal);
 			gPrevStimulusId = stimulusId;
 			return returnVal;
 		]]>
@@ -2264,19 +2296,19 @@
             var qnumber = dpstudentdata.xpathQuery( 'question_number' );
             var current = dpstudentdata.xpathQuery( 'current_item' );
             var runtime = dpstudentdata.xpathQuery( 'runtime' );
-                        
+
             timer.setAttribute('childNodes', [] );
             title.setAttribute('childNodes', [] );
             qnumber.setAttribute('childNodes', [] );
             current.setAttribute('childNodes', [] );
             runtime.setAttribute('childNodes', [] );
-            
+
             timer.setAttr( "show", '0'  );
             title.setAttribute('attributes', {} );
             qnumber.setAttribute('attributes', {} );
             current.setAttribute('attributes', {} );
             runtime.setAttribute('attributes', {} );
-			
+
             dpdisplay.setNodeAttribute( 'showtime', 'false' );
         </method>
 
@@ -2302,7 +2334,7 @@
                     new lz.DataElement( 'toolbar', itemmodel, toolbarattrs );
                 itemmodel.appendChild( newtoolbar );
             }
-            
+
             var interaction = itemmodel.getElementsByTagName('interaction')[0];
             if ( !interaction ) {
                 var numchoices = dpitem.xpathQuery(
@@ -2343,7 +2375,7 @@
                 if ( !itemmodel.hasAttr( 'marked' ) ) {
                     itemmodel.setAttr( 'marked', '0' );
                 }
-                
+
                 if ( !itemmodel.hasAttr( 'answered' ) ) {
                     itemmodel.setAttr( 'answered', '0' );
                 }
@@ -2381,7 +2413,7 @@
                        }
                   }
             }
-			
+
 			return result;
 
 		]]></method>
@@ -2594,7 +2626,7 @@
 					gManipulativeBar.globals.magnifyingGlass.setAttribute('visible', true);
 				}
 			}
-	
+
 			if(this.showMaskingAnswerPopUp && gController.returnNumberOfOptions() > 0){
 				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', true);
 				if(answerArray.length != returnNumberOfOptions()){
@@ -2688,6 +2720,7 @@
 				if(navigateFrom == "goOn") {
 					//changeItem( getItemFromOffset( currItemOffset() + 1 ) );
 					stepNavigateForward();
+
 					this.setAttribute("navigateConfirm",false);
 				}
 				else if(navigateFrom == "goBack") {
@@ -2708,7 +2741,7 @@
 
 			this.hideRevisitPopup();
 		</method>
-	
+
 		<!-- nav -->
 		<method name="navigateTo" args="itemeid"><![CDATA[
             var curreid = Number(
@@ -2717,7 +2750,7 @@
             var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 			//Debug.write("dncurrentItem********** ",dncurrentItem);
             dncurrentItem.setAttr('is_visited' , true);
-			
+
 			if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm && itemeid != curreid ){
             	this.showRevisitPopup("quesBar");
 			}
@@ -2796,7 +2829,7 @@
                return fnode.getOffset();
             return 0;
         </method>
-		
+
 		<!-- recursively get the next navigable item's offset -->
 		<method name="getNextNavigableOffset" args="offset"><![CDATA[
 //Debug.write("getNextNavigableOffset called with offset: "+offset);
@@ -2829,7 +2862,7 @@
 				return offset;
 			}
 		]]></method>
-		
+
 		<method name="getItemFromOffset" args="offset"><![CDATA[
 //Debug.write("getItemFromOffset called with offset: "+offset);			
             var eltlist = dpsubtest.xpathQuery('/subtest/ob_assessment/ob_element_list');
@@ -2886,7 +2919,7 @@
             		this.showRevisitPopup("goBack");
 				}else{
 				changeItem( getItemFromOffset( currItemOffset() - 1 ) );
-            	}
+            }
             }
         ]]></method>
 
@@ -2897,7 +2930,7 @@
             );
 			var totalitem = Number(
 				dpstudentdata.xpathQuery( 'question_number/@total_including_theme')  );
-            
+
 			if ( !onLastItem() ) {
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && 
@@ -2907,7 +2940,7 @@
 				}else{
 					changeItem( getItemFromOffset( currItemOffset() + 1 ) );
             	}
-            }	
+            }
         ]]></method>
 
 		<!-- question state -->
@@ -2998,10 +3031,10 @@
             if ( dnsel ) {
             	var wasEliminated = dnsel.getAttr('user_action') == 'e';
                 dnsel.setAttr ('user_action', value);
-    
+
                 var dninteraction = dnsel.parentNode;
                 var maxchoices = dninteraction.getAttr ('max_choices');
-    
+
                 //perform radio button like behavior
                 if (maxchoices == 1 && value == 's') 
                 {
@@ -3017,7 +3050,7 @@
                 var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
                 var curritem = Number (dncurritem.getAttr ('eid'));
                 var dnruntimeitem = dpstudentdata.xpathQuery ("runtime/item_model [@eid = '"+curritem+"']");
-    
+
                 switch ( value ) {
                     case 's':
 			//			Debug.write("setItemSelState called for setting answered" +  dncurritem.getAttr('answered'));
@@ -3029,11 +3062,11 @@
                         dnruntimeitem.setAttr( 'score', score );
                         dncurritem.setAttr ('answered', 1 );
                         dnruntimeitem.setAttr ('answered', 1 );
-                        
+
                         /*if(this.isaudio){
                         	enableMoreInfo();
                         }*/
-          
+
                         var rationaleText = getRationaleText(selid);
               //Debug.write("rationaleText: " + rationaleText);
               //printBigString(dpitem.serialize());
@@ -3109,7 +3142,7 @@
 		<method name="setGrState" args="colnum, value"><![CDATA[
 			if ( dpstudentdata.xpathQuery( 'current_item/item_model/interaction/@type' ) == 'grid' )
 			{
-			
+
 				var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
 				var curritem = Number (dncurritem.getAttr ('eid'));
 				var dnruntimeitem = dpstudentdata.xpathQuery ("runtime/item_model [@eid = '"+curritem+"']");
@@ -3194,6 +3227,7 @@
             	gReadableText.stopReading(false);
                 freezeUI();
                 stopQuestion();
+				removeTrackTimer();
 				//gMusicPlayer.hide();
 		   //For defect 65881         
             if(this.recorder != null)
@@ -3206,7 +3240,7 @@
 			//	if(recordState !='-1'){
 			//	this.updateAudioField(this.recorder.widget_id, true);
 			//	}
-	
+
 			}
 				/*if(this.htmlFields != null){
 					hideHtmlWidgets();
@@ -3216,7 +3250,6 @@
 				setState(PAUSE_STATE);
                 this.setAttribute("sendCatSave",false);
                 save(PAUSE_LEV);
-                
             }
             
       ]]>  </method>
@@ -3233,11 +3266,16 @@
 			this.resetCrs();
             lz.Cursor.unlock();  
         	checkHideMagnifierGlass();
-			checkHideMaskingChoiceDD();   
-			hideTICalculators(); //hide TI calculators when on pause screen
+			checkHideMaskingChoiceDD();  
+			
           	closeOpenManipulatives();
           	hideManipulatives();
+			removeTrackTimer();
+			resetPauseTimer(timerInterval);
+			startPauseTimer();
             gScreens.showPause(getStudentName());
+	        gPauseTimerScreen.setAttribute('visible',true);
+			hideTICalculators(); //hide TI calculators when on pause screen
 			gTooltip.hideTooltip();
 			gController.setAttribute("isAnswerAreaDisabled",false);
 		</method>
@@ -3247,6 +3285,7 @@
                 lz.Cursor.setCursorGlobal( 'waitcursor' );
 				setState(PAUSED_RESUME_STATE);
 				resetHeartbeat();
+				recalltrackMouseMove();
 				gCommunicator.lifecycle(RESUME_LEV);
                 return true;
             } else {
@@ -3255,12 +3294,11 @@
         </method>
 
 		<method name="_handlePausedResumeResponse" args="xml">
-			/*if(this.htmlFields != null){
-					showHtmlWidgets();
-			}*/
+			this.setAttribute('timeoutforpause', false);
 			showItemInterface();
 			gScreens.resetTextFieldColor();
             startQuestion();
+			recalltrackMouseMove();
 			showManipulatives();
 			manipulativeSelected();
 			unlockUI();
@@ -3269,6 +3307,10 @@
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
 			showTICalculators();//show TI calculators when returns from pause screen if it was open before going to pause screen
+			removePauseTimer();
+			timeoutDialog.close();
+			gPauseTimerScreen.setAttribute('visible', false );
+			dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
 		</method>
 		
 		<method name="hideManipulatives">
@@ -3309,7 +3351,7 @@
 			//if(recordState !='-1'){
 			//	this.updateAudioField(this.recorder.widget_id, true);
 			//	}
-			}		
+			}
             setState(FINISH_STATE);
             if(this.isStopTest){
             	this.setAttribute("sendCatSave",false);
@@ -3321,6 +3363,7 @@
             }
 			//this.resetHtmlFields();
 			
+			
 		    save(null);
         ]]></method>
 	
@@ -3330,7 +3373,7 @@
         	if(itemnode != null){
 					curItemId = itemnode.getAttr( 'eid' );
 			}
-			
+
 			if(Number(curItemId) != Number(this.prevItemId))
 			{
 				this.setAttribute("sendCatSave",true);
@@ -3366,7 +3409,7 @@
 				//Debug.write(" finish test for restart");
 					this.setAttribute("isStopTest",false);
 					this.setAttribute("isFinishTest",true);
-					}	
+					}
 				if(gScreens.isOnFinishScreen()){
 					Debug.write("isOnFinishScreen1");
 					gController.saveEndSubtest();
@@ -3485,12 +3528,12 @@
 		]]></method>
 
 		<method name="applyManipulative"><![CDATA[
-		
+
 		var itemText = dsitem.getPointer().xpathQuery('element_package');
  		this.setAttribute("itemtxt", itemText.serialize());
 		var answerAreaPos = this.itemtxt.indexOf('stereotype="answerArea"');
 		return answerAreaPos != -1;
-		 
+
 		]]></method>
 
 		<method name="resumeTest">
@@ -3510,6 +3553,7 @@
 			showManipulatives();
             gQuestion.setGrFocus();
             restoreScratchpadFocusIfNeeded();
+            recalltrackMouseMove();
 			bringFocusToIFrame();
             unlockUI();
 			
@@ -3647,8 +3691,8 @@
        		var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
         	if(itemnode != null){
 					curItemId = itemnode.getAttr( 'eid' );
-			}			
-			
+			}
+
 			setState(SAVE_LOAD_STATE);
 			setAttribute("loadNode", fnode);
 
@@ -3661,7 +3705,7 @@
 					save(lev);
 				}else{
 					this.setAttribute("sendCatSave",false);
-				}	
+				}
 			}else{
 				save(lev);
 			}
@@ -3747,7 +3791,7 @@
 
 		<method name="getSaveParams" args="lev">
      		// method will return null if only ast needed, tsd params otherwise
-     		var result = null; 
+     		var result = null;
      		if(lev != null || isOnItemOrFinishScreen()){
 	    		result = getTsdParams(lev);
     		}
@@ -3803,24 +3847,24 @@
  					itemType = dpitem.xpathQuery('item_canvas/*/recorder_widget')
 					if(itemType == null){
 			 			itemType = dpitem.xpathQuery('item_canvas/panel/*/recorder_widget')
-					} 
+					}
 					if(itemType == null){
 						itemType = dpitem.xpathQuery('item_canvas/panel/panel/*/recorder_widget')
 					}
 
 					if(!isThemeItem()){
 						if(itemType != null){
-							result[9] = 1;							
+							result[9] = 1;
 						}
 					}
-					
-					result[10] = 0;			
+
+					result[10] = 0;
 					if(this.sendCatSave == true)
 						result[10] = 1;
-						
+
 					/*itemNo = itemnode.getAttr( 'item_no' ); // current item no
 					curEid = itemnode.getAttr( 'eid' ); // current eid
-					
+
 					var elist = dpsubtest.xpathQuery('ob_assessment/ob_element_list');
             		var items = elist.getElementsByTagName( 'f' );
             		Debug.write("items after");  	
@@ -3834,8 +3878,8 @@
     		}
 		Debug.write("### result :", result);
     	//this.setAttribute('blockFileName' , true);
-		//setting the item is visited 
-		
+		//setting the item is visited
+
 		printBigString(dpstudentdata);
                 var dncurritem =
                     dpstudentdata.xpathQuery ('current_item/item_model/');
@@ -3846,24 +3890,24 @@
 					Debug.write("### getItemParam :"+ curEid +"::"+fnodeEid);
 					if(this.istLength == itemNo){
 						dncurritem.setAttr( 'eid', fnodeEid); // current iid
-					}	
+					}
 				}*/
     		return result;
     	]]></method>
-    	
+
     	<method name="replaceAdaptiveCurEid"><![CDATA[
 	    	Debug.write("_handleSaveLoadResponse");
 			var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
 			var itemNo = itemnode.getAttr( 'item_no' ); // current item no
 			var curEid = itemnode.getAttr( 'eid' ); // current eid
-						
+
 			var elist = dpsubtest.xpathQuery('ob_assessment/ob_element_list');
 	        var items = elist.getElementsByTagName( 'f' );
 	        var fnodeEid;
 	        if (this.adaptive == true && dprestart.isValid()) { 
 	            fnodeEid = items[itemNo-1].getAttr( 'id' );
-	        }            		
-	            		
+	        }
+
 			var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model/');
 			if(this.adaptive == true && dprestart.isValid()){
 				Debug.write("### _handleSaveLoadResponse :"+ this.istLength +"::"+itemNo);
@@ -3871,8 +3915,8 @@
 				if(this.istLength == itemNo){
 					Debug.write("### _handleSaveLoadResponse setting :"+curEid+" to "+fnodeEid);
 					itemnode.setAttr( 'eid', fnodeEid); // current iid
-				}	
-			}    	
+				}
+			}
     	]]></method>
 
 		<attribute name="pending" value="$once{ {} }" />
@@ -3931,7 +3975,7 @@
            // gEnlargePopup.shrink();
             gFootNotePopup.hide();
             gRationalePopup.hide();
-            
+
 			//for ISTEP CR
             gPleaseWaitPopup.hide();
         </method>
@@ -4001,7 +4045,7 @@
             if (!ismarked) {
                 var dnman = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives');
                 var dngen = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/general');
-                
+
                 if(dnman != null){
                 	dnman.removeChild (dngen);
                 }
@@ -4058,7 +4102,7 @@
                         case 'required':
 							checkTNorFCATrefCard(i); // check if any of the fixed formula cards are required                       	
 							toolstate = 'up';
-                        	
+
                         	break;
                         case 'accommodated':
                         	if(i == 'standard_calculator' || i == 'scientific_calculator'){
@@ -4103,13 +4147,12 @@
                         	   	dnglobal.setAttr (i, toolstate);
                         	}
                         }
-					
+
                       if (i == 'scratchpad' && dnglobal && dnglobal.getAttr(i) != 'disable'){  // force override scratchpad to obey global value
                        	dnglobal.setAttr(i, this.scratchpadOpen ? 'sel' : 'up');						
                       }
                     } else if (initgeneral) {
                         dngeneral.setAttr (i, toolstate);
-						//dngeneral.setAttr ('protractor', 'sel');		//To test any manip when it's not present in item					
                     }
 
                 }
@@ -4155,7 +4198,7 @@
 			}
 			//end
        ]]></method>
-       
+
        <method name="getToolstate" args="toolid">
 			var dntoolbar = dpstudentdata.xpathQuery ('current_item/item_model/toolbar');
 			Debug.write("getToolstate----- ",dntoolbar,dntoolbar.attributes[toolid],toolid);
@@ -4167,7 +4210,7 @@
 				case 'required':
 					checkTNorFCATrefCard(toolid); // check if any of the fixed formula cards are required                       	
 					toolstate = 'up';
-					
+
 					break;
 				case 'accommodated':
 					if(toolid == 'standard_calculator' || toolid == 'scientific_calculator'){
@@ -4248,7 +4291,7 @@
 	                        }
 	                    }
 	                }
-	            } 
+	            }
 	        } else {
                 dn = dpstudentdata.xpathQuery ('current_item/item_model/manipulatives/general');
             }
@@ -4262,7 +4305,7 @@
                     dnmanip = new lz.DataElement (which, {}, []);
 
 			var fCardrsrc = dpstudentdata.xpathQuery('current_item/item_model/toolbar/@formula_card_resource');
-					if(which == 'formula_card_resource' && fCardrsrc != null) {						
+					if(which == 'formula_card_resource' && fCardrsrc != null) {
 						dnmanip.setAttr('src', fCardrsrc);
 					}
                     dn.appendChild (dnmanip);
@@ -4272,7 +4315,7 @@
                     dn.removeChild (dnmanip);
                 }
             }
-            
+
             if(which == 'scratchpad'){  // keep track of scratchpad state globally
 				this.setAttribute('scratchpadOpen', value=='sel');
             }
@@ -4284,7 +4327,7 @@
 		<method name="_isGlobalManipulator" args="manipname">
             var result = false;
             if(_isRadioGlobalManipulator(manipname) ||
-                manipname == 'scratchpad' || 
+                manipname == 'scratchpad' ||
 				manipname == 'masking_ruler') {
                 result = true;
             }
@@ -4293,8 +4336,8 @@
 
 		<method name="_isRadioGlobalManipulator" args="manipname">
 			var result = false;
-            if (manipname == 'highlighter' || 
-                manipname == 'eraser' || 
+            if (manipname == 'highlighter' ||
+                manipname == 'eraser' ||
                 manipname == 'option_eliminator') {
                 result = true;
             }
@@ -4308,7 +4351,7 @@
                 return b;
             } else if ( typeof( b ) == 'number' ) {
                 return String( b );
-            } 
+            }
         </method>
 
 		<attribute name="dsendHeartbeat"
@@ -4419,7 +4462,7 @@
 
 		<method name="endSubtest" ><![CDATA[
 			if(imageLIArray.length > 0){
-	
+
 				for(var i = 0 ; i < this.imageLIArray.length ; i++){
 					//this.imageLIArray[i].imageview.getMCRef().unloadMovie();
 					if ($dhtml) {
@@ -4439,6 +4482,7 @@
 			}
 			this.resetImageArray();
 			//this.setAttribute('isaudio',false);
+			this.setAttribute('timeoutforpause', false);
 			setState(WRITE_TO_AUDIT_FILE_STATE);
 			gCommunicator.writeToAuditFile(lsid, scid, getModelString());
         ]]></method>
@@ -4576,7 +4620,7 @@
         ]]></method>
 
 		<method name="stopQuestion">
-    
+
             if ( timing ) {
 				var timestamp;
                 //var timestamp = lz.Timer.getTimer();
@@ -4592,7 +4636,7 @@
                 this.timing = false;
 
                 this.elapsedms += (timestamp - qtimestamp);
-    
+
                 var itemnode =
                     dpstudentdata.xpathQuery('current_item/item_model');
                 var dsec = itemnode.getAttr( 'dur' );
@@ -4678,13 +4722,13 @@
 		]]></method>
 
 	<!-- Las Links Audio Item Processing methods -->
-		
+
 		<method name="addAudioItem" args="field"><![CDATA[
 		this.audioFields.push(field);
 		]]></method>
 
 		<method name="updateAudioItem"><![CDATA[
-		
+
 		if(isAudioItem() || this.blockFileName){//this will differentiate the audio item save call with the heartbeat
 			Debug.write("updateAudioItem....");
 			var xmls = "<answers>";
@@ -4694,21 +4738,21 @@
 		}
 		]]>
 		</method>
-		
+
 		<method name="generateAudioFileName">
 				var roster_id = this.lsid.split(":");
 				var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
 				var item_id = itemnode.getAttr("iid");
 				return roster_id[0] +"_" + item_id;
 		</method>
-		
+
 		<method name="updateAudioField" args="id,answered"><![CDATA[
 			for (var i = 0; i < this.audioFields.length; i++) {
 				var audioField = this.audioFields[i];
 				if (id == audioField['widget_id']) { 
  	               audioField['answered'] = answered;
 				}
-			}	
+			}
 		updateBlueBallForAudioItem();
 		]]></method>
 
@@ -4725,7 +4769,7 @@
 	                   break;
 	               }
 	            }
-				
+
 	            if (answered) {
 	                currentitem.setAttr("answered", 1);
 	                runtimeitem.setAttr("answered", 1);
@@ -4791,14 +4835,14 @@
 
 		<!-- For NI Item Detection-->
 		<method name="isThemeItem" args=""><![CDATA[
-		
+
 	  var itemnode = dpstudentdata.xpathQuery( 'current_item/item_model' );
 	  var eid = itemnode.getAttr( 'eid' );
 	  return dpsubtest.xpathQuery("ob_assessment/ob_element_list/f[@id='" + eid + "']/@type") == 'NI';  
 		
 		
 		]]></method>
-		
+
 		<!-- Even though we have the answer fields filled from the XML data, we still -->
 		<!-- need to rebuild the CrFields, because they are used by the ball -->
 		<!-- This middle step can probably eventually be removed -->
@@ -4829,9 +4873,9 @@
 		<method name="updateBlueBallForCrItem"><![CDATA[
 			if(this.inQuestion){
 	            var answered = false;
-				
+
 	            var currentitem = dpstudentdata.xpathQuery("current_item/item_model");
-				
+
 
 				var currentEid = currentitem.getAttr('eid');
 	            for (var i = 0; i < this.crFields.length; i++) {
@@ -4840,8 +4884,8 @@
 	                   	break;
 	               	}
 	            }
-				
-	            
+
+
 	            // Update the XML resulting in the blue ball appearing
 	            var runtimeitem = dpstudentdata.xpathQuery("runtime/item_model[@eid = '"+currentEid+"']");
 	            var currentitem = dpstudentdata.xpathQuery("current_item/item_model");
@@ -4968,7 +5012,7 @@
 		<method name="checkTNorFCATrefCard" args="tool"><![CDATA[
            	if(tool == 'FCAT_formula_card' || tool == 'TN_formula_card'){
 				this.setAttribute("hasTNorFCATrefCard", true);
-				return true;	
+				return true;
 			}
 			return false;
 		]]></method>
@@ -4994,24 +5038,25 @@
 			this.isWaitPopupOpen = false;
 			lz.Timer.removeTimer(dNetworkLostPopup);
 			if(gCommunicator.firstRequestDone) {
-				
+
 						gPleaseWaitPopup.hide();
 						showWaitPopup();
 						gPleaseWaitPopup.showControls();
-				
+
 			}
-            
+
 		]]></method>
 
 		<method name="hideWaitPopup"><![CDATA[
-			this.isWaitPopupOpen = false;	
+			this.isWaitPopupOpen = false;
 			gPleaseWaitPopup.hide();
+			recalltrackMouseMove();
 			lz.Timer.removeTimer(dNetworkLostPopup);
 			gReadableText.stopRequestor();
 			gController.unlockUI();
 			checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
-			
+
 			/*if(gCommunicator.firstRequestDone) {
 				if(gReadableText.speechRequestSent) {
 					showError(gXmlHelper.getSpeechErrorXml());
@@ -5026,22 +5071,22 @@
 			if(!isWaitPopupOpen){
 				showWaitPopup();
  				lz.Timer.resetTimer( dNetworkLostPopup, 60000 );
-				}	
+				}
 		</method>
 		<method name="showRevisitPopup" args="calledFrom">
-			this.isRevisitPopupOpen = true;	
+			this.isRevisitPopupOpen = true;
 			gRevisitFalsePopup.show(calledFrom);
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
 		</method>
-		
+
 		<method name="hideRevisitPopup"><![CDATA[
-			this.isRevisitPopupOpen = false;	
+			this.isRevisitPopupOpen = false;
 			gRevisitFalsePopup.hide();
 			checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
 		]]></method>
-		
+
 		<method name="hideMagnifierGlass">
 			hideMagnify();
 			gManipulativeBar.globals.magnifyingGlass.setAttribute("frame",1);
@@ -5083,7 +5128,7 @@
 		<method name="checkHideMaskingChoiceDD">
 			if(this.maskingAnswerDDState)  {
 				gMaskingAnswer.hidePopUp();
-		   }   
+		   }
 		</method>
 
 		<method name="checkShowMaskingChoiceDD">
@@ -5114,7 +5159,7 @@
 						}else if(answerArray[i].subviews[1].subviews[0].type){
 							answerArrayType = answerArray[i].subviews[1].subviews[0].type;
 						}
-	
+
 						if(ansObjType == answerArrayType){
 							pushToArray = false;
 						}
@@ -5126,11 +5171,12 @@
 				//added for defect 77227 for ipad end
 			}
 		//ansObject.hide();
-		
+
+
 		]]></method>
 
-		
-		
+
+
 		<method name="contains" args="answerArray,ansObject"><![CDATA[
 		var k = ansObject.subviews[0].subviews[0].type;
 		if(k == null){
@@ -5142,30 +5188,30 @@
 				 return true;
 			}
 		}
-		
-			return false; 
+
+			return false;
 		]]></method>
 
 		<method name="returnNumberOfOptions"><![CDATA[
 			var result = [];
 			 result = dpitem.xpathQuery('item_canvas/*/answer_choice_widget/selector_widget')
-			
+
 			if(result == null){
  			result =dpitem.xpathQuery('item_canvas/panel/*/answer_choice_widget/selector_widget')
-			} 
-			if(result == null){ 
+			}
+			if(result == null){
 			 result	= dpitem.xpathQuery('item_canvas/panel/panel/*/answer_choice_widget/selector_widget')
 			}
-			
-			if(result == null){ 
+
+			if(result == null){
 				result = [];
 			}
 			//Debug.write("result length for masking answer choice", result.length);
 			return result.length;
-			
+
 
 		]]></method>
-		
+
 		<method name="maskChoice" args="data,state"><![CDATA[
 			var actualIndex;
 			var index =data.substring(6,7);
@@ -5174,7 +5220,7 @@
 				for(var i=0; i < answerArray.length; i++){
 					if(type == null ){
 						type = answerArray[i].subviews[0].subviews[0].type;
-					} 
+					}
 				}
 			}
 			var change = false;
@@ -5193,7 +5239,7 @@
 			}
 			if(state == 'Hide'){
 				if(index != null && index != ""){
-					
+
 					/*answerArray[actualIndex].subviews[0].hide();
 					answerArray[actualIndex].subviews[1].hide();
 					answerArray[actualIndex].subviews[2].hide();	*/		
@@ -5201,7 +5247,7 @@
 						for(var i=0;i<answerArray[actualIndex].subviews.length;i++){
 							answerArray[actualIndex].hide();
 						}
-					}	
+					}
 				}
 			}
 			else if(state == 'Show'){
@@ -5213,7 +5259,7 @@
 						for(var i=0;i<answerArray[actualIndex].subviews.length;i++){
 									answerArray[actualIndex].show();
 						}
-					}	
+					}
 				}
 			}
 
@@ -5248,7 +5294,7 @@
 			}
 		]]>
 		</method>
-		
+
 		<method name="enableAnswerOptions"><![CDATA[
 			var id = isAnswerToBeDisabled();
 			var isPlaying = checkIfPlaying(id);
@@ -5259,7 +5305,7 @@
 			}
 		]]>
 		</method>-->
-		
+
 		<method name="getChoiceName" args="index">
 		if(index == 0)return 'A';
 		else if(index == 1)return 'B';
@@ -5269,7 +5315,7 @@
 		else if(index == 5)return 'F';
 		else if(index == 6)return 'G';
 		</method>
-		
+
 		<method name="clearAll"><![CDATA[
 				for (var i = 0; i < answerArray.length; i++){
 						//answerArray[i].show();
@@ -5279,13 +5325,13 @@
 					for(var j = 0; j < answerArray[i].subviews.length; j++){
 						answerArray[i].show();
 					}
-						
+
 				}
 			resetAnswerArray();
 		]]></method>
-		
+
 		<method name="returnIndex" args="arr,index,change"><![CDATA[
-	
+
 		Debug.write("returnIndex :"+arr.length,index,change);
 		Debug.write("index--------- ",Number(index));
 		index = Number(index);
@@ -5303,7 +5349,7 @@
 						}
 					}
                     break;
-				case 1: 
+				case 1:
 				Debug.write("returnIndex case 1");
                     for(var i=0; i < arr.length; i++){
 						if(answerArray[i].subviews[0].subviews[0].type == 'B' && !change){
@@ -5316,7 +5362,7 @@
 						}
 					}
                     break;
-				case 2: 
+				case 2:
 				Debug.write("returnIndex case 2");
                    	for(var i=0; i < arr.length; i++){
 						if(answerArray[i].subviews[0].subviews[0].type == 'C' && !change){
@@ -5329,7 +5375,7 @@
 						}
 					}
                     break;
-				case 3: 
+				case 3:
 				Debug.write("returnIndex case 3");
                     for(var i=0; i < arr.length; i++){
 						if(answerArray[i].subviews[0].subviews[0].type == 'D' && !change){
@@ -5355,7 +5401,7 @@
 						}
 					}
                     break;
-				case 5: 
+				case 5:
 				Debug.write("returnIndex case 5");
                    	for(var i=0; i < arr.length; i++){
 						if(answerArray[i].subviews[0].subviews[0].type == 'F' && !change){
@@ -5366,9 +5412,9 @@
 							Debug.write("returnIndex i 2:"+i);
 							return i;
 						}
-					} 
+					}
                     break;
-				case 6: 
+				case 6:
 				Debug.write("returnIndex case 6");
                     for(var i=0; i < arr.length; i++){
 						if(answerArray[i].subviews[0].subviews[0].type == 'G' && !change){
@@ -5383,7 +5429,7 @@
                     break;
 	 		}
 		]]></method>
-		
+
 		<method name="returnRandomIndex" args="arr,selId"><![CDATA[
 		Debug.write("returnRandomIndex :"+arr.length);
 		var dnsel = dpstudentdata.xpathQuery ("current_item/item_model/interaction/selector[@randomIdentifier='"+selId+"']");
@@ -5391,7 +5437,7 @@
 		/*Debug.write("returnRandomIndex random selected id :"+selId);
 		Debug.write("returnRandomIndex actual selected id :"+selid1);
 		Debug.write("dnsel :",dnsel);*/
-				
+
 		for(var i=0; i < arr.length; i++){
 			if(answerArray[i].subviews[0].subviews[0].type == actSelid){
 				//Debug.write("returnRandomIndex i 1:"+i+"::"+answerArray[i].subviews[0].subviews[0].type);
@@ -5404,8 +5450,8 @@
 			//Debug.write("returnRandomIndex i 3:"+i+"::"+answerArray[i].subviews[0].subviews[0].type);
 		}
 		]]></method>
-		
-		
+
+
 		<method name="resetAnswerArray"><![CDATA[
 
 			for (var i = 0; i < this.answerArray.length; i++) {
@@ -5423,7 +5469,7 @@
 				argsNodeArr = argsNodePtr.xpathQuery("tsd");
 				if(argsNodeArr instanceof lz.DataElement) {
 					argsNodeArr = new Array(argsNodeArr);
-				}	
+				}
 				argsNodeArrLen = argsNodeArr.length;
 				if(argsNodeArrLen > 1) {
 					Debug.write("dprestart has more than one child....",argsNodeArrLen," : ",argsNodePtr.data);
@@ -5436,8 +5482,8 @@
 					argsNodePtr.deleteNode(); 
 				}	
 			}
-		]]></method>	
-		
+		]]></method>
+
 	<method name="addImageFields" args="field"><![CDATA[
 		this.idImageFields.push(field);
 		]]></method>
@@ -5451,7 +5497,7 @@
 			enableAnswerOptions();
 		if(crFields != null)
 			enableResponseArea();
-		
+
 		for(var i =0;i<this.idImageFields.length;i++){
 			var cachableImage = this.idImageFields[i];
 			/*if(cachableImage['imageComponent'] instanceof CachableImage){
@@ -5469,8 +5515,8 @@
 					if(this.recorder != null) {
 						disableRecorder();
 					}
-					
-					isPlayed();	
+
+					isPlayed();
 				}
 				else if(cachableImage['imageComponent'].imageview.getMCRef().isPlaying && this.isAudioPlaying && cachableImage['imageComponent'].hasPlayed){
 					this.idImageFieldTemp=cachableImage['imageComponent'];
@@ -5485,13 +5531,13 @@
 				}
 			}*/
 		}
-	]]>	
+	]]>
 	</method>
 
 	<method name="enableNextAudio" args="widgetId"><![CDATA[
 		var contentArea = dpsubtestdata.getNodeText();
 		var dncurritem = dpstudentdata.xpathQuery ('current_item/item_model');
-	
+
 		for(var i=0;i<this.idImageFields.length;i++){
 			var cachableImage = this.idImageFields[i];
 			cachableImage['imageComponent'].overlay.setAttribute("visible",false);
@@ -5531,7 +5577,7 @@
 		}else{
 			resetCheckPlaying();
 		}
-	]]>	
+	]]>
 	</method>
 
 	<method name="resetCheckPlaying">
@@ -5545,10 +5591,10 @@
 			unlockUI();
 		}
 		enableNextAudio(this.idImageFieldTemp.widget_id);
-		this.idImageFieldTemp = null;		
+		this.idImageFieldTemp = null;
 	]]>
 	</method>
-	
+
 	<method name="resetImageField"><![CDATA[
 		 for (var i = 0; i < this.idImageFields.length; i++) {
 			 var cachableImage = this.idImageFields[i];
@@ -5615,7 +5661,7 @@
 			delete this.audioArray[k];
 		}
 		this.audioArray.length=0
-	]]>	
+	]]>
 	</method>
 
 	<method name="disableResponseArea"><![CDATA[
@@ -5633,7 +5679,7 @@
 		}
 	]]>
 	</method>
-	
+
 	<method name="enableResponseArea"><![CDATA[
 		var id = isAnswerToBeDisabled();
 		var isPlaying = checkIfPlaying(id);
@@ -5680,7 +5726,7 @@
 		return isPlaying;
 	]]>
 	</method>
-	
+
 	<method name="enableMoreInfo"><![CDATA[
 		Debug.write("idImageFields********** ",this.idImageFields);
 		var contentArea = dpsubtestdata.getNodeText();
@@ -5715,8 +5761,8 @@
             this.htmlFields.length = 0;
             this.setAttribute("isTE",false);
 		]]></method>
-		
-	
+
+
 
 		<method name="updateBlueBallForHtmlItem" args="answer"><![CDATA[
 			if(this.inQuestion){
@@ -5725,11 +5771,11 @@
 				var currentEid = currentitem.getAttr('eid');
 	            // Update the XML resulting in the blue ball appearing
 	            var runtimeitem = dpstudentdata.xpathQuery("runtime/item_model[@eid = '"+currentEid+"']");
-				
+
 				if(answer == true || answer == 'true'){
 					answered = true;
 				}
-				
+
 	            if (answered) {
 	                currentitem.setAttr("answered", 1);
 	                runtimeitem.setAttr("answered", 1);
@@ -5804,22 +5850,21 @@
             	for (var i = 0; i < this.htmlFields.length; i++) {
 					xmls = xmls.concat("<answer id=" + "\"" + this.htmlFields[i]['widget_id'] + "\""+ ">");
                 	if(!htmlFields[i]['answered']){
-	                   		xmls = xmls.concat("</answer>");
-	                   	}
-	                	else{
-	                   		xmls = xmls.concat(wrapInCdata(data) + "</answer>");
-					}
+                   		xmls = xmls.concat("</answer>");
+                   	}
+                	else{
+                   		xmls = xmls.concat(wrapInCdata(data) + "</answer>");
+                   	}
             	}
             	xmls = xmls.concat("</answers>");
             	gController.setItemCRState(xmls);
  			}
 		]]></method>
-		
+
 		<method name="getStateForInputWidgetId" args="widgetId"><![CDATA[
 			var result="";
 			var eid = loadNode.getAttr('id');
 			var answers = dpstudentdata.xpathQuery( "runtime/item_model [@eid = '"+eid+"']/@answer_text");
-			
 			var node = lz.DataElement.stringToLzData(unescape(answers));
 			//console.log("getStateForInputWidgetId node", node);
             if (node) {
@@ -5845,6 +5890,7 @@
 			return parsed;
 
 		]]></method>
+
 		<method name="inContinueToDownload">
           Debug.write("inContinueToDownload",inContinueToDownload);
             gScreens.setAttribute('height',200);
@@ -5881,10 +5927,7 @@
 		<method name="goToGoodbyeScreenToRelogin">
 		<!-- called when login page has to load again --> 
 			stopHeartbeat();
-			//removeTrackTimer();
-			//removePauseTimer();
 			gRevisitFalsePopup.hide();
-			//gPauseTimerScreen.setVisible(false);
 			gScreens.showGoodbye();
 			lz.Timer.addTimer(drelogin, 2500);
 			gController.setAttribute('isRelogin',false);
@@ -5894,12 +5937,135 @@
 		<!-- To reload login.html --> 
 			document.location.reload(true);
 		</method>
-<method name="bringFocusToIFrame">
-	if(document.activeElement.tagName == "IFRAME" || document.activeElement.tagName == "BODY") {
-			top.focus();
-	}
-</method>
+		<method name="bringFocusToIFrame">
+			if(document.activeElement.tagName == "IFRAME" || document.activeElement.tagName == "BODY") {
+					top.focus();
+			}
+		</method>
+		
 
+		<!--TABE:added for pause/inactivity timer start-->
+
+		<method name="testTimedout">
+				gPauseTimerScreen.setAttribute('visible',false);
+				timeoutDialog.close();
+				this.setAttribute('testTimeout',true);
+				copyCurrentToRuntime();
+				endSubtest();
+		</method>
+
+		<method name="startPauseTimer">
+	            updateTimeLeftForPause();
+	            lz.Timer.resetTimer( dupdateTimeLeftForPause, 1000 );
+	            this.qtimestampforpause = getTimer();
+	            this.timingforpause = true;
+	            exitPopups();
+        </method>
+
+		<method name="updateTimeLeftForPause"><![CDATA[
+	            var timestamp = getTimer();
+	            if ( timingforpause ) {
+	                var remainingmsforpause =
+	                    durationmsforpause - (timestamp - qtimestampforpause);
+	                if ( remainingmsforpause <= 0 ) {
+	                    dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
+						canvas.setPromptDimension();
+						if(gPleaseWaitPopup.visible){
+							this.setAttribute('timeoutforpause',true);
+						}else{
+							timeoutDialog.open();
+						}
+	                } else {
+	                    var timeleftforpause = secondsToString(
+	                        Math.floor( remainingmsforpause / 1000 )
+	                    );
+	                    dpdisplay.setNodeAttribute( 'timeleftforpause', timeleftforpause );
+
+	                    lz.Timer.resetTimer( dupdateTimeLeftForPause, 1000 );
+	                }
+	            } else {
+	                var remainingmsforpause = durationmsforpause - elapsedmsforpause;
+	                if ( remainingmsforpause <= 0 ) {
+	                    dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
+						canvas.setPromptDimension();
+						timeoutDialog.open();
+	                } else {
+	                    var timeleftforpause = secondsToString(
+	                        Math.floor( remainingmsforpause / 1000 )
+	                    );
+	                    dpdisplay.setNodeAttribute( 'timeleftforpause', timeleftforpause );
+	                }
+	            }
+        ]]></method>
+
+		<attribute name="dupdateTimeLeftForPause"
+			value="$once{ new lz.Delegate( this, 'updateTimeLeftForPause' ) }" />
+
+		<method name="resetPauseTimer" args="durseconds">
+	            this.durationmsforpause = durseconds;
+	            this.elapsedmsforpause  = 0;
+	            this.qtimestampforpause = 0;
+	            this.timingforpause     = false;
+        </method>
+
+		<method name="removePauseTimer">
+				lz.Timer.removeTimer(dupdateTimeLeftForPause);
+		</method>
+
+
+		<attribute name="trackDel"
+                   value="$once{new lz.Delegate( this , 'trackMouseMove' ) }" />
+
+		<method name="trackMouseMove" >
+            <![CDATA[
+	            var xpos = Math.round( canvas.getMouse("x") );
+	            var ypos = Math.round( canvas.getMouse("y") );
+	            if ( (this.lastxpos != xpos)
+	              || (this.lastypos != ypos) ) {
+	                this.lastxpos = xpos;
+	                this.lastypos = ypos;
+					this.setAttribute('trackTimer',0);
+	                resetTrackTimer();
+	            }else{
+	            	this.setAttribute('trackTimer',Math.round(this.trackTimer+1000));
+	            	if(this.trackTimer >= timerInterval){
+						stopQuestion();
+						removeTrackTimer();
+						if(jQuery('#calculatorDiv').is(":visible")){	
+							closeTI30Calc();
+						}	
+						if(jQuery('#calculatorTI84Div').is(":visible")){	
+							closeTI84Calc();
+						}
+						hideMagnifierGlass();
+						hideMaskingChoiceDD();
+						gScreens.showTimeoutForInactivity();
+						canvas.setPromptDimension();
+	            		timeoutDialog.open();
+	            	} else {
+						resetTrackTimer();
+					}
+	            }
+            ]]>
+        </method>
+
+        <method name="resetTrackTimer">
+				lz.Timer.resetTimer(trackDel,1000);
+		</method>
+
+		<method name="removeTrackTimer">
+				this.setAttribute('isHandlerInactive', true);
+				this.setAttribute('trackTimer',0);
+				lz.Timer.removeTimer(trackDel);
+		</method>
+
+		<method name="recalltrackMouseMove">
+				this.setAttribute('isHandlerInactive', false);
+				this.setAttribute('trackTimer',0);
+				trackMouseMove();
+		</method>
+	
+		<!--TABE:added for pause/inactivity timer end-->
 
 	</node>
 
