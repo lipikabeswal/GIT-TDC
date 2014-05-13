@@ -174,7 +174,6 @@
 						gController.unlockUI();
 						this.setAttribute('unlocked', true);
 					}
-					gController.htmlFields[0]['answered'] = this.answered;
 				}
 	       ]]> </method>
 	
@@ -189,7 +188,6 @@
 							checkedVals = this.answerObjSet.checkedVals;
 						}
 						setState(htmlContent, jsonContent, checkedVals);
-						setResponseInGlobalArray(this.answerObjSet);
 						//lz.Timer.resetTimer(setStateDel, 1000);
 					}//else{
 						//lz.Timer.removeTimer(setStateDel);
@@ -229,17 +227,8 @@
 			</method>
 	        
 		    <method name="getStateHandler" args="retVal">
-	    		func1();
-				setResponseInGlobalArray(retVal);
-		     </method>
-
-			/*setting response for each item in answerObj in Controller */
-			<method name="setResponseInGlobalArray" args="response">
-				this.setAttribute('answer', response);
-				var currResp = new Object();
-				currResp.widget_id = this.widget_id;
-				currResp.answer = response;
-				gController.updateHtmlFields(currResp,this.answered);
+					this.setAttribute('answer', retVal);
+					gController.updateHtmlFields(retVal,this.answered);
 			</method>
 	        
 	

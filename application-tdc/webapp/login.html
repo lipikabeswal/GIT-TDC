@@ -269,13 +269,10 @@ function setFootnoteText(arg){
 }
 
 function isAnswered(){
-var ans = false;
  var elem = jQuery("iframe")[0];
 	if(elem){
-		if(elem.contentWindow.accomPkg){
-			ans = elem.contentWindow.accomPkg.isItemAnswered();
-	 		return ans;
-	 	}
+		if(elem.contentWindow.accomPkg)
+	 	return elem.contentWindow.accomPkg.isItemAnswered();
 	}        	
  }
  
@@ -290,10 +287,6 @@ var ans = false;
  	}     
  }
  
- function getResponse(response){
- 	gController.htmlFields[0]['ref'].getStateHandler(response);
- }
- 
  function setState(htmlContent,jsonContent,checkedVals){
  	var elem = jQuery("iframe")[0];
     if(elem){
@@ -302,11 +295,11 @@ var ans = false;
    				console.log("inside setState");
    				htmlContent = replaceAbsPathWithRelPath(htmlContent);
            		elem.contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
+				gController.unlockUI();
 			}
         }
     }
-    gController.unlockUI();
-   //gController.isAnsweredDelegate();   
+   gController.isAnsweredDelegate();   
  }
  // added as a workaround to change answered math pallete image path from absolute path to relative path, 
  // as in TDC the server port might change due to unavailability of the default port.
