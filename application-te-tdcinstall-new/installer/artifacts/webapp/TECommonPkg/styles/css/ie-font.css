@@ -1,0 +1,23 @@
+@font-face {
+	font-family: 'oasmathv3regular';
+	src: url("OASmathv3.eot") format('embedded-opentype'); 	
+	font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+	font-family: 'oasmathv3regular';
+	src: url("OASmathv3_Bold.eot") format('embedded-opentype'); 	
+	font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+	font-family: 'oasmathv3regular';
+	src: url("OASmathv3_BoldItalic.eot") format('embedded-opentype'); 	
+	font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+	font-family: 'oasmathv3regular';
+	src: url("OASmathv3_Italic.eot") format('embedded-opentype'); 	
+    font-style: italic;
+}
