@@ -23,8 +23,10 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.zip.Adler32;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
+/*Commenting out the zip TE response changes as the response size has been reduced 
+				by saving only the scoring data and not the entire inner html*/
+/*import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;*/
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -1361,8 +1363,10 @@ public class ServletUtils {
 			
 		}		
 	}
+	/*Commenting out the zip TE response changes as the response size has been reduced 
+	by saving only the scoring data and not the entire inner html*/
 	
-	public static String processTEZipResponse(String loginXml) throws Exception{
+	/*public static String processTEZipResponse(String loginXml) throws Exception{
 		String modifiedLoginResponse=null;
 		
 		org.jdom.input.SAXBuilder saxBuilder = new org.jdom.input.SAXBuilder();
@@ -1403,7 +1407,7 @@ public class ServletUtils {
 			return modifiedLoginResponse;
 		else 
 			return loginXml;
-	}
+	}*/
 
 	public static byte[] readFromFile(File file)
 	{
@@ -1730,8 +1734,10 @@ return elementList;*/
 
 		 return contentArea;
 	 }
+	 /*Commenting out the zip TE response changes as the response size has been reduced 
+		by saving only the scoring data and not the entire inner html*/
 	 
-	 public static String replaceBetweenStrings(String originalString, String firstDelim,String lastDelim, String replacementString)
+	 /*public static String replaceBetweenStrings(String originalString, String firstDelim,String lastDelim, String replacementString)
 	 {
 		String modifiedString = originalString;
 		try {
@@ -1805,7 +1811,7 @@ return elementList;*/
 			}
 	        // System.out.println("Output String lenght : " + outStr.length());
 	        return outStr;
-	     }
+	     }*/
 	
 	
 }
