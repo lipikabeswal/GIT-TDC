@@ -445,7 +445,7 @@ function preventTextDragging(){
  	calculatorElm.parent().on({ 
  		mouseover: function( event, ui ) {
  						calculatorElm.parent().css("cursor", "url('assets/dragger_over.png'), pointer" );
- 						//jQuery('[name="dManupulative"]').trigger("mouseup");
+ 						jQuery("iframe").contents().find(".ui-draggable").trigger("mouseup");
  					},
  		drag: function( event, ui ) {
  				  calculatorElm.parent().css("cursor", "url('assets/dragger_press.png'), pointer");
