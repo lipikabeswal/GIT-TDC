@@ -446,9 +446,7 @@ button.ui-button::-moz-focus-inner {
 	bottom: -5px;
 	background-position: 16px 16px;
 }
-.ui-draggable .ui-dialog-titlebar {
-	cursor: move;
-}
+
 .ui-menu {
 	list-style: none;
 	padding: 2px;
