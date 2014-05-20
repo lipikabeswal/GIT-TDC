@@ -2917,8 +2917,8 @@
         </method>
 
 		<method name="stepNavigateBack"><![CDATA[
-			gController.setAttribute('isAnswerAreaDisabled',true);
-            if ( !onFirstItem() ) {
+			 if ( !onFirstItem() ) {
+           		gController.setAttribute('isAnswerAreaDisabled',true);
             	var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm){
             		this.showRevisitPopup("goBack");
@@ -2929,14 +2929,14 @@
         ]]></method>
 
 		<method name="stepNavigateForward"><![CDATA[
-			gController.setAttribute('isAnswerAreaDisabled',true);
-           	var curritem = Number(
+			var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/@itempos' )
             );
 			var totalitem = Number(
 				dpstudentdata.xpathQuery( 'question_number/@total_including_theme')  );
             
 			if ( !onLastItem() ) {
+				gController.setAttribute('isAnswerAreaDisabled',true);
 				var dncurrentItem  = dpstudentdata.xpathQuery( 'current_item/item_model/' );
 				if(this.allowRevisit != null && !this.allowRevisit && 
 					dncurrentItem.getAttr('answered') == 0 && !this.navigateConfirm 

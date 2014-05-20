@@ -44,7 +44,7 @@
             lz.Keys.callOnKeyCombo( dtoggleH, [ 'capslock', 'h' ] );
             lz.Keys.callOnKeyCombo( dtoggleI, [ 'capslock', 'i' ] );
             lz.Keys.callOnKeyCombo( dtoggleJ, [ 'capslock', 'j' ] );
-            lz.Keys.callOnKeyCombo( dgoBack, [ 'control', 'j' ] );
+            /*lz.Keys.callOnKeyCombo( dgoBack, [ 'control', 'j' ] );
 			lz.Keys.callOnKeyCombo( dgoBack, [ 'control', 'j', 'capslock' ] );
             lz.Keys.callOnKeyCombo( dgoOn, [ 'control', 'k' ] );
 			lz.Keys.callOnKeyCombo( dgoOn, [ 'control', 'k', 'capslock' ] );            
@@ -57,7 +57,7 @@
             lz.Keys.callOnKeyCombo( dstop, [ 'control', 's' ] );
 			lz.Keys.callOnKeyCombo( dstop, [ 'control', 's', 'capslock' ] ); 
             lz.Keys.callOnKeyCombo( dfinish, [ 'control', 'f' ] );
-			lz.Keys.callOnKeyCombo( dfinish, [ 'control', 'f', 'capslock' ] );
+			lz.Keys.callOnKeyCombo( dfinish, [ 'control', 'f', 'capslock' ] );*/
         </method>
 
         <method name="disableKeys">
@@ -102,7 +102,7 @@
             lz.Keys.removeKeyComboCall( dtoggleH, [ 'shift', 'capslock', 'h' ] );
             lz.Keys.removeKeyComboCall( dtoggleI, [ 'shift', 'capslock', 'i' ] );
             lz.Keys.removeKeyComboCall( dtoggleJ, [ 'shift', 'capslock', 'j' ] );
-            lz.Keys.removeKeyComboCall( dgoBack, [ 'control', 'j' ] );
+           /* lz.Keys.removeKeyComboCall( dgoBack, [ 'control', 'j' ] );
 			lz.Keys.removeKeyComboCall( dgoBack, [ 'control', 'j', 'capslock' ] );
             lz.Keys.removeKeyComboCall( dgoOn, [ 'control', 'k' ] );
             lz.Keys.removeKeyComboCall( dgoOn, [ 'control', 'k', 'capslock' ] );            
@@ -115,7 +115,7 @@
             lz.Keys.removeKeyComboCall( dstop, [ 'control', 's' ] );
 			lz.Keys.removeKeyComboCall( dstop, [ 'control', 's', 'capslock' ] ); 
             lz.Keys.removeKeyComboCall( dfinish, [ 'control', 'f' ] );
-            lz.Keys.removeKeyComboCall( dfinish, [ 'control', 'f', 'capslock' ] );                    
+            lz.Keys.removeKeyComboCall( dfinish, [ 'control', 'f', 'capslock' ] );*/                    
         </method>
 
         <method name="isComboHotKeyDown"><![CDATA[
