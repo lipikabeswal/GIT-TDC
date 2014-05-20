@@ -420,7 +420,7 @@ function preventTextDragging(){
 	  									 autoOpen: false,
 	  									 draggable: false,
 	  									 resizable: false,
-	  									 width: 330,
+	  									 width: 315,
 	  									 height: 650,
 	  									 position: ['center', 'middle'] }).parent().draggable({ containment: "parent" });
   
@@ -430,7 +430,7 @@ function preventTextDragging(){
   										  autoOpen: false,
   										   draggable: false,
   										  resizable: false,
-  										  width: 320,
+  										  width: 306,
   										  height: 690,
   										  position: ['center', 'middle'] }).parent().draggable({ containment: "parent" });	
   										  
@@ -914,18 +914,68 @@ function checkEmptyString(str) {
  //Clicking Tab twice selects entire contents of Scratchpad
  
  function disableTabKey() {
+ 	var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
+ 	
 	if(event.which == 9 && gController.scratchpadOpen) { 
 		//console.log("TAB!!!!!!!!!!!!");
 		event.preventDefault();
 		event.stopPropagation();
 	}
 	
-	if(window.top.isMagnifierVisible == "true" && isMagnifierMouseovered == true){
-		hotKeysHandle();
-	}
+	if (event.ctrlKey) {
+			//console.log("hotKeysHandle event.ctrlKey == true || keystroke==== "+keystroke);
+			switch(keystroke){
+				case 'l':
+				    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && gController.iskeyEnabled) {
+						gHotKeys.toggleMark();
+						event.preventDefault(); // disable Ctrl+L
+					}	
+					break;
+				case 's':
+					event.preventDefault();
+					 if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && gController.iskeyEnabled) {
+					 	hideMagnify();
+				    	gHotKeys.stop();
+						event.preventDefault(); // disable Ctrl+S
+					}	
+					break;
+				case 'u':
+				    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && gController.iskeyEnabled) {
+						gHotKeys.pause();
+						event.preventDefault(); // disable Ctrl+U
+					}	
+					break;
+				case 'o':
+					if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && gController.iskeyEnabled) {
+						gHotKeys.toggleTimer();
+						event.preventDefault(); // disable Ctrl+O
+					}
+					break;
+				case 'j':
+					if(gController.iskeyEnabled) {
+						gHotKeys.goBack();
+						event.preventDefault(); // disable Ctrl+J
+					}
+					break;			
+				case 'k' :
+					if(gController.iskeyEnabled) {
+						gHotKeys.goOn();
+						event.preventDefault(); // disable Ctrl+K
+					}
+					break;
+				case 'f' :
+					if(gController.iskeyEnabled) {
+						hideMagnify();
+						gHotKeys.finish();
+						event.preventDefault(); // disable Ctrl+F
+					}
+					break;
+				default:
+					break;
+			}
+		}
 	
 	/*added to restrict undo redo using hot keys in DHTML client starts*/
-	var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
 	
 	if (event.ctrlKey || event.metaKey || event.which == 91 || event.which == 17 || event.which == 93) {
 		switch(keystroke){
@@ -949,7 +999,7 @@ function checkEmptyString(str) {
 	}
 	/*added to restrict undo redo using hot keys in DHTML client ends*/
 }
-function hotKeysHandle() {
+/*function hotKeysHandle() {
 var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
 		if (event.ctrlKey) {
 			switch(keystroke){
@@ -1002,7 +1052,7 @@ var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
 					break;
 			}
 		}
-}
+}*/
 // higlighter for nonTE items
  
 /*this.enableHighlighter = function(isEnabled) {
