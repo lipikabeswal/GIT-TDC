@@ -44,7 +44,8 @@
 			var contViewsLen = gQuestion.subviews.length;
 			if(!gController.skipCacheDestroy){
 				
-				for (var i = 1; i <= contViewsLen; i++){
+				for (var i = contViewsLen-1; i >= 0; i--){
+				     var comp="";
 					 comp = contsubviews[i];
 					 if(comp && comp instanceof lz.CachableAnswerAreaPanel){
 						comp.destroy();
