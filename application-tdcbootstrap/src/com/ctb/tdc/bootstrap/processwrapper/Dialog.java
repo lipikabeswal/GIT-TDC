@@ -41,9 +41,9 @@ public String showOptionDialogTABE(){
 	String[] forms = {"TABE Online","TABE Testlets"}; 
 	String[] formsMac = {"TABE Testlets","TABE Online"}; 
 	if(isMac()){
-		rc = showOptionDialog(null, "Please Select :","Test Selection", 0, JOptionPane.PLAIN_MESSAGE, null, formsMac, formsMac[1]);
+		rc = showOptionDialog(null, "Please use mouse-click to select :","Test Selection", 0, JOptionPane.PLAIN_MESSAGE, null, formsMac, formsMac[1]);
 	}else{
-		rc = showOptionDialog(null, "Please Select :","Test Selection", 0, JOptionPane.PLAIN_MESSAGE, null, forms, forms[0]);
+		rc = showOptionDialog(null, "Please use mouse-click to select :","Test Selection", 0, JOptionPane.PLAIN_MESSAGE, null, forms, forms[0]);
 	}
 	
 	if (rc==-1) { 
