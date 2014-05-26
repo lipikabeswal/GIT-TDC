@@ -58,7 +58,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mq"]}},$lzc$class__mq.attributes)
 }}})($lzc$class__mq)
-};canvas=new $lzc$class__mq(null,{$delegates:["ontexthistoryupdate","$md",null,"onnewtextvalue","$me",null,"onunlocktexthistory","$mf",null,"onfocus","$mg",null,"onkeydown","$mi","$mh","onmousedown","$mk","$mj","onbringBackFocus","$ml",null,"onfootnotedata","$mm",null,"onisMultiAudio","$mn",null,"oninit","$mo",null,"onfootnotetext","$mp",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-05-20T12:59:49Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",newtextvalue:"",proxied:false,readable:false,runtime:"dhtml",texthistoryupdate:"",unlocktexthistory:"",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mq(null,{$delegates:["ontexthistoryupdate","$md",null,"onnewtextvalue","$me",null,"onunlocktexthistory","$mf",null,"onfocus","$mg",null,"onkeydown","$mi","$mh","onmousedown","$mk","$mj","onbringBackFocus","$ml",null,"onfootnotedata","$mm",null,"onisMultiAudio","$mn",null,"oninit","$mo",null,"onfootnotetext","$mp",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-05-26T13:21:00Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",newtextvalue:"",proxied:false,readable:false,runtime:"dhtml",texthistoryupdate:"",unlocktexthistory:"",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -16310,13 +16310,17 @@ $1="htmlnew"
 var $1=$0.getAttr("src");this.setAttribute("TEid",$0.getAttr("src"));this.setAttribute("unlocked",false);this.setAttribute("answerObjSet",{});gController.setAttribute("findAnswer",true);gController.setAttribute("isTE",true);if(gController.hasFontAccommodation){
 this.parent.parent.setAttribute("bgcolor","white")
 };this.parent.setAttribute("bgcolor","white");gQuestion.setAttribute("bgcolor","white");if($0.hasAttr("id")){
-var $2=$0.getAttr("id");this.setAttribute("widget_id",$2);this.setAttribute("widget_id",$0.getAttr("id"));var $3=gController.getStateForInputWidgetId(this.widget_id);if($3){
-gController.setAttribute("isAnswerSet",true);this.setAttribute("answered",false);var $4=[];if($3["checkedVals"]){
-var $5=$3["checkedVals"];for(var $6 in $5){
-if($5.hasOwnProperty($6)&&!isNaN(+$6)){
-$4[+$6]=$5[$6]
-}};$3["checkedVals"]=$4
-};this.setAttribute("answerObjSet",$3)
+var $2=$0.getAttr("id");this.setAttribute("widget_id",$2);this.setAttribute("widget_id",$0.getAttr("id"));var $3=gController.getStateForInputWidgetId(this.widget_id);var $4=$3.answer;if($4){
+gController.setAttribute("isAnswerSet",true);if($3.answered==1||$3.answered==true||$3.answered=="true"){
+this.setAttribute("answered",true)
+}else{
+this.setAttribute("answered",false)
+};var $5=[];if($4["checkedVals"]){
+var $6=$4["checkedVals"];for(var $7 in $6){
+if($6.hasOwnProperty($7)&&!isNaN(+$7)){
+$5[+$7]=$6[$7]
+}};$4["checkedVals"]=$5
+};this.setAttribute("answerObjSet",$4)
 }else{
 gController.setAttribute("isAnswerSet",false)
 };this.setAnswer();gController.addHtmlField({"widget_id":$2,"answered":this.answered,"answer":this.answer,"ref":this,frameObj:this.getIframeObject()})
@@ -16334,11 +16338,10 @@ this.setAttribute("answered",false);gController.updateBlueBallForHtmlItem($0)
 gController.unlockUI();this.setAttribute("unlocked",true)
 };gController.htmlFields[0]["answered"]=this.answered
 }},"setAnswer",function(){
-if(!this.answered){
 var $0=this.answerObjSet.htmlContent;var $1=this.answerObjSet.jsonContent;var $2=[];if(this.answerObjSet.checkedVals){
 $2=this.answerObjSet.checkedVals
 };setState($0,$1,$2);this.setResponseInGlobalArray(this.answerObjSet)
-}},"func2",function(){
+},"func2",function(){
 this.doneLoading()
 },"handleFunc2",function($0){
 if($0==true||$0=="true"){
@@ -16347,8 +16350,9 @@ this.doneLoading();lz.Timer.removeTimer(this.contentLoadedDel)
 if(this.ht.ready){
 var $0=new LzDelegate(this,"getStateHandler");$0=getState();this.getStateHandler($0)
 }},"getStateHandler",function($0){
+if(gController.inQuestion){
 this.func1();this.setResponseInGlobalArray($0)
-},"setResponseInGlobalArray",function($0){
+}},"setResponseInGlobalArray",function($0){
 this.setAttribute("answer",$0);var $1=new Object();$1.widget_id=this.widget_id;$1.answer=$0;gController.updateHtmlFields($1,this.answered)
 },"doneLoading",function(){
 (arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["doneLoading"]||this.nextMethod(arguments.callee,"doneLoading")).call(this)
@@ -16532,16 +16536,16 @@ this.setAttribute("skipCacheDestroy",true);gController.setAttribute("skipCacheDe
 this.setAttribute("skipCacheDestroy",false);gController.setAttribute("skipCacheDestroy",false)
 },"$m18t",function($0){
 var $1=gQuestion.subviews;var $2=gQuestion.subviews.length;if(!gController.skipCacheDestroy){
-for(var $3=1;$3<=$2;$3++){
-comp=$1[$3];if(comp&&comp instanceof lz.CachableAnswerAreaPanel){
-comp.destroy()
-}else if(comp&&comp instanceof lz.CachableAnswerAreaAbsolutePanel){
-comp.destroy()
-}else if(comp&&comp instanceof lz.CachableHtmlWidget){
-comp.doReturnToCache()
+for(var $3=$2-1;$3>=0;$3--){
+var $4="";$4=$1[$3];if($4&&$4 instanceof lz.CachableAnswerAreaPanel){
+$4.destroy()
+}else if($4&&$4 instanceof lz.CachableAnswerAreaAbsolutePanel){
+$4.destroy()
+}else if($4&&$4 instanceof lz.CachableHtmlWidget){
+$4.doReturnToCache()
 }else{
-if(comp){
-comp.destroy()
+if($4){
+$4.destroy()
 }}}};if(!gController.zoomClicked){
 gController.clearAll()
 };if($0){
@@ -16550,9 +16554,9 @@ this.convertToAccLayout($0);$0=this.datapath.p
 };Debug.write("Question ondata ----- ",$0);for(var $3 in this.subviews){
 if(this.subviews[$3] instanceof lz.CachableComponent&&this.subviews[$3].visible){
 this.cache.returnComponent(this.subviews[$3])
-}};var $4=$0.childNodes;for(var $3=0;$3<$4.length;$3++){
-Debug.write("subnodes[i]",$4[$3]);if($4[$3] instanceof lz.DataElement){
-this.cache.getComponent($4[$3])
+}};var $5=$0.childNodes;for(var $3=0;$3<$5.length;$3++){
+Debug.write("subnodes[i]",$5[$3]);if($5[$3] instanceof lz.DataElement){
+this.cache.getComponent($5[$3])
 }};if(dsitem==$0.ownerDocument){
 gController.setAttribute("trackingcomponents",true)
 }}},"convertToAccLayout",function($0){
@@ -32178,22 +32182,22 @@ this.htmlFields[$0]["ref"].show()
 Debug.write("UPDATE HTML ITEM NODE",this.htmlFields.length);var $0=this.dpstudentdata.xpathQuery("current_item/item_model");if($0==null)return;var $1=Number($0.getAttr("eid"));var $2=this.dpstudentdata.xpathQuery("runtime/item_model [@eid = '"+$1+"']");var $3=$2.getAttr("answered");if(this.htmlFields.length>0){
 var $4="<answers>";var $5;for(var $6=0;$6<this.answerObj.length;$6++){
 if(this.htmlFields[0].widget_id==this.answerObj[$6]["widget_id"]){
-$4=$4.concat("<answer id="+'"'+this.answerObj[$6]["widget_id"]+'"'+">");if($3==0){
-$4=$4.concat("</answer>")
-}else{
+$4=$4.concat("<answer id="+'"'+this.answerObj[$6]["widget_id"]+'"'+">");if(this.htmlFields[0].answered){
 $5=JSON.stringify(this.answerObj[$6]["answer"]);$4=$4.concat(this.wrapInCdata($5)+"</answer>")
+}else{
+$4=$4.concat("</answer>")
 };break
 }};$4=$4.concat("</answers>");gController.setItemCRState($4)
 }},"getStateForInputWidgetId",function($0){
-var $1="";var $2=this.loadNode.getAttr("id");var $3=this.dpstudentdata.xpathQuery("runtime/item_model [@eid = '"+$2+"']/@answer_text");var $4=lz.DataElement.stringToLzData(unescape($3));if($4){
-$4.setAttribute("ownerDocument",dstemp);dstemp.appendChild($4);this.dp.setPointer($4);$1=this.dp.xpathQuery("dstemp://answers/answer[@id = '"+$0+"']/text()");dstemp.removeChild($4)
-};var $5="";if($1!=null&&$1!=""){
+var $1=new Object();var $2="";var $3=this.loadNode.getAttr("id");var $4=this.dpstudentdata.xpathQuery("runtime/item_model [@eid = '"+$3+"']/@answer_text");var $5=this.dpstudentdata.xpathQuery("runtime/item_model [@eid = '"+$3+"']/@answered");var $6=lz.DataElement.stringToLzData(unescape($4));if($6){
+$6.setAttribute("ownerDocument",dstemp);dstemp.appendChild($6);this.dp.setPointer($6);$2=this.dp.xpathQuery("dstemp://answers/answer[@id = '"+$0+"']/text()");dstemp.removeChild($6)
+};var $7="";if($2!=null&&$2!=""){
 try{
-$5=JSON.parse($1)
+$7=JSON.parse($2)
 }
-catch($6){
-console.error("getStateForInputWidgetId: JSON parse error");console.error($1);$5=""
-}};return $5
+catch($8){
+console.error("getStateForInputWidgetId: JSON parse error");console.error($2);$7=""
+}};$1.answer=$7;$1.answered=$5;return $1
 },"inContinueToDownload",function(){
 Debug.write("inContinueToDownload",this.inContinueToDownload);gScreens.setAttribute("height",200);gScreens.setAttribute("y",200);gScreens.copyWriteText.setAttribute("y",200);gDownloadManager.downloadContent()
 },"manipulativeSelected",function(){
