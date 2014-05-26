@@ -5877,25 +5877,27 @@
             	for (var i = 0; i < this.answerObj.length; i++) {
 					if(this.htmlFields[0].widget_id == this.answerObj[i]['widget_id']){
 						xmls = xmls.concat("<answer id=" + "\"" + this.answerObj[i]['widget_id'] + "\""+ ">");
-						if(answered == 0){
-	                   		xmls = xmls.concat("</answer>");
-	                   	}
-	                	else{
+						if(this.htmlFields[0].answered){
 							data = JSON.stringify(this.answerObj[i]['answer']);
 	                   		xmls = xmls.concat(wrapInCdata(data) + "</answer>");
+	                   	}
+	                	else{
+							xmls = xmls.concat("</answer>");
 	                   	}
 						break;
 					}
             	}
             	xmls = xmls.concat("</answers>");
-            	gController.setItemCRState(xmls);
+				gController.setItemCRState(xmls);
  			}
 		]]></method>
 		
 		<method name="getStateForInputWidgetId" args="widgetId"><![CDATA[
+			var response = new Object();
 			var result="";
 			var eid = loadNode.getAttr('id');
 			var answers = dpstudentdata.xpathQuery( "runtime/item_model [@eid = '"+eid+"']/@answer_text");
+			var answered = dpstudentdata.xpathQuery( "runtime/item_model [@eid = '"+eid+"']/@answered");
 			
 			var node = lz.DataElement.stringToLzData(unescape(answers));
 			//console.log("getStateForInputWidgetId node", node);
@@ -5919,7 +5921,10 @@
 					parsed = "";
 				}
 			}
-			return parsed;
+			response.answer = parsed;
+			response.answered = answered;
+
+			return response;
 
 		]]></method>
 		<method name="inContinueToDownload">
