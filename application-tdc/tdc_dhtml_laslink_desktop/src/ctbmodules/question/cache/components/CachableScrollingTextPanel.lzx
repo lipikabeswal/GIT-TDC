@@ -20,7 +20,8 @@
                                height="${classroot.height}"
                                passageId="${classroot.passageId}"
                                fontsize="${classroot ['fontsize'] ? classroot.fontsize : 12}" 
-                               fontcolor="${classroot.fontcolor}">
+                               fontcolor="${classroot.fontcolor}"
+                               stereotype="${classroot.stereotype}">
             <method name="doneLoading">
                 // empty, because not retrieved from cache
             </method>
