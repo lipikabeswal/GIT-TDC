@@ -4624,9 +4624,16 @@
             return minutes + ':' + seconds;
         ]]></method>
 
+		/*moving the stop test timer logic to another method to avoid setting the 
+		inQuestion attribute to false when stopQuestion is called from Communicator 
+		when Please wait popup is shown*/
 		<method name="stopQuestion">
-    
-            if ( timing ) {
+    		stopTimer();            
+            this.setAttribute("inQuestion", false);
+        </method>
+        
+        <method name="stopTimer">
+        	if ( timing ) {
 				var timestamp;
                 //var timestamp = lz.Timer.getTimer();
                 /*var date = new Date();
@@ -4658,7 +4665,6 @@
                     );
                 }
             }
-            this.setAttribute("inQuestion", false);
         </method>
 
 		<method name="clearInvalidCrResponses"><![CDATA[

@@ -167,7 +167,7 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 								if(gController.state != gController.LOGIN_STATE) {
                                    	gController.stopHeartbeat();
 									//to stop the test timer
-									gController.stopQuestion();
+									gController.stopTimer();
 								}
 								//gController.freezeUI();  //not needed anymore
 							}
