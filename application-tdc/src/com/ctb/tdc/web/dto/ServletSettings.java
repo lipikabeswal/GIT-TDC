@@ -14,7 +14,7 @@ public class ServletSettings implements java.io.Serializable {
     static Logger logger = Logger.getLogger(ServletSettings.class);
 
     private String tmsHost;
-    private String backupURL;
+   // private String backupURL;
     
     private int tmsPort;
     private boolean tmsPersist;
@@ -45,11 +45,11 @@ public class ServletSettings implements java.io.Serializable {
             	throw new RuntimeException("ERROR: TMS url is not secure!");
             }
             //this.backupURL = resourceBundleGetString(rbTdc, "tms.server.backupURL");
-            this.backupURL = resourceBundleGetString(rbTdc, "tms.dr.server.host");
+           /* this.backupURL = resourceBundleGetString(rbTdc, "tms.dr.server.host");
             if(!this.backupURL.startsWith("https")) {
             	this.backupURL = null;
             	throw new RuntimeException("ERROR: TMS url is not secure!");
-            }           
+            }  */         
             this.tmsPort = resourceBundleGetInt(rbTdc, "tms.server.port");      
             try {
                 this.tmsPersist = resourceBundleGetBoolean(rbTdc, "tms.server.persist");
@@ -190,7 +190,7 @@ public class ServletSettings implements java.io.Serializable {
 
     private void init() {
         this.tmsHost = null;
-        this.backupURL = null;
+      //  this.backupURL = null;
         this.tmsPort = 0;
         this.tmsPersist = true;
         this.tmsAckRequired = true;
@@ -298,7 +298,7 @@ public class ServletSettings implements java.io.Serializable {
     	}
     }
     
-    public String getBackupURLHostPort() {
+    /*public String getBackupURLHostPort() {
     	if(baseurl == null || "".equals(baseurl.trim())) {
 	        if (tmsPort > 0)
 	            return (backupURL + ":" + tmsPort);
@@ -307,7 +307,7 @@ public class ServletSettings implements java.io.Serializable {
     	} else {
     		return baseurl;
     	}
-    }
+    }*/
     
     public String getProxyHostPort() {
         if (proxyPort > 0)
@@ -399,14 +399,16 @@ public class ServletSettings implements java.io.Serializable {
 	/**
 	 * @return the altTmsHost
 	 */
-	public String getBackupURL() {
+	/*public String getBackupURL() {
 		return backupURL;
 	}
-
+	*/
+	
 	/**
 	 * @param altTmsHost the altTmsHost to set
 	 */
+	 /*
 	public void setBackupURL(String backupURL) {
 		this.backupURL = backupURL;
-	}
+	}*/
 }

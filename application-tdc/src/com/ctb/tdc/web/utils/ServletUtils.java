@@ -612,13 +612,13 @@ public class ServletUtils {
 	 * get predefined Backup URL as string for a method
 	 *
 	 */
-	public static String getBackupURLString(String method) {
+	/*public static String getBackupURLString(String method) {
 		MemoryCache memoryCache = MemoryCache.getInstance();
 		ServletSettings srvSettings = memoryCache.getSrvSettings();
 		String tmsHostPort = srvSettings.getBackupURLHostPort();
 		String tmsWebApp = getWebAppName(method);
 		return (tmsHostPort + tmsWebApp);
-	}
+	}*/
 
 	/**
 	 * get predefined TMS URL for a method
@@ -1119,12 +1119,12 @@ public class ServletUtils {
 				catch(HttpHostConnectException e){
 						connFlag = false;
 						logger.error("Exception occured in : Connection refused to " + tmsURL);
-						tmsURL = swapTmsUrl(method);		// if connection to primary tms url is refused,
+						//tmsURL = swapTmsUrl(method);		// if connection to primary tms url is refused,
 				}
 				catch(UnknownHostException e){
 					connFlag = false;
 					logger.error("Exception occured in : Connection refused to " + tmsURL);
-					tmsURL = swapTmsUrl(method);		// if connection to primary tms url is refused,
+					//tmsURL = swapTmsUrl(method);		// if connection to primary tms url is refused,
 				}
 				
 				if(connFlag){
@@ -1133,7 +1133,7 @@ public class ServletUtils {
 						connFlag = false;
 						post.abort();
 						logger.error("Error occured in : could not Connect to " + tmsURL);
-						tmsURL = swapTmsUrl(method);		// if response status is not OK from primary tms url, 
+					//	tmsURL = swapTmsUrl(method);		// if response status is not OK from primary tms url, 
 															// backupURL is stored in tmsURL.
 						logger.error("Error occured in : swapping Connection to " + tmsURL);
 						
@@ -1194,7 +1194,7 @@ public class ServletUtils {
 	 * @return String
 	 */
 
-	private static String swapTmsUrl (String method) {
+	/*private static String swapTmsUrl (String method) {
 		
 		String backupURL = "";
 		backupURL = getBackupURLString(method);
@@ -1204,7 +1204,7 @@ public class ServletUtils {
 		srvSettings.setTmsHost(srvSettings.getBackupURL());
 
 		return backupURL;
-	}
+	}*/
 	
 	
 	/**
