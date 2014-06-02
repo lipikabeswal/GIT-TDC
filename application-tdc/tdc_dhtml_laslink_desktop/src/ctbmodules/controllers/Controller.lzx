@@ -219,7 +219,7 @@
 
 	<dataset name="dstemp" />
 	<!-- Changes for Language Switch for Espanol Test -->
-	<dataset name="languageDs" type="http" request="true" src="http:/resources/LanguageInterChange.xml" />
+	<dataset name="languageDs" type="http" request="true" src="resources/LanguageInterChange.xml" />
 	
 	<!--
 		==================================================
