@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+
+<language name="English">
+
+	<component name="ScratchPad">
+		<labelText>ScratchPad</labelText>
+	</component>
+	
+	<component name="RevisitFalsePopup">
+		<PopUpText>Warning! Once you leave this page, you cannot come back. Do you want to Go On?</PopUpText>
+		<okButtonResource>popupOk_english</okButtonResource>
+		<moveBackButtonResource>popupMoveBack_english</moveBackButtonResource>
+		<cancelButtonresource>popupCancel_english</cancelButtonresource>
+	</component>
+	
+</language>
+
+<language name="Spanish">
+	<component name="ScratchPad">
+		<labelText>Bloc de notas</labelText>
+	</component>
+	<component name="RevisitFalsePopup">
+		<PopUpText>¡Advertencia! Si dejas esta página, no podrás regresar. ¿Quieres continuar a la siguiente página?</PopUpText>
+		<okButtonResource>popupOk_spanish</okButtonResource>
+		<moveBackButtonResource>popupMoveBack_spanish</moveBackButtonResource>
+		<cancelButtonresource>popupCancel_spanish</cancelButtonresource>
+	</component>
+	
+</language>
+</lang>
