@@ -145,7 +145,10 @@
         </method>
         
         <handler name="oninit">
-            this.toolstate.setAttribute ('rerunxpath', true);
+        	// Setting text based on language provided.
+        	var text = gController.dplang.xpathQuery("component[@name='ScratchPad']/labelText").childNodes[0].data;
+        	this.setAttribute('title',text);
+        	this.toolstate.setAttribute ('rerunxpath', true);
             this.toolstate.setXPath (this.datapath.xpath + '/@' + this.toolid);
             this.datapath.setXPath (this.toolid);
             var elm = this.getDisplayObject();

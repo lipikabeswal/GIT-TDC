@@ -256,7 +256,19 @@
                 opacity="${classroot.state == 2 ? .7 : 1}"
                     text="${classroot.title}" y="-3" 
 					x="${parent.gripper_left.x + parent.gripper_left.width + 5 &lt; 0 ? 0 : parent.gripper_left.x + parent.gripper_left.width + 5 }"
-					resize="false" />
+					resize="false" >
+					<handler name="oninit">
+						// Adding CTB font and proper alignment to the label text
+						
+						var elm = this.getDisplayObject();
+						elm.setAttribute("id","scratchTitle");
+						if(gController.language.indexOf("Spanish") >= 0){
+							elm.setAttribute('style','font-family:CTB; left: 3px;');
+						}else{
+							elm.setAttribute('style','font-family:CTB; left: 8px;');
+						}
+           			</handler>
+					</text>
             <view name="gripper_right" y="1" resource="window_gripper_rsc"
                 clip="true" frame="${classroot.state}"
 				width="${parent.gripper_left.width+15}"

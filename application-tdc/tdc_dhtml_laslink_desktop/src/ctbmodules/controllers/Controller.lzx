@@ -218,7 +218,9 @@
 	<dataset name="dsstudentdata" src="xmls/studentData.xml" />
 
 	<dataset name="dstemp" />
-
+	<!-- Changes for Language Switch for Espanol Test -->
+	<dataset name="languageDs" type="http" request="true" src="http:/resources/LanguageInterChange.xml" />
+	
 	<!--
 		==================================================
 		Test Controller
@@ -239,6 +241,9 @@
 		<attribute name="dp" value="$once{new lz.datapointer()}" />
 		<attribute name="answerdp" value="$once{new lz.datapointer()}" />
 		<attribute name="heartbeatResult" type="string" value="null" />
+		<!-- Changes for Language Switch for Espanol Test -->
+		<attribute name="language" type="string" value="English"/>
+		<datapointer name="dplang"/>
 		<!-- 
 			Requests to the communicator result in setting the communicatorResponse with
 			the text of the http response.  The controller needs to know what the request was 
@@ -589,7 +594,22 @@
 
 		<datapointer name="dptemp" xpath="dstemp:/answers" />
 		
-		<datapointer name="dpsubtestdata" xpath="dssubtest:/subtest/ob_assessment/assessment_title"/>
+		<datapointer name="dpsubtestdata" xpath="dssubtest:/subtest/ob_assessment/assessment_title">
+			<handler name="ondata"><![CDATA[
+			
+				var lang = gController.dpsubtestdata.xpathQuery('@language');   // taking language value
+				if((typeof(lang)) != "undefined") { // case if language is provided in test
+					gController.setAttribute('language',lang);
+				}else{
+					gController.setAttribute('language',"English");
+				}
+				// Case when Language attribute is present in test, but value is not provided.
+				if((gController.language.indexOf('Spanish') < 0) && gController.language.indexOf('English') < 0){
+					
+					gController.setAttribute('language',"English");
+				}
+			]]></handler>
+		</datapointer>
 		
 		<attribute name="fwdOnly" value="false" type="boolean" />
 		<attribute name="adaptive" value="$path{ 'dssubtest:/subtest/sco/@adaptive' }"/>
@@ -1337,7 +1357,6 @@
 		    		canvas.setAttribute("logoRsrc", logo);
 		    	}
 	    		var cmicore = dp.xpathQuery('login_response/testing_session_data/cmi.core');
-				//Debug.write("cmicore************** ",cmicore);
 	    		cmicore.setAttr('password', password);
 	    		cmicore.setAttr('userid', userid);
 	    		cmicore.setAttr('accesscode', accesscode);				
@@ -1706,7 +1725,13 @@
         	/*Debug.write("timeout check",dpsubtest.xpathQuery( 'sco/@sco_duration_minutes' ),dpsubtest.xpathQuery(
                      'testing_session_data/lms.student.accommodations/@untimed'
                  ));*/
-        	Debug.warn("*****************************Init Test***************************");
+        	Debug.warn("*****************************Init Test***************************",gController.language);
+        	// Setting pointer to particular language based on Test language.
+        	if((gController.language.indexOf("Spanish")) >= 0){
+					dplang.setXPath('languageDs:/lang/language[@name="Spanish"]');
+				}else{
+					dplang.setXPath('languageDs:/lang/language[@name="English"]');
+			}
 			var restartId = this.restartscid;
             lz.Timer.removeTimer( dupdateTimeLeft );
             resetCatAttributes();
