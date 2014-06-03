@@ -285,26 +285,30 @@ function accommodationPKG() {
     // private method
     var enableHotKeys = function () {
         var arg = window.parmm;
-        $(".text").each(function () {
-            var topPos = "";
-            if (this.scrollHeight > $(this).outerHeight(true)) {
-                topPos = $(this).scrollTop();
-                var parent = $(this).parent();
-                var dom = $(this).clone();
-                $(this).remove();
-                $(parent).append(dom);
-                $(dom).scrollTop(topPos);
-                var ele, textFreeFlowComponents = $("#previewArea div[interactiontype='7']"),
-                    textRestrictedComponents = $("#previewArea div[interactiontype='6']");
-                if (textRestrictedComponents.length > 0) {
-                    makeDrggable();
-                }
-                for (var index = 0; index < textFreeFlowComponents.length; index++) {
-                    ele = textFreeFlowComponents.eq(index).find(".text");
-                    makeFFDraggable(ele);
-                }
-            }
-        });
+		if(arg == "Ctrl+S"){
+			$(".text").each(function () {
+				var topPos = "";
+				if (this.scrollHeight > $(this).outerHeight(true)) {
+					topPos = $(this).scrollTop();
+					var parent = $(this).parent();
+					var dom = $(this).clone();
+					$(this).remove();
+					console.log("remove====="+new Date().getTime());
+					$(parent).append(dom);
+					console.log("append====="+new Date().getTime());
+					$(dom).scrollTop(topPos);
+					var ele, textFreeFlowComponents = $("#previewArea div[interactiontype='7']"),
+						textRestrictedComponents = $("#previewArea div[interactiontype='6']");
+					if (textRestrictedComponents.length > 0) {
+						makeDrggable();
+					}
+					for (var index = 0; index < textFreeFlowComponents.length; index++) {
+						ele = textFreeFlowComponents.eq(index).find(".text");
+						makeFFDraggable(ele);
+					}
+				}
+			});
+		}
         window.parent.enableHotKeys(arg);
     }
 
@@ -1083,25 +1087,27 @@ function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart,
             dirDown = currentTop > prevY;
         }
 		//Checking if the cursor is in same container or not.					
-        if (!$(targetObj).attr('mainParent') || (initialScrollHeight - 5 <= currentTop) || (initialScrollWidth + 3 < currentLeft)) {
+        if (!$(targetObj).attr('mainParent') || (initialScrollHeight  < currentTop) || (initialScrollWidth  < currentLeft)) {
             selectStart = false;
         }
         if (selectStart) {
             var scrollHeightAdjust = 0;
-            if (currentTop > (actualParentOffsetTop + targetObjHeight + $(targetObj).scrollTop()) - 50 && dirDown) {
+            if ((initialScrollHeight > targetObjHeight + $(targetObj).scrollTop()) && currentTop > (actualParentOffsetTop + targetObjHeight + $(targetObj).scrollTop()) - 50 && dirDown) {
                 var scrollableHeight = initialScrollHeight - $(targetObj).scrollTop();
                 if (scrollableHeight > 10) {
                     $(targetObj).scrollTop($(targetObj).scrollTop() + 10);
                     scrollHeightAdjust = 10;
+                   
+                    
                 } else {
                     $(targetObj).scrollTop($(targetObj).scrollTop() + scrollableHeight);
                     scrollHeightAdjust = scrollableHeight;
                 }
             } else if (currentTop - $(targetObj).scrollTop() - 50 < 0 && dirUp) {
                 var scrollableHeight = $(targetObj).scrollTop();
-                if (scrollableHeight > 30) {
-                    $(targetObj).scrollTop($(targetObj).scrollTop() - 30);
-                    scrollHeightAdjust = -30;
+                if (scrollableHeight > 10) {
+                    $(targetObj).scrollTop($(targetObj).scrollTop() - 10);
+                    scrollHeightAdjust = -10;
                 } else {
                     $(targetObj).scrollTop($(targetObj).scrollTop() - scrollableHeight);
                     scrollHeightAdjust = -scrollableHeight;
