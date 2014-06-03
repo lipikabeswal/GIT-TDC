@@ -40,12 +40,14 @@
 	                            tooltip="Eraser" xpos = "${this.x}" name="eraser"/>
 	        <ScratchpadButton   resource="toolbar_scratchpad_btn"
 	                            toolid="scratchpad"
-	                            xpos = "${this.x}" name="scratchpad">
+	                            xpos = "${this.x}" name="scratchpad" tooltip="Scratchpad">
 	                            
 	                            <handler name="ondata">
 	                            	// Adding proper text in tooltip based on language.
-	                            	var text = gController.dplang.xpathQuery("component[@name='ScratchPad']/labelText").childNodes[0].data;
-        							this.setAttribute('tooltip',text);
+	                            	if(gController.dplang.xpathQuery("component[@name='ScratchPad']/labelText") != null){
+	                            		var text = gController.dplang.xpathQuery("component[@name='ScratchPad']/labelText").childNodes[0].data;
+        								this.setAttribute('tooltip',text);
+        							}
         	                    </handler>
 	        </ScratchpadButton>
 
