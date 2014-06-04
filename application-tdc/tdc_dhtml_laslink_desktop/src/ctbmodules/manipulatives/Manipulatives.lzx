@@ -299,7 +299,7 @@
 
         <BaseRuler name="straight_edge"
                    toolid="straight_edge"
-                   labelrsr="straight_label"
+                   labelrsr="${classroot.manipulative_Ruler_svg[6]}"
                    id="gStraightEdge"/>
          
         <MaskingRuler name="masking_ruler"
@@ -309,26 +309,26 @@
                              
         <BaseRuler name="oneeighth_inch_ruler"
                    toolid="oneeighth_inch_ruler"
-                   tickmarksrsr="eighth_inch_tick_marks"
-                   labelrsr="inches_label"
+                   tickmarksrsr="${classroot.manipulative_Ruler_svg[0]}"
+                   labelrsr="${classroot.manipulative_Ruler_svg[4]}"
                    id="gEighthInchRuler"/>
                    
         <BaseRuler name="half_inch_ruler"
                    toolid="half_inch_ruler"
-                   tickmarksrsr="half_inch_tick_marks"
-                   labelrsr="inches_label"
+                   tickmarksrsr="${classroot.manipulative_Ruler_svg[1]}"
+                   labelrsr="${classroot.manipulative_Ruler_svg[4]}"
                    id="gHalfInchRuler"/>
                    
         <BaseRuler name="mm_ruler"
                    toolid="mm_ruler"
-                   tickmarksrsr="millimeter_tick_marks"
-                   labelrsr="centimeters_label"
+                   tickmarksrsr="${classroot.manipulative_Ruler_svg[2]}"
+                   labelrsr="${classroot.manipulative_Ruler_svg[5]}"
                    id="gMmRuler"/>
                    
 		<BaseRuler name="cm_ruler"
                    toolid="cm_ruler"
-                   tickmarksrsr="centimeter_tick_marks"
-                   labelrsr="centimeters_label"
+                   tickmarksrsr="${classroot.manipulative_Ruler_svg[3]}"
+                   labelrsr="${classroot.manipulative_Ruler_svg[5]}"
                    id="gCmRuler"/>
 
         <RefCard name="FCAT_formula_card" 
@@ -354,6 +354,18 @@
                             id="gScientificCalculator"/>
 
 		<ComponentCache name="cache" />
+		
+
+		<attribute  name="manipulative_Ruler_svg" 
+					value="['ctbmodules/resources/manipulatives/ruler/eighth_inch_tick_marks.svg', 
+							'ctbmodules/resources/manipulatives/ruler/half_inch_tick_marks.svg',
+							'ctbmodules/resources/manipulatives/ruler/millimeter_tick_marks.svg',
+							'ctbmodules/resources/manipulatives/ruler/centimeter_tick_marks.svg',
+							'ctbmodules/resources/manipulatives/ruler/inches_label.svg',
+							'ctbmodules/resources/manipulatives/ruler/centimeters_label.svg',
+							'ctbmodules/resources/manipulatives/ruler/straight_label.svg']"/>
+				
+				
     </class>
 
 
