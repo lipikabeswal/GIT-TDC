@@ -68,10 +68,14 @@
 			</method>
 
 			<handler name="onmouseover">
+				//console.log("onmouse over ====");
+				lz.Cursor.showHandCursor(true);
 				this.setAttribute('frame',2);
 			</handler>
 			                
 			<handler name="onmouseout">
+				//console.log("onmouse out ====");
+				 lz.Cursor.showHandCursor(false);
 				this.setAttribute('frame',1);
 			</handler>
 		<method name="setTextVal">
