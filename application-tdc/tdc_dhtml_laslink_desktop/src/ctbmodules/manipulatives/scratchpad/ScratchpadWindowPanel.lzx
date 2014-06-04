@@ -263,9 +263,9 @@
 						var elm = this.getDisplayObject();
 						elm.setAttribute("id","scratchTitle");
 						if(gController.language.indexOf("Spanish") >= 0){
-							elm.setAttribute('style','font-family:CTB; left: 3px;');
+							elm.setAttribute('style','font-family:CTB; left: -2px;');
 						}else{
-							elm.setAttribute('style','font-family:CTB; left: 8px;');
+							elm.setAttribute('style','font-family:CTB; left: 2px;');
 						}
            			</handler>
 					</text>
