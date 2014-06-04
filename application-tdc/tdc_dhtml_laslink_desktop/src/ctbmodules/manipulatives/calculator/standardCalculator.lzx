@@ -21,17 +21,22 @@
 		<view id="calc_1" name="bg" resource="calc_face" x="10" y="23"
 		      width="${immediateparent.width - 20}" 
               height="${immediateparent.height - 30}">
-			<view name="inputBoundingBox" resource="calc_display" 
-			      x="9" y="7">
+			<view name="inputBoundingBox" resource="calc_display" stretches="width"
+			      x="9" y="7" width="${parent.width-17}">
 				<view name="inputbox" x="3" y="0"
-				      height="${parent.height}" width="${parent.width - 6}">
+				      height="${parent.height}" width="${parent.width-5}">
 					<text name="display" 
 						  resize="true" 
 						  text="0." 
 						  align="right"
 						  valign="bottom"
 						  fontsize="13"
-						  xoffset="30"/>
+						  xoffset="15">
+						<handler name="ontext">
+							var elm = this.getDisplayObject();
+							elm.setAttribute('style','font-family: CTB; font-size: 13px; line-height: 16px; pointer-events: none; height: 16px; width: auto');
+						</handler>
+					</text>
 					<text name="memoryDisplay" 
 						  text="M"
 						  valign="bottom" 
