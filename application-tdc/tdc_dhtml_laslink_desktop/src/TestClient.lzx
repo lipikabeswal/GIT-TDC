@@ -1,6 +1,5 @@
 <canvas bgcolor="0x6691B4" proxied="false" debug="false" width="100%" height="100%"
 	accessible="true">
-
 	<debug x="0" y="0" width="80%" height="400" />
 
 	<include href="ctbmodules" />
@@ -98,7 +97,7 @@
 			gController.setAttribute('trackTimer',0);
 			gController.resetTrackTimer();
 		}
-	]]></handler> 
+	]]></handler>
 	
 	<method name="setScale"><![CDATA[
 		canvas.setAttribute('xscalefactor',canvas.titleView.mainView.scalingView.xscale);
@@ -241,7 +240,7 @@
 				    <handler name="oninit">
 			        	this.setAttribute('height',16);
 			    	</handler>
-			    </text>	
+				</text>
             </Screens>
 			<SecurityScreen id="gSecurityScreen" x="100" y="100" width="600"
 				height="300" visible="false">
@@ -251,7 +250,7 @@
 				    <handler name="oninit">
 			        	this.setAttribute('height',16);
 			    	</handler>
-			    </text>	
+				</text>
             </SecurityScreen>
             <Tutorial id="gTutorial" width="800" height="600"
                         visible="false"/>
@@ -272,7 +271,6 @@
         </view>
 
     </view>
-    
     <modaldialog id="timeoutDialog" name="timeoutDialog" title=" " 
 			width="400" height="160" visible="false" bgcolor="0x6691B4" x="470" y="20">
 	    <text name="pauseTimerMsg"
@@ -286,8 +284,8 @@
            </text>
 	    <view align="center" valign="middle" layout="axis:x; spacing:20">
 	      <OkButton enabled="${ gScreens.allowclick }">
-               <handler name="onclick">
-               	   gController.setAttribute('timeoutforpause',false);
+                <handler name="onclick">
+                	gController.setAttribute('timeoutforpause',false);
                	   gScreens.clicked();
                    gController.testTimedout();
                </handler>
@@ -295,16 +293,14 @@
 	    </view>
 	    <simplelayout spacing="5"/>
   </modaldialog>
-    
-	<Manipulatives id="gManipulatives" x="${canvas.titleView.mainView.scalingView.x}"
-				   y="${(gItemInterface.contents.itemScreen.header.manipulativeToolbar.y+gItemInterface.contents.itemScreen.header.manipulativeToolbar.manipulativeBarContainer.height+20)*canvas.yscalefactor}"
-				   width="${gQuestion.width*canvas.xscalefactor}"
-				   height="${(gItemInterface.height+20-this.y)*canvas.yscalefactor}" options="releasetolayout"/>
     </view>
   
 </view>
  <include href="ctbmodules/manipulatives/magnifier/MagnifyingGlass.lzx"/>  
- 
+  <!-- invisible instance of ControlView class used during 
+      drag/rotate/resize actions exectud on the protractor
+      and ruler. -->
+ <ControlView name="gDragRotateResizer" />  
   
 <!-- -Freezing view 
 

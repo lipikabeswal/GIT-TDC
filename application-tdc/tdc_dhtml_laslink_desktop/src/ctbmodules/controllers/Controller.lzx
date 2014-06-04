@@ -220,7 +220,7 @@
 	<dataset name="dstemp" />
 	<!-- Changes for Language Switch for Espanol Test -->
 	<dataset name="languageDs" type="http" request="true" src="resources/LanguageInterChange.xml" />
-	
+
 	<!--
 		==================================================
 		Test Controller
@@ -605,7 +605,7 @@
 				}
 				// Case when Language attribute is present in test, but value is not provided.
 				if((gController.language.indexOf('Spanish') < 0) && gController.language.indexOf('English') < 0){
-					
+		
 					gController.setAttribute('language',"English");
 				}
 			]]></handler>
@@ -3506,7 +3506,7 @@
             //gPauseTimerScreen.setAttribute('visible',true);
             gTooltip.hideTooltip();
             if(this.isMousedownOnManip){
-				gMaskingRuler.dragger.remove();
+				//gMaskingRuler.dragger.remove();
 				this.setAttribute("isMousedownOnManip",false);
 			}
 			gController.setAttribute("isAnswerAreaDisabled",false);
@@ -3875,7 +3875,7 @@
 				gHotKeys.enableKeys();}
 			gTooltip.hideTooltip();
 			if(this.isMousedownOnManip){
-				gMaskingRuler.dragger.remove();
+				//gMaskingRuler.dragger.remove();
 				this.setAttribute("isMousedownOnManip",false);
 			}
 			if(gMaskingRuler.visible)

@@ -1,0 +1,286 @@
+<library>
+
+    <!--- Mixin for adding rotation and resize features to a view. Adds the
+          rotate and resize functionality to the controlview.
+
+          Classes related to this mixin
+
+              CoverView.lzx:
+              Invisible view for manipulating items on canvas
+              in scaled applicatoins. In combinatino with
+              this mixin the following actions can be executed:
+                * dragging (x/y position)
+                * rotation
+                * size/width
+
+               ControlHandle.lzx:
+               A control which lets the user interact with the view
+               set as the @target for the handle.
+
+               MovementLimiter-Mixin.lzx:
+               A mixin which should be used by the class/view which
+               should be manipulated, e.g. the Protractor or BaseRuler.
+
+    -->
+    <mixin name="DragRotateResize">
+
+        <!-- ATTRIBUTES -->
+        <!--- Angle of the mouse click position relative to 0.
+              @type Number
+              @access private
+         -->
+        <attribute name="_angleoffset" value="0" type="number" />
+
+        <!--- Orientation information for the beginning of a rotation adjustment
+              @type orientation (x, y, rotation)
+              @access private
+         -->
+        <attribute name="rotinfo" value="null" type="expression" />
+
+        <!--- Size information for the beginning of a resize adjustment.
+              @type orientation (x, y, width, rulerWidth)
+              @access private
+         -->
+        <attribute name="_resizeinfo" value="null" type="expression" />
+
+        <!--- Marks if a rotation has been started, either by drag or click on arrow.
+              @type boolean
+              @access private
+        -->
+        <attribute name="isrotating" value="false" type="boolean" />
+
+        <!--- Position information for the component at drag start.
+              @type point
+              @access private
+         -->
+        <attribute name="_draginfo" value="null" type="expression" />
+
+        <!--- Reference to the grabber object.
+              @type lz.ControlHandle
+              @access private
+         -->
+        <attribute name="_control" value="null" type="expression" />
+
+        <event name="onactionstart" />
+
+        <event name="onmoved" />
+
+        <!--- Resize or rotate a view based on the mouse position. Called by
+              ou_controlhandle#trackMouseMove.
+              @param String controls: marker
+              @access public
+        -->
+        <method name="doDragRotateResize" args="controls"><![CDATA[
+            var origPt = _getOrigPoint ();        // the x/y of ControlView relative to canvas
+            var mousePt = _getMousePoint ();
+            var p = null;
+            var t = this.target;
+            /* rotate */
+            if (controls.indexOf('r') != -1) {
+                p = this.rotinfo;
+                if (p == null) {
+                    _initializeRotation (origPt, mousePt)
+                }
+                // Validation check is inside the _doRotation() method
+                this._doRotation (mousePt);
+            }
+
+            /* drag: a workaround for a bug in OL using dragstate and rotation */
+            if (controls.indexOf ('d') != -1) {
+                var p = this._draginfo;
+                var newX = 0;
+                var newY = 0;
+                if (p == null) {
+                    this._draginfo = new lz.Point (canvas, {x: mousePt.x, y: mousePt.y});
+                } else {
+                    newX = this.x + (mousePt.x - p.x);
+                    newY = this.y + (mousePt.y - p.y);
+                    if (t.isValidLocation &&
+                        t.isValidLocation (this)) {
+                        setAttribute ("x", newX);
+                        setAttribute ("y", newY);
+                        this._draginfo.x = mousePt.x;
+                        this._draginfo.y = mousePt.y;
+                    }
+
+                }
+            }
+
+            /* width/size */
+            if (controls.indexOf ("s") >= 0) {
+                var ctrlHndPt;
+                var dw = 0;
+                ctrlHndPt = new lz.Point (canvas, {x:origPt.x + this.width, y:origPt.y + this.height / 2});
+                ctrlHndPt.rotate (origPt, this.rotation);
+                if (_resizeinfo == null) {
+                    _resizeinfo = {x: t.x, y: t.y, width: t.width, rulerWidth: t.ruler.width};
+                }
+                var delta = _calcResizeIncrement (origPt, ctrlHndPt, mousePt);
+                dw = this.width + delta;
+                _doResize (dw / this._link.xscale);
+            }
+        ]]>
+        </method>
+
+        <!--- Stop the drag/move action for the view.
+              @access public
+        -->
+        <method name="stopDragMove">
+            this._resetAll ();
+        </method>
+
+        <!--- Rotate the target by a number of degrees.
+              @param Number deg: The number of degrees to rotate, positive and negative values.
+              @access public.
+        -->
+        <method name="rotateBy" args="deg">
+            var origPt = _getOrigPoint ();
+            var mousePt = _getMousePoint ();
+            _initializeRotation( origPt, mousePt);
+            var isValid = this.target.isValidRotation (this, this.rotation + deg);
+            if (isValid) {
+                this.setAttribute ("rotation", this.rotation + deg);
+            }
+        </method>
+
+        <!--- Set the size for the target. Used by BaseRuler when clicking on the left/right arrows.
+              @param Number value: The value for the new size/width.
+              @access public.
+        -->
+        <method name="setSizeTo" args="value">
+            _doResize (value);
+        </method>
+
+        <!--- A mouse click in a resize control will move in some direction, at some angle, at some
+              distance.  We want to move the entire edge with the position of the mouse, regardless
+              of angle.  Calculate the resize change accordingly.
+              @param ou_point origPt: the point around which we're rotating the shape
+              @param ou_point edgePt: the point where the drag handle is
+              @param ou_point mousePt: the position of the mouse.
+              @access private
+        -->
+        <method name="_calcResizeIncrement" args="origPt, edgePt, mousePt">
+            var rotCenter = this.target.rotationcenter;
+            origPt = _getOrigPoint ();
+            var edgeX2 = edgePt.rotatePointX (origPt, -this.rotation);
+            var posX2 = mousePt.rotatePointX (origPt, -this.rotation);
+            return posX2 - edgeX2 + this.target.WIDTH_DELTA;
+        </method>
+
+        <!--- Resize the target based on the origin and the current mouse position.
+              @parameter lz.Point origPt: Origin of the target.
+              @parameter lz.Point mousePt: Mouse position.
+              @parameter Number newWidth: the new width.
+              @access private
+        -->
+        <method name="_doResize" args="newWidth"><![CDATA[
+            var t = this.target;
+            if (newWidth > t.minLength && newWidth <= t.maxLength) {
+                if (t.isValidSize (this, newWidth)) {
+                    setAttribute("width", newWidth *  this._link.xscale);
+                    if (t.onresize && t.onresize.ready) {
+                        t.onresize.sendEvent();
+                    }
+                }
+            }
+        ]]></method>
+
+        <!--- Initialize values used for rotations.
+              @param ou_point origPt: the point around which we're rotating the shape
+              @param ou_point mousePt: the position of the mouse.
+              @access private
+        -->
+        <method name="_initializeRotation" args="origPt, mousePt"><![CDATA[
+            if (isrotating) return;
+
+            var t = this.target;
+            var rotCenter = t.rotationcenter;
+            var p = new lz.Orientation (canvas,
+                                   {x: origPt.x, y: origPt.y, rotation: this.rotation});
+
+            this.rotinfo = p;
+            if (rotCenter) {
+                t.setAttribute ("xoffset", rotCenter.x);
+                t.setAttribute ("yoffset", rotCenter.y);
+                setAttribute ("xoffset", rotCenter.x * this._link.xscale);
+                setAttribute ("yoffset", rotCenter.y * this._link.yscale);
+            } else {
+                this.setAttribute ("xoffset", this.width/2);
+                this.setAttribute ("yoffset", this.height/2);
+                t.setAttribute ("xoffset", t.width/2);
+                t.setAttribute ("yoffset", t.height/2);
+            }
+            var newOrig = new lz.Point (canvas, {x: origPt.x + this.xoffset, y:origPt.y + yoffset});
+            newOrig.rotate (origPt, this.rotation);
+
+            setAttribute ("x", newOrig.x);
+            setAttribute ("y", newOrig.y);
+
+            t.setAttributeRelative ('x', this);
+            t.setAttributeRelative ('y', this);
+        ]]></method>
+
+        <!--- Rotate a view based on the mouse drag x/y position.
+              @param Number posX: the x-position of the mouse relative to the current view.
+              @param Number posY: the y-position of the mouse relative to the current view.
+              @access private
+        -->
+        <method name="_doRotation" args="mousePt"><![CDATA[
+            var origPt = _getOrigPoint ();
+            var angle = origPt.calcAngle (mousePt) + 90;
+            var isValid = false;
+            if (this.isrotating === false) {
+                this.setAttribute ("isrotating", true);
+                this._angleoffset = angle - this.rotation;
+            }
+            isValid = this.target.isValidRotation (this, angle - this._angleoffset);
+            if (isValid) {
+                this.setAttribute ("rotation", angle - this._angleoffset);
+            }
+        ]]>
+        </method>
+
+        <!-- Returns the mouse point, with respect to the canvas.
+              @access private
+        -->
+        <method name="_getMousePoint">
+            return new lz.Point (canvas, canvas.getMouse ());
+        </method>
+
+        <!-- Returns the "origin" point, the location of controlview
+              @access private
+        -->
+        <method name="_getOrigPoint">
+            return new lz.Point (canvas, {x:x, y:y});
+        </method>
+
+        <!--- Reset all properties set when the drag/move or rotation started.
+              @access private
+        -->
+        <method name="_resetAll">
+            this.setAttribute ("isrotating", false);
+            if (this.rotinfo != null) {
+                var ang = this.rotation - this.rotinfo.rotation;
+                var oldOrig = new lz.Point (canvas, {x: this.rotinfo.x, y: this.rotinfo.y});
+                var newOrig = new lz.Point (canvas, {x: this.x, y:this.y});
+                oldOrig.rotate (newOrig, ang);
+
+                this.setAttribute ("xoffset", 0);
+                this.setAttribute ("yoffset", 0);
+                this.target.setAttribute ("xoffset", 0);
+                this.target.setAttribute ("yoffset", 0);
+                this.rotinfo = null;
+
+                this.setAttribute ("x", oldOrig.x);
+                this.setAttribute ("y", oldOrig.y);
+
+            }
+            this.rotinfo = null;
+            this._draginfo = null;
+            this._resizeinfo = null;
+            this._angleoffset = 0;
+        </method>
+
+    </mixin>
+
+</library>

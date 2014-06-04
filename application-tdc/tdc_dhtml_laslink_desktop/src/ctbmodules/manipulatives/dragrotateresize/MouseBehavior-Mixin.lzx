@@ -1,0 +1,93 @@
+<library>
+
+    <!--- Mixin for adding the ability to track 2 different type of click events
+          to a view:
+            1. onshortclick (single click with a duration lower than _longclicktime)
+            2. onlongclick (single click with a duration higher than _longclicktime)
+    -->
+    <mixin name="MouseBehavior">
+
+        <!-- ATTRIBUTES -->
+        <!--- Counter for tracking number of clicks.
+              @type Number
+              @access private
+         -->
+        <attribute name="_clickcounter" type="number" value="0"/>
+
+        <!--- Timestamp marking the first click of a click sequence.
+              @type Number
+              @access private
+         -->
+        <attribute name="_firstclicktime" type="number" value="0"/>
+
+        <!--- Duration of a click action.
+              @type Number
+              @access private
+         -->
+        <attribute name="_clickdur" type="number" value="0"/>
+
+        <!--- Mouse pointer x position, used for distinguishing longclick and drag.
+              @type Number
+              @access private
+         -->
+        <attribute name="_mousex" type="number" value="0"/>
+
+        <!--- Mouse pointer y position, used for distinguishing longclick and drag.
+              @type Number
+              @access private
+         -->
+        <attribute name="_mousey" type="number" value="0"/>
+
+        <!-- EVENTS -->
+        <!--- Event object for shorclick.
+              @type LzEvent
+              @access public
+         -->
+        <event name="onshortclick" />
+
+        <!--- Mousedown handler.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="onmousedown">
+            if (this._clickcounter == 0) {
+                this._firstclicktime = new Date().getTime();
+                this._mousex = canvas.getMouse("x");
+                this._mousey = canvas.getMouse("y");
+            }
+            this._clickcounter++;
+        </handler>
+
+        <!--- Mouseup handler.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="onmouseup"><![CDATA[
+            this._clickdur = new Date().getTime() - this._firstclicktime;
+            var xDist = Math.abs(this._mousex - canvas.getMouse("x"));
+            var yDist = Math.abs(this._mousey - canvas.getMouse("y"));
+            var distance = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
+            if (distance >= 5 && this._clickdur < 300) {
+                // mouse moved, that's a drag
+                // Ignore for now
+            } else if (this._clickdur < 800) {
+                // It's a short click
+                this.onshortclick.sendEvent();
+            }
+            this._clearClickTracker();
+        ]]>
+        </handler>
+
+        <!-- METHODS -->
+
+        <!--- Clear the click tracking information
+              @access private
+        -->
+        <method name="_clearClickTracker">
+          this._clickcounter = 0;
+          this._clickdur = 0;
+        </method>
+
+    </mixin>
+
+</library>

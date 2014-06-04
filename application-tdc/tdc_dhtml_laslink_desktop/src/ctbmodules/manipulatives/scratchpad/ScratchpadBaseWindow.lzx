@@ -8,13 +8,18 @@
 <include href="base/basecomponent.lzx" />
 <include href="utils/states/dragstate.lzx"/>
 <!--<include href="utils/states/resizestatemin.lzx"/>-->
-
-<include href="resizestateminmax.lzx"/>
+<include href="../dragrotateresize/DragMixin.lzx" />
+<include href="../dragrotateresize/ResizeMixin.lzx" />
 
 <!--- The basewindow class defines methods, attributes that are used by window
       subclasses.-->
 <class name="ScratchpadBaseWindow" extends="basecomponent"  options="ignorelayout"
-       pixellock="true" focusable="false" clickable="true">
+       pixellock="true" focusable="false" clickable="true"  with="DragMixin,ResizeMixin"
+           dragaxis="both"
+           dragminx="${-(this.width - 100)}"
+           dragmaxx="${parent.width - 100}"
+           dragminy="${-(this.height - 100)}"
+           dragmaxy="${parent.height - 100}">
         <!--- Minimum width for the window.
               @keywords final -->
         <attribute name="minwidth" value="60"/>
@@ -48,22 +53,6 @@
            value="true"
            type="boolean" />
 
-        <state name="_windowDrag">
-            <attribute name="starty" value="$once{this.y}"/>
-            <attribute name="startx" value="$once{this.x}"/>
-            <attribute name="drag_min_x" value="$once{-(this.width - 100)}" />
-            <attribute name="drag_min_y" value="$once{-(this.height - 100)}"/>
-            <attribute name="drag_max_x" value="$once{parent.width - 100}"/>
-            <attribute name="drag_max_y" value="$once{parent.height - 100}"/>
-            <attribute name="ydoffset" value="this.getMouse( 'y' )" when="once" />
-            <attribute name="xdoffset" value="this.getMouse( 'x' )" when="once" />
-            <!-- Don't call setDragPos() once the drag state has been changed -->
-            <attribute name="y"
-                       value="${setDragPos('y', this.immediateparent.getMouse( 'y' ))}"/>
-            <attribute name="x"
-                       value="${setDragPos('x', this.immediateparent.getMouse( 'x' ))}"/>
-        </state>
-
         <!--- @access private -->
         <method name="setDragPos" args="xory, mousepos">   <![CDATA[
             var newpos = mousepos - this[xory + 'doffset'];
@@ -95,10 +84,6 @@
             return newpos;
             ]]>
         </method> 
-
-             <!-- resizestatemin uses minwidth and minheight attribute-->
-         <resizestateminmax name="_windowResize"  onapply="parent.setAttribute('haswindowfocus', true)"
-         />
 
         <!--- @keywords private -->
         <method name="construct" args="parent,args">
@@ -208,14 +193,17 @@
               @keywords private -->
         <method name="_mousedown" args="ignore">
             this.setAttribute('haswindowfocus', true);
-            this._startDrag();
+            this.setAttribute('dragenabled', true);
         </method>
 
         <!--- Called onmouseup, stops the drag behavior.  Subclasses may
               override to create different behavior.
               @keywords private -->
         <method name="_mouseup" args="ignore">
-            this._stopDrag();
+            this.setAttribute('dragenabled', false);
+			lz.Cursor.unlock();
+            gScratchpad.onmouseout.sendEvent();
+            gScratchpad.onmouseover.sendEvent();
 			//Debug.write("this.stopdrag scratchpadbasewindpw",this.x,this.y)
         </method>
 
@@ -226,8 +214,8 @@
         <method name="_startDrag">
        <![CDATA[
         if (this.allowdrag){
-            this._windowDrag.setAttribute('applied', true);
-            }
+            this.setAttribute('dragenabled', true)
+        }
 
        ]]>
         </method>
@@ -237,12 +225,8 @@
               anywhere on the window.
               @keywords private -->
         <method name="_stopDrag">
-            this._windowDrag.setAttribute('applied', false);
+			this.setAttribute('dragenabled', false);
             setAttribute('state', 1);
-            lz.Cursor.unlock();
-            gScratchpad.onmouseout.sendEvent();
-            gScratchpad.onmouseover.sendEvent();
-            //Debug.write("___STOP DRAG SCRATCHPAD",   this._windowDrag.x,  this._windowDrag.y);
         </method>
 		
 		<!--- May be called by subclasses to control resizing of the window
@@ -250,7 +234,7 @@
               resizer control.
               @keywords private -->
         <method name="_startResize">
-            this._windowResize.setAttribute('applied', true);
+            this.setResizeState()
             setAttribute('state', 5);
         </method>
 
@@ -259,7 +243,7 @@
              control.
              @keywords private -->
         <method name="_stopResize">
-            this._windowResize.setAttribute('applied', false);
+            this.unsetResizeState();
             setAttribute('state', 1);
         </method>
 

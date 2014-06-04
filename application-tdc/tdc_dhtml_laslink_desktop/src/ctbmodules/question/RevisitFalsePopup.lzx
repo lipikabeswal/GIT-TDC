@@ -52,7 +52,7 @@
 	    		this.contents.okButton.setAttribute('visible',true);
 	    		this.contents.moveBackButton.setAttribute('visible',false);	
 	    	}
-	    	gMaskingRuler.dragger.remove();
+	    	//gMaskingRuler.dragger.remove();
 	    	if(gScratchpad.visible)
 	    	{
 	    	  gScratchpad.onmouseup.sendEvent();

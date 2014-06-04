@@ -1,0 +1,49 @@
+<library>
+
+    <!--- Class that represents "orientation": a point+rotation
+          in an x-y coordinate system.
+     -->
+    <class name="Orientation" extends="node">
+
+       <!-- ATTRIBUTES -->
+        <!--- Number representing x value of point
+              @type Number
+              @access public
+        -->
+        <attribute name="x" type="number" value="0" />
+
+        <!--- Number representing y value of point
+              @type Number
+              @access public
+        -->
+        <attribute name="y" type="number" value="0" />
+
+        <!--- Number representing rotation of shape
+              @type Number
+              @access public
+        -->
+        <attribute name="rotation" type="number" value="0" />
+
+        <!-- METHODS -->
+        <!--- @access private -->
+        <method name="construct" args="parent, args">
+            super.construct(parent, args);
+            this.x = args['x'];
+            this.y = args['y'];
+            this.rotation = args['rotation'];
+        </method>
+
+
+        <!-- Converts an orientation structure to a point structure
+              @access public
+        -->
+        <method name="toPoint">
+            var pt = new lz.Point(this.parent, {x:this.x, y:this.y});
+            return pt;
+        </method>
+
+    </class>
+
+
+</library>
+

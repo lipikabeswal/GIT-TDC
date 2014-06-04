@@ -17,8 +17,7 @@
 		   minwidth="130"
 		   minheight="130"
 		   initstage="defer"
-		   focustrap="true"
-		   xscale="${canvas.xscalefactor}" yscale="${canvas.yscalefactor}" >
+		   focustrap="true">
 
 		<attribute name="DEFAULT_HEIGHT" type="number" value="227" />
 		<attribute name="DEFAULT_WIDTH" type="number" value="400" />
@@ -35,8 +34,7 @@
 		<attribute name="startResize" type="boolean" value="false"/>
 		<attribute name="mouseReleased" type="boolean" value="false"/>
 		<attribute name="mouseDownOnScratchpad" type="boolean" value="false"/>
-        <handler name="onmousedown">
-         <![CDATA[ 
+        <handler name="onmousedown"><![CDATA[
         	this.bringToFront();
         	this.sp.inp.setAttribute('selectable',false);
             lz.Cursor.setCursorGlobal ('grabbing_cursor');
@@ -150,7 +148,7 @@
         		var text = gController.dplang.xpathQuery("component[@name='ScratchPad']/labelText").childNodes[0].data;
         		this.setAttribute('title',text);
         	}
-        	this.toolstate.setAttribute ('rerunxpath', true);
+            this.toolstate.setAttribute ('rerunxpath', true);
             this.toolstate.setXPath (this.datapath.xpath + '/@' + this.toolid);
             this.datapath.setXPath (this.toolid);
             var elm = this.getDisplayObject();
@@ -163,8 +161,8 @@
 				this.setAttribute("width", this.DEFAULT_WIDTH);
 				/*this.setAttribute("x", this.DEFAULT_X);
 				this.setAttribute("y", this.DEFAULT_Y);*/
-				this.setAttribute ('x', (gManipulatives.width - this.width*canvas.xscalefactor)/2);
-            	this.setAttribute ('y', (gManipulatives.height - this.height*canvas.yscalefactor)/2);
+				this.setAttribute ('x', (gManipulatives.width - this.width)/2);
+            	this.setAttribute ('y', (gManipulatives.height - this.height)/2);
            		this.restoreFocusAndCursor();
            }else{
            		gReadableText.stopReading(true);
