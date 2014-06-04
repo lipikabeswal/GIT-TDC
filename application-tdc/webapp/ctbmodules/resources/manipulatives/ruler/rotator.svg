@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="36px"
+	 height="36px" viewBox="0 0 36 36" enable-background="new 0 0 36 36" xml:space="preserve">
+<g id="plusCircle">
+	
+		<circle fill="#FFFFC4" stroke="#ADAB8A" stroke-width="1.2697" stroke-linecap="round" stroke-miterlimit="10" cx="18.001" cy="18" r="11.999"/>
+	<g>
+		
+			<line fill="none" stroke="#000000" stroke-width="1.7722" stroke-linecap="round" stroke-miterlimit="10" x1="13.25" y1="17.999" x2="22.75" y2="17.999"/>
+		
+			<line fill="none" stroke="#000000" stroke-width="1.7722" stroke-linecap="round" stroke-miterlimit="10" x1="18.001" y1="22.749" x2="18.001" y2="13.249"/>
+	</g>
+</g>
+<g id="grabAreas">
+	<g>
+		<polygon fill="#A5A5F2" points="18.001,4.019 15.158,8.944 13.279,10.027 18.001,1.853 		"/>
+		<polygon fill="#4343FF" points="15.158,8.944 18.001,4.019 20.845,8.944 		"/>
+		<polygon fill="#161699" points="20.845,8.944 15.158,8.944 13.279,10.027 22.721,10.027 		"/>
+		<polygon fill="#7384EA" points="18.001,4.019 20.845,8.944 22.721,10.027 18.001,1.853 		"/>
+	</g>
+	<g>
+		<polygon fill="#161699" points="18.001,31.979 20.845,27.054 22.721,25.97 18.001,34.147 		"/>
+		<polygon fill="#4343FF" points="20.845,27.054 18.001,31.979 15.158,27.054 		"/>
+		<polygon fill="#A5A5F2" points="15.158,27.054 20.845,27.054 22.721,25.97 13.279,25.97 		"/>
+		<polygon fill="#3949AA" points="18.001,31.979 15.158,27.054 13.279,25.97 18.001,34.147 		"/>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+</g>
+</svg>
