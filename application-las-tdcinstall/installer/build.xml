@@ -66,7 +66,9 @@
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="vanilla" />
 			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://oasdelivery.ctb.com" />
+			-->
 		</antcall>
 	</target>
 	
@@ -74,7 +76,9 @@
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="vanilla-thin" />
 			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://oasdelivery.ctb.com" />
+			-->
 		</antcall>
 	</target>
 	
@@ -83,7 +87,9 @@
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="istep" />
 			<param name="installer.primary.url" value="https://istep-oas.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://istep-oasdr.ctb.com" />
+			-->
 		</antcall>
 	</target>
 	
@@ -91,7 +97,9 @@
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="istep-thin" />
 			<param name="installer.primary.url" value="https://istep-oas.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://istep-oasdr.ctb.com" />
+			-->
 		</antcall>
 	</target>
 	
@@ -100,7 +108,9 @@
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="tabe" />
 			<param name="installer.primary.url" value="https://tabe-oas.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://tabe-oasdr.ctb.com" />
+			-->
 		</antcall>
 	</target>
 
@@ -108,7 +118,9 @@
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="tabe-thin" />
 			<param name="installer.primary.url" value="https://tabe-oas.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://tabe-oasdr.ctb.com" />
+			-->
 		</antcall>
 	</target>
 
@@ -118,8 +130,9 @@
 			<param name="installer.type" value="laslink" />
 			
 			<param name="installer.primary.url" value="https://llo-oas.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://llo-oasdr.ctb.com" />
-			
+			-->
 			<!--
 			<param name="installer.primary.url" value="https://tms-oas-staging.ctb.com" />
 			<param name="installer.secondary.url" value="https://tms-oas-staging.ctb.com" />
@@ -132,7 +145,9 @@
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="laslink-thin" />
 			<param name="installer.primary.url" value="https://llo-oas.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://llo-oasdr.ctb.com" />
+			-->
 		</antcall>
 	</target>
 
@@ -141,7 +156,9 @@
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="ga" />
 			<param name="installer.primary.url" value="https://ga-oas.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://ga-oasdr.ctb.com" />
+			-->
 		</antcall>
 	</target>
 
@@ -149,7 +166,9 @@
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="ga-thin" />
 			<param name="installer.primary.url" value="https://ga-oas.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://ga-oasdr.ctb.com" />
+			-->
 		</antcall>
 	</target>
 	
@@ -158,7 +177,9 @@
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="tn" />
 			<param name="installer.primary.url" value="https://tn-oas.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://tn-oasdr.ctb.com" />
+			-->
 		</antcall>
 	</target>
 
@@ -166,7 +187,9 @@
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="tn-thin" />
 			<param name="installer.primary.url" value="https://tn-oas.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://tn-oasdr.ctb.com" />
+			-->
 		</antcall>
 	</target>
 	
@@ -176,7 +199,9 @@
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="tng" />
 			<param name="installer.primary.url" value="https://tn-oas.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://tn-oasdr.ctb.com" />
+			-->
 		</antcall>
 	</target>
 
@@ -184,7 +209,9 @@
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="tng-thin" />
 			<param name="installer.primary.url" value="https://tn-oas.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://tn-oasdr.ctb.com" />
+			-->
 		</antcall>
 	</target>
 	
@@ -194,7 +221,9 @@
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="ok" />
 			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://oasdelivery.ctb.com" />
+			-->
 		</antcall>
 	</target>
 
@@ -202,7 +231,9 @@
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="ok-thin" />
 			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://oasdelivery.ctb.com" />
+			-->
 		</antcall>
 	</target>
 	
@@ -248,7 +279,9 @@
 		
 		<replace file="${project.artifacts.webapp.classes.dir}/tdc.properties">
 		  <replacefilter token="primary-url" value="${installer.primary.url}"/>
+		  <!--
 		  <replacefilter token="secondary-url" value="${installer.secondary.url}"/>
+		  -->
 		</replace>
 		
 		<copy file="${project.base.dir}/bootstrap-single.jar" tofile="${project.artifacts.dir}/bootstrap.jar" overwrite="true" />
@@ -303,7 +336,9 @@
 		
 		<replace file="${project.artifacts.webapp.classes.dir}/tdc.properties">
 		  <replacefilter token="primary-url" value="${installer.primary.url}"/>
+		  <!--
 		  <replacefilter token="secondary-url" value="${installer.secondary.url}"/>
+		  -->
 		</replace>
 		
 		<copy file="${project.base.dir}/bootstrap-multi.jar" tofile="${project.artifacts.dir}/bootstrap.jar" overwrite="true" />
