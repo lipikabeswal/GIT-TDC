@@ -1404,7 +1404,11 @@ function addHandleDiv($draggables) {
             str = "";
             elemnt = ele.find(".text");
             if (elemnt.length > 0 && elemnt.get(0).scrollHeight > elemnt.innerHeight()) {
-                str = "width:90%;";
+				if (isStandAlone) {
+					str = "width:100%;";
+				}else{
+					str = "width:90%;";
+				}
             } else {
                 str = "width:100%;";
             }
