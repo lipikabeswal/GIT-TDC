@@ -9,6 +9,10 @@
 		<attribute name="stage" type="number" value="1" />
 
         <method name="show">
+        if(gController.dplang.xpathQuery("component[@name='RecordingPopup']") != null){
+        	var popUpText = gController.dplang.xpathQuery("component[@name='RecordingPopup']/PopUpText").childNodes[0].data;
+			this.message.pleasewait.setAttribute("text",popUpText);
+			}
         	this.spinner.startAnim();
 			gHotKeys.disableKeys();
 			canvas.titleView.mainView.scalingView.gView.coverview.setAttribute('visible',true);
@@ -90,7 +94,7 @@
 		</CustomSpinner>
 
         <view name="message" align="center" y="100">
-            <text font="CTB" fontsize="21" mutltiline="false" resize="true" align="center">Please Wait
+            <text name="pleasewait" font="CTB" fontsize="21" mutltiline="false" resize="true" align="center">Please Wait
 				<handler name="oninit">
 					var elm = this.getDisplayObject();
 					elm.setAttribute('style','font-family: CTB; font-size: 21px; line-height: 25px; pointer-events: none; width: auto; height: 25px;');
