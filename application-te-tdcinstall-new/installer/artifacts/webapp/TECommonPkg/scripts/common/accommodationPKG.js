@@ -293,9 +293,7 @@ function accommodationPKG() {
 					var parent = $(this).parent();
 					var dom = $(this).clone();
 					$(this).remove();
-					console.log("remove====="+new Date().getTime());
 					$(parent).append(dom);
-					console.log("append====="+new Date().getTime());
 					$(dom).scrollTop(topPos);
 					var ele, textFreeFlowComponents = $("#previewArea div[interactiontype='7']"),
 						textRestrictedComponents = $("#previewArea div[interactiontype='6']");
@@ -779,6 +777,7 @@ function accommodationPKG() {
                     }
                 }
             }
+			e.originalEvent.preventDefault();
         });
         if (!mouseOnUnwantedEle) {
             $(document).on("mousemove", function (e) {
@@ -836,6 +835,10 @@ function accommodationPKG() {
             $(document).on("mouseup", function (e) {
                 if ($(document).data("active")) {
                     //sendNotification();
+					var testxaxis=textEle[0].scrollWidth > textEle.outerWidth(true);
+					if(testxaxis == false){
+						textEle.css("overflow-x","hidden");
+					}
                     selectStart = false;
 					if (isScrollableDivY) {
 					scrollableDivMouseUp(e);
