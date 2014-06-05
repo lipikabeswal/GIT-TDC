@@ -13,7 +13,24 @@
 		<moveBackButtonResource>popupMoveBack_english</moveBackButtonResource>
 		<cancelButtonresource>popupCancel_english</cancelButtonresource>
 	</component>
-	
+	<component name="Recorder">
+		<remaining>TIME REMAINING:</remaining> 
+		<secs_text>secs</secs_text> 
+		<labelText>Sound Recorder</labelText> 
+		<recordStatusInProgess>RECORDING...</recordStatusInProgess> 
+		<recordStatusCompleted>AUDIO CAPTURED</recordStatusCompleted> 
+		<tooltip_record>Record</tooltip_record>
+		<tooltip_stop>Stop</tooltip_stop>
+		<tooltip_startOver>Start Over</tooltip_startOver>
+		<startOverResource>button_startover_english</startOverResource>
+		<attachMic>It appears your microphone is not plugged in, please adjust your microphone input volume up and make sure your microphone is connected.</attachMic>
+	</component>
+	<component name="RecordingPopup">
+		<PopUpText>Please Wait</PopUpText>
+	</component>
+	<component name="SpeakNowPopup">
+		<PopUpText>Speak Now...</PopUpText>
+	</component>
 </language>
 
 <language name="Spanish">
@@ -25,6 +42,24 @@
 		<okButtonResource>popupOk_spanish</okButtonResource>
 		<moveBackButtonResource>popupMoveBack_spanish</moveBackButtonResource>
 		<cancelButtonresource>popupCancel_spanish</cancelButtonresource>
+	</component>
+	<component name="Recorder">
+		<remaining>TIEMPO QUE QUEDA:</remaining> 
+		<secs_text>segs</secs_text>
+		<labelText>Grabadora</labelText>
+		<recordStatusInProgess>GRABANDO...</recordStatusInProgess>
+		<recordStatusCompleted>AUDIO GRABADO</recordStatusCompleted>
+		<tooltip_record>Graber</tooltip_record>
+		<tooltip_stop>Parar</tooltip_stop>
+		<tooltip_startOver>Graber de Nuevo</tooltip_startOver>
+		<startOverResource>button_startover_spanish</startOverResource>
+		<attachMic>Tu micrófono parece estar desconectado. Ajusta el volumen del micrófono y asegúrate que el micrófono está conectado.</attachMic>
+	</component>
+	<component name="RecordingPopup">
+		<PopUpText>Espera para grabar</PopUpText>
+	</component>
+	<component name="SpeakNowPopup">
+		<PopUpText>Comienza a hablar...</PopUpText>
 	</component>
 	
 </language>
