@@ -777,6 +777,7 @@ function accommodationPKG() {
                     }
                 }
             }
+			e.originalEvent.preventDefault();
         });
         if (!mouseOnUnwantedEle) {
             $(document).on("mousemove", function (e) {
@@ -834,6 +835,10 @@ function accommodationPKG() {
             $(document).on("mouseup", function (e) {
                 if ($(document).data("active")) {
                     //sendNotification();
+					var testxaxis=textEle[0].scrollWidth > textEle.outerWidth(true);
+					if(testxaxis == false){
+						textEle.css("overflow-x","hidden");
+					}
                     selectStart = false;
 					if (isScrollableDivY) {
 					scrollableDivMouseUp(e);
