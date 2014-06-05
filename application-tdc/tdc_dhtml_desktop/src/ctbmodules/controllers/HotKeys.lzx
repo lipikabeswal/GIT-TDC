@@ -238,7 +238,9 @@
                    value="$once{ new lz.Delegate( this, 'stop' ) }" type="expression"/>
         <attribute name="dfinish"
                    value="$once{ new lz.Delegate( this, 'finish' ) }" type="expression"/>
-  
+  		
+		<attribute name="onceOnly" type="boolean" value="true"/>
+
         <method name="toggleA" args="ignore=null">    
         	if(!gController.isCrItem()){
 	            this.exitPopups();
@@ -301,26 +303,32 @@
         </method>        
         <method name="goBack" args="ignore=null">
 		<![CDATA[
-		    if(canvas.loadItem){
-				if(!gController.fwdOnly){
-	        		if(!gController.onFirstItem()){
-	        			lz.Focus.clearFocus();
-	        		}
-	        	
-	            	this.exitPopups();
-	        		gController.stepNavigateBack();
-				} 
-			}	     
+			
+			if(this.onceOnly){ 
+			    if(canvas.loadItem){
+					if(!gController.fwdOnly){
+		        		if(!gController.onFirstItem()){
+		        			lz.Focus.clearFocus();
+		        		}
+		        	
+		            	this.exitPopups();
+						gController.stepNavigateBack();
+					} 
+				}
+         	}	     
        	]]>
 		</method>
         <method name="goOn" args="ignore=null"> 
-            if(canvas.loadItem){
-	        	if(!gController.onLastItem()){
-	        		lz.Focus.clearFocus();
-	        	}
-	            this.exitPopups(); 
-	        	gController.stepNavigateForward();  
-	        }	   
+            
+			if(this.onceOnly){ 
+	            if(canvas.loadItem){
+		        	if(!gController.onLastItem()){
+		        		lz.Focus.clearFocus();
+		        	}
+		            this.exitPopups(); 
+					gController.stepNavigateForward();  
+		        }
+         	}		   
         </method>
         <method name="toggleMark" args="ignore=null"> 
             if(canvas.loadItem){

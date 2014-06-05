@@ -2767,7 +2767,7 @@
          gController.hideMagnifierGlass(); 
         ]]></method>
 
-		<method name="changeItem" args="fnode"><![CDATA[		
+		<method name="changeItem" args="fnode"><![CDATA[	
 			if(fnode != null) {			
 				if(this.recorder != null) {
 					this.recorder.stopblinker('stop');
@@ -2925,6 +2925,7 @@
 				}else{
 				changeItem( getItemFromOffset( currItemOffset() - 1 ) );
             	}
+            	gHotKeys.setAttribute("onceOnly",false);
             }
         ]]></method>
 
@@ -2945,6 +2946,7 @@
 				}else{
 					changeItem( getItemFromOffset( currItemOffset() + 1 ) );
             	}
+            	gHotKeys.setAttribute("onceOnly",false); 
             }	
         ]]></method>
 
@@ -3610,11 +3612,12 @@
 		<attribute name="uisemaphore" value="1" />
 
 		<method name="freezeUI">
-
+			//console.log("freezeUI called");
             //++uisemaphore;
             lz.Keys.blockKeyCombos(true);	
             //console.log("freezeUI****",uisemaphore);			
-			setAttribute('uisemaphore', uisemaphore + 1);
+			//setAttribute('uisemaphore', uisemaphore + 1);
+			setAttribute('uisemaphore', 1);
             if ( dsdisplay.childNodes[0].getAttr( 'enabled' ) == 'true' ) {
                 gHotKeys.disableKeys();
                 dsdisplay.childNodes[0].setAttr( 'enabled', 'false' );
@@ -3625,8 +3628,10 @@
 		<method name="unlockUI">
 		<![CDATA[
 			if(doUnlockUI){
+				//console.log("unlockUI called");
 	            //--uisemaphore;
-				setAttribute('uisemaphore', uisemaphore - 1);	
+				//setAttribute('uisemaphore', uisemaphore - 1);	
+				setAttribute('uisemaphore', 0);
 				//console.log("unlockUI****",uisemaphore);
 				if ( uisemaphore < 0 )
 				{
@@ -5775,6 +5780,7 @@
 	
 
 		<method name="updateBlueBallForHtmlItem" args="answer"><![CDATA[
+			//console.log("updateBlueBallForHtmlItem inQuestion = "+this.inQuestion);
 			if(this.inQuestion){
 				var answered = false;
 	            var currentitem = dpstudentdata.xpathQuery("current_item/item_model");
@@ -5881,6 +5887,7 @@
             	var xmls = "<answers>";
 				var data;
             	for (var i = 0; i < this.answerObj.length; i++) {
+            		//console.log("this.htmlFields[0].widget_id "+this.htmlFields[0].widget_id+" this.answerObj[i][widget_id] "+this.answerObj[i]['widget_id']);
 					if(this.htmlFields[0].widget_id == this.answerObj[i]['widget_id']){
 						xmls = xmls.concat("<answer id=" + "\"" + this.answerObj[i]['widget_id'] + "\""+ ">");
 						if(this.htmlFields[0].answered){

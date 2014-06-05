@@ -103,6 +103,14 @@
 	            }
 	            newcomp.datapath.setPointer (datanode);
 	        }
+	        
+	        // this condition is for non te items setting the onceOnly value true to go On and Back
+	        if(type == 'html_widget' || type == 'panel'){
+	        	 // do nothing
+	        }else{
+	        	gHotKeys.setAttribute("onceOnly",true); 
+	        }
+	        
             return newcomp;
         ]]>
         </method>

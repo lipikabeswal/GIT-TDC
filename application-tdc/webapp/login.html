@@ -306,8 +306,7 @@ var ans = false;
 			}
         }
     }
-    gController.unlockUI();
-   //gController.isAnsweredDelegate();   
+    gController.unlockUI();   
  }
  // added as a workaround to change answered math pallete image path from absolute path to relative path, 
  // as in TDC the server port might change due to unavailability of the default port.
@@ -620,7 +619,6 @@ function setScaleFactor(xscalefactor,yscalefactor){
      	var iframe = jQuery("iframe")[0];
      	console.log("iframe state");
      	if(iframe){
-		    setAnswerNow('complete');
 		    //check whether iFrame loaded successfully or not
 		    if(iframe != null
 	    		&& iframe.contentWindow != null

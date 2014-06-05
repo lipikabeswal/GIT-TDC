@@ -83,6 +83,8 @@
 			</handler>
 	
 			<handler name="ondata" args="data"><![CDATA[
+			//console.log("ondata of CachableHtmlWidget");
+			gController.freezeUI();
 	      	var srcUrl = data.getAttr('src');
 	      	this.setAttribute("TEid",data.getAttr('src'));
 			this.setAttribute('unlocked', false);
@@ -132,7 +134,7 @@
 				}else {
 					gController.setAttribute('isAnswerSet',false); //using for freezing/unfreezing UI
 				}
-				setAnswer();
+				
 				gController.addHtmlField({"widget_id" : id, "answered" : this.answered, 
 						"answer" : this.answer, "ref" : this, frameObj: this.getIframeObject()}); 
 	
@@ -154,7 +156,7 @@
 			}
 	 		this.bringToFront();
 			func2();
-			gController.freezeUI();
+			
 			//doneLoading();
 	
 			]]>
@@ -177,10 +179,10 @@
 						this.setAttribute('answered', false);
 						gController.updateBlueBallForHtmlItem(retVal);
 					}
-					if(!unlocked){
+					/*if(!unlocked){
 						gController.unlockUI();
 						this.setAttribute('unlocked', true);
-					}
+					}*/
 					gController.htmlFields[0]['answered'] = this.answered;
 				}
 	       ]]> </method>
@@ -193,6 +195,7 @@
 					checkedVals = this.answerObjSet.checkedVals;
 				}
 				setState(htmlContent, jsonContent, checkedVals);
+				gHotKeys.setAttribute("onceOnly",true);
 				setResponseInGlobalArray(this.answerObjSet);
 				
 			</method>
@@ -270,6 +273,7 @@
 					 }else{
 					 	lz.Timer.removeTimer(checkiframeStateDel);
 					 	canvas.setAttribute('frameLoaded',false);
+						setAnswer();
 					 	this.ht.setAttribute('visible',true);
 					 }
 			</method>
