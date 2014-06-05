@@ -238,6 +238,13 @@
 				<text valign="middle" font="CTB" fontsize="${12 * classroot.factor}"
 					fontstyle="bold" fgcolor="white" width="90%" height ="100%">
 					Sound Recorder
+					<handler name="ontext">
+						if(gController.dplang.xpathQuery("component[@name='Recorder']") != null){
+							var labelText = gController.dplang.xpathQuery("component[@name='Recorder']/labelText").childNodes[0].data;
+							this.setAttribute('text',labelText);
+						}
+					</handler>
+					
 				</text>
 			</view>
 			<view name="content" width="100%" height="85%" bgcolor="white">
@@ -290,8 +297,20 @@
 					<view options="releasetolayout" height="100%">
 					</view>
 					<text name="remaining" fontsize="${12 * classroot.factor}" font="CTB" fontstyle="bold"
-						width="47%" valign="bottom" height="100%">
+						valign="bottom" height="100%">
 						TIME REMAINING:
+						<handler name="ontext">
+						if(gController.dplang.xpathQuery("component[@name='Recorder']") != null){
+							var timeLeft = gController.dplang.xpathQuery("component[@name='Recorder']/remaining").childNodes[0].data;
+							this.setAttribute('text',timeLeft);
+						}
+						var elm = this.getDisplayObject();
+						if(gController.language.indexOf("Spanish") >= 0){
+							elm.setAttribute('style','font-family:CTB; width:auto;font-weight:bold;left:7px;');
+						}
+						
+					</handler>
+					
 					</text>
 					<text name="timertext" fontsize="${12 * classroot.factor}" fontstyle="bold"
 						font="CTB" fgcolor="0x008000"  valign="bottom" height="100%" >
@@ -316,6 +335,12 @@
 					<text fontsize="${12 * classroot.factor}" font="CTB"  fontstyle="bold"
 						valign="bottom" height="100%" width="15%">
 						secs
+						<handler name="ontext">
+							if(gController.dplang.xpathQuery("component[@name='Recorder']") != null){
+								var secsText = gController.dplang.xpathQuery("component[@name='Recorder']/secs_text").childNodes[0].data;
+								this.setAttribute('text',secsText);
+						}
+						</handler>
 					</text>
 				</view>
 				<view name="bar" align="center" width="80%" height="${6 * classroot.factor}"
@@ -338,7 +363,13 @@
 								name="recordButton" width="${23 * classroot.factor}" height="${23 * classroot.factor}" stretches="both"
 								align="left" onclick="classroot.startblinker('record')" >
 								<handler name="onmouseover">
-									gTooltip.showTooltip('Record');
+									if(gController.dplang.xpathQuery("component[@name='Recorder']") != null){
+										// Setting tootip text based on language.
+										var tooltipText = gController.dplang.xpathQuery("component[@name='Recorder']/tooltip_record").childNodes[0].data;
+										gTooltip.showTooltip(tooltipText);
+									}else{
+										gTooltip.showTooltip('Record');
+									}
 								</handler>						                
 								<handler name="onmouseout">
 									gTooltip.hideTooltip ();    
@@ -360,7 +391,13 @@
 								name="stopButton" width="${parent.recordButton.width}" height="${parent.recordButton.height}" stretches="both"
 								enabled="false" onclick="classroot.stopblinker('stop')" >
 							 	<handler name="onmouseover">
-									gTooltip.showTooltip('Stop');
+									if(gController.dplang.xpathQuery("component[@name='Recorder']") != null){
+										// Setting tootip text based on language.
+										var tooltipText = gController.dplang.xpathQuery("component[@name='Recorder']/tooltip_stop").childNodes[0].data;
+										gTooltip.showTooltip(tooltipText);
+									}else{
+										gTooltip.showTooltip('Stop');
+									}
 								</handler>						                
 								<handler name="onmouseout">
 									gTooltip.hideTooltip ();    
@@ -369,11 +406,17 @@
 							</basebutton>
 						</view>
 						<view name="startOver" x="${parent.parent.parent.bar.width - parent.startOver.width}">
-							<basebutton resource="button_startover" x="0"
-								name="resetButton" width="${60 * classroot.factor}" height="${20 * classroot.factor}" stretches="both"
+							<basebutton x="0"
+								name="resetButton" resource="${gController.language=='Spanish'?'button_startover_spanish':'button_startover_english'}" width="${60 * classroot.factor}" height="${20 * classroot.factor}" stretches="both"
 								enabled="false" onclick="classroot.reset('reset')" >
-							 	<handler name="onmouseover">
-									gTooltip.showTooltip('Start Over');
+								<handler name="onmouseover">
+									if(gController.dplang.xpathQuery("component[@name='Recorder']") != null){
+										// Setting tootip text based on language.
+										var tooltipText = gController.dplang.xpathQuery("component[@name='Recorder']/tooltip_startOver").childNodes[0].data;
+										gTooltip.showTooltip(tooltipText);
+									}else{
+										gTooltip.showTooltip('Start Over');
+									}
 								</handler>						                
 								<handler name="onmouseout">
 									gTooltip.hideTooltip ();    
@@ -402,6 +445,12 @@
 				It appears your microphone is not plugged in, 
 				please adjust your microphone input volume up 
 				and make sure your microphone is connected.
+				<handler name="ontext">
+					if(gController.dplang.xpathQuery("component[@name='Recorder']") != null){
+						var attachMicText = gController.dplang.xpathQuery("component[@name='Recorder']/attachMic").childNodes[0].data;
+						this.setAttribute('text',attachMicText);
+					}
+				</handler>
 			</text>
 		</view>
 		
@@ -472,7 +521,12 @@
 		<method name="blinker" args="ignore=null">
 			//console.log("Inside blinker");
 			this.red.setAttribute('visible',true);
-			this.recordStatus.setAttribute('text',"RECORDING...");
+			if(gController.dplang.xpathQuery("component[@name='Recorder']") != null){
+				var statusText = gController.dplang.xpathQuery("component[@name='Recorder']/recordStatusInProgess").childNodes[0].data;
+				this.recordStatus.setAttribute('text',statusText);
+			}else{
+				this.recordStatus.setAttribute('text','RECORDING...');
+			}
 		</method>
 
 		<method name="stopblinker" args="methodname">
@@ -498,7 +552,12 @@
 				gController.setAttribute("playIfAnswered",true);
 				sendRequest(methodname);
 				this.green.setAttribute('visible',true);
-				this.recordStatus.setAttribute('text',"AUDIO CAPTURED");
+				if(gController.dplang.xpathQuery("component[@name='Recorder']") != null){
+					var statusText = gController.dplang.xpathQuery("component[@name='Recorder']/recordStatusCompleted").childNodes[0].data;
+					this.recordStatus.setAttribute('text',statusText);
+				}else{
+					this.recordStatus.setAttribute('text','AUDIO CAPTURED');
+				}
 				this.recordStarted = false;
 				this.stopCountDownTimer();
 				this.stopButton.setAttribute("enabled", false);

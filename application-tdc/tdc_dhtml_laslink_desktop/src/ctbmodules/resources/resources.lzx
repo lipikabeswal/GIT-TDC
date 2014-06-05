@@ -552,13 +552,18 @@
        	<frame src="components/recorder/button_submit_disable.gif" />
 	</resource>
 	
-	<resource name="button_startover">
+	<resource name="button_startover_english">
        	<!--frame src="components/recorder/button_startover.gif"/>
        	<frame src="components/recorder/button_startover_hover.jpg"/>
        	<frame src="components/recorder/button_startover_disabled.png"/-->
 	<frame src="components/recorder/start_over.png"/>
        	<frame src="components/recorder/start_over_hover.png"/>
        	<frame src="components/recorder/start_over_disable.png"/>
+	</resource>
+	<resource name="button_startover_spanish">
+      	<frame src="components/recorder/start_over_spanish.png"/>
+       	<frame src="components/recorder/start_over_hover_spanish.png"/>
+       	<frame src="components/recorder/start_over_disable_spanish.png"/>
 	</resource>
 	
 	<resource name="volume_meter">
@@ -585,22 +590,40 @@
        	<frame src="components/recorder/Mute.png"/>
 	</resource>
 	
-	<resource name="popupCancel">
+	<resource name="popupCancel_english">
       	<frame src="components/recorder/stay.png"/>
        	<frame  src="components/recorder/stay_hover.png"/>
        	<frame  src="components/recorder/stay_down.png"/>
+       	
+	</resource>
+	<resource name="popupCancel_spanish">
+      	<frame src="components/recorder/stay_spanish.png"/>
+       	<frame  src="components/recorder/stay_hover_spanish.png"/>
+       	<frame  src="components/recorder/stay_down_spanish.png"/>
+       	
 	</resource>
 	
-	<resource name="popupOk">
+	<resource name="popupOk_english">
 		<frame  src="components/recorder/move_next.png"/>
        	<frame  src="components/recorder/move_next_hover.png"/>
        	<frame  src="components/recorder/move_next_down.png"/>
+       
+	</resource>
+	<resource name="popupOk_spanish">
+		<frame  src="components/recorder/move_next_spanish.png"/>
+       	<frame  src="components/recorder/move_next_hover_spanish.png"/>
+       	<frame  src="components/recorder/move_next_down_spanish.png"/>
 	</resource>
 	
-	<resource name="popupMoveBack">
+	<resource name="popupMoveBack_english">
 		<frame  src="components/recorder/move_back.png"/>
        	<frame  src="components/recorder/move_back_hover.png"/>
        	<frame  src="components/recorder/move_back_down.png"/>
+	</resource>
+	<resource name="popupMoveBack_spanish">
+		<frame  src="components/recorder/move_back_spanish.png"/>
+       	<frame  src="components/recorder/move_back_hover_spanish.png"/>
+       	<frame  src="components/recorder/move_back_down_spanish.png"/>
 	</resource>
 	
 	<!-- logo added for laslinks -->

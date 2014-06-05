@@ -43,6 +43,10 @@
     ]]></method>
 	
     <method name="show">
+		if(gController.dplang.xpathQuery("component[@name='SpeakNowPopup']") != null){
+			var popUpText = gController.dplang.xpathQuery("component[@name='SpeakNowPopup']/PopUpText").childNodes[0].data;
+			this.contents.startRecord.startRecordHeading.setAttribute('text',popUpText);
+		}
         this.setAttribute("visible", true);
         this.setAttribute("speakNowPopupVisible", true);
         gSpeakNowPopup.bringToFront();
@@ -95,19 +99,25 @@
 
     <view name="contents" x="6" y="6"      
           width="${parent.windowbg.width - 12}" height="${parent.windowbg.height - 12}" bgcolor="0xC0C0C0"><!--97B8E2"-->
-       <simplelayout axis="x" spacing="11" />  
-       <view name="startRecord" visible="true">
+       <simplelayout axis="x" spacing="9" />
+		<!--<resizelayout axis="x" />-->
+       <view name="startRecord" visible="true" options="releasetolayout">
           <text name="startRecordHeading" 
         	  font="CTB"	
               fontsize="19" 
               fgcolor="0x1D4896"
-			  width="120"
-              multiline="false" y="45" x="25" align="">
+			  resize="true"
+              multiline="false" y="45" x="${gController.language=='English'?25:7}">
 				Speak Now...
+
+			<handler name="ontext">
+				var elm = this.getDisplayObject();
+				elm.style.whiteSpace = "nowrap";
+			</handler>
 		  </text>
 		</view> 
 
-		<view name="Record" x="180" y="30" resource="start_mic" stretches="both" width="45" height="55"></view>
+		<view name="Record" y="30" resource="start_mic" stretches="both" width="45" height="55"></view>
 		
 		<!--<view name="networkLost" y="12" width="250" height="55" align="center">
         	<view name="computer" x="6" y="10" resource="system_btn" stretches="both" width="45" height="55"></view>
