@@ -145,7 +145,7 @@
               multiline="true" y="20" align="center">
 		  Warning! Once you leave this page, you cannot come back. Do you want to Go On?
 		</text>        
-		<basebutton	name="okButton"	resource="popupOk_english" x="30" y="110" width="120" height="25" stretches="both" visible="false">
+		<basebutton	name="okButton"	resource="popupOk_english" x="${gController.language=='Spanish'?26:30}" y="110" width="120" height="25" stretches="both" visible="false">
 		<handler name="onclick">
 			gController.setAttribute('isNavigateFwd',true);
 		    gController.setAttribute('unlockNavigation',false);
@@ -158,7 +158,7 @@
         	gController.clearAndRestoreCurrentCursor();
         </handler>
 		</basebutton>
-		<basebutton	name="moveBackButton" resource="popupMoveBack_english" x="30" y="110" width="120" height="25" stretches="both" visible="false">
+		<basebutton	name="moveBackButton" resource="popupMoveBack_english" x="${gController.language=='Spanish'?26:30}" y="110" width="120" height="25" stretches="both" visible="false">
 		<handler name="onclick">
 			gController.setAttribute('goBackPressed',false);
 		    gController.setAttribute('unlockNavigation',false);
@@ -171,7 +171,7 @@
         	gController.clearAndRestoreCurrentCursor();
         </handler>
 		</basebutton>
-		<basebutton	name="cancelButton"	resource="popupCancel_english" x="178" y="110" width="102" height="25" stretches="both">
+		<basebutton	name="cancelButton"	resource="popupCancel_english" x="${gController.language=='Spanish'?164:178}" y="110" width="${gController.language=='Spanish'?120:102}" height="25" stretches="both">
 		<handler name="onclick">
 			gController.setAttribute('isAnswerAreaDisabled',false);
 			gController.setAttribute('goBackPressed',false);

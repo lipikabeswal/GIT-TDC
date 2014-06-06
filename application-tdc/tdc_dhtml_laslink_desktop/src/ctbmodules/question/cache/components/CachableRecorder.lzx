@@ -406,8 +406,8 @@
 							</basebutton>
 						</view>
 						<view name="startOver" x="${parent.parent.parent.bar.width - parent.startOver.width}">
-							<basebutton x="0"
-								name="resetButton" resource="${gController.language=='Spanish'?'button_startover_spanish':'button_startover_english'}" width="${60 * classroot.factor}" height="${20 * classroot.factor}" stretches="both"
+							<basebutton x="${gController.language=='Spanish'?-10:0}"
+								name="resetButton" resource="${gController.language=='Spanish'?'button_startover_spanish':'button_startover_english'}" width="${gController.language=='Spanish'?75:60}" height="${20 * classroot.factor}" stretches="both"
 								enabled="false" onclick="classroot.reset('reset')" >
 								<handler name="onmouseover">
 									if(gController.dplang.xpathQuery("component[@name='Recorder']") != null){
