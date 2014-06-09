@@ -756,13 +756,14 @@ function accommodationPKG() {
 						isScrollableDivY = true;
                         prevX = "NA";
                         prevY = "NA";
-                        initialScrollHeight = 0;
+                        initialScrollHeight = 6;//padding adjustments
                         initialScrollWidth = 0;
                         $(textEle).children("p").each(function () {
 							initialScrollHeight += $(this).outerHeight();
                             initialScrollWidth = $(this).outerWidth() > initialScrollWidth ? $(this).outerWidth() : initialScrollWidth;
 							
                         });
+						initialScrollWidth += 6;//padding adjustments
 						var retObj = scrollableDivMouseDown(e, x1, y1, textEle);
 						x1 = retObj.x1;
                         y1 = retObj.y1;
@@ -777,7 +778,10 @@ function accommodationPKG() {
                     }
                 }
             }
-			e.originalEvent.preventDefault();
+			/*var radio = $(".radio-button").within(e.pageX, e.pageY); 
+			if(radio.length < 0){
+				e.originalEvent.preventDefault();
+			}*/
         });
         if (!mouseOnUnwantedEle) {
             $(document).on("mousemove", function (e) {
@@ -835,12 +839,9 @@ function accommodationPKG() {
             $(document).on("mouseup", function (e) {
                 if ($(document).data("active")) {
                     //sendNotification();
-					var testxaxis=textEle[0].scrollWidth > textEle.outerWidth(true);
-					if(testxaxis == false){
-						textEle.css("overflow-x","hidden");
-					}
                     selectStart = false;
 					if (isScrollableDivY) {
+					removeOrReduceHighlighterBox(initialScrollHeight-6, initialScrollWidth-6);
 					scrollableDivMouseUp(e);
 						isScrollableDivY = false;
                     } else {
@@ -1064,7 +1065,7 @@ function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart,
     var transX = 1 / $("#scaleX").val(),
         transY = 1 / $("#scaleY").val();
     var targetObj = "";
-	if ($(event.target).is("div.text") || $(event.target).is("div.divbox")) {
+	if ($(event.target).is("div.text") || $(event.target).is("div.textarea")) {
         targetObj = $(event.target);
     } else if ($(event.target).parents("div.text").length > 0) {
         targetObj = $(event.target).parents("div.text")[0];
@@ -1089,9 +1090,15 @@ function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart,
             dirUp = currentTop < prevY;
             dirDown = currentTop > prevY;
         }
+		var isInsideMainparent = false;
+		if($(targetObj).find(":first-child").attr('mainParent') || $(targetObj).attr('mainParent')){
+			isInsideMainparent = true;
+		}
+		
 		//Checking if the cursor is in same container or not.					
-        if (!$(targetObj).attr('mainParent') || (initialScrollHeight  < currentTop) || (initialScrollWidth  < currentLeft)) {
+        if (!isInsideMainparent || (initialScrollHeight  < currentTop) || (initialScrollWidth  < currentLeft)) {
             selectStart = false;
+			removeOrReduceHighlighterBox(initialScrollHeight-6, initialScrollWidth-6);
         }
         if (selectStart) {
             var scrollHeightAdjust = 0;
@@ -1117,35 +1124,37 @@ function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart,
                 }
             }
             if (x1 > currentLeft && y1 > currentTop) {
+				currentTop+=scrollHeightAdjust;
                 width = Math.abs(currentLeft - x1);
                 height = Math.abs(currentTop - y1);
                 $("#current").css({
                     width: width,
                     height: height,
-                    top: currentTop + scrollHeightAdjust,
+                    top: currentTop,
                     left: currentLeft
                 }).fadeIn();
             } else if (x1 > currentLeft && y1 < currentTop) {
                 width = Math.abs(currentLeft - x1);
-                height = Math.abs(currentTop - y1);
+                height = Math.abs(currentTop - y1)+scrollHeightAdjust;
                 $("#current").css({
                     width: width,
                     height: height,
-                    top: y1 + scrollHeightAdjust,
+                    top: y1 ,
                     left: currentLeft
                 }).fadeIn();
             } else if (x1 < currentLeft && y1 > currentTop) {
+				currentTop+=scrollHeightAdjust;
                 width = Math.abs(currentLeft - x1);
                 height = Math.abs(currentTop - y1);
                 $("#current").css({
                     width: width,
                     height: height,
-                    top: currentTop + scrollHeightAdjust,
+                    top: currentTop,
                     left: x1
                 }).fadeIn();
             } else {
                 width = Math.abs(currentLeft - x1);
-                height = Math.abs(currentTop - y1) + scrollHeightAdjust;
+                height = Math.abs(currentTop - y1)+scrollHeightAdjust ;
                 $("#current").css({
                     width: width,
                     height: height
@@ -1323,4 +1332,28 @@ function highlightItems(json) {
             $(targetParentObject).attr('mainParent', 'true');
         }
     }
+}
+function removeOrReduceHighlighterBox(initialScrollHeight, initialScrollWidth){
+	var highlighterDiv = $("#current");
+	var width = $(highlighterDiv).width();
+	var height = $(highlighterDiv).height();
+	var strLeft = $(highlighterDiv).css("left");
+	var strTop = $(highlighterDiv).css("top");
+	var left = parseInt(strLeft.substring(0,strLeft.indexOf("px")));
+	var top = parseInt(strTop.substring(0,strTop.indexOf("px")));
+	
+	
+	if(initialScrollWidth<=left){
+		highlighterDiv.remove();
+	}else if(initialScrollHeight <=top){
+		highlighterDiv.remove();
+	}else if(left+width>initialScrollWidth){
+		var derivedWidth = initialScrollWidth -left;
+		$(highlighterDiv).css("width",derivedWidth+"px");
+		
+	}else if(top+height>initialScrollHeight){
+		var derivedHeight = initialScrollHeight -top;
+		$(highlighterDiv).css("height",derivedHeight+"px");
+		
+	}
 }

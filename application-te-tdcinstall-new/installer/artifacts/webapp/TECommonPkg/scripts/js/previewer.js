@@ -2880,7 +2880,7 @@ function dndSeqGetScore(dndWithSeq, index, scr) {
             var submittedAns = new Array();
             var isImg = checkImage(drag);
             for (var sindex1 = 0; sindex1 < ans.length; sindex1++) {
-                submittedAns.push(ans.eq(index1).attr("id"));
+                submittedAns.push(ans.eq(sindex1).attr("id"));
                 if (isImg == false) {
                     submittedOptions.push({
                         "format": "Text",
