@@ -385,8 +385,8 @@
                -->
 			<view name="overlay" visible="${gPleaseWaitPopup!=null?gPleaseWaitPopup.visible:false}" 
 				clickable="true"
-				width="${parent.width}"
-				height="${parent.height}">	
+				width="${parent.width+10}"
+				height="${parent.height+10}">	
 				<handler name="onvisible">
 					if(this.visible){
 						this.bringToFront();
