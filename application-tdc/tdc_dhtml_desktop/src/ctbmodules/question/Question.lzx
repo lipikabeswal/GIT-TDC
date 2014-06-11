@@ -217,9 +217,12 @@
 
                     //plop dndir data into sizer to find out the panel's size
                 	gController.setAttribute("isSizer", true);
-                    this.sizer.doReturnToCache();
-                    this.sizer.datapath.setPointer(dndir);
-                    dirheight = sizer.height;
+					if(this.sizer!=null){
+                    	this.sizer.doReturnToCache();
+                    	this.sizer.datapath.setPointer(dndir);
+						dirheight = sizer.height;
+					}
+                    
                     this.setAttribute("directionsHeight", dirheight);
                     gController.setAttribute("isSizer", false);
 
