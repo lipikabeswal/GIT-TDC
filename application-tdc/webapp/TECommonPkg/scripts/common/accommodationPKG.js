@@ -321,7 +321,7 @@ function accommodationPKG() {
 
     this.notifyChange = function () {
         // OAS method
-        console.log("change notified");
+        
 		accomPkg.getState();
     }
 
@@ -786,6 +786,7 @@ function accommodationPKG() {
         if (!mouseOnUnwantedEle) {
             $(document).on("mousemove", function (e) {
                 if ($(document).data("active")) {
+					
                     $("#current").css("border", "2px solid");
 					if (isScrollableDivY) {
 						var retObj = scrollableDivMouseMove(e, x1, y1, dirUp, prevX, prevY, selectStart, dirDown, initialScrollHeight, initialScrollWidth);
@@ -795,7 +796,7 @@ function accommodationPKG() {
                         selectStart = retObj.selectStart;
                         isScrollableDivY = true;
                         dirDown = retObj.dirDown;
-						console.log("on mousemove dirdown"+dirDown);
+						
 					} else {
 
                         if (selectStart && !(isInsideScrollableDiv(x1, y1, e.pageX, e.pageY))) {
@@ -988,7 +989,7 @@ function accommodationPKG() {
         }
         $("body").css("cursor", cursor);
         $("body").draggable("option", "cursor", cursor);
-        //$("[suppresstts='1']").css("cursor",cursor);
+		//$("[suppresstts='1']").css("cursor",cursor);
         $(".element").css("cursor", cursor);
         $("[behavior='2'].textarea").css("cursor", "move");
         $("[behavior='3'].droparea").css("cursor", "default");
@@ -1051,9 +1052,9 @@ function scrollableDivMouseDown(e, x1, y1, targetParentObject) {
         x1 = (e.clientX * transX) - actualParentOffsetLeft + $(targetParentObject).scrollLeft();
         y1 = (e.clientY * transY) - actualParentOffsetTop + $(targetParentObject).scrollTop();
         box.css({
-            top: (e.clientY * transY) - actualParentOffsetTop + $(targetParentObject).scrollTop(),
-            left: (e.clientX * transX) - actualParentOffsetLeft + $(targetParentObject).scrollLeft()
-        }).fadeIn();
+            top: y1,
+            left: x1
+        });
         return {
             "x1": x1,
             "y1": y1
@@ -1075,12 +1076,14 @@ function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart,
     $("#current").css("border", "2px solid");
 
     if ($(targetObj).offset() != null) {
+		var scrollTop = $(targetObj).is(".text")? $(targetObj).scrollTop():$(targetObj).find("div.text").eq(0).scrollTop();
         var actualParentOffsetTop = $(targetObj).offset().top * transY;
         var actualParentOffsetLeft = $(targetObj).offset().left * transX;
-        var currentTop = (event.clientY * transY) - actualParentOffsetTop + $(targetObj).scrollTop();
+        var currentTop = (event.clientY * transY) - actualParentOffsetTop + scrollTop;
         var currentLeft = (event.clientX * transX) - actualParentOffsetLeft + $(targetObj).scrollLeft();
         var targetObjHeight = $(targetObj).height();
         var targetObjWidth = $(targetObj).width();
+		
         var width = 0;
         var height = 0;
         if (prevY == "NA") {
@@ -1102,54 +1105,64 @@ function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart,
         }
         if (selectStart) {
             var scrollHeightAdjust = 0;
-            if ((initialScrollHeight > targetObjHeight + $(targetObj).scrollTop()) && currentTop > (actualParentOffsetTop + targetObjHeight + $(targetObj).scrollTop()) - 50 && dirDown) {
-                var scrollableHeight = initialScrollHeight - $(targetObj).scrollTop();
+            if ((initialScrollHeight > targetObjHeight +scrollTop) && currentTop > ( targetObjHeight +scrollTop) - 10 && dirDown) {
+                var scrollableHeight = initialScrollHeight -scrollTop-targetObjHeight;
                 if (scrollableHeight > 10) {
-                    $(targetObj).scrollTop($(targetObj).scrollTop() + 10);
-                    scrollHeightAdjust = 10;
+                    $(targetObj).scrollTop(scrollTop + 5);
+                    scrollHeightAdjust = 5;
                    
                     
                 } else {
-                    $(targetObj).scrollTop($(targetObj).scrollTop() + scrollableHeight);
+                    $(targetObj).scrollTop(scrollTop + scrollableHeight);
                     scrollHeightAdjust = scrollableHeight;
                 }
-            } else if (currentTop - $(targetObj).scrollTop() - 50 < 0 && dirUp) {
-                var scrollableHeight = $(targetObj).scrollTop();
+            } else if (currentTop -scrollTop - 10 < 0 && dirUp && y1> currentTop) {
+                var scrollableHeight =scrollTop;
                 if (scrollableHeight > 10) {
-                    $(targetObj).scrollTop($(targetObj).scrollTop() - 10);
-                    scrollHeightAdjust = -10;
+                    $(targetObj).scrollTop(scrollTop - 5);
+                    scrollHeightAdjust = -5;
                 } else {
-                    $(targetObj).scrollTop($(targetObj).scrollTop() - scrollableHeight);
+                    $(targetObj).scrollTop(scrollTop - scrollableHeight);
                     scrollHeightAdjust = -scrollableHeight;
                 }
             }
             if (x1 > currentLeft && y1 > currentTop) {
-				currentTop+=scrollHeightAdjust;
                 width = Math.abs(currentLeft - x1);
                 height = Math.abs(currentTop - y1);
-                $("#current").css({
+				if($("#current").css("display")=="none" && width > 2 && height>2){
+					$("#current").remove();
+					selectStart = false;
+				}else{
+					$("#current").css({
                     width: width,
                     height: height,
-                    top: currentTop,
+                    top: currentTop + scrollHeightAdjust,
                     left: currentLeft
-                }).fadeIn();
+					}).fadeIn();
+				}
+                
             } else if (x1 > currentLeft && y1 < currentTop) {
-                width = Math.abs(currentLeft - x1);
+				width = Math.abs(currentLeft - x1);
                 height = Math.abs(currentTop - y1)+scrollHeightAdjust;
-                $("#current").css({
+				if($("#current").css("display")=="none" && width > 2 && height>2){
+					$("#current").remove();
+					selectStart = false;
+				}else{
+					$("#current").css({
                     width: width,
                     height: height,
                     top: y1 ,
                     left: currentLeft
-                }).fadeIn();
+					}).fadeIn();
+				}
+                
             } else if (x1 < currentLeft && y1 > currentTop) {
-				currentTop+=scrollHeightAdjust;
                 width = Math.abs(currentLeft - x1);
                 height = Math.abs(currentTop - y1);
                 $("#current").css({
                     width: width,
                     height: height,
-                    top: currentTop,
+                    top: currentTop + scrollHeightAdjust,
                     left: x1
                 }).fadeIn();
             } else {
@@ -1335,25 +1348,33 @@ function highlightItems(json) {
 }
 function removeOrReduceHighlighterBox(initialScrollHeight, initialScrollWidth){
 	var highlighterDiv = $("#current");
-	var width = $(highlighterDiv).width();
-	var height = $(highlighterDiv).height();
-	var strLeft = $(highlighterDiv).css("left");
-	var strTop = $(highlighterDiv).css("top");
-	var left = parseInt(strLeft.substring(0,strLeft.indexOf("px")));
-	var top = parseInt(strTop.substring(0,strTop.indexOf("px")));
-	
-	
-	if(initialScrollWidth<=left){
-		highlighterDiv.remove();
-	}else if(initialScrollHeight <=top){
-		highlighterDiv.remove();
-	}else if(left+width>initialScrollWidth){
-		var derivedWidth = initialScrollWidth -left;
-		$(highlighterDiv).css("width",derivedWidth+"px");
-		
-	}else if(top+height>initialScrollHeight){
-		var derivedHeight = initialScrollHeight -top;
-		$(highlighterDiv).css("height",derivedHeight+"px");
-		
+	if(highlighterDiv.length > 0) {
+		var allHighlighters = highlighterDiv.parent().find("div.highlighter").each(function(){
+		var width = $(this).width();
+		var height = $(this).height();
+		var strLeft = $(this).css("left");
+		var strTop = $(this).css("top");
+		var left = "";
+		var top = "";
+		if(strLeft && strTop){
+			left = parseInt(strLeft.substring(0,strLeft.indexOf("px")));
+			top = parseInt(strTop.substring(0,strTop.indexOf("px")));
+
+		}
+		if(initialScrollWidth<=left){
+			$(this).remove();
+		}else if(initialScrollHeight <=top){
+			$(this).remove();
+		}else if(left+width>initialScrollWidth){
+			var derivedWidth = initialScrollWidth -left;
+			$(this).css("width",derivedWidth+"px");
+			
+		}else if(top+height>initialScrollHeight){
+			var derivedHeight = initialScrollHeight -top;
+			$(this).css("height",derivedHeight+"px");
+			
+		}
+		});
 	}
+	
 }
