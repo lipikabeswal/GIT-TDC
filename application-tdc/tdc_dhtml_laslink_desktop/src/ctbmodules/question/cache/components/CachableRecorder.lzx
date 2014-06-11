@@ -299,6 +299,13 @@
 					<text name="remaining" fontsize="${12 * classroot.factor}" font="CTB" fontstyle="bold"
 						valign="bottom" height="100%">
 						TIME REMAINING:
+						//Changes for Defect #79448
+						<handler name="oninit">
+							var elm = this.getDisplayObject();
+							if(gController.language.indexOf("Spanish") >= 0){
+								elm.style.width="auto";
+							}
+						</handler>
 						<handler name="ontext">
 						if(gController.dplang.xpathQuery("component[@name='Recorder']") != null){
 							var timeLeft = gController.dplang.xpathQuery("component[@name='Recorder']/remaining").childNodes[0].data;
@@ -306,7 +313,7 @@
 						}
 						var elm = this.getDisplayObject();
 						if(gController.language.indexOf("Spanish") >= 0){
-							elm.setAttribute('style','font-family:CTB; width:auto;font-weight:bold;left:7px;');
+							//elm.setAttribute('style','font-family:CTB; width:auto;font-weight:bold;left:7px;'); //commented to fix Defect #79448 the functionality is moved to oninit handler
 						}
 						
 					</handler>
