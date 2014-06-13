@@ -140,6 +140,7 @@
             var isValid = this.target.isValidRotation (this, this.rotation + deg);
             if (isValid) {
                 this.setAttribute ("rotation", this.rotation + deg);
+                _resetAll();
             }
         </method>
 

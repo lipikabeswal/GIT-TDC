@@ -15,7 +15,7 @@
         </handler>
 
         <handler name="ondata" args="data"><![CDATA[
-			
+
             var hasstate = false;
 
             if(data && data.attributes){
@@ -34,6 +34,8 @@
                     gScratchpad.bringToFront();
                 } */
             } else {
+                this.setAttribute ('xoffset', 0);
+                this.setAttribute ('yoffset', 0);
                 this.setAttribute ('rotation', 0);
 
                 this.setAttribute ('x', (gManipulatives.width - this.width)/2);
@@ -50,7 +52,7 @@
 			var data = datapath.p;
             data.setAttr ('rotation', this.rotation);
             data.setAttr ('x', this.x);
-            data.setAttr ('y', this.y);			
+            data.setAttr ('y', this.y);
 		</method>
 
 
@@ -75,7 +77,7 @@
             controlviewname="gDragRotateResizer"
             target="$once{parent}"
             controls="d">
-            
+
 			<attribute name="ismouseDown" value="false" type="boolean"/>
 
             <handler name="onmouseover">
@@ -98,7 +100,7 @@
                 gController.restoreCurrentCursor();*/
                 lz.Timer.resetTimer(gController.dRestoreCursor, 100);
                 gHotKeys.enableKeys();
-				classroot.storeCurrentPosition(); 
+				classroot.storeCurrentPosition();
 				this.setAttribute('ismouseDown',false);
             </handler>
             <handler name="oninit">
@@ -114,7 +116,7 @@
             target="$once{parent}"
             controls="r"
             onmousedown="controlview.setActiveItem(classroot, this)">
-             respond to click on the small arrows in the resource 
+             respond to click on the small arrows in the resource
             <handler name="onshortclick">
                 if (containsMousePos ({x:6, y:0, w:7, h:6}, classroot)) {
                     this.controlview.rotateBy (-1);
@@ -123,10 +125,10 @@
                 }
             </handler>
 			<handler name="onmouseup">
-				classroot.storeCurrentPosition();          
-			</handler>		
+				classroot.storeCurrentPosition();
+			</handler>
         </ControlHandle>-->
-        
+
         <ControlHandle source="${gResources.protractor_rotator_svg}"
             y="110" x="${classroot.width-65}"
             controlviewname="gDragRotateResizer"
@@ -142,8 +144,8 @@
                 }
             </handler>
 			<handler name="onmouseup">
-				classroot.storeCurrentPosition();          
-			</handler>		
+				classroot.storeCurrentPosition();
+			</handler>
         </ControlHandle>
 
     </class>
