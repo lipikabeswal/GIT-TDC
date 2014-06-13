@@ -72,7 +72,9 @@
 			<param name="installer.type" value="istep" />
 			<param name="installer.version" value="14.0.0" />
 			<param name="installer.primary.url" value="https://incore-oas.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://incore-oas.ctb.com" />
+			-->
 		</antcall>
 	</target>
 	
@@ -85,7 +87,9 @@
 			<param name="installer.type" value="tabe" />
 			<param name="installer.version" value="18.0.0" />
 			<param name="installer.primary.url" value="https://tabe-oas.ctb.com" />
+			<!--
 			<param name="installer.secondary.url" value="https://tabe-oasdr.ctb.com" />
+			-->
 		</antcall>
 	</target>
 
@@ -139,7 +143,9 @@
 		<copy file="${project.artifacts.webapp.classes.dir}/tdc_url.properties" tofile="${project.artifacts.webapp.classes.dir}/tdc.properties" overwrite="true" />
 		<replace file="${project.artifacts.webapp.classes.dir}/tdc.properties">
 		  <replacefilter token="primary-url" value="${installer.primary.url}"/>
+		  <!--
 		  <replacefilter token="secondary-url" value="${installer.secondary.url}"/>
+		  -->
 		</replace>
 		
 		<copy file="${project.base.dir}/bootstrap-single.jar" tofile="${project.artifacts.dir}/bootstrap.jar" overwrite="true" />
@@ -194,7 +200,9 @@
 		
 		<replace file="${project.artifacts.webapp.classes.dir}/tdc.properties">
 		  <replacefilter token="primary-url" value="${installer.primary.url}"/>
+		  <!--
 		  <replacefilter token="secondary-url" value="${installer.secondary.url}"/>
+		  -->
 		</replace>
 		
 		<copy file="${project.base.dir}/bootstrap-multi.jar" tofile="${project.artifacts.dir}/bootstrap.jar" overwrite="true" />
