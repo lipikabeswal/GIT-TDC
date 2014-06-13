@@ -104,7 +104,12 @@
 	            newcomp.datapath.setPointer (datanode);
 	        }
 	        
-	        // this condition is for non te items setting the onceOnly value true to go On and Back
+	        /* added for fixing defect# 79310 and 79476 
+			 The attribute onceOnly is set to false when navigating from one item 
+			 and after the next item is loaded its set to true. This is done only for TE items. 
+			 For non TE item its always set to true.
+			 On fast navigation using goOn and goBack button disabling the buttons till the next item is not loaded */
+			 
 	        if(type == 'html_widget' || type == 'panel'){
 	        	 // do nothing
 	        }else{

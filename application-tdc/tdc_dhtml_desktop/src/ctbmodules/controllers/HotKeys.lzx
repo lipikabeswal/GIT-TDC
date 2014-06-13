@@ -239,6 +239,12 @@
         <attribute name="dfinish"
                    value="$once{ new lz.Delegate( this, 'finish' ) }" type="expression"/>
   		
+  		<!-- added for fixing defect# 79310 and 79476 
+		 The attribute onceOnly is set to false when navigating from one item 
+		 and after the next item is loaded its set to true. This is done only for TE items. 
+		 For non TE item its always set to true.
+		 On fast navigation using goOn and goBack button disabling the buttons till the next item is not loaded -->
+		 
 		<attribute name="onceOnly" type="boolean" value="true"/>
 
         <method name="toggleA" args="ignore=null">    
