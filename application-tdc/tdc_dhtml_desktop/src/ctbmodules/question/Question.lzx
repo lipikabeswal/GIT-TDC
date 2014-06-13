@@ -43,21 +43,20 @@
 			var contsubviews = gQuestion.subviews;
 			var contViewsLen = gQuestion.subviews.length;
 			if(!gController.skipCacheDestroy){
-				
-				for (var i = contViewsLen-1; i >= 0; i--){
-				     var comp="";
-					 comp = contsubviews[i];
-					 if(comp && comp instanceof lz.CachableAnswerAreaPanel){
-						comp.destroy();
-					 }else if(comp && comp instanceof lz.CachableAnswerAreaAbsolutePanel){
-						comp.destroy();
-					 }else if(comp && comp instanceof lz.CachableHtmlWidget){
-					 	comp.doReturnToCache();
-					 }else{
-					 	if(comp){
-							comp.destroy();
-						}
-					 }
+				for (var i = 1; i <= contViewsLen; i++){
+				 if(contsubviews[i] && contsubviews[i] instanceof lz.CachableAnswerAreaPanel){
+						contsubviews[i].destroy();
+					}
+				}
+				for (var i = 1; i <= contViewsLen; i++){
+				 if(contsubviews[i] && contsubviews[i] instanceof lz.CachableAnswerAreaAbsolutePanel){
+						contsubviews[i].destroy();
+					}
+				}
+				for (var i = 1; i <= contViewsLen; i++){
+					if(contsubviews[i]){
+						contsubviews[i].destroy();
+					}
 				}
 			}
         	
@@ -218,9 +217,9 @@
                     //plop dndir data into sizer to find out the panel's size
                 	gController.setAttribute("isSizer", true);
 					if(this.sizer!=null){
-                    	this.sizer.doReturnToCache();
-                    	this.sizer.datapath.setPointer(dndir);
-						dirheight = sizer.height;
+                    this.sizer.doReturnToCache();
+                    this.sizer.datapath.setPointer(dndir);
+                    dirheight = sizer.height;
 					}
                     
                     this.setAttribute("directionsHeight", dirheight);
