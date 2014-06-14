@@ -58,7 +58,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mq"]}},$lzc$class__mq.attributes)
 }}})($lzc$class__mq)
-};canvas=new $lzc$class__mq(null,{$delegates:["ontexthistoryupdate","$md",null,"onnewtextvalue","$me",null,"onunlocktexthistory","$mf",null,"onfocus","$mg",null,"onkeydown","$mi","$mh","onmousedown","$mk","$mj","onbringBackFocus","$ml",null,"onfootnotedata","$mm",null,"onisMultiAudio","$mn",null,"oninit","$mo",null,"onfootnotetext","$mp",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-06-13T07:38:15Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",newtextvalue:"",proxied:false,readable:false,runtime:"dhtml",texthistoryupdate:"",unlocktexthistory:"",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mq(null,{$delegates:["ontexthistoryupdate","$md",null,"onnewtextvalue","$me",null,"onunlocktexthistory","$mf",null,"onfocus","$mg",null,"onkeydown","$mi","$mh","onmousedown","$mk","$mj","onbringBackFocus","$ml",null,"onfootnotedata","$mm",null,"onisMultiAudio","$mn",null,"oninit","$mo",null,"onfootnotetext","$mp",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-06-14T00:30:30Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",newtextvalue:"",proxied:false,readable:false,runtime:"dhtml",texthistoryupdate:"",unlocktexthistory:"",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -18428,7 +18428,7 @@ $1=true;break
 }};if($0&&$1){
 this.setAttribute("rotation",Number($0.getAttr("rotation")));this.setAttribute("x",Number($0.getAttr("x")));this.setAttribute("y",Number($0.getAttr("y")))
 }else{
-this.setAttribute("rotation",0);this.setAttribute("x",(gManipulatives.width-this.width)/2);this.setAttribute("y",(gManipulatives.height-this.height)/2);if($0){
+this.setAttribute("xoffset",0);this.setAttribute("yoffset",0);this.setAttribute("rotation",0);this.setAttribute("x",(gManipulatives.width-this.width)/2);this.setAttribute("y",(gManipulatives.height-this.height)/2);if($0){
 this.storeCurrentPosition()
 }}},"storeCurrentPosition",function(){
 var $0=this.datapath.p;$0.setAttr("rotation",this.rotation);$0.setAttr("x",this.x);$0.setAttr("y",this.y)
@@ -18681,9 +18681,9 @@ this.classroot.setAttribute("rotationcenter",{x:this.classroot.rotateResizer.x,y
 },"$m1gg",function($0){
 this.classroot._updatePosition()
 },"$m1gh",function($0){
-this.classroot.setAttribute("rotationcenter",{x:this.classroot.rotateResizer.x,y:this.classroot.ROTATOR_Y});if(this.containsMousePos({x:7,y:0,w:9,h:9},this.classroot)){
+this.classroot.setAttribute("rotationcenter",{x:this.classroot.rotateResizer.x,y:this.classroot.ROTATOR_Y});if(this.containsMousePos({x:12,y:0,w:9,h:9},this.classroot)){
 this.controlview.rotateBy(1)
-}else if(this.containsMousePos({x:7,y:22,w:9,h:9},this.classroot)){
+}else if(this.containsMousePos({x:12,y:22,w:9,h:9},this.classroot)){
 this.controlview.rotateBy(-1)
 }},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -18741,7 +18741,7 @@ lz.$lzsc$thrownError=$lzsc$e
 }},"$m1gp",function($0){
 this.setAttribute("target",this.classroot)
 },"$m1gq",function($0){
-this.classroot.setAttribute("rotationcenter",{x:this.classroot.rotator.x,y:this.classroot.ROTATOR_Y});this.classroot.bringToFront();this.classroot.setAttribute("rotationcenter",{x:11,y:this.classroot.height/2})
+this.classroot.bringToFront();this.classroot.setAttribute("rotationcenter",{x:11,y:this.classroot.height/2})
 },"$m1gr",function($0){
 this.classroot._updatePosition()
 },"$m1gs",function($0){
@@ -18783,7 +18783,7 @@ if(!$0)return;var $1=typeof $0.attributes.rotation!="undefined";if($1){
 this.setAttribute("rotation",Number($0.getAttr("rotation")));this.setAttribute("width",Number($0.getAttr("width"))+this.WIDTH_DELTA);this.setAttribute("x",Number($0.getAttr("x")));this.setAttribute("y",Number($0.getAttr("y")));if(gScratchpad.visible){
 gScratchpad.bringToFront()
 }}else{
-this.setAttribute("rotation",0);this.ruler.setAttribute("width",null);this.setAttribute("width",this.maxLength);this.setAttribute("x",(gManipulatives.width-this.width+this.WIDTH_DELTA)/2);this.setAttribute("y",(gManipulatives.height-this.height)/2);this._updatePosition()
+this.setAttribute("xoffset",0);this.setAttribute("yoffset",0);this.setAttribute("rotation",0);this.ruler.setAttribute("width",null);this.setAttribute("width",this.maxLength);this.setAttribute("x",(gManipulatives.width-this.width+this.WIDTH_DELTA)/2);this.setAttribute("y",(gManipulatives.height-this.height)/2);this._updatePosition()
 }},"$m1fl",function($0){
 this.setAttribute("width",Math.round(this.newwidth))
 },"isValidRotation",function($0,$1){
@@ -27207,7 +27207,7 @@ this._resizeinfo={x:$4.x,y:$4.y,width:$4.width,rulerWidth:$4.ruler.width}};var $
 this._resetAll()
 },"rotateBy",function($0){
 var $1=this._getOrigPoint();var $2=this._getMousePoint();this._initializeRotation($1,$2);var $3=this.target.isValidRotation(this,this.rotation+$0);if($3){
-this.setAttribute("rotation",this.rotation+$0)
+this.setAttribute("rotation",this.rotation+$0);this._resetAll()
 }},"setSizeTo",function($0){
 this._doResize($0)
 },"_calcResizeIncrement",function($0,$1,$2){
@@ -27272,7 +27272,7 @@ this._resizeinfo={x:$4.x,y:$4.y,width:$4.width,rulerWidth:$4.ruler.width}};var $
 this._resetAll()
 },"rotateBy",function($0){
 var $1=this._getOrigPoint();var $2=this._getMousePoint();this._initializeRotation($1,$2);var $3=this.target.isValidRotation(this,this.rotation+$0);if($3){
-this.setAttribute("rotation",this.rotation+$0)
+this.setAttribute("rotation",this.rotation+$0);this._resetAll()
 }},"setSizeTo",function($0){
 this._doResize($0)
 },"_calcResizeIncrement",function($0,$1,$2){
