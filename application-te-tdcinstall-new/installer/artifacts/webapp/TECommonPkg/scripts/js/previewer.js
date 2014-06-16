@@ -1172,6 +1172,7 @@ function blockingUserSelection() {
             txtVal.removeAttr("onselectstart");
         }
     }
+	$("body").addClass("no-user-select");
     if (isPad()) {
         $("body").addClass("no-user-select").attr({
             "onmousedown": "event.preventDefault();",
