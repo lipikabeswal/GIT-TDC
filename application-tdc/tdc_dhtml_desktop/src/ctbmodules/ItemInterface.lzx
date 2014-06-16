@@ -25,8 +25,14 @@
         -->
 		<view id="restrictResponseOverlay" height="${gItemInterface.height}" visible="false" width="${gQuestion.width}" clickable="true" opacity="0.00001" bgcolor="yellow">
 			<handler name="onvisible">
-				if(restrictResponseOverlay.visible == true){
+				if(restrictResponseOverlay.visible == true || restrictResponseOverlay.visible == 'true'){
 					restrictResponseOverlay.bringToFront();
+					//fix for defect 79490
+					if(gController.isTE){
+						gHotKeys.setAttribute('onceOnly',false);
+					}
+				}else{
+					gHotKeys.setAttribute('onceOnly',true);
 				}
 			</handler>
 		</view>

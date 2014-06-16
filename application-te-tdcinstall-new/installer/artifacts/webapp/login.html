@@ -735,7 +735,7 @@ function enableEraser(isEnabled){
 	//clickarea.setAttribute("style","cursor: url('http:ctbmodules/resources/iknow_cursors/cursor_highliter.png'), pointer;");
  }*/
 function enableHotKeys(arg) {
-	if ( 0 == gController.uisemaphore ) {
+	if ( 0 == gController.uisemaphore && gHotKeys.onceOnly) {
 		gHotKeys.handleHtmlKeyPress(arg);
 	}
 }
@@ -920,53 +920,47 @@ function checkEmptyString(str) {
 		event.stopPropagation();
 	}
 	
-	if (event.ctrlKey) {
+	if (event.ctrlKey && gController.iskeyEnabled && gHotKeys.onceOnly) {
 			//console.log("hotKeysHandle event.ctrlKey == true || keystroke==== "+keystroke);
 			switch(keystroke){
 				case 'l':
-				    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && gController.iskeyEnabled) {
+				    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
 						gHotKeys.toggleMark();
 						event.preventDefault(); // disable Ctrl+L
 					}	
 					break;
 				case 's':
 					event.preventDefault();
-					 if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && gController.iskeyEnabled) {
+					 if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
 					 	hideMagnify();
 				    	gHotKeys.stop();
 						event.preventDefault(); // disable Ctrl+S
 					}	
 					break;
 				case 'u':
-				    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && gController.iskeyEnabled) {
+				    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
 						gHotKeys.pause();
 						event.preventDefault(); // disable Ctrl+U
 					}	
 					break;
 				case 'o':
-					if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && gController.iskeyEnabled) {
+					if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
 						gHotKeys.toggleTimer();
 						event.preventDefault(); // disable Ctrl+O
 					}
 					break;
 				case 'j':
-					if(gController.iskeyEnabled) {
-						gHotKeys.goBack();
-						event.preventDefault(); // disable Ctrl+J
-					}
+					gHotKeys.goBack();
+					event.preventDefault(); // disable Ctrl+J
 					break;			
 				case 'k' :
-					if(gController.iskeyEnabled) {
-						gHotKeys.goOn();
-						event.preventDefault(); // disable Ctrl+K
-					}
+					gHotKeys.goOn();
+					event.preventDefault(); // disable Ctrl+K
 					break;
 				case 'f' :
-					if(gController.iskeyEnabled) {
-						hideMagnify();
-						gHotKeys.finish();
-						event.preventDefault(); // disable Ctrl+F
-					}
+					hideMagnify();
+					gHotKeys.finish();
+					event.preventDefault(); // disable Ctrl+F
 					break;
 				default:
 					break;
