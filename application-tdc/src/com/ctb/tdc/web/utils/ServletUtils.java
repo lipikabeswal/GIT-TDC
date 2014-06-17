@@ -497,7 +497,9 @@ public class ServletUtils {
 		if (! memoryCache.isLoaded()) {
 			try {
 				rbTdc = ResourceBundle.getBundle(SERVLET_NAME);
+				//System.out.println("rdTdc******"+rbTdc);
 				rbProxy = ResourceBundle.getBundle(PROXY_NAME);
+				//System.out.println("rbProxy******"+rbProxy);
 				srvSettings = new ServletSettings(rbTdc, rbProxy);
 				memoryCache.setSrvSettings(srvSettings);
 				memoryCache.setLoaded(true);
@@ -625,13 +627,13 @@ public class ServletUtils {
 	 * get predefined Backup URL as string for a method
 	 *
 	 */
-	public static String getBackupURLString(String method) {
+	/*public static String getBackupURLString(String method) {
 		MemoryCache memoryCache = MemoryCache.getInstance();
 		ServletSettings srvSettings = memoryCache.getSrvSettings();
 		String tmsHostPort = srvSettings.getBackupURLHostPort();
 		String tmsWebApp = getWebAppName(method);
 		return (tmsHostPort + tmsWebApp);
-	}
+	}*/
 
 	/**
 	 * get predefined TMS URL for a method
@@ -1133,12 +1135,12 @@ public class ServletUtils {
 				catch(HttpHostConnectException e){
 						connFlag = false;
 						logger.error("Exception occured in : Connection refused to " + tmsURL);
-						tmsURL = swapTmsUrl(method);		// if connection to primary tms url is refused,
+						//tmsURL = swapTmsUrl(method);		// if connection to primary tms url is refused,
 				}
 				catch(UnknownHostException e){
 					connFlag = false;
 					logger.error("Exception occured in : Connection refused to " + tmsURL);
-					tmsURL = swapTmsUrl(method);		// if connection to primary tms url is refused,
+					//tmsURL = swapTmsUrl(method);		// if connection to primary tms url is refused,
 				}
 				
 				if(connFlag){
@@ -1147,7 +1149,7 @@ public class ServletUtils {
 						connFlag = false;
 						post.abort();
 						logger.error("Error occured in : could not Connect to " + tmsURL);
-						tmsURL = swapTmsUrl(method);		// if response status is not OK from primary tms url, 
+					//	tmsURL = swapTmsUrl(method);		// if response status is not OK from primary tms url, 
 															// backupURL is stored in tmsURL.
 						logger.error("Error occured in : swapping Connection to " + tmsURL);
 						
@@ -1208,7 +1210,7 @@ public class ServletUtils {
 	 * @return String
 	 */
 
-	private static String swapTmsUrl (String method) {
+	/*private static String swapTmsUrl (String method) {
 		
 		String backupURL = "";
 		backupURL = getBackupURLString(method);
@@ -1218,7 +1220,7 @@ public class ServletUtils {
 		srvSettings.setTmsHost(srvSettings.getBackupURL());
 
 		return backupURL;
-	}
+	}*/
 	
 	
 	/**
@@ -1376,7 +1378,7 @@ public class ServletUtils {
 		Element restartDataNode=root.getChild("login_response").getChild("consolidated_restart_data");
 		
 //		List<Element> subtests=restartDataNode.getChildren("tsd");
-
+			
 		//Element subtest=restartDataNode.getChild("tsd");
 		String answer=null;
 		if(restartDataNode != null) { 
@@ -1399,10 +1401,10 @@ public class ServletUtils {
 						}
 					}
 				}
-			}
+		}		
 			XMLOutputter xmOut=new XMLOutputter(); 
 			modifiedLoginResponse=xmOut.outputString(loginDocs);
-		}
+	}
 		if(modifiedLoginResponse != null )
 			return modifiedLoginResponse;
 		else 
@@ -1748,7 +1750,7 @@ return elementList;*/
 						+ firstDelim.length())
 						+ replacementString + originalString.substring(p2);
 				// System.out.println("mod :"+modifiedString);
-			}
+	 }
 		} catch (Exception e) {
 			e.printStackTrace();
 			modifiedString = originalString;
@@ -1789,7 +1791,7 @@ return elementList;*/
 		}
 		return base64EncodedString;
 	}
-	 
+	
 	 public static String decompress(String str) throws Exception {
 		 	String outStr = "";
 		 	String line;
