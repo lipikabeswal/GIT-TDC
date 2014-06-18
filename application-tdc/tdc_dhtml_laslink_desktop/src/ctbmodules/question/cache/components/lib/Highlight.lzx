@@ -55,7 +55,9 @@
         <!-- show highlight cursor -->
         <handler name="onmouseover" reference="clickarea"><![CDATA[
             if (this.hlstatus.data == 'sel' && this.visible) {
-                gController.setCurrentCursor('highlighter_cursor');
+            	 gController.setCurrentCursor('highlighter_cursor');
+            }else{
+            	lz.Cursor.showHandCursor(false);
             }
         ]]></handler>
 
