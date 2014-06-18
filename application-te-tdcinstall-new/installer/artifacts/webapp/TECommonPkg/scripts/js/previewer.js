@@ -1008,6 +1008,11 @@ function removeItem(obj) {
         }
     }
     $this.remove();
+	/*79456*/
+	var currentCount = $container.find("[isdropped = true]").length;
+	$container.attr("droptired",currentCount);
+	
+	/*79456*/
     $container.droppable("enable").css("opacity", 1);
     screen.find("#" + id).show();
     setDropAreaScrollbar($container);
@@ -1310,7 +1315,7 @@ function makeDrggable() {
     if (isStandAlone) {
         options = {
             cursor: "move",
-            revert: "invalid",
+            //revert: "invalid",
             handle: ".handle",
             appendTo: "body",
             iframeFix: true,
@@ -1330,6 +1335,33 @@ function makeDrggable() {
                 startHighLighting(event);
 
             },
+			/*79456*/
+			revert : function(event,ui){
+				var checkdropped=$('body').find(".ui-draggable-dragging");
+				var id = $(this).attr('id');
+				if(event){
+					var dropChildLen = event;
+					var dropMax = parseInt($(dropChildLen).attr("maxallowed"), 10);
+					var dropAllowMul = $(dropChildLen).attr("allowmultiple");
+					var dropTried = dropChildLen.attr("droptired")?parseInt(dropChildLen.attr("droptired")):0;
+					if (dropAllowMul == 1) {
+                        dropMax = 1;
+                    } else {
+                        dropMax = dropMax;
+                    }
+					if (dropTried > dropMax ) {
+						return true;
+					
+					}else{
+						return false;
+					}
+					
+				}else{
+					//means dropped outside dropbox
+					return true;
+				}				
+			},
+			/*79456*/
             helper: function () {
                 var $this = $(this);
                 $this.removeAttr("background");
@@ -1487,13 +1519,26 @@ function makeDroppable() {
                     } else {
                         dropMax = dropMax;
                     }
-                    if (dropChildLen < dropMax) {
-                        eleId = ui.draggable.attr("id");
+					 eleId = ui.draggable.attr("id");
+					var isSameDNDElement = $this.find("#"+eleId).length > 0 && !$("#"+eleId).is(".palette-button")?true:false;//Already present and not palet button
+                    if(!isSameDNDElement){
+						/*79456*/
+						var attempt = 1;
+						if($this.attr("droptired")){
+							attempt = parseInt($this.attr("droptired")) + 1;
+							
+						}
+						$this.attr("droptired",attempt);
+					/*79456*/
+					}
+					
+					if (dropChildLen < dropMax) {
+                       
 						if($("#"+eleId).is(".palette-button")){
 							prepareDNDElements(ui.draggable, $this);
 						}
 						else{
-							if($this.find("#"+eleId).length == 0) { 
+							if(!isSameDNDElement) { 
 								prepareDNDElements(ui.draggable, $this);
 							}
 						}
