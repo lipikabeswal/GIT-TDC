@@ -932,8 +932,9 @@ function accommodationPKG() {
         if (isEnabled) {
             //sendNotification();
             $(".highlighter").css("pointer-events", "auto");
-            $(".highlighter").on("mousedown", function () { //defect #73261
+            $(".highlighter").on("mousedown", function (e) { //defect #73261
                 $(this).remove();
+                e.preventDefault();
 				sendNotification();
             });
             var passageFreeflow = $("#previewArea .editor").find("[interactiontype = 7]");
