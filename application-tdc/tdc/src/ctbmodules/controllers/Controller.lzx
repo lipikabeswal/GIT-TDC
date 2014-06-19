@@ -4796,9 +4796,9 @@ Debug.write("out of time 1 ans" + isAnswered);
 			if(txt.length > 0){
 				result = "<![CDATA";
 				result = result + "[";
-				//This block is added to fix the truncation issue of CR response Defect #78740
+				/*This block is added to fix the truncation issue of CR response Defect #78740 (Block moved to CachableMultilineAnswer.lzx)
 				txt = gController.replace(txt, '<', '&lt;');
-				txt = gController.replace(txt, '>', '&gt;');
+				txt = gController.replace(txt, '>', '&gt;');*/
 				result = result + txt;
 				result = result + "]]";
 				result = result + ">";

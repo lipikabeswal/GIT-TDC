@@ -132,7 +132,10 @@
             }
         ]]></method>
 
-        <method name="setAnswer" args="text">
+        <method name="setAnswer" args="text"><![CDATA[
+        	//Debug.write("CachableMultiLineAnswer.setAnswer", text, text.length);
+        	text = gController.replace(text, '<', '&lt;');
+			text = gController.replace(text, '>', '&gt;');
           var currentFocus = LzFocus.getFocus();
           this.outer.rich.answer.inp.onfocus.sendEvent();
           this.outer.rich.answer.inp.onblur.sendEvent();
@@ -140,7 +143,7 @@
           if(currentFocus != null){
               currentFocus.onfocus.sendEvent();
           }
-        </method>
+        ]]></method>
 
         <method name="read">
             var txt = outer.rich.answer.getSelectedText();
