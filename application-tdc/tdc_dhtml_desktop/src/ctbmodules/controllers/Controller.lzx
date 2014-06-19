@@ -2762,10 +2762,10 @@
 			else {
 	            if (itemeid != curreid) {
 	            	changeItem(dpsubtest.xpathQuery( "ob_assessment/ob_element_list/f[@id='" + itemeid + "']" ));
+	            	//fix for defect 79490
+         			gController.setAttribute('isAnswerAreaDisabled',true); 
 	            }
             }
-         //fix for defect 79490
-         gController.setAttribute('isAnswerAreaDisabled',true);   
          gController.hideMagnifierGlass(); 
         ]]></method>
 
