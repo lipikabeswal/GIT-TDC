@@ -200,7 +200,12 @@
 
         <text name="btnText" text="${classroot.itemnum}" resize="true" 
               font="Arial" fontsize="11" fontstyle="bold"
-              y="22" align="center" visible="${!classroot.isTheme}"/>
+              y="22" align="center" visible="${!classroot.isTheme}">
+              <handler name="ontext">
+                var elm = this.getDisplayObject();
+                elm.style.wordWrap = "normal"; 
+              </handler>
+              </text>
         <view name="themeBtn" resource="${classroot.themeResource}" y="24" align="center" visible="${classroot.isTheme}" />
  
     </class>
