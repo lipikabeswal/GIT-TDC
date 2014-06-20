@@ -35,7 +35,12 @@
 				this.goodbye.setAttribute('visible', true);
 			}
 		</method>
-		<text font="Arial" fontsize="24" height="36" align="center" valign="middle" fgcolor="white" name="goodbye" visible="true">Good-bye!</text> 
+		<text font="Arial" fontsize="24" height="36" align="center" valign="middle" fgcolor="white" name="goodbye" visible="true">Good-bye!
+		<handler name="ontext">
+                var elm = this.getDisplayObject();
+                elm.style.wordWrap = "normal"; 
+              </handler>
+		</text> 
 		<text font="Arial" fontsize="24" height="36" align="center" valign="middle" fgcolor="white" name="timeoutText" visible="false">Your test session has timed out and will now close.</text>    
 	</class>
 </library>
