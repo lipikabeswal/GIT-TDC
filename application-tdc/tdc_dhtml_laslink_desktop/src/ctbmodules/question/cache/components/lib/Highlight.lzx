@@ -104,7 +104,7 @@
                              y: this.livesel.y,
                              width: this.livesel.width,
                              height: this.livesel.height,
-                             passageId: this.passageId,
+                             passageId: trim(this.passageId),
                              stereotype: this.stereotype};
                 if(attrs.width != 0 && attrs.height != 0){
                     var dnarea =
