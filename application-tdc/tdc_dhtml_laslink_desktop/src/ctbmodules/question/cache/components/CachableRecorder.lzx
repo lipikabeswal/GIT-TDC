@@ -299,7 +299,7 @@
 					<text name="remaining" fontsize="${12 * classroot.factor}" font="CTB" fontstyle="bold"
 						valign="bottom" height="100%">
 						TIME REMAINING:
-						//Changes for Defect #79448
+						<!-- Changes for Defect #79448 -->
 						<handler name="oninit">
 							var elm = this.getDisplayObject();
 							if(gController.language.indexOf("Spanish") >= 0){
