@@ -165,7 +165,7 @@ var myErrorHandler;
 var myErrorTI84Handler;
 var calcTI30open = false;
 var calcTI84open = false;
-var TI30Position = {},TI84Position = {};
+var TI30Position = {},TI84Position = {}, mousedownOnCalc = false;
 
 
 function getTEAssetPath(){
@@ -448,13 +448,18 @@ function preventTextDragging(){
  					},
  		drag: function( event, ui ) {
  				  calculatorElm.parent().css("cursor", "url('assets/dragger_press.png'), pointer");
+ 				  mousedownOnCalc = true;
  			  },
  		dragstop: function( event, ui ) {
  						calculatorElm.parent().css("cursor", "url('assets/dragger_over.png'), pointer" );
+ 						mousedownOnCalc = false;
  				   },
  		
  		mouseleave: function( event, ui ){
- 						calculatorElm.trigger("mouseup");
+ 						
+	 					if(mousedownOnCalc == true){
+	 						calculatorElm.trigger("mouseup");
+	 					}	
  					}   					 
  		});
  		
