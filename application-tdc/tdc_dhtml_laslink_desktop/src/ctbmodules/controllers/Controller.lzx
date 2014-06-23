@@ -2007,6 +2007,7 @@
             Debug.write("*****saveLoadItem done*****");
             dshowClient.register( this, 'itemuiready' );
 			//showClient();
+			showManipulatives(); // fix for defect #79396
         ]]></method>
 
 
@@ -3563,13 +3564,11 @@
 		</method>
 		
 		<method name="hideManipulatives">
-			console.log("==hideManipulatives==");
-			jQuery(jQuery('[name="dManupulative"]')[0]).hide();
+			gManipulatives.setAttribute('visible',false);
 		</method>
 		
 		<method name="showManipulatives">
-			console.log("==showManipulatives==");
-			jQuery(jQuery('[name="dManupulative"]')[0]).show();
+			gManipulatives.setAttribute('visible',true);
 		</method>
 
 		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
