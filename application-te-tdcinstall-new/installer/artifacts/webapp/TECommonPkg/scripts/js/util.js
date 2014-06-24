@@ -974,8 +974,9 @@ function resetFontName(html) {
 	itemHtml = itemHtml.replace(/\b(CTB)\b/gi,"oasmathv3regular");
 	return itemHtml;
 }
-
+/*
 function removeSmallScrollbars() {
+	console.log("without latest changes starts:  "+new Date().getTime());
 	var texts = $(".text"), scrollHeight = 0, height = 0, txt;	
 	for(var index=0; index<texts.length; index++) {
 		txt = texts.eq(index);
@@ -985,7 +986,43 @@ function removeSmallScrollbars() {
 			txt.css("overflow","hidden");
 		}
 	}
-}
+	console.log("without latest changes ends:  "+new Date().getTime());
+}*/
+/*79461 starts*/
+
+function removeSmallScrollbars() {
+console.log("latest changes starts:  "+new Date().getTime());
+	var texts = $(".text"), scrollHeight = 0, height = 0, txt,enlargedTxt = new Array();	
+	for(var index=0; index<texts.length; index++) {
+		txt = texts.eq(index);
+		scrollHeight = txt[0].scrollHeight;
+		height = txt.outerHeight(true);
+		scrollWidth = txt[0].scrollWidth;
+		width = txt.outerWidth(true);			
+		if(scrollHeight >= height) {
+			if(Math.abs(scrollHeight-height) <= 5){
+				txt.css("overflow","hidden");
+			}else{
+				var enlarged=shortened=0;
+				var actualWdt = txt.width();
+				txt.css("width",actualWdt+20+"px");
+				enlargedTxt.push({
+					"text": txt,
+					"width": actualWdt
+				});
+			}
+		}else if(scrollWidth >= width && Math.abs(scrollWidth-width) <= 5) {
+			txt.css("overflow","hidden");
+		}
+	}
+		for(var i=0;i<enlargedTxt.length;i++){
+			var textCont = enlargedTxt[i].text;
+			var textContWd = enlargedTxt[i].width;
+			$(textCont).css("width",textContWd+"px");
+		}
+	console.log("latest changes ends:  "+new Date().getTime());
+} 
+/*79461 ends*/
 
 function getScoringErrMsg(screenArr,callPage) {
 	var i = 0, j = 0, elementNames = "", name = "", scrId, eleId, eleArr;
