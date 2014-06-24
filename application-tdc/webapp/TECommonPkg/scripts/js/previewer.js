@@ -1008,11 +1008,6 @@ function removeItem(obj) {
         }
     }
     $this.remove();
-	/*79456*/
-	var currentCount = $container.find("[isdropped = true]").length;
-	$container.attr("droptired",currentCount);
-	
-	/*79456*/
     $container.droppable("enable").css("opacity", 1);
     screen.find("#" + id).show();
     setDropAreaScrollbar($container);
@@ -1341,21 +1336,18 @@ function makeDrggable() {
 				var id = $(this).attr('id');
 				if(event){
 					var dropChildLen = event;
-					var dropMax = parseInt($(dropChildLen).attr("maxallowed"), 10);
-					var dropAllowMul = $(dropChildLen).attr("allowmultiple");
-					var dropTried = dropChildLen.attr("droptired")?parseInt(dropChildLen.attr("droptired")):0;
-					if (dropAllowMul == 1) {
-                        dropMax = 1;
-                    } else {
-                        dropMax = dropMax;
-                    }
-					if (dropTried > dropMax ) {
+					var previousCount = parseInt($(dropChildLen).attr("currentChildCount"));
+					var currentCount = $(dropChildLen).find(".element").length + $(dropChildLen).find(".palette-button").length+ $(dropChildLen).find(".dropped").length;
+					if(previousCount == undefined){
 						return true;
-					
-					}else{
+					}
+					else if(currentCount > previousCount){
+						//Something has been dropped. Do not return.
 						return false;
 					}
-					
+					else{
+						return true;
+					}
 				}else{
 					//means dropped outside dropbox
 					return true;
@@ -1506,13 +1498,17 @@ function makeDroppable() {
                 passageRes = $("#previewArea .editor:visible").find("[interactiontype = 6]");
                 passageFreeFlow = $("#previewArea .editor:visible").find("[interactiontype = 7]");
                 $this = $(this);
+				/*79456*/
+				var dropChildLen = $this.find(".element").length + $this.find(".palette-button").length+ $this.find(".dropped").length;
+				$this.attr("currentChildCount",dropChildLen);
+				/*79456*/
                 if (passageRes.length > 0 && ui.draggable.parents(".divbox").attr("interactiontype") == "6") {
                     makePassageRes(ui.draggable, $this, "dropAns");
                 } else if (passageFreeFlow.length > 0 && ui.draggable.parents(".divbox").attr("interactiontype") == "7") {
                     makePassageDroppable("", $this);
                 } else {
-                    var dropChildLen = $this.find(".element").length + $this.find(".palette-button").length,
-                        dropMax = parseInt($this.attr("maxallowed"), 10);
+                   
+                    var dropMax = parseInt($this.attr("maxallowed"), 10);
                     var dropAllowMul = $this.attr("allowmultiple");
                     if (dropAllowMul == 1) {
                         dropMax = 1;
@@ -1521,17 +1517,6 @@ function makeDroppable() {
                     }
 					 eleId = ui.draggable.attr("id");
 					var isSameDNDElement = $this.find("#"+eleId).length > 0 && !$("#"+eleId).is(".palette-button")?true:false;//Already present and not palet button
-                    if(!isSameDNDElement){
-						/*79456*/
-						var attempt = 1;
-						if($this.attr("droptired")){
-							attempt = parseInt($this.attr("droptired")) + 1;
-							
-						}
-						$this.attr("droptired",attempt);
-					/*79456*/
-					}
-					
 					if (dropChildLen < dropMax) {
                        
 						if($("#"+eleId).is(".palette-button")){
