@@ -2482,10 +2482,20 @@
 			var i = s.indexOf(t);
 			var r = "";
 			if (i == -1) return s;
-			r += s.substring(0,i) + u;
+			
+			/*r += s.substring(0,i) + u;
 			if ( i + t.length < s.length)
 				r += replace(s.substring(i + t.length, s.length), t, u);
-			return r;
+			return r;*/
+			
+			/*
+			 *This function is modified to eliminate the recursive function call.
+			 *The following block gives better performence when replacing multiple occurance(greater than 100) of a key from a given string. 
+			 */
+			 var arr = s.split(t);
+             r = arr.join(u);
+			 return r;
+			
 		]]></method>
 
 		<method name="replaceOld" args="input, from, to"><![CDATA[ 
