@@ -1022,11 +1022,24 @@
 		
 		<method name="roundMantissa" args="mantissa, leadingZeros">
 			var places = this.maxDigits -1 - leadingZeros;
-			var roundedMantissa = this.round(mantissa, places);
-			var result = this.removeDecimal(roundedMantissa);
-			return result;
+			//var roundedMantissa = this.round(mantissa, places);
+            var roundedMantissa = this.roundDecimal(mantissa, places);
+			var resultDecimal = this.removeDecimal(roundedMantissa);
+            return resultDecimal;
 		</method>
 		
+<!-- this method rounds the mantissa value
+	 this is written to solve the defect 79594 -->
+		<method name="roundDecimal" args="num,places">
+		<![CDATA[ 
+		    var result = num;
+			if(places < this.maxDigits){
+				var multiplier = Math.pow(10, places);
+				result = Math.round(num * multiplier)/multiplier;
+			}
+			return result;
+		]]></method>
+
 		<method name="removeDecimal" args="num">
 			var numText = num.toString();
 			var indexOfDecimal = numText.indexOf(".");
