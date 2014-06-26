@@ -1246,11 +1246,11 @@ function recreatePreviewarea(scoreJson) {
                                         dragEleId = dragEle[dragEleCount].id.split(",");
                                         for (dragEleIDCount = 0; dragEleIDCount < dragEleId.length; dragEleIDCount++) {
                                             dragElement = dragEleId[dragEleIDCount];
-											var attempt = 1;
+											/*var attempt = 1;
 											if($("#" + dropEleId).attr("droptired")){
 												attempt = parseInt($("#" + dropEleId).attr("droptired")) + 1;
 											}
-											$("#" + dropEleId).attr("droptired",attempt);
+											$("#" + dropEleId).attr("droptired",attempt);*/
                                             prepareDNDElements($("#" + dragElement), $("#" + dropEleId));
                                         }
                                     }
@@ -1352,39 +1352,6 @@ function highlightItems(json) {
         }
     }
 }
-/*function removeOrReduceHighlighterBox(initialScrollHeight, initialScrollWidth){
-	var highlighterDiv = $("#current");
-	if(highlighterDiv.length > 0) {
-		var allHighlighters = highlighterDiv.parent().find("div.highlighter").each(function(){
-		var width = $(this).width();
-		var height = $(this).height();
-		var strLeft = $(this).css("left");
-		var strTop = $(this).css("top");
-		var left = "";
-		var top = "";
-		if(strLeft && strTop){
-			left = parseInt(strLeft.substring(0,strLeft.indexOf("px")));
-			top = parseInt(strTop.substring(0,strTop.indexOf("px")));
-
-		}
-		if(initialScrollWidth<=left){
-			$(this).remove();
-		}else if(initialScrollHeight <=top){
-			$(this).remove();
-		}else if(left+width>initialScrollWidth){
-			var derivedWidth = initialScrollWidth -left;
-			$(this).css("width",derivedWidth+"px");
-			
-		}else if(top+height>initialScrollHeight){
-			var derivedHeight = initialScrollHeight -top;
-			$(this).css("height",derivedHeight+"px");
-			
-		}
-		});
-	}
-	
-}*/
-
 function removeOrReduceHighlighterBox(initialScrollHeight, initialScrollWidth){
 	var highlighterDiv = $("#current");
 	if(highlighterDiv.length > 0) {

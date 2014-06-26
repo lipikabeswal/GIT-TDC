@@ -1638,6 +1638,7 @@ function makeDropAreaSortable(drop) {
         handle: ".handle",
         stop: function (e, ui) {
             startHighLighting(e);
+            placeTextDivAtLast(this);
         },
         beforeStop: function (event, ui) {
             if (!ui.item.is(".text") && isDragOutside($(this), event.pageX, event.pageY)) {
@@ -4021,4 +4022,21 @@ function isDragOutside(dp, pageX, pageY) {
         flag = false;
     }
     return flag;
+}
+function placeTextDivAtLast(obj){
+	allObjs = $(obj).children();
+	var counter = 0;
+	var eachObj = "";
+	var textObj = [];
+	for(;counter < allObjs.length;counter++){
+		eachObj = allObjs.eq(counter);
+		if(eachObj.is('.text')){
+			textObj.push(eachObj.clone());
+			eachObj.remove();
+		}
+	}
+	for(counter = 0;counter < textObj.length;counter ++){
+		$(obj).append(textObj[counter]);
+	}
+
 }
