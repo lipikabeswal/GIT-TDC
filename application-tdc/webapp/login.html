@@ -611,7 +611,11 @@ function disableShortcuts() {
 			    if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && gController.iskeyEnabled) {
 					gHotKeys.toggleMark();
 					event.preventDefault(); // disable Ctrl+L
-				}	
+				}else if(!gItemInterface.visible) {
+					event.preventDefault();
+					event.stopPropagation();
+					return false;
+				}		
 				break;
 			case 's':
 				event.preventDefault();
