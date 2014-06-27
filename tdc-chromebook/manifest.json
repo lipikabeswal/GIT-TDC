@@ -1,0 +1,31 @@
+{
+  "name": "OAS Chrome App",
+  "description": "Proof-of-concept for an OAS Chrome App",
+  "version": "0.2",
+  "manifest_version": 2,
+
+  "permissions": [
+    {
+      "socket": [
+        "tcp-connect",
+        "tcp-listen"]
+    },
+    "webview",
+    "http://tms-oas-qa.ctb.com/",
+    "http://oasdelivery.ctb.com/",
+    "https://oas.ctb.com/",
+    "https://oastest.ctb.com/",
+    "http://localhost:8080/",
+    "fileSystem",
+    "unlimitedStorage",
+    {
+      "fileSystem": ["write", "retainEntries", "directory"]
+    }
+  ],
+
+  "app": {
+    "background": {
+      "scripts": ["chromeos/background.js"]
+    }
+  }
+}

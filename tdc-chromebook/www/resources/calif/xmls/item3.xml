@@ -1,0 +1,219 @@
+<element_package iid="FCAT_TEST.011" security_classification_id="alg112">
+ <item_canvas id="IC">
+  <panel stereotype="stimulus" id="sd1" left_padding="12" height="424" layout="vertical" spacing="12" width="794" x="0" y="79">
+    <html_widget src="IN0317E2AA" id="widget1000" width="794" height="424" image="no" enlargeable="no"/>    
+  </panel> 
+ </item_canvas>
+ <item_model iid="FCAT_TEST.011" eid="3" marked="0" answered="0" number="0" type="question" correct="D">
+  <toolbar ti_scientific_graphic_calculator="required" ti_scientific_calculator="required" masking_ruler="required" oneeighth_inch_ruler="required" mm_ruler="not provisioned" formula_card="required" highlighter="required" eraser="required" cm_ruler="not provisioned" scientific_calculator="required" standard_calculator="required" option_eliminator="required" half_inch_ruler="not provisioned" scratchpad="required" protractor="required"/>
+  <interaction type="choice" max_choices="1">
+   <selector identifier="A" obj_id_ref="A" user_action="n" />
+   <selector identifier="B" obj_id_ref="B" user_action="n" />
+   <selector identifier="C" obj_id_ref="C" user_action="n" />
+   <selector identifier="D" obj_id_ref="D" user_action="n" />
+  </interaction>
+ </item_model>
+</element_package>
+<!--  <element_package allow_revisit="" allow_revisit_on_restart=""
+	eid="3" iid="SR000C936C" xslt_ver="145">
+	<item_canvas id="IC">
+		<panel height="" id="sd1" layout="vertical" left_padding="12"
+			spacing="12" stereotype="directions" width="788" y="79">
+			<text_widget halign="left" id="widget2017381000"
+				width="761">
+				&lt;b&gt;Here is an excerpt from a book about bats. Read
+				&amp;#8220;Bats: Flight and Echolocation&amp;#8221; and
+				then do Numbers %start% through %end%.&lt;/b&gt;
+			</text_widget>
+		</panel>
+		<panel x="0" y="125" left_padding="12" width="788" height="407"
+			layout="horizontal" enablehl="false">
+			<panel x="0" y="0" height="407" layout="vertical"
+				enablehl="false" width="395">
+				<scrolling_text_panel height="407" id="s13IN_Bats"
+					stereotype="stimulus" width="395" x="0" y="116">
+					<image_widget
+						alt_text="This is A reading comprehension question. It will not be read aloud."
+						autoenlargeable="no" enlargeable="no" halign="left" height="59" width="381" src="logoTN.swf" />
+					<text_widget
+						alt_text="This is A reading comprehension question. It will not be read aloud."
+						halign="left" id="widget2017381001" width="378">
+						&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;A
+						little brown bat flies to a stream in the woods
+						to hunt. It woke up thirsty, so first it wants a
+						drink. Without landing, it flies close to the
+						surface of the water and dips its mouth for a
+						drink. Then it starts its search for food. It
+						darts back and forth among the leaves and
+						branches that hang over the stream. It twists
+						and turns in the air as it chases insects.
+					</text_widget>
+					<text_widget alt_text=" " halign="left"
+						id="widget2017381002" width="378">
+						&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;The
+						bat flies with its mouth open, but not because
+						it hopes a bug will fly in by accident. It is
+						echolocating. It uses sound the way you use
+						sight: to find out what is around it and decide
+						what direction to go next. It catches its prey
+						in the air without ever bumping into a branch or
+						another bat.
+					</text_widget>
+					<image_widget autoenlargeable="no" enlargeable="no"
+						halign="center" height="138" width="183" src="logoTN.swf" />
+					<text_widget alt_text=" " halign="left"
+						id="widget2017381003" width="378">
+						&lt;b&gt;Echolocation&lt;/b&gt;
+					</text_widget>
+					<text_widget alt_text=" " halign="left"
+						id="widget2017381004" width="378">
+						&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;All
+						insect-eating bats echolocate when they are
+						hunting, and all &lt;footnote
+						header=&quot;&amp;#9329;&amp;#9338;microbats:&quot;
+						detail=&quot;small bats that feed mainly on
+						insects and use echolocation to navigate&quot;
+						readable=&quot;false&quot;&gt;&lt;a
+						href=&quot;javascript:showFootnote(&apos;%26%239329%3B%26%239338%3Bmicrobats%3A&apos;);&quot;&gt;microbats&amp;#9329;&amp;#9338;&lt;/a&gt;&lt;/footnote&gt;
+						use echolocation to navigate. When a bat
+						echolocates, it makes sounds with its larynx
+						(voice box). Usually the sounds are ultrasonic,
+						meaning that they are above the range of human
+						hearing.
+					</text_widget>
+					<text_widget alt_text=" " halign="left"
+						id="widget2017381005" width="378">
+						&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;The
+						sounds come out of the bat&amp;#8217;s mouth or
+						nose. Different species of bats have different
+						ways of &lt;footnote
+						header=&quot;&amp;#9330;&amp;#9338;emitting:&quot;
+						detail=&quot;giving or sending out as
+						sound&quot; readable=&quot;false&quot;&gt;&lt;a
+						href=&quot;javascript:showFootnote(&apos;%26%239330%3B%26%239338%3Bemitting%3A&apos;);&quot;&gt;emitting&amp;#9330;&amp;#9338;&lt;/a&gt;&lt;/footnote&gt;
+						the sound. When the sound waves hit objects in
+						the bat&amp;#8217;s environment, they bounce
+						back. From the echoes that bounce back to its
+						ears, the bat gets a good enough picture in its
+						brain to hunt successfully or find its way
+						safely to a roost deep inside a dark cave. In
+						total darkness, owls crash into walls. Bats
+						don&amp;#8217;t. Even in daylight, birds
+						sometimes crash into glass windows, but bats can
+						detect glass and avoid it.
+					</text_widget>
+					<text_widget alt_text=" " halign="left"
+						id="widget2017381006" width="378">
+						&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;Bats
+						broadcast sound in short pulses, not in one
+						long, continuous hum. A little brown bat
+						searching for prey may make about twenty calls
+						per second. When it has found an insect and is
+						chasing it, the bat calls as often as two
+						hundred times per second. This is called a
+						&amp;#8220;feeding buzz.&amp;#8221;
+					</text_widget>
+					<text_widget alt_text=" " halign="left"
+						id="widget2017381007" width="378">
+						&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;If
+						the sound is ultrasonic, how do we know the bat
+						is making a sound? An early high-tech
+						invention&amp;#8212;a microphone that could pick
+						up sounds the human ear cannot hear and
+						translate them into signals within the range of
+						human hearing&amp;#8212;first let humans hear
+						bats echolocate about sixty years ago. Before
+						that, some scientists suspected bats were using
+						sound to navigate, but they couldn&amp;#8217;t
+						prove it. Today, researchers use much more
+						sensitive microphones, sometimes attached to
+						computers, to study the high-tech navigation
+						system of bats. These devices are called bat
+						detectors.
+					</text_widget>
+					<text_widget alt_text="" halign="left"
+						id="widget2017381008" width="378">
+						&amp;#160;
+					</text_widget>
+					<text_widget alt_text=" " halign="left"
+						id="widget2017381009" text_magnification="0.83" width="378">
+						&lt;b&gt;&amp;#9329;&amp;#9338;microbats:&lt;/b&gt;&amp;#160;&amp;#160;small
+						bats that feed mainly on insects and use
+						echolocation to navigate
+					</text_widget>
+					<text_widget alt_text=" " halign="left"
+						id="widget2017381010" text_magnification="0.83" width="378">
+						&lt;b&gt;&amp;#9330;&amp;#9338;emitting:&lt;/b&gt;&amp;#160;&amp;#160;giving
+						or sending out as sound
+					</text_widget>
+				</scrolling_text_panel>
+			</panel>
+			<panel x="0" y="0" height="407" layout="vertical"
+				enablehl="false" width="381">
+				<panel height="" id="stem1" layout="vertical"
+					left_padding="12" spacing="12" stereotype="stem" width="367">
+					<text_widget
+						alt_text="This is A reading comprehension question. It will not be read aloud."
+						halign="left" id="widget2017381011" width="344">
+						Which of these topics is MOST similar to the
+						main topic of the passage?
+					</text_widget>
+				</panel>
+				<answer_area_panel height="" id="A1" layout="vertical"
+					left_padding="12" spacing="12" stereotype="answerArea"
+					top_padding="12" width="361">
+					<answer_choice_widget layout="horizontal"
+						spacing="6" width="347">
+						<selector_widget identifier="A" valign="top" />
+						<text_widget alt_text=" " halign="left"
+							id="widget2017381014" width="291">
+							Where Beavers Build Their Dams
+						</text_widget>
+					</answer_choice_widget>
+					<answer_choice_widget layout="horizontal"
+						spacing="6" width="347">
+						<selector_widget identifier="B" valign="top" />
+						<text_widget alt_text=" " halign="left"
+							id="widget2017381017" width="291">
+							Animals That Grow Antlers in the Fall
+						</text_widget>
+					</answer_choice_widget>
+					<answer_choice_widget layout="horizontal"
+						spacing="6" width="347">
+						<selector_widget identifier="C" valign="top" />
+						<text_widget alt_text=" " halign="left"
+							id="widget2017381020" width="291">
+							How Birds Know to Fly South in the Winter
+						</text_widget>
+					</answer_choice_widget>
+					<answer_choice_widget layout="horizontal"
+						spacing="6" width="347">
+						<selector_widget identifier="D" valign="top" />
+						<text_widget alt_text=" " halign="left"
+							id="widget2017381023" width="291">
+							Insects That Are in the
+							Hummingbird&amp;#8217;s Diet
+						</text_widget>
+					</answer_choice_widget>
+				</answer_area_panel>
+			</panel>
+		</panel>
+	</item_canvas>
+	<item_model answer_text="" answered="0" correct="C" eid="3"
+		iid="SR000C936C" marked="0" number="0" score="0" type="question">
+		<toolbar FCAT_formula_card="not provisioned"
+			TN_formula_card="not provisioned" cm_ruler="not provisioned"
+			eraser="required" half_inch_ruler="not provisioned"
+			highlighter="required" mm_ruler="not provisioned"
+			oneeighth_inch_ruler="not provisioned" option_eliminator="required"
+			protractor="not provisioned" scientific_calculator="not provisioned"
+			scratchpad="not provisioned" standard_calculator="not provisioned"
+			straight_edge="not provisioned" />
+		<interaction max_choices="1" type="choice">
+			<selector identifier="A" obj_id_ref="A" user_action="n" />
+			<selector identifier="B" obj_id_ref="B" user_action="n" />
+			<selector identifier="C" obj_id_ref="C" user_action="n" />
+			<selector identifier="D" obj_id_ref="D" user_action="n" />
+		</interaction>
+	</item_model>
+</element_package>-->

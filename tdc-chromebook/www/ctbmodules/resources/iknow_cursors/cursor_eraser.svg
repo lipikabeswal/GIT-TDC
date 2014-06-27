@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="24.7px" height="18.2px" viewBox="-0.325 -17.825 24.7 18.2" enable-background="new -0.325 -17.825 24.7 18.2"
+	 xml:space="preserve">
+<g>
+	
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-819.2002" y1="-8.7749" x2="819.1998" y2="-8.7749" gradientTransform="matrix(-0.0029 -0.0036 -0.0036 0.0029 22.3055 -9.1075)">
+		<stop  offset="0" style="stop-color:#F7E3E8"/>
+		<stop  offset="0.7843" style="stop-color:#E98F86"/>
+	</linearGradient>
+	<path fill="url(#SVGID_1_)" d="M12.3-0.05h-0.75l-0.05-2.9l1.65-4.2L24-17.5v6.2L12.3-0.05"/>
+	
+		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="-819.2002" y1="-12.3252" x2="819.1998" y2="-12.3252" gradientTransform="matrix(-0.002 0.0075 0.0075 0.002 7.6515 -14.1742)">
+		<stop  offset="0" style="stop-color:#F7E3E8"/>
+		<stop  offset="0.7843" style="stop-color:#EDA49D"/>
+	</linearGradient>
+	<path fill="url(#SVGID_2_)" d="M13.15-7.15H1.75l11.8-10.35H24L13.15-7.15"/>
+	
+		<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="-819.2002" y1="-3.5996" x2="819.1998" y2="-3.5996" gradientTransform="matrix(-1.983643e-04 0.0043 0.0043 1.983643e-04 3.6143 -3.709)">
+		<stop  offset="0" style="stop-color:#F7E3E8"/>
+		<stop  offset="0.7843" style="stop-color:#EDA49D"/>
+	</linearGradient>
+	<path fill="url(#SVGID_3_)" d="M13.15-7.15l-1.75,4.2l0.15,2.9H0.05L0-2.95l1.7-4.2H13.15"/>
+	<path fill="none" stroke="#DC7E86" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" d="M24-17.45L13.15-7.1
+		L11.5-2.9L11.55,0"/>
+	<path fill="none" stroke="#B26F7E" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" d="M0.15,0H12.3L24-11.25
+		v-6.2H13.55L1.75-7.1l-1.7,4.2L0.15,0"/>
+</g>
+</svg>

@@ -1,0 +1,128 @@
+/* CSS classes for text content in CachableTextfield
+ *
+ * The <span> tags with the corresponding class name are applied in the ondata
+ * handler of the CachableTextfield component. The <sub>, <sup>, as well as the
+ * <span class=""> tags for the fractions, denominators, numerators, and special
+ * chars are added in the UnicodeConverter class inside the convert() method.
+ */
+
+/* CachableTextfield text with font-size 12px needs an increased line-height value. */
+span.standardfonttext {
+    white-space: pre-wrap;
+    letter-spacing: 0.0em;
+    line-height: 16px;
+
+}
+
+/* CachableTextfield text with font-size 18px needs an increased line-height value. */
+span.largefonttext {
+    white-space: pre-wrap;
+    letter-spacing: 0.0em;
+    line-height: 26px;
+}
+
+/* Avoid subscript and superscript affecting line height by positioning them
+ * relative to the baseline of the font. The vertical position of the super- and
+ * subscript passages can be adjusted through the top and bottom property without
+ * effecting the width of the line.
+ */
+sup, sub {
+    vertical-align: 0;
+    position: relative;
+    font-size: 0.75em;
+}
+
+/* Subscript style definitions */
+span.standardfonttext > sub {
+	top: 0.59ex;
+}
+span.largefonttext > sub {
+	top: 0.59ex;
+}
+span.standardfonttext > sub.digit {
+    letter-spacing: 0.005em;
+}
+span.standardfonttext > sub.letter {
+    letter-spacing: 0.027em;
+}
+span.largefonttext > sub.digit {
+    letter-spacing: -0.015em;
+}
+span.largefonttext > sub.letter {
+    letter-spacing: 0.006em;
+}
+
+/* Superscript style definitions */
+span.standardfonttext > sup {
+	bottom: 1.55ex;
+}
+span.largefonttext > sup {
+	bottom: 1.30ex;	
+}
+span.standardfonttext > sup.digit {
+    letter-spacing: -0.01em;
+}
+span.standardfonttext > sup.letter {
+    letter-spacing: 0.027em;
+}
+span.largefonttext > sup.digit {
+    letter-spacing: -0.03em;
+}
+span.largefonttext > sup.letter {
+    letter-spacing: 0.006em;
+}
+
+/* The numerator and denominator glyphs are used to contruct complex fractions.
+ * Those glyphs contain only the numerator or denominator part of a fraction
+ * with the vertical line. The missing part of the fraction is added through
+ * glyphs in either superscript or subscript position.
+ */
+.standardNumerator {
+    vertical-align: 0;
+    position: relative;
+    zoom: 93%;
+    letter-spacing: 0.04em;
+    bottom: 0.24ex;
+}
+
+.largeNumerator {
+    vertical-align: 0;
+    position: relative;
+    zoom: 96%;
+    letter-spacing: 0.01em;
+    bottom: 0.19ex;
+}
+
+.standardDenominator {
+    vertical-align: 0;
+    position: relative;
+    zoom: 93%;
+    letter-spacing: 0.04em;
+    bottom: 0.2ex;
+    margin-left: 0.0em;
+    margin-right: -0.19em;
+}
+
+.largeDenominator {
+    vertical-align: 0;
+    position: relative;
+    zoom: 91%;
+    letter-spacing: 0.01em;
+    bottom: 0.24ex;
+    margin-left: 0.0em;
+    margin-right: -0.19em;
+}
+
+
+/* Character class for Superscript_Root_Extender and Super_Overbar
+ * Currently we are not doing any optimization on these characters, but these 
+ * selectors have been added in case we need to customize the size of these
+ * characters.
+ */
+.standardSuperRoot{
+
+}
+
+.largeSuperRoot {
+
+}

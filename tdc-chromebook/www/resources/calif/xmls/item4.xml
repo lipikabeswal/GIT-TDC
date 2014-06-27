@@ -1,0 +1,82 @@
+<element_package iid="FCAT_TEST.011" security_classification_id="alg112">
+ <item_canvas id="IC">
+  <panel stereotype="stimulus" id="sd1" left_padding="12" height="424" layout="vertical" spacing="12" width="794" x="0" y="79">
+    <html_widget src="IN00144C56" id="widget1000" width="794" height="424" image="no" enlargeable="no"/>    
+  </panel> 
+ </item_canvas>
+ <item_model iid="FCAT_TEST.011" eid="4" marked="0" answered="0" number="0" type="question" correct="D">
+  <toolbar ti_scientific_graphic_calculator="required" ti_scientific_calculator="required" masking_ruler="required" oneeighth_inch_ruler="required" mm_ruler="not provisioned" formula_card="required" highlighter="required" eraser="required" cm_ruler="not provisioned" scientific_calculator="required" standard_calculator="required" option_eliminator="required" half_inch_ruler="not provisioned" scratchpad="required" protractor="required"/>
+  <interaction type="choice" max_choices="1">
+   <selector identifier="A" obj_id_ref="A" user_action="n" />
+   <selector identifier="B" obj_id_ref="B" user_action="n" />
+   <selector identifier="C" obj_id_ref="C" user_action="n" />
+   <selector identifier="D" obj_id_ref="D" user_action="n" />
+  </interaction>
+ </item_model>
+</element_package>
+<!--  <element_package allow_revisit="" allow_revisit_on_restart=""
+	eid="4" iid="SR0003FC32" xslt_ver="145">
+	<item_canvas id="IC">
+		<panel height="78" id="stem1" layout="vertical"
+			left_padding="12" spacing="12" stereotype="stem" width="500" x="0"
+			y="79">
+			<text_widget halign="left" id="widget8836671000"
+				width="471"><![CDATA[A baker uses 4 eggs and 3 cups of flour for each cake he bakes. One morning he uses 24 cups of flour for cakes.]]></text_widget>
+			<text_widget halign="left" id="widget8836671001"
+				width="471"><![CDATA[How many eggs does the baker use?]]></text_widget>
+		</panel>
+		<answer_area_panel height="300" id="A1" layout="vertical"
+			left_padding="12" spacing="12" stereotype="answerArea"
+			top_padding="12" width="488" x="12" y="164">
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="476">
+				<selector_widget identifier="A" valign="top" />
+				<text_widget halign="left" id="widget8836671004"
+					width="429"><![CDATA[18]]></text_widget>
+				<text_widget halign="left" id="widget8836671005"
+					width="429" />
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="476">
+				<selector_widget identifier="B" valign="top" />
+				<text_widget halign="left" id="widget8836671008"
+					width="429"><![CDATA[25]]></text_widget>
+				<text_widget halign="left" id="widget8836671009"
+					width="429" />
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="476">
+				<selector_widget identifier="C" valign="top" />
+				<text_widget halign="left" id="widget8836671012"
+					width="429"><![CDATA[28]]></text_widget>
+				<text_widget halign="left" id="widget8836671013"
+					width="429" />
+			</answer_choice_widget>
+			<answer_choice_widget layout="horizontal" spacing="6"
+				width="476">
+				<selector_widget identifier="D" valign="top" />
+				<text_widget halign="left" id="widget8836671016"
+					width="429"><![CDATA[32]]></text_widget>
+				<text_widget halign="left" id="widget8836671017"
+					width="429" />
+			</answer_choice_widget>
+		</answer_area_panel>
+	</item_canvas>
+	<item_model answer_text="" answered="0" correct="D" eid="4"
+		iid="SR0003FC32" marked="0" number="0" score="0" type="question">
+		<toolbar FCAT_formula_card="not provisioned"
+			TN_formula_card="not provisioned" cm_ruler="not provisioned"
+			eraser="required" half_inch_ruler="not provisioned"
+			highlighter="required" mm_ruler="not provisioned"
+			oneeighth_inch_ruler="not provisioned" option_eliminator="required"
+			protractor="not provisioned" scientific_calculator="not provisioned"
+			scratchpad="not provisioned" standard_calculator="not provisioned"
+			straight_edge="not provisioned" />
+		<interaction max_choices="1" type="choice">
+			<selector identifier="A" obj_id_ref="A" user_action="n" />
+			<selector identifier="B" obj_id_ref="B" user_action="n" />
+			<selector identifier="C" obj_id_ref="C" user_action="n" />
+			<selector identifier="D" obj_id_ref="D" user_action="n" />
+		</interaction>
+	</item_model>
+</element_package>-->

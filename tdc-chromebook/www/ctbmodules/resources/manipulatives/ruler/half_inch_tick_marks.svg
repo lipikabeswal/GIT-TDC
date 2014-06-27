@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 510 74" x="0px" y="0px" width="510px" height="74px" version="1.1" enable-background="new 0 0 510 74" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve">
+<font horiz-adv-x="1000">
+<!-- OASmathv3 is a trademark of  CTB/McGraw-Hill. -->
+<!-- Copyright: Copyright 2014 Adobe System Incorporated. All rights reserved. -->
+<font-face font-family="OASmathv3" underline-thickness="50" underline-position="-375" units-per-em="1000" />
+<missing-glyph horiz-adv-x="590" d="M45,625l500,0l0,-625l-500,0M529,16l0,593l-468,0l0,-593z" />
+<glyph horiz-adv-x="555" d="M284,560C263,540 235,520 200,500C183,489 166,480 151,473C136,466 121,459 108,454l0,85C157,562 200,590 237,623C255,640 271,656 284,672C297,688 308,704 315,719l57,0l0,-719l-88,0z" unicode="1" />
+<glyph horiz-adv-x="555" d="M51,653C61,662 74,670 90,678C106,686 123,693 142,700C161,706 180,711 200,715C219,718 238,720 255,720C294,720 330,716 362,707C394,698 421,684 444,667C466,650 483,629 495,604C507,579 513,551 513,520C513,493 508,468 498,443C487,418 474,395 457,372C440,349 420,328 398,307C376,286 353,265 330,246C307,226 284,207 262,188C239,169 219,151 200,132C193,124 186,116 180,109C174,101 168,93 163,84l351,0l0,-84l-473,0C41,23 44,43 51,61C64,94 83,125 109,156C125,175 144,194 165,213C186,232 209,251 232,271C255,290 278,310 301,331C324,351 344,372 363,393C381,414 396,435 407,457C418,478 423,500 423,522C423,559 410,590 383,613C356,636 312,647 253,647C244,647 233,646 220,643C207,640 195,637 182,633C169,628 157,624 146,619C135,614 126,608 120,603z" unicode="2" />
+<glyph horiz-adv-x="555" d="M128,99C134,92 142,87 152,82C161,77 172,73 183,70C194,67 205,64 217,63C228,61 239,60 248,60C289,60 324,74 353,103C381,132 395,168 395,209C395,249 382,282 357,307C342,322 326,332 308,337C290,342 271,344 252,344C241,344 231,344 221,343C210,342 200,340 189,339l37,76C245,415 262,418 276,423C289,428 303,435 318,444C348,464 363,494 363,535C363,567 352,594 331,615C310,636 282,646 246,646C238,646 229,646 220,645C210,644 200,642 190,640C180,637 171,634 162,631C153,628 146,624 141,619C141,620 138,623 131,628C124,633 116,639 108,646C100,652 93,658 86,663C79,668 76,670 77,671C86,679 98,686 111,692C124,698 139,703 154,707C169,711 184,714 200,716C215,718 230,719 244,719C283,719 319,710 352,693C385,677 410,654 427,625C445,596 454,566 454,533C454,501 446,473 429,448C412,423 388,403 355,388C397,378 430,358 454,327C477,296 489,258 489,211C489,149 466,96 420,52C375,9 317,-13 248,-13C232,-13 216,-12 199,-9C182,-7 165,-4 149,1C132,6 117,12 103,19C88,26 76,34 66,43z" unicode="3" />
+<glyph horiz-adv-x="555" d="M30,171l0,81l326,464l72,0l0,-464l97,0l0,-81l-97,0l0,-171l-88,0l0,171M116,252l224,0l0,323z" unicode="4" />
+<glyph horiz-adv-x="555" d="M132,195C139,149 154,115 179,93C203,71 233,60 269,60C312,60 348,76 377,108C406,141 421,184 421,235C421,286 407,325 378,354C351,383 315,397 268,397C239,397 214,391 192,378C169,365 151,349 138,328l-83,10l69,368l356,0l0,-84l-285,0l-39,-192C177,445 199,456 222,464C245,471 268,475 291,475C354,475 407,453 450,410C493,367 514,312 514,243C514,178 495,122 457,75C412,17 350,-12 269,-12C204,-12 151,6 110,42C69,79 45,128 40,188l92,7z" unicode="5" />
+<glyph horiz-adv-x="555" d="M196,438C225,455 258,464 295,464C354,464 404,443 445,400C486,357 506,301 506,230C506,157 485,99 443,55C400,10 346,-12 281,-12C236,-12 193,1 154,26C115,51 86,86 66,133C61,145 56,159 53,176C50,193 48,210 48,227C48,248 49,267 52,286C55,305 59,324 64,345C67,358 73,373 80,388C87,403 96,420 106,438C123,468 141,499 162,532C182,564 201,594 219,621C240,653 262,684 283,715l90,0M139,226C139,177 153,136 180,105C207,76 240,61 277,61C316,61 350,77 379,109C408,140 422,181 422,233C422,278 408,315 381,344C353,373 319,387 279,387C238,387 205,373 179,344C152,315 139,275 139,226z" unicode="6" />
+<glyph horiz-adv-x="555" d="M510,707l0,-69C487,614 464,586 442,554C419,521 397,485 375,445C330,363 295,280 270,197C253,137 242,71 237,0l-91,0C147,28 150,59 156,93C161,127 169,164 180,204C201,284 231,361 270,435C290,473 311,507 332,538C353,569 375,597 397,622l-351,0l0,85z" unicode="7" />
+</font>
+
+	<g id="type">
+	<text font-family="'OASmathv3'" font-size="10" transform="matrix(1 0 0 1 69.2256 24.21)">1</text>
+	<g id="type_1_">
+		<text font-family="'OASmathv3'" font-size="10" transform="matrix(1 0 0 1 141.226 24.21)">2</text>
+	</g>
+	<g id="type_2_">
+		<text font-family="'OASmathv3'" font-size="10" transform="matrix(1 0 0 1 213.226 24.21)">3</text>
+	</g>
+	<g id="type_3_">
+		<text font-family="'OASmathv3'" font-size="10" transform="matrix(1 0 0 1 285.226 24.21)">4</text>
+	</g>
+	<g id="type_4_">
+		<text font-family="'OASmathv3'" font-size="10" transform="matrix(1 0 0 1 357.226 24.21)">5</text>
+	</g>
+	<g id="type_5_">
+		<text font-family="'OASmathv3'" font-size="10" transform="matrix(1 0 0 1 429.226 24.21)">6</text>
+	</g>
+	<g id="type_6_">
+		<text font-family="'OASmathv3'" font-size="10" transform="matrix(1 0 0 1 501.226 24.21)">7</text>
+	</g>
+</g>
+<g id="tickmarks">
+	<line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" x1="72" y1="0" x2="72" y2="14" />
+	
+		<line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="108" y1="0" x2="108" y2="11" />
+	<line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" x1="144" y1="0" x2="144" y2="14" />
+	
+		<line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="180" y1="0" x2="180" y2="11" />
+	<line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" x1="216" y1="0" x2="216" y2="14" />
+	
+		<line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="252" y1="0" x2="252" y2="11" />
+	<line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" x1="288" y1="0" x2="288" y2="14" />
+	
+		<line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="324" y1="0" x2="324" y2="11" />
+	<line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" x1="360" y1="0" x2="360" y2="14" />
+	
+		<line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="396" y1="0" x2="396" y2="11" />
+	<line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" x1="432" y1="0" x2="432" y2="14" />
+	
+		<line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="468" y1="0" x2="468" y2="11" />
+	<line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" x1="504" y1="0" x2="504" y2="14" />
+	
+		<line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="36" y1="0" x2="36" y2="11" />
+	<path fill="none" d="M 510 74" />
+	<path fill="none" d="M 0 0" />
+</g>
+</svg>
