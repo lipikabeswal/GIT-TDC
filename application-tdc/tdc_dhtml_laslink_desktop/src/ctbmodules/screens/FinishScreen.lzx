@@ -56,7 +56,8 @@
              		 stats.notanswered.setAttribute(
                 	'text','You have '+leftQues+' '+((leftQues == 1) ? 'question' :'questions')+' left.');
 					}
-				stats.marked.setAttribute('text',''); \\ Fix for defect 79676
+					// Fix for defect 79676
+				stats.marked.setAttribute('text',''); 
             }
             gController.setAttribute('isNavigateBack',false);
 		]]>            
