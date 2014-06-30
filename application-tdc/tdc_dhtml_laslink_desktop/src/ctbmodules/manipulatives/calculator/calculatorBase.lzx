@@ -870,7 +870,7 @@
 		<![CDATA[   
 			var result = num;
 			//added 2nd condition to fix abnormal number generation on click of a operators-by piyali
-			if(places < this.maxDigits && this.operands.length>1){
+			if(places < this.maxDigits && this.operands.length!=1){
 				var multiplier = Math.pow(10, places);
 				result = Math.round(num * multiplier)/multiplier;
 			}
