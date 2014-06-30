@@ -41,6 +41,8 @@
              		 stats.notanswered.setAttribute(
                 	'text','You have '+leftQues+' '+((leftQues == 1) ? 'question' :'questions')+' left.');
 					}
+					// Fix for defect 79676
+					stats.marked.setAttribute('text',''); 
             }
 		]]>            
         </method>
