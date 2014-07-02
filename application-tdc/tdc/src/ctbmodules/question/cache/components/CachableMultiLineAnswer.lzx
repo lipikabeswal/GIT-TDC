@@ -146,6 +146,8 @@
         ]]></handler>
         
         <method name="setAnswer" args="text">
+       	  text = gController.replace(text, '<', '&lt;');
+		  text = gController.replace(text, '>', '&gt;');
           var currentFocus = lz.Focus.getFocus();
           this.outer.rich.answer.onfocus.sendEvent();
 		  this.outer.rich.answer.inp.onfocus.sendEvent();
