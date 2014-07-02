@@ -145,7 +145,7 @@
 			}
         ]]></handler>
         
-        <method name="setAnswer" args="text">
+        <method name="setAnswer" args="text"><![CDATA[
        	  text = gController.replace(text, '<', '&lt;');
 		  text = gController.replace(text, '>', '&gt;');
           var currentFocus = lz.Focus.getFocus();
@@ -156,7 +156,7 @@
           if(currentFocus != null){
           	currentFocus.onfocus.sendEvent();
           }
-        </method>
+        ]]></method>
 
 		<method name="read">
 			var txt = outer.rich.answer.getSelectedText();
