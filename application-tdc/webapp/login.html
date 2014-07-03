@@ -959,12 +959,16 @@ function checkEmptyString(str) {
 					}
 					break;
 				case 'j':
-					gHotKeys.goBack();
-					event.preventDefault(); // disable Ctrl+J
+					if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+						gHotKeys.goBack();
+						event.preventDefault(); // disable Ctrl+J
+					}
 					break;			
 				case 'k' :
-					gHotKeys.goOn();
-					event.preventDefault(); // disable Ctrl+K
+					if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+						gHotKeys.goOn();
+						event.preventDefault(); // disable Ctrl+K
+					}
 					break;
 				case 'f' :
 					hideMagnify();
