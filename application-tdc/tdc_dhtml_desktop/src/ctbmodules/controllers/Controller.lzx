@@ -4639,7 +4639,7 @@
             this.setAttribute("inQuestion", false);
         </method>
         
-        <method name="stopTimer">
+        <method name="stopTimer"><![CDATA[
         	if ( timing ) {
 				var timestamp;
                 //var timestamp = lz.Timer.getTimer();
@@ -4658,21 +4658,23 @@
     
                 var itemnode =
                     dpstudentdata.xpathQuery('current_item/item_model');
-                var dsec = itemnode.getAttr( 'dur' );
-                if ( typeof( dsec ) == 'string' ) {
-                    itemnode.setAttr(
-                        'dur',
-                        String( parseInt( dsec ) + 
-                                Math.floor((timestamp - qtimestamp)/1000) )
-                    );
-                } else {
-                    itemnode.setAttr(
-                        'dur',
-                        String( Math.floor( (timestamp - qtimestamp ) / 1000) )
-                    );
-                }
+                if(itemnode != null && itemnode != undefined){   
+	                var dsec = itemnode.getAttr( 'dur' );
+	                if ( typeof( dsec ) == 'string' ) {
+	                    itemnode.setAttr(
+	                        'dur',
+	                        String( parseInt( dsec ) + 
+	                                Math.floor((timestamp - qtimestamp)/1000) )
+	                    );
+	                } else {
+	                    itemnode.setAttr(
+	                        'dur',
+	                        String( Math.floor( (timestamp - qtimestamp ) / 1000) )
+	                    );
+	                }
+	             }   
             }
-        </method>
+        ]]></method>
 
 		<method name="clearInvalidCrResponses"><![CDATA[
 			for (var i=0; i<this.crFields.length; i++){
