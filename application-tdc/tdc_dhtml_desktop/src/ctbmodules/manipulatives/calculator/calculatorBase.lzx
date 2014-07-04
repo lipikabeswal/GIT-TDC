@@ -876,12 +876,7 @@
 			if(places < this.maxDigits && this.operands.length!=1){
 				var multiplier = Math.pow(10, places);
 				result = Math.round(num * multiplier)/multiplier;
-			}
-			if(this.currentOperator == 'multiply' && this.isEqualClicked && result != ''){
 				result = this.roundValue(result);
-			}else if(this.tempOperator == 'multiply' && this.currentOperator == 'add' && result != ''){
-				result = this.roundValue(result);
-				this.setAttribute('tempOperator','');
 			}
 			return result;
 		]]>
