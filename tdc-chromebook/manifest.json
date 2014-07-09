@@ -20,7 +20,8 @@
     "unlimitedStorage",
     {
       "fileSystem": ["write", "retainEntries", "directory"]
-    }
+    },
+    "storage"
   ],
 
   "app": {

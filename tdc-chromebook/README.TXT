@@ -25,11 +25,8 @@ App root folder
 └── www
     ├── TestClient.lzx.js
     ├── chromeos
-    │   └── webview.js       Communicates with WebviewManager
-    ├── common.js
-    ├── login.html
-    ├── lz-embed-script.js
-    └──  master.css
+    │   └── webview.js      Communicates with WebviewManager
+    └── login.html
 
 
 Folder overview
@@ -94,6 +91,7 @@ File                Line no.    Property            Effect
 WebviewManager.js   11          logFromWebview      If true, all console messages from webview will be
                                                     displayed in index.html console with prefix 'TDC log >>> '
 
-index.js            9           port                HTTP server port, currently 9999
+index.js            22          basePort            Initial HTTP server port, currently 10000. Will be increased
+                                                    by 1 for each window opened.
 
-index.js            12          webviewHTMLFile     HTML file to be loaded into webview: 'login.html'
+index.js            24          webviewHTMLFile     HTML file to be loaded into webview: 'login.html'
