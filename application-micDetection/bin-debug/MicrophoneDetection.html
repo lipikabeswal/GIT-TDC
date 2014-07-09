@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <title></title>
+    <meta name="google" value="notranslate" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- Include CSS to eliminate any default margins/padding and set the height of the html element and
+         the body element to 100%, because Firefox, or any Gecko based browser, interprets percentage as
+         the percentage of the height of its parent container, which has to be set explicitly.  Fix for
+         Firefox 3.6 focus border issues.  Initially, don't display micDetFrame div so it won't show
+         if JavaScript disabled.
+    -->
+    <style type="text/css" media="screen">
+        html, body  { height:100%; }
+        body { margin:0; padding:0; overflow:auto;
+            background-color: #ffffff; }
+        #micDetFrame {
+            position: absolute;
+            top: 0px;
+            left: 300px;
+            width: 400px;
+            height: 200px;
+
+        }
+    </style>
+
+</head>
+<body>
+<!-- SWFObject's dynamic embed method replaces this alternative HTML content with Flash content when enough
+     JavaScript and Flash plug-in support is available. The div is initially hidden so that it doesn't show
+     when JavaScript is disabled.
+-->
+<iframe id="micDetFrame" src="microphone-frame.html" frameBorder="0">
+</iframe>
+<div style="position: absolute; top: 50px; left: 20px">
+    <input type="button" value="Track mic activity level"
+           onclick="doStartTracking()">
+    <input type="button" value="Stop tracking"
+           onclick="doStopTracking()">
+    <br/>
+    <input type="button" value="Load iFrame page"
+           onclick="micDetFrame.setAttribute('src', 'microphone-frame.html')">
+    <input type="button" value="Unload iFrame page"
+           onclick="micDetFrame.setAttribute('src', '')">
+
+    <p><span id="trackingStatus">Tracking: false</span></p>
+    <p><span id="maxActLevel">Max level:</span></p>
+    <p><span id="currentLevel">Current level:</span></p>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    var micDetectionTries = 1;      // # of times the iFrame was reloaded when Microphone.getMicrophone() returns null
+    var maxMicDetectionTries = 10;   // maximum # of times the app should try to reload the SWF
+
+    function doStartTracking() {
+        micDetFrame.contentWindow.MicDetector.startTracking()
+        document.getElementById('maxActLevel').innerHTML = "Max level: 0";
+    }
+    function doStopTracking() {
+        var maxLevel = micDetFrame.contentWindow.MicDetector.stopTracking();
+        document.getElementById('maxActLevel').innerHTML = "Max level: " + maxLevel;
+    }
+    function updateActivityLevel( newLevel, currentLevel ) {
+        document.getElementById( 'maxActLevel' ).innerHTML = "Max level: " + newLevel;
+        document.getElementById( 'currentLevel' ).innerHTML = "Current level: " + currentLevel;
+    }
+    function updateStatus( isTracking, activityLevel ) {
+        document.getElementById( 'trackingStatus' ).innerHTML = "Tracking: " + isTracking;
+    }
+
+    function doLoadFrame() {
+        micDetFrame.setAttribute('src', '');
+        micDetFrame.setAttribute('src', 'microphone-frame.html');
+    }
+    function reloadIFrame() {
+        if (micDetectionTries == 0) {
+            micDetFrame.addEventListener("load", function() { console.log('iFrame load event') }, false);
+        }
+        if (micDetectionTries < maxMicDetectionTries ) {
+            console.warn("Reloading SWF / Microphone.getMicrophone() returned null. Round #" + micDetectionTries);
+            setTimeout(function() { doLoadFrame(); }, 500);
+            micDetectionTries++;
+        } else {
+            console.error("Failed to access microphone: Stopped reloading SWF after " + micDetectionTries + " tries!");
+        }
+    }
+    // ]]>
+</script>
+</body>
+</html>
