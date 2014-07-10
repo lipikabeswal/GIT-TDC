@@ -94,4 +94,45 @@ WebviewManager.js   11          logFromWebview      If true, all console message
 index.js            22          basePort            Initial HTTP server port, currently 10000. Will be increased
                                                     by 1 for each window opened.
 
-index.js            24          webviewHTMLFile     HTML file to be loaded into webview: 'login.html'
+index.js            24          webviewHTMLFile     HTML file to be loaded into webview: 'login.html'
+
+
+HTTP server implementation notes
+The code for the http.js JavaScript file is a stripped down version of the code from the Chrome App Samples
+at https://github.com/GoogleChrome/chrome-app-samples/blob/master/websocket-server/http.js
+
+Changes compared to the original http.js version:
+1) Function stopListening() added.
+2) Function getServerUrl() added.
+3) Code for WebSocketServer removed (lines 372 - 646 in original file)
+
+
+RC4 decyrption
+For the RC4 decryption, the crypto-js JavaScript library is used:
+https://code.google.com/p/crypto-js/
+
+RC4 uses different forms of encryption/decryption, where the key is treated as
+a password to created a salted version of the key. The exact configuration
+for the RC4 decryption using crypto-js was not documented. The relevant hint
+came from the BouncyCastle developer mailing list:
+dev-crypto@bouncycastle.org
+http://t131089.encryption-bouncy-castle-development.encryptiontalk.info/problem-decrypting-rc4-encrypted-file-using-cryptojs-t131089.html
+
+RC4 encrypted content created with the BouncyCastle encryption library needs
+to be deciphered with the ciphertext converted into a CipherParams object, using
+the API:
+CryptoJS.lib.CipherParams.create()
+
+The relevant line is in file ContentAction.js, line #58:
+
+  var ciphertxt = CryptoJS.lib.CipherParams.create({ciphertext: CryptoJS.enc.Hex.parse(data)});
+
+Then, in line #61, the actual decryption is happening:
+
+  var plaintxt = CryptoJS.RC4.decrypt(ciphertxt, key);
+
+The documentation of the crypto-js doesn't list any example for the decryption
+of RC4 encoded strings using CipherParams, but only that approach is compatible
+with the BouncyCastle RC4 implemention.
+
+
