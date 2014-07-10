@@ -40,7 +40,7 @@
             </mapper>
         </move>
       <delete file="${TestClient.js}"/>
-      <copy todir="../www/ctbmodules">
+      <copy todir="../chrome-app/www/ctbmodules">
           <fileset dir="${laszlo.ctbmodules.dir}">
             <include name="**/*.png"/>
             <include name="**/*.ttf"/>
