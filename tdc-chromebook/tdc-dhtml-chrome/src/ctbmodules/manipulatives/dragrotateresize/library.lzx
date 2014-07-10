@@ -1,0 +1,10 @@
+<library>
+
+    <include href="Orientation.lzx" />
+    <include href="Point.lzx" />
+    <include href="ControlHandle.lzx" />
+    <include href="DragRotateResize-Mixin.lzx" />
+    <include href="ControlView.lzx" />
+    <include href="DragMixin.lzx" />    
+
+</library>

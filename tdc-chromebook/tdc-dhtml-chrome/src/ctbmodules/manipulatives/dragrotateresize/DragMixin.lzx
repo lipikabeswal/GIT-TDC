@@ -1,0 +1,145 @@
+<library>
+
+    <!--- drag mixin replacing the dragstate functionality for a class. Fixes the
+          bug with incorrect drag positions for views contained within scaled
+          views in DHTML runtime -->
+    <mixin name="DragMixin">
+
+        <!--- scaled width of the view -->
+        <attribute name="scaledwidth" type="size" />
+
+        <!--- scaled height of the view -->
+        <attribute name="scaledheight" type="size" />
+
+        <!--- if set to true, activates the dragging mode of this view -->
+        <attribute name="dragenabled" value="false" type="boolean"/>
+
+        <!--- delegate used for tracking mouse position changes -->
+        <attribute name="_mousemovedel" value="null" />
+
+        <!--- delegate used for tracking global mouseup events -->
+        <attribute name="_mouseupdel" value="null" />
+
+        <!--- used to control allowed direction of movement: 'x', 'y' or 'both' -->
+        <attribute name="dragaxis" value="both" type="string"/>
+
+        <!--- the minimum value for the x attribute. Default : null, no minimum -->
+        <attribute name="dragminx" value="null" type="number"/>
+
+        <!--- the maximum value for the x attribute. Default : null, no maximum -->
+        <attribute name="dragmaxx" value="null" type="number"/>
+
+        <!--- the minimum value for the y attribute. Default : null, no minimum -->
+        <attribute name="dragminy" value="null" type="number"/>
+
+        <!--- the maximum value for the y attribute. Default : null, no maximum -->
+        <attribute name="dragmaxy" value="null" type="number"/>
+
+        <!--- @keywords private -->
+        <attribute name="__dragxoffset" value="0"/>
+
+        <!--- @keywords private -->
+        <attribute name="__dragyoffset" value="0"/>
+
+        <!-- EVENT HANDLERS -->
+        <handler name="onwidth">
+            setAttribute('scaledwidth', getAttributeRelative('width', canvas));
+        </handler>
+
+        <handler name="onheight">
+            setAttribute('scaledheight', getAttributeRelative('height', canvas));
+        </handler>
+
+        <!--- Enters and leaves drag mode depending on the value of dragenabled. -->
+        <handler name="ondragenabled"><![CDATA[
+            if (dragenabled) {
+                if (this._mousemovedel == null) {
+                    this._mousemovedel = new LzDelegate(this,
+                            "__updateDragPosition");
+                }
+                if (this._mouseupdel == null) {
+                    this._mouseupdel = new LzDelegate(this,
+                            "__globalMouseUp");
+                }
+                this._mouseupdel.register( lz.GlobalMouse, 'onmouseup');
+                this._mousemovedel.register( lz.GlobalMouse, 'onmousemove');
+                setAttribute('__dragxoffset', xoffset - __getMouse(this, 'x'));
+                setAttribute('__dragyoffset', yoffset - __getMouse(this, 'y'));
+            } else {
+                this._mousemovedel.unregisterAll();
+                this._mouseupdel.unregisterAll();
+            }
+        ]]>
+        </handler>
+
+        <!--- Disables drag when global mouseup event is sent. -->
+              @access private
+        -->
+        <method name="__globalMouseUp" args="ignore=null"><![CDATA[
+            if (dragenabled) {
+                setAttribute("dragenabled", false);
+                overlayOnIframe(false);
+            }
+        ]]></method>
+
+        <!--- If dragenabled=true, the lz.Idle.onidle event will be passed to this method.
+              @keywords private
+              -->
+        <method name="__updateDragPosition" args="ignore=null"><![CDATA[
+        	overlayOnIframe(true);
+            __setNewPos('x', __getMouse(immediateparent, 'x') + __dragxoffset
+                            * xscale);
+            __setNewPos('y', __getMouse(immediateparent, 'y') + __dragyoffset
+                            * yscale);
+        ]]>
+        </method>
+
+        <!--- Used to update the x/y position.
+              @keywords private
+              -->
+        <method name="__setNewPos" args="axis, newPos"><![CDATA[
+            if (dragaxis == axis || dragaxis == 'both') {
+                var offset = this['__drag' + axis + 'offset'];
+                var min = this['dragmin' + axis];
+                var max = this['dragmax' + axis];
+                if (min != null && newPos < min)
+                    newPos = min;
+                if (max != null && newPos > max)
+                    newPos = max;
+                setAttribute(axis, Math.round(newPos));
+            }
+        ]]>
+        </method>
+
+        <!--- @keywords private -->
+        <method name="__getMouse" args="target, axis"> <![CDATA[
+            var scale = 1;
+            if (axis == 'x') {
+                scale = target.getAttributeRelative('width', canvas)
+                        / target.width;
+            } else if (axis == 'y') {
+                scale = target.getAttributeRelative('height', canvas)
+                        / target.height;
+            }
+            if ($as3) {
+                return target.getMouse(axis);
+            } else {
+                return Math.round(target.getMouse(axis) / scale);
+            }
+        ]]>
+        </method>
+        
+        <!-- When a view is dragged on top of the iframe to ensure smooth movement of the view 
+         	an overlay is view is displayed on top of the iframe -->
+        <method name="overlayOnIframe" args="show">
+        	if(gController.htmlFields.length > 0){
+            	gController.htmlFields[0]['ref'].overlay.setAttribute('visible',show);
+            	if(show){
+            		gController.htmlFields[0]['ref'].overlay.bringToFront();
+            	}
+			}
+        </method>
+
+    </mixin>
+
+</library>

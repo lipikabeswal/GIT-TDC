@@ -1,0 +1,30 @@
+<library>
+	
+	<class name="UnclippedText" extends="text" clip="false">
+		<handler name="ontext">
+		 // console.log( "UnclippedText#ondata" );
+		 // console.log("text----"+text)
+		</handler>
+		<handler name="oninit">
+			if ( $debug ) Debug.info( "UnclippedText#oninit" );
+			else console.log( "UnclippedText#oninit" );
+				
+			var div = this.getDisplayObject();
+		    //this.dumpStyleProps( "text.div", div.style );
+			
+		</handler>
+		
+		<method name="dumpStyleProps" args="divName, style">
+		<![CDATA[
+			if ( $debug ) Debug.warn( "Style for DIV: " + divName );
+			for ( var k in style ) {
+				if ( style.hasOwnProperty( k ) && style[ k ] ) {
+					if ( $debug ) Debug.info( "div: " + divName + " / style." + k + "=" + style[ k ] );
+					else console.log( "div: " + divName + " / style." + k + "=" + style[ k ] );
+				}
+			}
+		]]>
+		</method>		
+	</class>
+	
+</library>

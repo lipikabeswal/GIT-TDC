@@ -1,0 +1,90 @@
+<class name="inlinewrappinglayout" extends="wrappinglayout">
+  <method name="update" args="ignore=null">
+        <![CDATA[
+        if ( this.locked ) return;
+        var l = this.subviews.length;
+        var limit = this.immediateparent[this.sizeAxis];
+
+        // position along this.axis
+        var pos = this[this.axis + 'inset'];
+        // position along this.otherAxis
+        var otherpos = this[this.otherAxis + 'inset'];
+        var top = 0;
+        var middle = 0;
+        var bottom = 0;
+        var maxdimension = 0;
+        var space = this[this.axis + 'spacing'];    // spacing in axis dimension
+        var otherspace = this[this.otherAxis + 'spacing'];    // spacing in other axis dimension
+		var a = new Array();
+		var imgValign = 0;
+		var fontSize = parent['lineHeight'];
+
+        for(var i=0; i < l; i++) {
+            var s = this.subviews[i];
+
+//			if((s instanceof lz.CachableInputTextField && s.resize == true)) {
+//				Debug.write("fontSize, s.height : ", fontSize, s.height);
+//				fontSize = s.height;
+//				Debug.write("lineHeight, s.height : ", parent.lineHeight, s.height);	
+//			}
+	        
+			s.animate(this.axis, pos, this.duration,false);
+            s.animate(this.otherAxis, otherpos, this.duration,false);
+
+            pos += s[this.sizeAxis];
+//            if ( i < l ) {
+
+				if ( i < (l - 1)) {
+		               pos += space;
+				}
+
+				if(s instanceof lz.CachableImage) {
+					var alignment = s.verticalAlign;
+					switch 	(alignment) {
+						case 'top':
+						//	Debug.write('top',s.height);
+						break;
+						case 'middle':
+						//	Debug.write('middle',s.height);
+							imgValign = s.height * 1 / 2 - fontSize / 2;
+						break;
+						case 'bottom':
+						//	Debug.write('bottom',s.height);
+							imgValign = s.height * 1 - fontSize;
+						break;
+						default:
+						//	Debug.write('default',s.height);
+						break;
+					}
+				}
+				else {
+					a.push(s);
+				}
+
+				if(imgValign >= 0) {
+					for( var k = 0; k < a.length ; k++ ) {
+						if(a[k][this.otherAxis] != (otherpos + imgValign) * 1) {
+							a[k].setAttribute(this.otherAxis,otherpos + imgValign);
+						}
+					}
+				}
+				else {
+					if(s instanceof lz.CachableImage) {
+						s.setAttribute(this.otherAxis,otherpos + Math.abs(imgValign));
+					}
+				}	
+                maxdimension = Math.max(maxdimension,s[this.otherSizeAxis]);
+                if (( pos > limit) ||
+                    (typeof this.subviews[i+1] != "undefined" ? (pos + this.subviews[i+1][this.sizeAxis] >  limit) : true )) {
+
+                    pos = this[this.axis + 'inset'];
+                    otherpos += maxdimension + otherspace;
+                    maxdimension = 0;   // Reset the height/width after every row/column
+                    a.length = 0;
+                    imgValign = 0;                    
+                }
+//            }
+        }
+        ]]>
+    </method>
+</class>

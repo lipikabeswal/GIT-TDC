@@ -1,0 +1,160 @@
+<library>
+
+    <include href="../MaskingManipulative.lzx"/>
+	<include href="../dragrotateresize/DragMixin.lzx" />
+	
+    <class name="MaskingRuler" 
+			extends="MaskingManipulative"
+           clickable="true" 
+           showhandcursor="false"  with="DragMixin"
+           dragaxis="both"
+           dragminx="${-(this.width - 100)}"
+           dragmaxx="${parent.width - 100}"
+           dragminy="${-(this.height/2)}"
+           dragmaxy="${gManipulatives!=null?gManipulatives.height-this.height/2:460}">
+
+      
+        <attribute name="labelrsr"     value="" type="string"/>
+		
+		<handler name="onmousedown" >
+			this.bringToFront();
+		</handler>
+
+		<handler name="onlabelrsr">
+			if(this.labelrsr != null){
+				this.ruler.label.setAttribute('resource',this.labelrsr);
+			}
+		</handler>
+		
+		<attribute name="minLength" value="100" type="number" />
+		<attribute name="maxLength" value="800" type="number" />
+		
+		<attribute name="LABEL_PADDING" value="10"/>
+		<attribute name="GRABBER_PADDING" value="35"/>
+		<attribute name="LABEL_Y" value="25" />
+		<attribute name="ROTATOR_Y" value="38" />
+		<attribute name="GRABBER_Y" value="29" />
+		<attribute name="DRAGGER_MIN_X" value="0" />
+		<attribute name="DRAGGER_MAX_X" value="800" />
+		<attribute name="DRAGGER_MIN_Y" value="0" />
+		<attribute name="DRAGGER_MAX_Y" value="460" />
+		
+		
+        <handler name="ondata" args="data"><![CDATA[
+Debug.write("ondata masking ruler..."+data);
+            if (!data) return;
+            var hasstate = false;
+            for (var i in data.attributes) {
+                hasstate = true;
+                break;
+            }
+            
+            if (data && hasstate) {
+Debug.write("if "+data +" : "+ hasstate);
+                this.setAttribute ('rotation', data.getAttr ('rotation'));
+                this.ruler.setAttribute ('width', data.getAttr ('rulerlength'));
+				
+                this.setAttribute ('x', Number(data.getAttr ('x')));
+                this.setAttribute ('y', Number(data.getAttr ('y')));
+                // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
+            	if(gScratchpad.visible){
+                	gScratchpad.bringToFront();
+            	}
+             } else {
+Debug.write("else "+data +" : "+ hasstate);
+                this.setAttribute ('rotation', 0);
+				this.ruler.setAttribute ('width', classroot.width);
+                this.setAttribute ('x', 0);
+                this.setAttribute ('y', (classroot.height - this.height)/2);
+
+                //set default values in data    
+                if (data) {
+                    data.setAttr ('rotation', this.rotation);
+                    data.setAttr ('width', this.width);
+                    data.setAttr ('x', this.x);
+                    data.setAttr ('y', this.y);
+                }
+            }
+            
+           
+        ]]></handler>    
+
+       <view name="ruler" x="0" clip="true">
+            <view name="bg" 
+                  source="${gResources.masking_ruler_bg_svg}"
+                  opacity="1" stretches="both" width="${this.parent.width }">
+                <handler name="onload">
+            		classroot.setAttribute("maxLength", this.resourcewidth);
+            	</handler>
+            	
+            </view>
+
+            <view name="lines" source="${gResources.masking_ruler_bg_lines}" stretches="both" width="${this.parent.width}"/>            
+                       
+			<view name="grabber" resource="grabber_rsrc" y="$once{classroot.GRABBER_Y}" align="center" visible="false">
+            </view>
+			<handler name="onmouseover">
+			          if(!classroot.dragenabled)	  
+                      	gController.setCurrentCursor('cangrab_cursor');
+                  </handler>
+                  <handler name="onmouseout">
+                      if(!classroot.dragenabled)
+                      	gController.clearAndRestoreCurrentCursor();
+                  </handler>
+                  <handler name="onmousedown">
+                  	  classroot.bringToFront();
+                      lz.Cursor.setCursorGlobal ('grabbing_cursor');
+                      lz.Cursor.lock();
+                      
+                      // to fix the defect 76800 
+                      //gHotKeys.disableKeys();
+                      classroot.setAttribute('dragenabled', true);
+                      
+                      // for the defect 73212
+                      gPleaseWaitPopup.setAttribute('manipRef', classroot.ruler);
+                  </handler>
+                <handler name="onmouseup">
+                      //lz.Cursor.unlock();
+                      gHotKeys.enableKeys();
+                      //gController.restoreCurrentCursor();
+					  lz.Timer.resetTimer(gController.dRestoreCursor, 100);
+                      classroot.setAttribute('dragenabled', false)
+
+                      classroot.datapath.p.setAttr ('x', classroot.x);
+                      classroot.datapath.p.setAttr ('y', classroot.y);
+                  </handler>
+                  <handler name="oninit">
+                  	var elm = this.getDisplayObject();
+                  	elm.setAttribute("id","maskRuler");
+                  </handler>
+        </view>       
+
+		<handler name="onmouseover">
+		    gController.setCurrentCursor('cangrab_cursor');
+         </handler>
+         <handler name="onmouseout">
+             gController.clearAndRestoreCurrentCursor();
+         </handler>
+        <handler name="onmousedown">
+        	this.bringToFront();
+            lz.Cursor.setCursorGlobal ('grabbing_cursor');
+            lz.Cursor.lock ();
+            gHotKeys.disableKeys();
+            classroot.setAttribute('dragenabled', true);
+        </handler>
+        <handler name="onmouseup">
+            lz.Cursor.unlock ();
+            gHotKeys.enableKeys();
+            
+            // the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
+            //lz.Timer.resetTimer(gController.dRestoreCursor, 0.5);
+            gController.restoreCurrentCursor();
+            classroot.setAttribute('dragenabled', false);
+Debug.write("masking ruler datapath ",this.datapath.p);
+            this.datapath.p.setAttr ('x', this.x);
+            this.datapath.p.setAttr ('y', this.y);
+        </handler>
+        
+    </class>
+
+</library>

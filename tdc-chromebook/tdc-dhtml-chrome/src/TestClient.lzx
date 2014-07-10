@@ -1,0 +1,344 @@
+<canvas bgcolor="0x6691B4" proxied="false" debug="false" width="100%" height="100%"
+	accessible="true">
+	<debug x="0" y="0" width="80%" height="400" />
+
+	<include href="ctbmodules" />
+	
+	<!-- <Sarsystem id="flash"/>-->
+	
+	<script src="lzmodules/lfc/focuspatch.js">
+    </script>
+	<attribute name="focusobj" />
+
+	<handler name="onfocus">
+		Debug.write("NK XXX canvas has focus");
+	</handler>
+
+	<script src="lzmodules/lfc/browserpatch.js">
+    </script>
+
+	<resource name="waitcursor"
+		src="ctbmodules/resources/components/lzwaitcursor_rsc.png" />
+
+	<script><![CDATA[
+        function printBigString( s ) {
+            Debug.write( '==========' );
+            if (s == null) return;
+            for ( var i = 0; i < s.length; i += 100 ) {
+                Debug.write(s.substring( i, i + 100 ) );
+            }
+        }
+    ]]></script>
+	<script><![CDATA[
+        function round( s ) {
+            var prev = Math.floor(s);
+            var next = Math.ceil(s);
+            var toNext = next - s;
+            var toPrev = s - prev;
+            var result = prev;
+            if(toNext < toPrev){
+            	result = next;
+            }
+            return result;
+        }
+    ]]></script>
+	<script><![CDATA[
+    	/**
+    	 * This method trims the blank spaces ' ' or new lines '\n' from the front
+    	 * and end of a string
+    	 * @param str - The string that is to be parsed
+    	 * @return str - The parsed string after it has been trimmed    
+    	 */
+        function trim( str ) {
+        	if(str == null){
+        		str = '';
+        		return str;
+        	}
+            while (str.substr(0,1) == ' ' || str.substr(0,1)=='\n') {
+               str = str.substr(1, str.length);
+            }
+            while (str.substr(str.length-1, str.length) == ' '|| str.substr(str.length-1, str.length) =='\n') {
+               str = str.substr(0,str.length-1);
+            }
+            return str;		
+        }
+    ]]></script>
+
+	<attribute name="Copyrite" type="string" value="CTB/McGraw-Hill Education" />
+	<attribute name="copyriteColor" type="color" value="0x527DA4" />
+	<attribute name="basefontsize" type="number" value="12" />
+	<attribute name="readable" value="false" type="boolean" />
+	<attribute name="focusclass" value="null" />
+	<attribute name="footnotedata" />
+	<attribute name="isMultiAudio"/>
+	<attribute name="currentCursor" value="null" />
+	<attribute name="footnotetext" value="null"/>
+	<attribute name="xscalefactor" value="null"/>
+	<attribute name="yscalefactor" value="null"/>
+	<!-- loadItem is using for freezing/Unfreezing the UI-->
+	<attribute name="loadItem" value="true" type="boolean" />
+	<!-- <attribute name="eliminatorRsrc"
+		value="$once{lz.Browser.getInitArg('eliminatorResource')}"
+		type="string" />-->
+	<attribute name="useDefaultEliminator" type="boolean" value="true" />
+	
+	<attribute name="bringBackFocus" />	
+	<attribute name="LASAssetPath"/>
+	<attribute name="TEAssetPath"/>
+	<attribute name="isPreviewer" type="boolean" value="false"/>
+	<attribute name="frameLoaded" value="false" type="boolean" />
+	
+	<method name="setScale"><![CDATA[
+		canvas.setAttribute('xscalefactor',canvas.titleView.mainView.scalingView.xscale);
+		canvas.setAttribute('yscalefactor',canvas.titleView.mainView.scalingView.yscale);
+		setScaleFactor(canvas.xscalefactor,canvas.yscalefactor);
+		/*var msg = canvas.titleView.mainView.scalingView.xscale +"|" + canvas.titleView.mainView.scalingView.yscale;
+		var s = "setScaleFactor('"+msg+"')";
+		lz.Browser.loadJS(s);*/
+	]]>
+	</method>
+	
+	<handler name="onkeydown" reference="lz.Keys" args="k"><![CDATA[
+		if(gController.isHandlerInactive == false) {
+			gController.setAttribute('trackTimer',0);
+			gController.resetTrackTimer();
+		}
+	]]></handler>
+	
+	 <handler name="onmousedown" reference="lz.GlobalMouse"><![CDATA[
+	 	if(gController.isHandlerInactive == false) {
+			gController.setAttribute('trackTimer',0);
+			gController.resetTrackTimer();
+		}
+	]]></handler>
+	
+	<method name="setPromptDimension">
+		if(gPauseTimerScreen.visible) {
+			titleView.mainView.timeoutDialog.pauseTimerMsg.setAttribute('visible',true);
+			titleView.mainView.timeoutDialog.setAttribute('y',200);
+		} else {
+			titleView.mainView.timeoutDialog.pauseTimerMsg.setAttribute('visible',false);
+			titleView.mainView.timeoutDialog.setAttribute('y',20);
+			titleView.mainView.timeoutDialog.setAttribute('height',130);
+			titleView.mainView.timeoutDialog.setAttribute('width',360);
+		}
+	</method>
+
+	<handler name="onbringBackFocus" args="data">
+		//canvas.onfocus.sendEvent();
+		//this.onfocus.sendEvent();
+		//gHotKeys.enableKeys();
+		//gCompTypes.getAttribute('cachedanswerareapanels').onfocus.sendEvent();
+	</handler>
+	  
+	<method name="setCrFocus"><![CDATA[
+		var fo = canvas.focusobj;
+		if(typeof fo == 'object' && fo!=null){
+			fo.onfocus.sendEvent();
+		}]]>
+	</method>
+	<handler name="onfootnotedata" args="data">
+        gFootNotePopup.show(data);
+    </handler>
+    
+    <handler name="onisMultiAudio"><![CDATA[
+		var attr = this.isMultiAudio;
+		var temp = attr.substring(attr.indexOf("isPlaying="));
+
+		var id = attr.substring(attr.indexOf("audioId=")+"audioId=".length);
+		var isPlaying = temp.substring((temp.indexOf("isPlaying=")+"isPlaying=".length),temp.indexOf(","));
+
+		gController.setAttribute('audioId',id);
+		gController.setAttribute('isAudioPlaying',isPlaying);
+    	gController.enableAudio();
+	    ]]>
+    </handler>
+    
+	<handler name="oninit">
+    	//Debug.write("HTML Embed Setting:" + flashSystem.Stage.showMenu);
+    	//flashSystem.Stage.showMenu = false;
+    	//Debug.write("Active Setting:" + flashSystem.Stage.showMenu);
+				
+		if(canvas.debug){
+			canvas.titleView.mainView.scalingView.setAttribute('xscale',canvas.titleView.width/800);
+		}
+  	</handler>
+  	
+  	<handler name="onfootnotetext" args="arg">
+		gFootNotePopup.show(arg);	
+	</handler>
+
+
+	<method name="init">
+       super.init();
+       var folder = lz.Browser.getInitArg('folder');
+       if (folder) this.setAttribute("folder", folder);
+       var user = lz.Browser.getInitArg('user');
+       if (user) this.setAttribute("user", user);
+       <!-- canvas.setDefaultContextMenu(null); -->
+       var cmenu = new LzContextMenu();
+       cmenu.hideBuiltInItems();
+       cmenu.setAttribute('delegate',new lz.Delegate(this,'doNothing'));
+	   canvas.setDefaultContextMenu(cmenu);
+	   //flashSystem.Stage.showMenu = false;
+    </method>
+
+	<method name="doNothing">
+    </method>
+    
+	<!--  this view tests whether or not the eliminator resource is available -->
+	<!-- <view name="eliminatorTester" visible="false" height="0"
+		width="0">
+		<handler name="oninit">
+			canvas.setAttribute('medialoadtimeout', 3000);
+			var eliminatorUrl = lz.Browser.getInitArg('eliminatorResource');
+			this.setSource(eliminatorUrl);
+			var folderUrl = lz.Browser.getInitArg('folder');
+			if (folderUrl) {
+			   canvas.folder = folderUrl;
+			}
+		</handler>
+		<handler name="onload">
+			canvas.setAttribute('medialoadtimeout', 30000);
+			canvas.setAttribute('useDefaultEliminator', false);
+			this.unload();
+		</handler>
+		<handler name="ontimeout">
+			canvas.setAttribute('medialoadtimeout', 30000);
+		</handler>
+	</view>-->
+	<view name="titleView" width="100%" height="100%" >
+	<view name="mainView"  width="100%" height="100%">
+	
+	<!--<view name="mainView"  width="100%" height="100%" bgcolor="0x6691B4">-->
+	<!--//800/600 base width and height since unstretched widths and heights are zero-->
+	<view name="scalingView" 
+		height="${canvas.width/canvas.height &lt; 1.33 
+                     ? this.width * 600/800 : canvas.height}" 
+		width="${canvas.width/canvas.height &lt;1.33 
+                     ? canvas.width 
+                     : this.height * 800/600}"		     
+		     xscale="${this.height/600}" yscale="${this.height/600}" 
+		align="center"
+		valign="middle">
+		<handler name="onxscale">
+			canvas.setScale();
+		</handler>
+		<view name="gView" width="800" height="600">
+
+			<ItemInterface id="gItemInterface" name="gItemInterface"  width="800" height="600"
+				visible="false" />
+			<Screens id="gScreens" x="100" y="200" width="600"
+				height="200" visible="false">
+				<handler name="oninit">
+			        if($dhtml){
+			            var x= this.getDisplayObject();
+			            x.setAttribute('id', 'loginScreenId');
+			        }
+			    </handler>
+				<text name="copyWriteText" y="230" font="CTB" fontsize="12" 
+			        fgcolor="${canvas.copyriteColor}"
+				    text="${canvas.Copyrite}">
+					<handler name="oninit">
+						var elm=this.getDisplayObject();
+			        	elm.setAttribute('style','width: auto; font-family: CTB; font-size: 12px');
+			    	</handler>
+				</text>
+            </Screens>
+			<SecurityScreen id="gSecurityScreen" x="100" y="100" width="600"
+				height="300" visible="false">
+				<text name="copyWriteText" y="300" fgcolor="${canvas.copyriteColor}"
+				    text="${canvas.Copyrite}">
+					<handler name="oninit">
+						var elm=this.getDisplayObject();
+			        	elm.setAttribute('style','width: auto; font-family: CTB; font-size: 12px');
+			    	</handler>
+				</text>
+            </SecurityScreen>
+            <Tutorial id="gTutorial" width="800" height="600"
+                        visible="false"/>
+            <PauseTimerScreen id="gPauseTimerScreen" name="gPauseTimerScreen" 
+				width="800" height="200" visible="false"/>            
+
+	        <!-- include the please wait popup -->
+	        <include href="ctbmodules/question/RevisitFalsePopup.lzx"/>
+			<include href="ctbmodules/question/PleaseWaitPopup.lzx"/>
+			<include href="ctbmodules/question/MusicPlayer.lzx"/>
+			<include href="ctbmodules/manipulatives/maskinganswer/MaskingAnswer.lzx"/>
+        </view>
+
+    </view>
+    <modaldialog id="timeoutDialog" name="timeoutDialog" title=" " 
+			width="400" height="160" visible="false" bgcolor="0x6691B4" x="470" y="20">
+	    <text name="pauseTimerMsg"
+			 font="CTB"	
+             fontsize="15" 
+             fgcolor="white"
+			 visible="false"
+			 width="100%"
+			 multiline="true">
+			 Your test has been Paused for more than the 20-minute time limit and has now ended. Click OK to close the session.
+           </text>
+	    <view align="center" valign="middle" layout="axis:x; spacing:20">
+	      <OkButton enabled="${ gScreens.allowclick }">
+                <handler name="onclick">
+                	gController.setAttribute('timeoutforpause',false);
+               	   gScreens.clicked();
+                   gController.testTimedout();
+               </handler>
+           </OkButton>
+	    </view>
+	    <simplelayout spacing="5"/>
+  </modaldialog>
+    </view>
+  
+</view>
+ <include href="ctbmodules/manipulatives/magnifier/MagnifyingGlass.lzx"/>  
+  <!-- invisible instance of ControlView class used during 
+      drag/rotate/resize actions exectud on the protractor
+      and ruler. -->
+ <ControlView name="gDragRotateResizer" />  
+  
+<!-- -Freezing view 
+
+<view width="100%" height="100%" opacity="0.1" name="freezView"
+ clickable="true" visible="false" />
+ 
+ <method name="freezUI">
+ 	<![CDATA[
+ 		this.freezView.setAttribute('visible',true);
+	    this.setAttribute('loadItem',false);
+	    lz.Timer.resetTimer( this.dForceUnfreezUI, 10000 );
+ 	]]>
+ </method>
+ <method name="unFreezUI">
+ 	<![CDATA[
+ 		this.freezView.setAttribute('visible',false);
+	    this.setAttribute('loadItem',true);
+        lz.Timer.removeTimer( this.dForceUnfreezUI);
+ 	]]>
+ </method>
+ 
+<method name="freezUIforTEPopup">
+ 	<![CDATA[
+        lz.Timer.removeTimer( this.dForceUnfreezUI);
+        this.freezView.setAttribute('visible',true);
+	    this.setAttribute('loadItem',false);	
+ 	]]>
+ </method>
+
+ 
+ //Following methods for forcefully unfreez the Client
+
+ 
+ <attribute name="dForceUnfreezUI"
+			value="$once{ new lz.Delegate( this, 'forceUnfreezUI' ) }" />
+			
+ <method name="forceUnfreezUI">
+     canvas.unFreezUI();
+ </method>
+ 
+ End freezing view -->
+
+ 
+</canvas>

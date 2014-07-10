@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library>
+	<resource name="comeBackLaterButtonResource">
+		<frame src="resources/comeBackLaterOff.png"/>
+		<frame src="resources/comeBackLaterOn.png"/>
+		<frame src="resources/comeBackLaterClick.png"/>
+	</resource>
+	<class name="ComeBackLaterButton" extends="basebutton" resource="comeBackLaterButtonResource"/>
+</library>

@@ -1,0 +1,15 @@
+<library>
+	
+	<class name="PauseTimerScreen"
+           fontsize="12" font="CTB" bgcolor="0x6691B4">
+		
+		<attribute name="uienabled"
+                   value="$path{ 'dsdisplay:/display/@enabled' }"/>
+			<text font="Arial" fontsize="20" width="800" fgcolor="white" y="10"
+				name="pauseText" visible="true" multiline="true">Your Test has been paused. When the timer reaches 00:00, 
+				your test session will end. To return to your test, enter the password and click the "Login" button below.
+		   </text>
+           <text name="thetime" fgcolor="white" x="340" y="80" 
+		  	fontsize="45" width="800" datapath="dsdisplay:/display/@timeleftforpause"/>
+    </class>
+</library>

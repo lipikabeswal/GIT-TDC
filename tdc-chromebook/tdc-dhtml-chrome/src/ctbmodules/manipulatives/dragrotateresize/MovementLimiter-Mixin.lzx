@@ -1,0 +1,130 @@
+<library>
+
+    <!--- Mixin which limits a movement of a view based on the collision
+          detection of the views grabber and the the views parent. Used
+          by the Protractor and Baseruler components.
+
+          See the DragRotateResize-Mixin.lzx file for more information.
+    -->
+    <mixin name="MovementLimiter">
+
+
+        <!-- invisible view used to detected if the grabber bounds are still
+             within the parent view's limits. -->
+        <attribute name="collisionmarker" value="null" type="expression" />
+
+        <handler name="oninit">
+            this.collisionmarker = new lz.view(this.parent, {});
+        </handler>
+
+        <!--- Updates the invisible marker position to be able to use the getBounds()
+              values of the marker for the collision detection.
+              @param lz.view grabber: The grabber or ControlHandle instance used.
+              @param Number newX: New x position for this component relative to parent.
+              @param Number newY: New y position for this component relative to parent.
+              @param Number rot: Rotation.
+              @param Number xAxisOffset: x-axis offset value for the grabber (used by BaseRuler).
+              @access public
+        -->
+        <method name="updateMarkerPosition" args="grabber, newX, newY, rot, xAxisOffset=0">
+            var sX = newX + grabber.x - xoffset + xAxisOffset;
+            var sY = newY + grabber.y - yoffset;
+            var newPos = rotatePoint(sX, sY, x, y, rot);
+            var props = {
+                    x: newPos.x,
+                    y: newPos.y,
+                    width: grabber.width,
+                    height: grabber.height,
+                    rotation: rot };
+            setMarkerProps (props);
+        </method>
+
+
+        <!--- Applies a new width/size to the marker. Used to test validity of position
+              when resizing the BaseRuler.
+              @param lz.view grabber: The grabber or ControlHandle instance used.
+              @param Number newWidth: The width value to test for.
+              @param Number xAxisOffset: x-axis offset value for the grabber (used by BaseRuler).
+              @access public
+        -->
+        <method name="applyWidthToMarker" args="grabber, newWidth, xAxisOffset">
+            var widthRatio = newWidth / width;
+            var sX = x + grabber.x * widthRatio - xoffset + xAxisOffset;
+            var sY = y + grabber.y - yoffset;
+            var newPos = rotatePoint (sX, sY, x, y, rotation);
+            var props = {
+                    x: newPos.x,
+                    y: newPos.y,
+                    width: grabber.width,
+                    height: grabber.height,
+                    rotation: rotation };
+            setMarkerProps (props);
+        </method>
+
+        <!--- Used to test validity of position when resizing the BaseRuler.
+              When autoposition is set to true, the item will be set to a valid
+              position, adding a bouncing effect.
+              @param lz.ControlView controlView: The ControlView instance.
+              @param Boolean autoposition: If true, the position will be set to a valid location.
+              @access public
+              return {boolean} true, if the location i
+        -->
+        <method name="checkLocation" args="controlView, autoposition=false"><![CDATA[
+            var bounds = this.collisionmarker.getBounds();
+            var isValid =  bounds.x >= 0 && bounds.y >= 0 && bounds.x + bounds.width < parent.width
+                           && bounds.y + bounds.height < parent.height;
+            var offset = 0;
+            if (!isValid && autoposition) {
+                // Move the controlView into a valid position, that will adjust the component
+                // position as well.
+                if (bounds.x < 0 ) {
+                    controlView.setAttribute ('x', controlView.x - bounds.x + 1);
+                }
+                if (bounds.y < 0 ) {
+                    controlView.setAttribute ('y', controlView.y - bounds.y + 1);
+                }
+                if (bounds.x + bounds.width >= parent.width) {
+                    offset = parent.width - (bounds.x + bounds.width);
+                    controlView.setAttribute ('x', controlView.x + offset - 1);
+                }
+                if (bounds.y + bounds.height >= parent.height) {
+                    offset = parent.height - (bounds.y + bounds.height);
+                    controlView.setAttribute ('y', controlView.y + offset - 1);
+                }
+            }
+            return isValid;
+        ]]></method>
+
+        <!--- Helper method for applying a list of properties to the collisionmarker.
+              @param Object props: The properties to apply.
+              @access private
+        -->
+        <method name="setMarkerProps" args="props">
+            for (var k in props) {
+                collisionmarker.setAttribute (k, props[k]);
+            }
+        </method>
+
+        <!--- Helper method for rotating a point around an origin.
+              @param Number pointX: x position.
+              @param Number pointY: y position.
+              @param Number originX: origin x pos.
+              @param Number originY: origin y pos.
+              @param Number angle: The rotation angle in degrees.
+              @access private
+              return {Object}: The new point position.
+        -->
+        <method name="rotatePoint" args="pointX, pointY, originX, originY, angle"><![CDATA[
+            angle = angle * Math.PI / 180.0;
+            return {
+                x: Math.cos(angle) * (pointX-originX) - Math.sin(angle) * (pointY-originY) + originX,
+                y: Math.sin(angle) * (pointX-originX) + Math.cos(angle) * (pointY-originY) + originY
+            };
+        ]]>
+        </method>
+
+    </mixin>
+
+
+
+</library>

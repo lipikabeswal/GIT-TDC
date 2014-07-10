@@ -1,0 +1,265 @@
+<library>
+
+    <include href="../BaseManipulative.lzx"/>
+	<include href="../dragrotateresize/DragMixin.lzx" />    
+
+    <class name="RefCard" extends="BaseManipulative" with="DragMixin"
+           dragaxis="both"
+           dragminx="${-(this.width - 100)}"
+           dragmaxx="${parent.width - 100}"
+           dragminy="${-(this.height - 100)}"
+           dragmaxy="${parent.height - 100}">
+               
+		<attribute name="innerHeight" value="400" type="number"/>
+		<attribute name="innerWidth" value="500" type="number"/>
+		<attribute name="REF_CARD_X" value="10" type="number"/>
+		<attribute name="REF_CARD_Y" value="26" type="number"/>
+		<attribute name="MIN_WIDTH" value="121" type="number"/>
+		<attribute name="MIN_HEIGHT" value="101" type="number"/>
+		<attribute name="LINE_PADDING" value="30" type="number"/>
+		<attribute name="RESOURCE_DIMENSION" value="69" type="number"/> <!-- the height and width of the stretching resource -->
+		<attribute name="refCardRsrc" type="string"/>
+		<attribute name="titleRsrc" type="string"/>
+		<attribute name="scrolls" type="boolean" value="false" />
+		<attribute name="ismouseOver" value="false" type="boolean"/>
+
+		<!-- Fix for issue 76899. Sometimes the lz.GlobalMouseup
+		     event cannot be detected in Safari and Cocoa WebView when the mouse
+		     cursor is over the iFrame.
+		     Then the vscrollbar thumb will then get stuck to the mouse. By
+		     tracking the element under the mouse cursor we can detect
+		     if the mouse has left the RefCard area and is over the iFrame.
+		     Sending a manual onmouseup event to the scrollbar thumb in that
+		     case resolves the issue.
+          -->
+		<attribute name="scrollStateDel" value="$once{new lz.Delegate(this, 'checkItemAtMouseCursor')}" />
+		<attribute name="mouseUpDel" value="$once{new lz.Delegate(this, 'globalMouseupReceived')}" />
+		<attribute name="trackingScrollbar" value="false" type="boolean" />
+
+		<handler name="oninit">
+			refCardContents.contents.setAttribute('resource',refCardRsrc);
+			title.real_title.setAttribute('resource',titleRsrc);
+		</handler>
+
+        <handler name="ondata" args="data"><![CDATA[
+        	var scrollerWidth = refCardContents.scroller.width;
+        	if(!this.scrolls){
+        		this.setAttribute('innerHeight', refCardContents.contents.resourceheight);
+        		scrollerWidth = 0; 
+        	}
+			this.setAttribute('innerWidth', refCardContents.contents.resourcewidth + scrollerWidth);
+			var halfWidth = (this.innerWidth - title.real_title.resourcewidth - this.LINE_PADDING)/2 ;
+			title.leftLines.setAttribute('width', halfWidth);
+			title.rightLines.setAttribute('width', halfWidth);
+ 			
+			if(data != null && data.hasAttr('x') ){
+                this.setAttribute ('x', Number(data.getAttr ('x')));
+            }
+            else{
+             	this.setAttribute ('x', (gManipulatives.width - this.width)/2);
+            }
+            if(data != null && data.hasAttr('y')){
+            	this.setAttribute ('y', Number(data.getAttr ('y')));            }
+            else{
+            	this.setAttribute ('y', (gManipulatives.height - this.height)/2);
+            }
+            if(data != null && data.hasAttr('scrollTo')){
+            	refCardContents.contents.setAttribute ('y', new Number(data.getAttr('scrollTo')));
+            }
+            else{
+            	refCardContents.contents.setAttribute ('y', 0);
+            } 
+            // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
+            if(data != null && gScratchpad.visible){
+                gScratchpad.bringToFront();
+            }
+            
+          ]]></handler>
+
+        <handler name="onmouseover">
+			if(!this.dragenabled)
+            	gController.setCurrentCursor('cangrab_cursor');
+        </handler>
+
+        <handler name="onmouseout">
+			if(!this.dragenabled)
+            	gController.clearAndRestoreCurrentCursor();
+        </handler>
+
+        <handler name="onmousedown">
+			this.bringToFront();
+            lz.Cursor.setCursorGlobal ('grabbing_cursor');
+            lz.Cursor.lock ();
+			this.setAttribute('dragenabled', true);
+			
+			// for the defect 73212
+			gPleaseWaitPopup.setAttribute('manipRef', this);
+        </handler>
+
+        <handler name="onmouseup">
+			/*lz.Cursor.unlock ();
+            gController.restoreCurrentCursor();*/
+            lz.Timer.resetTimer(gController.dRestoreCursor, 100);
+			this.setAttribute('dragenabled', false);
+			
+            this.datapath.p.setAttr ('x', this.x);
+            this.datapath.p.setAttr ('y', this.y);
+        </handler>
+
+		<method name="updateScrollTo" args="value">
+            if (this.data != null)
+			    this.datapath.p.setAttr ('scrollTo', value);
+		</method>
+
+
+		<!-- When the vscrollbar 'scroller' is used, a delegate is setup
+		     to track the lz.GlobalMouse#onmouseup event. For Safari a
+		     timer is set up to track the content under the mouse cursor.
+		  -->
+		<handler name="onmousedown" reference="refCardContents.scroller.scrolltrack.thumb">
+			if (lz.embed.browser.isSafari) {
+				lz.Timer.resetTimer( this.scrollStateDel, 250 );
+			}
+			this.trackingScrollbar = true;
+			this.mouseUpDel.register( lz.GlobalMouse, "onmouseup");
+		</handler>
+
+		<!-- Deactivates the scrollbar for all onmouseup events.
+		     lz.GlobalMouse#onmouseup will be sent as well when the
+		     mouse cursor is over the iFrame.
+		  -->
+		<method name="globalMouseupReceived" args="ignore=null">
+			if (this.trackingScrollbar == true) {
+				this.trackingScrollbar = false;
+				this.mouseUpDel.unregisterAll();
+				refCardContents.scroller.scrolltrack.thumb.onmouseup.sendEvent();
+			}
+		</method>
+
+		<!-- Checks the element at the mouse cursor; if the element is no
+		     an OpenLaslo view, the mouse is over the TE Item iframe. In that
+		     case the scrollbar is released by sending an onmouseup event to
+		     the thumb.
+		  -->
+    	<method name="checkItemAtMouseCursor" args="ignore=null"><![CDATA[
+			//
+	        var element = document.elementFromPoint(canvas.getMouse('x'), canvas.getMouse('y'));
+            if (element != null && element.owner == undefined) {
+				refCardContents.scroller.scrolltrack.thumb.onmouseup.sendEvent();
+				this.trackingScrollbar = false;
+				this.mouseUpDel.unregisterAll();
+            } else if (element != null && this.trackingScrollbar == true) {
+            	lz.Timer.resetTimer( this.scrollStateDel, 250);
+            }
+        ]]>
+    	</method>
+
+
+		<view name="background" >
+			<simplelayout axis="y" spacing="0" />
+			<view name="top">
+			    <simplelayout axis="x" spacing="0" />
+			    <view  name="topLeft" 
+			           resource="rc_top_left"
+			           height="$once{classroot.RESOURCE_DIMENSION}"
+			           width="$once{classroot.RESOURCE_DIMENSION}"
+			           stretches="both"/>
+			    <view name="topMiddle"
+			          resource="rc_top_middle"
+			          height="$once{classroot.RESOURCE_DIMENSION}"
+			          width="${classroot.innerWidth-classroot.MIN_WIDTH}" 
+			          stretches="both" />
+			    <view name="topRight"
+			          resource="rc_top_right" 
+			          height="$once{classroot.RESOURCE_DIMENSION}"
+			          width="$once{classroot.RESOURCE_DIMENSION}"
+			          stretches="both"/>
+			</view>
+			<view name="center">
+			    <simplelayout axis="x" spacing="0" />
+			    <view name="centerLeft"
+			          resource="rc_center_left" 
+			          height="${classroot.innerHeight-classroot.MIN_HEIGHT}"
+			          width="$once{classroot.RESOURCE_DIMENSION}"
+			          stretches="both"/>
+			    <view name="centerMiddle"
+			          resource="rc_center_middle"
+			          height="${classroot.innerHeight-classroot.MIN_HEIGHT}" 
+			          width="${classroot.innerWidth-classroot.MIN_WIDTH}" 
+			          stretches="both"/>
+			    <view name="centerRight"
+			          resource="rc_center_right" 
+			          height="${classroot.innerHeight-classroot.MIN_HEIGHT}"
+			          width="$once{classroot.RESOURCE_DIMENSION}"
+			          stretches="both"/>
+			</view>
+			<view name="bottom">
+			    <simplelayout axis="x" spacing="0" />
+			    <view name="bottomLeft"
+			          resource="rc_bottom_left"
+			          height="$once{classroot.RESOURCE_DIMENSION}"
+			          width="$once{classroot.RESOURCE_DIMENSION}"
+			          stretches="both"/>
+			    <view name="bottomMiddle"
+			          resource="rc_bottom_middle" 
+			          height="$once{classroot.RESOURCE_DIMENSION}"
+			          width="${classroot.innerWidth-classroot.MIN_WIDTH}" 
+			          stretches="both"/>
+			    <view name="bottomRight"
+			          resource="rc_bottom_right"
+			          height="$once{classroot.RESOURCE_DIMENSION}"
+			          width="$once{classroot.RESOURCE_DIMENSION}"
+			          stretches="both"/>
+			</view>
+		</view>
+		<view name="title" y="8">
+			<simplelayout axis="x" spacing="5" inset="10"/>
+			<view name="leftLines"
+				  resource="rc_lines"
+				  stretches="width" />
+			<view name="real_title">
+			</view>
+			<view name="rightLines"
+				  resource="rc_lines"
+				  stretches="width" />
+			<basebutton resource="ref_card_close_btn" height="${this.resourceheight + 1}">
+				<handler name="onclick">
+                  <![CDATA[
+			    	gController.setManipulativeSelState (classroot.toolid, 'up');
+                  ]]>
+			    </handler>
+			</basebutton>
+		</view>
+	    <view name="refCardContents" 
+		      x="$once{classroot.REF_CARD_X}" 
+		      y="$once{classroot.REF_CARD_Y}" 
+		      width="${classroot.innerWidth}" 
+		      height="${classroot.innerHeight}" 
+		      clip="true" 
+		      bgcolor="0xFFFFFF" showhandcursor="false">
+			
+			
+	        <handler name="onmouseover">
+				classroot.setAttribute('ismouseOver',true);
+	        </handler>
+	        <handler name="onmouseout">
+	        	classroot.setAttribute('ismouseOver',false);
+	        </handler>
+	        
+
+			<view name="contents"
+			      width="${classroot.innerWidth - parent.scroller.width}">
+				<handler name="ony">
+		            classroot.updateScrollTo(this.y);
+				</handler>
+			</view>
+		    <vscrollbar name="scroller" visible="${this.scrollable}">
+				<!-- fix for defect 73210 --> 
+				<handler name="onmousewheeldelta" reference="lz.Keys" args="d">
+	                   if (classroot.ismouseOver) this.step(-d * 2); 
+		        </handler>
+			</vscrollbar>
+		</view>
+    </class>
+
+</library>

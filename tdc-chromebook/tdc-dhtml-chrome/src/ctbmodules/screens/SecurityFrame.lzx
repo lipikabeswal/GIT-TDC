@@ -1,0 +1,13 @@
+<library>
+
+    <class name="SecurityFrame">
+
+        <stableborderlayout axis="y"/>
+        
+        <view name="middle">
+            <view resource="resources/screens_background_security.png"/>
+        </view>
+
+    </class>
+
+</library>

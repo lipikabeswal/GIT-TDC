@@ -1,0 +1,94 @@
+<library>
+
+    <!-- ************************************
+         UnicodeConverter
+
+         Used to detect if string contains unicode entities for large characters like
+         	* Superscript_Root_Extender 0xE004
+         	* Super_Overbar 0xE000.
+         	* uniF028 0xF028
+         	* uniF029 0xF029
+
+         Related issues:
+         TODO: Add list of issues/defects resolved through this.
+         *************************************-->
+    <class name="LargeCharacterDetector" extends="node">
+    	
+    	<attribute name="largecharlist" value="null" type="expression" />
+
+        <!--- Pattern for hexadecimal unicode enitity. Set in oninit handler.
+              @type RegExp
+              @keywords read-only
+              @access private
+        -->
+        <attribute name="UNICODE_HEXENTITY_PATTERN" value="null" type="object" />
+
+        <!--- Pattern for decimal unicode enitity. Set in oninit handler.
+              @type RegExp
+              @keywords read-only
+              @access private
+        -->
+        <attribute name="UNICODE_ENTITY_PATTERN" value="null" type="object" />
+
+        <!--- oninit handler.
+              @keywords private
+        -->
+        <handler name="oninit"><![CDATA[
+            this.UNICODE_HEXENTITY_PATTERN = new RegExp( "&#x([a-fA-F0-9]+;)", "g" );
+            this.UNICODE_ENTITY_PATTERN = new RegExp( "&#([a-fA-F0-9]+;)", "g" );
+            
+            // List of characters to look for
+            this.largecharlist = {
+            	0xE000: true,
+            	0xE004: true,
+            	0xF028: true,
+            	0xF029: true
+            }
+        ]]>
+        </handler>
+
+        <!--- Searchs the str for occurences of one of the large characters.
+              @access public
+              @parameter String str: String containing the unicode entities.
+              @returns {Boolean} true, if a large character is found.
+        -->
+        <method name="search" args="str"><![CDATA[
+            var largeCharFound = false;
+            var that = this;
+            var match = null;
+            var char = null;
+
+            // Replace all decimal entities in the string with their hex values
+            str = str.replace( this.UNICODE_ENTITY_PATTERN, function ( match, value ) {
+                return that.convertToHexEntity( value );
+            });
+
+            // Look for the one of the characters defined in largecharlist
+            while (match = this.UNICODE_HEXENTITY_PATTERN.exec( str ) ) {
+            	var char = Number( "0x" + match[ 1 ].replace( ';', '' ) );
+            	if ( largecharlist[ char ] == true ) {
+            		console.error( "Large character found, should use increase line-height" );
+            		largeCharFound = true;
+            		break;
+            	}
+            }
+            
+            return largeCharFound;
+        ]]>
+        </method>
+
+        <!--- Convert hex
+              @access private
+              @parameter String value: String containing the unicode entities.
+              @returns {String} String with entities replaced by super/sub.
+        -->
+        <method name="convertToHexEntity" args="value"><![CDATA[
+            // Remove trailing ';'
+            value = value.slice( 0, -1 )
+            return "&#x" + Number( value ).toString( 16 ) + ";";
+        ]]>
+        </method>
+
+    </class>
+
+</library>

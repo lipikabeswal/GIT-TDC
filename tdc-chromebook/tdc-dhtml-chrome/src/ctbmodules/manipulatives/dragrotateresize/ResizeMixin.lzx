@@ -1,0 +1,102 @@
+<library>
+
+    <!--- ResizeMixin replaces the resizestate functionality, which does
+          not work for scaled views. -->
+    <mixin name="ResizeMixin">
+
+        <!--- if set to true, activates the dragging mode of this view -->
+        <attribute name="resizeenabled" value="false" type="boolean"/>
+
+        <!-- Delegate for tracking the global mouse movement -->
+        <attribute name="_mousedel" value="$once{new lz.Delegate(this, '_resizeView')}" type="expression"/>
+
+        <!--- Position of mouse relative to this view at start of resize.
+              @type object
+              @access private
+        -->
+        <attribute name="_startpos" value="null" type="expression"  />
+
+        <!-- EVENT HANDLERS -->
+        <!--- Enters and leaves resize mode depending on the value of resizeenabled. -->
+        <handler name="onresizeenabled"><![CDATA[
+            if (resizeenabled) {
+                _mousedel.register(lz.GlobalMouse, "onmousemove");
+                overlayOnIframe(true);
+            } else {
+                _mousedel.unregisterAll();
+                overlayOnIframe(false);
+            }
+        ]]>
+        </handler>
+
+        <!-- METHODS -->
+        <!--- TODO: add documentation
+              @access private
+              @parameter String type: Description.
+              @return
+        -->
+        <method name="setResizeState" args="ignore=null"><![CDATA[
+            _startpos = _getMousePos();
+            setAttribute ('resizeenabled', true);
+        ]]></method>
+
+        <!--- TODO: add documentation
+              @access private
+              @parameter String type: Description.
+              @return
+        -->
+        <method name="unsetResizeState" args="ignore=null"><![CDATA[
+            setAttribute ('resizeenabled', false);
+        ]]></method>
+
+        <!--- If resizenabled=true, onmousemove event will trigger a call to this
+              method.
+              @keywords private
+              -->
+        <method name="_resizeView" args="ignore=null"><![CDATA[
+            var mPos = _getMousePos();
+            var newWidth = mPos.x + _startpos.width - _startpos.x;
+            var newHeight = mPos.y + _startpos.height - _startpos.y;
+            if (this.minwidth) {
+                newWidth = Math.max(newWidth, this.minwidth);
+            }
+            if (this.minheight) {
+                newHeight = Math.max(newHeight, this.minheight);
+            }
+            if (this.maxwidth) {
+                newWidth = Math.min(newWidth, this.maxwidth);
+            }
+            if (this.maxheight) {
+                newHeight = Math.min(newHeight, this.maxheight)
+            }
+            setAttribute("width", newWidth);
+            setAttribute("height", newHeight);
+        ]]>
+        </method>
+
+        <!-- Workaround for a bug in the DHTML runtime which reports an
+             incorrect mouse position for scaled views. -->
+        <method name="_getMousePos"><![CDATA[
+            var link = this.getLinkage(canvas);
+            var mX = canvas.getMouse('x');
+            var mY = canvas.getMouse('y');
+            mX = (mX - getAttributeRelative('x', canvas)) / link.xscale;
+            mY = (mY - getAttributeRelative('y', canvas)) / link.yscale;
+            return {x: mX, y:mY, width: width, height: height};
+        ]]></method>
+        
+         <!-- When a view is dragged on top of the iframe to ensure smooth movement of the view 
+         	an overlay is view is displayed on top of the iframe -->
+        <method name="overlayOnIframe" args="show">
+        	if(gController.htmlFields.length > 0){
+            	gController.htmlFields[0]['ref'].overlay.setAttribute('visible',show);
+            	if(show){
+            		gController.htmlFields[0]['ref'].overlay.bringToFront();
+            	}
+			}
+        </method>
+
+
+    </mixin>
+
+</library>

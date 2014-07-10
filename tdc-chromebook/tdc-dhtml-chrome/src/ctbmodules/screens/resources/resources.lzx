@@ -1,0 +1,159 @@
+<!--=======================================================================-->
+<!--                                                                       -->
+<!-- resources.lzx                                                         -->
+<!--                                                                       -->
+<!-- Laszlo Application Language (LZX)                                     -->
+<!--                                                                       -->
+<!--=======================================================================-->
+<!-- Version: 0.3.5                                                        -->
+<!--    Date: 11/03/2005                                                   -->
+<!--  Author: STG, Inc. (rr)                                               -->
+<!--                                                                       -->
+<!-- CHANGE HISTORY                                                        -->
+<!--       11/03/2005 - Button resource files received from CTB            -->
+<!--                                                                       -->
+<!--=======================================================================-->
+
+<library>
+	<!-- Buttons -->
+	<resource name="button_rsc">
+       	<frame src="button_up.png"/>
+       	<frame src="button_mo.png"/>
+       	<frame src="button_dn.png"/>
+	</resource>
+<!-- JSB 3/13/2006 - add close button -->
+	<resource name="close_button_rsc">
+		<frame src="close_off.png"/>
+		<frame src="close_on.png"/>
+		<frame src="close_click.png"/>
+	</resource>	
+
+	<resource name="login_button_rsc">
+		<frame src="login_off.png"/>
+		<frame src="login_on.png"/>
+		<frame src="login_click.png"/>
+	</resource>	
+
+	<resource name="cancel_button_rsc">
+		<frame src="cancel_off.png"/>
+		<frame src="cancel_on.png"/>
+		<frame src="cancel_click.png"/>
+	</resource>	
+
+	<resource name="start_button_rsc">
+		<frame src="start_off.png"/>
+		<frame src="start_on.png"/>
+		<frame src="start_click.png"/>
+	</resource>	
+
+	<resource name="stop_button_rsc">
+		<frame src="stop_off.png"/>
+		<frame src="stop_on.png"/>
+		<frame src="stop_click.png"/>
+	</resource>	
+
+	<resource name="continue_button_rsc">
+		<frame src="continue_off.png"/>
+		<frame src="continue_on.png"/>
+		<frame src="continue_click.png"/>
+	</resource>	
+
+	<resource name="backtologin_button_rsc">
+		<frame src="backtologin_off.png"/>
+		<frame src="backtologin_on.png"/>
+		<frame src="backtologin_click.png"/>
+	</resource>	
+
+	<resource name="yesfinished_button_rsc">
+		<frame src="yes_finished_off.png"/>
+		<frame src="yes_finished_on.png"/>
+		<frame src="yes_finished_click.png"/>
+	</resource>	
+
+	<resource name="nogobacktotest_button_rsc">
+		<frame src="no_gobacktotest_off.png"/>
+		<frame src="no_gobacktotest_on.png"/>
+		<frame src="no_gobacktotest_click.png"/>
+	</resource>	
+
+	<resource name="finishtest_button_rsc">
+		<frame src="finishtest_off.png"/>
+		<frame src="finishtest_on.png"/>
+		<frame src="finishtest_click.png"/>
+	</resource>	
+
+	<resource name="exit_button_rsc">
+		<frame src="exit_off.png"/>
+		<frame src="exit_on.png"/>
+		<frame src="exit_click.png"/>
+		<frame src="exit_test_disabled.png"/>
+	</resource>
+
+	<!--AA021806:	Use this next_button_rsc  resource and 
+							Add a new back_button_rsc resource related to studentfeedback screen.-->
+	<resource name="next_button_rsc">
+		<frame src="next_off.png"/>
+		<frame src="next_on.png"/>
+		<frame src="next_click.png"/>
+	</resource>	
+
+	<resource name="back_button_rsc">
+		<frame src="back_off.png"/>
+		<frame src="back_on.png"/>
+		<frame src="back_click.png"/>
+	</resource>	
+
+	<resource name="yes_show_the_demo_again_button_rsc">
+		<frame src="yes_show_the_demo_again_off.png"/>
+		<frame src="yes_show_the_demo_again_on.png"/>
+		<frame src="yes_show_the_demo_again_click.png"/>
+	</resource>	
+
+	<resource name="no_take_me_straight_to_the_test_button_rsc">
+		<frame src="no_take_me_straight_to_the_test_off.png"/>
+		<frame src="no_take_me_straight_to_the_test_on.png"/>
+		<frame src="no_take_me_straight_to_the_test_click.png"/>
+	</resource>	
+
+	<resource name="pausetest_button_rsc">
+		<frame src="pausetest_off.png"/>
+		<frame src="pausetest_on.png"/>
+		<frame src="pausetest_click.png"/>
+	</resource>	
+
+	<resource name="exitfeedback_button_rsc">
+		<frame src="exit_feedback_off.png"/>
+		<frame src="exit_feedback_on.png"/>
+		<frame src="exit_feedback_click.png"/>
+	</resource>	
+
+	<!-- Window -->
+	<resource name="top_lft_slct" src="top_lft_slct.png" />
+   	<resource name="top_mid_slct" src="top_mid_slct.png" />
+   	<resource name="top_rt_slct" src="top_rt_slct.png" />
+
+   	<resource name="mid_lft_slct" src="mid_lft_slct.png" />
+   	<resource name="mid_mid_slct" src="mid_mid_slct.png" />
+   	<resource name="mid_rt_slct" src="mid_rt_slct.png" />
+
+   	<resource name="bot_lft_slct" src="bot_lft_slct.png" />
+   	<resource name="bot_mid_slct" src="bot_mid_slct.png" />
+   	<resource name="bot_rt_slct" src="bot_rt_slct.png" />
+   	
+   	<resource name="screens_background" src="screens_background.png"/>
+   	<resource name="screens_background_security" src="screens_background_security.png"/>
+
+	<!-- Animations -->
+   	<resource name="loginBallArrow" src="temp images/play-norm.png" />
+   	<resource name="neterrBallArrow" src="temp images/play-norm.png" />
+	<resource name="prancingManSolo" src="temp images/play-norm.png" />
+   	<resource name="waitWhileLoading" src="temp images/play-norm.png" />
+   	<resource name="pleaseWait" src="temp images/play-norm.png" />
+   	<resource name="feedbackWait" src="temp images/play-norm.png" />
+
+</library>
+
+<!--***************************************************************************-->
+<!--* Copyright 2005 STG, Inc.  All Rights Reserved.                          *-->
+<!--* Use is subject to license terms.                                        *-->
+<!--***************************************************************************-->

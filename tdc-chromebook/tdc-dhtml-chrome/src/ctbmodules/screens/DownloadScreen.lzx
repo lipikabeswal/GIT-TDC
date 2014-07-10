@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library>
+
+   <class name="DownloadScreen">
+        
+		<attribute name="Copyrite" type="string" value="CTB/McGraw-Hill Education" />
+		<attribute name="copyriteColor" type="color" value="0xFFFFFF" />
+		<attribute name="winFGColor" type="color" value="0x527DA4" />
+		<attribute name="textFGColor" type="color" value="0xFFFFFF" />
+		<attribute name="barBGColor" type="color" value="0xFFFFFF" />
+        <attribute name="font" value="CTB"/>
+		<attribute name="totalSubtests" type="number" value="1"/>
+		<attribute name="totalItems" type="number" value="1"/>
+		<attribute name="totalFileParts" type="number" value="1" />
+		<attribute name="completedSubtests" type="number" value="0"/>
+		<attribute name="completedItems" type="number" value="0"/>
+		<attribute name="completedFileParts" type="number" value="0" />
+		<method name="setTotalSubtests" args="_totalSubtests">
+			setAttribute('totalSubtests', _totalSubtests);
+		</method>
+		
+		<method name="setTotalItems" args="_totalItems">
+			setAttribute('totalItems', _totalItems);
+		</method>
+		
+		<method name="setTotalFileParts" args="_totalFileParts">
+			setAttribute('totalFileParts',_totalFileParts);
+		</method>
+		
+		<method name="incrementFilePart">
+		setAttribute('completedFileParts', completedFileParts + 1);
+		setFilePartWidth();
+		</method>
+		
+		<method name="incrementSubtest" args="_totalItems,_totalFileParts">
+			Debug.write("incrementSubtest: " + _totalItems);
+			setAttribute('totalItems', _totalItems);
+			setAttribute('totalFileParts', _totalFileParts);
+			setAttribute('completedItems', 0);
+			setAttribute('completedFileParts', 0);
+			setSubtestWidth();
+			setItemWidth();
+			setFilePartWidth();
+		</method>
+		
+		<method name="incrementItem">
+			setAttribute('completedItems', completedItems + 1);
+			setItemWidth();
+			if (completedItems == totalItems) {
+	           setAttribute('completedSubtests', completedSubtests + 1);
+	           setSubtestWidth();
+			}
+		</method>
+	
+	
+		<method name="setItemWidth">
+			var theWidth = ((completedItems*100)/totalItems)*4;
+			itemText.setAttribute("width", theWidth);
+		</method>
+		
+		<method name="setSubtestWidth">
+			var theWidth = ((completedSubtests*100)/totalSubtests)*4;
+			listTxt.setAttribute("width", theWidth);
+		</method>
+
+		<method name="setFilePartWidth">
+			if(totalFileParts == 0){
+				totalFileParts = 1;
+			}
+			var theWidth = ((completedFileParts*100)/totalFileParts) *4;
+			filePartText.setAttribute ("width", theWidth);
+		</method>
+				
+         <simplelayout axis="y"/>
+
+			<view name="VErrors" align="center" width="600" y="200">
+			
+				<view id="VNetErrMiddle" focusable="false">
+					<text x="220" y="-10" font="CTB" fontsize="16" resize="true" 
+						              text="Downloading Items..." fgcolor="${classroot.textFGColor}"/>  
+
+					<view name="border" x="60" y="12" width="475" height="45">
+						<stableborderlayout axis="y"/>
+						<view bgcolor="${classroot.barBGColor}" height="2" width="${parent.width}"/>
+						<view width="${parent.width}">
+							<stableborderlayout axis="x"/>
+							<view bgcolor="${classroot.barBGColor}" width="2" height="${parent.height}"/>
+							<view height="${parent.height}"/>
+							<view bgcolor="${classroot.barBGColor}" width="2" height="${parent.height}"/>
+						</view>
+						<view bgcolor="${classroot.barBGColor}" height="2" width="${parent.width}"/>
+					</view> <!--  border -->
+				
+					<view  x="70" y="0" bgcolor="${classroot.winFGColor}">	
+							<text font="CTB" align="left" fontsize="14" 
+							 fgcolor="0xFFFFFF"  resize="true" text="Overall progress">
+							 	<handler name="oninit">
+							 		var elm = this.getDisplayObject();
+        							elm.setAttribute('style','font-family: CTB; font-size: 14px; line-height: 17px; pointer-events: none; width: auto; height: 17px');
+							 	</handler>
+							 </text>
+					</view>
+				
+					<text x="85" y="24" font="CTB" fontsize="16" width="401"
+						height="1" fgcolor="0x000000" bgcolor="#736F6E" 
+						text=" "/>
+					
+					<text x="85" y="26" font="CTB" fontsize="16" width="401"
+						height="18" fgcolor="0x000000" bgcolor="${classroot.barBGColor}" 
+						text=" "/>
+	
+					<text x="85" y="26" font="CTB" fontsize="16" width="400"
+						height="17" fgcolor="0x000000" bgcolor="${classroot.winFGColor}" 
+						text=" "/>
+	
+					<text x="85" y="26" font="CTB" fontsize="16" width="5"
+						height="17" fgcolor="0x000000" bgcolor="${classroot.barBGColor}" id="listTxt"
+						text=" "/>
+					
+					<view name="border2" x="${parent.border.x}" y="${parent.border.y + 58}" width="${parent.border.width}" height="${parent.border.height}">
+						<stableborderlayout axis="y"/>
+						<view bgcolor="${classroot.barBGColor}" height="2" width="${parent.width}"/>
+						<view width="${parent.width}">
+							<stableborderlayout axis="x"/>
+							<view bgcolor="${classroot.barBGColor}" width="2" height="${parent.height}"/>
+							<view height="${parent.height}"/>
+							<view bgcolor="${classroot.barBGColor}" width="2" height="${parent.height}"/>
+						</view>
+						<view bgcolor="${classroot.barBGColor}" height="2" width="${parent.width}"/>
+					</view> <!--  border1 -->
+					<view  x="70" y="58" bgcolor="${classroot.winFGColor}">	
+							<text font="CTB" align="left" fontsize="14" 
+							 fgcolor="0xFFFFFF"  resize="true" text="File progress">
+							 	<handler name="oninit">
+							 		var elm = this.getDisplayObject();
+        							elm.setAttribute('style','font-family: CTB; font-size: 14px; line-height: 17px; pointer-events: none; width: auto; height: 17px');
+							 	</handler>
+							 </text>
+					</view>
+					<text x="85" y="84" font="CTB" fontsize="16" width="401"
+						height="1" fgcolor="0x000000" bgcolor="0x736F6E" 
+						text=" "/>
+	
+					<!-- Right white border -->
+					<text x="85" y="86" font="CTB" fontsize="16" width="401"
+						height="18" fgcolor="0x000000" bgcolor="${classroot.barBGColor}" 
+						text=" "/>
+
+	  	            <!-- blue background color -->
+					<text x="85" y="86" font="CTB" fontsize="16" width="400"
+						height="17" fgcolor="0x000000" bgcolor="${classroot.winFGColor}" 
+						text=" "/>
+		
+					<!-- white moving foreground color -->
+					<text x="85" y="86" font="CTB" fontsize="16" width="5"
+						height="17" fgcolor="0x000000" bgcolor="${classroot.barBGColor}" id="filePartText"
+						text=" "/>
+					
+					<view name="border1" x="${parent.border.x}" y="${parent.border.y + 118}" width="${parent.border.width}" height="${parent.border.height}">
+						<stableborderlayout axis="y"/>
+						<view bgcolor="${classroot.barBGColor}" height="2" width="${parent.width}"/>
+						<view width="${parent.width}">
+							<stableborderlayout axis="x"/>
+							<view bgcolor="${classroot.barBGColor}" width="2" height="${parent.height}"/>
+							<view height="${parent.height}"/>
+							<view bgcolor="${classroot.barBGColor}" width="2" height="${parent.height}"/>
+						</view>
+						<view bgcolor="${classroot.barBGColor}" height="2" width="${parent.width}"/>
+					</view> <!--  border1 -->
+				
+					<view  x="70" y="118"  bgcolor="${classroot.winFGColor}">
+						<text x="0" y="0" font="CTB" align="left" fontsize="14" width="40"
+							height="22" fgcolor="0xFFFFFF"  resize="true" text="Assessment progress">
+							<handler name="oninit">
+						 		var elm = this.getDisplayObject();
+       							elm.setAttribute('style','font-family: CTB; font-size: 14px; line-height: 17px; height: 18px; pointer-events: none; width: auto');
+						 	</handler>
+						</text>
+					</view>
+
+                    <!-- Top black border -->				
+					<text x="85" y="144" font="CTB" fontsize="16" width="401"
+						height="1" fgcolor="0x000000" bgcolor="0x736F6E" 
+						text=" "/>
+	
+					<!-- Right white border -->
+					<text x="85" y="146" font="CTB" fontsize="16" width="401"
+						height="18" fgcolor="0x000000" bgcolor="${classroot.barBGColor}" 
+						text=" "/>
+
+	  	            <!-- blue background color -->
+					<text x="85" y="146" font="CTB" fontsize="16" width="400"
+						height="17" fgcolor="0x000000" bgcolor="${classroot.winFGColor}" 
+						text=" "/>
+		
+					<!-- white moving foreground color -->
+					<text x="85" y="146" font="CTB" fontsize="16" width="5"
+						height="17" fgcolor="0x000000" bgcolor="${classroot.barBGColor}" id="itemText"
+						text=" "/>
+
+
+				</view> <!--  VNetErrMiddle -->
+
+			</view> <!--  VErrors -->
+			
+    </class>
+
+</library>

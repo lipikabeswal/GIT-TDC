@@ -1,0 +1,254 @@
+<library>
+
+    <include href="../BaseManipulative.lzx"/>
+    <include href="../dragrotateresize/MovementLimiter-Mixin.lzx" />
+    <include href="../dragrotateresize/ControlHandle.lzx" />
+
+    <class name="BaseRuler" extends="BaseManipulative"
+           with="MovementLimiter"
+           clickable="true"
+           showhandcursor="false">
+
+        <attribute name="tickmarksrsr" value="" type="string"/>
+        <attribute name="labelrsr"     value="" type="string"/>
+
+        <attribute name="newwidth" type="size" value="0" />
+
+        <handler name="onmousedown" >
+            this.bringToFront();
+        </handler>
+        <!--<handler name="ontickmarksrsr">
+            if (this.tickmarksrsr != null) {
+                this.ruler.tickmarks.setSource(this.tickmarksrsr);
+            }
+        </handler>-->
+        <handler name="onlabelrsr">
+            if (this.labelrsr != null) {
+                this.ruler.label.setSource(this.labelrsr);
+            }
+        </handler>
+
+        <attribute name="minLength" value="100" type="number" />
+        <attribute name="maxLength" value="510" type="number" />
+
+        <attribute name="LABEL_PADDING" value="10"/>
+        <attribute name="GRABBER_PADDING" value="35"/>
+        <attribute name="LABEL_Y" value="48" />
+        <attribute name="ROTATOR_Y" value="38" />
+        <attribute name="GRABBER_Y" value="25" />
+        <attribute name="WIDTH_DELTA" value="0" />
+
+
+		<attribute  name="baseRuler_svg" 
+					value="['ctbmodules/resources/manipulatives/ruler/rotator.svg', 
+							'ctbmodules/resources/manipulatives/ruler/grabber.svg',
+							'ctbmodules/resources/manipulatives/ruler/rotateResizer.svg',
+							'ctbmodules/resources/manipulatives/ruler/ruler_background.svg',
+							'ctbmodules/resources/manipulatives/ruler/ruler_lines.svg']"/>
+
+
+        <event name="onresize" />
+
+        <handler name="oninit">
+            // The size difference between the ruler.width and this.width
+            this.WIDTH_DELTA = rotator.x + rotateResizer.width / 2;
+        </handler>
+
+        <handler name="ondata" args="data"><![CDATA[
+            if (!data)
+                return;
+            var hasstate = typeof data.attributes.rotation != 'undefined';
+            
+            if (hasstate) {
+                this.setAttribute('rotation', Number(data.getAttr('rotation')));
+                this.setAttribute('width', Number(data.getAttr('width')) + WIDTH_DELTA);
+
+                this.setAttribute('x', Number(data.getAttr('x')));
+                this.setAttribute('y', Number(data.getAttr('y')));
+
+                // if restoring manipulative with Scratchpad open - need Scratchpad to be top window
+                if(gScratchpad.visible){
+                    gScratchpad.bringToFront();
+                }
+
+            } else {
+                this.setAttribute('rotation', 0);
+                this.ruler.setAttribute('width', null);
+
+				this.setAttribute("width", this.maxLength);
+                this.setAttribute('x', (gManipulatives.width - this.width + WIDTH_DELTA) / 2);
+                this.setAttribute('y', (gManipulatives.height - this.height) / 2);
+
+                //set default values in data
+				this._updatePosition();
+            }
+        ]]>
+        </handler>
+
+        <handler name="onresize">
+            this.setAttribute ('width', Math.round(newwidth));
+        </handler>
+
+        <method name="isValidRotation" args="controlView, rot">
+            updateMarkerPosition (this.ruler.grabber, x, y, rot, rotator.x);
+            return this.checkLocation (controlView, false);
+        </method>
+
+        <method name="isValidLocation" args="controlView">
+            this.collisionmarker.setAttributeRelative ('x', controlView);
+            this.collisionmarker.setAttributeRelative ('y', controlView);
+            updateMarkerPosition (this.ruler.grabber, x, y, rotation, rotator.x);
+            return this.checkLocation (controlView, true);
+        </method>
+
+        <method name="isValidSize" args="controlView, newWidth">
+            updateMarkerPosition (this.ruler.grabber, x, y, rotation, rotator.x);
+            applyWidthToMarker(this.ruler.grabber, newWidth, rotator.x);
+            return this.checkLocation (controlView, false);
+        </method>
+        
+        <!--- Stores the new position values in the dataset.
+              @access private
+        -->
+        <method name="_updatePosition"><![CDATA[
+            datapath.p.setAttr ('rotation', this.rotation);
+            datapath.p.setAttr ('x', this.x);
+            datapath.p.setAttr ('y', this.y);
+            datapath.p.setAttr ('width', this.width - WIDTH_DELTA);         
+        ]]></method>
+
+        <view name="ruler"
+            x="${classroot.rotator.x-1}"
+            width="${classroot.width - classroot.rotator.x - classroot.rotateResizer.width/2+20}"
+            clip="true">
+            <view name="bg"
+                source="${classroot.baseRuler_svg[3]}"
+                opacity="0.5" >
+                <!--<handler name="oninit">
+                    classroot.setAttribute ("maxLength", resourcewidth +
+                                            classroot.rotator.x + classroot.rotateResizer.width);
+                    classroot.setAttribute ("width", classroot.maxLength);
+                </handler>-->
+            </view>
+            <view name="lines"
+                x="1" source="${classroot.baseRuler_svg[4]}"/>
+            <view name="tickMarks"
+                x="1"
+                oninit="if(classroot.tickmarksrsr != null) this.setSource(classroot.tickmarksrsr)"/>
+            <view name="label"
+                align="center"
+                y="$once{classroot.LABEL_Y}"
+                oninit="if(classroot.labelrsr != null) this.setSource(classroot.labelrsr)">
+               <!-- <handler name="oninit"><![CDATA[
+                    var minWidth = this.resourcewidth < parent.grabber.resourcewidth ?
+                                        parent.grabber.resourcewidth + classroot.GRABBER_PADDING:
+                                        this.resourcewidth + classroot.LABEL_PADDING;
+                    minWidth += classroot.rotator.x + classroot.rotateResizer.width/2;
+					
+					// Laszlo consider view width for png images. Uncomment the below line when use png images
+                    //classroot.setAttribute("minLength", minWidth);
+					
+					// Laszlo doen't consider view width for svg images.Comment the below line when use png images
+					classroot.setAttribute("minLength", '130');
+					
+                ]]>
+                </handler>-->
+				<handler name="onwidth"><![CDATA[
+            		var minWidth = this.resourcewidth < parent.grabber.resourcewidth ?
+                                        parent.grabber.resourcewidth + classroot.GRABBER_PADDING:
+                                        this.resourcewidth + classroot.LABEL_PADDING;
+                    minWidth += classroot.rotator.x + classroot.rotateResizer.width/2;
+					classroot.setAttribute("minLength", minWidth);
+            	]]></handler>
+            </view>
+            <ControlHandle name="grabber"
+                source="${classroot.baseRuler_svg[1]}"
+                y="$once{classroot.GRABBER_Y}" align="center"
+                controlviewname="gDragRotateResizer"
+                target="$once{classroot}"
+                controls="d">
+                <handler name="onmouseover">
+                    gController.setCurrentCursor('cangrab_cursor');
+                </handler>
+                <handler name="onmouseout">
+                    gController.clearAndRestoreCurrentCursor();
+                </handler>
+                <handler name="onmousedown">
+                    classroot.bringToFront();
+                    lz.Cursor.setCursorGlobal('grabbing_cursor');
+                    lz.Cursor.lock();
+                    gHotKeys.disableKeys();
+
+                </handler>
+                <handler name="onmouseup">
+                    gHotKeys.enableKeys();
+                    // the restoreCurrentCursor is called after a delay after cursor unlock to avoid double cursor.
+                    lz.Timer.resetTimer(gController.dRestoreCursor, 100);                    
+                    classroot._updatePosition();
+                    //gController.restoreCurrentCursor();
+                </handler>
+            </ControlHandle>
+        </view>
+
+        <ControlHandle name="rotator"
+            source="${classroot.baseRuler_svg[0]}"
+            x="$once{this.resourcewidth/2}"
+            y="$once{classroot.ROTATOR_Y}"
+            yoffset="${this.resourceheight/2}"
+            xoffset="${this.resourcewidth/2}"
+            controlviewname="gDragRotateResizer"
+            target="$once{classroot}"
+            controls="r">
+            <handler name="onmousedown">
+                classroot.setAttribute('rotationcenter', {x:classroot.rotateResizer.x, y:classroot.ROTATOR_Y})
+                classroot.bringToFront();
+            </handler>
+            <handler name="onmouseup">
+                classroot._updatePosition();
+            </handler>
+
+            <handler name="onshortclick">
+                classroot.setAttribute('rotationcenter', {x:classroot.rotateResizer.x, y:classroot.ROTATOR_Y})
+                if (containsMousePos ({x:7, y:0, w:9, h:9}, classroot)) {
+                    this.controlview.rotateBy (1)
+                } else if (containsMousePos ({x:7, y:22, w:9, h:9}, classroot)) {
+                    this.controlview.rotateBy (-1)
+                }
+            </handler>
+        </ControlHandle>
+
+        <ControlHandle name="rotateResizer"
+            source="${classroot.baseRuler_svg[2]}"
+            x="${parent.ruler.x + parent.ruler.width-this.width/2}"
+            y="$once{classroot.ROTATOR_Y}"
+            yoffset="${this.resourceheight/2}"
+            controlviewname="gDragRotateResizer"
+            target="$once{classroot}"
+            controls="rs">
+            <handler name="onmousedown">
+                classroot.setAttribute('rotationcenter', {x:classroot.rotator.x, y:classroot.ROTATOR_Y});
+                classroot.bringToFront();
+                classroot.setAttribute('rotationcenter', {x:11, y:classroot.height/2})
+            </handler>
+            <handler name="onmouseup">
+                classroot._updatePosition();
+            </handler>
+
+            <handler name="onshortclick">
+                classroot.setAttribute('rotationcenter', {x:classroot.rotator.x, y:classroot.ROTATOR_Y});
+                if (containsMousePos ({x:10, y:0, w:12, h:10}, parent)) {
+                    this.controlview.rotateBy (-1);
+                } else if (containsMousePos ({x:10, y:21, w:12, h:10}, classroot)) {
+                    this.controlview.rotateBy (+1);
+                } else if (containsMousePos ({x:0, y:10, w:12, h:10}, classroot)) {
+                    this.controlview.setSizeTo (classroot.width - 1);
+                } else if (containsMousePos ({x:22, y:10, w:12, h:10}, classroot)) {
+                    this.controlview.setSizeTo (classroot.width + 1);
+                }
+            </handler>
+
+        </ControlHandle>
+		
+    </class>
+
+</library>

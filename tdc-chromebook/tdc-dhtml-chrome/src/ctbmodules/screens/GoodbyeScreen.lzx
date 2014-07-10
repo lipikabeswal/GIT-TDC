@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library>
+	<dataset name="goodbyeDs" 
+			 type="http"
+	         queuerequests="true" 
+	         querytype="get"
+	         timeout="10000" 
+	         onerror="exitRequest._dosomething(this)" 
+	         ontimeout="exitRequest._dosomething(this)" 
+	         ondata="exitRequest._dosomething(this)" />
+	         
+	<node id="exitRequest">
+		<method name="_dosomething" args="ds" >
+			exitRequest.exit();
+		</method>
+		
+		<method name="exit">
+        	Debug.write("On Goodbye Screen");
+        	//gMusicPlayer.stop();
+	    	var getUrl = lz.Browser.getInitArg( 'servletUrl' ) + '/UtilityServlet.do?method=exit';
+	    	/*var base = "http://192.168.15.33:12345/servlet/fixed";
+	    	var getUrl = base + '/UtilityServlet.do?method=exit';*/
+			goodbyeDs.setAttribute('src', getUrl);
+			goodbyeDs.doRequest();
+		</method>
+	</node>
+	
+    <class name="GoodbyeScreen">
+    	<text fontsize="24" height="36" align="center" name="timeoutText" valign="middle" fgcolor="white"  visible="false">Your test session has timed out and will now close.</text>
+		<text fontsize="24" height="36" align="center" name="goodbye" valign="middle" fgcolor="white" visible="true" width="118">
+			Good-bye!
+		<handler name="ontext">
+			var el = this.getDisplayObject();
+			el.setAttribute('style','font-size: 24px; height: 36px;');
+		</handler>
+		</text>   
+		<method name="isTimeout">
+			if(gController.testTimeout == true){
+				this.timeoutText.setAttribute('visible', true);
+				this.goodbye.setAttribute('visible', false);
+			}else{
+				this.timeoutText.setAttribute('visible', false);
+				this.goodbye.setAttribute('visible', true);
+			}
+		</method> 
+	</class>
+</library>

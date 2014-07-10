@@ -1,0 +1,212 @@
+<library>
+
+
+    <script src="unicode-keyvalues.js" />
+
+    <!-- ************************************
+         UnicodeConverter
+
+         Used for converting unicode entities used for subscript, superscript,
+         and other custom characters in the OASmathv3 font in content items
+         to HTML tags like <sub>, <sup>, etc.
+
+         Related issues:
+         TODO: Add list of issues/defects resolved through this.
+         *************************************-->
+    <class name="UnicodeTextConverter" extends="node">
+
+        <!--- Pattern for hexadecimal unicode enitity. Set in oninit handler.
+              @type RegExp
+              @keywords read-only
+              @access private
+        -->
+        <attribute name="UNICODE_HEXENTITY_PATTERN" value="null" type="object" />
+
+        <!--- Pattern for decimal unicode enitity. Set in oninit handler.
+              @type RegExp
+              @keywords read-only
+              @access private
+        -->
+        <attribute name="UNICODE_ENTITY_PATTERN" value="null" type="object" />
+
+        <!--- oninit handler.
+              @keywords private
+        -->
+        <handler name="oninit"><![CDATA[
+            this.UNICODE_HEXENTITY_PATTERN = new RegExp( "&#x([a-fA-F0-9]+;)", "g" );
+            this.UNICODE_ENTITY_PATTERN = new RegExp( "&#([a-fA-F0-9]+;)", "g" );
+        ]]>
+        </handler>
+
+        <!--- Converts the integer and hex Unicode entities in the str based on the definitions
+              in unicode-keyvalues.js. The rendering is controlled by the CSS definitions for sup/sub.
+              @access public
+              @parameter String str: String containing the unicode entities.
+              @parameter boolean isLargeFont: Flag for large font.
+              @returns {String} String with entities replaced by super/sub.
+        -->
+        <method name="convert" args="str, isLargeFont"><![CDATA[
+            var result = "";
+            var that = this;
+            var hexMatches = [];
+            var match = null;
+            var strPos = 0;
+
+            // Replace all decimal entities in the string with their hex values
+            str = str.replace( this.UNICODE_ENTITY_PATTERN, function ( match, value ) {
+                return that.convertToHexEntity( value );
+            });
+
+            // Find all the hex unicode entities and store them in the hexMatches array.
+            // Object structure for a match:
+            //     match.start      The start index position of the entity
+            //     match.stop       The stop position of the entity
+            //     match.newValue   The replacement string for the entity. Set when
+            //                      replaceHexEntity() is called.
+            //     match.doReplace  If true, entity will be replaced with newValue.
+            while (match = this.UNICODE_HEXENTITY_PATTERN.exec( str ) ) {
+                match.start = this.UNICODE_HEXENTITY_PATTERN.lastIndex - match[ 0 ].length;
+                match.end = this.UNICODE_HEXENTITY_PATTERN.lastIndex;
+                match.newValue = "";    // Will be set in replaceHexEntity()
+                hexMatches.push( match );
+            }
+            for ( var i=0; i < hexMatches.length; i++ ) {
+                this.replaceHexEntity( i, hexMatches, isLargeFont );
+            }
+            for ( var i=0; i < hexMatches.length; i++ ) {
+                var match = hexMatches[ i ];
+                result += str.substring( strPos, match.start ) + match.newValue;
+                strPos = match.end;
+            }
+            if ( strPos < str.length ) {
+                result += str.substr( strPos, str.length );
+            }
+
+            return result;
+        ]]>
+        </method>
+
+        <!--- Proxies the call to getMarkupForEntity() for hex entities.
+              @access private
+              @parameter Number idx: Index of current match.
+              @parameter Array matches: Array of matches for this string
+              @parameter String str: String containing the unicode entities.
+              @returns {String} String with entities replaced by super/sub.
+        -->
+        <method name="replaceHexEntity" args="idx, matches, isLargeFont"><![CDATA[
+            // Remove trailing ';' in hexValue when calling getMarkupForEntity
+            var hexValue = matches[ idx ][ 1 ].slice( 0, -1 )
+            var entityIntValue = parseInt( hexValue, 16 );
+            // console.error( "hexValue=%s, intValue=%s", hexValue, entityIntValue );
+            return this.getMarkupForEntity( idx, matches, entityIntValue, isLargeFont );
+        ]]>
+        </method>
+
+        <!--- Convert hex
+              @access private
+              @parameter String value: String containing the unicode entities.
+              @returns {String} String with entities replaced by super/sub.
+        -->
+        <method name="convertToHexEntity" args="value"><![CDATA[
+            // Remove trailing ';'
+            value = value.slice( 0, -1 )
+            return "&#x" + Number( value ).toString( 16 ) + ";";
+        ]]>
+        </method>
+
+        <!--- Looks up a possible replacement for a Unicode entity defined in the
+              unicode-keyvalues.js JavaScript file.
+              @access private
+              @parameter String value: The integer value of the entity.
+              @returns {String} Processed string.
+        -->
+        <method name="getMarkupForEntity" args="idx, matches, value, isLargeFont"><![CDATA[
+            value = Number( value );
+            hexValue = value.toString( 16 );
+            var newValue = null;
+            var prevEntity = null;
+            var cssClass = null;
+
+            matches[ idx ].doReplace = true;
+
+            // Superscript check
+            if ( typeof unicode.superscript[ value ] !== 'undefined' ) {
+                 newValue = '<sup class="letter">' + unicode.superscript[ value ] + '</sup>';
+            }
+
+            // superscript digits
+            if ( typeof unicode.digitsSuperscript[ value ] !== 'undefined' ) {
+                newValue = '<sup class="digit">' + unicode.digitsSuperscript[ value ] + '</sup>';
+            }
+
+            // Subscript letters
+            if ( typeof unicode.subscript[ value ] !== 'undefined' ) {
+                newValue = '<sub class="letter">' + unicode.subscript[ value ] + '</sub>';
+            }
+
+            // Subscript digits
+            if ( typeof unicode.digitsSubscript[ value ] !== 'undefined' ) {
+                newValue = '<sub class="digit">' + unicode.digitsSubscript[ value ] + '</sub>';
+            }
+
+            // Single glyph fractions, they are replaced by numerator_? and subscript denominator
+            if ( typeof unicode.singleGlyphFraction[ value ] !== 'undefined' ) {
+                var numerator = unicode.singleGlyphFraction[ value ].numerator;
+                var denominator = unicode.singleGlyphFraction[ value ].denominator;
+                if ( isLargeFont ) {
+                    newValue = '<span class="largeNumerator">' + numerator + '</span>' +
+                               '<sub class="digit">' + denominator + "</sub>";
+                } else {
+                    newValue = '<span class="standardNumerator">' + numerator + '</span>' +
+                               '<sub class="digit">' + denominator + "</sub>";
+                }
+            }
+
+
+            // Numerator characters; used in combination with subscript chars
+            if ( typeof unicode.numerator[ value ] !== 'undefined' ) {
+                if ( isLargeFont ) {
+                    newValue = '<span class="largeNumerator">' + unicode.numerator[ value ] + '</span>';
+                } else {
+                    newValue = '<span class="standardNumerator">' + unicode.numerator[ value ] + '</span>';
+                }
+            }
+
+            // Denominator characters; used in combination with subscript chars
+            if ( typeof unicode.denominator[ value ] !== 'undefined' ) {
+                if ( isLargeFont ) {
+                    newValue = '<span class="largeDenominator">' + unicode.denominator[ value ] + '</span>';
+                } else {
+                    newValue = '<span class="standardDenominator">' + unicode.denominator[ value ] + '</span>';
+                }
+            }
+            
+            // Character class for Superscript_Root_Extender and Super_Overbar
+            // Currently we are not doing any optimization on these characters, but
+            // the code has already been added to both this class and the
+            // unicode-keyvalues.js file.
+            if ( typeof unicode.superscriptRoot[ value ] !== 'undefined' ) {
+                if ( isLargeFont ) {
+                    newValue = '<span class="largeSuperRoot">' + unicode.superscriptRoot[ value ] + '</span>';
+                    // newValue = '&#x' + hexValue + ';';
+                } else {
+                    newValue = '<span class="standardSuperRoot">' + unicode.superscriptRoot[ value ] + '</span>';
+                    // newValue = '&#x' + hexValue + ';';
+                }
+            }            
+
+            if ( newValue == null ) {
+                // For all other entities which we are not tracking, we use the entity directly
+                newValue = '&#x' + hexValue + ';';
+                matches[ idx ].doReplace = false;
+            }
+
+            // Store the new value on the match so we can assemble the string later
+            matches[ idx ].newValue = newValue;
+        ]]>
+        </method>
+
+
+    </class>
+
+</library>

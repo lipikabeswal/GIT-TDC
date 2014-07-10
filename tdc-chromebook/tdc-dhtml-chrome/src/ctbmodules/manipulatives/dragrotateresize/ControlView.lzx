@@ -1,0 +1,209 @@
+<library>
+
+    <include href="DragRotateResize-Mixin.lzx" />
+
+    <!--- Invisible view used to manipulate (rotate,resize,drag) a view's
+              position in the application. Used in classes like the
+              Protractor or Ruler. One instance per application has to be
+              created, which will be reused whenever a view is manipulated.
+        -->
+    <class name="ControlView" extends="view"
+        with="DragRotateResize"
+        usegetbounds="false"
+        clip="false"
+        focusable="true">
+
+        <!-- ATTRIBUTES -->
+        <!--- The selected component which is manipulated by the controlview.
+              Target will be expressed using "local" orientation (x,y,rotation)
+              relative to its parent, whereas the controlview is expressed using
+              global orientation, relative to the canvas.
+              @type Object
+              @access private
+        -->
+        <attribute name="target" type="expression" value="null" />
+
+        <!---  When rotating/resizing a component placed in a hierarchy, this variable keeps track of
+               the combined displacement and rotation of all the accumulated parents so that we can
+               translate from global (canvas) coordinates to the local coordinate space within the
+               target's container.
+               @type Array
+               @access private
+        -->
+        <attribute name="_relativeShift" type="expression" value="null" />
+
+        <!---  Linkage informationf or target view.
+               @type Object
+               @access private
+        -->
+        <attribute name="_link" type="expression" value="null" />
+
+        <!--- x attribute event handler.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="onx">
+            if (this.target != null) {
+                target.setAttributeRelative ('x', this);
+            }
+        </handler>
+
+        <!--- y attribute event handler.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="ony">
+            if (this.target != null) {
+                target.setAttributeRelative ('y', this);
+            }
+        </handler>
+
+        <!--- width attribute event handler.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="onwidth">
+            if (this.target != null) {
+                if (typeof this.target.newwidth == 'undefined') {
+                    this.target.setAttribute ("width", width / _link.xscale);
+                } else {
+                    this.target.setAttribute ("newwidth", Math.max(width / _link.xscale));
+                }
+            }
+        </handler>
+
+        <!--- height attribute event handler.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="onheight">
+            if (this.target != null) {
+                this.target.setAttribute ("height", height / _link.yscale);
+            }
+        </handler>
+
+        <!--- rotation attribute event handler.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="onrotation">
+            if (this.target != null) {
+                this.target.setAttribute ("rotation", this.rotation - _relativeShift.rotation);
+                updateTargetXY ();
+            }
+        </handler>
+
+        <!-- METHODS -->
+        <!--- Start controlling a view.
+              @param lz.view item: The view object.
+              @param lz.ControlHandle c: The control used.
+              @access public
+        -->
+        <method name="setActiveItem" args="item, c">
+            if (item != null) {
+	            this._control = c;
+	            this.target = item;
+	            this.takeControl ();
+            } else {
+                this.yieldControl ();
+            }
+        </method>
+
+        <!-- Set the target's position according to the containing controlview.
+               Orientation is already set elsewhere according to a constraint.
+        -->
+        <method name="updateTargetXY">
+            if (this._rotinfo == null) {
+                target.setAttributeRelative ('x', this);
+                target.setAttributeRelative ('y', this);
+            }
+        </method>
+
+        <!--- Take control of a component to manipulate drag, rotate and
+              resize an item.
+              @param lz.view v: reference to the view object.
+              @access public
+        -->
+        <method name="takeControl">
+            target.bringToFront ();
+            bringToFront ();
+
+            // Retrieve the linkage information for the target to apply
+            // the correct scaling
+            _link = target.getLinkage (canvas);
+            _link.update ('x');
+            _link.update ('y');
+
+            var targetScaledWidth = target.width * _link.xscale;
+            var targetScaledHeight = target.height * _link.yscale;
+            setAttribute ("width", targetScaledWidth);
+            setAttribute ("height", targetScaledHeight);
+
+            // Calculate global orientation (x, y, rotation) of target's parent,
+            // by summing the cumulative rotations/positions of all the parents
+            // up to canvas.
+            var ori = globalOrientation (target.immediateparent, canvas);
+            _relativeShift = ori;
+            var newPt = new lz.Point (canvas, {x : target.x * _link.xscale, y : target.y * _link.yscale});
+            var canvasOrig = new lz.Point (canvas, {x : 0, y : 0});
+            newPt.rotate (canvasOrig, ori.rotation);
+
+             // newPt + ori.x/y is now the exact global point of this.target
+            newPt.rotate (canvasOrig, -this.target.rotation - ori.rotation);
+            newPt.rotate (canvasOrig, this.target.rotation + ori.rotation);
+
+            // Disabling _rotinfo keeps updateTargetXY from being called too early.
+            //   If we do it before setting rotation below, it will mess things up.
+            this._rotinfo = "disableUpdate";
+            this.setAttribute ("x", ori.x + newPt.x);
+            this.setAttribute ("y", ori.y + newPt.y);
+            this._rotinfo = null;
+
+            this.setAttribute ("rotation", ori.rotation + this.target.rotation);
+            var endTargetY =  target.getAttributeRelative('y', canvas);
+        </method>
+
+        <!--- Yield the control over the component, when the component is not selected.
+                  @access public
+        -->
+        <method name="yieldControl">
+            if (this.target !== null) {
+                _link = null;
+                target = null;
+            }
+        </method>
+
+        <!--- Retrieves the orientation (x/y/rotation) of the 'vw' view relative
+              to topview.
+              @param lz.view vw: lz.view which is a descendant of topView.
+              @param lz.view topView: lz.view which is an ancestor of vw or canvas.
+              @return {lz.Orientation}: The orientation of vw.
+          -->
+        <method name="globalOrientation" args="vw, topView"><![CDATA[
+            var ori = null;
+            var absPos = new lz.Orientation (canvas, {x : 0, y : 0, rotation : 0});
+            var newPt = null;
+            var canvasOrig = new lz.Point (canvas, {x : 0,y : 0});
+            var v = vw;
+            var viewList = [];
+            var link = null;
+            while (v != topView) {
+                viewList.push (v);
+                v = v.immediateparent;
+            }
+            for (var i=viewList.length-1; i>=0; i--) {
+                v = viewList[i];
+                link = v.getLinkage (canvas);
+                link.update ('x');
+                link.update ('y');
+                newPt = {x : (v.x - v.xoffset) * link.xscale, y : (v.y - v.yoffset) * link.yscale};
+                absPos.x = absPos.x + newPt.x;
+                absPos.y = absPos.y + newPt.y;
+                absPos.rotation = absPos.rotation + v.rotation;
+            }
+            return absPos;
+        ]]></method>
+
+    </class>
+
+</library>

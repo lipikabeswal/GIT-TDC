@@ -1,0 +1,72 @@
+<library>
+
+    <!--- Class bundling CSS utility functions. -->
+    <class name="CSSUtil" extends="node">
+
+        <event name="onrulechange" />
+
+        <!-- Code for changing CSS style at runtime -->
+        <method name="changeCSSRuleBySelector" args="selector, styleProp, value"><![CDATA[
+            var sheet = null;
+            var rules = null;
+            var theRule = this.getStyleForRule( selector, styleProp );
+            if ( theRule ) {
+                console.log( "Setting selector '%s{ %s: %s }'", selector, styleProp, value );
+                theRule.style[ styleProp ] = value;
+            }
+            this.onrulechange.sendEvent();
+        ]]></method>
+
+        <!--- Returns the CSS styles for the DisplayObject of a text component.
+              @access private
+              @parameter String type: Description.
+              @return
+        -->
+        <method name="getTextStyle" args="text"><![CDATA[
+            var style = text.getDisplayObject().style;
+            return text.getDisplayObject().style.cssText;
+        ]]></method>
+
+        <!--- TODO: add documentation
+              @access private
+              @parameter String type: Description.
+              @return
+        -->
+        <method name="getStyleForRule"  args="selector, styleProp"><![CDATA[
+            var sheet = null;
+            var rules = null;
+            var theRule = null;
+            var selectorNotFound = true;
+            for ( var i=0; i < document.styleSheets.length; i++ ) {
+                if ( document.styleSheets[i].href &&
+                     document.styleSheets[i].href.indexOf( "unicode") != -1 ) {
+                    sheet = document.styleSheets[i];
+                    break;
+                }
+            }
+            if ( sheet ) {
+                if ( sheet.cssRules ) rules = sheet.cssRules;
+                else rules = sheet.rules;
+                if ( ! rules ) {
+                    console.error( "No rules found in stylesheet %s", sheet.href );
+                    return;
+                }
+                for ( var i=0; i < rules.length; i++ ) {
+                    if (rules[ i ].selectorText.toLowerCase() == selector.toLowerCase() ) {
+                        selectorNotFound = false;
+                        return rules[ i ];
+                        break;
+                    }
+                }
+            } else {
+                console.error( "CSSUtil.changeCSSRuleBySelector: Could not find unicode CSS!" );
+            }
+            if ( selectorNotFound ) {
+                console.error( "CSSUtil.changeCSSRuleBySelector: Could not find selector '%s'!", selector );
+            }
+            return null;
+        ]]></method>
+
+    </class>
+
+</library>

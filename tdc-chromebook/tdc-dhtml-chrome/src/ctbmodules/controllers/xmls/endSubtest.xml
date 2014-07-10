@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string" xmlns="">
+	<save_testing_session_data>
+		<tsd lsid="" scid="" mseq="" cid="">
+			<lsv>
+				<cmi.core score.raw="" score.max="" exit="" session_time="" lesson_status="completed" score.ability="" score.objective="" score.sem="" />
+				<ext.core number_of_unscored_items="" />
+			</lsv>
+	    </tsd>
+	</save_testing_session_data>
+</adssvc_request>

@@ -1,0 +1,279 @@
+<library>
+
+    <!--- Class documentation. -->
+    <class name="CustomHtmlRenderer" extends="view">
+ 	
+    	
+        <!--- Added for compatibility with lz.Text class; ontext handler sets the html value instead.
+              @type string
+              @access public
+        -->
+        <attribute name="text" value="" type="string" />    	
+
+        <!--- HTML snippet to display.
+              @type string
+              @access private
+        -->
+        <attribute name="html" value="" type="string" />
+        
+        <!--- CSS properties for _div.
+              @type object
+              @access private
+        -->
+        <attribute name="cssprops" value="null" type="expression" />
+        
+        <!--- Attribute for line-height CSS property.
+              @type string
+              @access public
+        -->
+        <attribute name="lineheight" value="1.5" type="number" />   
+        
+        <!--- Attribute for text-align CSS property.
+              @type string
+              @access public
+        -->
+        <attribute name="textalign" value="left" type="string"/>                
+
+        <!--- Visual <div> tag used as a text container
+              @type object
+              @access private
+        -->
+        <attribute name="_div" value="null" type="object" />
+
+        <!--- Cache for storing old offsetWidth value.
+              @type number
+              @access private
+        -->
+        <attribute name="_offsetwidth" value="-1" type="number" />
+
+        <!--- Cache for storing old _offsetheight value.
+              @type number
+              @access private
+        -->
+        <attribute name="_offsetheight" value="-1" type="number" />
+
+        <!--- Delegate for timer (used when calculating offsetHeight/offsetWidth in Firefox)
+              @type LzDelegate
+              @access private
+        -->
+        <attribute name="_heightwidthdel" type="expression" value="null" />
+
+        <!--- Initialization event handler
+              @keywords private
+        -->
+        <handler name="oninit"><![CDATA[
+            // console.log( "oninit" );
+            this._div = document.createElement( 'div' );
+            this.getDisplayObject().appendChild( this._div );
+			// CSS properties for div containing the HTML content
+			// fgcolor, fontsize and line-height are handled through the class attributes
+			this.cssprops = [];
+			this.cssprops['position'] = 'absolute';
+			this.cssprops['text-indent'] = 0;
+			this.cssprops['letter-spacing'] = '0.5';
+			this.cssprops['text-decoration'] = 'none';
+			this.cssprops['word-wrap'] = 'break-word';
+			this.cssprops['width'] = '100%';
+        ]]>
+        </handler>
+
+        <!--- Initialization event handler
+              @keywords private
+        -->
+        <handler name="oninited"><![CDATA[
+            this._updateViewSize();
+            this.onfgcolor.sendEvent();
+            this.onfontsize.sendEvent();
+            this.onlineheight.sendEvent();
+            this.ontextalign.sendEvent();
+        ]]>
+        </handler>
+
+        <!--- Handle width changes for text.
+              @keywords private
+        -->
+        <handler name="onwidth"><![CDATA[
+            // console.log( "onwidth: inited=" + this.inited );
+            this._updateViewSize();
+        ]]>
+        </handler>
+
+        <!--- Handle height changes.
+              @keywords private
+        -->
+        <handler name="onheight"><![CDATA[
+        	this._updateViewSize();
+        ]]>
+        </handler>
+        
+        <!--- When text attribute is set, forward to setHtmlText()
+              @keywords private
+        -->
+        <handler name="ontext"><![CDATA[
+        	if (text) {
+        		this.setHtmlText( text );
+        	}
+        ]]>
+        </handler>
+        
+        <!--- When fontsize is set, apply to _div.
+              @keywords private
+        -->
+        <handler name="onfontsize"><![CDATA[
+        	if (fontsize) {
+	        	// console.log("CustomHtmlRenderer#onfontsize: fontsize=", fontsize);
+        		this.updateCssProperty( "font-size", fontsize, "px" );
+        	}
+        ]]>
+        </handler>
+        
+        <!--- When fgcolor is set, apply to _div.
+              @keywords private
+        -->
+        <handler name="onfgcolor"><![CDATA[
+        	// console.log("CustomHtmlRenderer#onfontsize: fgcolor=#" + decimalToHex(fgcolor));
+        	if (fgcolor) {
+        		this.updateCssProperty( "color", "#" + decimalToHex(fgcolor));
+        	}
+        ]]>
+        </handler>
+        
+        <!--- When fgcolor is set, apply to _div.
+              @keywords private
+        -->
+        <handler name="onlineheight"><![CDATA[
+        	// console.log("CustomHtmlRenderer#onlineheight: lineheight=" + lineheight);
+        	if (lineheight) {
+        		this.updateCssProperty( "line-height", this.lineheight );
+        	}
+        ]]>
+        </handler>   
+        
+        <!--- When textalign is set, apply to _div.
+              @keywords private
+        -->
+        <handler name="ontextalign"><![CDATA[
+        	 //console.log("CustomHtmlRenderer#ontextalign: textalign=" + textalign);
+        	if (textalign) {
+        		this.updateCssProperty( "text-align", this.textalign );
+        	}
+        ]]>
+        </handler>                       
+
+        <!--- Sets an HTML snipped as the text content.
+              @access public
+              @parameter String content: The HTML snippet.
+        -->
+        <method name="setHtmlText" args="content"><![CDATA[
+            if (typeof content !== 'undefined' && content !== null) {
+                this.setAttribute( "html", content );
+                var el = this._div,
+                    nextSibling = el.nextSibling,
+                    parentNode = el.parentNode;
+                parentNode.removeChild(el);
+                el.innerHTML = content;
+                if(nextSibling) {
+                    parentNode.insertBefore(el,nextSibling)
+                } else {
+                    parentNode.appendChild(el);
+                }
+                for (var k in this.cssprops) {
+                    this._div.style[k] = this.cssprops[k];
+                    // console.log("Setting _div style %s='%s'", k, cssprops[k]);
+                }
+                this.updateCssProperty("line-height", this.lineheight);
+                this.updateCssProperty("text-align", this.textalign);
+                this.updateCssProperty("font-size", this.fontsize);
+                this.updateCssProperty("color", this.fgcolor);
+                // Now the dimensions of the view have to be set
+                this._updateViewSize()
+            }
+        ]]></method>
+        
+        <!--- Set a CSS property on the _div object.
+              @access public
+              @parameter String propName: The CSS property name.
+              @parameter String value: The value to apply.
+              @parameter String unit: Optional unit value.
+        -->
+        <method name="updateCssProperty" args="propName,value,unit=''"><![CDATA[
+			// console.log("updateCssProperty: propName=%s, value=%s", propName, value);
+			if (!this._div || !this._div.style) return;
+        	var style = this._div.style;
+        	if (propName && value) {
+        		if ( propName in this._div.style ) {
+        			switch (propName) {
+        				case 'font-size':
+        					// this.fontsize = value;
+        				break;
+        				case 'line-height':
+        					this.lineheight = value;        					
+        				break;
+        				case 'text-align':
+        					this.textalign = value;        					
+        				break;
+        				case 'color':
+        					this.fgcolor = value;   					
+        				break;
+        			}
+					_div.style[ propName ] = value + unit;        				
+        			this._updateViewSize();        			
+        		} else {
+        			console.warn( "Unsupported CSS property: %s", propName );
+        		}
+        	}
+        ]]></method>
+
+
+        <!--- Adjust the view dimensions to the text dimensions
+              @access private
+              @parameter Object ignore: Required argument for methods called by delegate, please ignore.     
+        -->
+        <method name="_updateViewSize" args="ignore=null"><![CDATA[
+            // console.log( "_updateViewSize" );
+            var browser = lz.embed.browser;
+            var offsetHeight = this._div.offsetHeight;
+            var offsetWidth = this._div.offsetWidth;
+            var props = cssprops;
+            if ( typeof offsetHeight == 'undefined' && typeof offsetWidth == 'undefined')
+                return;
+
+            if (offsetHeight == 0 && offsetWidth == 0) {
+                if ( this._heightwidthdel == null ) {
+                    this._heightwidthdel = new LzDelegate( this, "_updateViewSize" );
+                }
+                lz.Timer.resetTimer( this._heightwidthdel, 100 );
+            } else {
+                if ( offsetWidth == this._offsetwidth && offsetHeight == this._offsetheight)
+                    return;
+
+                this._offsetheight = offsetHeight;
+                this._offsetwidth = offsetWidth;
+                this.setAttribute( "height", offsetHeight);
+                this.setAttribute( "width", offsetWidth );
+                this._div.style.lineHeight = this.lineheight;
+                // Chrome takes some time to update the <div>, and does not
+                // return the correct height. Update again after 200
+                if ( browser.isChrome || browser.isSafari ) {
+                    if ( this._heightwidthdel == null ) {
+                        this._heightwidthdel = new LzDelegate( this, "_updateViewSize" );
+                    }
+                    lz.Timer.resetTimer( this._heightwidthdel, 200 );
+                }
+            }
+       ]]></method>
+       
+       <!--- Helper method for converting int color value to hex.
+             @access private
+             @parameter Number d: Integer value.
+             @returns {String} The hexdecimal value.
+       -->
+       <method name="decimalToHex" args="d"><![CDATA[
+			var hex = Number(d).toString(16);
+			hex = "000000".substr(0, 6 - hex.length) + hex; 
+			return hex;   
+       ]]></method>
+
+    </class>
+	
+</library>

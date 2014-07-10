@@ -1,0 +1,31 @@
+<library>
+    <class name="resizestateminmax" extends="state">
+    	<attribute name="oldWidth" type="number" />
+    	<attribute name="oldHeight" type="number" />
+    	
+    	<attribute name="minwidth" value="140"/>
+        <attribute name="maxwidth" value="640"/>
+
+        <!--- Minimum height for the window.
+              @keywords final -->
+        <attribute name="minheight" value="140"/>
+        <attribute name="maxheight" value="362"/>
+        
+        <attribute name="xroffset"
+                    value="$once{this.x - this.width + this.getMouse( 'x' )}" />
+        <attribute name="width"
+                    value="${this.immediateparent.getMouse( 'x' ) &lt; 100 ? oldWidth : ((this.immediateparent.getMouse( 'x' )- xroffset) &lt; this.minwidth ? this.minwidth : ((this.immediateparent.getMouse( 'x' ) - xroffset) &gt; this.maxwidth ? this.maxwidth : this.immediateparent.getMouse( 'x' ) - xroffset))}" />
+        <attribute name="yroffset"
+                    value="$once{this.y - this.height + this.getMouse( 'y' ) }" />
+        <attribute name="height"
+                    value="${this.immediateparent.getMouse( 'y' ) &lt; 100 ? oldHeight : ((this.immediateparent.getMouse( 'y' )- yroffset) &lt; this.minheight ? this.minheight : ((this.immediateparent.getMouse( 'y' ) - yroffset) &gt; this.maxheight ? this.maxheight : this.immediateparent.getMouse( 'y' ) - yroffset))}" />
+        <handler name="onwidth">
+        	this.setAttribute('oldWidth', this.width);
+        </handler>
+        <handler name="onheight">
+        	this.setAttribute('oldHeight', this.height);
+        </handler>
+    </class>
+</library>
+
+

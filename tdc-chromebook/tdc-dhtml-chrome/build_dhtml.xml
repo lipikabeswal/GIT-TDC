@@ -1,0 +1,50 @@
+<project name="tdc-dhtml-chrome" basedir="." default="build.TestClient.dhtml.chrome">
+<property name="out.dir" value = "../www" />
+<property name="laszlo.home" value="D:\softwares\OpenLaszlo Server 5.0.x\Server\lps-5.0.x"/>
+<property name="laszlo.src.dir" value="${basedir}/src"/>
+<property name="laszlo.debug" value="false"/>
+<property name="laszlo.proxied" value = "true"/>
+	<property name="TestClient.swf" value="${basedir}/src/TestClient.swf10.swf"/>
+	<property name="TestClient.lzx.js" value="${basedir}/src/TestClient.lzx.js"/>
+	<property name="laszlo.ctbmodules.dir" value="${basedir}/src/ctbmodules"/>
+
+<path id = "laszlo.lib">
+   <pathelement location="${laszlo.home}/WEB-INF/lps/server/build" />
+    <pathelement location="${laszlo.home}/WEB-INF/classes" />
+    <fileset dir = "${laszlo.home}/3rd-party/jars/dev" includes="**/*.jar"/>
+    <fileset dir = "${laszlo.home}/WEB-INF/lib" includes="**/*.jar"/>
+    <fileset dir = "D:\softwares\OpenLaszlo Server 5.0.x\Server\tomcat-5.0.24\common\lib" includes="**/*.jar"/>
+    <fileset dir = "D:\softwares\OpenLaszlo Server 5.0.x\Server\tomcat-5.0.24\common\lib" includes="**/*.jar"/>
+</path>
+
+	<target name = "build.TestClient.dhtml.chrome">
+		    <java classname = "org.openlaszlo.compiler.Main" fork = "true"
+		        newenvironment="true"
+		        failonerror="true"
+		        dir = "${laszlo.src.dir}"
+		        classpathref="laszlo.lib"
+		       >
+		        <jvmarg value = "-DLPS_HOME=${laszlo.home}"/>
+		        <jvmarg value = "-Dlzdebug=${laszlo.debug}"/>
+		        <jvmarg value = "-Dlzproxied=${laszlo.proxied}"/>
+		        <jvmarg value = "-Xms512M"/>
+		        <jvmarg value = "-Xmx1024M"/>
+		        <arg line="--runtime=dhtml  TestClient.lzx" />
+		    </java>
+			
+		    <move todir="${out.dir}">
+		        <fileset dir="${laszlo.src.dir}" />
+		        <mapper>
+		        <mapper type="glob"
+		                from="TestClient.js" to="TestClient.js" />
+		        </mapper>
+		    </move>
+			<delete file="${TestClient.js}"/>
+			<copy todir="../wwww/ctbmodules">
+	    		<fileset dir="${laszlo.ctbmodules.dir}">
+	    			<include name="**/*.png"/>
+	    			<include name="**/*.ttf"/>
+	    		</fileset>
+	    	</copy>
+		</target>	
+</project>

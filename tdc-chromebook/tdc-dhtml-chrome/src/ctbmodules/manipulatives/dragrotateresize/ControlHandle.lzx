@@ -1,0 +1,188 @@
+<library>
+
+    <include href="MouseBehavior-Mixin.lzx" />
+
+    <!--- Controls which can be added to views to enable the drag/rotate/resize
+          functionality of the ControlView. -->
+    <class name="ControlHandle" clickable="true" with="MouseBehavior">
+
+        <!-- ATTRIBUTES -->
+        <!--- Name of the controlview (must be child of canvas).
+              @type string
+              @access public
+        -->
+        <attribute name="controlviewname" type="string" value="" />
+
+        <!--- Which actions can be controlled by this point:
+                 'x'     x-axis changes (width)
+                 'y'     y-axis changes (height)
+                 'd'     moving the component
+                 'r'     rotate the component
+                 'o'     origin point, needs special treatment
+              @type string
+              @access public
+        -->
+        <attribute name="controls" type="string" value="?" />
+
+        <!--- Track if the left mouse button is down and resizing/rotating
+              activated.
+              @type string
+              @access private
+         -->
+        <attribute name="mousestatus" type="string" value="up" />
+
+        <!--- Target view which is manipulated by this handle.
+              @type object
+              @access private
+         -->
+        <attribute name="target" type="expression" value="null" />
+
+        <!--- Reference to the controlview instance for this application.
+              @type object
+              @access private
+         -->
+        <attribute name="controlview" type="expression" value="null" />
+
+        <!--- Delegate for tracking canvas.onmousemove events.
+              @type object
+              @access private
+         -->
+        <attribute name="_mouseMoveDel" type="expression" value="null" />
+
+        <!--- Delegate used for tracking global mouseup events.
+              @type object
+              @access private
+         -->
+        <attribute name="_mouseupdel" type="expression" value="null" />
+
+        <!-- EVENT HANDLER -->
+        <!--- Initialization, create delegate tracking mouse movements.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="oninit">
+            this._mouseMoveDel = new lz.Delegate(this, '_trackMouseMove');
+            this._mouseupdel = new lz.Delegate(this, '_doMouseUp');
+        </handler>
+
+        <!--- Mouse down event handler.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="onmousedown">
+            if (controlview == null) {
+                controlview = canvas[controlviewname];
+            }
+            controlview.setActiveItem(target, this);
+            setAttribute("mousestatus", "down");
+            controlview.onactionstart.sendEvent();
+            _mouseMoveDel.register(canvas, 'onmousemove');
+            _mouseupdel.register(lz.GlobalMouse, 'onmouseup');
+            overlayOnIframe(true);
+        </handler>
+
+        <!--- Mouse out event handler.
+              @lzxtype event
+              @access private
+        -->
+        <handler name="onmouseout">
+            if (controlview) {
+                this.controlview.onmouseout.sendEvent(this.controlview);
+            }
+        </handler>
+
+
+        <!-- METHODS -->
+        <!--- Starts tracking the mousemoves as long as the left mouse button
+              is pressed. Called by _mouseMoveDel.
+              @param Object ignore: Is required by compiler, but ignored.
+              @access private
+        -->
+        <method name="_trackMouseMove" args="ignore">
+            if (this.mousestatus === "down") {
+                this.controlview.doDragRotateResize(this.controls);
+            }
+        </method>
+
+
+        <!--- Called when a global mouseup event is being sent.
+              @param Object ignore: Is required by compiler, but ignored.
+              @access private
+        -->
+        <method name="_doMouseUp" args="ignore">
+            _mouseMoveDel.unregisterAll();
+            _mouseupdel.unregisterAll();
+            controlview.stopDragMove();
+            setAttribute("mousestatus", "up");
+            overlayOnIframe(false);
+        </method>
+
+
+        <!--- Checks if the mouse position is within the limits
+              of the box.
+              @param Object box: The target box object (x,y,w,h).
+              @param lz.view target: The view which is uses as a reference for this.
+              @access private
+              return {Object}: The rotated mouse position.
+        -->
+        <method name="containsMousePos" args="box, target"><![CDATA[
+            var m = getMouseRotated(target);
+            // Apply possible x/y offset values for handle
+            m.y += yoffset;
+            m.x += xoffset;
+            return (((box.h + box.y >= m.y) && (m.y >= box.y)) &&
+                    ((box.w + box.x >= m.x) && (m.x >= box.x)));
+        ]]>
+        </method>
+
+        <!--- Translates the mouse click position to the rotated
+              x/y position relative to this, applying the rotation
+              value of target.
+              @param lz.view target: The view
+              @access private
+              return {Object}: The rotated mouse position.
+        -->
+        <method name="getMouseRotated" args="target">
+            var ori = this.controlview.globalOrientation(target, canvas);
+            var link = this.getLinkage(canvas);
+            link.update('x');
+            link.update('y');
+            var mouseX = (canvas.getMouse ('x') - ori.x) / link.xscale;
+            var mouseY = (canvas.getMouse ('y') - ori.y) / link.yscale;
+            var rotated = rotatePoint(mouseX, mouseY, 0, 0, - target.rotation);
+            return {x: rotated.x - this.x, y: rotated.y - this.y };
+        </method>
+
+
+        <!--- Helper method for rotating a point around an origin.
+              @param Number pointX: x position.
+              @param Number pointY: y position.
+              @param Number originX: origin x pos.
+              @param Number originY: origin y pos.
+              @param Number angle: The rotation angle in degrees.
+              @access private
+              return {Object}: The rotated point position.
+        -->
+        <method name="rotatePoint" args="pointX, pointY, originX, originY, angle"><![CDATA[
+            angle = angle * Math.PI / 180.0;
+            return {
+                x: Math.cos(angle) * (pointX-originX) - Math.sin(angle) * (pointY-originY) + originX,
+                y: Math.sin(angle) * (pointX-originX) + Math.cos(angle) * (pointY-originY) + originY
+            };
+        ]]>
+        </method>
+        
+        <!-- When a view is dragged on top of the iframe to ensure smooth movement of the view 
+         	an overlay is view is displayed on top of the iframe -->
+        <method name="overlayOnIframe" args="show">
+        	if(gController.htmlFields.length > 0){
+            	gController.htmlFields[0]['ref'].overlay.setAttribute('visible',show);
+            	if(show){
+            		gController.htmlFields[0]['ref'].overlay.bringToFront();
+            	}
+			}
+        </method>
+
+    </class>
+
+</library>

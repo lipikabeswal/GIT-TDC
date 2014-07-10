@@ -1,0 +1,293 @@
+<library>
+
+    <node id="gResources">
+      
+        <attribute name="centimeter_tick_marks" value="ctbmodules/resources/iknow_buttons/centimeter_tick_marks.svg" type="string"/>
+     <!--  <attribute name="masking_ruler_bg_svg" value="ctbmodules/resources/iknow_buttons/masking_ruler_background.svg" type="string"/>
+       <attribute name="masking_ruler_bg_lines" value="ctbmodules/resources/iknow_buttons/masking_ruler_lines.svg" type="string"/>-->
+     
+   <attribute name="ruler_background_svg" value="ctbmodules/resources/iknow_buttons/ruler_background.svg" type="string"/>
+      <attribute name="rotator_rsrc_new" value="ctbmodules/resources/iknow_buttons/rotator.svg" type="string"/>
+      <attribute name="ruler_lines_new" value="ctbmodules/resources/iknow_buttons/ruler_lines.svg" type="string"/>
+
+       <attribute name="masking_ruler_bg_svg" value="ctbmodules/resources/manipulatives/ruler/masking_ruler_background.svg" type="string"/>
+       <attribute name="masking_ruler_bg_lines" value="ctbmodules/resources/manipulatives/ruler/masking_ruler_lines.svg" type="string"/>
+     
+      <attribute name="calculator_zero_iamge" value="ctbmodules/manipulatives/calculator/resource/0.svg" type="string"/>
+      <attribute name="calculator_one_image" value="ctbmodules/manipulatives/calculator/resource/1.svg" type="string"/>
+      <attribute name="calculator_two_image" value="ctbmodules/manipulatives/calculator/resource/2.svg" type="string"/>
+      <attribute name="calculator_three_image" value="ctbmodules/manipulatives/calculator/resource/3.svg" type="string"/>
+      <attribute name="calculator_four_image" value="ctbmodules/manipulatives/calculator/resource/4.svg" type="string"/>
+      <attribute name="calculator_five_image" value="ctbmodules/manipulatives/calculator/resource/5.svg" type="string"/>
+      <attribute name="calculator_six_image" value="ctbmodules/manipulatives/calculator/resource/6.svg" type="string"/>
+      <attribute name="calculator_seven_image" value="ctbmodules/manipulatives/calculator/resource/7.svg" type="string"/>
+      <attribute name="calculator_eight_image" value="ctbmodules/manipulatives/calculator/resource/8.svg" type="string"/>
+      <attribute name="calculator_nine_image" value="ctbmodules/manipulatives/calculator/resource/9.svg" type="string"/>
+       <attribute name="calculator_C_image" value="ctbmodules/manipulatives/calculator/resource/C.svg" type="string"/>
+       <attribute name="calculator_CE_image" value="ctbmodules/manipulatives/calculator/resource/CE.svg" type="string"/>
+        <attribute name="calculator_MC_image" value="ctbmodules/manipulatives/calculator/resource/memoryclear.svg" type="string"/>
+         <attribute name="calculator_MM_image" value="ctbmodules/manipulatives/calculator/resource/memoryminus.svg" type="string"/>
+         <attribute name="calculator_MP_image" value="ctbmodules/manipulatives/calculator/resource/memoryplus.svg" type="string"/>
+         <attribute name="calculator_MR_image" value="ctbmodules/manipulatives/calculator/resource/memoryrecall.svg" type="string"/>
+         <attribute name="calculator_equal_image" value="ctbmodules/manipulatives/calculator/resource/equal.svg" type="string"/>
+        <attribute name="calculator_decimal_image" value="ctbmodules/manipulatives/calculator/resource/decimal.svg" type="string"/>
+      <attribute name="calculator_button_off" value="ctbmodules/manipulatives/calculator/resource/calc_buttonSTANDRD_off.svg" type="string"/>
+       <attribute name="calculator_button_click" value="ctbmodules/manipulatives/calculator/resource/calc_buttonSTANDRD_click.svg" type="string"/>
+       <attribute name="calculator_button_on" value="ctbmodules/manipulatives/calculator/resource/calc_buttonSTANDRD_on.svg" type="string"/>
+        <attribute name="calculator_button_black" value="ctbmodules/manipulatives/calculator/resource/black_button.svg" type="string"/>
+       <attribute name="calculator_lbutton_blue" value="ctbmodules/manipulatives/calculator/resource/ltblue_button_std.svg" type="string"/>
+        <attribute name="calculator_dkbutton_blue" value="ctbmodules/manipulatives/calculator/resource/dkblue_button_std.svg" type="string"/>
+        <attribute name="calculator_closebutton_off" value="ctbmodules/manipulatives/calculator/resource/closebutton_off.svg" type="string"/>
+       <attribute name="calculator_closebutton_on" value="ctbmodules/manipulatives/calculator/resource/closebutton_on.svg" type="string"/>
+       <attribute name="calculator_closebutton_onclick" value="ctbmodules/manipulatives/calculator/resource/closebutton_click.svg" type="string"/>
+      <attribute name="answer_choice_btn_svg" 
+		value="['ctbmodules/resources/iknow_answerchoices/answerA_off.svg', 
+				'ctbmodules/resources/iknow_answerchoices/answerA_on.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerB_off.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerB_on.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerC_off.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerC_on.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerD_off.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerD_on.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerE_off.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerE_on.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerF_off.svg',
+				'ctbmodules/resources/iknow_answerchoices/answerF_on.svg',
+				'ctbmodules/resources/iknow_answerchoices/answer_blueballselect.png']"/>
+
+      <attribute name="black_plusminus_rsrc" value="ctbmodules/manipulatives/calculator/resource/black_plusminus.svg" type="string"/>
+	<attribute name="black_percent_rsrc" value="ctbmodules/manipulatives/calculator/resource/black_percent.svg" type="string"/>
+	<attribute name="black_sqrt_rsrc" value="ctbmodules/manipulatives/calculator/resource/newblack_sqrt.svg" type="string"/>
+	<attribute name="black_divide_rsrc" value="ctbmodules/manipulatives/calculator/resource/black_divide.svg" type="string"/>
+	<attribute name="black_multiply_rsrc" value="ctbmodules/manipulatives/calculator/resource/black_multiply.svg" type="string"/>
+	<attribute name="black_plus_rsrc" value="ctbmodules/manipulatives/calculator/resource/black_plus.svg" type="string"/>
+	<attribute name="black_minus_rsrc" value="ctbmodules/manipulatives/calculator/resource/black_minus.svg" type="string"/>
+	<attribute name="white_plusminus_rsrc" value="ctbmodules/manipulatives/calculator/resource/white_plusminus.svg" type="string"/>
+	<attribute name="white_percent_rsrc" value="ctbmodules/manipulatives/calculator/resource/white_percent.svg" type="string"/>
+	<attribute name="white_sqrt_rsrc" value="ctbmodules/manipulatives/calculator/resource/newwhite_sqrt.svg" type="string"/>
+	<attribute name="white_divide_rsrc" value="ctbmodules/manipulatives/calculator/resource/white_divide.svg" type="string"/>
+	<attribute name="white_multiply_rsrc" value="ctbmodules/manipulatives/calculator/resource/white_multiply.svg" type="string"/>
+	<attribute name="white_plus_rsrc" value="ctbmodules/manipulatives/calculator/resource/white_plus.svg" type="string"/>
+	<attribute name="white_minus_rsrc" value="ctbmodules/manipulatives/calculator/resource/white_minus.svg" type="string"/>
+     <attribute name="calDisplay" value="ctbmodules/manipulatives/calculator/resource/calculatorDisplay.svg" type="string"/>
+     <!-- <attribute name="calDis" value="ctbmodules/manipulatives/calculator/resource/calculatorDisplay.svg" type="string"/>-->
+       <attribute name="calcChrome" value="ctbmodules/manipulatives/calculator/resource/calc_4f_chrome.svg" type="string"/>
+
+     <!-- straightedge toolbar icon -->
+    <!-- <attribute name="toolbar_straightedge_off_svg" value="ctbmodules/resources/iknow_buttons/toolbar_straightedge_off.svg" type="string"/>
+    <attribute name="toolbar_straightedge_on_svg" value="ctbmodules/resources/iknow_buttons/toolbar_straightedge_on.svg" type="string"/>-->
+
+      <attribute name="straightedgesvg_toolbar" 
+		value="['ctbmodules/resources/iknow_toolbar/toolbar_straightedge_off.svg', 
+				'ctbmodules/resources/iknow_toolbar/toolbar_straightedge_on.svg']"/>
+
+      <attribute name="music_click" 
+        value="['ctbmodules/resources/iknow_buttons/music/music_off.svg',
+                 'ctbmodules/resources/iknow_buttons/music/music_click.svg',
+				'ctbmodules/resources/iknow_buttons/music/music_on.svg']"/>
+
+     <attribute name="music_play" 
+        value="['ctbmodules/resources/iknow_buttons/music/play.svg',
+                 'ctbmodules/resources/iknow_buttons/music/play_hover.svg',
+				'ctbmodules/resources/iknow_buttons/music/play_down.svg']"/>
+
+     <attribute name="music_stop" 
+        value="['ctbmodules/resources/iknow_buttons/music/stop.svg',
+                 'ctbmodules/resources/iknow_buttons/music/stop_hover.svg',
+				'ctbmodules/resources/iknow_buttons/music/stop_down.svg']"/>
+
+
+    <attribute name="btn_zoom_in" 
+        value="['ctbmodules/resources/iknow_buttons/zoom in/btn_zoomin_down.svg',
+                 'ctbmodules/resources/iknow_buttons/zoom in/btn_zoomin_over.svg',
+				'ctbmodules/resources/iknow_buttons/zoom in/btn_zoomin_up.svg']"/>
+
+     <attribute name="btn_zoom_out" 
+        value="['ctbmodules/resources/iknow_buttons/zoom out/btn_zoomout_down.svg',
+                 'ctbmodules/resources/iknow_buttons/zoom out/btn_zoomout_over.svg',
+				'ctbmodules/resources/iknow_buttons/zoom out/btn_zoomout_up.svg']"/>
+
+     <attribute name="toolbar_straightedge_off_svg" value="ctbmodules/resources/iknow_toolbar/toolbar_straightedge_off.svg" type="string"/>
+    <attribute name="toolbar_straightedge_on_svg" value="ctbmodules/resources/iknow_toolbar/toolbar_straightedge_on.svg" type="string"/>
+    
+    <attribute name="straightedge_toolbar" 
+		value="['ctbmodules/resources/iknow_toolbar/toolbar_straightedge_off.svg', 
+				'ctbmodules/resources/iknow_toolbar/toolbar_straightedge_off.svg']"/>
+    
+    <attribute name="calc_toolbar" 
+		value="['ctbmodules/resources/iknow_toolbar/toolbar_calc_off.svg', 
+				'ctbmodules/resources/iknow_toolbar/toolbar_calc_on.svg']"/>
+    
+    
+    <!-- calc toolbar icon -->
+    <attribute name="toolbar_calc_off_svg" value="ctbmodules/resources/iknow_toolbar/toolbar_calc_off.svg" type="string"/>
+    <attribute name="toolbar_calc_on_svg" value="ctbmodules/resources/iknow_toolbar/toolbar_calc_on.svg" type="string"/>
+    
+     <!-- reference toolbar icon -->
+     <attribute name="toolbar_reference_off_svg" value="ctbmodules/resources/iknow_toolbar/toolbar_reference_off.svg" type="string"/>
+    <attribute name="toolbar_reference_on_svg" value="ctbmodules/resources/iknow_toolbar/toolbar_reference_on.svg" type="string"/>
+    <attribute name="toolbar_reference_disabled_svg" value="ctbmodules/resources/iknow_toolbar/toolbar_reference_disabled.svg" type="string"/>
+    
+    <attribute name="reference_toolbar" 
+		value="['ctbmodules/resources/iknow_toolbar/toolbar_reference_off.svg', 
+				'ctbmodules/resources/iknow_toolbar/toolbar_reference_on.svg']"/>
+    
+    <!-- protractor toolbar icon -->
+     <attribute name="protractor_toolbar" 
+		value="['ctbmodules/resources/iknow_toolbar/toolbar_protractor_off.svg', 
+				'ctbmodules/resources/iknow_toolbar/toolbar_protractor_on.svg']"/>
+    
+     <!--rulerCM toolbar icon -->
+     
+    
+    <attribute name="rulerCM_toolbar" 
+		value="['ctbmodules/resources/iknow_toolbar/toolbar_rulerCM_off.svg', 
+				'ctbmodules/resources/iknow_toolbar/toolbar_rulerCM_on.svg']"/>
+    
+    
+    <!--rulerMM toolbar icon -->
+   
+    
+    <attribute name="rulerMM_toolbar" 
+		value="['ctbmodules/resources/iknow_toolbar/toolbar_rulerMM_off.svg', 
+				'ctbmodules/resources/iknow_toolbar/toolbar_rulerMM_on.svg']"/>
+    
+     <!--rulerhalf toolbar icon -->
+    
+    
+    <attribute name="rulerhalf_toolbar" 
+		value="['ctbmodules/resources/iknow_toolbar/toolbar_rulerhalf_off.svg', 
+				'ctbmodules/resources/iknow_toolbar/toolbar_rulerhalf_on.svg']"/>
+    
+     <!--rulereighth toolbar icon -->
+     
+    
+    <attribute name="rulereight_toolbar" 
+		value="['ctbmodules/resources/iknow_toolbar/toolbar_rulereighth_off.svg', 
+				'ctbmodules/resources/iknow_toolbar/toolbar_rulereighth_on.svg']"/>
+    
+     <!--scratchpad toolbar icon -->
+     <attribute name="toolbar_scratchpad_off_svg" value="ctbmodules/resources/iknow_toolbar/toolbar_scratchpad_off.svg" type="string"/>
+    <attribute name="toolbar_scratchpad_on_svg" value="ctbmodules/resources/iknow_toolbar/toolbar_scratchpad_on.svg" type="string"/>
+    <attribute name="toolbar_scratchpad_disabled_svg" value="ctbmodules/resources/iknow_toolbar/toolbar_scratchpad_disabled.svg" type="string"/>
+    
+     <!--Zoomin button -->
+     <attribute name="btn_zoomin_up_svg" value="ctbmodules/resources/iknow_toolbar/btn_zoomin_up.svg" type="string"/>
+    <attribute name="btn_zoomin_over_svg" value="ctbmodules/resources/iknow_toolbar/btn_zoomin_over.svg" type="string"/>
+    <attribute name="btn_zoomin_down_svg" value="ctbmodules/resources/iknow_toolbar/btn_zoomin_down.svg" type="string"/>
+
+   <!--Zoomout button -->
+     <attribute name="btn_zoomout_up_svg" value="ctbmodules/resources/iknow_toolbar/btn_zoomout_up.svg" type="string"/>
+    <attribute name="btn_zoomout_over_svg" value="ctbmodules/resources/iknow_toolbar/btn_zoomout_over.svg" type="string"/>
+    <attribute name="btn_zoomout_down_svg" value="ctbmodules/resources/iknow_toolbar/btn_zoomout_down.svg" type="string"/>
+
+   <attribute name="toolbar_mmruler" 
+		value="['ctbmodules/resources/iknow_toolbar/toolbar_rulerMM_off.svg', 
+				'ctbmodules/resources/iknow_toolbar/toolbar_rulerMM_on.svg']"/>
+
+    <attribute  name="scratchpad_svg" 
+					value="['ctbmodules/resources/iknow_toolbar/toolbar_scratchpad_off.svg', 
+							'ctbmodules/resources/iknow_toolbar/toolbar_scratchpad_on.svg',
+							'ctbmodules/resources/iknow_toolbar/toolbar_scratchpad_disabled.svg']"/>
+    <!-- FCAT_refcard-->
+     <attribute name="FCAT_refcard_contents_svg" value="ctbmodules/resources/manipulatives/refcard/CoreLink_RefCard.svg" type="string"/>
+     <attribute name="FCAT_refcard_title_svg" value="ctbmodules/resources/manipulatives/refcard/CoreLink_RefCard-title.svg" type="string"/>
+    <!-- TN_refcard-->
+     <attribute name="TN_refcard_contents_svg" value="ctbmodules/resources/manipulatives/refcard/Istep_RefCard.svg" type="string"/>
+     <attribute name="TN_refcard_title_svg" value="ctbmodules/resources/manipulatives/refcard/Istep_RefCard-title.svg" type="string"/>
+    
+    <attribute name="protractor_background_svg" value="ctbmodules/resources/manipulatives/ruler/protractorBackground.svg" type="string"/>
+    <attribute name="protractor_marks_svg" value="ctbmodules/resources/manipulatives/ruler/protractorMarks.svg" type="string"/>
+    <attribute name="protractor_handle_svg" value="ctbmodules/resources/manipulatives/ruler/protractorHandle.svg" type="string"/>
+    <attribute name="protractor_rotator_svg" value="ctbmodules/resources/manipulatives/ruler/protractorRotator.svg" type="string"/>
+    
+    <!-- ends here -->
+    <!--    <attribute name="inches_label" value="ctbmodules/resources/ruler/manipulatives/inches_label.svg" type="string"/>
+     <attribute name="centimeters_label" value="ctbmodules/resources/ruler/manipulatives/centimeters_label.svg" type="string"/>
+    <attribute name="straight_label" value="ctbmodules/resources/ruler/manipulatives/straight_label.svg" type="string"/>-->
+   
+    <!-- Finish test button -->
+    <attribute  name="finish_test_btn_off_svg" value="ctbmodules/resources/iknow_buttons/finish_test/finishtest_off.svg" type="string"/> 
+	<attribute  name="finish_test_btn_on_svg"	value="ctbmodules/resources/iknow_buttons/finish_test/finishtest_on.svg" type="string"/>
+	<attribute name="finish_test_btn_click_svg"	value="ctbmodules/resources/iknow_buttons/finish_test/finishtest_click.svg" type="string"/>
+    <!-- Go back button -->
+      <attribute  name="go_back_btn_off_svg" value="ctbmodules/resources/iknow_buttons/go_back/goback_off.svg" type="string"/> 
+	<attribute  name="go_back_btn_on_svg"	value="ctbmodules/resources/iknow_buttons/go_back/goback_on.svg" type="string"/>
+	<attribute name="go_back_btn_click_svg"	value="ctbmodules/resources/iknow_buttons/go_back/goback_click.svg" type="string"/>
+
+    <!-- Go on button -->
+     <attribute  name="go_on_btn_off_svg" value="ctbmodules/resources/iknow_buttons/go_on/go_on_off.svg" type="string"/> 
+	<attribute  name="go_on_btn_on_svg"	value="ctbmodules/resources/iknow_buttons/go_on/go_on_on.svg" type="string"/>
+	<attribute name="go_on_btn_click_svg"	value="ctbmodules/resources/iknow_buttons/go_on/go_on_click.svg" type="string"/>
+
+    <!-- mark for review -->
+      <attribute  name="markforreview_off_svg" value="ctbmodules/resources/iknow_buttons/markforreview/markforreview_off.svg" type="string"/> 
+	<attribute  name="markforreview_on_svg"	value="ctbmodules/resources/iknow_buttons/markforreview/markforreview_on.svg" type="string"/>
+    
+    <attribute  name="markforreview_svg" 
+					value="['ctbmodules/resources/iknow_buttons/markforreview/markforreview_off.svg', 
+							'ctbmodules/resources/iknow_buttons/markforreview/markforreview_on.svg']"/>
+
+    <attribute  name="unmark_svg" 
+					value="['ctbmodules/resources/iknow_buttons/unmark/unmark_off.svg', 
+							'ctbmodules/resources/iknow_buttons/unmark/unmark_on.svg']"/>
+
+    <!-- Protractor Button-->
+      <attribute  name="protractor_svg" 
+					value="['ctbmodules/resources/iknow_toolbar/toolbar_protractor_off.svg', 
+							'ctbmodules/resources/iknow_toolbar/toolbar_protractor_on.svg',
+							'ctbmodules/resources/iknow_toolbar/toolbar_protractor_disabled.svg']"/>
+
+   <!--stop reader Button-->
+       <attribute  name="stopreader_svg" 
+					value="['ctbmodules/resources/iknow_toolbar/toolbar_stopreader_off.svg', 
+							'ctbmodules/resources/iknow_toolbar/toolbar_stopreader_on.svg',
+							'ctbmodules/resources/iknow_toolbar/toolbar_stopreader_disabled.svg']"/>
+    
+    <!-- pause test-->
+
+      <attribute name="pause_off_svg" value="ctbmodules/resources/iknow_buttons/pause_test/pausetest_off.svg" type="string"/>	
+      <attribute name="pause_on_svg" value="ctbmodules/resources/iknow_buttons/pause_test/pausetest_on.svg" type="string"/>
+      <attribute name="pause_click_svg" value="ctbmodules/resources/iknow_buttons/pause_test/pausetest_click.svg" type="string"/>
+    <!-- stop test-->
+      <attribute name="stop_off_svg" value="ctbmodules/resources/iknow_buttons/stop_test/stop_off.svg" type="string"/>	
+      <attribute name="stop_on_svg" value="ctbmodules/resources/iknow_buttons/stop_test/stop_on.svg" type="string"/>
+      <attribute name="stop_click_svg" value="ctbmodules/resources/iknow_buttons/stop_test/stop_on.svg" type="string"/>
+
+   <!-- music button-->
+      <attribute name="music_off_svg" value="ctbmodules/resources/iknow_buttons/music/music_off.svg" type="string"/>	
+      <attribute name="music_on_svg" value="ctbmodules/resources/iknow_buttons/music/music_on.svg" type="string"/>
+      <attribute name="music_click_svg" value="ctbmodules/resources/iknow_buttons/music/music_click.svg" type="string"/>
+
+  <!-- read button-->
+        <attribute  name="reader_buttonsvg" 
+					value="['ctbmodules/resources/iknow_buttons/read/btn_read_up.svg', 
+							'ctbmodules/resources/iknow_buttons/read/btn_read_over.svg',
+							'ctbmodules/resources/iknow_buttons/read/btn_read_down.svg']"/>
+   <!-- cursor-->
+      <attribute name="eliminator_cursor" value="ctbmodules/resources/iknow_cursors/cursor_eliminate.svg" type= "string"/>
+      <attribute name="highlight_cursor" value="ctbmodules/resources/iknow_cursors/cursor_highliter.svg" type="string"/>
+      <attribute name="eraser_cursor" value="ctbmodules/resources/iknow_cursors/cursor_eraser.svg" type="string"/>
+	 </node>
+     <!-- added by piyali -->
+    <node id="gchkActive">
+     <attribute name="check_active_scratchpad" value="false" type="string"/>
+     <attribute name="check_active_rulereighth" value="false" type="string"/>
+     <attribute name="check_active_rulerhalf" value="false" type="string"/>
+     <attribute name="check_active_rulerMM" value="false" type="string"/>
+     <attribute name="check_active_rulerCM" value="false" type="string"/>
+     <attribute name="check_active_reference" value="false" type="string"/>
+     <attribute name="check_active_reference2" value="false" type="string"/>
+     <attribute name="check_active_reference3" value="false" type="string"/>
+     <attribute name="check_active_calc" value="false" type="string"/>
+     <attribute name="check_active_straightedge" value="false" type="string"/> 
+     <attribute name="check_active_protractor" value="false" type="string"/> 
+     <attribute name="check_active_reader" value="false" type="string"/>
+     <attribute name="markforreview_active" value="false" type="string"/>
+    </node>
+    <!-- ends here -->
+    
+     
+    
+    
+</library>

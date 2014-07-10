@@ -1,0 +1,39 @@
+<library>
+	<include href="InSecurityScreen.lzx"/>
+	<include href="SecurityFrame.lzx"/>
+	<class name="SecurityScreen" extends="SecurityFrame">
+		
+		<method name="showIndianaSecurityScreen">
+            //Debug.write("------InsideSHowIndianaSEc-----");
+        	gScreens.removeAllStates();
+            if ( !secContents.iss.isinited ) secContents.iss.completeInstantiation();
+            secContents.iss.setAttribute('visible', true );
+            //prancingMan.apply();
+            show();
+        </method>
+        
+        <method name="show">
+         	gItemInterface.setAttribute('visible', false);
+         	gTutorial.setAttribute('visible', false);
+         	gScreens.setAttribute('visible', false);
+            this.setAttribute('visible',true );
+     		this.bringToFront();
+      var hasmode = lz.ModeManager.hasMode( this );
+            Debug.write( 'show ', hasmode );
+            if ( !hasmode ) {
+                lz.ModeManager.makeModal( this );
+            }
+        </method>
+        
+        <view name="secContents" options="ignorelayout"
+              x="${ classroot.middle.x+15 }"
+              y="${ classroot.middle.y+15}"
+              width="${ classroot.middle.width -20}"
+              height="${ classroot.middle.height }">
+              
+              <InSecurityScreen name="iss" width="100%" height="100%"
+                             initstage="defer"/>
+        </view>        
+
+    </class>
+</library>
