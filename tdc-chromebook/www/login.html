@@ -26,29 +26,113 @@
     <script src="debug-login.js" type="text/javascript" defer></script>
 
     <style title="mystyle" type="text/css" rel="stylesheet">
-        html, body {
-            /* http://www.quirksmode.org/css/100percheight.html */
-            height: 100%;
-            /* prevent browser decorations */
-            margin: 0;
-            padding: 0;
-            border: 0 none;
-            /*text-rendering:optimizeLegibility;*/
-            font-family: CTB;
-        }
+           html, body
+            {
+                /* http://www.quirksmode.org/css/100percheight.html */
+                height: 100%;
+                /* prevent browser decorations */
+                margin: 0;
+                padding: 0;
+                border: 0 none;
+                /*text-rendering:optimizeLegibility;*/
+                font-family: CTB!important;
+            }
+            body {
+                background-color: #6691b4;
+                -webkit-font-smoothing: antialiased;
+        /* -moz-font-smoothing: antialiased; - No longer available in FF */
+        font-smoothing: antialiased;
+        /*webkit-text-stroke: 1px transparent;*/
+            /*text-shadow: 0 0 1px rgba(0,0,0,0.1);*/
+            /*letter-spacing: -0.06em;*/
+            }
+            img { border: 0 none; }
 
-        body {
-            background-color: #6691b4;
-            -webkit-font-smoothing: antialiased;
-            /* -moz-font-smoothing: antialiased; - No longer available in FF
-            font-smoothing: antialiased;*/
-        }
+             @font-face {
+        font-family: 'CTB';
+        src: local('OASmathv3'), url('ctbmodules/resources/fonts/OASmathv3.svg') format('svg');
+        font-weight: normal;
+          font-style: normal;
+      }
+      @font-face {
+        font-family: 'CTB';
+        src: local('OASmathv3 Bold'), url('ctbmodules/resources/fonts/OASmathv3Bold.svg') format('svg');
+        font-weight: bold;
+          font-style: normal;
+      }
+      @font-face {
+        font-family: 'CTB';
+        src: local('OASmathv3 BoldItalic'), url('ctbmodules/resources/fonts/OASmathv3BoldItalic.svg') format('svg');
+        font-weight: bold;
+          font-style: italic;
+      }
+      @font-face {
+        font-family: 'CTB';
+        src: local('OASmathv3 Italic'), url('ctbmodules/resources/fonts/OASmathv3Italic.svg') format('svg');
+          font-style: italic;
+      }
 
-        img {
-            border: 0 none;
-        }
+      @font-face {
+        font-family: 'oasmathv3';
+        src: local('OASmathv3'), url('ctbmodules/resources/fonts/OASmathv3.svg') format('svg');
+        font-weight: normal;
+          font-style: normal;
+      }
+      @font-face {
+        font-family: 'oasmathv3';
+        src: local('OASmathv3 Bold'), url('ctbmodules/resources/fonts/OASmathv3Bold.svg') format('svg');
+        font-weight: bold;
+          font-style: normal;
+      }
+      @font-face {
+        font-family: 'oasmathv3';
+        src: local('OASmathv3 BoldItalic'), url('ctbmodules/resources/fonts/OASmathv3BoldItalic.svg') format('svg');
+        font-weight: bold;
+          font-style: italic;
+      }
+      @font-face {
+        font-family: 'oasmathv3';
+        src: local('OASmathv3 Italic'), url('ctbmodules/resources/fonts/OASmathv3Italic.svg') format('svg');
+          font-style: italic;
+      }
 
+      /* CachableTextfield selectors */
+      .standardText {
+        padding: 0px;
+        line-height: 19px;
+      }
+      .largeText {
+        padding: 0px;
+        line-height: 28px;
+      }
 
+      .largeTableCellMulti {
+          padding-top: 10px;
+        line-height: 19px;
+      }
+      .tableTitleStandard {
+        font-family: CTB;
+        line-height: 22px;
+        text-align: center;
+        font-weight: bold;
+        white-space: pre-wrap;
+        word-break: keep-all;
+      }
+      .tableTitleLarge {
+        line-height: 21px;
+        text-align: center;
+        text-align: center;
+        font-weight: bold;
+        white-space: pre-wrap;
+        word-break: keep-all;
+      }
+      .lzswftext{
+        font-family: CTB!important;
+      }
+      .lzswfinputtext{
+        font-family: CTB!important;
+      }
+      .no-close .ui-dialog-titlebar-close {display: none;}/*hiding close button of dialog*/
     </style>
 </HEAD>
 
