@@ -1,7 +1,6 @@
 <project name="tdc-dhtml-chrome" basedir="." default="build.TestClient.dhtml.chrome">
 <property name="out.dir" value = "../www" />
-  <property name="laszlo.home"
-    value="/Users/raju/Development/CTB/openlaszlo/ctb" />
+<property name="laszlo.home" value="D:\softwares\OpenLaszlo Server 5.0.x\Server\lps-5.0.x"/>
 <property name="laszlo.src.dir" value="${basedir}/src"/>
 <property name="laszlo.debug" value="false"/>
 <property name="laszlo.proxied" value = "true"/>
@@ -14,10 +13,8 @@
     <pathelement location="${laszlo.home}/WEB-INF/classes" />
     <fileset dir = "${laszlo.home}/3rd-party/jars/dev" includes="**/*.jar"/>
     <fileset dir = "${laszlo.home}/WEB-INF/lib" includes="**/*.jar"/>
-  <fileset dir="/Users/raju/lib/jakarta-tomcat-5.0.30/common/lib"
-    includes="**/*.jar" />
-  <fileset dir="/Users/raju/lib/jakarta-tomcat-5.0.30/server/lib"
-    includes="**/*.jar" />
+    <fileset dir = "D:\softwares\OpenLaszlo Server 5.0.x\Server\tomcat-5.0.24\common\lib" includes="**/*.jar"/>
+    <fileset dir = "D:\softwares\OpenLaszlo Server 5.0.x\Server\tomcat-5.0.24\common\lib" includes="**/*.jar"/>
 </path>
 
   <target name = "build.TestClient.dhtml.chrome">
