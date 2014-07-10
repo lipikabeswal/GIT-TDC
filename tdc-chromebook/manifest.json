@@ -15,7 +15,7 @@
     "http://oasdelivery.ctb.com/",
     "https://oas.ctb.com/",
     "https://oastest.ctb.com/",
-    "http://localhost:8080/",
+    "http://localhost/",
     "fileSystem",
     "unlimitedStorage",
     {
