@@ -15,6 +15,7 @@
     <style type="text/css" media="screen">
         html, body {
             height: 100%;
+            width:100%
         }
 
         body {
@@ -22,7 +23,7 @@
             padding: 0;
             overflow: auto;
             text-align: center;
-            background-color: #ffffff;
+            background: transparent;
         }
 
         object:focus {
@@ -45,13 +46,13 @@
         var flashvars = {'event_handler': 'microphone_events'};
         var params = {};
         params.quality = "high";
-        params.bgcolor = "#cceeff";
         params.allowscriptaccess = "sameDomain";
         params.allowfullscreen = "true";
         var attributes = {};
         attributes.id = "MicrophoneDetection";
         attributes.name = "MicrophoneDetection";
         attributes.align = "middle";
+        attributes.wmode = "transparent";
         swfobject.embedSWF(
                 "MicrophoneDetection.swf", "flashContent",
                 "100%", "100%",
@@ -86,15 +87,15 @@
     <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="100%" height="100%" id="MicrophoneDetection">
         <param name="movie" value="MicrophoneDetection.swf" />
         <param name="quality" value="high" />
-        <param name="bgcolor" value="#ffffff" />
         <param name="allowScriptAccess" value="sameDomain" />
         <param name="allowFullScreen" value="true" />
+        <param name="wmode" value="transparent">
         <!--[if !IE]>-->
         <object type="application/x-shockwave-flash" data="MicrophoneDetection.swf" width="100%" height="100%">
             <param name="quality" value="high" />
-            <param name="bgcolor" value="#ffffff" />
             <param name="allowScriptAccess" value="sameDomain" />
             <param name="allowFullScreen" value="true" />
+            <param name="wmode" value="transparent">
             <!--<![endif]-->
             <!--[if gte IE 6]>-->
             <p>
@@ -117,7 +118,19 @@
     }
 
     function updateStatus( isTracking, activityLevel ) {
-        top.window.updateStatus(isTracking, activityLevel);
+        //top.window.updateStatus(isTracking, activityLevel);
+    }
+    
+    function bringFrameToFront(){
+    	top.window.$('#micFrameWrapper').css( "zIndex", 999 );
+    }
+    
+    function sendFrameToBack(){
+    	top.window.$('#micFrameWrapper').css( "zIndex", 0 );
+    }
+    
+    function showRecordWaitPopup(){
+    	//top.window.gRecordingPopup.show();
     }
 
 </script>

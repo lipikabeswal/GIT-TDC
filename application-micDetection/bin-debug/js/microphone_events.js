@@ -8,10 +8,12 @@ function microphone_events() {
       break;
 
     case "microphone_status":
-      updateStatus(arguments[1], arguments[2]);
+    	setTimeout(function() { sendFrameToBack(); }, 200);
+      //updateStatus(arguments[1], arguments[2]);
       break;
 
     case "get_microphone_returns_null":
+    	console.log("get_microphone_returns_null***********");
       top.window.reloadIFrame();
       break;
 

@@ -45,10 +45,10 @@
       }
 
       // flash app needs time to load and initialize
-      if ( MicDetector.mic && MicDetector.mic.init ) {
+     /* if ( MicDetector.mic && MicDetector.mic.init ) {
         this.startTracking();
         return;
-      }
+      }*/
 
       setTimeout( function() {MicDetector.connect( name, attempts + 1 );}, 100 );
     },
@@ -109,7 +109,12 @@
     },
 
     startTracking: function() {
+    try{
       MicDetector.mic.startTracking();
+     }
+     catch(exception){
+     	console.warn(exception);
+     }
     },
 
     stopTracking: function() {
