@@ -14,19 +14,16 @@
 		<cancelButtonresource>popupCancel_english</cancelButtonresource>
 	</component>
 	<component name="Recorder">
-		<remaining>TIME REMAINING:</remaining> <!--  Done -->
-		<secs_text>secs</secs_text> <!--  Done -->
-		<labelText>Sound Recorder</labelText> <!--  Done -->
-		<recordStatusInProgess>RECORDING...</recordStatusInProgess> <!--  Done -->
-		<recordStatusCompleted>AUDIO CAPTURED</recordStatusCompleted> <!--  Done -->
-		<playStatusInProgess>Playing...</playStatusInProgess>
-		<playStatusCompleted>Audio Stopped</playStatusCompleted> <!--  Done -->
-		<tooltip_record>Record</tooltip_record><!--  Done -->
-		<tooltip_stop>Stop</tooltip_stop><!--  Done -->
-		<tooltip_play>Play</tooltip_play>
-		<tooltip_startOver>Start Over</tooltip_startOver><!--  Done -->
+		<remaining>TIME REMAINING:</remaining> 
+		<secs_text>secs</secs_text> 
+		<labelText>Sound Recorder</labelText> 
+		<recordStatusInProgess>RECORDING...</recordStatusInProgess> 
+		<recordStatusCompleted>AUDIO CAPTURED</recordStatusCompleted> 
+		<tooltip_record>Record</tooltip_record>
+		<tooltip_stop>Stop</tooltip_stop>
+		<tooltip_startOver>Start Over</tooltip_startOver>
 		<startOverResource>button_startover_english</startOverResource>
-		<!--  Done --><attachMic>It appears your microphone is not plugged in, please adjust your microphone input volume up and make sure your microphone is connected.</attachMic>
+		<attachMic>It appears your microphone is not plugged in, please adjust your microphone input volume up and make sure your microphone is connected.</attachMic>
 	</component>
 	<component name="RecordingPopup">
 		<PopUpText>Please Wait</PopUpText>
@@ -47,20 +44,16 @@
 		<cancelButtonresource>popupCancel_spanish</cancelButtonresource>
 	</component>
 	<component name="Recorder">
-		<remaining>TIEMPO QUE QUEDA:</remaining> <!--  Done -->
-		<secs_text>segs</secs_text><!--  Done -->
-		<labelText>Grabadora</labelText><!--  Done -->
-		<recordStatusInProgess>GRABANDO...</recordStatusInProgess><!--  Done -->
-		<recordStatusCompleted>AUDIO GRABADO</recordStatusCompleted><!--  Done -->
-		<playStatusInProgess>Sonando...</playStatusInProgess>
-		<playStatusCompleted>La grabación paró</playStatusCompleted> <!--  Done -->
-		
-		<tooltip_record>Graber</tooltip_record><!--  Done -->
-		<tooltip_stop>Parar</tooltip_stop><!--  Done -->
-		<tooltip_play>Sonar</tooltip_play>
-		<tooltip_startOver>Graber de Nuevo</tooltip_startOver><!--  Done -->
-		<startOverResource>button_startover_spanish</startOverResource><!--  Done -->
-		<!--  Done --><attachMic>Tu micrófono parece estar desconectado. Ajusta el volumen del micrófono y asegúrate que el micrófono está conectado.</attachMic>
+		<remaining>TIEMPO QUE QUEDA:</remaining> 
+		<secs_text>segs</secs_text>
+		<labelText>Grabadora</labelText>
+		<recordStatusInProgess>GRABANDO...</recordStatusInProgess>
+		<recordStatusCompleted>AUDIO GRABADO</recordStatusCompleted>
+		<tooltip_record>Graber</tooltip_record>
+		<tooltip_stop>Parar</tooltip_stop>
+		<tooltip_startOver>Graber de Nuevo</tooltip_startOver>
+		<startOverResource>button_startover_spanish</startOverResource>
+		<attachMic>Tu micrófono parece estar desconectado. Ajusta el volumen del micrófono y asegúrate que el micrófono está conectado.</attachMic>
 	</component>
 	<component name="RecordingPopup">
 		<PopUpText>Espera para grabar</PopUpText>
