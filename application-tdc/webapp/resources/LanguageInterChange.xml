@@ -49,9 +49,9 @@
 		<labelText>Grabadora</labelText>
 		<recordStatusInProgess>GRABANDO...</recordStatusInProgess>
 		<recordStatusCompleted>AUDIO GRABADO</recordStatusCompleted>
-		<tooltip_record>Grabar</tooltip_record>
+		<tooltip_record>Graber</tooltip_record>
 		<tooltip_stop>Parar</tooltip_stop>
-		<tooltip_startOver>Grabar de Nuevo</tooltip_startOver>
+		<tooltip_startOver>Graber de Nuevo</tooltip_startOver>
 		<startOverResource>button_startover_spanish</startOverResource>
 		<attachMic>Tu micrófono parece estar desconectado. Ajusta el volumen del micrófono y asegúrate que el micrófono está conectado.</attachMic>
 	</component>
