@@ -229,7 +229,10 @@ public class JettyProcessWrapper extends Thread {
 			// Start Jetty...
             if ( this.macOS ) {
                 String productType = System.getProperty("product.type");
-                if(("OKLAHOMA".equals(productType)) || ("TASC".equals(productType))) {
+                /*
+                 * Changes for story GA Scientific and Graphing Calculators. Removing product dependency for TI calc.
+                 * */
+              //  if(("OKLAHOMA".equals(productType)) || ("TASC".equals(productType))) {
                 	this.startCmd[0] = javaHome + "java";
                 	this.startCmd[1] = "-d32";
             		this.startCmd[2] = "-Dtdc.proxy=" + proxy;
@@ -238,10 +241,10 @@ public class JettyProcessWrapper extends Thread {
             		this.startCmd[4] = "-Xmx256m";
             		this.startCmd[2] = this.startCmd[2].replaceAll(" ", "\\ ");
                     this.startCmd[3] = this.startCmd[3].replaceAll(" ", "\\ ");
-                } else {
+               /* } else {
                 	this.startCmd[1] = this.startCmd[1].replaceAll(" ", "\\ ");
                     this.startCmd[2] = this.startCmd[2].replaceAll(" ", "\\ ");
-                }
+                }*/
                 this.startCmd[5] = this.startCmd[5].replaceAll(" ", "\\ ");
                 this.startCmd[6] = this.startCmd[6].replaceAll(" ", "\\ ");
                 this.startCmd[8] = this.startCmd[8].replaceAll(" ", "\\ ");
