@@ -3984,7 +3984,7 @@
         </method>
 
 		<method name="exitPopups">
-           // gEnlargePopup.shrink();
+            gEnlargePopup.shrink();
             gFootNotePopup.hide();
             gRationalePopup.hide();
             
