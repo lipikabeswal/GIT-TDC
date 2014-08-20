@@ -374,7 +374,9 @@
         	if(canvas.loadItem){   
 	        	lz.Focus.clearFocus();
 	            this.exitPopups(); 
-	        	gController.finishTestShortcut(); 
+	            if(gItemInterface.visible == true || gTutorial.visible == true){
+	        		gController.finishTestShortcut(); 
+	        	}
 	        }	     
         </method>
     </node>
